@@ -35,7 +35,7 @@ final class TeamSearchApi(
       case c: ESClientHttp =>
         c.putMapping >> {
 
-          logger.info(s"Index to ${c.index.name}")
+          logger.info(s"Index to ${c.index}")
 
           teamRepo.cursor
             .documentSource()

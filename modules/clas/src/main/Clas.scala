@@ -39,7 +39,8 @@ object Clas:
       archived = none
     )
 
-  case class Id(value: String) extends AnyVal with StringValue
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
   case class Recorded(by: UserId, at: DateTime)
 

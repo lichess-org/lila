@@ -27,6 +27,9 @@ case class Student(
 
 object Student:
 
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
+
   def id(userId: UserId, clasId: Clas.Id) = Id(s"$userId:$clasId")
 
   def make(user: User, clas: Clas, teacherId: UserId, realName: String, managed: Boolean) =
@@ -40,8 +43,6 @@ object Student:
       created = Clas.Recorded(teacherId, DateTime.now),
       archived = none
     )
-
-  case class Id(value: String) extends AnyVal with StringValue
 
   case class WithUser(student: Student, user: User)
 

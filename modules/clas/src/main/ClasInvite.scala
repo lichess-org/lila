@@ -15,7 +15,8 @@ case class ClasInvite(
 
 object ClasInvite:
 
-  case class Id(value: String) extends AnyVal with StringValue
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
   def make(clas: Clas, user: User, realName: String, teacher: Holder) =
     ClasInvite(

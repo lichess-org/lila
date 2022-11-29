@@ -19,13 +19,14 @@ import Api.ApiResult
 final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   private def reqToAuthorizationRequest(req: RequestHeader) =
+    import lila.oauth.Protocol.*
     AuthorizationRequest.Raw(
-      clientId = get("client_id", req),
+      clientId = ClientId from get("client_id", req),
       responseType = get("response_type", req),
       redirectUri = get("redirect_uri", req),
-      state = get("state", req),
+      state = State from get("state", req),
       codeChallengeMethod = get("code_challenge_method", req),
-      codeChallenge = get("code_challenge", req),
+      codeChallenge = CodeChallenge from get("code_challenge", req),
       scope = get("scope", req)
     )
 
@@ -64,16 +65,19 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  private val accessTokenRequestForm = Form(
-    mapping(
-      "grant_type"    -> optional(text),
-      "code"          -> optional(text),
-      "code_verifier" -> optional(text),
-      "client_id"     -> optional(text),
-      "redirect_uri"  -> optional(text),
-      "client_secret" -> optional(text)
-    )(AccessTokenRequest.Raw.apply)(unapply)
-  )
+  private val accessTokenRequestForm =
+    import lila.oauth.Protocol.*
+    import lila.common.Form.into
+    Form(
+      mapping(
+        "grant_type"    -> optional(text),
+        "code"          -> optional(text),
+        "code_verifier" -> optional(text),
+        "client_id"     -> optional(text.into[ClientId]),
+        "redirect_uri"  -> optional(text),
+        "client_secret" -> optional(text)
+      )(AccessTokenRequest.Raw.apply)(unapply)
+    )
 
   def tokenApply =
     Action.async(parse.form(accessTokenRequestForm)) { implicit req =>

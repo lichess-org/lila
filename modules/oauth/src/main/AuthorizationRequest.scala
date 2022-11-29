@@ -11,12 +11,12 @@ object AuthorizationRequest:
   import Protocol.*
 
   case class Raw(
-      clientId: Option[String],
-      state: Option[String],
+      clientId: Option[ClientId],
+      state: Option[State],
       redirectUri: Option[String],
       responseType: Option[String],
       codeChallengeMethod: Option[String],
-      codeChallenge: Option[String],
+      codeChallenge: Option[CodeChallenge],
       scope: Option[String]
   ):
     // In order to show a prompt and redirect back with error codes a valid
@@ -24,10 +24,10 @@ object AuthorizationRequest:
     def prompt: Validated[Error, Prompt] =
       for {
         redirectUri <- redirectUri.toValid(Error.RedirectUriRequired).andThen(RedirectUri.from)
-        clientId    <- clientId.map(ClientId.apply).toValid(Error.ClientIdRequired)
+        clientId    <- clientId.toValid(Error.ClientIdRequired)
       } yield Prompt(
         redirectUri,
-        state.map(State.apply),
+        state,
         clientId = clientId,
         responseType = responseType,
         codeChallengeMethod = codeChallengeMethod,
@@ -41,7 +41,7 @@ object AuthorizationRequest:
       clientId: ClientId,
       responseType: Option[String],
       codeChallengeMethod: Option[String],
-      codeChallenge: Option[String],
+      codeChallenge: Option[CodeChallenge],
       scope: Option[String]
   ):
     def errorUrl(error: Error) = redirectUri.error(error, state)
@@ -74,15 +74,14 @@ object AuthorizationRequest:
         case Some(method) =>
           fuccess(CodeChallengeMethod.from(method).andThen { _ =>
             codeChallenge
-              .map(CodeChallenge.apply)
               .toValid[Error](Error.CodeChallengeRequired)
               .map(Right.apply)
           })
       }) dmap { challenge =>
         for {
-          challenge    <- challenge
-          scopes       <- validScopes
-          responseType <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
+          challenge <- challenge
+          scopes    <- validScopes
+          _         <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
         } yield Authorized(
           clientId,
           redirectUri,

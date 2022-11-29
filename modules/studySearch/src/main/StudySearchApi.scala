@@ -118,7 +118,7 @@ final class StudySearchApi(
               logger.info("Reset study index")
               c.putMapping.await(10.seconds, "studyMapping")
               parseDate("2011-01-01").get
-          logger.info(s"Index to ${c.index.name} since $since")
+          logger.info(s"Index to ${c.index} since $since")
           val retryLogger = logger.branch("index")
           import lila.db.dsl.{ *, given }
           Source

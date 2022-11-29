@@ -2,7 +2,8 @@ package lila.search
 
 import alleycats.Zero
 
-case class Index(name: String) extends AnyVal
+opaque type Index = String
+object Index extends OpaqueString[Index]
 
 opaque type Id = String
 object Id extends OpaqueString[Id]
