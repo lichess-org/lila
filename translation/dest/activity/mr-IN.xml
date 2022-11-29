@@ -43,7 +43,7 @@
     <item quantity="other">%s नवीन अनुयायी मिळवले</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">%s \"एक विरूद्ध अनेक\" प्रदर्शनांचे आतिथ्य केले</item>
+    <item quantity="one">%s \"एक विरूद्ध अनेक\" प्रदर्शनाचे आतिथ्य केले</item>
     <item quantity="other">%s एकावेळी प्रदर्शनाचे आतिथ्य केले</item>
   </plurals>
   <plurals name="joinedNbSimuls">
