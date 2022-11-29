@@ -20,18 +20,18 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(using
     mat: Materializer
 ):
 
-  private given CanGenerateHashFrom[UserId] = id =>
-    CanGenerateHashFrom.CanGenerateHashFromString.generateHash(id.value)
   private val falsePositiveRate = 0.00003
-  private var bloomFilter       = BloomFilter[UserId](100, falsePositiveRate) // temporary empty filter
+  // Stick to [String], it does unsafe operation that don't play well with opaque types
+  private var bloomFilter: BloomFilter[String] =
+    BloomFilter[String](100, falsePositiveRate) // temporary empty filter
 
-  def isStudent(userId: UserId) = bloomFilter mightContain userId
+  def isStudent(userId: UserId) = bloomFilter mightContain userId.value
 
-  def addStudent(userId: UserId): Unit = bloomFilter add userId
+  def addStudent(userId: UserId): Unit = bloomFilter add userId.value
 
   private def rebuildBloomFilter(): Unit =
     colls.student.countAll foreach { count =>
-      val nextBloom = BloomFilter[UserId](count + 1, falsePositiveRate)
+      val nextBloom = BloomFilter[String](count + 1, falsePositiveRate)
       colls.student
         .find($doc("archived" $exists false), $doc("userId" -> true, "_id" -> false).some)
         .cursor[Bdoc](temporarilyPrimary)
@@ -39,7 +39,7 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(using
         .throttle(300, 1.second)
         .toMat(Sink.fold[Int, Bdoc](0) { case (counter, doc) =>
           if (counter % 500 == 0) logger.info(s"ClasStudentCache.rebuild $counter")
-          doc.getAsOpt[UserId]("userId") foreach nextBloom.add
+          doc.string("userId") foreach nextBloom.add
           counter + 1
         })(Keep.right)
         .run()
