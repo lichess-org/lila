@@ -203,7 +203,7 @@ final class LobbySocket(
                 ),
                 ratingRange = ratingRange,
                 lame = user.lame,
-                blocking = user.blocking ++ blocking
+                blocking = user.blocking.map(_ ++ blocking)
               )
             )
           }
@@ -231,7 +231,7 @@ final class LobbySocket(
           remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
           relationApi.fetchBlocking(u.id)
         }) map { blocks =>
-          val member = Member(sri, user map { LobbyUser.make(_, blocks) })
+          val member = Member(sri, user map { LobbyUser.make(_, lila.pool.Blocking(blocks)) })
           actor ! Join(member)
           member
         }

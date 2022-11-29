@@ -8,8 +8,8 @@ export lila.Lila.{ *, given }
 
 opaque type SocketVersion = Int
 object SocketVersion extends OpaqueInt[SocketVersion]:
-  given Zero[SocketVersion]                   = Zero(SocketVersion(0))
   extension (o: SocketVersion) def incVersion = SocketVersion(o + 1)
+  given Zero[SocketVersion]                   = Zero(0)
 
 opaque type SocketSend = String => Unit
 object SocketSend extends TotalWrapper[SocketSend, String => Unit]

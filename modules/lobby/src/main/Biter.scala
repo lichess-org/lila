@@ -107,8 +107,8 @@ final private class Biter(
     hook.isAuth == user.isDefined && user.fold(true) { u =>
       u.lame == hook.lame &&
       !hook.userId.contains(u.id) &&
-      !hook.userId.??(u.blocking.contains) &&
-      !hook.user.??(_.blocking).contains(u.id) &&
+      !hook.userId.??(u.blocking.value.contains) &&
+      !hook.user.??(_.blocking).value.contains(u.id) &&
       hook.realRatingRange.fold(true) { range =>
         (hook.perfType map u.ratingAt) ?? range.contains
       }
@@ -117,8 +117,8 @@ final private class Biter(
   def canJoin(seek: Seek, user: LobbyUser): Boolean =
     seek.user.id != user.id &&
       (seek.realMode.casual || user.lame == seek.user.lame) &&
-      !(user.blocking contains seek.user.id) &&
-      !(seek.user.blocking contains user.id) &&
+      !(user.blocking.value contains seek.user.id) &&
+      !(seek.user.blocking.value contains user.id) &&
       seek.realRatingRange.fold(true) { range =>
         (seek.perfType map user.ratingAt) ?? range.contains
       }

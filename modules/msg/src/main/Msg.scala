@@ -20,8 +20,6 @@ case class Msg(
 
 object Msg:
 
-  case class Id(value: String) extends AnyVal
-
   case class Last(
       text: String,
       user: UserId,

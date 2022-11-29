@@ -23,7 +23,7 @@ object SearchResponse:
 opaque type CountResponse = Int
 object CountResponse extends OpaqueInt[CountResponse]:
   def apply(txt: String): CountResponse = CountResponse(~txt.toIntOption)
-  given Zero[CountResponse]             = Zero(CountResponse(0))
+  given Zero[CountResponse]             = Zero(0)
 
 object Date:
   import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }

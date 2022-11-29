@@ -42,7 +42,7 @@ final class SeekApi(
 
   def forUser(user: User): Fu[List[Seek]] =
     relationApi.fetchBlocking(user.id) flatMap { blocking =>
-      forUser(LobbyUser.make(user, blocking))
+      forUser(LobbyUser.make(user, lila.pool.Blocking(blocking)))
     }
 
   def forUser(user: LobbyUser): Fu[List[Seek]] =

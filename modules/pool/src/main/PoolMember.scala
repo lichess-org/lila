@@ -10,7 +10,7 @@ case class PoolMember(
     rating: IntRating,
     ratingRange: Option[RatingRange],
     lame: Boolean,
-    blocking: PoolMember.BlockedUsers,
+    blocking: Blocking,
     rageSitCounter: Int,
     misses: Int = 0 // how many waves they missed
 ):
@@ -27,8 +27,6 @@ case class PoolMember(
 
 object PoolMember:
 
-  case class BlockedUsers(ids: Set[UserId]) extends AnyVal
-
   def apply(joiner: PoolApi.Joiner, config: PoolConfig, rageSit: RageSit): PoolMember =
     PoolMember(
       userId = joiner.userId,
@@ -36,6 +34,6 @@ object PoolMember:
       lame = joiner.lame,
       rating = joiner.rating,
       ratingRange = joiner.ratingRange,
-      blocking = BlockedUsers(joiner.blocking),
+      blocking = joiner.blocking,
       rageSitCounter = rageSit.counter / 10
     )

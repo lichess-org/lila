@@ -2,6 +2,7 @@ package lila.lobby
 
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.User
+import lila.pool.Blocking
 
 private[lobby] case class LobbyUser(
     id: UserId,
@@ -9,7 +10,7 @@ private[lobby] case class LobbyUser(
     lame: Boolean,
     bot: Boolean,
     perfMap: LobbyUser.PerfMap,
-    blocking: Set[UserId]
+    blocking: Blocking
 ):
 
   def perfAt(pt: PerfType): LobbyPerf = perfMap.get(pt.key) | LobbyPerf.default
@@ -20,7 +21,7 @@ private[lobby] object LobbyUser:
 
   type PerfMap = Map[Perf.Key, LobbyPerf]
 
-  def make(user: User, blocking: Set[UserId]) =
+  def make(user: User, blocking: Blocking) =
     LobbyUser(
       id = user.id,
       username = user.username,

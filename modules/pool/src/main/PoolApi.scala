@@ -56,9 +56,8 @@ object PoolApi:
       rating: IntRating,
       ratingRange: Option[RatingRange],
       lame: Boolean,
-      blocking: Set[UserId]
+      blocking: Blocking
   ):
-
     def is(member: PoolMember) = userId == member.userId
 
   case class Pairing(game: Game, whiteSri: Sri, blackSri: Sri):

@@ -96,7 +96,7 @@ case class Hook(
         rating = rating | lila.rating.Glicko.default.intRating,
         ratingRange = realRatingRange,
         lame = user.??(_.lame),
-        blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
+        blocking = user.??(_.blocking),
         rageSitCounter = 0
       )
     )
@@ -117,7 +117,7 @@ object Hook:
       user: Option[User],
       sid: Option[String],
       ratingRange: RatingRange,
-      blocking: Set[UserId],
+      blocking: lila.pool.Blocking,
       boardApi: Boolean = false
   ): Hook =
     new Hook(

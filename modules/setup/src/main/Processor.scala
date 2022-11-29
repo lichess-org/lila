@@ -32,7 +32,7 @@ final private[setup] class Processor(
       configBase: HookConfig,
       sri: lila.socket.Socket.Sri,
       sid: Option[String],
-      blocking: Set[UserId]
+      blocking: lila.pool.Blocking
   )(using ctx: UserContext): Fu[Processor.HookResult] =
     import Processor.HookResult.*
     val config = configBase.fixColor

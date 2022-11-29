@@ -67,7 +67,7 @@ final class ActivityWriteApi(
   }
 
   def learn(userId: UserId, stage: String) = update(userId) { a =>
-    $doc(ActivityFields.learn -> { ~a.learn + Learn.Stage(stage) })
+    $doc(ActivityFields.learn -> { ~a.learn + LearnStage(stage) })
   }
 
   def practice(prog: lila.practice.PracticeProgress.OnComplete) = update(prog.userId) { a =>

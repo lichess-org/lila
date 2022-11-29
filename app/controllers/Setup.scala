@@ -154,7 +154,7 @@ final class Setup(
                         userConfig withinLimits ctx.me,
                         Sri(sri),
                         HTTPRequest sid ctx.req,
-                        blocking
+                        lila.pool.Blocking(blocking)
                       ) map hookResponse
                     }
                   }(rateLimitedFu)
@@ -188,7 +188,7 @@ final class Setup(
                         hookConfigWithRating,
                         Sri(sri),
                         HTTPRequest sid ctx.req,
-                        blocking ++ sameOpponents
+                        lila.pool.Blocking(blocking ++ sameOpponents)
                       )
                 } yield hookResponse(hookResult)
               }
@@ -216,7 +216,8 @@ final class Setup(
             config =>
               env.relation.api.fetchBlocking(me.id) flatMap { blocking =>
                 val uniqId = s"sri:${me.id}"
-                config.fixColor.hook(Sri(uniqId), me.some, sid = uniqId.some, blocking) match {
+                config.fixColor
+                  .hook(Sri(uniqId), me.some, sid = uniqId.some, lila.pool.Blocking(blocking)) match {
                   case Left(hook) =>
                     PostRateLimit(HTTPRequest ipAddress req) {
                       BoardApiHookConcurrencyLimitPerUser(me.id)(

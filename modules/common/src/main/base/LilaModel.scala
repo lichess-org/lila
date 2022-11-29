@@ -78,7 +78,7 @@ trait LilaModel extends NewTypes:
 
   opaque type IntRatingDiff = Int
   object IntRatingDiff extends OpaqueInt[IntRatingDiff]:
-    given Zero[IntRatingDiff] = Zero(apply(0))
+    given Zero[IntRatingDiff] = Zero(0)
 
   opaque type Rating = Double
   object Rating extends OpaqueDouble[Rating]
