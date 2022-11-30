@@ -229,7 +229,7 @@ final private class PovToEntry(
         .foldRight(none[SimpleOpening]) {
           case (sit, None) =>
             FullOpeningDB
-              .findByFen(Fen(Forsyth exportStandardPositionTurnCastlingEp sit))
+              .findByFen(Forsyth openingFen sit)
               .flatMap(SimpleOpening.apply)
           case (_, found) => found
         }

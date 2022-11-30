@@ -39,7 +39,7 @@ case class AnaMove(
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),
           opening = (game.turns <= 30 && Variant.openingSensibleVariants(variant)) ?? {
-            FullOpeningDB findByFen fen
+            FullOpeningDB findByFen fen.opening
           },
           drops = if (movable) game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData

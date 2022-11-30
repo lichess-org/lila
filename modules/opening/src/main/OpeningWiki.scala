@@ -1,6 +1,6 @@
 package lila.opening
 
-import chess.opening.{ FullOpening, FullOpeningDB }
+import chess.opening.{ FullOpening, FullOpeningDB, OpeningKey }
 import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
@@ -22,7 +22,7 @@ case class OpeningWiki(
     markup map OpeningWiki.filterMarkupForMove(move)
 
 final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: CacheApi)(using
-    ec: ExecutionContext
+    ExecutionContext
 ):
 
   import OpeningWiki.Revision
@@ -68,7 +68,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
       .map { docs =>
         for {
           doc <- docs
-          id  <- doc string "_id"
+          id  <- doc.getAsOpt[OpeningKey]("_id")
           op  <- FullOpeningDB.shortestLines get id
         } yield op
       }
@@ -84,15 +84,15 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
     )
 
     private val moveNumberRegex = """(\d+)\.""".r
-    def render(key: FullOpening.Key)(markdown: Markdown) = renderer(s"opening:$key") {
+    def render(key: OpeningKey)(markdown: Markdown) = renderer(s"opening:$key") {
       markdown.map { moveNumberRegex.replaceAllIn(_, "$1{DOT}") }
     }.replace("{DOT}", ".")
 
-  private val cache = cacheApi[FullOpening.Key, OpeningWiki](1024, "opening.wiki") {
+  private val cache = cacheApi[OpeningKey, OpeningWiki](1024, "opening.wiki") {
     _.maximumSize(4096).buildAsyncFuture(compute)
   }
 
-  private def compute(key: FullOpening.Key): Fu[OpeningWiki] = for {
+  private def compute(key: OpeningKey): Fu[OpeningWiki] = for {
     docOpt <- coll
       .aggregateOne() { framework =>
         import framework.*
@@ -107,7 +107,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
     Nil
   )
 
-  private def updatePopularity(key: FullOpening.Key): Funit =
+  private def updatePopularity(key: OpeningKey): Funit =
     FullOpeningDB.shortestLines.get(key) ?? { op =>
       explorer.simplePopularity(op) flatMap {
         _ ?? { popularity =>

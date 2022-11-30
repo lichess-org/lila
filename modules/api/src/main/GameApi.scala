@@ -241,7 +241,7 @@ final private[api] class GameApi(
               variant = g.variant
             )
             .toOption map { boards =>
-            JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)
+            JsArray(boards map chess.format.Forsyth.exportBoard map Json.toJson)
           }
         }: Option[JsArray]),
         "winner" -> g.winnerColor.map(_.name),

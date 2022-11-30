@@ -9,16 +9,18 @@ import chess.opening.{ FullOpening, FullOpeningDB, OpeningFamily }
 // - Barnes Opening
 case class LilaOpeningFamily(ref: OpeningFamily, full: Option[FullOpening]):
   import LilaOpeningFamily.*
-  val name             = Name(ref.name)
-  def key              = Key(ref.key)
+  val name             = ref.name into Name
+  def key              = ref.key into Key
   def as(color: Color) = LilaOpeningFamily.AsColor(this, color)
 
 object LilaOpeningFamily:
 
   opaque type Key = String
   object Key extends OpaqueString[Key]
+
   opaque type Name = String
   object Name extends OpaqueString[Name]
+
   case class AsColor(family: LilaOpeningFamily, color: Color)
 
   def apply(key: Key): Option[LilaOpeningFamily]   = families get key

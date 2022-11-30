@@ -1,6 +1,6 @@
 package views.html.board
 
-import chess.format.{ Fen, Forsyth }
+import chess.format.{ Fen, Uci, BoardFen, Forsyth }
 import controllers.routes
 import play.api.libs.json.{ JsObject, JsString, Json }
 
@@ -18,18 +18,18 @@ object bits:
 
   def mini(pov: Pov): Tag => Tag =
     mini(
-      Fen(Forsyth.boardAndColor(pov.game.situation)),
+      Forsyth.exportBoard(pov.game.board),
       miniOrientation(pov),
       ~pov.game.lastMoveKeys
     )
 
-  def mini(fen: Fen, color: chess.Color = chess.White, lastMove: String = "")(tag: Tag): Tag =
+  def mini(fen: BoardFen, color: chess.Color = chess.White, lastMove: Option[Uci] = None)(tag: Tag): Tag =
     tag(
       cls       := "mini-board mini-board--init cg-wrap is2d",
       dataState := s"${fen.value},${color.name},$lastMove"
     )(cgWrapContent)
 
-  def miniSpan(fen: Fen, color: chess.Color = chess.White, lastMove: String = "") =
+  def miniSpan(fen: BoardFen, color: chess.Color = chess.White, lastMove: Option[Uci] = None) =
     mini(fen, color, lastMove)(span)
 
   def editorJsData(fen: Option[String] = None)(implicit ctx: Context) =

@@ -33,7 +33,8 @@ object TreeBuilder:
       case (init, games, error) =>
         error foreach logChessError(game.id)
         val openingOf: OpeningOf =
-          if (withFlags.opening && Variant.openingSensibleVariants(game.variant)) FullOpeningDB.findByFen
+          if (withFlags.opening && Variant.openingSensibleVariants(game.variant))
+            fen => FullOpeningDB.findByFen(fen.opening)
           else _ => None
         val fen                 = Forsyth >> init
         val infos: Vector[Info] = analysis.??(_.infos.toVector)

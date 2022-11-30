@@ -71,7 +71,7 @@ final private class Captcher(gameRepo: GameRepo)(using ec: scala.concurrent.Exec
         moves = rewinded.situation.destinations map { case (from, dests) =>
           from.key -> dests.map(_.key).mkString
         }
-      } yield Captcha(game.id, fen(rewinded), rewinded.player.white, solutions, moves = moves)
+      } yield Captcha(game.id, fenOf(rewinded), rewinded.player.white, solutions, moves = moves)
 
     private def solve(game: ChessGame): Option[Captcha.Solutions] =
       game.situation.moves.view
@@ -99,4 +99,4 @@ final private class Captcher(gameRepo: GameRepo)(using ec: scala.concurrent.Exec
         case x :: xs  => x :: safeInit(xs)
         case _        => Nil
 
-    private def fen(game: ChessGame): String = Forsyth exportBoard game.board
+    private def fenOf(game: ChessGame) = Forsyth exportBoard game.board

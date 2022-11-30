@@ -2,6 +2,7 @@ package views.html.opening
 
 import cats.data.NonEmptyList
 import chess.opening.FullOpening
+import chess.format.OpeningKey
 import controllers.routes
 import play.api.libs.json.{ JsArray, Json, JsObject }
 import play.api.mvc.Call
@@ -35,7 +36,7 @@ object bits:
               resultSegments(next.result)
             },
             span(cls := "opening__next__board")(
-              views.html.board.bits.mini(next.fen, lastMove = next.uci.uci)(span)
+              views.html.board.bits.mini(next.fen, lastMove = next.uci.some)(span)
             )
           )
         )
@@ -102,7 +103,7 @@ object bits:
   def queryUrl(q: Query): Call =
     routes.Opening.byKeyAndMoves(q.key, q.moves.??(_.replace(" ", "_")))
   def openingUrl(o: FullOpening) = keyUrl(o.key)
-  def keyUrl(key: String)        = routes.Opening.byKeyAndMoves(key, "")
+  def keyUrl(key: OpeningKey)    = routes.Opening.byKeyAndMoves(key, "")
 
   val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
 
@@ -138,4 +139,3 @@ object bits:
     val blackTransformed = (blackPercent - lower) * factor + drawHalfSquished
     val whiteTransformed = (whitePercent - lower) * factor + drawHalfSquished
     (blackTransformed, drawTransformed, whiteTransformed)
-

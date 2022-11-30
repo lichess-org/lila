@@ -9,7 +9,7 @@ import chess.variant.Crazyhouse
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Json.*
+import lila.common.Json.{ *, given }
 
 sealed trait Node:
   def ply: Int

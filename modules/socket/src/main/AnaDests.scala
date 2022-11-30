@@ -24,7 +24,7 @@ case class AnaDests(
       sit.playable(false) ?? destString(sit.destinations)
 
   lazy val opening = Variant.openingSensibleVariants(variant) ?? {
-    FullOpeningDB findByFen fen
+    FullOpeningDB findByFen fen.opening
   }
 
   def json =

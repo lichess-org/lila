@@ -50,7 +50,7 @@ final private class OpeningExplorer(
   def simplePopularity(opening: FullOpening): Fu[Option[Int]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
-        "play"        -> opening.uci.replace(" ", ","),
+        "play"        -> opening.uci.value.replace(" ", ","),
         "moves"       -> "0",
         "topGames"    -> "0",
         "recentGames" -> "0"

@@ -30,7 +30,7 @@ object captcha:
         )(
           div(cls := "challenge")(
             views.html.board.bits.mini(
-              chess.format.Fen(captcha.fenBoard),
+              captcha.fen,
               chess.Color.fromWhite(captcha.white)
             ) {
               div(

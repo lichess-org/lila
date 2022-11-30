@@ -64,7 +64,7 @@ case class Chapter(
 
   def opening: Option[FullOpening] =
     if (!Variant.openingSensibleVariants(setup.variant)) none
-    else FullOpeningDB searchInFens root.mainline.map(_.fen)
+    else FullOpeningDB searchInFens root.mainline.map(_.fen.opening)
 
   def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
 
