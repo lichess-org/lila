@@ -47,6 +47,10 @@ object LightUser:
   opaque type GetterSync <: GetterSyncType = GetterSyncType
   object GetterSync extends TotalWrapper[GetterSync, GetterSyncType]
 
+  private type GetterSyncFallbackType                      = UserId => LightUser
+  opaque type GetterSyncFallback <: GetterSyncFallbackType = GetterSyncFallbackType
+  object GetterSyncFallback extends TotalWrapper[GetterSyncFallback, GetterSyncFallbackType]
+
   private type IsBotSyncType             = UserId => Boolean
   opaque type IsBotSync <: IsBotSyncType = IsBotSyncType
   object IsBotSync extends TotalWrapper[IsBotSync, IsBotSyncType]
