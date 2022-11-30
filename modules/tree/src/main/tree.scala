@@ -287,8 +287,8 @@ object Node:
     dests foreach { (orig, dests) =>
       if (first) first = false
       else sb append " "
-      sb append orig.toChar
-      dests foreach { sb append _.toChar }
+      sb append orig.asChar
+      dests foreach { sb append _.asChar }
     }
     sb.toString
 
