@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="newAccessToken">新建个人访问令牌</string>
+  <string name="tokenGrantsPermission">一个令牌授予其他人使用您的帐户的权限。</string>
+  <string name="carefullySelect">小心选择允许代表您进行的操作。</string>
+  <string name="tokenDescription">令牌描述</string>
+  <string name="rememberTokenUse">所以你记得这个令牌是</string>
+  <string name="whatTheTokenCanDo">令牌可以代表您做什么：</string>
+  <string name="doNotShareIt">令牌将授权访问您的帐户。不要与任何人分享它！</string>
+  <string name="copyTokenNow">请确保您已复制个人访问令牌。令牌将不再显示。</string>
+  <string name="preferenceRead">读取首选项</string>
+  <string name="preferenceWrite">写入首选项</string>
+  <string name="emailRead">阅读电子邮件地址</string>
+  <string name="challengeRead">读取收到的挑战</string>
+  <string name="challengeWrite">发送、接受和拒绝挑战</string>
+  <string name="challengeBulk">为其他玩家一次创建许多游戏</string>
+</resources>
