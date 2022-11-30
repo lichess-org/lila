@@ -24,7 +24,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
   def get(id: Id): Option[RacerRace] = store getIfPresent id
 
   def playerId(sessionId: String, user: Option[User]) = user match
-    case Some(u) => RacerPlayer.Id.User(u.username)
+    case Some(u) => RacerPlayer.Id.User(u.id)
     case None    => RacerPlayer.Id.Anon(sessionId)
 
   def createAndJoin(player: RacerPlayer.Id): Fu[RacerRace.Id] =

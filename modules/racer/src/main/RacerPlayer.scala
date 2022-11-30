@@ -13,18 +13,18 @@ case class RacerPlayer(id: RacerPlayer.Id, createdAt: DateTime, score: Int):
     case _             => none
 
   lazy val name: UserName = id match
-    case Id.User(n)  => n
+    case Id.User(n)  => n into UserName
     case Id.Anon(id) => CuteNameGenerator fromSeed id.hashCode
 
 object RacerPlayer:
   enum Id:
-    case User(name: UserName)
+    case User(id: UserId)
     case Anon(sessionId: String)
   object Id:
     def apply(str: String) =
       if (str startsWith "@") Anon(str drop 1)
-      else User(UserName(str))
+      else User(UserId(str))
 
-  val lichess = Id.User(User.lichessName)
+  val lichess = Id.User(User.lichessId)
 
   def make(id: Id) = RacerPlayer(id = id, score = 0, createdAt = DateTime.now)
