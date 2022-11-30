@@ -251,12 +251,12 @@ object BinaryFormat:
     val emptyByteArray = ByteArray(Array(0, 0))
 
     def write(o: UnmovedRooks): ByteArray =
-      if (o.pos.isEmpty) emptyByteArray
+      if (o.value.isEmpty) emptyByteArray
       else
         ByteArray {
           var white = 0
           var black = 0
-          o.pos.foreach { pos =>
+          o.value.foreach { pos =>
             if (pos.rank == Rank.First) white = white | (1 << (7 - pos.file.index))
             else black = black | (1 << (7 - pos.file.index))
           }

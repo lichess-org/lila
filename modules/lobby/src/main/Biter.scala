@@ -65,7 +65,7 @@ final private class Biter(
   ): Fu[chess.Color] =
     color match
       case Color.Random =>
-        userRepo.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)) map chess.Color.fromWhite
+        userRepo.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)) map { chess.Color.fromWhite(_) }
       case Color.White => fuccess(chess.White)
       case Color.Black => fuccess(chess.Black)
 

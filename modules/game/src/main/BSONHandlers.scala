@@ -104,7 +104,7 @@ object BSONHandlers:
         PgnStorage.Decoded(
           pgnMoves = pgnMoves,
           pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
-          positionHashes = r.getO[chess.PositionHash](F.positionHashes) | Array.empty[Byte],
+          positionHashes = r.getD[chess.PositionHash](F.positionHashes),
           unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
           lastMove = clm.lastMove,
           castles = clm.castles,
@@ -236,7 +236,7 @@ object BSONHandlers:
 
     def readsWithPlayerIds(r: BSON.Reader, playerIds: String): LightGame =
       val (whiteId, blackId)   = playerIds splitAt 4
-      val winC                 = r boolO F.winnerColor map Color.fromWhite
+      val winC                 = r boolO F.winnerColor map { Color.fromWhite(_) }
       val uids                 = ~r.getO[List[UserId]](F.playerUids)
       val (whiteUid, blackUid) = (uids.headOption.filter(_.value.nonEmpty), uids.lift(1))
       def makePlayer(field: String, color: Color, id: String, uid: Option[UserId]): Player =
