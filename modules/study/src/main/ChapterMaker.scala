@@ -196,8 +196,7 @@ private[study] object ChapterMaker:
     def key = toString.toLowerCase
     case Normal, Practice, Gamebook, Conceal
   object Mode:
-    val all                = List(Normal, Practice, Gamebook, Conceal)
-    def apply(key: String) = all.find(_.key == key)
+    def apply(key: String) = values.find(_.key == key)
 
   trait ChapterData:
     def orientation: Orientation

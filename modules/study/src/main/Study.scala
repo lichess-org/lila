@@ -93,7 +93,7 @@ object Study:
     lazy val key = Visibility.this.toString.toLowerCase
     case Private, Unlisted, Public
   object Visibility:
-    val byKey = List(Private, Unlisted, Public).map { v =>
+    val byKey = values.map { v =>
       v.key -> v
     }.toMap
 

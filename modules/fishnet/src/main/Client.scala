@@ -73,8 +73,7 @@ object Client:
     case All
     def key = this.toString.toLowerCase
   object Skill:
-    val all                = List(Move, Analysis, All)
-    def byKey(key: String) = all.find(_.key == key)
+    def byKey(key: String) = values.find(_.key == key)
 
   final class ClientVersion(minVersionString: String):
 

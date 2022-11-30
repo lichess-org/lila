@@ -55,8 +55,7 @@ enum GameRule:
   case NoAbort, NoRematch, NoGiveTime, NoClaimWin
   val key = lila.common.String lcfirst toString
 case object GameRule:
-  val all   = List[GameRule](NoAbort, NoRematch, NoGiveTime, NoClaimWin)
-  val byKey = all.map(r => r.key -> r).toMap
+  val byKey = values.map(r => r.key -> r).toMap
 
 case class PgnImport(
     user: Option[UserId],

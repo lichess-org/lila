@@ -22,7 +22,7 @@ object ChallengeDenied:
     case BotUltraBullet
     case SelfChallenge
 
-  def translated(d: ChallengeDenied)(using lang: Lang): String =
+  def translated(d: ChallengeDenied)(using Lang): String =
     d.reason match
       case Reason.YouAreAnon               => trans.registerToSendChallenges.txt()
       case Reason.YouAreBlocked            => trans.youCannotChallengeX.txt(d.dest.titleUsername)

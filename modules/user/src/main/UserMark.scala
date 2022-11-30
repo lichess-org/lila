@@ -13,8 +13,7 @@ enum UserMark:
   def key = toString.toLowerCase
 
 object UserMark:
-  val all = List(Boost, Engine, Troll, Reportban, Rankban, Alt)
-  val indexed: Map[String, UserMark] = all.view.map { m =>
+  val indexed: Map[String, UserMark] = values.view.map { m =>
     m.key -> m
   }.toMap
   val bannable: Set[UserMark] = Set(Boost, Engine, Troll, Alt)
