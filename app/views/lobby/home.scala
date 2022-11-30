@@ -199,4 +199,4 @@ object home:
     trans.white,
     trans.randomColor,
     trans.black
-  ).map(_.key)
+  )

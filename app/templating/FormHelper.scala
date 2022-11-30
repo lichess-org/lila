@@ -6,6 +6,7 @@ import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.i18n.I18nKey
 
 trait FormHelper { self: I18nHelper =>
 
@@ -14,7 +15,7 @@ trait FormHelper { self: I18nHelper =>
   def errMsg(form: Form[?])(using Lang): Frag = errMsg(form.errors)
 
   def errMsg(error: FormError)(using Lang): Frag =
-    p(cls := "error")(transKey(error.message, error.args))
+    p(cls := "error")(transKey(I18nKey(error.message), error.args))
 
   def errMsg(errors: Seq[FormError])(using Lang): Frag =
     errors map errMsg
@@ -68,7 +69,7 @@ trait FormHelper { self: I18nHelper =>
     private def errors(errs: Seq[FormError])(using Lang): Frag = errs.distinct map error
     private def errors(field: Field)(using Lang): Frag         = errors(field.errors)
     private def error(err: FormError)(using Lang): Frag =
-      p(cls := "error")(transKey(err.message, err.args))
+      p(cls := "error")(transKey(I18nKey(err.message), err.args))
 
     private def validationModifiers(field: Field): Seq[Modifier] =
       field.constraints collect {

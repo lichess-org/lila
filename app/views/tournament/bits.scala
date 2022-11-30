@@ -80,4 +80,4 @@ object bits:
     trans.casualTournament,
     trans.tournamentEntryCode,
     trans.arena.viewAllXTeams
-  ).map(_.key)
+  )

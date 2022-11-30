@@ -119,4 +119,4 @@ object bits:
     trans.team.joinTeam,
     trans.swiss.xRoundsSwiss,
     trans.swiss.xOutOfYRoundsSwiss
-  ).map(_.key)
+  )

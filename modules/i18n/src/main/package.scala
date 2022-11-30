@@ -4,9 +4,8 @@ import play.api.i18n.Lang
 
 export lila.Lila.{ *, given }
 
-type Count      = Int
-type MessageKey = String
-
+private type Count      = Int
+private type MessageKey = String
 private type MessageMap = java.util.Map[MessageKey, Translation]
 private type Messages   = Map[Lang, MessageMap]
 

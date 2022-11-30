@@ -113,40 +113,40 @@ object Challenge:
 
   type ID = String
 
-  sealed abstract class Status(val id: Int):
+  enum Status(val id: Int):
     val name = Status.this.toString.toLowerCase
-  object Status:
-    case object Created  extends Status(10)
-    case object Offline  extends Status(15)
-    case object Canceled extends Status(20)
-    case object Declined extends Status(30)
-    case object Accepted extends Status(40)
-    val all  = List[Status](Created, Offline, Canceled, Declined, Accepted)
-    val byId = all.map { s => s.id -> s }.toMap
 
-  sealed abstract class DeclineReason(val trans: I18nKey):
+    case Created  extends Status(10)
+    case Offline  extends Status(15)
+    case Canceled extends Status(20)
+    case Declined extends Status(30)
+    case Accepted extends Status(40)
+
+  object Status:
+    val byId = values.map { s => s.id -> s }.toMap
+
+  enum DeclineReason(val trans: I18nKey):
     val key = DeclineReason.this.toString.toLowerCase
 
-  object DeclineReason:
-    case object Generic     extends DeclineReason(I18nKeys.challenge.declineGeneric)
-    case object Later       extends DeclineReason(I18nKeys.challenge.declineLater)
-    case object TooFast     extends DeclineReason(I18nKeys.challenge.declineTooFast)
-    case object TooSlow     extends DeclineReason(I18nKeys.challenge.declineTooSlow)
-    case object TimeControl extends DeclineReason(I18nKeys.challenge.declineTimeControl)
-    case object Rated       extends DeclineReason(I18nKeys.challenge.declineRated)
-    case object Casual      extends DeclineReason(I18nKeys.challenge.declineCasual)
-    case object Standard    extends DeclineReason(I18nKeys.challenge.declineStandard)
-    case object Variant     extends DeclineReason(I18nKeys.challenge.declineVariant)
-    case object NoBot       extends DeclineReason(I18nKeys.challenge.declineNoBot)
-    case object OnlyBot     extends DeclineReason(I18nKeys.challenge.declineOnlyBot)
+    case Generic     extends DeclineReason(I18nKeys.challenge.declineGeneric)
+    case Later       extends DeclineReason(I18nKeys.challenge.declineLater)
+    case TooFast     extends DeclineReason(I18nKeys.challenge.declineTooFast)
+    case TooSlow     extends DeclineReason(I18nKeys.challenge.declineTooSlow)
+    case TimeControl extends DeclineReason(I18nKeys.challenge.declineTimeControl)
+    case Rated       extends DeclineReason(I18nKeys.challenge.declineRated)
+    case Casual      extends DeclineReason(I18nKeys.challenge.declineCasual)
+    case Standard    extends DeclineReason(I18nKeys.challenge.declineStandard)
+    case Variant     extends DeclineReason(I18nKeys.challenge.declineVariant)
+    case NoBot       extends DeclineReason(I18nKeys.challenge.declineNoBot)
+    case OnlyBot     extends DeclineReason(I18nKeys.challenge.declineOnlyBot)
 
-    val default: DeclineReason = Generic
-    val all: List[DeclineReason] =
-      List(Generic, Later, TooFast, TooSlow, TimeControl, Rated, Casual, Standard, Variant, NoBot, OnlyBot)
-    val byKey = all.map { r => r.key -> r }.toMap
-    val allExceptBot: List[DeclineReason] =
-      all.filterNot(r => r == NoBot || r == OnlyBot)
-    def apply(key: String) = all.find { d => d.key == key.toLowerCase || d.trans.key == key } | Generic
+  object DeclineReason:
+
+    val default            = Generic
+    val all                = values.toList
+    val byKey              = all.map { r => r.key -> r }.toMap
+    val allExceptBot       = all.filterNot(r => r == NoBot || r == OnlyBot)
+    def apply(key: String) = all.find { d => d.key == key.toLowerCase || d.trans.value == key } | Generic
 
   case class Rating(int: IntRating, provisional: Boolean):
     def show = s"$int${if (provisional) "?" else ""}"

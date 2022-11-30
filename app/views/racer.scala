@@ -90,4 +90,4 @@ object racer:
       s.slowPuzzles,
       s.skippedPuzzle,
       trans.flipBoard
-    ).map(_.key)
+    )

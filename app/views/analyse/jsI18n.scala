@@ -3,14 +3,14 @@ package views.html.analyse
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ given, * }
-import lila.i18n.{ I18nKeys as trans, MessageKey }
+import lila.i18n.{ I18nKeys as trans }
 import views.html.board.{ userAnalysisI18n as board }
 
 object jsI18n:
 
-  def apply()(implicit lang: Lang) = i18nJsObject(i18nKeys)
+  def apply()(using Lang) = i18nJsObject(i18nKeys)
 
-  private val i18nKeys: Vector[MessageKey] = {
+  private val i18nKeys = {
     board.cevalWidget ++
       board.advantageChartTranslations ++
       board.explorerTranslations ++
@@ -123,5 +123,5 @@ object jsI18n:
         trans.doItAgain,
         trans.reviewWhiteMistakes,
         trans.reviewBlackMistakes
-      ).map(_.key)
+      )
   }.distinct

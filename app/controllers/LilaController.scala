@@ -13,7 +13,7 @@ import scalatags.Text.Frag
 import lila.api.{ BodyContext, Context, HeaderContext, PageData }
 import lila.app.{ *, given }
 import lila.common.{ ApiVersion, HTTPRequest, Nonce }
-import lila.i18n.I18nLangPicker
+import lila.i18n.{I18nKey,I18nLangPicker}
 import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
@@ -646,7 +646,7 @@ abstract private[controllers] class LilaController(val env: Env)
         .mapValues { errors =>
           JsArray {
             errors.map { e =>
-              JsString(lila.i18n.Translator.txt.literal(e.message, e.args, lang))
+              JsString(lila.i18n.Translator.txt.literal(I18nKey(e.message), e.args, lang))
             }
           }
         }
