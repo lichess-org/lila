@@ -191,11 +191,11 @@ object Form:
       }
 
   object fen:
-    val playableStrict = playable(strict = true)
-    val mapping        = trim(of[String]).into[Fen]
+    val mapping = trim(of[String]).into[Fen]
     def playable(strict: Boolean) = mapping
       .verifying("Invalid position", fen => (Forsyth <<< fen).exists(_.situation playable strict))
       .transform[Fen](if (strict) truncateMoveNumber else identity, identity)
+    val playableStrict = playable(strict = true)
     def truncateMoveNumber(fen: Fen) =
       (Forsyth <<< fen).fold(fen) { g =>
         if (g.fullMoveNumber >= 150)
