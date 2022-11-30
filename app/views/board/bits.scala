@@ -32,45 +32,13 @@ object bits:
   def miniSpan(fen: BoardFen, color: chess.Color = chess.White, lastMove: Option[Uci] = None) =
     mini(fen, color, lastMove)(span)
 
-  def editorJsData(fen: Option[String] = None)(implicit ctx: Context) =
-    Json
-      .obj(
-        "baseUrl"   -> s"$netBaseUrl${routes.Editor.index}",
-        "animation" -> Json.obj("duration" -> ctx.pref.animationMillis),
-        "is3d"      -> ctx.pref.is3d,
-        "i18n"      -> i18nJsObject(i18nKeys)
-      )
-      .add("fen" -> fen)
-
-  private def explorerConfig(implicit ctx: Context) = Json.obj(
+  private def explorerConfig(using ctx: Context) = Json.obj(
     "endpoint"          -> explorerEndpoint,
     "tablebaseEndpoint" -> tablebaseEndpoint,
     "showRatings"       -> ctx.pref.showRatings
   )
-  def explorerAndCevalConfig(implicit ctx: Context) =
+  def explorerAndCevalConfig(using ctx: Context) =
     Json.obj(
       "explorer"               -> explorerConfig,
       "externalEngineEndpoint" -> externalEngineEndpoint
     )
-
-  private val i18nKeys = List(
-    trans.setTheBoard,
-    trans.boardEditor,
-    trans.startPosition,
-    trans.clearBoard,
-    trans.flipBoard,
-    trans.loadPosition,
-    trans.popularOpenings,
-    trans.endgamePositions,
-    trans.castling,
-    trans.whiteCastlingKingside,
-    trans.blackCastlingKingside,
-    trans.whitePlays,
-    trans.blackPlays,
-    trans.variant,
-    trans.continueFromHere,
-    trans.playWithTheMachine,
-    trans.playWithAFriend,
-    trans.analysis,
-    trans.toStudy
-  )

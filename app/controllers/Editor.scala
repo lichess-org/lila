@@ -34,7 +34,7 @@ final class Editor(env: Env) extends LilaController(env):
 
   def load(urlFen: String) =
     Open { implicit ctx =>
-      val fen = lila.common.String
+      val fen = Fen from lila.common.String
         .decodeUriPath(urlFen)
         .map(_.replace('_', ' ').trim)
         .filter(_.nonEmpty)
@@ -53,7 +53,7 @@ final class Editor(env: Env) extends LilaController(env):
     Open { implicit ctx =>
       fuccess {
         JsonOk(
-          html.board.bits.editorJsData()
+          html.board.editor.jsData()
         )
       }
     }
