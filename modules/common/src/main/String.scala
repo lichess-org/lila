@@ -27,6 +27,10 @@ object String:
 
   def hasGarbageChars(str: String) = str.chars().anyMatch(isGarbageChar)
 
+  def removeGarbageChars(str: String): String =
+    if (hasGarbageChars(str)) return str filterNot isGarbageChar
+    else return str
+    
   def distinctGarbageChars(str: String): Set[Char] =
     str
       .chars()
@@ -48,7 +52,8 @@ object String:
       .mkString
 
   private def isGarbageChar(c: Int) =
-    isInvisibleChar(c) ||
+    c >= '\u0250' &&
+      isInvisibleChar(c) ||
       // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
       // but keep maths operators cause maths are cool https://www.compart.com/en/unicode/block/U+2200
       // and chess symbols https://www.compart.com/en/unicode/block/U+2600

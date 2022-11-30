@@ -84,6 +84,7 @@ object Form:
         .get(key)
         .map(String.normalize.apply)
         .map(if (keepSymbols) identity else String.removeMultibyteSymbols)
+        .map(String.removeGarbageChars)
         .map(_.trim)
         .toRight(Seq(FormError(key, "error.required", Nil)))
     def unbind(key: String, value: String) = Map(key -> String.normalize(value.trim))
@@ -102,9 +103,9 @@ object Form:
     else V.Valid
   )
 
-  val cleanText: Mapping[String] = of(cleanTextFormatter) verifying garbageCharsConstraint
+  val cleanText: Mapping[String] = of(cleanTextFormatter)
   val cleanTextWithSymbols: Mapping[String] =
-    of(cleanTextFormatterWithSymbols) verifying garbageCharsConstraint
+    of(cleanTextFormatterWithSymbols)
 
   def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     (minLength, maxLength) match
