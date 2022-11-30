@@ -5,6 +5,7 @@ import org.joda.time.DateTime
 import Puzzle.{ BSONFields as F }
 import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom.odds
+import chess.format.{ BoardFen, Uci }
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
@@ -34,7 +35,7 @@ final private[puzzle] class DailyPuzzle(
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
     import makeTimeout.short
-    renderer.actor ? DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove, puzzle.line.head.uci) map {
+    renderer.actor ? DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove.board, puzzle.line.head) map {
       case html: String => DailyPuzzle.WithHtml(puzzle, html).some
     }
   } recover { case e: Exception =>
@@ -109,4 +110,4 @@ object DailyPuzzle:
 
   case class WithHtml(puzzle: Puzzle, html: String)
 
-  case class Render(puzzle: Puzzle, fen: chess.format.Fen, lastMove: String)
+  case class Render(puzzle: Puzzle, fen: BoardFen, lastMove: Uci)

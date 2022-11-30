@@ -9,14 +9,15 @@ import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
+import chess.format.{ BoardFen, Uci }
 import lila.user.User
 
 object bits:
 
   private val dataLastmove = attr("data-lastmove")
 
-  def daily(p: lila.puzzle.Puzzle, fen: chess.format.Fen, lastMove: String) =
-    views.html.board.bits.mini(fen, p.color, lastMove)(span)
+  def daily(p: lila.puzzle.Puzzle, fen: BoardFen, lastMove: Uci) =
+    views.html.board.bits.mini(fen, p.color, lastMove.some)(span)
 
   def jsI18n(streak: Boolean)(implicit lang: Lang) =
     if (streak) i18nJsObject(streakI18nKeys)

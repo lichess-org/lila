@@ -6,7 +6,7 @@ import chess.format.BoardFen
 case class Captcha(
     gameId: GameId,
     fen: BoardFen,
-    white: Boolean,
+    color: chess.Color,
     solutions: Captcha.Solutions,
     moves: Map[String, String]
 ):
@@ -20,7 +20,7 @@ object Captcha:
   val default = Captcha(
     gameId = GameId("00000000"),
     fen = BoardFen("1k3b1r/r5pp/pNQppq2/2p5/4P3/P3B3/1P3PPP/n4RK1"),
-    white = true,
+    color = chess.White,
     solutions = NonEmptyList.one("c6 c8"),
     moves = Map("c6" -> "c8")
   )

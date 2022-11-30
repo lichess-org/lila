@@ -1,8 +1,7 @@
 package views.html.opening
 
 import cats.data.NonEmptyList
-import chess.opening.FullOpening
-import chess.format.OpeningKey
+import chess.opening.{ OpeningKey, FullOpening }
 import controllers.routes
 import play.api.libs.json.{ JsArray, Json, JsObject }
 import play.api.mvc.Call
@@ -36,7 +35,7 @@ object bits:
               resultSegments(next.result)
             },
             span(cls := "opening__next__board")(
-              views.html.board.bits.mini(next.fen, lastMove = next.uci.some)(span)
+              views.html.board.bits.mini(next.fen.board, lastMove = next.uci.some)(span)
             )
           )
         )
@@ -77,7 +76,7 @@ object bits:
       page match {
         case Some(p) =>
           s"""LichessOpening.page(${safeJsonValue(
-              Json.obj("history" -> (p.explored.??(_.history): List[Float]))
+              Json.obj("history" -> p.explored.??[List[Float]](_.history))
             )})"""
         case None =>
           s"""LichessOpening.search()"""

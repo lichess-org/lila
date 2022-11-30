@@ -225,7 +225,7 @@ case class Game(
 
   def lastMoveKeys: Option[String] =
     history.lastMove map {
-      case Uci.Drop(target, _) => s"$target$target"
+      case Uci.Drop(_, target) => s"${target.key}${target.key}"
       case m: Uci.Move         => m.keys
     }
 

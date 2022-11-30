@@ -198,7 +198,7 @@ final class Setup(
       }
     }
 
-  private val BoardApiHookConcurrencyLimitPerUser = new lila.memo.ConcurrencyLimit[String](
+  private val BoardApiHookConcurrencyLimitPerUser = lila.memo.ConcurrencyLimit[UserId](
     name = "Board API hook Stream API concurrency per user",
     key = "boardApiHook.concurrency.limit.user",
     ttl = 10.minutes,
@@ -245,7 +245,7 @@ final class Setup(
     Open { implicit ctx =>
       get("fen") map Fen.clean flatMap ValidFen(getBool("strict")) match
         case None    => BadRequest.toFuccess
-        case Some(v) => Ok(html.board.bits.miniSpan(v.fen, v.color)).toFuccess
+        case Some(v) => Ok(html.board.bits.miniSpan(v.fen.board, v.color)).toFuccess
     }
 
   def apiAi =
@@ -267,7 +267,7 @@ final class Setup(
     }
 
   private[controllers] def redirectPov(pov: Pov)(implicit ctx: Context) =
-    val redir = Redirect(routes.Round.watcher(pov.gameId, "white"))
+    val redir = Redirect(routes.Round.watcher(pov.gameId.value, "white"))
     if (ctx.isAuth) redir
     else
       redir withCookies env.lilaCookie.cookie(

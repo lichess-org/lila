@@ -41,7 +41,8 @@ object ReverseRouterConversions:
   inline given Conversion[UblogPostId, String]              = _.value
   inline given Conversion[UserId, String]                   = _.value
   inline given Conversion[UserName, String]                 = _.value
-  inline given Conversion[OpeningKey, String]               = _.value
+  inline given Conversion[chess.opening.OpeningKey, String] = _.value
+  inline given Conversion[chess.format.Uci, String]         = _.uci
   inline given Conversion[Option[UserName], Option[String]] = UserName.raw(_)
   // where a UserStr is accepted, we can pass a UserName or UserId
   inline given Conversion[UserName, UserStr]                       = _ into UserStr

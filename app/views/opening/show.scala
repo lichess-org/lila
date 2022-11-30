@@ -22,7 +22,7 @@ object show:
         .OpenGraph(
           `type` = "article",
           image = cdnUrl(
-            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.opening.flatMap(_.lastUci), none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.opening.flatMap(_.lastUci).map(_.uci), none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = page.name,
           url = s"$netBaseUrl${queryUrl(page.query)}",

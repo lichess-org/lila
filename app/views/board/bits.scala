@@ -20,7 +20,7 @@ object bits:
     mini(
       Forsyth.exportBoard(pov.game.board),
       miniOrientation(pov),
-      ~pov.game.lastMoveKeys
+      pov.game.history.lastMove
     )
 
   def mini(fen: BoardFen, color: chess.Color = chess.White, lastMove: Option[Uci] = None)(tag: Tag): Tag =
