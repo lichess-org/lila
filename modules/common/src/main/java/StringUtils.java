@@ -9,6 +9,8 @@ public class StringUtils {
         'c' , 'd' , 'e' , 'f'
     };
 
+    private static final String betweenSquareBrackets = "\\[(.*)\\]";
+
     public static String safeJsonString(final String s) {
         final char[] sArr = s.toCharArray();
         final int len = sArr.length;
@@ -151,7 +153,9 @@ public class StringUtils {
     }
 
     public static String ignoreBetweenSquareBrackets(final String s) {
-        return s.replaceAll("\\[(.*)\\]", "");
+        if(s.indexOf('[') == -1 && s.indexOf(']') == -1) 
+            return s;
+        return s.replaceAll(betweenSquareBrackets, "");
     } 
 
 }

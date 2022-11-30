@@ -129,6 +129,10 @@ class StringTest extends Specification {
         var s : String = "This is a post that has nested [ [key = value] ]brackets"
         ignoreBetweenSquareBrackets(s) === "This is a post that has nested brackets"
       }
+      "Returns the string as is if there is no square brackets" >> {
+        var s : String = "This is a post that has no brackets"
+        ignoreBetweenSquareBrackets(s) === "This is a post that has no brackets"
+      }
     }
   }
 
