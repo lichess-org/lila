@@ -33,8 +33,6 @@ class FormTest extends Specification {
       single("t" -> cleanText(minLength = 3))
         .bind(Map("t" -> "aaa")) must beRight
 
-      single("t" -> text)
-        .bind(Map("t" -> "")) must beRight
       single("t" -> cleanText)
         .bind(Map("t" -> "")) must beRight
 
@@ -45,20 +43,8 @@ class FormTest extends Specification {
 
   "garbage chars" >> {
     "be removed before validation" >> {
-
-      val chars = List('\u200b', '\u200c', '\u200d', '\u200e', '\u200f', '\u202e', '\u1160')
-
-      val str = chars mkString ""
-
-      single("t" -> cleanText(minLength = 1))
-        .bind(Map("t" -> str)) must beLeft
-
-      single("t" -> cleanText(minLength = 1))
-        .bind(Map("t" -> s"  $str  ")) must beLeft
-
       single("t" -> cleanText)
-        .bind(Map("t" -> s"  $str  ")) must beLeft
+        .bind(Map("t" -> " \u200b \u200f a \u202e b \u1160")) must beEqualTo(Right("a  b"))
     }
   }
-
 }
