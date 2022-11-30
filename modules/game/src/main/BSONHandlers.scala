@@ -62,7 +62,7 @@ object BSONHandlers:
           o.pockets.white.roles.map(_.forsythUpper).mkString +
             o.pockets.black.roles.map(_.forsyth).mkString
         },
-        "t" -> o.promoted.map(_.toChar).mkString
+        "t" -> o.promoted.map(_.asChar).mkString
       )
 
   private[game] given gameDrawOffersHandler: BSONHandler[GameDrawOffers] = tryHandler[GameDrawOffers](
