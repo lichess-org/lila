@@ -14,8 +14,10 @@ trait Ip2Proxy:
 
   def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]]
 
-case class IsProxy(name: Option[String]) extends AnyVal:
-  def is = name.isDefined
+opaque type IsProxy = Option[String]
+object IsProxy extends TotalWrapper[IsProxy, Option[String]]:
+  extension (a: IsProxy) def is           = a.value.isDefined
+  def unapply(a: IsProxy): Option[String] = a.value
 
 final class Ip2ProxySkip extends Ip2Proxy:
 
@@ -43,7 +45,7 @@ final class Ip2ProxyServer(
       .map {
         _.view
           .zip(ips)
-          .collect { case (IsProxy(Some(name)), ip) => ip -> name }
+          .collect { case (IsProxy(name), ip) => ip -> name }
           .toMap
       }
       .recover { case e: Exception =>
@@ -75,7 +77,7 @@ final class Ip2ProxyServer(
               .addEffect {
                 _.zip(ips) foreach { case (proxy, ip) =>
                   cache.put(ip, fuccess(proxy))
-                  lila.mon.security.proxy.result(proxy.name).increment().unit
+                  lila.mon.security.proxy.result(proxy.value).increment().unit
                 }
               }
         }
@@ -92,7 +94,7 @@ final class Ip2ProxyServer(
         .dmap(readProxyName)
         .monSuccess(_.security.proxy.request)
         .addEffect { result =>
-          lila.mon.security.proxy.result(result.name).increment().unit
+          lila.mon.security.proxy.result(result.value).increment().unit
         }
     }
 

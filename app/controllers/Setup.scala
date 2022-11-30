@@ -43,14 +43,14 @@ final class Setup(
     ("slow", 300, 1.day)
   )
 
-  private[controllers] val BotAiRateLimit = new lila.memo.RateLimit[lila.user.User.ID](
+  private[controllers] val BotAiRateLimit = new lila.memo.RateLimit[UserId](
     50,
     1.day,
     key = "setup.post.bot.ai"
   )
 
   def ai = OpenBody { implicit ctx =>
-    BotAiRateLimit(~ctx.userId, cost = ctx.me.exists(_.isBot) ?? 1) {
+    BotAiRateLimit(ctx.userId | UserId(""), cost = ctx.me.exists(_.isBot) ?? 1) {
       PostRateLimit(ctx.ip) {
         given play.api.mvc.Request[?] = ctx.body
         forms.ai
@@ -72,7 +72,7 @@ final class Setup(
     }(rateLimitedFu)
   }
 
-  def friend(userId: Option[String]) =
+  def friend(userId: Option[UserStr]) =
     OpenBody { implicit ctx =>
       given play.api.mvc.Request[?] = ctx.body
       PostRateLimit(ctx.ip) {
@@ -82,7 +82,7 @@ final class Setup(
           .fold(
             jsonFormError,
             config =>
-              userId ?? env.user.repo.enabledNamed flatMap { destUser =>
+              userId ?? env.user.repo.enabledById flatMap { destUser =>
                 destUser ?? { env.challenge.granter.isDenied(ctx.me, _, config.perfType) } flatMap {
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)
@@ -154,7 +154,7 @@ final class Setup(
                         userConfig withinLimits ctx.me,
                         Sri(sri),
                         HTTPRequest sid ctx.req,
-                        blocking
+                        lila.pool.Blocking(blocking)
                       ) map hookResponse
                     }
                   }(rateLimitedFu)
@@ -188,7 +188,7 @@ final class Setup(
                         hookConfigWithRating,
                         Sri(sri),
                         HTTPRequest sid ctx.req,
-                        blocking ++ sameOpponents
+                        lila.pool.Blocking(blocking ++ sameOpponents)
                       )
                 } yield hookResponse(hookResult)
               }
@@ -216,7 +216,8 @@ final class Setup(
             config =>
               env.relation.api.fetchBlocking(me.id) flatMap { blocking =>
                 val uniqId = s"sri:${me.id}"
-                config.fixColor.hook(Sri(uniqId), me.some, sid = uniqId.some, blocking) match {
+                config.fixColor
+                  .hook(Sri(uniqId), me.some, sid = uniqId.some, lila.pool.Blocking(blocking)) match {
                   case Left(hook) =>
                     PostRateLimit(HTTPRequest ipAddress req) {
                       BoardApiHookConcurrencyLimitPerUser(me.id)(

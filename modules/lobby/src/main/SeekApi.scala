@@ -42,7 +42,7 @@ final class SeekApi(
 
   def forUser(user: User): Fu[List[Seek]] =
     relationApi.fetchBlocking(user.id) flatMap { blocking =>
-      forUser(LobbyUser.make(user, blocking))
+      forUser(LobbyUser.make(user, lila.pool.Blocking(blocking)))
     }
 
   def forUser(user: LobbyUser): Fu[List[Seek]] =
@@ -74,7 +74,7 @@ final class SeekApi(
       case seeks                                     => seeks.drop(maxPerUser.value).map(remove).sequenceFu
     }.void >>- cacheClear()
 
-  def findByUser(userId: String): Fu[List[Seek]] =
+  def findByUser(userId: UserId): Fu[List[Seek]] =
     coll
       .find($doc("user.id" -> userId))
       .sort($sort desc "createdAt")
@@ -96,7 +96,7 @@ final class SeekApi(
   def findArchived(gameId: GameId): Fu[Option[Seek]] =
     archiveColl.find($doc("gameId" -> gameId)).one[Seek]
 
-  def removeBy(seekId: String, userId: String) =
+  def removeBy(seekId: String, userId: UserId) =
     coll.delete
       .one(
         $doc(

@@ -23,7 +23,7 @@ object SwissCsv:
   def apply(p: SwissPlayer.WithUserAndRank): String = toCsv(
     p.rank.toString,
     p.user.title.??(_.toString),
-    p.user.name,
+    p.user.name.value,
     p.player.rating.toString,
     p.player.points.value.toString,
     p.player.tieBreak.value.toString,

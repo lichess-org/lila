@@ -6,6 +6,7 @@ import org.joda.time.DateTime
 import lila.user.User
 import lila.common.String.html.unescapeHtml
 import lila.common.String.removeMultibyteSymbols
+import lila.common.Json.given
 
 trait Stream:
   def serviceName: String
@@ -13,10 +14,10 @@ trait Stream:
   val streamer: Streamer
   val language: String
 
-  def is(s: Streamer): Boolean     = streamer.id == s.id
-  def is(userId: User.ID): Boolean = streamer.userId == userId
-  def twitch                       = serviceName == "twitch"
-  def youTube                      = serviceName == "youTube"
+  def is(s: Streamer): Boolean    = streamer.id == s.id
+  def is(userId: UserId): Boolean = streamer.userId == userId
+  def twitch                      = serviceName == "twitch"
+  def youTube                     = serviceName == "youTube"
 
   lazy val cleanStatus = removeMultibyteSymbols(status).trim
 
@@ -92,8 +93,8 @@ object Stream:
     ),
     "streamer" -> Json
       .obj("name" -> stream.streamer.name.value)
-      .add("headline" -> stream.streamer.headline.map(_.value))
-      .add("description" -> stream.streamer.description.map(_.value))
+      .add("headline" -> stream.streamer.headline)
+      .add("description" -> stream.streamer.description)
       .add("twitch" -> stream.streamer.twitch.map(_.fullUrl))
       .add("youTube" -> stream.streamer.youTube.map(_.fullUrl))
   )

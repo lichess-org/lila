@@ -41,12 +41,12 @@ object PerfStat:
 
   type Getter = (lila.user.User, PerfType) => Fu[PerfStat]
 
-  def makeId(userId: String, perfType: PerfType) = s"$userId/${perfType.id}"
+  def makeId(userId: UserId, perfType: PerfType) = s"$userId/${perfType.id}"
 
-  def init(userId: String, perfType: PerfType) =
+  def init(userId: UserId, perfType: PerfType) =
     PerfStat(
       _id = makeId(userId, perfType),
-      userId = UserId(userId),
+      userId = userId,
       perfType = perfType,
       highest = none,
       lowest = none,
@@ -183,23 +183,24 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 case class Result(@Key("opInt") opRating: IntRating, opId: UserId, at: DateTime, gameId: GameId)
 
 case class Results(results: List[Result]):
-  def agg(pov: Pov, comp: Int) =
-    pov.opponent.stableRating
-      .ifTrue(pov.game.rated)
-      .ifTrue(pov.game.bothPlayersHaveMoved)
-      .fold(this) { opInt =>
-        Results(
-          Heapsort.topN(
-            Result(
-              opInt,
-              UserId(~pov.opponent.userId),
-              pov.game.movedAt,
-              pov.gameId
-            ) :: results,
-            Results.nb
-          )(using Ordering.by[Result, Int](_.opRating.value * comp))
-        )
-      }
+  def agg(pov: Pov, comp: Int) = {
+    for
+      opId  <- pov.opponent.userId
+      opInt <- pov.opponent.stableRating
+      if pov.game.rated
+      if pov.game.bothPlayersHaveMoved
+    yield Results(
+      Heapsort.topN(
+        Result(
+          opInt,
+          opId,
+          pov.game.movedAt,
+          pov.gameId
+        ) :: results,
+        Results.nb
+      )(using Ordering.by[Result, Int](_.opRating.value * comp))
+    )
+  } | this
   def userIds = results.map(_.opId)
 object Results:
   val nb = 5

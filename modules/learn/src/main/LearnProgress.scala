@@ -3,7 +3,7 @@ package lila.learn
 import org.joda.time.DateTime
 
 case class LearnProgress(
-    _id: LearnProgress.Id,
+    _id: UserId,
     stages: Map[String, StageProgress],
     createdAt: DateTime,
     updatedAt: DateTime
@@ -21,9 +21,7 @@ case class LearnProgress(
 
 object LearnProgress:
 
-  case class Id(value: String) extends AnyVal
-
-  def empty(id: Id) =
+  def empty(id: UserId) =
     LearnProgress(
       _id = id,
       stages = Map.empty,

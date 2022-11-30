@@ -6,15 +6,15 @@ import chess.{ Mode, Speed }
 import org.joda.time.{ DateTime, Duration, Interval }
 import play.api.i18n.Lang
 import scala.util.chaining.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.GreatPlayer
-import lila.common.ThreadLocalRandom
 import lila.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.User
 
 case class Tournament(
-    id: Tournament.ID,
+    id: TourId,
     name: String,
     status: Status,
     clock: ClockConfig,
@@ -30,10 +30,10 @@ case class Tournament(
     schedule: Option[Schedule],
     nbPlayers: Int,
     createdAt: DateTime,
-    createdBy: User.ID,
+    createdBy: UserId,
     startsAt: DateTime,
-    winnerId: Option[User.ID] = None,
-    featuredId: Option[String] = None,
+    winnerId: Option[UserId] = None,
+    featuredId: Option[GameId] = None,
     spotlight: Option[Spotlight] = None,
     description: Option[String] = None,
     hasChat: Boolean = true
@@ -147,12 +147,10 @@ case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournam
 
 object Tournament:
 
-  type ID = String
-
   val minPlayers = 2
 
   def make(
-      by: Either[User.ID, User],
+      by: Either[UserId, User],
       name: Option[String],
       clock: ClockConfig,
       minutes: Int,
@@ -212,9 +210,9 @@ object Tournament:
       startsAt = sched.at plusSeconds ThreadLocalRandom.nextInt(60)
     )
 
-  def tournamentUrl(tourId: String): String = s"https://lichess.org/tournament/$tourId"
+  def tournamentUrl(tourId: TourId): String = s"https://lichess.org/tournament/$tourId"
 
-  def makeId = ThreadLocalRandom nextString 8
+  def makeId = TourId(ThreadLocalRandom nextString 8)
 
   case class PastAndNext(past: List[Tournament], next: List[Tournament])
 

@@ -38,7 +38,7 @@ object EvaluationBsonHandlers:
     def reads(r: BSON.Reader): PlayerAssessment = PlayerAssessment(
       _id = r str "_id",
       gameId = r.get[GameId]("gameId"),
-      userId = r str "userId",
+      userId = r.get[UserId]("userId"),
       color = chess.Color.fromWhite(r bool "white"),
       assessment = r.get[GameAssessment]("assessment"),
       date = r date "date",

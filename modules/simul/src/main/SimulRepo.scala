@@ -61,18 +61,18 @@ final private[simul] class SimulRepo(val coll: Coll)(using ec: scala.concurrent.
   def findCreated(id: SimulId): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isCreated))
 
-  def findPending(hostId: User.ID): Fu[List[Simul]] =
+  def findPending(hostId: UserId): Fu[List[Simul]] =
     coll.list[Simul](createdSelect ++ $doc("hostId" -> hostId))
 
-  def byTeamLeaders(teamId: TeamId, hostIds: Seq[User.ID]): Fu[List[Simul]] =
+  def byTeamLeaders(teamId: TeamId, hostIds: Seq[UserId]): Fu[List[Simul]] =
     coll
       .find(createdSelect ++ $doc("hostId" $in hostIds, "team" -> teamId))
       .hint(coll hint $doc("hostId" -> 1))
       .cursor[Simul]()
       .listAll()
 
-  def hostId(id: SimulId): Fu[Option[User.ID]] =
-    coll.primitiveOne[User.ID]($id(id), "hostId")
+  def hostId(id: SimulId): Fu[Option[UserId]] =
+    coll.primitiveOne[UserId]($id(id), "hostId")
 
   private val featurableSelect = $doc("featurable" -> true)
 

@@ -7,6 +7,7 @@ import org.mindrot.BCrypt
 import org.joda.time.DateTime
 
 import lila.common.String.base64
+import lila.common.Iso
 import lila.common.config.Secret
 
 import StringToken.ValueChecker
@@ -20,12 +21,12 @@ final class StringToken[A](
     separator: Char = '|'
 )(using
     ec: scala.concurrent.ExecutionContext,
-    serializer: StringToken.Serializable[A]
+    iso: Iso.StringIso[A]
 ):
 
   def make(payload: A) =
     hashCurrentValue(payload) map { hashedValue =>
-      val signed   = signPayload(serializer write payload, hashedValue)
+      val signed   = signPayload(iso to payload, hashedValue)
       val checksum = makeHash(signed)
       val token    = s"$signed$separator$checksum"
       base64 encode token
@@ -39,7 +40,7 @@ final class StringToken[A](
             makeHash(signPayload(payloadStr, hashed)).getBytes(UTF_8),
             checksum.getBytes(UTF_8)
           ) ?? {
-            val payload = serializer read payloadStr
+            val payload = iso from payloadStr
             (valueChecker match {
               case ValueChecker.Same      => hashCurrentValue(payload) map (hashed ==)
               case ValueChecker.Custom(f) => f(hashed)
@@ -59,18 +60,9 @@ final class StringToken[A](
 
 object StringToken:
 
-  trait Serializable[A]:
-    def read(str: String): A
-    def write(a: A): String
-
-  given Serializable[String] with
-    def read(str: String) = str
-    def write(a: String)  = a
-
-  sealed trait ValueChecker
-  object ValueChecker:
-    case object Same                            extends ValueChecker
-    case class Custom(f: String => Fu[Boolean]) extends ValueChecker
+  enum ValueChecker:
+    case Same
+    case Custom(f: String => Fu[Boolean])
 
   object DateStr:
     def toStr(date: DateTime) = date.getMillis.toString

@@ -39,8 +39,8 @@ object StudyForm:
     ):
       def as: As =
         asStr match
-          case None | Some("study") => AsNewStudy
-          case Some(studyId)        => AsChapterOf(StudyId(studyId))
+          case None | Some("study") => As.NewStudy
+          case Some(studyId)        => As.ChapterOf(StudyId(studyId))
 
       def toChapterData =
         ChapterMaker.Data(
@@ -54,9 +54,9 @@ object StudyForm:
           initial = false
         )
 
-    sealed trait As
-    case object AsNewStudy                   extends As
-    case class AsChapterOf(studyId: StudyId) extends As
+    enum As:
+      case NewStudy
+      case ChapterOf(studyId: StudyId)
 
   object importPgn:
 
@@ -102,4 +102,4 @@ object StudyForm:
   def topicsForm = Form(single("topics" -> text))
 
   def topicsForm(topics: StudyTopics) =
-    Form(single("topics" -> text)) fill topics.value.map(_.value).mkString(",")
+    Form(single("topics" -> text)) fill topics.value.mkString(",")

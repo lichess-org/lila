@@ -45,7 +45,7 @@ final private class Finisher(
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
     else if (game.player(!game.player.color).isOfferingDraw)
-      apply(game, _.Draw, None, Messenger.Persistent(trans.drawOfferAccepted.txt()).some)
+      apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.drawOfferAccepted.txt()).some)
     else
       val winner = Some(!game.player.color) ifFalse game.situation.opponentHasInsufficientMaterial
       apply(game, _.Outoftime, winner) >>-
@@ -58,7 +58,7 @@ final private class Finisher(
       lila.mon.round.expiration.count.increment()
       playban.noStart(Pov(game, culprit))
       if (game.isMandatory || game.metadata.hasRule(_.NoAbort)) apply(game, _.NoStart, Some(!culprit.color))
-      else apply(game, _.Aborted, None, Messenger.Persistent("Game aborted by server").some)
+      else apply(game, _.Aborted, None, Messenger.SystemMessage.Persistent("Game aborted by server").some)
     }
 
   def other(

@@ -21,15 +21,10 @@ private object BsonHandlers:
 
   object PatronHandlers:
     import Patron.*
-    given BSONHandler[PayPalLegacy.Email] =
-      stringAnyValHandler[PayPalLegacy.Email](_.value, PayPalLegacy.Email.apply)
-    given BSONHandler[PayPalLegacy.SubId] =
-      stringAnyValHandler[PayPalLegacy.SubId](_.value, PayPalLegacy.SubId.apply)
     given BSONDocumentHandler[PayPalLegacy]   = Macros.handler
     given BSONDocumentHandler[PayPalCheckout] = Macros.handler
     given BSONDocumentHandler[Stripe]         = Macros.handler
     given BSONDocumentHandler[Free]           = Macros.handler
-    given BSONHandler[UserId]                 = stringAnyValHandler[UserId](_.value, UserId.apply)
     given BSONDocumentHandler[Patron]         = Macros.handler
 
   object ChargeHandlers:

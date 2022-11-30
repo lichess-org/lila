@@ -19,8 +19,6 @@ object JsonApi:
 
   object Request:
 
-    sealed trait Result
-
     case class Fishnet(
         version: Client.Version,
         python: Option[Client.Python],
@@ -40,8 +38,7 @@ object JsonApi:
         fishnet: Fishnet,
         stockfish: Stockfish,
         analysis: List[Option[Evaluation.OrSkipped]]
-    ) extends Request
-        with Result:
+    ) extends Request:
 
       def completeOrPartial =
         if (analysis.headOption.??(_.isDefined)) CompleteAnalysis(fishnet, stockfish, analysis.flatten)

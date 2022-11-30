@@ -87,9 +87,9 @@ final private class Rematcher(
       redirectEvents(nextGame)
 
     rematches.get(pov.gameId) match
-      case None                           => createGame(none)
-      case Some(Rematches.Accepted(id))   => gameRepo game id map { _ ?? redirectEvents }
-      case Some(Rematches.Offered(_, id)) => createGame(id.some)
+      case None                                    => createGame(none)
+      case Some(Rematches.NextGame.Accepted(id))   => gameRepo game id map { _ ?? redirectEvents }
+      case Some(Rematches.NextGame.Offered(_, id)) => createGame(id.some)
 
   private def returnGame(pov: Pov, withId: Option[GameId]): Fu[Game] =
     for {

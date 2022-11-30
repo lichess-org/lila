@@ -40,23 +40,23 @@ final class BulkPairing(env: Env) extends LilaController(env):
           newJsonFormError,
           data =>
             env.setup.bulk(data, me) flatMap {
-              case Left(SetupBulk.RateLimited) =>
+              case Left(SetupBulk.ScheduleError.RateLimited) =>
                 TooManyRequests(
                   jsonError(s"Ratelimited! Max games per 10 minutes: ${SetupBulk.maxGames}")
                 ).toFuccess
-              case Left(SetupBulk.BadTokens(tokens)) =>
+              case Left(SetupBulk.ScheduleError.BadTokens(tokens)) =>
                 import lila.setup.SetupBulk.BadToken
                 import play.api.libs.json.*
                 BadRequest(
                   Json.obj(
                     "tokens" -> JsObject {
                       tokens.map { case BadToken(token, error) =>
-                        token.secret -> JsString(error.message)
+                        token.value -> JsString(error.message)
                       }
                     }
                   )
                 ).toFuccess
-              case Left(SetupBulk.DuplicateUsers(users)) =>
+              case Left(SetupBulk.ScheduleError.DuplicateUsers(users)) =>
                 BadRequest(Json.obj("duplicateUsers" -> users)).toFuccess
               case Right(bulk) =>
                 env.challenge.bulk.schedule(bulk) map {

@@ -18,9 +18,9 @@ final class Ublog(env: Env) extends LilaController(env):
   import views.html.ublog.blog.urlOfBlog
   import lila.common.paginator.Paginator.given
 
-  def index(username: String, page: Int) = Open { implicit ctx =>
+  def index(username: UserStr, page: Int) = Open { implicit ctx =>
     NotForKids {
-      OptionFuResult(env.user.repo named username) { user =>
+      OptionFuResult(env.user.repo byId username) { user =>
         env.ublog.api.getUserBlog(user) flatMap { blog =>
           (canViewBlogOf(user, blog) ?? env.ublog.paginator.byUser(user, true, page)) map { posts =>
             Ok(html.ublog.blog(user, blog, posts))
@@ -30,7 +30,7 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  def drafts(username: String, page: Int) = Auth { implicit ctx => me =>
+  def drafts(username: UserStr, page: Int) = Auth { implicit ctx => me =>
     NotForKids {
       if (!me.is(username)) Redirect(routes.Ublog.drafts(me.username)).toFuccess
       else
@@ -40,9 +40,9 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  def post(username: String, slug: String, id: UblogPostId) = Open { implicit ctx =>
+  def post(username: UserStr, slug: String, id: UblogPostId) = Open { implicit ctx =>
     NotForKids {
-      OptionFuResult(env.user.repo named username) { user =>
+      OptionFuResult(env.user.repo byId username) { user =>
         env.ublog.api.getUserBlog(user) flatMap { blog =>
           env.ublog.api.findByIdAndBlog(id, blog.id) flatMap {
             _.filter(canViewPost(user, blog)).fold(notFound) { post =>
@@ -85,7 +85,7 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  def form(username: String) = Auth { implicit ctx => me =>
+  def form(username: UserStr) = Auth { implicit ctx => me =>
     NotForKids {
       if (env.ublog.api.canBlog(me))
         if (!me.is(username)) Redirect(routes.Ublog.form(me.username)).toFuccess
@@ -102,7 +102,7 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  private val CreateLimitPerUser = new lila.memo.RateLimit[UserModel.ID](
+  private val CreateLimitPerUser = new lila.memo.RateLimit[UserId](
     credits = 5 * 3,
     duration = 24.hour,
     key = "ublog.create.user"
@@ -257,11 +257,12 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def communityLang(language: String, page: Int = 1) =
     Open { ctx =>
+      import I18nLangPicker.ByHref
       I18nLangPicker.byHref(language, ctx.req) match
-        case I18nLangPicker.NotFound      => Redirect(routes.Ublog.communityAll(page)).toFuccess
-        case I18nLangPicker.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page)).toFuccess
-        case I18nLangPicker.Refused(lang) => communityIndex(lang.some, page)(ctx)
-        case I18nLangPicker.Found(lang) =>
+        case ByHref.NotFound      => Redirect(routes.Ublog.communityAll(page)).toFuccess
+        case ByHref.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page)).toFuccess
+        case ByHref.Refused(lang) => communityIndex(lang.some, page)(ctx)
+        case ByHref.Found(lang) =>
           if (ctx.isAuth) communityIndex(lang.some, page)(ctx)
           else communityIndex(lang.some, page)(ctx withLang lang)
     }
@@ -326,8 +327,8 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  def userAtom(username: String) = Action.async { implicit req =>
-    env.user.repo.enabledNamed(username) flatMap {
+  def userAtom(username: UserStr) = Action.async { implicit req =>
+    env.user.repo.enabledById(username) flatMap {
       case None => NotFound.toFuccess
       case Some(user) =>
         given play.api.i18n.Lang = reqLang

@@ -47,7 +47,7 @@ object inquiry:
           div(cls := "atom")(
             h3(
               reportScore(atom.score),
-              userIdLink(atom.by.value.some, withOnline = false),
+              userIdLink(atom.by.userId.some, withOnline = false),
               " for ",
               strong(r.reason.name),
               " ",
@@ -91,7 +91,7 @@ object inquiry:
             ul(
               in.history.map { e =>
                 li(
-                  userIdLink(e.mod.some, withOnline = false),
+                  userIdLink(e.mod.userId.some, withOnline = false),
                   " ",
                   b(e.showAction),
                   " ",
@@ -277,7 +277,7 @@ object inquiry:
       report: Report,
       allReports: List[Report],
       reportee: User
-  ): Option[NonEmptyList[User.ID]] =
+  ): Option[NonEmptyList[UserId]] =
     (report.reason == Reason.Boost || reportee.marks.boost) ?? {
       allReports
         .filter(_.reason == Reason.Boost)
@@ -286,9 +286,11 @@ object inquiry:
         .flatMap(_.text.linesIterator)
         .collect {
           case farmWithRegex(userId)     => List(userId)
-          case sandbagWithRegex(userIds) => userIds.split(' ').toList.map(_.trim.replace("@", ""))
+          case sandbagWithRegex(userIds) => userIds.split(' ').toList.map(_.replace("@", ""))
         }
         .flatten
+        .flatMap(UserStr.read)
+        .flatMap(User.validateId)
         .distinct
         .toNel
     }

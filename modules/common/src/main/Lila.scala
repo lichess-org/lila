@@ -2,11 +2,15 @@ package lila
 
 object Lila extends Lila:
 
-  def nowNanos: Long  = System.nanoTime()
-  def nowMillis: Long = System.currentTimeMillis()
-  def nowCentis: Long = nowMillis / 10
-  def nowTenths: Long = nowMillis / 100
-  def nowSeconds: Int = (nowMillis / 1000).toInt
+  export ornicar.scalalib.newtypes.{ given, * }
+  export ornicar.scalalib.zeros.given
+  export ornicar.scalalib.extensions.{ given, * }
+
+  inline def nowNanos: Long  = System.nanoTime()
+  inline def nowMillis: Long = System.currentTimeMillis()
+  inline def nowCentis: Long = nowMillis / 10
+  inline def nowTenths: Long = nowMillis / 100
+  inline def nowSeconds: Int = (nowMillis / 1000).toInt
 
   object makeTimeout:
 
@@ -26,14 +30,11 @@ object Lila extends Lila:
 
 trait Lila
     extends lila.base.LilaTypes
-    with lila.base.NewTypes
     with lila.base.LilaModel
+    with lila.base.LilaUserId
     with cats.syntax.OptionSyntax
     with cats.syntax.ListSyntax
-    with ornicar.scalalib.Zeros
     with lila.base.LilaLibraryExtensions:
-
-  export ornicar.scalalib.OrnicarBooleanWrapper
 
   trait IntValue extends Any:
     def value: Int

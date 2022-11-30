@@ -17,6 +17,7 @@ final private class SandbagWatch(
 )(using scala.concurrent.ExecutionContext):
 
   import SandbagWatch.*
+  import Outcome.*
 
   private val messageOnceEvery = lila.memo.OnceEvery[UserId](1 hour)
 
@@ -30,7 +31,7 @@ final private class SandbagWatch(
       case (Some(record), Good) => setRecord(userId, record + Good, game)
       case (record, outcome)    => setRecord(userId, (record | emptyRecord) + outcome, game)
 
-  private def setRecord(userId: User.ID, record: Record, game: Game): Funit =
+  private def setRecord(userId: UserId, record: Record, game: Game): Funit =
     if (record.immaculate)
       fuccess {
         records invalidate userId
@@ -58,24 +59,24 @@ final private class SandbagWatch(
         }
       }
 
-  private def sendMessage(userId: User.ID, preset: MsgPreset): Funit =
-    messageOnceEvery(UserId(userId)) ?? {
+  private def sendMessage(userId: UserId, preset: MsgPreset): Funit =
+    messageOnceEvery(userId) ?? {
       lila.common.Bus.publish(lila.hub.actorApi.mod.AutoWarning(userId, preset.name), "autoWarning")
       messenger.postPreset(userId, preset).void
     }
 
-  private def withWinnerAndLoser(game: Game)(f: (User.ID, User.ID) => Funit): Funit =
+  private def withWinnerAndLoser(game: Game)(f: (UserId, UserId) => Funit): Funit =
     game.winnerUserId ?? { winner =>
       game.loserUserId ?? {
         f(winner, _)
       }
     }
 
-  private val records: Cache[User.ID, Record] = lila.memo.CacheApi.scaffeineNoScheduler
+  private val records: Cache[UserId, Record] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(3 hours)
-    .build[User.ID, Record]()
+    .build[UserId, Record]()
 
-  private def outcomeOf(game: Game, loser: Color, userId: User.ID): Outcome =
+  private def outcomeOf(game: Game, loser: Color, userId: UserId): Outcome =
     game
       .playerByUserId(userId)
       .ifTrue(isSandbag(game))
@@ -92,10 +93,10 @@ final private class SandbagWatch(
 
 private object SandbagWatch:
 
-  sealed trait Outcome
-  case object Good                      extends Outcome
-  case class Sandbag(opponent: User.ID) extends Outcome
-  case class Boost(opponent: User.ID)   extends Outcome
+  enum Outcome:
+    case Good
+    case Sandbag(opponent: UserId)
+    case Boost(opponent: UserId)
 
   val maxOutcomes = 7
 
@@ -107,27 +108,25 @@ private object SandbagWatch:
 
     def latest = outcomes.headOption
 
-    def immaculate = outcomes.sizeIs == maxOutcomes && outcomes.forall(Good ==)
+    def immaculate = outcomes.sizeIs == maxOutcomes && outcomes.forall(Outcome.Good ==)
 
     def latestIsSandbag = latest exists {
-      case Sandbag(_) => true
-      case _          => false
+      case Outcome.Sandbag(_) => true
+      case _                  => false
     }
 
     def countSandbagWithLatest: Int = latestIsSandbag ?? outcomes.count {
-      case Sandbag(_) => true
-      case _          => false
+      case Outcome.Sandbag(_) => true
+      case _                  => false
     }
 
-    def sandbagOpponents = outcomes.collect { case Sandbag(opponent) =>
-      opponent
-    }.distinct
+    def sandbagOpponents = outcomes.collect { case Outcome.Sandbag(opponent) => opponent }.distinct
 
     def samePlayerBoostCount = latest ?? {
-      case Boost(opponent) =>
+      case Outcome.Boost(opponent) =>
         outcomes.count {
-          case Boost(o) if o == opponent => true
-          case _                         => false
+          case Outcome.Boost(o) if o == opponent => true
+          case _                                 => false
         }
       case _ => 0
     }

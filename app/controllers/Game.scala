@@ -60,17 +60,22 @@ final class Game(
         }
     }
 
-  def exportByUser(username: String) =
+  def exportByUser(username: UserStr) =
     OpenOrScoped()(
       open = ctx => handleExport(username, ctx.me, ctx.req, oauth = false),
       scoped = req => me => handleExport(username, me.some, req, oauth = true)
     )
 
-  def apiExportByUser(username: String) =
+  def apiExportByUser(username: UserStr) =
     AnonOrScoped() { req => me => handleExport(username, me, req, oauth = me.isDefined) }
 
-  private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) =
-    env.user.repo named username flatMap {
+  private def handleExport(
+      username: UserStr,
+      me: Option[lila.user.User],
+      req: RequestHeader,
+      oauth: Boolean
+  ) =
+    env.user.repo byId username flatMap {
       _.filter(u => u.enabled || me.exists(_ is u) || me.??(isGranted(_.GamesModView, _))) ?? { user =>
         val format = GameApiV2.Format byRequest req
         import lila.rating.{ Perf, PerfType }
@@ -88,18 +93,19 @@ final class Game(
             color = get("color", req) flatMap chess.Color.fromName,
             analysed = getBoolOpt("analysed", req),
             flags = requestPgnFlags(req, extended = false),
-            sort = if (get("sort", req) has "dateAsc") GameApiV2.DateAsc else GameApiV2.DateDesc,
+            sort =
+              if (get("sort", req) has "dateAsc") GameApiV2.GameSort.DateAsc else GameApiV2.GameSort.DateDesc,
             perSecond = MaxPerSecond(me match {
-              case Some(m) if m.id == "openingexplorer" => env.apiExplorerGamesPerSecond.get()
-              case Some(m) if m is user.id              => 60
-              case Some(_) if oauth                     => 30 // bonus for oauth logged in only (not for CSRF)
-              case _                                    => 20
+              case Some(m) if m is lila.user.User.explorerId => env.apiExplorerGamesPerSecond.get()
+              case Some(m) if m is user.id                   => 60
+              case Some(_) if oauth => 30 // bonus for oauth logged in only (not for CSRF)
+              case _                => 20
             }),
             playerFile = get("players", req),
             ongoing = getBool("ongoing", req) || !finished,
             finished = finished
           )
-          if (me.exists(_.id == "openingexplorer"))
+          if (me.exists(_ is lila.user.User.explorerId))
             Ok.chunked(env.api.gameApiV2.exportByUser(config))
               .pipe(noProxyBuffer)
               .as(gameContentType(config))
@@ -124,13 +130,13 @@ final class Game(
 
   private def fileDate = DateTimeFormat forPattern "yyyy-MM-dd" print DateTime.now
 
-  def apiExportByUserImportedGames(username: String) =
+  def apiExportByUserImportedGames(username: UserStr) =
     AuthOrScoped()(
       auth = ctx => me => handleExportByUserImportedGames(username, me, ctx.req),
       scoped = req => me => handleExportByUserImportedGames(username, me, req)
     )
 
-  private def handleExportByUserImportedGames(username: String, me: lila.user.User, req: RequestHeader) =
+  private def handleExportByUserImportedGames(username: UserStr, me: lila.user.User, req: RequestHeader) =
     fuccess {
       if (!me.is(username)) Forbidden("Imported games of other players cannot be downloaded")
       else
@@ -163,10 +169,10 @@ final class Game(
     }
 
   private def WithVs(req: RequestHeader)(f: Option[lila.user.User] => Fu[Result]): Fu[Result] =
-    get("vs", req) match
+    getUserStr("vs", req) match
       case None => f(none)
       case Some(name) =>
-        env.user.repo named name flatMap {
+        env.user.repo byId name flatMap {
           case None       => notFoundJson(s"No such opponent: $name")
           case Some(user) => f(user.some)
         }

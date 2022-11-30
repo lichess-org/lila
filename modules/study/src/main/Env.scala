@@ -42,7 +42,7 @@ final class Env(
   def version(studyId: StudyId): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](studyId into RoomId)(GetVersion.apply)
 
-  def isConnected(studyId: StudyId, userId: User.ID): Fu[Boolean] =
+  def isConnected(studyId: StudyId, userId: UserId): Fu[Boolean] =
     socket.isPresent(studyId, userId)
 
   private val socket: StudySocket = wire[StudySocket]

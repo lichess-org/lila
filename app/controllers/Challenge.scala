@@ -78,7 +78,7 @@ final class Challenge(
             }
           }
           else
-            (c.challengerUserId ?? env.user.repo.named) map { user =>
+            (c.challengerUserId ?? env.user.repo.byId) map { user =>
               Ok(html.challenge.theirs(c, json, user, color))
             }
         },
@@ -217,7 +217,7 @@ final class Challenge(
                   lila.common.Bus.publish(Tell(id, Abort(pov.playerId)), "roundSocket")
                   jsonOkResult.toFuccess
                 case Some(pov) if pov.game.playable =>
-                  get("opponentToken", req).map(Bearer.apply) match
+                  Bearer.from(get("opponentToken", req)) match
                     case None => BadRequest(jsonError("The game can no longer be aborted")).toFuccess
                     case Some(bearer) =>
                       env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write), req.some) map {
@@ -237,7 +237,7 @@ final class Challenge(
     Action.async { req =>
       import cats.implicits.*
       val scopes = List(OAuthScope.Challenge.Write)
-      (get("token1", req) map Bearer.apply, get("token2", req) map Bearer.apply).mapN {
+      (Bearer from get("token1", req), Bearer from get("token2", req)).mapN {
         env.oAuth.server.authBoth(scopes, req)
       } ?? {
         _ flatMap {
@@ -270,7 +270,7 @@ final class Challenge(
     key = "challenge.bot.create.ip"
   )
 
-  private val ChallengeUserRateLimit = lila.memo.RateLimit.composite[lila.user.User.ID](
+  private val ChallengeUserRateLimit = lila.memo.RateLimit.composite[UserId](
     key = "challenge.create.user"
   )(
     ("fast", 5 * 5, 1.minute),
@@ -285,15 +285,13 @@ final class Challenge(
       OptionFuResult(api byId id) { c =>
         if (isMine(c))
           Form(
-            single(
-              "username" -> lila.user.UserForm.historicalUsernameField
-            )
+            single("username" -> lila.user.UserForm.historicalUsernameField)
           ).bindFromRequest()
             .fold(
               _ => funit,
               username =>
                 ChallengeIpRateLimit(ctx.ip) {
-                  env.user.repo named username flatMap {
+                  env.user.repo byId username flatMap {
                     case None                       => Redirect(routes.Challenge.show(c.id)).toFuccess
                     case Some(dest) if ctx.is(dest) => Redirect(routes.Challenge.show(c.id)).toFuccess
                     case Some(dest) =>
@@ -309,7 +307,7 @@ final class Challenge(
       }
     }
 
-  def apiCreate(username: String) =
+  def apiCreate(username: UserStr) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       given play.api.i18n.Lang = reqLang
       !me.is(username) ?? env.setup.forms.api
@@ -319,7 +317,7 @@ final class Challenge(
           newJsonFormError,
           config =>
             ChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isApiHog) 0 else 1) {
-              env.user.repo enabledByName username flatMap {
+              env.user.repo enabledById username flatMap {
                 case None => JsonBadRequest(jsonError(s"No such user: $username")).toFuccess
                 case Some(destUser) =>
                   val cost = if (me.isApiHog) 0 else if (destUser.isBot) 1 else 5

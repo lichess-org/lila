@@ -36,7 +36,6 @@ final class ForumCategApi(
     )
     val post = ForumPost.make(
       topicId = topic.id,
-      author = none,
       userId = User.lichessId.some,
       text = "Welcome to the %s forum!" format name,
       number = 1,

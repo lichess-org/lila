@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import lila.user.User
 
 case class Pref(
-    _id: String, // user id
+    _id: UserId,
     bg: Int,
     bgImg: Option[String],
     is3d: Boolean,
@@ -407,7 +407,7 @@ object Pref:
 
   val darkByDefaultSince = new DateTime(2021, 11, 7, 8, 0)
 
-  def create(id: User.ID) = default.copy(_id = id)
+  def create(id: UserId) = default.copy(_id = id)
 
   def create(user: User) = default.copy(
     _id = user.id,
@@ -416,7 +416,7 @@ object Pref:
   )
 
   lazy val default = Pref(
-    _id = "",
+    _id = UserId(""),
     bg = Bg.DARK,
     bgImg = none,
     is3d = false,

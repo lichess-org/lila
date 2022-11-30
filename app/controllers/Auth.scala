@@ -115,7 +115,7 @@ final class Auth(
                   api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).toFuccess
                 ),
               usernameOrEmail =>
-                HasherRateLimit(usernameOrEmail, ctx.req) { chargeIpLimiter =>
+                HasherRateLimit(usernameOrEmail into UserId, ctx.req) { chargeIpLimiter =>
                   api.loadLoginForm(usernameOrEmail) flatMap {
                     _.bindFromRequest()
                       .fold(
@@ -202,33 +202,33 @@ final class Auth(
             html = env.security.signup
               .website(ctx.blind)
               .flatMap {
-                case Signup.RateLimited => limitedDefault.zero.toFuccess
-                case Signup.MissingCaptcha =>
+                case Signup.Result.RateLimited => limitedDefault.zero.toFuccess
+                case Signup.Result.MissingCaptcha =>
                   forms.signup.website map { form =>
                     BadRequest(html.auth.signup(form))
                   }
-                case Signup.Bad(err) =>
+                case Signup.Result.Bad(err) =>
                   forms.signup.website map { baseForm =>
                     BadRequest(html.auth.signup(baseForm withForm err))
                   }
-                case Signup.ConfirmEmail(user, email) =>
+                case Signup.Result.ConfirmEmail(user, email) =>
                   fuccess {
                     Redirect(routes.Auth.checkYourEmail) withCookies
                       lila.security.EmailConfirm.cookie
                         .make(env.lilaCookie, user, email)(ctx.req)
                   }
-                case Signup.AllSet(user, email) =>
+                case Signup.Result.AllSet(user, email) =>
                   welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
               },
             api = apiVersion =>
               env.security.signup
                 .mobile(apiVersion)
                 .flatMap {
-                  case Signup.RateLimited        => limitedDefault.zero.toFuccess
-                  case Signup.MissingCaptcha     => fuccess(BadRequest(jsonError("Missing captcha?!")))
-                  case Signup.Bad(err)           => jsonFormError(err)
-                  case Signup.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true)).toFuccess
-                  case Signup.AllSet(user, email) =>
+                  case Signup.Result.RateLimited        => limitedDefault.zero.toFuccess
+                  case Signup.Result.MissingCaptcha     => fuccess(BadRequest(jsonError("Missing captcha?!")))
+                  case Signup.Result.Bad(err)           => jsonFormError(err)
+                  case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true)).toFuccess
+                  case Signup.Result.AllSet(user, email) =>
                     welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(user, remember = true)
                 }
           )
@@ -253,7 +253,7 @@ final class Auth(
         lila.security.EmailConfirm.cookie get ctx.req match
           case None => Ok(accountC.renderCheckYourEmail).toFuccess
           case Some(userEmail) =>
-            env.user.repo nameExists userEmail.username map {
+            env.user.repo exists userEmail.username map {
               case false => Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(using ctx.req)
               case true  => Ok(accountC.renderCheckYourEmail)
             }
@@ -271,7 +271,7 @@ final class Auth(
           .fold(
             err => BadRequest(html.auth.checkYourEmail(userEmail.some, err.some)).toFuccess,
             email =>
-              env.user.repo.named(userEmail.username) flatMap {
+              env.user.repo.byId(userEmail.username) flatMap {
                 _.fold(Redirect(routes.Auth.signup).toFuccess) { user =>
                   env.user.repo.mustConfirmEmail(user.id) flatMap {
                     case false => Redirect(routes.Auth.login).toFuccess
@@ -411,7 +411,7 @@ final class Auth(
           FormFuResult(forms.passwdReset) { err =>
             fuccess(html.auth.bits.passwordResetConfirm(user, token, err, false.some))
           } { data =>
-            HasherRateLimit(user.username, ctx.req) { _ =>
+            HasherRateLimit(user.id, ctx.req) { _ =>
               env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
                 env.user.repo.setEmailConfirmed(user.id).flatMap {
                   _ ?? { welcome(user, _, sendWelcomeEmail = false) }

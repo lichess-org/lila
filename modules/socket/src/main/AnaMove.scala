@@ -7,6 +7,7 @@ import chess.variant.Variant
 import play.api.libs.json.*
 
 import lila.tree.Branch
+import lila.common.Json.given
 
 trait AnaAny:
 
@@ -25,7 +26,7 @@ case class AnaMove(
 ) extends AnaAny:
 
   def branch: Validated[String, Branch] =
-    chess.Game(variant.some, fen.some)(orig, dest, promotion) flatMap { case (game, move) =>
+    chess.Game(variant.some, fen.some)(orig, dest, promotion) andThen { (game, move) =>
       game.pgnMoves.lastOption toValid "Moved but no last move!" map { san =>
         val uci     = Uci(move)
         val movable = game.situation playable false
@@ -51,9 +52,9 @@ object AnaMove:
   def parse(o: JsObject) =
     for {
       d    <- o obj "d"
-      orig <- d str "orig" flatMap chess.Pos.fromKey
-      dest <- d str "dest" flatMap chess.Pos.fromKey
-      fen  <- d str "fen" map FEN.apply
+      orig <- d str "orig" flatMap { chess.Pos.fromKey(_) }
+      dest <- d str "dest" flatMap { chess.Pos.fromKey(_) }
+      fen  <- d.get[FEN]("fen")
       path <- d str "path"
     } yield AnaMove(
       orig = orig,

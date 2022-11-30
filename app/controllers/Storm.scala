@@ -41,9 +41,9 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
       renderDashboardOf(me, page)
     }
 
-  def dashboardOf(username: String, page: Int) =
+  def dashboardOf(username: UserStr, page: Int) =
     Open { implicit ctx =>
-      env.user.repo.enabledNamed(username).flatMap {
+      env.user.repo.enabledById(username).flatMap {
         _ ?? {
           renderDashboardOf(_, page)
         }
@@ -57,7 +57,7 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
       }
     }
 
-  def apiDashboardOf(username: String, days: Int) =
+  def apiDashboardOf(username: UserStr, days: Int) =
     Open { implicit ctx =>
       lila.user.User.validateId(username) ?? { userId =>
         if (days < 0 || days > 365) notFoundJson("Invalid days parameter")

@@ -9,6 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class AuthTest extends Specification {
 
+  given Conversion[String, UserId] = UserId(_)
+
   val secret = Secret(Array.fill(32)(1.toByte).toBase64)
   final def getAuth(passHasher: PasswordHasher) =
     new Authenticator(

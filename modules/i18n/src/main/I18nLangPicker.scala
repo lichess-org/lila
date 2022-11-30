@@ -51,13 +51,13 @@ object I18nLangPicker:
     Lang get code flatMap findCloser match
       case Some(lang) if fixJavaLanguageCode(lang) == code =>
         if (req.acceptLanguages.isEmpty || req.acceptLanguages.exists(_.language == lang.language))
-          Found(lang)
-        else Refused(lang)
-      case Some(lang) => Redir(fixJavaLanguageCode(lang))
-      case None       => NotFound
+          ByHref.Found(lang)
+        else ByHref.Refused(lang)
+      case Some(lang) => ByHref.Redir(fixJavaLanguageCode(lang))
+      case None       => ByHref.NotFound
 
-  sealed trait ByHref
-  case class Found(lang: Lang)   extends ByHref
-  case class Refused(lang: Lang) extends ByHref
-  case class Redir(code: String) extends ByHref
-  case object NotFound           extends ByHref
+  enum ByHref:
+    case Found(lang: Lang)
+    case Refused(lang: Lang)
+    case Redir(code: String)
+    case NotFound

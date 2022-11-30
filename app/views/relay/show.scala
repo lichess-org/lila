@@ -20,7 +20,7 @@ object show:
       data: lila.relay.JsonView.JsData,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: SocketVersion,
-      streamers: List[lila.user.User.ID]
+      streamers: List[UserId]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = rt.fullName,

@@ -4,6 +4,7 @@ import chess.format.FEN
 import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
 import chess.{ Color, Mode, Speed }
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Days
 import lila.game.{ Game, GameRule, PerfPicker }
@@ -152,11 +153,10 @@ object Challenge:
   object Rating:
     def apply(p: lila.rating.Perf): Rating = Rating(p.intRating, p.provisional)
 
-  sealed trait Challenger
-  object Challenger:
-    case class Registered(id: User.ID, rating: Rating) extends Challenger
-    case class Anonymous(secret: String)               extends Challenger
-    case object Open                                   extends Challenger
+  enum Challenger:
+    case Registered(id: UserId, rating: Rating)
+    case Anonymous(secret: String)
+    case Open
 
   sealed trait TimeControl:
     def realTime: Option[chess.Clock.Config] = none
@@ -179,7 +179,7 @@ object Challenge:
     case object Black  extends ColorChoice(I18nKeys.black)
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
 
-  case class Open(userIds: Option[(User.ID, User.ID)]):
+  case class Open(userIds: Option[(UserId, UserId)]):
     def userIdList                = userIds map { case (u1, u2) => List(u1, u2) }
     def canJoin(me: Option[User]) = userIdList.fold(true)(ids => me.map(_.id).exists(ids.has))
     def colorFor(me: Option[User], requestedColor: Option[Color]): Option[ColorChoice] =
@@ -214,12 +214,12 @@ object Challenge:
 
   private val idSize = 8
 
-  private def randomId = lila.common.ThreadLocalRandom nextString idSize
+  private def randomId = ThreadLocalRandom nextString idSize
 
-  def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
+  def toRegistered(variant: Variant, timeControl: TimeControl)(u: User): Challenger.Registered =
     Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
 
-  def randomColor = chess.Color.fromWhite(lila.common.ThreadLocalRandom.nextBoolean())
+  def randomColor = chess.Color.fromWhite(ThreadLocalRandom.nextBoolean())
 
   def make(
       variant: Variant,
@@ -232,7 +232,7 @@ object Challenge:
       rematchOf: Option[GameId],
       name: Option[String] = None,
       id: Option[GameId] = None,
-      openToUserIds: Option[(User.ID, User.ID)] = None,
+      openToUserIds: Option[(UserId, UserId)] = None,
       rules: Set[GameRule] = Set.empty
   ): Challenge =
     val (colorChoice, finalColor) = color match

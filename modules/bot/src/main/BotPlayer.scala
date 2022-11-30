@@ -26,7 +26,7 @@ final class BotPlayer(
   def apply(pov: Pov, me: User, uciStr: String, offeringDraw: Option[Boolean]): Funit =
     lila.common.Future.delay((pov.game.hasAi ?? 500) millis) {
       Uci(uciStr).fold(clientError[Unit](s"Invalid UCI: $uciStr")) { uci =>
-        lila.mon.bot.moves(me.username).increment()
+        lila.mon.bot.moves(me.username.value).increment()
         if (!pov.isMyTurn) clientError("Not your turn, or game already over")
         else
           val promise = Promise[Unit]()
@@ -42,7 +42,7 @@ final class BotPlayer(
   def chat(gameId: GameId, me: User, d: BotForm.ChatData) =
     !spam.detect(d.text) ??
       fuccess {
-        lila.mon.bot.chats(me.username).increment()
+        lila.mon.bot.chats(me.username.value).increment()
         val chatId = ChatId(if (d.room == "player") gameId.value else s"$gameId/w")
         val source = d.room == "spectator" option {
           lila.hub.actorApi.shutup.PublicSource.Watcher(gameId)

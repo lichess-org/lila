@@ -12,7 +12,7 @@ case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]]:
   def map[X](f: V => X)        = copy(value = f(value))
   def seconds                  = date.getSeconds
 
-case class AuthInfo(user: User.ID, hasFp: Boolean)
+case class AuthInfo(user: UserId, hasFp: Boolean)
 
 case class FingerPrintedUser(user: User, hasFingerPrint: Boolean)
 
@@ -32,7 +32,7 @@ case class UserSession(
 
 case class LocatedSession(session: UserSession, location: Option[Location])
 
-case class IpAndFp(ip: IpAddress, fp: Option[String], user: User.ID)
+case class IpAndFp(ip: IpAddress, fp: Option[String], user: UserId)
 
 case class HcaptchaPublicConfig(key: String, enabled: Boolean)
 
@@ -67,8 +67,5 @@ object UserAgent:
   given Iso.StringIso[UserAgent]                      = Iso.string[UserAgent](UserAgent.apply, _.value)
   given reactivemongo.api.bson.BSONHandler[UserAgent] = lila.db.BSON.stringIsoHandler
 
-  sealed trait Client
-  object Client:
-    case object PC  extends Client
-    case object Mob extends Client
-    case object App extends Client
+  enum Client:
+    case PC, Mob, App

@@ -62,17 +62,18 @@ object Form:
   def numberInDouble(choices: Options[Double]) =
     of[Double].verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
-  def id(size: Int, fixed: Option[String])(exists: String => Fu[Boolean]) =
+  def id[Id](size: Int, fixed: Option[Id])(exists: Id => Fu[Boolean])(using
+      sr: StringRuntime[Id],
+      rs: SameRuntime[String, Id]
+  ): Mapping[Id] =
     val field = text(minLength = size, maxLength = size)
       .verifying("IDs must be made of ASCII letters and numbers", id => """(?i)^[a-z\d]+$""".r matches id)
+      .into[Id]
     fixed match
       case Some(fixedId) => field.verifying("The ID cannot be changed now", id => id == fixedId)
       case None =>
         import scala.concurrent.duration.*
-        field.verifying(
-          "This ID is already in use",
-          id => !exists(id).await(1.second, "tour crud unique ID")
-        )
+        field.verifying("This ID is already in use", id => !exists(id).await(1.second, "unique ID"))
 
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
 
@@ -190,7 +191,7 @@ object Form:
       }
 
   object fen:
-    given Formatter[FEN] = formatter.stringFormatter[FEN](_.value, FEN.apply)
+    given Formatter[FEN] = formatter.stringFormatter[FEN](_.value, FEN(_))
     val playableStrict   = playable(strict = true)
     def playable(strict: Boolean) = of[FEN]
       .transform[FEN](f => FEN(f.value.trim), identity)
@@ -220,13 +221,13 @@ object Form:
   given Formatter[String]  = stringFormat
   given Formatter[Boolean] = booleanFormat
 
-  given [A, T](using
-      bts: SameRuntime[A, T],
-      stb: SameRuntime[T, A],
+  given autoFormat[A, T](using
+      sr: SameRuntime[A, T],
+      rs: SameRuntime[T, A],
       base: Formatter[A]
   ): Formatter[T] with
-    def bind(key: String, data: Map[String, String]) = base.bind(key, data) map bts.apply
-    def unbind(key: String, value: T)                = base.unbind(key, stb(value))
+    def bind(key: String, data: Map[String, String]) = base.bind(key, data) map sr.apply
+    def unbind(key: String, value: T)                = base.unbind(key, rs(value))
 
   given Formatter[chess.variant.Variant] =
     formatter.stringFormatter[chess.variant.Variant](_.key, chess.variant.Variant.orDefault)
@@ -235,20 +236,18 @@ object Form:
     def transform[B](to: A => B, from: B => A): Formatter[B] = new Formatter[B]:
       def bind(key: String, data: Map[String, String]) = f.bind(key, data) map to
       def unbind(key: String, value: B)                = f.unbind(key, from(value))
-    def into[B](using bts: SameRuntime[A, B], stb: SameRuntime[B, A]): Formatter[B] =
-      transform(bts.apply, stb.apply)
+    def into[B](using sr: SameRuntime[A, B], rs: SameRuntime[B, A]): Formatter[B] =
+      transform(sr.apply, rs.apply)
 
   extension [A](m: Mapping[A])
-    def into[B](using bts: SameRuntime[A, B], stb: SameRuntime[B, A]): Mapping[B] =
-      m.transform(bts.apply, stb.apply)
+    def into[B](using sr: SameRuntime[A, B], rs: SameRuntime[B, A]): Mapping[B] =
+      m.transform(sr.apply, rs.apply)
 
   object strings:
     def separator(sep: String) = of[List[String]](
       formatter
         .stringFormatter[List[String]](_ mkString sep, _.split(sep).map(_.trim).toList.filter(_.nonEmpty))
     )
-
-  def toMarkdown(m: Mapping[String]): Mapping[Markdown] = m.transform[Markdown](Markdown.apply, _.value)
 
   def allowList =
     nonEmptyText(maxLength = 100_1000)

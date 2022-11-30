@@ -39,7 +39,7 @@ object BsonHandlers:
   private[puzzle] given roundIdHandler: BSONHandler[PuzzleRound.Id] = tryHandler[PuzzleRound.Id](
     { case BSONString(v) =>
       v split PuzzleRound.idSep match {
-        case Array(userId, puzzleId) => Success(PuzzleRound.Id(userId, PuzzleId(puzzleId)))
+        case Array(userId, puzzleId) => Success(PuzzleRound.Id(UserId(userId), PuzzleId(puzzleId)))
         case _                       => handlerBadValue(s"Invalid puzzle round id $v")
       }
     },

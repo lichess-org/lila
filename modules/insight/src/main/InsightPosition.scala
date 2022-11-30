@@ -1,22 +1,8 @@
 package lila.insight
 
-sealed trait InsightPosition:
-
-  def tellNumber: String
-  def short: String
+enum InsightPosition(val tellNumber: String, val short: String):
 
   def name = toString.toLowerCase
 
-object InsightPosition:
-
-  case object Game extends InsightPosition:
-
-    val tellNumber = "Number of games"
-
-    val short = "games"
-
-  case object Move extends InsightPosition:
-
-    val tellNumber = "Number of moves"
-
-    val short = "moves"
+  case Game extends InsightPosition("Number of games", "games")
+  case Move extends InsightPosition("Number of moves", "moves")

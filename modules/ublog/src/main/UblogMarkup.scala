@@ -55,7 +55,7 @@ final class UblogMarkup(
   // replace game GIFs URLs with actual game URLs that can be embedded
   private object replaceGameGifs:
     private val regex = (assetBaseUrl.value + """/game/export/gif(/white|/black|)/(\w{8})\.gif""").r
-    val apply         = (markdown: Markdown) => markdown(m => regex.replaceAllIn(m, baseUrl.value + "/$2$1"))
+    val apply         = (markdown: Markdown) => markdown.map(regex.replaceAllIn(_, baseUrl.value + "/$2$1"))
 
   // put images into a container for styling
   private def imageParagraph(markup: Html) =
@@ -83,4 +83,4 @@ private[ublog] object UblogMarkup:
     // Can't end with '\', which would be escaping something after the username, like '\)'
     private val atUsernameRegexEscaped = """@(?<![\w@#/]@)([\w\\-]{1,29}\w)(?![@\w-]|\.\w)""".r
     def apply(markdown: Markdown) =
-      markdown(m => atUsernameRegexEscaped.replaceAllIn(m, a => s"@${unescape(a group 1)}"))
+      markdown.map(atUsernameRegexEscaped.replaceAllIn(_, a => s"@${unescape(a group 1)}"))

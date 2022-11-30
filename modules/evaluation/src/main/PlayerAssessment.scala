@@ -10,7 +10,7 @@ import lila.user.User
 case class PlayerAssessment(
     _id: String,
     gameId: GameId,
-    userId: User.ID,
+    userId: UserId,
     color: Color,
     assessment: GameAssessment,
     date: DateTime,
@@ -150,7 +150,7 @@ object PlayerAssessment:
     PlayerAssessment(
       _id = s"${game.id}/${color.name}",
       gameId = game.id,
-      userId = ~game.player(color).userId,
+      userId = game.player(color).userId err s"PlayerAssessment $game $color no userId",
       color = color,
       assessment = assessment,
       date = DateTime.now,

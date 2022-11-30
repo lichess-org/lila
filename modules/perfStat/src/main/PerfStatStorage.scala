@@ -9,7 +9,6 @@ import lila.rating.PerfType
 
 final class PerfStatStorage(coll: AsyncCollFailingSilently)(using ec: scala.concurrent.ExecutionContext):
 
-  private given BSONHandler[UserId] = stringAnyValHandler[UserId](_.value, UserId(_))
   private given ratingAtHandler: BSONDocumentHandler[RatingAt] = Macros.handler
   private given BSONDocumentHandler[GameAt]                    = Macros.handler
   private given BSONDocumentHandler[Result]                    = Macros.handler
@@ -22,7 +21,7 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using ec: scala.conc
   private given BSONDocumentHandler[Count]                     = Macros.handler
   private given BSONDocumentHandler[PerfStat]                  = Macros.handler
 
-  def find(userId: String, perfType: PerfType): Fu[Option[PerfStat]] =
+  def find(userId: UserId, perfType: PerfType): Fu[Option[PerfStat]] =
     coll(_.byId[PerfStat](PerfStat.makeId(userId, perfType)))
 
   def insert(perfStat: PerfStat): Funit =

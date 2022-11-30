@@ -50,7 +50,7 @@ final private class TournamentBusHandler(
     case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId).unit
   }
 
-  private def ejectFromEnterable(userId: User.ID) =
+  private def ejectFromEnterable(userId: UserId) =
     tournamentRepo.withdrawableIds(userId, reason = "ejectFromEnterable") flatMap {
       _.map {
         api.ejectLameFromEnterable(_, userId)

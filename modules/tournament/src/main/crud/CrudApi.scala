@@ -15,7 +15,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
 
   def list = tournamentRepo uniques 50
 
-  def one(id: String) = tournamentRepo uniqueById id
+  export tournamentRepo.{ uniqueById as one }
 
   def editForm(tour: Tournament) =
     crudForm(tour.some) fill CrudForm.Data(

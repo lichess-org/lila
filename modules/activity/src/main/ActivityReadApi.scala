@@ -157,7 +157,7 @@ final class ActivityReadApi(
       stream = a.stream
     )
 
-  def recentSwissRanks(userId: User.ID): Fu[List[(Swiss.IdName, Rank)]] =
+  def recentSwissRanks(userId: UserId): Fu[List[(Swiss.IdName, Rank)]] =
     coll(
       _.find(regexId(userId) ++ $doc(BSONHandlers.ActivityFields.swisses $exists true))
         .sort($sort desc "_id")
@@ -190,7 +190,7 @@ final class ActivityReadApi(
       )
     else views
 
-  private def getLightPovs(userId: User.ID, gameIds: List[GameId]): Fu[Option[List[LightPov]]] =
+  private def getLightPovs(userId: UserId, gameIds: List[GameId]): Fu[Option[List[LightPov]]] =
     gameIds.nonEmpty ?? {
       gameRepo.light.gamesFromSecondary(gameIds).dmap {
         _.flatMap { LightPov.ofUserId(_, userId) }.some.filter(_.nonEmpty)

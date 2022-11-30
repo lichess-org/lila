@@ -59,7 +59,7 @@ final class Analyse(
                   pov,
                   lila.api.Mobile.Api.currentVersion,
                   tv = userTv.map { u =>
-                    lila.round.OnUserTv(u.id)
+                    lila.round.OnTv.User(u.id)
                   },
                   analysis,
                   initialFen = initialFen,

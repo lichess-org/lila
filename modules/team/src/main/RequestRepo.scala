@@ -7,10 +7,10 @@ final class RequestRepo(val coll: Coll)(using scala.concurrent.ExecutionContext)
 
   import BSONHandlers.given
 
-  def exists(teamId: TeamId, userId: User.ID): Fu[Boolean] =
+  def exists(teamId: TeamId, userId: UserId): Fu[Boolean] =
     coll.exists(selectId(teamId, userId))
 
-  def find(teamId: TeamId, userId: User.ID): Fu[Option[Request]] =
+  def find(teamId: TeamId, userId: UserId): Fu[Option[Request]] =
     coll.one[Request](selectId(teamId, userId))
 
   def countDeclinedByTeam(teamId: TeamId): Fu[Int] =
@@ -22,14 +22,14 @@ final class RequestRepo(val coll: Coll)(using scala.concurrent.ExecutionContext)
   def findActiveByTeams(teamIds: List[TeamId]): Fu[List[Request]] =
     teamIds.nonEmpty ?? coll.list[Request](teamsActiveQuery(teamIds))
 
-  def selectId(teamId: TeamId, userId: User.ID) = $id(Request.makeId(teamId, userId))
+  def selectId(teamId: TeamId, userId: UserId) = $id(Request.makeId(teamId, userId))
   def teamQuery(teamId: TeamId)                 = $doc("team" -> teamId)
   def teamsQuery(teamIds: List[TeamId])         = $doc("team" $in teamIds)
   def teamDeclinedQuery(teamId: TeamId)         = $and(teamQuery(teamId), $doc("declined" -> true))
   def teamActiveQuery(teamId: TeamId)           = $and(teamQuery(teamId), $doc("declined" $ne true))
   def teamsActiveQuery(teamIds: List[TeamId])   = $and(teamsQuery(teamIds), $doc("declined" $ne true))
 
-  def getByUserId(userId: User.ID) =
+  def getByUserId(userId: UserId) =
     coll.list[Request]($doc("user" -> userId))
 
   def remove(id: Request.ID) = coll.delete.one($id(id))
@@ -39,4 +39,4 @@ final class RequestRepo(val coll: Coll)(using scala.concurrent.ExecutionContext)
 
   def removeByTeam(teamId: TeamId) = coll.delete.one(teamQuery(teamId))
 
-  def removeByUser(userId: User.ID) = coll.delete.one($doc("user" -> userId))
+  def removeByUser(userId: UserId) = coll.delete.one($doc("user" -> userId))

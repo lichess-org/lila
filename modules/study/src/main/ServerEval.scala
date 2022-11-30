@@ -24,7 +24,7 @@ object ServerEval:
 
     private val onceEvery = lila.memo.OnceEvery[StudyChapterId](5 minutes)
 
-    def apply(study: Study, chapter: Chapter, userId: User.ID, unlimited: Boolean = false): Funit =
+    def apply(study: Study, chapter: Chapter, userId: UserId, unlimited: Boolean = false): Funit =
       chapter.serverEval.fold(true) { eval =>
         !eval.done && onceEvery(chapter.id)
       } ?? {
@@ -79,6 +79,7 @@ object ServerEval:
                       chapterRepo.addSubTree(subTree, newParent, path)(chapter)
                     } >> {
                       import BSONHandlers.given
+                      import lila.db.dsl.given
                       import Node.{ BsonFields as F }
                       ((info.eval.score.isDefined && node.score.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) ??
                         chapterRepo

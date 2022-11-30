@@ -47,7 +47,7 @@ final private[tournament] class PairingSystem(
 
   private val maxGroupSize = 100
 
-  private def makePreps(data: Data, users: Set[User.ID]): Fu[List[Pairing.Prep]] = {
+  private def makePreps(data: Data, users: Set[UserId]): Fu[List[Pairing.Prep]] = {
     import data.*
     if (users.sizeIs < 2) fuccess(Nil)
     else
@@ -100,7 +100,7 @@ private object PairingSystem:
   case class Data(
       tour: Tournament,
       lastOpponents: Pairing.LastOpponents,
-      ranking: Map[User.ID, Rank],
+      ranking: Map[UserId, Rank],
       onlyTwoActivePlayers: Boolean
   )
 

@@ -25,7 +25,7 @@ object TournamentCsv:
       toCsv(
         rank.toString,
         user.title.??(_.toString),
-        user.name,
+        user.name.value,
         player.rating.toString,
         player.score.toString,
         player.performanceOption.??(_.toString),

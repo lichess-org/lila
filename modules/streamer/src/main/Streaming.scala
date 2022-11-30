@@ -7,6 +7,7 @@ import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration.*
 import scala.util.chaining.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaScheduler }
 import lila.common.config.Secret
@@ -37,7 +38,7 @@ final private class Streaming(
     for {
       streamerIds <- api.allListedIds
       activeIds = streamerIds.filter { id =>
-        liveStreams.has(id) || isOnline.value(id.value)
+        liveStreams.has(id) || isOnline.value(id.userId)
       }
       streamers <- api byIds activeIds
       (twitchStreams, youTubeStreams) <-
@@ -52,7 +53,7 @@ final private class Streaming(
           }.flatten
         } zip fetchYouTubeStreams(streamers)
       streams = LiveStreams {
-        lila.common.ThreadLocalRandom.shuffle {
+        ThreadLocalRandom.shuffle {
           (twitchStreams ::: youTubeStreams) pipe dedupStreamers
         }
       }
@@ -68,8 +69,8 @@ final private class Streaming(
         liveStreams has s.streamer
       } foreach { s =>
         import s.streamer.userId
-        if (!streamStartMemo.get(UserId(userId)))
-          streamStartMemo.put(UserId(userId))
+        if (!streamStartMemo.get(userId))
+          streamStartMemo.put(userId)
           timeline ! {
             import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
             Propagate(StreamStart(userId, s.streamer.name.value)) toFollowersOf userId

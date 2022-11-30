@@ -35,7 +35,7 @@ final class SwissStandingApi(
     }
 
   def update(res: SwissScoring.Result): Funit =
-    lightUserApi.asyncMany(res.leaderboard.map(_._1.userId)) map {
+    lightUserApi.asyncManyFallback(res.leaderboard.map(_._1.userId)) map {
       _.zip(res.leaderboard).zipWithIndex
         .grouped(perPage)
         .toList
@@ -52,7 +52,7 @@ final class SwissStandingApi(
                     SwissPlayer.View(
                       player = player,
                       rank = r + 1,
-                      user = user | LightUser.fallback(player.userId),
+                      user = user,
                       ~res.pairings.get(player.userId),
                       sheet
                     )
@@ -87,7 +87,7 @@ final class SwissStandingApi(
           .map(SwissPairing.toMap)
       }
       sheets = SwissSheet.many(swiss, rankedPlayers.map(_.player), pairings)
-      users <- lightUserApi asyncMany rankedPlayers.map(_.player.userId)
+      users <- lightUserApi asyncManyFallback rankedPlayers.map(_.player.userId)
     } yield Json.obj(
       "page" -> page,
       "players" -> rankedPlayers
@@ -96,13 +96,7 @@ final class SwissStandingApi(
         .map { case ((SwissPlayer.WithRank(player, rank), user), sheet) =>
           SwissJson.playerJson(
             swiss,
-            SwissPlayer.View(
-              player,
-              rank,
-              user | LightUser.fallback(player.userId),
-              ~pairings.get(player.userId),
-              sheet
-            )
+            SwissPlayer.View(player, rank, user, ~pairings.get(player.userId), sheet)
           )
         }
     )

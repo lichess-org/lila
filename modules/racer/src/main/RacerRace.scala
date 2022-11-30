@@ -1,6 +1,7 @@
 package lila.racer
 
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.storm.StormPuzzle
 
@@ -55,7 +56,7 @@ object RacerRace:
   object Id extends OpaqueString[Id]
 
   def make(owner: RacerPlayer.Id, puzzles: List[StormPuzzle], countdownSeconds: Int) = RacerRace(
-    _id = Id(lila.common.ThreadLocalRandom nextString 5),
+    _id = Id(ThreadLocalRandom nextString 5),
     owner = owner,
     players = Nil,
     puzzles = puzzles,

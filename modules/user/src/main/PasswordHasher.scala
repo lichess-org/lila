@@ -5,8 +5,8 @@ import java.security.MessageDigest
 import javax.crypto.Cipher
 import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
 import com.roundeights.hasher.Implicits.*
+import ornicar.scalalib.SecureRandom
 
-import lila.common.SecureRandom
 import lila.common.config.Secret
 
 /** Encryption for bcrypt hashes.
@@ -23,7 +23,7 @@ final private class Aes(secret: Secret):
         throw new IllegalStateException(s"$kBits bit AES unavailable")
     new SecretKeySpec(sk, "AES")
 
-  @inline private def run(mode: Int, iv: Aes.InitVector, b: Array[Byte]) =
+  private def run(mode: Int, iv: Aes.InitVector, b: Array[Byte]) =
     val c = Cipher.getInstance("AES/CTS/NoPadding")
     c.init(mode, sKey, iv)
     c.doFinal(b)
@@ -75,7 +75,7 @@ object PasswordHasher:
     key = "password.hashes.ip"
   )
 
-  private lazy val rateLimitPerUser = new RateLimit[String](
+  private lazy val rateLimitPerUser = new RateLimit[UserId](
     credits = 10,
     duration = 10 minutes,
     key = "password.hashes.user"
@@ -89,11 +89,11 @@ object PasswordHasher:
 
   def rateLimit[A](
       enforce: lila.common.config.RateLimit
-  )(username: String, req: RequestHeader)(run: RateLimit.Charge => Fu[A])(default: => Fu[A]): Fu[A] =
+  )(id: UserId, req: RequestHeader)(run: RateLimit.Charge => Fu[A])(default: => Fu[A]): Fu[A] =
     if (enforce.value)
       val cost = 1
       val ip   = HTTPRequest ipAddress req
-      rateLimitPerUser(User normalize username, cost = cost) {
+      rateLimitPerUser(id, cost = cost) {
         rateLimitPerIP.chargeable(ip, cost = cost) { charge =>
           rateLimitGlobal("-", cost = cost, msg = ip.value) {
             run(charge)

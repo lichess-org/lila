@@ -21,7 +21,7 @@ object BsonHandlers:
       SwissPlayer(
         id = r.get[SwissPlayer.Id](id),
         swissId = r.get[SwissId](swissId),
-        userId = r str userId,
+        userId = r.get[UserId](userId),
         rating = r.get[IntRating](rating),
         provisional = r boolD provisional,
         points = r.get[SwissPoints](points),
@@ -61,7 +61,7 @@ object BsonHandlers:
   given BSON[SwissPairing] with
     import SwissPairing.Fields.*
     def reads(r: BSON.Reader) =
-      r.get[List[User.ID]](players) match
+      r.get[List[UserId]](players) match
         case List(w, b) =>
           SwissPairing(
             id = r.get[GameId](id),

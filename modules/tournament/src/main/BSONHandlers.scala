@@ -69,7 +69,7 @@ object BSONHandlers:
       val startsAt   = r date "startsAt"
       val conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty
       Tournament(
-        id = r str "_id",
+        id = r.get[TourId]("_id"),
         name = r str "name",
         status = r.get[Status]("status"),
         clock = r.get[chess.Clock.Config]("clock"),
@@ -89,10 +89,10 @@ object BSONHandlers:
         } yield Schedule(freq, speed, variant, position, startsAt, conditions),
         nbPlayers = r int "nbPlayers",
         createdAt = r date "createdAt",
-        createdBy = r strO "createdBy" getOrElse lichessId,
+        createdBy = r.getO[UserId]("createdBy") | lichessId,
         startsAt = startsAt,
-        winnerId = r strO "winner",
-        featuredId = r strO "featured",
+        winnerId = r.getO[UserId]("winner"),
+        featuredId = r.getO[GameId]("featured"),
         spotlight = r.getO[Spotlight]("spotlight"),
         description = r strO "description",
         hasChat = r boolO "chat" getOrElse true
@@ -105,7 +105,7 @@ object BSONHandlers:
         "clock"       -> o.clock,
         "minutes"     -> o.minutes,
         "variant"     -> o.variant.some.filterNot(_.standard).map(_.id),
-        "fen"         -> o.position.map(_.value),
+        "fen"         -> o.position,
         "mode"        -> o.mode.some.filterNot(_.rated).map(_.id),
         "password"    -> o.password,
         "conditions"  -> o.conditions.ifNonEmpty,
@@ -128,8 +128,8 @@ object BSONHandlers:
     def reads(r: BSON.Reader) =
       Player(
         _id = r.get[TourPlayerId]("_id"),
-        tourId = r str "tid",
-        userId = r str "uid",
+        tourId = r.get[TourId]("tid"),
+        userId = r.get[UserId]("uid"),
         rating = r.get[IntRating]("r"),
         provisional = r boolD "pr",
         withdraw = r boolD "w",
@@ -156,11 +156,11 @@ object BSONHandlers:
   given pairingHandler: BSON[Pairing] with
     def reads(r: BSON.Reader) =
       val users = r strsD "u"
-      val user1 = users.headOption err "tournament pairing first user"
-      val user2 = users lift 1 err "tournament pairing second user"
+      val user1 = UserId(users.headOption err "tournament pairing first user")
+      val user2 = UserId(users lift 1 err "tournament pairing second user")
       Pairing(
         id = r.get[GameId]("_id"),
-        tourId = r str "tid",
+        tourId = r.get[TourId]("tid"),
         status = chess.Status(r int "s") err "tournament pairing status",
         user1 = user1,
         user2 = user2,
@@ -188,8 +188,8 @@ object BSONHandlers:
     def reads(r: BSON.Reader) =
       LeaderboardApi.Entry(
         id = r.get[TourPlayerId]("_id"),
-        userId = r str "u",
-        tourId = r str "t",
+        userId = r.get[UserId]("u"),
+        tourId = r.get[TourId]("t"),
         nbGames = r int "g",
         score = r int "s",
         rank = r.get[Rank]("r"),

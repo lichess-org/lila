@@ -7,6 +7,7 @@ import scala.concurrent.duration.*
 import lila.common.Bus
 import lila.common.config.NetDomain
 import lila.common.String.{ fullCleanUp, noShouting }
+import lila.security.Flood
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
 import lila.memo.CacheApi.*
@@ -57,7 +58,7 @@ final class ChatApi(
       findOption(chatId) dmap (_ | Chat.makeUser(chatId))
 
     def findAll(chatIds: List[ChatId]): Fu[List[UserChat]] =
-      coll.byStringIds[UserChat](chatIds.map(_.value), ReadPreference.secondaryPreferred)
+      coll.byStringIds[UserChat](ChatId raw chatIds, ReadPreference.secondaryPreferred)
 
     def findMine(chatId: ChatId, me: Option[User]): Fu[UserChat.Mine] = findMineIf(chatId, me, cond = true)
 
@@ -77,7 +78,7 @@ final class ChatApi(
 
     def write(
         chatId: ChatId,
-        userId: User.ID,
+        userId: UserId,
         text: String,
         publicSource: Option[PublicSource],
         busChan: BusChan.Select,
@@ -116,7 +117,7 @@ final class ChatApi(
     def clear(chatId: ChatId) = coll.delete.one($id(chatId)).void
 
     def system(chatId: ChatId, text: String, busChan: BusChan.Select): Funit =
-      val line = UserLine(systemUserId, None, false, text, troll = false, deleted = false)
+      val line = UserLine(User.lichessName, None, false, text, troll = false, deleted = false)
       persistLine(chatId, line) >>- {
         cached.invalidate(chatId)
         publish(chatId, actorApi.ChatLine(chatId, line), busChan)
@@ -124,7 +125,7 @@ final class ChatApi(
 
     // like system, but not persisted.
     def volatile(chatId: ChatId, text: String, busChan: BusChan.Select): Unit =
-      val line = UserLine(systemUserId, None, false, text, troll = false, deleted = false)
+      val line = UserLine(User.lichessName, None, false, text, troll = false, deleted = false)
       publish(chatId, actorApi.ChatLine(chatId, line), busChan)
 
     def service(chatId: ChatId, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
@@ -132,8 +133,8 @@ final class ChatApi(
 
     def timeout(
         chatId: ChatId,
-        modId: User.ID,
-        userId: User.ID,
+        modId: UserId,
+        userId: UserId,
         reason: ChatTimeout.Reason,
         scope: ChatTimeout.Scope,
         text: String,
@@ -153,7 +154,7 @@ final class ChatApi(
         timeout(
           chatId = data.roomId into ChatId,
           modId = me.id,
-          userId = data.userId,
+          userId = data.userId.id,
           reason = reason,
           scope = ChatTimeout.Scope.Global,
           text = data.text,
@@ -165,8 +166,8 @@ final class ChatApi(
         )
       }
 
-    def userModInfo(username: String): Fu[Option[UserModInfo]] =
-      userRepo named username flatMap {
+    def userModInfo(username: UserStr): Fu[Option[UserModInfo]] =
+      userRepo byId username flatMap {
         _ ?? { user =>
           chatTimeout.history(user, 20) dmap { UserModInfo(user, _).some }
         }
@@ -186,7 +187,7 @@ final class ChatApi(
           case ChatTimeout.Scope.Global => s"${user.username} was timed out 15 minutes for ${reason.name}."
           case _ => s"${user.username} was timed out 15 minutes by a page mod (not a Lichess mod)"
         val line = (isNew && c.hasRecentLine(user)) option UserLine(
-          username = systemUserId,
+          username = User.lichessName,
           title = None,
           patron = user.isPatron,
           text = lineText,
@@ -233,16 +234,16 @@ final class ChatApi(
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
       list.foreach { r =>
-        Bus.publish(actorApi.OnReinstate(ChatId(r.chat), r.user), BusChan.Global.chan)
+        Bus.publish(actorApi.OnReinstate(r.chat, r.user), BusChan.Global.chan)
       }
 
-    private[ChatApi] def makeLine(chatId: ChatId, userId: String, t1: String): Fu[Option[UserLine]] =
+    private[ChatApi] def makeLine(chatId: ChatId, userId: UserId, t1: String): Fu[Option[UserLine]] =
       userRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if user.enabled =>
           Writer.preprocessUserInput(t1, user.username.some) flatMap { t2 =>
             val allow =
               if (user.isBot) !lila.common.String.hasLinks(t2)
-              else flood.allowMessage(userId, t2)
+              else flood.allowMessage(userId into Flood.Source, t2)
             allow option {
               UserLine(
                 user.username,
@@ -285,7 +286,7 @@ final class ChatApi(
 
     private def makeLine(chatId: ChatId, color: Color, t1: String): Option[Line] =
       Writer.preprocessUserInput(t1, none) flatMap { t2 =>
-        flood.allowMessage(s"$chatId/${color.letter}", t2) option
+        flood.allowMessage(Flood Source s"$chatId/${color.letter}", t2) option
           PlayerLine(color, t2)
       }
 
@@ -317,16 +318,16 @@ final class ChatApi(
 
     import java.util.regex.{ Matcher, Pattern }
 
-    def preprocessUserInput(in: String, username: Option[User.ID]): Option[String] =
+    def preprocessUserInput(in: String, username: Option[UserName]): Option[String] =
       val out1 = multiline(
         spam.replace(noShouting(noPrivateUrl(fullCleanUp(in))))
       )
       val out2 = username.fold(out1) { removeSelfMention(out1, _) }
       out2.take(Line.textMaxSize).some.filter(_.nonEmpty)
 
-    private def removeSelfMention(in: String, username: User.ID) =
+    private def removeSelfMention(in: String, username: UserName) =
       if (in.contains('@'))
-        ("""(?i)@(?<![\w@#/]@)""" + username + """(?![@\w-]|\.\w)""").r.replaceAllIn(in, username)
+        ("""(?i)@(?<![\w@#/]@)""" + username + """(?![@\w-]|\.\w)""").r.replaceAllIn(in, username.value)
       else in
 
     private val gameUrlRegex   = (Pattern.quote(netDomain.value) + """\b/(\w{8})\w{4}\b""").r

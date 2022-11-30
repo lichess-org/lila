@@ -8,7 +8,6 @@ import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
 import lila.hub.actorApi.report.AutoFlag
 import lila.hub.actorApi.team.IsLeaderOf
-import lila.hub.actorApi.user.{ KidId, NonKidId }
 import lila.memo.RateLimit
 import lila.security.Granter
 import lila.shutup.Analyser
@@ -41,13 +40,13 @@ final private class MsgSecurity(
       else if (u isHoursOld 12) normal * 2
       else normal * 4
 
-  private val CreateLimitPerUser = new RateLimit[User.ID](
+  private val CreateLimitPerUser = new RateLimit[UserId](
     credits = 20 * limitCost.normal,
     duration = 24 hour,
     key = "msg_create.user"
   )
 
-  private val ReplyLimitPerUser = new RateLimit[User.ID](
+  private val ReplyLimitPerUser = new RateLimit[UserId](
     credits = 20 * limitCost.normal,
     duration = 1 minute,
     key = "msg_reply.user"
@@ -127,7 +126,7 @@ final private class MsgSecurity(
 
   object may:
 
-    def post(orig: User.ID, dest: User.ID, isNew: Boolean): Fu[Boolean] =
+    def post(orig: UserId, dest: UserId, isNew: Boolean): Fu[Boolean] =
       userRepo.contacts(orig, dest) flatMap {
         _ ?? { post(_, isNew) }
       }
@@ -160,18 +159,19 @@ final private class MsgSecurity(
       )
 
     private def kidCheck(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
-      if (!isNew || !contacts.hasKid) fuTrue
+      import contacts.*
+      if (!isNew || !hasKid) fuTrue
       else
-        (contacts.orig.clasId, contacts.dest.clasId) match
-          case (a: KidId, b: KidId)    => Bus.ask[Boolean]("clas") { AreKidsInSameClass(a, b, _) }
-          case (t: NonKidId, s: KidId) => isTeacherOf(t.id, s.id)
-          case (s: KidId, t: NonKidId) => isTeacherOf(t.id, s.id)
-          case _                       => fuFalse
+        (orig.isKid, dest.isKid) match
+          case (true, true)  => Bus.ask[Boolean]("clas") { AreKidsInSameClass(orig.id, dest.id, _) }
+          case (false, true) => isTeacherOf(orig.id, dest.id)
+          case (true, false) => isTeacherOf(dest.id, orig.id)
+          case _             => fuFalse
 
   private def isTeacherOf(contacts: User.Contacts): Fu[Boolean] =
     isTeacherOf(contacts.orig.id, contacts.dest.id)
 
-  private def isTeacherOf(teacher: User.ID, student: User.ID): Fu[Boolean] =
+  private def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
     Bus.ask[Boolean]("clas") { IsTeacherOf(teacher, student, _) }
 
   private def isLeaderOf(contacts: User.Contacts) =

@@ -218,13 +218,12 @@ object replay:
             )
           )
         ),
-        if (ctx.blind)
-          div(cls := "blind-content none")(
-            h2("PGN downloads"),
-            pgnLinks,
-            button(cls := "copy-pgn", attr("data-pgn") := pgn)(
-              "Copy PGN to clipboard"
-            )
+        ctx.blind option div(cls := "blind-content none")(
+          h2("PGN downloads"),
+          pgnLinks,
+          button(cls := "copy-pgn", attr("data-pgn") := pgn)(
+            "Copy PGN to clipboard"
           )
+        )
       )
     )

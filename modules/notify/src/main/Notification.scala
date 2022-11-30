@@ -4,6 +4,7 @@ import lila.common.paginator.Paginator
 import lila.notify.MentionedInThread.PostId
 import org.joda.time.DateTime
 import reactivemongo.api.bson.Macros.Annotations.Key
+import ornicar.scalalib.ThreadLocalRandom
 
 case class NewNotification(notification: Notification, unreadNotifications: Notification.UnreadCount)
 
@@ -32,14 +33,14 @@ object Notification:
   case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
 
   opaque type Notifies = String // the user being notified
-  object Notifies extends OpaqueString[Notifies]
+  object Notifies extends OpaqueUserId[Notifies]
 
   opaque type NotificationRead = Boolean
   object NotificationRead extends YesNo[NotificationRead]
 
   def make(notifies: UserId, content: NotificationContent): Notification =
     val idSize = 8
-    val id     = lila.common.ThreadLocalRandom nextString idSize
+    val id     = ThreadLocalRandom nextString idSize
     Notification(Id(id), notifies into Notifies, content, NotificationRead(false), DateTime.now)
 
 sealed abstract class NotificationContent(val key: String)
@@ -92,8 +93,8 @@ case class RatingRefund(perf: String, points: Int) extends NotificationContent("
 
 case object CoachReview extends NotificationContent("coachReview")
 
-case class PlanStart(userId: String)  extends NotificationContent("planStart")  // BC
-case class PlanExpire(userId: String) extends NotificationContent("planExpire") // BC
+case class PlanStart(userId: UserId)  extends NotificationContent("planStart")  // BC
+case class PlanExpire(userId: UserId) extends NotificationContent("planExpire") // BC
 
 case class CorresAlarm(
     gameId: GameId,
@@ -101,11 +102,11 @@ case class CorresAlarm(
 ) extends NotificationContent("corresAlarm")
 
 case class IrwinDone(
-    userId: lila.user.User.ID
+    userId: UserId
 ) extends NotificationContent("irwinDone")
 
 case class KaladinDone(
-    userId: lila.user.User.ID
+    userId: UserId
 ) extends NotificationContent("kaladinDone")
 
 case class GenericLink(

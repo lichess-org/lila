@@ -41,7 +41,7 @@ object form:
           form3.group(form("username"), trans.user(), klass = "field_to complete-parent") { f =>
             reqUser
               .map { user =>
-                frag(userLink(user), form3.hidden(f, user.id.some))
+                frag(userLink(user), form3.hidden(f, user.id.value.some))
               }
               .getOrElse {
                 div(form3.input(f, klass = "user-autocomplete")(dataTag := "span", autofocus))

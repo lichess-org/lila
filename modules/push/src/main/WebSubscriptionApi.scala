@@ -10,7 +10,7 @@ import reactivemongo.api.ReadPreference
 
 final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
-  private[push] def getSubscriptions(max: Int)(userId: User.ID): Fu[List[WebSubscription]] =
+  private[push] def getSubscriptions(max: Int)(userId: UserId): Fu[List[WebSubscription]] =
     coll
       .find($doc("userId" -> userId), $doc("endpoint" -> true, "auth" -> true, "p256dh" -> true).some)
       .sort($doc("seenAt" -> -1))

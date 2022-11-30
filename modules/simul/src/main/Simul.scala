@@ -1,5 +1,6 @@
 package lila.simul
 
+import ornicar.scalalib.ThreadLocalRandom
 import chess.Color
 import chess.format.FEN
 import chess.variant.Variant
@@ -20,7 +21,7 @@ case class Simul(
     position: Option[FEN],
     createdAt: DateTime,
     estimatedStartAt: Option[DateTime] = None,
-    hostId: User.ID,
+    hostId: UserId,
     hostRating: IntRating,
     hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[DateTime],
@@ -43,11 +44,11 @@ case class Simul(
 
   def isRunning = status == SimulStatus.Started
 
-  def hasApplicant(userId: User.ID) = applicants.exists(_ is userId)
+  def hasApplicant(userId: UserId) = applicants.exists(_ is userId)
 
-  def hasPairing(userId: User.ID) = pairings.exists(_ is userId)
+  def hasPairing(userId: UserId) = pairings.exists(_ is userId)
 
-  def hasUser(userId: User.ID) = hasApplicant(userId) || hasPairing(userId)
+  def hasUser(userId: UserId) = hasApplicant(userId) || hasPairing(userId)
 
   def addApplicant(applicant: SimulApplicant) =
     Created {
@@ -56,12 +57,12 @@ case class Simul(
       else this
     }
 
-  def removeApplicant(userId: User.ID) =
+  def removeApplicant(userId: UserId) =
     Created {
       copy(applicants = applicants.filterNot(_ is userId))
     }
 
-  def accept(userId: User.ID, v: Boolean) =
+  def accept(userId: UserId, v: Boolean) =
     Created {
       copy(applicants = applicants map {
         case a if a is userId => a.copy(accepted = v)
@@ -69,7 +70,7 @@ case class Simul(
       })
     }
 
-  def removePairing(userId: User.ID) =
+  def removePairing(userId: UserId) =
     copy(pairings = pairings.filterNot(_ is userId)).finishIfDone
 
   def nbAccepted = applicants.count(_.accepted)
@@ -95,7 +96,7 @@ case class Simul(
       }
     ).finishIfDone
 
-  def ejectCheater(userId: User.ID): Option[Simul] =
+  def ejectCheater(userId: UserId): Option[Simul] =
     hasUser(userId) option removeApplicant(userId).removePairing(userId)
 
   private def finishIfDone =
@@ -139,7 +140,7 @@ case class Simul(
   def losses  = pairings.count(p => p.finished && p.wins.has(true))
   def ongoing = pairings.count(_.ongoing)
 
-  def pairingOf(userId: User.ID) = pairings.find(_ is userId)
+  def pairingOf(userId: UserId) = pairings.find(_ is userId)
 
 object Simul:
 
@@ -157,7 +158,7 @@ object Simul:
       team: Option[TeamId],
       featurable: Option[Boolean]
   ): Simul = Simul(
-    _id = SimulId(lila.common.ThreadLocalRandom nextString 8),
+    _id = SimulId(ThreadLocalRandom nextString 8),
     name = name,
     status = SimulStatus.Created,
     clock = clock,

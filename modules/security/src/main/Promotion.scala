@@ -26,10 +26,10 @@ final class PromotionApi(domain: NetDomain):
 
   private type Id = String
 
-  private val cache: Cache[User.ID, Set[Id]] =
+  private val cache: Cache[UserId, Set[Id]] =
     lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(24 hours)
-      .build[User.ID, Set[Id]]()
+      .build[UserId, Set[Id]]()
 
   private lazy val regexes = List(
     s"$domain/team/([\\w-]+)",

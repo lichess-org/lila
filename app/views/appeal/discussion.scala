@@ -142,7 +142,7 @@ object discussion:
     else if (suspect.marks.rankban || query.contains("rankban")) tree.excludedFromLeaderboards
     else tree.cleanAllGood
 
-  private def renderUser(appeal: Appeal, userId: User.ID, asMod: Boolean)(implicit ctx: Context) =
+  private def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(implicit ctx: Context) =
     if (appeal isAbout userId) userIdLink(userId.some, params = asMod ?? "?mod")
     else
       span(

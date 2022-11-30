@@ -108,9 +108,9 @@ final class GifExport(
     // goal for bullet: close to real-time
     // goal for classical: speed up to reach target median, avoid extremely
     // fast moves, unless they were actually played instantly
-    Maths.median(moveTimes.map(_.centis)).map(Centis.apply).filter(_ >= targetMedianTime) match
+    Maths.median(moveTimes.map(_.centis)).map(Centis.ofDouble(_)).filter(_ >= targetMedianTime) match
       case Some(median) =>
-        val scale = targetMedianTime.centis.toDouble / median.centis.atLeast(1).toDouble
+        val scale = targetMedianTime.centis.toFloat / median.centis.atLeast(1).toFloat
         moveTimes.map { t =>
           if (t * 2 < median) t atMost (targetMedianTime *~ 0.5)
           else t *~ scale atLeast (targetMedianTime *~ 0.5) atMost targetMaxTime

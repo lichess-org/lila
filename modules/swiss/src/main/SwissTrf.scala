@@ -49,11 +49,11 @@ final class SwissTrf(
       playerIds: PlayerIds
   )(p: SwissPlayer, pairings: Map[SwissRoundNumber, SwissPairing], sheet: SwissSheet): Bits =
     List(
-      3                    -> "001",
-      8                    -> playerIds.getOrElse(p.userId, 0).toString,
-      (15 + p.userId.size) -> p.userId,
-      52                   -> p.rating.toString,
-      84                   -> f"${sheet.points.value}%1.1f"
+      3                          -> "001",
+      8                          -> playerIds.getOrElse(p.userId, 0).toString,
+      (15 + p.userId.value.size) -> p.userId.value,
+      52                         -> p.rating.toString,
+      84                         -> f"${sheet.points.value}%1.1f"
     ) ::: {
       swiss.allRounds.zip(sheet.outcomes).flatMap { case (rn, outcome) =>
         val pairing = pairings get rn
@@ -61,7 +61,7 @@ final class SwissTrf(
           95 -> pairing.map(_ opponentOf p.userId).flatMap(playerIds.get).??(_.toString),
           97 -> pairing.map(_ colorOf p.userId).??(_.fold("w", "b")),
           99 -> {
-            import SwissSheet.*
+            import SwissSheet.Outcome.*
             outcome match {
               case Absent      => "-"
               case Late        => "H"
@@ -106,7 +106,7 @@ final class SwissTrf(
             )
           }
           .map {
-            ~_.flatMap(_.getAsOpt[List[User.ID]]("us"))
+            ~_.flatMap(_.getAsOpt[List[UserId]]("us"))
           }
           .map {
             _.view.zipWithIndex
@@ -125,8 +125,8 @@ final class SwissTrf(
           _.trim.toLowerCase.split(' ').map(_.trim) match
             case Array(u1, u2) if u1 != u2 =>
               for {
-                id1 <- playerIds.get(u1)
-                id2 <- playerIds.get(u2)
+                id1 <- playerIds.get(UserId(u1))
+                id2 <- playerIds.get(UserId(u2))
               } yield s"XXP $id1 $id2"
             case _ => none
         }

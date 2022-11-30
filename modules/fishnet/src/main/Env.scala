@@ -117,19 +117,18 @@ final class Env(
     name = config.actorName
   )
 
-  private def disable(username: String) =
-    repo toKey username flatMap { repo.enableClient(_, v = false) }
+  private def disable(keyOrUser: String) =
+    repo toKey keyOrUser flatMap { repo.enableClient(_, v = false) }
 
   def cli = new lila.common.Cli:
     def process =
       case "fishnet" :: "client" :: "create" :: name :: Nil =>
-        val userId = lila.user.User normalize name
-        userRepo.enabledById(userId).map(_.exists(_.marks.clean)) flatMap {
+        userRepo.enabledById(UserStr(name)).map(_.exists(_.marks.clean)) flatMap {
           case false => fuccess("User missing, closed, or banned")
           case true =>
-            api.createClient(UserId(userId)) map { client =>
-              Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), "fishnet")
-              s"Created key: ${client.key.value} for: $userId"
+            api.createClient(UserStr(name).id) map { client =>
+              Bus.publish(lila.hub.actorApi.fishnet.NewKey(client.userId, client.key.value), "fishnet")
+              s"Created key: ${client.key.value} for: $name"
             }
         }
       case "fishnet" :: "client" :: "delete" :: key :: Nil =>
@@ -139,7 +138,7 @@ final class Env(
       case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key) inject "done!"
 
   Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban") {
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId).unit
-    case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId).unit
-    case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId).unit
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId.value).unit
+    case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId.value).unit
+    case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId.value).unit
   }

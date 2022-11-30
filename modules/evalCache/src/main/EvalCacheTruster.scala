@@ -11,7 +11,7 @@ final private class EvalCacheTruster(
     userRepo: UserRepo
 )(using ec: scala.concurrent.ExecutionContext):
 
-  import EvalCacheEntry.{ Trust, TrustedUser }
+  import EvalCacheEntry.TrustedUser
 
   private val LOWER  = Trust(-9999)
   private val HIGHER = Trust(9999)
@@ -27,14 +27,14 @@ final private class EvalCacheTruster(
           nbGamesBonus(user)
       }
 
-  private val userIdCache = cacheApi[User.ID, Option[TrustedUser]](256, "evalCache.userIdTrustCache") {
+  private val userIdCache = cacheApi[UserId, Option[TrustedUser]](256, "evalCache.userIdTrustCache") {
     _.expireAfterWrite(10 minutes)
       .buildAsyncFuture { userId =>
-        userRepo named userId map2 makeTrusted
+        userRepo byId userId map2 makeTrusted
       }
   }
 
-  def cachedTrusted(userId: User.ID): Fu[Option[TrustedUser]] = userIdCache get userId
+  def cachedTrusted(userId: UserId): Fu[Option[TrustedUser]] = userIdCache get userId
 
   def makeTrusted(user: User) = TrustedUser(apply(user), user)
 

@@ -4,11 +4,10 @@ import akka.pattern.ask
 import org.joda.time.DateTime
 import Puzzle.{ BSONFields as F }
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom.odds
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.common.ThreadLocalRandom.odds
-import lila.common.Random
 
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,

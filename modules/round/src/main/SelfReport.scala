@@ -3,12 +3,12 @@ package lila.round
 import com.softwaremill.tagging.*
 import scala.concurrent.duration.*
 import scala.util.matching.Regex
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ IpAddress, Strings }
 import lila.game.Game
 import lila.memo.SettingStore
 import lila.user.{ User, UserRepo }
-import lila.common.ThreadLocalRandom
 
 final class SelfReport(
     tellRound: TellRound,
@@ -23,12 +23,12 @@ final class SelfReport(
   private val onceEvery = lila.memo.OnceEvery[UserId](1 hour)
 
   def apply(
-      userId: Option[User.ID],
+      userId: Option[UserId],
       ip: IpAddress,
       fullId: GameFullId,
       name: String
   ): Funit =
-    userId ?? userRepo.named map { user =>
+    userId ?? userRepo.byId map { user =>
       val known = user.exists(_.marks.engine)
       // user.ifTrue(!known && name != "ceval") ?? { u =>
       //   Env.report.api.autoBotReport(u.id, referer, name)
@@ -38,7 +38,7 @@ final class SelfReport(
           lila.log("cheat").branch("jslog").info {
             s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
           }
-          user.filter(u => onceEvery(UserId(u.id))) foreach { u =>
+          user.filter(u => onceEvery(u.id)) foreach { u =>
             lila.mon.cheat.selfReport(name, userId.isDefined).increment()
             ircApi.selfReport(
               typ = name,

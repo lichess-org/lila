@@ -67,7 +67,10 @@ object Json:
     Writes[O](o => JsString(to(o)))
   )
 
-  given Reads[chess.Centis] = Reads.of[Int] map chess.Centis.apply
+  given userStrReads: Reads[UserStr] = Reads.of[String] flatMapResult { str =>
+    JsResult.fromTry(UserStr.read(str) toTry s"Invalid username: $str")
+  }
+  given userIdReads: Reads[UserId] = Reads.of[String] map { UserId(_) }
 
   given Writes[DateTime] = Writes[DateTime] { time =>
     JsNumber(time.getMillis)
@@ -76,9 +79,6 @@ object Json:
   given Writes[chess.Color] = Writes { c =>
     JsString(c.name)
   }
-
-  given Format[FEN]      = stringIsoFormat[FEN]
-  given Format[Markdown] = stringIsoFormat[Markdown]
 
   given Reads[Uci] = Reads.of[String] flatMapResult { str =>
     JsResult.fromTry(Uci(str) toTry s"Invalid UCI: $str")

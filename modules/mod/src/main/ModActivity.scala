@@ -56,7 +56,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
               "open" -> false,
               who match {
                 case Who.Me(userId) => "done.by" -> userId
-                case Who.Team       => "done.by" $nin List(User.lichessId, "irwin")
+                case Who.Team       => "done.by" $nin List(User.lichessId, User.irwinId)
               },
               "done.at" $gt Period.dateSince(period)
             )
@@ -131,12 +131,10 @@ object ModActivity:
 
   val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd"
 
-  sealed trait Period:
+  enum Period:
     def key = toString.toLowerCase
+    case Week, Month, Year
   object Period:
-    case object Week  extends Period
-    case object Month extends Period
-    case object Year  extends Period
     val all = List(Period.Week, Period.Month, Period.Year)
     def apply(str: String): Period =
       if (str == "year") Year
@@ -149,24 +147,24 @@ object ModActivity:
 
   sealed abstract class Who(val key: String)
   object Who:
-    case class Me(userId: User.ID) extends Who("me")
-    case object Team               extends Who("team")
+    case class Me(userId: UserId) extends Who("me")
+    case object Team              extends Who("team")
     def apply(who: String, me: User) =
       if (who == "me") Me(me.id) else Team
 
-  sealed trait Action
+  enum Action:
+    case Message
+    case MarkCheat
+    case MarkTroll
+    case MarkBoost
+    case CloseAccount
+    case ChatTimeout
+    case Appeal
+    case SetEmail
+    case Streamer
+    case Blog
+    case ForumAdmin
   object Action:
-    case object Message      extends Action
-    case object MarkCheat    extends Action
-    case object MarkTroll    extends Action
-    case object MarkBoost    extends Action
-    case object CloseAccount extends Action
-    case object ChatTimeout  extends Action
-    case object Appeal       extends Action
-    case object SetEmail     extends Action
-    case object Streamer     extends Action
-    case object Blog         extends Action
-    case object ForumAdmin   extends Action
     val dbMap = Map(
       "modMessage"      -> Message,
       "engine"          -> MarkCheat,

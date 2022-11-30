@@ -12,9 +12,6 @@ private object BSONHandlers:
 
   import EvalCacheEntry.*
 
-  private given BSONHandler[Trust]  = doubleAnyValHandler[Trust](_.value, Trust.apply)
-  private given BSONHandler[Knodes] = intAnyValHandler[Knodes](_.value, Knodes.apply)
-
   given BSONHandler[NonEmptyList[Pv]] = new BSONHandler[NonEmptyList[Pv]]:
     private def scoreWrite(s: Score): String = s.value.fold(_.value.toString, m => s"#${m.value}")
     private def scoreRead(str: String): Option[Score] =
@@ -25,9 +22,10 @@ private object BSONHandlers:
         str.toIntOption map { c =>
           Score cp Cp(c)
         }
-    private def movesWrite(moves: Moves): String = Uci writeListPiotr moves.value.toList
-    private def movesRead(str: String): Option[Moves] =
-      Uci readListPiotr str flatMap (_.toNel) map Moves.apply
+    private def movesWrite(moves: Moves): String = Uci writeListChars moves.value.toList
+    private def movesRead(str: String): Option[Moves] = Moves from {
+      Uci readListChars str flatMap (_.toNel)
+    }
     private val scoreSeparator = ':'
     private val pvSeparator    = '/'
     private val pvSeparatorStr = pvSeparator.toString
@@ -58,12 +56,12 @@ private object BSONHandlers:
   given BSONHandler[Id] = tryHandler[Id](
     { case BSONString(value) =>
       value split ':' match {
-        case Array(fen) => Success(Id(chess.variant.Standard, SmallFen raw fen))
+        case Array(fen) => Success(Id(chess.variant.Standard, SmallFen(fen)))
         case Array(variantId, fen) =>
           Success(
             Id(
               variantId.toIntOption flatMap chess.variant.Variant.apply err s"Invalid evalcache variant $variantId",
-              SmallFen raw fen
+              SmallFen(fen)
             )
           )
         case _ => lila.db.BSON.handlerBadValue(s"Invalid evalcache id $value")

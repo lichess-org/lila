@@ -1,8 +1,8 @@
 package lila.game
 
 import chess.Color
+import ornicar.scalalib.{ ThreadLocalRandom, SecureRandom }
 
-import lila.common.{ SecureRandom, ThreadLocalRandom }
 import lila.db.dsl.{ *, given }
 
 final class IdGenerator(gameRepo: GameRepo)(using ec: scala.concurrent.ExecutionContext):

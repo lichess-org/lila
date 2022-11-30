@@ -44,4 +44,5 @@ object model:
           )
         case (score, _) => score
       }
-  given Zero[Score] = Zero(Score(0, 0, 0, none))
+    val empty         = Score(0, 0, 0, none)
+    given Zero[Score] = Zero(empty)

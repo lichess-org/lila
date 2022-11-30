@@ -9,10 +9,10 @@ import scala.concurrent.ExecutionContext
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 
-case class UblogTopic(value: String) extends StringValue:
-  val url = value.replace(" ", "_")
+opaque type UblogTopic = String
+object UblogTopic extends OpaqueString[UblogTopic]:
+  extension (a: UblogTopic) def url = a.replace(" ", "_")
 
-object UblogTopic:
   val chess = List(
     "Chess",
     "Analysis",

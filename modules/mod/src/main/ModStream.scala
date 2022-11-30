@@ -4,6 +4,7 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.{ Bus, HTTPRequest }
+import lila.common.Json.given
 import lila.security.UserSignup
 
 final class ModStream:
@@ -21,7 +22,7 @@ final class ModStream:
           "ip"          -> HTTPRequest.ipAddress(req).value,
           "suspIp"      -> suspIp,
           "userAgent"   -> HTTPRequest.userAgent(req),
-          "fingerPrint" -> fp.map(_.value)
+          "fingerPrint" -> fp
         )
       }
       .map { js =>

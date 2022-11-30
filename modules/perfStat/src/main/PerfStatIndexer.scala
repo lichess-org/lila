@@ -51,7 +51,7 @@ final class PerfStatIndexer(
       .sequenceFu
       .void
 
-  private def addPov(pov: Pov, userId: String): Funit =
+  private def addPov(pov: Pov, userId: UserId): Funit =
     pov.game.perfType ?? { perfType =>
       storage.find(userId, perfType) flatMap {
         _ ?? { perfStat =>

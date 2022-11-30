@@ -18,7 +18,7 @@ final class TournamentShieldApi(
 
   def active(u: User): Fu[List[Award]] =
     cache.getUnit dmap {
-      _.value.values.flatMap(_.headOption.filter(_.owner.value == u.id)).toList
+      _.value.values.flatMap(_.headOption.filter(_.owner == u.id)).toList
     }
 
   def history(maxPerCateg: Option[Int]): Fu[History] =
@@ -35,7 +35,7 @@ final class TournamentShieldApi(
       }
     }
 
-  def currentOwner(tour: Tournament): Fu[Option[OwnerId]] =
+  def currentOwner(tour: Tournament): Fu[Option[UserId]] =
     tour.isShield ?? {
       Category.of(tour) ?? { cat =>
         history(none).map(_.current(cat).map(_.owner))
@@ -44,9 +44,9 @@ final class TournamentShieldApi(
 
   private[tournament] def clear(): Unit = cache.invalidateUnit().unit
 
-  private[tournament] def clearAfterMarking(userId: User.ID): Funit = cache.getUnit map { hist =>
+  private[tournament] def clearAfterMarking(userId: UserId): Funit = cache.getUnit map { hist =>
     import cats.implicits.*
-    if (hist.value.exists(_._2.exists(_.owner.value === userId))) clear()
+    if (hist.value.exists(_._2.exists(_.owner == userId))) clear()
   }
 
   private val cache = cacheApi.unit[History] {
@@ -68,7 +68,7 @@ final class TournamentShieldApi(
             winner <- tour.winnerId
           } yield Award(
             categ = categ,
-            owner = OwnerId(winner),
+            owner = winner,
             date = tour.finishesAt,
             tourId = tour.id
           )
@@ -82,13 +82,11 @@ final class TournamentShieldApi(
 
 object TournamentShield:
 
-  case class OwnerId(value: String) extends AnyVal
-
   case class Award(
       categ: Category,
-      owner: OwnerId,
+      owner: UserId,
       date: DateTime,
-      tourId: Tournament.ID
+      tourId: TourId
   )
   // newer entry first
   case class History(value: Map[Category, List[Award]]):
@@ -98,7 +96,7 @@ object TournamentShield:
         categ -> ~(value get categ)
       }
 
-    def userIds: List[User.ID] = value.values.flatMap(_.map(_.owner.value)).toList
+    def userIds: List[UserId] = value.values.flatMap(_.map(_.owner)).toList
 
     def current(cat: Category): Option[Award] = value get cat flatMap (_.headOption)
 

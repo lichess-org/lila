@@ -6,8 +6,8 @@ import lila.user.{ User, UserRepo }
 
 final class ImpersonateApi(userRepo: UserRepo):
 
-  private var modToUser = Map.empty[User.ID, User.ID]
-  private var userToMod = Map.empty[User.ID, User.ID]
+  private var modToUser = Map.empty[UserId, UserId]
+  private var userToMod = Map.empty[UserId, UserId]
 
   def start(mod: User, user: User): Unit =
     stop(user)
@@ -26,6 +26,6 @@ final class ImpersonateApi(userRepo: UserRepo):
 
   def impersonating(mod: User): Fu[Option[User]] = modToUser.get(mod.id) ?? userRepo.byId
 
-  def impersonatedBy(user: User): Option[User.ID] = userToMod get user.id
+  def impersonatedBy(user: User): Option[UserId] = userToMod get user.id
 
   def isImpersonated(user: User) = userToMod contains user.id
