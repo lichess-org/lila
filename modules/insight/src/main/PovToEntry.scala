@@ -1,7 +1,7 @@
 package lila.insight
 
 import cats.data.NonEmptyList
-import chess.format.{ FEN, Forsyth }
+import chess.format.{ Fen, Forsyth }
 import chess.opening.FullOpeningDB
 import chess.{ Centis, Clock, Role, Situation, Stats }
 import scala.util.chaining.*
@@ -229,7 +229,7 @@ final private class PovToEntry(
         .foldRight(none[SimpleOpening]) {
           case (sit, None) =>
             FullOpeningDB
-              .findByFen(FEN(Forsyth exportStandardPositionTurnCastlingEp sit))
+              .findByFen(Fen(Forsyth exportStandardPositionTurnCastlingEp sit))
               .flatMap(SimpleOpening.apply)
           case (_, found) => found
         }

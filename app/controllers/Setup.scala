@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 import play.api.mvc.Results
 import scala.concurrent.duration.*
 
-import chess.format.FEN
+import chess.format.Fen
 import lila.api.{ BodyContext, Context }
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
@@ -243,7 +243,7 @@ final class Setup(
 
   def validateFen =
     Open { implicit ctx =>
-      get("fen") map FEN.clean flatMap ValidFen(getBool("strict")) match
+      get("fen") map Fen.clean flatMap ValidFen(getBool("strict")) match
         case None    => BadRequest.toFuccess
         case Some(v) => Ok(html.board.bits.miniSpan(v.fen, v.color)).toFuccess
     }

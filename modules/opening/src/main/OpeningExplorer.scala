@@ -1,6 +1,6 @@
 package lila.opening
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.format.Forsyth
 import chess.opening.FullOpening
 import com.softwaremill.tagging.*

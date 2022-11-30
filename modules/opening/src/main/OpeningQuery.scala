@@ -1,6 +1,6 @@
 package lila.opening
 
-import chess.format.{ FEN, Forsyth, Uci }
+import chess.format.{ Fen, Forsyth, Uci }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.Replay
 import chess.variant.Standard

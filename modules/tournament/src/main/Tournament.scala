@@ -1,7 +1,7 @@
 package lila.tournament
 
 import chess.Clock.Config as ClockConfig
-import chess.format.FEN
+import chess.format.Fen
 import chess.{ Mode, Speed }
 import org.joda.time.{ DateTime, Duration, Interval }
 import play.api.i18n.Lang
@@ -20,7 +20,7 @@ case class Tournament(
     clock: ClockConfig,
     minutes: Int,
     variant: chess.variant.Variant,
-    position: Option[FEN],
+    position: Option[Fen],
     mode: Mode,
     password: Option[String] = None,
     conditions: Condition.All,
@@ -155,7 +155,7 @@ object Tournament:
       clock: ClockConfig,
       minutes: Int,
       variant: chess.variant.Variant,
-      position: Option[FEN],
+      position: Option[Fen],
       mode: Mode,
       password: Option[String],
       waitMinutes: Int,

@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
@@ -32,7 +32,7 @@ object StudyForm:
     case class Data(
         gameId: Option[GameId] = None,
         orientation: Option[ChapterMaker.Orientation] = None,
-        fen: Option[FEN] = None,
+        fen: Option[Fen] = None,
         pgnStr: Option[String] = None,
         variant: Option[Variant] = None,
         asStr: Option[String] = None

@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import chess.format.FEN
+import chess.format.Fen
 import play.api.i18n.Lang
 import ui.ScalatagsTemplate.{ *, given }
 

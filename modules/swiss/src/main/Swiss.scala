@@ -1,7 +1,7 @@
 package lila.swiss
 
 import chess.Clock.{ Config as ClockConfig }
-import chess.format.FEN
+import chess.format.Fen
 import chess.Speed
 import org.joda.time.DateTime
 import scala.concurrent.duration.*
@@ -98,7 +98,7 @@ object Swiss:
       nbRounds: Int,
       rated: Boolean,
       description: Option[String] = None,
-      position: Option[FEN],
+      position: Option[Fen],
       chatFor: ChatFor = ChatFor.default,
       password: Option[String] = None,
       conditions: SwissCondition.All,

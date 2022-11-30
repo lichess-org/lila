@@ -2,7 +2,7 @@ package lila.opening
 
 import chess.format.pgn.Pgn
 import chess.format.pgn.San
-import chess.format.{ FEN, Forsyth, Uci }
+import chess.format.{ Fen, Forsyth, Uci }
 import chess.opening.FullOpening
 import chess.opening.FullOpeningDB
 import chess.Speed
@@ -49,7 +49,7 @@ case class ResultCounts(
 case class OpeningNext(
     san: String,
     uci: Uci.Move,
-    fen: FEN,
+    fen: Fen,
     query: OpeningQuery,
     result: ResultCounts,
     percent: Double,

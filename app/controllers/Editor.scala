@@ -1,6 +1,6 @@
 package controllers
 
-import chess.format.{ FEN, Forsyth }
+import chess.format.{ Fen, Forsyth }
 import chess.Situation
 import chess.variant.Variant
 import play.api.libs.json.*
@@ -63,12 +63,12 @@ final class Editor(env: Env) extends LilaController(env):
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect {
           if (game.playable) routes.Round.watcher(game.id, "white").url
-          else editorUrl(get("fen").fold(Forsyth >> game.chess)(FEN(_)), game.variant)
+          else editorUrl(get("fen").fold(Forsyth >> game.chess)(Fen(_)), game.variant)
         }
       }
     }
 
-  private[controllers] def editorUrl(fen: FEN, variant: Variant): String =
+  private[controllers] def editorUrl(fen: Fen, variant: Variant): String =
     if (fen == Forsyth.initial && variant.standard) routes.Editor.index.url
     else
       val params = variant.exotic ?? s"?variant=${variant.key}"

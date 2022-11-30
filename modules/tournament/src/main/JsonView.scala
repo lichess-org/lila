@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.format.FEN
+import chess.format.Fen
 import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
@@ -579,7 +579,7 @@ object JsonView:
     )
   }
 
-  private[tournament] def positionJson(fen: FEN): JsObject =
+  private[tournament] def positionJson(fen: Fen): JsObject =
     Thematic.byFen(fen) match
       case Some(pos) =>
         Json

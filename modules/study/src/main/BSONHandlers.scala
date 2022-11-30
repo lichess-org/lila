@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags }
-import chess.format.{ FEN, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ Centis, Color, Pos, PromotableRole, Role }
 import org.joda.time.DateTime
@@ -141,7 +141,7 @@ object BSONHandlers:
       ply <- doc.getAsOpt[Int](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
       san <- doc.getAsOpt[String](F.san)
-      fen <- doc.getAsOpt[FEN](F.fen)
+      fen <- doc.getAsOpt[Fen](F.fen)
       check          = ~doc.getAsOpt[Boolean](F.check)
       shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
       comments       = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty
@@ -198,7 +198,7 @@ object BSONHandlers:
       val r        = new Reader(rootNode)
       Root(
         ply = r int ply,
-        fen = r.get[FEN](fen),
+        fen = r.get[Fen](fen),
         check = r boolD check,
         shapes = r.getO[Shapes](shapes) | Shapes.empty,
         comments = r.getO[Comments](comments) | Comments.empty,

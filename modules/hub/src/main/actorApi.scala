@@ -198,7 +198,7 @@ package fishnet:
   case class StudyChapterRequest(
       studyId: StudyId,
       chapterId: StudyChapterId,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[chess.format.Fen],
       variant: chess.variant.Variant,
       moves: List[Uci],
       userId: UserId,

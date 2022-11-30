@@ -1,7 +1,7 @@
 package lila.swiss
 
 import chess.Color
-import chess.format.FEN
+import chess.format.Fen
 import reactivemongo.api.bson.*
 import scala.concurrent.duration.*
 
@@ -91,7 +91,7 @@ object BsonHandlers:
         nbRounds = r.get[Int]("n"),
         rated = r.boolO("r") | true,
         description = r.strO("d"),
-        position = r.getO[FEN]("f"),
+        position = r.getO[Fen]("f"),
         chatFor = r.intO("c") | Swiss.ChatFor.default,
         roundInterval = (r.intO("i") | 60).seconds,
         password = r.strO("p"),

@@ -1,7 +1,7 @@
 package lila.socket
 
 import cats.data.Validated
-import chess.format.{ FEN, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.*
 import chess.variant.Variant
 import play.api.libs.json.*
@@ -19,7 +19,7 @@ case class AnaMove(
     orig: chess.Pos,
     dest: chess.Pos,
     variant: Variant,
-    fen: FEN,
+    fen: Fen,
     path: String,
     chapterId: Option[String],
     promotion: Option[chess.PromotableRole]
@@ -54,7 +54,7 @@ object AnaMove:
       d    <- o obj "d"
       orig <- d str "orig" flatMap { chess.Pos.fromKey(_) }
       dest <- d str "dest" flatMap { chess.Pos.fromKey(_) }
-      fen  <- d.get[FEN]("fen")
+      fen  <- d.get[Fen]("fen")
       path <- d str "path"
     } yield AnaMove(
       orig = orig,

@@ -2,7 +2,7 @@ package lila.study
 
 import scala.util.chaining.*
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.format.pgn.Parser
 import lila.game.{ Game, Namer }
 import lila.tree.Node.Comment
@@ -42,8 +42,8 @@ final private class ExplorerGame(
         }
       }
 
-  private def truncateFen(f: FEN)         = f.value split ' ' take 4 mkString " "
-  private def compareFens(a: FEN, b: FEN) = truncateFen(a) == truncateFen(b)
+  private def truncateFen(f: Fen)         = f.value split ' ' take 4 mkString " "
+  private def compareFens(a: Fen, b: Fen) = truncateFen(a) == truncateFen(b)
 
   private def merge(fromNode: RootOrNode, fromPath: Path, game: Node.Root): Option[(Node, Path)] =
     val gameNodes = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen)) drop 1

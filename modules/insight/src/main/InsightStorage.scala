@@ -1,6 +1,6 @@
 package lila.insight
 
-import chess.format.FEN
+import chess.format.Fen
 import reactivemongo.api.bson.*
 
 import lila.common.{ LilaOpeningFamily, SimpleOpening }

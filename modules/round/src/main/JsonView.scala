@@ -1,7 +1,7 @@
 package lila.round
 
 import actorApi.SocketStatus
-import chess.format.{ FEN, Forsyth }
+import chess.format.{ Fen, Forsyth }
 import chess.{ Clock, Color }
 import play.api.libs.json.*
 import scala.math
@@ -60,7 +60,7 @@ final class JsonView(
       pref: Pref,
       apiVersion: ApiVersion,
       playerUser: Option[Either[LightUser.Ghost, User]],
-      initialFen: Option[FEN],
+      initialFen: Option[Fen],
       withFlags: WithFlags,
       nvui: Boolean
   ): Fu[JsObject] =
@@ -159,7 +159,7 @@ final class JsonView(
       apiVersion: ApiVersion,
       me: Option[User],
       tv: Option[OnTv],
-      initialFen: Option[FEN] = None,
+      initialFen: Option[Fen] = None,
       withFlags: WithFlags
   ) =
     getSocketStatus(pov.game) zip
@@ -214,7 +214,7 @@ final class JsonView(
           })
       }
 
-  def replayJson(pov: Pov, pref: Pref, initialFen: Option[FEN]) =
+  def replayJson(pov: Pov, pref: Pref, initialFen: Option[Fen]) =
     pov.game.whitePlayer.userId.??(lightUserGet) zip pov.game.blackPlayer.userId.??(lightUserGet) map {
       case (white, black) =>
         import pov.*
@@ -243,7 +243,7 @@ final class JsonView(
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
-      initialFen: Option[FEN],
+      initialFen: Option[Fen],
       orientation: chess.Color,
       owner: Boolean,
       me: Option[User],

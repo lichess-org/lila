@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.i18n.Lang
@@ -13,7 +13,7 @@ case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
-    position: Option[FEN],
+    position: Option[Fen],
     at: DateTime,
     conditions: Condition.All = Condition.All.empty
 ):

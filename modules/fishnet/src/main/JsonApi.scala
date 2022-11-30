@@ -1,6 +1,6 @@
 package lila.fishnet
 
-import chess.format.{ FEN, Uci }
+import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.libs.json.*
@@ -95,7 +95,7 @@ object JsonApi:
 
   case class Game(
       game_id: String,
-      position: FEN,
+      position: Fen,
       variant: Variant,
       moves: String
   )

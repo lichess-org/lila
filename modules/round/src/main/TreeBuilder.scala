@@ -2,7 +2,7 @@ package lila.round
 
 import chess.{ Centis, Color }
 import chess.format.pgn.Glyphs
-import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
+import chess.format.{ Fen, Forsyth, Uci, UciCharPair }
 import chess.opening.*
 import chess.variant.Variant
 import JsonView.WithFlags
@@ -12,7 +12,7 @@ import lila.tree.*
 object TreeBuilder:
 
   private type Ply       = Int
-  private type OpeningOf = FEN => Option[FullOpening]
+  private type OpeningOf = Fen => Option[FullOpening]
 
   private def makeEval(info: Info) =
     Eval(
@@ -24,7 +24,7 @@ object TreeBuilder:
   def apply(
       game: lila.game.Game,
       analysis: Option[Analysis],
-      initialFen: FEN,
+      initialFen: Fen,
       withFlags: WithFlags
   ): Root =
     val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? game.bothClockStates
@@ -103,7 +103,7 @@ object TreeBuilder:
       id: GameId,
       root: Branch,
       variant: Variant,
-      fromFen: FEN,
+      fromFen: Fen,
       openingOf: OpeningOf
   )(info: Info): Branch =
     def makeBranch(g: chess.Game, m: Uci.WithSan) =

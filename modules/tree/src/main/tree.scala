@@ -2,7 +2,7 @@ package lila.tree
 
 import chess.Centis
 import chess.format.pgn.{ Glyph, Glyphs }
-import chess.format.{ FEN, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.FullOpening
 import chess.Pos
 import chess.variant.Crazyhouse
@@ -13,7 +13,7 @@ import lila.common.Json.*
 
 sealed trait Node:
   def ply: Int
-  def fen: FEN
+  def fen: Fen
   def check: Boolean
   // None when not computed yet
   def dests: Option[Map[Pos, List[Pos]]]
@@ -44,7 +44,7 @@ sealed trait Node:
 
 case class Root(
     ply: Int,
-    fen: FEN,
+    fen: Fen,
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
@@ -73,7 +73,7 @@ case class Branch(
     id: UciCharPair,
     ply: Int,
     move: Uci.WithSan,
-    fen: FEN,
+    fen: Fen,
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,

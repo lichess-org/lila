@@ -1,7 +1,7 @@
 package lila.db
 
 import cats.data.NonEmptyList
-import chess.format.FEN
+import chess.format.Fen
 import chess.opening.OpeningFamily
 import chess.variant.Variant
 import org.joda.time.DateTime

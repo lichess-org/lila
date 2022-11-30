@@ -13,7 +13,7 @@ import chess.{
   UnmovedRooks,
   White
 }
-import chess.format.FEN
+import chess.format.Fen
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import scala.util.{ Success, Try }
@@ -109,7 +109,7 @@ object BSONHandlers:
           lastMove = clm.lastMove,
           castles = clm.castles,
           halfMoveClock = halfMoveClock orElse
-            r.getO[FEN](F.initialFen).flatMap(_.halfMove) getOrElse playedPlies
+            r.getO[Fen](F.initialFen).flatMap(_.halfMove) getOrElse playedPlies
         )
       }
       val chessGame = ChessGame(

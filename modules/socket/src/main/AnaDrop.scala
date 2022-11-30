@@ -1,7 +1,7 @@
 package lila.socket
 
 import cats.data.Validated
-import chess.format.{ FEN, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.*
 import chess.variant.Variant
 import play.api.libs.json.JsObject
@@ -13,7 +13,7 @@ case class AnaDrop(
     role: chess.Role,
     pos: chess.Pos,
     variant: Variant,
-    fen: FEN,
+    fen: Fen,
     path: String,
     chapterId: Option[String]
 ) extends AnaAny:
@@ -48,7 +48,7 @@ object AnaDrop:
       role <- d str "role" flatMap chess.Role.allByName.get
       pos  <- d str "pos" flatMap { chess.Pos.fromKey(_) }
       variant = chess.variant.Variant orDefault ~d.str("variant")
-      fen  <- d.get[FEN]("fen")
+      fen  <- d.get[Fen]("fen")
       path <- d str "path"
     } yield AnaDrop(
       role = role,

@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn._
-import chess.format.{ FEN, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair }
 import chess.variant
 import Node._
 import org.specs2.mutable._

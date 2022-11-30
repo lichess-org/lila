@@ -47,7 +47,7 @@ export interface Challenge {
   challenger?: ChallengeUser;
   destUser?: ChallengeUser;
   variant: Variant;
-  initialFen: FEN;
+  initialFen: Fen;
   rated: boolean;
   timeControl: TimeControl;
   color: Color | 'random';

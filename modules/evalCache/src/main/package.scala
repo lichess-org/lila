@@ -1,7 +1,7 @@
 package lila.evalCache
 
 import cats.data.NonEmptyList
-import chess.format.{ Uci, FEN, Forsyth }
+import chess.format.{ Uci, Fen, Forsyth }
 import chess.variant.Variant
 
 export lila.Lila.{ *, given }
@@ -35,7 +35,7 @@ object Trust extends OpaqueDouble[Trust]:
 
 opaque type SmallFen = String
 object SmallFen extends OpaqueString[SmallFen]:
-  def make(variant: Variant, fen: FEN): SmallFen =
+  def make(variant: Variant, fen: Fen): SmallFen =
     val base = fen.value.split(' ').take(4).mkString("").filter { c =>
       c != '/' && c != '-' && c != 'w'
     }
@@ -43,5 +43,5 @@ object SmallFen extends OpaqueString[SmallFen]:
       case chess.variant.ThreeCheck => base + ~fen.value.split(' ').lift(6)
       case _                        => base
     SmallFen(str)
-  def validate(variant: Variant, fen: FEN): Option[SmallFen] =
+  def validate(variant: Variant, fen: Fen): Option[SmallFen] =
     Forsyth.<<@(variant, fen).exists(_ playable false) option make(variant, fen)
