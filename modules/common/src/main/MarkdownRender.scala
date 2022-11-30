@@ -35,6 +35,7 @@ import lila.base.RawHtml
 import com.vladsch.flexmark.html.renderer.ResolvedLink
 import com.vladsch.flexmark.util.sequence.BasedSequence
 import lila.mon
+import com.fasterxml.jackson.databind.JsonSerializable.Base
 
 final case class Markdown(value: String) extends AnyVal with StringValue:
   def apply(f: String => String) = Markdown(f(value))
@@ -206,9 +207,6 @@ object MarkdownRender:
     private val gameRegex =
       s"""^(?:https?://)?${expander.domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?$$""".r
 
-    private val gameInSiteHeader = 
-      s"""\\\\\\[Site "((?:https?://)?localhost:9663/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?)"\\\\\\]""".r
-
     private def renderLink(node: Link, context: NodeRendererContext, html: HtmlWriter): Unit =
       // Based on implementation in CoreNodeRenderer.
       if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
@@ -216,12 +214,10 @@ object MarkdownRender:
       else
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
         def justAsLink() = renderLinkWithBase(node, context, html, link)
-        
-        //ignore link in site headers in pgn (https://github.com/lichess-org/lila/issues/11450)
-        var linkInSiteHeader = gameInSiteHeader.findFirstMatchIn(Option(node.getParent()).get.getChars())
-        if(linkInSiteHeader.isDefined && linkInSiteHeader.get.subgroups(0) == link.getUrl)
-          return justAsLink()
 
+        if(matchesSiteHeader(node))
+          return justAsLink()
+                
         link.getUrl match
           case gameRegex(id, color, ply) =>
             expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
@@ -239,9 +235,7 @@ object MarkdownRender:
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
         def justAsLink() = renderLinkWithBase(node, context, html, link)
 
-        //ignore link in site headers in pgn (https://github.com/lichess-org/lila/issues/11450)
-        var linkInSiteHeader = gameInSiteHeader.findFirstMatchIn(Option(node.getParent()).get.getChars())
-        if(linkInSiteHeader.isDefined && linkInSiteHeader.get.subgroups(0) == link.getUrl)
+        if(matchesSiteHeader(node))
           return justAsLink()
 
         link.getUrl match
@@ -282,6 +276,12 @@ object MarkdownRender:
         .tag("/div")
         .unit
 
+    //Catches the site headers for https://github.com/lichess-org/lila/issues/11450
+    private def matchesSiteHeader(node : LinkNode) : Boolean = {
+      val parentValue : BasedSequence = Option(node.getParent()).get.getChars()
+      parentValue.subSequence(Integer.max(0, node.getStartOffset() - 7), node.getStartOffset()).toString().matches("\\[Site..*")
+    }
+
   private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
@@ -296,3 +296,4 @@ object MarkdownRender:
       if ((node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK)
         attributes.replaceValue("rel", rel).unit
         attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href"))).unit
+  
