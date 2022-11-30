@@ -56,7 +56,7 @@ object Step:
         "dests",
         dests.map {
           _.map { case (orig, dests) =>
-            s"${orig.toChar}${dests.map(_.toChar).mkString}"
+            s"${orig.asChar}${dests.map(_.asChar).mkString}"
           }.mkString(" ")
         }
       )
