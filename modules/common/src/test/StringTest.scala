@@ -35,7 +35,7 @@ class StringTest extends Specification {
     }
   }
 
-  "remove garbage chars" >> {
+  "remove multibyte symbols" >> {
     val rms = String.removeMultibyteSymbols _
     "remove multibyte garbage" >> {
       rms("""🕸Trampas en Aperturas🕸: INTRO👋""") === "Trampas en Aperturas: INTRO"
@@ -47,6 +47,14 @@ class StringTest extends Specification {
       Result.foreach(i18nValidStrings) { txt =>
         rms(txt) === txt
       }
+    }
+  }
+
+  "removeChars" >> {
+    String.removeChars("""ℱ۩۞۩꧁꧂""", String.isGarbageChar) === ""
+    String.removeChars("""af éâòöÌÒÒçÇℱ۩۞۩꧁꧂"  صار""", String.isGarbageChar) === """af éâòöÌÒÒçÇ"  صار"""
+    Result.foreach(i18nValidStrings) { txt =>
+      String.removeChars(txt, String.isGarbageChar) === txt
     }
   }
 
