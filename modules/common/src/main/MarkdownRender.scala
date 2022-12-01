@@ -258,7 +258,7 @@ object MarkdownRender:
         pgn: String,
         color: String,
         ply: String
-    ) = 
+    ) =
       html
         .attr("data-pgn", pgn)
         .attr("data-orientation", Option(color) | "white")
