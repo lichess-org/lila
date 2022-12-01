@@ -94,7 +94,14 @@ object post:
               a(
                 titleOrText(trans.reportXToModerators.txt(user.username)),
                 cls := "button button-empty ublog-post__meta__report",
-                href := s"${reportRoutes.form}?username=${user.username}&postUrl=${urlencode(s"${netBaseUrl}${urlOfPost(post).url}")}&reason=comm",
+                href := addQueryParams(
+                  reportRoutes.form.url,
+                  Map(
+                    "username" -> user.username,
+                    "postUrl"  -> s"$netBaseUrl${urlOfPost(post)}",
+                    "reason"   -> "comm"
+                  )
+                ),
                 dataIcon := ""
               )
           ),

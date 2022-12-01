@@ -89,7 +89,7 @@ object bits:
               td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false))
             )
           },
-          pagerNextTable(pager, np => addQueryParameter(call.url, "page", np))
+          pagerNextTable(pager, np => addQueryParam(call.url, "page", np.toString))
         )
       else tbody(tr(td(colspan := 2)(trans.none())))
     )

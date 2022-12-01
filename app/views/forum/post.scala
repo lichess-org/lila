@@ -89,7 +89,10 @@ object post:
                         a(
                           titleOrText(trans.reportXToModerators.txt(userId)),
                           cls := "mod report button button-empty",
-                          href := s"${reportRoutes.form}?username=${userId}&postUrl=${urlencode(postUrl)}&reason=comm",
+                          href := addQueryParams(
+                            reportRoutes.form.url,
+                            Map("username" -> userId, "postUrl" -> postUrl, "reason" -> "comm")
+                          ),
                           dataIcon := ""
                         )
                       )
