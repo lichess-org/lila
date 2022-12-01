@@ -82,29 +82,14 @@ object Form:
     def bind(key: String, data: Map[String, String]) =
       data
         .get(key)
-        .map(String.normalize.apply)
-        .map(if (keepSymbols) identity else String.removeMultibyteSymbols)
-        .map(_.trim)
+        .map(if (keepSymbols) String.softCleanUp else String.fullCleanUp)
         .toRight(Seq(FormError(key, "error.required", Nil)))
     def unbind(key: String, value: String) = Map(key -> String.normalize(value.trim))
   val cleanTextFormatter: Formatter[String]            = makeCleanTextFormatter(keepSymbols = false)
   val cleanTextFormatterWithSymbols: Formatter[String] = makeCleanTextFormatter(keepSymbols = true)
 
-  val garbageCharsConstraint = V.Constraint((s: String) =>
-    if (String.hasGarbageChars(s))
-      V.Invalid(
-        Seq(
-          V.ValidationError(
-            s"The text contains invalid chars: ${String.distinctGarbageChars(s) mkString " "}"
-          )
-        )
-      )
-    else V.Valid
-  )
-
-  val cleanText: Mapping[String] = of(cleanTextFormatter) verifying garbageCharsConstraint
-  val cleanTextWithSymbols: Mapping[String] =
-    of(cleanTextFormatterWithSymbols) verifying garbageCharsConstraint
+  val cleanText: Mapping[String]            = of(cleanTextFormatter)
+  val cleanTextWithSymbols: Mapping[String] = of(cleanTextFormatterWithSymbols)
 
   def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     (minLength, maxLength) match

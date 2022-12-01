@@ -20,21 +20,6 @@ class StringTest extends Specification {
     """יריבך עזב את המשחק. באפשרותך לכפות פרישה, להכריז על תיקו או להמתין לו."""
   )
 
-  "detect garbage chars" >> {
-    val dgc = String.distinctGarbageChars _
-    "detect 1-byte" >> {
-      dgc("""ℱ۩۞۩꧁꧂"""") === Set('ℱ', '۞', '۩', '꧁', '꧂')
-    }
-    "preserve languages" >> {
-      Result.foreach(i18nValidStrings) { txt =>
-        dgc(txt) === Set.empty
-      }
-    }
-    "detect phonetic extensions" >> {
-      dgc("ᴀᴛᴏᴍɪᴄ") === Set('ᴀ', 'ᴛ', 'ᴏ', 'ᴍ', 'ɪ', 'ᴄ')
-    }
-  }
-
   "remove multibyte symbols" >> {
     val rms = String.removeMultibyteSymbols _
     "remove multibyte garbage" >> {
@@ -50,11 +35,12 @@ class StringTest extends Specification {
     }
   }
 
-  "removeChars" >> {
-    String.removeChars("""ℱ۩۞۩꧁꧂""", String.isGarbageChar) === ""
-    String.removeChars("""af éâòöÌÒÒçÇℱ۩۞۩꧁꧂"  صار""", String.isGarbageChar) === """af éâòöÌÒÒçÇ"  صار"""
+  "remove garbage chars" >> {
+    String.removeGarbageChars("""ℱ۩۞۩꧁꧂""") === ""
+    String.removeGarbageChars("""ᴀᴛᴏᴍɪᴄ""") === ""
+    String.removeGarbageChars("""af éâòöÌÒÒçÇℱ۩۞۩꧁꧂"  صار""") === """af éâòöÌÒÒçÇ"  صار"""
     Result.foreach(i18nValidStrings) { txt =>
-      String.removeChars(txt, String.isGarbageChar) === txt
+      String.removeGarbageChars(txt) === txt
     }
   }
 

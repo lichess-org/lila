@@ -37,11 +37,6 @@ object String:
       s"$url${if url.contains("?") then "&" else "?"}$queryString"
     }
 
-  def hasGarbageChars(str: String) = str.chars().anyMatch(isGarbageChar)
-
-  def distinctGarbageChars(str: String): Set[Char] =
-    if str.chars.anyMatch(isGarbageChar(_)) then str.filter(isGarbageChar).toSet else Set.empty
-
   def removeChars(str: String, isRemoveable: Int => Boolean): String =
     if str.chars.anyMatch(isRemoveable(_)) then str.filterNot(isRemoveable(_)) else str
 
@@ -64,13 +59,15 @@ object String:
     (c >= '\u0250' && c < '\u0259') || (c > '\u0259' && c <= '\u02af')
   }
 
-  private def isInvisibleChar(c: Int) =
+  private inline def isInvisibleChar(c: Int) =
     // invisible chars https://www.compart.com/en/unicode/block/U+2000
     (c >= '\u2000' && c <= '\u200F') ||
       // weird stuff https://www.compart.com/en/unicode/block/U+2000
       (c >= '\u2028' && c <= '\u202F') ||
       // Hangul fillers
       (c == '\u115f' || c == '\u1160')
+
+  def removeGarbageChars(str: String) = removeChars(str, isGarbageChar)
 
   object normalize:
 
@@ -97,10 +94,10 @@ object String:
   def removeMultibyteSymbols(str: String): String = multibyteSymbolsRegex.replaceAllIn(str, "")
 
   // for publicly listed text like team names, study names, forum topics...
-  def fullCleanUp(str: String) = removeMultibyteSymbols(removeChars(normalize(str.trim), isGarbageChar))
+  def fullCleanUp(str: String) = removeMultibyteSymbols(removeChars(normalize(str), isGarbageChar)).trim
 
   // for inner text like study chapter names, possibly forum posts and team descriptions
-  def softCleanUp(str: String) = removeChars(normalize(str.trim), isInvisibleChar)
+  def softCleanUp(str: String) = removeChars(normalize(str), isInvisibleChar(_)).trim
 
   def decodeUriPath(input: String): Option[String] =
     try play.utils.UriEncoding.decodePath(input, "UTF-8").some
