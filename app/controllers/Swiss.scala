@@ -208,6 +208,11 @@ final class Swiss(
         )
     }
 
+  def apiWithdraw(id: String) =
+    ScopedBody(_.Tournament.Write) { _ => me =>
+      env.swiss.api.withdraw(SwissId(id), me.id) inject jsonOkResult
+    }
+
   def edit(id: String) =
     Auth { implicit ctx => me =>
       WithEditableSwiss(id, me) { swiss =>
