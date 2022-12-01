@@ -59,23 +59,24 @@ object String:
       .map((i: Integer) => i.toChar)
       .mkString
 
-  private def isGarbageChar(c: Int) =
+  def isGarbageChar(c: Int) = c >= '\u0250' && {
     isInvisibleChar(c) ||
-      // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
-      // but keep maths operators cause maths are cool https://www.compart.com/en/unicode/block/U+2200
-      // and chess symbols https://www.compart.com/en/unicode/block/U+2600
-      (c >= '\u2100' && c <= '\u21FF') ||
-      (c >= '\u2300' && c <= '\u2653') ||
-      (c >= '\u2660' && c <= '\u2C5F') ||
-      // decorative chars ꧁ ꧂ and svastikas
-      (c == '\ua9c1' || c == '\ua9c2' || c == '\u534d' || c == '\u5350') ||
-      // pretty quranic chars ۩۞
-      (c >= '\u06d6' && c <= '\u06ff') ||
-      // phonetic extensions https://www.compart.com/en/unicode/block/U+1D00
-      (c >= '\u1d00' && c <= '\u1d7f') ||
-      // IPA extensions https://www.compart.com/en/unicode/block/U+0250
-      // but allow https://www.compart.com/en/unicode/U+0259
-      (c >= '\u0250' && c < '\u0259') || (c > '\u0259' && c <= '\u02af')
+    // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
+    // but keep maths operators cause maths are cool https://www.compart.com/en/unicode/block/U+2200
+    // and chess symbols https://www.compart.com/en/unicode/block/U+2600
+    (c >= '\u2100' && c <= '\u21FF') ||
+    (c >= '\u2300' && c <= '\u2653') ||
+    (c >= '\u2660' && c <= '\u2C5F') ||
+    // decorative chars ꧁ ꧂ and svastikas
+    (c == '\ua9c1' || c == '\ua9c2' || c == '\u534d' || c == '\u5350') ||
+    // pretty quranic chars ۩۞
+    (c >= '\u06d6' && c <= '\u06ff') ||
+    // phonetic extensions https://www.compart.com/en/unicode/block/U+1D00
+    (c >= '\u1d00' && c <= '\u1d7f') ||
+    // IPA extensions https://www.compart.com/en/unicode/block/U+0250
+    // but allow https://www.compart.com/en/unicode/U+0259
+    (c >= '\u0250' && c < '\u0259') || (c > '\u0259' && c <= '\u02af')
+  }
 
   private def isInvisibleChar(c: Int) =
     // invisible chars https://www.compart.com/en/unicode/block/U+2000
