@@ -153,7 +153,7 @@ public class StringUtils {
     }
 
     public static String ignoreSiteHeaders(final String s) {
-        if(s.indexOf('[') == -1 && s.indexOf(']') == -1) 
+        if(s.indexOf('[') == -1 && s.indexOf(']') == -1 && !s.contains("Site")) 
             return s;
         return s.replaceAll(betweenSiteHeaders, "");
     } 
