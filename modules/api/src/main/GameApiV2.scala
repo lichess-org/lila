@@ -150,58 +150,54 @@ final class GameApiV2(
     }
 
   def exportByTournament(config: ByTournamentConfig, onlyUserId: Option[UserId]): Source[String, ?] =
-    Source futureSource {
-      tournamentRepo.isTeamBattle(config.tournamentId) map { isTeamBattle =>
-        pairingRepo
-          .sortedCursor(
-            tournamentId = config.tournamentId,
-            userId = onlyUserId,
-            batchSize = config.perSecond.value
-          )
-          .documentSource()
-          .grouped(20)
-          .mapAsync(1) { pairings =>
-            isTeamBattle.?? {
-              playerRepo.teamsOfPlayers(config.tournamentId, pairings.flatMap(_.users).distinct).dmap(_.toMap)
-            } flatMap { playerTeams =>
-              gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)) map {
-                _.zip(pairings) collect { case (Some(game), pairing) =>
-                  import cats.implicits.*
-                  (
-                    game,
-                    pairing,
-                    (
-                      playerTeams.get(pairing.user1),
-                      playerTeams.get(pairing.user2)
-                    ) mapN chess.Color.Map.apply[TeamId]
-                  )
-                }
-              }
+    pairingRepo
+      .sortedCursor(
+        tournamentId = config.tour.id,
+        userId = onlyUserId,
+        batchSize = config.perSecond.value
+      )
+      .documentSource()
+      .grouped(20)
+      .mapAsync(1) { pairings =>
+        config.tour.isTeamBattle.?? {
+          playerRepo.teamsOfPlayers(config.tour.id, pairings.flatMap(_.users).distinct).dmap(_.toMap)
+        } flatMap { playerTeams =>
+          gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)) map {
+            _.zip(pairings) collect { case (Some(game), pairing) =>
+              import cats.implicits.*
+              (
+                game,
+                pairing,
+                (
+                  playerTeams.get(pairing.user1),
+                  playerTeams.get(pairing.user2)
+                ) mapN chess.Color.Map.apply[TeamId]
+              )
             }
           }
-          .mapConcat(identity)
-          .throttle(config.perSecond.value, 1 second)
-          .mapAsync(4) { case (game, pairing, teams) =>
-            enrich(config.flags)(game) dmap { (_, pairing, teams) }
-          }
-          .mapAsync(4) { case ((game, fen, analysis), pairing, teams) =>
-            config.format match
-              case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, teams, none)
-              case Format.JSON =>
-                def addBerserk(color: chess.Color)(json: JsObject) =
-                  if (pairing berserkOf color)
-                    json deepMerge Json.obj(
-                      "players" -> Json.obj(color.name -> Json.obj("berserk" -> true))
-                    )
-                  else json
-                toJson(game, fen, analysis, config.flags, teams) dmap
-                  addBerserk(chess.White) dmap
-                  addBerserk(chess.Black) dmap { json =>
-                    s"${Json.stringify(json)}\n"
-                  }
-          }
+        }
       }
-    }
+      .mapConcat(identity)
+      .throttle(config.perSecond.value, 1 second)
+      .mapAsync(4) { case (game, pairing, teams) =>
+        enrich(config.flags)(game) dmap { (_, pairing, teams) }
+      }
+      .mapAsync(4) { case ((game, fen, analysis), pairing, teams) =>
+        config.format match
+          case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, teams, none)
+          case Format.JSON =>
+            def addBerserk(color: chess.Color)(json: JsObject) =
+              if (pairing berserkOf color)
+                json deepMerge Json.obj(
+                  "players" -> Json.obj(color.name -> Json.obj("berserk" -> true))
+                )
+              else json
+            toJson(game, fen, analysis, config.flags, teams) dmap
+              addBerserk(chess.White) dmap
+              addBerserk(chess.Black) dmap { json =>
+                s"${Json.stringify(json)}\n"
+              }
+      }
 
   def exportBySwiss(config: BySwissConfig): Source[String, ?] =
     swissApi
@@ -390,7 +386,7 @@ object GameApiV2:
   ) extends Config
 
   case class ByTournamentConfig(
-      tournamentId: TourId,
+      tour: Tournament,
       format: Format,
       flags: WithFlags,
       perSecond: MaxPerSecond

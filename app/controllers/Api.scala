@@ -229,7 +229,7 @@ final class Api(
         _ ?? { tour =>
           val onlyUserId = getUserStr("player", req).map(_.id)
           val config = GameApiV2.ByTournamentConfig(
-            tournamentId = tour.id,
+            tour = tour,
             format = GameApiV2.Format byRequest req,
             flags = gameC.requestPgnFlags(req, extended = false),
             perSecond = MaxPerSecond(20 + me.isDefined ?? 10)
