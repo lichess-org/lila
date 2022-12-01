@@ -2,7 +2,7 @@ package lila.opening
 
 import chess.format.pgn.{ Pgn, San }
 import chess.format.{ Fen, OpeningFen, Forsyth, Uci }
-import chess.opening.{ FullOpening, FullOpeningDB, OpeningKey, OpeningName }
+import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 import chess.Speed
 
 import lila.game.Game
@@ -20,12 +20,12 @@ case class OpeningPage(
 
 case object NamePart:
   type NamePartList = List[Either[Opening.PgnMove, (Opening.NameSection, Option[OpeningKey])]]
-  def from(op: FullOpening): NamePartList =
+  def from(op: Opening): NamePartList =
     val sections = Opening.sectionsOf(op.name)
     sections.toList.zipWithIndex map { case (name, i) =>
       Right(
         name ->
-          FullOpeningDB.shortestLines
+          OpeningDb.shortestLines
             .get(OpeningKey.fromName(OpeningName(sections.take(i + 1).mkString("_"))))
             .map(_.key)
       )
@@ -51,7 +51,7 @@ case class OpeningNext(
     query: OpeningQuery,
     result: ResultCounts,
     percent: Double,
-    opening: Option[FullOpening],
+    opening: Option[Opening],
     shortName: Option[Opening.NameSection]
 )
 
@@ -85,7 +85,7 @@ object OpeningPage:
                 move <- query.position.move(uci).toOption
                 result  = ResultCounts(m.white, m.draws, m.black)
                 fen     = Forsyth openingFen move.situationAfter
-                opening = FullOpeningDB findByFen fen
+                opening = OpeningDb findByFen fen
               } yield OpeningNext(
                 m.san,
                 uci,

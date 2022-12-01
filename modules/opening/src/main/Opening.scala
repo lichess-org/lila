@@ -1,6 +1,6 @@
 package lila.opening
 
-import chess.opening.{ FullOpening, FullOpeningDB, OpeningName, OpeningKey }
+import chess.opening.{ Opening, OpeningDb, OpeningName, OpeningKey }
 import cats.data.NonEmptyList
 
 object Opening:
@@ -14,7 +14,7 @@ object Opening:
 
   object Tree:
 
-    type NameOrOpening = (NameSection, Option[FullOpening])
+    type NameOrOpening = (NameSection, Option[Opening])
 
     private val emptyNode = TreeNode(Map.empty)
 
@@ -34,13 +34,13 @@ object Opening:
       )
 
     lazy val compute: Tree =
-      FullOpeningDB.shortestLines.values
+      OpeningDb.shortestLines.values
         .map { op =>
           val sections = Opening.sectionsOf(op.name)
           sections.toList.zipWithIndex map { case (name, i) =>
             (
               name,
-              FullOpeningDB.shortestLines.get(
+              OpeningDb.shortestLines.get(
                 OpeningKey.fromName(OpeningName(sections.take(i + 1).mkString("_")))
               )
             )
@@ -66,7 +66,7 @@ object Opening:
       .filter(_.nonEmpty)
       .getOrElse(sectionsOf(next).last)
 
-  def variationName(prev: Option[FullOpening], next: Option[FullOpening]): Option[NameSection] =
+  def variationName(prev: Option[Opening], next: Option[Opening]): Option[NameSection] =
     (prev, next) match
       case (Some(p), Some(n)) => variationName(p.name, n.name).some
       case (None, Some(n))    => n.family.name.into(NameSection).some

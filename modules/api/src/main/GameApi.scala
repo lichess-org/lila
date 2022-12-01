@@ -232,7 +232,7 @@ final private[api] class GameApi(
         }),
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
         "moves"    -> withFlags.moves.option(g.pgnMoves mkString " "),
-        "opening"  -> (withFlags.opening.??(g.opening): Option[chess.opening.FullOpening.AtPly]),
+        "opening"  -> (withFlags.opening.??(g.opening): Option[chess.opening.Opening.AtPly]),
         "fens" -> ((withFlags.fens && g.finished).?? {
           chess.Replay
             .boards(

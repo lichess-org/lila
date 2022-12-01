@@ -12,7 +12,7 @@ import lila.tree.*
 object TreeBuilder:
 
   private type Ply       = Int
-  private type OpeningOf = Fen => Option[FullOpening]
+  private type OpeningOf = Fen => Option[Opening]
 
   private def makeEval(info: Info) =
     Eval(
@@ -34,7 +34,7 @@ object TreeBuilder:
         error foreach logChessError(game.id)
         val openingOf: OpeningOf =
           if (withFlags.opening && Variant.openingSensibleVariants(game.variant))
-            fen => FullOpeningDB.findByFen(fen.opening)
+            fen => OpeningDb.findByFen(fen.opening)
           else _ => None
         val fen                 = Forsyth >> init
         val infos: Vector[Info] = analysis.??(_.infos.toVector)

@@ -1,16 +1,16 @@
 package lila.common
 
-import chess.opening.{ FullOpening, FullOpeningDB, OpeningVariation, OpeningName }
-import chess.opening.FullOpening.nameToKey
+import chess.opening.{ Opening, OpeningDb, OpeningVariation, OpeningName }
+import chess.opening.Opening.nameToKey
 
 /*
  * Simple openings only keep one level of variation.
  * They're also unique by key:
  * there's only one "Sicilian Defense: Smith-Morra Gambit Accepted" SimpleOpening,
- * even tho there are multiple FullOpening with that name.
+ * even tho there are multiple Opening with that name.
  */
 
-case class SimpleOpening(ref: FullOpening, name: SimpleOpening.Name, family: LilaOpeningFamily):
+case class SimpleOpening(ref: Opening, name: SimpleOpening.Name, family: LilaOpeningFamily):
   import SimpleOpening.*
   val key            = nameToKey(name into OpeningName) into Key
   def isFamily       = ref.variation.isEmpty
@@ -30,14 +30,14 @@ object SimpleOpening:
   val otherVariations = OpeningVariation("Other variations")
 
   def apply(key: Key): Option[SimpleOpening] = openings get key
-  def apply(ref: FullOpening): Option[SimpleOpening] =
+  def apply(ref: Opening): Option[SimpleOpening] =
     openings get nameToKey(OpeningName(nameOf(ref))).into(Key)
 
   def find(key: String): Option[SimpleOpening] = apply(Key(key))
 
-  def nameOf(ref: FullOpening): Name = Name(s"${ref.family.name}: ${ref.variation | otherVariations}")
+  def nameOf(ref: Opening): Name = Name(s"${ref.family.name}: ${ref.variation | otherVariations}")
 
-  lazy val openings: Map[Key, SimpleOpening] = FullOpeningDB.all
+  lazy val openings: Map[Key, SimpleOpening] = OpeningDb.all
     .foldLeft(Map.empty[Key, SimpleOpening]) { case (acc, ref) =>
       LilaOpeningFamily(ref.family.key into LilaOpeningFamily.Key).fold(acc) { fam =>
         val op   = SimpleOpening(ref, nameOf(ref), fam)

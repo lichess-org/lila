@@ -1,7 +1,7 @@
 package lila.opening
 
 import chess.format.{ Fen, Forsyth, Uci }
-import chess.opening.{ FullOpening, FullOpeningDB, OpeningKey, OpeningName, SansStr }
+import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName, SansStr }
 import chess.Replay
 import chess.variant.Standard
 import chess.{ Situation, Speed }
@@ -16,7 +16,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   def position            = replay.state.situation
   def variant             = chess.variant.Standard
   val fen                 = Forsyth openingFen replay.state.situation
-  val opening             = FullOpeningDB findByFen fen
+  val opening             = OpeningDb findByFen fen
   val family              = opening.map(_.family)
   def pgnString           = pgn mkString " "
   def pgnUnderscored      = pgn mkString "_"
@@ -25,8 +25,8 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
     case (op, _) => OpeningQuery.Query(op.fold("-")(_.key.value), pgnUnderscored.some)
   def prev = (pgn.sizeIs > 1) ?? OpeningQuery(OpeningQuery.Query("", pgn.init.mkString(" ").some), config)
 
-  val openingAndExtraMoves: (Option[FullOpening], List[Opening.PgnMove]) =
-    opening.map(_.some -> Nil) orElse FullOpeningDB.search(replay).map { case FullOpening.AtPly(op, ply) =>
+  val openingAndExtraMoves: (Option[Opening], List[Opening.PgnMove]) =
+    opening.map(_.some -> Nil) orElse OpeningDb.search(replay).map { case Opening.AtPly(op, ply) =>
       op.some -> pgn.drop(ply + 1).toList
     } getOrElse (none, pgn.toList)
 
@@ -49,12 +49,12 @@ object OpeningQuery:
     else q.moves.flatMap(fromPgn(_, config)) orElse byOpening(q.key, config)
 
   private def byOpening(str: String, config: OpeningConfig) = {
-    FullOpeningDB.shortestLines.get(OpeningKey(str)) orElse
+    OpeningDb.shortestLines.get(OpeningKey(str)) orElse
       lila.common.String
         .decodeUriPath(str)
         .map(OpeningName(_))
         .map(OpeningKey.fromName(_))
-        .flatMap(FullOpeningDB.shortestLines.get)
+        .flatMap(OpeningDb.shortestLines.get)
   }.map(_.pgn.value) flatMap { fromPgn(_, config) }
 
   private def fromPgn(pgn: String, config: OpeningConfig) = for {

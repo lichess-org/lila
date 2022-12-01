@@ -1,7 +1,7 @@
 package views.html.opening
 
 import cats.data.NonEmptyList
-import chess.opening.{ OpeningKey, FullOpening }
+import chess.opening.{ OpeningKey, Opening }
 import controllers.routes
 import play.api.libs.json.{ JsArray, Json, JsObject }
 import play.api.mvc.Call
@@ -84,7 +84,7 @@ object bits:
     }
   )
 
-  def splitName(op: FullOpening) =
+  def splitName(op: Opening) =
     Opening.sectionsOf(op.name) match
       case NonEmptyList(family, variations) =>
         frag(
@@ -101,7 +101,7 @@ object bits:
   def queryUrl(q: OpeningQuery): Call = queryUrl(q.query)
   def queryUrl(q: Query): Call =
     routes.Opening.byKeyAndMoves(q.key, q.moves.??(_.replace(" ", "_")))
-  def openingUrl(o: FullOpening) = keyUrl(o.key)
+  def openingUrl(o: Opening) = keyUrl(o.key)
   def keyUrl(key: OpeningKey)    = routes.Opening.byKeyAndMoves(key, "")
 
   val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))

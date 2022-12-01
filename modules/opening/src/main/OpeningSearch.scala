@@ -1,6 +1,6 @@
 package lila.opening
 
-import chess.opening.{ FullOpening, FullOpeningDB }
+import chess.opening.{ Opening, OpeningDb }
 import java.text.Normalizer
 
 import lila.common.base.StringUtils.levenshtein
@@ -8,7 +8,7 @@ import lila.common.Chronometer
 import lila.common.Heapsort.topN
 import lila.memo.CacheApi
 
-case class OpeningSearchResult(opening: FullOpening):
+case class OpeningSearchResult(opening: Opening):
   def pgn   = OpeningSearch.removePgnMoveNumbers(opening.pgn.value)
   def query = OpeningQuery.Query(opening.key.value, pgn.some)
 
@@ -32,7 +32,7 @@ object OpeningSearch:
     private val numbersRegex = """\d{1,2}\.{1,3}\s?""".r
     def apply(pgn: String)   = pgn.replaceAllIn(numbersRegex, "").trim
 
-  private val openings: Vector[FullOpening] = FullOpeningDB.shortestLines.values.toVector
+  private val openings: Vector[Opening] = OpeningDb.shortestLines.values.toVector
 
   private type Token = String
   private type Score = Int
@@ -58,7 +58,7 @@ object OpeningSearch:
         }
         .toSet
         .diff(exclude)
-    def apply(opening: FullOpening): Set[Token] =
+    def apply(opening: Opening): Set[Token] =
       opening.key.value.toLowerCase.replace("-", "_").split('_').view.filterNot(exclude.contains).toSet +
         opening.eco.value.toLowerCase ++
         opening.pgn.value.split(' ').take(6).toSet
@@ -71,8 +71,8 @@ object OpeningSearch:
         case (moves, index) => s"${index + 1}. ${moves mkString " "}"
       } mkString " "
     Query(clean, numberedPgn, tokenize(clean))
-  private case class Entry(opening: FullOpening, tokens: Set[Token])
-  private case class Match(opening: FullOpening, score: Score)
+  private case class Entry(opening: Opening, tokens: Set[Token])
+  private case class Match(opening: Opening, score: Score)
 
   private val index: List[Entry] =
     openings.view.map { op =>
@@ -107,7 +107,7 @@ object OpeningSearch:
 
   private given Ordering[Match] = Ordering.by { case Match(_, score) => score }
 
-  def apply(str: String, max: Int): List[FullOpening] = Chronometer.syncMon(_.opening.searchTime) {
+  def apply(str: String, max: Int): List[Opening] = Chronometer.syncMon(_.opening.searchTime) {
     val query = makeQuery(str)
     index
       .flatMap { entry =>

@@ -1,6 +1,6 @@
 package lila.opening
 
-import chess.opening.{ FullOpening, FullOpeningDB, OpeningKey }
+import chess.opening.{ Opening, OpeningDb, OpeningKey }
 import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
@@ -30,14 +30,14 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
   given BSONDocumentHandler[Revision]    = Macros.handler
   given BSONDocumentHandler[OpeningWiki] = Macros.handler
 
-  def apply(op: FullOpening, withRevisions: Boolean): Fu[OpeningWiki] = for {
+  def apply(op: Opening, withRevisions: Boolean): Fu[OpeningWiki] = for {
     wiki <- cache get op.key
     revisions <- withRevisions ?? {
       coll.primitiveOne[List[Revision]]($id(op.key), "revisions")
     }
   } yield wiki.copy(revisions = (~revisions) take 25)
 
-  def write(op: FullOpening, text: String, by: User): Funit =
+  def write(op: Opening, text: String, by: User): Funit =
     coll.update
       .one(
         $id(op.key),
@@ -54,7 +54,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
       )
       .void >>- cache.put(op.key, compute(op.key))
 
-  def popularOpeningsWithShortWiki: Fu[List[FullOpening]] =
+  def popularOpeningsWithShortWiki: Fu[List[Opening]] =
     coll
       .aggregateList(100, ReadPreference.secondaryPreferred) { framework =>
         import framework.*
@@ -69,7 +69,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
         for {
           doc <- docs
           id  <- doc.getAsOpt[OpeningKey]("_id")
-          op  <- FullOpeningDB.shortestLines get id
+          op  <- OpeningDb.shortestLines get id
         } yield op
       }
 
@@ -108,7 +108,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
   )
 
   private def updatePopularity(key: OpeningKey): Funit =
-    FullOpeningDB.shortestLines.get(key) ?? { op =>
+    OpeningDb.shortestLines.get(key) ?? { op =>
       explorer.simplePopularity(op) flatMap {
         _ ?? { popularity =>
           coll.update

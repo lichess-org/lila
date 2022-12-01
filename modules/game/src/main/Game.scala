@@ -2,7 +2,7 @@ package lila.game
 
 import chess.Color.{ Black, White }
 import chess.format.{ Fen, Uci }
-import chess.opening.{ FullOpening, FullOpeningDB }
+import chess.opening.{ Opening, OpeningDb }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ Castles, Centis, CheckCount, Clock, Color, Game as ChessGame, Mode, MoveOrDrop, Speed, Status }
 import org.joda.time.DateTime
@@ -587,9 +587,9 @@ case class Game(
       chess = chess.copy(turns = 0, startedAtTurn = 0)
     )
 
-  lazy val opening: Option[FullOpening.AtPly] =
+  lazy val opening: Option[Opening.AtPly] =
     if (fromPosition || !Variant.openingSensibleVariants(variant)) none
-    else FullOpeningDB search pgnMoves
+    else OpeningDb search pgnMoves
 
   def synthetic = id == Game.syntheticId
 

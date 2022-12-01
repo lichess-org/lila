@@ -154,7 +154,7 @@ object JsonView:
     )
   }
 
-  given OWrites[chess.opening.FullOpening.AtPly] = OWrites { o =>
+  given OWrites[chess.opening.Opening.AtPly] = OWrites { o =>
     Json.obj(
       "eco"  -> o.opening.eco,
       "name" -> o.opening.name,
