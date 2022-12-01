@@ -1,7 +1,7 @@
 package lila.common
 
 import chess.Centis
-import chess.format.{ FEN, Uci }
+import chess.format.{ Fen, Uci }
 import play.api.i18n.Lang
 
 trait Iso[A, B]:

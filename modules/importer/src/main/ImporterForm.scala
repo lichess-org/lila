@@ -2,7 +2,7 @@ package lila.importer
 
 import cats.data.Validated
 import chess.format.pgn.{ ParsedPgn, Parser, Reader, Tag, TagType, Tags }
-import chess.format.{ FEN, Forsyth }
+import chess.format.{ Fen, Forsyth }
 import chess.{ Color, Mode, Outcome, Replay, Status }
 import play.api.data.*
 import play.api.data.Forms.*
@@ -34,7 +34,7 @@ private case class TagResult(status: Status, winner: Option[Color])
 case class Preprocessed(
     game: NewGame,
     replay: Replay,
-    initialFen: Option[FEN],
+    initialFen: Option[Fen],
     parsed: ParsedPgn
 )
 

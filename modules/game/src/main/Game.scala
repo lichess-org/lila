@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.Color.{ Black, White }
-import chess.format.{ FEN, Uci }
+import chess.format.{ Fen, Uci }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ Castles, Centis, CheckCount, Clock, Color, Game as ChessGame, Mode, MoveOrDrop, Speed, Status }
@@ -225,7 +225,7 @@ case class Game(
 
   def lastMoveKeys: Option[String] =
     history.lastMove map {
-      case Uci.Drop(target, _) => s"$target$target"
+      case Uci.Drop(_, target) => s"${target.key}${target.key}"
       case m: Uci.Move         => m.keys
     }
 
@@ -624,7 +624,7 @@ object Game:
   def fullId(gameId: GameId, playerId: GamePlayerId) = GameFullId(s"$gameId$playerId")
 
   case class OnStart(id: GameId)
-  case class WithInitialFen(game: Game, fen: Option[FEN])
+  case class WithInitialFen(game: Game, fen: Option[Fen])
 
   case class SideAndStart(color: Color, startColor: Color, startedAtTurn: Int)
   case class StartedAt(startColor: Color, startedAtTurn: Int):

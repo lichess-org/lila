@@ -1,6 +1,6 @@
 package lila.evalCache
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.libs.json.JsObject
@@ -24,7 +24,7 @@ final class EvalCacheApi(
   import EvalCacheEntry.*
   import BSONHandlers.given
 
-  def getEvalJson(variant: Variant, fen: FEN, multiPv: Int): Fu[Option[JsObject]] =
+  def getEvalJson(variant: Variant, fen: Fen, multiPv: Int): Fu[Option[JsObject]] =
     getEval(
       id = Id(variant, SmallFen.make(variant, fen)),
       multiPv = multiPv
@@ -41,13 +41,13 @@ final class EvalCacheApi(
 
   def shouldPut(user: User) = setting.get() && truster.shouldPut(user)
 
-  def getSinglePvEval(variant: Variant, fen: FEN): Fu[Option[Eval]] =
+  def getSinglePvEval(variant: Variant, fen: Fen): Fu[Option[Eval]] =
     getEval(
       id = Id(variant, SmallFen.make(variant, fen)),
       multiPv = 1
     )
 
-  private[evalCache] def drop(variant: Variant, fen: FEN): Funit =
+  private[evalCache] def drop(variant: Variant, fen: Fen): Funit =
     val id = Id(variant, SmallFen.make(variant, fen))
     coll(_.delete.one($id(id)).void) >>- cache.invalidate(id)
 
@@ -98,5 +98,5 @@ final class EvalCacheApi(
         }
   }
 
-  private def destSize(fen: FEN): Int =
+  private def destSize(fen: Fen): Int =
     chess.Game(chess.variant.Standard.some, fen.some).situation.moves.view.map(_._2.size).sum

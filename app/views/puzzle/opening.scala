@@ -80,7 +80,7 @@ object opening:
             href := routes.Puzzle.show(op.opening.key.value)
           )(
             h3(
-              op.opening.variation.name,
+              op.opening.variation,
               em(op.count.localize)
             )
           )

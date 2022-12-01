@@ -7,7 +7,7 @@ import play.api.data.Forms.*
 
 import chess.variant.Variant
 import lila.common.Form.*
-import chess.format.FEN
+import chess.format.Fen
 
 final class CrudForm(repo: TournamentRepo):
 
@@ -69,7 +69,7 @@ object CrudForm:
       clockIncrement: Int,
       minutes: Int,
       variant: Int,
-      position: Option[FEN],
+      position: Option[Fen],
       date: DateTime,
       image: String,
       headline: String,

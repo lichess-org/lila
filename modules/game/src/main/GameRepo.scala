@@ -2,7 +2,7 @@ package lila.game
 
 import scala.concurrent.duration.*
 
-import chess.format.{ FEN, Forsyth }
+import chess.format.{ Fen, Forsyth }
 import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
@@ -387,13 +387,13 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
       .skip(ThreadLocalRandom nextInt distribution)
       .one[Game]
 
-  def insertDenormalized(g: Game, initialFen: Option[chess.format.FEN] = None): Funit =
+  def insertDenormalized(g: Game, initialFen: Option[chess.format.Fen] = None): Funit =
     val g2 =
       if (g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))))
         g.copy(mode = chess.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
-    val fen: Option[FEN] = initialFen orElse {
+    val fen: Option[Fen] = initialFen orElse {
       (g2.variant.fromPosition || g2.variant.chess960)
         .option(Forsyth >> g2.chess)
         .filterNot(_.initial)
@@ -431,10 +431,10 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
   def setImportCreatedAt(g: Game) =
     coll.updateField($id(g.id), "pgni.ca", g.createdAt).void
 
-  def initialFen(gameId: GameId): Fu[Option[FEN]] =
-    coll.primitiveOne[FEN]($id(gameId), F.initialFen)
+  def initialFen(gameId: GameId): Fu[Option[Fen]] =
+    coll.primitiveOne[Fen]($id(gameId), F.initialFen)
 
-  def initialFen(game: Game): Fu[Option[FEN]] =
+  def initialFen(game: Game): Fu[Option[Fen]] =
     if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) dmap {
       case None if game.variant == chess.variant.Chess960 => Forsyth.initial.some
       case fen                                            => fen
@@ -453,7 +453,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
   def withInitialFen(game: Game): Fu[Game.WithInitialFen] =
     initialFen(game) dmap { Game.WithInitialFen(game, _) }
 
-  def withInitialFens(games: List[Game]): Fu[List[(Game, Option[FEN])]] =
+  def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen])]] =
     games.map { game =>
       initialFen(game) dmap { game -> _ }
     }.sequenceFu

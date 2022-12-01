@@ -2,7 +2,7 @@ package lila.game
 
 import play.api.libs.json.*
 
-import chess.format.{ FEN, Forsyth }
+import chess.format.{ Fen, Forsyth }
 import chess.variant.Crazyhouse
 import chess.{ Clock, Color }
 import lila.common.Json.{ *, given }
@@ -12,7 +12,7 @@ final class JsonView(rematches: Rematches):
 
   import JsonView.{ *, given }
 
-  def apply(game: Game, initialFen: Option[FEN]) =
+  def apply(game: Game, initialFen: Option[Fen]) =
     Json
       .obj(
         "id"            -> game.id,

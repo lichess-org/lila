@@ -96,6 +96,7 @@
   <string name="streaksAndBerserk">允许连胜和神速</string>
   <string name="similarToOTB">和 OTB 锦标赛相似</string>
   <string name="unlimitedAndFree">无限制并免费</string>
+  <string name="predefinedUsers">仅允许预定义的用户加入</string>
   <plurals name="xOutOfYRoundsSwiss">
     <item quantity="other">%1$s/%2$s 回合瑞士锦标赛</item>
   </plurals>

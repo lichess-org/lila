@@ -2,7 +2,7 @@ package lila.game
 
 import akka.stream.scaladsl.*
 import akka.util.ByteString
-import chess.format.{ FEN, Forsyth, Uci }
+import chess.format.{ Fen, Forsyth, Uci }
 import chess.{ Centis, Color, Game as ChessGame, Replay, Situation }
 import chess.variant.Variant
 import play.api.libs.json.*
@@ -22,7 +22,7 @@ final class GifExport(
   private val targetMedianTime = Centis(80)
   private val targetMaxTime    = Centis(200)
 
-  def fromPov(pov: Pov, initialFen: Option[FEN], theme: String, piece: String): Fu[Source[ByteString, ?]] =
+  def fromPov(pov: Pov, initialFen: Option[Fen], theme: String, piece: String): Fu[Source[ByteString, ?]] =
     lightUserApi preloadMany pov.game.userIds flatMap { _ =>
       ws.url(s"$url/game.gif")
         .withMethod("POST")
@@ -77,7 +77,7 @@ final class GifExport(
     }
 
   def thumbnail(
-      fen: FEN,
+      fen: Fen,
       lastMove: Option[String],
       orientation: Color,
       variant: Variant,
@@ -117,7 +117,7 @@ final class GifExport(
         }
       case None => moveTimes.map(_ atMost targetMaxTime)
 
-  private def frames(game: Game, initialFen: Option[FEN]) =
+  private def frames(game: Game, initialFen: Option[Fen]) =
     Replay.gameMoveWhileValid(
       game.pgnMoves,
       initialFen | game.variant.initialFen,

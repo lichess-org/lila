@@ -214,11 +214,6 @@ trait GameHelper:
     val variant = game.variant.exotic ?? s" • ${game.variant.name}"
     s"$u1 vs $u2$clock$variant"
 
-  // whiteUsername 1-0 blackUsername
-  def gameSummary(whiteUserId: UserId, blackUserId: UserId, finished: Boolean, result: Option[Boolean]) =
-    val res = Outcome.showResult(finished option Outcome(result map Color.fromWhite))
-    s"${titleNameOrId(whiteUserId)} $res ${titleNameOrId(blackUserId)}"
-
   def gameResult(game: Game) =
     Outcome.showResult(game.finished option Outcome(game.winnerColor))
 

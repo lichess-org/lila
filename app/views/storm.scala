@@ -174,4 +174,4 @@ object storm:
       s.thisRunHasExpired,
       s.thisRunWasOpenedInAnotherTab,
       trans.flipBoard
-    ).map(_.key)
+    )

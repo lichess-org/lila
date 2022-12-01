@@ -27,7 +27,7 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
 
   def apiCreate = Scoped(_.Racer.Write) { implicit req => me =>
     me.noBot ?? {
-      env.racer.api.createAndJoin(RacerPlayer.Id.User(me.username)) map { raceId =>
+      env.racer.api.createAndJoin(RacerPlayer.Id.User(me.id)) map { raceId =>
         JsonOk(
           Json.obj(
             "id"  -> raceId.value,
@@ -44,7 +44,7 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
         case None => Redirect(routes.Racer.home).toFuccess
         case Some(r) =>
           val race   = r.isLobby.??(env.racer.api.join(r.id, playerId)) | r
-          val player = race.player(playerId) | RacerPlayer.make(playerId)
+          val player = race.player(playerId) | env.racer.api.makePlayer(playerId)
           Ok(
             html.racer.show(
               race,

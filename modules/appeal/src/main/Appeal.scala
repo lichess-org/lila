@@ -60,8 +60,7 @@ object Appeal:
     val key = Status.this.toString.toLowerCase
     case Unread, Read, Muted
   object Status:
-    val all                = List[Status](Unread, Read, Muted)
-    def apply(key: String) = all.find(_.key == key)
+    def apply(key: String) = values.find(_.key == key)
 
   case class WithUser(appeal: Appeal, user: User)
 

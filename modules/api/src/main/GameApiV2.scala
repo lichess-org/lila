@@ -1,7 +1,7 @@
 package lila.api
 
 import akka.stream.scaladsl.*
-import chess.format.FEN
+import chess.format.Fen
 import chess.format.pgn.Tag
 import org.joda.time.DateTime
 import play.api.libs.json.*
@@ -260,7 +260,7 @@ final class GameApiV2(
   private def jsonFormatter(flags: WithFlags) =
     (
         game: Game,
-        initialFen: Option[FEN],
+        initialFen: Option[Fen],
         analysis: Option[Analysis],
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]
@@ -271,7 +271,7 @@ final class GameApiV2(
 
   private def toJson(
       g: Game,
-      initialFen: Option[FEN],
+      initialFen: Option[Fen],
       analysisOption: Option[Analysis],
       withFlags: WithFlags,
       teams: Option[GameTeams] = None,

@@ -1,6 +1,6 @@
 package lila.evalCache
 
-import chess.format.{ FEN, Forsyth, Uci }
+import chess.format.{ Fen, Forsyth, Uci }
 import chess.variant.Variant
 import org.joda.time.DateTime
 import cats.data.NonEmptyList
@@ -80,11 +80,11 @@ object EvalCacheEntry:
 
   case class Id(variant: Variant, smallFen: SmallFen)
 
-  case class Input(id: Id, fen: FEN, eval: Eval)
+  case class Input(id: Id, fen: Fen, eval: Eval)
 
   object Input:
-    case class Candidate(variant: Variant, fen: String, eval: Eval):
+    case class Candidate(variant: Variant, fen: Fen, eval: Eval):
       def input =
-        SmallFen.validate(variant, FEN(fen)) ifTrue eval.looksValid map { smallFen =>
-          Input(Id(variant, smallFen), FEN(fen), eval.truncatePvs)
+        SmallFen.validate(variant, fen) ifTrue eval.looksValid map { smallFen =>
+          Input(Id(variant, smallFen), fen, eval.truncatePvs)
         }

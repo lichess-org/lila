@@ -7,16 +7,15 @@ import lila.common.Json.given
 import lila.storm.StormJson
 import lila.storm.StormSign
 
-final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: LightUser.GetterSync):
+final class RacerJson:
 
   import StormJson.given
 
   given OWrites[RacerPlayer] = OWrites { p =>
-    val user = p.userId flatMap lightUserSync
     Json
       .obj("name" -> p.name, "score" -> p.score)
-      .add("userId", p.userId)
-      .add("title", user.flatMap(_.title))
+      .add("userId", p.user.map(_.id))
+      .add("title", p.user.flatMap(_.title))
   }
 
   // full race data

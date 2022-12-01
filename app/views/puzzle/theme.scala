@@ -45,8 +45,8 @@ object theme:
 
   private def themeCategory(cat: I18nKey, themes: List[PuzzleTheme.WithCount])(implicit ctx: Context) =
     frag(
-      h2(id := cat.key)(cat()),
-      div(cls := s"puzzle-themes__list ${cat.key.replace(":", "-")}")(
+      h2(id := cat.value)(cat()),
+      div(cls := s"puzzle-themes__list ${cat.value.replace(":", "-")}")(
         themes.map { pt =>
           val url =
             if (pt.theme == PuzzleTheme.mix) routes.Puzzle.home
@@ -61,7 +61,7 @@ object theme:
             )
           )
         },
-        cat.key == "puzzle:origin" option
+        cat.value == "puzzle:origin" option
           a(cls := "puzzle-themes__link", href := routes.Puzzle.ofPlayer())(
             span(
               h3(trans.puzzleTheme.playerGames()),

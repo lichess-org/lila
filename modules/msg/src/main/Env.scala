@@ -4,7 +4,7 @@ import com.softwaremill.macwire.*
 
 import lila.common.Bus
 import lila.common.config.*
-import lila.common.Json.userIdReads
+import lila.common.Json.given
 import lila.user.User
 import lila.hub.actorApi.socket.remote.TellUserIn
 

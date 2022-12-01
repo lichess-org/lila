@@ -1,7 +1,7 @@
 package lila.db
 
 import cats.data.NonEmptyList
-import chess.format.FEN
+import chess.format.Fen
 import chess.opening.OpeningFamily
 import chess.variant.Variant
 import org.joda.time.DateTime
@@ -170,10 +170,7 @@ trait Handlers:
 
   given BSONHandler[NormalizedEmailAddress] = stringIsoHandler
 
-  given BSONHandler[chess.Color]  = BSONBooleanHandler.as[chess.Color](chess.Color.fromWhite, _.white)
-  given BSONHandler[chess.Centis] = intIsoHandler
-
-  given BSONHandler[FEN] = stringIsoHandler
+  given BSONHandler[chess.Color] = BSONBooleanHandler.as[chess.Color](chess.Color.fromWhite(_), _.white)
 
   import lila.common.{ LilaOpeningFamily, SimpleOpening }
   given BSONHandler[SimpleOpening.Key] = stringIsoHandler

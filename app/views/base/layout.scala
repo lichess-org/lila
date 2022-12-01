@@ -437,25 +437,25 @@ object layout:
   object inlineJs:
 
     private val i18nKeys = List(
-      trans.pause.key,
-      trans.resume.key,
-      trans.nbFriendsOnline.key,
-      trans.timeago.justNow.key,
-      trans.timeago.inNbSeconds.key,
-      trans.timeago.inNbMinutes.key,
-      trans.timeago.inNbHours.key,
-      trans.timeago.inNbDays.key,
-      trans.timeago.inNbWeeks.key,
-      trans.timeago.inNbMonths.key,
-      trans.timeago.inNbYears.key,
-      trans.timeago.rightNow.key,
-      trans.timeago.nbSecondsAgo.key,
-      trans.timeago.nbMinutesAgo.key,
-      trans.timeago.nbHoursAgo.key,
-      trans.timeago.nbDaysAgo.key,
-      trans.timeago.nbWeeksAgo.key,
-      trans.timeago.nbMonthsAgo.key,
-      trans.timeago.nbYearsAgo.key
+      trans.pause,
+      trans.resume,
+      trans.nbFriendsOnline,
+      trans.timeago.justNow,
+      trans.timeago.inNbSeconds,
+      trans.timeago.inNbMinutes,
+      trans.timeago.inNbHours,
+      trans.timeago.inNbDays,
+      trans.timeago.inNbWeeks,
+      trans.timeago.inNbMonths,
+      trans.timeago.inNbYears,
+      trans.timeago.rightNow,
+      trans.timeago.nbSecondsAgo,
+      trans.timeago.nbMinutesAgo,
+      trans.timeago.nbHoursAgo,
+      trans.timeago.nbDaysAgo,
+      trans.timeago.nbWeeksAgo,
+      trans.timeago.nbMonthsAgo,
+      trans.timeago.nbYearsAgo
     )
 
     private val cache = scala.collection.mutable.AnyRefMap.empty[Lang, String]

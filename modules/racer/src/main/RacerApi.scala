@@ -6,11 +6,16 @@ import scala.concurrent.ExecutionContext
 import lila.memo.CacheApi
 import lila.storm.StormSelector
 import lila.user.{ User, UserRepo }
-import lila.common.Bus
+import lila.common.{ Bus, LightUser }
 import lila.common.config.Max
 
-final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserRepo, cacheApi: CacheApi)(
-    implicit
+final class RacerApi(
+    colls: RacerColls,
+    selector: StormSelector,
+    userRepo: UserRepo,
+    cacheApi: CacheApi,
+    lightUser: LightUser.GetterSyncFallback
+)(implicit
     ec: ExecutionContext,
     scheduler: akka.actor.Scheduler
 ):
@@ -24,7 +29,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
   def get(id: Id): Option[RacerRace] = store getIfPresent id
 
   def playerId(sessionId: String, user: Option[User]) = user match
-    case Some(u) => RacerPlayer.Id.User(u.username)
+    case Some(u) => RacerPlayer.Id.User(u.id)
     case None    => RacerPlayer.Id.Anon(sessionId)
 
   def createAndJoin(player: RacerPlayer.Id): Fu[RacerRace.Id] =
@@ -65,12 +70,17 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
         }
       }
 
-  def join(id: RacerRace.Id, player: RacerPlayer.Id): Option[RacerRace] =
+  def makePlayer(id: RacerPlayer.Id) =
+    RacerPlayer.make(id, RacerPlayer.Id.userIdOf(id).map(lightUser))
+
+  def join(id: RacerRace.Id, playerId: RacerPlayer.Id): Option[RacerRace] = {
+    val player = makePlayer(playerId)
     get(id).flatMap(_ join player) map { r =>
       val race = (r.isLobby ?? doStart(r)) | r
       saveAndPublish(race)
       race
     }
+  }
 
   private[racer] def manualStart(race: RacerRace): Unit = !race.isLobby ?? {
     doStart(race) foreach saveAndPublish
@@ -88,10 +98,10 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
     get(id) foreach { race =>
       lila.mon.racer.players(lobby = race.isLobby).record(race.players.size)
       race.players foreach { player =>
-        lila.mon.racer.score(lobby = race.isLobby, auth = player.userId.isDefined).record(player.score)
-        player.userId.ifTrue(player.score > 0) foreach { userId =>
-          Bus.publish(lila.hub.actorApi.puzzle.RacerRun(userId, player.score), "racerRun")
-          userRepo.addRacerRun(userId, player.score)
+        lila.mon.racer.score(lobby = race.isLobby, auth = player.user.isDefined).record(player.score)
+        player.user.ifTrue(player.score > 0) foreach { user =>
+          Bus.publish(lila.hub.actorApi.puzzle.RacerRun(user.id, player.score), "racerRun")
+          userRepo.addRacerRun(user.id, player.score)
         }
       }
       publish(race)

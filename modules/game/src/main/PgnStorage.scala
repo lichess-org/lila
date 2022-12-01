@@ -41,7 +41,7 @@ private object PgnStorage:
           pieces = decoded.pieces.asScala.view.map { (k, v) =>
             Pos(k) -> chessPiece(v)
           }.toMap,
-          positionHashes = decoded.positionHashes,
+          positionHashes = PositionHash(decoded.positionHashes),
           unmovedRooks = UnmovedRooks(unmovedRooks),
           lastMove = Option(decoded.lastUci) flatMap Uci.apply,
           castles = Castles(

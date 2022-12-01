@@ -3,7 +3,7 @@ package lila.evalCache
 import chess.variant.Variant
 import play.api.libs.json.*
 
-import chess.format.FEN
+import chess.format.Fen
 import lila.socket.*
 import lila.user.User
 import lila.common.Json.given
@@ -20,7 +20,7 @@ final private class EvalCacheSocketHandler(
       push: JsObject => Unit
   ): Unit =
     for {
-      fen <- d.get[FEN]("fen")
+      fen <- d.get[Fen]("fen")
       variant = Variant orDefault ~d.str("variant")
       multiPv = (d int "mpv") | 1
       path <- d str "path"

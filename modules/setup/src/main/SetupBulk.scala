@@ -2,7 +2,7 @@ package lila.setup
 
 import akka.stream.scaladsl.*
 import chess.variant.{ FromPosition, Variant }
-import chess.format.FEN
+import chess.format.Fen
 import chess.{ Clock, Mode }
 import org.joda.time.DateTime
 import play.api.data.*
@@ -31,7 +31,7 @@ object SetupBulk:
       startClocksAt: Option[DateTime],
       message: Option[Template],
       rules: Set[GameRule],
-      fen: Option[FEN] = None
+      fen: Option[Fen] = None
   ):
     def clockOrDays = clock.toLeft(days | Days(3))
 
@@ -68,7 +68,7 @@ object SetupBulk:
           variant: Option[String],
           clock: Option[Clock.Config],
           days: Option[Days],
-          fen: Option[FEN],
+          fen: Option[Fen],
           rated: Boolean,
           pairTs: Option[Long],
           clockTs: Option[Long],
@@ -133,7 +133,7 @@ object SetupBulk:
       message: Option[Template],
       rules: Set[GameRule] = Set.empty,
       pairedAt: Option[DateTime] = None,
-      fen: Option[FEN] = None
+      fen: Option[Fen] = None
   ):
     def userSet = Set(games.flatMap(g => List(g.white, g.black)))
     def collidesWith(other: ScheduledBulk) = {

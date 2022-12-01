@@ -386,7 +386,7 @@ final class Api(
         JsonOptionOk(
           env.evalCache.api.getEvalJson(
             chess.variant.Variant orDefault ~get("variant", req),
-            chess.format.FEN(fen),
+            chess.format.Fen(fen),
             getInt("multiPv", req) | 1
           )
         )

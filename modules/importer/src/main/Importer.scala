@@ -1,7 +1,7 @@
 package lila.importer
 
 import cats.data.Validated
-import chess.format.FEN
+import chess.format.Fen
 import org.lichess.compression.game.Encoder
 
 import lila.game.{ Game, GameRepo }

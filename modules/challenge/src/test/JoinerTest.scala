@@ -27,7 +27,7 @@ final class JoinerTest extends Specification {
       val position = "r1bqkbnr/ppp2ppp/2npp3/8/8/2NPP3/PPP2PPP/R1BQKBNR w KQkq - 2 4"
       val challenge = Challenge.make(
         variant = FromPosition,
-        initialFen = Some(chess.format.FEN(position)),
+        initialFen = Some(chess.format.Fen(position)),
         timeControl = Challenge.TimeControl.Clock(chess.Clock.Config(300, 0)),
         mode = chess.Mode.Casual,
         color = "white",

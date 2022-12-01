@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.format.Forsyth
 import chess.variant.Variant
 import play.api.libs.json.*
@@ -15,7 +15,7 @@ object StepBuilder:
       id: GameId,
       pgnMoves: Vector[String],
       variant: Variant,
-      initialFen: FEN
+      initialFen: Fen
   ): JsArray =
     chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match
       case (init, games, error) =>

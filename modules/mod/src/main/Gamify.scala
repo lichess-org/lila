@@ -167,7 +167,7 @@ object Gamify:
     def name = Period.this.toString.toLowerCase
     case Day, Week, Month
   object Period:
-    def apply(p: String) = List(Day, Week, Month).find(_.name == p)
+    def apply(p: String) = values.find(_.name == p)
 
   case class Leaderboards(daily: List[ModMixed], weekly: List[ModMixed], monthly: List[ModMixed]):
     def apply(period: Period) =

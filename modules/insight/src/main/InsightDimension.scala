@@ -1,6 +1,6 @@
 package lila.insight
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.opening.FullOpeningDB
 import chess.{ Color, Role }
 import play.api.i18n.Lang

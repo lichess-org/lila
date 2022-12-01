@@ -135,7 +135,6 @@ object ModActivity:
     def key = toString.toLowerCase
     case Week, Month, Year
   object Period:
-    val all = List(Period.Week, Period.Month, Period.Year)
     def apply(str: String): Period =
       if (str == "year") Year
       else if (str == "month") Month
@@ -164,6 +163,7 @@ object ModActivity:
     case Streamer
     case Blog
     case ForumAdmin
+
   object Action:
     val dbMap = Map(
       "modMessage"      -> Message,

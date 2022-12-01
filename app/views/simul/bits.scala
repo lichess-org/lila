@@ -71,4 +71,4 @@ object bits:
     trans.by,
     trans.signIn,
     trans.mustBeInTeam
-  ).map(_.key)
+  )

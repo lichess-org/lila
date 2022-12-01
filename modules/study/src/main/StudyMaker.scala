@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.FEN
+import chess.format.Fen
 import lila.game.{ Game, Namer, Pov }
 import lila.user.User
 
@@ -50,7 +50,7 @@ final private class StudyMaker(
   private def createFromPov(
       data: StudyMaker.ImportGame,
       pov: Pov,
-      initialFen: Option[FEN],
+      initialFen: Option[Fen],
       user: User,
       withRatings: Boolean
   ): Fu[Study.WithChapter] = {

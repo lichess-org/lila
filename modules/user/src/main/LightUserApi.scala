@@ -16,8 +16,10 @@ final class LightUserApi(
 
   val async = LightUser.Getter(id => if (User isGhost id) fuccess(LightUser.ghost.some) else cache.async(id))
   val sync  = LightUser.GetterSync(id => if (User isGhost id) LightUser.ghost.some else cache.sync(id))
+  val syncFallback = LightUser.GetterSyncFallback(id =>
+    if (User isGhost id) LightUser.ghost else cache.sync(id) | LightUser.fallback(id into UserName)
+  )
 
-  def syncFallback(id: UserId)          = sync(id) | LightUser.fallback(id into UserName)
   def asyncFallback(id: UserId)         = async(id).dmap(_ | LightUser.fallback(id into UserName))
   def asyncFallbackName(name: UserName) = async(name.id).dmap(_ | LightUser.fallback(name))
 

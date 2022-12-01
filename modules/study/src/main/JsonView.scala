@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.{ FEN, Uci }
+import chess.format.{ Fen, Uci }
 import chess.Pos
 import play.api.libs.json.*
 import scala.util.chaining.*

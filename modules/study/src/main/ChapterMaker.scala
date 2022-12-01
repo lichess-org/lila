@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.Tags
-import chess.format.{ FEN, Forsyth }
+import chess.format.{ Fen, Forsyth }
 import chess.variant.{ Crazyhouse, Variant }
 import lila.chat.{ Chat, ChatApi }
 import lila.game.{ Game, Namer }
@@ -121,7 +121,7 @@ final private class ChapterMaker(
       order: Int,
       userId: UserId,
       withRatings: Boolean,
-      initialFen: Option[FEN] = None
+      initialFen: Option[Fen] = None
   ): Fu[Chapter] =
     for {
       root <- getBestRoot(game, data.pgn, initialFen)
@@ -164,7 +164,7 @@ final private class ChapterMaker(
         )
       }
 
-  private[study] def getBestRoot(game: Game, pgnOpt: Option[String], initialFen: Option[FEN]): Fu[Node.Root] =
+  private[study] def getBestRoot(game: Game, pgnOpt: Option[String], initialFen: Option[Fen]): Fu[Node.Root] =
     initialFen.fold(gameRepo initialFen game) { fen =>
       fuccess(fen.some)
     } map { goodFen =>
@@ -196,8 +196,7 @@ private[study] object ChapterMaker:
     def key = toString.toLowerCase
     case Normal, Practice, Gamebook, Conceal
   object Mode:
-    val all                = List(Normal, Practice, Gamebook, Conceal)
-    def apply(key: String) = all.find(_.key == key)
+    def apply(key: String) = values.find(_.key == key)
 
   trait ChapterData:
     def orientation: Orientation
@@ -216,7 +215,7 @@ private[study] object ChapterMaker:
       name: StudyChapterName,
       game: Option[String] = None,
       variant: Option[Variant] = None,
-      fen: Option[FEN] = None,
+      fen: Option[Fen] = None,
       pgn: Option[String] = None,
       orientation: Orientation = Orientation.Auto,
       mode: ChapterMaker.Mode = ChapterMaker.Mode.Normal,

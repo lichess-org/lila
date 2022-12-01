@@ -3,7 +3,7 @@ package lila.fishnet
 import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
-import chess.format.{ FEN, Uci }
+import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import lila.common.IpAddress
 
@@ -43,7 +43,7 @@ object Work:
 
   private[fishnet] case class Game(
       id: String, // can be a study chapter ID, if studyId is set
-      initialFen: Option[FEN],
+      initialFen: Option[Fen],
       studyId: Option[StudyId],
       variant: Variant,
       moves: String

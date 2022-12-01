@@ -9,8 +9,8 @@ import lila.common.Heapsort.topN
 import lila.memo.CacheApi
 
 case class OpeningSearchResult(opening: FullOpening):
-  def pgn   = OpeningSearch.removePgnMoveNumbers(opening.pgn)
-  def query = OpeningQuery.Query(opening.key, pgn.some)
+  def pgn   = OpeningSearch.removePgnMoveNumbers(opening.pgn.value)
+  def query = OpeningQuery.Query(opening.key.value, pgn.some)
 
 final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer):
 
@@ -59,9 +59,9 @@ object OpeningSearch:
         .toSet
         .diff(exclude)
     def apply(opening: FullOpening): Set[Token] =
-      opening.key.toLowerCase.replace("-", "_").split('_').view.filterNot(exclude.contains).toSet +
-        opening.eco.toLowerCase ++
-        opening.pgn.split(' ').take(6).toSet
+      opening.key.value.toLowerCase.replace("-", "_").split('_').view.filterNot(exclude.contains).toSet +
+        opening.eco.value.toLowerCase ++
+        opening.pgn.value.split(' ').take(6).toSet
 
   private case class Query(raw: String, numberedPgn: String, tokens: Set[Token])
   private def makeQuery(userInput: String) =
@@ -84,9 +84,9 @@ object OpeningSearch:
       entry.tokens(token) ||
         entry.tokens(s"${token}s") // King's and Queen's can be matched by king and queen
     if (
-      entry.opening.pgn.startsWith(query.raw) ||
-      entry.opening.pgn.startsWith(query.numberedPgn) ||
-      entry.opening.uci.startsWith(query.raw)
+      entry.opening.pgn.value.startsWith(query.raw) ||
+      entry.opening.pgn.value.startsWith(query.numberedPgn) ||
+      entry.opening.uci.value.startsWith(query.raw)
     )
       (query.raw.size * 1000 - entry.opening.nbMoves)
     else
@@ -103,7 +103,7 @@ object OpeningSearch:
               else 0
             }.sum
           }.sum
-  }.some.filter(0 <).map(_ - entry.opening.key.size)
+  }.some.filter(_ > 0).map(_ - entry.opening.key.value.size)
 
   private given Ordering[Match] = Ordering.by { case Match(_, score) => score }
 
