@@ -9,7 +9,7 @@ public class StringUtils {
         'c' , 'd' , 'e' , 'f'
     };
 
-    private static final String betweenSquareBrackets = "\\[(.*)\\]";
+    private static final String betweenSiteHeaders = "\\[Site.(.*?)\\]";
 
     public static String safeJsonString(final String s) {
         final char[] sArr = s.toCharArray();
@@ -152,10 +152,10 @@ public class StringUtils {
         return v0[len2];
     }
 
-    public static String ignoreBetweenSquareBrackets(final String s) {
+    public static String ignoreSiteHeaders(final String s) {
         if(s.indexOf('[') == -1 && s.indexOf(']') == -1) 
             return s;
-        return s.replaceAll(betweenSquareBrackets, "");
+        return s.replaceAll(betweenSiteHeaders, "");
     } 
 
 }

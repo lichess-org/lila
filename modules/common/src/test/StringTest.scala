@@ -4,7 +4,7 @@ import scalatags.Text.all._
 
 import org.specs2.mutable.*
 import org.specs2.execute.Result
-import lila.common.base.StringUtils.ignoreBetweenSquareBrackets
+import lila.common.base.StringUtils.ignoreSiteHeaders
 
 class StringTest extends Specification {
 
@@ -120,20 +120,24 @@ class StringTest extends Specification {
       }
     }
 
-    "ignore between square brackets" >> {
-      "return the string without the parts between square brackets" >> {
-        var s : String = "This is a post that has [ key = value ]a part"
-        ignoreBetweenSquareBrackets(s) === "This is a post that has a part"
+    "ignore between site headers" >> {
+      "return the string without the parts between site headers" >> {
+        var s : String = "This is a post that has [Site veryverylonglink.com]a part"
+        ignoreSiteHeaders(s) === "This is a post that has a part"
       }
-      "doesn't care about nested square brackets, should ignore anyway" >> {
-        var s : String = "This is a post that has nested [ [key = value] ]brackets"
-        ignoreBetweenSquareBrackets(s) === "This is a post that has nested brackets"
+      "doesn't care about nested square brackets, should ignore site headers anyway" >> {
+        var s : String = "This is a post that has nested [ [Site veryverylonglink.com] ]brackets"
+        ignoreSiteHeaders(s) === "This is a post that has nested [  ]brackets"
       }
-      "Returns the string as is if there is no square brackets" >> {
-        var s : String = "This is a post that has no brackets"
-        ignoreBetweenSquareBrackets(s) === "This is a post that has no brackets"
+      "Detects and removes multiple site headers" >> {
+        var s : String = "This is a post[Site veryverylonglink.com] that has[Site veryverylonglink.com] a lot [Site veryverylonglink.com]of brackets"
+        ignoreSiteHeaders(s) === "This is a post that has a lot of brackets"
       }
-    }
+      "Returns original string if there are no site headers" >> {
+        var s : String = "This is a post with no site headers"
+        ignoreSiteHeaders(s) === "This is a post with no site headers"
+      }
+    }    
   }
 
 }
