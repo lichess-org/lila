@@ -26,5 +26,3 @@ object I18nKey extends OpaqueString[I18nKey]:
     def pluralSameTxt(count: Int)(using Lang): String = pluralTxt(count, count)
 
   end extension
-
-  type Select = I18nKeys.type => I18nKey

@@ -229,7 +229,7 @@ final class Api(
         _ ?? { tour =>
           val onlyUserId = getUserStr("player", req).map(_.id)
           val config = GameApiV2.ByTournamentConfig(
-            tournamentId = tour.id,
+            tour = tour,
             format = GameApiV2.Format byRequest req,
             flags = gameC.requestPgnFlags(req, extended = false),
             perSecond = MaxPerSecond(20 + me.isDefined ?? 10)
@@ -252,9 +252,8 @@ final class Api(
       env.tournament.tournamentRepo byId id map {
         _ ?? { tour =>
           import lila.tournament.JsonView.playerResultWrites
-          val source =
-            env.tournament.api
-              .resultStream(tour, MaxPerSecond(40), getInt("nb", req) | Int.MaxValue)
+          val source = env.tournament.api
+            .resultStream(tour, MaxPerSecond(40), getInt("nb", req) | Int.MaxValue)
           val result =
             if (csv) csvStream(lila.tournament.TournamentCsv(source))
             else jsonStream(source.map(lila.tournament.JsonView.playerResultWrites.writes))

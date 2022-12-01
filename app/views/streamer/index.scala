@@ -81,10 +81,12 @@ object index:
             pagerNext(
               pager,
               np =>
-                addQueryParameter(
-                  addQueryParameter(routes.Streamer.index().url, "page", np),
-                  "requests",
-                  if (requests) 1 else 0
+                addQueryParams(
+                  routes.Streamer.index().url,
+                  Map(
+                    "page"     -> np.toString,
+                    "requests" -> (if requests then 1 else 0).toString
+                  )
                 )
             )
           )

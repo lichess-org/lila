@@ -29,10 +29,11 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       state = State from get("state", req),
       codeChallengeMethod = get("code_challenge_method", req),
       codeChallenge = CodeChallenge from get("code_challenge", req),
-      scope = get("scope", req)
+      scope = get("scope", req),
+      username = UserStr from get("username", req)
     )
 
-  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(implicit ctx: Context) =
+  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: Context) =
     reqToAuthorizationRequest(ctx.req).prompt match
       case Validated.Valid(prompt) => f(prompt)
       case Validated.Invalid(error) =>

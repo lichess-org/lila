@@ -17,7 +17,7 @@ final class JsonView(getLightUser: LightUser.GetterSync):
   private given userIdWriter: OWrites[UserId] = OWrites { u =>
     val light = getLightUser(u)
     Json.obj(
-      "id"    -> u,
+      "id"    -> u.value,
       "name"  -> light.fold(u into UserName)(_.name),
       "title" -> light.flatMap(_.title)
     )
