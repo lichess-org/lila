@@ -90,12 +90,13 @@ final class Auth(
 
   private def serveLogin(implicit ctx: Context) = NoBot {
     val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
-    referrer ifTrue ctx.isAuth ifFalse getBool("switch") match
+    val switch   = get("switch")
+    referrer ifTrue ctx.isAuth ifTrue switch.isEmpty match
       case Some(url) => Redirect(url).toFuccess // redirect immediately if already logged in
       case None =>
-        Ok(html.auth.login(api.loginForm, referrer))
-          .withCanonical(routes.Auth.login)
-          .toFuccess
+        val prefillUsername = lila.security.UserStrOrEmail(~switch.filter(_ != "1"))
+        val form            = api.loginForm.fill(prefillUsername -> "")
+        Ok(html.auth.login(form, referrer)).withCanonical(routes.Auth.login).toFuccess
   }
 
   private val is2fa = Set("MissingTotpToken", "InvalidTotpToken")
