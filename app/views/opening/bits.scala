@@ -11,7 +11,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.opening.OpeningQuery.Query
-import lila.opening.{ Opening, OpeningConfig, OpeningExplored, OpeningPage, OpeningQuery, ResultCounts }
+import lila.opening.{ NameSection, OpeningConfig, OpeningExplored, OpeningPage, OpeningQuery, ResultCounts }
 
 object bits:
 
@@ -85,7 +85,7 @@ object bits:
   )
 
   def splitName(op: Opening) =
-    Opening.sectionsOf(op.name) match
+    NameSection.sectionsOf(op.name) match
       case NonEmptyList(family, variations) =>
         frag(
           span(cls := "opening-name__family")(family),
@@ -101,8 +101,8 @@ object bits:
   def queryUrl(q: OpeningQuery): Call = queryUrl(q.query)
   def queryUrl(q: Query): Call =
     routes.Opening.byKeyAndMoves(q.key, q.moves.??(_.replace(" ", "_")))
-  def openingUrl(o: Opening) = keyUrl(o.key)
-  def keyUrl(key: OpeningKey)    = routes.Opening.byKeyAndMoves(key, "")
+  def openingUrl(o: Opening)  = keyUrl(o.key)
+  def keyUrl(key: OpeningKey) = routes.Opening.byKeyAndMoves(key, "")
 
   val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
 

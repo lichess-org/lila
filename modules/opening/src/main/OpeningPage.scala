@@ -19,9 +19,9 @@ case class OpeningPage(
     case (op, moves) => (op ?? NamePart.from) ::: NamePart.from(moves)
 
 case object NamePart:
-  type NamePartList = List[Either[Opening.PgnMove, (Opening.NameSection, Option[OpeningKey])]]
+  type NamePartList = List[Either[PgnMove, (NameSection, Option[OpeningKey])]]
   def from(op: Opening): NamePartList =
-    val sections = Opening.sectionsOf(op.name)
+    val sections = NameSection.sectionsOf(op.name)
     sections.toList.zipWithIndex map { case (name, i) =>
       Right(
         name ->
@@ -30,7 +30,7 @@ case object NamePart:
             .map(_.key)
       )
     }
-  def from(moves: List[Opening.PgnMove]): NamePartList = moves.map(Left.apply)
+  def from(moves: List[PgnMove]): NamePartList = moves.map(Left.apply)
 
 case class ResultCounts(
     white: Int,
@@ -52,7 +52,7 @@ case class OpeningNext(
     result: ResultCounts,
     percent: Double,
     opening: Option[Opening],
-    shortName: Option[Opening.NameSection]
+    shortName: Option[NameSection]
 )
 
 case class GameWithPgn(game: Game, pgn: Pgn)
@@ -94,7 +94,7 @@ object OpeningPage:
                 result,
                 (result.sum * 100d / exp.movesSum),
                 opening,
-                shortName = Opening.variationName(query.opening, opening)
+                shortName = NameSection.variationName(query.opening, opening)
               )
             }
             .sortBy(-_.result.sum),

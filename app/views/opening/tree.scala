@@ -5,13 +5,13 @@ import controllers.routes
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.opening.{ Opening, OpeningConfig }
+import lila.opening.{ NameSection, OpeningTree, OpeningConfig }
 
 object tree:
 
   import bits.*
 
-  def apply(root: Opening.Tree, config: OpeningConfig)(implicit ctx: Context) =
+  def apply(root: OpeningTree, config: OpeningConfig)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(none),
@@ -33,7 +33,7 @@ object tree:
       )
     }
 
-  private def renderChildren(node: Opening.Tree, level: Int): Frag =
+  private def renderChildren(node: OpeningTree, level: Int): Frag =
     node.children map { case (op, node) =>
       val fold = level < 4 && node.children.nonEmpty
       val content = frag(

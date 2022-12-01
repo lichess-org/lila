@@ -25,7 +25,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
     case (op, _) => OpeningQuery.Query(op.fold("-")(_.key.value), pgnUnderscored.some)
   def prev = (pgn.sizeIs > 1) ?? OpeningQuery(OpeningQuery.Query("", pgn.init.mkString(" ").some), config)
 
-  val openingAndExtraMoves: (Option[Opening], List[Opening.PgnMove]) =
+  val openingAndExtraMoves: (Option[Opening], List[PgnMove]) =
     opening.map(_.some -> Nil) orElse OpeningDb.search(replay).map { case Opening.AtPly(op, ply) =>
       op.some -> pgn.drop(ply + 1).toList
     } getOrElse (none, pgn.toList)
