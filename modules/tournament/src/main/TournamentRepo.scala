@@ -362,7 +362,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       owner: lila.user.User,
       status: List[Status],
       batchSize: Int,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = temporarilyPrimary
   ): AkkaStreamCursor[Tournament] =
     coll
       .find($doc("createdBy" -> owner.id) ++ (status.nonEmpty ?? $doc("status" $in status)))
