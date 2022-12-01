@@ -120,13 +120,13 @@ final class StudyApi(
       user: User,
       withRatings: Boolean
   ): Fu[Option[Study.WithChapter]] = data.form.as match
-    case StudyForm.importGame.AsNewStudy =>
+    case StudyForm.importGame.As.NewStudy =>
       create(data, user, withRatings) addEffect {
         _ ?? { sc =>
           Bus.publish(actorApi.StartStudy(sc.study.id), "startStudy")
         }
       }
-    case StudyForm.importGame.AsChapterOf(studyId) =>
+    case StudyForm.importGame.As.ChapterOf(studyId) =>
       byId(studyId) flatMap {
         case Some(study) if study.canContribute(user.id) =>
           addChapter(
@@ -183,7 +183,7 @@ final class StudyApi(
         }
       case _ => fuccess(study -> none)
 
-  def talk(userId: User.ID, studyId: StudyId, text: String) =
+  def talk(userId: UserId, studyId: StudyId, text: String) =
     byId(studyId) foreach {
       _ foreach { study =>
         (study canChat userId) ?? {
@@ -361,7 +361,7 @@ final class StudyApi(
         fufail(s"Invalid forceVariation ${Position(sc.chapter, path)} $force") >>-
           reloadSriBecauseOf(sc.study, who.sri, sc.chapter.id)
 
-  def setRole(studyId: StudyId, userId: User.ID, roleStr: String)(who: Who) =
+  def setRole(studyId: StudyId, userId: UserId, roleStr: String)(who: Who) =
     sequenceStudy(studyId) { study =>
       canActAsOwner(study, who.u) flatMap {
         _ ?? {
@@ -373,10 +373,10 @@ final class StudyApi(
     }
 
   def invite(
-      byUserId: User.ID,
+      byUserId: UserId,
       studyId: StudyId,
-      username: String,
-      isPresent: User.ID => Fu[Boolean],
+      username: UserStr,
+      isPresent: UserId => Fu[Boolean],
       onError: String => Unit
   ) =
     sequenceStudy(studyId) { study =>
@@ -391,7 +391,7 @@ final class StudyApi(
         .void
     }
 
-  def kick(studyId: StudyId, userId: User.ID)(who: Who) =
+  def kick(studyId: StudyId, userId: UserId)(who: Who) =
     sequenceStudy(studyId) { study =>
       studyRepo.isAdminMember(study, who.u) flatMap { isAdmin =>
         val allowed = study.isMember(userId) && {
@@ -410,7 +410,7 @@ final class StudyApi(
   private def onMembersChange(
       study: Study,
       members: StudyMembers,
-      sendToUserIds: Iterable[User.ID]
+      sendToUserIds: Iterable[UserId]
   ): Unit =
     sendTo(study.id)(_.reloadMembers(members, sendToUserIds))
     indexStudy(study)
@@ -843,7 +843,7 @@ final class StudyApi(
   def analysisRequest(
       studyId: StudyId,
       chapterId: StudyChapterId,
-      userId: User.ID,
+      userId: UserId,
       unlimited: Boolean = false
   ): Funit =
     sequenceStudyWithChapter(studyId, chapterId) { case Study.WithChapter(study, chapter) =>
@@ -873,11 +873,11 @@ final class StudyApi(
       sendTo(study.id)(_ reloadChapters chapters)
     }
 
-  private def canActAsOwner(study: Study, userId: User.ID): Fu[Boolean] =
+  private def canActAsOwner(study: Study, userId: UserId): Fu[Boolean] =
     fuccess(study isOwner userId) >>| studyRepo.isAdminMember(study, userId)
 
   import alleycats.Zero
-  private def Contribute[A](userId: User.ID, study: Study)(f: => A)(implicit default: Zero[A]): A =
+  private def Contribute[A](userId: UserId, study: Study)(f: => A)(implicit default: Zero[A]): A =
     if (study canContribute userId) f else default.zero
 
   // work around circular dependency

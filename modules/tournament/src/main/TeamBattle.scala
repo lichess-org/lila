@@ -41,7 +41,7 @@ object TeamBattle:
       else if (this.score < that.score) 1
       else that.magicScore - this.magicScore
 
-  case class TeamLeader(userId: User.ID, magicScore: Int):
+  case class TeamLeader(userId: UserId, magicScore: Int):
     def score: Int = magicScore / 10000
 
   case class TeamInfo(

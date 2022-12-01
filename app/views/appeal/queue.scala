@@ -15,8 +15,8 @@ object queue:
 
   def apply(
       appeals: List[Appeal.WithUser],
-      inquiries: Map[User.ID, Inquiry],
-      markedByMe: Set[User.ID],
+      inquiries: Map[UserId, Inquiry],
+      markedByMe: Set[UserId],
       scores: lila.report.Room.Scores,
       streamers: Int,
       nbAppeals: Int

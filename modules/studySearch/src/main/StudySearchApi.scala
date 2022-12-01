@@ -31,7 +31,7 @@ final class StudySearchApi(
 
   def store(study: Study) = fuccess {
     indexThrottler ! LateMultiThrottler.work(
-      id = study.id.value,
+      id = study.id,
       run = studyRepo byId study.id flatMap { _ ?? doStore },
       delay = 30.seconds.some
     )
@@ -58,7 +58,7 @@ final class StudySearchApi(
           (s.study.description.toList :+ s.chapters.flatMap(chapterText)).mkString(" ")
         }
       },
-      Fields.topics -> s.study.topicsOrEmpty.value.map(_.value),
+      Fields.topics -> s.study.topicsOrEmpty.value,
       // Fields.createdAt -> study.createdAt)
       // Fields.updatedAt -> study.updatedAt,
       Fields.likes  -> s.study.likes.value,
@@ -118,7 +118,7 @@ final class StudySearchApi(
               logger.info("Reset study index")
               c.putMapping.await(10.seconds, "studyMapping")
               parseDate("2011-01-01").get
-          logger.info(s"Index to ${c.index.name} since $since")
+          logger.info(s"Index to ${c.index} since $since")
           val retryLogger = logger.branch("index")
           import lila.db.dsl.{ *, given }
           Source

@@ -9,7 +9,7 @@ import lila.user.User
 import lila.tutor.TutorCompare.AnyComparison
 
 case class TutorFullReport(
-    user: User.ID,
+    user: UserId,
     at: DateTime,
     perfs: List[TutorPerfReport]
 ):

@@ -51,8 +51,8 @@ final private class TutorQueue(
 
   private given BSONDocumentReader[Next] = Macros.reader
   def next: Fu[Option[Next]]             = queueColl.find($empty).sort($sort asc F.requestedAt).one[Next]
-  def start(userId: User.ID): Funit      = queueColl.updateField($id(userId), F.startedAt, DateTime.now).void
-  def remove(userId: User.ID): Funit     = queueColl.delete.one($id(userId)).void
+  def start(userId: UserId): Funit       = queueColl.updateField($id(userId), F.startedAt, DateTime.now).void
+  def remove(userId: UserId): Funit      = queueColl.delete.one($id(userId)).void
 
   private def fetchStatus(user: User): Fu[Status] =
     queueColl.primitiveOne[DateTime]($id(user.id), F.requestedAt) flatMap {
@@ -71,7 +71,7 @@ object TutorQueue:
   case class InQueue(position: Int, avgDuration: FiniteDuration) extends Status:
     def eta = avgDuration * position
 
-  private[tutor] case class Next(_id: User.ID, startedAt: Option[DateTime]):
+  private[tutor] case class Next(_id: UserId, startedAt: Option[DateTime]):
     def userId = _id
 
   object F:

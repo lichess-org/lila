@@ -92,7 +92,7 @@ final class PuzzleSessionApi(
         }
       }
 
-  private val sessions = cacheApi.notLoading[User.ID, PuzzleSession](32768, "puzzle.session")(
+  private val sessions = cacheApi.notLoading[UserId, PuzzleSession](32768, "puzzle.session")(
     _.expireAfterWrite(1 hour).buildAsync()
   )
 

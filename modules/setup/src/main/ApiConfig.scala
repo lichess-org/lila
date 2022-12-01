@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.format.{ FEN, Forsyth }
+import chess.format.{ Fen, Forsyth }
 import chess.variant.Chess960
 import chess.variant.FromPosition
 import chess.variant.Variant
@@ -17,7 +17,7 @@ final case class ApiConfig(
     days: Option[Days],
     rated: Boolean,
     color: Color,
-    position: Option[FEN] = None,
+    position: Option[Fen] = None,
     acceptByToken: Option[String] = None,
     message: Option[Template],
     keepAliveStream: Boolean,
@@ -51,7 +51,7 @@ object ApiConfig extends BaseHumanConfig:
       d: Option[Days],
       r: Boolean,
       c: Option[String],
-      pos: Option[FEN],
+      pos: Option[Fen],
       tok: Option[String],
       msg: Option[String],
       keepAliveStream: Option[Boolean],
@@ -70,7 +70,7 @@ object ApiConfig extends BaseHumanConfig:
       rules = ~rules
     ).autoVariant
 
-  def validFen(variant: Variant, fen: Option[FEN]) =
+  def validFen(variant: Variant, fen: Option[Fen]) =
     if (variant.chess960) fen.forall(f => Chess960.positionNumber(f).isDefined)
     else if (variant.fromPosition)
       fen exists { f =>

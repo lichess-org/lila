@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 case class View(
     id: String, // userId/videoId
     videoId: Video.ID,
-    userId: String,
+    userId: UserId,
     date: DateTime
 )
 
@@ -13,9 +13,9 @@ case class VideoView(video: Video, view: Boolean)
 
 object View:
 
-  def makeId(videoId: Video.ID, userId: String) = s"$videoId/$userId"
+  def makeId(videoId: Video.ID, userId: UserId) = s"$videoId/$userId"
 
-  def make(videoId: Video.ID, userId: String) =
+  def make(videoId: Video.ID, userId: UserId) =
     View(
       id = makeId(videoId, userId),
       videoId = videoId,
@@ -41,7 +41,7 @@ object View:
       View(
         id = r str id,
         videoId = r str videoId,
-        userId = r str userId,
+        userId = r.get[UserId](userId),
         date = r.get[DateTime](date)
       )
 

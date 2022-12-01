@@ -4,6 +4,7 @@ import com.softwaremill.macwire.*
 
 import lila.common.Bus
 import lila.common.config.*
+import lila.common.Json.given
 import lila.user.User
 import lila.hub.actorApi.socket.remote.TellUserIn
 
@@ -49,7 +50,11 @@ final class Env(
   def cli =
     new lila.common.Cli:
       def process = { case "msg" :: "multi" :: orig :: dests :: words =>
-        api.cliMultiPost(orig, dests.map(_.toLower).split(',').toIndexedSeq, words mkString " ")
+        api.cliMultiPost(
+          UserStr(orig),
+          UserId.from(dests.map(_.toLower).split(',').toIndexedSeq),
+          words mkString " "
+        )
       }
 
   Bus.subscribeFuns(
@@ -57,12 +62,12 @@ final class Env(
       api.systemPost(userId, text).unit
     },
     "remoteSocketIn:msgRead" -> { case TellUserIn(userId, msg) =>
-      msg str "d" map User.normalize foreach { api.setRead(userId, _) }
+      msg.get[UserId]("d") foreach { api.setRead(userId, _) }
     },
     "remoteSocketIn:msgSend" -> { case TellUserIn(userId, msg) =>
       for {
         obj  <- msg obj "d"
-        dest <- obj str "dest" map User.normalize
+        dest <- obj.get[UserId]("dest")
         text <- obj str "text"
       } api.post(userId, dest, text)
     }

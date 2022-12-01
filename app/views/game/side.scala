@@ -15,7 +15,7 @@ object side:
 
   def apply(
       pov: lila.game.Pov,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[chess.format.Fen],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
@@ -28,7 +28,7 @@ object side:
 
   def meta(
       pov: lila.game.Pov,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[chess.format.Fen],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,

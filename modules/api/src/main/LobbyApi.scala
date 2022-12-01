@@ -4,6 +4,7 @@ import play.api.libs.json.{ JsArray, JsObject, Json }
 
 import lila.game.Pov
 import lila.lobby.{ LobbySocket, SeekApi }
+import lila.common.Json.given
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,
@@ -11,7 +12,7 @@ final class LobbyApi(
     gameProxyRepo: lila.round.GameProxyRepo,
     gameJson: lila.game.JsonView,
     lobbySocket: LobbySocket
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   def apply(using ctx: Context): Fu[(JsObject, List[Pov])] =
     ctx.me.fold(seekApi.forAnon)(seekApi.forUser).mon(_.lobby segment "seeks") zip

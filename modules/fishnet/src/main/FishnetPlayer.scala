@@ -3,8 +3,9 @@ package lila.fishnet
 import chess.format.Uci
 import chess.{ Black, Clock, White }
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.{ Bus, Future, ThreadLocalRandom }
+import lila.common.{ Bus, Future }
 import lila.game.{ Game, GameRepo, UciMemo }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.FishnetPlay

@@ -19,9 +19,9 @@ object UblogBlog:
   sealed abstract class Id(val full: String)
   object Id:
     private val sep = ':'
-    case class User(id: String) extends Id(s"user$sep$id")
+    case class User(id: UserId) extends Id(s"user$sep$id")
     def apply(full: String): Option[Id] = full split sep match
-      case Array("user", id) => User(id).some
+      case Array("user", id) => User(UserId(id)).some
       case _                 => none
 
   type Tier = Int

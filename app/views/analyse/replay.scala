@@ -22,7 +22,7 @@ object replay:
   def apply(
       pov: Pov,
       data: play.api.libs.json.JsObject,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[chess.format.Fen],
       pgn: String,
       analysis: Option[lila.analyse.Analysis],
       analysisStarted: Boolean,
@@ -218,13 +218,12 @@ object replay:
             )
           )
         ),
-        if (ctx.blind)
-          div(cls := "blind-content none")(
-            h2("PGN downloads"),
-            pgnLinks,
-            button(cls := "copy-pgn", attr("data-pgn") := pgn)(
-              "Copy PGN to clipboard"
-            )
+        ctx.blind option div(cls := "blind-content none")(
+          h2("PGN downloads"),
+          pgnLinks,
+          button(cls := "copy-pgn", attr("data-pgn") := pgn)(
+            "Copy PGN to clipboard"
           )
+        )
       )
     )

@@ -2,13 +2,14 @@ package lila.report
 
 import org.joda.time.DateTime
 import cats.data.NonEmptyList
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 import lila.common.Iso
 
 case class Report(
     _id: Report.ID, // also the url slug
-    user: User.ID,  // the reportee
+    user: UserId,   // the reportee
     reason: Reason,
     room: Room,
     atoms: NonEmptyList[Report.Atom], // most recent first
@@ -68,10 +69,10 @@ case class Report(
   def process(by: User) =
     copy(
       open = false,
-      done = Report.Done(by.id, DateTime.now).some
+      done = Report.Done(by.id into ModId, DateTime.now).some
     )
 
-  def userIds: List[User.ID] = user :: atoms.toList.map(_.by.value)
+  def userIds: List[UserId] = user :: atoms.toList.map(_.by.userId)
 
   def isRecentComm                 = open && room == Room.Comm
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
@@ -113,9 +114,9 @@ object Report:
 
     def byLichess = by == ReporterId.lichess
 
-  case class Done(by: User.ID, at: DateTime)
+  case class Done(by: ModId, at: DateTime)
 
-  case class Inquiry(mod: User.ID, seenAt: DateTime)
+  case class Inquiry(mod: UserId, seenAt: DateTime)
 
   case class WithSuspect(report: Report, suspect: Suspect, isOnline: Boolean):
 
@@ -160,7 +161,7 @@ object Report:
       case c @ Candidate.Scored(candidate, score) =>
         existing.fold(
           Report(
-            _id = lila.common.ThreadLocalRandom nextString 8,
+            _id = ThreadLocalRandom nextString 8,
             user = candidate.suspect.user.id,
             reason = candidate.reason,
             room = Room(candidate.reason),
@@ -172,4 +173,4 @@ object Report:
           )
         )(_ add c.atom)
 
-  private[report] case class SnoozeKey(snoozerId: User.ID, reportId: Report.ID) extends lila.memo.Snooze.Key
+  private[report] case class SnoozeKey(snoozerId: UserId, reportId: Report.ID)

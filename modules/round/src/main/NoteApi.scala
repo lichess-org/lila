@@ -11,10 +11,10 @@ final class NoteApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
   def collName  = coll.name
   val noteField = "t"
 
-  def get(gameId: GameId, userId: String): Fu[String] =
+  def get(gameId: GameId, userId: UserId): Fu[String] =
     coll.primitiveOne[String]($id(makeId(gameId, userId)), noteField) dmap (~_)
 
-  def set(gameId: GameId, userId: String, text: String) = {
+  def set(gameId: GameId, userId: UserId, text: String) = {
     if (text.isEmpty) coll.delete.one($id(makeId(gameId, userId)))
     else
       coll.update.one(
@@ -24,7 +24,7 @@ final class NoteApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
       )
   }.void
 
-  def byGameIds(gameIds: Seq[GameId], userId: String): Fu[Map[GameId, String]] =
+  def byGameIds(gameIds: Seq[GameId], userId: UserId): Fu[Map[GameId, String]] =
     coll.byIds(gameIds.map(makeId(_, userId)), ReadPreference.secondaryPreferred) map { docs =>
       (for {
         doc    <- docs
@@ -33,4 +33,4 @@ final class NoteApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
       } yield (Game strToId noteId, note)).toMap
     }
 
-  private def makeId(gameId: GameId, userId: String) = s"$gameId$userId"
+  private def makeId(gameId: GameId, userId: UserId) = s"$gameId$userId"

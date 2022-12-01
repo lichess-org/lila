@@ -45,12 +45,12 @@ case class VisibleTournaments(
     )
 
 case class PlayerInfoExt(
-    userId: User.ID,
+    userId: UserId,
     player: Player,
     recentPovs: List[lila.game.LightPov]
 )
 
-case class FullRanking(ranking: Map[User.ID, Rank], playerIndex: Array[TourPlayerId])
+case class FullRanking(ranking: Map[UserId, Rank], playerIndex: Array[TourPlayerId])
 
 case class GameRanks(whiteRank: Rank, blackRank: Rank)
 
@@ -96,7 +96,7 @@ case class FeaturedGame(
     black: RankedPlayer
 )
 
-final class GetTourName(cache: lila.memo.Syncache[(Tournament.ID, Lang), Option[String]]):
-  def sync(id: Tournament.ID)(using lang: Lang)               = cache.sync(id -> lang)
-  def async(id: Tournament.ID)(using lang: Lang)              = cache.async(id -> lang)
-  def preload(ids: Iterable[Tournament.ID])(using lang: Lang) = cache.preloadMany(ids.map(_ -> lang).toSeq)
+final class GetTourName(cache: lila.memo.Syncache[(TourId, Lang), Option[String]]):
+  def sync(id: TourId)(using lang: Lang)               = cache.sync(id -> lang)
+  def async(id: TourId)(using lang: Lang)              = cache.async(id -> lang)
+  def preload(ids: Iterable[TourId])(using lang: Lang) = cache.preloadMany(ids.map(_ -> lang).toSeq)

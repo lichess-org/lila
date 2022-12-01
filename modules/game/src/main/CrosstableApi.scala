@@ -25,18 +25,18 @@ final class CrosstableApi(
       withMatchup(u1, u2) dmap some
     }
 
-  def apply(u1: User.ID, u2: User.ID): Fu[Crosstable] =
+  def apply(u1: UserId, u2: UserId): Fu[Crosstable] =
     justFetch(u1, u2) dmap { _ | Crosstable.empty(u1, u2) }
 
-  def justFetch(u1: User.ID, u2: User.ID): Fu[Option[Crosstable]] =
+  def justFetch(u1: UserId, u2: UserId): Fu[Option[Crosstable]] =
     coll.one[Crosstable](select(u1, u2))
 
-  def withMatchup(u1: User.ID, u2: User.ID): Fu[Crosstable.WithMatchup] =
+  def withMatchup(u1: UserId, u2: UserId): Fu[Crosstable.WithMatchup] =
     apply(u1, u2) zip getMatchup(u1, u2) dmap { case (crosstable, matchup) =>
       Crosstable.WithMatchup(crosstable, matchup)
     }
 
-  def nbGames(u1: User.ID, u2: User.ID): Fu[Int] =
+  def nbGames(u1: UserId, u2: UserId): Fu[Int] =
     coll
       .find(
         select(u1, u2),
@@ -51,11 +51,11 @@ final class CrosstableApi(
     }
 
   def add(game: Game): Funit =
-    game.userIds.distinct.sorted match
+    game.userIds.distinct.sorted(using stringOrdering) match
       case List(u1, u2) =>
         val result     = Result(game.id, game.winnerUserId)
         val bsonResult = Crosstable.crosstableHandler.writeResult(result, u1)
-        def incScore(userId: User.ID): Int =
+        def incScore(userId: UserId): Int =
           game.winnerUserId match
             case Some(u) if u == userId => 10
             case None                   => 5
@@ -94,8 +94,8 @@ final class CrosstableApi(
 
   private val matchupProjection = $doc(F.lastPlayed -> false)
 
-  def getMatchup(u1: User.ID, u2: User.ID): Fu[Option[Matchup]] =
+  def getMatchup(u1: UserId, u2: UserId): Fu[Option[Matchup]] =
     matchupColl(_.find(select(u1, u2), matchupProjection.some).one[Matchup])
 
-  private def select(u1: User.ID, u2: User.ID) =
+  private def select(u1: UserId, u2: UserId) =
     $id(Crosstable.makeKey(u1, u2))

@@ -1,7 +1,7 @@
 package views.html.opening
 
 import cats.data.NonEmptyList
-import chess.opening.FullOpening
+import chess.opening.{ OpeningKey, FullOpening }
 import controllers.routes
 import play.api.libs.json.{ JsArray, Json, JsObject }
 import play.api.mvc.Call
@@ -35,7 +35,7 @@ object bits:
               resultSegments(next.result)
             },
             span(cls := "opening__next__board")(
-              views.html.board.bits.mini(next.fen, lastMove = next.uci.uci)(span)
+              views.html.board.bits.mini(next.fen.board, lastMove = next.uci.some)(span)
             )
           )
         )
@@ -76,7 +76,7 @@ object bits:
       page match {
         case Some(p) =>
           s"""LichessOpening.page(${safeJsonValue(
-              Json.obj("history" -> (p.explored.??(_.history): List[Float]))
+              Json.obj("history" -> p.explored.??[List[Float]](_.history))
             )})"""
         case None =>
           s"""LichessOpening.search()"""
@@ -102,7 +102,7 @@ object bits:
   def queryUrl(q: Query): Call =
     routes.Opening.byKeyAndMoves(q.key, q.moves.??(_.replace(" ", "_")))
   def openingUrl(o: FullOpening) = keyUrl(o.key)
-  def keyUrl(key: String)        = routes.Opening.byKeyAndMoves(key, "")
+  def keyUrl(key: OpeningKey)    = routes.Opening.byKeyAndMoves(key, "")
 
   val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
 
@@ -138,4 +138,3 @@ object bits:
     val blackTransformed = (blackPercent - lower) * factor + drawHalfSquished
     val whiteTransformed = (whitePercent - lower) * factor + drawHalfSquished
     (blackTransformed, drawTransformed, whiteTransformed)
-

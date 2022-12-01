@@ -102,24 +102,24 @@ final class Simul(env: Env) extends LilaController(env):
     Auth { implicit ctx => me =>
       AsHost(simulId) { simul =>
         env.simul.api abort simul.id inject {
-          if (!simul.isHost(me)) env.mod.logApi.terminateTournament(me.id, simul.fullName)
+          if (!simul.isHost(me)) env.mod.logApi.terminateTournament(me.id into ModId, simul.fullName)
           if (HTTPRequest isXhr ctx.req) jsonOkResult
           else Redirect(routes.Simul.home)
         }
       }
     }
 
-  def accept(simulId: SimulId, userId: String) =
+  def accept(simulId: SimulId, userId: UserStr) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
-        env.simul.api.accept(simul.id, userId, v = true) inject jsonOkResult
+        env.simul.api.accept(simul.id, userId.id, v = true) inject jsonOkResult
       }
     }
 
-  def reject(simulId: SimulId, userId: String) =
+  def reject(simulId: SimulId, userId: UserStr) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
-        env.simul.api.accept(simul.id, userId, v = false) inject jsonOkResult
+        env.simul.api.accept(simul.id, userId.id, v = false) inject jsonOkResult
       }
     }
 

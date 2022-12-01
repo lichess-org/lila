@@ -76,11 +76,10 @@ final private class GameJson(
     )
 
   private def playersJson(game: Game) = JsArray(game.players.map { p =>
-    val userId = p.userId | "anon"
-    val user   = lightUserApi.syncFallback(userId)
+    val user = p.userId.fold(lila.common.LightUser.ghost)(lightUserApi.syncFallback)
     Json
       .obj(
-        "userId" -> userId,
+        "userId" -> user.id,
         "name"   -> s"${user.name}${p.rating.??(r => s" ($r)")}",
         "color"  -> p.color.name
       )

@@ -16,7 +16,7 @@ object side:
   def apply(
       s: Swiss,
       verdicts: SwissCondition.All.WithVerdicts,
-      streamers: List[lila.user.User.ID],
+      streamers: List[UserId],
       chat: Boolean
   )(using
       ctx: Context

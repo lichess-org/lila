@@ -1,7 +1,7 @@
 package lila.db
 
 import cats.data.NonEmptyList
-import chess.format.FEN
+import chess.format.Fen
 import chess.opening.OpeningFamily
 import chess.variant.Variant
 import org.joda.time.DateTime
@@ -16,12 +16,16 @@ import scala.collection.Factory
 
 trait Handlers:
 
+  // free handlers for all types with TotalWrapper
   inline given opaqueHandler[T, A](using
       sr: SameRuntime[A, T],
       rs: SameRuntime[T, A],
       handler: BSONHandler[A]
   ): BSONHandler[T] =
     handler.as(sr.apply, rs.apply)
+
+  inline given userIdOfWriter[U, T](using idOf: UserIdOf[U], writer: BSONWriter[UserId]): BSONWriter[U] with
+    inline def writeTry(u: U) = writer.writeTry(idOf(u))
 
   given dateTimeHandler: BSONHandler[DateTime] = quickHandler[DateTime](
     { case v: BSONDateTime => new DateTime(v.value) },
@@ -166,10 +170,7 @@ trait Handlers:
 
   given BSONHandler[NormalizedEmailAddress] = stringIsoHandler
 
-  given BSONHandler[chess.Color]  = BSONBooleanHandler.as[chess.Color](chess.Color.fromWhite, _.white)
-  given BSONHandler[chess.Centis] = intIsoHandler
-
-  given BSONHandler[FEN] = stringIsoHandler
+  given BSONHandler[chess.Color] = BSONBooleanHandler.as[chess.Color](chess.Color.fromWhite(_), _.white)
 
   import lila.common.{ LilaOpeningFamily, SimpleOpening }
   given BSONHandler[SimpleOpening.Key] = stringIsoHandler

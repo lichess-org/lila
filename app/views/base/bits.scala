@@ -1,7 +1,7 @@
 package views.html
 package base
 
-import chess.format.FEN
+import chess.format.Fen
 import controllers.routes
 import play.api.i18n.Lang
 import play.api.mvc.Call
@@ -49,7 +49,7 @@ z-index: 99;
       a(href := "https://www.twitch.tv/lichessdotorg", targetBlank, noFollow)("Twitch")
     )
 
-  def fenAnalysisLink(fen: FEN)(implicit lang: Lang) =
+  def fenAnalysisLink(fen: Fen)(implicit lang: Lang) =
     a(href := routes.UserAnalysis.parseArg(underscoreFen(fen)))(trans.analysis())
 
   def paginationByQuery(route: Call, pager: Paginator[?], showPost: Boolean): Option[Frag] =

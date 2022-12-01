@@ -11,7 +11,7 @@ import lila.common.Form.{
   cleanTextWithSymbols,
   mustNotContainLichess,
   numberIn,
-  toMarkdown,
+  into,
   given
 }
 import lila.common.Markdown
@@ -37,9 +37,9 @@ final private[team] class TeamForm(
     val intro =
       "intro" -> optional(cleanText(minLength = 3, maxLength = 200))
     val description =
-      "description" -> toMarkdown(cleanText(minLength = 30, maxLength = 4000))
+      "description" -> cleanText(minLength = 30, maxLength = 4000).into[Markdown]
     val descPrivate =
-      "descPrivate" -> optional(toMarkdown(cleanNonEmptyText(maxLength = 4000)))
+      "descPrivate" -> optional(cleanNonEmptyText(maxLength = 4000).into[Markdown])
     val request     = "request"     -> boolean
     val gameId      = "gameId"      -> of[GameId]
     val move        = "move"        -> text

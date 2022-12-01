@@ -1,6 +1,7 @@
 package lila.opening
 
 import org.specs2.mutable.Specification
+import chess.opening.OpeningName
 
 class OpeningTest extends Specification {
 
@@ -8,7 +9,7 @@ class OpeningTest extends Specification {
     import Opening.variationName
 
     def vn(prev: String, next: String, expected: String) =
-      variationName(prev, next) === expected
+      variationName(OpeningName(prev), OpeningName(next)) === Opening.NameSection(expected)
 
     "actual progress (easy)" >> {
       vn("A", "A", "A")

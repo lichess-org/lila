@@ -10,7 +10,7 @@ import lila.user.User
 
 case class InsightEntry(
     id: String, // gameId + w/b
-    userId: User.ID,
+    userId: UserId,
     color: Color,
     perf: PerfType,
     opening: Option[SimpleOpening],

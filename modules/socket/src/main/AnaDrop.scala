@@ -1,24 +1,25 @@
 package lila.socket
 
 import cats.data.Validated
-import chess.format.{ FEN, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.*
 import chess.variant.Variant
 import play.api.libs.json.JsObject
 
 import lila.tree.Branch
+import lila.common.Json.given
 
 case class AnaDrop(
     role: chess.Role,
     pos: chess.Pos,
     variant: Variant,
-    fen: FEN,
+    fen: Fen,
     path: String,
     chapterId: Option[String]
 ) extends AnaAny:
 
   def branch: Validated[String, Branch] =
-    chess.Game(variant.some, fen.some).drop(role, pos) flatMap { case (game, drop) =>
+    chess.Game(variant.some, fen.some).drop(role, pos) andThen { (game, drop) =>
       game.pgnMoves.lastOption toValid "Dropped but no last move!" map { san =>
         val uci     = Uci(drop)
         val movable = !game.situation.end
@@ -30,9 +31,7 @@ case class AnaDrop(
           fen = fen,
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),
-          opening = Variant.openingSensibleVariants(variant) ?? {
-            FullOpeningDB findByFen fen
-          },
+          opening = FullOpeningDB findByFen fen.opening,
           drops = if (movable) game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData
         )
@@ -45,9 +44,9 @@ object AnaDrop:
     for {
       d    <- o obj "d"
       role <- d str "role" flatMap chess.Role.allByName.get
-      pos  <- d str "pos" flatMap chess.Pos.fromKey
+      pos  <- d str "pos" flatMap { chess.Pos.fromKey(_) }
       variant = chess.variant.Variant orDefault ~d.str("variant")
-      fen  <- d str "fen" map FEN.apply
+      fen  <- d.get[Fen]("fen")
       path <- d str "path"
     } yield AnaDrop(
       role = role,

@@ -5,13 +5,13 @@ export lila.Lila.{ *, given }
 
 val lichessTeamId = TeamId("lichess-swiss")
 
-type Ranking = Map[lila.user.User.ID, Rank]
+type Ranking = Map[UserId, Rank]
 
 private val logger = lila.log("swiss")
 
 // FIDE TRF player IDs
-private type PlayerIds = Map[User.ID, Int]
-private type IdPlayers = Map[Int, User.ID]
+private type PlayerIds = Map[UserId, Int]
+private type IdPlayers = Map[Int, UserId]
 
 opaque type SwissPoints = Int
 object SwissPoints:

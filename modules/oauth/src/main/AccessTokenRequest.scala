@@ -15,35 +15,34 @@ object AccessTokenRequest:
       grantType: Option[String],
       code: Option[String],
       codeVerifier: Option[String],
-      clientId: Option[String],
+      clientId: Option[ClientId],
       redirectUri: Option[String],
       clientSecret: Option[String]
   ):
     def prepare: Validated[Error, Prepared] =
       for {
-        grantType <- grantType.toValid(Error.GrantTypeRequired).andThen(GrantType.from)
-        code      <- code.map(AuthorizationCode.apply).toValid(Error.CodeRequired)
+        _    <- grantType.toValid(Error.GrantTypeRequired).andThen(GrantType.from)
+        code <- code.map(AuthorizationCode.apply).toValid(Error.CodeRequired)
         codeVerifier <- codeVerifier
           .toValid(Protocol.Error.CodeVerifierRequired)
           .andThen(Protocol.CodeVerifier.from)
-        clientId    <- clientId.map(ClientId.apply).toValid(Error.ClientIdRequired)
+        clientId    <- clientId.toValid(Error.ClientIdRequired)
         redirectUri <- redirectUri.map(UncheckedRedirectUri.apply).toValid(Error.RedirectUriRequired)
-      } yield Prepared(grantType, code, codeVerifier.some, clientId, redirectUri, None)
+      } yield Prepared(code, codeVerifier.some, clientId, redirectUri, None)
 
     def prepareLegacy(auth: Option[BasicAuth]): Validated[Error, Prepared] =
       for {
-        grantType <- grantType.toValid(Error.GrantTypeRequired).andThen(GrantType.from)
-        code      <- code.map(AuthorizationCode.apply).toValid(Error.CodeRequired)
-        clientId  <- clientId.map(ClientId.apply).orElse(auth.map(_.clientId)).toValid(Error.ClientIdRequired)
+        _        <- grantType.toValid(Error.GrantTypeRequired).andThen(GrantType.from)
+        code     <- code.map(AuthorizationCode.apply).toValid(Error.CodeRequired)
+        clientId <- clientId.orElse(auth.map(_.clientId)).toValid(Error.ClientIdRequired)
         clientSecret <- clientSecret
           .map(LegacyClientApi.ClientSecret.apply)
           .orElse(auth.map(_.clientSecret))
           .toValid(LegacyClientApi.ClientSecretRequired)
         redirectUri <- redirectUri.map(UncheckedRedirectUri.apply).toValid(Error.RedirectUriRequired)
-      } yield Prepared(grantType, code, None, clientId, redirectUri, clientSecret.some)
+      } yield Prepared(code, None, clientId, redirectUri, clientSecret.some)
 
   case class Prepared(
-      grantType: GrantType,
       code: AuthorizationCode,
       codeVerifier: Option[CodeVerifier],
       clientId: ClientId,
@@ -52,7 +51,7 @@ object AccessTokenRequest:
   )
 
   case class Granted(
-      userId: User.ID,
+      userId: UserId,
       scopes: List[OAuthScope],
       redirectUri: RedirectUri
   )

@@ -1,6 +1,7 @@
 package lila.msg
 
 import reactivemongo.api.bson.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 import lila.db.dsl.{ *, given }
@@ -11,23 +12,21 @@ private object BsonHandlers:
   import Msg.Last
   given BSONDocumentHandler[Last] = Macros.handler
 
-  given BSONHandler[MsgThread.Id] = stringAnyValHandler[MsgThread.Id](_.value, MsgThread.Id.apply)
-
   given threadHandler: BSON[MsgThread] with
     def reads(r: BSON.Reader) =
       r.strsD("users") match
         case List(u1, u2) =>
           MsgThread(
             id = r.get[MsgThread.Id]("_id"),
-            user1 = u1,
-            user2 = u2,
+            user1 = UserId(u1),
+            user2 = UserId(u2),
             lastMsg = r.get[Last]("lastMsg")
           )
         case x => sys error s"Invalid MsgThread users: $x"
     def writes(w: BSON.Writer, t: MsgThread) =
       $doc(
         "_id"     -> t.id,
-        "users"   -> t.users.sorted,
+        "users"   -> t.users.sorted(using stringOrdering),
         "lastMsg" -> t.lastMsg
       )
 
@@ -36,9 +35,9 @@ private object BsonHandlers:
 
   def writeMsg(msg: Msg, threadId: MsgThread.Id): Bdoc =
     msgHandler.writeTry(msg).get ++ $doc(
-      "_id" -> lila.common.ThreadLocalRandom.nextString(10),
+      "_id" -> ThreadLocalRandom.nextString(10),
       "tid" -> threadId
     )
 
-  def writeThread(thread: MsgThread, delBy: List[User.ID]): Bdoc =
+  def writeThread(thread: MsgThread, delBy: List[UserId]): Bdoc =
     threadHandler.writeTry(thread).get ++ $doc("del" -> delBy)

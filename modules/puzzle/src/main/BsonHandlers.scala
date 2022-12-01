@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import chess.format.{ FEN, Uci }
+import chess.format.{ Fen, Uci }
 import reactivemongo.api.bson.*
 import scala.util.{ Success, Try }
 
@@ -18,7 +18,7 @@ object BsonHandlers:
     def readDocument(r: BSONDocument) = for {
       id      <- r.getAsTry[PuzzleId](id)
       gameId  <- r.getAsTry[GameId](gameId)
-      fen     <- r.getAsTry[FEN](fen)
+      fen     <- r.getAsTry[Fen](fen)
       lineStr <- r.getAsTry[String](line)
       line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
       glicko  <- r.getAsTry[Glicko](glicko)
@@ -39,7 +39,7 @@ object BsonHandlers:
   private[puzzle] given roundIdHandler: BSONHandler[PuzzleRound.Id] = tryHandler[PuzzleRound.Id](
     { case BSONString(v) =>
       v split PuzzleRound.idSep match {
-        case Array(userId, puzzleId) => Success(PuzzleRound.Id(userId, PuzzleId(puzzleId)))
+        case Array(userId, puzzleId) => Success(PuzzleRound.Id(UserId(userId), PuzzleId(puzzleId)))
         case _                       => handlerBadValue(s"Invalid puzzle round id $v")
       }
     },

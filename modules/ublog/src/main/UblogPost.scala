@@ -34,14 +34,15 @@ case class UblogImage(id: PicfitImage.Id, alt: Option[String] = None, credit: Op
 
 object UblogPost:
 
-  case class Recorded(by: User.ID, at: DateTime)
+  case class Recorded(by: UserId, at: DateTime)
 
   opaque type Likes = Int
   object Likes extends OpaqueInt[Likes]
   opaque type Views = Int
   object Views extends OpaqueInt[Views]
 
-  case class Rank(value: DateTime) extends AnyVal
+  opaque type RankDate = DateTime
+  object RankDate extends OpaqueDate[RankDate]
 
   case class Create(post: UblogPost) extends AnyVal
 

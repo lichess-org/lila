@@ -54,20 +54,20 @@ final class ActivityWriteApi(
     })
   }
 
-  def storm(userId: User.ID, score: Int): Funit = update(userId) { a =>
+  def storm(userId: UserId, score: Int): Funit = update(userId) { a =>
     $doc(ActivityFields.storm -> { ~a.storm + score })
   }
 
-  def racer(userId: User.ID, score: Int): Funit = update(userId) { a =>
+  def racer(userId: UserId, score: Int): Funit = update(userId) { a =>
     $doc(ActivityFields.racer -> { ~a.racer + score })
   }
 
-  def streak(userId: User.ID, score: Int): Funit = update(userId) { a =>
+  def streak(userId: UserId, score: Int): Funit = update(userId) { a =>
     $doc(ActivityFields.streak -> { ~a.streak + score })
   }
 
-  def learn(userId: User.ID, stage: String) = update(userId) { a =>
-    $doc(ActivityFields.learn -> { ~a.learn + Learn.Stage(stage) })
+  def learn(userId: UserId, stage: String) = update(userId) { a =>
+    $doc(ActivityFields.learn -> { ~a.learn + LearnStage(stage) })
   }
 
   def practice(prog: lila.practice.PracticeProgress.OnComplete) = update(prog.userId) { a =>
@@ -79,15 +79,15 @@ final class ActivityWriteApi(
       simulParticipant(simul, _)
     }
 
-  def corresMove(gameId: GameId, userId: User.ID) = update(userId) { a =>
+  def corresMove(gameId: GameId, userId: UserId) = update(userId) { a =>
     $doc(ActivityFields.corres -> { (~a.corres).add(gameId, moved = true, ended = false) })
   }
 
-  def plan(userId: User.ID, months: Int) = update(userId) { a =>
+  def plan(userId: UserId, months: Int) = update(userId) { a =>
     $doc(ActivityFields.patron -> Patron(months))
   }
 
-  def follow(from: User.ID, to: User.ID) =
+  def follow(from: UserId, to: UserId) =
     update(from) { a =>
       $doc(ActivityFields.follows -> { ~a.follows addOut to })
     } >>
@@ -95,9 +95,9 @@ final class ActivityWriteApi(
         $doc(ActivityFields.follows -> { ~a.follows addIn from })
       }
 
-  def unfollowAll(from: User, following: Set[User.ID]) =
+  def unfollowAll(from: User, following: Set[UserId]) =
     withColl { coll =>
-      coll.secondaryPreferred.distinctEasy[User.ID, Set](
+      coll.secondaryPreferred.distinctEasy[UserId, Set](
         "f.o.ids",
         regexId(from.id)
       ) flatMap { extra =>
@@ -126,12 +126,12 @@ final class ActivityWriteApi(
       }
     }
 
-  def team(id: TeamId, userId: User.ID) =
+  def team(id: TeamId, userId: UserId) =
     update(userId) { a =>
       $doc(ActivityFields.teams -> { ~a.teams + id })
     }
 
-  def streamStart(userId: User.ID) =
+  def streamStart(userId: UserId) =
     update(userId) { _ =>
       $doc(ActivityFields.stream -> true)
     }
@@ -143,11 +143,11 @@ final class ActivityWriteApi(
       }
     }
 
-  private def simulParticipant(simul: lila.simul.Simul, userId: User.ID) = update(userId) { a =>
+  private def simulParticipant(simul: lila.simul.Simul, userId: UserId) = update(userId) { a =>
     $doc(ActivityFields.simuls -> { ~a.simuls + simul.id })
   }
 
-  private def update(userId: User.ID)(makeSetters: Activity => Bdoc): Funit =
+  private def update(userId: UserId)(makeSetters: Activity => Bdoc): Funit =
     withColl { coll =>
       coll.byId[Activity](Id today userId).dmap { _ | Activity.make(userId) } flatMap { activity =>
         val setters = makeSetters(activity)

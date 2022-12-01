@@ -11,12 +11,12 @@ final private[security] class Cli(userRepo: UserRepo, disposable: DisposableEmai
   def process =
 
     case "security" :: "roles" :: uid :: Nil =>
-      userRepo named uid dmap {
+      userRepo byId UserStr(uid) dmap {
         _.fold("User %s not found" format uid)(_.roles mkString " ")
       }
 
     case "security" :: "grant" :: uid :: roles =>
-      perform(uid, user => userRepo.setRoles(user.id, roles map (_.toUpperCase)).void)
+      perform(UserStr(uid), user => userRepo.setRoles(user.id, roles map (_.toUpperCase)).void)
 
     case "disposable" :: "test" :: emailOrDomain :: Nil =>
       fuccess {
@@ -30,9 +30,9 @@ final private[security] class Cli(userRepo: UserRepo, disposable: DisposableEmai
           }
       }
 
-  private def perform(username: String, op: User => Funit): Fu[String] =
-    userRepo named username flatMap { userOption =>
-      userOption.fold(fufail[String]("User %s not found" format username)) { u =>
-        op(u) inject "User %s successfully updated".format(username)
+  private def perform(u: UserStr, op: User => Funit): Fu[String] =
+    userRepo byId u flatMap { userOption =>
+      userOption.fold(fufail[String]("User %s not found" format u)) { u =>
+        op(u) inject "User %s successfully updated".format(u)
       }
     }

@@ -14,8 +14,8 @@ final class LastPostCache(
     initialCapacity = 1,
     compute = _ => fetch,
     default = _ => none,
-    expireAfter = Syncache.ExpireAfterWrite(config.lastPostTtl),
-    strategy = Syncache.NeverWait
+    expireAfter = Syncache.ExpireAfter.Write(config.lastPostTtl),
+    strategy = Syncache.Strategy.NeverWait
   )
 
   private def fetch: Fu[Option[MiniPost]] = {

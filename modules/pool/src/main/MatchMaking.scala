@@ -63,7 +63,7 @@ object MatchMaking:
 
     // if players block each other
     private def blockMalus(a: PoolMember, b: PoolMember) =
-      a.blocking.ids contains b.userId
+      a.blocking.value contains b.userId
 
     // bonus if the two players both have a good sit counter
     // bonus if the two players both have a bad sit counter

@@ -11,6 +11,7 @@ import scala.concurrent.{ ExecutionContext, Promise }
 
 import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }
+import lila.common.Json.given
 import lila.game.{ Event, Game, Pov }
 import lila.hub.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
 import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Resign, TourStanding }
@@ -302,17 +303,16 @@ object RoundSocket:
 
     object In:
 
-      case class PlayerOnlines(onlines: Iterable[(GameId, Option[RoomCrowd])])             extends P.In
-      case class PlayerDo(fullId: GameFullId, tpe: String)                                 extends P.In
-      case class PlayerMove(fullId: GameFullId, uci: Uci, blur: Boolean, lag: MoveMetrics) extends P.In
-      case class PlayerChatSay(gameId: GameId, userIdOrColor: Either[User.ID, Color], msg: String)
-          extends P.In
-      case class WatcherChatSay(gameId: GameId, userId: User.ID, msg: String)           extends P.In
-      case class Bye(fullId: GameFullId)                                                extends P.In
-      case class HoldAlert(fullId: GameFullId, ip: IpAddress, mean: Int, sd: Int)       extends P.In
-      case class Flag(gameId: GameId, color: Color, fromPlayerId: Option[GamePlayerId]) extends P.In
-      case class Berserk(gameId: GameId, userId: User.ID)                               extends P.In
-      case class SelfReport(fullId: GameFullId, ip: IpAddress, userId: Option[User.ID], name: String)
+      case class PlayerOnlines(onlines: Iterable[(GameId, Option[RoomCrowd])])                    extends P.In
+      case class PlayerDo(fullId: GameFullId, tpe: String)                                        extends P.In
+      case class PlayerMove(fullId: GameFullId, uci: Uci, blur: Boolean, lag: MoveMetrics)        extends P.In
+      case class PlayerChatSay(gameId: GameId, userIdOrColor: Either[UserId, Color], msg: String) extends P.In
+      case class WatcherChatSay(gameId: GameId, userId: UserId, msg: String)                      extends P.In
+      case class Bye(fullId: GameFullId)                                                          extends P.In
+      case class HoldAlert(fullId: GameFullId, ip: IpAddress, mean: Int, sd: Int)                 extends P.In
+      case class Flag(gameId: GameId, color: Color, fromPlayerId: Option[GamePlayerId])           extends P.In
+      case class Berserk(gameId: GameId, userId: UserId)                                          extends P.In
+      case class SelfReport(fullId: GameFullId, ip: IpAddress, userId: Option[UserId], name: String)
           extends P.In
       case class WsLatency(millis: Int) extends P.In
 
@@ -349,15 +349,15 @@ object RoundSocket:
             }
           case "chat/say" =>
             raw.get(3) { case Array(roomId, author, msg) =>
-              PlayerChatSay(GameId(roomId), readColor(author).toRight(author), msg).some
+              PlayerChatSay(GameId(roomId), readColor(author).toRight(UserId(author)), msg).some
             }
           case "chat/say/w" =>
             raw.get(3) { case Array(roomId, userId, msg) =>
-              WatcherChatSay(GameId(roomId), userId, msg).some
+              WatcherChatSay(GameId(roomId), UserId(userId), msg).some
             }
           case "r/berserk" =>
             raw.get(2) { case Array(gameId, userId) =>
-              Berserk(GameId(gameId), userId).some
+              Berserk(GameId(gameId), UserId(userId)).some
             }
           case "r/bye" => Bye(GameFullId(raw.args)).some
           case "r/hold" =>
@@ -371,7 +371,7 @@ object RoundSocket:
           case "r/report" =>
             raw.get(4) { case Array(fullId, ip, user, name) =>
               IpAddress.from(ip) map { ip =>
-                SelfReport(GameFullId(fullId), ip, P.In.optional(user), name)
+                SelfReport(GameFullId(fullId), ip, UserId from P.In.optional(user), name)
               }
             }
           case "r/flag" =>
@@ -385,7 +385,7 @@ object RoundSocket:
 
       private def centis(s: String): Option[Centis] =
         if (s == "-") none
-        else s.toIntOption map Centis.apply
+        else Centis from s.toIntOption
 
       private def readColor(s: String) =
         if (s == "w") Some(White)
@@ -418,11 +418,11 @@ object RoundSocket:
       def botConnected(gameId: GameId, color: Color, v: Boolean) =
         s"r/bot/online $gameId ${P.Out.color(color)} ${P.Out.boolean(v)}"
 
-      def tourStanding(tourId: String, data: JsValue) =
+      def tourStanding(tourId: TourId, data: JsValue) =
         s"r/tour/standing $tourId ${Json stringify data}"
 
-      def startGame(users: List[User.ID]) = s"r/start ${P.Out.commas(users)}"
-      def finishGame(gameId: GameId, winner: Option[Color], users: List[User.ID]) =
+      def startGame(users: List[UserId]) = s"r/start ${P.Out.commas(users)}"
+      def finishGame(gameId: GameId, winner: Option[Color], users: List[UserId]) =
         s"r/finish $gameId ${P.Out.color(winner)} ${P.Out.commas(users)}"
 
       def versioningReady = "r/versioning-ready"

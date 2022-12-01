@@ -1,7 +1,7 @@
 package lila.tournament
 
 import cats.implicits.*
-import chess.format.FEN
+import chess.format.Fen
 import chess.{ Mode, StartingPosition }
 import org.joda.time.DateTime
 import play.api.data.*
@@ -171,7 +171,7 @@ private[tournament] case class TournamentSetup(
     waitMinutes: Option[Int],
     startDate: Option[DateTime],
     variant: Option[String],
-    position: Option[FEN],
+    position: Option[Fen],
     mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],

@@ -15,6 +15,7 @@ import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.{ makeMessage, Sri, Sris }
 import lila.user.User
 import lila.round.ChangeFeatured
+import lila.common.Json.given
 
 case class LobbyCounters(members: Int, rounds: Int)
 
@@ -188,7 +189,7 @@ final class LobbySocket(
           id       <- d str "id"
           perfType <- poolApi.poolPerfTypes get PoolConfig.Id(id)
           ratingRange = d str "range" flatMap RatingRange.apply
-          blocking    = d str "blocking"
+          blocking    = d.get[UserId]("blocking")
         } yield
           lobby ! CancelHook(member.sri) // in case there's one...
           userRepo.glicko(user.id, perfType) foreach { glicko =>
@@ -202,7 +203,7 @@ final class LobbySocket(
                 ),
                 ratingRange = ratingRange,
                 lame = user.lame,
-                blocking = user.blocking ++ blocking
+                blocking = user.blocking.map(_ ++ blocking)
               )
             )
           }
@@ -223,14 +224,14 @@ final class LobbySocket(
     // leaving the hooks view
     case ("hookOut", _) => actor ! HookSub(member, value = false)
 
-  private def getOrConnect(sri: Sri, userOpt: Option[User.ID]): Fu[Member] =
+  private def getOrConnect(sri: Sri, userOpt: Option[UserId]): Fu[Member] =
     actor.ask[Option[Member]](GetMember(sri, _)) getOrElse {
       userOpt ?? userRepo.enabledById flatMap { user =>
         (user ?? { u =>
           remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
           relationApi.fetchBlocking(u.id)
         }) map { blocks =>
-          val member = Member(sri, user map { LobbyUser.make(_, blocks) })
+          val member = Member(sri, user map { LobbyUser.make(_, lila.pool.Blocking(blocks)) })
           actor ! Join(member)
           member
         }
@@ -302,7 +303,7 @@ private object LobbySocket:
         s"lobby/pairings ${P.Out.commas(redirs)}"
       def tellLobby(payload: JsObject)       = s"tell/lobby ${Json stringify payload}"
       def tellLobbyActive(payload: JsObject) = s"tell/lobby/active ${Json stringify payload}"
-      def tellLobbyUsers(userIds: Iterable[User.ID], payload: JsObject) =
+      def tellLobbyUsers(userIds: Iterable[UserId], payload: JsObject) =
         s"tell/lobby/users ${P.Out.commas(userIds)} ${Json stringify payload}"
 
   case object Cleanup

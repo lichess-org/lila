@@ -6,6 +6,8 @@ import chess.{ Color, White, Black }
 
 class RatingCalculatorTest extends Specification {
 
+  sequential
+
   def updateRatings(wRating: Rating, bRating: Rating, winner: Option[Color]) =
     val result = winner match
       case Some(chess.White) => Glicko.Result.Win

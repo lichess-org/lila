@@ -49,7 +49,7 @@ final class IrwinApi(
     def get(user: User): Fu[Option[IrwinReport]] =
       get(user.id)
 
-    def get(userId: User.ID): Fu[Option[IrwinReport]] =
+    def get(userId: UserId): Fu[Option[IrwinReport]] =
       reportColl.byId[IrwinReport](userId)
 
     def withPovs(user: User): Fu[Option[IrwinReport.WithPovs]] =
@@ -64,13 +64,13 @@ final class IrwinApi(
         }
       }
 
-    private def getSuspect(suspectId: User.ID) =
+    private def getSuspect(suspectId: UserId) =
       userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect.apply
 
     private def markOrReport(report: IrwinReport): Funit =
       userRepo.getTitle(report.suspectId.value) flatMap { title =>
         if (report.activation >= thresholds.get().mark && title.isEmpty)
-          modApi.autoMark(report.suspectId, ModId.irwin, report.note) >>-
+          modApi.autoMark(report.suspectId, User.irwinId into ModId, report.note) >>-
             lila.mon.mod.irwin.mark.increment().unit
         else if (report.activation >= thresholds.get().report) for {
           suspect <- getSuspect(report.suspectId.value)
@@ -92,7 +92,7 @@ final class IrwinApi(
     import IrwinRequest.Origin
 
     def fromMod(suspect: Suspect, mod: Holder) =
-      notification.add(suspect.id, ModId(mod.id))
+      notification.add(suspect.id, mod.id into ModId)
       insert(suspect, _.Moderator)
 
     private[irwin] def insert(suspect: Suspect, origin: Origin.type => Origin): Funit =

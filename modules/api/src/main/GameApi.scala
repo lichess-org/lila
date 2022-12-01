@@ -1,6 +1,6 @@
 package lila.api
 
-import chess.format.FEN
+import chess.format.Fen
 import org.joda.time.DateTime
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
@@ -130,7 +130,7 @@ final private[api] class GameApi(
     }
 
   def byUsersVs(
-      userIds: Iterable[User.ID],
+      userIds: Iterable[UserId],
       rated: Option[Boolean],
       playing: Option[Boolean],
       analysed: Option[Boolean],
@@ -190,7 +190,7 @@ final private[api] class GameApi(
   private def gameToJson(
       g: Game,
       analysisOption: Option[Analysis],
-      initialFen: Option[FEN],
+      initialFen: Option[Fen],
       withFlags: WithFlags
   ) =
     Json
@@ -241,7 +241,7 @@ final private[api] class GameApi(
               variant = g.variant
             )
             .toOption map { boards =>
-            JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)
+            JsArray(boards map chess.format.Forsyth.exportBoard map Json.toJson)
           }
         }: Option[JsArray]),
         "winner" -> g.winnerColor.map(_.name),

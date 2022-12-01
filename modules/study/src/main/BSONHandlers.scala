@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags }
-import chess.format.{ FEN, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ Centis, Color, Pos, PromotableRole, Role }
 import org.joda.time.DateTime
@@ -68,19 +68,14 @@ object BSONHandlers:
 
   import Uci.WithSan
 
-  given BSONHandler[Shapes] = isoHandler[Shapes, List[Shape]](_.value, Shapes.apply)
-
-  private given commentIdHandler: BSONHandler[Comment.Id] =
-    stringAnyValHandler[Comment.Id](_.value, Comment.Id.apply)
-  private given BSONHandler[Comment.Text] = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
   given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {
-      case BSONString(lila.user.User.lichessId | "l") => Comment.Author.Lichess
-      case BSONString(name)                           => Comment.Author.External(name)
+      case BSONString(n) if n == lila.user.User.lichessId.value || n == "l" => Comment.Author.Lichess
+      case BSONString(name)                                                 => Comment.Author.External(name)
       case doc: Bdoc =>
         {
           for {
-            id   <- doc.getAsOpt[String]("id")
+            id   <- doc.getAsOpt[UserId]("id")
             name <- doc.getAsOpt[String]("name")
           } yield Comment.Author.User(id, name)
         } err s"Invalid comment author $doc"
@@ -93,9 +88,7 @@ object BSONHandlers:
       case Comment.Author.Unknown        => BSONString("")
     }
   )
-  private given BSONDocumentHandler[Comment] = Macros.handler
-
-  given BSONHandler[Comments] = isoHandler[Comments, List[Comment]](_.value, Comments.apply)
+  given BSONDocumentHandler[Comment] = Macros.handler
 
   given BSONDocumentHandler[Gamebook] = Macros.handler
 
@@ -148,7 +141,7 @@ object BSONHandlers:
       ply <- doc.getAsOpt[Int](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
       san <- doc.getAsOpt[String](F.san)
-      fen <- doc.getAsOpt[FEN](F.fen)
+      fen <- doc.getAsOpt[Fen](F.fen)
       check          = ~doc.getAsOpt[Boolean](F.check)
       shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
       comments       = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty
@@ -205,7 +198,7 @@ object BSONHandlers:
       val r        = new Reader(rootNode)
       Root(
         ply = r int ply,
-        fen = r.get[FEN](fen),
+        fen = r.get[Fen](fen),
         check = r boolD check,
         shapes = r.getO[Shapes](shapes) | Shapes.empty,
         comments = r.getO[Comments](comments) | Comments.empty,
@@ -270,9 +263,9 @@ object BSONHandlers:
     handler.as[StudyMembers](
       members =>
         StudyMembers(members map { case (id, dbMember) =>
-          id -> StudyMember(id, dbMember.role)
+          UserId(id) -> StudyMember(UserId(id), dbMember.role)
         }),
-      _.members.view.mapValues(m => DbMember(m.role)).toMap
+      _.members.view.map((id, m) => id.value -> DbMember(m.role)).toMap
     )
   import Study.Visibility
   private[study] given BSONHandler[Visibility] = tryHandler[Visibility](

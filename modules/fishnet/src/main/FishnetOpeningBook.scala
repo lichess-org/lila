@@ -9,9 +9,9 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Json.{ *, given }
-import lila.common.ThreadLocalRandom
 import lila.game.Game
 import lila.memo.SettingStore
 import scala.util.{ Failure, Success }

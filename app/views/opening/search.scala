@@ -1,6 +1,6 @@
 package views.html.opening
 
-import chess.format.FEN
+import chess.format.Fen
 import controllers.routes
 
 import lila.api.{ Context, given }
@@ -12,7 +12,7 @@ object search:
 
   import bits.*
 
-  def form(q: String, focus: Boolean = false)(implicit ctx: Context) =
+  def form(q: String, focus: Boolean = false)(using Context) =
     st.form(cls := "opening__search-form", action := routes.Opening.index(), method := "get")(
       input(
         cls            := "opening__search-form__input",
@@ -26,21 +26,19 @@ object search:
       submitButton(cls := "button", dataIcon := "")
     )
 
-  def resultsList(results: List[OpeningSearchResult])(implicit ctx: Context) =
+  def resultsList(results: List[OpeningSearchResult])(using Context) =
     div(cls := List("opening__search__results" -> true, "none" -> results.isEmpty))(
       results map { r =>
         a(cls := "opening__search__result", href := bits.queryUrl(r.query))(
           span(cls := "opening__search__result__title")(splitName(r.opening)),
           span(cls := "opening__search__result__board")(
-            views.html.board.bits.mini(FEN(r.opening.fen), lastMove = ~r.opening.lastUci)(span)
+            views.html.board.bits.mini(r.opening.fen.board, lastMove = r.opening.lastUci)(span)
           )
         )
       }
     )
 
-  def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using
-      ctx: Context
-  ) =
+  def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using Context) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(none),

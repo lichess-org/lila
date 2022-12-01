@@ -25,11 +25,11 @@ final private class MsgNotify(
 
   def onPost(threadId: MsgThread.Id): Unit = schedule(threadId)
 
-  def onRead(threadId: MsgThread.Id, userId: User.ID, contactId: User.ID): Funit =
+  def onRead(threadId: MsgThread.Id, userId: UserId, contactId: UserId): Funit =
     !cancel(threadId) ??
       notifyApi
         .markRead(
-          lila.notify.Notification.Notifies(userId),
+          userId into Notification.Notifies,
           $doc(
             "content.type" -> "privateMessage",
             "content.user" -> contactId
@@ -43,7 +43,7 @@ final private class MsgNotify(
         cancel(thread.id)
         notifyApi
           .remove(
-            lila.notify.Notification.Notifies(thread other user),
+            thread other user into Notification.Notifies,
             $doc("content.user" -> user.id)
           )
           .void
@@ -75,8 +75,8 @@ final private class MsgNotify(
         val dest = thread other msg.user
         !thread.delBy(dest) ?? {
           notifyApi addNotification Notification.make(
-            UserId(dest),
-            PrivateMessage(UserId(msg.user), shorten(msg.text, 40))
+            dest,
+            PrivateMessage(msg.user, shorten(msg.text, 40))
           ) map (_ ?? lila.common.Bus.publish(MsgThread.Unread(thread), "msgUnread"))
         }
       }

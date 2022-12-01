@@ -14,8 +14,8 @@ final class Messenger(api: ChatApi):
     system(persistent = false)(game, message)
 
   def apply(game: Game, message: Messenger.SystemMessage): Unit = message match
-    case Messenger.Persistent(msg) => system(persistent = true)(game, msg)
-    case Messenger.Volatile(msg)   => system(persistent = false)(game, msg)
+    case Messenger.SystemMessage.Persistent(msg) => system(persistent = true)(game, msg)
+    case Messenger.SystemMessage.Volatile(msg)   => system(persistent = false)(game, msg)
 
   def system(persistent: Boolean)(game: Game, message: String): Unit = if (game.nonAi) {
     api.userChat.volatile(chatWatcherId(game.id into ChatId), message, _.Round)
@@ -23,12 +23,12 @@ final class Messenger(api: ChatApi):
     else api.userChat.volatile(game.id into ChatId, message, _.Round)
   }.unit
 
-  def watcher(gameId: GameId, userId: User.ID, text: String) =
+  def watcher(gameId: GameId, userId: UserId, text: String) =
     api.userChat.write(gameWatcherId(gameId), userId, text, PublicSource.Watcher(gameId).some, _.Round)
 
   private val whisperCommands = List("/whisper ", "/w ", "/W ")
 
-  def owner(gameId: GameId, userId: User.ID, text: String): Funit =
+  def owner(gameId: GameId, userId: UserId, text: String): Funit =
     whisperCommands.collectFirst {
       case command if text startsWith command =>
         val source = PublicSource.Watcher(gameId)
@@ -42,7 +42,7 @@ final class Messenger(api: ChatApi):
     (game.fromFriend || presets.contains(text)) ??
       api.playerChat.write(game.id into ChatId, anonColor, text, _.Round)
 
-  def timeout(chatId: ChatId, modId: User.ID, suspect: User.ID, reason: String, text: String): Funit =
+  def timeout(chatId: ChatId, modId: UserId, suspect: UserId, reason: String, text: String): Funit =
     ChatTimeout.Reason(reason) ?? { r =>
       api.userChat.timeout(chatId, modId, suspect, r, ChatTimeout.Scope.Global, text, _.Round)
     }
@@ -64,6 +64,7 @@ final class Messenger(api: ChatApi):
 
 private object Messenger:
 
-  sealed trait SystemMessage { val msg: String }
-  case class Persistent(msg: String) extends SystemMessage
-  case class Volatile(msg: String)   extends SystemMessage
+  enum SystemMessage:
+    val msg: String
+    case Persistent(msg: String)
+    case Volatile(msg: String)

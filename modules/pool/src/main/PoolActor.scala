@@ -1,7 +1,7 @@
 package lila.pool
 
 import scala.concurrent.duration.*
-import lila.common.ThreadLocalRandom
+import ornicar.scalalib.ThreadLocalRandom
 
 import akka.actor.*
 import akka.pattern.pipe
@@ -20,7 +20,7 @@ final private class PoolActor(
 
   var members = Vector.empty[PoolMember]
 
-  private var lastPairedUserIds = Set.empty[User.ID]
+  private var lastPairedUserIds = Set.empty[UserId]
 
   var nextWave: Cancellable = _
 
@@ -111,7 +111,7 @@ final private class PoolActor(
 private object PoolActor:
 
   case class Join(joiner: PoolApi.Joiner, rageSit: lila.playban.RageSit)
-  case class Leave(userId: User.ID) extends AnyVal
+  case class Leave(userId: UserId) extends AnyVal
 
   case object ScheduledWave
   case object FullWave

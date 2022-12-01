@@ -6,8 +6,8 @@ import cats.data.Validated
 import play.api.libs.json.Json
 import com.roundeights.hasher.Algo
 import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
+import ornicar.scalalib.SecureRandom
 
-import lila.common.SecureRandom
 import lila.common.String.urlencode
 
 object Protocol:
@@ -17,41 +17,43 @@ object Protocol:
   object AuthorizationCode:
     def random() = AuthorizationCode(s"liu_${SecureRandom.nextString(32)}")
 
-  case class ClientId(value: String) extends AnyVal
+  opaque type ClientId = String
+  object ClientId extends OpaqueString[ClientId]
 
-  case class State(value: String) extends AnyVal
+  opaque type State = String
+  object State extends OpaqueString[State]
 
-  case class CodeChallengeMethod()
   object CodeChallengeMethod:
-    def from(codeChallengeMethod: String): Validated[Error, CodeChallengeMethod] =
+    def from(codeChallengeMethod: String): Validated[Error, Unit] =
       codeChallengeMethod match
-        case "S256" => Validated.valid(CodeChallengeMethod())
+        case "S256" => Validated.valid(())
         case _      => Validated.invalid(Error.UnsupportedCodeChallengeMethod)
 
-  case class CodeChallenge(value: String) extends AnyVal
+  opaque type CodeChallenge = String
+  object CodeChallenge extends OpaqueString[CodeChallenge]
 
-  case class CodeVerifier(value: String) extends AnyVal:
-    def matches(challenge: CodeChallenge) =
-      Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(value).bytes) == challenge.value
-  object CodeVerifier:
+  opaque type CodeVerifier = String
+  object CodeVerifier extends OpaqueString[CodeVerifier]:
+    extension (a: CodeVerifier)
+      def matches(challenge: CodeChallenge) =
+        Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(a.value).bytes) == challenge
+
     def from(value: String): Validated[Error, CodeVerifier] =
       Validated
         .valid(value)
         .ensure(Error.CodeVerifierTooShort)(_.size >= 43)
-        .map(CodeVerifier.apply)
+        .map(CodeVerifier(_))
 
-  case class ResponseType()
   object ResponseType:
-    def from(responseType: String): Validated[Error, ResponseType] =
+    def from(responseType: String): Validated[Error, Unit] =
       responseType match
-        case "code" => Validated.valid(ResponseType())
+        case "code" => Validated.valid(())
         case _      => Validated.invalid(Error.UnsupportedResponseType)
 
-  case class GrantType()
   object GrantType:
-    def from(grantType: String): Validated[Error, GrantType] =
+    def from(grantType: String): Validated[Error, Unit] =
       grantType match
-        case "authorization_code" => Validated.valid(GrantType())
+        case "authorization_code" => Validated.valid(())
         case _                    => Validated.invalid(Error.UnsupportedGrantType)
 
   case class RedirectUri(value: URL) extends AnyVal:
@@ -70,13 +72,13 @@ object Protocol:
 
     def error(error: Error, state: Option[State]): String = value
       .withQuery(
-        s"error=${urlencode(error.error)}&error_description=${urlencode(error.description)}&state=${urlencode(~state.map(_.value))}"
+        s"error=${urlencode(error.error)}&error_description=${urlencode(error.description)}&state=${urlencode(~state)}"
       )
       .toString
 
     def code(code: AuthorizationCode, state: Option[State]): String = value
       .withQuery(
-        s"code=${urlencode(code.secret)}&state=${urlencode(~state.map(_.value))}"
+        s"code=${urlencode(code.secret)}&state=${urlencode(~state)}"
       )
       .toString
 

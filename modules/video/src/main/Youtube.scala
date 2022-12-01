@@ -5,6 +5,7 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.Future
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.config.*
 
@@ -52,7 +53,7 @@ final private[video] class Youtube(
     api.video.allIds flatMap { ids =>
       ws.url(url)
         .withQueryStringParameters(
-          "id"   -> lila.common.ThreadLocalRandom.shuffle(ids).take(max.value).mkString(","),
+          "id"   -> ThreadLocalRandom.shuffle(ids).take(max.value).mkString(","),
           "part" -> "id,statistics,snippet,contentDetails",
           "key"  -> apiKey.value
         )

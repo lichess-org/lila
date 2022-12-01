@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.{ Glyph, Glyphs }
-import chess.format.{ FEN, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair }
 import chess.variant.Crazyhouse
 
 import chess.Centis
@@ -10,7 +10,7 @@ import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
 
 sealed trait RootOrNode:
   val ply: Int
-  val fen: FEN
+  val fen: Fen
   val check: Boolean
   val shapes: Shapes
   val clock: Option[Centis]
@@ -30,7 +30,7 @@ case class Node(
     id: UciCharPair,
     ply: Int,
     move: Uci.WithSan,
-    fen: FEN,
+    fen: Fen,
     check: Boolean,
     shapes: Shapes = Shapes(Nil),
     comments: Comments = Comments(Nil),
@@ -238,7 +238,7 @@ object Node:
 
   case class Root(
       ply: Int,
-      fen: FEN,
+      fen: Fen,
       check: Boolean,
       shapes: Shapes = Shapes(Nil),
       comments: Comments = Comments(Nil),

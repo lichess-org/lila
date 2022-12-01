@@ -47,7 +47,7 @@ object list:
                       span(cls := "head")(
                         reportScore(atom.score),
                         " ",
-                        userIdLink(atom.by.value.some),
+                        userIdLink(atom.by.userId.some),
                         " ",
                         momentFromNowOnce(atom.at)
                       ),

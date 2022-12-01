@@ -13,7 +13,7 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
     scores.headOption.exists(_.res == Result.Win) &&
       scores.lift(1).exists(_.res == Result.Win)
 
-  def addResult(userId: User.ID, p: Pairing, version: Version, streakable: Streakable): Sheet =
+  def addResult(userId: UserId, p: Pairing, version: Version, streakable: Streakable): Sheet =
     val berserk =
       if (p berserkOf userId)
         if p.notSoQuickFinish then Berserk.Valid else Berserk.Invalid
@@ -48,7 +48,7 @@ object Sheet:
   def empty(variant: Variant) = Sheet(Nil, 0, variant)
 
   def buildFromScratch(
-      userId: User.ID,
+      userId: UserId,
       pairings: List[Pairing],
       version: Version,
       streakable: Streakable,

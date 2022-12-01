@@ -4,8 +4,8 @@ import scala.util.matching.Regex
 
 object LameName:
 
-  def username(name: String): Boolean =
-    usernameRegex.find(name.replaceIf('_', "")) || hasTitle(name)
+  def username(name: UserName): Boolean =
+    usernameRegex.find(name.value.replaceIf('_', "")) || hasTitle(name.value)
 
   def hasTitle(name: String): Boolean = containsTitleRegex.matches(name)
 

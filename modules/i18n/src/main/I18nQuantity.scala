@@ -1,9 +1,9 @@
 package lila.i18n
 
 import play.api.i18n.Lang
-import scala.annotation.nowarn
 
-sealed private trait I18nQuantity
+private enum I18nQuantity:
+  case Zero, One, Two, Few, Many, Other
 
 /*
  * Ported from
@@ -13,13 +13,6 @@ sealed private trait I18nQuantity
  * Added: type safety, tp, io, ia
  */
 private object I18nQuantity:
-
-  case object Zero  extends I18nQuantity
-  case object One   extends I18nQuantity
-  case object Two   extends I18nQuantity
-  case object Few   extends I18nQuantity
-  case object Many  extends I18nQuantity
-  case object Other extends I18nQuantity
 
   type Language = String
   type Selector = Count => I18nQuantity

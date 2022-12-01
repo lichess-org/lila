@@ -181,7 +181,7 @@ object mod:
             submitButton(cls := "btn-rack__btn confirm")("Disable 2FA")
           )
         },
-        (isGranted(_.Impersonate) || (isGranted(_.Admin) && u.id == "lichess")) option {
+        (isGranted(_.Impersonate) || (isGranted(_.Admin) && u.id == User.lichessId)) option {
           postForm(action := routes.Mod.impersonate(u.username))(
             submitButton(cls := "btn-rack__btn")("Impersonate")
           )
@@ -308,12 +308,12 @@ object mod:
           ul(
             history.map { e =>
               li(
-                userIdLink(e.mod.some, withTitle = false),
+                userIdLink(e.mod.userId.some, withTitle = false),
                 " ",
                 b(e.showAction),
                 " ",
                 e.gameId.fold[Frag](e.details.orZero: String) { gameId =>
-                  a(href := s"${routes.Round.watcher(gameId, "white").url}?pov=${~e.user}")(
+                  a(href := s"${routes.Round.watcher(gameId, "white").url}?pov=${e.user.??(_.value)}")(
                     e.details.orZero: String
                   )
                 },
@@ -377,7 +377,7 @@ object mod:
               r.bestAtoms(3).map { atom =>
                 div(cls := "atom")(
                   "By ",
-                  userIdLink(atom.by.value.some),
+                  userIdLink(atom.by.userId.some),
                   " ",
                   momentFromNowServer(atom.at),
                   ": ",

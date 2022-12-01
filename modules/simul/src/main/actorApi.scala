@@ -15,4 +15,4 @@ private[simul] case object Aborted
 
 private[simul] case object NotifyCrowd
 
-private[simul] case class GetUserIdsP(promise: Promise[Iterable[User.ID]])
+private[simul] case class GetUserIdsP(promise: Promise[Iterable[UserId]])

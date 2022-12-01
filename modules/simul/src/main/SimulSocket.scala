@@ -44,10 +44,10 @@ final private class SimulSocket(
       redirectPlayer(simul, Pov(game, !opponent.color))
     }
 
-  def filterPresent(simul: Simul, userIds: Set[User.ID]): Fu[Seq[User.ID]] =
-    remoteSocketApi.request[Seq[User.ID]](
+  def filterPresent(simul: Simul, userIds: Set[UserId]): Fu[Seq[UserId]] =
+    remoteSocketApi.request[Seq[UserId]](
       id => send(SimulSocket.Protocol.Out.filterPresent(id, simul.id, userIds)),
-      userIds => lila.socket.RemoteSocket.Protocol.In.commas(userIds).toSeq
+      userIds => UserId from lila.socket.RemoteSocket.Protocol.In.commas(userIds).toSeq
     )
 
   private def redirectPlayer(simul: Simul, pov: Pov): Unit =
@@ -81,5 +81,5 @@ private object SimulSocket:
   object Protocol:
     object Out:
       import lila.socket.RemoteSocket.Protocol.Out.commas
-      def filterPresent(reqId: Int, simulId: SimulId, userIds: Set[User.ID]) =
+      def filterPresent(reqId: Int, simulId: SimulId, userIds: Set[UserId]) =
         s"room/filter-present $reqId $simulId ${commas(userIds)}"

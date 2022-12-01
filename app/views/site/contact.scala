@@ -14,13 +14,14 @@ object contact:
 
   import trans.contact.*
   import views.html.base.navTree.*
+  import views.html.base.navTree.Node.*
 
   def contactEmailLinkEmpty(email: String = contactEmailInClear) =
     a(cls := "contact-email-obfuscated", attr("data-email") := lila.common.String.base64.encode(email))
-  def contactEmailLink(email: String = contactEmailInClear)(implicit ctx: Context) =
+  def contactEmailLink(email: String = contactEmailInClear)(using Context) =
     contactEmailLinkEmpty(email)(trans.clickToRevealEmailAddress())
 
-  private def reopenLeaf(prefix: String)(implicit ctx: Context) =
+  private def reopenLeaf(prefix: String)(using Context) =
     Leaf(
       s"$prefix-reopen",
       wantReopen(),
@@ -30,7 +31,7 @@ object contact:
       )
     )
 
-  private def howToReportBugs(implicit ctx: Context): Frag =
+  private def howToReportBugs(using Context): Frag =
     frag(
       ul(
         li(
@@ -49,7 +50,7 @@ object contact:
       p(howToReportBug())
     )
 
-  private def menu(implicit ctx: Context): Branch =
+  private def menu(using Context): Branch =
     Branch(
       "root",
       whatCanWeHelpYouWith(),
@@ -374,7 +375,7 @@ object contact:
 
   val dmcaUrl = "/dmca"
 
-  def apply()(implicit ctx: Context) =
+  def apply()(using Context) =
     page.layout(
       title = trans.contact.contact.txt(),
       active = "contact",

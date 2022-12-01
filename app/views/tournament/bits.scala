@@ -42,7 +42,7 @@ object bits:
       }
     )
 
-  def userPrizeDisclaimer(ownerId: lila.user.User.ID) =
+  def userPrizeDisclaimer(ownerId: UserId) =
     !env.prizeTournamentMakers.get().value.contains(ownerId) option
       div(cls := "tour__prize")(
         "This tournament is not organized by Lichess.",
@@ -80,4 +80,4 @@ object bits:
     trans.casualTournament,
     trans.tournamentEntryCode,
     trans.arena.viewAllXTeams
-  ).map(_.key)
+  )

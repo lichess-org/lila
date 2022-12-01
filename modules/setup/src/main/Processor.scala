@@ -32,7 +32,7 @@ final private[setup] class Processor(
       configBase: HookConfig,
       sri: lila.socket.Socket.Sri,
       sid: Option[String],
-      blocking: Set[String]
+      blocking: lila.pool.Blocking
   )(using ctx: UserContext): Fu[Processor.HookResult] =
     import Processor.HookResult.*
     val config = configBase.fixColor
@@ -48,7 +48,7 @@ final private[setup] class Processor(
           case Some(userId) => createSeekIfAllowed(seek, userId)
       case _ => fuccess(Refused)
 
-  def createSeekIfAllowed(seek: Seek, userId: User.ID): Fu[Processor.HookResult] =
+  def createSeekIfAllowed(seek: Seek, userId: UserId): Fu[Processor.HookResult] =
     gameCache.nbPlaying(userId) map { nbPlaying =>
       import Processor.HookResult.*
       if (nbPlaying >= lila.game.Game.maxPlaying) Refused
@@ -59,7 +59,6 @@ final private[setup] class Processor(
 
 object Processor:
 
-  sealed trait HookResult
-  object HookResult:
-    case class Created(id: String) extends HookResult
-    case object Refused            extends HookResult
+  enum HookResult:
+    case Created(id: String)
+    case Refused

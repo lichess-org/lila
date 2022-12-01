@@ -18,17 +18,17 @@ final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCac
 
   LilaScheduler(_.Every(10 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
     repo
-      .soonStarting(DateTime.now.plusMinutes(10), DateTime.now.plusMinutes(11), doneMemo.keys.map(_.value))
+      .soonStarting(DateTime.now.plusMinutes(10), DateTime.now.plusMinutes(11), doneMemo.keys)
       .flatMap {
         _.map { tour =>
           lila.mon.tournament.notifier.tournaments.increment()
-          doneMemo put TourId(tour.id)
+          doneMemo put tour.id
           cached ranking tour map { ranking =>
             if (ranking.ranking.nonEmpty)
               Bus
                 .publish(
                   TourSoon(
-                    tourId = tour.id,
+                    tourId = tour.id.value,
                     tourName = tour.name,
                     ranking.ranking.keys,
                     swiss = false

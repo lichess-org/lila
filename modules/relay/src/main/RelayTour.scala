@@ -1,6 +1,7 @@
 package lila.relay
 
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 
@@ -9,7 +10,7 @@ case class RelayTour(
     name: String,
     description: String,
     markup: Option[lila.common.Markdown] = None,
-    ownerId: User.ID,
+    ownerId: UserId,
     createdAt: DateTime,
     tier: Option[RelayTour.Tier], // if present, it's an official broadcast
     active: Boolean,              // a round is scheduled or ongoing
@@ -59,4 +60,4 @@ object RelayTour:
 
   case class WithLastRound(tour: RelayTour, round: RelayRound) extends RelayRound.AndTour
 
-  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
+  def makeId = Id(ThreadLocalRandom nextString 8)

@@ -1,6 +1,6 @@
 package lila.opening
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.format.Forsyth
 import chess.opening.FullOpening
 import com.softwaremill.tagging.*
@@ -50,7 +50,7 @@ final private class OpeningExplorer(
   def simplePopularity(opening: FullOpening): Fu[Option[Int]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
-        "play"        -> opening.uci.replace(" ", ","),
+        "play"        -> opening.uci.value.replace(" ", ","),
         "moves"       -> "0",
         "topGames"    -> "0",
         "recentGames" -> "0"

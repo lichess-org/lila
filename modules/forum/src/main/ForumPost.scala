@@ -2,6 +2,7 @@ package lila.forum
 
 import org.joda.time.DateTime
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 import lila.security.Granter
@@ -13,7 +14,7 @@ case class ForumPost(
     topicId: String,
     categId: String,
     author: Option[String],
-    userId: Option[String],
+    userId: Option[UserId],
     text: String,
     number: Int,
     troll: Boolean,
@@ -31,9 +32,10 @@ case class ForumPost(
 
   inline def id = _id
 
-  def showAuthor = (author map (_.trim) filter ("" !=)) | (if (~modIcon) User.anonymous else User.anonMod)
+  private def showAuthor: String =
+    author.map(_.trim).filter("" !=) | (if (~modIcon) User.anonymous.value else User.anonMod)
 
-  def showUserIdOrAuthor = if (erased) "<erased>" else userId | showAuthor
+  def showUserIdOrAuthor: String = if (erased) "<erased>" else userId.fold(showAuthor)(_.value)
 
   def isTeam = categId startsWith teamSlug(TeamId(""))
 
@@ -87,7 +89,7 @@ object ForumPost:
   opaque type Id = String
   object Id extends TotalWrapper[Id, String]
 
-  type Reactions = Map[String, Set[User.ID]]
+  type Reactions = Map[String, Set[UserId]]
 
   val idSize = 8
 
@@ -113,8 +115,7 @@ object ForumPost:
   def make(
       topicId: String,
       categId: String,
-      author: Option[String],
-      userId: Option[User.ID],
+      userId: Option[UserId], // anon mod posts
       text: String,
       number: Int,
       lang: Option[String],
@@ -122,9 +123,9 @@ object ForumPost:
       modIcon: Option[Boolean] = None
   ): ForumPost =
     ForumPost(
-      _id = lila.common.ThreadLocalRandom nextString idSize,
+      _id = ThreadLocalRandom nextString idSize,
       topicId = topicId,
-      author = author,
+      author = none,
       userId = userId,
       text = text,
       number = number,

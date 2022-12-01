@@ -17,6 +17,6 @@ object bits:
     views.html.study.jsI18n() ++
       i18nJsObject(i18nKeys)
 
-  val i18nKeys: List[lila.i18n.MessageKey] =
+  val i18nKeys =
     import trans.broadcast.*
-    List(addRound, broadcastUrl, currentRoundUrl, currentGameUrl, downloadAllRounds).map(_.key)
+    List(addRound, broadcastUrl, currentRoundUrl, currentGameUrl, downloadAllRounds)

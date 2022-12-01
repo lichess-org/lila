@@ -4,7 +4,7 @@ import org.specs2.mutable.*
 
 class LameNameTest extends Specification {
 
-  def test = LameName.username _
+  def test(str: String) = LameName.username(UserName(str))
 
   "disallow" >> {
     "separated titles" >> {

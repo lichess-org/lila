@@ -1,12 +1,14 @@
 package lila.opening
 
-import chess.opening.{ FullOpening, FullOpeningDB }
+import chess.opening.{ FullOpening, FullOpeningDB, OpeningName, OpeningKey }
 import cats.data.NonEmptyList
 
 object Opening:
 
-  type NameSection = String
-  type PgnMove     = String
+  opaque type NameSection = String
+  object NameSection extends OpaqueString[NameSection]
+
+  type PgnMove = String
 
   case class Tree(children: List[(Tree.NameOrOpening, Tree)])
 
@@ -36,7 +38,12 @@ object Opening:
         .map { op =>
           val sections = Opening.sectionsOf(op.name)
           sections.toList.zipWithIndex map { case (name, i) =>
-            (name, FullOpeningDB.shortestLines.get(FullOpening.nameToKey(sections.take(i + 1).mkString("_"))))
+            (
+              name,
+              FullOpeningDB.shortestLines.get(
+                OpeningKey.fromName(OpeningName(sections.take(i + 1).mkString("_")))
+              )
+            )
           }
         }
         .toList
@@ -50,7 +57,7 @@ object Opening:
    * "Mieses Opening" -> "Mieses Opening: Reversed Rat" -> "Reversed Rat"
    * For harder ones, see modules/opening/src/test/OpeningTest.scala
    */
-  private[opening] def variationName(prev: String, next: String): NameSection =
+  private[opening] def variationName(prev: OpeningName, next: OpeningName): NameSection =
     sectionsOf(prev).toList
       .zipAll(sectionsOf(next).toList, "", "")
       .dropWhile { case (a, b) => a == b }
@@ -62,10 +69,10 @@ object Opening:
   def variationName(prev: Option[FullOpening], next: Option[FullOpening]): Option[NameSection] =
     (prev, next) match
       case (Some(p), Some(n)) => variationName(p.name, n.name).some
-      case (None, Some(n))    => n.family.name.some
+      case (None, Some(n))    => n.family.name.into(NameSection).some
       case _                  => none
 
-  def sectionsOf(openingName: String): NonEmptyList[NameSection] =
-    openingName.split(":", 2) match
+  def sectionsOf(openingName: OpeningName): NonEmptyList[NameSection] =
+    openingName.value.split(":", 2) match
       case Array(f, v) => NonEmptyList(f, v.split(",").toList.map(_.trim))
-      case _           => NonEmptyList(openingName, Nil)
+      case _           => NonEmptyList(openingName into NameSection, Nil)

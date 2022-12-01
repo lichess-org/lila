@@ -29,6 +29,7 @@
   <string name="otherAmount">Друго</string>
   <string name="pleaseEnterAmountInX">Моля въведете сума в %s</string>
   <string name="withCreditCard">Кредитна карта</string>
+  <string name="logInToDonate">Влезте в профила си за да дарите</string>
   <string name="weAreSmallTeam">Ние сме малък екип, за това Вашата подкрепа има огромно значение!</string>
   <string name="celebratedPatrons">Почетни Дарители, които правят Lichess възможен</string>
   <string name="whereMoneyGoes">Къде отиват парите от даренията?</string>

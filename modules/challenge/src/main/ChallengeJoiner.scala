@@ -2,7 +2,7 @@ package lila.challenge
 
 import cats.data.Validated
 import cats.data.Validated.{ Invalid, Valid }
-import chess.format.FEN
+import chess.format.Fen
 import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
 import chess.variant.Variant
@@ -55,7 +55,7 @@ private object ChallengeJoiner:
   def gameSetup(
       variant: Variant,
       tc: Challenge.TimeControl,
-      initialFen: Option[FEN]
+      initialFen: Option[Fen]
   ): (chess.Game, Option[SituationPlus]) =
 
     def makeChess(variant: Variant): chess.Game =

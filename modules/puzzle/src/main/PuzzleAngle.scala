@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 
 import lila.common.{ Iso, LilaOpeningFamily, SimpleOpening }
 import lila.i18n.I18nKey
-import chess.opening.{ FullOpening, FullOpeningDB }
+import chess.opening.{ FullOpening, FullOpeningDB, OpeningKey }
 
 sealed abstract class PuzzleAngle(val key: String):
   val name: I18nKey
@@ -26,11 +26,11 @@ object PuzzleAngle:
     ) | "Any"
     def opening = either
       .fold(
-        _.value.some,
+        _.into(OpeningKey).some,
         opKey => SimpleOpening(opKey).map(_.ref.key)
       ) flatMap FullOpeningDB.shortestLines.get
-    val name        = new I18nKey(openingName)
-    def description = new I18nKey(s"From games with the opening: $openingName")
+    val name        = I18nKey(openingName)
+    def description = I18nKey(s"From games with the opening: $openingName")
     def asTheme     = none
 
   // def apply(theme: PuzzleTheme.Key): PuzzleAngle = Theme(theme)

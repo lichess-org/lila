@@ -8,7 +8,7 @@ import chess.Color
 private[game] case class Metadata(
     source: Option[Source],
     pgnImport: Option[PgnImport],
-    tournamentId: Option[String],
+    tournamentId: Option[TourId],
     swissId: Option[SwissId],
     simulId: Option[SimulId],
     analysed: Boolean,
@@ -51,19 +51,14 @@ case class GameDrawOffers(white: Set[Int], black: Set[Int]):
 object GameDrawOffers:
   val empty = GameDrawOffers(Set.empty, Set.empty)
 
-sealed trait GameRule:
+enum GameRule:
+  case NoAbort, NoRematch, NoGiveTime, NoClaimWin
   val key = lila.common.String lcfirst toString
-
 case object GameRule:
-  case object NoAbort    extends GameRule
-  case object NoRematch  extends GameRule
-  case object NoGiveTime extends GameRule
-  case object NoClaimWin extends GameRule
-  val all   = List[GameRule](NoAbort, NoRematch, NoGiveTime, NoClaimWin)
-  val byKey = all.map(r => r.key -> r).toMap
+  val byKey = values.map(r => r.key -> r).toMap
 
 case class PgnImport(
-    user: Option[String],
+    user: Option[UserId],
     date: Option[String],
     pgn: String,
     // hashed PGN for DB unicity
@@ -84,11 +79,7 @@ object PgnImport:
       } take 12
     }
 
-  def make(
-      user: Option[String],
-      date: Option[String],
-      pgn: String
-  ) =
+  def make(user: Option[UserId], date: Option[String], pgn: String) =
     PgnImport(
       user = user,
       date = date,
@@ -98,4 +89,5 @@ object PgnImport:
 
   import reactivemongo.api.bson.*
   import ByteArray.given
+  import lila.db.dsl.given
   given BSONDocumentHandler[PgnImport] = Macros.handler

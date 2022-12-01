@@ -10,8 +10,8 @@ import Schedule.{ Freq, Speed }
 import lila.user.User
 
 case class Winner(
-    tourId: String,
-    userId: String,
+    tourId: TourId,
+    userId: UserId,
     tourName: String,
     date: DateTime
 )
@@ -139,7 +139,7 @@ final class WinnersApi(
     if (tour.schedule.exists(_.freq.isDailyOrBetter))
       scheduler.scheduleOnce(5.seconds) { allCache.invalidate {}.unit }.unit
 
-  private[tournament] def clearAfterMarking(userId: User.ID): Funit = all map { winners =>
+  private[tournament] def clearAfterMarking(userId: UserId): Funit = all map { winners =>
     if (winners.userIds contains userId) allCache.invalidate {}.unit
   }
 

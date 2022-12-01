@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 import chess.{ Clock, Game as ChessGame, Situation, Speed }
 
@@ -57,7 +57,7 @@ trait Positional { self: Config =>
 
   import chess.format.Forsyth, Forsyth.SituationPlus
 
-  def fen: Option[FEN]
+  def fen: Option[Fen]
 
   def strictFen: Boolean
 

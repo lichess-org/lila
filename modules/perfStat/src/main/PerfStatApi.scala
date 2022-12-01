@@ -26,11 +26,11 @@ final class PerfStatApi(
     ec: ExecutionContext
 ):
 
-  def data(name: String, perfKey: Perf.Key, by: Option[User]): Fu[Option[PerfStatData]] =
+  def data(name: UserStr, perfKey: Perf.Key, by: Option[User]): Fu[Option[PerfStatData]] =
     PerfType(perfKey) ?? { perfType =>
-      userRepo named name flatMap {
+      userRepo byId name flatMap {
         _.filter { u =>
-          (u.enabled && (!u.lame || by.exists(u.is))) || by.??(Granter(_.UserModView))
+          (u.enabled && (!u.lame || by.exists(_ is u))) || by.??(Granter(_.UserModView))
         } ?? { u =>
           for {
             oldPerfStat <- get(u, perfType)
@@ -43,7 +43,7 @@ final class PerfStatApi(
                 case (under, sum) => Math.round(under * 1000.0 / sum) / 10.0
             }
             _ = lightUserApi preloadUser u
-            _ <- lightUserApi preloadMany perfStat.userIds.map(_.value)
+            _ <- lightUserApi preloadMany perfStat.userIds
           } yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile).some
         }
       }

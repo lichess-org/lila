@@ -1,3 +1,3 @@
 package lila.tree
 
-export lila.Lila.{*,given}
+export lila.Lila.{ *, given }

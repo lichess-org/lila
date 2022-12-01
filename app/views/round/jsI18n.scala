@@ -25,26 +25,26 @@ object jsI18n:
     trans.oneDay,
     trans.nbDays,
     trans.nbHours
-  ).map(_.key)
+  )
 
-  private val realtimeTranslations = Vector(trans.nbSecondsToPlayTheFirstMove).map(_.key)
+  private val realtimeTranslations = Vector(trans.nbSecondsToPlayTheFirstMove)
 
   private val variantTranslations = Vector(
     trans.kingInTheCenter,
     trans.threeChecks,
     trans.variantEnding
-  ).map(_.key)
+  )
 
   private val tournamentTranslations = Vector(
     trans.backToTournament,
     trans.viewTournament,
     trans.standing
-  ).map(_.key)
+  )
 
   private val swissTranslations = Vector(
     trans.backToTournament,
     trans.viewTournament
-  ).map(_.key)
+  )
 
   private val baseTranslations = Vector(
     trans.anonymous,
@@ -106,4 +106,4 @@ object jsI18n:
     trans.youPlayTheWhitePieces,
     trans.youPlayTheBlackPieces,
     trans.itsYourTurn
-  ).map(_.key)
+  )

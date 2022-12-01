@@ -50,4 +50,4 @@ object bits:
     trans.randomColor,
     trans.youPlayTheWhitePieces,
     trans.youPlayTheBlackPieces
-  ).map(_.key)
+  )

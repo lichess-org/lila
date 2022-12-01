@@ -18,9 +18,9 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
 
   import GameMod.*
 
-  def index(username: String) =
+  def index(username: UserStr) =
     SecureBody(_.GamesModView) { implicit ctx => me =>
-      OptionFuResult(env.user.repo named username) { user =>
+      OptionFuResult(env.user.repo byId username) { user =>
         given play.api.mvc.Request[?] = ctx.body
         val form                      = filterForm.bindFromRequest()
         val filter                    = form.fold(_ => emptyFilter, identity)
@@ -53,9 +53,9 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
       .run()
       .map(_.toList)
 
-  def post(username: String) =
+  def post(username: UserStr) =
     SecureBody(_.GamesModView) { implicit ctx => me =>
-      OptionFuResult(env.user.repo named username) { user =>
+      OptionFuResult(env.user.repo byId username) { user =>
         implicit val body: play.api.mvc.Request[?] = ctx.body
         actionForm
           .bindFromRequest()
@@ -113,17 +113,17 @@ object GameMod:
       opponents: Option[String],
       nbGamesOpt: Option[Int]
   ):
-    def opponentIds: List[lila.user.User.ID] =
-      (~opponents)
-        .take(800)
-        .replace(",", " ")
-        .split(' ')
-        .view
-        .flatMap(_.trim.some.filter(_.nonEmpty))
-        .filter(lila.user.User.couldBeUsername)
-        .map(lila.user.User.normalize)
-        .toList
-        .distinct
+    def opponentIds: List[UserId] = UserStr
+      .from {
+        (~opponents)
+          .take(800)
+          .replace(",", " ")
+          .split(' ')
+          .map(_.trim)
+      }
+      .flatMap(lila.user.User.validateId)
+      .toList
+      .distinct
 
     def nbGames = nbGamesOpt | 100
 

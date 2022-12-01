@@ -72,9 +72,7 @@ object JsonView:
 
   case class JsData(relay: JsObject, study: JsObject, analysis: JsObject)
 
-  given OWrites[SyncLog.Event]             = Json.writes
-  given Writes[RelayRoundId]              = Writes(id => JsString(id.value))
-  given tourIdWrites: Writes[RelayTour.Id] = Writes(id => JsString(id.value))
+  given OWrites[SyncLog.Event] = Json.writes
 
   private given OWrites[RelayRound.Sync] = OWrites { s =>
     Json.obj(
@@ -83,6 +81,6 @@ object JsonView:
     ) ++
       s.upstream.?? {
         case url: RelayRound.Sync.UpstreamUrl => Json.obj("url" -> url.withRound.url)
-        case RelayRound.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids.map(_.value))
+        case RelayRound.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids)
       }
   }

@@ -57,14 +57,14 @@ final private[report] class ReportForm(
     )(ReportFlag.apply)(unapply)
   )
 
-  private def blockingFetchUser(username: String) =
-    lightUserAsync(User normalize username).await(1 second, "reportUser")
+  private def blockingFetchUser(username: UserStr) =
+    lightUserAsync(username.id).await(1 second, "reportUser")
 
 object ReportForm:
   def gameLinkRegex(domain: config.NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r
 
 private[report] case class ReportFlag(
-    username: String,
+    username: UserStr,
     resource: String,
     text: String
 )
@@ -79,4 +79,4 @@ case class ReportSetup(
 
   def suspect = SuspectId(user.id)
 
-  def values = (user.name, reason, text, gameId, move)
+  def values = (user.name into UserStr, reason, text, gameId, move)

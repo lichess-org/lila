@@ -38,7 +38,7 @@ object Settings:
       v.key -> v
     }.toMap
 
-    def allows(sel: UserSelection, study: Study, userId: Option[User.ID]): Boolean = sel match
+    def allows(sel: UserSelection, study: Study, userId: Option[UserId]): Boolean = sel match
       case Nobody      => false
       case Everyone    => true
       case Member      => userId ?? study.isMember

@@ -14,14 +14,14 @@ final class TournamentCrud(env: Env) extends LilaController(env):
       }
     }
 
-  def edit(id: String) =
+  def edit(id: TourId) =
     Secure(_.ManageTournament) { implicit ctx => _ =>
       OptionOk(crud one id) { tour =>
         html.tournament.crud.edit(tour, crud editForm tour)
       }
     }
 
-  def update(id: String) =
+  def update(id: TourId) =
     SecureBody(_.ManageTournament) { implicit ctx => _ =>
       OptionFuResult(crud one id) { tour =>
         given play.api.mvc.Request[?] = ctx.body
@@ -57,11 +57,10 @@ final class TournamentCrud(env: Env) extends LilaController(env):
         )
     }
 
-  def cloneT(id: String) =
+  def cloneT(id: TourId) =
     Secure(_.ManageTournament) { implicit ctx => _ =>
       OptionFuResult(crud one id) { old =>
         val tour = crud clone old
         Ok(html.tournament.crud.create(crud editForm tour)).toFuccess
       }
     }
-

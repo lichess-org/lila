@@ -54,7 +54,7 @@ object index:
                 p(strong(trans.oauthScope.doNotShareIt()))
               else
                 p(trans.oauthScope.copyTokenNow()),
-              code(token.plain.secret)
+              code(token.plain.value)
             )
           )
         },

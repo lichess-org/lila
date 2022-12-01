@@ -2,7 +2,7 @@ package lila.shutup
 
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.*
+import lila.db.dsl.{ given, * }
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.shutup.PublicSource
 import lila.user.{ User, UserRepo }
@@ -18,7 +18,7 @@ final class ShutupApi(
   private given BSONDocumentHandler[UserRecord] = Macros.handler
   import PublicLine.given
 
-  def getPublicLines(userId: User.ID): Fu[List[PublicLine]] =
+  def getPublicLines(userId: UserId): Fu[List[PublicLine]] =
     coll
       .find($doc("_id" -> userId), $doc("pub" -> 1).some)
       .one[Bdoc]
@@ -26,27 +26,27 @@ final class ShutupApi(
         ~_.flatMap(_.getAsOpt[List[PublicLine]]("pub"))
       }
 
-  def publicForumMessage(userId: User.ID, text: String) = record(userId, text, TextType.PublicForumMessage)
-  def teamForumMessage(userId: User.ID, text: String)   = record(userId, text, TextType.TeamForumMessage)
-  def publicChat(userId: User.ID, text: String, source: PublicSource) =
+  def publicForumMessage(userId: UserId, text: String) = record(userId, text, TextType.PublicForumMessage)
+  def teamForumMessage(userId: UserId, text: String)   = record(userId, text, TextType.TeamForumMessage)
+  def publicChat(userId: UserId, text: String, source: PublicSource) =
     record(userId, text, TextType.PublicChat, source.some)
 
-  def privateChat(chatId: String, userId: User.ID, text: String) =
+  def privateChat(chatId: String, userId: UserId, text: String) =
     gameRepo.getSourceAndUserIds(GameId(chatId)) flatMap {
       case (source, _) if source.has(lila.game.Source.Friend) => funit // ignore challenges
       case (_, userIds) =>
         record(userId, text, TextType.PrivateChat, none, userIds find (userId !=))
     }
 
-  def privateMessage(userId: User.ID, toUserId: User.ID, text: String) =
+  def privateMessage(userId: UserId, toUserId: UserId, text: String) =
     record(userId, text, TextType.PrivateMessage, none, toUserId.some)
 
   private def record(
-      userId: User.ID,
+      userId: UserId,
       text: String,
       textType: TextType,
       source: Option[PublicSource] = None,
-      toUserId: Option[User.ID] = None
+      toUserId: Option[UserId] = None
   ): Funit =
     userRepo isTroll userId flatMap {
       case true => funit

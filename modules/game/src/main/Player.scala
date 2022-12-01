@@ -6,7 +6,7 @@ import scala.util.chaining.*
 
 import lila.user.User
 
-case class PlayerUser(id: String, rating: IntRating, ratingDiff: Option[IntRatingDiff])
+case class PlayerUser(id: UserId, rating: IntRating, ratingDiff: Option[IntRatingDiff])
 
 case class Player(
     id: GamePlayerId,
@@ -15,7 +15,7 @@ case class Player(
     isWinner: Option[Boolean] = None,
     isOfferingDraw: Boolean = false,
     proposeTakebackAt: Int = 0, // ply when takeback was proposed
-    userId: Player.UserId = None,
+    userId: Option[UserId] = None,
     rating: Option[IntRating] = None,
     ratingDiff: Option[IntRatingDiff] = None,
     provisional: Boolean = false,
@@ -87,7 +87,7 @@ object Player:
     aiLevel = aiLevel
   )
 
-  def make(color: Color, userPerf: (User.ID, lila.rating.Perf)): Player = make(
+  def make(color: Color, userPerf: (UserId, lila.rating.Perf)): Player = make(
     color = color,
     userId = userPerf._1,
     rating = userPerf._2.intRating,
@@ -96,7 +96,7 @@ object Player:
 
   def make(
       color: Color,
-      userId: User.ID,
+      userId: UserId,
       rating: IntRating,
       provisional: Boolean
   ): Player =
@@ -139,7 +139,7 @@ object Player:
     def suspicious(ply: Int): Boolean = ply >= 16 && ply <= 40
     def suspicious(m: Map): Boolean   = m exists { _ exists (_.suspicious) }
 
-  case class UserInfo(id: String, rating: IntRating, provisional: Boolean)
+  case class UserInfo(id: UserId, rating: IntRating, provisional: Boolean)
 
   import reactivemongo.api.bson.*
   import lila.db.BSON
@@ -159,9 +159,8 @@ object Player:
     val berserk           = "be"
     val name              = "na"
 
-  type UserId                = Option[User.ID]
   type Win                   = Option[Boolean]
-  private[game] type Builder = Color => GamePlayerId => UserId => Win => Player
+  private[game] type Builder = Color => GamePlayerId => Option[UserId] => Win => Player
 
   private def safeRange[A](range: Range)(a: A)(using ir: IntRuntime[A]): Option[A] =
     range.contains(ir(a)) option a

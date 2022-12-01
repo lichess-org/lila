@@ -72,7 +72,7 @@ object communication:
           div(cls := "history")(
             history.map { e =>
               div(
-                userIdLink(e.mod.some),
+                userIdLink(e.mod.userId.some),
                 " ",
                 b(e.showAction),
                 " ",
@@ -109,7 +109,7 @@ object communication:
                 line.date.fold[Frag]("[OLD]")(momentFromNowServer),
                 " ",
                 line.from.map {
-                  case PublicSource.Tournament(id) => tournamentLink(id.value)
+                  case PublicSource.Tournament(id) => tournamentLink(id)
                   case PublicSource.Simul(id)      => views.html.simul.bits.link(id)
                   case PublicSource.Team(id)       => views.html.team.bits.link(id)
                   case PublicSource.Watcher(id) => a(href := routes.Round.watcher(id, "white"))("Game #", id)
@@ -143,7 +143,7 @@ object communication:
                     div(
                       cls := List(
                         "line"   -> true,
-                        "author" -> (line.author.toLowerCase == u.id)
+                        "author" -> (UserStr(line.author) is u)
                       )
                     )(
                       userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),

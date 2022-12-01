@@ -2,7 +2,7 @@ package lila.round
 
 import akka.actor.*
 import akka.stream.scaladsl.*
-import chess.format.Forsyth
+import chess.format.{ Forsyth, BoardFen }
 import play.api.libs.json.*
 
 import lila.common.{ Bus, LightUser }
@@ -83,7 +83,7 @@ final private class TvBroadcast(
         "fen",
         Json
           .obj(
-            "fen" -> s"$fen ${game.turnColor.letter}",
+            "fen" -> fen.andColor(game.turnColor),
             "lm"  -> move
           )
           .add("wc" -> game.clock.map(_.remainingTime(chess.White).roundSeconds))
@@ -104,7 +104,7 @@ object TvBroadcast:
   type SourceType = Source[JsValue, ?]
   type Queue      = SourceQueueWithComplete[JsValue]
 
-  case class Featured(id: GameId, data: JsObject, fen: String):
+  case class Featured(id: GameId, data: JsObject, fen: BoardFen):
     def dataWithFen = data ++ Json.obj("fen" -> fen)
     def socketMsg   = Socket.makeMessage("featured", dataWithFen)
 

@@ -4,6 +4,7 @@ import chess.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
 import play.api.i18n.Lang
 import play.api.libs.json.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.game.PerfPicker
 import lila.rating.RatingRange
@@ -87,19 +88,20 @@ case class Hook(
   def compatibleWithPool(poolClock: chess.Clock.Config) =
     compatibleWithPools && clock == poolClock
 
-  def toPool =
+  def toPool = user map { u =>
     lila.pool.HookThieve.PoolHook(
       hookId = id,
       member = lila.pool.PoolMember(
-        userId = user.??(_.id),
+        userId = u.id,
         sri = sri,
         rating = rating | lila.rating.Glicko.default.intRating,
         ratingRange = realRatingRange,
         lame = user.??(_.lame),
-        blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
+        blocking = user.??(_.blocking),
         rageSitCounter = 0
       )
     )
+  }
 
   private lazy val speed = Speed(clock)
 
@@ -116,11 +118,11 @@ object Hook:
       user: Option[User],
       sid: Option[String],
       ratingRange: RatingRange,
-      blocking: Set[String],
+      blocking: lila.pool.Blocking,
       boardApi: Boolean = false
   ): Hook =
     new Hook(
-      id = lila.common.ThreadLocalRandom nextString idSize,
+      id = ThreadLocalRandom nextString idSize,
       sri = sri,
       variant = variant.id,
       clock = clock,

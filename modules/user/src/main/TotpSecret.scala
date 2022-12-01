@@ -5,8 +5,7 @@ import javax.crypto.spec.SecretKeySpec
 import java.nio.ByteBuffer
 import org.apache.commons.codec.binary.Base32
 import reactivemongo.api.bson.*
-
-import lila.common.SecureRandom
+import ornicar.scalalib.SecureRandom
 
 import User.TotpToken
 

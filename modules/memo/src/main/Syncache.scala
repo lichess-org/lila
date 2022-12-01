@@ -31,8 +31,8 @@ final class Syncache[K, V](
       .initialCapacity(initialCapacity)
       .pipe { c =>
         expireAfter match
-          case ExpireAfterAccess(duration) => c.expireAfterAccess(duration.toMillis, TimeUnit.MILLISECONDS)
-          case ExpireAfterWrite(duration)  => c.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
+          case ExpireAfter.Access(duration) => c.expireAfterAccess(duration.toMillis, TimeUnit.MILLISECONDS)
+          case ExpireAfter.Write(duration)  => c.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
       }
       .recordStats
       .build[K, Fu[V]](new CacheLoader[K, Fu[V]] {
@@ -60,8 +60,8 @@ final class Syncache[K, V](
       case _ =>
         incMiss()
         strategy match
-          case NeverWait => default(k)
-          case WaitAfterUptime(duration, uptime) =>
+          case Strategy.NeverWait => default(k)
+          case Strategy.WaitAfterUptime(duration, uptime) =>
             if (Uptime startedSinceSeconds uptime) waitForResult(k, future, duration)
             else default(k)
 
@@ -95,10 +95,10 @@ final class Syncache[K, V](
 
 object Syncache:
 
-  sealed trait Strategy
-  case object NeverWait                                                         extends Strategy
-  case class WaitAfterUptime(duration: FiniteDuration, uptimeSeconds: Int = 20) extends Strategy
+  enum Strategy:
+    case NeverWait
+    case WaitAfterUptime(duration: FiniteDuration, uptimeSeconds: Int = 20)
 
-  sealed trait ExpireAfter
-  case class ExpireAfterAccess(duration: FiniteDuration) extends ExpireAfter
-  case class ExpireAfterWrite(duration: FiniteDuration)  extends ExpireAfter
+  enum ExpireAfter:
+    case Access(duration: FiniteDuration)
+    case Write(duration: FiniteDuration)

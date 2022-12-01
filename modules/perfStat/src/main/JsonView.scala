@@ -14,11 +14,11 @@ final class JsonView(getLightUser: LightUser.GetterSync):
 
   import JsonView.{ given, * }
 
-  implicit private val userIdWriter: OWrites[UserId] = OWrites { u =>
-    val light = getLightUser(u.value)
+  private given userIdWriter: OWrites[UserId] = OWrites { u =>
+    val light = getLightUser(u)
     Json.obj(
       "id"    -> u.value,
-      "name"  -> light.fold(u.value)(_.name),
+      "name"  -> light.fold(u into UserName)(_.name),
       "title" -> light.flatMap(_.title)
     )
   }

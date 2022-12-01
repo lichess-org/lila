@@ -3,7 +3,7 @@ package lila.study
 import BSONHandlers.given
 import chess.Color
 import chess.format.pgn.Tags
-import chess.format.{ FEN, Uci }
+import chess.format.{ Fen, Uci }
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
@@ -87,7 +87,7 @@ final class StudyMultiBoard(
             name <- doc.getAsOpt[StudyChapterName]("name")
             comp <- doc.getAsOpt[Bdoc]("comp")
             node <- comp.getAsOpt[Bdoc]("node")
-            fen  <- node.getAsOpt[FEN]("fen")
+            fen  <- node.getAsOpt[Fen]("fen")
             lastMove = node.getAsOpt[Uci]("uci")
             tags     = comp.getAsOpt[Tags]("tags")
           } yield ChapterPreview(
@@ -124,7 +124,7 @@ object StudyMultiBoard:
       name: StudyChapterName,
       players: Option[ChapterPreview.Players],
       orientation: Color,
-      fen: FEN,
+      fen: Fen,
       lastMove: Option[Uci],
       playing: Boolean
   )

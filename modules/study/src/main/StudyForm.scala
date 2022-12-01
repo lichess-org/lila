@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
@@ -32,15 +32,15 @@ object StudyForm:
     case class Data(
         gameId: Option[GameId] = None,
         orientation: Option[ChapterMaker.Orientation] = None,
-        fen: Option[FEN] = None,
+        fen: Option[Fen] = None,
         pgnStr: Option[String] = None,
         variant: Option[Variant] = None,
         asStr: Option[String] = None
     ):
       def as: As =
         asStr match
-          case None | Some("study") => AsNewStudy
-          case Some(studyId)        => AsChapterOf(StudyId(studyId))
+          case None | Some("study") => As.NewStudy
+          case Some(studyId)        => As.ChapterOf(StudyId(studyId))
 
       def toChapterData =
         ChapterMaker.Data(
@@ -54,9 +54,9 @@ object StudyForm:
           initial = false
         )
 
-    sealed trait As
-    case object AsNewStudy                   extends As
-    case class AsChapterOf(studyId: StudyId) extends As
+    enum As:
+      case NewStudy
+      case ChapterOf(studyId: StudyId)
 
   object importPgn:
 
@@ -102,4 +102,4 @@ object StudyForm:
   def topicsForm = Form(single("topics" -> text))
 
   def topicsForm(topics: StudyTopics) =
-    Form(single("topics" -> text)) fill topics.value.map(_.value).mkString(",")
+    Form(single("topics" -> text)) fill topics.value.mkString(",")

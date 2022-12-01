@@ -11,6 +11,8 @@ import lila.common.base.StringUtils.{ escapeHtmlRaw, safeJsonString }
 
 object String:
 
+  export RawHtml.hasLinks
+
   private[this] val slugR              = """[^\w-]""".r
   private[this] val slugMultiDashRegex = """-{2,}""".r
 
@@ -25,53 +27,47 @@ object String:
 
   def urlencode(str: String): String = java.net.URLEncoder.encode(str, "UTF-8")
 
-  def hasGarbageChars(str: String) = str.chars().anyMatch(isGarbageChar)
+  def addQueryParam(url: String, key: String, value: String): String = addQueryParams(url, Map(key -> value))
+  def addQueryParams(url: String, params: Map[String, String]): String =
+    if params.isEmpty then url
+    else {
+      val queryString = params // we could encode the key, and we should, but is it really necessary?
+        .map { (key, value) => s"$key=${urlencode(value)}" }
+        .mkString("&")
+      s"$url${if url.contains("?") then "&" else "?"}$queryString"
+    }
 
-  def distinctGarbageChars(str: String): Set[Char] =
-    str
-      .chars()
-      .filter(isGarbageChar)
-      .boxed()
-      .iterator()
-      .asScala
-      .map((i: Integer) => i.toChar)
-      .toSet
+  def removeChars(str: String, isRemoveable: Int => Boolean): String =
+    if str.chars.anyMatch(isRemoveable(_)) then str.filterNot(isRemoveable(_)) else str
 
-  private def removeChars(str: String, isRemoveable: Int => Boolean): String =
-    str
-      .chars()
-      .filter(c => !isRemoveable(c))
-      .boxed()
-      .iterator()
-      .asScala
-      .map((i: Integer) => i.toChar)
-      .mkString
-
-  private def isGarbageChar(c: Int) =
+  def isGarbageChar(c: Int) = c >= '\u0250' && {
     isInvisibleChar(c) ||
-      // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
-      // but keep maths operators cause maths are cool https://www.compart.com/en/unicode/block/U+2200
-      // and chess symbols https://www.compart.com/en/unicode/block/U+2600
-      (c >= '\u2100' && c <= '\u21FF') ||
-      (c >= '\u2300' && c <= '\u2653') ||
-      (c >= '\u2660' && c <= '\u2C5F') ||
-      // decorative chars ꧁ ꧂ and svastikas
-      (c == '\ua9c1' || c == '\ua9c2' || c == '\u534d' || c == '\u5350') ||
-      // pretty quranic chars ۩۞
-      (c >= '\u06d6' && c <= '\u06ff') ||
-      // phonetic extensions https://www.compart.com/en/unicode/block/U+1D00
-      (c >= '\u1d00' && c <= '\u1d7f') ||
-      // IPA extensions https://www.compart.com/en/unicode/block/U+0250
-      // but allow https://www.compart.com/en/unicode/U+0259
-      (c >= '\u0250' && c < '\u0259') || (c > '\u0259' && c <= '\u02af')
+    // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
+    // but keep maths operators cause maths are cool https://www.compart.com/en/unicode/block/U+2200
+    // and chess symbols https://www.compart.com/en/unicode/block/U+2600
+    (c >= '\u2100' && c <= '\u21FF') ||
+    (c >= '\u2300' && c <= '\u2653') ||
+    (c >= '\u2660' && c <= '\u2C5F') ||
+    // decorative chars ꧁ ꧂ and svastikas
+    (c == '\ua9c1' || c == '\ua9c2' || c == '\u534d' || c == '\u5350') ||
+    // pretty quranic chars ۩۞
+    (c >= '\u06d6' && c <= '\u06ff') ||
+    // phonetic extensions https://www.compart.com/en/unicode/block/U+1D00
+    (c >= '\u1d00' && c <= '\u1d7f') ||
+    // IPA extensions https://www.compart.com/en/unicode/block/U+0250
+    // but allow https://www.compart.com/en/unicode/U+0259
+    (c >= '\u0250' && c < '\u0259') || (c > '\u0259' && c <= '\u02af')
+  }
 
-  private def isInvisibleChar(c: Int) =
+  private inline def isInvisibleChar(c: Int) =
     // invisible chars https://www.compart.com/en/unicode/block/U+2000
     (c >= '\u2000' && c <= '\u200F') ||
       // weird stuff https://www.compart.com/en/unicode/block/U+2000
       (c >= '\u2028' && c <= '\u202F') ||
       // Hangul fillers
       (c == '\u115f' || c == '\u1160')
+
+  def removeGarbageChars(str: String) = removeChars(str, isGarbageChar)
 
   object normalize:
 
@@ -98,17 +94,18 @@ object String:
   def removeMultibyteSymbols(str: String): String = multibyteSymbolsRegex.replaceAllIn(str, "")
 
   // for publicly listed text like team names, study names, forum topics...
-  def fullCleanUp(str: String) = removeMultibyteSymbols(removeChars(normalize(str.trim), isGarbageChar))
+  def fullCleanUp(str: String) = removeMultibyteSymbols(removeChars(normalize(str), isGarbageChar)).trim
 
   // for inner text like study chapter names, possibly forum posts and team descriptions
-  def softCleanUp(str: String) = removeChars(normalize(str.trim), isInvisibleChar)
+  def softCleanUp(str: String) = removeChars(normalize(str), isInvisibleChar(_)).trim
 
   def decodeUriPath(input: String): Option[String] =
     try play.utils.UriEncoding.decodePath(input, "UTF-8").some
     catch case _: play.utils.InvalidUriEncodingException => None
 
-  private val onelineR = """\s+""".r
-  def shorten(text: String, length: Int, sep: String = "…") =
+  private val onelineR                           = """\s+""".r
+  def shorten(text: String, length: Int): String = shorten(text, length, "…")
+  def shorten(text: String, length: Int, sep: String): String =
     val oneline = onelineR.replaceAllIn(text, " ")
     if (oneline.lengthIs > length + sep.length) oneline.take(length) ++ sep
     else oneline
@@ -125,8 +122,6 @@ object String:
       } > 0
     }
   def noShouting(str: String): String = if (isShouting(str)) str.toLowerCase else str
-
-  def hasLinks = RawHtml.hasLinks
 
   object base64:
     import java.util.Base64
@@ -192,4 +187,4 @@ object String:
 
   def looksLikePrize(txt: String) = prizeRegex matches txt
 
-  def underscoreFen(fen: chess.format.FEN) = fen.value.replace(" ", "_")
+  def underscoreFen(fen: chess.format.Fen) = fen.value.replace(" ", "_")
