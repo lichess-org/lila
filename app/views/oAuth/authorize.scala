@@ -8,6 +8,7 @@ import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.user.User
 import lila.oauth.AuthorizationRequest
 import lila.oauth.OAuthScope
+import controllers.routes
 
 object authorize:
 
@@ -17,7 +18,17 @@ object authorize:
     src := assetUrl("images/icons/linked-rings.png")
   )
 
-  def footer(redirectUrl: String, isDanger: Boolean) = div(cls := "oauth__footer")(
+  def footer(redirectUrl: String, isDanger: Boolean)(using ctx: Context) = div(cls := "oauth__footer")(
+    ctx.me map { me =>
+      p(
+        "Not ",
+        me.username,
+        "? ",
+        a(href := addQueryParams(routes.Auth.login.url, Map("switch" -> "1", "referrer" -> ctx.req.uri)))(
+          trans.signIn()
+        )
+      )
+    },
     p(cls := List("danger" -> isDanger))("Not owned or operated by lichess.org"),
     p(cls := "oauth__redirect")(
       "Will redirect to ",
@@ -57,11 +68,7 @@ object authorize:
           else
             ul(cls := "oauth__scopes")(
               prompt.maybeScopes map { scope =>
-                li(
-                  cls := List(
-                    "danger" -> OAuthScope.dangerList(scope)
-                  )
-                )(scope.name())
+                li(cls := List("danger" -> OAuthScope.dangerList(scope)))(scope.name())
               }
             ),
           form3.actions(

@@ -87,9 +87,10 @@ final class Auth(
 
   def login     = Open(serveLogin(_))
   def loginLang = LangPage(routes.Auth.login)(serveLogin(_))
+
   private def serveLogin(implicit ctx: Context) = NoBot {
     val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
-    referrer ifTrue ctx.isAuth match
+    referrer ifTrue ctx.isAuth ifFalse getBool("switch") match
       case Some(url) => Redirect(url).toFuccess // redirect immediately if already logged in
       case None =>
         Ok(html.auth.login(api.loginForm, referrer))
