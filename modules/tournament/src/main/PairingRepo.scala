@@ -203,7 +203,7 @@ final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Mat
       tournamentId: TourId,
       userId: Option[UserId],
       batchSize: Int = 0,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = temporarilyPrimary
   ): AkkaStreamCursor[Pairing] =
     coll
       .find(selectTour(tournamentId) ++ userId.??(selectUser))
