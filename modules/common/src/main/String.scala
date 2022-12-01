@@ -40,24 +40,10 @@ object String:
   def hasGarbageChars(str: String) = str.chars().anyMatch(isGarbageChar)
 
   def distinctGarbageChars(str: String): Set[Char] =
-    str
-      .chars()
-      .filter(isGarbageChar)
-      .boxed()
-      .iterator()
-      .asScala
-      .map((i: Integer) => i.toChar)
-      .toSet
+    if str.chars.anyMatch(isGarbageChar(_)) then str.filter(isGarbageChar).toSet else Set.empty
 
-  private def removeChars(str: String, isRemoveable: Int => Boolean): String =
-    str
-      .chars()
-      .filter(c => !isRemoveable(c))
-      .boxed()
-      .iterator()
-      .asScala
-      .map((i: Integer) => i.toChar)
-      .mkString
+  def removeChars(str: String, isRemoveable: Int => Boolean): String =
+    if str.chars.anyMatch(isRemoveable(_)) then str.filterNot(isRemoveable(_)) else str
 
   def isGarbageChar(c: Int) = c >= '\u0250' && {
     isInvisibleChar(c) ||
