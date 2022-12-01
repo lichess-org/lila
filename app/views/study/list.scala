@@ -138,7 +138,7 @@ object list:
         pager.currentPageResults.map { s =>
           div(cls := "study paginated")(bits.widget(s))
         },
-        pagerNext(pager, np => addQueryParameter(url.url, "page", np))
+        pagerNext(pager, np => addQueryParam(url.url, "page", np.toString))
       )
 
   private[study] def menu(active: String, order: Order, topics: List[StudyTopic] = Nil)(using

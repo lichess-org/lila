@@ -80,7 +80,8 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
     case d if d > 0 => goodTag(s"+$d")
     case d          => badTag(s"−${-d}")
 
-  def lightUser = env.user.lightUserSync
+  def lightUser         = env.user.lightUserSync
+  def lightUserFallback = env.user.lightUserSyncFallback
 
   def usernameOrId(userId: UserId): String  = lightUser(userId).fold(userId.value)(_.name.value)
   def titleNameOrId(userId: UserId): String = lightUser(userId).fold(userId.value)(_.titleName)

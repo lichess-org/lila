@@ -128,11 +128,11 @@ object storm:
               pagerNextTable(
                 history,
                 np =>
-                  addQueryParameter(
+                  addQueryParam(
                     if (ctx is user) routes.Storm.dashboard().url
                     else routes.Storm.dashboardOf(user.username).url,
                     "page",
-                    np
+                    np.toString
                   )
               )
             )

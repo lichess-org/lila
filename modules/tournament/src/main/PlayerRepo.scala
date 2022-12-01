@@ -344,7 +344,7 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
   private[tournament] def sortedCursor(
       tournamentId: TourId,
       batchSize: Int,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = temporarilyPrimary
   ): AkkaStreamCursor[Player] =
     coll
       .find(selectTour(tournamentId))

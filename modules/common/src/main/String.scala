@@ -11,6 +11,8 @@ import lila.common.base.StringUtils.{ escapeHtmlRaw, safeJsonString }
 
 object String:
 
+  export RawHtml.hasLinks
+
   private[this] val slugR              = """[^\w-]""".r
   private[this] val slugMultiDashRegex = """-{2,}""".r
 
@@ -24,6 +26,16 @@ object String:
     slug.toLowerCase
 
   def urlencode(str: String): String = java.net.URLEncoder.encode(str, "UTF-8")
+
+  def addQueryParam(url: String, key: String, value: String): String = addQueryParams(url, Map(key -> value))
+  def addQueryParams(url: String, params: Map[String, String]): String =
+    if params.isEmpty then url
+    else {
+      val queryString = params // we could encode the key, and we should, but is it really necessary?
+        .map { (key, value) => s"$key=${urlencode(value)}" }
+        .mkString("&")
+      s"$url${if url.contains("?") then "&" else "?"}$queryString"
+    }
 
   def hasGarbageChars(str: String) = str.chars().anyMatch(isGarbageChar)
 
@@ -107,8 +119,9 @@ object String:
     try play.utils.UriEncoding.decodePath(input, "UTF-8").some
     catch case _: play.utils.InvalidUriEncodingException => None
 
-  private val onelineR = """\s+""".r
-  def shorten(text: String, length: Int, sep: String = "…") =
+  private val onelineR                           = """\s+""".r
+  def shorten(text: String, length: Int): String = shorten(text, length, "…")
+  def shorten(text: String, length: Int, sep: String): String =
     val oneline = onelineR.replaceAllIn(text, " ")
     if (oneline.lengthIs > length + sep.length) oneline.take(length) ++ sep
     else oneline
@@ -125,8 +138,6 @@ object String:
       } > 0
     }
   def noShouting(str: String): String = if (isShouting(str)) str.toLowerCase else str
-
-  def hasLinks = RawHtml.hasLinks
 
   object base64:
     import java.util.Base64

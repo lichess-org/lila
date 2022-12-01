@@ -17,7 +17,8 @@ object AuthorizationRequest:
       responseType: Option[String],
       codeChallengeMethod: Option[String],
       codeChallenge: Option[CodeChallenge],
-      scope: Option[String]
+      scope: Option[String],
+      username: Option[UserStr]
   ):
     // In order to show a prompt and redirect back with error codes a valid
     // redirect_uri is absolutely required. Ignore all other errors for now.
@@ -32,7 +33,8 @@ object AuthorizationRequest:
         responseType = responseType,
         codeChallengeMethod = codeChallengeMethod,
         codeChallenge = codeChallenge,
-        scope = scope
+        scope = scope,
+        userId = username.map(_.id)
       )
 
   case class Prompt(
@@ -42,7 +44,8 @@ object AuthorizationRequest:
       responseType: Option[String],
       codeChallengeMethod: Option[String],
       codeChallenge: Option[CodeChallenge],
-      scope: Option[String]
+      scope: Option[String],
+      userId: Option[UserId]
   ):
     def errorUrl(error: Error) = redirectUri.error(error, state)
 

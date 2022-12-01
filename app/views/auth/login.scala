@@ -23,12 +23,14 @@ object login:
       moreCss = cssTag("auth"),
       withHrefLangs = lila.common.LangPath(routes.Auth.login).some
     ) {
-      def referrerParameter = referrer.?? { ref => s"?referrer=${urlencode(ref)}" }
+      def addReferrer(url: String): String = referrer.fold(url) {
+        addQueryParam(url, "referrer", _)
+      }
       main(cls := "auth auth-login box box-pad")(
         h1(cls := "box__top")(trans.signIn()),
         postForm(
           cls    := "form3",
-          action := s"${routes.Auth.authenticate}$referrerParameter"
+          action := addReferrer(routes.Auth.authenticate.url)
         )(
           div(cls := "one-factor")(
             form3.globalError(form),
@@ -52,7 +54,7 @@ object login:
           )
         ),
         div(cls := "alternative")(
-          a(href := s"${langHref(routes.Auth.signup)}$referrerParameter")(trans.signUp()),
+          a(href := addReferrer(langHref(routes.Auth.signup)))(trans.signUp()),
           a(href := routes.Auth.passwordReset)(trans.passwordReset()),
           a(href := routes.Auth.magicLink)("Log in by email")
         )

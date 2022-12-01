@@ -69,7 +69,7 @@ final class JsonView(rematches: Rematches):
       )
       .add("secondsLeft" -> pov.remainingSeconds)
       .add("tournamentId" -> pov.game.tournamentId)
-      .add("swissId" -> pov.game.tournamentId)
+      .add("swissId" -> pov.game.swissId)
 
 object JsonView:
 
