@@ -3,7 +3,7 @@ package lila.study
 import cats.data.Validated
 import chess.Centis
 import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags }
-import chess.format.{ Forsyth, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair }
 
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
@@ -76,7 +76,7 @@ object PgnImport:
     pgn tags "annotator" map { a =>
       val lowered = a.toLowerCase
       contributors.find { c =>
-        c.name == lowered || c.titleName == lowered || lowered.endsWith(s"/${c.id}")
+        c.name.value == lowered || c.titleName == lowered || lowered.endsWith(s"/${c.id}")
       } map { c =>
         Comment.Author.User(c.id, c.titleName)
       } getOrElse Comment.Author.External(a)
@@ -130,7 +130,7 @@ object PgnImport:
                     id = UciCharPair(uci),
                     ply = game.turns,
                     move = Uci.WithSan(uci, sanStr),
-                    fen = Forsyth >> game,
+                    fen = Fen write game,
                     check = game.situation.check,
                     shapes = shapes,
                     comments = comments,

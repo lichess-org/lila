@@ -52,7 +52,7 @@ private object BSONHandlers:
         "p" -> w.boolO(r.provisional)
       )
   given registeredHandler: BSON[Challenger.Registered] with
-    def reads(r: Reader) = Challenger.Registered(r.str("id"), r.get[Rating]("r"))
+    def reads(r: Reader) = Challenger.Registered(r.get[UserId]("id"), r.get[Rating]("r"))
     def writes(w: Writer, r: Challenger.Registered) =
       $doc(
         "id" -> r.id,

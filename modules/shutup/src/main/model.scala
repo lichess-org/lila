@@ -1,7 +1,7 @@
 package lila.shutup
 
 case class UserRecord(
-    _id: String,
+    _id: UserId,
     /* pub: Option[List[PublicLine]], intentionally not mapped to DB */
     puf: Option[List[Double]],
     tef: Option[List[Double]],
@@ -10,7 +10,7 @@ case class UserRecord(
     puc: Option[List[Double]]
 ):
 
-  def userId = _id
+  inline def userId = _id
 
   def reports: List[TextReport] =
     List(

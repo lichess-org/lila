@@ -1,6 +1,7 @@
 package lila.game
 package actorApi
 
+import chess.format.BoardFen
 import lila.user.User
 
 case class StartGame(game: Game)
@@ -22,7 +23,7 @@ private[game] case object NewCaptcha
 
 case class MoveGameEvent(
     game: Game,
-    fen: String,
+    fen: BoardFen,
     move: String
 )
 object MoveGameEvent:

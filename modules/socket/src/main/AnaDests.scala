@@ -2,7 +2,7 @@ package lila.socket
 
 import play.api.libs.json.*
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.opening.*
 import chess.variant.Variant
 import lila.tree.Node.{ destString, openingWriter }
@@ -10,12 +10,12 @@ import lila.common.Json.given
 
 case class AnaDests(
     variant: Variant,
-    fen: FEN,
+    fen: Fen,
     path: String,
     chapterId: Option[StudyChapterId]
 ):
 
-  def isInitial = variant.standard && fen.initial && path == ""
+  def isInitial = variant.standard && fen.isInitial && path == ""
 
   val dests: String =
     if (isInitial) AnaDests.initialDests
@@ -24,7 +24,7 @@ case class AnaDests(
       sit.playable(false) ?? destString(sit.destinations)
 
   lazy val opening = Variant.openingSensibleVariants(variant) ?? {
-    FullOpeningDB findByFen fen
+    OpeningDb findByFen fen.opening
   }
 
   def json =
@@ -45,7 +45,7 @@ object AnaDests:
     for {
       d <- o obj "d"
       variant = chess.variant.Variant orDefault ~d.str("variant")
-      fen  <- d str "fen"
+      fen  <- d.get[Fen]("fen")
       path <- d str "path"
       chapterId = d.get[StudyChapterId]("ch")
-    } yield AnaDests(variant = variant, fen = FEN(fen), path = path, chapterId = chapterId)
+    } yield AnaDests(variant = variant, fen = fen, path = path, chapterId = chapterId)

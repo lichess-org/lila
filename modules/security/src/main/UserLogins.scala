@@ -156,10 +156,10 @@ final class UserLoginsApi(
         } yield OtherUser(user, ips intersect ipSet, fps intersect fpSet)
       }
 
-  def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] =
+  def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]] =
     for {
       (ips, fps) <- nextValues("ip", userId) zip nextValues("fp", userId)
-      users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred.distinctEasy[User.ID, Set](
+      users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred.distinctEasy[UserId, Set](
         "user",
         $doc(
           "ip" $in ips,
@@ -169,7 +169,7 @@ final class UserLoginsApi(
       )
     } yield users
 
-  private def nextValues(field: String, userId: User.ID): Fu[Set[String]] =
+  private def nextValues(field: String, userId: UserId): Fu[Set[String]] =
     store.coll.secondaryPreferred.distinctEasy[String, Set](field, $doc("user" -> userId))
 
 object UserLogins:
@@ -219,7 +219,7 @@ object UserLogins:
       client: UserAgent.Client
   )
 
-  case class WithMeSortedWithEmails(others: List[OtherUser], emails: Map[User.ID, EmailAddress])
+  case class WithMeSortedWithEmails(others: List[OtherUser], emails: Map[UserId, EmailAddress])
 
   def withMeSortedWithEmails(
       userRepo: UserRepo,
@@ -237,6 +237,6 @@ object UserLogins:
       userLogins: UserLogins,
       othersWithEmail: UserLogins.WithMeSortedWithEmails,
       notes: List[lila.user.Note],
-      bans: Map[User.ID, Int],
+      bans: Map[UserId, Int],
       max: Int
   )

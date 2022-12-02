@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.Clock
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.FromPosition
 
 import lila.common.Days
@@ -15,8 +15,8 @@ final case class OpenConfig(
     clock: Option[Clock.Config],
     days: Option[Days],
     rated: Boolean,
-    position: Option[FEN],
-    userIds: Option[(User.ID, User.ID)],
+    position: Option[Fen],
+    userIds: Option[(UserId, UserId)],
     rules: Set[GameRule] = Set.empty
 ):
 
@@ -25,7 +25,7 @@ final case class OpenConfig(
   def validFen = ApiConfig.validFen(variant, position)
 
   def autoVariant =
-    if (variant.standard && position.exists(!_.initial)) copy(variant = FromPosition)
+    if (variant.standard && position.exists(!_.isInitial)) copy(variant = FromPosition)
     else this
 
 object OpenConfig:
@@ -36,8 +36,8 @@ object OpenConfig:
       cl: Option[Clock.Config],
       days: Option[Days],
       rated: Boolean,
-      pos: Option[FEN],
-      usernames: Option[List[String]],
+      pos: Option[Fen],
+      usernames: Option[List[UserStr]],
       rules: Option[Set[GameRule]]
   ) =
     new OpenConfig(
@@ -47,7 +47,7 @@ object OpenConfig:
       days = days,
       rated = rated,
       position = pos,
-      userIds = usernames.map(_.map(User.normalize)) collect { case List(w, b) =>
+      userIds = usernames.map(_.map(_.id)) collect { case List(w, b) =>
         (w, b)
       },
       rules = ~rules

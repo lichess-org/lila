@@ -16,10 +16,10 @@ import java.util.Base64
 import akka.actor.Scheduler
 import lila.common.Chronometer
 import scala.collection.BuildFrom
-import ornicar.scalalib.ScalalibExtensions
+import ornicar.scalalib.extensions.*
 import scala.annotation.targetName
 
-trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
+trait LilaLibraryExtensions extends LilaTypes:
 
   extension [A](self: A)
     def unit: Unit          = ()
@@ -111,14 +111,8 @@ trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
         case scala.util.Left(_)    => other
 
   extension (d: FiniteDuration)
-    def toCentis = chess.Centis {
-      // divide by Double, then round, to avoid rounding issues with just `/10`!
-      math.round {
-        if (d.unit eq MILLISECONDS) d.length / 10d
-        else d.toMillis / 10d
-      }
-    }
-    def abs = if (d.length < 0) -d else d
+    def toCentis = chess.Centis(d)
+    def abs      = if (d.length < 0) -d else d
 
   extension [E, A](v: Validated[E, A]) def toFuture: Fu[A] = v.fold(err => fufail(err.toString), fuccess)
 

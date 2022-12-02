@@ -3,8 +3,9 @@ package lila.security
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress, ThreadLocalRandom }
+import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress }
 import lila.user.User
 
 // codename UGC
@@ -91,7 +92,7 @@ final class GarbageCollector(
 
   private def isBadAccount(user: User) = user.lameOrTrollOrAlt
 
-  private def collect(user: User, email: EmailAddress, msg: => String): Funit = justOnce(UserId(user.id)) ?? {
+  private def collect(user: User, email: EmailAddress, msg: => String): Funit = justOnce(user.id) ?? {
     hasBeenCollectedBefore(user) flatMap {
       case true => funit
       case _ =>

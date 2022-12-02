@@ -1,12 +1,13 @@
 package lila.socket
 
 import cats.data.Validated
-import chess.format.{ FEN, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.*
 import chess.variant.Variant
 import play.api.libs.json.*
 
 import lila.tree.Branch
+import lila.common.Json.given
 
 trait AnaAny:
 
@@ -18,18 +19,18 @@ case class AnaMove(
     orig: chess.Pos,
     dest: chess.Pos,
     variant: Variant,
-    fen: FEN,
+    fen: Fen,
     path: String,
     chapterId: Option[String],
     promotion: Option[chess.PromotableRole]
 ) extends AnaAny:
 
   def branch: Validated[String, Branch] =
-    chess.Game(variant.some, fen.some)(orig, dest, promotion) flatMap { case (game, move) =>
+    chess.Game(variant.some, fen.some)(orig, dest, promotion) andThen { (game, move) =>
       game.pgnMoves.lastOption toValid "Moved but no last move!" map { san =>
         val uci     = Uci(move)
         val movable = game.situation playable false
-        val fen     = chess.format.Forsyth >> game
+        val fen     = chess.format.Fen write game
         Branch(
           id = UciCharPair(uci),
           ply = game.turns,
@@ -38,7 +39,7 @@ case class AnaMove(
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),
           opening = (game.turns <= 30 && Variant.openingSensibleVariants(variant)) ?? {
-            FullOpeningDB findByFen fen
+            OpeningDb findByFen fen.opening
           },
           drops = if (movable) game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData
@@ -51,9 +52,9 @@ object AnaMove:
   def parse(o: JsObject) =
     for {
       d    <- o obj "d"
-      orig <- d str "orig" flatMap chess.Pos.fromKey
-      dest <- d str "dest" flatMap chess.Pos.fromKey
-      fen  <- d str "fen" map FEN.apply
+      orig <- d str "orig" flatMap { chess.Pos.fromKey(_) }
+      dest <- d str "dest" flatMap { chess.Pos.fromKey(_) }
+      fen  <- d.get[Fen]("fen")
       path <- d str "path"
     } yield AnaMove(
       orig = orig,

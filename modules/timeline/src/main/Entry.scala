@@ -29,7 +29,7 @@ case class Entry(
 
 object Entry:
 
-  case class ForUsers(entry: Entry, userIds: List[String])
+  case class ForUsers(entry: Entry, userIds: List[UserId])
 
   private def toBson[A](data: A)(implicit writer: BSONDocumentWriter[A]) = writer.writeTry(data).get
 

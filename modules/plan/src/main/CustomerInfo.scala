@@ -1,13 +1,11 @@
 package lila.plan
 
-sealed trait CustomerInfo
+enum CustomerInfo:
 
-case class MonthlyCustomerInfo(
-    subscription: StripeSubscription,
-    nextInvoice: StripeInvoice,
-    paymentMethod: Option[StripePaymentMethod]
-) extends CustomerInfo
+  case Monthly(
+      subscription: StripeSubscription,
+      nextInvoice: StripeInvoice,
+      paymentMethod: Option[StripePaymentMethod]
+  )
 
-case class OneTimeCustomerInfo(
-    customer: StripeCustomer
-) extends CustomerInfo
+  case OneTime(customer: StripeCustomer)

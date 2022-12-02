@@ -1,6 +1,6 @@
 package lila.racer
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.format.Uci
 import reactivemongo.api.bson.*
 
@@ -14,7 +14,7 @@ private object RacerBsonHandlers:
   given BSONDocumentReader[StormPuzzle] with
     def readDocument(r: BSONDocument) = for {
       id      <- r.getAsTry[PuzzleId]("_id")
-      fen     <- r.getAsTry[FEN]("fen")
+      fen     <- r.getAsTry[Fen]("fen")
       lineStr <- r.getAsTry[String]("line")
       line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
       glicko  <- r.getAsTry[Bdoc]("glicko")

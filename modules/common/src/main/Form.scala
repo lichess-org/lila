@@ -1,7 +1,7 @@
 package lila.common
 
 import chess.Color
-import chess.format.{ FEN, Forsyth }
+import chess.format.Fen
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
@@ -62,17 +62,18 @@ object Form:
   def numberInDouble(choices: Options[Double]) =
     of[Double].verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
-  def id(size: Int, fixed: Option[String])(exists: String => Fu[Boolean]) =
+  def id[Id](size: Int, fixed: Option[Id])(exists: Id => Fu[Boolean])(using
+      sr: StringRuntime[Id],
+      rs: SameRuntime[String, Id]
+  ): Mapping[Id] =
     val field = text(minLength = size, maxLength = size)
       .verifying("IDs must be made of ASCII letters and numbers", id => """(?i)^[a-z\d]+$""".r matches id)
+      .into[Id]
     fixed match
       case Some(fixedId) => field.verifying("The ID cannot be changed now", id => id == fixedId)
       case None =>
         import scala.concurrent.duration.*
-        field.verifying(
-          "This ID is already in use",
-          id => !exists(id).await(1.second, "tour crud unique ID")
-        )
+        field.verifying("This ID is already in use", id => !exists(id).await(1.second, "unique ID"))
 
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
 
@@ -81,29 +82,14 @@ object Form:
     def bind(key: String, data: Map[String, String]) =
       data
         .get(key)
-        .map(String.normalize.apply)
-        .map(if (keepSymbols) identity else String.removeMultibyteSymbols)
-        .map(_.trim)
+        .map(if (keepSymbols) String.softCleanUp else String.fullCleanUp)
         .toRight(Seq(FormError(key, "error.required", Nil)))
     def unbind(key: String, value: String) = Map(key -> String.normalize(value.trim))
   val cleanTextFormatter: Formatter[String]            = makeCleanTextFormatter(keepSymbols = false)
   val cleanTextFormatterWithSymbols: Formatter[String] = makeCleanTextFormatter(keepSymbols = true)
 
-  val garbageCharsConstraint = V.Constraint((s: String) =>
-    if (String.hasGarbageChars(s))
-      V.Invalid(
-        Seq(
-          V.ValidationError(
-            s"The text contains invalid chars: ${String.distinctGarbageChars(s) mkString " "}"
-          )
-        )
-      )
-    else V.Valid
-  )
-
-  val cleanText: Mapping[String] = of(cleanTextFormatter) verifying garbageCharsConstraint
-  val cleanTextWithSymbols: Mapping[String] =
-    of(cleanTextFormatterWithSymbols) verifying garbageCharsConstraint
+  val cleanText: Mapping[String]            = of(cleanTextFormatter)
+  val cleanTextWithSymbols: Mapping[String] = of(cleanTextFormatterWithSymbols)
 
   def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     (minLength, maxLength) match
@@ -190,16 +176,15 @@ object Form:
       }
 
   object fen:
-    given Formatter[FEN] = formatter.stringFormatter[FEN](_.value, FEN.apply)
-    val playableStrict   = playable(strict = true)
-    def playable(strict: Boolean) = of[FEN]
-      .transform[FEN](f => FEN(f.value.trim), identity)
-      .verifying("Invalid position", fen => (Forsyth <<< fen).exists(_.situation playable strict))
-      .transform[FEN](if (strict) truncateMoveNumber else identity, identity)
-    def truncateMoveNumber(fen: FEN) =
-      (Forsyth <<< fen).fold(fen) { g =>
+    val mapping = trim(of[String]).into[Fen]
+    def playable(strict: Boolean) = mapping
+      .verifying("Invalid position", fen => Fen.read(fen).exists(_ playable strict))
+      .transform[Fen](if (strict) truncateMoveNumber else identity, identity)
+    val playableStrict = playable(strict = true)
+    def truncateMoveNumber(fen: Fen) =
+      Fen.readWithMoveNumber(fen).fold(fen) { g =>
         if (g.fullMoveNumber >= 150)
-          Forsyth >> g.copy(fullMoveNumber = g.fullMoveNumber % 100) // keep the start ply low
+          Fen write g.copy(fullMoveNumber = g.fullMoveNumber % 100) // keep the start ply low
         else fen
       }
 
@@ -220,13 +205,13 @@ object Form:
   given Formatter[String]  = stringFormat
   given Formatter[Boolean] = booleanFormat
 
-  given [A, T](using
-      bts: SameRuntime[A, T],
-      stb: SameRuntime[T, A],
+  given autoFormat[A, T](using
+      sr: SameRuntime[A, T],
+      rs: SameRuntime[T, A],
       base: Formatter[A]
   ): Formatter[T] with
-    def bind(key: String, data: Map[String, String]) = base.bind(key, data) map bts.apply
-    def unbind(key: String, value: T)                = base.unbind(key, stb(value))
+    def bind(key: String, data: Map[String, String]) = base.bind(key, data) map sr.apply
+    def unbind(key: String, value: T)                = base.unbind(key, rs(value))
 
   given Formatter[chess.variant.Variant] =
     formatter.stringFormatter[chess.variant.Variant](_.key, chess.variant.Variant.orDefault)
@@ -235,20 +220,18 @@ object Form:
     def transform[B](to: A => B, from: B => A): Formatter[B] = new Formatter[B]:
       def bind(key: String, data: Map[String, String]) = f.bind(key, data) map to
       def unbind(key: String, value: B)                = f.unbind(key, from(value))
-    def into[B](using bts: SameRuntime[A, B], stb: SameRuntime[B, A]): Formatter[B] =
-      transform(bts.apply, stb.apply)
+    def into[B](using sr: SameRuntime[A, B], rs: SameRuntime[B, A]): Formatter[B] =
+      transform(sr.apply, rs.apply)
 
   extension [A](m: Mapping[A])
-    def into[B](using bts: SameRuntime[A, B], stb: SameRuntime[B, A]): Mapping[B] =
-      m.transform(bts.apply, stb.apply)
+    def into[B](using sr: SameRuntime[A, B], rs: SameRuntime[B, A]): Mapping[B] =
+      m.transform(sr.apply, rs.apply)
 
   object strings:
     def separator(sep: String) = of[List[String]](
       formatter
         .stringFormatter[List[String]](_ mkString sep, _.split(sep).map(_.trim).toList.filter(_.nonEmpty))
     )
-
-  def toMarkdown(m: Mapping[String]): Mapping[Markdown] = m.transform[Markdown](Markdown.apply, _.value)
 
   def allowList =
     nonEmptyText(maxLength = 100_1000)

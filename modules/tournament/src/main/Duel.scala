@@ -13,19 +13,21 @@ case class Duel(
     averageRating: IntRating
 ):
 
-  def has(u: User) = p1.name.id == UserId(u.id) || p2.name.id == UserId(u.id)
+  def has(u: User) = u.is(p1) || u.is(p2)
 
-  def userIds = List(p1.name.id, p2.name.id)
+  def userIds = List[UserId](p1.name.id, p2.name.id)
 
 object Duel:
 
-  type UsernameRating = (String, IntRating)
+  type UsernameRating = (UserName, IntRating)
 
   case class DuelPlayer(name: UserName, rating: IntRating, rank: Rank)
+  object DuelPlayer:
+    given UserIdOf[DuelPlayer] = _.name.id
 
   def tbUser(p: UsernameRating, ranking: Ranking) =
-    ranking get UserName(p._1).id.value map { rank =>
-      DuelPlayer(UserName(p._1), p._2, rank + 1)
+    ranking get p._1.id map { rank =>
+      DuelPlayer(p._1, p._2, rank + 1)
     }
 
   private[tournament] val ratingOrdering              = Ordering.by[Duel, Int](_.averageRating.value)
@@ -36,11 +38,11 @@ final private class DuelStore:
 
   import Duel.*
 
-  private val byTourId = new ConcurrentHashMap[Tournament.ID, TreeSet[Duel]](256)
+  private val byTourId = new ConcurrentHashMap[TourId, TreeSet[Duel]](256)
 
-  def get(tourId: Tournament.ID): Option[TreeSet[Duel]] = Option(byTourId get tourId)
+  def get(tourId: TourId): Option[TreeSet[Duel]] = Option(byTourId get tourId)
 
-  def bestRated(tourId: Tournament.ID, nb: Int): List[Duel] =
+  def bestRated(tourId: TourId, nb: Int): List[Duel] =
     get(tourId) ?? {
       lila.common.Heapsort.topNToList(_, nb)(using ratingOrdering)
     }
@@ -60,7 +62,7 @@ final private class DuelStore:
       )
     } byTourId.compute(
       tour.id,
-      (_: Tournament.ID, v: TreeSet[Duel]) => {
+      (_: TourId, v: TreeSet[Duel]) => {
         if (v == null) TreeSet(tb)(gameIdOrdering)
         else v + tb
       }
@@ -70,7 +72,7 @@ final private class DuelStore:
     game.tournamentId foreach { tourId =>
       byTourId.computeIfPresent(
         tourId,
-        (_: Tournament.ID, tb: TreeSet[Duel]) => {
+        (_: TourId, tb: TreeSet[Duel]) => {
           val w = tb - emptyGameId(game.id)
           if (w.isEmpty) null else w
         }

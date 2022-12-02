@@ -5,12 +5,13 @@ import lila.memo.*
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
 final class TrophyApi(
     coll: Coll,
     kindColl: Coll,
     cacheApi: CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   val kindCache =
     cacheApi.sync[String, TrophyKind](
@@ -21,8 +22,8 @@ final class TrophyApi(
         kindColl.byId[TrophyKind](id).dmap(_ | TrophyKind.Unknown)
       },
       default = _ => TrophyKind.Unknown,
-      strategy = Syncache.WaitAfterUptime(20 millis),
-      expireAfter = Syncache.ExpireAfterWrite(1 hour)
+      strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
+      expireAfter = Syncache.ExpireAfter.Write(1 hour)
     )
 
   private given BSONHandler[TrophyKind] = BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
@@ -70,11 +71,11 @@ final class TrophyApi(
       )
     ).flatten
 
-  def award(trophyUrl: String, userId: String, kindKey: String): Funit =
+  def award(trophyUrl: String, userId: UserId, kindKey: String): Funit =
     coll.insert
       .one(
         $doc(
-          "_id"  -> lila.common.ThreadLocalRandom.nextString(8),
+          "_id"  -> ThreadLocalRandom.nextString(8),
           "user" -> userId,
           "kind" -> kindKey,
           "url"  -> trophyUrl,

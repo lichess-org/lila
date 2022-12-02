@@ -20,7 +20,7 @@ final class Reopen(
   import Mailer.html.*
 
   def prepare(
-      username: String,
+      u: UserStr,
       email: EmailAddress,
       closedByMod: User => Fu[Boolean]
   ): Fu[Either[(String, String), User]] =
@@ -28,8 +28,7 @@ final class Reopen(
       case Some(_) =>
         fuccess(Left("emailUsed" -> "This email address is already in use by an active account."))
       case _ =>
-        val userId = User normalize username
-        userRepo.byIdNotErased(userId) flatMap {
+        userRepo.byId(u) flatMap {
           case None =>
             fuccess(Left("noUser" -> "No account found with this username."))
           case Some(user) if user.enabled =>

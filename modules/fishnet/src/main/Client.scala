@@ -1,8 +1,9 @@
 package lila.fishnet
 
 import com.gilt.gfc.semver.SemVer
-import lila.common.{ IpAddress, SecureRandom }
+import lila.common.IpAddress
 import scala.util.{ Failure, Success, Try }
+import ornicar.scalalib.SecureRandom
 
 import org.joda.time.DateTime
 
@@ -24,7 +25,7 @@ case class Client(
       copy(instance = newInstance.some)
     }
 
-  def lichess = userId.value == lila.user.User.lichessId
+  def lichess = this is lila.user.User.lichessId
 
   def offline = key == Client.offline.key
 
@@ -33,6 +34,8 @@ case class Client(
   override def toString = s"$key by $userId"
 
 object Client:
+
+  given UserIdOf[Client] = _.userId
 
   val offline = Client(
     _id = Key("offline"),
@@ -70,8 +73,7 @@ object Client:
     case All
     def key = this.toString.toLowerCase
   object Skill:
-    val all                = List(Move, Analysis, All)
-    def byKey(key: String) = all.find(_.key == key)
+    def byKey(key: String) = values.find(_.key == key)
 
   final class ClientVersion(minVersionString: String):
 

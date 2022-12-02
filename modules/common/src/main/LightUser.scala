@@ -4,27 +4,26 @@ import play.api.libs.json.*
 import lila.common.Json.given
 
 case class LightUser(
-    id: String,
-    name: String,
+    id: UserId,
+    name: UserName,
     title: Option[UserTitle],
     isPatron: Boolean
 ):
 
-  def titleName = title.fold(name)(_.value + " " + name)
+  def titleName: String = title.fold(name.value)(_.value + " " + name)
 
   def isBot = title has "BOT"
 
-  def is(name: String) = id == LightUser.normalize(name)
-
 object LightUser:
 
-  type Ghost          = LightUser
-  private type UserID = String
+  type Ghost = LightUser
 
-  val ghost: Ghost = LightUser("ghost", "ghost", none, false)
+  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), none, false)
+
+  given UserIdOf[LightUser] = _.id
 
   given lightUserWrites: OWrites[LightUser] = OWrites { u =>
-    writeNoId(u) + ("id" -> JsString(u.id))
+    writeNoId(u) + ("id" -> JsString(u.id.value))
   }
 
   def writeNoId(u: LightUser): JsObject =
@@ -33,23 +32,25 @@ object LightUser:
       .add("title" -> u.title)
       .add("patron" -> u.isPatron)
 
-  def fallback(name: String) = LightUser(
-    id = normalize(name),
+  def fallback(name: UserName) = LightUser(
+    id = name.id,
     name = name,
     title = None,
     isPatron = false
   )
 
-  def normalize(name: String) = name.toLowerCase
-
-  private type GetterType          = UserID => Fu[Option[LightUser]]
+  private type GetterType          = UserId => Fu[Option[LightUser]]
   opaque type Getter <: GetterType = GetterType
   object Getter extends TotalWrapper[Getter, GetterType]
 
-  private type GetterSyncType              = UserID => Option[LightUser]
+  private type GetterSyncType              = UserId => Option[LightUser]
   opaque type GetterSync <: GetterSyncType = GetterSyncType
   object GetterSync extends TotalWrapper[GetterSync, GetterSyncType]
 
-  private type IsBotSyncType             = UserID => Boolean
+  private type GetterSyncFallbackType                      = UserId => LightUser
+  opaque type GetterSyncFallback <: GetterSyncFallbackType = GetterSyncFallbackType
+  object GetterSyncFallback extends TotalWrapper[GetterSyncFallback, GetterSyncFallbackType]
+
+  private type IsBotSyncType             = UserId => Boolean
   opaque type IsBotSync <: IsBotSyncType = IsBotSyncType
   object IsBotSync extends TotalWrapper[IsBotSync, IsBotSyncType]

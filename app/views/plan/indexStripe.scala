@@ -16,7 +16,7 @@ object indexStripe:
   def apply(
       me: lila.user.User,
       patron: lila.plan.Patron,
-      info: lila.plan.MonthlyCustomerInfo,
+      info: lila.plan.CustomerInfo.Monthly,
       stripePublicKey: String,
       pricing: lila.plan.PlanPricing,
       gifts: List[lila.plan.Charge.Gift]

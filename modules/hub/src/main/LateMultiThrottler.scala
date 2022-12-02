@@ -53,12 +53,12 @@ object LateMultiThrottler:
       timeout: Option[FiniteDuration] // how long to wait before timing out
   )
 
-  case class Done(id: String)
+  private case class Done(id: String)
 
-  def work(
-      id: String,
+  def work[A](
+      id: A,
       run: => Funit,
       delay: Option[FiniteDuration] = None,
       timeout: Option[FiniteDuration] = None
-  ) =
-    Work(id, () => run, delay, timeout)
+  )(using sr: StringRuntime[A]) =
+    Work(sr(id), () => run, delay, timeout)

@@ -29,7 +29,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
             _.flatMap { doc =>
               if (doc.getAsOpt[DateTime]("date").fold(true)(_ isBefore DateTime.now.minusHours(12)))
                 coll.updateFieldUnchecked($id(id), "date", DateTime.now)
-              doc.getAsOpt[User.ID]("user") map { AuthInfo(_, doc.contains("fp")) }
+              doc.getAsOpt[UserId]("user") map { AuthInfo(_, doc.contains("fp")) }
             }
           }
       }
@@ -40,7 +40,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
   private val authInfoProjection = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
   private def uncache(sessionId: String) =
     blocking { blockingUncache(sessionId) }
-  private def uncacheAllOf(userId: User.ID): Funit =
+  private def uncacheAllOf(userId: UserId): Funit =
     coll.distinctEasy[String, Seq]("_id", $doc("user" -> userId)) map { ids =>
       blocking {
         ids foreach blockingUncache
@@ -52,7 +52,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
 
   def save(
       sessionId: String,
-      userId: User.ID,
+      userId: UserId,
       req: RequestHeader,
       apiVersion: Option[ApiVersion],
       up: Boolean,
@@ -67,7 +67,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
           "ua"   -> HTTPRequest.userAgent(req).|("?"),
           "date" -> DateTime.now,
           "up"   -> up,
-          "api"  -> apiVersion.map(_.value),
+          "api"  -> apiVersion,
           "fp"   -> fp.flatMap(FingerHash.from)
         )
       )
@@ -81,7 +81,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
       )
       .void >>- uncache(sessionId)
 
-  def closeUserAndSessionId(userId: User.ID, sessionId: String): Funit =
+  def closeUserAndSessionId(userId: UserId, sessionId: String): Funit =
     coll.update
       .one(
         $doc("user" -> userId, "_id" -> sessionId, "up" -> true),
@@ -89,7 +89,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
       )
       .void >>- uncache(sessionId)
 
-  def closeUserExceptSessionId(userId: User.ID, sessionId: String): Funit =
+  def closeUserExceptSessionId(userId: UserId, sessionId: String): Funit =
     coll.update
       .one(
         $doc("user" -> userId, "_id" -> $ne(sessionId), "up" -> true),
@@ -98,7 +98,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
       )
       .void >> uncacheAllOf(userId)
 
-  def closeAllSessionsOf(userId: User.ID): Funit =
+  def closeAllSessionsOf(userId: UserId): Funit =
     coll.update
       .one(
         $doc("user" -> userId, "up" -> true),
@@ -108,14 +108,14 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
       .void >> uncacheAllOf(userId)
 
   private given BSONDocumentHandler[UserSession] = Macros.handler[UserSession]
-  def openSessions(userId: User.ID, nb: Int): Fu[List[UserSession]] =
+  def openSessions(userId: UserId, nb: Int): Fu[List[UserSession]] =
     coll
       .find($doc("user" -> userId, "up" -> true))
       .sort($doc("date" -> -1))
       .cursor[UserSession]()
       .list(nb)
 
-  def allSessions(userId: User.ID): AkkaStreamCursor[UserSession] =
+  def allSessions(userId: UserId): AkkaStreamCursor[UserSession] =
     coll
       .find($doc("user" -> userId))
       .sort($doc("date" -> -1))
@@ -154,7 +154,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
     def compositeKey = s"$ip $ua"
   private given BSONDocumentReader[DedupInfo] = Macros.reader
 
-  def dedup(userId: User.ID, keepSessionId: String): Funit =
+  def dedup(userId: UserId, keepSessionId: String): Funit =
     coll
       .find(
         $doc(
@@ -178,7 +178,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
 
   private given BSONDocumentReader[IpAndFp] = Macros.reader
 
-  def shareAnIpOrFp(u1: User.ID, u2: User.ID): Fu[Boolean] =
+  def shareAnIpOrFp(u1: UserId, u2: UserId): Fu[Boolean] =
     coll.aggregateExists(ReadPreference.secondaryPreferred) { framework =>
       import framework.*
       Match($doc("user" $in List(u1, u2))) -> List(

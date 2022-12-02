@@ -135,12 +135,12 @@ final class Env(
   private val redisClient = RedisClient create RedisURI.create(appConfig.get[String]("socket.redis.uri"))
   val lilaHttp            = wire[TournamentLilaHttp]
 
-  def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](RoomId(tourId))(GetVersion.apply)
+  def version(tourId: TourId): Fu[SocketVersion] =
+    socket.rooms.ask[SocketVersion](tourId into RoomId)(GetVersion.apply)
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
-  def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
+  def hasUser(tourId: TourId, userId: UserId): Fu[Boolean] =
     fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isPlaying(tourId, userId)
 
   def cli =
@@ -149,11 +149,11 @@ final class Env(
         // case "tournament" :: "leaderboard" :: "generate" :: Nil =>
         //   leaderboardIndexer.generateAll inject "Done!"
         case "tournament" :: "feature" :: id :: Nil =>
-          api.toggleFeaturing(id, true) inject "Done!"
+          api.toggleFeaturing(TourId(id), true) inject "Done!"
         case "tournament" :: "unfeature" :: id :: Nil =>
-          api.toggleFeaturing(id, false) inject "Done!"
+          api.toggleFeaturing(TourId(id), false) inject "Done!"
         case "tournament" :: "recompute" :: id :: Nil =>
-          api.recomputeEntireTournament(id) inject "Done!"
+          api.recomputeEntireTournament(TourId(id)) inject "Done!"
 
 trait TournamentReloadDelay
 trait TournamentReloadEndpoint

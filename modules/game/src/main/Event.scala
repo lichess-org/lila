@@ -14,6 +14,7 @@ import chess.{
   Situation,
   Status
 }
+import chess.format.{ Fen, BoardFen }
 import JsonView.{ *, given }
 import lila.chat.{ PlayerLine, UserLine }
 import lila.common.ApiVersion
@@ -39,7 +40,7 @@ object Event:
   object MoveOrDrop:
 
     def data(
-        fen: String,
+        fen: BoardFen,
         check: Boolean,
         threefold: Boolean,
         state: State,
@@ -70,7 +71,7 @@ object Event:
       orig: Pos,
       dest: Pos,
       san: String,
-      fen: String, // not a FEN, just a board fen
+      fen: BoardFen,
       check: Boolean,
       threefold: Boolean,
       promotion: Option[Promotion],
@@ -107,7 +108,7 @@ object Event:
         orig = move.orig,
         dest = move.dest,
         san = chess.format.pgn.Dumper(move),
-        fen = chess.format.Forsyth.exportBoard(situation.board),
+        fen = Fen.writeBoard(situation.board),
         check = situation.check,
         threefold = situation.threefoldRepetition,
         promotion = move.promotion.map { Promotion(_, move.dest) },
@@ -128,7 +129,7 @@ object Event:
       role: chess.Role,
       pos: Pos,
       san: String,
-      fen: String,
+      fen: BoardFen,
       check: Boolean,
       threefold: Boolean,
       state: State,
@@ -159,7 +160,7 @@ object Event:
         role = drop.piece.role,
         pos = drop.pos,
         san = chess.format.pgn.Dumper(drop),
-        fen = chess.format.Forsyth.exportBoard(situation.board),
+        fen = Fen.writeBoard(situation.board),
         check = situation.check,
         threefold = situation.threefoldRepetition,
         state = state,
@@ -311,7 +312,7 @@ object Event:
           "white" -> white.toSeconds,
           "black" -> black.toSeconds
         )
-        .add("lag" -> nextLagComp.collect { case Centis(c) if c > 1 => c })
+        .add("lag" -> nextLagComp.filter(_ > 1))
   object Clock:
     def apply(clock: ChessClock): Clock =
       Clock(

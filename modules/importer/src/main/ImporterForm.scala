@@ -2,7 +2,7 @@ package lila.importer
 
 import cats.data.Validated
 import chess.format.pgn.{ ParsedPgn, Parser, Reader, Tag, TagType, Tags }
-import chess.format.{ FEN, Forsyth }
+import chess.format.Fen
 import chess.{ Color, Mode, Outcome, Replay, Status }
 import play.api.data.*
 import play.api.data.Forms.*
@@ -34,7 +34,7 @@ private case class TagResult(status: Status, winner: Option[Color])
 case class Preprocessed(
     game: NewGame,
     replay: Replay,
-    initialFen: Option[FEN],
+    initialFen: Option[Fen],
     parsed: ParsedPgn
 )
 
@@ -49,14 +49,14 @@ case class ImportData(pgn: String, analyse: Option[String]):
       case Reader.Result.Complete(replay)      => replay
       case Reader.Result.Incomplete(replay, _) => replay
 
-  def preprocess(user: Option[String]): Validated[String, Preprocessed] = ImporterForm.catchOverflow(() =>
+  def preprocess(user: Option[UserId]): Validated[String, Preprocessed] = ImporterForm.catchOverflow(() =>
     Parser.full(pgn) map { parsed =>
       Reader.fullWithSans(
         parsed,
         sans => sans.copy(value = sans.value take maxPlies)
       ) pipe evenIncomplete pipe { case replay @ Replay(setup, _, state) =>
-        val initBoard    = parsed.tags.fen flatMap Forsyth.<< map (_.board)
-        val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.initial)
+        val initBoard    = parsed.tags.fen flatMap Fen.read map (_.board)
+        val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.isInitial)
         val variant = {
           parsed.tags.variant | {
             if (fromPosition) chess.variant.FromPosition
@@ -71,8 +71,8 @@ case class ImportData(pgn: String, analyse: Option[String]):
         }
         val game = state.copy(situation = state.situation withVariant variant)
         val initialFen = parsed.tags.fen flatMap {
-          Forsyth.<<<@(variant, _)
-        } map Forsyth.>>
+          Fen.readWithMoveNumber(variant, _)
+        } map Fen.write
 
         val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
           case Some("normal")                          => Status.Resign

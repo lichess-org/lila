@@ -58,7 +58,7 @@ final class KaladinApi(
   } yield KaladinUser.Dashboard(completed ::: queued)
 
   def modRequest(user: Suspect, by: Holder) =
-    request(user, KaladinUser.Requester.Mod(by.id)) >>- notification.add(user.id, ModId(by.id))
+    request(user, KaladinUser.Requester.Mod(by.id)) >>- notification.add(user.id, by.id into ModId)
 
   def request(user: Suspect, requester: KaladinUser.Requester) = user.user.noBot ??
     sequence(user) { prev =>
@@ -129,7 +129,7 @@ final class KaladinApi(
       userRepo.hasTitle(user.id) flatMap {
         case true => sendReport
         case false =>
-          modApi.autoMark(user.suspectId, ModId.kaladin, pred.note) >>-
+          modApi.autoMark(user.suspectId, User.kaladinId into ModId, pred.note) >>-
             lila.mon.mod.kaladin.mark.increment().unit
       }
     else if (pred.percent >= thresholds.get().report) sendReport
@@ -183,7 +183,7 @@ final class KaladinApi(
         else if (speed == Speed.Rapid) copy(rapid = rapid + nb)
         else this
       def isEnough = blitz >= minMoves || rapid >= minMoves
-    private val cache = cacheApi[User.ID, Boolean](1024, "kaladin.hasEnoughRecentMoves") {
+    private val cache = cacheApi[UserId, Boolean](1024, "kaladin.hasEnoughRecentMoves") {
       _.expireAfterWrite(1 hour).buildAsyncFuture(userId =>
         {
           import lila.game.Query
@@ -223,7 +223,7 @@ final class KaladinApi(
   private[irwin] def topOnline(suspects: List[Suspect]): Funit =
     lila.common.Future.applySequentially(suspects)(autoRequest(KaladinUser.Requester.TopOnline))
 
-  private def getSuspect(suspectId: User.ID) =
+  private def getSuspect(suspectId: UserId) =
     userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect.apply
 
   lila.common.Bus.subscribeFun("cheatReport") { case lila.hub.actorApi.report.CheatReportCreated(userId) =>

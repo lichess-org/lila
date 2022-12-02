@@ -10,6 +10,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Pov }
 import lila.common.LangPath
+import lila.common.Json.given
 
 object bits:
 
@@ -127,7 +128,7 @@ object bits:
   )(implicit ctx: Context) =
     views.html.game.side(
       pov,
-      (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN.apply),
+      (data \ "game" \ "initialFen").asOpt[chess.format.Fen],
       tour,
       simul = simul,
       userTv = userTv,

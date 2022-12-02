@@ -10,8 +10,10 @@ import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 import scala.annotation.nowarn
 import scala.concurrent.duration.*
+import ornicar.scalalib.SecureRandom
 
-import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress, SecureRandom }
+import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress }
+import lila.common.Form.into
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User.LoginCandidate
@@ -36,12 +38,10 @@ final class SecurityApi(
   val AccessUri = "access_uri"
 
   private val usernameOrEmailMapping =
-    lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength)
+    lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength).into[UserStrOrEmail]
 
   lazy val usernameOrEmailForm = Form(
-    single(
-      "username" -> usernameOrEmailMapping
-    )
+    single("username" -> usernameOrEmailMapping)
   )
 
   lazy val loginForm = Form(
@@ -59,7 +59,7 @@ final class SecurityApi(
         "password" -> nonEmptyText,
         "token"    -> optional(nonEmptyText)
       )(authenticateCandidate(candidate)) {
-        case LoginCandidate.Success(user) => (user.username, "", none).some
+        case LoginCandidate.Success(user) => (user.username into UserStrOrEmail, "", none).some
         case _                            => none
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
         t match {
@@ -71,16 +71,15 @@ final class SecurityApi(
       })
     )
 
-  def loadLoginForm(str: String): Fu[Form[LoginCandidate.Result]] = {
-    emailValidator.validate(EmailAddress(str)) match
+  def loadLoginForm(str: UserStrOrEmail): Fu[Form[LoginCandidate.Result]] = {
+    emailValidator.validate(EmailAddress(str.value)) match
       case Some(EmailAddressValidator.Acceptable(email)) =>
         authenticator.loginCandidateByEmail(email.normalize)
-      case None if User.couldBeUsername(str) => authenticator.loginCandidateById(User normalize str)
-      case _                                 => fuccess(none)
+      case None => User.validateId(str into UserStr) ?? authenticator.loginCandidateById
   } map loadedLoginForm
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
-      _username: String,
+      _str: UserStrOrEmail,
       password: String,
       token: Option[String]
   ): LoginCandidate.Result =
@@ -88,7 +87,7 @@ final class SecurityApi(
       _(User.PasswordAndToken(User.ClearPassword(password), token map User.TotpToken.apply))
     }
 
-  def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(using
+  def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion])(using
       req: RequestHeader
   ): Fu[String] =
     userRepo mustConfirmEmail userId flatMap {
@@ -99,7 +98,7 @@ final class SecurityApi(
         store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
-  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(using
+  def saveSignup(userId: UserId, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(using
       req: RequestHeader
   ): Funit =
     val sessionId = SecureRandom nextString 22
@@ -139,14 +138,14 @@ final class SecurityApi(
 
   private def stripRolesOfUser(user: User) = user.copy(roles = user.roles.filter(nonModRoles.contains))
 
-  def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =
+  def locatedOpenSessions(userId: UserId, nb: Int): Fu[List[LocatedSession]] =
     store.openSessions(userId, nb) map {
       _.map { session =>
         LocatedSession(session, geoIP(session.ip))
       }
     }
 
-  def dedup(userId: User.ID, req: RequestHeader): Funit =
+  def dedup(userId: UserId, req: RequestHeader): Funit =
     reqSessionId(req) ?? { store.dedup(userId, _) }
 
   def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
@@ -169,8 +168,8 @@ final class SecurityApi(
   def printUas(fh: FingerHash): Fu[List[String]] =
     store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value), ReadPreference.secondaryPreferred)
 
-  private def recentUserIdsByField(field: String)(value: String): Fu[List[User.ID]] =
-    store.coll.distinctEasy[User.ID, List](
+  private def recentUserIdsByField(field: String)(value: String): Fu[List[UserId]] =
+    store.coll.distinctEasy[UserId, List](
       "user",
       $doc(
         field -> value,
@@ -186,14 +185,14 @@ final class SecurityApi(
 
     private val prefix = "appeal:"
 
-    private val store = cacheApi.notLoadingSync[SessionId, User.ID](256, "security.session.appeal")(
+    private val store = cacheApi.notLoadingSync[SessionId, UserId](256, "security.session.appeal")(
       _.expireAfterAccess(2.days).build()
     )
 
-    def authenticate(sessionId: SessionId): Option[User.ID] =
+    def authenticate(sessionId: SessionId): Option[UserId] =
       sessionId.startsWith(prefix) ?? store.getIfPresent(sessionId)
 
-    def saveAuthentication(userId: User.ID)(implicit req: RequestHeader): Fu[SessionId] =
+    def saveAuthentication(userId: UserId)(implicit req: RequestHeader): Fu[SessionId] =
       val sessionId = s"$prefix${SecureRandom nextString 22}"
       store.put(sessionId, userId)
       logger.info(s"Appeal login by $userId")
@@ -201,4 +200,4 @@ final class SecurityApi(
 
 object SecurityApi:
 
-  case class MustConfirmEmail(userId: User.ID) extends Exception
+  case class MustConfirmEmail(userId: UserId) extends Exception

@@ -8,10 +8,10 @@ import lila.rating.RatingRange
 import lila.search.Range
 
 case class Query(
-    user1: Option[String] = None,
-    user2: Option[String] = None,
-    winner: Option[String] = None,
-    loser: Option[String] = None,
+    user1: Option[UserId] = None,
+    user2: Option[UserId] = None,
+    winner: Option[UserId] = None,
+    loser: Option[UserId] = None,
     winnerColor: Option[Int] = None,
     perf: Option[Int] = None,
     source: Option[Int] = None,
@@ -26,8 +26,8 @@ case class Query(
     clock: Clocking = Clocking(),
     sorting: Sorting = Sorting.default,
     analysed: Option[Boolean] = None,
-    whiteUser: Option[String] = None,
-    blackUser: Option[String] = None
+    whiteUser: Option[UserId] = None,
+    blackUser: Option[UserId] = None
 ):
 
   def nonEmpty =

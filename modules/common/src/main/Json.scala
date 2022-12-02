@@ -2,7 +2,7 @@ package lila.common
 
 import org.joda.time.DateTime
 import play.api.libs.json.{ Json as PlayJson, * }
-import chess.format.{ FEN, Uci }
+import chess.format.{ Uci }
 
 object Json:
 
@@ -67,25 +67,18 @@ object Json:
     Writes[O](o => JsString(to(o)))
   )
 
-  given Reads[chess.Centis] = Reads.of[Int] map chess.Centis.apply
-
-  given Writes[DateTime] = Writes[DateTime] { time =>
-    JsNumber(time.getMillis)
+  given userStrReads: Reads[UserStr] = Reads.of[String] flatMapResult { str =>
+    JsResult.fromTry(UserStr.read(str) toTry s"Invalid username: $str")
   }
 
-  given Writes[chess.Color] = Writes { c =>
-    JsString(c.name)
-  }
+  given Writes[DateTime] = writeAs(_.getMillis)
 
-  given Format[FEN]      = stringIsoFormat[FEN]
-  given Format[Markdown] = stringIsoFormat[Markdown]
+  given Writes[chess.Color] = writeAs(_.name)
 
   given Reads[Uci] = Reads.of[String] flatMapResult { str =>
     JsResult.fromTry(Uci(str) toTry s"Invalid UCI: $str")
   }
-  given Writes[Uci] = Writes { u =>
-    JsString(u.uci)
-  }
+  given Writes[Uci] = writeAs(_.uci)
 
   given Reads[LilaOpeningFamily] = Reads[LilaOpeningFamily] { f =>
     f.get[String]("key")

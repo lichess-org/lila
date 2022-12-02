@@ -4,7 +4,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import scala.concurrent.duration.*
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, toMarkdown }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 import lila.user.User
 
 final class ClasForm(
@@ -26,7 +26,7 @@ final class ClasForm(
           str => {
             val ids = readTeacherIds(str)
             ids.nonEmpty && ids.sizeIs <= 10 && ids.forall { id =>
-              blockingFetchUser(id).isDefined
+              blockingFetchUser(id into UserStr).isDefined
             }
           }
         )
@@ -42,25 +42,25 @@ final class ClasForm(
         teachers = c.teachers.toList mkString "\n"
       )
 
-    def wall = Form(single("wall" -> toMarkdown(text(maxLength = 100_000))))
+    def wall = Form(single("wall" -> text(maxLength = 100_000).into[Markdown]))
 
     def notifyText = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 300)))
 
   object student:
 
-    val create: Form[NewStudent] =
+    val create: Form[CreateStudent] =
       Form(
         mapping(
           "create-username" -> securityForms.signup.username,
           "create-realName" -> cleanNonEmptyText(maxLength = 100)
-        )(NewStudent.apply)(unapply)
+        )(CreateStudent.apply)(unapply)
       )
 
-    def generate: Fu[Form[NewStudent]] =
+    def generate: Fu[Form[CreateStudent]] =
       nameGenerator() map { username =>
         create fill
-          NewStudent(
-            username = ~username,
+          CreateStudent(
+            username = username | UserName(""),
             realName = ""
           )
       }
@@ -70,9 +70,9 @@ final class ClasForm(
         mapping(
           "username" -> lila.user.UserForm.historicalUsernameField
             .verifying("Unknown username", { blockingFetchUser(_).exists(!_.isBot) })
-            .verifying("This is a teacher", u => !c.teachers.toList.contains(u.toLowerCase)),
+            .verifying("This is a teacher", u => !c.teachers.toList.contains(u.id)),
           "realName" -> cleanNonEmptyText
-        )(NewStudent.apply)(unapply)
+        )(InviteStudent.apply)(unapply)
       )
 
     def edit(s: Student) =
@@ -100,8 +100,8 @@ final class ClasForm(
         )
       )
 
-  private def blockingFetchUser(username: String) =
-    lightUserAsync(User normalize username).await(1 second, "clasInviteUser")
+  private def blockingFetchUser(username: UserStr) =
+    lightUserAsync(username.id).await(1 second, "clasInviteUser")
 
 object ClasForm:
 
@@ -122,12 +122,10 @@ object ClasForm:
     def teacherIds = readTeacherIds(teachers)
 
   private def readTeacherIds(str: String) =
-    str.linesIterator.map(_.trim).filter(_.nonEmpty).map(User.normalize).distinct.toList
+    UserStr.from(str.linesIterator.map(_.trim).filter(_.nonEmpty)).map(_.id).distinct.toList
 
-  case class NewStudent(
-      username: String,
-      realName: String
-  )
+  case class InviteStudent(username: UserStr, realName: String)
+  case class CreateStudent(username: UserName, realName: String)
 
   case class StudentData(
       realName: String,

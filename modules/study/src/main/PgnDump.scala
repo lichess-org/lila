@@ -32,7 +32,7 @@ final class PgnDump(
         tags = makeTags(study, chapter),
         turns = toTurns(chapter.root)(flags).toList,
         initial = Initial(
-          chapter.root.comments.list.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
+          chapter.root.comments.value.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
         )
       )
       annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
@@ -76,7 +76,7 @@ final class PgnDump(
         Tag(_.ECO, opening.fold("?")(_.eco)),
         Tag(_.Opening, opening.fold("?")(_.name)),
         Tag(_.Result, "*") // required for SCID to import
-      ) ::: List(annotatorTag(study)) ::: (!chapter.root.fen.initial).??(
+      ) ::: List(annotatorTag(study)) ::: (!chapter.root.fen.isInitial).??(
         List(
           Tag(_.FEN, chapter.root.fen.value),
           Tag("SetUp", "1")
@@ -102,7 +102,7 @@ object PgnDump:
       san = node.move.san,
       glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
       comments = flags.comments ?? {
-        node.comments.list.map(_.text.value) ::: shapeComment(node.shapes).toList
+        node.comments.value.map(_.text.value) ::: shapeComment(node.shapes).toList
       },
       opening = none,
       result = none,
@@ -122,12 +122,12 @@ object PgnDump:
         case shapes => s"[%$as ${shapes.mkString(",")}]"
     val circles = render("csl") {
       shapes.value.collect { case Shape.Circle(brush, orig) =>
-        s"${brush.head.toUpper}$orig"
+        s"${brush.head.toUpper}${orig.key}"
       }
     }
     val arrows = render("cal") {
       shapes.value.collect { case Shape.Arrow(brush, orig, dest) =>
-        s"${brush.head.toUpper}$orig$dest"
+        s"${brush.head.toUpper}${orig.key}${dest.key}"
       }
     }
     s"$circles$arrows".some.filter(_.nonEmpty)

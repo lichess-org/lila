@@ -21,7 +21,7 @@ final class MagicLink(
   def send(user: User, email: EmailAddress): Funit =
     tokener make user.id flatMap { token =>
       lila.mon.email.send.magicLink.increment()
-      val url           = s"$baseUrl/auth/magic-link/login/$token"
+      val url                  = s"$baseUrl/auth/magic-link/login/$token"
       given play.api.i18n.Lang = user.realLang | lila.i18n.defaultLang
       mailer send Mailer.Message(
         to = email,
@@ -61,7 +61,7 @@ object MagicLink:
     key = "login.magicLink.ip"
   )
 
-  private lazy val rateLimitPerUser = new RateLimit[String](
+  private lazy val rateLimitPerUser = new RateLimit[UserId](
     credits = 3,
     duration = 1 hour,
     key = "login.magicLink.user"

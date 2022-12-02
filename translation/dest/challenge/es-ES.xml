@@ -22,4 +22,5 @@
   <string name="declineVariant">No me apetece jugar esta modalidad ahora.</string>
   <string name="declineNoBot">No acepto desafíos de bots.</string>
   <string name="declineOnlyBot">Sólo acepto desafíos de bots.</string>
+  <string name="inviteLichessUser">O invita a un usuario de Lichess:</string>
 </resources>

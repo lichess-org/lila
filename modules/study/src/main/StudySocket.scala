@@ -33,7 +33,7 @@ final private class StudySocket(
 
   subscribeChat(rooms, _.Study)
 
-  def isPresent(studyId: StudyId, userId: User.ID): Fu[Boolean] =
+  def isPresent(studyId: StudyId, userId: UserId): Fu[Boolean] =
     remoteSocketApi.request[Boolean](
       id => send(Protocol.Out.getIsPresent(id, studyId, userId)),
       _ == "true"
@@ -106,8 +106,8 @@ final private class StudySocket(
             who foreach api.setRole(studyId, d.userId, d.role)
           }
         case "kick" =>
-          o str "d" foreach { username =>
-            who foreach api.kick(studyId, username)
+          o.get[UserStr]("d") foreach { username =>
+            who foreach api.kick(studyId, username.id)
           }
         case "leave" =>
           who foreach { w =>
@@ -203,7 +203,7 @@ final private class StudySocket(
         case "invite" =>
           for {
             w        <- who
-            username <- o str "d"
+            username <- o.get[UserStr]("d")
           } InviteLimitPerUser(w.u, cost = 1) {
             api.invite(
               w.u,
@@ -307,7 +307,7 @@ final private class StudySocket(
         "w" -> who
       )
     )
-  def reloadMembers(members: StudyMembers, sendTo: Iterable[User.ID])(studyId: StudyId) =
+  def reloadMembers(members: StudyMembers, sendTo: Iterable[UserId])(studyId: StudyId) =
     send(RP.Out.tellRoomUsers(studyId, sendTo, makeMessage("members", members)))
 
   def setComment(pos: Position.Ref, comment: Comment, who: Who) =
@@ -386,7 +386,7 @@ final private class StudySocket(
       "conceal",
       Json.obj(
         "p"   -> pos,
-        "ply" -> ply.map(_.value)
+        "ply" -> ply
       )
     )
   def setTags(chapterId: StudyChapterId, tags: chess.format.pgn.Tags, who: Who) =
@@ -403,7 +403,7 @@ final private class StudySocket(
     notifySri(sri, "reload", Json.obj("chapterId" -> chapterId))
   def validationError(error: String, sri: Sri) = notifySri(sri, "validationError", Json.obj("error" -> error))
 
-  private val InviteLimitPerUser = new lila.memo.RateLimit[User.ID](
+  private val InviteLimitPerUser = new lila.memo.RateLimit[UserId](
     credits = 50,
     duration = 24 hour,
     key = "study_invite.user"
@@ -432,7 +432,7 @@ object StudySocket:
         (__ \ "path").read[String] and
           (__ \ "ch").read[StudyChapterId]
       )(AtPosition.apply)
-      case class SetRole(userId: String, role: String)
+      case class SetRole(userId: UserId, role: String)
       given Reads[SetRole]                    = Json.reads
       given Reads[ChapterMaker.Mode]          = optRead(ChapterMaker.Mode.apply)
       given Reads[ChapterMaker.Orientation]   = stringRead(ChapterMaker.Orientation.apply)
@@ -447,5 +447,5 @@ object StudySocket:
       given Reads[actorApi.ExplorerGame]      = Json.reads
 
     object Out:
-      def getIsPresent(reqId: Int, studyId: StudyId, userId: User.ID) =
+      def getIsPresent(reqId: Int, studyId: StudyId, userId: UserId) =
         s"room/present $reqId $studyId $userId"

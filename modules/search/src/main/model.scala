@@ -2,7 +2,8 @@ package lila.search
 
 import alleycats.Zero
 
-case class Index(name: String) extends AnyVal
+opaque type Index = String
+object Index extends OpaqueString[Index]
 
 opaque type Id = String
 object Id extends OpaqueString[Id]
@@ -22,7 +23,7 @@ object SearchResponse:
 opaque type CountResponse = Int
 object CountResponse extends OpaqueInt[CountResponse]:
   def apply(txt: String): CountResponse = CountResponse(~txt.toIntOption)
-  given Zero[CountResponse]             = Zero(CountResponse(0))
+  given Zero[CountResponse]             = Zero(0)
 
 object Date:
   import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }

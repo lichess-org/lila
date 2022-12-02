@@ -75,7 +75,7 @@ final class UblogApi(
 
   def userBlogPreviewFor(user: User, nb: Int, forUser: Option[User]): Fu[Option[UblogPost.BlogPreview]] =
     val blogId = UblogBlog.Id.User(user.id)
-    val canView = fuccess(forUser exists user.is) >>|
+    val canView = fuccess(forUser exists { user.is(_) }) >>|
       colls.blog.primitiveOne[UblogBlog.Tier]($id(blogId.full), "tier").dmap(~_ >= UblogBlog.Tier.VISIBLE)
     canView flatMap { _ ?? blogPreview(blogId, nb).dmap(some) }
 
@@ -141,7 +141,7 @@ final class UblogApi(
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
     colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPreference.secondaryPreferred)
 
-  private[ublog] def setShadowban(userId: User.ID, v: Boolean) = {
+  private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
     if (v) fuccess(UblogBlog.Tier.HIDDEN)
     else userRepo.byId(userId).map(_.fold(UblogBlog.Tier.HIDDEN)(UblogBlog.Tier.default))
   } flatMap {

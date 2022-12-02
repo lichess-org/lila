@@ -13,7 +13,7 @@ import chess.{
   UnmovedRooks,
   White
 }
-import chess.format.FEN
+import chess.format.Fen
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import scala.util.{ Success, Try }
@@ -54,7 +54,7 @@ object BSONHandlers:
             black = Pocket(black.map(_.role))
           )
         },
-        promoted = r.str("t").view.flatMap(chess.Pos.piotr).to(Set)
+        promoted = r.str("t").view.flatMap(chess.Pos.fromChar(_)).to(Set)
       )
     def writes(w: BSON.Writer, o: Crazyhouse.Data) =
       BSONDocument(
@@ -62,7 +62,7 @@ object BSONHandlers:
           o.pockets.white.roles.map(_.forsythUpper).mkString +
             o.pockets.black.roles.map(_.forsyth).mkString
         },
-        "t" -> o.promoted.map(_.piotr).mkString
+        "t" -> o.promoted.map(_.asChar).mkString
       )
 
   private[game] given gameDrawOffersHandler: BSONHandler[GameDrawOffers] = tryHandler[GameDrawOffers](
@@ -104,12 +104,12 @@ object BSONHandlers:
         PgnStorage.Decoded(
           pgnMoves = pgnMoves,
           pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
-          positionHashes = r.getO[chess.PositionHash](F.positionHashes) | Array.empty[Byte],
+          positionHashes = r.getD[chess.PositionHash](F.positionHashes),
           unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
           lastMove = clm.lastMove,
           castles = clm.castles,
           halfMoveClock = halfMoveClock orElse
-            r.getO[FEN](F.initialFen).flatMap(_.halfMove) getOrElse playedPlies
+            r.getO[Fen](F.initialFen).flatMap(_.halfMove) getOrElse playedPlies
         )
       }
       val chessGame = ChessGame(
@@ -167,7 +167,7 @@ object BSONHandlers:
         metadata = Metadata(
           source = r intO F.source flatMap Source.apply,
           pgnImport = r.getO[PgnImport](F.pgnImport),
-          tournamentId = r strO F.tournamentId,
+          tournamentId = r.getO[TourId](F.tournamentId),
           swissId = r.getO[SwissId](F.swissId),
           simulId = r.getO[SimulId](F.simulId),
           analysed = r boolD F.analysed,
@@ -178,9 +178,13 @@ object BSONHandlers:
 
     def writes(w: BSON.Writer, o: Game) =
       BSONDocument(
-        F.id            -> o.id,
-        F.playerIds     -> (o.whitePlayer.id.value + o.blackPlayer.id.value),
-        F.playerUids    -> w.strListO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
+        F.id        -> o.id,
+        F.playerIds -> (o.whitePlayer.id.value + o.blackPlayer.id.value),
+        F.playerUids -> ((o.whitePlayer.userId, o.blackPlayer.userId) match
+          case (None, None)    => None
+          case (Some(w), None) => Some(List(w.value))
+          case (wo, Some(b))   => Some(List(wo.??(_.value), b.value))
+        ),
         F.whitePlayer   -> w.docO(Player.playerWrite(o.whitePlayer)),
         F.blackPlayer   -> w.docO(Player.playerWrite(o.blackPlayer)),
         F.status        -> o.status,
@@ -232,10 +236,10 @@ object BSONHandlers:
 
     def readsWithPlayerIds(r: BSON.Reader, playerIds: String): LightGame =
       val (whiteId, blackId)   = playerIds splitAt 4
-      val winC                 = r boolO F.winnerColor map Color.fromWhite
-      val uids                 = ~r.getO[List[lila.user.User.ID]](F.playerUids)
-      val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
-      def makePlayer(field: String, color: Color, id: String, uid: Player.UserId): Player =
+      val winC                 = r boolO F.winnerColor map { Color.fromWhite(_) }
+      val uids                 = ~r.getO[List[UserId]](F.playerUids)
+      val (whiteUid, blackUid) = (uids.headOption.filter(_.value.nonEmpty), uids.lift(1))
+      def makePlayer(field: String, color: Color, id: String, uid: Option[UserId]): Player =
         val builder = r.getO[Player.Builder](field)(using Player.playerReader) | emptyPlayerBuilder
         builder(color)(GamePlayerId(id))(uid)(winC map (_ == color))
       LightGame(

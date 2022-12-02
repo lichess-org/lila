@@ -19,10 +19,9 @@ case class Cluster[X](
 
   def gameIds = insightIds.map { Game.strToId(_) }
 
-sealed trait Insight
-object Insight:
-  case class Single(point: Point)                                          extends Insight
-  case class Stacked(points: List[(InsightMetric.MetricValueName, Point)]) extends Insight
+enum Insight:
+  case Single(point: Point)
+  case Stacked(points: List[(InsightMetric.MetricValueName, Point)])
 
 opaque type Point = Double
 object Point extends OpaqueDouble[Point]

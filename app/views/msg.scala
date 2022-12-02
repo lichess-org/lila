@@ -45,4 +45,4 @@ object msg:
     trans.discussions,
     trans.today,
     trans.yesterday
-  ).map(_.key)
+  )

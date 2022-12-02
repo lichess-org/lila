@@ -22,7 +22,7 @@ object show:
       verdicts: SwissCondition.All.WithVerdicts,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
-      streamers: List[lila.user.User.ID],
+      streamers: List[UserId],
       isLocalMod: Boolean
   )(implicit ctx: Context): Frag =
     val isDirector       = ctx.userId.has(s.createdBy)

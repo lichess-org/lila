@@ -70,7 +70,7 @@ object publicChat:
               "lichess" -> line.isLichess
             )
           )(
-            userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
+            userIdLink(UserStr(line.author).id.some, withOnline = false, withTitle = false),
             " ",
             communication.highlightBad(line.text)
           )

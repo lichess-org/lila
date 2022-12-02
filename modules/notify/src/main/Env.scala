@@ -32,12 +32,12 @@ final class Env(
   // api actor
   Bus.subscribeFun("notify") {
     case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>
-      api.markAllRead(Notification.Notifies from userIds).unit
+      api.markAllRead(Notification.Notifies.from(UserId)(userIds)).unit
     case lila.game.actorApi.CorresAlarmEvent(pov) =>
       pov.player.userId ?? { userId =>
         lila.game.Namer.playerText(pov.opponent)(using getLightUser) foreach { opponent =>
           api addNotification Notification.make(
-            UserId(userId),
+            userId,
             CorresAlarm(
               gameId = pov.gameId,
               opponent = opponent

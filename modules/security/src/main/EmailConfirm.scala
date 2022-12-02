@@ -82,20 +82,19 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
       }
     }
 
-  private val tokener = new StringToken[User.ID](
+  private val tokener = new StringToken[UserId](
     secret = tokenerSecret,
     getCurrentValue = id => userRepo email id dmap (_.??(_.value))
   )
 
 object EmailConfirm:
 
-  sealed trait Result
-  object Result:
-    case class JustConfirmed(user: User)    extends Result
-    case class AlreadyConfirmed(user: User) extends Result
-    case object NotFound                    extends Result
+  enum Result:
+    case JustConfirmed(user: User)
+    case AlreadyConfirmed(user: User)
+    case NotFound
 
-  case class UserEmail(username: String, email: EmailAddress)
+  case class UserEmail(username: UserName, email: EmailAddress)
 
   object cookie:
 
@@ -112,7 +111,7 @@ object EmailConfirm:
 
     def get(req: RequestHeader): Option[UserEmail] =
       req.session get name map (_.split(sep, 2)) collect { case Array(username, email) =>
-        UserEmail(username, EmailAddress(email))
+        UserEmail(UserName(username), EmailAddress(email))
       }
 
   import scala.concurrent.duration.*
@@ -127,7 +126,7 @@ object EmailConfirm:
     key = "email.confirms.ip"
   )
 
-  private lazy val rateLimitPerUser = new RateLimit[String](
+  private lazy val rateLimitPerUser = new RateLimit[UserId](
     credits = 3,
     duration = 1 hour,
     key = "email.confirms.user"
@@ -140,7 +139,7 @@ object EmailConfirm:
   )
 
   def rateLimit[A: Zero](userEmail: UserEmail, req: RequestHeader)(run: => Fu[A])(default: => Fu[A]): Fu[A] =
-    rateLimitPerUser(userEmail.username, cost = 1) {
+    rateLimitPerUser(userEmail.username.id, cost = 1) {
       rateLimitPerEmail(userEmail.email.value, cost = 1) {
         rateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
           run
@@ -150,34 +149,28 @@ object EmailConfirm:
 
   object Help:
 
-    sealed trait Status { val name: String }
-    case class NoSuchUser(name: String)                     extends Status
-    case class Closed(name: String)                         extends Status
-    case class Confirmed(name: String)                      extends Status
-    case class NoEmail(name: String)                        extends Status
-    case class EmailSent(name: String, email: EmailAddress) extends Status
+    enum Status:
+      val name: UserName
+      case NoSuchUser(name: UserName)
+      case Closed(name: UserName)
+      case Confirmed(name: UserName)
+      case NoEmail(name: UserName)
+      case EmailSent(name: UserName, email: EmailAddress)
 
     import play.api.data.*
     import play.api.data.validation.Constraints
     import play.api.data.Forms.*
 
     val helpForm = Form(
-      single(
-        "username" -> text.verifying(
-          Constraints minLength 2,
-          Constraints maxLength 30,
-          Constraints.pattern(regex = User.newUsernameRegex)
-        )
-      )
+      single("username" -> lila.user.UserForm.historicalUsernameField)
     )
 
-    def getStatus(userRepo: UserRepo, username: String)(using
-        ec: scala.concurrent.ExecutionContext
-    ): Fu[Status] =
-      userRepo withEmails username flatMap {
-        case None => fuccess(NoSuchUser(username))
+    def getStatus(userRepo: UserRepo, u: UserStr)(using scala.concurrent.ExecutionContext): Fu[Status] =
+      import Status.*
+      userRepo withEmails u flatMap {
+        case None => fuccess(NoSuchUser(u into UserName))
         case Some(User.WithEmails(user, emails)) =>
-          if (!user.enabled) fuccess(Closed(username))
+          if (!user.enabled) fuccess(Closed(user.username))
           else
             userRepo mustConfirmEmail user.id dmap {
               case true =>

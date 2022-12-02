@@ -2,7 +2,7 @@ package lila.game
 
 import actorApi.{ FinishGame, StartGame }
 import akka.stream.scaladsl.*
-import chess.format.FEN
+import chess.format.Fen
 import play.api.libs.json.*
 import scala.concurrent.duration.*
 
@@ -10,6 +10,7 @@ import lila.common.Bus
 import lila.common.Json.given
 import lila.game.Game
 import lila.user.User
+import lila.db.dsl.given
 
 final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
     mat: akka.stream.Materializer,
@@ -18,7 +19,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
 
   private val chans = List("startGame", "finishGame")
 
-  def apply(userIds: Set[User.ID], withCurrentGames: Boolean): Source[JsValue, ?] =
+  def apply(userIds: Set[UserId], withCurrentGames: Boolean): Source[JsValue, ?] =
     val initialGames = if (withCurrentGames) currentGamesSource(userIds) else Source.empty
     val startStream = Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead) mapMaterializedValue {
       queue =>
@@ -30,7 +31,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
           case StartGame(game) if matches(game)        => queue.offer(game).unit
           case FinishGame(game, _, _) if matches(game) => queue.offer(game).unit
         }
-        queue.watchCompletion().foreach { _ =>
+        queue.watchCompletion().addEffectAnyway {
           Bus.unsubscribe(sub, chans)
         }
     }
@@ -39,7 +40,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
       .mapAsync(1)(gameRepo.withInitialFen)
       .map(GameStream.gameWithInitialFenWriter.writes)
 
-  private def currentGamesSource(userIds: Set[User.ID]): Source[Game, ?] =
+  private def currentGamesSource(userIds: Set[UserId]): Source[Game, ?] =
     import lila.db.dsl.*
     import BSONHandlers.given
     import reactivemongo.api.ReadPreference

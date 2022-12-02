@@ -21,12 +21,12 @@ case class CoachProfile(
   def textLines: List[String] = List(
     "headline"           -> headline,
     "hourlyRate"         -> hourlyRate,
-    "description"        -> description.map(_.value),
-    "playingExperience"  -> playingExperience.map(_.value),
-    "teachingExperience" -> teachingExperience.map(_.value),
-    "otherExperience"    -> otherExperience.map(_.value),
-    "skills"             -> skills.map(_.value),
-    "methodology"        -> methodology.map(_.value),
+    "description"        -> description,
+    "playingExperience"  -> playingExperience,
+    "teachingExperience" -> teachingExperience,
+    "otherExperience"    -> otherExperience,
+    "skills"             -> skills,
+    "methodology"        -> methodology,
     "youtubeVideos"      -> youtubeVideos,
     "youtubeChannel"     -> youtubeChannel,
     "publicStudies"      -> publicStudies

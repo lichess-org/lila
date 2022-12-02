@@ -3,8 +3,8 @@ package lila.puzzle
 import chess.Color
 import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.ThreadLocalRandom
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 

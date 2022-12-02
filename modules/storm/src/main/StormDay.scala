@@ -41,12 +41,12 @@ case class StormDay(
 
 object StormDay:
 
-  case class Id(userId: User.ID, day: LichessDay)
+  case class Id(userId: UserId, day: LichessDay)
   object Id:
-    def today(userId: User.ID)     = Id(userId, LichessDay.today)
-    def lastWeek(userId: User.ID)  = Id(userId, LichessDay daysAgo 7)
-    def lastMonth(userId: User.ID) = Id(userId, LichessDay daysAgo 30)
-    def allTime(userId: User.ID)   = Id(userId, LichessDay(0))
+    def today(userId: UserId)     = Id(userId, LichessDay.today)
+    def lastWeek(userId: UserId)  = Id(userId, LichessDay daysAgo 7)
+    def lastMonth(userId: UserId) = Id(userId, LichessDay daysAgo 30)
+    def allTime(userId: UserId)   = Id(userId, LichessDay(0))
 
   def empty(id: Id) = StormDay(id, 0, 0, 0, 0, 0, IntRating(0), 0)
 
@@ -91,7 +91,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
         fuccess(none)
     }
 
-  def history(userId: User.ID, page: Int): Fu[Paginator[StormDay]] =
+  def history(userId: UserId, page: Int): Fu[Paginator[StormDay]] =
     Paginator(
       adapter = new Adapter[StormDay](
         collection = coll,
@@ -103,11 +103,11 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
       MaxPerPage(30)
     )
 
-  def apiHistory(userId: User.ID, days: Int): Fu[List[StormDay]] =
+  def apiHistory(userId: UserId, days: Int): Fu[List[StormDay]] =
     coll
       .find(idRegexFor(userId))
       .sort($sort desc "_id")
       .cursor[StormDay](ReadPreference.secondaryPreferred)
       .list(days)
 
-  private def idRegexFor(userId: User.ID) = $doc("_id" $startsWith s"${userId}:")
+  private def idRegexFor(userId: UserId) = $doc("_id" $startsWith s"${userId}:")

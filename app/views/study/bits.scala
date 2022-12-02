@@ -86,7 +86,7 @@ object bits:
       )
     )
 
-  def streamers(streamers: List[lila.user.User.ID])(implicit lang: Lang) =
+  def streamers(streamers: List[UserId])(implicit lang: Lang) =
     streamers.nonEmpty option div(cls := "context-streamers none")(
       streamers map views.html.streamer.bits.contextual
     )

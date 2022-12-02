@@ -1,7 +1,7 @@
 package lila.simul
 
 import cats.implicits.*
-import chess.format.FEN
+import chess.format.Fen
 import chess.StartingPosition
 import org.joda.time.DateTime
 import play.api.data.*
@@ -119,7 +119,7 @@ object SimulForm:
       clockIncrement: Int,
       clockExtra: Int,
       variants: List[Int],
-      position: Option[FEN],
+      position: Option[Fen],
       color: String,
       text: String,
       estimatedStartAt: Option[DateTime] = None,
@@ -135,4 +135,4 @@ object SimulForm:
 
     def actualVariants = variants.flatMap { chess.variant.Variant(_) }
 
-    def realPosition = position.filterNot(_.initial)
+    def realPosition = position.filterNot(_.isInitial)

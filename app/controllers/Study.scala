@@ -69,11 +69,11 @@ final class Study(
           }
     }
 
-  def byOwnerDefault(username: String, page: Int) = byOwner(username, Order.default.key, page)
+  def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Order.default.key, page)
 
-  def byOwner(username: String, order: String, page: Int) =
+  def byOwner(username: UserStr, order: String, page: Int) =
     Open { implicit ctx =>
-      env.user.repo.named(username).flatMap {
+      env.user.repo.byId(username).flatMap {
         _.fold(notFound(ctx)) { owner =>
           env.study.pager.byOwner(owner, ctx.me, Order(order), page) flatMap { pag =>
             preloadMembers(pag) >> negotiate(
@@ -414,7 +414,7 @@ final class Study(
       }
     }
 
-  private val CloneLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+  private val CloneLimitPerUser = new lila.memo.RateLimit[UserId](
     credits = 10 * 3,
     duration = 24.hour,
     key = "study.clone.user"
@@ -491,21 +491,21 @@ final class Study(
       }
     }
 
-  def exportPgn(username: String) =
+  def exportPgn(username: UserStr) =
     OpenOrScoped(_.Study.Read)(
       open = ctx => handleExport(username, ctx.me, ctx.req),
       scoped = req => me => handleExport(username, me.some, req)
     )
 
   private def handleExport(
-      username: String,
+      username: UserStr,
       me: Option[lila.user.User],
       req: RequestHeader
   ) =
-    val name   = if (username == "me") me.fold("me")(_.username) else username
-    val userId = lila.user.User normalize name
+    val name   = if (username.value == "me") me.fold(UserName("me"))(_.username) else username.into(UserName)
+    val userId = name.id
     val flags  = requestPgnFlags(req)
-    val isMe   = me.exists(_.id == userId)
+    val isMe   = me.exists(_ is userId)
     apiC
       .GlobalConcurrencyLimitPerIpAndUserOption(req, me) {
         env.study.studyRepo
@@ -560,7 +560,7 @@ final class Study(
         case None => BadRequest("No search term provided").toFuccess
         case Some(term) =>
           import lila.study.JsonView.given
-          env.study.topicApi.findLike(term, get("user", req)) map { JsonOk(_) }
+          env.study.topicApi.findLike(term, getUserStr("user", req).map(_.id)) map { JsonOk(_) }
     }
 
   def topics =
@@ -620,7 +620,7 @@ final class Study(
   private[controllers] def streamersOf(study: StudyModel) = streamerCache get study.id
 
   private val streamerCache =
-    env.memo.cacheApi[StudyId, List[lila.user.User.ID]](64, "study.streamers") {
+    env.memo.cacheApi[StudyId, List[UserId]](64, "study.streamers") {
       _.refreshAfterWrite(15.seconds)
         .maximumSize(512)
         .buildAsyncFuture { studyId =>

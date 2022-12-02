@@ -18,7 +18,7 @@ final class RelayPgnStream(
   def exportFullTour(tour: RelayTour): Source[String, ?] =
     Source futureSource {
       roundRepo.idsByTourOrdered(tour) flatMap { ids =>
-        studyRepo.byOrderedIds(ids.map(_.value).map(StudyId(_))) map { studies =>
+        studyRepo.byOrderedIds(StudyId.from[List, RelayRoundId](ids)) map { studies =>
           Source(studies).flatMapConcat { studyPgnDump(_, flags) }
         }
       }
@@ -44,7 +44,7 @@ final class RelayPgnStream(
           .offer(chapters.view.filter(c => c.tagUpdate || c.newMoves > 0).map(_.id).toSet)
           .unit
       }
-      queue.watchCompletion().foreach { _ =>
+      queue.watchCompletion().addEffectAnyway {
         Bus.unsubscribe(sub, chan)
       }
     }

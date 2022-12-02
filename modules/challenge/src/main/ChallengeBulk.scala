@@ -2,8 +2,7 @@ package lila.challenge
 
 import akka.actor.ActorSystem
 import akka.stream.scaladsl.*
-import chess.format.Forsyth
-import chess.format.Forsyth.SituationPlus
+import chess.format.Fen
 import chess.{ Situation, Speed }
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
@@ -62,7 +61,7 @@ final class ChallengeBulkApi(
       .updateField($doc("_id" -> id, "by" -> me.id, "pairedAt" $exists true), "startClocksAt", DateTime.now)
       .map(_.n == 1)
 
-  def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(UserId(bulk.by)) {
+  def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by) {
     coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt" $exists false)) flatMap { bulks =>
       val nbGames = bulks.map(_.games.size).sum
       if (bulks.sizeIs >= 10) fuccess(Left("Already too many bulks queued"))
@@ -79,7 +78,7 @@ final class ChallengeBulkApi(
   private def checkForPairing: Funit =
     coll.one[ScheduledBulk]($doc("pairAt" $lte DateTime.now, "pairedAt" $exists false)) flatMap {
       _ ?? { bulk =>
-        workQueue(UserId(bulk.by)) {
+        workQueue(bulk.by) {
           makePairings(bulk).void
         }
       }
@@ -88,7 +87,7 @@ final class ChallengeBulkApi(
   private def checkForClocks: Funit =
     coll.one[ScheduledBulk]($doc("startClocksAt" $lte DateTime.now, "pairedAt" $exists true)) flatMap {
       _ ?? { bulk =>
-        workQueue(UserId(bulk.by)) {
+        workQueue(bulk.by) {
           startClocksNow(bulk)
         }
       }
@@ -138,7 +137,7 @@ final class ChallengeBulkApi(
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
       .addEffect { nb =>
-        lila.mon.api.challenge.bulk.createNb(bulk.by).increment(nb).unit
+        lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(nb).unit
       } >> {
       if (bulk.startClocksAt.isDefined)
         coll.updateField($id(bulk._id), "pairedAt", DateTime.now)

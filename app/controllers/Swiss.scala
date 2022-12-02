@@ -68,7 +68,9 @@ final class Swiss(
                 isInTeam      <- ctx.me.??(isUserInTheTeam(swiss.teamId))
                 verdicts      <- env.swiss.api.verdicts(swiss, ctx.me)
                 socketVersion <- getBool("socketVersion", ctx.req).??(env.swiss version swiss.id dmap some)
-                playerInfo    <- get("playerInfo", ctx.req).?? { env.swiss.api.playerInfo(swiss, _) }
+                playerInfo <- getUserStr("playerInfo", ctx.req).map(_.id).?? {
+                  env.swiss.api.playerInfo(swiss, _)
+                }
                 page = getInt("page", ctx.req).filter(0.<)
                 json <- env.swiss.json(
                   swiss = swiss,
@@ -209,6 +211,11 @@ final class Swiss(
         )
     }
 
+  def apiWithdraw(id: SwissId) =
+    ScopedBody(_.Tournament.Write) { _ => me =>
+      env.swiss.api.withdraw(id, me.id) inject jsonOkResult
+    }
+
   def edit(id: SwissId) =
     Auth { implicit ctx => me =>
       WithEditableSwiss(id, me) { swiss =>
@@ -283,10 +290,10 @@ final class Swiss(
       }
     }
 
-  def pageOf(id: SwissId, userId: String) =
+  def pageOf(id: SwissId, userId: UserStr) =
     Action.async {
       WithSwiss(id) { swiss =>
-        env.swiss.api.pageOf(swiss, UserModel normalize userId) flatMap {
+        env.swiss.api.pageOf(swiss, userId.id) flatMap {
           _ ?? { page =>
             JsonOk {
               env.swiss.standingApi(swiss, page)
@@ -296,10 +303,10 @@ final class Swiss(
       }
     }
 
-  def player(id: SwissId, userId: String) =
+  def player(id: SwissId, userId: UserStr) =
     Action.async {
       WithSwiss(id) { swiss =>
-        env.swiss.api.playerInfo(swiss, userId) flatMap {
+        env.swiss.api.playerInfo(swiss, userId.id) flatMap {
           _.fold(notFoundJson()) { player =>
             JsonOk(fuccess(lila.swiss.SwissJson.playerJsonExt(swiss, player)))
           }
@@ -358,7 +365,7 @@ final class Swiss(
     }
 
   private val streamerCache =
-    env.memo.cacheApi[SwissId, List[UserModel.ID]](64, "swiss.streamers") {
+    env.memo.cacheApi[SwissId, List[UserId]](64, "swiss.streamers") {
       _.refreshAfterWrite(15.seconds)
         .maximumSize(64)
         .buildAsyncFuture { id =>

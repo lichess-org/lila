@@ -51,7 +51,7 @@ final private class LinkCheck(
       f: (String, FullSource) => Fu[Boolean]
   )(id: String, line: UserLine): Fu[Boolean] = {
     source match
-      case PublicSource.Tournament(id) => tournamentRepo byId id.value map2 FullSource.TournamentSource.apply
+      case PublicSource.Tournament(id) => tournamentRepo byId id map2 FullSource.TournamentSource.apply
       case PublicSource.Simul(id)      => simulApi find id map2 FullSource.SimulSource.apply
       case PublicSource.Swiss(id)      => swissApi fetchByIdNoCache id map2 FullSource.SwissSource.apply
       case PublicSource.Team(id)       => teamRepo byId id map2 FullSource.TeamSource.apply
@@ -65,8 +65,8 @@ final private class LinkCheck(
     }
   }
 
-  private def tourLink(tourId: Tournament.ID, source: FullSource): Fu[Boolean] =
-    tournamentRepo byId tourId flatMap {
+  private def tourLink(tourId: String, source: FullSource): Fu[Boolean] =
+    tournamentRepo byId TourId(tourId) flatMap {
       _ ?? { tour =>
         fuccess(tour.isScheduled) >>| {
           source.teamId ?? { sourceTeamId =>
@@ -101,7 +101,7 @@ final private class LinkCheck(
 private object LinkCheck:
 
   sealed trait FullSource:
-    def owners: Set[User.ID]
+    def owners: Set[UserId]
     def teamId: Option[TeamId]
 
   object FullSource:

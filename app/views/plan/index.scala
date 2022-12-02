@@ -22,8 +22,8 @@ object index:
       stripePublicKey: String,
       payPalPublicKey: String,
       patron: Option[lila.plan.Patron],
-      recentIds: List[String],
-      bestIds: List[String],
+      recentIds: List[UserId],
+      bestIds: List[UserId],
       pricing: lila.plan.PlanPricing,
       methods: Set[String]
   )(implicit ctx: Context) =
@@ -269,7 +269,7 @@ object index:
       dl(
         dt(whereMoneyGoes()),
         dd(
-          serversAndDeveloper(userIdLink("thibault".some)),
+          serversAndDeveloper(userIdLink(UserId("thibault").some)),
           br,
           a(href := routes.Main.costs, targetBlank)(costBreakdown()),
           "."
@@ -289,7 +289,9 @@ object index:
         ),
         dt(otherMethods()),
         dd(
-          lichessIsRegisteredWith(a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("Benevity")), 
+          lichessIsRegisteredWith(
+            a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("Benevity")
+          ),
           br,
           views.html.site.contact.contactEmailLinkEmpty()(bankTransfers()),
           ".",

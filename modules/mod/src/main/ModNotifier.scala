@@ -10,7 +10,7 @@ final private class ModNotifier(
 
   def reporters(mod: Mod, sus: Suspect): Funit =
     reportApi.recentReportersOf(sus) flatMap {
-      _.filter(r => mod.user.id != r.value)
+      _.filterNot(mod.user is _)
         .map { reporterId =>
           notifyApi.addNotification(
             Notification.make(
@@ -27,7 +27,7 @@ final private class ModNotifier(
     notifyApi.addNotification {
       given play.api.i18n.Lang = victim.user.realLang | lila.i18n.defaultLang
       Notification.make(
-        notifies = UserId(victim.user.id),
+        notifies = victim.user.id,
         content = lila.notify.RatingRefund(pt.trans, points)
       )
     }.void

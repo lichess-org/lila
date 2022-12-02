@@ -8,6 +8,7 @@ import lila.socket.{ SocketVersion, GetVersion }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.{ makeMessage }
 import lila.user.User
+import lila.common.Json.given
 
 import play.api.libs.json.*
 import scala.concurrent.duration.*
@@ -50,7 +51,7 @@ object RoomSocket:
       chat: ChatApi,
       logger: Logger,
       publicSource: RoomId => PublicSource.type => Option[PublicSource],
-      localTimeout: Option[(RoomId, User.ID, User.ID) => Fu[Boolean]] = None,
+      localTimeout: Option[(RoomId, UserId, UserId) => Fu[Boolean]] = None,
       chatBusChan: BusChan.Select
   )(using ExecutionContext): Handler =
     ({
@@ -108,8 +109,8 @@ object RoomSocket:
 
     object In:
 
-      case class ChatSay(roomId: RoomId, userId: String, msg: String) extends P.In
-      case class ChatTimeout(roomId: RoomId, userId: String, suspect: String, reason: String, text: String)
+      case class ChatSay(roomId: RoomId, userId: UserId, msg: String) extends P.In
+      case class ChatTimeout(roomId: RoomId, userId: UserId, suspect: UserId, reason: String, text: String)
           extends P.In
       case class KeepAlives(roomIds: Iterable[RoomId])                    extends P.In
       case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri)       extends P.In
@@ -120,11 +121,11 @@ object RoomSocket:
           case "room/alives" => KeepAlives(P.In.commas(raw.args) map { RoomId(_) }).some
           case "chat/say" =>
             raw.get(3) { case Array(roomId, userId, msg) =>
-              ChatSay(RoomId(roomId), userId, msg).some
+              ChatSay(RoomId(roomId), UserId(userId), msg).some
             }
           case "chat/timeout" =>
             raw.get(5) { case Array(roomId, userId, suspect, reason, text) =>
-              ChatTimeout(RoomId(roomId), userId, suspect, reason, text).some
+              ChatTimeout(RoomId(roomId), UserId(userId), UserId(suspect), reason, text).some
             }
           case "tell/room/sri" =>
             raw.get(4) { case arr @ Array(roomId, _, _, _) =>
@@ -146,9 +147,9 @@ object RoomSocket:
         s"tell/room $roomId ${Json stringify payload}"
       def tellRoomVersion(roomId: RoomId, payload: JsObject, version: SocketVersion, isTroll: Boolean) =
         s"tell/room/version $roomId $version ${P.Out.boolean(isTroll)} ${Json stringify payload}"
-      def tellRoomUser(roomId: RoomId, userId: User.ID, payload: JsObject) =
+      def tellRoomUser(roomId: RoomId, userId: UserId, payload: JsObject) =
         s"tell/room/user $roomId $userId ${Json stringify payload}"
-      def tellRoomUsers(roomId: RoomId, userIds: Iterable[User.ID], payload: JsObject) =
+      def tellRoomUsers(roomId: RoomId, userIds: Iterable[UserId], payload: JsObject) =
         s"tell/room/users $roomId ${P.Out.commas(userIds)} ${Json stringify payload}"
       def tellRoomChat(roomId: RoomId, payload: JsObject, version: SocketVersion, isTroll: Boolean) =
         s"tell/room/chat $roomId $version ${P.Out.boolean(isTroll)} ${Json stringify payload}"

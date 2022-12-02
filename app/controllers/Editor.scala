@@ -1,6 +1,6 @@
 package controllers
 
-import chess.format.{ FEN, Forsyth }
+import chess.format.Fen
 import chess.Situation
 import chess.variant.Variant
 import play.api.libs.json.*
@@ -34,7 +34,7 @@ final class Editor(env: Env) extends LilaController(env):
 
   def load(urlFen: String) =
     Open { implicit ctx =>
-      val fen = lila.common.String
+      val fen = Fen from lila.common.String
         .decodeUriPath(urlFen)
         .map(_.replace('_', ' ').trim)
         .filter(_.nonEmpty)
@@ -53,7 +53,7 @@ final class Editor(env: Env) extends LilaController(env):
     Open { implicit ctx =>
       fuccess {
         JsonOk(
-          html.board.bits.editorJsData()
+          html.board.editor.jsData()
         )
       }
     }
@@ -63,13 +63,13 @@ final class Editor(env: Env) extends LilaController(env):
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect {
           if (game.playable) routes.Round.watcher(game.id, "white").url
-          else editorUrl(get("fen").fold(Forsyth >> game.chess)(FEN.apply), game.variant)
+          else editorUrl(get("fen").fold(Fen write game.chess)(Fen(_)), game.variant)
         }
       }
     }
 
-  private[controllers] def editorUrl(fen: FEN, variant: Variant): String =
-    if (fen == Forsyth.initial && variant.standard) routes.Editor.index.url
+  private[controllers] def editorUrl(fen: Fen, variant: Variant): String =
+    if (fen == Fen.initial && variant.standard) routes.Editor.index.url
     else
       val params = variant.exotic ?? s"?variant=${variant.key}"
       routes.Editor.load(lila.common.String.underscoreFen(fen)).url + params

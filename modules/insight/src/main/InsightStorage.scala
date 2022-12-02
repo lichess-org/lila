@@ -1,6 +1,6 @@
 package lila.insight
 
-import chess.format.FEN
+import chess.format.Fen
 import reactivemongo.api.bson.*
 
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
@@ -16,13 +16,13 @@ final private class InsightStorage(val coll: AsyncColl)(using ec: scala.concurre
   import BSONHandlers.given
   import InsightEntry.{ BSONFields as F }
 
-  def fetchFirst(userId: User.ID): Fu[Option[InsightEntry]] =
+  def fetchFirst(userId: UserId): Fu[Option[InsightEntry]] =
     coll(_.find(selectUserId(userId)).sort(sortChronological).one[InsightEntry])
 
-  def fetchLast(userId: User.ID): Fu[Option[InsightEntry]] =
+  def fetchLast(userId: UserId): Fu[Option[InsightEntry]] =
     coll(_.find(selectUserId(userId)).sort(sortAntiChronological).one[InsightEntry])
 
-  def count(userId: User.ID): Fu[Int] =
+  def count(userId: UserId): Fu[Int] =
     coll(_.countSel(selectUserId(userId)))
 
   def insert(p: InsightEntry) = coll(_.insert.one(p).void)
@@ -34,11 +34,11 @@ final private class InsightStorage(val coll: AsyncColl)(using ec: scala.concurre
 
   def remove(p: InsightEntry) = coll(_.delete.one(selectId(p.id)).void)
 
-  def removeAll(userId: User.ID) = coll(_.delete.one(selectUserId(userId)).void)
+  def removeAll(userId: UserId) = coll(_.delete.one(selectUserId(userId)).void)
 
   def find(id: String) = coll(_.one[InsightEntry](selectId(id)))
 
-  private[insight] def openings(userId: User.ID): Fu[(List[LilaOpeningFamily], List[SimpleOpening])] =
+  private[insight] def openings(userId: UserId): Fu[(List[LilaOpeningFamily], List[SimpleOpening])] =
     coll {
       _.aggregateOne() { framework =>
         import framework.*
@@ -60,7 +60,7 @@ final private class InsightStorage(val coll: AsyncColl)(using ec: scala.concurre
       }
     }.map(_ | (Nil -> Nil))
 
-  def nbByPerf(userId: User.ID): Fu[Map[PerfType, Int]] =
+  def nbByPerf(userId: UserId): Fu[Map[PerfType, Int]] =
     coll {
       _.aggregateList(PerfType.nonPuzzle.size) { framework =>
         import framework.*
@@ -82,7 +82,7 @@ object InsightStorage:
   import InsightEntry.{ BSONFields as F }
 
   def selectId(id: String)               = $doc(F.id -> id)
-  def selectUserId(id: User.ID)          = $doc(F.userId -> id)
+  def selectUserId(id: UserId)          = $doc(F.userId -> id)
   def selectPeers(peers: Question.Peers) = $doc(F.rating $inRange peers.ratingRange)
   val sortChronological                  = $sort asc F.date
   val sortAntiChronological              = $sort desc F.date

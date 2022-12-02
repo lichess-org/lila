@@ -13,6 +13,7 @@ import lila.common.{ config, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
 import lila.team.{ Requesting, Team as TeamModel }
 import lila.user.{ Holder, User as UserModel }
+import Api.ApiResult
 
 final class Team(
     env: Env,
@@ -191,21 +192,20 @@ final class Team(
   )
   private val kickLimitReportOnce = lila.memo.OnceEvery[UserId](10.minutes)
 
-  def kickUser(teamId: TeamId, username: String) =
+  def kickUser(teamId: TeamId, username: UserStr) =
     Scoped(_.Team.Lead) { req => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
-        val userId = UserModel.normalize(username)
-        ApiKickRateLimitPerIP[Fu[Api.ApiResult]](
+        ApiKickRateLimitPerIP[Fu[ApiResult]](
           HTTPRequest ipAddress req,
           cost = if (me.isVerified || me.isApiHog) 0 else 1
         ) {
-          api.kick(team, userId, me) inject Api.Done
+          api.kick(team, username.id, me) inject ApiResult.Done
         } {
-          if (kickLimitReportOnce(UserId(userId)))
+          if (kickLimitReportOnce(username.id))
             lila
               .log("security")
               .warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${HTTPRequest ipAddress req}")
-          fuccess(Api.Limited)
+          fuccess(ApiResult.Limited)
         }
       }
     }
@@ -239,7 +239,7 @@ final class Team(
             _ => funit,
             explain =>
               api.delete(team, me.user, explain) >>
-                env.mod.logApi.deleteTeam(me.id, team.id, explain)
+                env.mod.logApi.deleteTeam(me.id into ModId, team.id, explain)
           ) inject Redirect(routes.Team all 1).flashSuccess
       }
     }
@@ -254,7 +254,7 @@ final class Team(
             _ => funit,
             explain =>
               api.toggleEnabled(team, me, explain) >> {
-                env.mod.logApi.toggleTeam(me.id, team.id, team.enabled, explain)
+                env.mod.logApi.toggleTeam(me.id into ModId, team.id, team.enabled, explain)
               }
           )
       } inject Redirect(routes.Team show id).flashSuccess
@@ -269,7 +269,7 @@ final class Team(
       }
     }
 
-  private val OneAtATime = new lila.memo.FutureConcurrencyLimit[UserModel.ID](
+  private val OneAtATime = new lila.memo.FutureConcurrencyLimit[UserId](
     key = "team.concurrency.user",
     ttl = 10.minutes,
     maxConcurrency = 1
@@ -501,7 +501,7 @@ final class Team(
               Json.obj(
                 "id"      -> team.id,
                 "name"    -> team.name,
-                "owner"   -> env.user.lightUserApi.sync(team.createdBy).fold(team.createdBy)(_.name),
+                "owner"   -> env.user.lightUserApi.syncFallback(team.createdBy).name,
                 "members" -> team.nbMembers
               )
             })
@@ -531,8 +531,8 @@ final class Team(
               _ map { res =>
                 Redirect(routes.Team.show(team.id))
                   .flashing(res match {
-                    case RateLimit.Through => "success" -> ""
-                    case RateLimit.Limited => "failure" -> rateLimitedMsg
+                    case RateLimit.Result.Through => "success" -> ""
+                    case RateLimit.Result.Limited => "failure" -> rateLimitedMsg
                   })
               }
             )
@@ -544,8 +544,8 @@ final class Team(
               doPmAll(team, me).fold(
                 err => BadRequest(errorsAsJson(err)(using reqLang)).toFuccess,
                 _ map {
-                  case RateLimit.Through => jsonOkResult
-                  case RateLimit.Limited => rateLimitedJson
+                  case RateLimit.Result.Through => jsonOkResult
+                  case RateLimit.Result.Limited => rateLimitedJson
                 }
               )
             }
@@ -595,7 +595,7 @@ final class Team(
       }
     }
 
-  def apiTeamsOf(username: String) =
+  def apiTeamsOf(username: UserStr) =
     Action.async {
       import env.team.jsonView.given
       JsonOk {
@@ -609,17 +609,17 @@ final class Team(
     Scoped(_.Team.Read) { _ => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         api.requestsWithUsers(team) map { reqs =>
-          Api.Data(JsArray(reqs map env.team.jsonView.requestWithUserWrites.writes))
+          ApiResult.Data(JsArray(reqs map env.team.jsonView.requestWithUserWrites.writes))
         }
       }
     }
 
-  def apiRequestProcess(teamId: TeamId, userId: String, decision: String) =
+  def apiRequestProcess(teamId: TeamId, userId: UserStr, decision: String) =
     Scoped(_.Team.Lead) { req => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
-        api request lila.team.Request.makeId(team.id, UserModel normalize userId) flatMap {
-          case None      => fuccess(Api.ClientError("No such team join request"))
-          case Some(req) => api.processRequest(team, req, decision) inject Api.Done
+        api request lila.team.Request.makeId(team.id, userId.id) flatMap {
+          case None      => fuccess(ApiResult.ClientError("No such team join request"))
+          case Some(req) => api.processRequest(team, req, decision) inject ApiResult.Done
         }
       }
     }
@@ -648,8 +648,8 @@ You received this because you are subscribed to messages of the team $url."""
                   lila.mon.msg.teamBulk(team.id).record(nb).unit
                 }
               // we don't wait for the stream to complete, it would make lichess time out
-              fuccess(RateLimit.Through)
-            }(RateLimit.Limited)
+              fuccess(RateLimit.Result.Through)
+            }(RateLimit.Result.Limited)
           }
       )
 
@@ -686,10 +686,10 @@ You received this because you are subscribed to messages of the team $url."""
     }
 
   private def WithOwnedTeamEnabledApi(teamId: TeamId, me: UserModel)(
-      f: TeamModel => Fu[Api.ApiResult]
+      f: TeamModel => Fu[ApiResult]
   ): Fu[Result] =
     api teamEnabled teamId flatMap {
       case Some(team) if team leaders me.id => f(team)
-      case Some(_)                          => fuccess(Api.ClientError("Not your team"))
-      case None                             => fuccess(Api.NoData)
+      case Some(_)                          => fuccess(ApiResult.ClientError("Not your team"))
+      case None                             => fuccess(ApiResult.NoData)
     } map apiC.toHttp

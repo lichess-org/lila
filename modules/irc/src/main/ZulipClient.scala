@@ -10,18 +10,20 @@ import scala.concurrent.duration.*
 import lila.common.config.Secret
 import lila.common.String.urlencode
 import play.api.ConfigLoader
+import cats.Show
+import cats.syntax.show.*
 
 final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(using
-    ec: scala.concurrent.ExecutionContext
+    scala.concurrent.ExecutionContext
 ):
   private val dedupMsg = lila.memo.OnceEvery.hashCode[ZulipMessage](15 minutes)
 
-  def apply(stream: ZulipClient.stream.Selector, topic: String)(content: String): Funit =
+  def apply[C: Show](stream: ZulipClient.stream.Selector, topic: String)(content: C): Funit =
     apply(stream(ZulipClient.stream), topic)(content)
     funit // don't wait for zulip
 
-  def apply(stream: String, topic: String)(content: String): Funit =
-    send(ZulipMessage(stream = stream, topic = topic, content = content))
+  def apply[C: Show](stream: String, topic: String)(content: C): Funit =
+    send(ZulipMessage(stream = stream, topic = topic, content = content.show))
     funit // don't wait for zulip
 
   def sendAndGetLink(stream: ZulipClient.stream.Selector, topic: String)(

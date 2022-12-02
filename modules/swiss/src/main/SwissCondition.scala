@@ -21,7 +21,7 @@ object SwissCondition:
     def apply(user: User, perf: PerfType): SwissCondition.Verdict
 
   type GetMaxRating   = PerfType => Fu[IntRating]
-  type GetBannedUntil = User.ID => Fu[Option[DateTime]]
+  type GetBannedUntil = UserId => Fu[Option[DateTime]]
 
   sealed abstract class Verdict(val accepted: Boolean, val reason: Option[Lang => String])
   case object Accepted                        extends Verdict(true, none)
@@ -106,12 +106,12 @@ object SwissCondition:
 
   case class AllowList(value: String) extends SwissCondition with FlatCond:
 
-    private lazy val segments = value.linesIterator.map(User.normalize).toSet
+    private lazy val segments = value.linesIterator.map(_.trim.toLowerCase).toSet
 
     private def allowAnyTitledUser = segments contains "%titled"
 
     def apply(user: User, perf: PerfType): SwissCondition.Verdict =
-      if (segments contains user.id) Accepted
+      if (segments contains user.id.value) Accepted
       else if (allowAnyTitledUser && user.hasTitle) Accepted
       else Refused { _ => "Your name is not in the tournament line-up." }
 

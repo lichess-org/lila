@@ -1,6 +1,7 @@
 package lila.racer
 
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.storm.StormPuzzle
 
@@ -20,9 +21,9 @@ case class RacerRace(
 
   def player(id: RacerPlayer.Id) = players.find(_.id == id)
 
-  def join(id: RacerPlayer.Id): Option[RacerRace] =
-    !hasStarted && !has(id) && players.sizeIs < RacerRace.maxPlayers option
-      copy(players = players :+ RacerPlayer.make(id))
+  def join(player: RacerPlayer): Option[RacerRace] =
+    !hasStarted && !has(player.id) && players.sizeIs < RacerRace.maxPlayers option
+      copy(players = players :+ player)
 
   def registerScore(playerId: RacerPlayer.Id, score: Int): Option[RacerRace] =
     !finished option copy(
@@ -55,7 +56,7 @@ object RacerRace:
   object Id extends OpaqueString[Id]
 
   def make(owner: RacerPlayer.Id, puzzles: List[StormPuzzle], countdownSeconds: Int) = RacerRace(
-    _id = Id(lila.common.ThreadLocalRandom nextString 5),
+    _id = Id(ThreadLocalRandom nextString 5),
     owner = owner,
     players = Nil,
     puzzles = puzzles,

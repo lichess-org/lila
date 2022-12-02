@@ -1,6 +1,7 @@
 package lila.relay
 
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.study.{ Chapter, Study }
 import lila.user.User
@@ -63,7 +64,7 @@ case class RelayRound(
 
 object RelayRound:
 
-  def makeId = RelayRoundId(lila.common.ThreadLocalRandom nextString 8)
+  def makeId = RelayRoundId(ThreadLocalRandom nextString 8)
 
   case class Sync(
       upstream: Option[Sync.Upstream], // if empty, needs a client to push PGN

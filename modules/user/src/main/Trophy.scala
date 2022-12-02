@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 
 case class Trophy(
     _id: String, // random
-    user: String,
+    user: UserId,
     kind: TrophyKind,
     date: DateTime,
     url: Option[String]

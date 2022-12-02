@@ -1,15 +1,13 @@
 package lila.app
 package templating
 
-import chess.format.FEN
+import chess.format.Fen
 import play.api.i18n.Lang
 import ui.ScalatagsTemplate.{ *, given }
 
 trait StringHelper { self: I18nHelper with NumberHelper =>
 
-  export lila.common.String.{ slugify, urlencode, underscoreFen }
-
-  def shorten(text: String, length: Int, sep: String = "…") = lila.common.String.shorten(text, length, sep)
+  export lila.common.String.{ slugify, shorten, urlencode, addQueryParam, addQueryParams, underscoreFen }
 
   def pluralize(s: String, n: Int) = s"$n $s${if (n != 1) "s" else ""}"
 
@@ -36,9 +34,6 @@ trait StringHelper { self: I18nHelper with NumberHelper =>
           strong((~n.toIntOption).localize)
         )
       case h => raw(h.replaceIf('\n', "<br>"))
-
-  def addQueryParameter(url: String, key: String, value: Any) =
-    if (url contains "?") s"$url&$key=$value" else s"$url?$key=$value"
 
   def fragList(frags: List[Frag], separator: String = ", "): Frag =
     frags match

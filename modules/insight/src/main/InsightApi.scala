@@ -19,10 +19,10 @@ final class InsightApi(
 
   import InsightApi.*
 
-  private val userCache = cacheApi[User.ID, InsightUser](1024, "insight.user") {
+  private val userCache = cacheApi[UserId, InsightUser](1024, "insight.user") {
     _.expireAfterWrite(15 minutes).maximumSize(4096).buildAsyncFuture(computeUser)
   }
-  private def computeUser(userId: User.ID): Fu[InsightUser] =
+  private def computeUser(userId: UserId): Fu[InsightUser] =
     storage count userId flatMap {
       case 0 => fuccess(InsightUser(0, Nil, Nil))
       case count =>

@@ -38,7 +38,7 @@ object PuzzleTheme:
     PuzzleTheme(Key("dovetailMate"), i.dovetailMate, i.dovetailMateDescription)
   val equality       = PuzzleTheme(Key("equality"), i.equality, i.equalityDescription)
   val endgame        = PuzzleTheme(Key("endgame"), i.endgame, i.endgameDescription)
-  val enPassant      = PuzzleTheme(Key("enPassant"), new I18nKey("En passant"), i.enPassantDescription)
+  val enPassant      = PuzzleTheme(Key("enPassant"), I18nKey("En passant"), i.enPassantDescription)
   val exposedKing    = PuzzleTheme(Key("exposedKing"), i.exposedKing, i.exposedKingDescription)
   val fork           = PuzzleTheme(Key("fork"), i.fork, i.forkDescription)
   val hangingPiece   = PuzzleTheme(Key("hangingPiece"), i.hangingPiece, i.hangingPieceDescription)
@@ -78,7 +78,7 @@ object PuzzleTheme:
   val veryLong        = PuzzleTheme(Key("veryLong"), i.veryLong, i.veryLongDescription)
   val xRayAttack      = PuzzleTheme(Key("xRayAttack"), i.xRayAttack, i.xRayAttackDescription)
   val zugzwang        = PuzzleTheme(Key("zugzwang"), i.zugzwang, i.zugzwangDescription)
-  val checkFirst      = PuzzleTheme(Key("checkFirst"), new I18nKey("Check first"), new I18nKey("Check first"))
+  val checkFirst      = PuzzleTheme(Key("checkFirst"), I18nKey("Check first"), I18nKey("Check first"))
 
   val categorized = List[(I18nKey, List[PuzzleTheme])](
     trans.puzzle.recommended -> List(

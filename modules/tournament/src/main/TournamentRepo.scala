@@ -30,19 +30,19 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
   private val nonEmptySelect           = nbPlayersSelect(1)
   private[tournament] val selectUnique = $doc("schedule.freq" -> "unique")
 
-  def byId(id: Tournament.ID): Fu[Option[Tournament]] = coll.byId[Tournament](id)
-  def exists(id: Tournament.ID): Fu[Boolean]          = coll.exists($id(id))
+  def byId(id: TourId): Fu[Option[Tournament]] = coll.byId[Tournament](id)
+  def exists(id: TourId): Fu[Boolean]          = coll.exists($id(id))
 
-  def uniqueById(id: Tournament.ID): Fu[Option[Tournament]] =
+  def uniqueById(id: TourId): Fu[Option[Tournament]] =
     coll.one[Tournament]($id(id) ++ selectUnique)
 
-  def finishedById(id: Tournament.ID): Fu[Option[Tournament]] =
+  def finishedById(id: TourId): Fu[Option[Tournament]] =
     coll.one[Tournament]($id(id) ++ finishedSelect)
 
   def countCreated: Fu[Int] = coll.countSel(createdSelect)
 
-  def fetchCreatedBy(id: Tournament.ID): Fu[Option[User.ID]] =
-    coll.primitiveOne[User.ID]($id(id), "createdBy")
+  def fetchCreatedBy(id: TourId): Fu[Option[UserId]] =
+    coll.primitiveOne[UserId]($id(id), "createdBy")
 
   private[tournament] def startedCursorWithNbPlayersGte(nbPlayers: Option[Int]) =
     coll
@@ -50,7 +50,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       .batchSize(1)
       .cursor[Tournament]()
 
-  private[tournament] def idsCursor(ids: Iterable[Tournament.ID]) =
+  private[tournament] def idsCursor(ids: Iterable[TourId]) =
     coll.find($inIds(ids)).cursor[Tournament]()
 
   def standardPublicStartedFromSecondary: Fu[List[Tournament]] =
@@ -78,7 +78,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       readPreference = ReadPreference.secondaryPreferred
     )
 
-  private def lookupPlayer(userId: User.ID, project: Option[Bdoc]) =
+  private def lookupPlayer(userId: UserId, project: Option[Bdoc]) =
     $lookup.pipelineFull(
       from = playerCollName.value,
       as = "player",
@@ -96,7 +96,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       ).flatten
     )
 
-  private[tournament] def upcomingAdapterExpensiveCacheMe(userId: User.ID, max: Int) =
+  private[tournament] def upcomingAdapterExpensiveCacheMe(userId: UserId, max: Int) =
     coll
       .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework.*
@@ -119,7 +119,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       readPreference = ReadPreference.secondaryPreferred
     ).withNbResults(fuccess(Int.MaxValue))
 
-  def isUnfinished(tourId: Tournament.ID): Fu[Boolean] =
+  def isUnfinished(tourId: TourId): Fu[Boolean] =
     coll.exists($id(tourId) ++ unfinishedSelect)
 
   def byTeamCursor(teamId: TeamId) =
@@ -146,17 +146,17 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       .cursor[Tournament]()
       .list(nb)
 
-  private[tournament] def setForTeam(tourId: Tournament.ID, teamId: TeamId) =
+  private[tournament] def setForTeam(tourId: TourId, teamId: TeamId) =
     coll.update.one($id(tourId), $addToSet("forTeams" -> teamId))
 
-  def isForTeam(tourId: Tournament.ID, teamId: TeamId) =
+  def isForTeam(tourId: TourId, teamId: TeamId) =
     coll.exists($id(tourId) ++ $doc("forTeams" -> teamId))
 
   private[tournament] def withdrawableIds(
-      userId: User.ID,
+      userId: UserId,
       teamId: Option[TeamId] = None,
       reason: String
-  ): Fu[List[Tournament.ID]] =
+  ): Fu[List[TourId]] =
     coll
       .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework.*
@@ -166,31 +166,31 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
           Project($id(true))
         )
       }
-      .map(_.flatMap(_.string("_id")))
+      .map(_.flatMap(_.getAsOpt[TourId]("_id")))
       .monSuccess(_.tournament.withdrawableIds(reason))
 
-  def setStatus(tourId: Tournament.ID, status: Status) =
+  def setStatus(tourId: TourId, status: Status) =
     coll.updateField($id(tourId), "status", status.id).void
 
-  def setNbPlayers(tourId: Tournament.ID, nb: Int) =
+  def setNbPlayers(tourId: TourId, nb: Int) =
     coll.updateField($id(tourId), "nbPlayers", nb).void
 
-  def setWinnerId(tourId: Tournament.ID, userId: User.ID) =
+  def setWinnerId(tourId: TourId, userId: UserId) =
     coll.updateField($id(tourId), "winner", userId).void
 
-  def setFeaturedGameId(tourId: Tournament.ID, gameId: GameId) =
+  def setFeaturedGameId(tourId: TourId, gameId: GameId) =
     coll.updateField($id(tourId), "featured", gameId).void
 
-  def setTeamBattle(tourId: Tournament.ID, battle: TeamBattle) =
+  def setTeamBattle(tourId: TourId, battle: TeamBattle) =
     coll.updateField($id(tourId), "teamBattle", battle).void
 
-  def teamBattleOf(tourId: Tournament.ID): Fu[Option[TeamBattle]] =
+  def teamBattleOf(tourId: TourId): Fu[Option[TeamBattle]] =
     coll.primitiveOne[TeamBattle]($id(tourId), "teamBattle")
 
-  def isTeamBattle(tourId: Tournament.ID): Fu[Boolean] =
+  def isTeamBattle(tourId: TourId): Fu[Boolean] =
     coll.exists($id(tourId) ++ $doc("teamBattle" $exists true))
 
-  def featuredGameId(tourId: Tournament.ID) = coll.primitiveOne[GameId]($id(tourId), "featured")
+  def featuredGameId(tourId: TourId) = coll.primitiveOne[GameId]($id(tourId), "featured")
 
   private def startingSoonSelect(aheadMinutes: Int) =
     createdSelect ++
@@ -218,7 +218,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       .batchSize(1)
       .cursor[Tournament]()
 
-  private[tournament] def soonStarting(from: DateTime, to: DateTime, notIds: Iterable[Tournament.ID]) =
+  private[tournament] def soonStarting(from: DateTime, to: DateTime, notIds: Iterable[TourId]) =
     coll
       .find(createdSelect ++ $doc("nbPlayers" $gt 0, "startsAt" $gt from $lt to, "_id" $nin notIds))
       .cursor[Tournament]()
@@ -334,7 +334,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       )
     )
 
-  def setSchedule(tourId: Tournament.ID, schedule: Option[Schedule]) =
+  def setSchedule(tourId: TourId, schedule: Option[Schedule]) =
     schedule match
       case None    => coll.unsetField($id(tourId), "schedule").void
       case Some(s) => coll.updateField($id(tourId), "schedule", s).void
@@ -362,7 +362,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       owner: lila.user.User,
       status: List[Status],
       batchSize: Int,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = temporarilyPrimary
   ): AkkaStreamCursor[Tournament] =
     coll
       .find($doc("createdBy" -> owner.id) ++ (status.nonEmpty ?? $doc("status" $in status)))

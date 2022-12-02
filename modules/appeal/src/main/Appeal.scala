@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import lila.user.User
 
 case class Appeal(
-    _id: User.ID,
+    _id: UserId,
     msgs: Vector[AppealMsg],
     status: Appeal.Status, // from the moderators POV
     createdAt: DateTime,
@@ -19,7 +19,7 @@ case class Appeal(
   def isMuted  = status == Appeal.Status.Muted
   def isUnread = status == Appeal.Status.Unread
 
-  def isAbout(userId: User.ID) = _id == userId
+  def isAbout(userId: UserId) = _id == userId
 
   def post(text: String, by: User) =
     val msg = AppealMsg(
@@ -56,14 +56,11 @@ case class Appeal(
 
 object Appeal:
 
-  sealed trait Status:
-    val key = this.toString.toLowerCase
+  enum Status:
+    val key = Status.this.toString.toLowerCase
+    case Unread, Read, Muted
   object Status:
-    case object Unread extends Status
-    case object Read   extends Status
-    case object Muted  extends Status
-    val all                = List[Status](Unread, Read, Muted)
-    def apply(key: String) = all.find(_.key == key)
+    def apply(key: String) = values.find(_.key == key)
 
   case class WithUser(appeal: Appeal, user: User)
 
@@ -83,10 +80,11 @@ object Appeal:
       single("text" -> lila.common.Form.cleanNonEmptyText)
     )
 
-  private[appeal] case class SnoozeKey(snoozerId: User.ID, appealId: User.ID) extends lila.memo.Snooze.Key
+  private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: UserId)
+  private[appeal] given UserIdOf[SnoozeKey] = _.snoozerId
 
 case class AppealMsg(
-    by: User.ID,
+    by: UserId,
     text: String,
     at: DateTime
 )

@@ -1,10 +1,8 @@
 package lila.opening
 
-import chess.format.pgn.Pgn
-import chess.format.pgn.San
-import chess.format.{ FEN, Forsyth, Uci }
-import chess.opening.FullOpening
-import chess.opening.FullOpeningDB
+import chess.format.pgn.{ Pgn, San }
+import chess.format.{ Fen, OpeningFen, Uci }
+import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 import chess.Speed
 
 import lila.game.Game
@@ -21,18 +19,18 @@ case class OpeningPage(
     case (op, moves) => (op ?? NamePart.from) ::: NamePart.from(moves)
 
 case object NamePart:
-  type NamePartList = List[Either[Opening.PgnMove, (Opening.NameSection, Option[String])]]
-  def from(op: FullOpening): NamePartList =
-    val sections = Opening.sectionsOf(op.name)
+  type NamePartList = List[Either[PgnMove, (NameSection, Option[OpeningKey])]]
+  def from(op: Opening): NamePartList =
+    val sections = NameSection.sectionsOf(op.name)
     sections.toList.zipWithIndex map { case (name, i) =>
       Right(
         name ->
-          FullOpeningDB.shortestLines
-            .get(FullOpening.nameToKey(sections.take(i + 1).mkString("_")))
+          OpeningDb.shortestLines
+            .get(OpeningKey.fromName(OpeningName(sections.take(i + 1).mkString("_"))))
             .map(_.key)
       )
     }
-  def from(moves: List[Opening.PgnMove]): NamePartList = moves.map(Left.apply)
+  def from(moves: List[PgnMove]): NamePartList = moves.map(Left.apply)
 
 case class ResultCounts(
     white: Int,
@@ -49,12 +47,12 @@ case class ResultCounts(
 case class OpeningNext(
     san: String,
     uci: Uci.Move,
-    fen: FEN,
+    fen: OpeningFen,
     query: OpeningQuery,
     result: ResultCounts,
     percent: Double,
-    opening: Option[FullOpening],
-    shortName: Option[String]
+    opening: Option[Opening],
+    shortName: Option[NameSection]
 )
 
 case class GameWithPgn(game: Game, pgn: Pgn)
@@ -86,8 +84,8 @@ object OpeningPage:
                 uci  <- Uci.Move(m.uci)
                 move <- query.position.move(uci).toOption
                 result  = ResultCounts(m.white, m.draws, m.black)
-                fen     = Forsyth >> move.situationAfter
-                opening = FullOpeningDB findByFen fen
+                fen     = Fen writeOpening move.situationAfter
+                opening = OpeningDb findByFen fen
               } yield OpeningNext(
                 m.san,
                 uci,
@@ -96,7 +94,7 @@ object OpeningPage:
                 result,
                 (result.sum * 100d / exp.movesSum),
                 opening,
-                shortName = Opening.variationName(query.opening, opening)
+                shortName = NameSection.variationName(query.opening, opening)
               )
             }
             .sortBy(-_.result.sum),

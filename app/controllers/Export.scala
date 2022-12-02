@@ -3,7 +3,7 @@ package controllers
 import akka.stream.scaladsl.*
 import akka.util.ByteString
 import chess.Color
-import chess.format.{ FEN, Forsyth, Uci }
+import chess.format.{ Fen, Uci }
 import chess.variant.{ Standard, Variant }
 import play.api.mvc.{ RequestHeader, Result }
 import scala.concurrent.duration.*
@@ -81,9 +81,9 @@ final class Export(env: Env) extends LilaController(env):
       theme: Option[String],
       piece: Option[String]
   ) =
-    exportImageOf(fuccess(Forsyth << FEN.clean(fen))) { _ =>
+    exportImageOf(fuccess(Fen read Fen.clean(fen))) { _ =>
       env.game.gifExport.thumbnail(
-        fen = FEN clean fen,
+        fen = Fen clean fen,
         lastMove = lastMove flatMap (Uci.Move(_).map(_.uci)),
         orientation = Color.fromName(color) | Color.White,
         variant = Variant(variant.getOrElse("standard")) | Standard,

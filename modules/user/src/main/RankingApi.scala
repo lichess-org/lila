@@ -43,12 +43,12 @@ final class RankingApi(
         .void
     }
 
-  def remove(userId: User.ID): Funit =
+  def remove(userId: UserId): Funit =
     coll {
       _.delete.one($doc("_id" $startsWith s"$userId:")).void
     }
 
-  private def makeId(userId: User.ID, perfType: PerfType) =
+  private def makeId(userId: UserId, perfType: PerfType) =
     s"$userId:${perfType.id}"
 
   private[user] def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
@@ -110,7 +110,7 @@ final class RankingApi(
 
     private type Rank = Int
 
-    def of(userId: User.ID): Map[PerfType, Rank] =
+    def of(userId: UserId): Map[PerfType, Rank] =
       cache.getUnit.value match
         case Some(Success(all)) =>
           all.flatMap { case (pt, ranking) =>
@@ -118,7 +118,7 @@ final class RankingApi(
           }
         case _ => Map.empty
 
-    private val cache = cacheApi.unit[Map[PerfType, Map[User.ID, Rank]]] {
+    private val cache = cacheApi.unit[Map[PerfType, Map[UserId, Rank]]] {
       _.refreshAfterWrite(15 minutes)
         .buildAsyncFuture { _ =>
           lila.common.Future
@@ -132,16 +132,16 @@ final class RankingApi(
         }
     }
 
-    private def compute(pt: PerfType): Fu[Map[User.ID, Rank]] = coll {
+    private def compute(pt: PerfType): Fu[Map[UserId, Rank]] = coll {
       _.find(
         $doc("perf" -> pt.id, "stable" -> true),
         $doc("_id" -> true).some
       )
         .sort($doc("rating" -> -1))
         .cursor[Bdoc]()
-        .fold(1 -> Map.newBuilder[User.ID, Rank]) { case (state @ (rank, b), doc) =>
+        .fold(1 -> Map.newBuilder[UserId, Rank]) { case (state @ (rank, b), doc) =>
           doc.string("_id").fold(state) { id =>
-            val user = id takeWhile (':' !=)
+            val user = UserId(id.takeWhile(':' !=))
             b += (user -> rank)
             (rank + 1) -> b
           }
@@ -229,4 +229,4 @@ final class RankingApi(
 object RankingApi:
 
   private case class Ranking(_id: String, rating: IntRating, prog: Option[IntRatingDiff]):
-    def user = _id.takeWhile(':' !=)
+    def user = UserId(_id.takeWhile(':' !=))

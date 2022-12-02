@@ -2,7 +2,7 @@ package lila.notify
 
 import lila.common.LightUser
 import play.api.libs.json.*
-import lila.i18n.I18nKeys as trans
+import lila.i18n.{ I18nKeys as trans }
 
 import lila.common.Json.given
 import play.api.i18n.Lang
@@ -15,20 +15,20 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
     private def writeBody(content: NotificationContent) = content match
       case MentionedInThread(mentionedBy, topic, _, category, postId) =>
         Json.obj(
-          "mentionedBy" -> getLightUser(mentionedBy.value),
+          "mentionedBy" -> getLightUser(mentionedBy),
           "topic"       -> topic,
           "category"    -> category,
           "postId"      -> postId
         )
       case InvitedToStudy(invitedBy, studyName, studyId) =>
         Json.obj(
-          "invitedBy" -> getLightUser(invitedBy.value),
+          "invitedBy" -> getLightUser(invitedBy),
           "studyName" -> studyName,
           "studyId"   -> studyId
         )
       case PrivateMessage(senderId, text) =>
         Json.obj(
-          "user" -> getLightUser(senderId.value),
+          "user" -> getLightUser(senderId),
           "text" -> text
         )
       case TeamJoined(id, name) =>
@@ -45,8 +45,8 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
       case GameEnd(gameId, opponentId, win) =>
         Json.obj(
           "id"       -> gameId.value,
-          "opponent" -> opponentId.map(_.value).flatMap(getLightUser),
-          "win"      -> win.map(_.value)
+          "opponent" -> opponentId.flatMap(getLightUser),
+          "win"      -> win
         )
       case _: PlanStart  => Json.obj()
       case _: PlanExpire => Json.obj()
@@ -94,7 +94,7 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
     )
   }
 
-  private val i18nKeys: List[lila.i18n.MessageKey] = List(
+  private val i18nKeys = List(
     trans.mentionedYouInX,
     trans.xMentionedYouInY,
     trans.invitedYouToX,
@@ -114,7 +114,7 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
     trans.lostAgainstTOSViolator,
     trans.refundXpointsTimeControlY,
     trans.timeAlmostUp
-  ).map(_.key)
+  )
 
   def apply(notify: Notification.AndUnread)(using lang: Lang) =
     Json.toJsObject(notify) ++ Json.obj(

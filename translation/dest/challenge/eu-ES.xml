@@ -22,4 +22,5 @@
   <string name="declineVariant">Ez dut aldaera horretan jokatu nahi.</string>
   <string name="declineNoBot">Ez dut erroboten erronkarik onartzen.</string>
   <string name="declineOnlyBot">Erroboten erronkak bakarrik onartzen ditut.</string>
+  <string name="inviteLichessUser">Edo gonbidatu Lichesseko erabiltzaile bat:</string>
 </resources>

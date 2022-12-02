@@ -1,11 +1,11 @@
 package lila.tournament
 
 import chess.StartingPosition
-import chess.format.FEN
+import chess.format.Fen
 
 object Thematic:
 
-  def byFen(fen: FEN): Option[StartingPosition] = fenIndex get fen.value
+  def byFen(fen: Fen): Option[StartingPosition] = fenIndex get fen.value
 
   def byEco = ecoIndexForBc.get
 

@@ -1,7 +1,7 @@
 package lila.puzzle
 
 import akka.stream.scaladsl.*
-import chess.opening.{ FullOpening, FullOpeningDB, OpeningFamily, OpeningVariation }
+import chess.opening.{ Opening, OpeningDb, OpeningFamily, OpeningVariation }
 import reactivemongo.akkastream.cursorProducer
 import scala.concurrent.duration.*
 
@@ -106,7 +106,7 @@ final class PuzzleOpeningApi(
     }
 
   def getClosestTo(
-      opening: FullOpening
+      opening: Opening
   ): Fu[Option[Either[PuzzleOpening.FamilyWithCount, PuzzleOpening.WithCount]]] =
     SimpleOpening(opening) ?? { lilaOp =>
       collection map { coll =>
@@ -117,7 +117,7 @@ final class PuzzleOpeningApi(
     }
 
   def find(family: OpeningFamily): Fu[Option[PuzzleOpening.FamilyWithCount]] =
-    find(LilaOpeningFamily.Key(family.key))
+    find(family.key into LilaOpeningFamily.Key)
 
   def find(family: LilaOpeningFamily.Key): Fu[Option[PuzzleOpening.FamilyWithCount]] =
     collection map { _.familyMap.get(family) }
@@ -146,7 +146,7 @@ final class PuzzleOpeningApi(
     (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36) ?? {
       gameRepo gameFromSecondary puzzle.gameId flatMap {
         _ ?? { game =>
-          FullOpeningDB.search(game.pgnMoves).map(_.opening).flatMap(SimpleOpening.apply) match
+          OpeningDb.search(game.pgnMoves).map(_.opening).flatMap(SimpleOpening.apply) match
             case None =>
               fuccess {
                 logger warn s"No opening for https://lichess.org/training/${puzzle.id}"

@@ -11,7 +11,7 @@ import lila.db.dsl.{ *, given }
 private object UblogBsonHandlers:
 
   import lila.memo.PicfitImage.*
-  import UblogPost.{ LightPost, Likes, PreviewPost, Rank, Recorded, Views }
+  import UblogPost.{ LightPost, Likes, PreviewPost, Recorded, Views }
 
   given BSONHandler[UblogBlog.Id] = tryHandler(
     { case BSONString(v) => UblogBlog.Id(v).toTry(s"Invalid blog id $v") },
@@ -19,11 +19,9 @@ private object UblogBsonHandlers:
   )
   given BSONDocumentHandler[UblogBlog] = Macros.handler
 
-  given BSONHandler[UblogTopic]          = stringAnyValHandler[UblogTopic](_.value, UblogTopic.apply)
   given BSONHandler[Lang]                = stringAnyValHandler(_.code, Lang.apply)
   given BSONDocumentHandler[Recorded]    = Macros.handler
   given BSONDocumentHandler[UblogImage]  = Macros.handler
-  given BSONHandler[Rank]                = dateIsoHandler(Iso(Rank.apply, _.value))
   given BSONDocumentHandler[UblogPost]   = Macros.handler
   given BSONDocumentHandler[LightPost]   = Macros.handler
   given BSONDocumentHandler[PreviewPost] = Macros.handler

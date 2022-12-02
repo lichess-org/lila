@@ -60,7 +60,7 @@ object activity:
       .mselect(
         s"mod-activity__period-select box__top__actions",
         span(p.period.key),
-        Period.all.map { per =>
+        Period.values.toList.map { per =>
           a(
             cls  := (p.period == per).option("current"),
             href := routes.Mod.activityOf(p.who.key, per.key)

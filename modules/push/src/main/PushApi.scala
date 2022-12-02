@@ -236,7 +236,7 @@ final private class PushApi(
       }
     }
 
-  def challengeAccept(c: Challenge, joinerId: Option[String]): Funit =
+  def challengeAccept(c: Challenge, joinerId: Option[UserId]): Funit =
     c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) ?? { challenger =>
       joinerId ?? lightUser flatMap { lightJoiner =>
         pushToAll(
@@ -284,7 +284,7 @@ final private class PushApi(
 
   private type MonitorType = lila.mon.push.send.type => ((String, Boolean) => Unit)
 
-  private def pushToAll(userId: User.ID, monitor: MonitorType, data: PushApi.Data): Funit =
+  private def pushToAll(userId: UserId, monitor: MonitorType, data: PushApi.Data): Funit =
     webPush(userId, data).addEffects { res =>
       monitor(lila.mon.push.send)("web", res.isSuccess)
     } zip
@@ -295,7 +295,7 @@ final private class PushApi(
   private def describeChallenge(c: Challenge) =
     import lila.challenge.Challenge.TimeControl.*
     List(
-      c.mode.fold("Casual", "Rated"),
+      if c.mode.rated then "Rated" else "Casual",
       c.timeControl match {
         case Unlimited         => "Unlimited"
         case Correspondence(d) => s"$d days"

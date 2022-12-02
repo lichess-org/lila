@@ -19,9 +19,9 @@ object show:
       verdicts: lila.tournament.Condition.All.WithVerdicts,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
-      streamers: List[User.ID],
-      shieldOwner: Option[lila.tournament.TournamentShield.OwnerId]
-  )(implicit ctx: Context) =
+      streamers: List[UserId],
+      shieldOwner: Option[UserId]
+  )(using ctx: Context) =
     views.html.base.layout(
       title = s"${tour.name()} #${tour.id}",
       moreJs = frag(

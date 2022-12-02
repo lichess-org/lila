@@ -10,7 +10,8 @@ import play.api.libs.json.*
 import scala.concurrent.duration.*
 import scala.concurrent.{ Future, Promise }
 import scala.util.chaining.*
-import Socket.Sri
+import lila.socket.Socket.Sri
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, Lilakka }
 import lila.hub.actorApi.Announce
@@ -23,27 +24,24 @@ import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToAsync, SendTos 
 final class RemoteSocket(
     redisClient: RedisClient,
     shutdown: CoordinatedShutdown
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: Scheduler
-):
+)(using scala.concurrent.ExecutionContext, Scheduler):
 
   import RemoteSocket.*, Protocol.*
 
   private var stopping = false
 
-  private type UserIds = Set[String]
+  private type UserIds = Set[UserId]
 
   private val requests = new ConcurrentHashMap[Int, Promise[String]](32)
 
   def request[R](sendReq: Int => Unit, readRes: String => R): Fu[R] =
-    val id = lila.common.ThreadLocalRandom.nextInt()
+    val id = ThreadLocalRandom.nextInt()
     sendReq(id)
     val promise = Promise[String]()
     requests.put(id, promise)
     promise.future map readRes
 
-  val onlineUserIds: AtomicReference[Set[String]] = new AtomicReference(Set("lichess"))
+  val onlineUserIds: AtomicReference[Set[UserId]] = new AtomicReference(initialUserIds)
 
   val baseHandler: Handler =
     case In.ConnectUser(userId) =>
@@ -73,7 +71,7 @@ final class RemoteSocket(
     case In.Ping(id) => send(Out.pong(id))
     case In.WsBoot =>
       logger.warn("Remote socket boot")
-      onlineUserIds set Set("lichess")
+      onlineUserIds set initialUserIds
 
   Bus.subscribeFun(
     "socketUsers",
@@ -218,40 +216,40 @@ object RemoteSocket:
       type Reader = RawMsg => Option[In]
 
       case object WsBoot                                                               extends In
-      case class ConnectUser(userId: String)                                           extends In
-      case class DisconnectUsers(userId: Iterable[String])                             extends In
-      case class ConnectSris(cons: Iterable[(Sri, Option[String])])                    extends In
+      case class ConnectUser(userId: UserId)                                           extends In
+      case class DisconnectUsers(userId: Iterable[UserId])                             extends In
+      case class ConnectSris(cons: Iterable[(Sri, Option[UserId])])                    extends In
       case class DisconnectSris(sris: Iterable[Sri])                                   extends In
-      case class NotifiedBatch(userIds: Iterable[String])                              extends In
-      case class Lag(userId: String, lag: Centis)                                      extends In
-      case class Lags(lags: Map[String, Centis])                                       extends In
-      case class TellSri(sri: Sri, userId: Option[String], typ: String, msg: JsObject) extends In
-      case class TellUser(userId: String, typ: String, msg: JsObject)                  extends In
+      case class NotifiedBatch(userIds: Iterable[UserId])                              extends In
+      case class Lag(userId: UserId, lag: Centis)                                      extends In
+      case class Lags(lags: Map[UserId, Centis])                                       extends In
+      case class TellSri(sri: Sri, userId: Option[UserId], typ: String, msg: JsObject) extends In
+      case class TellUser(userId: UserId, typ: String, msg: JsObject)                  extends In
       case class ReqResponse(reqId: Int, response: String)                             extends In
       case class Ping(id: String)                                                      extends In
 
       val baseReader: Reader = raw =>
         raw.path match
-          case "connect/user"     => ConnectUser(raw.args).some
-          case "disconnect/users" => DisconnectUsers(commas(raw.args)).some
+          case "connect/user"     => ConnectUser(UserId(raw.args)).some
+          case "disconnect/users" => DisconnectUsers(UserId from commas(raw.args)).some
           case "connect/sris" =>
             ConnectSris {
               commas(raw.args) map (_ split ' ') map { s =>
-                (Sri(s(0)), s lift 1)
+                (Sri(s(0)), UserId.from(s lift 1))
               }
             }.some
           case "disconnect/sris" => DisconnectSris(commas(raw.args) map { Sri(_) }).some
-          case "notified/batch"  => NotifiedBatch(commas(raw.args)).some
+          case "notified/batch"  => NotifiedBatch(UserId from commas(raw.args)).some
           case "lag" =>
             raw.all pipe { s =>
-              s lift 1 flatMap (_.toIntOption) map Centis.apply map { Lag(s(0), _) }
+              Centis.from(s lift 1 flatMap (_.toIntOption)) map { Lag(UserId(s(0)), _) }
             }
           case "lags" =>
             Lags(commas(raw.args).flatMap {
               _ split ':' match {
                 case Array(user, l) =>
                   l.toIntOption map { lag =>
-                    user -> Centis(lag)
+                    UserId(user) -> Centis(lag)
                   }
                 case _ => None
               }
@@ -262,7 +260,7 @@ object RemoteSocket:
               for {
                 obj <- Json.parse(payload).asOpt[JsObject]
                 typ <- obj str "t"
-              } yield TellUser(user, typ, obj)
+              } yield TellUser(UserId(user), typ, obj)
             }
           case "req/response" =>
             raw.get(2) { case Array(reqId, response) =>
@@ -276,7 +274,7 @@ object RemoteSocket:
         for {
           obj <- Json.parse(payload).asOpt[JsObject]
           typ <- obj str "t"
-        } yield TellSri(Sri(sri), optional(user), typ, obj)
+        } yield TellSri(Sri(sri), UserId from optional(user), typ, obj)
       }
 
       def commas(str: String): Array[String]    = if (str == "-") Array.empty else str split ','
@@ -284,9 +282,9 @@ object RemoteSocket:
       def optional(str: String): Option[String] = if (str == "-") None else Some(str)
 
     object Out:
-      def tellUser(userId: String, payload: JsObject) =
+      def tellUser(userId: UserId, payload: JsObject) =
         s"tell/users $userId ${Json stringify payload}"
-      def tellUsers(userIds: Set[String], payload: JsObject) =
+      def tellUsers(userIds: Set[UserId], payload: JsObject) =
         s"tell/users ${commas(userIds)} ${Json stringify payload}"
       def tellAll(payload: JsObject) =
         s"tell/all ${Json stringify payload}"
@@ -298,15 +296,15 @@ object RemoteSocket:
         s"tell/sris ${commas(sris)} ${Json stringify payload}"
       def mlat(millis: Int) =
         s"mlat ${millis}"
-      def disconnectUser(userId: String) =
+      def disconnectUser(userId: UserId) =
         s"disconnect/user $userId"
-      def setTroll(userId: String, v: Boolean) =
+      def setTroll(userId: UserId, v: Boolean) =
         s"mod/troll/set $userId ${boolean(v)}"
-      def impersonate(userId: String, by: Option[String]) =
-        s"mod/impersonate $userId ${optional(by)}"
-      def follow(u1: String, u2: String)       = s"rel/follow $u1 $u2"
-      def unfollow(u1: String, u2: String)     = s"rel/unfollow $u1 $u2"
-      def apiUserOnline(u: String, v: Boolean) = s"api/online $u ${boolean(v)}"
+      def impersonate(userId: UserId, by: Option[UserId]) =
+        s"mod/impersonate $userId ${optional(by.map(_.value))}"
+      def follow(u1: UserId, u2: UserId)       = s"rel/follow $u1 $u2"
+      def unfollow(u1: UserId, u2: UserId)     = s"rel/unfollow $u1 $u2"
+      def apiUserOnline(u: UserId, v: Boolean) = s"api/online $u ${boolean(v)}"
       def boot                                 = "boot"
       def pong(id: String)                     = s"pong $id"
       def stop(reqId: Int)                     = s"lila/stop $reqId"
@@ -316,6 +314,8 @@ object RemoteSocket:
       def optional(str: Option[String])       = str getOrElse "-"
       def color(c: Color): String             = c.fold("w", "b")
       def color(c: Option[Color]): String     = optional(c.map(_.fold("w", "b")))
+
+  val initialUserIds = Set(UserId("lichess"))
 
   type Channel = String
   type Path    = String

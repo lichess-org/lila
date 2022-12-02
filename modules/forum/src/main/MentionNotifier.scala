@@ -22,7 +22,7 @@ final class MentionNotifier(
   def notifyMentionedUsers(post: ForumPost, topic: ForumTopic): Funit =
     post.userId.ifFalse(post.troll) ?? { author =>
       filterValidUsers(extractMentionedUsers(post), author) flatMap { validUsers =>
-        val notifications = validUsers.map(createMentionNotification(post, topic, _, UserId(author)))
+        val notifications = validUsers.map(createMentionNotification(post, topic, _, author))
         notifyApi.addNotifications(notifications)
       }
     }
@@ -31,17 +31,17 @@ final class MentionNotifier(
     * or block the mentioner from the returned list.
     */
   private def filterValidUsers(
-      candidates: Set[User.ID],
-      mentionedBy: User.ID
+      candidates: Set[UserId],
+      mentionedBy: UserId
   ): Fu[List[Notification.Notifies]] =
     for {
       existingUsers <-
         userRepo
-          .existingUsernameIds(candidates take 10)
+          .filterExists(candidates take 10)
           .map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
       users <- Future.filterNot(mentionableUsers.toList) { relationApi.fetchBlocks(_, mentionedBy) }
-    } yield Notification.Notifies from users
+    } yield users.map(_ into Notification.Notifies)
 
   private def createMentionNotification(
       post: ForumPost,
@@ -59,8 +59,8 @@ final class MentionNotifier(
 
     Notification.make(mentionedUser into UserId, notificationContent)
 
-  private def extractMentionedUsers(post: ForumPost): Set[User.ID] =
+  private def extractMentionedUsers(post: ForumPost): Set[UserId] =
     post.text.contains('@') ?? {
       val m = lila.common.String.atUsernameRegex.findAllMatchIn(post.text)
-      (post.userId foldLeft m.map(_ group 1).map(User.normalize).toSet) { _ - _ }
+      (post.userId foldLeft m.map(_ group 1).map(u => UserStr(u).id).toSet) { _ - _ }
     }

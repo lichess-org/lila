@@ -36,8 +36,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       }
     }
 
-  def teacher(username: String) = Secure(_.Admin) { implicit ctx => _ =>
-    env.user.repo named username flatMap {
+  def teacher(username: UserStr) = Secure(_.Admin) { implicit ctx => _ =>
+    env.user.repo byId username flatMap {
       _ ?? { teacher =>
         env.clas.api.clas.of(teacher) map { classes =>
           Ok(html.mod.search.teacher(teacher.id, classes))
@@ -96,7 +96,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             env.clas.api.clas.byId(lila.clas.Clas.Id(id)) flatMap {
               _ ?? { clas =>
                 env.clas.api.student.allWithUsers(clas) flatMap { students =>
-                  env.user.repo.withEmailsU(students.map(_.user)) map { users =>
+                  env.user.repo.withEmails(students.map(_.user)) map { users =>
                     Ok(html.mod.search.clas(Holder(me), clas, users))
                   }
                 }
@@ -284,7 +284,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def studentForm(id: String) =
     Secure(_.Teacher) { implicit ctx => me =>
       if (getBool("gen")) env.clas.nameGenerator() map {
-        Ok(_)
+        _ ?? { Ok(_) }
       }
       else
         WithClassAndStudents(me, id) { (clas, students) =>
@@ -292,7 +292,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             created <- ctx.req.flash.get("created").map(_ split ' ').?? {
               case Array(userId, password) =>
                 env.clas.api.student
-                  .get(clas, userId)
+                  .get(clas, UserId(userId))
                   .map2(lila.clas.Student.WithPassword(_, lila.user.User.ClearPassword(password)))
               case _ => fuccess(none)
             }
@@ -351,7 +351,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           _.split('/').toList
             .flatMap {
               _.split(' ') match
-                case Array(u, p) => (u, p).some
+                case Array(u, p) => (UserId(u), p).some
                 case _           => none
             }
             .map { case (u, p) =>
@@ -422,7 +422,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 )
               },
             data =>
-              env.user.repo enabledNamed data.username flatMap {
+              env.user.repo enabledById data.username flatMap {
                 _ ?? { user =>
                   import lila.clas.ClasInvite.{ Feedback as F }
                   import lila.i18n.{ I18nKeys as trans }
@@ -445,7 +445,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       }
     }
 
-  def studentShow(id: String, username: String) =
+  def studentShow(id: String, username: UserStr) =
     Secure(_.Teacher) { implicit ctx => me =>
       WithClassAndStudents(me, id) { (clas, students) =>
         WithStudent(clas, username) { s =>
@@ -457,7 +457,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       }
     }
 
-  def studentEdit(id: String, username: String) =
+  def studentEdit(id: String, username: UserStr) =
     Secure(_.Teacher) { implicit ctx => me =>
       WithClassAndStudents(me, id) { (clas, students) =>
         WithStudent(clas, username) { s =>
@@ -466,7 +466,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       }
     }
 
-  def studentUpdate(id: String, username: String) =
+  def studentUpdate(id: String, username: UserStr) =
     SecureBody(_.Teacher) { implicit ctx => me =>
       WithClassAndStudents(me, id) { (clas, students) =>
         WithStudent(clas, username) { s =>
@@ -484,30 +484,30 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       }
     }
 
-  def studentArchive(id: String, username: String, v: Boolean) =
+  def studentArchive(id: String, username: UserStr, v: Boolean) =
     Secure(_.Teacher) { _ => me =>
       WithClass(me, id) { clas =>
         WithStudent(clas, username) { s =>
           env.clas.api.student.archive(s.student.id, me, v) inject
-            Redirect(routes.Clas.studentShow(clas.id.value, username)).flashSuccess
+            Redirect(routes.Clas.studentShow(clas.id.value, s.user.username.value)).flashSuccess
         }
       }
     }
 
-  def studentResetPassword(id: String, username: String) =
+  def studentResetPassword(id: String, username: UserStr) =
     Secure(_.Teacher) { _ => me =>
       WithClass(me, id) { clas =>
         WithStudent(clas, username) { s =>
           env.security.store.closeAllSessionsOf(s.user.id) >>
             env.clas.api.student.resetPassword(s.student) map { password =>
-              Redirect(routes.Clas.studentShow(clas.id.value, username))
+              Redirect(routes.Clas.studentShow(clas.id.value, s.user.username.value))
                 .flashing("password" -> password.value)
             }
         }
       }
     }
 
-  def studentRelease(id: String, username: String) =
+  def studentRelease(id: String, username: UserStr) =
     Secure(_.Teacher) { implicit ctx => me =>
       WithClassAndStudents(me, id) { (clas, students) =>
         WithStudent(clas, username) { s =>
@@ -519,7 +519,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       }
     }
 
-  def studentReleasePost(id: String, username: String) =
+  def studentReleasePost(id: String, username: UserStr) =
     SecureBody(_.Teacher) { implicit ctx => me =>
       WithClassAndStudents(me, id) { (clas, students) =>
         WithStudent(clas, username) { s =>
@@ -546,7 +546,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       }
     }
 
-  def studentClose(id: String, username: String) =
+  def studentClose(id: String, username: UserStr) =
     Secure(_.Teacher) { implicit ctx => me =>
       WithClassAndStudents(me, id) { (clas, students) =>
         WithStudent(clas, username) { s =>
@@ -558,7 +558,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       }
     }
 
-  def studentClosePost(id: String, username: String) =
+  def studentClosePost(id: String, username: UserStr) =
     SecureBody(_.Teacher) { implicit ctx => me =>
       WithClassAndStudents(me, id) { (clas, students) =>
         WithStudent(clas, username) { s =>
@@ -646,10 +646,10 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       env.clas.api.student.activeOf(c) flatMap { f(c, _) }
     }
 
-  private def WithStudent(clas: lila.clas.Clas, username: String)(
+  private def WithStudent(clas: lila.clas.Clas, username: UserStr)(
       f: lila.clas.Student.WithUser => Fu[Result]
   ): Fu[Result] =
-    env.user.repo named username flatMap {
+    env.user.repo byId username flatMap {
       _ ?? { user =>
         env.clas.api.student.get(clas, user) flatMap { _ ?? f }
       }

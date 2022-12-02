@@ -14,6 +14,7 @@ object tree:
   import trans.closingAccountWithdrawAppeal
   import trans.contact.doNotMessageModerators
   import views.html.base.navTree.*
+  import views.html.base.navTree.Node.*
 
   val cleanAllGood             = "Your account is not marked or restricted. You're all good!";
   val engineMarked             = "Your account is marked for illegal assistance in games.";

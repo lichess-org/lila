@@ -103,7 +103,7 @@ object student:
             cls  := "button button-empty"
           )(trans.profile()),
           a(
-            href := routes.Puzzle.dashboard(7, "home", s.user.username.some),
+            href := routes.Puzzle.dashboard(7, "home", s.user.username.value.some),
             cls  := "button button-empty"
           )(
             trans.puzzle.puzzleDashboard()

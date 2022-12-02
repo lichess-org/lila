@@ -45,17 +45,17 @@ class BinaryMoveTimeTest extends Specification {
       again === rounded
     }
     "buckets - short game" >> {
-      val times    = Vector(0, 30, 60, 90).map(Centis.apply)
+      val times    = Centis from Vector(0, 30, 60, 90)
       val rounded  = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(times), 4)
-      val expected = Vector(10, 10, 50, 100).map(Centis.apply)
+      val expected = Centis from Vector(10, 10, 50, 100)
       rounded === expected
       val again = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(rounded), 4)
       again === rounded
     }
     "buckets - short game - odd number of moves" >> {
-      val times    = Vector(0, 30, 60).map(Centis.apply)
+      val times    = Centis from Vector(0, 30, 60)
       val rounded  = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(times), 3)
-      val expected = Vector(10, 10, 50).map(Centis.apply)
+      val expected = Centis from Vector(10, 10, 50)
       rounded === expected
       val again = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(rounded), 3)
       again === rounded

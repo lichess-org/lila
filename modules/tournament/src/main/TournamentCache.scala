@@ -19,26 +19,26 @@ final class TournamentCache(
 
   object tourCache:
 
-    private val cache = cacheApi[Tournament.ID, Option[Tournament]](512, "tournament.tournament") {
+    private val cache = cacheApi[TourId, Option[Tournament]](512, "tournament.tournament") {
       _.expireAfterWrite(1 second)
         .buildAsyncFuture(tournamentRepo.byId)
     }
-    def clear(id: Tournament.ID) = cache.invalidate(id)
+    def clear(id: TourId) = cache.invalidate(id)
 
-    def byId                         = cache.get
-    def created(id: Tournament.ID)   = cache.get(id).dmap(_.filter(_.isCreated))
-    def started(id: Tournament.ID)   = cache.get(id).dmap(_.filter(_.isStarted))
-    def enterable(id: Tournament.ID) = cache.get(id).dmap(_.filter(_.isEnterable))
+    def byId                  = cache.get
+    def created(id: TourId)   = cache.get(id).dmap(_.filter(_.isCreated))
+    def started(id: TourId)   = cache.get(id).dmap(_.filter(_.isStarted))
+    def enterable(id: TourId) = cache.get(id).dmap(_.filter(_.isEnterable))
 
-  val nameCache = cacheApi.sync[(Tournament.ID, Lang), Option[String]](
+  val nameCache = cacheApi.sync[(TourId, Lang), Option[String]](
     name = "tournament.name",
     initialCapacity = 65536,
     compute = { case (id, lang) =>
       tournamentRepo byId id dmap2 { _.name()(using lang) }
     },
     default = _ => none,
-    strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(20 minutes)
+    strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
+    expireAfter = Syncache.ExpireAfter.Access(20 minutes)
   )
 
   val onHomepage = cacheApi.unit[List[Tournament]] {
@@ -51,20 +51,20 @@ final class TournamentCache(
     else ongoingRanking get tour.id
 
   // only applies to ongoing tournaments
-  private val ongoingRanking = cacheApi[Tournament.ID, FullRanking](64, "tournament.ongoingRanking") {
+  private val ongoingRanking = cacheApi[TourId, FullRanking](64, "tournament.ongoingRanking") {
     _.expireAfterWrite(3 seconds)
       .buildAsyncFuture(playerRepo.computeRanking)
   }
 
   // only applies to finished tournaments
-  private val finishedRanking = cacheApi[Tournament.ID, FullRanking](1024, "tournament.finishedRanking") {
+  private val finishedRanking = cacheApi[TourId, FullRanking](1024, "tournament.finishedRanking") {
     _.expireAfterAccess(1 hour)
       .maximumSize(2048)
       .buildAsyncFuture(playerRepo.computeRanking)
   }
 
   private[tournament] val teamInfo =
-    cacheApi[(Tournament.ID, TeamId), Option[TeamBattle.TeamInfo]](16, "tournament.teamInfo") {
+    cacheApi[(TourId, TeamId), Option[TeamBattle.TeamInfo]](16, "tournament.teamInfo") {
       _.expireAfterWrite(5 seconds)
         .maximumSize(64)
         .buildAsyncFuture { case (tourId, teamId) =>
@@ -75,7 +75,7 @@ final class TournamentCache(
   object battle:
 
     val teamStanding =
-      cacheApi[Tournament.ID, List[TeamBattle.RankedTeam]](32, "tournament.teamStanding") {
+      cacheApi[TourId, List[TeamBattle.RankedTeam]](32, "tournament.teamStanding") {
         _.expireAfterWrite(1 second)
           .buildAsyncFuture { id =>
             tournamentRepo teamBattleOf id flatMap {
@@ -89,18 +89,18 @@ final class TournamentCache(
     import arena.Sheet
 
     private case class SheetKey(
-        tourId: Tournament.ID,
-        userId: User.ID,
+        tourId: TourId,
+        userId: UserId,
         variant: Variant,
         version: Sheet.Version,
         streakable: Sheet.Streakable
     )
 
-    def apply(tour: Tournament, userId: User.ID): Fu[Sheet] =
+    def apply(tour: Tournament, userId: UserId): Fu[Sheet] =
       cache.get(keyOf(tour, userId))
 
     /* This is not thread-safe! But only called from within a tournament sequencer. */
-    def addResult(tour: Tournament, userId: String, pairing: Pairing): Fu[Sheet] =
+    def addResult(tour: Tournament, userId: UserId, pairing: Pairing): Fu[Sheet] =
       val key = keyOf(tour, userId)
       cache.getIfPresent(key).fold(recompute(tour, userId)) { prev =>
         val next =
@@ -109,12 +109,12 @@ final class TournamentCache(
         next
       }
 
-    def recompute(tour: Tournament, userId: User.ID): Fu[Sheet] =
+    def recompute(tour: Tournament, userId: UserId): Fu[Sheet] =
       val key = keyOf(tour, userId)
       cache.invalidate(key)
       cache.get(key)
 
-    private def keyOf(tour: Tournament, userId: User.ID) =
+    private def keyOf(tour: Tournament, userId: UserId) =
       SheetKey(
         tour.id,
         userId,

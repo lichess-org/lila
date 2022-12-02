@@ -84,7 +84,7 @@ object BSONHandlers:
     def reads(r: BSON.Reader) =
       InsightEntry(
         id = r.str(id),
-        userId = r.str(userId),
+        userId = r.get[UserId](userId),
         color = r.get[Color](color),
         perf = r.get[PerfType](perf),
         opening = r.getO[SimpleOpening](opening),

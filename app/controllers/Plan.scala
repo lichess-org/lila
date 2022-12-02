@@ -13,9 +13,8 @@ import lila.plan.{
   CreateStripeSession,
   Freq,
   Money,
-  MonthlyCustomerInfo,
+  CustomerInfo,
   NextUrls,
-  OneTimeCustomerInfo,
   PayPalOrderId,
   PayPalSubscription,
   PayPalSubscriptionId,
@@ -95,10 +94,10 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     info    <- env.plan.api.stripe.customerInfo(me, customer)
     gifts   <- env.plan.api.giftsFrom(me)
     res <- info match
-      case Some(info: MonthlyCustomerInfo) =>
+      case Some(info: CustomerInfo.Monthly) =>
         Ok(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts)).toFuccess
-      case Some(info: OneTimeCustomerInfo) =>
-        renderIndex(info.customer.email map EmailAddress.apply, patron.some)
+      case Some(CustomerInfo.OneTime(cus)) =>
+        renderIndex(cus.email map EmailAddress.apply, patron.some)
       case None =>
         env.user.repo email me.id flatMap { email =>
           renderIndex(email, patron.some)
@@ -229,7 +228,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
               data => {
                 val checkout = data.fixFreq
                 for {
-                  gifted   <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledNamed)
+                  gifted   <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledById)
                   customer <- env.plan.api.stripe.userCustomer(me)
                   session <- customer match {
                     case Some(customer) if checkout.freq == Freq.Onetime =>
@@ -301,7 +300,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
                 } yield JsonOk(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
                 else
                   for {
-                    gifted <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledNamed)
+                    gifted <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledById)
                     // customer <- env.plan.api.userCustomer(me)
                     order <- env.plan.api.payPal.createOrder(checkout, me, gifted)
                   } yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))

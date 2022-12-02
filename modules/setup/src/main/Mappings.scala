@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.Mode
 import chess.{ variant as V }
 import play.api.data.format.Formats.*
@@ -46,10 +46,8 @@ private object Mappings:
   val level       = number.verifying(AiConfig.levels contains _)
   val speed       = number.verifying(Config.speeds contains _)
   val fenField = optional {
-    import lila.common.Form.fen.{ *, given }
-    of[FEN]
-      .transform[FEN](f => FEN(f.value.trim), identity)
-      .transform[FEN](truncateMoveNumber, identity)
+    import lila.common.Form.fen.{ mapping, truncateMoveNumber }
+    mapping.transform[Fen](truncateMoveNumber, identity)
   }
   val gameRules = lila.common.Form.strings
     .separator(",")
