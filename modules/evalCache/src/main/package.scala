@@ -1,7 +1,7 @@
 package lila.evalCache
 
 import cats.data.NonEmptyList
-import chess.format.{ Uci, Fen, Forsyth }
+import chess.format.{ Uci, Fen }
 import chess.variant.Variant
 
 export lila.Lila.{ *, given }
@@ -44,4 +44,4 @@ object SmallFen extends OpaqueString[SmallFen]:
       case _                        => base
     SmallFen(str)
   def validate(variant: Variant, fen: Fen): Option[SmallFen] =
-    Forsyth.<<@(variant, fen).exists(_ playable false) option make(variant, fen)
+    Fen.read(variant, fen).exists(_ playable false) option make(variant, fen)

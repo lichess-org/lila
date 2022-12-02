@@ -1,7 +1,6 @@
 package controllers
 
-import chess.format.Forsyth.SituationPlus
-import chess.format.{ Fen, Forsyth }
+import chess.format.Fen
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ Black, Situation, White }
 import play.api.libs.json.Json
@@ -62,11 +61,11 @@ final class UserAnalysis(
   private[controllers] def makePov(fen: Option[Fen], variant: Variant): Pov =
     makePov {
       fen.filter(_.value.nonEmpty).flatMap {
-        Forsyth.<<<@(variant, _)
-      } | SituationPlus(Situation(variant), 1)
+        Fen.readWithMoveNumber(variant, _)
+      } | Situation.AndFullMoveNumber(Situation(variant), 1)
     }
 
-  private[controllers] def makePov(from: SituationPlus): Pov =
+  private[controllers] def makePov(from: Situation.AndFullMoveNumber): Pov =
     Pov(
       lila.game.Game
         .make(

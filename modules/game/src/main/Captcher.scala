@@ -4,7 +4,7 @@ import akka.actor.*
 import akka.pattern.pipe
 import cats.data.NonEmptyList
 import chess.format.pgn.{ Sans, Tags }
-import chess.format.{ pgn, Forsyth }
+import chess.format.{ pgn, Fen }
 import chess.{ Game as ChessGame }
 import scala.util.Success
 
@@ -99,4 +99,4 @@ final private class Captcher(gameRepo: GameRepo)(using ec: scala.concurrent.Exec
         case x :: xs  => x :: safeInit(xs)
         case _        => Nil
 
-    private def fenOf(game: ChessGame) = Forsyth exportBoard game.board
+    private def fenOf(game: ChessGame) = Fen writeBoard game.board

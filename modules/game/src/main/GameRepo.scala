@@ -2,7 +2,7 @@ package lila.game
 
 import scala.concurrent.duration.*
 
-import chess.format.{ Fen, Forsyth }
+import chess.format.Fen
 import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
@@ -395,8 +395,8 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
     val userIds = g2.userIds.distinct
     val fen: Option[Fen] = initialFen orElse {
       (g2.variant.fromPosition || g2.variant.chess960)
-        .option(Forsyth >> g2.chess)
-        .filterNot(_.initial)
+        .option(Fen write g2.chess)
+        .filterNot(_.isInitial)
     }
     val checkInHours =
       if (g2.isPgnImport) none
@@ -436,7 +436,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
 
   def initialFen(game: Game): Fu[Option[Fen]] =
     if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) dmap {
-      case None if game.variant == chess.variant.Chess960 => Forsyth.initial.some
+      case None if game.variant == chess.variant.Chess960 => Fen.initial.some
       case fen                                            => fen
     }
     else fuccess(none)

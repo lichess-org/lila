@@ -232,7 +232,7 @@ final private[api] class GameApi(
         }),
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
         "moves"    -> withFlags.moves.option(g.pgnMoves mkString " "),
-        "opening"  -> (withFlags.opening.??(g.opening): Option[chess.opening.FullOpening.AtPly]),
+        "opening"  -> (withFlags.opening.??(g.opening): Option[chess.opening.Opening.AtPly]),
         "fens" -> ((withFlags.fens && g.finished).?? {
           chess.Replay
             .boards(
@@ -241,7 +241,7 @@ final private[api] class GameApi(
               variant = g.variant
             )
             .toOption map { boards =>
-            JsArray(boards map chess.format.Forsyth.exportBoard map Json.toJson)
+            JsArray(boards map chess.format.Fen.writeBoard map Json.toJson)
           }
         }: Option[JsArray]),
         "winner" -> g.winnerColor.map(_.name),

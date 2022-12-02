@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import chess.format.Forsyth
+import chess.format.Fen
 import chess.format.UciCharPair
 import play.api.libs.json.*
 import scala.concurrent.duration.*
@@ -105,7 +105,7 @@ final private class GameJson(
               .lastOption
             uciMove <- situation.board.history.lastMove
           } yield Json.obj(
-            "fen" -> Forsyth.>>(situation).value,
+            "fen" -> Fen.write(situation).value,
             "ply" -> (plies + 1),
             "san" -> pgnMove,
             "id"  -> UciCharPair(uciMove).toString,

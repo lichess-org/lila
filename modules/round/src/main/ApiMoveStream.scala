@@ -3,7 +3,7 @@ package lila.round
 import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.*
 import chess.Color
-import chess.format.{ BoardFen, Forsyth }
+import chess.format.{ BoardFen, Fen }
 import chess.{ Centis, Replay }
 import play.api.libs.json.*
 import scala.concurrent.ExecutionContext
@@ -52,7 +52,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                     black                <- clkBlack.lift((index + clockOffset) >> 1)
                   } yield (white, black)
                   queue offer toJson(
-                    Forsyth exportBoard s.board,
+                    Fen writeBoard s.board,
                     s.color,
                     s.board.history.lastMove.map(_.uci),
                     clk
@@ -72,7 +72,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                     (1 to buffer.size) foreach { _ => queue.offer(Json.obj()) } // push buffer content out
                     queue.complete()
                 }
-                queue.watchCompletion() dforeach { _ =>
+                queue.watchCompletion() addEffectAnyway {
                   Bus.unsubscribe(sub, chans)
                 }
             }

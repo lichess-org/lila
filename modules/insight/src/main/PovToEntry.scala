@@ -1,8 +1,8 @@
 package lila.insight
 
 import cats.data.NonEmptyList
-import chess.format.{ Fen, Forsyth }
-import chess.opening.FullOpeningDB
+import chess.format.Fen
+import chess.opening.OpeningDb
 import chess.{ Centis, Clock, Role, Situation, Stats }
 import scala.util.chaining.*
 
@@ -228,8 +228,8 @@ final private class PovToEntry(
         .takeWhile(_.board.actors.sizeIs >= 20)
         .foldRight(none[SimpleOpening]) {
           case (sit, None) =>
-            FullOpeningDB
-              .findByFen(Forsyth openingFen sit)
+            OpeningDb
+              .findByFen(Fen writeOpening sit)
               .flatMap(SimpleOpening.apply)
           case (_, found) => found
         }

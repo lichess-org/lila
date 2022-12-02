@@ -58,7 +58,7 @@ final case class ApiAiConfig(
   def pov(user: Option[User])(implicit idGenerator: IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
 
   def autoVariant =
-    if (variant.standard && fen.exists(!_.initial)) copy(variant = FromPosition)
+    if (variant.standard && fen.exists(!_.isInitial)) copy(variant = FromPosition)
     else this
 
 object ApiAiConfig extends BaseConfig:

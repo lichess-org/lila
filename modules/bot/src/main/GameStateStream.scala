@@ -49,7 +49,7 @@ final class GameStateStream(
         Props(mkActor(init, as, User(u.id, u.isBot), queue)),
         name = s"GameStateStream:${init.game.id}:${ThreadLocalRandom nextString 8}"
       )
-      queue.watchCompletion().foreach { _ =>
+      queue.watchCompletion().addEffectAnyway {
         actor ! PoisonPill
       }
     }

@@ -30,7 +30,7 @@ case class AnaMove(
       game.pgnMoves.lastOption toValid "Moved but no last move!" map { san =>
         val uci     = Uci(move)
         val movable = game.situation playable false
-        val fen     = chess.format.Forsyth >> game
+        val fen     = chess.format.Fen write game
         Branch(
           id = UciCharPair(uci),
           ply = game.turns,
@@ -39,7 +39,7 @@ case class AnaMove(
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),
           opening = (game.turns <= 30 && Variant.openingSensibleVariants(variant)) ?? {
-            FullOpeningDB findByFen fen.opening
+            OpeningDb findByFen fen.opening
           },
           drops = if (movable) game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData

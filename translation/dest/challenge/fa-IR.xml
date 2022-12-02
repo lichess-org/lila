@@ -22,4 +22,5 @@
   <string name="declineVariant">من الان دوست ندارم این نوع بازی را بازی کنم.</string>
   <string name="declineNoBot">من از ربات ها چالش قبول نمی کنم.</string>
   <string name="declineOnlyBot">من فقط از ربات ها چالش قبول می کنم.</string>
+  <string name="inviteLichessUser">یا دعوت کردن از یک کاربر لایچس:</string>
 </resources>

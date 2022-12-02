@@ -76,7 +76,7 @@ final class PgnDump(
         Tag(_.ECO, opening.fold("?")(_.eco)),
         Tag(_.Opening, opening.fold("?")(_.name)),
         Tag(_.Result, "*") // required for SCID to import
-      ) ::: List(annotatorTag(study)) ::: (!chapter.root.fen.initial).??(
+      ) ::: List(annotatorTag(study)) ::: (!chapter.root.fen.isInitial).??(
         List(
           Tag(_.FEN, chapter.root.fen.value),
           Tag("SetUp", "1")
@@ -122,12 +122,12 @@ object PgnDump:
         case shapes => s"[%$as ${shapes.mkString(",")}]"
     val circles = render("csl") {
       shapes.value.collect { case Shape.Circle(brush, orig) =>
-        s"${brush.head.toUpper}$orig"
+        s"${brush.head.toUpper}${orig.key}"
       }
     }
     val arrows = render("cal") {
       shapes.value.collect { case Shape.Arrow(brush, orig, dest) =>
-        s"${brush.head.toUpper}$orig$dest"
+        s"${brush.head.toUpper}${orig.key}${dest.key}"
       }
     }
     s"$circles$arrows".some.filter(_.nonEmpty)

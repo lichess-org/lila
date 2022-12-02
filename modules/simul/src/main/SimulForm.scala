@@ -135,4 +135,4 @@ object SimulForm:
 
     def actualVariants = variants.flatMap { chess.variant.Variant(_) }
 
-    def realPosition = position.filterNot(_.initial)
+    def realPosition = position.filterNot(_.isInitial)

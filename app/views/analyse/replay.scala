@@ -1,7 +1,7 @@
 package views.html.analyse
 
 import bits.dataPanel
-import chess.format.Forsyth
+import chess.format.Fen
 import chess.variant.Crazyhouse
 import controllers.routes
 import play.api.i18n.Lang
@@ -62,7 +62,7 @@ object replay:
         href := cdnUrl(
           routes.Export
             .fenThumbnail(
-              Forsyth.>>(pov.game.situation).value,
+              Fen.write(pov.game.situation).value,
               pov.color.name,
               None,
               pov.game.variant.key.some,

@@ -2242,6 +2242,7 @@ object I18nKeys:
     val `declineVariant` = I18nKey("challenge:declineVariant")
     val `declineNoBot` = I18nKey("challenge:declineNoBot")
     val `declineOnlyBot` = I18nKey("challenge:declineOnlyBot")
+    val `inviteLichessUser` = I18nKey("challenge:inviteLichessUser")
 
   object storm:
     val `moveToStart` = I18nKey("storm:moveToStart")

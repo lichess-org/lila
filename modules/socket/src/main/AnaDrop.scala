@@ -23,7 +23,7 @@ case class AnaDrop(
       game.pgnMoves.lastOption toValid "Dropped but no last move!" map { san =>
         val uci     = Uci(drop)
         val movable = !game.situation.end
-        val fen     = chess.format.Forsyth >> game
+        val fen     = chess.format.Fen write game
         Branch(
           id = UciCharPair(uci),
           ply = game.turns,
@@ -31,7 +31,7 @@ case class AnaDrop(
           fen = fen,
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),
-          opening = FullOpeningDB findByFen fen.opening,
+          opening = OpeningDb findByFen fen.opening,
           drops = if (movable) game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData
         )

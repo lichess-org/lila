@@ -1,6 +1,6 @@
 package lila.opening
 
-import chess.opening.FullOpeningDB
+import chess.opening.OpeningDb
 import play.api.mvc.RequestHeader
 import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext

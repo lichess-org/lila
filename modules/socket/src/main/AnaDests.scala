@@ -15,7 +15,7 @@ case class AnaDests(
     chapterId: Option[StudyChapterId]
 ):
 
-  def isInitial = variant.standard && fen.initial && path == ""
+  def isInitial = variant.standard && fen.isInitial && path == ""
 
   val dests: String =
     if (isInitial) AnaDests.initialDests
@@ -24,7 +24,7 @@ case class AnaDests(
       sit.playable(false) ?? destString(sit.destinations)
 
   lazy val opening = Variant.openingSensibleVariants(variant) ?? {
-    FullOpeningDB findByFen fen.opening
+    OpeningDb findByFen fen.opening
   }
 
   def json =

@@ -2,7 +2,7 @@ package lila.game
 
 import akka.stream.scaladsl.*
 import akka.util.ByteString
-import chess.format.{ Fen, Forsyth, Uci }
+import chess.format.{ Fen, Uci }
 import chess.{ Centis, Color, Game as ChessGame, Replay, Situation }
 import chess.variant.Variant
 import play.api.libs.json.*
@@ -53,7 +53,7 @@ final class GifExport(
 
   def gameThumbnail(game: Game, theme: String, piece: String): Fu[Source[ByteString, ?]] =
     val query = List(
-      "fen"         -> (Forsyth >> game.chess).value,
+      "fen"         -> (Fen write game.chess).value,
       "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(using lightUserApi.sync),
       "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(using lightUserApi.sync),
       "orientation" -> game.naturalOrientation.name
@@ -89,7 +89,7 @@ final class GifExport(
       "orientation" -> orientation.name
     ) ::: List(
       lastMove.map { "lastMove" -> _ },
-      Forsyth.<<@(variant, fen).flatMap(_.checkSquare.map { "check" -> _.key }),
+      Fen.read(variant, fen).flatMap(_.checkSquare.map { "check" -> _.key }),
       some("theme" -> theme),
       some("piece" -> piece)
     ).flatten
@@ -145,7 +145,7 @@ final class GifExport(
   private def frame(situation: Situation, uci: Option[Uci], delay: Option[Centis]) =
     Json
       .obj(
-        "fen"      -> (Forsyth >> situation),
+        "fen"      -> (Fen write situation),
         "lastMove" -> uci.map(_.uci)
       )
       .add("check", situation.checkSquare.map(_.key))

@@ -2,7 +2,7 @@ package lila.round
 
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import cats.data.Validated
-import chess.format.{ Forsyth, Uci }
+import chess.format.{ Fen, Uci }
 import chess.{ Centis, Clock, MoveMetrics, MoveOrDrop, Status }
 import java.util.concurrent.TimeUnit
 
@@ -159,7 +159,7 @@ final private class Player(
     val color = moveOrDrop.fold(_.color, _.color)
     val moveEvent = MoveEvent(
       gameId = game.id,
-      fen = Forsyth exportBoard game.board,
+      fen = Fen writeBoard game.board,
       move = moveOrDrop.fold(_.toUci.keys, _.toUci.uci)
     )
 

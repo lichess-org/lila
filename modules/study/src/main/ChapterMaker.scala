@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.Tags
-import chess.format.{ Fen, Forsyth }
+import chess.format.Fen
 import chess.variant.{ Crazyhouse, Variant }
 import lila.chat.{ Chat, ChatApi }
 import lila.game.{ Game, Namer }
@@ -77,25 +77,26 @@ final private class ChapterMaker(
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
     val variant = data.variant | Variant.default
-    val (root, isFromFen) = data.fen.filterNot(_.initial).flatMap { Forsyth.<<<@(variant, _) } match
-      case Some(sit) =>
-        Node.Root(
-          ply = sit.turns,
-          fen = Forsyth >> sit,
-          check = sit.situation.check,
-          clock = none,
-          crazyData = sit.situation.board.crazyData,
-          children = Node.emptyChildren
-        ) -> true
-      case None =>
-        Node.Root(
-          ply = 0,
-          fen = variant.initialFen,
-          check = false,
-          clock = none,
-          crazyData = variant.crazyhouse option Crazyhouse.Data.init,
-          children = Node.emptyChildren
-        ) -> false
+    val (root, isFromFen) =
+      data.fen.filterNot(_.isInitial).flatMap { Fen.readWithMoveNumber(variant, _) } match
+        case Some(sit) =>
+          Node.Root(
+            ply = sit.turns,
+            fen = Fen write sit,
+            check = sit.situation.check,
+            clock = none,
+            crazyData = sit.situation.board.crazyData,
+            children = Node.emptyChildren
+          ) -> true
+        case None =>
+          Node.Root(
+            ply = 0,
+            fen = variant.initialFen,
+            check = false,
+            clock = none,
+            crazyData = variant.crazyhouse option Crazyhouse.Data.init,
+            children = Node.emptyChildren
+          ) -> false
     Chapter.make(
       studyId = study.id,
       name = data.name,

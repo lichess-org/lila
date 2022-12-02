@@ -1,6 +1,6 @@
 package views.html.board
 
-import chess.format.{ Fen, Uci, BoardFen, Forsyth }
+import chess.format.{ Fen, Uci, BoardFen }
 import controllers.routes
 import play.api.libs.json.{ JsObject, JsString, Json }
 
@@ -18,7 +18,7 @@ object bits:
 
   def mini(pov: Pov): Tag => Tag =
     mini(
-      Forsyth.exportBoard(pov.game.board),
+      Fen.writeBoard(pov.game.board),
       miniOrientation(pov),
       pov.game.history.lastMove
     )

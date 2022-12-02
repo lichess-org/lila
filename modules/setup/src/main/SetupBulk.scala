@@ -40,7 +40,7 @@ object SetupBulk:
     def validFen = ApiConfig.validFen(variant, fen)
 
     def autoVariant =
-      if (variant.standard && fen.exists(!_.initial)) copy(variant = FromPosition)
+      if (variant.standard && fen.exists(!_.isInitial)) copy(variant = FromPosition)
       else this
 
   private def timestampInNearFuture = longNumber(

@@ -121,7 +121,7 @@ object Chart:
         user2 <- gameUserJson(pov.opponent)
       } yield Json.obj(
         "id"       -> pov.gameId,
-        "fen"      -> (chess.format.Forsyth exportBoard pov.game.board),
+        "fen"      -> (chess.format.Fen writeBoard pov.game.board),
         "color"    -> pov.player.color.name,
         "lastMove" -> (pov.game.lastMoveKeys | ""),
         "user1"    -> user1,

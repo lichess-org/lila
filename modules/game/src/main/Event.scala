@@ -14,7 +14,7 @@ import chess.{
   Situation,
   Status
 }
-import chess.format.{ Forsyth, Fen, BoardFen }
+import chess.format.{ Fen, BoardFen }
 import JsonView.{ *, given }
 import lila.chat.{ PlayerLine, UserLine }
 import lila.common.ApiVersion
@@ -108,7 +108,7 @@ object Event:
         orig = move.orig,
         dest = move.dest,
         san = chess.format.pgn.Dumper(move),
-        fen = Forsyth.exportBoard(situation.board),
+        fen = Fen.writeBoard(situation.board),
         check = situation.check,
         threefold = situation.threefoldRepetition,
         promotion = move.promotion.map { Promotion(_, move.dest) },
@@ -160,7 +160,7 @@ object Event:
         role = drop.piece.role,
         pos = drop.pos,
         san = chess.format.pgn.Dumper(drop),
-        fen = Forsyth.exportBoard(situation.board),
+        fen = Fen.writeBoard(situation.board),
         check = situation.check,
         threefold = situation.threefoldRepetition,
         state = state,

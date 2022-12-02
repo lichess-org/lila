@@ -1,7 +1,7 @@
 package lila.common
 
 import chess.Color
-import chess.format.{ Fen, Forsyth }
+import chess.format.Fen
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
@@ -82,29 +82,14 @@ object Form:
     def bind(key: String, data: Map[String, String]) =
       data
         .get(key)
-        .map(String.normalize.apply)
-        .map(if (keepSymbols) identity else String.removeMultibyteSymbols)
-        .map(_.trim)
+        .map(if (keepSymbols) String.softCleanUp else String.fullCleanUp)
         .toRight(Seq(FormError(key, "error.required", Nil)))
     def unbind(key: String, value: String) = Map(key -> String.normalize(value.trim))
   val cleanTextFormatter: Formatter[String]            = makeCleanTextFormatter(keepSymbols = false)
   val cleanTextFormatterWithSymbols: Formatter[String] = makeCleanTextFormatter(keepSymbols = true)
 
-  val garbageCharsConstraint = V.Constraint((s: String) =>
-    if (String.hasGarbageChars(s))
-      V.Invalid(
-        Seq(
-          V.ValidationError(
-            s"The text contains invalid chars: ${String.distinctGarbageChars(s) mkString " "}"
-          )
-        )
-      )
-    else V.Valid
-  )
-
-  val cleanText: Mapping[String] = of(cleanTextFormatter) verifying garbageCharsConstraint
-  val cleanTextWithSymbols: Mapping[String] =
-    of(cleanTextFormatterWithSymbols) verifying garbageCharsConstraint
+  val cleanText: Mapping[String]            = of(cleanTextFormatter)
+  val cleanTextWithSymbols: Mapping[String] = of(cleanTextFormatterWithSymbols)
 
   def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     (minLength, maxLength) match
@@ -193,13 +178,13 @@ object Form:
   object fen:
     val mapping = trim(of[String]).into[Fen]
     def playable(strict: Boolean) = mapping
-      .verifying("Invalid position", fen => (Forsyth <<< fen).exists(_.situation playable strict))
+      .verifying("Invalid position", fen => Fen.read(fen).exists(_ playable strict))
       .transform[Fen](if (strict) truncateMoveNumber else identity, identity)
     val playableStrict = playable(strict = true)
     def truncateMoveNumber(fen: Fen) =
-      (Forsyth <<< fen).fold(fen) { g =>
+      Fen.readWithMoveNumber(fen).fold(fen) { g =>
         if (g.fullMoveNumber >= 150)
-          Forsyth >> g.copy(fullMoveNumber = g.fullMoveNumber % 100) // keep the start ply low
+          Fen write g.copy(fullMoveNumber = g.fullMoveNumber % 100) // keep the start ply low
         else fen
       }
 

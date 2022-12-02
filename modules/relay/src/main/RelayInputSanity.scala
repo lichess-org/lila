@@ -1,7 +1,7 @@
 package lila.relay
 
 import lila.study.*
-import chess.format.Forsyth
+import chess.format.Fen
 
 /* Try and detect variant ways for the input to be wrong */
 private object RelayInputSanity:
@@ -51,7 +51,7 @@ private object RelayInputSanity:
     game.copy(
       root = game.root.takeMainlineWhile { node =>
         !dgtBoggusKingMoveRegex.matches(node.move.san) || ! {
-          Forsyth.<<@(game.variant, node.fen).fold(true) { sit =>
+          Fen.read(game.variant, node.fen).fold(true) { sit =>
             sit.board check !sit.color // the king that moved is in check
           }
         }
