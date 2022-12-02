@@ -28,7 +28,7 @@ final class IrwinStream {
         queue.offer(req).unit
       }
 
-      queue.watchCompletion() dforeach { _ =>
+      queue.watchCompletion() addEffectAnyway {
         Bus.unsubscribe(sub, channel)
       }
     }

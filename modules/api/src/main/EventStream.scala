@@ -46,7 +46,7 @@ final class EventStream(
 
       val actor = system.actorOf(Props(mkActor(me, queue)))
 
-      queue.watchCompletion().foreach { _ =>
+      queue.watchCompletion().addEffectAnyway {
         actor ! PoisonPill
       }
     }

@@ -34,7 +34,7 @@ final class ModStream {
         queue.offer(signup).unit
       }
 
-      queue.watchCompletion() dforeach { _ =>
+      queue.watchCompletion() addEffectAnyway {
         Bus.unsubscribe(sub, classifier)
       }
     }
