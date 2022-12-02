@@ -176,12 +176,12 @@ object Form:
       }
 
   object fen:
-    val mapping = trim(of[String]).into[Fen]
+    val mapping = trim(of[String]).into[Fen.Epd]
     def playable(strict: Boolean) = mapping
       .verifying("Invalid position", fen => Fen.read(fen).exists(_ playable strict))
-      .transform[Fen](if (strict) truncateMoveNumber else identity, identity)
+      .transform[Fen.Epd](if (strict) truncateMoveNumber else identity, identity)
     val playableStrict = playable(strict = true)
-    def truncateMoveNumber(fen: Fen) =
+    def truncateMoveNumber(fen: Fen.Epd) =
       Fen.readWithMoveNumber(fen).fold(fen) { g =>
         if (g.fullMoveNumber >= 150)
           Fen write g.copy(fullMoveNumber = g.fullMoveNumber % 100) // keep the start ply low

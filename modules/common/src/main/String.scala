@@ -187,4 +187,4 @@ object String:
 
   def looksLikePrize(txt: String) = prizeRegex matches txt
 
-  def underscoreFen(fen: chess.format.Fen) = fen.value.replace(" ", "_")
+  def underscoreFen(fen: chess.format.Fen.Epd) = fen.value.replace(" ", "_")
