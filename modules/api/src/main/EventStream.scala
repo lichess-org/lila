@@ -47,7 +47,9 @@ final class EventStream(
 
       val actor = system.actorOf(Props(mkActor(me, queue)))
 
+      logger.info(s"OPEN  event stream ${me.username} $actor")
       queue.watchCompletion().addEffectAnyway {
+        logger.info(s"CLOSE event stream ${me.username} $actor")
         actor ! PoisonPill
       }
     }

@@ -49,7 +49,9 @@ final class GameStateStream(
         Props(mkActor(init, as, User(u.id, u.isBot), queue)),
         name = s"GameStateStream:${init.game.id}:${ThreadLocalRandom nextString 8}"
       )
+      logger.info(s"OPEN  game stream ${u.username} ${init.game pov as} $actor")
       queue.watchCompletion().addEffectAnyway {
+        logger.info(s"CLOSE game stream ${u.username} ${init.game pov as} $actor")
         actor ! PoisonPill
       }
     }
