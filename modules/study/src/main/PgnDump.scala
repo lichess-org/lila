@@ -122,12 +122,12 @@ object PgnDump:
         case shapes => s"[%$as ${shapes.mkString(",")}]"
     val circles = render("csl") {
       shapes.value.collect { case Shape.Circle(brush, orig) =>
-        s"${brush.head.toUpper}$orig"
+        s"${brush.head.toUpper}${orig.key}"
       }
     }
     val arrows = render("cal") {
       shapes.value.collect { case Shape.Arrow(brush, orig, dest) =>
-        s"${brush.head.toUpper}$orig$dest"
+        s"${brush.head.toUpper}${orig.key}${dest.key}"
       }
     }
     s"$circles$arrows".some.filter(_.nonEmpty)
