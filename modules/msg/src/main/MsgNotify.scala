@@ -41,7 +41,7 @@ final private class MsgNotify(
     threads
       .map { thread =>
         cancel(thread.id)
-        notifyApi.remove(UserId(thread other user), $doc("content.user" -> user.id)).void
+        notifyApi.remove(thread other user, $doc("content.user" -> user.id)).void
       }
       .sequenceFu
       .void

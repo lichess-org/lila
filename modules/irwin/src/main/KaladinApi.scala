@@ -148,7 +148,7 @@ final class KaladinApi(
         import lila.notify.{ KaladinDone, Notification }
         modIds
           .map { modId =>
-            notifyApi.notifyOne(UserId(modId.value), lila.notify.KaladinDone(UserId(user.suspectId.value)))
+            notifyApi.notifyOne(UserId(modId.value), lila.notify.KaladinDone(user.suspectId.value))
           }
           .sequenceFu
           .void

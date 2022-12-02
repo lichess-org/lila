@@ -67,7 +67,7 @@ final class NotifyApi(
     repo.remove(to, selector) >>- unreadCountCache.invalidate(to)
 
   def markRead(to: UserId, selector: Bdoc): Funit =
-    repo.markManyRead(selector ++ $doc("notifies" -> to.value, "read" -> false)) >>-
+    repo.markManyRead(selector ++ $doc("notifies" -> to, "read" -> false)) >>-
       unreadCountCache.invalidate(to)
 
   def exists = repo.exists
@@ -112,7 +112,7 @@ final class NotifyApi(
     repo.insertMany(bells map (to => Notification.make(to, content))) >>- {
       Bus.publish(
         SendTos(
-          bells map(_.value) toSet,
+          bells toSet,
           "notifications",
           Json.obj("incrementUnread" -> true)
         ),
@@ -129,12 +129,12 @@ final class NotifyApi(
   private def shouldSkip(note: Notification): Fu[Boolean] =
     note.content match
       case MentionedInThread(_, _, topicId, _, _) =>
-        userRepo.isKid(note.to.value) >>|
-          repo.hasRecent(note, "content.topicId" -> topicId.value, 3.days)
+        userRepo.isKid(note.to) >>|
+          repo.hasRecent(note, "content.topicId" -> topicId, 3.days)
       case InvitedToStudy(_, _, studyId) =>
-        userRepo.isKid(note.to.value) >>|
-          repo.hasRecent(note, "content.studyId" -> studyId.value, 3.days)
+        userRepo.isKid(note.to) >>|
+          repo.hasRecent(note, "content.studyId" -> studyId, 3.days)
       case PrivateMessage(sender, _) =>
         repo.hasRecentPrivateMessageFrom(note.to, sender)
-      case _ => userRepo.isKid(note.to.value)
+      case _ => userRepo.isKid(note.to)
     

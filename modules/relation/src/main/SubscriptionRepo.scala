@@ -13,8 +13,8 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(implici
 ) {
   val coll = colls.subscription
 
-  // for streaming, feedId is the user id of the streamer being subscribed to
-  def subscribersOnlineSince(streamerId: ID, daysAgo: Int): Fu[List[User.ID]] =
+  // for streaming, feedId is the user UserId of the streamer being subscribed to
+  def subscribersOnlineSince(streamerId: UserId, daysAgo: Int): Fu[List[UserId]] =
     coll
       .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
@@ -37,9 +37,9 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(implici
           )
         )
       }
-      .map(~_.flatMap(_.getAsOpt[List[User.ID]]("ids")))
+      .map(~_.flatMap(_.getAsOpt[List[UserId]]("ids")))
 
-  def subscribe(userId: ID, streamerId: ID): Funit =
+  def subscribe(userId: UserId, streamerId: UserId): Funit =
     coll.update
       .one(
         $id(makeId(userId, streamerId)),
@@ -48,13 +48,13 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(implici
       )
       .void
 
-  def unsubscribe(userId: ID, streamerId: ID): Funit =
+  def unsubscribe(userId: UserId, streamerId: UserId): Funit =
     coll.delete.one($id(makeId(userId, streamerId))).void
 
-  def isSubscribed(userId: ID, streamerId: ID): Fu[Boolean] =
+  def isSubscribed(userId: UserId, streamerId: UserId): Fu[Boolean] =
     coll.exists($id(makeId(userId, streamerId)))
 
-  def isSubscribed(userId: ID, streamerIds: List[ID]): Fu[Map[User.ID, Boolean]] = {
+  def isSubscribed(userId: UserId, streamerIds: List[UserId]): Fu[Map[UserId, Boolean]] = {
     coll
       .find(
         $inIds(streamerIds map (makeId(userId, _))),

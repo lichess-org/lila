@@ -18,7 +18,7 @@ final class StreamerPager(
   def get(
       page: Int,
       live: LiveStreams,
-      forUser: Option[User.ID],
+      forUser: Option[UserId],
       requests: Boolean
   ): Fu[Paginator[Streamer.Context]] = Paginator(
     currentPage = page,
@@ -32,7 +32,7 @@ final class StreamerPager(
     "_id"
   )
 
-  private def notLive(live: LiveStreams, forUser: Option[User.ID]): AdapterLike[Streamer.Context] =
+  private def notLive(live: LiveStreams, forUser: Option[UserId]): AdapterLike[Streamer.Context] =
     new AdapterLike[Streamer.Context]:
 
       def nbResults: Fu[Int] = fuccess(1000)
@@ -68,7 +68,7 @@ final class StreamerPager(
                   foreign = "s"
                 )
               ),
-              AddFields($doc("subscribed" -> $doc("$in" -> List(~forUser, "$subs.u"))))
+              AddFields($doc("subscribed" -> $doc("$in" -> List(forUser.??(_.toString), "$subs.u"))))
             )
           }
           .map { docs =>

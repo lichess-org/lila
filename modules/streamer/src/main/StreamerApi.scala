@@ -23,7 +23,7 @@ final class StreamerApi(
 
   def withColl[A](f: Coll => A): A = f(coll)
 
-  def byId(id: Streamer.Id): Fu[Option[Streamer]]           = coll.byId[Streamer](id.value)
+  def byId(id: Streamer.Id): Fu[Option[Streamer]]           = coll.byId[Streamer](id)
   def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer, Streamer.Id](ids)
 
   def find(username: UserStr): Fu[Option[Streamer.WithUser]] =
@@ -40,7 +40,7 @@ final class StreamerApi(
       coll.insert.one(s.streamer) inject s.some
     }
 
-  def withUsers(live: LiveStreams, userId: Option[User.ID]): Fu[List[Streamer.WithUserAndStream]] =
+  def withUsers(live: LiveStreams, userId: Option[UserId]): Fu[List[Streamer.WithUserAndStream]] =
     userRepo.coll
       .aggregateList(100, readPreference = ReadPreference.secondaryPreferred) { framework =>
         import framework._
@@ -53,7 +53,7 @@ final class StreamerApi(
               foreign = "s"
             )
           ),
-          AddFields($doc("subscribed" -> $doc("$in" -> List(~userId, "$subs.u"))))
+          AddFields($doc("subscribed" -> $doc("$in" -> List(userId.??(_.toString), "$subs.u"))))
         )
       }
       .map { docs =>

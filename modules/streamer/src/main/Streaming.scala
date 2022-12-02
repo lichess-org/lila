@@ -79,7 +79,7 @@ final private class Streaming(
             "streamStart"
           )
           subsRepo.subscribersOnlineSince(userId, 7) map { subs =>
-            notifyApi.notifyMany(subs map(UserId(_)), StreamStart(UserId(userId), s.streamer.name.value))
+            notifyApi.notifyMany(subs, StreamStart(userId, s.streamer.name.value))
           }
       }
     liveStreams = newStreams

@@ -106,5 +106,5 @@ object Notification:
 
   def make(to: UserId, content: NotificationContent): Notification =
     val idSize = 8
-    val id = lila.common.ThreadLocalRandom nextString idSize
+    val id = ThreadLocalRandom nextString idSize
     new Notification(id, to, content, NotificationRead(false), DateTime.now)

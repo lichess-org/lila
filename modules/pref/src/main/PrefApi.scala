@@ -108,10 +108,10 @@ final class PrefApi(
     (reqPref != Pref.default) ?? setPref(reqPref.copy(_id = user.id))
 
   def getNotificationPref(uid: UserId): Fu[NotificationPref] =
-    cache.getIfPresent(uid.value) map (_ collect { case Some(pref) =>
+    cache.getIfPresent(uid) map (_ collect { case Some(pref) =>
       pref.notification
     }) getOrElse {
-      coll.find($id(uid.value), $doc("notification" -> true).some).one[NotificationPref] map {
+      coll.find($id(uid), $doc("notification" -> true).some).one[NotificationPref] map {
         case Some(notification) => notification
         case None               => NotificationPref.default
       }

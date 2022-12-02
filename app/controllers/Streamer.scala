@@ -187,10 +187,10 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def subscribe(streamerId: String, set: Boolean) =
+  def subscribe(streamer: UserStr, set: Boolean) =
     AuthBody { implicit ctx => me =>
-      if (set) env.relation.subs.subscribe(me.id, streamerId)
-      else env.relation.subs.unsubscribe(me.id, streamerId)
+      if (set) env.relation.subs.subscribe(me.id, streamer.id)
+      else env.relation.subs.unsubscribe(me.id, streamer.id)
       fuccess(Ok)
     }
 

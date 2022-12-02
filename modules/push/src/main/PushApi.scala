@@ -32,13 +32,13 @@ final private class PushApi(
       params: Iterable[(String, String)]
   ): Funit = content match
     case PrivateMessage(sender, text) =>
-      lightUser(sender.value) flatMap (_ ?? (luser => privateMessage(to.head, sender, luser.titleName, text)))
+      lightUser(sender) flatMap (_ ?? (luser => privateMessage(to.head, sender, luser.titleName, text)))
     case MentionedInThread(mentioner, topic, _, _, postId) =>
-      lightUser(mentioner.value) flatMap (_ ?? (luser => forumMention(to.head, luser.titleName, topic, postId)))
+      lightUser(mentioner) flatMap (_ ?? (luser => forumMention(to.head, luser.titleName, topic, postId)))
     case StreamStart(streamerId, streamerName) =>
       streamStart(to, streamerId, streamerName)
     case InvitedToStudy(invitedBy, studyName, studyId) =>
-      lightUser(invitedBy.value) flatMap (_ ?? (luser =>
+      lightUser(invitedBy) flatMap (_ ?? (luser =>
         invitedToStudy(to.head, luser.titleName, studyName, studyId)
       ))
     case _ => funit
@@ -53,7 +53,7 @@ final private class PushApi(
               gameRepo.countWhereUserTurn(userId) flatMap { nbMyTurn =>
                 asyncOpponentName(pov) flatMap { opponent =>
                   maybePush(
-                    UserId(userId),
+                    userId,
                     _.finish,
                     NotificationPref.GameEvent,
                     PushApi.Data(
@@ -94,7 +94,7 @@ final private class PushApi(
                 asyncOpponentName(pov) flatMap { opponent =>
                   game.pgnMoves.lastOption ?? { sanMove =>
                     maybePush(
-                      UserId(userId),
+                      userId,
                       _.move,
                       NotificationPref.GameEvent,
                       PushApi.Data(
@@ -128,7 +128,7 @@ final private class PushApi(
               IfAway(pov) {
                 asyncOpponentName(pov) flatMap { opponent =>
                   maybePush(
-                    UserId(userId),
+                    userId,
                     _.takeback,
                     NotificationPref.GameEvent,
                     PushApi
@@ -161,7 +161,7 @@ final private class PushApi(
               IfAway(pov) {
                 asyncOpponentName(pov) flatMap { opponent =>
                   maybePush(
-                    UserId(userId),
+                    userId,
                     _.takeback,
                     NotificationPref.GameEvent,
                     PushApi.Data(
@@ -186,7 +186,7 @@ final private class PushApi(
     pov.player.userId ?? { userId =>
       asyncOpponentName(pov) flatMap { opponent =>
         maybePush(
-          UserId(userId),
+          userId,
           _.corresAlarm,
           NotificationPref.GameEvent,
           PushApi.Data(
@@ -210,7 +210,7 @@ final private class PushApi(
     )
 
   def privateMessage(to: NotifyAllows, senderId: UserId, senderName: String, text: String): Funit =
-    userRepo.isKid(to.userId.value) flatMap {
+    userRepo.isKid(to.userId) flatMap {
       !_ ?? {
         filterPush(
           to,
@@ -257,7 +257,7 @@ final private class PushApi(
         lightUser(challenger.id) flatMap {
           _ ?? { lightChallenger =>
             maybePush(
-              UserId(dest.id),
+              dest.id,
               _.challenge.create,
               NotificationPref.Challenge,
               PushApi.Data(
@@ -282,7 +282,7 @@ final private class PushApi(
     c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) ?? { challenger =>
       joinerId ?? lightUser flatMap { lightJoiner =>
         maybePush(
-          UserId(challenger.id),
+          challenger.id,
           _.challenge.accept,
           NotificationPref.Challenge,
           PushApi.Data(
@@ -304,7 +304,7 @@ final private class PushApi(
   def tourSoon(tour: TourSoon): Funit =
     lila.common.Future.applySequentially(tour.userIds.toList) { userId =>
       maybePush(
-        UserId(userId),
+        userId,
         _.tourSoon,
         NotificationPref.TournamentSoon,
         PushApi

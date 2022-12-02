@@ -123,7 +123,7 @@ object ForumPost:
       modIcon: Option[Boolean] = None
   ): ForumPost =
     ForumPost(
-      _id = ThreadLocalRandom nextString idSize,
+      _id = ForumPostId(ThreadLocalRandom nextString idSize),
       topicId = topicId,
       author = none,
       userId = userId,

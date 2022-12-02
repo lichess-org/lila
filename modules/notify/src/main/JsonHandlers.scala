@@ -1,12 +1,11 @@
 package lila.notify
 
-import lila.common.LightUser
-import play.api.libs.json.*
-import lila.i18n.{ I18nKeys as trans }
-
-import lila.common.Json.given
 import play.api.i18n.Lang
-import lila.i18n.JsDump
+import play.api.libs.json.*
+
+import lila.common.LightUser
+import lila.common.Json.given
+import lila.i18n.{ JsDump, I18nKeys as trans }
 
 final class JSONHandlers(getLightUser: LightUser.GetterSync):
 
@@ -62,11 +61,11 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
         )
       case IrwinDone(userId) =>
         Json.obj(
-          "user" -> getLightUser(userId.value)
+          "user" -> getLightUser(userId)
         )
       case KaladinDone(userId) =>
         Json.obj(
-          "user" -> getLightUser(userId.value)
+          "user" -> getLightUser(userId)
         )
       case GenericLink(url, title, text, icon) =>
         Json.obj(
