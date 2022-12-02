@@ -6,7 +6,7 @@ import lila.memo.PicfitImage
 import lila.user.User
 
 case class Streamer(
-    _id: Streamer.Id, // user ID
+    _id: Streamer.Id,
     listed: Streamer.Listed,
     approval: Streamer.Approval,
     picture: Option[PicfitImage.Id],
@@ -24,9 +24,7 @@ case class Streamer(
 
   inline def id = _id
 
-  def userId = _id.value
-
-  def is(user: User) = userId == user.id
+  def userId = id.userId
 
   def hasPicture = picture.isDefined
 
@@ -38,11 +36,13 @@ case class Streamer(
 
 object Streamer:
 
+  given UserIdOf[Streamer] = _.id.userId
+
   val imageSize = 350
 
   def make(user: User) =
     Streamer(
-      _id = Id(user.id),
+      _id = user.id into Id,
       listed = Listed(true),
       approval = Approval(
         requested = false,
@@ -67,8 +67,10 @@ object Streamer:
 
   opaque type Id = String
   object Id extends OpaqueUserId[Id]
+
   opaque type Listed = Boolean
   object Listed extends YesNo[Listed]
+
   case class Approval(
       requested: Boolean,   // user requests a mod to approve
       granted: Boolean,     // a mod approved

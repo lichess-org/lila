@@ -20,13 +20,13 @@ private object BSONHandlers:
   import activities.*
   import model.*
 
-  val idSep                          = ':'
-  def regexId(userId: User.ID): Bdoc = "_id" $startsWith s"$userId$idSep"
+  val idSep                         = ':'
+  def regexId(userId: UserId): Bdoc = "_id" $startsWith s"$userId$idSep"
 
   given BSONHandler[Id] = tryHandler(
     { case BSONString(v) =>
       v split idSep match {
-        case Array(userId, dayStr) => Success(Id(userId, LichessDay(Integer.parseInt(dayStr))))
+        case Array(userId, dayStr) => Success(Id(UserId(userId), LichessDay(Integer.parseInt(dayStr))))
         case _                     => handlerBadValue(s"Invalid activity id $v")
       }
     },
@@ -65,12 +65,7 @@ private object BSONHandlers:
 
   given Iso.StringIso[PerfType] =
     Iso.string[PerfType](str => PerfType(Perf.Key(str)) err s"No such perf $str", _.key.value)
-  private[activity] given BSONHandler[Games] = typedMapHandler[PerfType, Score].as(Games.apply, _.value)
-
-  given BSONHandler[ForumPosts] =
-    isoHandler[ForumPosts, List[lila.forum.ForumPostId]](_.value, ForumPosts.apply)
-
-  given BSONHandler[UblogPosts] = isoHandler[UblogPosts, List[UblogPostId]](_.value, UblogPosts.apply)
+  private[activity] given BSONHandler[Games] = typedMapHandler[PerfType, Score].as(Games(_), _.value)
 
   given lila.db.BSON[Storm] with
     def reads(r: lila.db.BSON.Reader)            = Storm(r.intD("r"), r.intD("s"))
@@ -84,11 +79,9 @@ private object BSONHandlers:
     def reads(r: lila.db.BSON.Reader)             = Streak(r.intD("r"), r.intD("s"))
     def writes(w: lila.db.BSON.Writer, r: Streak) = BSONDocument("r" -> r.runs, "s" -> r.score)
 
-  given BSONHandler[Learn] = typedMapHandler[Learn.Stage, Int].as(Learn.apply, _.value)
+  given BSONHandler[Learn] = typedMapHandler[LearnStage, Int].as(Learn(_), _.value)
 
-  given BSONHandler[Practice] = typedMapHandler[StudyId, Int].as[Practice](Practice.apply, _.value)
-
-  given BSONHandler[Simuls] = isoHandler[Simuls, List[SimulId]](_.value, Simuls.apply)
+  given BSONHandler[Practice] = typedMapHandler[StudyId, Int].as(Practice(_), _.value)
 
   given BSONDocumentHandler[Corres] = Macros.handler
   given BSONHandler[Patron]         = BSONIntegerHandler.as(Patron.apply, _.months)
@@ -107,14 +100,9 @@ private object BSONHandlers:
         "o" -> o.out
       )
 
-  given BSONHandler[Studies] = isoHandler[Studies, List[StudyId]](_.value, Studies.apply)
-  given BSONHandler[Teams]   = isoHandler[Teams, List[TeamId]](_.value, Teams.apply)
-
   given lila.db.BSON[SwissRank] with
     def reads(r: lila.db.BSON.Reader)                = SwissRank(SwissId(r.str("i")), Rank(r.intD("r")))
     def writes(w: lila.db.BSON.Writer, s: SwissRank) = BSONDocument("i" -> s.id, "r" -> s.rank)
-
-  given BSONHandler[Swisses] = isoHandler[Swisses, List[SwissRank]](_.value, Swisses.apply)
 
   object ActivityFields:
     val id         = "_id"

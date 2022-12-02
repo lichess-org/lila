@@ -26,8 +26,9 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     cacheApi: lila.memo.CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    scala.concurrent.ExecutionContext,
+    ActorSystem,
+    akka.stream.Materializer
 ):
 
   private val config = appConfig.get[RelationConfig]("relation")(AutoConfig.loader)

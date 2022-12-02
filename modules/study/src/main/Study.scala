@@ -1,16 +1,16 @@
 package lila.study
 
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
-import lila.common.Iso
 
 case class Study(
     _id: StudyId,
     name: StudyName,
     members: StudyMembers,
     position: Position.Ref,
-    ownerId: User.ID,
+    ownerId: UserId,
     visibility: Study.Visibility,
     settings: Settings,
     from: Study.From,
@@ -27,13 +27,13 @@ case class Study(
 
   def owner = members get ownerId
 
-  def isOwner(id: User.ID) = ownerId == id
+  def isOwner(id: UserId) = ownerId == id
 
-  def isMember(id: User.ID) = members contains id
+  def isMember(id: UserId) = members contains id
 
-  def canChat(id: User.ID) = Settings.UserSelection.allows(settings.chat, this, id.some)
+  def canChat(id: UserId) = Settings.UserSelection.allows(settings.chat, this, id.some)
 
-  def canContribute(id: User.ID) =
+  def canContribute(id: UserId) =
     isOwner(id) || members.get(id).exists(_.canContribute) || id == User.lichessId
 
   def isCurrent(c: Chapter.Like) = c.id == position.chapterId
@@ -89,13 +89,11 @@ object Study:
 
   def toName(str: String) = StudyName(lila.common.String.fullCleanUp(str) take 100)
 
-  sealed trait Visibility:
+  enum Visibility:
     lazy val key = Visibility.this.toString.toLowerCase
+    case Private, Unlisted, Public
   object Visibility:
-    case object Private  extends Visibility
-    case object Unlisted extends Visibility
-    case object Public   extends Visibility
-    val byKey = List(Private, Unlisted, Public).map { v =>
+    val byKey = values.map { v =>
       v.key -> v
     }.toMap
 
@@ -144,9 +142,9 @@ object Study:
 
   case class WithLiked(study: Study, liked: Boolean)
 
-  case class LightStudy(isPublic: Boolean, contributors: Set[User.ID])
+  case class LightStudy(isPublic: Boolean, contributors: Set[UserId])
 
-  def makeId = StudyId(lila.common.ThreadLocalRandom nextString 8)
+  def makeId = StudyId(ThreadLocalRandom nextString 8)
 
   def make(
       user: User,

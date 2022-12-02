@@ -5,4 +5,4 @@ import lila.notify.{ NotifyApi, TeamJoined }
 final private class Notifier(notifyApi: NotifyApi):
 
   def acceptRequest(team: Team, request: Request) =
-    notifyApi.notifyOne(UserId(request.user), TeamJoined(id = team.id, name = team.name))
+    notifyApi.notifyOne(request.user, TeamJoined(id = team.id, name = team.name))

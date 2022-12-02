@@ -59,7 +59,7 @@ case class HookConfig(
       sri: lila.socket.Socket.Sri,
       user: Option[User],
       sid: Option[String],
-      blocking: Set[String]
+      blocking: lila.pool.Blocking
   ): Either[Hook, Option[Seek]] =
     timeMode match
       case TimeMode.RealTime =>

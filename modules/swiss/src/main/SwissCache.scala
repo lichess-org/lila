@@ -32,8 +32,8 @@ final class SwissCache(
     initialCapacity = 4096,
     compute = id => mongo.swiss.primitiveOne[String]($id(id), "name"),
     default = _ => none,
-    strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(20 minutes)
+    strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
+    expireAfter = Syncache.ExpireAfter.Access(20 minutes)
   )
 
   val roundInfo = cacheApi[SwissId, Option[Swiss.RoundInfo]](32, "swiss.roundInfo") {

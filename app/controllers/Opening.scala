@@ -55,7 +55,7 @@ final class Opening(env: Env) extends LilaController(env):
       val redir =
         Redirect {
           lila.common.HTTPRequest.referer(ctx.req) | {
-            if (thenTo.isEmpty) routes.Opening.index().url
+            if (thenTo.isEmpty || thenTo == "index") routes.Opening.index().url
             else if (thenTo startsWith "q:") routes.Opening.index(thenTo.drop(2).some).url
             else routes.Opening.byKeyAndMoves(thenTo, "").url
           }
@@ -84,5 +84,5 @@ final class Opening(env: Env) extends LilaController(env):
   }
 
   def tree = Open { implicit ctx =>
-    Ok(html.opening.tree(lila.opening.Opening.Tree.compute, env.opening.api.readConfig)).toFuccess
+    Ok(html.opening.tree(lila.opening.OpeningTree.compute, env.opening.api.readConfig)).toFuccess
   }

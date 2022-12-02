@@ -2,9 +2,9 @@ package lila.forum
 
 import org.joda.time.DateTime
 import scala.util.chaining.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.config.MaxPerPage
-import lila.common.ThreadLocalRandom
 import lila.user.User
 
 case class ForumTopic(
@@ -22,7 +22,7 @@ case class ForumTopic(
     troll: Boolean,
     closed: Boolean,
     sticky: Option[Boolean],
-    userId: Option[User.ID] = None, // only since SB mutes
+    userId: Option[UserId] = None, // only since SB mutes
     ublogId: Option[String] = None
 ):
 
@@ -78,7 +78,7 @@ object ForumTopic:
       categId: String,
       slug: String,
       name: String,
-      userId: User.ID,
+      userId: UserId,
       troll: Boolean,
       ublogId: Option[String] = None
   ): ForumTopic = ForumTopic(

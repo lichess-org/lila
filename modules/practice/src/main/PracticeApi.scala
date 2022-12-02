@@ -93,7 +93,7 @@ final class PracticeApi(
 
     def get(user: User): Fu[PracticeProgress] =
       coll.one[PracticeProgress]($id(user.id)) dmap {
-        _ | PracticeProgress.empty(PracticeProgress.Id(user.id))
+        _ | PracticeProgress.empty(user.id)
       }
 
     private def save(p: PracticeProgress): Funit =
@@ -112,7 +112,7 @@ final class PracticeApi(
     def reset(user: User) =
       coll.delete.one($id(user.id)).void
 
-    def completionPercent(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
+    def completionPercent(userIds: List[UserId]): Fu[Map[UserId, Int]] =
       coll
         .aggregateList(
           maxDocs = Int.MaxValue,
@@ -135,7 +135,7 @@ final class PracticeApi(
           _.view
             .flatMap { obj =>
               import cats.implicits.*
-              (obj.string("_id"), obj.int("nb")) mapN { (k, v) =>
+              (obj.getAsOpt[UserId]("_id"), obj.int("nb")) mapN { (k, v) =>
                 k -> (v * 100f / PracticeStructure.totalChapters).toInt
               }
             }

@@ -2,7 +2,7 @@ package lila.appeal
 
 import org.joda.time.DateTime
 
-import lila.db.dsl.*
+import lila.db.dsl.{ given, * }
 import lila.user.{ Holder, NoteApi, User, UserRepo }
 import reactivemongo.api.ReadPreference
 
@@ -19,9 +19,9 @@ final class AppealApi(
 
   def get(user: User) = coll.byId[Appeal](user.id)
 
-  def byUserIds(userIds: List[User.ID]) = coll.byStringIds[Appeal](userIds)
+  def byUserIds(userIds: List[UserId]) = coll.byIds[Appeal, UserId](userIds)
 
-  def byId(appealId: User.ID) = coll.byId[Appeal](appealId)
+  def byId(appealId: UserId) = coll.byId[Appeal](appealId)
 
   def exists(user: User) = coll.exists($id(user.id))
 
@@ -63,7 +63,7 @@ final class AppealApi(
 
   def queueOf(mod: User) = bothQueues(snoozer snoozedKeysOf mod.id map (_.appealId))
 
-  private def bothQueues(exceptIds: Iterable[User.ID]): Fu[List[Appeal.WithUser]] =
+  private def bothQueues(exceptIds: Iterable[UserId]): Fu[List[Appeal.WithUser]] =
     fetchQueue(
       selector = $doc("status" -> Appeal.Status.Unread.key) ++ {
         exceptIds.nonEmpty ?? $doc("_id" $nin exceptIds)
@@ -116,13 +116,13 @@ final class AppealApi(
   def toggleMute(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.toggleMute).void
 
-  def setReadById(userId: User.ID) =
+  def setReadById(userId: UserId) =
     byId(userId) flatMap { _ ?? setRead }
 
-  def setUnreadById(userId: User.ID) =
+  def setUnreadById(userId: UserId) =
     byId(userId) flatMap { _ ?? setUnread }
 
   def onAccountClose(user: User) = setReadById(user.id)
 
-  def snooze(mod: User, appealId: User.ID, duration: String): Unit =
+  def snooze(mod: User, appealId: UserId, duration: String): Unit =
     snoozer.set(Appeal.SnoozeKey(mod.id, appealId), duration)

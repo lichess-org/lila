@@ -20,14 +20,14 @@ final class CoachApi(
 
   import BsonHandlers.given
 
-  def byId(id: Coach.Id): Fu[Option[Coach]] = coachColl.byId[Coach](id)
+  def byId[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[Coach]] = coachColl.byId[Coach](idOf(u))
 
-  def find(username: String): Fu[Option[Coach.WithUser]] =
-    userRepo named username flatMap { _ ?? find }
+  def find(username: UserStr): Fu[Option[Coach.WithUser]] =
+    userRepo byId username flatMap { _ ?? find }
 
   def find(user: User): Fu[Option[Coach.WithUser]] =
     Granter(_.Coach)(user) ?? {
-      byId(Coach.Id(user.id)) dmap {
+      byId(user.id) dmap {
         _ map withUser(user)
       }
     }
@@ -170,7 +170,7 @@ final class CoachApi(
     def allByPoster(user: User): Fu[CoachReview.Reviews] =
       findRecent($doc("userId" -> user.id))
 
-    def deleteAllBy(userId: User.ID): Funit =
+    def deleteAllBy(userId: UserId): Funit =
       for {
         reviews <- reviewColl.list[CoachReview]($doc("userId" -> userId))
         _ <- reviews.map { review =>

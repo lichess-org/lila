@@ -101,10 +101,10 @@ final class Env(
     new lila.common.Cli:
       def process =
         case "patron" :: "lifetime" :: user :: Nil =>
-          userRepo named user flatMap { _ ?? api.setLifetime } inject "ok"
+          userRepo byId UserStr(user) flatMap { _ ?? api.setLifetime } inject "ok"
         case "patron" :: "month" :: user :: Nil =>
-          userRepo named user flatMap { _ ?? api.freeMonth } inject "ok"
+          userRepo byId UserStr(user) flatMap { _ ?? api.freeMonth } inject "ok"
         case "patron" :: "remove" :: user :: Nil =>
-          userRepo named user flatMap { _ ?? api.remove } inject "ok"
+          userRepo byId UserStr(user) flatMap { _ ?? api.remove } inject "ok"
 
 final private class PlanMongo(val patron: Coll, val charge: Coll)

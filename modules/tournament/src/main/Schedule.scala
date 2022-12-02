@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.i18n.Lang
@@ -13,7 +13,7 @@ case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
-    position: Option[FEN],
+    position: Option[Fen],
     at: DateTime,
     conditions: Condition.All = Condition.All.empty
 ):
@@ -233,12 +233,8 @@ object Schedule:
         case Rapid                              => PerfType.Rapid
         case Classical                          => PerfType.Classical
 
-  sealed trait Season
-  object Season:
-    case object Spring extends Season
-    case object Summer extends Season
-    case object Autumn extends Season
-    case object Winter extends Season
+  enum Season:
+    case Spring, Summer, Autumn, Winter
 
   private[tournament] def durationFor(s: Schedule): Int =
     import Freq.*, Speed.*

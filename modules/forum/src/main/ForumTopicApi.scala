@@ -54,15 +54,16 @@ final private class ForumTopicApi(
 
   object findDuplicate:
     private val cache =
-      cacheApi.notLoadingSync[(User.ID, String), ForumTopicId](64, "forum.topic.duplicate") {
+      cacheApi.notLoadingSync[(UserId, String), ForumTopicId](64, "forum.topic.duplicate") {
         _.expireAfterWrite(1 hour).build()
       }
-    def apply(topic: ForumTopic): Fu[Option[ForumTopic]] =
-      val key = (~topic.userId, topic.name)
+    def apply(topic: ForumTopic): Fu[Option[ForumTopic]] = topic.userId ?? { uid =>
+      val key = (uid, topic.name)
       cache.getIfPresent(key) ?? { topicRepo.coll.byId[ForumTopic](_) } orElse {
         cache.put(key, topic.id)
         fuccess(none)
       }
+    }
 
   def makeTopic(
       categ: ForumCateg,
@@ -79,7 +80,6 @@ final private class ForumTopicApi(
       )
       val post = ForumPost.make(
         topicId = topic.id,
-        author = none,
         userId = me.id.some,
         troll = me.marks.troll,
         text = spam.replace(data.post.text),
@@ -117,7 +117,7 @@ final private class ForumTopicApi(
       name: String,
       url: String,
       ublogId: String,
-      authorId: User.ID
+      authorId: UserId
   ): Funit =
     categRepo.bySlug(ForumCateg.ublogSlug) flatMap {
       _ ?? { categ =>
@@ -131,7 +131,6 @@ final private class ForumTopicApi(
         )
         val post = ForumPost.make(
           topicId = topic.id,
-          author = none,
           userId = authorId.some,
           troll = false,
           text = s"Comments on $url",
@@ -153,7 +152,6 @@ final private class ForumTopicApi(
     )
     val post = ForumPost.make(
       topicId = topic.id,
-      author = none,
       userId = User.lichessId.some,
       troll = false,
       text = s"Comments on $url",
@@ -183,14 +181,14 @@ final private class ForumTopicApi(
   def toggleClose(categ: ForumCateg, topic: ForumTopic, mod: Holder): Funit =
     topicRepo.close(topic.id, topic.open) >> {
       (MasterGranter.is(_.ModerateForum)(mod) || topic.isAuthor(mod.user)) ?? {
-        modLog.toggleCloseTopic(mod.id, categ.id, topic.slug, topic.open)
+        modLog.toggleCloseTopic(mod.id into ModId, categ.id, topic.slug, topic.open)
       }
     }
 
   def toggleSticky(categ: ForumCateg, topic: ForumTopic, mod: Holder): Funit =
     topicRepo.sticky(topic.id, !topic.isSticky) >> {
       MasterGranter.is(_.ModerateForum)(mod) ??
-        modLog.toggleStickyTopic(mod.id, categ.id, topic.slug, !topic.isSticky)
+        modLog.toggleStickyTopic(mod.id into ModId, categ.id, topic.slug, !topic.isSticky)
     }
 
   def denormalize(topic: ForumTopic): Funit =

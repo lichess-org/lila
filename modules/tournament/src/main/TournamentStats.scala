@@ -17,18 +17,14 @@ final class TournamentStatsApi(
 
   private given BSONDocumentHandler[TournamentStats] = Macros.handler
 
-  private val cache = mongoCache[Tournament.ID, TournamentStats](
-    64,
-    "tournament:stats",
-    60 days,
-    identity
-  ) { loader =>
-    _.expireAfterAccess(10 minutes)
-      .maximumSize(256)
-      .buildAsyncFuture(loader(fetch))
+  private val cache = mongoCache[TourId, TournamentStats](64, "tournament:stats", 60 days, _.value) {
+    loader =>
+      _.expireAfterAccess(10 minutes)
+        .maximumSize(256)
+        .buildAsyncFuture(loader(fetch))
   }
 
-  private def fetch(tournamentId: Tournament.ID): Fu[TournamentStats] =
+  private def fetch(tournamentId: TourId): Fu[TournamentStats] =
     for {
       rating   <- playerRepo.averageRating(tournamentId)
       rawStats <- pairingRepo.rawStats(tournamentId)
@@ -51,7 +47,7 @@ private object TournamentStats:
 
   def readAggregation(rating: Int)(docs: List[Bdoc]): TournamentStats =
     val colorStats: Map[Option[Color], ColorStats] = docs.view.map { doc =>
-      doc.getAsOpt[Boolean]("_id").map(Color.fromWhite) ->
+      doc.getAsOpt[Boolean]("_id").map(Color.fromWhite(_)) ->
         ColorStats(
           ~doc.int("games"),
           ~doc.int("moves"),

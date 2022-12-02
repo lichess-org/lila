@@ -97,10 +97,10 @@ final class NotifyApi(
     getNotifications(to, 1) zip unreadCount(to) dmap (AndUnread.apply _).tupled map { msg =>
       Bus.publish(
         SendTo.async(
-          to.value,
+          to,
           "notifications",
           () =>
-            (userRepo langOf to.value) map I18nLangPicker.byStrOrDefault map (lang => jsonHandlers(msg)(using lang))
+            (userRepo langOf to) map I18nLangPicker.byStrOrDefault map (lang => jsonHandlers(msg)(using lang))
         ),
         "socketUsers"
       )

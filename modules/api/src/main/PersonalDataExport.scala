@@ -63,7 +63,7 @@ final class PersonalDataExport(
     val followedUsers =
       Source.futureSource {
         relationEnv.api.fetchFollowing(user.id) map { userIds =>
-          Source(List(textTitle("Followed players")) ++ userIds)
+          Source(List(textTitle("Followed players")) ++ userIds.map(_.value))
         }
       }
 
@@ -146,7 +146,7 @@ final class PersonalDataExport(
           )
         }
         .documentSource()
-        .map { doc => doc.string("l").??(_.drop(user.id.size + 1)) }
+        .map { doc => doc.string("l").??(_.drop(user.id.value.size + 1)) }
         .throttle(heavyPerSecond, 1 second)
 
     val privateGameChats =
@@ -210,7 +210,7 @@ final class PersonalDataExport(
               "intro"  -> post.intro,
               "body"   -> post.markdown,
               "image"  -> post.image.??(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Large)),
-              "topics" -> post.topics.map(_.value).mkString(", ")
+              "topics" -> post.topics.mkString(", ")
             ).map { case (k, v) =>
               s"$k: $v"
             }.mkString("\n") + bigSep
@@ -219,7 +219,7 @@ final class PersonalDataExport(
 
     val outro = Source(List(textTitle("End of data export.")))
 
-    List(
+    List[Source[String, _]](
       intro,
       connections,
       followedUsers,

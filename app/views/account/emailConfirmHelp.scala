@@ -6,7 +6,7 @@ import play.api.data.Form
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.security.EmailConfirm.Help.*
+import lila.security.EmailConfirm.Help.Status
 
 import controllers.routes
 import play.api.i18n.Lang
@@ -38,7 +38,7 @@ object emailConfirmHelp:
           ),
           div(cls := "replies")(
             status map {
-              case NoSuchUser(name) =>
+              case Status.NoSuchUser(name) =>
                 frag(
                   p(trans.usernameNotFound(strong(name))),
                   p(
@@ -47,7 +47,7 @@ object emailConfirmHelp:
                     )
                   )
                 )
-              case EmailSent(name, email) =>
+              case Status.EmailSent(name, email) =>
                 frag(
                   p(trans.emailSent(email.conceal)),
                   p(
@@ -69,15 +69,15 @@ object emailConfirmHelp:
                   ),
                   p(trans.waitForSignupHelp())
                 )
-              case Confirmed(name) =>
+              case Status.Confirmed(name) =>
                 frag(
                   p(trans.accountConfirmed(strong(name))),
                   p(trans.accountCanLogin(a(href := routes.Auth.login)(name))),
                   p(trans.accountConfirmationEmailNotNeeded())
                 )
-              case Closed(name) =>
+              case Status.Closed(name) =>
                 p(trans.accountClosed(strong(name)))
-              case NoEmail(name) =>
+              case Status.NoEmail(name) =>
                 p(trans.accountRegisteredWithoutEmail(strong(name)))
             }
           )

@@ -1,21 +1,20 @@
 package lila.chat
 
 import chess.Color
-
 import lila.user.{ Title, User }
 
 sealed trait Line:
   def text: String
   def author: String
   def deleted: Boolean
-  def isSystem    = author == systemUserId
+  def isSystem    = author == User.lichessName.value
   def isHuman     = !isSystem
   def humanAuthor = isHuman option author
   def troll: Boolean
-  def userIdMaybe: Option[User.ID]
+  def userIdMaybe: Option[UserId]
 
 case class UserLine(
-    username: String,
+    username: UserName,
     title: Option[UserTitle],
     patron: Boolean,
     text: String,
@@ -23,17 +22,16 @@ case class UserLine(
     deleted: Boolean
 ) extends Line:
 
-  def author = username
+  def author = username.value
 
-  def userId = User normalize username
-
+  def userId      = username.id
   def userIdMaybe = userId.some
 
   def delete = copy(deleted = true)
 
   def isVisible = !troll && !deleted
 
-  def isLichess = userId == User.lichessId
+  def isLichess = userId is User.lichessId
 
 case class PlayerLine(color: Color, text: String) extends Line:
   def deleted     = false
@@ -48,7 +46,8 @@ object Line:
 
   import reactivemongo.api.bson.*
 
-  private val invalidLine = UserLine("", None, false, "[invalid character]", troll = false, deleted = true)
+  private val invalidLine =
+    UserLine(UserName(""), None, false, "[invalid character]", troll = false, deleted = true)
 
   private[chat] given BSONHandler[UserLine] = BSONStringHandler.as[UserLine](
     v => strToUserLine(v) getOrElse invalidLine,
@@ -74,8 +73,8 @@ object Line:
         val patron  = sep == patronChar
         username split titleSep match
           case Array(title, name) =>
-            UserLine(name, Title get title, patron, text, troll = troll, deleted = deleted).some
-          case _ => UserLine(username, None, patron, text, troll = troll, deleted = deleted).some
+            UserLine(UserName(name), Title get title, patron, text, troll = troll, deleted = deleted).some
+          case _ => UserLine(UserName(username), None, patron, text, troll = troll, deleted = deleted).some
       case _ => none
   def userLineToStr(x: UserLine): String =
     val sep =

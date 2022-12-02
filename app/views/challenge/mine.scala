@@ -72,7 +72,7 @@ object mine:
                       p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou())
                     ),
                     ctx.isAuth option div(
-                      h2(cls := "ninja-title", "Or invite a Lichess user:"),
+                      h2(cls := "ninja-title", trans.challenge.inviteLichessUser()),
                       br,
                       postForm(
                         cls    := "user-invite complete-parent",
@@ -91,7 +91,7 @@ object mine:
               c.notableInitialFen.map { fen =>
                 frag(
                   br,
-                  div(cls := "board-preview", views.html.board.bits.mini(fen, c.finalColor)(div))
+                  div(cls := "board-preview", views.html.board.bits.mini(fen.board, c.finalColor)(div))
                 )
               },
               !c.isOpen option cancelForm

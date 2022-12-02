@@ -24,7 +24,7 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(using
           case Event.Cancel(c) if c.id == challenge.id    => completeWith("canceled")
           case Event.Decline(c) if c.id == challenge.id   => completeWith("declined")
         }
-        queue.watchCompletion().foreach { _ =>
+        queue.watchCompletion().addEffectAnyway {
           keepAliveInterval.cancel()
           Bus.unsubscribe(sub, "challenge")
         }

@@ -1,13 +1,15 @@
 package lila.tournament
 
+import ornicar.scalalib.ThreadLocalRandom
+
 import lila.common.LightUser
 import lila.rating.PerfType
 import lila.user.User
 
 private[tournament] case class Player(
     _id: TourPlayerId, // random
-    tourId: Tournament.ID,
-    userId: User.ID,
+    tourId: TourId,
+    userId: UserId,
     rating: IntRating,
     provisional: Boolean,
     withdraw: Boolean = false,
@@ -21,7 +23,7 @@ private[tournament] case class Player(
 
   def active = !withdraw
 
-  def is(uid: User.ID): Boolean  = uid == userId
+  def is(uid: UserId): Boolean   = uid == userId
   def is(user: User): Boolean    = is(user.id)
   def is(other: Player): Boolean = is(other.userId)
 
@@ -39,13 +41,13 @@ private[tournament] object Player:
   case class Result(player: Player, lightUser: LightUser, rank: Int)
 
   private[tournament] def make(
-      tourId: Tournament.ID,
+      tourId: TourId,
       user: User,
       perfType: PerfType,
       team: Option[TeamId]
   ): Player =
     new Player(
-      _id = TourPlayerId(lila.common.ThreadLocalRandom.nextString(8)),
+      _id = TourPlayerId(ThreadLocalRandom.nextString(8)),
       tourId = tourId,
       userId = user.id,
       rating = user.perfs(perfType).intRating,

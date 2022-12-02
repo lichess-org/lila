@@ -7,7 +7,7 @@ import lila.user.User
 case class Request(
     _id: String,
     team: TeamId,
-    user: User.ID,
+    user: UserId,
     message: String,
     date: DateTime,
     declined: Boolean
@@ -17,11 +17,11 @@ case class Request(
 object Request:
 
   type ID = String
-  def makeId(team: TeamId, user: User.ID) = s"$user@$team"
+  def makeId(team: TeamId, user: UserId) = s"$user@$team"
 
   val defaultMessage = "Hello, I would like to join the team!"
 
-  def make(team: TeamId, user: User.ID, message: String): Request =
+  def make(team: TeamId, user: UserId, message: String): Request =
     new Request(
       _id = makeId(team, user),
       user = user,
@@ -37,8 +37,5 @@ case class RequestWithUser(request: Request, user: User):
   def date    = request.date
   def team    = request.team
 
-sealed trait Requesting
-object Requesting:
-  case object Joined       extends Requesting
-  case object NeedRequest  extends Requesting
-  case object NeedPassword extends Requesting
+enum Requesting:
+  case Joined, NeedRequest, NeedPassword

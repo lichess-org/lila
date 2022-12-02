@@ -79,13 +79,13 @@ object Chart:
               )
             case Insight.Stacked(points) =>
               points.foldLeft(acc) { case (acc, (metricValueName, point)) =>
-                val key = s"${metric.name}/${metricValueName.name}"
+                val key = s"${metric.name}/${metricValueName}"
                 acc.updated(
                   key,
                   acc.get(key) match {
                     case None =>
                       Serie(
-                        name = metricValueName.name,
+                        name = metricValueName.value,
                         dataType = metric.dataType.name,
                         stack = metric.name.some,
                         data = List(point.value)
@@ -104,7 +104,7 @@ object Chart:
       answer.clusters.headOption.fold(series) {
         _.insight match
           case Insight.Single(_)       => series
-          case Insight.Stacked(points) => series.sortLike(points.map(_._1.name), _.name)
+          case Insight.Stacked(points) => series.sortLike(points.map(_._1.value), _.name)
       }
 
     def gameUserJson(player: lila.game.Player): Fu[JsObject] =
@@ -121,7 +121,7 @@ object Chart:
         user2 <- gameUserJson(pov.opponent)
       } yield Json.obj(
         "id"       -> pov.gameId,
-        "fen"      -> (chess.format.Forsyth exportBoard pov.game.board),
+        "fen"      -> (chess.format.Fen writeBoard pov.game.board),
         "color"    -> pov.player.color.name,
         "lastMove" -> (pov.game.lastMoveKeys | ""),
         "user1"    -> user1,

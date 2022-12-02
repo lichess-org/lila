@@ -31,8 +31,8 @@ final class TournamentLilaHttp(
   def hit(tour: Tournament) =
     if (tour.nbPlayers > 10 && !tour.isFinished && hitCounter(tour.id)) isOnLilaHttp.put(tour.id)
 
-  private val isOnLilaHttp = ExpireSetMemo[Tournament.ID](3 hours)(using stringIsString)
-  private val hitCounter   = FrequencyThreshold[Tournament.ID](10, 20 seconds)
+  private val isOnLilaHttp = ExpireSetMemo[TourId](3 hours)
+  private val hitCounter   = FrequencyThreshold[TourId](10, 20 seconds)
 
   private val channel = "http-out"
   private val conn    = redisClient.connectPubSub()
@@ -99,22 +99,22 @@ final class TournamentLilaHttp(
       sheet: arena.Sheet,
       rankedPlayer: RankedPlayer,
       streakable: Boolean
-  )(using ec: ExecutionContext): Fu[JsObject] =
+  )(using ExecutionContext): Fu[JsObject] =
     val p = rankedPlayer.player
-    lightUserApi async p.userId map { light =>
+    lightUserApi asyncFallback p.userId map { light =>
       Json
         .obj(
-          "name"   -> light.fold(p.userId)(_.name),
+          "name"   -> light.name,
           "rating" -> p.rating,
           "score"  -> p.score,
           "sheet"  -> JsonView.scoresToString(sheet)
         )
-        .add("title" -> light.flatMap(_.title))
+        .add("title" -> light.title)
         .add("provisional" -> p.provisional)
         .add("withdraw" -> p.withdraw)
         .add("team" -> p.team)
         .add("fire" -> p.fire)
         .add("pause" -> {
-          p.withdraw ?? pause.remainingDelay(p.userId, tour).map(_.seconds)
+          p.withdraw ?? pause.remainingDelay(p.userId, tour)
         })
     }

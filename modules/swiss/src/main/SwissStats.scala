@@ -55,8 +55,8 @@ final class SwissStatsApi(
               case (games, whiteWins, blackWins, draws) =>
                 sheet.outcomes.foldLeft((0, 0)) { case ((byes, absences), outcome) =>
                   (
-                    byes + (outcome == SwissSheet.Bye).??(1),
-                    absences + (outcome == SwissSheet.Absent).??(1)
+                    byes + (outcome == SwissSheet.Outcome.Bye).??(1),
+                    absences + (outcome == SwissSheet.Outcome.Absent).??(1)
                   )
                 } match {
                   case (byes, absences) =>

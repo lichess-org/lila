@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
 final private class Monitor(
     repo: FishnetRepo,
@@ -64,7 +65,7 @@ final private class Monitor(
     monBy.pv(userId, isLong = true).increment(significantPvSizes.count(_ >= 6))
 
   private def sample[A](elems: List[A], n: Int) =
-    if (elems.sizeIs <= n) elems else lila.common.ThreadLocalRandom shuffle elems take n
+    if (elems.sizeIs <= n) elems else ThreadLocalRandom shuffle elems take n
 
   private def monitorClients(): Funit =
     repo.allRecentClients map { clients =>

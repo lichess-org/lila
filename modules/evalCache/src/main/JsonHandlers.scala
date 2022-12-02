@@ -1,7 +1,7 @@
 package lila.evalCache
 
 import cats.implicits.*
-import chess.format.{ FEN, Uci }
+import chess.format.{ Fen, Uci }
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
@@ -14,7 +14,7 @@ object JsonHandlers:
   private given Writes[Mate]   = writeAs(_.value)
   private given Writes[Knodes] = writeAs(_.value)
 
-  def writeEval(e: Eval, fen: FEN) =
+  def writeEval(e: Eval, fen: Fen) =
     Json.obj(
       "fen"    -> fen,
       "knodes" -> e.knodes,
@@ -35,7 +35,7 @@ object JsonHandlers:
 
   private[evalCache] def readPutData(trustedUser: TrustedUser, d: JsObject): Option[Input.Candidate] =
     for {
-      fen    <- d str "fen"
+      fen    <- d.get[Fen]("fen")
       knodes <- d int "knodes"
       depth  <- d int "depth"
       pvObjs <- d objs "pvs"
@@ -56,14 +56,14 @@ object JsonHandlers:
   private def parsePv(d: JsObject): Option[Pv] =
     for {
       movesStr <- d str "moves"
-      moves <-
+      moves <- Moves from
         movesStr
           .split(' ')
-          .take(EvalCacheEntry.MAX_PV_SIZE)
+          .take(MAX_PV_SIZE)
           .foldLeft(List.empty[Uci].some) {
             case (Some(ucis), str) => Uci(str) map (_ :: ucis)
             case _                 => None
           }
-          .flatMap(_.reverse.toNel) map Moves.apply
+          .flatMap(_.reverse.toNel)
       score <- d.get[Cp]("cp").map(Score.cp(_)) orElse d.get[Mate]("mate").map(Score.mate(_))
     } yield Pv(score, moves)

@@ -21,7 +21,7 @@ final class UblogRank(
 
   import UblogBsonHandlers.given
 
-  private def selectLiker(userId: User.ID) = $doc("likers" -> userId)
+  private def selectLiker(userId: UserId) = $doc("likers" -> userId)
 
   def liked(post: UblogPost)(user: User): Fu[Boolean] =
     colls.post.exists($id(post.id) ++ selectLiker(user.id))
@@ -120,7 +120,7 @@ final class UblogRank(
       .run()
       .map(nb => println(s"Recomputed rank of $nb blogs"))
 
-  def computeRank(blog: UblogBlog, post: UblogPost): Option[UblogPost.Rank] =
+  def computeRank(blog: UblogBlog, post: UblogPost): Option[UblogPost.RankDate] =
     post.lived map { lived =>
       computeRank(post.topics, post.likes, lived.at, post.language, blog.tier)
     }
@@ -131,7 +131,7 @@ final class UblogRank(
       liveAt: DateTime,
       language: Lang,
       tier: UblogBlog.Tier
-  ) = UblogPost.Rank {
+  ) = UblogPost.RankDate {
     import UblogBlog.Tier.*
     if (tier < LOW) liveAt minusMonths 3
     else

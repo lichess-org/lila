@@ -24,7 +24,7 @@ final class RatingChartApi(
       ratingsMapToJson(user.id, user.createdAt, _)
     } map JsArray.apply
 
-  private val cache = cacheApi[User.ID, String](4096, "history.rating") {
+  private val cache = cacheApi[UserId, String](4096, "history.rating") {
     _.expireAfterWrite(10 minutes)
       .maximumSize(4096)
       .buildAsyncFuture { userId =>
@@ -32,13 +32,13 @@ final class RatingChartApi(
       }
   }
 
-  private def ratingsMapToJson(userId: User.ID, createdAt: DateTime, ratingsMap: RatingsMap) =
+  private def ratingsMapToJson(userId: UserId, createdAt: DateTime, ratingsMap: RatingsMap) =
     ratingsMap.map { case (days, rating) =>
       val date = createdAt plusDays days
       Json.arr(date.getYear, date.getMonthOfYear - 1, date.getDayOfMonth, rating)
     }
 
-  private def build(userId: User.ID): Fu[Option[String]] =
+  private def build(userId: UserId): Fu[Option[String]] =
     userRepo.createdAtById(userId) flatMap {
       _ ?? { createdAt =>
         historyApi get userId map2 { (history: History) =>

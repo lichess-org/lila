@@ -1,6 +1,6 @@
 package lila.api
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.format.pgn.Pgn
 
 import lila.analyse.{ Analysis, Annotator }
@@ -21,7 +21,7 @@ final class PgnDump(
 
   def apply(
       game: Game,
-      initialFen: Option[FEN],
+      initialFen: Option[Fen],
       analysis: Option[Analysis],
       flags: WithFlags,
       teams: Option[GameTeams] = None,
@@ -46,7 +46,7 @@ final class PgnDump(
   def formatter(flags: WithFlags) =
     (
         game: Game,
-        initialFen: Option[FEN],
+        initialFen: Option[Fen],
         analysis: Option[Analysis],
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]

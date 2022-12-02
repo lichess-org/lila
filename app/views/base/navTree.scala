@@ -7,22 +7,22 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object navTree:
 
-  sealed trait Node:
+  enum Node:
     val id: String
     val name: Frag
-  case class Branch(id: String, name: Frag, children: List[Node], content: Option[Frag] = None) extends Node
-  case class Leaf(id: String, name: Frag, content: Frag)                                        extends Node
+    case Branch(id: String, name: Frag, children: List[Node], content: Option[Frag] = None)
+    case Leaf(id: String, name: Frag, content: Frag)
 
   def renderNode(node: Node, parent: Option[Node])(implicit ctx: Context): Frag =
     node match
-      case Leaf(id, name, content) =>
+      case Node.Leaf(id, name, content) =>
         List(
           div(makeId(id), cls := "node leaf")(
             h2(parent map goBack, name),
             div(cls := "content")(content)
           )
         )
-      case b @ Branch(id, name, children, content) =>
+      case b @ Node.Branch(id, name, children, content) =>
         frag(
           div(makeId(id), cls := s"node branch $id")(
             h2(parent map goBack, name),

@@ -11,7 +11,7 @@ final class LearnApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
   import BSONHandlers.given
 
   def get(user: User): Fu[LearnProgress] =
-    coll.one[LearnProgress]($id(user.id)) dmap { _ | LearnProgress.empty(LearnProgress.Id(user.id)) }
+    coll.one[LearnProgress]($id(user.id)) dmap { _ | LearnProgress.empty(user.id) }
 
   private def save(p: LearnProgress): Funit =
     coll.update.one($id(p.id), p, upsert = true).void
@@ -26,7 +26,7 @@ final class LearnApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   private val maxCompletion = 110
 
-  def completionPercent(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
+  def completionPercent(userIds: List[UserId]): Fu[Map[UserId, Int]] =
     coll
       .aggregateList(
         maxDocs = Int.MaxValue,
@@ -57,7 +57,7 @@ final class LearnApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
       .map {
         _.view
           .flatMap { obj =>
-            (obj string "_id", obj int "nb") mapN { (k, v) =>
+            (obj.getAsOpt[UserId]("_id"), obj int "nb") mapN { (k, v) =>
               k -> (v * 100f / maxCompletion).toInt
             }
           }

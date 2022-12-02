@@ -1,6 +1,6 @@
 package lila.api
 
-import chess.format.Forsyth
+import chess.format.Fen
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
@@ -56,7 +56,7 @@ final class UserGameApi(
             .add("rating" -> p.rating)
             .add("ratingDiff" -> p.ratingDiff)
         }),
-        "fen"       -> Forsyth.exportBoard(g.board),
+        "fen"       -> Fen.writeBoard(g.board),
         "winner"    -> g.winnerColor.map(_.name),
         "bookmarks" -> g.bookmarks
       )

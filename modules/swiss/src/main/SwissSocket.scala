@@ -23,7 +23,7 @@ final private class SwissSocket(
 
   def reload(id: SwissId): Unit =
     reloadThrottler ! LateMultiThrottler.work(
-      id = id.value,
+      id = id,
       run = fuccess {
         send(RP.Out.tellRoom(id into RoomId, makeMessage("reload")))
       },

@@ -1,25 +1,19 @@
 package lila.base
 
 import alleycats.Zero
+import cats.Show
+import org.joda.time.DateTime
+import ornicar.scalalib.newtypes.*
 
-trait LilaModel extends NewTypes:
+trait LilaModel:
+
+  trait OpaqueDate[A](using A =:= DateTime) extends TotalWrapper[A, DateTime]
 
   trait Percent[A]:
     def apply(a: A): Double
   object Percent:
     def toInt[A](a: A)(using p: Percent[A]) = Math.round(p(a)).toInt // round to closest
 
-  opaque type UserId = String
-  object UserId extends OpaqueString[UserId]
-
-  // specialized UserIds like Coach.Id
-  trait OpaqueUserId[A] extends OpaqueString[A]:
-    extension (a: A) inline def userId: UserId = a into UserId
-
-  opaque type UserName = String
-  object UserName extends OpaqueString[UserName]:
-    extension (n: UserName) def id = UserId(n.value.toLowerCase)
-  
   opaque type GameAnyId = String
   object GameAnyId extends OpaqueString[GameAnyId]
 
@@ -94,7 +88,7 @@ trait LilaModel extends NewTypes:
 
   opaque type IntRatingDiff = Int
   object IntRatingDiff extends OpaqueInt[IntRatingDiff]:
-    given Zero[IntRatingDiff] = Zero(apply(0))
+    given Zero[IntRatingDiff] = Zero(0)
 
   opaque type Rating = Double
   object Rating extends OpaqueDouble[Rating]
@@ -107,3 +101,6 @@ trait LilaModel extends NewTypes:
 
   opaque type RichText = String
   object RichText extends OpaqueString[RichText]
+
+  opaque type Markdown = String
+  object Markdown extends OpaqueString[Markdown]

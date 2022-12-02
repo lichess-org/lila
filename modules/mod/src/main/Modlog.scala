@@ -2,18 +2,18 @@ package lila.mod
 
 import org.joda.time.DateTime
 
-import lila.report.{ Mod, Suspect }
+import lila.report.{ ModId, Mod, Suspect }
 
 case class Modlog(
-    mod: String,
-    user: Option[String],
+    mod: ModId,
+    user: Option[UserId],
     action: String,
     details: Option[String] = None,
     date: DateTime = DateTime.now,
     index: Option[String] = None
 ):
 
-  def isLichess = mod == lila.user.User.lichessId
+  def isLichess = mod is lila.user.User.lichessId
 
   def notable      = action != Modlog.terminateTournament
   def notableZulip = notable && !isLichess
@@ -79,13 +79,13 @@ case class Modlog(
       case Modlog.setKidMode          => "set kid mode"
       case a                          => a
 
-  override def toString = s"$mod $showAction ${~user} $details"
+  override def toString = s"$mod $showAction $user $details"
 
 object Modlog:
 
   def make(mod: Mod, sus: Suspect, action: String, details: Option[String] = None): Modlog =
     Modlog(
-      mod = mod.user.id,
+      mod = mod.id,
       user = sus.user.id.some,
       action = action,
       details = details

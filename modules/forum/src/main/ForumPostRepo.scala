@@ -90,7 +90,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     coll.one[ForumPost](
       $doc(
         "createdAt" $gt DateTime.now.minusHours(1),
-        "userId" -> ~post.userId,
+        "userId" -> post.userId,
         "text"   -> post.text
       )
     )
@@ -100,8 +100,8 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
   def idsByTopicId(topicId: ForumTopicId): Fu[List[ForumPostId]] =
     coll.distinctEasy[ForumPostId, List]("_id", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
 
-  def allUserIdsByTopicId(topicId: ForumTopicId): Fu[List[User.ID]] =
-    coll.distinctEasy[User.ID, List](
+  def allUserIdsByTopicId(topicId: ForumTopicId): Fu[List[UserId]] =
+    coll.distinctEasy[UserId, List](
       "userId",
       $doc("topicId" -> topicId) ++ selectNotErased,
       ReadPreference.secondaryPreferred

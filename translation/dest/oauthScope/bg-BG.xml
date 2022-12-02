@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="tokenGrantsPermission">Токенът разрешава на други хора да използват вашият акаунт.</string>
+  <string name="tokenGrantsPermission">Токенът разрешава на други хора да използват вашия акаунт.</string>
   <string name="carefullySelect">Внимателно изберете какво е позволено да се прави от ваша страна.</string>
-  <string name="tokenDescription">Описание на Токенът</string>
+  <string name="tokenDescription">Описание на Токена</string>
   <string name="rememberTokenUse">За да запомните за какво се използва токенът</string>
   <string name="whatTheTokenCanDo">Какво може да прави от ваше име токенът:</string>
   <string name="doNotShareIt">Токенът ще има достъп до вашият акаунт. НЕ го споделяйте с никого!</string>
-  <string name="copyTokenNow">Не забравяйте да запазите личният си токен. Няма да имате възможност да го видите отново!</string>
+  <string name="copyTokenNow">Не забравяйте да запазите личния си токен. Няма да имате възможност да го видите отново!</string>
   <string name="preferenceRead">Прочетете предпочитанията</string>
   <string name="preferenceWrite">Напишете предпочитания</string>
-  <string name="emailRead">Прочети емейл адреса</string>
+  <string name="emailRead">Прочети имейл адреса</string>
   <string name="challengeRead">Прочети предстоящите промени</string>
   <string name="challengeWrite">Изпрати, приеми, откажи предизвикателства</string>
   <string name="challengeBulk">Създай много игри наведнъж за други играчи</string>

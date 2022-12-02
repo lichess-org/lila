@@ -1,7 +1,7 @@
 package lila.opening
 
-import chess.format.{ FEN, Forsyth, Uci }
-import chess.opening.{ FullOpening, FullOpeningDB }
+import chess.format.{ Fen, Uci }
+import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 import chess.Replay
 import chess.variant.Standard
 import chess.{ Situation, Speed }
@@ -15,23 +15,23 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   val uci: Vector[Uci]    = replay.moves.view.map(_.fold(_.toUci, _.toUci)).reverse.toVector
   def position            = replay.state.situation
   def variant             = chess.variant.Standard
-  val fen                 = Forsyth >> replay.state.situation
-  val opening             = FullOpeningDB findByFen fen
+  val fen                 = Fen writeOpening replay.state.situation
+  val opening             = OpeningDb findByFen fen
   val family              = opening.map(_.family)
   def pgnString           = pgn mkString " "
   def pgnUnderscored      = pgn mkString "_"
   def initial             = pgn.isEmpty
   def query = openingAndExtraMoves match
-    case (op, _) => OpeningQuery.Query(op.fold("-")(_.key), pgnUnderscored.some)
+    case (op, _) => OpeningQuery.Query(op.fold("-")(_.key.value), pgnUnderscored.some)
   def prev = (pgn.sizeIs > 1) ?? OpeningQuery(OpeningQuery.Query("", pgn.init.mkString(" ").some), config)
 
-  val openingAndExtraMoves: (Option[FullOpening], List[Opening.PgnMove]) =
-    opening.map(_.some -> Nil) orElse FullOpeningDB.search(replay).map { case FullOpening.AtPly(op, ply) =>
+  val openingAndExtraMoves: (Option[Opening], List[PgnMove]) =
+    opening.map(_.some -> Nil) orElse OpeningDb.search(replay).map { case Opening.AtPly(op, ply) =>
       op.some -> pgn.drop(ply + 1).toList
     } getOrElse (none, pgn.toList)
 
   val name: String = openingAndExtraMoves match
-    case (Some(op), Nil)   => op.name
+    case (Some(op), Nil)   => op.name.value
     case (Some(op), moves) => s"${op.name}, ${moves mkString " "}"
     case (_, moves)        => moves mkString " "
 
@@ -48,13 +48,14 @@ object OpeningQuery:
     if (q.key.isEmpty && q.moves.isEmpty) fromPgn("", config)
     else q.moves.flatMap(fromPgn(_, config)) orElse byOpening(q.key, config)
 
-  private def byOpening(key: String, config: OpeningConfig) = {
-    FullOpeningDB.shortestLines.get(key) orElse
+  private def byOpening(str: String, config: OpeningConfig) = {
+    OpeningDb.shortestLines.get(OpeningKey(str)) orElse
       lila.common.String
-        .decodeUriPath(key)
-        .map(FullOpening.nameToKey.apply)
-        .flatMap(FullOpeningDB.shortestLines.get)
-  }.map(_.pgn) flatMap { fromPgn(_, config) }
+        .decodeUriPath(str)
+        .map(OpeningName(_))
+        .map(OpeningKey.fromName(_))
+        .flatMap(OpeningDb.shortestLines.get)
+  }.map(_.pgn.value) flatMap { fromPgn(_, config) }
 
   private def fromPgn(pgn: String, config: OpeningConfig) = for {
     parsed <- chess.format.pgn.Reader.full(pgn).toOption

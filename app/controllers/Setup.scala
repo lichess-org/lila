@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 import play.api.mvc.Results
 import scala.concurrent.duration.*
 
-import chess.format.FEN
+import chess.format.Fen
 import lila.api.{ BodyContext, Context }
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
@@ -43,14 +43,14 @@ final class Setup(
     ("slow", 300, 1.day)
   )
 
-  private[controllers] val BotAiRateLimit = new lila.memo.RateLimit[lila.user.User.ID](
+  private[controllers] val BotAiRateLimit = new lila.memo.RateLimit[UserId](
     50,
     1.day,
     key = "setup.post.bot.ai"
   )
 
   def ai = OpenBody { implicit ctx =>
-    BotAiRateLimit(~ctx.userId, cost = ctx.me.exists(_.isBot) ?? 1) {
+    BotAiRateLimit(ctx.userId | UserId(""), cost = ctx.me.exists(_.isBot) ?? 1) {
       PostRateLimit(ctx.ip) {
         given play.api.mvc.Request[?] = ctx.body
         forms.ai
@@ -72,7 +72,7 @@ final class Setup(
     }(rateLimitedFu)
   }
 
-  def friend(userId: Option[String]) =
+  def friend(userId: Option[UserStr]) =
     OpenBody { implicit ctx =>
       given play.api.mvc.Request[?] = ctx.body
       PostRateLimit(ctx.ip) {
@@ -82,7 +82,7 @@ final class Setup(
           .fold(
             jsonFormError,
             config =>
-              userId ?? env.user.repo.enabledNamed flatMap { destUser =>
+              userId ?? env.user.repo.enabledById flatMap { destUser =>
                 destUser ?? { env.challenge.granter.isDenied(ctx.me, _, config.perfType) } flatMap {
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)
@@ -154,7 +154,7 @@ final class Setup(
                         userConfig withinLimits ctx.me,
                         Sri(sri),
                         HTTPRequest sid ctx.req,
-                        blocking
+                        lila.pool.Blocking(blocking)
                       ) map hookResponse
                     }
                   }(rateLimitedFu)
@@ -188,7 +188,7 @@ final class Setup(
                         hookConfigWithRating,
                         Sri(sri),
                         HTTPRequest sid ctx.req,
-                        blocking ++ sameOpponents
+                        lila.pool.Blocking(blocking ++ sameOpponents)
                       )
                 } yield hookResponse(hookResult)
               }
@@ -198,7 +198,7 @@ final class Setup(
       }
     }
 
-  private val BoardApiHookConcurrencyLimitPerUser = new lila.memo.ConcurrencyLimit[String](
+  private val BoardApiHookConcurrencyLimitPerUser = lila.memo.ConcurrencyLimit[UserId](
     name = "Board API hook Stream API concurrency per user",
     key = "boardApiHook.concurrency.limit.user",
     ttl = 10.minutes,
@@ -216,7 +216,8 @@ final class Setup(
             config =>
               env.relation.api.fetchBlocking(me.id) flatMap { blocking =>
                 val uniqId = s"sri:${me.id}"
-                config.fixColor.hook(Sri(uniqId), me.some, sid = uniqId.some, blocking) match {
+                config.fixColor
+                  .hook(Sri(uniqId), me.some, sid = uniqId.some, lila.pool.Blocking(blocking)) match {
                   case Left(hook) =>
                     PostRateLimit(HTTPRequest ipAddress req) {
                       BoardApiHookConcurrencyLimitPerUser(me.id)(
@@ -242,9 +243,9 @@ final class Setup(
 
   def validateFen =
     Open { implicit ctx =>
-      get("fen") map FEN.clean flatMap ValidFen(getBool("strict")) match
+      get("fen") map Fen.clean flatMap ValidFen(getBool("strict")) match
         case None    => BadRequest.toFuccess
-        case Some(v) => Ok(html.board.bits.miniSpan(v.fen, v.color)).toFuccess
+        case Some(v) => Ok(html.board.bits.miniSpan(v.fen.board, v.color)).toFuccess
     }
 
   def apiAi =
@@ -266,7 +267,7 @@ final class Setup(
     }
 
   private[controllers] def redirectPov(pov: Pov)(implicit ctx: Context) =
-    val redir = Redirect(routes.Round.watcher(pov.gameId, "white"))
+    val redir = Redirect(routes.Round.watcher(pov.gameId.value, "white"))
     if (ctx.isAuth) redir
     else
       redir withCookies env.lilaCookie.cookie(

@@ -10,13 +10,14 @@ import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler, Macros }
 import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.config
 import lila.db.dsl.{ *, given }
 
 case class PicfitImage(
     _id: PicfitImage.Id,
-    user: String,
+    user: UserId,
     // reverse reference like blog:id, streamer:id, coach:id, ...
     // unique: a new image will delete the previous ones with same rel
     rel: String,
@@ -42,10 +43,10 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
   import PicfitImage.*
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
 
-  def uploadFile(rel: String, uploaded: FilePart, userId: String): Fu[PicfitImage] =
+  def uploadFile(rel: String, uploaded: FilePart, userId: UserId): Fu[PicfitImage] =
     uploadSource(rel, uploaded.copy[ByteSource](ref = FileIO.fromPath(uploaded.ref.path)), userId)
 
-  def uploadSource(rel: String, part: SourcePart, userId: String): Fu[PicfitImage] =
+  def uploadSource(rel: String, part: SourcePart, userId: UserId): Fu[PicfitImage] =
     if (part.fileSize > uploadMaxBytes)
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else
@@ -56,7 +57,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
         case Some(extension) => {
           val image = PicfitImage(
-            _id = PicfitImage.Id(s"$userId:$rel:${lila.common.ThreadLocalRandom nextString 8}.$extension"),
+            _id = PicfitImage.Id(s"$userId:$rel:${ThreadLocalRandom nextString 8}.$extension"),
             user = userId,
             rel = rel,
             name = part.filename,
@@ -85,10 +86,10 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         .flatMap {
           case res if res.status != 200 => fufail(s"${res.statusText} ${res.body[String] take 200}")
           case _ =>
-            lila.mon.picfit.uploadSize(image.user).record(image.size)
+            lila.mon.picfit.uploadSize(image.user.value).record(image.size)
             funit
         }
-        .monSuccess(_.picfit.uploadTime(image.user))
+        .monSuccess(_.picfit.uploadTime(image.user.value))
 
     def delete(image: PicfitImage): Funit =
       ws.url(s"${config.endpointPost}/${image.id}").delete().flatMap {

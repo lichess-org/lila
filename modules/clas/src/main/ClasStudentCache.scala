@@ -4,6 +4,7 @@ import akka.actor.Scheduler
 import akka.stream.Materializer
 import akka.stream.scaladsl.*
 import bloomfilter.mutable.BloomFilter
+import bloomfilter.CanGenerateHashFrom
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration.*
@@ -20,15 +21,17 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(using
 ):
 
   private val falsePositiveRate = 0.00003
-  private var bloomFilter       = BloomFilter[User.ID](100, falsePositiveRate) // temporary empty filter
+  // Stick to [String], it does unsafe operation that don't play well with opaque types
+  private var bloomFilter: BloomFilter[String] =
+    BloomFilter[String](100, falsePositiveRate) // temporary empty filter
 
-  def isStudent(userId: User.ID) = bloomFilter mightContain userId
+  def isStudent(userId: UserId) = bloomFilter mightContain userId.value
 
-  def addStudent(userId: User.ID): Unit = bloomFilter add userId
+  def addStudent(userId: UserId): Unit = bloomFilter add userId.value
 
   private def rebuildBloomFilter(): Unit =
     colls.student.countAll foreach { count =>
-      val nextBloom = BloomFilter[User.ID](count + 1, falsePositiveRate)
+      val nextBloom = BloomFilter[String](count + 1, falsePositiveRate)
       colls.student
         .find($doc("archived" $exists false), $doc("userId" -> true, "_id" -> false).some)
         .cursor[Bdoc](temporarilyPrimary)
@@ -36,7 +39,7 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(using
         .throttle(300, 1.second)
         .toMat(Sink.fold[Int, Bdoc](0) { case (counter, doc) =>
           if (counter % 500 == 0) logger.info(s"ClasStudentCache.rebuild $counter")
-          doc string "userId" foreach nextBloom.add
+          doc.string("userId") foreach nextBloom.add
           counter + 1
         })(Keep.right)
         .run()

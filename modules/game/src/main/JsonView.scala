@@ -2,7 +2,7 @@ package lila.game
 
 import play.api.libs.json.*
 
-import chess.format.{ FEN, Forsyth }
+import chess.format.Fen
 import chess.variant.Crazyhouse
 import chess.{ Clock, Color }
 import lila.common.Json.{ *, given }
@@ -12,7 +12,7 @@ final class JsonView(rematches: Rematches):
 
   import JsonView.{ *, given }
 
-  def apply(game: Game, initialFen: Option[FEN]) =
+  def apply(game: Game, initialFen: Option[Fen]) =
     Json
       .obj(
         "id"            -> game.id,
@@ -20,7 +20,7 @@ final class JsonView(rematches: Rematches):
         "speed"         -> game.speed.key,
         "perf"          -> PerfPicker.key(game),
         "rated"         -> game.rated,
-        "fen"           -> (Forsyth >> game.chess),
+        "fen"           -> (Fen write game.chess),
         "player"        -> game.turnColor,
         "turns"         -> game.turns,
         "startedAtTurn" -> game.chess.startedAtTurn,
@@ -45,7 +45,7 @@ final class JsonView(rematches: Rematches):
       .obj(
         "fullId"   -> pov.fullId,
         "gameId"   -> pov.gameId,
-        "fen"      -> (Forsyth >> pov.game.chess),
+        "fen"      -> (Fen write pov.game.chess),
         "color"    -> (if (pov.game.variant.racingKings) chess.White else pov.color).name,
         "lastMove" -> (pov.game.lastMoveKeys | ""),
         "source"   -> pov.game.source,
@@ -69,7 +69,7 @@ final class JsonView(rematches: Rematches):
       )
       .add("secondsLeft" -> pov.remainingSeconds)
       .add("tournamentId" -> pov.game.tournamentId)
-      .add("swissId" -> pov.game.tournamentId)
+      .add("swissId" -> pov.game.swissId)
 
 object JsonView:
 
@@ -85,7 +85,7 @@ object JsonView:
   given OWrites[Crosstable.Users] with
     def writes(users: Crosstable.Users) =
       JsObject(users.toList.map { u =>
-        u.id -> JsNumber(u.score / 10d)
+        u.id.value -> JsNumber(u.score / 10d)
       })
 
   given OWrites[Crosstable] with
@@ -154,7 +154,7 @@ object JsonView:
     )
   }
 
-  given OWrites[chess.opening.FullOpening.AtPly] = OWrites { o =>
+  given OWrites[chess.opening.Opening.AtPly] = OWrites { o =>
     Json.obj(
       "eco"  -> o.opening.eco,
       "name" -> o.opening.name,

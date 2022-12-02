@@ -25,11 +25,11 @@ final private class MsgNotify(
 
   def onPost(threadId: MsgThread.Id): Unit = schedule(threadId)
 
-  def onRead(threadId: MsgThread.Id, userId: User.ID, contactId: User.ID): Funit =
+  def onRead(threadId: MsgThread.Id, userId: UserId, contactId: UserId): Funit =
     !cancel(threadId) ??
       notifyApi
         .markRead(
-          UserId(userId),
+          userId,
           $doc(
             "content.type" -> "privateMessage",
             "content.user" -> contactId
@@ -67,10 +67,8 @@ final private class MsgNotify(
     colls.thread.byId[MsgThread](threadId.value) flatMap {
       _ ?? { thread =>
         val msg  = thread.lastMsg
-        val to = UserId(thread other msg.user)
-        val from = UserId(msg.user)
-        !thread.delBy(to.value) ?? {
-          notifyApi notifyOne (to, PrivateMessage(from, text = shorten(msg.text, 40)))
+        !thread.delBy(thread other msg.user) ?? {
+          notifyApi notifyOne (thread other msg.user, PrivateMessage(msg.user, text = shorten(msg.text, 40)))
         }
       }
     } void

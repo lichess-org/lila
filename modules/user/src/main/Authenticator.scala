@@ -22,7 +22,7 @@ final class Authenticator(
     }
     passHasher.check(auth.bpass, newP)
 
-  def authenticateById(id: User.ID, passwordAndToken: PasswordAndToken): Fu[Option[User]] =
+  def authenticateById(id: UserId, passwordAndToken: PasswordAndToken): Fu[Option[User]] =
     loginCandidateById(id) map { _ flatMap { _ option passwordAndToken } }
 
   def authenticateByEmail(
@@ -34,13 +34,13 @@ final class Authenticator(
   def loginCandidate(u: User): Fu[User.LoginCandidate] =
     loginCandidateById(u.id) dmap { _ | User.LoginCandidate(u, _ => false) }
 
-  def loginCandidateById(id: User.ID): Fu[Option[User.LoginCandidate]] =
+  def loginCandidateById(id: UserId): Fu[Option[User.LoginCandidate]] =
     loginCandidate($id(id))
 
   def loginCandidateByEmail(email: NormalizedEmailAddress): Fu[Option[User.LoginCandidate]] =
     loginCandidate($doc(F.email -> email))
 
-  def setPassword(id: User.ID, p: ClearPassword): Funit =
+  def setPassword(id: UserId, p: ClearPassword): Funit =
     userRepo.coll.update
       .one(
         $id(id),
@@ -68,7 +68,7 @@ final class Authenticator(
 object Authenticator:
 
   case class AuthData(
-      _id: User.ID,
+      _id: UserId,
       bpass: HashedPassword,
       salt: Option[String] = None,
       sha512: Option[Boolean] = None

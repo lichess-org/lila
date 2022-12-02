@@ -52,7 +52,7 @@ final private[round] class RoundAsyncActor(
 
     def botConnected = botConnections > 0
 
-    var userId     = none[User.ID]
+    var userId     = none[UserId]
     var goneWeight = 1f
 
     def isOnline = offlineSince.isEmpty || botConnected
@@ -538,7 +538,7 @@ final private[round] class RoundAsyncActor(
 
 object RoundAsyncActor:
 
-  case class HasUserId(userId: User.ID, promise: Promise[Boolean])
+  case class HasUserId(userId: UserId, promise: Promise[Boolean])
   case class SetGameInfo(game: lila.game.Game, goneWeights: (Float, Float))
   case object Tick
   case object Stop

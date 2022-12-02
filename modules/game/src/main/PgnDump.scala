@@ -1,8 +1,8 @@
 package lila.game
 
-import chess.format.Forsyth
+import chess.format.Fen
 import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags }
-import chess.format.{ pgn as chessPgn, FEN }
+import chess.format.{ pgn as chessPgn, Fen }
 import chess.{ Centis, Color, Outcome }
 
 import lila.common.config.BaseUrl
@@ -17,7 +17,7 @@ final class PgnDump(
 
   def apply(
       game: Game,
-      initialFen: Option[FEN],
+      initialFen: Option[Fen],
       flags: WithFlags,
       teams: Option[Color.Map[TeamId]] = None
   ): Fu[Pgn] =
@@ -37,13 +37,13 @@ final class PgnDump(
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
       val turns = flags.moves ?? {
-        val fenSituation = ts.fen flatMap Forsyth.<<<
+        val fenSituation = ts.fen flatMap Fen.readWithMoveNumber
         makeTurns(
           flags keepDelayIf game.playable applyDelay {
             if (fenSituation.exists(_.situation.color.black)) ".." +: game.pgnMoves
             else game.pgnMoves
           },
-          fenSituation.map(_.fullMoveNumber) | 1,
+          fenSituation.fold(1)(_.fullMoveNumber),
           flags.clocks ?? ~game.bothClockStates,
           game.startColor
         )
@@ -83,7 +83,7 @@ final class PgnDump(
 
   def tags(
       game: Game,
-      initialFen: Option[FEN],
+      initialFen: Option[Fen],
       imported: Option[ParsedPgn],
       withOpening: Boolean,
       withRating: Boolean,

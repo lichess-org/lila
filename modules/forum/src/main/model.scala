@@ -55,18 +55,17 @@ case class MiniForumPost(
     isTeam: Boolean,
     postId: ForumPostId,
     topicName: String,
-    userId: Option[String],
+    userId: Option[UserId],
     text: String,
     createdAt: DateTime
 )
 
 case class PostUrlData(categ: String, topic: String, page: Int, number: Int)
 
-object Filter:
-  sealed trait Filter
-  case object Safe                   extends Filter
-  case class SafeAnd(userId: String) extends Filter
-  case object Unsafe                 extends Filter
+enum Filter:
+  case Safe
+  case SafeAnd(userId: UserId)
+  case Unsafe
 
 case class InsertPost(post: ForumPost)
 case class RemovePost(id: ForumPostId)

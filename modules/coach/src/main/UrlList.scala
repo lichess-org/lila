@@ -6,7 +6,8 @@ object UrlList:
 
     val max = 6
 
-    case class Url(value: String) extends AnyVal
+    opaque type Url = String
+    object Url extends OpaqueString[Url]
 
     def apply(text: String): List[Url] =
       text.linesIterator.toList.view.map(_.trim).filter(_.nonEmpty) flatMap toUrl take max to List

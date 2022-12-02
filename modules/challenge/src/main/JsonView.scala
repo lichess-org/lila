@@ -21,7 +21,7 @@ final class JsonView(
     Json
       .obj(
         "id"     -> r.id,
-        "name"   -> light.fold(r.id)(_.name),
+        "name"   -> light.fold(r.id into UserName)(_.name),
         "title"  -> light.map(_.title),
         "rating" -> r.rating.int
       )
@@ -41,9 +41,7 @@ final class JsonView(
       })
     )
 
-  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction])(using
-      lang: Lang
-  ) =
+  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction])(using Lang) =
     Json.obj(
       "challenge"     -> apply(direction)(challenge),
       "socketVersion" -> socketVersion
@@ -51,7 +49,7 @@ final class JsonView(
 
   private given OWrites[Challenge.Open] = Json.writes
 
-  def apply(direction: Option[Direction])(c: Challenge)(using lang: Lang): JsObject =
+  def apply(direction: Option[Direction])(c: Challenge)(using Lang): JsObject =
     Json
       .obj(
         "id"         -> c.id,
@@ -103,4 +101,4 @@ final class JsonView(
     trans.decline,
     trans.viewInFullSize,
     trans.cancel
-  ).map(_.key)
+  )

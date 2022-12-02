@@ -9,7 +9,7 @@ import controllers.routes
 object mini:
 
   def apply(
-      userId: lila.user.User.ID,
+      userId: UserId,
       blocked: Boolean,
       followable: Boolean,
       relation: Option[lila.relation.Relation] = None

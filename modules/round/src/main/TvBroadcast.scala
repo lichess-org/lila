@@ -2,7 +2,7 @@ package lila.round
 
 import akka.actor.*
 import akka.stream.scaladsl.*
-import chess.format.Forsyth
+import chess.format.{ Fen, BoardFen }
 import play.api.libs.json.*
 
 import lila.common.{ Bus, LightUser }
@@ -39,7 +39,7 @@ final private class TvBroadcast(
         .mapMaterializedValue { queue =>
           val client = Client(queue, compat)
           self ! Add(client)
-          queue.watchCompletion().foreach { _ =>
+          queue.watchCompletion().addEffectAnyway {
             self ! Remove(client)
           }
           featured ifFalse compat foreach { f =>
@@ -68,7 +68,7 @@ final private class TvBroadcast(
               .add("seconds" -> pov.game.clock.map(_.remainingTime(pov.color).roundSeconds))
           }
         ),
-        fen = Forsyth exportBoard pov.game.chess.board
+        fen = Fen writeBoard pov.game.chess.board
       )
       clients.foreach { client =>
         client.queue offer {
@@ -83,7 +83,7 @@ final private class TvBroadcast(
         "fen",
         Json
           .obj(
-            "fen" -> s"$fen ${game.turnColor.letter}",
+            "fen" -> fen.andColor(game.turnColor),
             "lm"  -> move
           )
           .add("wc" -> game.clock.map(_.remainingTime(chess.White).roundSeconds))
@@ -104,7 +104,7 @@ object TvBroadcast:
   type SourceType = Source[JsValue, ?]
   type Queue      = SourceQueueWithComplete[JsValue]
 
-  case class Featured(id: GameId, data: JsObject, fen: String):
+  case class Featured(id: GameId, data: JsObject, fen: BoardFen):
     def dataWithFen = data ++ Json.obj("fen" -> fen)
     def socketMsg   = Socket.makeMessage("featured", dataWithFen)
 

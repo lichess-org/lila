@@ -13,7 +13,6 @@ case class FishnetError(message: String) extends BenignError
 case class GameIsFinishedError(pov: lila.game.Pov) extends BenignError:
   val message = s"$pov game is finished"
 
-sealed trait OnTv
-
-case class OnLichessTv(channel: String, flip: Boolean) extends OnTv
-case class OnUserTv(userId: String)                    extends OnTv
+enum OnTv:
+  case Lichess(channel: String, flip: Boolean)
+  case User(userId: UserId)

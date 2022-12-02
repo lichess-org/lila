@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import java.security.MessageDigest
 import java.nio.charset.StandardCharsets.UTF_8
 import scala.util.chaining.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 import org.joda.time.Days
@@ -21,8 +22,8 @@ case class Team(
     enabled: Boolean,
     open: Boolean,
     createdAt: DateTime,
-    createdBy: User.ID,
-    leaders: Set[User.ID],
+    createdBy: UserId,
+    leaders: Set[UserId],
     chat: Team.Access,
     forum: Team.Access,
     hideMembers: Option[Boolean]
@@ -43,7 +44,7 @@ case class Team(
   def passwordMatches(pw: String) =
     password.forall(teamPw => MessageDigest.isEqual(teamPw.getBytes(UTF_8), pw.getBytes(UTF_8)))
 
-  def isOnlyLeader(userId: User.ID) = leaders == Set(userId)
+  def isOnlyLeader(userId: UserId) = leaders == Set(userId)
 
 object Team:
 
@@ -128,4 +129,4 @@ object Team:
       if (slug.lengthIs > (name.length / 2)) TeamId(slug) else randomId()
     }
 
-  private[team] def randomId() = TeamId(lila.common.ThreadLocalRandom nextString 8)
+  private[team] def randomId() = TeamId(ThreadLocalRandom nextString 8)

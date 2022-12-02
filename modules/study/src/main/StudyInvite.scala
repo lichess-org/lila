@@ -18,7 +18,7 @@ final private class StudyInvite(
     relationApi: lila.relation.RelationApi
 )(using ec: scala.concurrent.ExecutionContext):
 
-  private val notifyRateLimit = new lila.memo.RateLimit[User.ID](
+  private val notifyRateLimit = new lila.memo.RateLimit[UserId](
     credits = 500,
     duration = 1 day,
     key = "study.invite.user"
@@ -27,20 +27,20 @@ final private class StudyInvite(
   private val maxMembers = 30
 
   def apply(
-      byUserId: User.ID,
+      byUserId: UserId,
       study: Study,
-      invitedUsername: String,
-      getIsPresent: User.ID => Fu[Boolean]
+      invitedUsername: UserStr,
+      getIsPresent: UserId => Fu[Boolean]
   ): Fu[User] =
     for {
       _       <- (study.nbMembers >= maxMembers) ?? fufail[Unit](s"Max study members reached: $maxMembers")
-      inviter <- userRepo named byUserId orFail "No such inviter"
+      inviter <- userRepo byId byUserId orFail "No such inviter"
       _ <- (!study.isOwner(inviter.id) && !Granter(_.StudyAdmin)(inviter)) ?? fufail[Unit](
         "Only the study owner can invite"
       )
       invited <-
         userRepo
-          .named(invitedUsername)
+          .byId(invitedUsername)
           .map(
             _.filterNot(_.id == User.lichessId && !Granter(_.StudyAdmin)(inviter))
           ) orFail "No such invited"
@@ -71,7 +71,7 @@ final private class StudyInvite(
           .notifyOne(
             UserId(invited.id),
             lila.notify.InvitedToStudy(
-              invitedBy = UserId(inviter.id),
+              invitedBy = inviter.id,
               studyName = study.name,
               studyId = study.id
             )

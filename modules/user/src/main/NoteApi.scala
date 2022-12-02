@@ -2,11 +2,12 @@ package lila.user
 
 import lila.db.dsl.{ *, given }
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 case class Note(
     _id: String,
-    from: User.ID,
-    to: User.ID,
+    from: UserId,
+    to: UserId,
     text: String,
     mod: Boolean,
     dox: Boolean,
@@ -43,14 +44,14 @@ final class NoteApi(
       .cursor[Note]()
       .list(20)
 
-  def byUserForMod(id: User.ID): Fu[List[Note]] =
+  def byUserForMod(id: UserId): Fu[List[Note]] =
     coll
       .find($doc("to" -> id, "mod" -> true))
       .sort($sort desc "date")
       .cursor[Note]()
       .list(50)
 
-  def byUsersForMod(ids: List[User.ID]): Fu[List[Note]] =
+  def byUsersForMod(ids: List[UserId]): Fu[List[Note]] =
     coll
       .find($doc("to" $in ids, "mod" -> true))
       .sort($sort desc "date")
@@ -60,7 +61,7 @@ final class NoteApi(
   def write(to: User, text: String, from: User, modOnly: Boolean, dox: Boolean) = {
 
     val note = Note(
-      _id = lila.common.ThreadLocalRandom nextString 8,
+      _id = ThreadLocalRandom nextString 8,
       from = from.id,
       to = to.id,
       text = text,

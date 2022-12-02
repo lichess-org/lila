@@ -1,6 +1,6 @@
 package controllers
 
-import chess.format.FEN
+import chess.format.Fen
 import play.api.libs.json.JsArray
 import play.api.mvc.*
 import views.*
@@ -59,7 +59,7 @@ final class Analyse(
                   pov,
                   lila.api.Mobile.Api.currentVersion,
                   tv = userTv.map { u =>
-                    lila.round.OnUserTv(u.id)
+                    lila.round.OnTv.User(u.id)
                   },
                   analysis,
                   initialFen = initialFen,
@@ -112,8 +112,8 @@ final class Analyse(
       }
     }
 
-  private def RedirectAtFen(pov: Pov, initialFen: Option[FEN])(or: => Fu[Result])(implicit ctx: Context) =
-    get("fen").map(FEN.clean).fold(or) { atFen =>
+  private def RedirectAtFen(pov: Pov, initialFen: Option[Fen])(or: => Fu[Result])(implicit ctx: Context) =
+    get("fen").map(Fen.clean).fold(or) { atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       fuccess {
         chess.Replay

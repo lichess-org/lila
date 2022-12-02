@@ -11,7 +11,7 @@ object jsI18n:
     views.html.board.userAnalysisI18n(withAdvantageChart = true) ++
       i18nJsObject(i18nKeys ++ gamebookPlayKeys)
 
-  val i18nKeys: List[lila.i18n.MessageKey] =
+  val i18nKeys =
     import trans.study.*
     List(
       trans.name,
@@ -129,9 +129,9 @@ object jsI18n:
       nbGames,
       nbMembers,
       pasteYourPgnTextHereUpToNbGames
-    ).map(_.key)
+    )
 
-  val gamebookPlayKeys: List[lila.i18n.MessageKey] =
+  val gamebookPlayKeys =
     import trans.study.*
     List(
       back,
@@ -140,4 +140,4 @@ object jsI18n:
       trans.retry,
       whatWouldYouPlay,
       youCompletedThisLesson
-    ).map(_.key)
+    )

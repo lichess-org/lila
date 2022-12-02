@@ -4,15 +4,14 @@ import play.api.libs.json.*
 import scala.concurrent.duration.*
 
 import lila.game.{ Game, GameRepo }
+import lila.common.Json.given
 import lila.search.*
 
 final class GameSearchApi(
     client: ESClient,
     gameRepo: GameRepo
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-) extends SearchReadApi[Game, Query]:
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler)
+    extends SearchReadApi[Game, Query]:
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
@@ -51,7 +50,7 @@ final class GameSearchApi(
         Fields.turns         -> (game.turns + 1) / 2,
         Fields.rated         -> game.rated,
         Fields.perf          -> game.perfType.map(_.id),
-        Fields.uids          -> game.userIds.toArray.some.filterNot(_.isEmpty),
+        Fields.uids          -> game.userIds.some.filterNot(_.isEmpty),
         Fields.winner        -> game.winner.flatMap(_.userId),
         Fields.loser         -> game.loser.flatMap(_.userId),
         Fields.winnerColor   -> game.winner.fold(3)(_.color.fold(1, 2)),

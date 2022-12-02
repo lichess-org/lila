@@ -1,12 +1,12 @@
 package lila.study
 
-import chess.format.FEN
+import chess.format.Fen
 import lila.game.Game
 import lila.round.JsonView.WithFlags
 
 private object GameToRoot:
 
-  def apply(game: Game, initialFen: Option[FEN], withClocks: Boolean): Node.Root =
+  def apply(game: Game, initialFen: Option[Fen], withClocks: Boolean): Node.Root =
     val root = Node.Root.fromRoot {
       lila.round.TreeBuilder(
         game = game,

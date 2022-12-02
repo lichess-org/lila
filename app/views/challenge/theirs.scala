@@ -42,7 +42,7 @@ object theirs:
               ),
               bits.details(c, color),
               c.notableInitialFen.map { fen =>
-                div(cls := "board-preview", views.html.board.bits.mini(fen, !c.finalColor)(div))
+                div(cls := "board-preview", views.html.board.bits.mini(fen.board, !c.finalColor)(div))
               },
               if (c.open.exists(!_.canJoin(ctx.me)))
                 div(

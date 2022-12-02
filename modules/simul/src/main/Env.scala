@@ -48,7 +48,7 @@ final class Env(
 
   private val simulSocket = wire[SimulSocket]
 
-  val isHosting = new lila.round.IsSimulHost(u => api.currentHostIds dmap (_ contains u))
+  val isHosting = new lila.round.IsSimulHost(u => api.currentHostIds.dmap(_ contains u))
 
   val allCreatedFeaturable = cacheApi.unit[List[Simul]] {
     _.refreshAfterWrite(3 seconds)
@@ -59,7 +59,7 @@ final class Env(
     simul.team.isEmpty && featureLimiter(simul.hostId)(true)(false)
   )
 
-  private val featureLimiter = new lila.memo.RateLimit[lila.user.User.ID](
+  private val featureLimiter = new lila.memo.RateLimit[UserId](
     credits = config.featureViews.value,
     duration = 24 hours,
     key = "simul.feature",

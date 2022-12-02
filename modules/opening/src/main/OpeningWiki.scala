@@ -1,6 +1,6 @@
 package lila.opening
 
-import chess.opening.{ FullOpening, FullOpeningDB }
+import chess.opening.{ Opening, OpeningDb, OpeningKey }
 import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
@@ -22,7 +22,7 @@ case class OpeningWiki(
     markup map OpeningWiki.filterMarkupForMove(move)
 
 final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: CacheApi)(using
-    ec: ExecutionContext
+    ExecutionContext
 ):
 
   import OpeningWiki.Revision
@@ -30,14 +30,14 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
   given BSONDocumentHandler[Revision]    = Macros.handler
   given BSONDocumentHandler[OpeningWiki] = Macros.handler
 
-  def apply(op: FullOpening, withRevisions: Boolean): Fu[OpeningWiki] = for {
+  def apply(op: Opening, withRevisions: Boolean): Fu[OpeningWiki] = for {
     wiki <- cache get op.key
     revisions <- withRevisions ?? {
       coll.primitiveOne[List[Revision]]($id(op.key), "revisions")
     }
   } yield wiki.copy(revisions = (~revisions) take 25)
 
-  def write(op: FullOpening, text: String, by: User): Funit =
+  def write(op: Opening, text: String, by: User): Funit =
     coll.update
       .one(
         $id(op.key),
@@ -54,7 +54,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
       )
       .void >>- cache.put(op.key, compute(op.key))
 
-  def popularOpeningsWithShortWiki: Fu[List[FullOpening]] =
+  def popularOpeningsWithShortWiki: Fu[List[Opening]] =
     coll
       .aggregateList(100, ReadPreference.secondaryPreferred) { framework =>
         import framework.*
@@ -68,8 +68,8 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
       .map { docs =>
         for {
           doc <- docs
-          id  <- doc string "_id"
-          op  <- FullOpeningDB.shortestLines get id
+          id  <- doc.getAsOpt[OpeningKey]("_id")
+          op  <- OpeningDb.shortestLines get id
         } yield op
       }
 
@@ -84,17 +84,15 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
     )
 
     private val moveNumberRegex = """(\d+)\.""".r
-    def render(key: FullOpening.Key)(markdown: Markdown) = renderer(s"opening:$key") {
-      markdown { text =>
-        moveNumberRegex.replaceAllIn(text, "$1{DOT}")
-      }
+    def render(key: OpeningKey)(markdown: Markdown) = renderer(s"opening:$key") {
+      markdown.map { moveNumberRegex.replaceAllIn(_, "$1{DOT}") }
     }.replace("{DOT}", ".")
 
-  private val cache = cacheApi[FullOpening.Key, OpeningWiki](1024, "opening.wiki") {
+  private val cache = cacheApi[OpeningKey, OpeningWiki](1024, "opening.wiki") {
     _.maximumSize(4096).buildAsyncFuture(compute)
   }
 
-  private def compute(key: FullOpening.Key): Fu[OpeningWiki] = for {
+  private def compute(key: OpeningKey): Fu[OpeningWiki] = for {
     docOpt <- coll
       .aggregateOne() { framework =>
         import framework.*
@@ -109,8 +107,8 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
     Nil
   )
 
-  private def updatePopularity(key: FullOpening.Key): Funit =
-    FullOpeningDB.shortestLines.get(key) ?? { op =>
+  private def updatePopularity(key: OpeningKey): Funit =
+    OpeningDb.shortestLines.get(key) ?? { op =>
       explorer.simplePopularity(op) flatMap {
         _ ?? { popularity =>
           coll.update
@@ -129,7 +127,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
 object OpeningWiki:
 
-  case class Revision(text: Markdown, by: User.ID, at: DateTime)
+  case class Revision(text: Markdown, by: UserId, at: DateTime)
 
   val form = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 10_000)))
 

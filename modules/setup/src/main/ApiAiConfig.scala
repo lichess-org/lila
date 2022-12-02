@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.Clock
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 
 import lila.common.Days
@@ -15,7 +15,7 @@ final case class ApiAiConfig(
     daysO: Option[Days],
     color: Color,
     level: Int,
-    fen: Option[FEN] = None
+    fen: Option[Fen] = None
 ) extends Config
     with Positional:
 
@@ -58,7 +58,7 @@ final case class ApiAiConfig(
   def pov(user: Option[User])(implicit idGenerator: IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
 
   def autoVariant =
-    if (variant.standard && fen.exists(!_.initial)) copy(variant = FromPosition)
+    if (variant.standard && fen.exists(!_.isInitial)) copy(variant = FromPosition)
     else this
 
 object ApiAiConfig extends BaseConfig:
@@ -71,7 +71,7 @@ object ApiAiConfig extends BaseConfig:
       cl: Option[Clock.Config],
       d: Option[Days],
       c: Option[String],
-      pos: Option[FEN]
+      pos: Option[Fen]
   ) =
     new ApiAiConfig(
       variant = chess.variant.Variant.orDefault(~v),

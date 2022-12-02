@@ -1,8 +1,8 @@
 package lila.opening
 
-import chess.format.FEN
-import chess.format.Forsyth
-import chess.opening.FullOpening
+import chess.format.Fen
+import chess.format.Fen
+import chess.opening.Opening
 import com.softwaremill.tagging.*
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
 import play.api.libs.ws.JsonBodyReadables.*
@@ -47,10 +47,10 @@ final private class OpeningExplorer(
   def configHistory(config: OpeningConfig): Fu[PopularityHistoryAbsolute] =
     historyOf(configParameters(config))
 
-  def simplePopularity(opening: FullOpening): Fu[Option[Int]] =
+  def simplePopularity(opening: Opening): Fu[Option[Int]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
-        "play"        -> opening.uci.replace(" ", ","),
+        "play"        -> opening.uci.value.replace(" ", ","),
         "moves"       -> "0",
         "topGames"    -> "0",
         "recentGames" -> "0"

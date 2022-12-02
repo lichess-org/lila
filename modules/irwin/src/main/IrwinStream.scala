@@ -6,6 +6,7 @@ import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.common.Json.given
+import scala.concurrent.ExecutionContext
 
 final class IrwinStream:
 
@@ -22,14 +23,14 @@ final class IrwinStream:
       }
       .keepAlive(60.seconds, () => keepAliveMsg)
 
-  def apply(): Source[String, ?] =
+  def apply()(using ExecutionContext): Source[String, ?] =
     blueprint mapMaterializedValue { queue =>
       val sub = Bus.subscribeFun(channel) { case req: IrwinRequest =>
         lila.mon.mod.irwin.streamEventType("request").increment()
         queue.offer(req).unit
       }
 
-      queue.watchCompletion() dforeach { _ =>
+      queue.watchCompletion() addEffectAnyway {
         Bus.unsubscribe(sub, channel)
       }
     }

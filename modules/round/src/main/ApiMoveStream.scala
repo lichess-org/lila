@@ -3,18 +3,18 @@ package lila.round
 import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.*
 import chess.Color
-import chess.format.Forsyth
+import chess.format.{ BoardFen, Fen }
 import chess.{ Centis, Replay }
 import play.api.libs.json.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.Bus
-import lila.game.actorApi.FinishGame
-import lila.game.actorApi.MoveGameEvent
+import lila.common.Json.given
+import lila.game.actorApi.{ FinishGame, MoveGameEvent }
 import lila.game.{ Game, GameRepo }
 
 final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(using
-    ec: ExecutionContext
+    ExecutionContext
 ):
 
   def apply(game: Game, delayMoves: Boolean): Source[JsObject, ?] =
@@ -52,7 +52,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                     black                <- clkBlack.lift((index + clockOffset) >> 1)
                   } yield (white, black)
                   queue offer toJson(
-                    Forsyth exportBoard s.board,
+                    Fen writeBoard s.board,
                     s.color,
                     s.board.history.lastMove.map(_.uci),
                     clk
@@ -64,7 +64,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                 queue.complete()
               else
                 val chans = List(MoveGameEvent makeChan game.id, "finishGame")
-                val sub = Bus.subscribeFun(chans *) {
+                val sub = Bus.subscribeFun(chans*) {
                   case MoveGameEvent(g, fen, move) =>
                     queue.offer(toJson(g, fen, move.some)).unit
                   case FinishGame(g, _, _) if g.id == game.id =>
@@ -72,14 +72,14 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                     (1 to buffer.size) foreach { _ => queue.offer(Json.obj()) } // push buffer content out
                     queue.complete()
                 }
-                queue.watchCompletion() dforeach { _ =>
+                queue.watchCompletion() addEffectAnyway {
                   Bus.unsubscribe(sub, chans)
                 }
             }
       }
     }
 
-  private def toJson(game: Game, fen: String, lastMoveUci: Option[String]): JsObject =
+  private def toJson(game: Game, fen: BoardFen, lastMoveUci: Option[String]): JsObject =
     toJson(
       fen,
       game.turnColor,
@@ -90,14 +90,14 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
     )
 
   private def toJson(
-      boardFen: String,
+      fen: BoardFen,
       turnColor: Color,
       lastMoveUci: Option[String],
       clock: Option[(Centis, Centis)]
   ): JsObject =
     clock.foldLeft(
       Json
-        .obj("fen" -> s"$boardFen ${turnColor.letter}")
+        .obj("fen" -> fen.andColor(turnColor))
         .add("lm" -> lastMoveUci)
     ) { case (js, clk) =>
       js ++ Json.obj("wc" -> clk._1.roundSeconds, "bc" -> clk._2.roundSeconds)

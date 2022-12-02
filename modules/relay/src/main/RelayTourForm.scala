@@ -5,7 +5,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import scala.util.chaining.*
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, formatter, toMarkdown }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, formatter, into }
 import lila.game.Game
 import lila.security.Granter
 import lila.study.Study
@@ -20,7 +20,7 @@ final class RelayTourForm:
     mapping(
       "name"            -> cleanText(minLength = 3, maxLength = 80),
       "description"     -> cleanText(minLength = 3, maxLength = 400),
-      "markdown"        -> optional(toMarkdown(cleanText(maxLength = 20_000))),
+      "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
       "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
       "autoLeaderboard" -> boolean,
       "players"         -> optional(of(formatter.stringFormatter[RelayPlayers](_.text, RelayPlayers.apply)))

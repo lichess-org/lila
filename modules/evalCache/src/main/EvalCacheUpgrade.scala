@@ -3,7 +3,7 @@ package lila.evalCache
 import play.api.libs.json.{ JsObject, JsString }
 
 import scala.concurrent.duration.*
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.Variant
 import lila.socket.Socket
 import lila.memo.ExpireCallbackMemo
@@ -27,7 +27,7 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
 
   private val upgradeMon = lila.mon.evalCache.upgrade
 
-  def register(sri: Socket.Sri, variant: Variant, fen: FEN, multiPv: Int, path: String)(push: Push): Unit =
+  def register(sri: Socket.Sri, variant: Variant, fen: Fen, multiPv: Int, path: String)(push: Push): Unit =
     if (setting.get())
       members get sri.value foreach { wm =>
         unregisterEval(wm.setupId, sri)
@@ -82,7 +82,7 @@ private object EvalCacheUpgrade:
   private case class EvalState(sris: Set[SriString], depth: Int):
     def addSri(sri: Socket.Sri) = copy(sris = sris + sri.value)
 
-  private def makeSetupId(variant: Variant, fen: FEN, multiPv: Int): SetupId =
-    s"${variant.id}${EvalCacheEntry.SmallFen.make(variant, fen).value}^$multiPv"
+  private def makeSetupId(variant: Variant, fen: Fen, multiPv: Int): SetupId =
+    s"${variant.id}${SmallFen.make(variant, fen)}^$multiPv"
 
   private case class WatchingMember(push: Push, setupId: SetupId, path: String)

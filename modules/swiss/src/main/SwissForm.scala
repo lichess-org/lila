@@ -2,7 +2,7 @@ package lila.swiss
 
 import chess.Clock.{ Config as ClockConfig }
 import chess.Speed
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.data.*
@@ -165,7 +165,7 @@ object SwissForm:
       rated: Option[Boolean],
       nbRounds: Int,
       description: Option[String],
-      position: Option[FEN],
+      position: Option[Fen],
       chatFor: Option[Int],
       roundInterval: Option[Int],
       password: Option[String],

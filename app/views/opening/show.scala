@@ -22,11 +22,11 @@ object show:
         .OpenGraph(
           `type` = "article",
           image = cdnUrl(
-            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.opening.flatMap(_.uci.split(" ").lastOption), none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.opening.flatMap(_.lastUci).map(_.uci), none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = page.name,
           url = s"$netBaseUrl${queryUrl(page.query)}",
-          description = page.opening.??(_.pgn)
+          description = page.opening.??(_.pgn.value)
         )
         .some,
       csp = defaultCsp.withInlineIconFont.some

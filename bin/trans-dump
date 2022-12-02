@@ -32,7 +32,7 @@ function keyListFrom(name) {
           name,
           code:
             keys
-              .map(k => `${spaces}val \`${k}\` = new I18nKey("${name === 'site' ? '' : xmlName(name) + ':'}${k}")`)
+              .map(k => `${spaces}val \`${k}\` = I18nKey("${name === 'site' ? '' : xmlName(name) + ':'}${k}")`)
               .join('\n') + '\n',
         });
       })

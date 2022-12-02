@@ -92,6 +92,7 @@
   <string name="dtzWithRounding">经过四舍五入的DTZ50\'\'，是基于到下次吃子或兵动的半步数目。</string>
   <string name="noGameFound">没找到符合要求的棋局</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在“选择”菜单内包括更多棋局。</string>
+  <string name="openings">开局</string>
   <string name="openingExplorer">开局浏览器</string>
   <string name="openingEndgameExplorer">开局/残局浏览器</string>
   <string name="xOpeningExplorer">%s开局浏览器</string>
@@ -149,6 +150,7 @@
   <string name="viewInFullSize">放大观看</string>
   <string name="logOut">登出</string>
   <string name="signIn">登录</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">记住登录状态</string>
   <string name="youNeedAnAccountToDoThat">请登录以完成该操作</string>
   <string name="signUp">注册</string>
   <string name="computersAreNotAllowedToPlay">电脑与电脑辅助棋手不允许参加对弈。下棋时，请不要从国际象棋引擎、数据库或其他棋手得到帮助。另外，强烈建议您不要创建备用账号。过度使用多余的账号会导致账号被封禁。</string>
@@ -208,6 +210,7 @@
   <string name="waitForSignupHelp">我们将很快给你回复，帮助您完成注册。</string>
   <string name="accountConfirmed">用户 %s 已成功注册。</string>
   <string name="accountCanLogin">您现在可以使用 %s 登录。</string>
+  <string name="accountConfirmationEmailNotNeeded">您不需要确认电子邮件。</string>
   <string name="accountClosed">账户 %s 已被关闭。</string>
   <string name="accountRegisteredWithoutEmail">账户 %s 未使用电子邮件注册。</string>
   <string name="rank">排名</string>

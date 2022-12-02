@@ -9,6 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.tournament.{ Schedule, Tournament }
 import lila.user.User
+import lila.common.Json.given
 
 trait TournamentHelper extends HasEnv:
   self: I18nHelper with DateHelper with UserHelper with StringHelper with NumberHelper =>
@@ -31,17 +32,17 @@ trait TournamentHelper extends HasEnv:
     a(
       dataIcon := "",
       cls      := (if (tour.isScheduled) "text is-gold" else "text"),
-      href     := routes.Tournament.show(tour.id).url
+      href     := routes.Tournament.show(tour.id.value).url
     )(tour.name())
 
-  def tournamentLink(tourId: String)(using Lang): Frag =
+  def tournamentLink(tourId: TourId)(using Lang): Frag =
     a(
       dataIcon := "",
       cls      := "text",
-      href     := routes.Tournament.show(tourId).url
+      href     := routes.Tournament.show(tourId.value).url
     )(tournamentIdToName(tourId))
 
-  def tournamentIdToName(id: String)(using lang: Lang) =
+  def tournamentIdToName(id: TourId)(using Lang): String =
     env.tournament.getTourName sync id getOrElse "Tournament"
 
   object scheduledTournamentNameShortHtml:

@@ -133,7 +133,7 @@ final class SwissJson(
               top3.map { player =>
                 playerJsonBase(
                   player,
-                  lightUserApi.sync(player.userId) | LightUser.fallback(player.userId),
+                  lightUserApi.syncFallback(player.userId),
                   performance = true
                 ).add("lame", lame(player.userId))
               }
@@ -242,10 +242,10 @@ object SwissJson:
 
   private def outcomeJson(outcome: SwissSheet.Outcome): String =
     outcome match
-      case SwissSheet.Absent => "absent"
-      case SwissSheet.Late   => "late"
-      case SwissSheet.Bye    => "bye"
-      case _                 => ""
+      case SwissSheet.Outcome.Absent => "absent"
+      case SwissSheet.Outcome.Late   => "late"
+      case SwissSheet.Outcome.Bye    => "bye"
+      case _                         => ""
 
   private def pairingJsonMin(player: SwissPlayer, pairing: SwissPairing): String =
     val status =
@@ -282,7 +282,7 @@ object SwissJson:
     Json
       .obj(
         "id"          -> b.game.id,
-        "fen"         -> chess.format.Forsyth.boardAndColor(b.game.situation),
+        "fen"         -> chess.format.Fen.writeBoardAndColor(b.game.situation),
         "lastMove"    -> (b.game.lastMoveKeys | ""),
         "orientation" -> b.game.naturalOrientation.name,
         "white"       -> boardPlayerJson(b.board.white),

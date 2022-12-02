@@ -67,10 +67,10 @@ object Pov:
   def apply(game: Game, user: User): Option[Pov] =
     game player user map { apply(game, _) }
 
-  def ofUserId(game: Game, userId: User.ID): Option[Pov] =
+  def ofUserId(game: Game, userId: UserId): Option[Pov] =
     game playerByUserId userId map { apply(game, _) }
 
-  def opponentOfUserId(game: Game, userId: String): Option[Player] =
+  def opponentOfUserId(game: Game, userId: UserId): Option[Player] =
     ofUserId(game, userId) map (_.opponent)
 
   private def orInf(i: Option[Int])     = i getOrElse Int.MaxValue
@@ -110,5 +110,5 @@ object LightPov:
 
   def apply(game: LightGame, player: Player) = new LightPov(game, player.color)
 
-  def ofUserId(game: LightGame, userId: User.ID): Option[LightPov] =
+  def ofUserId(game: LightGame, userId: UserId): Option[LightPov] =
     game playerByUserId userId map { apply(game, _) }

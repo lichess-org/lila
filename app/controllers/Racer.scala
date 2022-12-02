@@ -44,7 +44,7 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
         case None => Redirect(routes.Racer.home).toFuccess
         case Some(r) =>
           val race   = r.isLobby.??(env.racer.api.join(r.id, playerId)) | r
-          val player = race.player(playerId) | RacerPlayer.make(playerId)
+          val player = race.player(playerId) | env.racer.api.makePlayer(playerId)
           Ok(
             html.racer.show(
               race,

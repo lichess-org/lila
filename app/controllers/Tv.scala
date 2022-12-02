@@ -7,6 +7,7 @@ import views.*
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.game.Pov
+import Api.ApiResult
 
 final class Tv(
     env: Env,
@@ -41,7 +42,7 @@ final class Tv(
     apiC.ApiRequest { _ =>
       env.tv.tv.getChampions map {
         _.channels map { case (chan, champ) => chan.name -> champ }
-      } map { Json.toJson(_) } dmap Api.Data.apply
+      } map { Json.toJson(_) } dmap ApiResult.Data.apply
     }
 
   private def lichessTv(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =
@@ -49,7 +50,7 @@ final class Tv(
       val flip    = getBool("flip")
       val natural = Pov naturalOrientation game
       val pov     = if (flip) !natural else natural
-      val onTv    = lila.round.OnLichessTv(channel.key, flip)
+      val onTv    = lila.round.OnTv.Lichess(channel.key, flip)
       negotiate(
         html = env.tournament.api.gameView.watcher(pov.game) flatMap { tour =>
           env.api.roundApi.watcher(pov, tour, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip

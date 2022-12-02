@@ -1,6 +1,6 @@
 package lila.fishnet
 
-import chess.format.{ FEN, Uci }
+import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.libs.json.*
@@ -18,8 +18,6 @@ object JsonApi:
     def instance(ip: IpAddress) = Client.Instance(fishnet.version, ip, DateTime.now)
 
   object Request:
-
-    sealed trait Result
 
     case class Fishnet(
         version: Client.Version,
@@ -40,8 +38,7 @@ object JsonApi:
         fishnet: Fishnet,
         stockfish: Stockfish,
         analysis: List[Option[Evaluation.OrSkipped]]
-    ) extends Request
-        with Result:
+    ) extends Request:
 
       def completeOrPartial =
         if (analysis.headOption.??(_.isDefined)) CompleteAnalysis(fishnet, stockfish, analysis.flatten)
@@ -98,7 +95,7 @@ object JsonApi:
 
   case class Game(
       game_id: String,
-      position: FEN,
+      position: Fen,
       variant: Variant,
       moves: String
   )

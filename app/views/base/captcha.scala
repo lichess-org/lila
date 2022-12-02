@@ -20,18 +20,19 @@ object captcha:
       form3.hidden(form("gameId"), captcha.gameId.value.some),
       if (ctx.blind) form3.hidden(form("move"), captcha.solutions.head.some)
       else {
-        val url = netBaseUrl + routes.Round.watcher(captcha.gameId, if (captcha.white) "white" else "black")
+        val url =
+          netBaseUrl + routes.Round.watcher(captcha.gameId.value, captcha.color.name)
         div(
           cls := List(
             "captcha form-group" -> true,
             "is-invalid"         -> lila.common.Captcha.isFailed(form)
           ),
-          dataCheckUrl := routes.Main.captchaCheck(captcha.gameId)
+          dataCheckUrl := routes.Main.captchaCheck(captcha.gameId.value)
         )(
           div(cls := "challenge")(
             views.html.board.bits.mini(
-              chess.format.FEN(captcha.fenBoard),
-              chess.Color.fromWhite(captcha.white)
+              captcha.fen,
+              captcha.color
             ) {
               div(
                 dataMoves    := safeJsonValue(Json.toJson(captcha.moves)),
@@ -41,7 +42,7 @@ object captcha:
           ),
           div(cls := "captcha-explanation")(
             label(cls := "form-label")(
-              if (captcha.white) trans.whiteCheckmatesInOneMove()
+              if (captcha.color.white) trans.whiteCheckmatesInOneMove()
               else trans.blackCheckmatesInOneMove()
             ),
             br,

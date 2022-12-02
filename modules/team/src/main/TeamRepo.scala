@@ -19,10 +19,10 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
 
   def byOrderedIds(ids: Seq[TeamId]) = coll.byOrderedIds[Team, TeamId](ids)(_.id)
 
-  def byLeader(id: TeamId, leaderId: User.ID): Fu[Option[Team]] =
+  def byLeader(id: TeamId, leaderId: UserId): Fu[Option[Team]] =
     coll.one[Team]($id(id) ++ $doc("leaders" -> leaderId))
 
-  def lightsByLeader(leaderId: User.ID): Fu[List[LeaderTeam]] =
+  def lightsByLeader(leaderId: UserId): Fu[List[LeaderTeam]] =
     coll
       .find($doc("leaders" -> leaderId) ++ enabledSelect, lightProjection)
       .sort(sortPopular)
@@ -38,14 +38,14 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       .cursor[Team](ReadPreference.secondaryPreferred)
       .list(100)
 
-  def enabledTeamsByLeader(userId: User.ID): Fu[List[Team]] =
+  def enabledTeamsByLeader(userId: UserId): Fu[List[Team]] =
     coll
       .find($doc("leaders" -> userId) ++ enabledSelect)
       .sort(sortPopular)
       .cursor[Team](ReadPreference.secondaryPreferred)
       .list(100)
 
-  def enabledTeamIdsByLeader(userId: User.ID): Fu[List[TeamId]] =
+  def enabledTeamIdsByLeader(userId: UserId): Fu[List[TeamId]] =
     coll
       .primitive[TeamId](
         $doc("leaders" -> userId) ++ enabledSelect,
@@ -53,13 +53,13 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
         "_id"
       )
 
-  def leadersOf(teamId: TeamId): Fu[Set[User.ID]] =
-    coll.primitiveOne[Set[User.ID]]($id(teamId), "leaders").dmap(~_)
+  def leadersOf(teamId: TeamId): Fu[Set[UserId]] =
+    coll.primitiveOne[Set[UserId]]($id(teamId), "leaders").dmap(~_)
 
-  def setLeaders(teamId: TeamId, leaders: Set[User.ID]): Funit =
+  def setLeaders(teamId: TeamId, leaders: Set[UserId]): Funit =
     coll.updateField($id(teamId), "leaders", leaders).void
 
-  def leads(teamId: TeamId, userId: User.ID) =
+  def leads(teamId: TeamId, userId: UserId) =
     coll.exists($id(teamId) ++ $doc("leaders" -> userId))
 
   def name(id: TeamId): Fu[Option[String]] =
@@ -68,7 +68,7 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def mini(id: TeamId): Fu[Option[Team.Mini]] =
     name(id) map2 { Team.Mini(id, _) }
 
-  private[team] def countCreatedSince(userId: String, duration: Period): Fu[Int] =
+  private[team] def countCreatedSince(userId: UserId, duration: Period): Fu[Int] =
     coll.countSel(
       $doc(
         "createdAt" $gt DateTime.now.minus(duration),
@@ -98,7 +98,7 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       .find(enabledSelect)
       .cursor[Team](ReadPreference.secondaryPreferred)
 
-  def countRequestsOfLeader(userId: User.ID, requestColl: Coll): Fu[Int] =
+  def countRequestsOfLeader(userId: UserId, requestColl: Coll): Fu[Int] =
     coll
       .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework.*

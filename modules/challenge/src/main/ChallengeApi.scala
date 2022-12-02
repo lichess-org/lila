@@ -31,7 +31,7 @@ final class ChallengeApi(
 
   import Challenge.*
 
-  def allFor(userId: User.ID, max: Int = 50): Fu[AllChallenges] =
+  def allFor(userId: UserId, max: Int = 50): Fu[AllChallenges] =
     createdByDestId(userId, max) zip createdByChallengerId(userId) dmap (AllChallenges.apply).tupled
 
   // returns boolean success
@@ -50,14 +50,14 @@ final class ChallengeApi(
   def activeByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).dmap(_.filter(_.active))
   def activeByIdBy(id: Challenge.ID, orig: User)  = repo.byIdBy(id, orig).dmap(_.filter(_.active))
 
-  val countInFor = cacheApi[User.ID, Int](131072, "challenge.countInFor") {
+  val countInFor = cacheApi[UserId, Int](131072, "challenge.countInFor") {
     _.expireAfterAccess(15 minutes)
       .buildAsyncFuture(repo.countCreatedByDestId)
   }
 
   def createdByChallengerId = repo.createdByChallengerId()
 
-  def createdByDestId(userId: User.ID, max: Int = 50) = countInFor get userId flatMap { nb =>
+  def createdByDestId(userId: UserId, max: Int = 50) = countInFor get userId flatMap { nb =>
     if (nb > 5) repo.createdByPopularDestId(max)(userId)
     else repo.createdByDestId()(userId)
   }
@@ -137,7 +137,7 @@ final class ChallengeApi(
       Bus.publish(Event.Create(challenge), "challenge")
     }
 
-  def removeByUserId(userId: User.ID) =
+  def removeByUserId(userId: UserId) =
     repo allWithUserId userId flatMap { cs =>
       lila.common.Future.applySequentially(cs)(remove).void
     }
@@ -176,13 +176,13 @@ final class ChallengeApi(
     socket.foreach(_ reload id)
 
   private object notifyUser:
-    private val throttler = new lila.hub.EarlyMultiThrottler(logger)
-    def apply(userId: User.ID): Unit = throttler(userId, 3.seconds) {
-      for {
+    private val throttler = new lila.hub.EarlyMultiThrottler[UserId](logger)
+    def apply(userId: UserId): Unit = throttler(userId, 3.seconds) {
+      for
         all  <- allFor(userId)
         lang <- userRepo langOf userId map I18nLangPicker.byStrOrDefault
         _    <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
-      } yield Bus.publish(
+      yield Bus.publish(
         SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)(using lang))),
         "socketUsers"
       )

@@ -1,8 +1,9 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
-import chess.format.{ FEN, Uci }
+import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import lila.common.IpAddress
 
@@ -42,7 +43,7 @@ object Work:
 
   private[fishnet] case class Game(
       id: String, // can be a study chapter ID, if studyId is set
-      initialFen: Option[FEN],
+      initialFen: Option[Fen],
       studyId: Option[StudyId],
       variant: Variant,
       moves: String
@@ -51,15 +52,15 @@ object Work:
     def uciList: List[Uci] = ~(Uci readList moves)
 
   case class Sender(
-      userId: lila.user.User.ID,
+      userId: UserId,
       ip: Option[IpAddress],
       mod: Boolean,
       system: Boolean
   ):
 
     override def toString =
-      if (system) lila.user.User.lichessId
-      else userId
+      if (system) lila.user.User.lichessId.value
+      else userId.value
 
   case class Clock(wtime: Int, btime: Int, inc: Int)
 
@@ -107,4 +108,4 @@ object Work:
     override def toString =
       s"id:$id game:${game.id} variant:${game.variant} plies: ${game.moves.count(' ' ==)} tries:$tries requestedBy:$sender acquired:$acquired"
 
-  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
+  def makeId = Id(ThreadLocalRandom nextString 8)

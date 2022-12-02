@@ -68,7 +68,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
       .mapConcat { doc =>
         import lila.game.BSONHandlers.given
         (for {
-          userId <- doc string "_id"
+          userId <- doc.getAsOpt[UserId]("_id")
           games  <- doc.getAsOpt[List[Game]]("games")
           povs = games
             .flatMap(Pov.ofUserId(_, userId))

@@ -1,7 +1,7 @@
 package lila.puzzle
 
 import cats.data.NonEmptyList
-import chess.format.{ FEN, Forsyth, Uci }
+import chess.format.{ Fen, Uci }
 
 import lila.rating.Glicko
 import lila.common.Iso
@@ -9,7 +9,7 @@ import lila.common.Iso
 case class Puzzle(
     id: PuzzleId,
     gameId: GameId,
-    fen: FEN,
+    fen: Fen,
     line: NonEmptyList[Uci.Move],
     glicko: Glicko,
     plays: Int,
@@ -23,12 +23,12 @@ case class Puzzle(
     }
 
   def situationAfterInitialMove: Option[chess.Situation] = for {
-    sit1 <- Forsyth << fen
+    sit1 <- Fen read fen
     sit2 <- sit1.move(line.head).toOption.map(_.situationAfter)
   } yield sit2
 
-  lazy val fenAfterInitialMove: FEN =
-    situationAfterInitialMove map Forsyth.>> err s"Can't apply puzzle $id first move"
+  lazy val fenAfterInitialMove: Fen =
+    situationAfterInitialMove map Fen.write err s"Can't apply puzzle $id first move"
 
   def color = fen.color.fold[chess.Color](chess.White)(!_)
 
@@ -78,7 +78,7 @@ object Puzzle:
 
   case class UserResult(
       puzzleId: PuzzleId,
-      userId: lila.user.User.ID,
+      userId: UserId,
       win: PuzzleWin,
       rating: (IntRating, IntRating)
   )

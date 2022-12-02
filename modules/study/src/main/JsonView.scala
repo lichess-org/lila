@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.{ FEN, Uci }
+import chess.format.{ Fen, Uci }
 import chess.Pos
 import play.api.libs.json.*
 import scala.util.chaining.*
@@ -125,7 +125,7 @@ object JsonView:
   }
 
   private given Reads[Pos] = Reads { v =>
-    (v.asOpt[String] flatMap Pos.fromKey).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
+    (v.asOpt[String] flatMap { Pos.fromKey(_) }).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
   }
   private[study] given Writes[Path]             = Writes(p => JsString(p.toString))
   private[study] given Writes[Sri]              = Writes(s => JsString(s.value))

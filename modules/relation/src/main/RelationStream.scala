@@ -6,13 +6,10 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration.*
 
 import lila.common.config.MaxPerSecond
-import lila.db.dsl.*
+import lila.db.dsl.{ given, * }
 import lila.user.{ User, UserRepo }
 
-final class RelationStream(
-    colls: Colls,
-    userRepo: UserRepo
-)(implicit mat: akka.stream.Materializer):
+final class RelationStream(colls: Colls, userRepo: UserRepo)(using akka.stream.Materializer):
 
   import RelationStream.*
 
@@ -28,7 +25,7 @@ final class RelationStream(
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
       .documentSource()
       .grouped(perSecond.value)
-      .map(_.flatMap(_.getAsOpt[User.ID](projectField(direction))))
+      .map(_.flatMap(_.getAsOpt[UserId](projectField(direction))))
       .throttle(1, 1 second)
       .mapAsync(1)(userRepo.usersFromSecondary)
       .mapConcat(identity)
@@ -42,7 +39,5 @@ final class RelationStream(
 
 object RelationStream:
 
-  sealed trait Direction
-  object Direction:
-    case object Following extends Direction
-    case object Followers extends Direction
+  enum Direction:
+    case Following, Followers

@@ -125,12 +125,12 @@ final class JsonView(
       )
     }
 
-  private def gameJson(hostId: User.ID, g: Game) =
+  private def gameJson(hostId: UserId, g: Game) =
     Json
       .obj(
         "id"       -> g.id,
         "status"   -> g.status.id,
-        "fen"      -> (chess.format.Forsyth boardAndColor g.situation),
+        "fen"      -> (chess.format.Fen writeBoardAndColor g.situation),
         "lastMove" -> (g.lastMoveKeys.orZero: String),
         "orient"   -> g.playerByUserId(hostId).map(_.color)
       )
@@ -144,7 +144,7 @@ final class JsonView(
       )
       .add("winner" -> g.winnerColor.map(_.name))
 
-  private def pairingJson(games: List[Game], hostId: String)(p: SimulPairing): Fu[Option[JsObject]] =
+  private def pairingJson(games: List[Game], hostId: UserId)(p: SimulPairing): Fu[Option[JsObject]] =
     games.find(_.id == p.gameId) ?? { game =>
       playerJson(p.player) map { player =>
         Json

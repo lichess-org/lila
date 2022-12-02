@@ -17,16 +17,18 @@ private case class SwissSheet(outcomes: List[SwissSheet.Outcome]):
 
 private object SwissSheet:
 
-  sealed trait Outcome
-  case object Bye         extends Outcome
-  case object Late        extends Outcome // missed the first round
-  case object Absent      extends Outcome
-  case object Ongoing     extends Outcome
-  case object Win         extends Outcome
-  case object Loss        extends Outcome
-  case object Draw        extends Outcome
-  case object ForfeitLoss extends Outcome
-  case object ForfeitWin  extends Outcome
+  enum Outcome:
+    case Bye
+    case Late // missed the first round
+    case Absent
+    case Ongoing
+    case Win
+    case Loss
+    case Draw
+    case ForfeitLoss
+    case ForfeitWin
+
+  import Outcome.*
 
   def pointsFor(outcome: Outcome) = SwissPoints fromDouble {
     outcome match
@@ -66,8 +68,8 @@ private object SwissSheet:
     }
 
 final private class SwissSheetApi(mongo: SwissMongo)(using
-    ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
+    scala.concurrent.ExecutionContext,
+    akka.stream.Materializer
 ):
 
   def source(

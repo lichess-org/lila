@@ -10,7 +10,7 @@ import controllers.routes
 
 object thanks:
 
-  def apply(userId: String, blocked: Boolean)(implicit ctx: Context) =
+  def apply(userId: UserId, blocked: Boolean)(implicit ctx: Context) =
 
     val title = "Thanks for the report"
 
@@ -36,9 +36,7 @@ fetch($button.data('action'), {method:'post'})
             attr("data-action") := routes.Relation.block(userId),
             cls                 := "report-block button",
             st.title            := trans.block.txt()
-          )(
-            span(cls := "text", dataIcon := "")("Block ", titleNameOrId(userId))
-          )
+          )(span(cls := "text", dataIcon := "")("Block ", titleNameOrId(userId)))
         ),
         br,
         br,

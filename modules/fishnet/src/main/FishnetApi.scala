@@ -191,8 +191,7 @@ object FishnetApi:
   case object NotAcquired extends LilaException:
     val message = "The work was distributed to someone else"
 
-  sealed trait PostAnalysisResult
-  object PostAnalysisResult:
-    case class Complete(analysis: lila.analyse.Analysis) extends PostAnalysisResult
-    case class Partial(analysis: lila.analyse.Analysis)  extends PostAnalysisResult
-    case object UnusedPartial                            extends PostAnalysisResult
+  enum PostAnalysisResult:
+    case Complete(analysis: lila.analyse.Analysis)
+    case Partial(analysis: lila.analyse.Analysis)
+    case UnusedPartial

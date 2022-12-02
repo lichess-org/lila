@@ -42,7 +42,7 @@ final class Api(
       Ok(views.html.site.bits.api)
     }
 
-  def user(name: String) =
+  def user(name: UserStr) =
     def get(req: RequestHeader, lang: Lang, me: Option[lila.user.User]) = userApi.extended(
       name,
       me,
@@ -67,12 +67,12 @@ final class Api(
 
   def usersByIds =
     Action.async(parse.tolerantText) { req =>
-      val usernames = req.body.replace("\n", "").split(',').take(300).map(_.trim).toList
+      val usernames = req.body.replace("\n", "").split(',').take(300).flatMap(UserStr.read).toList
       val ip        = HTTPRequest ipAddress req
       val cost      = usernames.size / 4
       UsersRateLimitPerIP(ip, cost = cost) {
         lila.mon.api.users.increment(cost.toLong)
-        env.user.repo named usernames map {
+        env.user.repo byIds usernames map {
           _.map { env.user.jsonView.full(_, none, withRating = true, withProfile = true) }
         } map toApiResult map toHttp
       }(rateLimitedFu)
@@ -80,7 +80,7 @@ final class Api(
 
   def usersStatus =
     ApiRequest { req =>
-      val ids = get("ids", req).??(_.split(',').take(100).toList map lila.user.User.normalize)
+      val ids = get("ids", req).??(_.split(',').take(100).toList flatMap UserStr.read).map(_.id)
       env.user.lightUserApi asyncMany ids dmap (_.flatten) flatMap { users =>
         val streamingIds = env.streamer.liveStreamApi.userIds
         def toJson(u: LightUser) =
@@ -122,9 +122,9 @@ final class Api(
       UserGamesRateLimitPerUA(~HTTPRequest.userAgent(req), cost = cost, msg = ip.value) {
         UserGamesRateLimitGlobal("-", cost = cost, msg = ip.value) {
           run
-        }(fuccess(Limited))
-      }(fuccess(Limited))
-    }(fuccess(Limited))
+        }(fuccess(ApiResult.Limited))
+      }(fuccess(ApiResult.Limited))
+    }(fuccess(ApiResult.Limited))
 
   private def gameFlagsFromRequest(req: RequestHeader) =
     lila.api.GameApi.WithFlags(
@@ -137,14 +137,14 @@ final class Api(
     )
 
   // for mobile app
-  def userGames(name: String) =
+  def userGames(name: UserStr) =
     MobileApiRequest { req =>
       val page = (getInt("page", req) | 1) atLeast 1 atMost 200
       val nb   = MaxPerPage((getInt("nb", req) | 10) atLeast 1 atMost 100)
       val cost = page * nb.value + 10
       UserGamesRateLimit(cost, req) {
         lila.mon.api.userGames.increment(cost.toLong)
-        env.user.repo named name flatMap {
+        env.user.repo byId name flatMap {
           _ ?? { user =>
             gameApi.byUser(
               user = user,
@@ -171,7 +171,7 @@ final class Api(
       GameRateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
         lila.mon.api.game.increment(1)
         gameApi.one(id, gameFlagsFromRequest(req)) map toApiResult
-      }(fuccess(Limited))
+      }(fuccess(ApiResult.Limited))
     }
 
   private val CrosstableRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
@@ -180,11 +180,10 @@ final class Api(
     key = "crosstable.api.ip"
   )
 
-  def crosstable(name1: String, name2: String) =
+  def crosstable(name1: UserStr, name2: UserStr) =
     ApiRequest { req =>
       CrosstableRateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
-        import lila.user.User.normalize
-        val (u1, u2) = (normalize(name1), normalize(name2))
+        val (u1, u2) = (name1.id, name2.id)
         env.game.crosstableApi(u1, u2) flatMap { ct =>
           (ct.results.nonEmpty && getBool("matchup", req)).?? {
             env.game.crosstableApi.getMatchup(u1, u2)
@@ -194,17 +193,17 @@ final class Api(
             }
           }
         }
-      }(fuccess(Limited))
+      }(fuccess(ApiResult.Limited))
     }
 
   def currentTournaments =
     ApiRequest { implicit req =>
       implicit val lang: Lang = reqLang
       env.tournament.api.fetchVisibleTournaments flatMap
-        env.tournament.apiJsonView.apply map Data.apply
+        env.tournament.apiJsonView.apply map ApiResult.Data.apply
     }
 
-  def tournament(id: String) =
+  def tournament(id: TourId) =
     ApiRequest { implicit req =>
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
@@ -224,13 +223,13 @@ final class Api(
       } map toApiResult
     }
 
-  def tournamentGames(id: String) =
+  def tournamentGames(id: TourId) =
     AnonOrScoped() { req => me =>
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
-          val onlyUserId = get("player", req) map lila.user.User.normalize
+          val onlyUserId = getUserStr("player", req).map(_.id)
           val config = GameApiV2.ByTournamentConfig(
-            tournamentId = tour.id,
+            tour = tour,
             format = GameApiV2.Format byRequest req,
             flags = gameC.requestPgnFlags(req, extended = false),
             perSecond = MaxPerSecond(20 + me.isDefined ?? 10)
@@ -247,15 +246,14 @@ final class Api(
       }
     }
 
-  def tournamentResults(id: String) =
+  def tournamentResults(id: TourId) =
     Action.async { implicit req =>
       val csv = HTTPRequest.acceptsCsv(req) || get("as", req).has("csv")
       env.tournament.tournamentRepo byId id map {
         _ ?? { tour =>
           import lila.tournament.JsonView.playerResultWrites
-          val source =
-            env.tournament.api
-              .resultStream(tour, MaxPerSecond(40), getInt("nb", req) | Int.MaxValue)
+          val source = env.tournament.api
+            .resultStream(tour, MaxPerSecond(40), getInt("nb", req) | Int.MaxValue)
           val result =
             if (csv) csvStream(lila.tournament.TournamentCsv(source))
             else jsonStream(source.map(lila.tournament.JsonView.playerResultWrites.writes))
@@ -264,7 +262,7 @@ final class Api(
       }
     }
 
-  def tournamentTeams(id: String) =
+  def tournamentTeams(id: TourId) =
     Action.async {
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
@@ -280,10 +278,10 @@ final class Api(
       }
     }
 
-  def tournamentsByOwner(name: String, status: List[Int]) =
+  def tournamentsByOwner(name: UserStr, status: List[Int]) =
     Action.async { implicit req =>
       given Lang = reqLang
-      (name != lila.user.User.lichessId) ?? env.user.repo.named(name) flatMap {
+      (name.id != lila.user.User.lichessId) ?? env.user.repo.byId(name) flatMap {
         _ ?? { user =>
           val nb = getInt("nb", req) | Int.MaxValue
           jsonStream {
@@ -295,9 +293,9 @@ final class Api(
       }
     }
 
-  def swissGames(id: String) =
+  def swissGames(id: SwissId) =
     AnonOrScoped() { req => me =>
-      env.swiss.cache.swissCache byId SwissId(id) flatMap {
+      env.swiss.cache.swissCache byId id flatMap {
         _ ?? { swiss =>
           val config = GameApiV2.BySwissConfig(
             swissId = swiss.id,
@@ -317,9 +315,9 @@ final class Api(
       }
     }
 
-  def swissResults(id: String) = Action.async { implicit req =>
+  def swissResults(id: SwissId) = Action.async { implicit req =>
     val csv = HTTPRequest.acceptsCsv(req) || get("as", req).has("csv")
-    env.swiss.cache.swissCache byId SwissId(id) map {
+    env.swiss.cache.swissCache byId id map {
       _ ?? { swiss =>
         val source = env.swiss.api
           .resultStream(swiss, MaxPerSecond(50), getInt("nb", req) | Int.MaxValue)
@@ -336,8 +334,8 @@ final class Api(
 
   def gamesByUsersStream =
     AnonOrScopedBody(parse.tolerantText)() { req => me =>
-      val max = me.fold(300) { u => if (u.id == "lichess4545") 900 else 500 }
-      withIdsFromReqBody[lila.user.User.ID](req, max, identity) { ids =>
+      val max = me.fold(300) { u => if (u == lila.user.User.lichess4545Id) 900 else 500 }
+      withIdsFromReqBody[UserId](req, max, UserId(_)) { ids =>
         GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
           addKeepAlive(
             env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames", req))
@@ -370,7 +368,7 @@ final class Api(
     }
 
   private def gamesByIdsMax(me: Option[lila.user.User]) =
-    me.fold(500) { u => if (u.id == "challengermode") 10_000 else 1000 }
+    me.fold(500) { u => if (u == lila.user.User.challengermodeId) 10_000 else 1000 }
 
   private def withIdsFromReqBody[Id](
       req: Request[String],
@@ -387,7 +385,7 @@ final class Api(
         JsonOptionOk(
           env.evalCache.api.getEvalJson(
             chess.variant.Variant orDefault ~get("variant", req),
-            chess.format.FEN(fen),
+            chess.format.Fen(fen),
             getInt("multiPv", req) | 1
           )
         )
@@ -409,19 +407,19 @@ final class Api(
     key = "user_activity.api.ip"
   )
 
-  def activity(name: String) =
+  def activity(name: UserStr) =
     ApiRequest { implicit req =>
       given Lang = reqLang
       UserActivityRateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
         lila.mon.api.activity.increment(1)
-        env.user.repo named name flatMap {
+        env.user.repo byId name flatMap {
           _ ?? { user =>
             env.activity.read.recentAndPreload(user) flatMap {
               _.map { env.activity.jsonView(_, user) }.sequenceFu
             }
           }
         } map toApiResult
-      }(fuccess(Limited))
+      }(fuccess(ApiResult.Limited))
     }
 
   private val ApiMoveStreamGlobalConcurrencyLimitPerIP =
@@ -443,10 +441,10 @@ final class Api(
       }
     }
 
-  def perfStat(username: String, perfKey: lila.rating.Perf.Key) = ApiRequest { req =>
+  def perfStat(username: UserStr, perfKey: lila.rating.Perf.Key) = ApiRequest { req =>
     given play.api.i18n.Lang = reqLang(req)
     env.perfStat.api.data(username, perfKey, none) map {
-      _.fold[ApiResult](NoData) { data => Data(env.perfStat.jsonView(data)) }
+      _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
     }
   }
 
@@ -464,17 +462,18 @@ final class Api(
       else fuccess(NotFound)
     }
 
-  def toApiResult(json: Option[JsValue]): ApiResult = json.fold[ApiResult](NoData)(Data.apply)
-  def toApiResult(json: Seq[JsValue]): ApiResult    = Data(JsArray(json))
+  def toApiResult(json: Option[JsValue]): ApiResult =
+    json.fold[ApiResult](ApiResult.NoData)(ApiResult.Data.apply)
+  def toApiResult(json: Seq[JsValue]): ApiResult = ApiResult.Data(JsArray(json))
 
   def toHttp(result: ApiResult): Result =
     result match
-      case Limited          => rateLimitedJson
-      case ClientError(msg) => BadRequest(jsonError(msg))
-      case NoData           => notFoundJsonSync()
-      case Custom(result)   => result
-      case Done             => jsonOkResult
-      case Data(json)       => JsonOk(json)
+      case ApiResult.Limited          => rateLimitedJson
+      case ApiResult.ClientError(msg) => BadRequest(jsonError(msg))
+      case ApiResult.NoData           => notFoundJsonSync()
+      case ApiResult.Custom(result)   => result
+      case ApiResult.Done             => jsonOkResult
+      case ApiResult.Data(json)       => JsonOk(json)
 
   def jsonStream(makeSource: => Source[JsValue, ?])(implicit req: RequestHeader): Result =
     GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(makeSource)(sourceToNdJson)
@@ -511,7 +510,7 @@ final class Api(
     ttl = 1.hour,
     maxConcurrency = 2
   )
-  private[controllers] val GlobalConcurrencyLimitUser = new lila.memo.ConcurrencyLimit[lila.user.User.ID](
+  private[controllers] val GlobalConcurrencyLimitUser = new lila.memo.ConcurrencyLimit[UserId](
     name = "API concurrency per user",
     key = "api.user",
     ttl = 1.hour,
@@ -538,10 +537,10 @@ final class Api(
 
 private[controllers] object Api:
 
-  sealed trait ApiResult
-  case class Data(json: JsValue)      extends ApiResult
-  case class ClientError(msg: String) extends ApiResult
-  case object NoData                  extends ApiResult
-  case object Done                    extends ApiResult
-  case object Limited                 extends ApiResult
-  case class Custom(result: Result)   extends ApiResult
+  enum ApiResult:
+    case Data(json: JsValue)
+    case ClientError(msg: String)
+    case NoData
+    case Done
+    case Limited
+    case Custom(result: Result)

@@ -278,7 +278,7 @@ final private class PushApi(
       }
     }
 
-  def challengeAccept(c: Challenge, joinerId: Option[String]): Funit =
+  def challengeAccept(c: Challenge, joinerId: Option[UserId]): Funit =
     c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) ?? { challenger =>
       joinerId ?? lightUser flatMap { lightJoiner =>
         maybePush(
@@ -389,7 +389,7 @@ final private class PushApi(
   private def describeChallenge(c: Challenge) =
     import lila.challenge.Challenge.TimeControl.*
     List(
-      c.mode.fold("Casual", "Rated"),
+      if c.mode.rated then "Rated" else "Casual",
       c.timeControl match {
         case Unlimited         => "Unlimited"
         case Correspondence(d) => s"$d days"

@@ -3,8 +3,9 @@ package lila.ublog
 import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, toMarkdown, given }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, into, given }
 import lila.i18n.{ defaultLang, LangList }
 import lila.user.User
 import play.api.i18n.Lang
@@ -20,7 +21,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
     mapping(
       "title"       -> cleanNonEmptyText(minLength = 3, maxLength = 80),
       "intro"       -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
-      "markdown"    -> toMarkdown(cleanNonEmptyText(minLength = 0, maxLength = 100_000)),
+      "markdown"    -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).into[Markdown],
       "imageAlt"    -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "language"    -> optional(stringIn(LangList.popularNoRegion.map(_.code).toSet)),
@@ -44,7 +45,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
         imageAlt = post.image.flatMap(_.alt),
         imageCredit = post.image.flatMap(_.credit),
         language = post.language.code.some,
-        topics = post.topics.map(_.value).mkString(", ").some,
+        topics = post.topics.mkString(", ").some,
         live = post.live,
         discuss = ~post.discuss,
         gameId = GameId(""),
@@ -54,7 +55,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
 
   // $$something$$ breaks the TUI editor WYSIWYG
   private val latexRegex                      = s"""\\$${2,}+ *([^\\$$]+) *\\$${2,}+""".r
-  private def removeLatex(markdown: Markdown) = markdown(m => latexRegex.replaceAllIn(m, """\$\$ $1 \$\$"""))
+  private def removeLatex(markdown: Markdown) = markdown.map(latexRegex.replaceAllIn(_, """\$\$ $1 \$\$"""))
 
 object UblogForm:
 
@@ -76,7 +77,7 @@ object UblogForm:
 
     def create(user: User) =
       UblogPost(
-        id = UblogPostId(lila.common.ThreadLocalRandom nextString 8),
+        id = UblogPostId(ThreadLocalRandom nextString 8),
         blog = UblogBlog.Id.User(user.id),
         title = title,
         intro = intro,

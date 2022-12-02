@@ -42,12 +42,12 @@ final private class AggregationPipeline(store: InsightStorage)(using
         def limit(nb: Int) = Limit(nb).some
 
         def groupOptions(identifiers: pack.Value)(ops: (String, Option[GroupFunction])*) =
-          Group(identifiers)(ops.collect { case (k, Some(f)) => k -> f } *)
+          Group(identifiers)(ops.collect { case (k, Some(f)) => k -> f }*)
         def groupFieldOptions(idField: String)(ops: (String, Option[GroupFunction])*) =
-          GroupField(idField)(ops.collect { case (k, Some(f)) => k -> f } *)
+          GroupField(idField)(ops.collect { case (k, Some(f)) => k -> f }*)
         def bucketAutoOptions(groupBy: pack.Value, buckets: Int, granularity: Option[String])(
             output: (String, Option[GroupFunction])*
-        ) = BucketAuto(groupBy, buckets, granularity)(output.collect { case (k, Some(f)) => k -> f } *)
+        ) = BucketAuto(groupBy, buckets, granularity)(output.collect { case (k, Some(f)) => k -> f }*)
 
         val regroupStacked = groupFieldOptions("_id.dimension")(
           "nb"    -> SumField("v").some,
@@ -157,10 +157,9 @@ final private class AggregationPipeline(store: InsightStorage)(using
             case InsightDimension.TimeVariance         => timeVarianceIdDispatcher
             case InsightDimension.ClockPercentRange    => clockPercentDispatcher
             case d                                     => BSONString("$" + d.dbKey)
-        sealed trait Grouping
-        object Grouping:
-          object Group                                                            extends Grouping
-          case class BucketAuto(buckets: Int, granularity: Option[String] = None) extends Grouping
+        enum Grouping:
+          case Group
+          case BucketAuto(buckets: Int, granularity: Option[String] = None)
         def dimensionGrouping(dim: InsightDimension[?]): Grouping =
           dim match
             case D.Date => Grouping.BucketAuto(buckets = 12)

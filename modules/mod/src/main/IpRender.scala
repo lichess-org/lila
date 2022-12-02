@@ -3,13 +3,13 @@ package lila.mod
 import com.github.blemale.scaffeine.LoadingCache
 import scala.concurrent.duration.*
 import scala.jdk.CollectionConverters.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.CuteNameGenerator
 import lila.common.IpAddress
 import lila.memo.CacheApi
 import lila.security.Granter
 import lila.user.Holder
-import lila.common.ThreadLocalRandom
 
 object IpRender:
 
@@ -36,5 +36,5 @@ final class IpRender:
   private val cache: LoadingCache[IpAddress, Rendered] = CacheApi.scaffeineNoScheduler
     .expireAfterAccess(30 minutes)
     .build((_: IpAddress) =>
-      s"NoIP:${~CuteNameGenerator.make(maxSize = 30)}-${ThreadLocalRandom.nextString(3)}"
+      s"NoIP:${CuteNameGenerator.make(maxSize = 30).??(_.value)}-${ThreadLocalRandom.nextString(3)}"
     )

@@ -5,11 +5,9 @@ import chess.format.Uci
 
 import lila.db.ByteArray
 
-sealed trait PgnStorage
-
 private object PgnStorage:
 
-  case object OldBin extends PgnStorage:
+  case object OldBin:
 
     def encode(pgnMoves: PgnMoves) =
       ByteArray {
@@ -23,7 +21,7 @@ private object PgnStorage:
         format.pgn.Binary.readMoves(bytes.value.toList, plies).get.toVector
       }
 
-  case object Huffman extends PgnStorage:
+  case object Huffman:
 
     import org.lichess.compression.game.{ Encoder, Piece as JavaPiece, Role as JavaRole }
     import scala.jdk.CollectionConverters.*
@@ -37,13 +35,13 @@ private object PgnStorage:
     def decode(bytes: ByteArray, plies: Int): Decoded =
       monitor(_.game.pgn.decode("huffman")) {
         val decoded      = Encoder.decode(bytes.value, plies)
-        val unmovedRooks = decoded.unmovedRooks.asScala.view.flatMap(chessPos).to(Set)
+        val unmovedRooks = decoded.unmovedRooks.asScala.view.map(Pos(_)).toSet
         Decoded(
           pgnMoves = decoded.pgnMoves.toVector,
-          pieces = decoded.pieces.asScala.view.flatMap { case (k, v) =>
-            chessPos(k).map(_ -> chessPiece(v))
+          pieces = decoded.pieces.asScala.view.map { (k, v) =>
+            Pos(k) -> chessPiece(v)
           }.toMap,
-          positionHashes = decoded.positionHashes,
+          positionHashes = PositionHash(decoded.positionHashes),
           unmovedRooks = UnmovedRooks(unmovedRooks),
           lastMove = Option(decoded.lastUci) flatMap Uci.apply,
           castles = Castles(
@@ -56,7 +54,6 @@ private object PgnStorage:
         )
       }
 
-    private def chessPos(sq: Integer): Option[Pos] = Pos(sq)
     private def chessRole(role: JavaRole): Role =
       role match
         case JavaRole.PAWN   => Pawn

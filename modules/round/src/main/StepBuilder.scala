@@ -1,7 +1,7 @@
 package lila.round
 
-import chess.format.FEN
-import chess.format.Forsyth
+import chess.format.Fen
+import chess.format.Fen
 import chess.variant.Variant
 import play.api.libs.json.*
 
@@ -15,7 +15,7 @@ object StepBuilder:
       id: GameId,
       pgnMoves: Vector[String],
       variant: Variant,
-      initialFen: FEN
+      initialFen: Fen
   ): JsArray =
     chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match
       case (init, games, error) =>
@@ -24,7 +24,7 @@ object StepBuilder:
           val initStep = Step(
             ply = init.turns,
             move = none,
-            fen = Forsyth >> init,
+            fen = Fen write init,
             check = init.situation.check,
             dests = None,
             drops = None,
@@ -34,7 +34,7 @@ object StepBuilder:
             Step(
               ply = g.turns,
               move = Step.Move(m.uci, m.san).some,
-              fen = Forsyth >> g,
+              fen = Fen write g,
               check = g.situation.check,
               dests = None,
               drops = None,

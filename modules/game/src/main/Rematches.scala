@@ -26,16 +26,16 @@ final class Rematches(idGenerator: IdGenerator)(using ec: ExecutionContext):
 
   def prevGameIdOffering = offeredReverseLookup.getIfPresent
 
-  def get                          = cache.getIfPresent
-  def getOffered(prev: GameId)    = get(prev) collect { case o: Offered => o }
-  def getAccepted(prev: GameId)   = get(prev) collect { case a: Accepted => a }
+  def get                         = cache.getIfPresent
+  def getOffered(prev: GameId)    = get(prev) collect { case o: NextGame.Offered => o }
+  def getAccepted(prev: GameId)   = get(prev) collect { case a: NextGame.Accepted => a }
   def getAcceptedId(prev: GameId) = getAccepted(prev).map(_.nextId)
 
   def isOffering(pov: PovRef) = getOffered(pov.gameId).exists(_.by == pov.color)
 
   def offer(pov: PovRef): Fu[GameId] = (getOffered(pov.gameId) match {
     case Some(existing) => fuccess(existing.copy(by = pov.color))
-    case None           => idGenerator.game map { Offered(pov.color, _) }
+    case None           => idGenerator.game map { NextGame.Offered(pov.color, _) }
   }) map { offer =>
     cache.put(pov.gameId, offer)
     offeredReverseLookup.put(offer.nextId, pov.gameId)
@@ -43,15 +43,16 @@ final class Rematches(idGenerator: IdGenerator)(using ec: ExecutionContext):
   }
 
   def drop(prev: GameId) =
-    get(prev) collect { case Offered(_, nextId) => nextId } foreach offeredReverseLookup.invalidate
+    get(prev) collect { case NextGame.Offered(_, nextId) => nextId } foreach offeredReverseLookup.invalidate
     cache.invalidate(prev)
 
   def accept(prev: GameId, next: GameId) =
-    cache.put(prev, Accepted(next))
+    cache.put(prev, NextGame.Accepted(next))
     offeredReverseLookup.invalidate(next)
 
 object Rematches:
 
-  sealed trait NextGame { val nextId: GameId }
-  case class Offered(by: Color, nextId: GameId) extends NextGame // game doesn't yet exist
-  case class Accepted(nextId: GameId)           extends NextGame // game exists
+  enum NextGame:
+    val nextId: GameId
+    case Offered(by: Color, nextId: GameId) // game doesn't yet exist
+    case Accepted(nextId: GameId)           // game exists

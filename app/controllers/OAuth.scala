@@ -9,26 +9,31 @@ import play.api.mvc.*
 import scala.concurrent.duration.*
 import scalatags.Text.all.stringFrag
 import views.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.{ HTTPRequest, IpAddress, Bearer }
+import lila.common.Json.given
 import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest }
+import Api.ApiResult
 
 final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   private def reqToAuthorizationRequest(req: RequestHeader) =
+    import lila.oauth.Protocol.*
     AuthorizationRequest.Raw(
-      clientId = get("client_id", req),
+      clientId = ClientId from get("client_id", req),
       responseType = get("response_type", req),
       redirectUri = get("redirect_uri", req),
-      state = get("state", req),
+      state = State from get("state", req),
       codeChallengeMethod = get("code_challenge_method", req),
-      codeChallenge = get("code_challenge", req),
-      scope = get("scope", req)
+      codeChallenge = CodeChallenge from get("code_challenge", req),
+      scope = get("scope", req),
+      username = UserStr from get("username", req)
     )
 
-  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(implicit ctx: Context) =
+  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: Context) =
     reqToAuthorizationRequest(ctx.req).prompt match
       case Validated.Valid(prompt) => f(prompt)
       case Validated.Invalid(error) =>
@@ -63,16 +68,19 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  private val accessTokenRequestForm = Form(
-    mapping(
-      "grant_type"    -> optional(text),
-      "code"          -> optional(text),
-      "code_verifier" -> optional(text),
-      "client_id"     -> optional(text),
-      "redirect_uri"  -> optional(text),
-      "client_secret" -> optional(text)
-    )(AccessTokenRequest.Raw.apply)(unapply)
-  )
+  private val accessTokenRequestForm =
+    import lila.oauth.Protocol.*
+    import lila.common.Form.into
+    Form(
+      mapping(
+        "grant_type"    -> optional(text),
+        "code"          -> optional(text),
+        "code_verifier" -> optional(text),
+        "client_id"     -> optional(text.into[ClientId]),
+        "redirect_uri"  -> optional(text),
+        "client_secret" -> optional(text)
+      )(AccessTokenRequest.Raw.apply)(unapply)
+    )
 
   def tokenApply =
     Action.async(parse.form(accessTokenRequestForm)) { implicit req =>
@@ -85,7 +93,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                   Json
                     .obj(
                       "token_type"   -> "Bearer",
-                      "access_token" -> token.plain.secret
+                      "access_token" -> token.plain
                     )
                     .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
                 )
@@ -106,8 +114,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                   Json
                     .obj(
                       "token_type"    -> "Bearer",
-                      "access_token"  -> token.plain.secret,
-                      "refresh_token" -> s"invalid_for_bc_${lila.common.ThreadLocalRandom.nextString(17)}"
+                      "access_token"  -> token.plain,
+                      "refresh_token" -> s"invalid_for_bc_${ThreadLocalRandom.nextString(17)}"
                     )
                     .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
                 )
@@ -146,7 +154,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
             err => BadRequest(apiFormError(err)).toFuccess,
             data =>
               env.oAuth.tokenApi.adminChallengeTokens(data, me).map { tokens =>
-                JsonOk(tokens.view.mapValues(t => t.plain.secret).toMap)
+                JsonOk(tokens.view.mapValues(_.plain).toMap)
               }
           )
       else Unauthorized(jsonError("Missing permission")).toFuccess
@@ -159,12 +167,12 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
   )
   def testTokens =
     Action.async(parse.tolerantText) { req =>
-      val bearers = req.body.split(',').view.take(1000).toList
+      val bearers = Bearer from req.body.split(',').view.take(1000).toList
       testTokenRateLimit[Fu[Api.ApiResult]](HTTPRequest ipAddress req, cost = bearers.size) {
-        env.oAuth.tokenApi.test(bearers map lila.common.Bearer.apply) map { tokens =>
+        env.oAuth.tokenApi.test(bearers) map { tokens =>
           import lila.common.Json.given
-          Api.Data(JsObject(tokens.map { case (bearer, token) =>
-            bearer.secret -> token.fold[JsValue](JsNull) { t =>
+          ApiResult.Data(JsObject(tokens.map { case (bearer, token) =>
+            bearer.value -> token.fold[JsValue](JsNull) { t =>
               Json.obj(
                 "userId"  -> t.userId,
                 "scopes"  -> t.scopes.map(_.key).mkString(","),
@@ -173,5 +181,5 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
             }
           }))
         }
-      }(fuccess(Api.Limited)) map apiC.toHttp
+      }(fuccess(ApiResult.Limited)) map apiC.toHttp
     }

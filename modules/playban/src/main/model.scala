@@ -6,16 +6,16 @@ import play.api.libs.json.*
 import lila.common.Json.given
 
 case class UserRecord(
-    _id: String,
+    _id: UserId,
     o: Option[Vector[Outcome]],
     b: Option[Vector[TempBan]],
     c: Option[RageSit]
 ):
 
-  def userId                    = _id
-  def outcomes: Vector[Outcome] = ~o
-  def bans: Vector[TempBan]     = ~b
-  def rageSit                   = c | RageSit.empty
+  inline def userId                    = _id
+  inline def outcomes: Vector[Outcome] = ~o
+  inline def bans: Vector[TempBan]     = ~b
+  inline def rageSit                   = c | RageSit.empty
 
   def banInEffect = bans.lastOption.exists(_.inEffect)
   def banMinutes  = bans.lastOption.map(_.remainingMinutes)
@@ -73,7 +73,6 @@ case class TempBan(date: DateTime, mins: Int):
   def remainingMinutes: Int = (remainingSeconds / 60) atLeast 1
 
   def inEffect = endsAt.isAfterNow
-
 
 object TempBan:
 

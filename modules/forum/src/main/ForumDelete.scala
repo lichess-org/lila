@@ -25,14 +25,15 @@ final class ForumDelete(
             doDelete(view) >> {
               if (MasterGranter(_.ModerateForum)(mod))
                 modLog.deletePost(
-                  mod.id,
+                  mod.id into ModId,
                   post.userId,
-                  post.author,
                   text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
                 )
               else
                 fuccess {
-                  logger.info(s"${mod.username} deletes post by ${~post.userId} \"${post.text take 200}\"")
+                  logger.info(
+                    s"${mod.username} deletes post by ${post.userId.??(_.value)} \"${post.text take 200}\""
+                  )
                 }
             }
           }

@@ -89,20 +89,16 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
   private def looksLikePgn(url: URL): Fu[Boolean] = httpGet(url).map { _ exists looksLikePgn }
 
   private def looksLikeJson(body: String): Boolean =
-    try
-      Json.parse(body) != JsNull
-    catch
-      case _: Exception => false
+    try Json.parse(body) != JsNull
+    catch case _: Exception => false
   private def looksLikeJson(url: URL): Fu[Boolean] = httpGet(url).map { _ exists looksLikeJson }
 
 sealed private trait RelayFormat
 
 private object RelayFormat:
 
-  sealed trait DocFormat
-  object DocFormat:
-    case object Json extends DocFormat
-    case object Pgn  extends DocFormat
+  enum DocFormat:
+    case Json, Pgn
 
   case class Doc(url: URL, format: DocFormat)
 

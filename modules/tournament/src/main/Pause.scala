@@ -18,7 +18,7 @@ final private class Pause:
 
   private val cache = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(20 minutes)
-    .build[User.ID, Record]()
+    .build[UserId, Record]()
 
   private def baseDelayOf(tour: Tournament) =
     Delay {
@@ -26,25 +26,23 @@ final private class Pause:
     }
 
   private def delayOf(record: Record, tour: Tournament) =
-    Delay {
-      // 10s for first pause
-      // next ones increasing linearly until 120s
-      baseDelayOf(tour).seconds * (record.pauses - 1) atLeast 10 atMost 120
-    }
+    // 10s for first pause
+    // next ones increasing linearly until 120s
+    baseDelayOf(tour).map(_ * (record.pauses - 1) atLeast 10 atMost 120)
 
-  def add(userId: User.ID): Unit =
+  def add(userId: UserId): Unit =
     cache.put(
       userId,
       cache.getIfPresent(userId).fold(newRecord)(_.add)
     )
 
-  def remainingDelay(userId: User.ID, tour: Tournament): Option[Delay] =
+  def remainingDelay(userId: UserId, tour: Tournament): Option[Delay] =
     cache getIfPresent userId flatMap { record =>
-      val seconds = record.pausedAt.getSeconds - nowSeconds + delayOf(record, tour).seconds
+      val seconds = record.pausedAt.getSeconds - nowSeconds + delayOf(record, tour).value
       seconds > 1 option Delay(seconds.toInt)
     }
 
-  def canJoin(userId: User.ID, tour: Tournament): Boolean =
+  def canJoin(userId: UserId, tour: Tournament): Boolean =
     remainingDelay(userId, tour).isEmpty
 
 object Pause:
@@ -58,4 +56,5 @@ object Pause:
   val newRecord = Record(1, DateTime.now)
 
   // pause counter of a player
-  case class Delay(seconds: Int) extends AnyVal
+  opaque type Delay = Int
+  object Delay extends TotalWrapper[Delay, Int]

@@ -4,7 +4,10 @@ import org.specs2.mutable.Specification
 
 class UserTest extends Specification {
 
-  def canSignup(str: User.ID) =
+  given Conversion[String, UserStr] = UserStr(_)
+  given Conversion[String, UserId]  = UserId(_)
+
+  def canSignup(str: String) =
     User.newUsernamePrefix.pattern.matcher(str).matches && User.newUsernameSuffix.pattern
       .matcher(str)
       .matches &&

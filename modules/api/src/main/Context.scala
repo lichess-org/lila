@@ -6,11 +6,12 @@ import play.api.mvc.RequestHeader
 import lila.common.{ HTTPRequest, Nonce }
 import lila.pref.Pref
 import lila.user.{ BodyUserContext, HeaderUserContext, UserContext }
+import lila.notify.Notification.UnreadCount
 
 case class PageData(
     teamNbRequests: Int,
     nbChallenges: Int,
-    nbNotifications: Int,
+    nbNotifications: UnreadCount,
     pref: Pref,
     blindMode: Boolean,
     hasFingerprint: Boolean,
@@ -26,7 +27,7 @@ object PageData:
     PageData(
       teamNbRequests = 0,
       nbChallenges = 0,
-      nbNotifications = 0,
+      nbNotifications = UnreadCount(0),
       lila.pref.RequestPref fromRequest req,
       blindMode = blindMode,
       hasFingerprint = false,

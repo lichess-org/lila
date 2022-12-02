@@ -1,6 +1,6 @@
 package views.html.opening
 
-import chess.opening.FullOpening
+import chess.opening.Opening
 import controllers.routes
 
 import lila.api.{ Context, given }
@@ -13,7 +13,7 @@ object index:
 
   import bits.*
 
-  def apply(page: OpeningPage, wikiMissing: List[FullOpening])(implicit ctx: Context) =
+  def apply(page: OpeningPage, wikiMissing: List[Opening])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(page.some),
@@ -48,7 +48,7 @@ object index:
     }
 
   def searchAndConfig(config: OpeningConfig, q: String, thenTo: String, searchFocus: Boolean = false)(using
-      ctx: Context
+      Context
   ) =
     div(cls := "opening__search-config")(
       search.form(q, searchFocus),

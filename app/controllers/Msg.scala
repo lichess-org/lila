@@ -24,9 +24,9 @@ final class Msg(
       )
     }
 
-  def convo(username: String, before: Option[Long] = None) =
+  def convo(username: UserStr, before: Option[Long] = None) =
     Auth { implicit ctx => me =>
-      if (username == "new") Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_))).toFuccess
+      if (username.value == "new") Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_))).toFuccess
       else
         env.msg.api.convoWith(me, username, before).flatMap {
           case None =>
@@ -51,7 +51,7 @@ final class Msg(
 
   def search(q: String) =
     Auth { ctx => me =>
-      q.trim.some.filter(lila.user.User.couldBeUsername) match
+      q.trim.some.filter(_.nonEmpty) match
         case None    => env.msg.json.searchResult(me)(env.msg.search.empty) map { Ok(_) }
         case Some(q) => env.msg.search(me, q) flatMap env.msg.json.searchResult(me) map { Ok(_) }
     }
@@ -63,7 +63,7 @@ final class Msg(
       }
     }
 
-  def convoDelete(username: String) =
+  def convoDelete(username: UserStr) =
     Auth { _ => me =>
       env.msg.api.delete(me, username) >>
         inboxJson(me) map { Ok(_) }
@@ -83,8 +83,8 @@ final class Msg(
       }
     }
 
-  def apiPost(username: String) =
-    val userId = lila.user.User normalize username
+  def apiPost(username: UserStr) =
+    val userId = username.id
     AuthOrScopedBody(_.Msg.Write)(
       // compat: reply
       auth = implicit ctx =>

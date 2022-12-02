@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
@@ -15,7 +15,7 @@ object SetupForm:
 
   val filter = Form(single("local" -> text))
 
-  def aiFilled(fen: Option[FEN]): Form[AiConfig] =
+  def aiFilled(fen: Option[Fen]): Form[AiConfig] =
     ai fill fen.foldLeft(AiConfig.default) { case (config, f) =>
       config.copy(fen = f.some, variant = chess.variant.FromPosition)
     }
@@ -35,7 +35,7 @@ object SetupForm:
       .verifying("Can't play that time control from a position", _.timeControlFromPosition)
   )
 
-  def friendFilled(fen: Option[FEN])(using ctx: UserContext): Form[FriendConfig] =
+  def friendFilled(fen: Option[Fen])(using ctx: UserContext): Form[FriendConfig] =
     friend(ctx) fill fen.foldLeft(FriendConfig.default) { case (config, f) =>
       config.copy(fen = f.some, variant = chess.variant.FromPosition)
     }
@@ -168,7 +168,10 @@ object SetupForm:
         "rated" -> boolean,
         "fen"   -> fenField,
         "users" -> optional(
-          LilaForm.strings.separator(",").verifying("Must be 2 usernames, white and black", _.sizeIs == 2)
+          LilaForm.strings
+            .separator(",")
+            .verifying("Must be 2 usernames, white and black", _.sizeIs == 2)
+            .transform[List[UserStr]](UserStr.from(_), UserStr.raw(_))
         ),
         "rules" -> optional(gameRules)
       )(OpenConfig.from)(_ => none)

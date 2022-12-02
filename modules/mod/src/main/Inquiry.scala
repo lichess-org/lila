@@ -32,7 +32,7 @@ final class InquiryApi(
       reportApi.inquiries.ofModId(mod.id).flatMap {
         _ ?? { report =>
           reportApi.moreLike(report, 10) zip
-            userRepo.named(report.user) zip
+            userRepo.byId(report.user) zip
             noteApi.byUserForMod(report.user) zip
             logApi.userHistory(report.user) map { case (((moreReports, userOption), notes), history) =>
               userOption ?? { user =>

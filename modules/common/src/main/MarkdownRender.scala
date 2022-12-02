@@ -34,9 +34,6 @@ import com.vladsch.flexmark.util.misc.Extension
 import lila.base.RawHtml
 import com.vladsch.flexmark.html.renderer.ResolvedLink
 
-final case class Markdown(value: String) extends AnyVal with StringValue:
-  def apply(f: String => String) = Markdown(f(value))
-
 final class MarkdownRender(
     autoLink: Boolean = true,
     table: Boolean = false,

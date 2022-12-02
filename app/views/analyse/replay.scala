@@ -1,7 +1,7 @@
 package views.html.analyse
 
 import bits.dataPanel
-import chess.format.Forsyth
+import chess.format.Fen
 import chess.variant.Crazyhouse
 import controllers.routes
 import play.api.i18n.Lang
@@ -22,7 +22,7 @@ object replay:
   def apply(
       pov: Pov,
       data: play.api.libs.json.JsObject,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[chess.format.Fen],
       pgn: String,
       analysis: Option[lila.analyse.Analysis],
       analysisStarted: Boolean,
@@ -62,7 +62,7 @@ object replay:
         href := cdnUrl(
           routes.Export
             .fenThumbnail(
-              Forsyth.>>(pov.game.situation).value,
+              Fen.write(pov.game.situation).value,
               pov.color.name,
               None,
               pov.game.variant.key.some,
@@ -218,13 +218,12 @@ object replay:
             )
           )
         ),
-        if (ctx.blind)
-          div(cls := "blind-content none")(
-            h2("PGN downloads"),
-            pgnLinks,
-            button(cls := "copy-pgn", attr("data-pgn") := pgn)(
-              "Copy PGN to clipboard"
-            )
+        ctx.blind option div(cls := "blind-content none")(
+          h2("PGN downloads"),
+          pgnLinks,
+          button(cls := "copy-pgn", attr("data-pgn") := pgn)(
+            "Copy PGN to clipboard"
           )
+        )
       )
     )

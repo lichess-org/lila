@@ -125,9 +125,9 @@ final class Report(
       }
     }
 
-  def xfiles(id: String) =
+  def xfiles(id: UserStr) =
     Secure(_.SeeReport) { _ => _ =>
-      api.moveToXfiles(id) inject Redirect(routes.Report.list)
+      api.moveToXfiles(id.id) inject Redirect(routes.Report.list)
     }
 
   def snooze(id: String, dur: String) =
@@ -137,9 +137,9 @@ final class Report(
       }
     }
 
-  def currentCheatInquiry(username: String) =
+  def currentCheatInquiry(username: UserStr) =
     Secure(_.CheatHunter) { implicit ctx => me =>
-      OptionFuResult(env.user.repo named username) { user =>
+      OptionFuResult(env.user.repo byId username) { user =>
         api.currentCheatReport(lila.report.Suspect(user)) flatMap {
           _ ?? { report =>
             api.inquiries.toggle(me, report.id).void
@@ -150,7 +150,7 @@ final class Report(
 
   def form =
     Auth { implicit ctx => _ =>
-      get("username") ?? env.user.repo.named flatMap { user =>
+      getUserStr("username") ?? env.user.repo.byId flatMap { user =>
         if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact).toFuccess
         else
           env.report.forms.createWithCaptcha map { case (form, captcha) =>
@@ -173,7 +173,7 @@ final class Report(
         .bindFromRequest()
         .fold(
           err =>
-            get("username") ?? env.user.repo.named flatMap { user =>
+            getUserStr("username") ?? env.user.repo.byId flatMap { user =>
               env.report.forms.anyCaptcha map { captcha =>
                 BadRequest(html.report.form(err, user, captcha))
               }
@@ -194,7 +194,7 @@ final class Report(
         .fold(
           _ => BadRequest.toFuccess,
           data =>
-            env.user.repo named data.username flatMap {
+            env.user.repo byId data.username flatMap {
               _ ?? { user =>
                 if (user == me) BadRequest.toFuccess
                 else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
@@ -203,9 +203,9 @@ final class Report(
         )
     }
 
-  def thanks(reported: String) =
+  def thanks(reported: UserStr) =
     Auth { implicit ctx => me =>
-      env.relation.api.fetchBlocks(me.id, reported) map { blocked =>
-        html.report.thanks(reported, blocked)
+      env.relation.api.fetchBlocks(me.id, reported.id) map { blocked =>
+        html.report.thanks(reported.id, blocked)
       }
     }

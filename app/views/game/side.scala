@@ -15,7 +15,7 @@ object side:
 
   def apply(
       pov: lila.game.Pov,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[chess.format.Fen],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
@@ -28,7 +28,7 @@ object side:
 
   def meta(
       pov: lila.game.Pov,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[chess.format.Fen],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
@@ -93,13 +93,13 @@ object side:
         },
         game.variant.chess960.?? {
           chess.variant.Chess960
-            .positionNumber(initialFen | chess.format.Forsyth.initial)
+            .positionNumber(initialFen | chess.format.Fen.initial)
             .map { number =>
               st.section(
                 trans.chess960StartPosition(
                   a(
                     href := routes.UserAnalysis
-                      .parseArg(s"chess960/${underscoreFen(initialFen | chess.format.Forsyth.initial)}")
+                      .parseArg(s"chess960/${underscoreFen(initialFen | chess.format.Fen.initial)}")
                   )(number)
                 )
               )

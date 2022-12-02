@@ -2,6 +2,8 @@ package lila.notify
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson.Macros.Annotations.Key
+import ornicar.scalalib.ThreadLocalRandom
+import alleycats.Zero
 
 import lila.common.paginator.Paginator
 import lila.pref.NotifyAllows
@@ -53,8 +55,7 @@ case class RatingRefund(perf: String, points: Int) extends NotificationContent("
 
 case object CoachReview extends NotificationContent("coachReview")
 
-case class PlanStart(userId: UserId) extends NotificationContent("planStart") // BC
-
+case class PlanStart(userId: UserId)  extends NotificationContent("planStart")  // BC
 case class PlanExpire(userId: UserId) extends NotificationContent("planExpire") // BC
 
 case class CorresAlarm(

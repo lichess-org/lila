@@ -84,10 +84,9 @@ object ratingDistribution:
       )
     }
 
-  private val i18nKeys =
-    List(
-      trans.players,
-      trans.yourRating,
-      trans.cumulative,
-      trans.glicko2Rating
-    ).map(_.key)
+  private val i18nKeys = List(
+    trans.players,
+    trans.yourRating,
+    trans.cumulative,
+    trans.glicko2Rating
+  )

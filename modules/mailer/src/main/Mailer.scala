@@ -8,9 +8,10 @@ import scala.concurrent.duration.{ span as _, * }
 import scala.concurrent.{ blocking, Future }
 import scalatags.Text.all.{ html as htmlTag, * }
 import scalatags.Text.tags2.{ title as titleTag }
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.String.html.nl2br
-import lila.common.{ Chronometer, EmailAddress, ThreadLocalRandom }
+import lila.common.{ Chronometer, EmailAddress }
 import lila.i18n.I18nKeys.{ emails as trans }
 import scala.concurrent.ExecutionContext
 import com.typesafe.config.DefaultConfigLoadingStrategy

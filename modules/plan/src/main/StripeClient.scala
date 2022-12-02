@@ -58,12 +58,12 @@ final private class StripeClient(
       )
     } ::: data.giftTo.?? { giftTo =>
       List(
-        "metadata[giftTo]"                      -> giftTo.id,
-        "payment_intent_data[metadata][giftTo]" -> giftTo.id, // so we can get it from charge.metadata.giftTo
-        "line_items[0][description]"            -> s"Gift Patron wings to ${giftTo.username}"
+        "metadata[giftTo]" -> giftTo.id.value,
+        "payment_intent_data[metadata][giftTo]" -> giftTo.id.value, // so we can get it from charge.metadata.giftTo
+        "line_items[0][description]" -> s"Gift Patron wings to ${giftTo.username}"
       )
     }
-    postOne[StripeSession]("checkout/sessions", args *)
+    postOne[StripeSession]("checkout/sessions", args*)
 
   private def recurringPriceArgs(name: String, money: Money) = List(
     s"$name[0][price_data][product]"                   -> config.products.monthly,
@@ -77,7 +77,7 @@ final private class StripeClient(
   def createMonthlySession(data: CreateStripeSession): Fu[StripeSession] =
     val args = sessionArgs("subscription", data.customerId, data.checkout.money.currency, data.urls) ++
       recurringPriceArgs("line_items", data.checkout.money)
-    postOne[StripeSession]("checkout/sessions", args *)
+    postOne[StripeSession]("checkout/sessions", args*)
 
   def createCustomer(user: User, data: PlanCheckout): Fu[StripeCustomer] =
     postOne[StripeCustomer](
@@ -97,7 +97,7 @@ final private class StripeClient(
     )
     postOne[StripeSubscription](
       s"subscriptions/${sub.id}",
-      args *
+      args*
     )
 
   def cancelSubscription(sub: StripeSubscription): Fu[StripeSubscription] =
@@ -121,7 +121,7 @@ final private class StripeClient(
     val args = sessionArgs("setup", sub.customer, sub.item.price.currency, urls) ++ List(
       "setup_intent_data[metadata][subscription_id]" -> sub.id
     )
-    postOne[StripeSession]("checkout/sessions", args *)
+    postOne[StripeSession]("checkout/sessions", args*)
 
   def getSession(id: String): Fu[Option[StripeSessionWithIntent]] =
     getOne[StripeSessionWithIntent](s"checkout/sessions/$id", "expand[]" -> "setup_intent")
@@ -158,7 +158,7 @@ final private class StripeClient(
 
   private def get[A: Reads](url: String, queryString: Seq[(String, Matchable)]): Fu[A] =
     logger.debug(s"GET $url ${debugInput(queryString)}")
-    request(url).withQueryStringParameters(fixInput(queryString) *).get() flatMap response[A]
+    request(url).withQueryStringParameters(fixInput(queryString)*).get() flatMap response[A]
 
   private def post[A: Reads](url: String, data: Seq[(String, Matchable)]): Fu[A] =
     logger.info(s"POST $url ${debugInput(data)}")
@@ -166,7 +166,7 @@ final private class StripeClient(
 
   private def delete[A: Reads](url: String, data: Seq[(String, Matchable)]): Fu[A] =
     logger.info(s"DELETE $url ${debugInput(data)}")
-    request(url).withQueryStringParameters(fixInput(data) *).delete() flatMap response[A]
+    request(url).withQueryStringParameters(fixInput(data)*).delete() flatMap response[A]
 
   private def request(url: String) =
     ws.url(s"${config.endpoint}/$url")

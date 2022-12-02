@@ -1,8 +1,8 @@
 package lila.game
 
 import chess.Color.{ Black, White }
-import chess.format.{ FEN, Uci }
-import chess.opening.{ FullOpening, FullOpeningDB }
+import chess.format.{ Fen, Uci }
+import chess.opening.{ Opening, OpeningDb }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ Castles, Centis, CheckCount, Clock, Color, Game as ChessGame, Mode, MoveOrDrop, Speed, Status }
 import org.joda.time.DateTime
@@ -39,7 +39,7 @@ case class Game(
   def clock     = chess.clock
   def pgnMoves  = chess.pgnMoves
 
-  val players = List(whitePlayer, blackPlayer)
+  val players = List[Player](whitePlayer, blackPlayer)
 
   def player(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
@@ -53,13 +53,13 @@ case class Game(
 
   def player: Player = player(turnColor)
 
-  def playerByUserId(userId: User.ID): Option[Player]   = players.find(_.userId contains userId)
-  def opponentByUserId(userId: User.ID): Option[Player] = playerByUserId(userId) map opponent
+  def playerByUserId(userId: UserId): Option[Player]   = players.find(_.userId contains userId)
+  def opponentByUserId(userId: UserId): Option[Player] = playerByUserId(userId) map opponent
 
-  def hasUserIds(userId1: User.ID, userId2: User.ID) =
+  def hasUserIds(userId1: UserId, userId2: UserId) =
     playerByUserId(userId1).isDefined && playerByUserId(userId2).isDefined
 
-  def hasUserId(userId: User.ID) = playerByUserId(userId).isDefined
+  def hasUserId(userId: UserId) = playerByUserId(userId).isDefined
 
   def opponent(p: Player): Player = opponent(p.color)
 
@@ -187,7 +187,7 @@ case class Game(
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
-          } :+ Centis(nowCentis - movedAt.getCentis).nonNeg
+          } :+ Centis.ofLong(nowCentis - movedAt.getCentis).nonNeg
         }
       },
       loadClockHistory = _ => newClockHistory,
@@ -225,7 +225,7 @@ case class Game(
 
   def lastMoveKeys: Option[String] =
     history.lastMove map {
-      case Uci.Drop(target, _) => s"$target$target"
+      case Uci.Drop(_, target) => s"${target.key}${target.key}"
       case m: Uci.Move         => m.keys
     }
 
@@ -438,9 +438,9 @@ case class Game(
 
   def winnerColor: Option[Color] = winner map (_.color)
 
-  def winnerUserId: Option[String] = winner flatMap (_.userId)
+  def winnerUserId: Option[UserId] = winner flatMap (_.userId)
 
-  def loserUserId: Option[String] = loser flatMap (_.userId)
+  def loserUserId: Option[UserId] = loser flatMap (_.userId)
 
   def wonBy(c: Color): Option[Boolean] = winner map (_.color == c)
 
@@ -554,16 +554,16 @@ case class Game(
 
   def incBookmarks(value: Int) = copy(bookmarks = bookmarks + value)
 
-  def userIds = playerMaps(_.userId)
+  def userIds = playerMaps[UserId](_.userId)
 
-  def twoUserIds: Option[(User.ID, User.ID)] =
+  def twoUserIds: Option[(UserId, UserId)] =
     for {
       w <- whitePlayer.userId
       b <- blackPlayer.userId
       if w != b
     } yield w -> b
 
-  def userRatings = playerMaps(_.rating)
+  def userRatings = playerMaps[IntRating](_.rating)
 
   def averageUsersRating =
     userRatings match
@@ -571,7 +571,7 @@ case class Game(
       case a :: Nil      => Some((a + 1500).value / 2)
       case _             => None
 
-  def withTournamentId(id: String) = copy(metadata = metadata.copy(tournamentId = id.some))
+  def withTournamentId(id: TourId) = copy(metadata = metadata.copy(tournamentId = id.some))
   def withSwissId(id: SwissId)     = copy(metadata = metadata.copy(swissId = id.some))
   def withSimulId(id: SimulId)     = copy(metadata = metadata.copy(simulId = id.some))
 
@@ -587,9 +587,9 @@ case class Game(
       chess = chess.copy(turns = 0, startedAtTurn = 0)
     )
 
-  lazy val opening: Option[FullOpening.AtPly] =
+  lazy val opening: Option[Opening.AtPly] =
     if (fromPosition || !Variant.openingSensibleVariants(variant)) none
-    else FullOpeningDB search pgnMoves
+    else OpeningDb search pgnMoves
 
   def synthetic = id == Game.syntheticId
 
@@ -624,7 +624,7 @@ object Game:
   def fullId(gameId: GameId, playerId: GamePlayerId) = GameFullId(s"$gameId$playerId")
 
   case class OnStart(id: GameId)
-  case class WithInitialFen(game: Game, fen: Option[FEN])
+  case class WithInitialFen(game: Game, fen: Option[Fen])
 
   case class SideAndStart(color: Color, startColor: Color, startedAtTurn: Int)
   case class StartedAt(startColor: Color, startedAtTurn: Int):
@@ -842,9 +842,5 @@ case class ClockHistory(
       firstMoveBy.fold(black, white)
     )
 
-sealed trait DrawReason
-object DrawReason:
-  case object MutualAgreement      extends DrawReason
-  case object FiftyMoves           extends DrawReason
-  case object ThreefoldRepetition  extends DrawReason
-  case object InsufficientMaterial extends DrawReason
+enum DrawReason:
+  case MutualAgreement, FiftyMoves, ThreefoldRepetition, InsufficientMaterial

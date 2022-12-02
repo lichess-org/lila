@@ -859,8 +859,8 @@
   <string name="findBetterMoveForBlack">מצא/י מהלך טוב יותר לשחור</string>
   <string name="resumeLearning">המשיכו ללמוד</string>
   <string name="youCanDoBetter">יש מהלך טוב יותר:)</string>
-  <string name="tryAnotherMoveForWhite">נסה למצוא מהלך טוב יותר ללבן</string>
-  <string name="tryAnotherMoveForBlack">נסה למצוא מהלך טוב יותר לשחור</string>
+  <string name="tryAnotherMoveForWhite">נסו למצוא מהלך טוב יותר ללבן</string>
+  <string name="tryAnotherMoveForBlack">נסו למצוא מהלך טוב יותר לשחור</string>
   <string name="solution">פתרון</string>
   <string name="waitingForAnalysis">מחכים לניתוח המשחק</string>
   <string name="noMistakesFoundForWhite">אף טעות לא נמצאה עבור הלבן</string>

@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import chess.format.Forsyth
+import chess.format.Fen
 import chess.format.UciCharPair
 import play.api.libs.json.*
 import scala.concurrent.duration.*
@@ -76,11 +76,10 @@ final private class GameJson(
     )
 
   private def playersJson(game: Game) = JsArray(game.players.map { p =>
-    val userId = p.userId | "anon"
-    val user   = lightUserApi.syncFallback(userId)
+    val user = p.userId.fold(lila.common.LightUser.ghost)(lightUserApi.syncFallback)
     Json
       .obj(
-        "userId" -> userId,
+        "userId" -> user.id,
         "name"   -> s"${user.name}${p.rating.??(r => s" ($r)")}",
         "color"  -> p.color.name
       )
@@ -106,7 +105,7 @@ final private class GameJson(
               .lastOption
             uciMove <- situation.board.history.lastMove
           } yield Json.obj(
-            "fen" -> Forsyth.>>(situation).value,
+            "fen" -> Fen.write(situation).value,
             "ply" -> (plies + 1),
             "san" -> pgnMove,
             "id"  -> UciCharPair(uciMove).toString,

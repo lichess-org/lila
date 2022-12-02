@@ -11,28 +11,30 @@ object AuthorizationRequest:
   import Protocol.*
 
   case class Raw(
-      clientId: Option[String],
-      state: Option[String],
+      clientId: Option[ClientId],
+      state: Option[State],
       redirectUri: Option[String],
       responseType: Option[String],
       codeChallengeMethod: Option[String],
-      codeChallenge: Option[String],
-      scope: Option[String]
+      codeChallenge: Option[CodeChallenge],
+      scope: Option[String],
+      username: Option[UserStr]
   ):
     // In order to show a prompt and redirect back with error codes a valid
     // redirect_uri is absolutely required. Ignore all other errors for now.
     def prompt: Validated[Error, Prompt] =
       for {
         redirectUri <- redirectUri.toValid(Error.RedirectUriRequired).andThen(RedirectUri.from)
-        clientId    <- clientId.map(ClientId.apply).toValid(Error.ClientIdRequired)
+        clientId    <- clientId.toValid(Error.ClientIdRequired)
       } yield Prompt(
         redirectUri,
-        state.map(State.apply),
+        state,
         clientId = clientId,
         responseType = responseType,
         codeChallengeMethod = codeChallengeMethod,
         codeChallenge = codeChallenge,
-        scope = scope
+        scope = scope,
+        userId = username.map(_.id)
       )
 
   case class Prompt(
@@ -41,8 +43,9 @@ object AuthorizationRequest:
       clientId: ClientId,
       responseType: Option[String],
       codeChallengeMethod: Option[String],
-      codeChallenge: Option[String],
-      scope: Option[String]
+      codeChallenge: Option[CodeChallenge],
+      scope: Option[String],
+      userId: Option[UserId]
   ):
     def errorUrl(error: Error) = redirectUri.error(error, state)
 
@@ -74,15 +77,14 @@ object AuthorizationRequest:
         case Some(method) =>
           fuccess(CodeChallengeMethod.from(method).andThen { _ =>
             codeChallenge
-              .map(CodeChallenge.apply)
               .toValid[Error](Error.CodeChallengeRequired)
               .map(Right.apply)
           })
       }) dmap { challenge =>
         for {
-          challenge    <- challenge
-          scopes       <- validScopes
-          responseType <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
+          challenge <- challenge
+          scopes    <- validScopes
+          _         <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
         } yield Authorized(
           clientId,
           redirectUri,
@@ -97,7 +99,7 @@ object AuthorizationRequest:
       clientId: ClientId,
       redirectUri: RedirectUri,
       state: Option[State],
-      user: User.ID,
+      user: UserId,
       scopes: List[OAuthScope],
       challenge: Either[LegacyClientApi.HashedClientSecret, CodeChallenge]
   ):

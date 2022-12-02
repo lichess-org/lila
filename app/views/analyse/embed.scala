@@ -7,7 +7,6 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.EmbedConfig
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
-import lila.i18n.MessageKey
 
 object embed:
 
@@ -32,12 +31,12 @@ object embed:
       )
     )
 
-  val lpvI18n: Vector[MessageKey] = Vector(
+  val lpvI18n = List(
     trans.flipBoard,
     trans.analysis,
     trans.practiceWithComputer,
     trans.download
-  ).map(_.key)
+  )
 
   def notFound(implicit config: EmbedConfig) =
     views.html.base.embed(

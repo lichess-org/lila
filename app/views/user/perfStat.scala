@@ -30,7 +30,7 @@ object perfStat:
           frag(
             jsModule("chart.ratingHistory"),
             embedJsUnsafeLoadThen {
-              s"LichessChartRatingHistory($rc,{singlePerfName:'${perfType.trans}'});"
+              s"LichessChartRatingHistory($rc,{singlePerfName:'${perfType.trans(using lila.i18n.defaultLang)}'});"
             }
           )
         }
@@ -270,7 +270,7 @@ object perfStat:
         tbody(
           results.results map { r =>
             tr(
-              td(userIdLink(r.opId.value.some, withOnline = false), " (", r.opRating, ")"),
+              td(userIdLink(r.opId.some, withOnline = false), " (", r.opRating, ")"),
               td(
                 a(cls := "glpt", href := s"${routes.Round.watcher(r.gameId, "white")}?pov=${user.username}")(
                   absClientDateTime(r.at)

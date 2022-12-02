@@ -40,7 +40,6 @@ final class ForumPostApi(
       val anonMod   = modIcon && !publicMod
       val post = ForumPost.make(
         topicId = topic.id,
-        author = none,
         userId = !anonMod option me.id,
         text = spam.replace(data.text),
         number = topic.nbPosts + 1,
@@ -178,7 +177,7 @@ final class ForumPostApi(
 
   def allUserIds(topicId: ForumTopicId) = postRepo allUserIdsByTopicId topicId
 
-  def nbByUser(userId: String) = postRepo.coll.countSel($doc("userId" -> userId))
+  def nbByUser(userId: UserId) = postRepo.coll.countSel($doc("userId" -> userId))
 
   def categsForUser(teams: Iterable[TeamId], forUser: Option[User]): Fu[List[CategView]] =
     for {
@@ -198,7 +197,7 @@ final class ForumPostApi(
 
   private def recentUserIds(topic: ForumTopic, newPostNumber: Int) =
     postRepo.coll
-      .distinctEasy[User.ID, List](
+      .distinctEasy[UserId, List](
         "userId",
         $doc(
           "topicId" -> topic.id,
@@ -226,10 +225,10 @@ final class ForumPostApi(
       }
     }
 
-  private def logAnonPost(userId: User.ID, post: ForumPost, edit: Boolean): Funit =
+  private def logAnonPost(userId: UserId, post: ForumPost, edit: Boolean): Funit =
     topicRepo.byId(post.topicId) orFail s"No such topic ${post.topicId}" flatMap { topic =>
       modLog.postOrEditAsAnonMod(
-        userId,
+        userId into ModId,
         post.categId,
         topic.slug,
         post.id.value,

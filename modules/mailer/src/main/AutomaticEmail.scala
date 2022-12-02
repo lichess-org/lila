@@ -48,9 +48,9 @@ The Lichess team"""
     }.unit
   }
 
-  def onTitleSet(username: String): Funit = {
+  def onTitleSet(username: UserStr): Funit = {
     for {
-      user        <- userRepo named username orFail s"No such user $username"
+      user        <- userRepo byId username orFail s"No such user $username"
       emailOption <- userRepo email user.id
       title       <- fuccess(user.title) orFail "User doesn't have a title!"
       body = alsoSendAsPrivateMessage(user) { lang =>
@@ -89,7 +89,7 @@ $regards
 """
     )
 
-  def onFishnetKey(userId: User.ID, key: String): Funit =
+  def onFishnetKey(userId: UserId, key: String): Funit =
     sendAsPrivateMessageAndEmail(userId)(
       subject = _ => "Your private fishnet key",
       body = _ => s"""Hello,
@@ -137,8 +137,8 @@ $regards
       }
     }
 
-  def onPatronNew(userId: User.ID): Funit =
-    userRepo named userId map {
+  def onPatronNew(userId: UserId): Funit =
+    userRepo byId userId map {
       _ foreach { user =>
         alsoSendAsPrivateMessage(user)(
           body = _ => s"""Thank you for supporting Lichess!
@@ -150,8 +150,8 @@ As a small token of our thanks, your account now has the awesome Patron wings!""
       }
     }
 
-  def onPatronStop(userId: User.ID): Funit =
-    userRepo named userId map {
+  def onPatronStop(userId: UserId): Funit =
+    userRepo byId userId map {
       _ foreach { user =>
         alsoSendAsPrivateMessage(user)(
           body = _ => s"""End of Lichess Patron subscription
@@ -164,7 +164,7 @@ To make a new donation, head to $baseUrl/patron"""
       }
     }
 
-  def onPatronGift(from: User.ID, to: User.ID, lifetime: Boolean): Funit =
+  def onPatronGift(from: UserId, to: UserId, lifetime: Boolean): Funit =
     userRepo.pair(from, to) map {
       _ foreach { case (from, to) =>
         val wings =
@@ -180,7 +180,7 @@ To make a new donation, head to $baseUrl/patron"""
     }
 
   private[mailer] def dailyCorrespondenceNotice(
-      userId: User.ID,
+      userId: UserId,
       opponents: List[CorrespondenceOpponent]
   ): Funit =
     userRepo withEmails userId flatMap {
@@ -247,10 +247,10 @@ $disableSettingNotice $disableLink"""
       }
     }
 
-  private def sendAsPrivateMessageAndEmail(
-      username: String
+  private def sendAsPrivateMessageAndEmail[U: UserIdOf](
+      to: U
   )(subject: Lang => String, body: Lang => String): Funit =
-    userRepo named username flatMap {
+    userRepo byId to flatMap {
       _ ?? { user =>
         sendAsPrivateMessageAndEmail(user)(subject, body)
       }

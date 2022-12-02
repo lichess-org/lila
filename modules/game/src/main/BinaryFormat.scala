@@ -29,11 +29,11 @@ object BinaryFormat:
 
     def writeSide(start: Centis, times: Vector[Centis], flagged: Boolean) =
       val timesToWrite = if (flagged) times.dropRight(1) else times
-      ByteArray(ClockEncoder.encode(timesToWrite.view.map(_.centis).to(Array), start.centis))
+      ByteArray(ClockEncoder.encode(Centis.raw(timesToWrite).to(Array), start.centis))
 
     def readSide(start: Centis, ba: ByteArray, flagged: Boolean) =
       val decoded: Vector[Centis] =
-        ClockEncoder.decode(ba.value, start.centis).view.map(Centis.apply).to(Vector)
+        Centis from ClockEncoder.decode(ba.value, start.centis).to(Vector)
       if (flagged) decoded :+ Centis(0) else decoded
 
     def read(start: Centis, bw: ByteArray, bb: ByteArray, flagged: Option[Color]) =
@@ -72,12 +72,12 @@ object BinaryFormat:
         .toArray
     }
 
-    def read(ba: ByteArray, turns: Int): Vector[Centis] = {
+    def read(ba: ByteArray, turns: Int): Vector[Centis] = Centis from {
       def dec(x: Int) = decodeMap.getOrElse(x, decodeMap(size - 1))
       ba.value map toInt flatMap { k =>
         Array(dec(k >> 4), dec(k & 15))
       }
-    }.view.take(turns).map(Centis.apply).toVector
+    }.view.take(turns).toVector
 
   final class clock(start: Timestamp):
 
@@ -251,12 +251,12 @@ object BinaryFormat:
     val emptyByteArray = ByteArray(Array(0, 0))
 
     def write(o: UnmovedRooks): ByteArray =
-      if (o.pos.isEmpty) emptyByteArray
+      if (o.value.isEmpty) emptyByteArray
       else
         ByteArray {
           var white = 0
           var black = 0
-          o.pos.foreach { pos =>
+          o.value.foreach { pos =>
             if (pos.rank == Rank.First) white = white | (1 << (7 - pos.file.index))
             else black = black | (1 << (7 - pos.file.index))
           }

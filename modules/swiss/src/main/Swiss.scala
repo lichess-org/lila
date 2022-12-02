@@ -1,10 +1,11 @@
 package lila.swiss
 
 import chess.Clock.{ Config as ClockConfig }
-import chess.format.FEN
+import chess.format.Fen
 import chess.Speed
 import org.joda.time.DateTime
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
 import lila.user.User
@@ -18,13 +19,13 @@ case class Swiss(
     nbPlayers: Int,
     nbOngoing: Int,
     createdAt: DateTime,
-    createdBy: User.ID,
+    createdBy: UserId,
     teamId: TeamId,
     startsAt: DateTime,
     settings: Swiss.Settings,
     nextRoundAt: Option[DateTime],
     finishedAt: Option[DateTime],
-    winnerId: Option[User.ID] = None
+    winnerId: Option[UserId] = None
 ):
   inline def id = _id
 
@@ -97,7 +98,7 @@ object Swiss:
       nbRounds: Int,
       rated: Boolean,
       description: Option[String] = None,
-      position: Option[FEN],
+      position: Option[Fen],
       chatFor: ChatFor = ChatFor.default,
       password: Option[String] = None,
       conditions: SwissCondition.All,
@@ -124,7 +125,7 @@ object Swiss:
   def makeScore(points: SwissPoints, tieBreak: TieBreak, perf: Performance) =
     Score((points.value * 10000000 + tieBreak * 10000 + perf).toInt)
 
-  def makeId = SwissId(lila.common.ThreadLocalRandom nextString 8)
+  def makeId = SwissId(ThreadLocalRandom nextString 8)
 
   case class PastAndNext(past: List[Swiss], next: List[Swiss])
 

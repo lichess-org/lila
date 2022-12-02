@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 import chess.{ Clock, Game as ChessGame, Situation, Speed }
 
@@ -55,35 +55,33 @@ private[setup] trait Config:
 
 trait Positional { self: Config =>
 
-  import chess.format.Forsyth, Forsyth.SituationPlus
-
-  def fen: Option[FEN]
+  def fen: Option[Fen]
 
   def strictFen: Boolean
 
   lazy val validFen = variant != FromPosition || {
     fen exists { f =>
-      (Forsyth <<< f).exists(_.situation playable strictFen)
+      Fen.read(f).exists(_ playable strictFen)
     }
   }
 
   def fenGame(builder: ChessGame => Fu[Game]): Fu[Game] =
-    val baseState = fen ifTrue (variant.fromPosition) flatMap {
-      Forsyth.<<<@(FromPosition, _)
+    val baseState = fen.ifTrue(variant.fromPosition) flatMap {
+      Fen.readWithMoveNumber(FromPosition, _)
     }
-    val (chessGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
-      case sit @ SituationPlus(s, _) =>
+    val (chessGame, state) = baseState.fold(makeGame -> none[Situation.AndFullMoveNumber]) {
+      case sit @ Situation.AndFullMoveNumber(s, _) =>
         val game = ChessGame(
           situation = s,
           turns = sit.turns,
           startedAtTurn = sit.turns,
           clock = makeClock.map(_.toClock)
         )
-        if (Forsyth.>>(game).initial) makeGame(chess.variant.Standard) -> none
-        else game                                                      -> baseState
+        if (Fen.write(game).isInitial) makeGame(chess.variant.Standard) -> none
+        else game                                                       -> baseState
     }
     builder(chessGame) dmap { game =>
-      state.fold(game) { case sit @ SituationPlus(Situation(board, _), _) =>
+      state.fold(game) { case sit @ Situation.AndFullMoveNumber(Situation(board, _), _) =>
         game.copy(
           chess = game.chess.copy(
             situation = game.situation.copy(

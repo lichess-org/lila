@@ -1,9 +1,10 @@
 package lila.challenge
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
 import chess.{ Color, Mode, Speed }
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Days
 import lila.game.{ Game, GameRule, PerfPicker }
@@ -15,7 +16,7 @@ case class Challenge(
     _id: String,
     status: Challenge.Status,
     variant: Variant,
-    initialFen: Option[FEN],
+    initialFen: Option[Fen],
     timeControl: Challenge.TimeControl,
     mode: Mode,
     colorChoice: Challenge.ColorChoice,
@@ -85,7 +86,7 @@ case class Challenge(
 
   def speed = speedOf(timeControl)
 
-  def notableInitialFen: Option[FEN] =
+  def notableInitialFen: Option[Fen] =
     variant match
       case FromPosition | Horde | RacingKings | Chess960 => initialFen
       case _                                             => none
@@ -112,51 +113,50 @@ object Challenge:
 
   type ID = String
 
-  sealed abstract class Status(val id: Int):
+  enum Status(val id: Int):
     val name = Status.this.toString.toLowerCase
-  object Status:
-    case object Created  extends Status(10)
-    case object Offline  extends Status(15)
-    case object Canceled extends Status(20)
-    case object Declined extends Status(30)
-    case object Accepted extends Status(40)
-    val all  = List[Status](Created, Offline, Canceled, Declined, Accepted)
-    val byId = all.map { s => s.id -> s }.toMap
 
-  sealed abstract class DeclineReason(val trans: I18nKey):
+    case Created  extends Status(10)
+    case Offline  extends Status(15)
+    case Canceled extends Status(20)
+    case Declined extends Status(30)
+    case Accepted extends Status(40)
+
+  object Status:
+    val byId = values.map { s => s.id -> s }.toMap
+
+  enum DeclineReason(val trans: I18nKey):
     val key = DeclineReason.this.toString.toLowerCase
 
-  object DeclineReason:
-    case object Generic     extends DeclineReason(I18nKeys.challenge.declineGeneric)
-    case object Later       extends DeclineReason(I18nKeys.challenge.declineLater)
-    case object TooFast     extends DeclineReason(I18nKeys.challenge.declineTooFast)
-    case object TooSlow     extends DeclineReason(I18nKeys.challenge.declineTooSlow)
-    case object TimeControl extends DeclineReason(I18nKeys.challenge.declineTimeControl)
-    case object Rated       extends DeclineReason(I18nKeys.challenge.declineRated)
-    case object Casual      extends DeclineReason(I18nKeys.challenge.declineCasual)
-    case object Standard    extends DeclineReason(I18nKeys.challenge.declineStandard)
-    case object Variant     extends DeclineReason(I18nKeys.challenge.declineVariant)
-    case object NoBot       extends DeclineReason(I18nKeys.challenge.declineNoBot)
-    case object OnlyBot     extends DeclineReason(I18nKeys.challenge.declineOnlyBot)
+    case Generic     extends DeclineReason(I18nKeys.challenge.declineGeneric)
+    case Later       extends DeclineReason(I18nKeys.challenge.declineLater)
+    case TooFast     extends DeclineReason(I18nKeys.challenge.declineTooFast)
+    case TooSlow     extends DeclineReason(I18nKeys.challenge.declineTooSlow)
+    case TimeControl extends DeclineReason(I18nKeys.challenge.declineTimeControl)
+    case Rated       extends DeclineReason(I18nKeys.challenge.declineRated)
+    case Casual      extends DeclineReason(I18nKeys.challenge.declineCasual)
+    case Standard    extends DeclineReason(I18nKeys.challenge.declineStandard)
+    case Variant     extends DeclineReason(I18nKeys.challenge.declineVariant)
+    case NoBot       extends DeclineReason(I18nKeys.challenge.declineNoBot)
+    case OnlyBot     extends DeclineReason(I18nKeys.challenge.declineOnlyBot)
 
-    val default: DeclineReason = Generic
-    val all: List[DeclineReason] =
-      List(Generic, Later, TooFast, TooSlow, TimeControl, Rated, Casual, Standard, Variant, NoBot, OnlyBot)
-    val byKey = all.map { r => r.key -> r }.toMap
-    val allExceptBot: List[DeclineReason] =
-      all.filterNot(r => r == NoBot || r == OnlyBot)
-    def apply(key: String) = all.find { d => d.key == key.toLowerCase || d.trans.key == key } | Generic
+  object DeclineReason:
+
+    val default            = Generic
+    val all                = values.toList
+    val byKey              = all.map { r => r.key -> r }.toMap
+    val allExceptBot       = all.filterNot(r => r == NoBot || r == OnlyBot)
+    def apply(key: String) = all.find { d => d.key == key.toLowerCase || d.trans.value == key } | Generic
 
   case class Rating(int: IntRating, provisional: Boolean):
     def show = s"$int${if (provisional) "?" else ""}"
   object Rating:
     def apply(p: lila.rating.Perf): Rating = Rating(p.intRating, p.provisional)
 
-  sealed trait Challenger
-  object Challenger:
-    case class Registered(id: User.ID, rating: Rating) extends Challenger
-    case class Anonymous(secret: String)               extends Challenger
-    case object Open                                   extends Challenger
+  enum Challenger:
+    case Registered(id: UserId, rating: Rating)
+    case Anonymous(secret: String)
+    case Open
 
   sealed trait TimeControl:
     def realTime: Option[chess.Clock.Config] = none
@@ -179,7 +179,7 @@ object Challenge:
     case object Black  extends ColorChoice(I18nKeys.black)
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
 
-  case class Open(userIds: Option[(User.ID, User.ID)]):
+  case class Open(userIds: Option[(UserId, UserId)]):
     def userIdList                = userIds map { case (u1, u2) => List(u1, u2) }
     def canJoin(me: Option[User]) = userIdList.fold(true)(ids => me.map(_.id).exists(ids.has))
     def colorFor(me: Option[User], requestedColor: Option[Color]): Option[ColorChoice] =
@@ -214,16 +214,16 @@ object Challenge:
 
   private val idSize = 8
 
-  private def randomId = lila.common.ThreadLocalRandom nextString idSize
+  private def randomId = ThreadLocalRandom nextString idSize
 
-  def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
+  def toRegistered(variant: Variant, timeControl: TimeControl)(u: User): Challenger.Registered =
     Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
 
-  def randomColor = chess.Color.fromWhite(lila.common.ThreadLocalRandom.nextBoolean())
+  def randomColor = chess.Color.fromWhite(ThreadLocalRandom.nextBoolean())
 
   def make(
       variant: Variant,
-      initialFen: Option[FEN],
+      initialFen: Option[Fen],
       timeControl: TimeControl,
       mode: Mode,
       color: String,
@@ -232,7 +232,7 @@ object Challenge:
       rematchOf: Option[GameId],
       name: Option[String] = None,
       id: Option[GameId] = None,
-      openToUserIds: Option[(User.ID, User.ID)] = None,
+      openToUserIds: Option[(UserId, UserId)] = None,
       rules: Set[GameRule] = Set.empty
   ): Challenge =
     val (colorChoice, finalColor) = color match

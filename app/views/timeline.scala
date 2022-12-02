@@ -38,7 +38,7 @@ object timeline:
     if (ctx.noKid) entries
     else entries.filter(e => e.okForKid)
 
-  private def userLink(userId: lila.user.User.ID)(implicit ctx: Context) =
+  private def userLink(userId: UserId)(implicit ctx: Context) =
     ctx.me match
       case Some(me) if me.is(userId) => lightUserLink(me.light, withOnline = true)(cls := "online")
       case _                         => userIdLink(userId.some, withOnline = true)

@@ -143,99 +143,80 @@ object home:
       )
     )
   )
-  private def faq(implicit lang: Lang) = frag(
+
+  private def faqEntry(title: Frag, content: Frag)(using Lang) =
     div(cls := "faq")(
       i("?"),
-      p(
-        strong(trans.swiss.swissVsArenaQ()),
-        trans.swiss.swissVsArenaA()
+      p(strong(title), content)
+    )
+
+  private def faq(using Lang) = frag(
+    faqEntry(
+      trans.swiss.swissVsArenaQ(),
+      trans.swiss.swissVsArenaA()
+    ),
+    faqEntry(
+      trans.swiss.pointsCalculationQ(),
+      trans.swiss.pointsCalculationA()
+    ),
+    faqEntry(
+      trans.swiss.tiebreaksCalculationQ(),
+      trans.swiss.tiebreaksCalculationA(
+        a(
+          href := "https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score"
+        )(trans.swiss.sonnebornBergerScore.txt())
       )
     ),
-    div(cls := "faq")(
-      i("?"),
-      p(
-        strong(trans.swiss.pointsCalculationQ()),
-        trans.swiss.pointsCalculationA()
+    faqEntry(
+      trans.swiss.pairingsQ(),
+      trans.swiss.pairingsA(
+        a(
+          href := "https://en.wikipedia.org/wiki/Swiss-system_tournament#Dutch_system"
+        )(trans.swiss.dutchSystem.txt()),
+        a(href := "https://github.com/BieremaBoyzProgramming/bbpPairings")("bbPairings"),
+        a(href := "https://handbook.fide.com/chapter/C0403")(trans.swiss.FIDEHandbook.txt())
       )
     ),
-    div(cls := "faq")(
-      i("?"),
-      p(
-        strong(trans.swiss.tiebreaksCalculationQ()),
-        trans.swiss.tiebreaksCalculationA(
-          a(
-            href := "https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score"
-          )(trans.swiss.sonnebornBergerScore.txt())
-        )
+    faqEntry(
+      trans.swiss.moreRoundsThanPlayersQ(),
+      trans.swiss.moreRoundsThanPlayersA()
+    ),
+    faqEntry(
+      trans.swiss.restrictedToTeamsQ(),
+      trans.swiss.restrictedToTeamsA()
+    ),
+    faqEntry(
+      trans.swiss.numberOfByesQ(),
+      trans.swiss.numberOfByesA()
+    ),
+    faqEntry(
+      frag("Early draws"),
+      frag(
+        "In swiss games, players cannot draw before 30 moves are played. While this measure cannot prevent pre-arranged draws, it at least makes it harder to agree to a draw on the fly."
       )
     ),
-    div(cls := "faq")(
-      i("?"),
-      p(
-        strong(trans.swiss.pairingsQ()),
-        trans.swiss.pairingsA(
-          a(
-            href := "https://en.wikipedia.org/wiki/Swiss-system_tournament#Dutch_system"
-          )(trans.swiss.dutchSystem.txt()),
-          a(href := "https://github.com/BieremaBoyzProgramming/bbpPairings")("bbPairings"),
-          a(href := "https://handbook.fide.com/chapter/C0403")(trans.swiss.FIDEHandbook.txt())
-        )
-      )
+    faqEntry(
+      trans.swiss.whatIfOneDoesntPlayQ(),
+      trans.swiss.whatIfOneDoesntPlayA()
     ),
-    div(cls := "faq")(
-      i("?"),
-      p(
-        strong(trans.swiss.moreRoundsThanPlayersQ()),
-        trans.swiss.moreRoundsThanPlayersA()
-      )
+    faqEntry(
+      "Protection against no-show",
+      "Players who sign up for swiss events but don't play their games can be problematic. To alleviate this issue, Lichess prevents players who failed to play a game from joining a new Swiss event for a given amount of time. The creator of a Swiss event can decide to let them join the event anyway."
     ),
-    div(cls := "faq")(
-      i("?"),
-      p(
-        strong(trans.swiss.restrictedToTeamsQ()),
-        trans.swiss.restrictedToTeamsA()
-      )
+    faqEntry(
+      trans.swiss.lateJoinQ(),
+      trans.swiss.lateJoinA()
     ),
-    div(cls := "faq")(
-      i("?"),
-      p(
-        strong(trans.swiss.numberOfByesQ()),
-        trans.swiss.numberOfByesA()
-      )
+    faqEntry(
+      trans.swiss.willSwissReplaceArenasQ(),
+      trans.swiss.willSwissReplaceArenasA()
     ),
-    div(cls := "faq")(
-      i("?"),
-      p(
-        strong(trans.swiss.whatIfOneDoesntPlayQ()),
-        trans.swiss.whatIfOneDoesntPlayA()
-      )
+    faqEntry(
+      trans.swiss.roundRobinQ(),
+      trans.swiss.roundRobinA()
     ),
-    div(cls := "faq")(
-      i("?"),
-      p(
-        strong(trans.swiss.lateJoinQ()),
-        trans.swiss.lateJoinA()
-      )
-    ),
-    div(cls := "faq")(
-      i("?"),
-      p(
-        strong(trans.swiss.willSwissReplaceArenasQ()),
-        trans.swiss.willSwissReplaceArenasA()
-      )
-    ),
-    div(cls := "faq")(
-      i("?"),
-      p(
-        strong(trans.swiss.roundRobinQ()),
-        trans.swiss.roundRobinA()
-      )
-    ),
-    div(cls := "faq")(
-      i("?"),
-      p(
-        strong(trans.swiss.otherSystemsQ()),
-        trans.swiss.otherSystemsA()
-      )
+    faqEntry(
+      trans.swiss.otherSystemsQ(),
+      trans.swiss.otherSystemsA()
     )
   )

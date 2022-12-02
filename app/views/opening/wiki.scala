@@ -1,6 +1,6 @@
 package views.html.opening
 
-import chess.opening.FullOpening
+import chess.opening.Opening
 import controllers.routes
 
 import lila.api.{ Context, given }
@@ -56,7 +56,7 @@ object wiki:
       }
     )
 
-  def showMissing(ops: List[FullOpening]) = div(cls := "opening__wiki__missing")(
+  def showMissing(ops: List[Opening]) = div(cls := "opening__wiki__missing")(
     h2("Openings to explain"),
     p("Sorted by popularity"),
     ul(

@@ -24,9 +24,9 @@ final class MentionNotifier(
       filterValidUsers(extractMentionedUsers(post), author) map { mentionedUsers =>
         mentionedUsers foreach { user =>
           notifyApi.notifyOne(
-            UserId(user),
+            user,
             lila.notify.MentionedInThread(
-              mentionedBy = UserId(author),
+              mentionedBy = author,
               topic = topic.name,
               topidId = topic.id,
               category = post.categId,
@@ -41,20 +41,20 @@ final class MentionNotifier(
     * or block the mentioner from the returned list.
     */
   private def filterValidUsers(
-      candidates: Set[User.ID],
-      mentionedBy: User.ID
-  ): Fu[List[User.ID]] =
+      candidates: Set[UserId],
+      mentionedBy: UserId
+  ): Fu[List[UserId]] =
     for {
       existingUsers <-
         userRepo
-          .existingUsernameIds(candidates take 10)
+          .filterExists(candidates take 10)
           .map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
       users <- Future.filterNot(mentionableUsers.toList) { relationApi.fetchBlocks(_, mentionedBy) }
     } yield users
 
-  private def extractMentionedUsers(post: ForumPost): Set[User.ID] =
+  private def extractMentionedUsers(post: ForumPost): Set[UserId] =
     post.text.contains('@') ?? {
       val m = lila.common.String.atUsernameRegex.findAllMatchIn(post.text)
-      (post.userId foldLeft m.map(_ group 1).map(User.normalize).toSet) { _ - _ }
+      (post.userId foldLeft m.map(_ group 1).map(u => UserStr(u).id).toSet) { _ - _ }
     }

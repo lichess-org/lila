@@ -2,14 +2,15 @@ package lila.api
 
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
+import ornicar.scalalib.ThreadLocalRandom
 
 final class InfluxEvent(
     ws: StandaloneWSClient,
     endpoint: String,
     env: String
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
-  private val seed = lila.common.ThreadLocalRandom.nextString(6)
+  private val seed = ThreadLocalRandom.nextString(6)
 
   def start() = apply("lila_start", s"Lila starts: $seed")
 

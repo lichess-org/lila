@@ -80,15 +80,17 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
     case d if d > 0 => goodTag(s"+$d")
     case d          => badTag(s"−${-d}")
 
-  def lightUser = env.user.lightUserSync
+  def lightUser         = env.user.lightUserSync
+  def lightUserFallback = env.user.lightUserSyncFallback
 
-  def usernameOrId(userId: String)            = lightUser(userId).fold(userId)(_.name)
-  def titleNameOrId(userId: String)           = lightUser(userId).fold(userId)(_.titleName)
-  def titleNameOrAnon(userId: Option[String]) = userId.flatMap(lightUser).fold(User.anonymous)(_.titleName)
+  def usernameOrId(userId: UserId): String  = lightUser(userId).fold(userId.value)(_.name.value)
+  def titleNameOrId(userId: UserId): String = lightUser(userId).fold(userId.value)(_.titleName)
+  def titleNameOrAnon(userId: Option[UserId]): String =
+    userId.flatMap(lightUser).fold(User.anonymous.value)(_.titleName)
 
-  def isOnline(userId: String) = env.socket.isOnline.value(userId)
+  def isOnline(userId: UserId) = env.socket.isOnline.value(userId)
 
-  def isStreaming(userId: String) = env.streamer.liveStreamApi isStreaming userId
+  def isStreaming(userId: UserId) = env.streamer.liveStreamApi isStreaming userId
 
   def anonUserSpan(cssClass: Option[String] = None, modIcon: Boolean = false) =
     span(cls := List("offline" -> true, "user-link" -> true, ~cssClass -> cssClass.isDefined))(
@@ -97,14 +99,14 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
     )
 
   def userIdLink(
-      userIdOption: Option[User.ID],
+      userIdOption: Option[UserId],
       cssClass: Option[String] = None,
       withOnline: Boolean = true,
       withTitle: Boolean = true,
       truncate: Option[Int] = None,
       params: String = "",
       modIcon: Boolean = false
-  )(using ctx: Lang): Tag =
+  )(using Lang): Tag =
     userIdOption.flatMap(lightUser).fold[Tag](anonUserSpan(cssClass, modIcon)) { user =>
       userIdNameLink(
         userId = user.id,
@@ -146,8 +148,8 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
   def titleTag(lu: LightUser): Frag = titleTag(lu.title)
 
   private def userIdNameLink(
-      userId: String,
-      username: String,
+      userId: UserId,
+      username: UserName,
       isPatron: Boolean,
       cssClass: Option[String],
       withOnline: Boolean,
@@ -162,7 +164,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
     )(
       withOnline ?? (if (modIcon) moderatorIcon else lineIcon(isPatron)),
       titleTag(title),
-      truncate.fold(username)(username.take)
+      truncate.fold(username.value)(username.value.take)
     )
 
   def userLink(
@@ -206,9 +208,9 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       userRating(user, withPerfRating, withBestRating)
     )
 
-  def userIdSpanMini(userId: String, withOnline: Boolean = false)(using lang: Lang): Tag =
+  def userIdSpanMini(userId: UserId, withOnline: Boolean = false)(using lang: Lang): Tag =
     val user = lightUser(userId)
-    val name = user.fold(userId)(_.name)
+    val name = user.fold(userId into UserName)(_.name)
     span(
       cls      := userClass(userId, none, withOnline),
       dataHref := userUrl(name)
@@ -235,16 +237,16 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
         }
       case _ => ""
 
-  private def userUrl(username: String, params: String = ""): Option[String] =
-    (username != "Ghost" && username != "ghost") option s"""${routes.User.show(username)}$params"""
+  private def userUrl(username: UserName, params: String = ""): Option[String] =
+    !User.isGhost(username.id) option s"""${routes.User.show(username.value)}$params"""
 
   def userClass(
-      userId: String,
+      userId: UserId,
       cssClass: Option[String],
       withOnline: Boolean,
       withPowerTip: Boolean = true
   ): List[(String, Boolean)] =
-    if (userId == "ghost") List("user-link" -> true, ~cssClass -> cssClass.isDefined)
+    if (User isGhost userId) List("user-link" -> true, ~cssClass -> cssClass.isDefined)
     else
       (withOnline ?? List((if (isOnline(userId)) "online" else "offline") -> true)) ::: List(
         "user-link" -> true,

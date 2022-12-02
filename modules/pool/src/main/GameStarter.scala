@@ -35,7 +35,7 @@ final private class GameStarter(
       }
     }
 
-  private def one(pool: PoolConfig, perfs: Map[User.ID, Perf])(
+  private def one(pool: PoolConfig, perfs: Map[UserId, Perf])(
       couple: MatchMaking.Couple,
       id: GameId
   ): Fu[Option[Pairing]] =
@@ -65,8 +65,8 @@ final private class GameStarter(
   private def makeGame(
       id: GameId,
       pool: PoolConfig,
-      whiteUser: (User.ID, Perf),
-      blackUser: (User.ID, Perf)
+      whiteUser: (UserId, Perf),
+      blackUser: (UserId, Perf)
   ) =
     Game(
       id = id,

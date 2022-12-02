@@ -100,7 +100,7 @@ final class Gamify(
       $doc("$lt" -> to)
     }
 
-  private val hidden = List(User.lichessId, "irwin")
+  private val hidden = List(User.lichessId, User.irwinId)
 
   private def actionLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
     logRepo.coll
@@ -120,7 +120,7 @@ final class Gamify(
       .map {
         _.flatMap { obj =>
           import cats.implicits.*
-          (obj.string("_id"), obj.int("nb")) mapN ModCount.apply
+          (obj.getAsOpt[UserId]("_id"), obj.int("nb")) mapN ModCount.apply
         }
       }
 
@@ -151,7 +151,7 @@ final class Gamify(
       .map { docs =>
         for {
           doc <- docs
-          id  <- doc.string("_id")
+          id  <- doc.getAsOpt[UserId]("_id")
           nb  <- doc.int("nb")
         } yield ModCount(id, nb)
       }
@@ -163,13 +163,11 @@ object Gamify:
   object HistoryMonth:
     def makeId(year: Int, month: Int) = s"$year/$month"
 
-  sealed trait Period:
-    def name = toString.toLowerCase
+  enum Period:
+    def name = Period.this.toString.toLowerCase
+    case Day, Week, Month
   object Period:
-    case object Day   extends Period
-    case object Week  extends Period
-    case object Month extends Period
-    def apply(p: String) = List(Day, Week, Month).find(_.name == p)
+    def apply(p: String) = values.find(_.name == p)
 
   case class Leaderboards(daily: List[ModMixed], weekly: List[ModMixed], monthly: List[ModMixed]):
     def apply(period: Period) =
@@ -178,6 +176,6 @@ object Gamify:
         case Period.Week  => weekly
         case Period.Month => monthly
 
-  case class ModCount(modId: User.ID, count: Int)
-  case class ModMixed(modId: User.ID, action: Int, report: Int):
+  case class ModCount(modId: UserId, count: Int)
+  case class ModMixed(modId: UserId, action: Int, report: Int):
     def score = action + report

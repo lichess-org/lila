@@ -129,12 +129,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def ofPlayer(name: Option[String], page: Int) =
+  def ofPlayer(name: Option[UserStr], page: Int) =
     Open { implicit ctx =>
-      val fixed = name.map(_.trim).filter(_.nonEmpty)
-      fixed.??(env.user.repo.enabledNamed) orElse fuccess(ctx.me) flatMap { user =>
+      val userId = name flatMap lila.user.User.validateId
+      userId.??(env.user.repo.enabledById) orElse fuccess(ctx.me) flatMap { user =>
         user.?? { env.puzzle.api.puzzle.of(_, page) dmap some } map { puzzles =>
-          Ok(views.html.puzzle.ofPlayer(~fixed, user, puzzles))
+          Ok(views.html.puzzle.ofPlayer(name.??(_.value), user, puzzles))
         }
       }
     }
@@ -402,7 +402,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       scoped = req => me => render(me)(reqLang(req))
     )
 
-  def dashboard(days: Int, path: String = "home", u: Option[String]) =
+  def dashboard(days: Int, path: String = "home", u: Option[UserStr]) =
     DashboardPage(u) { implicit ctx => user =>
       env.puzzle.dashboard(user, days) map { dashboard =>
         path match
@@ -441,7 +441,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
     }
 
-  def history(page: Int, u: Option[String]) =
+  def history(page: Int, u: Option[UserStr]) =
     DashboardPage(u) { implicit ctx => user =>
       Reasonable(page) {
         env.puzzle.history(user, page) map { history =>
@@ -545,10 +545,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       Ok(html.site.keyboardHelpModal.puzzle).toFuccess
     }
 
-  private def DashboardPage(username: Option[String])(f: Context => UserModel => Fu[Result]) =
+  private def DashboardPage(username: Option[UserStr])(f: Context => UserModel => Fu[Result]) =
     Auth { implicit ctx => me =>
       username
-        .??(env.user.repo.named)
+        .??(env.user.repo.byId)
         .flatMap {
           _ ?? { user =>
             (fuccess(isGranted(_.CheatHunter)) >>|

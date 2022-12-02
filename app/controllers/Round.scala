@@ -74,7 +74,7 @@ final class Round(
     Open { implicit ctx =>
       env.round.proxyRepo.pov(fullId) flatMap {
         case Some(pov) => renderPlayer(pov)
-        case None      => userC.tryRedirect(fullId) getOrElse notFound
+        case None      => userC.tryRedirect(fullId into UserStr) getOrElse notFound
       }
     }
 
@@ -125,7 +125,7 @@ final class Round(
     Open { implicit ctx =>
       proxyPov(gameId, color) flatMap {
         case Some(pov) =>
-          get("pov").map(UserModel.normalize).fold(watch(pov)) { requestedPov =>
+          getUserStr("pov").map(_.id).fold(watch(pov)) { requestedPov =>
             (pov.player.userId, pov.opponent.userId) match
               case (Some(_), Some(opponent)) if opponent == requestedPov =>
                 Redirect(routes.Round.watcher(gameId, (!pov.color).name)).toFuccess
@@ -133,7 +133,7 @@ final class Round(
                 Redirect(routes.Round.watcher(gameId, pov.color.name)).toFuccess
               case _ => Redirect(routes.Round.watcher(gameId, "white")).toFuccess
           }
-        case None => userC.tryRedirect(gameId) getOrElse challengeC.showId(gameId)
+        case None => userC.tryRedirect(gameId into UserStr) getOrElse challengeC.showId(gameId)
       }
     }
 
@@ -166,7 +166,7 @@ final class Round(
                       tour,
                       lila.api.Mobile.Api.currentVersion,
                       tv = userTv.map { u =>
-                        lila.round.OnUserTv(u.id)
+                        lila.round.OnTv.User(u.id)
                       }
                     ) map { data =>
                       Ok(
@@ -307,7 +307,7 @@ final class Round(
         Redirect(
           "%s?fen=%s#%s".format(
             routes.Lobby.home,
-            get("fen") | (chess.format.Forsyth >> game.chess).value,
+            get("fen") | (chess.format.Fen write game.chess).value,
             mode
           )
         )

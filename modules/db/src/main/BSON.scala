@@ -92,13 +92,6 @@ object BSON extends Handlers:
       if (b.isEmpty) None else handler.writeOpt(b)
     def bytesO(b: Array[Byte]): Option[BSONValue] = byteArrayO(ByteArray(b))
     def bytes(b: Array[Byte]): BSONBinary         = BSONBinary(b, ByteArray.subtype)
-    def strListO(list: List[String]): Option[List[String]] =
-      list match
-        case Nil          => None
-        case List("")     => None
-        case List("", "") => None
-        case List(a, "")  => Some(List(a))
-        case full         => Some(full)
     def listO[A](list: List[A])(using writer: BSONWriter[A]): Option[Barr] =
       if (list.isEmpty) None
       else Some(BSONArray(list flatMap writer.writeOpt))

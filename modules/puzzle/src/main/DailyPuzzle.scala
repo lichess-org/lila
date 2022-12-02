@@ -4,11 +4,11 @@ import akka.pattern.ask
 import org.joda.time.DateTime
 import Puzzle.{ BSONFields as F }
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom.odds
+import chess.format.{ BoardFen, Uci }
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.common.ThreadLocalRandom.odds
-import lila.common.Random
 
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,
@@ -35,7 +35,7 @@ final private[puzzle] class DailyPuzzle(
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
     import makeTimeout.short
-    renderer.actor ? DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove, puzzle.line.head.uci) map {
+    renderer.actor ? DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove.board, puzzle.line.head) map {
       case html: String => DailyPuzzle.WithHtml(puzzle, html).some
     }
   } recover { case e: Exception =>
@@ -110,4 +110,4 @@ object DailyPuzzle:
 
   case class WithHtml(puzzle: Puzzle, html: String)
 
-  case class Render(puzzle: Puzzle, fen: chess.format.FEN, lastMove: String)
+  case class Render(puzzle: Puzzle, fen: BoardFen, lastMove: Uci)

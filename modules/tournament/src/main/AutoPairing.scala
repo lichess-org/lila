@@ -42,8 +42,8 @@ final class AutoPairing(
       duelStore.add(
         tour = tour,
         game = game,
-        p1 = usernameOf(pairing.player1.userId) -> ~game.whitePlayer.rating,
-        p2 = usernameOf(pairing.player2.userId) -> ~game.blackPlayer.rating,
+        p1 = usernameOf(pairing.player1) -> ~game.whitePlayer.rating,
+        p2 = usernameOf(pairing.player2) -> ~game.blackPlayer.rating,
         ranking = ranking
       )
     } inject game
@@ -51,5 +51,4 @@ final class AutoPairing(
   private def makePlayer(color: Color, player: Player) =
     GamePlayer.make(color, player.userId, player.rating, player.provisional)
 
-  private def usernameOf(userId: User.ID) =
-    lightUserApi.sync(userId).fold(userId)(_.name)
+  private def usernameOf(player: Player) = lightUserApi.syncFallback(player.userId).name

@@ -7,10 +7,11 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.{ Json, OWrites }
 import scala.concurrent.ExecutionContext
+import ornicar.scalalib.{ SecureRandom, ThreadLocalRandom }
 
 import lila.common.Bearer
 import lila.common.Form.*
-import lila.common.{ SecureRandom, ThreadLocalRandom }
+import lila.common.Json.given
 import lila.db.dsl.{ list as _, *, given }
 import lila.memo.CacheApi
 import lila.user.User
@@ -25,7 +26,7 @@ case class ExternalEngine(
     officialStockfish: Boolean, // Admissible for cloud evals
     providerSelector: String, // Hash of random secret chosen by the provider, possibly shared between registrations
     providerData: Option[String], // Arbitrary string the provider can use to store associated data
-    userId: User.ID,              // The user it has been registered for
+    userId: UserId,               // The user it has been registered for
     clientSecret: String          // Secret unique id of the registration
 ) {}
 
@@ -41,7 +42,7 @@ object ExternalEngine:
       providerSecret: String,
       providerData: Option[String]
   ):
-    def make(userId: User.ID) = ExternalEngine(
+    def make(userId: UserId) = ExternalEngine(
       _id = s"eei_${ThreadLocalRandom.nextString(12)}",
       name = name,
       maxThreads = maxThreads,
@@ -90,12 +91,12 @@ object ExternalEngine:
 
 final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using ec: ExecutionContext):
 
-  private val userCache = cacheApi[User.ID, List[ExternalEngine]](65_536, "externalEngine.user") {
+  private val userCache = cacheApi[UserId, List[ExternalEngine]](65_536, "externalEngine.user") {
     _.maximumSize(65_536).buildAsyncFuture(doFetchList)
   }
   import lila.db.dsl.list
-  private def doFetchList(userId: User.ID) = coll.list[ExternalEngine]($doc("userId" -> userId), 64)
-  private def reloadCache(userId: User.ID) = userCache.put(userId, doFetchList(userId))
+  private def doFetchList(userId: UserId) = coll.list[ExternalEngine]($doc("userId" -> userId), 64)
+  private def reloadCache(userId: UserId) = userCache.put(userId, doFetchList(userId))
 
   def list(by: User): Fu[List[ExternalEngine]] = userCache get by.id
 
@@ -120,7 +121,7 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using ec: Executio
     }
 
   private[analyse] def onTokenRevoke(id: String) =
-    coll.primitiveOne[User.ID]($doc("oauthToken" -> id), "userId") flatMap {
+    coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId") flatMap {
       _ ?? { userId =>
         coll.delete.one($doc("oauthToken" -> id)).void >>- reloadCache(userId)
       }

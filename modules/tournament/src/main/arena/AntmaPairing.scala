@@ -17,7 +17,7 @@ private object AntmaPairing:
 
       def rankFactor = PairingSystem.rankFactorFor(players)
 
-      def justPlayedTogether(u1: User.ID, u2: User.ID) =
+      def justPlayedTogether(u1: UserId, u2: UserId) =
         lastOpponents.hash.get(u1).contains(u2) ||
           lastOpponents.hash.get(u2).contains(u1)
 

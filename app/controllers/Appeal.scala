@@ -60,13 +60,13 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       ) zip env.report.api.inquiries.allBySuspect zip reportC.getScores flatMap {
         case ((appeals, inquiries), ((scores, streamers), nbAppeals)) =>
           env.user.lightUserApi preloadUsers appeals.map(_.user)
-          env.mod.logApi.wereMarkedBy(me.id, appeals.map(_.user.id)) map { markedByMap =>
+          env.mod.logApi.wereMarkedBy(me.id into ModId, appeals.map(_.user.id)) map { markedByMap =>
             Ok(html.appeal.queue(appeals, inquiries, markedByMap, scores, streamers, nbAppeals))
           }
       }
     }
 
-  def show(username: String) =
+  def show(username: UserStr) =
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         getModData(me, appeal, suspect) map { modData =>
@@ -75,7 +75,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       }
     }
 
-  def reply(username: String) =
+  def reply(username: UserStr) =
     SecureBody(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         given play.api.mvc.Request[?] = ctx.body
@@ -91,8 +91,8 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
                 _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
                 preset = getPresets.findLike(text)
                 _ <- env.appeal.api.reply(text, appeal, me, preset.map(_.name))
-                _ <- env.mod.logApi.appealPost(me.id, suspect.user.id)
-              } yield Redirect(s"${routes.Appeal.show(username)}#appeal-actions")
+                _ <- env.mod.logApi.appealPost(me.id into ModId, suspect.user.id)
+              } yield Redirect(s"${routes.Appeal.show(username.value)}#appeal-actions")
           )
       }
     }
@@ -105,7 +105,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       logins     <- userC.loginsTableData(suspect.user, users, 100)
       appeals    <- env.appeal.api.byUserIds(suspect.user.id :: logins.userLogins.otherUserIds)
       inquiry    <- env.report.api.inquiries.ofSuspectId(suspect.user.id)
-      markedByMe <- env.mod.logApi.wasMarkedBy(me.id, suspect.user.id)
+      markedByMe <- env.mod.logApi.wasMarkedBy(me.id into ModId, suspect.user.id)
     } yield html.appeal.discussion.ModData(
       mod = me,
       suspect = suspect,
@@ -117,7 +117,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       markedByMe = markedByMe
     )
 
-  def mute(username: String) =
+  def mute(username: UserStr) =
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.appeal.api.toggleMute(appeal) >>
@@ -126,14 +126,14 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       }
     }
 
-  def sendToZulip(username: String) =
+  def sendToZulip(username: UserStr) =
     Secure(_.SendToZulip) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.irc.api.userAppeal(user = suspect.user, mod = me) inject NoContent
       }
     }
 
-  def snooze(username: String, dur: String) =
+  def snooze(username: UserStr, dur: String) =
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.appeal.api.snooze(me.user, appeal.id, dur)
@@ -145,9 +145,9 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   private def getPresets = env.mod.presets.appealPresets.get()
 
   private def asMod(
-      username: String
+      username: UserStr
   )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    env.user.repo named username flatMap {
+    env.user.repo byId username flatMap {
       _ ?? { user =>
         env.appeal.api get user flatMap {
           _ ?? { appeal =>

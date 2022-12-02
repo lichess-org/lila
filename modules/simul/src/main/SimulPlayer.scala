@@ -5,13 +5,13 @@ import lila.rating.Perf
 import lila.user.User
 
 private[simul] case class SimulPlayer(
-    user: User.ID,
+    user: UserId,
     variant: Variant,
     rating: IntRating,
     provisional: Option[Boolean]
 ):
 
-  def is(userId: User.ID): Boolean    = user == userId
+  def is(userId: UserId): Boolean    = user == userId
   def is(other: SimulPlayer): Boolean = is(other.user)
 
 private[simul] object SimulPlayer:

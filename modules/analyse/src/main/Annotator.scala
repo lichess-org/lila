@@ -51,7 +51,7 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
       case ""   => p
       case text => p.updateLastPly(_.copy(result = text.some))
 
-  private def annotateOpening(opening: Option[FullOpening.AtPly])(p: Pgn) =
+  private def annotateOpening(opening: Option[Opening.AtPly])(p: Pgn) =
     opening.fold(p) { o =>
       p.updatePly(o.ply, _.copy(opening = s"${o.opening.eco} ${o.opening.name}".some))
     }

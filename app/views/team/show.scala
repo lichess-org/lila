@@ -270,7 +270,7 @@ object show:
     ul(
       entries.map { e =>
         li(
-          userIdLink(e.mod.some),
+          userIdLink(e.mod.userId.some),
           " ",
           e.showAction,
           ": ",

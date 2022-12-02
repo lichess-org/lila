@@ -22,4 +22,5 @@
   <string name="declineVariant">אני לא מעוניין לשחק את סוג השחמט הזה עכשיו.</string>
   <string name="declineNoBot">אני לא מאשר/ת הזמנות מבוטים.</string>
   <string name="declineOnlyBot">מאשר/ת הזמנות למשחק רק מבוטים.</string>
+  <string name="inviteLichessUser">ניתן גם לשלוח הזמנה למשתמש/ת Lichess:</string>
 </resources>

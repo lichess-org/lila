@@ -62,7 +62,7 @@ object watcher:
       )
     )
 
-  def crawler(pov: Pov, initialFen: Option[chess.format.FEN], pgn: chess.format.pgn.Pgn)(using
+  def crawler(pov: Pov, initialFen: Option[chess.format.Fen], pgn: chess.format.pgn.Pgn)(using
       ctx: Context
   ) =
     bits.layout(
