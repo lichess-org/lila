@@ -1,6 +1,6 @@
 package lila.evalCache
 
-import chess.format.{ Fen, Forsyth, Uci }
+import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import org.joda.time.DateTime
 import cats.data.NonEmptyList

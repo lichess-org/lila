@@ -148,7 +148,7 @@ object GreatPlayer:
     ("Foltys", "Jan_Foltys"),
     ("Forgács", "Le%C3%B3_Forg%C3%A1cs"),
     ("Forintos", "Gy%C5%91z%C5%91_Forintos"),
-    ("Forsyth", "David_Forsyth_(chess_player)"),
+    ("Fen", "David_Fen_(chess_player)"),
     ("Fressinet", "Laurent_Fressinet"),
     ("Ftáčnik", "%C4%BDubom%C3%ADr_Ft%C3%A1%C4%8Dnik"),
     ("Fuderer", "Andrija_Fuderer"),

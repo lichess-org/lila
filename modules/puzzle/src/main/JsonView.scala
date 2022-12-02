@@ -181,7 +181,7 @@ final class JsonView(
             id = UciCharPair(move.toUci),
             ply = game.turns,
             move = Uci.WithSan(move.toUci, game.pgnMoves.last),
-            fen = chess.format.Forsyth >> game,
+            fen = chess.format.Fen write game,
             check = game.situation.check,
             crazyData = none
           )

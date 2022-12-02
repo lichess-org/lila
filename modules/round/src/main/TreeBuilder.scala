@@ -2,7 +2,7 @@ package lila.round
 
 import chess.{ Centis, Color }
 import chess.format.pgn.Glyphs
-import chess.format.{ Fen, Forsyth, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.*
 import chess.variant.Variant
 import JsonView.WithFlags
@@ -36,7 +36,7 @@ object TreeBuilder:
           if (withFlags.opening && Variant.openingSensibleVariants(game.variant))
             fen => OpeningDb.findByFen(fen.opening)
           else _ => None
-        val fen                 = Forsyth >> init
+        val fen                 = Fen write init
         val infos: Vector[Info] = analysis.??(_.infos.toVector)
         val advices: Map[Ply, Advice] = analysis.??(
           _.advices.view
@@ -57,7 +57,7 @@ object TreeBuilder:
           eval = infos lift 0 map makeEval
         )
         def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) =
-          val fen    = Forsyth >> g
+          val fen    = Fen write g
           val info   = infos lift (index - 1)
           val advice = advices get g.turns
           val branch = Branch(
@@ -83,7 +83,7 @@ object TreeBuilder:
           )
           advices.get(g.turns + 1).flatMap { adv =>
             games.lift(index - 1).map { case (fromGame, _) =>
-              withAnalysisChild(game.id, branch, game.variant, Forsyth >> fromGame, openingOf)(adv.info)
+              withAnalysisChild(game.id, branch, game.variant, Fen write fromGame, openingOf)(adv.info)
             }
           } getOrElse branch
         games.zipWithIndex.reverse match
@@ -108,7 +108,7 @@ object TreeBuilder:
       openingOf: OpeningOf
   )(info: Info): Branch =
     def makeBranch(g: chess.Game, m: Uci.WithSan) =
-      val fen = Forsyth >> g
+      val fen = Fen write g
       Branch(
         id = UciCharPair(m.uci),
         ply = g.turns,

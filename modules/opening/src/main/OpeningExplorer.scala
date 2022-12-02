@@ -1,7 +1,7 @@
 package lila.opening
 
 import chess.format.Fen
-import chess.format.Forsyth
+import chess.format.Fen
 import chess.opening.Opening
 import com.softwaremill.tagging.*
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }

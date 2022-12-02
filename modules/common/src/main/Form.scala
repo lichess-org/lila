@@ -1,7 +1,7 @@
 package lila.common
 
 import chess.Color
-import chess.format.{ Fen, Forsyth }
+import chess.format.Fen
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
@@ -178,13 +178,13 @@ object Form:
   object fen:
     val mapping = trim(of[String]).into[Fen]
     def playable(strict: Boolean) = mapping
-      .verifying("Invalid position", fen => (Forsyth <<< fen).exists(_.situation playable strict))
+      .verifying("Invalid position", fen => Fen.read(fen).exists(_ playable strict))
       .transform[Fen](if (strict) truncateMoveNumber else identity, identity)
     val playableStrict = playable(strict = true)
     def truncateMoveNumber(fen: Fen) =
-      (Forsyth <<< fen).fold(fen) { g =>
+      Fen.readWithMoveNumber(fen).fold(fen) { g =>
         if (g.fullMoveNumber >= 150)
-          Forsyth >> g.copy(fullMoveNumber = g.fullMoveNumber % 100) // keep the start ply low
+          Fen write g.copy(fullMoveNumber = g.fullMoveNumber % 100) // keep the start ply low
         else fen
       }
 

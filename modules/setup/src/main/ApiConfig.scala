@@ -1,9 +1,7 @@
 package lila.setup
 
-import chess.format.{ Fen, Forsyth }
-import chess.variant.Chess960
-import chess.variant.FromPosition
-import chess.variant.Variant
+import chess.format.Fen
+import chess.variant.{ Chess960, Variant, FromPosition }
 import chess.{ Clock, Speed }
 
 import lila.common.{ Days, Template }
@@ -38,7 +36,7 @@ final case class ApiConfig(
   def mode = chess.Mode(rated)
 
   def autoVariant =
-    if (variant.standard && position.exists(!_.initial)) copy(variant = FromPosition)
+    if (variant.standard && position.exists(!_.isInitial)) copy(variant = FromPosition)
     else this
 
 object ApiConfig extends BaseHumanConfig:
@@ -74,6 +72,6 @@ object ApiConfig extends BaseHumanConfig:
     if (variant.chess960) fen.forall(f => Chess960.positionNumber(f).isDefined)
     else if (variant.fromPosition)
       fen exists { f =>
-        (Forsyth <<< f).exists(_.situation playable false)
+        Fen.read(f).exists(_ playable false)
       }
     else true

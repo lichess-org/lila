@@ -1,6 +1,6 @@
 package lila.fishnet
 
-import chess.format.Forsyth
+import chess.format.Fen
 import chess.format.Uci
 import chess.{ Color, Speed }
 import com.softwaremill.tagging.*
@@ -31,7 +31,7 @@ final private class FishnetOpeningBook(
       ws.url(s"${config.explorerEndpoint}/lichess")
         .withQueryStringParameters(
           "variant"     -> game.variant.key,
-          "fen"         -> Forsyth.>>(game.chess).value,
+          "fen"         -> Fen.write(game.chess).value,
           "topGames"    -> "0",
           "recentGames" -> "0",
           "ratings"     -> (~levelRatings.get(level)).mkString(","),

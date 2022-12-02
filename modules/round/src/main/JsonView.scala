@@ -1,7 +1,7 @@
 package lila.round
 
 import actorApi.SocketStatus
-import chess.format.{ Fen, Forsyth }
+import chess.format.Fen
 import chess.{ Clock, Color }
 import play.api.libs.json.*
 import scala.math
@@ -250,7 +250,7 @@ final class JsonView(
       division: Option[chess.Division] = None
   ) =
     import pov.*
-    val fen = Forsyth >> game.chess
+    val fen = Fen write game.chess
     Json
       .obj(
         "game" -> Json

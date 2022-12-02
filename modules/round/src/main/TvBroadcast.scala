@@ -2,7 +2,7 @@ package lila.round
 
 import akka.actor.*
 import akka.stream.scaladsl.*
-import chess.format.{ Forsyth, BoardFen }
+import chess.format.{ Fen, BoardFen }
 import play.api.libs.json.*
 
 import lila.common.{ Bus, LightUser }
@@ -68,7 +68,7 @@ final private class TvBroadcast(
               .add("seconds" -> pov.game.clock.map(_.remainingTime(pov.color).roundSeconds))
           }
         ),
-        fen = Forsyth exportBoard pov.game.chess.board
+        fen = Fen writeBoard pov.game.chess.board
       )
       clients.foreach { client =>
         client.queue offer {

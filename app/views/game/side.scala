@@ -93,13 +93,13 @@ object side:
         },
         game.variant.chess960.?? {
           chess.variant.Chess960
-            .positionNumber(initialFen | chess.format.Forsyth.initial)
+            .positionNumber(initialFen | chess.format.Fen.initial)
             .map { number =>
               st.section(
                 trans.chess960StartPosition(
                   a(
                     href := routes.UserAnalysis
-                      .parseArg(s"chess960/${underscoreFen(initialFen | chess.format.Forsyth.initial)}")
+                      .parseArg(s"chess960/${underscoreFen(initialFen | chess.format.Fen.initial)}")
                   )(number)
                 )
               )

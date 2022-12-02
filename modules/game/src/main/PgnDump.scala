@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.format.Forsyth
+import chess.format.Fen
 import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags }
 import chess.format.{ pgn as chessPgn, Fen }
 import chess.{ Centis, Color, Outcome }
@@ -37,13 +37,13 @@ final class PgnDump(
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
       val turns = flags.moves ?? {
-        val fenSituation = ts.fen flatMap Forsyth.<<<
+        val fenSituation = ts.fen flatMap Fen.readWithMoveNumber
         makeTurns(
           flags keepDelayIf game.playable applyDelay {
             if (fenSituation.exists(_.situation.color.black)) ".." +: game.pgnMoves
             else game.pgnMoves
           },
-          fenSituation.map(_.fullMoveNumber) | 1,
+          fenSituation.fold(1)(_.fullMoveNumber),
           flags.clocks ?? ~game.bothClockStates,
           game.startColor
         )

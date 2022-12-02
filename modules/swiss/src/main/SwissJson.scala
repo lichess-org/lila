@@ -282,7 +282,7 @@ object SwissJson:
     Json
       .obj(
         "id"          -> b.game.id,
-        "fen"         -> chess.format.Forsyth.boardAndColor(b.game.situation),
+        "fen"         -> chess.format.Fen.writeBoardAndColor(b.game.situation),
         "lastMove"    -> (b.game.lastMoveKeys | ""),
         "orientation" -> b.game.naturalOrientation.name,
         "white"       -> boardPlayerJson(b.board.white),

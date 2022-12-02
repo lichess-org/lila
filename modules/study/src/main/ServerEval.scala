@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.Glyphs
-import chess.format.{ Forsyth, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair }
 import play.api.libs.json.*
 import scala.concurrent.duration.*
 
@@ -154,7 +154,7 @@ object ServerEval:
         id = UciCharPair(m.uci),
         ply = g.turns,
         move = m,
-        fen = Forsyth >> g,
+        fen = Fen write g,
         check = g.situation.check,
         crazyData = g.situation.board.crazyData,
         clock = none,

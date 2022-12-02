@@ -2,7 +2,7 @@ package lila.game
 
 import play.api.libs.json.*
 
-import chess.format.{ Fen, Forsyth }
+import chess.format.Fen
 import chess.variant.Crazyhouse
 import chess.{ Clock, Color }
 import lila.common.Json.{ *, given }
@@ -20,7 +20,7 @@ final class JsonView(rematches: Rematches):
         "speed"         -> game.speed.key,
         "perf"          -> PerfPicker.key(game),
         "rated"         -> game.rated,
-        "fen"           -> (Forsyth >> game.chess),
+        "fen"           -> (Fen write game.chess),
         "player"        -> game.turnColor,
         "turns"         -> game.turns,
         "startedAtTurn" -> game.chess.startedAtTurn,
@@ -45,7 +45,7 @@ final class JsonView(rematches: Rematches):
       .obj(
         "fullId"   -> pov.fullId,
         "gameId"   -> pov.gameId,
-        "fen"      -> (Forsyth >> pov.game.chess),
+        "fen"      -> (Fen write pov.game.chess),
         "color"    -> (if (pov.game.variant.racingKings) chess.White else pov.color).name,
         "lastMove" -> (pov.game.lastMoveKeys | ""),
         "source"   -> pov.game.source,

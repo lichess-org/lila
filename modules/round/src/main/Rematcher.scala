@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.format.Forsyth
+import chess.format.Fen
 import chess.variant.*
 import chess.{ Board, Castles, Clock, Color as ChessColor, Game as ChessGame, History, Situation }
 import ChessColor.{ Black, White }
@@ -94,7 +94,7 @@ final private class Rematcher(
   private def returnGame(pov: Pov, withId: Option[GameId]): Fu[Game] =
     for {
       initialFen <- gameRepo initialFen pov.game
-      situation = initialFen flatMap Forsyth.<<<
+      situation = initialFen flatMap Fen.readWithMoveNumber
       pieces = pov.game.variant match
         case Chess960 =>
           if (chess960 get pov.gameId) Chess960.pieces

@@ -1,7 +1,7 @@
 package lila.opening
 
 import chess.format.pgn.{ Pgn, San }
-import chess.format.{ Fen, OpeningFen, Forsyth, Uci }
+import chess.format.{ Fen, OpeningFen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 import chess.Speed
 
@@ -84,7 +84,7 @@ object OpeningPage:
                 uci  <- Uci.Move(m.uci)
                 move <- query.position.move(uci).toOption
                 result  = ResultCounts(m.white, m.draws, m.black)
-                fen     = Forsyth openingFen move.situationAfter
+                fen     = Fen writeOpening move.situationAfter
                 opening = OpeningDb findByFen fen
               } yield OpeningNext(
                 m.san,

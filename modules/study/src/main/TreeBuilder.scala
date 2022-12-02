@@ -10,7 +10,7 @@ object TreeBuilder:
 
   def apply(root: Node.Root, variant: Variant): tree.Root =
     val dests =
-      if (variant.standard && root.fen.initial) initialStandardDests
+      if (variant.standard && root.fen.isInitial) initialStandardDests
       else
         val sit = chess.Game(variant.some, root.fen.some).situation
         sit.playable(false) ?? sit.destinations

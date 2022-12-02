@@ -1,6 +1,6 @@
 package lila.opening
 
-import chess.format.{ Fen, Forsyth, Uci }
+import chess.format.{ Fen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 import chess.Replay
 import chess.variant.Standard
@@ -15,7 +15,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   val uci: Vector[Uci]    = replay.moves.view.map(_.fold(_.toUci, _.toUci)).reverse.toVector
   def position            = replay.state.situation
   def variant             = chess.variant.Standard
-  val fen                 = Forsyth openingFen replay.state.situation
+  val fen                 = Fen writeOpening replay.state.situation
   val opening             = OpeningDb findByFen fen
   val family              = opening.map(_.family)
   def pgnString           = pgn mkString " "

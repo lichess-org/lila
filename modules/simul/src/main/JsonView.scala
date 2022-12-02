@@ -130,7 +130,7 @@ final class JsonView(
       .obj(
         "id"       -> g.id,
         "status"   -> g.status.id,
-        "fen"      -> (chess.format.Forsyth boardAndColor g.situation),
+        "fen"      -> (chess.format.Fen writeBoardAndColor g.situation),
         "lastMove" -> (g.lastMoveKeys.orZero: String),
         "orient"   -> g.playerByUserId(hostId).map(_.color)
       )

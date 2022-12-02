@@ -1,6 +1,6 @@
 package views.html.game
 
-import chess.format.Forsyth
+import chess.format.Fen
 import controllers.routes
 import play.api.i18n.Lang
 
@@ -52,7 +52,7 @@ object mini:
     )
 
   def renderState(pov: Pov) =
-    dataState := s"${Forsyth boardAndColor pov.game.situation},${pov.color.name},${~pov.game.lastMoveKeys}"
+    dataState := s"${Fen writeBoardAndColor pov.game.situation},${pov.color.name},${~pov.game.lastMoveKeys}"
 
   private def renderPlayer(pov: Pov, withRating: Boolean)(implicit lang: Lang) =
     span(cls := "mini-game__player")(

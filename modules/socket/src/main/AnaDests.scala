@@ -15,7 +15,7 @@ case class AnaDests(
     chapterId: Option[StudyChapterId]
 ):
 
-  def isInitial = variant.standard && fen.initial && path == ""
+  def isInitial = variant.standard && fen.isInitial && path == ""
 
   val dests: String =
     if (isInitial) AnaDests.initialDests
