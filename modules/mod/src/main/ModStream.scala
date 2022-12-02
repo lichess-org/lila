@@ -6,6 +6,7 @@ import play.api.libs.json.*
 import lila.common.{ Bus, HTTPRequest }
 import lila.common.Json.given
 import lila.security.UserSignup
+import scala.concurrent.ExecutionContext
 
 final class ModStream:
 
@@ -29,13 +30,13 @@ final class ModStream:
         s"${Json.stringify(js)}\n"
       }
 
-  def apply(): Source[String, ?] =
+  def apply()(using ExecutionContext): Source[String, ?] =
     blueprint mapMaterializedValue { queue =>
       val sub = Bus.subscribeFun(classifier) { case signup: UserSignup =>
         queue.offer(signup).unit
       }
 
-      queue.watchCompletion() dforeach { _ =>
+      queue.watchCompletion() addEffectAnyway {
         Bus.unsubscribe(sub, classifier)
       }
     }

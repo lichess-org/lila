@@ -19,7 +19,7 @@ final class BoardApiHookStream(
   def apply(hook: Hook): Source[Option[JsObject], ?] =
     blueprint mapMaterializedValue { queue =>
       val actor = system.actorOf(Props(mkActor(hook, queue)))
-      queue.watchCompletion().foreach { _ =>
+      queue.watchCompletion().addEffectAnyway {
         actor ! PoisonPill
       }
     }

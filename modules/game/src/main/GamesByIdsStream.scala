@@ -32,7 +32,7 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using
             .runWith(Sink.foreach(g => queue.offer(g).unit))
             .unit
       }
-      queue.watchCompletion().foreach { _ =>
+      queue.watchCompletion().addEffectAnyway {
         Bus.unsubscribe(sub, chans)
       }
     }

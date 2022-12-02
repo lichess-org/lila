@@ -72,7 +72,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                     (1 to buffer.size) foreach { _ => queue.offer(Json.obj()) } // push buffer content out
                     queue.complete()
                 }
-                queue.watchCompletion() dforeach { _ =>
+                queue.watchCompletion() addEffectAnyway {
                   Bus.unsubscribe(sub, chans)
                 }
             }
