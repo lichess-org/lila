@@ -1,7 +1,7 @@
 package lila.opening
 
 import chess.format.{ Fen, Forsyth, Uci }
-import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName, SansStr }
+import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 import chess.Replay
 import chess.variant.Standard
 import chess.{ Situation, Speed }
