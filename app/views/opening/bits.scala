@@ -60,7 +60,7 @@ object bits:
       ),
       postForm(
         cls    := "opening__config__form",
-        action := routes.Opening.config(thenTo)
+        action := routes.Opening.config(thenTo.some.filter(_.nonEmpty) | "index")
       )(
         checkboxes(form("speeds"), speedChoices, config.speeds.map(_.id)),
         checkboxes(form("ratings"), ratingChoices, config.ratings),

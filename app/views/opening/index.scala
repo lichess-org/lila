@@ -48,7 +48,7 @@ object index:
     }
 
   def searchAndConfig(config: OpeningConfig, q: String, thenTo: String, searchFocus: Boolean = false)(using
-      ctx: Context
+      Context
   ) =
     div(cls := "opening__search-config")(
       search.form(q, searchFocus),
