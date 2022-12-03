@@ -51,7 +51,7 @@
   <string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
   <string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
   <string name="correspondenceEmailNotification">Daily email listing your correspondence games</string>
-  <string name="notifyStreamStart">Streamer you subscribe to goes live</string>
+  <string name="notifyStreamStart">Streamer goes live</string>
   <string name="notifyInboxMsg">New inbox message</string>
   <string name="notifyForumMention">Forum comment mentions you</string>
   <string name="notifyInvitedStudy">Study invite</string>
