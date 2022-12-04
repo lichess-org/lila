@@ -108,7 +108,7 @@ function compile(sources: string[], tellTheWorld = true) {
   const proc = cps.spawn(
     sassExec,
     sassArgs.concat(
-      env.prod ? ['--style=compressed', '--no-source-map'] : ['--embedSources'],
+      env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
       sources.map(
         (src: string) =>
           `${src}:${path.join(
