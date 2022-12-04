@@ -3,10 +3,11 @@ package lila.irwin
 import akka.stream.scaladsl._
 import play.api.libs.json._
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
 
 import lila.common.Bus
 
-final class IrwinStream {
+final class IrwinStream(implicit ec: ExecutionContext) {
 
   private val channel = "irwin"
 

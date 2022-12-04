@@ -34,7 +34,6 @@ final class Timeline(env: Env) extends LilaController(env) {
             users <- env.user.lightUserApi.asyncManyFallback(entries.flatMap(_.userIds).distinct)
             userMap = users.view.map { u => u.id -> u }.toMap
           } yield Ok(Json.obj("entries" -> entries, "users" -> userMap))
-        }
       )
     }
 

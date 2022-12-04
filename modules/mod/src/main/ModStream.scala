@@ -2,11 +2,12 @@ package lila.mod
 
 import akka.stream.scaladsl._
 import play.api.libs.json._
+import scala.concurrent.ExecutionContext
 
 import lila.common.{ Bus, HTTPRequest }
 import lila.security.UserSignup
 
-final class ModStream {
+final class ModStream(implicit ec: ExecutionContext) {
 
   private val classifier = "userSignup"
 
