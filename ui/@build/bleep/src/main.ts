@@ -2,18 +2,24 @@ import * as ps from 'node:process';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 
-import { build } from './build';
+import { build, postBuild } from './build';
 
 export function main() {
   const configPath = path.resolve(__dirname, '../bleep.config.json');
   const config = fs.existsSync(configPath) ? JSON.parse(fs.readFileSync(configPath, 'utf8')) : undefined;
   init(path.resolve(__dirname, '../../../..'), config);
 
-  if (ps.argv.length == 3 && ps.argv[2] == '--help') {
+  if (ps.argv.includes('--help') || ps.argv.includes('-h')) {
     console.log(fs.readFileSync(path.resolve(__dirname, '../readme'), 'utf8'));
     return;
   }
-  build(ps.argv.slice(2));
+  env.watch = ps.argv.includes('--watch') || ps.argv.includes('-w');
+  env.prod = ps.argv.includes('--prod') || ps.argv.includes('-p');
+  if (env.prod && env.watch) {
+    console.log('You cannot watch prod builds! Think of the children');
+    return;
+  }
+  build(ps.argv.slice(2).filter(x => !x.startsWith('-')));
 }
 
 export interface BleepOpts {
@@ -33,10 +39,11 @@ export interface LichessModule {
   name: string; // dirname of module root - usually the module import name
   moduleAlias?: string; // import name (if different from root name as with analysisBoard)
   pkg: any; // the entire package.json object
-  build: string[][]; // pre-bundle build steps from package.json
-  hasTsconfig?: boolean; // fileExistsSync('tsconfig.json')
+  pre: string[][]; // pre-bundle build steps from package.json
+  post: string[][]; // post-bundle build steps from package.json
+  hasTsconfig?: boolean; // fileExists('tsconfig.json')
   tscOptions?: string[]; // options from tsc/compile script in package json
-  bundle?: LichessBundle[]; // currently targets from rollup.config.mjs
+  bundle?: LichessBundle[]; // targets from rollup.config.mjs
   copyMe?: Copy[]; // pre-bundle filesystem copies triggered by a copy-me.json file at
   // module root. see ui/site/copy-me.json
 }
@@ -66,6 +73,9 @@ export function init(root: string, opts?: BleepOpts) {
       esbuild: 'blue',
     };
   }
+  if (env.opts.sass === false) env.exitCode.set('sass', false);
+  if (env.opts.tsc === false) env.exitCode.set('tsc', false);
+  if (env.opts.esbuild === false) env.exitCode.set('esbuild', false);
 }
 
 export const lines = (s: string): string[] => s.split(/[\n\r\f]+/).filter(x => x.trim());
@@ -93,15 +103,19 @@ export const colors = {
 class Env {
   rootDir: string; // absolute path to lila project root
   opts: BleepOpts; // configure logging mostly
+  watch = false;
+  prod = false;
+  exitCode = new Map<'sass' | 'tsc' | 'esbuild', number | false>();
+  startTime: number | undefined = Date.now();
 
   get sass(): boolean {
-    return this.opts.sass !== false;
-  }
-  get esbuild(): boolean {
-    return this.opts.esbuild !== false;
+    return !this.exitCode.has('sass');
   }
   get tsc(): boolean {
-    return this.opts.tsc !== false;
+    return !this.exitCode.has('tsc');
+  }
+  get esbuild(): boolean {
+    return !this.exitCode.has('esbuild');
   }
   get uiDir(): string {
     return path.join(this.rootDir, 'ui');
@@ -131,7 +145,7 @@ class Env {
     this.log(d, { ctx: ctx, error: true });
   }
   good(ctx = 'bleep') {
-    this.log(`${colors.good('No errors')} - ${colors.grey('Watching')}...`, { ctx: ctx });
+    this.log(colors.good('No errors') + env.watch ? ` - ${colors.grey('Watching')}...` : '', { ctx: ctx });
   }
   log(d: any, { ctx = 'bleep', error = false, warn = false } = {}) {
     let text: string =
@@ -160,6 +174,24 @@ class Env {
         `${prefix ? prefix + ' - ' : ''}${error ? esc(line, codes.error) : warn ? esc(line, codes.warn) : line}`
       )
     );
+  }
+  done(code: number, ctx: 'sass' | 'tsc' | 'esbuild'): void {
+    this.exitCode.set(ctx, code);
+    const err = [...this.exitCode.values()].find(x => x);
+    const allDone = this.exitCode.size === 3;
+
+    this.log(`${code === 0 ? 'Done' : colors.red('Failed')}` + (this.watch ? ` - ${colors.grey('Watching')}...` : ''), {
+      ctx: ctx,
+    });
+
+    if (allDone) {
+      if (!err) postBuild();
+      if (this.startTime && !err) this.log(`Done in ${colors.green((Date.now() - this.startTime) / 1000 + '')}s`);
+      this.startTime = undefined; // it's pointless to time subsequent builds, they are too fast
+      if (!env.watch) {
+        process.exitCode = err || 0;
+      }
+    }
   }
 }
 

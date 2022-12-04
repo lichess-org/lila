@@ -3,58 +3,51 @@ import * as path from 'node:path';
 import * as cps from 'node:child_process';
 import * as ps from 'node:process';
 import { parseModules } from './parse';
-import { makeBleepConfig, typescriptWatch } from './tsc';
-import { sassWatch } from './sass';
-import { esbuildWatch } from './esbuild';
+import { makeBleepConfig, tsc } from './tsc';
+import { sass } from './sass';
+import { esbuild } from './esbuild';
 import { LichessModule, env, errorMark, colors as c } from './main';
 
 export let moduleDeps: Map<string, string[]>;
 export let modules: Map<string, LichessModule>;
+export let buildModules: LichessModule[];
 
-let startTime: number | undefined = Date.now();
-
-export async function build(moduleNames: string[]) {
-  env.log(`Parsing modules in '${c.cyan(env.uiDir)}'`);
+export async function build(mods: string[]) {
+  if (!mods.length) env.log(`Parsing modules in '${c.cyan(env.uiDir)}'`);
 
   ps.chdir(env.uiDir);
 
   [modules, moduleDeps] = await parseModules();
 
-  if (moduleNames.find(x => !known(x))) {
-    env.log(`${errorMark} - unknown module '${c.magenta(moduleNames.find(x => !known(x))!)}'`);
+  if (mods.find(x => !known(x))) {
+    env.log(`${errorMark} - unknown module '${c.magenta(mods.find(x => !known(x))!)}'`);
     return;
   }
 
   buildDependencyList();
 
-  const buildModules = moduleNames.length === 0 ? [...modules.values()] : depsMany(moduleNames);
+  buildModules = mods.length === 0 ? [...modules.values()] : depsMany(mods);
 
   await fs.promises.mkdir(env.jsDir, { recursive: true });
   await fs.promises.mkdir(env.cssDir, { recursive: true });
 
-  if (env.sass) sassWatch();
-
-  await makeBleepConfig(buildModules);
-  typescriptWatch(() => {
-    if (env.esbuild) esbuildWatch(buildModules);
-  });
+  if (env.sass) sass();
+  await makeBleepConfig();
+  tsc(() => esbuild());
 }
 
-export function resetTimer(clear = false) {
-  if (!startTime) startTime = Date.now();
-  if (clear) startTime = undefined;
-}
-
-export function bundleDone(n: number) {
-  if (!startTime) return; // only do this once, everything happens so fast on rebuilds
-  const results = n > 0 ? `Built ${n} module${n > 1 ? 's' : ''}` : 'Done';
-  const elapsed = startTime ? `in ${c.green((Date.now() - startTime) / 1000 + '')}s ` : '';
-  env.log(`${results} ${elapsed}`);
-  startTime = undefined;
+export function postBuild() {
+  for (const mod of buildModules) {
+    mod.post.forEach((args: string[]) => {
+      env.log(`[${c.grey(mod.name)}] exec - ${c.cyanBold(args.join(' '))}`);
+      const stdout = cps.execSync(`${args.join(' ')}`, { cwd: mod.root });
+      if (stdout) env.log(stdout, { ctx: mod.name });
+    });
+  }
 }
 
 export function preModule(mod: LichessModule | undefined) {
-  mod?.build.forEach((args: string[]) => {
+  mod?.pre.forEach((args: string[]) => {
     env.log(`[${c.grey(mod.name)}] exec - ${c.cyanBold(args.join(' '))}`);
     const stdout = cps.execSync(`${args.join(' ')}`, { cwd: mod.root });
     if (stdout) env.log(stdout, { ctx: mod.name });

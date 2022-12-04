@@ -1,10 +1,10 @@
 import * as fs from 'node:fs';
 import * as cps from 'node:child_process';
 import * as path from 'node:path';
-import { modules, moduleDeps } from './build';
+import { modules, moduleDeps, buildModules } from './build';
 import { LichessModule, env, colors as c, errorMark, lines } from './main';
 
-export async function makeBleepConfig(buildModules: LichessModule[]): Promise<void> {
+export async function makeBleepConfig(): Promise<void> {
   const tsc: string[] = [];
   await fs.promises.rm(env.tsconfigDir, { recursive: true, force: true });
   await fs.promises.mkdir(env.tsconfigDir);
@@ -28,32 +28,35 @@ export async function makeBleepConfig(buildModules: LichessModule[]): Promise<vo
   await fs.promises.writeFile(path.join(env.tsconfigDir, 'bleep.tsconfig.json'), JSON.stringify(cfg));
 }
 
-export function typescriptWatch(success: () => void) {
-  let watching = false;
+export function tsc(onSuccess: () => void) {
   const tsc = cps.spawn(
     'tsc',
-    ['-b', path.join(env.tsconfigDir, 'bleep.tsconfig.json'), '--incremental', '-w', '--preserveWatchOutput'],
+    ['-b', path.join(env.tsconfigDir, 'bleep.tsconfig.json')].concat(
+      env.watch ? ['--incremental', '-w', '--preserveWatchOutput'] : []
+    ),
     { cwd: env.tsconfigDir }
   );
+  env.log(`Checking typescript`, { ctx: 'tsc' });
+
   tsc.stdout?.on('data', (buf: Buffer) => {
     // no way to magically get build events...
-    // look at in-process typescript invocation because interpreting stdout is dirty.
     const txts = lines(buf.toString('utf8'));
     for (const txt of txts) {
       if (txt.includes('Found 0 errors')) {
-        env.good('tsc');
-        if (!watching) {
-          success();
-          watching = true;
-        }
-      } else if (txt.includes('File change detected') || txt.includes('Starting compilation')) {
-        env.log(`Checking typescript`, { ctx: 'tsc' });
+        if (!env.exitCode.has('tsc')) onSuccess();
+        env.done(0, 'tsc');
       } else {
-        terseTsc(txt);
+        tscLog(txt);
       }
     }
   });
   tsc.stderr?.on('data', txt => env.log(txt, { ctx: 'tsc', error: true }));
+  tsc.addListener('close', code => {
+    env.done(code || 0, 'tsc');
+    if (code) {
+      env.done(code, 'esbuild'); // fail both
+    } else onSuccess();
+  });
 }
 
 async function makeTsConfig(mod: LichessModule, refs: boolean, noEmit: boolean): Promise<string> {
@@ -97,7 +100,8 @@ async function makeTsConfig(mod: LichessModule, refs: boolean, noEmit: boolean):
   return configName;
 }
 
-function terseTsc(text: string): void {
+function tscLog(text: string): void {
+  if (text.includes('File change detected') || text.includes('Starting compilation')) return;
   text = text.replace(/\d?\d:\d\d:\d\d (PM|AM) - /, '');
   if (text.match(/: error TS\d\d\d\d/)) {
     // strip the ../../../../.. junk, highlight error
