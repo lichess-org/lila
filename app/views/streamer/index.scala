@@ -16,13 +16,13 @@ object index:
 
   def apply(
       live: List[lila.streamer.Streamer.WithUserAndStream],
-      pager: Paginator[lila.streamer.Streamer.Context],
+      pager: Paginator[lila.streamer.Streamer.WithContext],
       requests: Boolean
   )(implicit ctx: Context) =
 
     val title = if (requests) "Streamer approval requests" else lichessStreamers.txt()
 
-    def widget(s: lila.streamer.Streamer.Context, stream: Option[lila.streamer.Stream]) =
+    def widget(s: lila.streamer.Streamer.WithContext, stream: Option[lila.streamer.Stream]) =
       frag(
         if (requests) a(href := s"${routes.Streamer.edit}?u=${s.user.username}", cls := "overlay")
         else bits.redirectLink(s.user.username, stream.isDefined.some)(cls := "overlay"),

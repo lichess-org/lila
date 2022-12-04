@@ -31,7 +31,7 @@ object bits:
       )
     )
 
-  def menu(active: String, s: Option[lila.streamer.Streamer.Context])(implicit ctx: Context) =
+  def menu(active: String, s: Option[lila.streamer.Streamer.WithContext])(implicit ctx: Context) =
     st.nav(cls := "subnav")(
       a(cls := active.active("index"), href := routes.Streamer.index())(allStreamers()),
       s.map { st =>
@@ -95,7 +95,7 @@ object bits:
       )
     )
 
-  def streamerTitle(s: lila.streamer.Streamer.Context)(implicit lang: Lang) =
+  def streamerTitle(s: lila.streamer.Streamer.WithContext)(implicit lang: Lang) =
     span(cls := "streamer-title")(
       h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
       s.streamer.lastStreamLang map { language =>

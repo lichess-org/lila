@@ -20,7 +20,7 @@ final class StreamerPager(
       live: LiveStreams,
       forUser: Option[UserId],
       requests: Boolean
-  ): Fu[Paginator[Streamer.Context]] = Paginator(
+  ): Fu[Paginator[Streamer.WithContext]] = Paginator(
     currentPage = page,
     maxPerPage = maxPerPage,
     adapter = if (requests) approval else notLive(live, forUser)
@@ -32,12 +32,12 @@ final class StreamerPager(
     "_id"
   )
 
-  private def notLive(live: LiveStreams, forUser: Option[UserId]): AdapterLike[Streamer.Context] =
-    new AdapterLike[Streamer.Context]:
+  private def notLive(live: LiveStreams, forUser: Option[UserId]): AdapterLike[Streamer.WithContext] =
+    new AdapterLike[Streamer.WithContext]:
 
       def nbResults: Fu[Int] = fuccess(1000)
 
-      def slice(offset: Int, length: Int): Fu[Seq[Streamer.Context]] =
+      def slice(offset: Int, length: Int): Fu[Seq[Streamer.WithContext]] =
         coll
           .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
             import framework._
@@ -80,13 +80,13 @@ final class StreamerPager(
             } yield Streamer.WithUser(streamer, user, subscribed)
           }
 
-  private def approval: AdapterLike[Streamer.Context] = new AdapterLike[Streamer.Context]:
+  private def approval: AdapterLike[Streamer.WithContext] = new AdapterLike[Streamer.WithContext]:
 
     private def selector = $doc("approval.requested" -> true, "approval.ignored" -> false)
 
     def nbResults: Fu[Int] = coll.countSel(selector)
 
-    def slice(offset: Int, length: Int): Fu[Seq[Streamer.Context]] =
+    def slice(offset: Int, length: Int): Fu[Seq[Streamer.WithContext]] =
       coll
         .aggregateList(length, ReadPreference.secondaryPreferred) { framework =>
           import framework._

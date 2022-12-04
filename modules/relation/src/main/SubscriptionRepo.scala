@@ -51,8 +51,8 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(implici
   def unsubscribe(userId: UserId, streamerId: UserId): Funit =
     coll.delete.one($id(makeId(userId, streamerId))).void
 
-  def isSubscribed(userId: UserId, streamerId: UserId): Fu[Boolean] =
-    coll.exists($id(makeId(userId, streamerId)))
+  def isSubscribed[U, S](userId: U, streamerId: S)(using idOfU: UserIdOf[U], idOfS: UserIdOf[S]): Fu[Boolean] =
+    coll.exists($id(makeId(idOfU(userId), idOfS(streamerId))))
 
   def isSubscribed(userId: UserId, streamerIds: List[UserId]): Fu[Map[UserId, Boolean]] = {
     coll

@@ -12,7 +12,7 @@ object picture:
 
   import trans.streamer.*
 
-  def apply(s: Streamer.Context, error: Option[String] = None)(implicit ctx: Context) =
+  def apply(s: Streamer.WithContext, error: Option[String] = None)(implicit ctx: Context) =
     views.html.base.layout(
       title = xStreamerPicture.txt(s.user.username),
       moreJs = embedJsUnsafeLoadThen("""
