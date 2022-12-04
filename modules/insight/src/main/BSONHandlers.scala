@@ -31,6 +31,7 @@ object BSONHandlers:
   given BSONHandler[QueenTrade]           = BSONBooleanHandler.as[QueenTrade](QueenTrade.apply, _.id)
   given BSONHandler[Blur]                 = BSONBooleanNullHandler.as[Blur](Blur.apply, _.id)
   given BSONHandler[CplRange]             = valueMapHandler(CplRange.byId)(_.cpl)
+  given BSONHandler[AccuracyPercent]      = percentAsIntHandler[AccuracyPercent]
 
   private val BSONBooleanNullHandler = quickHandler[Boolean](
     { case BSONBoolean(v) => v; case BSONNull => false },

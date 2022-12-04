@@ -55,7 +55,7 @@ object TutorMetric:
 // higher is better
 opaque type GoodPercent = Double
 object GoodPercent extends OpaqueDouble[GoodPercent]:
-  given Percent[GoodPercent]                   = _.value
+  given Percent[GoodPercent]                   = Percent.of(GoodPercent)
   extension (a: GoodPercent) def toInt         = Percent.toInt(a)
   def apply(a: Double, b: Double): GoodPercent = GoodPercent(100 * a / b)
 
@@ -72,7 +72,7 @@ case class Grade private (value: Double):
   val wording: Wording = Wording.list.find(_.top > value) | Wording.MuchBetter
 
 object Grade:
-  def percent[P](a: P, b: P)(using p: Percent[P]): Grade = apply((p(a) - p(b)) / 25)
+  def percent[P](a: P, b: P)(using p: Percent[P]): Grade = apply((p.value(a) - p.value(b)) / 25)
   def apply(value: Double): Grade                        = new Grade(value atLeast -1 atMost 1)
 
   sealed abstract class Wording(val id: Int, val value: String, val top: Double) extends Ordered[Wording]:

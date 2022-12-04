@@ -34,7 +34,7 @@ case class InsightMove(
 // time remaining on clock, accounting for increment via estimation
 opaque type ClockPercent = Double
 object ClockPercent extends OpaqueDouble[ClockPercent]:
-  given Percent[ClockPercent]           = _.value
+  given Percent[ClockPercent]           = Percent.of(ClockPercent)
   extension (a: ClockPercent) def toInt = Percent.toInt(a)
   def apply(clock: Clock.Config, timeLeft: Centis): ClockPercent = ClockPercent(
     (100 * timeLeft.centis.toDouble / clock.estimateTotalTime.centis) atLeast 0 atMost 100

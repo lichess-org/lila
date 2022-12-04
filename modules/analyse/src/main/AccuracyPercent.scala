@@ -11,7 +11,8 @@ import lila.tree.Eval.{ Cp, Mate }
 opaque type AccuracyPercent = Double
 object AccuracyPercent extends OpaqueDouble[AccuracyPercent]:
 
-  given Percent[AccuracyPercent] = _.value
+  given lila.db.NoDbHandler[AccuracyPercent] with {}
+  given Percent[AccuracyPercent] = Percent.of(AccuracyPercent)
 
   extension (a: AccuracyPercent)
     def *(weight: Double)            = apply(a.value * weight)
