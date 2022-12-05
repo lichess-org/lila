@@ -1,2 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="level">Рувень</string>
+  <string name="chat">Чет</string>
+  <string name="white">Білі</string>
+  <string name="black">Чорні</string>
+  <string name="move">Ход</string>
+  <string name="close">Закрыти</string>
+  <string name="drawn">Ремізова сітуація</string>
+  <string name="cpus">Ядер</string>
+  <string name="draw">Реміза</string>
+  <string name="games">Бавкы</string>
+  <string name="forum">Форум</string>
+  <string name="today">Днись</string>
+  <string name="time">Час</string>
+  <string name="email">Електрона почта</string>
+  <string name="rank">Ранґ</string>
+  <string name="mode">Тіп</string>
+  <string name="rated">Рейтінґова</string>
+  <string name="play">Бавити</string>
+  <string name="send">Загнати</string>
+  <string name="save">Усокотити</string>
+  <string name="more">Булше</string>
+  <string name="list">Ліста</string>
+  <string name="join">Прикапчати ся</string>
+  <string name="wins">Побід</string>
+  <string name="name">Имня</string>
+  <string name="no">Ньит</string>
+  <string name="yes">Айно</string>
+  <string name="user">Хосновач</string>
+  <string name="blog">Блоґ</string>
+  <string name="none">Не є</string>
+  <string name="fast">Шіковно</string>
+  <string name="slow">Помалы</string>
+  <string name="side">Бук</string>
+  <string name="menu">Меню</string>
+  <string name="host">Зарядник</string>
+  <string name="dark">Темный</string>
+  <string name="next">Дале</string>
+  <string name="why">Зашто?</string>
+  <string name="edit">Перемінити</string>
+</resources>
