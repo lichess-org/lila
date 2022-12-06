@@ -18,7 +18,7 @@
   <string name="bishopEndgameDescription">अंतिम खेळ फक्त उंट आणि प्यादयांबरोबर.</string>
   <string name="bodenMate">बोडन ची मात</string>
   <string name="bodenMateDescription">दोन हल्ले करणारे उंट तिरक्या कर्णावरुन विरोधकाच्याच सोंगट्यामध्ये अडकलेल्या राजाला मात देतात.</string>
-  <string name="castling">किल्लाकोट</string>
+  <string name="castling">किल्लेकोट</string>
   <string name="castlingDescription">आपल्या राजाला सुरक्षिततेत आणा, आणि हल्ल्यासाठी आपला हत्ती उपयोजित करा.</string>
   <string name="capturingDefender">रक्षकाला मारा</string>
   <string name="capturingDefenderDescription">एखाद्या सोंगटीच्या बचाव करणाऱ्या सोंगटीला मारणे, म्हणजे नवीन बचाव नसलेली सोंगटी पुढच्या चलित परत मारता येऊ शकते.</string>
@@ -29,7 +29,7 @@
   <string name="dovetailMate">डवटेल मात</string>
   <string name="dovetailMateDescription">वजीर जवळच्या राजाला मात देतो, जिथे राजाला सुटकेसाठी फक्त दोन उपलब्ध घरे त्याच्याच सोंगट्यांनी अडवली आहेत.</string>
   <string name="equality">समानता</string>
-  <string name="equalityDescription">एखाद्या हारणाऱ्या स्थितीतून परत येणे, जिथे खेळाचा निर्णय अनिर्णित सुरक्षित करता येईल, अथवा संतुलित स्थिति आंत येईल. (मूल्यांकन ≤ 200cp)</string>
+  <string name="equalityDescription">पराभवाच्या स्थितीतून बाहेर पडून खेळ बरोबरीत सोडवा किंवा संतुलित स्थिती मिळवा. (मूल्यांकन ≤ 200cp)</string>
   <string name="kingsideAttack">राजाच्या बाजुचा हल्ला</string>
   <string name="kingsideAttackDescription">विरोधकाच्या राजाने किल्लेकोट केल्यावर त्याच राजाच्या बाजुने हल्ला चढवणे.</string>
   <string name="clearance">जागा मोकळी करणे</string>
@@ -44,7 +44,7 @@
   <string name="doubleCheckDescription">एकाच वेळी दोन सोंगट्यांनी शह देणे, त्यामुळे शोधला गेलेला हल्ला जो एखादी सोंगटी हलवून लांबच्या पल्ल्याच्या सोंगटीकडून समोरच्या राजावर हल्ला केला जाईल.</string>
   <string name="endgame">अंतिम खेळ</string>
   <string name="endgameDescription">खेळाच्या शेवटच्या भागातील डावपेच.</string>
-  <string name="enPassantDescription">एन पासंट नियमाचा समावेश असलेला एक डावपेच, जेथे प्रतिस्पर्ध्याच्या ज्या प्याद्याने सुरुवातीच्या दोन-घर चालीचा वापर केला आहे, त्याला तुमचे प्यादे पकडू शकते.</string>
+  <string name="enPassantDescription">एन पसांट नियमाचा समावेश असलेला एक डावपेच, जेथे प्रतिस्पर्ध्याच्या ज्या प्याद्याने सुरुवातीच्या दोन-घर चालीचा वापर केला आहे, त्याला तुमचे प्यादे पकडू शकते.</string>
   <string name="exposedKing">उघड राजा</string>
   <string name="exposedKingDescription">एक डावपेच ज्यामध्ये राजासह त्याच्या भोवती मोजके बचावकर्ते असतात, ज्यामुळे अनेकदा चेकमेट होते.</string>
   <string name="fork">फोर्क</string>
@@ -65,7 +65,7 @@
   <string name="masterDescription">पदवीधर खेळाडूंच्या खेळातील कोडी.</string>
   <string name="masterVsMaster">पदवीधर विरुद्ध पदवीधर खेळ</string>
   <string name="masterVsMasterDescription">पदवीधर खेळाडूंच्या खेळातील कोडी.</string>
-  <string name="mate">कोड्याचा विषय: मात देणारे कोडे</string>
+  <string name="mate">शहमात</string>
   <string name="mateDescription">शैलीबद्ध खेळ जिंका.</string>
   <string name="mateIn1">एक चालीत मात</string>
   <string name="mateIn1Description">एका चालीत मात द्या.</string>
@@ -86,6 +86,7 @@
   <string name="smotheredMate">गुदमरून मात</string>
   <string name="trappedPiece">अडकलेली सोंगटी</string>
   <string name="underPromotion">अध:-पदोन्नती</string>
+  <string name="underPromotionDescription">घोडा, उंट किंवा हत्तींमध्ये बढती.</string>
   <string name="veryLong">जास्त चालींचे कोडे</string>
   <string name="veryLongDescription">चार किंवा जास्त चालींत विजय.</string>
   <string name="xRayAttack">क्ष-किरण हल्ला</string>
