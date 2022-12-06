@@ -9,6 +9,7 @@
   <string name="drafts">Koncepty</string>
   <string name="published">Publikováno</string>
   <string name="createBlogDiscussion">Povolit komentáře</string>
+  <string name="createBlogDiscussionHelp">Bude vytvořeno téma fóra, aby lidé mohli komentovat váš příspěvek</string>
   <string name="publishOnYourBlog">Publikovat na vašem blogu</string>
   <string name="publishHelp">Je-li zaškrtnuto, příspěvek bude zobrazen na vašem blogu. Pokud ne, bude soukromý, ve vašich konceptech</string>
   <string name="xPublishedY">%1$s publikoval %2$s</string>
