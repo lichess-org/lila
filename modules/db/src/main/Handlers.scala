@@ -17,14 +17,14 @@ import scala.collection.Factory
 trait Handlers:
 
   // free handlers for all types with TotalWrapper
-  inline given opaqueHandler[T, A](using
+  given opaqueHandler[T, A](using
       sr: SameRuntime[A, T],
       rs: SameRuntime[T, A],
       handler: BSONHandler[A]
   )(using NotGiven[NoDbHandler[T]]): BSONHandler[T] =
     handler.as(sr.apply, rs.apply)
 
-  inline given userIdOfWriter[U, T](using idOf: UserIdOf[U], writer: BSONWriter[UserId]): BSONWriter[U] with
+  given userIdOfWriter[U, T](using idOf: UserIdOf[U], writer: BSONWriter[UserId]): BSONWriter[U] with
     inline def writeTry(u: U) = writer.writeTry(idOf(u))
 
   given dateTimeHandler: BSONHandler[DateTime] = quickHandler[DateTime](
