@@ -30,10 +30,10 @@
   <string name="ratingX">मूल्यांकन: %s</string>
   <string name="hidden">लपवलेला</string>
   <plurals name="playedXTimes">
-    <item quantity="one">%s वेळा खेळला</item>
+    <item quantity="one">%s वेळा खेळले</item>
     <item quantity="other">%s वेळा खेळले</item>
   </plurals>
-  <string name="fromGameLink">%s खेळाकडून</string>
+  <string name="fromGameLink">%s खेळातून</string>
   <string name="continueTraining">प्रशिक्षण चालू ठेवा</string>
   <string name="difficultyLevel">अडचण स्तर</string>
   <string name="normal">साधारण</string>
