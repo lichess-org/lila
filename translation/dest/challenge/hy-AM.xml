@@ -22,4 +22,5 @@
   <string name="declineVariant">Ես չեմ ցանկանում շախմատի այս տարբերակը խաղալ հիմա։</string>
   <string name="declineNoBot">Ես չեմ ընդունում բոտերի մարտահրավերները։</string>
   <string name="declineOnlyBot">Ես ընդունում եմ միայն բոտերի մարտահրավերները։</string>
+  <string name="inviteLichessUser">Կամ հրավիրեք Lichess-ի օգտատիրոջ.</string>
 </resources>
