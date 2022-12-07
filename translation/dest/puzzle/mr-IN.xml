@@ -56,7 +56,7 @@
   <string name="improvementAreas">सुधारण्याचे क्षेत्र</string>
   <string name="strengths">शक्ति</string>
   <string name="history">कोड्यांचा इतिहास</string>
-  <string name="solved">सोडवलेले</string>
+  <string name="solved">सोडवली</string>
   <string name="failed">अयशस्वी झालेले</string>
   <string name="streakDescription">उत्तरोत्तर अवघड कोडी सोडवत चला आणि जिंकण्याची मालिका तयार करत चला. इथे वेळ मोजला जाणार नाही, त्यामुळे हवा तेवढा वेळ वापरा. एक चुकीची चाल खेळा आणि खेळ संपून जाईल! पण आपण प्रत्येक सत्रामध्ये एक चाल सोडून देऊ शकता.</string>
   <string name="yourStreakX">तुमची मालिका: %s</string>
@@ -77,10 +77,10 @@
     <item quantity="other">%s खेळताहेत</item>
   </plurals>
   <plurals name="nbToReplay">
-    <item quantity="one">%s परत खेळतील</item>
-    <item quantity="other">%s परत खेळतील</item>
+    <item quantity="one">%s परत सोडवा</item>
+    <item quantity="other">%s परत सोडवा</item>
   </plurals>
-  <string name="percentSolved">%s सोडवले</string>
+  <string name="percentSolved">%s सोडवली</string>
   <string name="noPuzzlesToShow">इथे काहीही दाखवू शकत नाही, आधी काही कोडी सोडवा!</string>
   <string name="improvementAreasDescription">आपली प्रगती साधण्यासाठी याचे प्रशिक्षण घ्या!</string>
   <string name="strengthDescription">आपण या विषयात सर्वोत्तम कामगिरी करता</string>
