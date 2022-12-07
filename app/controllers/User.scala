@@ -19,10 +19,10 @@ import lila.common.paginator.Paginator
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ Game as GameModel, Pov }
 import lila.rating.{ Perf, PerfType }
-import lila.security.UserLogins
 import lila.socket.UserLagCache
 import lila.user.{ Holder, User as UserModel }
-import lila.security.Granter
+import lila.security.{ Granter, UserLogins }
+import lila.mod.UserWithModlog
 
 final class User(
     env: Env,
@@ -358,17 +358,22 @@ final class User(
         .map(Source.single)
     }
 
-  protected[controllers] def loginsTableData(user: UserModel, userLogins: UserLogins, max: Int)(using
-      ctx: Context
-  ): Fu[UserLogins.TableData] =
+  protected[controllers] def loginsTableData(
+      user: UserModel,
+      userLogins: UserLogins,
+      max: Int
+  )(using Context): Fu[UserLogins.TableData[UserWithModlog]] =
     val familyUserIds = user.id :: userLogins.otherUserIds
     (isGranted(_.ModNote) ?? env.user.noteApi
       .byUsersForMod(familyUserIds)
       .logTimeIfGt(s"${user.username} noteApi.forMod", 2 seconds)) zip
       env.playban.api.bans(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2 seconds) zip
-      lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins) map {
+      lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins) flatMap {
         case ((notes, bans), othersWithEmail) =>
-          UserLogins.TableData(userLogins, othersWithEmail, notes, bans, max)
+          env.mod.logApi.addModlog(othersWithEmail.others.map(_.user)).map(othersWithEmail.withUsers).map {
+            otherUsers =>
+              UserLogins.TableData(userLogins, otherUsers, notes, bans, max)
+          }
       }
 
   protected[controllers] def renderModZone(holder: Holder, username: UserStr)(using

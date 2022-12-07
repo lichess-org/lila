@@ -12,7 +12,7 @@ import views.html.appeal.tree
 import lila.appeal.Appeal
 import lila.common.String.html.richText
 import lila.mod.IpRender.RenderIp
-import lila.mod.{ ModPreset, ModPresets }
+import lila.mod.{ ModPreset, ModPresets, UserWithModlog }
 import lila.report.Report.Inquiry
 import lila.report.Suspect
 import lila.user.{ Holder, User }
@@ -23,7 +23,7 @@ object discussion:
       mod: Holder,
       suspect: Suspect,
       presets: ModPresets,
-      logins: lila.security.UserLogins.TableData,
+      logins: lila.security.UserLogins.TableData[UserWithModlog],
       appeals: List[lila.appeal.Appeal],
       renderIp: RenderIp,
       inquiry: Option[Inquiry],
