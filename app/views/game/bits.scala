@@ -23,7 +23,7 @@ object bits:
 
   def sides(
       pov: Pov,
-      initialFen: Option[chess.format.Fen],
+      initialFen: Option[chess.format.Fen.Epd],
       tour: Option[lila.tournament.TourAndTeamVs],
       cross: Option[lila.game.Crosstable.WithMatchup],
       simul: Option[lila.simul.Simul],
@@ -40,7 +40,7 @@ object bits:
   def variantLink(
       variant: chess.variant.Variant,
       perfType: Option[lila.rating.PerfType] = None,
-      initialFen: Option[chess.format.Fen] = None,
+      initialFen: Option[chess.format.Fen.Epd] = None,
       shortName: Boolean = false
   )(implicit lang: Lang): Frag =
     def link(

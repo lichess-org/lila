@@ -13,7 +13,7 @@ case class AnaDrop(
     role: chess.Role,
     pos: chess.Pos,
     variant: Variant,
-    fen: Fen,
+    fen: Fen.Epd,
     path: String,
     chapterId: Option[String]
 ) extends AnaAny:
@@ -31,7 +31,7 @@ case class AnaDrop(
           fen = fen,
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),
-          opening = OpeningDb findByFen fen.opening,
+          opening = OpeningDb findByEpdFen fen,
           drops = if (movable) game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData
         )
@@ -46,7 +46,7 @@ object AnaDrop:
       role <- d str "role" flatMap chess.Role.allByName.get
       pos  <- d str "pos" flatMap { chess.Pos.fromKey(_) }
       variant = chess.variant.Variant orDefault ~d.str("variant")
-      fen  <- d.get[Fen]("fen")
+      fen  <- d.get[Fen.Epd]("fen")
       path <- d str "path"
     } yield AnaDrop(
       role = role,

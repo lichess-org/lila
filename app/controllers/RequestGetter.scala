@@ -11,9 +11,17 @@ import lila.app.*
 trait RequestGetter:
 
   protected inline def get(name: String)(using ctx: UserContext): Option[String] = get(name, ctx.req)
+  protected inline def getAs[A](
+      name: String
+  )(using ctx: UserContext, sr: SameRuntime[String, A]): Option[A] = get(name).map(sr.apply)
 
   protected inline def get(name: String, req: RequestHeader): Option[String] =
     HTTPRequest.queryStringGet(req, name)
+
+  protected inline def getAs[A](name: String, req: RequestHeader)(using
+      sr: SameRuntime[String, A]
+  ): Option[A] =
+    get(name, req).map(sr.apply)
 
   protected inline def getUserStr(name: String)(using ctx: UserContext): Option[UserStr] =
     get(name, ctx.req) flatMap UserStr.read

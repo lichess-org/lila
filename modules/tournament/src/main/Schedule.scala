@@ -13,7 +13,7 @@ case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
-    position: Option[Fen],
+    position: Option[Fen.Epd],
     at: DateTime,
     conditions: Condition.All = Condition.All.empty
 ):

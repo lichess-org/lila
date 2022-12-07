@@ -14,7 +14,7 @@ object JsonHandlers:
   private given Writes[Mate]   = writeAs(_.value)
   private given Writes[Knodes] = writeAs(_.value)
 
-  def writeEval(e: Eval, fen: Fen) =
+  def writeEval(e: Eval, fen: Fen.Epd) =
     Json.obj(
       "fen"    -> fen,
       "knodes" -> e.knodes,
@@ -35,7 +35,7 @@ object JsonHandlers:
 
   private[evalCache] def readPutData(trustedUser: TrustedUser, d: JsObject): Option[Input.Candidate] =
     for {
-      fen    <- d.get[Fen]("fen")
+      fen    <- d.get[Fen.Epd]("fen")
       knodes <- d int "knodes"
       depth  <- d int "depth"
       pvObjs <- d objs "pvs"

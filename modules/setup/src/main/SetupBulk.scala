@@ -31,7 +31,7 @@ object SetupBulk:
       startClocksAt: Option[DateTime],
       message: Option[Template],
       rules: Set[GameRule],
-      fen: Option[Fen] = None
+      fen: Option[Fen.Epd] = None
   ):
     def clockOrDays = clock.toLeft(days | Days(3))
 
@@ -68,7 +68,7 @@ object SetupBulk:
           variant: Option[String],
           clock: Option[Clock.Config],
           days: Option[Days],
-          fen: Option[Fen],
+          fen: Option[Fen.Epd],
           rated: Boolean,
           pairTs: Option[Long],
           clockTs: Option[Long],
@@ -133,7 +133,7 @@ object SetupBulk:
       message: Option[Template],
       rules: Set[GameRule] = Set.empty,
       pairedAt: Option[DateTime] = None,
-      fen: Option[Fen] = None
+      fen: Option[Fen.Epd] = None
   ):
     def userSet = Set(games.flatMap(g => List(g.white, g.black)))
     def collidesWith(other: ScheduledBulk) = {

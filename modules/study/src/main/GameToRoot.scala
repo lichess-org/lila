@@ -6,7 +6,7 @@ import lila.round.JsonView.WithFlags
 
 private object GameToRoot:
 
-  def apply(game: Game, initialFen: Option[Fen], withClocks: Boolean): Node.Root =
+  def apply(game: Game, initialFen: Option[Fen.Epd], withClocks: Boolean): Node.Root =
     val root = Node.Root.fromRoot {
       lila.round.TreeBuilder(
         game = game,

@@ -6,13 +6,13 @@ import org.joda.time.DateTime
 
 object Rewind:
 
-  private def createTags(fen: Option[Fen], game: Game) =
+  private def createTags(fen: Option[Fen.Epd], game: Game) =
     val variantTag = Some(chessPgn.Tag(_.Variant, game.variant.name))
     val fenTag     = fen.map(f => chessPgn.Tag(_.FEN, f.value))
 
     chessPgn.Tags(List(variantTag, fenTag).flatten)
 
-  def apply(game: Game, initialFen: Option[Fen]): Validated[String, Progress] =
+  def apply(game: Game, initialFen: Option[Fen.Epd]): Validated[String, Progress] =
     chessPgn.Reader
       .movesWithSans(
         moveStrs = game.pgnMoves,

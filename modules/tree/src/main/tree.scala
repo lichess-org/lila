@@ -13,7 +13,7 @@ import lila.common.Json.{ *, given }
 
 sealed trait Node:
   def ply: Int
-  def fen: Fen
+  def fen: Fen.Epd
   def check: Boolean
   // None when not computed yet
   def dests: Option[Map[Pos, List[Pos]]]
@@ -44,7 +44,7 @@ sealed trait Node:
 
 case class Root(
     ply: Int,
-    fen: Fen,
+    fen: Fen.Epd,
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
@@ -73,7 +73,7 @@ case class Branch(
     id: UciCharPair,
     ply: Int,
     move: Uci.WithSan,
-    fen: Fen,
+    fen: Fen.Epd,
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,

@@ -17,7 +17,7 @@ final class PgnDump(
 
   def apply(
       game: Game,
-      initialFen: Option[Fen],
+      initialFen: Option[Fen.Epd],
       flags: WithFlags,
       teams: Option[Color.Map[TeamId]] = None
   ): Fu[Pgn] =
@@ -83,7 +83,7 @@ final class PgnDump(
 
   def tags(
       game: Game,
-      initialFen: Option[Fen],
+      initialFen: Option[Fen.Epd],
       imported: Option[ParsedPgn],
       withOpening: Boolean,
       withRating: Boolean,

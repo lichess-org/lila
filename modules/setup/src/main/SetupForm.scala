@@ -15,7 +15,7 @@ object SetupForm:
 
   val filter = Form(single("local" -> text))
 
-  def aiFilled(fen: Option[Fen]): Form[AiConfig] =
+  def aiFilled(fen: Option[Fen.Epd]): Form[AiConfig] =
     ai fill fen.foldLeft(AiConfig.default) { case (config, f) =>
       config.copy(fen = f.some, variant = chess.variant.FromPosition)
     }
@@ -35,7 +35,7 @@ object SetupForm:
       .verifying("Can't play that time control from a position", _.timeControlFromPosition)
   )
 
-  def friendFilled(fen: Option[Fen])(using ctx: UserContext): Form[FriendConfig] =
+  def friendFilled(fen: Option[Fen.Epd])(using ctx: UserContext): Form[FriendConfig] =
     friend(ctx) fill fen.foldLeft(FriendConfig.default) { case (config, f) =>
       config.copy(fen = f.some, variant = chess.variant.FromPosition)
     }

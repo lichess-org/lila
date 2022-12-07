@@ -256,7 +256,7 @@ final class GameApiV2(
   private def jsonFormatter(flags: WithFlags) =
     (
         game: Game,
-        initialFen: Option[Fen],
+        initialFen: Option[Fen.Epd],
         analysis: Option[Analysis],
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]
@@ -267,7 +267,7 @@ final class GameApiV2(
 
   private def toJson(
       g: Game,
-      initialFen: Option[Fen],
+      initialFen: Option[Fen.Epd],
       analysisOption: Option[Analysis],
       withFlags: WithFlags,
       teams: Option[GameTeams] = None,

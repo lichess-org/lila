@@ -19,7 +19,7 @@ case class AnaMove(
     orig: chess.Pos,
     dest: chess.Pos,
     variant: Variant,
-    fen: Fen,
+    fen: Fen.Epd,
     path: String,
     chapterId: Option[String],
     promotion: Option[chess.PromotableRole]
@@ -39,7 +39,7 @@ case class AnaMove(
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),
           opening = (game.turns <= 30 && Variant.openingSensibleVariants(variant)) ?? {
-            OpeningDb findByFen fen.opening
+            OpeningDb findByEpdFen fen
           },
           drops = if (movable) game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData
@@ -54,7 +54,7 @@ object AnaMove:
       d    <- o obj "d"
       orig <- d str "orig" flatMap { chess.Pos.fromKey(_) }
       dest <- d str "dest" flatMap { chess.Pos.fromKey(_) }
-      fen  <- d.get[Fen]("fen")
+      fen  <- d.get[Fen.Epd]("fen")
       path <- d str "path"
     } yield AnaMove(
       orig = orig,

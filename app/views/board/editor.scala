@@ -13,7 +13,7 @@ import lila.common.Json.given
 object editor:
 
   def apply(
-      fen: Option[Fen],
+      fen: Option[Fen.Epd],
       positionsJson: String,
       endgamePositionsJson: String
   )(implicit ctx: Context) =
@@ -46,7 +46,7 @@ data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementByI
       )
     )
 
-  def jsData(fen: Option[Fen] = None)(using ctx: Context) =
+  def jsData(fen: Option[Fen.Epd] = None)(using ctx: Context) =
     Json
       .obj(
         "baseUrl"   -> s"$netBaseUrl${routes.Editor.index}",

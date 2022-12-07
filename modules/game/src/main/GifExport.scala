@@ -22,7 +22,12 @@ final class GifExport(
   private val targetMedianTime = Centis(80)
   private val targetMaxTime    = Centis(200)
 
-  def fromPov(pov: Pov, initialFen: Option[Fen], theme: String, piece: String): Fu[Source[ByteString, ?]] =
+  def fromPov(
+      pov: Pov,
+      initialFen: Option[Fen.Epd],
+      theme: String,
+      piece: String
+  ): Fu[Source[ByteString, ?]] =
     lightUserApi preloadMany pov.game.userIds flatMap { _ =>
       ws.url(s"$url/game.gif")
         .withMethod("POST")
@@ -77,7 +82,7 @@ final class GifExport(
     }
 
   def thumbnail(
-      fen: Fen,
+      fen: Fen.Epd,
       lastMove: Option[String],
       orientation: Color,
       variant: Variant,
@@ -117,7 +122,7 @@ final class GifExport(
         }
       case None => moveTimes.map(_ atMost targetMaxTime)
 
-  private def frames(game: Game, initialFen: Option[Fen]) =
+  private def frames(game: Game, initialFen: Option[Fen.Epd]) =
     Replay.gameMoveWhileValid(
       game.pgnMoves,
       initialFen | game.variant.initialFen,

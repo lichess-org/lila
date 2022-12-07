@@ -20,7 +20,7 @@ final private class EvalCacheSocketHandler(
       push: JsObject => Unit
   ): Unit =
     for {
-      fen <- d.get[Fen]("fen")
+      fen <- d.get[Fen.Epd]("fen")
       variant = Variant orDefault ~d.str("variant")
       multiPv = (d int "mpv") | 1
       path <- d str "path"

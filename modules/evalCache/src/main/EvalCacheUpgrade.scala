@@ -27,7 +27,9 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
 
   private val upgradeMon = lila.mon.evalCache.upgrade
 
-  def register(sri: Socket.Sri, variant: Variant, fen: Fen, multiPv: Int, path: String)(push: Push): Unit =
+  def register(sri: Socket.Sri, variant: Variant, fen: Fen.Epd, multiPv: Int, path: String)(
+      push: Push
+  ): Unit =
     if (setting.get())
       members get sri.value foreach { wm =>
         unregisterEval(wm.setupId, sri)
@@ -82,7 +84,7 @@ private object EvalCacheUpgrade:
   private case class EvalState(sris: Set[SriString], depth: Int):
     def addSri(sri: Socket.Sri) = copy(sris = sris + sri.value)
 
-  private def makeSetupId(variant: Variant, fen: Fen, multiPv: Int): SetupId =
-    s"${variant.id}${SmallFen.make(variant, fen)}^$multiPv"
+  private def makeSetupId(variant: Variant, fen: Fen.Epd, multiPv: Int): SetupId =
+    s"${variant.id}${SmallFen.make(variant, fen.simple)}^$multiPv"
 
   private case class WatchingMember(push: Push, setupId: SetupId, path: String)

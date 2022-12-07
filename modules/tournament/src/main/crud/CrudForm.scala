@@ -69,7 +69,7 @@ object CrudForm:
       clockIncrement: Int,
       minutes: Int,
       variant: Int,
-      position: Option[Fen],
+      position: Option[Fen.Epd],
       date: DateTime,
       image: String,
       headline: String,

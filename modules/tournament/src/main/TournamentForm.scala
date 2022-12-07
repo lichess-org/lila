@@ -171,7 +171,7 @@ private[tournament] case class TournamentSetup(
     waitMinutes: Option[Int],
     startDate: Option[DateTime],
     variant: Option[String],
-    position: Option[Fen],
+    position: Option[Fen.Epd],
     mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],

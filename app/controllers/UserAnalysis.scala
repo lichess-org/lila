@@ -26,18 +26,18 @@ final class UserAnalysis(
       case Array(key) => load("", Variant orDefault key)
       case Array(key, fen) =>
         Variant.byKey get key match
-          case Some(variant) if variant != Standard       => load(fen, variant)
-          case _ if Fen.clean(fen) == Standard.initialFen => load("", Standard)
-          case Some(Standard)                             => load(fen, FromPosition)
-          case _                                          => load(arg, FromPosition)
+          case Some(variant) if variant != Standard           => load(fen, variant)
+          case _ if Fen.Epd.clean(fen) == Standard.initialFen => load("", Standard)
+          case Some(Standard)                                 => load(fen, FromPosition)
+          case _                                              => load(arg, FromPosition)
       case _ => load("", Standard)
 
   def load(urlFen: String, variant: Variant) =
     Open { implicit ctx =>
-      val decodedFen: Option[Fen] = lila.common.String
+      val decodedFen: Option[Fen.Epd] = lila.common.String
         .decodeUriPath(urlFen)
         .filter(_.trim.nonEmpty)
-        .orElse(get("fen")) map Fen.clean
+        .orElse(get("fen")) map Fen.Epd.clean
       val pov         = makePov(decodedFen, variant)
       val orientation = get("color").flatMap(chess.Color.fromName) | pov.color
       env.api.roundApi
@@ -58,7 +58,7 @@ final class UserAnalysis(
       }
     }
 
-  private[controllers] def makePov(fen: Option[Fen], variant: Variant): Pov =
+  private[controllers] def makePov(fen: Option[Fen.Epd], variant: Variant): Pov =
     makePov {
       fen.filter(_.value.nonEmpty).flatMap {
         Fen.readWithMoveNumber(variant, _)
