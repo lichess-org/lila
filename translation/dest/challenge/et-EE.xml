@@ -22,4 +22,5 @@
   <string name="declineVariant">Ma ei taha mängida seda varianti praegu.</string>
   <string name="declineNoBot">Ma ei võta vastu väljakutseid bottidelt.</string>
   <string name="declineOnlyBot">Ma võtan väljakutseid vastu ainult bottidelt.</string>
+  <string name="inviteLichessUser">Või kutsu Lichessi kasutaja:</string>
 </resources>

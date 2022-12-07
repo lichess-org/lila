@@ -8,7 +8,7 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import scala.concurrent.duration.*
-import scala.util.{ Failure, Success, Try }
+import scala.util.{ Failure, Success, Try, NotGiven }
 
 import lila.common.Iso.*
 import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress, Days }
@@ -17,14 +17,14 @@ import scala.collection.Factory
 trait Handlers:
 
   // free handlers for all types with TotalWrapper
-  inline given opaqueHandler[T, A](using
+  given opaqueHandler[T, A](using
       sr: SameRuntime[A, T],
       rs: SameRuntime[T, A],
       handler: BSONHandler[A]
-  ): BSONHandler[T] =
+  )(using NotGiven[NoDbHandler[T]]): BSONHandler[T] =
     handler.as(sr.apply, rs.apply)
 
-  inline given userIdOfWriter[U, T](using idOf: UserIdOf[U], writer: BSONWriter[UserId]): BSONWriter[U] with
+  given userIdOfWriter[U, T](using idOf: UserIdOf[U], writer: BSONWriter[UserId]): BSONWriter[U] with
     inline def writeTry(u: U) = writer.writeTry(idOf(u))
 
   given dateTimeHandler: BSONHandler[DateTime] = quickHandler[DateTime](
@@ -65,8 +65,9 @@ trait Handlers:
   val percentBsonMultiplier = 1000
   val ratioBsonMultiplier   = 100_000
 
-  def percentAsIntHandler[A](to: A => Double, from: Double => A): BSONHandler[A] =
-    doubleAsIntHandler(to, from, percentBsonMultiplier)
+  def percentAsIntHandler[A](using p: Percent[A]): BSONHandler[A] =
+    doubleAsIntHandler(p.value, p.apply, percentBsonMultiplier)
+
   def ratioAsIntHandler[A](to: A => Double, from: Double => A): BSONHandler[A] =
     doubleAsIntHandler(to, from, ratioBsonMultiplier)
 

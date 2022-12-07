@@ -279,31 +279,32 @@ final class Challenge(
 
   def toFriend(id: String) =
     AuthBody { implicit ctx => _ =>
-      import play.api.data.*
-      import play.api.data.Forms.*
-      implicit val req: Request[?] = ctx.body
-      OptionFuResult(api byId id) { c =>
-        if (isMine(c))
-          Form(
-            single("username" -> lila.user.UserForm.historicalUsernameField)
-          ).bindFromRequest()
-            .fold(
-              _ => funit,
-              username =>
-                ChallengeIpRateLimit(ctx.ip) {
-                  env.user.repo byId username flatMap {
-                    case None                       => Redirect(routes.Challenge.show(c.id)).toFuccess
-                    case Some(dest) if ctx.is(dest) => Redirect(routes.Challenge.show(c.id)).toFuccess
-                    case Some(dest) =>
-                      env.challenge.granter.isDenied(ctx.me, dest, c.perfType.some) flatMap {
-                        case Some(denied) =>
-                          showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
-                        case None => api.setDestUser(c, dest) inject Redirect(routes.Challenge.show(c.id))
-                      }
-                  }
-                }(rateLimitedFu)
-            )
-        else notFound
+      NoBot {
+        import play.api.data.*
+        import play.api.data.Forms.*
+        implicit val req: Request[?] = ctx.body
+        OptionFuResult(api byId id) { c =>
+          if (isMine(c))
+            Form(single("username" -> lila.user.UserForm.historicalUsernameField))
+              .bindFromRequest()
+              .fold(
+                _ => funit,
+                username =>
+                  ChallengeIpRateLimit(ctx.ip) {
+                    env.user.repo byId username flatMap {
+                      case None                       => Redirect(routes.Challenge.show(c.id)).toFuccess
+                      case Some(dest) if ctx.is(dest) => Redirect(routes.Challenge.show(c.id)).toFuccess
+                      case Some(dest) =>
+                        env.challenge.granter.isDenied(ctx.me, dest, c.perfType.some) flatMap {
+                          case Some(denied) =>
+                            showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
+                          case None => api.setDestUser(c, dest) inject Redirect(routes.Challenge.show(c.id))
+                        }
+                    }
+                  }(rateLimitedFu)
+              )
+          else notFound
+        }
       }
     }
 

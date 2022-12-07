@@ -4,6 +4,8 @@ import reactivemongo.api.commands.WriteResult
 
 export lila.Lila.{ *, given }
 
+trait NoDbHandler[A] // don't create default BSON handlers for this type
+
 def recoverDuplicateKey[A](f: WriteResult => A): PartialFunction[Throwable, A] =
   case wr: WriteResult if isDuplicateKey(wr) => f(wr)
 

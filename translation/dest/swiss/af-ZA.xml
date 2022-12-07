@@ -36,8 +36,11 @@
   <string name="numberOfRoundsHelp">\'n Onewe aantal rondes voorsien optimale kleur balans.</string>
   <string name="roundInterval">Interval tussen rondes</string>
   <string name="forbiddenPairings">Voorbode indelings</string>
+  <string name="forbiddenPairingsHelp">Gebruikersname van spelers wat nie teen mekaar mag speel nie (byvoorbeeld gesinslede). Twee gebruikersname, met \'n spasie tussen in, per lyntjie.</string>
   <string name="newSwiss">Nuwe Switserse toernooi</string>
   <string name="swissVsArenaQ">Wanneer om switserse toernooie in plaas van arenas te gebruik?</string>
+  <string name="swissVsArenaA">In \'n Switserse toernooi, speel alle deelnemers die selfde aantal spelle, en kan sleg eenkeer teen mekaar speel.
+Dit kan \'n goeie opsie wees vir klubs en amptelike toernooie.</string>
   <string name="pointsCalculationQ">Hoe word punte toegeken?</string>
   <string name="tiebreaksCalculationQ">Hoe word gelykop breuke bepaal?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger telling</string>
@@ -53,6 +56,7 @@ Tel die tellings van die spelers wat deur die speler gewen is op asook halfte va
   <string name="restrictedToTeamsA">Switserse toernooie is nie ontwerp vir aanlyn skaak nie. Dit verg stiptilikheid, toewyding en gedult van spelers.
 Ons dink hierdie voorwaardes is meer waarskynlik binne \'n span, as in werêlds-toernooie.</string>
   <string name="numberOfByesQ">Hoeveel loslootjies kan \'n speler kry?</string>
+  <string name="unlimitedAndFree">Onbeperk en verniet</string>
   <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">%1$s / %2$s rondte Switsers</item>
     <item quantity="other">%1$s / %2$s rondtes Switsers</item>
