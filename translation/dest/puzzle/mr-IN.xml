@@ -73,8 +73,8 @@
   <string name="fromXGamesFound">%1$s कोडे %2$s यांच्या खेळात मिळाले</string>
   <string name="puzzleDashboardDescription">प्रशिक्षण, विश्लेषण, सुधारणा</string>
   <plurals name="nbPlayed">
-    <item quantity="one">%s खेळताहेत</item>
-    <item quantity="other">%s खेळताहेत</item>
+    <item quantity="one">%s खेळले</item>
+    <item quantity="other">%s खेळली</item>
   </plurals>
   <plurals name="nbToReplay">
     <item quantity="one">%s परत सोडवा</item>
