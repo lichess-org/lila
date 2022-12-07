@@ -75,15 +75,15 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def absClientDateTime(date: DateTime): Tag =
     timeTag(cls := "timeago abs", datetimeAttr := isoDate(date))("-")
 
-  def momentFromNowOnce(date: DateTime) = momentFromNow(date, once = true)
+  def momentFromNowOnce(date: DateTime): Tag = momentFromNow(date, once = true)
 
-  def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false) =
+  def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false): Tag =
     momentFromNow(DateTime.now plusSeconds seconds, alwaysRelative)
 
   def momentFromNowServer(date: DateTime): Frag =
     timeTag(title := f"${showEnglishDateTime(date)} UTC")(momentFromNowServerText(date))
 
-  def momentFromNowServerText(date: DateTime): Frag =
+  def momentFromNowServerText(date: DateTime): String =
     val (dateSec, nowSec) = (date.getMillis / 1000, nowSeconds)
     val seconds           = (nowSec - dateSec).toInt atLeast 0
     val minutes           = seconds / 60
