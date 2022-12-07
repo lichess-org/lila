@@ -6,7 +6,7 @@ import Tagify from '@yaireo/tagify';
 lichess.load.then(() => {
   const $editor = $('.coach-edit');
 
-  const todo = (function () {
+  const todo = (function() {
     const $overview = $editor.find('.overview');
     const $el = $overview.find('.todo');
     const $listed = $editor.find('#form3-listed');
@@ -37,7 +37,7 @@ lichess.load.then(() => {
         html: 'Fill at least 3 description texts',
         check() {
           return (
-            $editor.find('.panel.texts textarea').filter(function (this: HTMLTextAreaElement) {
+            $editor.find('.panel.texts textarea').filter(function(this: HTMLTextAreaElement) {
               return !!$(this).val();
             }).length >= 3
           );
@@ -45,7 +45,7 @@ lichess.load.then(() => {
       },
     ];
 
-    return function () {
+    return function() {
       const points: Cash[] = must.filter(o => !o.check()).map(o => $('<li>').html(o.html));
       const $ul = $el.find('ul').empty();
       points.forEach(p => $ul.append(p));
@@ -56,7 +56,28 @@ lichess.load.then(() => {
     };
   })();
 
-  $editor.find('.tabs > div').on('click', function (this: HTMLElement) {
+  { // languages
+    const langInput = document.getElementById('form3-languages') as HTMLInputElement;
+    const whitelistJson = langInput.getAttribute('data-all');
+    const whitelist = whitelistJson ? (JSON.parse(whitelistJson) as Tagify.TagData[]) : undefined;
+    const tagify = new Tagify(langInput, {
+      maxTags: 10,
+      whitelist,
+      enforceWhitelist: true,
+      dropdown: {
+        enabled: 1,
+      },
+    });
+    tagify.addTags(
+      langInput
+        .getAttribute('data-value')
+        ?.split(',')
+        .map(code => whitelist?.find(l => l.code == code))
+        .filter(notNull) as Tagify.TagData[]
+    );
+  }
+
+  $editor.find('.tabs > div').on('click', function(this: HTMLElement) {
     $editor.find('.tabs > div').removeClass('active');
     $(this).addClass('active');
     $editor.find('.panel').removeClass('active');
@@ -71,15 +92,11 @@ lichess.load.then(() => {
       todo();
     });
   }, 1000);
-  $editor.find('input, textarea, select').on('input paste change keyup', function () {
-    $editor.find('div.status').removeClass('saved');
-    submit();
-  });
 
   if ($editor.find('.reviews .review').length) $editor.find('.tabs div[data-tab=reviews]').trigger('click');
 
   const $reviews = $editor.find('.reviews');
-  $reviews.find('.actions a').on('click', function (this: HTMLAnchorElement) {
+  $reviews.find('.actions a').on('click', function(this: HTMLAnchorElement) {
     const $review = $(this).parents('.review');
     xhr.text($review.data('action') + '?v=' + $(this).data('value'), { method: 'post' });
     $review.hide();
@@ -87,29 +104,16 @@ lichess.load.then(() => {
     return false;
   });
 
-  $('.coach_picture form.upload input[type=file]').on('change', function (this: HTMLInputElement) {
+  $('.coach_picture form.upload input[type=file]').on('change', function(this: HTMLInputElement) {
     $('.picture_wrap').html(lichess.spinnerHtml);
     ($(this).parents('form')[0] as HTMLFormElement).submit();
   });
 
-  const langInput = document.getElementById('form3-languages') as HTMLInputElement;
-  const whitelistJson = langInput.getAttribute('data-all');
-  const whitelist = whitelistJson ? (JSON.parse(whitelistJson) as Tagify.TagData[]) : undefined;
-  const tagify = new Tagify(langInput, {
-    maxTags: 10,
-    whitelist,
-    enforceWhitelist: true,
-    dropdown: {
-      enabled: 1,
-    },
-  });
-  tagify.addTags(
-    langInput
-      .getAttribute('data-value')
-      ?.split(',')
-      .map(code => whitelist?.find(l => l.code == code))
-      .filter(notNull) as Tagify.TagData[]
-  );
-
-  todo();
+  setTimeout(() => {
+    $editor.find('input, textarea, select').on('input paste change keyup', function() {
+      $editor.find('div.status').removeClass('saved');
+      submit();
+    });
+    todo();
+  }, 1000);
 });
