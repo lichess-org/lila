@@ -1,12 +1,13 @@
 import * as cps from 'node:child_process';
 import * as path from 'node:path';
 import * as es from 'esbuild';
-import { preModule, bundleDone } from './build';
-import { LichessModule, env, errorMark, colors as c } from './main';
+import { preModule, buildModules } from './build';
+import { env, errorMark, colors as c } from './main';
 
-export async function esbuildWatch(todo: LichessModule[]): Promise<void> {
+export async function esbuild(): Promise<void> {
+  if (!env.esbuild) env.done(0, 'esbuild'); // if not watching, will exit
   const entryPoints: { [key: string]: string } = {};
-  for (const mod of todo) {
+  for (const mod of buildModules) {
     if (mod.bundle)
       for (const r of mod.bundle) {
         entryPoints[r.output] = path.join(mod.root, r.input);
@@ -17,7 +18,7 @@ export async function esbuildWatch(todo: LichessModule[]): Promise<void> {
   }
   try {
     await es.build({
-      sourcemap: 'inline',
+      sourcemap: env.prod ? false : 'inline',
       define: {
         __info__: JSON.stringify({
           date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
@@ -30,8 +31,10 @@ export async function esbuildWatch(todo: LichessModule[]): Promise<void> {
       logLevel: 'silent',
       bundle: true,
       outdir: env.jsDir,
-      watch: true,
+      watch: env.watch,
+      minify: env.prod,
       entryPoints: entryPoints,
+      outExtension: { '.js': env.prod ? '.min.js' : '.js' },
       plugins: [/*onStartPlugin, onLoadPlugin,*/ onEndPlugin],
     });
   } catch (e: any) {
@@ -68,10 +71,7 @@ const onEndPlugin = {
       for (const warn of result.warnings) {
         esbuildMessage(warn);
       }
-      const report = result.errors.length === 0 ? `${c.good('No errors')} - ` : `${result.errors} errors - `;
-      env.log(`${report}${c.grey('Watching')}...`, { ctx: 'esbuild' });
-
-      bundleDone(0);
+      env.done(result.errors.length, 'esbuild');
     });
   },
 };

@@ -62,7 +62,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   const chartLoader = () =>
-    `<div id="acpl-chart-loader"><span>Stockfish 15<br>server analysis</span>${lichess.spinnerHtml}</div>`;
+    `<div id="acpl-chart-loader"><span>Stockfish 15.1<br>server analysis</span>${lichess.spinnerHtml}</div>`;
 
   function startAdvantageChart() {
     if (advChart || window.LichessAnalyseNvui) return;

@@ -3,33 +3,65 @@ import * as fs from 'node:fs';
 import * as ps from 'node:process';
 import * as path from 'node:path';
 import { env, colors as c, lines, errorMark } from './main';
+import { buildModules } from './build';
 import { globArray } from './parse';
 
+const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
 const importMap = new Map<string, Set<string>>(); // (cssFile, sourcesThatImportIt)
+const partialRe = /(.*)\/_(.*)\.scss$/;
+const importRe = /@import ['"](.*)['"]/g;
+const builder = new (class {
+  fileSet = new Set<string>();
+  timeout: NodeJS.Timeout | undefined;
+  themedSources: Set<string>;
 
-export async function sassWatch(): Promise<void> {
+  clear() {
+    clearTimeout(this.timeout);
+    this.timeout = undefined;
+    this.fileSet.clear();
+  }
+
+  add(files: string[]): boolean {
+    // filenames relative to lila/ui
+    const oldCount = this.fileSet.size;
+    files.forEach(src => imports(src).forEach(dest => this.fileSet.add(dest)));
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.timeout = setTimeout(this.fire.bind(this), 200);
+    return this.fileSet.size > oldCount;
+  }
+
+  fire() {
+    compile([...this.fileSet].filter(x => this.themedSources.has(x)));
+    this.clear();
+  }
+})();
+
+export async function sass(): Promise<void> {
   builder.clear();
   importMap.clear();
 
   await buildThemedScss();
+  const allThemed = await globArray('./*/css/**/[^_]*.scss', { abs: false });
+  const modNames = buildModules.map(x => x.name);
+  builder.themedSources = new Set<string>(allThemed.filter(x => modNames.find(y => x.startsWith(`${y}${path.sep}`))));
 
-  builder.themedSources = new Set<string>(await globArray('./*/css/**/[^_]*.scss', { abs: false }));
-
-  for (const dir of [...importMap.keys()].map(path.dirname)) {
-    const watcher = fs.watch(dir);
-    watcher.on('change', onChanges.bind(null, dir));
-    watcher.on('error', (err: Error) => env.error(err, 'sass'));
-    watcher.on('close', () => {
-      env.error('Watch done. Exiting', 'sass');
-      ps.exit(-1);
-    });
-  }
-  env.log('Building css', { ctx: 'sass' });
-  sassBuild([...builder.themedSources], false);
-  return;
+  if (env.watch)
+    for (const dir of [...importMap.keys()].map(path.dirname)) {
+      const watcher = fs.watch(dir);
+      watcher.on('change', onChanges.bind(null, dir));
+      watcher.on('error', (err: Error) => env.error(err, 'sass'));
+      watcher.on('close', () => {
+        env.error('Watcher closed unexpectedly. Exiting', 'bleep');
+        ps.exit(-1);
+      });
+    }
+  if (builder.themedSources.size) {
+    env.log('Building css', { ctx: 'sass' });
+    compile([...builder.themedSources], false);
+  } else env.done(0, 'sass');
 }
-
-const partialRe = /(.*)\/_(.*)\.scss$/;
 
 async function buildThemedScss() {
   env.log('Building themed scss', { ctx: 'sass' });
@@ -64,9 +96,7 @@ async function buildThemedScss() {
   }
 }
 
-const params = ['--no-error-css', '--embed-sources', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
-
-function sassBuild(sources: string[], tellTheWorld = true) {
+function compile(sources: string[], tellTheWorld = true) {
   if (tellTheWorld) {
     for (const srcFile of sources) {
       env.log(`Building '${c.cyan(srcFile)}'`, { ctx: 'sass' });
@@ -74,31 +104,27 @@ function sassBuild(sources: string[], tellTheWorld = true) {
   }
   const sassExec = path.join(env.bleepDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
 
-  const proc = cps.spawn(sassExec, params.concat(sources.map(sassArgument)));
+  // TODO: vendor prefixes for prod builds
+  const proc = cps.spawn(
+    sassExec,
+    sassArgs.concat(
+      env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
+      sources.map(
+        (src: string) =>
+          `${src}:${path.join(
+            env.cssDir,
+            path.basename(src).replace(/(.*)scss$/, env.prod ? '$1min.css' : '$1dev.css')
+          )}`
+      )
+    )
+  );
 
   proc.stdout?.on('data', (buf: Buffer) => {
     const txts = lines(buf.toString('utf8'));
     for (const txt of txts) env.log(c.red(txt), { ctx: 'sass' });
   });
   proc.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
-  proc.on('close', (code: number) => {
-    if (code === 0) env.good('sass');
-    else env.log(`${c.red('Errors found')} - ${c.grey('Watching')}...`, { ctx: 'sass' });
-  });
-}
-
-const sassArgument = (src: string) =>
-  `${src}:${path.join(env.cssDir, src.slice(src.lastIndexOf(path.sep) + 1).replace(/(.*)scss$/, '$1dev.css'))}`;
-
-const hrule = '---------------------------------------------------------------------------';
-
-function sassError(error: string) {
-  for (const err of lines(error)) {
-    if (err.startsWith('Error:')) {
-      env.log(c.grey(hrule), { ctx: 'sass' });
-      env.log(`${errorMark} - ${err.slice(7)}`, { ctx: 'sass' });
-    } else env.log(err, { ctx: 'sass' });
-  }
+  proc.on('close', (code: number) => env.done(code, 'sass'));
 }
 
 function imports(srcFile: string, bset = new Set<string>()): Set<string> {
@@ -119,35 +145,6 @@ function onChanges(dir: string, eventType: string, srcFile: string): void {
     });
   }
 }
-
-const builder = new (class {
-  fileSet = new Set<string>();
-  timeout: NodeJS.Timeout | undefined;
-  themedSources: Set<string>;
-
-  clear() {
-    clearTimeout(this.timeout);
-    this.timeout = undefined;
-    this.fileSet.clear();
-  }
-
-  add(files: string[]): boolean {
-    // filenames relative to lila/ui
-    const oldCount = this.fileSet.size;
-    files.forEach(src => imports(src).forEach(dest => this.fileSet.add(dest)));
-    if (!this.timeout) {
-      this.timeout = setTimeout(this.fire.bind(this), 200);
-    }
-    return this.fileSet.size > oldCount;
-  }
-
-  fire() {
-    sassBuild([...this.fileSet].filter(x => this.themedSources.has(x)));
-    this.clear();
-  }
-})();
-
-const importRe = /@import ['"](.*)['"]/g;
 
 async function parseImports(src: string, depth = 1, processed = new Set<string>()) {
   if (depth > 10) {
@@ -175,4 +172,15 @@ async function parseImports(src: string, depth = 1, processed = new Set<string>(
 function resolvePartial(partial: string): string {
   const nameBegin = partial.lastIndexOf(path.sep) + 1;
   return `${partial.slice(0, nameBegin)}_${partial.slice(nameBegin)}.scss`;
+}
+
+const hrule = '---------------------------------------------------------------------------';
+
+function sassError(error: string) {
+  for (const err of lines(error)) {
+    if (err.startsWith('Error:')) {
+      env.log(c.grey(hrule), { ctx: 'sass' });
+      env.log(`${errorMark} - ${err.slice(7)}`, { ctx: 'sass' });
+    } else env.log(err, { ctx: 'sass' });
+  }
 }
