@@ -19,6 +19,12 @@
   <string name="tournamentWrite">Criar, atualizar e participar em torneios</string>
   <string name="racerWrite">Criar e participar em corridas de desafios</string>
   <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Ler a atividade do quebra-cabeça</string>
+  <string name="teamRead">Ler informações privadas da equipa</string>
+  <string name="teamWrite">Participar e sair das equipas</string>
+  <string name="teamLead">Gerencie equipes que lidera: envie MPs, exclua membros</string>
+  <string name="followRead">Ler jogadores seguidos</string>
+  <string name="followWrite">Siga e deixe de seguir outros jogadores</string>
   <string name="msgWrite">Enviar mensagem privada a outros jogadores</string>
+  <string name="boardPlay">Jogue partidas com a api do tabuleiro</string>
   <string name="engineWrite">Criar e atualizar o motor externo</string>
 </resources>
