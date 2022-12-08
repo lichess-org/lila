@@ -9,14 +9,17 @@ import help from './help';
 import info from './info';
 import boards from './boards';
 import Ctrl from './ctrl';
+import { ViewTab } from './interfaces';
 import { bind } from 'common/snabbdom';
+
+let forceRender = false;
 
 // layout bifurcation due to the preset/filter tab views being hoisted to top level in portrait mode
 export function view(ctrl: Ctrl) {
   window.onresize = debounce(() => {
     forceRender = true;
     ctrl.redraw();
-  }, 10);
+  }, 33);
   if (isLandscapeLayout()) {
     ctrl.vm.view = 'combined';
     return landscapeView(ctrl);
@@ -29,8 +32,6 @@ export function view(ctrl: Ctrl) {
 export function isLandscapeLayout() {
   return isAtLeastXSmall() || window.innerWidth > window.innerHeight;
 }
-
-let forceRender = false;
 
 // Key that determines whether or not renderMain needs to get rerendered
 const cacheKey = (ctrl: Ctrl) => {
@@ -63,22 +64,30 @@ const panelTabData = (ctrl: Ctrl, panel: 'filter' | 'preset') => ({
   hook: bind('click', () => ctrl.setPanel(panel)),
 });
 
-const viewTabData = (ctrl: Ctrl, view: 'presets' | 'filters' | 'insights' | 'combined') => ({
+const viewTabData = (ctrl: Ctrl, view: ViewTab) => ({
   class: { active: ctrl.vm.view === view },
   hook: bind('click', () => ctrl.setView(view)),
 });
 
+// we can't use css media queries for most sizing decisions due to differences in the
+// landscape vs portrait layouts, sorry for all the js formatting.
 function header(ctrl: Ctrl) {
   return h('header', widthStyle(mainW()), [
-    isAtLeastMedium() ? h('h2.text', { attrs: { 'data-icon': '' } }, 'Chess Insights') : null,
-    axis(ctrl),
+    isAtLeastXSmall(mainW())
+      ? h('h2.text', { attrs: { 'data-icon': '' } }, 'Chess Insights')
+      : isAtLeastXXSmall(mainW())
+      ? h('h2.text', { attrs: { 'data-icon': '' } }, 'Insights')
+      : mainW() >= 460
+      ? h('h2.text', 'Insights')
+      : null,
+    axis(ctrl, mainW() < 460 ? { attrs: { style: 'justify-content: space-evenly;' } } : null),
   ]);
 }
 
 function landscapeView(ctrl: Ctrl) {
   return h('main#insight', containerStyle(), [
     h('div', { attrs: { class: ctrl.vm.loading ? 'loading' : 'ready' } }, [
-      h('div.left-side', widthStyle(sideW()), [
+      h('div', widthStyle(sideW()), [
         info(ctrl),
         h('div.panel-tabs', [
           h('a.tab.preset', panelTabData(ctrl, 'preset'), 'Presets'),
@@ -126,10 +135,7 @@ function clearBtn(ctrl: Ctrl) {
   return isLandscapeLayout() ? btn() : h('div.center-clear', btn());
 }
 
-type Point = {
-  x: number;
-  y: number;
-}; // y = f(x), not necessarily a point onscreen
+type Point = { x: number; y: number }; // y = f(x), not necessarily a point onscreen
 
 function interpolateBetween(t: number, p1: Point, p2: Point) {
   if (t < p1.x || p2.x <= p1.x) return p1.y;
@@ -160,12 +166,12 @@ const containerStyle = () => ({
     // i would encrypt this if i could.  just look away
     style:
       ` width: ${availW()}px;` +
-      ` --insight-header-height: ${interpolateBetween(mainW(), { x: 500, y: 30 }, { x: 800, y: 60 })}px;` +
-      ` --insight-drop-menu-width: ${interpolateBetween(mainW(), { x: 320, y: 154 }, { x: 480, y: 180 })}px;` +
+      ` --header-height: ${interpolateBetween(mainW(), { x: 500, y: 30 }, { x: 800, y: 60 })}px;` +
+      ` --drop-menu-width: ${interpolateBetween(mainW(), { x: 320, y: 154 }, { x: 800, y: 200 })}px;` +
       ` --chart-height: ${Math.max(300, Math.min(600, window.innerHeight - 100))}px;`,
   },
 });
 
-const isAtLeastXSmall = () => window.innerWidth >= 650; // $mq-x-small
-const isAtLeastSmall = () => window.innerWidth >= 800; // $mq-small
-const isAtLeastMedium = () => window.innerWidth >= 980; // $mq-medium
+const isAtLeastXXSmall = (w = window.innerWidth) => w >= 500; // $mq-xx-small
+const isAtLeastXSmall = (w = window.innerWidth) => w >= 650; // $mq-x-small
+const isAtLeastSmall = (w = window.innerWidth) => w >= 800; // $mq-small

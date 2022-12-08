@@ -51,6 +51,11 @@ export const isIOS = (): boolean => /iPad|iPhone|iPod/.test(navigator.userAgent)
 
 export const isIPad = (): boolean => navigator?.maxTouchPoints > 2 && /MacIntel/.test(navigator.userAgent);
 
-const hasMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+let hasMouse: boolean;
 
-export const isTouchDevice = (): boolean => !hasMouse;
+export function isTouchDevice(): boolean {
+  if (hasMouse === undefined) {
+    hasMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  }
+  return !hasMouse;
+}

@@ -1,6 +1,6 @@
 import { throttlePromiseDelay } from 'common/throttle';
 import * as xhr from 'common/xhr';
-import { Chart, Dimension, Env, Metric, Question, UI, EnvUser, Vm, Filters } from './interfaces';
+import { Chart, Dimension, Env, Metric, Question, UI, EnvUser, Vm, Filters, ViewTab } from './interfaces';
 import { isLandscapeLayout } from './view';
 
 export default class {
@@ -55,7 +55,7 @@ export default class {
     this.redraw();
   }
 
-  setView(view: 'presets' | 'filters' | 'insights' | 'combined') {
+  setView(view: ViewTab) {
     this.vm.view = view;
     this.redraw();
   }
