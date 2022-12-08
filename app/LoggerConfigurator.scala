@@ -17,22 +17,13 @@ private class LoggerConfigurator {
     LoggerFactory.getILoggerFactory
   }
 
-  def configure(): Unit = {
+  def configure(): Unit =
+    configure(
+      Map("application.home" -> new File(".").getAbsolutePath),
+      new File(sys.props.get("logger.file").getOrElse("conf/logger.dev.xml")).toURI.toURL
+    )
 
-    // Get an explicitly configured file URL
-    def explicitFileUrl = sys.props.get("logger.file").map(new File(_).toURI.toURL)
-
-    // Get an explicitly configured URL
-    def explicitUrl = sys.props.get("logger.url").map(new URL(_))
-
-    val configUrl = explicitFileUrl.orElse(explicitUrl)
-
-    val props = Map("application.home" -> new File(".").getAbsolutePath)
-
-    configure(props, configUrl)
-  }
-
-  def configure(properties: Map[String, String], config: Option[URL]): Unit = {
+  def configure(properties: Map[String, String], configUrl: URL): Unit = {
     // Touching LoggerContext is not thread-safe, and so if you run several
     // application tests at the same time (spec2 / scalatest with "new WithApplication()")
     // then you will see NullPointerException as the array list loggerContextListenerList
@@ -77,14 +68,9 @@ private class LoggerConfigurator {
 
     properties.foreach { case (k, v) => ctx.putProperty(k, v) }
 
-    config match {
-      case Some(url) =>
-        println(s"Configuring logback with $url")
-        val initializer = new ContextInitializer(ctx)
-        initializer.configureByResource(url)
-      case None =>
-        println("Could not detect a logback configuration file, not configuring logback")
-    }
+    println(s"Configuring logback with $configUrl")
+    val initializer = new ContextInitializer(ctx)
+    initializer.configureByResource(configUrl)
 
     StatusPrinter.printIfErrorsOccured(ctx)
     // }
