@@ -18,10 +18,10 @@
   <string name="white">Brancas</string>
   <string name="black">Pretas</string>
   <string name="asWhite">como brancas</string>
-  <string name="asBlack">como pretas</string>
+  <string name="asBlack">com as pretas</string>
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
-  <string name="whiteIsVictorious">as brancas ganham</string>
+  <string name="whiteIsVictorious">Brancas vencem</string>
   <string name="blackIsVictorious">as pretas ganham</string>
   <string name="youPlayTheWhitePieces">Tu jogas com as peças brancas</string>
   <string name="youPlayTheBlackPieces">Tu jogas com as peças pretas</string>
@@ -221,7 +221,9 @@
   <string name="waitForSignupHelp">Nós entraremos brevemente em contacto para ajudá-lo a completar a inscrição.</string>
   <string name="accountConfirmed">O utilizador %s foi confirmado com sucesso.</string>
   <string name="accountCanLogin">Pode agora aceder como %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Não precisa de um endereço eletrónico de confirmação.</string>
   <string name="accountClosed">A conta %s está encerrada.</string>
+  <string name="accountRegisteredWithoutEmail">A conta %s foi registada sem um endereço eletrónico.</string>
   <string name="rank">Classificação</string>
   <string name="rankX">Posição: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
