@@ -18,7 +18,7 @@ Compile / doc / sources                := Seq.empty
 Compile / packageDoc / publishArtifact := false
 Compile / packageSrc / publishArtifact := false
 Compile / run / fork                   := true
-javaOptions ++= Seq("-Xms64m", "-Xmx512m", "-Dlogger.file=conf/logger.prod.xml")
+javaOptions ++= Seq("-Xms64m", "-Xmx512m", "-Dlogger.file=conf/logger.dev.xml")
 // shorter prod classpath
 scriptClasspath             := Seq("*")
 Compile / resourceDirectory := baseDirectory.value / "conf"

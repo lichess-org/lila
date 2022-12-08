@@ -1,14 +1,6 @@
 package lila.app
 
 import java.io._
-import java.nio.file.FileAlreadyExistsException
-import java.nio.file.Files
-import java.nio.file.StandardOpenOption
-
-import scala.concurrent.Future
-
-import akka.Done
-import akka.actor.CoordinatedShutdown
 
 import play.api.{ Application, Environment, ApplicationLoader, Play, Configuration, Mode }
 import play.core.server.{
@@ -20,10 +12,10 @@ import play.core.server.{
   ServerProvider
 }
 
-/** Used to start servers in 'prod' mode, the mode that is used in production. The application is loaded and
-  * started immediately.
-  */
-object ProdServerStart {
+// The program entry point.
+// To run with bloop:
+// /path/to/bloop run lila -m lila.app.ServerStart -c /path/to/lila/.bloop
+object ServerStart {
 
   /** Start a prod mode server from the command line.
     */
@@ -38,6 +30,7 @@ object ProdServerStart {
     */
   def start(process: ServerProcess): Server = {
     try {
+      // Configure logback early - before play invokes Logger
       new LoggerConfigurator().configure()
       // Read settings
       val config: ServerConfig = readServerConfigSettings(process)
