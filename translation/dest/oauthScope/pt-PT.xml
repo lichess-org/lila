@@ -26,5 +26,9 @@
   <string name="followWrite">Siga e deixe de seguir outros jogadores</string>
   <string name="msgWrite">Enviar mensagem privada a outros jogadores</string>
   <string name="boardPlay">Jogue partidas com a api do tabuleiro</string>
+  <string name="botPlay">Jogue partidas com a api do bot</string>
+  <string name="engineRead">Ver e usar seus motores externos</string>
   <string name="engineWrite">Criar e atualizar o motor externo</string>
+  <string name="webLogin">Crie sessões de sites autenticados (garante acesso completo!)</string>
+  <string name="webMod">Use ferramentas de moderação (dentro dos limites da sua permissão)</string>
 </resources>
