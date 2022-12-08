@@ -1,7 +1,7 @@
 import { throttlePromiseDelay } from 'common/throttle';
 import * as xhr from 'common/xhr';
 import { Chart, Dimension, Env, Metric, Question, UI, EnvUser, Vm, Filters } from './interfaces';
-import { isViewportAtLeastXSmall } from 'common/viewport';
+import { isLandscapeLayout } from './view';
 
 export default class {
   env: Env;
@@ -42,7 +42,7 @@ export default class {
       broken: false,
       answer: null,
       panel: Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset',
-      view: isViewportAtLeastXSmall() ? 'combined' : 'questions',
+      view: isLandscapeLayout() ? 'combined' : 'presets',
     };
   }
 
@@ -55,7 +55,7 @@ export default class {
     this.redraw();
   }
 
-  setView(view: 'questions' | 'filters' | 'answers' | 'combined') {
+  setView(view: 'presets' | 'filters' | 'insights' | 'combined') {
     this.vm.view = view;
     this.redraw();
   }
@@ -91,7 +91,7 @@ export default class {
                 (answer: Chart) => {
                   this.vm.answer = answer;
                   this.vm.loading = false;
-                  if (this.userAsked) this.vm.view = 'answers';
+                  if (this.userAsked) this.vm.view = 'insights';
                   this.userAsked = false;
                   this.redraw();
                 },

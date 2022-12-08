@@ -6,7 +6,7 @@ export interface Vm {
   broken: boolean;
   answer: Chart | null;
   panel: 'filter' | 'preset';
-  view: 'combined' | 'questions' | 'filters' | 'answers';
+  view: 'combined' | 'presets' | 'filters' | 'insights';
 }
 
 export interface Env {

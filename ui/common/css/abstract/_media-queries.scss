@@ -1,7 +1,5 @@
 /* Widths */
 
-$mq-at-least-360: min-width 360px;
-$mq-at-least-400: min-width 400px;
 $mq-xx-small: min-width 500px;
 $mq-x-small: min-width 650px;
 $mq-small: min-width 800px;
@@ -9,7 +7,6 @@ $mq-medium: min-width 980px;
 $mq-large: min-width 1120px;
 $mq-x-large: min-width 1260px;
 
-$mq-less-than-360: max-width 359px;
 $mq-less-than-400: max-width 399px;
 $mq-not-xx-small: max-width 499px;
 $mq-not-x-small: max-width 649px;

@@ -11,8 +11,36 @@ import boards from './boards';
 import Ctrl from './ctrl';
 import { bind } from 'common/snabbdom';
 
-let forceRenderMain = false;
-const sizer = () => ({ attrs: { style: `width: ${window.innerWidth}px;` } });
+// layout bifurcation due to the preset/filter tab views being hoisted to top level in portrait mode
+export function view(ctrl: Ctrl) {
+  window.onresize = debounce(() => {
+    forceRender = true;
+    ctrl.redraw();
+  }, 10);
+  if (isLandscapeLayout()) {
+    ctrl.vm.view = 'combined';
+    return landscapeView(ctrl);
+  } else if (ctrl.vm.view === 'combined') {
+    ctrl.vm.view = 'insights';
+  }
+  return portraitView(ctrl);
+}
+
+export function isLandscapeLayout() {
+  return isAtLeastXSmall() || window.innerWidth > window.innerHeight;
+}
+
+let forceRender = false;
+
+// Key that determines whether or not renderMain needs to get rerendered
+const cacheKey = (ctrl: Ctrl) => {
+  if (forceRender) {
+    forceRender = false;
+    return Date.now().toString(); // cache buster
+  }
+  const q = ctrl.vm.answer?.question;
+  return q ? ctrl.makeUrl(q.dimension, q.metric, q.filters) : ctrl.vm.broken;
+};
 
 const renderMain = (ctrl: Ctrl, _cacheKey: string | boolean) => {
   if (ctrl.vm.broken)
@@ -25,17 +53,9 @@ const renderMain = (ctrl: Ctrl, _cacheKey: string | boolean) => {
 
   if (!ctrl.vm.answer) return h('div'); // returning undefined breaks snabbdom's thunks
 
-  return h('div', sizer(), [chart(ctrl), vert(ctrl, sizer()), boards(ctrl, sizer())]);
-};
+  const sizer = widthStyle(mainW());
 
-// Key that determines whether or not renderMain needs to get rerendered
-const cacheKey = (ctrl: Ctrl) => {
-  if (forceRenderMain) {
-    forceRenderMain = false;
-    return Date.now().toString(); // cache buster
-  }
-  const q = ctrl.vm.answer?.question;
-  return q ? ctrl.makeUrl(q.dimension, q.metric, q.filters) : ctrl.vm.broken;
+  return h('div', sizer, [chart(ctrl), vert(ctrl, sizer), boards(ctrl, sizer)]);
 };
 
 const panelTabData = (ctrl: Ctrl, panel: 'filter' | 'preset') => ({
@@ -44,7 +64,7 @@ const panelTabData = (ctrl: Ctrl, panel: 'filter' | 'preset') => ({
   hook: bind('click', () => ctrl.setPanel(panel)),
 });
 
-const viewTabData = (ctrl: Ctrl, view: 'questions' | 'filters' | 'answers' | 'combined') => ({
+const viewTabData = (ctrl: Ctrl, view: 'presets' | 'filters' | 'insights' | 'combined') => ({
   class: { active: ctrl.vm.view === view },
   hook: bind('click', () => {
     ctrl.setView(view);
@@ -52,86 +72,104 @@ const viewTabData = (ctrl: Ctrl, view: 'questions' | 'filters' | 'answers' | 'co
 });
 
 function header(ctrl: Ctrl) {
-  return h('header', sizer(), [
-    window.innerWidth >= 980 // $mq-medium
-      ? h('h2.text', { attrs: { 'data-icon': '' } }, 'Chess Insights')
-      : null,
+  return h('header', widthStyle(mainW()), [
+    isAtLeastMedium() ? h('h2.text', { attrs: { 'data-icon': '' } }, 'Chess Insights') : null,
     axis(ctrl),
   ]);
 }
 
-export function view(ctrl: Ctrl) {
-  window.onresize = debounce(() => {
-    forceRenderMain = true;
-    ctrl.redraw();
-  }, 200);
-  if (window.innerWidth > 600) {
-    ctrl.vm.view = 'combined';
-    return wideView(ctrl);
-  } else if (ctrl.vm.view === 'combined') ctrl.vm.view = 'answers';
-  return narrowView(ctrl);
-}
-
-// these two view layouts could not be accomplished via grids as the presets/filters tab buttons are
-// elevated to a "questions, filters, answers" tab group at the top on mobile version
-
-function wideView(ctrl: Ctrl) {
-  return h('main#insight', sizer(), [
+function landscapeView(ctrl: Ctrl) {
+  return h('main#insight', containerStyle(), [
     h('div', { attrs: { class: ctrl.vm.loading ? 'loading' : 'ready' } }, [
-      h('div.left-side', [
+      h('div.left-side', widthStyle(sideW()), [
         info(ctrl),
         h('div.panel-tabs', [
           h('a.tab.preset', panelTabData(ctrl, 'preset'), 'Presets'),
           h('a.tab.filter', panelTabData(ctrl, 'filter'), 'Filters'),
-          clearBtn(ctrl, false),
+          clearBtn(ctrl),
         ]),
         ctrl.vm.panel === 'filter' ? filters(ctrl) : null,
         ctrl.vm.panel === 'preset' ? presets(ctrl) : null,
         help(ctrl),
       ]),
-      header(ctrl),
-      thunk('div.insight__main.box', renderMain, [ctrl, cacheKey(ctrl)]),
+      spacer(),
+      h('div', widthStyle(mainW()), [header(ctrl), thunk('div.insight__main.box', renderMain, [ctrl, cacheKey(ctrl)])]),
     ]),
   ]);
 }
 
-function narrowView(ctrl: Ctrl) {
-  return h('main#insight', sizer(), [
+function portraitView(ctrl: Ctrl) {
+  return h('main#insight', containerStyle(), [
     h('div.view-tabs', [
-      h('div.tab', viewTabData(ctrl, 'questions'), 'Questions'),
+      h('div.tab', viewTabData(ctrl, 'presets'), 'Presets'),
       h('div.tab', viewTabData(ctrl, 'filters'), 'Filters'),
-      h('div.tab', viewTabData(ctrl, 'answers'), 'Answers'),
+      h('div.tab', viewTabData(ctrl, 'insights'), 'Insights'),
     ]),
     h(
       'div',
-      { attrs: { class: ctrl.vm.loading ? 'loading' : 'ready' } },
-      ctrl.vm.view === 'answers'
+      { attrs: { class: ctrl.vm.loading ? 'loading' : 'ready', style: 'display: block' } },
+      ctrl.vm.view === 'insights'
         ? [header(ctrl), thunk('div.insight__main.box', renderMain, [ctrl, cacheKey(ctrl)])]
         : h('div.left-side', [
             info(ctrl),
-            ctrl.vm.view === 'filters' ? clearBtn(ctrl, true) : null,
-            ctrl.vm.view === 'questions' ? presets(ctrl) : filters(ctrl),
+            ctrl.vm.view === 'filters' ? clearBtn(ctrl) : null,
+            ctrl.vm.view === 'presets' ? presets(ctrl) : filters(ctrl),
           ])
     ),
   ]);
 }
 
-function clearBtn(ctrl: Ctrl, narrowView: boolean) {
+function clearBtn(ctrl: Ctrl) {
   const btn = () =>
     h(
       'a.clear',
       { attrs: { title: 'Clear all filters', 'data-icon': '' }, hook: bind('click', ctrl.clearFilters.bind(ctrl)) },
-      narrowView ? 'CLEAR FILTERS' : 'CLEAR'
+      isLandscapeLayout() ? 'CLEAR' : 'CLEAR FILTERS'
     );
-  return narrowView ? h('div.center-clear', btn()) : btn();
+  return isLandscapeLayout() ? btn() : h('div.center-clear', btn());
 }
-/*
-function mainWidth() {
-  const windowWidth = Math.min(1300, window.innerWidth);
-  if (!vp.isViewportAtLeastXSmall()) return windowWidth;
 
-  const gapWidth = Math.floor(windowWidth * 0.01); // 1vw
-  return vp.isViewportAtLeastSmall() ? windowWidth - 280 - 4 * gapWidth : windowWidth - 200 - 2 * gapWidth;
-  // 280 & 200 are side widths from #insight.div in _insight.scss
+type Point = {
+  x: number;
+  y: number;
+}; // y = f(x), not necessarily a point onscreen
+
+function interpolateBetween(t: number, p1: Point, p2: Point) {
+  if (t < p1.x || p2.x <= p1.x) return p1.y; // min
+  else if (t > p2.x) return p2.y; // max
+  else return Math.floor(p1.y + ((p2.y - p1.y) / (p2.x - p1.x)) * (t - p1.x)); // between
 }
-*/
+
+const totalW = () => Math.min(1300, window.innerWidth);
+
+const vw = () => Math.floor(totalW() * 0.01); // 1vw in CSS
+
+const availW = () => totalW() - (isAtLeastSmall() ? 2 * vw() : 0); // edge gaps from page grid
+
+const spacer = () => (isLandscapeLayout() ? h('span', widthStyle(gapW())) : null);
+
+const sideW = () =>
+  // width of the side in landscape layout, no side in portrait
+  isLandscapeLayout() ? interpolateBetween(totalW(), { x: 400, y: 160 }, { x: 800, y: 280 }) : 0;
+
+const gapW = () =>
+  // width of the spacer between side & main in landscape, no gap in portrait
+  isLandscapeLayout() ? interpolateBetween(totalW(), { x: 480, y: vw() }, { x: 800, y: 2 * vw() }) : 0;
+
+const mainW = () => availW() - (!isLandscapeLayout() ? 0 : sideW() - gapW());
+
+const widthStyle = (width: number) => ({ attrs: { style: `width: ${width}px;` } });
+
+const containerStyle = () => ({
+  attrs: {
+    style:
+      ` width: ${availW()}px;` +
+      ` --insight-header-height: ${interpolateBetween(mainW(), { x: 500, y: 30 }, { x: 800, y: 60 })}px;` +
+      ` --insight-drop-menu-width: ${interpolateBetween(mainW(), { x: 320, y: 154 }, { x: 480, y: 180 })}px;` +
+      ` --chart-height: ${Math.max(300, Math.min(600, window.innerHeight - 100))}px;`,
+  }, // i would encrypt this if i could.  just look away
+});
+
+const isAtLeastXSmall = () => window.innerWidth >= 650; // $mq-x-small
+const isAtLeastSmall = () => window.innerWidth >= 800; // $mq-small
+const isAtLeastMedium = () => window.innerWidth >= 980; // $mq-medium

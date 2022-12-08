@@ -1,46 +1,14 @@
 @import './filters';
 
 #insight {
+  --chart-height: 550px; // these are scaled in view.ts
   --insight-header-height: 60px;
-  --chart-height: 550px;
-  @include breakpoint($mq-not-small) {
-    --insight-header-height: 50px;
-    --chart-height: 500px;
-  }
-  @include breakpoint($mq-not-x-small) {
-    --insight-header-height: 40px;
-    --chart-height: 450px;
-  }
-  @include breakpoint($mq-not-xx-small) {
-    --insight-header-height: 30px;
-    --chart-height: 400px;
-  }
-
   --insight-drop-menu-width: 180px;
-  @include breakpoint($mq-less-than-400) {
-    --insight-drop-menu-width: 172px;
-    --chart-height: 350px;
-  }
-  @include breakpoint($mq-less-than-360) {
-    --insight-drop-menu-width: 154px;
-    --chart-height: 300px;
-  }
   
   > div {
-    display: grid;
-    grid-template-columns: 280px auto;
-    grid-template-rows: var(--insight-header-height);
-    grid-template-areas: 'side head' 'side main';
-    grid-gap: 0 $block-gap;
-
-    @include breakpoint($mq-not-small) {
-      // tablets can still get grid view
-      grid-template-columns: 200px auto;
-    }
-    @include breakpoint($mq-not-x-small) {
-      // phones in portrait do not
-      display: block;
-    }
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
   }
 
   .view-tabs {
