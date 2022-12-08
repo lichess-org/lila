@@ -8,7 +8,7 @@ export default class {
   ui: UI;
   user: EnvUser;
   own: boolean;
-  userAsked = false;
+  isUserAction = false;
   domElement: Element;
   redraw: () => void;
 
@@ -91,12 +91,12 @@ export default class {
                 (answer: Chart) => {
                   this.vm.answer = answer;
                   this.vm.loading = false;
-                  if (this.userAsked) this.vm.view = 'insights';
-                  this.userAsked = false;
+                  if (this.isUserAction) this.vm.view = 'insights';
+                  this.isUserAction = false;
                   this.redraw();
                 },
                 () => {
-                  this.userAsked = false;
+                  this.isUserAction = false;
                   this.vm.loading = false;
                   this.vm.broken = true;
                   this.redraw();
@@ -163,7 +163,7 @@ export default class {
       ...q.filters,
       variant: (this.vm.view === 'combined' && this.vm.filters.variant) || q.filters.variant,
     };
-    this.userAsked = true;
+    this.isUserAction = true;
     this.askQuestion();
     $(this.domElement).find('select.ms').multipleSelect('open');
     setTimeout(() => {
@@ -177,6 +177,5 @@ export default class {
       this.askQuestion();
     }
   }
-
   // this.trans = lichess.trans(env.i18n);
 }

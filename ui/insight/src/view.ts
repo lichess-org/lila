@@ -43,18 +43,17 @@ const cacheKey = (ctrl: Ctrl) => {
 };
 
 const renderMain = (ctrl: Ctrl, _cacheKey: string | boolean) => {
-  if (ctrl.vm.broken)
+  if (!ctrl.vm.answer) {
+    return h('div'); // returning undefined breaks snabbdom's thunks
+  } else if (ctrl.vm.broken) {
     return h('div.broken', [
       h('i', { attrs: { 'data-icon': '' } }),
       'Insights are unavailable.',
       h('br'),
       'Please try again later.',
     ]);
-
-  if (!ctrl.vm.answer) return h('div'); // returning undefined breaks snabbdom's thunks
-
+  }
   const sizer = widthStyle(mainW());
-
   return h('div', sizer, [chart(ctrl), vert(ctrl, sizer), boards(ctrl, sizer)]);
 };
 
@@ -66,9 +65,7 @@ const panelTabData = (ctrl: Ctrl, panel: 'filter' | 'preset') => ({
 
 const viewTabData = (ctrl: Ctrl, view: 'presets' | 'filters' | 'insights' | 'combined') => ({
   class: { active: ctrl.vm.view === view },
-  hook: bind('click', () => {
-    ctrl.setView(view);
-  }),
+  hook: bind('click', () => ctrl.setView(view)),
 });
 
 function header(ctrl: Ctrl) {
@@ -135,18 +132,14 @@ type Point = {
 }; // y = f(x), not necessarily a point onscreen
 
 function interpolateBetween(t: number, p1: Point, p2: Point) {
-  if (t < p1.x || p2.x <= p1.x) return p1.y; // min
-  else if (t > p2.x) return p2.y; // max
+  if (t < p1.x || p2.x <= p1.x) return p1.y;
+  else if (t > p2.x) return p2.y;
   else return Math.floor(p1.y + ((p2.y - p1.y) / (p2.x - p1.x)) * (t - p1.x)); // between
 }
 
 const totalW = () => Math.min(1300, window.innerWidth);
-
 const vw = () => Math.floor(totalW() * 0.01); // 1vw in CSS
-
 const availW = () => totalW() - (isAtLeastSmall() ? 2 * vw() : 0); // edge gaps from page grid
-
-const spacer = () => (isLandscapeLayout() ? h('span', widthStyle(gapW())) : null);
 
 const sideW = () =>
   // width of the side in landscape layout, no side in portrait
@@ -158,16 +151,19 @@ const gapW = () =>
 
 const mainW = () => availW() - (!isLandscapeLayout() ? 0 : sideW() - gapW());
 
+const spacer = () => (isLandscapeLayout() ? h('span', widthStyle(gapW())) : null); // between side & main
+
 const widthStyle = (width: number) => ({ attrs: { style: `width: ${width}px;` } });
 
 const containerStyle = () => ({
   attrs: {
+    // i would encrypt this if i could.  just look away
     style:
       ` width: ${availW()}px;` +
       ` --insight-header-height: ${interpolateBetween(mainW(), { x: 500, y: 30 }, { x: 800, y: 60 })}px;` +
       ` --insight-drop-menu-width: ${interpolateBetween(mainW(), { x: 320, y: 154 }, { x: 480, y: 180 })}px;` +
       ` --chart-height: ${Math.max(300, Math.min(600, window.innerHeight - 100))}px;`,
-  }, // i would encrypt this if i could.  just look away
+  },
 });
 
 const isAtLeastXSmall = () => window.innerWidth >= 650; // $mq-x-small
