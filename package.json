@@ -36,7 +36,8 @@
   "scripts": {
     "format": "prettier --write .",
     "check-format": "prettier --check .",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "serverlog": "multitail -cT ansi -l 'journalctl --user -fu lila -o cat' -cT ansi -I .metals/metals.log"
   },
   "workspaces": [
     "ui",
