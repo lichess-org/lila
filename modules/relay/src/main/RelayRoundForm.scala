@@ -1,32 +1,33 @@
 package lila.relay
 
-import io.lemonlabs.uri.AbsoluteUrl
+import io.mola.galimatias.URL
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
-import scala.util.chaining._
+import play.api.data.*
+import play.api.data.Forms.*
+import scala.util.Try
+import scala.util.chaining.*
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, into, given }
 import lila.game.Game
 import lila.security.Granter
 import lila.study.Study
 import lila.user.User
 
-final class RelayRoundForm {
+final class RelayRoundForm:
 
-  import RelayRoundForm._
+  import RelayRoundForm.*
   import lila.common.Form.ISODateTimeOrTimestamp
 
   val roundMapping =
     mapping(
-      "name" -> cleanText(minLength = 3, maxLength = 80),
+      "name" -> cleanText(minLength = 3, maxLength = 80).into[RelayRoundName],
       "syncUrl" -> optional {
-        cleanText(minLength = 8, maxLength = 600).verifying("Invalid source", validSource _)
+        cleanText(minLength = 8, maxLength = 600).verifying("Invalid source", validSource)
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "startsAt"     -> optional(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
       "throttle"     -> optional(number(min = 2, max = 60))
-    )(Data.apply)(Data.unapply)
+    )(Data.apply)(unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
 
   def create(trs: RelayTour.WithRounds) = Form {
@@ -35,39 +36,41 @@ final class RelayRoundForm {
         s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
         _ => trs.rounds.sizeIs < RelayTour.maxRelays
       )
-  }.fill(Data(name = s"Round ${trs.rounds.size + 1}", syncUrlRound = Some(trs.rounds.size + 1)))
+  }.fill(
+    Data(name = RelayRoundName(s"Round ${trs.rounds.size + 1}"), syncUrlRound = Some(trs.rounds.size + 1))
+  )
 
   def edit(r: RelayRound) = Form(roundMapping) fill Data.make(r)
-}
 
-object RelayRoundForm {
+object RelayRoundForm:
 
-  case class GameIds(ids: List[Game.ID])
+  case class GameIds(ids: List[GameId])
 
-  private def toGameIds(ids: String): Option[GameIds] = {
-    val list = ids.split(' ').view.map(_.trim take Game.gameIdSize).filter(Game.validId).toList
+  private def toGameIds(ids: String): Option[GameIds] =
+    val list = ids.split(' ').view.map(i => Game strToId i.trim).filter(Game.validId).toList
     (list.sizeIs > 0 && list.sizeIs <= Study.maxChapters) option GameIds(list)
-  }
 
   private def validSource(source: String): Boolean =
-    validUrl(source) || toGameIds(source).isDefined
+    cleanUrl(source).isDefined || toGameIds(source).isDefined
 
-  private def validUrl(source: String): Boolean =
-    AbsoluteUrl.parseOption(source).exists { url =>
-      url.hostOption
-        .exists { host =>
-          host.toString != "localhost" &&
-          host.toString != "127.0.0.1" &&
-          host.apexDomain.fold(true) { apex =>
-            !blocklist.contains(apex) && (
-              // only allow public API, not arbitrary URLs
-              apex != "chess.com" || url.toString.startsWith("https://api.chess.com/pub")
-            )
-          }
-        }
-    }
+  private def cleanUrl(source: String): Option[String] =
+    for {
+      url <- Try(URL.parse(source)).toOption
+      if url.scheme == "http" || url.scheme == "https"
+      host <- Option(url.host).map(_.toHostString)
+      // prevent common mistakes (not for security)
+      if !blocklist.exists(subdomain(host, _))
+      if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub")
+    } yield url.toString.stripSuffix("/")
+
+  private def subdomain(host: String, domain: String) = s".$host".endsWith(s".$domain")
 
   private val blocklist = List(
+    "localhost",
+    "127.0.0.1",
+    "0.0.0.0",
+    "[::1]",
+    "[::]",
     "twitch.tv",
     "twitch.com",
     "youtube.com",
@@ -75,7 +78,6 @@ object RelayRoundForm {
     "lichess.org",
     "google.com",
     "vk.com",
-    "localhost",
     "chess-results.com",
     "chessgames.com",
     "zoom.us",
@@ -84,21 +86,16 @@ object RelayRoundForm {
   )
 
   case class Data(
-      name: String,
+      name: RelayRoundName,
       syncUrl: Option[String] = None,
       syncUrlRound: Option[Int] = None,
       startsAt: Option[DateTime] = None,
       throttle: Option[Int] = None
-  ) {
+  ):
 
     def requiresRound = syncUrl exists RelayRound.Sync.UpstreamUrl.LccRegex.matches
 
     def roundMissing = requiresRound && syncUrlRound.isEmpty
-
-    def cleanUrl: Option[String] =
-      syncUrl.filter(validUrl).map { u =>
-        u stripSuffix "/"
-      }
 
     def gameIds = syncUrl flatMap toGameIds
 
@@ -114,7 +111,7 @@ object RelayRoundForm {
 
     private def makeSync(user: User) =
       RelayRound.Sync(
-        upstream = cleanUrl.map { u =>
+        upstream = syncUrl.flatMap(cleanUrl).map { u =>
           RelayRound.Sync.UpstreamUrl(s"$u${syncUrlRound.??(" " +)}")
         } orElse gameIds.map { ids =>
           RelayRound.Sync.UpstreamIds(ids.ids)
@@ -136,9 +133,8 @@ object RelayRoundForm {
         startsAt = startsAt,
         startedAt = none
       )
-  }
 
-  object Data {
+  object Data:
 
     def make(relay: RelayRound) =
       Data(
@@ -151,5 +147,3 @@ object RelayRoundForm {
         startsAt = relay.startsAt,
         throttle = relay.sync.delay
       )
-  }
-}

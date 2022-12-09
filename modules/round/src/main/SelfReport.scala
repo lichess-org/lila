@@ -1,9 +1,13 @@
 package lila.round
 
-import scala.concurrent.duration._
+import com.softwaremill.tagging.*
+import scala.concurrent.duration.*
+import scala.util.matching.Regex
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.IpAddress
+import lila.common.{ IpAddress, Strings }
 import lila.game.Game
+import lila.memo.SettingStore
 import lila.user.{ User, UserRepo }
 
 final class SelfReport(
@@ -11,63 +15,58 @@ final class SelfReport(
     gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
     ircApi: lila.irc.IrcApi,
-    proxyRepo: GameProxyRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+    proxyRepo: GameProxyRepo,
+    endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,
+    markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
+)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
 
-  private val whitelist = Set("treehugger")
-
-  private val onceEvery = lila.memo.OnceEvery(1 hour)
+  private val onceEvery = lila.memo.OnceEvery[UserId](1 hour)
 
   def apply(
-      userId: Option[User.ID],
+      userId: Option[UserId],
       ip: IpAddress,
-      fullId: Game.FullId,
+      fullId: GameFullId,
       name: String
   ): Funit =
-    !userId.exists(whitelist.contains) ?? {
-      userId.??(userRepo.named) flatMap { user =>
-        val known = user.exists(_.marks.engine)
-        lila.mon.cheat.cssBot.increment()
-        // user.ifTrue(!known && name != "ceval") ?? { u =>
-        //   Env.report.api.autoBotReport(u.id, referer, name)
-        // }
-        def doLog(): Unit =
-          if (name != "ceval") {
-            lila
-              .log("cheat")
-              .branch("jslog")
-              .info(
-                s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
-              )
-            user.filter(u => onceEvery(u.id)) foreach { u =>
-              ircApi.selfReport(
-                typ = name,
-                path = fullId.value,
-                user = u,
-                ip = ip
-              )
-            }
+    userId ?? userRepo.byId map { user =>
+      val known = user.exists(_.marks.engine)
+      // user.ifTrue(!known && name != "ceval") ?? { u =>
+      //   Env.report.api.autoBotReport(u.id, referer, name)
+      // }
+      def doLog(): Unit =
+        if (name != "ceval")
+          lila.log("cheat").branch("jslog").info {
+            s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
           }
-        if (name == "kb" || fullId.value == "____________") fuccess(doLog())
-        else
-          proxyRepo.pov(fullId.value) flatMap {
-            _ ?? { pov =>
-              if (!known) doLog()
+          user.filter(u => onceEvery(u.id)) foreach { u =>
+            lila.mon.cheat.selfReport(name, userId.isDefined).increment()
+            ircApi.selfReport(
+              typ = name,
+              path = fullId.value,
+              user = u,
+              ip = ip
+            )
+          }
+      if (fullId.value == "____________") doLog()
+      else
+        proxyRepo.pov(fullId) foreach {
+          _ ?? { pov =>
+            if (!known) doLog()
+            user foreach { u =>
               if (
-                Set("ceval", "rcb", "cma", "lga")(name) ||
+                endGameSetting.get().matches(name) ||
                 (name.startsWith("soc") && (
                   name.contains("stockfish") || name.contains("userscript") ||
                     name.contains("__puppeteer_evaluation_script__")
                 ))
-              ) fuccess {
-                if (userId.isDefined) tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
-                user.ifTrue(name == "cma") foreach { u =>
+              ) tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
+              if (markUserSetting.get().matches(name))
+                scheduler.scheduleOnce(
+                  (10 + ThreadLocalRandom.nextInt(24 * 60)).minutes
+                ) {
                   lila.common.Bus.publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
                 }
-              }
-              else gameRepo.setBorderAlert(pov).void
             }
           }
-      }
+        }
     }
-}

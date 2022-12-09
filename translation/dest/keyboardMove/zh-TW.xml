@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="keyboardInputCommands">鍵盤輸入指令</string>
+  <string name="kingsideCastle">王翼易位</string>
+  <string name="queensideCastle">后翼易位</string>
+  <string name="offerOrAcceptDraw">提出或接受和棋</string>
+  <string name="readOutClocks">讀出時鐘</string>
+  <string name="otherCommands">其他命令</string>
+  <string name="tips">提示</string>
+</resources>

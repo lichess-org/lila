@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Come posso diventare un moderatore?</string>
   <string name="youCannotApply">Non è possibile fare domanda per diventare un moderatore. Se vediamo qualcuno che pensiamo possa essere un moderatore, li contatteremo direttamente.</string>
   <string name="isCorrespondenceDifferent">La partite per corrispondenza sono diverse dagli scacchi normali?</string>
+  <string name="pleaseReadFairPlayPage">Per ulteriori informazioni, leggi la nostra %s</string>
+  <string name="fairPlayPage">pagina sul fair play</string>
   <string name="youCanUseOpeningBookNoEngine">Su Lichess, la principale differenza nelle regole per gli scacchi per corrispondenza è che è consentito un libro di apertura. L\'uso dei motori scacchistici è ancora proibito e comporterà la loro segnalazione per l\'utilizzo del computer. Sebbene ICCF consenta l\'uso dei motori scacchistici nel gioco per corrispondenza, Lichess no.</string>
   <string name="gameplay">Dinamica di gioco</string>
   <string name="howBulletBlitzEtcDecided">Come vengono decisi Bullet, Blitz e altre cadenze di gioco?</string>
@@ -60,8 +62,8 @@ Nota che può essere possibile dare scacco matto con un solo cavallo o alfiere s
 
 Vedi l\'%3$s su questa mossa per fare un po\' di pratica con essa.</string>
   <string name="goodIntroduction">buona introduzione</string>
-  <string name="officialRulesPDF">regole ufficiali (PDF)</string>
   <string name="lichessTraining">Allenamento Lichess</string>
+  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Guarda il Maestro Internazionale Eric Rosen mentre fa scacco matto \"%s\".</string>
   <string name="threefoldRepetition">Triplice ripetizione</string>
   <string name="threefoldRepetitionExplanation">Se una posizione avviene tre volte, i giocatori possono chiamare una patta da %1$s. Lichess implementa le regole ufficiali della FIDE, come descritto nell\'articolo 9.2 (d) del %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triplice ripetizione</string>

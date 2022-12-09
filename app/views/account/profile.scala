@@ -1,27 +1,28 @@
 package views.html
 package account
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import play.api.i18n.Lang
 
 import controllers.routes
 
-object profile {
+object profile:
 
-  private val linksHelp = frag(
+  private def linksHelp()(implicit lang: Lang) = frag(
     "Twitter, Facebook, GitHub, Chess.com, ...",
     br,
-    "One URL per line."
+    trans.oneUrlPerLine()
   )
 
-  def apply(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) =
+  def apply(u: lila.user.User, form: play.api.data.Form[?])(implicit ctx: Context) =
     account.layout(
       title = s"${u.username} - ${trans.editProfile.txt()}",
       active = "editProfile"
     ) {
       div(cls := "account box box-pad")(
-        h1(trans.editProfile()),
+        h1(cls := "box__top")(trans.editProfile()),
         standardFlash(),
         postForm(cls := "form3", action := routes.Account.profileApply)(
           div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),
@@ -49,11 +50,10 @@ object profile {
               )(form3.input(_, typ = "number"))
             }
           ),
-          form3.group(form("links"), trans.socialMediaLinks(), help = Some(linksHelp)) { f =>
+          form3.group(form("links"), trans.socialMediaLinks(), help = Some(linksHelp())) { f =>
             form3.textarea(f)(rows := 5)
           },
           form3.action(form3.submit(trans.apply()))
         )
       )
     }
-}

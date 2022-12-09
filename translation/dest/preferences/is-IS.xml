@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Stillingar</string>
-  <string name="gameDisplay">Stillingar leiks</string>
   <string name="pieceAnimation">Hreyfing taflmanna</string>
   <string name="materialDifference">Liðsmunur</string>
   <string name="boardHighlights">Upplýsa borð (á síðasta leik og skák)</string>
@@ -32,7 +31,7 @@
   <string name="promoteToQueenAutomatically">Vekja upp drottningu sjálfvirkt</string>
   <string name="whenPremoving">Við fyrirframleik</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krefjast sjálfkrafa jafnteflis þegar þrír leikir hafa verið endurteknir</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Þegar tími eftir er undir 30 sekúndum</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Þegar tími eftir er undir 30 sekúndum</string>
   <string name="moveConfirmation">Staðfesta leik</string>
   <string name="inCorrespondenceGames">Bréfaskákleikir</string>
   <string name="correspondenceAndUnlimited">Bréfaskipti og ótakmarkað</string>

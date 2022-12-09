@@ -11,13 +11,14 @@
   <string name="level">სირთულის დონე</string>
   <string name="strength">თამაშის დონე</string>
   <string name="toggleTheChat">სასაუბროს გამოჩენა</string>
-  <string name="toggleSound">ხმის ჩართვა</string>
   <string name="chat">სასაუბრო</string>
   <string name="resign">დათმობა</string>
   <string name="checkmate">შამათი</string>
   <string name="stalemate">პატი</string>
   <string name="white">თეთრები</string>
   <string name="black">შავები</string>
+  <string name="asWhite">როგროც თეთრი</string>
+  <string name="asBlack">როგორც შავი</string>
   <string name="randomColor">შემთხვევითი ფერი</string>
   <string name="createAGame">თამაშის შექმნა</string>
   <string name="whiteIsVictorious">თეთრებმა გაიმარჯვეს</string>
@@ -25,6 +26,7 @@
   <string name="youPlayTheWhitePieces">თქვენ თამაშობთ თეთრი ფიგურებით</string>
   <string name="youPlayTheBlackPieces">თქვენ თამაშობთ შავი ფიგურებით</string>
   <string name="itsYourTurn">თქვენი ჯერია!</string>
+  <string name="cheatDetected">თაღლითობა აღმოჩენილია</string>
   <string name="kingInTheCenter">მეფე ცენტრში</string>
   <string name="threeChecks">სამი ქიში</string>
   <string name="raceFinished">შეჯიბრი დასრულდა</string>
@@ -39,7 +41,6 @@
     <item quantity="other">მოწინააღმდეგემ დატოვა თამაში. თქვენ გაიმარჯვებთ %s წამში.</item>
   </plurals>
   <string name="opponentLeftChoices">შესაძლოა, მეტოქემ თამაში დატოვა. შეგიძლიათ მოიპოვოთ გამარჯვება, გამოაცხადოთ ფრე, ან დაელოდოთ მეტოქის დაბრუნებას.</string>
-  <string name="makeYourOpponentResign">აიძულეთ მეტოქეს დათმოს</string>
   <string name="forceResignation">გამარჯვების მოპოვება</string>
   <string name="forceDraw">ყაიმის გამოცხადება</string>
   <string name="talkInChat">გთხოვთ იყოთ კორექტული საუბრისას</string>
@@ -48,16 +49,18 @@
   <string name="blackResigned">შავებმა დათმეს</string>
   <string name="whiteLeftTheGame">თეთრებმა დატოვეს თამაში</string>
   <string name="blackLeftTheGame">შავებმა დატოვეს თამაში</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">გაუზიარეთ აღნიშნული ბმული მაყურებლებს</string>
-  <string name="theComputerAnalysisHasFailed">კომპიუტერული ანალიზი ვერ განხორციელდა</string>
-  <string name="viewTheComputerAnalysis">კომპიუტერული ანალიზის ნახვა</string>
+  <string name="whiteDidntMove">თეთრი არ გამოძრავებულა</string>
+  <string name="blackDidntMove">შავი არ გამოძრავებულა</string>
   <string name="requestAComputerAnalysis">კომპიუტერული ანალიზის მოთხოვნა</string>
   <string name="computerAnalysis">კომპიუტერული ანალიზი</string>
   <string name="computerAnalysisAvailable">შესაძლებელია კომპიუტერული ანალიზი</string>
+  <string name="computerAnalysisDisabled">კომპიუტერის ანალიზი გამორთულია</string>
   <string name="analysis">ანალიზის დაფა</string>
   <string name="depthX">სიღრმე %s</string>
   <string name="usingServerAnalysis">მიმდინარეობს სერვერის ანალიზი</string>
   <string name="loadingEngine">იტვირთება საჭადრაკო ძრავა ...</string>
+  <string name="calculatingMoves">ითვლება მოძრაობები...</string>
+  <string name="engineFailed">შეცდომა მოხდა ძრავის ჩატვირთვისას</string>
   <string name="cloudAnalysis">ქლაუდის ანალიზი</string>
   <string name="goDeeper">ღრმა ანალიზი</string>
   <string name="showThreat">საფრთხეების ჩვენება</string>
@@ -66,6 +69,7 @@
   <string name="promoteVariation">დააწინაურეთ მიმდევრობა</string>
   <string name="makeMainLine">გახადე მთავარი ხაზი</string>
   <string name="deleteFromHere">წაშალე აქედან</string>
+  <string name="forceVariation">ვარიაციის დაძალება</string>
   <string name="move">სვლა</string>
   <string name="variantLoss">წამგებიანი ვარიანტი</string>
   <string name="variantWin">მომგებიანი ვარიანტი</string>
@@ -84,9 +88,11 @@
   <string name="topGames">ტოპ თამაშები</string>
   <string name="masterDbExplanation">ორი მილიონი პარტია ფიდე %1$s+ მოთამაშეებს შორის %2$s-დან %3$s-მდე</string>
   <string name="noGameFound">თამაში ვერ მოიძებნა</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">იქნებ უფრო მეტი თამაში შეიტანოთ პრეფერენციების მენიუდან?</string>
   <string name="openingExplorer">დებიუტების გზამკვლევი</string>
   <string name="xOpeningExplorer">%sდებიუტების გზამკვლევი</string>
   <string name="winPreventedBy50MoveRule">მოგება შეუძლებელია 50 სვლის წესის გამო</string>
+  <string name="lossSavedBy50MoveRule">წაგება აღკვეთილია 50-სვლიანი წესის მიერ</string>
   <string name="allSet">ყველაფერი მზადაა!</string>
   <string name="importPgn">PGN-ის იმპორტი</string>
   <string name="delete">წაშლა</string>
@@ -152,6 +158,10 @@
     <item quantity="one">%s საათი</item>
     <item quantity="other">%s საათი</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s წუთი</item>
+    <item quantity="other">%s წუთი</item>
+  </plurals>
   <string name="time">დრო</string>
   <string name="rating">რეიტინგი</string>
   <string name="ratingStats">რაიტინგული შედეგები</string>
@@ -166,6 +176,10 @@
   <string name="forgotPassword">დაგავიწყდათ პაროლი?</string>
   <string name="rank">რანგი</string>
   <string name="rankX">რეიტინგი: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">რანკი ყოველ წუთს ახლდება</item>
+    <item quantity="other">რანკი ახლდება ყოველ %s წუთს</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ეტიუდი</item>
     <item quantity="other">%s ეტიუდები</item>
@@ -176,8 +190,9 @@
     <item quantity="other">%s თამაშები თქვენ წინააღმდეგ</item>
   </plurals>
   <string name="cancel">გაუქმება</string>
+  <string name="whiteTimeOut">თეთრს დრო ამოეწურა</string>
+  <string name="blackTimeOut">შავს დრო ამოეწურა</string>
   <string name="drawOfferSent">ყაიმის შეთავაზება გაგზავნილია</string>
-  <string name="drawOfferDeclined">ყაიმის შეთავაზება უარყოფილია</string>
   <string name="drawOfferAccepted">ყაიმის შეთავაზება მიღებულია</string>
   <string name="drawOfferCanceled">ყაიმის შეთავაზება გაუქმებულია</string>
   <string name="whiteOffersDraw">მოწინააღმდეგე გთავაზობთ ყაიმს</string>
@@ -190,6 +205,7 @@
   <string name="playingRightNow">თამაშობს ამ დროს</string>
   <string name="eventInProgress">თამაშობს ამ დროს</string>
   <string name="finished">დამთავრებული</string>
+  <string name="finishesX">რჩება %s</string>
   <string name="abortGame">თამაშის შეწყვეტა</string>
   <string name="gameAborted">თამაში შეწყვეტილია</string>
   <string name="standard">სტანდარტი</string>
@@ -202,13 +218,12 @@
   <string name="thisGameIsRated">ეს თამაში ფასდება</string>
   <string name="rematch">რევანში</string>
   <string name="rematchOfferSent">რევანშის შეთავაზება გაგზავნილია</string>
-  <string name="rematchOfferSentWhite">მოწინააღმდეგე გთავაზობთ ხელახლა თამაშს</string>
-  <string name="rematchOfferSentBlack">შავი გთავაზობთ ხელახალ პარტიას</string>
   <string name="rematchOfferAccepted">რევანშის შეთავაზება მიღებულია</string>
   <string name="rematchOfferCanceled">განმეორებით თამაშზე მოთხოვნა გაუქმებულია</string>
   <string name="rematchOfferDeclined">განმეორებით თამაშზე მოთხოვნა უარყოფილია</string>
   <string name="cancelRematchOffer">გააუქმე განმეორებით თამაშზე მოთხოვნა</string>
   <string name="viewRematch">ნახე განმეორებითი თამაში</string>
+  <string name="confirmMove">დაადასტურეთ მოძრაობა</string>
   <string name="play">თამაშის დაწყება</string>
   <string name="inbox">მიღებული</string>
   <string name="chatRoom">სასაუბრო ოთახი</string>
@@ -216,9 +231,7 @@
   <string name="youHaveBeenTimedOut">თქვენ გამოსული ხართ სისტემიდან.</string>
   <string name="spectatorRoom">მაყურებელთა ოთახი</string>
   <string name="composeMessage">შეტყობინების შექმნა</string>
-  <string name="noNewMessages">ახალი შეტყობინება არ არის</string>
   <string name="subject">საგანი</string>
-  <string name="recipient">მიმღები</string>
   <string name="send">გაგზავნა</string>
   <string name="incrementInSeconds">ზრდა წამებში</string>
   <string name="freeOnlineChess">უფასო ონლაინ ჭადრაკი</string>
@@ -238,12 +251,17 @@
     <item quantity="one">%s ფრე</item>
     <item quantity="other">%s ფრე</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s ნათამაშები</item>
+    <item quantity="other">%s ნათამაშები</item>
+  </plurals>
   <string name="exportGames">თამაშის ექსპორტი</string>
   <string name="ratingRange">ელო რეიტინგი</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">მიეცით %s წამი</item>
     <item quantity="other">მიეცით %s წამი</item>
   </plurals>
+  <string name="thisAccountViolatedTos">ამ ანგარიშმა დაარღვია Lichess-ის მომსახურების პირობები</string>
   <string name="openingExplorerAndTablebase">დებიუტის გზამკვლევი &amp; ცხრილ-ბაზა</string>
   <string name="takeback">სვლის დაბრუნება</string>
   <string name="proposeATakeback">სვლის დაბრუნების შეთავაზება</string>
@@ -259,6 +277,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s სატურნირო ქულა</item>
     <item quantity="other">%s სატურნირო ქულები</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s კვლევა</item>
+    <item quantity="other">%s კვლევა</item>
   </plurals>
   <string name="viewTournament">ნახეთ ტურნირი</string>
   <string name="backToTournament">ტურნირში დაბრუნება</string>
@@ -280,6 +302,9 @@
     <item quantity="other">თქვენ უნდა ითამაშოთ კიდევ %s რეიტინგული პარტია</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">თქვნი რეიტინგი %s არის პირობითი</string>
+  <string name="yourPerfRatingIsTooHigh">თქვენი %1$s რეიტინგი (%2$s) ძალიან მაღალია</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">თქვენი საუკეთესო ყოველკვირეული %1$s რეიტინგი (%2$s) ძალიან მაღალია</string>
+  <string name="yourPerfRatingIsTooLow">თქვენი %1$s რეიტინგი (%2$s) ძალიან დაბალია</string>
   <string name="ratedMoreThanInPerf">რეიტინგი ≥ %1$s %2$sში</string>
   <string name="ratedLessThanInPerf">რეიტინგი ≤ %1$s %2$sში</string>
   <string name="mustBeInTeam">უნდა იყოთ გუნდ %s-ში</string>
@@ -288,16 +313,22 @@
   <string name="siteDescription">უფასო ონლაინ ჭადრაკი. ითამაშე ჭადრაკი სუფთა, სადა ინტერფეისით. არანაირი რეგისტრაცია, არანაირი რეკლამა, არანაირი პლაგინი საჭირო არ არის. ეთამაშე ჭადრაკი კომპიუტერს, მეგობარს ან შემთხვევით ოპონენტს</string>
   <string name="xJoinedTeamY">%1$s დაკავშირებული ჯგუფი %2$s</string>
   <string name="xCreatedTeamY">%1$s შექმნილი ჯგუფი %2$s</string>
+  <string name="xStartedStreaming">%s-მა დაიწყო სტრიმინგი</string>
   <string name="averageElo">საშვალო ელო</string>
   <string name="location">მდებარეობა</string>
   <string name="filterGames">გაფილტრული თამაშები</string>
   <string name="reset">აღდგენა</string>
   <string name="apply">დათანხმება</string>
+  <string name="save">შენახვა</string>
   <string name="leaderboard">ლიდერი</string>
+  <string name="screenshotCurrentPosition">სქრინშოთის თავდაპირველი პოზიცია</string>
+  <string name="gameAsGIF">თამაშის GIF-ად შენახვა</string>
   <string name="pasteTheFenStringHere">ჩასვით FEN ტექსტი</string>
   <string name="pasteThePgnStringHere">ჩასვით PGN ტექსტი</string>
+  <string name="orUploadPgnFile">ან გადმოწერე PGN ფაილი</string>
   <string name="fromPosition">პოზიციიდან</string>
   <string name="continueFromHere">ამ პოზიციიდან გაგრძელება</string>
+  <string name="toStudy">კვლევად გადაკეთება</string>
   <string name="importGame">თამაშის იმპორტი</string>
   <string name="importGameExplanation">პარტიის PGN-ს დაკოპირებისას მიიღებთ სრულ თამაშს, კომპიუტერის ანალიზს, თამაშის მიმოწერას და გასაზიარებელ ლინკს.</string>
   <plurals name="nbImportedGames">
@@ -306,11 +337,14 @@
   </plurals>
   <string name="thisIsAChessCaptcha">ეს არის ჭადრაკის CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">დააჭირეთ მაგიდაზე რომ გააკეთოთ სვლა, და დაამტკიცოთ რომ ადამიანი ხართ</string>
+  <string name="captcha.fail">გთხოვთ ამოხსენით ჭადრაკის კაპჩა.</string>
   <string name="notACheckmate">არ არის მატი</string>
   <string name="retry">ხელახლა ცდა</string>
   <string name="reconnecting">რეკონექცია</string>
-  <string name="noFriendsOnline">არცერთი მეგობარი არ არის ხაზზე</string>
-  <string name="findFriends">იპოვეთ მეგობრები</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s მეგობარია ონლაინ</item>
+    <item quantity="other">%s მეგობარია ონლაინ</item>
+  </plurals>
   <string name="favoriteOpponents">საყვარელი ოპონენტები</string>
   <string name="follow">გაყოლა</string>
   <string name="following">მიმდინარე</string>
@@ -358,7 +392,6 @@
   <string name="points">ქულები</string>
   <string name="wins">იგებს</string>
   <string name="losses">აგებს</string>
-  <string name="winStreak">მოგებული ხაზი</string>
   <string name="createdBy">შემქმნელი</string>
   <string name="tournamentIsStarting">ტურნირი იწყება</string>
   <string name="tournamentPairingsAreNowClosed">ტურნირში დაწყვილებები დახურულია.</string>
@@ -373,30 +406,25 @@
   <string name="draws">ფრე</string>
   <string name="nextXTournament">შემდეგი %s ტურნირი:</string>
   <string name="averageOpponent">საშ. ოპონენტი</string>
-  <string name="membersOnly">მხოლოდ წევრები</string>
   <string name="boardEditor">დაფის რედაქტირება</string>
   <string name="setTheBoard">ადგილობრივი თამაში</string>
   <string name="popularOpenings">პოპულარული დებიუტები</string>
   <string name="startPosition">საწყისი პოზიცია</string>
   <string name="clearBoard">გაასუფთავეთ დაფა</string>
-  <string name="savePosition">პოზიციის დამახსოვრება</string>
   <string name="loadPosition">საწყისი პოზიცია</string>
   <string name="isPrivate">პირადი</string>
   <string name="reportXToModerators">შეტყობინება %s მოდერატორს</string>
   <string name="profileCompletion">პროფილის შევსება: %s</string>
   <string name="xRating">%s რეიტინგი</string>
   <string name="ifNoneLeaveEmpty">არარსებობის შემთხვევაში დატოვე ცარიელი</string>
-  <string name="gameCompletionRate">ამთავრებს პარტიების %s პროცენტს</string>
   <string name="profile">პროფილი</string>
   <string name="editProfile">პროფილის განახლება</string>
   <string name="firstName">სახელი</string>
   <string name="lastName">გვარი</string>
   <string name="biography">ბიოგრაფია</string>
   <string name="thankYou">გმადლობთ შეფასებისთვის!</string>
-  <string name="watchLichessTV">უყურეთ ტელევიზიას</string>
   <string name="previouslyOnLichessTV">წინა Lichess TV-ზე</string>
   <string name="onlinePlayers">ონლაინ მოთამაშეები</string>
-  <string name="activeToday">აქტიურები დღეს</string>
   <string name="activePlayers">აქტიური მოთამაშეები</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ყურადღებით! თამაშის შედეგი მოქმედებს რეიტინგზე, თუმცა დრო არ აითვლება.</string>
   <string name="success">წარმატება</string>
@@ -407,7 +435,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">სვლის გაკეთების შემდეგ მომდევნო თამაშზე ავტომატური გადასვლა</string>
   <string name="autoSwitch">ავტო გადართვა</string>
   <string name="puzzles">ეტიუდები</string>
-  <string name="latestUpdates">უკანასკნელი სიახლეები</string>
   <string name="tournamentWinners">ტურნირის გამარჯვებულნი</string>
   <string name="name">სახელი</string>
   <string name="description">აღწერა</string>
@@ -436,9 +463,7 @@
   <string name="error.provideOneCheatedGameLink">გთხოვთ მიუთითო სულ მცირე ერთი პარტიის ბმული სადაც თვლით რომ მოწინააღმდეგემ წესების დარღვევით ითამაშა.</string>
   <string name="by">%s-ით</string>
   <string name="thisTopicIsNowClosed">თემა დახურულია.</string>
-  <string name="theming">თემები</string>
   <string name="blog">ბლოგი</string>
-  <string name="questionsAndAnswers">კითხვა/პასუხი</string>
   <string name="notes">შენიშვნები</string>
   <string name="typePrivateNotesHere">აქ ჩაწერეთ პირადი შენიშვნები</string>
   <string name="invalidUsernameOrPassword">არასწორი მომხმარებლის სახელი ან პაროლი</string>
@@ -462,19 +487,12 @@
   <string name="onSlowGames">ნელ თამაშებზე</string>
   <string name="always">ყოველთვის</string>
   <string name="never">არასდროს</string>
-  <string name="difficultyEasy">მარტივი</string>
-  <string name="difficultyNormal">საშუალო</string>
-  <string name="difficultyHard">რთული</string>
   <string name="xCompetesInY">%1$s მონაწილეობს %2$s-ში</string>
-  <string name="xAskedY">%1$s-მ(ა) იკითხა %2$s</string>
-  <string name="xAnsweredY">%1$s-მ(ა) უპასუხა %2$s-ს</string>
-  <string name="xCommentedY">%1$s-მ(ა) კომენტარი გაუკეთა %2$s-ს</string>
   <string name="victory">გამარჯვება!</string>
   <string name="defeat">მარცხი</string>
   <string name="timeline">ისტორია</string>
   <string name="starting">დასაწყისი:</string>
   <string name="allInformationIsPublicAndOptional">ინფორმაცია საჯარო და ნებაყოფლობითია.</string>
-  <string name="yourCityRegionOrDepartment">თქვენი ქალაქი ან სხვა ადმინისტრაციული ერთეული.</string>
   <string name="biographyDescription">ისაუბრე: შენ შესახებ, შენს ინტერესებზე, თუ რა მოგწონს ჭადრაკში, შენი საყვარელი გახსნითი სვლები, საყვარელი მოთამაშეები...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">მაქსიმუმ %s სიმბოლო.</item>
@@ -489,29 +507,20 @@
   <string name="computer">კომპიუტერი</string>
   <string name="side">მხარე</string>
   <string name="clock">დრო</string>
-  <string name="unauthorizedError">დაკავშირება შეუძლებელია</string>
-  <string name="noInternetConnection">ინტერნეტთან წვდომა არ არის. თქვენ შეგიძლიათ ითამაშოთ ოფფლაინში.</string>
-  <string name="connectedToLichess">კავშირი lichess.org-თან დამყარებულია</string>
-  <string name="signedOut">თქვენ გამოსული ხართ სისტემიდან</string>
-  <string name="loginSuccessful">თქვენი ავტორიზირებული ხართ სისტემაში</string>
-  <string name="playOnTheBoardOffline">ადგილობრივი თამაში</string>
-  <string name="playOfflineComputer">ეთამაშეთ რობოტს</string>
   <string name="opponent">მოწინააღმდეგე</string>
   <string name="learnMenu">შესწავლა</string>
   <string name="community">საზოგადოება</string>
   <string name="tools">ინსტრუმენთა პანელი</string>
   <string name="increment">დანამატი</string>
-  <string name="sharePGN">PGN-ის გაზიარება</string>
-  <string name="playOnline">ქსელში თამაში</string>
-  <string name="playOffline">ადგილობრივი თამაში</string>
-  <string name="allowAnalytics">ანონიმური სტატისტიკის დაშვება</string>
-  <string name="shareGameURL">თამაშის ბმულის გაზიარება</string>
   <string name="error.required">აღნიშნული ველის შევსება სავალდებულოა</string>
-  <string name="error.email">აღნიშნული ელ. ფოსტის მისამართი მცდარია</string>
-  <string name="error.email_acceptable">აღნიშნული ელ. ფოსტის მისამართი მიუღებელია</string>
-  <string name="error.email_unique">აღნიშნული ელ. ფოსტის მისამართი უკვე გამოყენებულია</string>
+  <string name="error.email_acceptable">ეს ელ. ფოსტა მიუღებელია. გთხოვთ ხელმეორედ გადაამოწმოთ და თავიდან სცადოთ.</string>
+  <string name="error.email_unique">ელ. ფოსტის მისამართი არასწორია ან დაკავებულია</string>
   <string name="error.email_different">ეს თქვენი მოქმედი ელ. ფოსტის მისამართია</string>
+  <string name="error.min">უნდა იყოს მინიმუმ %s</string>
+  <string name="error.max">უნდა იყოს მაქსიმუმ %s</string>
   <string name="ifRatingIsPlusMinusX">თუ რეიტინგი არის +/- %s</string>
+  <string name="ifRegistered">თუ დარეგისტრირებულია</string>
+  <string name="onlyExistingConversations">მხოლოდ არსებული სასაუბროები</string>
   <string name="onlyFriends">მხოლოდ მეგობრები</string>
   <string name="menu">მენიუ</string>
   <string name="castling">როქი</string>
@@ -526,15 +535,18 @@
   <string name="tpTimeSpentOnTV">თამაშების ყურებაში დახარჯული დრო: %s</string>
   <string name="watch">თვალის მიდევნება</string>
   <string name="videoLibrary">ვიდეოთეკა</string>
+  <string name="streamersMenu">სტრიმერები</string>
   <string name="mobileApp">მობილური აპლიკაცია</string>
   <string name="webmasters">ვებმასტერები</string>
   <string name="about">შესახებ</string>
   <string name="aboutX">%s-(ი)ს შესახებ</string>
+  <string name="really">მართლა</string>
   <string name="contribute">წვლილის შეტანა</string>
   <string name="termsOfService">მომსახურების პირობები</string>
   <string name="sourceCode">პროგრამული კოდი</string>
   <string name="simultaneousExhibitions">ერთდროული საჩვენებლი თამაშები</string>
   <string name="host">მასპინძელი</string>
+  <string name="hostColorX">მასპინძლის ფერი: %s</string>
   <string name="createdSimuls">ახლად შექმნილი ერთდროული თამაშები</string>
   <string name="hostANewSimul">უმასპინძლეთ ახალ ერთდროულ თამაშებს</string>
   <string name="noSimulFound">ერთდროული თამაშები არ მოიძებნა</string>
@@ -553,7 +565,6 @@
   <string name="simulHostExtraTime">თამაშის შემქნელის დამატები დრო</string>
   <string name="lichessTournaments">Lichess ტურნირები</string>
   <string name="tournamentFAQ">Arena ტურნირის ხშირი შეკითხვები</string>
-  <string name="tournamentOfficial">ოფიციალური</string>
   <string name="timeBeforeTournamentStarts">ტურნირის დაწყებამდე დარჩენილი დრო</string>
   <string name="averageCentipawnLoss">საშუალო დანაკარგი \"პაიკ-პროცენტში\" (პაიკის მეასედი)</string>
   <string name="keyboardShortcuts">კომბინაციები კლავიატურაზე</string>
@@ -569,9 +580,13 @@
   <string name="returnToTournamentsHomepage">ტურნირების მთავარ გვერდზე დაბრუნება</string>
   <string name="yourPerfTypeRatingIsRating">შენი %1$s რეიტინგი არის %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">შენ უკეთესი ხარ ვიდრე %1$s , %2$s მოთამაშიდან</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s უკეთესია, ვიდრე %3$s-ის მოთამაშეების %2$s პროცენტი.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">შენ არ გაქვს დამკვიდრებული %s რეიტინგი.</string>
+  <string name="yourRating">თქვენი რეიტინგი</string>
+  <string name="glicko2Rating">Glicko-2 რეიტინგი</string>
   <string name="checkYourEmail">შეამოწმეთ ელ.ფოსტა</string>
   <string name="weHaveSentYouAnEmailClickTheLink">გამოგიგზავნით იმეილზე ლინკას, დააკლიკეთ და გაააქტიურეთ თქვენი ექაუნთი</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">თუ ელექტრონულ ფოსტას ვერ ხედავ, გადაამოწმეთ ადგილები, სადაც შესაძლოა იყოს, მაგალითად თქვენი ნაგვის ურნა, სპამის, სოციალური და სხვა საქაღალდეები.</string>
   <string name="weHaveSentYouAnEmailTo">ჩვენ გავაგზავნეთ შეტყობინება %s მეილზე. შეტყობინებაში დააჭირეთ ლინკს, რომ პაროლი შეცვალოთ.</string>
   <string name="networkLagBetweenYouAndLichess">ქსელი გარკვეული შუალედი შორის თქვენ და Lichess</string>
   <string name="downloadAnnotated">ანოტირებულის ჩამოტვირთვა</string>
@@ -583,22 +598,31 @@
   <string name="withNobody">არავის</string>
   <string name="withFriends">მეგობრებს</string>
   <string name="withEverybody">ყველას</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">ელექტრონული ფოსტა %s უკვე დაარეგისტრირეთ</string>
   <string name="kidMode">ბავშვის რეჟიმი</string>
   <string name="security">უსაფრთხოება</string>
+  <string name="sessions">სესიები</string>
   <string name="playChessEverywhere">ითამაშე ჭადრაკი ყველგან</string>
   <string name="asFreeAsLichess">ისევე უფასო როგორც lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">შექმნილია ჭადრაკის სიყვარულისთვის და არა ფულისთვის</string>
   <string name="zeroAdvertisement">არც ერთი რეკლამა</string>
+  <string name="fullFeatured">სრული თვისებებით</string>
   <string name="phoneAndTablet">ტელეფონი და ტაბლეტი</string>
+  <string name="bulletBlitzClassical">ტყვია, ბლიცი, კლასიკური</string>
   <string name="correspondenceChess">მიმოწერით</string>
+  <string name="onlineAndOfflinePlay">ონლაინ და ხაზგარეშე თამაში</string>
   <string name="viewTheSolution">სანახავად გადაწყვეტა</string>
+  <string name="followAndChallengeFriends">გამოყევი და გამოიწვიე მეგობრები</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">ხელმისაწვდომია %s ენაზე!</item>
     <item quantity="other">ხელმისაწვდომია %s ენებზე!</item>
   </plurals>
   <string name="gameAnalysis">თამაშის ანალიზი</string>
+  <string name="xHostsY">%1$s-ს მასპინძლობს %2$s-ს</string>
+  <string name="xJoinsY">%1$s-ს უერთდება %2$s-ს</string>
   <string name="xLikesY">%1$s-ს მოსწონს %2$s</string>
+  <string name="quickPairing">ჩქარი დაწყვილება</string>
+  <string name="anonymous">ანონიმური</string>
+  <string name="yourScore">თქვენი ქულა: %s</string>
   <string name="language">ენა</string>
   <string name="background">ფონი</string>
   <string name="light">ღია</string>
@@ -608,14 +632,14 @@
   <string name="boardGeometry">საჭადრაკო დაფის გეომეტრია</string>
   <string name="boardTheme">ჭადრაკის დაფის ფონი</string>
   <string name="boardSize">ჭადრაკის დაფის ზომა</string>
+  <string name="pieceSet">ფიგურების კომპლექტი</string>
+  <string name="embedInYourWebsite">ჩააშენეთ თქვენს საიტში</string>
   <string name="usernameAlreadyUsed">ეს მომხმარებლის სახელი უკვე მოხმარებაშია, გთხოვთ სცადეთ სხვა სახელი.</string>
+  <string name="usernamePrefixInvalid">მეტსახელი აუცილებლად უნდა დაიწყოს ასოთი.</string>
+  <string name="usernameSuffixInvalid">მისამართი აუცილებლად უნდა დამთავრდეს ასოთი ან რიცხვით.</string>
+  <string name="usernameCharsInvalid">მეტსახელი უნდა შეიცავდეს მხოლოდ ასოს, რიცხვს, ქვედატირეს და დეფისს. თანმიმდევრული ქვედატირე და დეფისი არაა ნებადართული.</string>
   <string name="chessBasics">ჭადრაკის საფუძვლები</string>
   <string name="coaches">მწვრთნელები</string>
-  <string name="error.minLength">მინიმალური სიგრძე არის %s</string>
-  <string name="error.maxLength">მაქსიმალური სიგრძე არის %s</string>
-  <string name="error.min">უნდა იყოს მეტი ან ტოლი %s_ზე</string>
-  <string name="error.max">უნდა იყოს ნაკლები ან ტოლი %s_ზე</string>
-  <string name="error.unknown">შეცდომა</string>
   <string name="notifications">შეტყობინებები</string>
   <string name="perfRatingX">რეიტინგი: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
@@ -646,4 +670,20 @@
     <item quantity="other">%s წამი</item>
   </plurals>
   <string name="conditionalPremoves">პირობითი წინასწარი სვლები</string>
+  <string name="timeoutExpires">დროის ამოწურვა მთავრდება %s-ში.</string>
+  <string name="why">რატომ?</string>
+  <string name="howToAvoidThis">როგორ ავიცილოთ ეს?</string>
+  <string name="playEveryGame">ითამაშეთ თქვენს მიერ დაწყებული ყოველი თამაში.</string>
+  <string name="tryToWin">ეცადეთ, რომ მოიგოთ (ან მინიმუმ ფრედ დაამთავროთ) ყველა თამაში.</string>
+  <string name="edit">რედაქტირება</string>
+  <string name="rapid">სწრაფი</string>
+  <string name="classical">კლასიკური</string>
+  <string name="ultraBulletDesc">გიჟურად ჩქარი თამაში: 30 წამზე ნაკლები</string>
+  <string name="bulletDesc">ძალზედ ჩქარი თამაში: 3 წუთზე ნაკლები</string>
+  <string name="blitzDesc">ჩქარი თამაში: 3-დან 8 წუთამდე</string>
+  <string name="rapidDesc">სწრაფი თამაში: 8-დან 25 წუთამდე</string>
+  <string name="classicalDesc">კლასიკური თამაში: 25 წუთი და მეტი</string>
+  <string name="important">მნიშვნელოვანი</string>
+  <string name="subscribe">გამოწერა</string>
+  <string name="unsubscribe">გამოწერის გაუქმება</string>
 </resources>

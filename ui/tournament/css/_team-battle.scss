@@ -33,7 +33,7 @@ team {
 
 .tour__standing {
   .rating {
-    padding-right: 5px;
+    padding-#{$end-direction}: 5px;
   }
 }
 
@@ -87,12 +87,12 @@ team {
   .total {
     text-align: right;
     font-weight: bold;
-    padding-right: $block-gap;
+    padding-#{$end-direction}: $block-gap;
   }
 
   tr.active td:last-child {
     background: linear-gradient(
-      to left,
+      to $start-direction,
       var(--c-link-dim) 0px,
       var(--c-link-dim) 5px,
       rgba(0, 0, 0, 0) 5px,
@@ -139,8 +139,8 @@ team {
 }
 
 .team-battle__choice {
-  a {
-    display: block;
+  button {
+    width: 100%;
     margin-top: 1rem;
   }
 }

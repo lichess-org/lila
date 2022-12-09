@@ -2,19 +2,22 @@ package views.html.user
 
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
 import controllers.routes
 
-object bits {
+object bits:
 
   def communityMenu(active: String)(implicit ctx: Context) =
     st.nav(cls := "page-menu__menu subnav")(
       a(cls := active.active("leaderboard"), href := routes.User.list)(trans.leaderboard()),
-      a(cls := active.active("ratings"), href := routes.Stat.ratingDistribution("blitz"))(
+      a(
+        cls  := active.active("ratings"),
+        href := routes.User.ratingDistribution("blitz")
+      )(
         trans.ratingStats()
       ),
       a(cls := active.active("tournament"), href := routes.Tournament.leaderboard)(
@@ -35,12 +38,11 @@ object bits {
       val bars = (1 to 4).map { b =>
         s"""<i${if (v < b) " class=\"off\"" else ""}></i>"""
       } mkString ""
-      val title = v match {
+      val title = v match
         case 1 => "Poor connection"
         case 2 => "Decent connection"
         case 3 => "Good connection"
         case _ => "Excellent connection"
-      }
       s"""<signal title="$title" class="q$v">$bars</signal>"""
     }
 
@@ -48,20 +50,19 @@ object bits {
     !u.lame ??
       rankMap.toList.sortBy(_._2).collect {
         case (perf, rank) if rank == 1 =>
-          span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(
+          span(cls  := "trophy perf top1", title := s"${perf.trans} Champion!")(
             img(src := assetUrl("images/trophy/Big-Gold-Cup.png"))
           )
         case (perf, rank) if rank <= 10 =>
-          span(cls := "trophy perf top10", title := s"${perf.trans} Top 10!")(
+          span(cls  := "trophy perf top10", title := s"${perf.trans} Top 10!")(
             img(src := assetUrl("images/trophy/Big-Silver-Cup.png"))
           )
         case (perf, rank) if rank <= 50 =>
-          span(cls := "trophy perf top50", title := s"${perf.trans} Top 50 player!")(
+          span(cls  := "trophy perf top50", title := s"${perf.trans} Top 50 player!")(
             img(src := assetUrl("images/trophy/Fancy-Gold.png"))
           )
         case (perf, rank) if rank <= 100 =>
-          span(cls := "trophy perf", title := s"${perf.trans} Top 100 player!")(
+          span(cls  := "trophy perf", title := s"${perf.trans} Top 100 player!")(
             img(src := assetUrl("images/trophy/Gold-Cup.png"))
           )
       }
-}

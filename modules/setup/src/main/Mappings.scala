@@ -1,15 +1,18 @@
 package lila.setup
 
-import play.api.data.Forms._
-import play.api.data.format.Formats._
-
+import chess.format.Fen
 import chess.Mode
-import chess.{ variant => V }
-import lila.rating.RatingRange
-import lila.lobby.Color
-import chess.format.FEN
+import chess.{ variant as V }
+import play.api.data.format.Formats.*
+import play.api.data.Forms.*
 
-private object Mappings {
+import lila.common.Days
+import lila.common.Form.{ *, given }
+import lila.game.GameRule
+import lila.lobby.Color
+import lila.rating.RatingRange
+
+private object Mappings:
 
   val variant                   = number.verifying(Config.variants contains _)
   val variantWithFen            = number.verifying(Config.variantsWithFen contains _)
@@ -30,7 +33,8 @@ private object Mappings {
   val boardApiVariantKeys      = text.verifying(boardApiVariants contains _)
   val time                     = of[Double].verifying(HookConfig validateTime _)
   val increment                = number.verifying(HookConfig validateIncrement _)
-  val days                     = lila.common.Form.numberIn(List(1, 2, 3, 5, 7, 10, 14))
+  val daysChoices              = List(1, 2, 3, 5, 7, 10, 14).map(Days(_))
+  val days                     = of[Days].verifying(mustBeOneOf(daysChoices), daysChoices.contains)
   def timeMode                 = number.verifying(TimeMode.ids contains _)
   def mode(withRated: Boolean) = optional(rawMode(withRated))
   def rawMode(withRated: Boolean) =
@@ -42,9 +46,10 @@ private object Mappings {
   val level       = number.verifying(AiConfig.levels contains _)
   val speed       = number.verifying(Config.speeds contains _)
   val fenField = optional {
-    import lila.common.Form.fen._
-    of[FEN]
-      .transform[FEN](f => FEN(f.value.trim), identity)
-      .transform[FEN](truncateMoveNumber, identity)
+    import lila.common.Form.fen.{ mapping, truncateMoveNumber }
+    mapping.transform[Fen.Epd](truncateMoveNumber, identity)
   }
-}
+  val gameRules = lila.common.Form.strings
+    .separator(",")
+    .verifying(_.forall(GameRule.byKey.contains))
+    .transform[Set[GameRule]](rs => rs.flatMap(GameRule.byKey.get).toSet, _.map(_.key).toList)

@@ -2,7 +2,7 @@ import { h, VNode } from 'snabbdom';
 import { Redraw, Close, bind, header } from './util';
 import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
-import throttle from 'common/throttle';
+import { throttlePromiseDelay } from 'common/throttle';
 
 export interface BackgroundCtrl {
   list: Background[];
@@ -37,24 +37,27 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
   const announceFail = () => lichess.announce({ msg: 'Failed to save background preference' });
 
   const reloadAllTheThings = () => {
-    if (window.Highcharts) lichess.reload();
+    if ('Highcharts' in window) lichess.reload();
   };
 
   return {
     list,
     trans,
     get: () => data.current,
-    set: throttle(700, (c: string) => {
-      data.current = c;
-      xhr
-        .text('/pref/bg', {
-          body: xhr.form({ bg: c }),
-          method: 'post',
-        })
-        .then(reloadAllTheThings, announceFail);
-      applyBackground(data, list);
-      redraw();
-    }),
+    set: throttlePromiseDelay(
+      () => 700,
+      (c: string) => {
+        data.current = c;
+        applyBackground(data, list);
+        redraw();
+        return xhr
+          .text('/pref/bg', {
+            body: xhr.form({ bg: c }),
+            method: 'post',
+          })
+          .then(reloadAllTheThings, announceFail);
+      }
+    ),
     getImage: () => data.image,
     setImage(i: string) {
       data.image = i;
@@ -80,10 +83,10 @@ export function view(ctrl: BackgroundCtrl): VNode {
       'div.selector.large',
       ctrl.list.map(bg => {
         return h(
-          'a.text',
+          'button.text',
           {
             class: { active: cur === bg.key },
-            attrs: { 'data-icon': '', title: bg.title || '' },
+            attrs: { 'data-icon': '', title: bg.title || '', type: 'button' },
             hook: bind('click', () => ctrl.set(bg.key)),
           },
           bg.name

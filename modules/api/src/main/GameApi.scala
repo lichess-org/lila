@@ -1,20 +1,20 @@
 package lila.api
 
-import chess.format.FEN
+import chess.format.Fen
 import org.joda.time.DateTime
-import play.api.libs.json._
-import reactivemongo.api.bson._
+import play.api.libs.json.*
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
-import lila.analyse.{ JsonView => analysisJson, Analysis }
-import lila.common.config._
-import lila.common.Json.jodaWrites
+import lila.analyse.{ Analysis, JsonView as analysisJson }
+import lila.common.config.*
+import lila.common.Json.given
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.db.dsl._
-import lila.db.paginator.{ Adapter, CachedAdapter }
-import lila.game.BSONHandlers._
-import lila.game.Game.{ BSONFields => G }
-import lila.game.JsonView._
+import lila.db.dsl.{ *, given }
+import lila.db.paginator.Adapter
+import lila.game.BSONHandlers.given
+import lila.game.Game.{ BSONFields as G }
+import lila.game.JsonView.given
 import lila.game.{ CrosstableApi, Game, PerfPicker }
 import lila.user.User
 
@@ -25,7 +25,7 @@ final private[api] class GameApi(
     gameCache: lila.game.Cached,
     analysisRepo: lila.analyse.AnalysisRepo,
     crosstableApi: CrosstableApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   import GameApi.WithFlags
 
@@ -39,39 +39,37 @@ final private[api] class GameApi(
       page: Int
   ): Fu[JsObject] =
     Paginator(
-      adapter = new CachedAdapter(
-        adapter = new Adapter[Game](
-          collection = gameRepo.coll,
-          selector = {
-            if (~playing) lila.game.Query.nowPlaying(user.id)
-            else
-              $doc(
-                G.playerUids -> user.id,
-                G.status $gte chess.Status.Mate.id,
-                G.analysed -> analysed.map[BSONValue] {
-                  case true => BSONBoolean(true)
-                  case _    => $doc("$exists" -> false)
-                }
-              )
-          } ++ $doc(
-            G.rated -> rated.map[BSONValue] {
-              case true => BSONBoolean(true)
-              case _    => $doc("$exists" -> false)
-            }
-          ),
-          projection = none,
-          sort = $doc(G.createdAt -> -1),
-          readPreference = ReadPreference.secondaryPreferred
-        ),
-        nbResults =
-          if (~playing) gameCache.nbPlaying(user.id)
+      adapter = new Adapter[Game](
+        collection = gameRepo.coll,
+        selector = {
+          if (~playing) lila.game.Query.nowPlaying(user.id)
           else
-            fuccess {
-              rated.fold(user.count.game) {
-                case true => user.count.rated
-                case _    => user.count.casual
+            $doc(
+              G.playerUids -> user.id,
+              G.status $gte chess.Status.Mate.id,
+              G.analysed -> analysed.map[BSONValue] {
+                case true => BSONBoolean(true)
+                case _    => $doc("$exists" -> false)
               }
+            )
+        } ++ $doc(
+          G.rated -> rated.map[BSONValue] {
+            case true => BSONBoolean(true)
+            case _    => $doc("$exists" -> false)
+          }
+        ),
+        projection = none,
+        sort = $doc(G.createdAt -> -1),
+        readPreference = ReadPreference.secondaryPreferred
+      ).withNbResults(
+        if (~playing) gameCache.nbPlaying(user.id)
+        else
+          fuccess {
+            rated.fold(user.count.game) {
+              case true => user.count.rated
+              case _    => user.count.casual
             }
+          }
       ),
       currentPage = page,
       maxPerPage = nb
@@ -81,7 +79,7 @@ final private[api] class GameApi(
       }
     }
 
-  def one(id: String, withFlags: WithFlags): Fu[Option[JsObject]] =
+  def one(id: GameId, withFlags: WithFlags): Fu[Option[JsObject]] =
     gameRepo game id flatMap {
       _ ?? { g =>
         gamesJson(withFlags)(List(g)) map (_.headOption)
@@ -98,32 +96,30 @@ final private[api] class GameApi(
       page: Int
   ): Fu[JsObject] =
     Paginator(
-      adapter = new CachedAdapter(
-        adapter = new Adapter[Game](
-          collection = gameRepo.coll,
-          selector = {
-            if (~playing) lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
-            else
-              lila.game.Query.opponents(users._1, users._2) ++ $doc(
-                G.status $gte chess.Status.Mate.id,
-                G.analysed -> analysed.map[BSONValue] {
-                  case true => BSONBoolean(true)
-                  case _    => $doc("$exists" -> false)
-                }
-              )
-          } ++ $doc(
-            G.rated -> rated.map[BSONValue] {
-              case true => BSONBoolean(true)
-              case _    => $doc("$exists" -> false)
-            }
-          ),
-          projection = none,
-          sort = $doc(G.createdAt -> -1),
-          readPreference = ReadPreference.secondaryPreferred
+      adapter = new Adapter[Game](
+        collection = gameRepo.coll,
+        selector = {
+          if (~playing) lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
+          else
+            lila.game.Query.opponents(users._1, users._2) ++ $doc(
+              G.status $gte chess.Status.Mate.id,
+              G.analysed -> analysed.map[BSONValue] {
+                case true => BSONBoolean(true)
+                case _    => $doc("$exists" -> false)
+              }
+            )
+        } ++ $doc(
+          G.rated -> rated.map[BSONValue] {
+            case true => BSONBoolean(true)
+            case _    => $doc("$exists" -> false)
+          }
         ),
-        nbResults =
-          if (~playing) gameCache.nbPlaying(users._1.id)
-          else crosstableApi(users._1.id, users._2.id).dmap(_.nbGames)
+        projection = none,
+        sort = $doc(G.createdAt -> -1),
+        readPreference = ReadPreference.secondaryPreferred
+      ).withNbResults(
+        if (~playing) gameCache.nbPlaying(users._1.id)
+        else crosstableApi(users._1.id, users._2.id).dmap(_.nbGames)
       ),
       currentPage = page,
       maxPerPage = nb
@@ -134,7 +130,7 @@ final private[api] class GameApi(
     }
 
   def byUsersVs(
-      userIds: Iterable[User.ID],
+      userIds: Iterable[UserId],
       rated: Option[Boolean],
       playing: Option[Boolean],
       analysed: Option[Boolean],
@@ -177,9 +173,9 @@ final private[api] class GameApi(
 
   private def makeUrl(game: Game) = s"${net.baseUrl}/${game.id}/${game.naturalOrientation.name}"
 
-  private def gamesJson(withFlags: WithFlags)(games: Seq[Game]): Fu[Seq[JsObject]] = {
+  private def gamesJson(withFlags: WithFlags)(games: Seq[Game]): Fu[Seq[JsObject]] =
     val allAnalysis =
-      if (withFlags.analysis) analysisRepo byIds games.map(_.id)
+      if (withFlags.analysis) analysisRepo byIds games.map(_.id.value)
       else fuccess(List.fill(games.size)(none[Analysis]))
     allAnalysis flatMap { analysisOptions =>
       (games map gameRepo.initialFen).sequenceFu map { initialFens =>
@@ -188,14 +184,13 @@ final private[api] class GameApi(
         }
       }
     }
-  }
 
   private def checkToken(withFlags: WithFlags) = withFlags applyToken apiToken.value
 
   private def gameToJson(
       g: Game,
       analysisOption: Option[Analysis],
-      initialFen: Option[FEN],
+      initialFen: Option[Fen.Epd],
       withFlags: WithFlags
   ) =
     Json
@@ -230,12 +225,15 @@ final private[api] class GameApi(
             .add("provisional" -> p.provisional)
             .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
             .add("blurs" -> withFlags.blurs.option(p.blurs.nb))
-            .add("analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color)))
+            .add(
+              "analysis" -> analysisOption
+                .flatMap(analysisJson.player(g pov p.color sideAndStart)(_, accuracy = none))
+            )
         }),
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
         "moves"    -> withFlags.moves.option(g.pgnMoves mkString " "),
-        "opening"  -> withFlags.opening.??(g.opening),
-        "fens" -> (withFlags.fens && g.finished) ?? {
+        "opening"  -> (withFlags.opening.??(g.opening): Option[chess.opening.Opening.AtPly]),
+        "fens" -> ((withFlags.fens && g.finished).?? {
           chess.Replay
             .boards(
               moveStrs = g.pgnMoves,
@@ -243,16 +241,15 @@ final private[api] class GameApi(
               variant = g.variant
             )
             .toOption map { boards =>
-            JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)
+            JsArray(boards map chess.format.Fen.writeBoard map Json.toJson)
           }
-        },
+        }: Option[JsArray]),
         "winner" -> g.winnerColor.map(_.name),
         "url"    -> makeUrl(g)
       )
       .noNull
-}
 
-object GameApi {
+object GameApi:
 
   case class WithFlags(
       analysis: Boolean = false,
@@ -262,11 +259,9 @@ object GameApi {
       moveTimes: Boolean = false,
       blurs: Boolean = false,
       token: Option[String] = none
-  ) {
+  ):
 
     def applyToken(validToken: String) =
       copy(
         blurs = token has validToken
       )
-  }
-}

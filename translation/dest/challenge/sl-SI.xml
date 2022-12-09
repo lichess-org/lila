@@ -22,4 +22,5 @@
   <string name="declineVariant">Trenutno nisem pripravljen igrati te različice.</string>
   <string name="declineNoBot">Izzivov od robotov ne sprejemam.</string>
   <string name="declineOnlyBot">Sprejemam le izzive od robotov.</string>
+  <string name="inviteLichessUser">Ali pa povabite Lichess uporabnika:</string>
 </resources>

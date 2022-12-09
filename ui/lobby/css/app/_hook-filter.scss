@@ -20,6 +20,7 @@ body {
   background: var(--bg-lobby-filter);
   height: 100%;
   white-space: nowrap;
+  display: block;
 
   td {
     padding: 1em 0;
@@ -27,19 +28,20 @@ body {
 
   td:first-child {
     font-size: 1.1em;
-    padding-right: 2rem;
+    padding-#{$end-direction}: 2rem;
     width: 25%;
     white-space: normal;
   }
 
   .checkable {
-    padding: 4.3px 0;
+    padding: 4.3px 2px 4.3px 0;
   }
 
   .checkable {
     @extend %nowrap-ellipsis;
 
-    label, input {
+    label,
+    input {
       vertical-align: middle;
       cursor: pointer;
     }
@@ -60,11 +62,11 @@ body {
 
   tr.inline .checkable {
     display: inline-block;
-    padding: 4.3px 20px 4.3px 0;
+    padding: 4.3px 20px 4.3px 2px;
   }
 
   input {
-    margin-right: .3em;
+    margin-#{$end-direction}: 0.3em;
   }
 
   .range {
@@ -75,7 +77,7 @@ body {
     @extend %flex-center-nowrap;
     justify-content: center;
     input {
-      padding: .6em 0;
+      padding: 0.6em 0;
       margin: 0 1ch;
       @include breakpoint($mq-not-xx-small) {
         width: 26vw;
@@ -85,10 +87,26 @@ body {
 
   .actions {
     margin-top: 1.5em;
-    text-align: right;
+    text-align: $end-direction;
 
     button {
-      margin-left: .3em;
+      margin-#{$start-direction}: 0.3em;
+    }
+  }
+
+  @include breakpoint($mq-not-xx-small) {
+    padding: $block-gap 1em;
+
+    td {
+      max-width: 50vw;
+    }
+
+    td:first-child {
+      margin-#{$end-direction}: 1rem;
+    }
+
+    tr.variant .checkable {
+      width: 50%;
     }
   }
 }

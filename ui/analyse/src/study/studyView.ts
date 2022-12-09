@@ -1,26 +1,26 @@
-import { h, VNode } from 'snabbdom';
-import { bind, dataIcon, iconTag, richHTML } from '../util';
-import { view as memberView } from './studyMembers';
-import { view as chapterView } from './studyChapters';
-import { view as chapterNewFormView } from './chapterNewForm';
-import { view as chapterEditFormView } from './chapterEditForm';
 import * as commentForm from './commentForm';
 import * as glyphForm from './studyGlyph';
+import * as practiceView from './practice/studyPracticeView';
+import AnalyseCtrl from '../ctrl';
+import { h, VNode } from 'snabbdom';
+import { iconTag, bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
+import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
+import { richHTML } from 'common/richText';
+import { rounds as relayTourRounds } from './relay/relayTourView';
+import { StudyCtrl, Tab, ToolTab } from './interfaces';
+import { view as chapterEditFormView } from './chapterEditForm';
+import { view as chapterNewFormView } from './chapterNewForm';
+import { view as chapterView } from './studyChapters';
+import { view as descView } from './description';
 import { view as inviteFormView } from './inviteForm';
-import { view as studyFormView } from './studyForm';
-import { view as studyShareView } from './studyShare';
+import { view as memberView } from './studyMembers';
 import { view as multiBoardView } from './multiBoard';
 import { view as notifView } from './notif';
+import { view as serverEvalView } from './serverEval';
+import { view as studyFormView } from './studyForm';
+import { view as studyShareView } from './studyShare';
 import { view as tagsView } from './studyTags';
 import { view as topicsView, formView as topicsFormView } from './topics';
-import { view as serverEvalView } from './serverEval';
-import * as practiceView from './practice/studyPracticeView';
-import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
-import { view as descView } from './description';
-import { rounds as relayTourRounds } from './relay/relayTourView';
-import AnalyseCtrl from '../ctrl';
-import { StudyCtrl, Tab, ToolTab } from './interfaces';
-import { MaybeVNodes } from '../interfaces';
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;
@@ -35,7 +35,7 @@ function toolButton(opts: ToolButtonOpts): VNode {
   return h(
     'span.' + opts.tab,
     {
-      attrs: { title: opts.hint },
+      attrs: { role: 'tab', title: opts.hint },
       class: { active: opts.tab === opts.ctrl.vm.toolTab() },
       hook: bind(
         'mousedown',
@@ -56,7 +56,7 @@ function buttons(root: AnalyseCtrl): VNode {
     showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently())),
     noarg = root.trans.noarg;
   return h('div.study__buttons', [
-    h('div.left-buttons.tabs-horiz', [
+    h('div.left-buttons.tabs-horiz', { attrs: { role: 'tablist' } }, [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
       showSticky
         ? h(
@@ -151,7 +151,7 @@ function metadata(ctrl: StudyCtrl): VNode {
           class: { liked: d.liked },
           attrs: {
             'data-icon': d.liked ? '' : '',
-            title: ctrl.trans.noarg('like'),
+            title: ctrl.trans.noarg(d.liked ? 'unlike' : 'like'),
           },
           hook: bind('click', ctrl.toggleLike),
         },
@@ -172,6 +172,7 @@ export function side(ctrl: StudyCtrl): VNode {
       'span.' + key,
       {
         class: { active: !tourShow?.active && activeTab === key },
+        attrs: { role: 'tab' },
         hook: bind(
           'mousedown',
           () => {
@@ -199,21 +200,28 @@ export function side(ctrl: StudyCtrl): VNode {
         ),
         attrs: {
           'data-icon': '',
+          role: 'tab',
         },
       },
       'Broadcast'
     );
 
-  const tabs = h('div.tabs-horiz', [
+  const chaptersTab =
+    tourShow && ctrl.looksNew() && !ctrl.members.canContribute()
+      ? null
+      : makeTab('chapters', ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size()));
+
+  const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
     tourTab,
-    makeTab('chapters', ctrl.trans.plural(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size())),
+    chaptersTab,
     !tourTab || ctrl.members.canContribute() || ctrl.data.admin
-      ? makeTab('members', ctrl.trans.plural('nbMembers', ctrl.members.size()))
+      ? makeTab('members', ctrl.trans.pluralSame('nbMembers', ctrl.members.size()))
       : null,
     ctrl.members.isOwner()
       ? h(
           'span.more',
           {
+            attrs: { role: 'tab' },
             hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
           },
           [iconTag('')]

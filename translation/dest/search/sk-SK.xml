@@ -28,4 +28,10 @@
   <string name="sortBy">Zoradiť podľa</string>
   <string name="analysis">Analýza</string>
   <string name="onlyAnalysed">Iba hry, kde je k dispozícii počítačová analýza</string>
+  <string name="color">Farba</string>
+  <string name="evaluation">Hodnotenie ťahov</string>
+  <string name="maxNumber">Maximálny počet</string>
+  <string name="maxNumberExplanation">Maximálny počet partií, ktoré sa majú zobraziť</string>
+  <string name="descending">Zostupne</string>
+  <string name="ascending">Vzostupne</string>
 </resources>

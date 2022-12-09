@@ -41,15 +41,16 @@
   <string name="youAreNowASpectator">Du er nu tilskuer</string>
   <string name="pgnTags">PGN tags</string>
   <string name="like">Synes godt om</string>
+  <string name="unlike">Synes ikke godt om</string>
   <string name="newTag">Nyt tag</string>
-  <string name="commentThisPosition">Kommenter på denne position</string>
+  <string name="commentThisPosition">Kommenter på denne stilling</string>
   <string name="commentThisMove">Kommenter på dette træk</string>
   <string name="annotateWithGlyphs">Annoter med glyffer</string>
   <string name="theChapterIsTooShortToBeAnalysed">Dette kapitel er for kort til at blive analyseret.</string>
   <string name="onlyContributorsCanRequestAnalysis">Kun studiets bidragsydere kan anmode om en computeranalyse.</string>
   <string name="getAFullComputerAnalysis">Få en fuld server-computeranalyse af hovedlinjen.</string>
   <string name="makeSureTheChapterIsComplete">Sikr dig at kapitlet er færdigt. Du kan kun anmode om analyse én gang.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC medlemmer forbliver på samme position</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Alle SYNC medlemmer forbliver på samme stilling</string>
   <string name="shareChanges">Del ændringer med tilskuere og gem dem på serveren</string>
   <string name="playing">Spiller</string>
   <string name="first">Første</string>
@@ -65,7 +66,7 @@
   <string name="studyUrl">Studie URL</string>
   <string name="currentChapterUrl">Nuværende kapitel URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">Du kan indsætte dette i forummet for at indlejre</string>
-  <string name="startAtInitialPosition">Start ved indledende position</string>
+  <string name="startAtInitialPosition">Start ved indledende stilling</string>
   <string name="startAtX">Start ved %s</string>
   <string name="embedInYourWebsite">Indlejr på din hjemmeside eller blog</string>
   <string name="readMoreAboutEmbedding">Læs mere om indlejring</string>
@@ -75,11 +76,13 @@
   <string name="studyNotFound">Studie ikke fundet</string>
   <string name="editChapter">Rediger kapitel</string>
   <string name="newChapter">Nyt kapitel</string>
+  <string name="importFromChapterX">Import fra %s</string>
   <string name="orientation">Retning</string>
   <string name="analysisMode">Analysetilstand</string>
   <string name="pinnedChapterComment">Fastgjort kapitelkommentar</string>
   <string name="saveChapter">Gem kapitel</string>
   <string name="clearAnnotations">Ryd annoteringer</string>
+  <string name="clearVariations">Ryd variationer</string>
   <string name="deleteChapter">Slet kapitel</string>
   <string name="deleteThisChapter">Slet dette kapitel? Du kan ikke fortryde!</string>
   <string name="clearAllCommentsInThisChapter">Ryd alle kommentarer og figurer i dette kapitel?</string>
@@ -90,11 +93,11 @@
   <string name="interactiveLesson">Interaktiv lektion</string>
   <string name="chapterX">Kapitel %s</string>
   <string name="empty">Tom</string>
-  <string name="startFromInitialPosition">Start ved indledende position</string>
+  <string name="startFromInitialPosition">Start ved indledende stilling</string>
   <string name="editor">Editor</string>
-  <string name="startFromCustomPosition">Start fra brugerdefinerede position</string>
+  <string name="startFromCustomPosition">Start fra brugerdefinerede stilling</string>
   <string name="loadAGameByUrl">Indlæs et parti fra URL</string>
-  <string name="loadAPositionFromFen">Indlæs en position fra FEN</string>
+  <string name="loadAPositionFromFen">Indlæs en stilling fra FEN</string>
   <string name="loadAGameFromPgn">Indlæs et parti fra PGN</string>
   <string name="automatic">Automatisk</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
@@ -118,7 +121,7 @@
   <string name="members">Medlemmer</string>
   <string name="everyone">Enhver</string>
   <string name="enableSync">Aktiver synk</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Ja: behold alle på den samme position</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Ja: behold alle på den samme stilling</string>
   <string name="noLetPeopleBrowseFreely">Nej: lad folk gennemse frit</string>
   <string name="pinnedStudyComment">Fastgjort studie-kommentar</string>
   <string name="start">Start</string>
@@ -126,7 +129,7 @@
   <string name="clearChat">Ryd chat</string>
   <string name="deleteTheStudyChatHistory">Slet studiets chat-historik? Du kan ikke fortryde!</string>
   <string name="deleteStudy">Slet studie</string>
-  <string name="deleteTheEntireStudy">Slet hele studiet? Du kan ikke fortryde!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Slet hele studiet? Det kan ikke fortrydes! Skriv navnet på studiet for at bekræfte: %s</string>
   <string name="whereDoYouWantToStudyThat">Hvor vil du studere det?</string>
   <string name="goodMove">Godt træk</string>
   <string name="mistake">Fejl</string>
@@ -135,9 +138,9 @@
   <string name="interestingMove">Interessant træk</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Tvivlsomt træk</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eneste mulige træk</string>
-  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
-  <string name="equalPosition">Lige position</string>
-  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Uafklaret position</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Træktvang</string>
+  <string name="equalPosition">Lige stilling</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Uafklaret stilling</string>
   <string name="whiteIsSlightlyBetter">Hvid står lidt bedre</string>
   <string name="blackIsSlightlyBetter">Sort står lidt bedre</string>
   <string name="whiteIsBetter">Hvid står bedre</string>
@@ -154,4 +157,13 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Med ideen</string>
   <string name="nextChapter">Næste kapitel</string>
   <string name="prevChapter">Forrige kapitel</string>
+  <string name="studyActions">Studiehandlinger</string>
+  <string name="topics">Emner</string>
+  <string name="myTopics">Mine emner</string>
+  <string name="popularTopics">Populære emner</string>
+  <string name="manageTopics">Administrér emner</string>
+  <string name="back">Tilbage</string>
+  <string name="playAgain">Spil igen</string>
+  <string name="whatWouldYouPlay">Hvad ville du spille i denne position?</string>
+  <string name="youCompletedThisLesson">Tillykke! Du har fuldført denne lektion.</string>
 </resources>

@@ -1,14 +1,14 @@
-import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
+import * as Prefs from 'common/prefs';
 
 export default function (ctrl: Controller): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode => ctrl.ground(Chessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
+      insert: vnode => ctrl.setChessground(Chessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
       destroy: _ => ctrl.ground()!.destroy(),
     },
   });
@@ -24,7 +24,7 @@ export function makeConfig(ctrl: Controller): CgConfig {
     lastMove: opts.lastMove,
     coordinates: ctrl.pref.coords !== Prefs.Coords.Hidden,
     addPieceZIndex: ctrl.pref.is3d,
-    addDimensionsCssVars: true,
+    addDimensionsCssVarsTo: document.body,
     movable: {
       free: false,
       color: opts.movable!.color,
@@ -42,8 +42,7 @@ export function makeConfig(ctrl: Controller): CgConfig {
     events: {
       move: ctrl.userMove,
       insert(elements) {
-        resizeHandle(elements, Prefs.ShowResizeHandle.Always, ctrl.vm.node.ply, _ => true);
-        if (ctrl.pref.coords === Prefs.Coords.Inside) changeColorHandle();
+        resizeHandle(elements, Prefs.ShowResizeHandle.Always, ctrl.vm.node.ply);
       },
     },
     premovable: {

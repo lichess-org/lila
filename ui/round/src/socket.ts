@@ -5,26 +5,22 @@ import notify from 'common/notification';
 import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
-import { Untyped } from './interfaces';
 import { defined } from 'common';
 
-export interface RoundSocket extends Untyped {
+export interface RoundSocket {
   send: SocketSend;
-  handlers: Untyped;
+  handlers: SocketHandlers;
   moreTime(): void;
   outoftime(): void;
   berserk(): void;
   sendLoading(typ: string, data?: any): void;
   receive(typ: string, data: any): boolean;
+  reload(o?: Incoming, isRetry?: boolean): void;
 }
 
 interface Incoming {
   t: string;
   d: any;
-}
-
-interface Handlers {
-  [key: string]: (data: any) => void;
 }
 
 type Callback = (...args: any[]) => void;
@@ -37,12 +33,12 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
     const self: any = this;
     const elapsed = performance.now() - lastExec;
 
-    function exec() {
+    const exec = () => {
       timer = undefined;
       lastExec = performance.now();
       delay *= factor;
       callback.apply(self, args);
-    }
+    };
 
     if (timer) clearTimeout(timer);
 
@@ -54,11 +50,11 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
 export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
   lichess.socket.sign(ctrl.sign);
 
-  function reload(o: Incoming, isRetry?: boolean) {
+  const reload = (o?: Incoming, isRetry?: boolean) => {
     // avoid reload if possible!
     if (o && o.t) {
       ctrl.setLoading(false);
-      handlers[o.t](o.d);
+      handlers[o.t]!(o.d);
     } else
       xhr.reload(ctrl).then(data => {
         if (lichess.socket.getVersion() > data.player.version) {
@@ -68,10 +64,10 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
           else reload(o, true);
         } else ctrl.reload(data);
       }, lichess.reload);
-  }
+  };
 
-  const handlers: Handlers = {
-    takebackOffers(o) {
+  const handlers: SocketHandlers = {
+    takebackOffers(o: { white?: boolean; black?: boolean }) {
       ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
       const fromOp = (ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color]);
@@ -82,13 +78,13 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     drop: ctrl.apiMove,
     reload,
     redirect: ctrl.setRedirecting,
-    clockInc(o) {
+    clockInc(o: { color: Color; time: number }) {
       if (ctrl.clock) {
         ctrl.clock.addTime(o.color, o.time);
         ctrl.redraw();
       }
     },
-    cclock(o) {
+    cclock(o: { white: number; black: number }) {
       if (ctrl.corresClock) {
         ctrl.data.correspondence.white = o.white;
         ctrl.data.correspondence.black = o.black;
@@ -96,9 +92,9 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         ctrl.redraw();
       }
     },
-    crowd(o) {
-      ['white', 'black'].forEach(c => {
-        if (defined(o[c])) game.setOnGame(ctrl.data, c as Color, o[c]);
+    crowd(o: { white: boolean; black: boolean }) {
+      (['white', 'black'] as const).forEach(c => {
+        if (defined(o[c])) game.setOnGame(ctrl.data, c, o[c]);
       });
       ctrl.redraw();
     },
@@ -114,7 +110,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       if (!ctrl.data.player.spectator) ctrl.setLoading(true);
       else ctrl.redraw();
     },
-    drawOffer(by) {
+    drawOffer(by?: Color) {
       if (ctrl.isPlaying()) {
         ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
         const fromOp = (ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color);
@@ -132,7 +128,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     gone: ctrl.setGone,
     goneIn: ctrl.setGone,
-    checkCount(e) {
+    checkCount(e: { white: number; black: number }) {
       ctrl.data.player.checks = ctrl.data.player.color == 'white' ? e.white : e.black;
       ctrl.data.opponent.checks = ctrl.data.opponent.color == 'white' ? e.white : e.black;
       ctrl.redraw();
@@ -153,12 +149,11 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     simulEnd(simul: game.Simul) {
       lichess.loadCssPath('modal');
-      modal(
-        $(
-          '<p>Simul complete!</p><br /><br />' +
-            `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a>`
-        )
-      );
+      modal({
+        content: $(
+          `<div><p>Simul complete!</p><br /><br /><a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`
+        ),
+      });
     },
   };
 
@@ -175,8 +170,9 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       send(typ, data);
     },
     receive(typ: string, data: any): boolean {
-      if (handlers[typ]) {
-        handlers[typ](data);
+      const handler = handlers[typ];
+      if (handler) {
+        handler(data);
         return true;
       }
       return false;

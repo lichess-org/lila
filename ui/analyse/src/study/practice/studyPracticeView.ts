@@ -1,10 +1,12 @@
+import { bind, bindNonPassive, MaybeVNodes } from 'common/snabbdom';
+import { spinnerVdom as spinner } from 'common/spinner';
 import { h, thunk, VNode } from 'snabbdom';
-import { plural, bind, spinner, richHTML, option } from '../../util';
-import { StudyCtrl } from '../interfaces';
-import { MaybeVNodes } from '../../interfaces';
-import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';
-import { boolSetting } from '../../boolSetting';
+import { toggle } from 'common/toggle';
+import { richHTML } from 'common/richText';
+import { option, plural } from '../../view/util';
 import { view as descView } from '../description';
+import { StudyCtrl } from '../interfaces';
+import { StudyPracticeCtrl, StudyPracticeData } from './interfaces';
 
 function selector(data: StudyPracticeData) {
   return h(
@@ -94,7 +96,7 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
           h('div.goal', [renderGoal(p, p.goal().moves! - p.nbMoves())]),
           pinned ? h('div.comment', { hook: richHTML(pinned) }) : null,
         ]),
-        boolSetting(
+        toggle(
           {
             name: 'Load next exercise immediately',
             id: 'autoNext',
@@ -120,7 +122,7 @@ export function side(ctrl: StudyCtrl): VNode {
     h(
       'div.practice__side__chapters',
       {
-        hook: bind('click', e => {
+        hook: bindNonPassive('click', e => {
           e.preventDefault();
           const target = e.target as HTMLElement,
             id = (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');

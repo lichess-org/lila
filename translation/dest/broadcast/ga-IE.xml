@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Craoladh URL</string>
   <string name="currentRoundUrl">URL babhta reatha</string>
   <string name="currentGameUrl">URL cluiche reatha</string>
+  <string name="downloadAllRounds">Íoslódáil gach babhta</string>
 </resources>

@@ -29,5 +29,11 @@
   <string name="maxNumber">Maximum number</string>
   <string name="maxNumberExplanation">The maximum number of games to return</string>
   <string name="include">Include</string>
-  <string name="generateURL">Generate URL</string>
+  <string name="descending">Descending</string>
+  <string name="ascending">Ascending</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s game found</item>
+    <item quantity="other">%s games found</item>
+  </plurals>
+  <string name="ratingExplanation">The average rating of both players</string>
 </resources>

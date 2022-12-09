@@ -5,7 +5,9 @@ $top-height: 3.2rem;
 
 .study-index {
   .box__top {
-    @extend %flex-center;
+    @extend %flex-wrap;
+
+    align-items: start;
 
     /* flex gutters, waiting for row-gap to be implemented for flexbox.  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items#Creating_gutters_between_items */
     margin: 0 0 -1em -1em;
@@ -41,7 +43,7 @@ $top-height: 3.2rem;
         @extend %box-radius-right;
 
         padding: 0 1.5em;
-        border-left: 0;
+        border-#{$start-direction}: 0;
       }
     }
 
@@ -50,14 +52,14 @@ $top-height: 3.2rem;
       font-size: 1.2em;
 
       &__label::after {
-        margin-left: 0.6em;
+        margin-#{$start-direction}: 0.6em;
       }
     }
 
     .new-study,
     .mselect {
       height: $top-height;
-      margin-left: 1rem;
+      margin-#{$start-direction}: 1rem;
       white-space: nowrap;
     }
 

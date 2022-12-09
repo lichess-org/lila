@@ -1,0 +1,70 @@
+.tutor {
+  &-cards {
+    @extend %box-padding-horiz;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    grid-gap: $block-gap;
+    margin: var(--box-padding) 0;
+    &--triple {
+      grid-template-columns: 1fr;
+      @include breakpoint($mq-medium) {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+    &--full-size {
+      grid-template-columns: 100%;
+    }
+  }
+  &-card {
+    @extend %box-neat;
+    background: $c-bg-zebra;
+
+    &--link {
+      position: relative;
+      outline: 3px solid mix($c-link, $c-bg-box, 30%);
+      cursor: pointer;
+      &:hover {
+        outline: 3px solid mix($c-link, $c-bg-box, 60%);
+        background: mix($c-link, $c-bg-zebra, 10%);
+        box-shadow: 0 0 30px mix($c-link, $c-bg-box, 50%);
+      }
+    }
+
+    &__top {
+      @extend %flex-center-nowrap;
+
+      i {
+        text-shadow: $text-shadow;
+        font-size: 4em;
+        margin: 0 1rem 0 1rem;
+        color: $c-primary;
+        opacity: 0.7;
+      }
+      &__title {
+        &--pad {
+          @include padding-direction(2rem, 1rem, 0, 2rem);
+        }
+        i + & {
+          margin-top: 1em;
+        }
+        &__text {
+          font-size: 1.7em;
+          margin-top: 0.5rem;
+        }
+        &__sub {
+          margin-top: 0.5rem;
+          color: $c-font-dim;
+        }
+      }
+    }
+
+    &__content {
+      padding: $block-gap;
+    }
+    &__more {
+      display: block;
+      text-align: right;
+      margin-top: 1em;
+    }
+  }
+}

@@ -26,4 +26,17 @@
   <string name="sortBy">Sortiraj prema</string>
   <string name="analysis">Analiza</string>
   <string name="onlyAnalysed">Samo partije u kojima je dostupna šahovska analiza</string>
+  <string name="color">Boja</string>
+  <string name="evaluation">Vrednovanje</string>
+  <string name="maxNumber">Maksimalan broj</string>
+  <string name="maxNumberExplanation">Maksimalan broj igara za povratak</string>
+  <string name="include">Uključi</string>
+  <string name="descending">Silazno</string>
+  <string name="ascending">Uzlazno</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Pronađena je %s partija</item>
+    <item quantity="few">Pronađene su %s partije</item>
+    <item quantity="other">Pronađeno je %s partija</item>
+  </plurals>
+  <string name="ratingExplanation">Prosječni rejting oba igrača</string>
 </resources>

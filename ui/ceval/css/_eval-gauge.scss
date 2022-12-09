@@ -35,15 +35,15 @@ main {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
-    right: 0;
+    #{$start-direction}: 0;
+    #{$end-direction}: 0;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.7) inset;
   }
 
   tick {
     position: absolute;
     top: 0;
-    left: 0;
+    #{$start-direction}: 0;
     width: 100%;
     border-bottom: 2px ridge var(--c-eval-gauge-tick);
     opacity: 0.4;

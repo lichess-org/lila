@@ -1,7 +1,8 @@
 package lila.evalCache
 
 import chess.variant.Variant
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import play.api.Configuration
 
 import lila.common.Bus
@@ -13,17 +14,24 @@ import lila.socket.Socket.Sri
 final class Env(
     appConfig: Configuration,
     userRepo: lila.user.UserRepo,
-    db: lila.db.Db,
+    yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     cacheApi: lila.memo.CacheApi,
-    scheduler: akka.actor.Scheduler
-)(implicit
+    settingStore: lila.memo.SettingStore.Builder
+)(using
     ec: scala.concurrent.ExecutionContext,
+    scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
-) {
+):
 
-  private lazy val coll = db(appConfig.get[CollName]("evalCache.collection.evalCache"))
+  private lazy val coll = yoloDb(CollName("eval_cache")).failingSilently()
 
   private lazy val truster = wire[EvalCacheTruster]
+
+  lazy val enable = settingStore[Boolean](
+    "useCeval",
+    default = true,
+    text = "Enable cloud eval (disable in case of server trouble)".some
+  )
 
   private lazy val upgrade = wire[EvalCacheUpgrade]
 
@@ -45,12 +53,9 @@ final class Env(
   }
   // END remote socket support
 
-  def cli =
-    new lila.common.Cli {
-      def process = { case "eval-cache" :: "drop" :: variantKey :: fenParts =>
-        Variant(variantKey).fold(fufail[String]("Invalid variant")) { variant =>
-          api.drop(variant, chess.format.FEN(fenParts mkString " ")) inject "done!"
-        }
+  def cli = new lila.common.Cli:
+    def process = { case "eval-cache" :: "drop" :: variantKey :: fenParts =>
+      Variant(variantKey).fold(fufail[String]("Invalid variant")) { variant =>
+        api.drop(variant, chess.format.Fen.Epd(fenParts mkString " ")) inject "done!"
       }
     }
-}

@@ -1,10 +1,12 @@
-import { h, VNode } from 'snabbdom';
-import { titleNameToId, bind, dataIcon, iconTag, onInsert, scrollTo } from '../util';
-import { prop, Prop } from 'common';
-import { makeCtrl as inviteFormCtrl, StudyInviteFormCtrl } from './inviteForm';
-import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
-import { NotifCtrl } from './notif';
 import { AnalyseSocketSend } from '../socket';
+import { h, VNode } from 'snabbdom';
+import { iconTag, bind, onInsert, dataIcon, bindNonPassive } from 'common/snabbdom';
+import { makeCtrl as inviteFormCtrl, StudyInviteFormCtrl } from './inviteForm';
+import { NotifCtrl } from './notif';
+import { prop, Prop } from 'common';
+import { scrollTo, titleNameToId } from '../view/util';
+import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
+import { textRaw as xhrTextRaw } from 'common/xhr';
 
 export interface StudyMemberCtrl {
   dict: Prop<StudyMemberMap>;
@@ -60,22 +62,13 @@ export function ctrl(opts: Opts): StudyMemberCtrl {
   let spectatorIds: string[] = [];
   const max = 30;
 
-  function owner() {
-    return dict()[opts.ownerId];
-  }
+  const owner = () => dict()[opts.ownerId];
 
-  function isOwner() {
-    return opts.myId === opts.ownerId || (opts.admin && canContribute());
-  }
+  const isOwner = () => opts.myId === opts.ownerId || (opts.admin && canContribute());
 
-  function myMember() {
-    return opts.myId ? dict()[opts.myId] : undefined;
-  }
+  const myMember = () => (opts.myId ? dict()[opts.myId] : undefined);
 
-  function canContribute(): boolean {
-    const m = myMember();
-    return !!m && m.role === 'w';
-  }
+  const canContribute = (): boolean => myMember()?.role === 'w';
 
   const inviteForm = inviteFormCtrl(opts.send, dict, () => opts.tab('members'), opts.redraw, opts.trans);
 
@@ -211,10 +204,7 @@ export function view(ctrl: StudyCtrl): VNode {
         attrs: dataIcon(''),
         hook: bind(
           'click',
-          _ => {
-            members.confing(members.confing() == member.user.id ? null : member.user.id);
-            console.log(members.confing(), member.user.id);
-          },
+          _ => members.confing(members.confing() == member.user.id ? null : member.user.id),
           ctrl.redraw
         ),
       });
@@ -302,7 +292,7 @@ export function view(ctrl: StudyCtrl): VNode {
             'div.add',
             {
               key: 'add',
-              hook: bind('click', members.inviteForm.toggle, ctrl.redraw),
+              hook: bind('click', members.inviteForm.toggle),
             },
             [h('div.left', [h('span.status', iconTag('')), h('div.user-link', ctrl.trans.noarg('addMembers'))])]
           )
@@ -312,20 +302,12 @@ export function view(ctrl: StudyCtrl): VNode {
             'form.admin',
             {
               key: ':admin',
-              attrs: {
-                method: 'post',
-                action: `/study/${ctrl.data.id}/admin`,
-              },
+              hook: bindNonPassive('submit', () => {
+                xhrTextRaw(`/study/${ctrl.data.id}/admin`, { method: 'post' }).then(() => location.reload());
+                return false;
+              }),
             },
-            [
-              h(
-                'button.button.button-red.button-thin',
-                {
-                  attrs: { type: 'submit' },
-                },
-                'Enter as admin'
-              ),
-            ]
+            [h('button.button.button-red.button-thin', 'Enter as admin')]
           )
         : null,
     ]

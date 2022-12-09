@@ -1,17 +1,30 @@
 import { h, VNode } from 'snabbdom';
+import { bind, dataIcon } from 'common/snabbdom';
 import TournamentController from '../ctrl';
-import { player as renderPlayer, ratio2percent, bind, dataIcon, playerName } from './util';
+import { player as renderPlayer, ratio2percent, playerName } from './util';
 import { teamName } from './battle';
-import { MaybeVNodes, Pagination, PodiumPlayer, Score, StandingPlayer } from '../interfaces';
+import { MaybeVNodes, Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
 import * as button from './button';
 import * as pagination from '../pagination';
 
-const scoreTagNames = ['score', 'streak', 'double'];
-
-function scoreTag(s: Score) {
-  const [score, tag] = Array.isArray(s) ? s : [s];
-  return h(scoreTagNames[(tag || 1) - 1], [score]);
-}
+const renderScoreString = (scoreString: string, streakable: boolean) => {
+  const values = scoreString.split('').map(s => parseInt(s));
+  values.reverse(); // in place!
+  if (!streakable) return values.map(v => h('score', v));
+  const nodes = [];
+  let streak = 0;
+  for (const v of values) {
+    const win = v == 2 ? streak < 2 : v > 2;
+    const tag = streak > 1 && v > 1 ? 'double' : win ? 'streak' : 'score';
+    if (win) {
+      streak++;
+    } else {
+      streak = 0;
+    }
+    nodes.push(h(tag, v));
+  }
+  return nodes;
+};
 
 function playerTr(ctrl: TournamentController, player: StandingPlayer) {
   const userId = player.name.toLowerCase(),
@@ -42,14 +55,14 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
           : player.rank
       ),
       h('td.player', [
-        renderPlayer(player, false, true, userId === ctrl.data.defender),
+        renderPlayer(player, false, ctrl.opts.showRatings, userId === ctrl.data.defender),
         ...(battle && player.team ? [' ', teamName(battle, player.team)] : []),
       ]),
-      h('td.sheet', player.sheet.scores.map(scoreTag)),
+      h('td.sheet', renderScoreString(player.sheet.scores, !ctrl.data.noStreak)),
       h('td.total', [
         player.sheet.fire && !ctrl.data.isFinished
-          ? h('strong.is-gold', { attrs: dataIcon('') }, player.sheet.total)
-          : h('strong', player.sheet.total),
+          ? h('strong.is-gold', { attrs: dataIcon('') }, player.score)
+          : h('strong', player.score),
       ]),
     ]
   );
@@ -65,11 +78,11 @@ function podiumUsername(p: PodiumPlayer) {
   );
 }
 
-function podiumStats(p: PodiumPlayer, berserkable: boolean, trans: Trans): VNode {
-  const noarg = trans.noarg,
+function podiumStats(p: PodiumPlayer, berserkable: boolean, ctrl: TournamentController): VNode {
+  const noarg = ctrl.trans.noarg,
     nb = p.nb;
   return h('table.stats', [
-    p.performance ? h('tr', [h('th', noarg('performance')), h('td', p.performance)]) : null,
+    p.performance && ctrl.opts.showRatings ? h('tr', [h('th', noarg('performance')), h('td', p.performance)]) : null,
     h('tr', [h('th', noarg('gamesPlayed')), h('td', nb.game)]),
     ...(nb.game
       ? [
@@ -80,8 +93,13 @@ function podiumStats(p: PodiumPlayer, berserkable: boolean, trans: Trans): VNode
   ]);
 }
 
-function podiumPosition(p: PodiumPlayer, pos: string, berserkable: boolean, trans: Trans): VNode | undefined {
-  if (p) return h('div.' + pos, [h('div.trophy'), podiumUsername(p), podiumStats(p, berserkable, trans)]);
+function podiumPosition(
+  p: PodiumPlayer,
+  pos: string,
+  berserkable: boolean,
+  ctrl: TournamentController
+): VNode | undefined {
+  if (p) return h('div.' + pos, [h('div.trophy'), podiumUsername(p), podiumStats(p, berserkable, ctrl)]);
   return undefined;
 }
 
@@ -90,14 +108,10 @@ let lastBody: MaybeVNodes | undefined;
 export function podium(ctrl: TournamentController) {
   const p = ctrl.data.podium || [];
   return h('div.podium', [
-    podiumPosition(p[1], 'second', ctrl.data.berserkable, ctrl.trans),
-    podiumPosition(p[0], 'first', ctrl.data.berserkable, ctrl.trans),
-    podiumPosition(p[2], 'third', ctrl.data.berserkable, ctrl.trans),
+    podiumPosition(p[1], 'second', ctrl.data.berserkable, ctrl),
+    podiumPosition(p[0], 'first', ctrl.data.berserkable, ctrl),
+    podiumPosition(p[2], 'third', ctrl.data.berserkable, ctrl),
   ]);
-}
-
-function preloadUserTips(el: HTMLElement) {
-  lichess.powertip.manualUserIn(el);
 }
 
 export function controls(ctrl: TournamentController, pag: Pagination): VNode {
@@ -117,9 +131,9 @@ export function standing(ctrl: TournamentController, pag: Pagination, klass?: st
         'tbody',
         {
           hook: {
-            insert: vnode => preloadUserTips(vnode.elm as HTMLElement),
+            insert: vnode => lichess.powertip.manualUserIn(vnode.elm as HTMLElement),
             update(_, vnode) {
-              preloadUserTips(vnode.elm as HTMLElement);
+              lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
             },
           },
         },

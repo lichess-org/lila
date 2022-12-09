@@ -1,20 +1,21 @@
 package lila.puzzle
 
-import chess.format.Forsyth
+import chess.format.Fen
 import chess.format.UciCharPair
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.i18n.defaultLang
+import lila.common.Json.given
 
 final private class GameJson(
     gameRepo: GameRepo,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  def apply(gameId: Game.ID, plies: Int, bc: Boolean): Fu[JsObject] =
+  def apply(gameId: GameId, plies: Int, bc: Boolean): Fu[JsObject] =
     (if (bc) bcCache else cache) get writeKey(gameId, plies)
 
   def noCacheBc(game: Game, plies: Int): Fu[JsObject] =
@@ -22,12 +23,11 @@ final private class GameJson(
       generateBc(game, plies)
     }
 
-  private def readKey(k: String): (Game.ID, Int) =
-    k.drop(Game.gameIdSize).toIntOption match {
-      case Some(ply) => (k take Game.gameIdSize, ply)
+  private def readKey(k: String): (GameId, Int) =
+    k.drop(Game.gameIdSize).toIntOption match
+      case Some(ply) => (Game strToId k, ply)
       case _         => sys error s"puzzle.GameJson invalid key: $k"
-    }
-  private def writeKey(id: Game.ID, ply: Int) = s"$id$ply"
+  private def writeKey(id: GameId, ply: Int) = s"$id$ply"
 
   private val cache = cacheApi[String, JsObject](4096, "puzzle.gameJson") {
     _.expireAfterAccess(5 minutes)
@@ -49,7 +49,7 @@ final private class GameJson(
       )
   }
 
-  private def generate(gameId: Game.ID, plies: Int, bc: Boolean): Fu[JsObject] =
+  private def generate(gameId: GameId, plies: Int, bc: Boolean): Fu[JsObject] =
     gameRepo gameFromSecondary gameId orFail s"Missing puzzle game $gameId!" flatMap { game =>
       lightUserApi preloadMany game.userIds map { _ =>
         if (bc) generateBc(game, plies)
@@ -68,20 +68,18 @@ final private class GameJson(
       )
       .add("clock", game.clock.map(_.config.show))
 
-  private def perfJson(game: Game) = {
+  private def perfJson(game: Game) =
     val perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
     Json.obj(
       "icon" -> perfType.iconChar.toString,
-      "name" -> perfType.trans(defaultLang)
+      "name" -> perfType.trans(using defaultLang)
     )
-  }
 
   private def playersJson(game: Game) = JsArray(game.players.map { p =>
-    val userId = p.userId | "anon"
-    val user   = lightUserApi.syncFallback(userId)
+    val user = p.userId.fold(lila.common.LightUser.ghost)(lightUserApi.syncFallback)
     Json
       .obj(
-        "userId" -> userId,
+        "userId" -> user.id,
         "name"   -> s"${user.name}${p.rating.??(r => s" ($r)")}",
         "color"  -> p.color.name
       )
@@ -107,7 +105,7 @@ final private class GameJson(
               .lastOption
             uciMove <- situation.board.history.lastMove
           } yield Json.obj(
-            "fen" -> Forsyth.>>(situation).value,
+            "fen" -> Fen.write(situation).value,
             "ply" -> (plies + 1),
             "san" -> pgnMove,
             "id"  -> UciCharPair(uciMove).toString,
@@ -116,4 +114,3 @@ final private class GameJson(
         }
       )
       .add("clock", game.clock.map(_.config.show))
-}

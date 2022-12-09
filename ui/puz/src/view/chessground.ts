@@ -1,7 +1,7 @@
-import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import { Config as CgConfig } from 'chessground/config';
 import { PuzPrefs, UserMove } from '../interfaces';
+import * as Prefs from 'common/prefs';
 
 export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): CgConfig {
   return {
@@ -12,7 +12,7 @@ export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): 
     lastMove: opts.lastMove,
     coordinates: pref.coords !== Prefs.Coords.Hidden,
     addPieceZIndex: pref.is3d,
-    addDimensionsCssVars: true,
+    addDimensionsCssVarsTo: document.body,
     movable: {
       free: false,
       color: opts.movable!.color,
@@ -31,7 +31,6 @@ export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): 
       move: userMove,
       insert(elements) {
         resizeHandle(elements, Prefs.ShowResizeHandle.OnlyAtStart, 0, p => p == 0);
-        if (pref.coords == Prefs.Coords.Inside) changeColorHandle();
       },
     },
     premovable: {
@@ -46,7 +45,7 @@ export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): 
       check: pref.highlight,
     },
     animation: {
-      enabled: false,
+      duration: pref.animation,
     },
     disableContextMenu: true,
   };

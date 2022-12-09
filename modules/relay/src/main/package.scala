@@ -1,8 +1,6 @@
-package lila
+package lila.relay
 
-package object relay extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[relay] val logger = lila.log("relay")
-
-  private[relay] type RelayGames = Vector[RelayGame]
-}
+private val logger = lila.log("relay")
+private type RelayGames = Vector[RelayGame]

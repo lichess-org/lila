@@ -11,7 +11,6 @@
   <string name="noTeamFound">ไม่พบทีมใด</string>
   <string name="joinTeam">เข้าร่วมทีม</string>
   <string name="quitTeam">ออกจากทีม</string>
-  <string name="teamBestPlayers">ผู้เล่นที่ดีที่สุด</string>
   <string name="teamRecentMembers">สมาชิกล่าสุดของทีม</string>
   <string name="kickSomeone">เตะบางคนออกจากทีม</string>
   <string name="whoToKick">คุณต้องการเตะใครออกจากทีม?</string>

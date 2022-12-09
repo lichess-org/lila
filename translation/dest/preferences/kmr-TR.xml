@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Tercîh</string>
-  <string name="gameDisplay">Xuyanga lîstikê</string>
   <string name="pieceAnimation">Anîmasyona kabikan</string>
   <string name="materialDifference">Cudahiya kabikan</string>
   <string name="boardHighlights">Nîşankirinên texteyê (hemleya dawîn û kişkirin)</string>
@@ -32,7 +31,7 @@
   <string name="promoteToQueenAutomatically">Bi otomatîkî bike Wezîr</string>
   <string name="whenPremoving">Gava pêş-hemleyê</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Di tekrara sêgavî debi otomatîkî wekheviyê teklîf bike</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Gava wext &lt; 30 saniye mabe</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Gava wext &lt; 30 saniye mabe</string>
   <string name="moveConfirmation">Tesdîqkirina hemleyê</string>
   <string name="inCorrespondenceGames">Lîstikên bi muxabere</string>
   <string name="correspondenceAndUnlimited">Bipêwendî û bêsînor</string>

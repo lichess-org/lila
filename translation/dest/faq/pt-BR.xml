@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Como posso me tornar um(a) moderador(a)?</string>
   <string name="youCannotApply">Não é possível candidatar-se a moderador(a). Se virmos alguém que consideramos que seria um(a) bom(a) moderador(a), entraremos em contato diretamente.</string>
   <string name="isCorrespondenceDifferent">Os jogos por correspondência são diferentes do xadrez normal?</string>
+  <string name="pleaseReadFairPlayPage">Para mais informações, leia nossa %s</string>
+  <string name="fairPlayPage">página de fair-play</string>
   <string name="youCanUseOpeningBookNoEngine">No Lichess, a principal diferença nas regras para jogos por correspondência é que é permitido utilizar um livro de aberturas. A ajuda de computadores continua a ser proibida e resultará em ser reportado(a) por utilizar ajuda de computadores. Embora a ICCF permita a ajuda de computadores, o Lichess não a permite.</string>
   <string name="gameplay">Jogabilidade</string>
   <string name="howBulletBlitzEtcDecided">Como é que Bullet, Blitz e outros ritmos de jogo são decididos?</string>
@@ -60,8 +62,8 @@ O movimento é descrito na seção 3. (d) do %2$s:
 
 Veja o %3$s sobre este movimento para praticá-lo.</string>
   <string name="goodIntroduction">boa introdução</string>
-  <string name="officialRulesPDF">regras oficiais (PDF)</string>
   <string name="lichessTraining">treino do Lichess</string>
+  <string name="watchIMRosenCheckmate">Assista ao Mestre Internacional Eric Rosen dar xeque-mate em %s.</string>
   <string name="threefoldRepetition">Repetição tripla</string>
   <string name="threefoldRepetitionExplanation">Se uma posição ocorrer três vezes, os jogadores podem reivindicar um empate por %1$s. O Lichess implementa as regras oficiais da FIDE, como estão descritas no Artigo 9.2 (d) do %2$s.</string>
   <string name="threefoldRepetitionLowerCase">repetição tripla</string>

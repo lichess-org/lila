@@ -36,6 +36,7 @@
   <string name="raceComplete">竞速结束！</string>
   <string name="spectating">观战中</string>
   <string name="joinTheRace">加入竞速</string>
+  <string name="startTheRace">开始比赛</string>
   <string name="yourRankX">你的排名：%s</string>
   <string name="waitForRematch">等待下一场</string>
   <string name="nextRace">下一场竞速</string>
@@ -47,4 +48,13 @@
   <string name="skip">跳过</string>
   <string name="skipHelp">每场比赛仅能跳过一次</string>
   <string name="skipExplanation">跳过这一步来保留你的连击！每场比赛只能用一次</string>
+  <string name="failedPuzzles">失败的谜题</string>
+  <string name="slowPuzzles">慢 谜题</string>
+  <string name="skippedPuzzle">跳过</string>
+  <string name="thisWeek">本周</string>
+  <string name="thisMonth">本月</string>
+  <string name="allTime">全部时间</string>
+  <string name="clickToReload">点击重新加载</string>
+  <string name="thisRunHasExpired">本次冲刺已超时！</string>
+  <string name="thisRunWasOpenedInAnotherTab">本次冲刺已经在另一个标签页中打开！</string>
 </resources>

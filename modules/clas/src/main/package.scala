@@ -1,6 +1,5 @@
-package lila
+package lila.clas
 
-package object clas extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[clas] val logger = lila.log("clas")
-}
+private val logger = lila.log("clas")

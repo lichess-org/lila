@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights">رؤى الشطرنج %s</string>
+  <string name="xHasNoChessInsights">%s ليس لديه رؤى شطرنج حتى الآن!</string>
+  <string name="insightsAreProtected">%sرؤى الشطرنج محمية</string>
+  <string name="cantSeeInsights">عذراً، لا يمكنك رؤية رؤى الشطرنج الخاصة ب %s.</string>
+  <string name="generateInsights">توليد رؤى الشطرنج لـ %s.</string>
+  <string name="crunchingData">الآن تحطيم البيانات من أجلك فقط!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">ربما نطلب منهم تغيير %s؟</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">إعدادات الرؤى</string>
+</resources>

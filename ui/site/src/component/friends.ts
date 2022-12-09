@@ -1,4 +1,4 @@
-import trans from './trans';
+import { siteTrans } from './trans';
 import pubsub from './pubsub';
 import { notNull } from 'common/common';
 
@@ -15,7 +15,6 @@ interface Friend {
 export default class OnlineFriends {
   titleEl: HTMLElement;
   loaded = false;
-  trans: Trans;
   users: Map<string, Friend>;
 
   constructor(readonly el: HTMLElement) {
@@ -27,10 +26,11 @@ export default class OnlineFriends {
         pubsub.emit('socket.send', 'following_onlines');
       }
     });
-    this.trans = trans(JSON.parse(this.el.getAttribute('data-i18n')!));
     this.users = new Map();
     pubsub.on('socket.in.following_onlines', this.receive);
-    ['enters', 'leaves', 'playing', 'stopped_playing'].forEach(k => pubsub.on('socket.in.following_' + k, this[k]));
+    (['enters', 'leaves', 'playing', 'stopped_playing'] as const).forEach(k =>
+      pubsub.on('socket.in.following_' + k, this[k])
+    );
   }
   receive = (friends: TitleName[], msg: { playing: string[]; patrons: string[] }) => {
     this.users.clear();
@@ -49,7 +49,7 @@ export default class OnlineFriends {
     if (this.loaded)
       requestAnimationFrame(() => {
         const ids = Array.from(this.users.keys()).sort();
-        this.titleEl.innerHTML = this.trans.plural(
+        this.titleEl.innerHTML = siteTrans.pluralSame(
           'nbFriendsOnline',
           ids.length,
           this.loaded ? `<strong>${ids.length}</strong>` : '-'

@@ -1,9 +1,9 @@
 package controllers
 
-import lila.app._
-import views._
+import lila.app.{ given, * }
+import views.*
 
-final class Event(env: Env) extends LilaController(env) {
+final class Event(env: Env) extends LilaController(env):
 
   private def api = env.event.api
 
@@ -31,12 +31,12 @@ final class Event(env: Env) extends LilaController(env) {
   def update(id: String) =
     SecureBody(_.ManageEvent) { implicit ctx => me =>
       OptionFuResult(api one id) { event =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         api
           .editForm(event)
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.event.edit(event, err)).fuccess,
+            err => BadRequest(html.event.edit(event, err)).toFuccess,
             data => api.update(event, data, me.user) inject Redirect(routes.Event.edit(id)).flashSuccess
           )
       }
@@ -44,16 +44,16 @@ final class Event(env: Env) extends LilaController(env) {
 
   def form =
     Secure(_.ManageEvent) { implicit ctx => _ =>
-      Ok(html.event.create(api.createForm)).fuccess
+      Ok(html.event.create(api.createForm)).toFuccess
     }
 
   def create =
     SecureBody(_.ManageEvent) { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       api.createForm
         .bindFromRequest()
         .fold(
-          err => BadRequest(html.event.create(err)).fuccess,
+          err => BadRequest(html.event.create(err)).toFuccess,
           data =>
             api.create(data, me.id) map { event =>
               Redirect(routes.Event.edit(event.id)).flashSuccess
@@ -65,7 +65,6 @@ final class Event(env: Env) extends LilaController(env) {
     Secure(_.ManageEvent) { implicit ctx => _ =>
       OptionFuResult(api one id) { old =>
         val event = api clone old
-        Ok(html.event.create(api editForm event)).fuccess
+        Ok(html.event.create(api editForm event)).toFuccess
       }
     }
-}

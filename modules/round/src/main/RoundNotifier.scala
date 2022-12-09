@@ -1,6 +1,6 @@
 package lila.round
 
-import lila.hub.actorApi.timeline.{ Propagate, GameEnd => TLGameEnd }
+import lila.hub.actorApi.timeline.{ GameEnd as TLGameEnd, Propagate }
 import lila.notify.{ GameEnd, Notification, NotifyApi }
 
 import lila.game.Game
@@ -8,19 +8,19 @@ import lila.user.User
 
 final private class RoundNotifier(
     timeline: lila.hub.actors.Timeline,
-    isUserPresent: (Game, User.ID) => Fu[Boolean],
+    isUserPresent: (Game, UserId) => Fu[Boolean],
     notifyApi: NotifyApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def gameEnd(game: Game)(color: chess.Color) =
     if (!game.aborted) game.player(color).userId foreach { userId =>
       game.perfType foreach { perfType =>
         timeline ! (Propagate(
           TLGameEnd(
-            playerId = game fullIdOf color,
+            fullId = game fullIdOf color,
             opponent = game.player(!color).userId,
             win = game.winnerColor map (color ==),
-            perf = perfType.key
+            perf = perfType.key.value
           )
         ) toUser userId)
       }
@@ -28,15 +28,14 @@ final private class RoundNotifier(
         case false =>
           notifyApi.addNotification(
             Notification.make(
-              Notification.Notifies(userId),
+              userId,
               GameEnd(
-                GameEnd.GameId(game fullIdOf color),
-                game.opponent(color).userId map GameEnd.OpponentId.apply,
-                game.wonBy(color) map GameEnd.Win.apply
+                game fullIdOf color,
+                game.opponent(color).userId,
+                Win from game.wonBy(color)
               )
             )
           )
         case _ =>
       }
     }
-}

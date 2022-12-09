@@ -3,7 +3,9 @@
   <string name="private">Preifat</string>
   <string name="myStudies">Fy astudiaethau</string>
   <string name="allStudies">Pob astudiaethau</string>
+  <string name="noneYet">Dim eto.</string>
   <string name="hot">Poeth</string>
+  <string name="mostPopular">Mwyaf poblogaidd</string>
   <string name="addMembers">Ychwanegu aelodau</string>
   <string name="spectator">Ymwelwr</string>
   <string name="contributor">Cyfrannwr</string>
@@ -17,6 +19,7 @@
   <string name="last">Olaf</string>
   <string name="cloneStudy">Clonio</string>
   <string name="studyPgn">Astudio PGN</string>
+  <string name="downloadGame">Lawrlwytho gêm</string>
   <string name="studyUrl">URL Astudiaeth</string>
   <string name="startAtX">Dechrau at %s</string>
   <string name="open">Agor</string>

@@ -4,7 +4,6 @@ $mq-picture: $mq-large;
 
 .streamer-edit {
   .streamer-header {
-    margin-bottom: 2em;
     flex-direction: column;
 
     @include breakpoint($mq-picture) {
@@ -45,7 +44,7 @@ $mq-picture: $mq-large;
 
     &::before {
       font-size: 2em;
-      margin-right: 0.4em;
+      margin-#{$end-direction}: 0.4em;
     }
 
     form {
@@ -55,6 +54,10 @@ $mq-picture: $mq-large;
 
   .mod {
     margin-bottom: 6em;
+  }
+
+  .mod_log {
+    @extend %break-word;
   }
 
   #site_header a.preview {
@@ -73,7 +76,7 @@ $mq-picture: $mq-large;
     font-family: 'lichess';
     content: '';
     font-size: 1.5em;
-    margin-right: 0.5em;
+    margin-#{$end-direction}: 0.5em;
     vertical-align: middle;
     opacity: 0.8;
   }

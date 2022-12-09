@@ -5,18 +5,18 @@ import org.joda.time.DateTime
 import lila.user.User
 
 case class Patron(
-    _id: Patron.UserId,
+    _id: UserId,
     stripe: Option[Patron.Stripe] = none,
-    payPal: Option[Patron.PayPal] = none,
+    payPal: Option[Patron.PayPalLegacy] = none,
+    payPalCheckout: Option[Patron.PayPalCheckout] = none,
     free: Option[Patron.Free] = none,
     expiresAt: Option[DateTime] = none,
     lifetime: Option[Boolean] = None,
     lastLevelUp: Option[DateTime] = None
-) {
+):
 
-  def id = _id
-
-  def userId = _id.value
+  inline def id     = _id
+  inline def userId = _id
 
   def canLevelUp = lastLevelUp.exists(_.isBefore(DateTime.now.minusDays(25)))
 
@@ -40,6 +40,12 @@ case class Patron(
       expiresAt = none
     )
 
+  def removePayPalCheckout =
+    copy(
+      payPalCheckout = none,
+      expiresAt = none
+    )
+
   def removePayPal =
     copy(
       payPal = none,
@@ -49,26 +55,23 @@ case class Patron(
   def isDefined = stripe.isDefined || payPal.isDefined
 
   def isLifetime = ~lifetime
-}
 
-object Patron {
+object Patron:
 
-  case class UserId(value: String) extends AnyVal
+  case class Stripe(customerId: StripeCustomerId)
+  case class PayPalCheckout(payerId: PayPalPayerId, subscriptionId: Option[PayPalSubscriptionId]):
+    def renew = subscriptionId.isDefined
 
-  case class Stripe(customerId: CustomerId)
-
-  case class PayPal(
-      email: Option[PayPal.Email],
-      subId: Option[PayPal.SubId],
+  case class PayPalLegacy(
+      email: Option[PayPalLegacy.Email],
+      subId: Option[PayPalLegacy.SubId],
       lastCharge: DateTime
-  ) {
-
+  ):
     def renew = subId.isDefined
-  }
-  object PayPal {
-    case class Email(value: String) extends AnyVal
-    case class SubId(value: String) extends AnyVal
-  }
+  object PayPalLegacy:
+    opaque type Email = String
+    object Email extends OpaqueString[Email]
+    opaque type SubId = String
+    object SubId extends OpaqueString[SubId]
 
-  case class Free(at: DateTime, by: Option[User.ID])
-}
+  case class Free(at: DateTime, by: Option[UserId])

@@ -1,15 +1,16 @@
 package lila.api
 
-import akka.actor._
-import com.softwaremill.macwire._
+import akka.actor.*
+import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.{ Configuration, Mode }
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.chat.GetLinkCheck
 import lila.common.Bus
-import lila.common.config._
+import lila.common.config.*
 import lila.hub.actorApi.Announce
+import lila.hub.actorApi.lpv.*
 import lila.user.User
 
 @Module
@@ -48,20 +49,32 @@ final class Env(
     challengeEnv: lila.challenge.Env,
     socketEnv: lila.socket.Env,
     msgEnv: lila.msg.Env,
+    videoEnv: lila.video.Env,
+    pushEnv: lila.push.Env,
+    reportEnv: lila.report.Env,
+    modEnv: lila.mod.Env,
+    appealApi: lila.appeal.AppealApi,
+    activityWriteApi: lila.activity.ActivityWriteApi,
+    ublogApi: lila.ublog.UblogApi,
+    picfitUrl: lila.memo.PicfitUrl,
     cacheApi: lila.memo.CacheApi,
     mongoCacheApi: lila.memo.MongoCache.Api,
     ws: StandaloneWSClient,
     val mode: Mode
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
-) {
+    system: ActorSystem,
+    scheduler: Scheduler,
+    materializer: akka.stream.Materializer
+):
 
   val config = ApiConfig loadFrom appConfig
-  import config.{ apiToken, pagerDuty => pagerDutyConfig }
-  import net.{ baseUrl, domain }
+  export config.{ apiToken, pagerDuty as pagerDutyConfig }
+  export net.{ baseUrl, domain }
 
   lazy val pgnDump: PgnDump = wire[PgnDump]
+
+  lazy val textLpvExpand = wire[TextLpvExpand]
 
   lazy val userApi = wire[UserApi]
 
@@ -83,6 +96,10 @@ final class Env(
 
   lazy val referrerRedirect = wire[ReferrerRedirect]
 
+  lazy val accountClosure = wire[AccountClosure]
+
+  lazy val forumAccess = wire[ForumAccess]
+
   lazy val cli = wire[Cli]
 
   private lazy val influxEvent = new InfluxEvent(
@@ -96,15 +113,22 @@ final class Env(
 
   private lazy val pagerDuty = wire[PagerDuty]
 
-  Bus.subscribeFun("chatLinkCheck", "announce") {
-    case GetLinkCheck(line, source, promise)                   => promise completeWith linkCheck(line, source)
-    case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date).unit
-  }
+  Bus.subscribeFuns(
+    "chatLinkCheck" -> { case GetLinkCheck(line, source, promise) =>
+      promise completeWith linkCheck(line, source)
+    },
+    "announce" -> {
+      case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date).unit
+    },
+    "lpv" -> {
+      case GamePgnsFromText(text, p)      => p completeWith textLpvExpand.gamePgnsFromText(text)
+      case LpvLinkRenderFromText(text, p) => p completeWith textLpvExpand.linkRenderFromText(text)
+    }
+  )
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
-    lila.mon.bus.classifiers.update(lila.common.Bus.size)
+    lila.mon.bus.classifiers.update(lila.common.Bus.size).unit
     // ensure the Lichess user is online
     socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + User.lichessId)
     userEnv.repo.setSeenAt(User.lichessId)
   }
-}

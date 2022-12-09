@@ -1,8 +1,7 @@
 import makeSocket from './socket';
 import * as xhr from './xhr';
-import { myPage, players } from './pagination';
+import { maxPerPage, myPage, players } from './pagination';
 import * as sound from './sound';
-import * as tour from './tournament';
 import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing, Player } from './interfaces';
 // eslint-disable-next-line no-duplicate-imports
 import { TournamentSocket } from './socket';
@@ -28,6 +27,7 @@ export default class TournamentController {
   searching = false;
   joinWithTeamSelector = false;
   redraw: () => void;
+  nbWatchers = 0;
 
   private lastStorage = lichess.storage.make('last-redirect');
 
@@ -38,7 +38,7 @@ export default class TournamentController {
     this.trans = lichess.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
-    this.focusOnMe = tour.isIn(this);
+    this.focusOnMe = this.isIn();
     setTimeout(() => (this.disableClicks = false), 1500);
     this.loadPage(this.data.standing);
     this.scrollToMe();
@@ -46,6 +46,9 @@ export default class TournamentController {
     sound.countDown(this.data);
     this.recountTeams();
     this.redirectToMyGame();
+    lichess.pubsub.on('socket.in.crowd', data => {
+      this.nbWatchers = data.nb;
+    });
   }
 
   askReload = (): void => {
@@ -56,8 +59,7 @@ export default class TournamentController {
   reload = (data: TournamentData): void => {
     // we joined a private tournament! Reload the page to load the chat
     if (!this.data.me && data.me && this.data.private) lichess.reload();
-    this.data = { ...this.data, ...data };
-    this.data.me = data.me; // to account for removal on withdraw
+    this.data = { ...this.data, ...data, ...{ me: data.me } }; // to account for removal on withdraw
     if (data.playerInfo?.player.id === this.playerInfo.id) this.playerInfo.data = data.playerInfo!;
     this.loadPage(data.standing);
     if (this.focusOnMe) this.scrollToMe();
@@ -94,9 +96,11 @@ export default class TournamentController {
     if (!data.failed || !this.pages[data.page]) this.pages[data.page] = data.players;
   };
 
-  setPage = (page: number) => {
-    this.page = page;
-    xhr.loadPage(this, page);
+  setPage = (page: number | undefined) => {
+    if (page && page != this.page && page >= 1 && page <= players(this).nbPages) {
+      this.page = page;
+      xhr.loadPage(this, page);
+    }
   };
 
   jumpToPageOf = (name: string) => {
@@ -108,6 +112,18 @@ export default class TournamentController {
       this.focusOnMe = false;
       this.pages[this.page].filter(p => p.name.toLowerCase() == userId).forEach(this.showPlayerInfo);
       this.redraw();
+    });
+  };
+
+  jumpToRank = (rank: number) => {
+    const page = 1 + Math.floor((rank - 1) / maxPerPage);
+    const row = (rank - 1) % maxPerPage;
+    xhr.loadPage(this, page, () => {
+      if (!this.pages[page] || row >= this.pages[page].length) return;
+      this.page = page;
+      this.searching = false;
+      this.focusOnMe = false;
+      this.showPlayerInfo(this.pages[page][row]);
     });
   };
 
@@ -137,7 +153,7 @@ export default class TournamentController {
     } else {
       let password;
       if (this.data.private && !this.data.me) {
-        password = prompt(this.trans.noarg('password'));
+        password = prompt(this.trans.noarg('tournamentEntryCode'));
         if (password === null) {
           return;
         }
@@ -148,10 +164,7 @@ export default class TournamentController {
     }
   };
 
-  scrollToMe = () => {
-    const page = myPage(this);
-    if (page && page !== this.page) this.setPage(page);
-  };
+  scrollToMe = () => this.setPage(myPage(this));
 
   toggleFocusOnMe = () => {
     if (!this.data.me) return;
@@ -187,5 +200,11 @@ export default class TournamentController {
     if (teamInfo.id === this.teamInfo.requested) this.teamInfo.loaded = teamInfo;
   };
 
-  toggleSearch = () => (this.searching = !this.searching);
+  toggleSearch = () => {
+    this.searching = !this.searching;
+  };
+
+  isIn = () => !!this.data.me && !this.data.me.withdraw;
+
+  willBePaired = () => this.isIn() && !this.data.pairingsClosed;
 }

@@ -204,7 +204,7 @@ $dropdown-box-shadow-color: var(--tag-dropdown-box-shadow-color);
 
       &:empty {
         &::after {
-          margin-left: 0;
+          margin-#{$start-direction}: 0;
         }
       }
     }
@@ -215,7 +215,7 @@ $dropdown-box-shadow-color: var(--tag-dropdown-box-shadow-color);
   + input,
   + textarea {
     position: absolute !important;
-    left: -9999em !important;
+    #{$start-direction}: -9999em !important;
     transform: scale(0) !important;
   }
 
@@ -266,9 +266,9 @@ $dropdown-box-shadow-color: var(--tag-dropdown-box-shadow-color);
         content: '';
         position: absolute;
         border-radius: inherit;
-        left: 0;
+        #{$start-direction}: 0;
         top: 0;
-        right: 0;
+        #{$end-direction}: 0;
         bottom: 0;
         z-index: -1;
         pointer-events: none;
@@ -285,9 +285,9 @@ $dropdown-box-shadow-color: var(--tag-dropdown-box-shadow-color);
           $size: -2px;
 
           top: $size;
-          right: $size;
+          #{$end-direction}: $size;
           bottom: $size;
-          left: $size;
+          #{$start-direction}: $size;
           box-shadow: 0 0 0 $tag-inset-shadow-size $tag-hover inset;
         }
       }
@@ -315,10 +315,10 @@ $dropdown-box-shadow-color: var(--tag-dropdown-box-shadow-color);
 
     &--hide {
       width: 0 !important;
-      padding-left: 0;
-      padding-right: 0;
-      margin-left: 0;
-      margin-right: 0;
+      padding-#{$start-direction}: 0;
+      padding-#{$end-direction}: 0;
+      margin-#{$start-direction}: 0;
+      margin-#{$end-direction}: 0;
       opacity: 0;
       transform: scale(0);
       transition: $tag-hide-transition;
@@ -405,8 +405,8 @@ $dropdown-box-shadow-color: var(--tag-dropdown-box-shadow-color);
 
       width: $size;
       height: $size;
-      margin-right: $size / 3;
-      margin-left: auto;
+      margin-#{$end-direction}: $size / 3;
+      margin-#{$start-direction}: auto;
 
       overflow: hidden;
       transition: 0.2s ease-out;
@@ -610,7 +610,7 @@ $dropdown-box-shadow-color: var(--tag-dropdown-box-shadow-color);
       opacity: 0.5;
       position: absolute;
       top: 50%;
-      right: 0;
+      #{$end-direction}: 0;
       bottom: 0;
       font: $size monospace;
       line-height: $size / 2;
@@ -629,7 +629,7 @@ $dropdown-box-shadow-color: var(--tag-dropdown-box-shadow-color);
     #{$self}__tag {
       position: absolute;
       top: 0;
-      right: 1.8em;
+      #{$end-direction}: 1.8em;
       bottom: 0;
 
       div {

@@ -26,7 +26,7 @@ $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transpar
     // i {
     //   flex: 0 0 auto;
     //   font-size: 4.5em;
-    //   margin-right: .5em;
+    //   margin-#{$end-direction}: .5em;
     // }
 
     h1 {
@@ -42,7 +42,7 @@ $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transpar
 
     .mselect {
       display: inline-block;
-      margin-left: 1ch;
+      margin-#{$start-direction}: 1ch;
       font-size: 2em;
 
       &__list > * {
@@ -63,20 +63,32 @@ $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transpar
 
   &__metrics {
     display: flex;
+
+    @include breakpoint($mq-not-x-small) {
+      flex-direction: column;
+      font-size: 0.7em;
+    }
   }
 
   &__metric {
     @extend %box-neat, %flex-column;
 
     align-items: center;
-    padding: 0.4em 0 0.6em 0;
+    justify-content: center;
+    text-align: center;
+    padding: 0.4em 0.7em 0.6em 0.7em;
     text-transform: uppercase;
     flex: 0 0 23.5%;
-    margin-left: 2%;
+    margin-#{$start-direction}: 2%;
     cursor: default;
 
+    @include breakpoint($mq-not-x-small) {
+      margin-top: 1em;
+    }
+
     &:first-child {
-      margin-left: 0;
+      margin-#{$start-direction}: 0;
+      margin-top: 0;
     }
 
     strong {
@@ -102,7 +114,7 @@ $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transpar
     &--win {
       background: $glow-gradient,
         linear-gradient(
-          to right,
+          to $end-direction,
           var(--c-first) 0%,
           var(--c-first) var(--first),
           var(--c-fix) var(--first),
@@ -162,14 +174,13 @@ $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transpar
       i {
         font-size: 4em;
         opacity: 0.8;
-        margin-right: -0.1em;
         color: $c-good-over;
       }
     }
   }
 
   &__global .puzzle-dashboard__metric {
-    padding: 1em 0 1.5em 0;
+    padding: 1em 1em 1.5em 1em;
     border-radius: 8px;
 
     strong {
@@ -203,7 +214,7 @@ $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transpar
 
     &__meta {
       flex: 1 1 40%;
-      margin-right: 3vw;
+      margin-#{$end-direction}: 3vw;
     }
 
     &__name {
@@ -223,6 +234,7 @@ $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transpar
     .puzzle-dashboard__metric--fix {
       i {
         font-size: 1.6em;
+        margin-#{$start-direction}: 0.3em;
       }
     }
   }

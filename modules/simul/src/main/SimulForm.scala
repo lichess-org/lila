@@ -1,29 +1,33 @@
 package lila.simul
 
-import cats.implicits._
-import chess.format.FEN
+import cats.implicits.*
+import chess.format.Fen
 import chess.StartingPosition
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.data.validation.Constraint
 
-import lila.common.Form._
+import lila.common.Form.{ *, given }
 import lila.hub.LeaderTeam
 import lila.user.User
 
-object SimulForm {
+object SimulForm:
 
   val clockTimes       = (5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20)
   val clockTimeDefault = 20
   val clockTimeChoices = options(clockTimes, "%d minute{s}")
 
-  val clockIncrements       = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
+  val clockIncrements = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
   val clockIncrementDefault = 60
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
 
-  val clockExtras       = (0 to 15 by 5) ++ (20 to 60 by 10) ++ (90 to 120 by 30)
-  val clockExtraChoices = options(clockExtras, "%d minute{s}")
+  val clockExtrasPositive = (0 to 15 by 5) ++ (20 to 60 by 10) ++ (90 to 120 by 30)
+  val clockExtras         = clockExtrasPositive.tail.map(-_).reverse concat clockExtrasPositive
+  val clockExtraChoices = options(clockExtras, "%d minute{s}") map {
+    case (d, str) if d > 0 => (d, s"+$str")
+    case pair              => pair
+  }
   val clockExtraDefault = 0
 
   val colors = List("white", "random", "black")
@@ -88,26 +92,17 @@ object SimulForm {
         "clockExtra"     -> numberIn(clockExtraChoices),
         "variants" -> list {
           number.verifying(
-            Set(
-              chess.variant.Standard.id,
-              chess.variant.Chess960.id,
-              chess.variant.KingOfTheHill.id,
-              chess.variant.ThreeCheck.id,
-              chess.variant.Antichess.id,
-              chess.variant.Atomic.id,
-              chess.variant.Horde.id,
-              chess.variant.RacingKings.id,
-              chess.variant.Crazyhouse.id
-            ) contains _
+            chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map(_.id).contains
           )
         }.verifying("At least one variant", _.nonEmpty),
         "position"         -> optional(lila.common.Form.fen.playableStrict),
         "color"            -> stringIn(colorChoices),
         "text"             -> cleanText,
         "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-        "team"             -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id))),
+        "team"             -> optional(of[TeamId].verifying(id => teams.exists(_.id == id))),
         "featured"         -> optional(boolean)
-      )(Setup.apply)(Setup.unapply)
+      )(Setup.apply)(unapply)
+        .verifying("Invalid host extra time.", _.clock.valid)
     )
 
   val positions = StartingPosition.allWithInitial.map(_.fen)
@@ -124,13 +119,14 @@ object SimulForm {
       clockIncrement: Int,
       clockExtra: Int,
       variants: List[Int],
-      position: Option[FEN],
+      position: Option[Fen.Epd],
       color: String,
       text: String,
       estimatedStartAt: Option[DateTime] = None,
-      team: Option[String],
+      team: Option[TeamId],
       featured: Option[Boolean]
-  ) {
+  ):
+
     def clock =
       SimulClock(
         config = chess.Clock.Config(clockTime * 60, clockIncrement),
@@ -139,6 +135,4 @@ object SimulForm {
 
     def actualVariants = variants.flatMap { chess.variant.Variant(_) }
 
-    def realPosition = position.filterNot(_.initial)
-  }
-}
+    def realPosition = position.filterNot(_.isInitial)

@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Actualment ets un espectador</string>
   <string name="pgnTags">Etiquetes PGN</string>
   <string name="like">M’agrada</string>
+  <string name="unlike">Ja no m\'agrada</string>
   <string name="newTag">Nova etiqueta</string>
   <string name="commentThisPosition">Comentar en aquesta posició</string>
   <string name="commentThisMove">Comentar en aquest moviment</string>
@@ -49,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Només els contribuïdors de l’estudi poden demanar un anàlisis computeritzat.</string>
   <string name="getAFullComputerAnalysis">Obté un anàlisi complert desde el servidor de la línia principal.</string>
   <string name="makeSureTheChapterIsComplete">Segura’t que el capítol és complert. Només pots requerir l’anàlisi una sola vegada.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Tots els membres sincronitzats es mantenen a la mateixa posició</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Tots els membres sincronitzats es mantenen a la mateixa posició</string>
   <string name="shareChanges">Comparteix els canvis amb els espectadors i guarda’ls al servidor</string>
   <string name="playing">Jugant</string>
   <string name="first">Primer</string>
@@ -75,11 +76,13 @@
   <string name="studyNotFound">Estudi no trobat</string>
   <string name="editChapter">Editar capítol</string>
   <string name="newChapter">Nou capítol</string>
+  <string name="importFromChapterX">Importar de %s</string>
   <string name="orientation">Orientaciò</string>
   <string name="analysisMode">Mode d\'anàlisi</string>
   <string name="pinnedChapterComment">Comentari del capítol fixat</string>
   <string name="saveChapter">Guarda el capítol</string>
   <string name="clearAnnotations">Netejar anotacions</string>
+  <string name="clearVariations">Netejar variacions</string>
   <string name="deleteChapter">Eliminar capítol</string>
   <string name="deleteThisChapter">Eliminar aquest capítol? No hi ha volta enrera!</string>
   <string name="clearAllCommentsInThisChapter">Esborrar tots els comentaris, signes i marques en aquest capítol?</string>
@@ -126,7 +129,7 @@
   <string name="clearChat">Neteja el Chat</string>
   <string name="deleteTheStudyChatHistory">Eliminar el xat de l’estudi? No hi ha volta enrera!</string>
   <string name="deleteStudy">Eliminar estudi</string>
-  <string name="deleteTheEntireStudy">Eliminar l’estudi complert? No hi ha volta enrera!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Esteu segurs que voleu eliminar el estudi? Tingues en compte que no es pot desfer. Per a confirmar-ho escriu el nom del estudi: %s</string>
   <string name="whereDoYouWantToStudyThat">A on vols estudiar-ho?</string>
   <string name="goodMove">Bona jugada</string>
   <string name="mistake">Errada</string>
@@ -154,4 +157,13 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Amb la idea</string>
   <string name="nextChapter">Capítol següent</string>
   <string name="prevChapter">Capítol Anterior</string>
+  <string name="studyActions">Acions de l\'estudi</string>
+  <string name="topics">Temes</string>
+  <string name="myTopics">Els meus temes</string>
+  <string name="popularTopics">Temes populars</string>
+  <string name="manageTopics">Gestiona els temes</string>
+  <string name="back">Enrere</string>
+  <string name="playAgain">Torna a jugar</string>
+  <string name="whatWouldYouPlay">Que jugaríeu en aquesta posició?</string>
+  <string name="youCompletedThisLesson">Enhorabona, heu completat aquesta lliçó.</string>
 </resources>

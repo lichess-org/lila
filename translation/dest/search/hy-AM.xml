@@ -13,8 +13,8 @@
   <string name="opponentName">Հակառակորդի անունը</string>
   <string name="loser">Պարտվող</string>
   <string name="from">Սկսած</string>
-  <string name="to">Մինչը</string>
-  <string name="humanOrComputer">Արդյոք խաղացողի հակառակորդը մարդ էր թե համակարգիչ</string>
+  <string name="to">Մինչև</string>
+  <string name="humanOrComputer">Արդյոք հակառակորդը մարդ էր, թե համակարգիչ</string>
   <string name="aiLevel">ԱԲ-յան մակարդակ</string>
   <string name="source">Աղբյուր</string>
   <string name="nbTurns">Քայլերի քանակ</string>
@@ -24,4 +24,16 @@
   <string name="sortBy">Դասակարգել ըստ</string>
   <string name="analysis">Վերլուծություն</string>
   <string name="onlyAnalysed">Միայն այն խաղերը․ որտեղ առկա է համակարգչային վերլուծություն</string>
+  <string name="color">Գույն</string>
+  <string name="evaluation">Գնահատական</string>
+  <string name="maxNumber">Առավելագույն քանակ</string>
+  <string name="maxNumberExplanation">Վերադարձի համար անհրաժեշտ պարտիաների առավելագույն քանակ</string>
+  <string name="include">Ներառյալ</string>
+  <string name="descending">Նվազման կարգով</string>
+  <string name="ascending">Աճման կարգով</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Գտնվել է %s պարտիա</item>
+    <item quantity="other">Գտնվել է %s պարտիա</item>
+  </plurals>
+  <string name="ratingExplanation">Երկու խաղացողների միջին վարկանիշը</string>
 </resources>

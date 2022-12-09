@@ -21,7 +21,7 @@
   }
 
   .img {
-    margin-right: 1rem;
+    margin-#{$end-direction}: 1rem;
   }
 
   i::before {
@@ -58,7 +58,7 @@
       flex: 1 1 100%;
       text-align: right;
       font-size: 2.8em;
-      margin-right: 0.5em;
+      margin-#{$end-direction}: 0.5em;
     }
   }
 
@@ -71,7 +71,7 @@
 
     color: var(--c-brag);
     font-size: 1.7em;
-    margin-left: 0.2em;
+    margin-#{$start-direction}: 0.2em;
   }
 
   .shy {

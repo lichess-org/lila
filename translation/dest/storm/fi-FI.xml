@@ -15,7 +15,7 @@
     <item quantity="other">%s sarjaa</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Pelasin yhden sarjan %2$sia</item>
+    <item quantity="one">Pelasi yhden sarjan %2$sia</item>
     <item quantity="other">Pelasi %1$s sarjaa %2$sia</item>
   </plurals>
   <string name="highscoreX">Paras tulos: %s</string>
@@ -50,4 +50,13 @@
   <string name="skip">ohita</string>
   <string name="skipHelp">Kunkin kilvan aikana voit ohittaa yhden siirron:</string>
   <string name="skipExplanation">Ohita tämä siirto jatkaaksesi putkea! Toimii kunkin kilvan aikana vain kerran.</string>
+  <string name="failedPuzzles">Epäonnistuneet tehtävät</string>
+  <string name="slowPuzzles">Hitaat tehtävät</string>
+  <string name="skippedPuzzle">Ohitettu tehtävä</string>
+  <string name="thisWeek">Tällä viikolla</string>
+  <string name="thisMonth">Tässä kuussa</string>
+  <string name="allTime">Paras koskaan</string>
+  <string name="clickToReload">Lataa uudelleen</string>
+  <string name="thisRunHasExpired">Tämä sarja on vanhentunut!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Tämä sarja on avattu toiseen välilehteen!</string>
 </resources>

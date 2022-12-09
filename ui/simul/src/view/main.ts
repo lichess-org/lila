@@ -1,4 +1,5 @@
 import { h } from 'snabbdom';
+import { onInsert } from 'common/snabbdom';
 import SimulCtrl from '../ctrl';
 import * as util from './util';
 import created from './created';
@@ -18,7 +19,7 @@ export default function (ctrl: SimulCtrl) {
     },
     [
       h('aside.simul__side', {
-        hook: util.onInsert(el => {
+        hook: onInsert(el => {
           $(el).replaceWith(ctrl.opts.$side);
           if (ctrl.opts.chat) {
             ctrl.opts.chat.data.hostId = ctrl.data.host.id;
@@ -38,18 +39,20 @@ export default function (ctrl: SimulCtrl) {
         handler(ctrl)
       ),
       h('div.chat__members.none', {
-        hook: util.onInsert(lichess.watchers),
+        hook: onInsert(lichess.watchers),
       }),
     ]
   );
 }
 
 const showText = (ctrl: SimulCtrl) =>
-  h('div.simul-text', [
-    h('p', {
-      hook: richHTML(ctrl.data.text),
-    }),
-  ]);
+  ctrl.data.text.length > 0
+    ? h('div.simul-text', [
+        h('p', {
+          hook: richHTML(ctrl.data.text),
+        }),
+      ])
+    : undefined;
 
 const started = (ctrl: SimulCtrl) => [util.title(ctrl), showText(ctrl), results(ctrl), pairings(ctrl)];
 

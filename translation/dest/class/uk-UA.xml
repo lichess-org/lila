@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Класи</string>
+  <string name="lichessClasses">Уроки</string>
   <string name="teachClassesOfChessStudents">Викладайте шахи учням за допомогою інструменту Lichess Уроки.</string>
   <string name="features">Можливості</string>
   <string name="quicklyGenerateSafeUsernames">Швидко створюйте безпечні імена користувачів та паролі для учнів</string>
@@ -11,19 +11,19 @@
   <string name="noClassesYet">Ще немає уроків.</string>
   <string name="teachersX">Викладачі: %s</string>
   <string name="newClass">Новий урок</string>
-  <string name="closeClass">Завершити урок</string>
-  <string name="closedByX">Закрито %s</string>
+  <string name="closeClass">Закрити урок</string>
+  <string name="removedByX">Видалений %s</string>
   <string name="reopen">Відкрити знову</string>
   <string name="removeStudent">Видалити учня</string>
   <string name="removedStudents">Видалено</string>
   <string name="inviteTheStudentBack">Повторно запросити учня</string>
   <string name="sendAMessage">Надіслати повідомлення усім учням.</string>
-  <string name="aLinkToTheClassWillBeAdded">Посилання на клас буде автоматично додано в кінець повідомлення, тому Вам не потрібно додавати його самостійно.</string>
-  <string name="className">Назва класу</string>
-  <string name="classDescription">Опис класу</string>
-  <string name="visibleByBothStudentsAndTeachers">Видимий як вчителям, так і учнями класу</string>
+  <string name="aLinkToTheClassWillBeAdded">Посилання на урок буде автоматично додано в кінець повідомлення, тому вам не потрібно додавати його самостійно.</string>
+  <string name="className">Назва уроку</string>
+  <string name="classDescription">Опис уроку</string>
+  <string name="visibleByBothStudentsAndTeachers">Видимий як вчителям, так і учнями уроку</string>
   <string name="teachersOfTheClass">Вчителі класу</string>
-  <string name="addLichessUsernames">Додайте імена користувачів, які запрошують їх в якості вчителя. По одному у рядку.</string>
+  <string name="addLichessUsernames">Додавайте імена користувачів, щоб запросити їх в якості вчителів. По одному у рядку.</string>
   <string name="resetPassword">Скинути пароль</string>
   <string name="makeSureToCopy">Переконайтеся, що ви скопіювали або записали пароль. Ви не зможете побачити його знову!</string>
   <string name="passwordX">Пароль: %s</string>
@@ -36,21 +36,22 @@
   <string name="studentCredentials">Учень:  %1$s
 Ім\'я користувача: %2$s
 Пароль: %3$s</string>
-  <string name="inviteALichessAccount">Запросити акаунт Lichess</string>
-  <string name="inviteDesc1">Якщо у учня вже є обліковий запис Lichess, Ви можете запросити його до класу.</string>
-  <string name="inviteDesc2">Вони отримають повідомлення на Lichess з посиланням, щоб приєднатися до класу.</string>
-  <string name="inviteDesc3">Важливо: запрошуйте лише учнів, яких Ви знаєте і які активно хочуть приєднатися до класу.</string>
+  <string name="inviteALichessAccount">Запросити користувача Lichess</string>
+  <string name="inviteDesc1">Якщо у учня вже є обліковий запис Lichess, ви можете запросити його до уроку.</string>
+  <string name="inviteDesc2">Вони отримають повідомлення на Lichess з посиланням, щоб приєднатися до уроку.</string>
+  <string name="inviteDesc3">Важливо: запрошуйте лише учнів, яких ви знаєте і які активно хочуть приєднатися до уроку.</string>
   <string name="inviteDesc4">Ніколи не надсилайте небажані запрошення довільним гравцям.</string>
   <string name="createANewLichessAccount">Створити обліковий запис Lichess</string>
   <string name="createDesc1">Якщо учень ще не має облікового запису Lichess, його можна створити тут.</string>
-  <string name="createDesc2">Не потрібна електронна адреса. Пароль буде згенерований і Вам треба надіслати його учневі, щоб він міг увійти в систему.</string>
+  <string name="createDesc2">Не потрібна електронна адреса. Пароль буде згенерований і вам треба надіслати його учневі, щоб він міг увійти в систему.</string>
   <string name="createDesc3">Важливо: учень не повинен мати кілька облікових записів.</string>
   <string name="createDesc4">Якщо у них вже є такий, натомість використовуйте форму запрошення.</string>
+  <string name="createStudentWarning">Створюйте облікові записи лише для реальних учнів. Не створюйте кілька облікових записів для себе. Ви будете заблоковані.</string>
   <string name="lichessUsername">Ім\'я користувача Lichess</string>
   <string name="generateANewUsername">Створити нове ім\'я користувача</string>
-  <string name="welcomeToClass">Ласкаво просимо до Вашого класу: %s.
-Ось посилання для доступу до класу.</string>
-  <string name="invitationToClass">Вас запросили приєднатися до класу \"%s\" в якості учня.</string>
+  <string name="welcomeToClass">Ласкаво просимо до вашого уроку: %s.
+Ось посилання для доступу до уроку.</string>
+  <string name="invitationToClass">Вас запросили приєднатися до уроку\"%s\" в якості учня.</string>
   <string name="clickToViewInvitation">Натисніть на посилання, щоб переглянути запрошення:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="one">Одне запрошення в очікуванні</item>
@@ -58,8 +59,7 @@
     <item quantity="many">%s запрошень в очікуванні</item>
     <item quantity="other">%s запрошень в очікуванні</item>
   </plurals>
-  <string name="noPendingInvitations">Немає очікуваних запрошень</string>
-  <string name="onlyVisibleToTeachers">Видимий лише вчителям класу</string>
+  <string name="onlyVisibleToTeachers">Видимий лише для вчителів класу</string>
   <string name="lastActiveDate">Активний</string>
   <string name="managed">Керований</string>
   <string name="thisStudentAccountIsManaged">Обліковий запис цього учня є керованим</string>
@@ -69,6 +69,10 @@
   <string name="releaseDesc1">Випущений обліковий запис не може бути керований знову. Учні зможуть перемикати дитячий режим і самостійно скинути пароль.</string>
   <string name="releaseDesc2">Учень залишиться в класі після випуску облікового запису.</string>
   <string name="realUniqueEmail">Справжня, унікальна електронна адреса студента. Ми надішлемо на неї листа для підтвердження з посиланням на отримання облікового запису.</string>
+  <string name="closeStudent">Закрити обліковий запис</string>
+  <string name="closeTheAccount">Закрити обліковий запис учня назавжди.</string>
+  <string name="closeDesc1">Учень ніколи більше не зможе скористатися цим обліковим записом. Закриття остаточно. Переконайтеся, що учень це розуміє і погоджується.</string>
+  <string name="closeDesc2">Ви можете надати учню контроль над обліковим записом для того, щоб вони продовжили його використовувати.</string>
   <string name="teachers">Вчителі</string>
   <plurals name="nbTeachers">
     <item quantity="one">Вчитель</item>
@@ -84,14 +88,16 @@
   </plurals>
   <string name="students">Учні</string>
   <string name="progress">Прогрес</string>
-  <string name="noStudents">Поки що в класі немає учнів.</string>
+  <string name="noStudents">В класі поки що немає учнів.</string>
   <string name="noRemovedStudents">Немає видалених учнів.</string>
   <string name="overDays">За кілька днів</string>
   <string name="timePlaying">Часу в грі</string>
   <string name="variantXOverLastY">%1$s за останні %2$s</string>
   <string name="winrate">Відсоток перемог</string>
   <string name="na">Недоступно</string>
-  <string name="news">Новини класу</string>
+  <string name="overview">Огляд</string>
+  <string name="news">Новини</string>
+  <string name="classNews">Новини класу</string>
   <string name="editNews">Редагувати новини</string>
   <string name="notifyAllStudents">Сповістити всіх учнів</string>
   <string name="nothingHere">Тут нічого, поки що.</string>
@@ -99,4 +105,19 @@
   <string name="newsEdit2">Додавайте останні новини зверху. Не видаляйте попередні новини.</string>
   <string name="newsEdit3">Відокремте новини через ---
 Вони будуть відображені в горизонтальну лінію.</string>
+  <string name="invite">Запросити</string>
+  <string name="youHaveBeenInvitedByX">%s запросив вас.</string>
+  <string name="youAcceptedThisInvitation">Ви прийняли запрошення.</string>
+  <string name="youDeclinedThisInvitation">Ви відхилили запрошення.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">або</string>
+  <string name="createMultipleAccounts">Створюйте кілька облікових записів Lichess одночасно</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Також ви можете використати %s, щоб створити декілька облікових записів Lichess зі списку імен учнів.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">використовуйте цю форму</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Майте на увазі, що в класі може бути до %1$s учнів. Щоб добавити більшу кількість учнів, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">створити більше класів</string>
+  <string name="studentsRealNamesOnePerLine">Справжні імена учнів, по одному на рядок</string>
+  <string name="xisNowAStudentOfTheClass">%s тепер новий учень класу</string>
+  <string name="anInvitationHasBeenSentToX">Запрошення було надіслано %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s уже отримав запрошення</string>
+  <string name="xIsAKidAccountWarning">%1$s є обліковим записом дитини та не може отримати ваше повідомлення. Ви повинні дати їм URL-адресу запрошення вручну: %2$s</string>
 </resources>

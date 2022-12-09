@@ -1,10 +1,11 @@
 package controllers
 
-import views._
+import views.*
 
-import lila.app._
+import lila.app.{ given, * }
+import lila.oauth.{ AccessToken, OAuthTokenForm }
 
-final class OAuthToken(env: Env) extends LilaController(env) {
+final class OAuthToken(env: Env) extends LilaController(env):
 
   private val tokenApi = env.oAuth.tokenApi
 
@@ -17,34 +18,27 @@ final class OAuthToken(env: Env) extends LilaController(env) {
 
   def create =
     Auth { implicit ctx => me =>
-      val form = env.oAuth.forms.token.create fill lila.oauth.OAuthForm.token
-        .Data(
-          description = ~get("description"),
-          scopes = (~ctx.req.queryString.get("scopes[]")).toList
-        )
-      Ok(html.oAuth.token.create(form, me)).fuccess
+      val form = OAuthTokenForm.create fill OAuthTokenForm.Data(
+        description = ~get("description"),
+        scopes = (~ctx.req.queryString.get("scopes[]")).toList
+      )
+      Ok(html.oAuth.token.create(form, me)).toFuccess
     }
 
   def createApply =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
-      env.oAuth.forms.token.create
+      given play.api.mvc.Request[?] = ctx.body
+      OAuthTokenForm.create
         .bindFromRequest()
         .fold(
-          err => BadRequest(html.oAuth.token.create(err, me)).fuccess,
+          err => BadRequest(html.oAuth.token.create(err, me)).toFuccess,
           setup =>
-            tokenApi.create(setup make me) inject
+            tokenApi.create(setup, me, env.clas.studentCache.isStudent(me.id)) inject
               Redirect(routes.OAuthToken.index).flashSuccess
         )
     }
 
-  def delete(publicId: String) =
+  def delete(id: String) =
     Auth { _ => me =>
-      tokenApi.revokeByPublicId(publicId, me) map {
-        _ foreach { token =>
-          env.oAuth.server.deleteCached(token.id)
-        }
-      } inject
-        Redirect(routes.OAuthToken.index).flashSuccess
+      tokenApi.revokeById(AccessToken.Id(id), me) inject Redirect(routes.OAuthToken.index).flashSuccess
     }
-}

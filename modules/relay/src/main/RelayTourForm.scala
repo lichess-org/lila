@@ -1,51 +1,58 @@
 package lila.relay
 
-import io.lemonlabs.uri.AbsoluteUrl
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
-import scala.util.chaining._
+import play.api.data.*
+import play.api.data.Forms.*
+import scala.util.chaining.*
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, formatter, into }
 import lila.game.Game
 import lila.security.Granter
 import lila.study.Study
 import lila.user.User
+import lila.common.Markdown
 
-final class RelayTourForm {
+final class RelayTourForm:
 
-  import RelayTourForm._
+  import RelayTourForm.*
 
   val form = Form(
     mapping(
-      "name"        -> cleanText(minLength = 3, maxLength = 80),
-      "description" -> cleanText(minLength = 3, maxLength = 400),
-      "markup"      -> optional(cleanText(maxLength = 20_000)),
-      "official"    -> optional(boolean)
-    )(Data.apply)(Data.unapply)
+      "name"            -> cleanText(minLength = 3, maxLength = 80),
+      "description"     -> cleanText(minLength = 3, maxLength = 400),
+      "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
+      "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
+      "autoLeaderboard" -> boolean,
+      "players"         -> optional(of(formatter.stringFormatter[RelayPlayers](_.text, RelayPlayers.apply)))
+    )(Data.apply)(unapply)
   )
 
   def create = form
 
   def edit(t: RelayTour) = form fill Data.make(t)
-}
 
-object RelayTourForm {
+object RelayTourForm:
 
   case class Data(
       name: String,
       description: String,
-      markup: Option[String],
-      official: Option[Boolean]
-  ) {
+      markup: Option[Markdown],
+      tier: Option[RelayTour.Tier],
+      autoLeaderboard: Boolean,
+      players: Option[RelayPlayers]
+  ):
 
     def update(tour: RelayTour, user: User) =
-      tour.copy(
-        name = name,
-        description = description,
-        markup = markup,
-        official = ~official && Granter(_.Relay)(user)
-      )
+      tour
+        .copy(
+          name = name,
+          description = description,
+          markup = markup,
+          tier = tier ifTrue Granter(_.Relay)(user),
+          autoLeaderboard = autoLeaderboard,
+          players = players
+        )
+        .reAssignIfOfficial
 
     def make(user: User) =
       RelayTour(
@@ -54,21 +61,22 @@ object RelayTourForm {
         description = description,
         markup = markup,
         ownerId = user.id,
-        official = ~official && Granter(_.Relay)(user),
+        tier = tier ifTrue Granter(_.Relay)(user),
         active = false,
         createdAt = DateTime.now,
-        syncedAt = none
-      )
-  }
+        syncedAt = none,
+        autoLeaderboard = autoLeaderboard,
+        players = players
+      ).reAssignIfOfficial
 
-  object Data {
+  object Data:
 
     def make(tour: RelayTour) =
       Data(
         name = tour.name,
         description = tour.description,
         markup = tour.markup,
-        official = tour.official option true
+        tier = tour.tier,
+        autoLeaderboard = tour.autoLeaderboard,
+        players = tour.players
       )
-  }
-}

@@ -1,25 +1,22 @@
 import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
 import { h, VNode } from 'snabbdom';
+import { spinnerVdom as spinner } from 'common/spinner';
+import { opposite } from 'chessground/util';
 
-export function loaded(ctrl: Ctrl): VNode {
-  return ctrl.redirecting()
+export const loaded = (ctrl: Ctrl): VNode =>
+  ctrl.redirecting()
     ? h('div#challenge-app.dropdown', h('div.initiating', spinner()))
     : h('div#challenge-app.links.dropdown.rendered', renderContent(ctrl));
-}
 
-export function loading(): VNode {
-  return h('div#challenge-app.links.dropdown.rendered', [h('div.empty.loading', '-'), create()]);
-}
+export const loading = (): VNode => h('div#challenge-app.links.dropdown.rendered', h('div.empty.loading', '-'));
 
 function renderContent(ctrl: Ctrl): VNode[] {
   const d = ctrl.data();
   const nb = d.in.length + d.out.length;
-  return nb ? [allChallenges(ctrl, d, nb)] : [empty(), create()];
+  return nb ? [allChallenges(ctrl, d, nb)] : [empty()];
 }
 
-function userPowertips(vnode: VNode) {
-  lichess.powertip.manualUserIn(vnode.elm);
-}
+const userPowertips = (vnode: VNode) => lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
 
 function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
   return h(
@@ -37,8 +34,11 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
 
 function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
   return (c: Challenge) => {
+    const fromPosition = c.variant.key == 'fromPosition';
+    const origColor = c.color == 'random' ? (fromPosition ? c.finalColor : 'random') : c.finalColor;
+    const myColor = dir == 'out' ? origColor : origColor == 'random' ? 'random' : opposite(origColor);
     return h(
-      'div.challenge.' + dir + '.c-' + c.id,
+      `div.challenge.${dir}.c-${c.id}`,
       {
         class: {
           declined: !!c.declined,
@@ -46,15 +46,28 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
       },
       [
         h('div.content', [
-          h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser)),
-          h(
-            'span.desc',
-            [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(' • ')
-          ),
+          h('div.content__text', [
+            h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser, ctrl.showRatings)),
+            h('span.desc', [
+              h('span.is.is2.color-icon.' + myColor),
+              ' • ',
+              [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(' • '),
+            ]),
+          ]),
+          h('i.perf', {
+            attrs: { 'data-icon': c.perf.icon },
+          }),
         ]),
-        h('i', {
-          attrs: { 'data-icon': c.perf.icon },
-        }),
+        fromPosition
+          ? h('div.position.mini-board.cg-wrap.is2d', {
+              attrs: { 'data-state': `${c.initialFen},${myColor}` },
+              hook: {
+                insert(vnode) {
+                  lichess.miniBoard.init(vnode.elm as HTMLElement);
+                },
+              },
+            })
+          : null,
         h('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c)),
       ]
     );
@@ -142,7 +155,7 @@ function timeControl(c: TimeControl): string {
   }
 }
 
-function renderUser(u?: ChallengeUser): VNode {
+function renderUser(u: ChallengeUser | undefined, showRatings: boolean): VNode {
   if (!u) return h('span', 'Open challenge');
   const rating = u.rating + (u.provisional ? '?' : '');
   return h(
@@ -155,7 +168,7 @@ function renderUser(u?: ChallengeUser): VNode {
       h('i.line' + (u.patron ? '.patron' : '')),
       h('name', [
         u.title && h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, u.title + ' '),
-        u.name + ' (' + rating + ') ',
+        u.name + (showRatings ? ' (' + rating + ') ' : ''),
       ]),
       h(
         'signal',
@@ -171,18 +184,8 @@ function renderUser(u?: ChallengeUser): VNode {
   );
 }
 
-function create(): VNode {
-  return h('a.create', {
-    attrs: {
-      href: '/?any#friend',
-      'data-icon': '',
-      title: 'Challenge someone',
-    },
-  });
-}
-
-function empty(): VNode {
-  return h(
+const empty = (): VNode =>
+  h(
     'div.empty.text',
     {
       attrs: {
@@ -191,22 +194,9 @@ function empty(): VNode {
     },
     'No challenges.'
   );
-}
 
-function onClick(f: (e: Event) => void) {
-  return {
-    insert: (vnode: VNode) => {
-      (vnode.elm as HTMLElement).addEventListener('click', f);
-    },
-  };
-}
-
-function spinner() {
-  return h('div.spinner', [
-    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
-      h('circle', {
-        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' },
-      }),
-    ]),
-  ]);
-}
+const onClick = (f: (e: Event) => void) => ({
+  insert: (vnode: VNode) => {
+    (vnode.elm as HTMLElement).addEventListener('click', f);
+  },
+});

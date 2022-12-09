@@ -23,7 +23,7 @@
     color: var(--c-bad-over);
     padding: 0 5px;
     border-radius: 9px;
-    margin-right: 4px;
+    margin-#{$end-direction}: 4px;
   }
 
   .mode {
@@ -37,7 +37,7 @@
       font-size: 1.4em;
       content: '';
       color: var(--c-bad);
-      margin-right: 0.2rem;
+      margin-#{$end-direction}: 0.2rem;
     }
 
     &.on i::before {

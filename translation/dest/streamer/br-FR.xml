@@ -35,9 +35,5 @@
   <string name="xStreamerPicture">Foto ar streamer %s</string>
   <string name="changePicture">Cheñch/dilemel ho foto</string>
   <string name="uploadPicture">Ezkargañ ur foto</string>
-  <string name="deletePicture">Dilemel ar foto</string>
   <string name="maxSize">Ment brasañ: %s</string>
-  <string name="installBlocker">Staliañ un enepvirus!</string>
-  <string name="beSafe">Bezit gwarezet a-enep bruderezh ha trackers a gaver stank war Twitch ha YouTube.
-Aliañ a reomp deoc\'h uBlock Origin peogwir eo digoust ha digor eo he mammenn.</string>
 </resources>

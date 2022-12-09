@@ -8,6 +8,13 @@
   <string name="mostChessCourses">Повечето шахматни уроци и упражнения използват алгебричната нотация.</string>
   <string name="talkToYourChessFriends">Това улеснява шахматния разговор с приятели, тъй като всички разбирате \"езика на шахмата\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Ако разпознавате координатите бързо, ще можете да анализирате игрите по-ефективно.</string>
-  <string name="aSquareNameAppears">Когато на дъската се появят координати, щракнете върху съответния квадрат. Имате 30 секунди да разпознаете колкото се може повече квадрата!</string>
+  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Когато на дъската се появят координати, щракнете на съответното поле.</string>
+  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Въведете координатите на осветеното поле (напр. \"e4\").</string>
+  <string name="youHaveThirtySeconds">Имате 30 секунди да намерите колкото се може повече полета!</string>
+  <string name="goAsLongAsYouWant">Давайте до колкото си поискате, няма ограничение за време!</string>
+  <string name="showCoordinates">Покажи координатите</string>
+  <string name="showPieces">Покажи фигурите</string>
   <string name="startTraining">Започни упражнението</string>
+  <string name="findSquare">Намери полето</string>
+  <string name="nameSquare">Назови полето</string>
 </resources>

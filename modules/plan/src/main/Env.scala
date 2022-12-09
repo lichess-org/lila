@@ -1,24 +1,27 @@
 package lila.plan
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.Strings
-import lila.memo.SettingStore.Strings._
+import lila.memo.SettingStore.Strings.given
+import lila.db.dsl.Coll
 
 @Module
 private class PlanConfig(
     @ConfigName("collection.patron") val patronColl: CollName,
     @ConfigName("collection.charge") val chargeColl: CollName,
     val stripe: StripeClient.Config,
+    val payPal: PayPalClient.Config,
     val oer: CurrencyApi.Config,
-    @ConfigName("paypal.ipn_key") val payPalIpnKey: Secret
+    @ConfigName("payPal.ipn_key") val payPalIpnKey: Secret
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
@@ -29,17 +32,16 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
     settingStore: lila.memo.SettingStore.Builder
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     mode: play.api.Mode
-) {
+):
 
-  import StripeClient.stripeConfigLoader
-  import CurrencyApi.currencyConfigLoader
   private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)
 
   val stripePublicKey = config.stripe.publicKey
+  val payPalPublicKey = config.payPal.publicKey
 
   val donationGoalSetting = settingStore[Int](
     "donationGoal",
@@ -53,46 +55,37 @@ final class Env(
     text = "Stripe payment methods, separated by commas".some
   )
 
-  private lazy val patronColl = db(config.patronColl)
-  private lazy val chargeColl = db(config.chargeColl)
+  private lazy val mongo = PlanMongo(
+    patron = db(config.patronColl),
+    charge = db(config.chargeColl)
+  )
 
   lazy val stripePaymentMethods: StripePaymentMethods = wire[StripePaymentMethods]
 
   private lazy val stripeClient: StripeClient = wire[StripeClient]
 
+  private lazy val payPalClient: PayPalClient = wire[PayPalClient]
+
   lazy val currencyApi: CurrencyApi = wire[CurrencyApi]
 
   lazy val priceApi: PlanPricingApi = wire[PlanPricingApi]
 
-  lazy val checkoutForm = wire[CheckoutForm]
+  lazy val checkoutForm = wire[PlanCheckoutForm]
 
   private lazy val notifier: PlanNotifier = wire[PlanNotifier]
 
   private lazy val monthlyGoalApi = new MonthlyGoalApi(
     getGoal = () => Usd(donationGoalSetting.get()),
-    chargeColl = chargeColl
+    chargeColl = mongo.charge
   )
 
-  lazy val api = new PlanApi(
-    stripeClient = stripeClient,
-    patronColl = patronColl,
-    chargeColl = chargeColl,
-    notifier = notifier,
-    userRepo = userRepo,
-    lightUserApi = lightUserApi,
-    cacheApi = cacheApi,
-    mongoCache = mongoCache,
-    payPalIpnKey = config.payPalIpnKey,
-    monthlyGoalApi = monthlyGoalApi,
-    currencyApi = currencyApi,
-    pricingApi = priceApi
-  )
+  lazy val api: PlanApi = wire[PlanApi]
 
-  lazy val webhookHandler = new WebhookHandler(api)
+  lazy val webhook = wire[PlanWebhook]
 
   private lazy val expiration = new Expiration(
     userRepo,
-    patronColl,
+    mongo.patron,
     notifier
   )
 
@@ -100,15 +93,18 @@ final class Env(
     expiration.run.unit
   }
 
+  lila.common.Bus.subscribeFun("email") { case lila.hub.actorApi.user.ChangeEmail(userId, email) =>
+    api.onEmailChange(userId, email).unit
+  }
+
   def cli =
-    new lila.common.Cli {
-      def process = {
+    new lila.common.Cli:
+      def process =
         case "patron" :: "lifetime" :: user :: Nil =>
-          userRepo named user flatMap { _ ?? api.setLifetime } inject "ok"
+          userRepo byId UserStr(user) flatMap { _ ?? api.setLifetime } inject "ok"
         case "patron" :: "month" :: user :: Nil =>
-          userRepo named user flatMap { _ ?? api.freeMonth } inject "ok"
+          userRepo byId UserStr(user) flatMap { _ ?? api.freeMonth } inject "ok"
         case "patron" :: "remove" :: user :: Nil =>
-          userRepo named user flatMap { _ ?? api.remove } inject "ok"
-      }
-    }
-}
+          userRepo byId UserStr(user) flatMap { _ ?? api.remove } inject "ok"
+
+final private class PlanMongo(val patron: Coll, val charge: Coll)

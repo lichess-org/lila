@@ -62,6 +62,7 @@
     <item quantity="one">%4$s పోటీలో %3$s ఆటల తరువాత మీరు %1$s స్థానంలో (అంటే %2$s%% శాతం ఉన్నత స్థానంలో) ఉన్నారు</item>
     <item quantity="other">%4$s పోటీలో %3$s ఆట తరువాత మీరు %1$s స్థానంలో (అంటే %2$s%% శాతం ఉన్నత స్థానంలో) ఉన్నారు</item>
   </plurals>
+  <string name="rankedInSwissTournament">%2$s మంది అభ్యర్థులలో #%1$s స్థానం పొందారు</string>
   <string name="signedUp">Lichess.org లో ఆడటానికి సంతకం చేశారు</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s జట్టులో చేరారు</item>

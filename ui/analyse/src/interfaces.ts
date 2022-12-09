@@ -4,26 +4,31 @@ import * as cg from 'chessground/types';
 import { ForecastData } from './forecast/interfaces';
 import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
 import { RelayData } from './study/relay/interfaces';
-import AnalyseController from './ctrl';
 import { ChatCtrl } from 'chat';
 import { ExplorerOpts } from './explorer/interfaces';
 import { StudyData } from './study/interfaces';
 import { AnalyseSocketSend } from './socket';
+import { ExternalEngine } from 'ceval';
+import * as Prefs from 'common/prefs';
 
-export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
 export type Seconds = number;
 
-export { Key, Piece } from 'chessground/types';
+export type { Key, Piece } from 'chessground/types';
 
 export interface NvuiPlugin {
-  render(ctrl: AnalyseController): VNode;
+  render(): VNode;
 }
 
 export interface AnalyseApi {
   socketReceive(type: string, data: any): boolean;
   path(): Tree.Path;
   setChapter(id: string): void;
+}
+
+export interface OpeningPuzzle {
+  key: string;
+  name: string;
+  count: number;
 }
 
 // similar, but not identical, to game/GameData
@@ -38,6 +43,7 @@ export interface AnalyseData {
   analysis?: Analysis;
   userAnalysis: boolean;
   forecast?: ForecastData;
+  sidelines?: Tree.Node[][];
   treeParts: Tree.Node[];
   evalPut?: boolean;
   practiceGoal?: PracticeGoal;
@@ -49,6 +55,8 @@ export interface AnalyseData {
   userTv?: {
     id: string;
   };
+  puzzle?: OpeningPuzzle;
+  externalEngines?: ExternalEngine[];
 }
 
 export interface AnalysePref {
@@ -58,7 +66,9 @@ export interface AnalysePref {
   rookCastle?: boolean;
   destination?: boolean;
   highlight?: boolean;
+  showCaptured?: boolean;
   animationDuration?: number;
+  moveEvent: Prefs.MoveEvent;
 }
 
 export interface ServerEvalData {
@@ -82,7 +92,8 @@ export interface Game {
   status: Status;
   player: Color;
   turns: number;
-  startedAtTurn: number;
+  fen: Fen;
+  startedAtTurn?: number;
   source: Source;
   speed: Speed;
   variant: Variant;
@@ -119,6 +130,7 @@ export interface AnalysisSide {
   inaccuracy: number;
   mistake: number;
   blunder: number;
+  accuracy: number;
 }
 
 export interface AnalyseOpts {
@@ -141,6 +153,9 @@ export interface AnalyseOpts {
     parseMoves: boolean;
     instance?: Promise<ChatCtrl>;
   };
+  wiki?: boolean;
+  inlinePgn?: string;
+  externalEngineEndpoint: string;
 }
 
 export interface JustCaptured extends cg.Piece {
@@ -161,5 +176,11 @@ export interface EvalPutData extends Tree.ServerEval {
 
 export type Conceal = false | 'conceal' | 'hide' | null;
 export type ConcealOf = (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => Conceal;
+
+export interface AnalyseState {
+  root: Tree.Node;
+  path: Tree.Path;
+  flipped: boolean;
+}
 
 export type Redraw = () => void;

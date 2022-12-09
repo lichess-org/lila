@@ -2,45 +2,51 @@ package lila.swiss
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.Heapsort
-import lila.db.dsl._
-import lila.hub.LightTeam.TeamID
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 
 final class SwissFeature(
-    colls: SwissColls,
+    mongo: SwissMongo,
     cacheApi: CacheApi,
     swissCache: SwissCache
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
-  private val lichessTeamId = "lichess-swiss"
+  val onHomepage = cacheApi.unit[Option[Swiss]] {
+    _.refreshAfterWrite(1 minute)
+      .buildAsyncFuture { _ =>
+        mongo.swiss
+          .find($doc("teamId" -> lichessTeamId, "startsAt" $gt DateTime.now.minusMinutes(10)))
+          .sort($sort asc "startsAt")
+          .one[Swiss]
+      }
+  }
 
-  def get(teams: Seq[TeamID]) =
+  def get(teams: Seq[TeamId]) =
     cache.getUnit zip getForTeams(teams :+ lichessTeamId distinct) map { case (cached, teamed) =>
       FeaturedSwisses(
-        created = (teamed.created ::: cached.created).distinct,
-        started = (teamed.started ::: cached.started).distinct
+        created = (teamed.created ::: cached.created).distinctBy(_.id),
+        started = (teamed.started ::: cached.started).distinctBy(_.id)
       )
     }
 
   private val startsAtOrdering = Ordering.by[Swiss, Long](_.startsAt.getMillis)
 
-  private def getForTeams(teams: Seq[TeamID]): Fu[FeaturedSwisses] =
-    teams.map(swissCache.featuredInTeam.get).sequenceFu.map(_.flatten) flatMap { ids =>
-      colls.swiss.byIds[Swiss](ids.map(_.value), ReadPreference.secondaryPreferred)
+  private def getForTeams(teams: Seq[TeamId]): Fu[FeaturedSwisses] =
+    teams.map(swissCache.featuredInTeam.get).sequenceFu.dmap(_.flatten) flatMap { ids =>
+      mongo.swiss.byIds[Swiss, SwissId](ids, ReadPreference.secondaryPreferred)
     } map {
-      _.filter(_.isNotFinished).partition(_.isCreated) match {
+      _.filter(_.isNotFinished).partition(_.isCreated) match
         case (created, started) =>
           FeaturedSwisses(
-            created = Heapsort.topN(created, 10, startsAtOrdering.reverse),
-            started = Heapsort.topN(started, 10, startsAtOrdering)
+            created = Heapsort.topN(created, 10)(using startsAtOrdering.reverse),
+            started = Heapsort.topN(started, 10)(using startsAtOrdering)
           )
-      }
     }
 
   private val cache = cacheApi.unit[FeaturedSwisses] {
@@ -54,17 +60,35 @@ final class SwissFeature(
       }
   }
 
-  private def cacheCompute(startsAtRange: Bdoc): Fu[List[Swiss]] =
-    colls.swiss
-      .find(
-        $doc(
-          "featurable" -> true,
-          "settings.i" $lte 600, // hits the partial index
-          "startsAt" -> startsAtRange,
-          "garbage" $ne true
+  // causes heavy team reads
+  private def cacheCompute(startsAtRange: Bdoc, nb: Int = 5): Fu[List[Swiss]] =
+    mongo.swiss
+      .aggregateList(nb, ReadPreference.secondaryPreferred) { framework =>
+        import framework.*
+        Match(
+          $doc(
+            "featurable" -> true,
+            "settings.i" $lte 600, // hits the partial index
+            "startsAt" -> startsAtRange,
+            "garbage" $ne true
+          )
+        ) -> List(
+          Sort(Descending("nbPlayers")),
+          Limit(nb * 50),
+          PipelineOperator(
+            $lookup.pipeline(
+              from = "team",
+              as = "team",
+              local = "teamId",
+              foreign = "_id",
+              pipe = List(
+                $doc("$match"   -> $doc("open" -> true, "password" $exists false)),
+                $doc("$project" -> $id(true))
+              )
+            )
+          ),
+          UnwindField("team"),
+          Limit(nb)
         )
-      )
-      .sort($sort desc "nbPlayers")
-      .cursor[Swiss]()
-      .list(5)
-}
+      }
+      .map { _.flatMap(_.asOpt[Swiss]) }

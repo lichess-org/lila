@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Сакам да ја избришам мојата историја или мојот рејтинг</string>
   <string name="cantClearHistory">Не е возможно да ја избришете вашата историја на партии, загатки, или рејтинг.</string>
   <string name="wantReport">Сакам да пријавам играч</string>
+  <string name="toReportAPlayerUseForm">За да пријавите играч, користете го формуларот за пријава</string>
   <string name="youCanAlsoReachReportPage">На страната можете да стигнете и преку кликање на %s копчето на нивниот профил.</string>
   <string name="doNotReportInForum">Не пријавувај играчи на форумот.</string>
   <string name="doNotSendReportEmails">Не ни праќај е-пошта со пријави.</string>
@@ -51,6 +52,7 @@
   <string name="knightMate">Можно е да се направи мат само со коњ или ловец, доколку противникот има, освен кралот, и други фигури.</string>
   <string name="noRatingPoints">Не беа доделени поени за рејтинг</string>
   <string name="ratedGame">Потврдете дека сте играле рангирана партија. Пријателските партии не влијаат на рејтингот на играчите.</string>
+  <string name="botRatingAbuse">Во одредени околности кога се игра рангирана игра против компјутер, може да не се доделат поени доколку се утврди дека играчот ја злоупотребува играта за рејтинг поени.</string>
   <string name="errorPage">Страна за грешка</string>
   <string name="reportErrorPage">Ако ја имате добиено страната за грешка, може да пријавите:</string>
   <string name="banAppeal">Жалба за забрана или ограничување на IP адресата</string>

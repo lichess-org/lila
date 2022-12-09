@@ -13,7 +13,9 @@
   <string name="specialMoves">Speciale zetten</string>
   <string name="didYouLikeThisPuzzle">Vond je deze puzzel leuk?</string>
   <string name="voteToLoadNextOne">Stem om de volgende te laden!</string>
-  <string name="yourPuzzleRatingX">Je puzzelscore: %s</string>
+  <string name="upVote">Puzzel leuk vinden</string>
+  <string name="downVote">Puzzel niet leuk vinden</string>
+  <string name="yourPuzzleRatingWillNotChange">Je puzzelrating zal niet veranderen: puzzels zijn geen competitie. De rating helpt bij het selecteren van de beste puzzels voor je huidige vaardigheid.</string>
   <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
   <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
   <string name="toGetPersonalizedPuzzles">Om gepersonaliseerde puzzels te krijgen:</string>
@@ -51,7 +53,8 @@
   </plurals>
   <string name="example">Voorbeeld</string>
   <string name="addAnotherTheme">Voeg nog een thema toe</string>
-  <string name="jumpToNextPuzzleImmediately">Direct door naar volgende puzzel</string>
+  <string name="nextPuzzle">Volgende puzzel</string>
+  <string name="jumpToNextPuzzleImmediately">Ga direct door naar volgende puzzel</string>
   <string name="puzzleDashboard">Puzzeldashboard</string>
   <string name="improvementAreas">Verbeterpunten</string>
   <string name="strengths">Sterke punten</string>
@@ -70,4 +73,17 @@
   <string name="fromMyGamesNone">Je hebt geen puzzels in de database staan, maar Lichess waardeert je nog steeds heel erg.
 Speel rapid en klassieke partijen om de kans te vergroten dat een puzzel uit jouw partijen wordt toegevoegd!</string>
   <string name="fromXGamesFound">%1$s puzzels gevonden in %2$s partijen</string>
+  <string name="puzzleDashboardDescription">Train, analyseer, verbeter</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s gespeeld</item>
+    <item quantity="other">%s gespeeld</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s om te herhalen</item>
+    <item quantity="other">%s om te herhalen</item>
+  </plurals>
+  <string name="percentSolved">%s opgelost</string>
+  <string name="noPuzzlesToShow">Niets te tonen, speel eerst wat puzzels!</string>
+  <string name="improvementAreasDescription">Train deze om je voortgang te optimaliseren!</string>
+  <string name="strengthDescription">Je presteert het beste in deze thema\'s</string>
 </resources>

@@ -97,7 +97,7 @@
     overflow: hidden;
     position: absolute;
     top: -3px;
-    right: -3px;
+    #{$end-direction}: -3px;
   }
 
   .ribbon {
@@ -110,7 +110,7 @@
     transform: rotate(45deg);
     position: relative;
     padding: 7px 0;
-    left: -5px;
+    #{$start-direction}: -5px;
     top: 15px;
     width: 120px;
     color: #6a6340;
@@ -119,18 +119,18 @@
     &:before,
     &:after {
       content: '';
-      border-left: 3px solid transparent;
-      border-right: 3px solid transparent;
+      border-#{$start-direction}: 3px solid transparent;
+      border-#{$end-direction}: 3px solid transparent;
       position: absolute;
       bottom: -3px;
     }
 
     &:before {
-      left: 0;
+      #{$start-direction}: 0;
     }
 
     &:after {
-      right: 0;
+      #{$end-direction}: 0;
     }
 
     background-color: #b3e5fc;

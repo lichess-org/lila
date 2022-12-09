@@ -1,29 +1,21 @@
 package lila.socket
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.lettuce.core._
+import akka.actor.{ CoordinatedShutdown, Scheduler }
+import com.softwaremill.macwire.*
+import io.lettuce.core.*
 import play.api.Configuration
 
 @Module
-final class Env(
-    appConfig: Configuration,
-    shutdown: CoordinatedShutdown,
-    notification: lila.hub.actors.Notification
-)(implicit
+final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(using
     ec: scala.concurrent.ExecutionContext,
-    akka: ActorSystem
-) {
-
-  private val RedisUri = appConfig.get[String]("socket.redis.uri")
-
-  private val redisClient = RedisClient create RedisURI.create(RedisUri)
+    scheduler: Scheduler
+):
+  private val redisClient = RedisClient create RedisURI.create(appConfig.get[String]("socket.redis.uri"))
 
   val remoteSocket: RemoteSocket = wire[RemoteSocket]
 
   remoteSocket.subscribe("site-in", RemoteSocket.Protocol.In.baseReader)(remoteSocket.baseHandler)
 
-  val onlineIds = new OnlineIds(() => remoteSocket.onlineUserIds.get)
+  val onlineIds = OnlineIds(() => remoteSocket.onlineUserIds.get)
 
-  val isOnline = new IsOnline(userId => remoteSocket.onlineUserIds.get contains userId)
-}
+  val isOnline = IsOnline(userId => remoteSocket.onlineUserIds.get contains userId)

@@ -1,21 +1,21 @@
 package views.html
 package account
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object username {
+object username:
 
-  def apply(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) =
+  def apply(u: lila.user.User, form: play.api.data.Form[?])(implicit ctx: Context) =
     account.layout(
       title = s"${u.username} - ${trans.editProfile.txt()}",
       active = "username"
     ) {
       div(cls := "account box box-pad")(
-        h1(trans.changeUsername()),
+        h1(cls := "box__top")(trans.changeUsername()),
         standardFlash(),
         postForm(cls := "form3", action := routes.Account.usernameApply)(
           form3.globalError(form),
@@ -26,4 +26,3 @@ object username {
         )
       )
     }
-}

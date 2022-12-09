@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Stillingar</string>
-  <string name="gameDisplay">Útsjónd á talvi</string>
   <string name="pieceAnimation">Snið á talvfólki</string>
   <string name="materialDifference">Virðismunur</string>
   <string name="boardHighlights">Upplýstir talvpuntar (seinasti leikur og skák)</string>
@@ -32,7 +31,7 @@
   <string name="promoteToQueenAutomatically">Umskapa til frúgv sjálvvirkið</string>
   <string name="whenPremoving">Við forhandarleikum</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis sjálvvirkið aftaná trífalda endurtøku</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Tá ið minni enn 30 sekund eru eftir</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Tá ið minni enn 30 sekund eru eftir</string>
   <string name="moveConfirmation">Vátta leik</string>
   <string name="inCorrespondenceGames">Brævtalv</string>
   <string name="correspondenceAndUnlimited">Brævtalv og óavmarkað</string>

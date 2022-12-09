@@ -1,12 +1,13 @@
 package lila.mod
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.*
 import play.api.Configuration
 
-import lila.common.config._
+import lila.common.config.*
 import lila.user.User
+import lila.report.{ ModId, SuspectId }
 
 @Module
 final class Env(
@@ -20,10 +21,10 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     securityApi: lila.security.SecurityApi,
     tournamentApi: lila.tournament.TournamentApi,
+    swissFeature: lila.swiss.SwissFeature,
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     userRepo: lila.user.UserRepo,
-    simulEnv: lila.simul.Env,
     chatApi: lila.chat.ChatApi,
     notifyApi: lila.notify.NotifyApi,
     historyApi: lila.history.HistoryApi,
@@ -32,11 +33,11 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     ircApi: lila.irc.IrcApi,
     msgApi: lila.msg.MsgApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: Scheduler
-) {
+):
   private lazy val logRepo        = new ModlogRepo(db(CollName("modlog")))
   private lazy val assessmentRepo = new AssessmentRepo(db(CollName("player_assessment")))
   private lazy val historyRepo    = new HistoryRepo(db(CollName("mod_gaming_history")))
@@ -77,55 +78,42 @@ final class Env(
   lila.common.Bus.subscribeFuns(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
-        import cats.implicits._
-        (whiteUserOption, blackUserOption) mapN { (whiteUser, blackUser) =>
-          sandbagWatch(game)
-          assessApi.onGameReady(game, whiteUser, blackUser)
+        import cats.implicits.*
+        (whiteUserOption.filter(_.enabled), blackUserOption.filter(_.enabled)) mapN {
+          (whiteUser, blackUser) =>
+            sandbagWatch(game)
+            assessApi.onGameReady(game, whiteUser, blackUser)
         }
         if (game.status == chess.Status.Cheat)
           game.loserUserId foreach { userId =>
-            logApi.cheatDetected(userId, game.id) >>
-              logApi.countRecentCheatDetected(userId) flatMap { count =>
-                (count >= 3) ?? {
-                  if (game.hasClock)
-                    api.autoMark(
-                      lila.report.SuspectId(userId),
-                      lila.report.ModId.lichess,
-                      s"Cheat detected during game, ${count} times"
-                    )
-                  else reportApi.autoCheatDetectedReport(userId, count)
-                }
+            logApi.cheatDetectedAndCount(userId, game.id) flatMap { count =>
+              (count >= 3) ?? {
+                if (game.hasClock)
+                  api.autoMark(
+                    SuspectId(userId),
+                    User.lichessId into ModId,
+                    s"Cheat detected during game, ${count} times"
+                  )
+                else reportApi.autoCheatDetectedReport(userId, count)
               }
+            }
           }
     },
     "analysisReady" -> { case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
       assessApi.onAnalysisReady(game, analysis).unit
     },
-    "garbageCollect" -> {
-      case lila.hub.actorApi.security.GCImmediateSb(userId) =>
-        reportApi getSuspect userId orFail s"No such suspect $userId" foreach { sus =>
-          reportApi.getLichessMod foreach { mod =>
-            api.setTroll(mod, sus, value = true)
-          }
-        }
-      case lila.hub.actorApi.security.GarbageCollect(userId) =>
-        reportApi getSuspect userId orFail s"No such suspect $userId" foreach { sus =>
-          api.garbageCollect(sus) >> publicChat.deleteAll(sus)
-        }
-    },
     "deletePublicChats" -> { case lila.hub.actorApi.security.DeletePublicChats(userId) =>
       publicChat.deleteAll(userId).unit
     },
     "autoWarning" -> { case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
-      logApi.modMessage(User.lichessId, userId, subject).unit
+      logApi.modMessage(User.lichessId into ModId, userId, subject).unit
     },
     "selfReportMark" -> { case lila.hub.actorApi.mod.SelfReportMark(suspectId, name) =>
       api
-        .autoMark(lila.report.SuspectId(suspectId), lila.report.ModId.lichess, s"Self report: ${name}")
+        .autoMark(SuspectId(suspectId), User.lichessId into ModId, s"Self report: ${name}")
         .unit
     },
     "chatTimeout" -> { case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
-      logApi.chatTimeout(mod, user, reason, text).unit
+      logApi.chatTimeout(mod into ModId, user, reason, text).unit
     }
   )
-}

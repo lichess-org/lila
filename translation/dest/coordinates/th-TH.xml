@@ -8,6 +8,5 @@
   <string name="mostChessCourses">หลักสูตรและการฝึกหัดหมากรุกส่วนใหญ่ใช้สัญลักษณ์ทางพีชคณิตกันอย่างกว้างขวาง</string>
   <string name="talkToYourChessFriends">ทำให้การคุยเรื่องหมากรุกกับเพื่อนนั้นง่ายขึ้น นับแต่คุณทั้งสองเข้าใจใน \"ภาษาหมากรุก\"</string>
   <string name="youCanAnalyseAGameMoreEffectively">คุณสามารถวิเคราะห์เกมเพิ่มเติมได้อย่างมีประสิทธิภาพถ้าคุณไม่ต้องค้นหาชื่อช่องตาราง</string>
-  <string name="aSquareNameAppears">ชื่อช่องตารางจะปรากฏบนกระดาน และคุณต้องคลิกที่ช่องสี่เหลี่ยมที่ถูกต้อง คุณมีเวลา 30 วินาทีเพื่อหาช่องสี่เหลี่ยมให้ได้มากที่สุด!</string>
   <string name="startTraining">เริ่มฝึกฝน</string>
 </resources>

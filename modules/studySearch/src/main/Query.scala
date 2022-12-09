@@ -1,8 +1,9 @@
 package lila.studySearch
 
-private[studySearch] case class Query(text: String, userId: Option[String])
+import lila.user.User
+import play.api.libs.json.*
+import lila.common.Json.given
 
-object Query {
+private[studySearch] case class Query(text: String, userId: Option[UserId])
 
-  implicit val jsonWriter = play.api.libs.json.Json.writes[Query]
-}
+given OWrites[Query] = Json.writes

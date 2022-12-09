@@ -15,28 +15,35 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/debounce-promise": "^3.1.3",
+    "@types/debounce-promise": "^3.1.4",
+    "@types/highcharts": "=4.2.57",
     "@types/lichess": "2.0.0",
-    "@types/yaireo__tagify": "^4.0.1"
+    "@types/yaireo__tagify": "^4.16",
+    "highcharts": "=4.2.5",
+    "prop-types": "^15.8.1",
+    "rollup": "^2",
+    "typescript": "^4"
   },
   "dependencies": {
-    "@badrap/result": "^0.2.8",
-    "@yaireo/tagify": "^4.0.5",
+    "@badrap/result": "^0.2",
+    "@yaireo/tagify": "^4.16",
     "ceval": "2.0.0",
+    "chart": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",
-    "chessground": "^8.1.1",
-    "chessops": "^0.9.0",
+    "chessground": "^8.3.5",
+    "chessops": "^0.12",
     "common": "2.0.0",
+    "debounce-promise": "^3.1.2",
     "game": "2.0.0",
     "nvui": "2.0.0",
-    "snabbdom": "^3.0.1",
+    "snabbdom": "^3.3.1",
     "tree": "2.0.0"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod",
-    "plugin-dev": "rollup --config --config-plugin",
-    "plugin-prod": "rollup --config --config-prod --config-plugin"
+    "dev": "rollup --failAfterWarnings --config",
+    "prod": "rollup --failAfterWarnings --config --config-prod",
+    "plugin-dev": "rollup --failAfterWarnings --config --config-plugin",
+    "plugin-prod": "rollup --failAfterWarnings --config --config-prod --config-plugin"
   }
 }

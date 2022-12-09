@@ -47,6 +47,7 @@
   <string name="youAreNowASpectator">Теперь вы зритель</string>
   <string name="pgnTags">Теги PGN</string>
   <string name="like">Нравится</string>
+  <string name="unlike">Не нравится</string>
   <string name="newTag">Новый тег</string>
   <string name="commentThisPosition">Комментировать эту позицию</string>
   <string name="commentThisMove">Комментировать этот ход</string>
@@ -55,12 +56,12 @@
   <string name="onlyContributorsCanRequestAnalysis">Только редакторы студии могут запросить компьютерный анализ.</string>
   <string name="getAFullComputerAnalysis">Получить с сервера полный компьютерный анализ главной линии.</string>
   <string name="makeSureTheChapterIsComplete">Убедитесь, что глава завершена. Вы можете запросить анализ только один раз.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Все синхронизированные участники остаются на той же позиции</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Все синхронизированные участники остаются на той же позиции</string>
   <string name="shareChanges">Поделиться изменениями со зрителями и сохранить их на сервере</string>
   <string name="playing">Активные</string>
   <string name="first">Первая</string>
-  <string name="previous">Предыдущая</string>
-  <string name="next">Следующая</string>
+  <string name="previous">Назад</string>
+  <string name="next">Дальше</string>
   <string name="last">Последняя</string>
   <string name="shareAndExport">Поделиться и экспортировать</string>
   <string name="cloneStudy">Клонировать</string>
@@ -73,7 +74,7 @@
   <string name="youCanPasteThisInTheForumToEmbed">Вставьте этот код на форум для вставки</string>
   <string name="startAtInitialPosition">Открыть в начальной позиции</string>
   <string name="startAtX">Начать с %s</string>
-  <string name="embedInYourWebsite">Вставить на свой сайт или в блог</string>
+  <string name="embedInYourWebsite">Вставить в свой сайт или блог</string>
   <string name="readMoreAboutEmbedding">Подробнее о вставке на сайт</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Вставлять на сайт можно только публичные студии!</string>
   <string name="open">Открыть</string>
@@ -81,11 +82,13 @@
   <string name="studyNotFound">Студия не найдена</string>
   <string name="editChapter">Редактировать главу</string>
   <string name="newChapter">Новая глава</string>
+  <string name="importFromChapterX">Импорт из %s</string>
   <string name="orientation">Ориентация</string>
   <string name="analysisMode">Режим анализа</string>
   <string name="pinnedChapterComment">Закреплённый комментарий главы</string>
   <string name="saveChapter">Сохранить главу</string>
   <string name="clearAnnotations">Очистить аннотацию</string>
+  <string name="clearVariations">Очистить варианты</string>
   <string name="deleteChapter">Удалить главу</string>
   <string name="deleteThisChapter">Удалить эту главу? Её нельзя будет вернуть!</string>
   <string name="clearAllCommentsInThisChapter">Очистить все комментарии и обозначения этой главы?</string>
@@ -116,7 +119,7 @@
   <string name="createStudy">Создать студию</string>
   <string name="editStudy">Изменить студию</string>
   <string name="visibility">Доступно к просмотру</string>
-  <string name="public">Публичный</string>
+  <string name="public">Публичная</string>
   <string name="unlisted">Доступ по ссылке</string>
   <string name="inviteOnly">Только по приглашению</string>
   <string name="allowCloning">Разрешить копирование</string>
@@ -134,7 +137,7 @@
   <string name="clearChat">Очистить чат</string>
   <string name="deleteTheStudyChatHistory">Удалить чат студии? Восстановить будет невозможно!</string>
   <string name="deleteStudy">Удалить студию</string>
-  <string name="deleteTheEntireStudy">Удалить студию целиком? Восстановить будет невозможно!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Удалить всю студию? Удаление необратимо! Введите название студии для подтверждения: %s</string>
   <string name="whereDoYouWantToStudyThat">Где вы хотите создать студию?</string>
   <string name="goodMove">Хороший ход</string>
   <string name="mistake">Ошибка</string>
@@ -162,4 +165,13 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">С идеей</string>
   <string name="nextChapter">Следующая глава</string>
   <string name="prevChapter">Предыдущая глава</string>
+  <string name="studyActions">Действия в студии</string>
+  <string name="topics">Темы</string>
+  <string name="myTopics">Мои темы</string>
+  <string name="popularTopics">Популярные темы</string>
+  <string name="manageTopics">Управление темами</string>
+  <string name="back">Назад</string>
+  <string name="playAgain">Сыграть снова</string>
+  <string name="whatWouldYouPlay">Как бы вы сыграли в этой позиции?</string>
+  <string name="youCompletedThisLesson">Поздравляем! Вы прошли этот урок.</string>
 </resources>

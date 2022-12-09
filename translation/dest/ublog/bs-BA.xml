@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="createBlogDiscussion">Omogućite komentare</string>
+  <string name="createBlogDiscussionHelp">Bit će kreirana tema na forumu kako bi ljudi mogli komentirati Vašu objavu</string>
+  <string name="deleteBlog">Definitivno izbrišite ovu objavu na blogu</string>
+  <string name="deleteImage">Izbrišite sliku</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Sigurno je koristiti slike sa sljedećih veb-sajtova: </string>
+  <string name="selectPostTopics">Odaberite teme o kojima govori Vaša objava</string>
+  <string name="useImagesYouMadeYourself">Također možete koristiti slike koje ste sami napravili ili snimili, snimke ekrana Lichessa... bilo šta što nije pod nečijim autorskim pravima.</string>
+  <string name="safeAndRespectfulContent">Molimo da objavljujete samo siguran i učtiv sadržaj. Ne kopirajte nečiji tuđi.</string>
+  <string name="inappropriateContentAccountClosed">Bilo šta neprimjereno može dovesti do zatvaranja Vašeg računa.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Naše jednostavne napomene za pisanje sjajnih objava na blogu</string>
+</resources>

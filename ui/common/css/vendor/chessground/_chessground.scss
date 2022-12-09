@@ -17,6 +17,8 @@ cg-board {
 
 square {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 12.5%;
   height: 12.5%;
   pointer-events: none;
@@ -114,7 +116,7 @@ piece {
 
   &.dragging {
     cursor: move;
-    z-index: z('cg__piece.dragging');
+    z-index: z('cg__piece.dragging') !important;
   }
 
   &.anim {
@@ -141,8 +143,9 @@ cg-container {
 }
 
 cg-container .cg-shapes,
-cg-container .cg-custom-svgs {
-  overflow: hidden;
+cg-container .cg-custom-svgs,
+cg-auto-pieces {
+  overflow: visible;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -154,17 +157,24 @@ cg-container .cg-custom-svgs {
 cg-container .cg-shapes {
   opacity: 0.6;
   z-index: z('cg__svg.cg-shapes');
-
-  image {
-    opacity: 0.5;
-  }
 }
 
 cg-container .cg-custom-svgs {
   z-index: z('cg__svg.cg-custom-svgs');
-  overflow: visible;
+}
+
+cg-container .cg-shapes {
+  overflow: hidden;
 }
 
 cg-container .cg-custom-svgs svg {
   overflow: visible;
+}
+
+cg-auto-pieces {
+  z-index: z('cg__cg-auto-pieces');
+
+  piece {
+    opacity: 0.3;
+  }
 }

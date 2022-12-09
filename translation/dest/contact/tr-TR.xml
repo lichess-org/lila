@@ -52,7 +52,7 @@
   <string name="knightMate">Eğer rakipte şah dışında herhangi bir taş var ise, yalnızca at ve ya fil ile mat edilebilir.</string>
   <string name="noRatingPoints">Maçtan oyun puanı kazanmadım</string>
   <string name="ratedGame">Puanlı bir oyun oynadığınızdan emin olun. Puansız oyunlar oyun puanınızı etkilemez.</string>
-  <string name="botRatingAbuse">Bir bot hesaba karşı oynarken belirli durumlarda, eğer oyuncunun botu derecelendirme puanları için kötüye kullandığı tespit edilirse dereceli oyun puan vermeyebilir.</string>
+  <string name="botRatingAbuse">Bot hesaplar ile oynanan bazı puanlı oyunlarda, bir oyuncunun puan kazanmak için botu kötüye kullandığı tespit edilirse bu oyuncu oyundan puan alamayabilir.</string>
   <string name="errorPage">Hata sayfası</string>
   <string name="reportErrorPage">Bir hata mesajı alırsanız lütfen bize bildirin:</string>
   <string name="banAppeal">Yasaklamaya itiraz et</string>

@@ -50,4 +50,12 @@
   <string name="skip">omet</string>
   <string name="skipHelp">NOU! Pots ometre un moviment a cada cursa:</string>
   <string name="skipExplanation">Omet aquest moviment per preservar el teu combo! Només funciona un cop per cursa.</string>
+  <string name="failedPuzzles">Puzzles errats</string>
+  <string name="slowPuzzles">Problemes lents</string>
+  <string name="thisWeek">Aquesta setmana</string>
+  <string name="thisMonth">Aquest mes</string>
+  <string name="allTime">Tot</string>
+  <string name="clickToReload">Clicar per recarregar</string>
+  <string name="thisRunHasExpired">Aquesta ronda ha caducat!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Aquesta ronda s\'ha obert a una altra pestanya!</string>
 </resources>

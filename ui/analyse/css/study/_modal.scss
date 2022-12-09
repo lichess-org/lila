@@ -1,16 +1,8 @@
-.study__modal {
-  &#modal-wrap {
-    padding: 1rem;
-    min-width: 80vw;
+#modal-wrap {
+  min-width: 80vw;
 
-    @include breakpoint($mq-x-small) {
-      min-width: 500px;
-    }
-  }
-
-  > div {
-    padding: 1rem;
-    overflow-y: auto;
+  @include breakpoint($mq-x-small) {
+    min-width: 500px;
   }
 
   .form3 {
@@ -36,7 +28,7 @@
         vertical-align: top;
       }
 
-      margin-left: 1rem;
+      margin-#{$start-direction}: 1rem;
       opacity: 0.5;
       cursor: pointer;
 
@@ -56,14 +48,21 @@
     }
 
     button {
-      opacity: 0.5;
+      opacity: 0.8;
 
       &:hover {
         opacity: 1;
       }
     }
+  }
 
-    overflow: hidden;
+  .form-actions-secondary {
+    margin-bottom: -1rem;
+
+    a {
+      padding: 0.8em 1em;
+      display: inline-block;
+    }
   }
 
   &.chapter-new .tabs-horiz {

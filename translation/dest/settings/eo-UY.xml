@@ -2,8 +2,8 @@
 <resources>
   <string name="settings">Agordoj</string>
   <string name="closeAccount">Fermi konton</string>
-  <string name="closingIsDefinitive">Fermo estas definitiva. Ne plu eblos reven. Ĉu vi certas?</string>
-  <string name="cantOpenSimilarAccount">Vi ne rajtos malfermi novan konton kun la sama nomo, eĉ se la situacio estos malsama.</string>
+  <string name="closingIsDefinitive">Fermado estas definitiva. Ne eblos malfari. Ĉu vi certas?</string>
+  <string name="cantOpenSimilarAccount">Vi ne rajtos malfermi novan konton kun la sama nomo, eĉ se la uskleco estos malsama.</string>
   <string name="changedMindDoNotCloseAccount">Mi ŝanĝis mian opinion, mi ne volas fermi mian konton</string>
   <string name="closeAccountExplanation">Ĉu vi certas, ke vi volas fermi vian konton? Fermi vian konton estas konstanta decido. Vi NENIAM DENOVE povos ensaluti per ĝi.</string>
   <string name="thisAccountIsClosed">Tiu ĉi konto estas fermita.</string>

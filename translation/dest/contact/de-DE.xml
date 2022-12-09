@@ -13,7 +13,7 @@
   <string name="doPasswordReset">Setze dein Passwort zurück, um deinen zweiten Faktor zu entfernen</string>
   <string name="accountSupport">Ich benötige Konto-Unterstützung</string>
   <string name="wantTitle">Ich möchte, dass mein Titel auf Lichess angezeigt wird</string>
-  <string name="visitTitleConfirmation">Um deinen Titel in deinem Lichess-Profil zu zeigen und an den Titled-Arenas teilzunehmen, besuche die Titelbestätigungsseite</string>
+  <string name="visitTitleConfirmation">Besuche die Titelbestätigungsseite, um deinen Titel in deinem Lichess-Profil zu zeigen und an den Titled-Arenas teilzunehmen</string>
   <string name="wantCloseAccount">Ich möchte mein Konto schließen</string>
   <string name="closeYourAccount">Du kannst dein Konto auf dieser Seite schließen</string>
   <string name="doNotAskByEmail">Bitte uns nicht per E-Mail ein Konto zu schließen, wir werden es nicht schließen.</string>
@@ -70,7 +70,7 @@
   <string name="welcomeToUse">Du bist eingeladen Lichess für deine Aktivitäten zu verwenden, sogar für kommerzielle Zwecke.</string>
   <string name="videosAndBooks">Du kannst das in deinen Videos zeigen und du kannst Screenshots von Lichess in deinen Büchern drucken.</string>
   <string name="creditAppreciated">Eine Erwähnung ist wünschenswert aber nicht notwendig.</string>
-  <string name="noneOfTheAbove">Keines der oben genannten</string>
+  <string name="noneOfTheAbove">Nichts des oben Genannten</string>
   <string name="sendEmailAt">Sende uns eine Mail an %s.</string>
   <string name="explainYourRequest">Bitte beschreibe deine Anfrage klar und deutlich. Nenne deinen Lichess Nutzernamen und jegliche Information die uns helfen könnte Dir zu helfen.</string>
 </resources>

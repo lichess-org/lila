@@ -2,27 +2,29 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.hub.actorApi.shutup.PublicSource
 import lila.mod.IpRender.RenderIp
+import lila.mod.UserWithModlog
+import lila.relation.Follow
 import lila.user.{ Holder, User }
 import lila.shutup.Analyser
 
-object communication {
+object communication:
 
   def apply(
       mod: Holder,
       u: User,
       players: List[(lila.game.Pov, lila.chat.MixedChat)],
-      convos: List[lila.msg.MsgConvo],
+      convos: List[lila.msg.ModMsgConvo],
       publicLines: List[lila.shutup.PublicLine],
       notes: List[lila.user.Note],
       history: List[lila.mod.Modlog],
-      logins: lila.security.UserLogins.TableData,
+      logins: lila.security.UserLogins.TableData[UserWithModlog],
       appeals: List[lila.appeal.Appeal],
       priv: Boolean
   )(implicit ctx: Context, renderIp: RenderIp) =
@@ -37,30 +39,32 @@ object communication {
       )
     ) {
       main(id := "communication", cls := "box box-pad")(
-        h1(
-          div(cls := "title")(userLink(u), " communications"),
-          div(cls := "actions")(
-            a(
-              cls := "button button-empty mod-zone-toggle",
-              href := routes.User.mod(u.username),
-              titleOrText("Mod zone (Hotkey: m)"),
-              dataIcon := ""
-            ),
-            isGranted(_.ViewPrivateComms) option {
-              if (priv)
-                a(cls := "priv button active", href := routes.Mod.communicationPublic(u.username))("PMs")
-              else
-                a(
-                  cls := "priv button",
-                  href := routes.Mod.communicationPrivate(u.username),
-                  title := "View private messages. This will be logged in #commlog"
-                )("PMs")
-            }
+        boxTop(
+          h1(
+            div(cls := "title")(userLink(u), " communications"),
+            div(cls := "actions")(
+              a(
+                cls  := "button button-empty mod-zone-toggle",
+                href := routes.User.mod(u.username),
+                titleOrText("Mod zone (Hotkey: m)"),
+                dataIcon := ""
+              ),
+              isGranted(_.ViewPrivateComms) option {
+                if (priv)
+                  a(cls := "priv button active", href := routes.Mod.communicationPublic(u.username))("PMs")
+                else
+                  a(
+                    cls   := "priv button",
+                    href  := routes.Mod.communicationPrivate(u.username),
+                    title := "View private messages. This will be logged in #commlog"
+                  )("PMs")
+              }
+            )
           )
         ),
         isGranted(_.UserModView) option frag(
           div(cls := "mod-zone mod-zone-full none"),
-          views.html.user.mod.otherUsers(mod, u, logins, appeals)(ctx, renderIp)(
+          views.html.user.mod.otherUsers(mod, u, logins, appeals)(using ctx, renderIp)(
             cls := "mod-zone communication__logins"
           )
         ),
@@ -69,7 +73,7 @@ object communication {
           div(cls := "history")(
             history.map { e =>
               div(
-                userIdLink(e.mod.some),
+                userIdLink(e.mod.userId.some),
                 " ",
                 b(e.showAction),
                 " ",
@@ -77,7 +81,7 @@ object communication {
                 " ",
                 e.details,
                 " ",
-                momentFromNowOnce(e.date)
+                momentFromNowServer(e.date)
               )
             }
           )
@@ -90,7 +94,7 @@ object communication {
                 div(
                   userIdLink(note.from.some),
                   " ",
-                  momentFromNowOnce(note.date),
+                  momentFromNowServer(note.date),
                   ": ",
                   richText(note.text)
                 )
@@ -102,19 +106,19 @@ object communication {
         else
           ul(cls := "public_chats")(
             publicLines.reverse.map { line =>
-              li(
-                line.date.fold[Frag]("[OLD]")(momentFromNowOnce),
+              li(cls := "line author")(
+                line.date.fold[Frag]("[OLD]")(momentFromNowServer),
                 " ",
                 line.from.map {
                   case PublicSource.Tournament(id) => tournamentLink(id)
                   case PublicSource.Simul(id)      => views.html.simul.bits.link(id)
                   case PublicSource.Team(id)       => views.html.team.bits.link(id)
-                  case PublicSource.Watcher(id)    => a(href := routes.Round.watcher(id, "white"))("Game #", id)
-                  case PublicSource.Study(id)      => a(href := routes.Study.show(id))("Study #", id)
-                  case PublicSource.Swiss(id)      => views.html.swiss.bits.link(lila.swiss.Swiss.Id(id))
+                  case PublicSource.Watcher(id) => a(href := routes.Round.watcher(id, "white"))("Game #", id)
+                  case PublicSource.Study(id)   => a(href := routes.Study.show(id))("Study #", id)
+                  case PublicSource.Swiss(id)   => views.html.swiss.bits.link(SwissId(id))
                 },
-                " ",
-                highlightBad(line.text)
+                nbsp,
+                span(cls := "message")(highlightBad(line.text))
               )
             }
           ),
@@ -131,21 +135,21 @@ object communication {
                   ),
                   title := pov.game.fromFriend.option("Friend game")
                 )(
-                  usernameOrAnon(pov.opponent.userId),
+                  titleNameOrAnon(pov.opponent.userId),
                   " – ",
-                  momentFromNowOnce(pov.game.movedAt)
+                  momentFromNowServer(pov.game.movedAt)
                 ),
                 div(cls := "chat")(
                   chat.lines.map { line =>
                     div(
                       cls := List(
                         "line"   -> true,
-                        "author" -> (line.author.toLowerCase == u.id)
+                        "author" -> (UserStr(line.author) is u)
                       )
                     )(
                       userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),
                       nbsp,
-                      highlightBad(line.text)
+                      span(cls := "message")(highlightBad(line.text))
                     )
                   }
                 )
@@ -154,17 +158,27 @@ object communication {
           ),
           div(cls := "threads")(
             h2("Recent inbox messages"),
-            convos.map { convo =>
+            convos.map { modConvo =>
               div(cls := "thread")(
-                p(cls := "title")(strong(lightUserLink(convo.contact))),
+                p(cls := "title")(
+                  strong(userLink(modConvo.contact)),
+                  showSbMark(modConvo.contact),
+                  modConvo.relations.in.has(Follow) option span(cls := "friend_title")(
+                    "is following this user",
+                    br
+                  )
+                ),
                 table(cls := "slist")(
                   tbody(
-                    convo.msgs.reverse.map { msg =>
+                    modConvo.truncated option div(cls := "truncated-convo")(
+                      s"Truncated, showing last ${modConvo.msgs.length} messages"
+                    ),
+                    modConvo.msgs.reverse.map { msg =>
                       val author = msg.user == u.id
                       tr(cls := List("post" -> true, "author" -> author))(
-                        td(momentFromNowOnce(msg.date)),
-                        td(strong(if (author) u.username else convo.contact.name)),
-                        td(highlightBad(msg.text))
+                        td(momentFromNowServer(msg.date)),
+                        td(strong(if (author) u.username else modConvo.contact.username)),
+                        td(cls := "message")(highlightBad(msg.text))
                       )
                     }
                   )
@@ -177,13 +191,12 @@ object communication {
     }
 
   // incompatible with richText
-  def highlightBad(text: String): Frag = {
+  def highlightBad(text: String): Frag =
     val words = Analyser(text).badWords
     if (words.isEmpty) frag(text)
-    else {
+    else
       val regex             = ("""(?iu)\b""" + words.mkString("(", "|", ")") + """\b""").r
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
-    }
-  }
-}
+
+  private def showSbMark(u: User) = u.marks.troll option span(cls := "user_marks")(iconTag(""))

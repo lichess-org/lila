@@ -6,12 +6,13 @@ import { Chessground } from 'chessground';
 import { h, VNode } from 'snabbdom';
 import { makeCgOpts, povMessage } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
-import { getNow, onInsert } from 'puz/util';
+import { getNow } from 'puz/util';
 import { playModifiers, renderCombo } from 'puz/view/util';
+import { onInsert } from 'common/snabbdom';
 
 export default function (ctrl: StormCtrl): VNode {
-  if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');
-  if (ctrl.vm.lateStart) return renderReload('This run has expired!');
+  if (ctrl.vm.dupTab) return renderReload(ctrl, 'thisRunWasOpenedInAnotherTab');
+  if (ctrl.vm.lateStart) return renderReload(ctrl, 'thisRunHasExpired');
   if (!ctrl.run.endAt)
     return h(
       'div.storm.storm-app.storm--play',
@@ -30,7 +31,7 @@ const chessground = (ctrl: StormCtrl): VNode =>
         ctrl.ground(
           Chessground(
             vnode.elm as HTMLElement,
-            makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt), ctrl.pref, ctrl.userMove)
+            makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt, ctrl.flipped), ctrl.pref, ctrl.userMove)
           )
         ),
     },
@@ -95,15 +96,15 @@ const renderStart = (ctrl: StormCtrl) =>
     h('div.puz-side__start__text', [h('strong', 'Puzzle Storm'), h('span', ctrl.trans('moveToStart'))]),
   ]);
 
-const renderReload = (msg: string) =>
+const renderReload = (ctrl: StormCtrl, msgKey: string) =>
   h('div.storm.storm--reload.box.box-pad', [
     h('i', { attrs: { 'data-icon': '' } }),
-    h('p', msg),
+    h('p', ctrl.trans.noarg(msgKey)),
     h(
       'a.storm--dup__reload.button',
       {
         attrs: { href: '/storm' },
       },
-      'Click to reload'
+      ctrl.trans.noarg('clickToReload')
     ),
   ]);

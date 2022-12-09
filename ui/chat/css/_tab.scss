@@ -41,7 +41,7 @@
     }
 
     &:last-child {
-      border-right: none;
+      border-#{$end-direction}: none;
     }
   }
 

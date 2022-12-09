@@ -10,16 +10,16 @@
   <string name="totalGames">Insgesamte Spiele</string>
   <string name="ratedGames">Gewertete Spiele</string>
   <string name="tournamentGames">Turnierspiele</string>
-  <string name="berserkedGames">Berserker-Spiele</string>
+  <string name="berserkedGames">Berserker-Partien</string>
   <string name="timeSpentPlaying">Gesamtspielzeit</string>
-  <string name="averageOpponent">Durschnittliche Gegnerwertung</string>
+  <string name="averageOpponent">Durchschnittliche Gegnerwertung</string>
   <string name="victories">Siege</string>
   <string name="defeats">Niederlagen</string>
   <string name="disconnections">Verbindungsabbrüche</string>
   <string name="notEnoughGames">Nicht genügend Spiele gespielt</string>
   <string name="highestRating">Höchste Wertungszahl: %s</string>
   <string name="lowestRating">Niedrigste Wertungszahl: %s</string>
-  <string name="fromXToY">von %1$s zu %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">von %1$s zu %2$s</string>
   <string name="winningStreak">Siegesserie</string>
   <string name="losingStreak">Niederlagenserie</string>
   <string name="longestStreak">Längste Serie: %s</string>

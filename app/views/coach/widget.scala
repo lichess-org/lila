@@ -1,16 +1,16 @@
 package views.html
 package coach
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.LangList
 
 import controllers.routes
 
-object widget {
+object widget:
 
-  import trans.coach._
+  import trans.coach.*
 
   def titleName(c: lila.coach.Coach.WithUser) =
     frag(
@@ -20,34 +20,13 @@ object widget {
       c.user.realNameOrUsername
     )
 
-  def pic(c: lila.coach.Coach.WithUser, size: Int) =
-    c.coach.picturePath
-      .map { path =>
-        img(
-          width := size,
-          height := size,
-          cls := "picture",
-          src := dbImageUrl(path.value),
-          alt := s"${c.user.titleUsername} Lichess coach picture"
-        )
-      }
-      .getOrElse {
-        img(
-          width := size,
-          height := size,
-          cls := "default picture",
-          src := assetUrl("images/placeholder.png"),
-          alt := "Default Lichess coach picture"
-        )
-      }
-
-  def apply(c: lila.coach.Coach.WithUser, link: Boolean)(implicit ctx: Context) = {
+  def apply(c: lila.coach.Coach.WithUser, link: Boolean)(implicit ctx: Context) =
     val profile = c.user.profileOrDefault
     frag(
       link option a(cls := "overlay", href := routes.Coach.show(c.user.username)),
-      pic(c, if (link) 300 else 350),
+      picture.thumbnail(c, if (link) 300 else 350),
       div(cls := "overview")(
-        (if (link) h2 else h1)(cls := "coach-name")(titleName(c)),
+        (if (link) h2 else h1) (cls := "coach-name")(titleName(c)),
         c.coach.profile.headline
           .map { h =>
             p(
@@ -64,7 +43,7 @@ object widget {
                 },
                 profile.countryInfo.map { c =>
                   frag(
-                    span(cls := "country")(
+                    span(cls  := "country")(
                       img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
                       " ",
                       c.name
@@ -84,7 +63,7 @@ object widget {
                   frag("FIDE: ", r)
                 },
                 a(href := routes.User.show(c.user.username))(
-                  c.user.best8Perfs.take(6).filter(c.user.hasEstablishedRating).map {
+                  c.user.best6Perfs.filter(c.user.hasEstablishedRating).map {
                     showPerfRating(c.user, _)
                   }
                 )
@@ -113,5 +92,3 @@ object widget {
         )
       )
     )
-  }
-}

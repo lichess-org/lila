@@ -28,6 +28,8 @@
   <string name="howCanIBecomeModerator">Jak mogę zostać moderatorem?</string>
   <string name="youCannotApply">Nie można zgłosić się do pełnienia funkcji moderatora. Jeśli zauważymy kogoś, kto naszym zdaniem byłby dobrym moderatorem, skontaktujemy się z nim bezpośrednio.</string>
   <string name="isCorrespondenceDifferent">Czym różnią się szachy korespondencyjne od zwykłych szachów?</string>
+  <string name="pleaseReadFairPlayPage">By dowiedzieć się więcej, przeczytaj %s</string>
+  <string name="fairPlayPage">stronę o fair play</string>
   <string name="youCanUseOpeningBookNoEngine">Na Lichess, główną różnicą w zasadach szachów korespondencyjnych polega na tym że jest dozwolony \"opening book\". Używanie silników nadal jest niedozwolone i będzie skutkowało flagging\'iem twojego konta. Chociaż ICCF pozwala używanie silników w szachach korespondencyjnych, Lichess nie.</string>
   <string name="gameplay">Rozgrywka</string>
   <string name="howBulletBlitzEtcDecided">W jaki sposób system decyduje czy partia jest typu Bullet, Blitz itd.?</string>
@@ -65,8 +67,8 @@ tak, jakby został przesunięty tylko o jedno pole. Takie bicie może być wykon
 
 Zobacz nasze %3$s, aby poćwiczyć ten specjalny ruch.</string>
   <string name="goodIntroduction">dobre wprowadzenie</string>
-  <string name="officialRulesPDF">oficjalnych przepisów gry w szachy (pdf)</string>
   <string name="lichessTraining">Podstawy gry</string>
+  <string name="watchIMRosenCheckmate">Obejrzyj mata w wykonaniu IM Erica Rosena %s.</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
   <string name="threefoldRepetitionExplanation">Jeśli pozycja występuje trzykrotnie, gracze mogą zgłosić remis poprzez %1$s. Lichess wprowadza oficjalne zasady FIDE, opisane w Artykule 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trzykrotne powtórzenie pozycji</string>

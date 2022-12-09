@@ -8,7 +8,6 @@
   <string name="specialMoves">Sérstakir leikir</string>
   <string name="didYouLikeThisPuzzle">Fannst þér þrautin góð?</string>
   <string name="voteToLoadNextOne">Kjóstu til að hlaða inn sú næsta!</string>
-  <string name="yourPuzzleRatingX">Þrautaskákstigin þín %s</string>
   <string name="findTheBestMoveForWhite">Finndu besta leikinn fyrir hvítan.</string>
   <string name="findTheBestMoveForBlack">Finndu besta leikinn fyrir svartan.</string>
   <string name="toGetPersonalizedPuzzles">Til að fá sérsniðaðar þrautir:</string>
@@ -34,5 +33,9 @@
   <string name="hardest">Þyngst</string>
   <string name="example">Dæmi</string>
   <string name="addAnotherTheme">Bæta við annan þema</string>
+  <string name="nextPuzzle">Næsta þraut</string>
   <string name="jumpToNextPuzzleImmediately">Fara strax á næsta þraut</string>
+  <string name="strengths">Styrkleikar</string>
+  <string name="history">Þrautsaga</string>
+  <string name="puzzleDashboardDescription">Æfa, rýna, bæta</string>
 </resources>

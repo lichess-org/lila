@@ -2,25 +2,22 @@ package lila.mod
 
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import play.api.libs.json._
+import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 import scala.util.Try
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.mod.ModActivity.{ dateFormat, Period }
 import lila.report.Room
 
 final class ModQueueStats(
-    reportApi: lila.report.ReportApi,
     cacheApi: lila.memo.CacheApi,
     repo: ModQueueStatsRepo
-)(implicit
-    ec: ExecutionContext
-) {
+)(using ec: ExecutionContext):
 
-  import ModQueueStats._
+  import ModQueueStats.*
 
   def apply(period: String): Fu[Result] =
     cache.get(Period(period))
@@ -42,7 +39,7 @@ final class ModQueueStats(
     repo.coll
       .find($doc("_id" $gte dateFormat.print(Period dateSince period)))
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
-      .list()
+      .listAll()
       .map { docs =>
         for {
           doc     <- docs
@@ -51,11 +48,10 @@ final class ModQueueStats(
           data    <- doc.getAsOpt[List[Bdoc]]("data")
         } yield date -> {
           for {
-            entry   <- data
-            nb      <- entry.int("nb")
-            roomStr <- entry.string("room")
-            room    <- Room.byKey get roomStr
-            score   <- entry.int("score")
+            entry <- data
+            nb    <- entry.int("nb")
+            room  <- entry.string("room")
+            score <- entry.int("score")
           } yield (room, score, nb)
         }
       }
@@ -66,25 +62,35 @@ final class ModQueueStats(
             "common" -> Json.obj(
               "xaxis" -> days.map(_._1.getMillis)
             ),
-            "rooms" -> Room.all.map { room =>
-              Json.obj(
-                "name" -> room.name,
-                "series" -> scores.map { score =>
-                  Json.obj(
-                    "name" -> score,
-                    "data" -> days.map(~_._2.collectFirst {
-                      case (r, s, nb) if r == room && s == score => nb
-                    })
-                  )
-                }
-              )
-            }
+            "rooms" -> Room.all
+              .map { room =>
+                room.key -> room.name
+              }
+              .appendedAll {
+                List(
+                  "appeal"   -> "Appeal",
+                  "streamer" -> "Streamer"
+                )
+              }
+              .map { case (roomKey, roomName) =>
+                Json.obj(
+                  "name" -> roomName,
+                  "series" -> scores.collect {
+                    case score if score > 20 || roomKey == Room.Boost.key =>
+                      Json.obj(
+                        "name" -> score,
+                        "data" -> days.map(~_._2.collectFirst {
+                          case (r, s, nb) if r == roomKey && s == score => nb
+                        })
+                      )
+                  }
+                )
+              }
           )
         )
       }
-}
 
-object ModQueueStats {
+object ModQueueStats:
 
   type Score = Int
   type Nb    = Int
@@ -92,4 +98,3 @@ object ModQueueStats {
   val scores = List[Score](20, 40, 60, 80)
 
   case class Result(period: Period, json: JsObject)
-}

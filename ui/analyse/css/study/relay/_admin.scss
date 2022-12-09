@@ -3,7 +3,7 @@
 }
 
 .relay-admin {
-  grid-area: acpl;
+  grid-area: round-training;
 
   @extend %box-neat, %flex-column;
 
@@ -77,14 +77,14 @@
       &::before {
         color: $c-good;
         font-size: 1.3em;
-        margin-right: 0.5em;
+        margin-#{$end-direction}: 0.5em;
       }
     }
 
     time {
       @extend %roboto;
 
-      margin-left: 0.3em;
+      margin-#{$start-direction}: 0.3em;
     }
 
     .err::before {

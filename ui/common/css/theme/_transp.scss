@@ -11,6 +11,7 @@ $c-font-page: $c-font-clearer;
 $c-bg-box: $c-bg-high;
 $c-bg-zebra: hsla(0, 0%, 100%, 0.05);
 $c-bg-input: $c-bg-zebra;
+$c-bg-variation: hsla(0, 0%, 0%, 0.25);
 
 $c-bg-popup: $c-bg-high;
 
@@ -25,3 +26,11 @@ $bg-metal-page: $bg-metal;
 $bg-page-metal-hover: $bg-metal-hover;
 
 $text-shadow: 0.5px 1px 1px #000;
+
+%page-text-shadow {
+  text-shadow: $text-shadow;
+}
+
+%page-link-font {
+  color: $c-font-clearer;
+}

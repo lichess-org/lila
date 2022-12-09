@@ -14,6 +14,7 @@ export interface SwissOpts {
   chat: any;
   i18n: I18nDict;
   classes: string | null;
+  showRatings: boolean;
 }
 
 export interface SwissData {
@@ -96,7 +97,7 @@ export interface BasePlayer {
 }
 
 export interface PodiumPlayer extends BasePlayer {
-  engine?: boolean;
+  lame?: boolean;
 }
 
 export interface Player extends BasePlayer {

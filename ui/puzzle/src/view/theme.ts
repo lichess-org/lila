@@ -1,33 +1,56 @@
-import { bind, dataIcon } from '../util';
+import * as router from 'common/router';
+import { bind, dataIcon } from 'common/snabbdom';
 import { Controller, MaybeVNode } from '../interfaces';
 import { h, VNode } from 'snabbdom';
+import { renderColorForm } from './side';
 
 const studyUrl = 'https://lichess.org/study/viiWlKjv';
 
 export default function theme(ctrl: Controller): MaybeVNode {
-  const t = ctrl.getData().theme;
+  const data = ctrl.getData(),
+    angle = data.angle;
   const showEditor = ctrl.vm.mode == 'view' && !ctrl.autoNexting();
-  if (ctrl.getData().replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
+  if (data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
   return ctrl.streak
     ? null
+    : ctrl.vm.isDaily
+    ? h('div.puzzle__side__theme.puzzle__side__theme--daily', h('h2', 'Daily Puzzle'))
     : h('div.puzzle__side__theme', [
-        h('a', { attrs: { href: '/training/themes' } }, h('h2', ['« ', t.name])),
-        h('p', [
-          t.desc,
-          t.chapter &&
-            h(
-              'a.puzzle__side__theme__chapter.text',
-              {
-                attrs: {
-                  href: `${studyUrl}/${t.chapter}`,
-                  target: '_blank',
-                  rel: 'noopener',
-                },
+        h(
+          'a',
+          { attrs: { href: router.withLang(`/training/${angle.opening ? 'openings' : 'themes'}`) } },
+          h(
+            'h2',
+            {
+              class: {
+                long: angle.name.length > 20,
               },
-              [' ', ctrl.trans.noarg('example')]
-            ),
-        ]),
-        showEditor ? h('div.puzzle__themes', editor(ctrl)) : null,
+            },
+            ['« ', angle.name]
+          )
+        ),
+        angle.opening
+          ? h('a', { attrs: { href: `/opening/${angle.opening.key}` } }, ['Learn more about ', angle.opening.name])
+          : h('p', [
+              angle.desc,
+              angle.chapter &&
+                h(
+                  'a.puzzle__side__theme__chapter.text',
+                  {
+                    attrs: {
+                      href: `${studyUrl}/${angle.chapter}`,
+                      target: '_blank',
+                      rel: 'noopener',
+                    },
+                  },
+                  [' ', ctrl.trans.noarg('example')]
+                ),
+            ]),
+        showEditor
+          ? h('div.puzzle__themes', editor(ctrl))
+          : !data.replay && !ctrl.streak && angle.opening
+          ? renderColorForm(ctrl)
+          : null,
       ]);
 }
 

@@ -1,11 +1,11 @@
-import * as modal from '../modal';
-import * as xhr from 'common/xhr';
-import { bind, bindSubmit, onInsert } from '../util';
-import { h, VNode } from 'snabbdom';
+import type Tagify from '@yaireo/tagify';
 import { prop, Prop } from 'common';
+import { snabModal } from 'common/modal';
+import { bind, bindSubmit, onInsert } from 'common/snabbdom';
+import * as xhr from 'common/xhr';
+import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { StudyCtrl, Topic } from './interfaces';
-import type Tagify from '@yaireo/tagify';
 
 export interface TopicsCtrl {
   open: Prop<boolean>;
@@ -35,8 +35,8 @@ export function ctrl(
   };
 }
 
-export function view(ctrl: StudyCtrl): VNode {
-  return h('div.study__topics', [
+export const view = (ctrl: StudyCtrl): VNode =>
+  h('div.study__topics', [
     ...ctrl.topics.getTopics().map(topic =>
       h(
         'a.topic',
@@ -52,23 +52,22 @@ export function view(ctrl: StudyCtrl): VNode {
           {
             hook: bind('click', () => ctrl.topics.open(true), ctrl.redraw),
           },
-          ['Manage topics']
+          ctrl.trans.noarg('manageTopics')
         )
       : null,
   ]);
-}
 
 let tagify: Tagify | undefined;
 
-export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
-  return modal.modal({
+export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
+  snabModal({
     class: 'study-topics',
     onClose() {
       ctrl.open(false);
       ctrl.redraw();
     },
     content: [
-      h('h2', 'Study topics'),
+      h('h2', ctrl.trans.noarg('topics')),
       h(
         'form',
         {
@@ -81,7 +80,7 @@ export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
           h(
             'textarea',
             {
-              hook: onInsert(elm => setupTagify(elm, userId)),
+              hook: onInsert(elm => setupTagify(elm as HTMLTextAreaElement, userId)),
             },
             ctrl.getTopics().join(', ').replace(/[<>]/g, '')
           ),
@@ -90,35 +89,34 @@ export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
             {
               type: 'submit',
             },
-            ctrl.trans.noarg('apply')
+            ctrl.trans.noarg('save')
           ),
         ]
       ),
     ],
   });
-}
 
-function setupTagify(elm: HTMLElement, userId?: string) {
+function setupTagify(elm: HTMLInputElement | HTMLTextAreaElement, userId?: string) {
   lichess.loadCssPath('tagify');
   lichess.loadScript('vendor/tagify/tagify.min.js').then(() => {
-    tagify = new window.Tagify(elm, {
+    const tagi = (tagify = new (window.Tagify as typeof Tagify)(elm, {
       pattern: /.{2,}/,
       maxTags: 30,
-    }) as Tagify;
+    }));
     let abortCtrl: AbortController | undefined; // for aborting the call
-    tagify.on('input', e => {
+    tagi.on('input', e => {
       const term = e.detail.value.trim();
       if (term.length < 2) return;
-      tagify!.settings.whitelist!.length = 0; // reset the whitelist
+      tagi.settings.whitelist!.length = 0; // reset the whitelist
       abortCtrl && abortCtrl.abort();
       abortCtrl = new AbortController();
       // show loading animation and hide the suggestions dropdown
-      tagify!.loading(true).dropdown.hide.call(tagify);
+      tagi.loading(true).dropdown.hide.call(tagi);
       xhr
         .json(xhr.url('/study/topic/autocomplete', { term, user: userId }), { signal: abortCtrl.signal })
         .then(list => {
-          tagify!.settings.whitelist!.splice(0, list.length, ...list); // update whitelist Array in-place
-          tagify!.loading(false).dropdown.show.call(tagify, term); // render the suggestions dropdown
+          tagi.settings.whitelist!.splice(0, list.length, ...list); // update whitelist Array in-place
+          tagi.loading(false).dropdown.show.call(tagi, term); // render the suggestions dropdown
         });
     });
     $('.tagify__input').each(function (this: HTMLInputElement) {

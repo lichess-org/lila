@@ -1,9 +1,8 @@
 import pubsub from './pubsub';
-import spinnerHtml from './spinner';
 import { loadCssPath, loadModule } from './assets';
 
 export default function () {
-  const initiatingHtml = `<div class="initiating">${spinnerHtml}</div>`,
+  const initiatingHtml = `<div class="initiating">${lichess.spinnerHtml}</div>`,
     isVisible = (selector: string) => {
       const el = document.querySelector(selector),
         display = el && window.getComputedStyle(el).display;
@@ -36,7 +35,7 @@ export default function () {
 
   {
     // challengeApp
-    let instance, booted: boolean;
+    let instance: any, booted: boolean;
     const $toggle = $('#challenge-toggle');
     $toggle.one('mouseover click', () => load());
     const load = function (data?: any) {
@@ -69,7 +68,7 @@ export default function () {
 
   {
     // notifyApp
-    let instance, booted: boolean;
+    let instance: any, booted: boolean;
     const $toggle = $('#notify-toggle'),
       selector = '#notify-app';
 
@@ -78,26 +77,25 @@ export default function () {
       booted = true;
       const $el = $('#notify-app').html(initiatingHtml);
       loadCssPath('notify');
-      loadModule('notify').then(
-        () =>
-          (instance = window.LichessNotify($el.empty()[0], {
-            data,
-            incoming,
-            isVisible: () => isVisible(selector),
-            setCount(nb: number) {
-              $toggle.find('span').data('count', nb);
-            },
-            show() {
-              if (!isVisible(selector)) $toggle.trigger('click');
-            },
-            setNotified() {
-              lichess.socket.send('notified');
-            },
-            pulse() {
-              $toggle.addClass('pulse');
-            },
-          }))
-      );
+      loadModule('notify').then(() => {
+        instance = window.LichessNotify($el.empty()[0], {
+          data,
+          incoming,
+          isVisible: () => isVisible(selector),
+          setCount(nb: number) {
+            $toggle.find('span').data('count', nb);
+          },
+          show() {
+            if (!isVisible(selector)) $toggle.trigger('click');
+          },
+          setNotified() {
+            lichess.socket.send('notified');
+          },
+          pulse() {
+            $toggle.addClass('pulse');
+          },
+        });
+      });
     };
 
     $toggle
@@ -126,10 +124,9 @@ export default function () {
       if (booted) return;
       booted = true;
       $(this).removeAttr('href');
-      const $el = $('#dasher_app').html(initiatingHtml),
-        playing = $('body').hasClass('playing');
+      const $el = $('#dasher_app').html(initiatingHtml);
       loadCssPath('dasher');
-      loadModule('dasher').then(() => window.LichessDasher($el.empty()[0], { playing }));
+      loadModule('dasher').then(() => window.LichessDasher($el.empty()[0]));
     });
   }
 

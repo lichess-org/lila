@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="coordinates">Каардынаты</string>
-  <string name="coordinateTraining">Трэніроўка па каардынатах</string>
-  <string name="averageScoreAsWhiteX">Сярэдні лік за белых: %s</string>
-  <string name="averageScoreAsBlackX">Сярэдні лік за чорных: %s</string>
-  <string name="knowingTheChessBoard">Веды каардынат шахматнай дошкі - вельмі важны шахматны навык:</string>
-  <string name="mostChessCourses">Большасць шахматных заданняў актыўна выкарыстоўваюцца ў шахматнай натацыі.</string>
-  <string name="talkToYourChessFriends">Гэта спрашчае гутарку з сябрамі-шахматыстамі, бо вы абодва разумееце \"мову шахмат\".</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Вы можаце больш эфектыўна аналізаваць гульні, калі вам не трэба шукаць назвы квадратаў.</string>
-  <string name="aSquareNameAppears">Назвы квадратаў з\'яўляюцца на дошцы, і вы павінны клікнуць на пэўны квадрат. У вас ёсць 30 секундаў, каб вызначыць як мага больш квадратаў!</string>
+  <string name="coordinateTraining">Трэніроўка каардынат</string>
+  <string name="averageScoreAsWhiteX">Сярэдні вынік за белых: %s</string>
+  <string name="averageScoreAsBlackX">Сярэдні вынік за чорных: %s</string>
+  <string name="knowingTheChessBoard">Ведаць каардынаты шахматнай дошкі - вельмі важны шахматны навык:</string>
+  <string name="mostChessCourses">Большасць шахматных задач та заданняў выкарыстоўваць шахматнаю натацыю.</string>
+  <string name="talkToYourChessFriends">Гэта спрошчвае гутарку з сябрамі-шахматыстамі, бо вы абодва разумееце \"шахматную мову\".</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Вы можаце больш эфектыўна аналізаваць гульні, калі вы ведаеце дзе кожная клетка знаходзіцца.</string>
+  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">На дошцы з\'яўляецца каардыната, і вы павінны націснуць на адпаведную клетку.</string>
+  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">На дошцы падсвечваецца клетка, і вы павінны ўвесці яе каардынату (напрыклад, \"e4\").</string>
+  <string name="youHaveThirtySeconds">У вас ёсць 30 секунд, каб правільна суаднесці як мага больш клетак!</string>
+  <string name="goAsLongAsYouWant">Спрабуйце так доўга, як хочаце, час неабмежаваны!</string>
+  <string name="showCoordinates">Паказваць каардынаты</string>
+  <string name="showPieces">Паказваць фігуры</string>
   <string name="startTraining">Пачаць трэніроўку</string>
+  <string name="findSquare">Знайдзіце клетку</string>
+  <string name="nameSquare">Назавіце клетку</string>
 </resources>

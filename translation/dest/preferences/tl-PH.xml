@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Mga Kagustuhan</string>
-  <string name="gameDisplay">Papakita ng Laro</string>
   <string name="pieceAnimation">Piraso ng animasyon</string>
   <string name="materialDifference">Pagkakaiba ng materyal</string>
   <string name="boardHighlights">Mga highlight ng board (huling galaw at suriin)</string>
@@ -29,7 +28,7 @@
   <string name="promoteToQueenAutomatically">Awtomatikong gawing Queen</string>
   <string name="whenPremoving">Kapag bago gumalaw</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Awtomatikong magkuha sa tatlong beses na pag-uulit</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Kapag ang natitirang oras &lt; 30 segundo</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Kapag ang natitirang oras &lt; 30 segundo</string>
   <string name="moveConfirmation">Kompirmasyon ng galaw</string>
   <string name="inCorrespondenceGames">Mga laro ng pagsusulatan</string>
   <string name="correspondenceAndUnlimited">Pagsusulatan at walang katapusan</string>

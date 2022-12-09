@@ -1,5 +1,7 @@
 import { h, VNode } from 'snabbdom';
-import { spinner, dataIcon, bind, onInsert, numberRow } from './util';
+import { spinnerVdom as spinner } from 'common/spinner';
+import { dataIcon, bind, onInsert } from 'common/snabbdom';
+import { numberRow } from './util';
 import SwissCtrl from '../ctrl';
 import * as pagination from '../pagination';
 import { MaybeVNodes, SwissData, Pager } from '../interfaces';
@@ -33,8 +35,8 @@ export default function (ctrl: SwissCtrl) {
           $(el).replaceWith($('.swiss__underchat.none').removeClass('none'));
         }),
       }),
-      playerInfo(ctrl) || stats(ctrl) || boards.top(d.boards),
-      h('div.swiss__main', [h('div.box.swiss__main-' + d.status, content), boards.many(d.boards)]),
+      playerInfo(ctrl) || stats(ctrl) || boards.top(d.boards, ctrl.opts),
+      h('div.swiss__main', [h('div.box.swiss__main-' + d.status, content), boards.many(d.boards, ctrl.opts)]),
       ctrl.opts.chat
         ? h('div.chat__members.none', {
             hook: onInsert(lichess.watchers),
@@ -109,7 +111,7 @@ function nextRound(ctrl: SwissCtrl): VNode | undefined {
           value: ctrl.data.nextRound?.at || '',
         },
         hook: onInsert((el: HTMLInputElement) =>
-          window['LichessFlatpickr'](el, {
+          window.LichessFlatpickr(el, {
             minDate: 'today',
             maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
             dateFormat: 'Z',
@@ -164,7 +166,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
               'click',
               _ => {
                 if (d.password) {
-                  const p = prompt(ctrl.trans.noarg('password'));
+                  const p = prompt(ctrl.trans.noarg('tournamentEntryCode'));
                   if (p !== null) ctrl.join(p);
                 } else ctrl.join();
               },
@@ -231,7 +233,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
     ? h('div.swiss__stats', [
         h('h2', noarg('tournamentComplete')),
         h('table', [
-          numberRow(noarg('averageElo'), s.averageRating, 'raw'),
+          ctrl.opts.showRatings ? numberRow(noarg('averageElo'), s.averageRating, 'raw') : null,
           numberRow(noarg('gamesPlayed'), s.games),
           numberRow(noarg('whiteWins'), [s.whiteWins, slots], 'percent'),
           numberRow(noarg('blackWins'), [s.blackWins, slots], 'percent'),

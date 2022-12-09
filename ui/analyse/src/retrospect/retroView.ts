@@ -1,7 +1,8 @@
-import { renderIndexAndMove } from '../moveView';
+import { renderIndexAndMove } from '../view/moveView';
 import { RetroCtrl } from './retroCtrl';
 import AnalyseCtrl from '../ctrl';
-import { bind, dataIcon, spinner } from '../util';
+import { bind, dataIcon } from 'common/snabbdom';
+import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
@@ -191,7 +192,7 @@ const feedback = {
             h(
               'a',
               {
-                hook: bind('click', () => ctrl.flip()),
+                hook: bind('click', ctrl.flip),
               },
               ctrl.noarg(ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes')
             ),
@@ -218,7 +219,14 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   return h('div.retro-box.training-box.sub-box', [
     h('div.title', [
       h('span', ctrl.noarg('learnFromYourMistakes')),
-      h('span', Math.min(completion[0] + 1, completion[1]) + ' / ' + completion[1]),
+      h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
+      h('button.fbt', {
+        hook: bind('click', root.toggleRetro, root.redraw),
+        attrs: {
+          'data-icon': '',
+          'aria-label': 'Close learn window',
+        },
+      }),
     ]),
     h('div.feedback.' + fb, renderFeedback(root, fb)),
   ]);

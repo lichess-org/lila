@@ -1,11 +1,12 @@
-import { h, VNode } from 'snabbdom';
+import { h } from 'snabbdom';
+import { bind, MaybeVNode } from 'common/snabbdom';
 import SimulCtrl from '../ctrl';
 import { Applicant } from '../interfaces';
 import xhr from '../xhr';
 import * as util from './util';
 import modal from 'common/modal';
 
-export default function (showText: (ctrl: SimulCtrl) => VNode) {
+export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
   return (ctrl: SimulCtrl) => {
     const candidates = ctrl.candidates().sort(byName),
       accepted = ctrl.accepted().sort(byName),
@@ -33,7 +34,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode) {
               ? h(
                   'a.button',
                   {
-                    hook: util.bind('click', () => xhr.withdraw(ctrl.data.id)),
+                    hook: bind('click', () => xhr.withdraw(ctrl.data.id)),
                   },
                   ctrl.trans('withdraw')
                 )
@@ -46,13 +47,17 @@ export default function (showText: (ctrl: SimulCtrl) => VNode) {
                     },
                     hook: ctrl.teamBlock()
                       ? {}
-                      : util.bind('click', () => {
+                      : bind('click', () => {
                           if (ctrl.data.variants.length === 1) xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
                           else {
-                            modal($('.simul .continue-with'));
-                            $('#modal-wrap .continue-with a').on('click', function (this: HTMLElement) {
-                              modal.close();
-                              xhr.join(ctrl.data.id, $(this).data('variant'));
+                            modal({
+                              content: $('.simul .continue-with'),
+                              onInsert($wrap) {
+                                $wrap.find('button').on('click', function (this: HTMLElement) {
+                                  modal.close();
+                                  xhr.join(ctrl.data.id, $(this).data('variant'));
+                                });
+                              },
                             });
                           }
                         }),
@@ -118,7 +123,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode) {
                       },
                     },
                     [
-                      h('td', util.player(applicant.player)),
+                      h('td', util.player(applicant.player, ctrl)),
                       variantIconFor(applicant),
                       h(
                         'td.action',
@@ -129,7 +134,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode) {
                                   'data-icon': '',
                                   title: 'Accept',
                                 },
-                                hook: util.bind('click', () => xhr.accept(applicant.player.id)(ctrl.data.id)),
+                                hook: bind('click', () => xhr.accept(applicant.player.id)(ctrl.data.id)),
                               }),
                             ]
                           : []
@@ -170,7 +175,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode) {
                       },
                     },
                     [
-                      h('td', util.player(applicant.player)),
+                      h('td', util.player(applicant.player, ctrl)),
                       variantIconFor(applicant),
                       h(
                         'td.action',
@@ -180,7 +185,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode) {
                                 attrs: {
                                   'data-icon': '',
                                 },
-                                hook: util.bind('click', () => xhr.reject(applicant.player.id)(ctrl.data.id)),
+                                hook: bind('click', () => xhr.reject(applicant.player.id)(ctrl.data.id)),
                               }),
                             ]
                           : []
@@ -198,17 +203,17 @@ export default function (showText: (ctrl: SimulCtrl) => VNode) {
         : null,
       h(
         'div.continue-with.none',
-        ctrl.data.variants.map(function (variant) {
-          return h(
-            'a.button',
+        ctrl.data.variants.map(variant =>
+          h(
+            'button.button',
             {
               attrs: {
                 'data-variant': variant.key,
               },
             },
             variant.name
-          );
-        })
+          )
+        )
       ),
     ];
   };
@@ -224,7 +229,7 @@ const randomButton = (ctrl: SimulCtrl) =>
           attrs: {
             'data-icon': '',
           },
-          hook: util.bind('click', () => {
+          hook: bind('click', () => {
             const candidates = ctrl.candidates();
             const randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
             xhr.accept(randomCandidate.player.id)(ctrl.data.id);
@@ -242,7 +247,7 @@ const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
           attrs: {
             'data-icon': '',
           },
-          hook: util.bind('click', () => xhr.start(ctrl.data.id)),
+          hook: bind('click', () => xhr.start(ctrl.data.id)),
         },
         `Start (${accepted.length})`
       )
@@ -252,7 +257,7 @@ const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
           attrs: {
             'data-icon': '',
           },
-          hook: util.bind('click', () => {
+          hook: bind('click', () => {
             if (confirm('Delete this simul?')) xhr.abort(ctrl.data.id);
           }),
         },

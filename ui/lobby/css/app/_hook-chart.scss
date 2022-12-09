@@ -2,14 +2,13 @@
   @extend %abs-100;
 
   bottom: 0;
-  right: 0;
+  #{$end-direction}: 0;
   overflow: hidden;
 
   .label {
     color: var(--c-font-dim);
-    font-size: .7em;
     position: absolute;
-    left: 3px;
+    #{$start-direction}: 3px;
     bottom: 1px;
     text-shadow: $text-shadow;
     font-weight: bold;
@@ -17,7 +16,7 @@
 
   .grid {
     position: absolute;
-    left: 0;
+    #{$start-direction}: 0;
     bottom: 0;
 
     &.horiz {
@@ -27,7 +26,7 @@
 
     &.vert {
       height: 100%;
-      border-right: 1px dashed $c-border;
+      border-#{$end-direction}: 1px dashed $c-border;
     }
   }
 
@@ -42,7 +41,7 @@
     cursor: pointer;
     z-index: 3;
     font-size: 1.6em;
-    opacity: .7;
+    opacity: 0.7;
 
     @include transition;
 
@@ -77,7 +76,7 @@
   display: none;
   background: $c-bg-box;
   position: absolute;
-  z-index: z("powertip");
+  z-index: z('powertip');
 
   .inner {
     @extend %flex-column;
@@ -94,6 +93,6 @@
     @extend %metal;
 
     min-width: 120px;
-    padding: .5em .7em;
+    padding: 0.5em 0.7em;
   }
 }

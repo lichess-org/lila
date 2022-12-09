@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferencias</string>
-  <string name="gameDisplay">Configuración visual d\'o chuego</string>
+  <string name="display">Visualización</string>
+  <string name="privacy">Privacidat</string>
   <string name="pieceAnimation">Animación d\'as piezas</string>
   <string name="materialDifference">Diferencia material</string>
   <string name="boardHighlights">Destacar quadretz d\'o escaquero (zaguer movimiento y escaque)</string>
@@ -32,7 +33,7 @@
   <string name="promoteToQueenAutomatically">Promover a la Reina automaticament</string>
   <string name="whenPremoving">Con anticipadas</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar taulas per triple repetición</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Quan lo tiempo restante sía de &lt; 30 segundos</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Quan lo tiempo restante sía de &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmación de movimiento</string>
   <string name="inCorrespondenceGames">Partidas per correspondencia</string>
   <string name="correspondenceAndUnlimited">Correspondencia y sin limite de tiempo</string>

@@ -1,6 +1,8 @@
 import { h, VNode } from 'snabbdom';
+import { spinnerVdom as spinner } from 'common/spinner';
+import { bind, dataIcon } from 'common/snabbdom';
 import TournamentController from '../ctrl';
-import { bind, numberRow, spinner, dataIcon, player as renderPlayer } from './util';
+import { numberRow, player as renderPlayer } from './util';
 import { teamName } from './battle';
 
 export default function (ctrl: TournamentController): VNode | undefined {
@@ -37,9 +39,12 @@ export default function (ctrl: TournamentController): VNode | undefined {
           numberRow('Players', data.nbPlayers),
           ...(data.rating
             ? [
-                numberRow(noarg('averageElo'), data.rating, 'raw'),
+                ctrl.opts.showRatings ? numberRow(noarg('averageElo'), data.rating, 'raw') : null,
                 ...(data.perf
-                  ? [numberRow('Average performance', data.perf, 'raw'), numberRow('Average score', data.score, 'raw')]
+                  ? [
+                      ctrl.opts.showRatings ? numberRow('Average performance', data.perf, 'raw') : null,
+                      numberRow('Average score', data.score, 'raw'),
+                    ]
                   : []),
               ]
             : []),
@@ -70,7 +75,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
               },
               [
                 h('th', '' + (i + 1)),
-                h('td', renderPlayer(p, false, true, false, i < nbLeaders)),
+                h('td', renderPlayer(p, false, ctrl.opts.showRatings, false, i < nbLeaders)),
                 h('td.total', [
                   p.fire && !ctrl.data.isFinished
                     ? h('strong.is-gold', { attrs: dataIcon('') }, '' + p.score)

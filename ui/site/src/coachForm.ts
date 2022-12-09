@@ -1,7 +1,6 @@
 import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
 import { notNull } from 'common';
-import spinnerHtml from './component/spinner';
 import Tagify from '@yaireo/tagify';
 
 lichess.load.then(() => {
@@ -57,6 +56,28 @@ lichess.load.then(() => {
     };
   })();
 
+  {
+    // languages
+    const langInput = document.getElementById('form3-languages') as HTMLInputElement;
+    const whitelistJson = langInput.getAttribute('data-all');
+    const whitelist = whitelistJson ? (JSON.parse(whitelistJson) as Tagify.TagData[]) : undefined;
+    const tagify = new Tagify(langInput, {
+      maxTags: 10,
+      whitelist,
+      enforceWhitelist: true,
+      dropdown: {
+        enabled: 1,
+      },
+    });
+    tagify.addTags(
+      langInput
+        .getAttribute('data-value')
+        ?.split(',')
+        .map(code => whitelist?.find(l => l.code == code))
+        .filter(notNull) as Tagify.TagData[]
+    );
+  }
+
   $editor.find('.tabs > div').on('click', function (this: HTMLElement) {
     $editor.find('.tabs > div').removeClass('active');
     $(this).addClass('active');
@@ -72,10 +93,6 @@ lichess.load.then(() => {
       todo();
     });
   }, 1000);
-  $editor.find('input, textarea, select').on('input paste change keyup', function () {
-    $editor.find('div.status').removeClass('saved');
-    submit();
-  });
 
   if ($editor.find('.reviews .review').length) $editor.find('.tabs div[data-tab=reviews]').trigger('click');
 
@@ -89,28 +106,15 @@ lichess.load.then(() => {
   });
 
   $('.coach_picture form.upload input[type=file]').on('change', function (this: HTMLInputElement) {
-    $('.picture_wrap').html(spinnerHtml);
+    $('.picture_wrap').html(lichess.spinnerHtml);
     ($(this).parents('form')[0] as HTMLFormElement).submit();
   });
 
-  const langInput = document.getElementById('form3-languages') as HTMLInputElement;
-  const whitelistJson = langInput.getAttribute('data-all');
-  const whitelist = whitelistJson ? (JSON.parse(whitelistJson) as Tagify.TagData[]) : undefined;
-  const tagify = new Tagify(langInput, {
-    maxTags: 10,
-    whitelist,
-    enforceWhitelist: true,
-    dropdown: {
-      enabled: 1,
-    },
-  });
-  tagify.addTags(
-    langInput
-      .getAttribute('data-value')
-      ?.split(',')
-      .map(code => whitelist?.find(l => l.code == code))
-      .filter(notNull) as Tagify.TagData[]
-  );
-
-  todo();
+  setTimeout(() => {
+    $editor.find('input, textarea, select').on('input paste change keyup', function () {
+      $editor.find('div.status').removeClass('saved');
+      submit();
+    });
+    todo();
+  }, 1000);
 });

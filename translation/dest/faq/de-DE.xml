@@ -25,13 +25,15 @@
   <string name="howCanIBecomeModerator">Wie kann ich Moderator werden?</string>
   <string name="youCannotApply">Es ist nicht möglich, sich als Moderator zu bewerben. Wenn wir jemanden sehen, von dem wir glauben, dass er als Moderator gut wäre, werden wir ihn direkt kontaktieren.</string>
   <string name="isCorrespondenceDifferent">Unterscheidet sich Fernschach von normalem Schach?</string>
+  <string name="pleaseReadFairPlayPage">Für weitere Informationen lies bitte unsere %s</string>
+  <string name="fairPlayPage">Seite über faires Spiel</string>
   <string name="youCanUseOpeningBookNoEngine">Bei Lichess besteht der Hauptunterschied bei den Regeln für Fernschach darin, dass hier zwar ein Eröffnungsbuch erlaubt ist. Die Verwendung von Schachcomputern ist jedoch immer noch verboten und führt zu einer Markierung des Kontos wegen unerlaubter Unterstützung durch Schachcomputer. Obwohl die ICCF die Verwendung von Schachcomputern in Fernschachpartien erlaubt, ist dies auf Lichess nicht gestattet.</string>
   <string name="gameplay">Spielerlebnis</string>
   <string name="howBulletBlitzEtcDecided">Wie wird entschieden, was Bullet, Blitz und andere Zeitkontrollen sind?</string>
   <string name="basedOnGameDuration">Lichess Zeitkontrollen basieren auf der erwarteten Spieldauer = %1$s
 Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 × 60 + 40 × 3 = 420 Sekunden.</string>
-  <string name="durationFormula">(Zeitguthaben zu Beginn) + 40 × (Zug-Inkrement)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="durationFormula">(Anfangszeit in Sekunden) + 40 × (Zug-Inkrement)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Welche Varianten kann ich auf Lichess spielen?</string>
   <string name="lichessSupportChessAnd">Lichess unterstützt Standardschach und %1$s.</string>
@@ -59,9 +61,9 @@ Dies wird in Abschnitt 3.7 der %2$s beschrieben.
 \"Ein Bauer, der auf derselben Reihe auf einem unmittelbar angrenzenden Feld wie ein gegnerischer Bauer, der soeben zwei Felder von seiner Anfangsstellung vorgerückt ist, steht, darf diesen gegnerischen Bauern so schlagen, als ob letzterer nur um ein Feld vorgerückt wäre. Dieses Schlagen ist nur in dem unmittelbar nachfolgenden Zug regelgemäß und wird \'Schlagen en passant\' genannt.\"
 
 Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
-  <string name="goodIntroduction">guten ersten Eindruck</string>
-  <string name="officialRulesPDF">offiziellen Regeln (PDF)</string>
+  <string name="goodIntroduction">guter ersten Eindruck</string>
   <string name="lichessTraining">Lichess-Training</string>
+  <string name="watchIMRosenCheckmate">Sieh dir an, wie der internationale Meister Eric Rosen %s Matt setzt.</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
   <string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. Lichess implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 des %2$s beschrieben.</string>
   <string name="threefoldRepetitionLowerCase">dreifache Stellungswiederholung</string>
@@ -95,7 +97,7 @@ Bitte nicht darum, den LM-Titel zu erhalten.</string>
   <string name="usernamesCannotBeChanged">Nein, Benutzernamen können aus technischen und praktischen Gründen nicht geändert werden. Die Benutzernamen tauchen an zu vielen Stellen auf: Datenbanken, Exporte, Logs und im Gedächtnis anderer Leute. Du kannst lediglich einmal die Groß-/Kleinschreibung ändern.</string>
   <string name="uniqueTrophies">Einzigartige Trophäen</string>
   <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von Lichess, niemand außer %1$s wird sie jemals haben.</string>
-  <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, 100%% der Partien %s zu berserken und zu gewinnen.</string>
+  <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, alle seiner Partien %s zu berserken und zu gewinnen.</string>
   <string name="aHourlyBulletTournament">einer stündlichen Bullet-Arena</string>
   <string name="goldenZeeExplanation">ZugAddict streamte und hatte in den letzten 2 Stunden versucht, die künstliche Intelligenz auf Stufe 8 in einem 1+0 Spiel zu besiegen, ohne Erfolg. Thibault versprach ihm, dass er eine einzigartige Trophäe bekommen würde, wenn er es erfolgreich im Stream schaffen würde. Eine Stunde später zerschmetterte er Stockfish und das Versprechen wurde eingehalten.</string>
   <string name="lichessRatings">Lichess-Wertungen</string>

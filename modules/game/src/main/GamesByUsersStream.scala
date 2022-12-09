@@ -1,58 +1,82 @@
 package lila.game
 
-import akka.stream.scaladsl._
-import play.api.libs.json._
-import scala.concurrent.duration._
-
 import actorApi.{ FinishGame, StartGame }
-import chess.format.FEN
+import akka.stream.scaladsl.*
+import chess.format.Fen
+import play.api.libs.json.*
+import scala.concurrent.duration.*
+
 import lila.common.Bus
-import lila.common.Json.jodaWrites
+import lila.common.Json.given
 import lila.game.Game
 import lila.user.User
+import lila.db.dsl.given
 
-final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
+final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
+    mat: akka.stream.Materializer,
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
   private val chans = List("startGame", "finishGame")
 
-  private val blueprint = Source
-    .queue[Game](64, akka.stream.OverflowStrategy.dropHead)
-    .mapAsync(1)(gameRepo.withInitialFen)
-    .map(gameWithInitialFenWriter.writes)
-
-  def apply(userIds: Set[User.ID]): Source[JsValue, _] =
-    blueprint mapMaterializedValue { queue =>
-      def matches(game: Game) =
-        game.userIds match {
-          case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
-          case _                        => false
+  def apply(userIds: Set[UserId], withCurrentGames: Boolean): Source[JsValue, ?] =
+    val initialGames = if (withCurrentGames) currentGamesSource(userIds) else Source.empty
+    val startStream = Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead) mapMaterializedValue {
+      queue =>
+        def matches(game: Game) =
+          game.userIds match
+            case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
+            case _                        => false
+        val sub = Bus.subscribeFun(chans*) {
+          case StartGame(game) if matches(game)        => queue.offer(game).unit
+          case FinishGame(game, _, _) if matches(game) => queue.offer(game).unit
         }
-      val sub = Bus.subscribeFun(chans: _*) {
-        case StartGame(game) if matches(game)        => queue.offer(game).unit
-        case FinishGame(game, _, _) if matches(game) => queue.offer(game).unit
-      }
-      queue.watchCompletion().foreach { _ =>
-        Bus.unsubscribe(sub, chans)
-      }
+        queue.watchCompletion().addEffectAnyway {
+          Bus.unsubscribe(sub, chans)
+        }
     }
+    initialGames
+      .concat(startStream)
+      .mapAsync(1)(gameRepo.withInitialFen)
+      .map(GameStream.gameWithInitialFenWriter.writes)
 
-  implicit private val fenWriter: Writes[FEN] = Writes[FEN] { f =>
-    JsString(f.value)
-  }
+  private def currentGamesSource(userIds: Set[UserId]): Source[Game, ?] =
+    import lila.db.dsl.*
+    import BSONHandlers.given
+    import reactivemongo.api.ReadPreference
+    import reactivemongo.akkastream.cursorProducer
+    gameRepo.coll
+      .aggregateWith[Game](
+        readPreference = ReadPreference.secondaryPreferred
+      ) { framework =>
+        import framework.*
+        List(
+          Match($doc(Game.BSONFields.playingUids $in userIds)),
+          AddFields(
+            $doc(
+              "both" -> $doc("$setIsSubset" -> $arr("$" + Game.BSONFields.playingUids, userIds))
+            )
+          ),
+          Match($doc("both" -> true))
+        )
+      }
+      .documentSource()
+      .throttle(30, 1.second)
 
-  private val gameWithInitialFenWriter: OWrites[Game.WithInitialFen] = OWrites {
+private object GameStream:
+
+  val gameWithInitialFenWriter: OWrites[Game.WithInitialFen] = OWrites {
     case Game.WithInitialFen(g, initialFen) =>
       Json
         .obj(
-          "id"        -> g.id,
-          "rated"     -> g.rated,
-          "variant"   -> g.variant.key,
-          "speed"     -> g.speed.key,
-          "perf"      -> PerfPicker.key(g),
-          "createdAt" -> g.createdAt,
-          "status"    -> g.status.id,
+          "id"         -> g.id,
+          "rated"      -> g.rated,
+          "variant"    -> g.variant.key,
+          "speed"      -> g.speed.key,
+          "perf"       -> PerfPicker.key(g),
+          "createdAt"  -> g.createdAt,
+          "status"     -> g.status.id,
+          "statusName" -> g.status.name,
           "players" -> JsObject(g.players map { p =>
             p.color.name -> Json
               .obj(
@@ -71,4 +95,3 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
         })
         .add("daysPerTurn" -> g.daysPerTurn)
   }
-}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="movePieceFromE2ToE4">e2 वरील सोंगटी e4 वर हलवा</string>
+  <string name="moveKnightToC3">घोडा c3 वर हलवा</string>
+  <string name="kingsideCastle">राजाकडील किल्लेकोट</string>
+  <string name="queensideCastle">वझिराकडील किल्लेकोट</string>
+  <string name="promoteC8ToQueen">c8 प्याद्याला वझीर बनवा</string>
+</resources>

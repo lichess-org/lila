@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">pas pak</string>
+  <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
+    <item quantity="one">pas %s sekondi</item>
+    <item quantity="other">pas %s sekondave</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">pas %s minuti</item>
+    <item quantity="other">pas %s minutave</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">pas %s ore</item>
+    <item quantity="other">pas %s orëve</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">pas %s dite</item>
+    <item quantity="other">pas %s ditëve</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">pas %s javë</item>
+    <item quantity="other">pas %s javë</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">pas %s muaji</item>
+    <item quantity="other">pas %s muajve</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">pas %s viti</item>
+    <item quantity="other">pas %s viteve</item>
+  </plurals>
+  <string name="rightNow">tani</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">para %s sekondi</item>
+    <item quantity="other">para %s sekondave</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">para %s minuti</item>
+    <item quantity="other">para %s minutave</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">para %s ore</item>
+    <item quantity="other">para %s orëve</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">para %s dite</item>
+    <item quantity="other">para %s ditëve</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">para %s jave</item>
+    <item quantity="other">para %s jave</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">para %s muaji</item>
+    <item quantity="other">para %s muajve</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">para %s viti</item>
+    <item quantity="other">para %s viteve</item>
+  </plurals>
+</resources>

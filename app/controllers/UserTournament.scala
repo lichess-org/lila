@@ -1,20 +1,16 @@
 package controllers
 
-import lila.app._
-import views._
+import lila.app.{ given, * }
+import views.*
 
-final class UserTournament(env: Env) extends LilaController(env) {
+final class UserTournament(env: Env) extends LilaController(env):
 
-  def path(username: String, path: String, page: Int) =
+  def path(username: UserStr, path: String, page: Int) =
     Open { implicit ctx =>
       Reasonable(page) {
-        val userOption = env.user.repo enabledNamed username map {
-          _ filter {
-            _.enabled || isGranted(_.Hunter)
-          }
-        }
+        val userOption = (env.user.repo byId username).map { _.filter(_.enabled || isGranted(_.SeeReport)) }
         OptionFuResult(userOption) { user =>
-          path match {
+          path match
             case "recent" =>
               env.tournament.leaderboardApi.recentByUser(user, page).map { entries =>
                 Ok(html.userTournament.bits.recent(user, entries))
@@ -37,11 +33,9 @@ final class UserTournament(env: Env) extends LilaController(env) {
               }
             case "upcoming" =>
               ctx.me.fold(notFound) { me =>
-                Redirect(routes.UserTournament.path(me.username, "upcoming")).fuccess
+                Redirect(routes.UserTournament.path(me.username, "upcoming")).toFuccess
               }
             case _ => notFound
-          }
         }
       }
     }
-}

@@ -1,11 +1,10 @@
 import * as enhance from 'common/richText';
+import userLink from 'common/userLink';
 import * as spam from './spam';
 import { Ctrl, Line } from './interfaces';
-import { flag } from './xhr';
 import { h, thunk, VNode, VNodeData } from 'snabbdom';
-import { lineAction as modLineAction } from './moderation';
+import { lineAction as modLineAction, report } from './moderation';
 import { presetView } from './preset';
-import { userLink } from './util';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
@@ -24,7 +23,7 @@ export default function (ctrl: Ctrl): Array<VNode | undefined> {
     hasMod = !!ctrl.moderation();
   const vnodes = [
     h(
-      'ol.mchat__messages.chat-v-' + ctrl.data.domVersion,
+      `ol.mchat__messages.chat-v-${ctrl.data.domVersion}${hasMod ? '.as-mod' : ''}`,
       {
         attrs: {
           role: 'log',
@@ -94,7 +93,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
     chatEl.value = previousText;
     chatEl.focus();
     if (!ctrl.opts.public && previousText.match(whisperRegex)) chatEl.classList.add('whisper');
-  }
+  } else if (ctrl.vm.autofocus) chatEl.focus();
 
   chatEl.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key !== 'Enter') return;
@@ -133,7 +132,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
   window.Mousetrap.bind('c', () => chatEl.focus());
 
   // Ensure clicks remove chat focus.
-  // See ornicar/chessground#109
+  // See lichess-org/chessground#109
 
   const mouchEvents = ['touchstart', 'mousedown'];
 
@@ -153,9 +152,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
     mouchEvents.forEach(event => document.body.removeEventListener(event, mouchListener, { capture: true }));
 };
 
-function sameLines(l1: Line, l2: Line) {
-  return l1.d && l2.d && l1.u === l2.u;
-}
+const sameLines = (l1: Line, l2: Line) => l1.d && l2.d && l1.u === l2.u;
 
 function selectLines(ctrl: Ctrl): Array<Line> {
   const ls: Array<Line> = [];
@@ -195,12 +192,6 @@ function renderText(t: string, parseMoves: boolean) {
   return h('t', t);
 }
 
-function report(ctrl: Ctrl, line: HTMLElement) {
-  const userA = line.querySelector('a.user-link') as HTMLLinkElement;
-  const text = (line.querySelector('t') as HTMLElement).innerText;
-  if (userA && confirm(`Report "${text}" to moderators?`)) flag(ctrl.data.resourceId, userA.href.split('/')[4], text);
-}
-
 function renderLine(ctrl: Ctrl, line: Line): VNode {
   const textNode = renderText(line.t, ctrl.opts.parseMoves);
 
@@ -209,19 +200,26 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
   if (line.c) return h('li', [h('span.color', '[' + line.c + ']'), textNode]);
 
   const userNode = thunk('a', line.u, userLink, [line.u, line.title, line.p]);
+  const userId = line.u?.toLowerCase();
+
+  const myUserId = ctrl.data.userId;
+  const mentioned =
+    !!myUserId &&
+    !!line.t.match(enhance.userPattern)?.find(mention => mention.trim().toLowerCase() == `@${ctrl.data.userId}`);
 
   return h(
     'li',
     {
       class: {
-        me: line.u === ctrl.data.userId,
-        host: line.u === ctrl.data.hostId,
+        me: userId === myUserId,
+        host: userId === ctrl.data.hostId,
+        mentioned,
       },
     },
     ctrl.moderation()
       ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
       : [
-          ctrl.data.userId && line.u && ctrl.data.userId != line.u
+          myUserId && line.u && myUserId != line.u
             ? h('i.flag', {
                 attrs: {
                   'data-icon': '',

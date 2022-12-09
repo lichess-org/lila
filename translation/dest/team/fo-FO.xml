@@ -18,7 +18,6 @@
     <item quantity="one">Liðleiðari</item>
     <item quantity="other">Liðleiðarar</item>
   </plurals>
-  <string name="teamBestPlayers">Bestu telvarar</string>
   <string name="teamRecentMembers">Nýggir limir</string>
   <string name="kickSomeone">Tveit onkran av liðnum</string>
   <string name="whoToKick">Hvønn vilt tú tveita av liðnum?</string>
@@ -41,8 +40,5 @@
   <string name="leadersChat">Leiðaraprát (kjatt)</string>
   <string name="closeTeam">Lat lið aftur</string>
   <string name="closeTeamDescription">Letur lið aftur med alla.</string>
-  <string name="teamPassword">Loyniorð hjá liðnum</string>
-  <string name="teamPasswordDescriptionForLeader">(Valfrítt) Eitt loyniorð, ið nýggir limir mugu kenna til tess at vera við á liðnum.</string>
-  <string name="incorrectTeamPassword">Skeivt liðsloyniorð.</string>
   <string name="teamAlreadyExists">Hetta liðið er longu til.</string>
 </resources>

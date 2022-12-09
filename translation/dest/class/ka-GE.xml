@@ -12,7 +12,6 @@
   <string name="teachersX">მასწავლებლები: %s</string>
   <string name="newClass">ახალი კლასი</string>
   <string name="closeClass">დახურე კლასი</string>
-  <string name="closedByX">დახურა %s-მ</string>
   <string name="reopen">ხელახლა გახსნა</string>
   <string name="removeStudent">ამოშალე მოსწავლე</string>
   <string name="removedStudents">ამოშლილია</string>

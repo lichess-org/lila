@@ -1,6 +1,6 @@
-@import "pool";
-@import "hook-chart";
-@import "hook-list";
+@import 'pool';
+@import 'hook-chart';
+@import 'hook-list';
 
 .lobby__app {
   @extend %flex-column;
@@ -19,7 +19,7 @@
     flex: 1 1 100%;
     position: relative;
 
-    background: var(--lobby-pool-bg);
+    background: var(--bg-lobby-pool);
 
     background-size: 100% 100%;
     overflow-x: hidden;
@@ -38,13 +38,13 @@
 
   .toggle {
     position: absolute;
-    padding: .6em;
+    padding: 0.6em;
     cursor: pointer;
     z-index: 2;
     font-size: 1.3em;
 
     &.toggle-filter {
-      right: 0;
+      #{$end-direction}: 0;
     }
 
     @include transition;
@@ -63,4 +63,20 @@
       color: var(--c-accent-dim);
     }
   }
+}
+
+@include breakpoint($mq-not-xx-small) {
+  .lreal_time,
+  .lseeks .hooks__list {
+    font-size: 0.9em;
+  }
+
+  .lobby__app .toggle {
+    padding: 0.4em;
+  }
+}
+
+.hook__filters {
+  // will be overridden by _hook-filter.scss once it's loaded
+  display: none;
 }

@@ -1,7 +1,7 @@
 .trophies {
   position: absolute;
   top: 35px;
-  right: 1.5em;
+  #{$end-direction}: 1.5em;
   height: 40px;
   display: flex;
   flex-flow: row wrap;
@@ -66,8 +66,7 @@
 
   &.marathonWinner,
   &.marathonTopTen,
-  &.marathonTopFifty,
-  &.marathonTopHundred {
+  &.marathonTopFifty {
     filter: hue-rotate(190deg);
   }
 
@@ -79,7 +78,8 @@
   }
 
   &.marathonTopFifty,
-  &.marathonTopHundred {
+  &.marathonTopHundred,
+  &.marathonTopFivehundred {
     font-size: 50px;
     height: 50px;
     width: 50px;
@@ -93,20 +93,24 @@
 
   &.marathonTopHundred {
     text-shadow: none;
-    color: #cd4606 !important;
+    color: #066ccd;
+  }
+
+  &.marathonTopFivehundred {
+    text-shadow: none;
   }
 }
 
 .packed .trophy {
-  margin-right: -8px;
+  margin-#{$end-direction}: -8px;
 }
 
 .packed .stacked {
-  margin-right: 30px;
+  margin-#{$end-direction}: 30px;
 }
 
 .packed .stacked .trophy {
-  margin-right: -30px;
+  margin-#{$end-direction}: -30px;
 }
 
 .trophy.icon3d {

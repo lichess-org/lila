@@ -1,2 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="private">व्यक्तिगत</string>
+  <string name="myStudies">माझे अभ्यास</string>
+  <string name="studiesIContributeTo">माझे योगदान असलेले अभ्यास</string>
+  <string name="myPublicStudies">माझे सार्वजनिक अभ्यास</string>
+  <string name="myPrivateStudies">माझे व्यक्तिगत अभ्यास</string>
+  <string name="myFavoriteStudies">माझ्या आवडीचे अभ्यास</string>
+  <string name="whatAreStudies">अभ्यास म्हणजे काय?</string>
+  <string name="allStudies">सर्व अभ्यास</string>
+  <string name="studiesCreatedByX">%s ने तयार केलेले अभ्यास</string>
+  <string name="noneYet">सध्या कोणताही नाही.</string>
+  <string name="hot">सध्या चर्चेत</string>
+  <string name="dateAddedNewest">तारखेनुसार (सर्वात नवीन)</string>
+  <string name="dateAddedOldest">तारखेनुसार (सर्वात जुने)</string>
+  <string name="recentlyUpdated">अलीकडे बदललेले</string>
+  <string name="mostPopular">जास्त लोकप्रिय</string>
+  <string name="alphabetical">वर्णक्रमानुसार</string>
+  <string name="addNewChapter">एक नवीन अध्याय जोडा</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s खेळ</item>
+    <item quantity="other">%s खेळ</item>
+  </plurals>
+  <string name="addMembers">सदस्य जोडा</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s सदस्य</item>
+    <item quantity="other">%s सदस्य</item>
+  </plurals>
+  <string name="inviteToTheStudy">अभ्यासात आमंत्रित करा</string>
+  <string name="contributor">योगदानकर्ता</string>
+  <string name="leaveTheStudy">अभ्यासातून बाहेर पडा</string>
+  <string name="youAreNowAContributor">तुम्ही आता योगदानकर्ते आहात</string>
+  <string name="youAreNowASpectator">तुम्ही आता प्रेक्षक आहात</string>
+  <string name="playing">खेळताहेत</string>
+  <string name="first">पहिला</string>
+  <string name="previous">मागील</string>
+  <string name="next">पुढील</string>
+  <string name="last">शेवटचा</string>
+  <string name="shareAndExport">शेअर आणि निर्यात करा</string>
+  <string name="cloneStudy">प्रतिकृती तयार करा</string>
+  <string name="studyPgn">अभ्यासाची PGN</string>
+  <string name="startAtInitialPosition">सुरूवातीच्या स्थितीपासून प्रारंभ</string>
+  <string name="embedInYourWebsite">तुमच्या वेबसाइटवर टाका</string>
+  <string name="readMoreAboutEmbedding">तुमच्या वेबसाइटवर टाकण्याबद्दल वाचा</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">फक्त सार्वजनिक अभ्यास वेबसाइटवर टाकता येतात!</string>
+  <string name="open">उघडा</string>
+</resources>

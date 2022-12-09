@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
+import { bind, onInsert } from 'common/snabbdom';
+import { richHTML } from 'common/richText';
 import { StudyCtrl } from './interfaces';
-import { bind, richHTML, onInsert } from '../util';
 
 export type Save = (t: string) => void;
 
@@ -20,9 +21,7 @@ export class DescriptionCtrl {
   }
 }
 
-export function descTitle(chapter: boolean) {
-  return `${chapter ? 'Chapter' : 'Study'} pinned comment`;
-}
+export const descTitle = (chapter: boolean) => `${chapter ? 'Chapter' : 'Study'} pinned comment`;
 
 export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
   const desc = chapter ? study.chapterDesc : study.studyDesc,
@@ -78,8 +77,8 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
   ]);
 }
 
-function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
-  return h('div.study-desc-form', [
+const edit = (ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode =>
+  h('div.study-desc-form', [
     h('div.title', [
       descTitle(chapter),
       h('button.button.button-empty.button-red', {
@@ -87,7 +86,13 @@ function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
           'data-icon': '',
           title: 'Close',
         },
-        hook: bind('click', () => (ctrl.edit = false), ctrl.redraw),
+        hook: bind(
+          'click',
+          () => {
+            ctrl.edit = false;
+          },
+          ctrl.redraw
+        ),
       }),
     ]),
     h('form.form3', [
@@ -95,7 +100,7 @@ function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
         h('textarea#form-control.desc-text.' + id, {
           hook: onInsert<HTMLInputElement>(el => {
             el.value = ctrl.text === '-' ? '' : ctrl.text || '';
-            el.onkeyup = el.onpaste = () => {
+            el.oninput = () => {
               ctrl.save(el.value.trim());
             };
             el.focus();
@@ -104,4 +109,3 @@ function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
       ]),
     ]),
   ]);
-}

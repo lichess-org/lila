@@ -4,18 +4,19 @@ import org.joda.time.DateTime
 
 case class Trophy(
     _id: String, // random
-    user: String,
+    user: UserId,
     kind: TrophyKind,
     date: DateTime,
     url: Option[String]
-) extends Ordered[Trophy] {
+) extends Ordered[Trophy]:
 
   def timestamp = date.getMillis
 
   def compare(other: Trophy) =
     if (kind.order == other.kind.order) date compareTo other.date
     else Integer.compare(kind.order, other.kind.order)
-}
+
+  def anyUrl = url orElse kind.url
 
 case class TrophyKind(
     _id: String,
@@ -27,15 +28,17 @@ case class TrophyKind(
     withCustomImage: Boolean
 )
 
-object TrophyKind {
-  val marathonWinner     = "marathonWinner"
-  val marathonTopTen     = "marathonTopTen"
-  val marathonTopFifty   = "marathonTopFifty"
-  val marathonTopHundred = "marathonTopHundred"
-  val moderator          = "moderator"
-  val developer          = "developer"
-  val verified           = "verified"
-  val zugMiracle         = "zugMiracle"
+object TrophyKind:
+  val marathonWinner         = "marathonWinner"
+  val marathonTopTen         = "marathonTopTen"
+  val marathonTopFifty       = "marathonTopFifty"
+  val marathonTopHundred     = "marathonTopHundred"
+  val marathonTopFivehundred = "marathonTopFivehundred"
+  val moderator              = "moderator"
+  val developer              = "developer"
+  val verified               = "verified"
+  val contentTeam            = "contentTeam"
+  val zugMiracle             = "zugMiracle"
 
   object Unknown
       extends TrophyKind(
@@ -47,4 +50,3 @@ object TrophyKind {
         klass = none,
         withCustomImage = false
       )
-}

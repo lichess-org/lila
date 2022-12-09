@@ -1,18 +1,19 @@
 package views.html.board
 
-import chess.format.FEN
+import play.api.libs.json.Json
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import chess.format.Fen
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
+import lila.common.Json.given
 
-object editor {
+object editor:
 
   def apply(
-      sit: chess.Situation,
-      fen: FEN,
+      fen: Option[Fen.Epd],
       positionsJson: String,
       endgamePositionsJson: String
   )(implicit ctx: Context) =
@@ -21,7 +22,7 @@ object editor {
       moreJs = frag(
         jsModule("editor"),
         embedJsUnsafeLoadThen(
-          s"""const data=${safeJsonValue(bits.jsData(sit, fen))};data.positions=$positionsJson;
+          s"""const data=${safeJsonValue(jsData(fen))};data.positions=$positionsJson;
 data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementById('board-editor'), data);"""
         )
       ),
@@ -37,11 +38,42 @@ data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementByI
         .some
     )(
       main(id := "board-editor")(
-        div(cls := "board-editor")(
+        div(cls   := "board-editor")(
           div(cls := "spare"),
           div(cls := "main-board")(chessgroundBoard),
           div(cls := "spare")
         )
       )
     )
-}
+
+  def jsData(fen: Option[Fen.Epd] = None)(using ctx: Context) =
+    Json
+      .obj(
+        "baseUrl"   -> s"$netBaseUrl${routes.Editor.index}",
+        "animation" -> Json.obj("duration" -> ctx.pref.animationMillis),
+        "is3d"      -> ctx.pref.is3d,
+        "i18n"      -> i18nJsObject(i18nKeys)
+      )
+      .add("fen" -> fen)
+
+  private val i18nKeys = List(
+    trans.setTheBoard,
+    trans.boardEditor,
+    trans.startPosition,
+    trans.clearBoard,
+    trans.flipBoard,
+    trans.loadPosition,
+    trans.popularOpenings,
+    trans.endgamePositions,
+    trans.castling,
+    trans.whiteCastlingKingside,
+    trans.blackCastlingKingside,
+    trans.whitePlays,
+    trans.blackPlays,
+    trans.variant,
+    trans.continueFromHere,
+    trans.playWithTheMachine,
+    trans.playWithAFriend,
+    trans.analysis,
+    trans.toStudy
+  )

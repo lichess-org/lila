@@ -52,6 +52,7 @@
   <string name="knightMate">Je možné dát šach-mat jen s koněm nebo střelcem, pokud má soupeř na šachovnici více figur než jen krále.</string>
   <string name="noRatingPoints">Nebyly přiděleny žádné ratingové body</string>
   <string name="ratedGame">Ujistěte se, že jste hráli hodnocenou hru. Neformální hry neovlivňují hodnocení hráčů.</string>
+  <string name="botRatingAbuse">Za určitých okolností při hraní proti účtu bota hodnocená hra neudělí žádné body, pokud je zjištěno, že hráč zneužívá bota jen pro změnu hodnocení.</string>
   <string name="errorPage">Chybová stránka</string>
   <string name="reportErrorPage">Pokud jste narazili na chybovou stránku, můžete ji nahlásit:</string>
   <string name="banAppeal">Žádost o zákaz nebo IP omezení</string>

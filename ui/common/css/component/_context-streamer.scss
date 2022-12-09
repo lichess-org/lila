@@ -27,7 +27,7 @@ body {
 
   &::before {
     font-size: 1.3em;
-    margin-left: 0.4em;
+    margin-#{$start-direction}: 0.4em;
   }
 
   &:hover {

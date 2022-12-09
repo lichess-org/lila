@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Nov osebni žeton za dostop do API-ja</string>
+  <string name="tokenGrantsPermission">Žeton daje drugim osebam dovoljenje za uporabo vašega računa.</string>
+  <string name="carefullySelect">Previdno izberite, kaj sme storiti v vašem imenu.</string>
+  <string name="tokenDescription">Opis žetona</string>
+  <string name="rememberTokenUse">Torej se spomnite, čemu je ta žeton namenjen</string>
+  <string name="whatTheTokenCanDo">Torej se spomnite, čemu je ta žeton namenjen:</string>
+  <string name="doNotShareIt">Žeton bo omogočil dostop do vašega računa. NE delite z nikomer!</string>
+  <string name="copyTokenNow">Prepričajte se, da ste zdaj kopirali svoj novi žeton osebnega dostopa. Ne boste ga mogli več videti!</string>
+  <string name="preferenceRead">Preberite nastavitve</string>
+  <string name="preferenceWrite">Napišite prednost</string>
+  <string name="emailRead">Preberi e-poštni naslov</string>
+  <string name="challengeRead">Preberite prihajajoče izzive</string>
+  <string name="challengeWrite">Napišite dohodne izzive</string>
+  <string name="challengeBulk">Ustvarite veliko iger hkrati za druge igralce</string>
+  <string name="studyRead">Preberite zasebne študije in oddaje</string>
+  <string name="studyWrite">Ustvarjanje, posodabljanje, brisanje študij in oddaj</string>
+  <string name="tournamentWrite">Ustvarite, posodobite in se pridružite turnirjem</string>
+  <string name="racerWrite">Ustvarjajte ugankarske dirke in se jim pridružite</string>
+  <string name="puzzleRead">Preberite dejavnost uganke</string>
+  <string name="teamRead">Preberite informacije o zasebni ekipi</string>
+  <string name="teamWrite">Pridružite se, zapustite in upravljajte ekipo</string>
+  <string name="teamLead">Upravljajte ekipe, ki jih vodite: pošljite ZS, izbrišite člane</string>
+  <string name="followRead">Preberi spremljane igralce</string>
+  <string name="followWrite">Sledite in prenehajte slediti drugim igralcem</string>
+  <string name="msgWrite">Pošlji zasebno sporočilo drugim igralcem</string>
+  <string name="boardPlay">Igrajte igre z API-jem za deske</string>
+  <string name="botPlay">Igrajte igre z bot api</string>
+  <string name="engineRead">Oglejte si in uporabite svoj zunanji motor</string>
+  <string name="engineWrite">Ustvarite in posodobite zunanji motor</string>
+  <string name="webLogin">Ustvarite overjene seje spletnega mesta (omogoča popoln dostop!)</string>
+  <string name="webMod">Uporabite orodja moderatorja (v mejah vašega dovoljenja)</string>
+</resources>

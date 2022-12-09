@@ -1,5 +1,7 @@
 package lila.common.base;
 
+import java.text.Normalizer;
+
 public class StringUtils {
     private static final char[] DIGITS = {
         '0' , '1' , '2' , '3' , '4' , '5' ,
@@ -49,14 +51,14 @@ public class StringUtils {
                 case '<': case '>': case '&': case '"': case '\'':
                   final StringBuilder sb = new StringBuilder(end + 20);
                   sb.append(s, 0, i);
-                  escapeHtmlRaw(sb, sArr, i, end);
+                  escapeHtmlRawInPlace(sb, sArr, i, end);
                   return sb.toString();
             }
         }
         return s;
     }
 
-    public static void escapeHtmlRaw(final StringBuilder sb, final char[] sArr,
+    public static void escapeHtmlRawInPlace(final StringBuilder sb, final char[] sArr,
         int start, final int end) {
 
         for (int i = start; i < end; i++) {
@@ -74,29 +76,6 @@ public class StringUtils {
             }
         }
         sb.append(sArr, start, end - start);
-    }
-
-    public static String removeGarbageChars(final String s) {
-        final char[] sArr = s.toCharArray();
-        final int size = sArr.length;
-        final StringBuilder sb = new StringBuilder(size);
-        for (int i = 0; i < size; i++) {
-            final char c = sArr[i];
-            switch (c) {
-              case '\u200b':
-              case '\u200c':
-              case '\u200d':
-              case '\u200e':
-              case '\u200f':
-              case '\u202e':
-              case '\u1160': 
-              case '\u3164': 
-                break;
-              default:
-                sb.append(c);
-            }
-        }
-        return sb.toString();
     }
 
     /**

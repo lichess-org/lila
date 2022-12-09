@@ -1,15 +1,10 @@
-import type Highcharts from 'highcharts';
+import type { AcplChart } from 'chart/dist/interface';
 
 import AnalyseCtrl from './ctrl';
-import { baseUrl } from './util';
+import { baseUrl } from './view/util';
 import modal from 'common/modal';
-import { formToXhr } from 'common/xhr';
+import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
 import { AnalyseData } from './interfaces';
-
-interface PlyChart extends Highcharts.ChartObject {
-  lastPly?: Ply | false;
-  selectPly(ply: number): void;
-}
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard!);
@@ -19,68 +14,68 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   const data = ctrl.data,
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
-    $timeChart = $('#movetimes-chart'),
     inputFen = document.querySelector('.analyse__underboard__fen') as HTMLInputElement,
-    unselect = (chart: Highcharts.ChartObject) => {
-      chart.getSelectedPoints().forEach(function (point) {
-        point.select(false);
-      });
-    };
-  let lastFen: string;
+    gameGifLink = document.querySelector('.game-gif') as HTMLAnchorElement,
+    positionGifLink = document.querySelector('.position-gif') as HTMLAnchorElement;
+  let lastInputHash: string;
+  let advChart: AcplChart;
+  let timeChartLoaded = false;
 
-  if (!lichess.AnalyseNVUI) {
-    lichess.pubsub.on('analysis.comp.toggle', (v: boolean) => {
-      setTimeout(function () {
-        (v ? $menu.find('[data-panel="computer-analysis"]') : $menu.find('span:eq(1)')).trigger('mousedown');
-      }, 50);
-      if (v) $('#acpl-chart').each((_, e) => (e as HighchartsHTMLElement).highcharts.reflow());
+  const updateGifLinks = (fen: Fen) => {
+    const ds = document.body.dataset;
+    positionGifLink.href = xhrUrl(ds.assetUrl + '/export/fen.gif', {
+      fen,
+      color: ctrl.bottomColor(),
+      lastMove: ctrl.node.uci,
+      variant: ctrl.data.game.variant.key,
+      theme: ds.boardTheme,
+      piece: ds.pieceSet,
     });
-    lichess.pubsub.on('analysis.change', (fen: Fen, _, mainlinePly: Ply | false) => {
-      const $chart = $('#acpl-chart');
-      if (fen && fen !== lastFen) {
+    gameGifLink.href = xhrUrl(ds.assetUrl + `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`, {
+      theme: ds.boardTheme,
+      piece: ds.pieceSet,
+    });
+  };
+
+  if (!window.LichessAnalyseNvui) {
+    lichess.pubsub.on('theme.change', () => updateGifLinks(inputFen.value));
+    lichess.pubsub.on('analysis.comp.toggle', (v: boolean) => {
+      setTimeout(
+        () => (v ? $menu.find('[data-panel="computer-analysis"]') : $menu.find('span:eq(1)')).trigger('mousedown'),
+        50
+      );
+      if (v) advChart?.reflow();
+    });
+    lichess.pubsub.on('analysis.change', (fen: Fen, _) => {
+      const nextInputHash = `${fen}${ctrl.bottomColor()}`;
+      if (fen && nextInputHash !== lastInputHash) {
         inputFen.value = fen;
-        lastFen = fen;
-      }
-      if ($chart.length) {
-        const chart = ($chart[0] as HighchartsHTMLElement).highcharts as PlyChart;
-        if (chart) {
-          if (mainlinePly != chart.lastPly) {
-            if (mainlinePly === false) unselect(chart);
-            else chart.selectPly(mainlinePly);
-          }
-          chart.lastPly = mainlinePly;
-        }
-      }
-      if ($timeChart.length) {
-        const chart = ($timeChart[0] as HighchartsHTMLElement).highcharts as PlyChart;
-        if (chart) {
-          if (mainlinePly != chart.lastPly) {
-            if (mainlinePly === false) unselect(chart);
-            else chart.selectPly(mainlinePly);
-          }
-          chart.lastPly = mainlinePly;
-        }
+        updateGifLinks(fen);
+        lastInputHash = nextInputHash;
       }
     });
     lichess.pubsub.on('analysis.server.progress', (d: AnalyseData) => {
-      if (!lichess.advantageChart) startAdvantageChart();
-      else if (lichess.advantageChart.update) lichess.advantageChart.update(d);
+      if (!window.LichessChartGame) startAdvantageChart();
+      else advChart?.updateData(d, ctrl.mainline);
       if (d.analysis && !d.analysis.partial) $('#acpl-chart-loader').remove();
     });
   }
 
-  function chartLoader() {
-    return `<div id="acpl-chart-loader"><span>Stockfish 13+<br>server analysis</span>${lichess.spinnerHtml}</div>`;
-  }
+  const chartLoader = () =>
+    `<div id="acpl-chart-loader"><span>Stockfish 15.1<br>server analysis</span>${lichess.spinnerHtml}</div>`;
+
   function startAdvantageChart() {
-    if (lichess.advantageChart || lichess.AnalyseNVUI) return;
-    const loading = !data.treeParts[0].eval || !Object.keys(data.treeParts[0].eval).length;
+    if (advChart || window.LichessAnalyseNvui) return;
+    const loading = !ctrl.tree.root.eval || !Object.keys(ctrl.tree.root.eval).length;
     const $panel = $panels.filter('.computer-analysis');
     if (!$('#acpl-chart').length) $panel.html('<div id="acpl-chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$('#acpl-chart-loader').length) $panel.append(chartLoader());
-    lichess.loadScript('javascripts/chart/acpl.js').then(function () {
-      lichess.advantageChart!(data, ctrl.trans, $('#acpl-chart')[0] as HTMLElement);
-    });
+    lichess
+      .loadModule('chart.game')
+      .then(() => window.LichessChartGame.acpl($('#acpl-chart')[0] as HTMLElement, data, ctrl.mainline, ctrl.trans))
+      .then(chart => {
+        advChart = chart;
+      });
   }
 
   const storage = lichess.storage.make('analysis.panel');
@@ -91,10 +86,11 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       .removeClass('active')
       .filter('.' + panel)
       .addClass('active');
-    if ((panel == 'move-times' || ctrl.opts.hunter) && !lichess.movetimeChart)
-      lichess
-        .loadScript('javascripts/chart/movetime.js')
-        .then(() => lichess.movetimeChart(data, ctrl.trans, ctrl.opts.hunter));
+    if ((panel == 'move-times' || ctrl.opts.hunter) && !timeChartLoaded)
+      lichess.loadModule('chart.game').then(() => {
+        timeChartLoaded = true;
+        window.LichessChartGame.movetime($('#movetimes-chart')[0] as HTMLElement, data, ctrl.trans, ctrl.opts.hunter);
+      });
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart').length)
       setTimeout(startAdvantageChart, 200);
   };
@@ -121,7 +117,14 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
         return false;
       }
-      formToXhr(this).then(startAdvantageChart, lichess.reload);
+      xhrTextRaw(this.action, { method: this.method }).then(res => {
+        if (res.ok) startAdvantageChart();
+        else
+          res.text().then(t => {
+            if (t && !t.startsWith('<!DOCTYPE html>')) alert(t);
+            lichess.reload();
+          });
+      });
       return false;
     });
   }
@@ -134,11 +137,13 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     selection!.addRange(range);
   });
   $panels.on('click', '.embed-howto', function (this: HTMLElement) {
-    const url = `${baseUrl()}/embed/${data.game.id}${location.hash}`;
-    const iframe = '<iframe src="' + url + '?theme=auto&bg=auto"\nwidth=600 height=397 frameborder=0></iframe>';
-    modal(
-      $(
-        '<strong style="font-size:1.5em">' +
+    // location.hash is percent encoded, so no need to escape and make &bg=...
+    // uglier in the process.
+    const url = `${baseUrl()}/embed/game/${data.game.id}?theme=auto&bg=auto${location.hash}`;
+    const iframe = `<iframe src="${url}"\nwidth=600 height=397 frameborder=0></iframe>`;
+    modal({
+      content: $(
+        '<div><strong style="font-size:1.5em">' +
           $(this).html() +
           '</strong><br /><br />' +
           '<pre>' +
@@ -146,8 +151,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
           '</pre><br />' +
           iframe +
           '<br /><br />' +
-          '<a class="text" data-icon="" href="/developers#embed-game">Read more about embedding games</a>'
-      )
-    );
+          '<a class="text" data-icon="" href="/developers#embed-game">Read more about embedding games</a></div>'
+      ),
+    });
   });
 }

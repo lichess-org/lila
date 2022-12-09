@@ -1,7 +1,7 @@
 import { Config as CgConfig } from 'chessground/config';
 import { DrawShape } from 'chessground/draw';
-import { prop } from 'common';
-import throttle from 'common/throttle';
+import { prop, defined } from 'common';
+import throttle, { throttlePromiseDelay } from 'common/throttle';
 import debounce from 'common/debounce';
 import AnalyseCtrl from '../ctrl';
 import { ctrl as memberCtrl } from './studyMembers';
@@ -15,7 +15,7 @@ import { ctrl as topicsCtrl, TopicsCtrl } from './topics';
 import { ctrl as notifCtrl } from './notif';
 import { ctrl as shareCtrl } from './studyShare';
 import { ctrl as tagsCtrl } from './studyTags';
-import { ctrl as serverEvalCtrl } from './serverEval';
+import ServerEval from './serverEval';
 import * as tours from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
@@ -43,6 +43,8 @@ import { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
 import { StudySocketSendParams } from '../socket';
 import { Opening } from '../explorer/interfaces';
+import { storedMap, storedBooleanProp } from 'common/storage';
+import { opposite } from 'chessops/util';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -83,6 +85,10 @@ export default function (
   const send = ctrl.socket.send;
   const redraw = ctrl.redraw;
 
+  const relayRecProp = storedBooleanProp('relay.rec', true);
+  const nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
+  const chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
+
   const vm: StudyVm = (() => {
     const isManualChapter = data.chapter.id !== data.position.chapterId;
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
@@ -94,7 +100,7 @@ export default function (
       // path is at ctrl.path
       mode: {
         sticky: sticked,
-        write: true,
+        write: relayData ? relayRecProp() : nonRelayRecMapProp(data.id),
       },
       // how many events missed because sync=off
       behind: 0,
@@ -117,7 +123,7 @@ export default function (
     startTour,
     notif,
     onBecomingContributor() {
-      vm.mode.write = true;
+      vm.mode.write = !relayData || relayRecProp();
     },
     admin: data.admin,
     redraw,
@@ -190,7 +196,7 @@ export default function (
     redraw
   );
 
-  const serverEval = serverEvalCtrl(ctrl, () => vm.chapterId);
+  const serverEval = new ServerEval(ctrl, () => vm.chapterId);
 
   const topics: TopicsCtrl = topicsCtrl(
     topics => send('setTopics', topics),
@@ -206,16 +212,13 @@ export default function (
     };
   }
 
-  function isGamebookPlay() {
-    return (
-      data.chapter.gamebook &&
-      vm.gamebookOverride !== 'analyse' &&
-      (vm.gamebookOverride === 'play' || !members.canContribute())
-    );
-  }
+  const isGamebookPlay = () =>
+    data.chapter.gamebook &&
+    vm.gamebookOverride !== 'analyse' &&
+    (vm.gamebookOverride === 'play' || !members.canContribute());
 
   if (vm.mode.sticky && !isGamebookPlay()) ctrl.userJump(data.position.path);
-  else if (data.chapter.relay && !ctrl.initialPath) ctrl.userJump(data.chapter.relay.path);
+  else if (data.chapter.relay && !defined(ctrl.requestInitialPly)) ctrl.userJump(data.chapter.relay.path);
 
   function configureAnalysis() {
     if (ctrl.embed) return;
@@ -259,7 +262,7 @@ export default function (
     document.title = data.name;
     members.dict(s.members);
     chapters.list(s.chapters);
-    ctrl.flipped = false;
+    ctrl.flipped = chapterFlipMapProp(data.chapter.id);
 
     const merge = !vm.mode.write && sameChapter;
     ctrl.reloadData(d.analysis, merge);
@@ -290,18 +293,20 @@ export default function (
 
     configurePractice();
     serverEval.reset();
-    commentForm.onSetPath(data.chapter.id, ctrl.path, ctrl.node, false);
-
+    commentForm.onSetPath(data.chapter.id, ctrl.path, ctrl.node);
     redraw();
     ctrl.startCeval();
   }
 
-  const xhrReload = throttle(700, () => {
-    vm.loading = true;
-    return xhr
-      .reload(practice ? 'practice/load' : 'study', data.id, vm.mode.sticky ? undefined : vm.chapterId)
-      .then(onReload, lichess.reload);
-  });
+  const xhrReload = throttlePromiseDelay(
+    () => 700,
+    () => {
+      vm.loading = true;
+      return xhr
+        .reload(practice ? 'practice/load' : 'study', data.id, vm.mode.sticky ? undefined : vm.chapterId)
+        .then(onReload, lichess.reload);
+    }
+  );
 
   const onSetPath = throttle(300, (path: Tree.Path) => {
     if (vm.mode.sticky && path !== data.position.path)
@@ -313,11 +318,14 @@ export default function (
       );
   });
 
+  ctrl.flipped = chapterFlipMapProp(data.chapter.id);
   if (members.canContribute()) form.openIfNew();
 
   const currentNode = () => ctrl.node;
+  const onMainline = () => ctrl.tree.pathIsMainline(ctrl.path);
+  const bottomColor = () => (ctrl.flipped ? opposite(data.chapter.setup.orientation) : data.chapter.setup.orientation);
 
-  const share = shareCtrl(data, currentChapter, currentNode, relay, redraw, ctrl.trans);
+  const share = shareCtrl(data, currentChapter, currentNode, onMainline, bottomColor, relay, redraw, ctrl.trans);
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 
@@ -392,6 +400,10 @@ export default function (
     const i = chs.findIndex(ch => ch.id === vm.chapterId);
     return i < 0 ? undefined : chs[i + delta];
   });
+  const hasNextChapter = () => {
+    const chs = chapters.list();
+    return chs[chs.length - 1].id != vm.chapterId;
+  };
 
   const socketHandlers: Handlers = {
     path(d) {
@@ -499,7 +511,7 @@ export default function (
       if (d.s && !vm.mode.sticky) vm.behind++;
       if (d.s) data.position = d.p;
       else if (d.w && d.w.s === lichess.sri) {
-        vm.mode.write = true;
+        vm.mode.write = relayData ? relayRecProp() : nonRelayRecMapProp(data.id);
         vm.chapterId = d.p.chapterId;
       }
       xhrReload();
@@ -522,7 +534,7 @@ export default function (
         who = d.w;
       setMemberActive(who);
       if (d.p.chapterId !== vm.chapterId) return;
-      if (who && who.s === lichess.sri) return;
+      if (who && who.s === lichess.sri) return redraw(); // update shape indicator in column move view
       ctrl.tree.setShapes(d.s, ctrl.path);
       if (ctrl.path === position.path) ctrl.withCg(cg => cg.setShapes(d.s));
       redraw();
@@ -558,6 +570,7 @@ export default function (
       setMemberActive(who);
       if (wrongChapter(d)) return;
       ctrl.tree.setGlyphsAt(d.g, position.path);
+      if (ctrl.path === position.path) ctrl.setAutoShapes();
       redraw();
     },
     clock(d) {
@@ -635,10 +648,13 @@ export default function (
       else chapters.localPaths[vm.chapterId] = ctrl.path; // don't remember position on gamebook
       if (practice) practice.onJump();
     },
+    onFlip() {
+      chapterFlipMapProp(data.chapter.id, ctrl.flipped);
+    },
     withPosition,
-    setPath(path, node, playedMyself) {
+    setPath(path, node) {
       onSetPath(path);
-      commentForm.onSetPath(vm.chapterId, path, node, playedMyself);
+      commentForm.onSetPath(vm.chapterId, path, node);
     },
     deleteNode(path) {
       makeChange(
@@ -674,6 +690,8 @@ export default function (
     },
     toggleWrite() {
       vm.mode.write = !vm.mode.write && members.canContribute();
+      if (relayData) relayRecProp(vm.mode.write);
+      else nonRelayRecMapProp(data.id, vm.mode.write);
       xhrReload();
     },
     isWriting,
@@ -685,6 +703,7 @@ export default function (
     gamebookPlay: () => gamebookPlay,
     prevChapter,
     nextChapter,
+    hasNextChapter,
     goToPrevChapter() {
       const chapter = prevChapter();
       if (chapter) setChapter(chapter.id);
@@ -706,6 +725,10 @@ export default function (
     },
     onPremoveSet() {
       if (gamebookPlay) gamebookPlay.onPremoveSet();
+    },
+    looksNew() {
+      const cs = chapters.list();
+      return cs.length == 1 && cs[0].name == 'Chapter 1' && !currentChapter().ongoing;
     },
     redraw,
     trans: ctrl.trans,

@@ -13,7 +13,9 @@
   <string name="specialMoves">Movementos especiais</string>
   <string name="didYouLikeThisPuzzle">Gustouche este crebacabezas?</string>
   <string name="voteToLoadNextOne">Vota para cargar o seguinte!</string>
-  <string name="yourPuzzleRatingX">A túa puntuación nos crebacabezas: %s</string>
+  <string name="upVote">Vota a favor do puzzle</string>
+  <string name="downVote">Vota en contra do puzzle</string>
+  <string name="yourPuzzleRatingWillNotChange">A túa puntuación en crebacabezas non cambia. Ten en conta que os crebacabezas non son unha competición. A clasificación axuda a escollerte os mellores crebacabezas para a túa puntuación actual.</string>
   <string name="findTheBestMoveForWhite">Atopa a mellor xogada para o branco.</string>
   <string name="findTheBestMoveForBlack">Atopa a mellor xogada para o negro.</string>
   <string name="toGetPersonalizedPuzzles">Para conseguir crebacabezas personalizados:</string>
@@ -40,7 +42,7 @@
   <string name="easier">Máis fácil</string>
   <string name="easiest">O máis fácil</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="one">Un punto por debaixo da túa puntuación de exercicios</item>
+    <item quantity="one">%s puntos por debaixo da túa puntuación de exercicios</item>
     <item quantity="other">%s puntos por debaixo da túa puntuación de exercicios</item>
   </plurals>
   <string name="harder">Máis difícil</string>
@@ -51,10 +53,11 @@
   </plurals>
   <string name="example">Exemplo</string>
   <string name="addAnotherTheme">Engadir outro tema</string>
+  <string name="nextPuzzle">Seguinte exercicio</string>
   <string name="jumpToNextPuzzleImmediately">Ir ao seguinte crebacabezas inmediatamente</string>
   <string name="puzzleDashboard">Informe de crebacabezas</string>
   <string name="improvementAreas">Áreas de mellora</string>
-  <string name="strengths">Punots fortes</string>
+  <string name="strengths">Puntos fortes</string>
   <string name="history">Historial de crebacabezas</string>
   <string name="solved">resoltos</string>
   <string name="failed">fallados</string>
@@ -70,4 +73,17 @@
   <string name="fromMyGamesNone">Non tes exercicios na base de datos, pero Lichess aínda te quiere un montón.
 Xoga partidas rápidas e clásicas para ter máis posibilidades de que se engadan os teus exercicios!</string>
   <string name="fromXGamesFound">%1$s exercicios atopados en %2$s partidas</string>
+  <string name="puzzleDashboardDescription">Adestra, analiza, mellora</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s xogados</item>
+    <item quantity="other">%s xogados</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s a repetir</item>
+    <item quantity="other">%s a repetir</item>
+  </plurals>
+  <string name="percentSolved">%s resoltos</string>
+  <string name="noPuzzlesToShow">Nada que amosar, xoga algúns Problemas primeiro!</string>
+  <string name="improvementAreasDescription">Adestra estes para optimizar o teu progreso!</string>
+  <string name="strengthDescription">O teu rendemento é mellor nestes temas</string>
 </resources>

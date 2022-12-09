@@ -66,7 +66,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   function commentable(node: Tree.Node, bonus = 0): boolean {
     if (node.tbhit || root.outcome(node)) return true;
     const ceval = node.ceval;
-    return ceval ? ceval.depth + bonus >= 15 || (ceval.depth >= 13 && ceval.millis > 3000) : false;
+    return ceval ? ceval.depth + bonus >= 15 || (ceval.depth >= 13 && !ceval.cloud && ceval.millis > 3000) : false;
   }
 
   function playable(node: Tree.Node): boolean {
@@ -97,8 +97,10 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
 
     if (outcome && outcome.winner) verdict = 'goodMove';
     else {
+      const isFiftyMoves = node.fen.split(' ')[4] === '100';
       const nodeEval: Eval =
-        tbhitToEval(node.tbhit) || (node.threefold || (outcome && !outcome.winner) ? { cp: 0 } : (node.ceval as Eval));
+        tbhitToEval(node.tbhit) ||
+        (node.threefold || (outcome && !outcome.winner) || isFiftyMoves ? { cp: 0 } : (node.ceval as Eval));
       const prevEval: Eval = tbhitToEval(prev.tbhit) || prev.ceval!;
       const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
 

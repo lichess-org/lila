@@ -2,17 +2,17 @@ package views.html.study
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
-import lila.i18n.{ I18nKeys => trans }
+import lila.app.templating.Environment.{ given, * }
+import lila.i18n.{ I18nKeys as trans }
 
-object jsI18n {
+object jsI18n:
 
   def apply()(implicit lang: Lang) =
     views.html.board.userAnalysisI18n(withAdvantageChart = true) ++
-      i18nJsObject(i18nKeys)
+      i18nJsObject(i18nKeys ++ gamebookPlayKeys)
 
-  val i18nKeys: List[lila.i18n.MessageKey] = {
-    import trans.study._
+  val i18nKeys =
+    import trans.study.*
     List(
       trans.name,
       trans.white,
@@ -23,6 +23,7 @@ object jsI18n {
       trans.cancel,
       trans.chat,
       addNewChapter,
+      importFromChapterX,
       addMembers,
       inviteToTheStudy,
       pleaseOnlyInvitePeopleYouKnow,
@@ -35,6 +36,9 @@ object jsI18n {
       youAreNowASpectator,
       pgnTags,
       like,
+      unlike,
+      topics,
+      manageTopics,
       newTag,
       commentThisPosition,
       commentThisMove,
@@ -50,6 +54,7 @@ object jsI18n {
       previous,
       next,
       last,
+      nextChapter,
       shareAndExport,
       cloneStudy,
       studyPgn,
@@ -74,6 +79,7 @@ object jsI18n {
       pinnedChapterComment,
       saveChapter,
       clearAnnotations,
+      clearVariations,
       deleteChapter,
       deleteThisChapter,
       clearAllCommentsInThisChapter,
@@ -117,12 +123,21 @@ object jsI18n {
       clearChat,
       deleteTheStudyChatHistory,
       deleteStudy,
-      deleteTheEntireStudy,
+      confirmDeleteStudy,
       whereDoYouWantToStudyThat,
       nbChapters,
       nbGames,
       nbMembers,
       pasteYourPgnTextHereUpToNbGames
-    ).map(_.key)
-  }
-}
+    )
+
+  val gamebookPlayKeys =
+    import trans.study.*
+    List(
+      back,
+      playAgain,
+      nextChapter,
+      trans.retry,
+      whatWouldYouPlay,
+      youCompletedThisLesson
+    )

@@ -10,8 +10,12 @@
 
   section {
     font-size: 1.2em;
-    margin-left: 2rem;
+    margin-#{$start-direction}: 2rem;
     padding-top: 1rem;
+
+    @include breakpoint($mq-not-small) {
+      margin-#{$end-direction}: 2em;
+    }
   }
 
   section h2 {
@@ -23,7 +27,6 @@
     time {
       font-weight: bold;
       text-transform: uppercase;
-      background: $c-bg-box;
     }
   }
 
@@ -38,11 +41,11 @@
 
     > i {
       font-size: 24px;
-      float: left;
+      float: $start-direction;
       width: 50px;
       height: 50px;
       margin-top: -10px;
-      margin-left: -72px;
+      margin-#{$start-direction}: -72px;
       line-height: 39px;
       text-align: center;
       background-color: var(--c-contours);
@@ -55,11 +58,11 @@
   @include breakpoint($mq-xx-small) {
     .entries {
       margin: 30px 50px 0 50px;
-      border-left: 3px solid var(--c-contours);
+      border-#{$start-direction}: 3px solid var(--c-contours);
     }
 
     .entry {
-      padding-left: 45px;
+      padding-#{$start-direction}: 45px;
     }
   }
 
@@ -96,20 +99,20 @@
   rating {
     @extend %roboto;
 
-    margin-left: 0.7em;
+    margin-#{$start-direction}: 0.7em;
 
     .rp {
-      margin-left: 0.2em;
+      margin-#{$start-direction}: 0.2em;
     }
   }
 
   score {
-    float: right;
+    float: $end-direction;
     font-size: 0.7em;
     margin-top: 2px;
 
     > * {
-      margin-left: 8px;
+      margin-#{$start-direction}: 8px;
     }
 
     strong {

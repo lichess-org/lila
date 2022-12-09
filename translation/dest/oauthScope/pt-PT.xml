@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailRead">Ler o endereço de correio eletrónico</string>
+  <string name="challengeRead">Ler os desafios recebidos</string>
+  <string name="puzzleRead">Ler a atividade do quebra-cabeça</string>
+  <string name="msgWrite">Enviar mensagem privada a outros jogadores</string>
+  <string name="engineWrite">Criar e atualizar o motor externo</string>
+</resources>

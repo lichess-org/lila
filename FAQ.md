@@ -1,6 +1,6 @@
 # Frequently asked questions
 
-## Why/how did you start building lichess
+## Why/how did you start building lichess?
 
 (Answer by Thibault)
 

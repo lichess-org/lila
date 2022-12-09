@@ -1,11 +1,11 @@
 package controllers
 
-import lila.app._
+import lila.app.{ given, * }
 
 final class Page(
     env: Env,
     prismicC: Prismic
-) extends LilaController(env) {
+) extends LilaController(env):
 
   val help   = menuBookmark("help")
   val tos    = menuBookmark("tos")
@@ -15,10 +15,9 @@ final class Page(
     Open { implicit ctx =>
       pageHit
       OptionOk(prismicC getBookmark name) { case (doc, resolver) =>
-        active match {
+        active match
           case None       => views.html.site.page.lone(doc, resolver)
           case Some(name) => views.html.site.page.withMenu(name, doc, resolver)
-        }
       }
     }
 
@@ -35,7 +34,7 @@ final class Page(
 
   def variantHome =
     Open { implicit ctx =>
-      import play.api.libs.json._
+      import play.api.libs.json.*
       negotiate(
         html = OptionOk(prismicC getBookmark "variant") { case (doc, resolver) =>
           views.html.site.variant.home(doc, resolver)
@@ -47,7 +46,7 @@ final class Page(
               "key"  -> v.key,
               "name" -> v.name
             )
-          })).fuccess
+          })).toFuccess
       )
     }
 
@@ -60,4 +59,3 @@ final class Page(
         views.html.site.variant.show(doc, resolver, variant, perfType)
       }) | notFound
     }
-}

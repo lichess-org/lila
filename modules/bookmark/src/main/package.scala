@@ -1,3 +1,3 @@
-package lila
+package lila.bookmark
 
-package object bookmark extends PackageObject
+export lila.Lila.{ *, given }

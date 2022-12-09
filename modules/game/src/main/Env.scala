@@ -1,13 +1,15 @@
 package lila.game
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
+import akka.stream.Materializer
 
 final private class GameConfig(
     @ConfigName("collection.game") val gameColl: CollName,
@@ -23,16 +25,19 @@ final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
     db: lila.db.Db,
+    yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     baseUrl: BaseUrl,
     userRepo: lila.user.UserRepo,
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    scheduler: Scheduler
-) {
+    scheduler: Scheduler,
+    materializer: Materializer,
+    mode: play.api.Mode
+):
 
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
 
@@ -54,18 +59,15 @@ final class Env(
 
   lazy val crosstableApi = new CrosstableApi(
     coll = db(config.crosstableColl),
-    matchupColl = db(config.matchupColl)
+    matchupColl = yoloDb(config.matchupColl).failingSilently()
   )
 
   lazy val gamesByUsersStream = wire[GamesByUsersStream]
+  lazy val gamesByIdsStream   = wire[GamesByIdsStream]
 
   lazy val favoriteOpponents = wire[FavoriteOpponents]
 
-  lazy val rematches = Rematches(
-    lila.memo.CacheApi.scaffeineNoScheduler
-      .expireAfterWrite(1 hour)
-      .build[Game.ID, Game.ID]()
-  )
+  lazy val rematches = wire[Rematches]
 
   lazy val jsonView = wire[JsonView]
 
@@ -74,4 +76,3 @@ final class Env(
   scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration) { () =>
     captcher ! actorApi.NewCaptcha
   }
-}

@@ -1,7 +1,7 @@
 import config from './config';
 import CurrentPuzzle from 'puz/current';
-import makePromotion from 'puz/promotion';
-import throttle from 'common/throttle';
+import throttle, { throttlePromiseDelay } from 'common/throttle';
+import * as xhr from 'common/xhr';
 import { Api as CgApi } from 'chessground/api';
 import { Boost } from './boost';
 import { Clock } from 'puz/clock';
@@ -10,42 +10,45 @@ import { Countdown } from './countdown';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
-import { Promotion, Run } from 'puz/interfaces';
-import { prop, Prop } from 'common';
+import { PuzCtrl, Run } from 'puz/interfaces';
+import { PuzFilters } from 'puz/filters';
+import { defined, prop, Prop } from 'common';
 import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, RaceStatus, WithGround } from './interfaces';
 import { Role } from 'chessground/types';
-import { storedProp } from 'common/storage';
+import { storedBooleanProp } from 'common/storage';
+import { PromotionCtrl } from 'chess/promotion';
 
-export default class StormCtrl {
+export default class RacerCtrl implements PuzCtrl {
   private data: RacerData;
-  private redraw: () => void;
   private sign = Math.random().toString(36);
   private localScore = 0;
   race: Race;
   pref: RacerPrefs;
   run: Run;
   vm: RacerVm;
+  filters: PuzFilters;
   trans: Trans;
-  promotion: Promotion;
+  promotion: PromotionCtrl;
   countdown: Countdown;
   boost: Boost = new Boost();
   skipAvailable = true;
-  knowsSkip = storedProp('racer.skip', false);
+  knowsSkip = storedBooleanProp('racer.skip', false);
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
   flipped = false;
+  redrawInterval: Timeout;
 
-  constructor(opts: RacerOpts, redraw: (data: RacerData) => void) {
+  constructor(opts: RacerOpts, readonly redraw: () => void) {
     this.data = opts.data;
     this.race = this.data.race;
     this.pref = opts.pref;
-    this.redraw = () => redraw(this.data);
+    this.filters = new PuzFilters(redraw, true);
     this.trans = lichess.trans(opts.i18n);
     this.run = {
       pov: puzzlePov(this.data.puzzles[0]),
       moves: 0,
       errors: 0,
       current: new CurrentPuzzle(0, this.data.puzzles[0]),
-      clock: new Clock(config, Math.max(0, -opts.data.startsIn)),
+      clock: new Clock(config, defined(opts.data.startsIn) ? Math.max(0, -opts.data.startsIn) : undefined),
       history: [],
       combo: new Combo(config),
       modifier: {
@@ -53,10 +56,18 @@ export default class StormCtrl {
       },
     };
     this.vm = {
-      alreadyStarted: opts.data.startsIn && opts.data.startsIn <= 0,
+      alreadyStarted: defined(opts.data.startsIn) && opts.data.startsIn <= 0,
     };
-    this.countdown = new Countdown(this.run.clock, this.resetGround, () => setTimeout(this.redraw));
-    this.promotion = makePromotion(this.withGround, this.cgOpts, this.redraw);
+    this.countdown = new Countdown(
+      this.run.clock,
+      () => {
+        this.setGround();
+        this.run.current.moveIndex = 0;
+        this.setGround();
+      },
+      () => setTimeout(this.redraw)
+    );
+    this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.redraw);
     this.serverUpdate(opts.data);
     lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false, {
       events: {
@@ -68,16 +79,22 @@ export default class StormCtrl {
       },
     });
     lichess.socket.sign(this.sign);
-    setInterval(this.redraw, 1000);
+    lichess.pubsub.on('zen', () => {
+      const zen = $('body').toggleClass('zen').hasClass('zen');
+      window.dispatchEvent(new Event('resize'));
+      this.setZen(zen);
+    });
+    $('#zentog').on('click', this.toggleZen);
+    this.redrawInterval = setInterval(this.redraw, 1000);
     setTimeout(this.hotkeys, 1000);
-    // this.simulate();
   }
 
   serverUpdate = (data: UpdatableData) => {
     this.data.players = data.players;
     this.boost.setPlayers(data.players);
-    if (data.startsIn) {
+    if (data.startsIn && this.status() == 'pre') {
       this.vm.startsAt = new Date(Date.now() + data.startsIn);
+      this.run.current.startAt = getNow() + data.startsIn;
       if (data.startsIn > 0) this.countdown.start(this.vm.startsAt, this.isPlayer());
       else this.run.clock.start();
     }
@@ -116,11 +133,14 @@ export default class StormCtrl {
       : undefined;
 
   end = (): void => {
-    this.resetGround();
+    this.pushToHistory(false); // add last unsolved puzzle
+    this.setGround();
     this.redraw();
     sound.end();
     lichess.pubsub.emit('ply', 0); // restore resize handle
+    $('body').toggleClass('playing'); // end zen
     this.redrawSlow();
+    clearInterval(this.redrawInterval);
   };
 
   canSkip = () => this.skipAvailable;
@@ -129,6 +149,7 @@ export default class StormCtrl {
     if (this.skipAvailable && this.run.clock.started()) {
       this.skipAvailable = false;
       sound.good();
+      this.run.skipId = this.run.current.puzzle.id;
       this.playUci(this.run.current.expectedMove());
       this.knowsSkip(true);
     }
@@ -164,7 +185,7 @@ export default class StormCtrl {
         }
         this.socketSend('racerScore', this.localScore);
         if (puzzle.isOver()) {
-          if (!this.incPuzzle()) this.end();
+          if (!this.incPuzzle(true)) this.end();
         } else {
           puzzle.moveIndex++;
           captureSound = captureSound || pos.board.occupied.has(parseUci(puzzle.line[puzzle.moveIndex]!)!.to);
@@ -175,13 +196,17 @@ export default class StormCtrl {
         this.run.errors++;
         this.run.combo.reset();
         if (this.run.clock.flag()) this.end();
-        else if (!this.incPuzzle()) this.end();
+        else if (!this.incPuzzle(false)) this.end();
       }
       this.redraw();
       this.redrawQuick();
       this.redrawSlow();
     }
-    this.resetGround();
+    this.setGround();
+    if (this.run.current.moveIndex < 0) {
+      this.run.current.moveIndex = 0;
+      this.setGround();
+    }
     lichess.pubsub.emit('ply', this.run.moves);
   };
 
@@ -195,9 +220,10 @@ export default class StormCtrl {
           orientation: this.run.pov,
         };
 
-  private resetGround = () => this.withGround(g => g.set(this.cgOpts()));
+  private setGround = () => this.withGround(g => g.set(this.cgOpts()));
 
-  private incPuzzle = (): boolean => {
+  private incPuzzle = (win: boolean): boolean => {
+    this.pushToHistory(win);
     const index = this.run.current.index;
     if (index < this.data.puzzles.length - 1) {
       this.run.current = new CurrentPuzzle(index + 1, this.data.puzzles[index + 1]);
@@ -205,6 +231,13 @@ export default class StormCtrl {
     }
     return false;
   };
+
+  private pushToHistory = (win: boolean) =>
+    this.run.history.push({
+      puzzle: this.data.puzzles[this.run.current.index],
+      win,
+      millis: getNow() - this.run.current.startAt,
+    });
 
   withGround: WithGround = f => {
     const g = this.ground();
@@ -219,5 +252,16 @@ export default class StormCtrl {
 
   private socketSend = (tpe: string, data?: any) => lichess.socket.send(tpe, data, { sign: this.sign });
 
-  private hotkeys = () => window.Mousetrap.bind('f', this.flip);
+  private setZen = throttlePromiseDelay(
+    () => 1000,
+    zen =>
+      xhr.text('/pref/zen', {
+        method: 'post',
+        body: xhr.form({ zen: zen ? 1 : 0 }),
+      })
+  );
+
+  private toggleZen = () => lichess.pubsub.emit('zen');
+
+  private hotkeys = () => window.Mousetrap.bind('f', this.flip).bind('z', this.toggleZen);
 }

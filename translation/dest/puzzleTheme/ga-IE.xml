@@ -122,4 +122,7 @@
 thógáil cé nár mhaith leis nó léi toisc gur laige a bheith a s(h) uíomh cibé beart a dhéanfaidh sé/sí. Ba mhaith leis / léi \"háram\" a rá ach níl sé sin ceadaithe.</string>
   <string name="healthyMix">Meascán sláintiúil</string>
   <string name="healthyMixDescription">Giota de gach rud. Níl a fhios agat cad tá os do comhair, mar sin fanann tú réidh le haghaidh athan bith! Díreach mar atá i gcluichí fíor.</string>
+  <string name="playerGames">Cluichí imreoir</string>
+  <string name="playerGamesDescription">Cuardaigh fadhbanna a ghintear ó do chluichí, nó ó chluichí imreoir eile.</string>
+  <string name="puzzleDownloadInformation">Tá na fadhbanna seo i mbéal an phobail, agus is féidir iad a íoslódáil ó %s.</string>
 </resources>

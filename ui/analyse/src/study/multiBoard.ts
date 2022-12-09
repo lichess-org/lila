@@ -1,10 +1,10 @@
 import * as domData from 'common/data';
 import debounce from 'common/debounce';
-import { bind, spinner } from '../util';
+import { bind, MaybeVNodes } from 'common/snabbdom';
+import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
-import { MaybeVNodes } from '../interfaces';
 import { multiBoard as xhrLoad } from './studyXhr';
-import { opposite } from 'chessground/util';
+import { opposite, uciToMove } from 'chessground/util';
 import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
 
 export class MultiBoardCtrl {
@@ -95,7 +95,7 @@ function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeV
 function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
   return h('label.playing', [
     h('input', {
-      attrs: { type: 'checkbox' },
+      attrs: { type: 'checkbox', checked: ctrl.playing },
       hook: bind('change', e => {
         ctrl.setPlaying((e.target as HTMLInputElement).checked);
       }),
@@ -173,7 +173,7 @@ function makeCg(preview: ChapterPreview): VNode {
           const lm = preview.lastMove!;
           domData.get(vnode.elm as HTMLElement, 'chessground').set({
             fen: preview.fen,
-            lastMove: [lm[0] + lm[1], lm[2] + lm[3]],
+            lastMove: uciToMove(lm),
           });
         }
         vnode.data!.fen = preview.fen;

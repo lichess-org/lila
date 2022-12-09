@@ -15,7 +15,7 @@
   .meta {
     span {
       display: inline-block;
-      margin-right: 2em;
+      margin-#{$end-direction}: 2em;
     }
 
     margin-bottom: 1.4rem;
@@ -70,6 +70,7 @@
     margin: 0 var(--box-padding) 4em var(--box-padding);
     cursor: initial;
     line-height: 1.8;
+    overflow-wrap: anywhere;
 
     strong {
       font-weight: bold;
@@ -130,6 +131,10 @@
 
     .embed {
       @extend %video;
+
+      &--game {
+        @extend %game-embed;
+      }
 
       margin: $block-gap auto;
     }
@@ -217,8 +222,6 @@
 }
 
 .blog-cards {
-  @extend %box-padding;
-
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
   grid-gap: 3vmin;

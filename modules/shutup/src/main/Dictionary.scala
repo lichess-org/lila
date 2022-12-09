@@ -1,14 +1,18 @@
 package lila.shutup
 
-/** - words are automatically pluralized. "tit" will also match "tits"
-  * - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
-  * - words do not partial match. "anal" will NOT match "analysis".
+/**   - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
+  *   - words do not partial match. "anal" will NOT match "analysis".
+  *   - en, es, de and fr words are automatically pluralized. "tit" will also match "tits", "cabron" will also
+  *     match "cabrones" etc.
+  *   - For en only: Past tense of last word in a string matches: "cheat" will also match "cheated", "you
+  *     suck" will also match "you sucked" but "kill you" will NOT match "killed you"
   */
-private object Dictionary {
+private object Dictionary:
 
   def en = dict("""
-(f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|ign|en|tard?|face|off?|)
+(f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|)
 (f|ph)agg?([oi]t|)
+(kill|hang|neck) my ?self
 [ck]um(shot|)
 [ck]unt(ing|)
 abortion
@@ -16,9 +20,11 @@ adol(f|ph)
 afraid
 anal(plug|sex|)
 anus
+ape
 arse(hole|wipe|)
 ass
 ass?(hole|fag)
+autist(ic|)
 aus?c?hwitz
 bastard?
 be[ea]+ch
@@ -31,8 +37,7 @@ boob
 bugger
 buk?kake
 bull?shit
-cancer
-cheat(ing|ed|er|)
+cheat(ing|er|)
 chess(|-|_)bot(.?com)?
 chicken
 chink
@@ -42,14 +47,18 @@ cock(suc?k(er|ing)|)
 condom
 coon
 coward?
+cripp?le
+cry(baby|ing|)
 cunn?ilingu
 dic?k(head|face|suc?ker|)
 dildo
 dogg?ystyle
 douche(bag|)
+downsie?
+dumb(ass?|)
 dyke
 engine
-fck(er|r|u|k|ed|d|t|ing?|ign|tard?|face|off?|)
+fck(er|r|u|k|t|ing?|ign|tard?|face|off?|)
 foreskin
 gangbang
 gay
@@ -61,22 +70,22 @@ hitler+
 homm?o(sexual|)
 honkey
 hooker
-(ho?pe ((yo)?[uy](r family)?( and )*)+ (die|burn)s?|((die|burn)s? irl))
 horny
 humping
 idiot
 incest
 jerk
 jizz?(um|)
-(kill|hang|neck) ((yo)?[uy]r ?(self|family)( and )?)+
-kys
+kill (you|u)
 labia
 lamer?
 lesbo
 lo+ser
 masturbat(e|ion|ing)
 milf
-molest
+molest(er|)
+mong
+monkey
 moron
 mother(fuc?k(er|)|)
 mthrfckr
@@ -102,7 +111,6 @@ prostitute
 punani
 puss(i|y|ie|)
 queer
-rape
 rapist
 rect(al|um)
 retard
@@ -132,7 +140,9 @@ spunk
 smurff?(er|ing|)
 stfu
 stupid
+subhuman
 suicide
+suc?ker
 suck m[ey]
 terrorist
 tit(t?ies|ty|)(fuc?k|)
@@ -151,7 +161,7 @@ weak
 wetback
 wog
 (you|u) suck
-""")
+""") ++ critical
 
   def ru = dict("""
 (|на|по)ху(й|ю|я|ям|йня|йло|йла|йлу)
@@ -164,6 +174,7 @@ wog
 (|на|вы)ебнуть?ся
 blyat
 p[ie]d[aoe]?r
+uebok
 анус
 бля(|дь|ди|де|динам?|дине|дство|ть)
 вы[её]бывае?(ть?ся|тесь)
@@ -181,8 +192,7 @@ p[ie]d[aoe]?r
 идиот(|ам?|ы|у|ов)
 [оа]хуе(|л|ла|ли|ть|нн?о)
 педерасты?
-пид(о|а)р(а|ы|у|ам|асы?|асам?|ов)
-пидр
+пид(о|а|)р(а|ы|у|ам|асы?|асам?|ов|)
 поебень
 придур(ок|кам?|ков|ки)
 [сc][уy][кk](а|a|и|е|у|ам)
@@ -197,16 +207,29 @@ p[ie]d[aoe]?r
 чмо(|шник)
 шмар(ам?|е|ы)
 шлюх(|ам?|е|и)
+г[оа]вн[оа]ед(|ам?|е|у|ом|ов|ами|ах|ы)
+г[оа]внюк(|ам?|е|у|ом|ов|ами|ах|и)
+г[оа]вн(а|е|у|ом?)
+сперм(а|у|ой|е)
+(|отъ?|вы|до|за|у|про)(е|ё)б(аш)?(у|и|ите)
+член[оа]сос(|а|у|ом|е|ы|ов|ами?|ах|ка|ке|ки|ку|кой)
 """)
 
   def es = dict("""
 cabr[oó]na?
+cag[oó]n
+ching(ue|a)
 chupame
 cobarde
 est[úu]pid[ao]
+idiota
 imbecil
-maric[oó]n
+madre
+maric[oó]na?
+maric[ao]
 mierda
+moduler[ao]
+payas[ao]
 pendejo
 put[ao]
 trampa
@@ -230,15 +253,20 @@ sparati
 """)
 
   def hi = dict("""
-(madar|be?hen|beti)chod
-chut(iya|)
-gaa?nd
+(mada?r|mother|be?hen|beti)chod
+bh?o?sdi?ke?
+chut(iy[ae]|)
+gaa?ndu?
 """)
 
   def fr = dict("""
+batard
+connard
 fdp
 pd
+pute
 triche(ur|)
+conn?ard?
 """)
 
   def de = dict("""
@@ -280,5 +308,12 @@ s[ii̇]kt[ii̇]r
 yarra[gğ][iı] yediniz
 """)
 
+  def critical = dict("""
+cancer
+((ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )*)+ (die|burn)s?|((die|burn)s? irl))
+(kill|hang|neck) ?((yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)( and )?)+
+kys
+rape
+""")
+
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
-}

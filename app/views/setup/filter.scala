@@ -2,18 +2,15 @@ package views.html.setup
 
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.RatingRange
 
-object filter {
+object filter:
 
-  import bits._
-
-  def apply(form: Form[_])(implicit ctx: Context) =
+  def apply(form: Form[?])(implicit ctx: Context) =
     frag(
-      cssTag("lobby.setup"),
       st.form(novalidate)(
         table(
           tbody(
@@ -55,18 +52,18 @@ object filter {
                     form3.hidden(field),
                     input(
                       name := s"${field.name}_range_min",
-                      tpe := "range",
-                      cls := "range rating-range__min",
-                      min := RatingRange.min,
-                      max := RatingRange.max
+                      tpe  := "range",
+                      cls  := "range rating-range__min",
+                      min  := RatingRange.min,
+                      max  := RatingRange.max
                     ),
                     "/",
                     input(
                       name := s"${field.name}_range_max",
-                      tpe := "range",
-                      cls := "range rating-range__max",
-                      min := RatingRange.min,
-                      max := RatingRange.max
+                      tpe  := "range",
+                      cls  := "range rating-range__max",
+                      min  := RatingRange.min,
+                      max  := RatingRange.max
                     )
                   )
                 }
@@ -84,7 +81,7 @@ object filter {
     )
 
   def renderCheckboxes(
-      form: Form[_],
+      form: Form[?],
       key: String,
       options: Seq[(Any, String, Option[String])],
       checks: Set[String] = Set.empty
@@ -96,7 +93,7 @@ object filter {
     }
 
   private def renderCheckbox(
-      form: Form[_],
+      form: Form[?],
       key: String,
       index: Int,
       value: String,
@@ -106,12 +103,11 @@ object filter {
   ) =
     label(title := hint)(
       input(
-        tpe := "checkbox",
-        cls := "regular-checkbox",
-        name := s"${form(key).name}[$index]",
+        tpe      := "checkbox",
+        cls      := "regular-checkbox",
+        name     := s"${form(key).name}[$index]",
         st.value := value,
         checks(value) option checked
       ),
       content
     )
-}

@@ -1,15 +1,15 @@
 package views.html.streamer
 
 import controllers.routes
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.streamer.Stream.YouTube
 
-object show {
+object show:
 
-  import trans.streamer._
+  import trans.streamer.*
 
   def apply(
       s: lila.streamer.Streamer.WithUserAndStream,
@@ -25,7 +25,7 @@ object show {
             shorten(~(s.streamer.headline.map(_.value) orElse s.streamer.description.map(_.value)), 152),
           url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
           `type` = "video",
-          image = s.streamer.picturePath.map(p => dbImageUrl(p.value))
+          image = s.streamer.hasPicture option picture.thumbnail.url(s.streamer)
         )
         .some,
       csp = defaultCsp.finalizeWithTwitch.some
@@ -34,16 +34,16 @@ object show {
         st.aside(cls := "page-menu__menu")(
           s.streamer.approval.chatEnabled option div(cls := "streamer-chat")(
             s.stream match {
-              case Some(YouTube.Stream(_, _, videoId, _)) =>
+              case Some(YouTube.Stream(_, _, videoId, _, _)) =>
                 iframe(
-                  st.frameborder := "0",
+                  st.frameborder  := "0",
                   frame.scrolling := "no",
                   src := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=${netConfig.domain}"
                 )
               case _ =>
                 s.streamer.twitch.map { twitch =>
                   iframe(
-                    st.frameborder := "0",
+                    st.frameborder  := "0",
                     frame.scrolling := "yes",
                     src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.currentBg != "light") ?? "darkpopout&"}parent=${netConfig.domain}"
                   )
@@ -54,10 +54,10 @@ object show {
         ),
         div(cls := "page-menu__content")(
           s.stream match {
-            case Some(YouTube.Stream(_, _, videoId, _)) =>
+            case Some(YouTube.Stream(_, _, videoId, _, _)) =>
               div(cls := "box embed youTube")(
                 iframe(
-                  src := s"https://www.youtube.com/embed/$videoId?autoplay=1",
+                  src            := s"https://www.youtube.com/embed/$videoId?autoplay=1",
                   st.frameborder := "0",
                   frame.allowfullscreen
                 )
@@ -75,7 +75,7 @@ object show {
           div(cls := "box streamer")(
             views.html.streamer.header(s),
             div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
-            a(cls := "ratings", href := routes.User.show(s.user.username))(
+            ctx.pref.showRatings option a(cls := "ratings", href := routes.User.show(s.user.username))(
               s.user.best6Perfs.map { showPerfRating(s.user, _) }
             ),
             views.html.activity(s.user, activities)
@@ -83,4 +83,3 @@ object show {
         )
       )
     )
-}

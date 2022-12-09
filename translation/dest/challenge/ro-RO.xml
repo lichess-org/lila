@@ -22,4 +22,5 @@
   <string name="declineVariant">Nu sunt dispus să joc această variantă acum.</string>
   <string name="declineNoBot">Nu accept provocările roboților.</string>
   <string name="declineOnlyBot">Accept doar provocări de la roboți.</string>
+  <string name="inviteLichessUser">Sau invitați un utilizator Lichess:</string>
 </resources>

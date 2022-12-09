@@ -1,10 +1,10 @@
-import { h } from 'snabbdom';
-import * as round from '../round';
-import { drag, crazyKeys, pieceRoles } from './crazyCtrl';
 import * as cg from 'chessground/types';
+import { onInsert } from 'common/snabbdom';
+import { h } from 'snabbdom';
 import RoundController from '../ctrl';
-import { onInsert } from '../util';
 import { Position } from '../interfaces';
+import * as round from '../round';
+import { crazyKeys, drag, pieceRoles } from './crazyCtrl';
 
 const eventNames = ['mousedown', 'touchstart'];
 
@@ -18,7 +18,7 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
     usable = usablePos && !ctrl.replaying() && ctrl.isPlaying(),
     activeColor = color === ctrl.data.player.color;
   const capturedPiece = ctrl.justCaptured;
-  const captured = capturedPiece && (capturedPiece['promoted'] ? 'pawn' : capturedPiece.role);
+  const captured = capturedPiece && (capturedPiece.promoted ? 'pawn' : capturedPiece.role);
   return h(
     'div.pocket.is2d.pocket-' + position,
     {

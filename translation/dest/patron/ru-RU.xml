@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Поддержать проект</string>
+  <string name="donateAsX">Пожертвовать как %s</string>
   <string name="lichessPatron">Lichess-спонсор</string>
   <string name="freeAccount">Бесплатный аккаунт</string>
   <string name="becomePatron">Стать спонсором Lichess</string>
@@ -17,7 +18,7 @@
   <string name="thankYou">Благодарим вас за пожертвование!</string>
   <string name="youHaveLifetime">У вас есть пожизненная учётная запись спонсора. Это очень круто!</string>
   <string name="patronUntil">Ваш аккаунт покровителя действует до %s.</string>
-  <string name="ifNotRenewed">Если не будет продлено, то вы будете переведены на бесплатный план.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Если не будет обновляться, то учётная запись опять станет обычной.</string>
   <string name="weAreNonProfit">Мы некоммерческая ассоциация, потому что мы считаем, что все должны иметь бесплатный и свободный доступ к шахматной платформе мирового класса.</string>
   <string name="weRelyOnSupport">Мы полагаемся на поддержку таких людей как вы. Если вам нравится Lichess, пожалуйста, поддержите нас, сделав пожертвование и став его спонсором!</string>
   <string name="lifetime">Пожизненная</string>
@@ -30,7 +31,7 @@
   <string name="otherAmount">Другое</string>
   <string name="pleaseEnterAmountInX">Пожалуйста, укажите сумму в %s</string>
   <string name="withCreditCard">Кредитная карта</string>
-  <string name="withPaypal">PayPal</string>
+  <string name="logInToDonate">Войдите, чтобы внести пожертвование</string>
   <string name="weAreSmallTeam">Мы небольшая команда, поэтому ваша поддержка имеет огромное значение!</string>
   <string name="celebratedPatrons">Выдающиеся спонсоры, благодаря которым существует Lichess</string>
   <string name="whereMoneyGoes">Куда пойдут деньги от поддержки?</string>
@@ -44,8 +45,9 @@
 Или вы можете %s.</string>
   <string name="contactSupport">связаться со службой поддержки Lichess</string>
   <string name="otherMethods">Есть ли другие способы сделать пожертвование?</string>
+  <string name="lichessIsRegisteredWith">Lichess зарегистрирован на %s.</string>
   <string name="bankTransfers">Мы также принимаем банковские переводы</string>
-  <string name="bitcoin">И вот наш биткойн-кошелёк: %s</string>
+  <string name="onlyDonationFromAbove">Пожалуйста, обратите внимание, что только эта форма пожертвования предоставит статус Покровителя.</string>
   <string name="patronFeatures">Есть ли возможности только для спонсоров?</string>
   <string name="noPatronFeatures">Нет, потому что Lichess абсолютно бесплатен, навсегда и для всех. Обещаем.
 Однако, спонсор получает новую классную иконку профиля.</string>
@@ -62,13 +64,14 @@
   <string name="nextPayment">Следующий платёж</string>
   <string name="youWillBeChargedXOnY">%2$s с вашего счета будет списано %1$s.</string>
   <string name="makeAdditionalDonation">Сделайте дополнительное пожертвование сейчас</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Подарить «крылья» патрона игроку</string>
+  <string name="giftPatronWings">Подарить «крылья» патрона игроку</string>
   <string name="update">Обновить</string>
   <string name="changeMonthlyAmount">Изменить ежемесячную сумму (%s)</string>
   <string name="cancelSupport">отменить поддержку</string>
   <string name="xOrY">%1$s или %2$s</string>
   <string name="decideHowMuch">Решите, что для вас значит Lichess:</string>
   <string name="stopPayments">Отзовите кредитную карту и прекратите платежи:</string>
+  <string name="stopPaymentsPayPal">Отменить подписку PayPal и остановить платежи:</string>
   <string name="noLongerSupport">Больше не поддерживать Lichess</string>
   <string name="viewOthers">Посмотреть других покровителей Lichess</string>
   <string name="date">Дата</string>
@@ -79,4 +82,5 @@
   <string name="nowLifetime">Теперь вы пожизненный покровитель Lichess!</string>
   <string name="nowOneMonth">Теперь вы покровитель Lichess на один месяц!</string>
   <string name="downgradeNextMonth">В следующем месяце сумма НЕ будет списана с вашего счёта и ваш аккаунт Lichess будет изменён на бесплатный.</string>
+  <string name="changeCurrency">Изменить валюту</string>
 </resources>

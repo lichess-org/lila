@@ -1,6 +1,6 @@
 package lila.explorer
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 import play.api.Configuration
 
 case class InternalEndpoint(value: String) extends AnyVal with StringValue
@@ -14,10 +14,11 @@ final class Env(
     getBotUserIds: lila.user.GetBotIds,
     settingStore: lila.memo.SettingStore.Builder,
     ws: play.api.libs.ws.StandaloneWSClient
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
-) {
+    system: akka.actor.ActorSystem,
+    materializer: akka.stream.Materializer
+):
 
   private lazy val internalEndpoint = InternalEndpoint {
     appConfig.get[String]("explorer.internal_endpoint")
@@ -26,13 +27,6 @@ final class Env(
   private lazy val indexer: ExplorerIndexer = wire[ExplorerIndexer]
 
   lazy val importer = wire[ExplorerImporter]
-
-  def cli =
-    new lila.common.Cli {
-      def process = { case "explorer" :: "index" :: since :: Nil =>
-        indexer(since) inject "done"
-      }
-    }
 
   lazy val indexFlowSetting = settingStore[Boolean](
     "explorerIndexFlow",
@@ -44,4 +38,3 @@ final class Env(
     case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted && indexFlowSetting.get() =>
       indexer(game).unit
   }
-}

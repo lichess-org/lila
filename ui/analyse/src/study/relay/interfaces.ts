@@ -2,6 +2,7 @@ export interface RelayData {
   tour: RelayTour;
   rounds: RelayRound[];
   sync?: RelaySync;
+  leaderboard?: LeadPlayer[];
 }
 
 export interface RelayRound {
@@ -11,6 +12,13 @@ export interface RelayRound {
   finished?: boolean;
   ongoing?: boolean;
   startsAt?: number;
+}
+
+export interface LeadPlayer {
+  name: string;
+  score: number;
+  played: number;
+  rating?: number;
 }
 
 export interface RelayTour {

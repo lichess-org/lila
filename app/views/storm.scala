@@ -2,17 +2,18 @@ package views.html
 
 import controllers.routes
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.LangPath
 import lila.common.paginator.Paginator
 import lila.common.String.html.safeJsonValue
 import lila.storm.{ StormDay, StormHigh }
 import lila.user.User
 
-object storm {
+object storm:
 
   def home(data: JsObject, pref: JsObject, high: Option[StormHigh])(implicit ctx: Context) =
     views.html.base.layout(
@@ -21,21 +22,22 @@ object storm {
         jsModule("storm"),
         embedJsUnsafeLoadThen(
           s"""LichessStorm.start(${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "pref" -> pref,
-              "i18n" -> i18nJsObject(i18nKeys)
-            )
-          )})"""
+              Json.obj(
+                "data" -> data,
+                "pref" -> pref,
+                "i18n" -> i18nJsObject(i18nKeys)
+              )
+            )})"""
         )
       ),
       title = "Puzzle Storm",
       zoomable = true,
-      playing = true,
-      chessground = false
+      zenable = true,
+      chessground = false,
+      withHrefLangs = LangPath(routes.Storm.home).some
     ) {
       main(
-        div(cls := "storm storm-app storm--play")(
+        div(cls   := "storm storm-app storm--play")(
           div(cls := "storm__board main-board"),
           div(cls := "storm__side")
         ),
@@ -59,14 +61,14 @@ object storm {
   private def renderHigh(high: StormHigh)(implicit lang: Lang) =
     frag(
       List(
-        (high.allTime, "All-time"),
-        (high.month, "This month"),
-        (high.week, "This week"),
-        (high.day, "Today")
+        (high.allTime, trans.storm.allTime),
+        (high.month, trans.storm.thisMonth),
+        (high.week, trans.storm.thisWeek),
+        (high.day, trans.today)
       ).map { case (value, name) =>
         div(cls := "storm-dashboard__high__period")(
           strong(value),
-          span(name)
+          span(name())
         )
       }
     )
@@ -81,13 +83,15 @@ object storm {
     )(
       main(cls := "storm-dashboard page-small")(
         div(cls := "storm-dashboard__high box box-pad")(
-          h1(
-            !ctx.is(user) option frag(
-              userLink(user),
-              " • "
-            ),
-            "Puzzle Storm • ",
-            trans.storm.highscores()
+          boxTop(
+            h1(
+              !ctx.is(user) option frag(
+                userLink(user),
+                " • "
+              ),
+              "Puzzle Storm • ",
+              trans.storm.highscores()
+            )
           ),
           div(cls := "storm-dashboard__high__periods highlight-alltime")(
             renderHigh(high)
@@ -124,11 +128,11 @@ object storm {
               pagerNextTable(
                 history,
                 np =>
-                  addQueryParameter(
+                  addQueryParam(
                     if (ctx is user) routes.Storm.dashboard().url
                     else routes.Storm.dashboardOf(user.username).url,
                     "page",
-                    np
+                    np.toString
                   )
               )
             )
@@ -137,9 +141,9 @@ object storm {
       )
     )
 
-  private val i18nKeys = {
-    import lila.i18n.{ I18nKeys => trans }
-    import lila.i18n.I18nKeys.{ storm => s }
+  private val i18nKeys =
+    import lila.i18n.{ I18nKeys as trans }
+    import lila.i18n.I18nKeys.{ storm as s }
     List(
       s.moveToStart,
       s.puzzlesSolved,
@@ -161,7 +165,13 @@ object storm {
       s.endRun,
       s.youPlayTheWhitePiecesInAllPuzzles,
       s.youPlayTheBlackPiecesInAllPuzzles,
+      s.failedPuzzles,
+      s.slowPuzzles,
+      s.thisWeek,
+      s.thisMonth,
+      s.allTime,
+      s.clickToReload,
+      s.thisRunHasExpired,
+      s.thisRunWasOpenedInAnotherTab,
       trans.flipBoard
-    ).map(_.key)
-  }
-}
+    )

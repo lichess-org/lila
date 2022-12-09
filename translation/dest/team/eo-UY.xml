@@ -7,6 +7,7 @@
     <item quantity="other">%s teamanoj</item>
   </plurals>
   <string name="allTeams">Ĉiuj teamoj</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Teamoj kiujn mi gvidas</string>
   <string name="newTeam">Nova teamo</string>
   <string name="myTeams">Miaj teamoj</string>
   <string name="noTeamFound">Ne trovis teamon</string>
@@ -16,7 +17,6 @@
     <item quantity="one">Teamestro</item>
     <item quantity="other">Teamestroj</item>
   </plurals>
-  <string name="teamBestPlayers">Plej bonaj ludantoj</string>
   <string name="teamRecentMembers">Lastaj membroj</string>
   <string name="kickSomeone">Forpelu iun el la teamo</string>
   <string name="whoToKick">Kiun vi volas forpeli el la teamo?</string>
@@ -26,6 +26,7 @@
   </plurals>
   <string name="willBeReviewed">La teamestro revizios vian aliĝpeton.</string>
   <string name="beingReviewed">La teamestro revizias vian aliĝpeton.</string>
+  <string name="subToTeamMessages">Abonu al teamaj mesaĝoj</string>
   <string name="teamBattle">Teama batalo</string>
   <string name="teamTournament">Teama turniro</string>
   <string name="teamTournamentOverview">Arena turniro al kiu nur membroj de via teamo povas aliĝi</string>
@@ -38,4 +39,5 @@ Ludantoj, kiuj ne ŝatas ricevi viajn mesaĝojn povus forlasi la teamon.</string
   <string name="youWayWantToLinkOneOfTheseTournaments">Vi eble volas ligi unu el ĉi tiuj venontaj turniroj?</string>
   <string name="usersWhoCanManageThisTeam">Uzantoj, kiuj povas administri ĉi tiun teamon</string>
   <string name="leadersChat">Tujmesaĝiloj de teametroj</string>
+  <string name="closeTeam">Fermu teamon</string>
 </resources>

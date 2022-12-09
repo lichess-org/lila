@@ -5,7 +5,7 @@
     z-index: 100;
     position: absolute;
     top: 50%;
-    left: 50%;
+    #{$start-direction}: 50%;
     transform: translate(-50%, -50%);
     padding: 2em 3em;
 
@@ -16,13 +16,13 @@
       width: 60px;
       height: 160px;
       border-radius: 15px;
-      margin-right: 2em;
+      margin-#{$end-direction}: 2em;
 
       light {
         width: 40px;
         height: 40px;
         margin-top: 10px;
-        margin-left: 10px;
+        margin-#{$start-direction}: 10px;
         vertical-align: middle;
         border-radius: 100%;
         display: block;

@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Você agora é um(a) espectador(a)</string>
   <string name="pgnTags">Etiquetas PGN</string>
   <string name="like">Gostei</string>
+  <string name="unlike">Não gostei</string>
   <string name="newTag">Nova etiqueta</string>
   <string name="commentThisPosition">Comente sobre esta posição</string>
   <string name="commentThisMove">Comente sobre este lance</string>
@@ -49,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Apenas os colaboradores de um estudo podem solicitar uma análise de computador.</string>
   <string name="getAFullComputerAnalysis">Obter uma análise completa dos movimentos pelo servidor.</string>
   <string name="makeSureTheChapterIsComplete">Certifique-se de que o capítulo está completo. Você só pode solicitar análise uma vez.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Todos os membros em SYNC veem a mesma posição</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Todos os membros em SYNC veem a mesma posição</string>
   <string name="shareChanges">Compartilhar as alterações com os espectadores e salvá-las no servidor</string>
   <string name="playing">Jogando</string>
   <string name="first">Primeiro</string>
@@ -75,11 +76,13 @@
   <string name="studyNotFound">Estudo não encontrado</string>
   <string name="editChapter">Editar capítulo</string>
   <string name="newChapter">Novo capítulo</string>
+  <string name="importFromChapterX">Importar de %s</string>
   <string name="orientation">Orientação</string>
   <string name="analysisMode">Modo de análise</string>
   <string name="pinnedChapterComment">Comentário de capítulo afixado</string>
   <string name="saveChapter">Salvar capítulo</string>
   <string name="clearAnnotations">Remover anotações</string>
+  <string name="clearVariations">Limpar variantes</string>
   <string name="deleteChapter">Excluir capítulo</string>
   <string name="deleteThisChapter">Excluir este capítulo? Não há volta!</string>
   <string name="clearAllCommentsInThisChapter">Remover todos os comentários e formas deste capítulo?</string>
@@ -126,7 +129,7 @@
   <string name="clearChat">Limpar conversação</string>
   <string name="deleteTheStudyChatHistory">Excluir o histórico de conversação do estudo? Não há volta!</string>
   <string name="deleteStudy">Excluir estudo</string>
-  <string name="deleteTheEntireStudy">Excluir todo o estudo? Não há volta!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Excluir todo o estudo? Não há volta! Digite o nome do estudo para confirmar: %s</string>
   <string name="whereDoYouWantToStudyThat">Onde você quer estudar?</string>
   <string name="goodMove">Boa jogada</string>
   <string name="mistake">Erro</string>
@@ -154,4 +157,13 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Com a ideia</string>
   <string name="nextChapter">Próximo capítulo</string>
   <string name="prevChapter">Capítulo anterior</string>
+  <string name="studyActions">Opções de estudo</string>
+  <string name="topics">Tópicos</string>
+  <string name="myTopics">Meus tópicos</string>
+  <string name="popularTopics">Tópicos populares</string>
+  <string name="manageTopics">Gerenciar tópicos</string>
+  <string name="back">Voltar</string>
+  <string name="playAgain">Jogar novamente</string>
+  <string name="whatWouldYouPlay">O que você jogaria nessa posição?</string>
+  <string name="youCompletedThisLesson">Parabéns! Você completou essa lição.</string>
 </resources>

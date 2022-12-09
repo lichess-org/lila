@@ -1,14 +1,19 @@
 package lila.relay
 
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.common.config.BaseUrl
-import lila.common.Json.jodaWrites
+import lila.common.Json.given
+import lila.study.Chapter
+import scala.concurrent.ExecutionContext
 
-final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
+final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: RelayLeaderboardApi)(using
+    ec: ExecutionContext
+):
 
-  import JsonView._
+  import JsonView.given
+  import lila.study.JsonView.given
 
   def apply(trs: RelayTour.WithRounds, withUrls: Boolean = false): JsObject =
     Json
@@ -20,7 +25,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
             "slug"        -> trs.tour.slug,
             "description" -> trs.tour.description
           )
-          .add("markup" -> trs.tour.markup.map(markup.apply))
+          .add("markup" -> trs.tour.markup.map(markup(trs.tour)))
           .add("url" -> withUrls.option(s"$baseUrl/broadcast/${trs.tour.slug}/${trs.tour.id}")),
         "rounds" -> trs.rounds.map { round =>
           if (withUrls) withUrl(round withTour trs.tour) else apply(round)
@@ -36,49 +41,46 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
       )
       .add("finished" -> round.finished)
       .add("ongoing" -> (round.hasStarted && !round.finished))
-      .add("startsAt" -> round.startedAt.orElse(round.startsAt))
+      .add("startsAt" -> round.startsAt.orElse(round.startedAt))
 
   def withUrl(rt: RelayRound.WithTour): JsObject =
     apply(rt.round).add("url" -> s"$baseUrl${rt.path}".some)
 
-  def sync(round: RelayRound) = syncWrites writes round.sync
+  def withUrlAndGames(rt: RelayRound.WithTour, games: List[Chapter.Metadata]): JsObject =
+    withUrl(rt) ++ Json.obj("games" -> games.map { g =>
+      Json.toJsObject(g) + ("url" -> JsString(s"$baseUrl${rt.path}/${g._id}"))
+    })
+
+  def sync(round: RelayRound) = Json toJsObject round.sync
 
   def makeData(
       trs: RelayTour.WithRounds,
-      currentRoundId: RelayRound.Id,
+      currentRoundId: RelayRoundId,
       studyData: lila.study.JsonView.JsData,
       canContribute: Boolean
-  ) =
-    JsData(
+  ) = leaderboardApi(trs.tour) map { leaderboard =>
+    JsonView.JsData(
       relay = apply(trs)
-        .add("sync" -> (canContribute ?? trs.rounds.find(_.id == currentRoundId).map(_.sync))),
+        .add("sync" -> (canContribute ?? trs.rounds.find(_.id == currentRoundId).map(_.sync)))
+        .add("leaderboard" -> leaderboard.map(_.players)),
       study = studyData.study,
       analysis = studyData.analysis
     )
-}
+  }
 
-object JsonView {
+object JsonView:
 
   case class JsData(relay: JsObject, study: JsObject, analysis: JsObject)
 
-  implicit val syncLogEventWrites = Json.writes[SyncLog.Event]
+  given OWrites[SyncLog.Event] = Json.writes
 
-  implicit val roundIdWrites: Writes[RelayRound.Id] = Writes[RelayRound.Id] { id =>
-    JsString(id.value)
-  }
-
-  implicit val tourIdWrites: Writes[RelayTour.Id] = Writes[RelayTour.Id] { id =>
-    JsString(id.value)
-  }
-
-  implicit private val syncWrites: OWrites[RelayRound.Sync] = OWrites[RelayRound.Sync] { s =>
+  private given OWrites[RelayRound.Sync] = OWrites { s =>
     Json.obj(
       "ongoing" -> s.ongoing,
       "log"     -> s.log.events
     ) ++
       s.upstream.?? {
-        case RelayRound.Sync.UpstreamUrl(url) => Json.obj("url" -> url)
+        case url: RelayRound.Sync.UpstreamUrl => Json.obj("url" -> url.withRound.url)
         case RelayRound.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids)
       }
   }
-}

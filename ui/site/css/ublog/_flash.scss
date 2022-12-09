@@ -1,0 +1,14 @@
+main.page-menu {
+  position: relative;
+  .flash {
+    position: absolute;
+    top: 0;
+    #{$end-direction}: 0;
+    margin: 0;
+    &.fade {
+      opacity: 0;
+      transition: 3s;
+      transition-delay: 2s;
+    }
+  }
+}

@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Fai una donazione</string>
+  <string name="donateAsX">Dona come %s</string>
   <string name="lichessPatron">Patron di Lichess</string>
   <string name="freeAccount">Account gratis</string>
   <string name="becomePatron">Diventa un Mecenate di Lichess</string>
   <string name="xBecamePatron">%s diventa un Mecenate di Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s è un Patron di Lichess da %2$s mese</item>
+    <item quantity="other">%1$s è un Patron di Lichess da %2$s mesi</item>
+  </plurals>
   <string name="newPatrons">Nuovi Mecenati</string>
   <string name="freeChess">Scacchi gratis per tutti, per sempre!</string>
   <string name="noAdsNoSubs">Niente pubblicità, nessun abbonamento, ma solo open-source e passione.</string>
   <string name="thankYou">Grazie per la tua donazione!</string>
   <string name="youHaveLifetime">Hai un account Patron per tutta la vita. È fantastico!</string>
   <string name="patronUntil">Il tuo account Patron durerà fino al %s.</string>
-  <string name="ifNotRenewed">Se non lo rinnovi, sarai declassato gratuitamente.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Se non lo rinnovi, il tuo account tornerà ad essere un account normale.</string>
   <string name="weAreNonProfit">Siamo un\'associazione no-profit perché crediamo che chiunque debba avere accesso ad una piattaforma di livello mondiale gratuita di scacchi.</string>
   <string name="weRelyOnSupport">Contiamo sul supporto di persone come te per renderlo possibile. Se ti diverti usando Lichess, per favore considera la possibilità di supportarci facendo una donazione e diventando così un Mecenate!</string>
   <string name="lifetime">A vita</string>
   <string name="payLifetimeOnce">Paga %s una volta. Sii un Mecenate di Lichess per sempre!</string>
-  <string name="lifetimePatron">Mecenate di Lichess a vita</string>
+  <string name="lifetimePatron">Patron di Lichess a vita</string>
   <string name="monthly">Mensile</string>
   <string name="recurringBilling">Fatturazione periodica, rinnovando le tue ali da Mecenate ogni mese.</string>
   <string name="onetime">Una volta</string>
@@ -24,7 +29,7 @@
   <string name="otherAmount">Altro</string>
   <string name="pleaseEnterAmountInX">Per favore inserisci un importo in %s\'</string>
   <string name="withCreditCard">Carta di credito</string>
-  <string name="withPaypal">PayPal</string>
+  <string name="logInToDonate">Accedi per effettuare una donazione</string>
   <string name="weAreSmallTeam">Siamo un piccolo team, quindi il tuo sostegno fa la differenza!</string>
   <string name="celebratedPatrons">I famigerati Mecenati che rendono possibile Lichess</string>
   <string name="whereMoneyGoes">Dove vanno a finire i soldi?</string>
@@ -38,8 +43,9 @@ Poi paghiamo uno sviluppatore a tempo pieno: %s, il fondatore di Lichess.</strin
 Oppure puoi %s.</string>
   <string name="contactSupport">contatta l\'assistenza di Lichess</string>
   <string name="otherMethods">Altri metodi di donazione?</string>
+  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess è associato a %s.</string>
   <string name="bankTransfers">Accettiamo anche bonifici bancari</string>
-  <string name="bitcoin">Ed ecco il nostro indirizzo bitcoin: %s</string>
+  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">N.B. Lo stato di Lichess Patron si ottiene solo donando tramite il modulo qui sopra.</string>
   <string name="patronFeatures">Alcune funzioni sono riservate ai Mecenati?</string>
   <string name="noPatronFeatures">No, perché Lichess è completamente gratuito, per sempre, e per tutti. Questa è una promessa.
 Tuttavia, i Mecenati possono vantare una fantastica icona di profilo.</string>
@@ -54,13 +60,14 @@ Tuttavia, i Mecenati possono vantare una fantastica icona di profilo.</string>
   <string name="nextPayment">Prossimo pagamento</string>
   <string name="youWillBeChargedXOnY">Ti verrà addebitato %1$s il %2$s.</string>
   <string name="makeAdditionalDonation">Fai un\'altra donazione ora</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Dona le ali da Patron ad un giocatore</string>
+  <string name="giftPatronWings">Dona le ali da Patron ad un giocatore</string>
   <string name="update">Aggiorna</string>
   <string name="changeMonthlyAmount">Modifica l\'importo mensile (%s)</string>
   <string name="cancelSupport">annulla il tuo supporto</string>
   <string name="xOrY">%1$s oppure %2$s</string>
   <string name="decideHowMuch">Decidi cosa vale per te in Lichess:</string>
   <string name="stopPayments">Rimuovi la tua carta di credito e ferma i pagamenti:</string>
+  <string name="stopPaymentsPayPal">Annulla l\'abbonamento a PayPal e interrompi i pagamenti:</string>
   <string name="noLongerSupport">Non supportare più Lichess</string>
   <string name="viewOthers">Vedi altri Patroni di Lichess</string>
   <string name="date">Data</string>
@@ -71,4 +78,5 @@ Tuttavia, i Mecenati possono vantare una fantastica icona di profilo.</string>
   <string name="nowLifetime">Ora sei un Patrono di Lichess a vita!</string>
   <string name="nowOneMonth">Ora sei un Patrono di Lichess per un mese!</string>
   <string name="downgradeNextMonth">Tra un mese, NON ti verrà addebitato di nuovo un costo e il tuo account Lichess verrà declassato gratuitamente.</string>
+  <string name="changeCurrency">Cambia valuta</string>
 </resources>

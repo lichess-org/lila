@@ -1,7 +1,7 @@
 package lila.study
 
-import chess.format.FEN
-import lila.game.{ Namer, Pov }
+import chess.format.Fen
+import lila.game.{ Game, Namer, Pov }
 import lila.user.User
 
 final private class StudyMaker(
@@ -9,29 +9,36 @@ final private class StudyMaker(
     gameRepo: lila.game.GameRepo,
     chapterMaker: ChapterMaker,
     pgnDump: lila.game.PgnDump
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  def apply(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] =
+  def apply(data: StudyMaker.ImportGame, user: User, withRatings: Boolean): Fu[Study.WithChapter] =
     (data.form.gameId ?? gameRepo.gameWithInitialFen).flatMap {
-      case Some((game, initialFen)) => createFromPov(data, Pov(game, data.form.orientation), initialFen, user)
-      case None                     => createFromScratch(data, user)
+      case Some(Game.WithInitialFen(game, initialFen)) =>
+        createFromPov(
+          data,
+          Pov(game, data.form.orientation.flatMap(_.resolve) | chess.White),
+          initialFen,
+          user,
+          withRatings
+        )
+      case None => createFromScratch(data, user)
     } map { sc =>
       // apply specified From if any
       sc.copy(study = sc.study.copy(from = data.from | sc.study.from))
     }
 
-  private def createFromScratch(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] = {
+  private def createFromScratch(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] =
     val study = Study.make(user, Study.From.Scratch, data.id, data.name, data.settings)
     chapterMaker.fromFenOrPgnOrBlank(
       study,
       ChapterMaker.Data(
         game = none,
-        name = Chapter.Name("Chapter 1"),
-        variant = data.form.variantStr,
+        name = StudyChapterName("Chapter 1"),
+        variant = data.form.variant,
         fen = data.form.fen,
         pgn = data.form.pgnStr,
-        orientation = data.form.orientation.name,
-        mode = ChapterMaker.Mode.Normal.key,
+        orientation = data.form.orientation | ChapterMaker.Orientation.Auto,
+        mode = ChapterMaker.Mode.Normal,
         initial = true
       ),
       order = 1,
@@ -39,19 +46,19 @@ final private class StudyMaker(
     ) map { chapter =>
       Study.WithChapter(study withChapter chapter, chapter)
     }
-  }
 
   private def createFromPov(
       data: StudyMaker.ImportGame,
       pov: Pov,
-      initialFen: Option[FEN],
-      user: User
+      initialFen: Option[Fen.Epd],
+      user: User,
+      withRatings: Boolean
   ): Fu[Study.WithChapter] = {
     for {
-      root <- chapterMaker.game2root(pov.game, initialFen)
-      tags <- pgnDump.tags(pov.game, initialFen, none, withOpening = true)
-      name <- Namer.gameVsText(pov.game, withRatings = false)(lightUserApi.async) dmap Chapter.Name.apply
-      study = Study.make(user, Study.From.Game(pov.gameId), data.id, Study.Name("Game study").some)
+      root <- chapterMaker.getBestRoot(pov.game, data.form.pgnStr, initialFen)
+      tags <- pgnDump.tags(pov.game, initialFen, none, withOpening = true, withRatings)
+      name <- Namer.gameVsText(pov.game, withRatings)(lightUserApi.async) dmap { StudyChapterName(_) }
+      study = Study.make(user, Study.From.Game(pov.gameId), data.id, StudyName("Game study").some)
       chapter = Chapter.make(
         studyId = study.id,
         name = name,
@@ -68,21 +75,17 @@ final private class StudyMaker(
         gamebook = false,
         conceal = None
       )
-    } yield {
-      Study.WithChapter(study withChapter chapter, chapter)
-    }
+    } yield Study.WithChapter(study withChapter chapter, chapter)
   } addEffect { swc =>
     chapterMaker.notifyChat(swc.study, pov.game, user.id)
   }
-}
 
-object StudyMaker {
+object StudyMaker:
 
   case class ImportGame(
       form: StudyForm.importGame.Data = StudyForm.importGame.Data(),
-      id: Option[Study.Id] = None,
-      name: Option[Study.Name] = None,
+      id: Option[StudyId] = None,
+      name: Option[StudyName] = None,
       settings: Option[Settings] = None,
       from: Option[Study.From] = None
   )
-}

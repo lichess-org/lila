@@ -3,7 +3,6 @@ import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { MouchEvent } from 'chessground/types';
 import * as util from 'chessground/util';
-import changeColorHandle from 'common/coordsColor';
 import EditorCtrl from './ctrl';
 
 export default function (ctrl: EditorCtrl): VNode {
@@ -119,7 +118,7 @@ function deletePiece(ctrl: EditorCtrl, key: Key): void {
 
 function makeConfig(ctrl: EditorCtrl): CgConfig {
   return {
-    fen: ctrl.cfg.fen,
+    fen: ctrl.initialFen,
     orientation: ctrl.options.orientation || 'white',
     coordinates: !ctrl.cfg.embed,
     autoCastle: false,
@@ -150,7 +149,6 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     },
     events: {
       change: ctrl.onChange.bind(ctrl),
-      insert: changeColorHandle,
     },
   };
 }

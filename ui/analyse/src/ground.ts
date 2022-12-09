@@ -4,12 +4,12 @@ import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
 import * as cg from 'chessground/types';
 import { DrawShape } from 'chessground/draw';
-import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import AnalyseCtrl from './ctrl';
+import * as Prefs from 'common/prefs';
 
-export function render(ctrl: AnalyseCtrl): VNode {
-  return h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
+export const render = (ctrl: AnalyseCtrl): VNode =>
+  h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
     hook: {
       insert: vnode => {
         ctrl.chessground = Chessground(vnode.elm as HTMLElement, makeConfig(ctrl));
@@ -20,7 +20,6 @@ export function render(ctrl: AnalyseCtrl): VNode {
       destroy: _ => ctrl.chessground.destroy(),
     },
   });
-}
 
 export function promote(ground: CgApi, key: Key, role: cg.Role) {
   const piece = ground.state.pieces.get(key);
@@ -52,7 +51,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     orientation: ctrl.bottomColor(),
     coordinates: pref.coords !== Prefs.Coords.Hidden && !ctrl.embed,
     addPieceZIndex: pref.is3d,
-    addDimensionsCssVars: true,
+    addDimensionsCssVarsTo: document.body,
     viewOnly: !!ctrl.embed,
     movable: {
       free: false,
@@ -66,7 +65,6 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       dropNewPiece: ctrl.userNewPiece,
       insert(elements: cg.Elements) {
         if (!ctrl.embed) resizeHandle(elements, Prefs.ShowResizeHandle.Always, ctrl.node.ply);
-        if (!ctrl.embed && ctrl.data.pref.coords == Prefs.Coords.Inside) changeColorHandle();
       },
     },
     premovable: {
@@ -75,6 +73,13 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       events: {
         set: ctrl.onPremoveSet,
       },
+    },
+    draggable: {
+      enabled: pref.moveEvent !== Prefs.MoveEvent.Click,
+      showGhost: pref.highlight,
+    },
+    selectable: {
+      enabled: pref.moveEvent !== Prefs.MoveEvent.Drag,
     },
     drawable: {
       enabled: !ctrl.embed,

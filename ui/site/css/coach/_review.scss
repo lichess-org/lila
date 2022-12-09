@@ -7,6 +7,13 @@
     font-size: 1.5em;
     margin-bottom: -10px;
   }
+
+  &__disclaimer {
+    color: $c-font-dimmer;
+    font-size: 0.9rem;
+    margin-#{$start-direction}: 0.5rem;
+    vertical-align: top;
+  }
 }
 
 .coach-review {
@@ -26,7 +33,7 @@
   .top .user-link {
     @extend %ellipsis;
 
-    margin-left: -4px;
+    margin-#{$start-direction}: -4px;
   }
 
   .content {

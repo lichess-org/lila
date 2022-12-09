@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { bind, dataIcon } from '../../util';
+import { bind, dataIcon } from 'common/snabbdom';
 import AnalyseCtrl from '../../ctrl';
 import { StudyCtrl } from '../interfaces';
 
@@ -13,22 +13,28 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
   return h('div.gamebook-buttons', [
     root.path
       ? h(
-          'a.fbt.text.back',
+          'button.fbt.text.back',
           {
-            attrs: dataIcon(''),
+            attrs: {
+              'data-icon': '',
+              type: 'button',
+            },
             hook: bind('click', () => root.userJump(''), ctrl.redraw),
           },
-          'Back'
+          root.trans.noarg('back')
         )
       : null,
     myTurn
       ? h(
-          'a.fbt.text.solution',
+          'button.fbt.text.solution',
           {
-            attrs: dataIcon(''),
+            attrs: {
+              'data-icon': '',
+              type: 'button',
+            },
             hook: bind('click', ctrl.solution, ctrl.redraw),
           },
-          'View the solution'
+          root.trans.noarg('viewTheSolution')
         )
       : undefined,
     overrideButton(study),
@@ -40,10 +46,13 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
     const o = study.vm.gamebookOverride;
     if (study.members.canContribute())
       return h(
-        'a.fbt.text.preview',
+        'button.fbt.text.preview',
         {
           class: { active: o === 'play' },
-          attrs: dataIcon(''),
+          attrs: {
+            'data-icon': '',
+            type: 'button',
+          },
           hook: bind(
             'click',
             () => {
@@ -71,7 +80,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
               study.redraw
             ),
           },
-          'Analyse'
+          study.trans.noarg('analysis')
         );
     }
   }

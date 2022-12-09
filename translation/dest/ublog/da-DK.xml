@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog - %s</string>
+  <string name="newPost">Nyt indlæg</string>
+  <string name="editYourBlogPost">Rediger dit blogindlæg</string>
+  <string name="saveDraft">Gem udkast</string>
+  <string name="postTitle">Indlægstitel</string>
+  <string name="postIntro">Indlægsintro</string>
+  <string name="postBody">Indlæggets hovedtekst</string>
+  <string name="drafts">Udkast</string>
+  <string name="published">Publiceret</string>
+  <string name="createBlogDiscussion">Slå kommentarer til</string>
+  <string name="createBlogDiscussionHelp">Der vil blive oprettet et forumemne, hvor folk kan kommentere på dit indlæg</string>
+  <string name="publishOnYourBlog">Publicér på din blog</string>
+  <string name="publishHelp">Hvis markeret, vil indlægget blive vist på din blog. Hvis ikke, vil det være privat i dine udkast</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Publicerede et blogindlæg</item>
+    <item quantity="other">Publicerede %s blogindlæg</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Én visning</item>
+    <item quantity="other">%s visninger</item>
+  </plurals>
+  <string name="xPublishedY">%1$s publicerede %2$s</string>
+  <string name="thisPostIsPublished">Dette indlæg er publiceret</string>
+  <string name="thisIsADraft">Dette er et udkast</string>
+  <string name="moreBlogPostsBy">Se flere blogindlæg af %s</string>
+  <string name="noPostsInThisBlogYet">Ingen indlæg på denne blog, endnu.</string>
+  <string name="noDrafts">Ingen udkast at vise.</string>
+  <string name="latestBlogPosts">Seneste blog-indlæg</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Se et indlæg</item>
+    <item quantity="other">Se alle %s indlæg</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Upload et billede til dit indlæg</string>
+  <string name="imageAlt">Billede alternativ tekst</string>
+  <string name="imageCredit">Billedkreditering</string>
+  <string name="deleteBlog">Slet dette blogindlæg for altid</string>
+  <string name="deleteImage">Slet billedet</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Det er sikkert at bruge billeder fra følgende hjemmesider: </string>
+  <string name="selectPostTopics">Vælg de emner dit indlæg handler om</string>
+  <string name="useImagesYouMadeYourself">Du kan også bruge billeder, som du selv har lavet, fotos, du tog, skærmbilleder af Lichess... noget, der ikke er ophavsretligt beskyttet af en anden.</string>
+  <string name="safeAndRespectfulContent">Skriv kun sikkert og respektfuldt indhold. Kopiér ikke andres indhold.</string>
+  <string name="inappropriateContentAccountClosed">Alt upassende kan medføre, at din konto lukkes.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Vores enkle tips til at skrive gode blogindlæg</string>
+</resources>

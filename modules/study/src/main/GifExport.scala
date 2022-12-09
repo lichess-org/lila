@@ -1,16 +1,18 @@
 package lila.study
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import akka.util.ByteString
-import play.api.libs.json._
-import play.api.libs.ws.JsonBodyWritables._
+import play.api.libs.json.*
+import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
+
+import lila.base.LilaInvalid
 
 final class GifExport(
     ws: StandaloneWSClient,
     url: String
-)(implicit ec: scala.concurrent.ExecutionContext) {
-  def ofChapter(chapter: Chapter): Fu[Source[ByteString, _]] =
+)(using ec: scala.concurrent.ExecutionContext):
+  def ofChapter(chapter: Chapter, theme: Option[String], piece: Option[String]): Fu[Source[ByteString, ?]] =
     ws.url(s"$url/game.gif")
       .withMethod("POST")
       .addHttpHeaders("Content-Type" -> "application/json")
@@ -28,19 +30,22 @@ final class GifExport(
             chapter.tags(_.Black),
             chapter.tags(_.BlackElo).map(elo => s"($elo)")
           ).flatten.mkString(" "),
-          "frames" -> framesRec(chapter.root +: chapter.root.mainline, Json.arr())
+          "frames" -> framesRec(chapter.root +: chapter.root.mainline, Json.arr()),
+          "theme"  -> theme.|("brown"),
+          "piece"  -> piece.|("cburnett")
         )
       )
       .stream() flatMap {
-      case res if res.status != 200 =>
+      case res if res.status == 200 => fuccess(res.bodyAsSource)
+      case res if res.status == 400 => fufail(LilaInvalid(res.body))
+      case res =>
         logger.warn(s"GifExport study ${chapter.studyId}/${chapter._id} ${res.status}")
         fufail(res.statusText)
-      case res => fuccess(res.bodyAsSource)
     }
 
   @annotation.tailrec
   private def framesRec(nodes: Vector[RootOrNode], arr: JsArray): JsArray =
-    nodes match {
+    nodes match
       case node +: tail =>
         framesRec(
           tail,
@@ -53,5 +58,3 @@ final class GifExport(
             .add("delay", tail.isEmpty option 500) // more delay for last frame
         )
       case _ => arr
-    }
-}

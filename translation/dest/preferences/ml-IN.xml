@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">പരിഗണനകൾ</string>
-  <string name="gameDisplay">കളി പ്രദർശനം</string>
   <string name="pieceAnimation">കരു ആനിമേഷൻ</string>
   <string name="materialDifference">രൂപ വ്യത്യാസം</string>
   <string name="boardHighlights">പലകയിലെ മുഖ്യ ആകർഷണങ്ങൾ (അവസാന നീക്കവും അടിയറവും)</string>
@@ -30,7 +29,7 @@
   <string name="promoteToQueenAutomatically">റാണിയായി താനെ സ്ഥാനക്കയറ്റം നൽകൂ</string>
   <string name="whenPremoving">മുൻകൂട്ടിയുള്ള നീക്കത്തിൽ</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">3 തവണ ഒരേ നീക്കം തുടർന്നാൽ താനെ ഗെയിം സമനിലയായി മാറ്റുക</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">ശേഷിക്കുന്ന സമയം &lt;30 സെക്കന്റുകൾ</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">ശേഷിക്കുന്ന സമയം &lt;30 സെക്കന്റുകൾ</string>
   <string name="moveConfirmation">നീക്കം സ്ഥിരീകരണം</string>
   <string name="inCorrespondenceGames">തത്തുല്യമായ കളികൾ</string>
   <string name="correspondenceAndUnlimited">തത്തുല്യമായതും അതീതമായതും</string>

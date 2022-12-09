@@ -1,13 +1,13 @@
 package views.html
 package game
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object side {
+object side:
 
   private val separator  = " • "
   private val dataUserTv = attr("data-user-tv")
@@ -15,7 +15,7 @@ object side {
 
   def apply(
       pov: lila.game.Pov,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[chess.format.Fen.Epd],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
@@ -28,14 +28,14 @@ object side {
 
   def meta(
       pov: lila.game.Pov,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[chess.format.Fen.Epd],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
   )(implicit ctx: Context): Option[Frag] =
     ctx.noBlind option {
-      import pov._
+      import pov.*
       div(cls := "game__meta")(
         st.section(
           div(cls := "game__meta__infos", dataIcon := bits.gameIcon(game))(
@@ -58,19 +58,13 @@ object side {
                       bits.variantLink(game.variant, game.perfType, initialFen, shortName = true)
                     )
                 ),
-                game.pgnImport.flatMap(_.date).map(frag(_)) getOrElse {
-                  frag(
-                    if (game.isBeingPlayed) trans.playingRightNow()
-                    else momentFromNowWithPreload(game.createdAt)
-                  )
-                }
+                game.pgnImport.flatMap(_.date).map(frag(_)) | momentFromNowWithPreload(game.createdAt)
               ),
-              game.pgnImport.exists(_.date.isDefined) option small(
-                "Imported ",
-                game.pgnImport.flatMap(_.user).map { user =>
-                  trans.by(userIdLink(user.some, None, withOnline = false))
-                }
-              )
+              game.pgnImport.flatMap(_.user).map { user =>
+                small(
+                  trans.importedByX(userIdLink(user.some, None, withOnline = false))
+                )
+              }
             )
           ),
           div(cls := "game__meta__players")(
@@ -97,15 +91,20 @@ object side {
             }
           )
         },
-        game.variant.chess960 ??
+        game.variant.chess960.?? {
           chess.variant.Chess960
-            .positionNumber(initialFen | chess.format.Forsyth.initial)
+            .positionNumber(initialFen | chess.format.Fen.initial)
             .map { number =>
               st.section(
-                "Chess960 start position: ",
-                strong(number)
+                trans.chess960StartPosition(
+                  a(
+                    href := routes.UserAnalysis
+                      .parseArg(s"chess960/${underscoreFen(initialFen | chess.format.Fen.initial)}")
+                  )(number)
+                )
               )
-            },
+            }
+        }: Frag,
         userTv.map { u =>
           st.section(cls := "game__tv")(
             h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := "")(u.titleUsername)
@@ -120,7 +119,7 @@ object side {
           st.section(cls := "game__tournament-link")(tournamentLink(tourId))
         } orElse game.swissId.map { swissId =>
           st.section(cls := "game__tournament-link")(
-            views.html.swiss.bits.link(lila.swiss.Swiss.Id(swissId))
+            views.html.swiss.bits.link(SwissId(swissId))
           )
         } orElse simul.map { sim =>
           st.section(cls := "game__simul-link")(
@@ -129,4 +128,3 @@ object side {
         }
       )
     }
-}

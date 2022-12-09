@@ -1,27 +1,31 @@
 package lila.search
 
-case class Index(name: String) extends AnyVal
+import alleycats.Zero
 
-case class Id(value: String) extends AnyVal
+opaque type Index = String
+object Index extends OpaqueString[Index]
 
-case class StringQuery(value: String) extends AnyVal
-case class From(value: Int)           extends AnyVal
-case class Size(value: Int)           extends AnyVal
+opaque type Id = String
+object Id extends OpaqueString[Id]
+
+opaque type From = Int
+object From extends OpaqueInt[From]
+
+opaque type Size = Int
+object Size extends OpaqueInt[Size]
 
 case class SearchResponse(ids: List[String]) extends AnyVal
 
-object SearchResponse {
+object SearchResponse:
   def apply(txt: String): SearchResponse = SearchResponse(txt.split(',').toList)
-}
+  given Zero[SearchResponse]             = Zero(SearchResponse(Nil))
 
-case class CountResponse(count: Int) extends AnyVal
-
-object CountResponse {
+opaque type CountResponse = Int
+object CountResponse extends OpaqueInt[CountResponse]:
   def apply(txt: String): CountResponse = CountResponse(~txt.toIntOption)
-}
+  given Zero[CountResponse]             = Zero(0)
 
-object Date {
+object Date:
   import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
   val format                       = "yyyy-MM-dd HH:mm:ss"
   val formatter: DateTimeFormatter = DateTimeFormat forPattern format
-}

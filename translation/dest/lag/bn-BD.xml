@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">Lichess কি বেঁধে যাচ্ছে?</string>
+  <string name="measurementInProgressThreeDot">মাপা হচ্ছে...</string>
+  <string name="noAndYourNetworkIsGood">না। আপনার নেটওয়ার্ক ভাল আছে।</string>
+</resources>

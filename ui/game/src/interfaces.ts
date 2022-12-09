@@ -1,3 +1,5 @@
+import * as cg from 'chessground/types';
+
 export interface GameData {
   game: Game;
   player: Player;
@@ -16,6 +18,7 @@ export interface Game {
   status: Status;
   player: Color;
   turns: number;
+  fen: Fen;
   startedAtTurn?: number;
   source: Source;
   speed: Speed;
@@ -30,7 +33,9 @@ export interface Game {
   rematch?: string;
   rated?: boolean;
   perf: string;
+  rules?: GameRule[];
 }
+export declare type GameRule = 'noAbort' | 'noRematch' | 'noGiveTime' | 'noClaimWin';
 
 export interface Status {
   id: StatusId;
@@ -157,6 +162,7 @@ export interface Ctrl {
 export interface Blurs {
   nb: number;
   percent: number;
+  bits?: string;
 }
 
 export interface Trans {
@@ -174,4 +180,23 @@ export type ContinueMode = 'friend' | 'ai';
 
 export interface GameView {
   status(ctrl: Ctrl): string;
+}
+
+export interface CheckState {
+  ply: Ply;
+  check?: boolean | Key;
+}
+
+export interface CheckCount {
+  white: number;
+  black: number;
+}
+
+export type MaterialDiffSide = {
+  [role in cg.Role]: number;
+};
+
+export interface MaterialDiff {
+  white: MaterialDiffSide;
+  black: MaterialDiffSide;
 }

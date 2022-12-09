@@ -1,30 +1,30 @@
 package lila.round
 
-import chess.format.FEN
-import chess.format.Forsyth
+import chess.format.Fen
+import chess.format.Fen
 import chess.variant.Variant
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.socket.Step
 
-object StepBuilder {
+object StepBuilder:
 
   private val logger = lila.round.logger.branch("StepBuilder")
 
   def apply(
-      id: String,
+      id: GameId,
       pgnMoves: Vector[String],
       variant: Variant,
-      initialFen: FEN
-  ): JsArray = {
-    chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
+      initialFen: Fen.Epd
+  ): JsArray =
+    chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match
       case (init, games, error) =>
-        error foreach logChessError(id)
+        error foreach logChessError(id.value)
         JsArray {
           val initStep = Step(
             ply = init.turns,
             move = none,
-            fen = Forsyth >> init,
+            fen = Fen write init,
             check = init.situation.check,
             dests = None,
             drops = None,
@@ -34,7 +34,7 @@ object StepBuilder {
             Step(
               ply = g.turns,
               move = Step.Move(m.uci, m.san).some,
-              fen = Forsyth >> g,
+              fen = Fen write g,
               check = g.situation.check,
               dests = None,
               drops = None,
@@ -43,12 +43,9 @@ object StepBuilder {
           }
           (initStep :: moveSteps).map(_.toJson)
         }
-    }
-  }
 
   private val logChessError = (id: String) =>
     (err: String) => {
       val path = if (id == "synthetic") "analysis" else id
       logger.info(s"https://lichess.org/$path ${err.linesIterator.toList.headOption | "?"}")
     }
-}

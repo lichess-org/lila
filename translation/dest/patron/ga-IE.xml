@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Deonaigh</string>
+  <string name="donateAsX">Deonaigh mar %s</string>
   <string name="lichessPatron">Pátrún Lichess</string>
   <string name="freeAccount">Cuntas saor in aisce</string>
   <string name="becomePatron">Bí i do Phátrún Lichess</string>
@@ -18,7 +19,7 @@
   <string name="thankYou">Go raibh maith agat as do bhronntanas!</string>
   <string name="youHaveLifetime">Tá cuntas Pátrún Saoil agat. Tá sé sin iontach iontach ar fad!</string>
   <string name="patronUntil">Tá cuntas Pátrún agat go dtí %s.</string>
-  <string name="ifNotRenewed">Mura ndéantar athnuachan ar, déanfaimid tú a íosghrádú go cuntas saor in aisce.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Mura ndéantar é a athnuachan, rachaidh do chuntas ar ais chuig gnáthchuntas.</string>
   <string name="weAreNonProfit">Is cumann neamhbhrabúis muid mar creidimid gur cheart go mbeadh rochtain ag gach duine ar ardán fichille den scoth agus saor in aisce.</string>
   <string name="weRelyOnSupport">Táimid ag brath ar thacaíocht ó dhaoine cosúil leatsa chun é a bheith indéanta. Má thaitníonn Lichess leat, smaoinigh ar thacaíocht a thabhairt dúinn trí bronntanas a bhronnadh agus a bheith i do Phátrún!</string>
   <string name="lifetime">Saol</string>
@@ -31,7 +32,6 @@
   <string name="otherAmount">Eile</string>
   <string name="pleaseEnterAmountInX">Iontráil méid i %s</string>
   <string name="withCreditCard">Cárta creidmheasa</string>
-  <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Is foireann bheag muid, agus déanann do thacaíocht difríocht mhór!</string>
   <string name="celebratedPatrons">Na Pátrúin onóra a thugann tacaíocht do Lichess</string>
   <string name="whereMoneyGoes">Cá dtéann an t-airgead?</string>
@@ -46,7 +46,6 @@ Nó is féidir leat %s.</string>
   <string name="contactSupport">déan teagmháil le tacaíocht Lichess</string>
   <string name="otherMethods">Modhanna eile deonaithe?</string>
   <string name="bankTransfers">Glacaimid le haistrithe bainc freisin</string>
-  <string name="bitcoin">Agus seo ár seoladh bitcoin: %s</string>
   <string name="patronFeatures">An gcoinnítear roinnt gnéithe do Phátrúin?</string>
   <string name="noPatronFeatures">Ní ar chor ar bith, toisc go bhfuil Lichess saor in aisce, go deo, agus do gach duine. Is gealltanas é sin.
 Mar sin féin, faigheann Pátrúin cearta bragála le deilbhín próifíl nua fionnuar.</string>
@@ -64,13 +63,14 @@ Mar sin féin, faigheann Pátrúin cearta bragála le deilbhín próifíl nua fi
   <string name="nextPayment">An chéad íocaíocht eile</string>
   <string name="youWillBeChargedXOnY">Beidh tú muirearaithe %1$s ar %2$s.</string>
   <string name="makeAdditionalDonation">Déan bronntanas breise anois</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Tabhair sciatháin Pátrún mar bronntanas d’imreoir</string>
+  <string name="giftPatronWings">Tabhair sciatháin Pátrún mar bronntanas d’imreoir</string>
   <string name="update">Nuashonrú</string>
   <string name="changeMonthlyAmount">Athraigh an méid míosúil (%s)</string>
   <string name="cancelSupport">cuir do thacaíocht ar ceal</string>
   <string name="xOrY">%1$s nó %2$s</string>
   <string name="decideHowMuch">Socraigh cad is fiú Lichess duit:</string>
   <string name="stopPayments">Tarraing do chárta creidmheasa as agus stop íocaíochtaí:</string>
+  <string name="stopPaymentsPayPal">Cealaigh síntiús PayPal agus cuir stop le híocaíochtaí:</string>
   <string name="noLongerSupport">Ná thacaíonn Lichess a thuilleadh</string>
   <string name="viewOthers">Féach ar Phátrúin Lichess eile</string>
   <string name="date">Dáta</string>
@@ -81,4 +81,5 @@ Mar sin féin, faigheann Pátrúin cearta bragála le deilbhín próifíl nua fi
   <string name="nowLifetime">Is Pátrún Lichess ar feadh an tsaoil anois thú!</string>
   <string name="nowOneMonth">Is Pátrún Lichess ar feadh mí anois thú!</string>
   <string name="downgradeNextMonth">I gceann míosa, nÍ bheadh aon táille ort arís, agus fillfidh do chuntas Lichess ar gnáth chuntas.</string>
+  <string name="changeCurrency">Athraigh airgeadra</string>
 </resources>

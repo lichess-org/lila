@@ -1,3 +1,3 @@
-package lila
+package lila.event
 
-package object event extends PackageObject
+export lila.Lila.{ *, given }

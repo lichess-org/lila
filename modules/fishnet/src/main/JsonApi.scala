@@ -1,27 +1,23 @@
 package lila.fishnet
 
-import chess.format.{ FEN, Uci }
+import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import org.joda.time.DateTime
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.common.Json._
+import lila.common.Json.{ *, given }
 import lila.common.{ IpAddress, Maths }
-import lila.fishnet.{ Work => W }
-import lila.tree.Eval.JsonHandlers._
+import lila.fishnet.{ Work as W }
 import lila.tree.Eval.{ Cp, Mate }
 
-object JsonApi {
+object JsonApi:
 
-  sealed trait Request {
+  sealed trait Request:
     val fishnet: Request.Fishnet
 
     def instance(ip: IpAddress) = Client.Instance(fishnet.version, ip, DateTime.now)
-  }
 
-  object Request {
-
-    sealed trait Result
+  object Request:
 
     case class Fishnet(
         version: Client.Version,
@@ -31,9 +27,8 @@ object JsonApi {
 
     case class Stockfish(
         flavor: Option[String]
-    ) {
+    ):
       def isNnue = flavor.has("nnue")
-    }
 
     case class Acquire(
         fishnet: Fishnet
@@ -43,19 +38,17 @@ object JsonApi {
         fishnet: Fishnet,
         stockfish: Stockfish,
         analysis: List[Option[Evaluation.OrSkipped]]
-    ) extends Request
-        with Result {
+    ) extends Request:
 
       def completeOrPartial =
         if (analysis.headOption.??(_.isDefined)) CompleteAnalysis(fishnet, stockfish, analysis.flatten)
         else PartialAnalysis(fishnet, stockfish, analysis)
-    }
 
     case class CompleteAnalysis(
         fishnet: Fishnet,
         stockfish: Stockfish,
         analysis: List[Evaluation.OrSkipped]
-    ) {
+    ):
 
       def evaluations = analysis.collect { case Right(e) => e }
 
@@ -65,12 +58,6 @@ object JsonApi {
             .withFilter(e => !(e.mateFound || e.deadDraw))
             .flatMap(_.nodes)
         }
-
-      // fishnet 2.x analysis is never weak in this sense. It is either exactly
-      // the same as analysis provided by any other instance, or failed.
-      def strong = stockfish.flavor.isDefined || medianNodes.fold(true)(_ > Evaluation.legacyAcceptableNodes)
-      def weak   = !strong
-    }
 
     case class PartialAnalysis(
         fishnet: Fishnet,
@@ -85,7 +72,7 @@ object JsonApi {
         nodes: Option[Int],
         nps: Option[Int],
         depth: Option[Int]
-    ) {
+    ):
       val cappedNps = nps.map(_ min Evaluation.npsCeil)
 
       val cappedPv = pv take lila.analyse.Info.LineMaxPlies
@@ -93,29 +80,22 @@ object JsonApi {
       def isCheckmate = score.mate has Mate(0)
       def mateFound   = score.mate.isDefined
       def deadDraw    = score.cp has Cp(0)
-    }
 
-    object Evaluation {
+    object Evaluation:
 
       object Skipped
 
       type OrSkipped = Either[Skipped.type, Evaluation]
 
-      case class Score(cp: Option[Cp], mate: Option[Mate]) {
+      case class Score(cp: Option[Cp], mate: Option[Mate]):
         def invert                  = copy(cp.map(_.invert), mate.map(_.invert))
         def invertIf(cond: Boolean) = if (cond) invert else this
-      }
 
       val npsCeil = 10_000_000
 
-      private val legacyDesiredNodes = 3_000_000
-      val legacyAcceptableNodes      = legacyDesiredNodes * 0.9
-    }
-  }
-
   case class Game(
       game_id: String,
-      position: FEN,
+      position: Fen.Epd,
       variant: Variant,
       moves: String
   )
@@ -128,10 +108,9 @@ object JsonApi {
       moves = g.moves
     )
 
-  sealed trait Work {
+  sealed trait Work:
     val id: String
     val game: Game
-  }
 
   case class Analysis(
       id: String,
@@ -140,7 +119,7 @@ object JsonApi {
       skipPositions: List[Int]
   ) extends Work
 
-  def analysisFromWork(nodes: Int)(m: Work.Analysis) =
+  def analysisFromWork(nodes: Int)(m: Work.Analysis): Analysis =
     Analysis(
       id = m.id.value,
       game = fromGame(m.game),
@@ -148,16 +127,13 @@ object JsonApi {
       skipPositions = m.skipPositions
     )
 
-  object readers {
-    import play.api.libs.functional.syntax._
-    implicit val ClientVersionReads = Reads.of[String].map(Client.Version(_))
-    implicit val ClientPythonReads  = Reads.of[String].map(Client.Python(_))
-    implicit val ClientKeyReads     = Reads.of[String].map(Client.Key(_))
-    implicit val StockfishReads     = Json.reads[Request.Stockfish]
-    implicit val FishnetReads       = Json.reads[Request.Fishnet]
-    implicit val AcquireReads       = Json.reads[Request.Acquire]
-    implicit val ScoreReads         = Json.reads[Request.Evaluation.Score]
-    implicit val uciListReads = Reads.of[String] map { str =>
+  object readers:
+    import play.api.libs.functional.syntax.*
+    given Reads[Request.Stockfish]        = Json.reads
+    given Reads[Request.Fishnet]          = Json.reads
+    given Reads[Request.Acquire]          = Json.reads
+    given Reads[Request.Evaluation.Score] = Json.reads
+    given Reads[List[Uci]] = Reads.of[String] map { str =>
       ~Uci.readList(str)
     }
 
@@ -168,25 +144,19 @@ object JsonApi {
         (__ \ "nodes").readNullable[Long].map(_.map(_.toSaturatedInt)) and
         (__ \ "nps").readNullable[Long].map(_.map(_.toSaturatedInt)) and
         (__ \ "depth").readNullable[Int]
-    )(Request.Evaluation.apply _)
-    implicit val EvaluationOptionReads = Reads[Option[Request.Evaluation.OrSkipped]] {
+    )(Request.Evaluation.apply)
+    given Reads[Option[Request.Evaluation.OrSkipped]] = Reads {
       case JsNull => JsSuccess(None)
       case obj =>
         if (~(obj boolean "skipped")) JsSuccess(Left(Request.Evaluation.Skipped).some)
         else EvaluationReads reads obj map Right.apply map some
     }
-    implicit val PostAnalysisReads: Reads[Request.PostAnalysis] = Json.reads[Request.PostAnalysis]
-  }
+    given Reads[Request.PostAnalysis] = Json.reads
 
-  object writers {
-    implicit val VariantWrites = Writes[Variant] { v =>
-      JsString(v.key)
-    }
-    implicit val GameWrites: Writes[Game] = Json.writes[Game]
-    implicit val WorkIdWrites = Writes[Work.Id] { id =>
-      JsString(id.value)
-    }
-    implicit val WorkWrites = OWrites[Work] { work =>
+  object writers:
+    given Writes[Variant] = Writes { v => JsString(v.key) }
+    given Writes[Game]    = Json.writes
+    given OWrites[Work] = OWrites { work =>
       (work match {
         case a: Analysis =>
           Json.obj(
@@ -194,14 +164,14 @@ object JsonApi {
               "type" -> "analysis",
               "id"   -> a.id,
               "nodes" -> Json.obj(
-                "nnue"      -> a.nodes,
-                "classical" -> a.nodes * 2
-              )
+                "sf15"      -> a.nodes,
+                "sf14"      -> a.nodes * 14 / 10,
+                "nnue"      -> a.nodes * 14 / 10, // bc fishnet <= 2.3.4
+                "classical" -> a.nodes * 28 / 10
+              ),
+              "timeout" -> Cleaner.timeoutPerPly.toMillis
             ),
-            "nodes"         -> a.nodes * 2, // bc for fishnet 1.x clients without nnue
             "skipPositions" -> a.skipPositions
           )
       }) ++ Json.toJson(work.game).as[JsObject]
     }
-  }
-}

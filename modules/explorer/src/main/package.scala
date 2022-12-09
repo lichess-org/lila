@@ -1,6 +1,3 @@
-package lila
+package lila.explorer
 
-package object explorer extends PackageObject {
-
-  val maxPlies = 50
-}
+export lila.Lila.{ *, given }

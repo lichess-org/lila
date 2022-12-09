@@ -1,7 +1,7 @@
 import { makeSocket, SwissSocket } from './socket';
 import xhr from './xhr';
-import throttle from 'common/throttle';
-import { myPage, players } from './pagination';
+import { throttlePromiseDelay } from 'common/throttle';
+import { maxPerPage, myPage, players } from './pagination';
 import { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 
 export default class SwissCtrl {
@@ -69,18 +69,17 @@ export default class SwissCtrl {
     }, delay);
   };
 
-  scrollToMe = () => {
-    const page = myPage(this);
-    if (page && page !== this.page) this.setPage(page);
-  };
+  scrollToMe = () => this.setPage(myPage(this));
 
   loadPage = (data: Standing) => {
     this.pages[data.page] = this.readStanding(data).players;
   };
 
-  setPage = (page: number) => {
-    this.page = page;
-    xhr.loadPage(this, page);
+  setPage = (page: number | undefined) => {
+    if (page && page != this.page && page >= 1 && page <= players(this).nbPages) {
+      this.page = page;
+      xhr.loadPage(this, page);
+    }
   };
 
   toggleFocusOnMe = () => {
@@ -101,6 +100,18 @@ export default class SwissCtrl {
       this.focusOnMe = false;
       this.pages[this.page].filter(p => p.user.id == userId).forEach(this.showPlayerInfo);
       this.redraw();
+    });
+  };
+
+  jumpToRank = (rank: number) => {
+    const page = 1 + Math.floor((rank - 1) / maxPerPage);
+    const row = (rank - 1) % maxPerPage;
+    xhr.loadPage(this, page, () => {
+      if (!this.pages[page] || row >= this.pages[page].length) return;
+      this.page = page;
+      this.searching = false;
+      this.focusOnMe = false;
+      this.showPlayerInfo(this.pages[page][row]);
     });
   };
 
@@ -132,15 +143,19 @@ export default class SwissCtrl {
 
   private reloadSoon = () => {
     if (!this.reloadSoonThrottle)
-      this.reloadSoonThrottle = throttle(Math.max(2000, Math.min(5000, this.data.nbPlayers * 20)), () =>
-        xhr.reloadNow(this)
+      this.reloadSoonThrottle = throttlePromiseDelay(
+        () => Math.max(2000, Math.min(5000, this.data.nbPlayers * 20)),
+        () => xhr.reloadNow(this)
       );
     this.reloadSoonThrottle();
   };
 
   private isIn = () => !!this.data.me && !this.data.me.absent;
 
-  private redrawNbRounds = () => $('.swiss__meta__round').text(`${this.data.round}/${this.data.nbRounds}`);
+  private redrawNbRounds = () =>
+    $('.swiss__meta__round').text(
+      this.trans.plural('xOutOfYRoundsSwiss', this.data.nbRounds, this.data.round, this.data.nbRounds)
+    );
 
   private readData = (data: SwissData) => ({
     ...data,

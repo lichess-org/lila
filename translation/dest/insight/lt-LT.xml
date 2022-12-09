@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights">%s šachmatų įžvalgos</string>
+  <string name="xHasNoChessInsights">%s dar neturi šachmatų įžvalgų!</string>
+  <string name="insightsAreProtected">%s šachmatų įžvalgos yra apsaugotos</string>
+  <string name="cantSeeInsights">Atsiprašome, jūs negalite matyti %s šachmatų įžvalgų.</string>
+  <string name="generateInsights">Sugeneruoti %s šachmatų įžvalgas.</string>
+  <string name="crunchingData">Išskirtinai jums uoliai apdorojami duomenys!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Gal reikėtų jų paprašyti pakeisti savo %s?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">įžvalgų nustatymai</string>
+</resources>

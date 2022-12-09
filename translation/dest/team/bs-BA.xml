@@ -12,6 +12,7 @@
   <string name="myTeams">Moji timovi</string>
   <string name="noTeamFound">Nije pronađen nijednan tim</string>
   <string name="joinTeam">Pridružite se timu</string>
+  <string name="onlyLeaderLeavesTeam">Molimo da dodate novog vođu tima prije nego što ga napustite ili zatvòrite tim.</string>
   <string name="quitTeam">Napustite tim</string>
   <string name="manuallyReviewAdmissionRequests">Ručno pregledajte zahtjeve za prijem</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Ako je ovo označeno, igrači će trebati napisati zahtjev da se pridruže timu, koji možete odbiti ili prihvatiti.</string>
@@ -20,7 +21,6 @@
     <item quantity="few">Vođe tima</item>
     <item quantity="other">Vođe tima</item>
   </plurals>
-  <string name="teamBestPlayers">Najbolji igrači</string>
   <string name="teamRecentMembers">Najnoviji članovi</string>
   <string name="kickSomeone">Izbacite nekoga iz tima</string>
   <string name="whoToKick">Koga želite da izbacite iz tima?</string>
@@ -48,10 +48,8 @@ Igrači koji ne vole primati Vaše poruke mogli bi napustiti tim.</string>
   <string name="leadersChat">Razgovor vođa</string>
   <string name="closeTeam">Raspustite ekipu</string>
   <string name="closeTeamDescription">Raspustite ekipu zauvijek.</string>
-  <string name="teamPassword">Lozinka tima</string>
-  <string name="teamPasswordDescriptionForLeader">(Opcionalno) Lozinka koju novi članovi moraju znati da bi se pridružili ovom timu.</string>
-  <string name="incorrectTeamPassword">Netačna lozinka tima.</string>
   <string name="teamAlreadyExists">Ovaj tim već postoji.</string>
   <string name="upcomingTourns">Nadolazeći turniri</string>
   <string name="completedTourns">Završeni turniri</string>
+  <string name="joinLichessVariantTeam">Pridružite se zvaničnom %s timu za novosti i događaje</string>
 </resources>

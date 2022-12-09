@@ -37,11 +37,7 @@ function command(q: string) {
   else if (is('light dark transp'))
     lichess
       .loadModule('dasher')
-      .then(() =>
-        window.LichessDasher(document.createElement('div'), {
-          playing: $('body').hasClass('playing'),
-        })
-      )
+      .then(() => window.LichessDasher(document.createElement('div')))
       .then(dasher => dasher.subs.background.set(exec));
   else if (is('stream') && parts[1]) location.href = '/streamer/' + parts[1];
   else if (is('help')) help();
@@ -61,9 +57,9 @@ function commandHelp(aliases: string, args: string, desc: string) {
 
 function help() {
   lichess.loadCssPath('clinput.help');
-  modal(
-    $(
-      '<h3>Commands</h3>' +
+  modal({
+    content: $(
+      '<div><h3>Commands</h3>' +
         commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
         commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
         commandHelp('/light /dark /transp', '', 'Change the background theme') +
@@ -72,8 +68,11 @@ function help() {
         commandHelp('s', '', 'Search for a user') +
         commandHelp('/', '', 'Type a command') +
         commandHelp('c', '', 'Focus the chat input') +
-        commandHelp('esc', '', 'Close modals like this one')
+        commandHelp('esc', '', 'Close modals like this one') +
+        '</div>'
     ),
-    'clinput-help'
-  );
+    class: 'clinput-help',
+  });
 }
+
+(window as any).LichessCli = { app }; // esbuild

@@ -3,10 +3,14 @@
   <string name="broadcasts">Phát sóng</string>
   <string name="liveBroadcasts">Giải đấu phát trực tuyến</string>
   <string name="newBroadcast">Phát sóng trực tiếp mới</string>
+  <string name="addRound">Thêm một vòng</string>
   <string name="ongoing">Đang diễn ra</string>
   <string name="upcoming">Sắp diễn ra</string>
   <string name="completed">Hoàn thành</string>
+  <string name="roundName">Tên vòng</string>
   <string name="roundNumber">Vòng đấu số</string>
+  <string name="tournamentName">Tên giải đấu</string>
+  <string name="tournamentDescription">Lời miêu tả giải đấu ngắn</string>
   <string name="fullDescription">Mô tả đầy đủ sự kiện</string>
   <string name="fullDescriptionHelp">Mô tả dài tùy chọn của buổi phát sóng. %1$s có thể sử dụng. Chiều dài phải nhỏ hơn %2$s ký tự.</string>
   <string name="sourceUrlOrGameIds">URL nguồn, hoặc ID game</string>
@@ -15,4 +19,10 @@
   <string name="startDate">Ngày bắt đầu trong múi giờ của bạn</string>
   <string name="startDateHelp">Tùy chọn, nếu bạn biết khi nào sự kiện bắt đầu</string>
   <string name="credits">Công nhận nguồn</string>
+  <string name="resetRound">Đặt lại vòng này</string>
+  <string name="deleteRound">Xóa vòng này</string>
+  <string name="broadcastUrl">Link buổi phát sóng</string>
+  <string name="currentRoundUrl">Link vòng đấu hiện tại</string>
+  <string name="currentGameUrl">Link ván đấu hiện tại</string>
+  <string name="downloadAllRounds">Tải xuống tất cả ván đấu</string>
 </resources>

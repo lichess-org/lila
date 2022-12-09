@@ -18,26 +18,24 @@
   max-height: 100%;
   overflow: auto;
 
-  @media (prefers-reduced-motion: no-preference) {
-    > :nth-child(1) {
-      animation: slideIn 1s cubic-bezier(0.37, 0.82, 0.2, 1);
-    }
+  > :nth-child(1) {
+    animation: slideIn 1s cubic-bezier(0.37, 0.82, 0.2, 1);
+  }
 
-    > :nth-child(2) {
-      animation: slideIn 1.5s cubic-bezier(0.37, 0.82, 0.2, 1);
-    }
+  > :nth-child(2) {
+    animation: slideIn 1.5s cubic-bezier(0.37, 0.82, 0.2, 1);
+  }
 
-    > :nth-child(3) {
-      animation: slideIn 2s cubic-bezier(0.37, 0.82, 0.2, 1);
-    }
+  > :nth-child(3) {
+    animation: slideIn 2s cubic-bezier(0.37, 0.82, 0.2, 1);
+  }
 
-    > :nth-child(4) {
-      animation: slideIn 2.5s cubic-bezier(0.37, 0.82, 0.2, 1);
-    }
+  > :nth-child(4) {
+    animation: slideIn 2.5s cubic-bezier(0.37, 0.82, 0.2, 1);
+  }
 
-    > :nth-child(5) {
-      animation: slideIn 3s cubic-bezier(0.37, 0.82, 0.2, 1);
-    }
+  > :nth-child(5) {
+    animation: slideIn 3s cubic-bezier(0.37, 0.82, 0.2, 1);
   }
 
   .stars {
@@ -75,7 +73,7 @@
   .stars .star-wrap::before {
     position: absolute;
     top: 5px;
-    left: 5px;
+    #{$start-direction}: 5px;
     display: block;
     width: 45px;
     height: 45px;
@@ -96,13 +94,6 @@
     animation: star-appear 2.5s ease-in-out;
     animation-delay: 0.1s;
     animation-fill-mode: forwards;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .stars .star {
-      opacity: 1;
-      animation: none;
-    }
   }
 
   .stars .star-wrap:nth-child(2) .star {

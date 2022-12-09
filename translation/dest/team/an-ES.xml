@@ -18,7 +18,6 @@
     <item quantity="one">Capitán de l\'equipo</item>
     <item quantity="other">Liders de l\'equipo</item>
   </plurals>
-  <string name="teamBestPlayers">Millors chugadors</string>
   <string name="teamRecentMembers">Miembros recients</string>
   <string name="kickSomeone">Espachar a belún de l\'equipo</string>
   <string name="whoToKick">A quí quiers espachar de l\'equipo?</string>
@@ -43,8 +42,5 @@ Los chugadors a los quals no les faiga goyo recibir los tuyos mensaches pueden a
   <string name="leadersChat">Chat de liders</string>
   <string name="closeTeam">Zarrar equipo</string>
   <string name="closeTeamDescription">Zarrar l\'equipo pa cutio.</string>
-  <string name="teamPassword">Clau de l\'equipo</string>
-  <string name="teamPasswordDescriptionForLeader">(Opcional) Una clau que los nuevos miembros han de conoixer pa unir-se a este equipo.</string>
-  <string name="incorrectTeamPassword">Clau d\'equipo incorrecta.</string>
   <string name="teamAlreadyExists">Este equipo ya existe.</string>
 </resources>

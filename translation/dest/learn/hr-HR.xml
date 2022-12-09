@@ -187,6 +187,12 @@ Kralj je neprocjenjiv! Izgubiti ga bi značilo izgubiti partiju.</string>
   <string name="queenOverBishop">Uzmi figure
 s najvećom vrijednošću!
 Dama &gt; Lovac</string>
+  <string name="pieceValueExchange">Uzmi figuru s najvećom vrijednošću!
+Ne mijenjaj
+figuru veće vrijednosti za figuru manje vrijednosti.</string>
+  <string name="pieceValueLegal">Uzmi figuru
+s najvećom vrijednošću!
+Pobrini se da je potez dozvoljen!</string>
   <string name="takeThePieceWithTheHighestValue">Uzmi figuru 
 s najvećom vrijednošću!</string>
   <string name="pieceValueComplete">Čestitke! Znaš vrijednost materijala!
@@ -228,8 +234,8 @@ u dva poteza!</string>
   <string name="nailedIt">Točno tako.</string>
   <string name="rightOn">Tako je!</string>
   <string name="stageXComplete">Razina %s završena</string>
-  <string name="yourScore">Tvoj rezultat</string>
   <string name="next">Sljedeće</string>
+  <string name="nextX">Sljedeća %s</string>
   <string name="backToMenu">Povratak na izbornik</string>
   <string name="puzzleFailed">Problem neuspješno riješen!</string>
   <string name="retry">Pokušaj ponovno</string>

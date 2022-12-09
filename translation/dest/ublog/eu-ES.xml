@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">%s erabiltzailearen Bloga</string>
+  <string name="newPost">Sarrera berria</string>
+  <string name="editYourBlogPost">Editatu blogeko sarrera</string>
+  <string name="saveDraft">Zirriborroa gorde</string>
+  <string name="postTitle">Sarreraren izenburua</string>
+  <string name="postIntro">Sarreraren laburpena</string>
+  <string name="postBody">Sarreraren testu luzea</string>
+  <string name="drafts">Zirriborroak</string>
+  <string name="published">Argitaratuta</string>
+  <string name="createBlogDiscussion">Aktibatu erantzunak</string>
+  <string name="createBlogDiscussionHelp">Foroko hari berri bat irekiko da zure sarreraren inguruan komentarioak egiteko</string>
+  <string name="publishOnYourBlog">Argitaratu zure blogean</string>
+  <string name="publishHelp">Aukeratuta badago, sarrera zure blogean agertuko da. Bestela pribatua izango da eta zirriborroen zerrendan egongo da</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Sarrera bat argitaratu da blogean</item>
+    <item quantity="other">%s sarrera argitaratu dira blogean</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Behin ikusita</item>
+    <item quantity="other">%s aldiz ikusi da</item>
+  </plurals>
+  <string name="xPublishedY">%1$s erabiltzaileak %2$s argitaratu du</string>
+  <string name="thisPostIsPublished">Sarrera hau argitaratuta dago</string>
+  <string name="thisIsADraft">Hau zirriborro bat da</string>
+  <string name="moreBlogPostsBy">%s erabiltzailearen sarrera gehiago</string>
+  <string name="noPostsInThisBlogYet">Blog honek ez du sarrerarik oraindik.</string>
+  <string name="noDrafts">Ez dago zirriborrorik.</string>
+  <string name="latestBlogPosts">Blogeko azken sarrerak</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Sarrera bat ikusi</item>
+    <item quantity="other">%s sarrera guztiak ikusi</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Kargatu zure sarreraren irudia</string>
+  <string name="imageAlt">Irudiaren ordezko testua</string>
+  <string name="imageCredit">Irudiaren oina</string>
+  <string name="deleteBlog">Sarrera hau betiko ezabatu</string>
+  <string name="deleteImage">Ezabatu irudia</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Webgune hauetako irudiak erabili ditzakezu: </string>
+  <string name="selectPostTopics">Aukeratu zure sarreraren gaiak</string>
+  <string name="useImagesYouMadeYourself">Zuk egindako irudiak, egindako argazkiak, Lichessen pantaila-irudiak eta beste norbaiten copyrightik ez duen edozer erabili dezakeu.</string>
+  <string name="safeAndRespectfulContent">Eduki seguru eta errespetuzkoa bakarrik argitaratu. Ez kopiatu beste norbaiten edukirik.</string>
+  <string name="inappropriateContentAccountClosed">Errespetua galduz gero, zure kontua itxiko dugu.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Blogeko sarrerak idazteko gure aholkuak</string>
+</resources>

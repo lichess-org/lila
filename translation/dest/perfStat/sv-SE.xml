@@ -6,6 +6,7 @@
   <string name="notEnoughRatedGames">Inte tillräckligt många rankade partier har spelats för att fastställa en tillförlitlig rating.</string>
   <string name="progressOverLastXGames">Utveckling under de senaste %s spelen:</string>
   <string name="ratingDeviation">Ratingavvikelse: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Lägre värde betyder att ratingen är mer stabil. Vid värden över %1$s anses ratingen vara provisorisk. För att inkluderas i rankinglistorna bör detta värde vara under %2$s (standardschack) eller %3$s (varianter).</string>
   <string name="totalGames">Antal partier totalt</string>
   <string name="ratedGames">Rankade partier</string>
   <string name="tournamentGames">Turneringspartier</string>
@@ -18,7 +19,7 @@
   <string name="notEnoughGames">Inte tillräckligt med spelade partier</string>
   <string name="highestRating">Högsta rating: %s</string>
   <string name="lowestRating">Lägsta rating: %s</string>
-  <string name="fromXToY">från %1$s till %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">från %1$s till %2$s</string>
   <string name="winningStreak">Vinster i rad</string>
   <string name="losingStreak">Förluster i rad</string>
   <string name="longestStreak">Längsta serie: %s</string>

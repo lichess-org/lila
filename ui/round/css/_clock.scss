@@ -85,6 +85,7 @@
     will-change: transform;
     z-index: -1;
     display: flex;
+    direction: ltr;
 
     &.hour {
       font-size: 2.3em;

@@ -24,7 +24,9 @@ export function renderClock(ctrl: RoundController, player: game.Player, position
     postpatch: (_, vnode) => update(vnode.elm as HTMLElement),
   };
   return h(
-    'div.rclock.rclock-' + position,
+    // the player.color class ensures that when the board is flipped, the clock is redrawn. solves bug where clock
+    // would be incorrectly latched to red color: https://github.com/lichess-org/lila/issues/10774
+    `div.rclock.rclock-${position}.rclock-${player.color}`,
     {
       class: {
         outoftime: millis <= 0,
@@ -128,15 +130,13 @@ export function updateElements(clock: ClockController, els: ClockElements, milli
   }
 }
 
-function showBerserk(ctrl: RoundController, color: Color): boolean {
-  return !!ctrl.goneBerserk[color] && ctrl.data.game.turns <= 1 && game.playable(ctrl.data);
-}
+const showBerserk = (ctrl: RoundController, color: Color): boolean =>
+  !!ctrl.goneBerserk[color] && ctrl.data.game.turns <= 1 && game.playable(ctrl.data);
 
-function renderBerserk(ctrl: RoundController, color: Color, position: Position) {
-  return showBerserk(ctrl, color) ? h('div.berserked.' + position, justIcon('')) : null;
-}
+const renderBerserk = (ctrl: RoundController, color: Color, position: Position) =>
+  showBerserk(ctrl, color) ? h('div.berserked.' + position, justIcon('')) : null;
 
-function goBerserk(ctrl: RoundController) {
+const goBerserk = (ctrl: RoundController) => {
   if (!game.berserkableBy(ctrl.data)) return;
   if (ctrl.goneBerserk[ctrl.data.player.color]) return;
   return h('button.fbt.go-berserk', {
@@ -146,9 +146,9 @@ function goBerserk(ctrl: RoundController) {
     },
     hook: bind('click', ctrl.goBerserk),
   });
-}
+};
 
-function tourRank(ctrl: RoundController, color: Color, position: Position) {
+const tourRank = (ctrl: RoundController, color: Color, position: Position) => {
   const d = ctrl.data,
     ranks = d.tournament?.ranks || d.swiss?.ranks;
   return ranks && !showBerserk(ctrl, color)
@@ -160,4 +160,4 @@ function tourRank(ctrl: RoundController, color: Color, position: Position) {
         '#' + ranks[color]
       )
     : null;
-}
+};

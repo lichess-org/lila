@@ -78,7 +78,7 @@
   .progress .text {
     position: absolute;
     top: 0;
-    left: 0;
+    #{$start-direction}: 0;
     width: 100%;
     line-height: 30px;
     z-index: 3;

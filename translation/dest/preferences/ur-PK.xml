@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">ترجیحات</string>
-  <string name="gameDisplay">بساط کی وضع قطع</string>
   <string name="pieceAnimation">مہروں کی حرکت</string>
   <string name="materialDifference">مہروں کا فرق</string>
   <string name="boardHighlights">آخری چال اور شہ بساط پر نمایاں کریں</string>
@@ -32,7 +31,7 @@
   <string name="promoteToQueenAutomatically">پیادہ خودبخود وزیر بن جائے</string>
   <string name="whenPremoving">خودکار چالوں میں</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">تیں دفعہ دہرائی پر برابری کا دعویٰ کریں</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">جب بقیہ وقت ۳۰ سیکنڈ سے کم ہو</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">جب بقیہ وقت ۳۰ سیکنڈ سے کم ہو</string>
   <string name="moveConfirmation">چال تصدیق پر چلی جائے گی</string>
   <string name="inCorrespondenceGames">قلمی کھیل</string>
   <string name="correspondenceAndUnlimited">کورسپونڈنس اور لا محدود</string>

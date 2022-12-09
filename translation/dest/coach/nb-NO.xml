@@ -25,11 +25,11 @@
   <string name="publicStudies">Offentlige studier</string>
   <string name="youtubeVideos">YouTube-videoer</string>
   <plurals name="studentReviews">
-    <item quantity="one">Én elevanmeldelse</item>
-    <item quantity="other">%s elevanmeldelser</item>
+    <item quantity="one">Én elevkommentar</item>
+    <item quantity="other">%s elevkommentarer</item>
   </plurals>
-  <string name="thankYouForReview">Takk for anmeldelsen!</string>
+  <string name="thankYouForReview">Takk for kommentaren!</string>
   <string name="xWillApproveIt">%s godkjenner den straks, eller så vil en moderator ta en kikk.</string>
-  <string name="reviewCoach">Skriv en elevanmeldelse</string>
+  <string name="reviewCoach">Kommenter denne treneren</string>
   <string name="describeExperienceWith">Beskriv hvordan det er å ha %s som trener</string>
 </resources>

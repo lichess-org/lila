@@ -2,14 +2,15 @@ package views.html.streamer
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
+import lila.i18n.LangList
 
-object index {
+object index:
 
-  import trans.streamer._
+  import trans.streamer.*
 
   private val dataDedup = attr("data-dedup")
 
@@ -17,7 +18,7 @@ object index {
       live: List[lila.streamer.Streamer.WithUserAndStream],
       pager: Paginator[lila.streamer.Streamer.WithUser],
       requests: Boolean
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
     val title = if (requests) "Streamer approval requests" else lichessStreamers.txt()
 
@@ -27,9 +28,9 @@ object index {
         else
           bits.redirectLink(s.user.username, stream.isDefined.some)(cls := "overlay"),
         stream.isDefined option span(cls := "ribbon")(span(trans.streamer.live())),
-        bits.pic(s.streamer, s.user),
+        picture.thumbnail(s.streamer, s.user),
         div(cls := "overview")(
-          h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
+          bits.streamerTitle(s),
           s.streamer.headline.map(_.value).map { d =>
             p(
               cls := s"headline ${if (d.length < 60) "small" else if (d.length < 120) "medium" else "large"}"
@@ -46,7 +47,7 @@ object index {
           div(cls := "ats")(
             stream.map { s =>
               p(cls := "at")(
-                currentlyStreaming(strong(s.status))
+                currentlyStreaming(strong(s.cleanStatus))
               )
             } getOrElse frag(
               p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),
@@ -63,10 +64,10 @@ object index {
       moreCss = cssTag("streamer.list"),
       moreJs = infiniteScrollTag
     ) {
-      main(cls := "page-menu")(
+      main(cls                                                          := "page-menu")(
         bits.menu(if (requests) "requests" else "index", none)(ctx)(cls := " page-menu__menu"),
         div(cls := "page-menu__content box streamer-list")(
-          h1(dataIcon := "", cls := "text")(title),
+          boxTop(h1(dataIcon := "", cls := "text")(title)),
           !requests option div(cls := "list live")(
             live.map { s =>
               st.article(cls := "streamer")(widget(s.withoutStream, s.stream))
@@ -80,15 +81,15 @@ object index {
             pagerNext(
               pager,
               np =>
-                addQueryParameter(
-                  addQueryParameter(routes.Streamer.index().url, "page", np),
-                  "requests",
-                  if (requests) 1 else 0
+                addQueryParams(
+                  routes.Streamer.index().url,
+                  Map(
+                    "page"     -> np.toString,
+                    "requests" -> (if requests then 1 else 0).toString
+                  )
                 )
             )
           )
         )
       )
     }
-  }
-}

@@ -60,7 +60,7 @@
   <string name="sendAppealTo">Pots enviar una apel·lació a %s.</string>
   <string name="falsePositives">A vegades es detecten falsos positius i demanem disculpes per això.</string>
   <string name="ifLegit">Si la vostra apel·lació és legítima, eliminarem la prohibició el més aviat possible.</string>
-  <string name="accountLost">Tanmateix, si realment heu utilitzat l\'assistència del motor, fins i tot una sola vegada, el vostre compte es perd desgraciadament.</string>
+  <string name="accountLost">Tanmateix, si realment heu utilitzat l\'assistència del motor, fins i tot una sola vegada, el vostre compte és eliminat.</string>
   <string name="doNotDeny">No neguis haver enganyat. Si vols crear un compte nou, només admeteu el que heu fet i demostreu que heu entès que era un error.</string>
   <string name="otherRestriction">Una altra restricció</string>
   <string name="collaboration">Col·laboració, legal, comercial</string>

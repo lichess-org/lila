@@ -13,7 +13,9 @@
   <string name="specialMoves">Ypatingi ėjimai</string>
   <string name="didYouLikeThisPuzzle">Ar jums patiko ši užduotis?</string>
   <string name="voteToLoadNextOne">Nubalsuokite norėdami pakrauti kitą!</string>
-  <string name="yourPuzzleRatingX">Jūsų užduočių reitingas: %s</string>
+  <string name="upVote">Prabalsuoti už</string>
+  <string name="downVote">Prabalsuoti prieš</string>
+  <string name="yourPuzzleRatingWillNotChange">Jūsų galvosūkių reitingas nesikeis. Pažymėtina, kad galvosūkiai nėra rungtynės. Reitingas padeda išrinkti tinkamiausius galvosūkius pagal jūsų gebėjimus.</string>
   <string name="findTheBestMoveForWhite">Raskite geriausią ėjimą baltiems.</string>
   <string name="findTheBestMoveForBlack">Raskite geriausią ėjimą juodiems.</string>
   <string name="toGetPersonalizedPuzzles">Norėdami gauti suasmenintas užduotis:</string>
@@ -57,6 +59,7 @@
   </plurals>
   <string name="example">Pavyzdys</string>
   <string name="addAnotherTheme">Pridėti dar vieną temą</string>
+  <string name="nextPuzzle">Kitas uždavinys</string>
   <string name="jumpToNextPuzzleImmediately">Iš karto pereiti į kitą užduotį</string>
   <string name="puzzleDashboard">Užduočių centras</string>
   <string name="improvementAreas">Vietos tobulėjimui</string>
@@ -76,4 +79,21 @@
   <string name="fromMyGamesNone">Jūs galvosūkių duomenų bazėje neturite, bet Lichess vis tiek jus labai myli.
 Žaiskite greituosius ir klasikinius žaidimus ir taip padidinkite šansus, kad bus pridėtas galvosūkis iš jūsų partijos!</string>
   <string name="fromXGamesFound">%1$s galvosūkių rasta %2$s partijose</string>
+  <string name="puzzleDashboardDescription">Treniruokitės, analizuokite, tobulinkitės</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s sužaistas</item>
+    <item quantity="few">%s sužaisti</item>
+    <item quantity="many">%s sužaista</item>
+    <item quantity="other">%s sužaista</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s sužaisti</item>
+    <item quantity="few">%s sužaisti</item>
+    <item quantity="many">%s sužaisti</item>
+    <item quantity="other">%s sužaisti</item>
+  </plurals>
+  <string name="percentSolved">%s išspręsta</string>
+  <string name="noPuzzlesToShow">Nėra ką rodyti, pirma išspręskite galvosūkių!</string>
+  <string name="improvementAreasDescription">Treniruokitės su šiomis norėdami pagerinti savo progresą!</string>
+  <string name="strengthDescription">Jums geriausiai sekasi šiose temose</string>
 </resources>

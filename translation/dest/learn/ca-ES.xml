@@ -221,8 +221,8 @@ en dos moviments!</string>
   <string name="nailedIt">L\'has ben clavat.</string>
   <string name="rightOn">Exacte!</string>
   <string name="stageXComplete">Nivell %s completat</string>
-  <string name="yourScore">El seu resultat</string>
   <string name="next">Següent</string>
+  <string name="nextX">Següent: %s</string>
   <string name="backToMenu">Tornar al menú</string>
   <string name="puzzleFailed">Solució incorrecta!</string>
   <string name="retry">Intenta-ho de nou</string>

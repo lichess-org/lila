@@ -2,12 +2,12 @@ package lila.video
 
 import play.api.libs.ws.StandaloneWSClient
 import play.api.Mode
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 
 @Module
 private class VideoConfig(
@@ -28,7 +28,7 @@ final class Env(
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     mode: Mode
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   private val config = appConfig.get[VideoConfig]("video")(AutoConfig.loader)
 
@@ -38,7 +38,7 @@ final class Env(
     viewColl = db(config.viewColl)
   )
 
-  private lazy val sheet = new Sheet(ws, config.sheetUrl, api)
+  private lazy val sheet = new VideoSheet(ws, config.sheetUrl, api)
 
   private lazy val youtube = new Youtube(
     ws = ws,
@@ -48,13 +48,17 @@ final class Env(
     api = api
   )
 
-  if (mode == Mode.Prod) {
-    scheduler.scheduleWithFixedDelay(config.sheetDelay * 2, config.sheetDelay) { () =>
+  def cli =
+    new lila.common.Cli:
+      def process = { case "video" :: "sheet" :: Nil =>
+        sheet.fetchAll map { nb => s"Processed $nb videos" }
+      }
+
+  if (mode == Mode.Prod)
+    scheduler.scheduleWithFixedDelay(config.sheetDelay, config.sheetDelay) { () =>
       sheet.fetchAll.logFailure(logger).unit
     }
 
-    scheduler.scheduleWithFixedDelay(config.youtubeDelay * 2, config.youtubeDelay) { () =>
+    scheduler.scheduleWithFixedDelay(config.youtubeDelay, config.youtubeDelay) { () =>
       youtube.updateAll.logFailure(logger).unit
     }
-  }
-}

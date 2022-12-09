@@ -1,28 +1,32 @@
 package lila.security
 
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.data.validation.Constraints
-import scala.concurrent.duration._
+import play.api.mvc.RequestHeader
+import scala.concurrent.duration.*
 
-import lila.common.{ EmailAddress, LameName, Form => LilaForm }
+import lila.common.{ EmailAddress, Form as LilaForm, LameName }
+import lila.common.Form.into
+import lila.user.User.{ ClearPassword, TotpToken }
 import lila.user.{ TotpSecret, User, UserRepo }
-import User.{ ClearPassword, TotpToken }
 
 final class SecurityForm(
     userRepo: UserRepo,
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
     lameNameCheck: LameNameCheck,
-    hcaptchaPublicConfig: HcaptchaPublicConfig
-)(implicit ec: scala.concurrent.ExecutionContext) {
+    hcaptcha: Hcaptcha
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import SecurityForm._
+  import SecurityForm.*
 
   private val passwordMinLength = 4
 
   private val anyEmail =
-    LilaForm.cleanNonEmptyText(minLength = 6, maxLength = 320).verifying(Constraints.emailAddress)
+    LilaForm
+      .cleanNonEmptyText(minLength = 6, maxLength = EmailAddress.maxLength)
+      .verifying(Constraints.emailAddress)
   private val sendableEmail   = anyEmail.verifying(emailValidator.sendableConstraint)
   private val acceptableEmail = anyEmail.verifying(emailValidator.acceptableConstraint)
   private def acceptableUniqueEmail(forUser: Option[User]) =
@@ -32,7 +36,7 @@ final class SecurityForm(
 
   private val preloadEmailDnsForm = Form(single("email" -> acceptableEmail))
 
-  def preloadEmailDns(implicit req: play.api.mvc.Request[_], formBinding: FormBinding): Funit =
+  def preloadEmailDns(implicit req: play.api.mvc.Request[?], formBinding: FormBinding): Funit =
     preloadEmailDnsForm
       .bindFromRequest()
       .fold(
@@ -40,7 +44,7 @@ final class SecurityForm(
         email => emailValidator.preloadDns(EmailAddress(email))
       )
 
-  object signup {
+  object signup:
 
     val username = LilaForm.cleanNonEmptyText
       .verifying(
@@ -63,10 +67,11 @@ final class SecurityForm(
           error = "usernameCharsInvalid"
         )
       )
+      .into[UserName]
       .verifying("usernameUnacceptable", u => !lameNameCheck.value || !LameName.username(u))
       .verifying(
         "usernameAlreadyUsed",
-        u => !User.isGhost(u) && !userRepo.nameExists(u).await(3 seconds, "signupUsername")
+        u => !User.isGhost(u.id) && !userRepo.exists(u).await(3 seconds, "signupUsername")
       )
 
     private val agreementBool = boolean.verifying(b => b)
@@ -76,11 +81,11 @@ final class SecurityForm(
       "nice"       -> agreementBool,
       "account"    -> agreementBool,
       "policy"     -> agreementBool
-    )(AgreementData.apply)(AgreementData.unapply)
+    )(AgreementData.apply)(unapply)
 
     val emailField = withAcceptableDns(acceptableUniqueEmail(none))
 
-    val website = HcaptchaForm(
+    def website(implicit req: RequestHeader) = hcaptcha.form(
       Form(
         mapping(
           "username"  -> username,
@@ -89,8 +94,7 @@ final class SecurityForm(
           "agreement" -> agreement,
           "fp"        -> optional(nonEmptyText)
         )(SignupData.apply)(_ => None)
-      ),
-      hcaptchaPublicConfig
+      )
     )
 
     val mobile = Form(
@@ -100,15 +104,13 @@ final class SecurityForm(
         "email"    -> emailField
       )(MobileSignupData.apply)(_ => None)
     )
-  }
 
-  val passwordReset = HcaptchaForm(
+  def passwordReset(implicit req: RequestHeader) = hcaptcha.form(
     Form(
       mapping(
         "email" -> sendableEmail // allow unacceptable emails for BC
       )(PasswordReset.apply)(_ => None)
-    ),
-    hcaptchaPublicConfig
+    )
   )
 
   val newPassword = Form(
@@ -117,27 +119,25 @@ final class SecurityForm(
     )
   )
 
-  case class PasswordResetConfirm(newPasswd1: String, newPasswd2: String) {
+  case class PasswordResetConfirm(newPasswd1: String, newPasswd2: String):
     def samePasswords = newPasswd1 == newPasswd2
-  }
 
   val passwdReset = Form(
     mapping(
       "newPasswd1" -> nonEmptyText(minLength = passwordMinLength),
       "newPasswd2" -> nonEmptyText(minLength = passwordMinLength)
-    )(PasswordResetConfirm.apply)(PasswordResetConfirm.unapply).verifying(
+    )(PasswordResetConfirm.apply)(unapply).verifying(
       "newPasswordsDontMatch",
       _.samePasswords
     )
   )
 
-  val magicLink = HcaptchaForm(
+  def magicLink(implicit req: RequestHeader) = hcaptcha.form(
     Form(
       mapping(
         "email" -> sendableEmail // allow unacceptable emails for BC
       )(MagicLink.apply)(_ => None)
-    ),
-    hcaptchaPublicConfig
+    )
   )
 
   def changeEmail(u: User, old: Option[EmailAddress]) =
@@ -148,7 +148,7 @@ final class SecurityForm(
           "email" -> withAcceptableDns {
             acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
           }
-        )(ChangeEmail.apply)(ChangeEmail.unapply)
+        )(ChangeEmail.apply)(unapply)
       ).fill(
         ChangeEmail(
           passwd = "",
@@ -164,7 +164,7 @@ final class SecurityForm(
           "secret" -> nonEmptyText,
           "passwd" -> passwordMapping(candidate),
           "token"  -> nonEmptyText
-        )(TwoFactor.apply)(TwoFactor.unapply).verifying(
+        )(TwoFactor.apply)(unapply).verifying(
           "invalidAuthenticationCode",
           _.tokenValid
         )
@@ -182,7 +182,7 @@ final class SecurityForm(
       Form(
         tuple(
           "passwd" -> passwordMapping(candidate),
-          "token"  -> text.verifying("invalidAuthenticationCode", t => u.totpSecret.??(_.verify(TotpToken(t))))
+          "token" -> text.verifying("invalidAuthenticationCode", t => u.totpSecret.??(_.verify(TotpToken(t))))
         )
       )
     }
@@ -203,25 +203,23 @@ final class SecurityForm(
       Form(single("passwd" -> passwordMapping(candidate)))
     }
 
-  def closeAccount = passwordProtected _
+  def closeAccount = passwordProtected
 
-  def toggleKid = passwordProtected _
+  def toggleKid = passwordProtected
 
-  val reopen = HcaptchaForm(
+  def reopen(implicit req: RequestHeader) = hcaptcha.form(
     Form(
       mapping(
-        "username" -> LilaForm.cleanNonEmptyText,
+        "username" -> LilaForm.cleanNonEmptyText.into[UserStr],
         "email"    -> sendableEmail // allow unacceptable emails for BC
       )(Reopen.apply)(_ => None)
-    ),
-    hcaptchaPublicConfig
+    )
   )
 
   private def passwordMapping(candidate: User.LoginCandidate) =
     text.verifying("incorrectPassword", p => candidate.check(ClearPassword(p)))
-}
 
-object SecurityForm {
+object SecurityForm:
 
   case class AgreementData(
       assistance: Boolean,
@@ -231,49 +229,41 @@ object SecurityForm {
   )
 
   case class SignupData(
-      username: String,
+      username: UserName,
       password: String,
       email: String,
       agreement: AgreementData,
       fp: Option[String]
-  ) {
+  ):
     def realEmail = EmailAddress(email)
 
-    def fingerPrint = fp.filter(_.nonEmpty) map FingerPrint.apply
-  }
+    def fingerPrint = FingerPrint from fp.filter(_.nonEmpty)
 
   case class MobileSignupData(
-      username: String,
+      username: UserName,
       password: String,
       email: String
-  ) {
+  ):
     def realEmail = EmailAddress(email)
-  }
 
   case class PasswordReset(
       email: String
-  ) {
+  ):
     def realEmail = EmailAddress(email)
-  }
 
   case class MagicLink(
       email: String
-  ) {
+  ):
     def realEmail = EmailAddress(email)
-  }
 
   case class Reopen(
-      username: String,
+      username: UserStr,
       email: String
-  ) {
+  ):
     def realEmail = EmailAddress(email)
-  }
 
-  case class ChangeEmail(passwd: String, email: String) {
+  case class ChangeEmail(passwd: String, email: String):
     def realEmail = EmailAddress(email)
-  }
 
-  case class TwoFactor(secret: String, passwd: String, token: String) {
+  case class TwoFactor(secret: String, passwd: String, token: String):
     def tokenValid = TotpSecret(secret).verify(User.TotpToken(token))
-  }
-}

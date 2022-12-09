@@ -8,6 +8,13 @@
   <string name="mostChessCourses">Satranç derslerinin ve alıştırmalarının çoğunda cebirsel gösterim kullanılır.</string>
   <string name="talkToYourChessFriends">\"Satranç dilini\" anlayabildiğin için satranç oynayan arkadaşlarınla anlaşman daha kolay bir hâl alır.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Karelerin adlarını iyice bilirsen oyunları daha etkili bir şekilde analiz edebilirsin.</string>
-  <string name="aSquareNameAppears">Bu alıştırma için tahta üzerinde adı görünen karelere tıklaman gerekiyor. 30 saniye içinde mümkün olduğunca çok kareyi bulmaya çalış!</string>
+  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Tahta üzerinde sana verilecek koordinata karşılık gelen kareye tıklamalısın.</string>
+  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Tahta üzerinde gösterilen karenin koordinatını yazmalısın (\"e4\" gibi).</string>
+  <string name="youHaveThirtySeconds">30 saniye içinde kaç tane kare bulabilirsen!</string>
+  <string name="goAsLongAsYouWant">İstediğin kadar oyna, süre sınırı yok!</string>
+  <string name="showCoordinates">Koordinatları göster</string>
+  <string name="showPieces">Taşları göster</string>
   <string name="startTraining">Antrenmana başla</string>
+  <string name="findSquare">Kareleri bul</string>
+  <string name="nameSquare">Kareleri yaz</string>
 </resources>

@@ -23,7 +23,7 @@ class MySpec()
 
   "syncache" must {
 
-    "be thread safe" in {
+    "be thread safe" >> {
       var computeCount = 0
       val cache = new Syncache[Int, String](
         name = "test",
@@ -34,7 +34,7 @@ class MySpec()
             s"computed $s"
           },
         default = s => s"default $s",
-        strategy = Syncache.AlwaysWait(1 second),
+        strategy = Syncache.WaitAfterUptime(1 second),
         expireAfter = Syncache.ExpireAfterWrite(10 seconds)
       )
       val threads = 20

@@ -8,6 +8,13 @@
   <string name="mostChessCourses">معظم دورات الشطرنج والتمارين تستخدم التدوين الجبري على نطاق واسع.</string>
   <string name="talkToYourChessFriends">فهي تجعل من السهل التحدث إلى أصدقائك الشطرنجين، ما دام كل منكم يفهم \"لغة الشطرنج\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">يمكنك تحليل المباراة بفعالية أكبر إذا كنت تتعرف بسرعة على الاحداثيات.</string>
-  <string name="aSquareNameAppears">اسم المربع يظهر على الرقعة، ويجب عليك النقر فوق المربع الصحيح. لديك 30 ثانية للتعرف على أكبر عدد ممكن من المربعات!</string>
+  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">الإحداثيات تظهر على اللوحة ويجب عليك النقر على المربع.</string>
+  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">يتم تسليط الضوء على مربع على اللوحة ويجب عليك إدخال إحداثياته (على سبيل المثال \"e4\").</string>
+  <string name="youHaveThirtySeconds">لديك 30 ثانية لرسم خريطة صحيحة لأكبر عدد ممكن من المربعات!</string>
+  <string name="goAsLongAsYouWant">اذهب طالما تريد، لا يوجد حد زمني!</string>
+  <string name="showCoordinates">إظهار الإحداثيات</string>
+  <string name="showPieces">إظهار القطع</string>
   <string name="startTraining">إبدأ التدريب</string>
+  <string name="findSquare">ابحث عن مربع</string>
+  <string name="nameSquare">سم المربع</string>
 </resources>

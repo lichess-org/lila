@@ -2,9 +2,9 @@ package lila.msg
 
 import akka.actor.Cancellable
 import java.util.concurrent.ConcurrentHashMap
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.notify.{ Notification, PrivateMessage }
 import lila.common.String.shorten
 import lila.user.User
@@ -12,12 +12,12 @@ import lila.user.User
 final private class MsgNotify(
     colls: MsgColls,
     notifyApi: lila.notify.NotifyApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   private val delay = 5 seconds
 
@@ -25,18 +25,17 @@ final private class MsgNotify(
 
   def onPost(threadId: MsgThread.Id): Unit = schedule(threadId)
 
-  def onRead(threadId: MsgThread.Id, userId: User.ID, contactId: User.ID): Funit = {
+  def onRead(threadId: MsgThread.Id, userId: UserId, contactId: UserId): Funit =
     !cancel(threadId) ??
       notifyApi
         .markRead(
-          lila.notify.Notification.Notifies(userId),
+          userId into Notification.Notifies,
           $doc(
             "content.type" -> "privateMessage",
             "content.user" -> contactId
           )
         )
         .void
-  }
 
   def deleteAllBy(threads: List[MsgThread], user: User): Funit =
     threads
@@ -44,7 +43,7 @@ final private class MsgNotify(
         cancel(thread.id)
         notifyApi
           .remove(
-            lila.notify.Notification.Notifies(thread other user),
+            thread other user into Notification.Notifies,
             $doc("content.user" -> user.id)
           )
           .void
@@ -75,15 +74,10 @@ final private class MsgNotify(
         val msg  = thread.lastMsg
         val dest = thread other msg.user
         !thread.delBy(dest) ?? {
-          lila.common.Bus.publish(MsgThread.Unread(thread), "msgUnread")
           notifyApi addNotification Notification.make(
-            Notification.Notifies(dest),
-            PrivateMessage(
-              PrivateMessage.Sender(msg.user),
-              PrivateMessage.Text(shorten(msg.text, 80))
-            )
-          )
+            dest,
+            PrivateMessage(msg.user, shorten(msg.text, 40))
+          ) map (_ ?? lila.common.Bus.publish(MsgThread.Unread(thread), "msgUnread"))
         }
       }
     }
-}

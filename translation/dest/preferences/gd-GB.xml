@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Roghainnean</string>
-  <string name="gameDisplay">Dealbhachd na geama</string>
   <string name="pieceAnimation">Gluasachd nam pìosan</string>
   <string name="materialDifference">Eadar-dhealachadh de stuth</string>
   <string name="boardHighlights">Soillseachadh am bòrd (an gluasachd mu dheireadh agus caisg)</string>
@@ -14,7 +13,7 @@
   <string name="horizontalGreenProgressBars">Bàraichean adhartais air a\' chòmhnard</string>
   <string name="soundWhenTimeGetsCritical">Seirm nuair a tha an ùine gu bhith falbh orm</string>
   <string name="promoteToQueenAutomatically">Àrdaich gu bànrigh gu fèin-obrachail</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Nuair a bhios &lt; 30 diog a thìde air fhàgail</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Nuair a bhios &lt; 30 diog a thìde air fhàgail</string>
   <string name="moveConfirmation">Dearbhadh a\' ghluasaid</string>
   <string name="inCorrespondenceGames">Geamannan co-sgrìobhaidh</string>
   <string name="yourPreferencesHaveBeenSaved">Chaidh na roghainnean agad a shàbhaladh.</string>

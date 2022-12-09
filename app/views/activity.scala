@@ -2,19 +2,19 @@ package views.html
 
 import controllers.routes
 
-import lila.activity.activities._
-import lila.activity.model._
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.activity.activities.*
+import lila.activity.model.*
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 import lila.swiss.Swiss
 
-object activity {
+object activity:
 
   def apply(u: User, as: Iterable[lila.activity.ActivityView])(implicit ctx: Context) =
     div(cls := "activity")(
-      as.toSeq map { a =>
+      as.toSeq filterNot (_.isEmpty) map { a =>
         st.section(
           h2(semanticDate(a.interval.getStart)),
           div(cls := "entries")(
@@ -25,7 +25,8 @@ object activity {
             a.racer map renderRacer,
             a.streak map renderStreak,
             a.games map renderGames,
-            a.posts map renderPosts,
+            a.forumPosts map renderForumPosts,
+            a.ublogPosts map renderUblogPosts(u),
             a.corresMoves map { case (nb, povs) =>
               renderCorresMoves(nb, povs)
             },
@@ -57,7 +58,7 @@ object activity {
       )
     )
 
-  private def renderPractice(p: Map[lila.practice.PracticeStudy, Int])(implicit ctx: Context) = {
+  private def renderPractice(p: Map[lila.practice.PracticeStudy, Int])(implicit ctx: Context) =
     val ps = p.toSeq.sortBy(-_._2)
     entryTag(
       iconTag(""),
@@ -69,25 +70,23 @@ object activity {
         }
       )
     )
-  }
 
   private def onePractice(tup: (lila.practice.PracticeStudy, Int))(implicit ctx: Context) =
-    tup match {
+    tup match
       case (study, nb) =>
-        val href = routes.Practice.show("-", study.slug, study.id.value)
+        val href = routes.Practice.show("-", study.slug, study.id)
         frag(
           trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
           br
         )
-    }
 
   private def renderPuzzles(u: User)(p: Puzzles)(implicit ctx: Context) =
     entryTag(
       iconTag(""),
-      scoreFrag(p.score),
+      scoreFrag(p.value),
       div(
-        trans.activity.solvedNbPuzzles.pluralSame(p.score.size),
-        p.score.rp.filterNot(_.isEmpty || (u.perfs.dubiousPuzzle && !ctx.is(u))).map(ratingProgFrag)
+        trans.activity.solvedNbPuzzles.pluralSame(p.value.size),
+        p.value.rp.filterNot(_.isEmpty || (u.perfs.dubiousPuzzle && !ctx.is(u))).map(ratingProgFrag)
       )
     )
 
@@ -133,15 +132,20 @@ object activity {
       )
     }
 
-  private def renderPosts(posts: Map[lila.forum.Topic, List[lila.forum.Post]])(implicit ctx: Context) =
+  private def renderForumPosts(posts: Map[lila.forum.ForumTopic, List[lila.forum.ForumPost]])(implicit
+      ctx: Context
+  ) =
     ctx.noKid option entryTag(
       iconTag(""),
       div(
         posts.toSeq.map { case (topic, posts) =>
-          val url = routes.ForumTopic.show(topic.categId, topic.slug)
           frag(
             trans.activity.postedNbMessages
-              .plural(posts.size, posts.size, a(href := url)(shorten(topic.name, 70))),
+              .plural(
+                posts.size,
+                posts.size,
+                a(href := routes.ForumTopic.show(topic.categId, topic.slug))(shorten(topic.name, 70))
+              ),
             subTag(
               posts.map { post =>
                 div(cls := "line")(a(href := routes.ForumPost.redirect(post.id))(shorten(post.text, 120)))
@@ -149,6 +153,21 @@ object activity {
             )
           )
         }
+      )
+    )
+
+  private def renderUblogPosts(user: User)(posts: List[lila.ublog.UblogPost.LightPost])(using
+      ctx: Context
+  ) =
+    ctx.noKid option entryTag(
+      iconTag(""),
+      div(
+        trans.ublog.publishedNbBlogPosts.pluralSame(posts.size),
+        subTag(posts.map { post =>
+          div(
+            a(href := routes.Ublog.post(user.username, post.slug, post.id))(shorten(post.title, 120))
+          )
+        })
       )
     )
 
@@ -227,13 +246,15 @@ object activity {
             else trans.activity.joinedNbSimuls.pluralSame(simuls.size),
             subTag(
               simuls.map { s =>
+                val win = s.pairingOf(u.id).flatMap(_.wins)
                 div(
                   a(href := routes.Simul.show(s.id))(
                     s.name,
                     " simul by ",
                     userIdLink(s.hostId.some)
                   ),
-                  scoreFrag(Score(s.wins, s.losses, s.draws, none))
+                  if (isHost) scoreFrag(Score(s.wins, s.losses, s.draws, none))
+                  else scoreFrag(Score(win.has(true) ?? 1, win.has(false) ?? 1, win.isEmpty ?? 1, none))
                 )
               }
             )
@@ -249,7 +270,7 @@ object activity {
         trans.activity.createdNbStudies.pluralSame(studies.size),
         subTag(
           studies.map { s =>
-            frag(a(href := routes.Study.show(s.id.value))(s.name.value), br)
+            frag(a(href := routes.Study.show(s.id))(s.name), br)
           }
         )
       )
@@ -273,7 +294,7 @@ object activity {
           tours.best.map { t =>
             div(
               cls := List(
-                "is-gold" -> (t.rank == 1),
+                "is-gold" -> (t.rank == Rank(1)),
                 "text"    -> (t.rank <= 3)
               ),
               dataIcon := (t.rank <= 3).option("")
@@ -292,7 +313,7 @@ object activity {
       )
     )
 
-  private def renderSwisses(swisses: List[(Swiss.IdName, Int)])(implicit ctx: Context) =
+  private def renderSwisses(swisses: List[(Swiss.IdName, Rank)])(implicit ctx: Context) =
     entryTag(
       iconTag(""),
       div(
@@ -301,14 +322,14 @@ object activity {
           swisses.map { case (swiss, rank) =>
             div(
               cls := List(
-                "is-gold" -> (rank == 1),
+                "is-gold" -> (rank == Rank(1)),
                 "text"    -> (rank <= 3)
               ),
               dataIcon := (rank <= 3).option("")
             )(
               trans.activity.rankedInSwissTournament(
                 strong(rank),
-                a(href := routes.Swiss.show(swiss.id.value))(swiss.name)
+                a(href := routes.Swiss.show(swiss.id))(swiss.name)
               ),
               br
             )
@@ -337,14 +358,14 @@ object activity {
   private def scoreFrag(s: Score)(implicit ctx: Context) =
     raw {
       s"""<score>${scoreStr("win", s.win, trans.nbWins)}${scoreStr("draw", s.draw, trans.nbDraws)}${scoreStr(
-        "loss",
-        s.loss,
-        trans.nbLosses
-      )}</score>"""
+          "loss",
+          s.loss,
+          trans.nbLosses
+        )}</score>"""
     }
 
-  private def ratingProgFrag(r: RatingProg) =
-    ratingTag(r.after.value, ratingProgress(r.diff))
+  private def ratingProgFrag(r: RatingProg)(implicit ctx: Context) =
+    ctx.pref.showRatings option ratingTag(r.after.value, ratingProgress(r.diff))
 
   private def scoreStr(tag: String, p: Int, name: lila.i18n.I18nKey)(implicit ctx: Context) =
     if (p == 0) ""
@@ -352,4 +373,3 @@ object activity {
 
   private val wrapNumberRegex         = """(\d++)""".r
   private def wrapNumber(str: String) = wrapNumberRegex.replaceAllIn(str, "<strong>$1</strong>")
-}

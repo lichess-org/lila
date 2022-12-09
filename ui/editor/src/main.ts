@@ -1,8 +1,8 @@
-import { init, attributesModule, eventListenersModule, classModule, propsModule } from 'snabbdom';
 import EditorCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view';
 import { Chessground } from 'chessground';
+import { init, attributesModule, eventListenersModule, classModule, propsModule } from 'snabbdom';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 
@@ -28,3 +28,5 @@ export default function LichessEditor(element: HTMLElement, config: Editor.Confi
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = Chessground;
+
+(window as any).LichessEditor = LichessEditor; // esbuild

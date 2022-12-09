@@ -1,6 +1,6 @@
 package lila.user
 
-import scala._
+import scala.*
 
 final class Country(
     val code: String,
@@ -8,7 +8,7 @@ final class Country(
     val shortName: String
 )
 
-object Countries {
+object Countries:
 
   @inline private def C(code: String, name: String)                    = new Country(code, name, name)
   @inline private def C(code: String, name: String, shortName: String) = new Country(code, name, shortName)
@@ -52,6 +52,7 @@ object Countries {
     C("BY", "Belarus"),
     C("BZ", "Belize"),
     C("CA", "Canada"),
+    C("CA-QC", "Quebec"),
     C("CC", "Cocos (Keeling) Islands"),
     C("CD", "Congo (Democratic Rep.)"),
     C("CF", "Central African Republic"),
@@ -83,7 +84,7 @@ object Countries {
     C("ER", "Eritrea"),
     C("ES", "Spain"),
     C("ES-CT", "Catalonia"),
-    C("ES-EU", "Basque"),
+    C("ES-EU", "Basque Country"),
     C("ET", "Ethiopia"),
     C("FI", "Finland"),
     C("FJ", "Fiji"),
@@ -279,8 +280,10 @@ object Countries {
     C("_lichess", "Lichess"),
     C("_pirate", "Pirate"),
     C("_rainbow", "Rainbow"),
+    C("_russia-wbw", "Russia White-blue-white"),
     C("_united-nations", "United Nations"),
-    C("_earth", "Earth")
+    C("_earth", "Earth"),
+    C("_transgender", "Transgender")
   )
 
   val allPairs = all map { c =>
@@ -306,9 +309,9 @@ object Countries {
     "_pirate",
     "_rainbow",
     "_united-nations",
-    "_earth"
+    "_earth",
+    "_transgender"
   )
 
   def info(code: String): Option[Country] = map get code
   def name(country: Country): String      = nameMap.getOrElse(country, country.name)
-}

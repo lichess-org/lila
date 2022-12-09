@@ -15,7 +15,7 @@
   grid-gap: 9px;
   padding: 9px;
 
-  @include fluid-size("font-size", 14px, 25px);
+  @include fluid-size('font-size', 14px, 25px);
 
   > div {
     @extend %flex-column, %box-radius, %break-word;
@@ -50,7 +50,7 @@
 
   .spinner {
     flex: 0 0 auto;
-    margin: .1em 0 .6em 0;
+    margin: 0.1em 0 0.6em 0;
     width: 2em;
     height: 2em;
     pointer-events: none;
@@ -60,6 +60,6 @@
     display: block;
     font-size: 1.5em;
     line-height: 1.6em;
-    letter-spacing: .1em;
+    letter-spacing: 0.1em;
   }
 }

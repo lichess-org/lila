@@ -2,33 +2,34 @@ package lila.streamer
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
+import play.api.i18n.Lang
 
-import lila.db.dsl._
-import lila.db.Photographer
-import lila.memo.CacheApi._
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.*
+import lila.memo.PicfitApi
 import lila.user.{ User, UserRepo }
 
 final class StreamerApi(
     coll: Coll,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
-    photographer: Photographer,
+    picfitApi: PicfitApi,
     notifyApi: lila.notify.NotifyApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def withColl[A](f: Coll => A): A = f(coll)
 
   def byId(id: Streamer.Id): Fu[Option[Streamer]]           = coll.byId[Streamer](id.value)
-  def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer](ids.map(_.value))
+  def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer, Streamer.Id](ids)
 
-  def find(username: String): Fu[Option[Streamer.WithUser]] =
-    userRepo named username flatMap { _ ?? find }
+  def find(username: UserStr): Fu[Option[Streamer.WithUser]] =
+    userRepo byId username flatMap { _ ?? find }
 
   def find(user: User): Fu[Option[Streamer.WithUser]] =
-    byId(Streamer.Id(user.id)) dmap {
+    byId(user.id into Streamer.Id) dmap {
       _ map { Streamer.WithUser(_, user) }
     }
 
@@ -39,7 +40,7 @@ final class StreamerApi(
     }
 
   def withUser(s: Stream): Fu[Option[Streamer.WithUserAndStream]] =
-    userRepo named s.streamer.userId dmap {
+    userRepo byId s.streamer.userId dmap {
       _ map { user =>
         Streamer.WithUserAndStream(s.streamer, user, s.some)
       }
@@ -52,17 +53,27 @@ final class StreamerApi(
 
   def setSeenAt(user: User): Funit =
     cache.listedIds.getUnit flatMap { ids =>
-      ids.contains(Streamer.Id(user.id)) ??
+      ids.contains(user.id into Streamer.Id) ??
         coll.update.one($id(user.id), $set("seenAt" -> DateTime.now)).void
     }
 
-  def setLiveNow(ids: List[Streamer.Id]): Funit =
-    coll.update.one($doc("_id" $in ids), $set("liveAt" -> DateTime.now), multi = true) >>
-      cache.candidateIds.getUnit.map { candidateIds =>
-        if (ids.exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
-      }
+  def setLangLiveNow(streams: List[Stream]): Funit =
+    val update = coll.update(ordered = false)
+    for {
+      elements <- streams.map { s =>
+        update.element(
+          q = $id(s.streamer.id),
+          u = $set(
+            "liveAt"         -> DateTime.now,
+            "lastStreamLang" -> Lang.get(s.lang).map(_.language)
+          )
+        )
+      }.sequenceFu
+      _            <- elements.nonEmpty ?? update.many(elements).void
+      candidateIds <- cache.candidateIds.getUnit
+    } yield if (streams.map(_.streamer.id).exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
 
-  def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
+  def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] =
     val streamer = data(prev, asMod)
     coll.update.one($id(streamer.id), streamer) >>-
       cache.listedIds.invalidateUnit() inject {
@@ -76,7 +87,7 @@ final class StreamerApi(
         ~modChange.list ?? {
           notifyApi.addNotification(
             Notification.make(
-              Notifies(streamer.userId),
+              streamer.userId,
               lila.notify.GenericLink(
                 url = "/streamer/edit",
                 title = "Listed on /streamer".some,
@@ -88,9 +99,8 @@ final class StreamerApi(
         }
         modChange
       }
-  }
 
-  def demote(userId: User.ID): Funit =
+  def demote(userId: UserId): Funit =
     coll.update
       .one(
         $id(userId),
@@ -101,25 +111,26 @@ final class StreamerApi(
       )
       .void
 
+  def delete(user: User): Funit =
+    coll.delete.one($id(user.id)).void
+
   def create(u: User): Funit =
     coll.insert.one(Streamer make u).void.recover(lila.db.ignoreDuplicateKey)
 
   def isPotentialStreamer(user: User): Fu[Boolean] =
-    cache.listedIds.getUnit.dmap(_ contains Streamer.Id(user.id))
+    cache.listedIds.getUnit.dmap(_ contains user.id.into(Streamer.Id))
 
   def isCandidateStreamer(user: User): Fu[Boolean] =
-    cache.candidateIds.getUnit.dmap(_ contains Streamer.Id(user.id))
+    cache.candidateIds.getUnit.dmap(_ contains user.id.into(Streamer.Id))
 
   def isActualStreamer(user: User): Fu[Boolean] =
     isPotentialStreamer(user) >>& !isCandidateStreamer(user)
 
-  def uploadPicture(s: Streamer, picture: Photographer.Uploaded, by: User): Funit =
-    photographer(s.id.value, picture, createdBy = by.id).flatMap { pic =>
-      coll.update.one($id(s.id), $set("picturePath" -> pic.path)).void
+  def uploadPicture(s: Streamer, picture: PicfitApi.FilePart, by: User): Funit =
+    picfitApi
+      .uploadFile(s"streamer:${s.id}", picture, userId = by.id) flatMap { pic =>
+      coll.update.one($id(s.id), $set("picture" -> pic.id)).void
     }
-
-  def deletePicture(s: Streamer): Funit =
-    coll.update.one($id(s.id), $unset("picturePath")).void
 
   // unapprove after a week if you never streamed
   def autoDemoteFakes: Funit =
@@ -138,7 +149,7 @@ final class StreamerApi(
       )
       .void
 
-  object approval {
+  object approval:
 
     def request(user: User) =
       find(user) flatMap {
@@ -154,7 +165,6 @@ final class StreamerApi(
           "approval.ignored"   -> false
         )
       )
-  }
 
   def sameChannels(streamer: Streamer): Fu[List[Streamer]] =
     coll
@@ -175,7 +185,7 @@ final class StreamerApi(
       .cursor[Streamer](readPreference = ReadPreference.secondaryPreferred)
       .list(10)
 
-  private object cache {
+  private object cache:
 
     private def selectListedApproved =
       $doc(
@@ -202,5 +212,3 @@ final class StreamerApi(
           )
         }
     }
-  }
-}

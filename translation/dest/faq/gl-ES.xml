@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Como podo converterme en moderador?</string>
   <string name="youCannotApply">Non se pode solicitar ser moderador. Se vemos a alguén que pensamos que sería un bo moderador, porémonos en contacto con el/ela directamente.</string>
   <string name="isCorrespondenceDifferent">O xadrez por correspondencia é diferente do xadrez normal?</string>
+  <string name="pleaseReadFairPlayPage">Para máis información, por favor le a nosa %s</string>
+  <string name="fairPlayPage">páxina de xogo limpo</string>
   <string name="youCanUseOpeningBookNoEngine">En Lichess, a principal diferenza nas reglas do xadrez por correspondencia é que se permite un libro de aperturas. O uso de módulos segue a estar prohibido e dará lugar a que se etiquete ao usuario como tramposo. Aínd que a ICCF permite o uso de módulos nas partidas por correspondencia, Lichess non o permite.</string>
   <string name="gameplay">Mecánica de xogo</string>
   <string name="howBulletBlitzEtcDecided">Como se deciden os controis de tempo en Bullet, Blitz e outros?</string>
@@ -60,8 +62,8 @@ Describese na sección 3.7 (d) das %2$s:
 
 Mira o capítulo do %3$s sobre este movemento para practicar un poco con el.</string>
   <string name="goodIntroduction">boa introducción</string>
-  <string name="officialRulesPDF">reglas oficiais (PDF)</string>
   <string name="lichessTraining">Entrenamento en Lichess</string>
+  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Mira ao Mestre Internacional Eric Rosen darlle mate a %s.</string>
   <string name="threefoldRepetition">Repetición tripla de posición</string>
   <string name="threefoldRepetitionExplanation">Se unha posición ocorre tres veces, os xogadores/as poden pedir táboas por %1$s. Lichess implementa as reglas oficiais da FIDE, descritas no Artigo 9.2 (d) de %2$s.</string>
   <string name="threefoldRepetitionLowerCase">repetición tripla de posición</string>

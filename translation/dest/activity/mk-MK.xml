@@ -62,6 +62,11 @@
     <item quantity="one">Рангиран #%1$s (топ %2$s%%) со %3$s игра во %4$s</item>
     <item quantity="other">Рангиран #%1$s (топ %2$s%%) со %3$s игри во %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Се натпреварувал во %s швајцарски турнир</item>
+    <item quantity="other">Се натпреварувал во %s швајцарски турнири</item>
+  </plurals>
+  <string name="rankedInSwissTournament">Ранг #%1$s во %2$s</string>
   <string name="signedUp">Се регистрираше на lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Се придружи на %s тим</item>

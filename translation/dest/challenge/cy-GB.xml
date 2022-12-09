@@ -2,9 +2,9 @@
 <resources>
   <string name="challenges">Heriau</string>
   <string name="challengeToPlay">Herio i chwarae</string>
-  <string name="challengeDeclined">Her wedi ei dirywio</string>
-  <string name="challengeAccepted">Her wedi ei derbyn!</string>
-  <string name="challengeCanceled">Her wedi ei ganslo.</string>
+  <string name="challengeDeclined">Her wedi ei wrthod</string>
+  <string name="challengeAccepted">Her wedi ei dderbyn!</string>
+  <string name="challengeCanceled">Her wedi ei ohirio.</string>
   <string name="registerToSendChallenges">Cofrestrwch cyn danfon her.</string>
   <string name="youCannotChallengeX">Ni fedrwch chi herio %s.</string>
   <string name="xDoesNotAcceptChallenges">Nid yw %s yn derbyn heriau.</string>

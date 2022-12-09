@@ -1,16 +1,16 @@
 package lila.msg
 
-import play.api.data._
-import play.api.data.Forms._
-import play.api.libs.json._
+import play.api.data.*
+import play.api.data.Forms.*
+import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
-import lila.common.Json.jodaWrites
+import lila.common.config.*
+import lila.common.Json.given
 import lila.common.LightUser
-import lila.common.paginator._
-import lila.db.dsl._
+import lila.common.paginator.*
+import lila.db.dsl.{ *, given }
 import lila.user.{ LightUserApi, User }
 
 final class MsgCompat(
@@ -20,11 +20,11 @@ final class MsgCompat(
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.socket.IsOnline,
     lightUserApi: LightUserApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   private val maxPerPage = MaxPerPage(25)
 
-  def inbox(me: User, pageOpt: Option[Int]): Fu[JsObject] = {
+  def inbox(me: User, pageOpt: Option[Int]): Fu[JsObject] =
     val page = pageOpt.fold(1)(_ atLeast 1 atMost 2)
     api.threadsOf(me) flatMap { allThreads =>
       val threads =
@@ -39,7 +39,7 @@ final class MsgCompat(
               maxPerPage = maxPerPage
             )
             .mapResults { t =>
-              val user = lightUserApi.sync(t other me) | LightUser.fallback(t other me)
+              val user = lightUserApi.syncFallback(t other me)
               Json.obj(
                 "id"        -> user.id,
                 "author"    -> user.titleName,
@@ -50,16 +50,15 @@ final class MsgCompat(
             }
         }
     }
-  }
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
-  private val unreadCountCache = cacheApi[User.ID, Int](256, "message.unreadCount") {
+  private val unreadCountCache = cacheApi[UserId, Int](256, "message.unreadCount") {
     _.expireAfterWrite(10 seconds)
-      .buildAsyncFuture[User.ID, Int] { userId =>
+      .buildAsyncFuture[UserId, Int] { userId =>
         colls.thread
           .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
-            import framework._
+            import framework.*
             Match($doc("users" -> userId, "del" $ne userId)) -> List(
               Sort(Descending("lastMsg.date")),
               Limit(maxPerPage.value),
@@ -87,7 +86,7 @@ final class MsgCompat(
 
   def create(
       me: User
-  )(implicit req: play.api.mvc.Request[_], formBinding: FormBinding): Either[Form[_], Fu[User.ID]] =
+  )(implicit req: play.api.mvc.Request[?], formBinding: FormBinding): Either[Form[?], Fu[UserId]] =
     Form(
       mapping(
         "username" -> lila.user.UserForm.historicalUsernameField
@@ -96,26 +95,23 @@ final class MsgCompat(
             "Sorry, this player doesn't accept new messages",
             { name =>
               security.may
-                .post(me.id, User normalize name, isNew = true)
+                .post(me.id, name.id, isNew = true)
                 .await(2 seconds, "pmAccept") // damn you blocking API
             }
           ),
         "subject" -> text(minLength = 3, maxLength = 100),
         "text"    -> text(minLength = 3, maxLength = 8000)
-      )(ThreadData.apply)(ThreadData.unapply)
+      )(ThreadData.apply)(unapply)
     ).bindFromRequest()
       .fold(
         err => Left(err),
-        data => {
-          val userId = User normalize data.user
-          Right(api.post(me.id, userId, s"${data.subject}\n${data.text}") inject userId)
-        }
+        data => Right(api.post(me.id, data.user.id, s"${data.subject}\n${data.text}") inject data.user.id)
       )
 
-  def reply(me: User, userId: User.ID)(implicit
-      req: play.api.mvc.Request[_],
+  def reply(me: User, userId: UserId)(using
+      req: play.api.mvc.Request[?],
       formBinding: FormBinding
-  ): Either[Form[_], Funit] =
+  ): Either[Form[?], Funit] =
     Form(single("text" -> text(minLength = 3)))
       .bindFromRequest()
       .fold(
@@ -123,14 +119,13 @@ final class MsgCompat(
         text => Right(api.post(me.id, userId, text).void)
       )
 
-  private def blockingFetchUser(username: String) =
-    lightUserApi.async(User normalize username).await(500 millis, "pmUser")
+  private def blockingFetchUser(username: UserStr) =
+    lightUserApi.async(username.id).await(500 millis, "pmUser")
 
-  private case class ThreadData(user: String, subject: String, text: String)
+  private case class ThreadData(user: UserStr, subject: String, text: String)
 
   private def renderUser(user: LightUser) =
     LightUser.lightUserWrites.writes(user) ++ Json.obj(
-      "online"   -> isOnline(user.id),
+      "online"   -> isOnline.value(user.id),
       "username" -> user.name // for mobile app BC
     )
-}

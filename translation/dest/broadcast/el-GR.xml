@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Διεύθυνση URL μετάδοσης</string>
   <string name="currentRoundUrl">Διεύθυνση URL αυτού του γύρου</string>
   <string name="currentGameUrl">Διεύθυνση URL αυτού του παιχνιδιού</string>
+  <string name="downloadAllRounds">Λήψη όλων των γύρων</string>
 </resources>

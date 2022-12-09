@@ -3,16 +3,19 @@ package views.html.simul
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
+import lila.common.Json.given
+import lila.socket.SocketVersion
+import lila.socket.SocketVersion.given
 
-object show {
+object show:
 
   def apply(
       sim: lila.simul.Simul,
-      socketVersion: lila.socket.Socket.SocketVersion,
+      socketVersion: SocketVersion,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       stream: Option[lila.streamer.Stream],
@@ -24,23 +27,24 @@ object show {
       moreJs = frag(
         jsModule("simul"),
         embedJsUnsafeLoadThen(s"""LichessSimul.start(${safeJsonValue(
-          Json.obj(
-            "data"          -> data,
-            "i18n"          -> bits.jsI18n(),
-            "socketVersion" -> socketVersion.value,
-            "userId"        -> ctx.userId,
-            "chat" -> chatOption.map { c =>
-              views.html.chat.json(
-                c.chat,
-                name = trans.chatRoom.txt(),
-                timeout = c.timeout,
-                public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
-                localMod = ctx.userId has sim.hostId
-              )
-            }
-          )
-        )})""")
+            Json.obj(
+              "data"          -> data,
+              "i18n"          -> bits.jsI18n(),
+              "socketVersion" -> socketVersion,
+              "userId"        -> ctx.userId,
+              "chat" -> chatOption.map { c =>
+                views.html.chat.json(
+                  c.chat,
+                  name = trans.chatRoom.txt(),
+                  timeout = c.timeout,
+                  public = true,
+                  resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
+                  localMod = ctx.userId has sim.hostId
+                )
+              },
+              "showRatings" -> ctx.pref.showRatings
+            )
+          )})""")
       )
     ) {
       main(cls := "simul")(
@@ -108,4 +112,3 @@ object show {
         div(cls := "simul__main box")(spinner)
       )
     }
-}

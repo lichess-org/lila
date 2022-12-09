@@ -2,15 +2,18 @@
   border: none;
 
   .player {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-#{$start-direction}: 0px;
+    padding-#{$end-direction}: 0px;
+
+    .user-link {
+      @extend %flex-center-nowrap;
+    }
 
     .name {
       @extend %nowrap-ellipsis;
 
       display: inline-block;
-      vertical-align: middle;
-      padding-right: 5px;
+      padding-#{$end-direction}: 5px;
       max-width: 140px;
     }
   }
@@ -26,7 +29,7 @@
 
   tr.long .user-link .rating {
     display: block;
-    padding-left: 0px;
+    padding-#{$start-direction}: 0px;
   }
 
   tr {
@@ -48,7 +51,7 @@
 
   tr.me td:first-child {
     background: linear-gradient(
-      to right,
+      to $end-direction,
       var(--c-secondary-dim) 0px,
       var(--c-secondary-dim) 5px,
       rgba(0, 0, 0, 0) 5px,
@@ -58,7 +61,7 @@
 
   tr.active td:last-child {
     background: linear-gradient(
-      to left,
+      to $start-direction,
       var(--c-primary-dim) 0px,
       var(--c-primary-dim) 5px,
       rgba(0, 0, 0, 0) 5px,
@@ -67,8 +70,6 @@
   }
 
   td.rank {
-    @extend %roboto;
-
     padding: 1em 0.5em 1em 10px;
     width: 1px;
 
@@ -81,8 +82,8 @@
 
   .sheet {
     text-align: right;
-    padding-right: 0;
-    padding-left: 0;
+    padding-#{$end-direction}: 0;
+    padding-#{$start-direction}: 0;
     letter-spacing: 0.1em;
 
     & > * {
@@ -119,6 +120,6 @@
   .total {
     text-align: right;
     font-weight: bold;
-    padding-right: $block-gap;
+    padding-#{$end-direction}: $block-gap;
   }
 }

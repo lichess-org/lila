@@ -5,6 +5,7 @@
 project/.bloop/
 conf/application.conf
 conf/version.conf
+ui/@build/bleep/bleep.config.json
 
 logs
 project/metals.sbt
@@ -24,8 +25,11 @@ data/
 dist/
 node_modules/
 local/
+ui/@build/bleep/.tsconfig/
 ui/common/**/*.js
 ui/common/**/*.d.ts
+ui/chess/**/*.js
+ui/chess/**/*.d.ts
 ui/game/**/*.js
 ui/game/**/*.d.ts
 ui/nvui/**/*.js
@@ -46,3 +50,9 @@ RUNNING_PID
 
 # VSCode auto-generated files
 .vscode/
+
+# IntelliJ auto-generated files
+.idea
+
+# Docker-compose
+/docker-compose.yml

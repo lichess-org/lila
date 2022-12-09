@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Тохиргоо</string>
-  <string name="gameDisplay">Өргийг үзүүлэх байдал</string>
   <string name="pieceAnimation">Хөлгийн хөдөлгөөнийг амилуулах</string>
   <string name="materialDifference">Талуудын хөлгийн зөрүүг үзүүлэх</string>
   <string name="boardHighlights">Хийгдсэн нүүдлүүдийг тодотгох (сүүлчийн нүүдэл, мад, шаг)</string>
@@ -32,7 +31,7 @@
   <string name="promoteToQueenAutomatically">Хүүг үргэлж бэрс гаргана</string>
   <string name="whenPremoving">Урьдчилсан нүүдэл хийсэн тохиолдолд</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматаар гурван нүүдлийн тэнцэлийг тооцох</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Хугацаа 30 секундээс доош үлдсэн тохиолдолд</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Хугацаа 30 секундээс доош үлдсэн тохиолдолд</string>
   <string name="moveConfirmation">Нүүдлээ баталгаажуулах</string>
   <string name="inCorrespondenceGames">Бодит цагт тоглогдохгүй өрөг</string>
   <string name="correspondenceAndUnlimited">Ээлжээр нүүх (хязгааргүй)</string>
