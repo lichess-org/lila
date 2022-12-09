@@ -31,7 +31,7 @@ object ServerStart {
   def start(process: ServerProcess): Server = {
     try {
       // Configure logback early - before play invokes Logger
-      new LoggerConfigurator().configure()
+      LoggerConfigurator.configure()
       // Read settings
       val config: ServerConfig = readServerConfigSettings(process)
 
@@ -59,6 +59,12 @@ object ServerStart {
           server.stop()
         }
       }
+
+      lila.common.Lilakka.shutdown(
+        application.coordinatedShutdown,
+        _.PhaseBeforeActorSystemTerminate,
+        "Shut down logging"
+      ) { () => fuccess(LoggerConfigurator.shutdown()) }
 
       server
     } catch {

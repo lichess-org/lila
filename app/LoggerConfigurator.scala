@@ -11,7 +11,7 @@ import org.slf4j.{ LoggerFactory, ILoggerFactory }
 import org.slf4j.bridge._
 import play.api.Mode
 
-private class LoggerConfigurator {
+private object LoggerConfigurator {
 
   def loggerFactory: ILoggerFactory = {
     LoggerFactory.getILoggerFactory
@@ -76,8 +76,6 @@ private class LoggerConfigurator {
     // }
   }
 
-  /** Shutdown the logger infrastructure.
-    */
   def shutdown(): Unit = {
     val ctx = loggerFactory.asInstanceOf[LoggerContext]
     ctx.stop()
