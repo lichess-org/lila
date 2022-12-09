@@ -3,39 +3,30 @@ package lila.notify
 import chess.Color
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.notify.MentionedInThread.*
 import lila.notify.Notification.*
 import reactivemongo.api.bson.*
 
 private object BSONHandlers:
 
-  private given BSONDocumentHandler[PrivateMessage]             = Macros.handler
-  private given BSONDocumentHandler[TeamJoined]                 = Macros.handler
-  private given BSONDocumentHandler[GameEnd]                    = Macros.handler
-  private given BSONDocumentHandler[TitledTournamentInvitation] = Macros.handler
-  private given BSONDocumentHandler[PlanStart]                  = Macros.handler
-  private given BSONDocumentHandler[PlanExpire]                 = Macros.handler
-  private given BSONDocumentHandler[RatingRefund]               = Macros.handler
-  private given BSONDocumentHandler[CorresAlarm]                = Macros.handler
-  private given BSONDocumentHandler[IrwinDone]                  = Macros.handler
-  private given BSONDocumentHandler[KaladinDone]                = Macros.handler
-  private given BSONDocumentHandler[GenericLink]                = Macros.handler
-  private given BSONReader[MentionedInThread]                   = Macros.reader
-  private given BSONReader[InvitedToStudy]                      = Macros.reader
+  private given BSONDocumentHandler[PrivateMessage]                    = Macros.handler
+  private given BSONDocumentHandler[TeamJoined]                        = Macros.handler
+  private given BSONDocumentHandler[GameEnd]                           = Macros.handler
+  private given BSONDocumentHandler[TitledTournamentInvitation]        = Macros.handler
+  private given BSONDocumentHandler[PlanStart]                         = Macros.handler
+  private given BSONDocumentHandler[PlanExpire]                        = Macros.handler
+  private given BSONDocumentHandler[RatingRefund]                      = Macros.handler
+  private given BSONDocumentHandler[CorresAlarm]                       = Macros.handler
+  private given BSONDocumentHandler[IrwinDone]                         = Macros.handler
+  private given BSONDocumentHandler[KaladinDone]                       = Macros.handler
+  private given BSONDocumentHandler[GenericLink]                       = Macros.handler
+  private given mentionHandler: BSONDocumentHandler[MentionedInThread] = Macros.handler
+  private given inviteHandler: BSONDocumentHandler[InvitedToStudy]     = Macros.handler
 
   given lila.db.BSON[NotificationContent] with
     private def writeNotificationContent(notificationContent: NotificationContent) = {
       notificationContent match
-        case MentionedInThread(mentionedBy, topic, topicId, category, postId) =>
-          $doc(
-            "mentionedBy" -> mentionedBy,
-            "topic"       -> topic,
-            "topicId"     -> topicId,
-            "category"    -> category,
-            "postId"      -> postId
-          )
-        case InvitedToStudy(invitedBy, studyName, studyId) =>
-          $doc("invitedBy" -> invitedBy, "studyName" -> studyName, "studyId" -> studyId)
+        case x: MentionedInThread          => mentionHandler.writeTry(x).get
+        case x: InvitedToStudy             => inviteHandler.writeTry(x).get
         case p: PrivateMessage             => summon[BSONHandler[PrivateMessage]].writeTry(p).get
         case t: TeamJoined                 => summon[BSONHandler[TeamJoined]].writeTry(t).get
         case x: TitledTournamentInvitation => summon[BSONHandler[TitledTournamentInvitation]].writeTry(x).get
