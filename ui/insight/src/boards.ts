@@ -40,10 +40,10 @@ const miniGame = (game: Game) =>
     ]
   );
 
-export default function (ctrl: Ctrl) {
+export default function (ctrl: Ctrl, attrs: any = null) {
   if (!ctrl.vm.answer) return;
 
-  return h('div.game-sample.box', [
+  return h('div.game-sample.box.hscroll', attrs, [
     h('div.top', 'Some of the games used to generate this insight'),
     h('div.boards', ctrl.vm.answer.games.map(miniGame)),
   ]);
