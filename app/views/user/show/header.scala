@@ -278,6 +278,11 @@ object header:
     notes.map { note =>
       div(cls := "note")(
         p(cls := "note__text")(richText(note.text, expandImg = false)),
+        note.mod option postForm(action := routes.User.toggleDoxNote(note._id))(
+          submitButton(
+            cls   := "button-empty confirm button text",
+          )("Toggle Dox")
+        ),
         p(cls := "note__meta")(
           userIdLink(note.from.some),
           br,

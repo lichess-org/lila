@@ -535,6 +535,15 @@ final class User(
       }
     }
 
+  def toggleDoxNote(id: String) =
+    Secure(_.Admin) { implicit ctx => _ =>
+      OptionFuResult(env.user.noteApi.byId(id)) { note =>
+        note.mod ?? {
+          env.user.noteApi.setDox(note._id, !note.dox) inject Redirect(routes.User.show(note.to).url + "?note")
+        }
+      }
+    }
+
   def opponents =
     Auth { implicit ctx => me =>
       getUserStr("u")
