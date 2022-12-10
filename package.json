@@ -37,7 +37,9 @@
     "format": "prettier --write .",
     "check-format": "prettier --check .",
     "lint": "eslint . --ext .ts",
-    "serverlog": "multitail -cT ansi -l 'journalctl --user -fu lila -o cat' -cT ansi -I .metals/metals.log"
+    "lila-journal": "journalctl --user -fu lila -o cat",
+    "serverlog": "multitail -cT ansi -l 'npm run lila-journal' -cT ansi -I .metals/metals.log",
+    "multilog": "multitail -cT ansi -l 'npm run lila-journal' -cT ansi -L 'ui/bleep -w' -cT ansi -I .metals/metals.log"
   },
   "workspaces": [
     "ui",
