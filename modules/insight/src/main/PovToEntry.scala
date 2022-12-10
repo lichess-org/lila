@@ -16,9 +16,9 @@ case class RichPov(
     provisional: Boolean,
     analysis: Option[lila.analyse.Analysis],
     situations: NonEmptyList[Situation],
-    clock: Clock.Config,
-    movetimes: Vector[Centis],
-    clockStates: Vector[Centis],
+    clock: Option[Clock.Config],
+    movetimes: Option[Vector[Centis]],
+    clockStates: Option[Vector[Centis]],
     advices: Map[Ply, Advice]
 ):
   lazy val division = chess.Divider(situations.map(_.board).toList)
@@ -57,17 +57,14 @@ final private class PovToEntry(
                   )
                   .toOption
                   .flatMap(_.toNel)
-              clock       <- game.clock
-              movetimes   <- game moveTimes pov.color
-              clockStates <- game.clockHistory.map(_(pov.color))
             } yield RichPov(
               pov = pov,
               provisional = provisional,
               analysis = an,
               situations = situations,
-              clock = clock.config,
-              movetimes = movetimes.toVector,
-              clockStates = clockStates,
+              clock = game.clock.map(_.config),
+              movetimes = game.moveTimes(pov.color) map (_.toVector),
+              clockStates = game.clockHistory.map(_(pov.color)),
               advices = an.?? {
                 _.advices.view
                   .map { a =>
@@ -107,16 +104,13 @@ final private class PovToEntry(
       }
     val blurs =
       val bools = from.pov.player.blurs.booleans
-      bools ++ Array.fill(from.movetimes.size - bools.length)(false)
-    val timeCvs = slidingMoveTimesCvs(from.movetimes)
-    from.clockStates.toList
-      .zip(from.movetimes)
-      .zip(roles)
+      bools ++ Array.fill(roles.size - bools.length)(false)
+    val timeCvs = from.movetimes map slidingMoveTimesCvs
+    roles.toList
       .zip(situations)
       .zip(blurs)
-      .zip(timeCvs)
       .zipWithIndex
-      .map { case ((((((clock, movetime), role), situation), blur), timeCv), i) =>
+      .map { case (((role, situation), blur), i) =>
         val ply      = i * 2 + from.pov.color.fold(1, 2)
         val prevInfo = prevInfos lift i
         val awareness = from.advices.get(ply - 1) flatMap {
@@ -143,8 +137,8 @@ final private class PovToEntry(
 
         InsightMove(
           phase = Phase.of(from.division, ply),
-          tenths = movetime.roundTenths,
-          clockPercent = ClockPercent(from.clock, clock),
+          tenths = from.movetimes.flatMap(_.lift(i)).map(_.roundTenths),
+          clockPercent = from.clock.flatMap(clk => from.clockStates.flatMap(_.lift(i)).map(ClockPercent(clk, _))),
           role = role,
           eval = prevInfo.flatMap(_.eval.forceAsCp).map(_.ceiled.centipawns),
           cpl = cpDiffs.lift(i).flatten,
@@ -154,7 +148,7 @@ final private class PovToEntry(
           awareness = awareness,
           luck = luck,
           blur = blur,
-          timeCv = timeCv
+          timeCv = timeCvs.flatMap(_.lift(i).flatten)
         )
       }
 
