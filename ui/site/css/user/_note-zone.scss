@@ -30,15 +30,11 @@
   .mod-note {
     @extend %flex-center;
 
-    > div {
-      @extend %flex-center;
-
-      margin-#{$start-direction}: 1.5em;
-
-      > label {
-        margin-#{$start-direction}: 0.5em;
-        cursor: pointer;
-      }
+    .btn-dox-note {
+      margin-left: 1.5em;
+    }
+    .btn-normal-note {
+      margin-left: auto;
     }
   }
 }

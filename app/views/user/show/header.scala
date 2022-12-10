@@ -258,9 +258,9 @@ object header:
       ),
       if (isGranted(_.ModNote))
         div(cls := "mod-note")(
-          submitButton(cls := "button")(trans.save()),
           submitButton(cls := "button btn-mod-note")("Save Mod Note"),
           isGranted(_.Admin) option submitButton(cls := "button btn-dox-note")("Save Dox Note"),
+          submitButton(cls := "button btn-normal-note")("Save Regular Note"),
         )
       else submitButton(cls := "button")(trans.save())
     ),
