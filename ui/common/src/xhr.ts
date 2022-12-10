@@ -77,8 +77,9 @@ export const formToXhr = (el: HTMLFormElement, extra?: Record<string, string>): 
   const action = el.getAttribute('action');
   const body = new FormData(el);
   if (extra) {
-    for (const [k, v] of Object.entries(extra))
+    for (const [k, v] of Object.entries(extra)) {
       body.set(k, v);
+    }
   }
   return action
     ? text(action, {
