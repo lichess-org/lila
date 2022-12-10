@@ -259,20 +259,10 @@ object header:
       if (isGranted(_.ModNote))
         div(cls := "mod-note")(
           submitButton(cls := "button")(trans.save()),
-          div(
-            div(form3.cmnToggle("note-mod", "mod", checked = true)),
-            label(`for` := "note-mod")("For moderators only")
-          ),
-          isGranted(_.Admin) option div(
-            div(form3.cmnToggle("note-dox", "dox", checked = false)),
-            label(`for` := "note-dox")("Doxing info")
-          )
+          submitButton(cls := "button btn-mod-note")("Save Mod Note"),
+          isGranted(_.Admin) option submitButton(cls := "button btn-dox-note")("Save Dox Note"),
         )
-      else
-        frag(
-          input(tpe := "hidden", name := "mod", value := "false"),
-          submitButton(cls := "button")(trans.save())
-        )
+      else submitButton(cls := "button")(trans.save())
     ),
     notes.isEmpty option div("No note yet"),
     notes.map { note =>

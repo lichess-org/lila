@@ -73,7 +73,7 @@ object UserForm:
   val note = Form(
     mapping(
       "text" -> cleanText(minLength = 3, maxLength = 2000),
-      "mod"  -> boolean,
+      "mod"  -> default(boolean, false),
       "dox"  -> optional(boolean)
     )(NoteData.apply)(unapply)
   )
