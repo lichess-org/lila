@@ -1,3 +1,4 @@
+import { memoize } from './common';
 import { bind } from './snabbdom';
 
 const longPressDuration = 610;
@@ -51,11 +52,6 @@ export const isIOS = (): boolean => /iPad|iPhone|iPod/.test(navigator.userAgent)
 
 export const isIPad = (): boolean => navigator?.maxTouchPoints > 2 && /MacIntel/.test(navigator.userAgent);
 
-let hasMouse: boolean;
+let hasMouse = memoize<boolean>(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);
 
-export function isTouchDevice(): boolean {
-  if (hasMouse === undefined) {
-    hasMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  }
-  return !hasMouse;
-}
+export const isTouchDevice = () => !hasMouse();
