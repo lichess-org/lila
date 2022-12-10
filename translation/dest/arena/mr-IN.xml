@@ -7,12 +7,12 @@
   <string name="isNotRated">ही प्रतियोगिता औपचारिक नाही आणि तुमच्या दर्जावर परिणाम होणार नाही.</string>
   <string name="someRated">काही प्रतियोगिता औपचारिक असतात आणि तुमच्या दर्जावर परिणाम करतात.</string>
   <string name="howAreScoresCalculated">स्कोअर कसे मोजले जातात?</string>
-  <string name="howAreScoresCalculatedAnswer">विजयाचा बेस स्कोअर २ गुण असतो, ड्रॉ १ पॉइंट असतो आणि तोट्याला काही मिळते.
-आपण सलग दोन गेम जिंकल्यास आपण ज्वाला चिन्हाद्वारे दर्शविलेले दुहेरी बिंदू ओढ सुरू कराल.
-आपण गेम जिंकण्यात अयशस्वी होईपर्यंत खालील खेळ दुहेरी गुणांचे ठरतील.
-म्हणजेच, विजय 4 गुणांची, 2 गुण अनिर्णित असेल, आणि तोटा अद्यापही गुण देत नाही.
+  <string name="howAreScoresCalculatedAnswer">विजयाला मूळ २ गुण मिळतात, बरोबरीसाठी १ गुण आणि पराभवासाठी काहीच गुण मिळत नाहीत.
+तुम्ही सलग दोन खेळ जिंकल्यास तुम्हास दुप्पट गुण मिळू लागतील. हे ज्योत चिन्हाने दर्शवीले जाईल.
+तुम्ही खेळ जिंकण्यात अयशस्वी होईपर्यंत सर्व खेळ दुप्पट गुणांचे असतील.
+म्हणजेच, विजयासाठी ४ गुण, बरोबरीसाठी २ गुण आणि पराभवासाठी ० गुण मिळतील.
 
-उदाहरणार्थ, ड्रॉनंतर दोन विजयांची किंमत 6 गुण असेल: 2 + 2 + (2 x 1)</string>
+उदाहरणार्थ, दोन विजयांनंतर एक बरोबरी झाल्यास एकूण ६ गुण मिळतील: २ + २ + (२ x १)</string>
   <string name="berserk">वेड्या सारखं खेळा</string>
   <string name="berserkAnswer">वाढीसह वेळ नियंत्रित ठेवणे देखील वाढ रद्द करते (1 + 2 अपवाद आहे, तो 1 + 0 देते).
 
@@ -38,6 +38,7 @@
   <string name="thisIsPrivate">ही खासगी स्पर्धा आहे</string>
   <string name="shareUrl">हे URL लोकांना पाठवा म्हणजे त्यांना भाग घेता येईल: %s</string>
   <string name="variant">प्रकार</string>
+  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">खेळातील किमान चाली</string>
   <string name="history">रिंगणाचा इतिहास</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">संघ पहा</item>
