@@ -2,9 +2,10 @@ package lila.app
 
 import java.io._
 
-import play.api.{ Application, Environment, ApplicationLoader, Play, Configuration, Mode }
+import play.api.{ Application, Environment, Play, Configuration, Mode }
 import play.core.server.{ RealServerProcess, ServerProcess, Server, ServerStartException, ServerConfig }
 import play.core.server.NettyServer
+import play.api.inject.DefaultApplicationLifecycle
 
 // The program entry point.
 // To run with bloop:
@@ -20,56 +21,54 @@ object ServerStart {
     * @param process
     *   The process (real or abstract) to use for starting the server.
     */
-  def start(process: ServerProcess): Server = {
-    try {
-      // Configure logback early - before play invokes Logger
-      LoggerConfigurator.configure()
-      // Read settings
-      val config: ServerConfig = readServerConfigSettings(process)
+  def start(process: ServerProcess): Server = try {
+    // Configure logback early - before play invokes Logger
+    LoggerConfigurator.configure()
 
-      // Start the application
-      val application: Application = {
-        val environment = Environment(config.rootDir, process.classLoader, config.mode)
-        val context     = ApplicationLoader.Context.create(environment)
-        val loader      = ApplicationLoader(context)
-        loader.load(context)
-      }
-      Play.start(application)
+    val config: ServerConfig = readServerConfigSettings(process)
 
-      val server = new NettyServer(
-        config,
-        application,
-        stopHook = () => funit,
-        application.actorSystem
-      )(application.materializer)
-
-      process.addShutdownHook {
-        // Only run server stop if the shutdown reason is not defined. That means the
-        // process received a SIGTERM (or other acceptable signal) instead of being
-        // stopped because of CoordinatedShutdown, for example when downing a cluster.
-        // The reason for that is we want to avoid calling coordinated shutdown from
-        // inside a JVM shutdown hook if the trigger of the JVM shutdown hook was
-        // coordinated shutdown.
-        if (application.coordinatedShutdown.shutdownReason().isEmpty) {
-          server.stop()
-        }
-      }
-
-      lila.common.Lilakka.shutdown(
-        application.coordinatedShutdown,
-        _.PhaseBeforeActorSystemTerminate,
-        "Shut down logging"
-      ) { () => fuccess(LoggerConfigurator.shutdown()) }
-
-      server
-    } catch {
-      case ServerStartException(message, cause) => process.exit(message, cause)
-      case e: Throwable                         => process.exit("Oops, cannot start the server.", Some(e))
+    // Start the application
+    val application: Application = {
+      val environment = Environment(config.rootDir, process.classLoader, config.mode)
+      LilaComponents(
+        environment,
+        DefaultApplicationLifecycle(),
+        Configuration.load(environment)
+      ).application
     }
+    Play.start(application)
+
+    val server = NettyServer(
+      config,
+      application,
+      stopHook = () => funit,
+      application.actorSystem
+    )(application.materializer)
+
+    process.addShutdownHook {
+      // Only run server stop if the shutdown reason is not defined. That means the
+      // process received a SIGTERM (or other acceptable signal) instead of being
+      // stopped because of CoordinatedShutdown, for example when downing a cluster.
+      // The reason for that is we want to avoid calling coordinated shutdown from
+      // inside a JVM shutdown hook if the trigger of the JVM shutdown hook was
+      // coordinated shutdown.
+      if (application.coordinatedShutdown.shutdownReason().isEmpty) {
+        server.stop()
+      }
+    }
+
+    lila.common.Lilakka.shutdown(
+      application.coordinatedShutdown,
+      _.PhaseBeforeActorSystemTerminate,
+      "Shut down logging"
+    ) { () => fuccess(LoggerConfigurator.shutdown()) }
+
+    server
+  } catch {
+    case ServerStartException(message, cause) => process.exit(message, cause)
+    case e: Throwable                         => process.exit("Oops, cannot start the server.", Some(e))
   }
 
-  /** Read the server config from the current process's command line args and system properties.
-    */
   def readServerConfigSettings(process: ServerProcess): ServerConfig = {
     val configuration: Configuration = {
       val rootDirArg    = process.args.headOption.map(new File(_))
@@ -97,17 +96,16 @@ object ServerStart {
       }
     }
 
-    val httpPort  = parsePort("http")
-    val httpsPort = parsePort("https")
-    val address   = configuration.getOptional[String]("play.server.http.address").getOrElse("0.0.0.0")
+    parsePort("http") match {
+      case None => throw ServerStartException("Must provide an HTTP port")
+      case Some(httpPort) =>
+        val address = configuration.getOptional[String]("play.server.http.address").getOrElse("0.0.0.0")
 
-    if (httpPort.orElse(httpsPort).isEmpty)
-      throw ServerStartException("Must provide either an HTTP or HTTPS port")
+        val mode =
+          if (configuration.getOptional[String]("play.mode").contains("prod")) Mode.Prod
+          else Mode.Dev
 
-    val mode =
-      if (configuration.getOptional[String]("play.mode").contains("prod")) Mode.Prod
-      else Mode.Dev
-
-    ServerConfig(rootDir, httpPort, httpsPort, address, mode, process.properties, configuration)
+        ServerConfig(rootDir, httpPort, address, mode, process.properties, configuration)
+    }
   }
 }
