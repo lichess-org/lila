@@ -252,17 +252,17 @@ object header:
     )
 
   def noteZone(u: User, notes: List[lila.user.Note])(implicit ctx: Context) = div(cls := "note-zone")(
-    postForm(action := s"${routes.User.writeNote(u.username)}?note")(
+    postForm(cls := "note-form", action := routes.User.writeNote(u.username))(
       form3.textarea(lila.user.UserForm.note("text"))(
         placeholder := "Write a private note about this user"
       ),
       if (isGranted(_.ModNote))
         div(cls := "mod-note")(
-          submitButton(cls := "button btn-mod-note")("Save Mod Note"),
-          isGranted(_.Admin) option submitButton(cls := "button btn-dox-note")("Save Dox Note"),
-          submitButton(cls := "button btn-normal-note")("Save Regular Note"),
+          submitButton(cls := "button", name := "noteType", value := "mod")("Save Mod Note"),
+          isGranted(_.Admin) option submitButton(cls := "button", name := "noteType", value := "dox")("Save Dox Note"),
+          submitButton(cls := "button", name := "noteType", value := "normal")("Save Regular Note"),
         )
-      else submitButton(cls := "button")(trans.save())
+      else submitButton(cls := "button", name := "noteType", value := "normal")(trans.save())
     ),
     notes.isEmpty option div("No note yet"),
     notes.map { note =>
