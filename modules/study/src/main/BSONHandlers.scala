@@ -141,7 +141,7 @@ object BSONHandlers:
       ply <- doc.getAsOpt[Int](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
       san <- doc.getAsOpt[String](F.san)
-      fen <- doc.getAsOpt[Fen](F.fen)
+      fen <- doc.getAsOpt[Fen.Epd](F.fen)
       check          = ~doc.getAsOpt[Boolean](F.check)
       shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
       comments       = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty
@@ -198,7 +198,7 @@ object BSONHandlers:
       val r        = new Reader(rootNode)
       Root(
         ply = r int ply,
-        fen = r.get[Fen](fen),
+        fen = r.get[Fen.Epd](fen),
         check = r boolD check,
         shapes = r.getO[Shapes](shapes) | Shapes.empty,
         comments = r.getO[Comments](comments) | Comments.empty,

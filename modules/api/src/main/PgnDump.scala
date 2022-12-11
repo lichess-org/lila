@@ -21,7 +21,7 @@ final class PgnDump(
 
   def apply(
       game: Game,
-      initialFen: Option[Fen],
+      initialFen: Option[Fen.Epd],
       analysis: Option[Analysis],
       flags: WithFlags,
       teams: Option[GameTeams] = None,
@@ -46,7 +46,7 @@ final class PgnDump(
   def formatter(flags: WithFlags) =
     (
         game: Game,
-        initialFen: Option[Fen],
+        initialFen: Option[Fen.Epd],
         analysis: Option[Analysis],
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]

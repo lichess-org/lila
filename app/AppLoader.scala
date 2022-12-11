@@ -2,7 +2,7 @@ package lila.app
 
 import akka.actor.{ ActorSystem, CoordinatedShutdown }
 import com.softwaremill.macwire.*
-import play.api.*
+import play.api.{ ApplicationLoader, Application, BuiltInComponentsFromContext }
 import play.api.http.HttpRequestHandler
 import play.api.libs.crypto.CookieSignerProvider
 import play.api.libs.ws.StandaloneWSClient
@@ -23,10 +23,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
       .getDeclaredMethod("opportunistic")
       .invoke(scala.concurrent.ExecutionContext)
       .asInstanceOf[scala.concurrent.ExecutionContext]
-
-  LoggerConfigurator(ctx.environment.classLoader).foreach {
-    _.configure(ctx.environment, ctx.initialConfiguration, Map.empty)
-  }
 
   lila.log("boot").info {
     val java             = System.getProperty("java.version")

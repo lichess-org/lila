@@ -87,7 +87,7 @@ final class StudyMultiBoard(
             name <- doc.getAsOpt[StudyChapterName]("name")
             comp <- doc.getAsOpt[Bdoc]("comp")
             node <- comp.getAsOpt[Bdoc]("node")
-            fen  <- node.getAsOpt[Fen]("fen")
+            fen  <- node.getAsOpt[Fen.Epd]("fen")
             lastMove = node.getAsOpt[Uci]("uci")
             tags     = comp.getAsOpt[Tags]("tags")
           } yield ChapterPreview(
@@ -124,7 +124,7 @@ object StudyMultiBoard:
       name: StudyChapterName,
       players: Option[ChapterPreview.Players],
       orientation: Color,
-      fen: Fen,
+      fen: Fen.Epd,
       lastMove: Option[Uci],
       playing: Boolean
   )

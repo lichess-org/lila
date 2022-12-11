@@ -624,7 +624,7 @@ object Game:
   def fullId(gameId: GameId, playerId: GamePlayerId) = GameFullId(s"$gameId$playerId")
 
   case class OnStart(id: GameId)
-  case class WithInitialFen(game: Game, fen: Option[Fen])
+  case class WithInitialFen(game: Game, fen: Option[Fen.Epd])
 
   case class SideAndStart(color: Color, startColor: Color, startedAtTurn: Int)
   case class StartedAt(startColor: Color, startedAtTurn: Int):

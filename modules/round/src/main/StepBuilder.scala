@@ -15,7 +15,7 @@ object StepBuilder:
       id: GameId,
       pgnMoves: Vector[String],
       variant: Variant,
-      initialFen: Fen
+      initialFen: Fen.Epd
   ): JsArray =
     chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match
       case (init, games, error) =>

@@ -16,7 +16,7 @@ case class AiConfig(
     days: Days,
     level: Int,
     color: Color,
-    fen: Option[Fen] = None
+    fen: Option[Fen.Epd] = None
 ) extends Config
     with Positional:
 
@@ -57,7 +57,7 @@ case class AiConfig(
 
 object AiConfig extends BaseConfig:
 
-  def from(v: Int, tm: Int, t: Double, i: Int, d: Days, level: Int, c: String, fen: Option[Fen]) =
+  def from(v: Int, tm: Int, t: Double, i: Int, d: Days, level: Int, c: String, fen: Option[Fen.Epd]) =
     new AiConfig(
       variant = chess.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
@@ -99,7 +99,7 @@ object AiConfig extends BaseConfig:
         days = r.get[Days]("d"),
         level = r int "l",
         color = Color.White,
-        fen = r.getO[Fen]("f").filter(_.value.nonEmpty)
+        fen = r.getO[Fen.Epd]("f").filter(_.value.nonEmpty)
       )
 
     def writes(w: BSON.Writer, o: AiConfig) =

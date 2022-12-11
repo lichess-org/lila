@@ -50,7 +50,7 @@ final private class StudyMaker(
   private def createFromPov(
       data: StudyMaker.ImportGame,
       pov: Pov,
-      initialFen: Option[Fen],
+      initialFen: Option[Fen.Epd],
       user: User,
       withRatings: Boolean
   ): Fu[Study.WithChapter] = {

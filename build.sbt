@@ -12,6 +12,9 @@ lazy val root = Project("lila", file("."))
   .aggregate(api)
   .settings(buildSettings)
 
+organization         := "org.lichess"
+Compile / run / fork := true
+javaOptions ++= Seq("-Xms64m", "-Xmx512m", "-Dlogger.file=conf/logger.dev.xml")
 // shorter prod classpath
 scriptClasspath             := Seq("*")
 Compile / resourceDirectory := baseDirectory.value / "conf"
@@ -22,7 +25,7 @@ playDependencyClasspath := (Runtime / externalDependencyClasspath).value
 // playCommonClassloader   := PlayCommands.playCommonClassloaderTask.value
 // playCompileEverything := PlayCommands.playCompileEverythingTask.value.asInstanceOf[Seq[Analysis]]
 ivyLoggingLevel     := UpdateLogging.DownloadOnly
-Compile / mainClass := Some("play.core.server.ProdServerStart")
+Compile / mainClass := Some("lila.app.ServerStart")
 // Adds the Play application directory to the command line args passed to Play
 bashScriptExtraDefines += "addJava \"-Duser.dir=$(realpath \"$(cd \"${app_home}/..\"; pwd -P)\"  $(is_cygwin && echo \"fix\"))\"\n"
 // by default, compile any routes files in the root named "routes" or "*.routes"

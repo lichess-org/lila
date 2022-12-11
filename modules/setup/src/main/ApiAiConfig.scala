@@ -15,7 +15,7 @@ final case class ApiAiConfig(
     daysO: Option[Days],
     color: Color,
     level: Int,
-    fen: Option[Fen] = None
+    fen: Option[Fen.Epd] = None
 ) extends Config
     with Positional:
 
@@ -71,7 +71,7 @@ object ApiAiConfig extends BaseConfig:
       cl: Option[Clock.Config],
       d: Option[Days],
       c: Option[String],
-      pos: Option[Fen]
+      pos: Option[Fen.Epd]
   ) =
     new ApiAiConfig(
       variant = chess.variant.Variant.orDefault(~v),

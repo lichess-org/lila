@@ -16,7 +16,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   def position            = replay.state.situation
   def variant             = chess.variant.Standard
   val fen                 = Fen writeOpening replay.state.situation
-  val opening             = OpeningDb findByFen fen
+  val opening             = OpeningDb findByOpeningFen fen
   val family              = opening.map(_.family)
   def pgnString           = pgn mkString " "
   def pgnUnderscored      = pgn mkString "_"

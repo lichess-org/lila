@@ -83,7 +83,7 @@ final class Analyser(
                 moves = moves take maxPlies map (_.uci) mkString " "
               ),
               // if black moves first, use 1 as startPly so the analysis doesn't get reversed
-              startPly = initialFen.flatMap(_.color).??(_.fold(0, 1)),
+              startPly = initialFen.map(_.color).??(_.fold(0, 1)),
               sender = sender
             )
             workQueue {

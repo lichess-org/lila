@@ -229,7 +229,7 @@ final private class PovToEntry(
         .foldRight(none[SimpleOpening]) {
           case (sit, None) =>
             OpeningDb
-              .findByFen(Fen writeOpening sit)
+              .findByOpeningFen(Fen writeOpening sit)
               .flatMap(SimpleOpening.apply)
           case (_, found) => found
         }

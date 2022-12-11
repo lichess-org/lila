@@ -322,7 +322,9 @@ final class TournamentApi(
             data.team.ifTrue(asLeader && tour.isTeamBattle) foreach {
               tournamentRepo.setForTeam(tour.id, _)
             }
-            if (~data.pairMeAsap) waitingUsers.addApiUser(tour, me)
+            if (~data.pairMeAsap) pairingRepo.isPlaying(tourId, me.id) foreach { isPlaying =>
+              if !isPlaying then waitingUsers.addApiUser(tour, me)
+            }
           socket.reload(tour.id)
           promise.foreach(_ success result)
         }
@@ -486,7 +488,7 @@ final class TournamentApi(
       if (tour.isCreated)
         playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id)
       else
-        playerRepo.withdraw(tourId, userId) >> {
+        playerRepo.remove(tourId, userId) >> {
           tour.isStarted ?? {
             pairingRepo.findPlaying(tour.id, userId).map {
               _ foreach { currentPairing =>

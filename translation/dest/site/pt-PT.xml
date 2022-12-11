@@ -18,10 +18,10 @@
   <string name="white">Brancas</string>
   <string name="black">Pretas</string>
   <string name="asWhite">como brancas</string>
-  <string name="asBlack">como pretas</string>
+  <string name="asBlack">com as pretas</string>
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
-  <string name="whiteIsVictorious">as brancas ganham</string>
+  <string name="whiteIsVictorious">Brancas vencem</string>
   <string name="blackIsVictorious">as pretas ganham</string>
   <string name="youPlayTheWhitePieces">Tu jogas com as peças brancas</string>
   <string name="youPlayTheBlackPieces">Tu jogas com as peças pretas</string>
@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Ver em tela cheia</string>
   <string name="logOut">Sair</string>
   <string name="signIn">Entrar</string>
-  <string name="rememberMe">Lembrar-me</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">Lembrar-me</string>
   <string name="youNeedAnAccountToDoThat">Precisas de uma conta para fazeres isso</string>
   <string name="signUp">Registar-se</string>
   <string name="computersAreNotAllowedToPlay">Computadores ou jogadores assistidos por computador não estão autorizados a jogar. Por favor não utilizes assistência de programas de xadrez, bases de dados ou outros jogadores enquanto estiveres a jogar. Além disso, a criação de contas múltiplas é fortemente desencorajada e a sua prática excessiva acarretará banimento.</string>
@@ -207,10 +207,23 @@
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinir a palavra-passe</string>
   <string name="forgotPassword">Esqueceste-te da tua palavra-passe?</string>
+  <string name="emailConfirmHelp">Ajuda com a confirmação do endereço eletrónico</string>
+  <string name="emailConfirmNotReceived">Não recebeu no seu correio eletrónico uma mensagem de confirmação após o registo?</string>
+  <string name="whatSignupUsername">Que nome de utilizador usou para se registar?</string>
+  <string name="usernameNotFound">Não foi possível encontrar nenhum usuário com este nome: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Pode usar esse nome de utilizador para criar uma conta</string>
   <string name="emailSent">Enviámos um correio eletrónico para %s.</string>
   <string name="emailCanTakeSomeTime">Pode demorar algum tempo a chegar.</string>
   <string name="refreshInboxAfterFiveMinutes">Aguarde 5 minutos e atualize a sua caixa de entrada de correio eletrónico.</string>
+  <string name="checkSpamFolder">Verifique também a sua pasta de “spam”, pode estar lá. Se sim, assinale como não “spam”.</string>
+  <string name="emailForSignupHelp">Se tudo falhar, então envie-nos este correio eletrónico:</string>
+  <string name="copyTextToEmail">Copie e cole o texto acima e envie-o para %s</string>
+  <string name="waitForSignupHelp">Nós entraremos brevemente em contacto para ajudá-lo a completar a inscrição.</string>
+  <string name="accountConfirmed">O utilizador %s foi confirmado com sucesso.</string>
+  <string name="accountCanLogin">Pode agora aceder como %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Não precisa de um endereço eletrónico de confirmação.</string>
   <string name="accountClosed">A conta %s está encerrada.</string>
+  <string name="accountRegisteredWithoutEmail">A conta %s foi registada sem um endereço eletrónico.</string>
   <string name="rank">Classificação</string>
   <string name="rankX">Posição: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">

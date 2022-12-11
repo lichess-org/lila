@@ -95,7 +95,7 @@ object JsonApi:
 
   case class Game(
       game_id: String,
-      position: Fen,
+      position: Fen.Epd,
       variant: Variant,
       moves: String
   )

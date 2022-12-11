@@ -81,10 +81,10 @@ final class Export(env: Env) extends LilaController(env):
       theme: Option[String],
       piece: Option[String]
   ) =
-    exportImageOf(fuccess(Fen read Fen.clean(fen))) { _ =>
+    exportImageOf(fuccess(Fen read Fen.Epd.clean(fen))) { _ =>
       env.game.gifExport.thumbnail(
-        fen = Fen clean fen,
-        lastMove = lastMove flatMap (Uci.Move(_).map(_.uci)),
+        fen = Fen.Epd.clean(fen),
+        lastMove = lastMove.flatMap(Uci.Move(_).map(_.uci)),
         orientation = Color.fromName(color) | Color.White,
         variant = Variant(variant.getOrElse("standard")) | Standard,
         Theme(theme).name,

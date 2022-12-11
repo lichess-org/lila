@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\" növbəti alış və ya piyada gedişinə qədər yarım hərəkətlərin sayına əsasən yuvarlaqlaşdırıldı</string>
   <string name="noGameFound">Oyun tapılmadı</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bəlkə tərcihlər menyusunda daha çox oyunun daxil edilməsini seçəsiniz?</string>
+  <string name="openings">Açılışlar</string>
   <string name="openingExplorer">Debüt tədqiqatçısı</string>
   <string name="openingEndgameExplorer">Debüt/Endşpil tədqiqatçısı</string>
   <string name="xOpeningExplorer">%s debüt bazası</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Tam ölçüdə bax</string>
   <string name="logOut">Hesabdan çıx</string>
   <string name="signIn">Giriş</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">Məni yadda saxla</string>
   <string name="youNeedAnAccountToDoThat">Bunun üçün bir hesaba ehtiyacınız var</string>
   <string name="signUp">Üzv ol</string>
   <string name="computersAreNotAllowedToPlay">Kompüterlərin və kompüter dəstəkli oyunçuların oynamasına icazə verilmir. Xahiş edirik oynayarkən şahmat mühərriklərindən, məlumat bazalarından və ya digər oyunçulardan kömək almayın. Həm də qeyd edək ki, birdən çox hesabın açılması ciddi şəkildə yoxlanılır və həddindən artıq çox hesabın açılması hesabınızın ban olunmasına səbəb olacaqdır.</string>
@@ -207,6 +209,14 @@
   <string name="forgotPassword">Şifrəni unutmusuz?</string>
   <string name="emailConfirmHelp">Email təsdiqi üçün yardım</string>
   <string name="emailConfirmNotReceived">Qeydiyyatdan keçdikdən sonra doğrulama maili almadınız?</string>
+  <string name="whatSignupUsername">Hansı istifadəçi adıyla qeydiyyatdan keçmisən?</string>
+  <string name="usernameNotFound">Bu adla olan bir istifadəçi tapa bilmədik: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Bu istifadəçi adıyla yeni bir hesab yarada bilərsən</string>
+  <string name="emailSent">Biz %s adlı ünvana email yollamışıq.</string>
+  <string name="emailCanTakeSomeTime">Bu biraz vaxt ala bilər.</string>
+  <string name="refreshInboxAfterFiveMinutes">5 dəqiqə gözləyin və email qutunuzu yenidən yoxlayın.</string>
+  <string name="checkSpamFolder">Spam qutusunu da yoxlayın, məktub oradada ola bilər. Elədirsə, zəhmət olmasa qeyri-spam kimi qeyd edin.</string>
+  <string name="emailForSignupHelp">Əgər heç nə alınmırsa, bizə email yollayın:</string>
   <string name="rank">Sıralama</string>
   <string name="rankX">Sıralama: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">

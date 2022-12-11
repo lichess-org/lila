@@ -128,7 +128,7 @@ object bits:
   )(implicit ctx: Context) =
     views.html.game.side(
       pov,
-      (data \ "game" \ "initialFen").asOpt[chess.format.Fen],
+      (data \ "game" \ "initialFen").asOpt[chess.format.Fen.Epd],
       tour,
       simul = simul,
       userTv = userTv,

@@ -49,7 +49,7 @@ z-index: 99;
       a(href := "https://www.twitch.tv/lichessdotorg", targetBlank, noFollow)("Twitch")
     )
 
-  def fenAnalysisLink(fen: Fen)(implicit lang: Lang) =
+  def fenAnalysisLink(fen: Fen.Epd)(using Lang) =
     a(href := routes.UserAnalysis.parseArg(underscoreFen(fen)))(trans.analysis())
 
   def paginationByQuery(route: Call, pager: Paginator[?], showPost: Boolean): Option[Frag] =

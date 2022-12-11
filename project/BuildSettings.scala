@@ -14,19 +14,16 @@ object BuildSettings {
 
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
-      version      := lilaVersion,
-      organization := "org.lichess",
       resolvers ++= Seq(lilaMaven, sonashots),
       scalaVersion := globalScalaVersion,
       scalacOptions ++= compilerOptions,
-      // No bloop project for tests
-      Test / bloopGenerate := None,
-      // disable publishing doc and sources
+      organization                           := "org.lichess",
+      version                                := lilaVersion,
       Compile / doc / sources                := Seq.empty,
       Compile / packageDoc / publishArtifact := false,
-      Compile / packageSrc / publishArtifact := false,
-      Compile / run / fork                   := true,
-      javaOptions ++= Seq("-Xms64m", "-Xmx512m")
+      Compile / packageSrc / publishArtifact := false
+      // No bloop project for tests
+      // Test / bloopGenerate := None,
     )
 
   lazy val defaultLibs: Seq[ModuleID] =

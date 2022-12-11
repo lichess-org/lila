@@ -12,7 +12,7 @@ case class UserLogins(
     ips: List[UserLogins.IPData],
     prints: List[UserLogins.FPData],
     uas: List[Dated[UserAgent]],
-    otherUsers: List[UserLogins.OtherUser]
+    otherUsers: List[UserLogins.OtherUser[User]]
 ):
 
   import UserLogins.OtherUser
@@ -20,7 +20,7 @@ case class UserLogins(
   def rawIps = ips.map(_.ip.value)
   def rawFps = prints.map(_.fp.value)
 
-  def otherUserIds = otherUsers.map(_.user.id)
+  def otherUserIds = otherUsers.map(_.userId)
 
   def usersSharingIp =
     otherUsers.collect {
@@ -36,7 +36,7 @@ final class UserLoginsApi(
     geoIP: GeoIP,
     ip2proxy: Ip2Proxy,
     printBan: PrintBan
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   import UserLogins.*
 
@@ -98,7 +98,7 @@ final class UserLoginsApi(
       ipSet: Set[IpAddress],
       fpSet: Set[FingerHash],
       max: Int
-  ): Fu[List[OtherUser]] =
+  ): Fu[List[OtherUser[User]]] =
     ipSet.nonEmpty ?? store.coll
       .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework.*
@@ -174,10 +174,11 @@ final class UserLoginsApi(
 
 object UserLogins:
 
-  case class OtherUser(user: User, ips: Set[IpAddress], fps: Set[FingerHash]):
-    val nbIps = ips.size
-    val nbFps = fps.size
-    val score = nbIps + nbFps + nbIps * nbFps
+  case class OtherUser[U](user: U, ips: Set[IpAddress], fps: Set[FingerHash])(using userIdOf: UserIdOf[U]):
+    val nbIps  = ips.size
+    val nbFps  = fps.size
+    val score  = nbIps + nbFps + nbIps * nbFps
+    def userId = userIdOf(user)
 
   // distinct values, keeping the most recent of duplicated values
   // assumes all is sorted by most recent first
@@ -219,13 +220,20 @@ object UserLogins:
       client: UserAgent.Client
   )
 
-  case class WithMeSortedWithEmails(others: List[OtherUser], emails: Map[UserId, EmailAddress])
+  case class WithMeSortedWithEmails[U: UserIdOf](
+      others: List[OtherUser[U]],
+      emails: Map[UserId, EmailAddress]
+  ) {
+    def withUsers[V: UserIdOf](newUsers: List[V]) = copy(others = others.flatMap { o =>
+      newUsers.find(_ is o.user).map { u => o.copy(user = u) }
+    })
+  }
 
   def withMeSortedWithEmails(
       userRepo: UserRepo,
       me: User,
       userLogins: UserLogins
-  )(using ec: scala.concurrent.ExecutionContext): Fu[WithMeSortedWithEmails] =
+  )(using scala.concurrent.ExecutionContext): Fu[WithMeSortedWithEmails[User]] =
     userRepo.emailMap(me.id :: userLogins.otherUsers.map(_.user.id)) map { emailMap =>
       WithMeSortedWithEmails(
         OtherUser(me, userLogins.rawIps.toSet, userLogins.rawFps.toSet) :: userLogins.otherUsers,
@@ -233,10 +241,14 @@ object UserLogins:
       )
     }
 
-  case class TableData(
+  case class TableData[U: UserIdOf](
       userLogins: UserLogins,
-      othersWithEmail: UserLogins.WithMeSortedWithEmails,
+      othersWithEmail: UserLogins.WithMeSortedWithEmails[U],
       notes: List[lila.user.Note],
       bans: Map[UserId, Int],
       max: Int
-  )
+  ) {
+    def withUsers[V: UserIdOf](users: List[V]) = copy(
+      othersWithEmail = othersWithEmail.withUsers(users)
+    )
+  }

@@ -14,7 +14,7 @@ private object RacerBsonHandlers:
   given BSONDocumentReader[StormPuzzle] with
     def readDocument(r: BSONDocument) = for {
       id      <- r.getAsTry[PuzzleId]("_id")
-      fen     <- r.getAsTry[Fen]("fen")
+      fen     <- r.getAsTry[Fen.Epd]("fen")
       lineStr <- r.getAsTry[String]("line")
       line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
       glicko  <- r.getAsTry[Bdoc]("glicko")

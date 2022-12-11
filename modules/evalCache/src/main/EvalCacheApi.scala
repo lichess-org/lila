@@ -19,19 +19,19 @@ final class EvalCacheApi(
     upgrade: EvalCacheUpgrade,
     cacheApi: lila.memo.CacheApi,
     setting: SettingStore[Boolean]
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   import EvalCacheEntry.*
   import BSONHandlers.given
 
-  def getEvalJson(variant: Variant, fen: Fen, multiPv: Int): Fu[Option[JsObject]] =
+  def getEvalJson(variant: Variant, fen: Fen.Epd, multiPv: Int): Fu[Option[JsObject]] =
     getEval(
-      id = Id(variant, SmallFen.make(variant, fen)),
+      id = Id(variant, SmallFen.make(variant, fen.simple)),
       multiPv = multiPv
     ) map {
       _.map { JsonHandlers.writeEval(_, fen) }
     } addEffect { res =>
-      fen.ply foreach { ply =>
+      Fen.readPly(fen) foreach { ply =>
         lila.mon.evalCache.request(ply, res.isDefined).increment()
       }
     }
@@ -41,14 +41,14 @@ final class EvalCacheApi(
 
   def shouldPut(user: User) = setting.get() && truster.shouldPut(user)
 
-  def getSinglePvEval(variant: Variant, fen: Fen): Fu[Option[Eval]] =
+  def getSinglePvEval(variant: Variant, fen: Fen.Epd): Fu[Option[Eval]] =
     getEval(
-      id = Id(variant, SmallFen.make(variant, fen)),
+      id = Id(variant, SmallFen.make(variant, fen.simple)),
       multiPv = 1
     )
 
-  private[evalCache] def drop(variant: Variant, fen: Fen): Funit =
-    val id = Id(variant, SmallFen.make(variant, fen))
+  private[evalCache] def drop(variant: Variant, fen: Fen.Epd): Funit =
+    val id = Id(variant, SmallFen.make(variant, fen.simple))
     coll(_.delete.one($id(id)).void) >>- cache.invalidate(id)
 
   private val cache = cacheApi[Id, Option[EvalCacheEntry]](65536, "evalCache") {
@@ -98,5 +98,5 @@ final class EvalCacheApi(
         }
   }
 
-  private def destSize(fen: Fen): Int =
+  private def destSize(fen: Fen.Epd): Int =
     chess.Game(chess.variant.Standard.some, fen.some).situation.moves.view.map(_._2.size).sum

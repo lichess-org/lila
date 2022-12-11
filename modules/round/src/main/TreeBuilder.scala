@@ -12,7 +12,7 @@ import lila.tree.*
 object TreeBuilder:
 
   private type Ply       = Int
-  private type OpeningOf = Fen => Option[Opening]
+  private type OpeningOf = Fen.Epd => Option[Opening]
 
   private def makeEval(info: Info) =
     Eval(
@@ -24,7 +24,7 @@ object TreeBuilder:
   def apply(
       game: lila.game.Game,
       analysis: Option[Analysis],
-      initialFen: Fen,
+      initialFen: Fen.Epd,
       withFlags: WithFlags
   ): Root =
     val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? game.bothClockStates
@@ -34,7 +34,7 @@ object TreeBuilder:
         error foreach logChessError(game.id)
         val openingOf: OpeningOf =
           if (withFlags.opening && Variant.openingSensibleVariants(game.variant))
-            fen => OpeningDb.findByFen(fen.opening)
+            fen => OpeningDb.findByEpdFen(fen)
           else _ => None
         val fen                 = Fen write init
         val infos: Vector[Info] = analysis.??(_.infos.toVector)
@@ -104,7 +104,7 @@ object TreeBuilder:
       id: GameId,
       root: Branch,
       variant: Variant,
-      fromFen: Fen,
+      fromFen: Fen.Epd,
       openingOf: OpeningOf
   )(info: Info): Branch =
     def makeBranch(g: chess.Game, m: Uci.WithSan) =

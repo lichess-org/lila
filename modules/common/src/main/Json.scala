@@ -6,14 +6,14 @@ import chess.format.{ Uci }
 
 object Json:
 
-  inline given opaqueFormat[A, T](using
+  given opaqueFormat[A, T](using
       bts: SameRuntime[A, T],
       stb: SameRuntime[T, A],
       format: Format[A]
   ): Format[T] =
     format.bimap(bts.apply, stb.apply)
 
-  inline given [A](using bts: SameRuntime[A, String]): KeyWrites[A] with
+  given [A](using bts: SameRuntime[A, String]): KeyWrites[A] with
     def writeKey(key: A) = bts(key)
 
   private val stringFormatBase: Format[String] = Format(Reads.StringReads, Writes.StringWrites)

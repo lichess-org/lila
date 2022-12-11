@@ -18,7 +18,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
 
   private def coll = repo.coll
 
-  private given BSONDocumentHandler[Modlog] = Macros.handler[Modlog]
+  private given BSONDocumentHandler[Modlog]           = Macros.handler
+  private given BSONDocumentHandler[Modlog.UserEntry] = Macros.handler
 
   private val markActions = List(Modlog.alt, Modlog.booster, Modlog.closeAccount, Modlog.engine, Modlog.troll)
 
@@ -337,12 +338,41 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       .cursor[Modlog]()
       .list(100)
 
+  def addModlog(users: List[User]): Fu[List[UserWithModlog]] =
+    coll.secondaryPreferred
+      .find(
+        $doc(
+          "user" $in users.filter(_.marks.value.nonEmpty).map(_.id),
+          "action" $in List(
+            Modlog.engine,
+            Modlog.troll,
+            Modlog.booster,
+            Modlog.closeAccount,
+            Modlog.alt,
+            Modlog.reportban
+          )
+        ),
+        $doc("user" -> true, "action" -> true, "date" -> true).some
+      )
+      .sort($sort desc "date")
+      .cursor[Modlog.UserEntry]()
+      .listAll()
+      .map {
+        _.foldLeft(users.map(UserWithModlog(_, Nil))) { (users, log) =>
+          users.map {
+            case UserWithModlog(user, prevLog) if log.user is user =>
+              UserWithModlog(user, log :: prevLog)
+            case u => u
+          }
+        }
+      }
+
   private def add(m: Modlog): Funit =
     lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
     m.notable ?? {
       coll.insert.one {
-        bsonWriteObjTry(m).get ++ (!m.isLichess).??($doc("human" -> true))
+        bsonWriteObjTry[Modlog](m).get ++ (!m.isLichess).??($doc("human" -> true))
       } >> (m.notableZulip ?? zulipMonitor(m))
     }
 

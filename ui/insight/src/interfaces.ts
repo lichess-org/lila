@@ -6,6 +6,7 @@ export interface Vm {
   broken: boolean;
   answer: Chart | null;
   panel: 'filter' | 'preset';
+  view: ViewTab;
 }
 
 export interface Env {
@@ -69,6 +70,8 @@ export interface Dimension extends Metric {
     name: string;
   }[];
 }
+
+export type ViewTab = 'combined' | 'presets' | 'filters' | 'insights';
 
 export interface Chart {
   question: Question;

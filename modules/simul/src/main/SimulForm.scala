@@ -119,7 +119,7 @@ object SimulForm:
       clockIncrement: Int,
       clockExtra: Int,
       variants: List[Int],
-      position: Option[Fen],
+      position: Option[Fen.Epd],
       color: String,
       text: String,
       estimatedStartAt: Option[DateTime] = None,

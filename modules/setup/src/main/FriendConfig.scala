@@ -16,7 +16,7 @@ case class FriendConfig(
     days: Days,
     mode: Mode,
     color: Color,
-    fen: Option[Fen] = None
+    fen: Option[Fen.Epd] = None
 ) extends HumanConfig
     with Positional:
 
@@ -30,7 +30,7 @@ case class FriendConfig(
 
 object FriendConfig extends BaseHumanConfig:
 
-  def from(v: Int, tm: Int, t: Double, i: Int, d: Days, m: Option[Int], c: String, fen: Option[Fen]) =
+  def from(v: Int, tm: Int, t: Double, i: Int, d: Days, m: Option[Int], c: String, fen: Option[Fen.Epd]) =
     new FriendConfig(
       variant = chess.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
@@ -66,7 +66,7 @@ object FriendConfig extends BaseHumanConfig:
         days = r.get[Days]("d"),
         mode = Mode orDefault (r int "m"),
         color = Color.White,
-        fen = r.getO[Fen]("f") filter (_.value.nonEmpty)
+        fen = r.getO[Fen.Epd]("f") filter (_.value.nonEmpty)
       )
 
     def writes(w: BSON.Writer, o: FriendConfig) =

@@ -5,7 +5,7 @@ import chess.format.Fen
 
 object Thematic:
 
-  def byFen(fen: Fen): Option[StartingPosition] = fenIndex get fen.value
+  def byFen(fen: Fen.Epd): Option[StartingPosition] = fenIndex get fen.value
 
   def byEco = ecoIndexForBc.get
 

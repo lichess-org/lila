@@ -52,6 +52,7 @@
   <string name="skipExplanation">Pule este lance para preservar seu combo! Funciona apenas uma vez por corrida.</string>
   <string name="failedPuzzles">Desafios falhados</string>
   <string name="slowPuzzles">Desafios lentos</string>
+  <string name="skippedPuzzle">Desafios saltados</string>
   <string name="thisWeek">Esta semana</string>
   <string name="thisMonth">Este mês</string>
   <string name="allTime">Desde sempre</string>

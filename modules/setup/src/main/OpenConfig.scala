@@ -15,7 +15,7 @@ final case class OpenConfig(
     clock: Option[Clock.Config],
     days: Option[Days],
     rated: Boolean,
-    position: Option[Fen],
+    position: Option[Fen.Epd],
     userIds: Option[(UserId, UserId)],
     rules: Set[GameRule] = Set.empty
 ):
@@ -36,7 +36,7 @@ object OpenConfig:
       cl: Option[Clock.Config],
       days: Option[Days],
       rated: Boolean,
-      pos: Option[Fen],
+      pos: Option[Fen.Epd],
       usernames: Option[List[UserStr]],
       rules: Option[Set[GameRule]]
   ) =
