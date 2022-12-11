@@ -59,7 +59,17 @@ export function view(ctrl: ThemeCtrl): VNode {
 
   return h('div.sub.theme.' + ctrl.dimension(), [
     header(ctrl.trans.noarg('boardTheme'), () => ctrl.open('links')),
-    h('div.list', d.list.map(themeView(d.current, ctrl.set))),
+    h('div.list', [
+      h(
+        'button.text',
+        {
+          hook: bind('click', () => ctrl.set(randomTheme(d.list))),
+          attrs: { title: 'Random', type: 'button' },
+        },
+        'Random'
+      ),
+      h('div.list', d.list.map(themeView(d.current, ctrl.set))),
+    ]),
   ]);
 }
 
@@ -80,4 +90,12 @@ function applyTheme(t: Theme, list: Theme[], is3d: boolean) {
   $('body').removeClass(list.join(' ')).addClass(t);
   if (!is3d) document.body.dataset.boardTheme = t;
   lichess.pubsub.emit('theme.change');
+}
+
+function randomInt(min: number, max: number) {
+  return Math.floor(min + Math.random() * (max - min));
+}
+
+function randomTheme(list: Theme[]) {
+  return list[randomInt(0, list.length)];
 }

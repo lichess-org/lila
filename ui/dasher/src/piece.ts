@@ -59,7 +59,17 @@ export function view(ctrl: PieceCtrl): VNode {
 
   return h('div.sub.piece.' + ctrl.dimension(), [
     header(ctrl.trans.noarg('pieceSet'), () => ctrl.open('links')),
-    h('div.list', d.list.map(pieceView(d.current, ctrl.set, ctrl.dimension() == 'd3'))),
+    h('div.list', [
+      h(
+        'button.text',
+        {
+          hook: bind('click', () => ctrl.set(randomPiece(d.list))),
+          attrs: { title: 'Random', type: 'button' },
+        },
+        'Random'
+      ),
+      h('div.list', d.list.map(pieceView(d.current, ctrl.set, ctrl.dimension() == 'd3'))),
+    ]),
   ]);
 }
 
@@ -97,4 +107,12 @@ function applyPiece(t: Piece, list: Piece[], is3d: boolean) {
     document.body.dataset.pieceSet = t;
   }
   lichess.pubsub.emit('theme.change');
+}
+
+function randomInt(min: number, max: number) {
+  return Math.floor(min + Math.random() * (max - min));
+}
+
+function randomPiece(list: Piece[]) {
+  return list[randomInt(0, list.length)];
 }
