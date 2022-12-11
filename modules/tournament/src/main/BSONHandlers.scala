@@ -187,16 +187,16 @@ object BSONHandlers:
   given BSON[LeaderboardApi.Entry] with
     def reads(r: BSON.Reader) =
       LeaderboardApi.Entry(
-        id = r.get[TourPlayerId]("_id"),
-        userId = r.get[UserId]("u"),
-        tourId = r.get[TourId]("t"),
+        id = r.get("_id"),
+        userId = r.get("u"),
+        tourId = r.get("t"),
         nbGames = r int "g",
         score = r int "s",
-        rank = r.get[Rank]("r"),
-        rankRatio = r.get[LeaderboardApi.Ratio]("w"),
+        rank = r.get("r"),
+        rankRatio = r.get("w"),
         freq = r intO "f" flatMap Schedule.Freq.byId,
         speed = r intO "p" flatMap Schedule.Speed.byId,
-        perf = PerfType.byId get r.int("v") err "Invalid leaderboard perf",
+        perf = PerfType.byId get r.get("v") err "Invalid leaderboard perf",
         date = r date "d"
       )
 

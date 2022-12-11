@@ -7,7 +7,7 @@ import play.api.i18n.Lang
 import lila.i18n.I18nKeys
 
 sealed abstract class PerfType(
-    val id: Perf.ID,
+    val id: Perf.Id,
     val key: Perf.Key,
     private val name: String,
     private val title: String,
@@ -24,7 +24,7 @@ object PerfType:
 
   case object UltraBullet
       extends PerfType(
-        0,
+        Perf.Id(0),
         key = Perf.Key("ultraBullet"),
         name = Speed.UltraBullet.name,
         title = Speed.UltraBullet.title,
@@ -33,7 +33,7 @@ object PerfType:
 
   case object Bullet
       extends PerfType(
-        1,
+        Perf.Id(1),
         key = Perf.Key("bullet"),
         name = Speed.Bullet.name,
         title = Speed.Bullet.title,
@@ -42,7 +42,7 @@ object PerfType:
 
   case object Blitz
       extends PerfType(
-        2,
+        Perf.Id(2),
         key = Perf.Key("blitz"),
         name = Speed.Blitz.name,
         title = Speed.Blitz.title,
@@ -51,7 +51,7 @@ object PerfType:
 
   case object Rapid
       extends PerfType(
-        6,
+        Perf.Id(6),
         key = Perf.Key("rapid"),
         name = Speed.Rapid.name,
         title = Speed.Rapid.title,
@@ -60,7 +60,7 @@ object PerfType:
 
   case object Classical
       extends PerfType(
-        3,
+        Perf.Id(3),
         key = Perf.Key("classical"),
         name = Speed.Classical.name,
         title = Speed.Classical.title,
@@ -69,7 +69,7 @@ object PerfType:
 
   case object Correspondence
       extends PerfType(
-        4,
+        Perf.Id(4),
         key = Perf.Key("correspondence"),
         name = "Correspondence",
         title = Speed.Correspondence.title,
@@ -78,7 +78,7 @@ object PerfType:
 
   case object Standard
       extends PerfType(
-        5,
+        Perf.Id(5),
         key = Perf.Key("standard"),
         name = chess.variant.Standard.name,
         title = "Standard rules of chess",
@@ -87,7 +87,7 @@ object PerfType:
 
   case object Chess960
       extends PerfType(
-        11,
+        Perf.Id(1),
         key = Perf.Key("chess960"),
         name = chess.variant.Chess960.name,
         title = "Chess960 variant",
@@ -96,7 +96,7 @@ object PerfType:
 
   case object KingOfTheHill
       extends PerfType(
-        12,
+        Perf.Id(1),
         key = Perf.Key("kingOfTheHill"),
         name = chess.variant.KingOfTheHill.name,
         title = "King of the Hill variant",
@@ -105,7 +105,7 @@ object PerfType:
 
   case object Antichess
       extends PerfType(
-        13,
+        Perf.Id(1),
         key = Perf.Key("antichess"),
         name = chess.variant.Antichess.name,
         title = "Antichess variant",
@@ -114,7 +114,7 @@ object PerfType:
 
   case object Atomic
       extends PerfType(
-        14,
+        Perf.Id(14),
         key = Perf.Key("atomic"),
         name = chess.variant.Atomic.name,
         title = "Atomic variant",
@@ -123,7 +123,7 @@ object PerfType:
 
   case object ThreeCheck
       extends PerfType(
-        15,
+        Perf.Id(15),
         key = Perf.Key("threeCheck"),
         name = chess.variant.ThreeCheck.name,
         title = "Three-check variant",
@@ -132,7 +132,7 @@ object PerfType:
 
   case object Horde
       extends PerfType(
-        16,
+        Perf.Id(16),
         key = Perf.Key("horde"),
         name = chess.variant.Horde.name,
         title = "Horde variant",
@@ -141,7 +141,7 @@ object PerfType:
 
   case object RacingKings
       extends PerfType(
-        17,
+        Perf.Id(17),
         key = Perf.Key("racingKings"),
         name = chess.variant.RacingKings.name,
         title = "Racing kings variant",
@@ -150,7 +150,7 @@ object PerfType:
 
   case object Crazyhouse
       extends PerfType(
-        18,
+        Perf.Id(18),
         key = Perf.Key("crazyhouse"),
         name = chess.variant.Crazyhouse.name,
         title = "Crazyhouse variant",
@@ -159,7 +159,7 @@ object PerfType:
 
   case object Puzzle
       extends PerfType(
-        20,
+        Perf.Id(20),
         key = Perf.Key("puzzle"),
         name = "Training",
         title = "Chess tactics trainer",
@@ -196,11 +196,11 @@ object PerfType:
   def apply(key: Perf.Key): Option[PerfType] = byKey get key
   def orDefault(key: Perf.Key): PerfType     = apply(key) | default
 
-  def apply(id: Perf.ID): Option[PerfType] = byId get id
+  def apply(id: Perf.Id): Option[PerfType] = byId get id
 
   // def name(key: Perf.Key): Option[String] = apply(key) map (_.name)
 
-  def id2key(id: Perf.ID): Option[Perf.Key] = byId get id map (_.key)
+  def id2key(id: Perf.Id): Option[Perf.Key] = byId get id map (_.key)
 
   val nonPuzzle: List[PerfType] = List(
     UltraBullet,

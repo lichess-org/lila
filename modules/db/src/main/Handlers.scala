@@ -24,13 +24,6 @@ trait Handlers:
   )(using NotGiven[NoDbHandler[T]]): BSONHandler[T] =
     handler.as(sr.apply, rs.apply)
 
-  // given yesnoHandler[T](using
-  //     sr: SameRuntime[Boolean, T],
-  //     rs: SameRuntime[T, Boolean],
-  //     handler: BSONHandler[Boolean]
-  // )(using NotGiven[NoDbHandler[T]]): BSONHandler[T] =
-  //   handler.as(sr.apply, rs.apply)
-
   given userIdOfWriter[U, T](using idOf: UserIdOf[U], writer: BSONWriter[UserId]): BSONWriter[U] with
     inline def writeTry(u: U) = writer.writeTry(idOf(u))
 
@@ -49,25 +42,17 @@ trait Handlers:
   def stringIsoHandler[A](implicit iso: StringIso[A]): BSONHandler[A] =
     BSONStringHandler.as[A](iso.from, iso.to)
   def stringAnyValHandler[A](to: A => String, from: String => A): BSONHandler[A] =
-    stringIsoHandler(Iso(from, to))
+    BSONStringHandler.as[A](from, to)
 
-  def intIsoHandler[A](implicit iso: IntIso[A]): BSONHandler[A] = BSONIntegerHandler.as[A](iso.from, iso.to)
-  def intAnyValHandler[A](to: A => Int, from: Int => A): BSONHandler[A] = intIsoHandler(Iso(from, to))
+  def intAnyValHandler[A](to: A => Int, from: Int => A): BSONHandler[A] = BSONIntegerHandler.as[A](from, to)
 
   def booleanIsoHandler[A](implicit iso: BooleanIso[A]): BSONHandler[A] =
     BSONBooleanHandler.as[A](iso.from, iso.to)
   def booleanAnyValHandler[A](to: A => Boolean, from: Boolean => A): BSONHandler[A] =
     booleanIsoHandler(Iso(from, to))
 
-  def doubleIsoHandler[A](implicit iso: DoubleIso[A]): BSONHandler[A] =
-    BSONDoubleHandler.as[A](iso.from, iso.to)
-  def doubleAnyValHandler[A](to: A => Double, from: Double => A): BSONHandler[A] =
-    doubleIsoHandler(Iso(from, to))
-  def doubleAsIntHandler[A](to: A => Double, from: Double => A, multiplier: Int): BSONHandler[A] =
+  private def doubleAsIntHandler[A](to: A => Double, from: Double => A, multiplier: Int): BSONHandler[A] =
     intAnyValHandler[A](x => Math.round(to(x) * multiplier).toInt, x => from(x.toDouble / multiplier))
-
-  def stringHandler[A <: String](f: String => A) = BSONStringHandler.as(f, identity)
-  def intHandler[A <: Int](f: Int => A)          = BSONIntegerHandler.as(f, identity)
 
   val percentBsonMultiplier = 1000
   val ratioBsonMultiplier   = 100_000
@@ -75,8 +60,8 @@ trait Handlers:
   def percentAsIntHandler[A](using p: Percent[A]): BSONHandler[A] =
     doubleAsIntHandler(p.value, p.apply, percentBsonMultiplier)
 
-  def ratioAsIntHandler[A](to: A => Double, from: Double => A): BSONHandler[A] =
-    doubleAsIntHandler(to, from, ratioBsonMultiplier)
+  // def ratioAsIntHandler[A](to: A => Double, from: Double => A): BSONHandler[A] =
+  //   doubleAsIntHandler(to, from, ratioBsonMultiplier)
 
   def floatIsoHandler[A](implicit iso: FloatIso[A]): BSONHandler[A] =
     BSONFloatHandler.as[A](iso.from, iso.to)
@@ -181,7 +166,6 @@ trait Handlers:
   given BSONHandler[chess.Color] = BSONBooleanHandler.as[chess.Color](chess.Color.fromWhite(_), _.white)
 
   import lila.common.{ LilaOpeningFamily, SimpleOpening }
-  given BSONHandler[SimpleOpening.Key] = stringIsoHandler
   given BSONHandler[SimpleOpening] = tryHandler[SimpleOpening](
     { case BSONString(key) => SimpleOpening find key toTry s"No such opening: $key" },
     o => BSONString(o.key.value)
@@ -192,8 +176,6 @@ trait Handlers:
   )
 
   given BSONHandler[chess.Mode] = BSONBooleanHandler.as[chess.Mode](chess.Mode.apply, _.rated)
-
-  given BSONHandler[lila.common.Markdown] = isoHandler[lila.common.Markdown, String]
 
   given [T: BSONHandler]: BSONHandler[(T, T)] = tryHandler[(T, T)](
     { case arr: BSONArray => for { a <- arr.getAsTry[T](0); b <- arr.getAsTry[T](1) } yield (a, b) },

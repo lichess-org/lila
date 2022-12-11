@@ -8,7 +8,7 @@ import scala.concurrent.duration.FiniteDuration
 import lila.common.config
 import lila.db.dsl.{ *, given }
 import lila.game.Game
-import lila.rating.PerfType
+import lila.rating.{ Perf, PerfType }
 import lila.user.User
 
 case class InsightPerfStats(
@@ -65,7 +65,7 @@ final class InsightPerfStatsApi(
       }.map { docs =>
         for {
           doc <- docs
-          id  <- doc int "_id"
+          id  <- doc.getAsOpt[Perf.Id]("_id")
           pt  <- PerfType(id)
           ra  <- doc double "r"
           nw = ~doc.int("nw")
