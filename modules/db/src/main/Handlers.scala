@@ -198,10 +198,11 @@ trait Handlers:
 
   val clockConfigHandler = tryHandler[chess.Clock.Config](
     { case doc: BSONDocument =>
+      import chess.Clock.*
       for {
-        limit <- doc.getAsTry[Int]("limit")
-        inc   <- doc.getAsTry[Int]("increment")
-      } yield chess.Clock.Config(limit, inc)
+        limit <- doc.getAsTry[LimitSeconds]("limit")
+        inc   <- doc.getAsTry[IncrementSeconds]("increment")
+      } yield Config(limit, inc)
     },
     c =>
       BSONDocument(

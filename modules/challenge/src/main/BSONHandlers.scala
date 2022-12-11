@@ -29,8 +29,9 @@ private object BSONHandlers:
   )
   given BSON[TimeControl] with
     import cats.implicits.*
+    import chess.Clock
     def reads(r: Reader) =
-      (r.intO("l"), r.intO("i")) mapN { (limit, inc) =>
+      (r.getO[Clock.LimitSeconds]("l"), r.getO[Clock.IncrementSeconds]("i")) mapN { (limit, inc) =>
         TimeControl.Clock(chess.Clock.Config(limit, inc))
       } orElse {
         r.getO[Days]("d") map TimeControl.Correspondence.apply

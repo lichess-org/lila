@@ -2,12 +2,14 @@ package lila.setup
 
 import chess.format.Fen
 import chess.variant.Variant
+import chess.Clock
 import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.rating.RatingRange
 import lila.user.{ User, UserContext }
 import lila.common.{ Days, Form as LilaForm }
+import lila.common.Form.into
 
 object SetupForm:
 
@@ -90,7 +92,7 @@ object SetupForm:
         variant = v.flatMap(Variant.apply) | Variant.default,
         timeMode = if (d.isDefined) TimeMode.Correspondence else TimeMode.RealTime,
         time = t | 10,
-        increment = i | 5,
+        increment = i | Clock.IncrementSeconds(5),
         days = d | Days(7),
         mode = chess.Mode(~r),
         color = lila.lobby.Color.orDefault(c),
@@ -108,9 +110,9 @@ object SetupForm:
 
     lazy val clockMapping =
       mapping(
-        "limit"     -> number.verifying(ApiConfig.clockLimitSeconds.contains),
+        "limit"     -> number.into[Clock.LimitSeconds].verifying(ApiConfig.clockLimitSeconds.contains),
         "increment" -> increment
-      )(chess.Clock.Config.apply)(unapply)
+      )(Clock.Config.apply)(unapply)
         .verifying("Invalid clock", c => c.estimateTotalTime > chess.Centis(0))
 
     lazy val clock = "clock" -> optional(clockMapping)

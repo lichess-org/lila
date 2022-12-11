@@ -12,12 +12,12 @@ case class SimulClock(
     config.toClock.giveTime(
       hostColor,
       Centis.ofSeconds {
-        hostExtraTime.atLeast(-config.limitSeconds + 20)
+        hostExtraTime.atLeast(-config.limitSeconds.value + 20)
       }
     )
 
   def hostExtraMinutes = hostExtraTime / 60
 
   def valid =
-    if (config.limitSeconds + hostExtraTime == 0) config.incrementSeconds >= 10
+    if (config.limitSeconds.value + hostExtraTime == 0) config.incrementSeconds >= 10
     else config.limitSeconds + hostExtraTime > 0
