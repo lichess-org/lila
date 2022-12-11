@@ -71,7 +71,7 @@ export async function objectStorage<V>(storeName: string): Promise<ObjectStorage
 }
 
 const dbAsync = new Promise<IDBDatabase>((resolve, reject) => {
-  const result = indexedDB.open(registration.name, registration.version);
+  const result = window.indexedDB.open(registration.name, registration.version);
   result.onsuccess = (e: Event) => resolve((e.target as IDBOpenDBRequest).result);
   result.onerror = (e: Event) => reject((e.target as IDBOpenDBRequest).result);
 
