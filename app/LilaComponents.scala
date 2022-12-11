@@ -66,7 +66,7 @@ final class LilaComponents(
     )
 
   override lazy val httpRequestHandler: HttpRequestHandler =
-    new lila.app.http.LilaHttpRequestHandler(
+    lila.app.http.LilaHttpRequestHandler(
       router,
       httpErrorHandler,
       httpConfiguration,
@@ -95,8 +95,6 @@ final class LilaComponents(
   // dev assets
   given FileMimeTypes          = fileMimeTypes
   lazy val devAssetsController = wire[ExternalAssets]
-
-  lazy val shutdown = CoordinatedShutdown
 
   lazy val boot: lila.app.EnvBoot = wire[lila.app.EnvBoot]
   lazy val env: lila.app.Env      = boot.env
