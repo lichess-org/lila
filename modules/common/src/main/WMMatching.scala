@@ -585,8 +585,7 @@ object WMMatching:
                 label(w) = 2
                 labelend(w) = p ^ 1
                 false
-              else
-                false
+              else false
             else if (label(inblossom(w)) == 1)
               // keep track of the least-slack non-allowable edge to
               // a different S-blossom.
@@ -601,8 +600,7 @@ object WMMatching:
               if (bestedge(w) == -1 || kslack < slack(bestedge(w)))
                 bestedge(w) = k
               false
-            else
-              false
+            else false
         if (neighbend(v).exists(go))
           true
         else

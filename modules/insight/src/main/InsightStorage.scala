@@ -82,7 +82,7 @@ object InsightStorage:
   import InsightEntry.{ BSONFields as F }
 
   def selectId(id: String)               = $doc(F.id -> id)
-  def selectUserId(id: UserId)          = $doc(F.userId -> id)
+  def selectUserId(id: UserId)           = $doc(F.userId -> id)
   def selectPeers(peers: Question.Peers) = $doc(F.rating $inRange peers.ratingRange)
   val sortChronological                  = $sort asc F.date
   val sortAntiChronological              = $sort desc F.date

@@ -85,4 +85,3 @@ final class PuzzleHistoryApi(
       currentPage = page,
       maxPerPage = maxPerPage
     )
-

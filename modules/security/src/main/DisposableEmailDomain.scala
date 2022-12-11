@@ -23,10 +23,10 @@ final class DisposableEmailDomain(
       }
       checked <- checkMailBlocked()
     }
-      val regexStr  = s"${toRegexStr(blacklist)}|${toRegexStr(checked.iterator)}"
-      val nbDomains = regexStr.count('|' ==)
-      lila.mon.email.disposableDomain.update(nbDomains)
-      regex = finalizeRegex(s"$staticRegex|$regexStr")
+    val regexStr  = s"${toRegexStr(blacklist)}|${toRegexStr(checked.iterator)}"
+    val nbDomains = regexStr.count('|' ==)
+    lila.mon.email.disposableDomain.update(nbDomains)
+    regex = finalizeRegex(s"$staticRegex|$regexStr")
 
   private def toRegexStr(domains: Iterator[String]) = domains.map(l => l.replace(".", "\\.")).mkString("|")
 
