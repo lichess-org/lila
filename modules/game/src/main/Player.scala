@@ -18,7 +18,7 @@ case class Player(
     userId: Option[UserId] = None,
     rating: Option[IntRating] = None,
     ratingDiff: Option[IntRatingDiff] = None,
-    provisional: Boolean = false,
+    provisional: RatingProvisional = RatingProvisional.No,
     blurs: Blurs = Blurs.zeroBlurs.zero,
     berserk: Boolean = false,
     name: Option[String] = None
@@ -73,7 +73,7 @@ case class Player(
 
   def ratingAfter = rating map (_ + ~ratingDiff)
 
-  def stableRating = rating ifFalse provisional
+  def stableRating = rating ifFalse provisional.value
 
   def stableRatingAfter = stableRating map (_ + ~ratingDiff)
 
@@ -98,7 +98,7 @@ object Player:
       color: Color,
       userId: UserId,
       rating: IntRating,
-      provisional: Boolean
+      provisional: RatingProvisional
   ): Player =
     Player(
       id = IdGenerator.player(color),
@@ -139,7 +139,7 @@ object Player:
     def suspicious(ply: Int): Boolean = ply >= 16 && ply <= 40
     def suspicious(m: Map): Boolean   = m exists { _ exists (_.suspicious) }
 
-  case class UserInfo(id: UserId, rating: IntRating, provisional: Boolean)
+  case class UserInfo(id: UserId, rating: IntRating, provisional: RatingProvisional)
 
   import reactivemongo.api.bson.*
   import lila.db.BSON
@@ -188,7 +188,7 @@ object Player:
             userId = userId,
             rating = doc.getAsOpt[IntRating](rating) flatMap ratingRange,
             ratingDiff = doc.getAsOpt[IntRatingDiff](ratingDiff) flatMap ratingDiffRange,
-            provisional = doc booleanLike provisional getOrElse false,
+            provisional = ~doc.getAsOpt[RatingProvisional](provisional),
             blurs = doc.getAsOpt[Blurs](blursBits) getOrElse Blurs.zeroBlurs.zero,
             berserk = doc booleanLike berserk getOrElse false,
             name = doc string name
@@ -203,7 +203,7 @@ object Player:
       proposeTakebackAt -> p.proposeTakebackAt.some.filter(_ > 0),
       rating            -> p.rating,
       ratingDiff        -> p.ratingDiff,
-      provisional       -> p.provisional.option(true),
+      provisional       -> p.provisional.yes.option(true),
       blursBits         -> p.blurs.nonEmpty.??(p.blurs),
       name              -> p.name
     )

@@ -17,8 +17,6 @@ import play.core.server.{
 // /path/to/bloop run lila -m lila.app.ServerStart -c /path/to/lila/.bloop
 object ServerStart {
 
-  /** Start a prod mode server from the command line.
-    */
   def main(args: Array[String]): Unit = start(new RealServerProcess(args.toIndexedSeq))
 
   /** Starts a Play server and application for the given process. The settings for the server are based on
@@ -44,9 +42,9 @@ object ServerStart {
       }
       Play.start(application)
 
-      // Start the server
-      val serverProvider = ServerProvider.fromConfiguration(process.classLoader, config.configuration)
-      val server         = serverProvider.createServer(config, application)
+      val server = ServerProvider
+        .fromConfiguration(process.classLoader, config.configuration)
+        .createServer(config, application)
 
       process.addShutdownHook {
         // Only run server stop if the shutdown reason is not defined. That means the
@@ -78,7 +76,7 @@ object ServerStart {
   def readServerConfigSettings(process: ServerProcess): ServerConfig = {
     val configuration: Configuration = {
       val rootDirArg    = process.args.headOption.map(new File(_))
-      val rootDirConfig = rootDirArg.fold(Map.empty[String, String])(ServerConfig.rootDirConfig(_))
+      val rootDirConfig = rootDirArg.??(ServerConfig.rootDirConfig(_))
       Configuration.load(process.classLoader, process.properties, rootDirConfig, true)
     }
 
