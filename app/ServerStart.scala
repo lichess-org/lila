@@ -11,6 +11,7 @@ import play.core.server.{
   ServerConfig,
   ServerProvider
 }
+import play.core.server.NettyServer
 
 // The program entry point.
 // To run with bloop:
@@ -44,9 +45,12 @@ object ServerStart {
       }
       Play.start(application)
 
-      // Start the server
-      val serverProvider = ServerProvider.fromConfiguration(process.classLoader, config.configuration)
-      val server         = serverProvider.createServer(config, application)
+      val server = new NettyServer(
+        config,
+        play.core.ApplicationProvider(application),
+        stopHook = () => funit,
+        application.actorSystem
+      )(application.materializer)
 
       process.addShutdownHook {
         // Only run server stop if the shutdown reason is not defined. That means the
