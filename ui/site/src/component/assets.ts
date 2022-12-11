@@ -8,11 +8,12 @@ export const assetUrl = (path: string, opts: AssetUrlOpts = {}) => {
 };
 
 const loadedCss = new Map<string, Promise<void>>();
-export const loadCss = (url: string): Promise<void> => {
+export const loadCss = (url: string, media?: 'dark' | 'light'): Promise<void> => {
   if (!loadedCss.has(url)) {
     const el = document.createElement('link');
     el.rel = 'stylesheet';
     el.href = assetUrl(url);
+    if (media) el.media = `(prefers-color-scheme: ${media})`;
     loadedCss.set(
       url,
       new Promise<void>(resolve => {
@@ -24,10 +25,15 @@ export const loadCss = (url: string): Promise<void> => {
   return loadedCss.get(url)!;
 };
 
-export const loadCssPath = (key: string): Promise<void> =>
-  loadCss(
-    `css/${key}.${document.dir || 'ltr'}.${$('body').data('theme')}.${$('body').data('dev') ? 'dev' : 'min'}.css`
-  );
+export const loadCssPath = async (key: string): Promise<void> => {
+  const theme = $('body').data('theme');
+  const load = (theme: string, media?: 'dark' | 'light') =>
+    loadCss(`css/${key}.${document.dir || 'ltr'}.${theme}.${$('body').data('dev') ? 'dev' : 'min'}.css`, media);
+  if (theme === 'system') {
+    await load('dark', 'dark');
+    await load('light', 'light');
+  } else await load(theme);
+};
 
 export const jsModule = (name: string) => `compiled/${name}${$('body').data('dev') ? '' : '.min'}.js`;
 

@@ -41,28 +41,6 @@ object layout:
         href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get() ?? "external."}css"),
         rel  := "stylesheet"
       )
-    def scriptSystemTheme(implicit ctx: Context) = embedJsUnsafe("""
-const updateTheme = (m, prev) => {
-  const bg = m.matches ? 'dark' : 'light';
-  prev ||= document.body.dataset.theme;
-  if (prev !== bg) {
-    const updateBody = () => {
-      document.body.classList.remove(prev);
-      document.body.classList.add(bg);
-      document.body.dataset.theme = bg;
-    };
-    if (document.readyState === 'complete' || document.readyState === 'loaded') updateBody();
-    else document.addEventListener('DOMContentLoaded', updateBody);
-    // document.documentElement.style.display = 'none';
-    document
-      .querySelectorAll('link[href*=".' + bg + '."]')
-      .forEach((el) => (el.href = el.href.replace('.' + bg + '.', '.' + bg + '.')));
-  }
-};
-const m = window.matchMedia('(prefers-color-scheme: dark)');
-updateTheme(m, 'light');
-m.addEventListener('change', (e) => updateTheme(e));
-""")
   import bits.*
 
   private val noTranslate = raw("""<meta name="google" content="notranslate">""")

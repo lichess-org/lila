@@ -131,12 +131,24 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     .removeClass([...list.map(b => b.key), 'dark-board'].join(' '))
     .addClass(cls);
 
-  const prev = $('body').data('theme'),
-    sheet = key == 'darkBoard' ? 'dark' : key;
+  const prev = $('body').data('theme');
+  const sheet = key == 'darkBoard' ? 'dark' : key;
   $('body').data('theme', sheet);
-  $('link[href*=".' + prev + '."]').each(function (this: HTMLLinkElement) {
-    this.href = this.href.replace('.' + prev + '.', '.' + sheet + '.');
-  });
+  if (prev === 'system') {
+    const active = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const other = active === 'dark' ? 'light' : 'dark';
+    $('link[href*=".' + other + '."]').remove();
+    $('link[href*=".' + active + '."]').each(function (this: HTMLLinkElement) {
+      replaceStylesheet(this, active, sheet);
+    });
+  } else {
+    $('link[href*=".' + prev + '."]').each(function (this: HTMLLinkElement) {
+      if (sheet === 'system') {
+        replaceStylesheet(this, prev, 'light', 'light');
+        replaceStylesheet(this, prev, 'dark', 'dark');
+      } else replaceStylesheet(this, prev, sheet);
+    });
+  }
 
   if (key === 'transp') {
     const bgData = document.getElementById('bg-data');
@@ -144,4 +156,13 @@ function applyBackground(data: BackgroundData, list: Background[]) {
       ? (bgData.innerHTML = 'body.transp::before{background-image:url(' + data.image + ');}')
       : $('head').append('<style id="bg-data">body.transp::before{background-image:url(' + data.image + ');}</style>');
   }
+}
+
+function replaceStylesheet(old: HTMLLinkElement, oldKey: string, newKey: string, media?: 'dark' | 'light') {
+  const link = document.createElement('link') as HTMLLinkElement;
+  link.rel = 'stylesheet';
+  link.href = old.href.replace('.' + oldKey + '.', '.' + newKey + '.');
+  if (media) link.media = `(prefers-color-scheme: ${media})`;
+  link.onload = () => setTimeout(() => old.remove(), 100);
+  document.head.appendChild(link);
 }
