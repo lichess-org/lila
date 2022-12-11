@@ -18,8 +18,6 @@ import play.core.server.NettyServer
 // /path/to/bloop run lila -m lila.app.ServerStart -c /path/to/lila/.bloop
 object ServerStart {
 
-  /** Start a prod mode server from the command line.
-    */
   def main(args: Array[String]): Unit = start(new RealServerProcess(args.toIndexedSeq))
 
   /** Starts a Play server and application for the given process. The settings for the server are based on
@@ -82,7 +80,7 @@ object ServerStart {
   def readServerConfigSettings(process: ServerProcess): ServerConfig = {
     val configuration: Configuration = {
       val rootDirArg    = process.args.headOption.map(new File(_))
-      val rootDirConfig = rootDirArg.fold(Map.empty[String, String])(ServerConfig.rootDirConfig(_))
+      val rootDirConfig = rootDirArg.??(ServerConfig.rootDirConfig(_))
       Configuration.load(process.classLoader, process.properties, rootDirConfig, true)
     }
 

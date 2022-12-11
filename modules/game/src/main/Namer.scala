@@ -40,5 +40,5 @@ object Namer:
 
   def ratingString(p: Player): String =
     p.rating.fold("?") { rating =>
-      s"$rating${p.provisional ?? "?"}"
+      s"$rating${p.provisional.yes ?? "?"}"
     }
