@@ -3,14 +3,7 @@ package lila.app
 import java.io._
 
 import play.api.{ Application, Environment, ApplicationLoader, Play, Configuration, Mode }
-import play.core.server.{
-  RealServerProcess,
-  ServerProcess,
-  Server,
-  ServerStartException,
-  ServerConfig,
-  ServerProvider
-}
+import play.core.server.{ RealServerProcess, ServerProcess, Server, ServerStartException, ServerConfig }
 import play.core.server.NettyServer
 
 // The program entry point.
@@ -45,7 +38,7 @@ object ServerStart {
 
       val server = new NettyServer(
         config,
-        play.core.ApplicationProvider(application),
+        application,
         stopHook = () => funit,
         application.actorSystem
       )(application.materializer)
