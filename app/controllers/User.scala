@@ -535,11 +535,11 @@ final class User(
       }
     }
 
-  def toggleDoxNote(id: String) =
+  def setDoxNote(id: String, dox: Boolean) =
     Secure(_.Admin) { implicit ctx => _ =>
       OptionFuResult(env.user.noteApi.byId(id)) { note =>
         note.mod ?? {
-          env.user.noteApi.setDox(note._id, !note.dox) inject Redirect(routes.User.show(note.to).url + "?note")
+          env.user.noteApi.setDox(note._id, dox) inject Redirect(routes.User.show(note.to).url + "?note")
         }
       }
     }
