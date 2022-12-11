@@ -29,11 +29,11 @@
     }
 
     &:before {
-      right: 8px;
+      #{$end-direction}: 8px;
     }
 
     &:after {
-      left: 8px;
+      #{$start-direction}: 8px;
     }
   }
 
@@ -69,8 +69,10 @@
   .autoplay {
     @extend %flex-wrap;
 
-    a {
-      color: $c-font-dim;
+    .button {
+      &-empty {
+        color: $c-font-dim;
+      }
       font-size: 0.9em;
       flex: 1 1 auto;
       padding: 7px 0;
@@ -81,11 +83,6 @@
   form.delete {
     text-align: right;
     margin-top: 6px;
-
-    .button {
-      display: inline-block;
-      padding: 0 8px;
-    }
 
     .button::before {
       font-size: 1.2em;
@@ -105,14 +102,10 @@
 
     input[type='range'] {
       flex: 1 4 auto;
-      padding: 0 0 0 1em;
+      padding: 0;
       height: 1.6em;
       width: 100%;
-      margin-left: 1ch;
-
-      &[min='0'] {
-        padding: 0;
-      }
+      margin: 0 1ch;
     }
 
     .range_value {

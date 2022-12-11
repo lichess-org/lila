@@ -88,7 +88,7 @@
   }
 
   .button {
-    margin-left: 1em;
+    margin-#{$start-direction}: 1em;
   }
 
   .replies {

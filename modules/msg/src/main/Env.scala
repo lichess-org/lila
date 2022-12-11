@@ -1,9 +1,10 @@
 package lila.msg
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 
 import lila.common.Bus
-import lila.common.config._
+import lila.common.config.*
+import lila.common.Json.given
 import lila.user.User
 import lila.hub.actorApi.socket.remote.TellUserIn
 
@@ -11,6 +12,7 @@ import lila.hub.actorApi.socket.remote.TellUserIn
 final class Env(
     db: lila.db.Db,
     lightUserApi: lila.user.LightUserApi,
+    getBotUserIds: lila.user.GetBotIds,
     isOnline: lila.socket.IsOnline,
     userRepo: lila.user.UserRepo,
     userCache: lila.user.Cached,
@@ -20,12 +22,14 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     spam: lila.security.Spam,
     chatPanic: lila.chat.ChatPanic,
-    shutup: lila.hub.actors.Shutup
-)(implicit
+    shutup: lila.hub.actors.Shutup,
+    mongoCache: lila.memo.MongoCache.Api
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler
-) {
+    scheduler: akka.actor.Scheduler,
+    materializer: akka.stream.Materializer
+):
 
   private val colls = wire[MsgColls]
 
@@ -41,31 +45,34 @@ final class Env(
 
   lazy val compat = wire[MsgCompat]
 
+  lazy val twoFactorReminder = wire[TwoFactorReminder]
+
   def cli =
-    new lila.common.Cli {
+    new lila.common.Cli:
       def process = { case "msg" :: "multi" :: orig :: dests :: words =>
-        api.cliMultiPost(orig, dests.map(_.toLower).split(',').toIndexedSeq, words mkString " ")
+        api.cliMultiPost(
+          UserStr(orig),
+          UserId.from(dests.map(_.toLower).split(',').toIndexedSeq),
+          words mkString " "
+        )
       }
-    }
 
   Bus.subscribeFuns(
     "msgSystemSend" -> { case lila.hub.actorApi.msg.SystemMsg(userId, text) =>
       api.systemPost(userId, text).unit
     },
     "remoteSocketIn:msgRead" -> { case TellUserIn(userId, msg) =>
-      msg str "d" map User.normalize foreach { api.setRead(userId, _) }
+      msg.get[UserId]("d") foreach { api.setRead(userId, _) }
     },
     "remoteSocketIn:msgSend" -> { case TellUserIn(userId, msg) =>
       for {
         obj  <- msg obj "d"
-        dest <- obj str "dest" map User.normalize
+        dest <- obj.get[UserId]("dest")
         text <- obj str "text"
       } api.post(userId, dest, text)
     }
   )
-}
 
-private class MsgColls(db: lila.db.Db) {
+private class MsgColls(db: lila.db.Db):
   val thread = db(CollName("msg_thread"))
   val msg    = db(CollName("msg_msg"))
-}

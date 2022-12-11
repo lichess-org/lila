@@ -19,7 +19,7 @@
   <string name="notEnoughGames">لم تلعب مباريات كفاية</string>
   <string name="highestRating">أعلى تقييم: %s</string>
   <string name="lowestRating">أقل تقييم: %s</string>
-  <string name="fromXToY">من %1$s الى %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">من %1$s الى %2$s</string>
   <string name="winningStreak">سلسلة الانتصارات</string>
   <string name="losingStreak">سلسلة الهزائم</string>
   <string name="longestStreak">اطول سلسلة: %s</string>

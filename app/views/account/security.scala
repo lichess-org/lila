@@ -1,14 +1,14 @@
 package views.html
 package account
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 import play.api.i18n.Lang
 
-object security {
+object security:
 
   def apply(
       u: lila.user.User,
@@ -16,13 +16,13 @@ object security {
       curSessionId: String,
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
-  )(implicit
+  )(using
       ctx: Context
   ) =
     account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security") {
       div(cls := "account security")(
         div(cls := "box")(
-          h1(trans.security()),
+          h1(cls := "box__top")(trans.security()),
           standardFlash(cls := "box__pad"),
           div(cls := "box__pad")(
             p(
@@ -43,14 +43,6 @@ object security {
             )
           ),
           table(sessions, curSessionId.some, clients, personalAccessTokens)
-        ),
-        div(cls := "account security box")(
-          h1("Additional third party apps"),
-          p(cls := "box__pad")(
-            "Revoke access of any ",
-            a(href := routes.OAuthApp.index)("third party apps"),
-            " that you do not trust."
-          )
         )
       )
     }
@@ -66,7 +58,7 @@ object security {
         tr(
           td(cls := "icon")(
             span(
-              cls := curSessionId.map { cur => s"is-${if (cur == s.session.id) "gold" else "green"}" },
+              cls      := curSessionId.map { cur => s"is-${if (cur == s.session.id) "gold" else "green"}" },
               dataIcon := (if (s.session.isMobile) "" else "")
             )
           ),
@@ -85,7 +77,7 @@ object security {
           curSessionId.map { cur =>
             td(
               s.session.id != cur option
-                postForm(action := routes.Account.signout(s.session.id))(
+                postForm(action    := routes.Account.signout(s.session.id))(
                   submitButton(cls := "button button-red", title := trans.logOut.txt(), dataIcon := "")
                 )
             )
@@ -101,7 +93,7 @@ object security {
               if (client.scopes.nonEmpty)
                 frag(
                   "Third party application with permissions: ",
-                  client.scopes.map(_.name).mkString(", ")
+                  client.scopes.map(_.name.txt()).mkString(", ")
                 )
               else
                 frag("Third party application using only public data.")
@@ -114,8 +106,8 @@ object security {
             }
           ),
           td(
-            postForm(action := routes.OAuth.revokeClient)(
-              input(tpe := "hidden", name := "origin", value := client.origin),
+            postForm(action    := routes.OAuth.revokeClient)(
+              input(tpe        := "hidden", name             := "origin", value    := client.origin),
               submitButton(cls := "button button-red", title := "Revoke", dataIcon := "")
             )
           )
@@ -132,4 +124,3 @@ object security {
         )
       )
     )
-}

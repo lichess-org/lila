@@ -56,7 +56,7 @@ $slider-width: 12px;
 
 .ui-slider-horizontal .ui-slider-handle {
   top: -5.5px;
-  margin-left: -9px;
+  margin-#{$start-direction}: -9px;
 }
 
 .ui-slider-horizontal .ui-slider-range {
@@ -65,9 +65,9 @@ $slider-width: 12px;
 }
 
 .ui-slider-horizontal .ui-slider-range-min {
-  left: 0;
+  #{$start-direction}: 0;
 }
 
 .ui-slider-horizontal .ui-slider-range-max {
-  right: 0;
+  #{$end-direction}: 0;
 }

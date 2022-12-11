@@ -1,20 +1,20 @@
 package views.html.plan
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object thanks {
+object thanks:
 
-  import trans.patron._
+  import trans.patron.*
 
   def apply(
       patron: Option[lila.plan.Patron],
-      customer: Option[lila.plan.StripeCustomer],
+      stripeCustomer: Option[lila.plan.StripeCustomer],
       gift: Option[lila.plan.Patron]
-  )(implicit
+  )(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -22,7 +22,7 @@ object thanks {
       title = thankYou.txt()
     ) {
       main(cls := "page-small page box box-pad")(
-        h1(cls := "text", dataIcon := patronIconChar)(thankYou()),
+        boxTop(h1(cls := "text", dataIcon := patronIconChar)(thankYou())),
         div(cls := "body")(
           p(tyvm()),
           p(transactionCompleted()),
@@ -36,7 +36,11 @@ object thanks {
                 ", thanks to you!"
               )
             case (_, Some(pat)) =>
-              if (pat.payPal.exists(_.renew) || customer.exists(_.renew)) ctx.me.fold(emptyFrag) { me =>
+              if (
+                pat.payPal.exists(_.renew) ||
+                pat.payPalCheckout.exists(_.renew) ||
+                stripeCustomer.exists(_.renew)
+              ) ctx.me map { me =>
                 p(
                   permanentPatron(),
                   br,
@@ -74,8 +78,7 @@ object thanks {
           br,
           br,
           br,
-          a(href := s"${routes.Plan.list}#gift")(makeAdditionalDonation())
+          a(href := s"${routes.Plan.list}?dest=gift")(makeAdditionalDonation())
         )
       )
     }
-}

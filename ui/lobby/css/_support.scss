@@ -26,7 +26,7 @@ $c-support: $c-brag;
     margin: 0 0.5em;
 
     &::before {
-      margin-right: 0.15em;
+      margin-#{$end-direction}: 0.15em;
       color: $c-support;
       font-size: 2.6em;
 

@@ -3,37 +3,41 @@ package views.html.lobby
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.mashup.Preload.Homepage
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
-object home {
+object home:
 
-  def apply(homepage: Homepage)(implicit ctx: Context) = {
-    import homepage._
+  def apply(homepage: Homepage)(implicit ctx: Context) =
+    import homepage.*
     views.html.base.layout(
       title = "",
       fullTitle = Some {
-        s"lichess.${if (netConfig.isProd) "org" else "dev"} • ${trans.freeOnlineChess.txt()}"
+        s"$siteName • ${trans.freeOnlineChess.txt()}"
       },
       moreJs = frag(
         jsModule("lobby"),
         embedJsUnsafeLoadThen(
           s"""LichessLobby(${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "playban" -> playban.map { pb =>
-                Json.obj(
-                  "minutes"          -> pb.mins,
-                  "remainingSeconds" -> (pb.remainingSeconds + 3)
+              Json
+                .obj(
+                  "data" -> data,
+                  "i18n" -> i18nJsObject(i18nKeys)
                 )
-              },
-              "i18n" -> i18nJsObject(i18nKeys)
-            )
-          )})"""
+                .add("hideRatings" -> !ctx.pref.showRatings)
+                .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
+                .add(
+                  "playban",
+                  playban.map { pb =>
+                    Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))
+                  }
+                )
+            )})"""
         )
       ),
       moreCss = cssTag("lobby"),
@@ -46,68 +50,29 @@ object home {
           url = netBaseUrl,
           description = trans.siteDescription.txt()
         )
-        .some
+        .some,
+      withHrefLangs = LangPath("/").some
     ) {
       main(
         cls := List(
-          "lobby"            -> true,
-          "lobby-nope"       -> (playban.isDefined || currentGame.isDefined),
+          "lobby"      -> true,
+          "lobby-nope" -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage),
           "lobby--no-simuls" -> simuls.isEmpty
         )
       )(
         div(cls := "lobby__table")(
-          div(cls := "bg-switch", title := "Dark mode")(
+          div(cls   := "bg-switch", title := "Dark mode")(
             div(cls := "bg-switch__track"),
             div(cls := "bg-switch__thumb")
           ),
           div(cls := "lobby__start")(
-            ctx.blind option h2("Play"),
-            a(
-              href := routes.Setup.hookForm,
-              cls := List(
-                "button button-metal config_hook" -> true,
-                "disabled"                        -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
-              ),
-              trans.createAGame()
-            ),
-            a(
-              href := routes.Setup.friendForm(none),
-              cls := List(
-                "button button-metal config_friend" -> true,
-                "disabled"                          -> currentGame.isDefined
-              ),
-              trans.playWithAFriend()
-            ),
-            a(
-              href := routes.Setup.aiForm,
-              cls := List(
-                "button button-metal config_ai" -> true,
-                "disabled"                      -> currentGame.isDefined
-              ),
-              trans.playWithTheMachine()
-            )
-          ),
-          div(cls := "lobby__counters")(
-            ctx.blind option h2("Counters"),
-            a(
-              id := "nb_connected_players",
-              href := ctx.noBlind.option(routes.User.list.url)
-            )(
-              trans.nbPlayers(
-                strong(dataCount := homepage.counters.members)(homepage.counters.members.localize)
-              )
-            ),
-            a(
-              id := "nb_games_in_play",
-              href := ctx.noBlind.option(routes.Tv.games.url)
-            )(
-              trans.nbGamesInPlay(
-                strong(dataCount := homepage.counters.rounds)(homepage.counters.rounds.localize)
-              )
-            )
+            a(cls := "button button-metal", trans.createAGame()),
+            a(cls := "button button-metal", trans.playWithAFriend()),
+            a(cls := "button button-metal", trans.playWithTheMachine())
           )
         ),
         currentGame.map(bits.currentGameInfo) orElse
+          hasUnreadLichessMessage.option(bits.showUnreadLichessMessage) orElse
           playban.map(bits.playbanInfo) getOrElse {
             if (ctx.blind) blindLobby(blindGames)
             else bits.lobbyApp
@@ -127,6 +92,7 @@ object home {
               lila.tournament.Spotlight.select(tours, ctx.me, 3 - events.size) map {
                 views.html.tournament.homepageSpotlight(_)
               },
+              swiss map views.html.swiss.bits.homepageSpotlight,
               simuls.filter(isFeaturable) map views.html.simul.bits.homepageSpotlight
             )
           ),
@@ -159,16 +125,7 @@ object home {
           views.html.puzzle.embed.dailyLink(p)(ctx.lang)(cls := "lobby__puzzle")
         },
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
-        ctx.noKid option div(cls := "lobby__forum lobby__box")(
-          a(cls := "lobby__box__top", href := routes.ForumCateg.index)(
-            h2(cls := "title text", dataIcon := "")(trans.latestForumPosts()),
-            span(cls := "more")(trans.more(), " »")
-          ),
-          div(cls := "lobby__box__content")(
-            views.html.forum.post recent forumRecent
-          )
-        ),
-        bits.lastPosts(lastPost),
+        bits.lastPosts(lastPost, ublogPosts),
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),
@@ -199,11 +156,17 @@ object home {
         )
       )
     }
-  }
 
   private val i18nKeys = List(
     trans.realTime,
     trans.correspondence,
+    trans.unlimited,
+    trans.timeControl,
+    trans.incrementInSeconds,
+    trans.minutesPerSide,
+    trans.daysPerTurn,
+    trans.ratingRange,
+    trans.nbPlayers,
     trans.nbGamesInPlay,
     trans.player,
     trans.time,
@@ -211,6 +174,7 @@ object home {
     trans.cancel,
     trans.casual,
     trans.rated,
+    trans.perfRatingX,
     trans.variant,
     trans.mode,
     trans.list,
@@ -223,9 +187,16 @@ object home {
     trans.yourTurn,
     trans.rating,
     trans.createAGame,
+    trans.playWithAFriend,
+    trans.playWithTheMachine,
+    trans.strength,
+    trans.pasteTheFenStringHere,
     trans.quickPairing,
     trans.lobby,
     trans.custom,
-    trans.anonymous
-  ).map(_.key)
-}
+    trans.anonymous,
+    trans.side,
+    trans.white,
+    trans.randomColor,
+    trans.black
+  )

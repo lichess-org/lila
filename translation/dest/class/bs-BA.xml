@@ -12,7 +12,6 @@
   <string name="teachersX">Instruktori: %s</string>
   <string name="newClass">Novi čas</string>
   <string name="closeClass">Zatvorite Čas</string>
-  <string name="closedByX">Zatvorio/la %s</string>
   <string name="reopen">Otvorite ponovo</string>
   <string name="removeStudent">Uklonite učenika/cu</string>
   <string name="removedStudents">Uklonjen</string>
@@ -57,7 +56,6 @@ Evo linka za pristup času.</string>
     <item quantity="few">%s pozivnice / pozivnica na čekanju</item>
     <item quantity="other">%s pozivnice / pozivnica na čekanju</item>
   </plurals>
-  <string name="noPendingInvitations">Nema pozivnica</string>
   <string name="onlyVisibleToTeachers">Vidljivo samo instruktorima časa</string>
   <string name="lastActiveDate">Zadnja aktivnost</string>
   <string name="managed">Pod nadzorom</string>
@@ -88,7 +86,6 @@ Evo linka za pristup času.</string>
   <string name="variantXOverLastY">%1$s tokom poslednjih %2$s</string>
   <string name="winrate">Postotak pobjeda</string>
   <string name="na">NIje dostupno</string>
-  <string name="news">Vijesti časa</string>
   <string name="editNews">Uredite vijesti</string>
   <string name="notifyAllStudents">Obavjestite sve učenike</string>
   <string name="nothingHere">Ovde još uvijek nema ništa.</string>

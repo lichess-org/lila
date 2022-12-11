@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">You are now a spectator</string>
   <string name="pgnTags">PGN tags</string>
   <string name="like">Like</string>
+  <string name="unlike">Unlike</string>
   <string name="newTag">New tag</string>
   <string name="commentThisPosition">Comment on this position</string>
   <string name="commentThisMove">Comment on this move</string>
@@ -64,10 +65,10 @@
   <string name="downloadGame">Download game</string>
   <string name="studyUrl">Study URL</string>
   <string name="currentChapterUrl">Current chapter URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum to embed</string>
+  <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum or your Lichess blog to embed</string>
   <string name="startAtInitialPosition">Start at initial position</string>
   <string name="startAtX">Start at %s</string>
-  <string name="embedInYourWebsite">Embed in your website or blog</string>
+  <string name="embedInYourWebsite">Embed in your website</string>
   <string name="readMoreAboutEmbedding">Read more about embedding</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Only public studies can be embedded!</string>
   <string name="open">Open</string>
@@ -75,14 +76,16 @@
   <string name="studyNotFound">Study not found</string>
   <string name="editChapter">Edit chapter</string>
   <string name="newChapter">New chapter</string>
+  <string name="importFromChapterX">Import from %s</string>
   <string name="orientation">Orientation</string>
   <string name="analysisMode">Analysis mode</string>
   <string name="pinnedChapterComment">Pinned chapter comment</string>
   <string name="saveChapter">Save chapter</string>
   <string name="clearAnnotations">Clear annotations</string>
+  <string name="clearVariations">Clear variations</string>
   <string name="deleteChapter">Delete chapter</string>
-  <string name="deleteThisChapter">Delete this chapter? There is no going back!</string>
-  <string name="clearAllCommentsInThisChapter">Clear all comments, glyphs and drawn shapes in this chapter?</string>
+  <string name="deleteThisChapter">Delete this chapter. There is no going back!</string>
+  <string name="clearAllCommentsInThisChapter">Clear all comments, glyphs and drawn shapes in this chapter</string>
   <string name="rightUnderTheBoard">Right under the board</string>
   <string name="noPinnedComment">None</string>
   <string name="normalAnalysis">Normal analysis</string>
@@ -126,7 +129,7 @@
   <string name="clearChat">Clear chat</string>
   <string name="deleteTheStudyChatHistory">Delete the study chat history? There is no going back!</string>
   <string name="deleteStudy">Delete study</string>
-  <string name="deleteTheEntireStudy">Delete the entire study? There is no going back!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Delete the entire study? There is no going back! Type the name of the study to confirm: %s</string>
   <string name="whereDoYouWantToStudyThat">Where do you want to study that?</string>
   <string name="goodMove">Good move</string>
   <string name="mistake">Mistake</string>
@@ -154,4 +157,13 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">With the idea</string>
   <string name="nextChapter">Next chapter</string>
   <string name="prevChapter">Previous chapter</string>
+  <string name="studyActions">Study actions</string>
+  <string name="topics">Topics</string>
+  <string name="myTopics">My topics</string>
+  <string name="popularTopics">Popular topics</string>
+  <string name="manageTopics">Manage topics</string>
+  <string name="back">Back</string>
+  <string name="playAgain">Play again</string>
+  <string name="whatWouldYouPlay">What would you play in this position?</string>
+  <string name="youCompletedThisLesson">Congratulations! You completed this lesson.</string>
 </resources>

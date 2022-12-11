@@ -19,7 +19,7 @@
   <string name="notEnoughGames">Niet genoeg partijen gespeeld</string>
   <string name="highestRating">Hoogste rating: %s</string>
   <string name="lowestRating">Laagste rating: %s</string>
-  <string name="fromXToY">van %1$s tot %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">van %1$s tot %2$s</string>
   <string name="winningStreak">Overwinningsreeks</string>
   <string name="losingStreak">Verliesreeks</string>
   <string name="longestStreak">Langste reeks: %s</string>

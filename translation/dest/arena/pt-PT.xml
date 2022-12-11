@@ -38,7 +38,10 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
   </plurals>
   <string name="thisIsPrivate">Este é um torneio privado</string>
   <string name="shareUrl">Partilha este link para que as pessoas possam entrar: %s</string>
-  <string name="drawStreak">Sequência de empates: Quando um jogador tem empates consecutivos numa arena, apenas o primeiro resultará em um ponto, ou empates que duraram mais de %s movimentos. A sequência de empates só pode ser quebrada por uma vitória, não por uma derrota ou empate.</string>
+  <string name="drawStreakStandard">Sequência de empates: Quando um jogador tem empates consecutivos numa arena, apenas o primeiro empate ou os empates que duraram mais de %s movimentos resultarão num ponto. A sequência de empates só pode ser quebrada por uma vitória, não por uma derrota ou empate.</string>
+  <string name="drawStreakVariants">A duração mínima do jogo para empates difere por variante. A tabela abaixo lista o limite para cada variante.</string>
+  <string name="variant">Variante</string>
+  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Duração mínima do jogo</string>
   <string name="history">Histórico de arenas</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Ver a equipa</item>

@@ -53,6 +53,7 @@
   <string name="youAreNowASpectator">انت الان اصبحت مشاهد</string>
   <string name="pgnTags">وسم PGN</string>
   <string name="like">إعجاب</string>
+  <string name="unlike">إلغاء الإعجاب</string>
   <string name="newTag">علامة جديدة</string>
   <string name="commentThisPosition">التعليق على هذا الوضع</string>
   <string name="commentThisMove">التعليق على هذه النقلة</string>
@@ -61,7 +62,7 @@
   <string name="onlyContributorsCanRequestAnalysis">فقط المساهمون في هذا الدراسة يمكنهم طلب تحليل الحاسوب</string>
   <string name="getAFullComputerAnalysis">احصل على تحليل حاسوب كامل للتفريع الرئيسي من قبل الخادم</string>
   <string name="makeSureTheChapterIsComplete">كن متأكداً ان الفصل مكتمل، يمكنك طلب تحليل الحاسوب مره واحده فحسب</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">يظل جميع ألاعضاء الذين تمت مزامنة معلوماتهم في نفس الترتيب</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">يظل جميع ألاعضاء الذين تمت مزامنة معلوماتهم في نفس الترتيب</string>
   <string name="shareChanges">شارك التغيبرات مع المشاهدين وإحفظهن الى الخادم</string>
   <string name="playing">يلعب الان</string>
   <string name="first">الأولى</string>
@@ -87,11 +88,13 @@
   <string name="studyNotFound">لم يتم العثور على الدراسة</string>
   <string name="editChapter">تحرير الفصل</string>
   <string name="newChapter">فصل جديد</string>
+  <string name="importFromChapterX">استيراد من %s</string>
   <string name="orientation">اتجاه الرقعة</string>
   <string name="analysisMode">وضع التحليل</string>
   <string name="pinnedChapterComment">التعليق المثبت على الفصل</string>
   <string name="saveChapter">حفظ الفصل</string>
   <string name="clearAnnotations">مسح العلامات</string>
+  <string name="clearVariations">مسح اللاينات</string>
   <string name="deleteChapter">حذف الفصل</string>
   <string name="deleteThisChapter">هل تريد حذف الفصل ؟ لايمكنك التراجع عن ذلك لاحقاً!</string>
   <string name="clearAllCommentsInThisChapter">مسح جميع التعليقات والغلافات والأشكال المرسومة في هذا الفصل؟</string>
@@ -142,7 +145,7 @@
   <string name="clearChat">مسح المحادثة</string>
   <string name="deleteTheStudyChatHistory">هل تريد حذف سجل الدردشة الدراسية؟ لا يمكن إرجاعها!</string>
   <string name="deleteStudy">حذف الدراسة</string>
-  <string name="deleteTheEntireStudy">هل تريد حذف الدراسة كلها؟ لا يمكن إرجاعها!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">حذف الدراسة بأكملها؟ لا يمكنك التراجع عن هذه الخطوة! اكتب اسم الدراسة لتأكيد عملية الحذف: %s</string>
   <string name="whereDoYouWantToStudyThat">أين تريد دراسة ذلك؟</string>
   <string name="goodMove">نقلة جيدة</string>
   <string name="mistake">خطأ</string>
@@ -170,4 +173,13 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">مع فكرة</string>
   <string name="nextChapter">الفصل التالي</string>
   <string name="prevChapter">الفصل السابق</string>
+  <string name="studyActions">خيارات الدراسة</string>
+  <string name="topics">المواضيع</string>
+  <string name="myTopics">المواضيع الخاصة بي</string>
+  <string name="popularTopics">المواضيع الشائعة</string>
+  <string name="manageTopics">إدارة المواضيع</string>
+  <string name="back">رجوع</string>
+  <string name="playAgain">اللعب مجددا</string>
+  <string name="whatWouldYouPlay">ماذا ستلعب في هذا الموقف؟</string>
+  <string name="youCompletedThisLesson">تهانينا! لقد أكملت هذا الدرس.</string>
 </resources>

@@ -2,13 +2,13 @@ package views.html.video
 
 import lila.common.String.html.richText
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object show {
+object show:
 
   def apply(
       video: lila.video.Video,
@@ -31,14 +31,14 @@ object show {
       div(cls := "show")(
         div(cls := "embed")(
           iframe(
-            id := "ytplayer",
+            id  := "ytplayer",
             tpe := "text/html",
             src := s"https://www.youtube.com/embed/${video.id}?autoplay=1&origin=https://lichess.org&start=${video.startTime}",
             st.frameborder := "0",
             frame.allowfullscreen
           )
         ),
-        h1(cls := "box__pad")(
+        h1(cls  := "box__pad")(
           a(cls := "is4 text", dataIcon := "", href := s"${routes.Video.index}?${control.queryString}"),
           video.title
         ),
@@ -49,9 +49,9 @@ object show {
           ),
           video.tags.map { tag =>
             a(
-              cls := "tag",
+              cls      := "tag",
               dataIcon := "",
-              href := s"${routes.Video.index}?tags=${tag.replace(" ", "+")}"
+              href     := s"${routes.Video.index}?tags=${tag.replace(" ", "+")}"
             )(
               tag.capitalize
             )
@@ -65,4 +65,3 @@ object show {
         )
       )
     }
-}

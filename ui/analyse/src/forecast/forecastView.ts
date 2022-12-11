@@ -1,8 +1,9 @@
 import { h, VNode } from 'snabbdom';
+import { bind, dataIcon } from 'common/snabbdom';
 import { ForecastCtrl, ForecastStep } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
-import { bind, dataIcon, spinner } from '../util';
+import { spinnerVdom as spinner } from 'common/spinner';
 import { fixCrazySan } from 'chess';
 
 function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
@@ -23,7 +24,7 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
       h('span', [
         h('strong', ctrl.trans('playX', fixCrazySan(cNodes[0].san))),
         lines.length
-          ? h('span', ctrl.trans.plural('andSaveNbPremoveLines', lines.length))
+          ? h('span', ctrl.trans.pluralSame('andSaveNbPremoveLines', lines.length))
           : h('span', ctrl.trans.noarg('noConditionalPremoves')),
       ]),
     ]
@@ -64,20 +65,10 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                 attrs: dataIcon(''),
               },
               [
-                h(
-                  'a.del',
-                  {
-                    hook: bind(
-                      'click',
-                      e => {
-                        fctrl.removeIndex(i);
-                        e.stopPropagation();
-                      },
-                      ctrl.redraw
-                    ),
-                  },
-                  'x'
-                ),
+                h('button.del', {
+                  hook: bind('click', _ => fctrl.removeIndex(i), ctrl.redraw),
+                  attrs: { 'data-icon': '', type: 'button' },
+                }),
                 h('sans', renderNodesHtml(nodes)),
               ]
             );

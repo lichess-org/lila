@@ -1,5 +1,6 @@
-import { Ctrl, NotifyData, Notification } from './interfaces';
+import { Ctrl, NotifyData, type Notification } from './interfaces';
 import { h, VNode } from 'snabbdom';
+import { spinnerVdom as spinner } from 'common/spinner';
 import makeRenderers from './renderers';
 
 export default function view(ctrl: Ctrl): VNode {
@@ -16,17 +17,21 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
 
   const nodes: VNode[] = [];
 
-  if (pager.previousPage)
+  nodes.push(
+    h(`div.pager.prev${pager.previousPage ? '' : '.disabled'}`, {
+      attrs: { 'data-icon': '' },
+      hook: clickHook(ctrl.previousPage),
+    })
+  );
+
+  if (nb > 0)
     nodes.push(
-      h('div.pager.prev', {
-        attrs: { 'data-icon': '' },
-        hook: clickHook(ctrl.previousPage),
-      })
-    );
-  else if (pager.nextPage)
-    nodes.push(
-      h('div.pager.prev.disabled', {
-        attrs: { 'data-icon': '' },
+      h('button.delete.button.button-empty', {
+        attrs: {
+          'data-icon': '',
+          title: 'Clear',
+        },
+        hook: clickHook(ctrl.clear),
       })
     );
 
@@ -101,10 +106,4 @@ function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
 
 function empty() {
   return h('div.empty.text', { attrs: { 'data-icon': '' } }, 'No notifications.');
-}
-
-function spinner() {
-  return h('div.spinner', [
-    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [h('circle', { attrs: { cx: 20, cy: 20, r: 18, fill: 'none' } })]),
-  ]);
 }

@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Du er nå tilskuer</string>
   <string name="pgnTags">PGN-merkelapper</string>
   <string name="like">Lik</string>
+  <string name="unlike">Slutt å like</string>
   <string name="newTag">Ny merkelapp</string>
   <string name="commentThisPosition">Kommenter denne stillingen</string>
   <string name="commentThisMove">Kommenter dette trekket</string>
@@ -49,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Bare bidragsyterne til studien kan be om maskinanalyse.</string>
   <string name="getAFullComputerAnalysis">Få full maskinanalyse av hovedvarianten fra serveren.</string>
   <string name="makeSureTheChapterIsComplete">Sørg for at kapittelet er fullført. Du kan bare be om analyse én gang.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Alle synkroniserte medlemmer ser den samme stillingen</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Alle synkroniserte medlemmer ser den samme stillingen</string>
   <string name="shareChanges">Del endringer med tilskuere og lagre dem på serveren</string>
   <string name="playing">Pågår</string>
   <string name="first">Første</string>
@@ -75,11 +76,13 @@
   <string name="studyNotFound">Fant ikke studien</string>
   <string name="editChapter">Rediger kapittel</string>
   <string name="newChapter">Nytt kapittel</string>
+  <string name="importFromChapterX">Importer fra %s</string>
   <string name="orientation">Retning</string>
   <string name="analysisMode">Analysemodus</string>
   <string name="pinnedChapterComment">Fastspikrede kapittelkommenter</string>
   <string name="saveChapter">Lagre kapittelet</string>
   <string name="clearAnnotations">Fjern notater</string>
+  <string name="clearVariations">Fjern varianter</string>
   <string name="deleteChapter">Slett kapittel</string>
   <string name="deleteThisChapter">Slette dette kapittelet? Du kan ikke angre!</string>
   <string name="clearAllCommentsInThisChapter">Fjern alle kommentarer og figurer i dette kapittelet?</string>
@@ -126,7 +129,7 @@
   <string name="clearChat">Fjern samtalen</string>
   <string name="deleteTheStudyChatHistory">Slette studiens samtalehistorikk? Du kan ikke angre!</string>
   <string name="deleteStudy">Slett studie</string>
-  <string name="deleteTheEntireStudy">Slette hele studien? Avgjørelsen er endelig og kan ikke angres!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Slette hele studien? Du kan ikke angre! Bekreft ved å skrive inn navnet på studien: %s</string>
   <string name="whereDoYouWantToStudyThat">Hvilken studie vil du bruke?</string>
   <string name="goodMove">Godt trekk</string>
   <string name="mistake">Feil</string>
@@ -154,4 +157,13 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Med ideen</string>
   <string name="nextChapter">Neste kapittel</string>
   <string name="prevChapter">Forrige kapittel</string>
+  <string name="studyActions">Studiehandlinger</string>
+  <string name="topics">Emner</string>
+  <string name="myTopics">Mine emner</string>
+  <string name="popularTopics">Populære emner</string>
+  <string name="manageTopics">Administrer emner</string>
+  <string name="back">Tilbake</string>
+  <string name="playAgain">Spill igjen</string>
+  <string name="whatWouldYouPlay">Hva vil du spille i denne stillingen?</string>
+  <string name="youCompletedThisLesson">Gratulerer! Du har fullført denne leksjonen.</string>
 </resources>

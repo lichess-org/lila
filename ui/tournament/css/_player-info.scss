@@ -22,7 +22,7 @@
     }
 
     th {
-      border-left: 3px solid transparent;
+      border-#{$start-direction}: 3px solid transparent;
 
       @include transition;
     }

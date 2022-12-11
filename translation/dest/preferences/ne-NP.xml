@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">प्राथमिकता</string>
-  <string name="gameDisplay">खेलको प्रदर्शन</string>
   <string name="pieceAnimation">गोटीहरुको एनिमेशन</string>
   <string name="materialDifference">गोटीहरुमा फरक</string>
   <string name="boardHighlights">बोर्डमा हाइलाइट (अन्तिम चाल र चेक)</string>
@@ -30,7 +29,7 @@
   <string name="promoteToQueenAutomatically">आफै मन्त्री बनाउने</string>
   <string name="whenPremoving">प्रिमुभ गर्दा</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">आफै तीनपटक को दोहोरी मा बराबरी दाबी गर्ने</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">जब ३० सेकेण्ड भन्दा कम समय बाँकि हुन्छ</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">जब ३० सेकेण्ड भन्दा कम समय बाँकि हुन्छ</string>
   <string name="moveConfirmation">चाल पुष्टिकरण</string>
   <string name="inCorrespondenceGames">पत्रचारिक खेलहरु</string>
   <string name="correspondenceAndUnlimited">पत्रचारिक तथा अनिश्चितकालीन</string>

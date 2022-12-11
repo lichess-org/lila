@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newPost">Yangi post</string>
+  <string name="editYourBlogPost">Blog postingizni tahrirlang</string>
+  <string name="saveDraft">Qoralamani saqlash</string>
+  <string name="drafts">Qarolamalar</string>
+  <string name="createBlogDiscussion">Izohlashga ruhsat berish</string>
+</resources>

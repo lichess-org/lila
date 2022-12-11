@@ -2,14 +2,12 @@ import * as cg from 'chessground/types';
 import * as chessUtil from 'chess';
 import * as game from 'game';
 import * as keyboard from './keyboard';
-import * as promotion from './promotion';
 import * as speech from './speech';
 import * as util from './util';
-import * as xhr from 'common/xhr';
+import { plural } from './view/util';
 import debounce from 'common/debounce';
-import explorerCtrl from './explorer/explorerCtrl';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
-import makeStudy from './study/studyCtrl';
+import type makeStudyCtrl from './study/studyCtrl';
 import throttle from 'common/throttle';
 import { AnalyseOpts, AnalyseData, ServerEvalData, Key, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import { Api as ChessgroundApi } from 'chessground/api';
@@ -17,14 +15,12 @@ import { Autoplay, AutoplayDelay } from './autoplay';
 import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from 'tree';
 import { compute as computeAutoShapes } from './autoShape';
 import { Config as ChessgroundConfig } from 'chessground/config';
-import { ActionMenuCtrl } from './actionMenu';
-import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
+import { CevalCtrl, isEvalBetter, sanIrreversible, EvalMeta } from 'ceval';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
-import { defined, prop, Prop } from 'common';
+import { defined, prop, Prop, toggle, Toggle } from 'common';
 import { DrawShape } from 'chessground/draw';
-import { ExplorerCtrl } from './explorer/interfaces';
 import { ForecastCtrl } from './forecast/interfaces';
-import { lichessVariantRules } from 'chessops/compat';
+import { lichessRules } from 'chessops/compat';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { make as makeForecast } from './forecast/forecastCtrl';
 import { make as makeFork, ForkCtrl } from './fork';
@@ -33,27 +29,33 @@ import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
 import { make as makeSocket, Socket } from './socket';
 import { nextGlyphSymbol } from './nodeFinder';
 import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
-import { COLORS, Outcome, isNormal } from 'chessops/types';
-import { SquareSet } from 'chessops/squareSet';
+import { Outcome, isNormal } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
 import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
-import { storedProp, StoredBooleanProp } from 'common/storage';
+import { storedBooleanProp } from 'common/storage';
 import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
+import { PromotionCtrl } from 'chess/promotion';
+import wikiTheory, { wikiClear, WikiTheory } from './wiki';
+import ExplorerCtrl from './explorer/explorerCtrl';
+import { uciToMove } from 'chessground/util';
+import Persistence from './persistence';
+import pgnImport from './pgnImport';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
   element: HTMLElement;
-
   tree: TreeWrapper;
   socket: Socket;
   chessground: ChessgroundApi;
   trans: Trans;
   ceval: CevalCtrl;
   evalCache: EvalCache;
+  persistence?: Persistence;
+  actionMenu: Toggle = toggle(false);
 
   // current tree state, cursor, and denormalized node lists
   path: Tree.Path;
@@ -62,7 +64,6 @@ export default class AnalyseCtrl {
   mainline: Tree.Node[];
 
   // sub controllers
-  actionMenu: ActionMenuCtrl;
   autoplay: Autoplay;
   explorer: ExplorerCtrl;
   forecast?: ForecastCtrl;
@@ -71,6 +72,8 @@ export default class AnalyseCtrl {
   practice?: PracticeCtrl;
   study?: StudyCtrl;
   studyPractice?: StudyPracticeCtrl;
+  promotion: PromotionCtrl;
+  wiki?: WikiTheory;
 
   // state flags
   justPlayed?: string; // pos
@@ -86,10 +89,10 @@ export default class AnalyseCtrl {
   flipped = false;
   embed: boolean;
   showComments = true; // whether to display comments in the move tree
-  showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
-  showGauge: StoredBooleanProp = storedProp('show-gauge', true);
-  showComputer: StoredBooleanProp = storedProp('show-computer', true);
-  showMoveAnnotation: StoredBooleanProp = storedProp('show-move-annotation', true);
+  showAutoShapes = storedBooleanProp('show-auto-shapes', true);
+  showGauge = storedBooleanProp('show-gauge', true);
+  showComputer = storedBooleanProp('show-computer', true);
+  showMoveAnnotation = storedBooleanProp('show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
@@ -108,40 +111,35 @@ export default class AnalyseCtrl {
   gamePath?: Tree.Path;
 
   // misc
+  requestInitialPly?: number; // start ply from the URL location hash
   cgConfig: any; // latest chessground config (useful for revert)
   music?: any;
   nvui?: NvuiPlugin;
+  pvUciQueue: Uci[] = [];
 
-  constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw) {
+  constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw, makeStudy?: typeof makeStudyCtrl) {
     this.data = opts.data;
     this.element = opts.element;
     this.embed = opts.embed;
     this.trans = opts.trans;
     this.treeView = treeViewCtrl(opts.embed ? 'inline' : 'column');
+    this.promotion = new PromotionCtrl(this.withCg, () => this.withCg(g => g.set(this.cgConfig)), this.redraw);
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
-
-    if (lichess.AnalyseNVUI) this.nvui = lichess.AnalyseNVUI(redraw) as NvuiPlugin;
+    if (this.opts.wiki) this.wiki = wikiTheory();
+    if (window.LichessAnalyseNvui) this.nvui = window.LichessAnalyseNvui(this) as NvuiPlugin;
 
     this.instanciateEvalCache();
 
+    if (opts.inlinePgn) this.data = this.changePgn(opts.inlinePgn, false) || this.data;
+
     this.initialize(this.data, false);
+
+    this.persistence = this.embed || opts.study || this.synthetic ? undefined : new Persistence(this);
 
     this.instanciateCeval();
 
-    this.initialPath = treePath.root;
-
-    {
-      const loc = window.location,
-        hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1));
-      if (hashPly) {
-        // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
-        window.history.replaceState(null, '', loc.pathname + loc.search);
-        const mainline = treeOps.mainlineNodeList(this.tree.root);
-        this.initialPath = treeOps.takePathWhile(mainline, n => n.ply <= hashPly);
-      }
-    }
-
+    this.initialPath = this.makeInitialPath();
     this.setPath(this.initialPath);
 
     this.showGround();
@@ -149,7 +147,7 @@ export default class AnalyseCtrl {
     this.startCeval();
     this.explorer.setNode();
     this.study = opts.study
-      ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay)
+      ? makeStudy?.(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay)
       : undefined;
     this.studyPractice = this.study ? this.study.practice : undefined;
 
@@ -171,13 +169,16 @@ export default class AnalyseCtrl {
       if (this.music && set !== 'music') this.music = null;
     });
 
-    lichess.pubsub.on('analysis.change.trigger', this.onChange);
+    lichess.pubsub.on('ply.trigger', () =>
+      lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply)
+    );
     lichess.pubsub.on('analysis.chart.click', index => {
       this.jumpToIndex(index);
       this.redraw();
     });
-
+    lichess.pubsub.on('theme.change', redraw);
     speech.setup();
+    this.persistence?.merge();
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -186,20 +187,42 @@ export default class AnalyseCtrl {
     this.ongoing = !this.synthetic && game.playable(data);
 
     const prevTree = merge && this.tree.root;
-    this.tree = makeTree(util.treeReconstruct(this.data.treeParts));
+    this.tree = makeTree(util.treeReconstruct(this.data.treeParts, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
 
-    this.actionMenu = new ActionMenuCtrl();
     this.autoplay = new Autoplay(this);
     if (this.socket) this.socket.clearCache();
     else this.socket = makeSocket(this.opts.socketSend, this);
-    this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
+    if (this.explorer) this.explorer.destroy();
+    this.explorer = new ExplorerCtrl(this, this.opts.explorer, this.explorer);
     this.gamePath =
       this.synthetic || this.ongoing ? undefined : treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
 
     lichess.sound.preloadBoardSounds();
   }
+
+  private makeInitialPath = (): string => {
+    // if correspondence, always use latest actual move to set 'current' style
+    if (this.ongoing) return treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
+
+    const loc = window.location,
+      hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1)),
+      startPly = hashPly >= 0 ? hashPly : this.opts.inlinePgn ? this.tree.lastPly() : undefined;
+    if (defined(startPly)) {
+      // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
+      window.history.replaceState(null, '', loc.pathname + loc.search);
+      this.requestInitialPly = startPly;
+      const mainline = treeOps.mainlineNodeList(this.tree.root);
+      return treeOps.takePathWhile(mainline, n => n.ply <= startPly);
+    } else return treePath.root;
+  };
+
+  enableWiki = (v: boolean) => {
+    this.wiki = v ? wikiTheory() : undefined;
+    if (this.wiki) this.wiki(this.nodeList);
+    else wikiClear();
+  };
 
   private setPath = (path: Tree.Path): void => {
     this.path = path;
@@ -209,10 +232,13 @@ export default class AnalyseCtrl {
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.pgnInput = undefined;
+    if (this.wiki && this.data.game.variant.key == 'standard') this.wiki(this.nodeList);
+    this.persistence?.save();
   };
 
   flip = () => {
     this.flipped = !this.flipped;
+    this.study?.onFlip();
     this.chessground.set({
       orientation: this.bottomColor(),
     });
@@ -220,6 +246,8 @@ export default class AnalyseCtrl {
       this.retro = makeRetro(this, this.bottomColor());
     }
     if (this.practice) this.restartPractice();
+    this.explorer.onFlip();
+    this.onChange();
     this.redraw();
   };
 
@@ -249,13 +277,7 @@ export default class AnalyseCtrl {
 
   togglePlay(delay: AutoplayDelay): void {
     this.autoplay.toggle(delay);
-    this.actionMenu.open = false;
-  }
-
-  private uciToLastMove(uci?: Uci): Key[] | undefined {
-    if (!uci) return;
-    if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)] as Key[];
-    return [uci.substr(0, 2), uci.substr(2, 2)] as Key[];
+    this.actionMenu(false);
   }
 
   private showGround(): void {
@@ -282,8 +304,9 @@ export default class AnalyseCtrl {
       color = this.turnColor(),
       dests = chessUtil.readDests(this.node.dests),
       drops = chessUtil.readDrops(this.node.drops),
-      movableColor = this.gamebookPlay()
-        ? color
+      gamebookPlay = this.gamebookPlay(),
+      movableColor = gamebookPlay
+        ? gamebookPlay.movableColor()
         : this.practice
         ? this.bottomColor()
         : !this.embed && ((dests && dests.size > 0) || drops === null || drops.length)
@@ -302,7 +325,7 @@ export default class AnalyseCtrl {
               dests: (movableColor === color && dests) || new Map(),
             },
         check: !!node.check,
-        lastMove: this.uciToLastMove(node.uci),
+        lastMove: uciToMove(node.uci),
       };
     if (!dests && !node.check) {
       // premove while dests are loading from server
@@ -326,7 +349,7 @@ export default class AnalyseCtrl {
   };
 
   private onChange: () => void = throttle(300, () => {
-    lichess.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
+    lichess.pubsub.emit('analysis.change', this.node.fen, this.path);
   });
 
   private updateHref: () => void = debounce(() => {
@@ -343,14 +366,12 @@ export default class AnalyseCtrl {
     const pathChanged = path !== this.path,
       isForwardStep = pathChanged && path.length == this.path.length + 2;
     this.setPath(path);
-    this.showGround();
     if (pathChanged) {
-      const playedMyself = this.playedLastMoveMyself();
-      if (this.study) this.study.setPath(path, this.node, playedMyself);
+      if (this.study) this.study.setPath(path, this.node);
       if (isForwardStep) {
         if (!this.node.uci) this.sound.move();
         // initial position
-        else if (!playedMyself) {
+        else if (!this.playedLastMoveMyself()) {
           if (this.node.san!.includes('x')) this.sound.capture();
           else this.sound.move();
         }
@@ -365,30 +386,30 @@ export default class AnalyseCtrl {
     this.explorer.setNode();
     this.updateHref();
     this.autoScroll();
-    promotion.cancel(this);
+    this.promotion.cancel();
     if (pathChanged) {
       if (this.retro) this.retro.onJump();
       if (this.practice) this.practice.onJump();
       if (this.study) this.study.onJump();
     }
     if (this.music) this.music.jump(this.node);
-    lichess.pubsub.emit('ply', this.node.ply);
+    lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
+    this.showGround();
   }
 
   userJump = (path: Tree.Path): void => {
     this.autoplay.stop();
-    this.withCg(cg => cg.selectSquare(null));
+    if (!this.gamebookPlay()) this.withCg(cg => cg.selectSquare(null));
     if (this.practice) {
       const prev = this.path;
       this.practice.preUserJump(prev, path);
       this.jump(path);
+      this.withCg(cg => cg.cancelPremove());
       this.practice.postUserJump(prev, this.path);
     } else this.jump(path);
   };
 
-  private canJumpTo(path: Tree.Path): boolean {
-    return !this.study || this.study.canJumpTo(path);
-  }
+  canJumpTo = (path: Tree.Path): boolean => !this.study || this.study.canJumpTo(path);
 
   userJumpIfCan(path: Tree.Path): void {
     if (this.canJumpTo(path)) this.userJump(path);
@@ -421,25 +442,24 @@ export default class AnalyseCtrl {
     this.cgVersion.js++;
   }
 
-  changePgn(pgn: string): void {
-    this.redirecting = true;
-    xhr
-      .json('/analysis/pgn', {
-        method: 'post',
-        body: xhr.form({ pgn }),
-      })
-      .then(
-        (data: AnalyseData) => {
-          this.reloadData(data, false);
-          this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
-          this.redraw();
-        },
-        error => {
-          console.log(error);
-          this.redirecting = false;
-          this.redraw();
-        }
-      );
+  changePgn(pgn: string, andReload: boolean): AnalyseData | undefined {
+    try {
+      const data: AnalyseData = {
+        ...pgnImport(pgn),
+        orientation: this.bottomColor(),
+        pref: this.data.pref,
+        evalPut: this.data.evalPut,
+      } as AnalyseData;
+      if (andReload) {
+        this.reloadData(data, false);
+        this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
+        this.redraw();
+      }
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+    return undefined;
   }
 
   changeFen(fen: Fen): void {
@@ -476,7 +496,9 @@ export default class AnalyseCtrl {
     const piece = this.chessground.state.pieces.get(dest);
     const isCapture = capture || (piece && piece.role == 'pawn' && orig[0] != dest[0]);
     this.sound[isCapture ? 'capture' : 'move']();
-    if (!promotion.start(this, orig, dest, capture, this.sendMove)) this.sendMove(orig, dest, capture);
+    if (!this.promotion.start(orig, dest, (orig, dest, prom) => this.sendMove(orig, dest, capture, prom))) {
+      this.sendMove(orig, dest, capture);
+    }
   };
 
   sendMove = (orig: Key, dest: Key, capture?: JustCaptured, prom?: cg.Role): void => {
@@ -512,6 +534,7 @@ export default class AnalyseCtrl {
   };
 
   addNode(node: Tree.Node, path: Tree.Path) {
+    this.persistence?.onAddNode(node, path);
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
       console.log("Can't addNode", node, path);
@@ -519,7 +542,9 @@ export default class AnalyseCtrl {
     }
     this.jump(newPath);
     this.redraw();
-    this.chessground.playPremove();
+    const queuedUci = this.pvUciQueue.shift();
+    if (queuedUci) this.playUci(queuedUci, this.pvUciQueue);
+    else this.chessground.playPremove();
   }
 
   addDests(dests: string, path: Tree.Path): void {
@@ -539,8 +564,8 @@ export default class AnalyseCtrl {
       (count.nodes >= 10 || count.comments > 0) &&
       !confirm(
         'Delete ' +
-          util.plural('move', count.nodes) +
-          (count.comments ? ' and ' + util.plural('comment', count.comments) : '') +
+          plural('move', count.nodes) +
+          (count.comments ? ' and ' + plural('comment', count.comments) : '') +
           '?'
       )
     )
@@ -580,7 +605,7 @@ export default class AnalyseCtrl {
   }
 
   nextNodeBest() {
-    return treeOps.withMainlineChild(this.node, (n: Tree.Node) => (n.eval ? n.eval.best : undefined));
+    return treeOps.withMainlineChild(this.node, (n: Tree.Node) => n.eval?.best);
   }
 
   setAutoShapes = (): void => {
@@ -591,9 +616,14 @@ export default class AnalyseCtrl {
     this.tree.updateAt(path, (node: Tree.Node) => {
       if (node.fen !== ev.fen && !isThreat) return;
       if (isThreat) {
-        if (!node.threat || isEvalBetter(ev, node.threat) || node.threat.maxDepth < ev.maxDepth) node.threat = ev;
-      } else if (isEvalBetter(ev, node.ceval)) node.ceval = ev;
-      else if (node.ceval && ev.maxDepth > node.ceval.maxDepth) node.ceval.maxDepth = ev.maxDepth;
+        const threat = ev as Tree.LocalEval;
+        if (!node.threat || isEvalBetter(threat, node.threat) || node.threat.maxDepth < threat.maxDepth)
+          node.threat = threat;
+      } else if (!node.ceval || isEvalBetter(ev, node.ceval)) node.ceval = ev;
+      else if (!ev.cloud) {
+        if (node.ceval.cloud && this.ceval.isDeeper()) node.ceval = ev;
+        else if (ev.maxDepth > node.ceval.maxDepth!) node.ceval.maxDepth = ev.maxDepth;
+      }
 
       if (path === this.path) {
         this.setAutoShapes();
@@ -611,42 +641,30 @@ export default class AnalyseCtrl {
 
   private instanciateCeval(): void {
     if (this.ceval) this.ceval.destroy();
-    const cfg: CevalOpts = {
+    this.ceval = new CevalCtrl({
       variant: this.data.game.variant,
-      standardMaterial:
-        !this.data.game.initialFen ||
-        parseFen(this.data.game.initialFen).unwrap(
-          setup =>
-            COLORS.every(color => {
-              const board = setup.board;
-              const pieces = board[color];
-              const promotedPieces =
-                Math.max(board.queen.intersect(pieces).size() - 1, 0) +
-                Math.max(board.rook.intersect(pieces).size() - 2, 0) +
-                Math.max(board.knight.intersect(pieces).size() - 2, 0) +
-                Math.max(board.bishop.intersect(pieces).intersect(SquareSet.lightSquares()).size() - 1, 0) +
-                Math.max(board.bishop.intersect(pieces).intersect(SquareSet.darkSquares()).size() - 1, 0);
-              return board.pawn.intersect(pieces).size() + promotedPieces <= 8;
-            }),
-          _ => false
-        ),
+      initialFen: this.data.game.initialFen,
       possible: !this.embed && (this.synthetic || !game.playable(this.data)),
-      emit: (ev: Tree.ClientEval, work: CevalWork) => {
+      emit: (ev: Tree.ClientEval, work: EvalMeta) => {
         this.onNewCeval(ev, work.path, work.threatMode);
       },
       setAutoShapes: this.setAutoShapes,
       redraw: this.redraw,
-    };
-    if (this.opts.study && this.opts.practice) {
-      cfg.storageKeyPrefix = 'practice';
-      cfg.multiPvDefault = 1;
-    }
-    this.ceval = cevalCtrl(cfg);
+      ...(this.opts.study && this.opts.practice
+        ? {
+            storageKeyPrefix: 'practice',
+            multiPvDefault: 1,
+          }
+        : {}),
+      externalEngines:
+        this.data.externalEngines?.map(engine => ({
+          ...engine,
+          endpoint: this.opts.externalEngineEndpoint,
+        })) || [],
+    });
   }
 
-  getCeval() {
-    return this.ceval;
-  }
+  getCeval = () => this.ceval;
 
   outcome(node?: Tree.Node): Outcome | undefined {
     return this.position(node || this.node).unwrap(
@@ -657,7 +675,7 @@ export default class AnalyseCtrl {
 
   position(node: Tree.Node): Result<Position, PositionError> {
     const setup = parseFen(node.fen).unwrap();
-    return setupPosition(lichessVariantRules(this.data.game.variant.key), setup);
+    return setupPosition(lichessRules(this.data.game.variant.key), setup);
   }
 
   canUseCeval(): boolean {
@@ -667,8 +685,8 @@ export default class AnalyseCtrl {
   startCeval = throttle(800, () => {
     if (this.ceval.enabled()) {
       if (this.canUseCeval()) {
-        this.ceval.start(this.path, this.nodeList, this.threatMode(), false);
-        this.evalCache.fetch(this.path, parseInt(this.ceval.multiPv()));
+        this.ceval.start(this.path, this.nodeList, this.threatMode());
+        this.evalCache.fetch(this.path, this.ceval.multiPv());
       } else this.ceval.stop();
     }
   });
@@ -714,18 +732,17 @@ export default class AnalyseCtrl {
   cevalSetMultiPv = (v: number): void => {
     this.ceval.multiPv(v);
     this.tree.removeCeval();
+    this.evalCache.clear();
     this.cevalReset();
   };
 
   cevalSetThreads = (v: number): void => {
-    if (!this.ceval.threads) return;
-    this.ceval.threads(v);
+    this.ceval.setThreads(v);
     this.cevalReset();
   };
 
   cevalSetHashSize = (v: number): void => {
-    if (!this.ceval.hashSize) return;
-    this.ceval.hashSize(v);
+    this.ceval.setHashSize(v);
     this.cevalReset();
   };
 
@@ -782,12 +799,13 @@ export default class AnalyseCtrl {
     lichess.pubsub.emit('analysis.comp.toggle', value);
   };
 
-  mergeAnalysisData(data: ServerEvalData): void {
+  mergeAnalysisData(data: ServerEvalData) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
-    if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(data.tree, n => !n.eval && !!n.children.length);
+    if (data.analysis)
+      data.analysis.partial = !!treeOps.findInMainline(data.tree, n => !n.eval && !!n.children.length && n.ply <= 300);
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     if (this.study) this.study.serverEval.onMergeAnalysisData();
@@ -795,7 +813,8 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
-  playUci(uci: Uci): void {
+  playUci(uci: Uci, uciQueue?: Uci[]) {
+    this.pvUciQueue = uciQueue ?? [];
     const move = parseUci(uci)!;
     const to = makeSquare(move.to);
     if (isNormal(move)) {
@@ -817,13 +836,19 @@ export default class AnalyseCtrl {
       );
   }
 
+  playUciList(uciList: Uci[]): void {
+    this.pvUciQueue = uciList;
+    const firstUci = this.pvUciQueue.shift();
+    if (firstUci) this.playUci(firstUci, this.pvUciQueue);
+  }
+
   explorerMove(uci: Uci) {
     this.playUci(uci);
     this.explorer.loading(true);
   }
 
   playBestMove() {
-    const uci = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
+    const uci = this.node.ceval?.pvs[0].moves[0] || this.nextNodeBest();
     if (uci) this.playUci(uci);
   }
 
@@ -848,6 +873,7 @@ export default class AnalyseCtrl {
       canGet: () => this.canEvalGet(),
       canPut: () =>
         !!(
+          this.ceval?.cachable &&
           this.data.evalPut &&
           this.canEvalGet() &&
           // if not in study, only put decent opening moves
@@ -859,33 +885,49 @@ export default class AnalyseCtrl {
     });
   }
 
+  closeTools = () => {
+    if (this.retro) this.retro = undefined;
+    if (this.practice) this.togglePractice();
+    if (this.explorer.enabled()) this.toggleExplorer();
+    this.persistence?.toggleOpen(false);
+  };
+
   toggleRetro = (): void => {
     if (this.retro) this.retro = undefined;
     else {
+      this.closeTools();
       this.retro = makeRetro(this, this.bottomColor());
-      if (this.practice) this.togglePractice();
-      if (this.explorer.enabled()) this.toggleExplorer();
     }
     this.setAutoShapes();
   };
 
   toggleExplorer = (): void => {
-    if (this.practice) this.togglePractice();
-    if (this.explorer.enabled() || this.explorer.allowed()) this.explorer.toggle();
+    if (this.explorer.enabled()) this.explorer.toggle();
+    else if (this.explorer.allowed()) {
+      this.closeTools();
+      this.explorer.toggle();
+    }
   };
 
   togglePractice = () => {
-    if (this.practice || !this.ceval.possible) this.practice = undefined;
-    else {
-      if (this.retro) this.toggleRetro();
-      if (this.explorer.enabled()) this.toggleExplorer();
+    if (this.practice || !this.ceval.possible) {
+      this.practice = undefined;
+      this.showGround();
+    } else {
+      this.closeTools();
       this.practice = makePractice(this, () => {
         // push to 20 to store AI moves in the cloud
         // lower to 18 after task completion (or failure)
         return this.studyPractice && this.studyPractice.success() === null ? 20 : 18;
       });
+      this.setAutoShapes();
     }
-    this.setAutoShapes();
+  };
+
+  togglePersistence = () => {
+    const isOpen = this.persistence?.open();
+    this.closeTools();
+    this.persistence?.toggleOpen(!isOpen);
   };
 
   restartPractice() {
@@ -893,14 +935,10 @@ export default class AnalyseCtrl {
     this.togglePractice();
   }
 
-  gamebookPlay = (): GamebookPlayCtrl | undefined => {
-    return this.study && this.study.gamebookPlay();
-  };
+  gamebookPlay = (): GamebookPlayCtrl | undefined => this.study && this.study.gamebookPlay();
 
   isGamebook = (): boolean => !!(this.study && this.study.data.chapter.gamebook);
 
-  withCg<A>(f: (cg: ChessgroundApi) => A): A | undefined {
-    if (this.chessground && this.cgVersion.js === this.cgVersion.dom) return f(this.chessground);
-    return undefined;
-  }
+  withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined =>
+    this.chessground && this.cgVersion.js === this.cgVersion.dom ? f(this.chessground) : undefined;
 }

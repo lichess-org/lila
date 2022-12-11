@@ -1,21 +1,19 @@
 import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
-import { StoredProp, StoredBooleanProp } from 'common/storage';
-
-export type CevalTechnology = 'asmjs' | 'wasm' | 'hce' | 'nnue';
+import CevalCtrl from './ctrl';
+import { ExternalEngine } from './worker';
 
 export interface Eval {
   cp?: number;
   mate?: number;
 }
 
-export interface ProtocolOpts {
-  variant: VariantKey;
-  threads: false | (() => number | string);
-  hashSize: false | (() => number | string);
-}
-
 export interface Work {
+  variant: VariantKey;
+  threads: number;
+  hashSize: number | undefined;
+  stopRequested: boolean;
+
   path: string;
   maxDepth: number;
   multiPv: number;
@@ -24,19 +22,26 @@ export interface Work {
   initialFen: string;
   currentFen: string;
   moves: string[];
-  emit: (ev: Tree.ClientEval) => void;
-  stopRequested: boolean;
+  emit: (ev: Tree.LocalEval) => void;
 }
+
+export interface EvalMeta {
+  path: string;
+  threatMode: boolean;
+}
+
+export type Redraw = () => void;
 
 export interface CevalOpts {
   storageKeyPrefix?: string;
   multiPvDefault?: number;
   possible: boolean;
   variant: Variant;
-  standardMaterial: boolean;
-  emit: (ev: Tree.ClientEval, work: Work) => void;
+  initialFen: string | undefined;
+  emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   setAutoShapes: () => void;
-  redraw: () => void;
+  redraw: Redraw;
+  externalEngines?: ExternalEngine[];
 }
 
 export interface Hovering {
@@ -55,39 +60,6 @@ export interface Started {
   threatMode: boolean;
 }
 
-export interface CevalCtrl {
-  goDeeper(): void;
-  canGoDeeper(): boolean;
-  effectiveMaxDepth(): number;
-  technology: CevalTechnology;
-  downloadProgress: Prop<number>;
-  allowed: Prop<boolean>;
-  enabled: Prop<boolean>;
-  possible: boolean;
-  isComputing(): boolean;
-  engineName(): string | undefined;
-  variant: Variant;
-  setHovering: (fen: string, uci?: string) => void;
-  setPvBoard: (pvBoard: PvBoard | null) => void;
-  multiPv: StoredProp<number>;
-  start: (path: string, steps: Step[], threatMode?: boolean, deeper?: boolean) => void;
-  stop(): void;
-  threads: StoredProp<number> | undefined;
-  hashSize: StoredProp<number> | undefined;
-  maxThreads: number;
-  maxHashSize: number;
-  infinite: StoredBooleanProp;
-  supportsNnue: boolean;
-  enableNnue: StoredBooleanProp;
-  hovering: Prop<Hovering | null>;
-  pvBoard: Prop<PvBoard | null>;
-  toggle(): void;
-  curDepth(): number;
-  isDeeper(): boolean;
-  destroy(): void;
-  redraw(): void;
-}
-
 export interface ParentCtrl {
   getCeval(): CevalCtrl;
   nextNodeBest(): string | undefined;
@@ -100,6 +72,7 @@ export interface ParentCtrl {
   currentEvals(): NodeEvals;
   ongoing: boolean;
   playUci(uci: string): void;
+  playUciList(uciList: string[]): void;
   getOrientation(): Color;
   threatMode(): boolean;
   getNode(): Tree.Node;

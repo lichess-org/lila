@@ -9,7 +9,7 @@
 
     table {
       flex: 0 1 48%;
-      margin-left: 2%;
+      margin-#{$start-direction}: 2%;
     }
 
     td {
@@ -28,21 +28,19 @@
     }
 
     label {
-      margin-right: 0.5em;
+      margin-#{$end-direction}: 0.5em;
       white-space: normal;
     }
 
     table {
       .two-columns {
         @extend %flex-wrap;
+        gap: 1em;
 
         > * {
           flex: 1 150px;
-        }
-
-        input[type='text'],
-        select {
-          width: 78%;
+          @extend %flex-between-nowrap;
+          gap: 2ch;
         }
       }
     }

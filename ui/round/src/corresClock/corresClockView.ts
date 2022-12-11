@@ -18,8 +18,8 @@ function formatClockTime(trans: Trans, time: Millis) {
     // days : hours
     const days = date.getUTCDate() - 1;
     hours = date.getUTCHours();
-    str += (days === 1 ? trans('oneDay') : trans.plural('nbDays', days)) + ' ';
-    if (hours !== 0) str += trans.plural('nbHours', hours);
+    str += (days === 1 ? trans('oneDay') : trans.pluralSame('nbDays', days)) + ' ';
+    if (hours !== 0) str += trans.pluralSame('nbHours', hours);
   } else if (time >= 3600 * 1000) {
     // hours : minutes
     hours = date.getUTCHours();
@@ -42,7 +42,8 @@ export default function (
     update = (el: HTMLElement) => {
       el.innerHTML = formatClockTime(trans, millis);
     },
-    isPlayer = ctrl.root.data.player.color === color;
+    isPlayer = ctrl.root.data.player.color === color,
+    direction = document.dir == 'rtl' && millis < 86400 * 1000 ? 'ltr' : undefined;
   return h(
     'div.rclock.rclock-correspondence.rclock-' + position,
     {
@@ -60,6 +61,7 @@ export default function (
           ])
         : null,
       h('div.time', {
+        attrs: direction && { style: `direction: ${direction}` },
         hook: {
           insert: vnode => update(vnode.elm as HTMLElement),
           postpatch: (_, vnode) => update(vnode.elm as HTMLElement),

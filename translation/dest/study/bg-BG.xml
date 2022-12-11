@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Вие сте зрител</string>
   <string name="pgnTags">PGN тагове</string>
   <string name="like">Харесай</string>
+  <string name="unlike">Не харесвам</string>
   <string name="newTag">Нов таг</string>
   <string name="commentThisPosition">Коментирай позицията</string>
   <string name="commentThisMove">Коментирай хода</string>
@@ -49,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Само сътрудници към казуса могат да пускат компютърен анализ.</string>
   <string name="getAFullComputerAnalysis">Вземи пълен сървърен анализ на основна линия.</string>
   <string name="makeSureTheChapterIsComplete">Уверете се, че главата е завършена. Можете да пуснете анализ само веднъж.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Всички синхронизирани членове остават на същата позиция</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Всички синхронизирани членове остават на същата позиция</string>
   <string name="shareChanges">Споделете промените със зрителите и ги запазете на сървъра</string>
   <string name="playing">Играе се</string>
   <string name="first">Първа</string>
@@ -75,11 +76,13 @@
   <string name="studyNotFound">Казусът не бе открит</string>
   <string name="editChapter">Промени глава</string>
   <string name="newChapter">Нова глава</string>
+  <string name="importFromChapterX">Импортиране от %s</string>
   <string name="orientation">Ориентация</string>
   <string name="analysisMode">Режим на анализ</string>
   <string name="pinnedChapterComment">Коментар на главата</string>
   <string name="saveChapter">Запази глава</string>
   <string name="clearAnnotations">Изтрий анотациите</string>
+  <string name="clearVariations">Изчисти вариациите</string>
   <string name="deleteChapter">Изтрий глава</string>
   <string name="deleteThisChapter">Изтриване на главата? Това е необратимо!</string>
   <string name="clearAllCommentsInThisChapter">Изтрий всички коментари, специални символи и нарисувани форми в главата?</string>
@@ -126,7 +129,7 @@
   <string name="clearChat">Изтрий чат съобщенията</string>
   <string name="deleteTheStudyChatHistory">Изтриване на чат историята? Това е необратимо!</string>
   <string name="deleteStudy">Изтрий казуса</string>
-  <string name="deleteTheEntireStudy">Изтриване на целия казус? Това е необратимо!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Изтриване на целия казус? Това е необратимо! Въведете името на казуса за да потвърдите: %s</string>
   <string name="whereDoYouWantToStudyThat">Къде да бъде проучено това?</string>
   <string name="goodMove">Добър ход</string>
   <string name="mistake">Грешка</string>
@@ -154,4 +157,13 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">С идеята</string>
   <string name="nextChapter">Следваща глава</string>
   <string name="prevChapter">Предишна глава</string>
+  <string name="studyActions">Опции за учене</string>
+  <string name="topics">Теми</string>
+  <string name="myTopics">Моите теми</string>
+  <string name="popularTopics">Популярни теми</string>
+  <string name="manageTopics">Управление на теми</string>
+  <string name="back">Обратно</string>
+  <string name="playAgain">Играйте отново</string>
+  <string name="whatWouldYouPlay">Какво бихте играли в тази позиция?</string>
+  <string name="youCompletedThisLesson">Поздравления! Вие завършихте този урок.</string>
 </resources>

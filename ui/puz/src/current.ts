@@ -6,7 +6,7 @@ import { getNow } from './util';
 export default class CurrentPuzzle {
   line: Uci[];
   startAt: number;
-  moveIndex = 0;
+  moveIndex = -1;
   pov: Color;
 
   constructor(readonly index: number, readonly puzzle: Puzzle) {
@@ -17,7 +17,7 @@ export default class CurrentPuzzle {
 
   position = (): Chess => {
     const pos = Chess.fromSetup(parseFen(this.puzzle.fen).unwrap()).unwrap();
-    this.line.slice(0, this.moveIndex + 1).forEach(uci => pos.play(parseUci(uci)!));
+    if (this.moveIndex >= 0) this.line.slice(0, this.moveIndex + 1).forEach(uci => pos.play(parseUci(uci)!));
     return pos;
   };
 

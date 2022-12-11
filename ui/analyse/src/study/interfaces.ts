@@ -12,7 +12,7 @@ import { GlyphCtrl } from './studyGlyph';
 import { CommentForm } from './commentForm';
 import { TopicsCtrl } from './topics';
 import RelayCtrl from './relay/relayCtrl';
-import { ServerEvalCtrl } from './serverEval';
+import ServerEval from './serverEval';
 import { MultiBoardCtrl } from './multiBoard';
 import { StudyShareCtrl } from './studyShare';
 import { TagsCtrl } from './studyTags';
@@ -35,7 +35,7 @@ export interface StudyCtrl {
   commentForm: CommentForm;
   glyphForm: GlyphCtrl;
   topics: TopicsCtrl;
-  serverEval: ServerEvalCtrl;
+  serverEval: ServerEval;
   share: StudyShareCtrl;
   tags: TagsCtrl;
   studyDesc: DescriptionCtrl;
@@ -45,8 +45,9 @@ export interface StudyCtrl {
   isChapterOwner(): boolean;
   canJumpTo(path: Tree.Path): boolean;
   onJump(): void;
+  onFlip(): void;
   withPosition<T>(obj: T): T & { ch: string; path: string };
-  setPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void;
+  setPath(path: Tree.Path, node: Tree.Node): void;
   deleteNode(path: Tree.Path): void;
   promote(path: Tree.Path, toMainline: boolean): void;
   forceVariation(path: Tree.Path, force: boolean): void;
@@ -62,6 +63,7 @@ export interface StudyCtrl {
   gamebookPlay(): GamebookPlayCtrl | undefined;
   prevChapter(): StudyChapterMeta | undefined;
   nextChapter(): StudyChapterMeta | undefined;
+  hasNextChapter(): boolean;
   goToPrevChapter(): void;
   goToNextChapter(): void;
   mutateCgConfig(config: Required<Pick<CgConfig, 'drawable'>>): void;
@@ -69,6 +71,7 @@ export interface StudyCtrl {
   setGamebookOverride(o: GamebookOverride): void;
   explorerGame(gameId: string, insert: boolean): void;
   onPremoveSet(): void;
+  looksNew(): boolean;
   redraw: Redraw;
   trans: Trans;
 }
@@ -113,6 +116,7 @@ export interface StudyData {
   description?: string;
   topics?: Topic[];
   admin: boolean;
+  hideRatings?: boolean;
 }
 
 export type Topic = string;
@@ -123,6 +127,7 @@ export interface StudySettings {
   computer: UserSelection;
   explorer: UserSelection;
   cloneable: UserSelection;
+  shareable: UserSelection;
   chat: UserSelection;
   sticky: boolean;
   description: boolean;
@@ -140,6 +145,7 @@ export interface Position {
 
 export interface StudyFeatures {
   cloneable: boolean;
+  shareable: boolean;
   chat: boolean;
   sticky: boolean;
 }

@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Nola bihur naiteke moderatzaile?</string>
   <string name="youCannotApply">Ezin da moderatzaile izateko eskaerarik egin. Norbait moderatzaile izan daitekeela uste badugu zuzenean jarriko gara berarekin kontaktuan.</string>
   <string name="isCorrespondenceDifferent">Zein dira posta bidezko partidak eta xake arruntaren arteko desberdintasunak?</string>
+  <string name="pleaseReadFairPlayPage">Informazio gehiagorako, irakurri gure %s</string>
+  <string name="fairPlayPage">joko garbiari buruzko orria</string>
   <string name="youCanUseOpeningBookNoEngine">Lichessen posta bidezko xakearen arauen desberdintasun handiena, hasiera liburua erabili daitekeela da. Analisi-motoreak erabiltzea debekatuta dago eta laguntza erabiltzeagatik markatuko ditugu hori egiten duten jokalariak. Nahiz eta ICCFk analisi-motoreak erabiltzea uztean duen, Lichessek ez.</string>
   <string name="gameplay">Jokoa</string>
   <string name="howBulletBlitzEtcDecided">Nola erabakizen da zer diren Bullet, Blitz edo beste erritmo batzuk?</string>
@@ -60,8 +62,8 @@ Kontuan hartu xake matea posible izan daitekeela zaldun edo alfil batekin beti e
 
 Ikusi jokaldi honen inguruko %3$s eta praktikatu bertan.</string>
   <string name="goodIntroduction">Hemen duzu azalpenaren</string>
-  <string name="officialRulesPDF">arau ofizialak (pdf)</string>
   <string name="lichessTraining">Lichesseko ariketak</string>
+  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Ikusi Eric Rosen Nazioarteko Maisuaren matea %s.</string>
   <string name="threefoldRepetition">Posizioa hiru aldiz errepikatzea</string>
   <string name="threefoldRepetitionExplanation">Posizio bat hiru aldiz gertatzen bada, jokalariek berdinketa eskatu dezakete %1$s. Lichessek FIDEren arauak erabiltzen ditu, %2$s 9.2 (d) artikuluan azaldu bezala.</string>
   <string name="threefoldRepetitionLowerCase">hiru errepikapenengatik</string>

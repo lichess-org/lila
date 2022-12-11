@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">পছন্দসমূহ</string>
-  <string name="gameDisplay">খেলার বোর্ড এর রূপ</string>
   <string name="pieceAnimation">গুটির অ্যানিমেশন</string>
   <string name="materialDifference">গুটির মধ্যে ব্যবধান</string>
   <string name="boardHighlights">বোর্ডের বৈশিষ্ট সমূহ (শেষ চাল এবং পরীক্ষা)</string>
@@ -29,7 +28,7 @@
   <string name="promoteToQueenAutomatically">সংক্রিয়ভাবে রানীর জন্য প্রচার</string>
   <string name="whenPremoving">যখন পূনার‍য়সারান</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">সংক্রিয়ভাবে দাবি আঁকা বিষয়ে তিনগুন অনুবর্তন</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">যখন সময় বাকি &lt; 30 সেকেন্ড</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">যখন সময় বাকি &lt; 30 সেকেন্ড</string>
   <string name="moveConfirmation">অনুমোদন সরান</string>
   <string name="inCorrespondenceGames">সাদৃশ্য খেলাগুলো</string>
   <string name="correspondenceAndUnlimited">সাদৃশ্য এবং সীমাহীন</string>

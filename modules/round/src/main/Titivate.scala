@@ -1,15 +1,15 @@
 package lila.round
 
-import akka.actor._
-import akka.stream.scaladsl._
+import akka.actor.*
+import akka.stream.scaladsl.*
 import org.joda.time.DateTime
-
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.LilaStream
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Query }
 import lila.round.actorApi.round.{ Abandon, QuietFlag }
+import scala.concurrent.ExecutionContext
 
 /*
  * Cleans up unfinished games
@@ -21,30 +21,28 @@ final private[round] class Titivate(
     bookmark: lila.hub.actors.Bookmark,
     chatApi: lila.chat.ChatApi
 )(implicit mat: akka.stream.Materializer)
-    extends Actor {
+    extends Actor:
 
-  private type GameOrFail = Either[(Game.ID, Throwable), Game]
+  private type GameOrFail = Either[(GameId, Throwable), Game]
 
   object Run
 
-  override def preStart(): Unit = {
+  override def preStart(): Unit =
     scheduleNext()
     context setReceiveTimeout 30.seconds
-  }
 
-  implicit def ec = context.system.dispatcher
-  def scheduler   = context.system.scheduler
+  given ExecutionContext = context.system.dispatcher
 
-  def scheduleNext(): Unit = scheduler.scheduleOnce(5 seconds, self, Run).unit
+  def scheduleNext(): Unit = context.system.scheduler.scheduleOnce(5 seconds, self, Run).unit
 
-  def receive = {
+  def receive =
     case ReceiveTimeout =>
       val msg = "Titivate timed out!"
       logBranch.error(msg)
       throw new RuntimeException(msg)
 
     case Run =>
-      gameRepo.count(_.checkable) foreach { total =>
+      gameRepo.countSec(_.checkable) foreach { total =>
         lila.mon.round.titivate.total.record(total)
         gameRepo
           .docCursor(Query.checkable)
@@ -56,14 +54,13 @@ final private[round] class Titivate(
           .addEffect(lila.mon.round.titivate.game.record(_).unit)
           .>> {
             gameRepo
-              .count(_.checkableOld)
+              .countSec(_.checkableOld)
               .dmap(lila.mon.round.titivate.old.record(_))
           }
           .monSuccess(_.round.titivate.time)
           .logFailure(logBranch)
           .addEffectAnyway(scheduleNext().unit)
       }
-  }
 
   private val logBranch = logger branch "titivate"
 
@@ -71,12 +68,12 @@ final private[round] class Titivate(
     lila.game.BSONHandlers.gameBSONHandler
       .readDocument(doc)
       .fold[GameOrFail](
-        err => Left(~doc.string("_id") -> err),
+        err => Left(GameId(~doc.string("_id")) -> err),
         Right.apply
       )
   }
 
-  private val gameFlow: Flow[GameOrFail, Unit, _] = Flow[GameOrFail].mapAsyncUnordered(8) {
+  private val gameFlow: Flow[GameOrFail, Unit, ?] = Flow[GameOrFail].mapAsyncUnordered(8) {
 
     case Left((id, err)) =>
       lila.mon.round.titivate.broken(err.getClass.getSimpleName).increment()
@@ -84,7 +81,7 @@ final private[round] class Titivate(
       gameRepo unsetCheckAt id
 
     case Right(game) =>
-      game match {
+      game match
 
         case game if game.finished || game.isPgnImport || game.playedThenAborted =>
           gameRepo unsetCheckAt game.id
@@ -101,11 +98,11 @@ final private[round] class Titivate(
 
         case game if game.unplayed =>
           bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
-          chatApi.remove(lila.chat.Chat.Id(game.id))
+          chatApi.remove(game.id into ChatId)
           gameRepo remove game.id
 
         case game =>
-          game.clock match {
+          game.clock match
 
             case Some(clock) if clock.isRunning =>
               val minutes = clock.estimateTotalSeconds / 60
@@ -116,12 +113,6 @@ final private[round] class Titivate(
               gameRepo.setCheckAt(game, DateTime.now plusHours hours).void
 
             case None =>
-              val hours = game.daysPerTurn.fold(
-                if (game.hasAi) Game.aiAbandonedHours
-                else Game.abandonedDays * 24
-              )(_ * 24)
-              gameRepo.setCheckAt(game, DateTime.now plusHours hours).void
-          }
-      }
+              val days = game.daysPerTurn | Game.abandonedDays
+              gameRepo.setCheckAt(game, DateTime.now plusDays days.value).void
   }
-}

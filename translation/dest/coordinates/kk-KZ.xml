@@ -8,6 +8,13 @@
   <string name="mostChessCourses">Шахмат мектептердің көпшілігі алгебралық жазу тәртібін ұстанады.</string>
   <string name="talkToYourChessFriends">\"Шахмат тілін\" біліп жүрсеңіз, шахмат білетін досыңызбен әңгіме құру оңай болады.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Координатты танитын болсаңыз, ойынды тиімді түрде талдауға қабілетті боласыз.</string>
-  <string name="aSquareNameAppears">Тақтада координат шыққанда, оған сәйкес шаршыны таңдауыңыз керек. 30 секунд ішінде шамаңыз келгенше көбірек шаршы табыңыз!</string>
+  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Координаттар тақта бетіне шыққанда, сіз оған сәйкес шаршыны шертуіңіз керек.</string>
+  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Тақта бетінде шаршы жылт еткенде, оның координатын жазуыңыз керек (мысалы, e4).</string>
+  <string name="youHaveThirtySeconds">30 секунд ішінде барынша көп шаршыны анықтап табыңыз!</string>
+  <string name="goAsLongAsYouWant">Асықпай жүрсеңіз болады, уақытта шектеу жоқ!</string>
+  <string name="showCoordinates">Координаттарды көрсету</string>
+  <string name="showPieces">Тастарды көрсету</string>
   <string name="startTraining">Жаттығуды бастау</string>
+  <string name="findSquare">Шаршыны табу</string>
+  <string name="nameSquare">Шаршы атауы</string>
 </resources>

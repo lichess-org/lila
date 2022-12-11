@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">პრეფერენსები</string>
-  <string name="gameDisplay">თამაშის გამოსახულება</string>
   <string name="pieceAnimation">ფიგურის ანიმაცია</string>
   <string name="materialDifference">ფიგურათა სხვაობა</string>
   <string name="boardHighlights">აღმნიშვნელები დაფაზე (უკანასკნელი სვლა და ქიში)</string>
@@ -27,7 +26,7 @@
   <string name="promoteToQueenAutomatically">დედოფლის გაყვანა ავტომატურად</string>
   <string name="whenPremoving">წინასწარი სვლისას</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ავტომატურად მოიპოვეთ ყაიმი სვლის სამჯერ გამეორებაზე</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">როდესაც დარჩენილი დრო 30 წამზე ნაკლებია</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">როდესაც დარჩენილი დრო 30 წამზე ნაკლებია</string>
   <string name="moveConfirmation">სვლის დადასტურება</string>
   <string name="inCorrespondenceGames">საკორესპონდენტო თამაშები</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">როქის მეთოდი</string>

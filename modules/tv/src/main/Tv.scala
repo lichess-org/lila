@@ -2,24 +2,29 @@ package lila.tv
 
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.Trouper
+import lila.hub.SyncActor
 
 final class Tv(
     gameRepo: GameRepo,
-    trouper: Trouper,
+    trouper: SyncActor,
     gameProxyRepo: lila.round.GameProxyRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import Tv._
-  import ChannelTrouper._
+  import Tv.*
+  import ChannelSyncActor.*
 
-  private def roundProxyGame = gameProxyRepo.game _
+  private def roundProxyGame = gameProxyRepo.game
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    trouper.ask[Option[Game.ID]](TvTrouper.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
+    trouper.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
+
+  def getReplacementGame(channel: Tv.Channel, oldId: GameId, exclude: List[GameId]): Fu[Option[Game]] =
+    trouper
+      .ask[Option[GameId]](TvSyncActor.GetReplacementGameId(channel, oldId, exclude, _))
+      .flatMap { _ ?? roundProxyGame }
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
-    trouper.ask[GameIdAndHistory](TvTrouper.GetGameIdAndHistory(channel, _)) flatMap {
+    trouper.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)) flatMap {
       case GameIdAndHistory(gameId, historyIds) =>
         for {
           game <- gameId ?? roundProxyGame
@@ -39,46 +44,36 @@ final class Tv(
       _.map(roundProxyGame).sequenceFu.map(_.flatten)
     }
 
-  def getGameIds(channel: Tv.Channel, max: Int): Fu[List[Game.ID]] =
-    trouper.ask[List[Game.ID]](TvTrouper.GetGameIds(channel, max, _))
+  def getGameIds(channel: Tv.Channel, max: Int): Fu[List[GameId]] =
+    trouper.ask[List[GameId]](TvSyncActor.GetGameIds(channel, max, _))
 
   def getBestGame = getGame(Tv.Channel.Best) orElse gameRepo.random
 
   def getBestAndHistory = getGameAndHistory(Tv.Channel.Best)
 
   def getChampions: Fu[Champions] =
-    trouper.ask[Champions](TvTrouper.GetChampions.apply)
-}
+    trouper.ask[Champions](TvSyncActor.GetChampions.apply)
 
-object Tv {
-  import chess.{ Speed => S, variant => V }
-  import lila.rating.{ PerfType => P }
+object Tv:
+  import chess.{ variant as V, Speed as S }
+  import lila.rating.{ PerfType as P }
 
-  case class Champion(user: LightUser, rating: Int, gameId: Game.ID)
-  case class Champions(channels: Map[Channel, Champion]) {
-    def get = channels.get _
-  }
+  case class Champion(user: LightUser, rating: IntRating, gameId: GameId)
+  case class Champions(channels: Map[Channel, Champion]):
+    def get = channels.get
 
   private[tv] case class Candidate(game: Game, hasBot: Boolean)
-  private[tv] def toCandidate(lightUser: LightUser.GetterSync)(game: Game) =
-    Tv.Candidate(
-      game = game,
-      hasBot = game.userIds.exists { userId =>
-        lightUser(userId).exists(_.isBot)
-      }
-    )
 
   sealed abstract class Channel(
       val name: String,
       val icon: String,
       val secondsSinceLastMove: Int,
       filters: Seq[Candidate => Boolean]
-  ) {
+  ):
     def isFresh(g: Game): Boolean     = fresh(secondsSinceLastMove, g)
     def filter(c: Candidate): Boolean = filters.forall { _(c) } && isFresh(c.game)
     val key                           = s"${toString.head.toLower}${toString.drop(1)}"
-  }
-  object Channel {
+  object Channel:
     case object Best
         extends Channel(
           name = "Top Rated",
@@ -212,10 +207,9 @@ object Tv {
     val byKey = all.map { c =>
       c.key -> c
     }.toMap
-  }
 
-  private def rated(min: Int)                           = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
-  private def speed(speed: chess.Speed)                 = (c: Candidate) => c.game.speed == speed
+  private def rated(min: Int)           = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
+  private def speed(speed: chess.Speed) = (c: Candidate) => c.game.speed == speed
   private def variant(variant: chess.variant.Variant)   = (c: Candidate) => c.game.variant == variant
   private val standard                                  = variant(V.Standard)
   private val freshBlitz                                = 60 * 2
@@ -230,7 +224,7 @@ object Tv {
   } // rematch time
   private def hasMinRating(g: Game, min: Int) = g.players.exists(_.rating.exists(_ >= min))
 
-  private[tv] val titleScores = Map(
+  private[tv] val titleScores: Map[UserTitle, Int] = List(
     "GM"  -> 500,
     "WGM" -> 500,
     "IM"  -> 300,
@@ -241,5 +235,4 @@ object Tv {
     "CM"  -> 100,
     "WCM" -> 100,
     "WNM" -> 100
-  )
-}
+  ).map { (t, s) => UserTitle(t) -> s }.toMap

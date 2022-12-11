@@ -13,7 +13,6 @@
   <string name="specialMoves">Langkah spesial</string>
   <string name="didYouLikeThisPuzzle">Apakah anda menyukai teka-teki ini?</string>
   <string name="voteToLoadNextOne">Isi untuk memanggil yang satunya lagi!</string>
-  <string name="yourPuzzleRatingX">Rating teka-teki anda: %s</string>
   <string name="findTheBestMoveForWhite">Temukan langkah terbaik putih.</string>
   <string name="findTheBestMoveForBlack">Temukan langkah terbaik hitam.</string>
   <string name="toGetPersonalizedPuzzles">Untuk mendapatkan teka-teki yang diatur:</string>
@@ -67,4 +66,15 @@
   <string name="fromMyGamesNone">Anda tidak memiliki teka-teki dalam database, tetapi Lichess masih sangat mencintai Anda.
 Mainkan permainan cepat dan klasik untuk meningkatkan kesempatan Anda agar sebuah teka-teki dari Anda dapat ditambahkan!</string>
   <string name="fromXGamesFound">Teka-teki %1$s ditemukan di permainan %2$s</string>
+  <string name="puzzleDashboardDescription">Latih, analisis, meningkat</string>
+  <plurals name="nbPlayed">
+    <item quantity="other">%s dimainkan</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="other">%s dapat diulang</item>
+  </plurals>
+  <string name="percentSolved">%s selesai</string>
+  <string name="noPuzzlesToShow">Tidak ada apa apa, silahkan mainkan taktik terlebih dahulu!</string>
+  <string name="improvementAreasDescription">Latih ini untuk mengoptimisasi kemajuan anda!</string>
+  <string name="strengthDescription">Performa anda baik di tema-tema ini</string>
 </resources>

@@ -1,22 +1,21 @@
 package controllers
 
 import akka.pattern.ask
-import play.api.data._, Forms._
-import play.api.libs.json._
-import play.api.mvc._
+import play.api.data.*, Forms.*
+import play.api.libs.json.*
+import play.api.mvc.*
 import scala.annotation.nowarn
+import views.*
 
-import lila.app._
-import lila.common.HTTPRequest
+import lila.api.Context
+import lila.app.{ *, given }
 import lila.hub.actorApi.captcha.ValidCaptcha
-import makeTimeout.large
-import views._
 
 final class Main(
     env: Env,
     prismicC: Prismic,
     assetsC: ExternalAssets
-) extends LilaController(env) {
+) extends LilaController(env):
 
   private lazy val blindForm = Form(
     tuple(
@@ -27,7 +26,7 @@ final class Main(
 
   def toggleBlindMode =
     OpenBody { implicit ctx =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       fuccess {
         blindForm
           .bindFromRequest()
@@ -47,8 +46,9 @@ final class Main(
 
   def handlerNotFound(req: RequestHeader) = reqToCtx(req) map renderNotFound
 
-  def captchaCheck(id: String) =
+  def captchaCheck(id: GameId) =
     Open { implicit ctx =>
+      import makeTimeout.large
       env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution")) map { case valid: Boolean =>
         Ok(if (valid) 1 else 0)
       }
@@ -70,12 +70,12 @@ final class Main(
       }
     }
 
-  def mobile =
-    Open { implicit ctx =>
-      pageHit
-      OptionOk(prismicC getBookmark "mobile-apk") { case (doc, resolver) =>
-        html.mobile(doc, resolver)
-      }
+  def mobile     = Open(serveMobile(_))
+  def mobileLang = LangPage(routes.Main.mobile)(serveMobile(_))
+  private def serveMobile(implicit ctx: Context) =
+    pageHit
+    OptionOk(prismicC getBookmark "mobile-apk") { case (doc, resolver) =>
+      html.mobile(doc, resolver)
     }
 
   def dailyPuzzleSlackApp =
@@ -86,45 +86,24 @@ final class Main(
       }
     }
 
-  def jslog(id: String) =
+  def jslog(id: GameFullId) =
     Open { ctx =>
       env.round.selfReport(
         userId = ctx.userId,
-        ip = HTTPRequest ipAddress ctx.req,
-        fullId = lila.game.Game.FullId(id),
+        ip = ctx.ip,
+        fullId = id,
         name = get("n", ctx.req) | "?"
       )
-      NoContent.fuccess
+      NoContent.toFuccess
     }
 
-  /** Event monitoring endpoint
-    */
-  def jsmon(event: String) =
-    Action {
-      lila.mon.http.jsmon(event).increment()
-      NoContent
-    }
-
-  def image(id: String, @nowarn("cat=unused") hash: String, @nowarn("cat=unused") name: String) =
-    Action.async {
-      env.imageRepo
-        .fetch(id)
-        .map {
-          case None => NotFound
-          case Some(image) =>
-            lila.mon.http.imageBytes.record(image.size.toLong)
-            Ok(image.data).withHeaders(
-              CACHE_CONTROL -> "max-age=1209600"
-            ) as image.contentType.getOrElse("image/jpeg")
-        }
-    }
-
-  val robots = Action { req =>
+  val robots = Action { (req: RequestHeader) =>
     Ok {
-      if (env.net.crawlable && req.domain == env.net.domain.value) """User-agent: *
+      if (env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd) """User-agent: *
 Allow: /
 Disallow: /game/export/
 Disallow: /games/export/
+Disallow: /api/
 Allow: /game/export/gif/thumbnail/
 
 User-agent: Twitterbot
@@ -134,52 +113,52 @@ Allow: /
     }
   }
 
-  def manifest =
-    Action {
-      JsonOk {
-        Json.obj(
-          "name"             -> env.net.domain.value,
-          "short_name"       -> "Lichess",
-          "start_url"        -> "/",
-          "display"          -> "standalone",
-          "background_color" -> "#161512",
-          "theme_color"      -> "#161512",
-          "description"      -> "The (really) free, no-ads, open source chess server.",
-          "icons" -> List(32, 64, 128, 192, 256, 512, 1024).map { size =>
-            Json.obj(
-              "src"   -> s"//${env.net.assetDomain.value}/assets/logo/lichess-favicon-$size.png",
-              "sizes" -> s"${size}x$size",
-              "type"  -> "image/png"
-            )
-          },
-          "related_applications" -> Json.arr(
-            Json.obj(
-              "platform" -> "play",
-              "url"      -> "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
-            ),
-            Json.obj(
-              "platform" -> "itunes",
-              "url"      -> "https://itunes.apple.com/us/app/lichess-free-online-chess/id968371784"
-            )
+  def manifest = Action {
+    import lila.common.Json.given
+    JsonOk {
+      Json.obj(
+        "name"             -> env.net.domain,
+        "short_name"       -> "Lichess",
+        "start_url"        -> "/",
+        "display"          -> "standalone",
+        "background_color" -> "#161512",
+        "theme_color"      -> "#161512",
+        "description"      -> "The (really) free, no-ads, open source chess server.",
+        "icons" -> List(32, 64, 128, 192, 256, 512, 1024).map { size =>
+          Json.obj(
+            "src"   -> s"//${env.net.assetDomain}/assets/logo/lichess-favicon-$size.png",
+            "sizes" -> s"${size}x$size",
+            "type"  -> "image/png"
+          )
+        },
+        "related_applications" -> Json.arr(
+          Json.obj(
+            "platform" -> "play",
+            "url"      -> "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
+          ),
+          Json.obj(
+            "platform" -> "itunes",
+            "url"      -> "https://itunes.apple.com/us/app/lichess-free-online-chess/id968371784"
           )
         )
-      } withHeaders (CACHE_CONTROL -> "max-age=1209600")
+      )
     }
+  }
 
   def getFishnet =
     Open { implicit ctx =>
       pageHit
-      Ok(html.site.bits.getFishnet()).fuccess
+      Ok(html.site.bits.getFishnet()).toFuccess
     }
 
   def costs =
-    Action { req =>
+    Action { (req: RequestHeader) =>
       pageHit(req)
       Redirect("https://docs.google.com/spreadsheets/d/1Si3PMUJGR9KrpE5lngSkHLJKJkb0ZuI4/preview")
     }
 
   def verifyTitle =
-    Action { req =>
+    Action { (req: RequestHeader) =>
       pageHit(req)
       Redirect(
         "https://docs.google.com/forms/d/e/1FAIpQLSelXSHdiFw_PmZetxY8AaIJSM-Ahb5QnJcfQMDaiPJSf24lDQ/viewform"
@@ -189,13 +168,18 @@ Allow: /
   def contact =
     Open { implicit ctx =>
       pageHit
-      Ok(html.site.contact()).fuccess
+      Ok(html.site.contact()).toFuccess
     }
 
   def faq =
     Open { implicit ctx =>
       pageHit
-      Ok(html.site.faq()).fuccess
+      Ok(html.site.faq()).toFuccess
+    }
+
+  def keyboardMoveHelp =
+    Open { implicit ctx =>
+      Ok(html.site.keyboardHelpModal.keyboardMove).toFuccess
     }
 
   def movedPermanently(to: String) =
@@ -210,22 +194,22 @@ Allow: /
       else
         fuccess {
           Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies(
-            env.lilaCookie.withSession { s =>
+            env.lilaCookie.withSession(remember = true) { s =>
               s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
             }
           )
         }
     }
 
-  def legacyQaQuestion(id: Int, @nowarn("cat=unused") slug: String) =
+  def legacyQaQuestion(id: Int, slug: String) =
     Open { _ =>
       MovedPermanently {
         val faq = routes.Main.faq.url
-        id match {
+        id match
           case 103  => s"$faq#acpl"
           case 258  => s"$faq#marks"
           case 13   => s"$faq#titles"
-          case 87   => routes.Stat.ratingDistribution("blitz").url
+          case 87   => routes.User.ratingDistribution("blitz").url
           case 110  => s"$faq#name"
           case 29   => s"$faq#titles"
           case 4811 => s"$faq#lm"
@@ -240,9 +224,7 @@ Allow: /
           case 46   => s"$faq#name"
           case 122  => s"$faq#marks"
           case _    => faq
-        }
-      }.fuccess
+      }.toFuccess
     }
 
-  def devAsset(@nowarn("cat=unused") v: String, path: String, file: String) = assetsC.at(path, file)
-}
+  def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)

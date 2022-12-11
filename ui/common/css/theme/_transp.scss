@@ -15,6 +15,7 @@ $c-font-page: $c-font-clearer;
 $c-bg-box: $c-bg-high;
 $c-bg-zebra: hsla(0, 0%, 100%, 0.05);
 $c-bg-input: $c-bg-zebra;
+$c-bg-variation: hsla(0, 0%, 0%, 0.25);
 
 $c-bg-popup: $c-bg-high;
 
@@ -60,7 +61,7 @@ $text-shadow: 0.5px 1px 1px #000;
       width: 100%;
       height: 100%;
       top: 0;
-      left: 0;
+      #{$start-direction}: 0;
       background-position: center center;
       background-repeat: no-repeat;
       background-size: cover;

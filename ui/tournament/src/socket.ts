@@ -7,9 +7,7 @@ export interface TournamentSocket {
 
 export default function (send: SocketSend, ctrl: TournamentController) {
   const handlers = {
-    reload() {
-      setTimeout(ctrl.askReload, Math.floor(Math.random() * 4000));
-    },
+    reload: ctrl.askReload,
     redirect(fullId: string) {
       ctrl.redirectFirst(fullId.slice(0, 8), true);
       return true; // prevent default redirect

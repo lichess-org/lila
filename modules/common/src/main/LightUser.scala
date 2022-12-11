@@ -1,27 +1,29 @@
 package lila.common
 
-import play.api.libs.json._
+import play.api.libs.json.*
+import lila.common.Json.given
 
 case class LightUser(
-    id: String,
-    name: String,
-    title: Option[String],
+    id: UserId,
+    name: UserName,
+    title: Option[UserTitle],
     isPatron: Boolean
-) {
+):
 
-  def titleName = title.fold(name)(_ + " " + name)
+  def titleName: String = title.fold(name.value)(_.value + " " + name)
 
   def isBot = title has "BOT"
-}
 
-object LightUser {
+object LightUser:
 
-  private type UserID = String
+  type Ghost = LightUser
 
-  val ghost = LightUser("ghost", "ghost", none, false)
+  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), none, false)
 
-  implicit val lightUserWrites = OWrites[LightUser] { u =>
-    writeNoId(u) + ("id" -> JsString(u.id))
+  given UserIdOf[LightUser] = _.id
+
+  given lightUserWrites: OWrites[LightUser] = OWrites { u =>
+    writeNoId(u) + ("id" -> JsString(u.id.value))
   }
 
   def writeNoId(u: LightUser): JsObject =
@@ -30,23 +32,25 @@ object LightUser {
       .add("title" -> u.title)
       .add("patron" -> u.isPatron)
 
-  def fallback(name: String) =
-    LightUser(
-      id = name.toLowerCase,
-      name = name,
-      title = None,
-      isPatron = false
-    )
+  def fallback(name: UserName) = LightUser(
+    id = name.id,
+    name = name,
+    title = None,
+    isPatron = false
+  )
 
-  final class Getter(f: UserID => Fu[Option[LightUser]]) extends (UserID => Fu[Option[LightUser]]) {
-    def apply(u: UserID) = f(u)
-  }
+  private type GetterType          = UserId => Fu[Option[LightUser]]
+  opaque type Getter <: GetterType = GetterType
+  object Getter extends TotalWrapper[Getter, GetterType]
 
-  final class GetterSync(f: UserID => Option[LightUser]) extends (UserID => Option[LightUser]) {
-    def apply(u: UserID) = f(u)
-  }
+  private type GetterSyncType              = UserId => Option[LightUser]
+  opaque type GetterSync <: GetterSyncType = GetterSyncType
+  object GetterSync extends TotalWrapper[GetterSync, GetterSyncType]
 
-  final class IsBotSync(f: UserID => Boolean) extends (UserID => Boolean) {
-    def apply(userId: UserID) = f(userId)
-  }
-}
+  private type GetterSyncFallbackType                      = UserId => LightUser
+  opaque type GetterSyncFallback <: GetterSyncFallbackType = GetterSyncFallbackType
+  object GetterSyncFallback extends TotalWrapper[GetterSyncFallback, GetterSyncFallbackType]
+
+  private type IsBotSyncType             = UserId => Boolean
+  opaque type IsBotSync <: IsBotSyncType = IsBotSyncType
+  object IsBotSync extends TotalWrapper[IsBotSync, IsBotSyncType]

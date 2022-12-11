@@ -3,11 +3,13 @@
 
   display: flex;
   width: 62.5%;
+  background: #888;
+  margin: auto;
+  justify-content: center;
 
   @include breakpoint($mq-col2-uniboard) {
     width: 100%;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3) inset;
-    background: #888;
   }
 
   &-c1 {
@@ -31,7 +33,7 @@
 
       content: attr(data-nb);
       bottom: 0;
-      right: 0;
+      #{$end-direction}: 0;
       position: absolute;
       line-height: 0.9em;
       padding: 3px 0.3em;

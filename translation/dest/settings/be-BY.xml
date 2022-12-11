@@ -2,9 +2,9 @@
 <resources>
   <string name="settings">Налады</string>
   <string name="closeAccount">Выдаліць уліковы запіс</string>
-  <string name="closingIsDefinitive">Закрыццё немагчыма будзе адмяніць. Адвярнуць усё назад будзе таксама немагчыма. Вы ўпэўнены?</string>
+  <string name="closingIsDefinitive">Зачыненне немагчыма будзе адмяніць. Не будзе шляху назад. Вы ўпэўнены?</string>
   <string name="cantOpenSimilarAccount">Вам не будзе дазволена стварыць новы ўліковы запіс з тым жа імем, нават калі рэгістр сімвалаў адрозніваецца.</string>
   <string name="changedMindDoNotCloseAccount">Я перадумаў, не выдаляйце мой уліковы запіс</string>
   <string name="closeAccountExplanation">Вы сапраўды хочаце выдаліць свой уліковы запіс? Гэта неадваротнае дзеянне: увайсці ў яго будзе немагчыма.</string>
-  <string name="thisAccountIsClosed">Гэты ўліковы запіс выдалены.</string>
+  <string name="thisAccountIsClosed">Гэты ўліковы запіс зачынены.</string>
 </resources>

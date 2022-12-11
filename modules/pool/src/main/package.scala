@@ -1,6 +1,11 @@
-package lila
+package lila.pool
 
-package object pool extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[pool] val logger = lila.log("pool")
-}
+private val logger = lila.log("pool")
+
+import alleycats.Zero
+
+opaque type Blocking = Set[UserId]
+object Blocking extends TotalWrapper[Blocking, Set[UserId]]:
+  given Zero[Blocking] = Zero(Set.empty)

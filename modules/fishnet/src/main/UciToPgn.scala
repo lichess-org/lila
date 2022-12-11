@@ -2,7 +2,7 @@ package lila.fishnet
 
 import cats.data.Validated
 import cats.data.Validated.valid
-import cats.implicits._
+import cats.implicits.*
 import chess.format.pgn.Dumper
 import chess.format.Uci
 import chess.{ Drop, Move, Replay, Situation }
@@ -12,11 +12,11 @@ import lila.base.LilaException
 
 // convert variations from UCI to PGN.
 // also drops extra variations
-private object UciToPgn {
+private object UciToPgn:
 
   type WithErrors[A] = (A, List[Exception])
 
-  def apply(replay: Replay, analysis: Analysis): WithErrors[Analysis] = {
+  def apply(replay: Replay, analysis: Analysis): WithErrors[Analysis] =
 
     val pliesWithAdviceAndVariation: Set[Int] = analysis.advices.view.collect {
       case a if a.info.hasVariation => a.ply
@@ -54,8 +54,5 @@ private object UciToPgn {
           err => (info.dropVariation :: infos, LilaException(err) :: errs),
           pgn => (info.copy(variation = pgn) :: infos, errs)
         )
-    } match {
+    } match
       case (infos, errors) => analysis.copy(infos = infos.reverse) -> errors
-    }
-  }
-}

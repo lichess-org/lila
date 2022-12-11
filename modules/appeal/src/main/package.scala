@@ -1,6 +1,5 @@
-package lila
+package lila.appeal
 
-package object appeal extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[appeal] val logger = lila.log("appeal")
-}
+private val logger = lila.log("appeal")

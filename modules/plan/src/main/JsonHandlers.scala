@@ -1,42 +1,65 @@
 package lila.plan
 
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
+import play.api.libs.json.*
+import play.api.libs.functional.syntax.*
 import java.util.Currency
 import scala.util.Try
 
-private[plan] object JsonHandlers {
+private object JsonHandlers:
 
-  implicit val StripeSubscriptionId = Reads.of[String].map(SubscriptionId.apply)
-  implicit val StripeClientId       = Reads.of[String].map(ClientId.apply)
-  implicit val StripeSessionId      = Reads.of[String].map(SessionId.apply)
-  implicit val StripeCustomerId     = Reads.of[String].map(CustomerId.apply)
-  implicit val StripeChargeId       = Reads.of[String].map(ChargeId.apply)
-  implicit val StripeAmountReads    = Reads.of[Int].map(StripeAmount.apply)
-  implicit val CurrencyReads = Reads.of[String].flatMapResult { code =>
-    Try(Currency getInstance code.toUpperCase).fold(err => JsError(err.getMessage), cur => JsSuccess(cur))
-  }
-  implicit val StripePriceReads = Json.reads[StripePrice]
-  implicit val StripeItemReads  = Json.reads[StripeItem]
-  // require that the items array is not empty.
-  implicit val StripeSubscriptionReads: Reads[StripeSubscription] = (
-    (__ \ "id").read[String] and
-      (__ \ "items" \ "data" \ 0).read[StripeItem] and
-      (__ \ "customer").read[CustomerId] and
-      (__ \ "cancel_at_period_end").read[Boolean] and
-      (__ \ "status").read[String] and
-      (__ \ "default_payment_method").readNullable[String]
-  )(StripeSubscription.apply _)
-  implicit val StripeSubscriptionsReads     = Json.reads[StripeSubscriptions]
-  implicit val StripeCustomerReads          = Json.reads[StripeCustomer]
-  implicit val StripeAddressReads           = Json.reads[StripeCharge.Address]
-  implicit val StripeBillingReads           = Json.reads[StripeCharge.BillingDetails]
-  implicit val StripeChargeReads            = Json.reads[StripeCharge]
-  implicit val StripeInvoiceReads           = Json.reads[StripeInvoice]
-  implicit val StripeSessionReads           = Json.reads[StripeSession]
-  implicit val StripeSessionCompletedReads  = Json.reads[StripeCompletedSession]
-  implicit val StripeCardReads              = Json.reads[StripeCard]
-  implicit val StripePaymentMethodReads     = Json.reads[StripePaymentMethod]
-  implicit val StripeSetupIntentReads       = Json.reads[StripeSetupIntent]
-  implicit val StripeSessionWithIntentReads = Json.reads[StripeSessionWithIntent]
-}
+  given Reads[Currency] = lila.common.Json.tryRead(code => Try(Currency getInstance code.toUpperCase))
+  given Reads[Country]  = Reads.of[String].map(Country.apply)
+
+  object stripe:
+    given Reads[StripeSubscriptionId] = Reads.of[String].map(StripeSubscriptionId.apply)
+    given Reads[StripeSessionId]      = Reads.of[String].map(StripeSessionId.apply)
+    given Reads[StripeCustomerId]     = Reads.of[String].map(StripeCustomerId.apply)
+    given Reads[StripeChargeId]       = Reads.of[String].map(StripeChargeId.apply)
+    given Reads[StripeAmount]         = Reads.of[Int].map(StripeAmount.apply)
+    given Reads[StripePrice]          = Json.reads
+    given Reads[StripeItem]           = Json.reads
+    // require that the items array is not empty.
+    given Reads[StripeSubscription] = (
+      (__ \ "id").read[String] and
+        (__ \ "items" \ "data" \ 0).read[StripeItem] and
+        (__ \ "customer").read[StripeCustomerId] and
+        (__ \ "cancel_at_period_end").read[Boolean] and
+        (__ \ "status").read[String] and
+        (__ \ "default_payment_method").readNullable[String]
+    )(StripeSubscription.apply)
+    given Reads[StripeSubscriptions]         = Json.reads
+    given Reads[StripeCustomer]              = Json.reads
+    given Reads[StripeCharge.Address]        = Json.reads
+    given Reads[StripeCharge.BillingDetails] = Json.reads
+    given Reads[StripeCharge]                = Json.reads
+    given Reads[StripeInvoice]               = Json.reads
+    given Reads[StripeSession]               = Json.reads
+    given Reads[StripeCompletedSession]      = Json.reads
+    given Reads[StripeCard]                  = Json.reads
+    given Reads[StripePaymentMethod]         = Json.reads
+    given Reads[StripeSetupIntent]           = Json.reads
+    given Reads[StripeSessionWithIntent]     = Json.reads
+
+  object payPal:
+    import play.api.libs.json.JodaReads.given
+    given Reads[PayPalPayerId]             = Reads.of[String].map(PayPalPayerId.apply)
+    given Reads[PayPalOrderId]             = Reads.of[String].map(PayPalOrderId.apply)
+    given Reads[PayPalSubscriptionId]      = Reads.of[String].map(PayPalSubscriptionId.apply)
+    given Reads[PayPalEventId]             = Reads.of[String].map(PayPalEventId.apply)
+    given Reads[PayPalPlanId]              = Reads.of[String].map(PayPalPlanId.apply)
+    given Reads[PayPalTransactionId]       = Reads.of[String].map(PayPalTransactionId.apply)
+    given Reads[PayPalOrderCreated]        = Json.reads
+    given Reads[PayPalSubscriptionCreated] = Json.reads
+    given Reads[PayPalAmount]              = Json.reads
+    given Reads[PayPalPurchaseUnit]        = Json.reads
+    given Reads[PayPalAddress]             = Json.reads
+    given Reads[PayPalPayer]               = Json.reads
+    given Reads[PayPalOrder]               = Json.reads
+    given Reads[PayPalPayment]             = Json.reads
+    given Reads[PayPalBillingInfo]         = Json.reads
+    given Reads[PayPalSubscription]        = Json.reads
+    given Reads[PayPalEvent]               = Json.reads
+    given Reads[PayPalPlan]                = Json.reads
+    given Reads[PayPalCapture]             = Json.reads
+    given Reads[PayPalSaleAmount]          = Json.reads
+    given Reads[PayPalSale]                = Json.reads

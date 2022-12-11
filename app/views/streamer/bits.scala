@@ -1,16 +1,16 @@
 package views.html.streamer
 
-import play.api.i18n.Lang
-
 import controllers.routes
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import play.api.i18n.Lang
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.i18n.LangList
 import lila.user.User
 
-object bits extends Context.ToLang {
+object bits:
 
-  import trans.streamer._
+  import trans.streamer.*
 
   def create(implicit ctx: Context) =
     views.html.site.message(
@@ -31,26 +31,6 @@ object bits extends Context.ToLang {
       )
     )
 
-  def pic(s: lila.streamer.Streamer, u: User, size: Int = 300) =
-    s.picturePath match {
-      case Some(path) =>
-        img(
-          width := size,
-          height := size,
-          cls := "picture",
-          src := dbImageUrl(path.value),
-          alt := s"${u.titleUsername} Lichess streamer picture"
-        )
-      case _ =>
-        img(
-          width := size,
-          height := size,
-          cls := "default picture",
-          src := assetUrl("images/placeholder.png"),
-          alt := "Default Lichess streamer picture"
-        )
-    }
-
   def menu(active: String, s: Option[lila.streamer.Streamer.WithUser])(implicit ctx: Context) =
     st.nav(cls := "subnav")(
       a(cls := active.active("index"), href := routes.Streamer.index())(allStreamers()),
@@ -66,7 +46,7 @@ object bits extends Context.ToLang {
         )
       } getOrElse a(href := routes.Streamer.edit)(yourPage()),
       isGranted(_.Streamers) option a(
-        cls := active.active("requests"),
+        cls  := active.active("requests"),
         href := s"${routes.Streamer.index()}?requests=1"
       )("Approval requests"),
       a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community")(
@@ -75,32 +55,26 @@ object bits extends Context.ToLang {
       a(href := "/about")(downloadKit())
     )
 
-  def redirectLink(username: String, isStreaming: Option[Boolean] = None) =
-    isStreaming match {
-      case Some(false) => a(href := routes.Streamer.show(username))
-      case _ =>
-        a(
-          href := routes.Streamer.redirect(username),
-          targetBlank,
-          noFollow
-        )
-    }
+  def redirectLink(username: UserStr, isStreaming: Option[Boolean] = None) =
+    isStreaming match
+      case Some(false) => a(href := routes.Streamer.show(username.value))
+      case _           => a(href := routes.Streamer.redirect(username.value), targetBlank, noFollow)
 
   def liveStreams(l: lila.streamer.LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
-      redirectLink(s.streamer.id.value)(
-        cls := "stream highlight",
+      redirectLink(s.streamer.id into UserStr)(
+        cls   := "stream highlight",
         title := s.status
       )(
         strong(cls := "text", dataIcon := "")(l titleName s),
         " ",
-        s.status
+        s.cleanStatus
       )
     }
 
-  def contextual(userId: User.ID)(implicit lang: Lang): Frag =
+  def contextual(userId: UserId)(implicit lang: Lang): Frag =
     redirectLink(userId)(cls := "context-streamer text", dataIcon := "")(
-      xIsStreaming(usernameOrId(userId))
+      xIsStreaming(titleNameOrId(userId))
     )
 
   def rules(implicit lang: Lang) =
@@ -109,6 +83,7 @@ object bits extends Context.ToLang {
       ul(
         li(rule1()),
         li(rule2()),
+        li(rule4(a(href := routes.Page.loneBookmark("streaming-fairplay-faq"))(streamingFairplayFAQ()))),
         li(a(href := routes.Page.loneBookmark("streamer-page-activation"))(rule3()))
       ),
       h2(perks()),
@@ -119,4 +94,11 @@ object bits extends Context.ToLang {
         li(perk4())
       )
     )
-}
+
+  def streamerTitle(s: lila.streamer.Streamer.WithUser)(implicit lang: Lang) =
+    span(cls := "streamer-title")(
+      h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
+      s.streamer.lastStreamLang map { language =>
+        span(cls := "streamer-lang")(LangList nameByStr language)
+      }
+    )

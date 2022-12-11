@@ -4,7 +4,7 @@
     @extend %box-radius;
     font-weight: bold;
     color: white;
-    margin-right: 1ch;
+    margin-#{$end-direction}: 1ch;
     padding: 2px 1em;
   }
   good.result {
@@ -27,9 +27,14 @@
 
 .mod-games {
   &__filter-form {
+    > *:not(:first-child) {
+      margin-#{$start-direction}: 1em;
+    }
     select {
       max-width: 30ch;
-      margin-left: 1em;
+    }
+    input[name='nbGamesOpt'] {
+      width: 14ch;
     }
   }
 }

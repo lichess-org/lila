@@ -1,5 +1,5 @@
 import LobbyController from '../../ctrl';
-import { bind } from '../util';
+import { bind } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { Hook } from '../../interfaces';
 import perfIcons from 'common/perfIcons';
@@ -57,6 +57,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
         }, 20);
       },
       destroy(vnode) {
+        $.powerTip.hide(vnode.elm as HTMLElement, true);
         $.powerTip.destroy(vnode.elm as HTMLElement);
       },
     },
@@ -68,7 +69,8 @@ function renderHook(ctrl: LobbyController, hook: Hook): string {
   let html = '<div class="inner">';
   if (hook.rating) {
     html += '<a class="opponent ulpt is color-icon ' + color + '" href="/@/' + hook.u + '">';
-    html += ' ' + hook.u + ' (' + hook.rating + (hook.prov ? '?' : '') + ')';
+    html += ' ' + hook.u;
+    if (!ctrl.opts.hideRatings) html += ' (' + hook.rating + (hook.prov ? '?' : '') + ')';
     html += '</a>';
   } else {
     html += '<span class="opponent anon ' + color + '">' + ctrl.trans('anonymous') + '</span>';

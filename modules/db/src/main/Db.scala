@@ -1,7 +1,7 @@
 package lila.db
 
-import reactivemongo.api._
-import scala.concurrent.duration._
+import reactivemongo.api.*
+import scala.concurrent.duration.*
 import scala.concurrent.Future
 
 import lila.common.Chronometer
@@ -12,26 +12,30 @@ final class AsyncDb(
     name: String,
     uri: String,
     driver: AsyncDriver
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  private lazy val connection =
+  private lazy val connection: Fu[(MongoConnection, Option[String])] =
     MongoConnection.fromString(uri) flatMap { parsedUri =>
       driver.connect(parsedUri, name.some).dmap(_ -> parsedUri.db)
     }
 
-  private def db: Future[DB] =
+  private def makeDb: Future[DB] =
     connection flatMap { case (conn, dbName) =>
       conn database dbName.getOrElse("lichess")
     }
 
-  def apply(name: CollName) = new AsyncColl(name, () => db.dmap(_(name.value)))
-}
+  private val dbCache = new SingleFutureCache[DB](
+    compute = () => makeDb,
+    expireAfterMillis = 1000
+  )
+
+  def apply(name: CollName) = new AsyncColl(name, () => dbCache.get.dmap(_.collection(name.value)))
 
 final class Db(
     name: String,
     uri: String,
     driver: AsyncDriver
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   private val logger = lila.db.logger branch name
 
@@ -48,5 +52,4 @@ final class Db(
     logger.info(s"MongoDB connected to $uri in ${lap.showDuration}")
   }
 
-  def apply(name: CollName): Coll = db(name.value)
-}
+  def apply(name: CollName): Coll = db.collection(name.value)

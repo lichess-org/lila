@@ -16,6 +16,7 @@ export interface EvalCache {
   onCeval(): void;
   fetch(path: Tree.Path, multiPv: number): void;
   onCloudEval(serverEval: CachedEval): void;
+  clear(): void;
 }
 
 const evalPutMinDepth = 20;
@@ -70,14 +71,22 @@ function toCeval(e: Tree.ServerEval): Tree.ClientEval {
 }
 
 export function make(opts: EvalCacheOpts): EvalCache {
-  const fetchedByFen: Dictionary<CachedEval> = {};
+  let fetchedByFen: Dictionary<CachedEval> = {};
   const upgradable = prop(false);
-  lichess.pubsub.on('socket.in.crowd', d => upgradable(d.nb > 2));
+  lichess.pubsub.on('socket.in.crowd', d => upgradable(d.nb > 2 && d.nb < 99999));
   return {
-    onCeval: throttle(500, function () {
+    onCeval: throttle(500, () => {
       const node = opts.getNode(),
         ev = node.ceval;
-      if (ev && !ev.cloud && node.fen in fetchedByFen && qualityCheck(ev) && opts.canPut()) {
+      const fetched = fetchedByFen[node.fen];
+      if (
+        ev &&
+        !ev.cloud &&
+        node.fen in fetchedByFen &&
+        (!fetched || fetched.depth < ev.depth) &&
+        qualityCheck(ev) &&
+        opts.canPut()
+      ) {
         opts.send('evalPut', toPutData(opts.variant, ev));
       }
     }),
@@ -101,6 +110,9 @@ export function make(opts: EvalCacheOpts): EvalCache {
     onCloudEval(serverEval: CachedEval) {
       fetchedByFen[serverEval.fen] = serverEval;
       opts.receive(toCeval(serverEval), serverEval.path);
+    },
+    clear() {
+      fetchedByFen = {};
     },
   };
 }

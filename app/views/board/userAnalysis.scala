@@ -4,17 +4,22 @@ import play.api.libs.json.{ JsObject, Json }
 
 import chess.variant.Crazyhouse
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.rating.PerfType.iconByVariant
 
 import controllers.routes
 
-object userAnalysis {
+object userAnalysis:
 
-  def apply(data: JsObject, pov: lila.game.Pov, withForecast: Boolean = false)(implicit ctx: Context) =
+  def apply(
+      data: JsObject,
+      pov: lila.game.Pov,
+      withForecast: Boolean = false,
+      inlinePgn: Option[String] = None
+  )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.analysis.txt(),
       moreCss = frag(
@@ -27,17 +32,17 @@ object userAnalysis {
         analyseTag,
         analyseNvuiTag,
         embedJsUnsafe(s"""lichess.userAnalysis=${safeJsonValue(
-          Json.obj(
-            "data" -> data,
-            "i18n" -> userAnalysisI18n(withForecast = withForecast),
-            "explorer" -> Json.obj(
-              "endpoint"          -> explorerEndpoint,
-              "tablebaseEndpoint" -> tablebaseEndpoint
-            )
-          )
-        )}""")
+            Json
+              .obj(
+                "data" -> data,
+                "i18n" -> userAnalysisI18n(withForecast = withForecast),
+                "wiki" -> pov.game.variant.standard
+              )
+              .add("inlinePgn", inlinePgn) ++
+              views.html.board.bits.explorerAndCevalConfig
+          )}""")
       ),
-      csp = defaultCsp.withWebAssembly.some,
+      csp = analysisCsp.withWikiBooks.some,
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
@@ -48,7 +53,12 @@ object userAnalysis {
         .some,
       zoomable = true
     ) {
-      main(cls := "analyse")(
+      main(
+        cls := List(
+          "analyse"       -> true,
+          "analyse--wiki" -> pov.game.variant.standard
+        )
+      )(
         pov.game.synthetic option st.aside(cls := "analyse__side")(
           views.html.base.bits.mselect(
             "analyse-variant",
@@ -56,15 +66,15 @@ object userAnalysis {
             chess.variant.Variant.all.filter(chess.variant.FromPosition.!=).map { v =>
               a(
                 dataIcon := iconByVariant(v),
-                cls := (pov.game.variant == v).option("current"),
-                href := routes.UserAnalysis.parseArg(v.key)
+                cls      := (pov.game.variant == v).option("current"),
+                href     := routes.UserAnalysis.parseArg(v.key)
               )(v.name)
             }
-          )
+          ),
+          pov.game.variant.standard option div(cls := "analyse__wiki")
         ),
         div(cls := "analyse__board main-board")(chessgroundBoard),
         div(cls := "analyse__tools"),
         div(cls := "analyse__controls")
       )
     }
-}

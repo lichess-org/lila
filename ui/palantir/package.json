@@ -3,6 +3,9 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org webrtc media calls",
+  "type": "module",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
   "keywords": [
     "chess",
     "lichess",
@@ -12,13 +15,17 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0"
+    "@types/lichess": "2.0.0",
+    "rollup": "^2",
+    "typescript": "^4"
   },
   "dependencies": {
-    "@types/webrtc": "^0.0.27"
+    "@types/webrtc": "^0.0.32",
+    "snabbdom": "^3.3.1"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod"
+    "compile": "tsc --incremental --declaration",
+    "dev": "$npm_execpath run compile && rollup --failAfterWarnings --config",
+    "prod": "$npm_execpath run compile && rollup --failAfterWarnings --config --config-prod"
   }
 }

@@ -1,5 +1,6 @@
 package lila.game
 
+import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import lila.db.ByteArray
 import chess.Color
@@ -7,27 +8,30 @@ import chess.Color
 private[game] case class Metadata(
     source: Option[Source],
     pgnImport: Option[PgnImport],
-    tournamentId: Option[String],
-    swissId: Option[String],
-    simulId: Option[String],
+    tournamentId: Option[TourId],
+    swissId: Option[SwissId],
+    simulId: Option[SimulId],
     analysed: Boolean,
-    drawOffers: GameDrawOffers
-) {
+    drawOffers: GameDrawOffers,
+    rules: Set[GameRule]
+):
 
-  def pgnDate = pgnImport flatMap (_.date)
+  def pgnDate = pgnImport.flatMap(_.date)
 
-  def pgnUser = pgnImport flatMap (_.user)
+  def pgnUser = pgnImport.flatMap(_.user)
 
   def isEmpty = this == Metadata.empty
-}
 
-private[game] object Metadata {
+  def hasRule(rule: GameRule.type => GameRule) = rules(rule(GameRule))
+  def nonEmptyRules                            = rules.nonEmpty option rules
 
-  val empty = Metadata(None, None, None, None, None, analysed = false, GameDrawOffers.empty)
-}
+private[game] object Metadata:
+
+  val empty =
+    Metadata(None, None, None, None, None, analysed = false, GameDrawOffers.empty, rules = Set.empty)
 
 // plies
-case class GameDrawOffers(white: Set[Int], black: Set[Int]) {
+case class GameDrawOffers(white: Set[Int], black: Set[Int]):
 
   def lastBy(color: Color): Option[Int] = color.fold(white, black).maxOption
 
@@ -43,21 +47,25 @@ case class GameDrawOffers(white: Set[Int], black: Set[Int]) {
     case ply => ply
   }
   def normalizedPlies: Set[Int] = normalize(chess.White) ++ normalize(chess.Black)
-}
 
-object GameDrawOffers {
+object GameDrawOffers:
   val empty = GameDrawOffers(Set.empty, Set.empty)
-}
+
+enum GameRule:
+  case NoAbort, NoRematch, NoGiveTime, NoClaimWin
+  val key = lila.common.String lcfirst toString
+case object GameRule:
+  val byKey = values.map(r => r.key -> r).toMap
 
 case class PgnImport(
-    user: Option[String],
+    user: Option[UserId],
     date: Option[String],
     pgn: String,
     // hashed PGN for DB unicity
     h: Option[ByteArray]
 )
 
-object PgnImport {
+object PgnImport:
 
   def hash(pgn: String) =
     ByteArray {
@@ -67,15 +75,11 @@ object PgnImport {
           .filter(_.nonEmpty)
           .to(List)
           .mkString("\n")
-          .getBytes("UTF-8")
+          .getBytes(UTF_8)
       } take 12
     }
 
-  def make(
-      user: Option[String],
-      date: Option[String],
-      pgn: String
-  ) =
+  def make(user: Option[UserId], date: Option[String], pgn: String) =
     PgnImport(
       user = user,
       date = date,
@@ -83,7 +87,7 @@ object PgnImport {
       h = hash(pgn).some
     )
 
-  import reactivemongo.api.bson.Macros
-  import ByteArray.ByteArrayBSONHandler
-  implicit val pgnImportBSONHandler = Macros.handler[PgnImport]
-}
+  import reactivemongo.api.bson.*
+  import ByteArray.given
+  import lila.db.dsl.given
+  given BSONDocumentHandler[PgnImport] = Macros.handler

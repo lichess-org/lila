@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Преференсе</string>
-  <string name="gameDisplay">Приказ игре</string>
   <string name="pieceAnimation">Aнимација фигура</string>
   <string name="materialDifference">Разлика у материјалу</string>
   <string name="boardHighlights">Осветли последњи потез и шах</string>
@@ -32,7 +31,7 @@
   <string name="promoteToQueenAutomatically">Промовишите у Даму аутоматски</string>
   <string name="whenPremoving">Током претпотеза</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">аутоматски реми после три понављања позиције</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Када преостане &lt; 30 секунди</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Када преостане &lt; 30 секунди</string>
   <string name="moveConfirmation">Потврди потез</string>
   <string name="inCorrespondenceGames">У дописним играма</string>
   <string name="correspondenceAndUnlimited">Dopisno i neograniceno</string>

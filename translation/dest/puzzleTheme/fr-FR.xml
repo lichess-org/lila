@@ -31,7 +31,7 @@
   <string name="equality">Égalité</string>
   <string name="equalityDescription">Revenir d\'une position perdante et assurer une nulle ou une position équilibrée. (évaluation ≤ 200cp)</string>
   <string name="kingsideAttack">Attaque sur l\'aile roi</string>
-  <string name="kingsideAttackDescription">Une attaque du Roi adverse, après qu\'il ait fait le petit roque.</string>
+  <string name="kingsideAttackDescription">Une attaque du Roi adverse, après qu\'il a fait le petit roque.</string>
   <string name="clearance">Dégagement</string>
   <string name="clearanceDescription">Un coup, souvent avec tempo, qui libère une case, une colonne ou une diagonale en vue d\'une idée tactique.</string>
   <string name="defensiveMove">Coup défensif</string>
@@ -51,7 +51,7 @@
   <string name="forkDescription">Un coup où la pièce déplacée attaque deux pièces de l\'adversaire à la fois.</string>
   <string name="hangingPiece">Pièce en prise</string>
   <string name="hangingPieceDescription">Une tactique impliquant une pièce adverse non protégée ou insuffisamment défendue et libre d\'être capturée.</string>
-  <string name="hookMate">Mat de l\'hameçon</string>
+  <string name="hookMate">Mat du hameçon</string>
   <string name="hookMateDescription">Mat avec une Tour, un Cavalier et un pion, avec un pion adverse qui empêche la fuite du roi ennemi.</string>
   <string name="interference">Interception</string>
   <string name="interferenceDescription">Déplacer une pièce entre deux pièces adverses pour en laisser l\'une ou les deux non protégées, comme un Cavalier sur une case défendue entre deux Tours.</string>
@@ -94,7 +94,7 @@
   <string name="queenRookEndgame">Dames et Tours</string>
   <string name="queenRookEndgameDescription">Une finale avec seulement des Dames, Tours et pions.</string>
   <string name="queensideAttack">Attaque sur l\'aile dame</string>
-  <string name="queensideAttackDescription">Une attaque du Roi adverse, après qu\'il ait fait le grand roque.</string>
+  <string name="queensideAttackDescription">Une attaque du Roi adverse, après qu\'il a fait le grand roque.</string>
   <string name="quietMove">Coup silencieux</string>
   <string name="quietMoveDescription">Un mouvement qui ne fait pas échec ni n\'est une capture, mais qui prépare une menace inévitable.</string>
   <string name="rookEndgame">Finale de Tours</string>
@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">L\'adversaire est limité dans les mouvements qu\'il peut effectuer, et tous les coups aggravent sa position.</string>
   <string name="healthyMix">Divers</string>
   <string name="healthyMixDescription">Un peu de tout. Vous ne savez pas à quoi vous attendre ! Comme dans une vraie partie.</string>
+  <string name="playerGames">Parties de joueurs</string>
+  <string name="playerGamesDescription">Problèmes tirés de vos parties ou de celles d\'autres joueurs.</string>
+  <string name="puzzleDownloadInformation">Ces problèmes sont du domaine public et peuvent être téléchargés sur %s.</string>
 </resources>

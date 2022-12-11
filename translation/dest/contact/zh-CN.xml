@@ -52,6 +52,7 @@
   <string name="knightMate">如果单方不只剩单王，对方就可能以单马或单象将死。</string>
   <string name="noRatingPoints">未获得积分</string>
   <string name="ratedGame">请确保您参加过积分赛。非积分赛将不会影响选手的积分。</string>
+  <string name="botRatingAbuse">在某些情况下，若发现玩家在与 AI 的对弈中利用 AI 骗取等级分，那么这场排位赛将不会被授予积分。</string>
   <string name="errorPage">错误页面</string>
   <string name="reportErrorPage">如果您遇到错误页面，您可以举报：</string>
   <string name="banAppeal">申请禁令或限制IP</string>

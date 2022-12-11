@@ -56,4 +56,13 @@
   <string name="skip">scipeáil</string>
   <string name="skipHelp">Tá cead beart amháin a scipeáil in aon rás amháin:</string>
   <string name="skipExplanation">Scipeáil an beart seo chun do sraithbhuille a chaomhnú! Ní oibríonn sé ach uair amháin in aon rás amháin.</string>
+  <string name="failedPuzzles">Fadhbanna theip</string>
+  <string name="slowPuzzles">Fadhbanna mall</string>
+  <string name="skippedPuzzle">Fadhb scipeáilte</string>
+  <string name="thisWeek">An tseachtain seo</string>
+  <string name="thisMonth">An mhí seo</string>
+  <string name="allTime">Riamh</string>
+  <string name="clickToReload">Cliceáil chun athlódáil</string>
+  <string name="thisRunHasExpired">Tá an rith seo imithe as feidhm!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Osclaíodh an rith seo i dtáb eile!</string>
 </resources>

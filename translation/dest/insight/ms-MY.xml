@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xHasNoChessInsights">%s belum mempunyai cerapan catur!</string>
+  <string name="insightsAreProtected">Cerapan catur %s dilindungi</string>
+  <string name="cantSeeInsights">Maaf, anda tidak dapat melihat cerapan catur %s.</string>
+  <string name="generateInsights">Hasilkan cerapan catur %s.</string>
+  <string name="crunchingData">Kini mengolah data hanya untuk anda!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Mungkin minta mereka menukar %s mereka?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">tetapan cerapan</string>
+</resources>

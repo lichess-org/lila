@@ -1,8 +1,11 @@
 @import 'extend';
 
-$c-inaccuracy: #56b4e9;
-$c-mistake: #e69f00;
-$c-blunder: #df5353;
+$c-bg-inaccuracy-hover: c-dimmer($c-inaccuracy, 70%);
+$c-bg-mistake-hover: c-dimmer($c-mistake, 70%);
+$c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
+$c-bg-good-hover: c-dimmer($c-good-move, 70%);
+$c-bg-brilliant-hover: c-dimmer($c-brilliant, 70%);
+$c-bg-interesting-hover: c-dimmer($c-interesting, 70%);
 
 .tview2 {
   white-space: normal;
@@ -12,20 +15,51 @@ $c-blunder: #df5353;
   }
 
   &-inline {
-    padding: 7px 3px 7px 7px;
+    @include padding-direction(7px, 3px, 7px, 7px);
   }
 
   move {
     @extend %move;
 
+    @media (hover: none) {
+      user-select: none;
+    }
+
     &.inaccuracy {
       color: $c-inaccuracy;
+      &:hover {
+        background: $c-bg-inaccuracy-hover;
+      }
     }
     &.mistake {
       color: $c-mistake;
+      &:hover {
+        background: $c-bg-mistake-hover;
+      }
     }
     &.blunder {
       color: $c-blunder;
+      &:hover {
+        background: $c-bg-blunder-hover;
+      }
+    }
+    &.good {
+      color: $c-good-move;
+      &:hover {
+        background: $c-bg-good-hover;
+      }
+    }
+    &.brilliant {
+      color: $c-brilliant;
+      &:hover {
+        background: $c-bg-brilliant-hover;
+      }
+    }
+    &.interesting {
+      color: $c-interesting;
+      &:hover {
+        background: $c-bg-interesting-hover;
+      }
     }
   }
 
@@ -54,18 +88,23 @@ $c-blunder: #df5353;
 
   move.active {
     font-weight: bold;
-    background: mix($c-primary, $c-bg-box, 20%);
+    background: mix($c-primary, $c-bg-box, 25%);
+    color: $c-font-clear;
   }
 
-  &-inline move.active {
+  &-inline move.active,
+  line move.active {
     @extend %box-radius;
+    background: mix($c-primary, $c-bg-box, 40%);
+    color: $c-font-clearer;
+    outline: 1px solid mix($c-primary, $c-bg-box, 60%);
   }
 
   move.nongame {
     font-style: italic;
   }
 
-  move:not(.empty):hover {
+  move:not(.empty):not(.blunder):not(.mistake):not(.inaccuracy):not(.good):not(.brilliant):not(.interesting):hover {
     &,
     index,
     eval {
@@ -98,15 +137,15 @@ $c-blunder: #df5353;
   }
 
   &-column move index {
-    padding-left: 5px;
+    padding-#{$start-direction}: 5px;
   }
 
   &-column move index:first-child {
-    padding-left: 0;
+    padding-#{$start-direction}: 0;
   }
 
   &-inline move index {
-    padding-right: 0.2em;
+    padding-#{$end-direction}: 0.2em;
     line-height: 111.11%;
   }
 
@@ -123,7 +162,7 @@ $c-blunder: #df5353;
   }
 
   &-column > index + move {
-    border-right: $c-border;
+    border-#{$end-direction}: $c-border;
   }
 
   eval {
@@ -138,13 +177,13 @@ $c-blunder: #df5353;
   glyph {
     @extend %base-font;
 
-    margin-left: 0.08em;
+    margin-#{$start-direction}: 0.08em;
     vertical-align: bottom;
   }
 
   shapes {
     font-size: 0.7em;
-    margin-left: 0.4em;
+    margin-#{$start-direction}: 0.4em;
     text-align: right;
     color: $c-good;
     &::before {
@@ -164,7 +203,7 @@ $c-blunder: #df5353;
     flex: 0 0 13%;
     display: flex;
     justify-content: center;
-    border-right: $border;
+    border-#{$end-direction}: $border;
     background: $c-bg-zebra;
     line-height: 2.07em;
     color: $c-font-dimmer;
@@ -187,6 +226,15 @@ $c-blunder: #df5353;
 
     display: block;
     padding: 3px 5px;
+    &.inaccuracy {
+      color: $c-inaccuracy;
+    }
+    &.mistake {
+      color: $c-mistake;
+    }
+    &.blunder {
+      color: $c-blunder;
+    }
   }
 
   &-inline comment {
@@ -203,16 +251,16 @@ $c-blunder: #df5353;
     vertical-align: -0.3em;
     font-size: 0.9em;
     opacity: 0.8;
-    margin-right: 0.4em;
+    margin-#{$end-direction}: 0.4em;
     max-width: 9em;
   }
 
   &-column comment.white {
-    border-left: 3px solid;
+    border-#{$start-direction}: 3px solid;
   }
 
   &-column comment.black {
-    border-right: 3px solid;
+    border-#{$end-direction}: 3px solid;
     overflow-x: hidden;
   }
 
@@ -252,17 +300,17 @@ $c-blunder: #df5353;
   lines {
     display: block;
     margin-top: 2px;
-    margin-left: 6px;
+    margin-#{$start-direction}: 6px;
     margin-bottom: 0.8em;
-    border-left: 2px solid $c-border;
+    border-#{$start-direction}: 2px solid $c-border;
   }
 
   > interrupt > lines {
-    margin-left: 0px;
+    margin-#{$start-direction}: 0px;
   }
 
   lines.single {
-    border-left: none;
+    border-#{$start-direction}: none;
   }
 
   lines:last-child {
@@ -271,7 +319,7 @@ $c-blunder: #df5353;
 
   line {
     display: block;
-    padding-left: 7px;
+    padding-#{$start-direction}: 7px;
   }
 
   &-column line {
@@ -283,21 +331,21 @@ $c-blunder: #df5353;
   }
 
   lines lines {
-    margin-left: 1px;
+    margin-#{$start-direction}: 1px;
   }
 
   lines lines::before {
     content: ' ';
     border-top: 2px solid $c-border;
     position: absolute;
-    margin-left: -11px;
+    margin-#{$start-direction}: -11px;
     width: 9px;
     height: 6px;
   }
 
   lines line::before {
     margin-top: 0.65em;
-    margin-left: -8px;
+    margin-#{$start-direction}: -8px;
     content: ' ';
     border-top: 2px solid $c-border;
     position: absolute;
@@ -325,12 +373,12 @@ $c-blunder: #df5353;
 
   inline::before {
     content: '(';
-    margin-left: 2px;
+    margin-#{$start-direction}: 2px;
   }
 
   inline::after {
     content: ')';
-    margin-right: 2px;
+    margin-#{$end-direction}: 2px;
   }
 
   &-inline inline::before,

@@ -2,13 +2,13 @@ package views.html.tournament
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object homepageSpotlight {
+object homepageSpotlight:
 
-  def apply(tour: lila.tournament.Tournament)(implicit ctx: Context) = {
+  def apply(tour: lila.tournament.Tournament)(implicit ctx: Context) =
     val schedClass = tour.schedule ?? { sched =>
       val invert  = (sched.freq.isWeeklyOrBetter && tour.isNowOrSoon) ?? " invert"
       val distant = tour.isDistant ?? " distant little"
@@ -42,7 +42,7 @@ object homepageSpotlight {
           )
         )
       )
-    } getOrElse a(href := routes.Tournament.show(tour.id), cls := s"little $tourClass")(
+    } getOrElse a(href                    := routes.Tournament.show(tour.id), cls := s"little $tourClass")(
       iconTag(tour.perfType.iconChar)(cls := "img"),
       span(cls := "content")(
         span(cls := "name")(tour.name()),
@@ -53,5 +53,3 @@ object homepageSpotlight {
         )
       )
     )
-  }
-}

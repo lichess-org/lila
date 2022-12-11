@@ -6,7 +6,7 @@
   .auto-refresh {
     position: absolute;
     top: 30px;
-    right: 20px;
+    #{$end-direction}: 20px;
 
     @include transition;
 
@@ -28,6 +28,33 @@
     cursor: pointer;
     &:hover {
       background: fade-out($c-accent, 0.8);
+    }
+  }
+
+  .player_chats .game {
+    .title-time {
+      @extend %flex-between;
+      overflow: hidden;
+      padding: 0.5em 1em;
+      border-bottom: $border;
+      margin-bottom: 0.3em;
+    }
+    .title {
+      padding: 0;
+    }
+
+    .tournament-status {
+      &.created {
+        color: $c-warn;
+      }
+
+      &.started {
+        color: $c-good;
+      }
+
+      &.finished {
+        color: $c-font-dim;
+      }
     }
   }
 }

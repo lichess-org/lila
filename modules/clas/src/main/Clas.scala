@@ -2,35 +2,36 @@ package lila.clas
 
 import cats.data.NonEmptyList
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
+import lila.common.Markdown
 import lila.user.User
 
 case class Clas(
     _id: Clas.Id,
     name: String,
     desc: String,
-    wall: String = "",
-    teachers: NonEmptyList[User.ID], // first is owner
+    wall: Markdown = Markdown(""),
+    teachers: NonEmptyList[UserId], // first is owner
     created: Clas.Recorded,
     viewedAt: DateTime,
     archived: Option[Clas.Recorded]
-) {
+):
 
-  def id = _id
+  inline def id = _id
 
   def withStudents(students: List[Student]) = Clas.WithStudents(this, students)
 
   def isArchived = archived.isDefined
   def isActive   = !isArchived
-}
 
-object Clas {
+object Clas:
 
   val maxStudents = 100
 
   def make(teacher: User, name: String, desc: String) =
     Clas(
-      _id = Id(lila.common.ThreadLocalRandom nextString 8),
+      _id = Id(ThreadLocalRandom nextString 8),
       name = name,
       desc = desc,
       teachers = NonEmptyList.one(teacher.id),
@@ -39,9 +40,9 @@ object Clas {
       archived = none
     )
 
-  case class Id(value: String) extends AnyVal with StringValue
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
-  case class Recorded(by: User.ID, at: DateTime)
+  case class Recorded(by: UserId, at: DateTime)
 
   case class WithStudents(clas: Clas, students: List[Student])
-}

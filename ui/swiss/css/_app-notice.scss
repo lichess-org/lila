@@ -26,10 +26,10 @@
   }
 
   &::before {
-    left: 30px;
+    #{$start-direction}: 30px;
   }
 
   &::after {
-    right: 30px;
+    #{$end-direction}: 30px;
   }
 }

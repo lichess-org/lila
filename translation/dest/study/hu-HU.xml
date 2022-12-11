@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Megfigyelő vagy</string>
   <string name="pgnTags">PGN címkék</string>
   <string name="like">Kedvel</string>
+  <string name="unlike">Mégse tetszik</string>
   <string name="newTag">Új címke</string>
   <string name="commentThisPosition">Megjegyzés ehhez az álláshoz</string>
   <string name="commentThisMove">Megjegyzés ehhez a lépéshez</string>
@@ -49,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Csak a leckében közreműködők kérhetnek számítógépes elemzést.</string>
   <string name="getAFullComputerAnalysis">Teljes szerver oldali számítógépes elemzés kérése a fő ágról.</string>
   <string name="makeSureTheChapterIsComplete">Ellenőrizd, hogy a fejezet elkészült-e. Csak egyszer kérhető számítógépes elemzés.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Minden SYNC tag ugyanazt az állást követi</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Minden SYNC tag ugyanazt az állást követi</string>
   <string name="shareChanges">Változtatások megosztása a nézőkkel és mentése a szerveren</string>
   <string name="playing">Folyamatban</string>
   <string name="first">Első</string>
@@ -75,11 +76,13 @@
   <string name="studyNotFound">Tanulmány nem található</string>
   <string name="editChapter">Fejezet szerkesztése</string>
   <string name="newChapter">Új fejezet</string>
+  <string name="importFromChapterX">Importálás innen: %s</string>
   <string name="orientation">Szemszög</string>
   <string name="analysisMode">Elemzés típusa</string>
   <string name="pinnedChapterComment">Rögzített megjegyzés</string>
   <string name="saveChapter">Fejezet mentése</string>
   <string name="clearAnnotations">Jelölések eltávolítása</string>
+  <string name="clearVariations">Változatok törlése</string>
   <string name="deleteChapter">Fejezet törlése</string>
   <string name="deleteThisChapter">Törlöd a fejezetet? Ezt nem lehet visszavonni!</string>
   <string name="clearAllCommentsInThisChapter">Eltávolítasz minden megjegyzést, jelölést és rajzot ebből a fejezetből?</string>
@@ -126,7 +129,7 @@
   <string name="clearChat">Chat törlése</string>
   <string name="deleteTheStudyChatHistory">Biztosan törlöd a chat előzményeit? Ezt nem lehet visszavonni!</string>
   <string name="deleteStudy">Tanulmány törlése</string>
-  <string name="deleteTheEntireStudy">Törlöd a teljes tanulmányt? Ezt nem lehet visszavonni!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Törlöd a teljes tanulmányt? Ezt nem lehet visszavonni! Gépeld be a tanulmány nevét a megerősítéshez: %s</string>
   <string name="whereDoYouWantToStudyThat">Hol szeretnéd a tanulmányt elhelyezni?</string>
   <string name="goodMove">Jó lépés</string>
   <string name="mistake">Hiba</string>
@@ -154,4 +157,13 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Elképzelés</string>
   <string name="nextChapter">Következő fejezet</string>
   <string name="prevChapter">Előző fejezet</string>
+  <string name="studyActions">Lecke műveletek</string>
+  <string name="topics">Témakörök</string>
+  <string name="myTopics">Saját témaköreim</string>
+  <string name="popularTopics">Népszerű témakörök</string>
+  <string name="manageTopics">Témakörök kezelése</string>
+  <string name="back">Vissza</string>
+  <string name="playAgain">Újra</string>
+  <string name="whatWouldYouPlay">Mit lépnél ebben az állásban?</string>
+  <string name="youCompletedThisLesson">Gratulálunk! Sikeresen befejezted ezt a részt.</string>
 </resources>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Préférences</string>
-  <string name="gameDisplay">Affichage de la partie</string>
+  <string name="display">Affichage</string>
+  <string name="privacy">Confidentialité</string>
   <string name="pieceAnimation">Animation des pièces</string>
   <string name="materialDifference">Différence de matériel</string>
   <string name="boardHighlights">Mettre en évidence les cases (dernier coup et échec)</string>
@@ -12,6 +13,8 @@
   <string name="chessPieceSymbol">Figurine de la pièce</string>
   <string name="pgnLetter">Lettre de la pièce (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Mode Zen</string>
+  <string name="showPlayerRatings">Afficher les classements du joueur</string>
+  <string name="explainShowPlayerRatings">Cela permet de masquer tous les classements sur le site pour se concentrer sur les échecs. Les parties peuvent toujours être classées.</string>
   <string name="displayBoardResizeHandle">Afficher la poignée de redimensionnement de l\'échiquier</string>
   <string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
   <string name="blindfoldChess">Échecs à l\'aveugle (pièces invisibles)</string>
@@ -21,7 +24,7 @@
   <string name="horizontalGreenProgressBars">Barres de progression horizontales vertes</string>
   <string name="soundWhenTimeGetsCritical">Alerte quand le temps restant devient critique</string>
   <string name="giveMoreTime">Donner plus de temps</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Conduite de la partie</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Comportement du jeu</string>
   <string name="howDoYouMovePieces">Comment voulez-vous déplacer les pièces ?</string>
   <string name="clickTwoSquares">Clic et clic</string>
   <string name="dragPiece">Faire glisser la pièce</string>
@@ -30,9 +33,10 @@
   <string name="takebacksWithOpponentApproval">Annulations de coups (avec accord de l\'adversaire)</string>
   <string name="inCasualGamesOnly">Durant les parties amicales seulement</string>
   <string name="promoteToQueenAutomatically">Promouvoir en dame automatiquement</string>
+  <string name="explainPromoteToQueenAutomatically">Maintenez la touche &lt;ctrl&gt; enfoncée lors de la promotion pour désactiver temporairement l\'auto-promotion</string>
   <string name="whenPremoving">Lors d\'un pré-coup</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Déclarer la nulle par répétition automatiquement</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Quand il reste moins de 30 secondes</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Quand il reste moins de 30 secondes</string>
   <string name="moveConfirmation">Confirmation de coup</string>
   <string name="inCorrespondenceGames">Dans les parties par correspondance</string>
   <string name="correspondenceAndUnlimited">Correspondance et illimité</string>
@@ -44,4 +48,6 @@
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Restreindre les flèches aux coups valides</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Dire \"Good game, well played\" c.-à.-d. \"Bonne partie, bien joué\", en cas de défaite ou de nulle</string>
   <string name="yourPreferencesHaveBeenSaved">Vos préférences ont été sauvegardées.</string>
+  <string name="scrollOnTheBoardToReplayMoves">Utiliser la molette pour jouer les coups</string>
+  <string name="correspondenceEmailNotification">Liste des avis par courriel quotidiens de vos parties par correspondance</string>
 </resources>

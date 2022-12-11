@@ -23,3 +23,5 @@ export default function LichessNotify(element: Element, opts: NotifyOpts) {
     redraw,
   };
 }
+
+(window as any).LichessNotify = LichessNotify; // esbuild

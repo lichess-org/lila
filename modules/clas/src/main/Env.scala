@@ -1,8 +1,8 @@
 package lila.clas
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 
-import lila.common.config._
+import lila.common.config.*
 
 @Module
 final class Env(
@@ -17,12 +17,12 @@ final class Env(
     authenticator: lila.user.Authenticator,
     cacheApi: lila.memo.CacheApi,
     baseUrl: BaseUrl
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,
     mode: play.api.Mode
-) {
+):
 
   lazy val nameGenerator: NameGenerator = wire[NameGenerator]
 
@@ -44,20 +44,17 @@ final class Env(
     "finishGame" -> { case lila.game.actorApi.FinishGame(game, _, _) =>
       progressApi.onFinishGame(game).unit
     },
-    "clas" -> { case lila.hub.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
-      promise completeWith api.clas.isTeacherOf(teacher, student)
-    },
-    "clas" -> { case lila.hub.actorApi.clas.AreKidsInSameClass(kid1, kid2, promise) =>
-      promise completeWith api.clas.areKidsInSameClass(kid1, kid2)
-    },
-    "clas" -> { case lila.hub.actorApi.clas.ClasMatesAndTeachers(kid, promise) =>
-      promise completeWith matesCache.get(kid.id)
+    "clas" -> {
+      case lila.hub.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
+        promise completeWith api.clas.isTeacherOf(teacher, student)
+      case lila.hub.actorApi.clas.AreKidsInSameClass(kid1, kid2, promise) =>
+        promise completeWith api.clas.areKidsInSameClass(kid1, kid2)
+      case lila.hub.actorApi.clas.ClasMatesAndTeachers(kid, promise) =>
+        promise completeWith matesCache.get(kid.id)
     }
   )
-}
 
-private class ClasColls(db: lila.db.Db) {
+private class ClasColls(db: lila.db.Db):
   val clas    = db(CollName("clas_clas"))
   val student = db(CollName("clas_student"))
   val invite  = db(CollName("clas_invite"))
-}

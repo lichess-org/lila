@@ -1,5 +1,4 @@
 .number-menu {
-  background: $c-bg-zebra;
   display: flex;
   user-select: none;
 
@@ -32,12 +31,12 @@
 
     &:first-child {
       border-top-left-radius: 0;
-      border-left: 0 !important;
+      border-#{$start-direction}: 0 !important;
     }
 
     &:last-child {
       border-top-right-radius: 0;
-      border-right: 0 !important;
+      border-#{$end-direction}: 0 !important;
     }
 
     &:hover {

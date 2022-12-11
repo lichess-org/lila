@@ -13,14 +13,18 @@ export const xhrHeader = {
   'X-Requested-With': 'XMLHttpRequest', // so lila knows it's XHR
 };
 
-function ensureOk(res: Response): Response {
+export const ensureOk = (res: Response): Response => {
   if (res.ok) return res;
   if (res.status == 429) throw new Error('Too many requests');
+  if (res.status == 413) throw new Error('The uploaded file is too large');
   throw new Error(`Error ${res.status}`);
-}
+};
 
 /* fetch a JSON value */
 export const json = (url: string, init: RequestInit = {}): Promise<any> =>
+  jsonAnyResponse(url, init).then(res => ensureOk(res).json());
+
+export const jsonAnyResponse = (url: string, init: RequestInit = {}): Promise<any> =>
   fetch(url, {
     ...defaultInit,
     headers: {
@@ -28,7 +32,7 @@ export const json = (url: string, init: RequestInit = {}): Promise<any> =>
       ...xhrHeader,
     },
     ...init,
-  }).then(res => ensureOk(res).json());
+  });
 
 /* fetch a string */
 export const text = (url: string, init: RequestInit = {}): Promise<string> =>
@@ -56,7 +60,7 @@ export const script = (src: string): Promise<void> =>
 /* produce HTTP form data from a JS object */
 export const form = (data: any): FormData => {
   const formData = new FormData();
-  for (const k of Object.keys(data)) formData.append(k, data[k]);
+  for (const k of Object.keys(data)) if (defined(data[k])) formData.append(k, data[k]);
   return formData;
 };
 

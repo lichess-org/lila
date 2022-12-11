@@ -1,4 +1,5 @@
 import { h, VNode, Hooks } from 'snabbdom';
+import { spinnerVdom as spinner } from 'common/spinner';
 import * as util from '../util';
 import * as game from 'game';
 import * as status from 'game/status';
@@ -36,8 +37,10 @@ function analysisButton(ctrl: RoundController): VNode | null {
 function rematchButtons(ctrl: RoundController): MaybeVNodes {
   const d = ctrl.data,
     me = !!d.player.offeringRematch,
-    them = !!d.opponent.offeringRematch,
+    disabled = !me && !d.opponent.onGame && (!!d.clock || !d.player.user || !d.opponent.user),
+    them = !!d.opponent.offeringRematch && !disabled,
     noarg = ctrl.noarg;
+  if (!game.rematchable(d)) return [];
   return [
     them
       ? h(
@@ -58,28 +61,29 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
         class: {
           me,
           glowing: them,
-          disabled: !me && !(d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user)),
+          disabled,
         },
         attrs: {
           title: them ? noarg('yourOpponentWantsToPlayANewGameWithYou') : me ? noarg('rematchOfferSent') : '',
         },
         hook: util.bind(
           'click',
-          e => {
+          () => {
             const d = ctrl.data;
             if (d.game.rematch) location.href = gameRoute(d.game.rematch, d.opponent.color);
             else if (d.player.offeringRematch) {
               d.player.offeringRematch = false;
               ctrl.socket.send('rematch-no');
-            } else if (d.opponent.onGame) {
+            } else if (d.opponent.onGame || !d.clock) {
               d.player.offeringRematch = true;
               ctrl.socket.send('rematch-yes');
-            } else if (!(e.currentTarget as HTMLElement).classList.contains('disabled')) ctrl.challengeRematch();
+              if (!disabled && !d.opponent.onGame) ctrl.challengeRematch();
+            }
           },
           ctrl.redraw
         ),
       },
-      [me ? util.spinner() : h('span', noarg('rematch'))]
+      [me ? spinner() : h('span', noarg('rematch'))]
     ),
   ];
 }
@@ -111,6 +115,7 @@ export function standard(
 
 export function opponentGone(ctrl: RoundController) {
   const gone = ctrl.opponentGone();
+  if (ctrl.data.game.rules?.includes('noClaimWin')) return null;
   return gone === true
     ? h('div.suggestion', [
         h('p', { hook: onSuggestionHook }, ctrl.noarg('opponentLeftChoices')),
@@ -162,7 +167,17 @@ export const drawConfirm = (ctrl: RoundController): VNode =>
     fbtCancel(ctrl, ctrl.offerDraw),
   ]);
 
-export function threefoldClaimDraw(ctrl: RoundController) {
+export const claimThreefold = (ctrl: RoundController): VNode =>
+  h(
+    'button.button.draw-yes',
+    {
+      hook: util.bind('click', () => ctrl.socket.sendLoading('draw-claim')),
+      attrs: { title: ctrl.noarg('claimADraw') },
+    },
+    h('span', '½')
+  );
+
+export function threefoldSuggestion(ctrl: RoundController) {
   return ctrl.data.game.threefold
     ? h('div.suggestion', [
         h(
@@ -171,13 +186,6 @@ export function threefoldClaimDraw(ctrl: RoundController) {
             hook: onSuggestionHook,
           },
           ctrl.noarg('threefoldRepetition')
-        ),
-        h(
-          'button.button',
-          {
-            hook: util.bind('click', () => ctrl.socket.sendLoading('draw-claim')),
-          },
-          ctrl.noarg('claimADraw')
         ),
       ])
     : null;
@@ -335,25 +343,13 @@ export function followUp(ctrl: RoundController): VNode {
   const d = ctrl.data,
     rematchable =
       !d.game.rematch &&
-      (status.finished(d) || status.aborted(d)) &&
+      (status.finished(d) || (status.aborted(d) && (!d.game.rated || !['lobby', 'pool'].includes(d.game.source)))) &&
       !d.tournament &&
       !d.simul &&
       !d.swiss &&
       !d.game.boosted,
     newable = (status.finished(d) || status.aborted(d)) && (d.game.source === 'lobby' || d.game.source === 'pool'),
-    rematchZone = ctrl.challengeRematched
-      ? [
-          h(
-            'div.suggestion.text',
-            {
-              hook: onSuggestionHook,
-            },
-            ctrl.noarg('rematchOfferSent')
-          ),
-        ]
-      : rematchable || d.game.rematch
-      ? rematchButtons(ctrl)
-      : [];
+    rematchZone = rematchable || d.game.rematch ? rematchButtons(ctrl) : [];
   return h('div.follow-up', [
     ...rematchZone,
     d.tournament

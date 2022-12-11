@@ -1,12 +1,12 @@
 package views.html.clas
 
-import controllers.routes
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import controllers.clas.routes
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 
-object bits {
+object bits:
 
   def layout(
       title: String,
@@ -29,10 +29,10 @@ object bits {
                 a(cls := "active", href := routes.Clas.show(clas.clas.id.value))(clas.clas.name),
                 clas.students.map { s =>
                   a(
-                    cls := List("student" -> true, "active" -> student.exists(s.is)),
+                    cls  := List("student" -> true, "active" -> student.exists(s.is)),
                     href := routes.Clas.studentShow(clas.clas.id.value, s.userId)
                   )(
-                    usernameOrId(s.userId),
+                    titleNameOrId(s.userId),
                     em(s.realName)
                   )
                 }
@@ -50,8 +50,7 @@ object bits {
 
   def showArchived(archived: Clas.Recorded)(implicit ctx: Context) =
     div(
-      trans.clas.closedByX(userIdLink(archived.by.some)),
+      trans.clas.removedByX(userIdLink(archived.by.some)),
       " ",
       momentFromNowOnce(archived.at)
     )
-}

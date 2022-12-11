@@ -1,28 +1,20 @@
 import * as control from '../control';
+import * as keyboard from '../keyboard';
 import * as side from './side';
 import theme from './theme';
-import changeColorHandle from 'common/coordsColor';
 import chessground from './chessground';
 import feedbackView from './feedback';
+import stepwiseScroll from 'common/wheel';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
-import { onInsert, bind, bindMobileMousedown } from '../util';
+import { onInsert, bindNonPassive } from 'common/snabbdom';
+import { bindMobileMousedown } from 'common/mobile';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
+import { render as renderKeyboardMove } from 'keyboardMove';
+import * as Prefs from 'common/prefs';
 
-function renderAnalyse(ctrl: Controller): VNode {
-  return h('div.puzzle__moves.areplay', [treeView(ctrl)]);
-}
-
-function wheel(ctrl: Controller, e: WheelEvent): false | undefined {
-  const target = e.target as HTMLElement;
-  if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD') return;
-  e.preventDefault();
-  if (e.deltaY > 0) control.next(ctrl);
-  else if (e.deltaY < 0) control.prev(ctrl);
-  ctrl.redraw();
-  return false;
-}
+const renderAnalyse = (ctrl: Controller): VNode => h('div.puzzle__moves.areplay', [treeView(ctrl)]);
 
 function dataAct(e: Event): string | null {
   const target = e.target as HTMLElement;
@@ -43,6 +35,16 @@ function controls(ctrl: Controller): VNode {
   const node = ctrl.vm.node;
   const nextNode = node.children[0];
   const goNext = ctrl.vm.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
+  let iconFirst = '';
+  let iconPrev = '';
+  let iconNext = '';
+  let iconLast = '';
+  if (document.dir == 'rtl') {
+    iconLast = '';
+    iconNext = '';
+    iconPrev = '';
+    iconFirst = '';
+  }
   return h(
     'div.puzzle__controls.analyse-controls',
     {
@@ -62,10 +64,10 @@ function controls(ctrl: Controller): VNode {
     },
     [
       h('div.jumps', [
-        jumpButton('', 'first', !node.ply),
-        jumpButton('', 'prev', !node.ply),
-        jumpButton('', 'next', !nextNode, goNext),
-        jumpButton('', 'last', !nextNode, goNext),
+        jumpButton(iconFirst, 'first', !node.ply),
+        jumpButton(iconPrev, 'prev', !node.ply),
+        jumpButton(iconNext, 'next', !nextNode, goNext),
+        jumpButton(iconLast, 'last', !nextNode, goNext),
       ]),
     ]
   );
@@ -90,7 +92,6 @@ export default function (ctrl: Controller): VNode {
           if (old.data!.gaugeOn !== gaugeOn) {
             if (ctrl.pref.coords === Prefs.Coords.Outside) {
               $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
-              changeColorHandle();
             }
             document.body.dispatchEvent(new Event('chessground.resize'));
           }
@@ -112,7 +113,18 @@ export default function (ctrl: Controller): VNode {
           hook:
             'ontouchstart' in window || lichess.storage.get('scrollMoves') == '0'
               ? undefined
-              : bind('wheel', e => wheel(ctrl, e as WheelEvent)),
+              : bindNonPassive(
+                  'wheel',
+                  stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+                    const target = e.target as HTMLElement;
+                    if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD')
+                      return;
+                    e.preventDefault();
+                    if (e.deltaY > 0 && scroll) control.next(ctrl);
+                    else if (e.deltaY < 0 && scroll) control.prev(ctrl);
+                    ctrl.redraw();
+                  })
+                ),
         },
         [chessground(ctrl), ctrl.promotion.view()]
       ),
@@ -131,7 +143,9 @@ export default function (ctrl: Controller): VNode {
         feedbackView(ctrl),
       ]),
       controls(ctrl),
+      ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
       session(ctrl),
+      ctrl.keyboardHelp() ? keyboard.view(ctrl) : null,
     ]
   );
 }
@@ -141,7 +155,12 @@ function session(ctrl: Controller) {
     current = ctrl.getData().puzzle.id;
   return h('div.puzzle__session', [
     ...rounds.map(round => {
-      const rd = round.ratingDiff ? (round.ratingDiff > 0 ? '+' + round.ratingDiff : round.ratingDiff) : null;
+      const rd =
+        round.ratingDiff && ctrl.showRatings
+          ? round.ratingDiff > 0
+            ? '+' + round.ratingDiff
+            : round.ratingDiff
+          : null;
       return h(
         `a.result-${round.result}${rd ? '' : '.result-empty'}`,
         {

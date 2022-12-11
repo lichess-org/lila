@@ -2,25 +2,22 @@ package lila.push
 
 import org.joda.time.DateTime
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
+import reactivemongo.api.ReadPreference
 
-final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
-  def getSubscriptions(max: Int)(userId: User.ID): Fu[List[WebSubscription]] =
+  private[push] def getSubscriptions(max: Int)(userId: UserId): Fu[List[WebSubscription]] =
     coll
-      .find(
-        $doc(
-          "userId" -> userId
-        )
-      )
+      .find($doc("userId" -> userId), $doc("endpoint" -> true, "auth" -> true, "p256dh" -> true).some)
       .sort($doc("seenAt" -> -1))
-      .cursor[Bdoc]()
+      .cursor[Bdoc](ReadPreference.secondaryPreferred)
       .list(max)
-      .map { docs =>
-        docs.flatMap { doc =>
+      .map {
+        _.flatMap { doc =>
           for {
             endpoint <- doc.string("endpoint")
             auth     <- doc.string("auth")
@@ -44,22 +41,8 @@ final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.Executi
       )
       .void
 
-  def unsubscribeBySession(sessionId: String): Funit = {
+  def unsubscribeBySession(sessionId: String): Funit =
     coll.delete.one($id(sessionId)).void
-  }
 
-  def unsubscribeByUser(user: User): Funit = {
+  def unsubscribeByUser(user: User): Funit =
     coll.delete.one($doc("userId" -> user.id)).void
-  }
-
-  def unsubscribeByUserExceptSession(user: User, sessionId: String): Funit = {
-    coll.delete
-      .one(
-        $doc(
-          "userId" -> user.id,
-          "_id"    -> $ne(sessionId)
-        )
-      )
-      .void
-  }
-}

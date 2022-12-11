@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">新しい個人 API アクセストークン</string>
+  <string name="tokenGrantsPermission">トークンは他の人にあなたのアカウントへのアクセスを許可します。</string>
+  <string name="carefullySelect">他の人があなたの代わりに行なえる操作を慎重に選んでください。</string>
+  <string name="tokenDescription">トークンの説明</string>
+  <string name="rememberTokenUse">このトークンの目的を記録するため</string>
+  <string name="whatTheTokenCanDo">このトークンであなたの代わりに行える操作：</string>
+  <string name="doNotShareIt">トークンは他の人にあなたのアカウントへのアクセスを許可します。誰にもシェアしないように！</string>
+  <string name="copyTokenNow">すぐに新しい個人アクセストークンをコピーしておいてください。二度と表示されませんので！</string>
+  <string name="preferenceRead">設定を見る</string>
+  <string name="preferenceWrite">設定を決める</string>
+  <string name="emailRead">メールアドレスを見る</string>
+  <string name="challengeRead">その人へのチャレンジを見る</string>
+  <string name="challengeWrite">その人へのチャレンジを書く</string>
+  <string name="challengeBulk">他の人のために複数のゲームをまとめて作成する</string>
+  <string name="studyRead">非公開の研究や配信を見る</string>
+  <string name="studyWrite">研究や配信を作成・更新・削除する</string>
+  <string name="tournamentWrite">トーナメントを作成・更新し、参加する</string>
+  <string name="racerWrite">PuzzleRacer を作成し参加する</string>
+  <string name="puzzleRead">タクティクス問題の活動を見る</string>
+  <string name="teamRead">非公開のチーム情報を見る</string>
+  <string name="teamWrite">チームに対する加入・脱退・管理</string>
+  <string name="teamLead">リーダーを務めるチームの管理：PM の送信、メンバーの追放</string>
+  <string name="followRead">フォローした相手を見る</string>
+  <string name="followWrite">フォローする、フォロー解除する</string>
+  <string name="msgWrite">他の人にプライベートメッセージを送信する</string>
+  <string name="boardPlay">ボード API を使って対局する</string>
+  <string name="botPlay">ボット API を使って対局する</string>
+  <string name="engineRead">自作外部エンジンの表示と使用</string>
+  <string name="engineWrite">外部エンジンの作成と更新</string>
+  <string name="webLogin">認証済みウェブサイトセッションの作成（フルアクセス可能！）</string>
+  <string name="webMod">モデレーター用ツールの使用（権限の範囲内で）</string>
+</resources>

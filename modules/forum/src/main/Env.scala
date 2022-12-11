@@ -1,16 +1,19 @@
 package lila.forum
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
+import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config._
+import lila.common.config.*
 import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi
+import lila.mon
 import lila.notify.NotifyApi
-import lila.relation.RelationApi
 import lila.pref.PrefApi
-import play.api.libs.ws.StandaloneWSClient
+import lila.relation.RelationApi
+import lila.user.User
+import lila.game.PgnDump
 
 @Module
 final private class ForumConfig(
@@ -33,40 +36,47 @@ final class Env(
     relationApi: RelationApi,
     prefApi: PrefApi,
     userRepo: lila.user.UserRepo,
+    gameRepo: lila.game.GameRepo,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using
+    ec: scala.concurrent.ExecutionContext,
+    scheduler: akka.actor.Scheduler,
+    mat: akka.stream.Materializer
+):
 
   private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
 
-  lazy val categRepo = new CategRepo(db(CollName("f_categ")))
-  lazy val topicRepo = new TopicRepo(db(CollName("f_topic")))
-  lazy val postRepo  = new PostRepo(db(CollName("f_post")))
+  lazy val categRepo = new ForumCategRepo(db(CollName("f_categ")))
+  lazy val topicRepo = new ForumTopicRepo(db(CollName("f_topic")))
+  lazy val postRepo  = new ForumPostRepo(db(CollName("f_post")))
 
   private lazy val detectLanguage =
     new DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
 
-  lazy val categApi: CategApi = {
-    val mk = (env: Env) => wire[CategApi]
-    mk(this)
-  }
+  private lazy val textExpand = wire[ForumTextExpand]
 
-  lazy val topicApi: TopicApi = {
-    val mk = (max: MaxPerPage, env: Env) => wire[TopicApi]
-    mk(config.topicMaxPerPage, this)
-  }
+  lazy val paginator: ForumPaginator = wire[ForumPaginator]
 
-  lazy val postApi: PostApi = {
-    val mk = (max: MaxPerPage, env: Env) => wire[PostApi]
-    mk(config.postMaxPerPage, this)
-  }
+  lazy val categApi: ForumCategApi = wire[ForumCategApi]
+
+  lazy val topicApi: ForumTopicApi = wire[ForumTopicApi]
+
+  lazy val postApi: ForumPostApi = wire[ForumPostApi]
+
+  lazy val delete: ForumDelete = wire[ForumDelete]
 
   lazy val mentionNotifier: MentionNotifier = wire[MentionNotifier]
   lazy val forms                            = wire[ForumForm]
-  lazy val recent                           = wire[ForumRecent]
+
+  lazy val recentTeamPosts =
+    RecentTeamPosts(id => postRepo.recentInCateg(teamSlug(id), 6) flatMap postApi.miniPosts)
 
   lila.common.Bus.subscribeFun("team", "gdprErase") {
     case CreateTeam(id, name, _)        => categApi.makeTeam(id, name).unit
     case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user).unit
   }
-}
+
+private type RecentTeamPostsType                   = TeamId => Fu[List[MiniForumPost]]
+opaque type RecentTeamPosts <: RecentTeamPostsType = RecentTeamPostsType
+object RecentTeamPosts extends TotalWrapper[RecentTeamPosts, RecentTeamPostsType]

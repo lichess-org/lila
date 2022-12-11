@@ -2,22 +2,19 @@ package views.html.streamer
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object header {
+object header:
 
-  import trans.streamer._
+  import trans.streamer.*
 
   def apply(s: lila.streamer.Streamer.WithUserAndStream)(implicit ctx: Context) =
     div(cls := "streamer-header")(
-      bits.pic(s.streamer, s.user),
+      picture.thumbnail(s.streamer, s.user),
       div(cls := "overview")(
-        h1(dataIcon := "")(
-          titleTag(s.user.title),
-          s.streamer.name
-        ),
+        bits.streamerTitle(s.withoutStream),
         s.streamer.headline.map(_.value).map { d =>
           p(cls := s"headline ${if (d.length < 60) "small" else if (d.length < 120) "medium" else "large"}")(
             d
@@ -40,7 +37,7 @@ object header {
               a(
                 cls := List(
                   "service youTube" -> true,
-                  "live"            -> s.stream.exists(_.twitch)
+                  "live"            -> s.stream.exists(_.youTube)
                 ),
                 href := youTube.fullUrl
               )(youTube.minUrl)
@@ -65,4 +62,3 @@ object header {
         )
       )
     )
-}

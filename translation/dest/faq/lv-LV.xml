@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Kā varu kļūt par moderatoru?</string>
   <string name="youCannotApply">Nav iespējams pieteikties, lai kļūtu par moderatoru. Ja ieraudzīsim kādu, kas mūsuprāt būtu labs moderators, sazināsimies personīgi.</string>
   <string name="isCorrespondenceDifferent">Vai korespondencšahs atšķiras no parastā šaha?</string>
+  <string name="pleaseReadFairPlayPage">Papildus informācijai, lūdzu lasiet mūsu %s</string>
+  <string name="fairPlayPage">godīgas spēlēšanas lapu</string>
   <string name="youCanUseOpeningBookNoEngine">Vietnē Lichess galvenā atšķirība korespondencšaha noteikumos ir atļauja lietot atklātņu grāmatu. Datora palīdzība ir vēl joprojām aizliegta un novedīs pie atzīmes par datora palīdzības lietošanu. Kaut arī ICCF atļauj lietot datora palīdzību korespondencšahā, Lichess to aizliedz.</string>
   <string name="gameplay">Spēles apraksts</string>
   <string name="howBulletBlitzEtcDecided">Kā nosaka bullet, blica un citas laika kontroles?</string>
@@ -60,8 +62,8 @@ Tas ir aprakstīts %2$s sadaļā 3.7 (d).
 
 Skatīt %3$s šim gājienam, lai ar to trenētos.</string>
   <string name="goodIntroduction">labu ievadu</string>
-  <string name="officialRulesPDF">oficiālajos noteikumos (PDF)</string>
   <string name="lichessTraining">Lichess treniņu</string>
+  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Skatīties, kā Starptautiskais Meistars Ēriks Rosens piesaka matu ar gājienu garāmejot: %s.</string>
   <string name="threefoldRepetition">Trīskārša atkārtošanās</string>
   <string name="threefoldRepetitionExplanation">Ja pozīcija trīsreiz atkārtojas, spēlētāji var pieprasīt %1$s neizšķirtu. Lichess izmanto oficiālos FIDE noteikumus, kas aprakstīti %2$s sadaļā 9.2 (d).</string>
   <string name="threefoldRepetitionLowerCase">trīskāršas atkārtošanās</string>

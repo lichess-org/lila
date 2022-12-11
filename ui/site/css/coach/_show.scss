@@ -36,10 +36,10 @@
     }
   }
 
-  h2 {
-    margin: 0 0 12px 0;
+  &__title {
+    margin: 0 0 1rem 0;
     color: $c-brag;
-    font-size: 1.6em;
+    font-size: 1.8rem;
   }
 
   &__youtube {
@@ -62,15 +62,23 @@
     }
   }
 
-  &__studies {
-    margin-top: 20px;
+  &__studies,
+  &__posts {
+    margin-top: 2em;
+    .coach-show__title {
+      padding: 1em var(--box-padding);
+    }
+  }
 
+  &__studies {
     .studies {
       border-top: $border;
     }
+  }
 
-    h2 {
-      padding: 1em 0 0 2em;
+  &__posts {
+    .ublog-post-cards {
+      margin: 0 var(--box-padding);
     }
   }
 }

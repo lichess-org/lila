@@ -12,7 +12,8 @@
   <string name="specialMoves">Specijalni potezi</string>
   <string name="didYouLikeThisPuzzle">Je li Vam se svidio ovaj problem?</string>
   <string name="voteToLoadNextOne">Glasajte da učitate sljedeći!</string>
-  <string name="yourPuzzleRatingX">Vaš rejting u problemima: %s</string>
+  <string name="upVote">Pozitivno ocijenite problem</string>
+  <string name="downVote">Negativno ocijenite problem</string>
   <string name="findTheBestMoveForWhite">Nađite najbolji potez za bijelog.</string>
   <string name="findTheBestMoveForBlack">Nađite najbolji potez za crnog.</string>
   <string name="toGetPersonalizedPuzzles">Kako biste dobili personalizirane probleme:</string>
@@ -37,6 +38,7 @@
   <string name="hardest">Najteži</string>
   <string name="example">Primjer</string>
   <string name="addAnotherTheme">Dodajte drugu temu</string>
+  <string name="nextPuzzle">Sljedeći problem</string>
   <string name="jumpToNextPuzzleImmediately">Odmah skočite na sljedeći problem</string>
   <string name="puzzleDashboard">Kontrolna tabla za probleme</string>
   <string name="improvementAreas">Područja za poboljšanje</string>

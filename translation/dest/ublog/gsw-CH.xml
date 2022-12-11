@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">%s\'s Blog</string>
+  <string name="newPost">Neue Bitrag</string>
+  <string name="editYourBlogPost">Bearbeit din Blog Bitrag</string>
+  <string name="saveDraft">Entwurf schpeichere</string>
+  <string name="postTitle">Bitrag Titel</string>
+  <string name="postIntro">Bitrag Iileitig</string>
+  <string name="postBody">Bitrag Inhalt</string>
+  <string name="drafts">Entwürf</string>
+  <string name="published">Veröffentlicht</string>
+  <string name="createBlogDiscussion">Kommentär erlaube</string>
+  <string name="createBlogDiscussionHelp">Es Forum - Thema erschtelle, für Lüt wo din Bitrag wänd kommentiere</string>
+  <string name="publishOnYourBlog">Veröffentlich i dim Blog</string>
+  <string name="publishHelp">Isch er aktiviert, wird de Bitrag i dim Blog ufgelischtet. Wänn nöd, wird er i dine Entwürf, privat blibe</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Hät en Blog Bitrag veröffentlicht</item>
+    <item quantity="other">Hät %s Blog Biträg veröffentlicht</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">1 Mal gseh</item>
+    <item quantity="other">%s Mal gseh</item>
+  </plurals>
+  <string name="xPublishedY">%1$s hät %2$s veröffentlicht</string>
+  <string name="thisPostIsPublished">De Bitrag isch veröffentlicht worde</string>
+  <string name="thisIsADraft">Das isch en Entwurf</string>
+  <string name="moreBlogPostsBy">Meh Blog Biträg vu %s</string>
+  <string name="noPostsInThisBlogYet">No kei Biträg i dem Blog.</string>
+  <string name="noDrafts">Kei Entwürf zum zeige.</string>
+  <string name="latestBlogPosts">Neuschti Blog Biträg</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Ein Post zeige</item>
+    <item quantity="other">Zeig all %s Biträg</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Lad für din Bitrag es Bild ufe</string>
+  <string name="imageAlt">Alternative Bildtegscht</string>
+  <string name="imageCredit">Bild Herkunft</string>
+  <string name="deleteBlog">Lösch de Blog-Post definitiv</string>
+  <string name="deleteImage">Lösch s\'Bild</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Es isch sicher, Bilder vu folgende Website z\'verwände: </string>
+  <string name="selectPostTopics">Wähl d\'Theme vu dim Post us</string>
+  <string name="useImagesYouMadeYourself">Du chasch auch sälber g\'machti- oder knipsti Bilder verwände oder Screenshots vu Lichess... eifach alles, was nöd vu öpper anderem urheberrächtlich gschützt isch.</string>
+  <string name="safeAndRespectfulContent">Bitte nur sicheri und reschpäktvolli Inhält poschte. Kopier nöd Inhält vu öpper anderem.</string>
+  <string name="inappropriateContentAccountClosed">Irgendwelchi unagmässeni Inhält, chönd zur Schlüssig vu dim Konto fühere.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Euseri simple Ratschläg, zum tolli Biträg poschte</string>
+</resources>

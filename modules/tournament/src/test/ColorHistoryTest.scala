@@ -1,5 +1,5 @@
 package lila.tournament
-import org.specs2.mutable.Specification
+import org.specs2.mutable.*
 
 object ColorHistoryTest {
   def apply(s: String): ColorHistory = {
@@ -22,24 +22,24 @@ object ColorHistoryTest {
 
 class ColorHistoryTest extends Specification {
   import ColorHistoryTest.{ apply, couldPlay, firstGetsWhite, sameColors, unpack }
-  "arena tournament color history" should {
-    "hand tests" in {
-      unpack("WWW") must be equalTo ((3, 3))
-      unpack("WWWB") must be equalTo ((-1, 2))
-      unpack("BBB") must be equalTo ((-3, -3))
-      unpack("BBBW") must be equalTo ((1, -2))
-      unpack("WWWBBB") must be equalTo ((-3, 0))
+  "arena tournament color history" >> {
+    "hand tests" >> {
+      unpack("WWW") must ===((3, 3))
+      unpack("WWWB") === ((-1, 2))
+      unpack("BBB") === ((-3, -3))
+      unpack("BBBW") === ((1, -2))
+      unpack("WWWBBB") === ((-3, 0))
     }
-    "couldPlay" in {
+    "couldPlay" >> {
       couldPlay("WWW", "WWW", 3) must beFalse
       couldPlay("BBB", "BBB", 3) must beFalse
       couldPlay("BB", "BB", 3) must beTrue
     }
-    "sameColors" in {
+    "sameColors" >> {
       sameColors("WWW", "W") must beTrue
       sameColors("BBB", "B") must beTrue
     }
-    "firstGetsWhite" in {
+    "firstGetsWhite" >> {
       firstGetsWhite("WWW", "WW") must beFalse
       firstGetsWhite("WW", "WWW") must beTrue
       firstGetsWhite("BB", "B") must beTrue
@@ -47,9 +47,9 @@ class ColorHistoryTest extends Specification {
       firstGetsWhite("WW", "BWW") must beFalse
       firstGetsWhite("BB", "WBB") must beTrue
     }
-    "equals" in {
-      apply("") must be equalTo apply("")
-      apply("WBW") must be equalTo apply("W")
+    "equals" >> {
+      apply("") === apply("")
+      apply("WBW") === apply("W")
     }
   }
 }

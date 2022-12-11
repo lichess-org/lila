@@ -8,6 +8,9 @@
   <string name="mostChessCourses">Večino šahovskih tečajev uporablja algebraičen način zapisovanja.</string>
   <string name="talkToYourChessFriends">Lažje se je pogovarjati s šahovskimi kolegi, kadar oba razumeta \"šahovski jezik\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Lažje je analizirati partijo če ni potrebno iskati imena polj.</string>
-  <string name="aSquareNameAppears">Ime polja se pojavi na šahovnici in morate klikniti nanj. Na voljo imate 30 sekund, da prepoznate čim več polj!</string>
+  <string name="youHaveThirtySeconds">Imate 30 sekund, da pravilno preslikate čim več polj!</string>
+  <string name="goAsLongAsYouWant">Pojdite, kolikor dolgo želite, ni časovne omejitve!</string>
+  <string name="showCoordinates">Prikaži koordinate</string>
+  <string name="showPieces">Pokaži figure</string>
   <string name="startTraining">Začnite trening</string>
 </resources>

@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Artık bir izleyicisiniz</string>
   <string name="pgnTags">PGN etiketleri</string>
   <string name="like">Beğen</string>
+  <string name="unlike">Beğenmekten Vazgeç</string>
   <string name="newTag">Yeni etiket</string>
   <string name="commentThisPosition">Bu pozisyon için yorum yap</string>
   <string name="commentThisMove">Bu hamle için yorum yap</string>
@@ -49,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Sadece katılımcılar bilgisayar analizi isteyebilir.</string>
   <string name="getAFullComputerAnalysis">Bu varyant için ayrıntılı bir sunucu analizi yapın.</string>
   <string name="makeSureTheChapterIsComplete">Bu bölümü tamamladığınızdan emin olun. Sadece bir kez bilgisayar analizi talep edebilirsiniz.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Senkronize edilen bütün üyeler aynı pozisyonda kalır</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Senkronize edilen bütün üyeler aynı pozisyonda kalır</string>
   <string name="shareChanges">Değişiklikleri izleyiciler ile paylaşın ve sunucuya kaydedin</string>
   <string name="playing">Oynanıyor</string>
   <string name="first">İlk</string>
@@ -75,11 +76,13 @@
   <string name="studyNotFound">Böyle bir çalışma bulunamadı</string>
   <string name="editChapter">Bölümü düzenle</string>
   <string name="newChapter">Yeni bölüm</string>
+  <string name="importFromChapterX">%s çalışmasından içe aktar</string>
   <string name="orientation">Tahta yönü</string>
   <string name="analysisMode">Analiz modu</string>
   <string name="pinnedChapterComment">Bölüm üzerine yorumlar</string>
   <string name="saveChapter">Bölümü kaydet</string>
   <string name="clearAnnotations">Açıklamaları sil</string>
+  <string name="clearVariations">Varyasyonları sil</string>
   <string name="deleteChapter">Bölümü sil</string>
   <string name="deleteThisChapter">Bu bölüm silinsin mi? Bunun geri dönüşü yok!</string>
   <string name="clearAllCommentsInThisChapter">Bu bölümdeki bütün yorumlar ve işaretler temizlensin mi?</string>
@@ -119,14 +122,14 @@
   <string name="everyone">Herkes</string>
   <string name="enableSync">Senkronizasyonu etkinleştir</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Evet: herkes aynı pozisyonda kalsın</string>
-  <string name="noLetPeopleBrowseFreely">Hayır: herkes dilediğince gezinebilir</string>
+  <string name="noLetPeopleBrowseFreely">Hayır: herkes dilediğince gezinebilsin</string>
   <string name="pinnedStudyComment">Çalışma üzerine yorumlar</string>
   <string name="start">Başlat</string>
   <string name="save">Kaydet</string>
   <string name="clearChat">Sohbeti temizle</string>
   <string name="deleteTheStudyChatHistory">Çalışmanın sohbet geçmişi silinsin mi? Bunun geri dönüşü yok!</string>
   <string name="deleteStudy">Çalışmayı sil</string>
-  <string name="deleteTheEntireStudy">Tüm çalışma silinsin mi? Bunun geri dönüşü yok!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Tüm çalışma silinsin mi? Bunun geri dönüşü yok! İşlemi onaylamak için çalışmanın adını yazın: %s</string>
   <string name="whereDoYouWantToStudyThat">Bu çalışmayı nerede sürdürmek istersiniz?</string>
   <string name="goodMove">İyi hamle</string>
   <string name="mistake">Hata</string>
@@ -150,8 +153,17 @@
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Saldırı</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Karşı saldırı</string>
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Vakit sıkıntısı</string>
-  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Kısa vadeli avantaj ile</string>
-  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Fikriyle</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Pozisyon avantajı ile</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Plan doğrultusunda</string>
   <string name="nextChapter">Sonraki bölüm</string>
   <string name="prevChapter">Önceki bölüm</string>
+  <string name="studyActions">Çalışma seçenekleri</string>
+  <string name="topics">Konular</string>
+  <string name="myTopics">Konularım</string>
+  <string name="popularTopics">Popüler konular</string>
+  <string name="manageTopics">Konuları yönet</string>
+  <string name="back">Baştan başlat</string>
+  <string name="playAgain">Tekrar oyna</string>
+  <string name="whatWouldYouPlay">Burada hangi hamleyi yapardınız?</string>
+  <string name="youCompletedThisLesson">Tebrikler! Bu dersi tamamlandınız.</string>
 </resources>

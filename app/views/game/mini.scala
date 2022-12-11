@@ -1,16 +1,16 @@
 package views.html.game
 
-import chess.format.Forsyth
+import chess.format.Fen
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 import lila.i18n.defaultLang
 
-object mini {
+object mini:
 
   private val dataLive  = attr("data-live")
   private val dataState = attr("data-state")
@@ -22,23 +22,22 @@ object mini {
       ownerLink: Boolean = false,
       tv: Boolean = false,
       withLink: Boolean = true
-  )(implicit ctx: Context): Tag = {
+  )(implicit ctx: Context): Tag =
     val game   = pov.game
     val isLive = game.isBeingPlayed
     val tag    = if (withLink) a else span
     tag(
-      href := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
-      cls := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
+      href     := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
+      cls      := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
       dataLive := isLive.option(game.id),
       renderState(pov)
     )(
-      renderPlayer(!pov),
+      renderPlayer(!pov, withRating = ctx.pref.showRatings),
       cgWrap,
-      renderPlayer(pov)
+      renderPlayer(pov, withRating = ctx.pref.showRatings)
     )
-  }
 
-  def noCtx(pov: Pov, tv: Boolean = false): Tag = {
+  def noCtx(pov: Pov, tv: Boolean = false): Tag =
     val game   = pov.game
     val isLive = game.isBeingPlayed
     a(
@@ -47,20 +46,19 @@ object mini {
       dataLive := isLive.option(game.id),
       renderState(pov)
     )(
-      renderPlayer(!pov)(defaultLang),
+      renderPlayer(!pov, withRating = true)(defaultLang),
       cgWrap,
-      renderPlayer(pov)(defaultLang)
+      renderPlayer(pov, withRating = true)(defaultLang)
     )
-  }
 
   def renderState(pov: Pov) =
-    dataState := s"${Forsyth boardAndColor pov.game.situation},${pov.color.name},${~pov.game.lastMoveKeys}"
+    dataState := s"${Fen writeBoardAndColor pov.game.situation},${pov.color.name},${~pov.game.lastMoveKeys}"
 
-  private def renderPlayer(pov: Pov)(implicit lang: Lang) =
+  private def renderPlayer(pov: Pov, withRating: Boolean)(implicit lang: Lang) =
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
         playerUsername(pov.player, withRating = false),
-        span(cls := "rating")(lila.game.Namer ratingString pov.player)
+        withRating option span(cls := "rating")(lila.game.Namer ratingString pov.player)
       ),
       if (pov.game.finished) renderResult(pov)
       else pov.game.clock.map { renderClock(_, pov.color) }
@@ -73,13 +71,11 @@ object mini {
       }
     )
 
-  private def renderClock(clock: chess.Clock, color: chess.Color) = {
+  private def renderClock(clock: chess.Clock, color: chess.Color) =
     val s = clock.remainingTime(color).roundSeconds
     span(
-      cls := s"mini-game__clock mini-game__clock--${color.name}",
+      cls      := s"mini-game__clock mini-game__clock--${color.name}",
       dataTime := s
     )(
       f"${s / 60}:${s % 60}%02d"
     )
-  }
-}

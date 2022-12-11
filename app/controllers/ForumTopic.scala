@@ -1,18 +1,23 @@
 package controllers
 
-import cats.implicits._
-import play.api.libs.json._
-import scala.concurrent.duration._
-import views._
+import cats.implicits.*
+import play.api.libs.json.*
+import scala.concurrent.duration.*
+import views.*
 
-import lila.app._
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.app.{ given, * }
+import lila.common.IpAddress
 import lila.user.Holder
 
-final class ForumTopic(env: Env) extends LilaController(env) with ForumController {
+final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
 
   private val CreateRateLimit =
-    new lila.memo.RateLimit[IpAddress](2, 5.minutes, key = "forum.topic")
+    new lila.memo.RateLimit[IpAddress](
+      credits = 2,
+      duration = 5.minutes,
+      key = "forum.topic",
+      enforce = env.net.rateLimit.value
+    )
 
   def form(categSlug: String) =
     Auth { implicit ctx => me =>
@@ -31,7 +36,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     AuthBody { implicit ctx => me =>
       NoBot {
         CategGrantWrite(categSlug) {
-          implicit val req = ctx.body
+          given play.api.mvc.Request[?] = ctx.body
           OptionFuResult(env.forum.categRepo bySlug categSlug) { categ =>
             categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
               forms
@@ -43,7 +48,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
                       BadRequest(html.forum.topic.form(categ, err, captcha))
                     },
                   data =>
-                    CreateRateLimit(HTTPRequest ipAddress ctx.req) {
+                    CreateRateLimit(ctx.ip) {
                       topicApi.makeTopic(categ, data, me) map { topic =>
                         Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
                       }
@@ -58,38 +63,37 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   def show(categSlug: String, slug: String, page: Int) =
     Open { implicit ctx =>
       NotForKids {
-        OptionFuOk(topicApi.show(categSlug, slug, page, ctx.me)) { case (categ, topic, posts) =>
+        OptionFuResult(topicApi.show(categSlug, slug, page, ctx.me)) { case (categ, topic, posts) =>
           for {
-            unsub    <- ctx.userId ?? env.timeline.status(s"forum:${topic.id}")
-            canWrite <- isGrantedWrite(categSlug)
+            unsub       <- ctx.userId ?? env.timeline.status(s"forum:${topic.id}")
+            canRead     <- access.isGrantedRead(categ.slug)
+            canWrite    <- access.isGrantedWrite(categ.slug, tryingToPostAsMod = true)
+            canModCateg <- access.isGrantedMod(categ.slug)
             inOwnTeam <- ~(categ.team, ctx.me).mapN { case (teamId, me) =>
               env.team.cached.isLeader(teamId, me.id)
             }
             form <- ctx.me.ifTrue(
-              !posts.hasNextPage && canWrite && topic.open && !topic.isOld
+              canWrite && topic.open && !topic.isOld
             ) ?? { me => forms.postWithCaptcha(me, inOwnTeam) map some }
-            canModCateg <- isGrantedMod(categ.slug)
-            _           <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
-          } yield html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg)
+            _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.post.userId)
+            res <-
+              if (canRead)
+                Ok(html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg))
+                  .withCanonical(routes.ForumTopic.show(categ.slug, topic.slug, page))
+                  .toFuccess
+              else notFound
+          } yield res
         }
       }
     }
 
   def close(categSlug: String, slug: String) =
     Auth { implicit ctx => me =>
-      CategGrantMod(categSlug) {
+      TopicGrantModBySlug(categSlug, me, slug) {
         OptionFuRedirect(topicApi.show(categSlug, slug, 1, ctx.me)) { case (categ, topic, pag) =>
           topicApi.toggleClose(categ, topic, Holder(me)) inject
             routes.ForumTopic.show(categSlug, slug, pag.nbPages)
         }
-      }
-    }
-
-  def hide(categSlug: String, slug: String) =
-    Secure(_.ModerateForum) { implicit ctx => me =>
-      OptionFuRedirect(topicApi.show(categSlug, slug, 1, ctx.me)) { case (categ, topic, pag) =>
-        topicApi.toggleHide(categ, topic, me) inject
-          routes.ForumTopic.show(categSlug, slug, pag.nbPages)
       }
     }
 
@@ -112,4 +116,3 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
         usernames <- env.user.repo usernamesByIds userIds
       } yield Ok(Json.toJson(usernames.sortBy(_.toLowerCase)))
     }
-}

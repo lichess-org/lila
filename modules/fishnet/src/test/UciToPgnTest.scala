@@ -18,8 +18,8 @@ final class UciToPgnTest extends Specification {
       case Reader.Result.Incomplete(replay, _) => replay
     }
 
-  "convert UCI analysis to PGN" should {
-    "work :)" in {
+  "convert UCI analysis to PGN" >> {
+    "work :)" >> {
       val uciAnalysis = Analysis(
         "ke5ssdgj",
         None,
@@ -219,7 +219,7 @@ final class UciToPgnTest extends Specification {
         case (_, errs) => errs must beEmpty
       }
     }
-    "even in KotH" in {
+    "even in KotH" >> {
       val pgn = List(
         "e4",
         "e5",

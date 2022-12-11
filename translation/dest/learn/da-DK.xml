@@ -93,7 +93,7 @@
   <string name="boardSetup">Opstilling</string>
   <string name="howTheGameStarts">Hvordan spillet starter</string>
   <string name="boardSetupIntro">De to hære står overfor hinanden, klar til slaget.</string>
-  <string name="thisIsTheInitialPosition">Dette er udgangspositionen for alle skakspil! Lav et hvilket som helst træk for at fortsætte.</string>
+  <string name="thisIsTheInitialPosition">Dette er udgangsstillingen for alle skakpartier! Lav et hvilket som helst træk for at fortsætte.</string>
   <string name="firstPlaceTheRooks">Placer tårnene! De hører til i hjørnerne.</string>
   <string name="thenPlaceTheKnights">Placer dernæst springerne! De skal stå ved siden af tårnene.</string>
   <string name="placeTheBishops">Placer løberne! De skal stå ved siden af springerne.</string>
@@ -104,15 +104,26 @@
   <string name="castling">Rokade</string>
   <string name="theSpecialKingMove">Det særlige kongetræk</string>
   <string name="castlingIntro">Bring din konge i sikkerhed og gør dit tårn klar til angreb!</string>
-  <string name="castleKingSide">Flyt din konge to felter for at rokere på konge-siden!</string>
-  <string name="castleQueenSide">Flyt din konge to felter for at rokere på dronninge-siden!</string>
-  <string name="theKnightIsInTheWay">Springeren er i vejen! Flyt den og roker derefter på kongesiden.</string>
-  <string name="castleKingSideMovePiecesFirst">Roker på kongesiden! Du er nødt til at flytte brikker ud først.</string>
-  <string name="castleQueenSideMovePiecesFirst">Roker på dronningesiden! Du er nødt til at flytte brikker ud først.</string>
-  <string name="youCannotCastleIfMoved">Du kan ikke rokere, hvis kongen allerede er blevet flyttet, eller hvis tårnet allerede er blevet flyttet.</string>
-  <string name="youCannotCastleIfAttacked">Du kan ikke rokere, hvis kongen kommer under angreb undervejs. Bloker for skak og roker dernæst!</string>
-  <string name="findAWayToCastleKingSide">Find en måde at rokere på kongesiden!</string>
-  <string name="findAWayToCastleQueenSide">Find en måde at rokere på dronningesiden!</string>
+  <string name="castleKingSide">Flyt din konge to felter
+for at rokere kort!</string>
+  <string name="castleQueenSide">Flyt din konge to felter
+for at rokere langt!</string>
+  <string name="theKnightIsInTheWay">Springeren er i vejen! 
+Flyt den og roker derefter kort.</string>
+  <string name="castleKingSideMovePiecesFirst">Roker kort!
+Du er nødt til at flytte brikker ud først.</string>
+  <string name="castleQueenSideMovePiecesFirst">Roker langt!
+Du er nødt til at flytte brikker ud først.</string>
+  <string name="youCannotCastleIfMoved">Du kan ikke rokere,
+hvis kongen allerede er blevet flyttet,
+eller hvis tårnet allerede er blevet flyttet.</string>
+  <string name="youCannotCastleIfAttacked">Du kan ikke rokere,
+hvis kongen kommer under angreb undervejs.
+Bloker for skak og roker dernæst!</string>
+  <string name="findAWayToCastleKingSide">Find en måde
+at rokere kort på!</string>
+  <string name="findAWayToCastleQueenSide">Find en måde
+at rokere langt på!</string>
   <string name="castlingComplete">Tillykke! Du bør næsten altid rokere i et parti.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Det særlige bondetræk</string>
@@ -163,7 +174,7 @@ Bonde = 1</string>
   <string name="register">Registrer</string>
   <string name="getAFreeLichessAccount">Få en gratis Lichess konto</string>
   <string name="practice">Øvelser</string>
-  <string name="learnCommonChessPositions">Lær almindelige skakpositioner</string>
+  <string name="learnCommonChessPositions">Lær almindelige skakstillinger</string>
   <string name="puzzles">Opgaver</string>
   <string name="exerciseYourTacticalSkills">Træn dine taktiske evner</string>
   <string name="videos">Videoer</string>
@@ -185,8 +196,8 @@ Bonde = 1</string>
   <string name="nailedIt">Lige i skabet.</string>
   <string name="rightOn">Sådan!</string>
   <string name="stageXComplete">Niveau %s fuldført</string>
-  <string name="yourScore">Din score</string>
   <string name="next">Næste</string>
+  <string name="nextX">Næste: %s</string>
   <string name="backToMenu">Tilbage til menu</string>
   <string name="puzzleFailed">Øvelse mislykkedes!</string>
   <string name="retry">Prøv igen</string>

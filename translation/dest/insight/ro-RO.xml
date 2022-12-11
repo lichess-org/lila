@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights">Perspectivele de șah ale lui %s</string>
+  <string name="xHasNoChessInsights">%s încă nu are perspective de șah!</string>
+  <string name="insightsAreProtected">Perspectivele de șah ale lui %s sunt protejate</string>
+  <string name="cantSeeInsights">Ne pare rău, nu puteți vedea perspectivele de șah ale lui %s.</string>
+  <string name="generateInsights">Generați perspectivele de șah ale lui %s.</string>
+  <string name="crunchingData">Acum procesam datele pentru tine!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Ați putea cere să-și schimbe %s?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">setări perspective de șah</string>
+</resources>

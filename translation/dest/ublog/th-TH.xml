@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newPost">โพสต์ใหม่</string>
+  <string name="editYourBlogPost">แก้ไขโพสต์ของคุณ</string>
+  <string name="saveDraft">บันทึกฉบับร่าง</string>
+  <string name="drafts">แบบร่าง</string>
+  <string name="published">เผยแพร่ไปแล้ว</string>
+</resources>

@@ -1,10 +1,12 @@
 package lila.security
 
-import play.api.data.validation._
-import scala.concurrent.duration._
+import play.api.data.validation.*
+import scala.concurrent.duration.*
 
 import lila.common.EmailAddress
 import lila.user.{ User, UserRepo }
+import scala.concurrent.ExecutionContext
+import org.joda.time.DateTime
 
 /** Validate and normalize emails
   */
@@ -13,7 +15,7 @@ final class EmailAddressValidator(
     disposable: DisposableEmailDomain,
     dnsApi: DnsApi,
     checkMail: CheckMail
-) {
+)(using ec: ExecutionContext):
 
   private def isAcceptable(email: EmailAddress): Boolean =
     email.domain exists disposable.isOk
@@ -22,9 +24,11 @@ final class EmailAddressValidator(
     isAcceptable(email) option EmailAddressValidator.Acceptable(email)
 
   /** Returns true if an E-mail address is taken by another user.
-    * @param email The E-mail address to be checked
-    * @param forUser Optionally, the user the E-mail address field is to be assigned to.
-    *                If they already have it assigned, returns false.
+    * @param email
+    *   The E-mail address to be checked
+    * @param forUser
+    *   Optionally, the user the E-mail address field is to be assigned to. If they already have it assigned,
+    *   returns false.
     * @return
     */
   private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Fu[Boolean] =
@@ -35,7 +39,8 @@ final class EmailAddressValidator(
     }
 
   private def wasUsedTwiceRecently(email: EmailAddress): Fu[Boolean] =
-    userRepo.countRecentByPrevEmail(email.normalize).dmap(1 <)
+    userRepo.countRecentByPrevEmail(email.normalize, DateTime.now.minusWeeks(1)).dmap(_ >= 2) >>|
+      userRepo.countRecentByPrevEmail(email.normalize, DateTime.now.minusMonths(1)).dmap(_ >= 4)
 
   val acceptableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
     if (EmailAddress.from(e).exists(isAcceptable)) Valid
@@ -93,8 +98,6 @@ final class EmailAddressValidator(
     ) Valid
     else Invalid(ValidationError("error.email_acceptable"))
   }
-}
 
-object EmailAddressValidator {
+object EmailAddressValidator:
   case class Acceptable(acceptable: EmailAddress)
-}

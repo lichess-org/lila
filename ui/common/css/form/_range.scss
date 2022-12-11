@@ -34,7 +34,6 @@ input.range {
     @include range-thumb;
 
     -webkit-appearance: none;
-    margin-top: -0.3px;
   }
 
   &::-moz-range-track {

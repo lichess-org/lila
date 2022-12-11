@@ -2,8 +2,8 @@ import * as control from './control';
 import * as xhr from 'common/xhr';
 import AnalyseCtrl from './ctrl';
 import { h, VNode } from 'snabbdom';
-import { modal } from './modal';
-import { spinner } from './util';
+import { snabModal } from 'common/modal';
+import { spinnerVdom as spinner } from 'common/spinner';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   const kbd = window.Mousetrap;
@@ -25,11 +25,11 @@ export const bind = (ctrl: AnalyseCtrl) => {
       control.enterVariation(ctrl);
       ctrl.redraw();
     })
-    .bind(['up', '0'], () => {
+    .bind(['up', '0', 'home'], () => {
       if (!ctrl.fork.prev()) control.first(ctrl);
       ctrl.redraw();
     })
-    .bind(['down', '$'], () => {
+    .bind(['down', '$', 'end'], () => {
       if (!ctrl.fork.next()) control.last(ctrl);
       ctrl.redraw();
     })
@@ -41,10 +41,6 @@ export const bind = (ctrl: AnalyseCtrl) => {
     .bind('shift+i', () => {
       ctrl.treeView.toggle();
       ctrl.redraw();
-    })
-    .bind('z', () => {
-      ctrl.toggleComputer();
-      ctrl.redraw();
     });
 
   if (ctrl.embed) return;
@@ -52,7 +48,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
   kbd.bind('space', () => {
     const gb = ctrl.gamebookPlay();
     if (gb) gb.onSpace();
-    else if (ctrl.studyPractice) return;
+    else if (ctrl.practice || ctrl.studyPractice) return;
     else if (ctrl.ceval.enabled()) ctrl.playBestMove();
     else ctrl.toggleCeval();
   });
@@ -63,9 +59,14 @@ export const bind = (ctrl: AnalyseCtrl) => {
     .bind('f', ctrl.flip)
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
+      if (ctrl.keyboardHelp) lichess.pubsub.emit('analyse.close-all');
       ctrl.redraw();
     })
     .bind('l', ctrl.toggleCeval)
+    .bind('z', () => {
+      ctrl.toggleComputer();
+      ctrl.redraw();
+    })
     .bind('a', () => {
       ctrl.toggleAutoShapes(!ctrl.showAutoShapes());
       ctrl.redraw();
@@ -89,17 +90,19 @@ export const bind = (ctrl: AnalyseCtrl) => {
     // navigation for next and prev chapters
     kbd.bind('p', ctrl.study.goToPrevChapter);
     kbd.bind('n', ctrl.study.goToNextChapter);
+    for (let i = 1; i < 7; i++) kbd.bind(i.toString(), () => ctrl.study?.glyphForm.toggleGlyph(i));
   }
 };
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  return modal({
+  return snabModal({
     class: 'keyboard-help',
-    onInsert(el: HTMLElement) {
-      lichess.loadCssPath('analyse.keyboard');
-      xhr.text(xhr.url('/analysis/help', { study: !!ctrl.study })).then(html => {
-        el.querySelector('.scrollable')!.innerHTML = html;
-      });
+    onInsert: async ($wrap: Cash) => {
+      const [, html] = await Promise.all([
+        lichess.loadCssPath('analyse.keyboard'),
+        xhr.text(xhr.url('/analysis/help', { study: !!ctrl.study })),
+      ]);
+      $wrap.find('.scrollable').html(html);
     },
     onClose() {
       ctrl.keyboardHelp = false;

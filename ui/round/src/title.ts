@@ -30,9 +30,7 @@ function startTicker() {
   if (!tickerTimer) tickerTimer = setTimeout(tick, 200);
 }
 
-export function init() {
-  window.addEventListener('focus', resetTicker);
-}
+export const init = () => window.addEventListener('focus', resetTicker);
 
 export function set(ctrl: RoundController, text?: string) {
   if (ctrl.data.player.spectator) return;

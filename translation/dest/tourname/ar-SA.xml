@@ -40,8 +40,6 @@
   <string name="classicalShield">الدرع التقليدي</string>
   <string name="xShieldArena">ساحة الدفاع عن درع %s</string>
   <string name="xShield">درع %s</string>
-  <string name="openingRapidArena">ساحة اللعب السريع بافتتاحية %s</string>
-  <string name="openingRapid">اللعب السريع بافتتاحية %s</string>
   <string name="xTeamBattle">معركة فريق اللاعب %s</string>
   <string name="eliteXArena">ساحة نخبة لاعبي %s</string>
   <string name="eliteX">نخبة لاعبي %s</string>

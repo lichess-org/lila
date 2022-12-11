@@ -24,4 +24,5 @@
   <string name="broadcastUrl">直播連結</string>
   <string name="currentRoundUrl">目前回合連結</string>
   <string name="currentGameUrl">目前棋局連結</string>
+  <string name="downloadAllRounds">下載所有棋局</string>
 </resources>

@@ -1,12 +1,12 @@
 package views.html.account
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object layout {
+object layout:
 
   def apply(
       title: String,
@@ -59,7 +59,6 @@ object layout {
           a(activeCls("oauth.token"), href := routes.OAuthToken.index)(
             "API access tokens"
           ),
-          ctx.noBot option a(activeCls("oauth.app"), href := routes.OAuthApp.index)("OAuth Apps"),
           ctx.noBot option a(href := routes.DgtCtrl.index)("DGT board"),
           div(cls := "sep"),
           a(activeCls("close"), href := routes.Account.close)(
@@ -69,4 +68,3 @@ object layout {
         div(cls := "page-menu__content")(body)
       )
     }
-}

@@ -16,7 +16,6 @@
     <item quantity="one">Лидер на тимот</item>
     <item quantity="other">Лидери на тимот</item>
   </plurals>
-  <string name="teamBestPlayers">Најдобри играчи во тимот</string>
   <string name="teamRecentMembers">Нови членови на тимот</string>
   <string name="kickSomeone">Избркај некого од тимот</string>
   <string name="whoToKick">Кого сакаш да го избркаш од тимот?</string>

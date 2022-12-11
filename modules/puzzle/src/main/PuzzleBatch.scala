@@ -2,18 +2,18 @@ package lila.puzzle
 
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
 // mobile app BC
-final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: PuzzlePathApi)(implicit
+final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: PuzzlePathApi)(using
     ec: ExecutionContext
-) {
+):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def nextFor(user: Option[User], nb: Int): Fu[Vector[Puzzle]] = (nb > 0) ?? {
-    user match {
+    user match
       case None => anonApi.getBatchFor(nb)
       case Some(user) =>
         {
@@ -22,7 +22,7 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
             else PuzzleTier.Top
           pathApi.nextFor(
             user,
-            PuzzleTheme.mix.key,
+            PuzzleAngle.mix,
             tier,
             PuzzleDifficulty.Normal,
             Set.empty
@@ -30,33 +30,27 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
             s"No puzzle path for ${user.id} $tier" flatMap { pathId =>
               colls.path {
                 _.aggregateList(nb) { framework =>
-                  import framework._
+                  import framework.*
                   Match($id(pathId)) -> List(
                     Project($doc("puzzleId" -> "$ids", "_id" -> false)),
                     Unwind("puzzleId"),
                     Sample(nb),
                     PipelineOperator(
-                      $doc(
-                        "$lookup" -> $doc(
-                          "from"         -> colls.puzzle.name.value,
-                          "localField"   -> "puzzleId",
-                          "foreignField" -> "_id",
-                          "as"           -> "puzzle"
-                        )
+                      $lookup.simple(
+                        from = colls.puzzle,
+                        local = "puzzleId",
+                        foreign = "_id",
+                        as = "puzzle"
                       )
                     ),
                     PipelineOperator(
-                      $doc(
-                        "$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0))
-                      )
+                      $doc("$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0)))
                     )
                   )
                 }.map {
-                  _.view.flatMap(PuzzleBSONReader.readOpt).toVector
+                  _.view.flatMap(puzzleReader.readOpt).toVector
                 }
               }
             }
         }.mon(_.puzzle.selector.user.batch(nb = nb))
-    }
   }
-}

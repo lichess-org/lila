@@ -1,44 +1,44 @@
 package views.html.plan
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.plan.CurrencyApi.zeroDecimalCurrencies
-
 import controllers.routes
 
-object indexStripe {
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.plan.CurrencyApi.zeroDecimalCurrencies
 
-  import trans.patron._
+object indexStripe:
+
+  import trans.patron.*
 
   private val dataForm = attr("data-form")
 
   def apply(
       me: lila.user.User,
       patron: lila.plan.Patron,
-      info: lila.plan.MonthlyCustomerInfo,
+      info: lila.plan.CustomerInfo.Monthly,
       stripePublicKey: String,
       pricing: lila.plan.PlanPricing,
       gifts: List[lila.plan.Charge.Gift]
-  )(implicit
-      ctx: Context
-  ) =
+  )(implicit ctx: Context) =
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),
       moreJs = frag(
         index.stripeScript,
         jsModule("plan"),
-        embedJsUnsafeLoadThen(s"""planStart("$stripePublicKey")""")
+        embedJsUnsafeLoadThen(s"""plan.stripeStart("$stripePublicKey")""")
       ),
       csp = defaultCsp.withStripe.some
     ) {
       main(cls := "box box-pad plan")(
-        h1(
-          userLink(me),
-          " • ",
-          if (patron.isLifetime) strong(lifetimePatron())
-          else patronForMonths(me.plan.months)
+        boxTop(
+          h1(
+            userLink(me),
+            " • ",
+            if (patron.isLifetime) strong(lifetimePatron())
+            else patronForMonths(me.plan.months)
+          )
         ),
         table(cls := "all")(
           tbody(
@@ -57,7 +57,7 @@ object indexStripe {
                   showDate(info.nextInvoice.dateTime)
                 ),
                 br,
-                a(href := s"${routes.Plan.list}#onetime")(makeAdditionalDonation())
+                a(href := s"${routes.Plan.list}?freq=onetime")(makeAdditionalDonation())
               )
             ),
             tr(
@@ -94,7 +94,7 @@ object indexStripe {
                     a(dataForm := "switch")(trans.cancel())
                   ),
                   postForm(cls := "cancel", action := routes.Plan.cancel)(
-                    p(stopPayments()),
+                    p(stopPaymentsPayPal()),
                     submitButton(cls := "button button-red")(noLongerSupport()),
                     a(dataForm := "cancel")(trans.cancel())
                   )
@@ -123,7 +123,7 @@ object indexStripe {
             tr(
               th("Gifts"),
               td(
-                a(href := s"${routes.Plan.list}#gift")(giftPatronWings()),
+                a(href := s"${routes.Plan.list}?dest=gift")(giftPatronWings()),
                 gifts.nonEmpty option
                   table(cls := "slist gifts")(
                     tbody(
@@ -145,4 +145,3 @@ object indexStripe {
         )
       )
     }
-}

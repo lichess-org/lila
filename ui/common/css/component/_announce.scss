@@ -1,13 +1,12 @@
 #announce {
   @extend %flex-between, %popup-shadow;
 
-  font-size: 1.4em;
-  position: fixed;
-  background: $c-primary;
-  color: $c-primary-over;
   position: fixed;
   bottom: 0;
-  left: 0;
+  #{$start-direction}: 0;
+  font-size: 1.4em;
+  background: $c-primary;
+  color: $c-primary-over;
   padding: 0.7rem 1rem;
   z-index: z('tour-reminder');
   width: 100%;
@@ -22,13 +21,13 @@
   }
 
   time {
-    margin-left: 1rem;
+    margin-#{$start-direction}: 1rem;
   }
 
   .actions {
     a {
       font-weight: bold;
-      margin-left: 1rem;
+      margin-#{$start-direction}: 1rem;
     }
   }
 

@@ -1,30 +1,33 @@
 package lila.push
 
 import com.google.auth.oauth2.{ AccessToken, GoogleCredentials }
-import io.methvin.play.autoconfig._
-import play.api.libs.json._
-import play.api.libs.ws.JsonBodyWritables._
+import lila.common.autoconfig.*
+import play.api.libs.json.*
+import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.{ blocking, Future }
 
 import lila.common.Chronometer
+import lila.memo.FrequencyThreshold
 import lila.user.User
+import play.api.ConfigLoader
+import lila.common.config.Max
 
 final private class FirebasePush(
     credentialsOpt: Option[GoogleCredentials],
     deviceApi: DeviceApi,
     ws: StandaloneWSClient,
     config: FirebasePush.Config
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
-) {
+    scheduler: akka.actor.Scheduler
+):
 
   private val workQueue =
-    new lila.hub.DuctSequencer(maxSize = 512, timeout = 10 seconds, name = "firebasePush")
+    lila.hub.AsyncActorSequencer(maxSize = Max(512), timeout = 10 seconds, name = "firebasePush")
 
-  def apply(userId: User.ID, data: => PushApi.Data): Funit =
+  def apply(userId: UserId, data: => PushApi.Data): Funit =
     credentialsOpt ?? { creds =>
       deviceApi.findLastManyByUserId("firebase", 3)(userId) flatMap {
         case Nil => funit
@@ -46,6 +49,10 @@ final private class FirebasePush(
           }
       }
     }
+
+  opaque type StatusCode = Int
+  object StatusCode extends OpaqueInt[StatusCode]
+  private val errorCounter = FrequencyThreshold[StatusCode](50, 10 minutes)
 
   private def send(token: AccessToken, device: Device, data: => PushApi.Data): Funit =
     ws.url(config.url)
@@ -80,13 +87,12 @@ final private class FirebasePush(
       ) flatMap { res =>
       lila.mon.push.firebaseStatus(res.status).increment()
       if (res.status == 200) funit
-      else if (res.status == 404) {
+      else if (res.status == 404)
         logger.info(s"Delete missing firebase device $device")
         deviceApi delete device
-      } else {
-        logger.warn(s"[push] firebase: ${res.status}")
+      else
+        if (errorCounter(res.status)) logger.warn(s"[push] firebase: ${res.status}")
         funit
-      }
     }
 
   // filter out any non string value, otherwise Firebase API silently rejects
@@ -96,13 +102,8 @@ final private class FirebasePush(
       case (k, v: JsString) => s"lichess.$k" -> v
       case (k, v: JsNumber) => s"lichess.$k" -> JsString(v.toString)
     })
-}
 
-private object FirebasePush {
+private object FirebasePush:
 
-  final class Config(
-      val url: String,
-      val json: lila.common.config.Secret
-  )
-  implicit val configLoader = AutoConfig.loader[Config]
-}
+  final class Config(val url: String, val json: lila.common.config.Secret)
+  given ConfigLoader[Config] = AutoConfig.loader[Config]

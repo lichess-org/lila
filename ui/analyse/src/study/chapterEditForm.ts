@@ -1,10 +1,12 @@
-import { h, VNode } from 'snabbdom';
-import { defined, prop, Prop } from 'common';
-import { Redraw } from '../interfaces';
-import { bind, bindSubmit, spinner, option, onInsert, emptyRedButton } from '../util';
-import * as modal from '../modal';
 import * as chapterForm from './chapterNewForm';
+import { bind, bindSubmit, onInsert } from 'common/snabbdom';
+import { spinnerVdom as spinner } from 'common/spinner';
+import { option, emptyRedButton } from '../view/util';
 import { ChapterMode, EditChapterData, Orientation, StudyChapterConfig, StudyChapterMeta } from './interfaces';
+import { defined, prop, Prop } from 'common';
+import { h, VNode } from 'snabbdom';
+import { Redraw } from '../interfaces';
+import { snabModal } from 'common/modal';
 import { StudySocketSend } from '../socket';
 
 export interface StudyChapterEditFormCtrl {
@@ -14,6 +16,7 @@ export interface StudyChapterEditFormCtrl {
   submit(data: Omit<EditChapterData, 'id'>): void;
   delete(id: string): void;
   clearAnnotations(id: string): void;
+  clearVariations(id: string): void;
   isEditing(id: string): boolean;
   redraw: Redraw;
   trans: Trans;
@@ -56,7 +59,6 @@ export function ctrl(
         send('editChapter', { id: c.id, ...data });
         current(null);
       }
-      redraw();
     },
     delete(id) {
       send('deleteChapter', id);
@@ -66,6 +68,10 @@ export function ctrl(
       send('clearAnnotations', id);
       current(null);
     },
+    clearVariations(id) {
+      send('clearVariations', id);
+      current(null);
+    },
     isEditing,
     trans,
     redraw,
@@ -73,16 +79,17 @@ export function ctrl(
 }
 
 export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
-  const data = ctrl.current();
+  const data = ctrl.current(),
+    noarg = ctrl.trans.noarg;
   return data
-    ? modal.modal({
+    ? snabModal({
         class: 'edit-' + data.id, // full redraw when changing chapter
         onClose() {
           ctrl.current(null);
           ctrl.redraw();
         },
         content: [
-          h('h2', ctrl.trans.noarg('editChapter')),
+          h('h2', noarg('editChapter')),
           h(
             'form.form3',
             {
@@ -93,7 +100,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
                   orientation: chapterForm.fieldValue(e, 'orientation') as Orientation,
                   description: chapterForm.fieldValue(e, 'description'),
                 });
-              }),
+              }, ctrl.redraw),
             },
             [
               h('div.form-group', [
@@ -102,7 +109,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
                   {
                     attrs: { for: 'chapter-name' },
                   },
-                  ctrl.trans.noarg('name')
+                  noarg('name')
                 ),
                 h('input#chapter-name.form-control', {
                   attrs: {
@@ -121,37 +128,16 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
               ...(isLoaded(data) ? viewLoaded(ctrl, data) : [spinner()]),
             ]
           ),
-          h('div.destructive', [
-            h(
-              emptyRedButton,
-              {
-                hook: bind('click', _ => {
-                  if (confirm(ctrl.trans.noarg('clearAllCommentsInThisChapter'))) ctrl.clearAnnotations(data.id);
-                }),
-              },
-              ctrl.trans.noarg('clearAnnotations')
-            ),
-            h(
-              emptyRedButton,
-              {
-                hook: bind('click', _ => {
-                  if (confirm(ctrl.trans.noarg('deleteThisChapter'))) ctrl.delete(data.id);
-                }),
-              },
-              ctrl.trans.noarg('deleteChapter')
-            ),
-          ]),
         ],
       })
     : undefined;
 }
 
-function isLoaded(data: StudyChapterMeta | StudyChapterConfig): data is StudyChapterConfig {
-  return 'orientation' in data;
-}
+const isLoaded = (data: StudyChapterMeta | StudyChapterConfig): data is StudyChapterConfig => 'orientation' in data;
 
 function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): VNode[] {
-  const mode = data.practice ? 'practice' : defined(data.conceal) ? 'conceal' : data.gamebook ? 'gamebook' : 'normal';
+  const mode = data.practice ? 'practice' : defined(data.conceal) ? 'conceal' : data.gamebook ? 'gamebook' : 'normal',
+    noarg = ctrl.trans.noarg;
   return [
     h('div.form-split', [
       h('div.form-group.form-half', [
@@ -160,12 +146,12 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
           {
             attrs: { for: 'chapter-orientation' },
           },
-          ctrl.trans.noarg('orientation')
+          noarg('orientation')
         ),
         h(
           'select#chapter-orientation.form-control',
           ['white', 'black'].map(function (color) {
-            return option(color, data.orientation, ctrl.trans.noarg(color));
+            return option(color, data.orientation, noarg(color));
           })
         ),
       ]),
@@ -175,12 +161,12 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
           {
             attrs: { for: 'chapter-mode' },
           },
-          ctrl.trans.noarg('analysisMode')
+          noarg('analysisMode')
         ),
         h(
           'select#chapter-mode.form-control',
           chapterForm.modeChoices.map(c => {
-            return option(c[0], mode, ctrl.trans.noarg(c[1]));
+            return option(c[0], mode, noarg(c[1]));
           })
         ),
       ]),
@@ -191,16 +177,68 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
         {
           attrs: { for: 'chapter-description' },
         },
-        ctrl.trans.noarg('pinnedChapterComment')
+        noarg('pinnedChapterComment')
       ),
       h(
         'select#chapter-description.form-control',
         [
-          ['', ctrl.trans.noarg('noPinnedComment')],
-          ['1', ctrl.trans.noarg('rightUnderTheBoard')],
+          ['', noarg('noPinnedComment')],
+          ['1', noarg('rightUnderTheBoard')],
         ].map(v => option(v[0], data.description ? '1' : '', v[1]))
       ),
     ]),
-    modal.button(ctrl.trans.noarg('saveChapter')),
+    h('div.form-actions-secondary.destructive', [
+      h(
+        emptyRedButton,
+        {
+          hook: bind(
+            'click',
+            _ => {
+              if (confirm(noarg('clearAllCommentsInThisChapter'))) ctrl.clearAnnotations(data.id);
+            },
+            ctrl.redraw
+          ),
+          attrs: { type: 'button', title: noarg('clearAllCommentsInThisChapter') },
+        },
+        noarg('clearAnnotations')
+      ),
+      h(
+        emptyRedButton,
+        {
+          hook: bind(
+            'click',
+            _ => {
+              if (confirm(noarg('clearVariations'))) ctrl.clearVariations(data.id);
+            },
+            ctrl.redraw
+          ),
+          attrs: { type: 'button' },
+        },
+        noarg('clearVariations')
+      ),
+    ]),
+    h('div.form-actions', [
+      h(
+        emptyRedButton,
+        {
+          hook: bind(
+            'click',
+            _ => {
+              if (confirm(noarg('deleteThisChapter'))) ctrl.delete(data.id);
+            },
+            ctrl.redraw
+          ),
+          attrs: { type: 'button', title: noarg('deleteThisChapter') },
+        },
+        noarg('deleteChapter')
+      ),
+      h(
+        'button.button',
+        {
+          attrs: { type: 'submit' },
+        },
+        noarg('saveChapter')
+      ),
+    ]),
   ];
 }

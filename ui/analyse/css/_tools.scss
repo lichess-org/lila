@@ -20,10 +20,32 @@
         padding: 0 7px;
       }
     }
+
+    .comp-off__hint {
+      @extend %metal-bg;
+
+      opacity: 0.8;
+      padding: 0.3em 1em;
+      text-align: center;
+
+      button {
+        @extend %button-none;
+
+        margin-#{$start-direction}: 1em;
+        color: $c-link;
+
+        &:hover {
+          color: $c-link-hover;
+        }
+      }
+    }
   }
 
   &__moves {
     flex: 2 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     // 0 size forces vertical scrollbar
     overflow-y: auto;
@@ -52,6 +74,33 @@
       font-style: italic;
       padding-bottom: 7px;
     }
+
+    button.next {
+      border: 0;
+      background: $c-bg-box;
+      color: $c-link;
+      padding: 0.5em;
+      width: 100%;
+
+      @include transition;
+
+      &:hover {
+        color: $c-link-hover;
+      }
+
+      &::before {
+        margin-#{$end-direction}: 0.3em;
+      }
+
+      &.highlighted {
+        background: mix($c-primary, $c-bg-box, 80%);
+        color: $c-primary-over;
+
+        &:hover {
+          background: $c-primary;
+        }
+      }
+    }
   }
 
   &__controls {
@@ -72,15 +121,28 @@
       @extend %page-text;
 
       flex: 0 0 2.5rem;
+      transition: visibility 0s;
+    }
+
+    .persistence {
+      color: $c-good;
+      @include breakpoint($mq-not-xx-small) {
+        display: none;
+      }
     }
 
     .active {
       margin-top: -3px;
       padding-top: 3px;
+      color: $c-good-over;
     }
 
-    ::before {
-      vertical-align: middle;
+    @include breakpoint($mq-col1) {
+      height: $col1-uniboard-controls;
+
+      .fbt {
+        flex: 0 0 3.5rem;
+      }
     }
   }
 }

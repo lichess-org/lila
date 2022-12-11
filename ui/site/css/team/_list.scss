@@ -28,7 +28,7 @@
       color: $c-primary-over;
       text-transform: uppercase;
       font-size: 0.9rem;
-      margin-left: 1em;
+      margin-#{$start-direction}: 1em;
     }
   }
 

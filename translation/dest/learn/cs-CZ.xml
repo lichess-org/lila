@@ -6,7 +6,7 @@
   <string name="progressX">Pokrok %s</string>
   <string name="resetMyProgress">Vynulovat postup ve hře</string>
   <string name="youWillLoseAllYourProgress">Obnovíte vše, co jste se doposud naučil/a!</string>
-  <string name="play">Hrat!</string>
+  <string name="play">hrát!</string>
   <string name="chessPieces">Šachové figurky</string>
   <string name="theRook">Věž</string>
   <string name="itMovesInStraightLines">Pohybuje se v rovných řadách</string>
@@ -34,7 +34,7 @@
   <string name="theKnight">Jezdec</string>
   <string name="itMovesInAnLShape">Pohybuje se ve tvaru písmene „L”</string>
   <string name="knightIntro">A nyní výzva pro vás. Jezdec je... velmi obtížná figura.</string>
-  <string name="knightsHaveAFancyWay">Jezdci mají bláznivé cesty na skákání okolo!</string>
+  <string name="knightsHaveAFancyWay">Jezdci bláznivě skáčkou okolo!</string>
   <string name="knightsCanJumpOverObstacles">Jezdci mohou skákat přes překážky! Utečte z pasti a dobyjte hvězdy!</string>
   <string name="knightComplete">Gratulace! Zvládáte manipulovat s jezdcem.</string>
   <string name="thePawn">Pěšec</string>
@@ -192,8 +192,8 @@ Pěšec = 1</string>
   <string name="nailedIt">Zdolal.</string>
   <string name="rightOn">Přesně tak!</string>
   <string name="stageXComplete">Úroveň %s dokončena</string>
-  <string name="yourScore">Vaše skóre</string>
   <string name="next">Další</string>
+  <string name="nextX">Další: %s</string>
   <string name="backToMenu">Zpět na menu</string>
   <string name="puzzleFailed">Úloha nevyřešena!</string>
   <string name="retry">Zkusit znovu</string>

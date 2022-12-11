@@ -6,10 +6,6 @@ $section-margin-more: 5vh;
 
   overflow: hidden;
 
-  .box__top {
-    margin-bottom: 1.7vh;
-  }
-
   h1 {
     @extend %break-word-hard, %zalgoverflow;
   }
@@ -43,7 +39,7 @@ $section-margin-more: 5vh;
 
       &__col1 {
         flex: 0 0 30%;
-        margin-right: var(--box-padding);
+        margin-#{$end-direction}: var(--box-padding);
       }
 
       &__col2 {
@@ -82,6 +78,7 @@ $section-margin-more: 5vh;
 
   &__desc {
     @extend %box-neat;
+    @include rendered-markdown;
 
     padding: 1.5em 2.5em;
     background: $c-bg-high;
@@ -95,10 +92,6 @@ $section-margin-more: 5vh;
     }
 
     margin-bottom: $section-margin;
-
-    h2 {
-      font-size: 1em;
-    }
   }
 
   &__tour {
@@ -128,54 +121,7 @@ $section-margin-more: 5vh;
 
   .userlist > li,
   .userlist > div.paginated {
-    padding: 5px 0 5px 25px;
-  }
-
-  &__forum {
-    margin-bottom: $section-margin-more;
-    width: 100%;
-
-    &__post {
-      display: block;
-      color: $c-font;
-      padding: 1em 2.5em;
-      overflow: hidden;
-
-      &:nth-child(odd) {
-        background: $c-bg-zebra;
-      }
-
-      &:hover {
-        background: mix($c-link, $c-bg-box, 10%);
-
-        span {
-          color: $c-font;
-        }
-      }
-
-      strong {
-        font-size: 1.3em;
-        font-weight: normal;
-      }
-    }
-
-    .meta {
-      @extend %flex-between, %zalgoverflow;
-
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      @extend %zalgoverflow;
-      color: $c-font-dim;
-    }
-
-    a.more {
-      @extend %zalgoverflow;
-      display: block;
-      text-align: right;
-      margin: 10px 10px 0 0;
-    }
+    @include padding-direction(5px, 0, 5px, 25px);
   }
 
   &__subscribe {
@@ -183,15 +129,27 @@ $section-margin-more: 5vh;
       @extend %flex-center;
 
       label {
-        margin-left: 1rem;
+        margin-#{$start-direction}: 1rem;
         cursor: pointer;
       }
     }
+  }
+
+  &__log {
+    margin-bottom: 2em;
   }
 }
 
 .team-edit {
   .inline {
     display: inline;
+  }
+  .accent {
+    textarea {
+      border-color: $c-brag;
+    }
+    label {
+      color: $c-brag;
+    }
   }
 }

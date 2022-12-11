@@ -3,6 +3,7 @@ import idleTimer from './idle-timer';
 import sri from './sri';
 import { reload } from './reload';
 import { storage as makeStorage } from './storage';
+import once from './once';
 
 type Sri = string;
 type Tpe = string;
@@ -43,6 +44,8 @@ interface Settings {
   options?: Partial<Options>;
 }
 
+const origSend = WebSocket.prototype.send;
+
 // versioned events, acks, retries, resync
 export default class StrongSocket {
   pubsub = lichess.pubsub;
@@ -59,7 +62,7 @@ export default class StrongSocket {
   tryOtherUrl = false;
   autoReconnect = true;
   nbConnects = 0;
-  storage: LichessStorage = makeStorage.make('surl15');
+  storage: LichessStorage = makeStorage.make('surl17');
   private _sign?: string;
 
   static defaultOptions: Options = {
@@ -94,7 +97,6 @@ export default class StrongSocket {
     };
     this.version = version;
     this.pubsub.on('socket.send', this.send);
-    window.addEventListener('unload', this.destroy);
     this.connect();
   }
 
@@ -162,14 +164,19 @@ export default class StrongSocket {
       let stack: string;
       try {
         stack = new Error().stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
-      } catch (e) {
+      } catch (e: any) {
         stack = `${e.message} ${navigator.userAgent}`;
       }
-      if (!stack.includes('round.nvui')) setTimeout(() => this.send('rep', { n: `soc: ${message} ${stack}` }), 10000);
+      if (!stack.includes('round.nvui'))
+        setTimeout(() => {
+          if (once(`socket.rep.${Math.round(Date.now() / 1000 / 3600 / 3)}`))
+            this.send('rep', { n: `soc: ${message} ${stack}` });
+          else lichess.socket.destroy();
+        }, 10000);
     }
     this.debug('send ' + message);
     try {
-      this.ws!.send(message);
+      origSend.apply(this.ws!, [message]);
     } catch (e) {
       // maybe sent before socket opens,
       // try again a second later.
@@ -257,7 +264,7 @@ export default class StrongSocket {
     }
   };
 
-  debug = (msg: string, always = false) => {
+  debug = (msg: unknown, always = false) => {
     if (always || this.options.debug) console.debug(msg);
   };
 
@@ -278,9 +285,9 @@ export default class StrongSocket {
     }
   };
 
-  onError = (e: Event) => {
+  onError = (e: unknown) => {
     this.options.debug = true;
-    this.debug('error: ' + JSON.stringify(e));
+    this.debug(`error: ${e} ${JSON.stringify(e)}`); // e not always from lila
     this.tryOtherUrl = true;
     clearTimeout(this.pingSchedule);
   };
@@ -306,7 +313,7 @@ export default class StrongSocket {
   };
 
   baseUrl = () => {
-    const baseUrls = document.body.getAttribute('data-socket-domains')!.split(',');
+    const baseUrls = document.body.dataset.socketDomains!.split(',');
     let url = this.storage.get();
     if (!url || this.tryOtherUrl) {
       url = baseUrls[Math.floor(Math.random() * baseUrls.length)];

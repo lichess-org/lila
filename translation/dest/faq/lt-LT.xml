@@ -24,6 +24,8 @@
   <string name="howCanIBecomeModerator">Kaip galiu tapti moderatoriumi?</string>
   <string name="youCannotApply">Nėra įmanoma aplikuoti, norint tapti moderatoriumi. Jei pastebėsime ką nors, kas atrodys vertas būti geru moderatoriumi, mes su jais susisieksime tiesiogiai.</string>
   <string name="isCorrespondenceDifferent">Ar korespondencija skiriasi nuo įprastų šachmatų?</string>
+  <string name="pleaseReadFairPlayPage">Norėdami sužinoti daugiau galite paskaityti mūsų %s</string>
+  <string name="fairPlayPage">sąžiningo žaidimo puslapį</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess pagrindinis skirtumas korespondencinių šachmatų taisyklėse yra, kad leidžiamos debiutų knygos. Variklių naudojimas vis dar draudžiamas ir galite būti pažymėti kaip sukčiaujantys kompiuteriu. Nors ICCF leidžia variklių naudojimą korespondenciniuose šachmatuose - Lichess ne.</string>
   <string name="gameplay">Žaidimas</string>
   <string name="howBulletBlitzEtcDecided">Kaip nusprendžiama laiko kontrolė kulkos, žaibo ir kituose žaidimuose?</string>
@@ -59,8 +61,8 @@ Jis apibrėžtas %2$s 3.7 (d) sekcijoje:
 
 Peržiūrėkite %3$s apie šį ėjimą norėdami jį pasipraktikuoti.</string>
   <string name="goodIntroduction">gerą įžangą</string>
-  <string name="officialRulesPDF">oficialių taisyklių (PDF)</string>
   <string name="lichessTraining">Lichess treniruotes</string>
+  <string name="watchIMRosenCheckmate">Stebėkite IM Eric Rosen atliekantį šachą ir matą %s.</string>
   <string name="threefoldRepetition">Trigubas pasikartojimas</string>
   <string name="threefoldRepetitionExplanation">Jei ta pati pozicija įvyksta tris kartus žaidėjai gali skelbti lygiąsias %1$s. Lichess įgyvendina oficialias FIDE taisykles, kokios jos apibrėžtos %2$s straipsnyje 9.2 (d).</string>
   <string name="threefoldRepetitionLowerCase">trigubu pasikartojimu</string>

@@ -54,7 +54,7 @@
 
     th {
       color: $c-font-dim;
-      padding-right: 1.2em;
+      padding-#{$end-direction}: 1.2em;
       text-align: right;
     }
 
@@ -75,13 +75,13 @@
         color: $c-font;
 
         span {
-          margin-left: 0.5em;
+          margin-#{$start-direction}: 0.5em;
         }
       }
     }
 
     .flag {
-      margin-left: 0.5em;
+      margin-#{$start-direction}: 0.5em;
       vertical-align: text-bottom;
     }
 

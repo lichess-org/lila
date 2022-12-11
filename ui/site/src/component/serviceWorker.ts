@@ -21,11 +21,11 @@ export default function () {
         const store = storage.make('push-subscribed');
         const vapid = document.body.getAttribute('data-vapid');
         if (vapid && Notification.permission == 'granted')
-          return reg.pushManager.getSubscription().then(sub => {
+          reg.pushManager.getSubscription().then(sub => {
             const resub = parseInt(store.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
             const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
             if (!sub || resub) {
-              return reg.pushManager
+              reg.pushManager
                 .subscribe({
                   userVisibleOnly: true,
                   applicationServerKey: applicationServerKey,
@@ -39,8 +39,8 @@ export default function () {
                       },
                       body: JSON.stringify(sub),
                     }).then(res => {
-                      if (res.ok) store.set('' + Date.now());
-                      else console.log('submitting push subscription failed', res.statusText);
+                      if (res.ok && !res.redirected) store.set('' + Date.now());
+                      else sub.unsubscribe();
                     }),
                   err => {
                     console.log('push subscribe failed', err.message);

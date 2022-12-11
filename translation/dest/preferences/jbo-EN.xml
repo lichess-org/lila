@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">lo se nelrai</string>
-  <string name="gameDisplay">kelfoi selvistai</string>
   <string name="pieceAnimation">keldai muvdu bo nilsutra</string>
   <string name="materialDifference">lo se marji cu pei cenba</string>
   <string name="boardHighlights">keirta\'o selbasna</string>
@@ -23,7 +22,7 @@
   <string name="inCasualGamesOnly">po\'o ca\'o lo nunjvi ku poi na nilcre cnegau</string>
   <string name="promoteToQueenAutomatically">zmiku palbi\'ogau lo sonci lo noltruni\'u</string>
   <string name="whenPremoving">ca\'o lo nu muvycfapru</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">ca\'o lo nu lo se snidu be lo stali temci cu mleca li ci no</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">ca\'o lo nu lo se snidu be lo stali temci cu mleca li ci no</string>
   <string name="moveConfirmation">birtygau fi lo du\'u djica</string>
   <string name="inCorrespondenceGames">masno nunkei</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">lo tadji be lo badydi\'ulujnunmu\'u</string>

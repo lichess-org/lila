@@ -4,35 +4,38 @@ import org.specs2.mutable.Specification
 
 class UserTest extends Specification {
 
-  def canSignup(str: User.ID) =
+  given Conversion[String, UserStr] = UserStr(_)
+  given Conversion[String, UserId]  = UserId(_)
+
+  def canSignup(str: String) =
     User.newUsernamePrefix.pattern.matcher(str).matches && User.newUsernameSuffix.pattern
       .matcher(str)
       .matches &&
       User.newUsernameChars.pattern.matcher(str).matches &&
       User.newUsernameLetters.pattern.matcher(str).matches
 
-  "username regex" in {
+  "username regex" >> {
     import User.couldBeUsername
-    "bad prefix: can login" in {
+    "bad prefix: can login" >> {
       couldBeUsername("000") must beTrue
       couldBeUsername("0foo") must beTrue
       couldBeUsername("_foo") must beFalse
       couldBeUsername("-foo") must beFalse
     }
 
-    "bad prefix: cannot signup" in {
+    "bad prefix: cannot signup" >> {
       canSignup("000") must beFalse
       canSignup("0foo") must beFalse
       canSignup("_foo") must beFalse
       canSignup("-foo") must beFalse
     }
 
-    "bad suffix" in {
+    "bad suffix" >> {
       couldBeUsername("a_") must beFalse
       couldBeUsername("a_") must beFalse
     }
 
-    "too many consecutive non-letter chars" in {
+    "too many consecutive non-letter chars" >> {
       canSignup("a_-a") must beFalse
       canSignup("_-a") must beFalse
       canSignup("a__a") must beFalse
@@ -47,7 +50,7 @@ class UserTest extends Specification {
       canSignup("Ksean222") must beTrue
     }
 
-    "OK things" in {
+    "OK things" >> {
       couldBeUsername("g-foo") must beTrue
       couldBeUsername("G_FOo") must beTrue
       couldBeUsername("g-foo") must beTrue

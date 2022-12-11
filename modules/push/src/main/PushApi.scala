@@ -1,13 +1,16 @@
 package lila.push
 
-import akka.actor._
-import play.api.libs.json._
-import scala.concurrent.duration._
+import akka.actor.*
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.challenge.Challenge
+import lila.common.String.shorten
 import lila.common.{ Future, LightUser }
+import lila.common.Json.given
 import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.push.TourSoon
 import lila.hub.actorApi.round.{ IsOnGame, MoveEvent }
 import lila.user.User
 
@@ -18,10 +21,7 @@ final private class PushApi(
     implicit val lightUser: LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo,
     gameRepo: lila.game.GameRepo
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
-) {
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
 
   def finish(game: Game): Funit =
     if (!game.isCorrespondence || game.hasAi) funit
@@ -95,7 +95,7 @@ final private class PushApi(
       }
     }
 
-  def takebackOffer(gameId: Game.ID): Funit =
+  def takebackOffer(gameId: GameId): Funit =
     Future.delay(1 seconds) {
       proxyRepo.game(gameId) flatMap {
         _.filter(_.playable).?? { game =>
@@ -108,15 +108,16 @@ final private class PushApi(
                   pushToAll(
                     userId,
                     _.takeback,
-                    PushApi.Data(
-                      title = "Takeback offer",
-                      body = s"$opponent proposes a takeback",
-                      stacking = Stacking.GameTakebackOffer,
-                      payload = Json.obj(
-                        "userId"   -> userId,
-                        "userData" -> corresGameJson(pov, "gameTakebackOffer")
+                    PushApi
+                      .Data(
+                        title = "Takeback offer",
+                        body = s"$opponent proposes a takeback",
+                        stacking = Stacking.GameTakebackOffer,
+                        payload = Json.obj(
+                          "userId"   -> userId,
+                          "userData" -> corresGameJson(pov, "gameTakebackOffer")
+                        )
                       )
-                    )
                   )
                 }
               }
@@ -126,7 +127,7 @@ final private class PushApi(
       }
     }
 
-  def drawOffer(gameId: Game.ID): Funit =
+  def drawOffer(gameId: GameId): Funit =
     Future.delay(1 seconds) {
       proxyRepo.game(gameId) flatMap {
         _.filter(_.playable).?? { game =>
@@ -193,7 +194,7 @@ final private class PushApi(
               _.message,
               PushApi.Data(
                 title = sender.titleName,
-                body = t.lastMsg.text take 140,
+                body = shorten(t.lastMsg.text, 57 - 3, "..."),
                 stacking = Stacking.NewMessage,
                 payload = Json.obj(
                   "userId" -> t.other(sender),
@@ -235,7 +236,7 @@ final private class PushApi(
       }
     }
 
-  def challengeAccept(c: Challenge, joinerId: Option[String]): Funit =
+  def challengeAccept(c: Challenge, joinerId: Option[UserId]): Funit =
     c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) ?? { challenger =>
       joinerId ?? lightUser flatMap { lightJoiner =>
         pushToAll(
@@ -257,9 +258,33 @@ final private class PushApi(
       }
     }
 
+  def tourSoon(tour: TourSoon): Funit =
+    lila.common.Future.applySequentially(tour.userIds.toList) { userId =>
+      pushToAll(
+        userId,
+        _.tourSoon,
+        PushApi
+          .Data(
+            title = tour.tourName,
+            body = "The tournament is about to start!",
+            stacking = Stacking.ChallengeAccept,
+            payload = Json
+              .obj(
+                "userId" -> userId,
+                "userData" -> Json.obj(
+                  "type"     -> "tourSoon",
+                  "tourId"   -> tour.tourId,
+                  "tourName" -> tour.tourName,
+                  "path"     -> s"/${if (tour.swiss) "swiss" else "tournament"}/${tour.tourId}"
+                )
+              )
+          )
+      )
+    }
+
   private type MonitorType = lila.mon.push.send.type => ((String, Boolean) => Unit)
 
-  private def pushToAll(userId: User.ID, monitor: MonitorType, data: PushApi.Data): Funit =
+  private def pushToAll(userId: UserId, monitor: MonitorType, data: PushApi.Data): Funit =
     webPush(userId, data).addEffects { res =>
       monitor(lila.mon.push.send)("web", res.isSuccess)
     } zip
@@ -267,10 +292,10 @@ final private class PushApi(
         monitor(lila.mon.push.send)("firebase", res.isSuccess)
       } void
 
-  private def describeChallenge(c: Challenge) = {
-    import lila.challenge.Challenge.TimeControl._
+  private def describeChallenge(c: Challenge) =
+    import lila.challenge.Challenge.TimeControl.*
     List(
-      c.mode.fold("Casual", "Rated"),
+      if c.mode.rated then "Rated" else "Casual",
       c.timeControl match {
         case Unlimited         => "Unlimited"
         case Correspondence(d) => s"$d days"
@@ -278,20 +303,18 @@ final private class PushApi(
       },
       c.variant.name
     ) mkString " • "
-  }
 
   private def IfAway(pov: Pov)(f: => Funit): Funit =
     lila.common.Bus.ask[Boolean]("roundSocket") { p =>
-      Tell(pov.gameId, IsOnGame(pov.color, p))
+      Tell(pov.gameId.value, IsOnGame(pov.color, p))
     } flatMap {
       case true  => funit
       case false => f
     }
 
   private def asyncOpponentName(pov: Pov): Fu[String] = Namer playerText pov.opponent
-}
 
-private object PushApi {
+private object PushApi:
 
   case class Data(
       title: String,
@@ -300,4 +323,3 @@ private object PushApi {
       payload: JsObject,
       iosBadge: Option[Int] = None
   )
-}

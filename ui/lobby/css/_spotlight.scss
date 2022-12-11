@@ -65,7 +65,7 @@
     font-size: 0.85em;
 
     time {
-      margin-left: 3px;
+      margin-#{$start-direction}: 3px;
     }
   }
 

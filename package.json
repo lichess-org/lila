@@ -5,7 +5,7 @@
   "description": "lichess.org: the forever free, adless and open source chess server",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ornicar/lila.git"
+    "url": "https://github.com/lichess-org/lila.git"
   },
   "keywords": [
     "chess",
@@ -14,27 +14,32 @@
   "author": "Thibault Duplessis and the gang",
   "license": "AGPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
+    "url": "https://github.com/lichess-org/lila/issues"
   },
   "homepage": "https://lichess.org",
   "engines": {
-    "node": ">=10 <16",
+    "node": ">=14.3 <=19",
     "yarn": "^1"
   },
   "dependencies": {
-    "prettier": "2.3.1",
+    "prettier": "2.7.1",
     "xml2js": "0.4.23"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.27.0",
-    "@typescript-eslint/parser": "^4.27.0",
-    "eslint": "^7.29.0",
-    "eslint-config-prettier": "^8.1.0"
+    "@types/web": "0.0.69",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "typescript": "^4"
   },
   "scripts": {
     "format": "prettier --write .",
     "check-format": "prettier --check .",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "lila-journal": "journalctl --user -fu lila -o cat",
+    "serverlog": "multitail -cT ansi -l 'npm run lila-journal' -cT ansi -ke '^[0-9\\.]{10} ' -I .metals/metals.log",
+    "multilog": "multitail -cT ansi -l 'npm run lila-journal' -cT ansi -L 'ui/bleep -w' -cT ansi -ke '^[0-9\\.]{10} ' -I .metals/metals.log"
   },
   "workspaces": [
     "ui",
@@ -45,11 +50,14 @@
     "ui/chess",
     "ui/cli",
     "ui/common",
+    "ui/chart",
+    "ui/coordinateTrainer",
     "ui/dasher",
     "ui/editor",
     "ui/game",
+    "ui/keyboardMove",
     "ui/nvui",
-    "ui/speech",
+    "ui/mod",
     "ui/palantir",
     "ui/insight",
     "ui/learn",
@@ -66,11 +74,14 @@
     "ui/tournamentCalendar",
     "ui/tree",
     "ui/msg",
+    "ui/tutor",
     "ui/dgt",
     "ui/puz",
     "ui/storm",
     "ui/racer",
+    "ui/opening",
     "ui/@build/rollupProject",
+    "ui/@build/bleep",
     "ui/@types/lichess",
     "ui/@types/cash"
   ]

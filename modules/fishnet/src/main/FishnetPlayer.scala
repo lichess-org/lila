@@ -1,33 +1,43 @@
 package lila.fishnet
 
-import scala.concurrent.duration._
-
+import chess.format.Uci
 import chess.{ Black, Clock, White }
+import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.{ Future, ThreadLocalRandom }
+import lila.common.{ Bus, Future }
 import lila.game.{ Game, GameRepo, UciMemo }
+import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.round.FishnetPlay
 
 final class FishnetPlayer(
     redis: FishnetRedis,
+    openingBook: FishnetOpeningBook,
     gameRepo: GameRepo,
     uciMemo: UciMemo,
     val maxPlies: Int
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
-) {
+    scheduler: akka.actor.Scheduler
+):
 
   def apply(game: Game): Funit =
     game.aiLevel ?? { level =>
       Future.delay(delayFor(game) | 0.millis) {
-        makeWork(game, level) addEffect redis.request void
+        openingBook(game, level) flatMap {
+          case Some(move) =>
+            uciMemo sign game map { sign =>
+              Bus.publish(Tell(game.id.value, FishnetPlay(move, sign)), "roundSocket")
+            }
+          case None => makeWork(game, level) addEffect redis.request void
+        }
       }
     } recover { case e: Exception =>
       logger.info(e.getMessage)
     }
 
   private val delayFactor  = 0.011f
-  private val defaultClock = Clock(300, 0)
+  private val defaultClock = Clock(Clock.LimitSeconds(300), Clock.IncrementSeconds(0))
 
   private def delayFor(g: Game): Option[FiniteDuration] =
     if (!g.bothPlayersHaveMoved) 2.seconds.some
@@ -53,7 +63,7 @@ final class FishnetPlayer(
           Work.Move(
             _id = Work.makeId,
             game = Work.Game(
-              id = game.id,
+              id = game.id.value,
               initialFen = initialFen,
               studyId = none,
               variant = game.variant,
@@ -73,4 +83,3 @@ final class FishnetPlayer(
       }
       else fufail(s"[fishnet] Too many moves (${game.turns}), won't play ${game.id}")
     else fufail(s"[fishnet] invalid position on ${game.id}")
-}

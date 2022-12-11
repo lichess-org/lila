@@ -11,7 +11,7 @@ export function sort(ctrl: LobbyController) {
 
 export function initAll(ctrl: LobbyController) {
   ctrl.data.seeks.forEach(function (seek) {
-    seek.action = ctrl.data.me && seek.username === ctrl.data.me.username ? 'cancelSeek' : 'joinSeek';
+    seek.action = ctrl.me && seek.username === ctrl.me.username ? 'cancelSeek' : 'joinSeek';
   });
   sort(ctrl);
 }

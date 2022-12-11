@@ -1,15 +1,14 @@
 package views
 package html.site
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import controllers.routes
+
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
-import controllers.routes
-import lila.common.HTTPRequest
-
-object message {
+object message:
 
   def apply(
       title: String,
@@ -19,11 +18,13 @@ object message {
   )(message: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(title = title, moreCss = ~moreCss) {
       main(cls := "box box-pad")(
-        h1(dataIcon := icon ifTrue back.isEmpty, cls := List("text" -> (icon.isDefined && back.isEmpty)))(
-          back map { url =>
-            a(href := url, dataIcon := "", cls := "text")
-          },
-          title
+        boxTop(
+          h1(dataIcon := icon ifTrue back.isEmpty, cls := List("text" -> (icon.isDefined && back.isEmpty)))(
+            back map { url =>
+              a(href := url, dataIcon := "", cls := "text")
+            },
+            title
+          )
         ),
         p(message)
       )
@@ -45,16 +46,16 @@ object message {
     }
 
   def blacklistedMessage(implicit ctx: Context) =
-    s"Sorry, your IP address ${HTTPRequest ipAddress ctx.req} has been used to violate the ToS, and is now blacklisted."
+    s"Sorry, your IP address ${ctx.ip} has been used to violate the ToS, and is now blacklisted."
 
   def privateStudy(study: lila.study.Study)(implicit ctx: Context) =
     apply(
-      title = s"${usernameOrId(study.ownerId)}'s study",
+      title = s"${titleNameOrId(study.ownerId)}'s study",
       back = routes.Study.allDefault(1).url.some
     )(
       "Sorry! This study is private, you cannot access it.",
-      isGranted(_.StudyAdmin) option postForm(action := routes.Study.admin(study.id.value))(
-        submitButton("View as admin")(cls := "button button-red")
+      isGranted(_.StudyAdmin) option postForm(action := routes.Study.admin(study.id))(
+        submitButton("View as admin")(cls            := "button button-red")
       )
     )
 
@@ -103,4 +104,6 @@ object message {
     apply("Temporarily disabled")(
       "Sorry, his feature is temporarily disabled while we figure out a way to bring it back."
     )
-}
+
+  def notYet(text: String)(implicit ctx: Context) =
+    apply("Not yet available")(text)

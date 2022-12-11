@@ -1,7 +1,5 @@
 package lila.common
 
-trait Cli {
+trait Cli:
 
   def process: PartialFunction[List[String], Fu[String]]
-
-}

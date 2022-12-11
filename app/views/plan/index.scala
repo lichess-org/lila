@@ -1,39 +1,54 @@
 package views.html.plan
 
+import controllers.routes
+import java.util.Currency
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 
-import controllers.routes
+object index:
 
-object index {
-
-  import trans.patron._
+  import trans.patron.*
 
   private[plan] val stripeScript = script(src := "https://js.stripe.com/v3/")
+
+  private val namespaceAttr = attr("data-namespace")
 
   def apply(
       email: Option[lila.common.EmailAddress],
       stripePublicKey: String,
+      payPalPublicKey: String,
       patron: Option[lila.plan.Patron],
-      recentIds: List[String],
-      bestIds: List[String],
+      recentIds: List[UserId],
+      bestIds: List[UserId],
       pricing: lila.plan.PlanPricing,
       methods: Set[String]
-  )(implicit ctx: Context) = {
-
+  )(implicit ctx: Context) =
+    val localeParam = lila.plan.PayPalClient.locale(ctx.lang) ?? { l => s"&locale=$l" }
     views.html.base.layout(
       title = becomePatron.txt(),
       moreCss = cssTag("plan"),
       moreJs = frag(
         stripeScript,
+        frag(
+          // gotta load the paypal SDK twice, for onetime and subscription :facepalm:
+          // https://stackoverflow.com/questions/69024268/how-can-i-show-a-paypal-smart-subscription-button-and-a-paypal-smart-capture-but/69024269
+          script(
+            src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&currency=${pricing.currency}$localeParam",
+            namespaceAttr := "paypalOrder"
+          ),
+          script(
+            src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&vault=true&intent=subscription&currency=${pricing.currency}$localeParam",
+            namespaceAttr := "paypalSubscription"
+          )
+        ),
         jsModule("checkout"),
         embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", ${safeJsonValue(
-          lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
-        )})""")
+            lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
+          )})""")
       ),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -42,7 +57,7 @@ object index {
           description = freeChess.txt()
         )
         .some,
-      csp = defaultCsp.withStripe.some
+      csp = defaultCsp.withStripe.withPayPal.some
     ) {
       main(cls := "page-menu plan")(
         st.aside(cls := "page-menu__menu recent-patrons")(
@@ -58,14 +73,14 @@ object index {
             div(cls := "banner one_time_active")(
               iconTag(patronIconChar),
               div(
-                h1(thankYou()),
+                h1(cls := "box__top")(thankYou()),
                 if (p.isLifetime) youHaveLifetime()
                 else
                   p.expiresAt.map { expires =>
                     frag(
                       patronUntil(showDate(expires)),
                       br,
-                      ifNotRenewed()
+                      ifNotRenewedThenAccountWillRevert()
                     )
                   }
               ),
@@ -74,7 +89,7 @@ object index {
           } getOrElse div(cls := "banner moto")(
             iconTag(patronIconChar),
             div(
-              h1(freeChess()),
+              h1(cls := "box__top")(freeChess()),
               p(noAdsNoSubs())
             ),
             iconTag(patronIconChar)
@@ -87,37 +102,27 @@ object index {
               ),
               div(cls := "content")(
                 div(
-                  cls := "plan_checkout",
-                  attr("data-email") := email.??(_.value),
+                  cls                          := "plan_checkout",
+                  attr("data-email")           := email.??(_.value),
                   attr("data-lifetime-amount") := pricing.lifetime.amount
                 )(
-                  raw(s"""
-<form class="paypal_checkout onetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-${payPalFormSingle(pricing, "lichess.org one-time")}
-</form>
-<form class="paypal_checkout monthly none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-${payPalFormRecurring(pricing, "lichess.org monthly")}
-</form>
-<form class="paypal_checkout lifetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-${payPalFormSingle(pricing, "lichess.org lifetime")}
-</form>"""),
                   ctx.me map { me =>
                     st.group(cls := "radio buttons dest")(
                       div(
                         input(
-                          tpe := "radio",
+                          tpe  := "radio",
                           name := "dest",
-                          id := "dest_me",
+                          id   := "dest_me",
                           checked,
                           value := "me"
                         ),
-                        label(`for` := "dest_me")("Donate as ", me.username)
+                        label(`for` := "dest_me")(donateAsX(me.username))
                       ),
                       div(
                         input(
-                          tpe := "radio",
-                          name := "dest",
-                          id := "dest_gift",
+                          tpe   := "radio",
+                          name  := "dest",
+                          id    := "dest_gift",
                           value := "gift"
                         ),
                         label(`for` := "dest_gift")(giftPatronWings())
@@ -126,12 +131,12 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                   },
                   div(cls := "gift complete-parent none")(
                     st.input(
-                      name := "giftUsername",
-                      value := "",
-                      cls := "user-autocomplete",
-                      placeholder := trans.clas.lichessUsername.txt(),
+                      name         := "giftUsername",
+                      value        := "",
+                      cls          := "user-autocomplete",
+                      placeholder  := trans.clas.lichessUsername.txt(),
                       autocomplete := "off",
-                      dataTag := "span",
+                      dataTag      := "span",
                       autofocus
                     )
                   ),
@@ -139,9 +144,9 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                     div(
                       st.title := singleDonation.txt(),
                       input(
-                        tpe := "radio",
-                        name := "freq",
-                        id := "freq_onetime",
+                        tpe   := "radio",
+                        name  := "freq",
+                        id    := "freq_onetime",
                         value := "onetime"
                       ),
                       label(`for` := "freq_onetime")(onetime())
@@ -149,9 +154,9 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                     div(
                       st.title := recurringBilling.txt(),
                       input(
-                        tpe := "radio",
+                        tpe  := "radio",
                         name := "freq",
-                        id := "freq_monthly",
+                        id   := "freq_monthly",
                         checked,
                         value := "monthly"
                       ),
@@ -160,12 +165,12 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                     div(
                       st.title := payLifetimeOnce.txt(pricing.lifetime.display),
                       input(
-                        tpe := "radio",
+                        tpe  := "radio",
                         name := "freq",
-                        id := "freq_lifetime",
+                        id   := "freq_lifetime",
                         patron.exists(_.isLifetime) option disabled,
                         value := "lifetime",
-                        cls := List("lifetime-check" -> patron.exists(_.isLifetime))
+                        cls   := List("lifetime-check" -> patron.exists(_.isLifetime))
                       ),
                       label(`for` := "freq_lifetime")(lifetime())
                     )
@@ -176,22 +181,22 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                         val id = s"plan_${money.code}"
                         div(
                           input(
-                            cls := money == pricing.default option "default",
-                            tpe := "radio",
-                            name := "plan",
+                            cls   := money == pricing.default option "default",
+                            tpe   := "radio",
+                            name  := "plan",
                             st.id := id,
                             money == pricing.default option checked,
-                            value := money.amount,
+                            value               := money.amount,
                             attr("data-amount") := money.amount
                           ),
                           label(`for` := id)(money.display)
                         )
                       },
-                      div(cls := "other")(
+                      div(cls     := "other")(
                         input(tpe := "radio", name := "plan", id := "plan_other", value := "other"),
                         label(
-                          `for` := "plan_other",
-                          title := pleaseEnterAmountInX.txt(pricing.currencyCode),
+                          `for`                    := "plan_other",
+                          title                    := pleaseEnterAmountInX.txt(pricing.currencyCode),
                           attr("data-trans-other") := otherAmount.txt()
                         )(otherAmount())
                       )
@@ -209,17 +214,32 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                           (pricing.currency.getCurrencyCode != "CNY" || !methods("alipay")) option
                             button(cls := "stripe button")(withCreditCard()),
                           methods("alipay") option button(cls := "stripe button")("Alipay"),
-                          button(cls := "paypal button")(withPaypal())
+                          div(cls := "paypal paypal--order"),
+                          div(cls := "paypal paypal--subscription"),
+                          button(cls := "paypal button disabled paypal--disabled")("PAYPAL")
                         )
                       else
                         a(
-                          cls := "button",
+                          cls  := "button",
                           href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
-                        )("Log in to donate")
+                        )(logInToDonate())
                     ),
-                    ctx.isAuth option div(cls := "links")(
-                      a(cls := "stripe")("Google Pay"),
-                      a(cls := "stripe")("Apple Pay")
+                    ctx.isAuth option div(cls := "other-choices")(
+                      a(cls := "currency-toggle")(trans.patron.changeCurrency()),
+                      div(cls := "links")(
+                        a(cls := "stripe")("Google Pay"),
+                        a(cls := "stripe")("Apple Pay")
+                      )
+                    ),
+                    form(cls := "currency none", action := routes.Plan.list)(
+                      select(name := "currency")(
+                        lila.plan.CurrencyApi.currencyList.map { cur =>
+                          option(
+                            value := cur.getCurrencyCode,
+                            pricing.currencyCode == cur.getCurrencyCode option selected
+                          )(showCurrency(cur))
+                        }
+                      )
                     )
                   )
                 )
@@ -240,44 +260,16 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
         )
       )
     }
-  }
 
-  private def payPalFormSingle(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) = s"""
-  ${payPalForm(pricing, itemName)}
-  <input type="hidden" name="cmd" value="_xclick">
-  <input type="hidden" name="amount" class="amount" value="">
-  <input type="hidden" name="button_subtype" value="services">
-"""
-
-  private def payPalFormRecurring(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) =
-    s"""
-  ${payPalForm(pricing, itemName)}
-  <input type="hidden" name="cmd" value="_xclick-subscriptions">
-  <input type="hidden" name="a3" class="amount" value="">
-  <input type="hidden" name="p3" value="1">
-  <input type="hidden" name="t3" value="M">
-  <input type="hidden" name="src" value="1">
-"""
-
-  private def payPalForm(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) = s"""
-  <input type="hidden" name="item_name" value="$itemName">
-  <input type="hidden" name="custom" value="${~ctx.userId}">
-  <input type="hidden" name="business" value="Q3H72BENTXL4G">
-  <input type="hidden" name="no_note" value="1">
-  <input type="hidden" name="no_shipping" value="1">
-  <input type="hidden" name="rm" value="1">
-  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
-  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
-  <input type="hidden" name="lc" value="${ctx.lang.locale}">
-  <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
-"""
+  private def showCurrency(cur: Currency)(implicit ctx: Context) =
+    s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"
 
   private def faq(implicit lang: Lang) =
     div(cls := "faq")(
       dl(
         dt(whereMoneyGoes()),
         dd(
-          serversAndDeveloper(userIdLink("thibault".some)),
+          serversAndDeveloper(userIdLink(UserId("thibault").some)),
           br,
           a(href := routes.Main.costs, targetBlank)(costBreakdown()),
           "."
@@ -297,15 +289,14 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
         ),
         dt(otherMethods()),
         dd(
-          "Lichess is registered with Benevity.",
+          lichessIsRegisteredWith(
+            a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("Benevity")
+          ),
           br,
-          a(href := assetUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), targetBlank)(bankTransfers()),
+          views.html.site.contact.contactEmailLinkEmpty()(bankTransfers()),
           ".",
           br,
-          bitcoin(code("15ZA4bBki3uu3yR2ENC2WYa9baVGUZ8Cf8")),
-          ".",
-          br,
-          "Please note that only the donation form above will grant the Patron status."
+          strong(onlyDonationFromAbove())
         )
       ),
       dl(
@@ -318,4 +309,3 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
         )
       )
     )
-}

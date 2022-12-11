@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Ileri tutmalar</string>
-  <string name="gameDisplay">Oýun display</string>
   <string name="pieceAnimation">Çöp animasiýasy</string>
   <string name="materialDifference">Material tapawudy</string>
   <string name="boardHighlights">Tagta indikatorlary (soňky göçüm we şah)</string>
@@ -29,7 +28,7 @@
   <string name="promoteToQueenAutomatically">Awto-wezir</string>
   <string name="whenPremoving">Öň-göçüm göçülýärkä</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">3-gaýtalanmada deňligi awto-yglan et</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Galan wagt &lt; 30 sekunt bolanda</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Galan wagt &lt; 30 sekunt bolanda</string>
   <string name="moveConfirmation">Göçüm tassyklamasy</string>
   <string name="inCorrespondenceGames">Günlük oýunlar</string>
   <string name="correspondenceAndUnlimited">Günlük we çäksiz</string>

@@ -1,16 +1,18 @@
 package views.html.forum
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
-import lila.common.String.html.nl2br
 
 import controllers.routes
+import lila.team.Team
 
-object search {
+object search:
 
-  def apply(text: String, pager: Paginator[lila.forum.PostView])(implicit ctx: Context) = {
+  def apply(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(using
+      ctx: Context
+  ) =
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
     views.html.base.layout(
       title = title,
@@ -18,7 +20,7 @@ object search {
       moreCss = cssTag("forum")
     )(
       main(cls := "box search")(
-        div(cls := "box__top")(
+        boxTop(
           h1(
             a(href := routes.ForumCateg.index, dataIcon := "", cls := "text"),
             title
@@ -29,23 +31,34 @@ object search {
         table(cls := "slist slist-pad search__results")(
           if (pager.nbResults > 0)
             tbody(cls := "infinite-scroll")(
-              pager.currentPageResults.map { view =>
-                tr(cls := "paginated")(
-                  td(
-                    a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
-                      view.categ.name,
-                      " - ",
-                      view.topic.name,
-                      "#",
-                      view.post.number
-                    ),
-                    p(nl2br(shorten(view.post.text.replace("\n\n", "\n"), 200)))
-                  ),
+              pager.currentPageResults.map { viewWithRead =>
+                val view = viewWithRead.view
+                val info =
                   td(cls := "info")(
                     momentFromNow(view.post.createdAt),
                     br,
-                    authorLink(view.post)
+                    bits.authorLink(view.post)
                   )
+                tr(cls := "paginated")(
+                  if (viewWithRead.canRead)
+                    frag(
+                      td(
+                        a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
+                          view.categ.name,
+                          " - ",
+                          view.topic.name,
+                          "#",
+                          view.post.number
+                        ),
+                        p(shorten(view.post.text, 200))
+                      ),
+                      info
+                    )
+                  else
+                    frag(
+                      td("[You can't access this team forum post]"),
+                      info
+                    )
                 )
               },
               pagerNextTable(pager, n => routes.ForumPost.search(text, n).url)
@@ -54,5 +67,3 @@ object search {
         )
       )
     )
-  }
-}

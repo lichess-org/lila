@@ -3,13 +3,13 @@ package round
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
-object player {
+object player:
 
   def apply(
       pov: Pov,
@@ -20,7 +20,7 @@ object player {
       playing: List[Pov],
       chatOption: Option[lila.chat.Chat.GameOrEvent],
       bookmarked: Boolean
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
     val chatJson = chatOption.map(_.either).map {
       case Left(c) =>
@@ -50,18 +50,20 @@ object player {
         roundNvuiTag,
         roundTag,
         embedJsUnsafeLoadThen(s"""LichessRound.boot(${safeJsonValue(
-          Json
-            .obj(
-              "data"   -> data,
-              "i18n"   -> jsI18n(pov.game),
-              "userId" -> ctx.userId,
-              "chat"   -> chatJson
-            )
-        )})""")
+            Json
+              .obj(
+                "data"   -> data,
+                "i18n"   -> jsI18n(pov.game),
+                "userId" -> ctx.userId,
+                "chat"   -> chatJson
+              )
+              .add("noab" -> ctx.me.exists(_.marks.engine))
+          )})""")
       ),
       openGraph = povOpenGraph(pov).some,
       chessground = false,
-      playing = true
+      playing = true,
+      zenable = true
     )(
       main(cls := "round")(
         st.aside(cls := "round__side")(
@@ -77,10 +79,8 @@ object player {
                 "round__now-playing" -> true,
                 "blindfold"          -> ctx.pref.isBlindfold
               )
-            )(bits.others(playing, simul))
+            )(bits.others(playing, simul.filter(_ isHost ctx.me)))
         ),
         div(cls := "round__underchat")(bits underchat pov.game)
       )
     )
-  }
-}

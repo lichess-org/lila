@@ -1,14 +1,14 @@
 package views.html
 package forum
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 import controllers.routes
 
-object categ {
+object categ:
 
   def index(categs: List[lila.forum.CategView])(implicit ctx: Context) =
     views.html.base.layout(
@@ -23,30 +23,31 @@ object categ {
         .some
     ) {
       main(cls := "forum index box")(
-        div(cls := "box__top")(
+        boxTop(
           h1(dataIcon := "", cls := "text")("Lichess Forum"),
           bits.searchForm()
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),
-        if (categs.exists(_.categ.isTeam))
-          frag(
-            h1("Your teams boards"),
-            showCategs(categs.filter(_.categ.isTeam))
-          )
+        categs.exists(_.categ.isTeam) option frag(
+          boxTop(
+            h1("Your Team Boards")
+          ),
+          showCategs(categs.filter(_.categ.isTeam))
+        )
       )
     }
 
   def show(
-      categ: lila.forum.Categ,
+      categ: lila.forum.ForumCateg,
       topics: Paginator[lila.forum.TopicView],
       canWrite: Boolean,
       stickyPosts: List[lila.forum.TopicView]
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
     val newTopicButton = canWrite option
       a(
-        href := routes.ForumTopic.form(categ.slug),
-        cls := "button button-empty button-green text",
+        href     := routes.ForumTopic.form(categ.slug),
+        cls      := "button button-empty button-green text",
         dataIcon := ""
       )(
         trans.createANewTopic()
@@ -64,19 +65,16 @@ object categ {
                 momentFromNow(post.createdAt)
               ),
               br,
-              trans.by(authorLink(post))
+              trans.by(bits.authorLink(post))
             )
           }
         )
       )
-    val bar = div(cls := "bar")(
-      views.html.base.bits.paginationByQuery(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false),
-      newTopicButton
-    )
 
     views.html.base.layout(
       title = categ.name,
       moreCss = cssTag("forum"),
+      moreJs = infiniteScrollTag,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"Forum: ${categ.name}",
@@ -86,15 +84,19 @@ object categ {
         .some
     ) {
       main(cls := "forum forum-categ box")(
-        h1(
-          a(
-            href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
-            dataIcon := "",
-            cls := "text"
+        boxTop(
+          h1(
+            a(
+              href     := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
+              dataIcon := "",
+              cls      := "text"
+            ),
+            categ.team.fold(frag(categ.name))(teamIdToName)
           ),
-          categ.team.fold(frag(categ.name))(teamIdToName)
+          div(cls := "box__top__actions")(
+            newTopicButton
+          )
         ),
-        bar,
         table(cls := "topics slist slist-pad")(
           thead(
             tr(
@@ -104,14 +106,14 @@ object categ {
             )
           ),
           tbody(
+            cls := "infinite-scroll",
             stickyPosts map showTopic(sticky = true),
-            topics.currentPageResults map showTopic(sticky = false)
+            topics.currentPageResults map showTopic(sticky = false),
+            pagerNextTable(topics, n => routes.ForumCateg.show(categ.slug, n).url)
           )
-        ),
-        bar
+        )
       )
     }
-  }
 
   private def showCategs(categs: List[lila.forum.CategView])(implicit ctx: Context) =
     table(cls := "categs slist slist-pad")(
@@ -139,7 +141,7 @@ object categ {
                     momentFromNow(post.createdAt)
                   ),
                   br,
-                  trans.by(authorLink(post))
+                  trans.by(bits.authorLink(post))
                 )
               }
             )
@@ -147,4 +149,3 @@ object categ {
         }
       )
     )
-}

@@ -1,57 +1,32 @@
 package lila.oauth
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
-import play.api.Configuration
-import scala.concurrent.duration._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 
-import lila.common.config._
-import lila.db.AsyncColl
-
-private case class OauthConfig(
-    @ConfigName("mongodb.uri") mongoUri: String,
-    @ConfigName("collection.access_token") tokenColl: CollName,
-    @ConfigName("collection.app") appColl: CollName
-)
+import lila.common.config.CollName
+import lila.common.Strings
+import lila.memo.SettingStore.Strings.given
 
 @Module
 final class Env(
-    appConfig: Configuration,
     cacheApi: lila.memo.CacheApi,
     userRepo: lila.user.UserRepo,
-    lilaDb: lila.db.Db,
-    mongo: lila.db.Env
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
-) {
+    settingStore: lila.memo.SettingStore.Builder,
+    db: lila.db.Db
+)(using ec: scala.concurrent.ExecutionContext):
 
-  private val config = appConfig.get[OauthConfig]("oauth")(AutoConfig.loader)
+  lazy val originBlocklistSetting = settingStore[Strings](
+    "oauthOriginBlocklist",
+    default = Strings(Nil),
+    text = "OAuth origin blocklist".some
+  ).taggedWith[OriginBlocklist]
 
-  private lazy val db = mongo.asyncDb("oauth", config.mongoUri)
+  lazy val legacyClientApi = new LegacyClientApi(db(CollName("oauth2_legacy_client")))
 
-  private lazy val colls = new OauthColls(db(config.tokenColl), db(config.appColl))
+  lazy val authorizationApi = new AuthorizationApi(db(CollName("oauth2_authorization")))
 
-  lazy val appApi = wire[OAuthAppApi]
+  lazy val tokenApi = new AccessTokenApi(db(CollName("oauth2_access_token")), cacheApi, userRepo)
 
   lazy val server = wire[OAuthServer]
 
-  lazy val tryServer: OAuthServer.Try = () =>
-    scala.concurrent
-      .Future {
-        server.some
-      }
-      .withTimeoutDefault(50 millis, none) recover { case e: Exception =>
-      lila.log("security").warn("oauth", e)
-      none
-    }
-
-  lazy val tokenApi         = wire[AccessTokenApi]
-  lazy val authorizationApi = new AuthorizationApi(lilaDb(CollName("oauth2_authorization")))
-  lazy val legacyClientApi  = new LegacyClientApi(lilaDb(CollName("oauth2_legacy_client")))
-
-  def forms = OAuthForm
-}
-
-private class OauthColls(val token: AsyncColl, val app: AsyncColl)
+trait OriginBlocklist

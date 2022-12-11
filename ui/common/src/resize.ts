@@ -1,6 +1,7 @@
 import * as cg from 'chessground/types';
 import * as xhr from './xhr';
 import debounce from './debounce';
+import * as Prefs from './prefs';
 
 type MouchEvent = Event & Partial<MouseEvent & TouchEvent>;
 
@@ -21,7 +22,7 @@ export default function resizeHandle(els: cg.Elements, pref: Prefs.ShowResizeHan
       initialZoom = parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
     let zoom = initialZoom;
 
-    const saveZoom = debounce(() => xhr.text(`/pref/zoom?v=${100 + zoom}`, { method: 'post' }), 700);
+    const saveZoom = debounce(() => xhr.text(`/pref/zoom?v=${zoom}`, { method: 'post' }), 700);
 
     const resize = (move: MouchEvent) => {
       const pos = eventPosition(move)!,

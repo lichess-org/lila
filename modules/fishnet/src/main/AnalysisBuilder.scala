@@ -7,9 +7,9 @@ import JsonApi.Request.Evaluation
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
 
-final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
+final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
   def apply(client: Client, work: Work.Analysis, evals: List[Evaluation.OrSkipped]): Fu[Analysis] =
     partial(client, work, evals map some, isPartial = false)
@@ -23,7 +23,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
     evalCache.evals(work) flatMap { cachedFull =>
       /* remove first eval in partial analysis
        * to prevent the mobile app from thinking it's complete
-       * https://github.com/veloce/lichobile/issues/722
+       * https://github.com/lichess-org/lichobile/issues/722
        */
       val cached = if (isPartial) cachedFull - 0 else cachedFull
       def debug  = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
@@ -76,10 +76,9 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
   private def makeInfos(evals: List[Option[Evaluation]], moves: List[Uci], startedAtPly: Int): List[Info] =
     (evals filterNot (_ ?? (_.isCheckmate)) sliding 2).toList.zip(moves).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) =>
-        val variation = before.cappedPv match {
+        val variation = before.cappedPv match
           case first :: rest if first != move => first :: rest
           case _                              => Nil
-        }
         val best = variation.headOption
         val info = Info(
           ply = index + 1 + startedAtPly,
@@ -93,4 +92,3 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
         if (info.ply % 2 == 1) info.invert else info
       case ((_, _), index) => Info(index + 1 + startedAtPly, Eval.empty)
     }
-}

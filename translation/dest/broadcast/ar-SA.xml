@@ -24,4 +24,5 @@
   <string name="broadcastUrl">رابط البث</string>
   <string name="currentRoundUrl">رابط الجولة الحالية</string>
   <string name="currentGameUrl">رابط المباراة الحالية</string>
+  <string name="downloadAllRounds">تحميل جميع المباريات</string>
 </resources>

@@ -3,7 +3,7 @@
   @extend %box-neat-force;
 
   background: $c-bg-box;
-  padding: #{$block-gap * 0.7} $block-gap;
+  padding: 1.5em;
 
   section:not(:last-child) {
     border-bottom: $border;
@@ -19,7 +19,7 @@
     /* for bookmark */
     &::before {
       font-size: 3rem;
-      margin-right: 4%;
+      margin-#{$end-direction}: 4%;
     }
 
     p {
@@ -38,11 +38,16 @@
   &__players {
     margin-top: 0.3rem;
     font-size: 90%;
+
+    abbr {
+      text-decoration: none;
+      color: mix($c-font, $c-link, 50%);
+    }
   }
 
   .bookmark {
     position: absolute;
-    right: 0;
+    #{$end-direction}: 0;
     z-index: z('game-bookmark');
     color: $c-font-dim;
 

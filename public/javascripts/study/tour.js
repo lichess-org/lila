@@ -1,7 +1,7 @@
 function loadShepherd(f) {
   if (typeof Shepherd === 'undefined' || Shepherd.activeTour === null) {
-    var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
-    lichess.loadCss('vendor/shepherd/dist/css/' + theme + '.css');
+    var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'dark' : 'default');
+    lichess.loadCss('vendor/' + theme + '.css');
     lichess.loadScript('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
       lichess.loadScript('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function () {
         f(theme);
@@ -10,6 +10,8 @@ function loadShepherd(f) {
   }
 }
 lichess.studyTour = function (study) {
+  const helpButtonSelector = 'main.analyse .study__buttons .help';
+  if (!$(helpButtonSelector).length) return;
   loadShepherd(function (theme) {
     var onTab = function (tab) {
       return {
@@ -18,7 +20,16 @@ lichess.studyTour = function (study) {
         },
       };
     };
-    var tour = new Shepherd.Tour({
+
+    var closeActionMenu = function () {
+      return {
+        'before-show': function () {
+          study.closeActionMenu();
+        },
+      };
+    };
+
+    const tour = new Shepherd.Tour({
       defaults: {
         classes: theme,
         scrollTo: false,
@@ -34,12 +45,13 @@ lichess.studyTour = function (study) {
           'discuss positions with friends,<br>' +
           'and of course for chess lessons!<br><br>' +
           "It's a powerful tool, let's take some time to see how it works.",
-        attachTo: 'main.analyse .study__buttons .help top',
+        attachTo: helpButtonSelector + ' top',
       },
       {
         title: 'Shared and saved',
         text: 'Other members can see your moves in real time!<br>' + 'Plus, everything is saved forever.',
         attachTo: 'main.analyse .areplay left',
+        when: closeActionMenu(),
       },
       {
         title: 'Study members',
@@ -103,7 +115,7 @@ lichess.studyTour = function (study) {
             action: tour.next,
           },
         ],
-        attachTo: 'main.analyse .study__buttons .help top',
+        attachTo: helpButtonSelector + ' top',
       },
     ]
       .filter(function (v) {
@@ -113,5 +125,11 @@ lichess.studyTour = function (study) {
         tour.addStep(s.title, s);
       });
     tour.start();
+
+    lichess.pubsub.on('analyse.close-all', tour.cancel);
+
+    Shepherd.once('inactive', _ => {
+      lichess.pubsub.off('analyse.close-all', tour.cancel);
+    });
   });
 };

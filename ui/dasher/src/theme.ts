@@ -1,5 +1,4 @@
 import { h, VNode } from 'snabbdom';
-import changeColorHandle from 'common/coordsColor';
 import * as xhr from 'common/xhr';
 
 import { Redraw, Open, bind, header } from './util';
@@ -42,7 +41,7 @@ export function ctrl(
     set(t: Theme) {
       const d = dimensionData();
       d.current = t;
-      applyTheme(t, d.list);
+      applyTheme(t, d.list, dimension() === 'd3');
       xhr
         .text('/pref/theme' + (dimension() === 'd3' ? '3d' : ''), {
           body: xhr.form({ theme: t }),
@@ -67,17 +66,18 @@ export function view(ctrl: ThemeCtrl): VNode {
 function themeView(current: Theme, set: (t: Theme) => void) {
   return (t: Theme) =>
     h(
-      'a',
+      'button',
       {
         hook: bind('click', () => set(t)),
-        attrs: { title: t },
+        attrs: { title: t, type: 'button' },
         class: { active: current === t },
       },
       [h('span.' + t)]
     );
 }
 
-function applyTheme(t: Theme, list: Theme[]) {
+function applyTheme(t: Theme, list: Theme[], is3d: boolean) {
   $('body').removeClass(list.join(' ')).addClass(t);
-  changeColorHandle();
+  if (!is3d) document.body.dataset.boardTheme = t;
+  lichess.pubsub.emit('theme.change');
 }

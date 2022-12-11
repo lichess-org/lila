@@ -9,11 +9,13 @@
   text-align: center;
   user-select: none;
   white-space: nowrap;
+  display: inline-block;
 
   @include transition;
 
   &,
-  &:visited {
+  &:visited,
+  &:focus {
     color: $c-primary-over;
   }
 
@@ -54,6 +56,18 @@
 
     &:not(.disabled):hover {
       background: lighten($c-error, 11);
+    }
+  }
+
+  &-link {
+    @extend %button-none;
+
+    color: $c-link;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $c-link-hover;
     }
   }
 
@@ -120,4 +134,8 @@
 
     color: #fff;
   }
+}
+.button-set {
+  @extend %flex-center;
+  gap: 1.5em;
 }

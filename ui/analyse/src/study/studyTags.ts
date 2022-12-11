@@ -1,8 +1,10 @@
-import { h, thunk, VNode } from 'snabbdom';
+import { onInsert } from 'common/snabbdom';
 import throttle from 'common/throttle';
-import { option, onInsert } from '../util';
+import { h, thunk, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
-import { StudyCtrl, StudyChapter } from './interfaces';
+import { option } from '../view/util';
+import { StudyChapter, StudyCtrl } from './interfaces';
+import { looksLikeLichessGame } from './studyChapters';
 
 export interface TagsCtrl {
   submit(type: string): (tag: string) => void;
@@ -14,7 +16,7 @@ function editable(value: string, submit: (v: string, el: HTMLInputElement) => vo
   return h('input', {
     key: value, // force to redraw on change, to visibly update the input value
     attrs: {
-      spellcheck: false,
+      spellcheck: 'false',
       value,
     },
     hook: onInsert<HTMLInputElement>(el => {
@@ -40,11 +42,16 @@ function renderPgnTags(
   chapter: StudyChapter,
   submit: ((type: string) => (tag: string) => void) | false,
   types: string[],
-  trans: Trans
+  trans: Trans,
+  hideRatings?: boolean
 ): VNode {
   let rows: TagRow[] = [];
   if (chapter.setup.variant.key !== 'standard') rows.push(['Variant', fixed(chapter.setup.variant.name)]);
-  rows = rows.concat(chapter.tags.map(tag => [tag[0], submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])]));
+  rows = rows.concat(
+    chapter.tags
+      .filter(tag => !hideRatings || !['WhiteElo', 'BlackElo'].includes(tag[0]) || !looksLikeLichessGame(chapter.tags))
+      .map(tag => [tag[0], submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])])
+  );
   if (submit) {
     const existingTypes = chapter.tags.map(t => t[0]);
     rows.push([
@@ -124,7 +131,13 @@ export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types: s
 function doRender(root: StudyCtrl): VNode {
   return h(
     'div',
-    renderPgnTags(root.tags.getChapter(), root.vm.mode.write && root.tags.submit, root.tags.types, root.trans)
+    renderPgnTags(
+      root.tags.getChapter(),
+      root.vm.mode.write && root.tags.submit,
+      root.tags.types,
+      root.trans,
+      root.data.hideRatings
+    )
   );
 }
 

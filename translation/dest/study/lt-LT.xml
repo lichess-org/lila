@@ -47,6 +47,7 @@
   <string name="youAreNowASpectator">Dabar esate žiūrovas</string>
   <string name="pgnTags">PGN žymos</string>
   <string name="like">Mėgti</string>
+  <string name="unlike">Nebemėgti</string>
   <string name="newTag">Nauja žyma</string>
   <string name="commentThisPosition">Komentuoti šią poziciją</string>
   <string name="commentThisMove">Komentuoti šį ėjimą</string>
@@ -55,7 +56,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Tik studijos talkininkai gali prašyti kompiuterio analizės.</string>
   <string name="getAFullComputerAnalysis">Gaukite pilną pagrindinės linijos kompiuterio analizę.</string>
   <string name="makeSureTheChapterIsComplete">Įsitikinkite, kad skyrius užbaigtas. Analizės galite prašyti tik kartą.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Visi SYNC nariai lieka toje pačioje pozicijoje</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Visi SYNC nariai lieka toje pačioje pozicijoje</string>
   <string name="shareChanges">Dalinkitės pakeitimais su žiūrovais ir saugokite juos serveryje</string>
   <string name="playing">Žaidžiama</string>
   <string name="first">Pirmas</string>
@@ -81,11 +82,13 @@
   <string name="studyNotFound">Studija nerasta</string>
   <string name="editChapter">Redaguoti skyrių</string>
   <string name="newChapter">Naujas skyrius</string>
+  <string name="importFromChapterX">Importuoti iš %s</string>
   <string name="orientation">Kryptis</string>
   <string name="analysisMode">Analizės režimas</string>
   <string name="pinnedChapterComment">Prisegtas skyriaus komentaras</string>
   <string name="saveChapter">Išsaugoti skyrių</string>
   <string name="clearAnnotations">Pašalinti anotacijas</string>
+  <string name="clearVariations">Išvalyti variacijas</string>
   <string name="deleteChapter">Ištrinti skyrių</string>
   <string name="deleteThisChapter">Ištrinti šį skyrių? Nėra kelio atgal!</string>
   <string name="clearAllCommentsInThisChapter">Išvalyti visus komentarus, ženklus ir figūras šiame skyriuje?</string>
@@ -134,7 +137,7 @@
   <string name="clearChat">Išvalyti pokalbį</string>
   <string name="deleteTheStudyChatHistory">Ištrinti studijos pokalbių istoriją? Nėra kelio atgal!</string>
   <string name="deleteStudy">Ištrinti studiją</string>
-  <string name="deleteTheEntireStudy">Ištrinti visą studiją? Nėra kelio atgal!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Ištrinti visą studiją? Ištrynimas negrįžtamas. Norėdami tęsti įrašykite studijos pavadinimą: %s</string>
   <string name="whereDoYouWantToStudyThat">Kur norite tai studijuoti?</string>
   <string name="goodMove">Geras ėjimas</string>
   <string name="mistake">Klaida</string>
@@ -162,4 +165,13 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Su mintimi</string>
   <string name="nextChapter">Kitas skyrius</string>
   <string name="prevChapter">Ankstenis skyrius</string>
+  <string name="studyActions">Studijos veiksmai</string>
+  <string name="topics">Temos</string>
+  <string name="myTopics">Mano temos</string>
+  <string name="popularTopics">Populiarios temos</string>
+  <string name="manageTopics">Valdyti temas</string>
+  <string name="back">Atgal</string>
+  <string name="playAgain">Žaisti dar kartą</string>
+  <string name="whatWouldYouPlay">Ar norėtumėte žaisti nuo šios pozicijos?</string>
+  <string name="youCompletedThisLesson">Sveikiname! Jūs pabaigėte šią pamoką.</string>
 </resources>

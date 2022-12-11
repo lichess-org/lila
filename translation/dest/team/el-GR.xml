@@ -7,10 +7,12 @@
     <item quantity="other">%s μέλη</item>
   </plurals>
   <string name="allTeams">Όλες οι ομάδες</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Ομάδες που είστε αρχηγός</string>
   <string name="newTeam">Νέα ομάδα</string>
   <string name="myTeams">Οι ομάδες μου</string>
   <string name="noTeamFound">Δε βρέθηκε ομάδα</string>
   <string name="joinTeam">Συμμετοχή στην ομάδα</string>
+  <string name="onlyLeaderLeavesTeam">Προσθέστε έναν νέο αρχηγό ομάδας πριν φύγετε ή κλείστε την ομάδα.</string>
   <string name="quitTeam">Αποχώρηση από την ομάδα</string>
   <string name="manuallyReviewAdmissionRequests">Μη αυτόματη εξέταση αιτήσεων πρόσβασης</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Αν ενεργοποιήσετε αυτήν την επιλογή, οι παίκτες θα πρέπει να κάνουν ένα αίτημα για να συμμετέχουν στην ομάδα, το οποίο μπορείτε είτε να απορρίψετε είτε να δεχτείτε.</string>
@@ -18,7 +20,6 @@
     <item quantity="one">Αρχηγός ομάδας</item>
     <item quantity="other">Αρχηγοί ομάδας</item>
   </plurals>
-  <string name="teamBestPlayers">Καλύτεροι παίκτες ομάδας</string>
   <string name="teamRecentMembers">Πρόσφατα μέλη ομάδας</string>
   <string name="kickSomeone">Απομάκρυνση κάποιου από την ομάδα</string>
   <string name="whoToKick">Ποιον επιθυμείτε να απομακρύνετε από την ομάδα;</string>
@@ -28,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">Το αίτημα πρόσβασης θα αξιολογηθεί από κάποιον αρχηγό της ομάδας.</string>
   <string name="beingReviewed">Το αίτημά για πρόσβαση στην ομάδα εξετάζεται από κάποιον αρχηγό.</string>
+  <string name="requestDeclined">Το αίτημα πρόσβασης απορρίφθηκε από κάποιον αρχηγό της ομάδας.</string>
   <string name="subToTeamMessages">Εγγραφείτε στα μηνύματα της ομάδας</string>
   <string name="teamBattle">Μάχη ομάδας</string>
   <string name="teamBattleOverview">Μια μάχη μεταξύ πολλών ομάδων που ο κάθε παίκτης κερδίζει πόντους για την ομάδα του</string>
@@ -45,10 +47,12 @@
   <string name="leadersChat">Chat αρχηγών</string>
   <string name="closeTeam">Κλείστε την ομάδα</string>
   <string name="closeTeamDescription">Κλείνει την ομάδα για πάντα.</string>
-  <string name="teamPassword">Κωδικός ομάδας</string>
-  <string name="teamPasswordDescriptionForLeader">(Προαιρετικό) Ένας κωδικός πρόσβασης που πρέπει να γνωρίζουν τα νέα μέλη για να συμμετάσχουν σε αυτήν την ομάδα.</string>
-  <string name="incorrectTeamPassword">Λάθος κωδικός ομάδας.</string>
+  <string name="entryCode">Κωδικός εισόδου ομάδας</string>
+  <string name="entryCodeDescriptionForLeader">(Προαιρετικό) Ένας κωδικός εισόδου που πρέπει να γνωρίζουν τα νέα μέλη για να συμμετάσχουν σε αυτήν την ομάδα.</string>
+  <string name="incorrectEntryCode">Λάθος κωδικός εισόδου.</string>
   <string name="teamAlreadyExists">Αυτή η ομάδα υπάρχει ήδη.</string>
   <string name="upcomingTourns">Επερχόμενα πρωταθλήματα</string>
   <string name="completedTourns">Ολοκληρωμένα πρωταθλήματα</string>
+  <string name="declinedRequests">Απορριφθέντα αιτήματα</string>
+  <string name="joinLichessVariantTeam">Γίνε μέλος της επίσημης ομάδας %s για να ενημερώνεσαι και να συμμετέχεις σε διάφορες εκδηλώσεις</string>
 </resources>

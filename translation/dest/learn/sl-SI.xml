@@ -175,6 +175,9 @@ Kralj je neprecenljiv! Izgubiti ga, pomeni izgubiti partijo.</string>
   <string name="queenOverBishop">Vzemite figuro
 z največjo vrednostjo!
 Kraljica &gt; Lovec</string>
+  <string name="pieceValueExchange">Vzemite figuro z najvišjo vrednostjo!
+ Ne menjajte
+ vrednejše figure za manj vredno.</string>
   <string name="pieceValueLegal">Vzemi figuro
 z najvišjo vrednostjo!
 Prepričajte se, da je vaša poteza dovoljena!</string>
@@ -219,8 +222,8 @@ v dveh potezah!</string>
   <string name="nailedIt">Prav ste zadeli.</string>
   <string name="rightOn">Pravilno!</string>
   <string name="stageXComplete">Stopnja %s je končana</string>
-  <string name="yourScore">Vaš rezultat</string>
   <string name="next">Naslednje</string>
+  <string name="nextX">Naslednji: %s</string>
   <string name="backToMenu">Nazaj v meni</string>
   <string name="puzzleFailed">Nepravilna rešitev!</string>
   <string name="retry">Ponovno</string>

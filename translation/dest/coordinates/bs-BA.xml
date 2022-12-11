@@ -8,6 +8,11 @@
   <string name="mostChessCourses">Većina šahovskih kurseva i vježbi intenzivno koriste algebarsku notaciju.</string>
   <string name="talkToYourChessFriends">Lakše Vam je razgovarati sa Vašim šahovskim prijateljima, jer oboje razumijete \"šahovski jezik\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Možete efikasnije analizirati partiju, ako možete brže pronaći koordinate pojedinih polja.</string>
-  <string name="aSquareNameAppears">Koordinate polja će se pojaviti na ploči, a Vi morate kliknuti na odgovarajuće polje. Imate 30 sekundi da ispravno označite što veći broj polja!</string>
+  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Koordinata se pojavljuje na tabli i morate kliknuti na odgovarajuće polje.</string>
+  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Na tabli je označeno polje i morate unijeti njegovu koordinatu (npr., \"e4\").</string>
+  <string name="youHaveThirtySeconds">Imate 30 sekundi da tačno mapirate što je više moguće polja!</string>
+  <string name="goAsLongAsYouWant">Igrajte koliko god želite, nema vremenskog ograničenja!</string>
+  <string name="showCoordinates">Prikaži koordinate</string>
+  <string name="showPieces">Prikaži figure</string>
   <string name="startTraining">Pokrenite trening</string>
 </resources>

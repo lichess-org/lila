@@ -1,10 +1,11 @@
 package lila.coach
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.security.Permission
 
 @Module
@@ -20,20 +21,18 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
-    imageRepo: lila.db.ImageRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+    picfitApi: lila.memo.PicfitApi
+)(using ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem):
 
   private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
 
   private lazy val coachColl = db(config.coachColl)
 
-  private lazy val photographer = new lila.db.Photographer(imageRepo, "coach")
-
   lazy val api = new CoachApi(
     coachColl = coachColl,
     userRepo = userRepo,
     reviewColl = db(config.reviewColl),
-    photographer = photographer,
+    picfitApi = picfitApi,
     notifyApi = notifyApi,
     cacheApi = cacheApi
   )
@@ -48,28 +47,14 @@ final class Env(
     "setPermissions"
   ) {
     case lila.hub.actorApi.mod.Shadowban(userId, true) =>
-      api.toggleApproved(userId, value = false)
       api.reviews.deleteAllBy(userId).unit
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-      api.toggleApproved(userId, value = false)
       api.reviews.deleteAllBy(userId).unit
     case lila.hub.actorApi.mod.MarkBooster(userId) =>
-      api.toggleApproved(userId, value = false)
       api.reviews.deleteAllBy(userId).unit
-    case lila.hub.actorApi.mod.SetPermissions(userId, permissions) =>
-      api.toggleApproved(userId, permissions.has(Permission.Coach.dbKey)).unit
     case lila.game.actorApi.FinishGame(game, white, black) if game.rated =>
       if (game.perfType.exists(lila.rating.PerfType.standard.contains)) {
         white ?? api.setRating
         black ?? api.setRating
       }.unit
   }
-
-  def cli =
-    new lila.common.Cli {
-      def process = {
-        case "coach" :: "enable" :: username :: Nil  => api.toggleApproved(username, value = true)
-        case "coach" :: "disable" :: username :: Nil => api.toggleApproved(username, value = false)
-      }
-    }
-}

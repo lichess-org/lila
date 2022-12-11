@@ -1,15 +1,15 @@
 package lila.practice
 
-sealed trait PracticeGoal
+enum PracticeGoal:
 
-object PracticeGoal {
+  case Mate
+  case MateIn(nbMoves: Int)
+  case DrawIn(nbMoves: Int)
+  case EqualIn(nbMoves: Int) // same as draw, except wording
+  case EvalIn(cp: Int, nbMoves: Int)
+  case Promotion(cp: Int)
 
-  case object Mate                         extends PracticeGoal
-  case class MateIn(nbMoves: Int)          extends PracticeGoal
-  case class DrawIn(nbMoves: Int)          extends PracticeGoal
-  case class EqualIn(nbMoves: Int)         extends PracticeGoal // same as draw, except wording
-  case class EvalIn(cp: Int, nbMoves: Int) extends PracticeGoal
-  case class Promotion(cp: Int)            extends PracticeGoal
+object PracticeGoal:
 
   private val MateR      = """(?i)(?:check)?+mate""".r
   private val MateInR    = """(?i)(?:check)?+mate in (\d++)""".r
@@ -34,4 +34,3 @@ object PracticeGoal {
       case PromotionR(cpStr) => cpStr.toIntOption map Promotion.apply
       case _                 => none
     } | Mate // default to mate
-}

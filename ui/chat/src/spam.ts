@@ -38,6 +38,7 @@ const spamRegex = new RegExp(
     'sexdatingcz.club',
     'qps.ru',
     'tiny.cc/',
+    'trasderk.blogspot.com',
   ]
     .map(url => url.replace(/\./g, '\\.').replace(/\//g, '\\/'))
     .join('|')

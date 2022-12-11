@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">Vërtetim me dy faktorë</string>
-  <string name="twoFactorHelp">Vërtetimi me dy faktorë i shton llogarisë tuaj edhe një shtresë sigurie.</string>
-  <string name="twoFactorApp">Merrni nje app per identifikimin me dy faktore, per shembull Otp per %1$s ose identifikimin Google per %2$s.</string>
-  <string name="scanTheCode">Skano kodin QR me app.</string>
-  <string name="enterPassword">Fusni fjalkalimin dhe kodin e identifikimit te gjeneruar nga app per te kompletuar procesin. Ju duhet kodi identifikimit cdo here qe logoheni.</string>
-  <string name="ifYouCannotScanEnterX">Ne qofte se kodi nuk skanohet, vendosni kodin sekret %s ne app tuaj.</string>
-  <string name="authenticationCode">Kodi i identifikimit</string>
-  <string name="ifYouLoseAccess">Kujdes: Nese humbisni aksesin tek kodi i dyfishte i identifikimit, ju mund ti ndryshoni nepermjet email.</string>
-  <string name="enableTwoFactor">Aktivizo identifikimin e dyfishtë</string>
-  <string name="disableTwoFactor">Deaktivizo identifikimin e dyfishtë</string>
-  <string name="twoFactorEnabled">Identifikimi i dyfishtë u aktivizua</string>
-  <string name="twoFactorDisable">Ju duhet fjalekalimi dhe kodi identifikues nga aplikacioni ne menyre qe te hiqni identifikimin me dy etapa.
-Nese keni humbur fjalekalimin atehere mund ta ndryshoni perseri nepermjet emailt.</string>
-  <string name="openTwoFactorApp">Hapni identifikimin me dy etapa ne aplikacion ne paisjen tuaj per te shikuar kodin dhe te verifikoni identitetin tuaj.</string>
+  <string name="twoFactorAuth">Mirëfilltësim dyfaktorësh</string>
+  <string name="twoFactorHelp">Mirëfilltësimi dyfaktorësh i shton llogarisë tuaj edhe një tjetër shtresë sigurie.</string>
+  <string name="twoFactorApp">Merrni një aplikacion për mirëfilltësim dyfaktorësh, për shembull, andOTP për %1$s, ose Google Authenticator për %2$s.</string>
+  <string name="scanTheCode">Skanoni kodin QR me aplikacionin.</string>
+  <string name="enterPassword">Që të plotësohet ujdisja, jepni fjalëkalimin tuaj dhe kodin e mirëfilltësimit të prodhuar nga aplikacioni. Do t’ju duhet një kod mirëfilltësimi sa herë që bëni hyrjen në Lichess.</string>
+  <string name="ifYouCannotScanEnterX">Nëse nuk skanoni dot kodin, jepni të fshehtën %s në aplikacionin tuaj.</string>
+  <string name="authenticationCode">Kod mirëfilltësimi</string>
+  <string name="ifYouLoseAccess">Shënim: Nëse humbni hyrje te kodet tuaj të mirëfilltësimit dyfaktorësh, mund të kryeni një ricaktim fjalëkalimi përmes email-i.</string>
+  <string name="enableTwoFactor">Aktivizo mirëfilltësim dyfaktorësh</string>
+  <string name="disableTwoFactor">Çaktivizo mirëfilltësim dyfaktorësh</string>
+  <string name="twoFactorEnabled">Mirëfilltësimi dyfaktorësh u aktivizua</string>
+  <string name="twoFactorDisable">Që të çaktivizoni mirëfilltësim dyfaktorësh, ju duhet fjalëkalimi juaj dhe një kod mirëfilltësimi.
+Nëse humbët hyrjen te kodet tuaj të mirëfilltësimit, mundeni edhe të kryeni një ricaktim fjalëkalimi përmes email-i.</string>
+  <string name="openTwoFactorApp">Që të shihni kodin tuaj të mirëfilltësimit dhe të verifikoni identitetin tuaj, hapni aplikacionin për mirëfilltësim dyfaktorësh në pajisjen tuaj.</string>
 </resources>

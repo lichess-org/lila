@@ -1,0 +1,24 @@
+.tutor {
+  &__home {
+    .tutor__mascot-says h2 {
+      font-size: 1.5em;
+      line-height: 2em;
+    }
+  }
+  &__perfs {
+    &__perf {
+      .slist tr td {
+        font-weight: bold;
+      }
+    }
+  }
+  &__empty {
+    &__cta {
+      text-align: center;
+      margin: 10vh 0 5vh 0;
+    }
+    .spinner {
+      margin: 10vh auto;
+    }
+  }
+}

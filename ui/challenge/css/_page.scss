@@ -9,8 +9,8 @@
 
     > div {
       @extend %box-radius;
+      @include padding-direction(2em, 2em, 1em, 2em);
 
-      padding: 2em 2em 1em 2em;
       background: $c-bg-zebra;
       margin: 1em;
       flex: 1 1 auto;
@@ -56,7 +56,7 @@
       &::before {
         color: var(--c-font);
         font-size: 6rem;
-        margin-right: 0.2em;
+        margin-#{$end-direction}: 0.2em;
       }
 
       div {

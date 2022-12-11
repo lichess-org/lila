@@ -7,6 +7,12 @@ footer {
   height: 2.5rem;
   padding: 0 1vw;
 
+  position: fixed;
+  #{$start-direction}: 0;
+  #{$end-direction}: 0;
+  bottom: 0;
+  z-index: 5;
+
   .left {
     @extend %nowrap-ellipsis;
 
@@ -18,7 +24,7 @@ footer {
 
     display: inline;
     font-size: 1em;
-    margin-left: 1vw;
+    margin-#{$start-direction}: 1vw;
   }
 
   .open {

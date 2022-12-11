@@ -46,7 +46,6 @@
       color: $c-font-page;
       padding: 0.7rem 2vw 0.7rem 0.8rem;
       position: relative;
-      max-width: 30ch;
 
       &::after {
         content: '';
@@ -55,7 +54,7 @@
         position: absolute;
         height: 98%;
         top: 1%;
-        right: -1px;
+        #{$end-direction}: -1px;
 
         @include transition(all, 0.25s);
 

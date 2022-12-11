@@ -1,4 +1,4 @@
-import { Chess } from 'chessops/chess';
+import { Chess, normalizeMove, castlingSide } from 'chessops/chess';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
 import { NormalMove } from 'chessops/types';
@@ -48,7 +48,7 @@ export default function (token: string) {
       console.warn('JSON Object for Speech Keywords seems incomplete. Using English default.');
     }
   } catch (error) {
-    console.error('Invalid JSON Object for Speech Keywords. Using English default. ' + Error(error).message);
+    console.error('Invalid JSON Object for Speech Keywords. Using English default. ' + error);
   }
 
   //Lichess Integration with Board API
@@ -90,7 +90,7 @@ export default function (token: string) {
   /**
    * Global Variables for DGT Board Connection (JACM)
    */
-  let localBoard: Chess = startingPosition(); //Board with valid moves played on Lichess and DGT Board. May be half move behind Lichess or half move in advance
+  let localBoard: Chess = startingPosition(); //Board with valid moves played on Lichess and DGT Board. May be half-move behind Lichess or half-move in advance
   let DGTgameId = ''; //Used to track if DGT board was setup already with the lichess currentGameId
   let boards = Array<{ serialnr: string; state: string }>(); //An array to store all the board recognized by DGT LiveChess
   let liveChessConnection: WebSocket; //Connection Object to LiveChess through websocket
@@ -164,9 +164,7 @@ export default function (token: string) {
    *
    * @param {number} ms - The number of milliseconds to sleep
    */
-  function sleep(ms = 0) {
-    return new Promise(r => setTimeout(r, ms));
-  }
+  const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
 
   /**
    * GET /api/account
@@ -176,7 +174,7 @@ export default function (token: string) {
    * Shows Public information about the logged in user.
    *
    * Example
-   * {"id":"andrescavallin","username":"andrescavallin","online":true,"perfs":{"blitz":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"bullet":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"correspondence":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"classical":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"rapid":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true}},"createdAt":1599930231644,"seenAt":1599932744930,"playTime":{"total":0,"tv":0},"language":"en-US","url":"http://localhost:9663/@/andrescavallin","nbFollowing":0,"nbFollowers":0,"count":{"all":0,"rated":0,"ai":0,"draw":0,"drawH":0,"loss":0,"lossH":0,"win":0,"winH":0,"bookmark":0,"playing":0,"import":0,"me":0},"followable":true,"following":false,"blocking":false,"followsYou":false}
+   * {"id":"andrescavallin","username":"andrescavallin","online":true,"perfs":{"blitz":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"bullet":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"correspondence":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"classical":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"rapid":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true}},"createdAt":1599930231644,"seenAt":1599932744930,"playTime":{"total":0,"tv":0},"url":"http://localhost:9663/@/andrescavallin","nbFollowing":0,"nbFollowers":0,"count":{"all":0,"rated":0,"ai":0,"draw":0,"drawH":0,"loss":0,"lossH":0,"win":0,"winH":0,"bookmark":0,"playing":0,"import":0,"me":0},"followable":true,"following":false,"blocking":false,"followsYou":false}
    * */
   function getProfile() {
     //Log intention
@@ -250,7 +248,7 @@ export default function (token: string) {
                 connectToGameStream(data.game.id);
               } catch (error) {
                 //This will trigger if connectToGameStream fails
-                console.error('connectToEventStream - Failed to connect to game stream. ' + Error(error).message);
+                console.error('connectToEventStream - Failed to connect to game stream. ' + error);
               }
             } else if (data.type == 'challenge') {
               //Challenge received
@@ -262,7 +260,7 @@ export default function (token: string) {
               console.warn('connectToEventStream - ' + data.error);
             }
           } catch (error) {
-            console.error('connectToEventStream - Unable to parse JSON or Unexpected error. ' + Error(error).message);
+            console.error('connectToEventStream - Unable to parse JSON or Unexpected error. ' + error);
           }
         } else {
           //Signal that some empty message arrived. This is normal to keep the connection alive.
@@ -374,7 +372,7 @@ export default function (token: string) {
               console.log('connectToGameStream - ' + data.error);
             }
           } catch (error) {
-            console.error('connectToGameStream - No valid game data or Unexpected error. ' + Error(error).message);
+            console.error('connectToGameStream - No valid game data or Unexpected error. ' + error);
           }
         } else {
           //Signal that some empty message arrived
@@ -530,7 +528,7 @@ export default function (token: string) {
         if (moves[i] != '') {
           //Make any move that may have been already played on the ChessBoard. Useful when reconnecting
           const uciMove = <NormalMove>parseUci(moves[i]);
-          const normalizedMove = chess.normalizeMove(uciMove); //This is because chessops uses UCI_960
+          const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
           if (normalizedMove && chess.isLegal(normalizedMove)) chess.play(normalizedMove);
         }
       }
@@ -540,7 +538,7 @@ export default function (token: string) {
       if (verbose) console.log(board(chess.board));
       if (verbose) console.log(chess.turn + "'s turn");
     } catch (error) {
-      console.error(`initializeChessBoard - Error: ${error.message}`);
+      console.error(`initializeChessBoard - Error: ${error}`);
     }
   }
 
@@ -568,7 +566,7 @@ export default function (token: string) {
           if (moves[i] != '') {
             //Make the new move
             const uciMove = <NormalMove>parseUci(moves[i]);
-            const normalizedMove = chess.normalizeMove(uciMove); //This is because chessops uses UCI_960
+            const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
             if (normalizedMove && chess.isLegal(normalizedMove)) {
               //This is a good chance to get the move in SAN format
               if (chess.turn == 'black')
@@ -593,7 +591,7 @@ export default function (token: string) {
         if (verbose) console.log(chess.turn + "'s turn");
       }
     } catch (error) {
-      console.error(`updateChessBoard - Error: ${error.message}`);
+      console.error(`updateChessBoard - Error: ${error}`);
     }
   }
 
@@ -1137,7 +1135,7 @@ export default function (token: string) {
       try {
         extendedSanMove = extendedSanMove.replace(keywordsBase[i], ' ' + keywords[keywordsBase[i]].toLowerCase() + ' ');
       } catch (error) {
-        console.error(`raplaceKeywords - Error replacing keyword. ${keywordsBase[i]} . ${Error(error).message}`);
+        console.error(`raplaceKeywords - Error replacing keyword. ${keywordsBase[i]} . ${error}`);
       }
     }
     return extendedSanMove;
@@ -1198,8 +1196,7 @@ export default function (token: string) {
         return true;
       }
       if (verbose) console.log('Moves look different. Check if this is a castling mismatch.');
-      const castlingSide = localBoard.castlingSide(moveObject);
-      if (lastMove.length > 2 && castlingSide) {
+      if (lastMove.length > 2 && castlingSide(localBoard, moveObject)) {
         //It was a castling so it still may be the same move
         if (lastMove.startsWith(uciMove.substring(0, 2))) {
           //it was the same starting position for the king
@@ -1215,7 +1212,7 @@ export default function (token: string) {
         }
       }
     } catch (err) {
-      console.warn('compareMoves - ' + Error(err).message);
+      console.warn('compareMoves - ' + err);
     }
     return false;
   }

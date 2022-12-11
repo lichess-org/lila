@@ -1,13 +1,14 @@
 package lila.setup
 
-import chess.{ Game => ChessGame, Situation, Clock, Speed }
+import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
-import chess.format.FEN
+import chess.{ Clock, Game as ChessGame, Situation, Speed }
 
+import lila.common.Days
 import lila.game.Game
 import lila.lobby.Color
 
-private[setup] trait Config {
+private[setup] trait Config:
 
   // Whether or not to use a clock
   val timeMode: TimeMode
@@ -16,10 +17,10 @@ private[setup] trait Config {
   val time: Double
 
   // Clock increment in seconds
-  val increment: Int
+  val increment: Clock.IncrementSeconds
 
   // Correspondence days per turn
-  val days: Int
+  val days: Days
 
   // Game variant code
   val variant: Variant
@@ -43,65 +44,65 @@ private[setup] trait Config {
       Speed(c) >= Speed.Bullet
     }
 
-  def clockHasTime = time + increment > 0
+  def clockHasTime = time + increment.value > 0
 
   def makeClock = hasClock option justMakeClock
 
   protected def justMakeClock =
-    Clock.Config((time * 60).toInt, if (clockHasTime) increment else 1)
+    Clock.Config(
+      Clock.LimitSeconds((time * 60).toInt),
+      if (clockHasTime) increment else Clock.IncrementSeconds(1)
+    )
 
-  def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
-}
+  def makeDaysPerTurn: Option[Days] = (timeMode == TimeMode.Correspondence) option days
 
 trait Positional { self: Config =>
 
-  import chess.format.Forsyth, Forsyth.SituationPlus
-
-  def fen: Option[FEN]
+  def fen: Option[Fen.Epd]
 
   def strictFen: Boolean
 
   lazy val validFen = variant != FromPosition || {
     fen exists { f =>
-      (Forsyth <<< f).exists(_.situation playable strictFen)
+      Fen.read(f).exists(_ playable strictFen)
     }
   }
 
-  def fenGame(builder: ChessGame => Game): Game = {
-    val baseState = fen ifTrue (variant.fromPosition) flatMap {
-      Forsyth.<<<@(FromPosition, _)
+  def fenGame(builder: ChessGame => Fu[Game]): Fu[Game] =
+    val baseState = fen.ifTrue(variant.fromPosition) flatMap {
+      Fen.readWithMoveNumber(FromPosition, _)
     }
-    val (chessGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
-      case sit @ SituationPlus(s, _) =>
+    val (chessGame, state) = baseState.fold(makeGame -> none[Situation.AndFullMoveNumber]) {
+      case sit @ Situation.AndFullMoveNumber(s, _) =>
         val game = ChessGame(
           situation = s,
           turns = sit.turns,
           startedAtTurn = sit.turns,
           clock = makeClock.map(_.toClock)
         )
-        if (Forsyth.>>(game).initial) makeGame(chess.variant.Standard) -> none
-        else game                                                      -> baseState
+        if (Fen.write(game).isInitial) makeGame(chess.variant.Standard) -> none
+        else game                                                       -> baseState
     }
-    val game = builder(chessGame)
-    state.fold(game) { case sit @ SituationPlus(Situation(board, _), _) =>
-      game.copy(
-        chess = game.chess.copy(
-          situation = game.situation.copy(
-            board = game.board.copy(
-              history = board.history,
-              variant = FromPosition
-            )
-          ),
-          turns = sit.turns
+    builder(chessGame) dmap { game =>
+      state.fold(game) { case sit @ Situation.AndFullMoveNumber(Situation(board, _), _) =>
+        game.copy(
+          chess = game.chess.copy(
+            situation = game.situation.copy(
+              board = game.board.copy(
+                history = board.history,
+                variant = FromPosition
+              )
+            ),
+            turns = sit.turns
+          )
         )
-      )
+      }
     }
-  }
 }
 
 object Config extends BaseConfig
 
-trait BaseConfig {
+trait BaseConfig:
   val variants       = List(chess.variant.Standard.id, chess.variant.Chess960.id)
   val variantDefault = chess.variant.Standard
 
@@ -135,7 +136,6 @@ trait BaseConfig {
   def validateTime(t: Double) =
     t >= timeMin && t <= timeMax && (t.isWhole || acceptableFractions(t))
 
-  private val incrementMin      = 0
-  private val incrementMax      = 180
-  def validateIncrement(i: Int) = i >= incrementMin && i <= incrementMax
-}
+  private val incrementMin                         = Clock.IncrementSeconds(0)
+  private val incrementMax                         = Clock.IncrementSeconds(180)
+  def validateIncrement(i: Clock.IncrementSeconds) = i >= incrementMin && i <= incrementMax

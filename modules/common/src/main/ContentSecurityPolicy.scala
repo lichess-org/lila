@@ -8,21 +8,33 @@ case class ContentSecurityPolicy(
     workerSrc: List[String],
     imgSrc: List[String],
     scriptSrc: List[String],
+    fontSrc: List[String],
     baseUri: List[String]
-) {
+):
 
   def withNonce(nonce: Nonce) = copy(scriptSrc = nonce.scriptSrc :: scriptSrc)
+
+  def withLegacyCompatibility = copy(scriptSrc = "'unsafe-inline'" :: scriptSrc)
 
   def withWebAssembly =
     copy(
       scriptSrc = "'unsafe-eval'" :: scriptSrc
     )
 
+  def withExternalEngine(url: String) = copy(connectSrc = url :: connectSrc)
+
   def withStripe =
     copy(
       connectSrc = "https://*.stripe.com" :: connectSrc,
       scriptSrc = "https://*.stripe.com" :: scriptSrc,
       frameSrc = "https://*.stripe.com" :: frameSrc
+    )
+
+  def withPayPal =
+    copy(
+      connectSrc = "https://*.paypal.com" :: connectSrc,
+      scriptSrc = "https://*.paypal.com" :: scriptSrc,
+      frameSrc = "https://*.paypal.com" :: frameSrc
     )
 
   def finalizeWithTwitch =
@@ -69,6 +81,12 @@ case class ContentSecurityPolicy(
 
   def withAnyWs = copy(connectSrc = "ws:" :: "wss:" :: connectSrc)
 
+  def withWikiBooks = copy(connectSrc = "en.wikibooks.org" :: connectSrc)
+
+  def withLilaHttp = copy(connectSrc = "http.lichess.org" :: connectSrc)
+
+  def withInlineIconFont = copy(fontSrc = "data:" :: fontSrc)
+
   override def toString: String =
     List(
       "default-src " -> defaultSrc,
@@ -78,9 +96,9 @@ case class ContentSecurityPolicy(
       "worker-src "  -> workerSrc,
       "img-src "     -> imgSrc,
       "script-src "  -> scriptSrc,
+      "font-src "    -> fontSrc,
       "base-uri "    -> baseUri
     ) collect {
       case (directive, sources) if sources.nonEmpty =>
         sources.mkString(directive, " ", ";")
     } mkString " "
-}

@@ -39,9 +39,9 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
 
   if (typeof dropStr === 'undefined' || dropStr === null) return true;
 
-  const drops = dropStr.match(/.{2}/g) || [];
+  const drops = dropStr.match(/.{2}/g);
 
-  return drops.includes(key);
+  return drops?.includes(key) === true;
 }
 
 export function onEnd() {

@@ -1,4 +1,33 @@
+main.has-relay-tour {
+  grid-template-areas:
+    'relay-tour'
+    'side'
+    'chat'
+    'uchat'
+    'round-training';
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: minmax(230px, 350px) minmax(70%, 800px);
+    grid-template-rows: auto auto 2.5em;
+    grid-template-areas:
+      'side  relay-tour'
+      'chat  relay-tour'
+      'uchat relay-tour'
+      'round-training relay-tour'
+      '. relay-tour';
+    grid-column-gap: $block-gap;
+
+    .analyse__side {
+      margin-top: 0;
+    }
+    .mchat {
+      height: 48vh;
+    }
+  }
+}
+
 .relay-tour {
+  grid-area: relay-tour;
   &__round {
     @extend %box-radius, %flex-between-nowrap;
     background: mix($c-primary, $c-bg-box, 10%);
@@ -9,6 +38,7 @@
       font-size: 1.2em;
     }
   }
+
   &__text {
     @extend %box-neat;
 
@@ -18,7 +48,51 @@
     overflow-y: auto;
 
     .slist {
+      border-bottom: 0;
+    }
+
+    &__schedule {
+      td:nth-child(3) {
+        text-align: center;
+      }
+    }
+
+    &__leaderboard {
+      thead {
+        background: none;
+        th {
+          border: 0;
+          padding: 0 0.8rem;
+          &:first-child {
+            padding-left: 0;
+          }
+        }
+      }
+      th,
+      td {
+        text-align: $end-direction;
+        &:first-child {
+          text-align: $start-direction;
+        }
+      }
+      td {
+        &:nth-child(3) {
+          font-weight: bold;
+        }
+        &:last-child {
+          padding-#{$end-direction}: 1.5em;
+        }
+      }
+    }
+
+    .slist {
       margin-bottom: 1em;
+      ongoing {
+        color: $c-red;
+      }
+      finished {
+        color: $c-good;
+      }
     }
 
     h1 {
@@ -61,15 +135,11 @@
     }
 
     li {
-      margin-left: 2em;
+      margin-#{$start-direction}: 2em;
 
       p {
         display: inline;
       }
     }
   }
-}
-
-main.has-relay-tour .mchat {
-  max-height: 48vh;
 }

@@ -20,14 +20,20 @@
     cursor: pointer;
 
     input {
-      margin-right: 0.3em;
+      margin-#{$end-direction}: 0.3em;
       vertical-align: middle;
+      cursor: pointer;
     }
   }
 
   .downloads {
-    @extend %flex-around;
+    @extend %flex-center;
 
-    margin-bottom: 2em;
+    justify-content: center;
+    margin-bottom: 1.5em;
+
+    .button {
+      margin: 0 2px 0.5em 2px;
+    }
   }
 }

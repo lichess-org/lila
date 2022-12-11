@@ -1,6 +1,7 @@
-package lila
+package lila.insight
 
-package object insight extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[insight] def logger = lila.log("insight")
-}
+private val logger = lila.log("insight")
+
+private type Ply = Int

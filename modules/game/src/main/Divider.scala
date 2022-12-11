@@ -1,34 +1,31 @@
 package lila.game
 
 import com.github.blemale.scaffeine.Cache
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import chess.Division
 import chess.variant.Variant
-import chess.format.FEN
+import chess.format.Fen
 
-final class Divider {
+final class Divider:
 
-  private val cache: Cache[Game.ID, Division] = lila.memo.CacheApi.scaffeineNoScheduler
+  private val cache: Cache[GameId, Division] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(5 minutes)
-    .build[Game.ID, Division]()
+    .build[GameId, Division]()
 
-  def apply(game: Game, initialFen: Option[FEN]): Division =
+  def apply(game: Game, initialFen: Option[Fen.Epd]): Division =
     apply(game.id, game.pgnMoves, game.variant, initialFen)
 
-  def apply(id: Game.ID, pgnMoves: => PgnMoves, variant: Variant, initialFen: Option[FEN]) =
+  def apply(id: GameId, pgnMoves: => PgnMoves, variant: Variant, initialFen: Option[Fen.Epd]) =
     if (!Variant.divisionSensibleVariants(variant)) Division.empty
-    else
-      cache.get(
-        id,
-        _ =>
-          chess.Replay
-            .boards(
-              moveStrs = pgnMoves,
-              initialFen = initialFen,
-              variant = variant
-            )
-            .toOption
-            .fold(Division.empty)(chess.Divider.apply)
+    else cache.get(id, _ => noCache(id, pgnMoves, variant, initialFen))
+
+  def noCache(id: GameId, pgnMoves: => PgnMoves, variant: Variant, initialFen: Option[Fen.Epd]) =
+    chess.Replay
+      .boards(
+        moveStrs = pgnMoves,
+        initialFen = initialFen,
+        variant = variant
       )
-}
+      .toOption
+      .fold(Division.empty)(chess.Divider.apply)

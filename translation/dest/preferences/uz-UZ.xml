@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Shaxsiy sozlanmalar</string>
-  <string name="gameDisplay">O\'yin oynasi</string>
   <string name="pieceAnimation">Qism animatsiyalar</string>
   <string name="materialDifference">Materiallar farqi</string>
   <string name="boardHighlights">Doskadagi rang bilan ajratsih (oxirgi yurish va shoh)</string>
@@ -32,7 +31,7 @@
   <string name="promoteToQueenAutomatically">Qirolicha darajasigacha avtomatik tarzda oshirish</string>
   <string name="whenPremoving">Oldindan yurilganda</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Avtomatik tarzda uch karra takrorlashga ariza berish</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Qachonki vaqt tugashiga &lt; 30 sekundlar bo\'lsa</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Qachonki vaqt tugashiga &lt; 30 sekundlar bo\'lsa</string>
   <string name="moveConfirmation">Yurishni tasdiqlash</string>
   <string name="inCorrespondenceGames">Yozishmali o\'yinlar</string>
   <string name="correspondenceAndUnlimited">Yozishmali va vaqtda chegaralanmagan</string>

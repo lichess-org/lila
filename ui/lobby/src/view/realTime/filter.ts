@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 import * as xhr from 'common/xhr';
-import { bind } from '../util';
+import { bind } from 'common/snabbdom';
 import LobbyController from '../../ctrl';
 
 function initialize(ctrl: LobbyController, el: HTMLElement) {
@@ -86,6 +86,7 @@ export const render = (ctrl: LobbyController) =>
       insert(vnode) {
         const el = vnode.elm as FilterNode;
         if (el.filterLoaded) return;
+        lichess.loadCssPath('lobby.setup');
         xhr.text('/setup/filter').then(html => {
           el.innerHTML = html;
           el.filterLoaded = true;

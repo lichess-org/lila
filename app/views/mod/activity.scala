@@ -2,38 +2,41 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
-import lila.mod.ModActivity._
+import lila.mod.ModActivity.*
 import lila.report.Room
 
-object activity {
+object activity:
 
-  def apply(p: Result)(implicit ctx: Context) = {
+  def apply(p: Result)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Moderation activity",
       moreCss = cssTag("mod.activity"),
       moreJs = frag(
-        jsModule("modActivity"),
-        embedJsUnsafeLoadThen(s"""modActivity.activity(${safeJsonValue(lila.mod.ModActivity.json(p))})""")
+        jsModule("mod.activity"),
+        embedJsUnsafeLoadThen(
+          s"""LichessModActivity.activity(${safeJsonValue(lila.mod.ModActivity.json(p))})"""
+        )
       )
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("activity"),
         div(cls := "page-menu__content index box mod-activity")(
-          h1(
-            whoSelector(p),
-            " activity this ",
-            periodSelector(p)
+          boxTop(
+            h1(
+              whoSelector(p),
+              " activity this ",
+              periodSelector(p)
+            )
           ),
           div(cls := "chart chart-reports"),
           div(cls := "chart chart-actions")
         )
       )
     }
-  }
 
   private def whoSelector(p: Result) =
     views.html.base.bits
@@ -42,11 +45,11 @@ object activity {
         span(if (p.who == Who.Team) "Team" else "My"),
         List(
           a(
-            cls := (p.who == Who.Team).option("current"),
+            cls  := (p.who == Who.Team).option("current"),
             href := routes.Mod.activityOf("team", p.period.key)
           )("Team"),
           a(
-            cls := (p.who != Who.Team).option("current"),
+            cls  := (p.who != Who.Team).option("current"),
             href := routes.Mod.activityOf("me", p.period.key)
           )("My")
         )
@@ -57,9 +60,9 @@ object activity {
       .mselect(
         s"mod-activity__period-select box__top__actions",
         span(p.period.key),
-        Period.all.map { per =>
+        Period.values.toList.map { per =>
           a(
-            cls := (p.period == per).option("current"),
+            cls  := (p.period == per).option("current"),
             href := routes.Mod.activityOf(p.who.key, per.key)
           )(per.toString)
         }
@@ -85,14 +88,13 @@ object activity {
             tr(
               th(showDate(date)),
               Room.all.map { r =>
-                td(~row.reports.get(r))
+                td(~row.reports.get(r): Int)
               },
               Action.all.map { a =>
-                td(~row.actions.get(a))
+                td(~row.actions.get(a): Int)
               }
             )
           }
           .toList
       )
     )
-}

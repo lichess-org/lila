@@ -235,8 +235,8 @@
   <string name="nailedIt">正解！</string>
   <string name="rightOn">そのとおり！</string>
   <string name="stageXComplete">ステージ %s 完了</string>
-  <string name="yourScore">あなたの得点</string>
   <string name="next">次</string>
+  <string name="nextX">次は：%s</string>
   <string name="backToMenu">メニューに戻る</string>
   <string name="puzzleFailed">失敗！</string>
   <string name="retry">もう一度</string>

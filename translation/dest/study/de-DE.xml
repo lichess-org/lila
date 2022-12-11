@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Du bist jetzt Zuschauer</string>
   <string name="pgnTags">PGN Tags</string>
   <string name="like">Gefällt mir</string>
+  <string name="unlike">Gefällt mir nicht mehr</string>
   <string name="newTag">Neuer Tag</string>
   <string name="commentThisPosition">Kommentiere diese Stellung</string>
   <string name="commentThisMove">Kommentiere diesen Zug</string>
@@ -49,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Nur Mitwirkende an der Studie können eine Computeranalyse anfordern.</string>
   <string name="getAFullComputerAnalysis">Erhalte eine vollständige serverseitige Computeranalyse der Hauptvariante.</string>
   <string name="makeSureTheChapterIsComplete">Stelle sicher, dass das Kapitel vollständig ist. Die Analyse kann nur einmal angefordert werden.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Alle synchronisierten Mitglieder sehen die gleiche Stellung</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Alle synchronisierten Mitglieder sehen die gleiche Stellung</string>
   <string name="shareChanges">Teile Änderungen mit den Zuschauern und speichere sie auf dem Server</string>
   <string name="playing">Laufende Partien</string>
   <string name="first">Erste Seite</string>
@@ -75,14 +76,16 @@
   <string name="studyNotFound">Studie nicht gefunden</string>
   <string name="editChapter">Kapitel bearbeiten</string>
   <string name="newChapter">Neues Kapitel</string>
+  <string name="importFromChapterX">Importiere aus %s</string>
   <string name="orientation">Ausrichtung</string>
   <string name="analysisMode">Analysemodus</string>
   <string name="pinnedChapterComment">Angepinnte Kapitelkommentare</string>
   <string name="saveChapter">Kapitel speichern</string>
   <string name="clearAnnotations">Anmerkungen löschen</string>
+  <string name="clearVariations">Varianten löschen</string>
   <string name="deleteChapter">Kapitel löschen</string>
-  <string name="deleteThisChapter">Kapitel löschen? Dies kann nicht rückgängig gemacht werden!</string>
-  <string name="clearAllCommentsInThisChapter">Alle Kommentare, Symbole und Zeichnungsformen in diesem Kapitel löschen?</string>
+  <string name="deleteThisChapter">Kapitel löschen. Dies kann nicht rückgängig gemacht werden!</string>
+  <string name="clearAllCommentsInThisChapter">Alle Kommentare, Symbole und gezeichnete Formen in diesem Kapitel löschen</string>
   <string name="rightUnderTheBoard">Direkt unterhalb des Bretts</string>
   <string name="noPinnedComment">Keine</string>
   <string name="normalAnalysis">Normale Analyse</string>
@@ -126,7 +129,7 @@
   <string name="clearChat">Chat löschen</string>
   <string name="deleteTheStudyChatHistory">Chatverlauf der Studie löschen? Dies kann nicht rückgängig gemacht werden!</string>
   <string name="deleteStudy">Studie löschen</string>
-  <string name="deleteTheEntireStudy">Komplette Studie löschen? Dies kann nicht rückgängig gemacht werden!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Die gesamte Studie löschen? Es gibt kein Zurück! Gib zur Bestätigung den Namen der Studie ein: %s</string>
   <string name="whereDoYouWantToStudyThat">Welche Studie möchtest du nutzen?</string>
   <string name="goodMove">Guter Zug</string>
   <string name="mistake">Fehler</string>
@@ -154,4 +157,13 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Mit der Idee</string>
   <string name="nextChapter">Nächstes Kapitel</string>
   <string name="prevChapter">Vorheriges Kapitel</string>
+  <string name="studyActions">Studien-Aktionen</string>
+  <string name="topics">Themen</string>
+  <string name="myTopics">Meine Themen</string>
+  <string name="popularTopics">Beliebte Themen</string>
+  <string name="manageTopics">Themen verwalten</string>
+  <string name="back">Zurück</string>
+  <string name="playAgain">Erneut spielen</string>
+  <string name="whatWouldYouPlay">Was würdest du in dieser Stellung spielen?</string>
+  <string name="youCompletedThisLesson">Gratulation! Du hast diese Lektion abgeschlossen.</string>
 </resources>

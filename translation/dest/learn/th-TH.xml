@@ -226,7 +226,6 @@
   <string name="nailedIt">เป๊ะเลย</string>
   <string name="rightOn">ถูกต้องเลย!</string>
   <string name="stageXComplete">ขั้นที่ %s สมบูรณ์</string>
-  <string name="yourScore">สกอร์ของคุณ</string>
   <string name="next">ถัดไป</string>
   <string name="backToMenu">กลับสู่เมนู</string>
   <string name="puzzleFailed">แก้ปริศนาล้มเหลว!</string>

@@ -55,9 +55,9 @@ SERVER_FILES = [
     ".sbtopts.default",
 ]
 
-ASSETS_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/assets.yml/runs"
+ASSETS_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workflows/assets.yml/runs?per_page=100"
 
-SERVER_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/server.yml/runs"
+SERVER_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workflows/server.yml/runs?per_page=100"
 
 ARTIFACT_DIR = "/home/lichess-artifacts"
 
@@ -99,8 +99,8 @@ def server_profile(ssh, *,
 PROFILES = {
     "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/cli"), stage=True),
     "khiaw-server": server_profile("root@khiaw.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
-    "ocean-server": server_profile("root@ocean.lichess.ovh", deploy_dir="/home/lichess"),
-    "ocean-assets": asset_profile("root@ocean.lichess.ovh", deploy_dir="/home/lichess"),
+    "manta-server": server_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
+    "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
 }
 
 
@@ -171,7 +171,7 @@ def update_workflow_run_db(db, session, workflow_url, *, silent=False):
 
         if "next" not in res.links:
             break
-        url = res.links["next"]["url"]
+        url = res.links["last"]["url"]
 
     if not silent:
         print(f"Added/updated {new} workflow run(s).")
@@ -255,7 +255,7 @@ def deploy_script(profile, session, run, url):
     return [
         "echo \\# Downloading ...",
         f"mkdir -p {ARTIFACT_DIR}",
-        f"mkdir -p {deploy_dir}/application.home_IS_UNDEFINED/logs",
+        f"mkdir -p {deploy_dir}/logs",
         f"[ -f {artifact_zip} ] || wget --header={shlex.quote(auth_header)} --header={shlex.quote(ua_header)} --no-clobber -O {artifact_zip} {shlex.quote(url)}",
         "echo",
         "echo \\# Unpacking ...",
@@ -285,7 +285,7 @@ def deploy(profile, repo, commit, github_api_token, dry_run):
 
     session = requests.Session()
     session.headers["Authorization"] = f"token {github_api_token}"
-    session.headers["User-Agent"] = "ornicar/lila"
+    session.headers["User-Agent"] = "lichess-org/lila"
 
     try:
         wanted_hash = hash_files(commit.tree, profile["files"])

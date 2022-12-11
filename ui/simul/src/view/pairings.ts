@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
+import { onInsert } from 'common/snabbdom';
 import SimulCtrl from '../ctrl';
 import { Pairing } from '../interfaces';
-import { onInsert } from './util';
 import { opposite } from 'chessground/util';
 
 export default function (ctrl: SimulCtrl) {
@@ -42,8 +42,7 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
           },
           [
             h('span.name', player.title ? [h('span.utitle', player.title), ' ', player.name] : [player.name]),
-            ' ',
-            h('span.rating', player.rating),
+            ...(ctrl.opts.showRatings ? [' ', h('span.rating', player.rating)] : []),
           ]
         ),
         game.clock

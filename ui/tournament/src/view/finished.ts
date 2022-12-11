@@ -19,11 +19,13 @@ function confetti(data: TournamentData): VNode | undefined {
   return undefined;
 }
 
-function stats(data: TournamentData, trans: Trans): VNode | undefined {
+function stats(ctrl: TournamentController): VNode | undefined {
+  const data = ctrl.data,
+    trans = ctrl.trans,
+    noarg = trans.noarg;
   if (!data.stats) return undefined;
-  const noarg = trans.noarg;
   const tableData = [
-    numberRow(noarg('averageElo'), data.stats.averageRating, 'raw'),
+    ctrl.opts.showRatings ? numberRow(noarg('averageElo'), data.stats.averageRating, 'raw') : null,
     numberRow(noarg('gamesPlayed'), data.stats.games),
     numberRow(noarg('movesPlayed'), data.stats.moves),
     numberRow(noarg('whiteWins'), [data.stats.whiteWins, data.stats.games], 'percent'),
@@ -64,6 +66,18 @@ function stats(data: TournamentData, trans: Trans): VNode | undefined {
         },
         'Download all games'
       ),
+      data.me &&
+        h(
+          'a.text',
+          {
+            attrs: {
+              'data-icon': '',
+              href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`,
+              download: true,
+            },
+          },
+          'Download my games'
+        ),
       h(
         'a.text',
         {
@@ -114,9 +128,5 @@ export function main(ctrl: TournamentController): MaybeVNodes {
 }
 
 export function table(ctrl: TournamentController): VNode | undefined {
-  return ctrl.playerInfo.id
-    ? playerInfo(ctrl)
-    : ctrl.teamInfo.requested
-    ? teamInfo(ctrl)
-    : stats(ctrl.data, ctrl.trans);
+  return ctrl.playerInfo.id ? playerInfo(ctrl) : ctrl.teamInfo.requested ? teamInfo(ctrl) : stats(ctrl);
 }

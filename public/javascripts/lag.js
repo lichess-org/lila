@@ -47,6 +47,9 @@ lichess.load.then(() => {
         series: {
           dataLabels: {
             align: 'left',
+            formatter: function () {
+              return this.y >= 0 ? this.y : '?';
+            },
           },
           wrap: false,
         },
@@ -192,7 +195,7 @@ lichess.load.then(() => {
       series: [
         {
           name: 'Latency',
-          data: [0],
+          data: [-1],
           tooltip: {
             valueSuffix: ' milliseconds',
           },
@@ -250,8 +253,10 @@ lichess.load.then(() => {
 
   setInterval(function () {
     const v = Math.round(lichess.socket.averageLag);
-    charts.network.series[0].points[0].update(v);
-    values.network = v;
-    updateAnswer();
+    if (v) {
+      charts.network.series[0].points[0].update(v);
+      values.network = v;
+      updateAnswer();
+    }
   }, 1000);
 });

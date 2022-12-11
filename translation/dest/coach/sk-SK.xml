@@ -18,13 +18,19 @@
   <string name="sendPM">Poslať súkromnú správu</string>
   <string name="aboutMe">O mne</string>
   <string name="playingExperience">Hráčske skúsenosti</string>
-  <string name="teachingExperience">Učiteľské skúsenosti</string>
-  <string name="otherExperiences">Ostatné skúsenosti</string>
+  <string name="teachingExperience">Skúsenosti s učením</string>
+  <string name="otherExperiences">Iné skúsenosti</string>
   <string name="bestSkills">Najlepšie schopnosti</string>
   <string name="teachingMethod">Metodológia výučby</string>
   <string name="publicStudies">Verejné štúdie</string>
   <string name="youtubeVideos">YouTube videá</string>
-  <string name="thankYouForReview">Ďakujeme Vám za hodntotenie!</string>
+  <plurals name="studentReviews">
+    <item quantity="one">%s hodnotenie študenta</item>
+    <item quantity="few">%s hodnotení študentov</item>
+    <item quantity="many">%s hodnotení študentov</item>
+    <item quantity="other">%s hodnotení študentov</item>
+  </plurals>
+  <string name="thankYouForReview">Ďakujeme Vám za hodnotenie!</string>
   <string name="xWillApproveIt">%s to schváli čo najskôr, alebo sa na to pozrie moderátor.</string>
   <string name="reviewCoach">Ohodnoťte tohto trénera</string>
   <string name="describeExperienceWith">Opíšte Vaše trénerské skúsenosti s %s</string>

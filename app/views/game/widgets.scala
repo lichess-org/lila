@@ -1,18 +1,18 @@
 package views.html
 package game
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Player, Pov }
 
-object widgets {
+object widgets:
 
   private val separator = " • "
 
   def apply(
       games: Seq[Game],
-      notes: Map[Game.ID, String] = Map(),
+      notes: Map[GameId, String] = Map(),
       user: Option[lila.user.User] = None,
       ownerLink: Boolean = false
   )(implicit ctx: Context): Frag =
@@ -20,7 +20,7 @@ object widgets {
       val fromPlayer  = user flatMap g.player
       val firstPlayer = fromPlayer | g.player(g.naturalOrientation)
       st.article(cls := "game-row paginated")(
-        a(cls := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
+        a(cls        := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
         div(cls := "game-row__board")(
           views.html.board.bits.mini(Pov(g, firstPlayer))(span)
         ),
@@ -54,7 +54,7 @@ object widgets {
                   frag(separator, views.html.simul.bits.link(simulId))
                 } orElse
                 g.swissId.map { swissId =>
-                  frag(separator, views.html.swiss.bits.link(lila.swiss.Swiss.Id(swissId)))
+                  frag(separator, views.html.swiss.bits.link(SwissId(swissId)))
                 }
             )
           ),
@@ -71,7 +71,7 @@ object widgets {
                   gameEndStatus(g),
                   g.winner.map { winner =>
                     frag(
-                      ", ",
+                      " • ",
                       winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
                     )
                   }
@@ -83,7 +83,7 @@ object widgets {
             val pgnMoves = g.pgnMoves take 20
             div(cls := "opening")(
               (!g.fromPosition ?? g.opening) map { opening =>
-                strong(opening.opening.ecoName)
+                strong(opening.opening.name)
               },
               div(cls := "pgn")(
                 pgnMoves.take(6).grouped(2).zipWithIndex map {
@@ -114,8 +114,8 @@ object widgets {
       game.daysPerTurn
         .map { days =>
           span(title := trans.correspondence.txt())(
-            if (days == 1) trans.oneDay()
-            else trans.nbDays.pluralSame(days)
+            if (days.value == 1) trans.oneDay()
+            else trans.nbDays.pluralSame(days.value)
           )
         }
         .getOrElse {
@@ -132,29 +132,26 @@ object widgets {
           userIdLink(playerUser.id.some, withOnline = false),
           br,
           player.berserk option berserkIconSpan,
-          playerUser.rating,
-          player.provisional option "?",
-          playerUser.ratingDiff map { d =>
-            frag(" ", showRatingDiff(d))
-          }
+          ctx.pref.showRatings option frag(
+            playerUser.rating,
+            player.provisional.yes option "?",
+            playerUser.ratingDiff map { d =>
+              frag(" ", showRatingDiff(d))
+            }
+          )
         )
       } getOrElse {
         player.aiLevel map { level =>
-          frag(
-            span(aiName(level, withRating = false)),
-            br,
-            aiRating(level)
-          )
+          span(aiNameFrag(level))
         } getOrElse {
-          (player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>
+          player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>
             frag(
               span(name),
               rating.map { r =>
                 frag(br, r)
               }
             )
-          })
+          }
         }
       }
     )
-}

@@ -15,7 +15,6 @@
     <item quantity="one">ടീം ലീഡര്‍</item>
     <item quantity="other">ടീം ലീഡര്‍മാര്‍</item>
   </plurals>
-  <string name="teamBestPlayers">മികച്ച കളിക്കാര്‍</string>
   <string name="teamRecentMembers">പുതിയ അംഗങ്ങള്‍</string>
   <string name="teamsIlead">ഞാന്‍ ലീഡര്‍ ആയ ടീമുകള്‍</string>
   <string name="closeTeam">ടീം അടച്ചുപൂട്ടുക</string>

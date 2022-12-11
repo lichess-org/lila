@@ -2,7 +2,7 @@ package lila.challenge
 
 import play.api.i18n.Lang
 
-import lila.i18n.I18nKeys.{ challenge => trans }
+import lila.i18n.I18nKeys.{ challenge as trans }
 import lila.pref.Pref
 import lila.rating.PerfType
 import lila.relation.{ Block, Follow }
@@ -10,47 +10,49 @@ import lila.user.User
 
 case class ChallengeDenied(dest: User, reason: ChallengeDenied.Reason)
 
-object ChallengeDenied {
+object ChallengeDenied:
 
-  sealed trait Reason
+  enum Reason:
+    case YouAreAnon
+    case YouAreBlocked
+    case TheyDontAcceptChallenges
+    case RatingOutsideRange(perf: PerfType)
+    case RatingIsProvisional(perf: PerfType)
+    case FriendsOnly
+    case BotUltraBullet
+    case SelfChallenge
 
-  object Reason {
-    case object YouAreAnon                         extends Reason
-    case object YouAreBlocked                      extends Reason
-    case object TheyDontAcceptChallenges           extends Reason
-    case class RatingOutsideRange(perf: PerfType)  extends Reason
-    case class RatingIsProvisional(perf: PerfType) extends Reason
-    case object FriendsOnly                        extends Reason
-    case object BotUltraBullet                     extends Reason
-  }
-
-  def translated(d: ChallengeDenied)(implicit lang: Lang): String =
-    d.reason match {
+  def translated(d: ChallengeDenied)(using Lang): String =
+    d.reason match
       case Reason.YouAreAnon               => trans.registerToSendChallenges.txt()
       case Reason.YouAreBlocked            => trans.youCannotChallengeX.txt(d.dest.titleUsername)
       case Reason.TheyDontAcceptChallenges => trans.xDoesNotAcceptChallenges.txt(d.dest.titleUsername)
       case Reason.RatingOutsideRange(perf) =>
         trans.yourXRatingIsTooFarFromY.txt(perf.trans, d.dest.titleUsername)
       case Reason.RatingIsProvisional(perf) => trans.cannotChallengeDueToProvisionalXRating.txt(perf.trans)
-      case Reason.FriendsOnly               => trans.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
-      case Reason.BotUltraBullet            => "Bots cannot play UltraBullet. Choose a slower time control."
-    }
-}
+      case Reason.FriendsOnly    => trans.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
+      case Reason.BotUltraBullet => "Bots cannot play UltraBullet. Choose a slower time control."
+      case Reason.SelfChallenge  => "You cannot challenge yourself."
 
 final class ChallengeGranter(
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi
-) {
+):
 
-  import ChallengeDenied.Reason._
+  import ChallengeDenied.Reason.*
 
   val ratingThreshold = 300
 
-  def apply(fromOption: Option[User], dest: User, perfType: Option[PerfType])(implicit
+  def isDenied(fromOption: Option[User], dest: User, perfType: Option[PerfType])(using
       ec: scala.concurrent.ExecutionContext
   ): Fu[Option[ChallengeDenied]] =
     fromOption
-      .fold[Fu[Option[ChallengeDenied.Reason]]](fuccess(YouAreAnon.some)) { from =>
+      .fold[Fu[Option[ChallengeDenied.Reason]]] {
+        prefApi.getPref(dest).map(_.challenge) map {
+          case Pref.Challenge.ALWAYS => none
+          case _                     => YouAreAnon.some
+        }
+      } { from =>
         relationApi.fetchRelation(dest, from) zip
           prefApi.getPref(dest).map(_.challenge) map {
             case (Some(Block), _)                                  => YouAreBlocked.some
@@ -60,15 +62,14 @@ final class ChallengeGranter(
             case (_, Pref.Challenge.FRIEND)                        => FriendsOnly.some
             case (_, Pref.Challenge.RATING) =>
               perfType ?? { pt =>
-                if (from.perfs(pt).provisional || dest.perfs(pt).provisional)
-                  RatingIsProvisional(pt).some
-                else {
-                  val diff = math.abs(from.perfs(pt).intRating - dest.perfs(pt).intRating)
+                if (from.perfs(pt).provisional || dest.perfs(pt).provisional) RatingIsProvisional(pt).some
+                else
+                  val diff = math.abs(from.perfs(pt).intRating.value - dest.perfs(pt).intRating.value)
                   (diff > ratingThreshold) option RatingOutsideRange(pt)
-                }
               }
-            case (_, Pref.Challenge.ALWAYS) => none
-            case _                          => none
+            case (_, Pref.Challenge.REGISTERED) => none
+            case _ if from == dest              => SelfChallenge.some
+            case _                              => none
           }
       }
       .map {
@@ -78,5 +79,3 @@ final class ChallengeGranter(
       .map {
         _.map { ChallengeDenied(dest, _) }
       }
-
-}

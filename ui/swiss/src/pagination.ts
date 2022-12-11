@@ -1,10 +1,10 @@
 import { h, VNode } from 'snabbdom';
+import { bind } from 'common/snabbdom';
 import SwissCtrl from './ctrl';
 import { MaybeVNodes, Pager } from './interfaces';
-import { bind } from './view/util';
 import * as search from './search';
 
-const maxPerPage = 10;
+export const maxPerPage = 10;
 
 function button(text: string, icon: string, click: () => void, enable: boolean, ctrl: SwissCtrl): VNode {
   return h('button.fbt.is', {

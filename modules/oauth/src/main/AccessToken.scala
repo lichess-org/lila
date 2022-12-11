@@ -1,80 +1,74 @@
 package lila.oauth
 
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
+import com.roundeights.hasher.Algo
+import ornicar.scalalib.SecureRandom
 
-import lila.common.SecureRandom
+import lila.common.Bearer
 import lila.user.User
 
 case class AccessToken(
     id: AccessToken.Id,
-    publicId: BSONObjectID,
-    clientId: String,
-    userId: User.ID,
-    createdAt: Option[DateTime] = None, // for personal access tokens
-    description: Option[String] = None, // for personal access tokens
+    plain: Bearer,
+    userId: UserId,
+    createdAt: Option[DateTime],
+    description: Option[String], // for personal access tokens
     usedAt: Option[DateTime] = None,
     scopes: List[OAuthScope],
     clientOrigin: Option[String],
     expires: Option[DateTime]
-) {
+):
   def isBrandNew = createdAt.exists(DateTime.now.minusSeconds(5).isBefore)
-}
 
-object AccessToken {
+  def isDangerous = scopes.exists(OAuthScope.dangerList.contains)
 
-  case class Id(value: String) extends AnyVal
-  object Id {
-    def random() = Id(s"lio_${SecureRandom.nextString(32)}")
-  }
+object AccessToken:
 
-  case class ForAuth(userId: User.ID, scopes: List[OAuthScope])
+  opaque type Id = String
+  object Id extends OpaqueString[Id]:
+    def from(bearer: Bearer) = Id(Algo.sha256(bearer.value).hex)
 
-  case class WithApp(token: AccessToken, app: OAuthApp)
+  case class ForAuth(userId: UserId, scopes: List[OAuthScope], clientOrigin: Option[String])
 
-  object BSONFields {
-    val id           = "access_token_id"
-    val publicId     = "_id"
-    val clientId     = "client_id"
-    val userId       = "user_id"
-    val createdAt    = "create_date"
+  object BSONFields:
+    val id           = "_id"
+    val plain        = "plain"
+    val userId       = "userId"
+    val createdAt    = "created"
     val description  = "description"
-    val usedAt       = "used_at"
+    val usedAt       = "used"
     val scopes       = "scopes"
     val clientOrigin = "clientOrigin"
     val expires      = "expires"
-  }
 
   import lila.db.BSON
-  import lila.db.dsl._
-  import BSON.BSONJodaDateTimeHandler
-  import OAuthScope.scopeHandler
+  import lila.db.dsl.{ *, given }
+  import OAuthScope.given
 
   private[oauth] val forAuthProjection = $doc(
-    BSONFields.userId -> true,
-    BSONFields.scopes -> true
+    BSONFields.userId       -> true,
+    BSONFields.scopes       -> true,
+    BSONFields.clientOrigin -> true
   )
 
-  implicit private[oauth] val accessTokenIdHandler = stringAnyValHandler[Id](_.value, Id.apply)
-
-  implicit val ForAuthBSONReader = new BSONDocumentReader[ForAuth] {
+  given BSONDocumentReader[ForAuth] = new BSONDocumentReader[ForAuth]:
     def readDocument(doc: BSONDocument) =
       for {
-        userId <- doc.getAsTry[User.ID](BSONFields.userId)
+        userId <- doc.getAsTry[UserId](BSONFields.userId)
         scopes <- doc.getAsTry[List[OAuthScope]](BSONFields.scopes)
-      } yield ForAuth(userId, scopes)
-  }
+        origin = doc.getAsOpt[String](BSONFields.clientOrigin)
+      } yield ForAuth(userId, scopes, origin)
 
-  implicit val AccessTokenBSONHandler = new BSON[AccessToken] {
+  given BSONDocumentHandler[AccessToken] = new BSON[AccessToken]:
 
-    import BSONFields._
+    import BSONFields.*
 
     def reads(r: BSON.Reader): AccessToken =
       AccessToken(
         id = r.get[Id](id),
-        publicId = r.get[BSONObjectID](publicId),
-        clientId = r str clientId,
-        userId = r str userId,
+        plain = r.get[Bearer](plain),
+        userId = r.get[UserId](userId),
         createdAt = r.getO[DateTime](createdAt),
         description = r strO description,
         usedAt = r.getO[DateTime](usedAt),
@@ -86,8 +80,7 @@ object AccessToken {
     def writes(w: BSON.Writer, o: AccessToken) =
       $doc(
         id           -> o.id,
-        publicId     -> o.publicId,
-        clientId     -> o.clientId,
+        plain        -> o.plain,
         userId       -> o.userId,
         createdAt    -> o.createdAt,
         description  -> o.description,
@@ -96,5 +89,3 @@ object AccessToken {
         clientOrigin -> o.clientOrigin,
         expires      -> o.expires
       )
-  }
-}

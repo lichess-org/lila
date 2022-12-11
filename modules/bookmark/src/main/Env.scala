@@ -1,12 +1,12 @@
 package lila.bookmark
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
-import lila.common.config._
-import lila.hub.actorApi.bookmark._
+import lila.common.config.*
+import lila.hub.actorApi.bookmark.*
 
 @Module
 final private class BookmarkConfig(
@@ -18,11 +18,12 @@ final private class BookmarkConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    gameRepo: lila.game.GameRepo
-)(implicit
+    gameRepo: lila.game.GameRepo,
+    gameProxyRepo: lila.round.GameProxyRepo
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
-) {
+):
 
   private val config = appConfig.get[BookmarkConfig]("bookmark")(AutoConfig.loader)
 
@@ -41,4 +42,3 @@ final class Env(
     }),
     name = config.actorName
   )
-}

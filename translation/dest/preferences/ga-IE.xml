@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Socruithe</string>
-  <string name="gameDisplay">Taispeántas cluiche</string>
+  <string name="display">Taispeáin</string>
+  <string name="privacy">Príobháideacht</string>
   <string name="pieceAnimation">Beochan píosa</string>
   <string name="materialDifference">Difríocht ábhartha</string>
   <string name="boardHighlights">Buaicphointí an bhoird (an mbeart deireanach agus an sáinn)</string>
@@ -12,6 +13,7 @@
   <string name="chessPieceSymbol">Siombail píosa fichille</string>
   <string name="pgnLetter">Litie (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modh Zen</string>
+  <string name="showPlayerRatings">Taispeáin rátálacha ficheallaí</string>
   <string name="displayBoardResizeHandle">Taispeáin láimhseáil athrú méide an bhoird</string>
   <string name="onlyOnInitialPosition">Suíomh tosaigh amháin</string>
   <string name="blindfoldChess">Ficheall dall (píosaí dofheicthe)</string>
@@ -30,9 +32,10 @@
   <string name="takebacksWithOpponentApproval">Aistarraing (le ceadú céile comhraic)</string>
   <string name="inCasualGamesOnly">I gcluichí fánach amháin</string>
   <string name="promoteToQueenAutomatically">Ardú go banríon sa ghnáthchúrsa</string>
+  <string name="explainPromoteToQueenAutomatically">Coinnigh an &lt;ctrl&gt; eochair síos agus ceithearnach á ardú chun uath-ardú a dhíchumasú go sealadach</string>
   <string name="whenPremoving">Réamh-ghluaiseacht</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Máigh cluiche cothrom ar athrshuíomh faoi thrí go huathoibríoch</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Nuair atá am fágtha &lt; 30 soicind</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Nuair atá am fágtha &lt; 30 soicind</string>
   <string name="moveConfirmation">Deimhniú beart</string>
   <string name="inCorrespondenceGames">Cluichí comhfhreagrais</string>
   <string name="correspondenceAndUnlimited">Comhfhreagras agus neamhtheoranta</string>

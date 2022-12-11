@@ -1,14 +1,14 @@
 package controllers
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.LightUser.lightUserWrites
 
 final class Msg(
     env: Env,
     apiC: => Api
-) extends LilaController(env) {
+) extends LilaController(env):
 
   def home =
     Auth { implicit ctx => me =>
@@ -18,20 +18,20 @@ final class Msg(
         },
         api = v =>
           {
-            if (v >= 5) inboxJson(me)
+            if (v.value >= 5) inboxJson(me)
             else env.msg.compat.inbox(me, getInt("page"))
           } map { Ok(_) }
       )
     }
 
-  def convo(username: String, before: Option[Long] = None) =
+  def convo(username: UserStr, before: Option[Long] = None) =
     Auth { implicit ctx => me =>
-      if (username == "new") Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_))).fuccess
+      if (username.value == "new") Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_))).toFuccess
       else
         env.msg.api.convoWith(me, username, before).flatMap {
           case None =>
             negotiate(
-              html = Redirect(routes.Msg.home).fuccess,
+              html = Redirect(routes.Msg.home).toFuccess,
               api = _ => notFoundJson()
             )
           case Some(c) =>
@@ -42,7 +42,7 @@ final class Msg(
               },
               api = v =>
                 {
-                  if (v >= 5) newJson
+                  if (v.value >= 5) newJson
                   else fuccess(env.msg.compat.thread(me, c))
                 } map { Ok(_) }
             )
@@ -51,10 +51,9 @@ final class Msg(
 
   def search(q: String) =
     Auth { ctx => me =>
-      q.trim.some.filter(lila.user.User.couldBeUsername) match {
+      q.trim.some.filter(_.nonEmpty) match
         case None    => env.msg.json.searchResult(me)(env.msg.search.empty) map { Ok(_) }
         case Some(q) => env.msg.search(me, q) flatMap env.msg.json.searchResult(me) map { Ok(_) }
-      }
     }
 
   def unreadCount =
@@ -64,7 +63,7 @@ final class Msg(
       }
     }
 
-  def convoDelete(username: String) =
+  def convoDelete(username: UserStr) =
     Auth { _ => me =>
       env.msg.api.delete(me, username) >>
         inboxJson(me) map { Ok(_) }
@@ -72,7 +71,7 @@ final class Msg(
 
   def compatCreate =
     AuthBody { implicit ctx => me =>
-      ctx.noKid ?? {
+      ctx.noKid ?? ctx.noBot ?? {
         env.msg.compat
           .create(me)(ctx.body, formBinding)
           .fold(
@@ -84,14 +83,14 @@ final class Msg(
       }
     }
 
-  def apiPost(username: String) = {
-    val userId = lila.user.User normalize username
+  def apiPost(username: UserStr) =
+    val userId = username.id
     AuthOrScopedBody(_.Msg.Write)(
       // compat: reply
       auth = implicit ctx =>
         me =>
           env.msg.compat
-            .reply(me, userId)(ctx.body, formBinding)
+            .reply(me, userId)(using ctx.body, formBinding)
             .fold(
               jsonFormError,
               _ inject Ok(Json.obj("ok" -> true, "id" -> userId))
@@ -99,9 +98,9 @@ final class Msg(
       // new API: create/reply
       scoped = implicit req =>
         me =>
-          (!me.kid && userId != me.id) ?? {
-            import play.api.data._
-            import play.api.data.Forms._
+          (!me.kid && !me.is(userId)) ?? {
+            import play.api.data.*
+            import play.api.data.Forms.*
             Form(single("text" -> nonEmptyText))
               .bindFromRequest()
               .fold(
@@ -110,18 +109,16 @@ final class Msg(
                   env.msg.api.post(me.id, userId, text) map {
                     case lila.msg.MsgApi.PostResult.Success => jsonOkResult
                     case lila.msg.MsgApi.PostResult.Limited => rateLimitedJson
-                    case _                                  => BadRequest(jsonError("The message was rejected"))
+                    case _ => BadRequest(jsonError("The message was rejected"))
                   }
               )
           }
     )
-  }
 
   private def inboxJson(me: lila.user.User) =
     env.msg.api.threadsOf(me) flatMap env.msg.json.threads(me) map { threads =>
       Json.obj(
-        "me"       -> lightUserWrites.writes(me.light).add("kid" -> me.kid),
+        "me"       -> lightUserWrites.writes(me.light).add("bot" -> me.isBot),
         "contacts" -> threads
       )
     }
-}

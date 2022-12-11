@@ -22,7 +22,7 @@
   <string name="score">Punktestand</string>
   <string name="moves">Züge</string>
   <string name="accuracy">Genauigkeit</string>
-  <string name="combo">Erfolgsserie</string>
+  <string name="combo">Combo</string>
   <string name="time">Zeit</string>
   <string name="timePerMove">Zeit pro Zug</string>
   <string name="highestSolved">Schwierigste gelöste Aufgabe</string>
@@ -50,4 +50,13 @@
   <string name="skip">überspringen</string>
   <string name="skipHelp">Du kannst einen Zug pro Rennen überspringen:</string>
   <string name="skipExplanation">Überspringe diesen Zug, um deine Kombination beizubehalten! Du kannst das nur einmal pro Rennen machen.</string>
+  <string name="failedPuzzles">Fehlgeschlagene Aufgaben</string>
+  <string name="slowPuzzles">Langsame Aufgaben</string>
+  <string name="skippedPuzzle">Übersprungene Aufgabe</string>
+  <string name="thisWeek">Diese Woche</string>
+  <string name="thisMonth">Dieser Monat</string>
+  <string name="allTime">Insgesamt</string>
+  <string name="clickToReload">Klicke, um neu zu laden</string>
+  <string name="thisRunHasExpired">Dieser Durchgang ist abgelaufen!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Dieser Durchgang wurde in einem anderen Fenster geöffnet!</string>
 </resources>

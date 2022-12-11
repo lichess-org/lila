@@ -8,6 +8,5 @@
   <string name="mostChessCourses">Повеќето шаховски курсеви и вежби исклучиво ја користат алгебарската нотација.</string>
   <string name="talkToYourChessFriends">Го олеснува разговорот со твоите шаховски пријатели, бидејќи и двајцата го знаете „шаховскиот јазик“.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Полесно можеш да ја анализираш играта ако брзо ги препознаваш координатите.</string>
-  <string name="aSquareNameAppears">На таблата се појавува координат, а ти мора да кликнеш на соодветното поле. Имаш 30 секунди точно да познаеш што е можно повеќе полиња!</string>
   <string name="startTraining">Започни ја вежбата</string>
 </resources>

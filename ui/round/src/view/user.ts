@@ -3,15 +3,13 @@ import { Player } from 'game';
 import { Position } from '../interfaces';
 import RoundController from '../ctrl';
 
-export function aiName(ctrl: RoundController, level: number) {
-  return ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
-}
+export const aiName = (ctrl: RoundController, level: number) => ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
 
 export function userHtml(ctrl: RoundController, player: Player, position: Position) {
   const d = ctrl.data,
     user = player.user,
-    perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ? player.rating : perf && perf.rating,
+    perf = (user?.perfs || {})[d.game.perf],
+    rating = player.rating || perf?.rating,
     rd = player.ratingDiff,
     ratingDiff =
       rd === 0 ? h('span', '±0') : rd && rd > 0 ? h('good', '+' + rd) : rd && rd < 0 ? h('bad', '−' + -rd) : undefined;
@@ -35,7 +33,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           },
         }),
         h(
-          'a.text.ulpt',
+          `a.text${user.id == 'ghost' ? '' : '.ulpt'}`,
           {
             attrs: {
               'data-pt-pos': 's',
@@ -52,7 +50,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
             : [user.username]
         ),
         rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
-        ratingDiff,
+        rating ? ratingDiff : null,
         player.engine
           ? h('span', {
               attrs: {
@@ -85,9 +83,9 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
   );
 }
 
-export function userTxt(ctrl: RoundController, player: Player) {
-  if (player.user) {
-    return (player.user.title ? player.user.title + ' ' : '') + player.user.username;
-  } else if (player.ai) return aiName(ctrl, player.ai);
-  else return ctrl.noarg('anonymous');
-}
+export const userTxt = (ctrl: RoundController, player: Player) =>
+  player.user
+    ? (player.user.title ? player.user.title + ' ' : '') + player.user.username
+    : player.ai
+    ? aiName(ctrl, player.ai)
+    : ctrl.noarg('anonymous');

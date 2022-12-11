@@ -5,6 +5,7 @@ import { CorresClockData } from './corresClock/corresClockCtrl';
 import RoundController from './ctrl';
 import { ChatCtrl, ChatPlugin } from 'chat';
 import * as cg from 'chessground/types';
+import * as Prefs from 'common/prefs';
 
 export type MaybeVNode = VNode | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -16,6 +17,9 @@ export interface Untyped {
 }
 
 export interface NvuiPlugin {
+  submitMove?: (submitStoredPremove?: boolean) => void;
+  playPremove: (ctrl: RoundController) => void;
+  premoveInput: string;
   render(ctrl: RoundController): VNode;
 }
 
@@ -85,6 +89,7 @@ interface CrazyPocket {
 export interface RoundOpts {
   data: RoundData;
   userId?: string;
+  noab?: boolean;
   socketSend: SocketSend;
   onChange(d: RoundData): void;
   element: HTMLElement;
@@ -173,6 +178,7 @@ export interface Pref {
   is3d: boolean;
   keyboardMove: boolean;
   moveEvent: Prefs.MoveEvent;
+  ratings: boolean;
   replay: Prefs.Replay;
   rookCastle: boolean;
   showCaptured: boolean;
@@ -187,15 +193,3 @@ export interface MoveMetadata {
 }
 
 export type Position = 'top' | 'bottom';
-
-export interface MaterialDiffSide {
-  [role: string]: number;
-}
-export interface MaterialDiff {
-  white: MaterialDiffSide;
-  black: MaterialDiffSide;
-}
-export interface CheckCount {
-  white: number;
-  black: number;
-}

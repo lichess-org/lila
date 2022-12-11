@@ -20,11 +20,15 @@ jobs:
   assets:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
       - run: git submodule absorbgitdirs
-      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '19'
+          cache: yarn
+      - uses: actions/checkout@v3
         with:
           repository: lichess-org/ab
           ssh-key: ${{ secrets.id_rsa_ab }}
@@ -34,19 +38,13 @@ jobs:
         id: ab
       - run: yarn link --cwd "$GITHUB_WORKSPACE/ab" && yarn link ab --cwd ui/round
         if: steps.ab.outcome == 'success'
-      - run: echo "::set-output name=dir::$(yarn cache dir)"
-        id: yarn-cache
-      - uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
       - run: ./ui/build prod
+      - run: cd ui && yarn run test && cd -
       - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
       - run: cd assets && tar -cvpJf ../assets.tar.xz . && cd -
         env:
           XZ_OPT: '-0'
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v3
         with:
           name: lila-assets
           path: assets.tar.xz

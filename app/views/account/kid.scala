@@ -1,21 +1,21 @@
 package views.html
 package account
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object kid {
+object kid:
 
-  def apply(u: lila.user.User, form: play.api.data.Form[_], managed: Boolean)(implicit ctx: Context) =
+  def apply(u: lila.user.User, form: play.api.data.Form[?], managed: Boolean)(implicit ctx: Context) =
     account.layout(
       title = s"${u.username} - ${trans.kidMode.txt()}",
       active = "kid"
     ) {
       div(cls := "account box box-pad")(
-        h1(trans.kidMode()),
+        h1(cls := "box__top")(trans.kidMode()),
         standardFlash(),
         p(trans.kidModeExplanation()),
         br,
@@ -38,4 +38,3 @@ object kid {
         p(trans.inKidModeTheLichessLogoGetsIconX(span(cls := "kiddo", title := trans.kidMode.txt())(":)")))
       )
     }
-}

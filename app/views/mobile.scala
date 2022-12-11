@@ -1,19 +1,23 @@
 package views.html
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import controllers.routes
 
-object mobile {
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.LangPath
+
+object mobile:
 
   def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Mobile",
-      moreCss = cssTag("mobile")
+      moreCss = cssTag("mobile"),
+      withHrefLangs = LangPath(routes.Main.mobile).some
     ) {
       main(
         div(cls := "mobile page-small box box-pad")(
-          h1(trans.playChessEverywhere()),
+          h1(cls := "box__top")(trans.playChessEverywhere()),
           div(cls := "sides")(
             div(cls := "left-side")(
               div(cls := "stores")(
@@ -28,7 +32,7 @@ object mobile {
                 li(trans.builtForTheLoveOfChessNotMoney()),
                 li(trans.everybodyGetsAllFeaturesForFree()),
                 li(trans.zeroAdvertisement()),
-                li("Entirely ", a(href := "https://github.com/veloce/lichobile")("Open Source"))
+                li("Entirely ", a(href := "https://github.com/lichess-org/lichobile")("Open Source"))
               ),
               h2(trans.fullFeatured()),
               ul(cls := "block")(
@@ -47,18 +51,18 @@ object mobile {
             ),
             div(cls := "right-side")(
               img(
-                cls := "nexus5-playing",
-                width := "268",
-                height := "513",
-                src := assetUrl("images/mobile/nexus5-playing.png"),
-                alt := "Lichess mobile on nexus 5"
+                widthA  := "437",
+                heightA := "883",
+                cls     := "mobile-playing",
+                src     := assetUrl("images/mobile/lichesstv-mobile.png"),
+                alt     := "Lichess TV on mobile"
               ),
               img(
-                cls := "qrcode",
-                width := "200",
-                height := "200",
-                src := assetUrl("images/mobile/dynamic-qrcode.png"),
-                alt := "Download QR code"
+                cls     := "qrcode",
+                widthA  := "200",
+                heightA := "200",
+                src     := assetUrl("images/mobile/dynamic-qrcode.png"),
+                alt     := "Download QR code"
               )
             )
           )
@@ -89,4 +93,3 @@ object mobile {
 </a>
 """
   )
-}

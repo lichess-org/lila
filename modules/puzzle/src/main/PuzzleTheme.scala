@@ -1,13 +1,14 @@
 package lila.puzzle
 
-import lila.i18n.I18nKeys.{ puzzleTheme => i }
-import lila.i18n.{ I18nKey, I18nKeys => trans }
+import lila.i18n.I18nKeys.{ puzzleTheme as i }
+import lila.i18n.{ I18nKey, I18nKeys as trans }
 
 case class PuzzleTheme(key: PuzzleTheme.Key, name: I18nKey, description: I18nKey)
 
-object PuzzleTheme {
+object PuzzleTheme:
 
-  case class Key(value: String) extends AnyVal with StringValue
+  opaque type Key = String
+  object Key extends OpaqueString[Key]
 
   case class WithCount(theme: PuzzleTheme, count: Int)
 
@@ -37,7 +38,7 @@ object PuzzleTheme {
     PuzzleTheme(Key("dovetailMate"), i.dovetailMate, i.dovetailMateDescription)
   val equality       = PuzzleTheme(Key("equality"), i.equality, i.equalityDescription)
   val endgame        = PuzzleTheme(Key("endgame"), i.endgame, i.endgameDescription)
-  val enPassant      = PuzzleTheme(Key("enPassant"), new I18nKey("En passant"), i.enPassantDescription)
+  val enPassant      = PuzzleTheme(Key("enPassant"), I18nKey("En passant"), i.enPassantDescription)
   val exposedKing    = PuzzleTheme(Key("exposedKing"), i.exposedKing, i.exposedKingDescription)
   val fork           = PuzzleTheme(Key("fork"), i.fork, i.forkDescription)
   val hangingPiece   = PuzzleTheme(Key("hangingPiece"), i.hangingPiece, i.hangingPieceDescription)
@@ -77,6 +78,7 @@ object PuzzleTheme {
   val veryLong        = PuzzleTheme(Key("veryLong"), i.veryLong, i.veryLongDescription)
   val xRayAttack      = PuzzleTheme(Key("xRayAttack"), i.xRayAttack, i.xRayAttackDescription)
   val zugzwang        = PuzzleTheme(Key("zugzwang"), i.zugzwang, i.zugzwangDescription)
+  val checkFirst      = PuzzleTheme(Key("checkFirst"), I18nKey("Check first"), I18nKey("Check first"))
 
   val categorized = List[(I18nKey, List[PuzzleTheme])](
     trans.puzzle.recommended -> List(
@@ -161,17 +163,17 @@ object PuzzleTheme {
     )
   )
 
-  lazy val all: List[PuzzleTheme] = categorized.flatMap(_._2)
+  lazy val visible: List[PuzzleTheme] = categorized.flatMap(_._2)
 
-  lazy val allTranslationKeys = all.flatMap { t =>
+  lazy val allTranslationKeys = visible.flatMap { t =>
     List(t.name, t.description)
   }
 
-  private lazy val byKey: Map[Key, PuzzleTheme] = all.view.map { t =>
+  private lazy val byKey: Map[Key, PuzzleTheme] = visible.view.map { t =>
     t.key -> t
   }.toMap
 
-  private lazy val byLowerKey: Map[String, PuzzleTheme] = all.view.map { t =>
+  private lazy val byLowerKey: Map[String, PuzzleTheme] = visible.view.map { t =>
     t.key.value.toLowerCase -> t
   }.toMap
 
@@ -186,6 +188,7 @@ object PuzzleTheme {
     long,
     master,
     masterVsMaster,
+    superGM,
     mate,
     mateIn1,
     mateIn2,
@@ -197,8 +200,12 @@ object PuzzleTheme {
     opening,
     short,
     smotheredMate,
-    veryLong
+    veryLong,
+    checkFirst
   ).map(_.key)
+
+  // themes that can't be viewed by players
+  val hiddenThemes: Set[Key] = Set(checkFirst.key)
 
   val studyChapterIds: Map[PuzzleTheme.Key, String] = List(
     advancedPawn      -> "sw8VyTe1",
@@ -229,9 +236,6 @@ object PuzzleTheme {
 
   def find(key: String) = byLowerKey get key.toLowerCase
 
-  def findOrAny(key: String) = find(key) | mix
+  def findOrMix(key: Key) = find(key) | mix
 
   def findDynamic(key: String) = find(key).filterNot(t => staticThemes(t.key))
-
-  implicit val keyIso = lila.common.Iso.string[Key](Key.apply, _.value)
-}

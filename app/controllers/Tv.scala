@@ -1,27 +1,31 @@
 package controllers
 
 import play.api.http.ContentTypes
-import scala.util.chaining._
-import views._
+import scala.util.chaining.*
+import views.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.game.Pov
+import Api.ApiResult
 
 final class Tv(
     env: Env,
     apiC: => Api,
     gameC: => Game
-) extends LilaController(env) {
+) extends LilaController(env):
 
-  def index = onChannel(lila.tv.Tv.Channel.Best.key)
+  def index     = Open(serveIndex(_))
+  def indexLang = LangPage(routes.Tv.index)(serveIndex(_))
+  private def serveIndex(implicit ctx: Context) =
+    serveChannel(lila.tv.Tv.Channel.Best.key)
 
-  def onChannel(chanKey: String) =
-    Open { implicit ctx =>
-      (lila.tv.Tv.Channel.byKey get chanKey).fold(notFound)(lichessTv)
-    }
+  def onChannel(chanKey: String) = Open(serveChannel(chanKey)(_))
 
-  def sides(gameId: String, color: String) =
+  private def serveChannel(chanKey: String)(implicit ctx: Context) =
+    lila.tv.Tv.Channel.byKey.get(chanKey) ?? lichessTv
+
+  def sides(gameId: GameId, color: String) =
     Open { implicit ctx =>
       OptionFuResult(chess.Color.fromName(color) ?? { env.round.proxyRepo.pov(gameId, _) }) { pov =>
         env.game.crosstableApi.withMatchup(pov.game) map { ct =>
@@ -30,13 +34,15 @@ final class Tv(
       }
     }
 
+  import play.api.libs.json.*
+  import lila.common.Json.given
+  given Writes[lila.tv.Tv.Champion] = Json.writes
+
   def channels =
     apiC.ApiRequest { _ =>
-      import play.api.libs.json._
-      implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
       env.tv.tv.getChampions map {
         _.channels map { case (chan, champ) => chan.name -> champ }
-      } map { Json.toJson(_) } map Api.Data.apply
+      } map { Json.toJson(_) } dmap ApiResult.Data.apply
     }
 
   private def lichessTv(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =
@@ -44,18 +50,16 @@ final class Tv(
       val flip    = getBool("flip")
       val natural = Pov naturalOrientation game
       val pov     = if (flip) !natural else natural
-      val onTv    = lila.round.OnLichessTv(channel.key, flip)
+      val onTv    = lila.round.OnTv.Lichess(channel.key, flip)
       negotiate(
         html = env.tournament.api.gameView.watcher(pov.game) flatMap { tour =>
           env.api.roundApi.watcher(pov, tour, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
             env.game.crosstableApi.withMatchup(game) zip
             env.tv.tv.getChampions map { case ((data, cross), champions) =>
-              NoCache {
-                Ok(html.tv.index(channel, champions, pov, data, cross, history))
-              }
+              Ok(html.tv.index(channel, champions, pov, data, cross, history)).noCache
             }
         },
-        api = apiVersion => env.api.roundApi.watcher(pov, none, apiVersion, tv = onTv.some) map { Ok(_) }
+        api = apiVersion => env.api.roundApi.watcher(pov, none, apiVersion, tv = onTv.some) dmap { Ok(_) }
       )
     }
 
@@ -65,9 +69,22 @@ final class Tv(
     Open { implicit ctx =>
       lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
         env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 15) map { case (champs, games) =>
-          NoCache {
-            Ok(html.tv.games(channel, games map Pov.naturalOrientation, champs))
-          }
+          Ok(html.tv.games(channel, games map Pov.naturalOrientation, champs)).noCache
+        }
+      }
+    }
+
+  def gameChannelReplacement(chanKey: String, gameId: GameId, exclude: List[String]) =
+    Open { implicit ctx =>
+      val gameFu = lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
+        env.tv.tv.getReplacementGame(channel, gameId, exclude map { GameId(_) })
+      }
+      OptionResult(gameFu) { game =>
+        JsonOk {
+          play.api.libs.json.Json.obj(
+            "id"   -> game.id,
+            "html" -> views.html.game.mini(Pov naturalOrientation game).toString
+          )
         }
       }
     }
@@ -109,4 +126,3 @@ final class Tv(
         case Some(game) => Ok(views.html.tv.embed(Pov naturalOrientation game))
       }
     }
-}

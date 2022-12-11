@@ -1,12 +1,14 @@
 package views.html.clas
 
+import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite }
 
-object invite {
+object invite:
 
   def show(
       c: Clas,
@@ -17,19 +19,19 @@ object invite {
       title = c.name
     ) {
       main(cls := "page-small box box-pad page clas-invitation")(
-        h1(c.name),
+        h1(cls := "box__top")(c.name),
         p(c.desc),
         br,
         br,
-        p("You have been invited by ", userIdLink(invite.created.by.some), "."),
+        p(trans.clas.youHaveBeenInvitedByX(userIdLink(invite.created.by.some))),
         br,
         br,
         invite.accepted.map {
-          case true  => flashMessage(cls := "flash-success")("You have accepted this invitation.")
-          case false => flashMessage(cls := "flash-warning")("You have declined this invitation.")
+          case true  => flashMessage(cls := "flash-success")(trans.clas.youAcceptedThisInvitation())
+          case false => flashMessage(cls := "flash-warning")(trans.clas.youDeclinedThisInvitation())
         },
         invite.accepted.fold(true)(false.==) option
-          postForm(cls := "form3", action := routes.Clas.invitationAccept(invite._id.value))(
+          postForm(cls := "form3", action := clasRoutes.invitationAccept(invite._id.value))(
             form3.actions(
               if (!invite.accepted.has(false))
                 form3.submit(
@@ -46,4 +48,3 @@ object invite {
           )
       )
     }
-}

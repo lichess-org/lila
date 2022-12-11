@@ -1,5 +1,7 @@
 import { h, VNode } from 'snabbdom';
-import { spinner, bind, userName, dataIcon, player as renderPlayer, numberRow } from './util';
+import { spinnerVdom as spinner } from 'common/spinner';
+import { bind, dataIcon } from 'common/snabbdom';
+import { userName, player as renderPlayer, numberRow } from './util';
 import { Pairing } from '../interfaces';
 import { isOutcome } from '../util';
 import SwissCtrl from '../ctrl';
@@ -37,11 +39,11 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
           numberRow('Tie break', data.tieBreak, 'raw'),
           ...(games
             ? [
-                data.performance
+                data.performance && ctrl.opts.showRatings
                   ? numberRow(noarg('performance'), data.performance + (games < 3 ? '?' : ''), 'raw')
                   : null,
                 numberRow(noarg('winRate'), [wins, games], 'percent'),
-                numberRow(noarg('averageOpponent'), avgOp, 'raw'),
+                ctrl.opts.showRatings ? numberRow(noarg('averageOpponent'), avgOp, 'raw') : null,
               ]
             : []),
         ]),
@@ -82,7 +84,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
               [
                 h('th', '' + round),
                 h('td', userName(p.user)),
-                h('td', '' + p.rating),
+                ctrl.opts.showRatings ? h('td', '' + p.rating) : null,
                 h('td.is.color-icon.' + (p.c ? 'white' : 'black')),
                 h('td', res),
               ]

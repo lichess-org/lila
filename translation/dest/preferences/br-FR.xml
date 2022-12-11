@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Dibaboù</string>
-  <string name="gameDisplay">Diskwel ar c\'hrogad</string>
   <string name="pieceAnimation">Mod da fiñval ar pezhioù</string>
   <string name="materialDifference">Diforc\'hioù a-fet dafar</string>
   <string name="boardHighlights">Gouleier evit sikour war an dablez (fiñvadenn ziwezhañ ha bec\'h d\'ar roue)</string>
@@ -32,7 +31,7 @@
   <string name="promoteToQueenAutomatically">Treiñ da rouanez en un doare emgefreek</string>
   <string name="whenPremoving">E-pad ar rak-fiñvadenn</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Arc\'hañ bezañ rampo goude fiñvadennoù heñvel-poch en un doare emgefreek</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Pa chom nebeutoc\'h evit &lt; 30 eilenn</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Pa chom nebeutoc\'h evit &lt; 30 eilenn</string>
   <string name="moveConfirmation">Kadarnaat ar fiñvadenn</string>
   <string name="inCorrespondenceGames">Krogadoù a-bell</string>
   <string name="correspondenceAndUnlimited">A-bell ha diharz</string>

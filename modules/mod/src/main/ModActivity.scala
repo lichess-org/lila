@@ -4,21 +4,21 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.Json
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.ExecutionContext
 import scala.util.Try
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.report.Report
 import lila.report.Room
 import lila.user.User
 
 final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cacheApi: lila.memo.CacheApi)(
-    implicit ec: ExecutionContext
-) {
+    using ec: ExecutionContext
+):
 
-  import ModActivity._
+  import ModActivity.*
 
   def apply(who: String, period: String)(me: User): Fu[Result] =
     cache.get((Who(who, me), Period(period)))
@@ -35,16 +35,18 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
         },
       update = (_, _, current) => current,
       read = (_, _, current) => current
-    ).buildAsyncFuture((compute _).tupled)
+    ).buildAsyncFuture((compute).tupled)
   }
+
+  private val maxDocs = 10_1000
 
   private def compute(who: Who, period: Period): Fu[Result] =
     repo.coll
       .aggregateList(
-        maxDocs = 10_000,
+        maxDocs = maxDocs,
         readPreference = ReadPreference.secondaryPreferred
       ) { framework =>
-        import framework._
+        import framework.*
         def dateToString(field: String): Bdoc =
           $doc("$dateToString" -> $doc("format" -> "%Y-%m-%d", "date" -> s"$$$field"))
 
@@ -54,7 +56,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
               "open" -> false,
               who match {
                 case Who.Me(userId) => "done.by" -> userId
-                case Who.Team       => "done.by" $nin List(User.lichessId, "irwin")
+                case Who.Team       => "done.by" $nin List(User.lichessId, User.irwinId)
               },
               "done.at" $gt Period.dateSince(period)
             )
@@ -80,7 +82,8 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
               )
             )
           ),
-          Sort(Descending("_id.0"))
+          Sort(Descending("_id.0")),
+          Limit(maxDocs)
         )
       }
       .map { docs =>
@@ -94,16 +97,14 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
       }
       .map {
         _.foldLeft(Map.empty[String, Day]) { case (acc, (date, key, nb)) =>
-          acc.updated(
-            date, {
-              val row = acc.getOrElse(date, Day(Map.empty, Map.empty))
-              Room.byKey
-                .get(key)
-                .map(row.set(_, nb))
-                .orElse(Action.dbMap.get(key).map(row.set(_, nb)))
-                .getOrElse(row)
-            }
-          )
+          acc.updatedWith(date) { prev =>
+            val row = prev | Day(Map.empty, Map.empty)
+            Room.byKey
+              .get(key)
+              .map(row.set(_, nb))
+              .orElse(Action.dbMap.get(key).map(row.set(_, nb)))
+              .orElse(row.some)
+          }
         }
       }
       .map { data =>
@@ -115,9 +116,8 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           }
         )
       }
-}
 
-object ModActivity {
+object ModActivity:
 
   case class Result(
       who: Who,
@@ -125,64 +125,53 @@ object ModActivity {
       data: List[(DateTime, Day)]
   )
 
-  case class Day(actions: Map[Action, Int], reports: Map[Room, Int]) {
+  case class Day(actions: Map[Action, Int], reports: Map[Room, Int]):
     def set(action: Action, nb: Int) = copy(actions = actions.updated(action, nb))
     def set(room: Room, nb: Int)     = copy(reports = reports.updated(room, nb))
-  }
 
   val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd"
 
-  sealed trait Period {
+  enum Period:
     def key = toString.toLowerCase
-  }
-  object Period {
-    case object Week  extends Period
-    case object Month extends Period
-    case object Year  extends Period
-    val all = List(Period.Week, Period.Month, Period.Year)
+    case Week, Month, Year
+  object Period:
     def apply(str: String): Period =
       if (str == "year") Year
       else if (str == "month") Month
       else Week
-    def dateSince(period: Period) = period match {
+    def dateSince(period: Period) = period match
       case Period.Week  => DateTime.now.minusWeeks(1)
       case Period.Month => DateTime.now.minusMonths(1)
       case Period.Year  => DateTime.now.minusYears(1)
-    }
-  }
 
   sealed abstract class Who(val key: String)
-  object Who {
-    case class Me(userId: User.ID) extends Who("me")
-    case object Team               extends Who("team")
+  object Who:
+    case class Me(userId: UserId) extends Who("me")
+    case object Team              extends Who("team")
     def apply(who: String, me: User) =
       if (who == "me") Me(me.id) else Team
-  }
 
-  sealed trait Action
-  object Action {
-    case object Message      extends Action
-    case object MarkCheat    extends Action
-    case object MarkTroll    extends Action
-    case object MarkBoost    extends Action
-    case object CloseAccount extends Action
-    case object ChatTimeout  extends Action
-    case object Appeal       extends Action
-    case object SetEmail     extends Action
-    case object Streamer     extends Action
-    case object ForumAdmin   extends Action
+  enum Action:
+    case Message
+    case MarkCheat
+    case MarkTroll
+    case MarkBoost
+    case CloseAccount
+    case ChatTimeout
+    case Appeal
+    case SetEmail
+    case Streamer
+    case Blog
+    case ForumAdmin
+
+  object Action:
     val dbMap = Map(
       "modMessage"      -> Message,
       "engine"          -> MarkCheat,
-      "unengine"        -> MarkCheat,
       "troll"           -> MarkTroll,
-      "untroll"         -> MarkTroll,
       "booster"         -> MarkBoost,
-      "unbooster"       -> MarkBoost,
       "alt"             -> CloseAccount,
-      "unalt"           -> CloseAccount,
       "closeAccount"    -> CloseAccount,
-      "reopenAccount"   -> CloseAccount,
       "chatTimeout"     -> ChatTimeout,
       "appealPost"      -> Appeal,
       "appealClose"     -> Appeal,
@@ -191,13 +180,14 @@ object ModActivity {
       "streamerDecline" -> Streamer,
       "streamerunlist"  -> Streamer,
       "streamerTier"    -> Streamer,
+      "blogTier"        -> Blog,
+      "blogPostEdit"    -> Blog,
       "deletePost"      -> ForumAdmin,
       "closeTopic"      -> ForumAdmin
     )
     val all = dbMap.values.toList.distinct.sortBy(_.toString)
-  }
 
-  object json {
+  object json:
     def apply(result: Result) = Json.obj(
       "common" -> Json.obj(
         "xaxis" -> result.data.map(_._1.getMillis)
@@ -217,5 +207,3 @@ object ModActivity {
       "name" -> name,
       "data" -> data
     )
-  }
-}

@@ -1,8 +1,9 @@
+import { bind, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
-import * as studyView from '../study/studyView';
-import { nodeFullName, bind } from '../util';
 import AnalyseCtrl from '../ctrl';
-import { patch } from '../main';
+import patch from '../patch';
+import * as studyView from '../study/studyView';
+import { nodeFullName } from '../view/util';
 
 export interface Opts {
   path: Tree.Path;
@@ -72,10 +73,10 @@ function view(opts: Opts, coords: Coords): VNode {
     'div#' + elementId + '.visible',
     {
       hook: {
-        insert: vnode => {
-          vnode.elm!.addEventListener('contextmenu', e => (e.preventDefault(), false));
-          positionMenu(vnode.elm as HTMLElement, coords);
-        },
+        ...onInsert(elm => {
+          elm.addEventListener('contextmenu', e => (e.preventDefault(), false));
+          positionMenu(elm, coords);
+        }),
         postpatch: (_, vnode) => positionMenu(vnode.elm as HTMLElement, coords),
       },
     },

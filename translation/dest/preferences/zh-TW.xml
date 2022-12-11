@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">偏好設置</string>
-  <string name="gameDisplay">棋局顯示</string>
   <string name="pieceAnimation">棋子動畫</string>
   <string name="materialDifference">子力差距</string>
   <string name="boardHighlights">棋盘高亮（最后一步与将军）</string>
@@ -11,7 +10,7 @@
   <string name="pgnLetter">字母 (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">禪意模式</string>
   <string name="blindfoldChess">蒙眼象棋 (看不见棋子)</string>
-  <string name="chessClock">棋鍾</string>
+  <string name="chessClock">棋鐘</string>
   <string name="tenthsOfSeconds">十分之一秒</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">當剩餘時間小於10秒</string>
   <string name="horizontalGreenProgressBars">绿色横进度条</string>
@@ -23,10 +22,10 @@
   <string name="bothClicksAndDrag">兩者都行</string>
   <string name="premovesPlayingDuringOpponentTurn">预先走棋（在对手的回合走棋）</string>
   <string name="takebacksWithOpponentApproval">悔棋（经过对手同意）</string>
-  <string name="inCasualGamesOnly">仅限非正式游戏</string>
+  <string name="inCasualGamesOnly">僅限非正式遊戲</string>
   <string name="promoteToQueenAutomatically">兵自動升為后</string>
   <string name="whenPremoving">預先走棋時</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于30秒</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">当剩余时间小于30秒</string>
   <string name="moveConfirmation">走棋确认</string>
   <string name="inCorrespondenceGames">在长期对局中</string>
   <string name="correspondenceAndUnlimited">通信和無限</string>

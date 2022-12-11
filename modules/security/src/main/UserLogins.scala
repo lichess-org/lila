@@ -2,25 +2,25 @@ package lila.security
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.common.{ EmailAddress, IpAddress }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
 
 case class UserLogins(
     ips: List[UserLogins.IPData],
     prints: List[UserLogins.FPData],
     uas: List[Dated[UserAgent]],
-    otherUsers: List[UserLogins.OtherUser]
-) {
+    otherUsers: List[UserLogins.OtherUser[User]]
+):
 
   import UserLogins.OtherUser
 
   def rawIps = ips.map(_.ip.value)
   def rawFps = prints.map(_.fp.value)
 
-  def otherUserIds = otherUsers.map(_.user.id)
+  def otherUserIds = otherUsers.map(_.userId)
 
   def usersSharingIp =
     otherUsers.collect {
@@ -28,7 +28,6 @@ case class UserLogins(
     }
 
   def distinctLocations = UserLogins.distinctRecent(ips.map(_.datedLocation).sortBy(-_.seconds))
-}
 
 final class UserLoginsApi(
     firewall: Firewall,
@@ -37,9 +36,9 @@ final class UserLoginsApi(
     geoIP: GeoIP,
     ip2proxy: Ip2Proxy,
     printBan: PrintBan
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using scala.concurrent.ExecutionContext):
 
-  import UserLogins._
+  import UserLogins.*
 
   def apply(user: User, maxOthers: Int): Fu[UserLogins] =
     store.chronoInfoByUser(user) flatMap { infos =>
@@ -72,7 +71,7 @@ final class UserLoginsApi(
                 ip,
                 firewall blocksIp ip.value,
                 geoIP orUnknown ip.value,
-                proxies(ip.value),
+                proxies.get(ip.value),
                 Alts(othersByIp.getOrElse(ip.value, Set.empty)),
                 ipClients.getOrElse(ip.value, Set.empty)
               )
@@ -99,11 +98,11 @@ final class UserLoginsApi(
       ipSet: Set[IpAddress],
       fpSet: Set[FingerHash],
       max: Int
-  ): Fu[List[OtherUser]] =
+  ): Fu[List[OtherUser[User]]] =
     ipSet.nonEmpty ?? store.coll
       .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-        import framework._
-        import FingerHash.fingerHashHandler
+        import framework.*
+        import FingerHash.given
         Match(
           $doc(
             $or(
@@ -147,19 +146,20 @@ final class UserLoginsApi(
         )
       }
       .map { docs =>
-        import lila.user.User.userBSONHandler
+        import lila.user.User.given
+        import FingerHash.given
         for {
           doc  <- docs
           user <- doc.getAsOpt[User]("user")
-          ips  <- doc.getAsOpt[Set[IpAddress]]("ips")
-          fps  <- doc.getAsOpt[Set[FingerHash]]("fps")
+          ips  <- doc.getAsOpt[Set[IpAddress]]("ips")(collectionReader)
+          fps  <- doc.getAsOpt[Set[FingerHash]]("fps")(collectionReader)
         } yield OtherUser(user, ips intersect ipSet, fps intersect fpSet)
       }
 
-  def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] =
+  def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]] =
     for {
       (ips, fps) <- nextValues("ip", userId) zip nextValues("fp", userId)
-      users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred.distinctEasy[User.ID, Set](
+      users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred.distinctEasy[UserId, Set](
         "user",
         $doc(
           "ip" $in ips,
@@ -169,17 +169,16 @@ final class UserLoginsApi(
       )
     } yield users
 
-  private def nextValues(field: String, userId: User.ID): Fu[Set[String]] =
+  private def nextValues(field: String, userId: UserId): Fu[Set[String]] =
     store.coll.secondaryPreferred.distinctEasy[String, Set](field, $doc("user" -> userId))
-}
 
-object UserLogins {
+object UserLogins:
 
-  case class OtherUser(user: User, ips: Set[IpAddress], fps: Set[FingerHash]) {
-    val nbIps = ips.size
-    val nbFps = fps.size
-    val score = nbIps + nbFps + nbIps * nbFps
-  }
+  case class OtherUser[U](user: U, ips: Set[IpAddress], fps: Set[FingerHash])(using userIdOf: UserIdOf[U]):
+    val nbIps  = ips.size
+    val nbFps  = fps.size
+    val score  = nbIps + nbFps + nbIps * nbFps
+    def userId = userIdOf(user)
 
   // distinct values, keeping the most recent of duplicated values
   // assumes all is sorted by most recent first
@@ -192,7 +191,7 @@ object UserLogins {
       .view
       .map { case (v, date) => Dated(v, date) }
 
-  case class Alts(users: Set[User]) {
+  case class Alts(users: Set[User]):
     lazy val boosters = users.count(_.marks.boost)
     lazy val engines  = users.count(_.marks.engine)
     lazy val trolls   = users.count(_.marks.troll)
@@ -200,22 +199,19 @@ object UserLogins {
     lazy val closed   = users.count(u => u.disabled && u.marks.clean)
     lazy val cleans   = users.count(u => u.enabled && u.marks.clean)
     def score =
-      (boosters * 10 + engines * 10 + trolls * 10 + alts * 10 + closed * 2 + cleans) match {
+      (boosters * 10 + engines * 10 + trolls * 10 + alts * 10 + closed * 2 + cleans) match
         case 0 => -999999 // rank empty alts last
         case n => n
-      }
-  }
 
   case class IPData(
       ip: Dated[IpAddress],
       blocked: Boolean,
       location: Location,
-      proxy: Boolean,
+      proxy: Option[String],
       alts: Alts,
       clients: Set[UserAgent.Client]
-  ) {
-    def datedLocation = Dated(location, ip.date)
-  }
+  ):
+    def datedLocation = Dated(Location.WithProxy(location, proxy), ip.date)
 
   case class FPData(
       fp: Dated[FingerHash],
@@ -224,15 +220,20 @@ object UserLogins {
       client: UserAgent.Client
   )
 
-  case class WithMeSortedWithEmails(others: List[OtherUser], emails: Map[User.ID, EmailAddress]) {
-    def emailValueOf(u: User) = emails.get(u.id).map(_.value)
+  case class WithMeSortedWithEmails[U: UserIdOf](
+      others: List[OtherUser[U]],
+      emails: Map[UserId, EmailAddress]
+  ) {
+    def withUsers[V: UserIdOf](newUsers: List[V]) = copy(others = others.flatMap { o =>
+      newUsers.find(_ is o.user).map { u => o.copy(user = u) }
+    })
   }
 
   def withMeSortedWithEmails(
       userRepo: UserRepo,
       me: User,
       userLogins: UserLogins
-  )(implicit ec: scala.concurrent.ExecutionContext): Fu[WithMeSortedWithEmails] =
+  )(using scala.concurrent.ExecutionContext): Fu[WithMeSortedWithEmails[User]] =
     userRepo.emailMap(me.id :: userLogins.otherUsers.map(_.user.id)) map { emailMap =>
       WithMeSortedWithEmails(
         OtherUser(me, userLogins.rawIps.toSet, userLogins.rawFps.toSet) :: userLogins.otherUsers,
@@ -240,11 +241,14 @@ object UserLogins {
       )
     }
 
-  case class TableData(
+  case class TableData[U: UserIdOf](
       userLogins: UserLogins,
-      othersWithEmail: UserLogins.WithMeSortedWithEmails,
+      othersWithEmail: UserLogins.WithMeSortedWithEmails[U],
       notes: List[lila.user.Note],
-      bans: Map[String, Int],
+      bans: Map[UserId, Int],
       max: Int
-  )
-}
+  ) {
+    def withUsers[V: UserIdOf](users: List[V]) = copy(
+      othersWithEmail = othersWithEmail.withUsers(users)
+    )
+  }

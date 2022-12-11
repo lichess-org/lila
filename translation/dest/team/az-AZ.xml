@@ -18,7 +18,6 @@
     <item quantity="one">Komanda lideri</item>
     <item quantity="other">Komanda liderləri</item>
   </plurals>
-  <string name="teamBestPlayers">Ən yaxşı oyunçular</string>
   <string name="teamRecentMembers">Son qoşulan üzvlər</string>
   <string name="kickSomeone">Kimisə komandadan qov</string>
   <string name="whoToKick">Kimi komandadan qovmaq istəyirsiniz?</string>
@@ -45,8 +44,5 @@ Mesajlarınızı almaq istəməyən oyunçular komandanı tərk edə bilər.</st
   <string name="leadersChat">Liderlərin söhbəti</string>
   <string name="closeTeam">Komandanı bağla</string>
   <string name="closeTeamDescription">Komandanı həmişəlik bağla.</string>
-  <string name="teamPassword">Komanda şifrəsi</string>
-  <string name="teamPasswordDescriptionForLeader">(İstəyə bağlı) Bu komandaya qoşulmaq üçün yeni üzvlərin bilməli olduğu şifrə.</string>
-  <string name="incorrectTeamPassword">Yanlış komanda şifrəsi.</string>
   <string name="teamAlreadyExists">Bu komanda artıq mövcuddur.</string>
 </resources>

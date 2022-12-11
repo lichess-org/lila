@@ -2,19 +2,21 @@ package views.html
 package appeal
 
 import controllers.routes
+import controllers.appeal.routes.{ Appeal as appealRoutes }
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
 import lila.report.Report.Inquiry
 import lila.user.User
 
-object queue {
+object queue:
 
   def apply(
-      appeals: List[Appeal],
-      inquiries: Map[User.ID, Inquiry],
+      appeals: List[Appeal.WithUser],
+      inquiries: Map[UserId, Inquiry],
+      markedByMe: Set[UserId],
       scores: lila.report.Room.Scores,
       streamers: Int,
       nbAppeals: Int
@@ -29,10 +31,15 @@ object queue {
           )
         ),
         tbody(
-          appeals.map { appeal =>
+          appeals.map { case Appeal.WithUser(appeal, user) =>
             tr(cls := List("new" -> appeal.isUnread))(
               td(
-                userIdLink(appeal.id.some)
+                userIdLink(appeal.id.some, params = "?mod"),
+                br,
+                markedByMe.contains(appeal.id) option span(dataIcon := "", cls := "marked-by-me text")(
+                  "My mark"
+                ),
+                views.html.user.mod.userMarks(user, None)
               ),
               td(appeal.msgs.lastOption map { msg =>
                 frag(
@@ -43,7 +50,7 @@ object queue {
                 )
               }),
               td(
-                a(href := routes.Appeal.show(appeal.id), cls := "button button-empty")("View"),
+                a(href := appealRoutes.show(appeal.id), cls := "button button-empty")("View"),
                 inquiries.get(appeal.id) map { i =>
                   frag(userIdLink(i.mod.some), nbsp, "is handling this")
                 }
@@ -53,4 +60,3 @@ object queue {
         )
       )
     )
-}

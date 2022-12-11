@@ -1,3 +1,3 @@
-package lila
+package lila.perfStat
 
-package object perfStat extends PackageObject
+export lila.Lila.{ *, given }

@@ -24,8 +24,13 @@
   <string name="onlyAnalysed">Hanya permainan di mana analisa komputer tersedia</string>
   <string name="color">Warna</string>
   <string name="evaluation">Evaluasi</string>
-  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Jumlah maksimum</string>
+  <string name="maxNumber">Jumlah maksimum</string>
   <string name="maxNumberExplanation">Jumlah maksimal permainan untuk kembali</string>
   <string name="include">Termasuk</string>
-  <string name="generateURL">Hasilkan alamat URL</string>
+  <string name="descending">Sortir turun</string>
+  <string name="ascending">Sortir naik</string>
+  <plurals name="gamesFound">
+    <item quantity="other">%s permainan ditemukan</item>
+  </plurals>
+  <string name="ratingExplanation">Rating rata rata kedua pemain</string>
 </resources>

@@ -1,10 +1,11 @@
-import { h, VNode } from 'snabbdom';
-import { prop, Prop } from 'common';
-import { bind, dataIcon, iconTag, scrollTo } from '../util';
-import { ctrl as chapterNewForm, StudyChapterNewFormCtrl } from './chapterNewForm';
-import { ctrl as chapterEditForm, StudyChapterEditFormCtrl } from './chapterEditForm';
 import AnalyseCtrl from '../ctrl';
-import { StudyCtrl, StudyChapterMeta, LocalPaths, StudyChapter, TagArray, StudyChapterConfig } from './interfaces';
+import { ctrl as chapterEditForm, StudyChapterEditFormCtrl } from './chapterEditForm';
+import { ctrl as chapterNewForm, StudyChapterNewFormCtrl } from './chapterNewForm';
+import { h, VNode } from 'snabbdom';
+import { iconTag, bind, dataIcon } from 'common/snabbdom';
+import { LocalPaths, StudyChapter, StudyChapterConfig, StudyChapterMeta, StudyCtrl, TagArray } from './interfaces';
+import { prop, Prop } from 'common';
+import { scrollTo } from '../view/util';
 import { StudySocketSend } from '../socket';
 
 export interface StudyChaptersCtrl {
@@ -61,6 +62,9 @@ export function findTag(tags: TagArray[], name: string): string | undefined {
   return t && t[1];
 }
 
+export const looksLikeLichessGame = (tags: TagArray[]) =>
+  !!findTag(tags, 'site')?.match(new RegExp(location.hostname + '/\\w{8}$'));
+
 export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined {
   switch (findTag(tags, 'result')) {
     case '1-0':
@@ -93,7 +97,7 @@ export function view(ctrl: StudyCtrl): VNode {
     vData.count = newCount;
     if (canContribute && newCount > 1 && !vData.sortable) {
       const makeSortable = function () {
-        vData.sortable = window['Sortable'].create(el, {
+        vData.sortable = window.Sortable.create(el, {
           draggable: '.draggable',
           handle: 'ontouchstart' in window ? 'span' : undefined,
           onSort() {
@@ -101,7 +105,7 @@ export function view(ctrl: StudyCtrl): VNode {
           },
         });
       };
-      if (window['Sortable']) makeSortable();
+      if (window.Sortable) makeSortable();
       else lichess.loadScript('javascripts/vendor/Sortable.min.js').then(makeSortable);
     }
   }

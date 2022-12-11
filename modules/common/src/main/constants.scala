@@ -1,6 +1,6 @@
 package lila.common
 
-object constants {
+object constants:
 
   val bannedYoutubeIds = List(
     "7UpltimWY_E",
@@ -12,6 +12,13 @@ object constants {
     "b-WYer6Mjh0",
     "0GfVOMBIuLo",
     "g-DKTxYFkRQ",
-    "Z5eWjccV7D0"
+    "Z5eWjccV7D0",
+    "i3BT785qTWw",
+    "K_Bn2phvLro",
+    "V11ZQyAhEAM",
+    "i3BT785qTWw",
+    "ogavmoKE04Y",
+    "JPim0DiXNHk",
+    "roMv8RjhAQU",
+    "8JdXqxGwtJU"
   )
-}

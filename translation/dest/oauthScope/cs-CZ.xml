@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Nový osobní přístupový token pro API</string>
+  <string name="tokenGrantsPermission">Token dává někomu jinému oprávnění používat váš účet.</string>
+  <string name="carefullySelect">Pečlivě vyberte, co je mu povoleno dělat vaším jménem.</string>
+  <string name="tokenDescription">Popis tokenu</string>
+  <string name="rememberTokenUse">Pamatuješ si tedy, pro co je tento token</string>
+  <string name="whatTheTokenCanDo">Co token může udělat vaším jménem:</string>
+  <string name="doNotShareIt">Token umožní přístup k vašemu účtu. NESDÍLEJTE jej s nikým!</string>
+  <string name="copyTokenNow">Ujistěte se, že máte svůj nový osobní přístupový token uložený. Není možné ho znovu zobrazit!</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Načíst nastavení</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Zapsat nastavení</string>
+  <string name="emailRead">Načíst e-mailovou adresu</string>
+  <string name="challengeRead">Načíst příchozí změny</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Odeslat, potvrdit a odmítnout výzvy</string>
+  <string name="studyWrite">Vytvořit, upravit a smazat studie a vysílání</string>
+  <string name="tournamentWrite">Vytvořit, upravit a připojit k turnajům</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Číst puzzle aktivity</string>
+  <string name="teamRead">Číst soukromé informace o týmu</string>
+  <string name="teamWrite">Připojit se a opustit týmy</string>
+  <string name="teamLead">Spravovat týmy, které vedete: posílat soukromé zprávy, vykopávat členy</string>
+  <string name="followRead">Číst sledované hráče</string>
+  <string name="followWrite">Sledovat a přestat sledovat jiné hráče</string>
+  <string name="msgWrite">Poslat soukromé zprávy jiným hráčům</string>
+  <string name="boardPlay">Hrát hry přes deskové API</string>
+  <string name="botPlay">Hrát hry s botem přes API</string>
+  <string name="engineRead">Zobrazit a používat externí engine</string>
+  <string name="engineWrite">Vytvořit a aktualizovat externí engine</string>
+</resources>

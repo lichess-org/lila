@@ -1,21 +1,21 @@
-const subs: Array<() => void> = [];
+const subs: Dictionary<(() => void)[]> = Object.create(null);
 
 const pubsub: Pubsub = {
   on(name: string, cb) {
-    subs[name] = subs[name] || [];
-    subs[name].push(cb);
+    (subs[name] = subs[name] || []).push(cb);
   },
   off(name: string, cb) {
-    if (subs[name])
-      for (const i in subs[name]) {
-        if (subs[name][i] === cb) {
-          subs[name].splice(i);
+    const cbs = subs[name];
+    if (cbs)
+      for (const i in cbs) {
+        if (cbs[i] === cb) {
+          cbs.splice(+i);
           break;
         }
       }
   },
   emit(name: string, ...args: any[]) {
-    if (subs[name]) for (const i in subs[name]) subs[name][i].apply(null, args);
+    for (const fn of subs[name] || []) fn.apply(null, args);
   },
 };
 

@@ -4,7 +4,7 @@
   <string name="teachClassesOfChessStudents">Apmāciet šaha skolēnu grupas ar Lichess Klašu rīkiem.</string>
   <string name="features">Iespējas</string>
   <string name="quicklyGenerateSafeUsernames">Ātri izveidot drošus lietotājvārdus un paroles skolēniem</string>
-  <string name="trackStudentProgress">Sekojiet skolēnu progresam spēlēs un puzlēs</string>
+  <string name="trackStudentProgress">Sekojiet skolēnu progresam spēlēs un uzdevumos</string>
   <string name="messageAllStudents">Sūtiet ziņas par nodarbību materiālu visiem skolēniem</string>
   <string name="freeForAllForever">100% bezmaksas visiem un vienmēr, bez reklāmām un izsekotājiem</string>
   <string name="applyToBeLichessTeacher">Pieteikties par Lichess Skolotāju</string>
@@ -12,7 +12,7 @@
   <string name="teachersX">Skolotāji: %s</string>
   <string name="newClass">Jauna klase</string>
   <string name="closeClass">Slēgt klasi</string>
-  <string name="closedByX">Aizvēra %s</string>
+  <string name="removedByX">Noņēma lietotājs %s</string>
   <string name="reopen">Atkal atvērt</string>
   <string name="removeStudent">Noņemt skolēnu</string>
   <string name="removedStudents">Noņemts</string>
@@ -46,6 +46,7 @@ Parole: %3$s</string>
   <string name="createDesc2">E-pasta adrese nav nepieciešama. Tiks izveidota parole, kura jums būs jānodod skolēnam, lai viņš vai viņa var ierakstīties.</string>
   <string name="createDesc3">Svarīgi: skolēnam nedrīkst būt vairāki konti.</string>
   <string name="createDesc4">Ja skolēnam jau ir konts, aizpildiet ielūguma veidlapu.</string>
+  <string name="createStudentWarning">Izveidojiet kontus tikai īstiem skolēniem. Neizmantojiet šo funkciju, lai sev izveidotu vairākus kontus – citādi jums aizliegs lietot Lichess.</string>
   <string name="lichessUsername">Lichess lietotājvārds</string>
   <string name="generateANewUsername">Izveidot jaunu lietotājvārdu</string>
   <string name="welcomeToClass">Laipni lūgti savā klasē: %s.
@@ -57,7 +58,6 @@ Lūk saite, lai piekļūtu kasei.</string>
     <item quantity="one">%s neapstiprināts ielūgums</item>
     <item quantity="other">%s neapstiprināti ielūgumi</item>
   </plurals>
-  <string name="noPendingInvitations">Nav ielūgumu, kas gaida atbildi</string>
   <string name="onlyVisibleToTeachers">Redzams tikai grupas skolotājiem</string>
   <string name="lastActiveDate">Aktīvs</string>
   <string name="managed">Pārvaldīts</string>
@@ -92,11 +92,28 @@ Lūk saite, lai piekļūtu kasei.</string>
   <string name="variantXOverLastY">%1$s pagājušajās %2$s</string>
   <string name="winrate">Uzvaru proporcija</string>
   <string name="na">N/A</string>
-  <string name="news">Grupas jaunumi</string>
+  <string name="overview">Pārskats</string>
+  <string name="news">Jaunumi</string>
+  <string name="classNews">Klases jaunumi</string>
   <string name="editNews">Rediģēt jaunumus</string>
   <string name="notifyAllStudents">Paziņot visiem skolēniem</string>
   <string name="nothingHere">Pagaidām šeit nekā nav.</string>
   <string name="newsEdit1">Visas grupas ziņas vienā laukā.</string>
   <string name="newsEdit2">Pievienojiet jaunākās ziņas augšpusē. Nedzēsiet iepriekšējās ziņas.</string>
   <string name="newsEdit3">Atdaliet ziņas ar \"---\", tas izveidos horizontālu līniju.</string>
+  <string name="invite">Uzaicināt</string>
+  <string name="youHaveBeenInvitedByX">Jūs uzaicināja %s.</string>
+  <string name="youAcceptedThisInvitation">Jūs pieņēmāt uzaicinājumu.</string>
+  <string name="youDeclinedThisInvitation">Jūs noraidījāt uzaicinājumu.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">vai</string>
+  <string name="createMultipleAccounts">Izveidot vairākus Lichess kontus vienlaicīgi</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Varat arī %s, lai izveidotu vairākus Lichess kontus no skolēnu vārdu saraksta.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">aizpildīt šo veidlapu</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Ievērojiet, ka klasē var būt līdz pat %1$s skolēni. Lai apmācītu vairāk skolēnu, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">izveidojiet vairāk klašu</string>
+  <string name="studentsRealNamesOnePerLine">Skolēnu vārdi, katrs savā rindiņā</string>
+  <string name="xisNowAStudentOfTheClass">%s tagad ir šīs klases skolēns</string>
+  <string name="anInvitationHasBeenSentToX">Ielūgums nosūtīts skolēnam %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s jau ir ielūgts</string>
+  <string name="xIsAKidAccountWarning">%1$s ir bērna konts, kuram nevar nosūtīt jūsu ziņu. Jums jānodod ielūguma URL citā veidā: %2$s</string>
 </resources>

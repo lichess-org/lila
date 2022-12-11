@@ -1,3 +1,5 @@
+@import 'user-marks';
+
 #communication {
   h1 {
     @extend %flex-between;
@@ -7,14 +9,14 @@
   }
 
   .user-link {
-    margin-left: -0.5em;
+    margin-#{$start-direction}: -0.5em;
   }
 
   .actions {
     @extend %flex-center;
 
     .priv {
-      margin-left: 1em;
+      margin-#{$start-direction}: 1em;
       font-weight: normal;
     }
   }
@@ -43,6 +45,7 @@
 
   .player_chats {
     @extend %break-word;
+    @extend %flex-wrap;
 
     overflow: hidden;
   }
@@ -67,14 +70,14 @@
     padding: 6px;
   }
 
-  .player_chats .game .friend_title {
+  .player_chats .game .friend_title,
+  .thread .title .friend_title {
     color: green;
     font-style: italic;
   }
 
   .player_chats .game .title {
     text-align: center;
-    border-bottom: $border;
   }
 
   .player_chats .game .chat {
@@ -87,15 +90,24 @@
     overflow-y: auto;
   }
 
+  .user_marks i {
+    @include user_marks;
+  }
+
   .player_chats .line,
   .threads .post {
     opacity: 0.5;
     padding: 0 0.5em;
   }
 
+  .public_chats .line,
   .player_chats .line.author,
   .threads .post.author {
     opacity: 1;
+    cursor: pointer;
+    &:hover {
+      background: fade-out($c-accent, 0.8);
+    }
   }
 
   .thread {
@@ -106,10 +118,15 @@
 
   .thread .title {
     margin-bottom: 20px;
+    strong {
+      font-size: 1.2em;
+      margin-right: 1em;
+    }
   }
 
-  .thread .title strong {
-    font-size: 1.2em;
+  .thread .truncated-convo {
+    text-align: center;
+    font-style: italic;
     display: block;
   }
 

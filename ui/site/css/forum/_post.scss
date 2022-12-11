@@ -1,12 +1,10 @@
 .forum-post {
   font-size: 1.1em;
   border-top: $border;
-  padding: 2rem 0 0.5rem 0;
+  padding: 0.5rem 0 0.5rem 0;
 
   &__metas {
     @extend %flex-between;
-
-    margin-bottom: 1.5rem;
 
     > div {
       @extend %flex-center;
@@ -16,7 +14,14 @@
       color: $c-font-dim;
       font-weight: bold;
       font-size: 1.1em;
-      margin-right: 1rem;
+      margin-#{$end-direction}: 1rem;
+    }
+
+    a.author--op {
+      @extend %box-radius;
+      padding: 0.2em;
+      padding-#{$end-direction}: 0.8em;
+      background: mix($c-primary, $c-bg-box, 12%);
     }
 
     .anchor {
@@ -26,9 +31,12 @@
       font-weight: bold;
     }
 
+    time {
+      margin-#{$end-direction}: 1em;
+    }
+
     .delete {
       color: $c-font;
-      margin-left: 1em;
       &:hover {
         color: $c-bad;
       }
@@ -44,10 +52,15 @@
     color: $c-font;
     &:hover {
       color: $c-bad;
+
+      &.quote,
+      &.edit {
+        color: $c-primary;
+      }
     }
 
     &.postip {
-      margin-left: 1rem;
+      margin-#{$start-direction}: 1rem;
       max-width: 50vw;
       overflow: hidden;
       display: none;
@@ -64,7 +77,6 @@
 
   &:last-child {
     border-bottom: $border;
-    margin-bottom: 3rem;
   }
 
   &.erased {
@@ -83,7 +95,12 @@
   &__message {
     @extend %break-word, %zalgoverflow;
 
-    margin-bottom: 0.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+
+    .lpv {
+      margin: $block-gap auto;
+    }
 
     .embed:not(img) {
       @extend %video;
@@ -91,8 +108,20 @@
       margin: $block-gap auto;
     }
 
+    .hidden-quotes {
+      color: transparent;
+      display: inline-block;
+      width: 0;
+    }
+
     img {
       max-width: 100%;
+    }
+
+    blockquote {
+      padding-#{$start-direction}: 0.5em;
+      border-#{$start-direction}: 0.3em solid;
+      margin: 0.3em;
     }
   }
 
@@ -102,7 +131,7 @@
   }
 
   .edit-buttons a {
-    margin-right: 1em;
+    margin-#{$end-direction}: 1em;
   }
 
   .edit-post-form {

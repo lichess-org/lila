@@ -38,10 +38,10 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     const notif = data.pager.currentPageResults.find(n => !n.read);
     if (!notif) return;
     opts.pulse();
-    if (!lichess.quietMode || notif.content.user.id == 'lichess') lichess.sound.play('newPM');
+    if (!lichess.quietMode || notif.content.user?.id == 'lichess') lichess.sound.playOnce('newPM');
     const text = asText(notif, lichess.trans(data.i18n));
-    const pushSubsribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
-    if (!pushSubsribed && text) notify(text);
+    const pushSubscribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
+    if (!pushSubscribed && text) notify(text);
   }
 
   const loadPage = (page: number) =>
@@ -71,12 +71,35 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   function setMsgRead(user: string) {
     if (data)
       data.pager.currentPageResults.forEach(n => {
-        if (n.type == 'privateMessage' && n.content.user.id == user && !n.read) {
+        if (n.type == 'privateMessage' && n.content.user?.id == user && !n.read) {
           n.read = true;
           data!.unread = Math.max(0, data!.unread - 1);
           opts.setCount(data!.unread);
         }
       });
+  }
+
+  const emptyNotifyData = {
+    pager: {
+      currentPage: 1,
+      maxPerPage: 1,
+      currentPageResults: [],
+      nbResults: 0,
+      nbPages: 1,
+    },
+    unread: 0,
+    i18n: {},
+  };
+
+  function clear() {
+    xhr
+      .text('/notify/clear', {
+        method: 'post',
+      })
+      .then(
+        _ => update(emptyNotifyData, false),
+        _ => lichess.announce({ msg: 'Failed to clear notifications' })
+      );
   }
 
   return {
@@ -89,5 +112,6 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     loadPage,
     setVisible,
     setMsgRead,
+    clear,
   };
 }

@@ -20,7 +20,6 @@
     <item quantity="few">Вође тима</item>
     <item quantity="other">Вођа тима</item>
   </plurals>
-  <string name="teamBestPlayers">Најбољи играчи</string>
   <string name="teamRecentMembers">Најновији чланови</string>
   <string name="kickSomeone">Избаци некога из тима</string>
   <string name="whoToKick">Кога желите избацити из тима?</string>
@@ -46,8 +45,5 @@
   <string name="leadersChat">Ћаскање за вође</string>
   <string name="closeTeam">Распусти тим</string>
   <string name="closeTeamDescription">Заувек распушта тим.</string>
-  <string name="teamPassword">Тимска лозинка</string>
-  <string name="teamPasswordDescriptionForLeader">(Опционално) Лозинка коју нови чланови морају знати да би се придружили овом тиму.</string>
-  <string name="incorrectTeamPassword">Нетачна тимска лозинка.</string>
   <string name="teamAlreadyExists">Овај тим већ постоји.</string>
 </resources>

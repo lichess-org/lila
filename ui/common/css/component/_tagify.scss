@@ -198,7 +198,7 @@
 
       &:empty {
         &::after {
-          margin-left: 0;
+          margin-#{$start-direction}: 0;
         }
       }
     }
@@ -209,7 +209,7 @@
   + input,
   + textarea {
     position: absolute !important;
-    left: -9999em !important;
+    #{$start-direction}: -9999em !important;
     transform: scale(0) !important;
   }
 
@@ -264,9 +264,9 @@
         content: '';
         position: absolute;
         border-radius: inherit;
-        left: 0;
+        #{$start-direction}: 0;
         top: 0;
-        right: 0;
+        #{$end-direction}: 0;
         bottom: 0;
         z-index: -1;
         pointer-events: none;
@@ -285,9 +285,9 @@
           $size: -2px;
 
           top: $size;
-          right: $size;
+          #{$end-direction}: $size;
           bottom: $size;
-          left: $size;
+          #{$start-direction}: $size;
           box-shadow: 0 0 0 $tag-inset-shadow-size $tag-hover inset;
           box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size) var(--tag-hover, $tag-hover) inset;
         }
@@ -316,10 +316,10 @@
 
     &--hide {
       width: 0 !important;
-      padding-left: 0;
-      padding-right: 0;
-      margin-left: 0;
-      margin-right: 0;
+      padding-#{$start-direction}: 0;
+      padding-#{$end-direction}: 0;
+      margin-#{$start-direction}: 0;
+      margin-#{$end-direction}: 0;
       opacity: 0;
       transform: scale(0);
       transition: $tag-hide-transition;
@@ -414,8 +414,8 @@
 
       width: $size;
       height: $size;
-      margin-right: $size / 3;
-      margin-left: auto;
+      margin-#{$end-direction}: $size / 3;
+      margin-#{$start-direction}: auto;
 
       overflow: hidden;
       transition: 0.2s ease-out;
@@ -626,7 +626,7 @@
       opacity: 0.5;
       position: absolute;
       top: 50%;
-      right: 0;
+      #{$end-direction}: 0;
       bottom: 0;
       font: $size monospace;
       line-height: $size / 2;
@@ -645,7 +645,7 @@
     #{$self}__tag {
       position: absolute;
       top: 0;
-      right: 1.8em;
+      #{$end-direction}: 1.8em;
       bottom: 0;
 
       div {

@@ -1,9 +1,8 @@
 import * as control from '../../control';
 import AnalyseCtrl from '../../ctrl';
 import throttle from 'common/throttle';
-import { bind, iconTag } from '../../util';
+import { iconTag, bind, MaybeVNodes } from 'common/snabbdom';
 import { h, Hooks, VNode } from 'snabbdom';
-import { MaybeVNodes } from '../../interfaces';
 
 export function running(ctrl: AnalyseCtrl): boolean {
   return (
@@ -170,7 +169,7 @@ function textareaHook(ctrl: AnalyseCtrl, field: 'deviation' | 'hint'): Hooks {
     insert(vnode: VNode) {
       const el = vnode.elm as HTMLInputElement;
       el.value = value;
-      el.onkeyup = el.onpaste = () => {
+      el.oninput = () => {
         const node = ctrl.node;
         node.gamebook = node.gamebook || {};
         node.gamebook[field] = el.value.trim();

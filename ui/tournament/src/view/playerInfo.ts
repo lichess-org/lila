@@ -1,5 +1,7 @@
 import { h, VNode } from 'snabbdom';
-import { spinner, bind, numberRow, playerName, dataIcon, player as renderPlayer } from './util';
+import { spinnerVdom as spinner } from 'common/spinner';
+import { bind, dataIcon } from 'common/snabbdom';
+import { numberRow, playerName, player as renderPlayer } from './util';
 import { teamName } from './battle';
 import * as status from 'game/status';
 import TournamentController from '../ctrl';
@@ -16,9 +18,8 @@ function result(win: boolean, stat: number): string {
   }
 }
 
-function playerTitle(player: Player) {
-  return h('h2', [h('span.rank', player.rank + '. '), renderPlayer(player, true, false, false)]);
-}
+const playerTitle = (player: Player) =>
+  h('h2', [player.rank ? h('span.rank', `${player.rank}. `) : '', renderPlayer(player, true, false, false)]);
 
 function setup(vnode: VNode) {
   const el = vnode.elm as HTMLElement,
@@ -35,13 +36,7 @@ export default function (ctrl: TournamentController): VNode {
     return h(tag, [h('div.stats', [playerTitle(ctrl.playerInfo.player!), spinner()])]);
   const nb = data.player.nb,
     pairingsLen = data.pairings.length,
-    avgOp = pairingsLen
-      ? Math.round(
-          data.pairings.reduce(function (a, b) {
-            return a + b.op.rating;
-          }, 0) / pairingsLen
-        )
-      : undefined;
+    avgOp = pairingsLen ? Math.round(data.pairings.reduce((a, b) => a + b.op.rating, 0) / pairingsLen) : undefined;
   return h(
     tag,
     {
@@ -69,7 +64,7 @@ export default function (ctrl: TournamentController): VNode {
             )
           : null,
         h('table', [
-          data.player.performance
+          ctrl.opts.showRatings && data.player.performance
             ? numberRow(noarg('performance'), data.player.performance + (nb.game < 3 ? '?' : ''), 'raw')
             : null,
           numberRow(noarg('gamesPlayed'), nb.game),
@@ -77,7 +72,7 @@ export default function (ctrl: TournamentController): VNode {
             ? [
                 numberRow(noarg('winRate'), [nb.win, nb.game], 'percent'),
                 numberRow(noarg('berserkRate'), [nb.berserk, nb.game], 'percent'),
-                numberRow(noarg('averageOpponent'), avgOp, 'raw'),
+                ctrl.opts.showRatings ? numberRow(noarg('averageOpponent'), avgOp, 'raw') : null,
               ]
             : []),
         ]),
@@ -105,7 +100,7 @@ export default function (ctrl: TournamentController): VNode {
               [
                 h('th', '' + (Math.max(nb.game, pairingsLen) - i)),
                 h('td', playerName(p.op)),
-                h('td', p.op.rating),
+                ctrl.opts.showRatings ? h('td', p.op.rating) : null,
                 h('td.is.color-icon.' + p.color),
                 h('td', res),
               ]

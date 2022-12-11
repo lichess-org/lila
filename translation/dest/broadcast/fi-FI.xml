@@ -19,8 +19,11 @@
   <string name="startDate">Alkamispäivämäärä omalla aikavyöhykkeelläsi</string>
   <string name="startDateHelp">Ei-pakollinen, laita jos tiedät milloin tapahtuma alkaa</string>
   <string name="credits">Mainitse lähde</string>
+  <string name="resetRound">Nollaa tämä kierros</string>
   <string name="deleteRound">Poista tämä kierros</string>
   <string name="broadcastUrl">Lähetyksen URL</string>
   <string name="currentRoundUrl">Tämän kierroksen URL</string>
   <string name="currentGameUrl">Tämän pelin URL</string>
+  <string name="downloadAllRounds">Lataa kaikki kierrokset</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Poista kierros ja sen pelit lopullisesti.</string>
 </resources>

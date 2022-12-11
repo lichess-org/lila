@@ -18,7 +18,7 @@
 
     &::before {
       font-size: 3.6em;
-      margin-right: 1rem;
+      margin-#{$end-direction}: 1rem;
     }
   }
 

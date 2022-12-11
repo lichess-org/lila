@@ -1,10 +1,10 @@
 # Copying Lila
 
 Any file in this project that does not state otherwise and is not listed as an
-exception below is part of lila and copyright (c) 2012-2021 the lila authors.
+exception below is part of lila and copyright (c) 2012-2022 the lila authors.
 
 For a list of the authors see the commit log or
-https://github.com/ornicar/lila/graphs/contributors.
+https://github.com/lichess-org/lila/graphs/contributors.
 
 Lila is free software; you can redistribute and/or modify it under the terms
 of the GNU Affero General Public License as published by the Free Software
@@ -23,7 +23,7 @@ See the LICENSE file for a copy of the _GNU Affero General Public License_.
 If you modify this Program, or any covered work, by linking or combining it
 with Highcharts (or a modified version of that library), containing parts
 covered by the terms of the _Creative Commons (CC) Attribution-NonCommercial_
-licence, the licensors of this Program grant you additional permission to
+license, the licensors of this Program grant you additional permission to
 convey the resulting work. Corresponding Source for a non-source form of such a
 combination shall include the source code for the parts of Highcharts used as
 well as that of the covered work.
@@ -63,6 +63,8 @@ public/piece/tatiana | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org
 public/piece/staunty | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/dubrovny | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/libra | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/anarcandy | [caderek](https://github.com/caderek) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/disguised | danegraphics | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
@@ -85,8 +87,8 @@ public/piece/reillycraig | [Reilly Craig](https://instagram.com/fader_) |
 public/piece/riohacha | |
 public/images/staunton/piece/Staunton | [Eden Murs](https://userstyles.org/styles/134558/lichess-pieces-3d-staunton) (?) |
 
-- The other sounds in public/sound.
-- The other artwork in public/images.
+- The other sounds in public/sound
+- The other artwork in public/images
 
 ## External services
 

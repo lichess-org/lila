@@ -1,16 +1,16 @@
 package views.html
 package account
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.pref.PrefCateg
 
 import controllers.routes
 
-object pref {
+object pref:
 
-  import trans.preferences._
+  import trans.preferences.*
 
   private def categFieldset(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg) =
     div(cls := List("none" -> (categ != active)))
@@ -26,16 +26,16 @@ object pref {
           input(
             st.id := s"$prefix$id",
             checked option st.checked,
-            tpe := "radio",
+            tpe   := "radio",
             value := v._1.toString,
-            name := field.name
+            name  := field.name
           ),
           label(`for` := s"$prefix$id")(v._2)
         )
       }.toList
     )
 
-  def apply(u: lila.user.User, form: play.api.data.Form[_], categ: lila.pref.PrefCateg)(implicit
+  def apply(u: lila.user.User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using
       ctx: Context
   ) =
     account.layout(
@@ -44,9 +44,9 @@ object pref {
     ) {
       val booleanChoices = Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt())
       div(cls := "account box box-pad")(
-        h1(bits.categName(categ)),
+        h1(cls := "box__top")(bits.categName(categ)),
         postForm(cls := "autosubmit", action := routes.Pref.formApply)(
-          categFieldset(PrefCateg.GameDisplay, categ)(
+          categFieldset(PrefCateg.Display, categ)(
             setting(
               pieceAnimation(),
               radios(form("display.animation"), translatedAnimationChoices)
@@ -86,6 +86,15 @@ object pref {
             setting(
               blindfoldChess(),
               radios(form("display.blindfold"), translatedBlindfoldChoices)
+            ),
+            setting(
+              showPlayerRatings(),
+              frag(
+                radios(form("ratings"), booleanChoices),
+                div(cls := "help text shy", dataIcon := "")(
+                  explainShowPlayerRatings()
+                )
+              )
             )
           ),
           categFieldset(PrefCateg.ChessClock, categ)(
@@ -121,7 +130,12 @@ object pref {
             ),
             setting(
               promoteToQueenAutomatically(),
-              radios(form("behavior.autoQueen"), translatedAutoQueenChoices)
+              frag(
+                radios(form("behavior.autoQueen"), translatedAutoQueenChoices),
+                div(cls := "help text shy", dataIcon := "")(
+                  explainPromoteToQueenAutomatically()
+                )
+              )
             ),
             setting(
               claimDrawOnThreefoldRepetitionAutomatically(),
@@ -138,6 +152,12 @@ object pref {
             setting(
               castleByMovingTheKingTwoSquaresOrOntoTheRook(),
               radios(form("behavior.rookCastle"), translatedRookCastleChoices)
+            ),
+            div(id := "correspondence-email-notif")(
+              setting(
+                correspondenceEmailNotification(),
+                radios(form("behavior.corresEmailNotif"), booleanChoices)
+              )
             ),
             setting(
               inputMovesWithTheKeyboard(),
@@ -186,4 +206,3 @@ object pref {
         )
       )
     }
-}

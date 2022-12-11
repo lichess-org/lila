@@ -6,6 +6,17 @@
   "type": "module",
   "module": "game.js",
   "typings": "game.d.ts",
+  "exports": {
+    ".": "./dist/game.js",
+    "./*": "./dist/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
   "keywords": [
     "chess",
     "lichess",
@@ -15,12 +26,16 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc --incremental",
-    "dev": "yarn run compile",
-    "prod": "yarn run compile"
+    "compile": "tsc --incremental",
+    "dev": "$npm_execpath run compile",
+    "prod": "$npm_execpath run compile"
+  },
+  "dependencies": {
+    "chessground": "^8.3.5",
+    "snabbdom": "^3.3.1"
   },
   "devDependencies": {
     "@types/lichess": "2.0.0",
-    "typescript": "^4.3.4"
+    "typescript": "^4"
   }
 }

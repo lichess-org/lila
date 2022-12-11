@@ -48,19 +48,27 @@ db.trophyKind.insert({
   withCustomImage: false,
 });
 db.trophyKind.insert({
+  _id: 'marathonTopFivehundred',
+  name: 'Marathon Top 500',
+  icon: '',
+  klass: 'fire-trophy',
+  order: NumberInt(7),
+  withCustomImage: false,
+});
+db.trophyKind.insert({
   _id: 'marathonSurvivor',
   name: 'Marathon #1 survivor',
   icon: '',
   url: '//lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1',
   klass: 'fire-trophy',
-  order: NumberInt(7),
+  order: NumberInt(8),
   withCustomImage: false,
 });
 db.trophyKind.insert({
   _id: 'developer',
   name: 'Lichess developer',
   icon: '',
-  url: 'https://github.com/ornicar/lila/graphs/contributors',
+  url: 'https://github.com/lichess-org/lila/graphs/contributors',
   klass: 'icon3d',
   order: NumberInt(100),
   withCustomImage: false,
@@ -80,6 +88,14 @@ db.trophyKind.insert({
   icon: '',
   klass: 'icon3d',
   order: NumberInt(102),
+  withCustomImage: false,
+});
+db.trophyKind.insert({
+  _id: 'contentTeam',
+  name: 'Lichess Content Team',
+  icon: '',
+  klass: 'icon3d',
+  order: NumberInt(103),
   withCustomImage: false,
 });
 db.trophyKind.insert({

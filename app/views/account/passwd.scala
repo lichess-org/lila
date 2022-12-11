@@ -1,15 +1,15 @@
 package views.html
 package account
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object passwd {
+object passwd:
 
-  def apply(form: play.api.data.Form[_])(implicit ctx: Context) =
+  def apply(form: play.api.data.Form[?])(implicit ctx: Context) =
     account.layout(
       title = trans.changePassword.txt(),
       active = "password",
@@ -21,7 +21,7 @@ object passwd {
       )
     ) {
       div(cls := "account box box-pad")(
-        h1(trans.changePassword()),
+        h1(cls := "box__top")(trans.changePassword()),
         standardFlash(),
         postForm(cls := "form3", action := routes.Account.passwdApply)(
           form3.passwordModified(form("oldPasswd"), trans.currentPassword())(
@@ -38,4 +38,3 @@ object passwd {
         )
       )
     }
-}

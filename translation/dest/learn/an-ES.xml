@@ -142,6 +142,12 @@ peón = 1
 Lo rei ye valioso! Perder-lo significa perder la partida.</string>
   <string name="queenOverBishop">Captura la pieza mas valurosa!
 Dama &gt; Alfil</string>
+  <string name="pieceValueExchange">Captura la pieza que tienga mas valura!
+ No cambies
+ una pieza que valga mas per una de menos valura.</string>
+  <string name="pieceValueLegal">Captura la pieza 
+que tienga mas valura!
+Asegura-te que lo movimiento ye legal.</string>
   <string name="takeThePieceWithTheHighestValue">Captura la pieza mas valurosa!</string>
   <string name="pieceValueComplete">Felicidatz! Conoixes la valura d\'as piezas!
 Dama = 9
@@ -181,8 +187,8 @@ peón = 1</string>
   <string name="nailedIt">L\'has clavau!</string>
   <string name="rightOn">Exacto!</string>
   <string name="stageXComplete">Libel %s completo</string>
-  <string name="yourScore">La tuya puntuación</string>
   <string name="next">Siguient</string>
+  <string name="nextX">Siguient: %s</string>
   <string name="backToMenu">Tornar a lo menú</string>
   <string name="puzzleFailed">Solución incorrecta!</string>
   <string name="retry">Reintentar</string>

@@ -1,14 +1,19 @@
 import * as winningChances from './winningChances';
-import { defined } from 'common';
-import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
+import stepwiseScroll from 'common/wheel';
+import { bind } from 'common/snabbdom';
+import { defined, notNull } from 'common';
+import { Eval, ParentCtrl, NodeEvals } from './types';
 import { h, VNode } from 'snabbdom';
 import { Position } from 'chessops/chess';
-import { lichessVariantRules } from 'chessops/compat';
+import { lichessRules } from 'chessops/compat';
 import { makeSanAndPlay } from 'chessops/san';
 import { opposite, parseUci } from 'chessops/util';
 import { parseFen, makeBoardFen } from 'chessops/fen';
 import { renderEval } from './util';
 import { setupPosition } from 'chessops/variant';
+import { uciToMove } from 'chessground/util';
+import { CevalState } from './worker';
+import CevalCtrl from './ctrl';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
@@ -17,22 +22,23 @@ const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
 
 function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.getCeval(),
+    state = ceval.getState(),
     trans = ctrl.trans;
   if (!evs.client) {
+    if (!ceval.analysable) return ['Engine cannot analyze this position'];
+    if (state == CevalState.Failed) return [trans.noarg('engineFailed')];
     const mb = ceval.downloadProgress() / 1024 / 1024;
-    return [
-      evs.server && ctrl.nextNodeBest()
-        ? trans.noarg('usingServerAnalysis')
-        : trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : ''),
-    ];
+    const localEvalText =
+      state == CevalState.Loading
+        ? trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : '')
+        : trans.noarg('calculatingMoves');
+    return [evs.server && ctrl.nextNodeBest() ? trans.noarg('usingServerAnalysis') : localEvalText];
   }
 
+  const depth = evs.client.depth || 0;
   const t: Array<VNode | string> = evs.client.cloud
-    ? [
-        trans('depthX', evs.client.depth || 0),
-        h('span.cloud', { attrs: { title: trans.noarg('cloudAnalysis') } }, 'Cloud'),
-      ]
-    : [trans('depthX', (evs.client.depth || 0) + '/' + evs.client.maxDepth)];
+    ? [trans('depthX', depth), h('span.cloud', { attrs: { title: trans.noarg('cloudAnalysis') } }, 'Cloud')]
+    : [trans('depthX', depth + '/' + Math.max(depth, evs.client.maxDepth))];
   if (ceval.canGoDeeper())
     t.push(
       h('a.deeper', {
@@ -40,23 +46,17 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
           title: trans.noarg('goDeeper'),
           'data-icon': '',
         },
-        hook: {
-          insert: vnode =>
-            (vnode.elm as HTMLElement).addEventListener('click', () => {
-              ceval.goDeeper();
-              ceval.redraw();
-            }),
-        },
+        hook: bind('click', ceval.goDeeper),
       })
     );
-  else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
+  else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + 'k nodes/s');
   return t;
 }
 
-function threatInfo(ctrl: ParentCtrl, threat?: Tree.ClientEval | false): string {
-  if (!threat) return ctrl.trans.noarg('loadingEngine');
+function threatInfo(ctrl: ParentCtrl, threat?: Tree.LocalEval | false): string {
+  if (!threat) return ctrl.trans.noarg('calculatingMoves');
   let t = ctrl.trans('depthX', (threat.depth || 0) + '/' + threat.maxDepth);
-  if (threat.knps) t += ', ' + Math.round(threat.knps) + ' knodes/s';
+  if (threat.knps) t += ', ' + Math.round(threat.knps) + 'k nodes/s';
   return t;
 }
 
@@ -71,25 +71,31 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
       'data-icon': '',
       title: ctrl.trans.noarg('showThreat') + ' (x)',
     },
-    hook: {
-      insert: vnode => (vnode.elm as HTMLElement).addEventListener('click', ctrl.toggleThreatMode),
-    },
+    hook: bind('click', ctrl.toggleThreatMode),
   });
 }
 
 function engineName(ctrl: CevalCtrl): VNode[] {
-  const version = ctrl.engineName();
   return [
-    h(
-      'span',
-      { attrs: { title: version || '' } },
-      ctrl.technology == 'nnue' ? 'Stockfish 13+' : ctrl.technology == 'hce' ? 'Stockfish 11+' : 'Stockfish 10+'
-    ),
-    ctrl.technology == 'nnue'
+    h('span', { attrs: { title: ctrl.longEngineName() || '' } }, ctrl.shortEngineName()),
+    ctrl.technology == 'external'
       ? h(
           'span.technology.good',
           {
-            attrs: { title: 'Multi-threaded WebAssembly with SIMD (efficiently updatable neural network, strongest)' },
+            attrs: {
+              title: 'Engine running outside of the browser',
+            },
+          },
+          'EXTERNAL'
+        )
+      : ctrl.technology == 'nnue'
+      ? h(
+          'span.technology.good',
+          {
+            attrs: {
+              title:
+                'Multi-threaded WebAssembly with SIMD (efficiently updatable neural network, using 4x smaller net by Sopel97)',
+            },
           },
           'NNUE'
         )
@@ -158,16 +164,18 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
     percent = evs.client
-      ? Math.min(100, Math.round((100 * evs.client.depth) / (evs.client.maxDepth || instance.effectiveMaxDepth())))
+      ? evs.client.cloud
+        ? 100
+        : Math.min(100, Math.round((100 * evs.client.depth) / evs.client.maxDepth))
       : 0;
   } else if (bestEv && defined(bestEv.mate)) {
     pearl = '#' + bestEv.mate;
     percent = 100;
-  } else if (ctrl.outcome()) {
-    pearl = '-';
-    percent = 0;
   } else {
-    pearl = enabled ? h('i.ddloader') : h('i');
+    if (!enabled) pearl = h('i');
+    else if (ctrl.outcome() || ctrl.getNode().threefold) pearl = '-';
+    else if (instance.getState() === CevalState.Failed) pearl = h('i.is-red', { attrs: { 'data-icon': '\ue05d' } });
+    else pearl = h('i.ddloader');
     percent = 0;
   }
   if (threatMode) {
@@ -206,6 +214,8 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
             'span.info',
             ctrl.outcome()
               ? [trans.noarg('gameOver')]
+              : ctrl.getNode().threefold
+              ? [trans.noarg('threefoldRepetition')]
               : threatMode
               ? [threatInfo(ctrl, threat)]
               : localEvalInfo(ctrl, evs)
@@ -214,7 +224,11 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
       ]
     : [
         pearl ? h('pearl', [pearl]) : null,
-        h('help', [...engineName(instance), h('br'), trans.noarg('inLocalBrowser')]),
+        h('help', [
+          ...engineName(instance),
+          h('br'),
+          instance.analysable ? trans.noarg('inLocalBrowser') : 'Engine cannot analyse this game',
+        ]),
       ];
 
   const switchButton: VNode | null =
@@ -223,17 +237,16 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
       : h(
           'div.switch',
           {
-            attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (l)' },
+            attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (L)' },
           },
           [
             h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
               attrs: {
                 type: 'checkbox',
                 checked: enabled,
+                disabled: !instance.analysable,
               },
-              hook: {
-                insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleCeval),
-              },
+              hook: bind('change', ctrl.toggleCeval),
             }),
             h('label', { attrs: { for: 'analyse-toggle-ceval' } }),
           ]
@@ -243,7 +256,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     'div.ceval' + (enabled ? '.enabled' : ''),
     {
       class: {
-        computing: percent < 100 && instance.isComputing(),
+        computing: percent < 100 && instance.getState() === CevalState.Computing,
       },
     },
     [progressBar, ...body, threatButton(ctrl), switchButton]
@@ -262,7 +275,13 @@ function getElUci(e: TouchEvent | MouseEvent): string | undefined {
   );
 }
 
-function getElPvMoves(e: MouseEvent): (string | null)[] {
+function getElUciList(e: TouchEvent | MouseEvent): string[] {
+  return getElPvMoves(e)
+    .filter(notNull)
+    .map(move => move.split('|')[1]);
+}
+
+function getElPvMoves(e: TouchEvent | MouseEvent): (string | null)[] {
   const pvMoves: (string | null)[] = [];
 
   $(e.target as HTMLElement)
@@ -286,7 +305,7 @@ function checkHover(el: HTMLElement, instance: CevalCtrl): void {
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
-  const multiPv = parseInt(instance.multiPv()),
+  const multiPv = instance.multiPv(),
     node = ctrl.getNode(),
     setup = parseFen(node.fen).unwrap();
   let pvs: Tree.PvData[],
@@ -302,7 +321,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     setup.turn = opposite(setup.turn);
     if (setup.turn == 'white') setup.fullmoves += 1;
   }
-  const pos = setupPosition(lichessVariantRules(instance.variant.key), setup);
+  const pos = setupPosition(lichessRules(instance.opts.variant.key), setup);
 
   return h(
     'div.pv_box',
@@ -322,25 +341,27 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
               instance.setPvBoard({ fen, uci });
             }
           });
-          el.addEventListener('wheel', (e: WheelEvent) => {
-            e.preventDefault();
-            if (pvIndex != null && pvMoves != null) {
-              if (e.deltaY < 0 && pvIndex > 0) pvIndex -= 1;
-              else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1) pvIndex += 1;
-
-              const pvBoard = pvMoves[pvIndex];
-              if (pvBoard) {
-                const [fen, uci] = pvBoard.split('|');
-                ctrl.getCeval().setPvBoard({ fen, uci });
+          el.addEventListener(
+            'wheel',
+            stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+              e.preventDefault();
+              if (pvIndex != null && pvMoves != null) {
+                if (e.deltaY < 0 && pvIndex > 0 && scroll) pvIndex -= 1;
+                else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1 && scroll) pvIndex += 1;
+                const pvBoard = pvMoves[pvIndex];
+                if (pvBoard) {
+                  const [fen, uci] = pvBoard.split('|');
+                  ctrl.getCeval().setPvBoard({ fen, uci });
+                }
               }
-            }
-          });
+            })
+          );
           el.addEventListener('mouseout', () => ctrl.getCeval().setHovering(getElFen(el)));
           for (const event of ['touchstart', 'mousedown']) {
             el.addEventListener(event, (e: TouchEvent | MouseEvent) => {
-              const uci = getElUci(e);
-              if (uci) {
-                ctrl.playUci(uci);
+              const uciList = getElUciList(e);
+              if (uciList.length > (pvIndex ?? 0) && !ctrl.threatMode()) {
+                ctrl.playUciList(uciList.slice(0, (pvIndex ?? 0) + 1));
                 e.preventDefault();
               }
             });
@@ -441,11 +462,10 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
     return;
   }
   const { fen, uci } = pvBoard;
-  const lastMove = uci[1] === '@' ? [uci.slice(2)] : [uci.slice(0, 2), uci.slice(2, 4)];
   const orientation = ctrl.getOrientation();
   const cgConfig = {
     fen,
-    lastMove,
+    lastMove: uciToMove(uci),
     orientation,
     coordinates: false,
     viewOnly: true,

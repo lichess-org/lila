@@ -2,7 +2,7 @@ $mq-col2: $mq-col2-uniboard;
 $mq-col3: $mq-col3-uniboard;
 
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+  --main-max-width: calc(100vh - #{$site-header-outer-height} - 10rem);
 
   @include breakpoint($mq-col2) {
     --main-max-width: auto;

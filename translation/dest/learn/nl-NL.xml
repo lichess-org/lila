@@ -170,7 +170,7 @@ wanneer jouw pion op de vijfde rij staat.</string>
 - Zwart geen legale zetten meer te geven
 - Zwart niet schaak te zetten.</string>
   <string name="stalemateComplete">Gefeliciteerd! Beter pat staan dan mat staan!</string>
-  <string name="advanced">Voor geavanceerden</string>
+  <string name="advanced">Meer voor gevorderden</string>
   <string name="pieceValue">Waarde van stukken</string>
   <string name="evaluatePieceStrength">Evalueer de kracht van stukken</string>
   <string name="pieceValueIntro">Stukken die meer kunnen hebben een hogere waarde!
@@ -228,8 +228,8 @@ Pion = 1</string>
   <string name="nailedIt">De spijker op de kop.</string>
   <string name="rightOn">Juist!</string>
   <string name="stageXComplete">Niveau %s voltooid</string>
-  <string name="yourScore">Jouw score</string>
   <string name="next">Volgende</string>
+  <string name="nextX">Volgende: %s</string>
   <string name="backToMenu">Terug naar het menu</string>
   <string name="puzzleFailed">Puzzel mislukt!</string>
   <string name="retry">Opnieuw</string>

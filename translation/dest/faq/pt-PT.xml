@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Como é que me posso tornar um moderador?</string>
   <string name="youCannotApply">Não é possível candidatar-se a moderador. Se virmos alguém que consideramos que seria um bom moderador, contactá-lo(a)-emos diretamente.</string>
   <string name="isCorrespondenceDifferent">Os jogos por correspondência são diferentes do xadrez normal?</string>
+  <string name="pleaseReadFairPlayPage">Para mais informações, leia as nossas %s</string>
+  <string name="fairPlayPage">página de fair-play</string>
   <string name="youCanUseOpeningBookNoEngine">No Lichess, a principal diferença nas regras para jogos de correspondência é que é permitido utilizar um livro de aberturas. A utilização da ajuda de computadores continua a ser proibida e utilizá-la resultará em ser marcado por utilizar a ajuda de computador. Embora a ICCF permita a utilização de computadores, o Lichess não o permite.</string>
   <string name="gameplay">Jogabilidade</string>
   <string name="howBulletBlitzEtcDecided">Como é que bullet, blitz e outros ritmos de jogo são decididos?</string>
@@ -60,8 +62,8 @@ Nota que pode ser possível fazer xeque-mate somente com um cavalo ou bispo, se 
 
 Vê o %3$s deste lance para o praticares.</string>
   <string name="goodIntroduction">boa introdução</string>
-  <string name="officialRulesPDF">regras oficiais (PDF)</string>
   <string name="lichessTraining">treino do Lichess</string>
+  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Assista ao xeque-mate do Mestre Internacional Eric Rosen %s.</string>
   <string name="threefoldRepetition">Repetição tripla</string>
   <string name="threefoldRepetitionExplanation">Se uma posição ocorrer três vezes, os jogadores podem reivindicar um empate por %1$s. O Lichess implementa as regras oficiais da FIDE, como estão descritas no Artigo 9.2 (d) do %2$s.</string>
   <string name="threefoldRepetitionLowerCase">repetição tripla</string>

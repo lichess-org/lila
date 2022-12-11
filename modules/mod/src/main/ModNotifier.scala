@@ -6,15 +6,15 @@ import lila.report.{ Mod, Suspect, Victim }
 final private class ModNotifier(
     notifyApi: NotifyApi,
     reportApi: lila.report.ReportApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using scala.concurrent.ExecutionContext):
 
   def reporters(mod: Mod, sus: Suspect): Funit =
     reportApi.recentReportersOf(sus) flatMap {
-      _.filter(r => mod.user.id != r.value)
+      _.filterNot(mod.user is _)
         .map { reporterId =>
           notifyApi.addNotification(
             Notification.make(
-              notifies = Notification.Notifies(reporterId.value),
+              notifies = UserId(reporterId.value),
               content = lila.notify.ReportedBanned
             )
           )
@@ -25,10 +25,9 @@ final private class ModNotifier(
 
   def refund(victim: Victim, pt: lila.rating.PerfType, points: Int): Funit =
     notifyApi.addNotification {
-      implicit val lang = victim.user.realLang | lila.i18n.defaultLang
+      given play.api.i18n.Lang = victim.user.realLang | lila.i18n.defaultLang
       Notification.make(
-        notifies = Notification.Notifies(victim.user.id),
+        notifies = victim.user.id,
         content = lila.notify.RatingRefund(pt.trans, points)
       )
-    }
-}
+    }.void

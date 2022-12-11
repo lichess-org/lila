@@ -12,8 +12,10 @@
   <string name="origin">Alkuperä</string>
   <string name="specialMoves">Erityissiirrot</string>
   <string name="didYouLikeThisPuzzle">Piditkö tästä tehtävästä?</string>
-  <string name="voteToLoadNextOne">Äänestä, niin seuraava latautuu!</string>
-  <string name="yourPuzzleRatingX">Tehtävävahvuuslukusi: %s</string>
+  <string name="voteToLoadNextOne">Anna arviosi, niin seuraava latautuu!</string>
+  <string name="upVote">Arvioi tehtävä hyväksi</string>
+  <string name="downVote">Arvioi tehtävä huonoksi</string>
+  <string name="yourPuzzleRatingWillNotChange">Tehtävävahvuuslukusi ei muutu. Huomaa, että tehtävien ratkaisu ei ole kilpailu. Vahvuusluvun perusteella saat ratkaistavaksesi tämänhetkistä taitotasoasi parhaiten vastaavia tehtäviä.</string>
   <string name="findTheBestMoveForWhite">Löydä valkean paras siirto.</string>
   <string name="findTheBestMoveForBlack">Löydä mustan paras siirto.</string>
   <string name="toGetPersonalizedPuzzles">Halutessasi henkilökohtaisia tehtäviä:</string>
@@ -51,6 +53,7 @@
   </plurals>
   <string name="example">Esimerkki</string>
   <string name="addAnotherTheme">Lisää toinen teema</string>
+  <string name="nextPuzzle">Seuraava tehtävä</string>
   <string name="jumpToNextPuzzleImmediately">Jatka heti seuraavaan tehtävään</string>
   <string name="puzzleDashboard">Tehtävien hallinta</string>
   <string name="improvementAreas">Paranna näitä</string>
@@ -70,4 +73,17 @@
   <string name="fromMyGamesNone">Tietokannassa ei ole tehtäviä sinulta, mutta olet silti Lichessille erittäin tärkeä.
 Kun pelaat lisää nopeita ja klassisia pelejä, on suurempi mahdollisuus, että sinunkin peleistäsi luodaan tehtävä!</string>
   <string name="fromXGamesFound">Löytyi %1$s tehtävää %2$s pelistä</string>
+  <string name="puzzleDashboardDescription">Harjoittele, analysoi, kehity</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s pelattu</item>
+    <item quantity="other">%s pelattu</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s kerrattava</item>
+    <item quantity="other">%s kerrattavaa</item>
+  </plurals>
+  <string name="percentSolved">%s ratkaistu</string>
+  <string name="noPuzzlesToShow">Täällä ei ole vielä mitään nähtävää – tee ensin joitakin tehtäviä!</string>
+  <string name="improvementAreasDescription">Harjoittele näitä tehostaaksesi edistymistäsi!</string>
+  <string name="strengthDescription">Suoriudut parhaiten näissä aiheissa</string>
 </resources>

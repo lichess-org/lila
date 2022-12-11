@@ -12,7 +12,6 @@
   <string name="teachersX">Müəllimlər: %s</string>
   <string name="newClass">Yeni sinif</string>
   <string name="closeClass">Sinfi bağla</string>
-  <string name="closedByX">%s tərəfindən bağlanıb</string>
   <string name="reopen">Yenidən aç</string>
   <string name="removeStudent">Tələbəni sil</string>
   <string name="removedStudents">Çıxarıldı</string>
@@ -56,7 +55,6 @@ Sinfə daxil olmaq üçün link.</string>
     <item quantity="one">Bir gözlənən dəvət</item>
     <item quantity="other">%s gözlənən dəvət</item>
   </plurals>
-  <string name="noPendingInvitations">Gözlənən dəvət yoxdur</string>
   <string name="onlyVisibleToTeachers">Yalnız sinif müəllimlərinə görünür</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">İdarə Edilən</string>
@@ -85,7 +83,6 @@ Sinfə daxil olmaq üçün link.</string>
   <string name="variantXOverLastY">Son %2$s gündə %1$s</string>
   <string name="winrate">Qazanma əmsalı</string>
   <string name="na">Məlumat Yoxdur</string>
-  <string name="news">Sinif xəbərləri</string>
   <string name="editNews">Xəbərləri redaktə et</string>
   <string name="notifyAllStudents">Bütün tələbələri xəbərdar edin</string>
   <string name="nothingHere">Hələ heç nə yoxdur.</string>

@@ -1,34 +1,33 @@
 package views.html.team
 
 import controllers.routes
+import play.api.data.Field
 import play.api.data.Form
+import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object admin {
+object admin:
 
-  import trans.team._
+  import trans.team.*
 
-  def leaders(t: lila.team.Team, form: Form[_])(implicit ctx: Context) = {
-    val title = s"${t.name} • ${trans.team.teamLeaders.txt()}"
+  def leaders(t: lila.team.Team, form: Form[?])(implicit ctx: Context) =
     views.html.base.layout(
-      title = title,
+      title = s"${t.name} • ${teamLeaders.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
       moreJs = jsModule("team.admin")
     ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
-          h1(title),
+          adminTop(t, teamLeaders),
           p(
             "Only invite leaders that you fully trust. Team leaders can kick members and other leaders out of the team."
           ),
           postForm(cls := "leaders", action := routes.Team.leaders(t.id))(
-            form3.group(form("leaders"), frag(usersWhoCanManageThisTeam()))(
-              form3.textarea(_)(rows := 2)
-            ),
+            form3.group(form("leaders"), frag(usersWhoCanManageThisTeam()))(teamMembersAutoComplete(t)),
             form3.actions(
               a(href := routes.Team.show(t.id))(trans.cancel()),
               form3.submit(trans.save())
@@ -37,40 +36,36 @@ object admin {
         )
       )
     }
-  }
 
-  def kick(t: lila.team.Team, userIds: Iterable[lila.user.User.ID])(implicit ctx: Context) = {
-
-    val title = s"${t.name} • ${kickSomeone.txt()}"
-
-    bits.layout(title = title) {
+  def kick(t: lila.team.Team, form: Form[?])(implicit ctx: Context) =
+    views.html.base.layout(
+      title = s"${t.name} • ${kickSomeone.txt()}",
+      moreCss = frag(cssTag("team"), cssTag("tagify")),
+      moreJs = jsModule("team.admin")
+    ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
-          h1(title),
-          p(whoToKick()),
-          br,
-          br,
-          postForm(cls := "kick", action := routes.Team.kick(t.id))(
-            userIds.toList.sorted.map { userId =>
-              button(name := "userId", cls := "button button-empty button-no-upper confirm", value := userId)(
-                usernameOrId(userId)
-              )
-            }
+          adminTop(t, kickSomeone),
+          postForm(action := routes.Team.kick(t.id))(
+            form3.group(form("members"), frag(whoToKick()))(teamMembersAutoComplete(t)),
+            form3.actions(
+              a(href := routes.Team.show(t.id))(trans.cancel()),
+              form3.submit(trans.save())
+            )
           )
         )
       )
     }
-  }
 
-  def pmAll(t: lila.team.Team, form: Form[_], tours: List[lila.tournament.Tournament])(implicit
+  private def teamMembersAutoComplete(team: lila.team.Team)(field: Field) =
+    form3.textarea(field)(rows := 2, dataRel := team.id)
+
+  def pmAll(t: lila.team.Team, form: Form[?], tours: List[lila.tournament.Tournament], unsubs: Int)(using
       ctx: Context
-  ) = {
-
-    val title = s"${t.name} • ${messageAllMembers.txt()}"
-
+  ) =
     views.html.base.layout(
-      title = title,
+      title = s"${t.name} • ${messageAllMembers.txt()}",
       moreCss = cssTag("team"),
       moreJs = embedJsUnsafeLoadThen("""
 $('.copy-url-button').on('click', function(e) {
@@ -80,7 +75,7 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
-          h1(title),
+          adminTop(t, messageAllMembers),
           p(messageAllMembersLongDescription()),
           tours.nonEmpty option div(cls := "tournaments")(
             p(youWayWantToLinkOneOfTheseTournaments()),
@@ -93,8 +88,8 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
                     momentFromNow(t.startsAt),
                     " ",
                     a(
-                      dataIcon := "",
-                      cls := "text copy-url-button",
+                      dataIcon     := "",
+                      cls          := "text copy-url-button",
                       data.copyurl := s"${netConfig.domain}${routes.Tournament.show(t.id).url}"
                     )
                   )
@@ -104,7 +99,21 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
             br
           ),
           postForm(cls := "form3", action := routes.Team.pmAllSubmit(t.id))(
-            form3.group(form("message"), trans.message())(form3.textarea(_)(rows := 10)),
+            form3.group(
+              form("message"),
+              trans.message(),
+              help = frag(
+                "You can send up to 7 team messages per week.",
+                br,
+                pluralizeLocalize("member", unsubs),
+                " out of ",
+                t.nbMembers.localize,
+                " (",
+                f"${(unsubs * 100d) / t.nbMembers}%1.1f",
+                "%)",
+                " have unsubscribed from messages."
+              ).some
+            )(form3.textarea(_)(rows := 10)),
             form3.actions(
               a(href := routes.Team.show(t.slug))(trans.cancel()),
               form3.submit(trans.send())
@@ -113,5 +122,8 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
         )
       )
     }
-  }
-}
+
+  private def adminTop(t: lila.team.Team, i18n: lila.i18n.I18nKey)(implicit lang: Lang) =
+    boxTop(
+      h1(a(href := routes.Team.show(t.slug))(t.name), " • ", i18n())
+    )

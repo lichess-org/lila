@@ -19,7 +19,7 @@
 
     signal {
       position: absolute;
-      right: 1rem;
+      #{$end-direction}: 1rem;
       top: 1rem;
       font-size: 1.7rem;
     }
@@ -37,9 +37,13 @@
   }
 
   .head {
+    @extend %button-none;
+
     display: block;
     padding: 1rem;
     border-bottom: $border;
+    width: 100%;
+    text-align: start;
   }
 
   .head::before {
@@ -71,13 +75,13 @@
     }
 
     .accepted {
-      border-left: 4px solid $c-dasher;
+      border-#{$start-direction}: 4px solid $c-dasher;
     }
 
     .current {
       background: $c-dasher !important;
       color: $c-dasher-over !important;
-      border-left: none;
+      border-#{$start-direction}: none;
     }
 
     .help {
@@ -96,9 +100,13 @@
     flex: 1 1 100%;
     margin: 0.5rem 0;
 
-    a {
+    button {
+      @extend %button-none;
+
       display: block;
       padding: 0.7rem 1rem;
+      width: 100%;
+      text-align: start;
 
       @include transition(background);
 
@@ -112,7 +120,7 @@
       }
 
       &::before {
-        margin-right: 8px;
+        margin-#{$end-direction}: 8px;
         font-size: 19px;
         justify-content: center;
         align-items: center;
@@ -132,17 +140,17 @@
       }
     }
 
-    &.large a {
+    &.large button {
       padding: 1rem 1rem;
     }
   }
 
   .zen {
-    a::before {
+    button::before {
       opacity: 0.5;
     }
 
-    &:hover a::before {
+    &:hover button::before {
       opacity: 1;
     }
   }
@@ -161,6 +169,8 @@
       flex: 0 0 1em;
       width: 1em;
       margin: 1rem;
+      padding-top: 0;
+      padding-bottom: 0;
       writing-mode: bt-lr;
       -webkit-appearance: slider-vertical;
     }

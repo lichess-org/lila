@@ -1,27 +1,25 @@
 .perf-stat {
   padding-bottom: 2em;
 
-  .box__top div {
-    @extend %flex-center;
+  .box__top__title {
+    @extend %flex-center-nowrap;
   }
 
-  h1 {
-    @extend %flex-center;
-
-    span {
-      margin-left: 0.4em;
-    }
+  h1 span {
+    margin-#{$start-direction}: 0.4em;
   }
 
   .trophy {
-    margin-top: -4em;
+    margin-top: -1rem;
+    margin-#{$end-direction}: 0.2em;
+    margin-#{$start-direction}: -0.6em;
 
     &.top1 {
       filter: drop-shadow(0 0 6px $c-brag);
     }
 
     img {
-      height: 8em;
+      height: 8rem;
     }
   }
 
@@ -65,7 +63,7 @@
       flex: 1 0 49%;
 
       &:first-child {
-        margin-right: 2%;
+        margin-#{$end-direction}: 2%;
       }
 
       margin-bottom: 1em;
@@ -81,7 +79,7 @@
   }
 
   .counter th {
-    text-indent: 1.5em;
+    padding-#{$start-direction}: 1.5em;
   }
 
   .counter td {
@@ -111,7 +109,7 @@
   }
 
   .result td:first-child {
-    text-indent: 20px;
+    padding-#{$start-direction}: 20px;
     white-space: nowrap;
   }
 
@@ -136,7 +134,7 @@
   }
 
   .rating-history {
-    left: -10px;
+    #{$start-direction}: -10px;
     display: block;
     width: 100%;
     max-width: 100vw;

@@ -1,22 +1,36 @@
 package lila.tournament
 
-import akka.actor._
 import chess.StartingPosition
 import org.joda.time.DateTime
-import org.joda.time.DateTimeConstants._
-import scala.util.chaining._
+import org.joda.time.DateTimeConstants.*
+import scala.concurrent.duration.*
+import scala.concurrent.ExecutionContext
+import scala.util.chaining.*
+
+import lila.common.{ LilaScheduler, LilaStream }
 
 final private class TournamentScheduler(
     api: TournamentApi,
     tournamentRepo: TournamentRepo
-) extends Actor {
+)(using ec: ExecutionContext, scheduler: akka.actor.Scheduler, mat: akka.stream.Materializer):
 
-  import Schedule.Freq._
-  import Schedule.Speed._
+  import Schedule.Freq.*
+  import Schedule.Speed.*
   import Schedule.Plan
-  import chess.variant._
+  import chess.variant.*
 
-  implicit def ec = context.dispatcher
+  LilaScheduler(_.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
+    tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
+      try
+        val newTourns = allWithConflicts(DateTime.now).map(_.build)
+        val pruned    = pruneConflicts(dbScheds, newTourns)
+        tournamentRepo.insert(pruned).logFailure(logger)
+      catch
+        case e: org.joda.time.IllegalInstantException =>
+          logger.error(s"failed to schedule all: ${e.getMessage}")
+          funit
+    }
+  }
 
   /* Month plan:
    * First week: Shield standard tournaments
@@ -31,12 +45,12 @@ final private class TournamentScheduler(
   // Autumn -> Saturday of weekend before the weekend Halloween falls on (c.f. half-term holidays)
   // Winter -> 28 December, convenient day in the space between Boxing Day and New Year's Day
   // )
-  private[tournament] def allWithConflicts(rightNow: DateTime): List[Plan] = {
+  private[tournament] def allWithConflicts(rightNow: DateTime): List[Plan] =
     val today       = rightNow.withTimeAtStartOfDay
     val tomorrow    = rightNow plusDays 1
     val startOfYear = today.dayOfYear.withMinimumValue
 
-    class OfMonth(fromNow: Int) {
+    class OfMonth(fromNow: Int):
       val firstDay = today.plusMonths(fromNow).dayOfMonth.withMinimumValue
       val lastDay  = firstDay.dayOfMonth.withMaximumValue
 
@@ -44,7 +58,6 @@ final private class TournamentScheduler(
       val secondWeek = firstWeek plusDays 7
       val thirdWeek  = secondWeek plusDays 7
       val lastWeek   = lastDay.minusDays((lastDay.getDayOfWeek - 1) % 7)
-    }
     val thisMonth = new OfMonth(0)
     val nextMonth = new OfMonth(1)
 
@@ -57,10 +70,9 @@ final private class TournamentScheduler(
     val nextSaturday               = nextDayOfWeek(6)
     val nextSunday                 = nextDayOfWeek(7)
 
-    def secondWeekOf(month: Int) = {
+    def secondWeekOf(month: Int) =
       val start = orNextYear(startOfYear.withMonthOfYear(month))
       start.plusDays(15 - start.getDayOfWeek)
-    }
 
     def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
     def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
@@ -68,10 +80,9 @@ final private class TournamentScheduler(
 
     val isHalloween = today.getDayOfMonth == 31 && today.getMonthOfYear == OCTOBER
 
-    def opening(offset: Int) = {
+    def opening(offset: Int) =
       val positions = StartingPosition.featurable
       positions((today.getDayOfYear + offset) % positions.size)
-    }
 
     val farFuture = today plusMonths 7
 
@@ -91,7 +102,8 @@ final private class TournamentScheduler(
                 description = s"""
 We've had $yo great chess years together!
 
-Thank you all, you rock!"""
+Thank you all, you rock!""",
+                homepageHours = 24.some
               ).some
             )
           }
@@ -151,7 +163,8 @@ Thank you all, you rock!"""
             month.lastWeek.withDayOfWeek(THURSDAY)  -> RacingKings,
             month.lastWeek.withDayOfWeek(FRIDAY)    -> Antichess,
             month.lastWeek.withDayOfWeek(SATURDAY)  -> Atomic,
-            month.lastWeek.withDayOfWeek(SUNDAY)    -> Horde
+            month.lastWeek.withDayOfWeek(SUNDAY)    -> Horde,
+            month.lastWeek.withDayOfWeek(SUNDAY)    -> ThreeCheck
           ).flatMap { case (day, variant) =>
             at(day, 19) map { date =>
               Schedule(
@@ -378,15 +391,17 @@ Thank you all, you rock!"""
               maxRating = Condition.MaxRating(perf, rating).some,
               minRating = none,
               titled = none,
-              teamMember = none
+              teamMember = none,
+              allowList = none
             )
             at(date, hour) ?? { date =>
+              import chess.Clock
               val finalDate = date plusHours hourDelay
               if (speed == Bullet)
                 List(
                   Schedule(Hourly, speed, Standard, none, finalDate, conditions).plan,
                   Schedule(Hourly, speed, Standard, none, finalDate plusMinutes 30, conditions)
-                    .plan(_.copy(clock = chess.Clock.Config(60, 1)))
+                    .plan(_.copy(clock = Clock.Config(Clock.LimitSeconds(60), Clock.IncrementSeconds(1))))
                 )
               else
                 List(
@@ -472,7 +487,6 @@ Thank you all, you rock!"""
         ).flatten
       }
     ).flatten filter { _.schedule.at isAfter rightNow }
-  }
 
   private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
     newTourns
@@ -501,37 +515,12 @@ Thank you all, you rock!"""
     }
 
   private def at(day: DateTime, hour: Int, minute: Int = 0): Option[DateTime] =
-    try {
-      Some(day.withTimeAtStartOfDay plusHours hour plusMinutes minute)
-    } catch {
+    try Some(day.withTimeAtStartOfDay plusHours hour plusMinutes minute)
+    catch
       case e: Exception =>
         logger.error(s"failed to schedule one: ${e.getMessage}")
         None
-    }
 
-  def receive = {
-
-    case TournamentScheduler.ScheduleNow =>
-      tournamentRepo.scheduledUnfinished dforeach { tourneys =>
-        self ! ScheduleNowWith(tourneys)
-      }
-
-    case ScheduleNowWith(dbScheds) =>
-      try {
-        val newTourns = allWithConflicts(DateTime.now).map(_.build)
-        val pruned    = pruneConflicts(dbScheds, newTourns)
-        tournamentRepo
-          .insert(pruned)
-          .logFailure(logger)
-          .unit
-      } catch {
-        case e: org.joda.time.IllegalInstantException =>
-          logger.error(s"failed to schedule all: ${e.getMessage}")
-      }
-  }
-}
-
-private object TournamentScheduler {
+private object TournamentScheduler:
 
   case object ScheduleNow
-}

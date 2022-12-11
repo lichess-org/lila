@@ -38,15 +38,16 @@
   <string name="youAreNowASpectator">観戦者になりました</string>
   <string name="pgnTags">PGN タグ</string>
   <string name="like">いいね</string>
+  <string name="unlike">いいね解除</string>
   <string name="newTag">新しいタグ</string>
   <string name="commentThisPosition">この局面にコメントする</string>
-  <string name="commentThisMove">この手にコメントする</string>
-  <string name="annotateWithGlyphs">記号で解説する</string>
+  <string name="commentThisMove">この手にコメント</string>
+  <string name="annotateWithGlyphs">解説記号を入れる</string>
   <string name="theChapterIsTooShortToBeAnalysed">章が短すぎて解析できません。</string>
   <string name="onlyContributorsCanRequestAnalysis">コンピュータ解析を要請できるのは投稿参加者だけです。</string>
   <string name="getAFullComputerAnalysis">主手順についてサーバ上でのコンピュータ解析を行なう。</string>
   <string name="makeSureTheChapterIsComplete">章が完成したか確認してください。解析の要請は 1 回だけです。</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">同期したメンバーは同じ局面に留まります</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">同期したメンバーは同じ局面に留まります</string>
   <string name="shareChanges">変更を観戦者と共有し、サーバに保存する</string>
   <string name="playing">プレイ中</string>
   <string name="first">最初</string>
@@ -72,11 +73,13 @@
   <string name="studyNotFound">研究が見つかりません</string>
   <string name="editChapter">章を編集</string>
   <string name="newChapter">新しい章</string>
+  <string name="importFromChapterX">%s からインポート</string>
   <string name="orientation">盤の上下</string>
   <string name="analysisMode">解析モード</string>
   <string name="pinnedChapterComment">章の優先表示コメント</string>
   <string name="saveChapter">章を保存</string>
   <string name="clearAnnotations">注釈をクリア</string>
+  <string name="clearVariations">手順をクリア</string>
   <string name="deleteChapter">章を削除</string>
   <string name="deleteThisChapter">ほんとうに削除しますか？　戻せませんよ！</string>
   <string name="clearAllCommentsInThisChapter">この章のコメントと図形をすべて削除しますか？</string>
@@ -122,7 +125,7 @@
   <string name="clearChat">チャットを消去</string>
   <string name="deleteTheStudyChatHistory">ほんとうに削除しますか？　戻せませんよ！</string>
   <string name="deleteStudy">研究を削除</string>
-  <string name="deleteTheEntireStudy">ほんとうに削除しますか？　戻せませんよ！</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">研究全体を削除しますか？　戻せませんよ！　削除なら研究の名称を入力： %s</string>
   <string name="whereDoYouWantToStudyThat">どこで研究しますか？</string>
   <string name="goodMove">好手</string>
   <string name="mistake">悪手</string>
@@ -150,4 +153,13 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">狙い</string>
   <string name="nextChapter">次の章</string>
   <string name="prevChapter">前の章</string>
+  <string name="studyActions">研究の操作</string>
+  <string name="topics">トピック</string>
+  <string name="myTopics">自分のトピック</string>
+  <string name="popularTopics">人気のトピック</string>
+  <string name="manageTopics">トピックの管理</string>
+  <string name="back">戻る</string>
+  <string name="playAgain">もう一度プレイ</string>
+  <string name="whatWouldYouPlay">この局面、あなたならどう指す？</string>
+  <string name="youCompletedThisLesson">おめでとう ！　このレッスンを修了しました。</string>
 </resources>

@@ -46,7 +46,7 @@
 
     display: none;
     position: absolute;
-    right: 0;
+    #{$end-direction}: 0;
     top: var(--dropdown-top);
     background: $c-bg-header-dropdown;
     z-index: z('dropdown');
@@ -99,7 +99,7 @@
 }
 
 #user_tag {
-  padding-right: 1rem;
+  padding-#{$end-direction}: 1rem;
   white-space: nowrap;
 }
 

@@ -11,7 +11,6 @@
   <string name="level">Ambaratonga</string>
   <string name="strength">Hamafisana</string>
   <string name="toggleTheChat">Toggle the chat</string>
-  <string name="toggleSound">Toggle sound</string>
   <string name="chat">Chat</string>
   <string name="resign">Manaiky resy</string>
   <string name="checkmate">Echéc et mat</string>
@@ -25,6 +24,7 @@
   <string name="youPlayTheWhitePieces">Milalao ny fotsy ianao</string>
   <string name="youPlayTheBlackPieces">Milalao ny mainty ianao</string>
   <string name="itsYourTurn">Anjaranao izao!</string>
+  <string name="cheatDetected">Halatra Tsikaritra</string>
   <string name="kingInTheCenter">Mpanjakalahy eo afoavoany</string>
   <string name="threeChecks">In-telo \"checks\"</string>
   <string name="raceFinished">Vita  ny hazakazaka</string>
@@ -38,7 +38,6 @@
     <item quantity="other">Niala ny mpifaninana aminao. Afaka mitaky fandresena ianao afaka %s segondra.</item>
   </plurals>
   <string name="opponentLeftChoices">Mety nandao ny lalao ny mpifanandrina. Afaka mitaky ny fandresena na miandry ny fiverenany, na manery azy hiala ilany ianao.</string>
-  <string name="makeYourOpponentResign">Manao ny mpifanandrina aminao ho resy</string>
   <string name="forceResignation">Takio ny fandresena</string>
   <string name="forceDraw">Angataho ny hahasahala ny lalao</string>
   <string name="talkInChat">Miresaha ao amin\'ny chat</string>
@@ -47,12 +46,12 @@
   <string name="blackResigned">Nanaiky resy ny maintsy</string>
   <string name="whiteLeftTheGame">Nandao ny lalao ny fotsy</string>
   <string name="blackLeftTheGame">Nandao ny lalao ny mainty</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Zarao ity URL ity ahafahan\'ny mpijery manaraka ny lalao</string>
-  <string name="theComputerAnalysisHasFailed">Nandamoaka ny fanadihadiana nataon\'ny solosaina</string>
-  <string name="viewTheComputerAnalysis">Jereo ny fanadihadiana nataon\'ny solosaina</string>
+  <string name="whiteDidntMove">Tsy nihetsika ny fotsy</string>
+  <string name="blackDidntMove">Tsy nihetsika ny mainty</string>
   <string name="requestAComputerAnalysis">Angataho ny fanadihadian\'ny solosaina</string>
   <string name="computerAnalysis">Fanadihadian\'ny solosaina</string>
   <string name="computerAnalysisAvailable">Misy ny fandinihan\'ny solosaina</string>
+  <string name="computerAnalysisDisabled">Mijanona ny fandinihan\'ny solosaina</string>
   <string name="analysis">Solaitra fanadihadiana</string>
   <string name="depthX">Alalina %s</string>
   <string name="usingServerAnalysis">Mampiasa ny fandinihan\'ny mpizara</string>
@@ -155,7 +154,6 @@
   <string name="whiteTimeOut">Lany fotoana ny fotsy</string>
   <string name="blackTimeOut">Lany fotoana ny mainty</string>
   <string name="drawOfferSent">Lasa ny fangatahana lalao sahala</string>
-  <string name="drawOfferDeclined">Lavo ny fangatahana ny hahasahala ny lalao</string>
   <string name="drawOfferAccepted">Nekena ny fangatahana ny hahasahala ny lalao</string>
   <string name="drawOfferCanceled">Nadaboka ny fangatahana ny hahasahala ny lalao</string>
   <string name="whiteOffersDraw">Mangataka ny fahasahalan\'ny lalao ny fotsy</string>
@@ -181,8 +179,6 @@
   <string name="thisGameIsRated">Misy laharana ity lalao ity</string>
   <string name="rematch">Lalao miverina</string>
   <string name="rematchOfferSent">Lasa ny fangatahana lalao miverina</string>
-  <string name="rematchOfferSentWhite">Mangataka lalao miverina ny fotsy</string>
-  <string name="rematchOfferSentBlack">Mangataka lalao miverina ny mainty</string>
   <string name="rematchOfferAccepted">Ekena ny fangatahana lalao miverina</string>
   <string name="rematchOfferCanceled">Najanona ny fangatahana lalao miverina</string>
   <string name="rematchOfferDeclined">Lavo ny fangatahana lalao miverina</string>
@@ -194,9 +190,7 @@
   <string name="chatRoom">Chat room</string>
   <string name="spectatorRoom">Efitry ny mpijery</string>
   <string name="composeMessage">Soraty ny hafatra</string>
-  <string name="noNewMessages">Tsy misy hafatra vaovao</string>
   <string name="subject">Antony</string>
-  <string name="recipient">Antontany</string>
   <string name="send">Alefaso</string>
   <string name="incrementInSeconds">Increment in seconds</string>
   <string name="freeOnlineChess">Echéc maimaimpoana amin\'ny tranon\'kala</string>
@@ -292,8 +286,6 @@
   <string name="notACheckmate">Tsy échec et mat</string>
   <string name="retry">Avereno andramana</string>
   <string name="reconnecting">Reconnecting</string>
-  <string name="noFriendsOnline">Tsy misy namana connectés</string>
-  <string name="findFriends">Mitadiava namana</string>
   <string name="favoriteOpponents">Mpifanandrina ankafizina</string>
   <string name="follow">Araho</string>
   <string name="following">Manaraka</string>
@@ -332,14 +324,11 @@
   <string name="points">Isa</string>
   <string name="wins">Fandresena</string>
   <string name="losses">Faharesena</string>
-  <string name="winStreak">Fandresena misesy</string>
   <string name="createdBy">Noforonin\'i</string>
   <string name="tournamentIsStarting">Manomboka ny fifaninanana</string>
-  <string name="membersOnly">Mpikambana ihany</string>
   <string name="boardEditor">Board editor</string>
   <string name="startPosition">Fipetrahana eo am-panombohana</string>
   <string name="clearBoard">Fafao ny seham-pilalaovana</string>
-  <string name="savePosition">Tadidio ny fipetrahana</string>
   <string name="loadPosition">Ampiasao ny fipetrahana notadidiana</string>
   <string name="isPrivate">Privé(e)</string>
   <string name="reportXToModerators">Toroy any amin\'ny tompon-andraikitra i %s</string>
@@ -349,10 +338,8 @@
   <string name="lastName">Fanampin\'anarana</string>
   <string name="biography">Biographie</string>
   <string name="thankYou">Misaotra!</string>
-  <string name="watchLichessTV">Mijereva Lichess TV</string>
   <string name="previouslyOnLichessTV">Teto amin\'ny Lichess TV</string>
   <string name="onlinePlayers">Ny mpilalao connectés</string>
-  <string name="activeToday">Mpifaninana nilalao be indrindra androany</string>
   <string name="activePlayers">Mpifaninana nilalao be indrindra</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Tandremo, voasokajy ny lalao nefa tsy misy famataram-potoana !</string>
   <plurals name="nbGamesInPlay">
@@ -383,7 +370,6 @@
   <string name="other">Antony hafa</string>
   <string name="thisTopicIsNowClosed">Mikatona ity lohahevitra ity.</string>
   <string name="blog">Bilaogy</string>
-  <string name="questionsAndAnswers">Fanontaniana &amp; valiny</string>
   <string name="notes">Naoty</string>
   <string name="typePrivateNotesHere">Hametraka naoty miafina eto</string>
   <string name="invalidUsernameOrPassword">Anarana na teny miafina diso</string>
@@ -398,31 +384,20 @@
   <string name="fast">Haingana</string>
   <string name="normal">Antonony</string>
   <string name="slow">Mora</string>
-  <string name="difficultyEasy">Mora</string>
-  <string name="difficultyNormal">Antonony</string>
-  <string name="difficultyHard">Mafy</string>
   <string name="victory">Fandresena!</string>
   <string name="defeat">Faharesena</string>
-  <string name="yourCityRegionOrDepartment">Tanàna, faritra na faritany misy anao.</string>
   <string name="listBlockedPlayers">Listr\'ireo mpilalao nosakananao</string>
   <string name="human">Olombelona</string>
   <string name="computer">Solosaina</string>
-  <string name="playOfflineComputer">Solosaina</string>
   <string name="opponent">Mpifanadrina</string>
   <string name="practice">Fanazarana</string>
   <string name="tools">Fitaovana</string>
   <string name="increment">Ampitomboy</string>
-  <string name="shareGameURL">Ampisehoy ny rohin\'ny lalao</string>
-  <string name="error.email">Tsy mety ny adiresy mailaka</string>
-  <string name="error.email_acceptable">Tsy azo ekena ity mailaka ity. Azafady mba jereo, dia avereno.</string>
-  <string name="error.email_unique">Efa voasoratra anarana io mailaka io</string>
-  <string name="error.email_different">Efa mailakanao ity</string>
   <string name="onlyFriends">Ireo namana ihany</string>
   <string name="whiteCastlingKingside">Fotsy O-O</string>
   <string name="blackCastlingKingside">Mainty O-O</string>
   <string name="watchGames">Hijery ireo lalao</string>
   <string name="webmasters">Webmasters</string>
   <string name="create">Hamorona</string>
-  <string name="tournamentOfficial">Ofisialy</string>
   <string name="returnToTournamentsHomepage">Miverina any amin\'ny pejin\'ny fifaninanana</string>
 </resources>

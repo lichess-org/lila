@@ -2,97 +2,87 @@ package views.html
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.user.User
+import play.api.i18n.Lang
 
 import controllers.routes
 
-object insight {
+object insight:
 
   def index(
       u: User,
-      cache: lila.insight.InsightUser,
+      insightUser: lila.insight.InsightUser,
       prefId: Int,
       ui: play.api.libs.json.JsObject,
       question: play.api.libs.json.JsObject,
       stale: Boolean
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${u.username}'s chess insights",
+      title = trans.insight.xChessInsights.txt(u.username),
       moreJs = frag(
         highchartsLatestTag,
-        jsAt("javascripts/vendor/jquery.min.js"),
-        jsAt("javascripts/vendor/multiple-select.min.js"),
         jsModule("insight"),
         jsTag("insight-refresh.js"),
         embedJsUnsafeLoadThen(
           s"""lichess.insight=LichessInsight(document.getElementById('insight'), ${safeJsonValue(
-            Json.obj(
-              "ui"              -> ui,
-              "initialQuestion" -> question,
-              "i18n"            -> Json.obj(),
-              "myUserId"        -> ctx.userId,
-              "user" -> Json.obj(
-                "id"      -> u.id,
-                "name"    -> u.username,
-                "nbGames" -> cache.count,
-                "stale"   -> stale,
-                "shareId" -> prefId
-              ),
-              "pageUrl" -> routes.Insight.index(u.username).url,
-              "postUrl" -> routes.Insight.json(u.username).url
-            )
-          )})"""
+              Json.obj(
+                "ui"              -> ui,
+                "initialQuestion" -> question,
+                "i18n"            -> Json.obj(),
+                "myUserId"        -> ctx.userId,
+                "user" -> (lila.common.LightUser.lightUserWrites.writes(u.light) ++ Json.obj(
+                  "nbGames" -> insightUser.count,
+                  "stale"   -> stale,
+                  "shareId" -> prefId
+                )),
+                "pageUrl" -> routes.Insight.index(u.username).url,
+                "postUrl" -> routes.Insight.json(u.username).url
+              )
+            )})"""
         )
       ),
       moreCss = cssTag("insight")
     )(
-      frag(
-        main(id := "insight"),
-        stale option div(cls := "insight-stale none")(
-          p("There are new games to learn from!"),
-          refreshForm(u, "Update insights")
-        )
-      )
+      frag(main(id := "insight"))
     )
 
   def empty(u: User)(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${u.username}'s chess insights",
+      title = trans.insight.xChessInsights.txt(u.username),
       moreJs = jsTag("insight-refresh.js"),
       moreCss = cssTag("insight")
     )(
       main(cls := "box box-pad page-small")(
-        h1(cls := "text", dataIcon := "")(u.username, " chess insights"),
-        p(userLink(u), " has no chess insights yet!"),
-        refreshForm(u, s"Generate ${u.username}'s chess insights")
+        boxTop(h1(cls := "text", dataIcon := "")(trans.insight.xChessInsights(u.username))),
+        p(trans.insight.xHasNoChessInsights(userLink(u))),
+        refreshForm(u, trans.insight.generateInsights.txt(u.username))
       )
     )
 
   def forbidden(u: User)(implicit ctx: Context) =
     views.html.site.message(
-      title = s"${u.username}'s chess insights are protected",
+      title = trans.insight.insightsAreProtected.txt(u.username),
       back = routes.User.show(u.id).url.some
     )(
-      p("Sorry, you cannot see ", userLink(u), "'s chess insights."),
+      p(trans.insight.cantSeeInsights(userLink(u))),
       br,
       p(
-        "Maybe ask them to change their ",
-        a(cls := "button", href := routes.Pref.form("privacy"))("privacy settings"),
-        " ?"
+        trans.insight.maybeAskThemToChangeTheir(
+          a(cls := "button", href := routes.Pref.form("site"))(trans.insight.insightsSettings.txt())
+        )
       )
     )
 
-  def refreshForm(u: User, action: String) =
+  def refreshForm(u: User, action: String)(implicit lang: Lang) =
     postForm(cls := "insight-refresh", st.action := routes.Insight.refresh(u.username))(
       button(dataIcon := "", cls := "button text")(action),
       div(cls := "crunching none")(
         spinner,
         br,
-        p(strong("Now crunching data just for you!"))
+        p(strong(trans.insight.crunchingData()))
       )
     )
-}

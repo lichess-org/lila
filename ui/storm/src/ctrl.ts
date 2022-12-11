@@ -1,27 +1,29 @@
 import * as xhr from './xhr';
 import config from './config';
-import makePromotion from 'puz/promotion';
+import CurrentPuzzle from 'puz/current';
 import sign from 'puz/sign';
 import { Api as CgApi } from 'chessground/api';
+import { Clock } from 'puz/clock';
+import { Combo } from 'puz/combo';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
+import { PromotionCtrl } from 'chess/promotion';
 import { prop, Prop } from 'common';
+import { PuzCtrl, Run } from 'puz/interfaces';
+import { PuzFilters } from 'puz/filters';
 import { Role } from 'chessground/types';
 import { StormOpts, StormData, StormVm, StormRecap, StormPrefs } from './interfaces';
-import { Promotion, Run } from 'puz/interfaces';
-import { Combo } from 'puz/combo';
-import CurrentPuzzle from 'puz/current';
-import { Clock } from 'puz/clock';
 
-export default class StormCtrl {
+export default class StormCtrl implements PuzCtrl {
   private data: StormData;
   private redraw: () => void;
   pref: StormPrefs;
   run: Run;
   vm: StormVm;
+  filters: PuzFilters;
   trans: Trans;
-  promotion: Promotion;
+  promotion: PromotionCtrl;
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
   flipped = false;
 
@@ -29,6 +31,7 @@ export default class StormCtrl {
     this.data = opts.data;
     this.pref = opts.pref;
     this.redraw = () => redraw(this.data);
+    this.filters = new PuzFilters(this.redraw, false);
     this.trans = lichess.trans(opts.i18n);
     this.run = {
       pov: puzzlePov(this.data.puzzles[0]),
@@ -45,14 +48,12 @@ export default class StormCtrl {
     this.vm = {
       signed: prop(undefined),
       lateStart: false,
-      filterFailed: false,
-      filterSlow: false,
     };
-    this.promotion = makePromotion(
-      this.withGround,
-      () => makeCgOpts(this.run, !this.run.endAt, this.flipped),
-      this.redraw
-    );
+    this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.redraw);
+    setTimeout(() => {
+      this.run.current.moveIndex = 0;
+      this.setGround();
+    }, 100);
     this.checkDupTab();
     setTimeout(this.hotkeys, 1000);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
@@ -73,6 +74,7 @@ export default class StormCtrl {
   }
 
   end = (): void => {
+    if (this.run.endAt) return;
     this.run.history.reverse();
     this.run.endAt = getNow();
     this.ground(false);
@@ -144,7 +146,11 @@ export default class StormCtrl {
       this.redrawQuick();
       this.redrawSlow();
     }
-    this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt, this.flipped)));
+    this.setGround();
+    if (this.run.current.moveIndex < 0) {
+      this.run.current.moveIndex = 0;
+      this.setGround();
+    }
     lichess.pubsub.emit('ply', this.run.moves);
   };
 
@@ -172,6 +178,8 @@ export default class StormCtrl {
     return g && f(g);
   };
 
+  private setGround = () => this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt, this.flipped)));
+
   countWins = (): number => this.run.history.reduce((c, r) => c + (r.win ? 1 : 0), 0);
 
   runStats = (): StormRecap => ({
@@ -184,16 +192,6 @@ export default class StormCtrl {
     highest: this.run.history.reduce((h, r) => (r.win && r.puzzle.rating > h ? r.puzzle.rating : h), 0),
     signed: this.vm.signed(),
   });
-
-  toggleFilterSlow = () => {
-    this.vm.filterSlow = !this.vm.filterSlow;
-    this.redraw();
-  };
-
-  toggleFilterFailed = () => {
-    this.vm.filterFailed = !this.vm.filterFailed;
-    this.redraw();
-  };
 
   flip = () => {
     this.flipped = !this.flipped;

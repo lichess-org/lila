@@ -4,11 +4,11 @@ import org.specs2.mutable._
 
 final class YoutubeTest extends Specification {
 
-  "fix youtube timestamps" should {
-    "no youtube embed" in {
-      Youtube.fixStartTimes(Fixtures.noYoutube) must_== Fixtures.noYoutube
+  "fix youtube timestamps" >> {
+    "no youtube embed" >> {
+      Youtube.fixStartTimes(Fixtures.noYoutube) === Fixtures.noYoutube
     }
-    "with youtube embed" in {
+    "with youtube embed" >> {
       val fixed = Youtube.fixStartTimes(Fixtures.withYoutube)
       fixed must not(
         contain(

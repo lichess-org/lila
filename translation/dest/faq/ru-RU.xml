@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Могу ли я стать модератором?</string>
   <string name="youCannotApply">Мы не принимаем заявки на просьбу стать модератором. Если мы видим, что кто-то, по нашему мнению, может стать хорошим модератором, мы сами с ним связываемся напрямую.</string>
   <string name="isCorrespondenceDifferent">Игра по переписке отличается от обычной игры?</string>
+  <string name="pleaseReadFairPlayPage">Для получения дополнительной информации, пожалуйста, посетите %s</string>
+  <string name="fairPlayPage">страницу о честной игре</string>
   <string name="youCanUseOpeningBookNoEngine">В Lichess основное отличие в правилах для игры по переписке заключается в том, что доступна книга дебютов. Использование компьютерных программ запрещено и может привести к блокировке за жульничество. Несмотря на то, что международной ассоциацией игры по переписке ICCF помощь компьютерных программ разрешена, на Lichess это не так.</string>
   <string name="gameplay">Описание игры</string>
   <string name="howBulletBlitzEtcDecided">Как определяется тип игры: пуля, блиц и т. д., в зависимости от контроля времени?</string>
@@ -60,8 +62,8 @@
 
  Посмотрите %3$s и попрактикуйтесь.</string>
   <string name="goodIntroduction">хорошее объяснение</string>
-  <string name="officialRulesPDF">официальные правила (pdf)</string>
   <string name="lichessTraining">практику на Lichess</string>
+  <string name="watchIMRosenCheckmate">Посмотрите мат Международного Мастера Эрика Розена %s.</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
   <string name="threefoldRepetitionExplanation">Если позиция на доске повторилась три раза, любой из игроков может объявить ничью %1$s. В Lichess реализованы официальные правила ФИДЕ, как описано в статье 9.2 (d) of the %2$s.</string>
   <string name="threefoldRepetitionLowerCase">повторением позиции</string>

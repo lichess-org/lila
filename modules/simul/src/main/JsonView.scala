@@ -1,24 +1,22 @@
 package lila.simul
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.common.LightUser
+import lila.common.Json.given
 import lila.game.{ Game, GameRepo }
 import lila.user.User
 
 final class JsonView(
     gameRepo: GameRepo,
     getLightUser: LightUser.Getter,
-    proxyRepo: lila.round.GameProxyRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+    proxyRepo: lila.round.GameProxyRepo,
+    isOnline: lila.socket.IsOnline
+)(using ec: scala.concurrent.ExecutionContext):
 
-  implicit private val colorWriter: Writes[chess.Color] = Writes { c =>
-    JsString(c.name)
-  }
+  private given Writes[SimulTeam] = Json.writes
 
-  implicit private val simulTeamWriter = Json.writes[SimulTeam]
-
-  private def fetchGames(simul: Simul) =
+  private def fetchGames(simul: Simul): Fu[List[Game]] =
     if (simul.isFinished) gameRepo gamesFromSecondary simul.gameIds
     else simul.gameIds.map(proxyRepo.game).sequenceFu.dmap(_.flatten)
 
@@ -26,10 +24,10 @@ final class JsonView(
     for {
       games      <- fetchGames(simul)
       lightHost  <- getLightUser(simul.hostId)
-      applicants <- simul.applicants.sortBy(-_.player.rating).map(applicantJson).sequenceFu
+      applicants <- simul.applicants.sortBy(-_.player.rating.value).map(applicantJson).sequenceFu
       pairingOptions <-
         simul.pairings
-          .sortBy(-_.player.rating)
+          .sortBy(-_.player.rating.value)
           .map(pairingJson(games, simul.hostId))
           .sequenceFu
       pairings = pairingOptions.flatten
@@ -39,18 +37,22 @@ final class JsonView(
         "pairings"   -> pairings
       )
       .add("team", team)
-      .add("quote" -> simul.isCreated.option(lila.quote.Quote.one(simul.id)))
+      .add("quote" -> simul.isCreated.option(lila.quote.Quote.one(simul.id.value)))
 
-  def api(simul: Simul): Fu[JsObject] =
+  def apiJson(simul: Simul): Fu[JsObject] =
     getLightUser(simul.hostId) map { lightHost =>
-      baseSimul(simul, lightHost) ++ Json.obj(
-        "nbApplicants" -> simul.applicants.size,
-        "nbPairings"   -> simul.pairings.size
-      )
+      baseSimul(simul, lightHost) ++ Json
+        .obj(
+          "nbApplicants" -> simul.applicants.size,
+          "nbPairings"   -> simul.pairings.size
+        )
+        .add("estimatedStartAt" -> simul.startedAt)
+        .add("startedAt" -> simul.startedAt)
+        .add("finishedAt" -> simul.finishedAt)
     }
 
   def api(simuls: List[Simul]): Fu[JsArray] =
-    simuls.map(api).sequenceFu map JsArray.apply
+    lila.common.Future.linear(simuls)(apiJson) map JsArray.apply
 
   def apiAll(
       pending: List[Simul],
@@ -83,6 +85,7 @@ final class JsonView(
           .add("gameId" -> simul.hostGameId.ifTrue(simul.isRunning))
           .add("title" -> host.title)
           .add("patron" -> host.isPatron)
+          .add("online" -> isOnline.value(host.id))
       },
       "name"       -> simul.name,
       "fullName"   -> simul.fullName,
@@ -122,13 +125,13 @@ final class JsonView(
       )
     }
 
-  private def gameJson(hostId: User.ID, g: Game) =
+  private def gameJson(hostId: UserId, g: Game) =
     Json
       .obj(
         "id"       -> g.id,
         "status"   -> g.status.id,
-        "fen"      -> (chess.format.Forsyth boardAndColor g.situation),
-        "lastMove" -> ~g.lastMoveKeys,
+        "fen"      -> (chess.format.Fen writeBoardAndColor g.situation),
+        "lastMove" -> (g.lastMoveKeys.orZero: String),
         "orient"   -> g.playerByUserId(hostId).map(_.color)
       )
       .add(
@@ -141,7 +144,7 @@ final class JsonView(
       )
       .add("winner" -> g.winnerColor.map(_.name))
 
-  private def pairingJson(games: List[Game], hostId: String)(p: SimulPairing): Fu[Option[JsObject]] =
+  private def pairingJson(games: List[Game], hostId: UserId)(p: SimulPairing): Fu[Option[JsObject]] =
     games.find(_.id == p.gameId) ?? { game =>
       playerJson(p.player) map { player =>
         Json
@@ -154,4 +157,3 @@ final class JsonView(
           .some
       }
     }
-}

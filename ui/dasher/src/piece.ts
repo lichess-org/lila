@@ -74,9 +74,9 @@ function pieceImage(t: Piece, is3d: boolean) {
 function pieceView(current: Piece, set: (t: Piece) => void, is3d: boolean) {
   return (t: Piece) =>
     h(
-      'a.no-square',
+      'button.no-square',
       {
-        attrs: { title: t },
+        attrs: { title: t, type: 'button' },
         hook: bind('click', () => set(t)),
         class: { active: current === t },
       },
@@ -93,6 +93,8 @@ function applyPiece(t: Piece, list: Piece[], is3d: boolean) {
     $('body').removeClass(list.join(' ')).addClass(t);
   } else {
     const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
-    sprite.href = sprite.href.replace(/\w+\.css/, t + '.css');
+    sprite.href = sprite.href.replace(/\w+(\.external|)\.css/, t + '$1.css');
+    document.body.dataset.pieceSet = t;
   }
+  lichess.pubsub.emit('theme.change');
 }

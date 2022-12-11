@@ -8,9 +8,12 @@
   .links button,
   .subs .sub {
     @extend %nowrap-hidden;
+    @extend %button-none;
 
     display: block;
     padding: 0.5rem 1rem;
+    width: 100%;
+    text-align: start;
   }
 
   .links a::before,
@@ -34,7 +37,7 @@
 
   .links button {
     width: 100%;
-    text-align: left;
+    text-align: $start-direction;
     border: 0;
     background: none;
   }
@@ -45,7 +48,7 @@
 
   .sub {
     &::before {
-      float: right;
+      float: $end-direction;
       font-size: 80%;
       margin-top: 0.25rem;
       color: $c-dasher;

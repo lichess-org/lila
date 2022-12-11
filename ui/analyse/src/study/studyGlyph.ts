@@ -1,9 +1,10 @@
-import { h, VNode } from 'snabbdom';
-import * as xhr from './studyXhr';
 import { prop, Prop } from 'common';
+import { bind } from 'common/snabbdom';
 import throttle from 'common/throttle';
-import { bind, spinner } from '../util';
+import { spinnerVdom as spinner } from 'common/spinner';
+import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
+import * as xhr from './studyXhr';
 
 interface AllGlyphs {
   move: Tree.Glyph[];
@@ -16,30 +17,21 @@ export interface GlyphCtrl {
   all: Prop<AllGlyphs | null>;
   loadGlyphs(): void;
   toggleGlyph(id: Tree.GlyphId): void;
-  redraw(): void;
 }
 
 function renderGlyph(ctrl: GlyphCtrl, node: Tree.Node) {
-  return function (glyph: Tree.Glyph) {
-    return h(
-      'a',
+  return (glyph: Tree.Glyph) =>
+    h(
+      'button',
       {
-        hook: bind(
-          'click',
-          _ => {
-            ctrl.toggleGlyph(glyph.id);
-            return false;
-          },
-          ctrl.redraw
-        ),
-        attrs: { 'data-symbol': glyph.symbol },
+        hook: bind('click', () => ctrl.toggleGlyph(glyph.id)),
+        attrs: { 'data-symbol': glyph.symbol, type: 'button' },
         class: {
           active: !!node.glyphs && !!node.glyphs.find(g => g.id === glyph.id),
         },
       },
       [glyph.name]
     );
-  };
 }
 
 export function ctrl(root: AnalyseCtrl): GlyphCtrl {
@@ -60,15 +52,10 @@ export function ctrl(root: AnalyseCtrl): GlyphCtrl {
         id,
       })
     );
+    root.redraw();
   });
 
-  return {
-    root,
-    all,
-    loadGlyphs,
-    toggleGlyph,
-    redraw: root.redraw,
-  };
+  return { root, all, loadGlyphs, toggleGlyph };
 }
 
 export function viewDisabled(why: string): VNode {

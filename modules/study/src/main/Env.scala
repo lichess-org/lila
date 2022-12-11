@@ -1,11 +1,11 @@
 package lila.study
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config._
-import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.common.config.*
+import lila.socket.{ GetVersion, SocketVersion }
 import lila.user.User
 
 @Module
@@ -25,25 +25,25 @@ final class Env(
     timeline: lila.hub.actors.Timeline,
     fishnet: lila.hub.actors.Fishnet,
     chatApi: lila.chat.ChatApi,
+    analyser: lila.analyse.Analyser,
+    annotator: lila.analyse.Annotator,
     mongo: lila.db.Env,
     net: lila.common.config.NetConfig,
     cacheApi: lila.memo.CacheApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,
     mode: play.api.Mode
-) {
+):
 
   private lazy val studyDb = mongo.asyncDb("study", appConfig.get[String]("study.mongodb.uri"))
 
-  def version(studyId: Study.Id): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](studyId.value)(GetVersion)
+  def version(studyId: StudyId): Fu[SocketVersion] =
+    socket.rooms.ask[SocketVersion](studyId into RoomId)(GetVersion.apply)
 
-  def isConnected(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
+  def isConnected(studyId: StudyId, userId: UserId): Fu[Boolean] =
     socket.isPresent(studyId, userId)
-
-  private def scheduler = system.scheduler
 
   private val socket: StudySocket = wire[StudySocket]
 
@@ -83,16 +83,14 @@ final class Env(
   lazy val gifExport = new GifExport(ws, appConfig.get[String]("game.gifUrl"))
 
   def cli =
-    new lila.common.Cli {
+    new lila.common.Cli:
       def process = { case "study" :: "rank" :: "reset" :: Nil =>
         api.resetAllRanks.map { count =>
           s"$count done"
         }
       }
-    }
 
   lila.common.Bus.subscribeFun("studyAnalysisProgress") {
     case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) =>
       serverEvalMerger(analysis, complete).unit
   }
-}

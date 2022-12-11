@@ -1,8 +1,5 @@
 package lila.user
 
-import lila.db.BSON
-import reactivemongo.api.bson.BSONDocument
-
 case class Count(
     ai: Int,
     draw: Int,
@@ -13,16 +10,18 @@ case class Count(
     rated: Int,
     win: Int,
     winH: Int
-) { // only against human opponents
+): // only against human opponents
 
   def gameH = winH + lossH + drawH
 
   def casual = game - rated
-}
 
-object Count {
+object Count:
 
-  private[user] val countBSONHandler = new BSON[Count] {
+  import lila.db.dsl.*
+  import lila.db.BSON
+  import reactivemongo.api.bson.BSONDocumentHandler
+  private[user] given BSONDocumentHandler[Count] = new BSON[Count]:
 
     def reads(r: BSON.Reader): Count =
       Count(
@@ -38,7 +37,7 @@ object Count {
       )
 
     def writes(w: BSON.Writer, o: Count) =
-      BSONDocument(
+      $doc(
         "ai"    -> w.int(o.ai),
         "draw"  -> w.int(o.draw),
         "drawH" -> w.int(o.drawH),
@@ -49,7 +48,5 @@ object Count {
         "win"   -> w.int(o.win),
         "winH"  -> w.int(o.winH)
       )
-  }
 
   val default = Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
-}

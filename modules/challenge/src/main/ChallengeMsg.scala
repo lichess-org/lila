@@ -5,20 +5,19 @@ import scala.concurrent.ExecutionContext
 import lila.common.{ LightUser, Template }
 import lila.user.{ LightUserApi, User }
 
-final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(implicit
+final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(using
     ec: ExecutionContext
-) {
+):
 
   def onApiPair(challenge: Challenge)(managedBy: User, template: Option[Template]): Funit =
     challenge.userIds.map(lightUserApi.async).sequenceFu.flatMap {
-      _.flatten match {
-        case List(u1, u2) => onApiPair(challenge.id, u1, u2)(managedBy.id, template)
+      _.flatten match
+        case List(u1, u2) => onApiPair(GameId(challenge.id), u1, u2)(managedBy.id, template)
         case _            => funit
-      }
     }
 
-  def onApiPair(gameId: lila.game.Game.ID, u1: LightUser, u2: LightUser)(
-      managedById: User.ID,
+  def onApiPair(gameId: GameId, u1: LightUser, u2: LightUser)(
+      managedById: UserId,
       template: Option[Template]
   ): Funit =
     List(u1 -> u2, u2 -> u1)
@@ -28,8 +27,7 @@ final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(im
           .replace("{player}", s"@${u1.name}")
           .replace("{opponent}", s"@${u2.name}")
           .replace("{game}", s"#${gameId}")
-        msgApi.post(managedById, u1.id, msg, multi = true)
+        msgApi.post(managedById, u1.id, msg, multi = true, ignoreSecurity = true)
       }
       .sequenceFu
       .void
-}

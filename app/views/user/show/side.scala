@@ -3,64 +3,65 @@ package views.html.user.show
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.user.User
 
-object side {
+object side:
 
   def apply(
       u: User,
       rankMap: lila.rating.UserRankMap,
       active: Option[lila.rating.PerfType]
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
     def showNonEmptyPerf(perf: lila.rating.Perf, perfType: PerfType) =
       perf.nonEmpty option showPerf(perf, perfType)
 
-    def showPerf(perf: lila.rating.Perf, perfType: PerfType) = {
+    def showPerf(perf: lila.rating.Perf, perfType: PerfType) =
       val isPuzzle = perfType == lila.rating.PerfType.Puzzle
       a(
         dataIcon := perfType.iconChar,
-        title := perfType.desc,
+        title    := perfType.desc,
         cls := List(
           "empty"  -> perf.isEmpty,
           "active" -> active.has(perfType)
         ),
-        href := {
-          if (isPuzzle) ctx.is(u) option routes.Puzzle.dashboard(30, "home").url
-          else routes.User.perfStat(u.username, perfType.key).url.some
+        href := ctx.pref.showRatings.?? {
+          if (isPuzzle) routes.Puzzle.dashboard(30, "home", u.username.some).url
+          else routes.User.perfStat(u.username, perfType.key).url
         },
         span(
           h3(perfType.trans),
-          if (isPuzzle && u.perfs.dubiousPuzzle && !ctx.is(u)) st.rating("?")
+          if (isPuzzle && u.perfs.dubiousPuzzle && !ctx.is(u) && ctx.pref.showRatings) st.rating(strong("?"))
           else
             st.rating(
-              if (perf.glicko.clueless) strong("?")
-              else
-                strong(
-                  perf.glicko.intRating,
-                  perf.provisional option "?"
-                ),
-              " ",
-              ratingProgress(perf.progress),
-              " ",
+              ctx.pref.showRatings option frag(
+                if (perf.glicko.clueless) strong("?")
+                else
+                  strong(
+                    perf.glicko.intRating,
+                    perf.provisional.yes option "?"
+                  ),
+                " ",
+                ratingProgress(perf.progress),
+                " "
+              ),
               span(
-                if (perfType.key == "puzzle") trans.nbPuzzles(perf.nb, perf.nb.localize)
-                else trans.nbGames(perf.nb, perf.nb.localize)
+                if (perfType.key.value == "puzzle") trans.nbPuzzles.plural(perf.nb, perf.nb.localize)
+                else trans.nbGames.plural(perf.nb, perf.nb.localize)
               )
             ),
-          rankMap get perfType map { rank =>
+          rankMap get perfType ifTrue ctx.pref.showRatings map { rank =>
             span(cls := "rank", title := trans.rankIsUpdatedEveryNbMinutes.pluralSameTxt(15))(
               trans.rankX(rank.localize)
             )
           }
         ),
-        iconTag("")
+        ctx.pref.showRatings option iconTag("")
       )
-    }
 
     div(cls := "side sub-ratings")(
       (!u.lame || ctx.is(u) || isGranted(_.UserModView)) option frag(
@@ -88,7 +89,6 @@ object side {
         )
       )
     )
-  }
 
   private def showStorm(storm: lila.rating.Perf.Storm, user: User)(implicit lang: Lang) =
     a(
@@ -149,4 +149,3 @@ object side {
       ),
       iconTag("")
     )
-}

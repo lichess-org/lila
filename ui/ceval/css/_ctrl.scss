@@ -18,7 +18,7 @@
     @extend %flex-center;
 
     flex: 0 0 40px;
-    margin-right: 8px;
+    margin-#{$end-direction}: 8px;
   }
 
   pearl {
@@ -27,6 +27,10 @@
     font-size: 1.6em;
     text-align: center;
     font-weight: bold;
+  }
+
+  .is-red::before {
+    vertical-align: -3px;
   }
 
   help,
@@ -44,7 +48,7 @@
     .cloud {
       @extend %roboto, %box-radius;
 
-      margin-left: 4px;
+      margin-#{$start-direction}: 4px;
       background: $c-secondary-dim;
       color: $c-secondary-over;
       padding: 1px 3px;
@@ -59,7 +63,7 @@
 
     .deeper {
       color: $c-primary;
-      margin-left: 4px;
+      margin-#{$start-direction}: 4px;
     }
 
     .deeper::before {
@@ -68,7 +72,7 @@
   }
 
   .technology {
-    margin-left: 5px;
+    margin-#{$start-direction}: 5px;
     &.good {
       color: $c-good;
     }
@@ -113,7 +117,7 @@
     line-height: 38px;
     color: $c-font-dim;
     font-size: 0.9em;
-    padding-right: 0.5em;
+    padding-#{$end-direction}: 0.5em;
     overflow: hidden;
     visibility: hidden;
 

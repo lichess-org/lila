@@ -12,6 +12,5 @@
   <string name="noTeamFound">Võistkonda ei leitud</string>
   <string name="joinTeam">Ühine võistkonnaga</string>
   <string name="quitTeam">Lahku võistkonnast</string>
-  <string name="teamBestPlayers">Võistkonna parimad mängijad</string>
   <string name="teamRecentMembers">Võistkonna värsked liikmed</string>
 </resources>

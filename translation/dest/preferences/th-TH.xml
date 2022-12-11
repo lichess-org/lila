@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">การตั้งค่า</string>
-  <string name="gameDisplay">การแสดงเกม</string>
   <string name="pieceAnimation">ความเร็วตัวหมาก</string>
   <string name="materialDifference">วัตถุที่มีต่างกัน</string>
   <string name="boardHighlights">สีเน้นบนกระดาน (ตาเดินล่าสุด และการรุก)</string>
@@ -32,7 +31,7 @@
   <string name="promoteToQueenAutomatically">เลื่อนขั้นเบี้ยเป็นควีนอัตโนมัติ</string>
   <string name="whenPremoving">เมื่อกำลังเดินล่วงหน้า</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">อ้างสิทธิ์การเสมอโดยอัตโนมัติเมื่อเดินซ้ำ 3 รอบ</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">เมื่อเหลือเวลา &lt; 30 วินาที</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">เมื่อเหลือเวลา &lt; 30 วินาที</string>
   <string name="moveConfirmation">ยืนยันการเดิน</string>
   <string name="inCorrespondenceGames">เกมแบบยาวนาน</string>
   <string name="correspondenceAndUnlimited">แบบยาวนานและแบบไม่จำกัดเวลา</string>

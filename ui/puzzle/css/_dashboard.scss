@@ -9,7 +9,7 @@
     // i {
     //   flex: 0 0 auto;
     //   font-size: 4.5em;
-    //   margin-right: .5em;
+    //   margin-#{$end-direction}: .5em;
     // }
 
     h1 {
@@ -25,7 +25,7 @@
 
     .mselect {
       display: inline-block;
-      margin-left: 1ch;
+      margin-#{$start-direction}: 1ch;
       font-size: 2em;
 
       &__list > * {
@@ -46,6 +46,11 @@
 
   &__metrics {
     display: flex;
+
+    @include breakpoint($mq-not-x-small) {
+      flex-direction: column;
+      font-size: 0.7em;
+    }
   }
 
   &__metric {
@@ -54,14 +59,21 @@
     $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transparent 45%);
 
     align-items: center;
-    padding: 0.4em 0 0.6em 0;
+    justify-content: center;
+    text-align: center;
+    padding: 0.4em 0.7em 0.6em 0.7em;
     text-transform: uppercase;
     flex: 0 0 23.5%;
-    margin-left: 2%;
+    margin-#{$start-direction}: 2%;
     cursor: default;
 
+    @include breakpoint($mq-not-x-small) {
+      margin-top: 1em;
+    }
+
     &:first-child {
-      margin-left: 0;
+      margin-#{$start-direction}: 0;
+      margin-top: 0;
     }
 
     strong {
@@ -89,7 +101,7 @@
 
       background: #{$glow-gradient},
         linear-gradient(
-          to right,
+          to $end-direction,
           $c-first 0%,
           $c-first var(--first),
           $c-fix var(--first),
@@ -149,7 +161,6 @@
       i {
         font-size: 4em;
         opacity: 0.8;
-        margin-right: -0.1em;
         color: $c-good-over;
       }
     }
@@ -162,7 +173,7 @@
   }
 
   &__global .puzzle-dashboard__metric {
-    padding: 1em 0 1.5em 0;
+    padding: 1em 1em 1.5em 1em;
     border-radius: 8px;
 
     strong {
@@ -196,7 +207,7 @@
 
     &__meta {
       flex: 1 1 40%;
-      margin-right: 3vw;
+      margin-#{$end-direction}: 3vw;
     }
 
     &__name {
@@ -216,6 +227,7 @@
     .puzzle-dashboard__metric--fix {
       i {
         font-size: 1.6em;
+        margin-#{$start-direction}: 0.3em;
       }
     }
   }

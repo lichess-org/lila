@@ -17,6 +17,5 @@
   <string name="xStreamerPicture">%s striimija pilt</string>
   <string name="changePicture">Muuda/kustuta pilt</string>
   <string name="uploadPicture">Pildi üleslaadimine</string>
-  <string name="deletePicture">Kustuta pilt</string>
   <string name="maxSize">Maksimum maht: %s</string>
 </resources>

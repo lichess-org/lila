@@ -1,14 +1,14 @@
-import { h } from 'snabbdom';
-import { Chessground } from 'chessground';
-import * as cg from 'chessground/types';
-import { Api as CgApi } from 'chessground/api';
-import { Config } from 'chessground/config';
-import changeColorHandle from 'common/coordsColor';
-import resizeHandle from 'common/resize';
+import * as round from './round';
 import * as util from './util';
-import { plyStep } from './round';
+import resizeHandle from 'common/resize';
 import RoundController from './ctrl';
+import { Chessground } from 'chessground';
+import { Config } from 'chessground/config';
+import { h } from 'snabbdom';
+import { plyStep } from './round';
 import { RoundData } from './interfaces';
+import { uciToMove } from 'chessground/util';
+import * as Prefs from 'common/prefs';
 
 export function makeConfig(ctrl: RoundController): Config {
   const data = ctrl.data,
@@ -19,11 +19,11 @@ export function makeConfig(ctrl: RoundController): Config {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
     turnColor: step.ply % 2 === 0 ? 'white' : 'black',
-    lastMove: util.uci2move(step.uci),
+    lastMove: uciToMove(step.uci),
     check: !!step.check,
     coordinates: data.pref.coords !== Prefs.Coords.Hidden,
     addPieceZIndex: ctrl.data.pref.is3d,
-    addDimensionsCssVars: true,
+    addDimensionsCssVarsTo: document.body,
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,
@@ -32,8 +32,10 @@ export function makeConfig(ctrl: RoundController): Config {
       move: hooks.onMove,
       dropNewPiece: hooks.onNewPiece,
       insert(elements) {
-        resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply);
-        if (data.pref.coords === Prefs.Coords.Inside) changeColorHandle();
+        const firstPly = round.firstPly(ctrl.data);
+        const isSecond = (firstPly % 2 === 0 ? 'white' : 'black') !== data.player.color;
+        const showUntil = firstPly + 2 + +isSecond;
+        resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply, p => p <= showUntil);
       },
     },
     movable: {
@@ -84,35 +86,12 @@ export function makeConfig(ctrl: RoundController): Config {
   };
 }
 
-export function reload(ctrl: RoundController) {
-  ctrl.chessground.set(makeConfig(ctrl));
-}
+export const reload = (ctrl: RoundController) => ctrl.chessground.set(makeConfig(ctrl));
 
-export function promote(ground: CgApi, key: cg.Key, role: cg.Role) {
-  const piece = ground.state.pieces.get(key);
-  if (piece && piece.role === 'pawn') {
-    ground.setPieces(
-      new Map([
-        [
-          key,
-          {
-            color: piece.color,
-            role,
-            promoted: true,
-          },
-        ],
-      ])
-    );
-  }
-}
+export const boardOrientation = (data: RoundData, flip: boolean): Color =>
+  data.game.variant.key === 'racingKings' ? (flip ? 'black' : 'white') : flip ? data.opponent.color : data.player.color;
 
-export function boardOrientation(data: RoundData, flip: boolean): Color {
-  if (data.game.variant.key === 'racingKings') return flip ? 'black' : 'white';
-  else return flip ? data.opponent.color : data.player.color;
-}
-
-export function render(ctrl: RoundController) {
-  return h('div.cg-wrap', {
+export const render = (ctrl: RoundController) =>
+  h('div.cg-wrap', {
     hook: util.onInsert(el => ctrl.setChessground(Chessground(el, makeConfig(ctrl)))),
   });
-}

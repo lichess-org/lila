@@ -34,13 +34,13 @@
     @extend %roboto;
 
     font-size: 0.9em;
-    margin-left: 1ch;
+    margin-#{$start-direction}: 1ch;
   }
 
   &__clock {
     @extend %roboto;
 
-    padding-left: 2ch;
+    padding-#{$start-direction}: 2ch;
 
     &.clock--run {
       color: $c-accent;
@@ -50,6 +50,6 @@
 
   &__result {
     font-weight: bold;
-    margin-right: 1ch;
+    margin-#{$end-direction}: 1ch;
   }
 }

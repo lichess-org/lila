@@ -18,7 +18,7 @@
   <string name="notEnoughGames">Ei ole piisavalt palju mängitud</string>
   <string name="highestRating">Kõrgeim reiting: %s</string>
   <string name="lowestRating">Madalaim reiting: %s</string>
-  <string name="fromXToY">ajavahemikus %1$s - %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">ajavahemikus %1$s - %2$s</string>
   <string name="winningStreak">Võitude seeria</string>
   <string name="losingStreak">Kaotuste seeria</string>
   <string name="longestStreak">Pikim seeria: %s</string>

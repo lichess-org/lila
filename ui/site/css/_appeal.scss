@@ -27,7 +27,7 @@
 
       content: '';
       font-size: 2em;
-      margin-right: 0.4em;
+      margin-#{$end-direction}: 0.4em;
     }
   }
 
@@ -46,7 +46,7 @@
     }
 
     &--suspect {
-      border-right: 10px solid $c-bg-zebra;
+      border-#{$end-direction}: 10px solid $c-bg-zebra;
     }
 
     img {
@@ -61,12 +61,35 @@
     margin-top: 2em;
 
     .button {
-      margin-right: 1em;
+      margin-#{$end-direction}: 1em;
     }
   }
 
+  .marked-by-me {
+    @extend %box-radius;
+
+    border-radius: 20px;
+    padding: 1rem;
+    background: mix($c-warn, $c-bg-box, 60%);
+    border: 1px solid $c-warn;
+    text-align: center;
+    font-size: 1.2em;
+  }
+
+  .root h2 {
+    padding: 0.7em;
+    text-align: center;
+    background: $c-good;
+    color: $c-good-over;
+  }
+
+  .marked .root h2 {
+    background: $c-bad;
+    color: $c-bad-over;
+  }
+
   .appeal-presets {
-    margin-right: 1em;
+    margin-#{$end-direction}: 1em;
   }
 
   &__rules {
@@ -92,5 +115,9 @@
   #help-engine-deny:target form {
     animation: 20s reveal;
     animation-fill-mode: forwards;
+  }
+
+  .warning-closure {
+    color: $c-bad;
   }
 }

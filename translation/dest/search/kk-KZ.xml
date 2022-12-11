@@ -14,9 +14,9 @@
   <string name="loser">Жеңілген</string>
   <string name="from">Бастап</string>
   <string name="to">Дейін</string>
-  <string name="humanOrComputer">Осылардың бірі: қарсылас – адам не компьютер</string>
+  <string name="humanOrComputer">Қарсыласты таңдаңыз: адам не компьютер</string>
   <string name="aiLevel">Компьютер деңгейі</string>
-  <string name="source">Ойын түрі</string>
+  <string name="source">Іздеу жері</string>
   <string name="nbTurns">Жүрістер саны</string>
   <string name="result">Нәтиже</string>
   <string name="winnerColor">Жеңімпаз түсі</string>
@@ -24,4 +24,16 @@
   <string name="sortBy">Сұрыптау шарты</string>
   <string name="analysis">Талдау</string>
   <string name="onlyAnalysed">Тек компьютерлік талдауға бейім ойындар</string>
+  <string name="color">Түсі</string>
+  <string name="evaluation">Бағалау</string>
+  <string name="maxNumber">Ойын саны</string>
+  <string name="maxNumberExplanation">Іздеу нәтижесінде қанша ойын көрсету</string>
+  <string name="include">Құрамы</string>
+  <string name="descending">Кему бойымен</string>
+  <string name="ascending">Өсу бойымен</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s ойын табылды</item>
+    <item quantity="other">%s ойын табылды</item>
+  </plurals>
+  <string name="ratingExplanation">Екі ойыншының орташа рейтингі</string>
 </resources>

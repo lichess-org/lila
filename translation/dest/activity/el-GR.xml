@@ -43,12 +43,12 @@
     <item quantity="other">Απέκτησε %s νέους ακόλουθους</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Φιλοξένησε %s ταυτόχρονη έκθεση</item>
-    <item quantity="other">Φιλοξένησε %s ταυτόχρονες εκθέσεις</item>
+    <item quantity="one">Φιλοξένησε %s σιμουλτανέ</item>
+    <item quantity="other">Φιλοξένησε %s σιμουλτανέ</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Συμμετείχε σε %s ταυτόχρονη έκθεση</item>
-    <item quantity="other">Συμμετείχε σε %s ταυτόχρονες εκθέσεις</item>
+    <item quantity="one">Συμμετείχε σε %s σιμουλτανέ</item>
+    <item quantity="other">Συμμετείχε σε %s σιμουλτανέ</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Δημιούργησε %s νέα μελέτη</item>
