@@ -10,7 +10,6 @@ export default function table(ctrl: LobbyController) {
   const hookDisabled = opts.playban || opts.hasUnreadLichessMessage || ctrl.me?.isBot || hasOngoingRealTimeGame;
   const { members, rounds } = data.counters;
   return h('div.lobby__table', [
-    h('div.bg-switch', { attrs: { title: 'Dark mode' } }, [h('div.bg-switch__track'), h('div.bg-switch__thumb')]),
     h(
       'div.lobby__start',
       (opts.blindMode ? [h('h2', 'Play')] : []).concat(
