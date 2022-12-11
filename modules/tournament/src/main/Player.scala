@@ -11,7 +11,7 @@ private[tournament] case class Player(
     tourId: TourId,
     userId: UserId,
     rating: IntRating,
-    provisional: Boolean,
+    provisional: RatingProvisional,
     withdraw: Boolean = false,
     score: Int = 0,
     fire: Boolean = false,

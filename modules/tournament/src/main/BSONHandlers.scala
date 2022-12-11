@@ -128,10 +128,10 @@ object BSONHandlers:
     def reads(r: BSON.Reader) =
       Player(
         _id = r.get[TourPlayerId]("_id"),
-        tourId = r.get[TourId]("tid"),
-        userId = r.get[UserId]("uid"),
-        rating = r.get[IntRating]("r"),
-        provisional = r boolD "pr",
+        tourId = r.get("tid"),
+        userId = r.get("uid"),
+        rating = r.get("r"),
+        provisional = r yesnoD "pr",
         withdraw = r boolD "w",
         score = r intD "s",
         fire = r boolD "f",
@@ -144,7 +144,7 @@ object BSONHandlers:
         "tid" -> o.tourId,
         "uid" -> o.userId,
         "r"   -> o.rating,
-        "pr"  -> w.boolO(o.provisional),
+        "pr"  -> w.yesnoO(o.provisional),
         "w"   -> w.boolO(o.withdraw),
         "s"   -> w.intO(o.score),
         "m"   -> o.magicScore,

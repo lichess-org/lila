@@ -8,10 +8,10 @@ private[simul] case class SimulPlayer(
     user: UserId,
     variant: Variant,
     rating: IntRating,
-    provisional: Option[Boolean]
+    provisional: Option[RatingProvisional]
 ):
 
-  def is(userId: UserId): Boolean    = user == userId
+  def is(userId: UserId): Boolean     = user == userId
   def is(other: SimulPlayer): Boolean = is(other.user)
 
 private[simul] object SimulPlayer:

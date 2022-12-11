@@ -148,8 +148,8 @@ object Challenge:
     val allExceptBot       = all.filterNot(r => r == NoBot || r == OnlyBot)
     def apply(key: String) = all.find { d => d.key == key.toLowerCase || d.trans.value == key } | Generic
 
-  case class Rating(int: IntRating, provisional: Boolean):
-    def show = s"$int${if (provisional) "?" else ""}"
+  case class Rating(int: IntRating, provisional: RatingProvisional):
+    def show = s"$int${if provisional.yes then "?" else ""}"
   object Rating:
     def apply(p: lila.rating.Perf): Rating = Rating(p.intRating, p.provisional)
 

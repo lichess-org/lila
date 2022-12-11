@@ -175,7 +175,7 @@ final private[puzzle] class PuzzleFinisher(
       }
 
     def player(angle: PuzzleAngle, win: PuzzleWin, glicko: (Glicko, Glicko), puzzle: Glicko) =
-      val provisionalPuzzle = puzzle.provisional ?? {
+      val provisionalPuzzle = puzzle.provisional.yes ?? {
         if (win.yes) -0.2f else -0.7f
       }
       glicko._1.average(glicko._2, (weightOf(angle, win) + provisionalPuzzle) atLeast 0.1f)

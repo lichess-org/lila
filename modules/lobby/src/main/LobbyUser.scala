@@ -37,8 +37,8 @@ private[lobby] object LobbyUser:
         key -> LobbyPerf(perf.intRating, perf.provisional)
     }.toMap
 
-case class LobbyPerf(rating: IntRating, provisional: Boolean)
+case class LobbyPerf(rating: IntRating, provisional: RatingProvisional)
 
 object LobbyPerf:
 
-  val default = LobbyPerf(Glicko.default.intRating, provisional = true)
+  val default = LobbyPerf(Glicko.default.intRating, provisional = RatingProvisional.Yes)
