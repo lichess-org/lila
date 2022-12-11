@@ -109,8 +109,11 @@ final private class PovToEntry(
     roles.toList
       .zip(situations)
       .zip(blurs)
+      .zip(timeCvs | Vector.fill(roles.size)(none))
+      .zip(from.clockStates.map(_.map(some)) | Vector.fill(roles.size)(none))
+      .zip(from.movetimes.map(_.map(some)) | Vector.fill(roles.size)(none))
       .zipWithIndex
-      .map { case (((role, situation), blur), i) =>
+      .map { case ((((((role, situation), blur), timeCv), clock), movetime), i) =>
         val ply      = i * 2 + from.pov.color.fold(1, 2)
         val prevInfo = prevInfos lift i
         val awareness = from.advices.get(ply - 1) flatMap {
@@ -137,8 +140,8 @@ final private class PovToEntry(
 
         InsightMove(
           phase = Phase.of(from.division, ply),
-          tenths = from.movetimes.flatMap(_.lift(i)).map(_.roundTenths),
-          clockPercent = from.clock.flatMap(clk => from.clockStates.flatMap(_.lift(i)).map(ClockPercent(clk, _))),
+          tenths = movetime.map(_.roundTenths),
+          clockPercent = from.clock.flatMap(clk => clock.map(ClockPercent(clk, _))),
           role = role,
           eval = prevInfo.flatMap(_.eval.forceAsCp).map(_.ceiled.centipawns),
           cpl = cpDiffs.lift(i).flatten,
@@ -148,7 +151,7 @@ final private class PovToEntry(
           awareness = awareness,
           luck = luck,
           blur = blur,
-          timeCv = timeCvs.flatMap(_.lift(i).flatten)
+          timeCv = timeCv
         )
       }
 
