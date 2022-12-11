@@ -49,6 +49,6 @@ object ReverseRouterConversions:
   given Conversion[UserName, UserStr]                       = _ into UserStr
   given Conversion[UserId, UserStr]                         = _ into UserStr
   given Conversion[ForumTopicId, String]                    = _.value
-  given Conversion[ForumPostId, String]                     = _.value
+  given postId: Conversion[ForumPostId, String]             = _.value
   given perfKey: Conversion[Perf.Key, String]               = _.value
   given puzzleKey: Conversion[PuzzleTheme.Key, String]      = _.value
