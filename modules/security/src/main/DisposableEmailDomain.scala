@@ -16,17 +16,17 @@ final class DisposableEmailDomain(
   private var regex = finalizeRegex(staticRegex)
 
   private[security] def refresh(): Unit =
-    for {
+    for
       blacklist <- ws.url(providerUrl).get().map(_.body[String].linesIterator) recover { case e: Exception =>
         logger.warn("DisposableEmailDomain.refresh", e)
         Iterator.empty
       }
       checked <- checkMailBlocked()
-    }
-    val regexStr  = s"${toRegexStr(blacklist)}|${toRegexStr(checked.iterator)}"
-    val nbDomains = regexStr.count('|' ==)
-    lila.mon.email.disposableDomain.update(nbDomains)
-    regex = finalizeRegex(s"$staticRegex|$regexStr")
+    do
+      val regexStr  = s"${toRegexStr(blacklist)}|${toRegexStr(checked.iterator)}"
+      val nbDomains = regexStr.count('|' ==)
+      lila.mon.email.disposableDomain.update(nbDomains)
+      regex = finalizeRegex(s"$staticRegex|$regexStr")
 
   private def toRegexStr(domains: Iterator[String]) = domains.map(l => l.replace(".", "\\.")).mkString("|")
 
