@@ -7,6 +7,7 @@ import views.*
 import lila.app.{ given, * }
 import lila.common.config.Max
 import lila.common.HTTPRequest
+import lila.common.Json.given
 import lila.timeline.Entry.given
 
 final class Timeline(env: Env) extends LilaController(env):
@@ -33,7 +34,7 @@ final class Timeline(env: Env) extends LilaController(env):
               .moreUserEntries(me.id, Max(getInt("nb") | 0 atMost env.apiTimelineSetting.get()))
             users <- env.user.lightUserApi.asyncManyFallback(entries.flatMap(_.userIds).distinct)
             userMap = users.view.map { u => u.id -> u }.toMap
-          } yield Ok(Json.obj("entries" -> entries, "users" -> userMap))
+          } yield Ok(Json.obj("entries" -> entries, "users" -> Json.toJsObject(userMap)))
       )
     }
 
