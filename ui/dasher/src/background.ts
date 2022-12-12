@@ -3,6 +3,7 @@ import { Redraw, Close, bind, header } from './util';
 import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
 import { throttlePromiseDelay } from 'common/throttle';
+import { supportsSystemTheme } from 'common/theme';
 
 export interface BackgroundCtrl {
   list: Background[];
@@ -135,7 +136,7 @@ function applyBackground(data: BackgroundData, list: Background[]) {
   const sheet = key == 'darkBoard' ? 'dark' : key;
   $('body').data('theme', sheet);
   if (prev === 'system') {
-    const active = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const active = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     const other = active === 'dark' ? 'light' : 'dark';
     $('link[href*=".' + other + '."]').remove();
     $('link[href*=".' + active + '."]').each(function (this: HTMLLinkElement) {
@@ -144,8 +145,12 @@ function applyBackground(data: BackgroundData, list: Background[]) {
   } else {
     $('link[href*=".' + prev + '."]').each(function (this: HTMLLinkElement) {
       if (sheet === 'system') {
-        replaceStylesheet(this, prev, 'light', 'light');
-        replaceStylesheet(this, prev, 'dark', 'dark');
+        if (supportsSystemTheme()) {
+          replaceStylesheet(this, prev, 'light', 'light');
+          replaceStylesheet(this, prev, 'dark', 'dark');
+        } else {
+          replaceStylesheet(this, prev, 'dark');
+        }
       } else replaceStylesheet(this, prev, sheet);
     });
   }

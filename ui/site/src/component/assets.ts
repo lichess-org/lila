@@ -1,4 +1,5 @@
 import * as xhr from 'common/xhr';
+import { supportsSystemTheme } from 'common/theme';
 
 export const assetUrl = (path: string, opts: AssetUrlOpts = {}) => {
   opts = opts || {};
@@ -30,8 +31,12 @@ export const loadCssPath = async (key: string): Promise<void> => {
   const load = (theme: string, media?: 'dark' | 'light') =>
     loadCss(`css/${key}.${document.dir || 'ltr'}.${theme}.${$('body').data('dev') ? 'dev' : 'min'}.css`, media);
   if (theme === 'system') {
-    await load('dark', 'dark');
-    await load('light', 'light');
+    if (supportsSystemTheme()) {
+      await load('dark', 'dark');
+      await load('light', 'light');
+    } else {
+      await load('dark');
+    }
   } else await load(theme);
 };
 

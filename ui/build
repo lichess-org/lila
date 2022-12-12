@@ -14,8 +14,8 @@ cd "$(git rev-parse --show-toplevel)"
 
 mkdir -p public/compiled
 
-apps1="common chart"
-apps2="chess palantir"
+apps1="common"
+apps2="chess palantir chart"
 apps3="ceval game tree chat nvui puz keyboardMove"
 apps4="site analyse swiss msg tutor opening cli challenge notify learn insight editor puzzle round lobby tournament tournamentSchedule tournamentCalendar simul dasher serviceWorker dgt storm racer coordinateTrainer"
 site_plugins="ublogForm ublog tvEmbed puzzleEmbed analyseEmbed lpv lpvEmbed user clas captcha expandText team forum account coachShow coachForm challengePage checkout plan login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr appeal publicChats contact userGamesDownload tvGames speech"
