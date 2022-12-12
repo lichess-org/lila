@@ -411,7 +411,7 @@ object Pref:
   object Ratings extends BooleanPref {}
 
   val darkByDefaultSince   = new DateTime(2021, 11, 7, 8, 0)
-  val systemByDefaultSince = new DateTime(2022, 12, 13, 8, 0)
+  val systemByDefaultSince = new DateTime(2022, 12, 23, 8, 0)
 
   def create(id: UserId) = default.copy(_id = id)
 
@@ -426,7 +426,7 @@ object Pref:
 
   lazy val default = Pref(
     _id = UserId(""),
-    bg = Bg.SYSTEM,
+    bg = Bg.DARK,
     bgImg = none,
     is3d = false,
     theme = Theme.default.name,
