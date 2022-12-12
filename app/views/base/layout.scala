@@ -465,13 +465,13 @@ object layout:
 
     private val cache = scala.collection.mutable.AnyRefMap.empty[Lang, String]
 
-    private def jsCode(implicit lang: Lang) =
+    private def jsCode(using lang: Lang) =
       cache.getOrElseUpdate(
         lang,
         s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:${lila.i18n
             .JsQuantity(lang)},siteI18n:${safeJsonValue(i18nJsObject(i18nKeys))}}"""
       )
 
-    def apply(nonce: Nonce)(implicit lang: Lang) =
+    def apply(nonce: Nonce)(using Lang) =
       embedJsUnsafe(jsCode, nonce)
   end inlineJs
