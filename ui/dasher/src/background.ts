@@ -27,7 +27,7 @@ interface Background {
 
 export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: Close): BackgroundCtrl {
   const list: Background[] = [
-    { key: 'system', name: trans.noarg('systemDefault') },
+    { key: 'system', name: trans.noarg('deviceTheme') },
     { key: 'light', name: trans.noarg('light') },
     { key: 'dark', name: trans.noarg('dark') },
     { key: 'darkBoard', name: 'Dark Board', title: 'Like Dark, but chess boards are also darker' },

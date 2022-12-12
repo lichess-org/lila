@@ -162,7 +162,7 @@ object Pref:
       DARK        -> "Dark",
       DARKBOARD   -> "Dark Board",
       TRANSPARENT -> "Transparent",
-      SYSTEM      -> "System Default"
+      SYSTEM      -> "Device theme"
     )
 
     val fromString = Map(

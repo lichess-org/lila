@@ -17,7 +17,7 @@ final class Dasher(env: Env) extends LilaController(env):
     trans.light,
     trans.dark,
     trans.transparent,
-    trans.systemDefault,
+    trans.deviceTheme,
     trans.backgroundImageUrl,
     trans.boardGeometry,
     trans.boardTheme,
