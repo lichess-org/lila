@@ -17,8 +17,8 @@ case class MeanRating(value: Int) extends AnyVal
 
 case class InsightMove(
     phase: Phase,
-    tenths: Int, // tenths of seconds spent thinking
-    clockPercent: ClockPercent,
+    tenths: Option[Int], // tenths of seconds spent thinking
+    clockPercent: Option[ClockPercent],
     role: Role,
     eval: Option[Int],              // before the move was played, relative to player
     cpl: Option[Int],               // eval diff caused by the move, relative to player, mate ~= 10
