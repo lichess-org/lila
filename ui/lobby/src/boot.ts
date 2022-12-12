@@ -68,16 +68,16 @@ export default function LichessLobby(opts: LobbyOpts) {
   opts.socketSend = lichess.socket.send;
   const lobbyCtrl = main(opts);
 
-  suggestBgSwitch();
+  if (!opts.data.me) suggestBgSwitch();
 }
 
 (window as any).LichessLobby = LichessLobby; // esbuild
 
+// if anon with system theme and system prefers light, offer switch to get the dark theme back
 function suggestBgSwitch() {
-  const m = window.matchMedia('(prefers-color-scheme: dark)');
-  if (m.media == 'not all') return;
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const current = document.body.getAttribute('data-theme');
-  if (m.matches == (current == 'dark')) return;
+  if (current !== 'system' && prefersDark) return;
 
   let dasher: Promise<any>;
   const getDasher = (): Promise<any> => {
@@ -87,9 +87,5 @@ function suggestBgSwitch() {
 
   $('.bg-switch')
     .addClass('active')
-    .on('click', () =>
-      getDasher().then(dasher =>
-        dasher.subs.background.set(document.body.classList.contains('dark') ? 'light' : 'dark')
-      )
-    );
+    .on('click', () => getDasher().then(dasher => dasher.subs.background.set('dark')));
 }
