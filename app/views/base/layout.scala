@@ -29,9 +29,11 @@ object layout:
     def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Frag =
       metaCsp(csp getOrElse defaultCsp)
     def metaThemeColor(implicit ctx: Context): Frag = if (ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) raw {
-        s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" + 
+      s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
         s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">"""
-      } else raw {
+    }
+    else
+      raw {
         s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
       }
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
@@ -188,7 +190,8 @@ object layout:
           jsModule("site")
         ),
       moreJs,
-      ctx.pageData.inquiry.isDefined option jsModule("mod.inquiry")
+      ctx.pageData.inquiry.isDefined option jsModule("mod.inquiry"),
+      ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs)
     )
 
   private def hrefLang(lang: String, path: String) =
@@ -283,7 +286,6 @@ object layout:
           piecesPreload,
           manifests,
           jsLicense,
-          ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs),
           withHrefLangs.map(hrefLangs)
         ),
         st.body(
@@ -472,3 +474,4 @@ object layout:
 
     def apply(nonce: Nonce)(implicit lang: Lang) =
       embedJsUnsafe(jsCode, nonce)
+  end inlineJs
