@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Tam ölçüdə bax</string>
   <string name="logOut">Hesabdan çıx</string>
   <string name="signIn">Giriş</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">Məni yadda saxla</string>
+  <string name="rememberMe">Məni yadda saxla</string>
   <string name="youNeedAnAccountToDoThat">Bunun üçün bir hesaba ehtiyacınız var</string>
   <string name="signUp">Üzv ol</string>
   <string name="computersAreNotAllowedToPlay">Kompüterlərin və kompüter dəstəkli oyunçuların oynamasına icazə verilmir. Xahiş edirik oynayarkən şahmat mühərriklərindən, məlumat bazalarından və ya digər oyunçulardan kömək almayın. Həm də qeyd edək ki, birdən çox hesabın açılması ciddi şəkildə yoxlanılır və həddindən artıq çox hesabın açılması hesabınızın ban olunmasına səbəb olacaqdır.</string>
