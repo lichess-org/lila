@@ -166,7 +166,7 @@
   <string name="viewInFullSize">Pogledajte u punoj veličini</string>
   <string name="logOut">Odjava</string>
   <string name="signIn">Prijava</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">Zapamti me</string>
+  <string name="rememberMe">Zapamti me</string>
   <string name="youNeedAnAccountToDoThat">Treba Vam korisnički račun da biste to uradili</string>
   <string name="signUp">Registrujte se</string>
   <string name="computersAreNotAllowedToPlay">Računarima i igračima koji koriste pomoć računara nije dozvoljeno igrati. Molimo Vas da ne koristite pomoć šahovskih programa, baza podataka ili drugih igrača dok igrate. Takođe, korištenje više korisničkih računa se strogo kontroliše i pretjerano njihovo korištenje vodi blokadi svih računa.</string>
