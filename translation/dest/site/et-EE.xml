@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Vaata täisekraanil</string>
   <string name="logOut">Logi välja</string>
   <string name="signIn">Logi sisse</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">Jää sisselogituks</string>
+  <string name="rememberMe">Jää sisselogituks</string>
   <string name="youNeedAnAccountToDoThat">Sa vajad kasutajat, et seda teha</string>
   <string name="signUp">Registreeri</string>
   <string name="computersAreNotAllowedToPlay">Arvutid ja arvutiabi kasutavad mängijad on keelatud mängimast. Palun ära kasuta mängides maleprogrammide, andmebaaside ja teiste mängijate abi. Mitme kasutaja tegemine on ebasoositud ja räige mitme kasutaja kasutamine võib lõppeda kasutaja kinnipanemisega.</string>
