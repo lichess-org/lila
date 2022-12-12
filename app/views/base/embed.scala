@@ -20,6 +20,7 @@ object embed:
           st.headTitle(title),
           layout.bits.pieceSprite(config.pieceSet),
           cssTagWithDirAndTheme(cssModule, isRTL = lila.i18n.LangList.isRTL(config.lang), config.bg)
+          config.bg == lila.pref.Pref.Bg.SYSTEM option scriptSystemThemePolyfill,
         ),
         st.body(cls := s"${config.bg} highlight ${config.board}")(
           layout.dataSoundSet := SoundSet.silent.key,
