@@ -67,6 +67,29 @@ export default function LichessLobby(opts: LobbyOpts) {
 
   opts.socketSend = lichess.socket.send;
   const lobbyCtrl = main(opts);
+
+  suggestBgSwitch();
 }
 
 (window as any).LichessLobby = LichessLobby; // esbuild
+
+function suggestBgSwitch() {
+  const m = window.matchMedia('(prefers-color-scheme: dark)');
+  if (m.media == 'not all') return;
+  const current = document.body.getAttribute('data-theme');
+  if (m.matches == (current == 'dark')) return;
+
+  let dasher: Promise<any>;
+  const getDasher = (): Promise<any> => {
+    dasher = dasher || lichess.loadModule('dasher').then(() => window.LichessDasher(document.createElement('div')));
+    return dasher;
+  };
+
+  $('.bg-switch')
+    .addClass('active')
+    .on('click', () =>
+      getDasher().then(dasher =>
+        dasher.subs.background.set(document.body.classList.contains('dark') ? 'light' : 'dark')
+      )
+    );
+}
