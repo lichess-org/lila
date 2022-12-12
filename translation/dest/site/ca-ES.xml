@@ -737,6 +737,7 @@
   <string name="light">Clar</string>
   <string name="dark">Fosc</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Tema del dispositiu</string>
   <string name="backgroundImageUrl">Imatge de fons URL:</string>
   <string name="boardGeometry">Geometria del tauler</string>
   <string name="boardTheme">Temàtica del tauler</string>
