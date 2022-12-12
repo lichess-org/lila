@@ -410,13 +410,17 @@ object Pref:
   object Zen     extends BooleanPref {}
   object Ratings extends BooleanPref {}
 
-  val darkByDefaultSince = new DateTime(2021, 11, 7, 8, 0)
+  val darkByDefaultSince   = new DateTime(2021, 11, 7, 8, 0)
+  val systemByDefaultSince = new DateTime(2022, 12, 13, 8, 0)
 
   def create(id: UserId) = default.copy(_id = id)
 
   def create(user: User) = default.copy(
     _id = user.id,
-    bg = if (user.createdAt isAfter darkByDefaultSince) Bg.DARK else Bg.LIGHT,
+    bg =
+      if user.createdAt.isAfter(systemByDefaultSince) then Bg.SYSTEM
+      else if user.createdAt.isAfter(darkByDefaultSince) then Bg.DARK
+      else Bg.LIGHT,
     agreement = if (user.createdAt isAfter Agreement.changedAt) Agreement.current else 0
   )
 
