@@ -202,7 +202,7 @@ object layout:
       }.mkString
   }
 
-  private val scriptSystemThemePolyfill = embedJsUnsafe("""
+  private def scriptSystemThemePolyfill(implicit ctx: Context) = embedJsUnsafe("""
 if (window.matchMedia('(prefers-color-scheme)').media === 'not all')
     document.querySelectorAll('[media="(prefers-color-scheme: dark)"]').forEach(e=>e.media="")
 """)
