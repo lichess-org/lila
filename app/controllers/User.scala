@@ -475,17 +475,22 @@ final class User(
 
   def writeNote(username: UserStr) =
     AuthBody { implicit ctx => me =>
-      doWriteNote(username, me)(
-        err => BadRequest(err.errors.toString).toFuccess,
-        user =>
-          if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
-            Ok(views.html.mod.inquiry.noteZone(user, notes))
-          }
-          else
-            env.socialInfo.fetchNotes(user, me) map { notes =>
-              Ok(views.html.user.show.header.noteZone(user, notes))
-            }
-      )(ctx.body)
+      given play.api.mvc.Request[?] = ctx.body
+      lila.user.UserForm.note
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(err.errors.toString).toFuccess,
+          data => doWriteNote(username, me, data)(
+            user =>
+              if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
+                Ok(views.html.mod.inquiry.noteZone(user, notes))
+              }
+              else
+                env.socialInfo.fetchNotes(user, me) map { notes =>
+                  Ok(views.html.user.show.header.noteZone(user, notes))
+                }
+          )
+        )
     }
 
   def apiReadNote(username: UserStr) =
@@ -501,28 +506,25 @@ final class User(
 
   def apiWriteNote(username: UserStr) =
     ScopedBody() { implicit req => me =>
-      doWriteNote(username, me)(
-        jsonFormErrorDefaultLang,
-        suc = _ => jsonOkResult.toFuccess
-      )
+      lila.user.UserForm.apiNote
+        .bindFromRequest()
+        .fold(
+          jsonFormErrorDefaultLang,
+          data => doWriteNote(username, me, data)(_ => jsonOkResult.toFuccess)
+        )
     }
 
   private def doWriteNote(
       username: UserStr,
-      me: UserModel
-  )(err: Form[?] => Fu[Result], suc: UserModel => Fu[Result])(implicit req: Request[?]) =
+      me: UserModel,
+      data: lila.user.UserForm.NoteData
+  )(f: UserModel => Fu[Result]) =
     env.user.repo byId username flatMap {
       _ ?? { user =>
-        lila.user.UserForm.note
-          .bindFromRequest()
-          .fold(
-            err,
-            data =>
-              {
-                val isMod = data.mod && isGranted(_.ModNote, me)
-                env.user.noteApi.write(user, data.text, me, isMod, isMod && ~data.dox)
-              } >> suc(user)
-          )
+        {
+          val isMod = data.mod && isGranted(_.ModNote, me)
+          env.user.noteApi.write(user, data.text, me, isMod, isMod && data.dox)
+        } >> f(user)
       }
     }
 
