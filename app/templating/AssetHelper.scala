@@ -47,10 +47,10 @@ trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>
   private def cssAt(path: String): Tag =
     link(href := assetUrl(path), rel := "stylesheet")
 
-  def scriptSystemThemePolyfill(implicit ctx: Context) = embedJsUnsafe("""
-if (window.matchMedia('(prefers-color-scheme)').media === 'not all')
-    document.querySelectorAll('[media="(prefers-color-scheme: dark)"]').forEach(e=>e.media="")
-""")
+  val systemThemePolyfillJs = """
+if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
+    document.querySelectorAll('[media="(prefers-color-scheme: dark)"]').forEach(e=>e.media='')
+"""
 
   // load scripts in <head> and always use defer
   def jsAt(path: String): Frag = script(deferAttr, src := assetUrl(path))

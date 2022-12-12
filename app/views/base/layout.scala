@@ -283,7 +283,7 @@ object layout:
           piecesPreload,
           manifests,
           jsLicense,
-          ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option scriptSystemThemePolyfill,
+          ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs),
           withHrefLangs.map(hrefLangs)
         ),
         st.body(
