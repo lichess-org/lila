@@ -28,7 +28,11 @@ object layout:
       }
     def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Frag =
       metaCsp(csp getOrElse defaultCsp)
-    def metaThemeColor(implicit ctx: Context): Frag =
+    def metaThemeColor(implicit ctx: Context): Frag = if (ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) raw {
+      s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
+        s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">"""
+    }
+    else
       raw {
         s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
       }
@@ -186,7 +190,8 @@ object layout:
           jsModule("site")
         ),
       moreJs,
-      ctx.pageData.inquiry.isDefined option jsModule("mod.inquiry")
+      ctx.pageData.inquiry.isDefined option jsModule("mod.inquiry"),
+      ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs)
     )
 
   private def hrefLang(lang: String, path: String) =
@@ -460,12 +465,13 @@ object layout:
 
     private val cache = scala.collection.mutable.AnyRefMap.empty[Lang, String]
 
-    private def jsCode(implicit lang: Lang) =
+    private def jsCode(using lang: Lang) =
       cache.getOrElseUpdate(
         lang,
         s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:${lila.i18n
             .JsQuantity(lang)},siteI18n:${safeJsonValue(i18nJsObject(i18nKeys))}}"""
       )
 
-    def apply(nonce: Nonce)(implicit lang: Lang) =
+    def apply(nonce: Nonce)(using Lang) =
       embedJsUnsafe(jsCode, nonce)
+  end inlineJs

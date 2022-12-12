@@ -1,6 +1,7 @@
 import ApexCharts from 'apexcharts';
+import { currentTheme } from 'common/theme';
 
-const light = $('body').hasClass('light');
+const light = currentTheme() === 'light';
 const gridC = light ? '#dddddd' : '#333333';
 
 const conf = (title: string, xaxis: Date[]) => ({
