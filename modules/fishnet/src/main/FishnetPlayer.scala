@@ -37,7 +37,7 @@ final class FishnetPlayer(
     }
 
   private val delayFactor  = 0.011f
-  private val defaultClock = Clock(300, 0)
+  private val defaultClock = Clock(Clock.LimitSeconds(300), Clock.IncrementSeconds(0))
 
   private def delayFor(g: Game): Option[FiniteDuration] =
     if (!g.bothPlayersHaveMoved) 2.seconds.some

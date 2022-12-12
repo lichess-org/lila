@@ -83,7 +83,7 @@ object perfStat:
             else decimal(perf.glicko.rating).toString
           )
         ),
-        perf.glicko.provisional option frag(
+        perf.glicko.provisional.yes option frag(
           " ",
           span(
             title := notEnoughRatedGames.txt(),
@@ -91,7 +91,7 @@ object perfStat:
           )("(", provisional(), ")")
         ),
         ". ",
-        percentile.filter(_ != 0.0 && !perf.glicko.provisional).map { percentile =>
+        percentile.filter(_ != 0.0 && perf.glicko.provisional.no).map { percentile =>
           span(cls := "details")(
             if (ctx is u) {
               trans.youAreBetterThanPercentOfPerfTypePlayers(

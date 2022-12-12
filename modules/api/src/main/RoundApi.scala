@@ -177,7 +177,12 @@ final private[api] class RoundApi(
       }
     }
 
-  private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[Fen.Epd], withFlags: WithFlags)(
+  private def withTree(
+      pov: Pov,
+      analysis: Option[Analysis],
+      initialFen: Option[Fen.Epd],
+      withFlags: WithFlags
+  )(
       obj: JsObject
   ) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(

@@ -493,7 +493,7 @@ final class User(
       env.user.repo byId username flatMap {
         _ ?? {
           env.socialInfo.fetchNotes(_, me) flatMap {
-            lila.user.JsonView.notes(_)(env.user.lightUserApi)
+            lila.user.JsonView.notes(_)(using env.user.lightUserApi)
           } map JsonOk
         }
       }

@@ -18,6 +18,9 @@ class BinaryClockTest extends Specification {
   def write(c: Clock): List[String] = writeBytes(c).showBytes.split(',').toList
   def read(bytes: List[String])     = readBytes(ByteArray.parseBytes(bytes))
 
+  given Conversion[Int, Clock.LimitSeconds]     = Clock.LimitSeconds(_)
+  given Conversion[Int, Clock.IncrementSeconds] = Clock.IncrementSeconds(_)
+
   "binary Clock" >> {
     val clock  = Clock(120, 2)
     val bits22 = List("00000010", "00000010")

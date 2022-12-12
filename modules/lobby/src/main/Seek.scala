@@ -65,7 +65,7 @@ case class Seek(
       .add("perf" -> perfType.map { pt =>
         Json.obj("key" -> pt.key)
       })
-      .add("provisional" -> perf.exists(_.provisional))
+      .add("provisional" -> perf.exists(_.provisional.yes))
 
   lazy val perfType = PerfPicker.perfType(Speed.Correspondence, realVariant, daysPerTurn)
 
@@ -106,8 +106,8 @@ object Seek:
   import reactivemongo.api.bson.*
   import lila.db.dsl.{ *, given }
   given BSONHandler[LobbyPerf] = BSONIntegerHandler.as[LobbyPerf](
-    b => LobbyPerf(IntRating(b.abs), b < 0),
-    x => x.rating.value * (if (x.provisional) -1 else 1)
+    b => LobbyPerf(IntRating(b.abs), RatingProvisional(b < 0)),
+    x => x.rating.value * (if x.provisional.yes then -1 else 1)
   )
   private given BSONHandler[Map[Perf.Key, LobbyPerf]] = typedMapHandler[Perf.Key, LobbyPerf]
   private[lobby] given BSONDocumentHandler[LobbyUser] = Macros.handler

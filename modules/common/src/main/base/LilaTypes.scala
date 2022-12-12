@@ -2,6 +2,7 @@ package lila.base
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.Future
+import ornicar.scalalib.newtypes.*
 
 import org.joda.time.DateTime
 import alleycats.Zero
@@ -30,3 +31,5 @@ trait LilaTypes:
     def zero = Duration.Zero
   given Zero[JsObject] with
     def zero = JsObject(Seq.empty)
+
+  given [A](using sr: SameRuntime[Boolean, A]): Zero[A] = Zero(sr(false))

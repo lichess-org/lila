@@ -23,7 +23,7 @@ object StudyMember:
 case class StudyMembers(members: StudyMember.MemberMap):
 
   def +(member: StudyMember) = copy(members = members + (member.id -> member))
-  def -(userId: UserId)     = copy(members = members - userId)
+  def -(userId: UserId)      = copy(members = members - userId)
 
   def update(id: UserId, f: StudyMember => StudyMember) = copy(
     members = members.view.mapValues { m =>
@@ -32,7 +32,7 @@ case class StudyMembers(members: StudyMember.MemberMap):
   )
 
   def contains(userId: UserId): Boolean = members contains userId
-  def contains(user: User): Boolean      = contains(user.id)
+  def contains(user: User): Boolean     = contains(user.id)
 
   def get = members.get
 

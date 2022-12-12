@@ -51,7 +51,7 @@ final class RankingApi(
   private def makeId(userId: UserId, perfType: PerfType) =
     s"$userId:${perfType.id}"
 
-  private[user] def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
+  private[user] def topPerf(perfId: Perf.Id, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId).filter(k => PerfType(k).exists(PerfType.isLeaderboardable)) ?? { perfKey =>
       coll {
         _.find($doc("perf" -> perfId, "stable" -> true))
@@ -155,7 +155,7 @@ final class RankingApi(
 
     def apply(pt: PerfType) = cache.get(pt.id)
 
-    private val cache = mongoCache[Perf.ID, List[NbUsers]](
+    private val cache = mongoCache[Perf.Id, List[NbUsers]](
       PerfType.leaderboardable.size,
       "user:rating:distribution",
       179 minutes,
@@ -168,7 +168,7 @@ final class RankingApi(
     }
 
     // from 600 to 2800 by Stat.group
-    private def compute(perfId: Perf.ID): Fu[List[NbUsers]] =
+    private def compute(perfId: Perf.Id): Fu[List[NbUsers]] =
       lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) ?? coll {
         _.aggregateList(maxDocs = Int.MaxValue) { framework =>
           import framework.*
@@ -213,7 +213,7 @@ final class RankingApi(
      * ...
      * rating.distribution.bullet.2800 => 0.9997
      */
-    private def monitorRatingDistribution(perfId: Perf.ID)(nbUsersList: List[NbUsers]): Unit =
+    private def monitorRatingDistribution(perfId: Perf.Id)(nbUsersList: List[NbUsers]): Unit =
       val total = nbUsersList.sum
       (Stat.minRating.value to 2800 by Stat.group).toList
         .zip(nbUsersList)

@@ -88,19 +88,18 @@ object Report:
 
   type ID = String
 
-  case class Score(value: Double) extends AnyVal:
-    def +(s: Score) = Score(s.value + value)
-    def *(m: Int)   = Score(value * m)
-    def /(m: Int)   = Score(value / m)
-    def color =
-      if (value >= 150) "red"
-      else if (value >= 100) "orange"
-      else if (value >= 50) "yellow"
-      else "green"
-    def atLeast(v: Int)   = Score(value atLeast v)
-    def atLeast(s: Score) = Score(value atLeast s.value)
-    def withinBounds      = Score(value atLeast 5 atMost 100)
-  given Iso.DoubleIso[Score] = Iso.double[Score](Score.apply, _.value)
+  opaque type Score = Double
+  object Score extends OpaqueDouble[Score]:
+    extension (a: Score)
+      def +(s: Score): Score = a + s
+      def color =
+        if (a >= 150) "red"
+        else if (a >= 100) "orange"
+        else if (a >= 50) "yellow"
+        else "green"
+      // def atLeast(v: Int)   = Score(value atLeast v)
+      def atLeast(s: Score): Score = math.min(a, s.value)
+      def withinBounds: Score      = a atLeast 5 atMost 100
 
   case class Atom(
       by: ReporterId,

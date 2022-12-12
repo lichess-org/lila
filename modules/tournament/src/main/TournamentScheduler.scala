@@ -395,12 +395,13 @@ Thank you all, you rock!""",
               allowList = none
             )
             at(date, hour) ?? { date =>
+              import chess.Clock
               val finalDate = date plusHours hourDelay
               if (speed == Bullet)
                 List(
                   Schedule(Hourly, speed, Standard, none, finalDate, conditions).plan,
                   Schedule(Hourly, speed, Standard, none, finalDate plusMinutes 30, conditions)
-                    .plan(_.copy(clock = chess.Clock.Config(60, 1)))
+                    .plan(_.copy(clock = Clock.Config(Clock.LimitSeconds(60), Clock.IncrementSeconds(1))))
                 )
               else
                 List(
@@ -514,8 +515,7 @@ Thank you all, you rock!""",
     }
 
   private def at(day: DateTime, hour: Int, minute: Int = 0): Option[DateTime] =
-    try
-      Some(day.withTimeAtStartOfDay plusHours hour plusMinutes minute)
+    try Some(day.withTimeAtStartOfDay plusHours hour plusMinutes minute)
     catch
       case e: Exception =>
         logger.error(s"failed to schedule one: ${e.getMessage}")

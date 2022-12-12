@@ -88,7 +88,7 @@ object BinaryFormat:
       config.limit - legacyElapsed
 
     def write(clock: Clock): ByteArray = ByteArray {
-      Array(writeClockLimit(clock.limitSeconds), clock.incrementSeconds.toByte) ++
+      Array(writeClockLimit(clock.limitSeconds.value), clock.incrementSeconds.value.toByte) ++
         writeSignedInt24(legacyElapsed(clock, White).centis) ++
         writeSignedInt24(legacyElapsed(clock, Black).centis) ++
         clock.timer.fold(Array.empty[Byte])(writeTimer)
@@ -107,7 +107,7 @@ object BinaryFormat:
 
         ia match
           case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) =>
-            val config      = Clock.Config(clock.readClockLimit(b1), b2)
+            val config      = Clock.Config(clock.readClockLimit(b1), Clock.IncrementSeconds(b2))
             val legacyWhite = Centis(readSignedInt24(b3, b4, b5))
             val legacyBlack = Centis(readSignedInt24(b6, b7, b8))
             Clock(
@@ -157,11 +157,10 @@ object BinaryFormat:
 
     def readConfig(ba: ByteArray): Option[Clock.Config] =
       ba.value match
-        case Array(b1, b2, _*) => Clock.Config(readClockLimit(b1), b2).some
+        case Array(b1, b2, _*) => Clock.Config(readClockLimit(b1), Clock.IncrementSeconds(b2)).some
         case _                 => None
 
-    def readClockLimit(i: Int) =
-      if (i < 181) i * 60 else (i - 180) * 15
+    def readClockLimit(i: Int) = Clock.LimitSeconds(if (i < 181) i * 60 else (i - 180) * 15)
 
   object castleLastMove:
 

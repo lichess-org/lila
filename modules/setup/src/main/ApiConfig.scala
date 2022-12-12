@@ -41,7 +41,8 @@ final case class ApiConfig(
 
 object ApiConfig extends BaseHumanConfig:
 
-  lazy val clockLimitSeconds: Set[Int] = Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(_ * 60).toSet
+  lazy val clockLimitSeconds =
+    Clock.LimitSeconds.from(Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(_ * 60).toSet)
 
   def from(
       v: Option[String],

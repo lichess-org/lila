@@ -4,6 +4,7 @@ package crud
 import BSONHandlers.given
 import org.joda.time.DateTime
 import scala.util.chaining.*
+import chess.Clock
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
@@ -69,7 +70,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
     Tournament.make(
       by = Left(User.lichessId),
       name = none,
-      clock = chess.Clock.Config(0, 0),
+      clock = Clock.Config(Clock.LimitSeconds(0), Clock.IncrementSeconds(0)),
       minutes = 0,
       variant = chess.variant.Standard,
       position = none,
@@ -86,7 +87,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
 
   private def updateTour(tour: Tournament, data: CrudForm.Data) =
     import data.*
-    val clock = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
+    val clock = Clock.Config(Clock.LimitSeconds((clockTime * 60).toInt), clockIncrement)
     tour.copy(
       name = name,
       clock = clock,

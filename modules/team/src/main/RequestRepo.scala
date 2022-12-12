@@ -23,11 +23,11 @@ final class RequestRepo(val coll: Coll)(using scala.concurrent.ExecutionContext)
     teamIds.nonEmpty ?? coll.list[Request](teamsActiveQuery(teamIds))
 
   def selectId(teamId: TeamId, userId: UserId) = $id(Request.makeId(teamId, userId))
-  def teamQuery(teamId: TeamId)                 = $doc("team" -> teamId)
-  def teamsQuery(teamIds: List[TeamId])         = $doc("team" $in teamIds)
-  def teamDeclinedQuery(teamId: TeamId)         = $and(teamQuery(teamId), $doc("declined" -> true))
-  def teamActiveQuery(teamId: TeamId)           = $and(teamQuery(teamId), $doc("declined" $ne true))
-  def teamsActiveQuery(teamIds: List[TeamId])   = $and(teamsQuery(teamIds), $doc("declined" $ne true))
+  def teamQuery(teamId: TeamId)                = $doc("team" -> teamId)
+  def teamsQuery(teamIds: List[TeamId])        = $doc("team" $in teamIds)
+  def teamDeclinedQuery(teamId: TeamId)        = $and(teamQuery(teamId), $doc("declined" -> true))
+  def teamActiveQuery(teamId: TeamId)          = $and(teamQuery(teamId), $doc("declined" $ne true))
+  def teamsActiveQuery(teamIds: List[TeamId])  = $and(teamsQuery(teamIds), $doc("declined" $ne true))
 
   def getByUserId(userId: UserId) =
     coll.list[Request]($doc("user" -> userId))

@@ -23,7 +23,7 @@ final private[gameSearch] class GameSearchForm:
         "black"  -> optional(historicalUsernameField)
       )(SearchPlayer.apply)(unapply),
       "winnerColor" -> optional(numberIn(Query.winnerColors)),
-      "perf"        -> optional(numberIn(lila.rating.PerfType.nonPuzzle.map(_.id))),
+      "perf"        -> optional(numberIn(lila.rating.PerfType.nonPuzzle.map(_.id.value))),
       "source"      -> optional(numberIn(Query.sources)),
       "mode"        -> optional(numberIn(Query.modes)),
       "turnsMin"    -> optional(numberIn(Query.turns)),

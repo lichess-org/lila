@@ -2,11 +2,11 @@ package lila.tournament
 
 import chess.format.Fen
 import chess.variant.Variant
+import chess.Clock.{ LimitSeconds, IncrementSeconds }
 import org.joda.time.DateTime
 import play.api.i18n.Lang
 
 import lila.i18n.I18nKeys
-
 import lila.rating.PerfType
 
 case class Schedule(
@@ -293,6 +293,9 @@ object Schedule:
   private val standardIncHours         = Set(1, 7, 13, 19)
   private def standardInc(s: Schedule) = standardIncHours(s.at.getHourOfDay)
   private def zhInc(s: Schedule)       = s.at.getHourOfDay % 2 == 0
+
+  private given Conversion[Int, LimitSeconds]     = LimitSeconds(_)
+  private given Conversion[Int, IncrementSeconds] = IncrementSeconds(_)
 
   private def zhEliteTc(s: Schedule) =
     val TC = chess.Clock.Config

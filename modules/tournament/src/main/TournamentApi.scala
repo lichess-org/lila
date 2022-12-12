@@ -488,7 +488,7 @@ final class TournamentApi(
       if (tour.isCreated)
         playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id)
       else
-        playerRepo.withdraw(tourId, userId) >> {
+        playerRepo.remove(tourId, userId) >> {
           tour.isStarted ?? {
             pairingRepo.findPlaying(tour.id, userId).map {
               _ foreach { currentPairing =>

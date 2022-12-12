@@ -327,7 +327,7 @@ final class ReportApi(
             reason = Reason.Comm,
             text = text
           ),
-          score = (_: Report.Score) * (if (critical) 2 else 1)
+          score = (_: Report.Score).map(_ * (if critical then 2 else 1))
         )
       case _ => funit
     }
