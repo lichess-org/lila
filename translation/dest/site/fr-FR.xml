@@ -737,6 +737,7 @@
   <string name="light">Lumineux</string>
   <string name="dark">Sombre</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Thème de l\'appareil</string>
   <string name="backgroundImageUrl">URL de l\'image de fond :</string>
   <string name="boardGeometry">Forme de l\'échiquier</string>
   <string name="boardTheme">Thème de l\'échiquier</string>
