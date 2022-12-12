@@ -40,7 +40,7 @@ object Query:
   val frozen: Bdoc = F.status $gte Status.Mate.id
 
   def imported(u: UserId): Bdoc = s"${F.pgnImport}.user" $eq u
-  def importedSort: Bdoc         = $sort desc s"${F.pgnImport}.ca"
+  def importedSort: Bdoc        = $sort desc s"${F.pgnImport}.ca"
 
   val friend: Bdoc = s"${F.source}" $eq Source.Friend.id
 
@@ -49,7 +49,7 @@ object Query:
   def clockHistory(c: Boolean): Bdoc = F.whiteClockHistory $exists c
 
   def user(u: UserId): Bdoc = F.playerUids $eq u
-  def user(u: User): Bdoc    = user(u.id)
+  def user(u: User): Bdoc   = user(u.id)
 
   val noAi: Bdoc = $doc(
     "p0.ai" $exists false,

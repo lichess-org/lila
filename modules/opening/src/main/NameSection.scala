@@ -1,17 +1,17 @@
 package lila.opening
 
-import chess.opening.{Opening,OpeningName}
+import chess.opening.{ Opening, OpeningName }
 import cats.data.NonEmptyList
 
 opaque type NameSection = String
 object NameSection extends OpaqueString[NameSection]:
   /*
-  * Given 2 opening names separated by a move,
-  * shorten the next name to avoid repeating what's in the prev one.
-  * Easy example:
-  * "Mieses Opening" -> "Mieses Opening: Reversed Rat" -> "Reversed Rat"
-  * For harder ones, see modules/opening/src/test/OpeningTest.scala
-  */
+   * Given 2 opening names separated by a move,
+   * shorten the next name to avoid repeating what's in the prev one.
+   * Easy example:
+   * "Mieses Opening" -> "Mieses Opening: Reversed Rat" -> "Reversed Rat"
+   * For harder ones, see modules/opening/src/test/OpeningTest.scala
+   */
   private[opening] def variationName(prev: OpeningName, next: OpeningName): NameSection =
     sectionsOf(prev).toList
       .zipAll(sectionsOf(next).toList, "", "")

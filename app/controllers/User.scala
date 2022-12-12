@@ -498,7 +498,7 @@ final class User(
       env.user.repo byId username flatMap {
         _ ?? {
           env.socialInfo.fetchNotes(_, me) flatMap {
-            lila.user.JsonView.notes(_)(env.user.lightUserApi)
+            lila.user.JsonView.notes(_)(using env.user.lightUserApi)
           } map JsonOk
         }
       }
@@ -533,6 +533,15 @@ final class User(
       OptionFuResult(env.user.noteApi.byId(id)) { note =>
         (note.isFrom(me) && !note.mod) ?? {
           env.user.noteApi.delete(note._id) inject Redirect(routes.User.show(note.to).url + "?note")
+        }
+      }
+    }
+
+  def setDoxNote(id: String, dox: Boolean) =
+    Secure(_.Admin) { implicit ctx => _ =>
+      OptionFuResult(env.user.noteApi.byId(id)) { note =>
+        note.mod ?? {
+          env.user.noteApi.setDox(note._id, dox) inject Redirect(routes.User.show(note.to).url + "?note")
         }
       }
     }

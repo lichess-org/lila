@@ -88,8 +88,7 @@ final private class WaitingUsersApi:
   def registerPairedUsers(tourId: TourId, users: Set[UserId]) =
     store.computeIfPresent(
       tourId,
-      (_: TourId, cur: WaitingUsers.WithNext) =>
-        cur.copy(waiting = cur.waiting removePairedUsers users)
+      (_: TourId, cur: WaitingUsers.WithNext) => cur.copy(waiting = cur.waiting removePairedUsers users)
     )
 
   def addApiUser(tour: Tournament, user: User) = updateOrCreate(tour) { w =>

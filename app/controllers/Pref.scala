@@ -59,8 +59,7 @@ final class Pref(env: Env) extends LilaController(env):
 
   def set(name: String) =
     OpenBody { implicit ctx =>
-      if (name == "zoom")
-        Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString)).toFuccess
+      if (name == "zoom") Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString)).toFuccess
       else if (name == "agreement")
         ctx.me ?? api.agree inject {
           if (HTTPRequest.isXhr(ctx.req)) NoContent else Redirect(routes.Lobby.home)

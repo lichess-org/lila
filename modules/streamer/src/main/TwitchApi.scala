@@ -28,7 +28,7 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
         pagination.flatMap(_.cursor).map { "after" -> _ }
       ).flatten
       ws.url("https://api.twitch.tv/helix/streams")
-        .withQueryStringParameters(query *)
+        .withQueryStringParameters(query*)
         .withHttpHeaders(
           "Client-ID"     -> config.clientId,
           "Authorization" -> s"Bearer ${tmpToken.value}"

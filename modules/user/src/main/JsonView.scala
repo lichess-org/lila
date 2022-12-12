@@ -97,7 +97,7 @@ object JsonView:
         "rd"     -> o.glicko.deviation.toInt,
         "prog"   -> o.progress
       )
-      .add("prov" -> o.glicko.provisional)
+      .add("prov", o.glicko.provisional)
   }
 
   private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key).toSet
@@ -139,7 +139,7 @@ object JsonView:
       .keyMapWrites[Perf.Key, Int, Map]
       .writes(u.perfs.perfsMap.view.mapValues(_.intRating.value).toMap)
 
-  def notes(ns: List[Note])(implicit lightUser: LightUserApi) =
+  def notes(ns: List[Note])(using lightUser: LightUserApi) =
     lightUser.preloadMany(ns.flatMap(_.userIds).distinct) inject JsArray(
       ns.map { note =>
         Json

@@ -62,7 +62,7 @@ object Work:
       if (system) lila.user.User.lichessId.value
       else userId.value
 
-  case class Clock(wtime: Int, btime: Int, inc: Int)
+  case class Clock(wtime: Int, btime: Int, inc: chess.Clock.IncrementSeconds)
 
   case class Move(
       _id: Work.Id, // random

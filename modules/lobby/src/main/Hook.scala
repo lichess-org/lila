@@ -71,7 +71,7 @@ case class Hook(
       "s"     -> speed.id,
       "i"     -> (if (clock.incrementSeconds > 0) 1 else 0)
     )
-    .add("prov" -> perf.map(_.provisional).filter(identity))
+    .add("prov" -> perf.map(_.provisional))
     .add("u" -> user.map(_.username))
     .add("rating" -> rating)
     .add("variant" -> realVariant.exotic.option(realVariant.key))

@@ -2,20 +2,28 @@ package lila.app
 
 import akka.actor.{ ActorSystem, CoordinatedShutdown }
 import com.softwaremill.macwire.*
-import play.api.{ ApplicationLoader, Application, BuiltInComponentsFromContext }
+import play.api.{ Environment, Configuration, Application, BuiltInComponents }
 import play.api.http.HttpRequestHandler
 import play.api.libs.crypto.CookieSignerProvider
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.*
 import play.api.mvc.request.*
 import play.api.routing.Router
-import scala.annotation.nowarn
 import play.api.http.FileMimeTypes
+import play.api.inject.ApplicationLifecycle
 
-final class AppLoader extends ApplicationLoader:
-  def load(ctx: ApplicationLoader.Context): Application = new LilaComponents(ctx).application
+final class LilaComponents(
+    val environment: Environment,
+    val applicationLifecycle: ApplicationLifecycle,
+    val configuration: Configuration
+) extends BuiltInComponents:
 
-final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInComponentsFromContext(ctx):
+  lazy val controllerComponents: ControllerComponents = DefaultControllerComponents(
+    defaultActionBuilder,
+    playBodyParsers,
+    fileMimeTypes,
+    executionContext
+  )
 
   // https://www.scala-lang.org/api/2.13.4/scala/concurrent/ExecutionContext%24.html#global:scala.concurrent.ExecutionContextExecutor
   given scala.concurrent.ExecutionContext =
@@ -29,28 +37,28 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
     val mem              = Runtime.getRuntime.maxMemory() / 1024 / 1024
     val appVersionCommit = ~configuration.getOptional[String]("app.version.commit")
     val appVersionDate   = ~configuration.getOptional[String]("app.version.date")
-    s"lila ${ctx.environment.mode} $appVersionCommit $appVersionDate / scala 3 / java $java, memory: ${mem}MB"
+    s"lila ${environment.mode} $appVersionCommit $appVersionDate / scala 3 / java $java, memory: ${mem}MB"
   }
 
   import _root_.controllers.*
 
   // we want to use the legacy session cookie baker
   // for compatibility with lila-ws
-  def cookieBaker = new LegacySessionCookieBaker(httpConfiguration.session, cookieSigner)
+  def cookieBaker = LegacySessionCookieBaker(httpConfiguration.session, cookieSigner)
 
   override lazy val requestFactory: RequestFactory =
-    val cookieSigner = new CookieSignerProvider(httpConfiguration.secret).get
-    new DefaultRequestFactory(
-      new DefaultCookieHeaderEncoding(httpConfiguration.cookies),
+    val cookieSigner = CookieSignerProvider(httpConfiguration.secret).get
+    DefaultRequestFactory(
+      DefaultCookieHeaderEncoding(httpConfiguration.cookies),
       cookieBaker,
-      new LegacyFlashCookieBaker(httpConfiguration.flash, httpConfiguration.secret, cookieSigner)
+      LegacyFlashCookieBaker(httpConfiguration.flash, httpConfiguration.secret, cookieSigner)
     )
 
   lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
 
   override lazy val httpErrorHandler =
-    new lila.app.http.ErrorHandler(
-      environment = ctx.environment,
+    lila.app.http.ErrorHandler(
+      environment = environment,
       config = configuration,
       router = router,
       mainC = main,
@@ -58,7 +66,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
     )
 
   override lazy val httpRequestHandler: HttpRequestHandler =
-    new lila.app.http.LilaHttpRequestHandler(
+    lila.app.http.LilaHttpRequestHandler(
       router,
       httpErrorHandler,
       httpConfiguration,
@@ -87,8 +95,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   // dev assets
   given FileMimeTypes          = fileMimeTypes
   lazy val devAssetsController = wire[ExternalAssets]
-
-  lazy val shutdown = CoordinatedShutdown
 
   lazy val boot: lila.app.EnvBoot = wire[lila.app.EnvBoot]
   lazy val env: lila.app.Env      = boot.env

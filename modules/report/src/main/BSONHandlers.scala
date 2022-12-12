@@ -11,7 +11,6 @@ object BSONHandlers:
   import Report.given
   given BSONHandler[Reason]                 = stringIsoHandler
   given BSONHandler[Room]                   = stringIsoHandler
-  given BSONHandler[Report.Score]           = doubleIsoHandler
   given BSONDocumentHandler[Report.Inquiry] = Macros.handler
   given BSONDocumentHandler[Report.Done]    = Macros.handler
   given BSONDocumentHandler[Report.Atom]    = Macros.handler

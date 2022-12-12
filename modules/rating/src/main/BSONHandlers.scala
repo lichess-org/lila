@@ -6,11 +6,11 @@ import reactivemongo.api.bson.BSONHandler
 
 object BSONHandlers:
 
-  given Iso[Int, PerfType] with
-    val from = id => PerfType.byId get id err s"Invalid perf type id $id"
-    val to   = _.id
-
-  given perfTypeIdHandler: BSONHandler[PerfType] = intIsoHandler
+  given perfTypeIdHandler: BSONHandler[PerfType] =
+    summon[BSONHandler[Perf.Id]].as[PerfType](
+      id => PerfType.byId.get(id) err s"Unknown perf id $id",
+      _.id
+    )
 
   given perfTypeKeyHandler: BSONHandler[PerfType] =
     summon[BSONHandler[Perf.Key]].as[PerfType](

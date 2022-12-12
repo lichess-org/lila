@@ -76,7 +76,7 @@ case class Tournament(
 
   def secondsToFinish = (finishesAt.getSeconds - nowSeconds).toInt atLeast 0
 
-  def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds / 2, 120))
+  def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds.value / 2, 120))
 
   def isStillWorthEntering =
     isMarathonOrUnique || {

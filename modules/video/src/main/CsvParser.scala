@@ -90,8 +90,7 @@ object CSVParser:
                 field += buf(pos + 1)
                 state = Field
                 pos += 2
-              else
-                throw new MalformedCSVException(buf.mkString)
+              else throw new MalformedCSVException(buf.mkString)
             }
             case `delimiter` => {
               fields :+= field.toString
@@ -130,8 +129,7 @@ object CSVParser:
                   field += buf(pos + 1)
                   state = Field
                   pos += 2
-                else
-                  throw new MalformedCSVException(buf.mkString)
+                else throw new MalformedCSVException(buf.mkString)
               else
                 state = QuoteEnd
                 pos += 1
@@ -173,8 +171,7 @@ object CSVParser:
                   field += buf(pos + 1)
                   state = QuotedField
                   pos += 2
-                else
-                  throw new MalformedCSVException(buf.mkString)
+                else throw new MalformedCSVException(buf.mkString)
               else
                 throw new MalformedCSVException(buf.mkString)
             }

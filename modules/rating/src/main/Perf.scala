@@ -14,8 +14,7 @@ case class Perf(
     latest: Option[DateTime]
 ):
 
-  def intRating    = IntRating(glicko.rating.toInt)
-  def intDeviation = glicko.deviation.toInt
+  export glicko.{ intRating, intDeviation, rankable, clueless, provisional, established }
 
   def progress: IntRatingDiff = {
     for
@@ -75,19 +74,15 @@ case class Perf(
   def isEmpty  = latest.isEmpty
   def nonEmpty = !isEmpty
 
-  def rankable(variant: chess.variant.Variant) = glicko.rankable(variant)
-  def clueless                                 = glicko.clueless
-  def provisional                              = glicko.provisional
-  def established                              = glicko.established
-
-  def showRatingProvisional = s"$intRating${provisional ?? "?"}"
+  def showRatingProvisional = glicko.display
 
 case object Perf:
 
   opaque type Key = String
   object Key extends OpaqueString[Key]
 
-  type ID = Int
+  opaque type Id = Int
+  object Id extends OpaqueInt[Id]
 
   case class Typed(perf: Perf, perfType: PerfType)
 

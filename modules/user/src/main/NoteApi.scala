@@ -96,3 +96,5 @@ final class NoteApi(
   def byId(id: String): Fu[Option[Note]] = coll.byId[Note](id)
 
   def delete(id: String) = coll.delete.one($id(id))
+
+  def setDox(id: String, dox: Boolean) = coll.update.one($id(id), $set("dox" -> dox)).void

@@ -31,7 +31,7 @@ trait FlashHelper { self: I18nHelper =>
     }
 
   def flashMessage(modifiers: Seq[Modifier])(msg: Frag): Frag =
-    flashMessage(modifiers *)(msg)
+    flashMessage(modifiers*)(msg)
 
   def flashMessage(modifiers: Modifier*)(contentModifiers: Modifier*): Frag =
     div(modifiers)(cls := "flash")(

@@ -108,7 +108,7 @@ final class PuzzleSessionApi(
 
   private def shouldChangeSession(user: User, session: PuzzleSession) = !session.brandNew && {
     val perf = user.perfs.puzzle
-    perf.clueless || (perf.provisional && perf.nb % 5 == 0)
+    perf.clueless || (perf.provisional.yes && perf.nb % 5 == 0)
   }
 
   private def createSessionFor(user: User, angle: PuzzleAngle, settings: PuzzleSettings): Fu[PuzzleSession] =

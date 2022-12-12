@@ -35,19 +35,7 @@ object BSONHandlers:
     )
   )
 
-  given BSONHandler[ClockConfig] = tryHandler(
-    { case doc: BSONDocument =>
-      for {
-        limit <- doc.getAsTry[Int]("limit")
-        inc   <- doc.getAsTry[Int]("increment")
-      } yield ClockConfig(limit, inc)
-    },
-    c =>
-      BSONDocument(
-        "limit"     -> c.limitSeconds,
-        "increment" -> c.incrementSeconds
-      )
-  )
+  private given BSONHandler[chess.Clock.Config] = clockConfigHandler
 
   private given BSONDocumentHandler[Spotlight] = Macros.handler
 
@@ -128,10 +116,10 @@ object BSONHandlers:
     def reads(r: BSON.Reader) =
       Player(
         _id = r.get[TourPlayerId]("_id"),
-        tourId = r.get[TourId]("tid"),
-        userId = r.get[UserId]("uid"),
-        rating = r.get[IntRating]("r"),
-        provisional = r boolD "pr",
+        tourId = r.get("tid"),
+        userId = r.get("uid"),
+        rating = r.get("r"),
+        provisional = r yesnoD "pr",
         withdraw = r boolD "w",
         score = r intD "s",
         fire = r boolD "f",
@@ -144,7 +132,7 @@ object BSONHandlers:
         "tid" -> o.tourId,
         "uid" -> o.userId,
         "r"   -> o.rating,
-        "pr"  -> w.boolO(o.provisional),
+        "pr"  -> w.yesnoO(o.provisional),
         "w"   -> w.boolO(o.withdraw),
         "s"   -> w.intO(o.score),
         "m"   -> o.magicScore,
@@ -187,16 +175,16 @@ object BSONHandlers:
   given BSON[LeaderboardApi.Entry] with
     def reads(r: BSON.Reader) =
       LeaderboardApi.Entry(
-        id = r.get[TourPlayerId]("_id"),
-        userId = r.get[UserId]("u"),
-        tourId = r.get[TourId]("t"),
+        id = r.get("_id"),
+        userId = r.get("u"),
+        tourId = r.get("t"),
         nbGames = r int "g",
         score = r int "s",
-        rank = r.get[Rank]("r"),
-        rankRatio = r.get[LeaderboardApi.Ratio]("w"),
+        rank = r.get("r"),
+        rankRatio = r.get("w"),
         freq = r intO "f" flatMap Schedule.Freq.byId,
         speed = r intO "p" flatMap Schedule.Speed.byId,
-        perf = PerfType.byId get r.int("v") err "Invalid leaderboard perf",
+        perf = PerfType.byId get r.get("v") err "Invalid leaderboard perf",
         date = r date "d"
       )
 
