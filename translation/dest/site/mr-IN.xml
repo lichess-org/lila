@@ -139,7 +139,7 @@
   <string name="threefoldRepetition">तीनदा पुनरावृत्ती</string>
   <string name="claimADraw">बरोबरीत सोडवण्याचा दावा करा</string>
   <string name="offerDraw">बरोबरीत सोडवण्याचा प्रस्ताव पाठवा</string>
-  <string name="draw">बरोबरीत सुटलेला</string>
+  <string name="draw">बरोबरीत सुटला</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s खेळाडू</item>
     <item quantity="other">%s खेळाडू</item>
