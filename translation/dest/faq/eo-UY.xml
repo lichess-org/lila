@@ -41,6 +41,7 @@ Ekzemple, la laŭtaksa daŭro de ludo 5+3 estas 5 × 60 + 40 × 3 = 420 sekundoj
   <string name="repeatedPositionsThatMatters">Trifoja ripetado estas pro ripetado de %1$s, ne movoj. Ripetado ne devas okazi sekve.</string>
   <string name="positions">pozicioj</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Ni ripetis pozicion trifoje. Kial la ludo ne estis egalvenko?</string>
+  <string name="threeFoldHasToBeClaimed">Ripetado necesas esti reklamaciita de unu de la ludantoj. Vi povas fari tion premante la butonon ke estas montrita aŭ oferante egalvenkon antaŭ vian finan ripetan movon, ne gravos se la kontraŭbatalanto malakceptas la egalvenkan oferon, ĝi estos akceptita ĉiel. Vi povas ankaŭ %1$s Lichess por aŭtomate reklamacii ripetadojn por vi. Aldone, kvinfoja ripetado ĉiam tuje finiĝos la ludon.</string>
   <string name="configure">agordi</string>
   <string name="accounts">Kontoj</string>
   <string name="noUpperCaseDot">Ne.</string>
