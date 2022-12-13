@@ -9,13 +9,13 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object topnav:
 
-  private def linkTitle(url: String, name: Frag)(implicit ctx: Context) =
+  private def linkTitle(url: String, name: Frag)(using ctx: Context) =
     if (ctx.blind) h3(name) else a(href := url)(name)
 
-  private def canSeeClasMenu(implicit ctx: Context) =
+  private def canSeeClasMenu(using ctx: Context) =
     ctx.hasClas || ctx.me.exists(u => u.hasTitle || u.roles.contains("ROLE_COACH"))
 
-  def apply()(implicit ctx: Context) =
+  def apply()(using ctx: Context) =
     st.nav(id := "topnav", cls := "hover")(
       st.section(
         linkTitle(
@@ -82,7 +82,9 @@ object topnav:
           a(href := routes.Team.home())(trans.team.teams()),
           ctx.noKid option a(href := routes.ForumCateg.index)(trans.forum()),
           ctx.noKid option a(href := langHref(routes.Ublog.communityAll()))(trans.blog()),
-          ctx.me.exists(!_.kid) option a(href := routes.Plan.index)(trans.patron.donate())
+          ctx.me.exists(!_.kid) option a(cls := "community-patron", href := routes.Plan.index)(
+            trans.patron.donate()
+          )
         )
       ),
       st.section(
@@ -93,6 +95,17 @@ object topnav:
           a(href := routes.Editor.index)(trans.boardEditor()),
           a(href := routes.Importer.importGame)(trans.importGame()),
           a(href := routes.Search.index())(trans.search.advancedSearch())
+        )
+      ),
+      // !ctx.me.exists(_.isPatron) option st.section(cls := "topnav__donate")(
+      st.section(cls := "topnav__donate")(
+        linkTitle(routes.Plan.index.url, trans.patron.donate()),
+        div(role := "group")(
+          // p("Lichess is a non-profit association."),
+          // a(href := routes.Plan.index)("Help us with a donation!")
+          a(href := routes.Plan.index)(trans.patron.donate()),
+          a(href := "/about")("About us"),
+          a(href := "/help/contribute")("Contribute")
         )
       )
     )

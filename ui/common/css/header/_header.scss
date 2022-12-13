@@ -19,7 +19,7 @@
   }
 }
 
-#topnav a[href='/patron'] {
+#topnav .community-patron {
   @extend %flex-center;
   &::after {
     @extend %data-icon;

@@ -175,4 +175,13 @@
      * has no width, and that menu is mainly for mobile. */
     // padding-#{$end-direction}: 15px;
   }
+
+  #topnav section.topnav__donate {
+    p {
+      padding-left: 2.4rem;
+    }
+    div a {
+      color: $c-link;
+    }
+  }
 }
