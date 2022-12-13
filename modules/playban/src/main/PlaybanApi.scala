@@ -168,7 +168,7 @@ final class PlaybanApi(
   def hasCurrentBan(userId: UserId): Fu[Boolean] = currentBan(userId).map(_.isDefined)
 
   def bans(userIds: List[UserId]): Fu[Map[UserId, Int]] =
-    coll.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
+    coll.aggregateList(Int.MaxValue, temporarilyPrimary) { framework =>
       import framework.*
       Match($inIds(userIds) ++ $doc("b" $exists true)) -> List(
         Project($doc("bans" -> $doc("$size" -> "$b")))
