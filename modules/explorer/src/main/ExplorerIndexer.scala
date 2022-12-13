@@ -62,8 +62,6 @@ final private class ExplorerIndexer(
       game.variant != chess.variant.FromPosition &&
       !Game.isOldHorde(game)
 
-  private def stableRating(player: Player) = player.rating ifFalse player.provisional
-
   // probability of the game being indexed, between 0 and 100
   private def probability(game: Game, rating: Int): Int =
     import lila.rating.PerfType.*
@@ -97,8 +95,8 @@ final private class ExplorerIndexer(
 
   private def makeJson(game: Game, botUserIds: Set[UserId]): Fu[Option[JsObject]] =
     ~(for {
-      whiteRating <- stableRating(game.whitePlayer)
-      blackRating <- stableRating(game.blackPlayer)
+      whiteRating <- game.whitePlayer.stableRating
+      blackRating <- game.blackPlayer.stableRating
       if whiteRating >= 1501
       if blackRating >= 1501
       averageRating = (whiteRating + blackRating).value / 2

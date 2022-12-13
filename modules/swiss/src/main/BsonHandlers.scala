@@ -20,10 +20,10 @@ object BsonHandlers:
     def reads(r: BSON.Reader) =
       SwissPlayer(
         id = r.get[SwissPlayer.Id](id),
-        swissId = r.get[SwissId](swissId),
-        userId = r.get[UserId](userId),
+        swissId = r.get(swissId),
+        userId = r.get(userId),
         rating = r.get[IntRating](rating),
-        provisional = r boolD provisional,
+        provisional = r yesnoD provisional,
         points = r.get[SwissPoints](points),
         tieBreak = r.get[Swiss.TieBreak](tieBreak),
         performance = r.getO[Swiss.Performance](performance),
@@ -37,7 +37,7 @@ object BsonHandlers:
         swissId     -> o.swissId,
         userId      -> o.userId,
         rating      -> o.rating,
-        provisional -> w.boolO(o.provisional),
+        provisional -> w.yesnoO(o.provisional),
         points      -> o.points,
         tieBreak    -> o.tieBreak,
         performance -> o.performance,

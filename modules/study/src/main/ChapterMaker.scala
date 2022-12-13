@@ -165,7 +165,11 @@ final private class ChapterMaker(
         )
       }
 
-  private[study] def getBestRoot(game: Game, pgnOpt: Option[String], initialFen: Option[Fen.Epd]): Fu[Node.Root] =
+  private[study] def getBestRoot(
+      game: Game,
+      pgnOpt: Option[String],
+      initialFen: Option[Fen.Epd]
+  ): Fu[Node.Root] =
     initialFen.fold(gameRepo initialFen game) { fen =>
       fuccess(fen.some)
     } map { goodFen =>

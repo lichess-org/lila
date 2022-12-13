@@ -9,7 +9,7 @@ case class SwissPlayer(
     swissId: SwissId,
     userId: UserId,
     rating: IntRating,
-    provisional: Boolean,
+    provisional: RatingProvisional,
     points: SwissPoints,
     tieBreak: Swiss.TieBreak,
     performance: Option[Swiss.Performance],
@@ -17,7 +17,7 @@ case class SwissPlayer(
     absent: Boolean,
     byes: Set[SwissRoundNumber] // byes granted by the pairing system - the player was here
 ):
-  def is(uid: UserId): Boolean       = uid == userId
+  def is(uid: UserId): Boolean        = uid == userId
   def is(user: User): Boolean         = is(user.id)
   def is(other: SwissPlayer): Boolean = is(other.userId)
   def present                         = !absent

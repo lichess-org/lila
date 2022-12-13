@@ -597,7 +597,7 @@ final class Mod(
           for {
             logs      <- env.mod.logApi.userHistory(user.id)
             notes     <- env.socialInfo.fetchNotes(user, me.user)
-            notesJson <- lila.user.JsonView.notes(notes)(env.user.lightUserApi)
+            notesJson <- lila.user.JsonView.notes(notes)(using env.user.lightUserApi)
           } yield JsonOk(
             Json.obj(
               "logs" -> Json.arr(logs.map { log =>

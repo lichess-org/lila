@@ -37,7 +37,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       rating: IntRating,
       name: String,
       nb: Int,
-      provisional: Boolean,
+      provisional: RatingProvisional,
       clueless: Boolean,
       icon: Char
   )(using Lang): Frag =
@@ -47,7 +47,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       cls      := "text"
     )(
       if (clueless) frag(nbsp, nbsp, nbsp, if (nb < 1) "-" else "?")
-      else frag(rating, provisional option "?")
+      else frag(rating, provisional.yes option "?")
     )
 
   def showPerfRating(perfType: PerfType, perf: Perf)(using Lang): Frag =
@@ -224,7 +224,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
     frag(
       " (",
       perf.intRating,
-      perf.provisional option "?",
+      perf.provisional.yes option "?",
       ")"
     )
 

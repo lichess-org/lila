@@ -72,13 +72,20 @@ object UserForm:
 
   val note = Form(
     mapping(
+      "text"     -> cleanText(minLength = 3, maxLength = 2000),
+      "noteType" -> text,
+    )((text, noteType) => NoteData(text, noteType == "mod" || noteType == "dox", noteType == "dox"))(_ => none)
+  )
+
+  val apiNote = Form(
+    mapping(
       "text" -> cleanText(minLength = 3, maxLength = 2000),
       "mod"  -> boolean,
-      "dox"  -> optional(boolean)
+      "dox"  -> default(boolean, false)
     )(NoteData.apply)(unapply)
   )
 
-  case class NoteData(text: String, mod: Boolean, dox: Option[Boolean])
+  case class NoteData(text: String, mod: Boolean, dox: Boolean)
 
   val title = Form(single("title" -> optional(of[UserTitle])))
 

@@ -73,6 +73,8 @@ object BSON extends Handlers:
     inline def nIntD(k: String): Int                  = nIntO(k) getOrElse 0
     inline def intsD(k: String)                       = getO[List[Int]](k) getOrElse Nil
     inline def strsD(k: String)                       = getO[List[String]](k) getOrElse Nil
+    inline def yesnoD[A](k: String)(using sr: SameRuntime[A, Boolean], rs: SameRuntime[Boolean, A]): A =
+      getO[A](k) getOrElse rs(false)
 
     inline def contains = doc.contains
 
@@ -99,6 +101,8 @@ object BSON extends Handlers:
     def double(i: Double): BSONDouble                 = BSONDouble(i)
     def doubleO(i: Double): Option[BSONDouble]        = if (i != 0) Some(BSONDouble(i)) else None
     def zero[A](a: A)(using zero: Zero[A]): Option[A] = if (zero.zero == a) None else Some(a)
+    def yesnoO[A](a: A)(using sr: SameRuntime[A, Boolean], rs: SameRuntime[Boolean, A]): Option[BSONBoolean] =
+      boolO(sr(a))
 
   val writer = new Writer
 

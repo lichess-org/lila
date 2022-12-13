@@ -43,7 +43,7 @@ object side:
                 else
                   strong(
                     perf.glicko.intRating,
-                    perf.provisional option "?"
+                    perf.provisional.yes option "?"
                   ),
                 " ",
                 ratingProgress(perf.progress),

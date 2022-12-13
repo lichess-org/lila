@@ -134,7 +134,7 @@ object widgets:
           player.berserk option berserkIconSpan,
           ctx.pref.showRatings option frag(
             playerUser.rating,
-            player.provisional option "?",
+            player.provisional.yes option "?",
             playerUser.ratingDiff map { d =>
               frag(" ", showRatingDiff(d))
             }

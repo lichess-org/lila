@@ -31,7 +31,7 @@ final class Cached(
       }
   }
 
-  val top200Perf = mongoCache[Perf.ID, List[User.LightPerf]](
+  val top200Perf = mongoCache[Perf.Id, List[User.LightPerf]](
     PerfType.leaderboardable.size,
     "user:top200:perf",
     19 minutes,

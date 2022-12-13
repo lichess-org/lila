@@ -244,7 +244,7 @@ export class ExternalWorker implements CevalWorker {
   }
 
   start(work: Work) {
-    stop();
+    this.stop();
     this.state = CevalState.Loading;
 
     this.req = new AbortController();

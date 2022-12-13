@@ -95,10 +95,11 @@ object WMMatching:
       i <- 0 until (nvertex - 1)
       j <- (i + 1) until nvertex
       p <- pairScore(i, j)
-    }
+    } yield {
       e += i
       e += j
       w += p
+    }
     (e.result(), w.result())
 
   private class BlossomIdAllocator(n: Int):
@@ -584,8 +585,7 @@ object WMMatching:
                 label(w) = 2
                 labelend(w) = p ^ 1
                 false
-              else
-                false
+              else false
             else if (label(inblossom(w)) == 1)
               // keep track of the least-slack non-allowable edge to
               // a different S-blossom.
@@ -600,8 +600,7 @@ object WMMatching:
               if (bestedge(w) == -1 || kslack < slack(bestedge(w)))
                 bestedge(w) = k
               false
-            else
-              false
+            else false
         if (neighbend(v).exists(go))
           true
         else
@@ -626,10 +625,11 @@ object WMMatching:
       for {
         v <- vertices
         if label(inblossom(v)) == 0
-      }
+      } yield {
         val be = bestedge(v)
         if (be != -1)
           dt1.update(slack(be), be)
+      }
 
       val dt2 = new DuelDelta(2, dt1.delta)
       // Compute delta2: half the minimum slack on any edge between
@@ -637,10 +637,11 @@ object WMMatching:
       for {
         b <- 0 until allocatedvertex
         if blossomparent(b) == -1 && label(b) == 1
-      }
+      } yield {
         val be = bestedge(b)
         if (be != -1)
           dt2.update(slack(be) >> 1, be)
+      }
 
       val dt3 = new DuelDelta(3, dt2.delta)
       // Compute delta3: minimum z variable of any T-blossom.

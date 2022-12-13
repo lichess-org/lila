@@ -27,6 +27,8 @@ class StringTest extends Specification {
       rms(
         """🚌🚎🚐🚑🚒🚓🚕🚗🚙🚚🚛🚜🚲🛴🛵🛺🦼🦽 with new and better !pizzes on lichess.org"""
       ) === " with new and better !pizzes on lichess.org"
+      rms("🥹") === ""
+      rms("🥹🥹🥹 xxx 🥹") === " xxx "
     }
     "preserve languages" >> {
       Result.foreach(i18nValidStrings) { txt =>

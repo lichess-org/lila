@@ -252,32 +252,27 @@ object header:
     )
 
   def noteZone(u: User, notes: List[lila.user.Note])(implicit ctx: Context) = div(cls := "note-zone")(
-    postForm(action := s"${routes.User.writeNote(u.username)}?note")(
+    postForm(cls := "note-form", action := routes.User.writeNote(u.username))(
       form3.textarea(lila.user.UserForm.note("text"))(
         placeholder := "Write a private note about this user"
       ),
       if (isGranted(_.ModNote))
         div(cls := "mod-note")(
-          submitButton(cls := "button")(trans.save()),
-          div(
-            div(form3.cmnToggle("note-mod", "mod", checked = true)),
-            label(`for` := "note-mod")("For moderators only")
-          ),
-          isGranted(_.Admin) option div(
-            div(form3.cmnToggle("note-dox", "dox", checked = false)),
-            label(`for` := "note-dox")("Doxing info")
-          )
+          submitButton(cls := "button", name := "noteType", value := "mod")("Save Mod Note"),
+          isGranted(_.Admin) option submitButton(cls := "button", name := "noteType", value := "dox")("Save Dox Note"),
+          submitButton(cls := "button", name := "noteType", value := "normal")("Save Regular Note"),
         )
-      else
-        frag(
-          input(tpe := "hidden", name := "mod", value := "false"),
-          submitButton(cls := "button")(trans.save())
-        )
+      else submitButton(cls := "button", name := "noteType", value := "normal")(trans.save())
     ),
     notes.isEmpty option div("No note yet"),
     notes.map { note =>
       div(cls := "note")(
         p(cls := "note__text")(richText(note.text, expandImg = false)),
+        note.mod option postForm(action := routes.User.setDoxNote(note._id, !note.dox))(
+          submitButton(
+            cls   := "button-empty confirm button text",
+          )("Toggle Dox")
+        ),
         p(cls := "note__meta")(
           userIdLink(note.from.some),
           br,

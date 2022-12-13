@@ -97,6 +97,9 @@ trait LilaModel:
   opaque type Rating = Double
   object Rating extends OpaqueDouble[Rating]
 
+  opaque type RatingProvisional = Boolean
+  object RatingProvisional extends YesNo[RatingProvisional]
+
   opaque type Rank = Int
   object Rank extends OpaqueInt[Rank]
 

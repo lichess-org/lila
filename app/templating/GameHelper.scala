@@ -103,7 +103,7 @@ trait GameHelper:
           withRating option frag(
             " (",
             player.rating.fold(frag("?")) { rating =>
-              if (player.provisional) abbr(title := trans.perfStat.notEnoughRatedGames.txt())(rating, "?")
+              if (player.provisional.yes) abbr(title := trans.perfStat.notEnoughRatedGames.txt())(rating, "?")
               else rating
             },
             ")"

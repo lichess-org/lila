@@ -141,7 +141,7 @@ final class SwissApi(
         q = $id(SwissPlayer.makeId(swiss.id, userId)),
         u = $set(
           SwissPlayer.Fields.rating      -> perf.intRating,
-          SwissPlayer.Fields.provisional -> perf.provisional.option(true)
+          SwissPlayer.Fields.provisional -> perf.provisional.yes.option(true)
         )
       )
     }.sequenceFu
