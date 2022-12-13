@@ -4,7 +4,7 @@ import scala.jdk.CollectionConverters.*
 
 object LilaJvm:
 
-  def threadGroups: List[(String, Int)] = Thread
+  def threadGroups(): List[(String, Int)] = Thread
     .getAllStackTraces()
     .keySet()
     .asScala

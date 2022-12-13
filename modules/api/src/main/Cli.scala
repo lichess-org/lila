@@ -55,7 +55,7 @@ final private[api] class Cli(
       fuccess("started in background")
     case "threads" :: Nil =>
       fuccess {
-        val threads = lila.common.LilaJvm.threadGroups
+        val threads = lila.common.LilaJvm.threadGroups()
         s"${threads.map(_._2).sum} threads\n\n${threads.map((name, count) => s"$count $name").mkString("\n")}"
       }
 
