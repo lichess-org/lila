@@ -5,13 +5,13 @@ import com.github.benmanes.caffeine
 import com.github.blemale.scaffeine.*
 import play.api.Mode
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ ExecutionContext, ExecutionContextExecutor }
 
-final class CacheApi(mode: Mode)(using ExecutionContext, ActorSystem):
+final class CacheApi(mode: Mode)(using executor: ExecutionContextExecutor, system: ActorSystem):
 
   import CacheApi.*
 
-  def scaffeine: Builder = CacheApi.scaffeine
+  def scaffeine: Builder = CacheApi.scaffeine.executor(executor)
 
   // AsyncLoadingCache with monitoring
   def apply[K, V](initialCapacity: Int, name: String)(

@@ -25,7 +25,8 @@ final class LobbySocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     lobby: LobbySyncActor,
     relationApi: lila.relation.RelationApi,
-    poolApi: PoolApi
+    poolApi: PoolApi,
+    cacheApi: lila.memo.CacheApi
 )(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
 
   import LobbySocket.*
@@ -37,7 +38,7 @@ final class LobbySocket(
 
   private val actor: SyncActor = new SyncActor:
 
-    private val members = lila.common.LilaCache.scaffeine
+    private val members = cacheApi.scaffeine
       .expireAfterWrite(1 hour)
       .build[SriStr, Member]()
     private val idleSris           = collection.mutable.Set[SriStr]()
