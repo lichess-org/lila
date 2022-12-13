@@ -26,11 +26,7 @@ final class LilaComponents(
   )
 
   // https://www.scala-lang.org/api/2.13.4/scala/concurrent/ExecutionContext%24.html#global:scala.concurrent.ExecutionContextExecutor
-  given executor: scala.concurrent.ExecutionContextExecutor =
-    scala.concurrent.ExecutionContext.getClass
-      .getDeclaredMethod("opportunistic")
-      .invoke(scala.concurrent.ExecutionContext)
-      .asInstanceOf[scala.concurrent.ExecutionContextExecutor]
+  given executor: scala.concurrent.ExecutionContextExecutor = lila.Lila.defaultExecutor
 
   lila.log("boot").info {
     val java             = System.getProperty("java.version")
