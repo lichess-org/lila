@@ -29,6 +29,11 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
   def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] =
     coll.byOrderedIds[Game, GameId](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
 
+  // #TODO FIXME
+  // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
+  def gamesTemporarilyFromPrimary(gameIds: Seq[GameId]): Fu[List[Game]] =
+    coll.byOrderedIds[Game, GameId](gameIds, readPreference = temporarilyPrimary)(_.id)
+
   def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] =
     coll.optionsByOrderedIds[Game, GameId](gameIds, none, temporarilyPrimary)(_.id)
 
@@ -87,7 +92,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
   def userPovsByGameIds(
       gameIds: List[GameId],
       user: User,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = temporarilyPrimary
   ): Fu[List[Pov]] =
     coll.byOrderedIds[Game, GameId](gameIds, readPreference = readPreference)(_.id) dmap {
       _.flatMap(g => Pov(g, user))
@@ -135,7 +140,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
   def unanalysedGames(gameIds: Seq[GameId], max: config.Max = config.Max(100)): Fu[List[Game]] =
     coll
       .find($inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 to 160))
-      .cursor[Game](ReadPreference.secondaryPreferred)
+      .cursor[Game](temporarilyPrimary)
       .list(max.value)
 
   def cursor(

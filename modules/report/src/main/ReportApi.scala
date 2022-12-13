@@ -407,9 +407,9 @@ final class ReportApi(
         coll
           .find($doc("atoms.by" -> user.id))
           .sort(sortLastAtomAt)
-          .cursor[Report](ReadPreference.secondaryPreferred)
+          .cursor[Report](temporarilyPrimary)
           .list(nb)
-      about <- recent(Suspect(user), nb, ReadPreference.secondaryPreferred)
+      about <- recent(Suspect(user), nb, temporarilyPrimary)
     } yield Report.ByAndAbout(by, Room.filterGranted(mod, about))
 
   def currentCheatScore(suspect: Suspect): Fu[Option[Report.Score]] =

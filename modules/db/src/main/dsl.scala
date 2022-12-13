@@ -405,6 +405,7 @@ object dsl extends dsl with Handlers:
 
     def secondaryPreferred = coll withReadPreference ReadPreference.secondaryPreferred
     def secondary          = coll withReadPreference ReadPreference.secondary
+    def temporarilyPrimary = coll withReadPreference temporarilyPrimary
 
     def ext = this
 
