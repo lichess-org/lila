@@ -332,14 +332,14 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     )
 
   def recentBy(mod: Mod) =
-    coll.temporarilyPrimary
+    coll.tempPrimary
       .find($doc("mod" -> mod.id))
       .sort($sort desc "date")
       .cursor[Modlog]()
       .list(100)
 
   def addModlog(users: List[User]): Fu[List[UserWithModlog]] =
-    coll.temporarilyPrimary
+    coll.tempPrimary
       .find(
         $doc(
           "user" $in users.filter(_.marks.value.nonEmpty).map(_.id),
