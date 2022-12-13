@@ -4,10 +4,11 @@ import LobbyController from '../../../ctrl';
 export const fenInput = (ctrl: LobbyController) => {
   const { trans, setupCtrl } = ctrl;
   if (setupCtrl.variant() !== 'fromPosition') return null;
+  const fen = setupCtrl.fen();
   return h('div.fen.optional-config', [
     h('div.fen__form', [
       h('input#fen-input', {
-        attrs: { placeholder: trans('pasteTheFenStringHere'), value: setupCtrl.fen() },
+        attrs: { placeholder: trans('pasteTheFenStringHere'), value: fen },
         on: {
           input: (e: InputEvent) => {
             setupCtrl.fen((e.target as HTMLInputElement).value);
@@ -21,7 +22,7 @@ export const fenInput = (ctrl: LobbyController) => {
         attrs: {
           'data-icon': '',
           title: trans('boardEditor'),
-          href: '/editor',
+          href: '/editor' + (fen ? `/${fen.replace(' ', '_')}` : ''),
         },
       }),
     ]),
