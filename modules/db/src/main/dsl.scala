@@ -405,7 +405,11 @@ object dsl extends dsl with Handlers:
 
     def secondaryPreferred = coll withReadPreference ReadPreference.secondaryPreferred
     def secondary          = coll withReadPreference ReadPreference.secondary
-    def temporarilyPrimary = coll withReadPreference temporarilyPrimary
+
+    // #TODO FIXME
+    // should be secondaryPreferred
+    // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
+    def temporarilyPrimary = coll withReadPreference ReadPreference.primary
 
     def ext = this
 
