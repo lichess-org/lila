@@ -25,9 +25,8 @@ final class LobbySocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     lobby: LobbySyncActor,
     relationApi: lila.relation.RelationApi,
-    poolApi: PoolApi,
-    system: akka.actor.ActorSystem
-)(using ec: scala.concurrent.ExecutionContext):
+    poolApi: PoolApi
+)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
 
   import LobbySocket.*
   import Protocol.*
@@ -85,7 +84,7 @@ final class LobbySocket(
         if (removedHookIds.nonEmpty)
           tellActiveHookSubscribers(makeMessage("hrm", removedHookIds.toString))
           removedHookIds.clear()
-        system.scheduler.scheduleOnce(1249 millis)(this ! SendHookRemovals).unit
+        scheduler.scheduleOnce(1249 millis)(this ! SendHookRemovals).unit
 
       case JoinHook(sri, hook, game, creatorColor) =>
         lila.mon.lobby.hook.join.increment()
@@ -116,8 +115,8 @@ final class LobbySocket(
         hookSubscriberSris += member.sri.value
 
     lila.common.Bus.subscribe(this, "changeFeaturedGame", "streams", "poolPairings", "lobbySocket")
-    system.scheduler.scheduleOnce(7 seconds)(this ! SendHookRemovals)
-    system.scheduler.scheduleWithFixedDelay(31 seconds, 31 seconds)(() => this ! Cleanup)
+    scheduler.scheduleOnce(7 seconds)(this ! SendHookRemovals)
+    scheduler.scheduleWithFixedDelay(31 seconds, 31 seconds)(() => this ! Cleanup)
 
     private def tellActive(msg: JsObject): Unit = send(Out.tellLobbyActive(msg))
 
