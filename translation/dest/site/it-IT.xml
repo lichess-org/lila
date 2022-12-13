@@ -738,6 +738,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="light">Chiaro</string>
   <string name="dark">Scuro</string>
   <string name="transparent">Trasparente</string>
+  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Tema del dispositivo</string>
   <string name="backgroundImageUrl">URL dell\'immagine di sfondo:</string>
   <string name="boardGeometry">Geometria scacchiera</string>
   <string name="boardTheme">Tema scacchiera</string>
