@@ -53,6 +53,24 @@ final private[api] class Cli(
     case "puzzle" :: "opening" :: "recompute" :: "all" :: Nil =>
       puzzle.opening.recomputeAll
       fuccess("started in background")
+    case "threads" :: Nil =>
+      fuccess {
+        import scala.jdk.CollectionConverters.*
+        Thread
+          .getAllStackTraces()
+          .keySet()
+          .asScala
+          .toList
+          .map(_.getName)
+          .map("""-\d+$""".r.replaceAllIn(_, ""))
+          .groupBy(identity)
+          .view
+          .mapValues(_.size)
+          .toList
+          .sortBy(-_._2)
+          .map((name, count) => s"$count $name")
+          .mkString("\n")
+      }
 
   private def run(args: List[String]): Fu[String] = {
     (processors lift args) | fufail("Unknown command: " + args.mkString(" "))
