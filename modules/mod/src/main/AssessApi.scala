@@ -39,7 +39,7 @@ final class AssessApi(
     assessRepo.coll
       .find($doc("userId" -> userId))
       .sort($sort desc "date")
-      .cursor[PlayerAssessment](ReadPreference.secondaryPreferred)
+      .cursor[PlayerAssessment](temporarilyPrimary)
       .list(nb)
 
   private def getPlayerAggregateAssessment(
@@ -55,7 +55,7 @@ final class AssessApi(
     }
 
   def withGames(pag: PlayerAggregateAssessment): Fu[PlayerAggregateAssessment.WithGames] =
-    gameRepo gamesFromSecondary pag.playerAssessments.map(_.gameId) map {
+    gameRepo gamesTemporarilyFromPrimary pag.playerAssessments.map(_.gameId) map {
       PlayerAggregateAssessment.WithGames(pag, _)
     }
 
@@ -91,7 +91,7 @@ final class AssessApi(
       assessRepo.coll
         .idsMap[PlayerAssessment, String](
           ids = povs.map(p => s"${p.gameId}/${p.color.name}"),
-          readPreference = ReadPreference.secondaryPreferred
+          readPreference = temporarilyPrimary
         )(_.gameId.value)
         .flatMap { fulls =>
           val basicsPovs = povs.filterNot(p => fulls.exists(_._1 == p.gameId.value))

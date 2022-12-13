@@ -406,6 +406,11 @@ object dsl extends dsl with Handlers:
     def secondaryPreferred = coll withReadPreference ReadPreference.secondaryPreferred
     def secondary          = coll withReadPreference ReadPreference.secondary
 
+    // #TODO FIXME
+    // should be secondaryPreferred
+    // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
+    def tempPrimary = coll withReadPreference ReadPreference.primary
+
     def ext = this
 
     def one[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =

@@ -100,7 +100,7 @@ final class UserLoginsApi(
       max: Int
   ): Fu[List[OtherUser[User]]] =
     ipSet.nonEmpty ?? store.coll
-      .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+      .aggregateList(max, readPreference = temporarilyPrimary) { implicit framework =>
         import framework.*
         import FingerHash.given
         Match(
