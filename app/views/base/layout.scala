@@ -117,6 +117,14 @@ object layout:
   <a data-icon="" id="zentog" class="text fbt active">${trans.preferences.zenMode.txt()}</a>
 </div>""")
 
+  private def getZenZone(zen: Boolean)(implicit ctx: Context): Option[scalatags.Text.RawFrag] =
+  {
+    if (zen)
+      return None
+    else
+      return Some(zenZone)
+  }
+
   private def dasher(me: lila.user.User) =
     div(cls := "dasher")(
       a(id := "user_tag", cls := "toggle link", href := routes.Auth.logoutGet)(me.username),
@@ -237,6 +245,7 @@ object layout:
       chessground: Boolean = true,
       zoomable: Boolean = false,
       zenable: Boolean = false,
+      zen: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = "",
       atomLinkTag: Option[Tag] = None,
@@ -296,7 +305,7 @@ object layout:
               baseClass              -> true,
               "dark-board"           -> (ctx.pref.bg == lila.pref.Pref.Bg.DARKBOARD),
               "piece-letter"         -> ctx.pref.pieceNotationIsLetter,
-              "zen"                  -> ctx.pref.isZen,
+              "zen"                  -> (if (zen) zen else ctx.pref.isZen),
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid,
               "mobile"               -> ctx.isMobileBrowser,
@@ -327,7 +336,7 @@ object layout:
             .get(ctx.req)
             .ifTrue(ctx.isAnon)
             .map(views.html.auth.bits.checkYourEmailBanner(_)),
-          zenable option zenZone,
+          zenable option getZenZone(zen),
           siteHeader.apply,
           div(
             id := "main-wrap",

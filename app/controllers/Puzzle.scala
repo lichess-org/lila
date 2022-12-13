@@ -61,6 +61,27 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         ).enableSharedArrayBuffer
       }
 
+  private def renderEmbed(
+      puzzle: Puz,
+      angle: PuzzleAngle,
+      color: Option[Color] = None,
+      replay: Option[lila.puzzle.PuzzleReplay] = None,
+      langPath: Option[LangPath] = None
+  )(implicit ctx: Context) =
+    renderJson(puzzle, angle, replay) zip
+      ctx.me.??(u => env.puzzle.session.getSettings(u) dmap some) map { case (json, settings) =>
+        Ok(
+          views.html.puzzle
+            .embed(
+              puzzle,
+              json,
+              env.puzzle.jsonView.pref(ctx.pref),
+              settings | PuzzleSettings.default(color),
+              langPath
+            )
+        ).enableSharedArrayBuffer
+      }
+
   def daily =
     Open { implicit ctx =>
       NoBot {
@@ -346,6 +367,29 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
               }
     }
 
+  private def serveEmbed(angleOrId: String)(implicit ctx: Context) =
+    NoBot {
+      val langPath = LangPath(routes.Puzzle.show(angleOrId)).some
+      PuzzleAngle find angleOrId match {
+        case Some(angle) =>
+          nextPuzzleForMe(angle, none) flatMap {
+            renderEmbed(_, angle, langPath = langPath)
+          }
+        case _ if angleOrId.size == Puz.idSize =>
+          OptionFuResult(env.puzzle.api.puzzle find Puz.Id(angleOrId)) { puzzle =>
+            ctx.me.?? { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) } >>
+              renderEmbed(puzzle, PuzzleAngle.mix, langPath = langPath)
+          }
+        case _ =>
+          angleOrId.toLongOption
+            .flatMap(Puz.numericalId.apply)
+            .??(env.puzzle.api.puzzle.find) map {
+            case None      => Redirect(routes.Puzzle.home)
+            case Some(puz) => Redirect(routes.Puzzle.show(puz.id.value))
+          }
+      }
+    }
+
   def showWithAngle(angleKey: String, id: PuzzleId) = Open { implicit ctx =>
     NoBot {
       val angle = PuzzleAngle.findOrMix(angleKey)
@@ -374,9 +418,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     Action.async { implicit req =>
       env.puzzle.daily.get map {
         case None        => NotFound
-        case Some(daily) => html.puzzle.embed(daily)
+        case Some(daily) => html.puzzle.dailyEmbed(daily)
       }
     }
+
+  def embed(angleOrId: String) = Open(serveEmbed(angleOrId)(_))
 
   def activity =
     Scoped(_.Puzzle.Read) { req => me =>
