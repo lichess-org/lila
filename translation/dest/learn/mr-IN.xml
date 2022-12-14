@@ -86,28 +86,28 @@
   <string name="captureAndDefendPieces">सोंगट्या मारा आणि त्यांचे रक्षण करा</string>
   <string name="combatIntro">एक चांगला योद्धा हल्ला आणि बचाव दोन्ही गोष्टी जाणतो!</string>
   <string name="combatComplete">अभिनंदन! बुद्धीबळातील सोंगट्या वापरून कसे लढायचे हे आपल्याला माहित आहे!</string>
-  <string name="checkInOne">एका डावात चेक द्या</string>
+  <string name="checkInOne">एका चालीत शह</string>
   <string name="attackTheOpponentsKing">प्रतिस्पर्धीच्या राजावर हल्ला करा</string>
-  <string name="checkInOneIntro">शत्रूला चेक देण्या करिता, त्यांच्या राजा वर हल्ला करा. त्यांनी त्याचा बचाव केला पाहिजे!</string>
+  <string name="checkInOneIntro">शत्रूला शह देण्याकरीता, त्यांच्या राजावर हल्ला करा. त्यांना राजाचा बचाव करावाच लागेल!</string>
   <string name="checkInOneGoal">प्रतिस्पर्ध्याच्या राजाकडे नेम लावा
 एका डावात!</string>
-  <string name="checkInOneComplete">अभिनंदन! तुम्ही शत्रूच्या राजाला चेक दिला आहे, आता त्यांना राजाचा बचाव करावाच लागेल!</string>
-  <string name="outOfCheck">चेक संपलेत</string>
+  <string name="checkInOneComplete">अभिनंदन! तुम्ही विरोधकाला शह दिला आणि त्यांना राजाचा बचाव करण्यास भाग पाडले!</string>
+  <string name="outOfCheck">शहातून बाहेर</string>
   <string name="defendYourKing">आपल्या राजाचे रक्षण करा</string>
-  <string name="outOfCheckIntro">तुम्ही चेक मध्ये आहे! आपण बचावणे किंवा हल्ला अवरोधित करणे आवश्यक आहे.</string>
+  <string name="outOfCheckIntro">तुम्ही शहामध्ये आहात! तुम्हाला शहातून बाहेर पडावे लागेल किंवा हल्ला आडवावा लागेल.</string>
   <string name="escapeWithTheKing">राजाबरोबर पळा!</string>
   <string name="theKingCannotEscapeButBlock">राजा सुटू शकत नाही,
 परंतु आपण हल्ला रोखू शकता!</string>
   <string name="youCanGetOutOfCheckByTaking">शह देणऱ्या सोंगटीला मारून
 तुम्ही शहाच्या बाहेर येऊ शकता.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">हा घोडा तुम्हाला चेक देत आहे
-आपल्या संरक्षणाद्वारे!</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">एवढ्या रक्षकांच्या गराड्यात
+हा घोडा तुम्हाला शह देत आहे!</string>
   <string name="escapeOrBlock">राजा सोबत पळून जा
 किंवा हल्ला अवरोधित करा!</string>
-  <string name="outOfCheckComplete">अभिनंदन! आपला राजा कधीही घेतला जाऊ शकत नाही, आपण चेक बचाव करू शकता याची खात्री करा!</string>
-  <string name="mateInOne">एका डावात मेट करा</string>
+  <string name="outOfCheckComplete">अभिनंदन! आपला राजा कधीही घेतला जाऊ शकत नाही, आपण शहापासून बचाव करू शकता याची खात्री करा!</string>
+  <string name="mateInOne">एका चालीत मात</string>
   <string name="defeatTheOpponentsKing">प्रतिस्पर्ध्याच्या राजाचा पराभव करा</string>
-  <string name="mateInOneIntro">जेव्हा आपला विरोधक चेकविरूद्ध बचाव करू शकत नाही तेव्हा आपण जिंकता.</string>
+  <string name="mateInOneIntro">जेव्हा आपला विरोधक शहाविरूद्ध बचाव करू शकत नाही तेव्हा आपण जिंकता.</string>
   <string name="attackYourOpponentsKing">अशा मार्गाने आपल्या प्रतिस्पर्ध्याच्या राजावर हल्ला करा
 ज्याचा बचाव करता येणार नाही!</string>
   <string name="mateInOneComplete">अभिनंदन! अशा प्रकारे आपण बुद्धिबळ खेळ जिंकता!</string>
@@ -131,25 +131,25 @@
   <string name="pawnsFormTheFrontLine">प्यादे समोरची ओळ बनवतात.
 सुरू करण्यासाठी कोणतीही हालचाल करा.</string>
   <string name="boardSetupComplete">अभिनंदन! बुद्धीबळ बोर्ड कसे लावायचे ते आपल्याला माहित आहे.</string>
-  <string name="castling">कॅसलिंग</string>
+  <string name="castling">किल्लेकोट</string>
   <string name="theSpecialKingMove">राजाची विशेष चाल</string>
   <string name="castlingIntro">आपल्या राजाला सुरक्षिततेत आणा, आणि हल्ल्यासाठी आपला हत्ती उपयोजित करा!</string>
   <string name="castleKingSide">तुमच्या राजाला दोन घर चालवा
-राजाच्या दिशेने कॅसलिंग करण्यासाठी!</string>
+राजाच्या दिशेने किल्लेकोट करण्यासाठी!</string>
   <string name="castleQueenSide">तुमच्या राजाला दोन घर चालवा
 वझीराच्या बाजूला किल्लेकोट करण्यासाठी!</string>
   <string name="theKnightIsInTheWay">घोडा मध्ये येत आहे!
-त्याला हलवा, आणि राजाच्या दिशेने कॅसलिंग करा.</string>
+त्याला हलवा, आणि राजाच्या दिशेने किल्लेकोट करा.</string>
   <string name="castleKingSideMovePiecesFirst">राजाच्या बाजूला किल्लेकोट करा!
 आपल्याला प्रथम सोंगट्या बाहेर हलविणे आवश्यक आहे.</string>
   <string name="castleQueenSideMovePiecesFirst">वझीराच्या बाजूला किल्लेकोट करा!
 आपल्याला प्रथम सोंगट्या बाहेर हलविणे आवश्यक आहे.</string>
-  <string name="youCannotCastleIfMoved">जर राजा किव्हा हत्ती 
-हे आधीच चाललेले आहेत
-तर तुम्ही कॅसलिंग करू शकत नाही.</string>
-  <string name="youCannotCastleIfAttacked">तुम्ही कॅसलिंग करू शकत नाही जर 
-जर राज्याच्या मार्गात हल्ला झाला आहे.
-आधी हल्ला आडवा आणि मग कॅसलिंग करा!</string>
+  <string name="youCannotCastleIfMoved">जर राजा किंवा हत्ती 
+हे आधीच हलले असतील
+तर तुम्ही किल्लेकोट करू शकत नाही.</string>
+  <string name="youCannotCastleIfAttacked">राजावर किल्लेकोटाच्या मार्गात हल्ला होत असेल तर
+तुम्ही किल्लेकोट करू शकत नाही
+आधी हल्ला आडवा आणि मग किल्लेकोट करा!</string>
   <string name="findAWayToCastleKingSide">राजाच्या बाजूला किल्लेकोट!</string>
   <string name="findAWayToCastleQueenSide">वजिराच्या बाजूला किल्लेकोट!</string>
   <string name="castlingComplete">अभिनंदन! आपण खेळामध्ये जवळजवळ नेहमीच किल्लेकोट करायला पाहिजे.</string>
@@ -164,7 +164,7 @@
   <string name="enPassantComplete">अभिनंदन! आपण आता एन पसांट नियमाने मारू शकता.</string>
   <string name="stalemate">अर्धवट मात</string>
   <string name="theGameIsADraw">खेळ बरोबरीत सुटला आहे</string>
-  <string name="stalemateIntro">जेव्हा एखादा खेळाडू शहामध्ये नसेल आणि त्याच्याकडे वैध चाल उपलब्ध नसेल, तर त्याला अर्धवट मात म्हणतात. खेळ बरोबरीत संपतो: कोणीही जिंकत नाही, कोणीही हरत नाही.</string>
+  <string name="stalemateIntro">जेव्हा एखादा खेळाडू शहामध्ये नसेल आणि त्याच्याकडे वैध चाल उपलब्ध नसेल, तर त्याला अर्धवट मात म्हणतात. अशा परिस्थितीत खेळ बरोबरीत संपतो: कोणीही जिंकत नाही, कोणीही हरत नाही.</string>
   <string name="stalemateGoal">काळ्याला अर्धवट मात देण्यासाठी:
 - काळा कुठलीही चाल करू शकत नाही
 - कुठलाही मात उपलब्ध नाही.</string>
@@ -221,8 +221,8 @@
   <string name="wayToGo">चांगले चालले आहे!</string>
   <string name="yesYesYes">बरोबर!</string>
   <string name="youreGoodAtThis">तुम्ही यात उत्तम आहात!</string>
-  <string name="nailedIt">पूर्ण करा.</string>
-  <string name="rightOn">आत्ताच!</string>
+  <string name="nailedIt">एकदम झकास.</string>
+  <string name="rightOn">एकदम बरोबर!</string>
   <string name="stageXComplete">टप्पा %s पूर्ण</string>
   <string name="next">पुढे</string>
   <string name="nextX">पुढे: %s</string>
