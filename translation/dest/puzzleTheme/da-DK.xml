@@ -20,7 +20,7 @@
   <string name="bodenMateDescription">To angribende løbere på krydsende diagonaler giver mat til en konge, som er blokeret af egne brikker.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Bring din konge i sikkerhed og gør dit tårn klar til angreb.</string>
-  <string name="capturingDefender">Tag forsvaren</string>
+  <string name="capturingDefender">Tag forsvareren</string>
   <string name="capturingDefenderDescription">Tag en brik som er kritisk i forsvaret af en anden brik, så det er muligt at tage den uforsvarede brik på et efterfølgende træk.</string>
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
