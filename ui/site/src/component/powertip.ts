@@ -4,7 +4,7 @@ import { requestIdleCallback } from './functions';
 const inCrosstable = (el: HTMLElement) => document.querySelector('.crosstable')?.contains(el);
 
 const onPowertipPreRender = (id: string, preload?: (url: string) => void) => (el: HTMLAnchorElement) => {
-  const url = ($(el).data('href') || el.href).replace(/\?.+$/, '');
+  const url = ($(el).data('href') || el.href || $(el).attr('href')).replace(/\?.+$/, '');
   if (preload) preload(url);
   xhr.text(url + '/mini').then(html => {
     const el = document.getElementById(id) as HTMLElement;
