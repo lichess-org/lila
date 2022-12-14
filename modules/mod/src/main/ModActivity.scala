@@ -44,7 +44,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
     repo.coll
       .aggregateList(
         maxDocs = maxDocs,
-        readPreference = ReadPreference.secondaryPreferred
+        readPreference = temporarilyPrimary
       ) { framework =>
         import framework.*
         def dateToString(field: String): Bdoc =

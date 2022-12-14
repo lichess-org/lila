@@ -483,7 +483,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       users: List[U]
   )(using idOf: UserIdOf[U], r: BSONHandler[User]): Fu[List[User.WithEmails]] =
     coll
-      .list[Bdoc]($inIds(users.map(idOf.apply)), ReadPreference.secondaryPreferred)
+      .list[Bdoc]($inIds(users.map(idOf.apply)), temporarilyPrimary)
       .map { docs =>
         for {
           doc  <- docs
@@ -503,7 +503,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
         $inIds(ids),
         $doc(F.verbatimEmail -> true, F.email -> true, F.prevEmail -> true).some
       )
-      .cursor[Bdoc](ReadPreference.secondaryPreferred)
+      .cursor[Bdoc](temporarilyPrimary)
       .listAll()
       .map { docs =>
         for

@@ -19,9 +19,7 @@ final class Api(
 ) extends LilaController(env):
 
   import Api.*
-
-  private val userApi = env.api.userApi
-  private val gameApi = env.api.gameApi
+  import env.api.{ userApi, gameApi }
 
   private lazy val apiStatusJson =
     Json.obj(
@@ -62,7 +60,7 @@ final class Api(
     enforce = env.net.rateLimit.value
   )(
     ("fast", 2000, 10.minutes),
-    ("slow", 40000, 1.day)
+    ("slow", 30000, 1.day)
   )
 
   def usersByIds =
