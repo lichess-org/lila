@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Veure a mida completa</string>
   <string name="logOut">Tancar la sessió</string>
   <string name="signIn">Iniciar la sessió</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">Mantenir-me connectat</string>
+  <string name="rememberMe">Mantenir-me connectat</string>
   <string name="youNeedAnAccountToDoThat">Necessites un compte per a fer això</string>
   <string name="signUp">Registrar-se</string>
   <string name="computersAreNotAllowedToPlay">No els està permès jugar ni als ordinadors ni als jugadors assistits per ordinador. Si us plau, no utilitzis l\'ajuda de programes informàtics d\'escacs, de bases de dades o d\'altres jugadors mentre juguis. També tingues en compte que la creació de més d\'un compte és severament descoratjada i que tal activitat pot significar que el teu compte sigui suspès.</string>
@@ -737,6 +737,7 @@
   <string name="light">Clar</string>
   <string name="dark">Fosc</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Tema del dispositiu</string>
   <string name="backgroundImageUrl">Imatge de fons URL:</string>
   <string name="boardGeometry">Geometria del tauler</string>
   <string name="boardTheme">Temàtica del tauler</string>

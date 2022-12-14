@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Гледай на пълен екран</string>
   <string name="logOut">Излез</string>
   <string name="signIn">Влез</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">Запомни ме</string>
+  <string name="rememberMe">Запомни ме</string>
   <string name="youNeedAnAccountToDoThat">Трябва Ви регистрация, за да направите това</string>
   <string name="signUp">Регистрирайте се</string>
   <string name="computersAreNotAllowedToPlay">Не е позволено използването на компютърна помощ. Моля не си помагайте с шах програми, архиви или други играчи по време на игра. Също, създаването на множество регистрации е силно непрепоръчително и ще се накаже с бан.</string>

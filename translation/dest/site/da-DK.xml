@@ -737,6 +737,7 @@
   <string name="light">Lyst</string>
   <string name="dark">Mørkt</string>
   <string name="transparent">Gennemsigtigt</string>
+  <string name="deviceTheme">Enhedstema</string>
   <string name="backgroundImageUrl">Baggrundsbillede URL:</string>
   <string name="boardGeometry">Brætgeometri</string>
   <string name="boardTheme">Brættema</string>
