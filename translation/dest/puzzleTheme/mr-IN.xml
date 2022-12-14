@@ -19,7 +19,7 @@
   <string name="bodenMate">बोडन ची मात</string>
   <string name="bodenMateDescription">दोन हल्ले करणारे उंट तिरक्या कर्णावरुन विरोधकाच्याच सोंगट्यामध्ये अडकलेल्या राजाला मात देतात.</string>
   <string name="castling">किल्लेकोट</string>
-  <string name="castlingDescription">आपल्या राजाला सुरक्षिततेत आणा, आणि हल्ल्यासाठी आपला हत्ती उपयोजित करा.</string>
+  <string name="castlingDescription">आपल्या राजाला सुरक्षित ठिकाणी पोचवा, आणि हत्तीला हल्ल्यासाठी तैनात करा.</string>
   <string name="capturingDefender">रक्षकाला मारा</string>
   <string name="capturingDefenderDescription">एखाद्या सोंगटीच्या बचाव करणाऱ्या सोंगटीला मारणे, म्हणजे नवीन बचाव नसलेली सोंगटी पुढच्या चलित परत मारता येऊ शकते.</string>
   <string name="crushing">निर्णायक</string>
@@ -46,7 +46,7 @@
   <string name="endgameDescription">खेळाच्या शेवटच्या भागातील डावपेच.</string>
   <string name="enPassantDescription">एन पसांट नियमाचा समावेश असलेला एक डावपेच, जेथे प्रतिस्पर्ध्याच्या ज्या प्याद्याने सुरुवातीच्या दोन-घर चालीचा वापर केला आहे, त्याला तुमचे प्यादे पकडू शकते.</string>
   <string name="exposedKing">उघड राजा</string>
-  <string name="exposedKingDescription">एक डावपेच ज्यामध्ये राजासह त्याच्या भोवती मोजके बचावकर्ते असतात, ज्यामुळे अनेकदा चेकमेट होते.</string>
+  <string name="exposedKingDescription">एक डावपेच ज्यामध्ये राजासह त्याच्या भोवती मोजके बचावकर्ते असतात, ज्यामुळे अनेकदा शहमात होते.</string>
   <string name="fork">फोर्क</string>
   <string name="forkDescription">अशी चाल जिथे हलवलेला मोहरा एकाच वेळी दोन प्रतिस्पर्ध्याच्या मोहऱ्यांवर हल्ला करतो.</string>
   <string name="hangingPiece">आधार नसलेली सोंगटी</string>

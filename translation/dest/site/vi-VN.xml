@@ -700,6 +700,7 @@
   <string name="light">Sáng</string>
   <string name="dark">Tối</string>
   <string name="transparent">Trong suốt</string>
+  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Giao diện thiết bị</string>
   <string name="backgroundImageUrl">URL ảnh nền:</string>
   <string name="boardGeometry">Hình dạng của bàn cờ</string>
   <string name="boardTheme">Theme bàn cờ</string>

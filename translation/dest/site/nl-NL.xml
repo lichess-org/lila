@@ -737,6 +737,7 @@
   <string name="light">Licht</string>
   <string name="dark">Donker</string>
   <string name="transparent">Transparant</string>
+  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Apparaatthema</string>
   <string name="backgroundImageUrl">Achtergrondafbeelding URL:</string>
   <string name="boardGeometry">Bordgeometrie</string>
   <string name="boardTheme">Bordthema</string>
