@@ -55,7 +55,7 @@
   <string name="hookMateDescription">Skakmat med tårn, springer og bonde, som sammen med en fjendtlig bonde hindrer modstanderens konge i at undslippe.</string>
   <string name="interference">Obstruktion</string>
   <string name="interferenceDescription">Flytte en brik ind mellem to af modstanderens brikker, så den ene eller begge er uden forsvar, såsom en springer på et forsvaret felt mellem to tårne.</string>
-  <string name="intermezzo">Intermezzo</string>
+  <string name="intermezzo">Mellemtræk</string>
   <string name="intermezzoDescription">I stedet for at spille det forventede træk foretages først et andet træk, som udgør en umiddelbar trussel, som modstanderen må besvare. Også kendt som \"Zwischenzug\" eller \"In between\".</string>
   <string name="knightEndgame">Springerslutspil</string>
   <string name="knightEndgameDescription">Et slutspil med kun springere og bønder.</string>
