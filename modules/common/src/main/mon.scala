@@ -648,9 +648,12 @@ object mon:
     val steals            = gauge("executor.steals").withTag("name", name)
 
   object jvm:
-    def threads(all: List[(String, Int)]) =
+    def threads(groups: List[lila.common.LilaJvm.ThreadGroup]) =
       val metric = gauge("jvm.threads.group")
-      all.map((name, count) => metric.withTag("name", name).update(count))
+      for
+        group          <- groups
+        (state, count) <- group.states
+      yield metric.withTags(tags("name" -> group.name, "state" -> state)).update(count)
 
   def chronoSync[A] = lila.common.Chronometer.syncMon[A]
 

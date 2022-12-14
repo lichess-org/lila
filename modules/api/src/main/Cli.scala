@@ -56,7 +56,7 @@ final private[api] class Cli(
     case "threads" :: Nil =>
       fuccess {
         val threads = lila.common.LilaJvm.threadGroups()
-        s"${threads.map(_._2).sum} threads\n\n${threads.map((name, count) => s"$count $name").mkString("\n")}"
+        s"${threads.map(_.total).sum} threads\n\n${threads.mkString("\n")}"
       }
 
   private def run(args: List[String]): Fu[String] = {
