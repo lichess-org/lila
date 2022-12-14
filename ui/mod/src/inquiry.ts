@@ -19,18 +19,8 @@ lichess.load.then(() => {
     const $notes = $('#inquiry .notes');
     $notes.on('input', () => setTimeout(() => noteStore.set(noteTextArea.value), 50));
     $notes.find('form').on('submit', function (this: HTMLFormElement) {
-      const formToXhr = (el: HTMLFormElement): Promise<string> => {
-        const action = el.getAttribute('action');
-        const body = new FormData(el);
-        body.set('noteType', body.get('dox') ? 'dox' : 'mod');
-        return action
-          ? xhr.text(action, {
-              method: el.method,
-              body,
-            })
-          : Promise.reject(`Form has no action: ${el}`);
-      };
-      formToXhr(this)
+      xhr
+        .formToXhr(this)
         .then(html => $notes.replaceWith(html))
         .then(noteStore.remove)
         .then(() => loadNotes())
