@@ -84,7 +84,7 @@ final class LilaComponents(
             configuration.underlying,
             environment.classLoader
           ).parse()
-        ).build()
+        ).modifyUnderlying(_.setIoThreadsCount(16)).build()
       )
     )
 
