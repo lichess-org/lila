@@ -46,7 +46,7 @@
   <string name="endgameDescription">खेळाच्या शेवटच्या भागातील डावपेच.</string>
   <string name="enPassantDescription">एन पसांट नियमाचा समावेश असलेला एक डावपेच, जेथे प्रतिस्पर्ध्याच्या ज्या प्याद्याने सुरुवातीच्या दोन-घर चालीचा वापर केला आहे, त्याला तुमचे प्यादे पकडू शकते.</string>
   <string name="exposedKing">उघड राजा</string>
-  <string name="exposedKingDescription">एक डावपेच ज्यामध्ये राजासह त्याच्या भोवती मोजके बचावकर्ते असतात, ज्यामुळे अनेकदा चेकमेट होते.</string>
+  <string name="exposedKingDescription">एक डावपेच ज्यामध्ये राजासह त्याच्या भोवती मोजके बचावकर्ते असतात, ज्यामुळे अनेकदा शहमात होते.</string>
   <string name="fork">फोर्क</string>
   <string name="forkDescription">अशी चाल जिथे हलवलेला मोहरा एकाच वेळी दोन प्रतिस्पर्ध्याच्या मोहऱ्यांवर हल्ला करतो.</string>
   <string name="hangingPiece">आधार नसलेली सोंगटी</string>
