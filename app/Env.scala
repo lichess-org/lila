@@ -255,7 +255,3 @@ final class EnvBoot(
     c.result
 
   templating.Environment setEnv env
-
-  system.scheduler.scheduleWithFixedDelay(1.minute, 1.minute) { () =>
-    lila.mon.jvm.threads(lila.common.LilaJvm.threadGroups())
-  }
