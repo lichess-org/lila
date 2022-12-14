@@ -2,13 +2,14 @@ function loadShepherd(f) {
   if (typeof Shepherd === 'undefined' || Shepherd.activeTour === null) {
     const dataTheme = $('body').data('theme');
     const theme =
-      'shepherd-theme-' + (dataTheme === 'system')
+      'shepherd-theme-' +
+      (dataTheme === 'system'
         ? window.matchMedia('(prefers-color-scheme: light)').matches
           ? 'default'
           : 'dark'
         : dataTheme === 'light'
         ? 'default'
-        : 'dark';
+        : 'dark');
     lichess.loadCss('vendor/' + theme + '.css');
     lichess.loadScript('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
       lichess.loadScript('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function () {
