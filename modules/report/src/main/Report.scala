@@ -98,7 +98,7 @@ object Report:
         else if (a >= 50) "yellow"
         else "green"
       // def atLeast(v: Int)   = Score(value atLeast v)
-      def atLeast(s: Score): Score = math.min(a, s.value)
+      def atLeast(s: Score): Score = a.value atLeast s.value
       def withinBounds: Score      = a atLeast 5 atMost 100
 
   case class Atom(
