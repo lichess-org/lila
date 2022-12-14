@@ -105,7 +105,7 @@ object PerfType:
 
   case object Antichess
       extends PerfType(
-        Perf.Id(1),
+        Perf.Id(13),
         key = Perf.Key("antichess"),
         name = chess.variant.Antichess.name,
         title = "Antichess variant",
