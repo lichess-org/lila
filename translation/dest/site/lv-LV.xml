@@ -166,7 +166,7 @@
   <string name="viewInFullSize">Skatīt pilnā izmērā</string>
   <string name="logOut">Izrakstīties</string>
   <string name="signIn">Pierakstīties</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">Ierakstīties pastāvīgi</string>
+  <string name="rememberMe">Ierakstīties pastāvīgi</string>
   <string name="youNeedAnAccountToDoThat">Lai veiktu šo darbību, nepieciešams konts</string>
   <string name="signUp">Reģistrēties</string>
   <string name="computersAreNotAllowedToPlay">Datoriem un spēlētājiem, kuri izmanto datoru palīdzību, nav atļauts spēlēt. Lūdzu, spēlējot neizmantojiet šaha programmu, datubāžu vai citu spēlētāju palīdzību. Aicinām neizmantot vairākus kontus - tas var novest pie piekļuves pārtraukšanas.</string>
@@ -774,6 +774,7 @@
   <string name="light">Gaišs</string>
   <string name="dark">Tumšs</string>
   <string name="transparent">Caurspīdīgs</string>
+  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Saskaņot ar sistēmu</string>
   <string name="backgroundImageUrl">Fona attēla URL:</string>
   <string name="boardGeometry">Galdiņa ģeometrija</string>
   <string name="boardTheme">Galdiņa dizains</string>

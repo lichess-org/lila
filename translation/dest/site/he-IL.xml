@@ -174,7 +174,7 @@
   <string name="viewInFullSize">צפייה בגודל מלא</string>
   <string name="logOut">התנתק/י</string>
   <string name="signIn">התחבר/י</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">זכור אותי</string>
+  <string name="rememberMe">זכור אותי</string>
   <string name="youNeedAnAccountToDoThat">את/ה צריך/ה חשבון כדי לעשות פעולה זו</string>
   <string name="signUp">הירשם/י</string>
   <string name="computersAreNotAllowedToPlay">מחשבים ושחקנים הנעזרים במחשב במשחקיהם אינם מורשים לשחק. אנא הימנעו מהיעזרות במנועי שחמט, מאגרי מידע או שחקנים אחרים במהלך המשחק. בנוסף, מומלץ להימנע מיצירת משתמשים מרובים, שכן יצירת כמות מוגזמת של משתמשים תביא לסילוק מהאתר.</string>
@@ -811,6 +811,7 @@
   <string name="light">בהיר</string>
   <string name="dark">כהה</string>
   <string name="transparent">שקוף</string>
+  <string name="deviceTheme">עיצוב המכשיר</string>
   <string name="backgroundImageUrl">כתובת תמונת רקע (URL):</string>
   <string name="boardGeometry">תצוגת הלוח</string>
   <string name="boardTheme">עיצוב הלוח</string>

@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Agrandir</string>
   <string name="logOut">Déconnexion</string>
   <string name="signIn">Connexion</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">Se souvenir de moi</string>
+  <string name="rememberMe">Se souvenir de moi</string>
   <string name="youNeedAnAccountToDoThat">Compte d\'utilisateur requis</string>
   <string name="signUp">S\'inscrire</string>
   <string name="computersAreNotAllowedToPlay">Les ordinateurs et les joueurs assistés par ordinateur ne sont pas autorisés à jouer. Veuillez ne pas vous aider de moteurs d\'analyse, de bases de données ou d\'autres joueurs pendant la partie. Notez également qu\'il est fortement déconseillé de créer plusieurs comptes. Le multi-compte excessif mènera à l\'exclusion.</string>
@@ -737,6 +737,7 @@
   <string name="light">Lumineux</string>
   <string name="dark">Sombre</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Thème de l\'appareil</string>
   <string name="backgroundImageUrl">URL de l\'image de fond :</string>
   <string name="boardGeometry">Forme de l\'échiquier</string>
   <string name="boardTheme">Thème de l\'échiquier</string>
