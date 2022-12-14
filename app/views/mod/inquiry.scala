@@ -253,7 +253,7 @@ object inquiry:
         ),
         input(tpe := "hidden", name := "mod", value := "true"),
         div(cls := "submission")(
-          submitButton(cls := "button thin", name := "noteType", value := "mod")("SEND")
+          submitButton(cls := "button thin", name := "noteType", value := "mod")("SEND"),
           isGranted(_.Admin) option submitButton(cls := "button thin", name := "noteType", value := "dox")("SEND DOX")
         )
       ),
