@@ -328,7 +328,7 @@ object layout:
             .ifTrue(ctx.isAnon)
             .map(views.html.auth.bits.checkYourEmailBanner(_)),
           zenable option zenZone,
-          siteHeader.apply,
+          siteHeader(zenable),
           div(
             id := "main-wrap",
             cls := List(
@@ -412,7 +412,7 @@ object layout:
           title     := trans.team.teams.txt()
         )
 
-    def apply(implicit ctx: Context) =
+    def apply(zenable: Boolean)(using ctx: Context) =
       header(id := "top")(
         div(cls := "site-title-nav")(
           !ctx.isAppealUser option topnavToggle,
@@ -422,7 +422,12 @@ object layout:
             a(href := langHref("/"))(siteNameFrag)
           ),
           ctx.blind option h2("Navigation"),
-          !ctx.isAppealUser option topnav()
+          !ctx.isAppealUser option frag(
+            topnav(),
+            ctx.me.exists(!_.isPatron) && !zenable option a(cls := "site-title-nav__donate")(
+              href := routes.Plan.index
+            )(trans.patron.donate())
+          )
         ),
         div(cls := "site-buttons")(
           !ctx.isAppealUser option clinput,

@@ -96,16 +96,5 @@ object topnav:
           a(href := routes.Importer.importGame)(trans.importGame()),
           a(href := routes.Search.index())(trans.search.advancedSearch())
         )
-      ),
-      // !ctx.me.exists(_.isPatron) option st.section(cls := "topnav__donate")(
-      st.section(cls := "topnav__donate")(
-        linkTitle(routes.Plan.index.url, trans.patron.donate()),
-        div(role := "group")(
-          // p("Lichess is a non-profit association."),
-          // a(href := routes.Plan.index)("Help us with a donation!")
-          a(href := routes.Plan.index)(trans.patron.donate()),
-          a(href := "/about")("About us"),
-          a(href := "/help/contribute")("Contribute")
-        )
       )
     )

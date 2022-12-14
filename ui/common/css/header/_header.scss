@@ -34,4 +34,9 @@
 .site-title-nav {
   display: flex;
   justify-content: flex-start;
+
+  &__donate {
+    color: $c-brag;
+    display: none;
+  }
 }
