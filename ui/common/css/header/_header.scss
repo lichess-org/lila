@@ -36,7 +36,12 @@
   justify-content: flex-start;
 
   &__donate {
+    @extend %flex-center;
     color: $c-brag;
-    display: none;
+    margin-left: 1rem;
+    text-transform: uppercase;
+    @include breakpoint($mq-not-xx-small) {
+      display: none;
+    }
   }
 }
