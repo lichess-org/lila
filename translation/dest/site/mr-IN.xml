@@ -109,7 +109,7 @@
   <string name="deleteThisImportedGame">मागावलेला खेळ हटवायचा?</string>
   <string name="replayMode">रीप्ले मोड</string>
   <string name="realtimeReplay">प्रत्यक्ष वेळी</string>
-  <string name="byCPL">प्यादा गमावल्याने</string>
+  <string name="byCPL">सेंटीपॉन तोट्यानुसार</string>
   <string name="openStudy">अभ्यास</string>
   <string name="enable">सक्षम करा</string>
   <string name="bestMoveArrow">उत्तम चाल बाण</string>
@@ -631,7 +631,7 @@
   <string name="lichessTournaments">लीचेस क्रीडासत्र</string>
   <string name="tournamentFAQ">क्रीडासत्राचे सामान्य प्रश्न</string>
   <string name="timeBeforeTournamentStarts">क्रीडासत्र सुरू होण्यास बाकी वेळ</string>
-  <string name="averageCentipawnLoss">प्यादानचे सरासरी नुकसान</string>
+  <string name="averageCentipawnLoss">सरासरी सेंटीपॉन तोटा</string>
   <string name="accuracy">अचूकता</string>
   <string name="keyboardShortcuts">कीबोर्ड शॉर्टकट</string>
   <string name="keyMoveBackwardOrForward">मागे/पुढे चला</string>
@@ -779,7 +779,7 @@
   </plurals>
   <string name="opening">ओपनिंग</string>
   <string name="middlegame">मध्यखेळ</string>
-  <string name="endgame">खेळाचा शेवट</string>
+  <string name="endgame">अंत्यखेळ</string>
   <string name="conditionalPremoves">सशर्त प्रिमुव्ह</string>
   <string name="addCurrentVariation">वर्तमान variation जोडा</string>
   <string name="playVariationToCreateConditionalPremoves">सशर्त प्रिमुव्ह तयार करण्यासाठी variation खेळा</string>
