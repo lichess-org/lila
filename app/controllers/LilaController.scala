@@ -553,7 +553,7 @@ abstract private[controllers] class LilaController(val env: Env)
             env.mod.inquiryApi.forMod(me)
         else
           fuccess {
-            (((0, 0), 0), none)
+            (((0, 0), lila.notify.Notification.UnreadCount(0)), none)
           }
       } map { case (pref, (((teamNbRequests, nbChallenges), nbNotifications), inquiry)) =>
         PageData(

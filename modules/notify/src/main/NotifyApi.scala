@@ -29,7 +29,7 @@ final class NotifyApi(
   import BSONHandlers.given
   import jsonHandlers.*
 
-  private val unreadCountCache = cacheApi[UserId, Int](32768, "notify.unreadCountCache") {
+  private val unreadCountCache = cacheApi[UserId, UnreadCount](32768, "notify.unreadCountCache") {
     _.expireAfterAccess(15 minutes)
       .buildAsyncFuture(repo.unreadNotificationsCount)
   }
@@ -47,17 +47,17 @@ final class NotifyApi(
     )
 
   def getNotificationsAndCount(userId: UserId, page: Int): Fu[Notification.AndUnread] =
-    getNotifications(userId, page) zip unreadCount(userId) map (AndUnread.apply _).tupled
+    getNotifications(userId, page) zip unreadCount(userId) map AndUnread.apply
 
   def markAllRead(userId: UserId): Funit =
-    repo.markAllRead(userId) >>- unreadCountCache.put(userId, fuccess(0))
+    repo.markAllRead(userId) >>- unreadCountCache.put(userId, fuccess(UnreadCount(0)))
 
   def markAllRead(userIds: Iterable[UserId]): Funit =
     repo.markAllRead(userIds) >>- userIds.foreach {
-      unreadCountCache.put(_, fuccess(0))
+      unreadCountCache.put(_, fuccess(UnreadCount(0)))
     }
 
-  def unreadCount(userId: UserId): Fu[Int] =
+  def unreadCount(userId: UserId): Fu[UnreadCount] =
     unreadCountCache get userId
 
   def insertNotification(notification: Notification): Funit =

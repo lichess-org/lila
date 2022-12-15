@@ -98,10 +98,14 @@ object Notification:
   opaque type Id = String
   object Id extends OpaqueString[Id]
 
+  opaque type UnreadCount = Int
+  object UnreadCount extends OpaqueInt[UnreadCount]:
+    given Zero[UnreadCount] = Zero(0)
+
   opaque type NotificationRead = Boolean
   object NotificationRead extends YesNo[NotificationRead]
 
-  case class AndUnread(pager: Paginator[Notification], unread: Int)
+  case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
   case class IncrementUnread()
 
   def make[U](to: U, content: NotificationContent)(using userIdOf: UserIdOf[U]): Notification =
