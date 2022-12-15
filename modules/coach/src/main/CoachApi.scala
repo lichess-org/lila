@@ -124,7 +124,7 @@ final class CoachApi(
         if (me.marks.troll) fuccess(review)
         else
           reviewColl.update.one($id(id), review, upsert = true) >>
-            notifyApi.notifyOne(UserId(coach.id.value), lila.notify.CoachReview) >>
+            notifyApi.notifyOne(coach.id.userId, lila.notify.CoachReview) >>
             refreshCoachNbReviews(coach.id) inject review
       }
 

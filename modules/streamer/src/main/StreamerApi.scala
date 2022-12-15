@@ -40,13 +40,14 @@ final class StreamerApi(
       coll.insert.one(s.streamer) inject s.some
     }
 
-  val forSubscriber: PartialFunction[(UserStr, Option[User]), Fu[Option[Streamer.WithContext]]] =
-    case (susername, Some(u)) =>
-      for {
-        swuOpt <- find(susername)
-        subscribed <- subsRepo.isSubscribed(u.id, susername)
-      } yield swuOpt map(swu => Streamer.WithUser(swu.streamer, swu.user, subscribed))
-    case (sid, None) => find(sid)
+  def forSubscriber(streamerName: UserStr, me: Option[User]): Fu[Option[Streamer.WithContext]] =
+    me.foldLeft(find(streamerName)) { (streamerFu, me) =>
+      streamerFu flatMap {
+        _ ?? { s =>
+          subsRepo.isSubscribed(me.id, s.streamer).map { sub => s.copy(subscribed = sub).some }
+        }
+      }
+    }
 
   def withUsers(live: LiveStreams, userId: Option[UserId]): Fu[List[Streamer.WithUserAndStream]] =
     userRepo.coll
