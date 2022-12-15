@@ -40,7 +40,7 @@
     <item quantity="one">प्रतिस्पर्ध्याने खेळ सोडला आहे. आपण %s सेकंदात विजयाचा दावा करू शकता.</item>
     <item quantity="other">प्रतिस्पर्ध्याने खेळ सोडला. आपण %s सेकंदात विजयाचा दावा करू शकता.</item>
   </plurals>
-  <string name="opponentLeftChoices">प्रतिस्पर्ध्याने खेळ सोडला आहे. तुम्ही विजयाचा दावा करू शकतात, नाही तर त्यांची वाट पाहू शकतात.</string>
+  <string name="opponentLeftChoices">प्रतिस्पर्ध्याने खेळ सोडला आहे. तुम्ही विजयाचा दावा करू शकता, बरोबरी मानू शकता, किंवा प्रतीक्षा करू शकता.</string>
   <string name="forceResignation">विजयाचा दावा करा</string>
   <string name="forceDraw">सामना बरोबरीत सोडवण्याची विनंती करा</string>
   <string name="talkInChat">कृपया गप्पांमध्ये सभ्यतेने बोला!</string>
@@ -717,7 +717,7 @@
   <string name="transparent">पारदर्शक</string>
   <string name="backgroundImageUrl">Background चित्रासाठी URL:</string>
   <string name="boardGeometry">पटाचा प्रकार</string>
-  <string name="boardTheme">बुद्धिबळ पटाची Theme</string>
+  <string name="boardTheme">पटाचे रंगरूप</string>
   <string name="boardSize">बुद्धिबळ पटाचा आकार</string>
   <string name="pieceSet">सोंगट्या</string>
   <string name="embedInYourWebsite">तुमच्या वेबसाइटवर टाका</string>
