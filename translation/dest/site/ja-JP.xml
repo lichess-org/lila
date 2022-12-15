@@ -701,6 +701,7 @@
   <string name="light">明るい</string>
   <string name="dark">暗い</string>
   <string name="transparent">透明</string>
+  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">デバイスの設定に従う</string>
   <string name="backgroundImageUrl">背景画像URL:</string>
   <string name="boardGeometry">盤の表示形式</string>
   <string name="boardTheme">盤のデザイン</string>

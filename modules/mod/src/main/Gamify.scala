@@ -104,7 +104,7 @@ final class Gamify(
 
   private def actionLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
     logRepo.coll
-      .aggregateList(maxDocs = 100, readPreference = ReadPreference.secondaryPreferred) { framework =>
+      .aggregateList(maxDocs = 100, readPreference = temporarilyPrimary) { framework =>
         import framework.*
         Match(
           $doc(
@@ -128,7 +128,7 @@ final class Gamify(
     reportApi.coll
       .aggregateList(
         maxDocs = Int.MaxValue,
-        readPreference = ReadPreference.secondaryPreferred
+        readPreference = temporarilyPrimary
       ) { framework =>
         import framework.*
         Match(

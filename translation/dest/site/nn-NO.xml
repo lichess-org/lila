@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Vis i full storleik</string>
   <string name="logOut">Logg ut</string>
   <string name="signIn">Logg inn</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">Lagra mine påloggingsdata</string>
+  <string name="rememberMe">Lagra mine påloggingsdata</string>
   <string name="youNeedAnAccountToDoThat">For å gjera det treng du ein konto</string>
   <string name="signUp">Registrer deg</string>
   <string name="computersAreNotAllowedToPlay">Datamaskinar og spelarar som brukar sjakkprogram har ikkje lov til å spela. Ver venleg å ikkje ta i bruk hjelp frå sjakkprogram, databasar eller andre spelarar så lenge partiet er i gang. Merk at det vert sterkt frårådd å oppretta fleire kontoar. Oppretting av svært mange kontoar vil føra til utestenging.</string>

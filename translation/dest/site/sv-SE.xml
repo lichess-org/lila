@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Visa i full storlek</string>
   <string name="logOut">Logga ut</string>
   <string name="signIn">Logga in</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">Håll mig inloggad</string>
+  <string name="rememberMe">Håll mig inloggad</string>
   <string name="youNeedAnAccountToDoThat">Du behöver ett konto för att göra detta</string>
   <string name="signUp">Registrera dig</string>
   <string name="computersAreNotAllowedToPlay">Datorer och datorassisterade spelare tillåts inte spela. Vänligen, ta inte hjälp ifrån schackmotorer, databaser eller från andra spelare när du spelar. Notera även att skapande av flera konton avrådes och skapande av överdrivet många konton leder till avstängning.</string>
@@ -741,6 +741,7 @@ https://lichess. org/study</string>
   <string name="light">Ljus</string>
   <string name="dark">Mörk</string>
   <string name="transparent">Genomskinlig</string>
+  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Enhetstema</string>
   <string name="backgroundImageUrl">Bakgrundsbild URL:</string>
   <string name="boardGeometry">Brädets geometri</string>
   <string name="boardTheme">Brädets tema</string>

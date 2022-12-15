@@ -642,6 +642,7 @@ object mon:
   object picfit:
     def uploadTime(user: String) = future("picfit.upload.time", tags("user" -> user))
     def uploadSize(user: String) = histogram("picfit.upload.size").withTag("user", user)
+
   class executor(name: String):
     val queuedSubmissions = histogram("executor.queuedSubmissions").withTag("name", name)
     val queuedTasks       = histogram("executor.queuedTasks").withTag("name", name)
@@ -649,6 +650,14 @@ object mon:
     val activeThreads     = histogram("executor.activeThreads").withTag("name", name)
     val runningThreads    = histogram("executor.runningThreads").withTag("name", name)
     val steals            = gauge("executor.steals").withTag("name", name)
+
+  object jvm:
+    def threads(groups: List[lila.common.LilaJvm.ThreadGroup]) =
+      val metric = gauge("jvm.threads.group")
+      for
+        group          <- groups
+        (state, count) <- group.states
+      yield metric.withTags(tags("name" -> group.name, "state" -> state.toString)).update(count)
 
   def chronoSync[A] = lila.common.Chronometer.syncMon[A]
 

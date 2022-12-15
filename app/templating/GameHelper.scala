@@ -149,8 +149,8 @@ trait GameHelper:
       case Some(user) =>
         frag(
           (if (link) a else span) (
-            cls  := userClass(user.id, cssClass, withOnline),
-            href := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
+            cls                               := userClass(user.id, cssClass, withOnline),
+            (if link then href else dataHref) := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user)(using ctx.lang), " "),
             playerUsername(player, withRating && ctx.pref.showRatings)(using ctx.lang),

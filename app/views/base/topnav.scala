@@ -9,13 +9,13 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object topnav:
 
-  private def linkTitle(url: String, name: Frag)(implicit ctx: Context) =
+  private def linkTitle(url: String, name: Frag)(using ctx: Context) =
     if (ctx.blind) h3(name) else a(href := url)(name)
 
-  private def canSeeClasMenu(implicit ctx: Context) =
+  private def canSeeClasMenu(using ctx: Context) =
     ctx.hasClas || ctx.me.exists(u => u.hasTitle || u.roles.contains("ROLE_COACH"))
 
-  def apply()(implicit ctx: Context) =
+  def apply()(using ctx: Context) =
     st.nav(id := "topnav", cls := "hover")(
       st.section(
         linkTitle(
@@ -82,7 +82,9 @@ object topnav:
           a(href := routes.Team.home())(trans.team.teams()),
           ctx.noKid option a(href := routes.ForumCateg.index)(trans.forum()),
           ctx.noKid option a(href := langHref(routes.Ublog.communityAll()))(trans.blog()),
-          ctx.me.exists(!_.kid) option a(href := routes.Plan.index)(trans.patron.donate())
+          ctx.me.exists(!_.kid) option a(cls := "community-patron", href := routes.Plan.index)(
+            trans.patron.donate()
+          )
         )
       ),
       st.section(

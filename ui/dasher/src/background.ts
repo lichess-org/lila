@@ -3,6 +3,7 @@ import { Redraw, Close, bind, header } from './util';
 import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
 import { throttlePromiseDelay } from 'common/throttle';
+import { supportsSystemTheme } from 'common/theme';
 
 export interface BackgroundCtrl {
   list: Background[];
@@ -27,6 +28,7 @@ interface Background {
 
 export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: Close): BackgroundCtrl {
   const list: Background[] = [
+    { key: 'system', name: trans.noarg('deviceTheme') },
     { key: 'light', name: trans.noarg('light') },
     { key: 'dark', name: trans.noarg('dark') },
     { key: 'darkBoard', name: 'Dark Board', title: 'Like Dark, but chess boards are also darker' },
@@ -130,16 +132,28 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     .removeClass([...list.map(b => b.key), 'dark-board'].join(' '))
     .addClass(cls);
 
-  const prev = $('body').data('theme'),
-    sheet = key == 'darkBoard' ? 'dark' : key;
+  const prev = $('body').data('theme');
+  const sheet = key == 'darkBoard' ? 'dark' : key;
   $('body').data('theme', sheet);
-  $('link[href*=".' + prev + '."]').each(function (this: HTMLLinkElement) {
-    const link = document.createElement('link') as HTMLLinkElement;
-    link.rel = 'stylesheet';
-    link.href = this.href.replace('.' + prev + '.', '.' + sheet + '.');
-    link.onload = () => setTimeout(() => this.remove(), 100);
-    document.head.appendChild(link);
-  });
+  if (prev === 'system') {
+    const active = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    const other = active === 'dark' ? 'light' : 'dark';
+    $('link[href*=".' + other + '."]').remove();
+    $('link[href*=".' + active + '."]').each(function (this: HTMLLinkElement) {
+      replaceStylesheet(this, active, sheet);
+    });
+  } else {
+    $('link[href*=".' + prev + '."]').each(function (this: HTMLLinkElement) {
+      if (sheet === 'system') {
+        if (supportsSystemTheme()) {
+          replaceStylesheet(this, prev, 'light', 'light');
+          replaceStylesheet(this, prev, 'dark', 'dark');
+        } else {
+          replaceStylesheet(this, prev, 'dark');
+        }
+      } else replaceStylesheet(this, prev, sheet);
+    });
+  }
 
   if (key === 'transp') {
     const bgData = document.getElementById('bg-data');
@@ -147,4 +161,13 @@ function applyBackground(data: BackgroundData, list: Background[]) {
       ? (bgData.innerHTML = 'body.transp::before{background-image:url(' + data.image + ');}')
       : $('head').append('<style id="bg-data">body.transp::before{background-image:url(' + data.image + ');}</style>');
   }
+}
+
+function replaceStylesheet(old: HTMLLinkElement, oldKey: string, newKey: string, media?: 'dark' | 'light') {
+  const link = document.createElement('link') as HTMLLinkElement;
+  link.rel = 'stylesheet';
+  link.href = old.href.replace('.' + oldKey + '.', '.' + newKey + '.');
+  if (media) link.media = `(prefers-color-scheme: ${media})`;
+  link.onload = () => setTimeout(() => old.remove(), 100);
+  document.head.appendChild(link);
 }

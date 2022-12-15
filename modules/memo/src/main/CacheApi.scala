@@ -1,13 +1,13 @@
 package lila.memo
 
-import akka.actor.ActorSystem
+import akka.actor.Scheduler
 import com.github.benmanes.caffeine
 import com.github.blemale.scaffeine.*
 import play.api.Mode
 import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
-final class CacheApi(mode: Mode)(using ExecutionContext, ActorSystem):
+final class CacheApi(mode: Mode)(using ExecutionContext, Scheduler):
 
   import CacheApi.*
 
@@ -76,11 +76,9 @@ final class CacheApi(mode: Mode)(using ExecutionContext, ActorSystem):
 
 object CacheApi:
 
+  export lila.common.LilaCache.*
+
   private[memo] type Builder = Scaffeine[Any, Any]
-
-  def scaffeine: Builder = lila.common.LilaCache.scaffeine
-
-  def scaffeineNoScheduler: Builder = Scaffeine()
 
   extension [K, V](cache: AsyncCache[K, V])
 
@@ -100,8 +98,8 @@ object CacheApi:
   private[memo] def startMonitor(
       name: String,
       cache: caffeine.cache.Cache[?, ?]
-  )(using ec: ExecutionContext, system: ActorSystem): Unit =
-    system.scheduler
+  )(using ec: ExecutionContext, scheduler: akka.actor.Scheduler): Unit =
+    scheduler
       .scheduleWithFixedDelay(1 minute, 1 minute) { () =>
         lila.mon.caffeineStats(cache, name)
       }

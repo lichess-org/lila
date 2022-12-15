@@ -593,6 +593,7 @@ object I18nKeys:
   val `light` = I18nKey("light")
   val `dark` = I18nKey("dark")
   val `transparent` = I18nKey("transparent")
+  val `deviceTheme` = I18nKey("deviceTheme")
   val `backgroundImageUrl` = I18nKey("backgroundImageUrl")
   val `boardGeometry` = I18nKey("boardGeometry")
   val `boardTheme` = I18nKey("boardTheme")

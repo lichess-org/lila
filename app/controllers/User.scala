@@ -412,7 +412,7 @@ final class User(
         val rageSit = isGranted(_.CheatHunter) ?? env.playban.api
           .getRageSit(user.id)
           .zip(env.playban.api.bans(user.id))
-          .map { case (r, p) => view.showRageSitAndPlaybans(r, p) }
+          .map(view.showRageSitAndPlaybans)
 
         val actions = env.user.repo.isErased(user) map { erased =>
           html.user.mod.actions(user, emails, erased, env.mod.presets.getPmPresets(holder.user))
@@ -461,7 +461,7 @@ final class User(
             modZoneSegment(kaladin, "kaladin", user) merge
             modZoneSegment(irwin, "irwin", user) merge
             modZoneSegment(assess, "assess", user) via
-            EventSource.flow
+            EventSource.flow log "User.renderModZone"
         }.as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
     }
 
@@ -480,8 +480,8 @@ final class User(
         .bindFromRequest()
         .fold(
           err => BadRequest(err.errors.toString).toFuccess,
-          data => doWriteNote(username, me, data)(
-            user =>
+          data =>
+            doWriteNote(username, me, data)(user =>
               if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
                 Ok(views.html.mod.inquiry.noteZone(user, notes))
               }
@@ -489,7 +489,7 @@ final class User(
                 env.socialInfo.fetchNotes(user, me) map { notes =>
                   Ok(views.html.user.show.header.noteZone(user, notes))
                 }
-          )
+            )
         )
     }
 

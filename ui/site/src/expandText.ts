@@ -1,4 +1,5 @@
 import * as xhr from 'common/xhr';
+import { currentTheme } from 'common/theme';
 
 type LinkType = 'youtube' | 'study' | 'twitter';
 
@@ -87,10 +88,11 @@ lichess.load.then(() => {
 
   let twitterLoaded = false;
   function expandTwitter(a: Candidate) {
-    const theme = $('body').data('theme') == 'light' ? 'light' : 'dark';
     $(a.element).replaceWith(
       $(
-        `<blockquote class="twitter-tweet" data-dnt="true" data-theme="${theme}"><a href="${a.src}">${a.src}</a></blockquote>`
+        `<blockquote class="twitter-tweet" data-dnt="true" data-theme="${currentTheme()}"><a href="${a.src}">${
+          a.src
+        }</a></blockquote>`
       )
     );
     if (!twitterLoaded) {

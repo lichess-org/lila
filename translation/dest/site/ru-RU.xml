@@ -174,7 +174,7 @@
   <string name="viewInFullSize">Посмотреть в полном размере</string>
   <string name="logOut">Выйти</string>
   <string name="signIn">Войти</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">Запомнить меня</string>
+  <string name="rememberMe">Запомнить меня</string>
   <string name="youNeedAnAccountToDoThat">Вам нужно зарегистрироваться, чтобы сделать это</string>
   <string name="signUp">Регистрация</string>
   <string name="computersAreNotAllowedToPlay">Создание учётных записей для ботов запрещено. Пожалуйста, во время игры не используйте шахматные движки, базы данных или подсказки других игроков. Также учтите, что создание нескольких аккаунтов не приветствуется и чрезмерное их количество приведёт к блокировке.</string>
@@ -807,10 +807,11 @@
   <string name="anonymous">Аноним</string>
   <string name="yourScore">Ваш счёт: %s</string>
   <string name="language">Язык (Language)</string>
-  <string name="background">Фон</string>
-  <string name="light">Светлый</string>
-  <string name="dark">Тёмный</string>
-  <string name="transparent">Прозрачный</string>
+  <string name="background">Тема</string>
+  <string name="light">Светлая</string>
+  <string name="dark">Тёмная</string>
+  <string name="transparent">Прозрачная</string>
+  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Системная</string>
   <string name="backgroundImageUrl">URL фонового изображения:</string>
   <string name="boardGeometry">Вид и размер доски</string>
   <string name="boardTheme">Оформление доски</string>

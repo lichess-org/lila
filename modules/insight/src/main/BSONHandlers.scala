@@ -50,8 +50,8 @@ object BSONHandlers:
     def reads(r: BSON.Reader) =
       InsightMove(
         phase = r.get[Phase]("p"),
-        tenths = r.get[Int]("t"),
-        clockPercent = r.get[ClockPercent]("s"),
+        tenths = r.intO("t"),
+        clockPercent = r.getO[ClockPercent]("s"),
         role = r.get[Role]("r"),
         eval = r.intO("e"),
         cpl = r.intO("c"),

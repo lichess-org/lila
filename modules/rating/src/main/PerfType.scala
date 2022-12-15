@@ -87,7 +87,7 @@ object PerfType:
 
   case object Chess960
       extends PerfType(
-        Perf.Id(1),
+        Perf.Id(11),
         key = Perf.Key("chess960"),
         name = chess.variant.Chess960.name,
         title = "Chess960 variant",
@@ -96,7 +96,7 @@ object PerfType:
 
   case object KingOfTheHill
       extends PerfType(
-        Perf.Id(1),
+        Perf.Id(12),
         key = Perf.Key("kingOfTheHill"),
         name = chess.variant.KingOfTheHill.name,
         title = "King of the Hill variant",
@@ -105,7 +105,7 @@ object PerfType:
 
   case object Antichess
       extends PerfType(
-        Perf.Id(1),
+        Perf.Id(13),
         key = Perf.Key("antichess"),
         name = chess.variant.Antichess.name,
         title = "Antichess variant",

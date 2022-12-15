@@ -50,18 +50,18 @@ final class UserLoginsApi(
         }
       }.toMap
       val ipClients: Map[IpAddress, Set[UserAgent.Client]] =
-        infos.foldLeft(Map.empty[IpAddress, Set[UserAgent.Client]]) { case (acc, info) =>
+        infos.foldLeft(Map.empty[IpAddress, Set[UserAgent.Client]]) { (acc, info) =>
           acc.updated(info.ip, acc.get(info.ip).fold(Set(info.ua.client))(_ + info.ua.client))
         }
       fetchOtherUsers(user, ips.map(_.value).toSet, fps.map(_.value).toSet, maxOthers) zip
-        ip2proxy.keepProxies(ips.map(_.value).toList) map { case (otherUsers, proxies) =>
-          val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]) { case (acc, other) =>
-            other.ips.foldLeft(acc) { case (acc, ip) =>
+        ip2proxy.keepProxies(ips.map(_.value).toList) map { (otherUsers, proxies) =>
+          val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]) { (acc, other) =>
+            other.ips.foldLeft(acc) { (acc, ip) =>
               acc.updated(ip, acc.getOrElse(ip, Set.empty) + other.user)
             }
           }
-          val othersByFp = otherUsers.foldLeft(Map.empty[FingerHash, Set[User]]) { case (acc, other) =>
-            other.fps.foldLeft(acc) { case (acc, fp) =>
+          val othersByFp = otherUsers.foldLeft(Map.empty[FingerHash, Set[User]]) { (acc, other) =>
+            other.fps.foldLeft(acc) { (acc, fp) =>
               acc.updated(fp, acc.getOrElse(fp, Set.empty) + other.user)
             }
           }
@@ -100,7 +100,7 @@ final class UserLoginsApi(
       max: Int
   ): Fu[List[OtherUser[User]]] =
     ipSet.nonEmpty ?? store.coll
-      .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+      .aggregateList(max, readPreference = temporarilyPrimary) { implicit framework =>
         import framework.*
         import FingerHash.given
         Match(
@@ -189,7 +189,7 @@ object UserLogins:
         case (acc, Dated(v, date))                 => acc + (v -> date)
       }
       .view
-      .map { case (v, date) => Dated(v, date) }
+      .map(Dated.apply)
 
   case class Alts(users: Set[User]):
     lazy val boosters = users.count(_.marks.boost)

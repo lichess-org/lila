@@ -5,4 +5,5 @@
     <item quantity="one">%s ही स्विस स्पर्धेतील फेs्यांची संख्या आहे</item>
     <item quantity="other">सर्व%s फेs पहा</item>
   </plurals>
+  <string name="streaksAndBerserk">विजयी मालिका आणि बेडर खेळ</string>
 </resources>

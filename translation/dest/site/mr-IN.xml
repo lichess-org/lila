@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">मित्रा सोबत खेळा</string>
-  <string name="playWithTheMachine">संगणका बरोबर खेळा</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">कुणाला आपल्या बरोबर खेळण्याचे निमंत्रित देण्यासाठी हा URL द्या</string>
+  <string name="playWithTheMachine">संगणकाविरूद्ध खेळा</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">कुणाला आपल्या बरोबर खेळण्याचे निमंत्रण देण्यासाठी हा URL द्या</string>
   <string name="gameOver">डाव समाप्त</string>
   <string name="waitingForOpponent">प्रतिस्पर्ध्याची प्रतीक्षा आहे</string>
-  <string name="waiting">वाट पाहत आहे</string>
+  <string name="waiting">प्रतीक्षेत आहे</string>
   <string name="yourTurn">तुमची चाल</string>
   <string name="aiNameLevelAiLevel">%1$s, पातळी %2$s</string>
   <string name="level">पातळी</string>
@@ -40,7 +40,7 @@
     <item quantity="one">प्रतिस्पर्ध्याने खेळ सोडला आहे. आपण %s सेकंदात विजयाचा दावा करू शकता.</item>
     <item quantity="other">प्रतिस्पर्ध्याने खेळ सोडला. आपण %s सेकंदात विजयाचा दावा करू शकता.</item>
   </plurals>
-  <string name="opponentLeftChoices">प्रतिस्पर्ध्याने खेळ सोडला आहे. तुम्ही विजयाचा दावा करू शकतात, नाही तर त्यांची वाट पाहू शकतात.</string>
+  <string name="opponentLeftChoices">प्रतिस्पर्ध्याने खेळ सोडला आहे. तुम्ही विजयाचा दावा करू शकता, बरोबरी मानू शकता, किंवा प्रतीक्षा करू शकता.</string>
   <string name="forceResignation">विजयाचा दावा करा</string>
   <string name="forceDraw">सामना बरोबरीत सोडवण्याची विनंती करा</string>
   <string name="talkInChat">कृपया गप्पांमध्ये सभ्यतेने बोला!</string>
@@ -109,7 +109,7 @@
   <string name="deleteThisImportedGame">मागावलेला खेळ हटवायचा?</string>
   <string name="replayMode">रीप्ले मोड</string>
   <string name="realtimeReplay">प्रत्यक्ष वेळी</string>
-  <string name="byCPL">प्यादा गमावल्याने</string>
+  <string name="byCPL">सेंटीपॉन तोट्यानुसार</string>
   <string name="openStudy">अभ्यास</string>
   <string name="enable">सक्षम करा</string>
   <string name="bestMoveArrow">उत्तम चाल बाण</string>
@@ -139,7 +139,7 @@
   <string name="threefoldRepetition">तीनदा पुनरावृत्ती</string>
   <string name="claimADraw">बरोबरीत सोडवण्याचा दावा करा</string>
   <string name="offerDraw">बरोबरीत सोडवण्याचा प्रस्ताव पाठवा</string>
-  <string name="draw">बरोबरीत सुटलेला</string>
+  <string name="draw">बरोबरीत सुटला</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s खेळाडू</item>
     <item quantity="other">%s खेळाडू</item>
@@ -158,7 +158,7 @@
   <string name="viewInFullSize">अधिकतम आकारात पाहा</string>
   <string name="logOut">बाहेर पडा</string>
   <string name="signIn">प्रवेश करा</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">मला ल</string>
+  <string name="rememberMe">मला ल</string>
   <string name="youNeedAnAccountToDoThat">त्यासाठी तुम्हाला खातं लागेल</string>
   <string name="signUp">सदस्य खाते तयार करा</string>
   <string name="computersAreNotAllowedToPlay">संगणक आणि संगणक-सहाय्य केलेल्या खेळाडूंना खेळण्याची परवानगी नाही. कृपया बुद्धिबळ यंत्रांकडून, डेटाबेसमधून किंवा इतर खेळाडूंकडून मदत घेऊ नका. हे देखील लक्षात घ्या की एकापेक्षा जास्त खाती बनविणे अवैध आहे आणि त्यासाठी बंदी घातली जाईल.</string>
@@ -223,7 +223,7 @@
   <string name="cancel">रद्द करा</string>
   <string name="whiteTimeOut">पांढऱ्याचा वेळ संपला</string>
   <string name="blackTimeOut">काळ्याचा वेळ संपला</string>
-  <string name="drawOfferSent">बरोबरीत सोडण्याचा प्रस्ताव पाठवला</string>
+  <string name="drawOfferSent">बरोबरीत सोडवण्याचा प्रस्ताव पाठवला</string>
   <string name="drawOfferAccepted">बरोबरीत सोडवण्याचा प्रस्ताव स्वीकारला</string>
   <string name="drawOfferCanceled">बरोबरीत सोडवण्याचा प्रस्ताव रद्द केला गेला</string>
   <string name="whiteOffersDraw">पांढऱ्याने सामना बरोबरीत सोडवण्याचा प्रस्ताव केला आहे</string>
@@ -623,7 +623,7 @@
   <string name="aboutSimulRules">जेव्हा अनेकांविरुद्ध प्रदर्शन सुरू होते, तेव्हा प्रत्येक खेळाडू यजमानासह खेळ सुरू करतो. जेव्हा सर्व खेळ पूर्ण होतात तेव्हा प्रदर्शन संपते.</string>
   <string name="aboutSimulSettings">सिमूल नेहमीच प्रासंगिक असतात. रीमॅच, टेकबॅक आणि वेळ जोडणे असमर्थ केले आहेत.</string>
   <string name="create">तयार करा</string>
-  <string name="whenCreateSimul">जेव्हा आपण एखादे सिमुल तयार करता तेव्हा आपल्याला एकाच वेळी अनेक खेळाडू खेळायला मिळतात.</string>
+  <string name="whenCreateSimul">जेव्हा आपण एखादे अनेकांविरुद्ध प्रदर्शन तयार करता तेव्हा आपल्याला एकाच वेळी अनेक खेळाडू खेळायला मिळतात.</string>
   <string name="simulVariantsHint">आपण कित्येक प्रकार निवडल्यास प्रत्येक खेळाडू कोणता प्रकार खेळायचा ते ठरवू शकेल.</string>
   <string name="simulClockHint">फिशर क्लॉक सेटअप. आपण जितके अधिक खेळाडू घेता, तितके आपल्याला अधिक वेळ लागेल.</string>
   <string name="simulAddExtraTime">एकाच वेळी अनेकांचा सामना करण्यास सोपे व्हावे म्हणून आपण आपल्या घड्याळात अतिरिक्त वेळ घालवू शकता.</string>
@@ -631,7 +631,7 @@
   <string name="lichessTournaments">लीचेस क्रीडासत्र</string>
   <string name="tournamentFAQ">क्रीडासत्राचे सामान्य प्रश्न</string>
   <string name="timeBeforeTournamentStarts">क्रीडासत्र सुरू होण्यास बाकी वेळ</string>
-  <string name="averageCentipawnLoss">प्यादानचे सरासरी नुकसान</string>
+  <string name="averageCentipawnLoss">सरासरी सेंटीपॉन तोटा</string>
   <string name="accuracy">अचूकता</string>
   <string name="keyboardShortcuts">कीबोर्ड शॉर्टकट</string>
   <string name="keyMoveBackwardOrForward">मागे/पुढे चला</string>
@@ -717,7 +717,7 @@
   <string name="transparent">पारदर्शक</string>
   <string name="backgroundImageUrl">Background चित्रासाठी URL:</string>
   <string name="boardGeometry">पटाचा प्रकार</string>
-  <string name="boardTheme">बुद्धिबळ पटाची Theme</string>
+  <string name="boardTheme">पटाचे रंगरूप</string>
   <string name="boardSize">बुद्धिबळ पटाचा आकार</string>
   <string name="pieceSet">सोंगट्या</string>
   <string name="embedInYourWebsite">तुमच्या वेबसाइटवर टाका</string>
@@ -779,7 +779,7 @@
   </plurals>
   <string name="opening">ओपनिंग</string>
   <string name="middlegame">मध्यखेळ</string>
-  <string name="endgame">खेळाचा शेवट</string>
+  <string name="endgame">अंत्यखेळ</string>
   <string name="conditionalPremoves">सशर्त प्रिमुव्ह</string>
   <string name="addCurrentVariation">वर्तमान variation जोडा</string>
   <string name="playVariationToCreateConditionalPremoves">सशर्त प्रिमुव्ह तयार करण्यासाठी variation खेळा</string>
@@ -895,7 +895,7 @@
   <string name="focusChat">chat वर लक्ष्य केंद्रित करा</string>
   <string name="showHelpDialog">येथील मदत पर्याय दाखवा</string>
   <string name="reopenYourAccount">आपले खाते पुन्हा उघडा</string>
-  <string name="closedAccountChangedMind">जर आपण आपले खाते बंद केले असेल, पान आपले मत नंतर बदलले असेल, तर आपल्याला आपले खाते परत मिळवण्यासाठी अजून एक संधी आहे.</string>
+  <string name="closedAccountChangedMind">जर आपण आपले खाते बंद केले, पण त्यानंतर आपले मन बदलले असेल, तर आपल्याला आपले खाते परत मिळवण्यासाठी अजून एक संधी आहे.</string>
   <string name="onlyWorksOnce">ही प्रक्रिया एकदा कामी येईल.</string>
   <string name="cantDoThisTwice">जर आपण आपले खाते दुसऱ्यांदा बंद केले, तर ते परत मिळवता येणार नाही.</string>
   <string name="emailAssociatedToaccount">खात्याशी संबंधित ईमेल अॅड्रेस</string>
