@@ -49,4 +49,39 @@
   <string name="readMoreAboutEmbedding">तुमच्या वेबसाइटवर टाकण्याबद्दल वाचा</string>
   <string name="onlyPublicStudiesCanBeEmbedded">फक्त सार्वजनिक अभ्यास वेबसाइटवर टाकता येतात!</string>
   <string name="open">उघडा</string>
+  <string name="orientation">अभिमुखता</string>
+  <string name="goodMove">चांगली चाल</string>
+  <string name="brilliantMove">तल्लख चाल</string>
+  <string name="blunder">घोडचूक</string>
+  <string name="interestingMove">चित्तवेधक चाल</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">संशयास्पद चाल</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">एकमात्र चाल</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">झुगझ्वांग</string>
+  <string name="equalPosition">बरोबरीची स्थिती</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">अस्पष्ट स्थिती</string>
+  <string name="whiteIsSlightlyBetter">पांढऱ्याची स्थिती थोडी चांगली आहे</string>
+  <string name="blackIsSlightlyBetter">काळ्याची स्थिती थोडी चांगली आहे</string>
+  <string name="whiteIsBetter">पांढऱ्याची स्थिती चांगली आहे</string>
+  <string name="blackIsBetter">पांढऱ्याची स्थिती चांगली आहे</string>
+  <string name="whiteIsWinning">पांढरा जिंकत आहे</string>
+  <string name="blackIsWinning">काळा जिंकत आहे</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">अपूर्वता</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">विकास</string>
+  <string name="initiative">पुढाकार</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">हल्ला</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">प्रतिहल्ला</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">वेळेमुळे संकटात</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">भरपाईसह</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">या विचाराने</string>
+  <string name="nextChapter">पुढचा अध्याय</string>
+  <string name="prevChapter">मागचा अध्याय</string>
+  <string name="studyActions">अभ्यासातील क्रिया</string>
+  <string name="topics">विषय</string>
+  <string name="myTopics">माझे विषय</string>
+  <string name="popularTopics">लोकप्रय विषय</string>
+  <string name="manageTopics">बिषय व्यवस्थापन</string>
+  <string name="back">मागे</string>
+  <string name="playAgain">परत खेळा</string>
+  <string name="whatWouldYouPlay">या स्थितीत तुम्ही काय खेळाल?</string>
+  <string name="youCompletedThisLesson">अभिनंदन! तुम्ही हा धडा पूर्ण केला.</string>
 </resources>
