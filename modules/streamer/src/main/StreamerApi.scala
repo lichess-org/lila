@@ -93,7 +93,7 @@ final class StreamerApi(
         )
         ~modChange.list ?? {
           notifyApi.notifyOne(
-            streamer.userId,
+            streamer,
             lila.notify.GenericLink(
               url = "/streamer/edit",
               title = "Listed on /streamer".some,

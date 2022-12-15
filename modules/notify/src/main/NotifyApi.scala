@@ -72,7 +72,7 @@ final class NotifyApi(
 
   def exists = repo.exists
 
-  def notifyOne(to: UserId, content: NotificationContent): Funit =
+  def notifyOne[U: UserIdOf](to: U, content: NotificationContent): Funit =
     val note = Notification.make(to, content)
     !shouldSkip(note) ifThen {
       insertNotification(note) >> {
@@ -137,4 +137,3 @@ final class NotifyApi(
       case PrivateMessage(sender, _) =>
         repo.hasRecentPrivateMessageFrom(note.to, sender)
       case _ => userRepo.isKid(note.to)
-    

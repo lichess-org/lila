@@ -104,7 +104,7 @@ object Notification:
   case class AndUnread(pager: Paginator[Notification], unread: Int)
   case class IncrementUnread()
 
-  def make(to: UserId, content: NotificationContent): Notification =
+  def make[U](to: U, content: NotificationContent)(using userIdOf: UserIdOf[U]): Notification =
     val idSize = 8
-    val id = ThreadLocalRandom nextString idSize
-    new Notification(id, to, content, NotificationRead(false), DateTime.now)
+    val id     = ThreadLocalRandom nextString idSize
+    Notification(id, userIdOf(to), content, NotificationRead(false), DateTime.now)

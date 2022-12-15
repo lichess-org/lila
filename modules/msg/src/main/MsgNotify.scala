@@ -66,9 +66,9 @@ final private class MsgNotify(
   private def doNotify(threadId: MsgThread.Id): Funit =
     colls.thread.byId[MsgThread](threadId.value) flatMap {
       _ ?? { thread =>
-        val msg  = thread.lastMsg
+        val msg = thread.lastMsg
         !thread.delBy(thread other msg.user) ?? {
-          notifyApi notifyOne (thread other msg.user, PrivateMessage(msg.user, text = shorten(msg.text, 40)))
+          notifyApi.notifyOne(thread other msg.user, PrivateMessage(msg.user, text = shorten(msg.text, 40)))
         }
       }
     } void
