@@ -17,6 +17,7 @@ import scala.collection.Factory
 trait Handlers:
 
   // free handlers for all types with TotalWrapper
+  // unless they are given an instance of lila.db.NoDbHandler[T]
   given opaqueHandler[T, A](using
       sr: SameRuntime[A, T],
       rs: SameRuntime[T, A],
