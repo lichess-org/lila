@@ -6,6 +6,40 @@ import { env, colors as c, lines, errorMark } from './main';
 import { buildModules } from './build';
 import { globArray } from './parse';
 
+export async function sass(): Promise<void> {
+  builder.clear();
+  importMap.clear();
+
+  await buildThemedScss();
+
+  const allSources = await globArray('./*/css/**/[^_]*.scss', { abs: false });
+
+  const modNames = buildModules.map(x => x.name);
+
+  // filter to modules we're actually building
+  builder.sources = new Set<string>(allSources.filter(x => modNames.find(y => x.startsWith(`${y}${path.sep}`))));
+
+  for (const build of builder.sources) {
+    await parseImports(build);
+  }
+
+  if (env.watch) {
+    for (const dir of [...importMap.keys()].map(path.dirname)) {
+      const watcher = fs.watch(dir);
+      watcher.on('change', onChanges.bind(null, dir));
+      watcher.on('error', (err: Error) => env.error(err, 'sass'));
+      watcher.on('close', () => {
+        env.error('Watcher closed unexpectedly. Exiting', 'bleep');
+        ps.exit(-1);
+      });
+    }
+  }
+  if (builder.sources.size) {
+    env.log('Building css', { ctx: 'sass' });
+    compile([...builder.sources], false);
+  } else env.done(0, 'sass');
+}
+
 const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
 const importMap = new Map<string, Set<string>>(); // (cssFile, sourcesThatImportIt)
 const partialRe = /(.*)\/_(.*)\.scss$/;
@@ -13,7 +47,7 @@ const importRe = /@import ['"](.*)['"]/g;
 const builder = new (class {
   fileSet = new Set<string>();
   timeout: NodeJS.Timeout | undefined;
-  themedSources: Set<string>;
+  sources: Set<string>;
 
   clear() {
     clearTimeout(this.timeout);
@@ -33,35 +67,10 @@ const builder = new (class {
   }
 
   fire() {
-    compile([...this.fileSet].filter(x => this.themedSources.has(x)));
+    compile([...this.fileSet].filter(x => this.sources.has(x)));
     this.clear();
   }
 })();
-
-export async function sass(): Promise<void> {
-  builder.clear();
-  importMap.clear();
-
-  await buildThemedScss();
-  const allThemed = await globArray('./*/css/**/[^_]*.scss', { abs: false });
-  const modNames = buildModules.map(x => x.name);
-  builder.themedSources = new Set<string>(allThemed.filter(x => modNames.find(y => x.startsWith(`${y}${path.sep}`))));
-
-  if (env.watch)
-    for (const dir of [...importMap.keys()].map(path.dirname)) {
-      const watcher = fs.watch(dir);
-      watcher.on('change', onChanges.bind(null, dir));
-      watcher.on('error', (err: Error) => env.error(err, 'sass'));
-      watcher.on('close', () => {
-        env.error('Watcher closed unexpectedly. Exiting', 'bleep');
-        ps.exit(-1);
-      });
-    }
-  if (builder.themedSources.size) {
-    env.log('Building css', { ctx: 'sass' });
-    compile([...builder.themedSources], false);
-  } else env.done(0, 'sass');
-}
 
 async function buildThemedScss() {
   env.log('Building themed scss', { ctx: 'sass' });
@@ -78,7 +87,6 @@ async function buildThemedScss() {
       for (const theme of ['light', 'dark', 'transp']) {
         const themed = `${path}/${partial}.${direction}.${theme}.scss`;
         if (fs.existsSync(themed)) {
-          await parseImports(themed);
           continue;
         }
         const code =
@@ -87,7 +95,6 @@ async function buildThemedScss() {
           `@import '${partial}';\n`;
         try {
           await fs.promises.writeFile(themed, code);
-          await parseImports(themed);
         } catch (e) {
           env.log(e, { error: true });
         }
@@ -102,9 +109,8 @@ function compile(sources: string[], tellTheWorld = true) {
       env.log(`Building '${c.cyan(srcFile)}'`, { ctx: 'sass' });
     }
   }
-  const sassExec = path.join(env.bleepDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
 
-  // TODO: vendor prefixes for prod builds
+  const sassExec = path.join(env.bleepDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
   const proc = cps.spawn(
     sassExec,
     sassArgs.concat(
