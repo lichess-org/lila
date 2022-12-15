@@ -21,19 +21,22 @@ final class MentionNotifier(
 
   def notifyMentionedUsers(post: ForumPost, topic: ForumTopic): Funit =
     post.userId.ifFalse(post.troll) ?? { author =>
-      filterValidUsers(extractMentionedUsers(post), author) map { mentionedUsers =>
-        mentionedUsers foreach { user =>
-          notifyApi.notifyOne(
-            user,
-            lila.notify.MentionedInThread(
-              mentionedBy = author,
-              topic = topic.name,
-              topidId = topic.id,
-              category = post.categId,
-              postId = post.id
+      filterValidUsers(extractMentionedUsers(post), author) flatMap { mentionedUsers =>
+        mentionedUsers
+          .map { user =>
+            notifyApi.notifyOne(
+              user,
+              lila.notify.MentionedInThread(
+                mentionedBy = author,
+                topic = topic.name,
+                topidId = topic.id,
+                category = post.categId,
+                postId = post.id
+              )
             )
-          )
-        }
+          }
+          .sequenceFu
+          .void
       }
     }
 
