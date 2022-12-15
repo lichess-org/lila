@@ -127,8 +127,8 @@ package timeline:
     def userIds = List(userId)
   case class TeamCreate(userId: UserId, teamId: TeamId) extends Atom("teamCreate", false):
     def userIds = List(userId)
-  case class ForumPost(userId: UserId, topicId: Option[String], topicName: String, postId: String)
-      extends Atom(s"forum:${~topicId}", false):
+  case class ForumPost(userId: UserId, topicId: ForumTopicId, topicName: String, postId: ForumPostId)
+      extends Atom(s"forum:$topicId", false):
     def userIds = List(userId)
   case class UblogPost(userId: UserId, id: UblogPostId, slug: String, title: String)
       extends Atom(s"ublog:$id", false):

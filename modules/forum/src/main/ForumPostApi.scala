@@ -62,7 +62,7 @@ final class ForumPostApi(
               }
               if (anonMod) logAnonPost(me.id, post, edit = false)
               else if (!post.troll && !categ.quiet && !topic.isTooBig)
-                timeline ! Propagate(TimelinePost(me.id, topic.id.value.some, topic.name, post.id.value)).pipe {
+                timeline ! Propagate(TimelinePost(me.id, topic.id, topic.name, post.id)).pipe {
                   _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id withTeam categ.team
                 }
               lila.mon.forum.post.create.increment()

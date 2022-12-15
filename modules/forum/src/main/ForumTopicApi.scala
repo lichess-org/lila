@@ -102,7 +102,7 @@ final private class ForumTopicApi(
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, text)
               }
               if (!post.troll && !categ.quiet)
-                timeline ! Propagate(TimelinePost(me.id, topic.id.value.some, topic.name, post.id.value))
+                timeline ! Propagate(TimelinePost(me.id, topic.id, topic.name, post.id))
                   .toFollowersOf(me.id)
                   .withTeam(categ.team)
               lila.mon.forum.post.create.increment()
