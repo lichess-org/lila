@@ -51,20 +51,15 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(implici
   def unsubscribe(userId: UserId, streamerId: UserId): Funit =
     coll.delete.one($id(makeId(userId, streamerId))).void
 
-  def isSubscribed[U, S](userId: U, streamerId: S)(using idOfU: UserIdOf[U], idOfS: UserIdOf[S]): Fu[Boolean] =
+  def isSubscribed[U, S](userId: U, streamerId: S)(using
+      idOfU: UserIdOf[U],
+      idOfS: UserIdOf[S]
+  ): Fu[Boolean] =
     coll.exists($id(makeId(idOfU(userId), idOfS(streamerId))))
 
-  def isSubscribed(userId: UserId, streamerIds: List[UserId]): Fu[Map[UserId, Boolean]] = {
-    coll
-      .find(
-        $inIds(streamerIds map (makeId(userId, _))),
-        $doc("s" -> true, "_id" -> false).some
-      )
-      .cursor[Bdoc]()
-      .list(-1)
-      .dmap { x =>
-        val subscribedTo = x flatMap (_ string "s")
-        streamerIds.map(s => (s, subscribedTo contains s)).toMap
-      }
-  }
+  // only use "_id", not "s", so that mongo can work entirely from the index
+  def filterSubscribed(subscriber: UserId, streamerIds: List[UserId]): Fu[Set[UserId]] =
+    coll.distinctEasy[String, Set]("_id", $inIds(streamerIds.map(makeId(subscriber, _)))) map { ids =>
+      UserId from ids.flatMap(_.split('/').lift(1))
+    }
 }
