@@ -40,7 +40,7 @@
     <item quantity="one">प्रतिस्पर्ध्याने खेळ सोडला आहे. आपण %s सेकंदात विजयाचा दावा करू शकता.</item>
     <item quantity="other">प्रतिस्पर्ध्याने खेळ सोडला. आपण %s सेकंदात विजयाचा दावा करू शकता.</item>
   </plurals>
-  <string name="opponentLeftChoices">प्रतिस्पर्ध्याने खेळ सोडला आहे. तुम्ही विजयाचा दावा करू शकतात, नाही तर त्यांची वाट पाहू शकतात.</string>
+  <string name="opponentLeftChoices">प्रतिस्पर्ध्याने खेळ सोडला आहे. तुम्ही विजयाचा दावा करू शकता, बरोबरी मानू शकता, किंवा प्रतीक्षा करू शकता.</string>
   <string name="forceResignation">विजयाचा दावा करा</string>
   <string name="forceDraw">सामना बरोबरीत सोडवण्याची विनंती करा</string>
   <string name="talkInChat">कृपया गप्पांमध्ये सभ्यतेने बोला!</string>
@@ -109,7 +109,7 @@
   <string name="deleteThisImportedGame">मागावलेला खेळ हटवायचा?</string>
   <string name="replayMode">रीप्ले मोड</string>
   <string name="realtimeReplay">प्रत्यक्ष वेळी</string>
-  <string name="byCPL">प्यादा गमावल्याने</string>
+  <string name="byCPL">सेंटीपॉन तोट्यानुसार</string>
   <string name="openStudy">अभ्यास</string>
   <string name="enable">सक्षम करा</string>
   <string name="bestMoveArrow">उत्तम चाल बाण</string>
@@ -631,7 +631,7 @@
   <string name="lichessTournaments">लीचेस क्रीडासत्र</string>
   <string name="tournamentFAQ">क्रीडासत्राचे सामान्य प्रश्न</string>
   <string name="timeBeforeTournamentStarts">क्रीडासत्र सुरू होण्यास बाकी वेळ</string>
-  <string name="averageCentipawnLoss">प्यादानचे सरासरी नुकसान</string>
+  <string name="averageCentipawnLoss">सरासरी सेंटीपॉन तोटा</string>
   <string name="accuracy">अचूकता</string>
   <string name="keyboardShortcuts">कीबोर्ड शॉर्टकट</string>
   <string name="keyMoveBackwardOrForward">मागे/पुढे चला</string>
@@ -717,7 +717,7 @@
   <string name="transparent">पारदर्शक</string>
   <string name="backgroundImageUrl">Background चित्रासाठी URL:</string>
   <string name="boardGeometry">पटाचा प्रकार</string>
-  <string name="boardTheme">बुद्धिबळ पटाची Theme</string>
+  <string name="boardTheme">पटाचे रंगरूप</string>
   <string name="boardSize">बुद्धिबळ पटाचा आकार</string>
   <string name="pieceSet">सोंगट्या</string>
   <string name="embedInYourWebsite">तुमच्या वेबसाइटवर टाका</string>
@@ -779,7 +779,7 @@
   </plurals>
   <string name="opening">ओपनिंग</string>
   <string name="middlegame">मध्यखेळ</string>
-  <string name="endgame">खेळाचा शेवट</string>
+  <string name="endgame">अंत्यखेळ</string>
   <string name="conditionalPremoves">सशर्त प्रिमुव्ह</string>
   <string name="addCurrentVariation">वर्तमान variation जोडा</string>
   <string name="playVariationToCreateConditionalPremoves">सशर्त प्रिमुव्ह तयार करण्यासाठी variation खेळा</string>
