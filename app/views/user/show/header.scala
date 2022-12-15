@@ -268,7 +268,7 @@ object header:
     notes.map { note =>
       div(cls := "note")(
         p(cls := "note__text")(richText(note.text, expandImg = false)),
-        note.mod option postForm(action := routes.User.setDoxNote(note._id, !note.dox))(
+        (note.mod && isGranted(_.Admin)) option postForm(action := routes.User.setDoxNote(note._id, !note.dox))(
           submitButton(
             cls   := "button-empty confirm button text",
           )("Toggle Dox")
