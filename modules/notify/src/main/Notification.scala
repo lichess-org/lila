@@ -106,7 +106,6 @@ object Notification:
   object NotificationRead extends YesNo[NotificationRead]
 
   case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
-  case class IncrementUnread()
 
   def make[U](to: U, content: NotificationContent)(using userIdOf: UserIdOf[U]): Notification =
     val idSize = 8
