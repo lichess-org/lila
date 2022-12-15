@@ -38,7 +38,7 @@ object notification {
         val name    = s"notification.$filterName.$allow"
         val checked = form.data(name).contains("true")
         td(
-          if (editable(s"$filterName.$allow"))
+          if (!hiddenFields(s"$filterName.$allow"))
             div(cls := "toggle", form3.cmnToggle(name, name, checked))
           else if (!checked)
             div(iconTag('\ue03f'))
@@ -56,11 +56,10 @@ object notification {
       }
     )
 
-  private def editable(name: String) = name match {
-    case "privateMessage.bell" => false
-    case "tournamentSoon.bell" => false
-    case "gameEvent.bell"      => false
-    case "challenge.bell"      => false
-    case _                     => true
-  }
+  private val hiddenFields = Set(
+    "privateMessage.bell",
+    "tournamentSoon.bell",
+    "gameEvent.bell",
+    "challenge.bell"
+  )
 }
