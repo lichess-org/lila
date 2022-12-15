@@ -461,7 +461,7 @@ final class User(
             modZoneSegment(kaladin, "kaladin", user) merge
             modZoneSegment(irwin, "irwin", user) merge
             modZoneSegment(assess, "assess", user) via
-            EventSource.flow
+            EventSource.flow log "User.renderModZone"
         }.as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
     }
 
