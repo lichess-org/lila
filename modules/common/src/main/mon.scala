@@ -653,7 +653,7 @@ object mon:
       for
         group          <- groups
         (state, count) <- group.states
-      yield metric.withTags(tags("name" -> group.name, "state" -> state)).update(count)
+      yield metric.withTags(tags("name" -> group.name, "state" -> state.toString)).update(count)
 
   def chronoSync[A] = lila.common.Chronometer.syncMon[A]
 
