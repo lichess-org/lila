@@ -114,7 +114,9 @@ final class Tv(
       val bc = getBool("bc", req)
       env.round.tvBroadcast ? TvBroadcast.Connect(bc) mapTo
         manifest[TvBroadcast.SourceType] map { source =>
-          if (bc) Ok.chunked(source via EventSource.flow).as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
+          if (bc)
+            Ok.chunked(source via EventSource.flow log "Tv.feed")
+              .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
           else apiC.sourceToNdJson(source)
         }
     }
