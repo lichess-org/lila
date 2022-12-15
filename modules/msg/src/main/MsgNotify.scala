@@ -71,4 +71,4 @@ final private class MsgNotify(
           notifyApi.notifyOne(thread other msg.user, PrivateMessage(msg.user, text = shorten(msg.text, 40)))
         }
       }
-    } void
+    }
