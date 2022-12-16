@@ -12,15 +12,15 @@ case class Allows(value: Int) extends AnyVal with IntValue:
   def any: Boolean    = value != 0
 
 object Allows:
-  def canFilter(tpe: String): Boolean = tpe match
-    case "privateMessage" => true
-    case "challenge"      => true
-    case "mention"        => true
-    case "streamStart"    => true
-    case "tournamentSoon" => true
-    case "gameEvent"      => true
-    case "invitedStudy"   => true
-    case _                => false
+  val canFilter = Set(
+    "privateMessage",
+    "challenge",
+    "mention",
+    "streamStart",
+    "tournamentSoon",
+    "gameEvent",
+    "invitedStudy"
+  )
 
   def fromForm(bell: Boolean, push: Boolean): Allows =
     Allows((bell ?? BELL) | (push ?? PUSH))
