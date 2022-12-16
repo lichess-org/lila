@@ -139,6 +139,7 @@ themes.map { |theme|
   if ext == 'png'
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
+  classes.append(".d-12x12 piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
 bidirectional.map { |theme|
@@ -161,6 +162,7 @@ bidirectional.map { |theme|
   if ext == 'png'
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
+  classes.append(".d-12x12 piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
 
@@ -178,6 +180,7 @@ themes.map { |theme|
   if ext == 'png'
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
+  classes.append(".d-12x12 piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }
 bidirectional.map { |theme|
@@ -195,5 +198,6 @@ bidirectional.map { |theme|
   if ext == 'png'
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
+  classes.append(".d-12x12 piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }

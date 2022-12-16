@@ -136,3 +136,4 @@ piece.horse.gote,
       .sg-wrap.orientation-gote piece.horse.sente,
       .hand-top piece.horse,
       .spare-top piece.horse.sente {background-image:url('/assets/piece/simple_kanji/1UM.svg')}
+.d-12x12 piece { background-image: none !important; } 

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg9180"
+   sodipodi:docname="big.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs9184" />
+  <sodipodi:namedview
+     id="namedview9182"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="2.6857477"
+     inkscape:cx="45.424967"
+     inkscape:cy="66.275771"
+     inkscape:window-width="1366"
+     inkscape:window-height="711"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg9180" />
+  <linearGradient
+     id="a"
+     gradientUnits="userSpaceOnUse"
+     x1="16.913"
+     y1="-845.7"
+     x2="82.09"
+     y2="-845.7"
+     gradientTransform="matrix(1 0 0 -1 0 -796)">
+    <stop
+       offset="0"
+       stop-color="#f9da9c"
+       id="stop9121" />
+    <stop
+       offset=".043"
+       stop-color="#fbe0a1"
+       id="stop9123" />
+    <stop
+       offset=".067"
+       stop-color="#fce6a6"
+       id="stop9125" />
+    <stop
+       offset=".145"
+       stop-color="#f4d593"
+       id="stop9127" />
+    <stop
+       offset=".193"
+       stop-color="#f5d797"
+       id="stop9129" />
+    <stop
+       offset=".243"
+       stop-color="#f7dda4"
+       id="stop9131" />
+    <stop
+       offset=".263"
+       stop-color="#f9e1ab"
+       id="stop9133" />
+    <stop
+       offset=".329"
+       stop-color="#f7dfa8"
+       id="stop9135" />
+    <stop
+       offset=".383"
+       stop-color="#f2d89e"
+       id="stop9137" />
+    <stop
+       offset=".398"
+       stop-color="#efd599"
+       id="stop9139" />
+    <stop
+       offset=".461"
+       stop-color="#f2d795"
+       id="stop9141" />
+    <stop
+       offset=".462"
+       stop-color="#f2d795"
+       id="stop9143" />
+    <stop
+       offset=".527"
+       stop-color="#f2d795"
+       id="stop9145" />
+    <stop
+       offset=".538"
+       stop-color="#f2d795"
+       id="stop9147" />
+    <stop
+       offset=".538"
+       stop-color="#f2d795"
+       id="stop9149" />
+    <stop
+       offset=".615"
+       stop-color="#efda9c"
+       id="stop9151" />
+    <stop
+       offset=".735"
+       stop-color="#f6e5ad"
+       id="stop9153" />
+    <stop
+       offset=".773"
+       stop-color="#f9e9b4"
+       id="stop9155" />
+    <stop
+       offset=".822"
+       stop-color="#f7e1a6"
+       id="stop9157" />
+    <stop
+       offset=".887"
+       stop-color="#f5db9b"
+       id="stop9159" />
+    <stop
+       offset=".956"
+       stop-color="#f4d997"
+       id="stop9161" />
+    <stop
+       offset=".967"
+       stop-color="#f4da9c"
+       id="stop9163" />
+    <stop
+       offset="1"
+       stop-color="#f4db9e"
+       id="stop9165" />
+  </linearGradient>
+  <g
+     id="g9723">
+    <path
+       fill="url(#a)"
+       stroke="#63451a"
+       stroke-width="1.01"
+       stroke-miterlimit="10"
+       d="M11.5 5.5v5.2L22 84.2l27.5 9.7L77 84.2l10.5-73.5V5.5z"
+       id="path9168" />
+    <path
+       fill="#63451a"
+       fill-opacity=".75"
+       d="m76.5 78.7-27 9.7-27-9.7L12 6.5v4.7l10.5 72.7 27 9.6 27-9.6L87 11.2V6.5z"
+       id="path9170" />
+  </g>
+</svg>
