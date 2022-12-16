@@ -83,6 +83,8 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
     trans.playWithTheMachine,
     trans.playWithAFriend,
     trans.analysis,
-    trans.toStudy
+    trans.toStudy,
+    trans.black,
+    trans.white
   ).map(_.key)
 }
