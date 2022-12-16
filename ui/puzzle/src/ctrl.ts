@@ -1,26 +1,26 @@
-import * as speech from './speech';
-import * as xhr from './xhr';
+import { CevalCtrl, ctrl as cevalCtrl } from 'ceval';
+import { prop } from 'common/common';
+import { defer } from 'common/defer';
+import { makeNotationWithPosition } from 'common/notation';
+import { storedProp } from 'common/storage';
+import throttle from 'common/throttle';
+import { Shogiground } from 'shogiground';
+import { Config as SgConfig } from 'shogiground/config';
+import { shogigroundDropDests, shogigroundMoveDests, usiToSquareNames } from 'shogiops/compat';
+import { makeSfen, parseSfen } from 'shogiops/sfen';
+import { Move, Outcome, Piece, Role } from 'shogiops/types';
+import { makeUsi, parseSquare, parseUsi } from 'shogiops/util';
+import { Shogi } from 'shogiops/variant/shogi';
+import { TreeWrapper, build as treeBuild, ops as treeOps, path as treePath } from 'tree';
 import computeAutoShapes from './autoShape';
+import { Controller, MoveTest, PuzzleData, PuzzleOpts, PuzzleResult, Redraw, ThemeKey, Vm } from './interfaces';
 import keyboard from './keyboard';
 import moveTest from './moveTest';
+import { mergeSolution, sfenToTree, usiToTree } from './moveTree';
 import PuzzleSession from './session';
-import throttle from 'common/throttle';
-import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
-import { Shogi } from 'shogiops/shogi';
-import { shogigroundDests, shogigroundDropDests, usiToSquareNames } from 'shogiops/compat';
-import { Config as SgConfig } from 'shogiground/config';
-import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
-import { defer } from 'common/defer';
-import { defined, prop } from 'common/common';
-import { parseSfen, makeSfen } from 'shogiops/sfen';
-import { usiToTree, mergeSolution, sfenToTree } from './moveTree';
-import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleResult, MoveTest, ThemeKey } from './interfaces';
-import { Move, Outcome, Piece, Role } from 'shogiops/types';
-import { storedProp } from 'common/storage';
+import * as speech from './speech';
 import { plyColor, scalashogiCharPair } from './util';
-import { makeSquare, makeUsi, parseSquare, parseUsi } from 'shogiops/util';
-import { makeNotationWithPosition } from 'common/notation';
-import { Shogiground } from 'shogiground';
+import * as xhr from './xhr';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   let vm: Vm = {
@@ -87,41 +87,41 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function position(): Shogi {
-    return parseSfen('standard', vm.node.sfen, false).unwrap() as Shogi;
+    return parseSfen('standard', vm.node.sfen, false).unwrap();
   }
 
   function makeSgOpts(): SgConfig {
-    const node = vm.node;
-    const color = plyColor(node.ply);
-    const dests = shogigroundDests(position());
-    const dropDests = shogigroundDropDests(position());
-    const isCheck = position().isCheck();
-    const nextNode = vm.node.children[0];
-    const canMove = vm.mode === 'view' || (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail'));
-    const splitSfen = node.sfen.split(' ');
-    const config: SgConfig = {
-      sfen: {
-        board: splitSfen[0],
-        hands: splitSfen[2],
-      },
-      orientation: vm.pov,
-      turnColor: color,
-      activeColor: canMove && (dests.size > 0 || dropDests.size > 0) ? color : undefined,
-      movable: {
-        dests: canMove ? dests : new Map(),
-      },
-      droppable: {
-        dests: canMove ? dropDests : new Map(),
-      },
-      premovable: {
-        enabled: false,
-      },
-      predroppable: {
-        enabled: false,
-      },
-      check: isCheck,
-      lastDests: node.usi ? (usiToSquareNames(node.usi) as Key[]) : undefined,
-    };
+    const node = vm.node,
+      color = plyColor(node.ply),
+      pos = position(),
+      dests = shogigroundMoveDests(pos),
+      dropDests = shogigroundDropDests(pos),
+      nextNode = vm.node.children[0],
+      canMove = vm.mode === 'view' || (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail')),
+      splitSfen = node.sfen.split(' '),
+      config: SgConfig = {
+        sfen: {
+          board: splitSfen[0],
+          hands: splitSfen[2],
+        },
+        orientation: vm.pov,
+        turnColor: color,
+        activeColor: canMove && (dests.size > 0 || dropDests.size > 0) ? color : undefined,
+        movable: {
+          dests: canMove ? dests : new Map(),
+        },
+        droppable: {
+          dests: canMove ? dropDests : new Map(),
+        },
+        premovable: {
+          enabled: false,
+        },
+        predroppable: {
+          enabled: false,
+        },
+        checks: pos.isCheck(),
+        lastDests: node.usi ? usiToSquareNames(node.usi) : undefined,
+      };
     if (node.ply >= vm.initialNode.ply) {
       if (vm.mode !== 'view' && color !== vm.pov && !nextNode) {
         config.activeColor = vm.pov;
@@ -172,15 +172,14 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       capture = pos.board.get(move.to),
       notationMove = makeNotationWithPosition(opts.pref.notation, pos, move, lastMove);
     pos.play(move);
-    const check = pos.isCheck() ? pos.board.kingOf(pos.turn) : undefined;
     addNode(
       {
-        ply: pos.fullmoves - 1,
+        ply: pos.moveNumber - 1,
         sfen: makeSfen(pos),
         id: scalashogiCharPair(move),
         usi: makeUsi(move),
         notation: notationMove,
-        check: defined(check) ? (makeSquare(check) as Key) : undefined,
+        check: pos.isCheck(),
         capture: !!capture,
         children: [],
       },

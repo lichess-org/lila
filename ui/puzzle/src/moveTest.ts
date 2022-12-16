@@ -3,10 +3,10 @@ import { Vm, Puzzle, MoveTest } from './interfaces';
 import { parseSfen } from 'shogiops/sfen';
 import { opposite } from 'shogiground/util';
 import { plyColor } from './util';
-import { pieceInDeadZone } from 'shogiops/variantUtil';
+import { pieceForcePromote } from 'shogiops/variant/util';
 import { isDrop, isNormal } from 'shogiops/types';
 import { parseUsi } from 'shogiops/util';
-import { Shogi } from 'shogiops/shogi';
+import { Shogi } from 'shogiops/variant/shogi';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
 
@@ -23,7 +23,7 @@ function sameMove(u1: string, u2: string, shogi: Shogi): boolean {
       usi1.from === usi2.from &&
       usi1.to === usi2.to &&
       (!!usi1.promotion === !!usi2.promotion ||
-        (!!role && pieceInDeadZone('standard')({ role: role, color: shogi.turn }, usi1.to)))
+        (!!role && pieceForcePromote('standard')({ role: role, color: shogi.turn }, usi1.to)))
     );
   }
   return false;

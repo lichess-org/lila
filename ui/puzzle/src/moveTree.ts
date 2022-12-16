@@ -1,9 +1,10 @@
-import { Position, Shogi } from 'shogiops/shogi';
+import { Notation, makeNotationWithPosition } from 'common/notation';
 import { initialSfen, makeSfen, parseSfen } from 'shogiops/sfen';
 import { Move } from 'shogiops/types';
-import { makeSquare, makeUsi, parseUsi } from 'shogiops/util';
+import { makeUsi, parseUsi } from 'shogiops/util';
+import { Position } from 'shogiops/variant/position';
+import { Shogi } from 'shogiops/variant/shogi';
 import { TreeWrapper } from 'tree';
-import { makeNotationWithPosition, Notation } from 'common/notation';
 import { scalashogiCharPair } from './util';
 
 export function usiToTree(usis: Usi[], notation: Notation): Tree.Node {
@@ -67,6 +68,6 @@ const makeNode = (pos: Position, move: Move, notation: MoveNotation, capture: bo
   usi: makeUsi(move),
   notation: notation,
   capture: capture,
-  check: pos.isCheck() ? (makeSquare(pos.board.kingOf(pos.turn)!) as Key) : undefined,
+  check: pos.isCheck(),
   children: [],
 });

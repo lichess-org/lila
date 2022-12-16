@@ -7,7 +7,7 @@ import { Outcome, Piece, Move } from 'shogiops/types';
 import { Prop } from 'common/common';
 import { StoredBooleanProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
-import { Shogi } from 'shogiops/shogi';
+import { Shogi } from 'shogiops/variant/shogi';
 
 export type Redraw = () => void;
 
