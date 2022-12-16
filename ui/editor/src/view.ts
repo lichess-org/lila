@@ -1,41 +1,44 @@
-import { h, VNode } from 'snabbdom';
-import { MouchEvent, Piece } from 'shogiground/types';
 import { dragNewPiece } from 'shogiground/drag';
+import { MouchEvent } from 'shogiground/types';
 import { eventPosition, opposite, samePiece } from 'shogiground/util';
-
-import EditorCtrl from './ctrl';
-import * as ground from './shogiground';
-import { OpeningPosition, Selected, EditorState } from './interfaces';
 import { parseSfen } from 'shogiops/sfen';
-import { allRoles, handRoles } from 'shogiops/variantUtil';
-import { Role, Rules } from 'shogiops';
+import { Piece, Role, Rules } from 'shogiops/types';
+import { allRoles, handRoles } from 'shogiops/variant/util';
+import { VNode, h } from 'snabbdom';
+import EditorCtrl from './ctrl';
+import { EditorState, OpeningPosition, Selected } from './interfaces';
+import * as ground from './shogiground';
 
 function pieceCounter(ctrl: EditorCtrl): VNode {
   function singlePieceCounter(cur: number, total: number, name: string, suffix: string = ''): VNode {
     return h('span', [`${cur.toString()}/${total.toString()}`, h('strong', ` ${name}`), `${suffix}`]);
   }
+  const pieceCount: [Role, number, string][] =
+    ctrl.rules === 'minishogi'
+      ? [
+          ['pawn', 2, '歩(P)'],
+          ['silver', 2, '銀(S)'],
+          ['gold', 2, '金(G)'],
+          ['bishop', 2, '角(B)'],
+          ['rook', 2, '飛(R)'],
+          ['rook', 2, '玉(K)'],
+        ]
+      : [
+          ['pawn', 18, '歩(P)'],
+          ['lance', 4, '香(L)'],
+          ['knight', 4, '桂(N)'],
+          ['silver', 4, '銀(S)'],
+          ['gold', 4, '金(G)'],
+          ['bishop', 2, '角(B)'],
+          ['rook', 2, '飛(R)'],
+          ['king', 2, '玉(K)'],
+        ];
   return h('div.piece-counter', {}, [
     h(
       'div.piece-count',
-      ctrl.rules === 'minishogi'
-        ? [
-            singlePieceCounter(ctrl.countPieces('pawn'), 2, '歩(P)', ', '),
-            singlePieceCounter(ctrl.countPieces('silver'), 2, '銀(S)', ', '),
-            singlePieceCounter(ctrl.countPieces('gold'), 2, '金(G)', ', '),
-            singlePieceCounter(ctrl.countPieces('bishop'), 2, '角(B)', ', '),
-            singlePieceCounter(ctrl.countPieces('rook'), 2, '飛(R)', ', '),
-            singlePieceCounter(ctrl.countPieces('king'), 2, '玉(K)'),
-          ]
-        : [
-            singlePieceCounter(ctrl.countPieces('pawn'), 18, '歩(P)', ', '),
-            singlePieceCounter(ctrl.countPieces('lance'), 4, '香(L)', ', '),
-            singlePieceCounter(ctrl.countPieces('knight'), 4, '桂(N)', ', '),
-            singlePieceCounter(ctrl.countPieces('silver'), 4, '銀(S)', ', '),
-            singlePieceCounter(ctrl.countPieces('gold'), 4, '金(G)', ', '),
-            singlePieceCounter(ctrl.countPieces('bishop'), 2, '角(B)', ', '),
-            singlePieceCounter(ctrl.countPieces('rook'), 2, '飛(R)', ', '),
-            singlePieceCounter(ctrl.countPieces('king'), 2, '玉(K)'),
-          ]
+      pieceCount.map((s, i) =>
+        singlePieceCounter(ctrl.countPieces(s[0]), s[1], s[2], pieceCount.length > i + 1 ? ', ' : '')
+      )
     ),
   ]);
 }
@@ -104,6 +107,7 @@ function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
 const allVariants: Array<[Rules, string]> = [
   ['standard', 'Standard'],
   ['minishogi', 'Minishogi'],
+  ['chushogi', 'Chushogi'],
 ];
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
@@ -184,7 +188,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           })
         )
       ),
-      ctrl.data.embed ? '' : pieceCounter(ctrl),
+      ctrl.data.embed || ctrl.rules === 'chushogi' ? '' : pieceCounter(ctrl),
     ]),
     ...(ctrl.data.embed
       ? [
@@ -280,7 +284,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              ctrl.trans.noarg('flipBoard')
+              `${ctrl.trans.noarg('flipBoard')} - (${ctrl.trans(ctrl.shogiground.state.orientation)} POV)`
             ),
             h(
               'a',
@@ -539,9 +543,9 @@ export default function (ctrl: EditorCtrl): VNode {
 
   return h(`div.board-editor.variant-${ctrl.rules}`, [
     sparePieces(ctrl, opposite(color), color, 'top'),
-    createHandWrap(ctrl, 'top'),
+    ctrl.rules === 'chushogi' ? null : createHandWrap(ctrl, 'top'),
     h('div.main-board', [ground.renderBoard(ctrl)]),
-    createHandWrap(ctrl, 'bottom'),
+    ctrl.rules === 'chushogi' ? null : createHandWrap(ctrl, 'bottom'),
     sparePieces(ctrl, color, color, 'bottom'),
     controls(ctrl, state),
     inputs(ctrl, state.sfen),

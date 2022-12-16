@@ -1,18 +1,18 @@
-import { EditorData, EditorOptions, EditorState, Selected, Redraw, OpeningPosition } from './interfaces';
+import { Prop, defined, prop } from 'common/common';
+import { Shogiground } from 'shogiground';
 import { Api as SgApi } from 'shogiground/api';
 import { NumberPair } from 'shogiground/types';
-import { Rules, Role } from 'shogiops/types';
-import { makeSfen, parseSfen, initialSfen } from 'shogiops/sfen';
-import { Position } from 'shogiops/shogi';
-import { defined, prop, Prop } from 'common/common';
 import { eventPosition, opposite, samePiece } from 'shogiground/util';
-import { Hand, Hands } from 'shogiops/hand';
-import { handRoles, promotableRoles, promote, unpromote } from 'shogiops/variantUtil';
-import { toBW } from 'shogiops/util';
-import { Shogiground } from 'shogiground';
-import { makeConfig } from './shogiground';
-import { initializePosition } from 'shogiops/variant';
 import { Board } from 'shogiops/board';
+import { Hand, Hands } from 'shogiops/hands';
+import { forsythToRole, initialSfen, makeSfen, parseSfen, roleToForsyth } from 'shogiops/sfen';
+import { Role, Rules } from 'shogiops/types';
+import { toBW } from 'shogiops/util';
+import { Position } from 'shogiops/variant/position';
+import { handRoles, promotableRoles, promote, unpromote } from 'shogiops/variant/util';
+import { initializePosition } from 'shogiops/variant/variant';
+import { EditorData, EditorOptions, EditorState, OpeningPosition, Redraw, Selected } from './interfaces';
+import { makeConfig } from './shogiground';
 
 export default class EditorCtrl {
   data: EditorData;
@@ -28,10 +28,11 @@ export default class EditorCtrl {
 
   turn: Color;
   rules: Rules;
-  fullmoves: number;
+  moveNumber: number;
 
   constructor(data: EditorData, redraw: Redraw) {
     this.data = data;
+    this.rules = data.variant;
     this.options = data.options || {};
 
     this.trans = window.lishogi.trans(this.data.i18n);
@@ -58,7 +59,6 @@ export default class EditorCtrl {
       this.lastTouchMovePos = eventPosition(e as any);
       if (!this.initTouchMovePos) this.initTouchMovePos = this.lastTouchMovePos;
     });
-    this.rules = data.variant;
 
     this.redraw = () => {};
     this.setSfen(data.sfen);
@@ -80,7 +80,7 @@ export default class EditorCtrl {
     const splitSfen = this.data.sfen.split(' ');
     const boardSfen = this.shogiground ? this.shogiground.getBoardSfen() : splitSfen[0] || '';
     const handsSfen = this.shogiground ? this.shogiground.getHandsSfen() : splitSfen[2] || '';
-    return parseSfen(this.rules, `${boardSfen} ${toBW(this.turn)} ${handsSfen} ${this.fullmoves}`, false).unwrap();
+    return parseSfen(this.rules, `${boardSfen} ${toBW(this.turn)} ${handsSfen} ${this.moveNumber}`, false).unwrap();
   }
 
   getSfen(): string {
@@ -139,7 +139,18 @@ export default class EditorCtrl {
   }
 
   clearBoard(): void {
-    const emptyPos = initializePosition(this.rules, Board.empty(), Hands.empty(), this.turn, 1, false).unwrap();
+    const emptyPos = initializePosition(
+      this.rules,
+      {
+        board: Board.empty(),
+        hands: Hands.empty(),
+        turn: this.turn,
+        moveNumber: 1,
+        lastMove: undefined,
+        lastCapture: undefined,
+      },
+      false
+    ).unwrap();
     this.setSfen(makeSfen(emptyPos));
   }
 
@@ -157,7 +168,7 @@ export default class EditorCtrl {
         const splitSfen = sfen.split(' ');
         if (this.shogiground) this.shogiground.set({ sfen: { board: splitSfen[0], hands: splitSfen[2] } });
         this.turn = pos.turn;
-        this.fullmoves = pos.fullmoves;
+        this.moveNumber = pos.moveNumber;
 
         this.onChange();
         return true;
@@ -184,24 +195,26 @@ export default class EditorCtrl {
     if (!defined(pos)) pos = this.getPosition();
     role = unpromote(this.rules)(role) || role;
     return (
-      pos.board[role].size() +
-      (handRoles(this.rules).includes(role) ? pos.hands.sente[role] + pos.hands.gote[role] : 0) +
-      (promotableRoles(this.rules).includes(role) ? pos.board[promote(this.rules)(role)!].size() : 0)
+      pos.board.role(role).size() +
+      (handRoles(this.rules).includes(role)
+        ? pos.hands.color('sente').get(role) + pos.hands.color('gote').get(role)
+        : 0) +
+      (promotableRoles(this.rules).includes(role) ? pos.board.role(promote(this.rules)(role)!).size() : 0)
     );
   }
 
   fillGotesHand(): void {
     const pos = this.getPosition();
-    const senteHand = pos.hands['sente'];
+    const senteHand = pos.hands.color('sente');
 
     const pieceCounts: { [index: string]: number } = {
-      lance: 4 - pos.board.lance.size() - pos.board.promotedlance.size() - senteHand.lance,
-      knight: 4 - pos.board.knight.size() - pos.board.promotedknight.size() - senteHand.knight,
-      silver: 4 - pos.board.silver.size() - pos.board.promotedsilver.size() - senteHand.silver,
-      gold: 4 - pos.board.gold.size() - senteHand.gold,
-      pawn: 18 - pos.board.pawn.size() - pos.board.tokin.size() - senteHand.pawn,
-      bishop: 2 - pos.board.bishop.size() - pos.board.horse.size() - senteHand.bishop,
-      rook: 2 - pos.board.rook.size() - pos.board.dragon.size() - senteHand.rook,
+      lance: 4 - pos.board.role('lance').size() - pos.board.role('promotedlance').size() - senteHand.get('lance'),
+      knight: 4 - pos.board.role('knight').size() - pos.board.role('promotedknight').size() - senteHand.get('knight'),
+      silver: 4 - pos.board.role('silver').size() - pos.board.role('promotedsilver').size() - senteHand.get('silver'),
+      gold: 4 - pos.board.role('gold').size() - senteHand.get('gold'),
+      pawn: 18 - pos.board.role('pawn').size() - pos.board.role('tokin').size() - senteHand.get('pawn'),
+      bishop: 2 - pos.board.role('bishop').size() - pos.board.role('horse').size() - senteHand.get('bishop'),
+      rook: 2 - pos.board.role('rook').size() - pos.board.role('dragon').size() - senteHand.get('rook'),
     };
     pos.hands['gote'] = Hand.empty();
 
@@ -227,9 +240,14 @@ export default class EditorCtrl {
         hands: {
           roles: handRoles(rules),
         },
+        forsyth: {
+          fromForsyth: forsythToRole(rules),
+          toForsyth: roleToForsyth(rules),
+        },
       },
       true
     );
+    if (rules === 'chushogi') window.lishogi.loadChushogiPieceSprite();
     this.onChange();
   }
 
