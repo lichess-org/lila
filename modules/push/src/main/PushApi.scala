@@ -372,12 +372,14 @@ final private class PushApi(
       filterPush(NotifyAllows(userId, x.allows(event)), monitor, data)
     }
 
-  private def filterPush(to: NotifyAllows, monitor: MonitorType, data: PushApi.Data): Funit = {
-    to.web ?? webPush(to.userId, data).addEffects(res => monitor(lila.mon.push.send)("web", res.isSuccess))
-    to.device ?? firebasePush(to.userId, data).addEffects(res =>
+  private def filterPush(to: NotifyAllows, monitor: MonitorType, data: PushApi.Data): Funit = for
+    _ <- to.web ?? webPush(to.userId, data).addEffects(res =>
+      monitor(lila.mon.push.send)("web", res.isSuccess)
+    )
+    _ <- to.device ?? firebasePush(to.userId, data).addEffects(res =>
       monitor(lila.mon.push.send)("firebase", res.isSuccess)
     )
-  }
+  yield ()
 
   private def describeChallenge(c: Challenge) =
     import lila.challenge.Challenge.TimeControl.*
