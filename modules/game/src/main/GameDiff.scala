@@ -91,12 +91,9 @@ object GameDiff {
     dOpt(goteClockHistory, getClockHistory(Gote), clockHistoryToBytes)
     dOpt(periodsSente, getPeriodEntries(Sente), periodEntriesToBytes)
     dOpt(periodsGote, getPeriodEntries(Gote), periodEntriesToBytes)
-    dOpt(lastLionCapture,
-      _.history.lastLionCapture,
-      (op: Option[Pos]) =>
-        op map { p => w.str(p.key) }
-    )
-    dOpt(consecutiveAttacks,
+    dOpt(lastLionCapture, _.history.lastLionCapture, (op: Option[Pos]) => op map { p => w.str(p.key) })
+    dOpt(
+      consecutiveAttacks,
       _.history.consecutiveAttacks,
       (ca: ConsecutiveAttacks) =>
         (ca.sente > 0 || ca.gote > 0) ?? { BSONHandlers.consecutiveAttacksWriter writeOpt ca }

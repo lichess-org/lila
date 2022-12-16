@@ -64,11 +64,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case (Some(w), _, TryRule)                            => s"${playerText(w)} won by try rule"
       case (Some(w), _, Impasse27)                          => s"${playerText(w)} won by impasse"
       case (_, Some(l), PerpetualCheck)                     => s"${playerText(l)} lost due to perpetual check"
-      case (Some(w), _, RoyalsLost)                         => s"${playerText(w)} won by capturing all royal pieces"
-      case (Some(w), _, BareKing)                           => s"${playerText(w)} won due to bare king rule"
-      case (_, _, Draw | UnknownFinish)                     => "Game is a draw"
-      case (_, _, Aborted)                                  => "Game has been aborted"
-      case _ => "Game is still being played"
+      case (Some(w), _, RoyalsLost)     => s"${playerText(w)} won by capturing all royal pieces"
+      case (Some(w), _, BareKing)       => s"${playerText(w)} won due to bare king rule"
+      case (_, _, Draw | UnknownFinish) => "Game is a draw"
+      case (_, _, Aborted)              => "Game has been aborted"
+      case _                            => "Game is still being played"
     }
     val moves = s"${game.shogi.plies} moves"
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
@@ -145,7 +145,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         )
       case Some(user) =>
         frag(
-          (if (link) a else span)(
+          (if (link) a else span) (
             cls  := userClass(user.id, cssClass, withOnline),
             href := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
           )(
@@ -193,7 +193,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         s"$color didn't move"
       }
       case S.Cheat => trans.cheatDetected.txt()
-      case _ => ""
+      case _       => ""
     }
 
   private def gameTitle(game: Game, color: Color): String = {

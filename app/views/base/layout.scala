@@ -42,7 +42,7 @@ object layout {
       )
 
     def chuPieceSprite(implicit ctx: Context): Frag = chuPieceSprite(ctx.currentChuPieceSet)
-    def chuPieceSprite(ps: lila.pref.PieceSet): Frag = 
+    def chuPieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id   := "chu-piece-sprite",
         href := assetUrl(s"piece-css/$ps.css"),

@@ -171,7 +171,7 @@ object TournamentShield {
         )
 
     // Later - after ironing out all the details
-    //case object Chushogi
+    // case object Chushogi
     //    extends Category(
     //      of = Right(shogi.variant.Chushogi),
     //      iconChar = '('

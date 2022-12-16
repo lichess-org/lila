@@ -190,7 +190,7 @@ object mod {
   def prefs(u: User)(pref: lila.pref.Pref)(implicit ctx: Context) =
     frag(
       canViewRoles(u) option mzSection("roles")(
-        (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
+        (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span) (
           strong(cls := "text inline", dataIcon := " ")("Permissions: "),
           if (u.roles.isEmpty) "Add some" else Permission(u.roles).map(_.name).mkString(", ")
         )

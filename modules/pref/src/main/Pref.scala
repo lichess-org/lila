@@ -221,12 +221,12 @@ object Pref {
   }
 
   object BoardLayout {
-    val SIDE     = 0
-    val COMPACT  = 1
+    val SIDE    = 0
+    val COMPACT = 1
 
     val choices = Seq(
-      SIDE     -> "Side",
-      COMPACT  -> "Compact",
+      SIDE    -> "Side",
+      COMPACT -> "Compact"
     )
   }
 

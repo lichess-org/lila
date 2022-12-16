@@ -26,7 +26,7 @@ case class AnaUsi(
 
   def branch: Validated[String, Branch] = {
     shogi.Game(variant.some, sfen.some)(usi) map { game =>
-      val sfen    = game.toSfen
+      val sfen = game.toSfen
       Branch(
         id = UsiCharPair(usi, variant),
         ply = game.plies,

@@ -178,13 +178,12 @@ object DataForm {
       "set" -> text.verifying(PieceSet contains _)
     )
   )
-    
+
   val chuPieceSet = Form(
     single(
       "set" -> text.verifying(ChuPieceSet contains _)
     )
   )
-
 
   val soundSet = Form(
     single(

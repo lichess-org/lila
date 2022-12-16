@@ -80,7 +80,19 @@ object Termination {
   case object BareKing       extends Termination(11, "Bare king")
 
   val all =
-    List(ClockFlag, Disconnect, Resignation, Draw, Stalemate, Checkmate, TryRule, PerpetualCheck, Impasse27, RoyalsLost, BareKing)
+    List(
+      ClockFlag,
+      Disconnect,
+      Resignation,
+      Draw,
+      Stalemate,
+      Checkmate,
+      TryRule,
+      PerpetualCheck,
+      Impasse27,
+      RoyalsLost,
+      BareKing
+    )
   val byId = all map { p =>
     (p.id, p)
   } toMap
@@ -89,18 +101,18 @@ object Termination {
 
   def fromStatus(s: shogi.Status) =
     s match {
-      case S.Timeout             => Disconnect
-      case S.Outoftime           => ClockFlag
-      case S.Resign              => Resignation
-      case S.Draw                => Draw
-      case S.Stalemate           => Stalemate
-      case S.Mate                => Checkmate
-      case S.TryRule             => TryRule
-      case S.RoyalsLost          => RoyalsLost
-      case S.BareKing            => BareKing
-      case S.Impasse27           => Impasse27
-      case S.PerpetualCheck      => PerpetualCheck
-      case S.Cheat               => Resignation
+      case S.Timeout        => Disconnect
+      case S.Outoftime      => ClockFlag
+      case S.Resign         => Resignation
+      case S.Draw           => Draw
+      case S.Stalemate      => Stalemate
+      case S.Mate           => Checkmate
+      case S.TryRule        => TryRule
+      case S.RoyalsLost     => RoyalsLost
+      case S.BareKing       => BareKing
+      case S.Impasse27      => Impasse27
+      case S.PerpetualCheck => PerpetualCheck
+      case S.Cheat          => Resignation
       case S.Created | S.Started | S.Aborted | S.NoStart | S.UnknownFinish =>
         logger.error(s"Unfinished game in the insight indexer: $s")
         Resignation

@@ -24,7 +24,7 @@ object StatusText {
       case Outoftime                => s"${winner(win)} wins on time."
       case NoStart                  => s"${loser(win)} wins by forfeit."
       case Cheat                    => "Cheat detected."
-      case _ => ""
+      case _                        => ""
     }
 
   def apply(game: lila.game.Game): String = apply(game.status, game.winnerColor, game.variant)

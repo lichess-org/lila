@@ -84,7 +84,8 @@ private[study] object CommentParser {
       .fromKey(str)
       .map(Left(_).withRight[Piece])
       .orElse {
-        shogi.format.usi.Usi.Drop.usiToRole.get(str.filterNot(_ == '_').toUpperCase)
+        shogi.format.usi.Usi.Drop.usiToRole
+          .get(str.filterNot(_ == '_').toUpperCase)
           .map(r => Right(Piece(Color.fromSente(str.toLowerCase != str), r)).withLeft[Pos])
       }
 

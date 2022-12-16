@@ -3,7 +3,7 @@ package lila.study
 import shogi.format.{ Glyph, Glyphs, Tag, Tags }
 import shogi.format.usi.{ Usi, UsiCharPair }
 import shogi.format.forsyth.{ Sfen, SfenUtils }
-import shogi.variant.{ Variant, Standard }
+import shogi.variant.{ Standard, Variant }
 import shogi.{ Centis, Piece, Pos }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
@@ -62,9 +62,10 @@ object BSONHandlers {
     }
     def writes(w: Writer, t: Shape) =
       t match {
-        case Shape.Circle(brush, pop, None)        => $doc("b" -> brush, "p" -> pop)
-        case Shape.Circle(brush, pop, Some(piece)) => $doc("b" -> brush, "o" -> pop, "k" -> SfenUtils.toForsyth(piece, Standard).getOrElse("P"))
-        case Shape.Arrow(brush, origPop, destPop)  => $doc("b" -> brush, "o" -> origPop, "d" -> destPop)
+        case Shape.Circle(brush, pop, None) => $doc("b" -> brush, "p" -> pop)
+        case Shape.Circle(brush, pop, Some(piece)) =>
+          $doc("b" -> brush, "o" -> pop, "k" -> SfenUtils.toForsyth(piece, Standard).getOrElse("P"))
+        case Shape.Arrow(brush, origPop, destPop) => $doc("b" -> brush, "o" -> origPop, "d" -> destPop)
       }
   }
 

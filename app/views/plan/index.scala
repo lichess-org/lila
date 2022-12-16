@@ -131,10 +131,12 @@ object index {
 </form>"""),
                   patron.exists(_.isLifetime) option
                     p(style := "text-align:center;margin-bottom:1em")(makeExtraDonation()),
-                  st.group(cls := List(
-                    "radio buttons freq" -> true,
-                    "anon" -> ctx.isAnon
-                  ))(
+                  st.group(
+                    cls := List(
+                      "radio buttons freq" -> true,
+                      "anon"               -> ctx.isAnon
+                    )
+                  )(
                     div(
                       st.title := payLifetimeOnce.txt(lila.plan.Cents.lifetime.usd),
                       cls      := List("lifetime-check" -> patron.exists(_.isLifetime)),
@@ -234,12 +236,12 @@ object index {
         dt(changeMonthlySupport()),
         dd(
           changeOrContact(a(href := routes.Main.contact, target := "_blank")(contactSupport()))
-        ),
+        )
       ),
       dl(
         dt(otherMethods()),
         dd(
-          "Yes you can - ", 
+          "Yes you can - ",
           a(cls := "patreon", href := "https://www.patreon.com/lishogi", target := "_blank")(
             "Patreon"
           ),

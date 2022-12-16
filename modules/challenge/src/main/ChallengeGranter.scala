@@ -32,8 +32,8 @@ object ChallengeDenied {
       case Reason.RatingOutsideRange(perf) =>
         I18nKeys.yourXRatingIsTooFarFromY.txt(perf.trans, d.dest.titleUsername)
       case Reason.RatingIsProvisional(perf) => I18nKeys.cannotChallengeDueToProvisionalXRating.txt(perf.trans)
-      case Reason.FriendsOnly => I18nKeys.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
-      case Reason.SelfChallenge             => "You cannot challenge yourself."
+      case Reason.FriendsOnly   => I18nKeys.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
+      case Reason.SelfChallenge => "You cannot challenge yourself."
     }
 }
 

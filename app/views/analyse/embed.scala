@@ -23,7 +23,8 @@ object embed {
           layout.viewport,
           layout.metaCsp(basicCsp withNonce config.nonce),
           st.headTitle(replay titleOf pov),
-          if (!pov.game.variant.chushogi) layout.pieceSprite(config.pieceSet) else layout.chuPieceSprite(config.chuPieceSet),
+          if (!pov.game.variant.chushogi) layout.pieceSprite(config.pieceSet)
+          else layout.chuPieceSprite(config.chuPieceSet),
           cssTagWithTheme("analyse.embed", config.bg)
         ),
         body(

@@ -6,7 +6,7 @@ import scala.util.Try
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
-import shogi.{ Centis, Clock, ClockPlayer, Color, Sente, Gote, Piece, PieceMap, Situation, Timestamp }
+import shogi.{ Centis, Clock, ClockPlayer, Color, Gote, Piece, PieceMap, Sente, Situation, Timestamp }
 import org.lishogi.compression.clock.{ Encoder => ClockEncoder }
 
 import lila.db.ByteArray

@@ -60,7 +60,7 @@ final class BotPlayer(
         // delay so it feels more natural
         lila.common.Future.delay(if (accept) 100.millis else 2.seconds) {
           fuccess {
-            tellRound(pov.gameId, (if (accept) RematchYes else RematchNo)(pov.playerId))
+            tellRound(pov.gameId, (if (accept) RematchYes else RematchNo) (pov.playerId))
           }
         }
         true

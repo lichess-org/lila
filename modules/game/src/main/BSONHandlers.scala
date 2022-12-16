@@ -2,7 +2,19 @@ package lila.game
 
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
-import shogi.{ Clock, Color, ConsecutiveAttacks, Game => ShogiGame, Gote, Hands, History => ShogiHistory, Mode, Pos, Sente, Status }
+import shogi.{
+  Clock,
+  Color,
+  ConsecutiveAttacks,
+  Game => ShogiGame,
+  Gote,
+  Hands,
+  History => ShogiHistory,
+  Mode,
+  Pos,
+  Sente,
+  Status
+}
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.{ Success, Try }
@@ -14,7 +26,7 @@ object BSONHandlers {
 
   import lila.db.ByteArray.ByteArrayBSONHandler
 
-  implicit private[game] val consecutiveAttacksWriter = new BSONWriter[ConsecutiveAttacks] { 
+  implicit private[game] val consecutiveAttacksWriter = new BSONWriter[ConsecutiveAttacks] {
     def writeTry(ca: ConsecutiveAttacks) = Success(BSONArray(ca.sente, ca.gote))
   }
 
@@ -62,7 +74,7 @@ object BSONHandlers {
       val hands          = r.strO(F.hands) flatMap { Sfen.makeHandsFromString(_, gameVariant) }
 
       val lastLionCapture = if (gameVariant.chushogi) r.strO(F.lastLionCapture).flatMap(Pos.fromKey) else None
-      val counts = r.intsD(F.consecutiveAttacks)
+      val counts          = r.intsD(F.consecutiveAttacks)
 
       val shogiGame = ShogiGame(
         situation = shogi.Situation(
@@ -142,29 +154,29 @@ object BSONHandlers {
         F.clock -> (o.shogi.clock flatMap { c =>
           clockBSONWrite(o.createdAt, c).toOption
         }),
-        F.daysPerTurn       -> o.daysPerTurn,
-        F.moveTimes         -> o.binaryMoveTimes,
-        F.senteClockHistory -> clockHistory(Sente, o.clockHistory, o.shogi.clock, o.flagged),
-        F.goteClockHistory  -> clockHistory(Gote, o.clockHistory, o.shogi.clock, o.flagged),
-        F.periodsSente      -> periodEntries(Sente, o.clockHistory),
-        F.periodsGote       -> periodEntries(Gote, o.clockHistory),
-        F.rated             -> w.boolO(o.mode.rated),
-        F.initialSfen       -> o.initialSfen,
-        F.variant           -> (!o.variant.standard).option(w int o.variant.id),
-        F.bookmarks         -> w.intO(o.bookmarks),
-        F.createdAt         -> w.date(o.createdAt),
-        F.movedAt           -> w.date(o.movedAt),
-        F.lastLionCapture   -> o.history.lastLionCapture.map(w str _.key),
+        F.daysPerTurn        -> o.daysPerTurn,
+        F.moveTimes          -> o.binaryMoveTimes,
+        F.senteClockHistory  -> clockHistory(Sente, o.clockHistory, o.shogi.clock, o.flagged),
+        F.goteClockHistory   -> clockHistory(Gote, o.clockHistory, o.shogi.clock, o.flagged),
+        F.periodsSente       -> periodEntries(Sente, o.clockHistory),
+        F.periodsGote        -> periodEntries(Gote, o.clockHistory),
+        F.rated              -> w.boolO(o.mode.rated),
+        F.initialSfen        -> o.initialSfen,
+        F.variant            -> (!o.variant.standard).option(w int o.variant.id),
+        F.bookmarks          -> w.intO(o.bookmarks),
+        F.createdAt          -> w.date(o.createdAt),
+        F.movedAt            -> w.date(o.movedAt),
+        F.lastLionCapture    -> o.history.lastLionCapture.map(w str _.key),
         F.consecutiveAttacks -> o.history.consecutiveAttacks,
-        F.source            -> o.metadata.source.map(_.id),
-        F.notationImport    -> o.metadata.notationImport,
-        F.tournamentId      -> o.metadata.tournamentId,
-        F.swissId           -> o.metadata.swissId,
-        F.simulId           -> o.metadata.simulId,
-        F.analysed          -> w.boolO(o.metadata.analysed),
-        F.positionHashes    -> o.history.positionHashes,
-        F.hands             -> Sfen.handsToString(o.hands, o.variant),
-        F.usiMoves          -> BinaryFormat.usi.write(o.usiMoves, o.variant)
+        F.source             -> o.metadata.source.map(_.id),
+        F.notationImport     -> o.metadata.notationImport,
+        F.tournamentId       -> o.metadata.tournamentId,
+        F.swissId            -> o.metadata.swissId,
+        F.simulId            -> o.metadata.simulId,
+        F.analysed           -> w.boolO(o.metadata.analysed),
+        F.positionHashes     -> o.history.positionHashes,
+        F.hands              -> Sfen.handsToString(o.hands, o.variant),
+        F.usiMoves           -> BinaryFormat.usi.write(o.usiMoves, o.variant)
       )
   }
 

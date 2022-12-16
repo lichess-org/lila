@@ -166,8 +166,7 @@ object features {
         th(name),
         th(trans.patron.freeAccount()),
         th(
-          span(dataIcon := patronIconChar, cls := "is text header")
-          (trans.patron.lishogiPatron())
+          span(dataIcon := patronIconChar, cls := "is text header")(trans.patron.lishogiPatron())
         )
       )
     )

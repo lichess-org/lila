@@ -29,8 +29,8 @@ final class NotationDump(
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter) = {
     val variant = chapter.setup.variant
-    val tags  = makeTags(study, chapter)
-    val moves = toMoves(chapter.root, variant)(flags).toList
+    val tags    = makeTags(study, chapter)
+    val moves   = toMoves(chapter.root, variant)(flags).toList
     val initial = Initial(
       renderComments(chapter.root.comments, chapter.root.hasMultipleCommentAuthors) ::: shapeComment(
         chapter.root.shapes
@@ -108,10 +108,13 @@ object NotationDump {
         case shapes => s"[%$as ${shapes.mkString(",")}]"
       }
     def pieceLetter(p: Piece): String = {
-      val roleStr = Role.allDroppable.find(_ == p.role).flatMap(r => shogi.format.usi.Usi.Drop.roleToUsi.get(r)).getOrElse(p.role.name.head.toString)
+      val roleStr = Role.allDroppable
+        .find(_ == p.role)
+        .flatMap(r => shogi.format.usi.Usi.Drop.roleToUsi.get(r))
+        .getOrElse(p.role.name.head.toString)
       if (p.color.sente) roleStr.toUpperCase else roleStr
     }
-  
+
     def writePosOrPiece(pop: Either[Pos, Piece]): String =
       pop.fold(_.key, p => ("_" + pieceLetter(p)) takeRight 2)
 
