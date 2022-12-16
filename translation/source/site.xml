@@ -17,6 +17,9 @@
 	<string name="checkmate">Checkmate</string>
 	<string name="stalemate">Stalemate</string>
 	<string name="impasse">Impasse</string>
+	<string name="perpetualCheck">Perpetual check</string>
+	<string name="royalsLost">All royal pieces lost</string>
+	<string name="bareKing">Bare king</string>
 	<string name="white">Gote</string>
 	<string name="black">Sente</string>
 	<string name="shitate">Shitate</string>
@@ -211,6 +214,8 @@
 	<string name="abortGame">Abort game</string>
 	<string name="gameAborted">Game aborted</string>
 	<string name="standard">Standard</string>
+	<string name="minishogi">Minishogi</string>
+	<string name="chushogi">Chushogi</string>
 	<string name="unlimited">Unlimited</string>
 	<string name="mode">Mode</string>
 	<string name="casual">Casual</string>
@@ -544,6 +549,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="fast">Fast</string>
 	<string name="normal">Normal</string>
 	<string name="slow">Slow</string>
+	<string name="compact">Compact</string>
 	<string name="insideTheBoard">Inside the board</string>
 	<string name="outsideTheBoard">Outside the board</string>
 	<string name="edgeOfTheBoard">Edge of the board</string>
