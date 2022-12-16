@@ -22,7 +22,7 @@
     "chat": "2.0.0",
     "common": "2.0.0",
     "game": "2.0.0",
-    "shogiground": "^0.5.6",
+    "shogiground": "^0.7.0",
     "snabbdom": "^3.5.1"
   },
   "scripts": {
