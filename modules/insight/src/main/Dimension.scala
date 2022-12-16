@@ -54,7 +54,7 @@ object Dimension {
         "Variant",
         F.perf,
         Game,
-        raw("The rating category of the game, like Bullet, Blitz, or Chess960.")
+        raw("The rating category of the game, like Bullet, Blitz, or minishogi.")
       )
 
   case object Phase

@@ -114,7 +114,8 @@ object SimulForm {
           number.verifying(
             Set(
               shogi.variant.Standard.id,
-              shogi.variant.Minishogi.id
+              shogi.variant.Minishogi.id,
+              shogi.variant.Chushogi.id
             ) contains _
           )
         }.verifying("At least one variant", _.nonEmpty),

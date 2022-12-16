@@ -138,14 +138,16 @@ trait SetupHelper { self: I18nHelper =>
   def translatedVariantChoices(implicit lang: Lang): List[SelectChoice] =
     standardChoice ::
       List(
-        shogi.variant.Minishogi
+        shogi.variant.Minishogi,
+        shogi.variant.Chushogi
       ).map(variantTupleId)
 
   def translatedVariantChoices(
       encode: Variant => String
   )(implicit lang: Lang): List[SelectChoice] =
     standardChoice(encode) :: List(
-      shogi.variant.Minishogi
+      shogi.variant.Minishogi,
+      shogi.variant.Chushogi
     ).map(variantTuple(encode))
 
   def translatedAiChoices(implicit lang: Lang) =
@@ -168,6 +170,12 @@ trait SetupHelper { self: I18nHelper =>
       ("sente", trans.black.txt(), none),
       ("random", trans.randomColor.txt(), none),
       ("gote", trans.white.txt(), none)
+    )
+
+  def translatedBoardLayoutChoices(implicit lang: Lang) =
+    List(
+      (Pref.BoardLayout.SIDE, trans.side.txt()),
+      (Pref.BoardLayout.COMPACT, trans.compact.txt()),
     )
 
   def translatedAnimationChoices(implicit lang: Lang) =

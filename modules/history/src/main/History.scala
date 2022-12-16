@@ -7,6 +7,7 @@ import lila.rating.PerfType
 case class History(
     standard: RatingsMap,
     minishogi: RatingsMap,
+    chushogi: RatingsMap,
     ultraBullet: RatingsMap,
     bullet: RatingsMap,
     blitz: RatingsMap,
@@ -27,6 +28,7 @@ case class History(
       case PerfType.Puzzle         => puzzle
       case PerfType.UltraBullet    => ultraBullet
       case PerfType.Minishogi      => minishogi
+      case PerfType.Chushogi       => chushogi
       case x                       => sys error s"No history for perf $x"
     }
 }
@@ -55,6 +57,7 @@ object History {
         History(
           standard = ratingsMap("standard"),
           minishogi = ratingsMap("minishogi"),
+          chushogi = ratingsMap("chushogi"),
           ultraBullet = ratingsMap("ultraBullet"),
           bullet = ratingsMap("bullet"),
           blitz = ratingsMap("blitz"),

@@ -168,7 +168,7 @@ object DataForm {
   val positionDefault = StartingPosition.initial.sfen
 
   val validVariants =
-    List(Standard, Minishogi)
+    List(Standard, Minishogi, Chushogi)
 
   def guessVariant(from: String): Option[Variant] =
     validVariants.find { v =>

@@ -70,7 +70,7 @@ object Config extends BaseConfig
 
 trait BaseConfig {
   val variantDefault = shogi.variant.Standard
-  val variants       = List(shogi.variant.Standard.id, shogi.variant.Minishogi.id)
+  val variants       = List(shogi.variant.Standard.id, shogi.variant.Minishogi.id, shogi.variant.Chushogi.id)
   val aiVariants =
     List(shogi.variant.Standard.id, shogi.variant.Minishogi.id)
 

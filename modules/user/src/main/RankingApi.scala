@@ -94,6 +94,7 @@ final class RankingApi(
       classical      <- topPerf(PerfType.Classical.id, nb)
       correspondence <- topPerf(PerfType.Correspondence.id, nb)
       minishogi      <- topPerf(PerfType.Minishogi.id, nb)
+      chushogi       <- topPerf(PerfType.Chushogi.id, nb)
     } yield Perfs.Leaderboards(
       ultraBullet = ultraBullet,
       bullet = bullet,
@@ -101,7 +102,8 @@ final class RankingApi(
       rapid = rapid,
       classical = classical,
       correspondence = correspondence,
-      minishogi = minishogi
+      minishogi = minishogi,
+      chushogi = chushogi
     )
 
   object weeklyStableRanking {

@@ -170,6 +170,13 @@ object TournamentShield {
           iconChar = ','
         )
 
+    // Later - after ironing out all the details
+    //case object Chushogi
+    //    extends Category(
+    //      of = Right(shogi.variant.Chushogi),
+    //      iconChar = '('
+    //    )
+
     val all: List[Category] = List(
       Bullet,
       SuperBlitz,

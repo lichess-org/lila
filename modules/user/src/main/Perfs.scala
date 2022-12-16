@@ -9,6 +9,7 @@ import lila.rating.{ Glicko, Perf, PerfType }
 case class Perfs(
     standard: Perf,
     minishogi: Perf,
+    chushogi: Perf,
     ultraBullet: Perf,
     bullet: Perf,
     blitz: Perf,
@@ -23,6 +24,7 @@ case class Perfs(
     List(
       "standard"       -> standard,
       "minishogi"      -> minishogi,
+      "chushogi"       -> chushogi,
       "ultraBullet"    -> ultraBullet,
       "bullet"         -> bullet,
       "blitz"          -> blitz,
@@ -91,6 +93,7 @@ case class Perfs(
 
   lazy val perfsMap: Map[String, Perf] = Map(
     "minishogi"      -> minishogi,
+    "chushogi"       -> chushogi,
     "ultraBullet"    -> ultraBullet,
     "bullet"         -> bullet,
     "blitz"          -> blitz,
@@ -110,6 +113,7 @@ case class Perfs(
     perfType match {
       case PerfType.Standard       => standard
       case PerfType.Minishogi      => minishogi
+      case PerfType.Chushogi       => chushogi
       case PerfType.UltraBullet    => ultraBullet
       case PerfType.Bullet         => bullet
       case PerfType.Blitz          => blitz
@@ -157,7 +161,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, Perf.Storm.default)
+    Perfs(p, p, p, p, p, p, p, p, p, p, Perf.Storm.default)
   }
 
   val defaultManaged = {
@@ -178,6 +182,7 @@ case object Perfs {
     variant match {
       case shogi.variant.Standard  => Some(_.standard)
       case shogi.variant.Minishogi => Some(_.minishogi)
+      case shogi.variant.Chushogi  => Some(_.chushogi)
       case _                       => none
     }
 
@@ -200,6 +205,7 @@ case object Perfs {
       Perfs(
         standard = perf("standard"),
         minishogi = perf("minishogi"),
+        chushogi = perf("chushogi"),
         ultraBullet = perf("ultraBullet"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
@@ -217,6 +223,7 @@ case object Perfs {
       reactivemongo.api.bson.BSONDocument(
         "standard"       -> notNew(o.standard),
         "minishogi"      -> notNew(o.minishogi),
+        "chushogi"       -> notNew(o.chushogi),
         "ultraBullet"    -> notNew(o.ultraBullet),
         "bullet"         -> notNew(o.bullet),
         "blitz"          -> notNew(o.blitz),
@@ -235,8 +242,9 @@ case object Perfs {
       rapid: List[User.LightPerf],
       classical: List[User.LightPerf],
       correspondence: List[User.LightPerf],
-      minishogi: List[User.LightPerf]
+      minishogi: List[User.LightPerf],
+      chushogi: List[User.LightPerf]
   )
 
-  val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil)
+  val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil)
 }

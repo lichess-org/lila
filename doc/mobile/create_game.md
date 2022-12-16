@@ -8,8 +8,7 @@ http --form POST l.org/setup/ai variant=1 clock=false time=60 increment=60 level
 
 - level: 1 to 8
 - color: sente | gote | random
-- variant: 1 (standard) | 2 (minishogi)
-- sfen: if variant is 3, any valid SFEN string
+- variant: 1 (standard) | 2 (minishogi) | 3 (chushogi)
 
 Response: `201 CREATED`
 

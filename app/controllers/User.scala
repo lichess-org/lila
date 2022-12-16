@@ -269,7 +269,8 @@ final class User(
                   "classical"      -> leaderboards.classical,
                   "ultraBullet"    -> leaderboards.ultraBullet,
                   "correspondence" -> leaderboards.correspondence,
-                  "minishogi"      -> leaderboards.minishogi
+                  "minishogi"      -> leaderboards.minishogi,
+                  "chushogi"       -> leaderboards.chushogi
                 )
               )
             }
