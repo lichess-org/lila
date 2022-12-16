@@ -303,6 +303,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   private val finishUnsets = $doc(
     F.positionHashes                              -> true,
     F.playingUids                                 -> true,
+    F.consecutiveAttacks                          -> true,
+    F.lastLionCapture                             -> true,
     ("p0." + Player.BSONFields.lastDrawOffer)     -> true,
     ("p1." + Player.BSONFields.lastDrawOffer)     -> true,
     ("p0." + Player.BSONFields.isOfferingDraw)    -> true,

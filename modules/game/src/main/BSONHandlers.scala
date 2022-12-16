@@ -2,10 +2,10 @@ package lila.game
 
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
-import shogi.{ Clock, Color, Game => ShogiGame, Gote, Hands, History => ShogiHistory, Mode, Sente, Status }
+import shogi.{ Clock, Color, ConsecutiveAttacks, Game => ShogiGame, Gote, Hands, History => ShogiHistory, Mode, Pos, Sente, Status }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-import scala.util.Try
+import scala.util.{ Success, Try }
 
 import lila.db.BSON
 import lila.db.dsl._
@@ -13,6 +13,10 @@ import lila.db.dsl._
 object BSONHandlers {
 
   import lila.db.ByteArray.ByteArrayBSONHandler
+
+  implicit private[game] val consecutiveAttacksWriter = new BSONWriter[ConsecutiveAttacks] { 
+    def writeTry(ca: ConsecutiveAttacks) = Success(BSONArray(ca.sente, ca.gote))
+  }
 
   implicit val StatusBSONHandler = tryHandler[Status](
     { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
@@ -57,6 +61,9 @@ object BSONHandlers {
       val positionHashes = r.getO[shogi.PositionHash](F.positionHashes) | Array.empty
       val hands          = r.strO(F.hands) flatMap { Sfen.makeHandsFromString(_, gameVariant) }
 
+      val lastLionCapture = if (gameVariant.chushogi) r.strO(F.lastLionCapture).flatMap(Pos.fromKey) else None
+      val counts = r.intsD(F.consecutiveAttacks)
+
       val shogiGame = ShogiGame(
         situation = shogi.Situation(
           shogi.Board(pieces = pieces),
@@ -64,6 +71,8 @@ object BSONHandlers {
           color = plyColor,
           history = ShogiHistory(
             lastMove = usiMoves.lastOption,
+            lastLionCapture = lastLionCapture,
+            consecutiveAttacks = ConsecutiveAttacks(~counts.headOption, ~counts.lastOption),
             positionHashes = positionHashes,
             initialSfen = initialSfen
           ),
@@ -145,6 +154,8 @@ object BSONHandlers {
         F.bookmarks         -> w.intO(o.bookmarks),
         F.createdAt         -> w.date(o.createdAt),
         F.movedAt           -> w.date(o.movedAt),
+        F.lastLionCapture   -> o.history.lastLionCapture.map(w str _.key),
+        F.consecutiveAttacks -> o.history.consecutiveAttacks,
         F.source            -> o.metadata.source.map(_.id),
         F.notationImport    -> o.metadata.notationImport,
         F.tournamentId      -> o.metadata.tournamentId,

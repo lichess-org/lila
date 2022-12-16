@@ -1,6 +1,6 @@
 package lila.game
 
-import shogi.{ Clock, Color, Gote, Hands, Sente }
+import shogi.{ Clock, Color, ConsecutiveAttacks, Gote, Hands, Pos, Sente }
 import Game.BSONFields._
 import reactivemongo.api.bson._
 import scala.util.Try
@@ -91,6 +91,16 @@ object GameDiff {
     dOpt(goteClockHistory, getClockHistory(Gote), clockHistoryToBytes)
     dOpt(periodsSente, getPeriodEntries(Sente), periodEntriesToBytes)
     dOpt(periodsGote, getPeriodEntries(Gote), periodEntriesToBytes)
+    dOpt(lastLionCapture,
+      _.history.lastLionCapture,
+      (op: Option[Pos]) =>
+        op map { p => w.str(p.key) }
+    )
+    dOpt(consecutiveAttacks,
+      _.history.consecutiveAttacks,
+      (ca: ConsecutiveAttacks) =>
+        (ca.sente > 0 || ca.gote > 0) ?? { BSONHandlers.consecutiveAttacksWriter writeOpt ca }
+    )
     dOpt(
       clock,
       _.clock,
