@@ -318,7 +318,13 @@ case class Game(
       gotePlayer = f(gotePlayer)
     )
 
-  def playerCanOfferDraw = false
+  def playerCanOfferDraw(color: Color) =
+    variant.chushogi && 
+    started && playable &&
+    plies >= 2 &&
+    !player(color).isOfferingDraw &&
+    !opponent(color).isAi &&
+    !playerHasOfferedDraw(color)
 
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer ?? (_ >= plies - 20)
@@ -620,7 +626,8 @@ object Game {
 
   val maxPlayingRealtime = 100 // plus 200 correspondence games
 
-  val maxPlies = 600 // unlimited can cause StackOverflowError
+  val maxPlies = 700 // unlimited can cause StackOverflowError
+  val maxChushogiPlies = 1200
 
   val analysableVariants: Set[Variant] = Set(
     shogi.variant.Standard,
@@ -744,6 +751,8 @@ object Game {
     val rated             = "ra"
     val analysed          = "an"
     val variant           = "v"
+    val lastLionCapture   = "llc"
+    val consecutiveAttacks = "cna"
     val hands             = "hs"
     val bookmarks         = "bm"
     val createdAt         = "ca"
