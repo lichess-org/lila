@@ -76,7 +76,7 @@ final class NotifyApi(
     val note = Notification.make(to, content)
     !shouldSkip(note) ifThen {
       insertNotification(note) >> {
-        if (!Allows.canFilter(note.content.key)) bellOne(note.to)
+        if (!Allows.canFilter(note.content.key)) fuccess(bellOne(note.to))
         else
           prefApi.getNotificationPref(note.to) map (_ allows note.content.key) flatMap { allows =>
             allows.bell ?? bellOne(note.to)
@@ -93,18 +93,20 @@ final class NotifyApi(
       bellMany(recips, content)
     }
 
-  private def bellOne(to: UserId): Funit =
-    getNotifications(to, 1) zip unreadCount(to) dmap (AndUnread.apply _).tupled map { msg =>
-      Bus.publish(
-        SendTo.async(
-          to,
-          "notifications",
-          () =>
-            (userRepo langOf to) map I18nLangPicker.byStrOrDefault map (lang => jsonHandlers(msg)(using lang))
-        ),
-        "socketUsers"
-      )
-    }
+  private def bellOne(to: UserId): Unit =
+    Bus.publish(
+      SendTo.async(
+        to,
+        "notifications",
+        () =>
+          for
+            notifications <- getNotifications(to, 1) zip unreadCount(to) dmap AndUnread.apply
+            langStr       <- userRepo.langOf(to)
+            lang = I18nLangPicker.byStrOrDefault(langStr)
+          yield jsonHandlers(notifications)(using lang)
+      ),
+      "socketUsers"
+    )
 
   private def bellMany(recips: Iterable[NotifyAllows], content: NotificationContent) =
     val bells = recips filter (_.allows.bell) map (_.userId)
