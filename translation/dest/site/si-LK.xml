@@ -92,6 +92,7 @@
   <string name="dtzWithRounding">DTZ50\'\' with rounding, based on number of half-moves until next capture or pawn move</string>
   <string name="noGameFound">සෙල්ලමක් හමුවුන්නෑ</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">මනාප ලැයිස්තුවේ තවත් සෙල්ලම් තිබිය හැක?</string>
+  <string name="openings">චෙස් විවෘත කිරීම්</string>
   <string name="openingExplorer">පටන්ගැනීම් ගවේෂකය</string>
   <string name="openingEndgameExplorer">විවෘත කිරීම/අවසන් ක්‍රීඩා ගවේෂක</string>
   <string name="xOpeningExplorer">%sපටන්ගැනීම් ගවේෂකය</string>
@@ -147,6 +148,7 @@
   <string name="viewInFullSize">විශාල කර පෙන්වන්න</string>
   <string name="logOut">වරන්න</string>
   <string name="signIn">පිවිසෙන්න</string>
+  <string name="rememberMe">මාව මගේ ගිණුමේ තබා ගන්න</string>
   <string name="youNeedAnAccountToDoThat">එය සිදු කිරීම සඳහා ඔබ පිවිසිය යුතුය</string>
   <string name="signUp">ලියාපදිංචි වන්න</string>
   <string name="computersAreNotAllowedToPlay">පරිගණක සහ පරිගණක ආධාරක ක්‍රීඩකයින්ට ක්‍රීඩා කිරීමට අවසර නැත. කරුණාකර චෙස් එන්ජින්, දත්ත සමුදායන් හෝ වෙනත් ක්‍රීඩකයන්ගෙන් සහය ලබා නොගන්න. බහුවිධ ගිණුම් සෑදීම දැඩි ලෙස තහනම් කර ඇති අතර අධික එය සදාකාලික තහනම් කිරීමක් හේතු වනු ඇති බව සලකන්න.</string>
