@@ -1,14 +1,14 @@
-import { makeKifHeader, makeKifMove } from 'shogiops/notation/kif/kif';
+import { defined } from 'common/common';
 import { makeCsaHeader, makeCsaMove } from 'shogiops/notation/csa/csa';
+import { makeKifHeader, makeKifMove } from 'shogiops/notation/kif/kif';
 import { initialSfen, parseSfen } from 'shogiops/sfen';
-import { Position } from 'shogiops/shogi';
 import { Square } from 'shogiops/types';
 import { parseUsi } from 'shogiops/util';
-import { defined } from 'common/common';
+import { Position } from 'shogiops/variant/position';
+import { Shogi } from 'shogiops/variant/shogi';
 import { ops as treeOps } from 'tree';
-
-import AnalyseCtrl from './ctrl';
 import { renderTime } from './clocks';
+import AnalyseCtrl from './ctrl';
 
 function makeKifTime(moveTime: number, totalTime: number): string {
   return '   (' + renderTime(moveTime, false) + '/' + renderTime(totalTime, true) + ')';
@@ -28,13 +28,20 @@ function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] 
   let lastDest: Square | undefined = undefined;
   let timesSoFar: number[] = [0, 0];
 
+  const moveNumberSuf = pos.rules === 'chushogi' ? '手目' : '';
+
   for (const m of mainline) {
     if (defined(m.usi)) {
       const move = parseUsi(m.usi);
       if (defined(move)) {
-        const kifMove = makeKifMove(pos, move, lastDest);
-        const kifTime = defined(m.clock) ? makeKifTime(m.clock, (timesSoFar[m.ply % 2] += m.clock)) : '';
-        res.push(pad((m.ply - offset).toString(), padding + 1) + kifMove + kifTime);
+        const kifMove = makeKifMove(pos, move, lastDest),
+          kifTime = defined(m.clock) ? makeKifTime(m.clock, (timesSoFar[m.ply % 2] += m.clock)) : '',
+          moveNumStr = pad((m.ply - offset).toString(), padding + 1) + moveNumberSuf;
+        if (kifMove?.includes('\n')) {
+          const split = kifMove.split('\n');
+          res.push(moveNumStr + split[0]);
+          res.push(moveNumStr + split[1] + kifTime);
+        } else res.push(`${moveNumStr} ${kifMove}${kifTime}`);
         lastDest = move.to;
         pos.play(move);
       }
@@ -79,21 +86,16 @@ export function renderFullKif(ctrl: AnalyseCtrl): string {
   const sente = tags.find(t => t[0] === '先手' || t[0] === '下手') ?? ['先手', ''];
   const gote = tags.find(t => t[0] === '後手' || t[0] === '上手') ?? ['後手', ''];
 
-  return [
-    ...otherTags,
-    makeKifHeader(pos),
-    sente.join('：'),
-    gote.join('：'),
-    '手数----指手---------消費時間--',
-    moves,
-  ].join('\n');
+  return [...otherTags, makeKifHeader(pos), sente.join('：'), gote.join('：'), '手数----指手---------消費時間--', moves]
+    .filter(l => l.length)
+    .join('\n');
 }
 
 function makeCsaTime(moveTime: number): string {
   return ',T' + Math.floor(moveTime / 100);
 }
 
-function makeCsaMainline(node: Tree.Node, pos: Position): string[] {
+function makeCsaMainline(node: Tree.Node, pos: Shogi): string[] {
   pos = pos.clone();
   const res: string[] = [];
 

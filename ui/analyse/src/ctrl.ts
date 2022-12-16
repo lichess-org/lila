@@ -1,44 +1,52 @@
+import { Result } from '@badrap/result';
+import { CevalCtrl, EvalMeta, ctrl as cevalCtrl, isEvalBetter } from 'ceval';
+import { Prop, defined, prop } from 'common/common';
+import { makeNotation } from 'common/notation';
+import { StoredBooleanProp, storedProp } from 'common/storage';
+import throttle from 'common/throttle';
+import * as game from 'game';
+import { Shogiground } from 'shogiground';
 import { Api as ShogigroundApi } from 'shogiground/api';
+import { Config as ShogigroundConfig } from 'shogiground/config';
 import { DrawShape } from 'shogiground/draw';
 import * as sg from 'shogiground/types';
-import { Config as ShogigroundConfig } from 'shogiground/config';
-import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from 'tree';
-import * as keyboard from './keyboard';
+import { eagleLionAttacks, falconLionAttacks } from 'shogiops/attacks';
+import {
+  checksSquareNames,
+  shogigroundDropDests,
+  shogigroundMoveDests,
+  shogigroundSecondLionStep,
+  usiToSquareNames,
+} from 'shogiops/compat';
+import { parseSfen } from 'shogiops/sfen';
+import { NormalMove, Outcome, Piece } from 'shogiops/types';
+import { makeSquare, makeUsi, opposite, parseSquare, squareDist } from 'shogiops/util';
+import { Chushogi } from 'shogiops/variant/chushogi';
+import { Position, PositionError } from 'shogiops/variant/position';
+import { TreeWrapper, build as makeTree, ops as treeOps, path as treePath } from 'tree';
 import { Ctrl as ActionMenuCtrl } from './actionMenu';
+import { compute as computeAutoShapes } from './autoShape';
 import { Autoplay, AutoplayDelay } from './autoplay';
-import * as util from './util';
-import { defined, prop, Prop } from 'common/common';
-import throttle from 'common/throttle';
-import { storedProp, StoredBooleanProp } from 'common/storage';
-import { make as makeSocket, Socket } from './socket';
-import { ForecastCtrl } from './forecast/interfaces';
-import { make as makeForecast } from './forecast/forecastCtrl';
-import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, EvalMeta } from 'ceval';
+import { EvalCache, make as makeEvalCache } from './evalCache';
 import explorerCtrl from './explorer/explorerCtrl';
 import { ExplorerCtrl } from './explorer/interfaces';
-import * as game from 'game';
-import makeStudy from './study/studyCtrl';
+import { make as makeForecast } from './forecast/forecastCtrl';
+import { ForecastCtrl } from './forecast/interfaces';
+import { ForkCtrl, make as makeFork } from './fork';
+import { makeConfig } from './ground';
+import { AnalyseData, AnalyseOpts, NvuiPlugin, Redraw, ServerEvalData } from './interfaces';
+import * as keyboard from './keyboard';
+import { nextGlyphSymbol } from './nodeFinder';
+import { PracticeCtrl, make as makePractice } from './practice/practiceCtrl';
+import { RetroCtrl, make as makeRetro } from './retrospect/retroCtrl';
+import { Socket, make as makeSocket } from './socket';
+import * as speech from './speech';
+import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
-import { make as makeFork, ForkCtrl } from './fork';
-import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
-import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
-import { make as makeEvalCache, EvalCache } from './evalCache';
-import { compute as computeAutoShapes } from './autoShape';
-import { nextGlyphSymbol } from './nodeFinder';
-import * as speech from './speech';
-import { AnalyseOpts, AnalyseData, ServerEvalData, NvuiPlugin, Redraw } from './interfaces';
-import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
-import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
-import { shogigroundDests, shogigroundDropDests, usiToSquareNames } from 'shogiops/compat';
-import { opposite, roleToString } from 'shogiops/util';
-import { Outcome, Piece } from 'shogiops/types';
-import { parseSfen } from 'shogiops/sfen';
-import { Position, PositionError } from 'shogiops/shogi';
-import { Result } from '@badrap/result';
-import { makeNotation } from 'common/notation';
-import { Shogiground } from 'shogiground';
-import { makeConfig } from './ground';
+import makeStudy from './study/studyCtrl';
+import { TreeView, ctrl as treeViewCtrl } from './treeView/treeView';
+import * as util from './util';
 
 const li = window.lishogi;
 
@@ -78,6 +86,7 @@ export default class AnalyseCtrl {
   synthetic: boolean; // false if coming from a real game
   imported: boolean; // true if coming from kif or csa
   ongoing: boolean; // true if real game is ongoing
+  lionFirstMove: NormalMove | undefined;
 
   // display flags
   flipped: boolean = false;
@@ -187,6 +196,8 @@ export default class AnalyseCtrl {
     this.imported = data.game.source === 'import';
     this.ongoing = !this.synthetic && game.playable(data);
 
+    if (this.data.game.variant.key === 'chushogi') li.loadChushogiPieceSprite();
+
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeOps.reconstruct(this.data.treeParts));
     if (prevTree) this.tree.merge(prevTree);
@@ -207,6 +218,7 @@ export default class AnalyseCtrl {
     this.node = treeOps.last(this.nodeList) as Tree.Node;
     this.mainline = treeOps.mainlineNodeList(this.tree.root);
     this.onMainline = this.tree.pathIsMainline(path);
+    this.lionFirstMove = undefined;
     this.sfenInput = undefined;
     this.kifInput = undefined;
     this.csaInput = undefined;
@@ -257,28 +269,29 @@ export default class AnalyseCtrl {
   }
 
   // allows moving after game end - use pos.isEnd, if needed
-  private getMoveDests(): sg.Dests {
+  private getMoveDests(posRes: Result<Position>): sg.MoveDests {
     if (this.embed) return new Map();
     else
-      return this.position(this.node).unwrap(
-        pos => shogigroundDests(pos),
+      return posRes.unwrap(
+        pos => shogigroundMoveDests(pos),
         _ => new Map()
-      ) as sg.Dests;
+      );
   }
 
-  private getDropDests(): sg.DropDests {
+  private getDropDests(posRes: Result<Position>): sg.DropDests {
     if (this.embed) return new Map();
-    return this.position(this.node).unwrap(
+    return posRes.unwrap(
       pos => shogigroundDropDests(pos),
       _ => new Map()
-    ) as sg.DropDests;
+    );
   }
 
   makeSgOpts(): ShogigroundConfig {
     const node = this.node,
       color = this.turnColor(),
-      dests = this.getMoveDests(),
-      drops = this.getDropDests(),
+      posRes = this.position(this.node),
+      dests = this.getMoveDests(posRes),
+      drops = this.getDropDests(posRes),
       movableColor =
         this.practice || this.gamebookPlay()
           ? this.bottomColor()
@@ -299,8 +312,14 @@ export default class AnalyseCtrl {
         droppable: {
           dests: this.embed || movableColor !== color ? new Map() : drops,
         },
-        check: !!node.check,
-        lastDests: node.usi ? (usiToSquareNames(node.usi) as Key[]) : undefined,
+        checks:
+          this.data.game.variant.key === 'chushogi' && node.check && posRes.isOk
+            ? checksSquareNames(posRes.value)
+            : node.check,
+        lastDests: node.usi ? usiToSquareNames(node.usi) : undefined,
+        drawable: {
+          squares: [],
+        },
       };
     config.premovable = {
       enabled: config.activeColor && config.turnColor !== config.activeColor,
@@ -446,14 +465,16 @@ export default class AnalyseCtrl {
       encodeURIComponent(sfen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
-  userDrop = (piece: Piece, key: sg.Key): void => {
-    const usi = roleToString(piece.role).toUpperCase() + '*' + key;
+  userDrop = (piece: Piece, key: Key): void => {
+    const usi = makeUsi({ role: piece.role, to: parseSquare(key) });
     this.justPlayedUsi = usi;
     this.sound.move();
     this.sendUsi(usi);
   };
 
-  userMove = (orig: sg.Key, dest: sg.Key, prom: boolean, capture?: sg.Piece): void => {
+  userMove = (orig: Key, dest: Key, prom: boolean, capture?: sg.Piece): void => {
+    if (this.data.game.variant.key === 'chushogi') return this.chushogiUserMove(orig, dest, prom, capture);
+
     const usi = orig + dest + (prom ? '+' : '');
     this.justPlayedUsi = usi;
     this.sound[!!capture ? 'capture' : 'move']();
@@ -471,6 +492,51 @@ export default class AnalyseCtrl {
     this.socket.sendAnaUsi(move);
     this.preparePreMD();
     this.redraw();
+  };
+
+  private chushogiUserMove = (orig: Key, dest: Key, prom: boolean, capture?: sg.Piece): void => {
+    this.sound[!!capture ? 'capture' : 'move']();
+
+    const posRes = this.position(this.node),
+      piece = posRes.isOk && posRes.value.board.get(parseSquare(orig))!;
+    if (
+      piece &&
+      this.lionFirstMove === undefined &&
+      squareDist(parseSquare(orig), parseSquare(dest)) === 1 &&
+      (['lion', 'lionpromoted'].includes(piece.role) ||
+        (piece.role === 'eagle' && eagleLionAttacks(parseSquare(orig), piece.color).has(parseSquare(dest))) ||
+        (piece.role === 'falcon' && falconLionAttacks(parseSquare(orig), piece.color).has(parseSquare(dest))))
+    ) {
+      const pos = posRes.value as Chushogi;
+      this.shogiground.set({
+        activeColor: pos.turn,
+        turnColor: pos.turn,
+        checks: checksSquareNames(pos),
+        movable: {
+          dests: shogigroundSecondLionStep(pos, orig, dest),
+        },
+        drawable: {
+          squares: [{ key: dest, className: 'force-selected' }],
+        },
+      });
+      this.shogiground.selectSquare(dest, false, true);
+      this.lionFirstMove = {
+        from: parseSquare(orig),
+        to: parseSquare(dest),
+      };
+    } else {
+      const hadMid = this.lionFirstMove !== undefined && makeSquare(this.lionFirstMove.to) !== dest;
+      const move: NormalMove = {
+        from: hadMid ? this.lionFirstMove!.from : parseSquare(orig),
+        to: parseSquare(dest),
+        promotion: prom,
+        midStep: hadMid ? this.lionFirstMove!.to : undefined,
+      };
+      this.lionFirstMove = undefined;
+      const usi = makeUsi(move);
+      this.justPlayedUsi = usi;
+      this.sendUsi(usi);
+    }
   };
 
   private preparePreMD(): void {

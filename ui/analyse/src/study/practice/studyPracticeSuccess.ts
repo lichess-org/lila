@@ -55,7 +55,7 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
       if (mateIn === null) return null;
       if (!mateIn || (mateIn as number) + nbMoves > goal.moves!) return false;
       break;
-    case 'promotion':
+    case 'promotion': // todo ?
       if (!node.usi[4]) return null;
       return isWinning(node, goal.cp!, root.bottomColor());
     case 'mate':

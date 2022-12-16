@@ -10,7 +10,7 @@ export interface ForecastStep {
   usi: Usi;
   notation: string;
   sfen: Sfen;
-  check?: Key;
+  check?: boolean;
 }
 
 export interface ForecastCtrl {

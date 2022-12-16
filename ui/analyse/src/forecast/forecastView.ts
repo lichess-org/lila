@@ -1,9 +1,9 @@
-import { h, VNode } from 'snabbdom';
-import { makeNotation, makeNotationLine, Notation, notationsWithColor } from 'common/notation';
+import { Notation, makeNotation, makeNotationLine, notationsWithColor } from 'common/notation';
+import { MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
 import spinner from 'common/spinner';
-import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
-import { ForecastCtrl, ForecastStep } from './interfaces';
+import { VNode, h } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
+import { ForecastCtrl, ForecastStep } from './interfaces';
 
 function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   var firstNode = cNodes[0];

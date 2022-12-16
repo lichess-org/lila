@@ -1,12 +1,15 @@
-import { h, VNode } from 'snabbdom';
-import { Config as SgConfig } from 'shogiground/config';
-import * as sg from 'shogiground/types';
-import { DrawShape } from 'shogiground/draw';
+import { notationFiles, notationRanks } from 'common/notation';
+import { predrop, premove } from 'common/pre-sg';
 import resizeHandle from 'common/resize';
+import { Config as SgConfig } from 'shogiground/config';
+import { DrawShape } from 'shogiground/draw';
+import * as sg from 'shogiground/types';
+import { forsythToRole, roleToForsyth } from 'shogiops/sfen';
+import { Piece, Role } from 'shogiops/types';
+import { makeSquare, parseSquare } from 'shogiops/util';
+import { handRoles, pieceCanPromote, pieceForcePromote, promote as shogiPromote } from 'shogiops/variant/util';
+import { VNode, h } from 'snabbdom';
 import AnalyseCtrl from './ctrl';
-import { Role } from 'shogiops/types';
-import { handRoles, pieceCanPromote, pieceInDeadZone, promote as shogiPromote } from 'shogiops/variantUtil';
-import { parseSquare } from 'shogiops/util';
 
 export function renderBoard(ctrl: AnalyseCtrl): VNode {
   return h('div.sg-wrap', {
@@ -39,6 +42,7 @@ export function renderHand(ctrl: AnalyseCtrl, pos: 'top' | 'bottom'): VNode {
 
 export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
   const d = ctrl.data,
+    variant = d.game.variant.key,
     pref = d.pref,
     opts = ctrl.makeSgOpts();
   const config: SgConfig = {
@@ -48,12 +52,12 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
       board: opts.sfen?.board,
       hands: opts.sfen?.hands,
     },
-    check: opts.check,
+    checks: opts.checks,
     lastDests: opts.lastDests,
     orientation: ctrl.bottomColor(),
     viewOnly: !!ctrl.embed,
     hands: {
-      roles: handRoles(ctrl.data.game.variant.key),
+      roles: handRoles(variant),
     },
     movable: {
       free: false,
@@ -67,11 +71,19 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
     },
     coordinates: {
       enabled: pref.coords !== 0 && !ctrl.embed,
-      notation: pref.notation,
+      files: notationFiles(pref.notation),
+      ranks: notationRanks(pref.notation),
     },
     events: {
       move: ctrl.userMove,
       drop: ctrl.userDrop,
+      unselect: (key: Key) => {
+        if (ctrl.lionFirstMove && ctrl.lionFirstMove.to === parseSquare(key)) {
+          const from = ctrl.lionFirstMove.from,
+            to = ctrl.lionFirstMove.to;
+          ctrl.userMove(makeSquare(from), makeSquare(to), false, undefined);
+        }
+      },
       insert(boardEls?: sg.BoardElements, _handEls?: sg.HandElements) {
         if (!ctrl.embed && boardEls) resizeHandle(boardEls, ctrl.data.pref.resizeHandle, ctrl.node.ply);
       },
@@ -79,12 +91,14 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
     premovable: {
       enabled: opts.premovable!.enabled,
       showDests: pref.destination,
+      generate: opts.premovable!.enabled ? premove(variant) : undefined,
       events: {
         set: ctrl.onPremoveSet,
       },
     },
     predroppable: {
       enabled: opts.predroppable!.enabled,
+      generate: opts.predroppable!.enabled ? predrop(variant) : undefined,
       showDests: pref.dropDestination && pref.destination,
     },
     drawable: {
@@ -92,19 +106,24 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
       eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice,
     },
     promotion: {
-      promotesTo: (role: Role) => shogiPromote(ctrl.data.game.variant.key)(role),
+      promotesTo: (role: Role) => shogiPromote(variant)(role),
       movePromotionDialog: (orig: Key, dest: Key) => {
-        const piece = ctrl.shogiground.state.pieces.get(orig);
+        const piece = ctrl.shogiground.state.pieces.get(orig) as Piece,
+          capture = ctrl.shogiground.state.pieces.get(dest) as Piece | undefined;
         return (
           !!piece &&
-          pieceCanPromote(ctrl.data.game.variant.key)(piece, parseSquare(orig)!, parseSquare(dest)!) &&
-          !pieceInDeadZone(ctrl.data.game.variant.key)(piece, parseSquare(dest)!)
+          pieceCanPromote(variant)(piece, parseSquare(orig)!, parseSquare(dest)!, capture) &&
+          !pieceForcePromote(variant)(piece, parseSquare(dest)!)
         );
       },
       forceMovePromotion: (orig: Key, dest: Key) => {
-        const piece = ctrl.shogiground.state.pieces.get(orig);
-        return !!piece && pieceInDeadZone(ctrl.data.game.variant.key)(piece, parseSquare(dest)!);
+        const piece = ctrl.shogiground.state.pieces.get(orig) as Piece;
+        return !!piece && pieceForcePromote(variant)(piece, parseSquare(dest)!);
       },
+    },
+    forsyth: {
+      fromForsyth: forsythToRole(variant),
+      toForsyth: roleToForsyth(variant),
     },
     highlight: {
       lastDests: pref.highlightLastDests,

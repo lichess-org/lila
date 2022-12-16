@@ -1,40 +1,40 @@
-import { h, VNode } from 'snabbdom';
-import { parseSfen } from 'shogiops/sfen';
-import * as shogiground from './ground';
+import { view as cevalView } from 'ceval';
 import { defined } from 'common/common';
-import { bind, onInsert, dataIcon, bindNonPassive } from 'common/snabbdom';
 import { bindMobileMousedown } from 'common/mobile';
+import { bind, bindNonPassive, dataIcon, onInsert } from 'common/snabbdom';
+import spinner from 'common/spinner';
+import stepwiseScroll from 'common/wheel';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
+import { parseSfen } from 'shogiops/sfen';
+import { VNode, h } from 'snabbdom';
 import { path as treePath } from 'tree';
-import { render as renderTreeView } from './treeView/treeView';
-import * as control from './control';
+import { render as acplView } from './acpl';
 import { view as actionMenu } from './actionMenu';
 import renderClocks from './clocks';
-import * as notationExport from './notationExport';
-import forecastView from './forecast/forecastView';
-import { view as cevalView } from 'ceval';
-import { view as keyboardView } from './keyboard';
+import * as control from './control';
+import AnalyseCtrl from './ctrl';
 import explorerView from './explorer/explorerView';
-import retroView from './retrospect/retroView';
+import forecastView from './forecast/forecastView';
+import { view as forkView } from './fork';
+import * as gridHacks from './gridHacks';
+import * as shogiground from './ground';
+import { ConcealOf } from './interfaces';
+import { view as keyboardView } from './keyboard';
+import * as notationExport from './notationExport';
 import practiceView from './practice/practiceView';
+import retroView from './retrospect/retroView';
+import serverSideUnderboard from './serverSideUnderboard';
 import * as gbEdit from './study/gamebook/gamebookEdit';
 import * as gbPlay from './study/gamebook/gamebookPlayView';
 import { StudyCtrl } from './study/interfaces';
-import * as studyView from './study/studyView';
-import * as studyPracticeView from './study/practice/studyPracticeView';
-import { view as forkView } from './fork';
-import { render as acplView } from './acpl';
-import AnalyseCtrl from './ctrl';
-import { ConcealOf } from './interfaces';
-import relayManager from './study/relay/relayManagerView';
-import relayIntro from './study/relay/relayIntroView';
 import renderPlayerBars from './study/playerBars';
-import serverSideUnderboard from './serverSideUnderboard';
-import * as gridHacks from './gridHacks';
-import spinner from 'common/spinner';
-import stepwiseScroll from 'common/wheel';
+import * as studyPracticeView from './study/practice/studyPracticeView';
+import relayIntro from './study/relay/relayIntroView';
+import relayManager from './study/relay/relayManagerView';
+import * as studyView from './study/studyView';
+import { render as renderTreeView } from './treeView/treeView';
 
 const li = window.lishogi;
 
@@ -395,7 +395,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
           ]
         ),
       gaugeOn && !intro ? cevalView.renderGauge(ctrl) : null,
-      intro ? null : shogiground.renderHand(ctrl, 'top'),
+      intro || ctrl.data.game.variant.key === 'chushogi' ? null : shogiground.renderHand(ctrl, 'top'),
       gamebookPlayView ||
         (intro
           ? null
@@ -410,7 +410,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
                     retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
                   ]),
             ])),
-      intro ? null : shogiground.renderHand(ctrl, 'bottom'),
+      intro || ctrl.data.game.variant.key === 'chushogi' ? null : shogiground.renderHand(ctrl, 'bottom'),
       gamebookPlayView || intro ? null : controls(ctrl),
       ctrl.embed || intro
         ? null

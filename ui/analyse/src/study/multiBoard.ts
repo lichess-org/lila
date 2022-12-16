@@ -1,11 +1,12 @@
-import { h, VNode } from 'snabbdom';
+import { MaybeVNodes, bind } from 'common/snabbdom';
+import spinner from 'common/spinner';
 import { Shogiground } from 'shogiground';
 import { opposite } from 'shogiground/util';
-import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
+import { usiToSquareNames } from 'shogiops/compat';
+import { handRoles } from 'shogiops/variant/util';
+import { VNode, h } from 'snabbdom';
+import { ChapterPreview, ChapterPreviewPlayer, Position, StudyCtrl } from './interfaces';
 import { multiBoard as xhrLoad } from './studyXhr';
-import { bind, MaybeVNodes } from 'common/snabbdom';
-import spinner from 'common/spinner';
-import { handRoles } from 'shogiops/variantUtil';
 
 export class MultiBoardCtrl {
   loading: boolean = false;
@@ -151,7 +152,7 @@ function makePlayer(player: ChapterPreviewPlayer): VNode {
 }
 
 function usiToLastMove(lm?: string): Key[] | undefined {
-  return lm ? ((lm.includes('*') ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]) as Key[]) : undefined;
+  return lm ? usiToSquareNames(lm) : undefined;
 }
 
 function makeSg(preview: ChapterPreview): VNode {
@@ -181,8 +182,11 @@ function makeSg(preview: ChapterPreview): VNode {
       postpatch(old, vnode) {
         if (old.data!.cp.sfen !== preview.sfen) {
           old.data!.cp.sg.set({
-            sfen: preview.sfen,
-            lastMove: usiToLastMove(preview.lastMove),
+            sfen: {
+              board: preview.sfen,
+              hands: preview.sfen && preview.sfen.split(' ').length > 2 ? preview.sfen.split(' ')[2] : '',
+            },
+            lastDests: usiToLastMove(preview.lastMove),
           });
           old.data!.cp.sfen = preview.sfen;
         }
