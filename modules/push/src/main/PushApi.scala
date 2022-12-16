@@ -375,9 +375,9 @@ final private class PushApi(
       event: NotificationPref.Event,
       data: PushApi.Data
   ): Funit =
-    prefApi.getNotificationPref(userId) flatMap (x =>
+    prefApi.getPref(userId, _.notification) flatMap { x =>
       filterPush(NotifyAllows(userId, x.allows(event)), monitor, data)
-    )
+    }
 
   private def filterPush(to: NotifyAllows, monitor: MonitorType, data: PushApi.Data): Funit = {
     to.web ?? webPush(to.userId, data).addEffects(res => monitor(lila.mon.push.send)("web", res.isSuccess))

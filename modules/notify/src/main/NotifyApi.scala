@@ -78,7 +78,7 @@ final class NotifyApi(
       insertNotification(note) >> {
         if (!Allows.canFilter(note.content.key)) fuccess(bellOne(note.to))
         else
-          prefApi.getNotificationPref(note.to) map (_ allows note.content.key) flatMap { allows =>
+          prefApi.getPref(note.to, _.notification) map (_ allows note.content.key) flatMap { allows =>
             allows.bell ?? bellOne(note.to)
             allows.push ?? fuccess(pushOne(NotifyAllows(note.to, allows), note.content))
           }
