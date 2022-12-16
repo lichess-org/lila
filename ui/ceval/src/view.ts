@@ -1,17 +1,17 @@
-import * as winningChances from './winningChances';
-import stepwiseScroll from 'common/wheel';
 import { defined, notNull } from 'common/common';
-import { makeNotationLineWithPosition, Notation, notationsWithColor } from 'common/notation';
-import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
-import { h, VNode } from 'snabbdom';
+import { Notation, makeNotationLineWithPosition, notationsWithColor } from 'common/notation';
+import stepwiseScroll from 'common/wheel';
 import { Config } from 'shogiground/config';
-import { Position } from 'shogiops/shogi';
-import { makeUsi, opposite, parseUsi } from 'shogiops/util';
-import { Move } from 'shogiops/types';
-import { parseSfen, makeSfen } from 'shogiops/sfen';
-import { cubicRegressionEval, renderEval } from './util';
 import { usiToSquareNames } from 'shogiops/compat';
-import { handRoles } from 'shogiops/variantUtil';
+import { makeSfen, parseSfen } from 'shogiops/sfen';
+import { Move } from 'shogiops/types';
+import { makeUsi, opposite, parseUsi } from 'shogiops/util';
+import { Position } from 'shogiops/variant/position';
+import { handRoles } from 'shogiops/variant/util';
+import { VNode, h } from 'snabbdom';
+import { CevalCtrl, Eval, NodeEvals, ParentCtrl } from './types';
+import { cubicRegressionEval, renderEval } from './util';
+import * as winningChances from './winningChances';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
@@ -228,7 +228,12 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
         pearl ? h('pearl', [pearl]) : null,
         h('help', [
           ...engineName(instance),
-          h('span', [h('br'), instance.analysable ? trans.noarg('inLocalBrowser') : 'Engine cannot analyse this game']),
+          h('span', [
+            h('br'),
+            instance.analysable
+              ? trans.noarg('inLocalBrowser')
+              : `Engine cannot analyse this ${instance.variant.key === 'chushogi' ? 'variant' : 'game'}`,
+          ]),
         ]),
       ];
 
@@ -323,7 +328,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     if (node.usi) position.value.lastMove = parseUsi(node.usi);
     if (threat) {
       position.value.turn = opposite(position.value.turn);
-      if (position.value.turn == 'sente') position.value.fullmoves += 1;
+      if (position.value.turn == 'sente') position.value.moveNumber += 1;
     }
   }
   const notation = ctrl.data.pref.notation ?? 0;
@@ -433,7 +438,7 @@ function renderPvMoves(pos: Position, pv: Usi[], notation: Notation): VNode[] {
 
   for (let i = 0; i < moves.length; i++) {
     const colorIcon = addColorIcon ? '.color-icon.' + pos.turn : '',
-      moveNumber = `${pos.fullmoves}. `;
+      moveNumber = `${pos.moveNumber}. `;
     pos.play(moves[i]);
     const usi = makeUsi(moves[i]),
       sfen = makeSfen(pos);
@@ -472,7 +477,7 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
       roles: handRoles(instance.variant.key),
       inlined: true,
     },
-    lastDests: usiToSquareNames(usi) as Key[],
+    lastDests: usiToSquareNames(usi),
     orientation,
     coordinates: { enabled: false },
     viewOnly: true,

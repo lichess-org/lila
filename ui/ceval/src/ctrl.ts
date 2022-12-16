@@ -1,13 +1,13 @@
 import { Result } from '@badrap/result';
 import { prop } from 'common/common';
-import { isIOS, isIPad, isAndroid } from 'common/mobile';
+import { isAndroid, isIOS, isIPad } from 'common/mobile';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import { parseSfen } from 'shogiops/sfen';
-import { Position } from 'shogiops/shogi';
-import { defaultPosition } from 'shogiops/variant';
+import { Position } from 'shogiops/variant/position';
+import { defaultPosition } from 'shogiops/variant/variant';
 import { Cache } from './cache';
-import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, PvBoard, Started } from './types';
+import { CevalCtrl, CevalOpts, CevalTechnology, Hovering, PvBoard, Started, Step, Work } from './types';
 import { povChances } from './winningChances';
 import { AbstractWorker, ThreadedWasmWorker } from './worker';
 
@@ -50,7 +50,7 @@ function defaultDepth(technology: CevalTechnology, threads: number, multiPv: num
 function engineName(technology: CevalTechnology): string {
   switch (technology) {
     case 'none':
-      return 'None';
+      return '';
     case 'hce':
       return 'Fairy Stockfish';
     case 'nnue':
@@ -68,17 +68,17 @@ function enabledAfterDisable() {
 
 function isStandardMaterial(pos: Position) {
   const board = pos.board,
-    hands = pos.hands.sente.add(pos.hands.gote);
+    hands = pos.hands.color('sente').combine(pos.hands.color('gote'));
   return (
-    board.pawn.size() + board.tokin.size() + hands.pawn <= 18 &&
-    board.lance.size() + board.promotedlance.size() + hands.lance <= 4 &&
-    board.knight.size() + board.promotedknight.size() + hands.knight <= 4 &&
-    board.silver.size() + board.promotedsilver.size() + hands.silver <= 4 &&
-    board.gold.size() + hands.gold <= 4 &&
-    board.rook.size() + board.dragon.size() + hands.rook <= 2 &&
-    board.bishop.size() + board.horse.size() + hands.bishop <= 2 &&
-    board.king.size() == 2 &&
-    board.king.intersect(board.sente).size() === 1
+    board.role('pawn').size() + board.role('tokin').size() + hands.get('pawn') <= 18 &&
+    board.role('lance').size() + board.role('promotedlance').size() + hands.get('lance') <= 4 &&
+    board.role('knight').size() + board.role('promotedknight').size() + hands.get('knight') <= 4 &&
+    board.role('silver').size() + board.role('promotedsilver').size() + hands.get('silver') <= 4 &&
+    board.role('gold').size() + hands.get('gold') <= 4 &&
+    board.role('rook').size() + board.role('dragon').size() + hands.get('rook') <= 2 &&
+    board.role('bishop').size() + board.role('horse').size() + hands.get('bishop') <= 2 &&
+    board.role('king').size() == 2 &&
+    board.role('king').intersect(board.color('sente')).size() === 1
   );
 }
 
@@ -92,15 +92,21 @@ export default function (opts: CevalOpts): CevalCtrl {
   const pos = opts.initialSfen
     ? parseSfen(opts.variant.key, opts.initialSfen, false)
     : Result.ok(defaultPosition(opts.variant.key));
-  const analysable = pos.isOk;
+  const analysable = pos.isOk && opts.variant.key !== 'chushogi';
 
   // select nnue > hce > none
-  const useYaneuraou = opts.variant.key === 'standard' && (!analysable || isStandardMaterial(pos.value));
-  let supportsNnue = false;
-  let technology: CevalTechnology = 'none';
-  let growableSharedMem = false;
+  const useYaneuraou = opts.variant.key === 'standard' && (!analysable || isStandardMaterial(pos.value)),
+    fairySupports = !useYaneuraou && analysable;
+  let supportsNnue = false,
+    technology: CevalTechnology = 'none',
+    growableSharedMem = false;
   const source = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]);
-  if (typeof WebAssembly === 'object' && typeof WebAssembly.validate === 'function' && WebAssembly.validate(source)) {
+  if (
+    (useYaneuraou || fairySupports) &&
+    typeof WebAssembly === 'object' &&
+    typeof WebAssembly.validate === 'function' &&
+    WebAssembly.validate(source)
+  ) {
     const sharedMem = sendableSharedWasmMemory(1, 2);
     if (sharedMem) {
       technology = 'hce';
@@ -122,11 +128,11 @@ export default function (opts: CevalOpts): CevalCtrl {
     }
   }
 
-  const initialAllocationMaxThreads = useYaneuraou ? 2 : 1;
-  const maxThreads = Math.min(
-    Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
-    growableSharedMem ? 32 : initialAllocationMaxThreads
-  );
+  const initialAllocationMaxThreads = useYaneuraou ? 2 : 1,
+    maxThreads = Math.min(
+      Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
+      growableSharedMem ? 32 : initialAllocationMaxThreads
+    );
   const threads = () => {
     const stored = window.lishogi.storage.get(storageKey('ceval.threads'));
     return Math.min(maxThreads, stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4));
