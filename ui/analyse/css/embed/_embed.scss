@@ -13,6 +13,10 @@ $mq-col1: 9999px;
 @import 'footer';
 @import 'not-found';
 
+body {
+  overflow-y: auto;
+}
+
 .chapter-name {
   @extend %roboto;
   padding: 0.3em;
