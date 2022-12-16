@@ -48,9 +48,10 @@ export const isMobile = (): boolean => isAndroid() || isIOS();
 
 export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
 
-export const isIOS = (): boolean => /iPad|iPhone|iPod/.test(navigator.userAgent) || isIPad();
+export const isIOS = (): boolean => /iPhone|iPod/.test(navigator.userAgent) || isIPad();
 
-export const isIPad = (): boolean => navigator?.maxTouchPoints > 2 && /MacIntel/.test(navigator.userAgent);
+// some newer iPads pretend to be Macs, hence checking for "Macintosh"
+export const isIPad = (): boolean => navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
 
 const hasMouse = memoize<boolean>(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);
 
