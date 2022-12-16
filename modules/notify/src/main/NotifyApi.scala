@@ -21,8 +21,7 @@ final class NotifyApi(
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
     maxPerPage: MaxPerPage,
-    prefApi: lila.pref.PrefApi,
-    getLightUser: lila.common.LightUser.Getter
+    prefApi: lila.pref.PrefApi
 )(using scala.concurrent.ExecutionContext):
 
   import Notification.*
