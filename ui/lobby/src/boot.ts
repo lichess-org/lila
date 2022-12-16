@@ -87,5 +87,11 @@ function suggestBgSwitch() {
 
   $('.bg-switch')
     .addClass('active')
-    .on('click', () => getDasher().then(dasher => dasher.subs.background.set('dark')));
+    .on('click', () =>
+      getDasher().then(dasher =>
+        document.body.dataset.theme === 'dark'
+          ? dasher.subs.background.set('light')
+          : dasher.subs.background.set('dark')
+      )
+    );
 }
