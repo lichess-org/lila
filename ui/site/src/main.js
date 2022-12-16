@@ -231,6 +231,93 @@
     });
   };
 
+  // Copied from shogiops
+  // todo - refactor and rewrite site in ts and get rid of this
+  function chushogiForsythToRole(str) {
+    switch (str.toLowerCase()) {
+      case 'l':
+        return 'lance';
+      case '+l':
+        return 'whitehorse';
+      case 'f':
+        return 'leopard';
+      case '+f':
+        return 'bishoppromoted';
+      case 'c':
+        return 'copper';
+      case '+c':
+        return 'sidemoverpromoted';
+      case 's':
+        return 'silver';
+      case '+s':
+        return 'verticalmoverpromoted';
+      case 'g':
+        return 'gold';
+      case '+g':
+        return 'rookpromoted';
+      case 'k':
+        return 'king';
+      case 'e':
+        return 'elephant';
+      case '+e':
+        return 'prince';
+      case 'a':
+        return 'chariot';
+      case '+a':
+        return 'whale';
+      case 'b':
+        return 'bishop';
+      case '+b':
+        return 'horsepromoted';
+      case 't':
+        return 'tiger';
+      case '+t':
+        return 'stag';
+      case 'o':
+        return 'kirin';
+      case '+o':
+        return 'lionpromoted';
+      case 'x':
+        return 'phoenix';
+      case '+x':
+        return 'queenpromoted';
+      case 'm':
+        return 'sidemover';
+      case '+m':
+        return 'boar';
+      case 'v':
+        return 'verticalmover';
+      case '+v':
+        return 'ox';
+      case 'r':
+        return 'rook';
+      case '+r':
+        return 'dragonpromoted';
+      case 'h':
+        return 'horse';
+      case '+h':
+        return 'falcon';
+      case 'd':
+        return 'dragon';
+      case '+d':
+        return 'eagle';
+      case 'n':
+        return 'lion';
+      case 'q':
+        return 'queen';
+      case 'p':
+        return 'pawn';
+      case '+p':
+        return 'promotedpawn';
+      case 'i':
+        return 'gobetween';
+      case '+i':
+        return 'elephantpromoted';
+      default:
+        return;
+    }
+  }
+
   lishogi.parseSfen = function ($elem) {
     if (!window.Shogiground)
       return setTimeout(function () {
@@ -238,10 +325,11 @@
       }, 500); // if not loaded yet
     // sometimes $elem is not a jQuery, can happen when content_loaded is triggered with random args
     if (!$elem || !$elem.each) $elem = $('.parse-sfen');
+    if (document.body.querySelector('.d-12x12')) lishogi.loadChushogiPieceSprite();
     $elem.each(function () {
       var $this = $(this).removeClass('parse-sfen');
       var lm = $this.data('lastmove');
-      var lastMove = lm && (lm[1] === '*' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]);
+      var lastDests = lm && (lm[1] === '*' ? [lm.slice(2)] : lm.match(/..?/g));
       var color = $this.data('color') || lishogi.readServerSfen($(this).data('y'));
       var ground = $this.data('shogiground');
       var playable = !!$this.data('playable');
@@ -249,20 +337,26 @@
       var variant = $this.data('variant');
       var sfen = $this.data('sfen') || lishogi.readServerSfen($this.data('z'));
       var splitSfen = sfen.split(' ');
+      var handRoles =
+        variant === 'chushogi'
+          ? []
+          : variant === 'minishogi'
+          ? ['rook', 'bishop', 'gold', 'silver', 'pawn']
+          : ['rook', 'bishop', 'gold', 'silver', 'knight', 'lance', 'pawn'];
       var config = {
         coordinates: false,
         viewOnly: !playable,
         resizable: resizable,
         sfen: { board: splitSfen[0], hands: splitSfen[2] },
         hands: {
-          inlined: true,
-          roles:
-            variant === 'minishogi'
-              ? ['rook', 'bishop', 'gold', 'silver', 'pawn']
-              : ['rook', 'bishop', 'gold', 'silver', 'knight', 'lance', 'pawn'],
+          inlined: variant !== 'chushogi',
+          roles: handRoles,
         },
-        lastMove: lastMove,
+        lastDests: lastDests,
         drawable: { enabled: false, visible: false },
+        forsyth: {
+          fromForsyth: variant === 'chushogi' ? chushogiForsythToRole : undefined,
+        },
       };
       if (color) config.orientation = color;
       if (ground) ground.set(config);
@@ -604,6 +698,9 @@
         setTimeout(function () {
           const sprite = $('#piece-sprite');
           sprite.attr('href', sprite.attr('href').replace('.css', '.external.css'));
+
+          const chuSprite = $('#chu-piece-sprite');
+          if (chuSprite.length) chuSprite.attr('href', sprite.attr('href').replace('.css', '.external.css'));
         }, 1000);
 
       // prevent zoom when keyboard shows on iOS

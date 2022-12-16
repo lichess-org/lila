@@ -239,8 +239,10 @@ lishogi.isHoverable = () => {
       !lishogi.hasTouchEvents /* Firefox <= 63 */ || !!getComputedStyle(document.body).getPropertyValue('--hoverable');
   return lishogi.hoverable;
 };
-lishogi.spinnerHtml =
-  '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
+lishogi.spinnerHtml = `<div class="spinner"><svg viewBox="-2.5 -2.5 45 55" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 20 0 L 33 4 L 40 50 L 0 50 L 7 4 Z"
+    style="fill:none;stroke-width:2.5;stroke-opacity:1;" />
+</svg></div>`;
 lishogi.assetUrl = (path, opts) => {
   opts = opts || {};
   const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url'),
@@ -258,6 +260,18 @@ lishogi.loadCssPath = function (key) {
     'css/' + key + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css'
   );
 };
+lishogi.loadChushogiPieceSprite = function () {
+  if (!document.getElementById('chu-piece-sprite')) {
+    const cps = document.body.dataset.chuPieceSet || 'Chu_Ryoko_1Kanji';
+    $('head').append(
+      $('<link id="chu-piece-sprite" rel="stylesheet" type="text/css" />').attr(
+        'href',
+        lishogi.assetUrl(`piece-css/${cps}.css`)
+      )
+    );
+  }
+};
+
 lishogi.compiledScript = function (name) {
   return 'compiled/lishogi.' + name + ($('body').data('dev') ? '' : '.min') + '.js';
 };
