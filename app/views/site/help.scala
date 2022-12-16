@@ -80,7 +80,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
       p("Parameters:"),
       ul(
         li(strong("theme"), ": ", lila.pref.Theme.all.map(_.name).mkString(", ")),
-        li(strong("pieceSet"), ": ", lila.pref.PieceSet.all.map(_.name).mkString(", ")),
+        li(strong("pieceSet"), ": ", (lila.pref.PieceSet.all ::: lila.pref.ChuPieceSet.all).map(_.name).mkString(", ")),
         li(strong("bg"), ": light, dark")
       )
     )

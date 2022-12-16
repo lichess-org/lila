@@ -59,6 +59,8 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def currentPieceSet = lila.pref.PieceSet(pref.pieceSet)
 
+  def currentChuPieceSet = lila.pref.ChuPieceSet(pref.chuPieceSet)
+
   def currentSoundSet = lila.pref.SoundSet(pref.soundSet)
 
   lazy val currentBg = if (pref.transp) "transp" else if (pref.dark) "dark" else "light"
