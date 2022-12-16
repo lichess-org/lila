@@ -1,47 +1,48 @@
-import * as round from './round';
+import { makeNotation, makeNotationLine } from 'common/notation';
+import notify from 'common/notification';
 import * as game from 'game';
 import * as status from 'game/status';
-import * as ground from './ground';
-import notify from 'common/notification';
-import { make as makeSocket, RoundSocket } from './socket';
-import * as title from './title';
-import * as blur from './blur';
-import * as speech from './speech';
-import * as sg from 'shogiground/types';
-import { Config as SgConfig } from 'shogiground/config';
+import { Shogiground } from 'shogiground';
 import { Api as SgApi } from 'shogiground/api';
+import { Config as SgConfig } from 'shogiground/config';
+import * as sg from 'shogiground/types';
 import { samePiece } from 'shogiground/util';
-import { ClockController } from './clock/clockCtrl';
-import { initialSfen } from 'shogiops/sfen';
-import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
-import MoveOn from './moveOn';
-import TransientMove from './transientMove';
-import * as sound from './sound';
-import * as util from './util';
-import * as xhr from './xhr';
-import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
-import * as renderUser from './view/user';
+import { eagleLionAttacks, falconLionAttacks } from 'shogiops/attacks';
+import { checksSquareNames, shogigroundSecondLionStep, usiToSquareNames } from 'shogiops/compat';
+import { initialSfen, parseSfen } from 'shogiops/sfen';
+import { NormalMove, Piece, Role, isDrop } from 'shogiops/types';
+import { makeSquare, makeUsi, opposite, parseSquare, parseUsi, squareDist } from 'shogiops/util';
+import { Chushogi } from 'shogiops/variant/chushogi';
+import { unpromote } from 'shogiops/variant/util';
+import * as blur from './blur';
 import * as cevalSub from './cevalSub';
-import * as keyboard from './keyboard';
-
+import { ClockController } from './clock/clockCtrl';
+import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
+import * as ground from './ground';
 import {
-  RoundOpts,
-  RoundData,
-  ApiMove,
   ApiEnd,
-  Redraw,
-  SocketOpts,
+  ApiMove,
   MoveMetadata,
-  Position,
   NvuiPlugin,
+  Position,
+  Redraw,
+  RoundData,
+  RoundOpts,
+  SocketOpts,
   SocketUsi,
 } from './interfaces';
-import { makeNotation, makeNotationLine } from 'common/notation';
-import { isDrop, Role, Piece } from 'shogiops/types';
-import { parseUsi, roleToString, makeSquare, opposite } from 'shogiops/util';
-import { Shogiground } from 'shogiground';
-import { usiToSquareNames } from 'shogiops/compat';
-import { unpromote } from 'shogiops/variantUtil';
+import * as keyboard from './keyboard';
+import { KeyboardMove, ctrl as makeKeyboardMove } from './keyboardMove';
+import MoveOn from './moveOn';
+import * as round from './round';
+import { RoundSocket, make as makeSocket } from './socket';
+import * as sound from './sound';
+import * as speech from './speech';
+import * as title from './title';
+import TransientMove from './transientMove';
+import * as util from './util';
+import * as renderUser from './view/user';
+import * as xhr from './xhr';
 
 interface GoneBerserk {
   sente?: boolean;
@@ -72,6 +73,7 @@ export default class RoundController {
   impasseHelp: boolean = false;
   transientMove: TransientMove;
   usiToSubmit?: SocketUsi;
+  lionFirstMove?: NormalMove;
   goneBerserk: GoneBerserk = {};
   resignConfirm?: Timeout = undefined;
   drawConfirm?: Timeout = undefined;
@@ -177,30 +179,77 @@ export default class RoundController {
     setTimeout(this.showExpiration, 250);
   };
 
-  private onUserMove = (orig: sg.Key, dest: sg.Key, prom: boolean, meta: sg.MoveMetadata) => {
+  private onUserMove = (orig: Key, dest: Key, prom: boolean, meta: sg.MoveMetadata) => {
     if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedMove)) li.ab.move(this, meta);
+
+    if (this.data.game.variant.key === 'chushogi') return this.onChushogiMove(orig, dest, prom, meta);
 
     // to update hand immediately and not wait on apiMove
     if (meta.captured)
       this.shogiground.addToHand({
-        role: unpromote(this.data.game.variant.key)(meta.captured.role) || meta.captured.role,
+        role: unpromote(this.data.game.variant.key)(meta.captured.role as Role) || meta.captured.role,
         color: opposite(meta.captured.color),
       });
-    this.sendMove(orig, dest, prom, meta);
+    const usi = orig + dest + (prom ? '+' : '');
+    this.sendUsi(usi, meta);
   };
 
-  private onUserDrop = (piece: Piece, key: sg.Key, _prom: boolean, meta: sg.MoveMetadata) => {
+  private onUserDrop = (piece: Piece, key: Key, _prom: boolean, meta: sg.MoveMetadata) => {
     if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedMove)) li.ab.drop(this, meta);
-    this.sendDrop(piece.role, key, meta);
+
+    const usi = makeUsi({ role: piece.role, to: parseSquare(key) });
+    this.sendUsi(usi, meta);
   };
 
-  private onMove = (_orig: sg.Key, _dest: sg.Key, _prom: boolean, captured?: Piece) => {
+  private onChushogiMove = (orig: Key, dest: Key, prom: boolean, meta: sg.MoveMetadata) => {
+    const posRes = parseSfen(this.data.game.variant.key, this.stepAt(this.ply).sfen, false),
+      piece = posRes.isOk && posRes.value.board.get(parseSquare(orig))!;
+    if (
+      piece &&
+      this.lionFirstMove === undefined &&
+      squareDist(parseSquare(orig), parseSquare(dest)) === 1 &&
+      (['lion', 'lionpromoted'].includes(piece.role) ||
+        (piece.role === 'eagle' && eagleLionAttacks(parseSquare(orig), piece.color).has(parseSquare(dest))) ||
+        (piece.role === 'falcon' && falconLionAttacks(parseSquare(orig), piece.color).has(parseSquare(dest))))
+    ) {
+      const pos = posRes.value as Chushogi;
+      this.shogiground.set({
+        activeColor: pos.turn,
+        turnColor: pos.turn,
+        checks: checksSquareNames(pos),
+        movable: {
+          dests: shogigroundSecondLionStep(pos, orig, dest),
+        },
+        drawable: {
+          squares: [{ key: dest, className: 'force-selected' }],
+        },
+      });
+      this.shogiground.selectSquare(dest, false, true);
+      this.lionFirstMove = {
+        from: parseSquare(orig),
+        to: parseSquare(dest),
+      };
+    } else {
+      const hadMid = this.lionFirstMove !== undefined && makeSquare(this.lionFirstMove.to) !== dest;
+      const move: NormalMove = {
+        from: hadMid ? this.lionFirstMove!.from : parseSquare(orig),
+        to: parseSquare(dest),
+        promotion: prom,
+        midStep: hadMid ? this.lionFirstMove!.to : undefined,
+      };
+      this.lionFirstMove = undefined;
+      const usi = makeUsi(move);
+      this.sendUsi(usi, meta);
+    }
+  };
+
+  private onMove = (_orig: Key, _dest: Key, _prom: boolean, captured?: Piece) => {
     if (captured) {
       sound.capture();
     } else sound.move();
   };
 
-  private onDrop = (_piece: Piece, _key: sg.Key, _prom: boolean) => {
+  private onDrop = (_piece: Piece, _key: Key, _prom: boolean) => {
     sound.move();
   };
 
@@ -219,6 +268,7 @@ export default class RoundController {
 
   userJump = (ply: Ply): void => {
     this.cancelMove();
+    this.lionFirstMove = undefined;
     this.shogiground.selectSquare(null);
     if (ply != this.ply && this.jump(ply)) speech.userJump(this, this.ply);
     else this.redraw();
@@ -232,30 +282,35 @@ export default class RoundController {
     this.ply = ply;
     const s = this.stepAt(ply),
       splitSfen = s.sfen.split(' '),
+      posRes = parseSfen(this.data.game.variant.key, s.sfen, false),
       config: SgConfig = {
         sfen: { board: splitSfen[0], hands: splitSfen[2] },
-        lastDests: s.usi ? (usiToSquareNames(s.usi) as Key[]) : undefined,
-        check: !!s.check,
+        lastDests: s.usi ? usiToSquareNames(s.usi) : undefined,
+        checks: this.data.game.variant.key !== 'chushogi' ? s.check : undefined,
         turnColor: this.ply % 2 === 0 ? 'sente' : 'gote',
         activeColor: this.isPlaying() ? this.data.player.color : undefined,
+        drawable: {
+          squares: [],
+        },
       };
     if (this.replaying()) this.shogiground.stop();
     else {
       config.movable = {
-        dests: this.isPlaying() ? util.getMoveDests(s.sfen, this.data.game.variant.key) : new Map(),
+        dests: this.isPlaying() ? util.getMoveDests(posRes) : new Map(),
       };
       config.droppable = {
-        dests: this.isPlaying() ? util.getDropDests(s.sfen, this.data.game.variant.key) : new Map(),
+        dests: this.isPlaying() ? util.getDropDests(posRes) : new Map(),
       };
     }
     const move = s.usi && parseUsi(s.usi),
-      capture = isForwardStep && move && this.shogiground.state.pieces.get(makeSquare(move.to) as Key);
+      capture = isForwardStep && move && this.shogiground.state.pieces.get(makeSquare(move.to));
     this.shogiground.set(config);
     if (s.usi && isForwardStep) {
       if (capture) sound.capture();
       else sound.move();
       if (s.check) sound.check();
     }
+    this.lionFirstMove = undefined;
     this.autoScroll();
     if (this.keyboardMove) this.keyboardMove.update(s);
     li.pubsub.emit('ply', ply);
@@ -286,7 +341,7 @@ export default class RoundController {
 
   setTitle = () => title.set(this);
 
-  sendUsi = (data: any, meta: MoveMetadata = {}) => {
+  sendUsiData = (data: any, meta: MoveMetadata = {}) => {
     const socketOpts: SocketOpts = {
       ackable: true,
     };
@@ -308,32 +363,17 @@ export default class RoundController {
     this.redraw();
   };
 
-  sendMove = (orig: sg.Key, dest: sg.Key, prom: boolean, meta: sg.MoveMetadata) => {
+  sendUsi = (usi: string, meta: sg.MoveMetadata) => {
     const move: SocketUsi = {
-      u: orig + dest,
+      u: usi,
     };
-    if (prom) move.u += '+';
     if (blur.get()) move.b = 1;
     this.resign(false);
     if (this.data.pref.submitMove && !meta.premade) {
       this.usiToSubmit = move;
       this.redraw();
     } else {
-      this.sendUsi(move, meta);
-    }
-  };
-
-  sendDrop = (role: Role, key: sg.Key, meta: sg.MoveMetadata): void => {
-    const drop: SocketUsi = {
-      u: roleToString(role).toUpperCase() + '*' + key,
-    };
-    if (blur.get()) drop.b = 1;
-    this.resign(false);
-    if (this.data.pref.submitMove && !meta.premade) {
-      this.usiToSubmit = drop;
-      this.redraw();
-    } else {
-      this.sendUsi(drop, meta);
+      this.sendUsiData(move, meta);
     }
   };
 
@@ -380,45 +420,55 @@ export default class RoundController {
     this.playerByColor('sente').offeringDraw = o.sDraw;
     this.playerByColor('gote').offeringDraw = o.gDraw;
     this.setTitle();
-    const move = parseUsi(o.usi!)!;
+    const move = parseUsi(o.usi!)!,
+      keys = usiToSquareNames(o.usi!),
+      posRes = parseSfen(d.game.variant.key, o.sfen, false);
+
     if (!this.replaying()) {
       this.ply++;
       if (isDrop(move)) {
-        const capture = this.shogiground.state.pieces.get(makeSquare(move.to) as Key),
+        const key = makeSquare(move.to),
+          capture = this.shogiground.state.pieces.get(key),
           piece = {
             role: move.role,
             color: playedColor,
           };
         // no need to drop the piece if it is already there - would play the sound again
-        if (!capture || !samePiece(capture, piece)) this.shogiground.drop(piece, o.usi!.substring(2, 4) as sg.Key);
+        if (!capture || !samePiece(capture, piece)) this.shogiground.drop(piece, key);
       } else {
         // This block needs to be idempotent
-        const keys = usiToSquareNames(o.usi!) as Key[];
-        this.shogiground.move(keys[0], keys[1], move.promotion);
+        if (move.midStep) {
+          this.shogiground.state.pieces.delete(keys[1]);
+          this.shogiground.move(keys[0], keys[2], move.promotion);
+        } else this.shogiground.move(keys[0], keys[1], move.promotion);
       }
       this.shogiground.set({
         sfen: {
           hands: o.sfen.split(' ')[2],
         },
         turnColor: d.game.player,
+        lastDests: keys,
         movable: {
-          dests: playing && activeColor ? util.getMoveDests(o.sfen, d.game.variant.key) : new Map(),
+          dests: playing && activeColor ? util.getMoveDests(posRes) : new Map(),
         },
         droppable: {
-          dests: playing && activeColor ? util.getDropDests(o.sfen, d.game.variant.key) : new Map(),
+          dests: playing && activeColor ? util.getDropDests(posRes) : new Map(),
         },
-        check: !!o.check,
+        checks: d.game.variant.key === 'chushogi' && o.check && posRes.isOk ? checksSquareNames(posRes.value) : o.check,
+        drawable: {
+          squares: [],
+        },
       });
       if (o.check) sound.check();
       blur.onMove();
       li.pubsub.emit('ply', this.ply);
     }
-    const lastStep = round.lastStep(this.data),
+    const lastStep = round.lastStep(d),
       step = {
         ply: lastStep.ply + 1,
         sfen: o.sfen,
         usi: o.usi,
-        notation: makeNotation(d.pref.notation, lastStep.sfen, this.data.game.variant.key, o.usi!, lastStep.usi),
+        notation: makeNotation(d.pref.notation, lastStep.sfen, d.game.variant.key, o.usi!, lastStep.usi),
         check: o.check,
       };
     d.steps.push(step);
@@ -461,6 +511,7 @@ export default class RoundController {
     this.data = d;
     this.initNotation();
     this.shouldSendMoveTime = false;
+    this.lionFirstMove = undefined;
     if (this.clock) this.clock.setClock(d, d.clock!.sente, d.clock!.gote, d.clock!.sPeriods, d.clock!.gPeriods);
     if (this.corresClock) this.corresClock.update(d.correspondence.sente, d.correspondence.gote);
     if (!this.replaying()) ground.reload(this);
@@ -619,9 +670,9 @@ export default class RoundController {
     this.redraw();
   };
 
-  submitMove = (v: boolean): void => {
+  submitUsi = (v: boolean): void => {
     const toSubmit = this.usiToSubmit;
-    if (v && this.usiToSubmit) this.sendUsi(this.usiToSubmit);
+    if (v && this.usiToSubmit) this.sendUsiData(this.usiToSubmit);
     else this.jump(this.ply);
     this.cancelMove();
     if (toSubmit) this.setLoading(true, 300);
@@ -653,7 +704,7 @@ export default class RoundController {
   };
 
   canOfferDraw = (): boolean => {
-    return game.drawable(this.data) && (this.lastDrawOfferAtPly || -99) < this.ply - 20;
+    return game.drawable(this.data) && (!this.lastDrawOfferAtPly || this.lastDrawOfferAtPly < this.ply - 20);
   };
 
   offerDraw = (v: boolean): void => {
@@ -712,10 +763,10 @@ export default class RoundController {
 
         if (!this.nvui && d.pref.submitMove) {
           window.Mousetrap.bind('esc', () => {
-            this.submitMove(false);
+            this.submitUsi(false);
             this.shogiground.cancelMove();
           });
-          window.Mousetrap.bind('return', () => this.submitMove(true));
+          window.Mousetrap.bind('return', () => this.submitUsi(true));
         }
         cevalSub.subscribe(this);
       }

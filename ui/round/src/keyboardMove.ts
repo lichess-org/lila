@@ -1,27 +1,28 @@
-import { h } from 'snabbdom';
 import * as sg from 'shogiground/types';
-import { Step, Redraw } from './interfaces';
-import RoundController from './ctrl';
+import { Role } from 'shogiops/types';
+import { h } from 'snabbdom';
 import { ClockController } from './clock/clockCtrl';
+import RoundController from './ctrl';
+import { Redraw, Step } from './interfaces';
 import { onInsert } from './util';
 
 export type KeyboardMoveHandler = (
   sfen: Sfen,
-  moveDests: sg.Dests | undefined,
+  moveDests: sg.MoveDests | undefined,
   dropDests: sg.DropDests | undefined,
   yourMove?: boolean
 ) => void;
 
 export interface KeyboardMove {
-  move(orig: sg.Key, dest: sg.Key, promotion: boolean): void;
-  drop(key: sg.Key, role: sg.Role): void;
-  lastDest: sg.Key | undefined;
+  move(orig: Key, dest: Key, promotion: boolean): void;
+  drop(key: Key, role: Role): void;
+  lastDest: Key | undefined;
   update(step: Step, yourMove?: boolean): void;
   registerHandler(h: KeyboardMoveHandler): void;
   hasFocus(): boolean;
   setFocus(v: boolean): void;
-  select(key: sg.Key): void;
-  hasSelected(): sg.Key | undefined;
+  select(key: Key): void;
+  hasSelected(): Key | undefined;
   confirmMove(): void;
   usedMove: boolean;
   jump(delta: number): void;
@@ -35,7 +36,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let preHandlerBuffer = step.sfen;
   let lastSelect = Date.now();
   const sgState = root.shogiground.state;
-  const select = function (key: sg.Key, prom?: boolean): void {
+  const select = function (key: Key, prom?: boolean): void {
     if (sgState.selected === key) root.shogiground.cancelMove();
     else {
       root.shogiground.selectSquare(key, prom, true);
@@ -72,7 +73,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     select,
     hasSelected: () => sgState.selected,
     confirmMove() {
-      root.submitMove(true);
+      root.submitUsi(true);
     },
     usedMove,
     jump(delta: number) {

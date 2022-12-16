@@ -1,16 +1,16 @@
-import { h, Hooks, VNode } from 'snabbdom';
-import spinner from 'common/spinner';
 import { MaybeVNodes } from 'common/snabbdom';
-import * as util from '../util';
+import spinner from 'common/spinner';
 import * as game from 'game';
-import * as status from 'game/status';
-import { game as gameRoute } from 'game/router';
 import { PlayerUser } from 'game';
-import { RoundData } from '../interfaces';
+import { game as gameRoute } from 'game/router';
+import * as status from 'game/status';
+import { parseSfen } from 'shogiops/sfen';
+import { promotionZone } from 'shogiops/variant/util';
+import { Hooks, VNode, h } from 'snabbdom';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
-import { promotionZone } from 'shogiops/variantUtil';
-import { parseSfen } from 'shogiops/sfen';
+import { RoundData } from '../interfaces';
+import * as util from '../util';
 
 function analysisBoardOrientation(data: RoundData) {
   return data.player.color;
@@ -184,6 +184,24 @@ export function resignConfirm(ctrl: RoundController): VNode {
   return actConfirm(ctrl, ctrl.resign, 'resign', 'b');
 }
 
+export function drawConfirm(ctrl: RoundController): VNode {
+  return actConfirm(ctrl, ctrl.offerDraw, 'offerDraw', '', 'draw-yes');
+}
+
+export function cancelDrawOffer(ctrl: RoundController) {
+  return ctrl.data.player.offeringDraw ? h('div.pending', [h('p', ctrl.noarg('drawOfferSent'))]) : null;
+}
+
+export function answerOpponentDrawOffer(ctrl: RoundController) {
+  return ctrl.data.opponent.offeringDraw
+    ? h('div.negotiation.draw', [
+        h('p', ctrl.noarg('yourOpponentOffersADraw')),
+        acceptButton(ctrl, 'draw-yes', () => ctrl.socket.sendLoading('draw-yes')),
+        declineButton(ctrl, () => ctrl.socket.sendLoading('draw-no')),
+      ])
+    : null;
+}
+
 // https://github.com/WandererXII/scalashogi/blob/main/src/main/scala/StartingPosition.scala
 function pointOffsetFromSfen(sfen: string): number {
   switch (sfen.split(' ').slice(0, 3).join(' ')) {
@@ -234,15 +252,19 @@ export function impasseHelp(ctrl: RoundController) {
   if (shogi.isErr) return null;
   const board = shogi.value.board;
 
-  const sentePromotion = promotionZone(rules)('sente').intersect(board.sente),
-    gotePromotion = promotionZone(rules)('gote').intersect(board.gote),
-    allMajorPieces = board.bishop.union(board.rook).union(board.horse).union(board.dragon);
+  const sentePromotion = promotionZone(rules)('sente').intersect(board.color('sente')),
+    gotePromotion = promotionZone(rules)('gote').intersect(board.color('gote')),
+    allMajorPieces = board
+      .role('bishop')
+      .union(board.role('rook'))
+      .union(board.role('horse'))
+      .union(board.role('dragon'));
 
-  const senteKing: boolean = !sentePromotion.intersect(board.king).isEmpty(),
-    goteKing: boolean = !gotePromotion.intersect(board.king).isEmpty();
+  const senteKing: boolean = !sentePromotion.intersect(board.role('king')).isEmpty(),
+    goteKing: boolean = !gotePromotion.intersect(board.role('king')).isEmpty();
 
-  const senteNumberOfPieces: number = sentePromotion.diff(board.king).size(),
-    goteNumberOfPieces: number = gotePromotion.diff(board.king).size();
+  const senteNumberOfPieces: number = sentePromotion.diff(board.role('king')).size(),
+    goteNumberOfPieces: number = gotePromotion.diff(board.role('king')).size();
 
   const senteImpasseValue =
     senteNumberOfPieces +
@@ -348,12 +370,12 @@ export function answerOpponentTakebackProposition(ctrl: RoundController) {
     : null;
 }
 
-export function submitMove(ctrl: RoundController): VNode | undefined {
+export function submitUsi(ctrl: RoundController): VNode | undefined {
   return ctrl.usiToSubmit
     ? h('div.negotiation.move-confirm', [
         h('p', ctrl.noarg('confirmMove')),
-        acceptButton(ctrl, 'confirm-yes', () => ctrl.submitMove(true)),
-        declineButton(ctrl, () => ctrl.submitMove(false), 'cancel'),
+        acceptButton(ctrl, 'confirm-yes', () => ctrl.submitUsi(true)),
+        declineButton(ctrl, () => ctrl.submitUsi(false), 'cancel'),
       ])
     : undefined;
 }

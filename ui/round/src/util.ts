@@ -1,7 +1,8 @@
-import { VNodeData } from 'snabbdom';
+import { Result } from '@badrap/result';
 import * as sg from 'shogiground/types';
-import { parseSfen } from 'shogiops/sfen';
-import { shogigroundDests, shogigroundDropDests } from 'shogiops/compat';
+import { shogigroundDropDests, shogigroundMoveDests } from 'shogiops/compat';
+import { Position } from 'shogiops/variant/position';
+import { VNodeData } from 'snabbdom';
 
 export { bind, onInsert } from 'common/snabbdom';
 
@@ -10,17 +11,16 @@ export function justIcon(icon: string): VNodeData {
     attrs: { 'data-icon': icon },
   };
 }
-
-export function getMoveDests(sfen: string, variant: VariantKey): sg.Dests {
-  return parseSfen(variant, sfen, false).unwrap(
-    p => shogigroundDests(p),
+export function getMoveDests(posRes: Result<Position>): sg.MoveDests {
+  return posRes.unwrap(
+    p => shogigroundMoveDests(p),
     _ => new Map()
-  ) as sg.Dests;
+  );
 }
 
-export function getDropDests(sfen: string, variant: VariantKey): sg.DropDests {
-  return parseSfen(variant, sfen, false).unwrap(
+export function getDropDests(posRes: Result<Position>): sg.DropDests {
+  return posRes.unwrap(
     p => shogigroundDropDests(p),
     _ => new Map()
-  ) as sg.DropDests;
+  );
 }

@@ -1,11 +1,11 @@
-import { h, VNode } from 'snabbdom';
-import { renderTable } from './table';
+import stepwiseScroll from 'common/wheel';
+import { VNode, h } from 'snabbdom';
+import RoundController from '../ctrl';
 import * as shogiground from '../ground';
-import * as util from '../util';
 import * as keyboard from '../keyboard';
 import { render as keyboardMove } from '../keyboardMove';
-import RoundController from '../ctrl';
-import stepwiseScroll from 'common/wheel';
+import * as util from '../util';
+import { renderTable } from './table';
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data;
@@ -40,9 +40,9 @@ export function main(ctrl: RoundController): VNode {
             },
             shogiground.renderBoard(ctrl)
           ),
-          shogiground.renderHand(ctrl, 'top'),
+          ctrl.data.game.variant.key === 'chushogi' ? null : shogiground.renderHand(ctrl, 'top'),
           ...renderTable(ctrl),
-          shogiground.renderHand(ctrl, 'bottom'),
+          ctrl.data.game.variant.key === 'chushogi' ? null : shogiground.renderHand(ctrl, 'bottom'),
           ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null,
         ]
       );

@@ -14,7 +14,7 @@ import { renderMove, renderPieces, renderBoard, styleSetting, supportedVariant, 
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
-import { Dests } from 'shogiground/types';
+import { MoveDests } from 'shogiground/types';
 
 window.lishogi.RoundNVUI = function (redraw: Redraw) {
   const notify = new Notify(redraw),
@@ -226,7 +226,7 @@ function anyClock(ctrl: RoundController, position: Position) {
   );
 }
 
-function destsToUsis(dests: Dests) {
+function destsToUsis(dests: MoveDests) {
   const usis: string[] = [];
   for (const [orig, d] of dests) {
     if (d)

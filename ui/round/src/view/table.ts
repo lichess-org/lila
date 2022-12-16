@@ -1,15 +1,15 @@
-import { h } from 'snabbdom';
 import { MaybeVNodes } from 'common/snabbdom';
-import { Position } from '../interfaces';
 import * as game from 'game';
 import * as status from 'game/status';
+import { h } from 'snabbdom';
 import { renderClock } from '../clock/clockView';
 import renderCorresClock from '../corresClock/corresClockView';
-import * as replay from './replay';
-import renderExpiration from './expiration';
-import * as renderUser from './user';
-import * as button from './button';
 import RoundController from '../ctrl';
+import { Position } from '../interfaces';
+import * as button from './button';
+import renderExpiration from './expiration';
+import * as replay from './replay';
+import * as renderUser from './user';
 
 function renderPlayer(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);
@@ -51,7 +51,7 @@ export const renderTableWatch = (ctrl: RoundController) => {
 export const renderTablePlay = (ctrl: RoundController) => {
   const d = ctrl.data,
     loading = isLoading(ctrl),
-    submit = button.submitMove(ctrl),
+    submit = button.submitUsi(ctrl),
     icons =
       loading || submit
         ? []
@@ -59,7 +59,11 @@ export const renderTablePlay = (ctrl: RoundController) => {
             game.abortable(d)
               ? button.standard(ctrl, undefined, 'L', 'abortGame', 'abort')
               : button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
-            button.impasse(ctrl),
+            ctrl.data.game.variant.key !== 'chushogi'
+              ? button.impasse(ctrl)
+              : ctrl.drawConfirm
+              ? button.drawConfirm(ctrl)
+              : button.standard(ctrl, ctrl.canOfferDraw, '', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true)),
             ctrl.resignConfirm
               ? button.resignConfirm(ctrl)
               : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', () => ctrl.resign(true)),
@@ -72,6 +76,8 @@ export const renderTablePlay = (ctrl: RoundController) => {
       : [
           button.opponentGone(ctrl),
           button.impasseHelp(ctrl),
+          button.cancelDrawOffer(ctrl),
+          button.answerOpponentDrawOffer(ctrl),
           button.cancelTakebackProposition(ctrl),
           button.answerOpponentTakebackProposition(ctrl),
         ];
@@ -82,7 +88,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
       h(
         'div.ricons',
         {
-          class: { confirm: !!ctrl.resignConfirm },
+          class: { confirm: !!(ctrl.drawConfirm || ctrl.resignConfirm) },
         },
         icons
       ),
