@@ -27,7 +27,7 @@ final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
-    getLightUser: lila.common.LightUser.Getter,
+    getLightUser: lila.common.LightUser.GetterFallback,
     proxyRepo: lila.round.GameProxyRepo,
     gameRepo: lila.game.GameRepo,
     prefApi: lila.pref.PrefApi,

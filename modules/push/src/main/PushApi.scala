@@ -24,7 +24,7 @@ final private class PushApi(
     gameRepo: lila.game.GameRepo,
     prefApi: lila.pref.PrefApi,
     postApi: lila.forum.ForumPostApi
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler)(using lightUser: LightUser.Getter):
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler)(using lightUser: LightUser.GetterFallback):
 
   private[push] def notifyPush(
       to: Iterable[NotifyAllows],
@@ -32,15 +32,13 @@ final private class PushApi(
       params: Iterable[(String, String)]
   ): Funit = content match
     case PrivateMessage(sender, text) =>
-      lightUser(sender).flatMap(_ ?? (luser => privateMessage(to.head, sender, luser.titleName, text)))
+      lightUser(sender).flatMap(luser => privateMessage(to.head, sender, luser.titleName, text))
     case MentionedInThread(mentioner, topic, _, _, postId) =>
-      lightUser(mentioner).flatMap(_ ?? (luser => forumMention(to.head, luser.titleName, topic, postId)))
+      lightUser(mentioner).flatMap(luser => forumMention(to.head, luser.titleName, topic, postId))
     case StreamStart(streamerId, streamerName) =>
       streamStart(to, streamerId, streamerName)
     case InvitedToStudy(invitedBy, studyName, studyId) =>
-      lightUser(invitedBy).flatMap(
-        _ ?? (luser => invitedToStudy(to.head, luser.titleName, studyName, studyId))
-      )
+      lightUser(invitedBy).flatMap(luser => invitedToStudy(to.head, luser.titleName, studyName, studyId))
     case _ => funit
 
   def finish(game: Game): Funit =
@@ -254,39 +252,37 @@ final private class PushApi(
   def challengeCreate(c: Challenge): Funit =
     c.destUser ?? { dest =>
       c.challengerUser.ifFalse(c.hasClock) ?? { challenger =>
-        lightUser(challenger.id) flatMap {
-          _ ?? { lightChallenger =>
-            maybePush(
-              dest.id,
-              _.challenge.create,
-              NotificationPref.Challenge,
-              PushApi.Data(
-                title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
-                body = describeChallenge(c),
-                stacking = Stacking.ChallengeCreate,
-                payload = Json.obj(
-                  "userId" -> dest.id,
-                  "userData" -> Json.obj(
-                    "type"        -> "challengeCreate",
-                    "challengeId" -> c.id
-                  )
+        lightUser(challenger.id) flatMap { lightChallenger =>
+          maybePush(
+            dest.id,
+            _.challenge.create,
+            NotificationPref.Challenge,
+            PushApi.Data(
+              title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
+              body = describeChallenge(c),
+              stacking = Stacking.ChallengeCreate,
+              payload = Json.obj(
+                "userId" -> dest.id,
+                "userData" -> Json.obj(
+                  "type"        -> "challengeCreate",
+                  "challengeId" -> c.id
                 )
               )
             )
-          }
+          )
         }
       }
     }
 
   def challengeAccept(c: Challenge, joinerId: Option[UserId]): Funit =
     c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) ?? { challenger =>
-      joinerId ?? lightUser flatMap { lightJoiner =>
+      joinerId ?? lightUser.optional flatMap { lightJoiner =>
         maybePush(
           challenger.id,
           _.challenge.accept,
           NotificationPref.Challenge,
           PushApi.Data(
-            title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
+            title = s"${lightJoiner.fold("A player")(_.titleName)} accepts your challenge!",
             body = describeChallenge(c),
             stacking = Stacking.ChallengeAccept,
             payload = Json.obj(
@@ -406,7 +402,8 @@ final private class PushApi(
       case false => f
     }
 
-  private def asyncOpponentName(pov: Pov): Fu[String] = Namer playerText pov.opponent
+  private def asyncOpponentName(pov: Pov): Fu[String] =
+    Namer.playerText(pov.opponent)(using lightUser.optional)
 
 private object PushApi:
 

@@ -47,6 +47,7 @@ final class Env(
 
   val lightUserApi: LightUserApi = wire[LightUserApi]
   val lightUser                  = lightUserApi.async
+  val lightUserFallback          = lightUserApi.asyncFallback
   val lightUserSync              = lightUserApi.sync
   val lightUserSyncFallback      = lightUserApi.syncFallback
   val isBotSync                  = lightUserApi.isBotSync
