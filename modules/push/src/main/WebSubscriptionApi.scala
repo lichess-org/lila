@@ -42,11 +42,11 @@ final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionC
 
   private[push] def getSubscriptions(userIds: Iterable[UserId], maxPerUser: Int): Fu[List[WebSubscription]] =
     coll
-      .aggregateList(100000, ReadPreference.secondaryPreferred) { framework =>
+      .aggregateList(100_000, ReadPreference.secondaryPreferred) { framework =>
         import framework._
-        Match($doc("userId" -> $doc("$in" -> userIds))) -> List(
+        Match($doc("userId" $in userIds)) -> List(
           Sort(Descending("seenAt")),
-          Group($id("userId" -> "$userId"))("subs" -> AddToSet(BSONString("$$ROOT"))),
+          GroupField("userId")("subs" -> Push(BSONString("$$ROOT"))),
           Project($doc("subs" -> Slice(BSONString("$subs"), BSONInteger(maxPerUser)), "_id" -> false)),
           Unwind("subs"),
           ReplaceRootField("subs")
