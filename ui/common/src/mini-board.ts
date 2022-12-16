@@ -21,7 +21,7 @@ export const initWith = (node: HTMLElement, sfen: string, orientation: Color, lm
         hands: {
           inlined: true,
         },
-        lastDests: lm ? (usiToSquareNames(lm) as Key[]) : undefined,
+        lastDests: lm ? usiToSquareNames(lm) : undefined,
         drawable: {
           enabled: false,
           visible: false,

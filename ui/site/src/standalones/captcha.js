@@ -1,5 +1,5 @@
 var sfen = require('shogiops/sfen');
-var util = require('shogiops/variantUtil');
+var util = require('shogiops/variant/util');
 
 $(function () {
   lishogi.requestIdleCallback(function () {
