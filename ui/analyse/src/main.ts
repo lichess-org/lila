@@ -1,13 +1,11 @@
-import { Shogiground } from 'shogiground';
 import LishogiChat from 'chat';
-
+import menuHover from 'common/menuHover';
+import { Shogiground } from 'shogiground';
+import makeBoot from './boot';
+import makeCtrl from './ctrl';
 import { AnalyseApi, AnalyseOpts } from './interfaces';
 import patch from './patch';
-import makeCtrl from './ctrl';
 import makeView from './view';
-import makeBoot from './boot';
-
-import menuHover from 'common/menuHover';
 
 export { patch };
 

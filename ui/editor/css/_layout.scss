@@ -30,18 +30,18 @@
       'spare-bottom . hand-bot'
       '.            . .    '
       'copyables    . .    ';
-    
+
     &.variant-chushogi {
       grid-template-areas:
-      'spare-top    spare-top spare-top'
-      'spare-top    spare-top spare-top'
-      '.            . tools'
-      'board        . tools'
-      '.            . tools'
-      'spare-bottom spare-bottom spare-bottom'
-      'spare-bottom spare-bottom spare-bottom'
-      '.            . .    '
-      'copyables    . .    ';
+        'spare-top    spare-top spare-top'
+        'spare-top    spare-top spare-top'
+        '.            . tools'
+        'board        . tools'
+        '.            . tools'
+        'spare-bottom spare-bottom spare-bottom'
+        'spare-bottom spare-bottom spare-bottom'
+        '.            . .    '
+        'copyables    . .    ';
     }
   }
 }

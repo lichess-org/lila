@@ -1,9 +1,8 @@
-import { init, classModule, attributesModule, VNode } from 'snabbdom';
-
+import { VNode, attributesModule, classModule, init } from 'snabbdom';
 import makeCtrl from './ctrl';
-import view from './view';
 import { ChatOpts, Ctrl } from './interfaces';
 import { PresetCtrl } from './preset';
+import view from './view';
 
 export { Ctrl as ChatCtrl, ChatPlugin } from './interfaces';
 

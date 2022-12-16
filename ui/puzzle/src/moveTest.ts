@@ -1,12 +1,12 @@
-import { path as pathOps } from 'tree';
-import { Vm, Puzzle, MoveTest } from './interfaces';
-import { parseSfen } from 'shogiops/sfen';
 import { opposite } from 'shogiground/util';
-import { plyColor } from './util';
-import { pieceForcePromote } from 'shogiops/variant/util';
+import { parseSfen } from 'shogiops/sfen';
 import { isDrop, isNormal } from 'shogiops/types';
 import { parseUsi } from 'shogiops/util';
 import { Shogi } from 'shogiops/variant/shogi';
+import { pieceForcePromote } from 'shogiops/variant/util';
+import { path as pathOps } from 'tree';
+import { MoveTest, Puzzle, Vm } from './interfaces';
+import { plyColor } from './util';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
 

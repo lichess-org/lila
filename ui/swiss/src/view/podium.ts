@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { VNode, h } from 'snabbdom';
 import SwissCtrl from '../ctrl';
 import { PodiumPlayer } from '../interfaces';
 import { userName } from './util';

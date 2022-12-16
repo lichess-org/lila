@@ -1,7 +1,7 @@
-import { bind, MaybeVNode } from 'common/snabbdom';
+import { MaybeVNode, bind } from 'common/snabbdom';
+import { VNode, h } from 'snabbdom';
 import { Controller } from '../interfaces';
 import afterView from './after';
-import { h, VNode } from 'snabbdom';
 
 function viewSolution(ctrl: Controller): VNode {
   return h(

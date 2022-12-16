@@ -1,6 +1,6 @@
-import { h, Hooks } from 'snabbdom';
-import spinner from 'common/spinner';
 import { bind } from 'common/snabbdom';
+import spinner from 'common/spinner';
+import { Hooks, h } from 'snabbdom';
 import LobbyController from '../ctrl';
 
 function renderRange(range: string) {

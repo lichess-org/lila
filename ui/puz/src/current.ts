@@ -1,6 +1,6 @@
-import { Shogi } from 'shogiops/variant/shogi';
 import { parseSfen } from 'shogiops/sfen';
 import { parseUsi } from 'shogiops/util';
+import { Shogi } from 'shogiops/variant/shogi';
 import { Puzzle } from './interfaces';
 import { getNow } from './util';
 

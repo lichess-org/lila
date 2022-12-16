@@ -1,4 +1,4 @@
-import type { VNode, Hooks, Attrs } from 'snabbdom';
+import type { Attrs, Hooks, VNode } from 'snabbdom';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];

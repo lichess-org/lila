@@ -1,8 +1,8 @@
-import { RoundOpts, RoundData } from './interfaces';
-import { RoundApi, RoundMain } from './main';
 import { ChatCtrl } from 'chat';
 import { TourPlayer } from 'game';
-import { tourStandingCtrl, TourStandingCtrl } from './tourStanding';
+import { RoundData, RoundOpts } from './interfaces';
+import { RoundApi, RoundMain } from './main';
+import { TourStandingCtrl, tourStandingCtrl } from './tourStanding';
 
 export default function (opts: RoundOpts): void {
   const li = window.lishogi;

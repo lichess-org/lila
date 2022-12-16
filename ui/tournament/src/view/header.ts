@@ -1,5 +1,5 @@
-import { h, VNode } from 'snabbdom';
 import { dataIcon } from 'common/snabbdom';
+import { VNode, h } from 'snabbdom';
 import TournamentController from '../ctrl';
 
 function startClock(time) {

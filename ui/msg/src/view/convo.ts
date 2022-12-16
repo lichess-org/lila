@@ -1,11 +1,11 @@
-import { h, VNode } from 'snabbdom';
 import { hookMobileMousedown } from 'common/mobile';
+import { VNode, h } from 'snabbdom';
+import MsgCtrl from '../ctrl';
 import { Convo } from '../interfaces';
-import { userName } from './util';
-import renderMsgs from './msgs';
 import renderActions from './actions';
 import renderInteract from './interact';
-import MsgCtrl from '../ctrl';
+import renderMsgs from './msgs';
+import { userName } from './util';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   const user = convo.user;

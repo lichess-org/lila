@@ -1,6 +1,6 @@
-import { Hook } from './interfaces';
-import { FormLines, FormObject, FormStore, toFormLines, toFormObject, makeStore } from './form';
 import LobbyController from './ctrl';
+import { FormLines, FormObject, FormStore, makeStore, toFormLines, toFormObject } from './form';
+import { Hook } from './interfaces';
 
 interface FilterData {
   form: FormLines;

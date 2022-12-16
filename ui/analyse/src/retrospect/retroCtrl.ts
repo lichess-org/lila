@@ -1,10 +1,10 @@
-import { opposite } from 'shogiground/util';
-import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'ceval';
-import { path as treePath } from 'tree';
 import { isEmpty, prop } from 'common/common';
-import { OpeningData } from '../explorer/interfaces';
+import { opposite } from 'shogiground/util';
+import { path as treePath } from 'tree';
 import AnalyseCtrl from '../ctrl';
+import { OpeningData } from '../explorer/interfaces';
+import { evalSwings } from '../nodeFinder';
 
 export interface RetroCtrl {
   isSolving(): boolean;

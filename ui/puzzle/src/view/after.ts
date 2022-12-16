@@ -1,6 +1,6 @@
 import { bind, dataIcon } from 'common/snabbdom';
+import { VNode, h } from 'snabbdom';
 import { Controller } from '../interfaces';
-import { h, VNode } from 'snabbdom';
 
 const renderVote = (ctrl: Controller): VNode =>
   h(

@@ -1,9 +1,9 @@
-import { h, VNode } from 'snabbdom';
 import { bind } from 'common/snabbdom';
-import { Ctrl, Tab } from './interfaces';
+import { VNode, h } from 'snabbdom';
 import discussionView from './discussion';
-import { noteView } from './note';
+import { Ctrl, Tab } from './interfaces';
 import { moderationView } from './moderation';
+import { noteView } from './note';
 
 export default function (ctrl: Ctrl): VNode {
   const mod = ctrl.moderation();

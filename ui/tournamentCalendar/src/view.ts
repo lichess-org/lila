@@ -1,11 +1,11 @@
-import { h, VNode } from 'snabbdom';
-import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import addDays from 'date-fns/addDays';
+import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping';
+import eachDayOfInterval from 'date-fns/eachDayOfInterval';
+import format from 'date-fns/format';
 import getHours from 'date-fns/getHours';
 import getMinutes from 'date-fns/getMinutes';
-import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping';
-import format from 'date-fns/format';
-import { Tournament, Lanes, Ctrl } from './interfaces';
+import { VNode, h } from 'snabbdom';
+import { Ctrl, Lanes, Tournament } from './interfaces';
 
 function tournamentClass(tour: Tournament, day: Date) {
   const classes = {

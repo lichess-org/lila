@@ -1,8 +1,8 @@
-import { h } from 'snabbdom';
 import { Shogiground } from 'shogiground';
-import LobbyController from '../ctrl';
-import { handRoles } from 'shogiops/variant/util';
 import { usiToSquareNames } from 'shogiops/compat';
+import { handRoles } from 'shogiops/variant/util';
+import { h } from 'snabbdom';
+import LobbyController from '../ctrl';
 
 function timer(pov) {
   const date = Date.now() + pov.secondsLeft * 1000;

@@ -1,7 +1,7 @@
 import { Pieces } from 'shogiground/types';
-import { Piece } from 'shogiops/types';
+import { SquareSet, makeSquare, parseSquare } from 'shogiops';
 import { attacks } from 'shogiops/attacks';
-import { makeSquare, parseSquare, SquareSet } from 'shogiops';
+import { Piece } from 'shogiops/types';
 import { dimensions, fullSquareSet } from 'shogiops/variant/util';
 
 export function premove(variant: VariantKey): (key: Key, pieces: Pieces) => Key[] {

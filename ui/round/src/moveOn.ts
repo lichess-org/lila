@@ -1,6 +1,6 @@
 import * as game from 'game';
-import * as xhr from './xhr';
 import RoundController from './ctrl';
+import * as xhr from './xhr';
 
 export default class MoveOn {
   private storage = window.lishogi.storage.makeBoolean(this.key);

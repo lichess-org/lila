@@ -1,9 +1,8 @@
-import { init, attributesModule, classModule, VNode } from 'snabbdom';
-
+import { VNode, attributesModule, classModule, init } from 'snabbdom';
 import makeCtrl from './ctrl';
+import { ChallengeData, ChallengeOpts, Ctrl } from './interfaces';
 import { loaded, loading } from './view';
 import { load } from './xhr';
-import { ChallengeOpts, ChallengeData, Ctrl } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 

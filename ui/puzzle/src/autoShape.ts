@@ -1,10 +1,10 @@
 import { CevalCtrl, winningChances } from 'ceval';
-import { DrawShape } from 'shogiground/draw';
-import { Vm } from './interfaces';
 import { Api as SgApi } from 'shogiground/api';
+import { DrawShape } from 'shogiground/draw';
 import { opposite } from 'shogiground/util';
 import { isDrop } from 'shogiops/types';
 import { makeSquare, parseUsi } from 'shogiops/util';
+import { Vm } from './interfaces';
 
 interface Opts {
   vm: Vm;

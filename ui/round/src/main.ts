@@ -1,13 +1,12 @@
+import LishogiChat from 'chat';
+import menuHover from 'common/menuHover';
 import { Shogiground } from 'shogiground';
-import { init, VNode, classModule, attributesModule } from 'snabbdom';
-
-import { RoundOpts } from './interfaces';
+import { VNode, attributesModule, classModule, init } from 'snabbdom';
+import boot from './boot';
 import RoundController from './ctrl';
+import { RoundOpts } from './interfaces';
 import MoveOn from './moveOn';
 import { main as view } from './view/main';
-import LishogiChat from 'chat';
-import boot from './boot';
-import menuHover from 'common/menuHover';
 
 export interface RoundApi {
   socketReceive(typ: string, data: any): boolean;

@@ -1,6 +1,5 @@
-import RoundController from './ctrl';
-
 import throttle from 'common/throttle';
+import RoundController from './ctrl';
 
 export const headers = {
   Accept: 'application/vnd.lishogi.v4+json',

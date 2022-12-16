@@ -1,6 +1,6 @@
-import { RelayData, LogEvent, RelayIntro } from './interfaces';
 import { StudyChapter, StudyChapterRelay } from '../interfaces';
 import { isFinished } from '../studyChapters';
+import { LogEvent, RelayData, RelayIntro } from './interfaces';
 
 export default class RelayCtrl {
   log: LogEvent[] = [];

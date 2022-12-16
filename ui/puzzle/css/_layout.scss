@@ -71,7 +71,7 @@ $hand-col1-height: auto;
       'board   gauge hand-bot'
       'session .     controls'
       'side    side  side';
-    
+
     .board-layout-1 & {
       grid-template-rows: fit-content(0);
       grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
@@ -103,9 +103,9 @@ $hand-col1-height: auto;
         $col3-uniboard-side $block-gap $square-9 $hand-gap $col3-uniboard-width $hand-gap $square-9 $gauge-gap
         $col3-uniboard-table-no-hands;
       grid-template-areas:
-      'side . hand-top  . board   . hand-bot gauge tools'
-      'side . .         . session . .        .     controls'
-      'side . .         . .       . .        .     .';
+        'side . hand-top  . board   . hand-bot gauge tools'
+        'side . .         . session . .        .     controls'
+        'side . .         . .       . .        .     .';
     }
   }
 

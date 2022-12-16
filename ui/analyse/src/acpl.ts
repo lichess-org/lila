@@ -1,9 +1,9 @@
-import { h, thunk, VNode, VNodeData } from 'snabbdom';
-import AnalyseCtrl from './ctrl';
-import { findTag } from './study/studyChapters';
-import * as game from 'game';
 import { defined } from 'common/common';
 import { bind, dataIcon } from 'common/snabbdom';
+import * as game from 'game';
+import { VNode, VNodeData, h, thunk } from 'snabbdom';
+import AnalyseCtrl from './ctrl';
+import { findTag } from './study/studyChapters';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 

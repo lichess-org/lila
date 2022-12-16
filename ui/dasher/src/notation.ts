@@ -1,7 +1,6 @@
-import { h, VNode } from 'snabbdom';
-
-import { Redraw, Close, bind, header } from './util';
 import { Notation } from 'common/notation';
+import { VNode, h } from 'snabbdom';
+import { Close, Redraw, bind, header } from './util';
 
 export interface NotationData {
   current: Notation;

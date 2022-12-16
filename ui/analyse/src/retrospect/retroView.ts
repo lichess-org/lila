@@ -1,9 +1,9 @@
-import { h, VNode } from 'snabbdom';
 import { bind, dataIcon } from 'common/snabbdom';
 import spinner from 'common/spinner';
+import { VNode, h } from 'snabbdom';
+import AnalyseCtrl from '../ctrl';
 import { renderIndexAndMove } from '../moveView';
 import { RetroCtrl } from './retroCtrl';
-import AnalyseCtrl from '../ctrl';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [

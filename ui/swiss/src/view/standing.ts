@@ -1,8 +1,8 @@
-import { h, VNode } from 'snabbdom';
 import { MaybeVNodes, bind, onInsert } from 'common/snabbdom';
+import { VNode, h } from 'snabbdom';
 import SwissCtrl from '../ctrl';
+import { Pager, Player } from '../interfaces';
 import { player as renderPlayer } from './util';
-import { Player, Pager } from '../interfaces';
 
 function playerTr(ctrl: SwissCtrl, player: Player) {
   const userId = player.user.id;

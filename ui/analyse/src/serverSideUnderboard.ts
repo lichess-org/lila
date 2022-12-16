@@ -1,9 +1,9 @@
-import AnalyseCtrl from './ctrl';
 import { defined } from 'common/common';
-import { baseUrl } from './util';
-import { AnalyseData } from './interfaces';
-import { initialSfen } from 'shogiops/sfen';
 import { handicaps } from 'game/handicaps';
+import { initialSfen } from 'shogiops/sfen';
+import AnalyseCtrl from './ctrl';
+import { AnalyseData } from './interfaces';
+import { baseUrl } from './util';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   const li = window.lishogi;

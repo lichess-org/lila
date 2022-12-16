@@ -1,6 +1,6 @@
-import { lastStep } from './round';
 import RoundController from './ctrl';
 import { ApiMove, RoundData } from './interfaces';
+import { lastStep } from './round';
 
 const li = window.lishogi;
 let found = false;

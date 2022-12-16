@@ -1,6 +1,5 @@
-import AnalyseCtrl from './ctrl';
-
 import { path as treePath } from 'tree';
+import AnalyseCtrl from './ctrl';
 
 export function canGoForward(ctrl: AnalyseCtrl): boolean {
   return ctrl.node.children.length > 0;

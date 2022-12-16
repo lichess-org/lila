@@ -1,14 +1,14 @@
-import { h, VNode } from 'snabbdom';
+import { MaybeVNodes } from 'common/snabbdom';
+import { VNode, h } from 'snabbdom';
+import TournamentController from '../ctrl';
+import * as pagination from '../pagination';
+import * as tour from '../tournament';
 import { controls, standing } from './arena';
 import { teamStanding } from './battle';
 import header from './header';
-import tourTable from './table';
 import playerInfo from './playerInfo';
+import tourTable from './table';
 import teamInfo from './teamInfo';
-import * as pagination from '../pagination';
-import * as tour from '../tournament';
-import TournamentController from '../ctrl';
-import { MaybeVNodes } from 'common/snabbdom';
 
 function joinTheGame(ctrl: TournamentController, gameId: string) {
   return h(

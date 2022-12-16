@@ -1,10 +1,8 @@
-import { Redraw } from './util';
-
+import { VNode, attributesModule, classModule, init } from 'snabbdom';
 import { DasherCtrl, DasherOpts, makeCtrl } from './dasher';
-import { loading, loaded } from './view';
+import { Redraw } from './util';
+import { loaded, loading } from './view';
 import { get } from './xhr';
-
-import { init, VNode, classModule, attributesModule } from 'snabbdom';
 
 const patch = init([classModule, attributesModule]);
 

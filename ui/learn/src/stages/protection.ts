@@ -1,7 +1,7 @@
 import { anyCapture, not, unprotectedCapture } from '../assert';
 import { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
-import { initial, arrow, onSuccess, concat } from '../shapes';
+import { arrow, concat, initial, onSuccess } from '../shapes';
 
 const levels: IncompleteLevel[] = [
   {

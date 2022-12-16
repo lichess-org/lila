@@ -1,12 +1,12 @@
-import { Position } from 'shogiops/variant/position';
-import { parseUsi } from 'shogiops/util';
-import { Move, Square } from 'shogiops/types';
-import { parseSfen } from 'shogiops/sfen';
+import { Notation as sgNotation } from 'shogiground/types';
 import { makeJapaneseMove } from 'shogiops/notation/japanese';
 import { makeKitaoKawasakiMove } from 'shogiops/notation/kitaoKawasaki';
 import { makeWesternMove } from 'shogiops/notation/western';
 import { makeWesternEngineMove } from 'shogiops/notation/westernEngine';
-import { Notation as sgNotation } from 'shogiground/types';
+import { parseSfen } from 'shogiops/sfen';
+import { Move, Square } from 'shogiops/types';
+import { parseUsi } from 'shogiops/util';
+import { Position } from 'shogiops/variant/position';
 
 export const enum Notation {
   Western,

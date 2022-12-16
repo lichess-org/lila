@@ -1,9 +1,9 @@
-import { h, VNode } from 'snabbdom';
 import { Pieces, files, ranks } from 'shogiground/types';
 import { allKeys } from 'shogiground/util';
-import { Setting, makeSetting } from './setting';
 import { pieceToForsyth } from 'shogiops/sfen';
 import { Piece } from 'shogiops/types';
+import { VNode, h } from 'snabbdom';
+import { Setting, makeSetting } from './setting';
 
 export type Style = 'usi' | 'literate' | 'nato' | 'anna';
 

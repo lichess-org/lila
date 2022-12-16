@@ -1,8 +1,8 @@
 import { h } from 'snabbdom';
 import { Millis } from '../clock/clockCtrl';
 import { Position } from '../interfaces';
-import { CorresClockController } from './corresClockCtrl';
 import { moretime } from '../view/button';
+import { CorresClockController } from './corresClockCtrl';
 
 function prefixInteger(num: number, length: number): string {
   return (num / Math.pow(10, length)).toFixed(length).substr(2);

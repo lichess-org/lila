@@ -1,9 +1,9 @@
+import { Clock, Player, Source, Status } from 'game';
 import { VNode } from 'snabbdom';
-import { Player, Status, Source, Clock } from 'game';
-import { ForecastData } from './forecast/interfaces';
-import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
-import { RelayData } from './study/relay/interfaces';
 import AnalyseController from './ctrl';
+import { ForecastData } from './forecast/interfaces';
+import { Goal as PracticeGoal, StudyPracticeData } from './study/practice/interfaces';
+import { RelayData } from './study/relay/interfaces';
 
 export type Seconds = number;
 

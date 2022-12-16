@@ -62,7 +62,7 @@ $mq-col3: $mq-col3-uniboard;
         grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $hand-gap $col3-uniboard-table-no-hands;
         grid-template-areas:
           'hand-top  .    main .  hand-bot . table'
-          'side      side side .  .        . .'
+          'side      side side .  .        . .';
       }
     }
     &--map {
@@ -86,8 +86,7 @@ $mq-col3: $mq-col3-uniboard;
 
       .board-layout-1 & {
         grid-template-rows: fit-content(0);
-        grid-template-columns: 
-          $col3-uniboard-side $block-gap $square-9 $hand-gap $col3-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
+        grid-template-columns: $col3-uniboard-side $block-gap $square-9 $hand-gap $col3-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
         grid-template-areas:
           'side . hand-top . main . hand-bot . table'
           'side . .        . .    . .        . .';

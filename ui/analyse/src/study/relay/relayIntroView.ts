@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { VNode, h } from 'snabbdom';
 import AnalyseCtrl from '../../ctrl';
 import { innerHTML } from '../../util';
 import { view as multiBoardView } from '../multiBoard';

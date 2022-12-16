@@ -1,5 +1,5 @@
-import { h, VNode } from 'snabbdom';
 import spinner from 'common/spinner';
+import { VNode, h } from 'snabbdom';
 import { NoteCtrl, NoteOpts } from './interfaces';
 import * as xhr from './xhr';
 

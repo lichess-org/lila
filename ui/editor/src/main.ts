@@ -1,11 +1,9 @@
-import { EditorData } from './interfaces';
-import EditorCtrl from './ctrl';
-import view from './view';
-
-import { init, VNode, classModule, attributesModule, propsModule, eventListenersModule } from 'snabbdom';
-
 import menuHover from 'common/menuHover';
 import { Shogiground } from 'shogiground';
+import { VNode, attributesModule, classModule, eventListenersModule, init, propsModule } from 'snabbdom';
+import EditorCtrl from './ctrl';
+import { EditorData } from './interfaces';
+import view from './view';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 

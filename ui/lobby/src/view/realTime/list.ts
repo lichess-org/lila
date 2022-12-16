@@ -1,9 +1,9 @@
+import { bind } from 'common/snabbdom';
 import { h } from 'snabbdom';
 import LobbyController from '../../ctrl';
-import { bind } from 'common/snabbdom';
-import { tds, perfIcons } from '../util';
 import * as hookRepo from '../../hookRepo';
 import { Hook } from '../../interfaces';
+import { perfIcons, tds } from '../util';
 
 function renderHook(ctrl: LobbyController, hook: Hook) {
   const noarg = ctrl.trans.noarg;

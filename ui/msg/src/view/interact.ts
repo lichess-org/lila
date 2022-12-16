@@ -1,8 +1,8 @@
-import { h, VNode } from 'snabbdom';
-import { User } from '../interfaces';
-import MsgCtrl from '../ctrl';
 import { bindSubmit } from 'common/snabbdom';
 import throttle from 'common/throttle';
+import { VNode, h } from 'snabbdom';
+import MsgCtrl from '../ctrl';
+import { User } from '../interfaces';
 
 export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
   const connected = ctrl.connected();

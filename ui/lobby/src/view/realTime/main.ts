@@ -1,7 +1,7 @@
-import * as list from './list';
+import LobbyController from '../../ctrl';
 import * as chart from './chart';
 import * as filterView from './filter';
-import LobbyController from '../../ctrl';
+import * as list from './list';
 
 export default function (ctrl: LobbyController) {
   let filterBody, body, nbFiltered, modeToggle, res;

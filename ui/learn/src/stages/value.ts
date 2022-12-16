@@ -1,5 +1,5 @@
-import { parseUsi, parseSquare } from 'shogiops/util';
-import { extinct, colorOn, pieceOn, scenarioSuccess, scenarioFailure, not } from '../assert';
+import { parseSquare, parseUsi } from 'shogiops/util';
+import { colorOn, extinct, not, pieceOn, scenarioFailure, scenarioSuccess } from '../assert';
 import { IncompleteLevel, IncompleteStage, Level, UsiWithColor } from '../interfaces';
 import { createLevel } from '../level';
 import { arrow, circle, initial, onFailure } from '../shapes';

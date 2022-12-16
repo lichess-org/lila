@@ -1,10 +1,8 @@
-import view from './view/main';
-
-import { init, VNode, classModule, attributesModule } from 'snabbdom';
-
+import { VNode, attributesModule, classModule, init } from 'snabbdom';
+import MsgCtrl from './ctrl';
 import { MsgOpts } from './interfaces';
 import { upgradeData } from './network';
-import MsgCtrl from './ctrl';
+import view from './view/main';
 
 const patch = init([classModule, attributesModule]);
 

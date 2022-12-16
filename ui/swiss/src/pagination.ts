@@ -1,5 +1,5 @@
-import { h, VNode } from 'snabbdom';
-import { bind, MaybeVNodes } from 'common/snabbdom';
+import { MaybeVNodes, bind } from 'common/snabbdom';
+import { VNode, h } from 'snabbdom';
 import SwissCtrl from './ctrl';
 import { Pager } from './interfaces';
 import * as search from './search';

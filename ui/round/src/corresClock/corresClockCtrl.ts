@@ -1,4 +1,4 @@
-import { Seconds, Millis } from '../clock/clockCtrl';
+import { Millis, Seconds } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
 
 export interface CorresClockData {

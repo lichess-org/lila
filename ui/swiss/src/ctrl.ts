@@ -1,8 +1,8 @@
+import throttle from 'common/throttle';
+import { Pages, Player, Standing, SwissData, SwissOpts } from './interfaces';
+import { myPage, players } from './pagination';
 import makeSocket, { SwissSocket } from './socket';
 import xhr from './xhr';
-import throttle from 'common/throttle';
-import { myPage, players } from './pagination';
-import { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 
 export default class SwissCtrl {
   opts: SwissOpts;

@@ -1,10 +1,10 @@
-import { h, VNode } from 'snabbdom';
 import { hookMobileMousedown } from 'common/mobile';
 import throttle from 'common/throttle';
+import { VNode, h } from 'snabbdom';
 import MsgCtrl from '../ctrl';
 import { SearchResult, User } from '../interfaces';
 import renderContacts from './contact';
-import { userName, userIcon } from './util';
+import { userIcon, userName } from './util';
 
 export function renderInput(ctrl: MsgCtrl): VNode {
   return h('div.msg-app__side__search', [

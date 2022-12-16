@@ -1,5 +1,5 @@
-import { h, VNode } from 'snabbdom';
 import spinner from 'common/spinner';
+import { VNode, h } from 'snabbdom';
 import * as control from './control';
 import AnalyseCtrl from './ctrl';
 import { modal } from './modal';

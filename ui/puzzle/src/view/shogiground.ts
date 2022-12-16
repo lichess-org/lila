@@ -1,10 +1,10 @@
-import { h, VNode } from 'snabbdom';
-import { Config as SgConfig } from 'shogiground/config';
-import { pieceCanPromote, pieceForcePromote, promote } from 'shogiops/variant/util';
-import resizeHandle from 'common/resize';
 import { notationFiles, notationRanks } from 'common/notation';
-import { Role, Piece } from 'shogiops/types';
+import resizeHandle from 'common/resize';
+import { Config as SgConfig } from 'shogiground/config';
+import { Piece, Role } from 'shogiops/types';
 import { parseSquare } from 'shogiops/util';
+import { pieceCanPromote, pieceForcePromote, promote } from 'shogiops/variant/util';
+import { VNode, h } from 'snabbdom';
 import { Controller } from '../interfaces';
 
 export function renderBoard(ctrl: Controller): VNode {

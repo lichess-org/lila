@@ -1,7 +1,7 @@
-import { FormStore, toFormLines, makeStore } from './form';
-import LobbyController from './ctrl';
 import { handicaps } from 'game/handicaps';
 import { initialSfen } from 'shogiops/sfen';
+import LobbyController from './ctrl';
+import { FormStore, makeStore, toFormLines } from './form';
 
 const li = window.lishogi;
 

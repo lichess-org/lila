@@ -1,5 +1,4 @@
-import { h, VNode } from 'snabbdom';
-
+import { VNode, h } from 'snabbdom';
 import { Close, header } from './util';
 
 type Code = string;

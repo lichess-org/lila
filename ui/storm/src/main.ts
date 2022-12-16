@@ -1,13 +1,11 @@
-import { init, classModule, attributesModule, VNode } from 'snabbdom';
-
 import menuHover from 'common/menuHover';
-import StormCtrl from './ctrl';
 import { Shogiground } from 'shogiground';
+import { VNode, attributesModule, classModule, init } from 'snabbdom';
+import StormCtrl from './ctrl';
 import { StormOpts } from './interfaces';
+import view from './view/main';
 
 const patch = init([classModule, attributesModule]);
-
-import view from './view/main';
 
 export function start(opts: StormOpts) {
   const element = document.querySelector('.storm-app') as HTMLElement;

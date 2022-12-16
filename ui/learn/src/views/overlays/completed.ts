@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { VNode, h } from 'snabbdom';
 import { nextStage } from '../../categories';
 import LearnCtrl from '../../ctrl';
 import { average } from '../../util';

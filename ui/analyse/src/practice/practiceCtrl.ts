@@ -1,10 +1,10 @@
-import { winningChances, Eval } from 'ceval';
+import { Eval, winningChances } from 'ceval';
+import { Prop, prop } from 'common/common';
 import { path as treePath } from 'tree';
-import { detectFourfold } from '../nodeFinder';
 //import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
-import { prop, Prop } from 'common/common';
+import { detectFourfold } from '../nodeFinder';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
 

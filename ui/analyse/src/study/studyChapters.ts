@@ -1,11 +1,11 @@
-import { h, VNode } from 'snabbdom';
-import { prop, Prop } from 'common/common';
+import { Prop, prop } from 'common/common';
 import { bind, dataIcon } from 'common/snabbdom';
-import { iconTag, scrollTo } from '../util';
-import { ctrl as chapterNewForm, StudyChapterNewFormCtrl } from './chapterNewForm';
-import { ctrl as chapterEditForm } from './chapterEditForm';
+import { VNode, h } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
-import { StudyCtrl, StudyChapterMeta, LocalPaths, StudyChapter, TagArray } from './interfaces';
+import { iconTag, scrollTo } from '../util';
+import { ctrl as chapterEditForm } from './chapterEditForm';
+import { StudyChapterNewFormCtrl, ctrl as chapterNewForm } from './chapterNewForm';
+import { LocalPaths, StudyChapter, StudyChapterMeta, StudyCtrl, TagArray } from './interfaces';
 
 export interface StudyChaptersCtrl {
   newForm: StudyChapterNewFormCtrl;

@@ -1,9 +1,9 @@
-import { h, thunk, VNode } from 'snabbdom';
-import throttle from 'common/throttle';
 import { onInsert } from 'common/snabbdom';
-import { option } from '../util';
+import throttle from 'common/throttle';
+import { VNode, h, thunk } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
-import { StudyCtrl, StudyChapter } from './interfaces';
+import { option } from '../util';
+import { StudyChapter, StudyCtrl } from './interfaces';
 
 const unwantedTags = ['Result', 'SenteElo', 'SenteTitle', 'GoteElo', 'GoteTitle', 'Variant'];
 

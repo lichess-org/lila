@@ -1,6 +1,5 @@
-import AnalyseCtrl from './ctrl';
-
 import * as control from './control';
+import AnalyseCtrl from './ctrl';
 
 export type AutoplayDelay = number | 'realtime' | 'cpl';
 

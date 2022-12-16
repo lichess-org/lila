@@ -1,13 +1,13 @@
-import PuzzleSession from './session';
-import { Api as SgApi } from 'shogiground/api';
 import { CevalCtrl, NodeEvals } from 'ceval';
-import { Config as SgConfig } from 'shogiground/config';
-import { Deferred } from 'common/defer';
-import { Outcome, Piece, Move } from 'shogiops/types';
 import { Prop } from 'common/common';
+import { Deferred } from 'common/defer';
 import { StoredBooleanProp } from 'common/storage';
-import { TreeWrapper } from 'tree';
+import { Api as SgApi } from 'shogiground/api';
+import { Config as SgConfig } from 'shogiground/config';
+import { Move, Outcome, Piece } from 'shogiops/types';
 import { Shogi } from 'shogiops/variant/shogi';
+import { TreeWrapper } from 'tree';
+import PuzzleSession from './session';
 
 export type Redraw = () => void;
 

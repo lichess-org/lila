@@ -1,8 +1,8 @@
-import { Ctrl, ChatOpts, Line, Tab, ViewModel, Redraw, Permissions, ModerationCtrl } from './interfaces';
-import { presetCtrl } from './preset';
-import { noteCtrl } from './note';
-import { moderationCtrl } from './moderation';
 import { prop } from 'common/common';
+import { ChatOpts, Ctrl, Line, ModerationCtrl, Permissions, Redraw, Tab, ViewModel } from './interfaces';
+import { moderationCtrl } from './moderation';
+import { noteCtrl } from './note';
+import { presetCtrl } from './preset';
 
 const li = window.lishogi;
 

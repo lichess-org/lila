@@ -1,10 +1,10 @@
-import { h, VNode } from 'snabbdom';
+import { defined } from 'common/common';
+import { VNode, h } from 'snabbdom';
 import { ops as treeOps } from 'tree';
-import { TagArray } from './interfaces';
 import renderClocks from '../clocks';
 import AnalyseCtrl from '../ctrl';
-import { isFinished, findTag, resultOf } from './studyChapters';
-import { defined } from 'common/common';
+import { TagArray } from './interfaces';
+import { findTag, isFinished, resultOf } from './studyChapters';
 
 interface PlayerNames {
   sente: string;

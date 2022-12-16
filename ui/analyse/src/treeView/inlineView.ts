@@ -1,10 +1,10 @@
-import { h, VNode } from 'snabbdom';
-import { MaybeVNodes } from 'common/snabbdom';
-import { path as treePath, ops as treeOps } from 'tree';
-import * as moveView from '../moveView';
-import AnalyseCtrl from '../ctrl';
-import { Ctx, mainHook, Opts, nodeClasses, renderInlineCommentsOf, retroLine, findCurrentPath } from './util';
 import { notationsWithColor } from 'common/notation';
+import { MaybeVNodes } from 'common/snabbdom';
+import { VNode, h } from 'snabbdom';
+import { ops as treeOps, path as treePath } from 'tree';
+import AnalyseCtrl from '../ctrl';
+import * as moveView from '../moveView';
+import { Ctx, Opts, findCurrentPath, mainHook, nodeClasses, renderInlineCommentsOf, retroLine } from './util';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
   const cs = node.children,

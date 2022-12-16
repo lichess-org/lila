@@ -1,10 +1,9 @@
-import { init, classModule, attributesModule, VNode } from 'snabbdom';
-
-import makeCtrl from './ctrl';
 import menuHover from 'common/menuHover';
-import view from './view/main';
 import { Shogiground } from 'shogiground';
+import { VNode, attributesModule, classModule, init } from 'snabbdom';
+import makeCtrl from './ctrl';
 import { Controller, PuzzleOpts } from './interfaces';
+import view from './view/main';
 
 const patch = init([classModule, attributesModule]);
 

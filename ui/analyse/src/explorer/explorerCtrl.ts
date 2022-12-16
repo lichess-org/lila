@@ -1,12 +1,12 @@
 import { prop } from 'common/common';
 import { storedProp } from 'common/storage';
-import { opposite } from 'shogiground/util';
-import { controller as configCtrl } from './explorerConfig';
-import * as xhr from './explorerXhr';
-import { winnerOf, colorOf } from './explorerUtil';
 import * as gameUtil from 'game';
+import { opposite } from 'shogiground/util';
 import AnalyseCtrl from '../ctrl';
-import { Hovering, ExplorerCtrl, ExplorerData, OpeningData, TablebaseData, SimpleTablebaseHit } from './interfaces';
+import { controller as configCtrl } from './explorerConfig';
+import { colorOf, winnerOf } from './explorerUtil';
+import * as xhr from './explorerXhr';
+import { ExplorerCtrl, ExplorerData, Hovering, OpeningData, SimpleTablebaseHit, TablebaseData } from './interfaces';
 
 function pieceCount(sfen: Sfen) {
   const parts = sfen.split(/\s/);

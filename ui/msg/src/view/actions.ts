@@ -1,7 +1,7 @@
-import { h, VNode } from 'snabbdom';
 import { bind } from 'common/snabbdom';
-import { Convo } from '../interfaces';
+import { VNode, h } from 'snabbdom';
 import MsgCtrl from '../ctrl';
+import { Convo } from '../interfaces';
 
 export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
   if (convo.user.id == 'lishogi') return [];

@@ -1,11 +1,11 @@
-import { h, VNodeData } from 'snabbdom';
 import spinner from 'common/spinner';
-import renderTabs from './tabs';
-//import * as renderPools from './pools';
-import renderRealTime from './realTime/main';
+import { VNodeData, h } from 'snabbdom';
+import LobbyController from '../ctrl';
 import renderSeeks from './correspondence';
 import renderPlaying from './playing';
-import LobbyController from '../ctrl';
+//import * as renderPools from './pools';
+import renderRealTime from './realTime/main';
+import renderTabs from './tabs';
 
 export default function (ctrl: LobbyController) {
   let body,

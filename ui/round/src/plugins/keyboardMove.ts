@@ -1,9 +1,9 @@
-import { MoveDests, DropDests } from 'shogiground/types';
-import { parseSfen, roleToForsyth } from 'shogiops/sfen';
-import { KeyboardMove } from '../keyboardMove';
-import { parsePieceName, parseSquare } from 'shogiops/util';
-import { PieceName, Role } from 'shogiops/types';
+import { DropDests, MoveDests } from 'shogiground/types';
 import { Board } from 'shogiops';
+import { parseSfen, roleToForsyth } from 'shogiops/sfen';
+import { PieceName, Role } from 'shogiops/types';
+import { parsePieceName, parseSquare } from 'shogiops/util';
+import { KeyboardMove } from '../keyboardMove';
 
 // TODO
 // we need to support diff board sizes and also different notations

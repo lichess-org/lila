@@ -1,11 +1,9 @@
-import { LearnOpts } from './interfaces';
-import LearnCtrl from './ctrl';
-import view from './views/view';
-
-import { init, VNode, classModule, attributesModule, styleModule, propsModule, eventListenersModule } from 'snabbdom';
-
 import menuHover from 'common/menuHover';
 import { Shogiground } from 'shogiground';
+import { VNode, attributesModule, classModule, eventListenersModule, init, propsModule, styleModule } from 'snabbdom';
+import LearnCtrl from './ctrl';
+import { LearnOpts } from './interfaces';
+import view from './views/view';
 
 const patch = init([classModule, attributesModule, styleModule, propsModule, eventListenersModule]);
 

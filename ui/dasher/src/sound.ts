@@ -1,6 +1,5 @@
-import { h, VNode } from 'snabbdom';
-
-import { Redraw, Close, bind, header } from './util';
+import { VNode, h } from 'snabbdom';
+import { Close, Redraw, bind, header } from './util';
 
 type Key = string;
 

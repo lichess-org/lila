@@ -1,11 +1,11 @@
-import { h, Hooks } from 'snabbdom';
-import * as button from '../view/button';
-import { bind, justIcon } from '../util';
 import * as game from 'game';
-import RoundController from '../ctrl';
-import { ClockElements, ClockController, Seconds, Millis } from './clockCtrl';
 import { Player } from 'game';
+import { Hooks, h } from 'snabbdom';
+import RoundController from '../ctrl';
 import { Position } from '../interfaces';
+import { bind, justIcon } from '../util';
+import * as button from '../view/button';
+import { ClockController, ClockElements, Millis, Seconds } from './clockCtrl';
 
 export function renderClock(ctrl: RoundController, player: Player, position: Position) {
   const clock = ctrl.clock!,

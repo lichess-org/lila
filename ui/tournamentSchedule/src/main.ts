@@ -1,7 +1,6 @@
-import view from './view';
-
-import { init, VNode, classModule, attributesModule } from 'snabbdom';
 import dragscroll from 'dragscroll';
+import { VNode, attributesModule, classModule, init } from 'snabbdom';
+import view from './view';
 
 const patch = init([classModule, attributesModule]);
 

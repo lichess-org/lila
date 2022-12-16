@@ -1,8 +1,7 @@
-import { init, classModule, attributesModule, VNode } from 'snabbdom';
-
+import { VNode, attributesModule, classModule, init } from 'snabbdom';
 import makeCtrl from './ctrl';
+import { Ctrl, NotifyOpts } from './interfaces';
 import view from './view';
-import { NotifyOpts, Ctrl } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 

@@ -1,17 +1,17 @@
-import { h, VNode } from 'snabbdom';
-import { defined, prop, Prop } from 'common/common';
-import { storedProp, StoredProp } from 'common/storage';
+import { Prop, defined, prop } from 'common/common';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
+import { StoredProp, storedProp } from 'common/storage';
 import * as xhr from 'common/xhr';
-import { option } from '../util';
-import { variants as xhrVariants, importNotation } from './studyXhr';
-import * as modal from '../modal';
-import { chapter as chapterTour } from './studyTour';
-import { StudyChapterMeta } from './interfaces';
-import { Redraw } from '../interfaces';
-import AnalyseCtrl from '../ctrl';
 import { toBlackWhite } from 'shogiops/util';
+import { VNode, h } from 'snabbdom';
+import AnalyseCtrl from '../ctrl';
+import { Redraw } from '../interfaces';
+import * as modal from '../modal';
+import { option } from '../util';
+import { StudyChapterMeta } from './interfaces';
+import { chapter as chapterTour } from './studyTour';
+import { importNotation, variants as xhrVariants } from './studyXhr';
 
 export const modeChoices = [
   ['normal', 'normalAnalysis'],

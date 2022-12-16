@@ -1,6 +1,6 @@
 import AnalyseCtrl from '../../ctrl';
-import { Goal } from './interfaces';
 import { Comment } from '../../practice/practiceCtrl';
+import { Goal } from './interfaces';
 
 // returns null if not deep enough to know
 function isDrawish(node: Tree.Node): boolean | null {

@@ -1,7 +1,7 @@
-import { h, VNode } from 'snabbdom';
-import { onInsert } from './util';
 import { ChatPlugin } from 'chat';
 import { Team, TourPlayer } from 'game';
+import { VNode, h } from 'snabbdom';
+import { onInsert } from './util';
 
 export interface TourStandingCtrl extends ChatPlugin {
   set(players: TourPlayer[]): void;

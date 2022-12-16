@@ -1,19 +1,19 @@
-import * as xhr from './xhr';
-import config from './config';
-import sign from 'puz/sign';
-import { Api as SgApi } from 'shogiground/api';
-import { getNow, puzzlePov, sound } from 'puz/util';
 import { prop } from 'common/common';
-import { StormOpts, StormData, StormVm, StormRecap, StormPrefs } from './interfaces';
-import { Run } from 'puz/interfaces';
+import { Clock } from 'puz/clock';
 import { Combo } from 'puz/combo';
 import CurrentPuzzle from 'puz/current';
-import { Clock } from 'puz/clock';
-import { isDrop, Move, Role, Piece } from 'shogiops/types';
-import { makeUsi, parseSquare, parseUsi } from 'shogiops/util';
-import { Shogiground } from 'shogiground';
+import { Run } from 'puz/interfaces';
 import { makeSgOpts } from 'puz/run';
+import sign from 'puz/sign';
+import { getNow, puzzlePov, sound } from 'puz/util';
+import { Shogiground } from 'shogiground';
+import { Api as SgApi } from 'shogiground/api';
 import { SquareSet } from 'shogiops/squareSet';
+import { Move, Piece, Role, isDrop } from 'shogiops/types';
+import { makeUsi, parseSquare, parseUsi } from 'shogiops/util';
+import config from './config';
+import { StormData, StormOpts, StormPrefs, StormRecap, StormVm } from './interfaces';
+import * as xhr from './xhr';
 
 export default class StormCtrl {
   private data: StormData;

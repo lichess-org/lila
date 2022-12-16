@@ -1,6 +1,6 @@
-import AnalyseCtrl from '../../ctrl';
-import { path as treePath, ops as treeOps } from 'tree';
+import { ops as treeOps, path as treePath } from 'tree';
 import { makeShapesFromUsi } from '../../autoShape';
+import AnalyseCtrl from '../../ctrl';
 
 type Feedback = 'play' | 'good' | 'bad' | 'end';
 

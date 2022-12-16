@@ -1,6 +1,6 @@
-import { h, VNode } from 'snabbdom';
 import spinner from 'common/spinner';
-import { Ctrl, NotifyData, Notification } from './interfaces';
+import { VNode, h } from 'snabbdom';
+import { Ctrl, Notification, NotifyData } from './interfaces';
 import { renderers } from './renderers';
 
 export default function (ctrl: Ctrl): VNode {

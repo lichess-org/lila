@@ -1,16 +1,16 @@
-import { h, VNode } from 'snabbdom';
 import { bind, dataIcon } from 'common/snabbdom';
+import { VNode, h } from 'snabbdom';
+import AnalyseCtrl from '../ctrl';
 import { view as renderConfig } from './explorerConfig';
 import { winnerOf } from './explorerUtil';
-import AnalyseCtrl from '../ctrl';
 import {
+  Opening,
+  OpeningData,
+  OpeningGame,
+  OpeningMoveStats,
+  TablebaseMoveStats,
   isOpening,
   isTablebase,
-  TablebaseMoveStats,
-  OpeningData,
-  OpeningMoveStats,
-  OpeningGame,
-  Opening,
 } from './interfaces';
 
 function resultBar(move: OpeningMoveStats): VNode {

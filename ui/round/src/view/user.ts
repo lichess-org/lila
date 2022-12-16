@@ -1,7 +1,7 @@
-import { h } from 'snabbdom';
 import { Player } from 'game';
-import { Position } from '../interfaces';
+import { h } from 'snabbdom';
 import RoundController from '../ctrl';
+import { Position } from '../interfaces';
 
 export function aiName(ctrl: RoundController, level: number) {
   return ctrl.trans('aiNameLevelAiLevel', 'Engine', level);

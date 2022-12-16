@@ -1,6 +1,6 @@
 import { Notation, notationsWithColor } from 'common/notation';
 import { dataIcon } from 'common/snabbdom';
-import { h, Hooks } from 'snabbdom';
+import { Hooks, h } from 'snabbdom';
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
 

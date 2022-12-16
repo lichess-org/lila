@@ -134,12 +134,12 @@
       grid-template-rows: fit-content(0) fit-content(0) 1fr fit-content(0);
       grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
       grid-template-areas:
-      '.         . user-top . .         . expi-top'
-      'hand-top  . board    . hand-bot  . moves'
-      'hand-top  . board    . hand-bot  . moves'
-      'hand-top  . board    . hand-bot  . controls'
-      '.         . user-bot . .         . expi-bot'
-      '.         . kb-move  . .         . .';
+        '.         . user-top . .         . expi-top'
+        'hand-top  . board    . hand-bot  . moves'
+        'hand-top  . board    . hand-bot  . moves'
+        'hand-top  . board    . hand-bot  . controls'
+        '.         . user-bot . .         . expi-bot'
+        '.         . kb-move  . .         . .';
       margin-top: -25px;
       grid-column-gap: 0;
       .rclock-top,
@@ -171,7 +171,8 @@
         display: none;
       }
       .rclock {
-        .time, .byoyomi {
+        .time,
+        .byoyomi {
           font-size: 16px !important;
           line-height: 22px;
         }

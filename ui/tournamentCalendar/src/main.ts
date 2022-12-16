@@ -1,8 +1,6 @@
-import view from './view';
-
-import { init, VNode, classModule, attributesModule } from 'snabbdom';
-
+import { VNode, attributesModule, classModule, init } from 'snabbdom';
 import { Ctrl } from './interfaces';
+import view from './view';
 
 const patch = init([classModule, attributesModule]);
 

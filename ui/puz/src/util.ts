@@ -1,6 +1,6 @@
-import { Puzzle } from './interfaces';
-import { parseSfen } from 'shogiops/sfen';
 import throttle from 'common/throttle';
+import { parseSfen } from 'shogiops/sfen';
+import { Puzzle } from './interfaces';
 
 export const getNow = (): number => Math.round(performance.now());
 

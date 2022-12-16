@@ -1,5 +1,4 @@
-import { h, VNode } from 'snabbdom';
-
+import { VNode, h } from 'snabbdom';
 import { Notification, Renderers } from './interfaces';
 
 // function generic(n: Notification, url: string | undefined, icon: string, content: VNode[]): VNode {

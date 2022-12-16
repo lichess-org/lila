@@ -1,7 +1,7 @@
-import * as xhr from 'common/xhr';
-import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
 import { defined } from 'common/common';
 import throttle from 'common/throttle';
+import * as xhr from 'common/xhr';
+import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
 
 export function complete(
   puzzleId: string,

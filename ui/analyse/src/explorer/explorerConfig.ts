@@ -1,9 +1,9 @@
-import { h, VNode } from 'snabbdom';
 import { prop } from 'common/common';
 import { bind, dataIcon } from 'common/snabbdom';
-import { storedProp, storedJsonProp } from 'common/storage';
+import { storedJsonProp, storedProp } from 'common/storage';
+import { VNode, h } from 'snabbdom';
 import { Game } from '../interfaces';
-import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigCtrl } from './interfaces';
+import { ExplorerConfigCtrl, ExplorerConfigData, ExplorerDb, ExplorerSpeed } from './interfaces';
 
 const allSpeeds: ExplorerSpeed[] = ['bullet', 'blitz', 'rapid', 'classical'];
 const allRatings = [1600, 1800, 2000, 2200, 2500];

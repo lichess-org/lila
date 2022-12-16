@@ -1,16 +1,16 @@
-import { h, Hooks, VNode } from 'snabbdom';
 import { defined, isEmpty } from 'common/common';
 import { bindMobileTapHold } from 'common/mobile';
 import { makeNotation } from 'common/notation';
+import { MaybeVNodes } from 'common/snabbdom';
 import throttle from 'common/throttle';
+import { playable } from 'game';
 import { makeUsi, parseUsi, toBW } from 'shogiops/util';
+import { Hooks, VNode, h } from 'snabbdom';
 import { path as treePath } from 'tree';
 import AnalyseCtrl from '../ctrl';
-import contextMenu from './contextMenu';
-import { enrichText, innerHTML, plyColor } from '../util';
 import { authorText as commentAuthorText } from '../study/studyComments';
-import { MaybeVNodes } from 'common/snabbdom';
-import { playable } from 'game';
+import { enrichText, innerHTML, plyColor } from '../util';
+import contextMenu from './contextMenu';
 
 export interface Ctx {
   ctrl: AnalyseCtrl;

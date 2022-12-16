@@ -1,5 +1,5 @@
-import { h } from 'snabbdom';
 import { dataIcon } from 'common/snabbdom';
+import { h } from 'snabbdom';
 
 export function miniBoard(game) {
   return h(

@@ -1,13 +1,13 @@
-import variantConfirm from './variant';
-import * as hookRepo from './hookRepo';
-import * as seekRepo from './seekRepo';
-import { make as makeStores, Stores } from './store';
-import * as xhr from './xhr';
-import * as poolRangeStorage from './poolRangeStorage';
-import { LobbyOpts, LobbyData, Tab, Mode, Sort, Hook, Seek, Pool, PoolMember } from './interfaces';
-import LobbySocket from './socket';
 import Filter from './filter';
+import * as hookRepo from './hookRepo';
+import { Hook, LobbyData, LobbyOpts, Mode, Pool, PoolMember, Seek, Sort, Tab } from './interfaces';
+import * as poolRangeStorage from './poolRangeStorage';
+import * as seekRepo from './seekRepo';
 import Setup from './setup';
+import LobbySocket from './socket';
+import { Stores, make as makeStores } from './store';
+import variantConfirm from './variant';
+import * as xhr from './xhr';
 
 const li = window.lishogi;
 

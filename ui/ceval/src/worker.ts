@@ -1,6 +1,6 @@
-import { Work } from './types';
-import { Protocol } from './protocol';
 import { Cache } from './cache';
+import { Protocol } from './protocol';
+import { Work } from './types';
 
 interface WasmEngineModule {
   (opts: {

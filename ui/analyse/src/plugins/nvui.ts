@@ -1,15 +1,15 @@
-import { h, VNode } from 'snabbdom';
-import { prop, Prop } from 'common/common';
-import { bind, MaybeVNodes } from 'common/snabbdom';
+import { Prop, prop } from 'common/common';
+import { MaybeVNodes, bind } from 'common/snabbdom';
+import { Player } from 'game';
+import { commands } from 'nvui/command';
+import { Notify } from 'nvui/notify';
+import { renderSetting } from 'nvui/setting';
+import { Style, renderBoard, renderMove, renderPieces, styleSetting } from 'nvui/shogi';
+import { Shogiground } from 'shogiground';
+import { VNode, h } from 'snabbdom';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeSgConfig } from '../ground';
-import { Shogiground } from 'shogiground';
-import { Redraw, AnalyseData } from '../interfaces';
-import { Player } from 'game';
-import { renderMove, renderPieces, renderBoard, styleSetting, Style } from 'nvui/shogi';
-import { renderSetting } from 'nvui/setting';
-import { Notify } from 'nvui/notify';
-import { commands } from 'nvui/command';
+import { AnalyseData, Redraw } from '../interfaces';
 
 window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
   const notify = new Notify(redraw),

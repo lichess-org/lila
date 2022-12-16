@@ -72,8 +72,7 @@ body {
     grid-row-gap: 0;
 
     .analyse.variant-chushogi {
-      grid-template-columns:
-        $col2-uniboard-width $gauge-gap $col3-uniboard-table-no-hands;
+      grid-template-columns: $col2-uniboard-width $gauge-gap $col3-uniboard-table-no-hands;
     }
 
     &__side,
@@ -125,15 +124,14 @@ body {
 
 .board-layout-1 .analyse.variant-chushogi {
   @include breakpoint($mq-col2) {
-    grid-template-columns:
-    $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
+    grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
     grid-template-areas:
-    '. . board . .   gauge tools'
-    '. . under . .   .     controls'
-    '. . under . .   .     acpl'
-    '. . under . .   .     side'
-    '. . chat  . .   .     side'
-    '. . uchat . .   .     side';
+      '. . board . .   gauge tools'
+      '. . under . .   .     controls'
+      '. . under . .   .     acpl'
+      '. . under . .   .     side'
+      '. . chat  . .   .     side'
+      '. . uchat . .   .     side';
   }
 
   @include breakpoint($mq-col3) {

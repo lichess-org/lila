@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { VNode, h } from 'snabbdom';
 import LearnCtrl from '../ctrl';
 
 export default function (ctrl: LearnCtrl): VNode {

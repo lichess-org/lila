@@ -1,6 +1,6 @@
-import * as xhr from './xhr';
 import notify from 'common/notification';
-import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser } from './interfaces';
+import { ChallengeData, ChallengeOpts, ChallengeUser, Ctrl } from './interfaces';
+import * as xhr from './xhr';
 
 const li = window.lishogi;
 

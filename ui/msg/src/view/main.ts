@@ -1,8 +1,8 @@
-import { h, VNode } from 'snabbdom';
 import spinner from 'common/spinner';
+import { VNode, h } from 'snabbdom';
 import MsgCtrl from '../ctrl';
-import renderConvo from './convo';
 import renderContact from './contact';
+import renderConvo from './convo';
 import * as search from './search';
 
 export default function (ctrl: MsgCtrl): VNode {

@@ -1,9 +1,9 @@
-import { h, thunk, VNode, VNodeData } from 'snabbdom';
-import { Ctrl, Line } from './interfaces';
-import * as spam from './spam';
+import { VNode, VNodeData, h, thunk } from 'snabbdom';
 import * as enhance from './enhance';
-import { presetView } from './preset';
+import { Ctrl, Line } from './interfaces';
 import { lineAction as modLineAction } from './moderation';
+import { presetView } from './preset';
+import * as spam from './spam';
 import { userLink } from './util';
 import { flag } from './xhr';
 

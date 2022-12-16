@@ -1,12 +1,12 @@
-import config from '../config';
-import renderClock from 'puz/view/clock';
-import renderEnd from './end';
-import StormCtrl from '../ctrl';
-import { h, VNode } from 'snabbdom';
+import { onInsert } from 'common/snabbdom';
 import { makeSgOpts } from 'puz/run';
+import renderClock from 'puz/view/clock';
 import { makeConfig as makeSgConfig } from 'puz/view/shogiground';
 import { playModifiers, renderCombo } from 'puz/view/util';
-import { onInsert } from 'common/snabbdom';
+import { VNode, h } from 'snabbdom';
+import config from '../config';
+import StormCtrl from '../ctrl';
+import renderEnd from './end';
 
 export default function (ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');

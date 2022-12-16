@@ -1,6 +1,6 @@
-import { h, VNode } from 'snabbdom';
 import spinner from 'common/spinner';
-import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
+import { VNode, h } from 'snabbdom';
+import { Challenge, ChallengeData, ChallengeDirection, ChallengeUser, Ctrl, TimeControl } from './interfaces';
 
 export function loaded(ctrl: Ctrl): VNode {
   return ctrl.redirecting()

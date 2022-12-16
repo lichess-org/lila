@@ -1,7 +1,7 @@
 import { obstaclesCaptured } from '../assert';
 import { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
-import { initial, arrow, pieceMovesHighlihts } from '../shapes';
+import { arrow, initial, pieceMovesHighlihts } from '../shapes';
 import { toPiece } from '../util';
 
 const levels: IncompleteLevel[] = [

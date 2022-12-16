@@ -1,5 +1,5 @@
-import { h } from 'snabbdom';
 import { bind } from 'common/snabbdom';
+import { h } from 'snabbdom';
 import { Redraw } from './interfaces';
 
 export interface BoolSetting {

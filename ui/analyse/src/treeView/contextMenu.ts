@@ -1,9 +1,9 @@
-import { h, VNode } from 'snabbdom';
-import * as studyView from '../study/studyView';
 import { bind, onInsert } from 'common/snabbdom';
-import { nodeFullName } from '../util';
+import { VNode, h } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import patch from '../patch';
+import * as studyView from '../study/studyView';
+import { nodeFullName } from '../util';
 
 export interface Opts {
   path: Tree.Path;

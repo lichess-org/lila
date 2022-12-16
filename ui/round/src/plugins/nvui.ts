@@ -1,20 +1,20 @@
-import { h, VNode } from 'snabbdom';
-import RoundController from '../ctrl';
-import { renderClock } from '../clock/clockView';
-import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
-import { makeConfig as makeSgConfig } from '../ground';
+import * as game from 'game';
+import { commands } from 'nvui/command';
+import { Notify } from 'nvui/notify';
+import { renderSetting } from 'nvui/setting';
+import { Style, renderBoard, renderMove, renderPieces, styleSetting, supportedVariant } from 'nvui/shogi';
 import { Shogiground } from 'shogiground';
+import { MoveDests } from 'shogiground/types';
+import { VNode, h } from 'snabbdom';
+import { renderClock } from '../clock/clockView';
 import renderCorresClock from '../corresClock/corresClockView';
-import { renderResult } from '../view/replay';
+import RoundController from '../ctrl';
+import { makeConfig as makeSgConfig } from '../ground';
+import { Position, Redraw, Step } from '../interfaces';
 import { plyStep } from '../round';
 import { onInsert } from '../util';
-import { Step, Position, Redraw } from '../interfaces';
-import * as game from 'game';
-import { renderMove, renderPieces, renderBoard, styleSetting, supportedVariant, Style } from 'nvui/shogi';
-import { renderSetting } from 'nvui/setting';
-import { Notify } from 'nvui/notify';
-import { commands } from 'nvui/command';
-import { MoveDests } from 'shogiground/types';
+import { renderResult } from '../view/replay';
+import { renderTableEnd, renderTablePlay, renderTableWatch } from '../view/table';
 
 window.lishogi.RoundNVUI = function (redraw: Redraw) {
   const notify = new Notify(redraw),

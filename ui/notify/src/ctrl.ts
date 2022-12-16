@@ -1,6 +1,6 @@
-import { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
-import * as xhr from 'common/xhr';
 import notify from 'common/notification';
+import * as xhr from 'common/xhr';
+import { Ctrl, NotifyData, NotifyOpts, Redraw } from './interfaces';
 import { asText } from './view';
 
 const li = window.lishogi;

@@ -1,7 +1,7 @@
-import { h, VNode } from 'snabbdom';
-import { Prop, prop, defined } from 'common/common';
+import { Prop, defined, prop } from 'common/common';
 import { bind, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
+import { VNode, h } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 
 export interface ServerEvalCtrl {

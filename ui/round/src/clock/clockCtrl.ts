@@ -1,6 +1,6 @@
-import { updateElements } from './clockView';
-import { Redraw, RoundData } from '../interfaces';
 import * as game from 'game';
+import { Redraw, RoundData } from '../interfaces';
+import { updateElements } from './clockView';
 
 export type Seconds = number;
 export type Centis = number;

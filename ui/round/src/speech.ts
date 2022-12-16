@@ -1,7 +1,7 @@
-import RoundController from './ctrl';
-import { Step } from './interfaces';
 import viewStatus from 'game/view/status';
 import { toBlackWhite } from 'shogiops/util';
+import RoundController from './ctrl';
+import { Step } from './interfaces';
 
 export function setup(ctrl: RoundController) {
   window.lishogi.pubsub.on('speech.enabled', onSpeechChange(ctrl));

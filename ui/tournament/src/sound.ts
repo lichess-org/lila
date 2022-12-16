@@ -1,5 +1,5 @@
-import { TournamentData } from './interfaces';
 import notify from 'common/notification';
+import { TournamentData } from './interfaces';
 
 let countDownTimeout: number | undefined;
 const li = window.lishogi;

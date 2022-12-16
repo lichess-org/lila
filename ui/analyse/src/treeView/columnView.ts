@@ -1,25 +1,25 @@
-import { h, VNode } from 'snabbdom';
 import { isEmpty } from 'common/common';
+import { notationsWithColor } from 'common/notation';
 import { MaybeVNodes } from 'common/snabbdom';
-import { path as treePath, ops as treeOps } from 'tree';
+import { VNode, h } from 'snabbdom';
+import { ops as treeOps, path as treePath } from 'tree';
+import AnalyseCtrl from '../ctrl';
+import { Conceal, ConcealOf } from '../interfaces';
 import * as moveView from '../moveView';
 import { authorText as commentAuthorText } from '../study/studyComments';
-import AnalyseCtrl from '../ctrl';
-import { ConcealOf, Conceal } from '../interfaces';
 import { enrichText, innerHTML } from '../util';
 import {
+  Ctx as BaseCtx,
+  Opts as BaseOpts,
+  findCurrentPath,
   mainHook,
   nodeClasses,
   nonEmpty,
-  Ctx as BaseCtx,
-  Opts as BaseOpts,
-  usiToNotation,
-  findCurrentPath,
   renderInlineCommentsOf,
-  truncateComment,
   retroLine,
+  truncateComment,
+  usiToNotation,
 } from './util';
-import { notationsWithColor } from 'common/notation';
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;

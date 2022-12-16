@@ -1,6 +1,5 @@
-import { h, VNode } from 'snabbdom';
-
-import { Redraw, Open, bind, header } from './util';
+import { VNode, h } from 'snabbdom';
+import { Open, Redraw, bind, header } from './util';
 
 type Theme = string;
 

@@ -1,11 +1,11 @@
-import { h, VNode, Classes } from 'snabbdom';
-import { defined } from 'common/common';
-import { MaybeVNodes, MaybeVNode } from 'common/snabbdom';
-import throttle from 'common/throttle';
 import { renderEval as normalizeEval } from 'ceval';
+import { defined } from 'common/common';
+import { notationsWithColor } from 'common/notation';
+import { MaybeVNode, MaybeVNodes } from 'common/snabbdom';
+import throttle from 'common/throttle';
+import { Classes, VNode, h } from 'snabbdom';
 import { path as treePath } from 'tree';
 import { Controller } from '../interfaces';
-import { notationsWithColor } from 'common/notation';
 
 interface Ctx {
   ctrl: Controller;

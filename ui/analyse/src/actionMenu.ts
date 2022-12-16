@@ -1,10 +1,10 @@
 import { isEmpty } from 'common/common';
-import { bind, bindNonPassive, dataIcon, MaybeVNodes } from 'common/snabbdom';
-import { h, VNode, Hooks } from 'snabbdom';
-import { AutoplayDelay } from './autoplay';
-import { boolSetting, BoolSetting } from './boolSetting';
-import AnalyseCtrl from './ctrl';
+import { MaybeVNodes, bind, bindNonPassive, dataIcon } from 'common/snabbdom';
 import { cont as contRoute } from 'game/router';
+import { Hooks, VNode, h } from 'snabbdom';
+import { AutoplayDelay } from './autoplay';
+import { BoolSetting, boolSetting } from './boolSetting';
+import AnalyseCtrl from './ctrl';
 import * as kifExport from './notationExport';
 
 interface AutoplaySpeed {

@@ -1,17 +1,17 @@
 import { Prop } from 'common/common';
-import { NotifCtrl } from './notif';
 import { AnalyseData, Redraw } from '../interfaces';
-import { StudyPracticeCtrl } from './practice/interfaces';
-import { StudyChaptersCtrl } from './studyChapters';
+import { CommentForm } from './commentForm';
 import { DescriptionCtrl } from './description';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
-import { GlyphCtrl } from './studyGlyph';
-import { CommentForm } from './commentForm';
-import { TopicsCtrl } from './topics';
+import { MultiBoardCtrl } from './multiBoard';
+import { NotifCtrl } from './notif';
+import { StudyPracticeCtrl } from './practice/interfaces';
 import RelayCtrl from './relay/relayCtrl';
 import { ServerEvalCtrl } from './serverEval';
-import { MultiBoardCtrl } from './multiBoard';
+import { StudyChaptersCtrl } from './studyChapters';
+import { GlyphCtrl } from './studyGlyph';
+import { TopicsCtrl } from './topics';
 
 export interface StudyCtrl {
   data: StudyData;

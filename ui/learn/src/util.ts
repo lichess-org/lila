@@ -1,9 +1,9 @@
 import throttle from 'common/throttle';
+import { forsythToPiece, parseSfen } from 'shogiops/sfen';
 import { Piece } from 'shogiops/types';
-import { Level, Scenario, UsiWithColor } from './interfaces';
-import { Position } from 'shogiops/variant/position';
-import { parseSfen, forsythToPiece } from 'shogiops/sfen';
 import { opposite, parseSquare, parseUsi } from 'shogiops/util';
+import { Position } from 'shogiops/variant/position';
+import { Level, Scenario, UsiWithColor } from './interfaces';
 
 export function createScenario(usis: Usi[], color: Color = 'sente', switchColor: boolean = false): Scenario {
   return usis.map((usi, i) => {

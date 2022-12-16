@@ -65,8 +65,8 @@
       'uchat under .';
     .board-layout-1 & {
       grid-template-areas:
-      'side  . app   app'
-      'uchat . under .';
+        'side  . app   app'
+        'uchat . under .';
       grid-template-columns: $col3-uniboard-side 2vmin auto;
       grid-column-gap: 0;
       .mchat {

@@ -1,15 +1,15 @@
-import { h, VNode } from 'snabbdom';
-import { dataIcon, bind, onInsert, MaybeVNodes } from 'common/snabbdom';
+import { MaybeVNodes, bind, dataIcon, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
-import { numberRow } from './util';
+import { VNode, h } from 'snabbdom';
 import SwissCtrl from '../ctrl';
+import { Pager, SwissData } from '../interfaces';
 import * as pagination from '../pagination';
-import { SwissData, Pager } from '../interfaces';
-import header from './header';
-import standing from './standing';
 import * as boards from './boards';
-import podium from './podium';
+import header from './header';
 import playerInfo from './playerInfo';
+import podium from './podium';
+import standing from './standing';
+import { numberRow } from './util';
 
 export default function (ctrl: SwissCtrl) {
   const d = ctrl.data;

@@ -1,5 +1,5 @@
 import { squareFile, squareRank } from 'shogiops';
-import { isDrop, Move, Square } from 'shogiops/types';
+import { Move, Square, isDrop } from 'shogiops/types';
 
 export function plyColor(ply: number): Color {
   return ply % 2 === 0 ? 'sente' : 'gote';

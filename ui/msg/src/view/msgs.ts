@@ -1,9 +1,9 @@
-import { h, VNode } from 'snabbdom';
 import { bind } from 'common/snabbdom';
-import { Convo, Msg, Daily } from '../interfaces';
+import { VNode, h } from 'snabbdom';
+import MsgCtrl from '../ctrl';
+import { Convo, Daily, Msg } from '../interfaces';
 import * as enhance from './enhance';
 import { scroller } from './scroller';
-import MsgCtrl from '../ctrl';
 
 export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
   return h(

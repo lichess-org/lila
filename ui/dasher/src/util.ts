@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { VNode, h } from 'snabbdom';
 
 export type Redraw = () => void;
 export type Close = () => void;

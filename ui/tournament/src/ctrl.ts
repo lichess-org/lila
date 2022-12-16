@@ -1,9 +1,9 @@
-import makeSocket, { TournamentSocket } from './socket';
-import xhr from './xhr';
+import { Pages, PlayerInfo, Standing, TeamInfo, TournamentData, TournamentOpts } from './interfaces';
 import { myPage, players } from './pagination';
+import makeSocket, { TournamentSocket } from './socket';
 import * as sound from './sound';
 import * as tour from './tournament';
-import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing } from './interfaces';
+import xhr from './xhr';
 
 interface CtrlTeamInfo {
   requested?: string;

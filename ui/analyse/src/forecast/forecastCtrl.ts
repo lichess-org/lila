@@ -1,6 +1,6 @@
 import { prop } from 'common/common';
-import { ForecastCtrl, ForecastData, ForecastStep } from './interfaces';
 import { AnalyseData } from '../interfaces';
+import { ForecastCtrl, ForecastData, ForecastStep } from './interfaces';
 
 export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): ForecastCtrl {
   const saveUrl = `/${data.game.id}${data.player.id}/forecasts`;
