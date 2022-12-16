@@ -95,7 +95,7 @@ final class NotifyApi(
 
   private def bellOne(to: UserId): Unit =
     Bus.publish(
-      SendTo.async(
+      SendTo.onlineUser(
         to,
         "notifications",
         () =>
