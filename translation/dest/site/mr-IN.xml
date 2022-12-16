@@ -32,7 +32,7 @@
   <string name="raceFinished">शर्यंत समाप्त</string>
   <string name="variantEnding">प्रकार समाप्त</string>
   <string name="newOpponent">नवा प्रतिस्पर्धी</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">तुमचा प्रतिस्पर्धी तुमच्याबरोबर नवा डाव खेळू इच्छितात</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">तुमचे प्रतिस्पर्धी तुमच्याबरोबर नवा डाव खेळू इच्छितात</string>
   <string name="joinTheGame">खेळात दाखल व्हा</string>
   <string name="whitePlays">पांढऱ्याची चाल</string>
   <string name="blackPlays">काळ्याची चाल</string>
@@ -715,6 +715,7 @@
   <string name="light">सौम्य</string>
   <string name="dark">गडद</string>
   <string name="transparent">पारदर्शक</string>
+  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">उपकरणानुसार</string>
   <string name="backgroundImageUrl">Background चित्रासाठी URL:</string>
   <string name="boardGeometry">पटाचा प्रकार</string>
   <string name="boardTheme">पटाचे रंगरूप</string>
