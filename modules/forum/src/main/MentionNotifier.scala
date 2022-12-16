@@ -28,7 +28,7 @@ final class MentionNotifier(
               user,
               lila.notify.MentionedInThread(
                 mentionedBy = author,
-                topic = topic.name,
+                topicName = topic.name,
                 topidId = topic.id,
                 category = post.categId,
                 postId = post.id

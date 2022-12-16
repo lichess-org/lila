@@ -12,7 +12,7 @@ case class OldVersion(text: String, createdAt: DateTime)
 case class ForumPost(
     _id: ForumPostId,
     topicId: ForumTopicId,
-    categId: String,
+    categId: ForumCategId,
     author: Option[String],
     userId: Option[UserId],
     text: String,
@@ -37,7 +37,7 @@ case class ForumPost(
 
   def showUserIdOrAuthor: String = if (erased) "<erased>" else userId.fold(showAuthor)(_.value)
 
-  def isTeam = categId startsWith teamSlug(TeamId(""))
+  def isTeam = ForumCateg.isTeamSlug(categId)
 
   def isAnonModPost = !userId.isDefined && ~modIcon
 
@@ -114,7 +114,7 @@ object ForumPost:
 
   def make(
       topicId: ForumTopicId,
-      categId: String,
+      categId: ForumCategId,
       userId: Option[UserId], // anon mod posts
       text: String,
       number: Int,

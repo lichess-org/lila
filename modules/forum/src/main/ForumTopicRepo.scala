@@ -45,11 +45,11 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
   def countByCateg(categ: ForumCateg): Fu[Int] =
     coll.countSel(byCategQuery(categ))
 
-  def byTree(categSlug: String, slug: String): Fu[Option[ForumTopic]] =
-    coll.one[ForumTopic]($doc("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
+  def byTree(categId: ForumCategId, slug: String): Fu[Option[ForumTopic]] =
+    coll.one[ForumTopic]($doc("categId" -> categId, "slug" -> slug) ++ trollFilter)
 
-  def existsByTree(categSlug: String, slug: String): Fu[Boolean] =
-    coll.exists($doc("categId" -> categSlug, "slug" -> slug))
+  def existsByTree(categId: ForumCategId, slug: String): Fu[Boolean] =
+    coll.exists($doc("categId" -> categId, "slug" -> slug))
 
   def stickyByCateg(categ: ForumCateg): Fu[List[ForumTopic]] =
     coll.list[ForumTopic](byCategQuery(categ) ++ stickyQuery)
@@ -57,7 +57,7 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
   def nextSlug(categ: ForumCateg, name: String, it: Int = 1): Fu[String] =
     val slug = ForumTopic.nameToId(name) + ~(it != 1).option("-" + it)
     // also take troll topic into accounts
-    unsafe.byTree(categ.slug, slug) flatMap { found =>
+    unsafe.byTree(categ.id, slug) flatMap { found =>
       if (found.isDefined) nextSlug(categ, name, it + 1)
       else fuccess(slug)
     }

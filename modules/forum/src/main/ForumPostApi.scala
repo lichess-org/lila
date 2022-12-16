@@ -131,14 +131,14 @@ final class ForumPostApi(
     }
 
   def views(posts: List[ForumPost]): Fu[List[PostView]] =
-    for {
-      topics <- topicRepo.coll.byStringIds[ForumTopic](posts.map(_.topicId.value).distinct)
-      categs <- categRepo.coll.byStringIds[ForumCateg](topics.map(_.categId).distinct)
-    } yield posts flatMap { post =>
-      for {
+    for
+      topics <- topicRepo.coll.byIds[ForumTopic, ForumTopicId](posts.map(_.topicId).distinct)
+      categs <- categRepo.coll.byIds[ForumCateg, ForumCategId](topics.map(_.categId).distinct)
+    yield posts flatMap { post =>
+      for
         topic <- topics.find(_.id == post.topicId)
-        categ <- categs.find(_.slug == topic.categId)
-      } yield PostView(post, topic, categ)
+        categ <- categs.find(_.id == topic.categId)
+      yield PostView(post, topic, categ)
     }
 
   def viewsFromIds(postIds: Seq[ForumPostId]): Fu[List[PostView]] =
@@ -231,7 +231,7 @@ final class ForumPostApi(
         userId into ModId,
         post.categId,
         topic.slug,
-        post.id.value,
+        post.id,
         post.text,
         edit
       )

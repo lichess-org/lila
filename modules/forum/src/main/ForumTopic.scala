@@ -9,7 +9,7 @@ import lila.user.User
 
 case class ForumTopic(
     _id: ForumTopicId,
-    categId: String,
+    categId: ForumCategId,
     slug: String,
     name: String,
     createdAt: DateTime,
@@ -39,7 +39,7 @@ case class ForumTopic(
 
   def isTooBig = nbPosts > (if (ForumCateg.isTeamSlug(categId)) 500 else 50)
 
-  def possibleTeamId = ForumCateg slugToTeamId categId
+  def possibleTeamId = ForumCateg toTeamId categId
 
   def isSticky = ~sticky
 
@@ -75,7 +75,7 @@ object ForumTopic:
   val idSize = 8
 
   def make(
-      categId: String,
+      categId: ForumCategId,
       slug: String,
       name: String,
       userId: UserId,

@@ -18,6 +18,7 @@ given Conversion[String, TourId]                     = TourId(_)
 given Conversion[String, TeamId]                     = TeamId(_)
 given Conversion[String, RelayRoundId]               = RelayRoundId(_)
 given Conversion[String, UblogPostId]                = UblogPostId(_)
+given Conversion[String, ForumCategId]               = ForumCategId(_)
 given Conversion[String, ForumTopicId]               = ForumTopicId(_)
 given Conversion[String, ForumPostId]                = ForumPostId(_)
 given Conversion[String, UserStr]                    = UserStr(_)
@@ -46,9 +47,10 @@ object ReverseRouterConversions:
   given Conversion[chess.format.Uci, String]         = _.uci
   given Conversion[Option[UserName], Option[String]] = UserName.raw(_)
   // where a UserStr is accepted, we can pass a UserName or UserId
-  given Conversion[UserName, UserStr]                       = _ into UserStr
-  given Conversion[UserId, UserStr]                         = _ into UserStr
-  given Conversion[ForumTopicId, String]                    = _.value
-  given postId: Conversion[ForumPostId, String]             = _.value
-  given perfKey: Conversion[Perf.Key, String]               = _.value
-  given puzzleKey: Conversion[PuzzleTheme.Key, String]      = _.value
+  given Conversion[UserName, UserStr]                  = _ into UserStr
+  given Conversion[UserId, UserStr]                    = _ into UserStr
+  given Conversion[ForumCategId, String]               = _.value
+  given Conversion[ForumTopicId, String]               = _.value
+  given postId: Conversion[ForumPostId, String]        = _.value
+  given perfKey: Conversion[Perf.Key, String]          = _.value
+  given puzzleKey: Conversion[PuzzleTheme.Key, String] = _.value

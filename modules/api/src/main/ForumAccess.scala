@@ -12,8 +12,8 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
   enum Operation:
     case Read, Write
 
-  private def isGranted(categSlug: String, op: Operation)(using ctx: UserContext): Fu[Boolean] =
-    ForumCateg.slugToTeamId(categSlug).fold(fuTrue) { teamId =>
+  private def isGranted(categId: ForumCategId, op: Operation)(using ctx: UserContext): Fu[Boolean] =
+    ForumCateg.toTeamId(categId).fold(fuTrue) { teamId =>
       teamCached.forumAccess get teamId flatMap {
         case Team.Access.NONE     => fuFalse
         case Team.Access.EVERYONE =>
@@ -26,25 +26,25 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
       }
     }
 
-  def isGrantedRead(categSlug: String)(using ctx: UserContext): Fu[Boolean] =
+  def isGrantedRead(categId: ForumCategId)(using ctx: UserContext): Fu[Boolean] =
     if (ctx.me ?? Granter(Permission.Shusher)) fuTrue
-    else isGranted(categSlug, Operation.Read)
+    else isGranted(categId, Operation.Read)
 
-  def isGrantedWrite(categSlug: String, tryingToPostAsMod: Boolean = false)(using
+  def isGrantedWrite(categId: ForumCategId, tryingToPostAsMod: Boolean = false)(using
       ctx: UserContext
   ): Fu[Boolean] =
     if (tryingToPostAsMod && ctx.me ?? Granter(Permission.Shusher)) fuTrue
-    else ctx.me.exists(canWriteInAnyForum) ?? isGranted(categSlug, Operation.Write)
+    else ctx.me.exists(canWriteInAnyForum) ?? isGranted(categId, Operation.Write)
 
   private def canWriteInAnyForum(u: User) =
     !u.isBot && {
       (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron
     }
 
-  def isGrantedMod(categSlug: String)(using ctx: UserContext): Fu[Boolean] =
+  def isGrantedMod(categId: ForumCategId)(using ctx: UserContext): Fu[Boolean] =
     if (ctx.me ?? Granter(Permission.ModerateForum)) fuTrue
     else
-      ForumCateg.slugToTeamId(categSlug) ?? { teamId =>
+      ForumCateg.toTeamId(categId) ?? { teamId =>
         ctx.userId ?? {
           teamApi.leads(teamId, _)
         }

@@ -60,7 +60,7 @@ case class MiniForumPost(
     createdAt: DateTime
 )
 
-case class PostUrlData(categ: String, topic: String, page: Int, number: Int)
+case class PostUrlData(categ: ForumCategId, topicSlug: String, page: Int, number: Int)
 
 enum Filter:
   case Safe

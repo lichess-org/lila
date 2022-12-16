@@ -9,8 +9,8 @@ import lila.user.User
 
 final private class NotificationRepo(
     val coll: Coll,
-    val userRepo: lila.user.UserRepo,
-    val prefApi: lila.pref.PrefApi
+    userRepo: lila.user.UserRepo,
+    prefApi: lila.pref.PrefApi
 )(using ec: scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given

@@ -117,15 +117,15 @@ final class Blog(
 
   def discuss(id: String) =
     WithPrismic { _ => implicit prismic =>
-      val categSlug = "general-chess-discussion"
+      val categId   = ForumCategId("general-chess-discussion")
       val topicSlug = s"blog-$id"
-      val redirect  = Redirect(routes.ForumTopic.show(categSlug, topicSlug))
-      env.forum.topicRepo.existsByTree(categSlug, topicSlug) flatMap {
+      val redirect  = Redirect(routes.ForumTopic.show(categId.value, topicSlug))
+      env.forum.topicRepo.existsByTree(categId, topicSlug) flatMap {
         case true => fuccess(redirect)
         case _ =>
           blogApi.one(prismic.api, none, id) flatMap {
             _ ?? { doc =>
-              env.forum.categRepo.bySlug(categSlug) flatMap {
+              env.forum.categRepo.byId(categId) flatMap {
                 _ ?? { categ =>
                   env.forum.topicApi.makeBlogDiscuss(
                     categ = categ,

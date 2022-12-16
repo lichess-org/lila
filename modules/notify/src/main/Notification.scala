@@ -14,9 +14,9 @@ sealed abstract class NotificationContent(val key: String)
 
 case class MentionedInThread(
     mentionedBy: UserId,
-    topic: String,
+    topicName: String,
     topidId: ForumTopicId,
-    category: String,
+    category: ForumCategId,
     postId: ForumPostId
 ) extends NotificationContent("mention")
 
