@@ -159,9 +159,9 @@ object replay {
           ),
           chatOption.map(_ => views.html.chat.frag),
           div(cls := "analyse__board main-board")(shogigroundBoard(pov.game.variant, pov.color.some)),
-          sgHandTop,
+          (!pov.game.variant.chushogi) option sgHandTop,
           div(cls := "analyse__tools")(div(cls := "ceval")),
-          sgHandBottom,
+          (!pov.game.variant.chushogi) option sgHandBottom,
           div(cls := "analyse__controls"),
           !ctx.blind option frag(
             div(cls := "analyse__underboard")(

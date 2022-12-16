@@ -8,6 +8,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Pov }
+import views.html.base.layout.{ bits => baseLayout }
 
 import controllers.routes
 
@@ -30,6 +31,7 @@ object bits {
       moreCss = frag(
         cssTag("round"),
         ctx.blind option cssTag("round.nvui"),
+        (variant.chushogi) option baseLayout.chuPieceSprite,
         moreCss
       ),
       shogiground = shogiground,
@@ -138,13 +140,13 @@ object bits {
   def roundAppPreload(pov: Pov, controls: Boolean)(implicit ctx: Context) =
     div(cls := s"round__app variant-${pov.game.variant.key}")(
       div(cls := "round__app__board main-board")(shogiground(pov)),
-      sgHandTop,
+      (!pov.game.variant.chushogi) option sgHandTop,
       div(cls := "round__app__table"),
       div(cls := "ruser ruser-top user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.opponent))),
       div(cls := "ruser ruser-bottom user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.player))),
       div(cls := "rclock rclock-top preload")(div(cls := "clock-byo")(nbsp)),
       div(cls := "rclock rclock-bottom preload")(div(cls := "clock-byo")(nbsp)),
-      sgHandBottom,
+      (!pov.game.variant.chushogi) option sgHandBottom,
       div(cls := "rmoves")(div(cls := "moves")),
       controls option div(cls := "rcontrols")(i(cls := "ddloader"))
     )

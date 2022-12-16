@@ -35,6 +35,7 @@ object FormCompatLayer {
       moveTo(
         "display",
         List(
+          "boardLayout",
           "animation",
           "coords",
           "highlightLastDests",

@@ -38,7 +38,8 @@ object embed {
           dataAssetUrl     := assetBaseUrl,
           dataAssetVersion := assetVersion.value,
           dataTheme        := config.bg,
-          dataPieceSet     := config.pieceSet.name
+          dataPieceSet     := config.pieceSet.name,
+          dataChuPieceSet  := config.chuPieceSet.name
         )(
           div(
             main(cls := "analyse")

@@ -27,6 +27,7 @@ object embed {
           layout.dataAssetVersion := assetVersion.value,
           layout.dataTheme        := config.bg,
           layout.dataPieceSet     := config.pieceSet.name,
+          layout.dataChuPieceSet  := config.chuPieceSet.name,
           body
         )
       )

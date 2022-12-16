@@ -7,11 +7,27 @@ sealed class PieceSet private[pref] (val name: String) {
   def cssClass = name
 }
 
-object PieceSet {
+sealed trait PieceSetBase {
+
+  val default: PieceSet
+
+  val all: List[PieceSet]
+
+  lazy val allByName = all map { c =>
+    c.name -> c
+  } toMap
+
+  def apply(name: String) = allByName.getOrElse(name, default)
+
+  def contains(name: String) = allByName contains name
+
+}
+
+object PieceSet extends PieceSetBase {
 
   val default = new PieceSet("Ryoko_1Kanji")
 
-  val all = List(
+  val all = List[String](
     "kanji_light",
     "kanji_brown",
     default.name,
@@ -42,11 +58,18 @@ object PieceSet {
     new PieceSet(name)
   }
 
-  lazy val allByName = all map { c =>
-    c.name -> c
-  } toMap
+}
 
-  def apply(name: String) = allByName.getOrElse(name, default)
+object ChuPieceSet extends PieceSetBase {
 
-  def contains(name: String) = allByName contains name
+  val default = new PieceSet("Chu_Ryoko_1Kanji")
+
+  val all = List[String](
+    default.name,
+    "Chu_Intl",
+    "Chu_Mnemonic"
+  ) map { name =>
+    new PieceSet(name)
+  }
+
 }

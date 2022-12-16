@@ -17,7 +17,8 @@ object DataForm {
   val pref = Form(
     mapping(
       "display" -> mapping(
-        "animation"          -> number.verifying(Set(0, 1, 2, 3) contains _),
+        "boardLayout"        -> checkedNumber(Pref.BoardLayout.choices),
+        "animation"          -> checkedNumber(Pref.Animation.choices),
         "coords"             -> checkedNumber(Pref.Coords.choices),
         "highlightLastDests" -> booleanNumber,
         "highlightCheck"     -> booleanNumber,
@@ -30,7 +31,7 @@ object DataForm {
         "blindfold"          -> checkedNumber(Pref.Blindfold.choices)
       )(DisplayData.apply)(DisplayData.unapply),
       "behavior" -> mapping(
-        "moveEvent"     -> optional(number.verifying(Set(0, 1, 2) contains _)),
+        "moveEvent"     -> optional(checkedNumber(Pref.MoveEvent.choices)),
         "premove"       -> booleanNumber,
         "takeback"      -> checkedNumber(Pref.Takeback.choices),
         "submitMove"    -> checkedNumber(Pref.SubmitMove.choices),
@@ -47,11 +48,12 @@ object DataForm {
       "challenge"    -> checkedNumber(Pref.Challenge.choices),
       "message"      -> checkedNumber(Pref.Message.choices),
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
-      "insightShare" -> number.verifying(Set(0, 1, 2) contains _)
+      "insightShare" -> checkedNumber(Pref.InsightShare.choices)
     )(PrefData.apply)(PrefData.unapply)
   )
 
   case class DisplayData(
+      boardLayout: Int,
       animation: Int,
       coords: Int,
       highlightLastDests: Int,
@@ -112,6 +114,7 @@ object DataForm {
         message = message,
         studyInvite = studyInvite | Pref.default.studyInvite,
         premove = behavior.premove == 1,
+        boardLayout = display.boardLayout,
         animation = display.animation,
         submitMove = behavior.submitMove,
         insightShare = insightShare,
@@ -133,6 +136,7 @@ object DataForm {
           squareOverlay = if (pref.squareOverlay) 1 else 0,
           destination = if (pref.destination) 1 else 0,
           dropDestination = if (pref.dropDestination) 1 else 0,
+          boardLayout = pref.boardLayout,
           animation = pref.animation,
           replay = pref.replay,
           blindfold = pref.blindfold,
@@ -174,6 +178,13 @@ object DataForm {
       "set" -> text.verifying(PieceSet contains _)
     )
   )
+    
+  val chuPieceSet = Form(
+    single(
+      "set" -> text.verifying(ChuPieceSet contains _)
+    )
+  )
+
 
   val soundSet = Form(
     single(

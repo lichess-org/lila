@@ -50,6 +50,10 @@ object pref {
         postForm(cls := "autosubmit", action := routes.Pref.formApply)(
           categFieldset(PrefCateg.GameDisplay, categ)(
             setting(
+              boardLayout(),
+              radios(form("display.boardLayout"), translatedBoardLayoutChoices)
+            ),
+            setting(
               pieceAnimation(),
               radios(form("display.animation"), translatedAnimationChoices)
             ),

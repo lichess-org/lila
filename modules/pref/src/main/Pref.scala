@@ -8,6 +8,7 @@ case class Pref(
     theme: String,
     customTheme: Option[CustomTheme],
     pieceSet: String,
+    chuPieceSet: String,
     soundSet: String,
     blindfold: Int,
     takeback: Int,
@@ -16,6 +17,7 @@ case class Pref(
     clockCountdown: Int,
     clockSound: Boolean,
     premove: Boolean,
+    boardLayout: Int,
     animation: Int,
     follow: Boolean,
     coords: Int,
@@ -66,6 +68,10 @@ case class Pref(
       case "pieceSet" =>
         PieceSet.allByName get value map { p =>
           copy(pieceSet = p.name)
+        }
+      case "chuPieceSet" =>
+        ChuPieceSet.allByName get value map { p =>
+          copy(chuPieceSet = p.name)
         }
       case "soundSet" =>
         SoundSet.allByKey get value map { s =>
@@ -214,6 +220,16 @@ object Pref {
     )
   }
 
+  object BoardLayout {
+    val SIDE     = 0
+    val COMPACT  = 1
+
+    val choices = Seq(
+      SIDE     -> "Side",
+      COMPACT  -> "Compact",
+    )
+  }
+
   object Animation {
     val NONE   = 0
     val FAST   = 1
@@ -352,12 +368,14 @@ object Pref {
     theme = Theme.default.name,
     customTheme = none,
     pieceSet = PieceSet.default.name,
+    chuPieceSet = ChuPieceSet.default.name,
     soundSet = SoundSet.default.name,
     blindfold = Blindfold.NO,
     takeback = Takeback.ALWAYS,
     moretime = Moretime.ALWAYS,
     clockSound = true,
     premove = true,
+    boardLayout = BoardLayout.SIDE,
     animation = 2,
     follow = true,
     highlightLastDests = true,

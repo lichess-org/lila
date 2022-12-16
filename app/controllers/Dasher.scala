@@ -32,6 +32,7 @@ final class Dasher(env: Env) extends LilaController(env) {
     trans.board,
     trans.boardTheme,
     trans.pieceSet,
+    trans.chushogi,
     trans.preferences.zenMode,
     trans.notationSystem,
     trans.preferences.westernNotation,
@@ -94,6 +95,10 @@ final class Dasher(env: Env) extends LilaController(env) {
                 "piece" -> Json.obj(
                   "current" -> ctx.currentPieceSet.name,
                   "list"    -> lila.pref.PieceSet.all.map(_.name)
+                ),
+                "chuPiece" -> Json.obj(
+                  "current" -> ctx.currentChuPieceSet.name,
+                  "list"    -> lila.pref.ChuPieceSet.all.map(_.name)
                 ),
                 "inbox"    -> ctx.hasInbox,
                 "coach"    -> isGranted(_.Coach),

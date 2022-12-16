@@ -40,6 +40,15 @@ object layout {
         tpe  := "text/css",
         rel  := "stylesheet"
       )
+
+    def chuPieceSprite(implicit ctx: Context): Frag = chuPieceSprite(ctx.currentChuPieceSet)
+    def chuPieceSprite(ps: lila.pref.PieceSet): Frag = 
+      link(
+        id   := "chu-piece-sprite",
+        href := assetUrl(s"piece-css/$ps.css"),
+        tpe  := "text/css",
+        rel  := "stylesheet"
+      )
   }
   import bits._
 
@@ -184,6 +193,7 @@ object layout {
   val dataSoundSet              = attr("data-sound-set")
   val dataTheme                 = attr("data-theme")
   val dataPieceSet              = attr("data-piece-set")
+  val dataChuPieceSet           = attr("data-chu-piece-set")
   val dataAssetUrl              = attr("data-asset-url")
   val dataAssetVersion          = attr("data-asset-version")
   val dataDev                   = attr("data-dev")
@@ -246,6 +256,7 @@ object layout {
           cls := List(
             s"${ctx.currentBg} ${ctx.currentTheme.cssClass} coords-${ctx.pref.coordsClass} notation-${ctx.pref.notation}" -> true,
             s"grid-width-${ctx.pref.customThemeOrDefault.gridWidth}" -> ctx.pref.isUsingCustomTheme,
+            s"board-layout-${ctx.pref.boardLayout}"                  -> (ctx.pref.boardLayout != 0),
             "no-touch"                                               -> !ctx.pref.squareOverlay,
             "zen"                                                    -> ctx.pref.isZen,
             "blind-mode"                                             -> ctx.blind,
@@ -263,6 +274,7 @@ object layout {
           dataNonce         := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
           dataTheme         := ctx.currentBg,
           dataPieceSet      := ctx.currentPieceSet.name,
+          dataChuPieceSet   := ctx.currentChuPieceSet.name,
           dataAnnounce      := AnnounceStore.get.map(a => safeJsonValue(a.json)),
           style             := cssVariables(zoomable)
         )(

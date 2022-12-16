@@ -10,6 +10,7 @@ case class EmbedConfig(
     bg: String,
     board: String,
     pieceSet: lila.pref.PieceSet,
+    chuPieceSet: lila.pref.PieceSet,
     lang: Lang,
     req: RequestHeader,
     nonce: Nonce
@@ -22,15 +23,18 @@ object EmbedConfig {
     implicit def configReq(implicit config: EmbedConfig): RequestHeader = config.req
   }
 
-  def apply(req: RequestHeader): EmbedConfig =
+  def apply(req: RequestHeader): EmbedConfig = {
+    val pieceSet = get("pieceSet", req)
     EmbedConfig(
       bg = get("bg", req).filterNot("auto".==) | "light",
       board = lila.pref.Theme(~get("theme", req)).cssClass,
-      pieceSet = lila.pref.PieceSet(~get("pieceSet", req)),
+      pieceSet = lila.pref.PieceSet(~pieceSet),
+      chuPieceSet = lila.pref.ChuPieceSet(get("chuPieceSet", req) | ~pieceSet),
       lang = lila.i18n.I18nLangPicker(req, none),
       req = req,
       nonce = Nonce.random
     )
+  }
 
   private def get(name: String, req: RequestHeader): Option[String] =
     req.queryString get name flatMap (_.headOption) filter (_.nonEmpty)

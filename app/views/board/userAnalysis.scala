@@ -7,6 +7,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.rating.PerfType.iconByVariant
+import views.html.base.layout.{ bits => layout }
 
 import controllers.routes
 
@@ -18,7 +19,8 @@ object userAnalysis {
       moreCss = frag(
         cssTag("analyse.free"),
         withForecast option cssTag("analyse.forecast"),
-        ctx.blind option cssTag("round.nvui")
+        ctx.blind option cssTag("round.nvui"),
+        (pov.game.variant.chushogi) option layout.chuPieceSprite
       ),
       moreJs = frag(
         analyseTag,
@@ -60,9 +62,9 @@ object userAnalysis {
           )
         ),
         div(cls := "analyse__board main-board")(shogigroundBoard(pov.game.variant, pov.color.some)),
-        sgHandTop,
+        (!pov.game.variant.chushogi) option sgHandTop,
         div(cls := "analyse__tools"),
-        sgHandBottom,
+        (!pov.game.variant.chushogi) option sgHandBottom,
         div(cls := "analyse__controls")
       )
     }

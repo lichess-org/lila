@@ -29,12 +29,14 @@ object RequestPref {
     ).some.filterNot(_ == CustomTheme.default)
     val bg    = paramOrSession("bg") | "light"
     val theme = paramOrSession("theme") | default.theme
+    val pieceSet = paramOrSession("pieceSet")
 
     default.copy(
       dark = bg != "light",
       transp = bg == "transp",
       theme = theme,
-      pieceSet = paramOrSession("pieceSet") | default.pieceSet,
+      pieceSet = pieceSet | default.pieceSet,
+      chuPieceSet = paramOrSession("chuPieceSet") | (pieceSet.map(ChuPieceSet(_).name) | default.chuPieceSet),
       soundSet = paramOrSession("soundSet") | default.soundSet,
       bgImg = paramOrSession("bgImg"),
       notation = paramOrSession("notation").flatMap(_.toIntOption) | default.notation,
