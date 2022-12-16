@@ -1,14 +1,14 @@
+import { notationFiles, notationRanks } from 'common/notation';
 import { Config } from 'shogiground/config';
-import { Dests, DropDests } from 'shogiground/types';
-import LearnCtrl from './ctrl';
-import { shogigroundDropDests, shogigroundDests } from 'shogiops/compat';
-import { pieceCanPromote, pieceInDeadZone, promote } from 'shogiops/variantUtil';
-import { Role, isDrop } from 'shogiops/types';
-import { makeSquare, parseSquare, parseUsi } from 'shogiops/util';
-import { Level, UsiWithColor } from './interfaces';
-import { currentPosition } from './util';
 import { Drawable, SquareHighlight } from 'shogiground/draw';
-import { illegalShogigroundDests, illegalShogigroundDropDests, inCheck } from './shogi';
+import { shogigroundDropDests, shogigroundMoveDests } from 'shogiops/compat';
+import { Piece, Role, isDrop } from 'shogiops/types';
+import { makeSquare, parseSquare, parseUsi } from 'shogiops/util';
+import { pieceCanPromote, pieceForcePromote, promote } from 'shogiops/variant/util';
+import LearnCtrl from './ctrl';
+import { Level, UsiWithColor } from './interfaces';
+import { illegalShogigroundDropDests, illegalShogigroundMoveDests, inCheck } from './shogi';
+import { currentPosition } from './util';
 
 export function initConfig(ctrl: LearnCtrl): Config {
   return {
@@ -29,16 +29,16 @@ export function initConfig(ctrl: LearnCtrl): Config {
         return promote('standard')(role);
       },
       movePromotionDialog: (orig: Key, dest: Key) => {
-        const piece = ctrl.shogiground.state.pieces.get(orig);
+        const piece = ctrl.shogiground.state.pieces.get(orig) as Piece;
         return (
           !!piece &&
-          pieceCanPromote('standard')(piece, parseSquare(orig)!, parseSquare(dest)!) &&
-          !pieceInDeadZone('standard')(piece, parseSquare(dest)!)
+          pieceCanPromote('standard')(piece, parseSquare(orig)!, parseSquare(dest)!, undefined) &&
+          !pieceForcePromote('standard')(piece, parseSquare(dest)!)
         );
       },
       forceMovePromotion: (orig: Key, dest: Key) => {
-        const piece = ctrl.shogiground.state.pieces.get(orig);
-        return !!piece && pieceInDeadZone('standard')(piece, parseSquare(dest)!);
+        const piece = ctrl.shogiground.state.pieces.get(orig) as Piece;
+        return !!piece && pieceForcePromote('standard')(piece, parseSquare(dest)!);
       },
     },
     predroppable: {
@@ -49,7 +49,8 @@ export function initConfig(ctrl: LearnCtrl): Config {
     },
     coordinates: {
       enabled: true,
-      notation: ctrl.pref.notation,
+      files: notationFiles(ctrl.pref.notation),
+      ranks: notationRanks(ctrl.pref.notation),
     },
     drawable: {
       enabled: true,
@@ -95,12 +96,12 @@ export function destsAndCheck(level: Level, usiCList: UsiWithColor[]): Config {
     illegalDests = !!level.offerIllegalDests || hasObstacles;
 
   return {
-    check: !hasObstacles && inCheck(pos),
+    checks: !hasObstacles && inCheck(pos),
     movable: {
-      dests: (illegalDests ? illegalShogigroundDests(pos) : shogigroundDests(pos)) as Dests,
+      dests: illegalDests ? illegalShogigroundMoveDests(pos) : shogigroundMoveDests(pos),
     },
     droppable: {
-      dests: (illegalDests ? illegalShogigroundDropDests(pos) : shogigroundDropDests(pos)) as DropDests,
+      dests: illegalDests ? illegalShogigroundDropDests(pos) : shogigroundDropDests(pos),
     },
   };
 }
@@ -126,8 +127,8 @@ export function createDrawable(level: Level, usiCList: UsiWithColor[] = []): Par
 export function playUsi(ctrl: LearnCtrl, usiC: UsiWithColor): void {
   const moveOrDrop = parseUsi(usiC.usi)!;
   if (isDrop(moveOrDrop)) {
-    ctrl.shogiground.drop({ role: moveOrDrop.role, color: usiC.color }, makeSquare(moveOrDrop.to) as Key);
+    ctrl.shogiground.drop({ role: moveOrDrop.role, color: usiC.color }, makeSquare(moveOrDrop.to));
   } else {
-    ctrl.shogiground.move(makeSquare(moveOrDrop.from) as Key, makeSquare(moveOrDrop.to) as Key, moveOrDrop.promotion);
+    ctrl.shogiground.move(makeSquare(moveOrDrop.from), makeSquare(moveOrDrop.to), moveOrDrop.promotion);
   }
 }

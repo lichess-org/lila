@@ -108,7 +108,7 @@ function titleVerbosityClass(title: string) {
 
 export default function (ctrl: LearnCtrl) {
   let prevComplete = true;
-  return h('div.learn.learn--map', [
+  return h('div.main.learn.learn--map', [
     h('div.learn__side', side(ctrl)),
     h('div.learn__main.learn-stages', [
       ...categories.map(categ => {

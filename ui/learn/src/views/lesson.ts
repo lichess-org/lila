@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { VNode, h } from 'snabbdom';
 import LearnCtrl from '../ctrl';
 import { Level } from '../interfaces';
 import congrats from './congrats';
@@ -140,7 +140,7 @@ export default function (ctrl: LearnCtrl): VNode {
     stageEnding = vm.stageState === 'completed';
 
   return h(
-    'div.learn learn--run',
+    'div.main.learn learn--run',
     {
       class: {
         starting: stageStarting,

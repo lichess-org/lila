@@ -1,23 +1,24 @@
-import { Shogiground } from 'shogiground/shogiground';
 import { Api } from 'shogiground/api';
+import { Shogiground } from 'shogiground/shogiground';
 import { Piece } from 'shogiground/types';
 import { opposite } from 'shogiground/util';
+import { shogigroundDropDests, shogigroundMoveDests } from 'shogiops/compat';
+import { Role } from 'shogiops/types';
 import { makeUsi, parseSquare, parseUsi } from 'shogiops/util';
 import * as categories from './categories';
 import * as ground from './ground';
 import { Category, LearnOpts, Redraw, Stage, Vm } from './interfaces';
-import { ProgressStorage } from './progress';
-import { currentPosition, sound } from './util';
-import { shogigroundDests, shogigroundDropDests } from 'shogiops/compat';
 import { calcScore } from './level';
+import { ProgressStorage } from './progress';
 import {
   findCapture,
   findRandomMove,
   findUnprotectedCapture,
-  illegalShogigroundDests,
   illegalShogigroundDropDests,
+  illegalShogigroundMoveDests,
   inCheck,
 } from './shogi';
+import { currentPosition, sound } from './util';
 
 const li = window.lishogi;
 
@@ -163,7 +164,7 @@ export default class LearnCtrl {
   private applyUserMoveOrDrop(usi: Usi): void {
     if (this.vm) {
       this.vm.usiCList.push({ usi, color: this.vm.level.color });
-      this.shogiground.set({ check: inCheck(currentPosition(this.vm.level, this.vm.usiCList)) });
+      this.shogiground.set({ checks: inCheck(currentPosition(this.vm.level, this.vm.usiCList)) });
 
       // make opponents move if available
       this.applyOpponentMoveOrDrop();
@@ -202,9 +203,9 @@ export default class LearnCtrl {
       this.shogiground.set({
         turnColor: this.vm.level.color,
         activeColor: active ? this.vm.level.color : undefined,
-        check: !hasObstacles && inCheck(pos),
+        checks: !hasObstacles && inCheck(pos),
         movable: {
-          dests: active ? (illegalDests ? illegalShogigroundDests(pos) : shogigroundDests(pos)) : new Map(),
+          dests: active ? (illegalDests ? illegalShogigroundMoveDests(pos) : shogigroundMoveDests(pos)) : new Map(),
         },
         droppable: {
           dests: active ? (illegalDests ? illegalShogigroundDropDests(pos) : shogigroundDropDests(pos)) : new Map(),
@@ -220,7 +221,7 @@ export default class LearnCtrl {
   }
 
   onUserDrop(piece: Piece, key: Key, _promotion: boolean): void {
-    const usi = makeUsi({ role: piece.role, to: parseSquare(key) });
+    const usi = makeUsi({ role: piece.role as Role, to: parseSquare(key) });
     this.applyUserMoveOrDrop(usi);
   }
 

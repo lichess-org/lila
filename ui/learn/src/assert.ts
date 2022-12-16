@@ -38,7 +38,7 @@ export function scenarioFailure(level: Level, usiCList: UsiWithColor[]): boolean
 export function extinct(color: Color): Assertion {
   return (level: Level, usiCList: UsiWithColor[]) => {
     const shogi = currentPosition(level, usiCList);
-    return shogi.board[color].isEmpty();
+    return shogi.board.color(color).isEmpty();
   };
 }
 
