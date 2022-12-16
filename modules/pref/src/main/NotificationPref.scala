@@ -94,8 +94,6 @@ object NotificationPref:
     correspondenceEmail = 0
   )
 
-  // implicit private val AllowsBSONHandler =
-  //  lila.db.dsl.intAnyValHandler[Allows](_.value, Allows.apply)
   given BSONHandler[Allows] =
     lila.db.dsl.intAnyValHandler[Allows](_.value, Allows.apply)
 
@@ -115,8 +113,7 @@ object NotificationPref:
       )
     }
 
-  private def allowsToJson(v: Allows) = List(
-    Map(BELL -> "bell", PUSH -> "push") collect {
+  private def allowsToJson(v: Allows) =
+    List(BELL -> "bell", PUSH -> "push") collect {
       case (tpe, str) if (v.value & tpe) != 0 => str
     }
-  )
