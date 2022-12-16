@@ -117,9 +117,10 @@ object Node:
     def variations = nodes drop 1
 
     def nodeAt(path: Path): Option[Node] =
-      path.split flatMap {
-        case (head, tail) if tail.isEmpty => get(head)
-        case (head, tail)                 => get(head) flatMap (_.children nodeAt tail)
+      path.split flatMap { (head, rest) =>
+        rest.ids.foldLeft(get(head)) { (cur, id) =>
+          cur.flatMap(_.children.get(id))
+        }
       }
 
     // select all nodes on that path
