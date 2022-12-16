@@ -108,7 +108,7 @@ final class PrefApi(
     (reqPref != Pref.default) ?? setPref(reqPref.copy(_id = user.id))
 
   def getNotifyAllows(userIds: Iterable[UserId], event: String): Fu[List[NotifyAllows]] =
-    coll
+    coll.tempPrimary
       .find($inIds(userIds), $doc(s"notification.$event" -> true).some)
       .cursor[Bdoc]()
       .listAll() dmap { docs =>
