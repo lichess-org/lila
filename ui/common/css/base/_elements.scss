@@ -12,14 +12,28 @@ html {
 }
 
 body {
-  background: $c-bg-page linear-gradient(to bottom, $c-body-gradient, $c-bg-page 116px) no-repeat;
+  background: $c-bg-page linear-gradient(to bottom, $c-body-gradient, $c-bg-page 100px) no-repeat;
   color: $c-font;
   overflow-x: hidden;
-  &.fixed-scroll {
-    /* prevents scroll bar flicker when dragging a piece out */
-    overflow-y: scroll;
-  }
+  overflow-y: scroll;
 }
+
+body::-webkit-scrollbar,
+body::-webkit-scrollbar-corner {
+  background: $c-bg-page linear-gradient(to bottom, $c-body-gradient, $c-bg-page 100px) no-repeat;
+  max-width: 0.8rem;
+}
+body::-webkit-scrollbar-track {
+  display: none;
+}
+body::-webkit-scrollbar-thumb {
+  background: $c-font-dimmer;
+}
+body::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:active {
+  background: $c-font-dim;
+}
+
 
 a {
   color: $c-link;
