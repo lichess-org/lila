@@ -3,6 +3,7 @@ package lila.pref
 import play.api.libs.json.{ Json, OWrites }
 import reactivemongo.api.bson.*
 import NotificationPref.*
+import alleycats.Zero
 
 // #TODO opaque type
 case class Allows(value: Int) extends AnyVal with IntValue:
@@ -13,6 +14,8 @@ case class Allows(value: Int) extends AnyVal with IntValue:
   def any: Boolean    = value != 0
 
 object Allows:
+  given Zero[Allows] = Zero(Allows(0))
+
   val canFilter = Set(
     "privateMessage",
     "challenge",
@@ -46,16 +49,17 @@ case class NotificationPref(
     invitedStudy: Allows,
     correspondenceEmail: Int
 ):
+  def allows(key: String): Allows =
+    NotificationPref.Event.byKey.get(key) ?? allows
 
-  def allows(event: Event): Allows = allows(event.toString)
-
-  def allows(tpe: String): Allows =
-    val (key, values) = (this.productElementNames, this.productIterator)
-    while (key.hasNext) {
-      val value = values.next()
-      if (key.next() == tpe) return value.asInstanceOf[Allows]
-    }
-    Allows(0)
+  def allows(event: Event): Allows = event match
+    case PrivateMessage => privateMessage
+    case Challenge      => challenge
+    case Mention        => mention
+    case InvitedStudy   => invitedStudy
+    case StreamStart    => streamStart
+    case TournamentSoon => tournamentSoon
+    case GameEvent      => gameEvent
 
 object NotificationPref:
   val BELL   = 1
@@ -72,8 +76,10 @@ object NotificationPref:
     case TournamentSoon
     case GameEvent
 
-    override def toString: String = // for matching db fields, channels
-      lila.common.String.lcfirst(getClass.getSimpleName)
+    def key = lila.common.String.lcfirst(getClass.getSimpleName)
+
+  object Event:
+    val byKey = values.map { v => v.key -> v }.toMap
 
   export Event.*
 

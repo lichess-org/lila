@@ -107,7 +107,7 @@ final class PrefApi(
     val reqPref = RequestPref fromRequest req
     (reqPref != Pref.default) ?? setPref(reqPref.copy(_id = user.id))
 
-  def getNotifyAllows(userIds: Iterable[UserId], event: String): Fu[List[NotifyAllows]] =
+  def getNotifyAllows(userIds: Iterable[UserId], event: NotificationPref.Event): Fu[List[NotifyAllows]] =
     coll.tempPrimary
       .find($inIds(userIds), $doc(s"notification.$event" -> true).some)
       .cursor[Bdoc]()
@@ -115,7 +115,7 @@ final class PrefApi(
       for {
         doc    <- docs
         userId <- doc.getAsOpt[UserId]("_id")
-        allowsOpt = doc child "notification" flatMap (_ int event) map Allows.fromCode
+        allowsOpt = doc child "notification" flatMap (_ int event.key) map Allows.fromCode
         allows    = allowsOpt getOrElse NotificationPref.default.allows(event)
       } yield NotifyAllows(userId, allows)
     }

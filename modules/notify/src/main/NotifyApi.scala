@@ -11,7 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.hub.actorApi.socket.{ SendTo, SendTos }
 import lila.memo.CacheApi.*
-import lila.pref.{ Allows, NotifyAllows }
+import lila.pref.{ Allows, NotifyAllows, NotificationPref }
 import lila.user.{ User, UserRepo }
 import lila.i18n.*
 
@@ -87,9 +87,11 @@ final class NotifyApi(
   // notifyMany tells clients that an update is available to bump their bell. there's no need
   // to assemble full notification pages for all clients at once, let them initiate
   def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit =
-    prefApi.getNotifyAllows(userIds, content.key) flatMap { recips =>
-      pushMany(recips.filter(_.allows.push), content)
-      bellMany(recips, content)
+    NotificationPref.Event.byKey.get(content.key) ?? { event =>
+      prefApi.getNotifyAllows(userIds, event) flatMap { recips =>
+        pushMany(recips.filter(_.allows.push), content)
+        bellMany(recips, content)
+      }
     }
 
   private def bellOne(to: UserId): Unit =
