@@ -22,10 +22,11 @@
       @if $theme-dark {
         $logo-color: "383633";
       }
-      background: $c-bg-box
-        url("data:image/svg+xml,%3Csvg viewBox='-2 -2 54 54' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23#{$logo-color}' stroke='%23#{$logo-color}' stroke-linejoin='round'%0Atransform='matrix(0.83769177,-0.01116274,0.01395684,0.7948078,7.5072348,6.1385516)' id='path834' d='M 21.695312 -1.6699219 L 21.275391 -1.5234375 L 6.9863281 3.4550781 L 0.32226562 50.433594 L 42.763672 50.9375 L 36.314453 3.6289062 L 21.695312 -1.6699219 z M 21.675781 0.98242188 L 34.041016 5.4648438 L 39.896484 48.402344 L 3.1972656 47.96875 L 9.2480469 5.3144531 L 21.675781 0.98242188 z'/%3E%3C/svg%3E%0A");
+      background: $c-bg-box url("data:image/svg+xml,%3Csvg viewBox='-2.5 -2.5 45 55' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 20 0 L 33 4 L 40 50 L 0 50 L 7 4 Z' style='fill:none;stroke:%23#{$logo-color};stroke-width:2.5;stroke-opacity:1;' /%3E%3C/svg%3E");
     }
-    background-size: 100% 100%;
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    background-position: center;
     overflow-x: hidden;
     overflow-y: auto;
   }

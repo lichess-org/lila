@@ -4,11 +4,11 @@
   background: $c-bg-box;
 
   .ceval-wrap {
-    flex: 0 0 38px;
+    flex: 0 0 40px;
   }
 
   .ceval {
-    height: 38px;
+    height: 40px;
   }
 }
 
@@ -86,10 +86,6 @@
     &.gote {
       background-image: img-url('../images/whitePiece.svg');
     }
-  }
-
-  .is3d & div.no-square {
-    height: 82px;
   }
 
   piece {

@@ -1,5 +1,5 @@
 .ceval {
-  @extend %metal-bg;
+  background: $c-bg-zebra;
 
   position: relative;
   display: flex;
@@ -71,6 +71,7 @@
     margin-left: 5px;
     &.bad {
       color: $c-bad;
+      margin-left: 0;
     }
     &.good {
       color: $c-good;

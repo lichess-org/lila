@@ -31,11 +31,12 @@
       height: 200%;
       margin: calc(-50% / 11 * 12) -50%;
     }
-    &.d3 piece {
-      left: 0;
-      top: 0;
-      background-size: cover;
-      background-position: 0 67%;
+    .chu-piece {
+      padding: 0.5rem;
+      &::before {
+        opacity: 0.8;
+        font-weight: bold;
+      }
     }
   }
 }
