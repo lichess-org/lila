@@ -132,6 +132,8 @@ export default class Setup {
 
   private ratingKey = (variantId: string, realTime: boolean, timeSum: number): string => {
     switch (variantId) {
+      case '3':
+        return 'chushogi';
       case '2':
         return 'minishogi';
       default:

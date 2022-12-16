@@ -1,5 +1,6 @@
 const variantConfirms = {
   minishogi: 'This is mini shogi, same rules but smaller board.',
+  chushogi: 'This is chushogi, the most popular large board shogi variant.',
 };
 
 function storageKey(key) {

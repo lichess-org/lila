@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import { Shogiground } from 'shogiground';
 import LobbyController from '../ctrl';
-import { handRoles } from 'shogiops/variantUtil';
+import { handRoles } from 'shogiops/variant/util';
 import { usiToSquareNames } from 'shogiops/compat';
 
 function timer(pov) {
@@ -50,7 +50,7 @@ export default function (ctrl: LobbyController) {
                       inlined: true,
                       roles: handRoles(pov.variant.key),
                     },
-                    lastDests: lm ? (usiToSquareNames(lm) as Key[]) : undefined,
+                    lastDests: lm ? usiToSquareNames(lm) : undefined,
                   },
                   { board: vnode.elm as HTMLElement }
                 );
