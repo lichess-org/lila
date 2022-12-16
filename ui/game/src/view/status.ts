@@ -19,7 +19,7 @@ export default function status(ctrl: Ctrl): string {
     case 'tryRule':
       return 'Try rule';
     case 'perpetualCheck':
-      return 'Perpetual check (Illegal move)';
+      return noarg('perpetualCheck');
     case 'timeout':
       switch (d.game.winner) {
         case 'sente':
@@ -36,10 +36,12 @@ export default function status(ctrl: Ctrl): string {
       return (d.game.winner == 'sente' ? 'Gote' : 'Sente') + " didn't move";
     case 'cheat':
       return noarg('cheatDetected');
-    case 'variantEnd':
-      return noarg('variantEnding');
     case 'unknownFinish':
       return 'Finished';
+    case 'royalsLost':
+      return noarg('royalsLost');
+    case 'bareKing':
+      return noarg('bareKing');
     default:
       return d.game.status.name;
   }

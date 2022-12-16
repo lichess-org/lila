@@ -64,12 +64,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case (Some(w), _, TryRule)                            => s"${playerText(w)} won by try rule"
       case (Some(w), _, Impasse27)                          => s"${playerText(w)} won by impasse"
       case (_, Some(l), PerpetualCheck)                     => s"${playerText(l)} lost due to perpetual check"
+      case (Some(w), _, RoyalsLost)                         => s"${playerText(w)} won by capturing all royal pieces"
+      case (Some(w), _, BareKing)                           => s"${playerText(w)} won due to bare king rule"
       case (_, _, Draw | UnknownFinish)                     => "Game is a draw"
       case (_, _, Aborted)                                  => "Game has been aborted"
-      case (_, _, VariantEnd) =>
-        game.variant match {
-          case _ => "Perpetual check"
-        }
       case _ => "Game is still being played"
     }
     val moves = s"${game.shogi.plies} moves"
@@ -179,7 +177,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.Stalemate      => trans.stalemate.txt()
       case S.TryRule        => "Try Rule"
       case S.Impasse27      => trans.impasse.txt()
-      case S.PerpetualCheck => "Perpetual Check"
+      case S.PerpetualCheck => trans.perpetualCheck.txt()
+      case S.RoyalsLost     => trans.royalsLost.txt()
+      case S.BareKing       => trans.bareKing.txt()
       case S.Timeout =>
         game.loser match {
           case Some(p) if p.color.sente => trans.blackLeftTheGame.txt()
@@ -193,10 +193,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         s"$color didn't move"
       }
       case S.Cheat => trans.cheatDetected.txt()
-      case S.VariantEnd =>
-        game.variant match {
-          case _ => trans.variantEnding.txt()
-        }
       case _ => ""
     }
 

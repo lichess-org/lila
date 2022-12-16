@@ -76,9 +76,11 @@ object Termination {
   case object TryRule        extends Termination(7, "Try rule")
   case object PerpetualCheck extends Termination(8, "Perpetual Check")
   case object Impasse27      extends Termination(9, "Impasse")
+  case object RoyalsLost     extends Termination(10, "Royals lost")
+  case object BareKing       extends Termination(11, "Bare king")
 
   val all =
-    List(ClockFlag, Disconnect, Resignation, Draw, Stalemate, Checkmate, TryRule, PerpetualCheck, Impasse27)
+    List(ClockFlag, Disconnect, Resignation, Draw, Stalemate, Checkmate, TryRule, PerpetualCheck, Impasse27, RoyalsLost, BareKing)
   val byId = all map { p =>
     (p.id, p)
   } toMap
@@ -92,8 +94,10 @@ object Termination {
       case S.Resign              => Resignation
       case S.Draw                => Draw
       case S.Stalemate           => Stalemate
-      case S.Mate | S.VariantEnd => Checkmate
+      case S.Mate                => Checkmate
       case S.TryRule             => TryRule
+      case S.RoyalsLost          => RoyalsLost
+      case S.BareKing            => BareKing
       case S.Impasse27           => Impasse27
       case S.PerpetualCheck      => PerpetualCheck
       case S.Cheat               => Resignation

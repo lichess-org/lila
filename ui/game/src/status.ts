@@ -1,6 +1,6 @@
 import { GameData } from './interfaces';
 
-// https://github.com/lichess-org/scalachess/blob/master/src/main/scala/Status.scala
+// https://github.com/WandererXII/scalashogi/blob/main/src/main/scala/Status.scala
 
 export const ids = {
   created: 10,
@@ -17,7 +17,8 @@ export const ids = {
   tryRule: 39,
   perpetualCheck: 40,
   impasse27: 41,
-  variantEnd: 60,
+  royalsLost: 42,
+  bareKing: 43,
 };
 
 export function started(data: GameData): boolean {

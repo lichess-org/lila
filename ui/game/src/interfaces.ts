@@ -46,12 +46,13 @@ export type StatusName =
   | 'tryRule'
   | 'impasse27'
   | 'perpetualCheck'
+  | 'royalsLost'
+  | 'bareKing'
   | 'timeout'
   | 'draw'
   | 'outoftime'
   | 'noStart'
   | 'cheat'
-  | 'variantEnd'
   | 'unknownFinish';
 
 export type StatusId = number;
@@ -71,7 +72,6 @@ export interface Player {
   blurs?: Blurs;
   hold?: Hold;
   ratingDiff?: number;
-  checks?: number;
   rating?: number;
   provisional?: string;
   engine?: boolean;
