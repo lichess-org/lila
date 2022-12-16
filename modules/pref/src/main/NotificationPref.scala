@@ -4,6 +4,7 @@ import play.api.libs.json.{ Json, OWrites }
 import reactivemongo.api.bson.*
 import NotificationPref.*
 
+// #TODO opaque type
 case class Allows(value: Int) extends AnyVal with IntValue:
   def push: Boolean   = (value & NotificationPref.PUSH) != 0
   def web: Boolean    = (value & NotificationPref.WEB) != 0
@@ -62,18 +63,19 @@ object NotificationPref:
   val DEVICE = 4
   val PUSH   = WEB | DEVICE
 
-  sealed trait Event:
-    override def toString: String = // for matching db fields, channels
-      val typeName = getClass.getSimpleName
-      s"${typeName.charAt(0).toLower}${typeName.substring(1, typeName.length - 1)}" // strip $
+  enum Event:
+    case PrivateMessage
+    case Challenge
+    case Mention
+    case InvitedStudy
+    case StreamStart
+    case TournamentSoon
+    case GameEvent
 
-  case object PrivateMessage extends Event
-  case object Challenge      extends Event
-  case object Mention        extends Event
-  case object InvitedStudy   extends Event
-  case object StreamStart    extends Event
-  case object TournamentSoon extends Event
-  case object GameEvent      extends Event
+    override def toString: String = // for matching db fields, channels
+      lila.common.String.lcfirst(getClass.getSimpleName)
+
+  export Event.*
 
   lazy val default: NotificationPref = NotificationPref(
     privateMessage = Allows(BELL | PUSH),
