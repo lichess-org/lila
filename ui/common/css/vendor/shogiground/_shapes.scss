@@ -19,28 +19,35 @@ $shape-themes: (
 
 .sg-shapes {
   z-index: z('sg__svg.sg-shapes');
-  line,
-  ellipse {
+  & > g > g {
     opacity: 0.8;
   }
   ellipse {
     fill: none;
   }
-  line.current {
+  g.current line {
     opacity: 0.7;
   }
-  line.outside {
+  g.outside line {
     opacity: 0.4;
+  }
+  .description text {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 50%;
+    fill: white;
   }
 
   @each $theme, $color in $shape-themes {
-    ellipse.#{$theme} {
+    g.#{$theme} ellipse {
       stroke: #{$color};
     }
-    line.#{$theme} {
+    g.#{$theme} line {
       stroke: #{$color};
     }
     marker#arrowhead-#{$theme} path {
+      fill: #{$color};
+    }
+    g.#{$theme} g.description ellipse {
       fill: #{$color};
     }
   }
@@ -50,10 +57,10 @@ $shape-themes: (
     .blue &,
     .space &,
     .kinkaku & {
-      ellipse.#{$blue} {
+      g.#{$blue} ellipse {
         stroke: $blue-alt;
       }
-      line.#{$blue} {
+      g.#{$blue} line {
         stroke: $blue-alt;
       }
       marker#arrowhead-#{$blue} path {
@@ -62,20 +69,12 @@ $shape-themes: (
     }
   }
 
-  line.engine,
-  line.engineThreat {
+  g.engine,
+  g.engineThreat {
     opacity: 0.6;
   }
-  ellipse.engine,
-  ellipse.engineThreat {
-    opacity: 0.6;
-  }
-  line.engineAlt,
-  line.engineThreatAlt {
-    opacity: 0.35;
-  }
-  ellipse.engineAlt,
-  ellipse.engineThreatAlt {
+  g.engineAlt,
+  g.engineThreatAlt {
     opacity: 0.35;
   }
 }
