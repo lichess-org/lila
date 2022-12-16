@@ -20,27 +20,27 @@ final private class PushApi(
     firebasePush: FirebasePush,
     webPush: WebPush,
     userRepo: lila.user.UserRepo,
-    implicit val lightUser: LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo,
     gameRepo: lila.game.GameRepo,
     prefApi: lila.pref.PrefApi,
     postApi: lila.forum.ForumPostApi
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler)(using lightUser: LightUser.Getter):
+
   private[push] def notifyPush(
       to: Iterable[NotifyAllows],
       content: NotificationContent,
       params: Iterable[(String, String)]
   ): Funit = content match
     case PrivateMessage(sender, text) =>
-      lightUser(sender) flatMap (_ ?? (luser => privateMessage(to.head, sender, luser.titleName, text)))
+      lightUser(sender).flatMap(_ ?? (luser => privateMessage(to.head, sender, luser.titleName, text)))
     case MentionedInThread(mentioner, topic, _, _, postId) =>
-      lightUser(mentioner) flatMap (_ ?? (luser => forumMention(to.head, luser.titleName, topic, postId)))
+      lightUser(mentioner).flatMap(_ ?? (luser => forumMention(to.head, luser.titleName, topic, postId)))
     case StreamStart(streamerId, streamerName) =>
       streamStart(to, streamerId, streamerName)
     case InvitedToStudy(invitedBy, studyName, studyId) =>
-      lightUser(invitedBy) flatMap (_ ?? (luser =>
-        invitedToStudy(to.head, luser.titleName, studyName, studyId)
-      ))
+      lightUser(invitedBy).flatMap(
+        _ ?? (luser => invitedToStudy(to.head, luser.titleName, studyName, studyId))
+      )
     case _ => funit
 
   def finish(game: Game): Funit =
