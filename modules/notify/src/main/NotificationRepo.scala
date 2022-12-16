@@ -65,9 +65,6 @@ final private class NotificationRepo(
 
   val recentSort = $sort desc "createdAt"
 
-  def mostRecentUnread(userId: UserId) =
-    coll.find($doc("notifies" -> userId, "read" -> false)).sort($sort.createdDesc).one[Notification]
-
   def userNotificationsQuery(userId: UserId) = $doc("notifies" -> userId)
 
   private def unreadOnlyQuery(userId: UserId) = $doc("notifies" -> userId, "read" -> false)
