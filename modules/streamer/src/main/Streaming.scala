@@ -11,8 +11,6 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaScheduler }
 import lila.common.config.Secret
-import lila.notify.StreamStart
-import lila.relation.SubscriptionRepo
 import lila.user.User
 
 final private class Streaming(
@@ -22,9 +20,7 @@ final private class Streaming(
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.UserIds,
     googleApiKey: Secret,
-    twitchApi: TwitchApi,
-    notifyApi: lila.notify.NotifyApi,
-    subsRepo: SubscriptionRepo
+    twitchApi: TwitchApi
 )(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
@@ -74,12 +70,9 @@ final private class Streaming(
         import s.streamer.userId
         if (streamStartOnceEvery(userId))
           Bus.publish(
-            lila.hub.actorApi.streamer.StreamStart(userId),
+            lila.hub.actorApi.streamer.StreamStart(userId, s.streamer.name.value),
             "streamStart"
           )
-          subsRepo.subscribersOnlineSince(userId, 7) map { subs =>
-            notifyApi.notifyMany(subs, StreamStart(userId, s.streamer.name.value))
-          }
       }
     liveStreams = newStreams
     streamers foreach { streamer =>

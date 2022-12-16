@@ -18,10 +18,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     prefApi: lila.pref.PrefApi,
     subsRepo: lila.relation.SubscriptionRepo
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
-):
+)(using scala.concurrent.ExecutionContext, ActorSystem):
 
   lazy val jsonHandlers = wire[JSONHandlers]
 
@@ -45,5 +42,9 @@ final class Env(
             CorresAlarm(gameId = pov.gameId, opponent = opponent)
           )
         }
+      }
+    case lila.hub.actorApi.streamer.StreamStart(userId, streamerName) =>
+      subsRepo.subscribersOnlineSince(userId, 7) map { subs =>
+        api.notifyMany(subs, StreamStart(userId, streamerName))
       }
   }

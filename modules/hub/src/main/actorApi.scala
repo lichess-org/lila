@@ -10,7 +10,7 @@ import scala.concurrent.Promise
 case class Announce(msg: String, date: DateTime, json: JsObject)
 
 package streamer:
-  case class StreamStart(userId: UserId)
+  case class StreamStart(userId: UserId, streamerName: String)
 
 package map:
   case class Tell(id: String, msg: Any)

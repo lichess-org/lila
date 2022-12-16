@@ -76,8 +76,8 @@ final class Env(
     case lila.study.actorApi.StartStudy(id)               =>
       // wait some time in case the study turns private
       scheduler.scheduleOnce(5 minutes) { write.study(id).unit }.unit
-    case lila.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId).unit
-    case lila.hub.actorApi.team.JoinTeam(id, userId)      => write.team(id, userId).unit
-    case lila.hub.actorApi.streamer.StreamStart(userId)   => write.streamStart(userId).unit
-    case lila.swiss.SwissFinish(swissId, ranking)         => write.swiss(swissId, ranking).unit
+    case lila.hub.actorApi.team.CreateTeam(id, _, userId)  => write.team(id, userId).unit
+    case lila.hub.actorApi.team.JoinTeam(id, userId)       => write.team(id, userId).unit
+    case lila.hub.actorApi.streamer.StreamStart(userId, _) => write.streamStart(userId).unit
+    case lila.swiss.SwissFinish(swissId, ranking)          => write.swiss(swissId, ranking).unit
   }
