@@ -1,7 +1,7 @@
 package lila.study
 
 import akka.stream.scaladsl._
-import shogi.{ Piece, Pos }
+import shogi.{ Piece, Pos, Role }
 import shogi.format.forsyth.Sfen
 import shogi.format.kif.Kif
 import shogi.format.csa.Csa
@@ -28,14 +28,15 @@ final class NotationDump(
       .intersperse("\n\n\n")
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter) = {
+    val variant = chapter.setup.variant
     val tags  = makeTags(study, chapter)
-    val moves = toMoves(chapter.root, chapter.setup.variant)(flags).toList
+    val moves = toMoves(chapter.root, variant)(flags).toList
     val initial = Initial(
       renderComments(chapter.root.comments, chapter.root.hasMultipleCommentAuthors) ::: shapeComment(
         chapter.root.shapes
       ).toList
     )
-    if (flags.csa && chapter.setup.variant.standard) Csa(tags, moves, initial)
+    if (flags.csa && variant.standard) Csa(tags, moves, initial)
     else Kif(tags, moves, initial)
   }
 
@@ -106,8 +107,14 @@ object NotationDump {
         case Nil    => ""
         case shapes => s"[%$as ${shapes.mkString(",")}]"
       }
-    def writePosOrPiece(pop: Either[Pos, Piece]) =
-      pop.fold(_.usiKey, "_" + _.forsyth takeRight 2)
+    def pieceLetter(p: Piece): String = {
+      val roleStr = Role.allDroppable.find(_ == p.role).flatMap(r => shogi.format.usi.Usi.Drop.roleToUsi.get(r)).getOrElse(p.role.name.head.toString)
+      if (p.color.sente) roleStr.toUpperCase else roleStr
+    }
+  
+    def writePosOrPiece(pop: Either[Pos, Piece]): String =
+      pop.fold(_.key, p => ("_" + pieceLetter(p)) takeRight 2)
+
     val circles = render("csl") {
       shapes.value.collect { case Shape.Circle(brush, orig, None) =>
         s"${brush.head.toUpper}${writePosOrPiece(orig)}"
@@ -115,7 +122,7 @@ object NotationDump {
     }
     val pieces = render("cpl") {
       shapes.value.collect { case Shape.Circle(brush, Left(orig), Some(piece)) =>
-        s"${brush.head.toUpper}${orig.usiKey}${piece.forsyth}"
+        s"${brush.head.toUpper}${orig.key}${pieceLetter(piece)}"
       }
     }
     val arrows = render("cal") {

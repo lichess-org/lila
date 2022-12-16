@@ -24,8 +24,8 @@ private object BSONHandlers {
     e => BSONInteger(e.id)
   )
   implicit val RoleBSONHandler = tryHandler[Role](
-    { case BSONString(v) => Role.allByForsyth get v toTry s"Invalid role $v" },
-    e => BSONString(e.forsyth)
+    { case BSONString(v) => Role.allByName get v toTry s"Invalid role $v" },
+    e => BSONString(e.name)
   )
   implicit val TerminationBSONHandler = tryHandler[Termination](
     { case BSONInteger(v) => Termination.byId get v toTry s"Invalid termination $v" },

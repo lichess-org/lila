@@ -1,6 +1,6 @@
 package lila.study
 
-import shogi.{ Piece, Pos }
+import shogi.{ Color, Piece, Pos }
 import lila.tree.Node.{ Shape, Shapes }
 
 private[study] object CommentParser {
@@ -72,7 +72,7 @@ private[study] object CommentParser {
           for {
             color <- c.headOption
             pos   <- Pos.fromKey(c.drop(1).take(2)).map(Left(_).withRight[Piece])
-            piece <- shogi.Piece.fromForsyth(c.drop(3))
+            piece <- toPosOrPiece(c.drop(3)).flatMap(_.toOption)
           } yield Shape.Circle(toBrush(color), pos, piece.some)
         }
         Shapes(pieces) -> piecesRemoveRegex.replaceAllIn(comment, "").trim
@@ -83,7 +83,10 @@ private[study] object CommentParser {
     Pos
       .fromKey(str)
       .map(Left(_).withRight[Piece])
-      .orElse(Piece.fromForsyth(str.filterNot(_ == '_')).map(Right(_).withLeft[Pos]))
+      .orElse {
+        shogi.format.usi.Usi.Drop.usiToRole.get(str.filterNot(_ == '_').toUpperCase)
+          .map(r => Right(Piece(Color.fromSente(str.toLowerCase != str), r)).withLeft[Pos])
+      }
 
   private def toBrush(color: Char): Shape.Brush =
     color match {

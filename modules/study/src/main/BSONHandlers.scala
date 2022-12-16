@@ -2,9 +2,9 @@ package lila.study
 
 import shogi.format.{ Glyph, Glyphs, Tag, Tags }
 import shogi.format.usi.{ Usi, UsiCharPair }
-import shogi.format.forsyth.Sfen
-import shogi.variant.Variant
-import shogi.{ Centis, Piece, Pos, Role }
+import shogi.format.forsyth.{ Sfen, SfenUtils }
+import shogi.variant.{ Variant, Standard }
+import shogi.{ Centis, Piece, Pos }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Success
@@ -32,11 +32,11 @@ object BSONHandlers {
 
   implicit private val PosBSONHandler = tryHandler[Pos](
     { case BSONString(v) => Pos.fromKey(v) toTry s"No such pos: $v" },
-    x => BSONString(x.usiKey)
+    x => BSONString(x.key)
   )
   implicit private val PieceBSONHandler = tryHandler[Piece](
-    { case BSONString(v) => Piece.fromForsyth(v) toTry s"No such piece: $v" },
-    x => BSONString(x.forsyth)
+    { case BSONString(v) => SfenUtils.toPiece(v, Standard) toTry s"No such piece: $v" },
+    x => BSONString(SfenUtils.toForsyth(x, Standard).getOrElse("p"))
   )
 
   implicit private val PosOrPieceBSONHandler = tryHandler[Shape.PosOrPiece](
@@ -44,9 +44,9 @@ object BSONHandlers {
       Pos
         .fromKey(v)
         .map(Left(_).withRight[Piece])
-        .orElse(Piece.fromForsyth(v).map(Right(_).withLeft[Pos])) toTry s"No such pos or piece: $v"
+        .orElse(SfenUtils.toPiece(v, Standard).map(Right(_).withLeft[Pos])) toTry s"No such pos or piece: $v"
     },
-    x => BSONString(x.fold(_.usiKey, _.forsyth))
+    x => BSONString(x.fold(_.key, p => SfenUtils.toForsyth(p, Standard).getOrElse("p")))
   )
 
   implicit val ShapeBSONHandler = new BSON[Shape] {
@@ -63,15 +63,10 @@ object BSONHandlers {
     def writes(w: Writer, t: Shape) =
       t match {
         case Shape.Circle(brush, pop, None)        => $doc("b" -> brush, "p" -> pop)
-        case Shape.Circle(brush, pop, Some(piece)) => $doc("b" -> brush, "o" -> pop, "k" -> piece.forsyth)
+        case Shape.Circle(brush, pop, Some(piece)) => $doc("b" -> brush, "o" -> pop, "k" -> SfenUtils.toForsyth(piece, Standard).getOrElse("P"))
         case Shape.Arrow(brush, origPop, destPop)  => $doc("b" -> brush, "o" -> origPop, "d" -> destPop)
       }
   }
-
-  implicit val RoleHandler = tryHandler[Role](
-    { case BSONString(v) => Role.allByForsyth get v toTry s"No such role: $v" },
-    x => BSONString(x.forsyth)
-  )
 
   implicit val UsiHandler = tryHandler[Usi](
     { case BSONString(v) => Usi(v) toTry s"Bad USI: $v" },

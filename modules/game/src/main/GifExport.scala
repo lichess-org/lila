@@ -57,7 +57,7 @@ final class GifExport(
         "orientation" -> game.firstColor.engName
       ) ::: List(
         game.lastMoveKeys.map { "lastMove" -> _ },
-        game.situation.checkSquares.headOption.map { "check" -> _.usiKey }
+        game.situation.checkSquares.headOption.map { "check" -> _.key }
       ).flatten
 
       lightUserApi preloadMany game.userIds flatMap { _ =>
@@ -139,6 +139,6 @@ final class GifExport(
         "sfen"     -> situation.toSfen,
         "lastMove" -> usi.map(_.usi)
       )
-      .add("check", situation.checkSquares.headOption.map(_.usiKey))
+      .add("check", situation.checkSquares.headOption.map(_.key))
       .add("delay", delay.map(_.centis))
 }

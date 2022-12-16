@@ -193,7 +193,7 @@ object Node {
   }
 
   implicit private val posWrites: Writes[Pos] = Writes[Pos] { p =>
-    JsString(p.usiKey)
+    JsString(p.key)
   }
   implicit private val pieceWrites: Writes[Piece] = Writes[Piece] { p =>
     Json.obj(
