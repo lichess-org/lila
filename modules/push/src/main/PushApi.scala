@@ -19,7 +19,6 @@ import lila.user.User
 final private class PushApi(
     firebasePush: FirebasePush,
     webPush: WebPush,
-    userRepo: lila.user.UserRepo,
     proxyRepo: lila.round.GameProxyRepo,
     gameRepo: lila.game.GameRepo,
     prefApi: lila.pref.PrefApi,
@@ -208,24 +207,22 @@ final private class PushApi(
     )
 
   def privateMessage(to: NotifyAllows, senderId: UserId, senderName: String, text: String): Funit =
-    !userRepo.isKid(to.userId) ifThen {
-      filterPush(
-        to,
-        _.message,
-        PushApi.Data(
-          title = senderName,
-          body = text,
-          stacking = Stacking.PrivateMessage,
-          payload = Json.obj(
-            "userId" -> to.userId,
-            "userData" -> Json.obj(
-              "type"     -> "newMessage",
-              "threadId" -> senderId
-            )
+    filterPush(
+      to,
+      _.message,
+      PushApi.Data(
+        title = senderName,
+        body = text,
+        stacking = Stacking.PrivateMessage,
+        payload = Json.obj(
+          "userId" -> to.userId,
+          "userData" -> Json.obj(
+            "type"     -> "newMessage",
+            "threadId" -> senderId
           )
         )
       )
-    }
+    )
 
   def invitedToStudy(to: NotifyAllows, invitedBy: String, studyName: StudyName, studyId: StudyId): Funit =
     filterPush(
