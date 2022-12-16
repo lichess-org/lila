@@ -13,7 +13,7 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(implici
 ) {
   val coll = colls.subscription
 
-  // for streaming, feedId is the user UserId of the streamer being subscribed to
+  // for streaming, streamerId is the user UserId of the streamer being subscribed to
   def subscribersOnlineSince(streamerId: UserId, daysAgo: Int): Fu[List[UserId]] =
     coll
       .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>

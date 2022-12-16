@@ -11,7 +11,7 @@ final class StreamerPager(
     userRepo: UserRepo,
     maxPerPage: lila.common.config.MaxPerPage,
     subsRepo: lila.relation.SubscriptionRepo
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   import BsonHandlers.given
 
@@ -51,14 +51,7 @@ final class StreamerPager(
               Sort(Descending("liveAt")),
               Skip(offset),
               Limit(length),
-              PipelineOperator(
-                $lookup.simple(
-                  from = userRepo.coll,
-                  as = "user",
-                  local = "_id",
-                  foreign = "_id"
-                )
-              ),
+              PipelineOperator(userLookup),
               UnwindField("user"),
               PipelineOperator(
                 $lookup.simple(
@@ -94,14 +87,7 @@ final class StreamerPager(
             Sort(Ascending("updatedAt")),
             Skip(offset),
             Limit(length),
-            PipelineOperator(
-              $lookup.simple(
-                from = userRepo.coll,
-                as = "user",
-                local = "_id",
-                foreign = "_id"
-              )
-            ),
+            PipelineOperator(userLookup),
             UnwindField("user")
           )
         }
@@ -112,3 +98,10 @@ final class StreamerPager(
             user     <- doc.getAsOpt[User]("user")
           } yield Streamer.WithUser(streamer, user)
         }
+
+  private val userLookup = $lookup.simple(
+    from = userRepo.coll,
+    as = "user",
+    local = "_id",
+    foreign = "_id"
+  )
