@@ -72,8 +72,7 @@ object index {
           div(cls := "box__pad")(
             div(cls := "wrapper")(
               div(cls := "text")(
-                p(weRelyOnSupport()),
-                p("Donations through Patreon will be handled manually within 24 hours.")
+                p(weRelyOnSupport())
               ),
               div(cls := "content")(
                 div(
@@ -207,9 +206,6 @@ object index {
                     )
                   ),
                   div(cls := "service")(
-                    a(cls := "patreon button", href := "https://www.patreon.com/lishogi", target := "_blank")(
-                      "Patreon"
-                    ),
                     button(cls := "paypal button")(withPaypal())
                   )
                 )
@@ -241,12 +237,21 @@ object index {
         ),
       ),
       dl(
+        dt(otherMethods()),
+        dd(
+          "Yes you can - ", 
+          a(cls := "patreon", href := "https://www.patreon.com/lishogi", target := "_blank")(
+            "Patreon"
+          ),
+          ".",
+          ctx.isAuth option " Donations through Patreon will be handled manually within few days."
+        )
+      ),
+      dl(
         dt(patronFeatures()),
         dd(
-          ctx.isAuth option div(
-            noPatronFeatures(),
-            br
-          ),
+          if (ctx.isAuth) noPatronFeatures() else span(trans.no(), "."),
+          br,
           a(href := routes.Plan.features, target := "_blank")(featuresComparison()),
           "."
         )
