@@ -48,11 +48,11 @@ case class CustomTheme(
 
 object CustomTheme {
   val default = new CustomTheme(
-    boardColor = "transparent",
+    boardColor = "initial", // uses css fallback
     boardImg = "",
-    gridColor = "initial", // uses css fallback
+    gridColor = "initial",
     gridWidth = 1,
-    handsColor = "transparent",
+    handsColor = "initial",
     handsImg = ""
   )
 }

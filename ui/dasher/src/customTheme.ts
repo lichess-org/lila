@@ -160,7 +160,7 @@ function makeColorPicker(ctrl: CustomThemeCtrl, vnode: VNode, key: Key) {
 
   $(vnode.elm as HTMLElement).spectrum({
     type: 'component',
-    color: ctrl.data[key] === 'initial' ? defaultGridColor() : ctrl.data[key],
+    color: ctrl.data[key] === 'initial' ? defaultColor(key) : ctrl.data[key],
     preferredFormat: 'hex8',
     showPalette: false,
     showButtons: false,
@@ -174,6 +174,13 @@ function defaultGridColor(): string {
   const isDark = document.body.classList.contains('dark'),
     isTransp = document.body.classList.contains('transp');
   return isTransp ? '#cccccc' : isDark ? '#bababa' : '#4d4d4d';
+}
+
+function defaultColor(key: Key): string {
+  const isDark = document.body.classList.contains('dark'),
+    isTransp = document.body.classList.contains('transp');
+  if (key === 'gridColor') return isTransp ? '#cccccc' : isDark ? '#bababa' : '#4d4d4d';
+  else return isTransp ? '#0000001' : isDark ? '#212121' : '#ffffff';
 }
 
 function cssVariableName(key: keyof Omit<CustomThemeData, 'gridWidth'>): string {
