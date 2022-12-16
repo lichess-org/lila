@@ -1,58 +1,25 @@
-/* circular loader */
-@keyframes spinner-rotate {
-  100% {
-    transform: rotate(360deg);
-  }
-}
+/* lishogi loader */
 @keyframes spinner-dash {
-  0%,
-  10% {
-    stroke-dasharray: 1, 270;
+  0% {
     stroke-dashoffset: 0;
   }
-  40% {
-    stroke-dasharray: 89, 240;
-    stroke-dashoffset: 0;
+  50% {
+    stroke-dashoffset: 161;
   }
   100% {
-    stroke-dasharray: 1, 240;
-    stroke-dashoffset: -110;
-  }
-}
-@keyframes spinner-color {
-  0%,
-  20%,
-  100% {
-    stroke: #42a5f5;
-  }
-  30%,
-  45% {
-    stroke: #f44336;
-  }
-  50%,
-  70% {
-    stroke: #fdd835;
-  }
-  75%,
-  95% {
-    stroke: #4caf50;
+    stroke-dashoffset: 322;
   }
 }
 .spinner {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   margin: auto;
-  svg {
-    animation: spinner-rotate 1.5s linear infinite;
-  }
-  circle {
-    stroke: #42a5f5;
-    stroke-width: 4;
-    animation: spinner-dash 1.275s ease-in-out infinite, spinner-color 5.1s linear infinite;
-  }
-  .white & circle {
-    animation: spinner-dash 1.275s ease-in-out infinite;
-    stroke: #fff;
+  path {
+    stroke-linecap: round;
+    stroke-dasharray: 161;
+    stroke-dashoffset: 0;
+    stroke: $c-font;
+    animation: spinner-dash 2.5s ease-in-out infinite;
   }
 }
 
