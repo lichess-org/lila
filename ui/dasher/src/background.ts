@@ -1,6 +1,5 @@
-import { h, VNode } from 'snabbdom';
-
-import { Redraw, Close, bind, header, validateUrl } from './util';
+import { VNode, h } from 'snabbdom';
+import { Close, Redraw, bind, header, validateUrl } from './util';
 
 type Key = 'light' | 'dark' | 'transp';
 

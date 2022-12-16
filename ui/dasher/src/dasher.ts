@@ -1,13 +1,13 @@
-import { PingCtrl, ctrl as pingCtrl } from './ping';
-import { LangsCtrl, LangsData, ctrl as langsCtrl } from './langs';
-import { SoundCtrl, ctrl as soundCtrl } from './sound';
+import { Prop, prop } from 'common/common';
 import { BackgroundCtrl, BackgroundData, ctrl as backgroundCtrl } from './background';
-import { ThemeCtrl, ThemeData, ctrl as themeCtrl } from './theme';
-import { CustomThemeCtrl, ctrl as customThemeCtrl, CustomThemeData } from './customTheme';
+import { CustomThemeCtrl, CustomThemeData, ctrl as customThemeCtrl } from './customTheme';
+import { LangsCtrl, LangsData, ctrl as langsCtrl } from './langs';
+import { NotationCtrl, NotationData, ctrl as notationCtrl } from './notation';
 import { PieceCtrl, PieceData, ctrl as pieceCtrl } from './piece';
+import { PingCtrl, ctrl as pingCtrl } from './ping';
+import { SoundCtrl, ctrl as soundCtrl } from './sound';
+import { ThemeCtrl, ThemeData, ctrl as themeCtrl } from './theme';
 import { Redraw } from './util';
-import { NotationCtrl, ctrl as notationCtrl, NotationData } from './notation';
-import { prop, Prop } from 'common/common';
 
 export interface DasherData {
   user?: LightUser;
@@ -20,6 +20,7 @@ export interface DasherData {
   theme: ThemeData;
   customTheme: CustomThemeData;
   piece: PieceData;
+  chuPiece: PieceData;
   inbox: boolean;
   coach: boolean;
   streamer: boolean;
@@ -83,7 +84,7 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
     theme: themeCtrl(data.theme, trans, redraw, setMode),
     customTheme: customThemeCtrl(data.customTheme, trans, redraw, setMode),
     notation: notationCtrl(data.notation, trans, redraw, close),
-    piece: pieceCtrl(data.piece, trans, redraw, close),
+    piece: pieceCtrl(data.piece, data.chuPiece, trans, redraw, close),
   };
 
   window.lishogi.pubsub.on('top.toggle.user_tag', () => setMode(defaultMode));
