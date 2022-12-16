@@ -1,5 +1,7 @@
 {
   "singleQuote": true,
   "printWidth": 120,
-  "arrowParens": "avoid"
+  "arrowParens": "avoid",
+  "importOrder": ["^[./]"],
+  "importOrderSortSpecifiers": true
 }
