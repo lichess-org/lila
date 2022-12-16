@@ -31,11 +31,7 @@ object Allows:
   def fromCode(code: Int) = Allows(code)
 
 case class NotifyAllows(userId: UserId, allows: Allows):
-  def push   = allows push
-  def web    = allows web
-  def device = allows device
-  def bell   = allows bell
-  def any    = allows any
+  export allows.*
 
 // take care with NotificationPref field names - they map directly to db and ws channels
 
