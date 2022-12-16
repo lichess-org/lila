@@ -10,6 +10,8 @@ import reactivemongo.api.ReadPreference
 
 final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
+  import WebSubscription.given
+
   def subscribe(user: User, subscription: WebSubscription, sessionId: String): Funit =
     coll.update
       .one(
@@ -35,9 +37,8 @@ final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionC
     coll
       .find($doc("userId" -> userId), $doc("endpoint" -> true, "auth" -> true, "p256dh" -> true).some)
       .sort($doc("seenAt" -> -1))
-      .cursor[Bdoc](ReadPreference.secondaryPreferred)
+      .cursor[WebSubscription](ReadPreference.secondaryPreferred)
       .list(max)
-      .map(_ flatMap bsonToWebSub)
 
   private[push] def getSubscriptions(userIds: Iterable[UserId], maxPerUser: Int): Fu[List[WebSubscription]] =
     coll
@@ -51,11 +52,4 @@ final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionC
           ReplaceRootField("subs")
         )
       }
-      .map(_ flatMap bsonToWebSub)
-
-  private def bsonToWebSub(doc: Bdoc) =
-    for {
-      endpoint <- doc.string("endpoint")
-      auth     <- doc.string("auth")
-      p256dh   <- doc.string("p256dh")
-    } yield WebSubscription(endpoint, auth, p256dh)
+      .map(_ flatMap webSubscriptionReader.readOpt)
