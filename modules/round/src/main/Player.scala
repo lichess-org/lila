@@ -26,7 +26,7 @@ final private class Player(
     play match {
       case HumanPlay(_, usi, blur, lag, _) =>
         pov match {
-          case Pov(game, _) if game.plies > Game.maxPlies =>
+          case Pov(game, _) if game.playedPlies > Game.maxPlies =>
             round ! TooManyPlies
             fuccess(Nil)
           case Pov(game, color) if game playableBy color =>
@@ -48,7 +48,7 @@ final private class Player(
 
   private[round] def bot(usi: Usi, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
     pov match {
-      case Pov(game, _) if game.plies > Game.maxPlies =>
+      case Pov(game, _) if game.playedPlies > Game.maxPlies =>
         round ! TooManyPlies
         fuccess(Nil)
       case Pov(game, color) if game playableBy color =>
@@ -107,7 +107,7 @@ final private class Player(
 
   private[round] def requestFishnet(game: Game, round: RoundDuct): Funit =
     game.playableByAi ?? {
-      if (game.plies <= fishnetPlayer.maxPlies) fishnetPlayer(game)
+      if (game.playedPlies <= fishnetPlayer.maxPlies) fishnetPlayer(game)
       else fuccess(round ! actorApi.round.ResignAi)
     }
 
@@ -168,7 +168,8 @@ final private class Player(
       case Status.Stalemate      => finisher.other(game, _.Stalemate, game.situation.winner)
       case Status.Impasse27      => finisher.other(game, _.Impasse27, game.situation.winner)
       case Status.PerpetualCheck => finisher.other(game, _.PerpetualCheck, game.situation.winner)
-      case Status.VariantEnd     => finisher.other(game, _.VariantEnd, game.situation.winner)
+      case Status.RoyalsLost     => finisher.other(game, _.RoyalsLost, game.situation.winner)
+      case Status.BareKing       => finisher.other(game, _.BareKing, game.situation.winner)
       case Status.Draw           => finisher.other(game, _.Draw, None)
       case _                     => fuccess(Nil)
     }
