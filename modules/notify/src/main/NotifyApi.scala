@@ -108,7 +108,7 @@ final class NotifyApi(
     )
 
   private def bellMany(recips: Iterable[NotifyAllows], content: NotificationContent) =
-    val bells = recips filter (_.allows.bell) map (_.userId)
+    val bells = recips.collect { case r if r.allows.bell => r.userId }
     bells map unreadCountCache.invalidate // or maybe update only if getIfPresent?
     repo.insertMany(bells map (to => Notification.make(to, content))) >>- {
       Bus.publish(
