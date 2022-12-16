@@ -19,7 +19,7 @@ final private[round] class Drawer(
     pov match {
       case pov if pov.opponent.isOfferingDraw =>
         finisher.other(pov.game, _.Draw, None, Some(trans.drawOfferAccepted.txt()))
-      case Pov(g, color) if g playerCanOfferDraw =>
+      case Pov(g, color) if g playerCanOfferDraw color =>
         proxy.save {
           messenger.system(g, color.fold(trans.blackOffersDraw, trans.whiteOffersDraw).txt())
           Progress(g) map { g =>
