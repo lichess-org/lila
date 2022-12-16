@@ -322,7 +322,6 @@ final private class PushApi(
 
   def forumMention(to: NotifyAllows, mentionedBy: String, topicName: String, postId: ForumPostId): Funit =
     postApi.getPost(postId) flatMap { post =>
-      to.userId.pp("forumMention")
       filterPush(
         to,
         _.forumMention,
