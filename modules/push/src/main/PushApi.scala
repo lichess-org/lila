@@ -208,25 +208,23 @@ final private class PushApi(
     )
 
   def privateMessage(to: NotifyAllows, senderId: UserId, senderName: String, text: String): Funit =
-    userRepo.isKid(to.userId) flatMap {
-      !_ ?? {
-        filterPush(
-          to,
-          _.message,
-          PushApi.Data(
-            title = senderName,
-            body = text,
-            stacking = Stacking.PrivateMessage,
-            payload = Json.obj(
-              "userId" -> to.userId,
-              "userData" -> Json.obj(
-                "type"     -> "newMessage",
-                "threadId" -> senderId
-              )
+    !userRepo.isKid(to.userId) ifThen {
+      filterPush(
+        to,
+        _.message,
+        PushApi.Data(
+          title = senderName,
+          body = text,
+          stacking = Stacking.PrivateMessage,
+          payload = Json.obj(
+            "userId" -> to.userId,
+            "userData" -> Json.obj(
+              "type"     -> "newMessage",
+              "threadId" -> senderId
             )
           )
         )
-      }
+      )
     }
 
   def invitedToStudy(to: NotifyAllows, invitedBy: String, studyName: StudyName, studyId: StudyId): Funit =
