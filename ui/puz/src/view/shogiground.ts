@@ -2,7 +2,7 @@ import resizeHandle from 'common/resize';
 import { Config as SgConfig } from 'shogiground/config';
 //mport { Role } from 'shogiops/types';
 //mport { parseSquare } from 'shogiops/util';
-//mport { pieceCanPromote, pieceInDeadZone, promote } from 'shogiops/variantUtil';
+//mport { pieceCanPromote, pieceInDeadZone, promote } from 'shogiops/variant/util';
 import { PuzPrefs, UserDrop, UserMove } from '../interfaces';
 
 export function makeConfig(opts: SgConfig, pref: PuzPrefs, userMove: UserMove, userDrop: UserDrop): SgConfig {
@@ -11,7 +11,7 @@ export function makeConfig(opts: SgConfig, pref: PuzPrefs, userMove: UserMove, u
     activeColor: opts.activeColor,
     orientation: opts.orientation,
     turnColor: opts.turnColor,
-    check: opts.check,
+    checks: opts.checks,
     lastDests: opts.lastDests,
     coordinates: { enabled: pref.coords !== 0 },
     movable: {

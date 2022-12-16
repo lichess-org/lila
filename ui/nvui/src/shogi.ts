@@ -2,7 +2,8 @@ import { h, VNode } from 'snabbdom';
 import { Pieces, files, ranks } from 'shogiground/types';
 import { allKeys } from 'shogiground/util';
 import { Setting, makeSetting } from './setting';
-import { roleToString } from 'shogiops/util';
+import { pieceToForsyth } from 'shogiops/sfen';
+import { Piece } from 'shogiops/types';
 
 export type Style = 'usi' | 'literate' | 'nato' | 'anna';
 
@@ -120,7 +121,7 @@ export function renderPieceKeys(pieces: Pieces, p: string, style: Style): string
   const name = `${p === p.toUpperCase() ? 'sente' : 'gote'} ${roles[p.toUpperCase()]}`;
   const res: Key[] = [];
   for (const [k, piece] of pieces) {
-    if (piece && `${piece.color} ${piece.role}` === name) res.push(k as Key);
+    if (piece && `${piece.color} ${piece.role}` === name) res.push(k);
   }
   return `${name}: ${res.length ? res.map(k => renderKey(k, style)).join(', ') : 'none'}`;
 }
@@ -143,10 +144,10 @@ export function renderBoard(pieces: Pieces, pov: Color): string {
     let line = [];
     for (let file of reversedFiles) {
       let key = (file + rank) as Key;
-      const piece = pieces.get(key);
+      const piece = pieces.get(key) as Piece;
       if (piece) {
-        const letter = roleToString(piece.role);
-        line.push(piece.color === 'sente' ? letter.toUpperCase() : letter);
+        const letter = pieceToForsyth('standard')(piece);
+        line.push(letter);
       } else line.push((key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+');
     }
     board.push(['' + rank, ...line, '' + rank]);
