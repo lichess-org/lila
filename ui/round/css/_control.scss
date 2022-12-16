@@ -106,6 +106,9 @@
   .follow-up {
     @extend %flex-column;
     border-bottom: $border;
+    .board-layout-1 & {
+      border-bottom: none;
+    }
     position: relative; /* for rematch-decline */
     .fbt {
       padding: 12px 0;
@@ -129,8 +132,11 @@
       width: 100%;
     }
     .spinner {
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 55px;
+      path {
+        stroke: white;
+      }
     }
     @include breakpoint($mq-col1) {
       margin-top: $block-gap;

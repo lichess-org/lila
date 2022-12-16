@@ -93,4 +93,11 @@
       }
     }
   }
+  &.d-12x12 {
+    padding-bottom: calc(100% * 12 / 11);
+    sg-board {
+      top: 0;
+      height: calc(100%);
+    }
+  }
 }

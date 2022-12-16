@@ -1,9 +1,5 @@
-main {
-  @include fluid-size('--gauge-gap', 7px, 16px);
-}
-
 .eval-gauge {
-  width: var(--gauge-gap);
+  width: $gauge-gap;
   position: relative;
   background: if($theme-light, #888, #666);
   overflow: hidden;

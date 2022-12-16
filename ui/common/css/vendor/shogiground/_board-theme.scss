@@ -81,6 +81,22 @@ sg-squares {
       background-size: calc(100% / 5) calc(100% / 5);
     }
   }
+  &.d-12x12 {
+    sg-squares sq {
+      &:nth-child(53),
+      &:nth-child(57),
+      &:nth-child(101),
+      &:nth-child(105) {
+        position: relative;
+        &::after {
+          @extend %grid-dot;
+        }
+      }
+    }
+    &.preload sg-squares {
+      background-size: calc(100% / 12) calc(100% / 12);
+    }
+  }
 }
 
 @include breakpoint($mq-col2-uniboard) {
@@ -123,6 +139,49 @@ sg-squares {
       filter: brightness(90%);
     }
   }
+  .d-12x12 sg-board {
+    sq[class=""] {
+      background-color: unset;
+      filter: unset;
+    }
+    sq:nth-child(even) {
+      background-color: #878787; // reset dark squares
+    }
+    sq:nth-child(-n + 12):nth-child(even),
+    sq:nth-child(n + 12):nth-child(-n + 24):nth-child(odd),
+    sq:nth-child(n + 25):nth-child(-n + 36):nth-child(even),
+    sq:nth-child(n + 37):nth-child(-n + 48):nth-child(odd),
+    sq:nth-child(n + 49):nth-child(-n + 60):nth-child(even),
+    sq:nth-child(n + 61):nth-child(-n + 72):nth-child(odd),
+    sq:nth-child(n + 73):nth-child(-n + 84):nth-child(even),
+    sq:nth-child(n + 85):nth-child(-n + 96):nth-child(odd),
+    sq:nth-child(n + 97):nth-child(-n + 108):nth-child(even),
+    sq:nth-child(n + 109):nth-child(-n + 120):nth-child(odd),
+    sq:nth-child(n + 121):nth-child(-n + 132):nth-child(even),
+    sq:nth-child(n + 133):nth-child(-n + 144):nth-child(odd) {
+      background-color: #d1d1d1; // light squares
+      &.oc.dest,
+      &.oc.pre-dest {
+        background-color: #d1d1d1; // light squares
+      }
+      &.selected {
+        background-color: #729377;
+      }
+      &.preselected,
+      &.current-pre {
+        background-color: #727793;
+      }
+      &.dest.hover {
+        background-color: #98ac9b;
+      }
+      &.pre-dest.hover {
+        background-color: #abadb8;
+      }
+      &.last-dest {
+        background-color: #bbcd7b;
+      }
+    }
+  }
   #dasher_app .piece .list {
     background: #878787;
   }
@@ -130,6 +189,9 @@ sg-squares {
     background-image: none;
     background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200% / 9) calc(200% / 9);
     background-position: 100% 100%;
+  }
+  .preload.d-12x12 sg-squares {
+    background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200% / 12) calc(200% / 12);
   }
   @include breakpoint($mq-col2-uniboard) {
     sg-hand {
@@ -277,11 +339,11 @@ sg-squares {
 
 .custom {
   #dasher_app .piece .list {
-    background-color: var(--c-board-color, transparent);
+    background-color: var(--c-board-color, $c-bg-box);
     background-image: var(--c-board-url, none);
   }
   sg-board {
-    background-color: var(--c-board-color, transparent);
+    background-color: var(--c-board-color, $c-bg-box);
     background-image: var(--c-board-url, none);
     sg-squares {
       border-top: 1px solid var(--c-grid-color, $c-font);
@@ -297,7 +359,7 @@ sg-squares {
   }
   @include breakpoint($mq-col2-uniboard) {
     sg-hand {
-      background-color: var(--c-hands-color, transparent);
+      background-color: var(--c-hands-color, $c-bg-box);
       background-image: var(--c-hands-url, none);
       border: 1px solid var(--c-grid-color, $c-font);
     }

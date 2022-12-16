@@ -52,7 +52,7 @@
   }
   move.active {
     font-weight: bold;
-    background: mix($c-primary, $c-bg-box, 25%);
+    background: mix($c-primary, $c-bg-box, 20%);
     color: $c-font-clear;
     move-notation::before {
       color: $c-font-clear;

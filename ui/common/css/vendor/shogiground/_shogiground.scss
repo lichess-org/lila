@@ -35,6 +35,9 @@ sg-squares {
   .d-5x5 & {
     grid-template: repeat(5, 1fr) / repeat(5, 1fr);
   }
+  .d-12x12 & {
+    grid-template: repeat(12, 1fr) / repeat(12, 1fr);
+  }
   pointer-events: none;
   sq {
     &.dest {
@@ -74,6 +77,17 @@ sg-squares {
     &.pre-dest.hover {
       background: rgba(20, 30, 85, 0.2);
     }
+    &.force-selected:not(.selected) {
+      animation: selected 1s ease-in-out infinite alternate;
+    }
+    @keyframes selected {
+      from {
+        background-color: transparent;
+      }
+      to {
+        background-color: rgba(20, 85, 30, 0.5);
+      }
+    }
   }
 }
 piece {
@@ -87,6 +101,11 @@ piece {
     width: calc(200% / 5);
     height: calc(200% / 5);
     margin: calc(-50% / 11 * 12 / 5) calc(-50% / 5);
+  }
+  .d-12x12 & {
+    width: calc(200% / 12);
+    height: calc(200% / 12);
+    margin: calc(-50% / 11) calc(-50% / 12);
   }
   transform: scale(0.5);
   background-size: cover;
@@ -124,6 +143,10 @@ sg-square-over {
     width: calc(100% / 5);
     height: calc(100% / 5);
   }
+  .d-12x12 & {
+    width: calc(100% / 12);
+    height: calc(100% / 12);
+  }
   background: #00000050;
   border-radius: 50%;
   padding: 6%;
@@ -149,6 +172,10 @@ sg-promotion {
     .d-5x5 & {
       width: calc(100% / 5);
       height: calc(100% / 5);
+    }
+    .d-12x12 & {
+      width: calc(100% / 12);
+      height: calc(100% / 12);
     }
     sg-promotion-choices {
       display: flex;

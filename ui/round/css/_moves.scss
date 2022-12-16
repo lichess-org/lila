@@ -2,7 +2,8 @@
   @extend %flex-column, %double-tap;
   .buttons {
     @extend %box-shadow;
-    flex: 0 0 auto;
+    flex: 0 0 40px;
+    align-items: center;
     display: flex;
     justify-content: stretch;
     background: $c-bg-zebra;
@@ -14,9 +15,12 @@
   }
   .fbt,
   .noop {
-    padding: 5px 0;
+    padding: 9px 0;
     flex: 0 0 calc(100% / 6);
     text-align: center;
+  }
+  .fbt[disabled] {
+    pointer-events: none;
   }
   .moves,
   .message {
@@ -24,9 +28,6 @@
   }
   .moves {
     @extend %zen;
-  }
-  index {
-    @extend %roboto;
   }
   #{$move-tag} {
     @extend %move-notation;

@@ -11,6 +11,9 @@
   grid-area: main;
   display: grid;
   grid-gap: $block-gap;
+  .board-layout-1 & {
+    grid-gap: 3vmin;
+  }
 
   &__app {
     grid-area: app;
@@ -21,6 +24,12 @@
   &__underboard {
     @extend %zen;
     grid-area: under;
+    @include breakpoint($mq-col3) {
+      .board-layout-1 & {
+        margin-left: calc(#{$square-9} + #{$hand-gap});
+        width: $col3-uniboard-width;
+      }
+    }
   }
   &__underchat {
     @extend %zen;
@@ -54,6 +63,16 @@
     grid-template-areas:
       'side  app   app'
       'uchat under .';
+    .board-layout-1 & {
+      grid-template-areas:
+      'side  . app   app'
+      'uchat . under .';
+      grid-template-columns: $col3-uniboard-side 2vmin auto;
+      grid-column-gap: 0;
+      .mchat {
+        margin-bottom: 25px;
+      }
+    }
     @include crosstable-large;
   }
 

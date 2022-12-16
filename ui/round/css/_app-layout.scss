@@ -130,6 +130,72 @@
     .keyboard-move {
       margin-top: $block-gap;
     }
+    .board-layout-1 & {
+      grid-template-rows: fit-content(0) fit-content(0) 1fr fit-content(0);
+      grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
+      grid-template-areas:
+      '.         . user-top . .         . expi-top'
+      'hand-top  . board    . hand-bot  . moves'
+      'hand-top  . board    . hand-bot  . moves'
+      'hand-top  . board    . hand-bot  . controls'
+      '.         . user-bot . .         . expi-bot'
+      '.         . kb-move  . .         . .';
+      margin-top: -25px;
+      grid-column-gap: 0;
+      .rclock-top,
+      .empty__clock-top {
+        grid-area: 1 / 3 / 2 / 4;
+      }
+      .rclock-bottom,
+      .empty__clock-bottom {
+        grid-area: 5 / 3 / 6 / 4;
+      }
+      .round__app__table {
+        grid-area: 2 / 7 / 5 / 8;
+      }
+      .rclock {
+        /* that weird shit is required so the clock goes above the player since they share the same grid cell */
+        justify-self: flex-end;
+        z-index: 1;
+        background-color: $c-bg-high;
+        .moretime::before {
+          font-size: 18px;
+        }
+      }
+      .rclock .tour-rank,
+      .rclock .moretime,
+      .rclock .berserked {
+        order: -1;
+      }
+      .rclock .bar {
+        display: none;
+      }
+      .rclock {
+        .time, .byoyomi {
+          font-size: 16px !important;
+          line-height: 22px;
+        }
+        .time {
+          padding: 3px 1vmin 0 1vmin;
+        }
+        .byoyomi {
+          padding-left: 0;
+        }
+      }
+      .ruser {
+        height: 25px;
+        padding: 0.1em 0.3em 0 0.3em;
+        line-height: 22px;
+        background-color: $c-bg-high;
+        z-index: 1;
+      }
+      .ruser a {
+        flex: none;
+      }
+      .rcontrols {
+        align-self: flex-end;
+      }
+    }
     @include breakpoint($mq-short) {
       & .rmoves .moves {
         display: flex;

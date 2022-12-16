@@ -21,6 +21,9 @@
     @include breakpoint($mq-not-small) {
       display: none;
     }
+    .mini-board.d-12x12 {
+      top: calc(16rem / 12);
+    }
   }
   &__infos {
     flex: 1 1 100%;

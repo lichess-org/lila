@@ -11,7 +11,6 @@
     will-change: scroll-position;
     user-select: none;
     line-height: 1.7;
-    font-size: 1.1em;
     &::-webkit-scrollbar {
       width: 0px;
     }
@@ -21,13 +20,17 @@
     flex: 0 0 17%;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    border-right: $border;
     background: $c-bg-zebra;
+    line-height: 2.07em;
+    color: $c-font-dimmer;
   }
   #{$move-tag} {
     /* Edge 18: flex: 0 0 calc(100% * 5 / 12); causes wrap */
     flex: 0 0 83%;
-    padding-left: 0.7em;
+    font-size: 1.185em;
+    line-height: 1.75em;
+    padding: 0 0.3em 0 0.5em;
     cursor: pointer;
     &:hover {
       background: $c-primary;
@@ -59,4 +62,23 @@
     padding: 0.75em 0;
     margin: 0;
   }
+
+  .areplay {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .board-layout-1 & {
+    .areplay {
+      flex: 1 1 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      border-top: 1px solid #404040;
+      position: relative;
+      .moves {
+        flex: 1;
+      }
+    }
+  }
+  
 }

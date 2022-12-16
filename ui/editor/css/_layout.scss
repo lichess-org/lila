@@ -3,7 +3,7 @@
 }
 
 .board-editor {
-  $board-width: calc((100vh - 5vmin) * var(--board-scale) * 0.8 - #{$site-header-outer-height});
+  $board-width: calc((100vh - 10vmin) * var(--board-scale) * 0.8 - #{$site-header-outer-height});
   $side-width: calc(#{$board-width} / 9 * 7);
 
   display: grid;
@@ -30,5 +30,18 @@
       'spare-bottom . hand-bot'
       '.            . .    '
       'copyables    . .    ';
+    
+    &.variant-chushogi {
+      grid-template-areas:
+      'spare-top    spare-top spare-top'
+      'spare-top    spare-top spare-top'
+      '.            . tools'
+      'board        . tools'
+      '.            . tools'
+      'spare-bottom spare-bottom spare-bottom'
+      'spare-bottom spare-bottom spare-bottom'
+      '.            . .    '
+      'copyables    . .    ';
+    }
   }
 }

@@ -5,7 +5,6 @@ $clock-height: 20px;
     border-radius: 0;
   }
   @include breakpoint($mq-col2) {
-    margin-top: 0.8rem;
     .analyse__underboard {
       margin-top: calc(#{$clock-height / 2} + 3vmin);
     }
