@@ -119,13 +119,13 @@ final class PrefApi(
 
   def getNotifyAllows(userIds: Iterable[UserId], event: String): Fu[List[NotifyAllows]] =
     coll
-      .find($inIds(userIds map(_ value)), $doc(s"notification.$event" -> true).some)
+      .find($inIds(userIds), $doc(s"notification.$event" -> true).some)
       .cursor[Bdoc]()
-      .list(-1) dmap { docs =>
+      .listAll() dmap { docs =>
       for {
         doc    <- docs
-        userId <- doc string "_id"
+        userId <- doc.getAsOpt[UserId]("_id")
         allowsOpt = doc child "notification" flatMap (_ int event) map Allows.fromCode
         allows    = allowsOpt getOrElse NotificationPref.default.allows(event)
-      } yield NotifyAllows(UserId(userId), allows)
+      } yield NotifyAllows(userId, allows)
     }
