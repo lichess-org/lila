@@ -24,6 +24,8 @@ jobs:
         with:
           submodules: recursive
       - uses: pnpm/action-setup@v2
+        with:
+          version: '7.18.2'
       - run: git submodule absorbgitdirs
       - uses: actions/setup-node@v3
         with:
