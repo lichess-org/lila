@@ -1,4 +1,5 @@
 import * as xhr from 'common/xhr';
+import { loadDasher } from 'common/dasher';
 import main from './main';
 import { LobbyOpts } from './interfaces';
 
@@ -79,15 +80,9 @@ function suggestBgSwitch() {
   const current = document.body.getAttribute('data-theme');
   if (current !== 'system' || prefersDark) return;
 
-  let dasher: Promise<any>;
-  const getDasher = (): Promise<any> => {
-    dasher = dasher || lichess.loadModule('dasher').then(() => window.LichessDasher(document.createElement('div')));
-    return dasher;
-  };
-
   $('.bg-switch')
     .addClass('active')
     .on('click', () =>
-      getDasher().then(dasher => dasher.subs.background.set(document.body.dataset.theme === 'dark' ? 'light' : 'dark'))
+      loadDasher().then(dasher => dasher.subs.background.set(document.body.dataset.theme === 'dark' ? 'light' : 'dark'))
     );
 }
