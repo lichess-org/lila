@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="700pt" height="700pt" viewBox="0 0 933.333 933.333" version="1.1" id="rook" inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)" sodipodi:docname="r.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview id="namedview1558" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" inkscape:document-units="mm" showgrid="false" inkscape:zoom="0.77058783" inkscape:cx="226.4505" inkscape:cy="670.91638" inkscape:window-width="1846" inkscape:window-height="1016" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="rook" inkscape:pageshadow="2"/>
+  <style id="style-base">
+    .base { 
+      fill-opacity:1;
+      fill-rule:evenodd;
+      stroke-miterlimit:4;
+      stroke-dasharray:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      stroke-opacity:1
+    }
+    .shadow {
+      stroke:none;
+      filter:url(#filterBlur);
+    }
+  </style>
+  <style id="stroke-medium">.stroke-medium {stroke-width: 20; }</style>
+  <style id="stroke-heavy">
+    .stroke-heavy {
+      stroke-width: 21;
+    }
+  </style>
+  <style id="stroke-boundary">.stroke-boundary {stroke-width: 35; }</style>
+  <style id="stroke-color">.stroke-color {stroke: black; }</style>
+  <style id="fill-color">.fill-color {fill: white; }</style>
+  <defs id="defs1553">
+    <linearGradient inkscape:collect="always" xlink:href="#fillGradient" id="main-gradient" gradientUnits="userSpaceOnUse" gradientTransform="matrix(6.2484782,0,0,7.110584,-3961.4887,-264.99345)" x1="660.51819" y1="90.376785" x2="757.72223" y2="103.71878"/>
+    <linearGradient id="fillGradient">
+      <stop id="stop0" offset="0" style="stop-color: white; stop-opacity: 1;"/>
+      <stop id="stop1" offset="1" style="stop-color: rgb(191, 211, 215); stop-opacity: 1;"/>
+    </linearGradient>
+    
+  </defs>
+  
+  <path sodipodi:nodetypes="cccccccccccccsssssscccc" id="boundary" d="m 774.96589,111.75203 -126.20102,0.58226 v 80.34943 l -114.11953,9.31589 v -79.91277 l -130.42235,0.72781 v 81.51395 l -109.4615,-11.64488 v -81.07724 l -117.1763,2.91121 c -11.46947,98.78288 48.60313,121.46887 7.4236,191.55778 l 101.06573,53.31092 c 4.85217,106.7786 28.33619,246.63655 19.21451,314.51341 -35.62618,27.13489 31.82559,52.82536 -55.06913,70.60421 -10.41661,2.13128 -57.89273,9.21779 -62.17772,14.70162 -32.07746,41.05269 -14.91506,109.59841 45.2694,113.53733 42.27422,2.76665 432.00271,3.50895 475.66883,-1.31014 67.00262,-7.39451 77.35238,-77.31942 46.43383,-116.01182 -4.73575,-5.92608 -42.3108,-12.30026 -59.77889,-15.28379 -77.68358,-13.26831 -18.74596,-43.52881 -53.6597,-61.85459 -11.19898,-74.12031 8.74596,-209.80328 20.47181,-320.76826 l 103.34808,-50.71112 c -31.88596,-76.66462 19.86866,-88.18561 9.17035,-195.05121 z" class="base stroke-color stroke-boundary" style="fill:none" inkscape:connector-curvature="0"/>
+  <path sodipodi:nodetypes="cccccccccccccsssssscccc" id="main" d="m 774.96589,111.75203 -126.20102,0.58226 v 80.34943 l -114.11953,9.31589 v -79.91277 l -130.42235,0.72781 v 81.51395 l -109.4615,-11.64488 v -81.07724 l -117.1763,2.91121 c -11.46947,98.78288 48.60313,121.46887 7.4236,191.55778 l 101.06573,53.31092 c 4.85217,106.7786 28.33619,246.63655 19.21451,314.51341 -35.62618,27.13489 31.82559,52.82536 -55.06913,70.60421 -10.41661,2.13128 -57.89273,9.21779 -62.17772,14.70162 -32.07746,41.05269 -14.91506,109.59841 45.2694,113.53733 42.27422,2.76665 432.00271,3.50895 475.66883,-1.31014 67.00262,-7.39451 77.35238,-77.31942 46.43383,-116.01182 -4.73575,-5.92608 -42.3108,-12.30026 -59.77889,-15.28379 -77.68358,-13.26831 -18.74596,-43.52881 -53.6597,-61.85459 -11.19898,-74.12031 8.74596,-209.80328 20.47181,-320.76826 l 103.34808,-50.71112 c -31.88596,-76.66462 19.86866,-88.18561 9.17035,-195.05121 z" class="base stroke-color stroke-medium" style="fill:url(#main-gradient)" inkscape:connector-curvature="0"/>
+  <path id="deco-lines" class="base stroke-color stroke-medium" style="opacity:0.5;fill:none" d="m 239.01479,277.47243 388.95622,1.64062 z m 100.45198,80.12642 h 214.40256 z m 0,331.10591 H 581.81471 Z M 258.86639,774.7648 H 687.5349 Z"/>
+  <path class="base stroke-color stroke-medium" style="opacity:0.5;fill:none" d="m 670.36615,871.43286 c 67.00261,-7.39447 99.49013,-60.99205 68.57158,-99.68441 -4.73572,-5.9262 -42.4486,-15.99594 -59.91666,-18.9795 -77.68361,-13.26832 -20.74599,-56.16055 -55.65969,-74.48633 -11.19895,-74.12031 10.60257,-222.79595 22.32842,-333.76096 l 99.34812,-50.71105 c -28.04629,-58.80649 20.62871,-99.96237 9.31366,-182.05858" id="deco-side" sodipodi:nodetypes="csscccc" inkscape:connector-curvature="0"/>
+</svg>
