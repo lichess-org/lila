@@ -27,7 +27,9 @@ export async function build(mods: string[]) {
   buildDependencyList();
 
   buildModules = mods.length === 0 ? [...modules.values()] : depsMany(mods);
-
+  if (mods.length) {
+    env.log(`Building ${c.grey(buildModules.map(x => x.name).join(', '))}`);
+  }
   await fs.promises.mkdir(env.jsDir, { recursive: true });
   await fs.promises.mkdir(env.cssDir, { recursive: true });
 
@@ -55,13 +57,13 @@ export function preModule(mod: LichessModule | undefined) {
   if (mod?.copyMe)
     for (const cp of mod.copyMe) {
       const sources: string[] = [];
-      const dest = path.join(env.rootDir, cp.dest) + path.sep;
+      const dest = path.join(mod.root, cp.dest) + path.sep;
       if (typeof cp.src === 'string') {
-        sources.push(path.join(env.nodeDir, cp.src));
+        sources.push(path.join(mod.root, cp.src));
         env.log(`[${c.grey(mod.name)}] copy '${c.cyan(cp.src)}'`);
       } else if (Array.isArray(cp.src)) {
         for (const s of cp.src) {
-          sources.push(path.join(env.nodeDir, s));
+          sources.push(path.join(mod.root, s));
           env.log(`[${c.grey(mod.name)}] copy '${c.cyan(s)}'`);
         }
       }

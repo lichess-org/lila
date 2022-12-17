@@ -8,13 +8,12 @@ export async function esbuild(): Promise<void> {
   if (!env.esbuild) env.done(0, 'esbuild'); // if not watching, will exit
   const entryPoints: { [key: string]: string } = {};
   for (const mod of buildModules) {
-    if (mod.bundle)
+    preModule(mod);
+    if (mod.bundle) {
       for (const r of mod.bundle) {
         entryPoints[r.output] = path.join(mod.root, r.input);
-        // if/when globalName option becomes an array or a field in entryPoints, use r.importName
-        // and we can remove the (window as any).LichessModule = stuff from the module typescript
-        if (r.isMain) preModule(mod);
       }
+    }
   }
   try {
     await es.build({

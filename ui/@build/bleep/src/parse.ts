@@ -18,10 +18,9 @@ export const parseModules = async (): Promise<[Map<string, LichessModule>, Map<s
       if (modules.has(dep)) deplist.push(dep);
     }
     moduleDeps.set(mod.name, deplist);
-    mod.bundle?.forEach(r => {
-      if (r.output && ![mod.name, mod.moduleAlias].includes(r.output)) {
-        moduleDeps.set(r.output, [mod.name, ...deplist]);
-      }
+    // for package.jsons with multiple bundles, subsequent bundles depend on the first
+    mod.bundle?.slice(1).forEach(r => {
+      moduleDeps.set(r.output, [mod.name, ...deplist]);
     });
   });
   return [modules, moduleDeps];
@@ -46,41 +45,11 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
     copyMe: fs.existsSync(copyMeJsonPath) && JSON.parse(await fs.promises.readFile(copyMeJsonPath, 'utf8')),
   };
   parseScripts(mod, 'scripts' in pkg ? pkg.scripts : {});
-  const rollupConfigPath = path.join(mod.root, 'rollup.config.mjs');
 
-  if (!fs.existsSync(rollupConfigPath)) return mod; // we're done
-
-  mod.bundle = [];
-  const rollupConfigStr = await fs.promises.readFile(rollupConfigPath, 'utf8');
-  const rollupMatch = /rollupProject\((\{.+})\);/s.exec(rollupConfigStr);
-
-  const rollupObj = parseObject(rollupMatch?.length === 2 ? rollupMatch[1] : null);
-
-  for (const key in rollupObj) {
-    const cfg = rollupObj[key];
-    if (key === 'main' && cfg.output !== mod.name) mod.moduleAlias = cfg.output; // analyse is analysisBoard
-
-    mod.bundle.push({
-      hostMod: mod,
-      input: cfg.input,
-      output: cfg.output,
-      importName: cfg.name ? cfg.name : cfg.output,
-      isMain: key === 'main' || cfg.output === mod.name,
-    });
+  if ('lichess_org' in pkg && 'bundles' in pkg.lichess_org) {
+    mod.bundle = Object.entries(pkg.lichess_org.bundles).map(x => ({ input: x[0], output: x[1] as string }));
   }
   return mod;
-}
-
-// context to interpret the objects in rollup.config.js
-function parseObject(o: string | null) {
-  const dirname = path.dirname;
-  const copy = (_: any) => {};
-  const replace = (_: any) => {};
-  const suppressThisIsUndefined = (_: any, __: any) => {};
-  const require = { resolve: (mod: string) => path.join(env.nodeDir, mod) };
-  const execSync = (_: any, __: any) => '';
-  copy, replace, dirname, require, suppressThisIsUndefined, execSync;
-  return eval(`(${o})`) || {};
 }
 
 // TODO - just subtract yarn/rollup/tsc commands from script contents, don't overparse the string.
@@ -97,7 +66,7 @@ function tokenizeArgs(argstr: string): string[] {
   return lastOne ? [...args, lastOne] : args;
 }
 
-// go through package json scripts and get what we need from 'compile', 'dev', and deps
+// go through package json scripts and get what we need from 'compile', 'dev', and 'deps'
 // if some other script is necessary, add it to buildScriptKeys
 function parseScripts(module: LichessModule, pkgScripts: any) {
   const buildScriptKeys = ['deps', 'compile', 'dev'].concat(env.prod ? ['prod'] : []);
@@ -108,8 +77,7 @@ function parseScripts(module: LichessModule, pkgScripts: any) {
       // no need to support || in a script property yet, we don't even short circuit && properly
       const args = tokenizeArgs(cmd.trim());
       if (args[0] === 'tsc') {
-        module.tscOptions = args.flatMap((arg: string) => (arg.startsWith('--') ? [arg.slice(2)] : []));
-        // only support flag arguments
+        if (script == 'compile') module.tscOptions = args.slice(1);
       } else if (!['$npm_execpath', 'yarn', 'rollup'].includes(args[0])) {
         script == 'prod' ? module.post.push(args) : module.pre.push(args);
       }

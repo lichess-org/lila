@@ -36,11 +36,10 @@ export interface BleepOpts {
 
 export interface LichessModule {
   root: string; // absolute path to package.json parentdir (module root)
-  name: string; // dirname of module root - usually the module import name
-  moduleAlias?: string; // import name (if different from root name as with analysisBoard)
+  name: string; // dirname of module root
   pkg: any; // the entire package.json object
-  pre: string[][]; // pre-bundle build steps from package.json
-  post: string[][]; // post-bundle build steps from package.json
+  pre: string[][]; // pre-bundle build steps from package.json scripts
+  post: string[][]; // post-bundle build steps from package.json scripts
   hasTsconfig?: boolean; // fileExists('tsconfig.json')
   tscOptions?: string[]; // options from tsc/compile script in package json
   bundle?: LichessBundle[]; // targets from rollup.config.mjs
@@ -55,11 +54,11 @@ export interface Copy {
 }
 
 export interface LichessBundle {
-  hostMod: LichessModule;
+  //hostMod: LichessModule;
   input: string; // abs path to source
   output: string; // abs path to bundle destination
-  importName?: string; // might as well be isAnalysisBoard boolean
-  isMain: boolean; // false for plugin bundles
+  //importName?: string; // might as well be isAnalysisBoard boolean
+  //isMain: boolean; // false for plugin bundles
 }
 
 export function init(root: string, opts?: BleepOpts) {
@@ -109,13 +108,13 @@ class Env {
   startTime: number | undefined = Date.now();
 
   get sass(): boolean {
-    return !this.exitCode.has('sass');
+    return this.exitCode.get('sass') !== false;
   }
   get tsc(): boolean {
-    return !this.exitCode.has('tsc');
+    return this.exitCode.get('tsc') !== false;
   }
   get esbuild(): boolean {
-    return !this.exitCode.has('esbuild');
+    return this.exitCode.get('esbuild') !== false;
   }
   get uiDir(): string {
     return path.join(this.rootDir, 'ui');
