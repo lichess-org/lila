@@ -41,7 +41,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
 
   def enabledByIds[U](us: Iterable[U])(using idOf: UserIdOf[U]): Fu[List[User]] = {
     val ids = us.map(idOf.apply).filter(User.noGhost)
-    coll.list[User](enabledSelect ++ $inIds(ids), ReadPreference.secondaryPreferred)
+    coll.list[User](enabledSelect ++ $inIds(ids), temporarilyPrimary)
   }
 
   def byIdOrGhost(id: UserId): Fu[Option[Either[LightUser.Ghost, User]]] =
