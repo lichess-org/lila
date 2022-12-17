@@ -77,7 +77,7 @@ export default function LichessLobby(opts: LobbyOpts) {
 function suggestBgSwitch() {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const current = document.body.getAttribute('data-theme');
-  if (current !== 'system' && prefersDark) return;
+  if (current !== 'system' || prefersDark) return;
 
   let dasher: Promise<any>;
   const getDasher = (): Promise<any> => {
