@@ -14,7 +14,7 @@
     "dev": "tsc",
     "prod": "tsc"
   },
-  "org_lichess": {
+  "lichess": {
     "bundles": {
       "src/main.ts": "serviceWorker"
     }

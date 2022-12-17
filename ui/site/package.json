@@ -39,7 +39,7 @@
     "dev": "tsc",
     "prod": "tsc && cat ../../public/compiled/deps.min.js ../../public/compiled/site.min.js > ../../public/compiled/lichess.min.js"
   },
-  "org_lichess": {
+  "lichess": {
     "bundles": {
       "src/site.ts": "site",
       "src/tvEmbed.ts": "tvEmbed",

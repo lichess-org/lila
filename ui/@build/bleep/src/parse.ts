@@ -46,8 +46,8 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
   };
   parseScripts(mod, 'scripts' in pkg ? pkg.scripts : {});
 
-  if ('org_lichess' in pkg && 'bundles' in pkg.org_lichess) {
-    mod.bundle = Object.entries(pkg.org_lichess.bundles).map(x => ({ input: x[0], output: x[1] as string }));
+  if ('lichess' in pkg && 'bundles' in pkg.lichess) {
+    mod.bundle = Object.entries(pkg.lichess.bundles).map(x => ({ input: x[0], output: x[1] as string }));
   }
   return mod;
 }

@@ -31,7 +31,7 @@
     "dev": "tsc",
     "prod": "tsc"
   },
-  "org_lichess": {
+  "lichess": {
     "bundles": {
       "src/main.ts": "round",
       "src/plugins/nvui.ts": "round.nvui"
