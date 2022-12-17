@@ -20,11 +20,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: yarn
+          cache: pnpm
       - uses: github/codeql-action/init@v2
         with:
           languages: javascript
       - uses: github/codeql-action/analyze@v2
-      - run: yarn install
-      - run: yarn run lint
-      - run: yarn run check-format
+      - run: pnpm install
+      - run: pnpm run lint
+      - run: pnpm run check-format
