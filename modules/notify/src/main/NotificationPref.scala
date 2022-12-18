@@ -1,4 +1,4 @@
-package lila.pref
+package lila.notify
 
 import play.api.libs.json.{ Json, OWrites }
 import reactivemongo.api.bson.*
@@ -15,16 +15,6 @@ case class Allows(value: Int) extends AnyVal with IntValue:
 
 object Allows:
   given Zero[Allows] = Zero(Allows(0))
-
-  val canFilter = Set(
-    "privateMessage",
-    "challenge",
-    "mention",
-    "streamStart",
-    "tournamentSoon",
-    "gameEvent",
-    "invitedStudy"
-  )
 
   def fromForm(bell: Boolean, push: Boolean): Allows =
     Allows((bell ?? BELL) | (push ?? PUSH))
@@ -47,11 +37,10 @@ case class NotificationPref(
     tournamentSoon: Allows,
     gameEvent: Allows,
     invitedStudy: Allows,
-    correspondenceEmail: Int
+    correspondenceEmail: Boolean
 ):
-  def allows(key: String): Allows =
-    NotificationPref.Event.byKey.get(key) ?? allows
-
+  // def allows(key: String): Allows =
+  //   NotificationPref.Event.byKey.get(key) ?? allows
   def allows(event: Event): Allows = event match
     case PrivateMessage => privateMessage
     case Challenge      => challenge
@@ -83,7 +72,7 @@ object NotificationPref:
 
   export Event.*
 
-  lazy val default: NotificationPref = NotificationPref(
+  val default: NotificationPref = NotificationPref(
     privateMessage = Allows(BELL | PUSH),
     challenge = Allows(BELL | PUSH),
     invitedStudy = Allows(BELL | PUSH),
@@ -91,8 +80,27 @@ object NotificationPref:
     streamStart = Allows(BELL | PUSH),
     tournamentSoon = Allows(PUSH),
     gameEvent = Allows(PUSH),
-    correspondenceEmail = 0
+    correspondenceEmail = false
   )
+
+  object form:
+    import play.api.data.*
+    import play.api.data.Forms.*
+
+    private val allowsMapping = mapping("bell" -> boolean, "push" -> boolean)(Allows.fromForm)(Allows.toForm)
+
+    val form = Form(
+      mapping(
+        "privateMessage"      -> allowsMapping,
+        "challenge"           -> allowsMapping,
+        "invitedStudy"        -> allowsMapping,
+        "mention"             -> allowsMapping,
+        "streamStart"         -> allowsMapping,
+        "tournamentSoon"      -> allowsMapping,
+        "gameEvent"           -> allowsMapping,
+        "correspondenceEmail" -> boolean
+      )(NotificationPref.apply)(lila.notify.unapply)
+    )
 
   given BSONHandler[Allows] =
     lila.db.dsl.intAnyValHandler[Allows](_.value, Allows.apply)
@@ -109,7 +117,7 @@ object NotificationPref:
         "tournamentSoon"      -> allowsToJson(data.tournamentSoon),
         "gameEvent"           -> allowsToJson(data.gameEvent),
         "invitedStudy"        -> allowsToJson(data.invitedStudy),
-        "correspondenceEmail" -> (data.correspondenceEmail != 0)
+        "correspondenceEmail" -> data.correspondenceEmail
       )
     }
 

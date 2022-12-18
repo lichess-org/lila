@@ -6,6 +6,7 @@ import views.*
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
+import lila.notify.NotificationPref
 
 final class Pref(env: Env) extends LilaController(env):
 
@@ -34,9 +35,12 @@ final class Pref(env: Env) extends LilaController(env):
       case None =>
         Auth { implicit ctx => me =>
           lila.pref.PrefCateg(categSlug) match
-            case None => notFound
-            case Some(categ) =>
-              Ok(html.account.pref(me, forms prefOf ctx.pref, categ)).toFuccess
+            case None if categSlug == "notification" =>
+              env.notifyM.api.prefs.form(me) map { form =>
+                Ok(html.account.notification(form))
+              }
+            case None        => notFound
+            case Some(categ) => Ok(html.account.pref(me, forms prefOf ctx.pref, categ)).toFuccess
         }
 
   def formApply =
@@ -54,6 +58,17 @@ final class Pref(env: Env) extends LilaController(env):
                 onSuccess
               ),
           onSuccess
+        )
+    }
+
+  def notifyFormApply =
+    AuthBody { implicit ctx => me =>
+      implicit val req = ctx.body
+      NotificationPref.form.form
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(err.toString).toFuccess,
+          data => env.notifyM.api.prefs.set(me, data) inject Ok("saved")
         )
     }
 

@@ -7,14 +7,12 @@ import scala.concurrent.duration.{ Duration, DurationInt }
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class NotificationRepo(
-    val coll: Coll,
-    userRepo: lila.user.UserRepo,
-    prefApi: lila.pref.PrefApi
-)(using ec: scala.concurrent.ExecutionContext):
+final private class NotificationRepo(colls: NotifyColls)(using ec: scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
   import Notification.UnreadCount
+
+  private val coll = colls.notif
 
   def insert(notification: Notification) =
     coll.insert.one(notification).void

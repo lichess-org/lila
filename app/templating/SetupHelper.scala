@@ -70,14 +70,14 @@ trait SetupHelper { self: I18nHelper =>
       (d.toString, s"$d days", none)
     }
 
-  def translatedTimeModeChoices(using lang: Lang) =
+  def translatedTimeModeChoices(using Lang) =
     List(
       (TimeMode.RealTime.id.toString, trans.realTime.txt(), none),
       (TimeMode.Correspondence.id.toString, trans.correspondence.txt(), none),
       (TimeMode.Unlimited.id.toString, trans.unlimited.txt(), none)
     )
 
-  def translatedReasonChoices(using lang: Lang) =
+  def translatedReasonChoices(using Lang) =
     List(
       (Reason.Cheat.key, trans.cheat.txt()),
       (Reason.Comm.key, trans.insult.txt()),
@@ -86,19 +86,19 @@ trait SetupHelper { self: I18nHelper =>
       (Reason.Other.key, trans.other.txt())
     )
 
-  def translatedModeChoices(using lang: Lang) =
+  def translatedModeChoices(using Lang) =
     List(
       (Mode.Casual.id.toString, trans.casual.txt(), none),
       (Mode.Rated.id.toString, trans.rated.txt(), none)
     )
 
-  def translatedIncrementChoices(using lang: Lang) =
+  def translatedIncrementChoices(using Lang) =
     List(
       (1, trans.yes.txt(), none),
       (0, trans.no.txt(), none)
     )
 
-  def translatedModeChoicesTournament(using lang: Lang) =
+  def translatedModeChoicesTournament(using Lang) =
     List(
       (Mode.Casual.id.toString, trans.casualTournament.txt(), none),
       (Mode.Rated.id.toString, trans.ratedTournament.txt(), none)
@@ -111,20 +111,20 @@ trait SetupHelper { self: I18nHelper =>
   private def variantTuple(encode: Variant => String)(variant: Variant) =
     (encode(variant), variant.name, variant.title.some)
 
-  def translatedVariantChoices(using lang: Lang): List[SelectChoice] =
+  def translatedVariantChoices(using Lang): List[SelectChoice] =
     translatedVariantChoices(encodeId)
 
-  def translatedVariantChoices(encode: Variant => String)(using lang: Lang): List[SelectChoice] =
+  def translatedVariantChoices(encode: Variant => String)(using Lang): List[SelectChoice] =
     List(
       (encode(chess.variant.Standard), trans.standard.txt(), chess.variant.Standard.title.some)
     )
 
-  def translatedVariantChoicesWithVariants(using lang: Lang): List[SelectChoice] =
+  def translatedVariantChoicesWithVariants(using Lang): List[SelectChoice] =
     translatedVariantChoicesWithVariants(encodeId)
 
   def translatedVariantChoicesWithVariants(
       encode: Variant => String
-  )(using lang: Lang): List[SelectChoice] =
+  )(using Lang): List[SelectChoice] =
     translatedVariantChoices(encode) ::: List(
       chess.variant.Crazyhouse,
       chess.variant.Chess960,
@@ -136,12 +136,12 @@ trait SetupHelper { self: I18nHelper =>
       chess.variant.RacingKings
     ).map(variantTuple(encode))
 
-  def translatedVariantChoicesWithFen(using lang: Lang) =
+  def translatedVariantChoicesWithFen(using Lang) =
     translatedVariantChoices :+
       variantTupleId(chess.variant.Chess960) :+
       variantTupleId(chess.variant.FromPosition)
 
-  def translatedAiVariantChoices(using lang: Lang) =
+  def translatedAiVariantChoices(using Lang) =
     translatedVariantChoices :+
       variantTupleId(chess.variant.Crazyhouse) :+
       variantTupleId(chess.variant.Chess960) :+
@@ -153,11 +153,11 @@ trait SetupHelper { self: I18nHelper =>
       variantTupleId(chess.variant.RacingKings) :+
       variantTupleId(chess.variant.FromPosition)
 
-  def translatedVariantChoicesWithVariantsAndFen(using lang: Lang) =
+  def translatedVariantChoicesWithVariantsAndFen(using Lang) =
     translatedVariantChoicesWithVariants :+
       variantTupleId(chess.variant.FromPosition)
 
-  def translatedSpeedChoices(using lang: Lang) =
+  def translatedSpeedChoices(using Lang) =
     Speed.limited map { s =>
       val minutes = s.range.max / 60 + 1
       (
@@ -167,14 +167,14 @@ trait SetupHelper { self: I18nHelper =>
       )
     }
 
-  def translatedSideChoices(using lang: Lang) =
+  def translatedSideChoices(using Lang) =
     List(
       ("black", trans.black.txt(), none),
       ("random", trans.randomColor.txt(), none),
       ("white", trans.white.txt(), none)
     )
 
-  def translatedAnimationChoices(using lang: Lang) =
+  def translatedAnimationChoices(using Lang) =
     List(
       (Pref.Animation.NONE, trans.none.txt()),
       (Pref.Animation.FAST, trans.fast.txt()),
@@ -182,69 +182,69 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.Animation.SLOW, trans.slow.txt())
     )
 
-  def translatedBoardCoordinateChoices(using lang: Lang) =
+  def translatedBoardCoordinateChoices(using Lang) =
     List(
       (Pref.Coords.NONE, trans.no.txt()),
       (Pref.Coords.INSIDE, trans.insideTheBoard.txt()),
       (Pref.Coords.OUTSIDE, trans.outsideTheBoard.txt())
     )
 
-  def translatedMoveListWhilePlayingChoices(using lang: Lang) =
+  def translatedMoveListWhilePlayingChoices(using Lang) =
     List(
       (Pref.Replay.NEVER, trans.never.txt()),
       (Pref.Replay.SLOW, trans.onSlowGames.txt()),
       (Pref.Replay.ALWAYS, trans.always.txt())
     )
 
-  def translatedPieceNotationChoices(using lang: Lang) =
+  def translatedPieceNotationChoices(using Lang) =
     List(
       (Pref.PieceNotation.SYMBOL, trans.preferences.chessPieceSymbol.txt()),
       (Pref.PieceNotation.LETTER, trans.preferences.pgnLetter.txt())
     )
 
-  def translatedClockTenthsChoices(using lang: Lang) =
+  def translatedClockTenthsChoices(using Lang) =
     List(
       (Pref.ClockTenths.NEVER, trans.never.txt()),
       (Pref.ClockTenths.LOWTIME, trans.preferences.whenTimeRemainingLessThanTenSeconds.txt()),
       (Pref.ClockTenths.ALWAYS, trans.always.txt())
     )
 
-  def translatedMoveEventChoices(using lang: Lang) =
+  def translatedMoveEventChoices(using Lang) =
     List(
       (Pref.MoveEvent.CLICK, trans.preferences.clickTwoSquares.txt()),
       (Pref.MoveEvent.DRAG, trans.preferences.dragPiece.txt()),
       (Pref.MoveEvent.BOTH, trans.preferences.bothClicksAndDrag.txt())
     )
 
-  def translatedTakebackChoices(using lang: Lang) =
+  def translatedTakebackChoices(using Lang) =
     List(
       (Pref.Takeback.NEVER, trans.never.txt()),
       (Pref.Takeback.ALWAYS, trans.always.txt()),
       (Pref.Takeback.CASUAL, trans.preferences.inCasualGamesOnly.txt())
     )
 
-  def translatedMoretimeChoices(using lang: Lang) =
+  def translatedMoretimeChoices(using Lang) =
     List(
       (Pref.Moretime.NEVER, trans.never.txt()),
       (Pref.Moretime.ALWAYS, trans.always.txt()),
       (Pref.Moretime.CASUAL, trans.preferences.inCasualGamesOnly.txt())
     )
 
-  def translatedAutoQueenChoices(using lang: Lang) =
+  def translatedAutoQueenChoices(using Lang) =
     List(
       (Pref.AutoQueen.NEVER, trans.never.txt()),
       (Pref.AutoQueen.PREMOVE, trans.preferences.whenPremoving.txt()),
       (Pref.AutoQueen.ALWAYS, trans.always.txt())
     )
 
-  def translatedAutoThreefoldChoices(using lang: Lang) =
+  def translatedAutoThreefoldChoices(using Lang) =
     List(
       (Pref.AutoThreefold.NEVER, trans.never.txt()),
       (Pref.AutoThreefold.ALWAYS, trans.always.txt()),
       (Pref.AutoThreefold.TIME, trans.preferences.whenTimeRemainingLessThanThirtySeconds.txt())
     )
 
-  def submitMoveChoices(using lang: Lang) =
+  def submitMoveChoices(using Lang) =
     List(
       (Pref.SubmitMove.NEVER, trans.never.txt()),
       (Pref.SubmitMove.CORRESPONDENCE_ONLY, trans.preferences.inCorrespondenceGames.txt()),
@@ -252,19 +252,19 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.SubmitMove.ALWAYS, trans.always.txt())
     )
 
-  def confirmResignChoices(using lang: Lang) =
+  def confirmResignChoices(using Lang) =
     List(
       (Pref.ConfirmResign.NO, trans.no.txt()),
       (Pref.ConfirmResign.YES, trans.yes.txt())
     )
 
-  def translatedRookCastleChoices(using lang: Lang) =
+  def translatedRookCastleChoices(using Lang) =
     List(
       (Pref.RookCastle.NO, trans.preferences.castleByMovingTwoSquares.txt()),
       (Pref.RookCastle.YES, trans.preferences.castleByMovingOntoTheRook.txt())
     )
 
-  def translatedChallengeChoices(using lang: Lang) =
+  def translatedChallengeChoices(using Lang) =
     List(
       (Pref.Challenge.NEVER, trans.never.txt()),
       (
@@ -276,46 +276,51 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.Challenge.ALWAYS, trans.always.txt())
     )
 
-  def translatedMessageChoices(using lang: Lang) =
+  def translatedMessageChoices(using Lang) =
     List(
       (Pref.Message.NEVER, trans.onlyExistingConversations.txt()),
       (Pref.Message.FRIEND, trans.onlyFriends.txt()),
       (Pref.Message.ALWAYS, trans.always.txt())
     )
 
-  def translatedStudyInviteChoices(using lang: Lang) = privacyBaseChoices
-  def translatedPalantirChoices(using lang: Lang)    = privacyBaseChoices
-  private def privacyBaseChoices(using lang: Lang) =
+  def translatedStudyInviteChoices(using Lang) = privacyBaseChoices
+  def translatedPalantirChoices(using Lang)    = privacyBaseChoices
+  private def privacyBaseChoices(using Lang) =
     List(
       (Pref.StudyInvite.NEVER, trans.never.txt()),
       (Pref.StudyInvite.FRIEND, trans.onlyFriends.txt()),
       (Pref.StudyInvite.ALWAYS, trans.always.txt())
     )
 
-  def translatedInsightShareChoices(using lang: Lang) =
+  def translatedInsightShareChoices(using Lang) =
     List(
       (Pref.InsightShare.NOBODY, trans.withNobody.txt()),
       (Pref.InsightShare.FRIENDS, trans.withFriends.txt()),
       (Pref.InsightShare.EVERYBODY, trans.withEverybody.txt())
     )
 
-  def translatedBoardResizeHandleChoices(using lang: Lang) =
+  def translatedBoardResizeHandleChoices(using Lang) =
     List(
       (Pref.ResizeHandle.NEVER, trans.never.txt()),
       (Pref.ResizeHandle.INITIAL, trans.preferences.onlyOnInitialPosition.txt()),
       (Pref.ResizeHandle.ALWAYS, trans.always.txt())
     )
 
-  def translatedBlindfoldChoices(using lang: Lang) =
+  def translatedBlindfoldChoices(using Lang) =
     List(
       Pref.Blindfold.NO  -> trans.no.txt(),
       Pref.Blindfold.YES -> trans.yes.txt()
     )
 
-  def translatedBooleanIntChoices(using lang: Lang) =
+  def translatedBooleanIntChoices(using Lang) =
     List(
       0 -> trans.no.txt(),
       1 -> trans.yes.txt()
     )
 
+  def translatedBooleanChoices(using Lang) =
+    List(
+      false -> trans.no.txt(),
+      true  -> trans.yes.txt()
+    )
 }

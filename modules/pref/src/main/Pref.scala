@@ -44,7 +44,6 @@ case class Pref(
     pieceNotation: Int,
     resizeHandle: Int,
     agreement: Int,
-    notification: NotificationPref,
     tags: Map[String, String] = Map.empty
 ):
 
@@ -459,7 +458,6 @@ object Pref:
     pieceNotation = PieceNotation.SYMBOL,
     resizeHandle = ResizeHandle.INITIAL,
     agreement = Agreement.current,
-    notification = NotificationPref.default,
     tags = Map.empty
   )
 

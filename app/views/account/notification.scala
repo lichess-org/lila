@@ -4,38 +4,52 @@ package account
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import controllers.routes
 
 object notification {
   import bits.*
   import trans.preferences.*
 
-  def fieldSet(form: play.api.data.Form[_], inactive: Boolean)(using ctx: Context) =
-    div(cls := List("none" -> inactive))(
-      table(cls := "allows")(
-        thead(
-          tr(th, th(notifyBell()), th(notifyPush()))
-        ),
-        tbody(
-          makeRow(form, notifyStreamStart(), "streamStart"),
-          makeRow(form, notifyForumMention(), "mention"),
-          makeRow(form, notifyInvitedStudy(), "invitedStudy"),
-          makeRow(form, notifyInboxMsg(), "privateMessage"),
-          makeRow(form, notifyChallenge(), "challenge"),
-          makeRow(form, notifyTournamentSoon(), "tournamentSoon"),
-          makeRow(form, notifyGameEvent(), "gameEvent")
+  def apply(form: play.api.data.Form[?])(using Context) =
+    account.layout(
+      title = s"${trans.preferences.notifications.txt()} - ${preferences.txt()}",
+      active = "notification"
+    ) {
+      div(cls := "account box box-pad")(
+        h1(cls := "box__top")(trans.preferences.notifications()),
+        postForm(cls := "autosubmit", action := routes.Pref.notifyFormApply)(
+          div(
+            table(cls := "allows")(
+              thead(
+                tr(th, th(notifyBell()), th(notifyPush()))
+              ),
+              tbody(
+                List(
+                  notifyStreamStart()    -> "streamStart",
+                  notifyForumMention()   -> "mention",
+                  notifyInvitedStudy()   -> "invitedStudy",
+                  notifyInboxMsg()       -> "privateMessage",
+                  notifyChallenge()      -> "challenge",
+                  notifyTournamentSoon() -> "tournamentSoon",
+                  notifyGameEvent()      -> "gameEvent"
+                ).map(makeRow(form))
+              )
+            ),
+            setting(
+              correspondenceEmailNotification(),
+              radios(form("correspondenceEmail"), translatedBooleanChoices)
+            )
+          ),
+          p(cls := "saved text none", dataIcon := "")(yourPreferencesHaveBeenSaved())
         )
-      ),
-      setting(
-        correspondenceEmailNotification(),
-        radios(form("notification.correspondenceEmail"), translatedBooleanIntChoices)
       )
-    )
+    }
 
-  private def makeRow(form: play.api.data.Form[_], transTxt: Frag, filterName: String) =
+  private def makeRow(form: play.api.data.Form[_])(transTxt: Frag, filterName: String) =
     tr(
       td(transTxt),
       Seq("bell", "push") map { allow =>
-        val name    = s"notification.$filterName.$allow"
+        val name    = s"$filterName.$allow"
         val checked = form.data(name).contains("true")
         td(
           if (!hiddenFields(s"$filterName.$allow"))

@@ -17,24 +17,6 @@ object pref:
 
   private def setting(name: Frag, body: Frag) = st.section(h2(name), body)
 
-  private def radios(field: play.api.data.Field, options: Iterable[(Any, String)], prefix: String = "ir") =
-    st.group(cls := "radio")(
-      options.map { v =>
-        val id      = s"${field.id}_${v._1}"
-        val checked = field.value has v._1.toString
-        div(
-          input(
-            st.id := s"$prefix$id",
-            checked option st.checked,
-            tpe   := "radio",
-            value := v._1.toString,
-            name  := field.name
-          ),
-          label(`for` := s"$prefix$id")(v._2)
-        )
-      }.toList
-    )
-
   def apply(u: lila.user.User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using
       ctx: Context
   ) =
@@ -46,7 +28,6 @@ object pref:
       div(cls := "account box box-pad")(
         h1(cls := "box__top")(bits.categName(categ)),
         postForm(cls := "autosubmit", action := routes.Pref.formApply)(
-          notification.fieldSet(form, categ != PrefCateg.Notification),
           categFieldset(PrefCateg.Display, categ)(
             setting(
               pieceAnimation(),

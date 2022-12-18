@@ -11,13 +11,13 @@ import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.hub.actorApi.socket.{ SendTo, SendTos }
 import lila.memo.CacheApi.*
-import lila.pref.{ Allows, NotifyAllows, NotificationPref }
 import lila.user.{ User, UserRepo }
 import lila.i18n.*
 
 final class NotifyApi(
     jsonHandlers: JSONHandlers,
     repo: NotificationRepo,
+    colls: NotifyColls,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
     maxPerPage: MaxPerPage,
@@ -28,6 +28,36 @@ final class NotifyApi(
   import BSONHandlers.given
   import jsonHandlers.*
 
+  object prefs:
+    import NotificationPref.{ *, given }
+
+    def form(me: User) =
+      colls.pref
+        .byId[NotificationPref](me.id)
+        .dmap(_ | default)
+        .map(NotificationPref.form.form.fill)
+
+    def set(me: User, pref: NotificationPref) =
+      colls.pref.update.one($id(me.id), pref, upsert = true).void
+
+    def allows(userId: UserId, event: Event): Fu[Allows] =
+      colls.pref
+        .primitiveOne[Allows]($id(userId), event.key)
+        .dmap(_ | default.allows(event))
+
+    def getAllows(userIds: Iterable[UserId], event: NotificationPref.Event): Fu[List[NotifyAllows]] =
+      colls.pref.tempPrimary
+        .find($inIds(userIds), $doc(s"notification.$event" -> true).some)
+        .cursor[Bdoc]()
+        .listAll() dmap { docs =>
+        for {
+          doc    <- docs
+          userId <- doc.getAsOpt[UserId]("_id")
+          allowsOpt = doc child "notification" flatMap (_ int event.key) map Allows.fromCode
+          allows    = allowsOpt | NotificationPref.default.allows(event)
+        } yield NotifyAllows(userId, allows)
+      }
+
   private val unreadCountCache = cacheApi[UserId, UnreadCount](32768, "notify.unreadCountCache") {
     _.expireAfterAccess(15 minutes)
       .buildAsyncFuture(repo.unreadNotificationsCount)
@@ -36,7 +66,7 @@ final class NotifyApi(
   def getNotifications(userId: UserId, page: Int): Fu[Paginator[Notification]] =
     Paginator(
       adapter = new Adapter(
-        collection = repo.coll,
+        collection = colls.notif,
         selector = repo.userNotificationsQuery(userId),
         projection = none,
         sort = repo.recentSort
@@ -75,12 +105,13 @@ final class NotifyApi(
     val note = Notification.make(to, content)
     !shouldSkip(note) ifThen {
       insertNotification(note) >> {
-        if (!Allows.canFilter(note.content.key)) fuccess(bellOne(note.to))
-        else
-          prefApi.getPref(note.to, _.notification).map(_ allows note.content.key) map { allows =>
-            if allows.bell then bellOne(note.to)
-            if allows.push then pushOne(NotifyAllows(note.to, allows), note.content)
-          }
+        NotificationPref.Event.byKey.get(content.key) match
+          case None => fuccess(bellOne(note.to))
+          case Some(event) =>
+            prefs.allows(note.to, event) map { allows =>
+              if allows.bell then bellOne(note.to)
+              if allows.push then pushOne(NotifyAllows(note.to, allows), note.content)
+            }
       }
     }
 
@@ -88,7 +119,7 @@ final class NotifyApi(
   // to assemble full notification pages for all clients at once, let them initiate
   def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit =
     NotificationPref.Event.byKey.get(content.key) ?? { event =>
-      prefApi.getNotifyAllows(userIds, event) flatMap { recips =>
+      prefs.getAllows(userIds, event) flatMap { recips =>
         pushMany(recips.filter(_.allows.push), content)
         bellMany(recips, content)
       }

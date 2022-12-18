@@ -6,7 +6,6 @@ import ornicar.scalalib.ThreadLocalRandom
 import alleycats.Zero
 
 import lila.common.paginator.Paginator
-import lila.pref.NotifyAllows
 import lila.user.User
 import lila.notify.Notification.*
 

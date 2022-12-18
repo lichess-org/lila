@@ -16,11 +16,6 @@ object PrefForm:
   private lazy val booleanNumber =
     number.verifying(Pref.BooleanPref.verify)
 
-  private val allowsMapping = mapping(
-    "bell" -> boolean,
-    "push" -> boolean
-  )(Allows.fromForm)(Allows.toForm)
-
   val pref = Form(
     mapping(
       "display" -> mapping(
@@ -52,16 +47,6 @@ object PrefForm:
         "sound"    -> booleanNumber,
         "moretime" -> checkedNumber(Pref.Moretime.choices)
       )(ClockData.apply)(unapply),
-      "notification" -> mapping(
-        "privateMessage"      -> allowsMapping,
-        "challenge"           -> allowsMapping,
-        "mention"             -> allowsMapping,
-        "streamStart"         -> allowsMapping,
-        "tournamentSoon"      -> allowsMapping,
-        "gameEvent"           -> allowsMapping,
-        "invitedStudy"        -> allowsMapping,
-        "correspondenceEmail" -> booleanNumber
-      )(NotificationPref.apply)(unapply),
       "follow"       -> booleanNumber,
       "challenge"    -> checkedNumber(Pref.Challenge.choices),
       "message"      -> checkedNumber(Pref.Message.choices),
@@ -107,7 +92,6 @@ object PrefForm:
       display: DisplayData,
       behavior: BehaviorData,
       clock: ClockData,
-      notification: NotificationPref,
       follow: Int,
       challenge: Int,
       message: Int,
@@ -146,8 +130,7 @@ object PrefForm:
         resizeHandle = display.resizeHandle | pref.resizeHandle,
         rookCastle = behavior.rookCastle | pref.rookCastle,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
-        moveEvent = behavior.moveEvent | pref.moveEvent,
-        notification = notification
+        moveEvent = behavior.moveEvent | pref.moveEvent
       )
 
   object PrefData:
@@ -182,7 +165,6 @@ object PrefForm:
           sound = if (pref.clockSound) 1 else 0,
           moretime = pref.moretime
         ),
-        notification = pref.notification,
         follow = if (pref.follow) 1 else 0,
         challenge = pref.challenge,
         message = pref.message,

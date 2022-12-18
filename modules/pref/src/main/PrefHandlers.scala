@@ -50,8 +50,7 @@ private object PrefHandlers:
         resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
         moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
         agreement = r.getD("agreement", 0),
-        tags = r.getD("tags", Pref.default.tags),
-        notification = readNotification(r)
+        tags = r.getD("tags", Pref.default.tags)
       )
 
     def writes(w: BSON.Writer, o: Pref) =
@@ -95,17 +94,5 @@ private object PrefHandlers:
         "pieceNotation" -> o.pieceNotation,
         "resizeHandle"  -> o.resizeHandle,
         "agreement"     -> o.agreement,
-        "tags"          -> o.tags,
-        "notification"  -> o.notification
-      )
-
-    // migrate two old settings to their new home. this can be removed after a month or so
-    import NotificationPref._
-    private def readNotification(r: BSON.Reader): NotificationPref =
-      r.getD(
-        "notification",
-        default.copy(
-          correspondenceEmail = r.getD("corresEmailNotif", false) ?? 1,
-          mention = Allows(r.getD("mention", true) ?? BELL | PUSH)
-        )
+        "tags"          -> o.tags
       )

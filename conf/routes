@@ -462,6 +462,7 @@ GET   /fishnet/status                         controllers.Fishnet.status
 POST  /pref/:name                             controllers.Pref.set(name)
 GET   /account/preferences/:categ             controllers.Pref.form(categ)
 POST  /account/preferences                    controllers.Pref.formApply
+POST  /account/preferences/notification       controllers.Pref.notifyFormApply
 
 # Setup
 POST  /setup/ai                        controllers.Setup.ai

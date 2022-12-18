@@ -13,7 +13,7 @@ import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.push.TourSoon
 import lila.hub.actorApi.round.{ IsOnGame, MoveEvent }
 import lila.notify.*
-import lila.pref.{ Allows, NotificationPref, NotifyAllows }
+import lila.notify.{ NotificationPref, NotifyAllows }
 import lila.user.User
 
 final private class PushApi(
@@ -21,7 +21,7 @@ final private class PushApi(
     webPush: WebPush,
     proxyRepo: lila.round.GameProxyRepo,
     gameRepo: lila.game.GameRepo,
-    prefApi: lila.pref.PrefApi,
+    notifyAllows: lila.notify.GetNotifyAllows,
     postApi: lila.forum.ForumPostApi
 )(using scala.concurrent.ExecutionContext, akka.actor.Scheduler)(using lightUser: LightUser.GetterFallback):
 
@@ -365,8 +365,8 @@ final private class PushApi(
       event: NotificationPref.Event,
       data: PushApi.Data
   ): Funit =
-    prefApi.getPref(userId, _.notification) flatMap { x =>
-      filterPush(NotifyAllows(userId, x.allows(event)), monitor, data)
+    notifyAllows(userId, event) flatMap { allows =>
+      filterPush(NotifyAllows(userId, allows), monitor, data)
     }
 
   private def filterPush(to: NotifyAllows, monitor: MonitorType, data: PushApi.Data): Funit = for
