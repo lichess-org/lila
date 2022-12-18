@@ -71,9 +71,7 @@ final class Env(
     keyword = config.keyword,
     alwaysFeatured = (() => alwaysFeaturedSetting.get()),
     googleApiKey = config.googleApiKey,
-    twitchApi = twitchApi,
-    notifyApi = notifyApi,
-    subsRepo = subsRepo
+    twitchApi = twitchApi
   )
 
   lazy val liveStreamApi = wire[LiveStreamApi]
