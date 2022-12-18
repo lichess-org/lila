@@ -340,8 +340,8 @@
     <item quantity="other">≥ %s rangerte parti</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s rangert parti</item>
-    <item quantity="other">≥ %1$s %2$s rangerte parti</item>
+    <item quantity="one">≥ %1$s rangert %2$s parti</item>
+    <item quantity="other">≥ %1$s rangerte %2$s-parti</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Du må spela %1$s fleire %2$s rangerte parti</item>
@@ -565,7 +565,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="onSlowGames">I parti med lang tid</string>
   <string name="always">Alltid</string>
   <string name="never">Aldri</string>
-  <string name="xCompetesInY">%1$s konkurrerar i %2$s</string>
+  <string name="xCompetesInY">%1$s deltek i %2$s</string>
   <string name="victory">Vinst</string>
   <string name="defeat">Tap</string>
   <string name="victoryVsYInZ">%1$s mot %2$s i %3$s</string>
