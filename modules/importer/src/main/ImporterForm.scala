@@ -34,7 +34,7 @@ private case class TagResult(status: Status, winner: Option[Color])
 case class Preprocessed(
     game: NewGame,
     replay: Replay,
-    initialFen: Option[Fen],
+    initialFen: Option[Fen.Epd],
     parsed: ParsedPgn
 )
 

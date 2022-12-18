@@ -17,7 +17,7 @@ private[setup] trait Config:
   val time: Double
 
   // Clock increment in seconds
-  val increment: Int
+  val increment: Clock.IncrementSeconds
 
   // Correspondence days per turn
   val days: Days
@@ -44,18 +44,21 @@ private[setup] trait Config:
       Speed(c) >= Speed.Bullet
     }
 
-  def clockHasTime = time + increment > 0
+  def clockHasTime = time + increment.value > 0
 
   def makeClock = hasClock option justMakeClock
 
   protected def justMakeClock =
-    Clock.Config((time * 60).toInt, if (clockHasTime) increment else 1)
+    Clock.Config(
+      Clock.LimitSeconds((time * 60).toInt),
+      if (clockHasTime) increment else Clock.IncrementSeconds(1)
+    )
 
   def makeDaysPerTurn: Option[Days] = (timeMode == TimeMode.Correspondence) option days
 
 trait Positional { self: Config =>
 
-  def fen: Option[Fen]
+  def fen: Option[Fen.Epd]
 
   def strictFen: Boolean
 
@@ -133,6 +136,6 @@ trait BaseConfig:
   def validateTime(t: Double) =
     t >= timeMin && t <= timeMax && (t.isWhole || acceptableFractions(t))
 
-  private val incrementMin      = 0
-  private val incrementMax      = 180
-  def validateIncrement(i: Int) = i >= incrementMin && i <= incrementMax
+  private val incrementMin                         = Clock.IncrementSeconds(0)
+  private val incrementMax                         = Clock.IncrementSeconds(180)
+  def validateIncrement(i: Clock.IncrementSeconds) = i >= incrementMin && i <= incrementMax

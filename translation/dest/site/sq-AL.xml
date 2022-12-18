@@ -154,7 +154,7 @@
   <string name="viewInFullSize">Shiheni në madhësi të plotë</string>
   <string name="logOut">Dilni</string>
   <string name="signIn">Hyni</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">Mbamë të futur</string>
+  <string name="rememberMe">Mbamë të futur</string>
   <string name="youNeedAnAccountToDoThat">Ju nevojitet një llogari për ta bërë këtë</string>
   <string name="signUp">Regjistrohuni</string>
   <string name="computersAreNotAllowedToPlay">Kompjuterat dhe lojtarët e ndihmuar nga kompjuteri nuk lejohet të luajnë. Ju lutemi, mos merrni ndihmë nga motorë shahu, baza të dhënash, apo nga lojtarët e tjerë, kur jeni duke luajtur. Vini re gjithashtu se nuk nxitet krijimi i disa llogarive dhe se teprimi në krijimin e disa llogarive do të sjellë dëbim.</string>

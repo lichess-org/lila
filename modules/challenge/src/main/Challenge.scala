@@ -16,7 +16,7 @@ case class Challenge(
     _id: String,
     status: Challenge.Status,
     variant: Variant,
-    initialFen: Option[Fen],
+    initialFen: Option[Fen.Epd],
     timeControl: Challenge.TimeControl,
     mode: Mode,
     colorChoice: Challenge.ColorChoice,
@@ -86,7 +86,7 @@ case class Challenge(
 
   def speed = speedOf(timeControl)
 
-  def notableInitialFen: Option[Fen] =
+  def notableInitialFen: Option[Fen.Epd] =
     variant match
       case FromPosition | Horde | RacingKings | Chess960 => initialFen
       case _                                             => none
@@ -148,8 +148,8 @@ object Challenge:
     val allExceptBot       = all.filterNot(r => r == NoBot || r == OnlyBot)
     def apply(key: String) = all.find { d => d.key == key.toLowerCase || d.trans.value == key } | Generic
 
-  case class Rating(int: IntRating, provisional: Boolean):
-    def show = s"$int${if (provisional) "?" else ""}"
+  case class Rating(int: IntRating, provisional: RatingProvisional):
+    def show = s"$int${if provisional.yes then "?" else ""}"
   object Rating:
     def apply(p: lila.rating.Perf): Rating = Rating(p.intRating, p.provisional)
 
@@ -223,7 +223,7 @@ object Challenge:
 
   def make(
       variant: Variant,
-      initialFen: Option[Fen],
+      initialFen: Option[Fen.Epd],
       timeControl: TimeControl,
       mode: Mode,
       color: String,

@@ -50,10 +50,9 @@ case class PlayerAggregateAssessment(
       else if (markable) Engine
       else if (reportable) reportVariousReasons
       else Nothing
-    else
-      if (markable) reportVariousReasons
-      else if (reportable) reportVariousReasons
-      else Nothing
+    else if (markable) reportVariousReasons
+    else if (reportable) reportVariousReasons
+    else Nothing
 
   def countAssessmentValue(assessment: GameAssessment) =
     playerAssessments count {

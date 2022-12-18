@@ -243,7 +243,7 @@ final class Setup(
 
   def validateFen =
     Open { implicit ctx =>
-      get("fen") map Fen.clean flatMap ValidFen(getBool("strict")) match
+      (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]) flatMap ValidFen(getBool("strict")) match
         case None    => BadRequest.toFuccess
         case Some(v) => Ok(html.board.bits.miniSpan(v.fen.board, v.color)).toFuccess
     }

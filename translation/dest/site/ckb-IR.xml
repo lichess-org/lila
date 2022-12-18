@@ -146,7 +146,7 @@
   <string name="viewInFullSize">بە قەبارەی تەواو نیشانی بدە</string>
   <string name="logOut">دەرچوون</string>
   <string name="signIn">چوونە ناوە</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">لە چوونە ژوورەوە بمهێڵەوە</string>
+  <string name="rememberMe">لە چوونە ژوورەوە بمهێڵەوە</string>
   <string name="youNeedAnAccountToDoThat">پێویستت بە هەژمارە بۆ ئەمە</string>
   <string name="signUp">تۆمارکردن</string>
   <string name="computersAreNotAllowedToPlay">کۆمپیوتەر و ئەو یاریزانە کۆمپیوتەریانەی بۆ یاری شەترەنج ئامادەکراون قەدەغەن یاریان پێبکرێت، تکایە خۆت بەدووربگرە لە وەرگرتنی یارمەتی لە بزوێنەرەکانی شەترەنج و یارزانی دیکە. هەروەها وەک تێبینیەک؛ با زۆرتر لە هەژمارێکت نەبێت بۆ یاریکردن، چونکە رەنگە بان بکرێیت و ڕێگەی یاریکردنت لێ بگیرێت.</string>

@@ -29,7 +29,7 @@ final class AsyncCollFailingSilently(coll: AsyncColl, timeout: FiniteDuration)(u
 
   def apply[A](f: Coll => Fu[A])(implicit default: Zero[A]) =
     coll.get
-      .withTimeout(timeout)
+      .withTimeout(timeout, coll.name.value)
       .transformWith {
         case Failure(_) => fuccess(default.zero)
         case Success(c) => f(c)

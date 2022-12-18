@@ -1,7 +1,7 @@
 package lila.hub
 package actorApi
 
-import chess.format.{ BoardFen, Uci }
+import chess.format.{ BoardFen, Uci, Fen }
 import org.joda.time.{ DateTime, Period }
 import play.api.libs.json.*
 import scala.concurrent.Promise
@@ -198,7 +198,7 @@ package fishnet:
   case class StudyChapterRequest(
       studyId: StudyId,
       chapterId: StudyChapterId,
-      initialFen: Option[chess.format.Fen],
+      initialFen: Option[Fen.Epd],
       variant: chess.variant.Variant,
       moves: List[Uci],
       userId: UserId,

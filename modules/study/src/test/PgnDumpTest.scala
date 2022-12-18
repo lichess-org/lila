@@ -17,7 +17,7 @@ class PgnDumpTest extends Specification {
       id = UciCharPair(Uci(uci).get),
       ply = ply,
       move = Uci.WithSan(Uci(uci).get, san),
-      fen = Fen("<fen>"),
+      fen = Fen.Epd("<fen>"),
       check = false,
       clock = None,
       crazyData = None,

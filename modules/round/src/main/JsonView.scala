@@ -47,7 +47,7 @@ final class JsonView(
       })
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
-      .add("provisional" -> (p.provisional && withFlags.rating))
+      .add("provisional" -> (p.provisional.yes && withFlags.rating))
       .add("offeringRematch" -> isOfferingRematch(Pov(g, p)))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
@@ -60,7 +60,7 @@ final class JsonView(
       pref: Pref,
       apiVersion: ApiVersion,
       playerUser: Option[Either[LightUser.Ghost, User]],
-      initialFen: Option[Fen],
+      initialFen: Option[Fen.Epd],
       withFlags: WithFlags,
       nvui: Boolean
   ): Fu[JsObject] =
@@ -148,7 +148,7 @@ final class JsonView(
       .add("ai" -> p.aiLevel)
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
-      .add("provisional" -> (p.provisional && withFlags.rating))
+      .add("provisional" -> (p.provisional.yes && withFlags.rating))
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
       .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
@@ -159,7 +159,7 @@ final class JsonView(
       apiVersion: ApiVersion,
       me: Option[User],
       tv: Option[OnTv],
-      initialFen: Option[Fen] = None,
+      initialFen: Option[Fen.Epd] = None,
       withFlags: WithFlags
   ) =
     getSocketStatus(pov.game) zip
@@ -214,7 +214,7 @@ final class JsonView(
           })
       }
 
-  def replayJson(pov: Pov, pref: Pref, initialFen: Option[Fen]) =
+  def replayJson(pov: Pov, pref: Pref, initialFen: Option[Fen.Epd]) =
     pov.game.whitePlayer.userId.??(lightUserGet) zip pov.game.blackPlayer.userId.??(lightUserGet) map {
       case (white, black) =>
         import pov.*
@@ -243,7 +243,7 @@ final class JsonView(
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
-      initialFen: Option[Fen],
+      initialFen: Option[Fen.Epd],
       orientation: chess.Color,
       owner: Boolean,
       me: Option[User],

@@ -1,12 +1,14 @@
 import { throttlePromiseDelay } from 'common/throttle';
 import * as xhr from 'common/xhr';
-import { Chart, Dimension, Env, Metric, Question, UI, EnvUser, Vm, Filters } from './interfaces';
+import { Chart, Dimension, Env, Metric, Question, UI, EnvUser, Vm, Filters, ViewTab } from './interfaces';
+import { isLandscapeLayout } from './view';
 
 export default class {
   env: Env;
   ui: UI;
   user: EnvUser;
   own: boolean;
+  isUserAction = false;
   domElement: Element;
   redraw: () => void;
 
@@ -40,6 +42,7 @@ export default class {
       broken: false,
       answer: null,
       panel: Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset',
+      view: isLandscapeLayout() ? 'combined' : 'presets',
     };
   }
 
@@ -49,6 +52,11 @@ export default class {
 
   setPanel(p: 'filter' | 'preset') {
     this.vm.panel = p;
+    this.redraw();
+  }
+
+  setView(view: ViewTab) {
+    this.vm.view = view;
     this.redraw();
   }
 
@@ -83,9 +91,12 @@ export default class {
                 (answer: Chart) => {
                   this.vm.answer = answer;
                   this.vm.loading = false;
+                  if (this.isUserAction) this.vm.view = 'insights';
+                  this.isUserAction = false;
                   this.redraw();
                 },
                 () => {
+                  this.isUserAction = false;
                   this.vm.loading = false;
                   this.vm.broken = true;
                   this.redraw();
@@ -150,8 +161,9 @@ export default class {
     this.vm.metric = this.findMetric(q.metric)!;
     this.vm.filters = {
       ...q.filters,
-      variant: this.vm.filters.variant || q.filters.variant,
+      variant: (this.vm.view === 'combined' && this.vm.filters.variant) || q.filters.variant,
     };
+    this.isUserAction = true;
     this.askQuestion();
     $(this.domElement).find('select.ms').multipleSelect('open');
     setTimeout(() => {
@@ -165,6 +177,5 @@ export default class {
       this.askQuestion();
     }
   }
-
   // this.trans = lichess.trans(env.i18n);
 }

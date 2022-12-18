@@ -112,8 +112,8 @@ final class Analyse(
       }
     }
 
-  private def RedirectAtFen(pov: Pov, initialFen: Option[Fen])(or: => Fu[Result])(implicit ctx: Context) =
-    get("fen").map(Fen.clean).fold(or) { atFen =>
+  private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(implicit ctx: Context) =
+    (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]).fold(or) { atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       fuccess {
         chess.Replay

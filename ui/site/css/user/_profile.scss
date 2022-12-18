@@ -58,11 +58,6 @@
   .insight {
     @extend %flex-center-nowrap;
 
-    /* no point linking to insights on devices that can't properly display it */
-    @include breakpoint($mq-not-medium) {
-      display: none;
-    }
-
     flex: 0 0 auto;
     padding: 0.3em 1em;
     border-top: $border;

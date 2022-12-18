@@ -1,12 +1,12 @@
 {
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
+    "paths": { "chessground": ["./@types/chessground"] },
+    "types": ["lichess", "web", "cash"],
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
     "skipLibCheck": true,
-    "paths": {
-      "chessground": ["@types/chessground"]
-    },
-    "types": ["lichess", "web", "cash"]
+    "noEmit": true
   },
-  "extends": "../tsconfig.base.json"
+  "references": [{ "path": "../common/tsconfig.json" }],
+  "isolatedModules": true
 }

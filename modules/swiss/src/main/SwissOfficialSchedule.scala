@@ -2,6 +2,7 @@ package lila.swiss
 
 import org.joda.time.DateTime
 import scala.concurrent.ExecutionContext
+import chess.Clock.{ LimitMinutes, LimitSeconds, IncrementSeconds }
 
 import lila.db.dsl.{ *, given }
 
@@ -10,12 +11,12 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
 ):
   import SwissOfficialSchedule.*
 
-  private val classical   = Config("Classical", 30, 0, 5, 5)
-  private val rapid       = Config("Rapid", 10, 0, 7, 8)
-  private val blitz       = Config("Blitz", 5, 0, 12, 12)
-  private val superblitz  = Config("SuperBlitz", 3, 0, 15, 12)
-  private val bullet      = Config("Bullet", 1, 0, 25, 15)
-  private val hyperbullet = Config("HyperBullet", 0.5, 0, 25, 15)
+  private val classical   = Config("Classical", 30, IncrementSeconds(0), 5, 5)
+  private val rapid       = Config("Rapid", 10, IncrementSeconds(0), 7, 8)
+  private val blitz       = Config("Blitz", 5, IncrementSeconds(0), 12, 12)
+  private val superblitz  = Config("SuperBlitz", 3, IncrementSeconds(0), 15, 12)
+  private val bullet      = Config("Bullet", 1, IncrementSeconds(0), 25, 15)
+  private val hyperbullet = Config("HyperBullet", 0.5, IncrementSeconds(0), 25, 15)
 
   // length must divide 24 (schedule starts at 0AM)
   // so either 3, 4, 6, 8, 12
@@ -79,8 +80,8 @@ private object SwissOfficialSchedule:
   case class Config(
       name: String,
       clockMinutes: Double,
-      clockSeconds: Int,
+      clockSeconds: IncrementSeconds,
       nbRounds: Int,
       minGames: Int
   ):
-    def clock = chess.Clock.Config((clockMinutes * 60).toInt, clockSeconds)
+    def clock = chess.Clock.Config(LimitSeconds((clockMinutes * 60).toInt), clockSeconds)

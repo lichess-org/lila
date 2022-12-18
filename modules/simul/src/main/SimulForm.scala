@@ -11,16 +11,20 @@ import play.api.data.validation.Constraint
 import lila.common.Form.{ *, given }
 import lila.hub.LeaderTeam
 import lila.user.User
+import chess.Clock
+import chess.Clock.{ LimitMinutes, LimitSeconds, IncrementSeconds }
 
 object SimulForm:
 
-  val clockTimes       = (5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20)
-  val clockTimeDefault = 20
-  val clockTimeChoices = options(clockTimes, "%d minute{s}")
+  val clockTimes       = LimitMinutes.from((5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20))
+  val clockTimeDefault = LimitMinutes(20)
+  val clockTimeChoices = options(LimitMinutes raw clockTimes, "%d minute{s}")
 
-  val clockIncrements = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
-  val clockIncrementDefault = 60
-  val clockIncrementChoices = options(clockIncrements, "%d second{s}")
+  val clockIncrements = IncrementSeconds.from(
+    (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
+  )
+  val clockIncrementDefault = IncrementSeconds(60)
+  val clockIncrementChoices = options(IncrementSeconds raw clockIncrements, "%d second{s}")
 
   val clockExtrasPositive = (0 to 15 by 5) ++ (20 to 60 by 10) ++ (90 to 120 by 30)
   val clockExtras         = clockExtrasPositive.tail.map(-_).reverse concat clockExtrasPositive
@@ -71,8 +75,8 @@ object SimulForm:
   def edit(host: User, teams: List[LeaderTeam], simul: Simul) =
     baseForm(host, teams) fill Setup(
       name = simul.name,
-      clockTime = simul.clock.config.limitInMinutes.toInt,
-      clockIncrement = simul.clock.config.increment.roundSeconds,
+      clockTime = LimitMinutes(simul.clock.config.limitInMinutes.toInt),
+      clockIncrement = simul.clock.config.incrementSeconds,
       clockExtra = simul.clock.hostExtraMinutes,
       variants = simul.variants.map(_.id),
       position = simul.position,
@@ -87,8 +91,8 @@ object SimulForm:
     Form(
       mapping(
         "name"           -> nameType(host),
-        "clockTime"      -> numberIn(clockTimeChoices),
-        "clockIncrement" -> numberIn(clockIncrementChoices),
+        "clockTime"      -> numberIn(clockTimeChoices).into[LimitMinutes],
+        "clockIncrement" -> numberIn(clockIncrementChoices).into[IncrementSeconds],
         "clockExtra"     -> numberIn(clockExtraChoices),
         "variants" -> list {
           number.verifying(
@@ -115,11 +119,11 @@ object SimulForm:
 
   case class Setup(
       name: String,
-      clockTime: Int,
-      clockIncrement: Int,
+      clockTime: LimitMinutes,
+      clockIncrement: IncrementSeconds,
       clockExtra: Int,
       variants: List[Int],
-      position: Option[Fen],
+      position: Option[Fen.Epd],
       color: String,
       text: String,
       estimatedStartAt: Option[DateTime] = None,
@@ -129,7 +133,7 @@ object SimulForm:
 
     def clock =
       SimulClock(
-        config = chess.Clock.Config(clockTime * 60, clockIncrement),
+        config = Clock.Config(LimitSeconds(clockTime.value * 60), clockIncrement),
         hostExtraTime = clockExtra * 60
       )
 

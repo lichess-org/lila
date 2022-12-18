@@ -327,7 +327,7 @@ final class ReportApi(
             reason = Reason.Comm,
             text = text
           ),
-          score = (_: Report.Score) * (if (critical) 2 else 1)
+          score = (_: Report.Score).map(_ * (if critical then 2 else 1))
         )
       case _ => funit
     }
@@ -407,9 +407,9 @@ final class ReportApi(
         coll
           .find($doc("atoms.by" -> user.id))
           .sort(sortLastAtomAt)
-          .cursor[Report](ReadPreference.secondaryPreferred)
+          .cursor[Report](temporarilyPrimary)
           .list(nb)
-      about <- recent(Suspect(user), nb, ReadPreference.secondaryPreferred)
+      about <- recent(Suspect(user), nb, temporarilyPrimary)
     } yield Report.ByAndAbout(by, Room.filterGranted(mod, about))
 
   def currentCheatScore(suspect: Suspect): Fu[Option[Report.Score]] =

@@ -41,7 +41,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
 
   def enabledByIds[U](us: Iterable[U])(using idOf: UserIdOf[U]): Fu[List[User]] = {
     val ids = us.map(idOf.apply).filter(User.noGhost)
-    coll.list[User](enabledSelect ++ $inIds(ids), ReadPreference.secondaryPreferred)
+    coll.list[User](enabledSelect ++ $inIds(ids), temporarilyPrimary)
   }
 
   def byIdOrGhost(id: UserId): Fu[Option[Either[LightUser.Ghost, User]]] =
@@ -483,7 +483,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       users: List[U]
   )(using idOf: UserIdOf[U], r: BSONHandler[User]): Fu[List[User.WithEmails]] =
     coll
-      .list[Bdoc]($inIds(users.map(idOf.apply)), ReadPreference.secondaryPreferred)
+      .list[Bdoc]($inIds(users.map(idOf.apply)), temporarilyPrimary)
       .map { docs =>
         for {
           doc  <- docs
@@ -503,7 +503,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
         $inIds(ids),
         $doc(F.verbatimEmail -> true, F.email -> true, F.prevEmail -> true).some
       )
-      .cursor[Bdoc](ReadPreference.secondaryPreferred)
+      .cursor[Bdoc](temporarilyPrimary)
       .listAll()
       .map { docs =>
         for

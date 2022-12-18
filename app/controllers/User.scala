@@ -19,10 +19,10 @@ import lila.common.paginator.Paginator
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ Game as GameModel, Pov }
 import lila.rating.{ Perf, PerfType }
-import lila.security.UserLogins
 import lila.socket.UserLagCache
 import lila.user.{ Holder, User as UserModel }
-import lila.security.Granter
+import lila.security.{ Granter, UserLogins }
+import lila.mod.UserWithModlog
 
 final class User(
     env: Env,
@@ -358,17 +358,22 @@ final class User(
         .map(Source.single)
     }
 
-  protected[controllers] def loginsTableData(user: UserModel, userLogins: UserLogins, max: Int)(using
-      ctx: Context
-  ): Fu[UserLogins.TableData] =
+  protected[controllers] def loginsTableData(
+      user: UserModel,
+      userLogins: UserLogins,
+      max: Int
+  )(using Context): Fu[UserLogins.TableData[UserWithModlog]] =
     val familyUserIds = user.id :: userLogins.otherUserIds
     (isGranted(_.ModNote) ?? env.user.noteApi
       .byUsersForMod(familyUserIds)
       .logTimeIfGt(s"${user.username} noteApi.forMod", 2 seconds)) zip
       env.playban.api.bans(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2 seconds) zip
-      lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins) map {
+      lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins) flatMap {
         case ((notes, bans), othersWithEmail) =>
-          UserLogins.TableData(userLogins, othersWithEmail, notes, bans, max)
+          env.mod.logApi.addModlog(othersWithEmail.others.map(_.user)).map(othersWithEmail.withUsers).map {
+            otherUsers =>
+              UserLogins.TableData(userLogins, otherUsers, notes, bans, max)
+          }
       }
 
   protected[controllers] def renderModZone(holder: Holder, username: UserStr)(using
@@ -407,7 +412,7 @@ final class User(
         val rageSit = isGranted(_.CheatHunter) ?? env.playban.api
           .getRageSit(user.id)
           .zip(env.playban.api.bans(user.id))
-          .map { case (r, p) => view.showRageSitAndPlaybans(r, p) }
+          .map(view.showRageSitAndPlaybans)
 
         val actions = env.user.repo.isErased(user) map { erased =>
           html.user.mod.actions(user, emails, erased, env.mod.presets.getPmPresets(holder.user))
@@ -456,7 +461,7 @@ final class User(
             modZoneSegment(kaladin, "kaladin", user) merge
             modZoneSegment(irwin, "irwin", user) merge
             modZoneSegment(assess, "assess", user) via
-            EventSource.flow
+            EventSource.flow log "User.renderModZone"
         }.as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
     }
 
@@ -470,17 +475,22 @@ final class User(
 
   def writeNote(username: UserStr) =
     AuthBody { implicit ctx => me =>
-      doWriteNote(username, me)(
-        err => BadRequest(err.errors.toString).toFuccess,
-        user =>
-          if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
-            Ok(views.html.mod.inquiry.noteZone(user, notes))
-          }
-          else
-            env.socialInfo.fetchNotes(user, me) map { notes =>
-              Ok(views.html.user.show.header.noteZone(user, notes))
-            }
-      )(ctx.body)
+      given play.api.mvc.Request[?] = ctx.body
+      lila.user.UserForm.note
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(err.errors.toString).toFuccess,
+          data =>
+            doWriteNote(username, me, data)(user =>
+              if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
+                Ok(views.html.mod.inquiry.noteZone(user, notes))
+              }
+              else
+                env.socialInfo.fetchNotes(user, me) map { notes =>
+                  Ok(views.html.user.show.header.noteZone(user, notes))
+                }
+            )
+        )
     }
 
   def apiReadNote(username: UserStr) =
@@ -488,7 +498,7 @@ final class User(
       env.user.repo byId username flatMap {
         _ ?? {
           env.socialInfo.fetchNotes(_, me) flatMap {
-            lila.user.JsonView.notes(_)(env.user.lightUserApi)
+            lila.user.JsonView.notes(_)(using env.user.lightUserApi)
           } map JsonOk
         }
       }
@@ -496,28 +506,25 @@ final class User(
 
   def apiWriteNote(username: UserStr) =
     ScopedBody() { implicit req => me =>
-      doWriteNote(username, me)(
-        jsonFormErrorDefaultLang,
-        suc = _ => jsonOkResult.toFuccess
-      )
+      lila.user.UserForm.apiNote
+        .bindFromRequest()
+        .fold(
+          jsonFormErrorDefaultLang,
+          data => doWriteNote(username, me, data)(_ => jsonOkResult.toFuccess)
+        )
     }
 
   private def doWriteNote(
       username: UserStr,
-      me: UserModel
-  )(err: Form[?] => Fu[Result], suc: UserModel => Fu[Result])(implicit req: Request[?]) =
+      me: UserModel,
+      data: lila.user.UserForm.NoteData
+  )(f: UserModel => Fu[Result]) =
     env.user.repo byId username flatMap {
       _ ?? { user =>
-        lila.user.UserForm.note
-          .bindFromRequest()
-          .fold(
-            err,
-            data =>
-              {
-                val isMod = data.mod && isGranted(_.ModNote, me)
-                env.user.noteApi.write(user, data.text, me, isMod, isMod && ~data.dox)
-              } >> suc(user)
-          )
+        {
+          val isMod = data.mod && isGranted(_.ModNote, me)
+          env.user.noteApi.write(user, data.text, me, isMod, isMod && data.dox)
+        } >> f(user)
       }
     }
 
@@ -526,6 +533,15 @@ final class User(
       OptionFuResult(env.user.noteApi.byId(id)) { note =>
         (note.isFrom(me) && !note.mod) ?? {
           env.user.noteApi.delete(note._id) inject Redirect(routes.User.show(note.to).url + "?note")
+        }
+      }
+    }
+
+  def setDoxNote(id: String, dox: Boolean) =
+    Secure(_.Admin) { implicit ctx => _ =>
+      OptionFuResult(env.user.noteApi.byId(id)) { note =>
+        note.mod ?? {
+          env.user.noteApi.setDox(note._id, dox) inject Redirect(routes.User.show(note.to).url + "?note")
         }
       }
     }

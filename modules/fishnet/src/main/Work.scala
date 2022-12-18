@@ -43,7 +43,7 @@ object Work:
 
   private[fishnet] case class Game(
       id: String, // can be a study chapter ID, if studyId is set
-      initialFen: Option[Fen],
+      initialFen: Option[Fen.Epd],
       studyId: Option[StudyId],
       variant: Variant,
       moves: String
@@ -62,7 +62,7 @@ object Work:
       if (system) lila.user.User.lichessId.value
       else userId.value
 
-  case class Clock(wtime: Int, btime: Int, inc: Int)
+  case class Clock(wtime: Int, btime: Int, inc: chess.Clock.IncrementSeconds)
 
   case class Move(
       _id: Work.Id, // random

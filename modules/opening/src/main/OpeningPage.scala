@@ -85,7 +85,7 @@ object OpeningPage:
                 move <- query.position.move(uci).toOption
                 result  = ResultCounts(m.white, m.draws, m.black)
                 fen     = Fen writeOpening move.situationAfter
-                opening = OpeningDb findByFen fen
+                opening = OpeningDb findByOpeningFen fen
               } yield OpeningNext(
                 m.san,
                 uci,

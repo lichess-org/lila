@@ -1,4 +1,5 @@
 import { PlyChart } from './interface';
+import { currentTheme } from 'common/theme';
 
 export interface MovePoint {
   y: number | null;
@@ -35,7 +36,7 @@ export async function loadHighcharts(tpe: string) {
     return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
   };
   Highcharts.theme = (() => {
-    const light = document.body.classList.contains('light');
+    const light = currentTheme() === 'light';
     const text = {
       weak: light ? '#a0a0a0' : '#707070',
       strong: light ? '#707070' : '#a0a0a0',

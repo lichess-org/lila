@@ -10,7 +10,7 @@ import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
 
 sealed trait RootOrNode:
   val ply: Int
-  val fen: Fen
+  val fen: Fen.Epd
   val check: Boolean
   val shapes: Shapes
   val clock: Option[Centis]
@@ -30,7 +30,7 @@ case class Node(
     id: UciCharPair,
     ply: Int,
     move: Uci.WithSan,
-    fen: Fen,
+    fen: Fen.Epd,
     check: Boolean,
     shapes: Shapes = Shapes(Nil),
     comments: Comments = Comments(Nil),
@@ -117,9 +117,10 @@ object Node:
     def variations = nodes drop 1
 
     def nodeAt(path: Path): Option[Node] =
-      path.split flatMap {
-        case (head, tail) if tail.isEmpty => get(head)
-        case (head, tail)                 => get(head) flatMap (_.children nodeAt tail)
+      path.split flatMap { (head, rest) =>
+        rest.ids.foldLeft(get(head)) { (cur, id) =>
+          cur.flatMap(_.children.get(id))
+        }
       }
 
     // select all nodes on that path
@@ -238,7 +239,7 @@ object Node:
 
   case class Root(
       ply: Int,
-      fen: Fen,
+      fen: Fen.Epd,
       check: Boolean,
       shapes: Shapes = Shapes(Nil),
       comments: Comments = Comments(Nil),

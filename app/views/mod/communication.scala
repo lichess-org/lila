@@ -9,6 +9,7 @@ import lila.common.String.html.richText
 import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.hub.actorApi.shutup.PublicSource
 import lila.mod.IpRender.RenderIp
+import lila.mod.UserWithModlog
 import lila.relation.Follow
 import lila.user.{ Holder, User }
 import lila.shutup.Analyser
@@ -23,7 +24,7 @@ object communication:
       publicLines: List[lila.shutup.PublicLine],
       notes: List[lila.user.Note],
       history: List[lila.mod.Modlog],
-      logins: lila.security.UserLogins.TableData,
+      logins: lila.security.UserLogins.TableData[UserWithModlog],
       appeals: List[lila.appeal.Appeal],
       priv: Boolean
   )(implicit ctx: Context, renderIp: RenderIp) =

@@ -1,5 +1,0 @@
-Bleep watches ui source code and linked modules and triggers builds on code changes.
-
-Modify 'bleep.config.json' to tweak log format, turn off colors, or change default arguments.  If you don't want to build & watch css, set "gulp" to false.
-
-Specify one or more modules as arguments to build & watch them and their dependencies. Specify no modules to only run typescript watches (no rollups). The "defaultArgs" property in bleep.config.json defines a default argument list for bleep. It defaults to ["all"] which builds everything.

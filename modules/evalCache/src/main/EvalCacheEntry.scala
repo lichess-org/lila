@@ -80,10 +80,10 @@ object EvalCacheEntry:
 
   case class Id(variant: Variant, smallFen: SmallFen)
 
-  case class Input(id: Id, fen: Fen, eval: Eval)
+  case class Input(id: Id, fen: Fen.Epd, eval: Eval)
 
   object Input:
-    case class Candidate(variant: Variant, fen: Fen, eval: Eval):
+    case class Candidate(variant: Variant, fen: Fen.Epd, eval: Eval):
       def input =
         SmallFen.validate(variant, fen) ifTrue eval.looksValid map { smallFen =>
           Input(Id(variant, smallFen), fen, eval.truncatePvs)

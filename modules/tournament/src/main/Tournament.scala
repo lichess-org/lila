@@ -20,7 +20,7 @@ case class Tournament(
     clock: ClockConfig,
     minutes: Int,
     variant: chess.variant.Variant,
-    position: Option[Fen],
+    position: Option[Fen.Epd],
     mode: Mode,
     password: Option[String] = None,
     conditions: Condition.All,
@@ -76,7 +76,7 @@ case class Tournament(
 
   def secondsToFinish = (finishesAt.getSeconds - nowSeconds).toInt atLeast 0
 
-  def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds / 2, 120))
+  def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds.value / 2, 120))
 
   def isStillWorthEntering =
     isMarathonOrUnique || {
@@ -155,7 +155,7 @@ object Tournament:
       clock: ClockConfig,
       minutes: Int,
       variant: chess.variant.Variant,
-      position: Option[Fen],
+      position: Option[Fen.Epd],
       mode: Mode,
       password: Option[String],
       waitMinutes: Int,

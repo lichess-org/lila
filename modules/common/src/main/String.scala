@@ -90,7 +90,10 @@ object String:
       .replace('\u0002', 'ª')
 
   // https://www.compart.com/en/unicode/block/U+1F300
-  private val multibyteSymbolsRegex               = "\\p{So}+".r
+  // https://www.compart.com/en/unicode/block/U+1F600
+  // https://www.compart.com/en/unicode/block/U+1F900
+  private val multibyteSymbolsRegex =
+    raw"[\p{So}\p{block=Emoticons}\p{block=Miscellaneous Symbols and Pictographs}\p{block=Supplemental Symbols and Pictographs}]".r
   def removeMultibyteSymbols(str: String): String = multibyteSymbolsRegex.replaceAllIn(str, "")
 
   // for publicly listed text like team names, study names, forum topics...
@@ -187,4 +190,4 @@ object String:
 
   def looksLikePrize(txt: String) = prizeRegex matches txt
 
-  def underscoreFen(fen: chess.format.Fen) = fen.value.replace(" ", "_")
+  def underscoreFen(fen: chess.format.Fen.Epd) = fen.value.replace(" ", "_")

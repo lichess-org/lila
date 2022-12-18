@@ -251,13 +251,9 @@ object inquiry:
         form3.textarea(lila.user.UserForm.note("text"))(
           placeholder := "Write a mod note"
         ),
-        input(tpe := "hidden", name := "mod", value := "true"),
-        isGranted(_.Admin) option div(cls := "dox-inquiry-div")(
-          div(form3.cmnToggle("dox-inquiry", "dox", checked = false)),
-          label(`for` := "dox-inquiry")("Doxing info")
-        ),
         div(cls := "submission")(
-          submitButton(cls := "button thin")("SEND")
+          submitButton(cls := "button thin", name := "noteType", value := "mod")("SEND"),
+          isGranted(_.Admin) option submitButton(cls := "button thin", name := "noteType", value := "dox")("SEND DOX")
         )
       ),
       notes map { note =>

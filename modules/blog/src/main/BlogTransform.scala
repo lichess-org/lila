@@ -38,4 +38,3 @@ object BlogTransform:
           Regex.quoteReplacement(markup)
         }
       )
-

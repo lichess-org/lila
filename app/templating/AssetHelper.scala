@@ -31,13 +31,26 @@ trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>
     cssTagWithDirAndTheme(name, isRTL(using ctx.lang), ctx.currentBg)
 
   def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
-    cssAt(s"css/$name.${if (isRTL) "rtl" else "ltr"}.$theme.${if (minifiedAssets) "min" else "dev"}.css")
+    if (theme == "system")
+      frag(
+        cssTagWithDirAndSimpleTheme(name, isRTL, "light")(media := "(prefers-color-scheme: light)"),
+        cssTagWithDirAndSimpleTheme(name, isRTL, "dark")(media := "(prefers-color-scheme: dark)")
+      )
+    else cssTagWithDirAndSimpleTheme(name, isRTL, theme)
+
+  private def cssTagWithDirAndSimpleTheme(name: String, isRTL: Boolean, theme: String): Tag =
+     cssAt(s"css/$name.${if (isRTL) "rtl" else "ltr"}.$theme.${if (minifiedAssets) "min" else "dev"}.css")
 
   def cssTagNoTheme(name: String): Frag =
     cssAt(s"css/$name.${if (minifiedAssets) "min" else "dev"}.css")
 
-  private def cssAt(path: String): Frag =
+  private def cssAt(path: String): Tag =
     link(href := assetUrl(path), rel := "stylesheet")
+
+  val systemThemePolyfillJs = """
+if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
+    document.querySelectorAll('[media="(prefers-color-scheme: dark)"]').forEach(e=>e.media='')
+"""
 
   // load scripts in <head> and always use defer
   def jsAt(path: String): Frag = script(deferAttr, src := assetUrl(path))

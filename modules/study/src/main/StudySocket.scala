@@ -413,8 +413,8 @@ final private class StudySocket(
 
 object StudySocket:
 
-  inline given Conversion[RoomId, StudyId] = _ into StudyId
-  inline given Conversion[StudyId, RoomId] = _ into RoomId
+  given Conversion[RoomId, StudyId] = _ into StudyId
+  given Conversion[StudyId, RoomId] = _ into RoomId
 
   object Protocol:
 

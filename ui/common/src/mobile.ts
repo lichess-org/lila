@@ -1,3 +1,4 @@
+import { memoize } from './common';
 import { bind } from './snabbdom';
 
 const longPressDuration = 610;
@@ -45,8 +46,13 @@ export function hookMobileMousedown(f: (e: Event) => any) {
 
 export const isMobile = (): boolean => isAndroid() || isIOS();
 
-export const isAndroid = (): boolean => /Android/.test(navigator.platform);
+export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
 
-export const isIOS = (): boolean => /iPad|iPhone|iPod/.test(navigator.platform) || isIPad();
+export const isIOS = (): boolean => /iPhone|iPod/.test(navigator.userAgent) || isIPad();
 
-export const isIPad = (): boolean => navigator?.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform);
+// some newer iPads pretend to be Macs, hence checking for "Macintosh"
+export const isIPad = (): boolean => navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
+
+const hasMouse = memoize<boolean>(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);
+
+export const isTouchDevice = () => !hasMouse();

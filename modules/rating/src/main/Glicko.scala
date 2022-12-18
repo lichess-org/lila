@@ -23,8 +23,8 @@ case class Glicko(
       if (variant.standard) Glicko.standardRankableDeviation
       else Glicko.variantRankableDeviation
     }
-  def provisional          = deviation >= Glicko.provisionalDeviation
-  def established          = !provisional
+  def provisional          = RatingProvisional(deviation >= Glicko.provisionalDeviation)
+  def established          = provisional.no
   def establishedIntRating = established option intRating
 
   def clueless = deviation >= Glicko.cluelessDeviation
@@ -56,7 +56,7 @@ case class Glicko(
         volatility = volatility * (1 - weight) + other.volatility * weight
       )
 
-  def display = s"$intRating${provisional ?? "?"}"
+  def display = s"$intRating${provisional.yes ?? "?"}"
 
   override def toString = f"$intRating/$intDeviation/${volatility}%.3f"
 

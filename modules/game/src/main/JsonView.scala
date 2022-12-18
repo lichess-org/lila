@@ -12,7 +12,7 @@ final class JsonView(rematches: Rematches):
 
   import JsonView.{ *, given }
 
-  def apply(game: Game, initialFen: Option[Fen]) =
+  def apply(game: Game, initialFen: Option[Fen.Epd]) =
     Json
       .obj(
         "id"            -> game.id,

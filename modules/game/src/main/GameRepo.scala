@@ -29,6 +29,11 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
   def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] =
     coll.byOrderedIds[Game, GameId](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
 
+  // #TODO FIXME
+  // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
+  def gamesTemporarilyFromPrimary(gameIds: Seq[GameId]): Fu[List[Game]] =
+    coll.byOrderedIds[Game, GameId](gameIds, readPreference = temporarilyPrimary)(_.id)
+
   def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] =
     coll.optionsByOrderedIds[Game, GameId](gameIds, none, temporarilyPrimary)(_.id)
 
@@ -87,7 +92,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
   def userPovsByGameIds(
       gameIds: List[GameId],
       user: User,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = temporarilyPrimary
   ): Fu[List[Pov]] =
     coll.byOrderedIds[Game, GameId](gameIds, readPreference = readPreference)(_.id) dmap {
       _.flatMap(g => Pov(g, user))
@@ -135,7 +140,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
   def unanalysedGames(gameIds: Seq[GameId], max: config.Max = config.Max(100)): Fu[List[Game]] =
     coll
       .find($inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 to 160))
-      .cursor[Game](ReadPreference.secondaryPreferred)
+      .cursor[Game](temporarilyPrimary)
       .list(max.value)
 
   def cursor(
@@ -387,13 +392,13 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
       .skip(ThreadLocalRandom nextInt distribution)
       .one[Game]
 
-  def insertDenormalized(g: Game, initialFen: Option[chess.format.Fen] = None): Funit =
+  def insertDenormalized(g: Game, initialFen: Option[chess.format.Fen.Epd] = None): Funit =
     val g2 =
       if (g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))))
         g.copy(mode = chess.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
-    val fen: Option[Fen] = initialFen orElse {
+    val fen: Option[Fen.Epd] = initialFen orElse {
       (g2.variant.fromPosition || g2.variant.chess960)
         .option(Fen write g2.chess)
         .filterNot(_.isInitial)
@@ -431,10 +436,10 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
   def setImportCreatedAt(g: Game) =
     coll.updateField($id(g.id), "pgni.ca", g.createdAt).void
 
-  def initialFen(gameId: GameId): Fu[Option[Fen]] =
-    coll.primitiveOne[Fen]($id(gameId), F.initialFen)
+  def initialFen(gameId: GameId): Fu[Option[Fen.Epd]] =
+    coll.primitiveOne[Fen.Epd]($id(gameId), F.initialFen)
 
-  def initialFen(game: Game): Fu[Option[Fen]] =
+  def initialFen(game: Game): Fu[Option[Fen.Epd]] =
     if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) dmap {
       case None if game.variant == chess.variant.Chess960 => Fen.initial.some
       case fen                                            => fen
@@ -453,7 +458,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
   def withInitialFen(game: Game): Fu[Game.WithInitialFen] =
     initialFen(game) dmap { Game.WithInitialFen(game, _) }
 
-  def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen])]] =
+  def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen.Epd])]] =
     games.map { game =>
       initialFen(game) dmap { game -> _ }
     }.sequenceFu

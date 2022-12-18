@@ -9,7 +9,7 @@ $lpv-accent-over: $c-primary-over;
 $lpv-font-accent: mix($lpv-bg, hsl(0, 0%, 65%), 20%);
 $lpv-font-shy: $c-font-dim;
 
-@import '../../../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer.lib';
+@import '../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer.lib';
 
 .lpv {
   @extend %box-neat-force;

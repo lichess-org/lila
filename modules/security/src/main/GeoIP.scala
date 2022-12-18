@@ -61,9 +61,9 @@ object Location:
   def apply(res: CityResponse): Location =
     Location(
       Option(res.getCountry).flatMap(c => Option(c.getName)) | unknown.country,
-      Option(res.getCountry).map(_.getIsoCode),
-      Option(res.getMostSpecificSubdivision).map(_.getName),
-      Option(res.getCity).map(_.getName)
+      Option(res.getCountry).flatMap(c => Option(c.getIsoCode)),
+      Option(res.getMostSpecificSubdivision).flatMap(s => Option(s.getName())),
+      Option(res.getCity).flatMap(c => Option(c.getName))
     )
 
   case class WithProxy(location: Location, proxy: Option[String])

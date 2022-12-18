@@ -7,23 +7,33 @@ import chess.{ Centis, Color, Game as ChessGame, Replay, Situation }
 import chess.variant.Variant
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
-import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
+import scala.util.chaining.*
 
 import lila.common.config.BaseUrl
 import lila.common.Json.given
 import lila.common.Maths
+
+object GifExport:
+  case class UpstreamStatus(code: Int) extends lila.base.LilaException:
+    val message = s"gif service status: $code"
 
 final class GifExport(
     ws: StandaloneWSClient,
     lightUserApi: lila.user.LightUserApi,
     baseUrl: BaseUrl,
     url: String
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
   private val targetMedianTime = Centis(80)
   private val targetMaxTime    = Centis(200)
 
-  def fromPov(pov: Pov, initialFen: Option[Fen], theme: String, piece: String): Fu[Source[ByteString, ?]] =
-    lightUserApi preloadMany pov.game.userIds flatMap { _ =>
+  def fromPov(
+      pov: Pov,
+      initialFen: Option[Fen.Epd],
+      theme: String,
+      piece: String
+  ): Fu[Source[ByteString, ?]] =
+    lightUserApi.preloadMany(pov.game.userIds) >>
       ws.url(s"$url/game.gif")
         .withMethod("POST")
         .addHttpHeaders("Content-Type" -> "application/json")
@@ -43,13 +53,7 @@ final class GifExport(
             "piece"       -> piece
           )
         )
-        .stream() flatMap {
-        case res if res.status != 200 =>
-          logger.warn(s"GifExport pov ${pov.game.id} ${res.status}")
-          fufail(res.statusText)
-        case res => fuccess(res.bodyAsSource)
-      }
-    }
+        .stream() pipe upstreamResponse(s"pov ${pov.game.id}")
 
   def gameThumbnail(game: Game, theme: String, piece: String): Fu[Source[ByteString, ?]] =
     val query = List(
@@ -63,21 +67,14 @@ final class GifExport(
       some("theme" -> theme),
       some("piece" -> piece)
     ).flatten
-
-    lightUserApi preloadMany game.userIds flatMap { _ =>
+    lightUserApi.preloadMany(game.userIds) >>
       ws.url(s"$url/image.gif")
         .withMethod("GET")
         .withQueryStringParameters(query*)
-        .stream() flatMap {
-        case res if res.status != 200 =>
-          logger.warn(s"GifExport gameThumbnail ${game.id} ${res.status}")
-          fufail(res.statusText)
-        case res => fuccess(res.bodyAsSource)
-      }
-    }
+        .stream() pipe upstreamResponse(s"gameThumbnail ${game.id}")
 
   def thumbnail(
-      fen: Fen,
+      fen: Fen.Epd,
       lastMove: Option[String],
       orientation: Color,
       variant: Variant,
@@ -93,14 +90,16 @@ final class GifExport(
       some("theme" -> theme),
       some("piece" -> piece)
     ).flatten
-
     ws.url(s"$url/image.gif")
       .withMethod("GET")
       .withQueryStringParameters(query*)
-      .stream() flatMap {
+      .stream() pipe upstreamResponse(s"thumbnail $fen")
+
+  private def upstreamResponse(name: String)(res: Fu[StandaloneWSResponse]): Fu[Source[ByteString, ?]] =
+    res flatMap {
       case res if res.status != 200 =>
-        logger.warn(s"GifExport thumbnail $fen ${res.status}")
-        fufail(res.statusText)
+        logger.warn(s"GifExport $name ${res.status}")
+        fufail(GifExport.UpstreamStatus(res.status))
       case res => fuccess(res.bodyAsSource)
     }
 
@@ -117,7 +116,7 @@ final class GifExport(
         }
       case None => moveTimes.map(_ atMost targetMaxTime)
 
-  private def frames(game: Game, initialFen: Option[Fen]) =
+  private def frames(game: Game, initialFen: Option[Fen.Epd]) =
     Replay.gameMoveWhileValid(
       game.pgnMoves,
       initialFen | game.variant.initialFen,

@@ -17,8 +17,8 @@ case class MeanRating(value: Int) extends AnyVal
 
 case class InsightMove(
     phase: Phase,
-    tenths: Int, // tenths of seconds spent thinking
-    clockPercent: ClockPercent,
+    tenths: Option[Int], // tenths of seconds spent thinking
+    clockPercent: Option[ClockPercent],
     role: Role,
     eval: Option[Int],              // before the move was played, relative to player
     cpl: Option[Int],               // eval diff caused by the move, relative to player, mate ~= 10
@@ -34,7 +34,7 @@ case class InsightMove(
 // time remaining on clock, accounting for increment via estimation
 opaque type ClockPercent = Double
 object ClockPercent extends OpaqueDouble[ClockPercent]:
-  given Percent[ClockPercent]           = _.value
+  given Percent[ClockPercent]           = Percent.of(ClockPercent)
   extension (a: ClockPercent) def toInt = Percent.toInt(a)
   def apply(clock: Clock.Config, timeLeft: Centis): ClockPercent = ClockPercent(
     (100 * timeLeft.centis.toDouble / clock.estimateTotalTime.centis) atLeast 0 atMost 100

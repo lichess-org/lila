@@ -122,7 +122,7 @@ final private class ChapterMaker(
       order: Int,
       userId: UserId,
       withRatings: Boolean,
-      initialFen: Option[Fen] = None
+      initialFen: Option[Fen.Epd] = None
   ): Fu[Chapter] =
     for {
       root <- getBestRoot(game, data.pgn, initialFen)
@@ -165,7 +165,11 @@ final private class ChapterMaker(
         )
       }
 
-  private[study] def getBestRoot(game: Game, pgnOpt: Option[String], initialFen: Option[Fen]): Fu[Node.Root] =
+  private[study] def getBestRoot(
+      game: Game,
+      pgnOpt: Option[String],
+      initialFen: Option[Fen.Epd]
+  ): Fu[Node.Root] =
     initialFen.fold(gameRepo initialFen game) { fen =>
       fuccess(fen.some)
     } map { goodFen =>
@@ -216,7 +220,7 @@ private[study] object ChapterMaker:
       name: StudyChapterName,
       game: Option[String] = None,
       variant: Option[Variant] = None,
-      fen: Option[Fen] = None,
+      fen: Option[Fen.Epd] = None,
       pgn: Option[String] = None,
       orientation: Orientation = Orientation.Auto,
       mode: ChapterMaker.Mode = ChapterMaker.Mode.Normal,

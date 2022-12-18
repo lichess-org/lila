@@ -29,8 +29,9 @@ private object BSONHandlers:
   )
   given BSON[TimeControl] with
     import cats.implicits.*
+    import chess.Clock
     def reads(r: Reader) =
-      (r.intO("l"), r.intO("i")) mapN { (limit, inc) =>
+      (r.getO[Clock.LimitSeconds]("l"), r.getO[Clock.IncrementSeconds]("i")) mapN { (limit, inc) =>
         TimeControl.Clock(chess.Clock.Config(limit, inc))
       } orElse {
         r.getO[Days]("d") map TimeControl.Correspondence.apply
@@ -45,11 +46,11 @@ private object BSONHandlers:
   given BSONHandler[DeclineReason] = valueMapHandler(DeclineReason.byKey)(_.key)
 
   given BSON[Rating] with
-    def reads(r: Reader) = Rating(r.get[IntRating]("i"), r.boolD("p"))
+    def reads(r: Reader) = Rating(r.get("i"), r.yesnoD("p"))
     def writes(w: Writer, r: Rating) =
       $doc(
         "i" -> r.int,
-        "p" -> w.boolO(r.provisional)
+        "p" -> w.boolO(r.provisional.yes)
       )
   given registeredHandler: BSON[Challenger.Registered] with
     def reads(r: Reader) = Challenger.Registered(r.get[UserId]("id"), r.get[Rating]("r"))

@@ -5,7 +5,7 @@ interface OptsWithI18n extends Opts {
   i18n: any;
 }
 
-export default function start(elem: HTMLElement, opts: Partial<OptsWithI18n>) {
+export default (window as any).LpvEmbed = function start(elem: HTMLElement, opts: Partial<OptsWithI18n>) {
   const i18n = {
     ...(opts.i18n || {}),
     flipTheBoard: opts.i18n.flipBoard,
@@ -18,4 +18,4 @@ export default function start(elem: HTMLElement, opts: Partial<OptsWithI18n>) {
     pgn: elem.innerHTML,
     translate: key => i18n[key],
   });
-}
+};

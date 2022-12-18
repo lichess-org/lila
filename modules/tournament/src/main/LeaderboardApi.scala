@@ -9,13 +9,13 @@ import lila.common.Maths
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.rating.PerfType
+import lila.rating.{ Perf, PerfType }
 import lila.user.User
 
 final class LeaderboardApi(
     repo: LeaderboardRepo,
     tournamentRepo: TournamentRepo
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   import LeaderboardApi.*
   import BSONHandlers.given
@@ -164,4 +164,4 @@ object LeaderboardApi:
       def rankPercentMean                = rank.mean map rankPercent
       def rankPercentMedian              = rank.median map rankPercent
 
-    case class AggregationResult(_id: Int, nb: Int, points: List[Int], ratios: List[Int])
+    case class AggregationResult(_id: Perf.Id, nb: Int, points: List[Int], ratios: List[Int])

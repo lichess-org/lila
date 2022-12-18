@@ -11,7 +11,7 @@ import controllers.routes
 
 object features:
 
-  val engineFullName = "Stockfish 15 NNUE"
+  val engineFullName = "Stockfish 15.1 NNUE"
 
   def apply()(implicit ctx: Context) =
     views.html.base.layout(

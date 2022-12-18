@@ -46,7 +46,7 @@ final private class RatingRefund(
             (for {
               perf <- g.perfType
               op   <- g.playerByUserId(sus.user.id) map g.opponent
-              if !op.provisional
+              if op.provisional.no
               victim <- op.userId
               diff   <- op.ratingDiff
               if diff < 0
@@ -89,8 +89,8 @@ private object RatingRefund:
 
   case class Refund(victim: UserId, perf: PerfType, diff: IntRatingDiff, topRating: IntRating):
     def is(v: UserId, p: PerfType): Boolean = v == victim && p == perf
-    def is(r: Refund): Boolean               = is(r.victim, r.perf)
-    def add(d: IntRatingDiff, r: IntRating)  = copy(diff = diff + d, topRating = topRating atLeast r)
+    def is(r: Refund): Boolean              = is(r.victim, r.perf)
+    def add(d: IntRatingDiff, r: IntRating) = copy(diff = diff + d, topRating = topRating atLeast r)
 
   case class Refunds(all: List[Refund]):
     def add(victim: UserId, perf: PerfType, diff: IntRatingDiff, rating: IntRating) =

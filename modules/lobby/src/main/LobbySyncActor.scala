@@ -205,7 +205,12 @@ private object LobbySyncActor:
     val trouper = makeTrouper()
     Bus.subscribe(trouper, "lobbyActor")
     scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)
-    lila.common.LilaScheduler(_.Every(broomPeriod), _.AtMost(10 seconds), _.Delay(7 seconds)) {
+    lila.common.LilaScheduler(
+      "LobbySyncActor",
+      _.Every(broomPeriod),
+      _.AtMost(10 seconds),
+      _.Delay(7 seconds)
+    ) {
       trouper.ask[Unit](Tick.apply)
     }
     trouper

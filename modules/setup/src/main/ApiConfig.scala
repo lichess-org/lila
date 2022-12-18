@@ -15,7 +15,7 @@ final case class ApiConfig(
     days: Option[Days],
     rated: Boolean,
     color: Color,
-    position: Option[Fen] = None,
+    position: Option[Fen.Epd] = None,
     acceptByToken: Option[String] = None,
     message: Option[Template],
     keepAliveStream: Boolean,
@@ -41,7 +41,8 @@ final case class ApiConfig(
 
 object ApiConfig extends BaseHumanConfig:
 
-  lazy val clockLimitSeconds: Set[Int] = Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(_ * 60).toSet
+  lazy val clockLimitSeconds =
+    Clock.LimitSeconds.from(Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(_ * 60).toSet)
 
   def from(
       v: Option[String],
@@ -49,7 +50,7 @@ object ApiConfig extends BaseHumanConfig:
       d: Option[Days],
       r: Boolean,
       c: Option[String],
-      pos: Option[Fen],
+      pos: Option[Fen.Epd],
       tok: Option[String],
       msg: Option[String],
       keepAliveStream: Option[Boolean],
@@ -68,7 +69,7 @@ object ApiConfig extends BaseHumanConfig:
       rules = ~rules
     ).autoVariant
 
-  def validFen(variant: Variant, fen: Option[Fen]) =
+  def validFen(variant: Variant, fen: Option[Fen.Epd]) =
     if (variant.chess960) fen.forall(f => Chess960.positionNumber(f).isDefined)
     else if (variant.fromPosition)
       fen exists { f =>

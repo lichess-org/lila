@@ -9,7 +9,7 @@ import lila.common.Iso
 case class Puzzle(
     id: PuzzleId,
     gameId: GameId,
-    fen: Fen,
+    fen: Fen.Epd,
     line: NonEmptyList[Uci.Move],
     glicko: Glicko,
     plays: Int,
@@ -17,20 +17,17 @@ case class Puzzle(
     themes: Set[PuzzleTheme.Key]
 ):
   // ply after "initial move" when we start solving
-  def initialPly: Int =
-    fen.fullMove ?? { fm =>
-      fm * 2 - color.fold(1, 2)
-    }
+  def initialPly: Int = ~Fen.readPly(fen)
 
   def situationAfterInitialMove: Option[chess.Situation] = for {
     sit1 <- Fen read fen
     sit2 <- sit1.move(line.head).toOption.map(_.situationAfter)
   } yield sit2
 
-  lazy val fenAfterInitialMove: Fen =
+  lazy val fenAfterInitialMove: Fen.Epd =
     situationAfterInitialMove map Fen.write err s"Can't apply puzzle $id first move"
 
-  def color = fen.color.fold[chess.Color](chess.White)(!_)
+  def color = !fen.color
 
   def hasTheme(anyOf: PuzzleTheme*) = anyOf.exists(t => themes(t.key))
 

@@ -26,12 +26,12 @@ final class Cached(
       .buildAsyncFuture { _ =>
         rankingApi
           .fetchLeaderboard(10)
-          .withTimeout(2 minutes)
+          .withTimeout(2 minutes, "user.Cached.top10")
           .monSuccess(_.user.leaderboardCompute)
       }
   }
 
-  val top200Perf = mongoCache[Perf.ID, List[User.LightPerf]](
+  val top200Perf = mongoCache[Perf.Id, List[User.LightPerf]](
     PerfType.leaderboardable.size,
     "user:top200:perf",
     19 minutes,

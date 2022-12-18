@@ -8,7 +8,7 @@ import play.api.libs.json.*
 case class Step(
     ply: Int,
     move: Option[Step.Move],
-    fen: Fen,
+    fen: Fen.Epd,
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]],

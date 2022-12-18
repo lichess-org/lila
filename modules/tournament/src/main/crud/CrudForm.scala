@@ -6,8 +6,9 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import chess.variant.Variant
-import lila.common.Form.*
 import chess.format.Fen
+import chess.Clock.{ LimitSeconds, IncrementSeconds }
+import lila.common.Form.*
 
 final class CrudForm(repo: TournamentRepo):
 
@@ -21,7 +22,7 @@ final class CrudForm(repo: TournamentRepo):
       "name"           -> text(minLength = 3, maxLength = 40),
       "homepageHours"  -> number(min = 0, max = maxHomepageHours),
       "clockTime"      -> numberInDouble(clockTimeChoices),
-      "clockIncrement" -> numberIn(clockIncrementChoices),
+      "clockIncrement" -> numberIn(clockIncrementChoices).into[IncrementSeconds],
       "minutes"        -> number(min = 20, max = 1440),
       "variant"        -> number.verifying(Variant exists _),
       "position"       -> optional(lila.common.Form.fen.playableStrict),
@@ -66,10 +67,10 @@ object CrudForm:
       name: String,
       homepageHours: Int,
       clockTime: Double,
-      clockIncrement: Int,
+      clockIncrement: IncrementSeconds,
       minutes: Int,
       variant: Int,
-      position: Option[Fen],
+      position: Option[Fen.Epd],
       date: DateTime,
       image: String,
       headline: String,
@@ -85,11 +86,11 @@ object CrudForm:
 
     def realPosition = position ifTrue realVariant.standard
 
-    def validClock = (clockTime + clockIncrement) > 0
+    def validClock = (clockTime + clockIncrement.value) > 0
 
     def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
 
-    private def estimatedGameDuration = 60 * clockTime + 30 * clockIncrement
+    private def estimatedGameDuration = 60 * clockTime + 30 * clockIncrement.value
 
   val imageChoices = List(
     ""                    -> "Lichess",

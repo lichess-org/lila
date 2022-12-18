@@ -2,7 +2,8 @@ package lila.tournament
 
 import cats.implicits.*
 import chess.format.Fen
-import chess.{ Mode, StartingPosition }
+import chess.{ Clock, Mode, StartingPosition }
+import chess.Clock.{ LimitSeconds, IncrementSeconds }
 import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
@@ -84,7 +85,7 @@ final class TournamentForm:
     mapping(
       "name"           -> optional(eventName(2, 30, user.isVerifiedOrAdmin)),
       "clockTime"      -> numberInDouble(clockTimeChoices),
-      "clockIncrement" -> numberIn(clockIncrementChoices),
+      "clockIncrement" -> numberIn(clockIncrementChoices).into[IncrementSeconds],
       "minutes" -> {
         if (lila.security.Granter(_.ManageTournament)(user)) number
         else numberIn(minuteChoices)
@@ -117,14 +118,16 @@ object TournamentForm:
   }.map(_.toDouble)
   val clockTimeDefault = 2d
   private def formatLimit(l: Double) =
-    chess.Clock.Config(l * 60 toInt, 0).limitString + {
+    Clock.Config(LimitSeconds((l * 60).toInt), IncrementSeconds(0)).limitString + {
       if (l <= 1) " minute" else " minutes"
     }
   val clockTimeChoices = optionsDouble(clockTimes, formatLimit)
 
-  val clockIncrements       = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
-  val clockIncrementDefault = 0
-  val clockIncrementChoices = options(clockIncrements, "%d second{s}")
+  val clockIncrements = IncrementSeconds from {
+    (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
+  }
+  val clockIncrementDefault = IncrementSeconds(0)
+  val clockIncrementChoices = options(IncrementSeconds raw clockIncrements, "%d second{s}")
 
   val minutes       = (20 to 60 by 5) ++ (70 to 120 by 10) ++ (150 to 360 by 30) ++ (420 to 600 by 60) :+ 720
   val minuteDefault = 45
@@ -166,12 +169,12 @@ object TournamentForm:
 private[tournament] case class TournamentSetup(
     name: Option[String],
     clockTime: Double,
-    clockIncrement: Int,
+    clockIncrement: IncrementSeconds,
     minutes: Int,
     waitMinutes: Option[Int],
     startDate: Option[DateTime],
     variant: Option[String],
-    position: Option[Fen],
+    position: Option[Fen.Epd],
     mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],
@@ -183,7 +186,7 @@ private[tournament] case class TournamentSetup(
     hasChat: Option[Boolean]
 ):
 
-  def validClock = (clockTime + clockIncrement) > 0
+  def validClock = (clockTime + clockIncrement.value) > 0
 
   def realMode =
     if (realPosition.isDefined) Mode.Casual
@@ -193,7 +196,7 @@ private[tournament] case class TournamentSetup(
 
   def realPosition = position ifTrue realVariant.standard
 
-  def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
+  def clockConfig = Clock.Config(LimitSeconds((clockTime * 60).toInt), clockIncrement)
 
   def speed = chess.Speed(clockConfig)
 
@@ -209,7 +212,7 @@ private[tournament] case class TournamentSetup(
   // prevent berserk tournament abuse with TC like 1+60,
   // where perf is Classical but berserked games are Hyperbullet.
   def timeControlPreventsBerserk =
-    clockConfig.incrementSeconds > clockConfig.limitInMinutes * 2
+    clockConfig.incrementSeconds.value > clockConfig.limitInMinutes * 2
 
   def isBerserkable = ~berserkable && !timeControlPreventsBerserk
 
@@ -266,5 +269,5 @@ private[tournament] case class TournamentSetup(
   // There are 2 players, and they don't always use all their time (0.8)
   // add 15 seconds for pairing delay
   private def estimatedGameSeconds: Double = {
-    (60 * clockTime + 30 * clockIncrement) * 2 * 0.8
+    (60 * clockTime + 30 * clockIncrement.value) * 2 * 0.8
   } + 15

@@ -150,7 +150,7 @@
   <string name="viewInFullSize">Xem ở kích thước đầy đủ</string>
   <string name="logOut">Đăng xuất</string>
   <string name="signIn">Đăng nhập</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">Duy trì trạng thái đăng nhập</string>
+  <string name="rememberMe">Duy trì trạng thái đăng nhập</string>
   <string name="youNeedAnAccountToDoThat">Bạn cần một tài khoản để thực hiện điều này</string>
   <string name="signUp">Đăng kí</string>
   <string name="computersAreNotAllowedToPlay">Máy tính và người chơi có máy tính hỗ trợ không được phép chơi. Vui lòng không nhận hỗ trợ từ các công cụ cờ vua, cơ sở dữ liệu, hoặc từ những người chơi khác khi chơi. Cũng lưu ý rằng việc lập nhiều tài khoản không được khuyến khích và bạn có thể bị cấm vĩnh viễn nếu tạo quá nhiều tài khoản.</string>
@@ -700,6 +700,7 @@
   <string name="light">Sáng</string>
   <string name="dark">Tối</string>
   <string name="transparent">Trong suốt</string>
+  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Giao diện thiết bị</string>
   <string name="backgroundImageUrl">URL ảnh nền:</string>
   <string name="boardGeometry">Hình dạng của bàn cờ</string>
   <string name="boardTheme">Theme bàn cờ</string>

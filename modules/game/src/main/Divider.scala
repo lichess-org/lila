@@ -13,14 +13,14 @@ final class Divider:
     .expireAfterAccess(5 minutes)
     .build[GameId, Division]()
 
-  def apply(game: Game, initialFen: Option[Fen]): Division =
+  def apply(game: Game, initialFen: Option[Fen.Epd]): Division =
     apply(game.id, game.pgnMoves, game.variant, initialFen)
 
-  def apply(id: GameId, pgnMoves: => PgnMoves, variant: Variant, initialFen: Option[Fen]) =
+  def apply(id: GameId, pgnMoves: => PgnMoves, variant: Variant, initialFen: Option[Fen.Epd]) =
     if (!Variant.divisionSensibleVariants(variant)) Division.empty
     else cache.get(id, _ => noCache(id, pgnMoves, variant, initialFen))
 
-  def noCache(id: GameId, pgnMoves: => PgnMoves, variant: Variant, initialFen: Option[Fen]) =
+  def noCache(id: GameId, pgnMoves: => PgnMoves, variant: Variant, initialFen: Option[Fen.Epd]) =
     chess.Replay
       .boards(
         moveStrs = pgnMoves,

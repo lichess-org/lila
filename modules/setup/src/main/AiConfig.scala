@@ -1,6 +1,7 @@
 package lila.setup
 
 import chess.format.Fen
+import chess.Clock
 import scala.concurrent.ExecutionContext
 
 import lila.common.Days
@@ -12,11 +13,11 @@ case class AiConfig(
     variant: chess.variant.Variant,
     timeMode: TimeMode,
     time: Double,
-    increment: Int,
+    increment: Clock.IncrementSeconds,
     days: Days,
     level: Int,
     color: Color,
-    fen: Option[Fen] = None
+    fen: Option[Fen.Epd] = None
 ) extends Config
     with Positional:
 
@@ -57,7 +58,16 @@ case class AiConfig(
 
 object AiConfig extends BaseConfig:
 
-  def from(v: Int, tm: Int, t: Double, i: Int, d: Days, level: Int, c: String, fen: Option[Fen]) =
+  def from(
+      v: Int,
+      tm: Int,
+      t: Double,
+      i: Clock.IncrementSeconds,
+      d: Days,
+      level: Int,
+      c: String,
+      fen: Option[Fen.Epd]
+  ) =
     new AiConfig(
       variant = chess.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
@@ -73,7 +83,7 @@ object AiConfig extends BaseConfig:
     variant = variantDefault,
     timeMode = TimeMode.Unlimited,
     time = 5d,
-    increment = 8,
+    increment = Clock.IncrementSeconds(8),
     days = Days(2),
     level = 1,
     color = Color.default
@@ -95,11 +105,11 @@ object AiConfig extends BaseConfig:
         variant = chess.variant.Variant orDefault (r int "v"),
         timeMode = TimeMode orDefault (r int "tm"),
         time = r double "t",
-        increment = r int "i",
-        days = r.get[Days]("d"),
+        increment = r get "i",
+        days = r.get("d"),
         level = r int "l",
         color = Color.White,
-        fen = r.getO[Fen]("f").filter(_.value.nonEmpty)
+        fen = r.getO[Fen.Epd]("f").filter(_.value.nonEmpty)
       )
 
     def writes(w: BSON.Writer, o: AiConfig) =

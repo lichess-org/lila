@@ -153,6 +153,7 @@ final class Env(
     }
 
   system.actorOf(Props(new templating.RendererActor), name = config.get[String]("hub.actor.renderer"))
+end Env
 
 final class EnvBoot(
     config: Configuration,

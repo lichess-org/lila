@@ -2,13 +2,14 @@ package lila.pool
 
 import play.api.libs.json.Json
 import scala.concurrent.duration.*
+import chess.Clock
 
 object PoolList:
 
   import PoolConfig.{ *, given }
 
   extension (i: Int)
-    def ++(increment: Int) = chess.Clock.Config(i * 60, increment)
+    def ++(increment: Int) = Clock.Config(Clock.LimitSeconds(i * 60), Clock.IncrementSeconds(increment))
     def players            = NbPlayers(i)
 
   val all: List[PoolConfig] = List(

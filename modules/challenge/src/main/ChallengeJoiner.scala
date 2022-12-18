@@ -53,7 +53,7 @@ private object ChallengeJoiner:
   def gameSetup(
       variant: Variant,
       tc: Challenge.TimeControl,
-      initialFen: Option[Fen]
+      initialFen: Option[Fen.Epd]
   ): (chess.Game, Option[Situation.AndFullMoveNumber]) =
 
     def makeChess(variant: Variant): chess.Game =

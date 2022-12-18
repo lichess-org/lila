@@ -1,8 +1,7 @@
 package lila.setup
 
 import chess.format.Fen
-import chess.Mode
-import chess.{ variant as V }
+import chess.{ variant as V, Mode, Clock }
 import play.api.data.format.Formats.*
 import play.api.data.Forms.*
 
@@ -32,7 +31,7 @@ private object Mappings:
   )
   val boardApiVariantKeys      = text.verifying(boardApiVariants contains _)
   val time                     = of[Double].verifying(HookConfig validateTime _)
-  val increment                = number.verifying(HookConfig validateIncrement _)
+  val increment                = of[Clock.IncrementSeconds].verifying(HookConfig validateIncrement _)
   val daysChoices              = List(1, 2, 3, 5, 7, 10, 14).map(Days(_))
   val days                     = of[Days].verifying(mustBeOneOf(daysChoices), daysChoices.contains)
   def timeMode                 = number.verifying(TimeMode.ids contains _)
@@ -47,7 +46,7 @@ private object Mappings:
   val speed       = number.verifying(Config.speeds contains _)
   val fenField = optional {
     import lila.common.Form.fen.{ mapping, truncateMoveNumber }
-    mapping.transform[Fen](truncateMoveNumber, identity)
+    mapping.transform[Fen.Epd](truncateMoveNumber, identity)
   }
   val gameRules = lila.common.Form.strings
     .separator(",")

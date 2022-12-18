@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Teljes méret</string>
   <string name="logOut">Kijelentkezés</string>
   <string name="signIn">Bejelentkezés</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">Maradjak bejelentkezve</string>
+  <string name="rememberMe">Maradjak bejelentkezve</string>
   <string name="youNeedAnAccountToDoThat">Ehhez szükséged van egy fiókra</string>
   <string name="signUp">Regisztráció</string>
   <string name="computersAreNotAllowedToPlay">Számítógépek és számítógép segítségét igénybe vevő játékosok nem játszhatnak. Kérünk játék közben ne vegyél igénybe segítséget sakk programoktól, adatbázisoktól, vagy más játékosoktól. Több fiók készítése és használata egyszerre az oldalról való kitiltást vonja maga után.</string>

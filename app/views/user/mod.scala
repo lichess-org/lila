@@ -13,11 +13,11 @@ import lila.appeal.Appeal
 import lila.common.EmailAddress
 import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
-import lila.mod.ModPresets
+import lila.mod.{ ModPresets, UserWithModlog }
 import lila.playban.RageSit
-import lila.security.Granter
-import lila.security.{ Permission, UserLogins }
+import lila.security.{ Granter, Permission, UserLogins }
 import lila.user.{ Holder, User }
+import org.joda.time.DateTime
 
 object mod:
   private def mzSection(key: String) =
@@ -548,11 +548,12 @@ object mod:
   private val clean: Frag     = iconTag("")
   private val reportban       = iconTag("")
   private val notesText       = iconTag("")
-  private def markTd(nb: Int, content: => Frag) =
-    if (nb > 0) td(cls := "i", dataSort := nb)(content)
+  private def markTd(nb: Int, content: => Frag, date: Option[DateTime] = None) =
+    if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(momentFromNowServerText))(content)
     else td
 
-  def otherUsers(mod: Holder, u: User, data: UserLogins.TableData, appeals: List[Appeal])(using
+  def otherUsers(mod: Holder, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(
+      using
       ctx: Context,
       renderIp: RenderIp
   ): Tag =
@@ -586,7 +587,7 @@ object mod:
           )
         ),
         tbody(
-          othersWithEmail.others.map { case other @ UserLogins.OtherUser(o, _, _) =>
+          othersWithEmail.others.map { case other @ UserLogins.OtherUser(log @ UserWithModlog(o, _), _, _) =>
             val userNotes =
               notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Admin)))
             val userAppeal = appeals.find(_.isAbout(o.id))
@@ -610,12 +611,12 @@ object mod:
               ),
               td(dataSort := o.count.game)(o.count.game.localize),
               markTd(~bans.get(o.id), playban(cls := "text")(~bans.get(o.id): Int)),
-              markTd(o.marks.alt ?? 1, alt),
-              markTd(o.marks.troll ?? 1, shadowban),
-              markTd(o.marks.boost ?? 1, boosting),
-              markTd(o.marks.engine ?? 1, engine),
-              markTd(o.disabled ?? 1, closed),
-              markTd(o.marks.reportban ?? 1, reportban),
+              markTd(o.marks.alt ?? 1, alt, log.dateOf(_.alt)),
+              markTd(o.marks.troll ?? 1, shadowban, log.dateOf(_.troll)),
+              markTd(o.marks.boost ?? 1, boosting, log.dateOf(_.booster)),
+              markTd(o.marks.engine ?? 1, engine, log.dateOf(_.engine)),
+              markTd(o.disabled ?? 1, closed, log.dateOf(_.closeAccount)),
+              markTd(o.marks.reportban ?? 1, reportban, log.dateOf(_.reportban)),
               userNotes.nonEmpty option {
                 td(dataSort := userNotes.size)(
                   a(href := s"${routes.User.show(o.username)}?notes")(
@@ -656,7 +657,7 @@ object mod:
       )
     )
 
-  private def emailValueOf(emails: UserLogins.WithMeSortedWithEmails)(u: User) =
+  private def emailValueOf(emails: UserLogins.WithMeSortedWithEmails[UserWithModlog])(u: User) =
     emails.emails.get(u.id).map(_.value) map {
       case EmailAddress.clasIdRegex(id) => a(href := clasRoutes.show(id))(s"Class #$id")
       case email                        => frag(email)

@@ -50,15 +50,12 @@ class AutoConfigTest extends Specification {
         @ConfigName("api-key") val apiKey: String,
         @ConfigName("request-timeout") val requestTimeout: Duration
     ):
-      override def equals(that: Any): Boolean = that match
-        case c: BarApiConfig => (c.apiKey, c.requestTimeout) == (apiKey, requestTimeout)
-        case _               => false
 
-    object BarApiConfig:
-      given ConfigLoader[BarApiConfig]           = AutoConfig.loader
-      def fromConfiguration(conf: Configuration) = conf.get[BarApiConfig]("api.foo")
+      object BarApiConfig:
+        given ConfigLoader[BarApiConfig]           = AutoConfig.loader
+        def fromConfiguration(conf: Configuration) = conf.get[BarApiConfig]("api.foo")
 
-    val conf = parse("""
+      val conf = parse("""
       |api.foo {
       |  api-key = "abcdef"
       |  api-password = "secret"
@@ -66,7 +63,8 @@ class AutoConfigTest extends Specification {
       |}
     """)
 
-    BarApiConfig.fromConfiguration(conf) === BarApiConfig("abcdef", 1.minute)
+      BarApiConfig.fromConfiguration(conf).apiKey === "abcdef"
+      BarApiConfig.fromConfiguration(conf).requestTimeout === 1.minute
   }
 
   "nested config" >> {

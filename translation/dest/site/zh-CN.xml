@@ -150,7 +150,7 @@
   <string name="viewInFullSize">放大观看</string>
   <string name="logOut">登出</string>
   <string name="signIn">登录</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">记住登录状态</string>
+  <string name="rememberMe">记住登录状态</string>
   <string name="youNeedAnAccountToDoThat">请登录以完成该操作</string>
   <string name="signUp">注册</string>
   <string name="computersAreNotAllowedToPlay">电脑与电脑辅助棋手不允许参加对弈。下棋时，请不要从国际象棋引擎、数据库或其他棋手得到帮助。另外，强烈建议您不要创建备用账号。过度使用多余的账号会导致账号被封禁。</string>
@@ -700,6 +700,7 @@
   <string name="light">浅色</string>
   <string name="dark">深色</string>
   <string name="transparent">透明</string>
+  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">设备主题</string>
   <string name="backgroundImageUrl">背景图片网址：</string>
   <string name="boardGeometry">棋盘风格</string>
   <string name="boardTheme">棋盘主题</string>
