@@ -49,9 +49,8 @@ export interface LichessModule {
   pre: string[][]; // pre-bundle build steps from package.json scripts
   post: string[][]; // post-bundle build steps from package.json scripts
   hasTsconfig?: boolean; // fileExists('tsconfig.json')
-  bundle?: LichessBundle[]; // targets from rollup.config.mjs
-  copy?: Copy[]; // pre-bundle filesystem copies triggered by package json
-  // module root. see ui/site/copy-me.json
+  bundle?: LichessBundle[]; // bundle targets from package json
+  copy?: Copy[]; // pre-bundle filesystem copies from package json
 }
 
 export interface Copy {
@@ -67,7 +66,7 @@ export interface LichessBundle {
 
 export function init(root: string, opts: BuildOpts) {
   env.rootDir = root;
-  env.opts = opts ? opts : {};
+  env.opts = opts;
   if (env.opts.color === undefined) {
     env.opts.color = {
       build: 'green',
@@ -122,9 +121,6 @@ class Env {
   }
   get uiDir(): string {
     return path.join(this.rootDir, 'ui');
-  }
-  get nodeDir(): string {
-    return path.join(this.rootDir, 'node_modules');
   }
   get outDir(): string {
     return path.join(this.rootDir, 'public');
