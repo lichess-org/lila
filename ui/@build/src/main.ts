@@ -5,9 +5,9 @@ import * as fs from 'node:fs';
 import { build, postBuild } from './build';
 
 export function main() {
-  const configPath = path.resolve(__dirname, '../bleep.config.json');
+  const configPath = path.resolve(__dirname, '../build-config.json');
   const config = fs.existsSync(configPath) ? JSON.parse(fs.readFileSync(configPath, 'utf8')) : undefined;
-  init(path.resolve(__dirname, '../../../..'), config);
+  init(path.resolve(__dirname, '../../..'), config);
 
   if (ps.argv.includes('--help') || ps.argv.includes('-h')) {
     console.log(fs.readFileSync(path.resolve(__dirname, '../readme'), 'utf8'));
@@ -22,7 +22,7 @@ export function main() {
   build(ps.argv.slice(2).filter(x => !x.startsWith('-')));
 }
 
-export interface BleepOpts {
+export interface BuildOpts {
   sass?: boolean; // compile scss, default = true
   esbuild?: boolean; // bundle with esbuild, default = true
   tsc?: boolean; // use tsc for type checking, default = true
@@ -56,12 +56,12 @@ export interface LichessBundle {
   output: string; // abs path to bundle destination
 }
 
-export function init(root: string, opts?: BleepOpts) {
+export function init(root: string, opts?: BuildOpts) {
   env.rootDir = root;
   env.opts = opts ? opts : { log: {} };
   if (env.opts.log && env.opts.log.color !== false) {
     env.opts.log.color = {
-      bleep: 'green',
+      build: 'green',
       sass: 'magenta',
       tsc: 'yellow',
       esbuild: 'blue',
@@ -96,7 +96,7 @@ export const colors = {
 
 class Env {
   rootDir: string; // absolute path to lila project root
-  opts: BleepOpts; // configure logging mostly
+  opts: BuildOpts; // configure logging mostly
   watch = false;
   prod = false;
   exitCode = new Map<'sass' | 'tsc' | 'esbuild', number | false>();
@@ -129,19 +129,16 @@ class Env {
   get buildDir(): string {
     return path.join(this.uiDir, '@build');
   }
-  get bleepDir(): string {
-    return path.join(this.buildDir, 'bleep');
-  }
-  warn(d: any, ctx = 'bleep') {
+  warn(d: any, ctx = 'build') {
     this.log(d, { ctx: ctx, warn: true });
   }
-  error(d: any, ctx = 'bleep') {
+  error(d: any, ctx = 'build') {
     this.log(d, { ctx: ctx, error: true });
   }
-  good(ctx = 'bleep') {
+  good(ctx = 'build') {
     this.log(colors.good('No errors') + env.watch ? ` - ${colors.grey('Watching')}...` : '', { ctx: ctx });
   }
-  log(d: any, { ctx = 'bleep', error = false, warn = false } = {}) {
+  log(d: any, { ctx = 'build', error = false, warn = false } = {}) {
     let text: string =
       typeof d === 'string'
         ? d

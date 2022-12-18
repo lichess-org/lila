@@ -41,7 +41,7 @@ jobs:
         id: ab
       - run: pnpm link --dir ui/round "$GITHUB_WORKSPACE/ab"
         if: steps.ab.outcome == 'success'
-      - run: ./ui/bleep -p
+      - run: ./ui/build -p
       - run: cd ui && pnpm run test && cd -
       - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
       - run: cd assets && tar -cvpJf ../assets.tar.xz . && cd -

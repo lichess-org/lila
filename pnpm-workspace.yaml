@@ -2,4 +2,3 @@ packages:
   - 'ui'
   - 'ui/*'
   - 'ui/@types/*'
-  - 'ui/@build/*'

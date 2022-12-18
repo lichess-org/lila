@@ -29,7 +29,7 @@ export async function sass(): Promise<void> {
       watcher.on('change', onChanges.bind(null, dir));
       watcher.on('error', (err: Error) => env.error(err, 'sass'));
       watcher.on('close', () => {
-        env.error('Watcher closed unexpectedly. Exiting', 'bleep');
+        env.error('Watcher closed unexpectedly. Exiting');
         ps.exit(-1);
       });
     }

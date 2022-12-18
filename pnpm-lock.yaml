@@ -45,7 +45,7 @@ importers:
       ts-jest: 28.0.8_nbgnmamsijfwxy4jc4aybulfwy
       typescript: 4.9.4
 
-  ui/@build/bleep:
+  ui/@build:
     specifiers:
       '@types/node': ^16
       esbuild: ^0.15.13
@@ -69,6 +69,7 @@ importers:
   ui/analyse:
     specifiers:
       '@badrap/result': ^0.2
+      '@types/cash': 8.0.0
       '@types/debounce-promise': ^3.1.4
       '@types/highcharts': '=4.2.57'
       '@types/lichess': 2.0.0
@@ -105,6 +106,7 @@ importers:
       snabbdom: 3.5.1
       tree: link:../tree
     devDependencies:
+      '@types/cash': link:../@types/cash
       '@types/debounce-promise': 3.1.6
       '@types/highcharts': 4.2.57
       '@types/lichess': link:../@types/lichess
@@ -138,6 +140,7 @@ importers:
 
   ui/challenge:
     specifiers:
+      '@types/cash': 8.0.0
       '@types/lichess': 2.0.0
       chessground: ^8.3.5
       common: 2.0.0
@@ -148,6 +151,7 @@ importers:
       common: link:../common
       snabbdom: 3.5.1
     devDependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       typescript: 4.9.4
 
@@ -185,6 +189,7 @@ importers:
 
   ui/chess:
     specifiers:
+      '@types/cash': 8.0.0
       '@types/lichess': 2.0.0
       chessground: ^8.3.5
       common: 2.0.0
@@ -195,6 +200,7 @@ importers:
       common: link:../common
       snabbdom: 3.5.1
     devDependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       typescript: 4.9.4
 
@@ -268,12 +274,14 @@ importers:
 
   ui/dgt:
     specifiers:
+      '@types/cash': 8.0.0
       '@types/lichess': 2.0.0
       chessops: ^0.12
       typescript: ^4
     dependencies:
       chessops: 0.12.5
     devDependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       typescript: 4.9.4
 
@@ -296,6 +304,7 @@ importers:
 
   ui/game:
     specifiers:
+      '@types/cash': 8.0.0
       '@types/lichess': 2.0.0
       chessground: ^8.3.5
       snabbdom: ^3.3.1
@@ -304,6 +313,7 @@ importers:
       chessground: 8.3.5
       snabbdom: 3.5.1
     devDependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       typescript: 4.9.4
 
@@ -431,6 +441,7 @@ importers:
 
   ui/notify:
     specifiers:
+      '@types/cash': 8.0.0
       '@types/lichess': 2.0.0
       common: 2.0.0
       snabbdom: ^3.3.1
@@ -439,6 +450,7 @@ importers:
       common: link:../common
       snabbdom: 3.5.1
     devDependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       typescript: 4.9.4
 
@@ -490,6 +502,7 @@ importers:
 
   ui/palantir:
     specifiers:
+      '@types/cash': 8.0.0
       '@types/lichess': 2.0.0
       '@types/webrtc': ^0.0.32
       snabbdom: ^3.3.1
@@ -498,11 +511,13 @@ importers:
       '@types/webrtc': 0.0.32
       snabbdom: 3.5.1
     devDependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       typescript: 4.9.4
 
   ui/puz:
     specifiers:
+      '@types/cash': 8.0.0
       '@types/lichess': 2.0.0
       chessground: ^8.3.5
       chessops: ^0.12
@@ -515,6 +530,7 @@ importers:
       common: link:../common
       snabbdom: 3.5.1
     devDependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       typescript: 4.9.4
 
@@ -744,6 +760,7 @@ importers:
 
   ui/tournamentCalendar:
     specifiers:
+      '@types/cash': 8.0.0
       '@types/lichess': 2.0.0
       common: 2.0.0
       date-fns: ^2.28.0
@@ -754,11 +771,13 @@ importers:
       date-fns: 2.29.3
       snabbdom: 3.5.1
     devDependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       typescript: 4.9.4
 
   ui/tournamentSchedule:
     specifiers:
+      '@types/cash': 8.0.0
       '@types/lichess': 2.0.0
       common: 2.0.0
       dragscroll: ^0.0.8
@@ -769,17 +788,20 @@ importers:
       dragscroll: 0.0.8
       snabbdom: 3.5.1
     devDependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       typescript: 4.9.4
 
   ui/tree:
     specifiers:
+      '@types/cash': 8.0.0
       '@types/lichess': 2.0.0
       common: 2.0.0
       typescript: ^4
     dependencies:
       common: link:../common
     devDependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       typescript: 4.9.4
 

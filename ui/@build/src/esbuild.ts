@@ -42,7 +42,7 @@ export async function esbuild(): Promise<void> {
 }
 /*
 const onStartPlugin = {
-  name: 'bleepOnStart',
+  name: 'lichessOnStart',
   setup(build: es.PluginBuild) {
     build.onStart(() => env.log(c.grey('Bundling') + ' modules', { ctx: 'esbuild' }));
   },
@@ -51,7 +51,7 @@ const onStartPlugin = {
 const fileFilter = new RegExp(`\\${path.sep}ui\\${path.sep}(.+\\.ts)$`);
 const onLoadPlugin = {
   // more like onMurderScrollbackBuffer
-  name: 'bleepOnLoad',
+  name: 'lichessOnLoad',
   setup(build: es.PluginBuild) {
     build.onLoad({ filter: fileFilter }, (o: es.OnLoadArgs): es.OnLoadResult | undefined => {
       env.log(`Bundling '${c.cyan(fileFilter.exec(o.path)![1])}'`, { ctx: 'esbuild' });
@@ -61,7 +61,7 @@ const onLoadPlugin = {
 };*/
 
 const onEndPlugin = {
-  name: 'bleepOnEnd',
+  name: 'lichessOnEnd',
   setup(build: es.PluginBuild) {
     build.onEnd((result: es.BuildResult) => {
       for (const err of result.errors) {
