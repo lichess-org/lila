@@ -5,5 +5,5 @@ UI_DIR=$(dirname $(readlink -f  "${BASH_SOURCE:-$0}"))
 cd "$UI_DIR/.."
 pnpm i
 
-cd "$UI_DIR/@build/bleep"
+cd "$UI_DIR/@build"
 pnpm -s dev "$@"

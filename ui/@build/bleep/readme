@@ -1,8 +1,0 @@
-Usage examples:
-
-  bleep                     # builds all client assets in dev mode (inline sources)
-  bleep -w                  # builds all client assets and watches for changes
-  bleep -p                  # builds minified client assets (prod builds)
-  bleep analyse site msg    # specify isolated modules (don't build everything)
-  bleep -w dasher chart     # watch mode works for isolated modules as well
-

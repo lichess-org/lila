@@ -5,7 +5,7 @@
 project/.bloop/
 conf/application.conf
 conf/version.conf
-ui/@build/bleep/bleep.config.json
+ui/@build/build-config.json
 
 logs
 project/metals.sbt

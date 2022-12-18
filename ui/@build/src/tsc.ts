@@ -7,7 +7,7 @@ import { env, colors as c, errorMark, lines } from './main';
 export async function tsc(onSuccess: () => void) {
   if (!env.tsc) return onSuccess();
 
-  const cfgPath = path.join(env.buildDir, 'bleep', 'dist', 'build.tsconfig.json');
+  const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');
   const cfg: any = { files: [] };
   cfg.references = buildModules.filter(x => x.hasTsconfig).map(x => ({ path: path.join(x.root, 'tsconfig.json') }));
   await fs.promises.writeFile(cfgPath, JSON.stringify(cfg));
