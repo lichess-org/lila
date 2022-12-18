@@ -1,6 +1,5 @@
 package lila.notify
 
-import play.api.libs.json.{ Json, OWrites }
 import reactivemongo.api.bson.*
 import NotificationPref.*
 import alleycats.Zero
@@ -87,7 +86,8 @@ object NotificationPref:
     import play.api.data.*
     import play.api.data.Forms.*
 
-    private val allowsMapping = mapping("bell" -> boolean, "push" -> boolean)(Allows.fromForm)(Allows.toForm)
+    private val allowsMapping =
+      mapping("bell" -> boolean, "push" -> boolean)(Allows.fromForm)(Allows.toForm)
 
     val form = Form(
       mapping(
@@ -107,21 +107,12 @@ object NotificationPref:
 
   given BSONDocumentHandler[NotificationPref] = Macros.handler
 
-  given notificationDataJsonWriter: OWrites[NotificationPref] =
-    OWrites[NotificationPref] { data =>
-      Json.obj(
-        "privateMessage"      -> allowsToJson(data.privateMessage),
-        "mention"             -> allowsToJson(data.mention),
-        "streamStart"         -> allowsToJson(data.streamStart),
-        "challenge"           -> allowsToJson(data.challenge),
-        "tournamentSoon"      -> allowsToJson(data.tournamentSoon),
-        "gameEvent"           -> allowsToJson(data.gameEvent),
-        "invitedStudy"        -> allowsToJson(data.invitedStudy),
-        "correspondenceEmail" -> data.correspondenceEmail
-      )
-    }
+  import play.api.libs.json.{ Json, Writes, OWrites }
 
-  private def allowsToJson(v: Allows) =
-    List(BELL -> "bell", PUSH -> "push") collect {
-      case (tpe, str) if (v.value & tpe) != 0 => str
-    }
+  given OWrites[NotificationPref] = Json.writes[NotificationPref]
+
+  private given Writes[Allows] = Writes { a =>
+    Json.toJson(List(BELL -> "bell", PUSH -> "push") collect {
+      case (tpe, str) if (a.value & tpe) != 0 => str
+    })
+  }
