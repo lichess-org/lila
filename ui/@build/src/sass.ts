@@ -7,6 +7,8 @@ import { buildModules } from './build';
 import { globArray } from './parse';
 
 export async function sass(): Promise<void> {
+  if (!env.sass) return;
+
   builder.clear();
   importMap.clear();
 
@@ -29,7 +31,7 @@ export async function sass(): Promise<void> {
       watcher.on('change', onChanges.bind(null, dir));
       watcher.on('error', (err: Error) => env.error(err, 'sass'));
       watcher.on('close', () => {
-        env.error('Watcher closed unexpectedly. Exiting', 'bleep');
+        env.error('Watcher closed unexpectedly. Exiting');
         ps.exit(-1);
       });
     }
@@ -110,7 +112,7 @@ function compile(sources: string[], tellTheWorld = true) {
     }
   }
 
-  const sassExec = path.join(env.bleepDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
+  const sassExec = path.join(env.buildDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
   const proc = cps.spawn(
     sassExec,
     sassArgs.concat(

@@ -56,7 +56,7 @@ final private class CorresAlarm(
     }
   }
 
-  LilaScheduler(_.Every(10 seconds), _.AtMost(10 seconds), _.Delay(2 minutes)) {
+  LilaScheduler("CorresAlarm", _.Every(10 seconds), _.AtMost(10 seconds), _.Delay(2 minutes)) {
     coll
       .find($doc("ringsAt" $lt DateTime.now))
       .cursor[Alarm]()

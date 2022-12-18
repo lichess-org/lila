@@ -7,6 +7,7 @@ import chess.format.{ Fen, Uci }
 import chess.variant.{ Standard, Variant }
 import play.api.mvc.{ RequestHeader, Result }
 import scala.concurrent.duration.*
+import scala.util.chaining.*
 
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
@@ -46,8 +47,7 @@ final class Export(env: Env) extends LilaController(env):
         g.fen,
         Theme(theme).name,
         PieceSet(piece).name
-      ) map
-        stream(cacheSeconds = if (g.game.finishedOrAborted) 3600 * 24 else 10)
+      ) pipe stream(cacheSeconds = if (g.game.finishedOrAborted) 3600 * 24 else 10)
     }
 
   def legacyGameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) =
@@ -57,7 +57,7 @@ final class Export(env: Env) extends LilaController(env):
 
   def gameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo game id) { game =>
-      env.game.gifExport.gameThumbnail(game, Theme(theme).name, PieceSet(piece).name) map
+      env.game.gifExport.gameThumbnail(game, Theme(theme).name, PieceSet(piece).name) pipe
         stream(cacheSeconds = if (game.finishedOrAborted) 3600 * 24 else 10)
     }
 
@@ -70,7 +70,7 @@ final class Export(env: Env) extends LilaController(env):
         variant = Standard,
         Theme(theme).name,
         PieceSet(piece).name
-      ) map stream()
+      ) pipe stream()
     }
 
   def fenThumbnail(
@@ -89,13 +89,16 @@ final class Export(env: Env) extends LilaController(env):
         variant = Variant(variant.getOrElse("standard")) | Standard,
         Theme(theme).name,
         PieceSet(piece).name
-      ) map stream()
+      ) pipe stream()
     }
 
   private def stream(contentType: String = "image/gif", cacheSeconds: Int = 1209600)(
-      stream: Source[ByteString, ?]
-  ) =
-    Ok.chunked(stream)
-      .withHeaders(noProxyBufferHeader)
-      .withHeaders(CACHE_CONTROL -> s"max-age=$cacheSeconds")
-      .as(contentType)
+      upstream: Fu[Source[ByteString, ?]]
+  ): Fu[Result] = upstream
+    .map { stream =>
+      Ok.chunked(stream)
+        .withHeaders(noProxyBufferHeader)
+        .withHeaders(CACHE_CONTROL -> s"max-age=$cacheSeconds")
+        .as(contentType)
+    }
+    .recover { case lila.game.GifExport.UpstreamStatus(code) => Status(code) }

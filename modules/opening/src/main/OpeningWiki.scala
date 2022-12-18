@@ -21,21 +21,19 @@ case class OpeningWiki(
   def markupForMove(move: String): Option[String] =
     markup map OpeningWiki.filterMarkupForMove(move)
 
-final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: CacheApi)(using
-    ExecutionContext
-):
+final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: CacheApi)(using ExecutionContext):
 
   import OpeningWiki.Revision
 
   given BSONDocumentHandler[Revision]    = Macros.handler
   given BSONDocumentHandler[OpeningWiki] = Macros.handler
 
-  def apply(op: Opening, withRevisions: Boolean): Fu[OpeningWiki] = for {
+  def apply(op: Opening, withRevisions: Boolean): Fu[OpeningWiki] = for
     wiki <- cache get op.key
     revisions <- withRevisions ?? {
       coll.primitiveOne[List[Revision]]($id(op.key), "revisions")
     }
-  } yield wiki.copy(revisions = (~revisions) take 25)
+  yield wiki.copy(revisions = (~revisions) take 25)
 
   def write(op: Opening, text: String, by: User): Funit =
     coll.update
