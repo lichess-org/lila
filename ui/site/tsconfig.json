@@ -2,6 +2,9 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "skipLibCheck": true,
-    "noImplicitReturns": false
-  }
+    "noImplicitReturns": false,
+    "noEmit": true
+  },
+  "isolatedModules": true,
+  "references": [{ "path": "../chat/tsconfig.json" }, { "path": "../common/tsconfig.json" }]
 }

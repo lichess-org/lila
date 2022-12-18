@@ -12,10 +12,8 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@build/rollupProject": "2.0.0",
     "@types/cash": "8.0.0",
     "@types/lichess": "2.0.0",
-    "rollup": "^2",
     "typescript": "^4"
   },
   "dependencies": {
@@ -31,9 +29,16 @@
     "tree": "2.0.0"
   },
   "scripts": {
-    "dev": "rollup --failAfterWarnings --config",
-    "prod": "rollup --failAfterWarnings --config --config-prod",
-    "plugin-dev": "rollup --failAfterWarnings --config --config-plugin",
-    "plugin-prod": "rollup --failAfterWarnings --config --config-prod --config-plugin"
+    "compile": "tsc",
+    "dev": "tsc",
+    "prod": "tsc"
+  },
+  "lichess": {
+    "bundles": {
+      "src/main.ts": "puzzle",
+      "src/dashboard.ts": "puzzle.dashboard",
+      "src/opening.ts": "puzzle.opening",
+      "src/plugins/nvui.ts": "puzzle.nvui"
+    }
   }
 }

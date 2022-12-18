@@ -25,7 +25,6 @@ data/
 dist/
 node_modules/
 local/
-ui/@build/bleep/.tsconfig/
 ui/common/**/*.js
 ui/common/**/*.d.ts
 ui/chess/**/*.js

@@ -7,7 +7,7 @@ module.exports = {
     '^.+\\.(ts|tsx)?$': 'ts-jest',
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
-  transformIgnorePatterns: ['/node_modules/(?!chessground)'],
+  transformIgnorePatterns: ['/node_modules/.pnpm/(?!chessground)'],
   globals: {
     lichess: {},
     'ts-jest': {
