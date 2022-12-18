@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import * as xhr from 'common/xhr';
 
-import { Redraw, Open, bind, header } from './util';
+import { Redraw, bind, header, Close } from './util';
 
 type Theme = string;
 
@@ -20,7 +20,7 @@ export interface ThemeCtrl {
   data: () => ThemeDimData;
   trans: Trans;
   set(t: Theme): void;
-  open: Open;
+  close: Close;
 }
 
 export function ctrl(
@@ -28,7 +28,7 @@ export function ctrl(
   trans: Trans,
   dimension: () => keyof ThemeData,
   redraw: Redraw,
-  open: Open
+  close: Close
 ): ThemeCtrl {
   function dimensionData() {
     return data[dimension()];
@@ -50,7 +50,7 @@ export function ctrl(
         .catch(() => lichess.announce({ msg: 'Failed to save theme preference' }));
       redraw();
     },
-    open,
+    close,
   };
 }
 
@@ -58,7 +58,7 @@ export function view(ctrl: ThemeCtrl): VNode {
   const d = ctrl.data();
 
   return h('div.sub.theme.' + ctrl.dimension(), [
-    header(ctrl.trans.noarg('boardTheme'), () => ctrl.open('links')),
+    header(ctrl.trans.noarg('boardTheme'), () => ctrl.close()),
     h('div.list', d.list.map(themeView(d.current, ctrl.set))),
   ]);
 }
