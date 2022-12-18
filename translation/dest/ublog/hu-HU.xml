@@ -35,4 +35,5 @@
   <string name="uploadAnImageForYourPost">Tölts fel egy képet a bejegyzésedhez</string>
   <string name="imageAlt">Szöveget helyettesítő kép - látássérüléssel élők számára</string>
   <string name="imageCredit">Kép jogtulajdonosa</string>
+  <string name="deleteImage">Kép törlése</string>
 </resources>
