@@ -18,7 +18,7 @@ final private class SwissNotify(mongo: SwissMongo)(using
 
   private val doneMemo = lila.memo.ExpireSetMemo[SwissId](10 minutes)
 
-  LilaScheduler(_.Every(20 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
+  LilaScheduler("SwissNotify", _.Every(20 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
     mongo.swiss
       .find(
         $doc(

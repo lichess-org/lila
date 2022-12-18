@@ -65,7 +65,7 @@ final private class CheckMail(
       .withQueryStringParameters("domain" -> domain.value, "disable_test_connection" -> "true")
       .withHttpHeaders("x-rapidapi-key" -> config.key.value)
       .get()
-      .withTimeout(15.seconds)
+      .withTimeout(15.seconds, "CheckMail.fetch")
       .map {
         case res if res.status == 200 =>
           val readBool   = readRandomBoolean(res.body[JsValue])

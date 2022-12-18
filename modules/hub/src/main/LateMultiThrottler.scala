@@ -22,10 +22,7 @@ final class LateMultiThrottler(
       implicit val scheduler = context.system.scheduler
       lila.common.Future.delay(delayOption | 0.seconds) {
         timeoutOption.orElse(executionTimeout).fold(run()) { timeout =>
-          run().withTimeout(
-            duration = timeout,
-            error = lila.base.LilaException(s"LateMultiThrottler timed out after $timeout")
-          )
+          run().withTimeout(timeout, "LateMultiThrottler")
         } addEffectAnyway {
           self ! Done(id)
         }

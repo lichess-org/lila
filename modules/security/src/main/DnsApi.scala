@@ -46,7 +46,8 @@ final private class DnsApi(
     ws.url(config.url)
       .withQueryStringParameters("name" -> domain.value, "type" -> tpe)
       .withHttpHeaders("Accept" -> "application/dns-json")
-      .get() withTimeout config.timeout map {
+      .get()
+      .withTimeout(config.timeout, "DnsApi.fetch") map {
       case res if res.status == 200 || res.status == 404 =>
         f(~(res.body[JsValue] \ "Answer").asOpt[List[JsObject]])
       case res => throw LilaException(s"Status ${res.status}")

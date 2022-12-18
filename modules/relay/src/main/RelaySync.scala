@@ -218,7 +218,7 @@ object SyncResult:
   case class Ok(chapters: List[ChapterResult], games: RelayGames) extends SyncResult:
     def nbMoves   = chapters.foldLeft(0)(_ + _.newMoves)
     val reportKey = "ok"
-  case object Timeout extends Exception with SyncResult:
+  case object Timeout extends Exception with SyncResult with util.control.NoStackTrace:
     val reportKey           = "timeout"
     override def getMessage = "In progress..."
   case class Error(msg: String) extends SyncResult:
