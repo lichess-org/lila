@@ -13,6 +13,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
+    "@types/cash": "8.0.0",
     "@types/lichess": "2.0.0",
     "typescript": "^4"
   },

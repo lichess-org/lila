@@ -6,7 +6,7 @@ import { LichessModule, env } from './main';
 export const parseModules = async (): Promise<[Map<string, LichessModule>, Map<string, string[]>]> => {
   const moduleList: LichessModule[] = [];
 
-  for (const dir of (await globArray('*/package.json')).map(pkg => path.dirname(pkg))) {
+  for (const dir of (await globArray('[^@]*/package.json')).map(pkg => path.dirname(pkg))) {
     moduleList.push(await parseModule(dir));
   }
   const modules = new Map(moduleList.map(mod => [mod.name, mod]));
