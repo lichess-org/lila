@@ -10,6 +10,7 @@
   },
   "plugins": ["@typescript-eslint"],
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "ignorePatterns": ["pnpm-lock.yaml"],
   "rules": {
     "linebreak-style": ["error", "unix"],
     "no-duplicate-imports": "error",

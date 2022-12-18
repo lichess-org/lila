@@ -1,6 +1,9 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "noEmit": true
+  },
+  "isolatedModules": true,
+  "references": [{ "path": "../common/tsconfig.json" }]
 }
