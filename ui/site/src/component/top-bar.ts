@@ -1,5 +1,6 @@
 import pubsub from './pubsub';
 import { loadCssPath, loadModule } from './assets';
+import { loadDasher } from 'common/dasher';
 
 export default function () {
   const initiatingHtml = `<div class="initiating">${lichess.spinnerHtml}</div>`,
@@ -121,14 +122,10 @@ export default function () {
 
   {
     // dasher
-    let booted: boolean;
     $('#top .dasher .toggle').one('mouseover click', function (this: HTMLElement) {
-      if (booted) return;
-      booted = true;
       $(this).removeAttr('href');
-      const $el = $('#dasher_app').html(initiatingHtml);
       loadCssPath('dasher');
-      loadModule('dasher').then(() => window.LichessDasher($el.empty()[0]));
+      loadDasher();
     });
   }
 
