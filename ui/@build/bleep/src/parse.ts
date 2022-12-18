@@ -34,7 +34,6 @@ export async function globArray(glob: string, { cwd = env.uiDir, abs = true } = 
 
 async function parseModule(moduleDir: string): Promise<LichessModule> {
   const pkg = JSON.parse(await fs.promises.readFile(path.join(moduleDir, 'package.json'), 'utf8'));
-  const copyMeJsonPath = path.join(moduleDir, 'copy-me.json');
   const mod: LichessModule = {
     pkg: pkg,
     name: path.basename(moduleDir),
@@ -42,7 +41,7 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
     pre: [],
     post: [],
     hasTsconfig: fs.existsSync(path.join(moduleDir, 'tsconfig.json')),
-    copyMe: fs.existsSync(copyMeJsonPath) && JSON.parse(await fs.promises.readFile(copyMeJsonPath, 'utf8')),
+    copy: pkg.lichess?.copy,
   };
   parseScripts(mod, 'scripts' in pkg ? pkg.scripts : {});
 
@@ -76,9 +75,7 @@ function parseScripts(module: LichessModule, pkgScripts: any) {
     pkgScripts[script].split(/&&/).forEach((cmd: string) => {
       // no need to support || in a script property yet, we don't even short circuit && properly
       const args = tokenizeArgs(cmd.trim());
-      if (args[0] === 'tsc') {
-        if (script == 'compile') module.tscOptions = args.slice(1);
-      } else if (!['$npm_execpath', 'yarn', 'rollup'].includes(args[0])) {
+      if (!['$npm_execpath', 'tsc'].includes(args[0])) {
         script == 'prod' ? module.post.push(args) : module.pre.push(args);
       }
     });

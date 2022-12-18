@@ -110,7 +110,7 @@ function compile(sources: string[], tellTheWorld = true) {
     }
   }
 
-  const sassExec = path.join(env.bleepDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
+  const sassExec = path.join(env.buildDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
   const proc = cps.spawn(
     sassExec,
     sassArgs.concat(

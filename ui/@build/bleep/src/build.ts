@@ -3,7 +3,7 @@ import * as path from 'node:path';
 import * as cps from 'node:child_process';
 import * as ps from 'node:process';
 import { parseModules } from './parse';
-import { makeBleepConfig, tsc } from './tsc';
+import { tsc } from './tsc';
 import { sass } from './sass';
 import { esbuild } from './esbuild';
 import { LichessModule, env, errorMark, colors as c } from './main';
@@ -34,7 +34,6 @@ export async function build(mods: string[]) {
   await fs.promises.mkdir(env.cssDir, { recursive: true });
 
   if (env.sass) sass();
-  await makeBleepConfig();
   tsc(() => esbuild());
 }
 
@@ -54,8 +53,8 @@ export function preModule(mod: LichessModule | undefined) {
     const stdout = cps.execSync(`${args.join(' ')}`, { cwd: mod.root });
     if (stdout) env.log(stdout, { ctx: mod.name });
   });
-  if (mod?.copyMe)
-    for (const cp of mod.copyMe) {
+  if (mod?.copy)
+    for (const cp of mod.copy) {
       const sources: string[] = [];
       const dest = path.join(mod.root, cp.dest) + path.sep;
       if (typeof cp.src === 'string') {

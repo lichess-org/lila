@@ -21,10 +21,6 @@
     "node": ">=16 <=19",
     "pnpm": "^7.18.2"
   },
-  "os": [
-    "linux",
-    "darwin"
-  ],
   "dependencies": {
     "prettier": "2.7.1",
     "xml2js": "0.4.23"

@@ -4,26 +4,16 @@ import * as path from 'node:path';
 import { buildModules } from './build';
 import { env, colors as c, errorMark, lines } from './main';
 
-export async function makeBleepConfig(): Promise<void> {
-  await fs.promises.rm(env.tsconfigDir, { recursive: true, force: true });
-  await fs.promises.mkdir(env.tsconfigDir);
+export async function tsc(onSuccess: () => void) {
+  if (!env.tsc) return onSuccess();
 
-  const cfg: any = { references: [] };
+  const cfgPath = path.join(env.buildDir, 'bleep', 'dist', 'build.tsconfig.json');
+  const cfg: any = { files: [] };
+  cfg.references = buildModules.filter(x => x.hasTsconfig).map(x => ({ path: path.join(x.root, 'tsconfig.json') }));
+  await fs.promises.writeFile(cfgPath, JSON.stringify(cfg));
 
-  for (const mod of buildModules) {
-    if (env.tsc && (mod.tscOptions || !mod.bundle)) cfg.references.push({ path: path.join(mod.root, 'tsconfig.json') });
-  }
-  await fs.promises.writeFile(path.join(env.tsconfigDir, 'bleep.tsconfig.json'), JSON.stringify(cfg));
-}
+  const tsc = cps.spawn('tsc', ['-b', cfgPath].concat(env.watch ? ['-w', '--preserveWatchOutput'] : ['--force']));
 
-export function tsc(onSuccess: () => void) {
-  const tsc = cps.spawn(
-    'tsc',
-    ['-b', path.join(env.tsconfigDir, 'bleep.tsconfig.json')].concat(
-      env.watch ? ['-w', '--preserveWatchOutput'] : ['--force']
-    ),
-    { cwd: env.tsconfigDir }
-  );
   env.log(`Checking typescript`, { ctx: 'tsc' });
 
   tsc.stdout?.on('data', (buf: Buffer) => {

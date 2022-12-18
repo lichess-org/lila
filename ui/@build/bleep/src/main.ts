@@ -16,18 +16,17 @@ export function main() {
   env.watch = ps.argv.includes('--watch') || ps.argv.includes('-w');
   env.prod = ps.argv.includes('--prod') || ps.argv.includes('-p');
   if (env.prod && env.watch) {
-    console.log('You cannot watch prod builds! Think of the children');
+    env.error('You cannot watch prod builds! Think of the children');
     return;
   }
   build(ps.argv.slice(2).filter(x => !x.startsWith('-')));
 }
 
 export interface BleepOpts {
-  sass?: boolean; // use dart-sass rather than gulp for scss, default = true
-  esbuild?: boolean; // use esbuild rather than rollup, default = true
+  sass?: boolean; // compile scss, default = true
+  esbuild?: boolean; // bundle with esbuild, default = true
   tsc?: boolean; // use tsc for type checking, default = true
   log?: {
-    heap?: boolean; // show node rss in log statements, default = false
     time?: boolean; // show time in log statements, default = true
     ctx?: boolean; // show context (tsc, rollup, etc), default = true
     color?: any; // set false to disable colors, otherwise leave undefined
@@ -41,9 +40,8 @@ export interface LichessModule {
   pre: string[][]; // pre-bundle build steps from package.json scripts
   post: string[][]; // post-bundle build steps from package.json scripts
   hasTsconfig?: boolean; // fileExists('tsconfig.json')
-  tscOptions?: string[]; // options from tsc/compile script in package json
   bundle?: LichessBundle[]; // targets from rollup.config.mjs
-  copyMe?: Copy[]; // pre-bundle filesystem copies triggered by a copy-me.json file at
+  copy?: Copy[]; // pre-bundle filesystem copies triggered by package json
   // module root. see ui/site/copy-me.json
 }
 
@@ -54,11 +52,8 @@ export interface Copy {
 }
 
 export interface LichessBundle {
-  //hostMod: LichessModule;
   input: string; // abs path to source
   output: string; // abs path to bundle destination
-  //importName?: string; // might as well be isAnalysisBoard boolean
-  //isMain: boolean; // false for plugin bundles
 }
 
 export function init(root: string, opts?: BleepOpts) {
@@ -131,11 +126,11 @@ class Env {
   get jsDir(): string {
     return path.join(this.outDir, 'compiled');
   }
-  get bleepDir(): string {
-    return path.join(this.uiDir, '@build', 'bleep');
+  get buildDir(): string {
+    return path.join(this.uiDir, '@build');
   }
-  get tsconfigDir(): string {
-    return path.join(this.bleepDir, '.tsconfig');
+  get bleepDir(): string {
+    return path.join(this.buildDir, 'bleep');
   }
   warn(d: any, ctx = 'bleep') {
     this.log(d, { ctx: ctx, warn: true });
@@ -158,14 +153,12 @@ class Env {
 
     const show = this.opts.log;
     const esc = show?.color !== false ? escape : (text: string, _: any) => text;
-    const rss = Math.round(ps.memoryUsage.rss() / (1000 * 1000));
 
     if (show?.color === false) text = stripColorEscapes(text);
 
     const prefix = (
       (show?.time === false ? '' : prettyTime()) +
-      (!ctx || show?.ctx === false ? '' : `[${hasColor(ctx) ? ctx : esc(ctx, colorForCtx(ctx, show?.color))}] `) +
-      (show?.heap === true ? `${esc(rss + ' MB', rss > 5000 ? codes.red : codes.grey)} ` : '')
+      (!ctx || show?.ctx === false ? '' : `[${hasColor(ctx) ? ctx : esc(ctx, colorForCtx(ctx, show?.color))}] `)
     ).trim();
 
     lines(text).forEach(line =>
