@@ -18,7 +18,7 @@
   },
   "homepage": "https://lichess.org",
   "engines": {
-    "node": ">=16 <=19",
+    "node": ">=14 <=19",
     "pnpm": "^7.18.2"
   },
   "dependencies": {
