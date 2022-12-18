@@ -39,7 +39,7 @@ jobs:
           path: ab
         continue-on-error: true
         id: ab
-      - run: pnpm link -C "$GITHUB_WORKSPACE/ab" && pnpm link ab -C ui/round
+      - run: pnpm link --dir ui/round "$GITHUB_WORKSPACE/ab"
         if: steps.ab.outcome == 'success'
       - run: ./ui/bleep -p
       - run: cd ui && pnpm run test && cd -
