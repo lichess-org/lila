@@ -44,10 +44,10 @@ case class NotificationPref(
     case PrivateMessage => privateMessage
     case Challenge      => challenge
     case Mention        => mention
-    case InvitedStudy   => invitedStudy
     case StreamStart    => streamStart
     case TournamentSoon => tournamentSoon
     case GameEvent      => gameEvent
+    case InvitedStudy   => invitedStudy
 
 object NotificationPref:
   val BELL   = 1
@@ -59,10 +59,10 @@ object NotificationPref:
     case PrivateMessage
     case Challenge
     case Mention
-    case InvitedStudy
     case StreamStart
     case TournamentSoon
     case GameEvent
+    case InvitedStudy
 
     def key = lila.common.String.lcfirst(getClass.getSimpleName)
 
@@ -74,11 +74,11 @@ object NotificationPref:
   val default: NotificationPref = NotificationPref(
     privateMessage = Allows(BELL | PUSH),
     challenge = Allows(BELL | PUSH),
-    invitedStudy = Allows(BELL | PUSH),
     mention = Allows(BELL | PUSH),
     streamStart = Allows(BELL | PUSH),
     tournamentSoon = Allows(PUSH),
     gameEvent = Allows(PUSH),
+    invitedStudy = Allows(BELL | PUSH),
     correspondenceEmail = false
   )
 
@@ -93,11 +93,11 @@ object NotificationPref:
       mapping(
         "privateMessage"      -> allowsMapping,
         "challenge"           -> allowsMapping,
-        "invitedStudy"        -> allowsMapping,
         "mention"             -> allowsMapping,
         "streamStart"         -> allowsMapping,
         "tournamentSoon"      -> allowsMapping,
         "gameEvent"           -> allowsMapping,
+        "invitedStudy"        -> allowsMapping,
         "correspondenceEmail" -> boolean
       )(NotificationPref.apply)(lila.notify.unapply)
     )
