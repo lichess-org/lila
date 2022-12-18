@@ -7,6 +7,8 @@ import { buildModules } from './build';
 import { globArray } from './parse';
 
 export async function sass(): Promise<void> {
+  if (!env.sass) return;
+
   builder.clear();
   importMap.clear();
 
