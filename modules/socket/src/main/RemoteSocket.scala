@@ -173,7 +173,7 @@ final class RemoteSocket(
     request[Unit](
       id => send(Protocol.Out.stop(id)),
       res => logger.info(s"lila-ws says: $res")
-    ).withTimeout(1 second)
+    ).withTimeout(1 second, "Lilakka.shutdown")
       .addFailureEffect(e => logger.error("lila-ws stop", e))
       .recoverDefault
   }

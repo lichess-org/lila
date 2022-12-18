@@ -102,10 +102,16 @@ final class Env(
     case lila.hub.actorApi.mod.MarkBooster(userId)        => api.kickLame(userId).unit
   }
 
-  LilaScheduler(_.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds))(api.startPendingRounds)
+  LilaScheduler("Swiss.startPendingRounds", _.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds))(
+    api.startPendingRounds
+  )
 
-  LilaScheduler(_.Every(10 seconds), _.AtMost(15 seconds), _.Delay(20 seconds))(api.checkOngoingGames)
+  LilaScheduler("Swiss.checkOngoingGames", _.Every(10 seconds), _.AtMost(15 seconds), _.Delay(20 seconds))(
+    api.checkOngoingGames
+  )
 
-  LilaScheduler(_.Every(1 hour), _.AtMost(15 seconds), _.Delay(5 minutes))(officialSchedule.generate)
+  LilaScheduler("Swiss.generate", _.Every(1 hour), _.AtMost(15 seconds), _.Delay(5 minutes))(
+    officialSchedule.generate
+  )
 
 final private class SwissMongo(val swiss: Coll, val player: Coll, val pairing: Coll, val ban: Coll)

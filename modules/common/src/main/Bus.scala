@@ -5,6 +5,7 @@ import scala.concurrent.Promise
 import scala.jdk.CollectionConverters.*
 
 import akka.actor.{ ActorRef, ActorSystem, Scheduler }
+import lila.base.LilaTimeout
 
 object Bus:
 
@@ -52,10 +53,7 @@ object Bus:
     val msg     = makeMsg(promise)
     publish(msg, channel)
     promise.future
-      .withTimeout(
-        timeout,
-        Bus.AskTimeout(s"Bus.ask timeout: $channel $msg")
-      )
+      .withTimeout(timeout, s"Bus.ask $channel $msg")
       .monSuccess(_.bus.ask(s"${channel}_${msg.getClass}"))
 
   private val bus = new EventBus[Matchable, Channel, Tellable](
@@ -64,8 +62,6 @@ object Bus:
   )
 
   def size = bus.size
-
-  case class AskTimeout(message: String) extends lila.base.LilaException
 
 final private class EventBus[Event, Channel, Subscriber](
     initialCapacity: Int,

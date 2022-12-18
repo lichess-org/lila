@@ -87,10 +87,10 @@
   <string name="combatIntro">एक चांगला योद्धा हल्ला आणि बचाव दोन्ही गोष्टी जाणतो!</string>
   <string name="combatComplete">अभिनंदन! बुद्धीबळातील सोंगट्या वापरून कसे लढायचे हे आपल्याला माहित आहे!</string>
   <string name="checkInOne">एका चालीत शह</string>
-  <string name="attackTheOpponentsKing">प्रतिस्पर्धीच्या राजावर हल्ला करा</string>
+  <string name="attackTheOpponentsKing">प्रतिस्पर्ध्याच्या राजावर हल्ला करा</string>
   <string name="checkInOneIntro">शत्रूला शह देण्याकरीता, त्यांच्या राजावर हल्ला करा. त्यांना राजाचा बचाव करावाच लागेल!</string>
   <string name="checkInOneGoal">प्रतिस्पर्ध्याच्या राजाकडे नेम लावा
-एका डावात!</string>
+एका चालीत!</string>
   <string name="checkInOneComplete">अभिनंदन! तुम्ही विरोधकाला शह दिला आणि त्यांना राजाचा बचाव करण्यास भाग पाडले!</string>
   <string name="outOfCheck">शहातून बाहेर</string>
   <string name="defendYourKing">आपल्या राजाचे रक्षण करा</string>
@@ -108,8 +108,8 @@
   <string name="mateInOne">एका चालीत मात</string>
   <string name="defeatTheOpponentsKing">प्रतिस्पर्ध्याच्या राजाचा पराभव करा</string>
   <string name="mateInOneIntro">जेव्हा आपला विरोधक शहाविरूद्ध बचाव करू शकत नाही तेव्हा आपण जिंकता.</string>
-  <string name="attackYourOpponentsKing">अशा मार्गाने आपल्या प्रतिस्पर्ध्याच्या राजावर हल्ला करा
-ज्याचा बचाव करता येणार नाही!</string>
+  <string name="attackYourOpponentsKing">बचाव करता येणार नाही अशा पद्धतीने
+आपल्या प्रतिस्पर्ध्याच्या राजावर हल्ला करा!</string>
   <string name="mateInOneComplete">अभिनंदन! अशा प्रकारे आपण बुद्धिबळ खेळ जिंकता!</string>
   <string name="intermediate">मध्यवर्ती</string>
   <string name="boardSetup">बुध्दीबळाच्या पटाची मांडणी</string>
