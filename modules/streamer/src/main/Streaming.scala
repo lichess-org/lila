@@ -33,7 +33,7 @@ final private class Streaming(
 
   def getLiveStreams: LiveStreams = liveStreams
 
-  LilaScheduler(_.Every(15 seconds), _.AtMost(10 seconds), _.Delay(20 seconds)) {
+  LilaScheduler("Streaming", _.Every(15 seconds), _.AtMost(10 seconds), _.Delay(20 seconds)) {
     for {
       streamerIds <- api.allListedIds
       activeIds = streamerIds.filter { id =>

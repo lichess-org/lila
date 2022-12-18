@@ -24,8 +24,18 @@ export const pow2floor = (n: number) => {
   return pow2;
 };
 
-export const sharedWasmMemory = (initial: number, maximum: number): WebAssembly.Memory =>
-  new WebAssembly.Memory({ shared: true, initial, maximum });
+export const sharedWasmMemory = (initial: number, maximum: number): WebAssembly.Memory => {
+  while (true) {
+    try {
+      return new WebAssembly.Memory({ shared: true, initial, maximum });
+    } catch (e) {
+      if (e instanceof RangeError) {
+        if (initial === maximum) throw e;
+        maximum = Math.max(initial, Math.floor(maximum / 2));
+      } else throw e;
+    }
+  }
+};
 
 export function defaultDepth(technology: CevalTechnology, threads: number, multiPv: number): number {
   const extraDepth = Math.min(Math.max(threads - multiPv, 0), 6);

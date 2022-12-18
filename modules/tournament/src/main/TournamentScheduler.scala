@@ -19,7 +19,7 @@ final private class TournamentScheduler(
   import Schedule.Plan
   import chess.variant.*
 
-  LilaScheduler(_.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
+  LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
     tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
       try
         val newTourns = allWithConflicts(DateTime.now).map(_.build)

@@ -37,7 +37,7 @@ final class TournamentLilaHttp(
   private val channel = "http-out"
   private val conn    = redisClient.connectPubSub()
 
-  LilaScheduler(_.Every(1 second), _.AtMost(30 seconds), _.Delay(14 seconds)) {
+  LilaScheduler("TournamentLilaHttp", _.Every(1 second), _.AtMost(30 seconds), _.Delay(14 seconds)) {
     tournamentRepo
       .idsCursor(handledIds)
       .documentSource()

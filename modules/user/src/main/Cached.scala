@@ -26,7 +26,7 @@ final class Cached(
       .buildAsyncFuture { _ =>
         rankingApi
           .fetchLeaderboard(10)
-          .withTimeout(2 minutes)
+          .withTimeout(2 minutes, "user.Cached.top10")
           .monSuccess(_.user.leaderboardCompute)
       }
   }

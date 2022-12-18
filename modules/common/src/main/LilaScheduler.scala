@@ -9,6 +9,7 @@ import scala.concurrent.duration.*
 object LilaScheduler:
 
   def apply(
+      name: String,
       every: config.type => config.Every,
       timeout: config.type => config.AtMost,
       initialDelay: config.type => config.Delay
@@ -18,7 +19,7 @@ object LilaScheduler:
 
     def runAndScheduleNext(): Unit =
       run()
-        .withTimeout(timeout(config).value)
+        .withTimeout(timeout(config).value, s"LilaScheduler $name")
         .addEffectAnyway {
           scheduler.scheduleOnce(every(config).value) { runAndScheduleNext() }.unit
         }

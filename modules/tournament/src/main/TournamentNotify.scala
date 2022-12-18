@@ -16,7 +16,7 @@ final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCac
 
   private val doneMemo = lila.memo.ExpireSetMemo[TourId](10 minutes)
 
-  LilaScheduler(_.Every(10 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
+  LilaScheduler("TournamentNotify", _.Every(10 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
     repo
       .soonStarting(DateTime.now.plusMinutes(10), DateTime.now.plusMinutes(11), doneMemo.keys)
       .flatMap {

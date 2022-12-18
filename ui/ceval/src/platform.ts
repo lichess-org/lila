@@ -56,13 +56,13 @@ export function detectPlatform(
     : 1;
 
   // the numbers returned by maxHashMB seem small, but who knows if wasm stockfish performance even
-  // scales like native stockfish with increasing hash.  prefer smaller, non-crashing values
+  // scales like native stockfish with increasing hash. prefer smaller, non-crashing values
   // steer the high performance crowd towards external engine as it gets better
   const maxHashMB = (): number => {
     let maxHash = 256; // this is conservative but safe, mostly desktop firefox / mac safari users here
     if (navigator.deviceMemory) maxHash = pow2floor(navigator.deviceMemory * 128); // chrome/edge/opera
     else if (isAndroid()) maxHash = 64; // budget androids are easy to crash @ 128
-    else if (isIPad()) maxHash = 64; // ipados safari pretends to be desktop but acts more like iphone
+    else if (isIPad()) maxHash = 64; // iPadOS safari pretends to be desktop but acts more like iphone
     else if (isIOS()) maxHash = 32;
     return maxHash;
   };
