@@ -5,7 +5,7 @@ import { preModule, buildModules } from './build';
 import { env, errorMark, colors as c } from './main';
 
 export async function esbuild(): Promise<void> {
-  if (!env.esbuild) env.done(0, 'esbuild'); // if not watching, will exit
+  if (!env.esbuild) return;
   const entryPoints: { [key: string]: string } = {};
   for (const mod of buildModules) {
     preModule(mod);

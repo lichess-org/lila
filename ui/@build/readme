@@ -3,6 +3,11 @@ Usage examples:
   build                     # builds all client assets in dev mode (inline sources)
   build -w                  # builds all client assets and watches for changes
   build -p                  # builds minified client assets (prod builds)
-  build analyse site msg    # specify isolated modules (don't build everything)
+  build analyse site msg    # specify modules (don't build everything)
   build -w dasher chart     # watch mode works for isolated modules as well
-
+  build --tsc -w            # watch mode tsc only
+  build --sass analyse      # css for analyse and dependencies
+  build --esbuild           # only run esbuild
+  build --no-color          # don't color output in logs
+  build --no-time           # don't log the time
+  build --no-context        # don't log the context ([sass], [esbuild], etc)
