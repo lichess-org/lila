@@ -36,7 +36,7 @@ final class AskPipeline[A](compute: () => Fu[A], timeout: FiniteDuration, name: 
 
   private def startComputing() =
     compute()
-      .withTimeout(timeout)
+      .withTimeout(timeout, s"AskPipeline $name")
       .addEffects(
         err => this ! Fail(err),
         res => this ! Done(res)

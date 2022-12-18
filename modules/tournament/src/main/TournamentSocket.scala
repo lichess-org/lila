@@ -48,7 +48,7 @@ final private class TournamentSocket(
     send(Protocol.Out.getWaitingUsers(tour.id into RoomId, tour.name()(using lila.i18n.defaultLang)))
     val promise = Promise[WaitingUsers]()
     waitingUsers.registerNextPromise(tour, promise)
-    promise.future.withTimeout(2.seconds, lila.base.LilaException("getWaitingUsers timeout"))
+    promise.future.withTimeout(2.seconds, "TournamentSocket.getWaitingUsers")
 
   def hasUser = waitingUsers.hasUser
 
