@@ -154,6 +154,10 @@ body {
       center no-repeat;
     transition: transform 0.3s cubic-bezier(0.4, 0.03, 0, 1);
     cursor: pointer;
+
+    body.dark & {
+      transform: translateX($transform-direction * 18px);
+    }
   }
 }
 
