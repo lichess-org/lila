@@ -80,10 +80,6 @@
   }
 }
 
-div.picture {
-  position: relative;
-}
-
 .live-ribbon {
   @extend %streamer-ribbon;
   top: -10px;
@@ -120,51 +116,15 @@ div.picture {
   }
 }
 
-.subscribe-ribbon-top-right,
-.subscribe-ribbon-bottom-left {
-  @extend %streamer-ribbon;
-
-  .std-toggle {
-    margin-#{$end-direction}: 5px;
-  }
-
-  span {
-    font-size: 14px;
-    padding: 12px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: rotate(45deg);
-    background-color: #777b;
-  }
-}
-
-.subscribe-ribbon-top-right {
-  top: 0;
-  right: 0;
-
-  span {
-    top: 29px;
-    left: -14px;
-  }
-}
-
-.subscribe-ribbon-bottom-left {
-  bottom: 0;
-  left: 0;
-  display: none;
-  @include breakpoint($mq-picture) {
-    display: block;
-  }
-
-  span {
-    bottom: 29px;
-    right: -14px;
-  }
-}
-
 .streamer-title {
   @extend %flex-between;
   gap: 1em;
   margin: 1.5em var(--box-padding) 1em 0;
+}
+
+.streamer-subscribe {
+  @extend %flex-center-nowrap;
+  gap: 1em;
+  align-self: flex-start;
+  z-index: 2;
 }

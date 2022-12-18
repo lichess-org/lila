@@ -14,20 +14,7 @@ object header:
       ctx: Context
   ) =
     div(cls := "streamer-header")(
-      div(cls := "picture")(
-        picture.thumbnail(s.streamer, s.user),
-        (ctx.me.nonEmpty && !modView) option span(cls := "subscribe-ribbon-top-right")(
-          span(
-            input(
-              cls        := "std-toggle subscribe-switch",
-              tpe        := "checkbox",
-              formaction := s"${routes.Streamer.subscribe(s.streamer.userId, !s.subscribed)}",
-              s.subscribed option st.checked
-            ),
-            trans.subscribe()
-          )
-        )
-      ),
+      picture.thumbnail(s.streamer, s.user),
       div(cls := "overview")(
         bits.streamerTitle(s),
         s.streamer.headline.map(_.value).map { d =>
@@ -74,6 +61,7 @@ object header:
               p(cls := "at")(lastStream(momentFromNow(liveAt)))
             }
           )
-        )
+        ),
+        !modView option bits.subscribeButtonFor(s)
       )
     )

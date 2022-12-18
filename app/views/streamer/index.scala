@@ -27,20 +27,7 @@ object index:
         if (requests) a(href := s"${routes.Streamer.edit}?u=${s.user.username}", cls := "overlay")
         else bits.redirectLink(s.user.username, stream.isDefined.some)(cls := "overlay"),
         stream.isDefined option span(cls := "live-ribbon")(span(trans.streamer.live())),
-        div(cls := "picture")(
-          picture.thumbnail(s.streamer, s.user),
-          !requests && ctx.me.nonEmpty option span(cls := "subscribe-ribbon-bottom-left")(
-            span(
-              input(
-                cls        := "std-toggle subscribe-switch",
-                tpe        := "checkbox",
-                formaction := s"${routes.Streamer.subscribe(s.streamer.userId, !s.subscribed)}",
-                s.subscribed option st.checked
-              ),
-              trans.subscribe()
-            )
-          )
-        ),
+        picture.thumbnail(s.streamer, s.user),
         div(cls := "overview")(
           bits.streamerTitle(s),
           s.streamer.headline.map(_.value).map { d =>
@@ -67,7 +54,8 @@ object index:
                 p(cls := "at")(lastStream(momentFromNow(liveAt)))
               }
             )
-          )
+          ),
+          !requests option bits.subscribeButtonFor(s)
         )
       )
 

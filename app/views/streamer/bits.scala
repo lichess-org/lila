@@ -102,3 +102,21 @@ object bits:
         span(cls := "streamer-lang")(LangList nameByStr language)
       }
     )
+
+  def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: Context, lang: Lang): Option[Tag] =
+    ctx.isAuth option {
+      val id = s"streamer-subscribe-${s.streamer.userId}"
+      label(cls := "streamer-subscribe button button-metal")(
+        `for`          := id,
+        data("action") := s"${routes.Streamer.subscribe(s.streamer.userId, !s.subscribed)}"
+      )(
+        span(
+          form3.cmnToggle(
+            fieldId = id,
+            fieldName = id,
+            checked = s.subscribed
+          )
+        ),
+        trans.subscribe()
+      )
+    }
