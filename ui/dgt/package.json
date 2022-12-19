@@ -5,13 +5,10 @@
   "description": "lichess.org dgt",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "@types/cash": "8.0.0",
-    "@types/lichess": "2.0.0",
-    "typescript": "^4"
-  },
   "dependencies": {
-    "chessops": "^0.12"
+    "@types/cash": "workspace:*",
+    "@types/lichess": "workspace:*",
+    "chessops": "^0.12.5"
   },
   "scripts": {
     "compile": "tsc",

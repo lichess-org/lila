@@ -6,14 +6,11 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
+    "@types/cash": "workspace:*",
+    "@types/lichess": "workspace:*",
     "chessground": "^8.3.5",
-    "common": "2.0.0",
-    "snabbdom": "^3.3.1"
-  },
-  "devDependencies": {
-    "@types/cash": "8.0.0",
-    "@types/lichess": "2.0.0",
-    "typescript": "^4"
+    "common": "workspace:*",
+    "snabbdom": "^3.5.1"
   },
   "scripts": {
     "compile": "tsc",
