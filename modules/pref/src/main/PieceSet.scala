@@ -39,6 +39,7 @@ object PieceSet extends PieceSetObject:
     "leipzig",
     "fantasy",
     "spatial",
+    "celtic",
     "california",
     "pixel",
     "maestro",

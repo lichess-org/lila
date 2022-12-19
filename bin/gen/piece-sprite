@@ -38,7 +38,8 @@ themes = [
   ['icpieces', 'svg'],
   ['horsey', 'svg'],
   ['anarcandy', 'svg'],
-  ['disguised', 'svg']
+  ['disguised', 'svg'],
+  ['celtic', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',
