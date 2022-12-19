@@ -59,8 +59,8 @@
   <string name="notifyChallenge">Challenges</string>
   <string name="notifyTournamentSoon">Tournament starting soon</string>
   <string name="notifyTimeAlarm">Correspondence clock running out</string>
-  <string name="notifyBell">Bell</string>
-  <string name="notifyPush">Push</string>
+  <string name="notifyBell">Bell notification within Lichess</string>
+  <string name="notifyPush">Device notification when you're not on Lichess</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Device</string>
 </resources>
