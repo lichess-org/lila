@@ -27,6 +27,9 @@ object layout:
               bits.categName(categ)
             )
           },
+          a(activeCls("notification"), href := routes.Pref.form("notification"))(
+            trans.notifications()
+          ),
           a(activeCls("kid"), href := routes.Account.kid)(
             trans.kidMode()
           ),
