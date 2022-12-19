@@ -47,7 +47,7 @@ final class NotifyApi(
 
     def getAllows(userIds: Iterable[UserId], event: NotificationPref.Event): Fu[List[NotifyAllows]] =
       colls.pref.tempPrimary
-        .find($inIds(userIds), $doc(s"notification.$event" -> true).some)
+        .find($inIds(userIds), $doc(s"notification.${event.key}" -> true).some)
         .cursor[Bdoc]()
         .listAll() dmap { docs =>
         for {
