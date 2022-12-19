@@ -528,7 +528,7 @@ final class Mod(
         case Some(rawQuery) =>
           val query = rawQuery.trim.split(' ').toList
           val email = query.headOption
-            .map(EmailAddress.apply) flatMap env.security.emailAddressValidator.validate
+            .map(EmailAddress(_)) flatMap env.security.emailAddressValidator.validate
           val username = query lift 1
           def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
             env.mod.search(q) flatMap {

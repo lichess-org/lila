@@ -52,9 +52,4 @@ object Iso:
 
   given StringIso[IpAddress] = string[IpAddress](IpAddress.unchecked, _.value)
 
-  given StringIso[EmailAddress] = string[EmailAddress](EmailAddress.apply, _.value)
-
-  given StringIso[NormalizedEmailAddress] =
-    string[NormalizedEmailAddress](NormalizedEmailAddress.apply, _.value)
-
   given StringIso[Lang] = string[Lang](Lang.apply, _.toString)

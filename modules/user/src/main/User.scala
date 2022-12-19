@@ -182,7 +182,8 @@ object User:
   case class LightCount(user: LightUser, count: Int)
 
   case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
-    def list = current.toList ::: previous.toList
+    def strList = current.map(_.value).toList ::: previous.map(_.value).toList
+
   case class WithEmails(user: User, emails: Emails)
 
   case class ClearPassword(value: String) extends AnyVal:
