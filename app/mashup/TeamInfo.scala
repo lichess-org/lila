@@ -24,13 +24,15 @@ case class TeamInfo(
   def userIds = forum.??(_.flatMap(_.userId))
 
 object TeamInfo:
-  case class AnyTour(any: Either[Tournament, Swiss]) extends AnyVal:
-    def isEnterable = any.fold(_.isEnterable, _.isEnterable)
-    def startsAt    = any.fold(_.startsAt, _.startsAt)
-    def isNowOrSoon = any.fold(_.isNowOrSoon, _.isNowOrSoon)
-    def nbPlayers   = any.fold(_.nbPlayers, _.nbPlayers)
-  def anyTour(tour: Tournament) = AnyTour(Left(tour))
-  def anyTour(swiss: Swiss)     = AnyTour(Right(swiss))
+  opaque type AnyTour = Either[Tournament, Swiss]
+  object AnyTour extends TotalWrapper[AnyTour, Either[Tournament, Swiss]]:
+    extension (e: AnyTour)
+      def isEnterable = e.fold(_.isEnterable, _.isEnterable)
+      def startsAt    = e.fold(_.startsAt, _.startsAt)
+      def isNowOrSoon = e.fold(_.isNowOrSoon, _.isNowOrSoon)
+      def nbPlayers   = e.fold(_.nbPlayers, _.nbPlayers)
+    def apply(tour: Tournament): AnyTour = Left(tour)
+    def apply(swiss: Swiss): AnyTour     = Right(swiss)
 
   case class PastAndNext(past: List[AnyTour], next: List[AnyTour]):
     def nonEmpty = past.nonEmpty || next.nonEmpty
@@ -71,10 +73,10 @@ final class TeamInfoApi(
       case (tours, swisses) =>
         PastAndNext(
           past = {
-            tours.past.map(anyTour) ::: swisses.past.map(anyTour)
+            tours.past.map(AnyTour(_)) ::: swisses.past.map(AnyTour(_))
           }.sortBy(-_.startsAt.getSeconds),
           next = {
-            tours.next.map(anyTour) ::: swisses.next.map(anyTour)
+            tours.next.map(AnyTour(_)) ::: swisses.next.map(AnyTour(_))
           }.sortBy(_.startsAt.getSeconds)
         )
     }

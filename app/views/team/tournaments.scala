@@ -60,9 +60,9 @@ object tournaments:
             "soon"      -> any.isNowOrSoon
           )
         )(
-          td(cls := "icon")(iconTag(any.any.fold(tournamentIconChar, views.html.swiss.bits.iconChar))),
+          td(cls := "icon")(iconTag(any.value.fold(tournamentIconChar, views.html.swiss.bits.iconChar))),
           td(cls := "header")(
-            any.any.fold(
+            any.value.fold(
               t =>
                 a(href := routes.Tournament.show(t.id))(
                   span(cls := "name")(t.name()),
@@ -91,7 +91,7 @@ object tournaments:
             )
           ),
           td(cls := "infos")(
-            any.any.fold(
+            any.value.fold(
               t =>
                 frag(
                   t.teamBattle map { battle =>
