@@ -102,7 +102,7 @@ final class Api(
     key = "user_games.api.ip"
   )
 
-  private val UserGamesRateLimitPerUA = new lila.memo.RateLimit[String](
+  private val UserGamesRateLimitPerUA = new lila.memo.RateLimit[Option[UserAgent]](
     credits = 10 * 1000,
     duration = 5.minutes,
     key = "user_games.api.ua"
@@ -117,7 +117,7 @@ final class Api(
   private def UserGamesRateLimit(cost: Int, req: RequestHeader)(run: => Fu[ApiResult]) =
     val ip = HTTPRequest ipAddress req
     UserGamesRateLimitPerIP(ip, cost = cost) {
-      UserGamesRateLimitPerUA(~HTTPRequest.userAgent(req), cost = cost, msg = ip.value) {
+      UserGamesRateLimitPerUA(HTTPRequest.userAgent(req), cost = cost, msg = ip.value) {
         UserGamesRateLimitGlobal("-", cost = cost, msg = ip.value) {
           run
         }(fuccess(ApiResult.Limited))
