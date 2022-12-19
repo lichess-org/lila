@@ -64,7 +64,7 @@ object NotificationPref:
     case GameEvent
     case InvitedStudy
 
-    def key = lila.common.String.lcfirst(toString)
+    def key = lila.common.String.lcfirst(this.toString)
 
   object Event:
     val byKey = values.map { v => v.key -> v }.toMap
