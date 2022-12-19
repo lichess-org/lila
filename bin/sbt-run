@@ -6,7 +6,7 @@ case $1 in
     sbt --client run
     ;;
 
-  rage)
+  stop)
     fuser -k 9663/tcp -TERM
     ;;
 esac
