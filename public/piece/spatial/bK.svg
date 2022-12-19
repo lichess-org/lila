@@ -1,1 +1,65 @@
-<svg height="200" width="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="c" gradientUnits="userSpaceOnUse" x1="85.73" x2="122.417" xlink:href="#a" y1="40.324" y2="70.614"/><linearGradient id="a"><stop offset="0"/><stop offset="1" stop-color="#505070"/></linearGradient><linearGradient id="d" gradientUnits="userSpaceOnUse" x1="72.323" x2="129.866" xlink:href="#b" y1="53.731" y2="53.731"/><linearGradient id="b"><stop offset="0" stop-color="gray"/><stop offset="1" stop-color="gray"/></linearGradient><linearGradient id="e" gradientUnits="userSpaceOnUse" x1="34.304" x2="158.63" xlink:href="#a" y1="58.344" y2="169.157"/><linearGradient id="f" gradientUnits="userSpaceOnUse" x1="19.407" x2="182.465" xlink:href="#b" y1="119.723" y2="119.723"/><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="37.283" x2="160.616" xlink:href="#a" y1="177.517" y2="178.014"/><linearGradient id="h" gradientUnits="userSpaceOnUse" x1="43.505" x2="156.876" xlink:href="#b" y1="180.952" y2="180.952"/><path d="M0 0h200v200H0z" fill="none"/><g fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.657"><path d="M92.116 25.145v13.628H74.15v15.55h17.965v27.993h14.342V54.323h21.579v-15.55h-21.579V25.145z" fill="url(#c)" stroke="url(#d)"/><path d="M116.769 105.41c45.654-24.418 31.024 22.102 8.367 36.483-14.598 9.265-22.23-25.695-14.486-51.95l-19.564.236c7.214 23.234 2.814 58.938-13.057 51.714-28.272-12.867-38.782-60.211 6.356-36.46C58.3 52.111 17.674 72.5 21.485 99.6c4.142 29.438 37.74 55.927 37.058 67.729h84.307c-1.35-13.674 36.551-41.793 37.764-68.529 1.165-26.159-43.982-46.419-63.845 6.61z" fill="url(#e)" stroke="url(#f)"/><path d="M45.333 173.333h109.715v15.238H45.333z" fill="url(#g)" stroke="url(#h)"/></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="700pt" height="700pt" id="king" viewBox="0 0 933.333 933.333" sodipodi:version="0.32" inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)" version="1.0" inkscape:export-filename="/home/maurizio/out/wk.png" inkscape:export-xdpi="90" inkscape:export-ydpi="90" sodipodi:docname="k.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <style id="style-base">
+    .base { 
+      fill-opacity:1;
+      fill-rule:evenodd;
+      stroke-miterlimit:4;
+      stroke-dasharray:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      stroke-opacity:1
+    }
+    .shadow {
+      stroke:none;
+      filter:url(#filterBlur);
+    }
+  </style>
+  <style id="stroke-medium">.stroke-medium {stroke-width: 20; }</style>
+  <style id="stroke-boundary">.stroke-boundary {stroke-width: 35; }</style>
+  <style id="stroke-color">.stroke-color {stroke: black; }</style>
+  <style id="fill-color">.fill-color {fill: #7f899b; }</style>
+  <defs id="defs36222">
+    <linearGradient inkscape:collect="always" id="fillGradient">
+      <stop style="stop-color: rgb(127, 137, 155); stop-opacity: 1;" offset="0" id="stop0"/>
+      <stop style="stop-color: rgb(28, 28, 47); stop-opacity: 1;" offset="1" id="stop1"/>
+    </linearGradient>
+    <linearGradient inkscape:collect="always" xlink:href="#fillGradient" id="base-gradient" gradientUnits="userSpaceOnUse" x1="163.1134" y1="776.63849" x2="702.69696" y2="778.81091" gradientTransform="matrix(1.1091717,0,0,1.1091717,1.3658255,-39.600453)"/>
+    <linearGradient inkscape:collect="always" xlink:href="#fillGradient" id="main-gradient" gradientUnits="userSpaceOnUse" x1="150.07878" y1="255.25356" x2="694.0072" y2="740.0625" gradientTransform="matrix(1.1091717,0,0,1.1091717,-23.255604,-49.859382)"/>
+    <linearGradient inkscape:collect="always" xlink:href="#fillGradient" id="cross-gradient" x1="375.06781" y1="176.41568" x2="535.5755" y2="308.93436" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.1091717,0,0,1.1091717,-23.255604,-49.859382)"/>
+    
+  </defs>
+  <sodipodi:namedview id="namedview325" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="0.32549009" inkscape:cx="-379.42783" inkscape:cy="227.34947" inkscape:current-layer="king" inkscape:document-units="px" inkscape:window-width="1846" inkscape:window-height="1016" inkscape:window-x="0" inkscape:window-y="0" inkscape:showpageshadow="2" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" showgrid="false" inkscape:window-maximized="1"/>
+  <metadata id="metadata36225">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Maurizio Monge</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Maurizio Monge</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/GPL/2.0/"/>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+        <cc:permits rdf:resource="http://web.resource.org/cc/Reproduction"/>
+        <cc:permits rdf:resource="http://web.resource.org/cc/Distribution"/>
+        <cc:requires rdf:resource="http://web.resource.org/cc/Notice"/>
+        <cc:permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/>
+        <cc:requires rdf:resource="http://web.resource.org/cc/ShareAlike"/>
+        <cc:requires rdf:resource="http://web.resource.org/cc/SourceCode"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  
+  <path id="boundary" class="base stroke-color stroke-boundary" style="fill:none" d="M 493.34766,343.5918 V 213.75195 H 598.06055 V 138.29297 H 493.34766 V 72.160156 h -69.60157 v 66.132814 h -87.17382 v 75.45898 h 87.17382 V 343.5918 m -2.35836,53.1416 c 31.21258,112.69935 9.00066,276.09468 -65.99906,241.95996 C 218.19735,576.25329 167.1963,346.51295 386.23242,461.76367 326.90148,340.47714 252.06151,297.78278 191.19531,300.19531 122.21362,302.92952 71.178165,363.60186 81.005859,433.46289 100.37808,571.17203 252.58866,695.58276 260.55547,755.66351 m 409.32506,-0.0587 C 674.86786,687.12915 847.49775,555.20745 853.19727,429.58008 858.84699,302.64047 639.76675,204.32772 543.37891,461.6582 764.92169,343.16232 693.92668,568.90796 583.98047,638.69336 514.62785,682.71306 477.67513,521.01854 511.4244,394.65731 m -250.62095,410.86417 -39.45189,-2 v 71.94532 h 483.16016 v -71.94532 l -32.11913,2" sodipodi:nodetypes="cccccccccccccscssccccsccccccc"/>
+  <path class="base stroke-color stroke-medium" style="fill:url(#cross-gradient)" d="m 423.747,72.159496 v 66.134354 h -87.17396 v 75.45834 H 423.747 v 135.83887 h 69.60053 V 213.75219 H 598.06027 V 138.29385 H 493.34753 V 72.159496 Z" id="cross"/>
+  <path class="base stroke-color stroke-medium" style="fill:url(#main-gradient)" d="M 543.37829,461.6588 C 764.92153,343.16268 693.92769,568.90809 583.98126,638.69363 513.14506,683.65501 476.10904,514.00751 513.6875,386.59969 l -94.93816,1.14384 c 35.00837,112.74569 13.65804,286.00409 -63.36145,250.9501 C 218.1963,576.25342 167.19518,346.51307 386.23174,461.76403 259.6588,203.01892 62.507323,301.95882 81.006539,433.4622 101.10228,576.31454 264.14386,704.85726 260.831,762.12365 H 669.94206 C 663.38763,695.77323 847.31194,559.32011 853.19803,429.5801 858.84777,302.64023 639.76633,204.3278 543.37829,461.6588 Z" id="main" sodipodi:nodetypes="csccscsccsc"/>
+  <rect class="base stroke-color stroke-medium" style="fill:url(#base-gradient)" id="base" width="483.15958" height="73.944809" x="221.35155" y="801.52142"/>
+</svg>

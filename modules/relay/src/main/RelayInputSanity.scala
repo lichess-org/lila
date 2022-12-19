@@ -50,7 +50,7 @@ private object RelayInputSanity:
   private def fixDgtKingsInTheCenter(games: RelayGames): RelayGames = games map { game =>
     game.copy(
       root = game.root.takeMainlineWhile { node =>
-        !dgtBoggusKingMoveRegex.matches(node.move.san) || ! {
+        !dgtBoggusKingMoveRegex.matches(node.move.san.value) || ! {
           Fen.read(game.variant, node.fen).fold(true) { sit =>
             sit.board check !sit.color // the king that moved is in check
           }

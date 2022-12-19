@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn._
+import chess.format.pgn.*
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.variant
 import Node._
@@ -16,7 +16,7 @@ class PgnDumpTest extends Specification {
     Node(
       id = UciCharPair(Uci(uci).get),
       ply = ply,
-      move = Uci.WithSan(Uci(uci).get, san),
+      move = Uci.WithSan(Uci(uci).get, SanStr(san)),
       fen = Fen.Epd("<fen>"),
       check = false,
       clock = None,

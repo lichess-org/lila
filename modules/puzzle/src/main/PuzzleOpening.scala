@@ -146,7 +146,7 @@ final class PuzzleOpeningApi(
     (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36) ?? {
       gameRepo gameFromSecondary puzzle.gameId flatMap {
         _ ?? { game =>
-          OpeningDb.search(game.pgnMoves).map(_.opening).flatMap(SimpleOpening.apply) match
+          OpeningDb.search(game.sans).map(_.opening).flatMap(SimpleOpening.apply) match
             case None =>
               fuccess {
                 logger warn s"No opening for https://lichess.org/training/${puzzle.id}"

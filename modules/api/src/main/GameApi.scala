@@ -231,12 +231,12 @@ final private[api] class GameApi(
             )
         }),
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
-        "moves"    -> withFlags.moves.option(g.pgnMoves mkString " "),
+        "moves"    -> withFlags.moves.option(g.sans mkString " "),
         "opening"  -> (withFlags.opening.??(g.opening): Option[chess.opening.Opening.AtPly]),
         "fens" -> ((withFlags.fens && g.finished).?? {
           chess.Replay
             .boards(
-              moveStrs = g.pgnMoves,
+              sans = g.sans,
               initialFen = initialFen,
               variant = g.variant
             )

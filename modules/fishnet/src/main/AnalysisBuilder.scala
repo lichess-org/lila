@@ -3,12 +3,13 @@ package lila.fishnet
 import org.joda.time.DateTime
 
 import chess.format.Uci
+import chess.format.pgn.SanStr
 import JsonApi.Request.Evaluation
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
 
 final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using
-    ec: scala.concurrent.ExecutionContext
+    scala.concurrent.ExecutionContext
 ):
 
   def apply(client: Client, work: Work.Analysis, evals: List[Evaluation.OrSkipped]): Fu[Analysis] =
@@ -73,8 +74,12 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using
         }
     }
 
-  private def makeInfos(evals: List[Option[Evaluation]], moves: List[Uci], startedAtPly: Int): List[Info] =
-    (evals filterNot (_ ?? (_.isCheckmate)) sliding 2).toList.zip(moves).zipWithIndex map {
+  private def makeInfos(
+      evals: List[Option[Evaluation]],
+      moves: List[Uci],
+      startedAtPly: Int
+  ): List[Info] =
+    evals.filterNot(_ ?? (_.isCheckmate)).sliding(2).toList.zip(moves).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) =>
         val variation = before.cappedPv match
           case first :: rest if first != move => first :: rest
@@ -87,8 +92,8 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using
             after.score.mate,
             best
           ),
-          variation = variation.map(_.uci)
+          variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToPgn
         )
         if (info.ply % 2 == 1) info.invert else info
-      case ((_, _), index) => Info(index + 1 + startedAtPly, Eval.empty)
+      case ((_, _), index) => Info(index + 1 + startedAtPly, Eval.empty, Nil)
     }

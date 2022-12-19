@@ -64,7 +64,7 @@ final private class GameJson(
         "perf"    -> perfJson(game),
         "rated"   -> game.rated,
         "players" -> playersJson(game),
-        "pgn"     -> game.chess.pgnMoves.take(plies + 1).mkString(" ")
+        "pgn"     -> game.chess.sans.take(plies + 1).mkString(" ")
       )
       .add("clock", game.clock.map(_.config.show))
 
@@ -94,7 +94,7 @@ final private class GameJson(
         "players" -> playersJson(game),
         "rated"   -> game.rated,
         "treeParts" -> {
-          val pgnMoves = game.pgnMoves.take(plies + 1)
+          val pgnMoves = game.sans.take(plies + 1)
           for {
             pgnMove <- pgnMoves.lastOption
             situation <- chess.Replay

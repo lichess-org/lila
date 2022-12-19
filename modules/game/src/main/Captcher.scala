@@ -3,7 +3,7 @@ package lila.game
 import akka.actor.*
 import akka.pattern.pipe
 import cats.data.NonEmptyList
-import chess.format.pgn.{ Sans, Tags }
+import chess.format.pgn.{ Sans, Tags, SanStr }
 import chess.format.{ pgn, Fen }
 import chess.{ Game as ChessGame }
 import scala.util.Success
@@ -64,7 +64,7 @@ final private class Captcher(gameRepo: GameRepo)(using ec: scala.concurrent.Exec
         _ flatMap { makeCaptcha(game, _) }
       }
 
-    private def makeCaptcha(game: Game, moves: PgnMoves): Option[Captcha] =
+    private def makeCaptcha(game: Game, moves: Vector[SanStr]): Option[Captcha] =
       for {
         rewinded  <- rewind(moves)
         solutions <- solve(rewinded)
@@ -84,7 +84,7 @@ final private class Captcher(gameRepo: GameRepo)(using ec: scala.concurrent.Exec
         s"${move.orig.key} ${move.dest.key}"
       } toNel
 
-    private def rewind(moves: PgnMoves): Option[ChessGame] =
+    private def rewind(moves: Vector[SanStr]): Option[ChessGame] =
       pgn.Reader
         .movesWithSans(
           moves,

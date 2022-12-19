@@ -1,7 +1,7 @@
 package lila.round
 
 import chess.format.Fen
-import chess.format.Fen
+import chess.format.pgn.SanStr
 import chess.variant.Variant
 import play.api.libs.json.*
 
@@ -13,11 +13,11 @@ object StepBuilder:
 
   def apply(
       id: GameId,
-      pgnMoves: Vector[String],
+      sans: Vector[SanStr],
       variant: Variant,
       initialFen: Fen.Epd
   ): JsArray =
-    chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match
+    chess.Replay.gameMoveWhileValid(sans, initialFen, variant) match
       case (init, games, error) =>
         error foreach logChessError(id.value)
         JsArray {
@@ -33,7 +33,7 @@ object StepBuilder:
           val moveSteps = games.map { case (g, m) =>
             Step(
               ply = g.turns,
-              move = Step.Move(m.uci, m.san).some,
+              move = m.some,
               fen = Fen write g,
               check = g.situation.check,
               dests = None,

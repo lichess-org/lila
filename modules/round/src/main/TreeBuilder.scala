@@ -29,7 +29,7 @@ object TreeBuilder:
   ): Root =
     val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? game.bothClockStates
     val drawOfferPlies                     = game.drawOffers.normalizedPlies
-    chess.Replay.gameMoveWhileValid(game.pgnMoves, initialFen, game.variant) match
+    chess.Replay.gameMoveWhileValid(game.sans, initialFen, game.variant) match
       case (init, games, error) =>
         error foreach logChessError(game.id)
         val openingOf: OpeningOf =

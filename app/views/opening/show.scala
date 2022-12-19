@@ -83,7 +83,7 @@ object show:
                 a(
                   cls      := "button text",
                   dataIcon := "",
-                  href     := s"${routes.UserAnalysis.pgn(page.query.pgn mkString "_")}#explorer"
+                  href     := s"${routes.UserAnalysis.pgn(page.query.sans mkString "_")}#explorer"
                 )(trans.openingExplorer())
               ),
               if (page.explored.??(_.history).nonEmpty)
@@ -116,7 +116,7 @@ object show:
       div(
         cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom",
         st.data("pgn")   := game.pgn.toString,
-        st.data("ply")   := page.query.pgn.size + 1,
+        st.data("ply")   := page.query.sans.size + 1,
         st.data("title") := titleGame(game.game)
       )(lpvPreload)
     })

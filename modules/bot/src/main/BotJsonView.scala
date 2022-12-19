@@ -45,7 +45,7 @@ final class BotJsonView(
 
   def gameState(wf: Game.WithInitialFen): Fu[JsObject] =
     import wf.*
-    chess.format.UciDump(game.pgnMoves, fen, game.variant).toFuture map { uciMoves =>
+    chess.format.UciDump(game.sans, fen, game.variant).toFuture map { uciMoves =>
       Json
         .obj(
           "type"   -> "gameState",

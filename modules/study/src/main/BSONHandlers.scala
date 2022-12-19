@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags }
+import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags, SanStr }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ Centis, Color, Pos, PromotableRole, Role }
@@ -140,7 +140,7 @@ object BSONHandlers:
     for {
       ply <- doc.getAsOpt[Int](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
-      san <- doc.getAsOpt[String](F.san)
+      san <- doc.getAsOpt[SanStr](F.san)
       fen <- doc.getAsOpt[Fen.Epd](F.fen)
       check          = ~doc.getAsOpt[Boolean](F.check)
       shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
