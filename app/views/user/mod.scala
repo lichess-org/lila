@@ -15,7 +15,7 @@ import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPresets, UserWithModlog }
 import lila.playban.RageSit
-import lila.security.{ Granter, Permission, UserLogins }
+import lila.security.{ Granter, Permission, UserLogins, Dated, UserClient, userAgentParser }
 import lila.user.{ Holder, User }
 import org.joda.time.DateTime
 
@@ -712,16 +712,16 @@ object mod:
           tbody(
             logins.uas
               .sortBy(-_.seconds)
-              .map { ua =>
-                val parsed = ua.value.parse
+              .map { case Dated(ua, date) =>
+                val parsed = userAgentParser.parse(ua.value)
                 tr(
-                  td(title := ua.value.value)(
+                  td(title := ua.value)(
                     if (parsed.device.family == "Other") "Computer" else parsed.device.family
                   ),
                   td(parts(parsed.os.family.some, parsed.os.major)),
                   td(parts(parsed.userAgent.family.some, parsed.userAgent.major)),
-                  td(dataSort := ua.date.getMillis)(momentFromNowServer(ua.date)),
-                  td(ua.value.client.toString)
+                  td(dataSort := date.getMillis)(momentFromNowServer(date)),
+                  td(UserClient(ua).toString)
                 )
               }
           )

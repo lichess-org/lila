@@ -51,21 +51,10 @@ case class UserSignup(
     suspIp: Boolean
 )
 
-case class UserAgent(value: String):
-
-  import UserAgent.Client
-
-  lazy val client: Client =
-    if (value contains "Lichobile") Client.App
-    else if (value contains "Mobile") Client.Mob
-    else Client.PC
-
-  def parse = org.uaparser.scala.Parser.default.parse(value)
-
-object UserAgent:
-
-  given Iso.StringIso[UserAgent]                      = Iso.string[UserAgent](UserAgent.apply, _.value)
-  given reactivemongo.api.bson.BSONHandler[UserAgent] = lila.db.BSON.stringIsoHandler
-
-  enum Client:
-    case PC, Mob, App
+enum UserClient:
+  case PC, Mob, App
+object UserClient:
+  def apply(ua: UserAgent): UserClient =
+    if (ua.value contains "Lichobile") UserClient.App
+    else if (ua.value contains "Mobile") UserClient.Mob
+    else UserClient.PC
