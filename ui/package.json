@@ -15,9 +15,7 @@
     "@types/jest": "^28.1.6",
     "jest": "^28.1.3",
     "jest-environment-jsdom": "^28.1.3",
-    "ts-jest": "^28.0.7"
-  },
-  "peerDependencies": {
+    "ts-jest": "^28.0.7",
     "typescript": "^4.9.4"
   },
   "scripts": {
