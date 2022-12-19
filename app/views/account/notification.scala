@@ -21,17 +21,21 @@ object notification {
           div(
             table(cls := "allows")(
               thead(
-                tr(th, th(notifyBell()), th(notifyPush()))
+                tr(
+                  th,
+                  th(notifyBell(), iconTag("")),
+                  th(notifyPush(), iconTag(""))
+                )
               ),
               tbody(
                 List(
-                  notifyStreamStart()    -> "streamStart",
-                  notifyForumMention()   -> "mention",
-                  notifyInvitedStudy()   -> "invitedStudy",
-                  notifyInboxMsg()       -> "privateMessage",
-                  notifyChallenge()      -> "challenge",
-                  notifyTournamentSoon() -> "tournamentSoon",
-                  notifyGameEvent()      -> "gameEvent"
+                  a(href := routes.Streamer.index())(notifyStreamStart()) -> "streamStart",
+                  notifyForumMention()                                    -> "mention",
+                  notifyInvitedStudy()                                    -> "invitedStudy",
+                  notifyInboxMsg()                                        -> "privateMessage",
+                  notifyChallenge()                                       -> "challenge",
+                  notifyTournamentSoon()                                  -> "tournamentSoon",
+                  notifyGameEvent()                                       -> "gameEvent"
                 ).map(makeRow(form))
               )
             ),
@@ -45,9 +49,9 @@ object notification {
       )
     }
 
-  private def makeRow(form: play.api.data.Form[_])(transTxt: Frag, filterName: String) =
+  private def makeRow(form: play.api.data.Form[_])(transFrag: Frag, filterName: String) =
     tr(
-      td(transTxt),
+      td(transFrag),
       Seq("bell", "push") map { allow =>
         val name    = s"$filterName.$allow"
         val checked = form.data(name).contains("true")

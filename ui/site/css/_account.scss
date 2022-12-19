@@ -174,7 +174,6 @@
     margin: 0 0 4em 0;
     font-size: 1.1em;
     table-layout: fixed;
-    border-collapse: collapse;
 
     tr:nth-child(odd) td {
       background-color: $c-bg-zebra;
@@ -185,16 +184,10 @@
       width: 15%;
       padding: 1em;
       text-align: center;
-      border: solid $c-accent-faint;
-      border-width: 0 1px 1px 0;
 
       &:first-child {
-        width: 55%;
+        width: 50%;
         text-align: left;
-      }
-
-      &:last-child {
-        border-right: 0;
       }
 
       div {
@@ -209,6 +202,15 @@
       div.toggle {
         display: flex;
         justify-content: center;
+      }
+    }
+
+    th {
+      vertical-align: bottom;
+      color: $c-font-dim;
+      i {
+        font-size: 2em;
+        display: block;
       }
     }
   }
