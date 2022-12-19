@@ -19,7 +19,7 @@
   <string name="black">काळा</string>
   <string name="asWhite">पांढऱ्या रंगासाठी</string>
   <string name="asBlack">काळ्या रंगासाठी</string>
-  <string name="randomColor">एच्छिक बाजू</string>
+  <string name="randomColor">यादृच्छिक बाजू</string>
   <string name="createAGame">डाव मांडा</string>
   <string name="whiteIsVictorious">पांढऱ्याचा विजय झाला</string>
   <string name="blackIsVictorious">काळ्याचा विजय झाला</string>
@@ -367,7 +367,7 @@
     <item quantity="other">%s खेळ मागवले</item>
   </plurals>
   <string name="thisIsAChessCaptcha">हा बुद्धिबळाचा CAPTCHA आहे</string>
-  <string name="clickOnTheBoardToMakeYourMove">तुम्ही मनुष्य आहात हे सिद्धा करण्यासाठी पटावर क्लिक करून आपली चाल खेळा</string>
+  <string name="clickOnTheBoardToMakeYourMove">तुम्ही मनुष्य आहात हे सिद्ध करण्यासाठी पटावर क्लिक करून आपली चाल खेळा.</string>
   <string name="captcha.fail">कृपया बुद्धिबळ कोडे सोडवा.</string>
   <string name="notACheckmate">ही शहमात नाही</string>
   <string name="whiteCheckmatesInOneMove">पांढरा एका चालीत शहमात करणार</string>
@@ -428,7 +428,7 @@
   <string name="points">गुण</string>
   <string name="wins">एकूण  विजय</string>
   <string name="losses">एकूण  पराभव</string>
-  <string name="createdBy">तयार करणारा</string>
+  <string name="createdBy">निर्माता</string>
   <string name="tournamentIsStarting">क्रीडासत्र सुरू होत आहे</string>
   <string name="tournamentPairingsAreNowClosed">क्रीडासत्रातील जोड्या लावणे आता बंद झाले आहे.</string>
   <string name="standByX">जरा थांबा %s, खेळाडूंच्या जोड्या लागत आहेत, तयार रहा!</string>
@@ -617,7 +617,7 @@
   <string name="noSimulFound">एकाचवेळी प्रदर्शन सापडल नाही</string>
   <string name="noSimulExplanation">हे \"एक बिरूद्ध अनेक\" प्रदर्शन अस्तित्त्वात नाही.</string>
   <string name="returnToSimulHomepage">अनेकांविरुद्ध प्रदर्शनाच्या मुखपृष्ठाकडे परत जा</string>
-  <string name="aboutSimul">या प्रदर्शनमध्ये एकाच वेळी बर्‍याच खेळाडूंचा सामना करणार्‍या एकाच खेळाडूचा समावेश आहे.</string>
+  <string name="aboutSimul">या प्रदर्शनामध्ये एकटा खेळाडू एकाच वेळी बऱ्याच प्रतिस्पर्ध्यांचा सामना करतो.</string>
   <string name="aboutSimulImage">50 विरोधकांविरूद्ध फिशरने 47 खेळ जिंकले, 2 बरोबरीत सोडवले आणि 1 खेळ गमावला.</string>
   <string name="aboutSimulRealLife">वास्तविक जगातील घटनांमधून संकल्पना घेतली आहे. वास्तविक जीवनात, यामध्ये यजमान एकाच चालीसाठी टेबल वरून दुसऱ्या टेबलवर फिरत असतो.</string>
   <string name="aboutSimulRules">जेव्हा अनेकांविरुद्ध प्रदर्शन सुरू होते, तेव्हा प्रत्येक खेळाडू यजमानासह खेळ सुरू करतो. जेव्हा सर्व खेळ पूर्ण होतात तेव्हा प्रदर्शन संपते.</string>
