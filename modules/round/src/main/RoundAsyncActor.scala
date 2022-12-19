@@ -449,7 +449,7 @@ final private[round] class RoundAsyncActor(
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
   private def recordLag(pov: Pov): Unit =
-    if ((pov.game.playedTurns & 30) == 10)
+    if ((pov.game.playedTurns.value & 30) == 10)
       // Triggers every 32 moves starting on ply 10.
       // i.e. 10, 11, 42, 43, 74, 75, ...
       for {

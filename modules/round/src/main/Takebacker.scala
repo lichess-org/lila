@@ -24,8 +24,8 @@ final private class Takebacker(
         case Pov(game, color) if pov.opponent.isProposingTakeback =>
           {
             if (
-              pov.opponent.proposeTakebackAt == pov.game.turns && color == Color
-                .fromPly(pov.opponent.proposeTakebackAt)
+              pov.opponent.proposeTakebackAt == pov.game.turns &&
+              color == pov.opponent.proposeTakebackAt.color
             ) single(game)
             else double(game)
           } >>- publishTakeback(pov) dmap (_ -> situation.reset)

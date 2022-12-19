@@ -3,8 +3,9 @@ package lila.round
 import org.joda.time.DateTime
 import play.api.libs.json.*
 
-import chess.format.Uci
-import chess.Move
+import chess.format.{ Uci, Fen }
+import chess.format.pgn.SanStr
+import chess.{ Ply, Move }
 import lila.common.Json.given
 import lila.game.Game
 
@@ -38,10 +39,10 @@ object Forecast:
   def maxPlies(steps: Steps): Int = steps.foldLeft(0)(_ max _.size)
 
   case class Step(
-      ply: Int,
+      ply: Ply,
       uci: String,
-      san: String,
-      fen: String,
+      san: SanStr,
+      fen: Fen.Epd,
       check: Option[Boolean]
   ):
 

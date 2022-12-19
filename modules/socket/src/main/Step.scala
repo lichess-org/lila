@@ -1,12 +1,12 @@
 package lila.socket
 
 import chess.format.{ Fen, Uci }
-import chess.Pos
+import chess.{ Ply, Pos }
 import chess.variant.Crazyhouse
 import play.api.libs.json.*
 
 case class Step(
-    ply: Int,
+    ply: Ply,
     move: Option[Uci.WithSan],
     fen: Fen.Epd,
     check: Boolean,
@@ -15,9 +15,8 @@ case class Step(
     drops: Option[List[Pos]],
     crazyData: Option[Crazyhouse.Data]
 ):
-
   // who's color plays next
-  def color = chess.Color.fromPly(ply)
+  def color = ply.color
 
   def toJson = Json toJson this
 

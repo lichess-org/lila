@@ -23,7 +23,7 @@ final class JsonView(
       angle: Option[PuzzleAngle],
       replay: Option[PuzzleReplay],
       user: Option[User]
-  )(using lang: Lang): Fu[JsObject] =
+  )(using Lang): Fu[JsObject] =
     gameJson(
       gameId = puzzle.gameId,
       plies = puzzle.initialPly,

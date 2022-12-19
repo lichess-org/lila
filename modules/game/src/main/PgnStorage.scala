@@ -17,9 +17,9 @@ private object PgnStorage:
         }
       }
 
-    def decode(bytes: ByteArray, plies: Int): Vector[SanStr] =
+    def decode(bytes: ByteArray, plies: Ply): Vector[SanStr] =
       monitor(_.game.pgn.decode("old")) {
-        format.pgn.Binary.readMoves(bytes.value.toList, plies).get.toVector
+        format.pgn.Binary.readMoves(bytes.value.toList, plies.value).get.toVector
       }
 
   case object Huffman:
@@ -33,9 +33,9 @@ private object PgnStorage:
           Encoder.encode(SanStr raw sans.toArray)
         }
       }
-    def decode(bytes: ByteArray, plies: Int): Decoded =
+    def decode(bytes: ByteArray, plies: Ply): Decoded =
       monitor(_.game.pgn.decode("huffman")) {
-        val decoded      = Encoder.decode(bytes.value, plies)
+        val decoded      = Encoder.decode(bytes.value, plies.value)
         val unmovedRooks = decoded.unmovedRooks.asScala.view.map(Pos(_)).toSet
         Decoded(
           sans = SanStr from decoded.pgnMoves.toVector,
@@ -51,7 +51,7 @@ private object PgnStorage:
             blackKingSide = unmovedRooks(Pos.H8),
             blackQueenSide = unmovedRooks(Pos.A8)
           ),
-          halfMoveClock = decoded.halfMoveClock
+          halfMoveClock = HalfMoveClock(decoded.halfMoveClock)
         )
       }
 
@@ -72,8 +72,8 @@ private object PgnStorage:
       positionHashes: PositionHash, // irrelevant after game ends
       unmovedRooks: UnmovedRooks,   // irrelevant after game ends
       lastMove: Option[Uci],
-      castles: Castles,  // irrelevant after game ends
-      halfMoveClock: Int // irrelevant after game ends
+      castles: Castles,            // irrelevant after game ends
+      halfMoveClock: HalfMoveClock // irrelevant after game ends
   )
 
   private def monitor[A](mon: lila.mon.TimerPath)(f: => A): A =

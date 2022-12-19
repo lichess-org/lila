@@ -24,7 +24,7 @@ final private class FishnetEvalCache(
               cp = pv.score.cp,
               mate = pv.score.mate
             )
-            .invertIf((i + work.startPly) % 2 == 1), // fishnet evals are from POV
+            .invertIf((work.startPly + i).isOdd), // fishnet evals are from POV
           time = none,
           nodes = eval.knodes.intNodes.some,
           nps = none,

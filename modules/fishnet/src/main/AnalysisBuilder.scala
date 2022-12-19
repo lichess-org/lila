@@ -2,6 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
+import chess.Ply
 import chess.format.Uci
 import chess.format.pgn.SanStr
 import JsonApi.Request.Evaluation
@@ -77,7 +78,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using
   private def makeInfos(
       evals: List[Option[Evaluation]],
       moves: List[Uci],
-      startedAtPly: Int
+      startedAtPly: Ply
   ): List[Info] =
     evals.filterNot(_ ?? (_.isCheckmate)).sliding(2).toList.zip(moves).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) =>
@@ -86,7 +87,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using
           case _                              => Nil
         val best = variation.headOption
         val info = Info(
-          ply = index + 1 + startedAtPly,
+          ply = startedAtPly + index + 1,
           eval = Eval(
             after.score.cp,
             after.score.mate,
@@ -94,6 +95,6 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using
           ),
           variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToPgn
         )
-        if (info.ply % 2 == 1) info.invert else info
-      case ((_, _), index) => Info(index + 1 + startedAtPly, Eval.empty, Nil)
+        if (info.ply.isEven) info.invert else info
+      case ((_, _), index) => Info(startedAtPly + index + 1, Eval.empty, Nil)
     }

@@ -73,12 +73,12 @@ object BinaryFormat:
         .toArray
     }
 
-    def read(ba: ByteArray, turns: Int): Vector[Centis] = Centis from {
+    def read(ba: ByteArray, turns: Ply): Vector[Centis] = Centis from {
       def dec(x: Int) = decodeMap.getOrElse(x, decodeMap(size - 1))
       ba.value map toInt flatMap { k =>
         Array(dec(k >> 4), dec(k & 15))
       }
-    }.view.take(turns).toVector
+    }.view.take(turns.value).toVector
 
   final class clock(start: Timestamp):
 

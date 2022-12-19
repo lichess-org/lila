@@ -5,7 +5,19 @@ import chess.format.{ Fen, Uci }
 import chess.format.pgn.SanStr
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{ Castles, Centis, CheckCount, Clock, Color, Game as ChessGame, Mode, MoveOrDrop, Speed, Status }
+import chess.{
+  Ply,
+  Castles,
+  Centis,
+  CheckCount,
+  Clock,
+  Color,
+  Game as ChessGame,
+  Mode,
+  MoveOrDrop,
+  Speed,
+  Status
+}
 import org.joda.time.DateTime
 
 import lila.common.{ Days, Sequence }
@@ -123,7 +135,7 @@ case class Game(
       // On the other hand, if history.size is more than playedTurns,
       // then the game ended during a players turn by async event, and
       // the last recorded time is in the history for turnColor.
-      val noLastInc = finished && (history.size <= playedTurns) == (color != turnColor)
+      val noLastInc = finished && (playedTurns >= history.size) == (color != turnColor)
 
       pairs map { case (first, second) =>
         {
@@ -191,7 +203,6 @@ case class Game(
     )
 
     val state = Event.State(
-      color = game.situation.color,
       turns = game.turns,
       status = (status != updated.status) option updated.status,
       winner = game.situation.winner,
@@ -511,19 +522,18 @@ case class Game(
     }
 
   def playerWhoDidNotMove: Option[Player] =
-    playedTurns match
-      case 0 => player(startColor).some
-      case 1 => player(!startColor).some
-      case _ => none
+    if playedTurns == Ply(0) then player(startColor).some
+    else if playedTurns == Ply(1) then player(!startColor).some
+    else none
 
   def onePlayerHasMoved    = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
 
-  def startColor = Color.fromPly(chess.startedAtTurn)
+  def startColor = chess.startedAtTurn.color
 
   def playerMoves(color: Color): Int =
-    if (color == startColor) (playedTurns + 1) / 2
-    else playedTurns / 2
+    if (color == startColor) (playedTurns.value + 1) / 2
+    else playedTurns.value / 2
 
   def playerHasMoved(color: Color) = playerMoves(color) > 0
 
@@ -577,10 +587,7 @@ case class Game(
   def pgnImport   = metadata.pgnImport
   def isPgnImport = pgnImport.isDefined
 
-  def resetTurns =
-    copy(
-      chess = chess.copy(turns = 0, startedAtTurn = 0)
-    )
+  def resetTurns = copy(chess = chess.copy(turns = Ply(0), startedAtTurn = Ply(0)))
 
   lazy val opening: Option[Opening.AtPly] =
     if (fromPosition || !Variant.openingSensibleVariants(variant)) none
@@ -605,7 +612,7 @@ case class Game(
     if (variant.isInsufficientMaterial(board)) DrawReason.InsufficientMaterial.some
     else if (variant.fiftyMoves(history)) DrawReason.FiftyMoves.some
     else if (history.threefoldRepetition) DrawReason.ThreefoldRepetition.some
-    else if (drawOffers.normalizedPlies.exists(turns <=)) DrawReason.MutualAgreement.some
+    else if (drawOffers.normalizedPlies.exists(turns <= _)) DrawReason.MutualAgreement.some
     else None
 
   def startedAt = Game.StartedAt(startColor, chess.startedAtTurn)
@@ -621,8 +628,8 @@ object Game:
   case class OnStart(id: GameId)
   case class WithInitialFen(game: Game, fen: Option[Fen.Epd])
 
-  case class SideAndStart(color: Color, startColor: Color, startedAtTurn: Int)
-  case class StartedAt(startColor: Color, startedAtTurn: Int):
+  case class SideAndStart(color: Color, startColor: Color, startedAtTurn: Ply)
+  case class StartedAt(startColor: Color, startedAtTurn: Ply):
     def pov(color: Color) = SideAndStart(color, startColor, startedAtTurn)
 
   val syntheticId = GameId("synthetic")
@@ -630,7 +637,7 @@ object Game:
   val maxPlaying         = 200 // including correspondence
   val maxPlayingRealtime = 100
 
-  val maxPlies = 600 // unlimited can cause StackOverflowError
+  val maxPlies = Ply(600) // unlimited can cause StackOverflowError
 
   val analysableVariants: Set[Variant] = Set(
     chess.variant.Standard,

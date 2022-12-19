@@ -27,10 +27,9 @@ object Rewind:
           clk.setRemainingTime(color, t)
         }
       }
-      def rewindPlayer(player: Player) = player.copy(proposeTakebackAt = 0)
       val newGame = game.copy(
-        whitePlayer = rewindPlayer(game.whitePlayer),
-        blackPlayer = rewindPlayer(game.blackPlayer),
+        whitePlayer = game.whitePlayer.removeTakebackProposition,
+        blackPlayer = game.blackPlayer.removeTakebackProposition,
         chess = rewindedGame.copy(clock = newClock),
         binaryMoveTimes = game.binaryMoveTimes.map { binary =>
           val moveTimes = BinaryFormat.moveTime.read(binary, game.playedTurns)

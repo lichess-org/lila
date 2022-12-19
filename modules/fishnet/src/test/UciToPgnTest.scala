@@ -1,7 +1,7 @@
 package lila.fishnet
 
 import scala.language.implicitConversions
-import chess.Replay
+import chess.{ Ply, Replay }
 import chess.format.pgn.{ SanStr, Reader }
 import org.specs2.mutable._
 
@@ -12,6 +12,7 @@ import lila.tree.Eval._
 final class UciToPgnTest extends Specification {
 
   private given Conversion[String, SanStr] = SanStr(_)
+  private given Conversion[Int, Ply]       = Ply(_)
 
   private val now = org.joda.time.DateTime.now
 

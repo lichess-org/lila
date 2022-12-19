@@ -4,7 +4,7 @@ import chess.Centis
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.Opening
-import chess.Pos
+import chess.{ Ply, Pos }
 import chess.variant.Crazyhouse
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
@@ -12,7 +12,7 @@ import ornicar.scalalib.ThreadLocalRandom
 import lila.common.Json.{ *, given }
 
 sealed trait Node:
-  def ply: Int
+  def ply: Ply
   def fen: Fen.Epd
   def check: Boolean
   // None when not computed yet
@@ -37,13 +37,13 @@ sealed trait Node:
   def moveOption: Option[Uci.WithSan]
 
   // who's color plays next
-  def color = chess.Color.fromPly(ply)
+  def color = ply.color
 
   def mainlineNodeList: List[Node] =
     dropFirstChild :: children.headOption.fold(List.empty[Node])(_.mainlineNodeList)
 
 case class Root(
-    ply: Int,
+    ply: Ply,
     fen: Fen.Epd,
     check: Boolean,
     // None when not computed yet
@@ -71,7 +71,7 @@ case class Root(
 
 case class Branch(
     id: UciCharPair,
-    ply: Int,
+    ply: Ply,
     move: Uci.WithSan,
     fen: Fen.Epd,
     check: Boolean,

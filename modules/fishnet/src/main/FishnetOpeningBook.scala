@@ -54,7 +54,7 @@ final private class FishnetOpeningBook(
             .openingBook(
               level = level,
               variant = game.variant.key,
-              ply = game.turns,
+              ply = game.turns.value,
               hit = res.toOption.exists(_.isDefined),
               success = res.isSuccess
             )

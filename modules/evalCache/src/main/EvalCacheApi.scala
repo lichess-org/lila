@@ -32,7 +32,7 @@ final class EvalCacheApi(
       _.map { JsonHandlers.writeEval(_, fen) }
     } addEffect { res =>
       Fen.readPly(fen) foreach { ply =>
-        lila.mon.evalCache.request(ply, res.isDefined).increment()
+        lila.mon.evalCache.request(ply.value, res.isDefined).increment()
       }
     }
 
