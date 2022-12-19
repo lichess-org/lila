@@ -57,10 +57,10 @@ object GameDiff:
         byteArrayHandler.writeOpt(BinaryFormat.clockHistory.writeSide(x, y, z))
       }
 
-    if (a.variant.standard) dTry(huffmanPgn, _.pgnMoves, writeBytes compose PgnStorage.Huffman.encode)
+    if (a.variant.standard) dTry(huffmanPgn, _.sans, writeBytes compose PgnStorage.Huffman.encode)
     else
       val f = PgnStorage.OldBin
-      dTry(oldPgn, _.pgnMoves, writeBytes compose f.encode)
+      dTry(oldPgn, _.sans, writeBytes compose f.encode)
       dTry(binaryPieces, _.board.pieces, writeBytes compose BinaryFormat.piece.write)
       d(positionHashes, _.history.positionHashes, ph => w.bytes(ph.value))
       dTry(unmovedRooks, _.history.unmovedRooks, writeBytes compose BinaryFormat.unmovedRooks.write)

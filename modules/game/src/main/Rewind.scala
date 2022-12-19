@@ -15,7 +15,7 @@ object Rewind:
   def apply(game: Game, initialFen: Option[Fen.Epd]): Validated[String, Progress] =
     chessPgn.Reader
       .movesWithSans(
-        moveStrs = game.pgnMoves,
+        sans = game.sans,
         op = sans => chessPgn.Sans(sans.value.dropRight(1)),
         tags = createTags(initialFen, game)
       )

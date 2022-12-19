@@ -3,11 +3,11 @@ package lila.fishnet
 import cats.data.Validated
 import cats.data.Validated.valid
 import cats.implicits.*
-import chess.format.pgn.Dumper
+import chess.format.pgn.{ Dumper, SanStr }
 import chess.format.Uci
 import chess.{ Drop, Move, Replay, Situation }
 
-import lila.analyse.{ Analysis, Info, PgnMove }
+import lila.analyse.{ Analysis, Info }
 import lila.base.LilaException
 
 // convert variations from UCI to PGN.
@@ -27,7 +27,7 @@ private object UciToPgn:
       else info.dropVariation
     }
 
-    def uciToPgn(ply: Int, variation: List[String]): Validated[String, List[PgnMove]] =
+    def uciToPgn(ply: Int, variation: List[String]): Validated[String, List[SanStr]] =
       for {
         situation <-
           if (ply == replay.setup.startedAtTurn + 1) valid(replay.setup.situation)
@@ -50,7 +50,7 @@ private object UciToPgn:
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)) {
       case ((infos, errs), info) if info.variation.isEmpty => (info :: infos, errs)
       case ((infos, errs), info) =>
-        uciToPgn(info.ply, info.variation).fold(
+        uciToPgn(info.ply, SanStr raw info.variation).fold(
           err => (info.dropVariation :: infos, LilaException(err) :: errs),
           pgn => (info.copy(variation = pgn) :: infos, errs)
         )

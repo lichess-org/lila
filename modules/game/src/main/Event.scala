@@ -15,6 +15,7 @@ import chess.{
   Status
 }
 import chess.format.{ Fen, BoardFen }
+import chess.format.pgn.SanStr
 import JsonView.{ *, given }
 import lila.chat.{ PlayerLine, UserLine }
 import lila.common.ApiVersion
@@ -70,7 +71,7 @@ object Event:
   case class Move(
       orig: Pos,
       dest: Pos,
-      san: String,
+      san: SanStr,
       fen: BoardFen,
       check: Boolean,
       threefold: Boolean,
@@ -128,7 +129,7 @@ object Event:
   case class Drop(
       role: chess.Role,
       pos: Pos,
-      san: String,
+      san: SanStr,
       fen: BoardFen,
       check: Boolean,
       threefold: Boolean,

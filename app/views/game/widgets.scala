@@ -79,14 +79,13 @@ object widgets:
               else g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
             }
           ),
-          if (g.turns > 0) {
-            val pgnMoves = g.pgnMoves take 20
+          if (g.playedTurns > 0) {
             div(cls := "opening")(
               (!g.fromPosition ?? g.opening) map { opening =>
                 strong(opening.opening.name)
               },
               div(cls := "pgn")(
-                pgnMoves.take(6).grouped(2).zipWithIndex map {
+                g.sans.take(6).grouped(2).zipWithIndex map {
                   case (Vector(w, b), i) => s"${i + 1}. $w $b"
                   case (Vector(w), i)    => s"${i + 1}. $w"
                   case _                 => ""

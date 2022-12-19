@@ -223,7 +223,7 @@ final class JsonView(
           .obj(
             "game" -> {
               gameJsonView(game, initialFen) ++ Json.obj(
-                "pgn" -> pov.game.pgnMoves.mkString(" ")
+                "pgn" -> pov.game.sans.mkString(" ")
               )
             },
             "white"       -> Json.obj("user" -> white),

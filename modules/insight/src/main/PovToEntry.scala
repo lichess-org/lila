@@ -4,6 +4,7 @@ import cats.data.NonEmptyList
 import chess.format.Fen
 import chess.opening.OpeningDb
 import chess.{ Centis, Clock, Role, Situation, Stats }
+import chess.format.pgn.SanStr
 import scala.util.chaining.*
 
 import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, WinPercent }
@@ -49,7 +50,7 @@ final private class PovToEntry(
               situations <-
                 chess.Replay
                   .situations(
-                    moveStrs = game.pgnMoves,
+                    sans = game.sans,
                     initialFen = fen orElse {
                       !pov.game.variant.standardInitialPosition option pov.game.variant.initialFen
                     },
@@ -76,8 +77,8 @@ final private class PovToEntry(
           }
       }
 
-  private def pgnMoveToRole(pgn: String): Role =
-    pgn.head match
+  private def sanToRole(san: SanStr): Role =
+    san.value.head match
       case 'N'       => chess.Knight
       case 'B'       => chess.Bishop
       case 'R'       => chess.Rook
@@ -96,7 +97,7 @@ final private class PovToEntry(
         from.pov.color.fold(is, is.map(_.invert))
       }
     }
-    val roles = from.pov.game.pgnMoves(from.pov.color) map pgnMoveToRole
+    val roles = from.pov.game.sansOf(from.pov.color) map sanToRole
     val situations =
       val pivot = if (from.pov.color == from.pov.game.startColor) 0 else 1
       from.situations.toList.zipWithIndex.collect {
@@ -200,11 +201,11 @@ final private class PovToEntry(
       color = pov.color,
       perf = perfType,
       opening = opening,
-      myCastling = Castling.fromMoves(game pgnMoves pov.color),
+      myCastling = Castling.fromMoves(game sansOf pov.color),
       rating = myRating,
       opponentRating = opRating,
       opponentStrength = for { m <- myRating; o <- opRating } yield RelativeStrength(m, o),
-      opponentCastling = Castling.fromMoves(game pgnMoves !pov.color),
+      opponentCastling = Castling.fromMoves(game sansOf !pov.color),
       moves = makeMoves(from),
       queenTrade = queenTrade(from),
       result = game.winnerUserId match {

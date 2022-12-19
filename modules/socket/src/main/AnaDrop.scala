@@ -20,7 +20,7 @@ case class AnaDrop(
 
   def branch: Validated[String, Branch] =
     chess.Game(variant.some, fen.some).drop(role, pos) andThen { (game, drop) =>
-      game.pgnMoves.lastOption toValid "Dropped but no last move!" map { san =>
+      game.sans.lastOption toValid "Dropped but no last move!" map { san =>
         val uci     = Uci(drop)
         val movable = !game.situation.end
         val fen     = chess.format.Fen write game

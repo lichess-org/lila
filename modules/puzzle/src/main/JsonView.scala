@@ -180,7 +180,7 @@ final class JsonView(
           val branch = tree.Branch(
             id = UciCharPair(move.toUci),
             ply = game.turns,
-            move = Uci.WithSan(move.toUci, game.pgnMoves.last),
+            move = Uci.WithSan(move.toUci, game.sans.last),
             fen = chess.format.Fen write game,
             check = game.situation.check,
             crazyData = none

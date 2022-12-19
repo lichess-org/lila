@@ -94,15 +94,15 @@ object BSONHandlers:
       val gameVariant = Variant(r intD F.variant) | chess.variant.Standard
 
       val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, playedPlies) } | {
-        val clm      = r.get[CastleLastMove](F.castleLastMove)
-        val pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, playedPlies)
+        val clm  = r.get[CastleLastMove](F.castleLastMove)
+        val sans = PgnStorage.OldBin.decode(r bytesD F.oldPgn, playedPlies)
         val halfMoveClock =
-          pgnMoves.reverse
-            .indexWhere(san => san.contains("x") || san.headOption.exists(_.isLower))
+          sans.reverse
+            .indexWhere(san => san.value.contains("x") || san.value.headOption.exists(_.isLower))
             .some
             .filter(0 <= _)
         PgnStorage.Decoded(
-          pgnMoves = pgnMoves,
+          sans = sans,
           pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
           positionHashes = r.getD[chess.PositionHash](F.positionHashes),
           unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
@@ -134,7 +134,7 @@ object BSONHandlers:
           ),
           color = turnColor
         ),
-        pgnMoves = decoded.pgnMoves,
+        sans = decoded.sans,
         clock = r.getO[Color => Clock](F.clock)(using
           clockBSONReader(createdAt, light.whitePlayer.berserk, light.blackPlayer.berserk)
         ) map (_(turnColor)),
@@ -212,11 +212,11 @@ object BSONHandlers:
         F.analysed          -> w.boolO(o.metadata.analysed),
         F.rules             -> o.metadata.nonEmptyRules
       ) ++ {
-        if (o.variant.standard) $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.pgnMoves take Game.maxPlies))
+        if (o.variant.standard) $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.sans take Game.maxPlies))
         else
           val f = PgnStorage.OldBin
           $doc(
-            F.oldPgn         -> f.encode(o.pgnMoves take Game.maxPlies),
+            F.oldPgn         -> f.encode(o.sans take Game.maxPlies),
             F.binaryPieces   -> BinaryFormat.piece.write(o.board.pieces),
             F.positionHashes -> o.history.positionHashes,
             F.unmovedRooks   -> o.history.unmovedRooks,

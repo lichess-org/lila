@@ -3,15 +3,11 @@ package lila.analyse
 import cats.implicits.*
 import chess.Color
 import chess.format.Uci
+import chess.format.pgn.SanStr
 
 import lila.tree.Eval
 
-case class Info(
-    ply: Int,
-    eval: Eval,
-    // variation is first in UCI, then converted to PGN before storage
-    variation: List[String] = Nil
-):
+case class Info(ply: Int, eval: Eval, variation: List[SanStr]):
 
   def cp   = eval.cp
   def mate = eval.mate
@@ -64,12 +60,13 @@ object Info:
 
   private def decode(ply: Int, str: String): Option[Info] =
     str.split(separator) match
-      case Array()           => Info(ply, Eval.empty).some
-      case Array(cp)         => Info(ply, Eval(strCp(cp), None, None)).some
-      case Array(cp, ma)     => Info(ply, Eval(strCp(cp), strMate(ma), None)).some
-      case Array(cp, ma, va) => Info(ply, Eval(strCp(cp), strMate(ma), None), va.split(' ').toList).some
+      case Array()       => Info(ply, Eval.empty, Nil).some
+      case Array(cp)     => Info(ply, Eval(strCp(cp), None, None), Nil).some
+      case Array(cp, ma) => Info(ply, Eval(strCp(cp), strMate(ma), None), Nil).some
+      case Array(cp, ma, va) =>
+        Info(ply, Eval(strCp(cp), strMate(ma), None), SanStr from va.split(' ').toList).some
       case Array(cp, ma, va, be) =>
-        Info(ply, Eval(strCp(cp), strMate(ma), Uci.Move fromChars be), va.split(' ').toList).some
+        Info(ply, Eval(strCp(cp), strMate(ma), Uci.Move fromChars be), SanStr from va.split(' ').toList).some
       case _ => none
 
   def decodeList(str: String, fromPly: Int): Option[List[Info]] = {
@@ -78,7 +75,7 @@ object Info:
     }
   }.sequence
 
-  def encodeList(infos: List[Info]): String = infos map (_.encode) mkString listSeparator
+  def encodeList(infos: List[Info]): String = infos.map(_.encode) mkString listSeparator
 
-  def apply(cp: Option[Cp], mate: Option[Mate], variation: List[String]): Int => Info =
+  def apply(cp: Option[Cp], mate: Option[Mate], variation: List[SanStr]): Int => Info =
     ply => Info(ply, Eval(cp, mate, None), variation)

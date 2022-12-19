@@ -1,6 +1,7 @@
 package lila.opening
 
 import chess.format.{ Fen, Uci }
+import chess.format.pgn.SanStr
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 import chess.Replay
 import chess.variant.Standard
@@ -11,24 +12,24 @@ import org.joda.time.format.DateTimeFormat
 import lila.common.LilaOpeningFamily
 
 case class OpeningQuery(replay: Replay, config: OpeningConfig):
-  val pgn: Vector[String] = replay.state.pgnMoves
-  val uci: Vector[Uci]    = replay.moves.view.map(_.fold(_.toUci, _.toUci)).reverse.toVector
-  def position            = replay.state.situation
-  def variant             = chess.variant.Standard
-  val fen                 = Fen writeOpening replay.state.situation
-  val opening             = OpeningDb findByOpeningFen fen
-  val family              = opening.map(_.family)
-  def pgnString           = pgn mkString " "
-  def pgnUnderscored      = pgn mkString "_"
-  def initial             = pgn.isEmpty
+  export replay.state.sans
+  val uci: Vector[Uci] = replay.moves.view.map(_.fold(_.toUci, _.toUci)).reverse.toVector
+  def position         = replay.state.situation
+  def variant          = chess.variant.Standard
+  val fen              = Fen writeOpening replay.state.situation
+  val opening          = OpeningDb findByOpeningFen fen
+  val family           = opening.map(_.family)
+  def pgnString        = sans mkString " "
+  def pgnUnderscored   = sans mkString "_"
+  def initial          = sans.isEmpty
   def query = openingAndExtraMoves match
     case (op, _) => OpeningQuery.Query(op.fold("-")(_.key.value), pgnUnderscored.some)
-  def prev = (pgn.sizeIs > 1) ?? OpeningQuery(OpeningQuery.Query("", pgn.init.mkString(" ").some), config)
+  def prev = (sans.sizeIs > 1) ?? OpeningQuery(OpeningQuery.Query("", sans.init.mkString(" ").some), config)
 
-  val openingAndExtraMoves: (Option[Opening], List[PgnMove]) =
+  val openingAndExtraMoves: (Option[Opening], List[SanStr]) =
     opening.map(_.some -> Nil) orElse OpeningDb.search(replay).map { case Opening.AtPly(op, ply) =>
-      op.some -> pgn.drop(ply + 1).toList
-    } getOrElse (none, pgn.toList)
+      op.some -> sans.drop(ply + 1).toList
+    } getOrElse (none, sans.toList)
 
   val name: String = openingAndExtraMoves match
     case (Some(op), Nil)   => op.name.value

@@ -2,6 +2,7 @@ package lila.game
 
 import chess.Color.{ Black, White }
 import chess.format.{ Fen, Uci }
+import chess.format.pgn.SanStr
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ Castles, Centis, CheckCount, Clock, Color, Game as ChessGame, Mode, MoveOrDrop, Speed, Status }
@@ -29,25 +30,21 @@ case class Game(
     metadata: Metadata
 ):
 
-  lazy val clockHistory = chess.clock flatMap loadClockHistory
+  export chess.{ situation, turns, clock, sans, player as turnColor }
+  export chess.situation.board
+  export chess.situation.board.{ history, variant }
 
-  def situation = chess.situation
-  def board     = chess.situation.board
-  def history   = chess.situation.board.history
-  def variant   = chess.situation.board.variant
-  def turns     = chess.turns
-  def clock     = chess.clock
-  def pgnMoves  = chess.pgnMoves
+  lazy val clockHistory = chess.clock flatMap loadClockHistory
 
   val players = List[Player](whitePlayer, blackPlayer)
 
   def player(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
   def player(playerId: GamePlayerId): Option[Player] =
-    players find (_.id == playerId)
+    players.find(_.id == playerId)
 
   def player(user: User): Option[Player] =
-    players find (_ isUser user)
+    players.find(_ isUser user)
 
   def player(c: Color.type => Color): Player = player(c(Color))
 
@@ -67,8 +64,6 @@ case class Game(
 
   lazy val naturalOrientation =
     if (variant.racingKings) White else Color.fromWhite(whitePlayer before blackPlayer)
-
-  def turnColor = chess.player
 
   def turnOf(p: Player): Boolean = p == player
   def turnOf(c: Color): Boolean  = c == turnColor
@@ -152,9 +147,9 @@ case class Game(
 
   def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_ bothClockStates startColor)
 
-  def pgnMoves(color: Color): PgnMoves =
+  def sansOf(color: Color): Vector[SanStr] =
     val pivot = if (color == startColor) 0 else 1
-    pgnMoves.zipWithIndex.collect {
+    sans.zipWithIndex.collect {
       case (e, i) if (i % 2) == pivot => e
     }
 
@@ -589,7 +584,7 @@ case class Game(
 
   lazy val opening: Option[Opening.AtPly] =
     if (fromPosition || !Variant.openingSensibleVariants(variant)) none
-    else OpeningDb search pgnMoves
+    else OpeningDb search sans
 
   def synthetic = id == Game.syntheticId
 
