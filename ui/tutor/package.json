@@ -5,13 +5,10 @@
   "description": "lichess.org tutor",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "@types/lichess": "2.0.0",
-    "@types/cash": "8.0.0",
-    "typescript": "^4"
-  },
   "dependencies": {
-    "common": "2.0.0"
+    "@types/cash": "workspace:*",
+    "@types/lichess": "workspace:*",
+    "common": "workspace:*"
   },
   "scripts": {
     "compile": "tsc",

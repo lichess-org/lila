@@ -159,7 +159,7 @@ class Env {
 
     const prefix = (
       (this.opts.time === false ? '' : prettyTime()) +
-      (!ctx || this.opts.ctx === false ? '' : `[${hasColor(ctx) ? ctx : esc(ctx, colorForCtx(ctx, this.opts.color))}] `)
+      (!ctx || this.opts.ctx === false ? '' : `[${esc(ctx, colorForCtx(ctx, this.opts.color))}] `)
     ).trim();
 
     lines(text).forEach(line =>
@@ -208,10 +208,6 @@ const colorForCtx = (ctx: string, color: any): string =>
 
 const escape = (text: string, code: string): string => `\x1b[${code}m${stripColorEscapes(text)}\x1b[0m`;
 
-function hasColor(text: string): boolean {
-  // eslint-disable-next-line no-control-regex
-  return text.match(/\x1b\[[0-9;]*m/) !== null;
-}
 const pad2 = (n: number) => (n < 10 ? `0${n}` : `${n}`);
 
 function stripColorEscapes(text: string) {
