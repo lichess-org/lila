@@ -196,8 +196,8 @@ object UserLogins:
     lazy val engines  = users.count(_.marks.engine)
     lazy val trolls   = users.count(_.marks.troll)
     lazy val alts     = users.count(_.marks.alt)
-    lazy val closed   = users.count(u => u.disabled && u.marks.clean)
-    lazy val cleans   = users.count(u => u.enabled && u.marks.clean)
+    lazy val closed   = users.count(u => u.enabled.no && u.marks.clean)
+    lazy val cleans   = users.count(u => u.enabled.yes && u.marks.clean)
     def score =
       (boosters * 10 + engines * 10 + trolls * 10 + alts * 10 + closed * 2 + cleans) match
         case 0 => -999999 // rank empty alts last

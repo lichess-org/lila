@@ -79,7 +79,7 @@ final class Env(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
         import cats.implicits.*
-        (whiteUserOption.filter(_.enabled), blackUserOption.filter(_.enabled)) mapN {
+        (whiteUserOption.filter(_.enabled.yes), blackUserOption.filter(_.enabled.yes)) mapN {
           (whiteUser, blackUser) =>
             sandbagWatch(game)
             assessApi.onGameReady(game, whiteUser, blackUser)

@@ -552,7 +552,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         .flatMap {
           _ ?? { user =>
             (fuccess(isGranted(_.CheatHunter)) >>|
-              (user.enabled ?? env.clas.api.clas.isTeacherOf(me.id, user.id))) map {
+              (user.enabled.yes ?? env.clas.api.clas.isTeacherOf(me.id, user.id))) map {
               _ option user
             }
           }

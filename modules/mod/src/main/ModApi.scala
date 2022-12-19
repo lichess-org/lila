@@ -99,7 +99,7 @@ final class ModApi(
 
   def reopenAccount(mod: ModId, username: UserStr): Funit =
     withUser(username) { user =>
-      !user.enabled ?? {
+      user.enabled.no ?? {
         (userRepo reopen user.id) >> logApi.reopenAccount(mod, user.id)
       }
     }

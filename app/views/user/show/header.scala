@@ -45,7 +45,7 @@ object header:
               ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}")
             )(patronIconChar)
         ),
-        u.disabled option span(cls := "closed")("CLOSED")
+        u.enabled.no option span(cls := "closed")("CLOSED")
       ),
       div(cls := "user-show__social")(
         div(cls := "number-menu")(
@@ -259,8 +259,10 @@ object header:
       if (isGranted(_.ModNote))
         div(cls := "mod-note")(
           submitButton(cls := "button", name := "noteType", value := "mod")("Save Mod Note"),
-          isGranted(_.Admin) option submitButton(cls := "button", name := "noteType", value := "dox")("Save Dox Note"),
-          submitButton(cls := "button", name := "noteType", value := "normal")("Save Regular Note"),
+          isGranted(_.Admin) option submitButton(cls := "button", name := "noteType", value := "dox")(
+            "Save Dox Note"
+          ),
+          submitButton(cls := "button", name := "noteType", value := "normal")("Save Regular Note")
         )
       else submitButton(cls := "button", name := "noteType", value := "normal")(trans.save())
     ),
@@ -268,9 +270,11 @@ object header:
     notes.map { note =>
       div(cls := "note")(
         p(cls := "note__text")(richText(note.text, expandImg = false)),
-        (note.mod && isGranted(_.Admin)) option postForm(action := routes.User.setDoxNote(note._id, !note.dox))(
+        (note.mod && isGranted(_.Admin)) option postForm(
+          action := routes.User.setDoxNote(note._id, !note.dox)
+        )(
           submitButton(
-            cls   := "button-empty confirm button text",
+            cls := "button-empty confirm button text"
           )("Toggle Dox")
         ),
         p(cls := "note__meta")(

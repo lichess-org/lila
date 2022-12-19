@@ -235,7 +235,7 @@ object search:
               u.marks.boost option mark("BOOSTER"),
               u.marks.troll option mark("SHADOWBAN")
             ),
-            td(u.disabled option mark("CLOSED")),
+            td(u.enabled.no option mark("CLOSED")),
             td(momentFromNow(u.createdAt)),
             td(u.seenAt.map(momentFromNow(_))),
             isGranted(_.CloseAccount) option td(
