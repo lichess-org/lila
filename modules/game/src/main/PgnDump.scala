@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.format.Fen
-import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags }
+import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr }
 import chess.format.{ pgn as chessPgn, Fen }
 import chess.{ Centis, Color, Outcome }
 
@@ -40,10 +40,10 @@ final class PgnDump(
         val fenSituation = ts.fen flatMap Fen.readWithMoveNumber
         makeTurns(
           flags keepDelayIf game.playable applyDelay {
-            if (fenSituation.exists(_.situation.color.black)) ".." +: game.pgnMoves
-            else game.pgnMoves
+            if (fenSituation.exists(_.situation.color.black)) SanStr("..") +: game.sans
+            else game.sans
           },
-          fenSituation.fold(1)(_.fullMoveNumber),
+          fenSituation.fold(1)(_.fullMoveNumber.value),
           flags.clocks ?? ~game.bothClockStates,
           game.startColor
         )
@@ -152,7 +152,7 @@ final class PgnDump(
     }
 
   private def makeTurns(
-      moves: Seq[String],
+      moves: Seq[SanStr],
       from: Int,
       clocks: Vector[Centis],
       startColor: Color
@@ -161,7 +161,7 @@ final class PgnDump(
       val clockOffset = startColor.fold(0, 1)
       chessPgn.Turn(
         number = index + from,
-        white = moves.headOption filter (".." !=) map { san =>
+        white = moves.headOption.filter(SanStr("..") != _) map { san =>
           chessPgn.Move(
             san = san,
             secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)

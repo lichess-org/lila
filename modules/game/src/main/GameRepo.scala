@@ -2,8 +2,9 @@ package lila.game
 
 import scala.concurrent.duration.*
 
-import chess.format.Fen
 import chess.{ Color, Status }
+import chess.format.Fen
+import chess.format.pgn.SanStr
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.commands.WriteResult
@@ -512,7 +513,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
       $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
     )
 
-  def getOptionPgn(id: GameId): Fu[Option[PgnMoves]] = game(id) dmap2 { _.pgnMoves }
+  def getOptionPgn(id: GameId): Fu[Option[Vector[SanStr]]] = game(id).dmap2(_.sans)
 
   def lastGameBetween(u1: UserId, u2: UserId, since: DateTime): Fu[Option[Game]] =
     coll.one[Game](

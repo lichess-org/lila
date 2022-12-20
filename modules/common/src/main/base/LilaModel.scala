@@ -114,3 +114,6 @@ trait LilaModel:
 
   opaque type Markdown = String
   object Markdown extends OpaqueString[Markdown]
+
+  opaque type UserAgent = String
+  object UserAgent extends OpaqueString[UserAgent]

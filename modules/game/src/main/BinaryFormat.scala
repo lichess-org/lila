@@ -2,6 +2,7 @@ package lila.game
 
 import chess.*
 import chess.format.Uci
+import chess.format.pgn.SanStr
 import chess.variant.Variant
 import org.joda.time.DateTime
 import org.lichess.compression.clock.{ Encoder as ClockEncoder }
@@ -13,15 +14,15 @@ object BinaryFormat:
 
   object pgn:
 
-    def write(moves: PgnMoves): ByteArray =
+    def write(moves: Vector[SanStr]): ByteArray =
       ByteArray {
         format.pgn.Binary.writeMoves(moves).get
       }
 
-    def read(ba: ByteArray): PgnMoves =
+    def read(ba: ByteArray): Vector[SanStr] =
       format.pgn.Binary.readMoves(ba.value.toList).get.toVector
 
-    def read(ba: ByteArray, nb: Int): PgnMoves =
+    def read(ba: ByteArray, nb: Int): Vector[SanStr] =
       format.pgn.Binary.readMoves(ba.value.toList, nb).get.toVector
 
   object clockHistory:
@@ -72,12 +73,12 @@ object BinaryFormat:
         .toArray
     }
 
-    def read(ba: ByteArray, turns: Int): Vector[Centis] = Centis from {
+    def read(ba: ByteArray, turns: Ply): Vector[Centis] = Centis from {
       def dec(x: Int) = decodeMap.getOrElse(x, decodeMap(size - 1))
       ba.value map toInt flatMap { k =>
         Array(dec(k >> 4), dec(k & 15))
       }
-    }.view.take(turns).toVector
+    }.view.take(turns.value).toVector
 
   final class clock(start: Timestamp):
 

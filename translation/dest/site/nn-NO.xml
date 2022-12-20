@@ -340,11 +340,11 @@
     <item quantity="other">≥ %s rangerte parti</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s rangert parti</item>
-    <item quantity="other">≥ %1$s %2$s rangerte parti</item>
+    <item quantity="one">≥ %1$s rangert %2$s parti</item>
+    <item quantity="other">≥ %1$s rangerte %2$s-parti</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Du må spille endå %1$s rangert %2$s-parti</item>
+    <item quantity="one">Du må spela %1$s fleire %2$s rangerte parti</item>
     <item quantity="other">Du må spela endå %1$s rangerte %2$s parti</item>
   </plurals>
   <plurals name="needNbMoreGames">
@@ -353,7 +353,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ratinga di på %s er mellombels</string>
   <string name="yourPerfRatingIsTooHigh">Ratinga di %1$s (%2$s) er for høg</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Den høgste vekentlege %1$s toppratinga di (%2$s) er for høg</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Den beste vekesratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourPerfRatingIsTooLow">Ratinga di i %1$s (%2$s) er for låg</string>
   <string name="ratedMoreThanInPerf">Rangert ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Rangert ≤ %1$s i %2$s</string>
@@ -565,7 +565,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="onSlowGames">I parti med lang tid</string>
   <string name="always">Alltid</string>
   <string name="never">Aldri</string>
-  <string name="xCompetesInY">%1$s konkurrerar i %2$s</string>
+  <string name="xCompetesInY">%1$s deltek i %2$s</string>
   <string name="victory">Vinst</string>
   <string name="defeat">Tap</string>
   <string name="victoryVsYInZ">%1$s mot %2$s i %3$s</string>
@@ -663,7 +663,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="keyEnterOrExitVariation">gå inn i/gå ut av varianten</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturnering med varierande tid og sjakkvariantar</string>
-  <string name="tournamentHomeDescription">Spel fartsfylde sjakkturneringar! Delta i offisielle, planlagde turneringar eller lag dine eigne. Lynsjakk, snøggsjakk, og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
+  <string name="tournamentHomeDescription">Spel fartsfylte sjakkturneringar! Delta i offisielle, planlagde turneringar eller lag dine eigne. Lyn-, snøgg-, fishersjakk og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
   <string name="tournamentNotFound">Kan ikke finne turneringa</string>
   <string name="tournamentDoesNotExist">Denna turneringa finst ikkje.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blitt avbroten om alle spelarane trakk seg før turneringa starta.</string>
@@ -838,7 +838,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="classical">Langsjakk</string>
   <string name="ultraBulletDesc">Ekstremt snøgge parti: under 30 sekund</string>
   <string name="bulletDesc">Særs snøgge parti: mindre enn 3 minutt</string>
-  <string name="blitzDesc">Snøgg sjakk: 3 til 8 minutt</string>
+  <string name="blitzDesc">Snøgge parti: 3 til 8 minutt</string>
   <string name="rapidDesc">Snøggsjakk: 8 til 25 minutt</string>
   <string name="classicalDesc">Langsjakk: 25 minutt eller meir</string>
   <string name="correspondenceDesc">Korespondansesjakk: ein til fleire dagar per trekk</string>

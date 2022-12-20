@@ -15,7 +15,7 @@ import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPresets, UserWithModlog }
 import lila.playban.RageSit
-import lila.security.{ Granter, Permission, UserLogins }
+import lila.security.{ Granter, Permission, UserLogins, Dated, UserClient, userAgentParser }
 import lila.user.{ Holder, User }
 import org.joda.time.DateTime
 
@@ -143,7 +143,7 @@ object mod:
         }
       ),
       isGranted(_.CloseAccount) option div(cls := "btn-rack")(
-        if (u.enabled) {
+        if (u.enabled.yes) {
           postForm(
             action := routes.Mod.closeAccount(u.username),
             title  := "Disables this account.",
@@ -615,7 +615,7 @@ object mod:
               markTd(o.marks.troll ?? 1, shadowban, log.dateOf(_.troll)),
               markTd(o.marks.boost ?? 1, boosting, log.dateOf(_.booster)),
               markTd(o.marks.engine ?? 1, engine, log.dateOf(_.engine)),
-              markTd(o.disabled ?? 1, closed, log.dateOf(_.closeAccount)),
+              markTd(o.enabled.no ?? 1, closed, log.dateOf(_.closeAccount)),
               markTd(o.marks.reportban ?? 1, reportban, log.dateOf(_.reportban)),
               userNotes.nonEmpty option {
                 td(dataSort := userNotes.size)(
@@ -712,16 +712,16 @@ object mod:
           tbody(
             logins.uas
               .sortBy(-_.seconds)
-              .map { ua =>
-                val parsed = ua.value.parse
+              .map { case Dated(ua, date) =>
+                val parsed = userAgentParser.parse(ua.value)
                 tr(
-                  td(title := ua.value.value)(
+                  td(title := ua.value)(
                     if (parsed.device.family == "Other") "Computer" else parsed.device.family
                   ),
                   td(parts(parsed.os.family.some, parsed.os.major)),
                   td(parts(parsed.userAgent.family.some, parsed.userAgent.major)),
-                  td(dataSort := ua.date.getMillis)(momentFromNowServer(ua.date)),
-                  td(ua.value.client.toString)
+                  td(dataSort := date.getMillis)(momentFromNowServer(date)),
+                  td(UserClient(ua).toString)
                 )
               }
           )
@@ -819,6 +819,6 @@ object mod:
       o.marks.troll option shadowban,
       o.marks.boost option boosting,
       o.marks.engine option engine,
-      o.disabled option closed,
+      o.enabled.no option closed,
       o.marks.reportban option reportban
     )

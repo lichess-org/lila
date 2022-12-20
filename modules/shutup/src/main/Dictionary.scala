@@ -276,7 +276,7 @@ angsthase
 arschloch
 bl(ö|oe|o)dmann?
 drecksa(u|ck)
-ficker
+fick(|er)
 fotze
 hurensohn
 mistkerl

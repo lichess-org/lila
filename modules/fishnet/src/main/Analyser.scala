@@ -3,6 +3,7 @@ package lila.fishnet
 import org.joda.time.DateTime
 import scala.concurrent.duration.*
 
+import chess.Ply
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, UciMemo }
 import lila.common.config.Max
@@ -83,7 +84,7 @@ final class Analyser(
                 moves = moves take maxPlies map (_.uci) mkString " "
               ),
               // if black moves first, use 1 as startPly so the analysis doesn't get reversed
-              startPly = initialFen.map(_.color).??(_.fold(0, 1)),
+              startPly = Ply(initialFen.map(_.color).??(_.fold(0, 1))),
               sender = sender
             )
             workQueue {
@@ -111,12 +112,12 @@ final class Analyser(
           variant = game.variant,
           moves = moves take maxPlies mkString " "
         ),
-        startPly = game.chess.startedAtTurn,
+        startPly = game.chess.startedAtPly,
         sender = sender
       )
     }
 
-  private def makeWork(game: Work.Game, startPly: Int, sender: Work.Sender): Work.Analysis =
+  private def makeWork(game: Work.Game, startPly: Ply, sender: Work.Sender): Work.Analysis =
     Work.Analysis(
       _id = Work.makeId,
       sender = sender,

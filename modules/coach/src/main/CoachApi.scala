@@ -41,7 +41,7 @@ final class CoachApi(
     }
 
   def isListedCoach(user: User): Fu[Boolean] =
-    Granter(_.Coach)(user) ?? user.enabled ?? user.marks.clean ?? coachColl.exists(
+    Granter(_.Coach)(user) ?? user.enabled.yes ?? user.marks.clean ?? coachColl.exists(
       $id(user.id) ++ $doc("listed" -> true)
     )
 

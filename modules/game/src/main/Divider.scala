@@ -6,6 +6,7 @@ import scala.concurrent.duration.*
 import chess.Division
 import chess.variant.Variant
 import chess.format.Fen
+import chess.format.pgn.SanStr
 
 final class Divider:
 
@@ -14,16 +15,16 @@ final class Divider:
     .build[GameId, Division]()
 
   def apply(game: Game, initialFen: Option[Fen.Epd]): Division =
-    apply(game.id, game.pgnMoves, game.variant, initialFen)
+    apply(game.id, game.sans, game.variant, initialFen)
 
-  def apply(id: GameId, pgnMoves: => PgnMoves, variant: Variant, initialFen: Option[Fen.Epd]) =
+  def apply(id: GameId, sans: => Vector[SanStr], variant: Variant, initialFen: Option[Fen.Epd]) =
     if (!Variant.divisionSensibleVariants(variant)) Division.empty
-    else cache.get(id, _ => noCache(id, pgnMoves, variant, initialFen))
+    else cache.get(id, _ => noCache(id, sans, variant, initialFen))
 
-  def noCache(id: GameId, pgnMoves: => PgnMoves, variant: Variant, initialFen: Option[Fen.Epd]) =
+  def noCache(id: GameId, sans: Vector[SanStr], variant: Variant, initialFen: Option[Fen.Epd]) =
     chess.Replay
       .boards(
-        moveStrs = pgnMoves,
+        sans = sans,
         initialFen = initialFen,
         variant = variant
       )

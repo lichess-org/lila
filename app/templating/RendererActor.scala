@@ -10,7 +10,7 @@ final private[app] class RendererActor extends Actor:
 
   def receive =
 
-    case lila.tv.actorApi.RenderFeaturedJs(game) =>
+    case lila.tv.RenderFeaturedJs(game) =>
       sender() ! V.game.mini.noCtx(Pov naturalOrientation game, tv = true).render
 
     case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove) =>

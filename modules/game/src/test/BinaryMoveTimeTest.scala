@@ -1,16 +1,19 @@
 package lila.game
 
+import scala.language.implicitConversions
 import org.specs2.mutable.*
 
 import lila.db.ByteArray
-import chess.Centis
+import chess.{ Ply, Centis }
 
 class BinaryMoveTimeTest extends Specification {
+
+  private given Conversion[Int, Ply] = Ply(_)
 
   val _0_ = "00000000"
   def write(c: Vector[Int]): List[String] =
     (BinaryFormat.moveTime write c.map(Centis(10) * _)).showBytes.split(',').toList
-  def read(bytes: List[String], turns: Int): Vector[Int] =
+  def read(bytes: List[String], turns: Ply): Vector[Int] =
     BinaryFormat.moveTime.read(ByteArray.parseBytes(bytes), turns) map (_.roundTenths)
 
   "binary move times" >> {

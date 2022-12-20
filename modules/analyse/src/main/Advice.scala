@@ -5,15 +5,11 @@ import lila.tree.Eval.*
 import scala.util.chaining.*
 
 sealed trait Advice:
-  def judgment: Advice.Judgement
-  def info: Info
-  def prev: Info
+  val judgment: Advice.Judgement
+  val info: Info
+  val prev: Info
 
-  def ply   = info.ply
-  def turn  = info.turn
-  def color = info.color
-  def cp    = info.cp
-  def mate  = info.mate
+  export info.{ ply, prevPly, prevMoveNumber, color, cp, mate }
 
   def makeComment(withEval: Boolean, withBestMove: Boolean): String =
     withEval.??(evalComment ?? { c =>

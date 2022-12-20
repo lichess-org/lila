@@ -546,7 +546,7 @@ abstract private[controllers] class LilaController(val env: Env)
       env.pref.api.getPref(me, ctx.req) zip {
         if (isPage)
           env.user.lightUserApi preloadUser me
-          val enabledId = me.enabled option me.id
+          val enabledId = me.enabled.yes option me.id
           enabledId.??(env.team.api.nbRequests) zip
             enabledId.??(env.challenge.api.countInFor.get) zip
             enabledId.??(env.notifyM.api.unreadCount) zip

@@ -1,7 +1,7 @@
 package lila.relay
 
 import akka.actor.*
-import chess.format.pgn.Tags
+import chess.format.pgn.{ Tags, SanStr }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import org.joda.time.DateTime
@@ -283,7 +283,7 @@ private object RelayFetch:
       def toPgn(extraTags: Tags = Tags.empty) =
         val strMoves = moves.map(_ split ' ') map { move =>
           chess.format.pgn.Move(
-            san = ~move.headOption,
+            san = SanStr(~move.headOption),
             secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
           )
         } mkString " "

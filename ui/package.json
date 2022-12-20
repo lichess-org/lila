@@ -8,16 +8,15 @@
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
+  "dependencies": {
+    "breakpoint-sass": "^2.7.1",
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
     "@types/jest": "^28.1.6",
-    "babel-jest": "^28.0.0",
-    "breakpoint-sass": "^2.7.1",
     "jest": "^28.1.3",
     "jest-environment-jsdom": "^28.1.3",
     "ts-jest": "^28.0.7",
-    "typescript": "^4"
+    "typescript": "^4.9.4"
   },
   "scripts": {
     "test": "jest"

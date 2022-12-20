@@ -27,18 +27,18 @@ case class AnaMove(
 
   def branch: Validated[String, Branch] =
     chess.Game(variant.some, fen.some)(orig, dest, promotion) andThen { (game, move) =>
-      game.pgnMoves.lastOption toValid "Moved but no last move!" map { san =>
+      game.sans.lastOption toValid "Moved but no last move!" map { san =>
         val uci     = Uci(move)
         val movable = game.situation playable false
         val fen     = chess.format.Fen write game
         Branch(
           id = UciCharPair(uci),
-          ply = game.turns,
+          ply = game.ply,
           move = Uci.WithSan(uci, san),
           fen = fen,
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),
-          opening = (game.turns <= 30 && Variant.openingSensibleVariants(variant)) ?? {
+          opening = (game.ply <= 30 && Variant.openingSensibleVariants(variant)) ?? {
             OpeningDb findByEpdFen fen
           },
           drops = if (movable) game.situation.drops else Some(Nil),

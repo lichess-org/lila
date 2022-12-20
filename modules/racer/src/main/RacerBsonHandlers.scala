@@ -19,4 +19,4 @@ private object RacerBsonHandlers:
       line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
       glicko  <- r.getAsTry[Bdoc]("glicko")
       rating  <- glicko.getAsTry[Double]("r")
-    } yield StormPuzzle(id, fen, line, rating.toInt)
+    } yield StormPuzzle(id, fen, line, IntRating(rating.toInt))

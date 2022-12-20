@@ -134,7 +134,7 @@ object PgnDump:
 
   def toTurn(first: Node, second: Option[Node], variations: Variations)(implicit flags: WithFlags) =
     chessPgn.Turn(
-      number = first.fullMoveNumber,
+      number = first.fullMoveNumber.value,
       white = node2move(first, variations).some,
       black = second map { node2move(_, first.children.variations) }
     )
@@ -148,9 +148,9 @@ object PgnDump:
   )(implicit flags: WithFlags): Vector[chessPgn.Turn] = {
     line match
       case Vector() => Vector()
-      case first +: rest if first.ply % 2 == 0 =>
+      case first +: rest if first.ply.isEven =>
         chessPgn.Turn(
-          number = 1 + (first.ply - 1) / 2,
+          number = 1 + (first.ply.value - 1) / 2,
           white = none,
           black = node2move(first, variations).some
         ) +: toTurnsFromWhite(rest, first.children.variations)

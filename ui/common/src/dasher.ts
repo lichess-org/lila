@@ -1,4 +1,8 @@
-import { memoize } from './common';
+declare global {
+  interface Lichess {
+    dasher?: Promise<DasherCtrl>;
+  }
+}
 
 interface DasherCtrl {
   subs: {
@@ -8,8 +12,10 @@ interface DasherCtrl {
   };
 }
 
-export const loadDasher = memoize<Promise<DasherCtrl>>(async () => {
-  const $el = $('#dasher_app').html(`<div class="initiating">${lichess.spinnerHtml}</div>`);
-  await lichess.loadModule('dasher');
-  return window.LichessDasher($el.empty()[0]);
-});
+export const loadDasher = (): Promise<DasherCtrl> => {
+  if (!lichess.dasher) {
+    const $el = $('#dasher_app').html(`<div class="initiating">${lichess.spinnerHtml}</div>`);
+    lichess.dasher = lichess.loadModule('dasher').then(() => window.LichessDasher($el.empty()[0]));
+  }
+  return lichess.dasher;
+};

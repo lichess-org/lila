@@ -1,22 +1,23 @@
 package lila.study
 
-import chess.format.pgn._
+import chess.format.pgn.*
 import chess.format.{ Fen, Uci, UciCharPair }
-import chess.variant
-import Node._
+import chess.{ Ply, variant }
+import Node.*
 import org.specs2.mutable._
 
 class PgnDumpTest extends Specification {
 
-  given PgnDump.WithFlags = PgnDump.WithFlags(true, true, true)
+  given PgnDump.WithFlags    = PgnDump.WithFlags(true, true, true)
+  given Conversion[Int, Ply] = Ply(_)
 
   val P = PgnDump
 
-  def node(ply: Int, uci: String, san: String, children: Children = emptyChildren) =
+  def node(ply: Ply, uci: String, san: String, children: Children = emptyChildren) =
     Node(
       id = UciCharPair(Uci(uci).get),
       ply = ply,
-      move = Uci.WithSan(Uci(uci).get, san),
+      move = Uci.WithSan(Uci(uci).get, SanStr(san)),
       fen = Fen.Epd("<fen>"),
       check = false,
       clock = None,

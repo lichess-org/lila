@@ -15,7 +15,7 @@ object Rewind:
   def apply(game: Game, initialFen: Option[Fen.Epd]): Validated[String, Progress] =
     chessPgn.Reader
       .movesWithSans(
-        moveStrs = game.pgnMoves,
+        sans = game.sans,
         op = sans => chessPgn.Sans(sans.value.dropRight(1)),
         tags = createTags(initialFen, game)
       )
@@ -27,10 +27,9 @@ object Rewind:
           clk.setRemainingTime(color, t)
         }
       }
-      def rewindPlayer(player: Player) = player.copy(proposeTakebackAt = 0)
       val newGame = game.copy(
-        whitePlayer = rewindPlayer(game.whitePlayer),
-        blackPlayer = rewindPlayer(game.blackPlayer),
+        whitePlayer = game.whitePlayer.removeTakebackProposition,
+        blackPlayer = game.blackPlayer.removeTakebackProposition,
         chess = rewindedGame.copy(clock = newClock),
         binaryMoveTimes = game.binaryMoveTimes.map { binary =>
           val moveTimes = BinaryFormat.moveTime.read(binary, game.playedTurns)

@@ -64,7 +64,7 @@ object config:
     def isProd = domain == prodDomain
 
   given ConfigLoader[Secret]       = strLoader(Secret.apply)
-  given ConfigLoader[EmailAddress] = strLoader(EmailAddress.apply)
+  given ConfigLoader[EmailAddress] = strLoader(EmailAddress(_))
   given ConfigLoader[NetConfig]    = AutoConfig.loader[NetConfig]
 
   given ConfigLoader[List[String]] = ConfigLoader.seqStringLoader.map(_.toList)

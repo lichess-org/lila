@@ -34,8 +34,8 @@ final class Mod(
         for {
           inquiry <- env.report.api.inquiries ofModId me.id
           _       <- modApi.setAlt(me, sus, v)
-          _       <- (v && sus.user.enabled) ?? env.api.accountClosure.close(sus.user, me)
-          _       <- (!v && sus.user.disabled) ?? modApi.reopenAccount(me.id into ModId, sus.user.id)
+          _       <- (v && sus.user.enabled.yes) ?? env.api.accountClosure.close(sus.user, me)
+          _       <- (!v && sus.user.enabled.no) ?? modApi.reopenAccount(me.id into ModId, sus.user.id)
         } yield (inquiry, sus).some
       }
     }(ctx =>
@@ -528,7 +528,7 @@ final class Mod(
         case Some(rawQuery) =>
           val query = rawQuery.trim.split(' ').toList
           val email = query.headOption
-            .map(EmailAddress.apply) flatMap env.security.emailAddressValidator.validate
+            .map(EmailAddress(_)) flatMap env.security.emailAddressValidator.validate
           val username = query lift 1
           def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
             env.mod.search(q) flatMap {

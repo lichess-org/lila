@@ -1,6 +1,6 @@
 package lila.opening
 
-import chess.format.pgn.{ Pgn, San }
+import chess.format.pgn.{ Pgn, San, SanStr }
 import chess.format.{ Fen, OpeningFen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 import chess.Speed
@@ -19,7 +19,7 @@ case class OpeningPage(
     case (op, moves) => (op ?? NamePart.from) ::: NamePart.from(moves)
 
 case object NamePart:
-  type NamePartList = List[Either[PgnMove, (NameSection, Option[OpeningKey])]]
+  type NamePartList = List[Either[SanStr, (NameSection, Option[OpeningKey])]]
   def from(op: Opening): NamePartList =
     val sections = NameSection.sectionsOf(op.name)
     sections.toList.zipWithIndex map { case (name, i) =>
@@ -30,7 +30,7 @@ case object NamePart:
             .map(_.key)
       )
     }
-  def from(moves: List[PgnMove]): NamePartList = moves.map(Left.apply)
+  def from(moves: List[SanStr]): NamePartList = moves.map(Left.apply)
 
 case class ResultCounts(
     white: Int,

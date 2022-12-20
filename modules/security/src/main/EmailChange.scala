@@ -65,7 +65,7 @@ ${trans.common_orPaste.txt()}
         case Array(id, email) => EmailAddress from email map { TokenPayload(UserId(id), _) }
         case _                => none
     val to = a =>
-      a ?? { case TokenPayload(userId, EmailAddress(email)) =>
+      a ?? { case TokenPayload(userId, email) =>
         s"$userId$sep$email"
       }
 

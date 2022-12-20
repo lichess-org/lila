@@ -11,20 +11,17 @@
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "@types/lichess": "2.0.0",
-    "typescript": "^4"
-  },
   "dependencies": {
+    "@types/lichess": "workspace:*",
     "ab": "https://github.com/lichess-org/ab-stub",
-    "chat": "2.0.0",
-    "chess": "2.0.0",
+    "chat": "workspace:*",
+    "chess": "workspace:*",
     "chessground": "^8.3.5",
-    "common": "2.0.0",
-    "game": "2.0.0",
-    "keyboardMove": "1.0.0",
-    "nvui": "2.0.0",
-    "snabbdom": "^3.3.1"
+    "common": "workspace:*",
+    "game": "workspace:*",
+    "keyboardMove": "workspace:*",
+    "nvui": "workspace:*",
+    "snabbdom": "^3.5.1"
   },
   "scripts": {
     "compile": "tsc",

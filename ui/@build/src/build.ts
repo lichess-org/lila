@@ -24,8 +24,6 @@ export async function build(mods: string[]) {
     return;
   }
 
-  buildDependencyList();
-
   buildModules = mods.length === 0 ? [...modules.values()] : depsMany(mods);
   if (mods.length) {
     env.log(`Building ${c.grey(buildModules.map(x => x.name).join(', '))}`);
@@ -33,7 +31,7 @@ export async function build(mods: string[]) {
   await fs.promises.mkdir(env.jsDir, { recursive: true });
   await fs.promises.mkdir(env.cssDir, { recursive: true });
 
-  if (env.sass) sass();
+  sass();
   tsc(() => esbuild());
 }
 
@@ -71,8 +69,6 @@ export function preModule(mod: LichessModule | undefined) {
       cps.execFileSync('cp', ['-rf', ...sources, dest]);
     }
 }
-
-function buildDependencyList() {}
 
 function depsOne(modName: string): LichessModule[] {
   const collect = (dep: string): string[] => [...(moduleDeps.get(dep) || []).flatMap(d => collect(d)), dep];

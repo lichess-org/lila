@@ -17,7 +17,7 @@ object Dependencies {
   val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.0.1"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.2"
-  val chess       = "org.lichess"                  %% "scalachess"                      % "13.1.5"
+  val chess       = "org.lichess"                  %% "scalachess"                      % "13.1.8"
   val compression = "org.lichess"                  %% "compression"                     % "1.8"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "3.0.2"
   val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-1"
@@ -59,7 +59,7 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val version = "1.1.0-275c4ca-RC7-SNAPSHOT"
+    val version = "1.1.0-d9cc5339-RC7-SNAPSHOT"
 
     val driver = "org.reactivemongo" %% "reactivemongo"               % version
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % "1.1.0-RC6"

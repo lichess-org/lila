@@ -57,10 +57,10 @@ object GameDiff:
         byteArrayHandler.writeOpt(BinaryFormat.clockHistory.writeSide(x, y, z))
       }
 
-    if (a.variant.standard) dTry(huffmanPgn, _.pgnMoves, writeBytes compose PgnStorage.Huffman.encode)
+    if (a.variant.standard) dTry(huffmanPgn, _.sans, writeBytes compose PgnStorage.Huffman.encode)
     else
       val f = PgnStorage.OldBin
-      dTry(oldPgn, _.pgnMoves, writeBytes compose f.encode)
+      dTry(oldPgn, _.sans, writeBytes compose f.encode)
       dTry(binaryPieces, _.board.pieces, writeBytes compose BinaryFormat.piece.write)
       d(positionHashes, _.history.positionHashes, ph => w.bytes(ph.value))
       dTry(unmovedRooks, _.history.unmovedRooks, writeBytes compose BinaryFormat.unmovedRooks.write)
@@ -78,7 +78,7 @@ object GameDiff:
           _.board.crazyData,
           (o: Option[chess.variant.Crazyhouse.Data]) => o map BSONHandlers.crazyhouseDataHandler.write
         )
-    d(turns, _.turns, w.int)
+    d(turns, _.ply, ply => w.int(ply.value))
     dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o flatMap byteArrayHandler.writeOpt)
     dOpt(whiteClockHistory, getClockHistory(White), clockHistoryToBytes)
     dOpt(blackClockHistory, getClockHistory(Black), clockHistoryToBytes)
@@ -96,7 +96,7 @@ object GameDiff:
       val name                   = s"p$i."
       val player: Game => Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)
       dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)
-      dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, w.intO)
+      dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, ply => w.intO(ply.value))
       dTry(s"$name$blursBits", player(_).blurs, Blurs.blursHandler.writeTry)
     dTry(movedAt, _.movedAt, dateTimeHandler.writeTry)
 

@@ -4,12 +4,12 @@ import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.variant.Crazyhouse
 
-import chess.Centis
+import chess.{ Ply, Centis }
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
 
 sealed trait RootOrNode:
-  val ply: Int
+  val ply: Ply
   val fen: Fen.Epd
   val check: Boolean
   val shapes: Shapes
@@ -21,14 +21,14 @@ sealed trait RootOrNode:
   val glyphs: Glyphs
   val score: Option[Score]
   def addChild(node: Node): RootOrNode
-  def fullMoveNumber = 1 + ply / 2
   def mainline: Vector[Node]
-  def color = chess.Color.fromPly(ply)
   def moveOption: Option[Uci.WithSan]
+  def color          = ply.color
+  def fullMoveNumber = ply.fullMoveNumber
 
 case class Node(
     id: UciCharPair,
-    ply: Int,
+    ply: Ply,
     move: Uci.WithSan,
     fen: Fen.Epd,
     check: Boolean,
@@ -238,7 +238,7 @@ object Node:
   val emptyChildren = Children(Vector.empty)
 
   case class Root(
-      ply: Int,
+      ply: Ply,
       fen: Fen.Epd,
       check: Boolean,
       shapes: Shapes = Shapes(Nil),
@@ -310,20 +310,14 @@ object Node:
 
     lazy val mainline: Vector[Node] = children.first.??(_.mainline)
 
-    def lastMainlinePly = Chapter.Ply(mainline.lastOption.??(_.ply))
+    def lastMainlinePly = mainline.lastOption.fold(Ply(0))(_.ply)
 
     def lastMainlinePlyOf(path: Path) =
-      Chapter.Ply {
-        mainline
-          .zip(path.ids)
-          .takeWhile { case (node, id) =>
-            node.id == id
-          }
-          .lastOption
-          .?? { case (node, _) =>
-            node.ply
-          }
-      }
+      mainline
+        .zip(path.ids)
+        .takeWhile { (node, id) => node.id == id }
+        .lastOption
+        .fold(Ply(0)) { (node, _) => node.ply }
 
     def mainlinePath = Path(mainline.map(_.id))
 
@@ -342,7 +336,7 @@ object Node:
 
     def default(variant: chess.variant.Variant) =
       Root(
-        ply = 0,
+        ply = Ply(0),
         fen = variant.initialFen,
         check = false,
         clock = none,

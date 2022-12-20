@@ -19,7 +19,7 @@
   <string name="black">काळा</string>
   <string name="asWhite">पांढऱ्या रंगासाठी</string>
   <string name="asBlack">काळ्या रंगासाठी</string>
-  <string name="randomColor">एच्छिक बाजू</string>
+  <string name="randomColor">यादृच्छिक बाजू</string>
   <string name="createAGame">डाव मांडा</string>
   <string name="whiteIsVictorious">पांढऱ्याचा विजय झाला</string>
   <string name="blackIsVictorious">काळ्याचा विजय झाला</string>
@@ -45,7 +45,7 @@
   <string name="forceDraw">सामना बरोबरीत सोडवण्याची विनंती करा</string>
   <string name="talkInChat">कृपया गप्पांमध्ये सभ्यतेने बोला!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">या युआरएलवर येणारे पहिले व्यक्ती तुमच्याबरोबर खेळणार.</string>
-  <string name="whiteResigned">पांढर्‍याने पराभव स्वीकारला</string>
+  <string name="whiteResigned">पांढऱ्याने पराभव स्वीकारला</string>
   <string name="blackResigned">काळ्याने हार मानली</string>
   <string name="whiteLeftTheGame">पांढऱ्याने खेळ सोडला</string>
   <string name="blackLeftTheGame">काळ्याने खेळ सोडला</string>
@@ -77,7 +77,7 @@
   <string name="pawnMove">प्याद्याची चाल</string>
   <string name="capture">ताब्यात घेतले</string>
   <string name="close">बंद</string>
-  <string name="winning">जिंकणारा</string>
+  <string name="winning">विजयी</string>
   <string name="losing">हारणारा</string>
   <string name="drawn">बरोबरी</string>
   <string name="unknown">अज्ञात</string>
@@ -91,17 +91,17 @@
     <item quantity="one">%s अर्ध्याचालीत मात</item>
     <item quantity="other">%s अर्ध चालीत मात</item>
   </plurals>
-  <string name="dtzWithRounding">गोलाकार सह, पुढील कॅप्चर किंवा प्यादे हलवण्यापर्यंत अर्ध्या हालचालींच्या संख्येवर आधारित</string>
+  <string name="dtzWithRounding">DTZ50\" गुणसंख्या, पुढील सोंगटी मारणाऱ्या चालीपर्यंतच्या किंवा प्याद्याच्या चालीपर्यंतच्या अर्धचालींच्या संख्येवर आधारित</string>
   <string name="noGameFound">कोणताही खेळ सापडला नाही</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">प्राधान्य मेनूमधून अधिक खेळ समाविष्ट कराल?</string>
   <string name="openings">ओपनिंग</string>
   <string name="openingExplorer">ओपेनिग अन्वेषक</string>
-  <string name="openingEndgameExplorer">ओपनिंग/एंडगेम एक्सप्लोरर</string>
+  <string name="openingEndgameExplorer">ओपनिंग/अंत्यखेळ अन्वेषक</string>
   <string name="xOpeningExplorer">%s ओपेनिग अन्वेषक</string>
   <string name="winPreventedBy50MoveRule">५० चाली नियमाने विजय रोखला</string>
   <string name="lossSavedBy50MoveRule">५० चाली नियमाने हार चुकली</string>
-  <string name="winOr50MovesByPriorMistake">आधीच्या चूकाने विजय किंवा 50 चाली</string>
-  <string name="lossOr50MovesByPriorMistake">आधीच्या चुकीने नुकसान किंवा 50 चाली</string>
+  <string name="winOr50MovesByPriorMistake">आधीच्या चुकीने विजय किंवा 50 चाली</string>
+  <string name="lossOr50MovesByPriorMistake">आधीच्या चुकीने हार किंवा 50 चाली</string>
   <string name="unknownDueToRounding">Syzygy tablebases मध्ये DTZ मूल्यांच्या संभाव्य गोलाकारपणामुळे, शेवटच्या कॅप्चर किंवा प्याद्याच्या हालचालींपासून शिफारस केलेल्या टेबलबेस लाइनचे पालन केले तरच जिंकणे/हारणे हमी आहे.</string>
   <string name="allSet">सर्व तयार!</string>
   <string name="importPgn">PGN आयात करा</string>
@@ -360,14 +360,14 @@
   <string name="fromPosition">ह्या रचनेतून</string>
   <string name="continueFromHere">येथून खेळायला सुरवात करा</string>
   <string name="toStudy">अभ्यास</string>
-  <string name="importGame">खेळ मागवा</string>
+  <string name="importGame">खेळ आयात करा</string>
   <string name="importGameExplanation">प्रतिक्रिया, संगणक विश्लेषण, संभाषण, URL मिळवण्यासाठी खेळाची PGN टाका.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s खेळ मागवला</item>
     <item quantity="other">%s खेळ मागवले</item>
   </plurals>
   <string name="thisIsAChessCaptcha">हा बुद्धिबळाचा CAPTCHA आहे</string>
-  <string name="clickOnTheBoardToMakeYourMove">तुम्ही मनुष्य आहात हे सिद्धा करण्यासाठी पटावर क्लिक करून आपली चाल खेळा</string>
+  <string name="clickOnTheBoardToMakeYourMove">तुम्ही मनुष्य आहात हे सिद्ध करण्यासाठी पटावर क्लिक करून आपली चाल खेळा.</string>
   <string name="captcha.fail">कृपया बुद्धिबळ कोडे सोडवा.</string>
   <string name="notACheckmate">ही शहमात नाही</string>
   <string name="whiteCheckmatesInOneMove">पांढरा एका चालीत शहमात करणार</string>
@@ -428,7 +428,7 @@
   <string name="points">गुण</string>
   <string name="wins">एकूण  विजय</string>
   <string name="losses">एकूण  पराभव</string>
-  <string name="createdBy">तयार करणारा</string>
+  <string name="createdBy">निर्माता</string>
   <string name="tournamentIsStarting">क्रीडासत्र सुरू होत आहे</string>
   <string name="tournamentPairingsAreNowClosed">क्रीडासत्रातील जोड्या लावणे आता बंद झाले आहे.</string>
   <string name="standByX">जरा थांबा %s, खेळाडूंच्या जोड्या लागत आहेत, तयार रहा!</string>
@@ -445,10 +445,10 @@
   <string name="draws">बरोबरी सुटलेले</string>
   <string name="nextXTournament">पुढील %s क्रीडासत्र:</string>
   <string name="averageOpponent">प्रतिस्पर्धी सरासरी</string>
-  <string name="boardEditor">पट संपादक (Board editor)</string>
+  <string name="boardEditor">पट संपादक</string>
   <string name="setTheBoard">पट मांडा</string>
   <string name="popularOpenings">लोकप्रिय प्रारंभिक चाली</string>
-  <string name="endgamePositions">एंडगेम पोझिशन्स</string>
+  <string name="endgamePositions">अंत्यखेळ स्थिती</string>
   <string name="chess960StartPosition">Chess960 प्रारंभ स्थिती: %s</string>
   <string name="startPosition">सुरवातीची स्थिती</string>
   <string name="clearBoard">पट रिकामा करा</string>
@@ -587,7 +587,7 @@
   <string name="onlyExistingConversations">केवळ विद्यमान संभाषणे</string>
   <string name="onlyFriends">फक्त मित्र</string>
   <string name="menu">मेनू</string>
-  <string name="castling">किल्ल्यात</string>
+  <string name="castling">किल्लेकोट</string>
   <string name="whiteCastlingKingside">पांढरा O-O</string>
   <string name="blackCastlingKingside">काळा O-O</string>
   <plurals name="nbForumPosts">
@@ -617,11 +617,11 @@
   <string name="noSimulFound">एकाचवेळी प्रदर्शन सापडल नाही</string>
   <string name="noSimulExplanation">हे \"एक बिरूद्ध अनेक\" प्रदर्शन अस्तित्त्वात नाही.</string>
   <string name="returnToSimulHomepage">अनेकांविरुद्ध प्रदर्शनाच्या मुखपृष्ठाकडे परत जा</string>
-  <string name="aboutSimul">या प्रदर्शनमध्ये एकाच वेळी बर्‍याच खेळाडूंचा सामना करणार्‍या एकाच खेळाडूचा समावेश आहे.</string>
+  <string name="aboutSimul">या प्रदर्शनामध्ये एकटा खेळाडू एकाच वेळी बऱ्याच प्रतिस्पर्ध्यांचा सामना करतो.</string>
   <string name="aboutSimulImage">50 विरोधकांविरूद्ध फिशरने 47 खेळ जिंकले, 2 बरोबरीत सोडवले आणि 1 खेळ गमावला.</string>
   <string name="aboutSimulRealLife">वास्तविक जगातील घटनांमधून संकल्पना घेतली आहे. वास्तविक जीवनात, यामध्ये यजमान एकाच चालीसाठी टेबल वरून दुसऱ्या टेबलवर फिरत असतो.</string>
   <string name="aboutSimulRules">जेव्हा अनेकांविरुद्ध प्रदर्शन सुरू होते, तेव्हा प्रत्येक खेळाडू यजमानासह खेळ सुरू करतो. जेव्हा सर्व खेळ पूर्ण होतात तेव्हा प्रदर्शन संपते.</string>
-  <string name="aboutSimulSettings">सिमूल नेहमीच प्रासंगिक असतात. रीमॅच, टेकबॅक आणि वेळ जोडणे असमर्थ केले आहेत.</string>
+  <string name="aboutSimulSettings">अनेकांविरूद्धची प्रदर्शने नेहमीच अनौपचारिक असतात. पुनर्खेळ, चाल परत घेणे आणि वेळ वाढवणे या गोष्टींची परवानगी नसते.</string>
   <string name="create">तयार करा</string>
   <string name="whenCreateSimul">जेव्हा आपण एखादे अनेकांविरुद्ध प्रदर्शन तयार करता तेव्हा आपल्याला एकाच वेळी अनेक खेळाडू खेळायला मिळतात.</string>
   <string name="simulVariantsHint">आपण कित्येक प्रकार निवडल्यास प्रत्येक खेळाडू कोणता प्रकार खेळायचा ते ठरवू शकेल.</string>
@@ -868,10 +868,10 @@
   <string name="maximumWeeklyRating">जास्तीत जास्त आठवढ्यातील मूल्यांकन</string>
   <string name="onlyTitled">फक्त पदवीधारक खेळाडूंसाठी</string>
   <string name="onlyTitledHelp">स्पर्धेत भाग घेण्याकरिता अधिकृत पदवी गरजेची आहे</string>
-  <string name="positionInputHelp">खेळ हव्या असलेल्या जागेवरून सुरू करण्याकरिता योग्य FEN पेस्ट करा.
-ही प्रक्रिया फक्त प्रमाणित खेळास वापरता येईल, आणि भिन्नता असणाऱ्या खेळास नाही.
-आपण %s वापरून FEN जागा तयार करू शकता, नंतर ती इथे पेस्ट करावी.
-सर्वसामान्य जागेवरून खेळ चालू करण्यासाठी जागा मोकळ्या सोडाव्यात.</string>
+  <string name="positionInputHelp">खेळ हव्या त्या स्थितीपासून सुरू करण्याकरिता वैध FEN पेस्ट करा.
+ही प्रक्रिया फक्त साध्या बुद्धिबळसाठी वापरता येईल, आणि इतर प्रकारच्या खेळांसाठी नाही.
+आपण %s वापरून FEN स्थिती तयार करून, नंतर ती इथे पेस्ट करू शकता.
+सामान्या प्रारंभिक स्थितीपासून खेळ चालू करण्यासाठी ही जागा मोकळी सोडा.</string>
   <string name="cancelSimul">अनेकांविरूद्ध प्रदर्शन बंद करा</string>
   <string name="simulHostcolor">प्रत्येक खेळासाठी यजमानाचा रंग</string>
   <string name="estimatedStart">अंदाजे सुरुवात वेळ</string>

@@ -6,7 +6,18 @@ import { build, postBuild } from './build';
 
 export function main() {
   const configPath = path.resolve(__dirname, '../build-config.json');
-  const config = fs.existsSync(configPath) ? JSON.parse(fs.readFileSync(configPath, 'utf8')) : undefined;
+  const config: BuildOpts = fs.existsSync(configPath) ? JSON.parse(fs.readFileSync(configPath, 'utf8')) : {};
+
+  if (ps.argv.includes('--tsc') || ps.argv.includes('--sass') || ps.argv.includes('--esbuild')) {
+    // cli args override json
+    config.sass = ps.argv.includes('--sass');
+    config.tsc = ps.argv.includes('--tsc');
+    config.esbuild = ps.argv.includes('--esbuild');
+  }
+  if (ps.argv.includes('--no-color')) config.color = false;
+  if (ps.argv.includes('--no-time')) config.time = false;
+  if (ps.argv.includes('--no-context')) config.ctx = false;
+
   init(path.resolve(__dirname, '../../..'), config);
 
   if (ps.argv.includes('--help') || ps.argv.includes('-h')) {
@@ -26,11 +37,9 @@ export interface BuildOpts {
   sass?: boolean; // compile scss, default = true
   esbuild?: boolean; // bundle with esbuild, default = true
   tsc?: boolean; // use tsc for type checking, default = true
-  log?: {
-    time?: boolean; // show time in log statements, default = true
-    ctx?: boolean; // show context (tsc, rollup, etc), default = true
-    color?: any; // set false to disable colors, otherwise leave undefined
-  };
+  time?: boolean; // show time in log statements, default = true
+  ctx?: boolean; // show context (tsc, rollup, etc), default = true
+  color?: any; // set false to disable colors, otherwise leave undefined
 }
 
 export interface LichessModule {
@@ -40,9 +49,8 @@ export interface LichessModule {
   pre: string[][]; // pre-bundle build steps from package.json scripts
   post: string[][]; // post-bundle build steps from package.json scripts
   hasTsconfig?: boolean; // fileExists('tsconfig.json')
-  bundle?: LichessBundle[]; // targets from rollup.config.mjs
-  copy?: Copy[]; // pre-bundle filesystem copies triggered by package json
-  // module root. see ui/site/copy-me.json
+  bundle?: LichessBundle[]; // bundle targets from package json
+  copy?: Copy[]; // pre-bundle filesystem copies from package json
 }
 
 export interface Copy {
@@ -56,11 +64,11 @@ export interface LichessBundle {
   output: string; // abs path to bundle destination
 }
 
-export function init(root: string, opts?: BuildOpts) {
+export function init(root: string, opts: BuildOpts) {
   env.rootDir = root;
-  env.opts = opts ? opts : { log: {} };
-  if (env.opts.log && env.opts.log.color !== false) {
-    env.opts.log.color = {
+  env.opts = opts;
+  if (env.opts.color === undefined) {
+    env.opts.color = {
       build: 'green',
       sass: 'magenta',
       tsc: 'yellow',
@@ -76,7 +84,7 @@ export const lines = (s: string): string[] => s.split(/[\n\r\f]+/).filter(x => x
 
 const colorLines = (text: string, code: string) =>
   lines(text)
-    .map(t => (env.opts?.log?.color !== false ? escape(t, code) : t))
+    .map(t => (env.opts?.color !== false ? escape(t, code) : t))
     .join('\n');
 
 export const colors = {
@@ -114,9 +122,6 @@ class Env {
   get uiDir(): string {
     return path.join(this.rootDir, 'ui');
   }
-  get nodeDir(): string {
-    return path.join(this.rootDir, 'node_modules');
-  }
   get outDir(): string {
     return path.join(this.rootDir, 'public');
   }
@@ -148,14 +153,13 @@ class Env {
         ? d.join('\n')
         : JSON.stringify(d, undefined, 2);
 
-    const show = this.opts.log;
-    const esc = show?.color !== false ? escape : (text: string, _: any) => text;
+    const esc = this.opts.color !== false ? escape : (text: string, _: any) => text;
 
-    if (show?.color === false) text = stripColorEscapes(text);
+    if (this.opts.color === false) text = stripColorEscapes(text);
 
     const prefix = (
-      (show?.time === false ? '' : prettyTime()) +
-      (!ctx || show?.ctx === false ? '' : `[${hasColor(ctx) ? ctx : esc(ctx, colorForCtx(ctx, show?.color))}] `)
+      (this.opts.time === false ? '' : prettyTime()) +
+      (!ctx || this.opts.ctx === false ? '' : `[${esc(ctx, colorForCtx(ctx, this.opts.color))}] `)
     ).trim();
 
     lines(text).forEach(line =>
@@ -204,10 +208,6 @@ const colorForCtx = (ctx: string, color: any): string =>
 
 const escape = (text: string, code: string): string => `\x1b[${code}m${stripColorEscapes(text)}\x1b[0m`;
 
-function hasColor(text: string): boolean {
-  // eslint-disable-next-line no-control-regex
-  return text.match(/\x1b\[[0-9;]*m/) !== null;
-}
 const pad2 = (n: number) => (n < 10 ? `0${n}` : `${n}`);
 
 function stripColorEscapes(text: string) {

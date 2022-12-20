@@ -746,6 +746,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="light">Hell</string>
   <string name="dark">Dunkel</string>
   <string name="transparent">Durchsichtig</string>
+  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Mit em Grät synchronisiere</string>
   <string name="backgroundImageUrl">Hindergrund-Bild-URL:</string>
   <string name="boardGeometry">Brättgrössi und 3D</string>
   <string name="boardTheme">Brättdesign</string>

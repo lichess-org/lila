@@ -21,15 +21,10 @@ case class Progress(origin: Game, game: Game, events: List[Event] = Nil):
 
   def dropEvents = copy(events = Nil)
 
-  override def toString = s"Progress ${game.id}: ${origin.turns} -> ${game.turns} ${game.status}"
+  override def toString = s"Progress ${game.id}: ${origin.ply} -> ${game.ply} ${game.status}"
 
 object Progress:
 
-  def apply(game: Game): Progress =
-    new Progress(game, game)
-
-  def apply(game: Game, events: List[Event]): Progress =
-    new Progress(game, game, events)
-
-  def apply(game: Game, events: Event): Progress =
-    new Progress(game, game, events :: Nil)
+  def apply(game: Game): Progress                      = Progress(game, game)
+  def apply(game: Game, events: List[Event]): Progress = Progress(game, game, events)
+  def apply(game: Game, events: Event): Progress       = Progress(game, game, events :: Nil)

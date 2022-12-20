@@ -178,10 +178,10 @@ final private[round] class RoundAsyncActor(
             lila
               .log("cheat")
               .info(
-                s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
+                s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.ply} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
               )
             lila.mon.cheat.holdAlert.increment()
-            gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void
+            gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.ply, mean = mean, sd = sd)).void
         } inject Nil
       }
 
@@ -193,7 +193,7 @@ final private[round] class RoundAsyncActor(
             Socket.makeMessage(
               "analysisProgress",
               Json.obj(
-                "analysis" -> lila.analyse.JsonView.bothPlayers(a.game.startedAt, a.analysis),
+                "analysis" -> lila.analyse.JsonView.bothPlayers(a.game.startedAtPly, a.analysis),
                 "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes {
                   TreeBuilder(
                     a.game,
@@ -449,7 +449,7 @@ final private[round] class RoundAsyncActor(
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
   private def recordLag(pov: Pov): Unit =
-    if ((pov.game.playedTurns & 30) == 10)
+    if ((pov.game.playedTurns.value & 30) == 10)
       // Triggers every 32 moves starting on ply 10.
       // i.e. 10, 11, 42, 43, 74, 75, ...
       for {
