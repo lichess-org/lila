@@ -33,7 +33,7 @@
   <string name="promoteToQueenAutomatically">Автоматски унапреди во кралица</string>
   <string name="whenPremoving">Кога изигрувам претпотег</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматско прогласување реми по третото повторување на потегот</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Кога останатото време е &lt; 30 секунди</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Кога останатото време е &lt; 30 секунди</string>
   <string name="moveConfirmation">Потврда за потегот</string>
   <string name="inCorrespondenceGames">Дописен шах</string>
   <string name="correspondenceAndUnlimited">Дописен шах и неограничени партии</string>
