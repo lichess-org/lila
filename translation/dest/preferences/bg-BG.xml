@@ -34,7 +34,7 @@
   <string name="explainPromoteToQueenAutomatically">Задръжте клавиша &lt;ctrl&gt; по време на произвеждане за да изключите временно авто-произвеждането</string>
   <string name="whenPremoving">Когато е направен предварителен ход</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматично реми при трикратно повторение</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Когато остават по-малко от 30 секунди</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Когато остават по-малко от 30 секунди</string>
   <string name="moveConfirmation">Потвърждение на хода</string>
   <string name="inCorrespondenceGames">Кореспондентски игри</string>
   <string name="correspondenceAndUnlimited">Кореспондентен и без ограничение</string>
