@@ -108,7 +108,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
           'HCE'
         )
       : h(
-          'span.technology.bad',
+          'span.technology.bad.' + ctrl.variant.key,
           { attrs: { title: 'Unfortunately local analysis is not available for this device or browser' } },
           'No engine supported'
         ),
@@ -243,6 +243,9 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
       : h(
           'div.switch',
           {
+            class: {
+              disabled: !instance.analysable,
+            },
             attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (l)' },
           },
           [

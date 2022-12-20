@@ -19,6 +19,9 @@
 
     flex: 0 0 40px;
     margin-right: 8px;
+    &.disabled label {
+      pointer-events: none;
+    }
   }
 
   pearl {
@@ -70,7 +73,9 @@
   .technology {
     margin-left: 5px;
     &.bad {
-      color: $c-bad;
+      &:not(.chushogi) {
+        color: $c-bad;
+      }
       margin-left: 0;
     }
     &.good {
