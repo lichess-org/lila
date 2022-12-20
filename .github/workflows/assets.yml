@@ -31,6 +31,7 @@ jobs:
         with:
           node-version: '19'
           cache: pnpm
+      - run: pnpm install
       - uses: actions/checkout@v3
         with:
           repository: lichess-org/ab
@@ -39,7 +40,7 @@ jobs:
           path: ab
         continue-on-error: true
         id: ab
-      - run: pnpm i && pnpm link "$GITHUB_WORKSPACE/ab"
+      - run: pnpm link "$GITHUB_WORKSPACE/ab"
         if: steps.ab.outcome == 'success'
       - run: ./ui/build --no-install -p
       - run: cd ui && pnpm run test && cd -
