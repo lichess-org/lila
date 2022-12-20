@@ -1,6 +1,16 @@
+const jsonHeader = {
+  Accept: 'application/vnd.lishogi.v5+json',
+};
+const xhrHeader = {
+  'X-Requested-With': 'XMLHttpRequest', // so lila knows it's XHR
+};
+
 export const json = (url: string, init: RequestInit = {}): Promise<any> =>
   fetch(url, {
-    headers: { Accept: 'application/vnd.lishogi.v5+json' },
+    headers: {
+      ...jsonHeader,
+      ...xhrHeader,
+    },
     cache: 'no-cache',
     credentials: 'same-origin',
     ...init,
@@ -11,6 +21,7 @@ export const json = (url: string, init: RequestInit = {}): Promise<any> =>
 
 export const text = (url: string, init: RequestInit = {}): Promise<any> =>
   fetch(url, {
+    headers: { ...xhrHeader },
     cache: 'no-cache',
     credentials: 'same-origin',
     ...init,
