@@ -363,6 +363,7 @@
   <string name="siteDescription">Gratis Schack på internet. Spela Schack nu, med ett enkelt gränssnitt. Ingen registrering, inga annonser, inga insticksprogram behövs. Spela schack mot datorn, vänner eller vem som helst.</string>
   <string name="xJoinedTeamY">%1$s gick med i lag %2$s</string>
   <string name="xCreatedTeamY">%1$s skapade lag %2$s</string>
+  <string name="startedStreaming">började strömma</string>
   <string name="xStartedStreaming">%s började sända video</string>
   <string name="averageElo">Medelrating</string>
   <string name="location">Plats</string>
