@@ -3,6 +3,7 @@
   <string name="preferences">Nuostatos</string>
   <string name="display">Rodymas</string>
   <string name="privacy">Privatumas</string>
+  <string name="notifications">Pranešimai</string>
   <string name="pieceAnimation">Figūrų animacija</string>
   <string name="materialDifference">Figūrų vertės skirtumas</string>
   <string name="boardHighlights">Lentos paryškinimai (paskutinis ėjimas ir šachas)</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Jūsų nuostatos buvo išsaugotos.</string>
   <string name="scrollOnTheBoardToReplayMoves">Sukite ratuką ant lentos norėdami dar kartą pamatyti ėjimus</string>
   <string name="correspondenceEmailNotification">Kasdieniame laiške pateikti korespondensinių žaidimų išrašus</string>
+  <string name="notifyStreamStart">Transliuotojas pradeda transliaciją</string>
+  <string name="notifyInboxMsg">Nauja žinutė</string>
+  <string name="notifyForumMention">Jūs paminėti forumo komentare</string>
+  <string name="notifyInvitedStudy">Studijos pakvietimas</string>
+  <string name="notifyGameEvent">Korespondencinių partijų naujienos</string>
+  <string name="notifyChallenge">Iššūkiai</string>
+  <string name="notifyTournamentSoon">Greitai prasideda turnyras</string>
+  <string name="notifyTimeAlarm">Baigiasi korespondencinės partijos laikmatis</string>
+  <string name="notifyBell">Varpelio pranešimai Lichess</string>
+  <string name="notifyPush">Pranešimai prietaisuose kai nesate Lichess</string>
+  <string name="notifyWeb">Naršyklėje</string>
+  <string name="notifyDevice">Įrenginyje</string>
 </resources>
