@@ -87,13 +87,13 @@ object BSONHandlers:
 
       lila.mon.game.fetch.increment()
 
-      val light         = lightGameHandler.readsWithPlayerIds(r, r str F.playerIds)
-      val startedAtTurn = Ply(r intD F.startedAtTurn)
-      val plies         = r.get[Ply](F.turns) atMost Game.maxPlies // unlimited can cause StackOverflowError
-      val turnColor     = plies.color
-      val createdAt     = r date F.createdAt
+      val light        = lightGameHandler.readsWithPlayerIds(r, r str F.playerIds)
+      val startedAtPly = Ply(r intD F.startedAtTurn)
+      val ply          = r.get[Ply](F.turns) atMost Game.maxPlies // unlimited can cause StackOverflowError
+      val turnColor    = ply.color
+      val createdAt    = r date F.createdAt
 
-      val playedPlies = plies - startedAtTurn
+      val playedPlies = ply - startedAtPly
       val gameVariant = Variant(r intD F.variant) | chess.variant.Standard
 
       val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, playedPlies) } | {
@@ -141,8 +141,8 @@ object BSONHandlers:
         clock = r.getO[Color => Clock](F.clock)(using
           clockBSONReader(createdAt, light.whitePlayer.berserk, light.blackPlayer.berserk)
         ) map (_(turnColor)),
-        turns = plies,
-        startedAtTurn = startedAtTurn
+        ply = ply,
+        startedAtPly = startedAtPly
       )
 
       val whiteClockHistory = r bytesO F.whiteClockHistory
@@ -193,8 +193,8 @@ object BSONHandlers:
         F.whitePlayer   -> w.docO(Player.playerWrite(o.whitePlayer)),
         F.blackPlayer   -> w.docO(Player.playerWrite(o.blackPlayer)),
         F.status        -> o.status,
-        F.turns         -> o.chess.turns,
-        F.startedAtTurn -> w.intO(o.chess.startedAtTurn.value),
+        F.turns         -> o.chess.ply,
+        F.startedAtTurn -> w.intO(o.chess.startedAtPly.value),
         F.clock -> (o.chess.clock flatMap { c =>
           clockBSONWrite(o.createdAt, c).toOption
         }),

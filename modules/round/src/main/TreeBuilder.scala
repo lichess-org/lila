@@ -40,7 +40,7 @@ object TreeBuilder:
             .toMap
         )
         val root = Root(
-          ply = init.turns,
+          ply = init.ply,
           fen = fen,
           check = init.situation.check,
           opening = openingOf(fen),
@@ -53,21 +53,21 @@ object TreeBuilder:
         def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) =
           val fen    = Fen write g
           val info   = infos lift (index - 1)
-          val advice = advices get g.turns
+          val advice = advices get g.ply
           val branch = Branch(
             id = UciCharPair(m.uci),
-            ply = g.turns,
+            ply = g.ply,
             move = m,
             fen = fen,
             check = g.situation.check,
             opening = openingOf(fen),
-            clock = withClocks.flatMap(_.lift((g.turns - init.turns - 1).value)),
+            clock = withClocks.flatMap(_.lift((g.ply - init.ply - 1).value)),
             crazyData = g.situation.board.crazyData,
             eval = info map makeEval,
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
             comments = Node.Comments {
-              drawOfferPlies(g.turns)
-                .option(makeLichessComment(s"${!g.turns.color} offers draw"))
+              drawOfferPlies(g.ply)
+                .option(makeLichessComment(s"${!g.ply.color} offers draw"))
                 .toList :::
                 advice
                   .map(_.makeComment(withEval = false, withBestMove = true))
@@ -75,7 +75,7 @@ object TreeBuilder:
                   .map(makeLichessComment)
             }
           )
-          advices.get(g.turns + 1).flatMap { adv =>
+          advices.get(g.ply + 1).flatMap { adv =>
             games.lift(index - 1).map { case (fromGame, _) =>
               withAnalysisChild(game.id, branch, game.variant, Fen write fromGame, openingOf)(adv.info)
             }
@@ -105,7 +105,7 @@ object TreeBuilder:
       val fen = Fen write g
       Branch(
         id = UciCharPair(m.uci),
-        ply = g.turns,
+        ply = g.ply,
         move = m,
         fen = fen,
         check = g.situation.check,

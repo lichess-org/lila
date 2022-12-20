@@ -203,7 +203,7 @@ final private[api] class GameApi(
         "perf"       -> PerfPicker.key(g),
         "createdAt"  -> g.createdAt,
         "lastMoveAt" -> g.movedAt,
-        "turns"      -> g.turns,
+        "turns"      -> g.ply,
         "color"      -> g.turnColor.name,
         "status"     -> g.status.name,
         "clock" -> g.clock.map { clock =>

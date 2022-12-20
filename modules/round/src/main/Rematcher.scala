@@ -118,8 +118,8 @@ final private class Rematcher(
           clock = pov.game.clock map { c =>
             Clock(c.config)
           },
-          turns = ply,
-          startedAtTurn = ply
+          ply = ply,
+          startedAtPly = ply
         ),
         whitePlayer = returnPlayer(pov.game, White, users),
         blackPlayer = returnPlayer(pov.game, Black, users),

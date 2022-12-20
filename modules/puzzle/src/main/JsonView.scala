@@ -179,7 +179,7 @@ final class JsonView(
               .fold(err => sys error s"puzzle ${puzzle.id} $err", identity)
           val branch = tree.Branch(
             id = UciCharPair(move.toUci),
-            ply = game.turns,
+            ply = game.ply,
             move = Uci.WithSan(move.toUci, game.sans.last),
             fen = chess.format.Fen write game,
             check = game.situation.check,

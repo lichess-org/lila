@@ -71,7 +71,7 @@ final class UserAnalysis(
         .make(
           chess = chess.Game(
             situation = from.situation,
-            turns = from.ply
+            ply = from.ply
           ),
           whitePlayer = lila.game.Player.make(White, none),
           blackPlayer = lila.game.Player.make(Black, none),

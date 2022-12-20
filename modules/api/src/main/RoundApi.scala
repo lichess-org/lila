@@ -238,9 +238,7 @@ final private[api] class RoundApi(
   private def withAnalysis(g: Game, o: Option[Analysis])(json: JsObject) =
     json.add(
       "analysis",
-      o.map { a =>
-        analysisJson.bothPlayers(g.startedAt, a)
-      }
+      o.map { analysisJson.bothPlayers(g.startedAtPly, _) }
     )
 
   private def withExternalEngines(me: Option[User])(jsonFu: Fu[JsObject]): Fu[JsObject] =

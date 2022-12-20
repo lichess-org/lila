@@ -152,7 +152,7 @@ object ServerEval:
     private def makeBranch(g: chess.Game, m: Uci.WithSan) =
       Node(
         id = UciCharPair(m.uci),
-        ply = g.turns,
+        ply = g.ply,
         move = m,
         fen = Fen write g,
         check = g.situation.check,
@@ -165,7 +165,4 @@ object ServerEval:
   case class Progress(chapterId: StudyChapterId, tree: T.Root, analysis: JsObject, division: chess.Division)
 
   def toJson(chapter: Chapter, analysis: Analysis) =
-    lila.analyse.JsonView.bothPlayers(
-      lila.game.Game.StartedAt(chapter.root.color, chapter.root.ply),
-      analysis
-    )
+    lila.analyse.JsonView.bothPlayers(chapter.root.ply, analysis)

@@ -26,7 +26,7 @@ case class AnaDrop(
         val fen     = chess.format.Fen write game
         Branch(
           id = UciCharPair(uci),
-          ply = game.turns,
+          ply = game.ply,
           move = Uci.WithSan(uci, san),
           fen = fen,
           check = game.situation.check,

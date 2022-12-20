@@ -259,7 +259,7 @@ final class JsonView(
             "variant" -> game.variant,
             "opening" -> game.opening,
             "fen"     -> fen,
-            "turns"   -> game.turns,
+            "turns"   -> game.ply,
             "player"  -> game.turnColor.name,
             "status"  -> game.status
           )

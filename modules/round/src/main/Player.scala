@@ -29,7 +29,7 @@ final private class Player(
     play match
       case HumanPlay(_, uci, blur, lag, _) =>
         pov match
-          case Pov(game, _) if game.turns > Game.maxPlies =>
+          case Pov(game, _) if game.ply > Game.maxPlies =>
             round ! TooManyPlies
             fuccess(Nil)
           case Pov(game, color) if game playableBy color =>
@@ -52,7 +52,7 @@ final private class Player(
 
   private[round] def bot(uci: Uci, round: RoundAsyncActor)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
     pov match
-      case Pov(game, _) if game.turns > Game.maxPlies =>
+      case Pov(game, _) if game.ply > Game.maxPlies =>
         round ! TooManyPlies
         fuccess(Nil)
       case Pov(game, color) if game playableBy color =>
@@ -122,7 +122,7 @@ final private class Player(
 
   private[round] def requestFishnet(game: Game, round: RoundAsyncActor): Funit =
     game.playableByAi ?? {
-      if (game.turns <= fishnetPlayer.maxPlies) fishnetPlayer(game)
+      if (game.ply <= fishnetPlayer.maxPlies) fishnetPlayer(game)
       else fuccess(round ! actorApi.round.ResignAi)
     }
 

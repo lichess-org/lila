@@ -42,7 +42,7 @@ case class Game(
     metadata: Metadata
 ):
 
-  export chess.{ situation, turns, clock, sans, player as turnColor }
+  export chess.{ situation, ply, clock, sans, startedAtPly, player as turnColor }
   export chess.situation.board
   export chess.situation.board.{ history, variant }
 
@@ -81,7 +81,7 @@ case class Game(
   def turnOf(c: Color): Boolean  = c == turnColor
   def turnOf(u: User): Boolean   = player(u) ?? turnOf
 
-  def playedTurns = turns - chess.startedAtTurn
+  def playedTurns = ply - startedAtPly
 
   def flagged = (status == Status.Outoftime).option(turnColor)
 
@@ -203,7 +203,7 @@ case class Game(
     )
 
     val state = Event.State(
-      turns = game.turns,
+      turns = game.ply,
       status = (status != updated.status) option updated.status,
       winner = game.situation.winner,
       whiteOffersDraw = whitePlayer.isOfferingDraw,
@@ -322,7 +322,7 @@ case class Game(
 
   def playerCanOfferDraw(color: Color) =
     started && playable &&
-      turns >= 2 &&
+      ply >= 2 &&
       !player(color).isOfferingDraw &&
       !opponent(color).isAi &&
       !playerHasOfferedDrawRecently(color) &&
@@ -331,10 +331,10 @@ case class Game(
   def swissPreventsDraw = isSwiss && playedTurns < 60
 
   def playerHasOfferedDrawRecently(color: Color) =
-    drawOffers.lastBy(color) ?? (_ >= turns - 20)
+    drawOffers.lastBy(color) ?? (_ >= ply - 20)
 
   def offerDraw(color: Color) = copy(
-    metadata = metadata.copy(drawOffers = drawOffers.add(color, turns))
+    metadata = metadata.copy(drawOffers = drawOffers.add(color, ply))
   ).updatePlayer(color, _.offerDraw)
 
   def playerCouldRematch =
@@ -529,7 +529,7 @@ case class Game(
   def onePlayerHasMoved    = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
 
-  def startColor = chess.startedAtTurn.color
+  def startColor = startedAtPly.color
 
   def playerMoves(color: Color): Int =
     if (color == startColor) (playedTurns.value + 1) / 2
@@ -587,7 +587,7 @@ case class Game(
   def pgnImport   = metadata.pgnImport
   def isPgnImport = pgnImport.isDefined
 
-  def resetTurns = copy(chess = chess.copy(turns = Ply(0), startedAtTurn = Ply(0)))
+  def resetTurns = copy(chess = chess.copy(ply = Ply(0), startedAtPly = Ply(0)))
 
   lazy val opening: Option[Opening.AtPly] =
     if (fromPosition || !Variant.openingSensibleVariants(variant)) none
@@ -612,10 +612,8 @@ case class Game(
     if (variant.isInsufficientMaterial(board)) DrawReason.InsufficientMaterial.some
     else if (variant.fiftyMoves(history)) DrawReason.FiftyMoves.some
     else if (history.threefoldRepetition) DrawReason.ThreefoldRepetition.some
-    else if (drawOffers.normalizedPlies.exists(turns <= _)) DrawReason.MutualAgreement.some
+    else if (drawOffers.normalizedPlies.exists(ply <= _)) DrawReason.MutualAgreement.some
     else None
-
-  def startedAt = Game.StartedAt(startColor, chess.startedAtTurn)
 
   override def toString = s"""Game($id)"""
 
@@ -628,9 +626,8 @@ object Game:
   case class OnStart(id: GameId)
   case class WithInitialFen(game: Game, fen: Option[Fen.Epd])
 
-  case class SideAndStart(color: Color, startColor: Color, startedAtTurn: Ply)
-  case class StartedAt(startColor: Color, startedAtTurn: Ply):
-    def pov(color: Color) = SideAndStart(color, startColor, startedAtTurn)
+  case class SideAndStart(color: Color, startedAtPly: Ply):
+    def startColor = startedAtPly.color
 
   val syntheticId = GameId("synthetic")
 

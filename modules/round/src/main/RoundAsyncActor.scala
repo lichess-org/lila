@@ -178,10 +178,10 @@ final private[round] class RoundAsyncActor(
             lila
               .log("cheat")
               .info(
-                s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
+                s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.ply} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
               )
             lila.mon.cheat.holdAlert.increment()
-            gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void
+            gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.ply, mean = mean, sd = sd)).void
         } inject Nil
       }
 
@@ -193,7 +193,7 @@ final private[round] class RoundAsyncActor(
             Socket.makeMessage(
               "analysisProgress",
               Json.obj(
-                "analysis" -> lila.analyse.JsonView.bothPlayers(a.game.startedAt, a.analysis),
+                "analysis" -> lila.analyse.JsonView.bothPlayers(a.game.startedAtPly, a.analysis),
                 "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes {
                   TreeBuilder(
                     a.game,

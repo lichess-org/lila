@@ -76,8 +76,8 @@ trait Positional { self: Config =>
       case sit @ Situation.AndFullMoveNumber(s, _) =>
         val game = ChessGame(
           situation = s,
-          turns = sit.ply,
-          startedAtTurn = sit.ply,
+          ply = sit.ply,
+          startedAtPly = sit.ply,
           clock = makeClock.map(_.toClock)
         )
         if (Fen.write(game).isInitial) makeGame(chess.variant.Standard) -> none
@@ -93,7 +93,7 @@ trait Positional { self: Config =>
                 variant = FromPosition
               )
             ),
-            turns = sit.ply
+            ply = sit.ply
           )
         )
       }

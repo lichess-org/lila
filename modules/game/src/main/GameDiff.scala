@@ -78,7 +78,7 @@ object GameDiff:
           _.board.crazyData,
           (o: Option[chess.variant.Crazyhouse.Data]) => o map BSONHandlers.crazyhouseDataHandler.write
         )
-    d(turns, _.turns, ply => w.int(ply.value))
+    d(turns, _.ply, ply => w.int(ply.value))
     dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o flatMap byteArrayHandler.writeOpt)
     dOpt(whiteClockHistory, getClockHistory(White), clockHistoryToBytes)
     dOpt(blackClockHistory, getClockHistory(Black), clockHistoryToBytes)

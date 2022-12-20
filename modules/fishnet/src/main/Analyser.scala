@@ -112,7 +112,7 @@ final class Analyser(
           variant = game.variant,
           moves = moves take maxPlies mkString " "
         ),
-        startPly = game.chess.startedAtTurn,
+        startPly = game.chess.startedAtPly,
         sender = sender
       )
     }
