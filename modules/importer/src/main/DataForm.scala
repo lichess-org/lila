@@ -52,7 +52,7 @@ case class ImportData(notation: String, analyse: Option[String]) {
       case "" | "投了" | "TORYO"                                                      => Status.Resign
       case "詰み" | "TSUMI"                                                           => Status.Mate
       case "中断" | "CHUDAN"                                                          => Status.Aborted
-      case "持将棋" | "千日手" | "JISHOGI" | "SENNICHITE" | "HIKIWAKE"                    => Status.Draw
+      case "持将棋" | "千日手" | "引き分け" | "引分け" | "JISHOGI" | "SENNICHITE" | "HIKIWAKE"   => Status.Draw
       case "入玉勝ち" | "KACHI"                                                         => Status.Impasse27
       case "切れ負け" | "TIME-UP" | "TIME_UP"                                           => Status.Outoftime
       case "反則勝ち" | "反則負け" | "ILLEGAL_MOVE" | "+ILLEGAL_ACTION" | "-ILLEGAL_ACTION" => Status.Cheat

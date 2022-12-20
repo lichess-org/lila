@@ -58,6 +58,7 @@ final class NotationDump(
             game.winnerColor.fold(false)(_ == game.turnColor),
             game.winnerColor
           )
+        else if (game.drawn && game.variant.chushogi) "引き分け".some
         else
           Kif.createTerminationMove(game.status, game.winnerColor.fold(false)(_ == game.turnColor))
       val notation = if (flags.csa) Csa(ts, moves) else Kif(ts, moves)
