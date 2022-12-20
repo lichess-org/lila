@@ -12,6 +12,7 @@ export interface CustomThemeData {
 }
 
 type Key = keyof CustomThemeData;
+type ColorKey = Key & ('gridColor' | 'boardColor' | 'handsColor');
 
 export interface CustomThemeCtrl {
   set: <K extends Key>(key: K, value: CustomThemeData[K]) => void;
@@ -26,11 +27,14 @@ const announceFail = () => window.lishogi.announce({ msg: 'Failed to save custom
 
 export function ctrl(data: CustomThemeData, trans: Trans, redraw: Redraw, open: Open): CustomThemeCtrl {
   const saveTheme = window.lishogi.debounce(function (this: HTMLElement) {
-    // once anything changes we lock in the grid color
-    if (data.gridColor === 'initial') {
-      data.gridColor = defaultGridColor();
-      applyCustomTheme('gridColor', data.gridColor);
-    }
+    // once anything changes we lock in the values
+    const posInitials: ColorKey[] = ['gridColor', 'boardColor', 'handsColor'];
+    posInitials.forEach(key => {
+      if (data[key] === 'initial') {
+        data[key] = defaultColor(key);
+        applyCustomTheme(key, data[key]);
+      }
+    });
     $.post('/pref/customTheme', data).fail(announceFail);
   }, 500);
 
@@ -160,7 +164,7 @@ function makeColorPicker(ctrl: CustomThemeCtrl, vnode: VNode, key: Key) {
 
   $(vnode.elm as HTMLElement).spectrum({
     type: 'component',
-    color: ctrl.data[key] === 'initial' ? defaultColor(key) : ctrl.data[key],
+    color: ctrl.data[key] === 'initial' ? defaultColor(key as ColorKey) : ctrl.data[key],
     preferredFormat: 'hex8',
     showPalette: false,
     showButtons: false,
@@ -170,17 +174,11 @@ function makeColorPicker(ctrl: CustomThemeCtrl, vnode: VNode, key: Key) {
   });
 }
 
-function defaultGridColor(): string {
-  const isDark = document.body.classList.contains('dark'),
-    isTransp = document.body.classList.contains('transp');
-  return isTransp ? '#cccccc' : isDark ? '#bababa' : '#4d4d4d';
-}
-
-function defaultColor(key: Key): string {
+function defaultColor(key: ColorKey): string {
   const isDark = document.body.classList.contains('dark'),
     isTransp = document.body.classList.contains('transp');
   if (key === 'gridColor') return isTransp ? '#cccccc' : isDark ? '#bababa' : '#4d4d4d';
-  else return isTransp ? '#0000001' : isDark ? '#212121' : '#ffffff';
+  else return isTransp ? '#00000099' : isDark ? '#262421' : '#ffffff';
 }
 
 function cssVariableName(key: keyof Omit<CustomThemeData, 'gridWidth'>): string {
