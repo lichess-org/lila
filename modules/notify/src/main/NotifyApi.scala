@@ -53,8 +53,7 @@ final class NotifyApi(
         for {
           doc    <- docs
           userId <- doc.getAsOpt[UserId]("_id")
-          allowsOpt = doc child "notification" flatMap (_ int event.key) map Allows.fromCode
-          allows    = allowsOpt | NotificationPref.default.allows(event)
+          allows = (doc int event.key).map(Allows.fromCode) | NotificationPref.default.allows(event)
         } yield NotifyAllows(userId, allows)
       }
 
