@@ -3,6 +3,7 @@
   <string name="preferences">Préférences</string>
   <string name="display">Affichage</string>
   <string name="privacy">Confidentialité</string>
+  <string name="notifications">Notifications</string>
   <string name="pieceAnimation">Animation des pièces</string>
   <string name="materialDifference">Différence de matériel</string>
   <string name="boardHighlights">Mettre en évidence les cases (dernier coup et échec)</string>
@@ -50,4 +51,5 @@
   <string name="yourPreferencesHaveBeenSaved">Vos préférences ont été sauvegardées.</string>
   <string name="scrollOnTheBoardToReplayMoves">Utiliser la molette pour jouer les coups</string>
   <string name="correspondenceEmailNotification">Liste des avis par courriel quotidiens de vos parties par correspondance</string>
+  <string name="notifyStreamStart">Le diffuseur passe en direct</string>
 </resources>
