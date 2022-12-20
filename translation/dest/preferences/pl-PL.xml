@@ -55,6 +55,7 @@
   <string name="notifyInboxMsg">Nowa wiadomość</string>
   <string name="notifyForumMention">Wspomniano o Tobie w komentarzu na forum</string>
   <string name="notifyInvitedStudy">Zaproszenie do wspólnego opracowania</string>
+  <string name="notifyGameEvent">Zdarzenie w partii korespondencyjnej</string>
   <string name="notifyChallenge">Wyzwania</string>
   <string name="notifyTournamentSoon">Turniej rozpocznie się wkrótce</string>
   <string name="notifyTimeAlarm">Czas w partii korespondencyjnej dobiega końca</string>
