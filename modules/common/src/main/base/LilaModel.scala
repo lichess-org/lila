@@ -45,6 +45,15 @@ trait LilaModel:
   opaque type StudyId = String
   object StudyId extends OpaqueString[StudyId]
 
+  opaque type ForumPostId = String
+  object ForumPostId extends OpaqueString[ForumPostId]
+
+  opaque type ForumTopicId = String
+  object ForumTopicId extends OpaqueString[ForumTopicId]
+
+  opaque type ForumCategId = String
+  object ForumCategId extends OpaqueString[ForumCategId]
+
   opaque type StudyName = String
   object StudyName extends OpaqueString[StudyName]
 

@@ -43,6 +43,11 @@ object LightUser:
   opaque type Getter <: GetterType = GetterType
   object Getter extends TotalWrapper[Getter, GetterType]
 
+  private type GetterFallbackType                  = UserId => Fu[LightUser]
+  opaque type GetterFallback <: GetterFallbackType = GetterFallbackType
+  object GetterFallback extends TotalWrapper[GetterFallback, GetterFallbackType]:
+    extension (e: GetterFallback) def optional = Getter(id => e(id).dmap(some))
+
   private type GetterSyncType              = UserId => Option[LightUser]
   opaque type GetterSync <: GetterSyncType = GetterSyncType
   object GetterSync extends TotalWrapper[GetterSync, GetterSyncType]

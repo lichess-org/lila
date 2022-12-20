@@ -53,14 +53,14 @@ case class PostLiteView(post: ForumPost, topic: ForumTopic)
 
 case class MiniForumPost(
     isTeam: Boolean,
-    postId: ForumPost.Id,
+    postId: ForumPostId,
     topicName: String,
     userId: Option[UserId],
     text: String,
     createdAt: DateTime
 )
 
-case class PostUrlData(categ: String, topic: String, page: Int, number: Int)
+case class PostUrlData(categ: ForumCategId, topicSlug: String, page: Int, number: Int)
 
 enum Filter:
   case Safe
@@ -68,6 +68,6 @@ enum Filter:
   case Unsafe
 
 case class InsertPost(post: ForumPost)
-case class RemovePost(id: ForumPost.Id)
-case class RemovePosts(ids: List[ForumPost.Id])
+case class RemovePost(id: ForumPostId)
+case class RemovePosts(ids: List[ForumPostId])
 case class CreatePost(post: ForumPost)

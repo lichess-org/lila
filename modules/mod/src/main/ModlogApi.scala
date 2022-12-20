@@ -127,32 +127,32 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       )
     }
 
-  def toggleCloseTopic(mod: ModId, categ: String, topic: String, closed: Boolean) =
+  def toggleCloseTopic(mod: ModId, categ: ForumCategId, topicSlug: String, closed: Boolean) =
     add {
       Modlog(
         mod,
         none,
         if (closed) Modlog.closeTopic else Modlog.openTopic,
-        details = s"$categ/$topic".some
+        details = s"$categ/$topicSlug".some
       )
     }
 
-  def toggleStickyTopic(mod: ModId, categ: String, topic: String, sticky: Boolean) =
+  def toggleStickyTopic(mod: ModId, categ: ForumCategId, topicSlug: String, sticky: Boolean) =
     add {
       Modlog(
         mod,
         none,
         if (sticky) Modlog.stickyTopic else Modlog.unstickyTopic,
-        details = s"$categ/$topic".some
+        details = s"$categ/$topicSlug".some
       )
     }
 
   // Not to be confused with the eponymous lichess account.
   def postOrEditAsAnonMod(
       mod: ModId,
-      categ: String,
+      categ: ForumCategId,
       topic: String,
-      postId: String,
+      postId: ForumPostId,
       text: String,
       edit: Boolean
   ) =

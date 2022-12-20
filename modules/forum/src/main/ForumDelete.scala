@@ -17,8 +17,8 @@ final class ForumDelete(
     modLog: lila.mod.ModlogApi
 )(using ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer):
 
-  def post(categSlug: String, postId: ForumPost.Id, mod: User): Funit =
-    postRepo.unsafe.byCategAndId(categSlug, postId) flatMap {
+  def post(categId: ForumCategId, postId: ForumPostId, mod: User): Funit =
+    postRepo.unsafe.byCategAndId(categId, postId) flatMap {
       _ ?? { post =>
         postApi.viewOf(post) flatMap {
           _ ?? { view =>

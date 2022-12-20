@@ -156,9 +156,7 @@ final class IrwinApi(
         import lila.notify.{ IrwinDone, Notification }
         modIds
           .map { modId =>
-            notifyApi.addNotification(
-              Notification.make(UserId(modId.value), IrwinDone(report.suspectId.value))
-            )
+            notifyApi.notifyOne(modId, lila.notify.IrwinDone(report.suspectId.value))
           }
           .sequenceFu
           .void

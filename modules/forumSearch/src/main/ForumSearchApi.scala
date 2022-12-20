@@ -18,7 +18,7 @@ final class ForumSearchApi(
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
-      postApi.viewsFromIds(ForumPost.Id from res.ids)
+      postApi.viewsFromIds(ForumPostId from res.ids)
     }
 
   def count(query: Query) =

@@ -293,6 +293,7 @@ POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
 POST  /streamer/approval/request       controllers.Streamer.approvalRequest
 GET   /streamer/picture/edit           controllers.Streamer.picture
+POST  /streamer/subscribe/:streamer    controllers.Streamer.subscribe(streamer, set: Boolean ?= true)
 POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username)
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username)
@@ -461,6 +462,7 @@ GET   /fishnet/status                         controllers.Fishnet.status
 POST  /pref/:name                             controllers.Pref.set(name)
 GET   /account/preferences/:categ             controllers.Pref.form(categ)
 POST  /account/preferences                    controllers.Pref.formApply
+POST  /account/preferences/notification       controllers.Pref.notifyFormApply
 
 # Setup
 POST  /setup/ai                        controllers.Setup.ai

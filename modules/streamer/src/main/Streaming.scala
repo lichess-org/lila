@@ -17,7 +17,6 @@ final private class Streaming(
     ws: StandaloneWSClient,
     api: StreamerApi,
     isOnline: lila.socket.IsOnline,
-    timeline: lila.hub.actors.Timeline,
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.UserIds,
     googleApiKey: Secret,
@@ -61,7 +60,7 @@ final private class Streaming(
     } yield publishStreams(streamers, streams)
   }
 
-  private val streamStartMemo = lila.memo.ExpireSetMemo[UserId](2 hour)
+  private val streamStartOnceEvery = lila.memo.OnceEvery[UserId](2 hour)
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
     if (newStreams != liveStreams)
@@ -69,14 +68,9 @@ final private class Streaming(
         liveStreams has s.streamer
       } foreach { s =>
         import s.streamer.userId
-        if (!streamStartMemo.get(userId))
-          streamStartMemo.put(userId)
-          timeline ! {
-            import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
-            Propagate(StreamStart(userId, s.streamer.name.value)) toFollowersOf userId
-          }
+        if (streamStartOnceEvery(userId))
           Bus.publish(
-            lila.hub.actorApi.streamer.StreamStart(userId),
+            lila.hub.actorApi.streamer.StreamStart(userId, s.streamer.name.value),
             "streamStart"
           )
       }

@@ -20,9 +20,9 @@ object activities:
       def hasNonCorres                           = a.value.exists(_._1 != PerfType.Correspondence)
     given Zero[Games] = Zero(Map.empty)
 
-  opaque type ForumPosts = List[ForumPost.Id]
-  object ForumPosts extends TotalWrapper[ForumPosts, List[ForumPost.Id]]:
-    extension (a: ForumPosts) def +(postId: ForumPost.Id): ForumPosts = postId :: a.value
+  opaque type ForumPosts = List[ForumPostId]
+  object ForumPosts extends TotalWrapper[ForumPosts, List[ForumPostId]]:
+    extension (a: ForumPosts) def +(postId: ForumPostId): ForumPosts = postId :: a.value
     given Zero[ForumPosts]                                            = Zero(Nil)
 
   opaque type UblogPosts = List[UblogPostId]

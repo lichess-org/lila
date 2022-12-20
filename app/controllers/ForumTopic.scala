@@ -19,11 +19,11 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       enforce = env.net.rateLimit.value
     )
 
-  def form(categSlug: String) =
+  def form(categId: ForumCategId) =
     Auth { implicit ctx => me =>
       NoBot {
         NotForKids {
-          OptionFuOk(env.forum.categRepo bySlug categSlug) { categ =>
+          OptionFuOk(env.forum.categRepo byId categId) { categ =>
             categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
               forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic(me, inOwnTeam), _) }
             }
@@ -32,12 +32,12 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       }
     }
 
-  def create(categSlug: String) =
+  def create(categId: ForumCategId) =
     AuthBody { implicit ctx => me =>
       NoBot {
-        CategGrantWrite(categSlug) {
+        CategGrantWrite(categId) {
           given play.api.mvc.Request[?] = ctx.body
-          OptionFuResult(env.forum.categRepo bySlug categSlug) { categ =>
+          OptionFuResult(env.forum.categRepo byId categId) { categ =>
             categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
               forms
                 .topic(me, inOwnTeam)
@@ -60,10 +60,10 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       }
     }
 
-  def show(categSlug: String, slug: String, page: Int) =
+  def show(categId: ForumCategId, slug: String, page: Int) =
     Open { implicit ctx =>
       NotForKids {
-        OptionFuResult(topicApi.show(categSlug, slug, page, ctx.me)) { case (categ, topic, posts) =>
+        OptionFuResult(topicApi.show(categId, slug, page, ctx.me)) { case (categ, topic, posts) =>
           for {
             unsub       <- ctx.userId ?? env.timeline.status(s"forum:${topic.id}")
             canRead     <- access.isGrantedRead(categ.slug)
@@ -87,29 +87,29 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       }
     }
 
-  def close(categSlug: String, slug: String) =
+  def close(categId: ForumCategId, slug: String) =
     Auth { implicit ctx => me =>
-      TopicGrantModBySlug(categSlug, me, slug) {
-        OptionFuRedirect(topicApi.show(categSlug, slug, 1, ctx.me)) { case (categ, topic, pag) =>
+      TopicGrantModBySlug(categId, me, slug) {
+        OptionFuRedirect(topicApi.show(categId, slug, 1, ctx.me)) { case (categ, topic, pag) =>
           topicApi.toggleClose(categ, topic, Holder(me)) inject
-            routes.ForumTopic.show(categSlug, slug, pag.nbPages)
+            routes.ForumTopic.show(categId, slug, pag.nbPages)
         }
       }
     }
 
-  def sticky(categSlug: String, slug: String) =
+  def sticky(categId: ForumCategId, slug: String) =
     Auth { implicit ctx => me =>
-      CategGrantMod(categSlug) {
-        OptionFuRedirect(topicApi.show(categSlug, slug, 1, ctx.me)) { case (categ, topic, pag) =>
+      CategGrantMod(categId) {
+        OptionFuRedirect(topicApi.show(categId, slug, 1, ctx.me)) { case (categ, topic, pag) =>
           topicApi.toggleSticky(categ, topic, Holder(me)) inject
-            routes.ForumTopic.show(categSlug, slug, pag.nbPages)
+            routes.ForumTopic.show(categId, slug, pag.nbPages)
         }
       }
     }
 
   /** Returns a list of the usernames of people participating in a forum topic conversation
     */
-  def participants(topicId: String) =
+  def participants(topicId: ForumTopicId) =
     Auth { _ => _ =>
       for {
         userIds   <- postApi allUserIds topicId

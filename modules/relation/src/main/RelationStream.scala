@@ -9,9 +9,11 @@ import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ given, * }
 import lila.user.{ User, UserRepo }
 
-final class RelationStream(coll: Coll, userRepo: UserRepo)(using akka.stream.Materializer):
+final class RelationStream(colls: Colls, userRepo: UserRepo)(using akka.stream.Materializer):
 
   import RelationStream.*
+
+  private val coll = colls.relation
 
   def follow(user: User, direction: Direction, perSecond: MaxPerSecond): Source[User, ?] =
     coll

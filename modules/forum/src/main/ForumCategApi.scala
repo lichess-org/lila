@@ -16,19 +16,19 @@ final class ForumCategApi(
 
   def makeTeam(teamId: TeamId, name: String): Funit =
     val categ = ForumCateg(
-      _id = teamSlug(teamId),
+      _id = ForumCateg.fromTeamId(teamId),
       name = name,
       desc = "Forum of the team " + name,
       team = teamId.some,
       nbTopics = 0,
       nbPosts = 0,
-      lastPostId = ForumPost.Id(""),
+      lastPostId = ForumPostId(""),
       nbTopicsTroll = 0,
       nbPostsTroll = 0,
-      lastPostIdTroll = ForumPost.Id("")
+      lastPostIdTroll = ForumPostId("")
     )
     val topic = ForumTopic.make(
-      categId = categ.slug,
+      categId = categ.id,
       slug = s"$teamId-forum",
       name = name + " forum",
       userId = User.lichessId,
@@ -50,11 +50,11 @@ final class ForumCategApi(
       categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)).void
 
   def show(
-      slug: String,
+      id: ForumCategId,
       forUser: Option[User],
       page: Int
   ): Fu[Option[(ForumCateg, Paginator[TopicView])]] =
-    categRepo bySlug slug flatMap {
+    categRepo byId id flatMap {
       _ ?? { categ =>
         paginator.categTopics(categ, forUser, page) dmap { (categ, _).some }
       }

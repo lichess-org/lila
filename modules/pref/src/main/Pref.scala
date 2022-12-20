@@ -35,8 +35,6 @@ case class Pref(
     studyInvite: Int,
     submitMove: Int,
     confirmResign: Int,
-    mention: Boolean,
-    corresEmailNotif: Boolean,
     insightShare: Int,
     keyboardMove: Int,
     zen: Int,
@@ -225,10 +223,6 @@ object Pref:
       FRIENDS   -> "With friends",
       EVERYBODY -> "With everybody"
     )
-
-  object Mention extends BooleanPref
-
-  object CorresEmailNotif extends BooleanPref
 
   object KeyboardMove extends BooleanPref
 
@@ -455,8 +449,6 @@ object Pref:
     studyInvite = StudyInvite.ALWAYS,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
-    mention = true,
-    corresEmailNotif = false,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
     zen = Zen.NO,

@@ -10,9 +10,9 @@ import lila.security.Granter
 case class OldVersion(text: String, createdAt: DateTime)
 
 case class ForumPost(
-    _id: ForumPost.Id,
-    topicId: String,
-    categId: String,
+    _id: ForumPostId,
+    topicId: ForumTopicId,
+    categId: ForumCategId,
     author: Option[String],
     userId: Option[UserId],
     text: String,
@@ -37,7 +37,7 @@ case class ForumPost(
 
   def showUserIdOrAuthor: String = if (erased) "<erased>" else userId.fold(showAuthor)(_.value)
 
-  def isTeam = categId startsWith teamSlug(TeamId(""))
+  def isTeam = ForumCateg.isTeamSlug(categId)
 
   def isAnonModPost = !userId.isDefined && ~modIcon
 
@@ -113,8 +113,8 @@ object ForumPost:
   case class WithFrag(post: ForumPost, body: scalatags.Text.all.Frag)
 
   def make(
-      topicId: String,
-      categId: String,
+      topicId: ForumTopicId,
+      categId: ForumCategId,
       userId: Option[UserId], // anon mod posts
       text: String,
       number: Int,
@@ -123,7 +123,7 @@ object ForumPost:
       modIcon: Option[Boolean] = None
   ): ForumPost =
     ForumPost(
-      _id = ThreadLocalRandom nextString idSize,
+      _id = ForumPostId(ThreadLocalRandom nextString idSize),
       topicId = topicId,
       author = none,
       userId = userId,

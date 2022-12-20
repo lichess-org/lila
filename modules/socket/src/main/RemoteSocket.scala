@@ -19,7 +19,7 @@ import lila.hub.actorApi.relation.{ Follow, UnFollow }
 import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellUserIn }
-import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToAsync, SendTos }
+import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToOnlineUser, SendTos }
 
 final class RemoteSocket(
     redisClient: RedisClient,
@@ -90,7 +90,7 @@ final class RemoteSocket(
       if (connectedUsers.nonEmpty) send(Out.tellUsers(connectedUsers, payload))
     case SendTo(userId, payload) =>
       if (onlineUserIds.get.contains(userId)) send(Out.tellUser(userId, payload))
-    case SendToAsync(userId, makePayload) =>
+    case SendToOnlineUser(userId, makePayload) =>
       if (onlineUserIds.get.contains(userId)) makePayload() foreach { payload =>
         send(Out.tellUser(userId, payload))
       }

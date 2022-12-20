@@ -316,6 +316,9 @@ trait LilaLibraryExtensions extends LilaTypes:
     def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
       fua.flatMap { if (_) fuTrue else fub }(EC.parasitic)
 
+    def ifThen[A](fub: => Fu[A])(using zero: Zero[A]): Fu[A] =
+      fua.flatMap { if (_) fub else fuccess(zero.zero) }(EC.parasitic)
+
     inline def unary_! = fua.map { !_ }(EC.parasitic)
 
   extension [A](fua: Fu[Option[A]])

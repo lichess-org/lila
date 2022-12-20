@@ -7,7 +7,7 @@ import lila.notify.Notification.*
 import reactivemongo.api.bson.*
 
 private object BSONHandlers:
-
+  private given BSONDocumentHandler[StreamStart]                       = Macros.handler
   private given BSONDocumentHandler[PrivateMessage]                    = Macros.handler
   private given BSONDocumentHandler[TeamJoined]                        = Macros.handler
   private given BSONDocumentHandler[GameEnd]                           = Macros.handler
@@ -25,10 +25,11 @@ private object BSONHandlers:
   given lila.db.BSON[NotificationContent] with
     private def writeNotificationContent(notificationContent: NotificationContent) = {
       notificationContent match
-        case x: MentionedInThread          => mentionHandler.writeTry(x).get
+        case x: MentionedInThread          => mentionHandler.writeTry(x).get 
         case x: InvitedToStudy             => inviteHandler.writeTry(x).get
-        case p: PrivateMessage             => summon[BSONHandler[PrivateMessage]].writeTry(p).get
-        case t: TeamJoined                 => summon[BSONHandler[TeamJoined]].writeTry(t).get
+        case x: PrivateMessage             => summon[BSONHandler[PrivateMessage]].writeTry(x).get
+        case x: StreamStart                => summon[BSONHandler[StreamStart]].writeTry(x).get
+        case x: TeamJoined                 => summon[BSONHandler[TeamJoined]].writeTry(x).get
         case x: TitledTournamentInvitation => summon[BSONHandler[TitledTournamentInvitation]].writeTry(x).get
         case x: GameEnd                    => summon[BSONHandler[GameEnd]].writeTry(x).get
         case x: PlanStart                  => summon[BSONHandler[PlanStart]].writeTry(x).get
@@ -59,6 +60,7 @@ private object BSONHandlers:
         case "irwinDone"      => reader.as[IrwinDone]
         case "kaladinDone"    => reader.as[KaladinDone]
         case "genericLink"    => reader.as[GenericLink]
+        case "streamStart"    => reader.as[StreamStart]
 
     def writes(writer: Writer, n: NotificationContent): Bdoc = writeNotificationContent(n)
 

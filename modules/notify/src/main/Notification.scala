@@ -1,69 +1,30 @@
 package lila.notify
 
-import lila.common.paginator.Paginator
-import lila.notify.MentionedInThread.PostId
 import org.joda.time.DateTime
 import reactivemongo.api.bson.Macros.Annotations.Key
 import ornicar.scalalib.ThreadLocalRandom
 import alleycats.Zero
 
-case class NewNotification(notification: Notification, unreadNotifications: Notification.UnreadCount)
-
-case class Notification(
-    @Key("_id") id: Notification.Id,
-    notifies: Notification.Notifies,
-    content: NotificationContent,
-    read: Notification.NotificationRead,
-    createdAt: DateTime
-):
-  def unread = read.no
-
-  def isMsg =
-    content match
-      case _: PrivateMessage => true
-      case _                 => false
-
-object Notification:
-
-  opaque type Id = String
-  object Id extends OpaqueString[Id]
-
-  opaque type UnreadCount = Int
-  object UnreadCount extends OpaqueInt[UnreadCount]:
-    given Zero[UnreadCount] = Zero(0)
-
-  case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
-
-  opaque type Notifies = String // the user being notified
-  object Notifies extends OpaqueUserId[Notifies]
-
-  opaque type NotificationRead = Boolean
-  object NotificationRead extends YesNo[NotificationRead]
-
-  def make(notifies: UserId, content: NotificationContent): Notification =
-    val idSize = 8
-    val id     = ThreadLocalRandom nextString idSize
-    Notification(Id(id), notifies into Notifies, content, NotificationRead(false), DateTime.now)
+import lila.common.paginator.Paginator
+import lila.user.User
+import lila.notify.Notification.*
 
 sealed abstract class NotificationContent(val key: String)
 
 case class MentionedInThread(
     mentionedBy: UserId,
-    topic: MentionedInThread.Topic,
-    topidId: MentionedInThread.TopicId,
-    category: MentionedInThread.Category,
-    postId: PostId
+    topicName: String,
+    topidId: ForumTopicId,
+    category: ForumCategId,
+    postId: ForumPostId
 ) extends NotificationContent("mention")
 
-object MentionedInThread:
-  opaque type Topic = String
-  object Topic extends OpaqueString[Topic]
-  opaque type TopicId = String
-  object TopicId extends OpaqueString[TopicId]
-  opaque type Category = String
-  object Category extends OpaqueString[Category]
-  opaque type PostId = String
-  object PostId extends OpaqueString[PostId]
+case class StreamStart(
+    streamerId: UserId,
+    streamerName: String
+) extends NotificationContent("streamStart")
+
+case class PrivateMessage(user: UserId, text: String) extends NotificationContent("privateMessage")
 
 case class InvitedToStudy(
     invitedBy: UserId,
@@ -71,12 +32,10 @@ case class InvitedToStudy(
     studyId: StudyId
 ) extends NotificationContent("invitedStudy")
 
-case class PrivateMessage(
-    user: UserId,
-    text: String
-) extends NotificationContent("privateMessage")
-
-case class TeamJoined(id: TeamId, name: lila.hub.LightTeam.TeamName) extends NotificationContent("teamJoined")
+case class TeamJoined(
+    id: TeamId,
+    name: String
+) extends NotificationContent("teamJoined")
 
 case class TitledTournamentInvitation(
     id: TourId,
@@ -84,7 +43,7 @@ case class TitledTournamentInvitation(
 ) extends NotificationContent("titledTourney")
 
 case class GameEnd(
-    fullId: GameFullId,
+    gameId: GameFullId,
     opponentId: Option[UserId],
     win: Option[Win]
 ) extends NotificationContent("gameEnd")
@@ -117,3 +76,37 @@ case class GenericLink(
     text: Option[String],
     icon: String
 ) extends NotificationContent("genericLink")
+
+case class PushNotification(
+    to: Iterable[NotifyAllows],
+    content: NotificationContent,
+    params: Iterable[(String, String)] = Nil
+)
+
+private[notify] case class Notification(
+    @Key("_id") id: Notification.Id,
+    notifies: UserId,
+    content: NotificationContent,
+    read: NotificationRead,
+    createdAt: DateTime
+):
+  def to = notifies
+
+object Notification:
+
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
+
+  opaque type UnreadCount = Int
+  object UnreadCount extends OpaqueInt[UnreadCount]:
+    given Zero[UnreadCount] = Zero(0)
+
+  opaque type NotificationRead = Boolean
+  object NotificationRead extends YesNo[NotificationRead]
+
+  case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
+
+  def make[U](to: U, content: NotificationContent)(using userIdOf: UserIdOf[U]): Notification =
+    val idSize = 8
+    val id     = ThreadLocalRandom nextString idSize
+    Notification(id, userIdOf(to), content, NotificationRead(false), DateTime.now)

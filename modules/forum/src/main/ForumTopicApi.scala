@@ -31,7 +31,7 @@ final private class ForumTopicApi(
   import BSONHandlers.given
 
   def show(
-      categSlug: String,
+      categId: ForumCategId,
       slug: String,
       page: Int,
       forUser: Option[User]
@@ -39,9 +39,9 @@ final private class ForumTopicApi(
       netDomain: lila.common.config.NetDomain
   ): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
     for {
-      data <- categRepo bySlug categSlug flatMap {
+      data <- categRepo byId categId flatMap {
         _ ?? { categ =>
-          topicRepo.forUser(forUser).byTree(categSlug, slug) dmap {
+          topicRepo.forUser(forUser).byTree(categId, slug) dmap {
             _ map (categ -> _)
           }
         }
@@ -54,7 +54,7 @@ final private class ForumTopicApi(
 
   object findDuplicate:
     private val cache =
-      cacheApi.notLoadingSync[(UserId, String), ForumTopic.ID](64, "forum.topic.duplicate") {
+      cacheApi.notLoadingSync[(UserId, String), ForumTopicId](64, "forum.topic.duplicate") {
         _.expireAfterWrite(1 hour).build()
       }
     def apply(topic: ForumTopic): Fu[Option[ForumTopic]] = topic.userId ?? { uid =>
@@ -102,7 +102,7 @@ final private class ForumTopicApi(
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, text)
               }
               if (!post.troll && !categ.quiet)
-                timeline ! Propagate(TimelinePost(me.id, topic.id.some, topic.name, post.id.value))
+                timeline ! Propagate(TimelinePost(me.id, topic.id, topic.name, post.id))
                   .toFollowersOf(me.id)
                   .withTeam(categ.team)
               lila.mon.forum.post.create.increment()
@@ -119,7 +119,7 @@ final private class ForumTopicApi(
       ublogId: String,
       authorId: UserId
   ): Funit =
-    categRepo.bySlug(ForumCateg.ublogSlug) flatMap {
+    categRepo.byId(ForumCateg.ublogId) flatMap {
       _ ?? { categ =>
         val topic = ForumTopic.make(
           categId = categ.slug,
