@@ -3,7 +3,7 @@ package lila.round
 import org.joda.time.DateTime
 import play.api.libs.json._
 
-import shogi.format.usi.Usi
+import shogi.format.usi.{ UciToUsi, Usi }
 import lila.common.Json.jodaWrites
 import lila.game.Game
 
@@ -49,7 +49,7 @@ object Forecast {
 
     def is(move: Usi) = move.usi == usi
 
-    def usiMove = Usi(usi)
+    def usiMove = Usi(usi).orElse(UciToUsi(usi))
   }
 
   implicit val forecastStepJsonFormat = Json.format[Step]

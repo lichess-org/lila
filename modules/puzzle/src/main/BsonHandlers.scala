@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import shogi.format.usi.Usi
+import shogi.format.usi.{ UciToUsi, Usi }
 import shogi.format.forsyth.Sfen
 import reactivemongo.api.bson._
 import scala.util.{ Success, Try }
@@ -21,11 +21,16 @@ object BsonHandlers {
       id      <- r.getAsTry[Puzzle.Id](F.id)
       sfen    <- r.getAsTry[Sfen](F.sfen)
       lineStr <- r.getAsTry[String](F.line)
-      line    <- lineStr.split(' ').toList.flatMap(Usi.apply).toNel.toTry("Empty move list?!")
-      glicko  <- r.getAsTry[Glicko](F.glicko)
-      plays   <- r.getAsTry[Int](F.plays)
-      vote    <- r.getAsTry[Float](F.vote)
-      themes  <- r.getAsTry[Set[PuzzleTheme.Key]](F.themes)
+      line <- lineStr
+        .split(' ')
+        .toList
+        .flatMap(m => Usi.apply(m).orElse(UciToUsi.apply(m)))
+        .toNel
+        .toTry("Empty move list?!")
+      glicko <- r.getAsTry[Glicko](F.glicko)
+      plays  <- r.getAsTry[Int](F.plays)
+      vote   <- r.getAsTry[Float](F.vote)
+      themes <- r.getAsTry[Set[PuzzleTheme.Key]](F.themes)
       gameId      = r.getAsOpt[Game.ID](F.gameId)
       author      = r.getAsOpt[String](F.author)
       description = r.getAsOpt[String](F.description)

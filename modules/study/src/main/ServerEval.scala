@@ -1,7 +1,7 @@
 package lila.study
 
 import shogi.format.Glyphs
-import shogi.format.usi.{ Usi, UsiCharPair }
+import shogi.format.usi.{ UciToUsi, Usi, UsiCharPair }
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -118,7 +118,8 @@ object ServerEval {
       )
 
     private def analysisLine(root: RootOrNode, variant: shogi.variant.Variant, info: Info): Option[Node] = {
-      val usis = ~Usi.readList(info.variation take 20)
+      val variation = info.variation take 20
+      val usis      = ~Usi.readList(variation).orElse(UciToUsi.readList(variation))
       shogi.Replay.gamesWhileValid(usis, root.sfen.some, variant) match {
         case (games, error) =>
           error foreach { logger.info(_) }

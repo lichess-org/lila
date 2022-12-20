@@ -7,7 +7,7 @@ import lila.db.dsl._
 import org.joda.time.DateTime
 import scala.concurrent.Promise
 
-import shogi.format.usi.Usi
+import shogi.format.usi.{ UciToUsi, Usi }
 import Forecast.Step
 import lila.game.Game.PlayerId
 import lila.game.{ Game, Pov }
@@ -46,7 +46,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
   ): Funit =
     if (!pov.isMyTurn) funit
     else
-      Usi(usiMove).fold[Funit](fufail(s"Invalid move $usiMove on $pov")) { usi =>
+      Usi(usiMove).orElse(UciToUsi(usiMove)).fold[Funit](fufail(s"Invalid move $usiMove on $pov")) { usi =>
         val promise = Promise[Unit]()
         tellRound(
           pov.gameId,

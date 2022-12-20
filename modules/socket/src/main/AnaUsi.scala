@@ -45,8 +45,10 @@ object AnaUsi {
 
   def parse(o: JsObject) = {
     for {
-      d    <- o obj "d"
-      usi  <- d str "usi" flatMap shogi.format.usi.Usi.apply
+      d <- o obj "d"
+      usi <- d str "usi" flatMap { u =>
+        shogi.format.usi.Usi.apply(u).orElse(shogi.format.usi.UciToUsi.apply(u))
+      }
       sfen <- d str "sfen" map Sfen.apply
       path <- d str "path"
     } yield AnaUsi(

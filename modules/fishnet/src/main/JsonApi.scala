@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 
 import shogi.format.forsyth.Sfen
-import shogi.format.usi.Usi
+import shogi.format.usi.{ UciToUsi, Usi }
 import shogi.variant.Variant
 import shogi.StartingPosition
 
@@ -78,7 +78,7 @@ object JsonApi {
         with Result {}
 
     case class MoveResult(bestmove: String) {
-      def usi: Option[Usi] = Usi(bestmove)
+      def usi: Option[Usi] = Usi(bestmove).orElse(UciToUsi(bestmove))
     }
 
     case class PostAnalysis(
@@ -213,7 +213,7 @@ object JsonApi {
     implicit val PostMoveReads      = Json.reads[Request.PostMove]
     implicit val ScoreReads         = Json.reads[Request.Evaluation.Score]
     implicit val usiListReads = Reads.of[String] map { str =>
-      ~Usi.readList(str)
+      ~(Usi.readList(str).orElse(UciToUsi.readList(str)))
     }
 
     implicit val EvaluationReads: Reads[Request.Evaluation] = (

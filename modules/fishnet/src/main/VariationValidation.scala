@@ -4,7 +4,7 @@ import cats.data.Validated
 import cats.data.Validated.valid
 import cats.implicits._
 
-import shogi.format.usi.Usi
+import shogi.format.usi.{ UciToUsi, Usi }
 import shogi.{ Game, Replay }
 
 import lila.analyse.{ Analysis, Info }
@@ -40,7 +40,9 @@ private object VariationValidation {
     def validateUsi(ply: Int, variation: List[String]): Validated[String, List[Usi]] =
       for {
         game <- games lift (ply - init.startedAtPly - 1) toValid s"No game at $ply. ply"
-        usis <- variation.map(Usi.apply).sequence toValid "Invalid USI moves " + variation
+        usis <- variation
+          .map(s => Usi.apply(s).orElse(UciToUsi.apply(s)))
+          .sequence toValid "Invalid USI moves " + variation
         validatedUsis <-
           usis.foldLeft[Validated[String, (Game, List[Usi])]](valid((game, Nil))) {
             case (Validated.Valid((game, usis)), usi) =>

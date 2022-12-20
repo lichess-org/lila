@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import play.api.mvc.Result
 
 import shogi.Color
-import shogi.format.usi.Usi
+import shogi.format.usi.{ UciToUsi, Usi }
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.Pov
@@ -61,7 +61,7 @@ final class Export(env: Env) extends LilaController(env) {
         OptionFuResult(env.puzzle.api.puzzle find Id(id)) { puzzle =>
           env.game.gifExport.thumbnail(
             sfen = puzzle.sfenAfterInitialMove,
-            lastMove = Usi(puzzle.lastMove) map { _.usi },
+            lastMove = Usi(puzzle.lastMove).orElse(UciToUsi(puzzle.lastMove)) map { _.usi },
             orientation = puzzle.color
           ) map { source =>
             Ok.chunked(source)

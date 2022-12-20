@@ -1,7 +1,7 @@
 package lila.study
 
 import shogi.format.{ Glyph, Glyphs, Tag, Tags }
-import shogi.format.usi.{ Usi, UsiCharPair }
+import shogi.format.usi.{ UciToUsi, Usi, UsiCharPair }
 import shogi.format.forsyth.{ Sfen, SfenUtils }
 import shogi.variant.{ Standard, Variant }
 import shogi.{ Centis, Piece, Pos }
@@ -70,7 +70,7 @@ object BSONHandlers {
   }
 
   implicit val UsiHandler = tryHandler[Usi](
-    { case BSONString(v) => Usi(v) toTry s"Bad USI: $v" },
+    { case BSONString(v) => Usi(v).orElse(UciToUsi(v)) toTry s"Bad USI: $v" },
     x => BSONString(x.usi)
   )
 

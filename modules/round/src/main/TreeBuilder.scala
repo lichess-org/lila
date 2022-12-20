@@ -3,7 +3,7 @@ package lila.round
 import shogi.Centis
 import shogi.format.Glyphs
 import shogi.format.forsyth.Sfen
-import shogi.format.usi.{ Usi, UsiCharPair }
+import shogi.format.usi.{ UciToUsi, Usi, UsiCharPair }
 import shogi.opening._
 import shogi.variant.Variant
 import JsonView.WithFlags
@@ -114,7 +114,8 @@ object TreeBuilder {
         eval = none
       )
     }
-    val usis = ~Usi.readList(info.variation take 20)
+    val variation = info.variation take 20
+    val usis      = ~(Usi.readList(variation).orElse(UciToUsi.readList(variation)))
     shogi.Replay.gamesWhileValid(usis, fromSfen.some, variant) match {
       case (games, error) =>
         error foreach logShogiError(id)

@@ -4,7 +4,7 @@ import cats.implicits._
 import play.api.libs.json._
 
 import shogi.format.forsyth.Sfen
-import shogi.format.usi.Usi
+import shogi.format.usi.{ UciToUsi, Usi }
 import lila.common.Json._
 import lila.evalCache.EvalCacheEntry._
 import lila.tree.Eval._
@@ -62,7 +62,7 @@ object JsonHandlers {
           .split(' ')
           .take(EvalCacheEntry.MAX_PV_SIZE)
           .foldLeft(List.empty[Usi].some) {
-            case (Some(usis), str) => Usi(str) map (_ :: usis)
+            case (Some(usis), str) => Usi(str).orElse(UciToUsi(str)) map (_ :: usis)
             case _                 => None
           }
           .flatMap(_.reverse.toNel) map Moves.apply

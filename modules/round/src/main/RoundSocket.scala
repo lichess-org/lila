@@ -7,7 +7,7 @@ import scala.concurrent.ExecutionContext
 
 import actorApi._
 import actorApi.round._
-import shogi.format.usi.Usi
+import shogi.format.usi.{ UciToUsi, Usi }
 import shogi.{ Centis, Color, Gote, MoveMetrics, Sente, Speed }
 import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }
@@ -267,7 +267,7 @@ object RoundSocket {
             }
           case "r/move" =>
             raw.get(5) { case Array(fullId, usiS, blurS, lagS, mtS) =>
-              Usi(usiS) map { usi =>
+              Usi(usiS).orElse(UciToUsi(usiS)) map { usi =>
                 PlayerMove(FullId(fullId), usi, P.In.boolean(blurS), MoveMetrics(centis(lagS), centis(mtS)))
               }
             }
