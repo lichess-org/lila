@@ -775,7 +775,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="light">Svijetla</string>
   <string name="dark">Tamna</string>
   <string name="transparent">Prozirna</string>
-  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Tema uređaja</string>
+  <string name="deviceTheme">Tema uređaja</string>
   <string name="backgroundImageUrl">Llink pozadinske slike:</string>
   <string name="boardGeometry">Geometrija ploče</string>
   <string name="boardTheme">Tema ploče</string>
