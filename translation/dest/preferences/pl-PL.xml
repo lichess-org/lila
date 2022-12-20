@@ -53,5 +53,13 @@
   <string name="correspondenceEmailNotification">Codzienne powiadomienia mailowe z listą Twoich partii korespondencyjnych</string>
   <string name="notifyStreamStart">Streamer jest na żywo</string>
   <string name="notifyInboxMsg">Nowa wiadomość</string>
-  <string name="notifyForumMention">Komentarz na forum wspomina o tobie</string>
+  <string name="notifyForumMention">Wspomniano o Tobie w komentarzu na forum</string>
+  <string name="notifyInvitedStudy">Zaproszenie do wspólnego opracowania</string>
+  <string name="notifyChallenge">Wyzwania</string>
+  <string name="notifyTournamentSoon">Turniej rozpocznie się wkrótce</string>
+  <string name="notifyTimeAlarm">Czas w partii korespondencyjnej dobiega końca</string>
+  <string name="notifyBell">Powiadomienie dźwiękowe gdy jesteś zalogowany na Lichess</string>
+  <string name="notifyPush">Powiadomienie na urządzenie, gdy nie jesteś zalogowany na Lichess</string>
+  <string name="notifyWeb">Przeglądarka</string>
+  <string name="notifyDevice">Urządzenie</string>
 </resources>
