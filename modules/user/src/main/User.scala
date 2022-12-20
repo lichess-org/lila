@@ -25,7 +25,7 @@ case class User(
     lang: Option[String],
     plan: Plan,
     totpSecret: Option[TotpSecret] = None,
-    marks: UserMarks = UserMarks.empty: UserMarks
+    marks: UserMarks = UserMarks.empty
 ):
 
   override def equals(other: Any) =

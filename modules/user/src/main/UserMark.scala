@@ -40,4 +40,4 @@ object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
       else a.value.filter(sel(UserMark) !=)
     }
 
-  val empty = UserMarks(Nil)
+  val empty: UserMarks = Nil
