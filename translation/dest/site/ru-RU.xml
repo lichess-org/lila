@@ -415,6 +415,7 @@
   <string name="siteDescription">Бесплатный шахматный сервер. Сыграйте в шахматы прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в шахматы с компьютером, друзьями или случайными соперниками.</string>
   <string name="xJoinedTeamY">%1$s вступил в клуб %2$s</string>
   <string name="xCreatedTeamY">%1$s организовал клуб %2$s</string>
+  <string name="startedStreaming">начал(а) стрим</string>
   <string name="xStartedStreaming">%s запустил стрим</string>
   <string name="averageElo">Средний рейтинг участников</string>
   <string name="location">Местоположение</string>
@@ -957,7 +958,7 @@
   <string name="lichessPatronInfo">Lichess - это благотворительное и полностью бесплатное программное обеспечение с открытым исходным кодом.
 Все эксплуатационные расходы, разработка и контент финансируются исключительно за счет пожертвований пользователей.</string>
   <string name="coachManager">Для тренеров</string>
-  <string name="streamerManager">Управление трансляцией</string>
+  <string name="streamerManager">Управление стримом</string>
   <string name="cancelTournament">Отменить турнир</string>
   <string name="tournDescription">Описание турнира</string>
   <string name="tournDescriptionHelp">Хотите рассказать что-то пользователям? Постарайтесь быть лаконичны. Доступны ссылки в формате Markdown: [name](https://url)</string>
