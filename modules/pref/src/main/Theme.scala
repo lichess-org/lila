@@ -9,10 +9,9 @@ final class Theme private[pref] (val name: String, val file: String):
 sealed trait ThemeObject:
 
   val all: List[Theme]
-
   val default: Theme
 
-  val allByName = all.mapBy(_.name)
+  lazy val allByName = all.mapBy(_.name)
 
   def apply(name: String): Theme         = allByName.getOrElse(name, default)
   def apply(name: Option[String]): Theme = name.fold(default)(apply)

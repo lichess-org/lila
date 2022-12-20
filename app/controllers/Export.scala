@@ -46,7 +46,7 @@ final class Export(env: Env) extends LilaController(env):
         Pov(g.game, Color.fromName(color) | Color.white),
         g.fen,
         Theme(theme).name,
-        PieceSet(piece).name
+        PieceSet.get(piece).name
       ) pipe stream(cacheSeconds = if (g.game.finishedOrAborted) 3600 * 24 else 10)
     }
 
@@ -57,7 +57,7 @@ final class Export(env: Env) extends LilaController(env):
 
   def gameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo game id) { game =>
-      env.game.gifExport.gameThumbnail(game, Theme(theme).name, PieceSet(piece).name) pipe
+      env.game.gifExport.gameThumbnail(game, Theme(theme).name, PieceSet.get(piece).name) pipe
         stream(cacheSeconds = if (game.finishedOrAborted) 3600 * 24 else 10)
     }
 
@@ -69,7 +69,7 @@ final class Export(env: Env) extends LilaController(env):
         orientation = puzzle.color,
         variant = Standard,
         Theme(theme).name,
-        PieceSet(piece).name
+        PieceSet.get(piece).name
       ) pipe stream()
     }
 
@@ -88,7 +88,7 @@ final class Export(env: Env) extends LilaController(env):
         orientation = Color.fromName(color) | Color.White,
         variant = Variant(variant.getOrElse("standard")) | Standard,
         Theme(theme).name,
-        PieceSet(piece).name
+        PieceSet.get(piece).name
       ) pipe stream()
     }
 
