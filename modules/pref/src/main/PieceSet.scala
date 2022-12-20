@@ -1,6 +1,6 @@
 package lila.pref
 
-sealed class PieceSet private[pref] (val name: String):
+final class PieceSet private[pref] (val name: String):
 
   override def toString = name
 
@@ -9,12 +9,9 @@ sealed class PieceSet private[pref] (val name: String):
 sealed trait PieceSetObject:
 
   val all: List[PieceSet]
+  lazy val allByName = all.mapBy(_.name)
 
   val default: PieceSet
-
-  lazy val allByName = all map { c =>
-    c.name -> c
-  } toMap
 
   def apply(name: String): PieceSet         = allByName.getOrElse(name, default)
   def apply(name: Option[String]): PieceSet = name.fold(default)(apply)
@@ -23,7 +20,7 @@ sealed trait PieceSetObject:
 
 object PieceSet extends PieceSetObject:
 
-  val default = new PieceSet("cburnett")
+  val default = PieceSet("cburnett")
 
   val all = List(
     default.name,
@@ -56,11 +53,11 @@ object PieceSet extends PieceSetObject:
     "shapes",
     "letter",
     "disguised"
-  ) map { new PieceSet(_) }
+  ) map { PieceSet(_) }
 
 object PieceSet3d extends PieceSetObject:
 
-  val default = new PieceSet("Basic")
+  val default = PieceSet("Basic")
 
   val all = List(
     default.name,
@@ -74,4 +71,4 @@ object PieceSet3d extends PieceSetObject:
     "Experimental",
     "Staunton",
     "CubesAndPi"
-  ) map { new PieceSet(_) }
+  ) map { PieceSet(_) }

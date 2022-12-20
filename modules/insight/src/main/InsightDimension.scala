@@ -247,30 +247,30 @@ object InsightDimension:
       case OpponentStrength => true
       case _                => false
 
-  def valuesOf[X](d: InsightDimension[X]): List[X] =
+  def valuesOf[X](d: InsightDimension[X]): Seq[X] =
     d match
       case Period                  => lila.insight.Period.selector
       case Date                    => Nil // Period is used instead
       case Perf                    => PerfType.nonPuzzle
-      case Phase                   => lila.insight.Phase.all
-      case Result                  => lila.insight.Result.all
-      case Termination             => lila.insight.Termination.all
-      case Color                   => chess.Color.all
+      case Phase                   => lila.insight.Phase.values
+      case Result                  => lila.insight.Result.values
+      case Termination             => lila.insight.Termination.values
+      case Color                   => chess.Color.values
       case OpeningFamily           => LilaOpeningFamily.familyList
       case OpeningVariation        => SimpleOpening.openingList
-      case OpponentStrength        => RelativeStrength.all
+      case OpponentStrength        => RelativeStrength.values
       case PieceRole               => chess.Role.all.reverse
-      case MovetimeRange           => lila.insight.MovetimeRange.all
+      case MovetimeRange           => lila.insight.MovetimeRange.values
       case CplRange                => lila.insight.CplRange.all
       case AccuracyPercentRange    => lila.insight.AccuracyPercentRange.all.toList
-      case MyCastling | OpCastling => lila.insight.Castling.all
-      case QueenTrade              => lila.insight.QueenTrade.all
-      case MaterialRange           => lila.insight.MaterialRange.all
-      case EvalRange               => lila.insight.EvalRange.all
+      case MyCastling | OpCastling => lila.insight.Castling.values
+      case QueenTrade              => lila.insight.QueenTrade.values
+      case MaterialRange           => lila.insight.MaterialRange.values
+      case EvalRange               => lila.insight.EvalRange.values
       case WinPercentRange         => lila.insight.WinPercentRange.all.toList
       case ClockPercentRange       => lila.insight.ClockPercentRange.all.toList
-      case Blur                    => lila.insight.Blur.all
-      case TimeVariance            => lila.insight.TimeVariance.all
+      case Blur                    => lila.insight.Blur.values
+      case TimeVariance            => lila.insight.TimeVariance.values
 
   def valueByKey[X](d: InsightDimension[X], key: String): Option[X] =
     d match

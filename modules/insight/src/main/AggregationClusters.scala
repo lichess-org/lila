@@ -43,7 +43,7 @@ object AggregationClusters:
             n -> Point(100 * p.value / total)
           }
       ids = ~doc.getAsOpt[List[String]]("ids")
-    } yield Cluster(x, Insight.Stacked(percents), total, ids)
+    } yield Cluster(x, Insight.Stacked(percents.toList), total, ids)
 
   private def postSort[X](q: Question[X])(clusters: List[Cluster[X]]): List[Cluster[X]] =
     q.dimension match

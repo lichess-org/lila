@@ -110,7 +110,7 @@ final class SwissTrf(
           }
           .map {
             _.view.zipWithIndex
-              .map { case (userId, index) =>
+              .map { (userId, index) =>
                 (userId, index + 1)
               }
               .toMap

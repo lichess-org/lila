@@ -86,9 +86,6 @@ object SwissPlayer:
 
   type PlayerMap = Map[UserId, SwissPlayer]
 
-  def toMap(players: List[SwissPlayer]): PlayerMap =
-    players.view.map(p => p.userId -> p).toMap
-
   object Fields:
     val id          = "_id"
     val swissId     = "s"

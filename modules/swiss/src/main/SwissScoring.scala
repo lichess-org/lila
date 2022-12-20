@@ -33,7 +33,7 @@ final private class SwissScoring(mongo: SwissMongo)(using
           withPoints = (prevPlayers zip sheets).map { case (player, sheet) =>
             player.copy(points = sheet.points)
           }
-          playerMap = SwissPlayer.toMap(withPoints)
+          playerMap = withPoints.mapBy(_.userId)
           players = withPoints.map { p =>
             val playerPairings = (~pairingMap.get(p.userId)).values
             val (tieBreak, perfSum) = playerPairings.foldLeft(0f -> 0f) {
@@ -78,7 +78,7 @@ final private class SwissScoring(mongo: SwissMongo)(using
           .Result(
             swiss,
             players.zip(sheets).sortBy(-_._1.score.value),
-            SwissPlayer toMap players,
+            players.mapBy(_.userId),
             pairingMap
           )
           .some

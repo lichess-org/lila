@@ -73,10 +73,10 @@ object activity:
       thead(
         tr(
           th("Date"),
-          Room.all.map { r =>
+          Room.values.map { r =>
             th("Report", br, r.name)
           },
-          Action.all.map { a =>
+          Action.values.map { a =>
             th("Action", br, a.toString)
           }
         )
@@ -87,10 +87,10 @@ object activity:
           .map { case (date, row) =>
             tr(
               th(showDate(date)),
-              Room.all.map { r =>
+              Room.values.map { r =>
                 td(~row.reports.get(r): Int)
               },
-              Action.all.map { a =>
+              Action.values.map { a =>
                 td(~row.actions.get(a): Int)
               }
             )

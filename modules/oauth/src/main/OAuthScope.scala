@@ -109,9 +109,7 @@ object OAuthScope:
     Msg.Write
   )
 
-  val byKey: Map[String, OAuthScope] = all.map { s =>
-    s.key -> s
-  } toMap
+  val byKey: Map[String, OAuthScope] = all.mapBy(_.key)
 
   def keyList(scopes: Iterable[OAuthScope]) = scopes.map(_.key) mkString ", "
 

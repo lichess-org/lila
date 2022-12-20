@@ -14,7 +14,7 @@ case class TutorPhase(
     awareness: TutorBothValueOptions[GoodPercent]
 ):
 
-  def mix: TutorBothValueOptions[GoodPercent] = accuracy.map(a => GoodPercent(a.value)) mix awareness
+  def mix: TutorBothValueOptions[GoodPercent] = accuracy.map(_ into GoodPercent) mix awareness
 
 private object TutorPhases:
 
@@ -27,7 +27,7 @@ private object TutorPhases:
     for {
       accuracy  <- answerBoth(accuracyQuestion, user)
       awareness <- answerBoth(awarenessQuestion, user)
-    } yield InsightDimension.valuesOf(InsightDimension.Phase).map { phase =>
+    } yield InsightDimension.valuesOf(InsightDimension.Phase).toList.map { phase =>
       TutorPhase(
         phase,
         accuracy = AccuracyPercent.from(accuracy valueMetric phase),

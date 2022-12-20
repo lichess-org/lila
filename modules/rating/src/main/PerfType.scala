@@ -184,12 +184,8 @@ object PerfType:
     RacingKings,
     Puzzle
   )
-  val byKey = all map { p =>
-    (p.key, p)
-  } toMap
-  val byId = all map { p =>
-    (p.id, p)
-  } toMap
+  val byKey = all.mapBy(_.key)
+  val byId  = all.mapBy(_.id)
 
   val default = Standard
 
@@ -197,8 +193,6 @@ object PerfType:
   def orDefault(key: Perf.Key): PerfType     = apply(key) | default
 
   def apply(id: Perf.Id): Option[PerfType] = byId get id
-
-  // def name(key: Perf.Key): Option[String] = apply(key) map (_.name)
 
   def id2key(id: Perf.Id): Option[Perf.Key] = byId get id map (_.key)
 

@@ -371,7 +371,7 @@ final class ReportApi(
           }
           .sequenceFu
           .dmap { scores =>
-            Room.Scores(scores.map { case (room, s) =>
+            Room.Scores(scores.map { (room, s) =>
               room -> s.??(_.toInt)
             }.toMap)
           }
