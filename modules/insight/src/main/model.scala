@@ -1,6 +1,6 @@
 package lila.insight
 
-import chess.{ Centis, Clock, Color, Role }
+import chess.{ Centis, Ply, Clock, Color, Role }
 import chess.format.pgn.SanStr
 import scala.concurrent.duration.FiniteDuration
 
@@ -92,12 +92,12 @@ object Phase:
   val byId = all map { p =>
     (p.id, p)
   } toMap
-  def of(div: chess.Division, ply: Int): Phase =
+  def of(div: chess.Division, ply: Ply): Phase =
     div.middle.fold[Phase](Opening) {
-      case m if m > ply => Opening
+      case m if ply < m => Opening
       case _ =>
         div.end.fold[Phase](Middle) {
-          case e if e > ply => Middle
+          case e if ply < e => Middle
           case _            => End
         }
     }

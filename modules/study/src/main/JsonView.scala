@@ -17,12 +17,7 @@ final class JsonView(
 
   import JsonView.{ *, given }
 
-  def apply(
-      study: Study,
-      chapters: List[Chapter.Metadata],
-      currentChapter: Chapter,
-      me: Option[User]
-  ) =
+  def apply(study: Study, chapters: List[Chapter.Metadata], currentChapter: Chapter, me: Option[User]) =
 
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
       Settings.UserSelection.allows(selection(study.settings), study, me.map(_.id))
@@ -151,7 +146,6 @@ object JsonView:
       }
       .fold[JsResult[Shape]](JsError(Nil))(JsSuccess(_))
   }
-  private given Writes[Chapter.Ply] = Writes(p => JsNumber(p.value))
 
   given OWrites[chess.variant.Variant] = OWrites { v =>
     Json.obj("key" -> v.key, "name" -> v.name)
@@ -185,9 +179,4 @@ object JsonView:
 
   private[study] given OWrites[actorApi.Who] = OWrites { w =>
     Json.obj("u" -> w.u, "s" -> w.sri)
-  }
-
-  import StudyTopic.given
-  given Writes[StudyTopics] = Writes { topics =>
-    JsArray(topics.value map Json.toJson)
   }

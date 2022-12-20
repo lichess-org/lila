@@ -381,7 +381,7 @@ final private class StudySocket(
         "s" -> sticky
       )
     )
-  def setConceal(pos: Position.Ref, ply: Option[Chapter.Ply]) =
+  def setConceal(pos: Position.Ref, ply: Option[chess.Ply]) =
     version(
       "conceal",
       Json.obj(

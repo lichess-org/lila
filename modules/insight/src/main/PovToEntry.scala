@@ -3,7 +3,7 @@ package lila.insight
 import cats.data.NonEmptyList
 import chess.format.Fen
 import chess.opening.OpeningDb
-import chess.{ Centis, Clock, Role, Situation, Stats }
+import chess.{ Ply, Centis, Clock, Role, Situation, Stats }
 import chess.format.pgn.SanStr
 import scala.util.chaining.*
 
@@ -115,7 +115,7 @@ final private class PovToEntry(
       .zip(from.movetimes.map(_.map(some)) | Vector.fill(roles.size)(none))
       .zipWithIndex
       .map { case ((((((role, situation), blur), timeCv), clock), movetime), i) =>
-        val ply      = i * 2 + from.pov.color.fold(1, 2)
+        val ply      = Ply(i * 2 + from.pov.color.fold(1, 2))
         val prevInfo = prevInfos lift i
         val awareness = from.advices.get(ply - 1) flatMap {
           case o if o.judgment.isMistakeOrBlunder =>
@@ -176,7 +176,7 @@ final private class PovToEntry(
 
   private def queenTrade(from: RichPov) =
     QueenTrade {
-      from.division.end.fold(from.situations.last.some)(from.situations.toList.lift) match
+      from.division.end.map(_.value).fold(from.situations.last.some)(from.situations.toList.lift) match
         case Some(situation) =>
           chess.Color.all.forall { color =>
             !situation.board.hasPiece(chess.Piece(color, chess.Queen))

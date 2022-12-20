@@ -3,7 +3,7 @@ package lila.study
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags, SanStr }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Centis, Color, Pos, PromotableRole, Role }
+import chess.{ Centis, Color, Pos, PromotableRole, Role, Outcome, Ply }
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import scala.util.Success
@@ -15,17 +15,8 @@ import lila.db.dsl.{ *, given }
 import lila.tree.Eval
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
-import chess.Outcome
 
 object BSONHandlers:
-
-  given (using listHandler: BSONHandler[List[StudyTopic]]): BSONHandler[StudyTopics] =
-    listHandler.as[StudyTopics](StudyTopics.apply, _.value)
-
-  private given BSONHandler[Pos] = tryHandler[Pos](
-    { case BSONString(v) => Pos.fromKey(v) toTry s"No such pos: $v" },
-    x => BSONString(x.key)
-  )
 
   given BSON[Shape] with
     def reads(r: Reader) =
@@ -65,8 +56,6 @@ object BSONHandlers:
 
   import Study.IdName
   given BSONDocumentHandler[IdName] = Macros.handler
-
-  import Uci.WithSan
 
   given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {
@@ -138,7 +127,7 @@ object BSONHandlers:
   def readNode(doc: Bdoc, id: UciCharPair): Option[Node] =
     import Node.{ BsonFields as F }
     for {
-      ply <- doc.getAsOpt[Int](F.ply)
+      ply <- doc.getAsOpt[Ply](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
       san <- doc.getAsOpt[SanStr](F.san)
       fen <- doc.getAsOpt[Fen.Epd](F.fen)
@@ -154,7 +143,7 @@ object BSONHandlers:
     } yield Node(
       id,
       ply,
-      WithSan(uci, san),
+      Uci.WithSan(uci, san),
       fen,
       check,
       shapes,
@@ -197,7 +186,7 @@ object BSONHandlers:
       val rootNode = fullReader.doc.getAsOpt[Bdoc](Path.rootDbKey) err "Missing root"
       val r        = new Reader(rootNode)
       Root(
-        ply = r int ply,
+        ply = r.get[Ply](ply),
         fen = r.get[Fen.Epd](fen),
         check = r boolD check,
         shapes = r.getO[Shapes](shapes) | Shapes.empty,

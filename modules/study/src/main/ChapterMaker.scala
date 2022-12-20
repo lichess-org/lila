@@ -65,7 +65,7 @@ final private class ChapterMaker(
       ownerId = userId,
       practice = data.isPractice,
       gamebook = data.isGamebook,
-      conceal = data.isConceal option Chapter.Ply(parsed.root.ply)
+      conceal = data.isConceal option parsed.root.ply
     )
 
   private def resolveOrientation(data: Data, root: Node.Root, tags: Tags = Tags.empty): Color =
@@ -81,22 +81,14 @@ final private class ChapterMaker(
       data.fen.filterNot(_.isInitial).flatMap { Fen.readWithMoveNumber(variant, _) } match
         case Some(sit) =>
           Node.Root(
-            ply = sit.turns,
+            ply = sit.ply,
             fen = Fen write sit,
             check = sit.situation.check,
             clock = none,
             crazyData = sit.situation.board.crazyData,
             children = Node.emptyChildren
           ) -> true
-        case None =>
-          Node.Root(
-            ply = 0,
-            fen = variant.initialFen,
-            check = false,
-            clock = none,
-            crazyData = variant.crazyhouse option Crazyhouse.Data.init,
-            children = Node.emptyChildren
-          ) -> false
+        case None => Node.Root.default(variant) -> false
     Chapter.make(
       studyId = study.id,
       name = data.name,
@@ -112,7 +104,7 @@ final private class ChapterMaker(
       ownerId = userId,
       practice = data.isPractice,
       gamebook = data.isGamebook,
-      conceal = data.isConceal option Chapter.Ply(root.ply)
+      conceal = data.isConceal option root.ply
     )
 
   private[study] def fromGame(
@@ -149,7 +141,7 @@ final private class ChapterMaker(
       ownerId = userId,
       practice = data.isPractice,
       gamebook = data.isGamebook,
-      conceal = data.isConceal option Chapter.Ply(root.ply)
+      conceal = data.isConceal option root.ply
     )
 
   def notifyChat(study: Study, game: Game, userId: UserId) =
