@@ -36,6 +36,7 @@
     text-align: center;
     justify-content: center;
     white-space: pre-line;
+    min-height: 130px;
   }
   .result {
     @extend %flex-center;
