@@ -337,6 +337,7 @@
   <string name="siteDescription">Chơi cờ vua online miễn phí. Chơi cờ vua với giao diện đẹp. Không cần đăng ký, không quảng cáo, không yêu cầu plugin. Chơi cờ vua với máy tính, bạn bè hoặc đối thủ ngẫu nhiên.</string>
   <string name="xJoinedTeamY">%1$s tham gia đội %2$s</string>
   <string name="xCreatedTeamY">%1$s tạo đội %2$s</string>
+  <string name="startedStreaming">đã bắt đầu phát trực tuyến</string>
   <string name="xStartedStreaming">%s đã bắt đầu phát trực tuyến</string>
   <string name="averageElo">Hệ số Elo bình quân</string>
   <string name="location">Vị trí</string>
