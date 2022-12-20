@@ -269,15 +269,15 @@ export function impasseHelp(ctrl: RoundController) {
   const senteImpasseValue =
     senteNumberOfPieces +
     allMajorPieces.intersect(sentePromotion).size() * 4 +
-    shogi.value.hands['sente'].count() +
-    (shogi.value.hands['sente'].bishop + shogi.value.hands['sente'].rook) * 4;
+    shogi.value.hands.color('sente').count() +
+    (shogi.value.hands.color('sente').get('bishop') + shogi.value.hands.color('sente').get('rook')) * 4;
 
   const goteImpasseValue =
     pointOffset +
     goteNumberOfPieces +
     allMajorPieces.intersect(gotePromotion).size() * 4 +
-    shogi.value.hands['gote'].count() +
-    (shogi.value.hands['gote'].bishop + shogi.value.hands['gote'].rook) * 4;
+    shogi.value.hands.color('gote').count() +
+    (shogi.value.hands.color('gote').get('bishop') + shogi.value.hands.color('gote').get('rook')) * 4;
 
   return h('div.suggestion', [
     h(
