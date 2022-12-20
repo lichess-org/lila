@@ -24,8 +24,8 @@ final private class Takebacker(
         case Pov(game, color) if pov.opponent.isProposingTakeback =>
           {
             if (
-              pov.opponent.proposeTakebackAt == pov.game.turns && color == Color
-                .fromPly(pov.opponent.proposeTakebackAt)
+              pov.opponent.proposeTakebackAt == pov.game.ply &&
+              color == pov.opponent.proposeTakebackAt.color
             ) single(game)
             else double(game)
           } >>- publishTakeback(pov) dmap (_ -> situation.reset)
@@ -37,7 +37,7 @@ final private class Takebacker(
           {
             messenger.volatile(game, trans.takebackPropositionSent.txt())
             val progress = Progress(game) map { g =>
-              g.updatePlayer(color, _ proposeTakeback g.turns)
+              g.updatePlayer(color, _ proposeTakeback g.ply)
             }
             proxy.save(progress) >>-
               publishTakebackOffer(progress.game) inject

@@ -66,8 +66,8 @@ private object ChallengeJoiner:
     baseState.fold(makeChess(variant) -> none[Situation.AndFullMoveNumber]) { sp =>
       val game = chess.Game(
         situation = sp.situation,
-        turns = sp.turns,
-        startedAtTurn = sp.turns,
+        ply = sp.ply,
+        startedAtPly = sp.ply,
         clock = tc.realTime.map(_.toClock)
       )
       if (variant.fromPosition && Fen.write(game).isInitial)
@@ -82,7 +82,7 @@ private object ChallengeJoiner:
           situation = game.situation.copy(
             board = game.board.copy(history = sp.situation.board.history)
           ),
-          turns = sp.turns
+          ply = sp.ply
         )
       )
     }

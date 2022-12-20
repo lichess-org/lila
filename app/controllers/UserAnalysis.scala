@@ -2,7 +2,7 @@ package controllers
 
 import chess.format.Fen
 import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{ Black, Situation, White }
+import chess.{ Black, Situation, White, FullMoveNumber }
 import play.api.libs.json.Json
 import play.api.mvc.*
 import scala.concurrent.duration.*
@@ -62,7 +62,7 @@ final class UserAnalysis(
     makePov {
       fen.filter(_.value.nonEmpty).flatMap {
         Fen.readWithMoveNumber(variant, _)
-      } | Situation.AndFullMoveNumber(Situation(variant), 1)
+      } | Situation.AndFullMoveNumber(Situation(variant), FullMoveNumber(1))
     }
 
   private[controllers] def makePov(from: Situation.AndFullMoveNumber): Pov =
@@ -71,7 +71,7 @@ final class UserAnalysis(
         .make(
           chess = chess.Game(
             situation = from.situation,
-            turns = from.turns
+            ply = from.ply
           ),
           whitePlayer = lila.game.Player.make(White, none),
           blackPlayer = lila.game.Player.make(Black, none),

@@ -25,6 +25,8 @@ trait Handlers:
   )(using NotGiven[NoDbHandler[T]]): BSONHandler[T] =
     handler.as(sr.apply, rs.apply)
 
+  // given NoDbHandler[chess.Pos] with {}
+
   given userIdOfWriter[U, T](using idOf: UserIdOf[U], writer: BSONWriter[UserId]): BSONWriter[U] with
     inline def writeTry(u: U) = writer.writeTry(idOf(u))
 

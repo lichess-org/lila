@@ -33,7 +33,7 @@ object PgnImport:
           case (shapes, _, comments) =>
             val sans = parsedPgn.sans.value take Node.MAX_PLIES
             val root = Node.Root(
-              ply = replay.setup.turns,
+              ply = replay.setup.ply,
               fen = initialFen | game.variant.initialFen,
               check = replay.setup.situation.check,
               shapes = shapes,
@@ -128,7 +128,7 @@ object PgnImport:
                 case (shapes, clock, comments) =>
                   Node(
                     id = UciCharPair(uci),
-                    ply = game.turns,
+                    ply = game.ply,
                     move = Uci.WithSan(uci, sanStr),
                     fen = Fen write game,
                     check = game.situation.check,

@@ -1,7 +1,7 @@
 package lila.puzzle
 
-import chess.format.Fen
-import chess.format.UciCharPair
+import chess.format.{ Fen, UciCharPair }
+import chess.Ply
 import play.api.libs.json.*
 import scala.concurrent.duration.*
 
@@ -15,19 +15,19 @@ final private class GameJson(
     lightUserApi: lila.user.LightUserApi
 )(using ec: scala.concurrent.ExecutionContext):
 
-  def apply(gameId: GameId, plies: Int, bc: Boolean): Fu[JsObject] =
+  def apply(gameId: GameId, plies: Ply, bc: Boolean): Fu[JsObject] =
     (if (bc) bcCache else cache) get writeKey(gameId, plies)
 
-  def noCacheBc(game: Game, plies: Int): Fu[JsObject] =
+  def noCacheBc(game: Game, plies: Ply): Fu[JsObject] =
     lightUserApi preloadMany game.userIds map { _ =>
       generateBc(game, plies)
     }
 
-  private def readKey(k: String): (GameId, Int) =
+  private def readKey(k: String): (GameId, Ply) =
     k.drop(Game.gameIdSize).toIntOption match
-      case Some(ply) => (Game strToId k, ply)
+      case Some(ply) => (Game strToId k, Ply(ply))
       case _         => sys error s"puzzle.GameJson invalid key: $k"
-  private def writeKey(id: GameId, ply: Int) = s"$id$ply"
+  private def writeKey(id: GameId, ply: Ply) = s"$id$ply"
 
   private val cache = cacheApi[String, JsObject](4096, "puzzle.gameJson") {
     _.expireAfterAccess(5 minutes)
@@ -49,7 +49,7 @@ final private class GameJson(
       )
   }
 
-  private def generate(gameId: GameId, plies: Int, bc: Boolean): Fu[JsObject] =
+  private def generate(gameId: GameId, plies: Ply, bc: Boolean): Fu[JsObject] =
     gameRepo gameFromSecondary gameId orFail s"Missing puzzle game $gameId!" flatMap { game =>
       lightUserApi preloadMany game.userIds map { _ =>
         if (bc) generateBc(game, plies)
@@ -57,14 +57,14 @@ final private class GameJson(
       }
     }
 
-  private def generate(game: Game, plies: Int): JsObject =
+  private def generate(game: Game, plies: Ply): JsObject =
     Json
       .obj(
         "id"      -> game.id,
         "perf"    -> perfJson(game),
         "rated"   -> game.rated,
         "players" -> playersJson(game),
-        "pgn"     -> game.chess.sans.take(plies + 1).mkString(" ")
+        "pgn"     -> game.chess.sans.take(plies.value + 1).mkString(" ")
       )
       .add("clock", game.clock.map(_.config.show))
 
@@ -86,7 +86,7 @@ final private class GameJson(
       .add("title" -> user.title)
   })
 
-  private def generateBc(game: Game, plies: Int): JsObject =
+  private def generateBc(game: Game, plies: Ply): JsObject =
     Json
       .obj(
         "id"      -> game.id,
@@ -94,7 +94,7 @@ final private class GameJson(
         "players" -> playersJson(game),
         "rated"   -> game.rated,
         "treeParts" -> {
-          val pgnMoves = game.sans.take(plies + 1)
+          val pgnMoves = game.sans.take(plies.value + 1)
           for {
             pgnMove <- pgnMoves.lastOption
             situation <- chess.Replay

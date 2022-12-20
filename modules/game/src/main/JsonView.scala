@@ -22,8 +22,8 @@ final class JsonView(rematches: Rematches):
         "rated"         -> game.rated,
         "fen"           -> (Fen write game.chess),
         "player"        -> game.turnColor,
-        "turns"         -> game.turns,
-        "startedAtTurn" -> game.chess.startedAtTurn,
+        "turns"         -> game.ply,
+        "startedAtTurn" -> game.chess.startedAtPly,
         "source"        -> game.source,
         "status"        -> game.status,
         "createdAt"     -> game.createdAt

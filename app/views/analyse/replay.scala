@@ -165,7 +165,7 @@ object replay:
                     trans.computerAnalysis()
                   ),
                 !game.isPgnImport option frag(
-                  game.turns > 1 option span(role := "tab", dataPanel := "move-times")(trans.moveTimes()),
+                  game.ply > 1 option span(role := "tab", dataPanel := "move-times")(trans.moveTimes()),
                   cross.isDefined option span(role := "tab", dataPanel := "ctable")(trans.crosstable())
                 ),
                 span(role := "tab", dataPanel := "fen-pgn")(trans.study.shareAndExport())
@@ -184,7 +184,7 @@ object replay:
                     )
                 ),
                 div(cls := "move-times")(
-                  game.turns > 1 option div(id := "movetimes-chart")
+                  game.ply > 1 option div(id := "movetimes-chart")
                 ),
                 div(cls := "fen-pgn")(
                   div(

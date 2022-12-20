@@ -31,9 +31,9 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using ec: scala.concur
 
   def save(pov: Pov, steps: Forecast.Steps): Funit =
     firstStep(steps) match
-      case None                                         => coll.delete.one($id(pov.fullId)).void
-      case Some(step) if pov.game.turns == step.ply - 1 => saveSteps(pov, steps)
-      case _                                            => fufail(Forecast.OutOfSync)
+      case None                                       => coll.delete.one($id(pov.fullId)).void
+      case Some(step) if pov.game.ply == step.ply - 1 => saveSteps(pov, steps)
+      case _                                          => fufail(Forecast.OutOfSync)
 
   def playAndSave(
       pov: Pov,
@@ -60,7 +60,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using ec: scala.concur
     pov.forecastable ?? coll.byId[Forecast](pov.fullId) flatMap {
       case None => fuccess(none)
       case Some(fc) =>
-        if (firstStep(fc.steps).exists(_.ply != pov.game.turns + 1)) clearPov(pov) inject none
+        if (firstStep(fc.steps).exists(_.ply != pov.game.ply + 1)) clearPov(pov) inject none
         else fuccess(fc.some)
     }
 
@@ -68,7 +68,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using ec: scala.concur
     pov.game.forecastable ?? coll.byId[Forecast](pov.fullId) flatMap {
       case None => fuccess(none)
       case Some(fc) =>
-        if (firstStep(fc.steps).exists(_.ply != pov.game.turns)) clearPov(pov) inject none
+        if (firstStep(fc.steps).exists(_.ply != pov.game.ply)) clearPov(pov) inject none
         else fuccess(fc.some)
     }
 

@@ -33,12 +33,12 @@ case class AnaMove(
         val fen     = chess.format.Fen write game
         Branch(
           id = UciCharPair(uci),
-          ply = game.turns,
+          ply = game.ply,
           move = Uci.WithSan(uci, san),
           fen = fen,
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),
-          opening = (game.turns <= 30 && Variant.openingSensibleVariants(variant)) ?? {
+          opening = (game.ply <= 30 && Variant.openingSensibleVariants(variant)) ?? {
             OpeningDb findByEpdFen fen
           },
           drops = if (movable) game.situation.drops else Some(Nil),

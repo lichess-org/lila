@@ -184,7 +184,7 @@ object Form:
     def truncateMoveNumber(fen: Fen.Epd) =
       Fen.readWithMoveNumber(fen).fold(fen) { g =>
         if (g.fullMoveNumber >= 150)
-          Fen write g.copy(fullMoveNumber = g.fullMoveNumber % 100) // keep the start ply low
+          Fen write g.copy(fullMoveNumber = g.fullMoveNumber.map(_ % 100)) // keep the start ply low
         else fen
       }
 

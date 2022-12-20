@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.Color
+import chess.{ Ply, Color }
 
 import org.joda.time.DateTime
 import lila.user.User
@@ -9,7 +9,7 @@ case class Analysis(
     id: Analysis.ID, // game ID, or chapter ID if studyId is set
     studyId: Option[StudyId],
     infos: List[Info],
-    startPly: Int,
+    startPly: Ply,
     date: DateTime,
     fk: Option[Analysis.FishnetKey]
 ):

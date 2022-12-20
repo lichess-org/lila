@@ -43,7 +43,7 @@ final class PgnDump(
             if (fenSituation.exists(_.situation.color.black)) SanStr("..") +: game.sans
             else game.sans
           },
-          fenSituation.fold(1)(_.fullMoveNumber),
+          fenSituation.fold(1)(_.fullMoveNumber.value),
           flags.clocks ?? ~game.bothClockStates,
           game.startColor
         )

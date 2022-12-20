@@ -90,7 +90,7 @@ object widgets:
                   case (Vector(w), i)    => s"${i + 1}. $w"
                   case _                 => ""
                 } mkString " ",
-                g.turns > 6 option s" ... ${1 + (g.turns - 1) / 2} moves "
+                g.ply > 6 option s" ... ${1 + (g.ply.value - 1) / 2} moves "
               )
             )
           } else frag(br, br),

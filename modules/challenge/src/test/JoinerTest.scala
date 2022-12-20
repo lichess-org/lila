@@ -24,7 +24,7 @@ final class JoinerTest extends Specification {
         rematchOf = None
       )
       ChallengeJoiner.createGame(challenge, None, None) must beLike { case g: Game =>
-        g.chess.startedAtTurn === 0
+        g.chess.startedAtPly === 0
       }
     }
     "started at turn from position" >> {
@@ -40,7 +40,7 @@ final class JoinerTest extends Specification {
         rematchOf = None
       )
       ChallengeJoiner.createGame(challenge, None, None) must beLike { case g: Game =>
-        g.chess.startedAtTurn === 6
+        g.chess.startedAtPly === 6
       }
     }
   }

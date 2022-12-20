@@ -22,7 +22,7 @@ object StepBuilder:
         error foreach logChessError(id.value)
         JsArray {
           val initStep = Step(
-            ply = init.turns,
+            ply = init.ply,
             move = none,
             fen = Fen write init,
             check = init.situation.check,
@@ -32,7 +32,7 @@ object StepBuilder:
           )
           val moveSteps = games.map { case (g, m) =>
             Step(
-              ply = g.turns,
+              ply = g.ply,
               move = m.some,
               fen = Fen write g,
               check = g.situation.check,

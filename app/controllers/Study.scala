@@ -559,7 +559,7 @@ final class Study(
       get("term", req).filter(_.nonEmpty) match
         case None => BadRequest("No search term provided").toFuccess
         case Some(term) =>
-          import lila.study.JsonView.given
+          import lila.common.Json.given
           env.study.topicApi.findLike(term, getUserStr("user", req).map(_.id)) map { JsonOk(_) }
     }
 

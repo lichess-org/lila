@@ -18,7 +18,7 @@ object StormBsonHandlers:
       fen     <- r.getAsTry[Fen.Epd]("fen")
       lineStr <- r.getAsTry[String]("line")
       line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
-      rating  <- r.getAsTry[Int]("rating")
+      rating  <- r.getAsTry[IntRating]("rating")
     } yield StormPuzzle(id, fen, line, rating)
 
   given BSONHandler[StormDay.Id] =

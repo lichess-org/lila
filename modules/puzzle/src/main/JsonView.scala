@@ -23,7 +23,7 @@ final class JsonView(
       angle: Option[PuzzleAngle],
       replay: Option[PuzzleReplay],
       user: Option[User]
-  )(using lang: Lang): Fu[JsObject] =
+  )(using Lang): Fu[JsObject] =
     gameJson(
       gameId = puzzle.gameId,
       plies = puzzle.initialPly,
@@ -179,7 +179,7 @@ final class JsonView(
               .fold(err => sys error s"puzzle ${puzzle.id} $err", identity)
           val branch = tree.Branch(
             id = UciCharPair(move.toUci),
-            ply = game.turns,
+            ply = game.ply,
             move = Uci.WithSan(move.toUci, game.sans.last),
             fen = chess.format.Fen write game,
             check = game.situation.check,

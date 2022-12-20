@@ -2,7 +2,7 @@ package lila.round
 
 import chess.format.Fen
 import chess.variant.*
-import chess.{ Board, Castles, Clock, Color as ChessColor, Game as ChessGame, History, Situation }
+import chess.{ Board, Castles, Clock, Color as ChessColor, Ply, Game as ChessGame, History, Situation }
 import ChessColor.{ Black, White }
 import com.github.blemale.scaffeine.Cache
 import lila.memo.CacheApi
@@ -108,6 +108,7 @@ final private class Rematcher(
           castles = situation.fold(Castles.init)(_.situation.board.history.castles)
         )
       )
+      ply = situation.fold(Ply(0))(_.ply)
       sloppy = Game.make(
         chess = ChessGame(
           situation = Situation(
@@ -117,8 +118,8 @@ final private class Rematcher(
           clock = pov.game.clock map { c =>
             Clock(c.config)
           },
-          turns = situation ?? (_.turns),
-          startedAtTurn = situation ?? (_.turns)
+          ply = ply,
+          startedAtPly = ply
         ),
         whitePlayer = returnPlayer(pov.game, White, users),
         blackPlayer = returnPlayer(pov.game, Black, users),
