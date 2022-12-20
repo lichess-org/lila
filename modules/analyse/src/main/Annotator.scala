@@ -48,14 +48,13 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
 
   private def annotateOpening(opening: Option[Opening.AtPly])(p: Pgn) =
     opening.fold(p) { o =>
-      println(p.turns)
       p.updatePly(o.ply, _.copy(opening = s"${o.opening.eco} ${o.opening.name}".some))
     }
 
   private def annotateTurns(p: Pgn, advices: List[Advice]): Pgn =
     advices.foldLeft(p) { (pgn, advice) =>
       pgn.updatePly(
-        advice.prevPly,
+        advice.ply,
         move =>
           move.copy(
             glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
