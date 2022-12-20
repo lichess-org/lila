@@ -1,13 +1,22 @@
 $lpv-site-hue: 37;
+$lpv-accent: $c-primary;
+$lpv-accent-over: $c-primary-over;
 $lpv-bg: $c-bg-zebra;
 $lpv-bg-controls: $lpv-bg;
 $lpv-bg-movelist: $lpv-bg;
-$lpv-bg-variation: hsl($c-site-hue, 5%, 15%) !default;
-$lpv-bg-pane: hsla(0, 0%, 0%, 0.9);
-$lpv-accent: $c-primary;
-$lpv-accent-over: $c-primary-over;
-$lpv-font-accent: mix($lpv-bg, hsl(0, 0%, 65%), 20%);
+$lpv-bg-variation: $c-bg-zebra2;
+$lpv-bg-pane: fade-out($lpv-bg, 0.01);
+$lpv-font: $c-font;
 $lpv-font-shy: $c-font-dim;
+$lpv-font-accent: mix($lpv-bg, $c-font, 20%);
+$lpv-border: $c-border;
+
+$lpv-inaccuracy: $c-inaccuracy;
+$lpv-mistake: $c-mistake;
+$lpv-blunder: $c-blunder;
+$lpv-good-move: $c-good;
+$lpv-brilliant: $c-brilliant;
+$lpv-interesting: $c-interesting;
 
 @import '../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer.lib';
 
