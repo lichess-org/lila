@@ -69,8 +69,8 @@
   <string name="searchPuzzles">कोडी शोधा</string>
   <string name="fromMyGamesNone">डेटाबेस मध्ये आपली कोडी अजून नाहीत, तरीही आपण lichess चे आवडते आहात. 
 
-आपले कोडे निवडले जाण्याच्या संधि वाढवण्यासाठी रॅपिड आणि क्लासिकल खेळ खेळा!</string>
-  <string name="fromXGamesFound">%1$s कोडे %2$s यांच्या खेळात मिळाले</string>
+आपले कोडे निवडले जाण्याच्या संधी वाढवण्यासाठी रॅपिड आणि क्लासिकल खेळ खेळा!</string>
+  <string name="fromXGamesFound">%2$s यांच्या खेळात %1$s कोडी मिळाली</string>
   <string name="puzzleDashboardDescription">प्रशिक्षण, विश्लेषण, सुधारणा</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s खेळले</item>
