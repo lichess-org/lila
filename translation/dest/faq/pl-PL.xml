@@ -6,7 +6,7 @@
 	<string name="forkedFromLichess">Lishogi jest projektem open source wywodzącym się z Lichess, ale ponieważ służy do grania w shogi, nazywa się Lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Ponieważ wywodzi się z Lichess. A Lichess nazwa się Lichess, ponieważ jest to połąćzenie live/light/libre oraz chess. Lishogi wymawia się %1$s.</string>
 	<string name="leechess">li-szogi</string>
-	<string name="whyLiveLightLibre">Live (na żywo), ponieważ partie rozgrywane są i oglądane w czasie rzeczywistym (24 godziny przez 7 dni w tygodniu); Light (lekkie), ponieważ Lishogi nie jest obciążone zbędnymi wodotryskami, reklamami itp.; Libre (darmowe), ponieważ Lishogi oparty jest o oprogramowanie typu open-source.</string>
+	<string name="whyLiveLightLibre">Live (na żywo), ponieważ partie rozgrywane są i oglądane w czasie rzeczywistym (24 godziny przez 7 dni w tygodniu); Light (lekkie), ponieważ Lishogi nie jest obciążone zbędnymi wodotryskami, reklamami itp.; Libre (wolne), ponieważ Lishogi oparte jest o oprogramowanie open-source.</string>
 	<string name="whyIsLilaCalledLila">Podobnie, kod źródłowy Lishogi, %1$s, oznacza li[shogi in sca]la, a to dlatego, że większość kodu Lishogi napisanego jest w intuicyjnym języku programowania %2$s.</string>
 	<string name="howCanIContributeToLishogi">Jak mogę pomóc współtworzyć Lishogi?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi wspierany jest darowiznami swoich patronów i wysiłkami grupy wolontariuszy.</string>

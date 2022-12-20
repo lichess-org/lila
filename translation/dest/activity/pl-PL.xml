@@ -3,7 +3,7 @@
   <string name="activity">Aktywność</string>
   <string name="hostedALiveStream">Udostępnił stream na żywo</string>
   <plurals name="supportedNbMonths" comment="supportedNbMonths [one] [other]&#10;&#10;Supported lishogi.org for 4 months as a Patron. The second one always says &quot;Patron&quot; but it's actually a link.">
-    <item quantity="one">Wsparcie lishogi.org przez miesiąc jako %2$s</item>
+    <item quantity="one">Wsparcie lishogi.org przez %1$s miesiąc jako %2$s</item>
     <item quantity="few">Wsparcie lishogi.org przez %1$s miesiące jako %2$s</item>
     <item quantity="many">Wsparcie lishogi.org przez %1$s miesięcy jako %2$s</item>
     <item quantity="other">Wsparcie lishogi.org przez %1$s miesięcy jako %2$s</item>
@@ -15,7 +15,7 @@
     <item quantity="other">Przerobione %1$s ćwiczeń w %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Rozwiązanie zadania shogi</item>
+    <item quantity="one">Rozwiązanie %s zadania shogi</item>
     <item quantity="few">Rozwiązanie %s zadań shogi</item>
     <item quantity="many">Rozwiązanie %s zadań shogi</item>
     <item quantity="other">Rozwiązanie %s zadań shogi</item>
@@ -51,7 +51,7 @@
     <item quantity="other">Zakończenie %s partii korespondencyjnych</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Rozpoczęcie obserwowania gracza</item>
+    <item quantity="one">Rozpoczęcie obserwowania %s gracza</item>
     <item quantity="few">Rozpoczęcie obserwowania %s graczy</item>
     <item quantity="many">Rozpoczęcie obserwowania %s graczy</item>
     <item quantity="other">Rozpoczęcie obserwowania %s graczy</item>
