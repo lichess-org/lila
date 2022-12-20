@@ -38,7 +38,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
         'div.clear',
         h('button.delete.button.button-empty', {
           attrs: {
-            'data-icon': '',
+            'data-icon': 'q',
             title: 'Clear',
           },
           hook: clickHook(ctrl.clear),
