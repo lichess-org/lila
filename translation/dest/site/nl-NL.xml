@@ -363,6 +363,7 @@
   <string name="siteDescription">Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.</string>
   <string name="xJoinedTeamY">%1$s sloot zich bij team %2$s aan</string>
   <string name="xCreatedTeamY">%1$s heeft team %2$s opgericht</string>
+  <string name="startedStreaming">is begonnen met streamen</string>
   <string name="xStartedStreaming">%s is begonnen met streamen</string>
   <string name="averageElo">Gemiddelde rating</string>
   <string name="location">Plaats</string>
