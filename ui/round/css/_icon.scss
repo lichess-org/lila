@@ -2,7 +2,9 @@
   display: flex;
   justify-content: center;
   margin-top: 10px;
-  padding-bottom: 1rem;
+  .board-layout-1 & {
+    padding-bottom: 1rem;
+  }
   .fbt {
     font-size: 1.4em;
     padding: 0.1em 1em;

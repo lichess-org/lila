@@ -60,6 +60,9 @@ sg-hand-wrap {
       &[data-nb='0']:not(.drawing) {
         opacity: 0.3;
       }
+      .clearHands &[data-nb='0'] {
+        opacity: 0;
+      }
       &:after {
         @extend %box-radius;
         content: attr(data-nb);

@@ -158,8 +158,17 @@
         justify-self: flex-end;
         z-index: 1;
         background-color: $c-bg-high;
-        .moretime::before {
+        .moretime,
+        .berserked,
+        .go-berserk {
+          &::before {
+            font-size: 18px;
+          }
+        }
+        .go-berserk,
+        .tour-rank {
           font-size: 18px;
+          line-height: unset;
         }
       }
       .rclock .tour-rank,
@@ -175,6 +184,9 @@
         .byoyomi {
           font-size: 16px !important;
           line-height: 22px;
+          &.per0 {
+            padding: 0;
+          }
         }
         .time {
           padding: 3px 1vmin 0 1vmin;
@@ -193,8 +205,14 @@
       .ruser a {
         flex: none;
       }
+      .expiration {
+        height: 25px;
+      }
       .rcontrols {
         align-self: flex-end;
+      }
+      @include breakpoint($mq-col2-uniboard-squeeze-1) {
+        grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;
       }
     }
     @include breakpoint($mq-short) {
