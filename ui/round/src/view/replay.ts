@@ -175,20 +175,23 @@ function initMessage(d: RoundData, trans: TransNoArg) {
 }
 
 function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: boolean) {
-  return disabled
-    ? null
-    : h('button.fbt', {
-        attrs: {
-          disabled: disabled,
-          'data-icon': icon,
-          'data-ply': ctrl.ply + dir,
-        },
-        hook: util.bind('mousedown', e => {
-          e.preventDefault();
-          ctrl.userJump(ctrl.ply + dir);
-          ctrl.redraw();
-        }),
-      });
+  return h('button.fbt', {
+    attrs: {
+      disabled: disabled,
+      'data-icon': icon,
+      'data-ply': ctrl.ply + dir,
+    },
+    hook: util.bind(
+      'mousedown',
+      e => {
+        e.preventDefault();
+        ctrl.userJump(ctrl.ply + dir);
+        ctrl.redraw();
+      },
+      undefined,
+      false
+    ),
+  });
 }
 
 export function render(ctrl: RoundController): VNode | undefined {
@@ -211,9 +214,11 @@ export function render(ctrl: RoundController): VNode | undefined {
                 }
               }
             });
-            ctrl.autoScroll = () => autoScroll(el, ctrl);
-            ctrl.autoScroll();
-            window.addEventListener('load', ctrl.autoScroll);
+            if (col1) {
+              ctrl.autoScroll = () => autoScroll(el, ctrl);
+              ctrl.autoScroll();
+              window.addEventListener('load', ctrl.autoScroll);
+            }
           }),
         },
         renderMoves(ctrl)
@@ -235,7 +240,19 @@ export function render(ctrl: RoundController): VNode | undefined {
                     moves,
                     col1Button(ctrl, 1, 'X', ctrl.ply == round.lastPly(d)),
                   ])
-                : h('div.areplay', moves)
+                : h(
+                    'div.areplay',
+                    {
+                      hook: util.onInsert(el => {
+                        if (!col1) {
+                          ctrl.autoScroll = () => autoScroll(el, ctrl);
+                          ctrl.autoScroll();
+                          window.addEventListener('load', ctrl.autoScroll);
+                        }
+                      }),
+                    },
+                    moves
+                  )
               : renderResult(ctrl)),
         ]
       );

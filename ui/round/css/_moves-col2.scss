@@ -4,16 +4,6 @@
   .moves {
     display: flex;
     flex-flow: row wrap;
-    align-items: center;
-    position: relative; /* required by autoScroll */
-    overflow-y: auto;
-    align-content: flex-start;
-    will-change: scroll-position;
-    user-select: none;
-    line-height: 1.7;
-    &::-webkit-scrollbar {
-      width: 0px;
-    }
   }
   index {
     /* Edge 18: flex: 0 0 calc(100% / 6); causes wrap */
@@ -59,24 +49,28 @@
   .status {
     border-top: $border;
     font-style: italic;
-    padding: 0.75em 0;
+    padding: 1.2rem 0;
     margin: 0;
   }
 
   .areplay {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .board-layout-1 & {
-    .areplay {
-      flex: 1 1 0;
-      overflow-y: auto;
-      overflow-x: hidden;
-      border-top: 1px solid #404040;
-      position: relative;
-      .moves {
-        flex: 1;
+    display: block;
+    flex: 2 1 6.2rem;
+    .board-layout-1 & {
+      flex: 2 1 0;
+    }
+    overflow-y: auto;
+    overflow-x: hidden; // else a scrollbar appears sometimes
+    border-top: $border;
+    position: relative; /* required so line::before scrolls along the moves! */
+    will-change: scroll-position;
+    .moves {
+      white-space: normal;
+    }
+    body:not(.board-layout-1) & {
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        width: 0px;
       }
     }
   }

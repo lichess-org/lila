@@ -1,5 +1,6 @@
 .rmoves {
   @extend %flex-column, %double-tap;
+  max-height: 100vh;
   .buttons {
     @extend %box-shadow;
     flex: 0 0 40px;
@@ -22,9 +23,8 @@
   .fbt[disabled] {
     pointer-events: none;
   }
-  .moves,
   .message {
-    flex: 0 0 7.4rem;
+    flex: 0 0 6.2rem;
   }
   .moves {
     @extend %zen;

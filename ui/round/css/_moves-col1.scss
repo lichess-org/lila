@@ -8,6 +8,9 @@
       flex: 0 0 auto;
       padding: 0 1.3em;
       opacity: 0.7;
+      &[disabled] {
+        opacity: 0.3;
+      }
     }
     body.playing.zen & {
       display: none;
