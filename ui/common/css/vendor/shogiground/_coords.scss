@@ -49,14 +49,6 @@ coords {
   coord {
     flex: 1 1 auto;
   }
-  .d-12x12 & {
-    coords coord {
-      flex: 1 1 calc(100% / 12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
 }
 
 @include coords-colors;
@@ -122,5 +114,17 @@ coords {
         font-size: calc(1.4vh * var(--board-scale, 1));
       }
     }
+  }
+}
+
+.d-12x12 coords {
+  coord {
+    flex: 1 1 calc(100% / 12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &.ranks coord {
+    transform: unset;
   }
 }
