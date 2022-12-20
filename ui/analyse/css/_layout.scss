@@ -134,6 +134,10 @@ body {
       '. . uchat . .   .     side';
   }
 
+  @include breakpoint($mq-col2-uniboard-squeeze-1) {
+    grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;
+  }
+
   @include breakpoint($mq-col3) {
     grid-template-columns:
       $col3-uniboard-side $block-gap $square-9 $hand-gap $col3-uniboard-width $hand-gap $square-9 $gauge-gap
