@@ -282,11 +282,12 @@ export default class RoundController {
     this.ply = ply;
     const s = this.stepAt(ply),
       splitSfen = s.sfen.split(' '),
-      posRes = parseSfen(this.data.game.variant.key, s.sfen, false),
+      variant = this.data.game.variant.key,
+      posRes = variant === 'chushogi' || this.isPlaying() ? parseSfen(variant, s.sfen, false) : undefined,
       config: SgConfig = {
         sfen: { board: splitSfen[0], hands: splitSfen[2] },
         lastDests: s.usi ? usiToSquareNames(s.usi) : undefined,
-        checks: this.data.game.variant.key !== 'chushogi' ? s.check : undefined,
+        checks: variant !== 'chushogi' && posRes?.isOk ? checksSquareNames(posRes.value) : s.check,
         turnColor: this.ply % 2 === 0 ? 'sente' : 'gote',
         activeColor: this.isPlaying() ? this.data.player.color : undefined,
         drawable: {
@@ -296,10 +297,10 @@ export default class RoundController {
     if (this.replaying()) this.shogiground.stop();
     else {
       config.movable = {
-        dests: this.isPlaying() ? util.getMoveDests(posRes) : new Map(),
+        dests: this.isPlaying() && posRes ? util.getMoveDests(posRes) : new Map(),
       };
       config.droppable = {
-        dests: this.isPlaying() ? util.getDropDests(posRes) : new Map(),
+        dests: this.isPlaying() && posRes ? util.getDropDests(posRes) : new Map(),
       };
     }
     const move = s.usi && parseUsi(s.usi),
@@ -454,7 +455,7 @@ export default class RoundController {
         droppable: {
           dests: playing && activeColor ? util.getDropDests(posRes) : new Map(),
         },
-        checks: d.game.variant.key === 'chushogi' && o.check && posRes.isOk ? checksSquareNames(posRes.value) : o.check,
+        checks: d.game.variant.key === 'chushogi' && posRes.isOk ? checksSquareNames(posRes.value) : o.check,
         drawable: {
           squares: [],
         },

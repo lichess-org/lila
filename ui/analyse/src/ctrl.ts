@@ -312,10 +312,7 @@ export default class AnalyseCtrl {
         droppable: {
           dests: this.embed || movableColor !== color ? new Map() : drops,
         },
-        checks:
-          this.data.game.variant.key === 'chushogi' && node.check && posRes.isOk
-            ? checksSquareNames(posRes.value)
-            : node.check,
+        checks: this.data.game.variant.key === 'chushogi' && posRes.isOk ? checksSquareNames(posRes.value) : node.check,
         lastDests: node.usi ? usiToSquareNames(node.usi) : undefined,
         drawable: {
           squares: [],

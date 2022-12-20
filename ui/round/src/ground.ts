@@ -27,7 +27,7 @@ export function makeConfig(ctrl: RoundController): Config {
     turnColor: step.ply % 2 === 0 ? 'sente' : 'gote',
     activeColor: playing ? data.player.color : undefined,
     lastDests: step.usi ? usiToSquareNames(step.usi) : undefined,
-    checks: variant === 'chushogi' && step.check && posRes?.isOk ? checksSquareNames(posRes.value) : step.check,
+    checks: variant === 'chushogi' && posRes?.isOk ? checksSquareNames(posRes.value) : step.check,
     coordinates: {
       enabled: data.pref.coords !== 0,
       files: notationFiles(data.pref.notation),
