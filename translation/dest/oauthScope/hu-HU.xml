@@ -3,4 +3,6 @@
   <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Olvasási jogosultság</string>
   <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Írási jogosultság</string>
   <string name="msgWrite">Privát üzenete küldése játékosoknak</string>
+  <string name="engineRead">Külső motorok megtekintése és használata</string>
+  <string name="engineWrite">Külső motorok létrehozása és frissítése</string>
 </resources>
