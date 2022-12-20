@@ -7,21 +7,20 @@ $mq-col3-uniboard: $mq-x-large;
 
 /* when the width is appropriate for col1, but landscape prevents it */
 $mq-col2-uniboard-squeeze: $mq-not-small $mq-landscape;
+$mq-col2-uniboard-squeeze-1: $mq-not-medium $mq-landscape;
 
 $col3-uniboard-side: minmax(220px, 320px);
 $col3-uniboard-controls: 3rem;
 
-$col3-uniboard-min-width: calc(70vmin * var(--board-scale));
-$col3-uniboard-max-width: calc(
+$col3-uniboard-width: calc(
   (100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11
 );
-$col3-uniboard-width: $col3-uniboard-max-width;
 
 $col3-uniboard-table-max: calc(
   (100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11 / 9 * 7
 );
 $col3-uniboard-table: minmax(240px, $col3-uniboard-table-max);
-$col3-uniboard-table-no-hands: minmax(220px, 320px);
+$col3-uniboard-table-no-hands: $col3-uniboard-side;
 
 $col3-uniboard-default-scale: 0.9; // zoom: 85%
 $col3-uniboard-default-min-width: 500px;
@@ -40,19 +39,21 @@ $col2-uniboard-default-table: $col3-uniboard-default-table;
 
 $col2-uniboard-squeeze-table: minmax(160px, $col3-uniboard-table-max);
 $col2-uniboard-squeeze-width: minmax(
-  calc(40vmin),
-  calc((100vh - #{$site-header-outer-height} - #{$block-gap}) / 12 * 11 / 11 * 9)
+  calc(50vmin),
+  calc((100vh - #{$site-header-outer-height} - #{$block-gap}) / 12 * 11)
 );
 
 $col1-uniboard-controls: $col2-uniboard-controls;
 
-$square-9-min-width: calc(65vmin * var(--board-scale) / 9);
-$square-9-max-width: calc(
-  (100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11 / 9
-);
-$square-9: $square-9-max-width;
-$hand-gap: 2vmin;
+$square-9: calc((100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11 / 9);
+
+$board-squeeze: minmax(50vmin, $col3-uniboard-width);
+$square-9-squeeze: minmax(calc(50vmin / 9), $square-9);
+$col3-uniboard-table-no-hands-squeeze: minmax(100px, 320px);
+
 $minishogi: calc(
   (100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11 / 9 * 5
 );
+
+$hand-gap: 2vmin;
 $gauge-gap: 2vmin;
