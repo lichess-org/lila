@@ -3,6 +3,7 @@
   <string name="preferences">Настройки</string>
   <string name="display">Отображать</string>
   <string name="privacy">Конфиденциальность</string>
+  <string name="notifications">Уведомления</string>
   <string name="pieceAnimation">Анимация фигур</string>
   <string name="materialDifference">Показывать разницу в материале</string>
   <string name="boardHighlights">Подсвечивать последний ход и шах</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Ваши настройки сохранены.</string>
   <string name="scrollOnTheBoardToReplayMoves">Прокручивайте колесо мыши над доской, чтобы смотреть ходы</string>
   <string name="correspondenceEmailNotification">Ежедневно присылать на почту список ваших игр по переписке</string>
+  <string name="notifyStreamStart">Стример начинает трансляцию</string>
+  <string name="notifyInboxMsg">Новое входящее сообщение</string>
+  <string name="notifyForumMention">Вас упомянули в сообщении на форуме</string>
+  <string name="notifyInvitedStudy">Приглашение в Студию</string>
+  <string name="notifyGameEvent">Обновления, касающиеся игры по переписке</string>
+  <string name="notifyChallenge">Вызовы на игру</string>
+  <string name="notifyTournamentSoon">Турнир скоро начнётся</string>
+  <string name="notifyTimeAlarm">В игре по переписке скоро упадёт флажок</string>
+  <string name="notifyBell">Звуковое оповещение на Личесс</string>
+  <string name="notifyPush">Оповещение на устройстве когда Вы не находитесь на сайте Личесс</string>
+  <string name="notifyWeb">Браузер</string>
+  <string name="notifyDevice">Устройство</string>
 </resources>
