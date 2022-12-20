@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">आपोआप बढती तात्पुरती थांबवण्यासाठी &lt;ctrl&gt; कळ दाबा</string>
   <string name="whenPremoving">फक्त प्रतिस्पर्ध्याच्या डावावर खेळताना</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">त्रिवार पुनरावृतींनवर सामना आपोआप बरोबरीत सोडवा</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">जेव्हा वेळ &lt; ३० सेकंद</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">जेव्हा वेळ &lt; ३० सेकंद</string>
   <string name="moveConfirmation">चालींचे पुष्टीकरण</string>
   <string name="inCorrespondenceGames">दीर्घकालीन खेळ</string>
   <string name="correspondenceAndUnlimited">दीर्घकालीन आणि अमर्याद</string>
