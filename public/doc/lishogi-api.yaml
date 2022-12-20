@@ -3448,7 +3448,8 @@ components:
         - cheat
         - noStart
         - unknownFinish
-        - variantEnd
+        - royalsLost
+        - bareKing
 
     ChallengeUser:
       allOf:

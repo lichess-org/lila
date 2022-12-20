@@ -166,7 +166,7 @@ object BSONHandlers {
         F.bookmarks          -> w.intO(o.bookmarks),
         F.createdAt          -> w.date(o.createdAt),
         F.movedAt            -> w.date(o.movedAt),
-        F.lastLionCapture    -> o.history.lastLionCapture.map(w str _.key),
+        F.lastLionCapture    -> o.history.lastLionCapture.map(_.key),
         F.consecutiveAttacks -> o.history.consecutiveAttacks,
         F.source             -> o.metadata.source.map(_.id),
         F.notationImport     -> o.metadata.notationImport,

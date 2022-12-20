@@ -262,7 +262,7 @@ object layout {
             "blind-mode"                                             -> ctx.blind,
             "kid"                                                    -> ctx.kid,
             "mobile"                                                 -> ctx.isMobileBrowser,
-            "playing fixed-scroll"                                   -> playing
+            "playing"                                                -> playing
           ),
           dataDev           := (!isProd).option("true"),
           dataVapid         := vapidPublicKey,

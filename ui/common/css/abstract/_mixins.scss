@@ -59,9 +59,3 @@
   }
 }
 
-@mixin body-fixed-scroll {
-  body {
-    /* prevents scroll bar flicker when dragging a piece out */
-    overflow-y: scroll;
-  }
-}
