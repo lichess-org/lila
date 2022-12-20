@@ -73,21 +73,6 @@
     justify-content: center;
   }
 
-  .no-square {
-    flex: 0 0 64px;
-    height: 64px;
-    margin-right: 10px;
-  }
-  .color-piece {
-    height: 100%;
-    &.sente {
-      background-image: img-url('../images/blackPiece.svg');
-    }
-    &.gote {
-      background-image: img-url('../images/whitePiece.svg');
-    }
-  }
-
   piece {
     position: inherit;
     display: block;
@@ -138,8 +123,6 @@
 
 .puzzle__controls {
   @extend %flex-center;
-
-  height: $col3-uniboard-controls;
 
   .jumps {
     flex: 1 1 auto;
