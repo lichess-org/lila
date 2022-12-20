@@ -43,13 +43,14 @@
   <string name="shareAndExport">शेअर आणि निर्यात करा</string>
   <string name="cloneStudy">प्रतिकृती तयार करा</string>
   <string name="studyPgn">अभ्यासाची PGN</string>
-  <string name="startAtInitialPosition">सुरूवातीच्या स्थितीपासून प्रारंभ</string>
+  <string name="startAtInitialPosition">प्रारंभिक स्थितीपासून सुरू करा</string>
   <string name="startAtX">%s पासून प्रारंभ</string>
   <string name="embedInYourWebsite">तुमच्या वेबसाइटवर टाका</string>
   <string name="readMoreAboutEmbedding">तुमच्या वेबसाइटवर टाकण्याबद्दल वाचा</string>
   <string name="onlyPublicStudiesCanBeEmbedded">फक्त सार्वजनिक अभ्यास वेबसाइटवर टाकता येतात!</string>
   <string name="open">उघडा</string>
   <string name="orientation">अभिमुखता</string>
+  <string name="startFromInitialPosition">प्रारंभिक स्थितीपासून सुरूवात</string>
   <string name="goodMove">चांगली चाल</string>
   <string name="brilliantMove">तल्लख चाल</string>
   <string name="blunder">घोडचूक</string>

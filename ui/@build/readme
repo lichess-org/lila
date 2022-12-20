@@ -4,10 +4,10 @@ Usage examples:
   build -w                  # builds all client assets and watches for changes
   build -p                  # builds minified client assets (prod builds)
   build analyse site msg    # specify modules (don't build everything)
-  build -w dasher chart     # watch mode works for isolated modules as well
-  build --tsc -w            # watch mode tsc only
-  build --sass analyse      # css for analyse and dependencies
-  build --esbuild           # only run esbuild
-  build --no-color          # don't color output in logs
+  build -w dasher chart     # watch mode for specific modules
+  build --tsc -w            # watch mode but type checking only
+  build --sass msg notify   # build css only for msg and notify modules 
+  build --esbuild           # run esbuild only
+  build --no-color          # don't use color in logs
   build --no-time           # don't log the time
-  build --no-context        # don't log the context ([sass], [esbuild], etc)
+  build --no-context        # don't log the context ([sass], [esbuild], etc)```

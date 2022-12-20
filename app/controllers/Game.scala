@@ -76,7 +76,7 @@ final class Game(
       oauth: Boolean
   ) =
     env.user.repo byId username flatMap {
-      _.filter(u => u.enabled || me.exists(_ is u) || me.??(isGranted(_.GamesModView, _))) ?? { user =>
+      _.filter(u => u.enabled.yes || me.exists(_ is u) || me.??(isGranted(_.GamesModView, _))) ?? { user =>
         val format = GameApiV2.Format byRequest req
         import lila.rating.{ Perf, PerfType }
         WithVs(req) { vs =>

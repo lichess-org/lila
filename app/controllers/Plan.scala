@@ -97,7 +97,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       case Some(info: CustomerInfo.Monthly) =>
         Ok(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts)).toFuccess
       case Some(CustomerInfo.OneTime(cus)) =>
-        renderIndex(cus.email map EmailAddress.apply, patron.some)
+        renderIndex(cus.email map { EmailAddress(_) }, patron.some)
       case None =>
         env.user.repo email me.id flatMap { email =>
           renderIndex(email, patron.some)

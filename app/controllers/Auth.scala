@@ -137,7 +137,7 @@ final class Auth(
                         result =>
                           result.toOption match {
                             case None => InternalServerError("Authentication error").toFuccess
-                            case Some(u) if u.disabled =>
+                            case Some(u) if u.enabled.no =>
                               negotiate(
                                 html = env.mod.logApi.closedByMod(u) flatMap {
                                   case true => authenticateAppealUser(u, redirectTo)

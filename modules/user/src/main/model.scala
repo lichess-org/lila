@@ -9,3 +9,6 @@ final class RankingsOf(f: UserId => lila.rating.UserRankMap) extends (UserId => 
 // permission holder
 case class Holder(user: User) extends AnyVal:
   def id = user.id
+
+opaque type UserEnabled = Boolean
+object UserEnabled extends YesNo[UserEnabled]

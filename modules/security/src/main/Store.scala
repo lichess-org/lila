@@ -64,7 +64,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
           "_id"  -> sessionId,
           "user" -> userId,
           "ip"   -> HTTPRequest.ipAddress(req),
-          "ua"   -> HTTPRequest.userAgent(req).|("?"),
+          "ua"   -> HTTPRequest.userAgent(req).fold("?")(_.value),
           "date" -> DateTime.now,
           "up"   -> up,
           "api"  -> apiVersion,

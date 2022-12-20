@@ -5,10 +5,10 @@ import lila.user.{ Holder, User }
 object Granter:
 
   def apply(permission: Permission)(user: User): Boolean =
-    user.enabled && apply(permission, user.roles)
+    user.enabled.yes && apply(permission, user.roles)
 
   def apply(f: Permission.Selector)(user: User): Boolean =
-    user.enabled && apply(f(Permission), user.roles)
+    user.enabled.yes && apply(f(Permission), user.roles)
 
   def is(permission: Permission)(holder: Holder): Boolean =
     apply(permission)(holder.user)

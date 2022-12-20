@@ -6,8 +6,6 @@ import lila.game.{ Game, Pov }
 import lila.user.User
 import play.api.libs.json.JsObject
 
-private case class AnimationDuration(value: FiniteDuration) extends AnyVal
-
 final class OnStart(f: GameId => Unit) extends (GameId => Unit):
   def apply(g: GameId) = f(g)
 
