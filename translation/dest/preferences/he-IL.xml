@@ -58,4 +58,9 @@
   <string name="notifyGameEvent">עדכונים לגבי משחקים בהתכתבות</string>
   <string name="notifyChallenge">הזמנות למשחקים</string>
   <string name="notifyTournamentSoon">טורניר מתחיל בקרוב</string>
+  <string name="notifyTimeAlarm">אוזל הזמן במשחק התכתבות</string>
+  <string name="notifyBell">התראות פעמון בליצ׳ס</string>
+  <string name="notifyPush">התראה למכשיר גם כשאינך מחובר/ת לליצ׳ס</string>
+  <string name="notifyWeb">דפדפן</string>
+  <string name="notifyDevice">מכשיר</string>
 </resources>
