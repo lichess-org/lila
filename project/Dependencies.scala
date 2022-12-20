@@ -12,7 +12,7 @@ object Dependencies {
     val commons = Seq(sonatype, lilaMaven, sonatypeS)
   }
 
-  val shogi       = "io.github.WandererXII" %% "scalashogi"                     % "4.0.0"
+  val shogi       = "io.github.WandererXII" %% "scalashogi"                     % "4.0.1"
   val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "7.0.2"
   val hasher      = "com.roundeights"      %% "hasher"                          % "1.2.1"
   val jodaTime    = "joda-time"             % "joda-time"                       % "2.12.1"
@@ -24,7 +24,7 @@ object Dependencies {
   val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "4.0.2"
   val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.12.0"
   val lettuce     = "io.lettuce"            % "lettuce-core"                    % "6.2.1.RELEASE"
-  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.85.Final" classifier "linux-x86_64"
+  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.86.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2" % "provided"
   val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.2.11" % Test
   val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.13.0"
