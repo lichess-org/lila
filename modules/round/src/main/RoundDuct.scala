@@ -285,7 +285,7 @@ final private[round] class RoundDuct(
             case true =>
               finisher.rageQuit(
                 pov.game,
-                Some(pov.color) ifFalse pov.game.situation.opponentHasInsufficientMaterial
+                Some(pov.color)
               )
             case _ => fuccess(List(Event.Reload))
           }
