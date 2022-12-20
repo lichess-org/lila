@@ -35,8 +35,8 @@
   <string name="onlyReports">플레이어 신고는 신고 양식을 통해서만 가능합니다.</string>
   <string name="wantReportBug">버그를 신고하고 싶습니다</string>
   <string name="reportBugInForum">포럼의 Lichess 피드백 섹션</string>
-  <string name="reportWebsiteIssue">Github (Lichess 웹사이트 이슈)</string>
-  <string name="reportMobileIssue">Github (Lichess 모바일 앱 이슈)</string>
+  <string name="reportWebsiteIssue">GitHub (Lichess 웹사이트 이슈)</string>
+  <string name="reportMobileIssue">GitHub (Lichess 모바일 앱 이슈)</string>
   <string name="reportBugInDiscord">Lichess 디스코드 서버</string>
   <string name="howToReportBug">버그가 무엇인지, 어떻게 고쳐져야 하는지 설명해주세요.</string>
   <string name="illegalPawnCapture">폰을 이상하게 잡았습니다</string>

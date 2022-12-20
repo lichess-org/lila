@@ -35,8 +35,8 @@
   <string name="onlyReports">Die enigste effektiewe manier om spelers aan te kla is deur die aanklagte vorm.</string>
   <string name="wantReportBug">Ek wil \'n gogga aanmeld</string>
   <string name="reportBugInForum">In die Lichess Terugvoer afdeling van die forum</string>
-  <string name="reportWebsiteIssue">As \'n Lichess webwerf probleem op Github</string>
-  <string name="reportMobileIssue">As \'n Lichess mobiele toepassingsprobleem op Github</string>
+  <string name="reportWebsiteIssue">As \'n Lichess webwerf probleem op GitHub</string>
+  <string name="reportMobileIssue">As \'n Lichess mobiele toepassingsprobleem op GitHub</string>
   <string name="reportBugInDiscord">In die Lichess Discord bediener</string>
   <string name="howToReportBug">Beskryf asseblief hoe die probleem hom voordoen, wat jy verwag om te gebeur teenoor wat eintlik gebeur en die stappe wat gevolg moet word om die probleem te veroorsaak.</string>
   <string name="illegalPawnCapture">Onwettige vat van \'n pion</string>

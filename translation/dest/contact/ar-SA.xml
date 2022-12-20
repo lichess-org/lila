@@ -35,7 +35,7 @@
   <string name="onlyReports">الإبلاغ عن اللاعبين عن طريق الاستمارة هو الطريقة الوحيدة الفعّالة.</string>
   <string name="wantReportBug">أريد أن أبلغ عن خطأ برمجي</string>
   <string name="reportBugInForum">في قسم التعليقات من منتدى Lichess</string>
-  <string name="reportWebsiteIssue">كمشكلة في موقع Lichess على Github</string>
+  <string name="reportWebsiteIssue">كمشكلة في موقع Lichess على GitHub</string>
   <string name="reportMobileIssue">كمشكلة في تطبيق Lichess المحمول على GitHub</string>
   <string name="reportBugInDiscord">في خادم ديسكورد Lichess</string>
   <string name="howToReportBug">يرجى وصف الخطأ البرمجي بدقة، ماذا كنت تتوقع أن يحدث بدلاً من ذلك، والخطوات التي أدت إلى حدوث الخطأ.</string>
