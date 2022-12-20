@@ -1,6 +1,7 @@
 import play.sbt.PlayImport._
 import sbt._, Keys._
 import bloop.integrations.sbt.BloopKeys.bloopGenerate
+import spray.revolver.RevolverPlugin.autoImport.reStart
 
 object BuildSettings {
 
@@ -48,6 +49,7 @@ object BuildSettings {
         buildSettings,
         srcMain
       )
+      .disablePlugins(spray.revolver.RevolverPlugin)
 
   val compilerOptions = Seq(
     // "-nowarn", // during migration
