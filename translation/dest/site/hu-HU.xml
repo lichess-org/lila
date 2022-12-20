@@ -215,8 +215,15 @@
   <string name="emailSent">Üzenetet küldtünk a %s címre.</string>
   <string name="emailCanTakeSomeTime">Eltarthat egy ideig, amíg megérkezik.</string>
   <string name="refreshInboxAfterFiveMinutes">Várj 5 percet, és frissítsd az e-mail postafiókodat.</string>
+  <string name="checkSpamFolder">Kérlek ellenőrizd a levélszemét mappát is, talán oda kerül, ebben az esetben jelöld meg nem levélszemétként.</string>
+  <string name="emailForSignupHelp">Ha mindezek ellenére nem sikerül, küldj nekünk egy e-mailt:</string>
   <string name="copyTextToEmail">Másold ki és illeszd be a fenti szöveget, és küld el a %s címre</string>
+  <string name="waitForSignupHelp">Rövid időn belül fel fogjuk venni veled a kapcsolatot a regisztrációd befejezéséhez.</string>
   <string name="accountConfirmed">%s felhasználó sikeresen megerősítve.</string>
+  <string name="accountCanLogin">A %s felhasználói fiókkal most már bejelentkezhetsz.</string>
+  <string name="accountConfirmationEmailNotNeeded">Az e-mail címet nem szükséges megerősíteni.</string>
+  <string name="accountClosed">%s felhasználói fiók zárolva van.</string>
+  <string name="accountRegisteredWithoutEmail">A %s felhasználói fiók e-mail cím nélkül lett regisztrálva.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Helyezés: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -647,6 +654,7 @@
   <string name="tournamentFAQ">Aréna verseny GYIK</string>
   <string name="timeBeforeTournamentStarts">Kezdés ennyi perc múlva</string>
   <string name="averageCentipawnLoss">Átlagos gyalogveszteség</string>
+  <string name="accuracy">Pontosság</string>
   <string name="keyboardShortcuts">Billentyű kombinációk</string>
   <string name="keyMoveBackwardOrForward">lépj előre/hátra</string>
   <string name="keyGoToStartOrEnd">menjen az elejére/végére</string>
@@ -729,6 +737,7 @@
   <string name="light">Világos</string>
   <string name="dark">Sötét</string>
   <string name="transparent">Áttetsző</string>
+  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Operációs rendszer</string>
   <string name="backgroundImageUrl">Háttérkép URL címe:</string>
   <string name="boardGeometry">Tábla geometria</string>
   <string name="boardTheme">Tábla szín</string>
@@ -757,6 +766,7 @@
   <string name="bestWasX">Ez lett volna a legjobb lépés: %s</string>
   <string name="youBrowsedAway">Elnavigáltál</string>
   <string name="resumePractice">Gyakorlás folytatása</string>
+  <string name="drawByFiftyMoves">Az 50 lépéses szabály értelmében a játszma döntetlen.</string>
   <string name="theGameIsADraw">A játék döntetlen.</string>
   <string name="computerThinking">A gép gondolkodik...</string>
   <string name="seeBestMove">A legjobb lépés mutatása</string>
