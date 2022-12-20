@@ -11,9 +11,6 @@
   grid-area: main;
   display: grid;
   grid-gap: $block-gap;
-  .board-layout-1 & {
-    grid-gap: 3vmin;
-  }
 
   &__app {
     grid-area: app;
@@ -67,8 +64,18 @@
       grid-template-areas:
         'side  . app   app'
         'uchat . under .';
-      grid-template-columns: $col3-uniboard-side 2vmin auto;
-      grid-column-gap: 0;
+      grid-template-columns: $col3-uniboard-side $hand-gap auto;
+      grid-gap: 0;
+      &__underboard,
+      &__underchat {
+        margin-top: 3vmin;
+      }
+      &__underboard:empty {
+        display: none;
+      }
+      &__underchat:has(div.none) {
+        display: none;
+      }
       .mchat {
         margin-bottom: 25px;
       }
