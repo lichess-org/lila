@@ -551,6 +551,7 @@ importers:
     specifiers:
       '@fnando/sparkline': ^0.3.10
       '@toast-ui/editor': ^3.2.1
+      '@types/cash': workspace:*
       '@types/debounce-promise': ^3.1.6
       '@types/fnando__sparkline': ^0.3.4
       '@types/highcharts': '=4.2.57'
@@ -576,6 +577,7 @@ importers:
     dependencies:
       '@fnando/sparkline': 0.3.10
       '@toast-ui/editor': 3.2.1
+      '@types/cash': link:../@types/cash
       '@types/debounce-promise': 3.1.6
       '@types/fnando__sparkline': 0.3.4
       '@types/highcharts': 4.2.57
