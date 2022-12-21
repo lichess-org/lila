@@ -71,7 +71,7 @@ final private class Streaming(
         if (streamStartOnceEvery(userId))
           Bus.publish(
             lila.hub.actorApi.streamer.StreamStart(userId, s.streamer.name.value),
-            "streamStart"
+            "notify"
           )
       }
     liveStreams = newStreams
