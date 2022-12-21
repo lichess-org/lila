@@ -3,28 +3,18 @@ package lila.report
 import lila.user.Holder
 import lila.common.Iso
 
-sealed trait Room:
+enum Room:
 
-  def key = toString.toLowerCase
+  case Cheat, Boost, Print, Comm, Other, Xfiles
 
+  def key  = toString.toLowerCase
   def name = toString
 
 object Room:
 
-  case object Cheat extends Room
-  case object Boost extends Room
-  case object Print extends Room
-  case object Comm  extends Room
-  case object Other extends Room
-  case object Xfiles extends Room:
-    override def name = "X-Files"
+  val byKey = values.mapBy(_.key)
 
-  val all: List[Room] = List(Cheat, Boost, Print, Comm, Other, Xfiles)
-  val byKey = all map { v =>
-    (v.key, v)
-  } toMap
-
-  val allButXfiles: List[Room] = all.filter(Xfiles !=)
+  val allButXfiles: List[Room] = values.filter(Xfiles != _).toList
 
   given Iso.StringIso[Room] = Iso.string(k => byKey.getOrElse(k, Other), _.key)
 

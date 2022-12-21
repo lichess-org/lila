@@ -56,8 +56,8 @@ object SwissPairing:
   def fields[A](f: Fields.type => A): A = f(Fields)
 
   def toMap(pairings: List[SwissPairing]): PairingMap =
-    pairings.foldLeft[PairingMap](Map.empty) { case (acc, pairing) =>
-      pairing.players.foldLeft(acc) { case (acc, player) =>
+    pairings.foldLeft[PairingMap](Map.empty) { (acc, pairing) =>
+      pairing.players.foldLeft(acc) { (acc, player) =>
         acc.updatedWith(player) { playerPairings =>
           (~playerPairings).updated(pairing.round, pairing).some
         }

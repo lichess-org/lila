@@ -135,9 +135,9 @@ final private class AggregationPipeline(store: InsightStorage)(using
             )
           }
         lazy val timeVarianceIdDispatcher =
-          TimeVariance.all.reverse
+          TimeVariance.values.reverse
             .drop(1)
-            .foldLeft[BSONValue](BSONInteger(TimeVariance.VeryVariable.intFactored)) { case (acc, tvi) =>
+            .foldLeft[BSONValue](BSONInteger(TimeVariance.VeryVariable.intFactored)) { (acc, tvi) =>
               $doc(
                 "$cond" -> $arr(
                   $doc("$lte" -> $arr("$" + F.moves("v"), tvi.intFactored)),

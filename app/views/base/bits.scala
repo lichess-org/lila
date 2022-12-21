@@ -12,7 +12,7 @@ import lila.common.paginator.Paginator
 
 object bits:
 
-  def mselect(id: String, current: Frag, items: List[Frag]) =
+  def mselect(id: String, current: Frag, items: Seq[Frag]) =
     div(cls := "mselect")(
       input(
         tpe          := "checkbox",

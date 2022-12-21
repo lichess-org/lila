@@ -13,9 +13,7 @@ enum UserMark:
   def key = toString.toLowerCase
 
 object UserMark:
-  val indexed: Map[String, UserMark] = values.view.map { m =>
-    m.key -> m
-  }.toMap
+  val indexed                 = values.mapBy(_.key)
   val bannable: Set[UserMark] = Set(Boost, Engine, Troll, Alt)
   given BSONHandler[UserMark] = stringAnyValHandler[UserMark](_.key, indexed.apply)
 
@@ -40,4 +38,4 @@ object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
       else a.value.filter(sel(UserMark) !=)
     }
 
-  val empty = UserMarks(Nil)
+  val empty: UserMarks = Nil

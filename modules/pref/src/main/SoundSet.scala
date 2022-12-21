@@ -1,6 +1,6 @@
 package lila.pref
 
-sealed class SoundSet private[pref] (val key: String, val name: String):
+final class SoundSet private (val key: String, val name: String):
 
   override def toString = key
 
@@ -24,12 +24,8 @@ object SoundSet:
     new SoundSet("speech", "Speech")
   )
 
-  lazy val allByKey = list map { c =>
-    c.key -> c
-  } toMap
-  lazy val allByName = list map { c =>
-    c.name -> c
-  } toMap
+  val allByKey  = list.mapBy(_.key)
+  val allByName = list.mapBy(_.name)
 
   def apply(key: String) = allByKey.getOrElse(key.toLowerCase, default)
 

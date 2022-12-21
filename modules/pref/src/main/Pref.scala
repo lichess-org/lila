@@ -52,9 +52,9 @@ case class Pref(
   inline def id = _id
 
   def realTheme      = Theme(theme)
-  def realPieceSet   = PieceSet(pieceSet)
+  def realPieceSet   = PieceSet.get(pieceSet)
   def realTheme3d    = Theme3d(theme3d)
-  def realPieceSet3d = PieceSet3d(pieceSet3d)
+  def realPieceSet3d = PieceSet3d.get(pieceSet3d)
 
   val themeColorLight = "#dbd7d1"
   val themeColorDark  = "#2e2a24"

@@ -61,7 +61,7 @@ final class ClasProgressApi(
       ClasProgress(
         perfType,
         days,
-        users zip progresses map { case (u, rating) =>
+        users zip progresses map { (u, rating) =>
           val playStat = playStats get u.id
           u.id -> StudentProgress(
             nb = playStat.??(_.nb),

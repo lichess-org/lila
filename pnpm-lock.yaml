@@ -193,7 +193,7 @@ importers:
       '@types/dom-screen-wake-lock': 1.0.0
       '@types/lichess': workspace:*
       chessground: ^8.3.5
-      lichess-pgn-viewer: ^1.4.3
+      lichess-pgn-viewer: ^1.4.4
       snabbdom: ^3.5.1
       tablesort: ^5.3.0
     dependencies:
@@ -201,7 +201,7 @@ importers:
       '@types/dom-screen-wake-lock': 1.0.0
       '@types/lichess': link:../@types/lichess
       chessground: 8.3.5
-      lichess-pgn-viewer: 1.4.3
+      lichess-pgn-viewer: 1.4.4
       snabbdom: 3.5.1
       tablesort: 5.3.0
 
@@ -412,7 +412,7 @@ importers:
       common: workspace:*
       date-fns: ^2.29.3
       debounce-promise: ^3.1.2
-      lichess-pgn-viewer: ^1.4.3
+      lichess-pgn-viewer: ^1.4.4
     dependencies:
       '@types/cash': link:../@types/cash
       '@types/debounce-promise': 3.1.6
@@ -423,7 +423,7 @@ importers:
       common: link:../common
       date-fns: 2.29.3
       debounce-promise: 3.1.2
-      lichess-pgn-viewer: 1.4.3
+      lichess-pgn-viewer: 1.4.4
 
   ui/palantir:
     specifiers:
@@ -565,7 +565,7 @@ importers:
       flatpickr: ^4.6.13
       highcharts: '=4.2.5'
       hopscotch: ^0.3.1
-      lichess-pgn-viewer: ^1.4.3
+      lichess-pgn-viewer: ^1.4.4
       prop-types: ^15.8.1
       stockfish-mv.wasm: ^0.6.1
       stockfish-nnue.wasm: 1.0.0-1946a675.smolnet
@@ -590,7 +590,7 @@ importers:
       flatpickr: 4.6.13
       highcharts: 4.2.5
       hopscotch: 0.3.1
-      lichess-pgn-viewer: 1.4.3
+      lichess-pgn-viewer: 1.4.4
       prop-types: 15.8.1
       stockfish-mv.wasm: 0.6.1
       stockfish-nnue.wasm: 1.0.0-1946a675.smolnet
@@ -4770,8 +4770,8 @@ packages:
       type-check: 0.4.0
     dev: false
 
-  /lichess-pgn-viewer/1.4.3:
-    resolution: {integrity: sha512-Ac8OIkjYzuZbEYM0np5k6KT2TN3MghFqUbUbVSjMcZ6gxGwhNBxt1Q37wNYWlsMpdNhgGBKNB6nT1zvtS5boew==}
+  /lichess-pgn-viewer/1.4.4:
+    resolution: {integrity: sha512-wQ9ld3wxxdzMzfz3a+Wj0xXtJ3Ss8QWU+Ia5MSWvJxtKYyuHM/heR0BUw8Z+HNnG8PrSsAtdPr2LXN8J87DDLg==}
     dependencies:
       chessground: 8.3.5
       chessops: 0.12.5

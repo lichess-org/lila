@@ -169,13 +169,9 @@ object PuzzleTheme:
     List(t.name, t.description)
   }
 
-  private lazy val byKey: Map[Key, PuzzleTheme] = visible.view.map { t =>
-    t.key -> t
-  }.toMap
+  private lazy val byKey: Map[Key, PuzzleTheme] = visible.mapBy(_.key)
 
-  private lazy val byLowerKey: Map[String, PuzzleTheme] = visible.view.map { t =>
-    t.key.value.toLowerCase -> t
-  }.toMap
+  private lazy val byLowerKey: Map[String, PuzzleTheme] = visible.mapBy(_.key.value.toLowerCase)
 
   // themes that can't be voted by players
   val staticThemes: Set[Key] = Set(
@@ -228,7 +224,7 @@ object PuzzleTheme:
     trappedPiece      -> "ZJQkwFP6",
     sacrifice         -> "ezFdOVtv",
     interference      -> "nAojbDwV"
-  ).view.map { case (theme, id) =>
+  ).view.map { (theme, id) =>
     theme.key -> id
   }.toMap
 

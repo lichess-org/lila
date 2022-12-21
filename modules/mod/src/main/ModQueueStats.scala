@@ -62,10 +62,8 @@ final class ModQueueStats(
             "common" -> Json.obj(
               "xaxis" -> days.map(_._1.getMillis)
             ),
-            "rooms" -> Room.all
-              .map { room =>
-                room.key -> room.name
-              }
+            "rooms" -> Room.values
+              .map { room => room.key -> room.name }
               .appendedAll {
                 List(
                   "appeal"   -> "Appeal",

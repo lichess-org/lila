@@ -204,9 +204,7 @@ object Tv:
       Bot,
       Computer
     )
-    val byKey = all.map { c =>
-      c.key -> c
-    }.toMap
+    val byKey = all.mapBy(_.key)
 
   private def rated(min: Int)           = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
   private def speed(speed: chess.Speed) = (c: Candidate) => c.game.speed == speed
@@ -224,15 +222,15 @@ object Tv:
   } // rematch time
   private def hasMinRating(g: Game, min: Int) = g.players.exists(_.rating.exists(_ >= min))
 
-  private[tv] val titleScores: Map[UserTitle, Int] = List(
-    "GM"  -> 500,
-    "WGM" -> 500,
-    "IM"  -> 300,
-    "WIM" -> 300,
-    "FM"  -> 200,
-    "WFM" -> 200,
-    "NM"  -> 100,
-    "CM"  -> 100,
-    "WCM" -> 100,
-    "WNM" -> 100
-  ).map { (t, s) => UserTitle(t) -> s }.toMap
+  private[tv] val titleScores: Map[UserTitle, Int] = Map(
+    UserTitle("GM")  -> 500,
+    UserTitle("WGM") -> 500,
+    UserTitle("IM")  -> 300,
+    UserTitle("WIM") -> 300,
+    UserTitle("FM")  -> 200,
+    UserTitle("WFM") -> 200,
+    UserTitle("NM")  -> 100,
+    UserTitle("CM")  -> 100,
+    UserTitle("WCM") -> 100,
+    UserTitle("WNM") -> 100
+  )

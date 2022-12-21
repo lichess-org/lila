@@ -109,18 +109,21 @@ object list:
                 scoreTag(scores.highest)
               ),
               ctx.me ?? { me =>
-                lila.report.Room.all.filter(lila.report.Room.isGrantedFor(Holder(me))).map { room =>
-                  a(
-                    href := reportRoutes.listWithFilter(room.key),
-                    cls := List(
-                      "active"            -> (filter == room.key),
-                      s"room-${room.key}" -> true
+                lila.report.Room.values
+                  .filter(lila.report.Room.isGrantedFor(Holder(me)))
+                  .map { room =>
+                    a(
+                      href := reportRoutes.listWithFilter(room.key),
+                      cls := List(
+                        "active"            -> (filter == room.key),
+                        s"room-${room.key}" -> true
+                      )
+                    )(
+                      room.name,
+                      scores.get(room).filter(20 <=).map(scoreTag(_))
                     )
-                  )(
-                    room.name,
-                    scores.get(room).filter(20 <=).map(scoreTag(_))
-                  )
-                }
+                  }
+                  .toList
               }: List[Frag],
               (appeals > 0 && isGranted(_.Appeals)) option a(
                 href := appealRoutes.queue,

@@ -53,8 +53,8 @@ object GameDrawOffers:
 enum GameRule:
   case NoAbort, NoRematch, NoGiveTime, NoClaimWin
   val key = lila.common.String lcfirst toString
-case object GameRule:
-  val byKey = values.map(r => r.key -> r).toMap
+object GameRule:
+  val byKey = values.mapBy(_.key)
 
 case class PgnImport(
     user: Option[UserId],

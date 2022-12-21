@@ -158,22 +158,19 @@ final class StudyPager(
       }
     }
 
-sealed abstract class Order(val key: String, val name: I18nKey)
+enum Order(val key: String, val name: I18nKey):
+
+  case Hot          extends Order("hot", trans.study.hot)
+  case Newest       extends Order("newest", trans.study.dateAddedNewest)
+  case Oldest       extends Order("oldest", trans.study.dateAddedOldest)
+  case Updated      extends Order("updated", trans.study.recentlyUpdated)
+  case Popular      extends Order("popular", trans.study.mostPopular)
+  case Alphabetical extends Order("alphabetical", trans.study.alphabetical)
+  case Mine         extends Order("mine", trans.study.myStudies)
 
 object Order:
-  case object Hot          extends Order("hot", trans.study.hot)
-  case object Newest       extends Order("newest", trans.study.dateAddedNewest)
-  case object Oldest       extends Order("oldest", trans.study.dateAddedOldest)
-  case object Updated      extends Order("updated", trans.study.recentlyUpdated)
-  case object Popular      extends Order("popular", trans.study.mostPopular)
-  case object Alphabetical extends Order("alphabetical", trans.study.alphabetical)
-  case object Mine         extends Order("mine", trans.study.myStudies)
-
-  val default         = Hot
-  val all             = List(Hot, Newest, Oldest, Updated, Popular, Alphabetical)
-  val withoutSelector = all.filter(o => o != Oldest && o != Alphabetical)
-  val allWithMine     = Mine :: all
-  private val byKey: Map[String, Order] = allWithMine.map { o =>
-    o.key -> o
-  }.toMap
+  val default                   = Hot
+  val withoutMine               = values.filterNot(_ == Mine)
+  val withoutSelector           = withoutMine.filter(o => o != Oldest && o != Alphabetical)
+  private val byKey             = values.mapBy(_.key)
   def apply(key: String): Order = byKey.getOrElse(key, default)

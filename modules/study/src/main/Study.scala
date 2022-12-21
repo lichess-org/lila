@@ -90,12 +90,10 @@ object Study:
   def toName(str: String) = StudyName(lila.common.String.fullCleanUp(str) take 100)
 
   enum Visibility:
-    lazy val key = Visibility.this.toString.toLowerCase
     case Private, Unlisted, Public
+    val key = Visibility.this.toString.toLowerCase
   object Visibility:
-    val byKey = values.map { v =>
-      v.key -> v
-    }.toMap
+    val byKey = values.mapBy(_.key)
 
   opaque type Likes = Int
   object Likes extends OpaqueInt[Likes]

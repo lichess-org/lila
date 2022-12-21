@@ -30,15 +30,9 @@ object TreeBuilder:
           if (withFlags.opening && Variant.openingSensibleVariants(game.variant))
             fen => OpeningDb.findByEpdFen(fen)
           else _ => None
-        val fen                 = Fen write init
-        val infos: Vector[Info] = analysis.??(_.infos.toVector)
-        val advices: Map[Ply, Advice] = analysis.??(
-          _.advices.view
-            .map { a =>
-              a.ply -> a
-            }
-            .toMap
-        )
+        val fen                       = Fen write init
+        val infos: Vector[Info]       = analysis.??(_.infos.toVector)
+        val advices: Map[Ply, Advice] = analysis.??(_.advices.mapBy(_.ply))
         val root = Root(
           ply = init.ply,
           fen = fen,

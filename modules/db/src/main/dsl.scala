@@ -489,9 +489,7 @@ object dsl extends dsl with Handlers:
         }
         .cursor[D](readPreference)
         .collect[List](Int.MaxValue)
-        .map {
-          _.view.map(u => docId(u) -> u).toMap
-        }
+        .map(_.mapBy(docId))
 
     def byOrderedIds[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
@@ -567,11 +565,11 @@ object dsl extends dsl with Handlers:
         .cursor[Bdoc]()
         .list(Int.MaxValue)
         .dmap {
-          _ flatMap { obj =>
+          _.flatMap { obj =>
             obj.getAsOpt[I]("_id") flatMap { id =>
               fieldExtractor(obj) map { id -> _ }
             }
-          } toMap
+          }.toMap
         }
 
     def updateField[V: BSONWriter](selector: Bdoc, field: String, value: V) =

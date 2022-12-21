@@ -248,9 +248,7 @@ final class SwissApi(
               SwissPlayer.fields { f =>
                 mongo.player.countSel($doc(f.swissId -> swiss.id, f.score $gt player.score)).dmap(1.+)
               } map { rank =>
-                val pairingMap = pairings.view.map { p =>
-                  p.pairing.round -> p
-                }.toMap
+                val pairingMap = pairings.mapBy(_.pairing.round)
                 SwissPlayer
                   .ViewExt(
                     player,

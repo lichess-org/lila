@@ -43,19 +43,18 @@ object ClockPercent extends OpaqueDouble[ClockPercent]:
   inline def fromPercent(p: Double) = ClockPercent(p)
   inline def fromPercent(p: Int)    = ClockPercent(p.toDouble)
 
-sealed abstract class Termination(val id: Int, val name: String)
-object Termination:
-  case object ClockFlag   extends Termination(1, "Clock flag")
-  case object Disconnect  extends Termination(2, "Disconnect")
-  case object Resignation extends Termination(3, "Resignation")
-  case object Draw        extends Termination(4, "Draw")
-  case object Stalemate   extends Termination(5, "Stalemate")
-  case object Checkmate   extends Termination(6, "Checkmate")
+enum Termination(val id: Int, val name: String):
 
-  val all = List[Termination](ClockFlag, Disconnect, Resignation, Draw, Stalemate, Checkmate)
-  val byId = all map { p =>
-    (p.id, p)
-  } toMap
+  case ClockFlag   extends Termination(1, "Clock flag")
+  case Disconnect  extends Termination(2, "Disconnect")
+  case Resignation extends Termination(3, "Resignation")
+  case Draw        extends Termination(4, "Draw")
+  case Stalemate   extends Termination(5, "Stalemate")
+  case Checkmate   extends Termination(6, "Checkmate")
+
+object Termination:
+
+  val byId = values.mapBy(_.id)
 
   import chess.{ Status as S }
 
@@ -72,26 +71,22 @@ object Termination:
         logger.error(s"Unfinished game in the insight indexer: $s")
         Resignation
 
-sealed abstract class Result(val id: Int, val name: String)
-object Result:
-  case object Win  extends Result(1, "Victory")
-  case object Draw extends Result(2, "Draw")
-  case object Loss extends Result(3, "Defeat")
-  val all = List[Result](Win, Draw, Loss)
-  val byId = all map { p =>
-    (p.id, p)
-  } toMap
-  val idList = all.map(_.id)
+enum Result(val id: Int, val name: String):
+  case Win  extends Result(1, "Victory")
+  case Draw extends Result(2, "Draw")
+  case Loss extends Result(3, "Defeat")
 
-sealed abstract class Phase(val id: Int, val name: String)
+object Result:
+  val byId   = values.mapBy(_.id)
+  val idList = values.map(_.id)
+
+enum Phase(val id: Int, val name: String):
+  case Opening extends Phase(1, "Opening")
+  case Middle  extends Phase(2, "Middlegame")
+  case End     extends Phase(3, "Endgame")
+
 object Phase:
-  case object Opening extends Phase(1, "Opening")
-  case object Middle  extends Phase(2, "Middlegame")
-  case object End     extends Phase(3, "Endgame")
-  val all = List[Phase](Opening, Middle, End)
-  val byId = all map { p =>
-    (p.id, p)
-  } toMap
+  val byId = values.mapBy(_.id)
   def of(div: chess.Division, ply: Ply): Phase =
     div.middle.fold[Phase](Opening) {
       case m if ply < m => Opening
@@ -102,31 +97,26 @@ object Phase:
         }
     }
 
-sealed abstract class Castling(val id: Int, val name: String)
+enum Castling(val id: Int, val name: String):
+  case Kingside  extends Castling(1, "Kingside castling")
+  case Queenside extends Castling(2, "Queenside castling")
+  case None      extends Castling(3, "No castling")
 object Castling:
-  object Kingside  extends Castling(1, "Kingside castling")
-  object Queenside extends Castling(2, "Queenside castling")
-  object None      extends Castling(3, "No castling")
-  val all = List(Kingside, Queenside, None)
-  val byId = all map { p =>
-    (p.id, p)
-  } toMap
+  val byId = values.mapBy(_.id)
   def fromMoves(moves: Iterable[SanStr]) =
     SanStr.raw(moves).find(_ startsWith "O") match
       case Some("O-O")   => Kingside
       case Some("O-O-O") => Queenside
       case _             => None
 
-sealed abstract class QueenTrade(val id: Boolean, val name: String)
+enum QueenTrade(val id: Boolean, val name: String):
+  case Yes extends QueenTrade(true, "Queen trade")
+  case No  extends QueenTrade(false, "No queen trade")
 object QueenTrade:
-  object Yes extends QueenTrade(true, "Queen trade")
-  object No  extends QueenTrade(false, "No queen trade")
-  val all                           = List(Yes, No)
   def apply(v: Boolean): QueenTrade = if (v) Yes else No
 
-sealed abstract class Blur(val id: Boolean, val name: String)
+enum Blur(val id: Boolean, val name: String):
+  case Yes extends Blur(true, "Blur")
+  case No  extends Blur(false, "No blur")
 object Blur:
-  object Yes extends Blur(true, "Blur")
-  object No  extends Blur(false, "No blur")
-  val all                     = List(Yes, No)
   def apply(v: Boolean): Blur = if (v) Yes else No
