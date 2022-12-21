@@ -424,7 +424,7 @@ object layout:
           ctx.blind option h2("Navigation"),
           !ctx.isAppealUser option frag(
             topnav(),
-            ctx.me.exists(!_.isPatron) && !zenable option a(cls := "site-title-nav__donate")(
+            ctx.noKid && ctx.me.exists(!_.isPatron) && !zenable option a(cls := "site-title-nav__donate")(
               href := routes.Plan.index
             )(trans.patron.donate())
           )

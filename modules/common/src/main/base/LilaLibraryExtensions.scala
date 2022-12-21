@@ -353,3 +353,5 @@ trait LilaLibraryExtensions extends LilaTypes:
       fua.value match
         case Some(scala.util.Success(v)) => v
         case _                           => None
+
+    def ifThen[B: Zero](fub: A => Fu[B])(using EC): Fu[B] = fua.flatMap { _ ?? fub }

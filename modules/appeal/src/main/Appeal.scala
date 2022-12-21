@@ -1,11 +1,12 @@
 package lila.appeal
 
 import org.joda.time.DateTime
+import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.user.User
 
 case class Appeal(
-    _id: UserId,
+    @Key("_id") id: UserId,
     msgs: Vector[AppealMsg],
     status: Appeal.Status, // from the moderators POV
     createdAt: DateTime,
@@ -14,12 +15,11 @@ case class Appeal(
     // https://github.com/lichess-org/lila/issues/7564
     firstUnrepliedAt: DateTime
 ):
-  def id       = _id
   def isRead   = status == Appeal.Status.Read
   def isMuted  = status == Appeal.Status.Muted
   def isUnread = status == Appeal.Status.Unread
 
-  def isAbout(userId: UserId) = _id == userId
+  def isAbout(userId: UserId) = id == userId
 
   def post(text: String, by: User) =
     val msg = AppealMsg(
