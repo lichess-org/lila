@@ -138,6 +138,7 @@
     <item quantity="one">%s tengdir spilarar</item>
     <item quantity="other">%s tengdir spilarar</item>
   </plurals>
+  <string name="drawByMutualAgreement">Jafntefli vegna samkomulag</string>
   <string name="currentGames">Leikir í gangi núna</string>
   <plurals name="nbGames">
     <item quantity="one">%s skák</item>
@@ -192,10 +193,13 @@
   <string name="email">Tölvupóstfang</string>
   <string name="passwordReset">Breyta lykilorði</string>
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
+  <string name="emailConfirmHelp">Hjálp með staðfestingu á tölvupóst</string>
+  <string name="emailConfirmNotReceived">Fékkstu ekki staðfestingartölvupóst?</string>
   <string name="whatSignupUsername">Hvaða notandanafn notaðiru þegar þú nýskráðir aðganginn?</string>
   <string name="usernameNotFound">Við fundum engan með þessu notandanafni: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Þú getur notað þetta notandanafn til þess að stofna nýjan aðgang</string>
   <string name="emailSent">Við höfum sent tölvupóst á %s.</string>
+  <string name="accountCanLogin">Þú getur skráð þig inn núna sem %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Þú þarft ekki staðfestingar póst.</string>
   <string name="accountClosed">Aðgangurinn %s er lokaður.</string>
   <string name="accountRegisteredWithoutEmail">Aðgangurinn %s var skráður með engu netfangi.</string>
@@ -343,6 +347,7 @@
   <string name="save">Vista</string>
   <string name="leaderboard">Stigaborð</string>
   <string name="screenshotCurrentPosition">Taka skjáskot af núverandi stöðu</string>
+  <string name="gameAsGIF">Leikur sem GIF</string>
   <string name="pasteTheFenStringHere">Límdu FEN strengnum hér</string>
   <string name="pasteThePgnStringHere">Límdu PGN strengnum hér</string>
   <string name="fromPosition">Frá staðsetningu</string>
