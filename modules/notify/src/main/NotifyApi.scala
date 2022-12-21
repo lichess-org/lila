@@ -47,14 +47,13 @@ final class NotifyApi(
 
     def getAllows(userIds: Iterable[UserId], event: NotificationPref.Event): Fu[List[NotifyAllows]] =
       colls.pref.tempPrimary
-        .find($inIds(userIds), $doc(s"notification.${event.key}" -> true).some)
+        .find($inIds(userIds), $doc(event.key -> true).some)
         .cursor[Bdoc]()
         .listAll() dmap { docs =>
         for {
           doc    <- docs
           userId <- doc.getAsOpt[UserId]("_id")
-          allowsOpt = doc child "notification" flatMap (_ int event.key) map Allows.fromCode
-          allows    = allowsOpt | NotificationPref.default.allows(event)
+          allows = (doc int event.key).map(Allows.fromCode) | NotificationPref.default.allows(event)
         } yield NotifyAllows(userId, allows)
       }
 
