@@ -3,5 +3,6 @@
   "printWidth": 120,
   "arrowParens": "avoid",
   "importOrder": ["^[./]"],
-  "importOrderSortSpecifiers": true
+  "importOrderSortSpecifiers": true,
+  "importOrderParserPlugins": ["typescript"]
 }
