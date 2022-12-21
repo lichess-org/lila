@@ -23,7 +23,7 @@ object activities:
   opaque type ForumPosts = List[ForumPostId]
   object ForumPosts extends TotalWrapper[ForumPosts, List[ForumPostId]]:
     extension (a: ForumPosts) def +(postId: ForumPostId): ForumPosts = postId :: a.value
-    given Zero[ForumPosts]                                            = Zero(Nil)
+    given Zero[ForumPosts]                                           = Zero(Nil)
 
   opaque type UblogPosts = List[UblogPostId]
   object UblogPosts extends TotalWrapper[UblogPosts, List[UblogPostId]]:

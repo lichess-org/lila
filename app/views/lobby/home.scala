@@ -61,7 +61,10 @@ object home:
         )
       )(
         div(cls := "lobby__table")(
-          (ctx.isAnon && ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) option div(cls   := "bg-switch", title := "Dark mode")(
+          (ctx.isAnon && ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) option div(
+            cls   := "bg-switch",
+            title := "Dark mode"
+          )(
             div(cls := "bg-switch__track"),
             div(cls := "bg-switch__thumb")
           ),
