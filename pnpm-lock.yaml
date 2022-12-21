@@ -183,9 +183,11 @@ importers:
 
   ui/cli:
     specifiers:
+      '@types/cash': workspace:*
       '@types/lichess': workspace:*
       common: workspace:*
     dependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       common: link:../common
 
@@ -249,12 +251,14 @@ importers:
 
   ui/editor:
     specifiers:
+      '@types/cash': workspace:*
       '@types/lichess': workspace:*
       chessground: ^8.3.5
       chessops: ^0.12.5
       common: workspace:*
       snabbdom: ^3.5.1
     dependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       chessground: 8.3.5
       chessops: 0.12.5
@@ -292,6 +296,7 @@ importers:
   ui/keyboardMove:
     specifiers:
       '@jest/globals': ^29.3.1
+      '@types/cash': workspace:*
       '@types/lichess': workspace:*
       chess: workspace:*
       chessground: ^8.3.5
@@ -299,6 +304,7 @@ importers:
       snabbdom: ^3.5.1
     dependencies:
       '@jest/globals': 29.3.1
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       chess: link:../chess
       chessground: 8.3.5
@@ -325,6 +331,7 @@ importers:
 
   ui/lobby:
     specifiers:
+      '@types/cash': workspace:*
       '@types/debounce-promise': ^3.1.6
       '@types/lichess': workspace:*
       chessground: ^8.3.5
@@ -332,6 +339,7 @@ importers:
       debounce-promise: ^3.1.2
       snabbdom: ^3.5.1
     dependencies:
+      '@types/cash': link:../@types/cash
       '@types/debounce-promise': 3.1.6
       '@types/lichess': link:../@types/lichess
       chessground: 8.3.5
@@ -505,6 +513,7 @@ importers:
 
   ui/round:
     specifiers:
+      '@types/cash': workspace:*
       '@types/lichess': workspace:*
       chat: workspace:*
       chess: workspace:*
@@ -515,6 +524,7 @@ importers:
       nvui: workspace:*
       snabbdom: ^3.5.1
     dependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       chat: link:../chat
       chess: link:../chess
@@ -527,12 +537,17 @@ importers:
 
   ui/serviceWorker:
     specifiers:
+      '@types/cash': workspace:*
+      '@types/lichess': workspace:*
       types-serviceworker: ^0.0.1
     dependencies:
+      '@types/cash': link:../@types/cash
+      '@types/lichess': link:../@types/lichess
       types-serviceworker: 0.0.1
 
   ui/simul:
     specifiers:
+      '@types/cash': workspace:*
       '@types/lichess': workspace:*
       chat: workspace:*
       chessground: ^8.3.5
@@ -540,6 +555,7 @@ importers:
       game: workspace:*
       snabbdom: ^3.5.1
     dependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       chat: link:../chat
       chessground: 8.3.5
@@ -641,6 +657,7 @@ importers:
 
   ui/tournament:
     specifiers:
+      '@types/cash': workspace:*
       '@types/lichess': workspace:*
       chat: workspace:*
       chessground: ^8.3.5
@@ -648,6 +665,7 @@ importers:
       game: workspace:*
       snabbdom: ^3.5.1
     dependencies:
+      '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       chat: link:../chat
       chessground: 8.3.5

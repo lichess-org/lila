@@ -15,6 +15,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@jest/globals": "^29.3.1",
+    "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
     "chess": "workspace:*",
     "chessground": "^8.3.5",
