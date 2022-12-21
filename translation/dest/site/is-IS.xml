@@ -187,6 +187,7 @@
   <string name="changeUsername">Breyta notandanafni</string>
   <string name="changeUsernameNotSame">Aðeins er hægt að víxla á hástöfum og lágstöfum. Til dæmis „ómarragnarsson” í „ÓmarraGNARsson”.</string>
   <string name="changeUsernameDescription">Skiptu um notendanafn. Þú getur aðeins gert þetta einu sinni og þú mátt bara víxla á hástöfum og lágstöfum.</string>
+  <string name="signupUsernameHint">Veldu notendanafn sem er viðeigandi fyrir alla, jafnvel börn. Ekki er hægt að breyta það síðar og allir reikningar með óviðeigandi notendanöfn verða lokaðir!</string>
   <string name="password">Lykilorð</string>
   <string name="changePassword">Breyta um lykilorð</string>
   <string name="changeEmail">Breyta tölvupóstfangi</string>
@@ -555,6 +556,7 @@
   <string name="tools">Gögn</string>
   <string name="increment">Aukning</string>
   <string name="error.required">Þessi reitur er nauðsynlegur</string>
+  <string name="error.minLength">Lykilorðið verður að hafa að minnsta kosti %s stafi</string>
   <string name="ifRatingIsPlusMinusX">Ef skor er ± %s</string>
   <string name="onlyFriends">Aðeins vinir</string>
   <string name="menu">Valmynd</string>
