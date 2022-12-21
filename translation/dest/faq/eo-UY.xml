@@ -17,6 +17,7 @@
   <string name="areThereWebsitesBasedOnLichess">Ĉu estas retejoj bazitaj sur Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Jes. Lichess efektive inspiris aliajn malfermkodajn retejojn, kiuj uzas niajn %1$s, %2$s aŭ %3$s.</string>
   <string name="fairPlay">Honesta ludo</string>
+  <string name="whenAmIEligibleRatinRefund">Kiam mi aŭtomate reakiras la perditajn poentojn pro trompantoj?</string>
   <string name="isCorrespondenceDifferent">Ĉu koresponda ŝako diferencas de normala ŝako?</string>
   <string name="pleaseReadFairPlayPage">Por pli informo, bonvole legu nian %s</string>
   <string name="fairPlayPage">paĝon de honesta ludo</string>
