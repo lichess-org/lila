@@ -207,6 +207,10 @@
   <string name="email">Имейл</string>
   <string name="passwordReset">Смяна на парола</string>
   <string name="forgotPassword">Забравена парола?</string>
+  <string name="emailConfirmHelp">Помощ за потвърждение на имейл</string>
+  <string name="emailConfirmNotReceived">Не сте получили имейл за потвърждение на регистрацията ви?</string>
+  <string name="whatSignupUsername">Кое потребителско име сте използвали, за да се регистрирате?</string>
+  <string name="usernameNotFound">Не успяхме да намерим потребител с това име: %s.</string>
   <string name="accountClosed">Регистрацията %s е закрита.</string>
   <string name="rank">Класация</string>
   <string name="rankX">Класация: %s</string>
