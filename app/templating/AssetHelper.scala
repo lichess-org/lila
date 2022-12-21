@@ -95,7 +95,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assetDomain.value),
       connectSrc =
-        "'self'" :: assetDomain.value :: sockets ::: env.explorerEndpoint :: "https://utumno.backscattering.de" :: env.tablebaseEndpoint :: localDev,
+        "'self'" :: assetDomain.value :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
       styleSrc = List("'self'", "'unsafe-inline'", assetDomain.value),
       frameSrc = List("'self'", assetDomain.value, "www.youtube.com", "player.twitch.tv"),
       workerSrc = List("'self'", assetDomain.value),
