@@ -8,6 +8,7 @@ importers:
       '@types/web': ^0.0.84
       '@typescript-eslint/eslint-plugin': ^5.46.1
       '@typescript-eslint/parser': ^5.46.1
+      ab: https://github.com/lichess-org/ab-stub
       eslint: ^8.30.0
       eslint-config-prettier: ^8.5.0
       prettier: 2.8.1
@@ -18,6 +19,7 @@ importers:
       '@types/web': 0.0.84
       '@typescript-eslint/eslint-plugin': 5.46.1_mqzxmroayievgzgel6yrqgih5i
       '@typescript-eslint/parser': 5.46.1_lzzuuodtsqwxnvqeq4g4likcqa
+      ab: github.com/lichess-org/ab-stub/94236bf34dbc9c05daf50f4c9842d859b9142be0
       eslint: 8.30.0
       eslint-config-prettier: 8.5.0_eslint@8.30.0
       prettier: 2.8.1
@@ -504,7 +506,6 @@ importers:
   ui/round:
     specifiers:
       '@types/lichess': workspace:*
-      ab: https://github.com/lichess-org/ab-stub
       chat: workspace:*
       chess: workspace:*
       chessground: ^8.3.5
@@ -515,7 +516,6 @@ importers:
       snabbdom: ^3.5.1
     dependencies:
       '@types/lichess': link:../@types/lichess
-      ab: github.com/lichess-org/ab-stub/94236bf34dbc9c05daf50f4c9842d859b9142be0
       chat: link:../chat
       chess: link:../chess
       chessground: 8.3.5

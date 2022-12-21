@@ -13,7 +13,6 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@types/lichess": "workspace:*",
-    "ab": "https://github.com/lichess-org/ab-stub",
     "chat": "workspace:*",
     "chess": "workspace:*",
     "chessground": "^8.3.5",
