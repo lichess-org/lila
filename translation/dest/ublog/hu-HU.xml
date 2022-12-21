@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xBlog">%s\' Blogja</string>
+  <string name="xBlog">%s blogja</string>
   <string name="newPost">Új bejegyzés</string>
-  <string name="editYourBlogPost">Saját bejegyzés módosítása</string>
+  <string name="editYourBlogPost">Bejegyzésed módosítása</string>
   <string name="saveDraft">Piszkozat mentése</string>
   <string name="postTitle">Bejegyzés címe</string>
   <string name="postIntro">Bejegyzés felvezetése</string>
@@ -15,10 +15,10 @@
   <string name="publishHelp">Ha bejelölöd a bejegyzés nyilvános lesz. Ha nem jelölöd be, akkor privát poszt marad és a vázlatok között megtalálható lesz</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Blogbejegyzést tett közzé</item>
-    <item quantity="other">Blogbejegyzést %s tett közzé</item>
+    <item quantity="other">%s blogbejegyzést tett közzé</item>
   </plurals>
   <plurals name="nbViews">
-    <item quantity="one">Egy megtekintés</item>
+    <item quantity="one">%s megtekintés</item>
     <item quantity="other">%s megtekintés</item>
   </plurals>
   <string name="xPublishedY">%1$s közzétette a %2$s nevű bejegyzést</string>
