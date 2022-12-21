@@ -72,7 +72,7 @@ object index {
           div(cls := "box__pad")(
             div(cls := "wrapper")(
               div(cls := "text")(
-                p(weRelyOnSupport())
+                p(if (ctx.isAuth) weRelyOnSupport() else donationSupport())
               ),
               div(cls := "content")(
                 div(
@@ -214,7 +214,7 @@ object index {
               )
             ),
             p(id := "error")(),
-            p(cls := "small_team")(weAreSmallTeam()),
+            ctx.isAuth option p(cls := "small_team")(weAreSmallTeam()),
             faq,
             div(cls := "best_patrons")(
               h2(celebratedPatrons()),
@@ -232,7 +232,7 @@ object index {
 
   private def faq(implicit ctx: Context) =
     div(cls := "faq")(
-      dl(
+      ctx.isAuth option dl(
         dt(changeMonthlySupport()),
         dd(
           changeOrContact(a(href := routes.Main.contact, target := "_blank")(contactSupport()))
@@ -252,8 +252,7 @@ object index {
       dl(
         dt(patronFeatures()),
         dd(
-          if (ctx.isAuth) noPatronFeatures() else span(trans.no(), "."),
-          br,
+          if (ctx.isAuth) frag(noPatronFeatures(), br) else frag(trans.no(), ". "),
           a(href := routes.Plan.features, target := "_blank")(featuresComparison()),
           "."
         )
