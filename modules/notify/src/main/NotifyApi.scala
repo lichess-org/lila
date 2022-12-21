@@ -49,12 +49,17 @@ final class NotifyApi(
       colls.pref.tempPrimary
         .find($inIds(userIds), $doc(event.key -> true).some)
         .cursor[Bdoc]()
-        .listAll() dmap { docs =>
-        for {
+        .listAll() map { docs =>
+        val customAllows = for
           doc    <- docs
           userId <- doc.getAsOpt[UserId]("_id")
-          allows = (doc int event.key).map(Allows.fromCode) | NotificationPref.default.allows(event)
-        } yield NotifyAllows(userId, allows)
+          allows <- doc.int(event.key)
+        yield NotifyAllows(userId, Allows.fromCode(allows))
+        val customIds = customAllows.view.map(_.userId).toSet
+        val defaultAllows = userIds.filterNot(customIds.contains).map {
+          NotifyAllows(_, NotificationPref.default.allows(event))
+        }
+        customAllows ::: defaultAllows.toList
       }
 
   private val unreadCountCache = cacheApi[UserId, UnreadCount](32768, "notify.unreadCountCache") {

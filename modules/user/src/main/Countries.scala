@@ -292,7 +292,11 @@ object Countries:
 
   val map: Map[String, Country] = all.mapBy(_.code)
 
-  val nameMap: Map[Country, String] = all.mapBy(_.name)
+  val nameMap: Map[Country, String] = all.view
+    .map { c =>
+      c -> c.name
+    }
+    .to(Map)
 
   val codeSet = map.keySet
 
