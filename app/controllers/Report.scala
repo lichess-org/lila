@@ -55,9 +55,9 @@ final class Report(
           )
     }
 
-  def inquiry(id: String) =
+  def inquiry(id: String is this a user id, an appeal id, a report id...?) =
     Secure(_.SeeReport) { _ => me =>
-      api.inquiries.toggle(me, id) flatMap { case (prev, next) =>
+      api.inquiries.toggle(me, Right(id)) flatMap { case (prev, next) =>
         prev.filter(_.isAppeal).map(_.user).??(env.appeal.api.setUnreadById) inject
           next.fold(
             Redirect {

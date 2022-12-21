@@ -30,7 +30,7 @@ final class AppealApi(
       case None =>
         val appeal =
           Appeal(
-            _id = me.id,
+            id = me.id into Appeal.Id,
             msgs = Vector(
               AppealMsg(
                 by = me.id,
@@ -61,7 +61,7 @@ final class AppealApi(
 
   def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
 
-  def queueOf(mod: User) = bothQueues(snoozer snoozedKeysOf mod.id map (_.appealId))
+  def queueOf(mod: User) = bothQueues(snoozer snoozedKeysOf mod.id map (_.appealId.userId))
 
   private def bothQueues(exceptIds: Iterable[UserId]): Fu[List[Appeal.WithUser]] =
     fetchQueue(
@@ -124,5 +124,5 @@ final class AppealApi(
 
   def onAccountClose(user: User) = setReadById(user.id)
 
-  def snooze(mod: User, appealId: UserId, duration: String): Unit =
+  def snooze(mod: User, appealId: Appeal.Id, duration: String): Unit =
     snoozer.set(Appeal.SnoozeKey(mod.id, appealId), duration)

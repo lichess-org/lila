@@ -6,7 +6,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.user.User
 
 case class Appeal(
-    @Key("_id") id: UserId,
+    @Key("_id") id: Appeal.Id,
     msgs: Vector[AppealMsg],
     status: Appeal.Status, // from the moderators POV
     createdAt: DateTime,
@@ -15,11 +15,13 @@ case class Appeal(
     // https://github.com/lichess-org/lila/issues/7564
     firstUnrepliedAt: DateTime
 ):
-  def isRead   = status == Appeal.Status.Read
-  def isMuted  = status == Appeal.Status.Muted
-  def isUnread = status == Appeal.Status.Unread
 
-  def isAbout(userId: UserId) = id == userId
+  inline def userId = id.userId
+  def isRead        = status == Appeal.Status.Read
+  def isMuted       = status == Appeal.Status.Muted
+  def isUnread      = status == Appeal.Status.Unread
+
+  def isAbout(userId: UserId) = id is userId
 
   def post(text: String, by: User) =
     val msg = AppealMsg(
@@ -56,6 +58,11 @@ case class Appeal(
 
 object Appeal:
 
+  opaque type Id = String
+  object Id extends OpaqueUserId[Id]
+
+  given UserIdOf[Appeal] = _.id.userId
+
   enum Status:
     val key = Status.this.toString.toLowerCase
     case Unread, Read, Muted
@@ -80,7 +87,7 @@ object Appeal:
       single("text" -> lila.common.Form.cleanNonEmptyText)
     )
 
-  private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: UserId)
+  private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: Appeal.Id)
   private[appeal] given UserIdOf[SnoozeKey] = _.snoozerId
 
 case class AppealMsg(

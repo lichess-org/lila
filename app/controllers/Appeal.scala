@@ -121,7 +121,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.appeal.api.toggleMute(appeal) >>
-          env.report.api.inquiries.toggle(lila.report.Mod(me.user), appeal.id) inject
+          env.report.api.inquiries.toggle(lila.report.Mod(me.user), Right(appeal.userId)) inject
           Redirect(routes.Appeal.queue)
       }
     }
@@ -137,7 +137,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.appeal.api.snooze(me.user, appeal.id, dur)
-        env.report.api.inquiries.toggle(lila.report.Mod(me.user), appeal.id) inject
+        env.report.api.inquiries.toggle(lila.report.Mod(me.user), appeal.userId) inject
           Redirect(routes.Appeal.queue)
       }
     }

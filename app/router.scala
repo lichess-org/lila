@@ -3,6 +3,7 @@ package router
 import lila.app._
 import lila.rating.Perf
 import lila.puzzle.PuzzleTheme
+import lila.appeal.Appeal
 
 // These are only meant for the play router,
 // so that controllers can take richer types than routes allow
@@ -20,6 +21,7 @@ given Conversion[String, RelayRoundId]               = RelayRoundId(_)
 given Conversion[String, UblogPostId]                = UblogPostId(_)
 given Conversion[String, ForumCategId]               = ForumCategId(_)
 given Conversion[String, ForumTopicId]               = ForumTopicId(_)
+given Conversion[String, Appeal.Id]                  = Appeal.Id(_)
 given Conversion[String, ForumPostId]                = ForumPostId(_)
 given Conversion[String, UserStr]                    = UserStr(_)
 given Conversion[Option[String], Option[UserStr]]    = UserStr from _
@@ -51,6 +53,7 @@ object ReverseRouterConversions:
   given Conversion[UserId, UserStr]                    = _ into UserStr
   given Conversion[ForumCategId, String]               = _.value
   given Conversion[ForumTopicId, String]               = _.value
+  given Conversion[Appeal.Id, String]                  = _.value
   given postId: Conversion[ForumPostId, String]        = _.value
   given perfKey: Conversion[Perf.Key, String]          = _.value
   given puzzleKey: Conversion[PuzzleTheme.Key, String] = _.value

@@ -570,15 +570,16 @@ final class ReportApi(
      * If they already are on this inquiry, cancel it.
      * Returns the previous and next inquiries
      */
-    def toggle(mod: Mod, id: Report.Id): Fu[(Option[Report], Option[Report])] =
+    def toggle(mod: Mod, id: Either[Report.Id, UserId]): Fu[(Option[Report], Option[Report])] =
       workQueue {
         doToggle(mod, id)
       }
 
-    private def doToggle(mod: Mod, id: Report.Id): Fu[(Option[Report], Option[Report])] =
+    private def doToggle(mod: Mod, id: Either[Report.Id, UserId]): Fu[(Option[Report], Option[Report])] =
       for {
-        report <- coll.byId[Report](id) orElse coll.one[Report](
-          $doc("user" -> id, "inquiry.mod" $exists true)
+        report <- id.fold(
+          reportId => coll.byId[Report](reportId),
+          userId => coll.one[Report]($doc("user" -> userId, "inquiry.mod" $exists true))
         )
         current <- ofModId(mod.user.id)
         _       <- current ?? cancel(mod)
@@ -598,7 +599,7 @@ final class ReportApi(
       workQueue {
         findNext(mod, room) flatMap {
           _ ?? { report =>
-            doToggle(mod, report.id).dmap(_._2)
+            doToggle(mod, Left(report.id)).dmap(_._2)
           }
         }
       }
