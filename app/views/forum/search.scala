@@ -27,7 +27,7 @@ object search:
           ),
           bits.searchForm(text)
         ),
-        strong(cls := "nb-results box__pad")(pager.nbResults, " posts found"),
+        strong(cls := "nb-results box__pad")(trans.nbForumPosts(pager.nbResults.localize, pager.nbResults)),
         table(cls := "slist slist-pad search__results")(
           if (pager.nbResults > 0)
             tbody(cls := "infinite-scroll")(
@@ -63,7 +63,6 @@ object search:
               },
               pagerNextTable(pager, n => routes.ForumPost.search(text, n).url)
             )
-          else tbody(tr(td("No forum post found")))
         )
       )
     )
