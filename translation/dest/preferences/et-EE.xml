@@ -3,6 +3,7 @@
   <string name="preferences">Sätted</string>
   <string name="display">Kuva</string>
   <string name="privacy">Privaatsus</string>
+  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Teavitused</string>
   <string name="pieceAnimation">malendite liikumine</string>
   <string name="materialDifference">Materjal erinevus</string>
   <string name="boardHighlights">Laual rõhutatakse (viimast käiku ja tuld)</string>
