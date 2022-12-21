@@ -211,6 +211,10 @@
   <string name="emailConfirmNotReceived">Не сте получили имейл за потвърждение на регистрацията ви?</string>
   <string name="whatSignupUsername">Кое потребителско име сте използвали, за да се регистрирате?</string>
   <string name="usernameNotFound">Не успяхме да намерим потребител с това име: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Можете да използвате това потребителско име, за да създадете нов акаунт</string>
+  <string name="emailSent">Изпратихме имейл до %s.</string>
+  <string name="emailCanTakeSomeTime">Пристигането му може да отнеме известно време.</string>
+  <string name="refreshInboxAfterFiveMinutes">Изчакайте 5 минути и презаредете вашата поща.</string>
   <string name="accountClosed">Регистрацията %s е закрита.</string>
   <string name="rank">Класация</string>
   <string name="rankX">Класация: %s</string>
