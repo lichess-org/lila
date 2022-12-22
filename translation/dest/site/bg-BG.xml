@@ -363,7 +363,7 @@
   <string name="siteDescription">Безплатна онлайн шах игра. Играй шах сега в изчистен интерфейс. Без нужда от регистрация, реклами или добавки. Играй шах с компютъра, с приятели или случайни противници.</string>
   <string name="xJoinedTeamY">%1$s се присъедини към отбор %2$s</string>
   <string name="xCreatedTeamY">%1$s създаде отбор %2$s</string>
-  <string name="startedStreaming" comment="startedStreaming&#10;&#10;A special notification triggered when a player you follow has started streaming.">започна стрийминг</string>
+  <string name="startedStreaming">започна стрийминг</string>
   <string name="xStartedStreaming">%s започна излъчване</string>
   <string name="averageElo">Среден рейтинг на играчите</string>
   <string name="location">Местоположение</string>
