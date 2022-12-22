@@ -853,7 +853,7 @@ Tất cả chi phí vận hành, phát triển và nội dung được tài tr�
   <string name="onlyTitled">Chỉ những kỳ thủ có danh hiệu</string>
   <string name="onlyTitledHelp">Bắt buộc có một danh hiệu chính thức để tham gia giải đấu</string>
   <string name="positionInputHelp">Dán một dãy FEN để bắt đầu tất cả ván đấu bằng thế cờ đó.
-Nó chỉ dùng được cho cờ thường (không phải các biến thể).
+Nó chỉ dùng được cho cờ thường, không phải các biến thể.
 Bạn có thể dùng %s để tạo ra một dãy FEN, rồi dán ở đây.
 Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở đầu bình thường.</string>
   <string name="cancelSimul">Hủy sự kiện cờ đồng loạt</string>
@@ -892,7 +892,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="youCantStartNewGame">Bạn không thể chơi ván mới cho đến khi xong ván này.</string>
   <string name="since">Từ</string>
   <string name="until">Cho tới</string>
-  <string name="lichessDbExplanation">Các trò chơi đã xếp hạng được lấy mẫu từ tất cả người chơi Lichess</string>
+  <string name="lichessDbExplanation">Các ván đấu tính Elo được lấy từ tất cả các kỳ thủ trên Lichess</string>
   <string name="switchSides">Đổi bên</string>
-  <string name="closingAccountWithdrawAppeal">Đóng tài khoản sẽ rút lại kháng nghị của bạn</string>
+  <string name="closingAccountWithdrawAppeal">Việc đóng tài khoản sẽ rút lại kháng nghị của bạn</string>
 </resources>
