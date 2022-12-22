@@ -11,4 +11,4 @@ Usage examples:
   build --esbuild           # run esbuild only
   build --no-color          # don't use color in logs
   build --no-time           # don't log the time
-  build --no-context        # don't log the context ([sass], [esbuild], etc)```
+  build --no-context        # don't log the context ([sass], [esbuild], etc)
