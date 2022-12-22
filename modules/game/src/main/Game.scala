@@ -696,6 +696,7 @@ object Game:
   val abandonedDays = Days(21)
   def abandonedDate = DateTime.now minusDays abandonedDays.value
 
+  def strToIdOpt(str: String): Option[GameId]        = strToId(str).some.filter(validId)
   inline def strToId(str: String): GameId            = GameId(str take gameIdSize)
   inline def anyToId(anyId: GameAnyId): GameId       = strToId(anyId.value)
   inline def fullToId(fullId: GameFullId): GameId    = strToId(fullId.value)
