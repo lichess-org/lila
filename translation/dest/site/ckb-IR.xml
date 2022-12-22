@@ -347,7 +347,7 @@
   <string name="siteDescription">وێبسایتی شەترەنجی خۆڕایی. یاری شەترەنج بکە لە ڕووکارێکی نوێدا. بە بێ هیچ ناو تۆمارکردنێک، هیچ ڕێکلامێک. یاری شەترەنج لەگەڵ کۆمپیوتەر، هاوڕێ یان رکابەری هەرەمەکی.</string>
   <string name="xJoinedTeamY">%1$s پەیوەندی بە تیمەوە کرد %2$s</string>
   <string name="xCreatedTeamY">%1$s تیمێکی دروستکرد %2$s</string>
-  <string name="startedStreaming" comment="startedStreaming&#10;&#10;A special notification triggered when a player you follow has started streaming.">دەستی بە پەخشی راستەوخۆ کرد</string>
+  <string name="startedStreaming">دەستی بە پەخشی راستەوخۆ کرد</string>
   <string name="xStartedStreaming">%s دەستی بە پەخشی راستەوخۆ کرد</string>
   <string name="averageElo">تێکڕای هەڵسەنگاندن</string>
   <string name="location">شوێن</string>
