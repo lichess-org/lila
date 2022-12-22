@@ -64,7 +64,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   def show(username: UserStr) =
     Open { implicit ctx =>
-      OptionFuResult(api forSubscriber(username, ctx.me)) { s =>
+      OptionFuResult(api forSubscriber (username, ctx.me)) { s =>
         WithVisibleStreamer(s) {
           for {
             sws      <- env.streamer.liveStreamApi of s
@@ -76,7 +76,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   def redirect(username: UserStr) =
     Open { implicit ctx =>
-      OptionFuResult(api forSubscriber(username, ctx.me)) { s =>
+      OptionFuResult(api forSubscriber (username, ctx.me)) { s =>
         WithVisibleStreamer(s) {
           env.streamer.liveStreamApi of s map { sws =>
             Redirect(sws.redirectToLiveUrl | routes.Streamer.show(username.value).url)

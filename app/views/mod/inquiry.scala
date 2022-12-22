@@ -253,7 +253,9 @@ object inquiry:
         ),
         div(cls := "submission")(
           submitButton(cls := "button thin", name := "noteType", value := "mod")("SEND"),
-          isGranted(_.Admin) option submitButton(cls := "button thin", name := "noteType", value := "dox")("SEND DOX")
+          isGranted(_.Admin) option submitButton(cls := "button thin", name := "noteType", value := "dox")(
+            "SEND DOX"
+          )
         )
       ),
       notes map { note =>

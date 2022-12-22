@@ -34,12 +34,12 @@ trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>
     if (theme == "system")
       frag(
         cssTagWithDirAndSimpleTheme(name, isRTL, "light")(media := "(prefers-color-scheme: light)"),
-        cssTagWithDirAndSimpleTheme(name, isRTL, "dark")(media := "(prefers-color-scheme: dark)")
+        cssTagWithDirAndSimpleTheme(name, isRTL, "dark")(media  := "(prefers-color-scheme: dark)")
       )
     else cssTagWithDirAndSimpleTheme(name, isRTL, theme)
 
   private def cssTagWithDirAndSimpleTheme(name: String, isRTL: Boolean, theme: String): Tag =
-     cssAt(s"css/$name.${if (isRTL) "rtl" else "ltr"}.$theme.${if (minifiedAssets) "min" else "dev"}.css")
+    cssAt(s"css/$name.${if (isRTL) "rtl" else "ltr"}.$theme.${if (minifiedAssets) "min" else "dev"}.css")
 
   def cssTagNoTheme(name: String): Frag =
     cssAt(s"css/$name.${if (minifiedAssets) "min" else "dev"}.css")
