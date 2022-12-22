@@ -61,7 +61,7 @@ lichess.load.then(() => {
       return false;
     });
 
-    $('.streamer-subscribe input').on('change', (e: Event) => {
+    $('.streamer-show, .streamer-list').on('change', '.streamer-subscribe input', (e: Event) => {
       const target = e.target as HTMLInputElement;
       $(target)
         .parents('.streamer-subscribe')
