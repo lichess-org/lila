@@ -57,7 +57,7 @@
   <string name="analysis">Bảng phân tích</string>
   <string name="depthX">Độ sâu %s</string>
   <string name="usingServerAnalysis">Phân tích bằng máy chủ</string>
-  <string name="loadingEngine">Đang tải động cơ máy tính ...</string>
+  <string name="loadingEngine">Đang tải động cơ máy tính...</string>
   <string name="calculatingMoves">Đang tính nước đi...</string>
   <string name="engineFailed">Lỗi khi tải động cơ</string>
   <string name="cloudAnalysis">Phân tích đám mây</string>
@@ -116,7 +116,7 @@
   <string name="cpus">CPU</string>
   <string name="memory">Bộ nhớ</string>
   <string name="infiniteAnalysis">Phân tích vô hạn</string>
-  <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu, và giữ máy tính của bạn ấm</string>
+  <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu, và làm máy tính của bạn ấm hơn</string>
   <string name="blunder">Sai lầm nghiêm trọng</string>
   <string name="mistake">Lỗi</string>
   <string name="inaccuracy">Không chính xác</string>
@@ -291,7 +291,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">Cho thêm %s giây</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Tài khoản này đã vi phạm điều khoản dịch vụ của Lichess</string>
+  <string name="thisAccountViolatedTos">Tài khoản này đã vi phạm Điều khoản Dịch vụ của Lichess</string>
   <string name="openingExplorerAndTablebase">Sách khai cuộc &amp; bảng dữ liệu</string>
   <string name="takeback">Đi lại</string>
   <string name="proposeATakeback">Đề nghị lùi một nước</string>
@@ -363,8 +363,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Bấm vào bàn cờ để di chuyển, chứng minh bạn là con người.</string>
   <string name="captcha.fail">Hãy giải captcha cờ vua.</string>
   <string name="notACheckmate">Không phải một nước chiếu hết</string>
-  <string name="whiteCheckmatesInOneMove">Trắng chiếu chiếu hết trong một nước đi</string>
-  <string name="blackCheckmatesInOneMove">Đen chiếu chiếu hết trong một nước đi</string>
+  <string name="whiteCheckmatesInOneMove">Trắng chiếu hết trong một nước đi</string>
+  <string name="blackCheckmatesInOneMove">Đen chiếu hết trong một nước đi</string>
   <string name="retry">Thử lại</string>
   <string name="reconnecting">Kết nối lại</string>
   <plurals name="nbFriendsOnline">
@@ -396,22 +396,22 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">Ít hơn %s phút</item>
   </plurals>
-  <string name="required">Bắt buộc</string>
+  <string name="required">Bắt buộc.</string>
   <string name="openTournaments">Những giải đấu mở</string>
   <string name="duration">Thời gian</string>
   <string name="winner">Người chiến thắng</string>
-  <string name="standing">Đang suy nghĩ</string>
+  <string name="standing">Bảng xếp hạng</string>
   <string name="createANewTournament">Tạo giải đấu mới</string>
   <string name="tournamentCalendar">Lịch giải đấu</string>
   <string name="conditionOfEntry">Điều kiện tham gia:</string>
   <string name="advancedSettings">Thiết lập cao cấp</string>
-  <string name="safeTournamentName">Hãy chọn tên cho giải đấu.</string>
-  <string name="inappropriateNameWarning">Chỉ một hành động dù chỉ một chút không thích hợp, tài khoản của bạn có thể bị khoá.</string>
+  <string name="safeTournamentName">Hãy chọn tên chuẩn mực cho giải đấu.</string>
+  <string name="inappropriateNameWarning">Một hành động dù chỉ một chút không thích hợp, tài khoản của bạn có thể bị khoá.</string>
   <string name="emptyTournamentName">Hãy để trống để lấy tên theo tên một người chơi đáng chú ý.</string>
   <string name="recommendNotTouching">Chúng tôi khuyến nghị không nên thay đổi.</string>
-  <string name="fewerPlayers">Nếu bạn thiết lập điều kiện gia nhập, giải của bạn sẽ có ít người tham gia hơn.</string>
+  <string name="fewerPlayers">Nếu bạn thiết lập điều kiện tham gia, giải của bạn sẽ có ít người chơi hơn.</string>
   <string name="showAdvancedSettings">Hiện thiết lập mở rộng</string>
-  <string name="makePrivateTournament">Đặt giải đấu riêng tư và giới hạn truy cập bởi mật khẩu</string>
+  <string name="makePrivateTournament">Đặt giải đấu riêng tư, và giới hạn truy cập bởi mật khẩu</string>
   <string name="join">Tham gia</string>
   <string name="withdraw">Xin rút</string>
   <string name="points">Điểm</string>
@@ -451,18 +451,18 @@
   <string name="editProfile">Chỉnh sửa thông tin cá nhân</string>
   <string name="firstName">Tên</string>
   <string name="lastName">Họ</string>
-  <string name="biography">Lý lịch</string>
+  <string name="biography">Tiểu sử</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc gia hoặc quốc kỳ</string>
-  <string name="thankYou">Cám ơn!</string>
+  <string name="thankYou">Cảm ơn!</string>
   <string name="socialMediaLinks">Liên kết mạng xã hội</string>
-  <string name="oneUrlPerLine">Một Url mỗi dòng.</string>
+  <string name="oneUrlPerLine">Một URL mỗi dòng.</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
   <string name="savingMoves">Lưu trữ nước đi tạm thời</string>
   <string name="savingMovesHelp">Chúng tôi luôn lưu trữ các biến thể của bạn trong bộ nhớ cache của trình duyệt.</string>
   <string name="makeAStudy">Để bảo vệ và chia sẻ an toàn, hãy xem xét thực hiện một nghiên cứu.</string>
   <string name="clearSavedMoves">Xóa nước cờ</string>
   <string name="previouslyOnLichessTV">Kênh trước</string>
-  <string name="onlinePlayers">Các kỳ thủ có mặt</string>
+  <string name="onlinePlayers">Các kỳ thủ đang trực tuyến</string>
   <string name="activePlayers">Các kỳ thủ tích cực</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Lưu ý, ván cờ tính Elo nhưng không tính thời gian!</string>
   <string name="success">Thành công</string>
@@ -471,8 +471,8 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Tự động chuyển đến ván tiếp theo sau khi thực hiện nước đi</string>
   <string name="autoSwitch">Tự động chuyển</string>
-  <string name="puzzles">Câu đố</string>
-  <string name="tournamentWinners">Các nhà vô địch giải</string>
+  <string name="puzzles">Cờ thế</string>
+  <string name="tournamentWinners">Các nhà vô địch giải đấu</string>
   <string name="name">Tên</string>
   <string name="description">Mô tả</string>
   <string name="descPrivate">Mô tả riêng tư</string>
@@ -482,16 +482,16 @@
   <string name="help">Hỗ trợ:</string>
   <string name="createANewTopic">Tạo một chủ đề mới</string>
   <string name="topics">Các chủ đề</string>
-  <string name="posts">Gửi bài</string>
-  <string name="lastPost">Bài gửi gần đây nhất</string>
-  <string name="views">Khán giả</string>
-  <string name="replies">Các câu trả lời</string>
-  <string name="replyToThisTopic">Trả lời chủ đề này</string>
-  <string name="reply">Trả lời</string>
+  <string name="posts">Số bài đăng</string>
+  <string name="lastPost">Bài đăng gần đây nhất</string>
+  <string name="views">Lượt xem</string>
+  <string name="replies">Bình luận</string>
+  <string name="replyToThisTopic">Bình luận chủ đề này</string>
+  <string name="reply">Bình luận</string>
   <string name="message">Tin nhắn</string>
   <string name="createTheTopic">Tạo một chủ đề</string>
-  <string name="reportAUser">Báo cáo một kỳ thủ</string>
-  <string name="user">Kỳ thủ</string>
+  <string name="reportAUser">Báo cáo một người dùng</string>
+  <string name="user">Người dùng</string>
   <string name="reason">Lý do</string>
   <string name="whatIsIheMatter">Xảy ra vấn đề gì thế?</string>
   <string name="cheat">Gian lận</string>
@@ -503,10 +503,12 @@
   <string name="error.provideOneCheatedGameLink">Hãy cung cấp ít nhất một đường dẫn đến ván cờ bị gian lận.</string>
   <string name="by">bởi %s</string>
   <string name="importedByX">Được nhập bởi %s</string>
-  <string name="thisTopicIsNowClosed">Chủ đề này bây giờ đã đóng</string>
-  <string name="blog">Nhật ký (web)</string>
+  <string name="thisTopicIsNowClosed">Chủ đề này đã bị đóng.</string>
+  <string name="blog">Blog</string>
   <string name="notes">Chú thích</string>
   <string name="typePrivateNotesHere">Nhập ghi chú cá nhân ở đây</string>
+  <string name="writeAPrivateNoteAboutThisUser">Tạo một chú thích riêng dành cho người dùng này</string>
+  <string name="noNoteYet">Chưa có ghi chú</string>
   <string name="invalidUsernameOrPassword">Tên tài khoản hoặc mật khẩu đăng nhập không đúng</string>
   <string name="incorrectPassword">Sai mật khẩu</string>
   <string name="invalidAuthenticationCode">Mã xác thực sai</string>
@@ -518,11 +520,11 @@
   <string name="newPasswordStrength">Độ mạnh của mật khẩu</string>
   <string name="clockInitialTime">Thời gian ban đầu</string>
   <string name="clockIncrement">Thời gian được cho thêm</string>
-  <string name="privacy">Riêng tư</string>
+  <string name="privacy">Bảo mật</string>
   <string name="privacyPolicy">Chính sách bảo mật</string>
   <string name="letOtherPlayersFollowYou">Cho phép người khác theo dõi bạn</string>
   <string name="letOtherPlayersChallengeYou">Cho phép người khác thách đấu bạn</string>
-  <string name="letOtherPlayersInviteYouToStudy">Cho phép người khác mời bạn nghiên cứu</string>
+  <string name="letOtherPlayersInviteYouToStudy">Cho phép người khác mời bạn tham gia nghiên cứu</string>
   <string name="sound">Âm thanh</string>
   <string name="none">Không có</string>
   <string name="fast">Nhanh</string>
@@ -530,7 +532,7 @@
   <string name="slow">Chậm</string>
   <string name="insideTheBoard">Bên trong bàn cờ</string>
   <string name="outsideTheBoard">Bên ngoài bàn cờ</string>
-  <string name="onSlowGames">Trên cờ chậm</string>
+  <string name="onSlowGames">Chỉ cờ chậm</string>
   <string name="always">Luôn luôn</string>
   <string name="never">Không bao giờ</string>
   <string name="xCompetesInY">%1$s đã tham gia %2$s</string>
@@ -564,7 +566,7 @@
   <string name="error.unknown">Giá trị không hợp lệ</string>
   <string name="error.required">Mục bắt buộc</string>
   <string name="error.email">Địa chỉ email này không đúng</string>
-  <string name="error.email_acceptable">Địa chỉ email này không được chấp nhận. Vui lòng kiểm tra và thử lại.</string>
+  <string name="error.email_acceptable">Địa chỉ email này không được chấp nhận. Vui lòng kiểm tra, và thử lại.</string>
   <string name="error.email_unique">Địa chỉ email này không đúng hoặc đã được dùng</string>
   <string name="error.email_different">Đây đã là địa chỉ email hiện tại của bạn</string>
   <string name="error.minLength">Phải dài ít nhất %s ký tự</string>
@@ -595,7 +597,7 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ đánh cờ miễn phí (%2$s), không quảng cáo, mã nguồn mở.</string>
   <string name="really">là sự thật</string>
   <string name="contribute">Đóng góp</string>
-  <string name="termsOfService">Điều khoản dịch vụ</string>
+  <string name="termsOfService">Điều khoản Dịch vụ</string>
   <string name="sourceCode">Mã Nguồn</string>
   <string name="simultaneousExhibitions">Đấu cờ đồng loạt</string>
   <string name="host">Người chủ trì</string>
@@ -617,7 +619,7 @@
   <string name="simulAddExtraTime">Bạn có thể thêm thời gian cho đồng hồ của bạn để đấu cờ đồng loạt dễ hơn.</string>
   <string name="simulHostExtraTime">Thời gian thêm cho người chủ trì</string>
   <string name="lichessTournaments">Các giải đấu Lichess</string>
-  <string name="tournamentFAQ">Các câu hỏi thường gặp về giải đấu đấu trường</string>
+  <string name="tournamentFAQ">Các câu hỏi thường gặp về giải đấu đấu trường (FAQ)</string>
   <string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
   <string name="averageCentipawnLoss">Trung bình phần trăm tốt bị mất mỗi nước (ACPL)</string>
   <string name="accuracy">Độ chính xác</string>
@@ -680,7 +682,7 @@
   <string name="zeroAdvertisement">Không có dù chỉ một quảng cáo</string>
   <string name="fullFeatured">Toàn bộ chức năng hiện có</string>
   <string name="phoneAndTablet">Điện thoại và máy tính bảng</string>
-  <string name="bulletBlitzClassical">Cờ siêu chớp. cờ chớp, cờ chậm</string>
+  <string name="bulletBlitzClassical">Cờ siêu chớp, cờ chớp, cờ chậm</string>
   <string name="correspondenceChess">Cờ qua thư</string>
   <string name="onlineAndOfflinePlay">Chơi online và offline</string>
   <string name="viewTheSolution">Xem lời giải</string>
@@ -704,7 +706,7 @@
   <string name="deviceTheme">Giao diện thiết bị</string>
   <string name="backgroundImageUrl">URL ảnh nền:</string>
   <string name="boardGeometry">Hình dạng của bàn cờ</string>
-  <string name="boardTheme">Theme bàn cờ</string>
+  <string name="boardTheme">Màu bàn cờ</string>
   <string name="boardSize">Kích cỡ bàn cờ</string>
   <string name="pieceSet">Bộ cờ</string>
   <string name="embedInYourWebsite">Nhúng vào website của bạn</string>
@@ -835,7 +837,7 @@
   <string name="clickToRevealEmailAddress">[Nhấp để tiết lộ địa chỉ email]</string>
   <string name="download">Tải xuống</string>
   <string name="welcome">Xin chào!</string>
-  <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là mooht phần mềm thư viện mã nguồn mở/hoàn toàn miễn phí.
+  <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là một phần mềm mã nguồn mở/hoàn toàn miễn phí.
 Tất cả chi phí vận hành, phát triển và nội dung được tài trợ bởi sự đóng góp của người dùng.</string>
   <string name="coachManager">Quản lý huấn luyện viên</string>
   <string name="streamerManager">Người quản lý streamer</string>
