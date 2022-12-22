@@ -3,7 +3,7 @@ import { SquareSet } from 'shogiops/squareSet';
 import { NormalMove, PieceName, Square } from 'shogiops/types';
 import { makeSquare, makeUsi, opposite } from 'shogiops/util';
 import { Position } from 'shogiops/variant/position';
-import { handRoles } from 'shogiops/variant/util';
+import { fullSquareSet, handRoles } from 'shogiops/variant/util';
 
 export function illegalShogigroundMoveDests(pos: Position): MoveDests {
   const result = new Map();
@@ -33,13 +33,11 @@ function secondBackrank(color: Color): SquareSet {
 export function illegalShogigroundDropDests(pos: Position): DropDests {
   // From https://github.com/WandererXII/shogiops/blob/master/src/shogi.ts
   const result: Map<PieceName, Key[]> = new Map(),
-    notOccuppied = pos.board.occupied
-      .complement()
-      .intersect(new SquareSet([0x1ff01ff, 0x1ff01ff, 0x1ff01ff, 0x1ff01ff, 0x1ff, 0x0, 0x0, 0x0]));
+    notOccuppied = pos.board.occupied.complement().intersect(fullSquareSet('standard'));
 
   for (const role of handRoles('standard')) {
     const pieceName: PieceName = `${pos.turn} ${role}`;
-    if (pos.hands[pos.turn][role] > 0) {
+    if (pos.hands.color(pos.turn).get(role) > 0) {
       let squares = notOccuppied;
       if (role === 'pawn' || role === 'lance' || role === 'knight') squares = squares.diff(backrank(pos.turn));
       if (role === 'knight') squares = squares.diff(secondBackrank(pos.turn));
@@ -47,7 +45,6 @@ export function illegalShogigroundDropDests(pos: Position): DropDests {
       result.set(pieceName, d);
     } else result.set(pieceName, []);
   }
-
   return result;
 }
 
