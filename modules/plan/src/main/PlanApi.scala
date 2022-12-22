@@ -600,7 +600,7 @@ final class PlanApi(
   private def monitorCharge(charge: Charge, country: Option[Country]): Funit =
     lila.mon.plan.charge
       .countryCents(
-        country = country.fold("unknown")(_.code),
+        country = country.fold("unknown")(_.value),
         currency = charge.money.currency,
         service = charge.serviceName,
         gift = charge.giftTo.isDefined

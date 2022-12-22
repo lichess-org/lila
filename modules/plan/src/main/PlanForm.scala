@@ -40,7 +40,7 @@ object PlanForm:
 
     def name = (firstName, lastName) mapN { _ + " " + _ }
 
-    def country = countryCode map Country.apply
+    def country = Country from countryCode
 
     def money = CurrencyApi currencyOption currencyCode map {
       Money(gross, _)

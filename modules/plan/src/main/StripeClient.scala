@@ -49,7 +49,7 @@ final private class StripeClient(
         else config.products.onetime
       },
       "line_items[0][price_data][currency]"    -> data.checkout.money.currency,
-      "line_items[0][price_data][unit_amount]" -> StripeAmount(data.checkout.money).smallestCurrencyUnit,
+      "line_items[0][price_data][unit_amount]" -> StripeAmount(data.checkout.money).value,
       "line_items[0][quantity]"                -> 1
     ) ::: data.isLifetime.?? {
       List(
@@ -68,7 +68,7 @@ final private class StripeClient(
   private def recurringPriceArgs(name: String, money: Money) = List(
     s"$name[0][price_data][product]"                   -> config.products.monthly,
     s"$name[0][price_data][currency]"                  -> money.currencyCode,
-    s"$name[0][price_data][unit_amount]"               -> StripeAmount(money).smallestCurrencyUnit,
+    s"$name[0][price_data][unit_amount]"               -> StripeAmount(money).value,
     s"$name[0][price_data][recurring][interval]"       -> "month",
     s"$name[0][price_data][recurring][interval_count]" -> 1,
     s"$name[0][quantity]"                              -> 1
