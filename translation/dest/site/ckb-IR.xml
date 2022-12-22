@@ -523,6 +523,8 @@
   <string name="blog">بڵاگ</string>
   <string name="notes">تێبینییەکان</string>
   <string name="typePrivateNotesHere">لێرە تێبینییە تایبەتیەکان بنووسە</string>
+  <string name="writeAPrivateNoteAboutThisUser">تێبینییەکی تایبەت بەم بەکارهێنەرە بنووسە</string>
+  <string name="noNoteYet">تا ئێستا هیچ تێبینییەک نییە</string>
   <string name="invalidUsernameOrPassword">ناوی بەکارهێنەر یان وشەینهێنیت هەڵەیە</string>
   <string name="incorrectPassword">وشە نهێنیەکە هەڵەیە</string>
   <string name="invalidAuthenticationCode">کۆدی ڕێگەپێدانەکەت هەڵەیە</string>
@@ -559,6 +561,48 @@
   <string name="starting">دەستپێدەکردن:</string>
   <string name="allInformationIsPublicAndOptional">هەموو زانیارییەکان گشتییە وە لەهەمان کاتدا لە کۆنتڕۆڵی خۆتتدایە.</string>
   <string name="biographyDescription">باسی خۆت بکە، ئارەزووەکانت، ئەوەی حەزت لێیە لە شەترەنجدا، دەستپێکە دڵخوازەکانت، یاریزانەکان، ...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">زۆرترین: %s کەس.</item>
+    <item quantity="other">زۆرتری: %s کەس.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s بلۆکراو</item>
+    <item quantity="other">%s بلۆککراوەکان</item>
+  </plurals>
+  <string name="listBlockedPlayers">پێشاندانی ئەو یاریزانانەی بلۆکتکردوون</string>
+  <string name="human">مرۆڤ</string>
+  <string name="computer">کۆمپیوتەر</string>
+  <string name="side">لایەن</string>
+  <string name="clock">کاژێر</string>
+  <string name="opponent">رکابەر</string>
+  <string name="learnMenu">فێربوون</string>
+  <string name="studyMenu">خوێندن</string>
+  <string name="practice">راهێنان</string>
+  <string name="community">کۆمەڵگە</string>
+  <string name="tools">ئامرازەکان</string>
+  <string name="increment">بەرزکردنەوە</string>
+  <string name="error.unknown">زانیاری هەڵە</string>
+  <string name="error.required">ئەو بوارە پێویستە</string>
+  <string name="error.email">ناونیشانی ئەو ئیمێڵە هەڵەیە</string>
+  <string name="error.email_acceptable">ناونیشانی ئەو ئیمێڵە قبوڵ ناکرێت، تکایە دووبارە بیپشکنە و جارێکیدیکە هەوڵبدەوە.</string>
+  <string name="error.email_unique">ناونیشانی ئەو ئیمێڵە هەڵەیە یان پێشتر بەکارهاتووە</string>
+  <string name="error.email_different">لە ئێستاوە ئەوە ناونیشانی ئیمێڵەکەتە</string>
+  <string name="error.minLength">دەبێت بە لایەنی کەمەوە %s نیشانە بێت</string>
+  <string name="error.maxLength">بە لایەنی کەم دەبێت %s نیشانە بێت</string>
+  <string name="error.min">دەبێت بە لایەنی کەم %s</string>
+  <string name="error.max">دەبێت لایەنە کەمەکەی %s</string>
+  <string name="ifRatingIsPlusMinusX">ئەگەر هەڵسەنگاندنەکە ± %s</string>
+  <string name="ifRegistered">ئەگەر تۆمارکرابێت</string>
+  <string name="onlyExistingConversations">گفتۆگۆکانی ئێستا بە تەنها</string>
+  <string name="onlyFriends">تەنها هاوڕێکانم</string>
+  <string name="menu">پێڕست</string>
+  <string name="castling">کاستڵینگ</string>
+  <string name="whiteCastlingKingside">سپی O-O</string>
+  <string name="blackCastlingKingside">رەش O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s بڵاوکراوەی یانە</item>
+    <item quantity="other">%s بڵاوکراوەکانی یانە</item>
+  </plurals>
   <string name="simultaneousExhibitions">پێشاندانی هاوکات</string>
   <string name="host">پێشکەشکار</string>
   <string name="hostColorX">ڕەنگی داشەکانی پێشکەشکار</string>
