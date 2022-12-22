@@ -162,7 +162,7 @@ final private[round] class RoundAsyncActor(
         }
       }
 
-    case lila.chat.actorApi.RoundLine(line, watcher) =>
+    case lila.chat.RoundLine(line, watcher) =>
       fuccess {
         publish(List(line match {
           case l: lila.chat.UserLine   => Event.UserMessage(l, watcher)

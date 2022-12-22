@@ -192,16 +192,15 @@ final class RoundSocket(
   }
 
   {
-    import lila.chat.actorApi.*
     Bus.subscribeFun(BusChan.Round.chan, BusChan.Global.chan) {
-      case ChatLine(id, l) =>
-        val line = RoundLine(l, id.value endsWith "/w")
+      case lila.chat.ChatLine(id, l) =>
+        val line = lila.chat.RoundLine(l, id.value endsWith "/w")
         rounds.tellIfPresent(if (line.watcher) Game.strToId(id.value) else GameId(id.value), line)
-      case OnTimeout(id, userId) =>
+      case lila.chat.OnTimeout(id, userId) =>
         send(
           RP.Out.tellRoom(Game strToId id.value into RoomId, Socket.makeMessage("chat_timeout", userId))
         )
-      case OnReinstate(id, userId) =>
+      case lila.chat.OnReinstate(id, userId) =>
         send(
           RP.Out
             .tellRoom(Game strToId id.value into RoomId, Socket.makeMessage("chat_reinstate", userId))
