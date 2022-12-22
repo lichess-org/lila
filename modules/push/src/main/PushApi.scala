@@ -239,7 +239,7 @@ final private class PushApi(
             "invitedBy" -> invitedBy,
             "studyName" -> studyName,
             "studyId"   -> studyId,
-            "url" -> s"https://lichess.org/study/$studyId"
+            "url"       -> s"https://lichess.org/study/$studyId"
           )
         )
       )
@@ -334,7 +334,7 @@ final private class PushApi(
               "mentionedBy" -> mentionedBy,
               "topic"       -> topicName,
               "postId"      -> postId,
-              "url" -> s"https://lichess.org/forum/redirect/post/$postId"
+              "url"         -> s"https://lichess.org/forum/redirect/post/$postId"
             )
           )
         )
@@ -348,9 +348,9 @@ final private class PushApi(
       stacking = Stacking.StreamStart,
       payload = Json.obj(
         "userData" -> Json.obj(
-          "type" -> "streamStart", 
+          "type"       -> "streamStart",
           "streamerId" -> streamerId,
-          "url" -> s"https://lichess.org/streamer/$streamerId/redirect"
+          "url"        -> s"https://lichess.org/streamer/$streamerId/redirect"
         )
       )
     )
