@@ -408,7 +408,7 @@
     <item quantity="other">%s मिनिटांपेक्षा कमी</item>
   </plurals>
   <string name="required">गरजेचे आहे.</string>
-  <string name="openTournaments">खुले क्रीडासत्रे</string>
+  <string name="openTournaments">खुली क्रीडासत्रे</string>
   <string name="duration">कालावधी</string>
   <string name="winner">विजेता</string>
   <string name="standing">पद</string>

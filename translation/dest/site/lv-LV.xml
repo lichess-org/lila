@@ -571,6 +571,8 @@
   <string name="blog">Blogs</string>
   <string name="notes">Piezīmes</string>
   <string name="typePrivateNotesHere">Personīgās piezīmes rakstiet šeit</string>
+  <string name="writeAPrivateNoteAboutThisUser">Izveidot privātu piezīmi par šo lietotāju</string>
+  <string name="noNoteYet">Nav piezīmes</string>
   <string name="invalidUsernameOrPassword">Nepareizs lietotājvārds vai parole</string>
   <string name="incorrectPassword">Nepareiza parole</string>
   <string name="invalidAuthenticationCode">Nederīgs autentifikācijas kods</string>

@@ -363,7 +363,7 @@
   <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg er nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
   <string name="xJoinedTeamY">%1$s ble med på laget %2$s</string>
   <string name="xCreatedTeamY">%1$s opprettet laget %2$s</string>
-  <string name="startedStreaming" comment="startedStreaming&#10;&#10;A special notification triggered when a player you follow has started streaming.">begynte å strømme</string>
+  <string name="startedStreaming">begynte å strømme</string>
   <string name="xStartedStreaming">%s begynte å strømme</string>
   <string name="averageElo">Snittrating</string>
   <string name="location">Sted</string>

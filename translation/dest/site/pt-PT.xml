@@ -539,6 +539,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escreve notas privadas aqui</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escreva uma nota privada sobre este utilizador</string>
+  <string name="noNoteYet">Ainda sem notas</string>
   <string name="invalidUsernameOrPassword">Nome de utilizador ou palavra-passe incorretos</string>
   <string name="incorrectPassword">Palavra-passe incorreta</string>
   <string name="invalidAuthenticationCode">Código de autenticação inválido</string>

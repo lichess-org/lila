@@ -539,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notizen</string>
   <string name="typePrivateNotesHere">Private Notizen hier eingeben</string>
+  <string name="writeAPrivateNoteAboutThisUser">Verfasse eine private Notiz über diesen Benutzer</string>
+  <string name="noNoteYet">Noch keine Notiz</string>
   <string name="invalidUsernameOrPassword">Ungültiger Benutzername oder Passwort</string>
   <string name="incorrectPassword">Falsches Passwort</string>
   <string name="invalidAuthenticationCode">Ungültiger Authentifizierungscode</string>

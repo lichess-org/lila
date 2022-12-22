@@ -535,6 +535,8 @@
   <string name="blog">بلاگ</string>
   <string name="notes">یادداشت ها</string>
   <string name="typePrivateNotesHere">یادداشت خصوصی را اینجا وارد کنید</string>
+  <string name="writeAPrivateNoteAboutThisUser">یک یادداشت خصوصی در مورد این کاربر بنویسید</string>
+  <string name="noNoteYet">هنوز یادداشتی وجود ندارد</string>
   <string name="invalidUsernameOrPassword">نام کاربری یا رمز عبور نادرست است</string>
   <string name="incorrectPassword">رمزعبور اشتباه</string>
   <string name="invalidAuthenticationCode">کد اصالت سنجی نامعتبر</string>
