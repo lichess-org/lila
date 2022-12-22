@@ -98,7 +98,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     }
 
   private def getModData(me: lila.user.Holder, appeal: lila.appeal.Appeal, suspect: Suspect)(using
-      ctx: Context
+      Context
   ) =
     for {
       users      <- env.security.userLogins(suspect.user, 100)
@@ -137,7 +137,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.appeal.api.snooze(me.user, appeal.id, dur)
-        env.report.api.inquiries.toggle(lila.report.Mod(me.user), appeal.userId) inject
+        env.report.api.inquiries.toggle(lila.report.Mod(me.user), Right(appeal.userId)) inject
           Redirect(routes.Appeal.queue)
       }
     }
@@ -146,7 +146,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   private def asMod(
       username: UserStr
-  )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(using Context): Fu[Result] =
     env.user.repo byId username ifThen { user =>
       env.appeal.api get user ifThen { appeal =>
         f(appeal, Suspect(user)) dmap some
