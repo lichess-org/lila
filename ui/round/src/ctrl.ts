@@ -360,7 +360,7 @@ export default class RoundController {
     }
     this.socket.send('usi', data, socketOpts);
 
-    this.transientMove.register();
+    this.transientMove.register(this.clock?.times[this.data.player.color]);
     this.redraw();
   };
 
@@ -415,7 +415,8 @@ export default class RoundController {
     d.game.plies = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'sente' : 'gote';
     const playedColor: Color = o.ply % 2 === 0 ? 'gote' : 'sente',
-      activeColor = d.player.color === d.game.player;
+      activeColor = d.player.color === d.game.player,
+      variant = d.game.variant.key;
     if (o.status) d.game.status = o.status;
     if (o.winner) d.game.winner = o.winner;
     this.playerByColor('sente').offeringDraw = o.sDraw;
@@ -423,7 +424,8 @@ export default class RoundController {
     this.setTitle();
     const move = parseUsi(o.usi!)!,
       keys = usiToSquareNames(o.usi!),
-      posRes = parseSfen(d.game.variant.key, o.sfen, false);
+      posRes =
+        variant === 'chushogi' || (playing && activeColor) ? parseSfen(d.game.variant.key, o.sfen, false) : undefined;
 
     if (!this.replaying()) {
       this.ply++;
@@ -450,12 +452,12 @@ export default class RoundController {
         turnColor: d.game.player,
         lastDests: keys,
         movable: {
-          dests: playing && activeColor ? util.getMoveDests(posRes) : new Map(),
+          dests: playing && activeColor && posRes ? util.getMoveDests(posRes) : new Map(),
         },
         droppable: {
-          dests: playing && activeColor ? util.getDropDests(posRes) : new Map(),
+          dests: playing && activeColor && posRes ? util.getDropDests(posRes) : new Map(),
         },
-        checks: d.game.variant.key === 'chushogi' && posRes.isOk ? checksSquareNames(posRes.value) : o.check,
+        checks: variant === 'chushogi' && posRes?.isOk ? checksSquareNames(posRes.value) : o.check,
         drawable: {
           squares: [],
         },
