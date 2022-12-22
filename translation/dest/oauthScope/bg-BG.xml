@@ -21,5 +21,7 @@
   <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Виж пъзел активност</string>
   <string name="teamRead">Прочети личната информация на отбора</string>
   <string name="teamWrite">Присъедини се и напусни отбори</string>
+  <string name="teamLead">Управление на клубовете които ръководите: изпращане на лични съобщения, изключване на членове</string>
   <string name="followWrite">Следвай и отследвай други играчи</string>
+  <string name="msgWrite">Изпращане на лично съобщение до други играчи</string>
 </resources>
