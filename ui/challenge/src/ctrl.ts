@@ -29,7 +29,8 @@ export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () =>
           lichess.sound.playOnce('newChallenge');
         }
         const pushSubscribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
-        if (!pushSubscribed && c.challenger) notify(showUser(c.challenger) + ' challenges you!');
+        //if (!pushSubscribed && c.challenger) notify(showUser(c.challenger) + ' challenges you!');
+        // if not pushSubscribed, common/notification won't have permission either (unless incognito)
         opts.pulse();
       }
     });

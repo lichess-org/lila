@@ -135,7 +135,8 @@ export default class MsgCtrl {
   private currentContact = (): Contact | undefined => this.data.convo && this.findContact(this.data.convo.user.id);
 
   private notify = (contact: Contact, msg: Msg) => {
-    notify(() => `${contact.user.name}: ${msg.text}`);
+    //notify(() => `${contact.user.name}: ${msg.text}`);
+    // redundant with push notification
   };
 
   searchInput = (q: string) => {
