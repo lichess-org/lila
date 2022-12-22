@@ -1,6 +1,6 @@
 %study-list {
   @extend %box-neat;
-  @include hoverflow;
+
   max-height: 18em;
   background: $c-bg-box;
   overflow: hidden;

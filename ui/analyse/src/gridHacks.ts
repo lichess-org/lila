@@ -21,6 +21,6 @@ function fixChatHeight(container: HTMLElement) {
     side = container.querySelector('.analyse__side') as HTMLElement;
   if (chat && board && side) {
     const height = board.offsetHeight - side.offsetHeight;
-    if (height) chat.style.height = `calc(${height}px - 4vmin)`;
+    if (height) chat.style.height = `calc(${height}px - 2vmin)`;
   }
 }
