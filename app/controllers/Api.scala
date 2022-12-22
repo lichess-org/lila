@@ -380,9 +380,10 @@ final class Api(
   def cloudEval =
     Action.async { req =>
       get("fen", req).fold(notFoundJson("Missing FEN")) { fen =>
+        import chess.variant.Variant
         JsonOptionOk(
           env.evalCache.api.getEvalJson(
-            chess.variant.Variant orDefault ~get("variant", req),
+            Variant.orDefault(getAs[Variant.LilaKey]("variant", req)),
             chess.format.Fen.Epd.clean(fen),
             getInt("multiPv", req) | 1
           )

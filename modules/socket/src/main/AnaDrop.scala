@@ -41,14 +41,15 @@ case class AnaDrop(
 object AnaDrop:
 
   def parse(o: JsObject) =
-    for {
+    import chess.variant.Variant
+    for
       d    <- o obj "d"
       role <- d str "role" flatMap chess.Role.allByName.get
       pos  <- d str "pos" flatMap { chess.Pos.fromKey(_) }
-      variant = chess.variant.Variant orDefault ~d.str("variant")
+      variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
       fen  <- d.get[Fen.Epd]("fen")
       path <- d str "path"
-    } yield AnaDrop(
+    yield AnaDrop(
       role = role,
       pos = pos,
       variant = variant,

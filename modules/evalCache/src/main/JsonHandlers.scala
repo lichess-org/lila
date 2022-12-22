@@ -34,14 +34,15 @@ object JsonHandlers:
     o obj "d" flatMap { readPutData(trustedUser, _) }
 
   private[evalCache] def readPutData(trustedUser: TrustedUser, d: JsObject): Option[Input.Candidate] =
-    for {
+    import chess.variant.Variant
+    for
       fen    <- d.get[Fen.Epd]("fen")
       knodes <- d int "knodes"
       depth  <- d int "depth"
       pvObjs <- d objs "pvs"
       pvs    <- pvObjs.map(parsePv).sequence.flatMap(_.toNel)
-      variant = chess.variant.Variant orDefault ~d.str("variant")
-    } yield Input.Candidate(
+      variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
+    yield Input.Candidate(
       variant,
       fen,
       Eval(

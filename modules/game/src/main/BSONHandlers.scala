@@ -94,7 +94,7 @@ object BSONHandlers:
       val createdAt    = r date F.createdAt
 
       val playedPlies = ply - startedAtPly
-      val gameVariant = Variant(r intD F.variant) | chess.variant.Standard
+      val gameVariant = Variant.idOrDefault(r.getO[Variant.Id](F.variant))
 
       val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, playedPlies) } | {
         val clm  = r.get[CastleLastMove](F.castleLastMove)
@@ -203,7 +203,7 @@ object BSONHandlers:
         F.whiteClockHistory -> clockHistory(Color.White, o.clockHistory, o.chess.clock, o.flagged),
         F.blackClockHistory -> clockHistory(Color.Black, o.clockHistory, o.chess.clock, o.flagged),
         F.rated             -> w.boolO(o.mode.rated),
-        F.variant           -> o.board.variant.exotic.option(w int o.board.variant.id),
+        F.variant           -> o.board.variant.exotic.option(w(o.board.variant.id)),
         F.bookmarks         -> w.intO(o.bookmarks),
         F.createdAt         -> w.date(o.createdAt),
         F.movedAt           -> w.date(o.movedAt),

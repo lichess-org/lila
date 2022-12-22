@@ -87,8 +87,8 @@ object leaderboard:
             marathonWinners,
             lila.tournament.WinnersApi.variants.map { v =>
               PerfType.byVariant(v).map { pt =>
-                winners.variants.get(pt.key).map { w =>
-                  freqWinners(w, pt, v.name)
+                winners.variants.get(pt.key into chess.variant.Variant.LilaKey).map {
+                  freqWinners(_, pt, v.name)
                 }
               }
             }

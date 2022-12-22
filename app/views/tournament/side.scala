@@ -58,7 +58,7 @@ object side:
             }
           )
         },
-        variantTeamLinks.get(tour.variant) filter { case (team, _) =>
+        variantTeamLinks.get(tour.variant.key) filter { (team, _) =>
           tour.createdBy == lila.user.User.lichessId || tour.conditions.teamMember.exists(_.teamId == team.id)
         } map { case (team, link) =>
           st.section(

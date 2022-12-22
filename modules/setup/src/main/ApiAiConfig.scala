@@ -67,14 +67,14 @@ object ApiAiConfig extends BaseConfig:
 
   def from(
       l: Int,
-      v: Option[String],
+      v: Option[Variant.LilaKey],
       cl: Option[Clock.Config],
       d: Option[Days],
       c: Option[String],
       pos: Option[Fen.Epd]
   ) =
     new ApiAiConfig(
-      variant = chess.variant.Variant.orDefault(~v),
+      variant = Variant.orDefault(v),
       clock = cl,
       daysO = d,
       color = Color.orDefault(~c),

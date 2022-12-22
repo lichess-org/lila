@@ -75,7 +75,12 @@ final class SimulApi(
     )
     repo.update(simul) >>- publish() inject simul
 
-  def addApplicant(simulId: SimulId, user: User, isInTeam: TeamId => Boolean, variantKey: String): Funit =
+  def addApplicant(
+      simulId: SimulId,
+      user: User,
+      isInTeam: TeamId => Boolean,
+      variantKey: Variant.LilaKey
+  ): Funit =
     WithSimul(repo.findCreated, simulId) { simul =>
       if (simul.nbAccepted < Game.maxPlayingRealtime && simul.team.forall(isInTeam))
         timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)

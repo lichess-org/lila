@@ -3,6 +3,7 @@ package lila.simul
 import cats.implicits.*
 import chess.format.Fen
 import chess.StartingPosition
+import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
@@ -95,9 +96,7 @@ object SimulForm:
         "clockIncrement" -> numberIn(clockIncrementChoices).into[IncrementSeconds],
         "clockExtra"     -> numberIn(clockExtraChoices),
         "variants" -> list {
-          number.verifying(
-            chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map(_.id).contains
-          )
+          typeIn(Variant.list.all.filter(chess.variant.FromPosition != _).map(_.id).toSet)
         }.verifying("At least one variant", _.nonEmpty),
         "position"         -> optional(lila.common.Form.fen.playableStrict),
         "color"            -> stringIn(colorChoices),
@@ -122,7 +121,7 @@ object SimulForm:
       clockTime: LimitMinutes,
       clockIncrement: IncrementSeconds,
       clockExtra: Int,
-      variants: List[Int],
+      variants: List[Variant.Id],
       position: Option[Fen.Epd],
       color: String,
       text: String,
@@ -137,6 +136,6 @@ object SimulForm:
         hostExtraTime = clockExtra * 60
       )
 
-    def actualVariants = variants.flatMap { chess.variant.Variant(_) }
+    def actualVariants = variants.flatMap { Variant(_) }
 
     def realPosition = position.filterNot(_.isInitial)

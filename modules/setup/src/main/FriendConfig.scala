@@ -2,6 +2,7 @@ package lila.setup
 
 import chess.format.Fen
 import chess.{ Mode, Clock }
+import chess.variant.Variant
 
 import lila.common.Days
 import lila.game.PerfPicker
@@ -31,7 +32,7 @@ case class FriendConfig(
 object FriendConfig extends BaseHumanConfig:
 
   def from(
-      v: Int,
+      v: Variant.Id,
       tm: Int,
       t: Double,
       i: Clock.IncrementSeconds,
@@ -41,7 +42,7 @@ object FriendConfig extends BaseHumanConfig:
       fen: Option[Fen.Epd]
   ) =
     new FriendConfig(
-      variant = chess.variant.Variant(v) err "Invalid game variant " + v,
+      variant = chess.variant.Variant.orDefault(v),
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
@@ -68,7 +69,7 @@ object FriendConfig extends BaseHumanConfig:
 
     def reads(r: BSON.Reader): FriendConfig =
       FriendConfig(
-        variant = chess.variant.Variant orDefault (r int "v"),
+        variant = Variant idOrDefault r.getO[Variant.Id]("v"),
         timeMode = TimeMode orDefault (r int "tm"),
         time = r double "t",
         increment = r get "i",

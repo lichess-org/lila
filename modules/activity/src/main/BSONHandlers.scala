@@ -63,9 +63,9 @@ private object BSONHandlers:
       rp   -> o.rp
     )
 
-  given Iso.StringIso[PerfType] =
+  private given Iso.StringIso[PerfType] =
     Iso.string[PerfType](str => PerfType(Perf.Key(str)) err s"No such perf $str", _.key.value)
-  private[activity] given BSONHandler[Games] = typedMapHandler[PerfType, Score].as(Games(_), _.value)
+  private[activity] given BSONHandler[Games] = typedMapHandlerIso[PerfType, Score].as(Games(_), _.value)
 
   given lila.db.BSON[Storm] with
     def reads(r: lila.db.BSON.Reader)            = Storm(r.intD("r"), r.intD("s"))

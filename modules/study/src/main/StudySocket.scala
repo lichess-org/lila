@@ -433,11 +433,12 @@ object StudySocket:
           (__ \ "ch").read[StudyChapterId]
       )(AtPosition.apply)
       case class SetRole(userId: UserId, role: String)
-      given Reads[SetRole]                    = Json.reads
-      given Reads[ChapterMaker.Mode]          = optRead(ChapterMaker.Mode.apply)
-      given Reads[ChapterMaker.Orientation]   = stringRead(ChapterMaker.Orientation.apply)
-      given Reads[Settings.UserSelection]     = optRead(Settings.UserSelection.byKey.get)
-      given Reads[chess.variant.Variant]      = optRead(chess.variant.Variant.apply)
+      given Reads[SetRole]                  = Json.reads
+      given Reads[ChapterMaker.Mode]        = optRead(ChapterMaker.Mode.apply)
+      given Reads[ChapterMaker.Orientation] = stringRead(ChapterMaker.Orientation.apply)
+      given Reads[Settings.UserSelection]   = optRead(Settings.UserSelection.byKey.get)
+      given Reads[chess.variant.Variant] =
+        optRead(key => chess.variant.Variant(chess.variant.Variant.LilaKey(key)))
       given Reads[ChapterMaker.Data]          = Json.reads
       given Reads[ChapterMaker.EditData]      = Json.reads
       given Reads[ChapterMaker.DescData]      = Json.reads

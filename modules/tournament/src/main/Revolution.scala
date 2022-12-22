@@ -40,7 +40,7 @@ final class RevolutionApi(
             for {
               doc     <- docOpt
               winner  <- doc.getAsOpt[UserId]("winner")
-              variant <- doc.int("variant") flatMap Variant.apply
+              variant <- doc.getAsOpt[Variant.Id]("variant") map Variant.orDefault
               id      <- doc.getAsOpt[TourId]("_id")
             } yield Award(
               owner = winner,

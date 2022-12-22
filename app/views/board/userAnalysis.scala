@@ -2,7 +2,7 @@ package views.html.board
 
 import play.api.libs.json.{ JsObject, Json }
 
-import chess.variant.Crazyhouse
+import chess.variant.{ Variant, FromPosition, Crazyhouse }
 
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
@@ -63,7 +63,7 @@ object userAnalysis:
           views.html.base.bits.mselect(
             "analyse-variant",
             span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
-            chess.variant.Variant.all.filter(chess.variant.FromPosition.!=).map { v =>
+            Variant.list.all.filter(FromPosition != _).map { v =>
               a(
                 dataIcon := iconByVariant(v),
                 cls      := (pov.game.variant == v).option("current"),

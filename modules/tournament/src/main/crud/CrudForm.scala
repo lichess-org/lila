@@ -8,7 +8,7 @@ import play.api.data.Forms.*
 import chess.variant.Variant
 import chess.format.Fen
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
-import lila.common.Form.*
+import lila.common.Form.{ given, * }
 
 final class CrudForm(repo: TournamentRepo):
 
@@ -24,7 +24,7 @@ final class CrudForm(repo: TournamentRepo):
       "clockTime"      -> numberInDouble(clockTimeChoices),
       "clockIncrement" -> numberIn(clockIncrementChoices).into[IncrementSeconds],
       "minutes"        -> number(min = 20, max = 1440),
-      "variant"        -> number.verifying(Variant exists _),
+      "variant"        -> typeIn(Variant.list.all.map(_.id).toSet),
       "position"       -> optional(lila.common.Form.fen.playableStrict),
       "date"           -> utcDate,
       "image"          -> stringIn(imageChoices),
@@ -69,7 +69,7 @@ object CrudForm:
       clockTime: Double,
       clockIncrement: IncrementSeconds,
       minutes: Int,
-      variant: Int,
+      variant: Variant.Id,
       position: Option[Fen.Epd],
       date: DateTime,
       image: String,

@@ -48,7 +48,7 @@ object Form:
       d -> format(d)
     }
 
-  def mustBeOneOf(choices: Iterable[Any]) = s"Must be one of: ${choices mkString ", "}"
+  def mustBeOneOf[A](choices: Iterable[A]) = s"Must be one of: ${choices mkString ", "}"
 
   def numberIn(choices: Options[Int]) =
     number.verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
@@ -129,6 +129,9 @@ object Form:
   def stringIn(choices: Set[String]) =
     text.verifying(mustBeOneOf(choices), choices.contains)
 
+  def typeIn[A: Formatter](choices: Set[A]) =
+    of[A].verifying(mustBeOneOf(choices), choices.contains)
+
   def tolerantBoolean = of[Boolean](formatter.tolerantBooleanFormatter)
 
   def hasKey[A](choices: Options[A], key: A) =
@@ -202,6 +205,7 @@ object Form:
 
     val field = of[URL]
 
+  given Formatter[Int]     = intFormat
   given Formatter[String]  = stringFormat
   given Formatter[Boolean] = booleanFormat
 
@@ -213,11 +217,13 @@ object Form:
     def bind(key: String, data: Map[String, String]) = base.bind(key, data) map sr.apply
     def unbind(key: String, value: T)                = base.unbind(key, rs(value))
 
-  given Formatter[chess.variant.Variant] =
-    formatter.stringFormatter[chess.variant.Variant](_.key, chess.variant.Variant.orDefault)
+  given Formatter[chess.variant.Variant] = {
+    import chess.variant.Variant
+    formatter.stringFormatter[Variant](_.key.value, str => Variant.orDefault(Variant.LilaKey(str)))
+  }
 
   extension [A](f: Formatter[A])
-    def transform[B](to: A => B, from: B => A): Formatter[B] = new Formatter[B]:
+    def transform[B](to: A => B, from: B => A): Formatter[B] = new:
       def bind(key: String, data: Map[String, String]) = f.bind(key, data) map to
       def unbind(key: String, value: B)                = f.unbind(key, from(value))
     def into[B](using sr: SameRuntime[A, B], rs: SameRuntime[B, A]): Formatter[B] =

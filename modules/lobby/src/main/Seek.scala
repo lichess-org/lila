@@ -1,6 +1,7 @@
 package lila.lobby
 
 import chess.{ Mode, Speed }
+import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.i18n.Lang
 import play.api.libs.json.*
@@ -15,7 +16,7 @@ import lila.user.User
 // correspondence chess, persistent
 case class Seek(
     _id: String,
-    variant: Int,
+    variant: Variant.Id,
     daysPerTurn: Option[Days],
     mode: Int,
     color: String,
@@ -28,7 +29,7 @@ case class Seek(
 
   val realColor = Color orDefault color
 
-  val realVariant = chess.variant.Variant orDefault variant
+  val realVariant = Variant.orDefault(variant)
 
   val realMode = Mode orDefault mode
 

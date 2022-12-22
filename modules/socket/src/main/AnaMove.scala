@@ -38,9 +38,8 @@ case class AnaMove(
           fen = fen,
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),
-          opening = (game.ply <= 30 && Variant.openingSensibleVariants(variant)) ?? {
-            OpeningDb findByEpdFen fen
-          },
+          opening = (game.ply <= 30 && Variant.list.openingSensibleVariants(variant)) ??
+            OpeningDb.findByEpdFen(fen),
           drops = if (movable) game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData
         )
@@ -50,16 +49,18 @@ case class AnaMove(
 object AnaMove:
 
   def parse(o: JsObject) =
-    for {
+    import chess.variant.Variant
+    for
       d    <- o obj "d"
       orig <- d str "orig" flatMap { chess.Pos.fromKey(_) }
       dest <- d str "dest" flatMap { chess.Pos.fromKey(_) }
       fen  <- d.get[Fen.Epd]("fen")
       path <- d str "path"
-    } yield AnaMove(
+      variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
+    yield AnaMove(
       orig = orig,
       dest = dest,
-      variant = chess.variant.Variant orDefault ~d.str("variant"),
+      variant = variant,
       fen = fen,
       path = path,
       chapterId = d str "ch",
