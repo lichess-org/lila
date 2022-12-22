@@ -70,4 +70,6 @@
   <string name="streaksAndBerserk">Поредици и Берсерк</string>
   <string name="similarToOTB">Подобно на класическите турнири</string>
   <string name="unlimitedAndFree">Неограничено и безплатно</string>
+  <string name="predefinedUsers">Позволете само на определени играчи да участват</string>
+  <string name="forbiddedUsers">Само играчите от този списък ще могат да участват, освен ако списъкът е празен. Въведете само по едно потребителско име на ред.</string>
 </resources>
