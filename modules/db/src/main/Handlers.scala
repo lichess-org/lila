@@ -116,16 +116,15 @@ trait Handlers:
   def stringMapHandler[V](using
       reader: BSONReader[Map[String, V]],
       writer: BSONWriter[Map[String, V]]
-  ) =
-    new BSONHandler[Map[String, V]]:
-      def readTry(bson: BSONValue)    = reader readTry bson
-      def writeTry(v: Map[String, V]) = writer writeTry v
+  ): BSONHandler[Map[String, V]] = new:
+    def readTry(bson: BSONValue)    = reader readTry bson
+    def writeTry(v: Map[String, V]) = writer writeTry v
 
-  def typedMapHandler[K, V: BSONHandler](using keyIso: StringIso[K]) =
-    stringMapHandler[V].as[Map[K, V]](
-      _.map { case (k, v) => keyIso.from(k) -> v },
-      _.map { case (k, v) => keyIso.to(k) -> v }
-    )
+  def typedMapHandler[K, V: BSONHandler](using sr: SameRuntime[K, String], rs: SameRuntime[String, K]) =
+    stringMapHandler[V].as[Map[K, V]](_.mapKeys(rs(_)), _.mapKeys(sr(_)))
+
+  def typedMapHandlerIso[K, V: BSONHandler](using keyIso: StringIso[K]) =
+    stringMapHandler[V].as[Map[K, V]](_.mapKeys(keyIso.from), _.mapKeys(keyIso.to))
 
   given [T: BSONHandler]: BSONHandler[NonEmptyList[T]] =
     def listWriter = BSONWriter.collectionWriter[T, List[T]]
@@ -189,14 +188,14 @@ trait Handlers:
 
   val variantByKeyHandler: BSONHandler[Variant] = quickHandler[Variant](
     {
-      case BSONString(v) => Variant orDefault v
+      case BSONString(v) => Variant orDefault Variant.LilaKey(v)
       case _             => Variant.default
     },
-    v => BSONString(v.key)
+    v => BSONString(v.key.value)
   )
   val variantByIdHandler: BSONHandler[Variant] = tryHandler(
-    { case BSONInteger(v) => Variant(v) toTry s"No such variant: $v" },
-    x => BSONInteger(x.id)
+    { case BSONInteger(v) => Variant(Variant.Id(v)) toTry s"No such variant: $v" },
+    x => BSONInteger(x.id.value)
   )
 
   val clockConfigHandler = tryHandler[chess.Clock.Config](

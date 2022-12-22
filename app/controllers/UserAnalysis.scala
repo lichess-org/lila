@@ -23,9 +23,9 @@ final class UserAnalysis(
 
   def parseArg(arg: String) =
     arg.split("/", 2) match
-      case Array(key) => load("", Variant orDefault key)
+      case Array(key) => load("", Variant.orDefault(Variant.LilaKey(key)))
       case Array(key, fen) =>
-        Variant.byKey get key match
+        Variant(Variant.LilaKey(key)) match
           case Some(variant) if variant != Standard           => load(fen, variant)
           case _ if Fen.Epd.clean(fen) == Standard.initialFen => load("", Standard)
           case Some(Standard)                                 => load(fen, FromPosition)

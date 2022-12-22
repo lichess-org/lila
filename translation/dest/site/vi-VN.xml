@@ -11,7 +11,7 @@
   <string name="level">Cấp độ</string>
   <string name="strength">Độ mạnh</string>
   <string name="toggleTheChat">Bật/tắt chat</string>
-  <string name="chat">Tán gẫu</string>
+  <string name="chat">Trò chuyện</string>
   <string name="resign">Bỏ cuộc</string>
   <string name="checkmate">Chiếu hết</string>
   <string name="stalemate">Hòa pat</string>
@@ -337,6 +337,7 @@
   <string name="siteDescription">Chơi cờ vua online miễn phí. Chơi cờ vua với giao diện đẹp. Không cần đăng ký, không quảng cáo, không yêu cầu plugin. Chơi cờ vua với máy tính, bạn bè hoặc đối thủ ngẫu nhiên.</string>
   <string name="xJoinedTeamY">%1$s tham gia đội %2$s</string>
   <string name="xCreatedTeamY">%1$s tạo đội %2$s</string>
+  <string name="startedStreaming">đã bắt đầu phát trực tuyến</string>
   <string name="xStartedStreaming">%s đã bắt đầu phát trực tuyến</string>
   <string name="averageElo">Hệ số Elo bình quân</string>
   <string name="location">Vị trí</string>
@@ -700,7 +701,7 @@
   <string name="light">Sáng</string>
   <string name="dark">Tối</string>
   <string name="transparent">Trong suốt</string>
-  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Giao diện thiết bị</string>
+  <string name="deviceTheme">Giao diện thiết bị</string>
   <string name="backgroundImageUrl">URL ảnh nền:</string>
   <string name="boardGeometry">Hình dạng của bàn cờ</string>
   <string name="boardTheme">Theme bàn cờ</string>

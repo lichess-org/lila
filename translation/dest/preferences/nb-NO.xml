@@ -3,6 +3,7 @@
   <string name="preferences">Innstillinger</string>
   <string name="display">Visning</string>
   <string name="privacy">Personvern</string>
+  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Varsler</string>
   <string name="pieceAnimation">Brikke animasjon</string>
   <string name="materialDifference">Materiell forskjell</string>
   <string name="boardHighlights">Feltmarkering (siste trekk og sjakk)</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Hold &lt;ctrl&gt;-tasten nede under bondeforvandlingen for å unngå auto-dronning</string>
   <string name="whenPremoving">Ved bruk av førtrekk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis ved trekkgjentakelse automatisk</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Når gjenværende tid &lt; 30 sekunder</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Når gjenværende tid &lt; 30 sekunder</string>
   <string name="moveConfirmation">Trekkbekreftelse</string>
   <string name="inCorrespondenceGames">I fjernsjakk</string>
   <string name="correspondenceAndUnlimited">Korrespondanse og ubegrenset</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Innstillingene dine er lagret.</string>
   <string name="scrollOnTheBoardToReplayMoves">Bruk musehjulet for å spille av trekk</string>
   <string name="correspondenceEmailNotification">Daglig oversikt over fjernsjakkpartiene dine tilsendt på e-post</string>
+  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Strømmer begynner å strømme</string>
+  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Ny melding i innboksen</string>
+  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Forumkommentar nevner deg</string>
+  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Invitasjon til studie</string>
+  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Oppdateringer for fjernsjakkpartier</string>
+  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Utfordringer</string>
+  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Turnering starter snart</string>
+  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">Fjernsjakkur i ferd med å løpe ut</string>
+  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Lydvarsel innenfor Lichess</string>
+  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Enhetsvarsel utenfor Lichess</string>
+  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Nettleser</string>
+  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Enhet</string>
 </resources>

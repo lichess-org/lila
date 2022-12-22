@@ -1,6 +1,7 @@
 package lila.setup
 
 import chess.{ Mode, Clock }
+import chess.variant.Variant
 
 import lila.common.Days
 import lila.lobby.{ Color, Hook, Seek }
@@ -109,7 +110,7 @@ case class HookConfig(
 object HookConfig extends BaseHumanConfig:
 
   def from(
-      v: Int,
+      v: Variant.Id,
       tm: Int,
       t: Double,
       i: Clock.IncrementSeconds,
@@ -120,7 +121,7 @@ object HookConfig extends BaseHumanConfig:
   ) =
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
-      variant = chess.variant.Variant(v) err s"Invalid game variant $v",
+      variant = chess.variant.Variant.orDefault(v),
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
@@ -150,7 +151,7 @@ object HookConfig extends BaseHumanConfig:
 
     def reads(r: BSON.Reader): HookConfig =
       HookConfig(
-        variant = chess.variant.Variant orDefault (r int "v"),
+        variant = Variant idOrDefault r.getO[Variant.Id]("v"),
         timeMode = TimeMode orDefault (r int "tm"),
         time = r double "t",
         increment = r get "i",

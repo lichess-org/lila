@@ -58,9 +58,12 @@ private object BSONHandlers:
       value split ':' match {
         case Array(fen) => Success(Id(chess.variant.Standard, SmallFen(fen)))
         case Array(variantId, fen) =>
+          import chess.variant.Variant
           Success(
             Id(
-              variantId.toIntOption flatMap chess.variant.Variant.apply err s"Invalid evalcache variant $variantId",
+              Variant.Id.from(variantId.toIntOption) flatMap {
+                Variant(_)
+              } err s"Invalid evalcache variant $variantId",
               SmallFen(fen)
             )
           )

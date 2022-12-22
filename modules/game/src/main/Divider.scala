@@ -18,7 +18,7 @@ final class Divider:
     apply(game.id, game.sans, game.variant, initialFen)
 
   def apply(id: GameId, sans: => Vector[SanStr], variant: Variant, initialFen: Option[Fen.Epd]) =
-    if (!Variant.divisionSensibleVariants(variant)) Division.empty
+    if (!Variant.list.divisionSensibleVariants(variant)) Division.empty
     else cache.get(id, _ => noCache(id, sans, variant, initialFen))
 
   def noCache(id: GameId, sans: Vector[SanStr], variant: Variant, initialFen: Option[Fen.Epd]) =

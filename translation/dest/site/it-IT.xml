@@ -363,6 +363,7 @@
   <string name="siteDescription">Scacchi online gratis. Gioca subito a scacchi con un\'interfaccia semplice. Niente registrazioni, annunci, plug-in. Gioca a scacchi contro computer, amici o avversari casuali.</string>
   <string name="xJoinedTeamY">%1$s si è unito al gruppo %2$s</string>
   <string name="xCreatedTeamY">%1$s ha creato il gruppo %2$s</string>
+  <string name="startedStreaming">streaming iniziato</string>
   <string name="xStartedStreaming">%s ha avviato lo streaming</string>
   <string name="averageElo">Punteggio medio</string>
   <string name="location">Luogo</string>
@@ -738,7 +739,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="light">Chiaro</string>
   <string name="dark">Scuro</string>
   <string name="transparent">Trasparente</string>
-  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Tema del dispositivo</string>
+  <string name="deviceTheme">Tema del dispositivo</string>
   <string name="backgroundImageUrl">URL dell\'immagine di sfondo:</string>
   <string name="boardGeometry">Geometria scacchiera</string>
   <string name="boardTheme">Tema scacchiera</string>

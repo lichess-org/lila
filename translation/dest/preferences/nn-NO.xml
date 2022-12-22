@@ -3,6 +3,7 @@
   <string name="preferences">Preferansar</string>
   <string name="display">Utsjånad</string>
   <string name="privacy">Privatsfære</string>
+  <string name="notifications">Meldingar</string>
   <string name="pieceAnimation">Farta på brikkerørslene</string>
   <string name="materialDifference">Materiellskilnad</string>
   <string name="boardHighlights">Feltmarkering (siste trekk og sjakk)</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Hald &lt;ctrl&gt;-tasten nede under bondeomvandlinga for å mellombels deaktivera automatisk omvandling</string>
   <string name="whenPremoving">Ved førehandstrekk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis automatisk ved trekkgjentaking</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Når attverande tid &lt; 30 sekundar</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Når attverande tid &lt; 30 sekundar</string>
   <string name="moveConfirmation">Stadfest trekket</string>
   <string name="inCorrespondenceGames">I fjernsjakksparti</string>
   <string name="correspondenceAndUnlimited">Fjernsjakk og ubegrensa tid</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Preferansane dine er lagra.</string>
   <string name="scrollOnTheBoardToReplayMoves">Rull (\"scroll med musehjulet\") ned på brettet for å spela trekk omatt</string>
   <string name="correspondenceEmailNotification">Dagleg e-postmelding med ei liste av fjernsjakkpartia dine</string>
+  <string name="notifyStreamStart">Strøyminga er i gang</string>
+  <string name="notifyInboxMsg">Ny melding i innboksen</string>
+  <string name="notifyForumMention">Du er nemnd i ein forumkommentar</string>
+  <string name="notifyInvitedStudy">Invitasjon til studie</string>
+  <string name="notifyGameEvent">Korrespondansepartioppdateringar</string>
+  <string name="notifyChallenge">Utfordringar</string>
+  <string name="notifyTournamentSoon">Turneringa startar snart</string>
+  <string name="notifyTimeAlarm">Korrespondanseklokka er i ferd med å løpa ut</string>
+  <string name="notifyBell">Klokkemelding i Lichess</string>
+  <string name="notifyPush">Melding på eininga når du ikkje brukar Lichess</string>
+  <string name="notifyWeb">Nettlesar</string>
+  <string name="notifyDevice">Eining</string>
 </resources>

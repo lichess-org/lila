@@ -15,15 +15,12 @@ final class Analyser(
     uciMemo: UciMemo,
     evalCache: FishnetEvalCache,
     limiter: FishnetLimiter
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-):
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
 
   val maxPlies = 300
 
   private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 5 seconds, "fishnetAnalyser")
+    lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 5 seconds, "fishnetAnalyser")
 
   def apply(game: Game, sender: Work.Sender, ignoreConcurrentCheck: Boolean = false): Fu[Analyser.Result] =
     (game.metadata.analysed ?? analysisRepo.exists(game.id.value)) flatMap {
@@ -103,7 +100,7 @@ final class Analyser(
     }
 
   private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =
-    gameRepo.initialFen(game) zip uciMemo.get(game) map { case (initialFen, moves) =>
+    gameRepo.initialFen(game) zip uciMemo.get(game) map { (initialFen, moves) =>
       makeWork(
         game = Work.Game(
           id = game.id.value,

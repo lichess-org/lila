@@ -61,20 +61,6 @@ lichess.load.then(() => {
       return false;
     });
 
-    $('.streamer-subscribe input').on('change', (e: Event) => {
-      const target = e.target as HTMLInputElement;
-      $(target)
-        .parents('.streamer-subscribe')
-        .each(function (this: HTMLElement) {
-          xhr.text(
-            $(this)
-              .data('action')
-              .replace(/set=[^&]+/, `set=${target.checked}`),
-            { method: 'post' }
-          );
-        });
-    });
-
     $('.mselect .button').on('click', function (this: HTMLElement) {
       const $p = $(this).parent();
       $p.toggleClass('shown');

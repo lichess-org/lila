@@ -39,7 +39,7 @@ case class AllWinners(
     rapid: FreqWinners,
     elite: List[Winner],
     marathon: List[Winner],
-    variants: Map[String, FreqWinners]
+    variants: Map[Variant.LilaKey, FreqWinners]
 ):
 
   lazy val top: List[Winner] = List(
@@ -59,13 +59,14 @@ final class WinnersApi(
     tournamentRepo: TournamentRepo,
     mongoCache: lila.memo.MongoCache.Api,
     scheduler: akka.actor.Scheduler
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
   import reactivemongo.api.bson.*
-  private given BSONDocumentHandler[Winner]      = Macros.handler
-  private given BSONDocumentHandler[FreqWinners] = Macros.handler
-  private given BSONDocumentHandler[AllWinners]  = Macros.handler
+  private given BSONDocumentHandler[Winner]                    = Macros.handler
+  private given BSONDocumentHandler[FreqWinners]               = Macros.handler
+  private given BSONHandler[Map[Variant.LilaKey, FreqWinners]] = typedMapHandler[Variant.LilaKey, FreqWinners]
+  private given BSONDocumentHandler[AllWinners]                = Macros.handler
 
   private def fetchLastFreq(freq: Freq, since: DateTime): Fu[List[Tournament]] =
     tournamentRepo.coll
@@ -145,7 +146,7 @@ final class WinnersApi(
 
 object WinnersApi:
 
-  val variants = Variant.all.filter {
+  val variants = Variant.list.all.filter {
     case Standard | FromPosition => false
     case _                       => true
   }

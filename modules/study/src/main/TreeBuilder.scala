@@ -31,7 +31,7 @@ object TreeBuilder:
       crazyData = node.crazyData,
       eval = node.score.map(_.eval),
       children = toBranches(node.children, variant),
-      opening = Variant.openingSensibleVariants(variant) ?? OpeningDb.findByEpdFen(node.fen),
+      opening = Variant.list.openingSensibleVariants(variant) ?? OpeningDb.findByEpdFen(node.fen),
       forceVariation = node.forceVariation
     )
 
@@ -48,7 +48,7 @@ object TreeBuilder:
       crazyData = root.crazyData,
       eval = root.score.map(_.eval),
       children = toBranches(root.children, variant),
-      opening = Variant.openingSensibleVariants(variant) ?? OpeningDb.findByEpdFen(root.fen)
+      opening = Variant.list.openingSensibleVariants(variant) ?? OpeningDb.findByEpdFen(root.fen)
     )
 
   private def toBranches(children: Node.Children, variant: Variant): List[tree.Branch] =

@@ -3,6 +3,7 @@
   <string name="preferences">Uzstādījumi</string>
   <string name="display">Izskats</string>
   <string name="privacy">Privātums</string>
+  <string name="notifications">Paziņojumi</string>
   <string name="pieceAnimation">Figūru animācija</string>
   <string name="materialDifference">Materiāla starpība</string>
   <string name="boardHighlights">Lauciņu izcelšana (pēdējais gājiens vai piesakot šahu)</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Turiet nospiestu taustiņu &lt;ctrl&gt;, kad paaugstinat bandinieku, lai īslaicīgi atspējotu automātisko paaugstināšanu</string>
   <string name="whenPremoving">Tikai priekšgājienos</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automātiski pieprasīt trīskāršās atkārtošanās neizšķirtu</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Ja atlicis &lt; 30 sekundēm</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Ja atlicis &lt; 30 sekundēm</string>
   <string name="moveConfirmation">Gājiena apstiprināšana</string>
   <string name="inCorrespondenceGames">Korespondencšaha spēlēs</string>
   <string name="correspondenceAndUnlimited">Korespondencšaha un bezgalīgajās spēlēs</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Jūsu uzstādījumi ir saglabāti.</string>
   <string name="scrollOnTheBoardToReplayMoves">Ritiniet peli virs galdiņa, lai skatītu spēles gaitu</string>
   <string name="correspondenceEmailNotification">E-pasta ziņojums reizi dienā par jūsu korespondencšaha spēlēm</string>
+  <string name="notifyStreamStart">Straumētājs sāk tiešraidi</string>
+  <string name="notifyInboxMsg">Jauna ziņa iesūtnē</string>
+  <string name="notifyForumMention">Foruma ziņa jūs piemin</string>
+  <string name="notifyInvitedStudy">Izpētes ielūgums</string>
+  <string name="notifyGameEvent">Notikumi Korespondencšahā</string>
+  <string name="notifyChallenge">Izaicinājumi</string>
+  <string name="notifyTournamentSoon">Turnīra sākums tuvojas</string>
+  <string name="notifyTimeAlarm">Korespondencšaha laiks izsīkst</string>
+  <string name="notifyBell">Zvana paziņojumi Lichess programmā</string>
+  <string name="notifyPush">Ierīces paziņojumi, kad neesat platformā Lichess</string>
+  <string name="notifyWeb">Pārlūkprogrammā</string>
+  <string name="notifyDevice">Ierīcē</string>
 </resources>

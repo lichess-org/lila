@@ -52,7 +52,7 @@ final class FishnetRedis(
       work.game.id,
       work.level,
       work.clock ?? writeClock,
-      work.game.variant.some.filter(_.exotic).??(_.key),
+      work.game.variant.some.filter(_.exotic).??(_.key.value),
       work.game.initialFen.??(_.value),
       work.game.moves
     ) mkString ";"

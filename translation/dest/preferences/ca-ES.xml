@@ -3,6 +3,7 @@
   <string name="preferences">Preferències</string>
   <string name="display">Visualització</string>
   <string name="privacy">Privacitat</string>
+  <string name="notifications">Notificacions</string>
   <string name="pieceAnimation">Animació de les peces</string>
   <string name="materialDifference">Diferència de material</string>
   <string name="boardHighlights">Marcar caselles (últim moviment i escac)</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Mantingui premuda la tecla &lt;ctrl&gt; durant la promoció per deshabilitar la promoció automàtica temporalment</string>
   <string name="whenPremoving">En moviments anticipats</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Demana empat per repetició automàticament</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Quan restin &lt; 30 segons</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Quan restin &lt; 30 segons</string>
   <string name="moveConfirmation">Confirmació de moviment</string>
   <string name="inCorrespondenceGames">Només en partides per correspondència</string>
   <string name="correspondenceAndUnlimited">Per correspondència i sense límit de temps</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Les teves preferències s\'han desat.</string>
   <string name="scrollOnTheBoardToReplayMoves">Desplaça\'t amb la rodeta pel tauler per reproduir jugades</string>
   <string name="correspondenceEmailNotification">Correu electrònic diari de notificació amb les vostres partides per correspondència</string>
+  <string name="notifyStreamStart">Comença una transmissió</string>
+  <string name="notifyInboxMsg">Nou missatge a la safata d\'entrada</string>
+  <string name="notifyForumMention">Un comentari del fòrum et menciona</string>
+  <string name="notifyInvitedStudy">Invitació a un estudi</string>
+  <string name="notifyGameEvent">Partida per correspondència actualitzada</string>
+  <string name="notifyChallenge">Desafiaments</string>
+  <string name="notifyTournamentSoon">Un torneig comença aviat</string>
+  <string name="notifyTimeAlarm">S\'esgota el rellotge d\'una partida per correspondència</string>
+  <string name="notifyBell">Notificació emergent a Lichess</string>
+  <string name="notifyPush">Notifica un dispositiu quan no esteu a Lichess</string>
+  <string name="notifyWeb">Navegador</string>
+  <string name="notifyDevice">Dispositiu</string>
 </resources>

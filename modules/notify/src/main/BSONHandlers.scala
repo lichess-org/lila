@@ -25,7 +25,7 @@ private object BSONHandlers:
   given lila.db.BSON[NotificationContent] with
     private def writeNotificationContent(notificationContent: NotificationContent) = {
       notificationContent match
-        case x: MentionedInThread          => mentionHandler.writeTry(x).get 
+        case x: MentionedInThread          => mentionHandler.writeTry(x).get
         case x: InvitedToStudy             => inviteHandler.writeTry(x).get
         case x: PrivateMessage             => summon[BSONHandler[PrivateMessage]].writeTry(x).get
         case x: StreamStart                => summon[BSONHandler[StreamStart]].writeTry(x).get

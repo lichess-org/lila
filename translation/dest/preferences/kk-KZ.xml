@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Ойын кезінде автоматты айналдыруды уақытша өшіру үшін &lt;ctrl&gt; басып тұрыңыз</string>
   <string name="whenPremoving">Алдын-ала жүрісте</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Үш реттік қайталану болса, автоматты түрде тепе-теңдік жариялау</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">30 секунд қалғанда</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">30 секунд қалғанда</string>
   <string name="moveConfirmation">Жүрісті растау</string>
   <string name="inCorrespondenceGames">Хат-хабарлы ойындарда</string>
   <string name="correspondenceAndUnlimited">Хат-хабарлы мен уақыты шексіз</string>

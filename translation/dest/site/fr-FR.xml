@@ -363,6 +363,7 @@
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
   <string name="xJoinedTeamY">%1$s a rejoint l\'équipe %2$s</string>
   <string name="xCreatedTeamY">%1$s a créé l\'équipe %2$s</string>
+  <string name="startedStreaming">a commencé une diffusion en direct</string>
   <string name="xStartedStreaming">%s a commencé une diffusion en direct</string>
   <string name="averageElo">Classement moyen</string>
   <string name="location">Localisation</string>
@@ -737,7 +738,7 @@
   <string name="light">Lumineux</string>
   <string name="dark">Sombre</string>
   <string name="transparent">Transparent</string>
-  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Thème de l\'appareil</string>
+  <string name="deviceTheme">Thème de l\'appareil</string>
   <string name="backgroundImageUrl">URL de l\'image de fond :</string>
   <string name="boardGeometry">Forme de l\'échiquier</string>
   <string name="boardTheme">Thème de l\'échiquier</string>

@@ -22,7 +22,7 @@ object shields:
         div(cls := "page-menu__content box box-pad")(
           h1(cls := "box__top")("Tournament shields"),
           div(cls := "tournament-shields")(
-            history.sorted.map { case (categ, awards) =>
+            history.sorted.map { (categ, awards) =>
               section(
                 h2(
                   a(href := routes.Tournament.categShields(categ.key))(

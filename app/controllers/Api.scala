@@ -333,7 +333,7 @@ final class Api(
   def gamesByUsersStream =
     AnonOrScopedBody(parse.tolerantText)() { req => me =>
       val max = me.fold(300) { u => if (u == lila.user.User.lichess4545Id) 900 else 500 }
-      withIdsFromReqBody[UserId](req, max, UserId(_)) { ids =>
+      withIdsFromReqBody[UserId](req, max, id => UserStr.read(id).map(_.id)) { ids =>
         GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
           addKeepAlive(
             env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames", req))
@@ -344,7 +344,7 @@ final class Api(
 
   def gamesByIdsStream(streamId: String) =
     AnonOrScopedBody(parse.tolerantText)() { req => me =>
-      withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.strToId(_)) { ids =>
+      withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.strToIdOpt) { ids =>
         GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
           addKeepAlive(
             env.game.gamesByIdsStream(
@@ -359,7 +359,7 @@ final class Api(
 
   def gamesByIdsStreamAddIds(streamId: String) =
     AnonOrScopedBody(parse.tolerantText)() { req => me =>
-      withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.strToId(_)) { ids =>
+      withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.strToIdOpt) { ids =>
         env.game.gamesByIdsStream.addGameIds(streamId, ids)
         jsonOkResult
       }.toFuccess
@@ -371,18 +371,19 @@ final class Api(
   private def withIdsFromReqBody[Id](
       req: Request[String],
       max: Int,
-      transform: String => Id
+      transform: String => Option[Id]
   )(f: Set[Id] => Result): Result =
-    val ids = req.body.toLowerCase.split(',').view.filter(_.nonEmpty).map(s => transform(s.trim)).toSet
+    val ids = req.body.split(',').view.filter(_.nonEmpty).flatMap(s => transform(s.trim)).toSet
     if (ids.size > max) JsonBadRequest(jsonError(s"Too many ids: ${ids.size}, expected up to $max"))
     else f(ids)
 
   def cloudEval =
     Action.async { req =>
       get("fen", req).fold(notFoundJson("Missing FEN")) { fen =>
+        import chess.variant.Variant
         JsonOptionOk(
           env.evalCache.api.getEvalJson(
-            chess.variant.Variant orDefault ~get("variant", req),
+            Variant.orDefault(getAs[Variant.LilaKey]("variant", req)),
             chess.format.Fen.Epd.clean(fen),
             getInt("multiPv", req) | 1
           )

@@ -84,11 +84,12 @@ object BSON extends Handlers:
 
   final class Writer:
 
-    def boolO(b: Boolean): Option[BSONBoolean] = if (b) Some(BSONBoolean(true)) else None
-    def str(s: String): BSONString             = BSONString(s)
-    def strO(s: String): Option[BSONString]    = if (s.nonEmpty) Some(BSONString(s)) else None
-    def int(i: Int): BSONInteger               = BSONInteger(i)
-    def intO(i: Int): Option[BSONInteger]      = if (i != 0) Some(BSONInteger(i)) else None
+    def apply[A](a: A)(using writer: BSONWriter[A]): BSONValue = writer.writeTry(a).get
+    def boolO(b: Boolean): Option[BSONBoolean]                 = if (b) Some(BSONBoolean(true)) else None
+    def str(s: String): BSONString                             = BSONString(s)
+    def strO(s: String): Option[BSONString]                    = if (s.nonEmpty) Some(BSONString(s)) else None
+    def int(i: Int): BSONInteger                               = BSONInteger(i)
+    def intO(i: Int): Option[BSONInteger]                      = if (i != 0) Some(BSONInteger(i)) else None
     def date(d: DateTime)(using handler: BSONHandler[DateTime]): BSONValue = handler.writeTry(d).get
     def byteArrayO(b: ByteArray)(using handler: BSONHandler[ByteArray]): Option[BSONValue] =
       if (b.isEmpty) None else handler.writeOpt(b)

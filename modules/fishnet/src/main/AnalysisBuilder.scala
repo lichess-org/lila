@@ -9,9 +9,7 @@ import JsonApi.Request.Evaluation
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
 
-final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using
-    scala.concurrent.ExecutionContext
-):
+final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using scala.concurrent.ExecutionContext):
 
   def apply(client: Client, work: Work.Analysis, evals: List[Evaluation.OrSkipped]): Fu[Analysis] =
     partial(client, work, evals map some, isPartial = false)
@@ -80,7 +78,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using
       moves: List[Uci],
       startedAtPly: Ply
   ): List[Info] =
-    evals.filterNot(_ ?? (_.isCheckmate)).sliding(2).toList.zip(moves).zipWithIndex map {
+    evals.filterNot(_.exists(_.isCheckmate)).sliding(2).toList.zip(moves).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) =>
         val variation = before.cappedPv match
           case first :: rest if first != move => first :: rest
@@ -88,13 +86,9 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using
         val best = variation.headOption
         val info = Info(
           ply = startedAtPly + index + 1,
-          eval = Eval(
-            after.score.cp,
-            after.score.mate,
-            best
-          ),
+          eval = Eval(after.score.cp, after.score.mate, best),
           variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToPgn
         )
-        if (info.ply.isEven) info.invert else info
+        if (info.ply.isOdd) info.invert else info
       case ((_, _), index) => Info(startedAtPly + index + 1, Eval.empty, Nil)
     }

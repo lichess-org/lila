@@ -3,6 +3,7 @@
   <string name="preferences">Sätted</string>
   <string name="display">Kuva</string>
   <string name="privacy">Privaatsus</string>
+  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Teavitused</string>
   <string name="pieceAnimation">malendite liikumine</string>
   <string name="materialDifference">Materjal erinevus</string>
   <string name="boardHighlights">Laual rõhutatakse (viimast käiku ja tuld)</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Hoia edendamise ajal &lt;ctrl&gt; klahvi all, et ajutiselt keelata automaatne edendamine</string>
   <string name="whenPremoving">ennetava käiguga</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Kuuluta viik kolmekordsel kordusel automaatselt</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Aega on vähem kui &lt;30 sekundit</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Aega on vähem kui &lt;30 sekundit</string>
   <string name="moveConfirmation">Käigu kinnitus</string>
   <string name="inCorrespondenceGames">Kirjavahetus mängud</string>
   <string name="correspondenceAndUnlimited">Kirjavahetus ja piiramatu</string>

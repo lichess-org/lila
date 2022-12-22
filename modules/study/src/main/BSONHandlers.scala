@@ -215,11 +215,8 @@ object BSONHandlers:
       }
     )
 
-  given BSONHandler[Path] = BSONStringHandler.as[Path](Path.apply, _.toString)
-  given BSONHandler[Variant] = tryHandler[Variant](
-    { case BSONInteger(v) => Variant(v) toTry s"No such variant: $v" },
-    x => BSONInteger(x.id)
-  )
+  given BSONHandler[Path]    = BSONStringHandler.as[Path](Path.apply, _.toString)
+  given BSONHandler[Variant] = variantByIdHandler
 
   given BSONHandler[Tag] = tryHandler[Tag](
     { case BSONString(v) =>

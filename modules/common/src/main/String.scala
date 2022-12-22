@@ -117,7 +117,7 @@ object String:
     text.lengthIs >= 5 && {
       import java.lang.Character.*
       // true if >1/2 of the latin letters are uppercase
-      (text take 80).foldLeft(0) { (i, c) =>
+      text.take(80).replace("O-O", "o-o").foldLeft(0) { (i, c) =>
         getType(c) match
           case UPPERCASE_LETTER => i + 1
           case LOWERCASE_LETTER => i - 1

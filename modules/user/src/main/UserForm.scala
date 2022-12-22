@@ -73,8 +73,10 @@ object UserForm:
   val note = Form(
     mapping(
       "text"     -> cleanText(minLength = 3, maxLength = 2000),
-      "noteType" -> text,
-    )((text, noteType) => NoteData(text, noteType == "mod" || noteType == "dox", noteType == "dox"))(_ => none)
+      "noteType" -> text
+    )((text, noteType) => NoteData(text, noteType == "mod" || noteType == "dox", noteType == "dox"))(_ =>
+      none
+    )
   )
 
   val apiNote = Form(

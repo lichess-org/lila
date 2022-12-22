@@ -167,7 +167,7 @@ final class Simul(env: Env) extends LilaController(env):
       }
     }
 
-  def join(id: SimulId, variant: String) =
+  def join(id: SimulId, variant: chess.variant.Variant.LilaKey) =
     Auth { implicit ctx => implicit me =>
       NoLameOrBot {
         env.team.cached.teamIds(me.id) flatMap { teamIds =>

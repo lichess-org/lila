@@ -116,4 +116,9 @@ class StringTest extends Specification {
     }
   }
 
+  "noShouting" >> {
+    String.noShouting("HELLO SIR") === "hello sir"
+    String.noShouting("1. Nf3 O-O-O#") === "1. Nf3 O-O-O#"
+  }
+
 }

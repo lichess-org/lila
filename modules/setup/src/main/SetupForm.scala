@@ -9,7 +9,7 @@ import play.api.data.Forms.*
 import lila.rating.RatingRange
 import lila.user.{ User, UserContext }
 import lila.common.{ Days, Form as LilaForm }
-import lila.common.Form.into
+import lila.common.Form.{ *, given }
 
 object SetupForm:
 
@@ -89,7 +89,7 @@ object SetupForm:
       "ratingRange" -> optional(ratingRange)
     )((t, i, d, v, r, c, g) =>
       HookConfig(
-        variant = v.flatMap(Variant.apply) | Variant.default,
+        variant = Variant.orDefault(v),
         timeMode = if (d.isDefined) TimeMode.Correspondence else TimeMode.RealTime,
         time = t | 10,
         increment = i | Clock.IncrementSeconds(5),
@@ -119,8 +119,7 @@ object SetupForm:
 
     lazy val optionalDays = "days" -> optional(days)
 
-    lazy val variant =
-      "variant" -> optional(text.verifying(Variant.byKey.contains))
+    lazy val variant = "variant" -> optional(typeIn(Variant.list.all.map(_.key).toSet))
 
     lazy val message = optional(
       nonEmptyText(maxLength = 8_000).verifying(

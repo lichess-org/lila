@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Otomatik terfiyi geçici olarak devre dışı bırakmak için terfi sırasında &lt;ctrl&gt; tuşunu basılı tutun</string>
   <string name="whenPremoving">Ön hamlelerde</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Üçlü tekrarda otomatik olarak beraberlik teklif et</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Kalan zaman 30 saniyeden az ise</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kalan zaman 30 saniyeden az ise</string>
   <string name="moveConfirmation">Hamleyi onayla</string>
   <string name="inCorrespondenceGames">Yazışmalı oyunlar</string>
   <string name="correspondenceAndUnlimited">Yazışmalı ve sınırsız</string>

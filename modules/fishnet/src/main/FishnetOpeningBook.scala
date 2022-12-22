@@ -30,7 +30,7 @@ final private class FishnetOpeningBook(
     (game.ply < depth.get() && !outOfBook.get(game.id)) ?? {
       ws.url(s"${config.explorerEndpoint}/lichess")
         .withQueryStringParameters(
-          "variant"     -> game.variant.key,
+          "variant"     -> game.variant.key.value,
           "fen"         -> Fen.write(game.chess).value,
           "topGames"    -> "0",
           "recentGames" -> "0",
@@ -53,7 +53,7 @@ final private class FishnetOpeningBook(
           _.fishnet
             .openingBook(
               level = level,
-              variant = game.variant.key,
+              variant = game.variant.key.value,
               ply = game.ply.value,
               hit = res.toOption.exists(_.isDefined),
               success = res.isSuccess

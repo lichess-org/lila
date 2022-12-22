@@ -415,6 +415,7 @@
   <string name="siteDescription">Nemokamas šachmatų žaidimas internete. Žaiskite šachmatais patrauklioje sąsajoje. Nebūtina registracija, nėra reklamų, nereikia jokių priedų. Žaiskite šachmatais prieš kompiuterį, draugus arba atsitiktinius varžovus.</string>
   <string name="xJoinedTeamY">%1$s prisijungė prie „%2$s“ komandos</string>
   <string name="xCreatedTeamY">%1$s sukūrė „%2$s“ komandą</string>
+  <string name="startedStreaming">pradėjo transliuoti</string>
   <string name="xStartedStreaming">%s pradėjo transliaciją</string>
   <string name="averageElo">Reitingo vidurkis</string>
   <string name="location">Vietovė</string>
@@ -812,6 +813,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="light">Šviesus</string>
   <string name="dark">Tamsus</string>
   <string name="transparent">Permatomas</string>
+  <string name="deviceTheme">Įrenginio tema</string>
   <string name="backgroundImageUrl">Fono paveikslo URL:</string>
   <string name="boardGeometry">Lentos geometrija</string>
   <string name="boardTheme">Lentos stilius</string>

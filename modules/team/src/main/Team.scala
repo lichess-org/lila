@@ -50,11 +50,12 @@ object Team:
 
   case class Mini(id: TeamId, name: String)
 
-  val variants: Map[chess.variant.Variant, Mini] = chess.variant.Variant.all.view collect {
+  import chess.variant.Variant
+  val variants: Map[Variant.LilaKey, Mini] = Variant.list.all.view.collect {
     case v if v.exotic =>
       val name = s"Lichess ${v.name}"
-      v -> Mini(nameToId(name), name)
-  } toMap
+      v.key -> Mini(nameToId(name), name)
+  }.toMap
 
   val maxJoinCeiling = 50
 

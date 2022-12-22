@@ -28,7 +28,7 @@ trait TeamHelper { self: HasEnv with RouterHelper =>
 
   def teamForumUrl(id: TeamId) = routes.ForumCateg.show("team-" + id)
 
-  lazy val variantTeamLinks: Map[chess.variant.Variant, (lila.team.Team.Mini, Frag)] =
+  lazy val variantTeamLinks: Map[chess.variant.Variant.LilaKey, (lila.team.Team.Mini, Frag)] =
     lila.team.Team.variants.view.mapValues { team =>
       (team, teamLink(team.id, team.name, true))
     }.toMap

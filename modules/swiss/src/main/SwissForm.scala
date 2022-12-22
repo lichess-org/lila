@@ -12,7 +12,7 @@ import play.api.data.validation.Constraint
 import play.api.Mode
 import scala.concurrent.duration.*
 
-import lila.common.Form.*
+import lila.common.Form.{ *, given }
 import lila.user.User
 
 final class SwissForm(implicit mode: Mode):
@@ -29,7 +29,7 @@ final class SwissForm(implicit mode: Mode):
         )(ClockConfig.apply)(unapply)
           .verifying("Invalid clock", _.estimateTotalSeconds > 0),
         "startsAt"      -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-        "variant"       -> optional(nonEmptyText.verifying(v => Variant(v).isDefined)),
+        "variant"       -> optional(typeIn(Variant.list.all.map(_.key).toSet)),
         "rated"         -> optional(boolean),
         "nbRounds"      -> number(min = minRounds, max = 100),
         "description"   -> optional(cleanNonEmptyText),
@@ -164,7 +164,7 @@ object SwissForm:
       name: Option[String],
       clock: ClockConfig,
       startsAt: Option[DateTime],
-      variant: Option[String],
+      variant: Option[Variant.LilaKey],
       rated: Option[Boolean],
       nbRounds: Int,
       description: Option[String],
@@ -176,7 +176,7 @@ object SwissForm:
       forbiddenPairings: Option[String],
       manualPairings: Option[String]
   ):
-    def realVariant  = variant flatMap Variant.apply getOrElse Variant.default
+    def realVariant  = Variant.orDefault(variant)
     def realStartsAt = startsAt | DateTime.now.plusMinutes(10)
     def realChatFor  = chatFor | Swiss.ChatFor.default
     def realRoundInterval =

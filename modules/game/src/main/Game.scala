@@ -590,8 +590,7 @@ case class Game(
   def resetTurns = copy(chess = chess.copy(ply = Ply(0), startedAtPly = Ply(0)))
 
   lazy val opening: Option[Opening.AtPly] =
-    if (fromPosition || !Variant.openingSensibleVariants(variant)) none
-    else OpeningDb search sans
+    (!fromPosition && Variant.list.openingSensibleVariants(variant)) ?? OpeningDb.search(sans)
 
   def synthetic = id == Game.syntheticId
 
@@ -649,7 +648,7 @@ object Game:
     chess.variant.RacingKings
   )
 
-  val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
+  val unanalysableVariants: Set[Variant] = Variant.list.all.toSet -- analysableVariants
 
   val variantsWhereWhiteIsBetter: Set[Variant] = Set(
     chess.variant.ThreeCheck,
@@ -696,6 +695,7 @@ object Game:
   val abandonedDays = Days(21)
   def abandonedDate = DateTime.now minusDays abandonedDays.value
 
+  def strToIdOpt(str: String): Option[GameId]        = strToId(str).some.filter(validId)
   inline def strToId(str: String): GameId            = GameId(str take gameIdSize)
   inline def anyToId(anyId: GameAnyId): GameId       = strToId(anyId.value)
   inline def fullToId(fullId: GameFullId): GameId    = strToId(fullId.value)

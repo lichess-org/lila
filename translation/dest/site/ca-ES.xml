@@ -363,6 +363,7 @@
   <string name="siteDescription">Servidor d\'escacs gratuït online. Juga als escacs amb una interfície neta i elegant. No cal registrar-s\'hi, sense anuncis, no calen extensions. Juga a escacs amb l\'ordinador, amics o oponents a l\'atzar.</string>
   <string name="xJoinedTeamY">%1$s s\'ha unit a l\'equip %2$s</string>
   <string name="xCreatedTeamY">%1$s ha creat l\'equip %2$s</string>
+  <string name="startedStreaming">transmissió començada</string>
   <string name="xStartedStreaming">%s transmissió començada</string>
   <string name="averageElo">Ràting mitjà</string>
   <string name="location">Ubicació</string>
