@@ -389,6 +389,7 @@
   <string name="siteDescription">Șah online gratuit. Joacă șah acum într-o interfață simplă. Fără înregistrare, fără reclame, fără plugin-uri. Joacă șah cu calculatorul, cu prietenii sau cu alți jucători aleși la întâmplare.</string>
   <string name="xJoinedTeamY">%1$s a intrat în echipa %2$s</string>
   <string name="xCreatedTeamY">%1$s a creat echipa %2$s</string>
+  <string name="startedStreaming">e live</string>
   <string name="xStartedStreaming">%s a început să facă stream</string>
   <string name="averageElo">Medie rating</string>
   <string name="location">Locaţie</string>
@@ -774,7 +775,7 @@
   <string name="light">Luminos</string>
   <string name="dark">Culoare închisă</string>
   <string name="transparent">Transparent</string>
-  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Tema dispozitivului</string>
+  <string name="deviceTheme">Tema dispozitivului</string>
   <string name="backgroundImageUrl">URL-ul imaginii de fundal:</string>
   <string name="boardGeometry">Geometria tablei</string>
   <string name="boardTheme">Tema tablei</string>

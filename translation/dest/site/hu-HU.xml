@@ -25,7 +25,7 @@
   <string name="blackIsVictorious">Sötét nyert</string>
   <string name="youPlayTheWhitePieces">Világossal fogsz játszani</string>
   <string name="youPlayTheBlackPieces">Sötéttel fogsz játszani</string>
-  <string name="itsYourTurn">Te következel</string>
+  <string name="itsYourTurn">Te következel!</string>
   <string name="cheatDetected">Csalás észlelve</string>
   <string name="kingInTheCenter">Király a centrumban</string>
   <string name="threeChecks">Három sakk</string>
@@ -37,12 +37,12 @@
   <string name="whitePlays">Világos lép</string>
   <string name="blackPlays">Sötét lép</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Az ellenfél elhagyta a játékot, %s másodperc múlva tied a győzelem.</item>
-    <item quantity="other">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
+    <item quantity="one">Az ellenfél elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
+    <item quantity="other">Ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
   </plurals>
   <string name="opponentLeftChoices">Úgy tűnik, az ellenfél kilépett. Igényelhetsz győzelmet vagy döntetlent, esetleg várhatsz rá.</string>
   <string name="forceResignation">Győzelem igénylése</string>
-  <string name="forceDraw">Döntetlen</string>
+  <string name="forceDraw">Döntetlen felajánlása</string>
   <string name="talkInChat">Légy udvarias másokkal!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember, aki felkeresi ezt a címet, az lesz az ellenfeled.</string>
   <string name="whiteResigned">Világos feladta</string>
@@ -57,8 +57,8 @@
   <string name="computerAnalysisDisabled">Számítógépes elemzés letiltva</string>
   <string name="analysis">Elemzőtábla</string>
   <string name="depthX">%s mélység</string>
-  <string name="usingServerAnalysis">A szerver elemzését használja</string>
-  <string name="loadingEngine">Motor betöltése ...</string>
+  <string name="usingServerAnalysis">Szerver elemzés használata</string>
+  <string name="loadingEngine">Motor betöltése...</string>
   <string name="calculatingMoves">Lépések kiszámítása...</string>
   <string name="engineFailed">Hiba a motor betöltésekor</string>
   <string name="cloudAnalysis">Elemzés felhőben</string>
@@ -119,7 +119,7 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Végtelen elemzés</string>
   <string name="removesTheDepthLimit">Nincs mélységkorlát és melegszik a számítógéped</string>
-  <string name="blunder">Durva hiba</string>
+  <string name="blunder">Baklövés</string>
   <string name="mistake">Hiba</string>
   <string name="inaccuracy">Pontatlanság</string>
   <plurals name="nbBlunders">
@@ -330,7 +330,7 @@
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s tanulmány</item>
-    <item quantity="other">%s tanulmányok</item>
+    <item quantity="other">%s tanulmány</item>
   </plurals>
   <string name="viewTournament">Verseny nézése</string>
   <string name="backToTournament">Vissza a versenyhez</string>
@@ -363,6 +363,7 @@
   <string name="siteDescription">Ingyenes online sakkszerver letisztult kezelőfelülettel. Nem szükséges regisztráció, nincsenek hirdetések, sem telepítendő bővítmények. Játssz számítógép ellen, barátokkal vagy ismeretlen ellenfelekkel.</string>
   <string name="xJoinedTeamY">%1$s csatlakozott a következő csapathoz: %2$s</string>
   <string name="xCreatedTeamY">%1$s elkészítette a következő csapatot: %2$s</string>
+  <string name="startedStreaming" comment="startedStreaming&#10;&#10;A special notification triggered when a player you follow has started streaming.">közvetítések kezdete</string>
   <string name="xStartedStreaming">%s elkezdte a közvetítést</string>
   <string name="averageElo">Átlag értékszám</string>
   <string name="location">Hely</string>
@@ -685,7 +686,7 @@
   <string name="weHaveSentYouAnEmailTo">Küldtünk egy üzenetet a %s email címre. A jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">A regisztrációval elfogadod a %s-t</string>
   <string name="readAboutOur">Itt olvashatók az %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a Lichess között</string>
+  <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a Lichess szervere között</string>
   <string name="timeToProcessAMoveOnLichessServer">Az az idő, amíg a lichess szerver egy lépést feldolgoz</string>
   <string name="downloadAnnotated">Letöltés elemzéssel</string>
   <string name="downloadRaw">Letöltés elemzés nélkül</string>
@@ -737,7 +738,7 @@
   <string name="light">Világos</string>
   <string name="dark">Sötét</string>
   <string name="transparent">Áttetsző</string>
-  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Operációs rendszer</string>
+  <string name="deviceTheme">Operációs rendszer</string>
   <string name="backgroundImageUrl">Háttérkép URL címe:</string>
   <string name="boardGeometry">Tábla geometria</string>
   <string name="boardTheme">Tábla szín</string>
@@ -763,7 +764,7 @@
   </plurals>
   <string name="practiceWithComputer">Gyakorlás a géppel</string>
   <string name="anotherWasX">Ez is jó lett volna: %s</string>
-  <string name="bestWasX">Ez lett volna a legjobb lépés: %s</string>
+  <string name="bestWasX">Legjobb lépés: %s</string>
   <string name="youBrowsedAway">Elnavigáltál</string>
   <string name="resumePractice">Gyakorlás folytatása</string>
   <string name="drawByFiftyMoves">Az 50 lépéses szabály értelmében a játszma döntetlen.</string>
@@ -779,7 +780,7 @@
   <string name="learnFromThisMistake">Tanulok a hibámból</string>
   <string name="skipThisMove">Lépés kihagyása</string>
   <string name="next">Tovább</string>
-  <string name="xWasPlayed">%s a lépés</string>
+  <string name="xWasPlayed">lépés: %s</string>
   <string name="findBetterMoveForWhite">Találj egy jobb lépést világosnak</string>
   <string name="findBetterMoveForBlack">Találj egy jobb lépést sötétnek</string>
   <string name="resumeLearning">Tanulás folytatása</string>

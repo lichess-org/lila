@@ -363,6 +363,7 @@
   <string name="siteDescription">Gratis Schack på internet. Spela Schack nu, med ett enkelt gränssnitt. Ingen registrering, inga annonser, inga insticksprogram behövs. Spela schack mot datorn, vänner eller vem som helst.</string>
   <string name="xJoinedTeamY">%1$s gick med i lag %2$s</string>
   <string name="xCreatedTeamY">%1$s skapade lag %2$s</string>
+  <string name="startedStreaming">började strömma</string>
   <string name="xStartedStreaming">%s började sända video</string>
   <string name="averageElo">Medelrating</string>
   <string name="location">Plats</string>
@@ -741,7 +742,7 @@ https://lichess. org/study</string>
   <string name="light">Ljus</string>
   <string name="dark">Mörk</string>
   <string name="transparent">Genomskinlig</string>
-  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Enhetstema</string>
+  <string name="deviceTheme">Enhetstema</string>
   <string name="backgroundImageUrl">Bakgrundsbild URL:</string>
   <string name="boardGeometry">Brädets geometri</string>
   <string name="boardTheme">Brädets tema</string>

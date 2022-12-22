@@ -31,7 +31,7 @@
   <string name="promoteToQueenAutomatically">Troi yn Frenhines yn awtomatig</string>
   <string name="whenPremoving">Wrth symud o flaen</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Dewis gem gyfartal yn awtomatig ar ol ailadrodd tair gwaith</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Gyda llai na 30 eiliad</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Gyda llai na 30 eiliad</string>
   <string name="moveConfirmation">Cadarnháu symudiad</string>
   <string name="inCorrespondenceGames">Gêmau drwy\'r post</string>
   <string name="correspondenceAndUnlimited">Gohebol ac anghyfyngedig</string>

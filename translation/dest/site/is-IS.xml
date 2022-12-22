@@ -138,6 +138,7 @@
     <item quantity="one">%s tengdir spilarar</item>
     <item quantity="other">%s tengdir spilarar</item>
   </plurals>
+  <string name="drawByMutualAgreement">Jafntefli vegna samkomulag</string>
   <string name="currentGames">Leikir í gangi núna</string>
   <plurals name="nbGames">
     <item quantity="one">%s skák</item>
@@ -186,16 +187,20 @@
   <string name="changeUsername">Breyta notandanafni</string>
   <string name="changeUsernameNotSame">Aðeins er hægt að víxla á hástöfum og lágstöfum. Til dæmis „ómarragnarsson” í „ÓmarraGNARsson”.</string>
   <string name="changeUsernameDescription">Skiptu um notendanafn. Þú getur aðeins gert þetta einu sinni og þú mátt bara víxla á hástöfum og lágstöfum.</string>
+  <string name="signupUsernameHint">Veldu notendanafn sem er viðeigandi fyrir alla, jafnvel börn. Ekki er hægt að breyta það síðar og allir reikningar með óviðeigandi notendanöfn verða lokaðir!</string>
   <string name="password">Lykilorð</string>
   <string name="changePassword">Breyta um lykilorð</string>
   <string name="changeEmail">Breyta tölvupóstfangi</string>
   <string name="email">Tölvupóstfang</string>
   <string name="passwordReset">Breyta lykilorði</string>
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
+  <string name="emailConfirmHelp">Hjálp með staðfestingu á tölvupóst</string>
+  <string name="emailConfirmNotReceived">Fékkstu ekki staðfestingartölvupóst?</string>
   <string name="whatSignupUsername">Hvaða notandanafn notaðiru þegar þú nýskráðir aðganginn?</string>
   <string name="usernameNotFound">Við fundum engan með þessu notandanafni: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Þú getur notað þetta notandanafn til þess að stofna nýjan aðgang</string>
   <string name="emailSent">Við höfum sent tölvupóst á %s.</string>
+  <string name="accountCanLogin">Þú getur skráð þig inn núna sem %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Þú þarft ekki staðfestingar póst.</string>
   <string name="accountClosed">Aðgangurinn %s er lokaður.</string>
   <string name="accountRegisteredWithoutEmail">Aðgangurinn %s var skráður með engu netfangi.</string>
@@ -343,6 +348,7 @@
   <string name="save">Vista</string>
   <string name="leaderboard">Stigaborð</string>
   <string name="screenshotCurrentPosition">Taka skjáskot af núverandi stöðu</string>
+  <string name="gameAsGIF">Leikur sem GIF</string>
   <string name="pasteTheFenStringHere">Límdu FEN strengnum hér</string>
   <string name="pasteThePgnStringHere">Límdu PGN strengnum hér</string>
   <string name="fromPosition">Frá staðsetningu</string>
@@ -550,6 +556,7 @@
   <string name="tools">Gögn</string>
   <string name="increment">Aukning</string>
   <string name="error.required">Þessi reitur er nauðsynlegur</string>
+  <string name="error.minLength">Lykilorðið verður að hafa að minnsta kosti %s stafi</string>
   <string name="ifRatingIsPlusMinusX">Ef skor er ± %s</string>
   <string name="onlyFriends">Aðeins vinir</string>
   <string name="menu">Valmynd</string>

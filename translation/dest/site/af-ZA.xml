@@ -363,6 +363,7 @@
   <string name="siteDescription">Gratis aanlyn Skaak spel. Speel nou Skaak met \'n maklike skerm. Geen registrasie nodig, geen advertensies, niks om te installeer. Speel Skaak teen rekenaar, vriende of nuwe uitdagers.</string>
   <string name="xJoinedTeamY">%1$s het aangesluit by span %2$s</string>
   <string name="xCreatedTeamY">%1$s het span %2$s geskep</string>
+  <string name="startedStreaming">het begin met \'n uitsending</string>
   <string name="xStartedStreaming">%s het begin met \'n uitsending</string>
   <string name="averageElo">Gemiddelde gradering</string>
   <string name="location">Ligging</string>

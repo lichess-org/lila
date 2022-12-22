@@ -3,6 +3,7 @@
   <string name="preferences">Voorkeure</string>
   <string name="display">Vertoon</string>
   <string name="privacy">Privaatheid</string>
+  <string name="notifications">Kennisgewings</string>
   <string name="pieceAnimation">Stuk animasie</string>
   <string name="materialDifference">Materiaal verskil</string>
   <string name="boardHighlights">Bord hoogtepunte (onlangste skuif en skaak)</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Druk die &lt;ctrl&gt;-sleutel terwyl jy promoveer om outo-promovering tydelik te deaktiveer</string>
   <string name="whenPremoving">Tydens vooraf-skuiwe</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis gelykop met drievoudige repetisie outomaties</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">&lt; 30 sekondes voor tyd uitloop</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">&lt; 30 sekondes voor tyd uitloop</string>
   <string name="moveConfirmation">Skuif bevestiging</string>
   <string name="inCorrespondenceGames">Korrespondensie spelle</string>
   <string name="correspondenceAndUnlimited">Korrespondensie en onbeperkte</string>
@@ -50,4 +51,13 @@
   <string name="yourPreferencesHaveBeenSaved">Jou voorkeure is gestoor.</string>
   <string name="scrollOnTheBoardToReplayMoves">Roll die muis op die bord om skuiwe te herspeel</string>
   <string name="correspondenceEmailNotification">Daaglikse e-pos met \'n lys van jou korrespondensiespelle</string>
+  <string name="notifyStreamStart">Uitsending het begin</string>
+  <string name="notifyForumMention">Jy is genoem in \'n forumboodskap</string>
+  <string name="notifyInvitedStudy">Studie-uitnodiging</string>
+  <string name="notifyGameEvent">Korrespondensiespelopdaterings</string>
+  <string name="notifyChallenge">Uitdagings</string>
+  <string name="notifyTournamentSoon">Toernooi begin binnekort</string>
+  <string name="notifyTimeAlarm">Korrespondensietyd raak min</string>
+  <string name="notifyWeb">Blaaier</string>
+  <string name="notifyDevice">Toestel</string>
 </resources>

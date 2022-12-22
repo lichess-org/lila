@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Mbani të shtypur tastin &lt;Ctrl&gt; gjatë daljes, për të çaktivizuar përkohësisht daljet e automatizuara</string>
   <string name="whenPremoving">Kur paracaktohet lëvizja</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Pretendo barazim ne perseritjen tre here te levizjeve automatikisht</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Kur koha e mbetur &lt;30 sekonda</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kur koha e mbetur &lt;30 sekonda</string>
   <string name="moveConfirmation">Pohim i lëvizjeve</string>
   <string name="inCorrespondenceGames">Lojëkëmbimet</string>
   <string name="correspondenceAndUnlimited">Korrespondencë dhe i pakufizuar</string>

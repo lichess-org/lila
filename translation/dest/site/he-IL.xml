@@ -415,6 +415,7 @@
   <string name="siteDescription">שרת שחמט מקוון חינמי. שחקו שחמט כעת בממשק נקי. בלי הרשמה, בלי פרסומות, בלי להתקין שום דבר. שחקו שחמט עם המחשב, עם חברים או עם יריבים אקראיים.</string>
   <string name="xJoinedTeamY">%1$s הצטרף/ה לקבוצה %2$s</string>
   <string name="xCreatedTeamY">%1$s יצר/ה את הקבוצה %2$s</string>
+  <string name="startedStreaming">התחיל/ה לשדר</string>
   <string name="xStartedStreaming">%s התחיל/ה לשדר</string>
   <string name="averageElo">דירוג ממוצע</string>
   <string name="location">מיקום</string>

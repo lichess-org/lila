@@ -363,6 +363,7 @@
   <string name="siteDescription">Fritt tilgjengeleg nettsjakk. Spel sjakk på ei rein nettside utan registrering, reklame eller programtillegg. Spel sjakk mot datamaskin, vener eller tilfeldige motspelarar.</string>
   <string name="xJoinedTeamY">%1$s blei med i laget %2$s</string>
   <string name="xCreatedTeamY">%1$s oppretta lag %2$s</string>
+  <string name="startedStreaming">starta å strøyma</string>
   <string name="xStartedStreaming">%s starta å strøyme</string>
   <string name="averageElo">Gjennomsnittleg rating</string>
   <string name="location">Stad</string>
