@@ -603,6 +603,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notatki</string>
   <string name="typePrivateNotesHere">Pisz tutaj notatki prywatne</string>
+  <string name="writeAPrivateNoteAboutThisUser">Napisz prywatną notatkę o tym użytkowniku</string>
+  <string name="noNoteYet">Brak notatek</string>
   <string name="invalidUsernameOrPassword">Niepoprawne nazwa użytkownika lub hasło</string>
   <string name="incorrectPassword">Nieprawidłowe hasło</string>
   <string name="invalidAuthenticationCode">Nieprawidłowy kod uwierzytelniający</string>
