@@ -508,6 +508,8 @@
   <string name="blog">ブログ</string>
   <string name="notes">メモ</string>
   <string name="typePrivateNotesHere">自分用のメモ欄</string>
+  <string name="writeAPrivateNoteAboutThisUser">このユーザーについて自分用のメモを書く</string>
+  <string name="noNoteYet">まだメモはありません</string>
   <string name="invalidUsernameOrPassword">無効なユーザー名 または パスワード</string>
   <string name="incorrectPassword">パスワードが違います</string>
   <string name="invalidAuthenticationCode">無効な認証コード</string>
