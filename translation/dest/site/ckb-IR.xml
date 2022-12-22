@@ -603,6 +603,11 @@
     <item quantity="one">%s بڵاوکراوەی یانە</item>
     <item quantity="other">%s بڵاوکراوەکانی یانە</item>
   </plurals>
+  <string name="tpTimeSpentPlaying">ئەوکاتەی کە بەیاریکردن بەسەرتبردووە: %s</string>
+  <string name="watchGames">سەیری یارییەکان بکە</string>
+  <string name="tpTimeSpentOnTV">ئەوکاتەی لە تەلەفزیۆندا نمایشدەکرێت: %s</string>
+  <string name="watch">سەیکردن</string>
+  <string name="videoLibrary">بەشی ڤیدیۆکان</string>
   <string name="simultaneousExhibitions">پێشاندانی هاوکات</string>
   <string name="host">پێشکەشکار</string>
   <string name="hostColorX">ڕەنگی داشەکانی پێشکەشکار</string>
