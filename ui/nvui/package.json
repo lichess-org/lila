@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "shogiground": "^0.7.0",
-    "shogiops": "^0.10.3",
+    "shogiops": "^0.11.0",
     "snabbdom": "^3.5.1"
   }
 }
