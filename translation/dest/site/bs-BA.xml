@@ -572,6 +572,8 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="blog">Blog</string>
   <string name="notes">Bilješke</string>
   <string name="typePrivateNotesHere">Ovdje upišite privatne bilješke</string>
+  <string name="writeAPrivateNoteAboutThisUser">Napišite privatnu bilješku o ovom korisniku</string>
+  <string name="noNoteYet">Još nema bilješki</string>
   <string name="invalidUsernameOrPassword">Pogrešno korisničko ime ili lozinka</string>
   <string name="incorrectPassword">Netačna lozinka</string>
   <string name="invalidAuthenticationCode">Nevažeći kod pri provjeri autentičnosti</string>
