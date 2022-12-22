@@ -214,11 +214,12 @@ export default class EditorCtrl {
       bishop: 2 - pos.board.role('bishop').size() - pos.board.role('horse').size() - senteHand.get('bishop'),
       rook: 2 - pos.board.role('rook').size() - pos.board.role('dragon').size() - senteHand.get('rook'),
     };
-    pos.hands['gote'] = Hand.empty();
+    const goteHand = Hand.empty();
 
     for (const p in pieceCounts) {
-      if (pieceCounts[p] > 0) pos.hands['gote'][p as Role] = pieceCounts[p];
+      if (pieceCounts[p] > 0) goteHand.set(p as Role, pieceCounts[p]);
     }
+    pos.hands = Hands.from(senteHand, goteHand);
 
     this.setSfen(makeSfen(pos));
 
