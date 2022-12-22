@@ -62,7 +62,7 @@ object index:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("streamer.list"),
-      moreJs = infiniteScrollTag
+      moreJs = frag(infiniteScrollTag, jsModule("streamer"))
     ) {
       main(cls                                                          := "page-menu")(
         bits.menu(if (requests) "requests" else "index", none)(ctx)(cls := " page-menu__menu"),
