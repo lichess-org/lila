@@ -9,9 +9,7 @@ import JsonApi.Request.Evaluation
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
 
-final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using
-    scala.concurrent.ExecutionContext
-):
+final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using scala.concurrent.ExecutionContext):
 
   def apply(client: Client, work: Work.Analysis, evals: List[Evaluation.OrSkipped]): Fu[Analysis] =
     partial(client, work, evals map some, isPartial = false)
@@ -95,6 +93,6 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using
           ),
           variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToPgn
         )
-        if (info.ply.isEven) info.invert else info
+        if (info.ply.isOdd) info.invert else info
       case ((_, _), index) => Info(startedAtPly + index + 1, Eval.empty, Nil)
     }
