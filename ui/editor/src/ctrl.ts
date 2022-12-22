@@ -146,8 +146,6 @@ export default class EditorCtrl {
         hands: Hands.empty(),
         turn: this.turn,
         moveNumber: 1,
-        lastMove: undefined,
-        lastCapture: undefined,
       },
       false
     ).unwrap();
