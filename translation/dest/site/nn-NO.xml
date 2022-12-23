@@ -540,6 +540,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="blog">Blogg</string>
   <string name="notes">Notat</string>
   <string name="typePrivateNotesHere">Skriv private notat her</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skriv eit privat notat om denne brukaren</string>
+  <string name="noNoteYet">Ingen merknad så langt</string>
   <string name="invalidUsernameOrPassword">Feil brukarnamn eller passord</string>
   <string name="incorrectPassword">Feil passord</string>
   <string name="invalidAuthenticationCode">Ugyldig godkjenningskode</string>

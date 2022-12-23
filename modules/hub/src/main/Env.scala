@@ -9,16 +9,16 @@ object actors:
   trait Actor:
     val actor: ActorSelection
     val ! = actor.!
-  case class GameSearch(actor: ActorSelection)  extends Actor
-  case class ForumSearch(actor: ActorSelection) extends Actor
-  case class TeamSearch(actor: ActorSelection)  extends Actor
-  case class Fishnet(actor: ActorSelection)     extends Actor
-  case class Bookmark(actor: ActorSelection)    extends Actor
-  case class Shutup(actor: ActorSelection)      extends Actor
-  case class Timeline(actor: ActorSelection)    extends Actor
-  case class Report(actor: ActorSelection)      extends Actor
-  case class Renderer(actor: ActorSelection)    extends Actor
-  case class Captcher(actor: ActorSelection)    extends Actor
+  final class GameSearch(val actor: ActorSelection)  extends Actor
+  final class ForumSearch(val actor: ActorSelection) extends Actor
+  final class TeamSearch(val actor: ActorSelection)  extends Actor
+  final class Fishnet(val actor: ActorSelection)     extends Actor
+  final class Bookmark(val actor: ActorSelection)    extends Actor
+  final class Shutup(val actor: ActorSelection)      extends Actor
+  final class Timeline(val actor: ActorSelection)    extends Actor
+  final class Report(val actor: ActorSelection)      extends Actor
+  final class Renderer(val actor: ActorSelection)    extends Actor
+  final class Captcher(val actor: ActorSelection)    extends Actor
 
 @Module
 final class Env(

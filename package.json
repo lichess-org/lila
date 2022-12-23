@@ -39,6 +39,6 @@
     "lint": "eslint . --ext .ts",
     "lila-journal": "journalctl --user -fu lila -o cat",
     "serverlog": "multitail -cT ansi -l 'pnpm lila-journal' -cT ansi -ke '^[0-9\\.]{10} ' -I .metals/metals.log",
-    "multilog": "multitail -cT ansi -l 'pnpm lila-journal' -cT ansi -L 'ui/build -w' -cT ansi -ke '^[0-9\\.]{10} ' -I .metals/metals.log"
+    "multilog": "multitail -cT ansi -l 'pnpm lila-journal' -cT ansi -L 'ui/build -w' -cT ansi -ke '^[0-9\\.]{10} ' -I .metals/metals.log -cT ansi -I logs/all.log"
   }
 }

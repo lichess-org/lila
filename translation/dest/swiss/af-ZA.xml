@@ -56,6 +56,9 @@ Tel die tellings van die spelers wat deur die speler gewen is op asook halfte va
   <string name="restrictedToTeamsA">Switserse toernooie is nie ontwerp vir aanlyn skaak nie. Dit verg stiptilikheid, toewyding en gedult van spelers.
 Ons dink hierdie voorwaardes is meer waarskynlik binne \'n span, as in werêlds-toernooie.</string>
   <string name="numberOfByesQ">Hoeveel loslootjies kan \'n speler kry?</string>
+  <string name="lateJoinQ">Kan spelers laat aansluit?</string>
+  <string name="willSwissReplaceArenasA">Nee. Hulle is komplementêre eienskappe.</string>
+  <string name="roundRobinQ">Wat van rondomtalie toernooie?</string>
   <string name="unlimitedAndFree">Onbeperk en verniet</string>
   <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">%1$s / %2$s rondte Switsers</item>

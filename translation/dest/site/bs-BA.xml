@@ -389,7 +389,7 @@
   <string name="siteDescription">Besplatni internetski šah. Igrajte odmah u jednostavnom interfejsu. Registracija nije obavezna, nema reklama i ne trebaju nikakvi dodaci za vaš pretraživač. Igrajte šah protiv računara, prijatelja ili slučajno odabranih protivnika.</string>
   <string name="xJoinedTeamY">%1$s se pridružio timu %2$s</string>
   <string name="xCreatedTeamY">%1$s je osnovao tim %2$s</string>
-  <string name="startedStreaming" comment="startedStreaming&#10;&#10;A special notification triggered when a player you follow has started streaming.">počeo emitovanje</string>
+  <string name="startedStreaming">počeo emitovanje</string>
   <string name="xStartedStreaming">%s počeo/la emitovanje</string>
   <string name="averageElo">Prosječni rejting</string>
   <string name="location">Lokacija</string>
@@ -572,6 +572,8 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="blog">Blog</string>
   <string name="notes">Bilješke</string>
   <string name="typePrivateNotesHere">Ovdje upišite privatne bilješke</string>
+  <string name="writeAPrivateNoteAboutThisUser">Napišite privatnu bilješku o ovom korisniku</string>
+  <string name="noNoteYet">Još nema bilješki</string>
   <string name="invalidUsernameOrPassword">Pogrešno korisničko ime ili lozinka</string>
   <string name="incorrectPassword">Netačna lozinka</string>
   <string name="invalidAuthenticationCode">Nevažeći kod pri provjeri autentičnosti</string>

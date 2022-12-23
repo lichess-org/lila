@@ -603,6 +603,8 @@
   <string name="blog">בלוג</string>
   <string name="notes">הערות</string>
   <string name="typePrivateNotesHere">הקלידו הערות פרטיות כאן</string>
+  <string name="writeAPrivateNoteAboutThisUser">כתבו הערה פרטית בנוגע למשתמש הזה</string>
+  <string name="noNoteYet">אין עדיין הערות</string>
   <string name="invalidUsernameOrPassword">שגיאה בשם המשתמש או בסיסמה</string>
   <string name="incorrectPassword">סיסמה שגויה</string>
   <string name="invalidAuthenticationCode">קוד אימות לא תקין</string>
@@ -674,7 +676,7 @@
   <string name="error.min">לפחות %s</string>
   <string name="error.max">%s או פחות</string>
   <string name="ifRatingIsPlusMinusX">אם הדירוג ± %s</string>
-  <string name="ifRegistered">אם רשום</string>
+  <string name="ifRegistered">רק משתמשים רשומים</string>
   <string name="onlyExistingConversations">שיחה קיימת בלבד</string>
   <string name="onlyFriends">חברים בלבד</string>
   <string name="menu">תפריט</string>

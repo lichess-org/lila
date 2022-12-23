@@ -36,7 +36,7 @@ object queue:
               td(
                 userIdLink(appeal.id.some, params = "?mod"),
                 br,
-                markedByMe.contains(appeal.id) option span(dataIcon := "", cls := "marked-by-me text")(
+                markedByMe.contains(appeal.userId) option span(dataIcon := "", cls := "marked-by-me text")(
                   "My mark"
                 ),
                 views.html.user.mod.userMarks(user, None)
@@ -51,7 +51,7 @@ object queue:
               }),
               td(
                 a(href := appealRoutes.show(appeal.id), cls := "button button-empty")("View"),
-                inquiries.get(appeal.id) map { i =>
+                inquiries.get(appeal.userId) map { i =>
                   frag(userIdLink(i.mod.some), nbsp, "is handling this")
                 }
               )

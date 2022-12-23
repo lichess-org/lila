@@ -17,12 +17,12 @@ final class ChatApi(
     coll: Coll,
     userRepo: UserRepo,
     chatTimeout: ChatTimeout,
-    flood: lila.security.Flood,
+    flood: Flood,
     spam: lila.security.Spam,
     shutup: lila.hub.actors.Shutup,
     cacheApi: lila.memo.CacheApi,
     netDomain: NetDomain
-)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
 
   import Chat.given
 
@@ -103,7 +103,7 @@ final class ChatApi(
                     .message(publicSource.fold("player")(_.parentName), line.troll)
                     .increment()
                     .unit
-                publish(chatId, actorApi.ChatLine(chatId, line), busChan)
+                publish(chatId, ChatLine(chatId, line), busChan)
               }
           }
         }
@@ -120,13 +120,13 @@ final class ChatApi(
       val line = UserLine(User.lichessName, None, false, text, troll = false, deleted = false)
       persistLine(chatId, line) >>- {
         cached.invalidate(chatId)
-        publish(chatId, actorApi.ChatLine(chatId, line), busChan)
+        publish(chatId, ChatLine(chatId, line), busChan)
       }
 
     // like system, but not persisted.
     def volatile(chatId: ChatId, text: String, busChan: BusChan.Select): Unit =
       val line = UserLine(User.lichessName, None, false, text, troll = false, deleted = false)
-      publish(chatId, actorApi.ChatLine(chatId, line), busChan)
+      publish(chatId, ChatLine(chatId, line), busChan)
 
     def service(chatId: ChatId, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
       (if (isVolatile) volatile else system) (chatId, text, busChan).unit
@@ -198,9 +198,9 @@ final class ChatApi(
         val chat = line.fold(c2)(c2.add)
         coll.update.one($id(chat.id), chat).void >>- {
           cached.invalidate(chat.id)
-          publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
+          publish(chat.id, OnTimeout(chat.id, user.id), busChan)
           line foreach { l =>
-            publish(chat.id, actorApi.ChatLine(chat.id, l), busChan)
+            publish(chat.id, ChatLine(chat.id, l), busChan)
           }
           if (scope == ChatTimeout.Scope.Global)
             lila.common.Bus.publish(
@@ -225,7 +225,7 @@ final class ChatApi(
       change.?? {
         coll.update.one($id(chat.id), chat).void >>- {
           cached invalidate chat.id
-          publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
+          publish(chat.id, OnTimeout(chat.id, user.id), busChan)
         }
       } inject change
 
@@ -234,7 +234,7 @@ final class ChatApi(
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
       list.foreach { r =>
-        Bus.publish(actorApi.OnReinstate(r.chat, r.user), BusChan.Global.chan)
+        Bus.publish(OnReinstate(r.chat, r.user), BusChan.Global.chan)
       }
 
     private[ChatApi] def makeLine(chatId: ChatId, userId: UserId, t1: String): Fu[Option[UserLine]] =
@@ -279,7 +279,7 @@ final class ChatApi(
     def write(chatId: ChatId, color: Color, text: String, busChan: BusChan.Select): Funit =
       makeLine(chatId, color, text) ?? { line =>
         persistLine(chatId, line) >>- {
-          publish(chatId, actorApi.ChatLine(chatId, line), busChan)
+          publish(chatId, ChatLine(chatId, line), busChan)
           lila.mon.chat.message("anonPlayer", troll = false).increment().unit
         }
       }

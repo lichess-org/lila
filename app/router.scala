@@ -3,6 +3,8 @@ package router
 import lila.app._
 import lila.rating.Perf
 import lila.puzzle.PuzzleTheme
+import lila.report.Report
+import lila.appeal.Appeal
 import chess.variant.Variant
 
 // These are only meant for the play router,
@@ -21,6 +23,8 @@ given Conversion[String, RelayRoundId]                                   = Relay
 given Conversion[String, UblogPostId]                                    = UblogPostId(_)
 given Conversion[String, ForumCategId]                                   = ForumCategId(_)
 given Conversion[String, ForumTopicId]                                   = ForumTopicId(_)
+given appealId: Conversion[String, Appeal.Id]                            = Appeal.Id(_)
+given reportId: Conversion[String, Report.Id]                            = Report.Id(_)
 given Conversion[String, ForumPostId]                                    = ForumPostId(_)
 given Conversion[String, UserStr]                                        = UserStr(_)
 given userOpt: Conversion[Option[String], Option[UserStr]]               = UserStr from _
@@ -57,6 +61,8 @@ object ReverseRouterConversions:
   given Conversion[UserId, UserStr]                    = _ into UserStr
   given Conversion[ForumCategId, String]               = _.value
   given Conversion[ForumTopicId, String]               = _.value
+  given appealId: Conversion[Appeal.Id, String]        = _.value
+  given reportId: Conversion[Report.Id, String]        = _.value
   given postId: Conversion[ForumPostId, String]        = _.value
   given perfKey: Conversion[Perf.Key, String]          = _.value
   given puzzleKey: Conversion[PuzzleTheme.Key, String] = _.value

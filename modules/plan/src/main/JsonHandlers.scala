@@ -4,20 +4,15 @@ import play.api.libs.json.*
 import play.api.libs.functional.syntax.*
 import java.util.Currency
 import scala.util.Try
+import lila.common.Json.given
 
 private object JsonHandlers:
 
   given Reads[Currency] = lila.common.Json.tryRead(code => Try(Currency getInstance code.toUpperCase))
-  given Reads[Country]  = Reads.of[String].map(Country.apply)
 
   object stripe:
-    given Reads[StripeSubscriptionId] = Reads.of[String].map(StripeSubscriptionId.apply)
-    given Reads[StripeSessionId]      = Reads.of[String].map(StripeSessionId.apply)
-    given Reads[StripeCustomerId]     = Reads.of[String].map(StripeCustomerId.apply)
-    given Reads[StripeChargeId]       = Reads.of[String].map(StripeChargeId.apply)
-    given Reads[StripeAmount]         = Reads.of[Int].map(StripeAmount.apply)
-    given Reads[StripePrice]          = Json.reads
-    given Reads[StripeItem]           = Json.reads
+    given Reads[StripePrice] = Json.reads
+    given Reads[StripeItem]  = Json.reads
     // require that the items array is not empty.
     given Reads[StripeSubscription] = (
       (__ \ "id").read[String] and

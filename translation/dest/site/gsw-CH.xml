@@ -541,6 +541,8 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notize</string>
   <string name="typePrivateNotesHere">Gib privati Notize da i</string>
+  <string name="writeAPrivateNoteAboutThisUser">Schrib e privati Notiz über de Benutzer</string>
+  <string name="noNoteYet">No kei Notiz vorhande</string>
   <string name="invalidUsernameOrPassword">Ungültige Benutzername oder Passwort</string>
   <string name="incorrectPassword">Falschs Passwort</string>
   <string name="invalidAuthenticationCode">Ungültige Authentifizierigscode</string>

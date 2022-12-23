@@ -276,9 +276,9 @@ final class ReportApi(
       case _ => funit
     }
 
-  def byId(id: Report.ID) = coll.byId[Report](id)
+  def byId(id: Report.Id) = coll.byId[Report](id)
 
-  def process(mod: Mod, reportId: Report.ID): Funit =
+  def process(mod: Mod, reportId: Report.Id): Funit =
     for {
       report  <- byId(reportId) orFail s"no such report $reportId"
       suspect <- getSuspect(report.user) orFail s"No such suspect $report"
@@ -286,7 +286,7 @@ final class ReportApi(
       res <- process(mod, suspect, rooms, reportId.some)
     } yield res
 
-  def process(mod: Mod, sus: Suspect, rooms: Set[Room], reportId: Option[Report.ID] = None): Funit =
+  def process(mod: Mod, sus: Suspect, rooms: Set[Room], reportId: Option[Report.Id] = None): Funit =
     inquiries
       .ofModId(mod.user.id)
       .dmap(_.filter(_.user == sus.user.id))
@@ -348,12 +348,12 @@ final class ReportApi(
       $doc("room" -> r)
     }
 
-  private def selectOpenInRoom(room: Option[Room], exceptIds: Iterable[Report.ID]) =
+  private def selectOpenInRoom(room: Option[Room], exceptIds: Iterable[Report.Id]) =
     $doc("open" -> true) ++ roomSelect(room) ++ {
       exceptIds.nonEmpty ?? $doc("_id" $nin exceptIds)
     }
 
-  private def selectOpenAvailableInRoom(room: Option[Room], exceptIds: Iterable[Report.ID]) =
+  private def selectOpenAvailableInRoom(room: Option[Room], exceptIds: Iterable[Report.Id]) =
     selectOpenInRoom(room, exceptIds) ++ $doc("inquiry" $exists false)
 
   private val maxScoreCache = cacheApi.unit[Room.Scores] {
@@ -467,7 +467,7 @@ final class ReportApi(
         .sortBy(-_.urgency)
     }
 
-  def snooze(mod: Mod, reportId: Report.ID, duration: String): Fu[Option[Report]] =
+  def snooze(mod: Mod, reportId: Report.Id, duration: String): Fu[Option[Report]] =
     byId(reportId) flatMap {
       _ ?? { report =>
         snoozer.set(Report.SnoozeKey(mod.user.id, reportId), duration)
@@ -570,16 +570,21 @@ final class ReportApi(
      * If they already are on this inquiry, cancel it.
      * Returns the previous and next inquiries
      */
-    def toggle(mod: Mod, id: Report.ID): Fu[(Option[Report], Option[Report])] =
+    def toggle(mod: Mod, id: String | Either[Report.Id, UserId]): Fu[(Option[Report], Option[Report])] =
       workQueue {
         doToggle(mod, id)
       }
 
-    private def doToggle(mod: Mod, id: Report.ID): Fu[(Option[Report], Option[Report])] =
+    private def doToggle(
+        mod: Mod,
+        id: String | Either[Report.Id, UserId]
+    ): Fu[(Option[Report], Option[Report])] =
+      def findByUser(userId: UserId) = coll.one[Report]($doc("user" -> userId, "inquiry.mod" $exists true))
       for {
-        report <- coll.byId[Report](id) orElse coll.one[Report](
-          $doc("user" -> id, "inquiry.mod" $exists true)
-        )
+        report <- id match
+          case Left(reportId) => coll.byId[Report](reportId)
+          case Right(userId)  => findByUser(userId)
+          case anyId: String  => coll.byId[Report](anyId) orElse findByUser(UserId(anyId))
         current <- ofModId(mod.user.id)
         _       <- current ?? cancel(mod)
         _ <-
@@ -598,7 +603,7 @@ final class ReportApi(
       workQueue {
         findNext(mod, room) flatMap {
           _ ?? { report =>
-            doToggle(mod, report.id).dmap(_._2)
+            doToggle(mod, Left(report.id)).dmap(_._2)
           }
         }
       }
