@@ -124,7 +124,7 @@ $hand-col1-height: auto;
     @include breakpoint($mq-xx-small) {
       grid-template-columns: 1fr 1fr;
       grid-template-areas: 'metas user' 'metas theme' 'config theme' '. theme';
-      grid-template-rows: min-content min-content min-content;
+      grid-template-rows: min-content min-content min-content min-content;
 
       .puzzle-replay & {
         grid-template-areas: 'metas replay' 'metas user' 'config user';
@@ -132,12 +132,10 @@ $hand-col1-height: auto;
     }
 
     @include breakpoint($mq-x-large) {
-      grid-template-columns: 1fr;
+      grid-template-columns: $col3-uniboard-side;
       grid-template-areas: 'metas' 'user' 'theme' 'config';
       grid-template-rows: min-content min-content min-content;
       justify-self: end;
-      min-width: 250px;
-      max-width: 350px;
 
       .puzzle-replay & {
         grid-template-areas: 'metas' 'replay' 'user' 'config';
