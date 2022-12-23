@@ -30,8 +30,8 @@ object BSONHandlers {
     def writeTry(ca: ConsecutiveAttacks) = Success(BSONArray(ca.sente, ca.gote))
   }
 
-  implicit val StatusBSONHandler = tryHandler[Status](
-    { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
+  implicit val StatusBSONHandler = quickHandler[Status](
+    { case BSONInteger(v) => Status(v).getOrElse(Status.UnknownFinish) },
     x => BSONInteger(x.id)
   )
 

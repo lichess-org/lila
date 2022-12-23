@@ -236,8 +236,8 @@ object BSONHandlers {
   }
 
   implicit val PathBSONHandler = BSONStringHandler.as[Path](Path.apply, _.toString)
-  implicit val VariantBSONHandler = tryHandler[Variant](
-    { case BSONInteger(v) => Variant(v) toTry s"No such variant: $v" },
+  implicit val VariantBSONHandler = quickHandler[Variant](
+    { case BSONInteger(v) => Variant.orDefault(v) },
     x => BSONInteger(x.id)
   )
 

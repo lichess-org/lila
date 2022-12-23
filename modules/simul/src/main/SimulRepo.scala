@@ -17,8 +17,8 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
     x => BSONInteger(x.id)
   )
   implicit private val ShogiStatusBSONHandler = lila.game.BSONHandlers.StatusBSONHandler
-  implicit private val VariantBSONHandler = tryHandler[Variant](
-    { case BSONInteger(v) => Variant(v) toTry s"No such variant: $v" },
+  implicit private val VariantBSONHandler = quickHandler[Variant](
+    { case BSONInteger(v) => Variant.orDefault(v) },
     x => BSONInteger(x.id)
   )
   import shogi.Clock.Config
