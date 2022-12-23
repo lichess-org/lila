@@ -57,7 +57,7 @@ object embed:
               "study"  -> data.study,
               "data"   -> data.analysis,
               "embed"  -> true,
-              "i18n"   -> views.html.board.userAnalysisI18n(),
+              "i18n"   -> jsI18n.embed(chapter),
               "userId" -> none[String]
             )
           )});
