@@ -13,6 +13,7 @@
 	<string name="patronUntil">您的赞助帐户直到 %s。</string>
 	<string name="ifNotRenewed">如果没有续订，你将被降级为免费账户。</string>
 	<string name="weRelyOnSupport">我们能做到现在，就是依靠像您这样的人的支持。 如果您喜欢使用 Lishogi，请考虑捐赠并成为赞助者来支持我们！</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">终生</string>
 	<string name="payLifetimeOnce">支付 %s 一次。永远成为 Lishogi 赞助者！</string>
 	<string name="lifetimePatron">永久 Lishogi 赞助者</string>

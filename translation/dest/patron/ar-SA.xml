@@ -13,6 +13,7 @@
 	<string name="patronUntil">لديك حساب راعي حتى %s.</string>
 	<string name="ifNotRenewed">اذا لم تجدد، سيتم تخفيضك لحساب مجاني.</string>
 	<string name="weRelyOnSupport">نحن نعتمد على دعم من أُناس مثلك لجعل هذا ممكناً، اذا استمتعت على Lishogi، يرجى النظر في دعمنا وأن تصبح راعي!</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">مدى الحياة</string>
 	<string name="payLifetimeOnce">ادفع %s مره، وكنّ راعي Lishogi للأبد!</string>
 	<string name="lifetimePatron">راعي Lishogi مدة الحياة</string>

@@ -13,6 +13,7 @@
 	<string name="patronUntil">Sinulla on tukijatili %s asti.</string>
 	<string name="ifNotRenewed">Jollet uusi sitä, tilisi alennetaan ilmaistiliksi.</string>
 	<string name="weRelyOnSupport">Sen mahdollistamiseksi turvaudumme sinun kaltaistesi ihmisten tukeen. Jos nautit Lishogiin käytöstä, harkitse meidän tukemista lahjoituksella ja ryhtymällä tukijaksi!</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">Elinikäinen</string>
 	<string name="payLifetimeOnce">Maksa %s kerran. Ole Lishogiin tukija ikuisesti!</string>
 	<string name="lifetimePatron">Elinikäinen Lishogiin tukija</string>

@@ -13,6 +13,7 @@
 	<string name="patronUntil">%s तक आपके पास एक संरक्षक खाता है।</string>
 	<string name="ifNotRenewed">यदि नवीनीकृत नहीं किया जाता है, तो आप एक नियमित खाते में वापस आ जायेंगे।</string>
 	<string name="weRelyOnSupport">हम आप जैसे लोगों से मिलने वाले समर्थन पर भरोसा करते हैं। यदि आप Lishogi का उपयोग करने का आनंद लेते हैं, तो कृपया दान करके और संरक्षक बनकर हमारा समर्थन करें!</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">जीवन काल</string>
 	<string name="payLifetimeOnce">एक बार %s का भुगतान करें। हमेशा के लिए एक Lishogi संरक्षक बनें!</string>
 	<string name="lifetimePatron">लाइफटाइम Lishogi पैट्रन</string>

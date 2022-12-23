@@ -13,6 +13,7 @@
 	<string name="patronUntil">Bạn có tài khoản Patron cho đến %s.</string>
 	<string name="ifNotRenewed">Nếu không được làm mới, bạn sẽ hạ cấp xuống miễn phí.</string>
 	<string name="weRelyOnSupport">Chúng tôi dựa vào sự đóng góp từ những người như bạn. Nếu bạn thích sử dụng Lishogi, hãy cân nhắc giúp đỡ chúng tôi thông qua việc quyên góp và trờ thành một Patron!</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">Vĩnh viễn</string>
 	<string name="payLifetimeOnce">Đóng góp %s một lần. Trở thành Lishogi Patron vĩnh viễn!</string>
 	<string name="lifetimePatron">Lishogi Patron trọn đời</string>

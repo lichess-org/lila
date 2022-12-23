@@ -13,6 +13,7 @@
 	<string name="patronUntil">%s までのパトロン・アカウントを贈ります。</string>
 	<string name="ifNotRenewed">更新しないと無料アカウントに戻ります。</string>
 	<string name="weRelyOnSupport">そのためにはあなたのような方からのサポートが必要です。Lishogi を楽しんでいるのなら、寄付をしてパトロンになることを考えてみてください！</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">永久</string>
 	<string name="payLifetimeOnce">%s を一度に寄付すれば、永久に Lihosig パトロンです！</string>
 	<string name="lifetimePatron">永久 Lishogi パトロン</string>

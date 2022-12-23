@@ -13,6 +13,7 @@
 	<string name="patronUntil">Tens un compte de patró fins %s.</string>
 	<string name="ifNotRenewed">Si no es renova, se\'t degradarà a la versió gratuïta.</string>
 	<string name="weRelyOnSupport">Confiem en el suport de persones com tu per fer-ho possible. Si t\'agrada fer servir Lishogi, si us plau, considera la teva ajuda donant i convertint-te en Patró!</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">Per sempre</string>
 	<string name="payLifetimeOnce">Paga %s una vegada. Sigues Patró de Lishogi per sempre!</string>
 	<string name="lifetimePatron">Patró de Lishogi de per vida</string>

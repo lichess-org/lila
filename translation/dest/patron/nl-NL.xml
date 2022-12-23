@@ -13,6 +13,7 @@
 	<string name="patronUntil">Je hebt een Patroon-account tot %s.</string>
 	<string name="ifNotRenewed">Indien niet vernieuwd, wordt je naar het standaard account teruggezet.</string>
 	<string name="weRelyOnSupport">We rekenen op de steun van mensen zoals u om dit mogelijk te maken. Als het gebruik van Lishogi u bevalt, overweeg dan alstublieft om ons te steunen door te doneren en een Patroon te worden!</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">Levenslang</string>
 	<string name="payLifetimeOnce">Betaal %s eenmalig. Wees voor altijd een Lishogi Patroon!</string>
 	<string name="lifetimePatron">Levenslange Lishogi Patroon</string>

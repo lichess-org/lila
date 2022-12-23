@@ -13,6 +13,7 @@
 	<string name="patronUntil">Ikaw ay mayroong Patron account hanggang %s</string>
 	<string name="ifNotRenewed">Kung hindi binago, ikaw ay babalik sa free.</string>
 	<string name="weRelyOnSupport">We rely on support from people like you to make it possible. If you enjoy using Lishogi, please consider supporting us by donating and becoming a Patron!</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">Lifetime</string>
 	<string name="payLifetimeOnce">Magbayad ng %s nang isang beses. Maging isang Lishogi Patron habang buhay.</string>
 	<string name="lifetimePatron">Lifetime Lishogi Patron</string>

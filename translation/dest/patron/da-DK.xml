@@ -13,6 +13,7 @@
 	<string name="patronUntil">Du har en patron-konto indtil %s.</string>
 	<string name="ifNotRenewed">Hvis den ikke fornyes, vil du blive nedgraderet til gratis.</string>
 	<string name="weRelyOnSupport">Vi er afhængige af støtte fra folk som dig for at gøre det muligt. Hvis du nyder at bruge Lishogi, så overvej gerne at støtte os med et bidrag og bliv til en Patron!</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">Livstid</string>
 	<string name="payLifetimeOnce">Betal %s én gang. Vær en Lishogi Patron for evigt!</string>
 	<string name="lifetimePatron">Livstids Lishogi Patron</string>

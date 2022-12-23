@@ -13,6 +13,7 @@
 	<string name="patronUntil">Du har ett beskyddarkonto till %s.</string>
 	<string name="ifNotRenewed">Om det inte förnyas kommer du sedan nedgraderas till fri.</string>
 	<string name="weRelyOnSupport">Vi förlitar oss på stöd från personer som du för att göra detta möjligt. Om du tycker om att använda Lishogi, vänligen överväg att stödja oss genom att donera och bli beskyddare!</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">Livstid</string>
 	<string name="payLifetimeOnce">Betala %s en gång. Var en Lishogi beskyddare för evigt!</string>
 	<string name="lifetimePatron">Livstids Lishogi beskyddare</string>

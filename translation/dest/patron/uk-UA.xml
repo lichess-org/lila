@@ -13,6 +13,7 @@
 	<string name="patronUntil">У вас є обліковий запис Покровителя до %s.</string>
 	<string name="ifNotRenewed">Якщо не продовжите, то Ви будете знижені до безкоштовного.</string>
 	<string name="weRelyOnSupport">Ми покладаємося на підтримку таких як ви, щоб зробити його можливим. Якщо вам подобається користуватися Lishogi, будь ласка, підтримайте нас, зробивши внесок і ставши Покровителем!</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">Пожиттєва</string>
 	<string name="payLifetimeOnce">Заплатіть %s один раз. Станьте Покровителем назавжди!</string>
 	<string name="lifetimePatron">Пожиттєве покровительство Lishogi</string>

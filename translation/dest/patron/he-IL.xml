@@ -13,6 +13,7 @@
 	<string name="patronUntil">נהפכת לתומך עד %s.</string>
 	<string name="ifNotRenewed">אם לא יחודש, אז תשונמך בחינם.</string>
 	<string name="weRelyOnSupport">אנחנו תלויים בתומכים כמוך על מנת להפוך את זה לאפשרי. אם את/ה נהנה/ית מליצ\'ס, בבקשה תשקול/י לתמוך בנו על ידי תרומה ולהפוך לתומך!</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">לכל החיים</string>
 	<string name="payLifetimeOnce">שלם %s פעם אחת. הפוך לתומך לכל החיים!</string>
 	<string name="lifetimePatron">פטרון לכל החיים</string>

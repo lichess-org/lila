@@ -13,6 +13,7 @@
 	<string name="patronUntil">Il tuo account Patron durerà fino al %s.</string>
 	<string name="ifNotRenewed">Se non lo rinnovi, sarai declassato gratuitamente.</string>
 	<string name="weRelyOnSupport">Contiamo sul supporto di persone come te per renderlo possibile. Se ti diverti usando Lishogi, per favore considera la possibilità di supportarci facendo una donazione e diventando così un Mecenate!</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">A vita</string>
 	<string name="payLifetimeOnce">Paga %s una volta. Sii un Mecenate di Lishogi per sempre!</string>
 	<string name="lifetimePatron">Mecenate di Lishogi a vita</string>

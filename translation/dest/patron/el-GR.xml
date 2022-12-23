@@ -13,6 +13,7 @@
 	<string name="patronUntil">Έχετε έναν λογαριασμό Δωρητή μέχρι %s.</string>
 	<string name="ifNotRenewed">Εάν δεν ανανεώσετε, θα υποβαθμιστείτε σε ελεύθερο.</string>
 	<string name="weRelyOnSupport">Βασιζόμαστε στην υποστήριξη από ανθρώπους σαν εσάς για να το πραγματοποιήσουμε. Αν νιώθετε ευχαρίστηση να χρησιμοποιείτε το Lishogi, παρακαλώ σκεφτείτε να μας υποστηρίξετε με δωρεά και να γίνεται Δωρητής!</string>
+	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">Εφ\' όρου ζωής</string>
 	<string name="payLifetimeOnce">Πληρώστε %s μια φορά. Γίνετε Lishogi Δωρητής για πάντα!</string>
 	<string name="lifetimePatron">Εφ όρου ζωής Lishogi Δωρητής</string>

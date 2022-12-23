@@ -13,6 +13,7 @@
 	<string name="patronUntil">Máte Patron účet do %s.</string>
 	<string name="ifNotRenewed">Pokud nedojde k obnoveni, budete poníženi na variantu zdarma.</string>
 	<string name="weRelyOnSupport">Spoléháme na podporu lidí, jako jste Vy, aby nám to umožnili. Pokud se vám líbí používání Lishogi, zvažte prosím podporu tím, že přispějete a stanete se Patronem!</string>
+	<string name="donationSupport">Pokud chcete podpořit lishogi a otevřený software, zvažte darování! Nezískáte nic navíc, neboť lishogi zachází se všemi uživateli rovnoměrně, ale Vášeho daru si budu velmi vážit!</string>
 	<string name="lifetime">Doživotní</string>
 	<string name="payLifetimeOnce">Zaplaťte %s jednou. Buďte navždy Lishogi Patronem!</string>
 	<string name="lifetimePatron">Doživotní Lishogi Patron</string>
