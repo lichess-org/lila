@@ -164,9 +164,7 @@ export default function (
     relay
   );
 
-  function isWriting(): boolean {
-    return vm.mode.write && !isGamebookPlay();
-  }
+  const isWriting = (): boolean => vm.mode.write && !isGamebookPlay();
 
   function makeChange(...args: StudySocketSendParams): boolean {
     if (isWriting()) {

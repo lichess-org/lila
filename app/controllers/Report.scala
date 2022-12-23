@@ -109,7 +109,7 @@ final class Report(
                   }
                 else if (force) userC.modZoneOrRedirect(me, prev.user)
                 else
-                  api.inquiries.toggle(me, prev.id) map { case (prev, next) =>
+                  api.inquiries.toggle(me, Left(prev.id)) map { (prev, next) =>
                     next
                       .fold(
                         if (prev.exists(_.isAppeal)) Redirect(appeal.routes.Appeal.queue)
@@ -143,7 +143,7 @@ final class Report(
       OptionFuResult(env.user.repo byId username) { user =>
         api.currentCheatReport(lila.report.Suspect(user)) flatMap {
           _ ?? { report =>
-            api.inquiries.toggle(me, report.id).void
+            api.inquiries.toggle(me, Left(report.id)).void
           } inject modC.redirect(username, mod = true)
         }
       }

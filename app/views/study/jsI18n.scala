@@ -7,9 +7,14 @@ import lila.i18n.{ I18nKeys as trans }
 
 object jsI18n:
 
-  def apply()(implicit lang: Lang) =
+  def apply()(using Lang) =
     views.html.board.userAnalysisI18n(withAdvantageChart = true) ++
       i18nJsObject(i18nKeys ++ gamebookPlayKeys)
+
+  def embed(chapter: lila.study.Chapter)(using Lang) =
+    views.html.board.userAnalysisI18n() ++ chapter.isGamebook.?? {
+      i18nJsObject(gamebookPlayKeys)
+    }
 
   val i18nKeys =
     import trans.study.*

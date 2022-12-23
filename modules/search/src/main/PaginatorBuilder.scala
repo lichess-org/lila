@@ -8,7 +8,7 @@ import play.api.libs.json.Writes
 final class PaginatorBuilder[A, Q: Writes](
     searchApi: SearchReadApi[A, Q],
     maxPerPage: MaxPerPage
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   def apply(query: Q, page: Int): Fu[Paginator[A]] =
     Paginator(

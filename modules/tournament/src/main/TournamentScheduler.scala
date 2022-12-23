@@ -490,7 +490,7 @@ Thank you all, you rock!""",
 
   private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
     newTourns
-      .foldLeft(List[Tournament]()) { case (tourns, t) =>
+      .foldLeft(List[Tournament]()) { (tourns, t) =>
         if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
         else t :: tourns
       }

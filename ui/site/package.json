@@ -7,7 +7,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
-    "@toast-ui/editor": "=3.1.10",
+    "@toast-ui/editor": "^3.2.1",
     "@types/cash": "workspace:*",
     "@types/debounce-promise": "^3.1.6",
     "@types/fnando__sparkline": "^0.3.4",
@@ -17,7 +17,7 @@
     "@types/zxcvbn": "^4.4.1",
     "@yaireo/tagify": "^4.17.6",
     "chat": "workspace:*",
-    "chessground": "^8.3.5",
+    "chessground": "^8.3.6",
     "common": "workspace:*",
     "debounce-promise": "^3.1.2",
     "flatpickr": "^4.6.13",

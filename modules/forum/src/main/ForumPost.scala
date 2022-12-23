@@ -27,9 +27,6 @@ case class ForumPost(
     reactions: Option[ForumPost.Reactions] = None
 ):
 
-  private val permitEditsFor  = 4 hours
-  private val showEditFormFor = 3 hours
-
   inline def id = _id
 
   private def showAuthor: String =
@@ -44,7 +41,7 @@ case class ForumPost(
   def updatedOrCreatedAt = updatedAt | createdAt
 
   def canStillBeEdited =
-    updatedOrCreatedAt.plus(permitEditsFor.toMillis).isAfterNow
+    updatedOrCreatedAt.plus(ForumPost.permitEditsFor.toMillis).isAfterNow
 
   def canBeEditedBy(editingUser: User): Boolean =
     userId match
@@ -56,7 +53,7 @@ case class ForumPost(
 
   def shouldShowEditForm(editingUser: User) =
     canBeEditedBy(editingUser) &&
-      updatedOrCreatedAt.plus(showEditFormFor.toMillis).isAfterNow
+      updatedOrCreatedAt.plus(ForumPost.showEditFormFor.toMillis).isAfterNow
 
   def editPost(updated: DateTime, newText: String): ForumPost =
     val oldVersion = OldVersion(text, updatedOrCreatedAt)
@@ -84,6 +81,8 @@ case class ForumPost(
 
   def isBy(u: User) = userId.exists(_ == u.id)
 
+  override def toString = s"Post($categId/$topicId/$id)"
+
 object ForumPost:
 
   opaque type Id = String
@@ -91,7 +90,9 @@ object ForumPost:
 
   type Reactions = Map[String, Set[UserId]]
 
-  val idSize = 8
+  val idSize                  = 8
+  private val permitEditsFor  = 4 hours
+  private val showEditFormFor = 3 hours
 
   object Reaction:
     val PlusOne  = "+1"
