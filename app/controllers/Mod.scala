@@ -40,7 +40,7 @@ final class Mod(
       }
     }(ctx =>
       me => { case (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
+        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
       }
     )
 
