@@ -42,7 +42,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
               "user" -> Json
                 .obj(
                   "id"   -> s.streamer.userId,
-                  "name" -> s.streamer.name.value
+                  "name" -> s.streamer.name
                 )
                 .add("title" -> featured.titles.get(s.streamer.userId))
             )
