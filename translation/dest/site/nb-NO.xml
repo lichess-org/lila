@@ -485,7 +485,7 @@
   <string name="biography">Biografi</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagg</string>
   <string name="thankYou">Takk!</string>
-  <string name="socialMediaLinks">Linker til sosiale media</string>
+  <string name="socialMediaLinks">Lenker til sosiale medier</string>
   <string name="oneUrlPerLine">Én URL per linje.</string>
   <string name="inlineNotation">Innebygd notasjon</string>
   <string name="savingMoves">Midlertidig lagring av trekk</string>
@@ -539,6 +539,8 @@
   <string name="blog">Blogg</string>
   <string name="notes">Notater</string>
   <string name="typePrivateNotesHere">Skriv private notater her</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skriv et privat notat om denne brukeren</string>
+  <string name="noNoteYet">Intet notat ennå</string>
   <string name="invalidUsernameOrPassword">Ugyldig brukernavn eller passord</string>
   <string name="incorrectPassword">Feil passord</string>
   <string name="invalidAuthenticationCode">Ugyldig autentiseringskode</string>
@@ -681,9 +683,9 @@
   <string name="cumulative">Akkumulert</string>
   <string name="glicko2Rating">Glicko-2-rating</string>
   <string name="checkYourEmail">Sjekk e-posten din</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Vi har sent deg en e-post. Klikk på linken i e-posten for å aktivere din konto.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt en e-post til deg. Klikk på lenken i e-posten for å aktivere kontoen din.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du ikke ser e-posten, sjekk andre steder den kan være, som søppel, spam, sosial, eller andre mapper.</string>
-  <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Klikk på linken i e-posten for å tilbakestille passordet ditt.</string>
+  <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Klikk på lenken i e-posten for å tilbakestille passordet ditt.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrere deg godtar du våre %s.</string>
   <string name="readAboutOur">Les %s vår.</string>
   <string name="networkLagBetweenYouAndLichess">Nettverksforsinkelsen mellom deg og lichess</string>
