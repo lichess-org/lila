@@ -154,7 +154,7 @@ final class Auth(
                           }
                       )
                   }
-                }(rateLimitedFu)
+                }
             )
         }
       }
@@ -424,7 +424,7 @@ final class Auth(
                 env.push.unregisterDevices(user) >>
                 authenticateUser(user, remember = true) >>-
                 lila.mon.user.auth.passwordResetConfirm("success").increment().unit
-            }(rateLimitedFu)
+            }
           }
       }
     }
@@ -560,8 +560,15 @@ final class Auth(
 
   private given limitedDefault: Zero[Result] = Zero(rateLimited)
 
-  private[controllers] def HasherRateLimit =
-    PasswordHasher.rateLimit[Result](enforce = env.net.rateLimit)
+  private[controllers] def HasherRateLimit(id: UserId, req: RequestHeader)(
+      run: RateLimit.Charge => Fu[Result]
+  ): Fu[Result] =
+    env.security.ip2proxy(HTTPRequest.ipAddress(req)) flatMap { proxy =>
+      PasswordHasher.rateLimit[Result](
+        enforce = env.net.rateLimit,
+        ipCost = if proxy.is then 3 else 1
+      )(id, req)(run)(rateLimitedFu)
+    }
 
   private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result]
 

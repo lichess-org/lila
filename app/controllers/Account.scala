@@ -157,7 +157,7 @@ final class Account(
               refreshSessionId(me, Redirect(routes.Account.passwd).flashSuccess)
           }
         }
-      }(rateLimitedFu)
+      }
     }
 
   private def refreshSessionId(me: UserModel, result: Result)(implicit ctx: Context): Fu[Result] =
@@ -213,7 +213,7 @@ final class Account(
             }(rateLimitedFu)
           }
         }
-      }(rateLimitedFu)
+      }
     }
 
   def emailConfirm(token: String) =
@@ -279,7 +279,7 @@ final class Account(
               refreshSessionId(me, Redirect(routes.Account.twoFactor).flashSuccess)
           }
         }
-      }(rateLimitedFu)
+      }
     }
 
   def disableTwoFactor =
@@ -294,7 +294,7 @@ final class Account(
               Redirect(routes.Account.twoFactor).flashSuccess
           }
         }
-      }(rateLimitedFu)
+      }
     }
 
   def close =
@@ -320,7 +320,7 @@ final class Account(
               }
             }
           }
-        }(rateLimitedFu)
+        }
       }
     }
 
