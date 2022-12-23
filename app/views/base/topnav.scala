@@ -82,9 +82,8 @@ object topnav:
           a(href := routes.Team.home())(trans.team.teams()),
           ctx.noKid option a(href := routes.ForumCateg.index)(trans.forum()),
           ctx.noKid option a(href := langHref(routes.Ublog.communityAll()))(trans.blog()),
-          ctx.me.exists(!_.kid) option a(cls := "community-patron", href := routes.Plan.index)(
-            trans.patron.donate()
-          )
+          ctx.noKid && ctx.me.exists(_.isPatron) option
+            a(cls := "community-patron", href := routes.Plan.index)(trans.patron.donate())
         )
       ),
       st.section(

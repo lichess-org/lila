@@ -8,6 +8,7 @@ import lila.api.{ BodyContext, Context }
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
+import lila.report.Report.{ Id as ReportId }
 import lila.user.{ Holder, User as UserModel }
 
 import play.api.data.*
@@ -42,7 +43,7 @@ final class Report(
   private def renderList(me: Holder, room: String)(implicit ctx: Context) =
     api.openAndRecentWithFilter(me, 12, Room(room)) zip getScores flatMap {
       case (reports, ((scores, streamers), appeals)) =>
-        (env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
+        env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) inject
           Ok(
             html.report
               .list(
@@ -55,9 +56,9 @@ final class Report(
           )
     }
 
-  def inquiry(id: String) =
+  def inquiry(reportOrAppealId: String) =
     Secure(_.SeeReport) { _ => me =>
-      api.inquiries.toggle(me, id) flatMap { case (prev, next) =>
+      api.inquiries.toggle(me, reportOrAppealId) flatMap { (prev, next) =>
         prev.filter(_.isAppeal).map(_.user).??(env.appeal.api.setUnreadById) inject
           next.fold(
             Redirect {
@@ -78,7 +79,7 @@ final class Report(
       me: Holder,
       goTo: Option[Suspect],
       force: Boolean = false
-  )(implicit ctx: BodyContext[?]): Fu[Result] =
+  )(using ctx: BodyContext[?]): Fu[Result] =
     goTo.ifTrue(HTTPRequest isXhr ctx.req) match
       case Some(suspect) => userC.renderModZoneActions(suspect.user.username)
       case None =>
@@ -116,7 +117,7 @@ final class Report(
                       )(onInquiryStart)
                   }
 
-  def process(id: String) =
+  def process(id: ReportId) =
     SecureBody(_.SeeReport) { implicit ctx => me =>
       api byId id flatMap { inquiry =>
         inquiry.filter(_.isAppeal).map(_.user).??(env.appeal.api.setReadById) >>
@@ -130,7 +131,7 @@ final class Report(
       api.moveToXfiles(id.id) inject Redirect(routes.Report.list)
     }
 
-  def snooze(id: String, dur: String) =
+  def snooze(id: ReportId, dur: String) =
     SecureBody(_.SeeReport) { implicit ctx => me =>
       api.snooze(me, id, dur) map {
         _.fold(Redirect(routes.Report.list))(onInquiryStart)

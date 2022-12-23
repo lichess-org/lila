@@ -603,6 +603,8 @@
   <string name="blog">Блог</string>
   <string name="notes">Заметки</string>
   <string name="typePrivateNotesHere">Здесь вы можете оставить личные заметки об игре</string>
+  <string name="writeAPrivateNoteAboutThisUser">Написать приватную заметку об этом пользователе</string>
+  <string name="noNoteYet">Пока нет ни одной заметки</string>
   <string name="invalidUsernameOrPassword">Неверное имя пользователя или пароль</string>
   <string name="incorrectPassword">Неверный пароль</string>
   <string name="invalidAuthenticationCode">Неверный код аутентификации</string>

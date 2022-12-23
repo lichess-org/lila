@@ -363,7 +363,7 @@
   <string name="siteDescription">Ingyenes online sakkszerver letisztult kezelőfelülettel. Nem szükséges regisztráció, nincsenek hirdetések, sem telepítendő bővítmények. Játssz számítógép ellen, barátokkal vagy ismeretlen ellenfelekkel.</string>
   <string name="xJoinedTeamY">%1$s csatlakozott a következő csapathoz: %2$s</string>
   <string name="xCreatedTeamY">%1$s elkészítette a következő csapatot: %2$s</string>
-  <string name="startedStreaming" comment="startedStreaming&#10;&#10;A special notification triggered when a player you follow has started streaming.">közvetítések kezdete</string>
+  <string name="startedStreaming">közvetítések kezdete</string>
   <string name="xStartedStreaming">%s elkezdte a közvetítést</string>
   <string name="averageElo">Átlag értékszám</string>
   <string name="location">Hely</string>
@@ -539,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Jegyzetek</string>
   <string name="typePrivateNotesHere">Ide írd a saját jegyzeteidet</string>
+  <string name="writeAPrivateNoteAboutThisUser">Jegyzet hozzáadása</string>
+  <string name="noNoteYet">Nincsenek jegyzetek</string>
   <string name="invalidUsernameOrPassword">Érvénytelen felhasználónév vagy jelszó</string>
   <string name="incorrectPassword">Hibás jelszó</string>
   <string name="invalidAuthenticationCode">Érvénytelen hitelesítő kód</string>

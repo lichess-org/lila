@@ -539,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Noter</string>
   <string name="typePrivateNotesHere">Skriv private noter her</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skriv en privat note om denne bruger</string>
+  <string name="noNoteYet">Ingen note endnu</string>
   <string name="invalidUsernameOrPassword">Ugyldigt brugernavn eller adgangskode</string>
   <string name="incorrectPassword">Forkert adgangskode</string>
   <string name="invalidAuthenticationCode">Ugyldig godkendelseskode</string>

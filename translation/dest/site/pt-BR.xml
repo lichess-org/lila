@@ -539,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Digite notas pessoais aqui</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escreva uma nota pessoal sobre este usuário</string>
+  <string name="noNoteYet">Nenhuma nota</string>
   <string name="invalidUsernameOrPassword">Nome de usuário ou senha incorretos</string>
   <string name="incorrectPassword">Senha incorreta</string>
   <string name="invalidAuthenticationCode">Código de verificação inválido</string>

@@ -540,6 +540,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Tik private notas hier in</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skryf \'n private nota oor hierdie verbruiker</string>
+  <string name="noNoteYet">Nog geen nota nie</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wagwoord</string>
   <string name="incorrectPassword">Verkeerde wagwoord</string>
   <string name="invalidAuthenticationCode">Ongeldige verifikasiekode</string>
@@ -739,6 +741,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="light">Lig</string>
   <string name="dark">Donker</string>
   <string name="transparent">Deurdigtig</string>
+  <string name="deviceTheme">Toestel se tema</string>
   <string name="backgroundImageUrl">Agtergrond prent URL:</string>
   <string name="boardGeometry">Bord geometrie</string>
   <string name="boardTheme">Bordtema</string>

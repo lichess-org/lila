@@ -24,9 +24,7 @@ final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(using
         )
       }
       .headOption
-      .map {
-        _.flatMap { _.getAsOpt[BigDecimal]("usd") } | BigDecimal(0)
-      } dmap Usd.apply
+      .map { _.flatMap { _.getAsOpt[Usd]("usd") } | Usd(0) }
 
 case class MonthlyGoal(current: Usd, goal: Usd):
 

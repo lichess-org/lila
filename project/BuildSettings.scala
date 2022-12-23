@@ -1,7 +1,5 @@
 import play.sbt.PlayImport._
 import sbt._, Keys._
-import bloop.integrations.sbt.BloopKeys.bloopGenerate
-import spray.revolver.RevolverPlugin.autoImport.reStart
 
 object BuildSettings {
 
@@ -23,8 +21,6 @@ object BuildSettings {
       Compile / doc / sources                := Seq.empty,
       Compile / packageDoc / publishArtifact := false,
       Compile / packageSrc / publishArtifact := false
-      // No bloop project for tests
-      // Test / bloopGenerate := None,
     )
 
   lazy val defaultLibs: Seq[ModuleID] =
@@ -49,7 +45,6 @@ object BuildSettings {
         buildSettings,
         srcMain
       )
-      .disablePlugins(spray.revolver.RevolverPlugin)
 
   val compilerOptions = Seq(
     // "-nowarn", // during migration

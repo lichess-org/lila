@@ -238,7 +238,8 @@ final private class PushApi(
             "type"      -> "invitedStudy",
             "invitedBy" -> invitedBy,
             "studyName" -> studyName,
-            "studyId"   -> studyId
+            "studyId"   -> studyId,
+            "url"       -> s"https://lichess.org/study/$studyId"
           )
         )
       )
@@ -332,7 +333,8 @@ final private class PushApi(
               "type"        -> "forumMention",
               "mentionedBy" -> mentionedBy,
               "topic"       -> topicName,
-              "postId"      -> postId
+              "postId"      -> postId,
+              "url"         -> s"https://lichess.org/forum/redirect/post/$postId"
             )
           )
         )
@@ -344,7 +346,13 @@ final private class PushApi(
       title = streamerName,
       body = streamerName + " started streaming",
       stacking = Stacking.StreamStart,
-      payload = Json.obj("userData" -> Json.obj("type" -> "streamStart", "streamerId" -> streamerId))
+      payload = Json.obj(
+        "userData" -> Json.obj(
+          "type"       -> "streamStart",
+          "streamerId" -> streamerId,
+          "url"        -> s"https://lichess.org/streamer/$streamerId/redirect"
+        )
+      )
     )
     webPush(recips collect { case u if u.web => u.userId }, pushData) >>- {
       // TODO - we may want to use some of firebase admin sdk for many-device-push (just for topics).  we'd
