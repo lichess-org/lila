@@ -52,7 +52,8 @@ object topnav {
           ),
           a(href := routes.Study.allDefault(1))(trans.studyMenu()),
           // ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
-          canSeeClasMenu option a(href := routes.Clas.index)(trans.clas.lishogiClasses())
+          canSeeClasMenu option a(href := routes.Clas.index)(trans.clas.lishogiClasses()),
+          a(href := routes.Page.variantHome)(trans.variants())
         )
       ),
       st.section(
