@@ -274,7 +274,7 @@ object MarkdownRender:
     //Catches the site headers for https://github.com/lichess-org/lila/issues/11450
     private def matchesSiteHeader(node : LinkNode) : Boolean = {
       val parentValue : BasedSequence = Option(node.getParent()).get.getChars()
-      parentValue.baseSubSequence(Integer.max(0, node.getStartOffset() - 7), node.getStartOffset()).toString().matches("\\[Site..*")
+      parentValue.baseSubSequence(Integer.max(0, node.getStartOffset() - 7), node.getStartOffset()).matches("\\[Site..*")
     }
 
   private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension:

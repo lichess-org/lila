@@ -20,9 +20,11 @@ final class TextLpvExpand(
 
   def getPgn(id: GameId) = pgnCache get id
 
-  def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] =
+  def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] = {
+    //add ignore site headers here.
+    //Add the function to this class
     gameRegex
-      .findAllMatchIn(text)
+      .findAllMatchIn(ignoreSiteHeaders(text))
       .toList
       .flatMap { m =>
         Option(m group 1) filter { id =>
@@ -45,6 +47,8 @@ final class TextLpvExpand(
           )
         }
     }
+  }
+
 
   def gamePgnsFromText(text: String): Fu[Map[GameId, String]] =
     val gameIds = gameRegex
@@ -65,6 +69,8 @@ final class TextLpvExpand(
   private val notGames =
     Set("training", "analysis", "insights", "practice", "features", "password", "streamer", "timeline")
 
+  private val betweenSiteHeaders = "\\[Site.(.*?)\\]";
+
   private def lichessPgnViewer(game: Game.WithInitialFen, pgn: Pgn): Frag =
     div(cls := "lpv", attr("data-pgn") := pgn.toString)
 
@@ -83,3 +89,9 @@ final class TextLpvExpand(
         }
       }
     }
+  
+  private def ignoreSiteHeaders(s: String) : String = {
+    if(s.indexOf('[') == -1 && s.indexOf(']') == -1 && !s.contains("Site")) 
+        return s;
+    return s.replaceAll(betweenSiteHeaders, "");
+  } 

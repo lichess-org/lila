@@ -6,12 +6,11 @@ import scalatags.Text.all.*
 import lila.base.RawHtml
 import lila.common.config
 import lila.common.String.html.richText
-import lila.common.base.StringUtils.ignoreSiteHeaders
 
 final class ForumTextExpand(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
 
   private def one(text: String)(implicit netDomain: config.NetDomain): Fu[Frag] =
-    lila.common.Bus.ask("lpv")(lila.hub.actorApi.lpv.LpvLinkRenderFromText(ignoreSiteHeaders(text), _)) map { linkRender =>
+    lila.common.Bus.ask("lpv")(lila.hub.actorApi.lpv.LpvLinkRenderFromText(text, _)) map { linkRender =>
       raw {
         RawHtml.nl2br {
           RawHtml.addLinks(text, expandImg = true, linkRender = linkRender.some)

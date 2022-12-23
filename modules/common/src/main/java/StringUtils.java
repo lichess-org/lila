@@ -9,8 +9,6 @@ public class StringUtils {
         'c' , 'd' , 'e' , 'f'
     };
 
-    private static final String betweenSiteHeaders = "\\[Site.(.*?)\\]";
-
     public static String safeJsonString(final String s) {
         final char[] sArr = s.toCharArray();
         final int len = sArr.length;
@@ -151,11 +149,4 @@ public class StringUtils {
 
         return v0[len2];
     }
-
-    public static String ignoreSiteHeaders(final String s) {
-        if(s.indexOf('[') == -1 && s.indexOf(']') == -1 && !s.contains("Site")) 
-            return s;
-        return s.replaceAll(betweenSiteHeaders, "");
-    } 
-
 }
