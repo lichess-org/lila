@@ -25,8 +25,6 @@ trait Handlers:
   )(using NotGiven[NoDbHandler[T]]): BSONHandler[T] =
     handler.as(sr.apply, rs.apply)
 
-  // given NoDbHandler[chess.Pos] with {}
-
   given userIdOfWriter[U, T](using idOf: UserIdOf[U], writer: BSONWriter[UserId]): BSONWriter[U] with
     inline def writeTry(u: U) = writer.writeTry(idOf(u))
 
@@ -182,6 +180,13 @@ trait Handlers:
   given [T: BSONHandler]: BSONHandler[(T, T)] = tryHandler[(T, T)](
     { case arr: BSONArray => for { a <- arr.getAsTry[T](0); b <- arr.getAsTry[T](1) } yield (a, b) },
     { case (a, b) => BSONArray(a, b) }
+  )
+
+  given NoDbHandler[chess.Pos] with {} // no default opaque handler for chess.Pos
+
+  def chessPosKeyHandler: BSONHandler[chess.Pos] = tryHandler(
+    { case BSONString(str) => chess.Pos.fromKey(str) toTry s"No such key $str" },
+    pos => BSONString(pos.key)
   )
 
   val minutesHandler = BSONIntegerHandler.as[FiniteDuration](_.minutes, _.toMinutes.toInt)

@@ -18,6 +18,8 @@ import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
 
 object BSONHandlers:
 
+  private given BSONHandler[Pos] = chessPosKeyHandler
+
   given BSON[Shape] with
     def reads(r: Reader) =
       val brush = r str "b"
