@@ -25,22 +25,27 @@ final class Study(
     prismicC: Prismic
 ) extends LilaController(env):
 
-  def search(text: String, page: Int) =
+  def search(text: String, order: String, page: Int) =
     OpenBody { implicit ctx =>
       Reasonable(page) {
-        if (text.trim.isEmpty)
-          env.study.pager.all(ctx.me, Order.default, page) flatMap { pag =>
-            preloadMembers(pag) >> negotiate(
-              html = Ok(html.study.list.all(pag, Order.default)).toFuccess,
-              api = _ => apiStudies(pag)
-            )
-          }
-        else
-          env.studySearch(ctx.me)(text, page) flatMap { pag =>
-            negotiate(
-              html = Ok(html.study.list.search(pag, text)).toFuccess,
-              api = _ => apiStudies(pag)
-            )
+        Order(order) match
+          case order if !Order.withoutSelector.contains(order) =>
+            Redirect(routes.Study.searchDefault(text, page)).toFuccess
+          case order => {
+            if (text.trim.isEmpty)
+              env.study.pager.all(ctx.me, order, page) flatMap { pag =>
+                preloadMembers(pag) >> negotiate(
+                  html = Ok(html.study.list.all(pag, order)).toFuccess,
+                  api = _ => apiStudies(pag)
+                )
+              }
+            else
+              env.studySearch(ctx.me)(text, page) flatMap { pag =>
+                negotiate(
+                  html = Ok(html.study.list.search(pag, order, text)).toFuccess,
+                  api = _ => apiStudies(pag)
+                )
+              }
           }
       }
     }
@@ -48,7 +53,8 @@ final class Study(
   def homeLang =
     LangPage(routes.Study.allDefault())(allResults(Order.Hot.key, 1)(_))
 
-  def allDefault(page: Int) = all(Order.Hot.key, page)
+  def allDefault(page: Int)                  = all(Order.Hot.key, page)
+  def searchDefault(text: String, page: Int) = search(text, Order.Hot.key, page)
 
   def all(o: String, page: Int) =
     Open { implicit ctx =>

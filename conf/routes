@@ -203,7 +203,8 @@ GET   /study/likes/:order              controllers.Study.mineLikes(order, page: 
 GET   /study/by/:username              controllers.Study.byOwnerDefault(username, page: Int ?= 1)
 GET   /study/by/:username/export.pgn   controllers.Study.exportPgn(username)
 GET   /study/by/:username/:order       controllers.Study.byOwner(username, order, page: Int ?= 1)
-GET   /study/search                    controllers.Study.search(q ?= "", page: Int ?= 1)
+GET   /study/search                    controllers.Study.searchDefault(q ?= "", page: Int ?= 1)
+GET   /study/search/:order             controllers.Study.search(q ?= "", order, page: Int ?= 1)
 GET   /study/$id<\w{8}>                controllers.Study.show(id)
 POST  /study                           controllers.Study.create
 POST  /study/as                        controllers.Study.createAs
