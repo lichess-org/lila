@@ -145,11 +145,11 @@ final class ForumPostApi(
     postRepo.coll.byOrderedIds[ForumPost, ForumPostId](postIds)(_.id) flatMap views
 
   def viewOf(post: ForumPost): Fu[Option[PostView]] =
-    views(List(post)) dmap (_.headOption)
+    views(List(post)).dmap(_.headOption)
 
   def liteViews(posts: Seq[ForumPost]): Fu[Seq[PostLiteView]] =
     topicRepo.coll.byStringIds[ForumTopic](posts.map(_.topicId.value).distinct) map { topics =>
-      posts flatMap { post =>
+      posts.flatMap { post =>
         topics.find(_.id == post.topicId) map { PostLiteView(post, _) }
       }
     }
