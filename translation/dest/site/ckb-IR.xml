@@ -608,6 +608,12 @@
   <string name="tpTimeSpentOnTV">ئەوکاتەی لە تەلەفزیۆندا نمایشدەکرێت: %s</string>
   <string name="watch">سەیکردن</string>
   <string name="videoLibrary">بەشی ڤیدیۆکان</string>
+  <string name="streamersMenu">پەخشکارەکان</string>
+  <string name="mobileApp">ئەپڵیکەیشنی مۆبایل</string>
+  <string name="webmasters">وێبداڕێژ</string>
+  <string name="about">لەبارەی</string>
+  <string name="aboutX">دەربارەی %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$بەخۆڕاییە (%2$s), خزمەتگوزاری شوترنجی بێ بانگەشەی بازرگانییە و سیستەمی کۆدی کراوەیە.</string>
   <string name="simultaneousExhibitions">پێشاندانی هاوکات</string>
   <string name="host">پێشکەشکار</string>
   <string name="hostColorX">ڕەنگی داشەکانی پێشکەشکار</string>
