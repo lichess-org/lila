@@ -54,7 +54,7 @@ final class Mod(
       }
     }(ctx =>
       me => { case (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
+        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
       }
     )
 
@@ -84,8 +84,8 @@ final class Mod(
         } yield (inquiry, suspect).some
       }
     }(ctx =>
-      me => { case (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
+      me => { (inquiry, suspect) =>
+        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
       }
     )
 
@@ -98,8 +98,8 @@ final class Mod(
         } yield (inquiry, suspect).some
       }
     }(ctx =>
-      me => { case (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
+      me => { (inquiry, suspect) =>
+        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
       }
     )
 
@@ -117,8 +117,8 @@ final class Mod(
         }
       }
     }(ctx =>
-      me => { case (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
+      me => { (inquiry, suspect) =>
+        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
       }
     )
 
