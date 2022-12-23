@@ -364,6 +364,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="siteDescription">Gratis Online Schach Server: Schpill Schach uf ere suubere Benutzeroberflächi! Kei Regrischtrierig, kei Werbig, kei Plugins. Schpill Schach gäge Computer, mit Fründe oder gäge zuefällig gwählti Gägner.</string>
   <string name="xJoinedTeamY">%1$s isch jetzt im Team %2$s</string>
   <string name="xCreatedTeamY">%1$s hät s\'Team %2$s gründet</string>
+  <string name="startedStreaming">hät agfange Streame</string>
   <string name="xStartedStreaming">%s hät mit Streame agfange</string>
   <string name="averageElo">Durchschnittswertig</string>
   <string name="location">Ortschaft/Land</string>
@@ -540,6 +541,8 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notize</string>
   <string name="typePrivateNotesHere">Gib privati Notize da i</string>
+  <string name="writeAPrivateNoteAboutThisUser">Schrib e privati Notiz über de Benutzer</string>
+  <string name="noNoteYet">No kei Notiz vorhande</string>
   <string name="invalidUsernameOrPassword">Ungültige Benutzername oder Passwort</string>
   <string name="incorrectPassword">Falschs Passwort</string>
   <string name="invalidAuthenticationCode">Ungültige Authentifizierigscode</string>
@@ -746,6 +749,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="light">Hell</string>
   <string name="dark">Dunkel</string>
   <string name="transparent">Durchsichtig</string>
+  <string name="deviceTheme">Mit em Grät synchronisiere</string>
   <string name="backgroundImageUrl">Hindergrund-Bild-URL:</string>
   <string name="boardGeometry">Brättgrössi und 3D</string>
   <string name="boardTheme">Brättdesign</string>

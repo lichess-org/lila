@@ -125,7 +125,7 @@ final private class ExplorerIndexer(
             "winner" -> game.winnerColor.map(_.name),
             "date"   -> pgnDateFormat.print(game.createdAt),
             "fen"    -> initialFen,
-            "moves"  -> game.pgnMoves.mkString(" ")
+            "moves"  -> game.sans.mkString(" ")
           )
           .some
       }

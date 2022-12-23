@@ -60,9 +60,9 @@ sealed trait Context extends lila.user.UserContextWrapper:
 
   def currentTheme3d = lila.pref.Theme3d(pref.theme3d)
 
-  def currentPieceSet = lila.pref.PieceSet(pref.pieceSet)
+  def currentPieceSet = lila.pref.PieceSet.get(pref.pieceSet)
 
-  def currentPieceSet3d = lila.pref.PieceSet3d(pref.pieceSet3d)
+  def currentPieceSet3d = lila.pref.PieceSet3d.get(pref.pieceSet3d)
 
   def currentSoundSet = lila.pref.SoundSet(pref.soundSet)
 

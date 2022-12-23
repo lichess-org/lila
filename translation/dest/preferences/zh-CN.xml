@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">按住 &lt;ctrl&gt; 键以临时禁用自动升变</string>
   <string name="whenPremoving">预先走棋時</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重复局面时自动要求和局</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">当剩余时间小于30秒时</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于30秒时</string>
   <string name="moveConfirmation">确认走棋</string>
   <string name="inCorrespondenceGames">通信棋局</string>
   <string name="correspondenceAndUnlimited">通信和无限</string>

@@ -35,9 +35,8 @@ final class JsonView(
         }
       }
     }
-    given Writes[chess.variant.Variant] = Writes { v =>
-      JsString(v.key)
-    }
+    given Writes[chess.variant.Variant] = writeAs(_.key)
+
     // writes as percentage
     given Writes[TourRatio] = Writes { r =>
       JsNumber((r.value * 100).toInt atLeast 1)

@@ -64,10 +64,10 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def discuss(id: UblogPostId) = Open { implicit ctx =>
     NotForKids {
-      import lila.forum.ForumCateg.ublogSlug
+      import lila.forum.ForumCateg.ublogId
       val topicSlug = s"ublog-${id}"
-      val redirect  = Redirect(routes.ForumTopic.show(ublogSlug, topicSlug))
-      env.forum.topicRepo.existsByTree(ublogSlug, topicSlug) flatMap {
+      val redirect  = Redirect(routes.ForumTopic.show(ublogId.value, topicSlug))
+      env.forum.topicRepo.existsByTree(ublogId, topicSlug) flatMap {
         case true => fuccess(redirect)
         case _ =>
           env.ublog.api.getPost(id) flatMap {
@@ -340,7 +340,7 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled && blog.visible
+  private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 
   private def canViewBlogOf(user: UserModel, blog: UblogBlog)(implicit ctx: Context) =
     ctx.is(user) || isGranted(_.ModerateBlog) || isBlogVisible(user, blog)

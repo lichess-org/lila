@@ -2,7 +2,7 @@ package lila.setup
 
 import chess.format.Fen
 import chess.Clock
-import scala.concurrent.ExecutionContext
+import chess.variant.Variant
 
 import lila.common.Days
 import lila.game.{ Game, IdGenerator, Player, Pov, Source }
@@ -59,7 +59,7 @@ case class AiConfig(
 object AiConfig extends BaseConfig:
 
   def from(
-      v: Int,
+      v: Variant.Id,
       tm: Int,
       t: Double,
       i: Clock.IncrementSeconds,
@@ -69,7 +69,7 @@ object AiConfig extends BaseConfig:
       fen: Option[Fen.Epd]
   ) =
     new AiConfig(
-      variant = chess.variant.Variant(v) err "Invalid game variant " + v,
+      variant = chess.variant.Variant.orDefault(v),
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
@@ -102,8 +102,8 @@ object AiConfig extends BaseConfig:
 
     def reads(r: BSON.Reader): AiConfig =
       AiConfig(
-        variant = chess.variant.Variant orDefault (r int "v"),
-        timeMode = TimeMode orDefault (r int "tm"),
+        variant = Variant idOrDefault r.getO[Variant.Id]("v"),
+        timeMode = TimeMode.orDefault(r int "tm"),
         time = r double "t",
         increment = r get "i",
         days = r.get("d"),

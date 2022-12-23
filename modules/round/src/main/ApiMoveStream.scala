@@ -27,7 +27,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
         var moves  = 0
         Source(List(gameJsonView(game, initialFen))) concat
           Source
-            .queue[JsObject]((game.turns + 3) atLeast 16, akka.stream.OverflowStrategy.dropHead)
+            .queue[JsObject]((game.ply.value + 3) atLeast 16, akka.stream.OverflowStrategy.dropHead)
             .statefulMapConcat { () => js =>
               moves += 1
               if (game.finished || moves <= delayKeepsFirstMoves) List(js)
@@ -44,7 +44,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                 Vector(clk.config.initTime) ++ clkHistory.black
               )
               val clockOffset = game.startColor.fold(0, 1)
-              Replay.situations(game.pgnMoves, initialFen, game.variant) foreach {
+              Replay.situations(game.sans, initialFen, game.variant) foreach {
                 _.zipWithIndex foreach { case (s, index) =>
                   val clk = for {
                     (clkWhite, clkBlack) <- clocks

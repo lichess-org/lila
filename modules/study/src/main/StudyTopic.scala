@@ -22,33 +22,18 @@ object StudyTopic extends OpaqueString[StudyTopic]:
       case s if s.lengthIs >= minLength && s.lengthIs <= maxLength => StudyTopic(s).some
       case _                                                       => none
 
-case class StudyTopics(value: List[StudyTopic]) extends AnyVal:
+opaque type StudyTopics = List[StudyTopic]
+object StudyTopics extends TotalWrapper[StudyTopics, List[StudyTopic]]:
+  extension (e: StudyTopics)
+    def diff(other: StudyTopics): StudyTopics = e.toSet.diff(other.value.toSet).toList
+    def ++(other: StudyTopics): StudyTopics   = e.toSet.++(other.value.toSet).toList
 
-  def diff(other: StudyTopics) =
-    StudyTopics {
-      value.toSet.diff(other.value.toSet).toList
-    }
+  val empty: StudyTopics = Nil
+  val studyMax           = 30
+  val userMax            = 128
 
-  def ++(other: StudyTopics) =
-    StudyTopics {
-      value.toSet.++(other.value.toSet).toList
-    }
-
-object StudyTopics:
-
-  val studyMax = 30
-  val userMax  = 128
-
-  val empty = StudyTopics(Nil)
-
-  def fromStrs(strs: Seq[String], max: Int) =
-    StudyTopics {
-      strs.view
-        .flatMap(StudyTopic.fromStr)
-        .take(max)
-        .toList
-        .distinct
-    }
+  def fromStrs(strs: Seq[String], max: Int): StudyTopics =
+    strs.view.flatMap(StudyTopic.fromStr).take(max).toList.distinct
 
 final private class StudyTopicRepo(val coll: AsyncColl)
 final private class StudyUserTopicRepo(val coll: AsyncColl)
@@ -64,7 +49,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   def byId(str: String): Fu[Option[StudyTopic]] =
     topicRepo.coll(_.byId[Bdoc](str)) dmap { _ flatMap docTopic }
 
-  def findLike(str: String, myId: Option[UserId], nb: Int = 10): Fu[StudyTopics] = {
+  def findLike(str: String, myId: Option[UserId], nb: Int = 10): Fu[StudyTopics] = StudyTopics from {
     (str.lengthIs >= 2) ?? {
       val favsFu: Fu[List[StudyTopic]] =
         myId.?? { userId =>
@@ -84,12 +69,12 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
           .dmap { favs ::: _ }
       }
     }
-  } dmap StudyTopics.apply
+  }
 
   def userTopics(userId: UserId): Fu[StudyTopics] =
     userTopicRepo.coll {
       _.primitiveOne[List[StudyTopic]]($id(userId), "topics")
-        .dmap(_.fold(StudyTopics.empty)(StudyTopics.apply))
+        .dmap(_.fold(StudyTopics.empty)(StudyTopics(_)))
     }
 
   private case class TagifyTopic(value: String)
@@ -120,7 +105,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     }
 
   def popular(nb: Int): Fu[StudyTopics] =
-    topicRepo
+    StudyTopics from topicRepo
       .coll {
         _.find($empty)
           .sort($sort.naturalAsc)
@@ -130,7 +115,6 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       .dmap {
         _ flatMap docTopic
       }
-      .dmap(StudyTopics.apply)
 
   private def docTopic(doc: Bdoc): Option[StudyTopic] =
     doc.getAsOpt[StudyTopic]("_id")

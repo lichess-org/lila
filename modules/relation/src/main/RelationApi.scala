@@ -16,7 +16,6 @@ import lila.relation.BSONHandlers.given
 import lila.user.User
 
 final class RelationApi(
-    val coll: Coll,
     repo: RelationRepo,
     timeline: actors.Timeline,
     prefApi: lila.pref.PrefApi,
@@ -26,6 +25,8 @@ final class RelationApi(
 )(using ec: scala.concurrent.ExecutionContext):
 
   import RelationRepo.makeId
+
+  val coll = repo.coll
 
   def fetchRelation(u1: UserId, u2: UserId): Fu[Option[Relation]] =
     (u1 != u2) ?? {

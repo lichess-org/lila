@@ -97,7 +97,7 @@ object opening:
     views.html.base.bits.mselect(
       "orders",
       span(order.name()),
-      Order.all map { o =>
+      Order.values.map { o =>
         a(href := routes.Puzzle.openings(o.key), cls := (order == o).option("current"))(o.name())
       }
     )

@@ -31,7 +31,7 @@ final class Reopen(
         userRepo.byId(u) flatMap {
           case None =>
             fuccess(Left("noUser" -> "No account found with this username."))
-          case Some(user) if user.enabled =>
+          case Some(user) if user.enabled.yes =>
             fuccess(Left("alreadyActive" -> "This account is already active."))
           case Some(user) =>
             userRepo.currentOrPrevEmail(user.id) flatMap {

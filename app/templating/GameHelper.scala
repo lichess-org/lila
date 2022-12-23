@@ -71,7 +71,7 @@ trait GameHelper:
           case chess.variant.Crazyhouse    => "Drop captured pieces on the board"
           case _                           => "Variant ending"
       case _ => "Game is still being played"
-    val moves = s"${(1 + game.chess.turns) / 2} moves"
+    val moves = s"${game.chess.fullMoveNumber} moves"
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
 
   def shortClockName(clock: Option[Clock.Config])(using lang: Lang): Frag =

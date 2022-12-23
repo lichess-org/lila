@@ -110,7 +110,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
   def nextOrderByStudy(studyId: StudyId): Fu[Int] =
     coll(_.primitiveOne[Int]($studyId(studyId), $sort desc "order", "order")) dmap { ~_ + 1 }
 
-  def setConceal(chapterId: StudyChapterId, conceal: Chapter.Ply) =
+  def setConceal(chapterId: StudyChapterId, conceal: chess.Ply) =
     coll(_.updateField($id(chapterId), "conceal", conceal)).void
 
   def removeConceal(chapterId: StudyChapterId) =

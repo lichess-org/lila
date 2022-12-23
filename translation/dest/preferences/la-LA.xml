@@ -29,7 +29,7 @@
   <string name="promoteToQueenAutomatically">Ad reginam sponte promovere</string>
   <string name="whenPremoving">Cum praemittere</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Aequabiliter digere cum triplex iteratio fiat</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Dum tempus reliquum minor 30 secundis sit</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Dum tempus reliquum minor 30 secundis sit</string>
   <string name="moveConfirmation">Confirmatio motu</string>
   <string name="inCorrespondenceGames">Ludi longinqui</string>
   <string name="correspondenceAndUnlimited">per epistolam et immoderatus</string>

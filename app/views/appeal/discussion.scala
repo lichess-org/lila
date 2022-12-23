@@ -135,7 +135,7 @@ object discussion:
 
   private def renderMark(suspect: User)(implicit ctx: Context) =
     val query = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
-    if (suspect.disabled || query.contains("alt")) tree.closedByModerators
+    if (suspect.enabled.no || query.contains("alt")) tree.closedByModerators
     else if (suspect.marks.engine || query.contains("engine")) tree.engineMarked
     else if (suspect.marks.boost || query.contains("boost")) tree.boosterMarked
     else if (suspect.marks.troll || query.contains("shadowban")) tree.accountMuted

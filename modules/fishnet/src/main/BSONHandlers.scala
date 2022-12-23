@@ -16,10 +16,7 @@ private object BSONHandlers:
 
   given BSONDocumentHandler[Client] = Macros.handler
 
-  given BSONHandler[Variant] = tryHandler(
-    { case BSONInteger(v) => Variant(v) toTry s"Invalid variant $v" },
-    x => BSONInteger(x.id)
-  )
+  given BSONHandler[Variant] = variantByIdHandler
 
   private given BSONDocumentHandler[Work.Acquired] = Macros.handler
   private given BSONDocumentHandler[Work.Clock]    = Macros.handler

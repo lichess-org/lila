@@ -119,7 +119,7 @@ trait LilaLibraryExtensions extends LilaTypes:
   extension [A](list: List[Try[A]]) def sequence: Try[List[A]] = Try(list map { _.get })
 
   extension [A](list: List[A])
-    def sortLike[B](other: List[B], f: A => B): List[A] =
+    def sortLike[B](other: Seq[B], f: A => B): List[A] =
       list.sortWith { (x, y) =>
         other.indexOf(f(x)) < other.indexOf(f(y))
       }
@@ -135,7 +135,9 @@ trait LilaLibraryExtensions extends LilaTypes:
     def previous(a: A): Option[A] = indexOption(a).flatMap(i => list.lift(i - 1))
     def next(a: A): Option[A]     = indexOption(a).flatMap(i => list.lift(i + 1))
 
-  extension [A](seq: Seq[A]) def has(a: A) = seq contains a
+  extension [A](seq: Seq[A])
+    def has(a: A)         = seq contains a
+    def indexOption(a: A) = Option(seq indexOf a).filter(0 <= _)
 
   extension (self: Array[Byte]) def toBase64 = Base64.getEncoder.encodeToString(self)
 
@@ -316,6 +318,9 @@ trait LilaLibraryExtensions extends LilaTypes:
     def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
       fua.flatMap { if (_) fuTrue else fub }(EC.parasitic)
 
+    def ifThen[A](fub: => Fu[A])(using zero: Zero[A]): Fu[A] =
+      fua.flatMap { if (_) fub else fuccess(zero.zero) }(EC.parasitic)
+
     inline def unary_! = fua.map { !_ }(EC.parasitic)
 
   extension [A](fua: Fu[Option[A]])
@@ -348,3 +353,5 @@ trait LilaLibraryExtensions extends LilaTypes:
       fua.value match
         case Some(scala.util.Success(v)) => v
         case _                           => None
+
+    def ifThen[B: Zero](fub: A => Fu[B])(using EC): Fu[B] = fua.flatMap { _ ?? fub }

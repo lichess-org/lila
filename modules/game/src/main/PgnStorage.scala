@@ -2,6 +2,7 @@ package lila.game
 
 import chess.*
 import chess.format.Uci
+import chess.format.pgn.SanStr
 
 import lila.db.ByteArray
 
@@ -9,16 +10,16 @@ private object PgnStorage:
 
   case object OldBin:
 
-    def encode(pgnMoves: PgnMoves) =
+    def encode(sans: Vector[SanStr]) =
       ByteArray {
         monitor(_.game.pgn.encode("old")) {
-          format.pgn.Binary.writeMoves(pgnMoves).get
+          format.pgn.Binary.writeMoves(sans).get
         }
       }
 
-    def decode(bytes: ByteArray, plies: Int): PgnMoves =
+    def decode(bytes: ByteArray, plies: Ply): Vector[SanStr] =
       monitor(_.game.pgn.decode("old")) {
-        format.pgn.Binary.readMoves(bytes.value.toList, plies).get.toVector
+        format.pgn.Binary.readMoves(bytes.value.toList, plies.value).get.toVector
       }
 
   case object Huffman:
@@ -26,18 +27,18 @@ private object PgnStorage:
     import org.lichess.compression.game.{ Encoder, Piece as JavaPiece, Role as JavaRole }
     import scala.jdk.CollectionConverters.*
 
-    def encode(pgnMoves: PgnMoves) =
+    def encode(sans: Vector[SanStr]) =
       ByteArray {
         monitor(_.game.pgn.encode("huffman")) {
-          Encoder.encode(pgnMoves.toArray)
+          Encoder.encode(SanStr raw sans.toArray)
         }
       }
-    def decode(bytes: ByteArray, plies: Int): Decoded =
+    def decode(bytes: ByteArray, plies: Ply): Decoded =
       monitor(_.game.pgn.decode("huffman")) {
-        val decoded      = Encoder.decode(bytes.value, plies)
+        val decoded      = Encoder.decode(bytes.value, plies.value)
         val unmovedRooks = decoded.unmovedRooks.asScala.view.map(Pos(_)).toSet
         Decoded(
-          pgnMoves = decoded.pgnMoves.toVector,
+          sans = SanStr from decoded.pgnMoves.toVector,
           pieces = decoded.pieces.asScala.view.map { (k, v) =>
             Pos(k) -> chessPiece(v)
           }.toMap,
@@ -50,7 +51,7 @@ private object PgnStorage:
             blackKingSide = unmovedRooks(Pos.H8),
             blackQueenSide = unmovedRooks(Pos.A8)
           ),
-          halfMoveClock = decoded.halfMoveClock
+          halfMoveClock = HalfMoveClock(decoded.halfMoveClock)
         )
       }
 
@@ -66,13 +67,13 @@ private object PgnStorage:
       Piece(Color.fromWhite(piece.white), chessRole(piece.role))
 
   case class Decoded(
-      pgnMoves: PgnMoves,
+      sans: Vector[SanStr],
       pieces: PieceMap,
       positionHashes: PositionHash, // irrelevant after game ends
       unmovedRooks: UnmovedRooks,   // irrelevant after game ends
       lastMove: Option[Uci],
-      castles: Castles,  // irrelevant after game ends
-      halfMoveClock: Int // irrelevant after game ends
+      castles: Castles,            // irrelevant after game ends
+      halfMoveClock: HalfMoveClock // irrelevant after game ends
   )
 
   private def monitor[A](mon: lila.mon.TimerPath)(f: => A): A =

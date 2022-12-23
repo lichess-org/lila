@@ -1,12 +1,11 @@
 package lila.notify
 
-import lila.common.LightUser
-import play.api.libs.json.*
-import lila.i18n.{ I18nKeys as trans }
-
-import lila.common.Json.given
 import play.api.i18n.Lang
-import lila.i18n.JsDump
+import play.api.libs.json.*
+
+import lila.common.LightUser
+import lila.common.Json.given
+import lila.i18n.{ JsDump, I18nKeys as trans }
 
 final class JSONHandlers(getLightUser: LightUser.GetterSync):
 
@@ -75,6 +74,11 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
           "text"  -> text,
           "icon"  -> icon
         )
+      case StreamStart(streamerId, streamerName) =>
+        Json.obj(
+          "sid"  -> streamerId,
+          "name" -> streamerName
+        )
 
     def writes(notification: Notification) =
       Json.obj(
@@ -85,18 +89,14 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
       )
 
   import lila.common.paginator.PaginatorJson.given
-  given OWrites[Notification.AndUnread] = Json.writes
 
-  given OWrites[NewNotification] = OWrites { newNotification =>
-    Json.obj(
-      "notification" -> newNotification.notification,
-      "unread"       -> newNotification.unreadNotifications
-    )
-  }
+  given OWrites[Notification.AndUnread] = Json.writes
 
   private val i18nKeys = List(
     trans.mentionedYouInX,
     trans.xMentionedYouInY,
+    trans.startedStreaming,
+    trans.xStartedStreaming,
     trans.invitedYouToX,
     trans.xInvitedYouToY,
     trans.youAreNowPartOfTeam,

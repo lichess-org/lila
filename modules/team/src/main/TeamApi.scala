@@ -143,7 +143,7 @@ final class TeamApi(
   private def requestsWithUsers(requests: List[Request]): Fu[List[RequestWithUser]] =
     userRepo optionsByIds requests.map(_.user) map { users =>
       requests zip users collect {
-        case (request, Some(user)) if user.enabled => RequestWithUser(request, user)
+        case (request, Some(user)) if user.enabled.yes => RequestWithUser(request, user)
       }
     }
 

@@ -49,7 +49,7 @@ final class Env(
       def receive = {
         case InsertPost(post) => api.store(post).unit
         case RemovePost(id)   => client.deleteById(id into Id).unit
-        case RemovePosts(ids) => client.deleteByIds(Id.from[List, ForumPost.Id](ids)).unit
+        case RemovePosts(ids) => client.deleteByIds(Id.from[List, ForumPostId](ids)).unit
       }
     }),
     name = config.actorName

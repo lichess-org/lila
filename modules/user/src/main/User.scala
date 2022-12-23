@@ -13,7 +13,7 @@ case class User(
     username: UserName,
     perfs: Perfs,
     count: Count,
-    enabled: Boolean,
+    enabled: UserEnabled,
     roles: List[String],
     profile: Option[Profile] = None,
     toints: Int = 0,
@@ -25,7 +25,7 @@ case class User(
     lang: Option[String],
     plan: Plan,
     totpSecret: Option[TotpSecret] = None,
-    marks: UserMarks = UserMarks.empty: UserMarks
+    marks: UserMarks = UserMarks.empty
 ):
 
   override def equals(other: Any) =
@@ -36,15 +36,13 @@ case class User(
   override def hashCode: Int = id.hashCode
 
   override def toString =
-    s"User $username(${perfs.bestRating}) games:${count.game}${marks.troll ?? " troll"}${marks.engine ?? " engine"}${!enabled ?? " closed"}"
+    s"User $username(${perfs.bestRating}) games:${count.game}${marks.troll ?? " troll"}${marks.engine ?? " engine"}${enabled.no ?? " closed"}"
 
   def light = LightUser(id = id, name = username, title = title, isPatron = isPatron)
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
   def realLang = lang flatMap Lang.get
-
-  def disabled = !enabled
 
   def canPalantir = !kid && !marks.troll
 
@@ -81,7 +79,7 @@ case class User(
 
   def canBeFeatured = hasTitle && !lameOrTroll
 
-  def canFullyLogin = enabled || !lameOrTrollOrAlt
+  def canFullyLogin = enabled.yes || !lameOrTrollOrAlt
 
   def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
@@ -136,6 +134,8 @@ object User:
 
   given UserIdOf[User] = _.id
 
+  export lila.user.{ UserEnabled as Enabled }
+
   type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck):
     import LoginCandidate.*
@@ -182,7 +182,8 @@ object User:
   case class LightCount(user: LightUser, count: Int)
 
   case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
-    def list = current.toList ::: previous.toList
+    def strList = current.map(_.value).toList ::: previous.map(_.value).toList
+
   case class WithEmails(user: User, emails: Emails)
 
   case class ClearPassword(value: String) extends AnyVal:
@@ -305,7 +306,7 @@ object User:
           else perfs
         },
         count = r.get[Count](count),
-        enabled = r bool enabled,
+        enabled = r.get[UserEnabled](enabled),
         roles = ~r.getO[List[String]](roles),
         profile = r.getO[Profile](profile),
         toints = r nIntD toints,

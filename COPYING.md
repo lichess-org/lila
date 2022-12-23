@@ -80,11 +80,12 @@ public/logo, public/favicon.ico, public/apple-touch-icon.png | sadsnake1 | Only 
 public/piece/alpha | Eric Bentzen | "free for personal non commercial use" (see [zip](http://www.enpassant.dk/chess/downl/alpha.zip))
 public/piece/chess7 | [Style-7](http://www.styleseven.com/) | "freeware"
 public/piece/companion | David L. Brown | ["freeware"](http://www.enpassant.dk/chess/fonteng.htm#GC)
-public/piece/fantasy | [Maurizio Monge](http://poisson.phc.unipi.it/~monge/chess_art.php) | "give credit in a suitable way"
+public/piece/fantasy | [Maurizio Monge](https://github.com/maurimo/chess-art) | "give credit in a suitable way"
 public/piece/leipzig | Armando Hernandez Marroquin | ["freeware"](http://www.enpassant.dk/chess/fonteng.htm#LEIPZIG)
-public/piece/spatial | [Maurizio Monge](http://poisson.phc.unipi.it/~monge/chess_art.php) | "give credit in a suitable way"
+public/piece/spatial | [Maurizio Monge](https://github.com/maurimo/chess-art) | "give credit in a suitable way"
 public/piece/reillycraig | [Reilly Craig](https://instagram.com/fader_) |
 public/piece/riohacha | |
+public/piece/celtic | [Maurizio Monge](https://github.com/maurimo/chess-art) | "give credit in a suitable way"
 public/images/staunton/piece/Staunton | [Eden Murs](https://userstyles.org/styles/134558/lichess-pieces-3d-staunton) (?) |
 
 - The other sounds in public/sound

@@ -31,7 +31,7 @@
   <string name="promoteToQueenAutomatically">Avtomatik Vəzirə çıx</string>
   <string name="whenPremoving">Ön gediş edərkən</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Üç dəfə təkrarlanan oyunda avtomatik heç-heçə təklif et</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Qalan vaxt 30 saniyədən az olanda</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Qalan vaxt 30 saniyədən az olanda</string>
   <string name="moveConfirmation">Gediş təsdiqi</string>
   <string name="inCorrespondenceGames">Yazışmalı oyunlar</string>
   <string name="correspondenceAndUnlimited">Yazışmalı və vaxtsız</string>

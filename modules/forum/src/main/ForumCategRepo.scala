@@ -7,7 +7,7 @@ final private class ForumCategRepo(val coll: Coll)(using scala.concurrent.Execut
 
   import BSONHandlers.given
 
-  def bySlug(slug: String) = coll.byId[ForumCateg](slug)
+  def byId(id: ForumCategId) = coll.byId[ForumCateg](id)
 
   def visibleWithTeams(teams: Iterable[TeamId]): Fu[List[ForumCateg]] =
     coll

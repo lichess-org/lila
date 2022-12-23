@@ -9,8 +9,7 @@ import play.api.libs.json.{ Json, OWrites }
 import scala.concurrent.ExecutionContext
 import ornicar.scalalib.{ SecureRandom, ThreadLocalRandom }
 
-import lila.common.Bearer
-import lila.common.Form.*
+import lila.common.Form.{ *, given }
 import lila.common.Json.given
 import lila.db.dsl.{ list as _, *, given }
 import lila.memo.CacheApi
@@ -22,7 +21,7 @@ case class ExternalEngine(
     maxThreads: Int,
     maxHash: Int,
     defaultDepth: Int,
-    variants: List[String],
+    variants: List[Variant.UciKey],
     officialStockfish: Boolean, // Admissible for cloud evals
     providerSelector: String, // Hash of random secret chosen by the provider, possibly shared between registrations
     providerData: Option[String], // Arbitrary string the provider can use to store associated data
@@ -37,7 +36,7 @@ object ExternalEngine:
       maxThreads: Int,
       maxHash: Int,
       defaultDepth: Int,
-      variants: Option[List[String]],
+      variants: Option[List[Variant.UciKey]],
       officialStockfish: Option[Boolean],
       providerSecret: String,
       providerData: Option[String]
@@ -48,7 +47,7 @@ object ExternalEngine:
       maxThreads = maxThreads,
       maxHash = maxHash,
       defaultDepth = defaultDepth,
-      variants = variants.filter(_.nonEmpty) | List(chess.variant.Standard.key),
+      variants = variants.filter(_.nonEmpty) | List(Variant.default.uciKey),
       officialStockfish = ~officialStockfish,
       providerSelector = Algo.sha256("providerSecret:" + providerSecret).hex,
       providerData = providerData,
@@ -66,7 +65,7 @@ object ExternalEngine:
       "maxThreads"        -> number(1, 65_536),
       "maxHash"           -> number(1, 1_048_576),
       "defaultDepth"      -> number(0, 246),
-      "variants"          -> optional(list(stringIn(chess.variant.Variant.all.map(_.uciKey).toSet))),
+      "variants"          -> optional(list(typeIn(Variant.list.all.map(_.uciKey).toSet))),
       "officialStockfish" -> optional(boolean),
       "providerSecret"    -> nonEmptyText(16, 1024),
       "providerData"      -> optional(text(maxLength = 8192))

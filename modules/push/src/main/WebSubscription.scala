@@ -1,6 +1,6 @@
 package lila.push
 
-final case class WebSubscription(
+case class WebSubscription(
     endpoint: String,
     auth: String,
     p256dh: String
@@ -8,12 +8,14 @@ final case class WebSubscription(
 
 object WebSubscription:
 
-  object readers:
-    import play.api.libs.json.*
-    import play.api.libs.functional.syntax.*
+  import play.api.libs.json.*
+  import play.api.libs.functional.syntax.*
+  import reactivemongo.api.bson.{ Macros, BSONDocumentReader }
 
-    implicit val WebSubscriptionReads: Reads[WebSubscription] = (
-      (__ \ "endpoint").read[String] and
-        (__ \ "keys" \ "auth").read[String] and
-        (__ \ "keys" \ "p256dh").read[String]
-    )(WebSubscription.apply)
+  given webSubscriptionReads: Reads[WebSubscription] = (
+    (__ \ "endpoint").read[String] and
+      (__ \ "keys" \ "auth").read[String] and
+      (__ \ "keys" \ "p256dh").read[String]
+  )(WebSubscription.apply)
+
+  given webSubscriptionReader: BSONDocumentReader[WebSubscription] = Macros.reader[WebSubscription]

@@ -2,9 +2,22 @@ package lila.game
 
 import chess.Color.{ Black, White }
 import chess.format.{ Fen, Uci }
+import chess.format.pgn.SanStr
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{ Castles, Centis, CheckCount, Clock, Color, Game as ChessGame, Mode, MoveOrDrop, Speed, Status }
+import chess.{
+  Ply,
+  Castles,
+  Centis,
+  CheckCount,
+  Clock,
+  Color,
+  Game as ChessGame,
+  Mode,
+  MoveOrDrop,
+  Speed,
+  Status
+}
 import org.joda.time.DateTime
 
 import lila.common.{ Days, Sequence }
@@ -29,25 +42,21 @@ case class Game(
     metadata: Metadata
 ):
 
-  lazy val clockHistory = chess.clock flatMap loadClockHistory
+  export chess.{ situation, ply, clock, sans, startedAtPly, player as turnColor }
+  export chess.situation.board
+  export chess.situation.board.{ history, variant }
 
-  def situation = chess.situation
-  def board     = chess.situation.board
-  def history   = chess.situation.board.history
-  def variant   = chess.situation.board.variant
-  def turns     = chess.turns
-  def clock     = chess.clock
-  def pgnMoves  = chess.pgnMoves
+  lazy val clockHistory = chess.clock flatMap loadClockHistory
 
   val players = List[Player](whitePlayer, blackPlayer)
 
   def player(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
   def player(playerId: GamePlayerId): Option[Player] =
-    players find (_.id == playerId)
+    players.find(_.id == playerId)
 
   def player(user: User): Option[Player] =
-    players find (_ isUser user)
+    players.find(_ isUser user)
 
   def player(c: Color.type => Color): Player = player(c(Color))
 
@@ -68,13 +77,11 @@ case class Game(
   lazy val naturalOrientation =
     if (variant.racingKings) White else Color.fromWhite(whitePlayer before blackPlayer)
 
-  def turnColor = chess.player
-
   def turnOf(p: Player): Boolean = p == player
   def turnOf(c: Color): Boolean  = c == turnColor
   def turnOf(u: User): Boolean   = player(u) ?? turnOf
 
-  def playedTurns = turns - chess.startedAtTurn
+  def playedTurns = ply - startedAtPly
 
   def flagged = (status == Status.Outoftime).option(turnColor)
 
@@ -128,7 +135,7 @@ case class Game(
       // On the other hand, if history.size is more than playedTurns,
       // then the game ended during a players turn by async event, and
       // the last recorded time is in the history for turnColor.
-      val noLastInc = finished && (history.size <= playedTurns) == (color != turnColor)
+      val noLastInc = finished && (playedTurns >= history.size) == (color != turnColor)
 
       pairs map { case (first, second) =>
         {
@@ -152,9 +159,9 @@ case class Game(
 
   def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_ bothClockStates startColor)
 
-  def pgnMoves(color: Color): PgnMoves =
+  def sansOf(color: Color): Vector[SanStr] =
     val pivot = if (color == startColor) 0 else 1
-    pgnMoves.zipWithIndex.collect {
+    sans.zipWithIndex.collect {
       case (e, i) if (i % 2) == pivot => e
     }
 
@@ -196,8 +203,7 @@ case class Game(
     )
 
     val state = Event.State(
-      color = game.situation.color,
-      turns = game.turns,
+      turns = game.ply,
       status = (status != updated.status) option updated.status,
       winner = game.situation.winner,
       whiteOffersDraw = whitePlayer.isOfferingDraw,
@@ -316,7 +322,7 @@ case class Game(
 
   def playerCanOfferDraw(color: Color) =
     started && playable &&
-      turns >= 2 &&
+      ply >= 2 &&
       !player(color).isOfferingDraw &&
       !opponent(color).isAi &&
       !playerHasOfferedDrawRecently(color) &&
@@ -325,10 +331,10 @@ case class Game(
   def swissPreventsDraw = isSwiss && playedTurns < 60
 
   def playerHasOfferedDrawRecently(color: Color) =
-    drawOffers.lastBy(color) ?? (_ >= turns - 20)
+    drawOffers.lastBy(color) ?? (_ >= ply - 20)
 
   def offerDraw(color: Color) = copy(
-    metadata = metadata.copy(drawOffers = drawOffers.add(color, turns))
+    metadata = metadata.copy(drawOffers = drawOffers.add(color, ply))
   ).updatePlayer(color, _.offerDraw)
 
   def playerCouldRematch =
@@ -516,19 +522,18 @@ case class Game(
     }
 
   def playerWhoDidNotMove: Option[Player] =
-    playedTurns match
-      case 0 => player(startColor).some
-      case 1 => player(!startColor).some
-      case _ => none
+    if playedTurns == Ply(0) then player(startColor).some
+    else if playedTurns == Ply(1) then player(!startColor).some
+    else none
 
   def onePlayerHasMoved    = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
 
-  def startColor = Color.fromPly(chess.startedAtTurn)
+  def startColor = startedAtPly.color
 
   def playerMoves(color: Color): Int =
-    if (color == startColor) (playedTurns + 1) / 2
-    else playedTurns / 2
+    if (color == startColor) (playedTurns.value + 1) / 2
+    else playedTurns.value / 2
 
   def playerHasMoved(color: Color) = playerMoves(color) > 0
 
@@ -582,14 +587,10 @@ case class Game(
   def pgnImport   = metadata.pgnImport
   def isPgnImport = pgnImport.isDefined
 
-  def resetTurns =
-    copy(
-      chess = chess.copy(turns = 0, startedAtTurn = 0)
-    )
+  def resetTurns = copy(chess = chess.copy(ply = Ply(0), startedAtPly = Ply(0)))
 
   lazy val opening: Option[Opening.AtPly] =
-    if (fromPosition || !Variant.openingSensibleVariants(variant)) none
-    else OpeningDb search pgnMoves
+    (!fromPosition && Variant.list.openingSensibleVariants(variant)) ?? OpeningDb.search(sans)
 
   def synthetic = id == Game.syntheticId
 
@@ -610,10 +611,8 @@ case class Game(
     if (variant.isInsufficientMaterial(board)) DrawReason.InsufficientMaterial.some
     else if (variant.fiftyMoves(history)) DrawReason.FiftyMoves.some
     else if (history.threefoldRepetition) DrawReason.ThreefoldRepetition.some
-    else if (drawOffers.normalizedPlies.exists(turns <=)) DrawReason.MutualAgreement.some
+    else if (drawOffers.normalizedPlies.exists(ply <= _)) DrawReason.MutualAgreement.some
     else None
-
-  def startedAt = Game.StartedAt(startColor, chess.startedAtTurn)
 
   override def toString = s"""Game($id)"""
 
@@ -626,16 +625,15 @@ object Game:
   case class OnStart(id: GameId)
   case class WithInitialFen(game: Game, fen: Option[Fen.Epd])
 
-  case class SideAndStart(color: Color, startColor: Color, startedAtTurn: Int)
-  case class StartedAt(startColor: Color, startedAtTurn: Int):
-    def pov(color: Color) = SideAndStart(color, startColor, startedAtTurn)
+  case class SideAndStart(color: Color, startedAtPly: Ply):
+    def startColor = startedAtPly.color
 
   val syntheticId = GameId("synthetic")
 
   val maxPlaying         = 200 // including correspondence
   val maxPlayingRealtime = 100
 
-  val maxPlies = 600 // unlimited can cause StackOverflowError
+  val maxPlies = Ply(600) // unlimited can cause StackOverflowError
 
   val analysableVariants: Set[Variant] = Set(
     chess.variant.Standard,
@@ -650,7 +648,7 @@ object Game:
     chess.variant.RacingKings
   )
 
-  val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
+  val unanalysableVariants: Set[Variant] = Variant.list.all.toSet -- analysableVariants
 
   val variantsWhereWhiteIsBetter: Set[Variant] = Set(
     chess.variant.ThreeCheck,
@@ -697,6 +695,7 @@ object Game:
   val abandonedDays = Days(21)
   def abandonedDate = DateTime.now minusDays abandonedDays.value
 
+  def strToIdOpt(str: String): Option[GameId]        = strToId(str).some.filter(validId)
   inline def strToId(str: String): GameId            = GameId(str take gameIdSize)
   inline def anyToId(anyId: GameAnyId): GameId       = strToId(anyId.value)
   inline def fullToId(fullId: GameFullId): GameId    = strToId(fullId.value)

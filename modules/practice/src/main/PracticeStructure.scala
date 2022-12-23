@@ -12,10 +12,7 @@ case class PracticeStructure(
   lazy val studiesByIds: Map[StudyId, PracticeStudy] =
     sections.view
       .flatMap(_.studies)
-      .map { s =>
-        s.id -> s
-      }
-      .toMap
+      .mapBy(_.id)
 
   lazy val sectionsByStudyIds: Map[StudyId, PracticeSection] =
     sections.view.flatMap { sec =>
@@ -40,10 +37,7 @@ case class PracticeSection(
     studies: List[PracticeStudy]
 ):
 
-  lazy val studiesByIds: Map[StudyId, PracticeStudy] =
-    studies.view.map { s =>
-      s.id -> s
-    }.toMap
+  lazy val studiesByIds: Map[StudyId, PracticeStudy] = studies.mapBy(_.id)
 
   def study(id: StudyId): Option[PracticeStudy] = studiesByIds get id
 

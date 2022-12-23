@@ -2,7 +2,7 @@ package lila.setup
 
 import chess.Clock
 import chess.format.Fen
-import chess.variant.FromPosition
+import chess.variant.{ Variant, FromPosition }
 
 import lila.common.Days
 import lila.game.{ GameRule, PerfPicker }
@@ -32,7 +32,7 @@ object OpenConfig:
 
   def from(
       n: Option[String],
-      v: Option[String],
+      v: Option[Variant.LilaKey],
       cl: Option[Clock.Config],
       days: Option[Days],
       rated: Boolean,
@@ -42,7 +42,7 @@ object OpenConfig:
   ) =
     new OpenConfig(
       name = n.map(_.trim).filter(_.nonEmpty),
-      variant = chess.variant.Variant.orDefault(~v),
+      variant = Variant.orDefault(v),
       clock = cl,
       days = days,
       rated = rated,

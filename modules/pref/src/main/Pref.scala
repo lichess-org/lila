@@ -35,8 +35,6 @@ case class Pref(
     studyInvite: Int,
     submitMove: Int,
     confirmResign: Int,
-    mention: Boolean,
-    corresEmailNotif: Boolean,
     insightShare: Int,
     keyboardMove: Int,
     zen: Int,
@@ -54,9 +52,9 @@ case class Pref(
   inline def id = _id
 
   def realTheme      = Theme(theme)
-  def realPieceSet   = PieceSet(pieceSet)
+  def realPieceSet   = PieceSet.get(pieceSet)
   def realTheme3d    = Theme3d(theme3d)
-  def realPieceSet3d = PieceSet3d(pieceSet3d)
+  def realPieceSet3d = PieceSet3d.get(pieceSet3d)
 
   val themeColorLight = "#dbd7d1"
   val themeColorDark  = "#2e2a24"
@@ -225,10 +223,6 @@ object Pref:
       FRIENDS   -> "With friends",
       EVERYBODY -> "With everybody"
     )
-
-  object Mention extends BooleanPref
-
-  object CorresEmailNotif extends BooleanPref
 
   object KeyboardMove extends BooleanPref
 
@@ -455,8 +449,6 @@ object Pref:
     studyInvite = StudyInvite.ALWAYS,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
-    mention = true,
-    corresEmailNotif = false,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
     zen = Zen.NO,

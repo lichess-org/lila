@@ -1,1 +1,66 @@
-<svg height="700pt" viewBox="-20 0 900 900" width="700pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="a"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d0b090"/></linearGradient><linearGradient id="b" gradientUnits="userSpaceOnUse" x1="586.526" x2="1126.022" xlink:href="#a" y1="328.043" y2="534.203"/><linearGradient id="d" gradientUnits="userSpaceOnUse" x1="275.244" x2="862.652" xlink:href="#a" y1="458.656" y2="560.747"/><linearGradient id="c" gradientUnits="userSpaceOnUse" x1="300.273" x2="774.046" xlink:href="#a" y1="623.782" y2="764.899"/><g stroke="#000" stroke-linecap="round" stroke-linejoin="round"><g fill-rule="evenodd"><path d="M926.667 373.333a166.667 150 0 1 1-333.334 0 166.667 150 0 1 1 333.334 0z" fill="url(#b)" stroke-width="21.762" transform="matrix(.73447 0 0 .736 -120.66 30.436)"/><path d="M397.417 467.01c1.469 170.175-86.733 221.098-127.967 250.246-34.192 24.17-25.463 82.342 19.906 85.311 28.113 1.84 276.613 2.361 305.651-.843 51.38-5.67 52.846-66.7 19.688-87.311-52.609-32.703-136.191-69.538-138.498-247.09-.441-33.312-79.042-30.009-78.78-.312z" fill="url(#c)" stroke-width="16"/><path d="M340.353 432.735c-74.195 19.066-100.11 66.019-100.11 66.019H649.09s-43.432-51.835-110.025-66.684c-85.24-19.007-129.173-17.204-198.712.665z" fill="url(#d)" stroke-width="16"/></g><path d="M339.121 713.675h187.903" fill="none" stroke-width="16"/></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="700pt" height="700pt" id="pawn" viewBox="0 0 933.333 933.333" sodipodi:version="0.32" inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)" version="1.0" inkscape:export-filename="/home/maurizio/out/wp.png" inkscape:export-xdpi="90" inkscape:export-ydpi="90" sodipodi:docname="p.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <style id="style-base">
+    .base { 
+      fill-opacity:1;
+      fill-rule:evenodd;
+      stroke-miterlimit:4;
+      stroke-dasharray:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      stroke-opacity:1
+    }
+    .shadow {
+      stroke:none;
+      filter:url(#filterBlur);
+    }
+  </style>
+  <style id="stroke-medium">.stroke-medium {stroke-width: 20; }</style>
+  <style id="stroke-boundary">.stroke-boundary {stroke-width: 35; }</style>
+  <style id="stroke-color">.stroke-color {stroke: black; }</style>
+  <style id="fill-color">.fill-color {fill: white; }</style>
+  <defs id="defs36222">
+    <linearGradient id="fillGradient">
+      <stop style="stop-color: white; stop-opacity: 1;" offset="0" id="stop0"/>
+      <stop style="stop-color: rgb(191, 211, 215); stop-opacity: 1;" offset="1" id="stop1"/>
+    </linearGradient>
+    <linearGradient inkscape:collect="always" xlink:href="#fillGradient" id="head-gradient" x1="586.52576" y1="328.04306" x2="1126.0223" y2="534.203" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.734473,0,0,0.735993,-84.6603,58.4359)"/>
+    <linearGradient inkscape:collect="always" xlink:href="#fillGradient" id="shoulders-gradient" x1="275.24356" y1="458.6561" x2="862.65161" y2="560.7475" gradientUnits="userSpaceOnUse" gradientTransform="translate(36,28)"/>
+    <linearGradient inkscape:collect="always" xlink:href="#fillGradient" id="pawn-body-gradient" x1="300.27295" y1="623.78223" x2="774.0462" y2="764.89874" gradientUnits="userSpaceOnUse" gradientTransform="translate(36,28)"/>
+    
+  </defs>
+  <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="0.42426406" inkscape:cx="35.35534" inkscape:cy="496.15327" inkscape:current-layer="pawn" inkscape:document-units="px" inkscape:window-width="1535" inkscape:window-height="969" inkscape:window-x="26" inkscape:window-y="23" inkscape:showpageshadow="2" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" showgrid="false" inkscape:window-maximized="0"/>
+  <metadata id="metadata36225">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Maurizio Monge</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Maurizio Monge</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/GPL/2.0/"/>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+        <cc:permits rdf:resource="http://web.resource.org/cc/Reproduction"/>
+        <cc:permits rdf:resource="http://web.resource.org/cc/Distribution"/>
+        <cc:requires rdf:resource="http://web.resource.org/cc/Notice"/>
+        <cc:permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/>
+        <cc:requires rdf:resource="http://web.resource.org/cc/ShareAlike"/>
+        <cc:requires rdf:resource="http://web.resource.org/cc/SourceCode"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  
+  <path id="boundary" class="base stroke-color stroke-boundary" style="fill:none" d="M 473.53906,222.80859 A 122.41217,110.39895 0 0 0 351.12695,333.20703 122.41217,110.39895 0 0 0 473.53906,443.60547 122.41217,110.39895 0 0 0 595.95117,333.20703 122.41217,110.39895 0 0 0 473.53906,222.80859 Z m -3.71875,223.76563 c -30.33058,0.30853 -58.6975,5.22557 -93.46679,14.16016 -74.19471,19.06565 -100.10938,66.01953 -100.10938,66.01953 h 156.33789 c -9.00732,144.9484 -88.58355,191.25298 -127.13086,218.50195 -34.19189,24.17014 -25.46449,82.34132 19.9043,85.31055 28.11282,1.83988 276.61428,2.36287 305.65234,-0.8418 51.3807,-5.67042 52.84588,-66.70055 19.6875,-87.3125 C 601.34889,711.73733 524.75428,677.4204 513.54102,526.75391 h 171.54882 c 0,0 -43.43291,-51.83472 -110.02539,-66.6836 -42.62004,-9.50347 -74.91355,-13.80462 -105.24414,-13.49609 z"/>
+  <ellipse class="base stroke-color stroke-medium" style="fill:url(#head-gradient)" id="head" cx="473.53918" cy="333.20663" rx="122.41217" ry="110.39895"/>
+  <path class="base stroke-color stroke-medium" style="fill:url(#pawn-body-gradient)" d="m 433.41688,495.01055 c 1.4689,170.17424 -86.73292,221.0978 -127.96659,250.24575 -34.19193,24.17016 -25.46292,82.34183 19.90591,85.31106 28.11285,1.83989 276.61278,2.36096 305.65087,-0.84371 51.38075,-5.67043 52.8459,-66.69909 19.68749,-87.31106 -52.60851,-32.70256 -136.19074,-69.53762 -138.49775,-247.08944 -0.44112,-33.31211 -79.04138,-30.00907 -78.77993,-0.3126 z" id="pawn-body" sodipodi:nodetypes="cssssss"/>
+  <path class="base stroke-color stroke-medium" style="fill:url(#shoulders-gradient)" d="m 376.35321,460.73487 c -74.19478,19.06567 -100.10965,66.01908 -100.10965,66.01908 h 408.84622 c 0,0 -43.43216,-51.83544 -110.0247,-66.68433 -85.24018,-19.00696 -129.17322,-17.20394 -198.71187,0.66525 z" id="shoulders" sodipodi:nodetypes="cccss"/>
+  <path class="base stroke-color stroke-medium" style="fill:none" d="M 379.12098,739.67467 H 567.02381" id="lower-line" sodipodi:nodetypes="cc"/>
+</svg>

@@ -16,18 +16,17 @@ object index:
 
   def apply(
       live: List[lila.streamer.Streamer.WithUserAndStream],
-      pager: Paginator[lila.streamer.Streamer.WithUser],
+      pager: Paginator[lila.streamer.Streamer.WithContext],
       requests: Boolean
   )(implicit ctx: Context) =
 
     val title = if (requests) "Streamer approval requests" else lichessStreamers.txt()
 
-    def widget(s: lila.streamer.Streamer.WithUser, stream: Option[lila.streamer.Stream]) =
+    def widget(s: lila.streamer.Streamer.WithContext, stream: Option[lila.streamer.Stream]) =
       frag(
         if (requests) a(href := s"${routes.Streamer.edit}?u=${s.user.username}", cls := "overlay")
-        else
-          bits.redirectLink(s.user.username, stream.isDefined.some)(cls := "overlay"),
-        stream.isDefined option span(cls := "ribbon")(span(trans.streamer.live())),
+        else bits.redirectLink(s.user.username, stream.isDefined.some)(cls := "overlay"),
+        stream.isDefined option span(cls := "live-ribbon")(span(trans.streamer.live())),
         picture.thumbnail(s.streamer, s.user),
         div(cls := "overview")(
           bits.streamerTitle(s),
@@ -55,14 +54,15 @@ object index:
                 p(cls := "at")(lastStream(momentFromNow(liveAt)))
               }
             )
-          )
+          ),
+          !requests option bits.subscribeButtonFor(s)
         )
       )
 
     views.html.base.layout(
       title = title,
       moreCss = cssTag("streamer.list"),
-      moreJs = infiniteScrollTag
+      moreJs = frag(infiniteScrollTag, jsModule("streamer"))
     ) {
       main(cls                                                          := "page-menu")(
         bits.menu(if (requests) "requests" else "index", none)(ctx)(cls := " page-menu__menu"),
@@ -70,7 +70,7 @@ object index:
           boxTop(h1(dataIcon := "", cls := "text")(title)),
           !requests option div(cls := "list live")(
             live.map { s =>
-              st.article(cls := "streamer")(widget(s.withoutStream, s.stream))
+              st.article(cls := "streamer")(widget(s, s.stream))
             }
           ),
           div(cls := "list infinite-scroll")(

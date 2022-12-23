@@ -1,5 +1,7 @@
 package controllers
 
+import play.api.libs.json.*
+import chess.variant.Variant
 import lila.app.{ given, * }
 
 final class Page(
@@ -34,28 +36,31 @@ final class Page(
 
   def variantHome =
     Open { implicit ctx =>
-      import play.api.libs.json.*
       negotiate(
         html = OptionOk(prismicC getBookmark "variant") { case (doc, resolver) =>
           views.html.site.variant.home(doc, resolver)
         },
-        api = _ =>
-          Ok(JsArray(chess.variant.Variant.all.map { v =>
-            Json.obj(
-              "id"   -> v.id,
-              "key"  -> v.key,
-              "name" -> v.name
-            )
-          })).toFuccess
+        api = _ => Ok(variantsJson).toFuccess
       )
     }
 
-  def variant(key: String) =
+  private lazy val variantsJson = {
+    import lila.common.Json.given
+    JsArray(Variant.list.all.map { v =>
+      Json.obj(
+        "id"   -> v.id,
+        "key"  -> v.key,
+        "name" -> v.name
+      )
+    })
+  }
+
+  def variant(key: Variant.LilaKey) =
     Open { implicit ctx =>
       (for {
-        variant  <- chess.variant.Variant.byKey get key
+        variant  <- Variant(key)
         perfType <- lila.rating.PerfType byVariant variant
-      } yield OptionOk(prismicC getVariant variant) { case (doc, resolver) =>
+      } yield OptionOk(prismicC getVariant variant) { (doc, resolver) =>
         views.html.site.variant.show(doc, resolver, variant, perfType)
       }) | notFound
     }

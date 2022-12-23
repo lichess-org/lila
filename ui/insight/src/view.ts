@@ -155,7 +155,7 @@ const gapW = () =>
   // width of the spacer between side & main in landscape, no gap in portrait
   isLandscapeLayout() ? interpolateBetween(totalW(), { x: 480, y: vw() }, { x: 800, y: 2 * vw() }) : 0;
 
-const mainW = () => availW() - (!isLandscapeLayout() ? 0 : sideW() - gapW());
+const mainW = () => availW() - (!isLandscapeLayout() ? 0 : sideW() + gapW());
 
 const spacer = () => (isLandscapeLayout() ? h('span', widthStyle(gapW())) : null); // between side & main
 

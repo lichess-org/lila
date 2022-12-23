@@ -45,7 +45,7 @@ object mini:
       ),
       ctx.userId map { myId =>
         frag(
-          (myId != u.id && u.enabled) option div(cls := "upt__actions btn-rack")(
+          (myId != u.id && u.enabled.yes) option div(cls := "upt__actions btn-rack")(
             a(
               dataIcon := "",
               cls      := "btn-rack__btn",
@@ -84,7 +84,7 @@ object mini:
           " ",
           momentFromNowOnce(u.createdAt)
         ),
-        (u.lameOrTroll || u.disabled) option span(cls := "upt__mod__marks")(mod.userMarks(u, None))
+        (u.lameOrTroll || u.enabled.no) option span(cls := "upt__mod__marks")(mod.userMarks(u, None))
       ),
       playing.ifFalse(ctx.pref.isBlindfold).map {
         views.html.game.mini(_)

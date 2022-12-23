@@ -539,6 +539,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escreve notas privadas aqui</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escreva uma nota privada sobre este utilizador</string>
+  <string name="noNoteYet">Ainda sem notas</string>
   <string name="invalidUsernameOrPassword">Nome de utilizador ou palavra-passe incorretos</string>
   <string name="incorrectPassword">Palavra-passe incorreta</string>
   <string name="invalidAuthenticationCode">Código de autenticação inválido</string>
@@ -738,7 +740,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
   <string name="transparent">Transparente</string>
-  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Tema do dispositivo</string>
+  <string name="deviceTheme">Tema do dispositivo</string>
   <string name="backgroundImageUrl">URL da imagem de fundo:</string>
   <string name="boardGeometry">Geometria do tabuleiro</string>
   <string name="boardTheme">Estilo do tabuleiro</string>

@@ -2,6 +2,7 @@ package lila.puzzle
 
 import cats.data.NonEmptyList
 import chess.format.{ Fen, Uci }
+import chess.Ply
 
 import lila.rating.Glicko
 import lila.common.Iso
@@ -17,7 +18,7 @@ case class Puzzle(
     themes: Set[PuzzleTheme.Key]
 ):
   // ply after "initial move" when we start solving
-  def initialPly: Int = ~Fen.readPly(fen)
+  def initialPly: Ply = Fen.readPly(fen) | Ply(0)
 
   def situationAfterInitialMove: Option[chess.Situation] = for {
     sit1 <- Fen read fen

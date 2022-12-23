@@ -31,7 +31,7 @@ object bits:
       )
     )
 
-  def menu(active: String, s: Option[lila.streamer.Streamer.WithUser])(implicit ctx: Context) =
+  def menu(active: String, s: Option[lila.streamer.Streamer.WithContext])(implicit ctx: Context) =
     st.nav(cls := "subnav")(
       a(cls := active.active("index"), href := routes.Streamer.index())(allStreamers()),
       s.map { st =>
@@ -95,10 +95,28 @@ object bits:
       )
     )
 
-  def streamerTitle(s: lila.streamer.Streamer.WithUser)(implicit lang: Lang) =
+  def streamerTitle(s: lila.streamer.Streamer.WithContext)(implicit lang: Lang) =
     span(cls := "streamer-title")(
       h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
       s.streamer.lastStreamLang map { language =>
         span(cls := "streamer-lang")(LangList nameByStr language)
       }
     )
+
+  def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: Context, lang: Lang): Option[Tag] =
+    ctx.isAuth option {
+      val id = s"streamer-subscribe-${s.streamer.userId}"
+      label(cls := "streamer-subscribe button button-metal")(
+        `for`          := id,
+        data("action") := s"${routes.Streamer.subscribe(s.streamer.userId, !s.subscribed)}"
+      )(
+        span(
+          form3.cmnToggle(
+            fieldId = id,
+            fieldName = id,
+            checked = s.subscribed
+          )
+        ),
+        trans.subscribe()
+      )
+    }

@@ -3,7 +3,7 @@ package lila.game
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import lila.db.ByteArray
-import chess.Color
+import chess.{ Ply, Color }
 
 private[game] case class Metadata(
     source: Option[Source],
@@ -30,23 +30,22 @@ private[game] object Metadata:
   val empty =
     Metadata(None, None, None, None, None, analysed = false, GameDrawOffers.empty, rules = Set.empty)
 
-// plies
-case class GameDrawOffers(white: Set[Int], black: Set[Int]):
+case class GameDrawOffers(white: Set[Ply], black: Set[Ply]):
 
-  def lastBy(color: Color): Option[Int] = color.fold(white, black).maxOption
+  def lastBy(color: Color): Option[Ply] = color.fold(white, black).maxOption(intOrdering)
 
-  def add(color: Color, ply: Int) =
+  def add(color: Color, ply: Ply) =
     color.fold(copy(white = white incl ply), copy(black = black incl ply))
 
   def isEmpty = this == GameDrawOffers.empty
 
   // lichess allows to offer draw on either turn,
   // normalize to pretend it was done on the opponent turn.
-  def normalize(color: Color): Set[Int] = color.fold(white, black) map {
-    case ply if (ply % 2 == 0) == color.white => ply + 1
-    case ply => ply
+  def normalize(color: Color): Set[Ply] = color.fold(white, black) map {
+    case ply if ply.color == color => ply + 1
+    case ply                       => ply
   }
-  def normalizedPlies: Set[Int] = normalize(chess.White) ++ normalize(chess.Black)
+  def normalizedPlies: Set[Ply] = normalize(chess.White) ++ normalize(chess.Black)
 
 object GameDrawOffers:
   val empty = GameDrawOffers(Set.empty, Set.empty)
@@ -54,8 +53,8 @@ object GameDrawOffers:
 enum GameRule:
   case NoAbort, NoRematch, NoGiveTime, NoClaimWin
   val key = lila.common.String lcfirst toString
-case object GameRule:
-  val byKey = values.map(r => r.key -> r).toMap
+object GameRule:
+  val byKey = values.mapBy(_.key)
 
 case class PgnImport(
     user: Option[UserId],

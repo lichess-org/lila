@@ -41,7 +41,7 @@ private object BSONHandlers:
         case TimeControl.Clock(chess.Clock.Config(l, i)) => $doc("l" -> l, "i" -> i)
         case TimeControl.Correspondence(d)               => $doc("d" -> d)
         case TimeControl.Unlimited                       => $empty
-  given BSONHandler[Variant]       = valueMapHandler(Variant.byId)(_.id)
+  given BSONHandler[Variant]       = variantByIdHandler
   given BSONHandler[Status]        = valueMapHandler(Status.byId)(_.id)
   given BSONHandler[DeclineReason] = valueMapHandler(DeclineReason.byKey)(_.key)
 

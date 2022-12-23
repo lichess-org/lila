@@ -91,8 +91,9 @@ final class User(
 
   def download(username: UserStr) = OpenBody { implicit ctx =>
     val userOption = if (username.value == "me") fuccess(ctx.me) else env.user.repo byId username
-    OptionOk(userOption.dmap(_.filter(u => u.enabled || ctx.is(u) || isGranted(_.GamesModView)))) { user =>
-      html.user.download(user)
+    OptionOk(userOption.dmap(_.filter(u => u.enabled.yes || ctx.is(u) || isGranted(_.GamesModView)))) {
+      user =>
+        html.user.download(user)
     }
   }
 
@@ -153,8 +154,8 @@ final class User(
       env.user.repo byId username flatMap {
         case None if isGranted(_.UserModView) =>
           ctx.me.map(Holder.apply) ?? { modC.searchTerm(_, username.value) }
-        case None                                             => notFound
-        case Some(u) if u.enabled || isGranted(_.UserModView) => f(u)
+        case None                                                 => notFound
+        case Some(u) if u.enabled.yes || isGranted(_.UserModView) => f(u)
         case Some(u) =>
           negotiate(
             html = env.user.repo isErased u flatMap { erased =>
@@ -167,7 +168,7 @@ final class User(
   def showMini(username: UserStr) =
     Open { implicit ctx =>
       OptionFuResult(env.user.repo byId username) { user =>
-        if (user.enabled || isGranted(_.UserModView))
+        if (user.enabled.yes || isGranted(_.UserModView))
           ctx.userId.?? { relationApi.fetchBlocks(user.id, _) } zip
             ctx.userId.?? { env.game.crosstableApi(user.id, _) dmap some } zip
             ctx.isAuth.?? { env.pref.api.followable(user.id) } zip
@@ -661,7 +662,7 @@ final class User(
 
   def tryRedirect(username: UserStr)(implicit ctx: Context): Fu[Option[Result]] =
     env.user.repo byId username map {
-      _.filter(_.enabled || isGranted(_.SeeReport)) map { user =>
+      _.filter(_.enabled.yes || isGranted(_.SeeReport)) map { user =>
         Redirect(routes.User.show(user.username))
       }
     }

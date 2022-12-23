@@ -363,6 +363,7 @@
   <string name="siteDescription">Ilmaista virtuaalishakkia. Pelaa shakkia selkeällä käyttöliittymällä. Ei rekisteröitymistä, ei mainoksia eikä selaimen lisäosia. Pelaa shakkia kavereita, satunnaisia vastustajia tai tekoälyä vastaan.</string>
   <string name="xJoinedTeamY">%1$s liittyi joukkueeseen %2$s</string>
   <string name="xCreatedTeamY">%1$s loi joukkueen %2$s</string>
+  <string name="startedStreaming">alkoi striimata</string>
   <string name="xStartedStreaming">%s alkoi striimata</string>
   <string name="averageElo">Vahvuuslukukeskiarvo</string>
   <string name="location">Sijainti</string>
@@ -737,7 +738,7 @@
   <string name="light">Vaalea</string>
   <string name="dark">Tumma</string>
   <string name="transparent">Läpinäkyvä</string>
-  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">Laitteen teema</string>
+  <string name="deviceTheme">Laitteen teema</string>
   <string name="backgroundImageUrl">Taustakuvan URL:</string>
   <string name="boardGeometry">Laudan geometria</string>
   <string name="boardTheme">Laudan tyyli</string>

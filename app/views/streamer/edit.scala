@@ -22,7 +22,7 @@ object edit:
       moreCss = cssTag("streamer.form")
     ) {
       main(cls := "page-menu")(
-        bits.menu("edit", s.withoutStream.some),
+        bits.menu("edit", s.some),
         div(cls := "page-menu__content box streamer-edit")(
           if (ctx.is(s.user))
             div(cls := "streamer-header")(
@@ -47,7 +47,7 @@ object edit:
                 bits.rules
               )
             )
-          else views.html.streamer.header(s),
+          else views.html.streamer.header(s, modData.isDefined),
           div(cls := "box-pad") {
             val granted = s.streamer.approval.granted
             frag(

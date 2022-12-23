@@ -48,7 +48,7 @@ final class UserApi(
       withFollows: Boolean,
       withTrophies: Boolean
   )(using Lang): Fu[JsObject] =
-    if (u.disabled) fuccess(jsonView disabled u.light)
+    if (u.enabled.no) fuccess(jsonView disabled u.light)
     else
       gameProxyRepo.urgentGames(u).dmap(_.headOption) zip
         (as.filter(u !=) ?? { me =>

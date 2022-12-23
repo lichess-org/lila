@@ -55,7 +55,7 @@ this.setSelectionRange(this.value.length, this.value.length);
                     u.marks.engine option "ENGINE",
                     u.marks.boost option "BOOSTER",
                     u.marks.troll option "SHADOWBAN",
-                    u.disabled option "CLOSED"
+                    u.enabled.no option "CLOSED"
                   ),
                   td(momentFromNow(u.createdAt)),
                   td(u.seenAt.map(momentFromNow(_))),

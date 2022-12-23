@@ -18,6 +18,7 @@ object show:
     views.html.base.layout(
       title = s"${s.titleName} streams chess",
       moreCss = cssTag("streamer.show"),
+      moreJs = jsModule("streamer"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${s.titleName} streams chess",
@@ -50,7 +51,7 @@ object show:
                 }
             }
           ),
-          bits.menu("show", s.withoutStream.some)
+          bits.menu("show", s.some)
         ),
         div(cls := "page-menu__content")(
           s.stream match {

@@ -30,13 +30,11 @@ object Settings:
     case Contributor extends UserSelection
     case Member      extends UserSelection
     case Everyone    extends UserSelection
-    lazy val key = UserSelection.this.toString.toLowerCase
+    val key = UserSelection.this.toString.toLowerCase
 
   object UserSelection:
 
-    val byKey = List(Nobody, Owner, Contributor, Member, Everyone).map { v =>
-      v.key -> v
-    }.toMap
+    val byKey = values.mapBy(_.key)
 
     def allows(sel: UserSelection, study: Study, userId: Option[UserId]): Boolean = sel match
       case Nobody      => false

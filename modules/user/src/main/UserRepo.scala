@@ -643,7 +643,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
     }
 
   def isErased(user: User): Fu[User.Erased] = User.Erased from {
-    user.disabled ?? {
+    user.enabled.no ?? {
       coll.exists($id(user.id) ++ $doc(F.erasedAt $exists true))
     }
   }

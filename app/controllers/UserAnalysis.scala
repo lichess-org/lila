@@ -2,7 +2,7 @@ package controllers
 
 import chess.format.Fen
 import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{ Black, Situation, White }
+import chess.{ Black, Situation, White, FullMoveNumber }
 import play.api.libs.json.Json
 import play.api.mvc.*
 import scala.concurrent.duration.*
@@ -23,9 +23,9 @@ final class UserAnalysis(
 
   def parseArg(arg: String) =
     arg.split("/", 2) match
-      case Array(key) => load("", Variant orDefault key)
+      case Array(key) => load("", Variant.orDefault(Variant.LilaKey(key)))
       case Array(key, fen) =>
-        Variant.byKey get key match
+        Variant(Variant.LilaKey(key)) match
           case Some(variant) if variant != Standard           => load(fen, variant)
           case _ if Fen.Epd.clean(fen) == Standard.initialFen => load("", Standard)
           case Some(Standard)                                 => load(fen, FromPosition)
@@ -62,7 +62,7 @@ final class UserAnalysis(
     makePov {
       fen.filter(_.value.nonEmpty).flatMap {
         Fen.readWithMoveNumber(variant, _)
-      } | Situation.AndFullMoveNumber(Situation(variant), 1)
+      } | Situation.AndFullMoveNumber(Situation(variant), FullMoveNumber(1))
     }
 
   private[controllers] def makePov(from: Situation.AndFullMoveNumber): Pov =
@@ -71,7 +71,7 @@ final class UserAnalysis(
         .make(
           chess = chess.Game(
             situation = from.situation,
-            turns = from.turns
+            ply = from.ply
           ),
           whitePlayer = lila.game.Player.make(White, none),
           blackPlayer = lila.game.Player.make(Black, none),

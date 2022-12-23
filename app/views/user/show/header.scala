@@ -45,7 +45,7 @@ object header:
               ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}")
             )(patronIconChar)
         ),
-        u.disabled option span(cls := "closed")("CLOSED")
+        u.enabled.no option span(cls := "closed")("CLOSED")
       ),
       div(cls := "user-show__social")(
         div(cls := "number-menu")(
@@ -254,23 +254,27 @@ object header:
   def noteZone(u: User, notes: List[lila.user.Note])(implicit ctx: Context) = div(cls := "note-zone")(
     postForm(cls := "note-form", action := routes.User.writeNote(u.username))(
       form3.textarea(lila.user.UserForm.note("text"))(
-        placeholder := "Write a private note about this user"
+        placeholder := trans.writeAPrivateNoteAboutThisUser.txt()
       ),
       if (isGranted(_.ModNote))
         div(cls := "mod-note")(
           submitButton(cls := "button", name := "noteType", value := "mod")("Save Mod Note"),
-          isGranted(_.Admin) option submitButton(cls := "button", name := "noteType", value := "dox")("Save Dox Note"),
-          submitButton(cls := "button", name := "noteType", value := "normal")("Save Regular Note"),
+          isGranted(_.Admin) option submitButton(cls := "button", name := "noteType", value := "dox")(
+            "Save Dox Note"
+          ),
+          submitButton(cls := "button", name := "noteType", value := "normal")("Save Regular Note")
         )
       else submitButton(cls := "button", name := "noteType", value := "normal")(trans.save())
     ),
-    notes.isEmpty option div("No note yet"),
+    notes.isEmpty option div(trans.noNoteYet()),
     notes.map { note =>
       div(cls := "note")(
         p(cls := "note__text")(richText(note.text, expandImg = false)),
-        (note.mod && isGranted(_.Admin)) option postForm(action := routes.User.setDoxNote(note._id, !note.dox))(
+        (note.mod && isGranted(_.Admin)) option postForm(
+          action := routes.User.setDoxNote(note._id, !note.dox)
+        )(
           submitButton(
-            cls   := "button-empty confirm button text",
+            cls := "button-empty confirm button text"
           )("Toggle Dox")
         ),
         p(cls := "note__meta")(
@@ -286,7 +290,7 @@ object header:
                 cls      := "button-empty button-red confirm button text",
                 style    := "float:right",
                 dataIcon := ""
-              )("Delete")
+              )(trans.delete())
             )
           )
         )

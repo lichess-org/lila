@@ -2,7 +2,7 @@ package lila.setup
 
 import chess.format.Fen
 import chess.{ variant as V, Mode, Clock }
-import play.api.data.format.Formats.*
+import play.api.data.format.Formats.doubleFormat
 import play.api.data.Forms.*
 
 import lila.common.Days
@@ -13,11 +13,11 @@ import lila.rating.RatingRange
 
 private object Mappings:
 
-  val variant                   = number.verifying(Config.variants contains _)
-  val variantWithFen            = number.verifying(Config.variantsWithFen contains _)
-  val aiVariants                = number.verifying(Config.aiVariants contains _)
-  val variantWithVariants       = number.verifying(Config.variantsWithVariants contains _)
-  val variantWithFenAndVariants = number.verifying(Config.variantsWithFenAndVariants contains _)
+  val variant                   = typeIn(Config.variants.toSet)
+  val variantWithFen            = typeIn(Config.variantsWithFen.toSet)
+  val aiVariants                = typeIn(Config.aiVariants.toSet)
+  val variantWithVariants       = typeIn(Config.variantsWithVariants.toSet)
+  val variantWithFenAndVariants = typeIn(Config.variantsWithFenAndVariants.toSet)
   val boardApiVariants = Set(
     V.Standard.key,
     V.Chess960.key,
@@ -29,11 +29,11 @@ private object Mappings:
     V.Horde.key,
     V.RacingKings.key
   )
-  val boardApiVariantKeys      = text.verifying(boardApiVariants contains _)
+  val boardApiVariantKeys      = typeIn(boardApiVariants)
   val time                     = of[Double].verifying(HookConfig validateTime _)
   val increment                = of[Clock.IncrementSeconds].verifying(HookConfig validateIncrement _)
-  val daysChoices              = List(1, 2, 3, 5, 7, 10, 14).map(Days(_))
-  val days                     = of[Days].verifying(mustBeOneOf(daysChoices), daysChoices.contains)
+  val daysChoices              = Days from List(1, 2, 3, 5, 7, 10, 14)
+  val days                     = typeIn(daysChoices.toSet)
   def timeMode                 = number.verifying(TimeMode.ids contains _)
   def mode(withRated: Boolean) = optional(rawMode(withRated))
   def rawMode(withRated: Boolean) =

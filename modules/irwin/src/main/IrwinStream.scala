@@ -51,7 +51,7 @@ final class IrwinStream:
           "id"    -> game.id,
           "white" -> game.whitePlayer.userId,
           "black" -> game.blackPlayer.userId,
-          "pgn"   -> game.pgnMoves.mkString(" "),
+          "pgn"   -> game.sans.mkString(" "),
           "emts"  -> moveTimes,
           "analysis" -> analysis.map {
             _.infos.map { info =>

@@ -9,9 +9,7 @@ object Namer:
   ): String =
     playerTextUser(player, player.userId flatMap lightUser, withRating)
 
-  def playerText(player: Player, withRating: Boolean = false)(using
-      lightUser: LightUser.Getter
-  ): Fu[String] =
+  def playerText(player: Player, withRating: Boolean = false)(using lightUser: LightUser.Getter): Fu[String] =
     player.userId.??(lightUser) dmap {
       playerTextUser(player, _, withRating)
     }

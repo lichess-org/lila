@@ -67,8 +67,16 @@ final private class StudyInvite(
         else if (inviter.perfs.bestRating >= 2000) 50
         else 100
       _ <- shouldNotify ?? notifyRateLimit(inviter.id, rateLimitCost) {
-        val notification = Notification.make(invited.id, InvitedToStudy(inviter.id, study.name, study.id))
-        notifyApi.addNotification(notification).void
+        notifyApi
+          .notifyOne(
+            invited,
+            lila.notify.InvitedToStudy(
+              invitedBy = inviter.id,
+              studyName = study.name,
+              studyId = study.id
+            )
+          )
+          .void
       }(funit)
     } yield invited
 

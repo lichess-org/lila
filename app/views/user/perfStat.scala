@@ -42,7 +42,7 @@ object perfStat:
         div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
           boxTop(
             div(cls := "box__top__title")(
-              bits.perfTrophies(user, ranks.view.filterKeys(perfType.==).toMap),
+              bits.perfTrophies(user, ranks.view.filterKeys(perfType == _).toMap),
               h1(
                 a(href := routes.User.show(user.username))(user.username),
                 span(perfStats(perfType.trans))

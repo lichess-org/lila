@@ -80,9 +80,9 @@ final class ActivityReadApi(
       practice = (for {
         p      <- a.practice
         struct <- practiceStructure
-      } yield p.value flatMap { case (studyId, nb) =>
+      } yield p.value.flatMap { (studyId, nb) =>
         struct study studyId map (_ -> nb)
-      } toMap)
+      }.toMap)
       forumPostView = forumPosts.map { p =>
         p.groupBy(_.topic)
           .view

@@ -3,9 +3,10 @@
   <string name="preferences">Testreszabás</string>
   <string name="display">Megjelenés</string>
   <string name="privacy">Adatvédelem</string>
+  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Értesítések</string>
   <string name="pieceAnimation">Bábuk animációja</string>
   <string name="materialDifference">Bábuk közötti különbség</string>
-  <string name="boardHighlights">Kiemelés a táblán (utolsó lépés és sakk)</string>
+  <string name="boardHighlights">Kiemelések a táblán (utolsó lépés és sakk)</string>
   <string name="pieceDestinations">A figurák érkezési mezői (érvényes lépések és előre bevitt lépések)</string>
   <string name="boardCoordinates">Tábla koordináták (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lépéslista játék közben</string>
@@ -13,7 +14,7 @@
   <string name="chessPieceSymbol">Sakkbábu ikonja</string>
   <string name="pgnLetter">Betű (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen mód</string>
-  <string name="showPlayerRatings">Játékosok Élő pontszámának megjelenítése</string>
+  <string name="showPlayerRatings">Játékosok Glicko-2 pontszámának megjelenítése</string>
   <string name="explainShowPlayerRatings">Lehetővé teszi az értékszámok elrejtését az oldalon és segít a sakkra koncentrálni. A játszmák ettől függetlenül lehetnek értékeltek, ez csak a megjelenítésre vonatkozik.</string>
   <string name="displayBoardResizeHandle">Átméretező sarok mutatása</string>
   <string name="onlyOnInitialPosition">Csak kezdőállásnál</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Tartsd lenyomva a &lt;ctrl&gt; billentyűt gyalog átváltozásakor az automatikus átváltoztatás letiltásához</string>
   <string name="whenPremoving">Előre meghatározott lépés esetén</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Háromszori ismétlés esetén automatikus döntetlen igénylése</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Ha a hátralévő idő &lt; 30 másodperc</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Ha a hátralévő idő &lt; 30 másodperc</string>
   <string name="moveConfirmation">Lépés jóváhagyatása</string>
   <string name="inCorrespondenceGames">Levelező mérkőzés</string>
   <string name="correspondenceAndUnlimited">Távjáték és korlátlan</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Beállítások elmentve.</string>
   <string name="scrollOnTheBoardToReplayMoves">Görgess a táblán a lépések visszajátszásához</string>
   <string name="correspondenceEmailNotification">Napi email értesítések a folyamatban lévő levelező játszmákról</string>
+  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Élő közvetítések</string>
+  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Új üzenet</string>
+  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Megemlítenek a fórumhozzászólásokban</string>
+  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Tanulmány meghívások</string>
+  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Levelező mérkőzések</string>
+  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Kihívások</string>
+  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Hamarosan kezdődő versenyek</string>
+  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting.">Levelező mérkőzés időkorlátjának lejárata</string>
+  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Hangjelzések használata</string>
+  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">\'Push\' értesítések, ha nem vagy aktív Lichessen</string>
+  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Böngésző</string>
+  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Eszköz</string>
 </resources>

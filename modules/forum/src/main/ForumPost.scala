@@ -10,9 +10,9 @@ import lila.security.Granter
 case class OldVersion(text: String, createdAt: DateTime)
 
 case class ForumPost(
-    _id: ForumPost.Id,
-    topicId: String,
-    categId: String,
+    _id: ForumPostId,
+    topicId: ForumTopicId,
+    categId: ForumCategId,
     author: Option[String],
     userId: Option[UserId],
     text: String,
@@ -27,9 +27,6 @@ case class ForumPost(
     reactions: Option[ForumPost.Reactions] = None
 ):
 
-  private val permitEditsFor  = 4 hours
-  private val showEditFormFor = 3 hours
-
   inline def id = _id
 
   private def showAuthor: String =
@@ -37,14 +34,14 @@ case class ForumPost(
 
   def showUserIdOrAuthor: String = if (erased) "<erased>" else userId.fold(showAuthor)(_.value)
 
-  def isTeam = categId startsWith teamSlug(TeamId(""))
+  def isTeam = ForumCateg.isTeamSlug(categId)
 
   def isAnonModPost = !userId.isDefined && ~modIcon
 
   def updatedOrCreatedAt = updatedAt | createdAt
 
   def canStillBeEdited =
-    updatedOrCreatedAt.plus(permitEditsFor.toMillis).isAfterNow
+    updatedOrCreatedAt.plus(ForumPost.permitEditsFor.toMillis).isAfterNow
 
   def canBeEditedBy(editingUser: User): Boolean =
     userId match
@@ -56,7 +53,7 @@ case class ForumPost(
 
   def shouldShowEditForm(editingUser: User) =
     canBeEditedBy(editingUser) &&
-      updatedOrCreatedAt.plus(showEditFormFor.toMillis).isAfterNow
+      updatedOrCreatedAt.plus(ForumPost.showEditFormFor.toMillis).isAfterNow
 
   def editPost(updated: DateTime, newText: String): ForumPost =
     val oldVersion = OldVersion(text, updatedOrCreatedAt)
@@ -84,6 +81,8 @@ case class ForumPost(
 
   def isBy(u: User) = userId.exists(_ == u.id)
 
+  override def toString = s"Post($categId/$topicId/$id)"
+
 object ForumPost:
 
   opaque type Id = String
@@ -91,7 +90,9 @@ object ForumPost:
 
   type Reactions = Map[String, Set[UserId]]
 
-  val idSize = 8
+  val idSize                  = 8
+  private val permitEditsFor  = 4 hours
+  private val showEditFormFor = 3 hours
 
   object Reaction:
     val PlusOne  = "+1"
@@ -113,8 +114,8 @@ object ForumPost:
   case class WithFrag(post: ForumPost, body: scalatags.Text.all.Frag)
 
   def make(
-      topicId: String,
-      categId: String,
+      topicId: ForumTopicId,
+      categId: ForumCategId,
       userId: Option[UserId], // anon mod posts
       text: String,
       number: Int,
@@ -123,7 +124,7 @@ object ForumPost:
       modIcon: Option[Boolean] = None
   ): ForumPost =
     ForumPost(
-      _id = ThreadLocalRandom nextString idSize,
+      _id = ForumPostId(ThreadLocalRandom nextString idSize),
       topicId = topicId,
       author = none,
       userId = userId,

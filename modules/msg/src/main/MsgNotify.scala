@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap
 import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
-import lila.notify.{ Notification, PrivateMessage }
+import lila.notify.{ PrivateMessage }
 import lila.common.String.shorten
 import lila.user.User
 
@@ -29,7 +29,7 @@ final private class MsgNotify(
     !cancel(threadId) ??
       notifyApi
         .markRead(
-          userId into Notification.Notifies,
+          userId,
           $doc(
             "content.type" -> "privateMessage",
             "content.user" -> contactId
@@ -41,12 +41,7 @@ final private class MsgNotify(
     threads
       .map { thread =>
         cancel(thread.id)
-        notifyApi
-          .remove(
-            thread other user into Notification.Notifies,
-            $doc("content.user" -> user.id)
-          )
-          .void
+        notifyApi.remove(thread other user, $doc("content.user" -> user.id)).void
       }
       .sequenceFu
       .void
@@ -71,13 +66,9 @@ final private class MsgNotify(
   private def doNotify(threadId: MsgThread.Id): Funit =
     colls.thread.byId[MsgThread](threadId.value) flatMap {
       _ ?? { thread =>
-        val msg  = thread.lastMsg
-        val dest = thread other msg.user
-        !thread.delBy(dest) ?? {
-          notifyApi addNotification Notification.make(
-            dest,
-            PrivateMessage(msg.user, shorten(msg.text, 40))
-          ) map (_ ?? lila.common.Bus.publish(MsgThread.Unread(thread), "msgUnread"))
+        val msg = thread.lastMsg
+        !thread.delBy(thread other msg.user) ?? {
+          notifyApi.notifyOne(thread other msg.user, PrivateMessage(msg.user, text = shorten(msg.text, 40)))
         }
       }
     }

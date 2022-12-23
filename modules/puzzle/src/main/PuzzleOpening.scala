@@ -19,8 +19,8 @@ case class PuzzleOpeningCollection(
   import SimpleOpening.*
   import PuzzleOpening.*
 
-  val familyMap  = families.view.map { fam => fam.family.key -> fam }.toMap
-  val openingMap = openings.view.map { op => op.opening.key -> op }.toMap
+  val familyMap  = families.mapBy(_.family.key)
+  val openingMap = openings.mapBy(_.opening.key)
 
   val treeMap: TreeMap = openings.foldLeft[TreeMap](Map.empty) { case (tree, op) =>
     tree.updatedWith(op.opening.family) {
@@ -146,7 +146,7 @@ final class PuzzleOpeningApi(
     (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36) ?? {
       gameRepo gameFromSecondary puzzle.gameId flatMap {
         _ ?? { game =>
-          OpeningDb.search(game.pgnMoves).map(_.opening).flatMap(SimpleOpening.apply) match
+          OpeningDb.search(game.sans).map(_.opening).flatMap(SimpleOpening.apply) match
             case None =>
               fuccess {
                 logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
@@ -177,15 +177,12 @@ object PuzzleOpening:
     lazy val familyKeys    = families.view.map(_.key).toSet
     lazy val variationKeys = variations.view.map(_.key).toSet
 
-  sealed abstract class Order(val key: String, val name: I18nKey)
+  enum Order(val key: String, val name: I18nKey):
+    case Popular      extends Order("popular", trans.study.mostPopular)
+    case Alphabetical extends Order("alphabetical", trans.study.alphabetical)
 
   object Order:
-    case object Popular      extends Order("popular", trans.study.mostPopular)
-    case object Alphabetical extends Order("alphabetical", trans.study.alphabetical)
-
-    val default = Popular
-    val all     = List(Popular, Alphabetical)
-    private val byKey: Map[String, Order] = all.map { o =>
-      o.key -> o
-    }.toMap
+    val default                   = Popular
+    val list                      = values.toList
+    private val byKey             = values.mapBy(_.key)
     def apply(key: String): Order = byKey.getOrElse(key, default)

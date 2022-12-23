@@ -46,10 +46,14 @@ final class Env(
   val repo = new UserRepo(db(config.collectionUser))
 
   val lightUserApi: LightUserApi = wire[LightUserApi]
-  val lightUser                  = lightUserApi.async
-  val lightUserSync              = lightUserApi.sync
-  val lightUserSyncFallback      = lightUserApi.syncFallback
-  val isBotSync                  = lightUserApi.isBotSync
+
+  export lightUserApi.{
+    async as lightUser,
+    asyncFallback as lightUserFallback,
+    sync as lightUserSync,
+    syncFallback as lightUserSyncFallback,
+    isBotSync
+  }
 
   lazy val botIds     = new GetBotIds(() => cached.botIds.get {})
   lazy val rankingsOf = new RankingsOf(cached.rankingsOf)

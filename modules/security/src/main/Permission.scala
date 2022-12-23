@@ -286,18 +286,14 @@ object Permission:
     )
   )
 
-  lazy val all: Set[Permission] = categorized.flatMap { case (_, perms) =>
-    perms
-  }.toSet
+  lazy val all: Set[Permission] = categorized.flatMap { (_, perms) => perms }.toSet
 
   lazy val nonModPermissions: Set[Permission] =
     Set(Beta, Prismic, Coach, Teacher, Developer, Verified, ContentTeam, ApiHog, Relay)
 
   lazy val modPermissions: Set[Permission] = all diff nonModPermissions
 
-  lazy val allByDbKey: Map[String, Permission] = all.view map { p =>
-    (p.dbKey, p)
-  } toMap
+  lazy val allByDbKey: Map[String, Permission] = all.mapBy(_.dbKey)
 
   def apply(dbKey: String): Option[Permission] = allByDbKey get dbKey
 

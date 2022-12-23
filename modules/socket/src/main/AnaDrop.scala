@@ -20,13 +20,13 @@ case class AnaDrop(
 
   def branch: Validated[String, Branch] =
     chess.Game(variant.some, fen.some).drop(role, pos) andThen { (game, drop) =>
-      game.pgnMoves.lastOption toValid "Dropped but no last move!" map { san =>
+      game.sans.lastOption toValid "Dropped but no last move!" map { san =>
         val uci     = Uci(drop)
         val movable = !game.situation.end
         val fen     = chess.format.Fen write game
         Branch(
           id = UciCharPair(uci),
-          ply = game.turns,
+          ply = game.ply,
           move = Uci.WithSan(uci, san),
           fen = fen,
           check = game.situation.check,
@@ -41,14 +41,15 @@ case class AnaDrop(
 object AnaDrop:
 
   def parse(o: JsObject) =
-    for {
+    import chess.variant.Variant
+    for
       d    <- o obj "d"
       role <- d str "role" flatMap chess.Role.allByName.get
       pos  <- d str "pos" flatMap { chess.Pos.fromKey(_) }
-      variant = chess.variant.Variant orDefault ~d.str("variant")
+      variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
       fen  <- d.get[Fen.Epd]("fen")
       path <- d str "path"
-    } yield AnaDrop(
+    yield AnaDrop(
       role = role,
       pos = pos,
       variant = variant,

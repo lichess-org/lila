@@ -535,6 +535,8 @@
   <string name="blog">بلاگ</string>
   <string name="notes">یادداشت ها</string>
   <string name="typePrivateNotesHere">یادداشت خصوصی را اینجا وارد کنید</string>
+  <string name="writeAPrivateNoteAboutThisUser">یک یادداشت خصوصی در مورد این کاربر بنویسید</string>
+  <string name="noNoteYet">هنوز یادداشتی وجود ندارد</string>
   <string name="invalidUsernameOrPassword">نام کاربری یا رمز عبور نادرست است</string>
   <string name="incorrectPassword">رمزعبور اشتباه</string>
   <string name="invalidAuthenticationCode">کد اصالت سنجی نامعتبر</string>
@@ -734,7 +736,7 @@
   <string name="light">روشن</string>
   <string name="dark">تیره</string>
   <string name="transparent">شفاف</string>
-  <string name="deviceTheme" comment="deviceTheme&#10;&#10;The user may choose light mode, dark mode, or to automatically choose the theme based on the device's configuration. This text represents the latter option.&#10;&#10;(That is, if the operating system's theme is set to dark mode, lichess will follow. This is a common option in applications where a dark mode may be enabled)">طرح زمینه دستگاه</string>
+  <string name="deviceTheme">طرح زمینه دستگاه</string>
   <string name="backgroundImageUrl">لینک تصویر پس زمینه:</string>
   <string name="boardGeometry">بعد صفحه</string>
   <string name="boardTheme">تم صفحه</string>

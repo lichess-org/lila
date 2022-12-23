@@ -148,7 +148,7 @@ object TournamentForm:
 
   def guessVariant(from: String): Option[Variant] =
     validVariants.find { v =>
-      v.key == from || from.toIntOption.exists(v.id ==)
+      v.key.value == from || from.toIntOption.exists(v.id.value == _)
     }
 
   val joinForm =

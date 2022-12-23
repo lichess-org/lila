@@ -21,9 +21,22 @@ final class MentionNotifier(
 
   def notifyMentionedUsers(post: ForumPost, topic: ForumTopic): Funit =
     post.userId.ifFalse(post.troll) ?? { author =>
-      filterValidUsers(extractMentionedUsers(post), author) flatMap { validUsers =>
-        val notifications = validUsers.map(createMentionNotification(post, topic, _, author))
-        notifyApi.addNotifications(notifications)
+      filterValidUsers(extractMentionedUsers(post), author) flatMap { mentionedUsers =>
+        mentionedUsers
+          .map { user =>
+            notifyApi.notifyOne(
+              user,
+              lila.notify.MentionedInThread(
+                mentionedBy = author,
+                topicName = topic.name,
+                topidId = topic.id,
+                category = post.categId,
+                postId = post.id
+              )
+            )
+          }
+          .sequenceFu
+          .void
       }
     }
 
@@ -33,7 +46,7 @@ final class MentionNotifier(
   private def filterValidUsers(
       candidates: Set[UserId],
       mentionedBy: UserId
-  ): Fu[List[Notification.Notifies]] =
+  ): Fu[List[UserId]] =
     for {
       existingUsers <-
         userRepo
@@ -41,23 +54,7 @@ final class MentionNotifier(
           .map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
       users <- Future.filterNot(mentionableUsers.toList) { relationApi.fetchBlocks(_, mentionedBy) }
-    } yield users.map(_ into Notification.Notifies)
-
-  private def createMentionNotification(
-      post: ForumPost,
-      topic: ForumTopic,
-      mentionedUser: Notification.Notifies,
-      mentionedBy: UserId
-  ): Notification =
-    val notificationContent = MentionedInThread(
-      mentionedBy,
-      MentionedInThread.Topic(topic.name),
-      MentionedInThread.TopicId(topic.id),
-      MentionedInThread.Category(post.categId),
-      post.id into MentionedInThread.PostId
-    )
-
-    Notification.make(mentionedUser into UserId, notificationContent)
+    } yield users
 
   private def extractMentionedUsers(post: ForumPost): Set[UserId] =
     post.text.contains('@') ?? {

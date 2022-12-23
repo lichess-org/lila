@@ -95,13 +95,12 @@ object RoomSocket:
   private val chatMsgs = Set("message", "chat_timeout", "chat_reinstate")
 
   def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select) =
-    import lila.chat.actorApi.*
     lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.Global.chan) {
-      case ChatLine(id, line: UserLine) =>
+      case lila.chat.ChatLine(id, line: UserLine) =>
         rooms.tellIfPresent(id into RoomId, NotifyVersion("message", lila.chat.JsonView(line), line.troll))
-      case OnTimeout(id, userId) =>
+      case lila.chat.OnTimeout(id, userId) =>
         rooms.tellIfPresent(id into RoomId, NotifyVersion("chat_timeout", userId, troll = false))
-      case OnReinstate(id, userId) =>
+      case lila.chat.OnReinstate(id, userId) =>
         rooms.tellIfPresent(id into RoomId, NotifyVersion("chat_reinstate", userId, troll = false))
     }
 

@@ -65,7 +65,7 @@ object SetupBulk:
     ) {
       (
           tokens: String,
-          variant: Option[String],
+          variant: Option[Variant.LilaKey],
           clock: Option[Clock.Config],
           days: Option[Days],
           fen: Option[Fen.Epd],
@@ -77,7 +77,7 @@ object SetupBulk:
       ) =>
         BulkFormData(
           tokens,
-          Variant orDefault ~variant,
+          Variant.orDefault(variant),
           clock,
           days,
           rated,

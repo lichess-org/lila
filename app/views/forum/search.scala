@@ -10,9 +10,7 @@ import lila.team.Team
 
 object search:
 
-  def apply(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(using
-      ctx: Context
-  ) =
+  def apply(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(using Context) =
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
     views.html.base.layout(
       title = title,
@@ -27,43 +25,41 @@ object search:
           ),
           bits.searchForm(text)
         ),
-        strong(cls := "nb-results box__pad")(pager.nbResults, " posts found"),
+        strong(cls := "nb-results box__pad")(trans.nbForumPosts.pluralSame(pager.nbResults)),
         table(cls := "slist slist-pad search__results")(
-          if (pager.nbResults > 0)
-            tbody(cls := "infinite-scroll")(
-              pager.currentPageResults.map { viewWithRead =>
-                val view = viewWithRead.view
-                val info =
-                  td(cls := "info")(
-                    momentFromNow(view.post.createdAt),
-                    br,
-                    bits.authorLink(view.post)
-                  )
-                tr(cls := "paginated")(
-                  if (viewWithRead.canRead)
-                    frag(
-                      td(
-                        a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
-                          view.categ.name,
-                          " - ",
-                          view.topic.name,
-                          "#",
-                          view.post.number
-                        ),
-                        p(shorten(view.post.text, 200))
-                      ),
-                      info
-                    )
-                  else
-                    frag(
-                      td("[You can't access this team forum post]"),
-                      info
-                    )
+          pager.nbResults > 0 option tbody(cls := "infinite-scroll")(
+            pager.currentPageResults.map { viewWithRead =>
+              val view = viewWithRead.view
+              val info =
+                td(cls := "info")(
+                  momentFromNow(view.post.createdAt),
+                  br,
+                  bits.authorLink(view.post)
                 )
-              },
-              pagerNextTable(pager, n => routes.ForumPost.search(text, n).url)
-            )
-          else tbody(tr(td("No forum post found")))
+              tr(cls := "paginated")(
+                if (viewWithRead.canRead)
+                  frag(
+                    td(
+                      a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
+                        view.categ.name,
+                        " - ",
+                        view.topic.name,
+                        "#",
+                        view.post.number
+                      ),
+                      p(shorten(view.post.text, 200))
+                    ),
+                    info
+                  )
+                else
+                  frag(
+                    td("[You can't access this team forum post]"),
+                    info
+                  )
+              )
+            },
+            pagerNextTable(pager, n => routes.ForumPost.search(text, n).url)
+          )
         )
       )
     )

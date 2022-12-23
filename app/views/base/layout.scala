@@ -28,7 +28,7 @@ object layout:
       }
     def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Frag =
       metaCsp(csp getOrElse defaultCsp)
-    def metaThemeColor(implicit ctx: Context): Frag = if (ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) raw {
+    def metaThemeColor(using ctx: Context): Frag = if (ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) raw {
       s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
         s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">"""
     }
@@ -36,7 +36,7 @@ object layout:
       raw {
         s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
       }
-    def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
+    def pieceSprite(using ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id   := "piece-sprite",
@@ -337,7 +337,7 @@ object layout:
               "is3d"    -> ctx.pref.is3d
             )
           )(body),
-          ctx.me.exists(_.enabled) option div(id := "friend_box")(
+          ctx.me.exists(_.enabled.yes) option div(id := "friend_box")(
             div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(""))),
             div(cls   := "content_wrap none")(
               div(cls := "content list")
@@ -424,7 +424,7 @@ object layout:
           ctx.blind option h2("Navigation"),
           !ctx.isAppealUser option frag(
             topnav(),
-            ctx.me.exists(!_.isPatron) && !zenable option a(cls := "site-title-nav__donate")(
+            ctx.noKid && ctx.me.exists(!_.isPatron) && !zenable option a(cls := "site-title-nav__donate")(
               href := routes.Plan.index
             )(trans.patron.donate())
           )

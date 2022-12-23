@@ -12,8 +12,6 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     scala.concurrent.ExecutionContext
 ):
 
-  import ForumPost.Id
-
   def forUser(user: Option[User]) =
     withFilter(user.filter(_.marks.troll).fold[Filter](Safe) { u =>
       SafeAnd(u.id)
@@ -29,15 +27,15 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))
     case Unsafe     => $empty
 
-  def byIds(ids: Seq[Id]) = coll.byIds[ForumPost, ForumPost.Id](ids)
+  def byIds(ids: Seq[ForumPostId]) = coll.byIds[ForumPost, ForumPostId](ids)
 
-  def byCategAndId(categSlug: String, id: Id): Fu[Option[ForumPost]] =
-    coll.one[ForumPost](selectCateg(categSlug) ++ $id(id))
+  def byCategAndId(categId: ForumCategId, id: ForumPostId): Fu[Option[ForumPost]] =
+    coll.one[ForumPost](selectCateg(categId) ++ $id(id))
 
-  def countBeforeNumber(topicId: String, number: Int): Fu[Int] =
+  def countBeforeNumber(topicId: ForumTopicId, number: Int): Fu[Int] =
     coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
 
-  def isFirstPost(topicId: String, postId: Id): Fu[Boolean] =
+  def isFirstPost(topicId: ForumTopicId, postId: ForumPostId): Fu[Boolean] =
     coll.primitiveOne[String](selectTopic(topicId), $sort.createdAsc, "_id") dmap { _ contains postId }
 
   def countByTopic(topic: ForumTopic): Fu[Int] =
@@ -49,14 +47,14 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
   def lastByTopic(topic: ForumTopic): Fu[Option[ForumPost]] =
     coll.find(selectTopic(topic.id)).sort($sort.createdDesc).one[ForumPost]
 
-  def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[ForumPost]] =
+  def recentInCategs(nb: Int)(categIds: List[ForumCategId], langs: List[String]): Fu[List[ForumPost]] =
     coll
       .find(selectCategs(categIds) ++ selectLangs(langs) ++ selectNotErased)
       .sort($sort.createdDesc)
       .cursor[ForumPost]()
       .list(nb)
 
-  def recentInCateg(categId: String, nb: Int): Fu[List[ForumPost]] =
+  def recentInCateg(categId: ForumCategId, nb: Int): Fu[List[ForumPost]] =
     coll
       .find(selectCateg(categId) ++ selectNotErased)
       .sort($sort.createdDesc)
@@ -74,13 +72,13 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
   def remove(post: ForumPost): Funit =
     coll.delete.one($id(post.id)).void
 
-  def removeByTopic(topicId: String): Funit =
+  def removeByTopic(topicId: ForumTopicId): Funit =
     coll.delete.one(selectTopic(topicId)).void
 
-  def selectTopic(topicId: String) = $doc("topicId" -> topicId) ++ trollFilter
+  def selectTopic(topicId: ForumTopicId) = $doc("topicId" -> topicId) ++ trollFilter
 
-  def selectCateg(categId: String)         = $doc("categId" -> categId) ++ trollFilter
-  def selectCategs(categIds: List[String]) = $doc("categId" $in categIds) ++ trollFilter
+  def selectCateg(categId: ForumCategId)         = $doc("categId" -> categId) ++ trollFilter
+  def selectCategs(categIds: List[ForumCategId]) = $doc("categId" $in categIds) ++ trollFilter
 
   val selectNotErased = $doc("erasedAt" $exists false)
 
@@ -99,10 +97,10 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
 
   def sortQuery = $sort.createdAsc
 
-  def idsByTopicId(topicId: String): Fu[List[Id]] =
-    coll.distinctEasy[Id, List]("_id", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
+  def idsByTopicId(topicId: ForumTopicId): Fu[List[ForumPostId]] =
+    coll.distinctEasy[ForumPostId, List]("_id", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
 
-  def allUserIdsByTopicId(topicId: String): Fu[List[UserId]] =
+  def allUserIdsByTopicId(topicId: ForumTopicId): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](
       "userId",
       $doc("topicId" -> topicId) ++ selectNotErased,

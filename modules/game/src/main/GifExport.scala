@@ -75,7 +75,7 @@ final class GifExport(
 
   def thumbnail(
       fen: Fen.Epd,
-      lastMove: Option[String],
+      lastMove: Option[Uci],
       orientation: Color,
       variant: Variant,
       theme: String,
@@ -85,7 +85,7 @@ final class GifExport(
       "fen"         -> fen.value,
       "orientation" -> orientation.name
     ) ::: List(
-      lastMove.map { "lastMove" -> _ },
+      lastMove.map { lm => "lastMove" -> lm.uci },
       Fen.read(variant, fen).flatMap(_.checkSquare.map { "check" -> _.key }),
       some("theme" -> theme),
       some("piece" -> piece)
@@ -118,7 +118,7 @@ final class GifExport(
 
   private def frames(game: Game, initialFen: Option[Fen.Epd]) =
     Replay.gameMoveWhileValid(
-      game.pgnMoves,
+      game.sans,
       initialFen | game.variant.initialFen,
       game.variant
     ) match

@@ -42,7 +42,7 @@ case class LiveStreams(streams: List[Stream]):
       streams.view
         .map(_.streamer.userId)
         .flatMap { userId =>
-          lightUser.sync(userId).flatMap(_.title) map (userId ->)
+          lightUser.sync(userId).flatMap(_.title) map (userId -> _)
         }
         .toMap
     )
@@ -116,9 +116,9 @@ final class LiveStreamApi(
   //     )
   //   )
 
-  def of(s: Streamer.WithUser): Fu[Streamer.WithUserAndStream] =
+  def of(s: Streamer.WithContext): Fu[Streamer.WithUserAndStream] =
     all.map { live =>
-      Streamer.WithUserAndStream(s.streamer, s.user, live get s.streamer)
+      Streamer.WithUserAndStream(s.streamer, s.user, live get s.streamer, s.subscribed)
     }
   def userIds                                      = userIdsCache
   def isStreaming(userId: UserId)                  = userIdsCache contains userId

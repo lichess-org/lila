@@ -737,6 +737,7 @@
   <string name="light">Açık</string>
   <string name="dark">Koyu</string>
   <string name="transparent">Şeffaf</string>
+  <string name="deviceTheme">Cihaz teması</string>
   <string name="backgroundImageUrl">Arka plan resim linki:</string>
   <string name="boardGeometry">Tahta geometrisi</string>
   <string name="boardTheme">Tahta teması</string>

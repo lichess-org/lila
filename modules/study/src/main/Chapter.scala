@@ -3,13 +3,11 @@ package lila.study
 import chess.format.pgn.{ Glyph, Tags }
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.Variant
-import chess.{ Centis, Color, Outcome }
+import chess.{ Ply, Centis, Color, Outcome }
 import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.user.User
-import lila.common.Iso
 
 case class Chapter(
     _id: StudyChapterId,
@@ -20,7 +18,7 @@ case class Chapter(
     tags: Tags,
     order: Int,
     ownerId: UserId,
-    conceal: Option[Chapter.Ply] = None,
+    conceal: Option[Ply] = None,
     practice: Option[Boolean] = None,
     gamebook: Option[Boolean] = None,
     description: Option[String] = None,
@@ -63,8 +61,8 @@ case class Chapter(
     updateRoot(_.forceVariationAt(force, path))
 
   def opening: Option[Opening] =
-    if (!Variant.openingSensibleVariants(setup.variant)) none
-    else OpeningDb searchInFens root.mainline.map(_.fen.opening)
+    Variant.list.openingSensibleVariants(setup.variant) ??
+      OpeningDb.searchInFens(root.mainline.map(_.fen.opening))
 
   def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
 
@@ -153,9 +151,6 @@ object Chapter:
 
   case class IdName(id: StudyChapterId, name: StudyChapterName)
 
-  opaque type Ply = Int
-  object Ply extends OpaqueInt[Ply]
-
   def defaultName(order: Int) = StudyChapterName(s"Chapter $order")
 
   private val defaultNameRegex           = """Chapter \d+""".r
@@ -164,7 +159,6 @@ object Chapter:
   def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value) take 80)
 
   val idSize = 8
-
   def makeId = StudyChapterId(ThreadLocalRandom nextString idSize)
 
   def make(

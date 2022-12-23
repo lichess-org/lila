@@ -154,7 +154,7 @@ object JsonApi:
     given Reads[Request.PostAnalysis] = Json.reads
 
   object writers:
-    given Writes[Variant] = Writes { v => JsString(v.key) }
+    given Writes[Variant] = writeAs(_.key)
     given Writes[Game]    = Json.writes
     given OWrites[Work] = OWrites { work =>
       (work match {

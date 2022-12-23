@@ -110,7 +110,7 @@ final private class Finisher(
     if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
     lila.mon.game
       .finish(
-        variant = game.variant.key,
+        variant = game.variant.key.value,
         source = game.source.fold("unknown")(_.name),
         speed = game.speed.name,
         mode = game.mode.name,

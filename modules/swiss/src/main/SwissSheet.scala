@@ -94,9 +94,7 @@ final private class SwissSheetApi(mongo: SwissMongo)(using
           ) dmap { player -> _ }
         }
       }
-      .map { case (player, pairings) =>
-        val pairingMap = pairings.map { p =>
-          p.round -> p
-        }.toMap
+      .map { (player, pairings) =>
+        val pairingMap = pairings.mapBy(_.round)
         (player, pairingMap, SwissSheet.one(swiss, pairingMap, player))
       }

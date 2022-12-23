@@ -6,7 +6,6 @@ import chess.PositionHash
 
 export lila.Lila.{ *, given }
 
-type PgnMoves    = Vector[String]
 type RatingDiffs = chess.Color.Map[IntRatingDiff]
 
 given Zero[PositionHash] = Zero(Monoid[PositionHash].empty)

@@ -47,7 +47,7 @@ object Coach:
     )
 
   case class WithUser(coach: Coach, user: lila.user.User):
-    def isListed = coach.listed.value && user.enabled && user.marks.clean
+    def isListed = coach.listed.yes && user.enabled.yes && user.marks.clean
 
   opaque type Listed = Boolean
   object Listed extends YesNo[Listed]

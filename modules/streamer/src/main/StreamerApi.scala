@@ -15,14 +15,15 @@ final class StreamerApi(
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
     picfitApi: PicfitApi,
-    notifyApi: lila.notify.NotifyApi
+    notifyApi: lila.notify.NotifyApi,
+    subsRepo: lila.relation.SubscriptionRepo
 )(using ec: scala.concurrent.ExecutionContext):
 
   import BsonHandlers.given
 
   def withColl[A](f: Coll => A): A = f(coll)
 
-  def byId(id: Streamer.Id): Fu[Option[Streamer]]           = coll.byId[Streamer](id.value)
+  def byId(id: Streamer.Id): Fu[Option[Streamer]]           = coll.byId[Streamer](id)
   def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer, Streamer.Id](ids)
 
   def find(username: UserStr): Fu[Option[Streamer.WithUser]] =
@@ -39,15 +40,23 @@ final class StreamerApi(
       coll.insert.one(s.streamer) inject s.some
     }
 
-  def withUser(s: Stream): Fu[Option[Streamer.WithUserAndStream]] =
-    userRepo byId s.streamer.userId dmap {
-      _ map { user =>
-        Streamer.WithUserAndStream(s.streamer, user, s.some)
+  def forSubscriber(streamerName: UserStr, me: Option[User]): Fu[Option[Streamer.WithContext]] =
+    me.foldLeft(find(streamerName)) { (streamerFu, me) =>
+      streamerFu flatMap {
+        _ ?? { s =>
+          subsRepo.isSubscribed(me.id, s.streamer).map { sub => s.copy(subscribed = sub).some }
+        }
       }
     }
 
-  def withUsers(live: LiveStreams): Fu[List[Streamer.WithUserAndStream]] =
-    live.streams.map(withUser).sequenceFu.dmap(_.flatten)
+  def withUsers(live: LiveStreams, me: Option[UserId]): Fu[List[Streamer.WithUserAndStream]] = for {
+    users <- userRepo.byIdsSecondary(live.streams.map(_.streamer.userId))
+    subs  <- me.??(subsRepo.filterSubscribed(_, users.map(_.id)))
+  } yield live.streams.flatMap { s =>
+    users.find(_ is s.streamer) map {
+      Streamer.WithUserAndStream(s.streamer, _, s.some, subs(s.streamer.userId))
+    }
+  }
 
   def allListedIds: Fu[Set[Streamer.Id]] = cache.listedIds.getUnit
 
@@ -82,18 +91,14 @@ final class StreamerApi(
           tier = prev.approval.tier != streamer.approval.tier option streamer.approval.tier,
           decline = !streamer.approval.granted && !streamer.approval.requested && prev.approval.requested
         )
-        import lila.notify.Notification.Notifies
-        import lila.notify.Notification
         ~modChange.list ?? {
-          notifyApi.addNotification(
-            Notification.make(
-              streamer.userId,
-              lila.notify.GenericLink(
-                url = "/streamer/edit",
-                title = "Listed on /streamer".some,
-                text = "Your streamer page is public".some,
-                icon = ""
-              )
+          notifyApi.notifyOne(
+            streamer,
+            lila.notify.GenericLink(
+              url = "/streamer/edit",
+              title = "Listed on /streamer".some,
+              text = "Your streamer page is public".some,
+              icon = ""
             )
           ) >>- cache.candidateIds.invalidateUnit()
         }

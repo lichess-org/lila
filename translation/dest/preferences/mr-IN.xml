@@ -16,7 +16,7 @@
   <string name="showPlayerRatings">गुणांकन दाखवा</string>
   <string name="explainShowPlayerRatings">यामुळे बुद्धिबळावर लक्ष्य केंद्रित राहण्यासाठी संकेतस्थळावरील सर्व गुणांकने लपवली जातील. खेळ गुणांकितच असतील, याचा परिणाम फक्त तुम्हाला काय दिसते यावर होतो.</string>
   <string name="displayBoardResizeHandle">पट लहान/मोठा करायचा दांडा दाखवा</string>
-  <string name="onlyOnInitialPosition">केवळ सुरुवातीच्या स्थितीवर</string>
+  <string name="onlyOnInitialPosition">केवळ प्रारंभिक स्थितीवर</string>
   <string name="blindfoldChess">अदृश्य बुद्धिबळ (अदृश्य सोंगट्या)</string>
   <string name="chessClock">बुद्धिबळ-घड्याळ</string>
   <string name="tenthsOfSeconds">सेकंदाचा दहावा</string>
@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">आपोआप बढती तात्पुरती थांबवण्यासाठी &lt;ctrl&gt; कळ दाबा</string>
   <string name="whenPremoving">फक्त प्रतिस्पर्ध्याच्या डावावर खेळताना</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">त्रिवार पुनरावृतींनवर सामना आपोआप बरोबरीत सोडवा</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">जेव्हा वेळ &lt; ३० सेकंद</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">जेव्हा वेळ &lt; ३० सेकंद</string>
   <string name="moveConfirmation">चालींचे पुष्टीकरण</string>
   <string name="inCorrespondenceGames">दीर्घकालीन खेळ</string>
   <string name="correspondenceAndUnlimited">दीर्घकालीन आणि अमर्याद</string>

@@ -11,14 +11,12 @@ final class ForumSearchApi(
     client: ESClient,
     postApi: ForumPostApi,
     postRepo: ForumPostRepo
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
-) extends SearchReadApi[PostView, Query]:
+)(using scala.concurrent.ExecutionContext, akka.stream.Materializer)
+    extends SearchReadApi[PostView, Query]:
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
-      postApi.viewsFromIds(ForumPost.Id from res.ids)
+      postApi.viewsFromIds(ForumPostId from res.ids)
     }
 
   def count(query: Query) =

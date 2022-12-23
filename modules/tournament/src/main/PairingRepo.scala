@@ -181,7 +181,7 @@ final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Mat
         update = $set(
           "s" -> g.status.id,
           "w" -> g.winnerColor.map(_.white),
-          "t" -> g.turns
+          "t" -> g.ply
         ),
         fetchNewObject = true
       )

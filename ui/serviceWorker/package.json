@@ -5,9 +5,10 @@
   "description": "lichess.org service worker",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "types-serviceworker": "^0.0.1",
-    "typescript": "^4"
+  "dependencies": {
+    "@types/cash": "workspace:*",
+    "@types/lichess": "workspace:*",
+    "types-serviceworker": "^0.0.1"
   },
   "scripts": {
     "compile": "tsc",

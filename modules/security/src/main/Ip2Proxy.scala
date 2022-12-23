@@ -29,10 +29,8 @@ final class Ip2ProxyServer(
     ws: StandaloneWSClient,
     cacheApi: lila.memo.CacheApi,
     checkUrl: String
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-) extends Ip2Proxy:
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler)
+    extends Ip2Proxy:
 
   def apply(ip: IpAddress): Fu[IsProxy] =
     cache.get(ip).recover { case e: Exception =>

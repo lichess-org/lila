@@ -4,6 +4,7 @@ import play.api.libs.json.*
 
 import chess.variant.Crazyhouse
 import chess.{
+  Ply,
   Centis,
   Clock as ChessClock,
   Color,
@@ -15,6 +16,7 @@ import chess.{
   Status
 }
 import chess.format.{ Fen, BoardFen }
+import chess.format.pgn.SanStr
 import JsonView.{ *, given }
 import lila.chat.{ PlayerLine, UserLine }
 import lila.common.ApiVersion
@@ -70,7 +72,7 @@ object Event:
   case class Move(
       orig: Pos,
       dest: Pos,
-      san: String,
+      san: SanStr,
       fen: BoardFen,
       check: Boolean,
       threefold: Boolean,
@@ -95,7 +97,7 @@ object Event:
           .add("enpassant" -> enpassant.map(_.data))
           .add("castle" -> castle.map(_.data))
       }
-    override def moveBy = Some(!state.color)
+    override def moveBy = Some(!state.turns.color)
   object Move:
     def apply(
         move: ChessMove,
@@ -128,7 +130,7 @@ object Event:
   case class Drop(
       role: chess.Role,
       pos: Pos,
-      san: String,
+      san: SanStr,
       fen: BoardFen,
       check: Boolean,
       threefold: Boolean,
@@ -147,7 +149,7 @@ object Event:
           "san"  -> san
         )
       }
-    override def moveBy = Some(!state.color)
+    override def moveBy = Some(!state.turns.color)
   object Drop:
     def apply(
         drop: ChessDrop,
@@ -341,8 +343,7 @@ object Event:
       )
 
   case class State(
-      color: Color,
-      turns: Int,
+      turns: Ply,
       status: Option[Status],
       winner: Option[Color],
       whiteOffersDraw: Boolean,
@@ -352,7 +353,7 @@ object Event:
     def data =
       Json
         .obj(
-          "color" -> color,
+          "color" -> turns.color,
           "turns" -> turns
         )
         .add("status" -> status)

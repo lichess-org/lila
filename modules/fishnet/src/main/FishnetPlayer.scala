@@ -48,17 +48,17 @@ final class FishnetPlayer(
         totalTime = clock.estimateTotalTime.centis
         if totalTime > 20 * 100
         delay = (clock.remainingTime(pov.color).centis atMost totalTime) * delayFactor
-        accel = 1 - ((g.turns - 20) atLeast 0 atMost 100) / 150f
+        accel = 1 - ((g.ply.value - 20) atLeast 0 atMost 100) / 150f
         sleep = (delay * accel) atMost 500
         if sleep > 25
         millis     = sleep * 10
         randomized = millis + millis * (ThreadLocalRandom.nextDouble() - 0.5)
-        divided    = randomized / (if (g.turns > 9) 1 else 2)
+        divided    = randomized / (if (g.ply > 9) 1 else 2)
       } yield divided.millis
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
     if (game.situation playable true)
-      if (game.turns <= maxPlies) gameRepo.initialFen(game) zip uciMemo.get(game) map {
+      if (game.ply <= maxPlies) gameRepo.initialFen(game) zip uciMemo.get(game) map {
         case (initialFen, moves) =>
           Work.Move(
             _id = Work.makeId,
@@ -81,5 +81,5 @@ final class FishnetPlayer(
             }
           )
       }
-      else fufail(s"[fishnet] Too many moves (${game.turns}), won't play ${game.id}")
+      else fufail(s"[fishnet] Too many moves (${game.ply}), won't play ${game.id}")
     else fufail(s"[fishnet] invalid position on ${game.id}")

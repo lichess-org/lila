@@ -42,7 +42,9 @@ object HTTPRequest:
 
   def isAssets(req: RequestHeader) = req.path startsWith "/assets/"
 
-  def userAgent(req: RequestHeader): Option[String] = req.headers get HeaderNames.USER_AGENT
+  def userAgent(req: RequestHeader): Option[UserAgent] = UserAgent from {
+    req.headers get HeaderNames.USER_AGENT
+  }
 
   val isChrome96Plus = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
 
@@ -66,9 +68,9 @@ object HTTPRequest:
       """coccoc|integromedb|contentcrawlerspider|toplistbot|seokicks-robot|it2media-domain-crawler|ip-web-crawler\.com|siteexplorer\.info|elisabot|proximic|changedetection|blexbot|arabot|wesee:search|niki-bot|crystalsemanticsbot|rogerbot|360spider|psbot|interfaxscanbot|lipperheyseoservice|ccmetadatascaper|g00g1e\.net|grapeshotcrawler|urlappendbot|brainobot|fr-crawler|binlar|simplecrawler|simplecrawler|livelapbot|twitterbot|cxensebot|smtbot|facebookexternalhit|daumoa|sputnikimagebot|visionutils|yisouspider|parsijoobot|mediatoolkit\.com|semrushbot"""
   }
 
-  case class UaMatcher(rStr: String):
+  final class UaMatcher(rStr: String):
     private val regex                      = rStr.r
-    def apply(req: RequestHeader): Boolean = userAgent(req).fold(false)(regex.find)
+    def apply(req: RequestHeader): Boolean = userAgent(req).fold(false)(ua => regex.find(ua.value))
 
   def isFishnet(req: RequestHeader) = req.path startsWith "/fishnet/"
 
@@ -78,14 +80,14 @@ object HTTPRequest:
 
   def hasFileExtension(req: RequestHeader) = fileExtensionRegex.find(req.path)
 
-  def weirdUA(req: RequestHeader) = userAgent(req).fold(true)(_.lengthIs < 30)
+  def weirdUA(req: RequestHeader) = userAgent(req).fold(true)(_.value.lengthIs < 30)
 
   def print(req: RequestHeader) = s"${printReq(req)} ${printClient(req)}"
 
   def printReq(req: RequestHeader) = s"${req.method} ${req.domain}${req.uri}"
 
   def printClient(req: RequestHeader) =
-    s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${~userAgent(req)}"
+    s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${userAgent(req).??(_.value)}"
 
   def bearer(req: RequestHeader): Option[Bearer] =
     req.headers.get(HeaderNames.AUTHORIZATION).flatMap { authorization =>
@@ -133,5 +135,5 @@ object HTTPRequest:
 
   def looksLikeLichessBot(req: RequestHeader) =
     userAgent(req) exists { ua =>
-      ua.startsWith("lichess-bot/") || ua.startsWith("maia-bot/")
+      ua.value.startsWith("lichess-bot/") || ua.value.startsWith("maia-bot/")
     }
