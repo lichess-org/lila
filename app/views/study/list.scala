@@ -110,7 +110,7 @@ object list:
             bits.orderSelect(order, "", url = o => routes.Study.search(text, o, 1)),
             bits.newForm()
           ),
-          paginate(pag, routes.Study.searchDefault(text))
+          paginate(pag, routes.Study.search(text, order.key))
         )
       )
     }
