@@ -135,17 +135,17 @@ function makeBundle(filename) {
   };
 }
 
-const latestCommit = JSON.parse(execSync('curl -s https://api.github.com/repos/WandererXII/lishogi/commits/master'));
 const gitSha = cb => {
-  const info = JSON.stringify({
-    date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
-    commit: latestCommit.sha.trim(),
-    message: latestCommit.commit.message.trim(),
-  });
+  const latestCommit = JSON.parse(execSync('curl -s https://api.github.com/repos/WandererXII/lishogi/commits/master')),
+    info = JSON.stringify({
+      date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
+      commit: (latestCommit.sha || '').trim(),
+      message: (latestCommit.commit.message || '').trim(),
+    });
   if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
   fs.writeFileSync(
     './dist/consolemsg.js',
-    `window.lishogi=window.lishogi||{};console.info("Lishogi is open source! https://github.com/WandererXII/lila");lishogi.info=${info};`
+    `window.lishogi=window.lishogi||{};console.info("Lishogi is open source! https://github.com/WandererXII/lishogi");lishogi.info=${info};`
   );
   cb();
 };
