@@ -198,10 +198,7 @@ export default class Setup {
         per = $periodsInput.filter(':checked').val(),
         hasSfen = !!$sfenInput.val(),
         cantBeRated =
-          hasSfen ||
-          (typ === 'hook' && timeMode === '0') ||
-          (variantId !== '1' && timeMode !== '1') ||
-          (timeMode === '1' && (per > 1 || (inc > 0 && byo > 0)));
+          hasSfen || (typ === 'hook' && timeMode === '0') || (timeMode === '1' && (per > 1 || (inc > 0 && byo > 0)));
 
       if (variantId != '1') $handicap.hide();
       else $handicap.css('display', 'flex');
