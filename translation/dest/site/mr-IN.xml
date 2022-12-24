@@ -318,11 +318,11 @@
   <string name="thematic">विषयगत</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s गुणांकित खेळ</item>
-    <item quantity="other">≥ %s औपचारिक खेळ</item>
+    <item quantity="other">≥ %s गुणांकित खेळ</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2$s गुणांकित खेळ</item>
-    <item quantity="other">≥ %1$s %2$s औपचारिक खेळ</item>
+    <item quantity="other">≥ %1$s %2$s गुणांकित खेळ</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">आपल्याला आणखी %1$s %2$s-गुणांकित खेळ खेळण्याची आवश्यकता आहे</item>
