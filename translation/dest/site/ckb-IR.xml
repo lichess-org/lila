@@ -672,4 +672,9 @@
   <string name="weHaveSentYouAnEmailTo">ئیمێڵێکمان نارد بۆ %s کلیک لەسەر بەستەرەکە بکە لە ناو ئیمێڵەکە بۆ دانانی وشەیەکی نهێنی نوێ.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">دوای خۆتۆمارکردن، تۆ رازیبووی بە %s.</string>
   <string name="readAboutOur">لە بارە %s بخوێنەوە.</string>
+  <string name="networkLagBetweenYouAndLichess">دواکەوتنی پەیوەندی نێوان تۆ لەگەڵ لیچێس</string>
+  <string name="timeToProcessAMoveOnLichessServer">کاتی جێبەجێکردنی جوڵەیەک لەسەر سێرڤەری لیچێس</string>
+  <string name="downloadAnnotated">دابەزاندن لەگەڵ ڕونکردنەوە</string>
+  <string name="downloadRaw">دابەزاندن بەبێ رونکردنەوە</string>
+  <string name="downloadImported">دابەزاندنی هاوردەکراو</string>
 </resources>
