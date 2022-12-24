@@ -436,7 +436,7 @@
   <string name="resume">परत सुरू करा</string>
   <string name="youArePlaying">आपण खेळत आहात!</string>
   <string name="winRate">जिंकण्याचा दर</string>
-  <string name="berserkRate">बेडर खेळाचा दर</string>
+  <string name="berserkRate">बेभान खेळाचा दर</string>
   <string name="performance">कामगिरी</string>
   <string name="tournamentComplete">क्रीडासत्र संपले</string>
   <string name="movesPlayed">खेळलेल्या चाली</string>
@@ -659,7 +659,7 @@
   <string name="glicko2Rating">Glicko-2 गुणांकन</string>
   <string name="checkYourEmail">तुमचा ईमेल तपासा</string>
   <string name="weHaveSentYouAnEmailClickTheLink">आम्ही तुम्हाला ईमेल पाठवला आहे. दिलेल्या लिंक वर क्लिक करून आपले खाते सक्रिय करा.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">जर तुम्हाला ईमेल मिळाला नसेल, तर इतर ठिकाणी तपास, जसे की junk, spam, social, किंवा इतर फोल्डर्स.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">जर तुम्हाला ईमेल मिळाला नसेल, तर इतर ठिकाणी तपासा, जसे की junk, spam, social, किंवा इतर फोल्डर्स.</string>
   <string name="weHaveSentYouAnEmailTo">आम्ही %s वर ईमेल पाठवला आहे. पासवर्ड रेसेट करण्यासाठी ईमेल मधील लिंक क्लिक करा.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">नोंदणी करतेवेळी, तुम्ही आमच्या %s ला बांधील आहात.</string>
   <string name="readAboutOur">आमच्या %s बद्दल वाचा.</string>
