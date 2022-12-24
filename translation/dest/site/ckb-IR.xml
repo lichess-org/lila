@@ -768,4 +768,27 @@
   <string name="next">دواتر</string>
   <string name="xWasPlayed">%s یاریکرد</string>
   <string name="findBetterMoveForWhite">بەدوای جوڵەیەکی باشتردا بگەڕێ بۆ سپی</string>
+  <string name="findBetterMoveForBlack">بەدوای جوڵەیەکی باشتردا بگەڕێ بۆ ڕەش</string>
+  <string name="resumeLearning">دەستپێکردنەوەی فێربوون</string>
+  <string name="youCanDoBetter">دەتوانیت باشتر بیکەیت</string>
+  <string name="tryAnotherMoveForWhite">جوڵەیەکی تر تاقی بکەرەوە بۆ سپی</string>
+  <string name="tryAnotherMoveForBlack">جوڵەیەکی تر تاقی بکەرەوە بۆ ڕەش</string>
+  <string name="solution">شیکاریکردن</string>
+  <string name="waitingForAnalysis">چاوەڕێی شیکاریکردنەکە بە</string>
+  <string name="noMistakesFoundForWhite">هیچ هەڵەیەکی سپی نەدۆزرایەوە</string>
+  <string name="noMistakesFoundForBlack">هیچ هەڵەیەکی ڕەش نەدۆزرایەوە</string>
+  <string name="doneReviewingWhiteMistakes">پێداچوونەوە بە هەڵەکانی سپی تەواو بووە</string>
+  <string name="doneReviewingBlackMistakes">پێداچوونەوە بە هەڵەکانی ڕەش تەواو بووە</string>
+  <string name="doItAgain">جارێکی دیکە هەوڵبدەوە</string>
+  <string name="reviewWhiteMistakes">پێداچوونەوە بە هەڵەکانی سپی</string>
+  <string name="reviewBlackMistakes">پێداچوونەوە بە هەڵەکانی ڕەش</string>
+  <string name="advantage">سوود</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s چرکە</item>
+    <item quantity="other">%s چرکە</item>
+  </plurals>
+  <string name="opening">دەستپێک</string>
+  <string name="middlegame">ناوەڕاستی یاری</string>
+  <string name="endgame">بەشی کۆتایی یاری</string>
+  <string name="conditionalPremoves">پێش جووڵەی مەرجدار</string>
 </resources>
