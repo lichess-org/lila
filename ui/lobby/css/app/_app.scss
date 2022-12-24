@@ -11,6 +11,10 @@
     display: none;
   }
 
+  .tabs-horiz > span {
+    flex: 1;
+  }
+
   &__content {
     @extend %box-neat;
     flex: 1 1 100%;

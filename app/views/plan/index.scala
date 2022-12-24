@@ -241,7 +241,7 @@ object index {
       dl(
         dt(otherMethods()),
         dd(
-          "Yes you can - ",
+          frag(trans.yes(), " - "),
           a(cls := "patreon", href := "https://www.patreon.com/lishogi", target := "_blank")(
             "Patreon"
           ),
