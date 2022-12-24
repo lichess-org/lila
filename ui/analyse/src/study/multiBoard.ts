@@ -3,6 +3,7 @@ import spinner from 'common/spinner';
 import { Shogiground } from 'shogiground';
 import { opposite } from 'shogiground/util';
 import { usiToSquareNames } from 'shogiops/compat';
+import { forsythToRole, roleToForsyth } from 'shogiops/sfen';
 import { handRoles } from 'shogiops/variant/util';
 import { VNode, h } from 'snabbdom';
 import { ChapterPreview, ChapterPreviewPlayer, Position, StudyCtrl } from './interfaces';
@@ -76,6 +77,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined 
 
 function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeVNodes {
   const ctrl = study.multiBoard;
+  if (pager.currentPageResults.some(p => p.variant.key === 'chushogi')) window.lishogi.loadChushogiPieceSprite();
   return [
     h('div.top', [renderPagerNav(pager, ctrl), renderPlayingToggle(ctrl)]),
     h('div.now-playing', pager.currentPageResults.map(makePreview(study))),
@@ -156,7 +158,8 @@ function usiToLastMove(lm?: string): Key[] | undefined {
 }
 
 function makeSg(preview: ChapterPreview): VNode {
-  return h(`div.mini-board.sg-wrap.variant-${preview.variant.key}`, {
+  const variant = preview.variant.key;
+  return h(`div.mini-board.sg-wrap.variant-${variant}`, {
     hook: {
       insert(vnode) {
         const sg = Shogiground(
@@ -171,9 +174,13 @@ function makeSg(preview: ChapterPreview): VNode {
             },
             hands: {
               inlined: true,
-              roles: handRoles(preview.variant.key),
+              roles: handRoles(variant),
             },
             lastDests: usiToLastMove(preview.lastMove),
+            forsyth: {
+              fromForsyth: forsythToRole(variant),
+              toForsyth: roleToForsyth(variant),
+            },
           },
           { board: vnode.elm as HTMLElement }
         );

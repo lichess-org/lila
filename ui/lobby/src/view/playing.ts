@@ -1,5 +1,6 @@
 import { Shogiground } from 'shogiground';
 import { usiToSquareNames } from 'shogiops/compat';
+import { forsythToRole } from 'shogiops/sfen';
 import { handRoles } from 'shogiops/variant/util';
 import { h } from 'snabbdom';
 import LobbyController from '../ctrl';
@@ -20,6 +21,7 @@ function timer(pov) {
 }
 
 export default function (ctrl: LobbyController) {
+  if (ctrl.data.nowPlaying.some(pov => pov.variant.key === 'chushogi')) window.lishogi.loadChushogiPieceSprite();
   return h(
     'div.now-playing',
     ctrl.data.nowPlaying.map(function (pov) {
@@ -34,6 +36,7 @@ export default function (ctrl: LobbyController) {
             hook: {
               insert(vnode) {
                 const lm = pov.lastMove,
+                  variant = pov.variant.key,
                   splitSfen = pov.sfen.split(' ');
                 Shogiground(
                   {
@@ -48,9 +51,12 @@ export default function (ctrl: LobbyController) {
                     },
                     hands: {
                       inlined: true,
-                      roles: handRoles(pov.variant.key),
+                      roles: handRoles(variant),
                     },
                     lastDests: lm ? usiToSquareNames(lm) : undefined,
+                    forsyth: {
+                      fromForsyth: forsythToRole(variant),
+                    },
                   },
                   { board: vnode.elm as HTMLElement }
                 );
@@ -66,7 +72,7 @@ export default function (ctrl: LobbyController) {
                   ? timer(pov)
                   : [ctrl.trans.noarg('yourTurn')]
                 : h('span', '\xa0')
-            ), // &nbsp;
+            ),
           ]),
         ]
       );
