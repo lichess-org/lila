@@ -147,9 +147,11 @@ object Form:
   private def pluralize(pattern: String, nb: Int) =
     pattern.replace("{s}", if (nb == 1) "" else "s")
 
+  given intBase: Formatter[Int]      = intFormat
+  given strBase: Formatter[String]   = stringFormat
+  given boolBase: Formatter[Boolean] = booleanFormat
+
   object formatter:
-    private val strBase                                                      = stringFormat
-    private val intBase                                                      = intFormat
     def string[A <: String](to: String => A): Formatter[A]                   = strBase.transform(to, identity)
     def stringFormatter[A](from: A => String, to: String => A): Formatter[A] = strBase.transform(to, from)
     def stringOptionFormatter[A](from: A => String, to: String => Option[A]): Formatter[A] =
@@ -204,10 +206,6 @@ object Form:
       def unbind(key: String, url: URL) = stringFormat.unbind(key, url.toString)
 
     val field = of[URL]
-
-  given Formatter[Int]     = intFormat
-  given Formatter[String]  = stringFormat
-  given Formatter[Boolean] = booleanFormat
 
   given autoFormat[A, T](using
       sr: SameRuntime[A, T],
