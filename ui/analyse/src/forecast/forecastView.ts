@@ -13,8 +13,10 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
   var lines = fcs.filter(function (fc) {
     return fc.length > 1;
   });
-  const initialSfen = firstNode.sfen;
-  const moveNotation = makeNotation(ctrl.data.pref.notation, initialSfen, ctrl.data.game.variant.key, cNodes[0].usi);
+  const initialSfen = firstNode.sfen,
+    moveNotation =
+      firstNode.notation ||
+      makeNotation(ctrl.data.pref.notation, initialSfen, ctrl.data.game.variant.key, cNodes[0].usi);
   return h(
     'button.on-my-turn.button.text',
     {
@@ -23,7 +25,7 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
     },
     [
       h('span', [
-        h('strong', ctrl.trans('playX', moveNotation!)),
+        h('strong', ctrl.trans('playX', moveNotation)),
         lines.length
           ? h('span', ctrl.trans.plural('andSaveNbPremoveLines', lines.length))
           : h('span', ctrl.trans.noarg('noConditionalPremoves')),
