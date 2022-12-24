@@ -70,7 +70,7 @@ export class ExplorerConfigCtrl {
     this.data = {
       open: prevData?.open || prop(false),
       db: storedProp<ExplorerDb>(
-        'explorer.db.' + variant,
+        'explorer.db2.' + variant,
         this.allDbs[0],
         str => str as ExplorerDb,
         v => v
