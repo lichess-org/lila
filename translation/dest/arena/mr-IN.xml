@@ -40,7 +40,7 @@
   <string name="thisIsPrivate">ही खासगी स्पर्धा आहे</string>
   <string name="shareUrl">हे URL लोकांना पाठवा म्हणजे त्यांना भाग घेता येईल: %s</string>
   <string name="drawStreakStandard">बरोबरींची मालिका: एखाद्या खेळाडूने सलग बरोबरी केल्यास फक्त पहिल्या बरोबरीचे किंवा %s पेक्षा जास्त चालींनंतर बरोबरीत सुटलेल्या खेळांचे गुण मिळतील. बरोबरींची मालिका केवळ विजयाने तोडता येऊ शकते, पराभव किंवा बरोबरीने नाही.</string>
-  <string name="drawStreakVariants">विविध प्रकारच्या बुद्धिबळामध्ये बरोबरीत सुटलेल्या खेळाचे गुण प्राप्त करण्यासाठी वेगवेगळ्या किमान चाली कराव्या लागतात. प्रत्येक प्रकारासाठी खालील सारणीमध्ये किमान चाली दर्शवल्या आहेत.</string>
+  <string name="drawStreakVariants">विविध प्रकारच्या बुद्धिबळामध्ये बरोबरीत सुटलेल्या खेळाचे गुण प्राप्त करण्यासाठी वेगवेगळ्या किमान चाली कराव्या लागतात. प्रत्येक प्रकारासाठी खालील सारणीमध्ये किमान चाली दाखवल्या आहेत.</string>
   <string name="variant">प्रकार</string>
   <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">खेळातील किमान चाली</string>
   <string name="history">आखाड्यांचा इतिहास</string>
