@@ -51,7 +51,7 @@
   <string name="blackLeftTheGame">Sötét elhagyta a játékot</string>
   <string name="whiteDidntMove">Világos nem lépett</string>
   <string name="blackDidntMove">Sötét nem lépett</string>
-  <string name="requestAComputerAnalysis">Számítógépes elemzés kérése</string>
+  <string name="requestAComputerAnalysis">Számítógépes elemzés</string>
   <string name="computerAnalysis">Számítógépes elemzés</string>
   <string name="computerAnalysisAvailable">Számítógépes elemzés elérhető</string>
   <string name="computerAnalysisDisabled">Számítógépes elemzés letiltva</string>
@@ -316,8 +316,8 @@
   <string name="takeback">Visszalépés</string>
   <string name="proposeATakeback">Visszalépés kérése</string>
   <string name="takebackPropositionSent">Visszalépéskérés elküldve</string>
-  <string name="takebackPropositionDeclined">Visszalépéskérés elutasítva</string>
-  <string name="takebackPropositionAccepted">Visszalépés kérése elfogadva</string>
+  <string name="takebackPropositionDeclined">Visszalépés elutasítva</string>
+  <string name="takebackPropositionAccepted">Visszalépés elfogadva</string>
   <string name="takebackPropositionCanceled">Visszalépéskérés elvetve</string>
   <string name="yourOpponentProposesATakeback">Az ellenfeled vissza szeretne lépni</string>
   <string name="bookmarkThisGame">Játszma könyvjelzőzése</string>
