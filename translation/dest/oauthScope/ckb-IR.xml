@@ -5,4 +5,5 @@
   <string name="carefullySelect">بە وریاییەوە ئەو شتانە هەڵبژێرە کە ڕێگەی پێدەدەیت ئەنجامی بدات.</string>
   <string name="tokenDescription">باسێکی نیشانەکە بکە</string>
   <string name="rememberTokenUse">بۆ ئەوەی لەبیرتبێت ئەو نیشانە تایبەتە بۆ چییە</string>
+  <string name="whatTheTokenCanDo">نیشانە تەیبەتەکەت دەتوانێت بە ناوی تۆوە چی بکات:</string>
 </resources>
