@@ -29,7 +29,7 @@ const filesAndRanksSelection = (ctrl: CoordinateTrainerCtrl): VNodes =>
                     id: `coord_file_${fileLetter}`,
                     name: 'files_selection',
                     value: fileLetter,
-                    checked: ctrl.selectedFiles.includes(fileLetter),
+                    checked: ctrl.selectedFiles.has(fileLetter),
                   },
                   on: {
                     change: e => {
@@ -64,7 +64,7 @@ const filesAndRanksSelection = (ctrl: CoordinateTrainerCtrl): VNodes =>
                     id: `coord_rank_${rank}`,
                     name: 'ranks_selection',
                     value: rank,
-                    checked: ctrl.selectedRanks.includes(rank),
+                    checked: ctrl.selectedRanks.has(rank),
                   },
                   on: {
                     change: e => {

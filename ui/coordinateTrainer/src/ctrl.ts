@@ -11,15 +11,15 @@ const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
 
 const randomChoice = (max: number) => Math.floor(Math.random() * max);
 
-const newKey = (oldKey: Key | '', selectedFiles: Files[] = [], selectedRanks: Ranks[] = []): Key => {
+const newKey = (oldKey: Key | '', selectedFiles?: Set<Files>, selectedRanks?: Set<Ranks>): Key => {
   const rand = randomChoice(2);
   let files = 'abcdefgh'.split('') as Files[];
   let rows = '12345678'.split('') as Ranks[];
 
-  if (selectedFiles.length > 0) {
-    files = files.filter((f: Files) => selectedFiles.includes(f));
+  if (selectedFiles?.size) {
+    files = files.filter((f: Files) => selectedFiles.has(f));
   }
-  if (selectedRanks.length > 0) rows = rows.filter((r: Ranks) => selectedRanks.includes(r));
+  if (selectedRanks?.size) rows = rows.filter((r: Ranks) => selectedRanks.has(r));
 
   // disallow the previous coordinate's row or file from being selected
   // rand so we only change one of them
@@ -115,17 +115,17 @@ export default class CoordinateTrainerCtrl {
 
   selectionEnabled = withEffect<boolean>(storedBooleanProp('coordinateTrainer.selectionEnabled', false), this.redraw);
 
-  selectedFiles: Files[] = [];
-  selectedRanks: Ranks[] = [];
+  selectedFiles = new Set<Files>();
+  selectedRanks = new Set<Ranks>();
 
   onFilesChange = (file: Files, on: boolean) => {
-    if (on) this.selectedFiles.push(file);
-    else this.selectedFiles = this.selectedFiles.filter(f => f !== file);
+    if (on) this.selectedFiles.add(file);
+    else this.selectedFiles.delete(file);
   };
 
   onRanksChange = (rank: Ranks, on: boolean) => {
-    if (on) this.selectedRanks.push(rank);
-    else this.selectedRanks = this.selectedRanks.filter(r => r !== rank);
+    if (on) this.selectedRanks.add(rank);
+    else this.selectedRanks.delete(rank);
   };
 
   timeControl = withEffect(
@@ -211,7 +211,7 @@ export default class CoordinateTrainerCtrl {
   advanceCoordinates = () => {
     this.currentKey = this.nextKey;
     if (this.selectionEnabled() === true) this.nextKey = newKey(this.nextKey, this.selectedFiles, this.selectedRanks);
-    else this.nextKey = newKey(this.nextKey, [], []);
+    else this.nextKey = newKey(this.nextKey);
 
     if (this.mode() === 'nameSquare')
       this.chessground?.setShapes([
