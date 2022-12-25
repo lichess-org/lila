@@ -78,6 +78,9 @@
   form.timeControl {
     margin-top: $block-gap;
   }
+  form.files {
+    margin-top: 1em;
+  }
 
   .mode_option,
   .timeControl_option {
@@ -185,14 +188,15 @@
   }
 
   .setting {
+    @extend %flex-center;
     flex: 0 0 auto;
-    margin: $block-gap $block-gap 0 $block-gap;
-    display: flex;
+    gap: 1em;
+    margin-top: $block-gap;
+    user-select: none;
 
     label {
       flex: 4 1 auto;
       cursor: pointer;
-      white-space: nowrap;
     }
   }
 }
