@@ -80,14 +80,6 @@ sg-squares {
     &.force-selected:not(.selected) {
       animation: selected 1s ease-in-out infinite alternate;
     }
-    @keyframes selected {
-      from {
-        background-color: transparent;
-      }
-      to {
-        background-color: rgba(20, 85, 30, 0.5);
-      }
-    }
   }
 }
 piece {
@@ -220,4 +212,13 @@ svg.sg-custom-svgs {
 sg-free-pieces piece {
   z-index: z('sg__svg.sg-free-pieces');
   opacity: 0.7;
+}
+
+@keyframes selected {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: rgba(20, 85, 30, 0.5);
+  }
 }

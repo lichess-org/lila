@@ -49,13 +49,13 @@
   .status {
     border-top: $border;
     font-style: italic;
-    padding: 1.2rem 0;
+    padding: 1.3rem 0;
     margin: 0;
   }
 
   .areplay {
     display: block;
-    flex: 2 1 6rem;
+    flex: 2 1 6.1rem;
     .board-layout-1 & {
       flex: 2 1 0;
     }
