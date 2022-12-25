@@ -8,7 +8,7 @@ import lila.common.ApiVersion
 
 object mon:
 
-  @inline private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
+  private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
 
   object http:
     private val t = timer("http.time")
@@ -644,11 +644,11 @@ object mon:
     def uploadSize(user: String) = histogram("picfit.upload.size").withTag("user", user)
 
   object jvm:
-    def threads(groups: List[lila.common.LilaJvm.ThreadGroup]) =
+    def threads() =
       val perState = gauge("jvm.threads.group")
       val total    = gauge("jvm.threads.group.total")
       for
-        group <- groups
+        group <- ornicar.scalalib.Jvm.threadGroups()
         _ = total.withTags(tags("name" -> group.name)).update(group.total)
         (state, count) <- group.states
       yield perState.withTags(tags("name" -> group.name, "state" -> state.toString)).update(count)
