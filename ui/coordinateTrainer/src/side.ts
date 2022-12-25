@@ -197,7 +197,6 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
       )
     ),
   ]),
-  ...filesAndRanksSelection(ctrl),
 ];
 
 const average = (array: number[]) => array.reduce((a, b) => a + b) / array.length;
@@ -265,6 +264,7 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
           redraw
         )
       : null,
+    ...filesAndRanksSelection(ctrl),
     toggle(
       { name: 'showCoordinates', id: 'showCoordinates', checked: showCoordinates(), change: showCoordinates },
       trans,
