@@ -2,4 +2,24 @@
 <resources>
   <string name="activity">چالاکی</string>
   <string name="hostedALiveStream">دەستی بە پەخشی راستەوخۆ کرد</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">پشتگیریکرد لە Lichess.org بۆ ماوەی %1$s مانگ وەک %2$s</item>
+    <item quantity="other">پشتگیریکرد لە Lichess.org بۆ ماوەی %1$s مانگ وەک %2$s</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">راهێنانیکرد لە %1$s بار لەسەر %2$s</item>
+    <item quantity="other">راهێنانیکرد لە %1$s بار لەسەر %2$s</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">شیکاری %s مەتەڵی تاکتیکی کرد</item>
+    <item quantity="other">شیکاری %s مەتەڵی تاکتیکی کرد</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">%1$s یاری لە %2$s کراوە</item>
+    <item quantity="other">%1$s یاری لە %2$s کراوە</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">%1$s نامەی ناردووە لەبارەی %2$s</item>
+    <item quantity="other">%1$s نامەی ناردووە لەبارەی %2$s</item>
+  </plurals>
 </resources>
