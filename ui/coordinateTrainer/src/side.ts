@@ -255,7 +255,7 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
     ctrl.mode() === 'findSquare'
       ? toggle(
           {
-            name: 'Practice only a set of selected files & ranks',
+            name: 'Practice only some files & ranks',
             id: 'enableSelection',
             checked: ctrl.selectionEnabled(),
             change: ctrl.selectionEnabled,
