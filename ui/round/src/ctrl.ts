@@ -287,7 +287,7 @@ export default class RoundController {
       config: SgConfig = {
         sfen: { board: splitSfen[0], hands: splitSfen[2] },
         lastDests: s.usi ? usiToSquareNames(s.usi) : undefined,
-        checks: variant !== 'chushogi' && posRes?.isOk ? checksSquareNames(posRes.value) : s.check,
+        checks: variant === 'chushogi' && posRes?.isOk ? checksSquareNames(posRes.value) : !!s.check,
         turnColor: this.ply % 2 === 0 ? 'sente' : 'gote',
         activeColor: this.isPlaying() ? this.data.player.color : undefined,
         drawable: {
@@ -430,19 +430,25 @@ export default class RoundController {
     if (!this.replaying()) {
       this.ply++;
       if (isDrop(move)) {
-        const key = makeSquare(move.to),
-          capture = this.shogiground.state.pieces.get(key),
+        const capture = this.shogiground.state.pieces.get(keys[0]),
           piece = {
             role: move.role,
             color: playedColor,
           };
         // no need to drop the piece if it is already there - would play the sound again
-        if (!capture || !samePiece(capture, piece)) this.shogiground.drop(piece, key);
+        if (!capture || !samePiece(capture, piece)) this.shogiground.drop(piece, keys[0]);
       } else {
         // This block needs to be idempotent
         if (move.midStep) {
-          this.shogiground.state.pieces.delete(keys[1]);
-          this.shogiground.move(keys[0], keys[2], move.promotion);
+          const orig = keys[0],
+            midStep = keys[1],
+            dest = keys[2];
+          if (orig !== dest) this.shogiground.move(orig, dest, move.promotion);
+          else if (game.isPlayerTurn(d)) {
+            const capture = this.shogiground.state.pieces.get(midStep);
+            this.onMove(orig, dest, !!move.promotion, capture as Piece);
+          }
+          this.shogiground.state.pieces.delete(midStep);
         } else this.shogiground.move(keys[0], keys[1], move.promotion);
       }
       this.shogiground.set({
