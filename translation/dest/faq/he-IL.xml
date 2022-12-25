@@ -61,6 +61,7 @@
 ראו את ה%3$s על זה בשביל קצת אימון.</string>
   <string name="goodIntroduction">הקדמה טובה</string>
   <string name="lichessTraining">שיעור בליצ\'ס</string>
+  <string name="watchIMRosenCheckmate">צפו באמן הבין־לאומי Eric Rosen עושה מט %s.</string>
   <string name="threefoldRepetition">חזרה משולשת</string>
   <string name="threefoldRepetitionExplanation">אם עמדה כלשהי מופיעה שלוש פעמים, שחקן יכול לדרוש תיקו עקב %1$s. לִיצֶ\'ס מיישם את החוקים הרשמיים של פיד\"ה, שתוארו בסעיף 9.2 ד\' של %2$s.</string>
   <string name="threefoldRepetitionLowerCase">חזרה משולשת</string>

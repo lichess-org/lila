@@ -363,6 +363,7 @@
   <string name="siteDescription">Gratis online skakserver. Spil skak med et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
   <string name="xJoinedTeamY">%1$s blev medlem af %2$s</string>
   <string name="xCreatedTeamY">%1$s oprettede holdet %2$s</string>
+  <string name="startedStreaming">begyndte at streame</string>
   <string name="xStartedStreaming">%s begyndte at streame</string>
   <string name="averageElo">Gennemsnitlig rating</string>
   <string name="location">Sted</string>
@@ -538,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Noter</string>
   <string name="typePrivateNotesHere">Skriv private noter her</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skriv en privat note om denne bruger</string>
+  <string name="noNoteYet">Ingen note endnu</string>
   <string name="invalidUsernameOrPassword">Ugyldigt brugernavn eller adgangskode</string>
   <string name="incorrectPassword">Forkert adgangskode</string>
   <string name="invalidAuthenticationCode">Ugyldig godkendelseskode</string>
@@ -737,6 +740,7 @@
   <string name="light">Lyst</string>
   <string name="dark">Mørkt</string>
   <string name="transparent">Gennemsigtigt</string>
+  <string name="deviceTheme">Enhedstema</string>
   <string name="backgroundImageUrl">Baggrundsbillede URL:</string>
   <string name="boardGeometry">Brætgeometri</string>
   <string name="boardTheme">Brættema</string>

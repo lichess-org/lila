@@ -1,20 +1,17 @@
 package lila.learn
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
-object BSONHandlers {
+object BSONHandlers:
 
   import StageProgress.Score
 
-  implicit private val ScoreHandler = intAnyValHandler[Score](_.value, Score.apply)
-  implicit private val StageProgressHandler =
-    isoHandler[StageProgress, Vector[Score]](
-      (s: StageProgress) => s.scores,
-      StageProgress.apply _
-    )
+  private given BSONHandler[Score] = intAnyValHandler[Score](_.value, Score.apply)
+  private given BSONHandler[StageProgress] = isoHandler[StageProgress, Vector[Score]](
+    (s: StageProgress) => s.scores,
+    StageProgress.apply
+  )
 
-  implicit val LearnProgressIdHandler = stringAnyValHandler[LearnProgress.Id](_.value, LearnProgress.Id.apply)
-  implicit val LearnProgressHandler   = Macros.handler[LearnProgress]
-}
+  given BSONDocumentHandler[LearnProgress] = Macros.handler

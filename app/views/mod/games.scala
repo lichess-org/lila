@@ -4,11 +4,11 @@ import controllers.GameMod
 import controllers.routes
 import play.api.data.Form
 import play.api.i18n.Lang
-import scala.util.chaining._
+import scala.util.chaining.*
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.evaluation.PlayerAssessment
 import lila.game.Pov
 import lila.rating.PerfType
@@ -16,7 +16,7 @@ import lila.swiss.Swiss
 import lila.tournament.LeaderboardApi.TourEntry
 import lila.user.User
 
-object games {
+object games:
 
   private val sortNoneTh = th(attr("data-sort-method") := "none")
 
@@ -25,8 +25,8 @@ object games {
       filterForm: Form[GameMod.Filter],
       games: Either[List[Pov], List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])]],
       arenas: Seq[TourEntry],
-      swisses: Seq[(Swiss.IdName, Int)]
-  )(implicit
+      swisses: Seq[(Swiss.IdName, Rank)]
+  )(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -42,7 +42,7 @@ object games {
               form3.input(filterForm("opponents"))(placeholder  := "Opponents"),
               form3.input(filterForm("nbGamesOpt"))(placeholder := "Nb games"),
               form3.select(
-                filterForm("speed"),
+                filterForm("perf"),
                 PerfType.nonPuzzle.map { p =>
                   p.key -> p.trans
                 },
@@ -64,7 +64,7 @@ object games {
               form3.select(
                 filterForm("swiss"),
                 swisses.map { case (swiss, rank) =>
-                  swiss.id.value -> s"rank ${rank} / ${swiss.name}"
+                  swiss.id -> s"rank ${rank} / ${swiss.name}"
                 },
                 s"${swisses.size} swiss".some,
                 disabled = swisses.isEmpty
@@ -115,7 +115,7 @@ object games {
                         st.value := pov.gameId
                       )
                     ),
-                    td(dataSort := ~pov.opponent.rating)(
+                    td(dataSort := pov.opponent.rating.fold(0)(_.value))(
                       playerLink(pov.opponent, withDiff = false)
                     ),
                     td(
@@ -128,7 +128,7 @@ object games {
                       },
                       shortClockName(pov.game)
                     ),
-                    td(dataSort := ~pov.game.tournamentId)(
+                    td(dataSort := pov.game.tournamentId.??(_.value))(
                       pov.game.tournamentId map { tourId =>
                         a(
                           dataIcon := "",
@@ -191,4 +191,3 @@ object games {
         )
       )
     }
-}

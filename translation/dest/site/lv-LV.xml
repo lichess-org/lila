@@ -96,6 +96,7 @@
   <string name="dtzWithRounding">DTZ50\'\' ar noapaļošanu, balstīts uz pusgājienu skaita līdz nākamajam sitienam vai bandinieka gājienam</string>
   <string name="noGameFound">Neviena spēle nav atrasta</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Varbūt iekļaujiet vairāk spēļu uzstādījumu izvēlnē?</string>
+  <string name="openings">Atklātnes</string>
   <string name="openingExplorer">Atklātņu pārlūks</string>
   <string name="openingEndgameExplorer">Atklātņu un beigu spēļu pārlūks</string>
   <string name="xOpeningExplorer">%s atklātņu pārlūks</string>
@@ -165,6 +166,7 @@
   <string name="viewInFullSize">Skatīt pilnā izmērā</string>
   <string name="logOut">Izrakstīties</string>
   <string name="signIn">Pierakstīties</string>
+  <string name="rememberMe">Ierakstīties pastāvīgi</string>
   <string name="youNeedAnAccountToDoThat">Lai veiktu šo darbību, nepieciešams konts</string>
   <string name="signUp">Reģistrēties</string>
   <string name="computersAreNotAllowedToPlay">Datoriem un spēlētājiem, kuri izmanto datoru palīdzību, nav atļauts spēlēt. Lūdzu, spēlējot neizmantojiet šaha programmu, datubāžu vai citu spēlētāju palīdzību. Aicinām neizmantot vairākus kontus - tas var novest pie piekļuves pārtraukšanas.</string>
@@ -387,6 +389,7 @@
   <string name="siteDescription">Bezmaksas šahs tiešsaistē. Spēlē šahu lakoniskā saskarnē tagad: bez reģistrācijas, reklāmām, vai papildus programmatūras! Spēlē pret datoru, draugiem vai nejaušiem pretiniekiem.</string>
   <string name="xJoinedTeamY">%1$s pievienojās komandai \"%2$s\"</string>
   <string name="xCreatedTeamY">%1$s izveidoja komandu \"%2$s\"</string>
+  <string name="startedStreaming">sāka straumēt</string>
   <string name="xStartedStreaming">%s sāka straumēt</string>
   <string name="averageElo">Vidējais reitings</string>
   <string name="location">Atrašanās vieta</string>
@@ -568,6 +571,8 @@
   <string name="blog">Blogs</string>
   <string name="notes">Piezīmes</string>
   <string name="typePrivateNotesHere">Personīgās piezīmes rakstiet šeit</string>
+  <string name="writeAPrivateNoteAboutThisUser">Izveidot privātu piezīmi par šo lietotāju</string>
+  <string name="noNoteYet">Nav piezīmes</string>
   <string name="invalidUsernameOrPassword">Nepareizs lietotājvārds vai parole</string>
   <string name="incorrectPassword">Nepareiza parole</string>
   <string name="invalidAuthenticationCode">Nederīgs autentifikācijas kods</string>
@@ -772,6 +777,7 @@
   <string name="light">Gaišs</string>
   <string name="dark">Tumšs</string>
   <string name="transparent">Caurspīdīgs</string>
+  <string name="deviceTheme">Saskaņot ar sistēmu</string>
   <string name="backgroundImageUrl">Fona attēla URL:</string>
   <string name="boardGeometry">Galdiņa ģeometrija</string>
   <string name="boardTheme">Galdiņa dizains</string>

@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.mvc.{ RequestHeader, Result }
 
 import lila.common.{ Bearer, HTTPRequest, Strings }
-import lila.db.dsl._
+import lila.db.dsl.*
 import lila.memo.SettingStore
 import lila.user.{ User, UserRepo }
 
@@ -13,9 +13,9 @@ final class OAuthServer(
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
     originBlocklist: SettingStore[Strings]
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import OAuthServer._
+  import OAuthServer.*
 
   def auth(req: RequestHeader, scopes: List[OAuthScope]): Fu[AuthResult] =
     HTTPRequest.bearer(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) {
@@ -35,7 +35,7 @@ final class OAuthServer(
               at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
             andLogReq filter { req =>
               blocked || {
-                u.id != "openingexplorer" && !HTTPRequest.looksLikeLichessBot(req)
+                u.id != User.explorerId && !HTTPRequest.looksLikeLichessBot(req)
               }
             } foreach { req =>
               logger.debug(
@@ -60,9 +60,8 @@ final class OAuthServer(
     user2  <- auth2
     result <- if (user1.user is user2.user) Left(OneUserWithTwoTokens) else Right(user1.user -> user2.user)
   } yield result
-}
 
-object OAuthServer {
+object OAuthServer:
 
   type AuthResult = Either[AuthError, OAuthScope.Scoped]
 
@@ -81,4 +80,3 @@ object OAuthServer {
       "X-OAuth-Scopes"          -> OAuthScope.keyList(availableScopes),
       "X-Accepted-OAuth-Scopes" -> OAuthScope.keyList(acceptedScopes)
     )
-}

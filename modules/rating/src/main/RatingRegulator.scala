@@ -1,9 +1,9 @@
 package lila.rating
 
-object RatingRegulator {
+object RatingRegulator:
 
   def apply(factors: RatingFactors)(perfType: PerfType, before: Perf, after: Perf): Perf =
-    factors.get(perfType).filter(1 !=).fold(after) {
+    factors.get(perfType).filter(_.value != 1).fold(after) {
       apply(_, perfType, before, after)
     }
 
@@ -11,14 +11,13 @@ object RatingRegulator {
     if ({
       (after.nb == before.nb + 1) &&               // after playing one game
       (after.glicko.rating > before.glicko.rating) // and gaining rating
-    }) {
+    })
       val diff  = after.glicko.rating - before.glicko.rating
       val extra = diff * (factor.value - 1)
-      lila.mon.rating.regulator.micropoints(perfType.key).record((extra * 1000 * 1000).toLong)
+      lila.mon.rating.regulator.micropoints(perfType.key.value).record((extra * 1000 * 1000).toLong)
       after.copy(
         glicko = after.glicko.copy(
           rating = after.glicko.rating + extra
         )
       )
-    } else after
-}
+    else after

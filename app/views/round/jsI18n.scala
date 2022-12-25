@@ -2,10 +2,10 @@ package views.html.round
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
-import lila.i18n.{ I18nKeys => trans }
+import lila.app.templating.Environment.{ given, * }
+import lila.i18n.{ I18nKeys as trans }
 
-object jsI18n {
+object jsI18n:
 
   def apply(g: lila.game.Game)(implicit lang: Lang) =
     i18nJsObject {
@@ -25,26 +25,26 @@ object jsI18n {
     trans.oneDay,
     trans.nbDays,
     trans.nbHours
-  ).map(_.key)
+  )
 
-  private val realtimeTranslations = Vector(trans.nbSecondsToPlayTheFirstMove).map(_.key)
+  private val realtimeTranslations = Vector(trans.nbSecondsToPlayTheFirstMove)
 
   private val variantTranslations = Vector(
     trans.kingInTheCenter,
     trans.threeChecks,
     trans.variantEnding
-  ).map(_.key)
+  )
 
   private val tournamentTranslations = Vector(
     trans.backToTournament,
     trans.viewTournament,
     trans.standing
-  ).map(_.key)
+  )
 
   private val swissTranslations = Vector(
     trans.backToTournament,
     trans.viewTournament
-  ).map(_.key)
+  )
 
   private val baseTranslations = Vector(
     trans.anonymous,
@@ -106,5 +106,4 @@ object jsI18n {
     trans.youPlayTheWhitePieces,
     trans.youPlayTheBlackPieces,
     trans.itsYourTurn
-  ).map(_.key)
-}
+  )

@@ -4,15 +4,15 @@ package tournament
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.TeamBattle
 import lila.tournament.Tournament
 
-object teamBattle {
+object teamBattle:
 
-  def edit(tour: Tournament, form: Form[_])(implicit ctx: Context) =
+  def edit(tour: Tournament, form: Form[?])(implicit ctx: Context) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
@@ -86,7 +86,7 @@ object teamBattle {
       )
     )
 
-  def teamInfo(tour: Tournament, team: lila.team.Team.Mini, info: TeamBattle.TeamInfo)(implicit
+  def teamInfo(tour: Tournament, team: lila.team.Team.Mini, info: TeamBattle.TeamInfo)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -136,4 +136,3 @@ object teamBattle {
         )
       )
     )
-}

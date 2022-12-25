@@ -363,6 +363,7 @@
   <string name="siteDescription">Doako xake zerbitzaria. Xakean interfaze argiarekin jokatu. Izena ematea ez da beharrezkoa. Iragarkirik gabe. Jokatu xakean ordenagailu, lagun edo beste aurkariekin.</string>
   <string name="xJoinedTeamY">%1$s %2$s taldean sartu da</string>
   <string name="xCreatedTeamY">%1$s(e)k %2$s taldea sortu du</string>
+  <string name="startedStreaming">emanaldiarekin hasi da</string>
   <string name="xStartedStreaming">%s emanaldiarekin hasi da</string>
   <string name="averageElo">Bataz besteko puntuazioa</string>
   <string name="location">Lokalizazioa</string>
@@ -538,6 +539,8 @@
   <string name="blog">Bloga</string>
   <string name="notes">Oharrak</string>
   <string name="typePrivateNotesHere">Ohar pribatuak idatzi hemen</string>
+  <string name="writeAPrivateNoteAboutThisUser">Idatzi erabiltzaile honi buruzko ohar pribatua</string>
+  <string name="noNoteYet">Ez dago oharrik</string>
   <string name="invalidUsernameOrPassword">Erabiltzaile edo pasahitz okerra</string>
   <string name="incorrectPassword">Pasahitza ez da zuzena</string>
   <string name="invalidAuthenticationCode">Autentikazio kodea ez da zuzena</string>
@@ -737,6 +740,7 @@
   <string name="light">Argia</string>
   <string name="dark">Iluna</string>
   <string name="transparent">Gardena</string>
+  <string name="deviceTheme">Gailuaren gaia</string>
   <string name="backgroundImageUrl">Atzeko-planoko irudia:</string>
   <string name="boardGeometry">Taularen geometria</string>
   <string name="boardTheme">Taularen itxura</string>

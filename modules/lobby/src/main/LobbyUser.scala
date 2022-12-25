@@ -2,26 +2,26 @@ package lila.lobby
 
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.User
+import lila.pool.Blocking
 
 private[lobby] case class LobbyUser(
-    id: User.ID,
-    username: String,
+    id: UserId,
+    username: UserName,
     lame: Boolean,
     bot: Boolean,
     perfMap: LobbyUser.PerfMap,
-    blocking: Set[User.ID]
-) {
+    blocking: Blocking
+):
 
   def perfAt(pt: PerfType): LobbyPerf = perfMap.get(pt.key) | LobbyPerf.default
 
-  def ratingAt(pt: PerfType): Int = perfAt(pt).rating
-}
+  def ratingAt(pt: PerfType): IntRating = perfAt(pt).rating
 
-private[lobby] object LobbyUser {
+private[lobby] object LobbyUser:
 
   type PerfMap = Map[Perf.Key, LobbyPerf]
 
-  def make(user: User, blocking: Set[User.ID]) =
+  def make(user: User, blocking: Blocking) =
     LobbyUser(
       id = user.id,
       username = user.username,
@@ -36,11 +36,9 @@ private[lobby] object LobbyUser {
       case (key, perf) if key != PerfType.Puzzle.key && perf.nonEmpty =>
         key -> LobbyPerf(perf.intRating, perf.provisional)
     }.toMap
-}
 
-case class LobbyPerf(rating: Int, provisional: Boolean)
+case class LobbyPerf(rating: IntRating, provisional: RatingProvisional)
 
-object LobbyPerf {
+object LobbyPerf:
 
-  val default = LobbyPerf(Glicko.default.intRating, provisional = true)
-}
+  val default = LobbyPerf(Glicko.default.intRating, provisional = RatingProvisional.Yes)

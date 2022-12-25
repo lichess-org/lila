@@ -52,6 +52,7 @@
   <string name="skipExplanation">Iwwersprang dëse Zuch fir deng Erfollegsserie ze erhalen! Dës kanns du nëmmen ee Mol pro Laf maachen.</string>
   <string name="failedPuzzles">Mësslongen Aufgaben</string>
   <string name="slowPuzzles">Lues Aufgaben</string>
+  <string name="skippedPuzzle">Iwwersprongenen Puzzle</string>
   <string name="thisWeek">Dës Woch</string>
   <string name="thisMonth">Dëse Mount</string>
   <string name="allTime">Gesamt</string>

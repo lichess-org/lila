@@ -1,18 +1,24 @@
 package lila.racer
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.memo.CacheApi
 import lila.storm.StormSelector
 import lila.user.{ User, UserRepo }
-import lila.common.Bus
+import lila.common.{ Bus, LightUser }
+import lila.common.config.Max
 
-final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserRepo, cacheApi: CacheApi)(
-    implicit
+final class RacerApi(
+    colls: RacerColls,
+    selector: StormSelector,
+    userRepo: UserRepo,
+    cacheApi: CacheApi,
+    lightUser: LightUser.GetterSyncFallback
+)(implicit
     ec: ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   import RacerRace.Id
 
@@ -22,10 +28,9 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
 
   def get(id: Id): Option[RacerRace] = store getIfPresent id
 
-  def playerId(sessionId: String, user: Option[User]) = user match {
+  def playerId(sessionId: String, user: Option[User]) = user match
     case Some(u) => RacerPlayer.Id.User(u.id)
     case None    => RacerPlayer.Id.Anon(sessionId)
-  }
 
   def createAndJoin(player: RacerPlayer.Id): Fu[RacerRace.Id] =
     create(player, 10).map { id =>
@@ -46,14 +51,13 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
       race.id
     }
 
-  private val rematchQueue =
-    new lila.hub.AsyncActorSequencer(
-      maxSize = 32,
-      timeout = 20 seconds,
-      name = "racer.rematch"
-    )
+  private val rematchQueue = lila.hub.AsyncActorSequencer(
+    maxSize = Max(32),
+    timeout = 20 seconds,
+    name = "racer.rematch"
+  )
 
-  def rematch(race: RacerRace, player: RacerPlayer.Id): Fu[RacerRace.Id] = race.rematch.flatMap(get) match {
+  def rematch(race: RacerRace, player: RacerPlayer.Id): Fu[RacerRace.Id] = race.rematch.flatMap(get) match
     case Some(found) if found.finished => rematch(found, player)
     case Some(found) =>
       join(found.id, player)
@@ -65,14 +69,18 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
           rematchId
         }
       }
-  }
 
-  def join(id: RacerRace.Id, player: RacerPlayer.Id): Option[RacerRace] =
+  def makePlayer(id: RacerPlayer.Id) =
+    RacerPlayer.make(id, RacerPlayer.Id.userIdOf(id).map(lightUser))
+
+  def join(id: RacerRace.Id, playerId: RacerPlayer.Id): Option[RacerRace] = {
+    val player = makePlayer(playerId)
     get(id).flatMap(_ join player) map { r =>
       val race = (r.isLobby ?? doStart(r)) | r
       saveAndPublish(race)
       race
     }
+  }
 
   private[racer] def manualStart(race: RacerRace): Unit = !race.isLobby ?? {
     doStart(race) foreach saveAndPublish
@@ -90,32 +98,28 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
     get(id) foreach { race =>
       lila.mon.racer.players(lobby = race.isLobby).record(race.players.size)
       race.players foreach { player =>
-        lila.mon.racer.score(lobby = race.isLobby, auth = player.userId.isDefined).record(player.score)
-        player.userId.ifTrue(player.score > 0) foreach { userId =>
-          Bus.publish(lila.hub.actorApi.puzzle.RacerRun(userId, player.score), "racerRun")
-          userRepo.addRacerRun(userId, player.score)
+        lila.mon.racer.score(lobby = race.isLobby, auth = player.user.isDefined).record(player.score)
+        player.user.ifTrue(player.score > 0) foreach { user =>
+          Bus.publish(lila.hub.actorApi.puzzle.RacerRun(user.id, player.score), "racerRun")
+          userRepo.addRacerRun(user.id, player.score)
         }
       }
       publish(race)
     }
 
-  def registerPlayerScore(id: RacerRace.Id, player: RacerPlayer.Id, score: Int): Unit = {
+  def registerPlayerScore(id: RacerRace.Id, player: RacerPlayer.Id, score: Int): Unit =
     if (score > 160) logger.warn(s"$id $player score: $score")
     else get(id).flatMap(_.registerScore(player, score)) foreach saveAndPublish
-  }
 
   private def save(race: RacerRace): Unit =
     store.put(race.id, race)
 
-  private def saveAndPublish(race: RacerRace): Unit = {
+  private def saveAndPublish(race: RacerRace): Unit =
     save(race)
     publish(race)
-  }
-  private def publish(race: RacerRace): Unit = {
+  private def publish(race: RacerRace): Unit =
     socket.foreach(_ publishState race)
-  }
 
   // work around circular dependency
   private var socket: Option[RacerSocket]           = None
   private[racer] def registerSocket(s: RacerSocket) = { socket = s.some }
-}

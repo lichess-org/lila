@@ -363,6 +363,7 @@
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
   <string name="xJoinedTeamY">%1$s a rejoint l\'équipe %2$s</string>
   <string name="xCreatedTeamY">%1$s a créé l\'équipe %2$s</string>
+  <string name="startedStreaming">a commencé une diffusion en direct</string>
   <string name="xStartedStreaming">%s a commencé une diffusion en direct</string>
   <string name="averageElo">Classement moyen</string>
   <string name="location">Localisation</string>
@@ -538,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notes</string>
   <string name="typePrivateNotesHere">Écrivez vos notes privées ici</string>
+  <string name="writeAPrivateNoteAboutThisUser">Écrire une note privée sur cet utilisateur</string>
+  <string name="noNoteYet">Aucune note</string>
   <string name="invalidUsernameOrPassword">Nom d\'utilisateur ou mot de passe invalide</string>
   <string name="incorrectPassword">Mot de passe incorrect</string>
   <string name="invalidAuthenticationCode">Code d\'authentification non valide</string>
@@ -737,6 +740,7 @@
   <string name="light">Lumineux</string>
   <string name="dark">Sombre</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Thème de l\'appareil</string>
   <string name="backgroundImageUrl">URL de l\'image de fond :</string>
   <string name="boardGeometry">Forme de l\'échiquier</string>
   <string name="boardTheme">Thème de l\'échiquier</string>
@@ -905,8 +909,8 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="inYourLocalTimezone">Dans votre fuseau horaire</string>
   <string name="tournChat">Salon de discussion du tournoi</string>
   <string name="noChat">Aucun salon de discussion</string>
-  <string name="onlyTeamLeaders">Seulement les chefs d’équipe</string>
-  <string name="onlyTeamMembers">Seulement les membres des équipes</string>
+  <string name="onlyTeamLeaders">Seulement les chefs de l\'équipe</string>
+  <string name="onlyTeamMembers">Seulement les membres de l\'équipe</string>
   <string name="navigateMoveTree">Naviguer dans l\'arbre</string>
   <string name="mouseTricks">Astuces pour la souris</string>
   <string name="toggleLocalAnalysis">Activer/désactiver l’analyse locale</string>
@@ -925,7 +929,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="hangOn">Vous jouez déjà une partie!</string>
   <string name="gameInProgress">Vous avez une partie en cours avec %s.</string>
   <string name="abortTheGame">Annuler la partie</string>
-  <string name="resignTheGame">Rejoindre la partie</string>
+  <string name="resignTheGame">Abandonner la partie</string>
   <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie tant que celle-ci n\'est pas terminée.</string>
   <string name="since">De</string>
   <string name="until">À</string>

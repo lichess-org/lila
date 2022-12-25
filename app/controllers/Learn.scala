@@ -1,19 +1,19 @@
 package controllers
 
-import play.api.data._
-import play.api.data.Forms._
-import play.api.libs.json._
+import play.api.data.*
+import play.api.data.Forms.*
+import play.api.libs.json.*
 import views.html
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 
-final class Learn(env: Env) extends LilaController(env) {
+final class Learn(env: Env) extends LilaController(env):
 
-  import lila.learn.JSONHandlers._
+  import lila.learn.JSONHandlers.given
 
   def index     = Open(serveIndex(_))
-  def indexLang = LangPage(routes.Learn.index)(serveIndex(_)) _
+  def indexLang = LangPage(routes.Learn.index)(serveIndex(_))
   private def serveIndex(implicit ctx: Context) = NoBot {
     pageHit
     ctx.me
@@ -30,16 +30,16 @@ final class Learn(env: Env) extends LilaController(env) {
       "stage" -> nonEmptyText,
       "level" -> number,
       "score" -> number
-    )(Tuple3.apply)(Tuple3.unapply)
+    )(Tuple3.apply)(unapply)
   )
 
   def score =
     AuthBody { implicit ctx => me =>
-      implicit val body = ctx.body
+      implicit val body: play.api.mvc.Request[?] = ctx.body
       scoreForm
         .bindFromRequest()
         .fold(
-          _ => BadRequest.fuccess,
+          _ => BadRequest.toFuccess,
           { case (stage, level, s) =>
             val score = lila.learn.StageProgress.Score(s)
             env.learn.api.setScore(me, stage, level, score) >>
@@ -52,4 +52,3 @@ final class Learn(env: Env) extends LilaController(env) {
     AuthBody { _ => me =>
       env.learn.api.reset(me) inject Ok(Json.obj("ok" -> true))
     }
-}

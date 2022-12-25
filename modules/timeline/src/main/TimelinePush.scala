@@ -1,14 +1,15 @@
 package lila.timeline
 
-import akka.actor._
+import akka.actor.*
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.config.Max
-import lila.hub.actorApi.timeline.propagation._
+import lila.hub.actorApi.timeline.Propagation
 import lila.hub.actorApi.timeline.{ Atom, Propagate, ReloadTimelines }
 import lila.security.Permission
 import lila.user.{ User, UserRepo }
+import scala.concurrent.ExecutionContext
 
 final private[timeline] class TimelinePush(
     relationApi: lila.relation.RelationApi,
@@ -17,9 +18,9 @@ final private[timeline] class TimelinePush(
     unsubApi: UnsubApi,
     memberRepo: lila.team.MemberRepo,
     teamCache: lila.team.Cached
-) extends Actor {
+) extends Actor:
 
-  implicit def ec = context.dispatcher
+  private given ExecutionContext = context.dispatcher
 
   private val dedup = lila.memo.OnceEvery.hashCode[Atom](10 minutes)
 
@@ -34,24 +35,24 @@ final private[timeline] class TimelinePush(
     }
   }
 
-  private def propagate(propagations: List[Propagation]): Fu[List[User.ID]] =
+  private def propagate(propagations: List[Propagation]): Fu[List[UserId]] =
     scala.concurrent.Future.traverse(propagations) {
-      case Users(ids)    => fuccess(ids)
-      case Followers(id) => relationApi.freshFollowersFromSecondary(id)
-      case Friends(id)   => relationApi.fetchFriends(id)
-      case WithTeam(_)   => fuccess(Nil)
-      case ExceptUser(_) => fuccess(Nil)
-      case ModsOnly(_)   => fuccess(Nil)
+      case Propagation.Users(ids)    => fuccess(ids)
+      case Propagation.Followers(id) => relationApi.freshFollowersFromSecondary(id)
+      case Propagation.Friends(id)   => relationApi.fetchFriends(id)
+      case Propagation.WithTeam(_)   => fuccess(Nil)
+      case Propagation.ExceptUser(_) => fuccess(Nil)
+      case Propagation.ModsOnly(_)   => fuccess(Nil)
     } flatMap { users =>
       propagations.foldLeft(fuccess(users.flatten.distinct)) {
-        case (fus, ExceptUser(id)) => fus.dmap(_.filter(id !=))
-        case (fus, ModsOnly(true)) =>
+        case (fus, Propagation.ExceptUser(id)) => fus.dmap(_.filter(id !=))
+        case (fus, Propagation.ModsOnly(true)) =>
           fus flatMap { us =>
             userRepo.userIdsWithRoles(modPermissions.map(_.dbKey)) dmap { userIds =>
               us filter userIds.contains
             }
           }
-        case (fus, WithTeam(teamId)) =>
+        case (fus, Propagation.WithTeam(teamId)) =>
           teamCache.forumAccess get teamId flatMap {
             case lila.team.Team.Access.MEMBERS =>
               fus flatMap { us =>
@@ -74,6 +75,5 @@ final private[timeline] class TimelinePush(
       Permission.SuperAdmin
     )
 
-  private def insertEntry(users: List[User.ID], data: Atom): Funit =
+  private def insertEntry(users: List[UserId], data: Atom): Funit =
     entryApi insert Entry.ForUsers(Entry.make(data), users)
-}

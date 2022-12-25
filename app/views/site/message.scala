@@ -3,12 +3,12 @@ package html.site
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
-object message {
+object message:
 
   def apply(
       title: String,
@@ -54,7 +54,7 @@ object message {
       back = routes.Study.allDefault(1).url.some
     )(
       "Sorry! This study is private, you cannot access it.",
-      isGranted(_.StudyAdmin) option postForm(action := routes.Study.admin(study.id.value))(
+      isGranted(_.StudyAdmin) option postForm(action := routes.Study.admin(study.id))(
         submitButton("View as admin")(cls            := "button button-red")
       )
     )
@@ -107,4 +107,3 @@ object message {
 
   def notYet(text: String)(implicit ctx: Context) =
     apply("Not yet available")(text)
-}

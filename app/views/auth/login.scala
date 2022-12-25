@@ -3,17 +3,17 @@ package auth
 
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object login {
+object login:
 
-  import trans.tfa._
+  import trans.tfa.*
 
-  def apply(form: Form[_], referrer: Option[String])(implicit ctx: Context) =
+  def apply(form: Form[?], referrer: Option[String])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.signIn.txt(),
       moreJs = frag(
@@ -23,12 +23,14 @@ object login {
       moreCss = cssTag("auth"),
       withHrefLangs = lila.common.LangPath(routes.Auth.login).some
     ) {
-      def referrerParameter = referrer.?? { ref => s"?referrer=${urlencode(ref)}" }
+      def addReferrer(url: String): String = referrer.fold(url) {
+        addQueryParam(url, "referrer", _)
+      }
       main(cls := "auth auth-login box box-pad")(
         h1(cls := "box__top")(trans.signIn()),
         postForm(
           cls    := "form3",
-          action := s"${routes.Auth.authenticate}$referrerParameter"
+          action := addReferrer(routes.Auth.authenticate.url)
         )(
           div(cls := "one-factor")(
             form3.globalError(form),
@@ -52,10 +54,9 @@ object login {
           )
         ),
         div(cls := "alternative")(
-          a(href := s"${langHref(routes.Auth.signup)}$referrerParameter")(trans.signUp()),
+          a(href := addReferrer(langHref(routes.Auth.signup)))(trans.signUp()),
           a(href := routes.Auth.passwordReset)(trans.passwordReset()),
           a(href := routes.Auth.magicLink)("Log in by email")
         )
       )
     }
-}

@@ -2,24 +2,24 @@ package lila.swiss
 
 import akka.actor.ActorSystem
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.{ Bus, LilaScheduler }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.push.TourSoon
 import lila.user.User
 
-final private class SwissNotify(colls: SwissColls)(implicit
+final private class SwissNotify(mongo: SwissMongo)(using
     ec: ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
-  import BsonHandlers._
+):
+  import BsonHandlers.given
 
-  private val doneMemo = new lila.memo.ExpireSetMemo(10 minutes)
+  private val doneMemo = lila.memo.ExpireSetMemo[SwissId](10 minutes)
 
-  LilaScheduler(_.Every(20 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
-    colls.swiss
+  LilaScheduler("SwissNotify", _.Every(20 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
+    mongo.swiss
       .find(
         $doc(
           "featurable" -> true,
@@ -33,10 +33,10 @@ final private class SwissNotify(colls: SwissColls)(implicit
       .list(5)
       .flatMap {
         _.map { swiss =>
-          doneMemo put swiss.id.value
+          doneMemo put swiss.id
           SwissPlayer.fields { f =>
-            colls.player
-              .distinctEasy[User.ID, List](f.userId, $doc(f.swissId -> swiss.id))
+            mongo.player
+              .distinctEasy[UserId, List](f.userId, $doc(f.swissId -> swiss.id))
               .map { userIds =>
                 lila.common.Bus.publish(
                   TourSoon(tourId = swiss.id.value, tourName = swiss.name, userIds, swiss = true),
@@ -47,4 +47,3 @@ final private class SwissNotify(colls: SwissColls)(implicit
         }.sequenceFu.void
       }
   }
-}

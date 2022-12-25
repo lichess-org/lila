@@ -1,9 +1,9 @@
 package lila.team
 
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.data.validation.Constraints
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.Form.{
   cleanNonEmptyText,
@@ -11,19 +11,20 @@ import lila.common.Form.{
   cleanTextWithSymbols,
   mustNotContainLichess,
   numberIn,
-  toMarkdown
+  into,
+  given
 }
 import lila.common.Markdown
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 final private[team] class TeamForm(
     teamRepo: TeamRepo,
     lightUserApi: lila.user.LightUserApi,
     val captcher: lila.hub.actors.Captcher
-)(implicit ec: scala.concurrent.ExecutionContext)
-    extends lila.hub.CaptchedForm {
+)(using ec: scala.concurrent.ExecutionContext)
+    extends lila.hub.CaptchedForm:
 
-  private object Fields {
+  private object Fields:
     val name = "name" -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
     val password = "password" -> optional(cleanText(maxLength = 60))
     def passwordCheck(team: Team) = "password" -> optional(text).verifying(
@@ -36,16 +37,15 @@ final private[team] class TeamForm(
     val intro =
       "intro" -> optional(cleanText(minLength = 3, maxLength = 200))
     val description =
-      "description" -> toMarkdown(cleanText(minLength = 30, maxLength = 4000))
+      "description" -> cleanText(minLength = 30, maxLength = 4000).into[Markdown]
     val descPrivate =
-      "descPrivate" -> optional(toMarkdown(cleanNonEmptyText(maxLength = 4000)))
+      "descPrivate" -> optional(cleanNonEmptyText(maxLength = 4000).into[Markdown])
     val request     = "request"     -> boolean
-    val gameId      = "gameId"      -> text
+    val gameId      = "gameId"      -> of[GameId]
     val move        = "move"        -> text
     val chat        = "chat"        -> numberIn(Team.Access.allInTeam)
     val forum       = "forum"       -> numberIn(Team.Access.all)
     val hideMembers = "hideMembers" -> boolean
-  }
 
   val create = Form(
     mapping(
@@ -57,9 +57,9 @@ final private[team] class TeamForm(
       Fields.request,
       Fields.gameId,
       Fields.move
-    )(TeamSetup.apply)(TeamSetup.unapply)
+    )(TeamSetup.apply)(unapply)
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
-      .verifying(captchaFailMessage, validateCaptcha _)
+      .verifying(captchaFailMessage, validateCaptcha)
   )
 
   def edit(team: Team) =
@@ -73,7 +73,7 @@ final private[team] class TeamForm(
         Fields.chat,
         Fields.forum,
         Fields.hideMembers
-      )(TeamEdit.apply)(TeamEdit.unapply)
+      )(TeamEdit.apply)(unapply)
     ) fill TeamEdit(
       password = team.password,
       intro = team.intro,
@@ -89,7 +89,7 @@ final private[team] class TeamForm(
     mapping(
       Fields.requestMessage(team),
       Fields.passwordCheck(team)
-    )(RequestSetup.apply)(RequestSetup.unapply)
+    )(RequestSetup.apply)(unapply)
   ) fill RequestSetup(
     message = Request.defaultMessage.some,
     password = None
@@ -99,7 +99,7 @@ final private[team] class TeamForm(
     mapping(
       Fields.requestMessage(team),
       Fields.passwordCheck(team)
-    )(RequestSetup.apply)(RequestSetup.unapply)
+    )(RequestSetup.apply)(unapply)
   )
 
   val processRequest = Form(
@@ -135,7 +135,6 @@ final private[team] class TeamForm(
 
   private def teamExists(setup: TeamSetup) =
     teamRepo.coll.exists($id(Team nameToId setup.name))
-}
 
 private[team] case class TeamSetup(
     name: String,
@@ -144,11 +143,10 @@ private[team] case class TeamSetup(
     description: Markdown,
     descPrivate: Option[Markdown],
     request: Boolean,
-    gameId: String,
+    gameId: GameId,
     move: String
-) {
+):
   def isOpen = !request
-}
 
 private[team] case class TeamEdit(
     password: Option[String],
@@ -159,7 +157,7 @@ private[team] case class TeamEdit(
     chat: Team.Access,
     forum: Team.Access,
     hideMembers: Boolean
-) {
+):
 
   def isOpen = !request
 
@@ -168,7 +166,6 @@ private[team] case class TeamEdit(
       description = description,
       descPrivate = descPrivate.filter(_.value.nonEmpty)
     )
-}
 
 private[team] case class RequestSetup(
     message: Option[String],

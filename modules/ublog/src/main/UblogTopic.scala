@@ -3,17 +3,16 @@ package lila.ublog
 import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 
-case class UblogTopic(value: String) extends StringValue {
-  val url = value.replace(" ", "_")
-}
+opaque type UblogTopic = String
+object UblogTopic extends OpaqueString[UblogTopic]:
+  extension (a: UblogTopic) def url = a.replace(" ", "_")
 
-object UblogTopic {
   val chess = List(
     "Chess",
     "Analysis",
@@ -41,17 +40,16 @@ object UblogTopic {
   def fromUrl(str: String)     = get(str.replace("_", " "))
 
   case class WithPosts(topic: UblogTopic, posts: List[UblogPost.PreviewPost], nb: Int)
-}
 
-final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(implicit ec: ExecutionContext) {
+final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using ec: ExecutionContext):
 
-  import UblogBsonHandlers._
+  import UblogBsonHandlers.{ *, given }
 
   private val withPostsCache =
     cacheApi.unit[List[UblogTopic.WithPosts]](_.refreshAfterWrite(30 seconds).buildAsyncFuture { _ =>
       colls.post
         .aggregateList(UblogTopic.all.size, ReadPreference.secondaryPreferred) { framework =>
-          import framework._
+          import framework.*
           Facet(
             UblogTopic.all.map { topic =>
               topic -> List(
@@ -95,4 +93,3 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(implicit ec: Ex
     })
 
   def withPosts: Fu[List[UblogTopic.WithPosts]] = withPostsCache.get {}
-}

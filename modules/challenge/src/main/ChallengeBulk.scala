@@ -1,23 +1,24 @@
 package lila.challenge
 
 import akka.actor.ActorSystem
-import akka.stream.scaladsl._
-import chess.format.Forsyth
-import chess.format.Forsyth.SituationPlus
+import akka.stream.scaladsl.*
+import chess.format.Fen
 import chess.{ Situation, Speed }
 import org.joda.time.DateTime
-import reactivemongo.api.bson.Macros
-import scala.concurrent.duration._
-import scala.util.chaining._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
+import scala.util.chaining.*
 
 import lila.common.{ Bus, Days, LilaStream, Template }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Player }
 import lila.hub.actorApi.map.TellMany
 import lila.hub.AsyncActorSequencers
 import lila.rating.PerfType
 import lila.setup.SetupBulk.{ ScheduledBulk, ScheduledGame }
 import lila.user.User
+import chess.Clock
+import lila.common.config.Max
 
 final class ChallengeBulkApi(
     colls: ChallengeColls,
@@ -25,30 +26,29 @@ final class ChallengeBulkApi(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     onStart: lila.round.OnStart
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer,
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
-) {
+):
 
-  import lila.game.BSONHandlers.RulesHandler
-  implicit private val gameHandler        = Macros.handler[ScheduledGame]
-  implicit private val variantHandler     = variantByKeyHandler
-  implicit private val clockHandler       = clockConfigHandler
-  implicit private val clockOrDaysHandler = eitherHandler[chess.Clock.Config, Days]
-  implicit private val messageHandler     = stringAnyValHandler[Template](_.value, Template.apply)
-  implicit private val bulkHandler        = Macros.handler[ScheduledBulk]
+  import lila.game.BSONHandlers.given
+  private given BSONDocumentHandler[ScheduledGame]      = Macros.handler
+  private given BSONHandler[chess.variant.Variant]      = variantByKeyHandler
+  private given BSONHandler[Clock.Config]               = clockConfigHandler
+  private given BSONHandler[Either[Clock.Config, Days]] = eitherHandler[Clock.Config, Days]
+  private given BSONHandler[Template]                   = stringAnyValHandler(_.value, Template.apply)
+  private given BSONDocumentHandler[ScheduledBulk]      = Macros.handler
 
   private val coll = colls.bulk
 
-  private val workQueue =
-    new AsyncActorSequencers(
-      maxSize = 16,
-      expiration = 10 minutes,
-      timeout = 10 seconds,
-      name = "challenge.bulk"
-    )
+  private val workQueue = AsyncActorSequencers[UserId](
+    maxSize = Max(16),
+    expiration = 10 minutes,
+    timeout = 10 seconds,
+    name = "challenge.bulk"
+  )
 
   def scheduledBy(me: User): Fu[List[ScheduledBulk]] =
     coll.list[ScheduledBulk]($doc("by" -> me.id))
@@ -93,13 +93,13 @@ final class ChallengeBulkApi(
       }
     }
 
-  private def startClocksNow(bulk: ScheduledBulk): Funit = {
-    Bus.publish(TellMany(bulk.games.map(_.id), lila.round.actorApi.round.StartClock), "roundSocket")
+  private def startClocksNow(bulk: ScheduledBulk): Funit =
+    Bus.publish(TellMany(bulk.games.map(_.id.value), lila.round.actorApi.round.StartClock), "roundSocket")
     coll.delete.one($id(bulk._id)).void
-  }
 
-  private def makePairings(bulk: ScheduledBulk): Funit = {
-    def timeControl = bulk.clock.fold(Challenge.TimeControl.Clock, Challenge.TimeControl.Correspondence)
+  private def makePairings(bulk: ScheduledBulk): Funit =
+    def timeControl =
+      bulk.clock.fold(Challenge.TimeControl.Clock.apply, Challenge.TimeControl.Correspondence.apply)
     val (chessGame, state) = ChallengeJoiner.gameSetup(bulk.variant, timeControl, bulk.fen)
     val perfType           = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
@@ -137,11 +137,9 @@ final class ChallengeBulkApi(
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
       .addEffect { nb =>
-        lila.mon.api.challenge.bulk.createNb(bulk.by).increment(nb).unit
+        lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(nb).unit
       } >> {
       if (bulk.startClocksAt.isDefined)
         coll.updateField($id(bulk._id), "pairedAt", DateTime.now)
       else coll.delete.one($id(bulk._id))
     }.void
-  }
-}

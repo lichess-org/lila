@@ -1,6 +1,5 @@
-package lila
+package lila.storm
 
-package object storm extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[storm] val logger = lila.log("storm")
-}
+private val logger = lila.log("storm")

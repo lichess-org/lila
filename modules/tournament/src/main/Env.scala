@@ -1,15 +1,15 @@
 package lila.tournament
 
-import akka.actor._
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import io.lettuce.core.{ RedisClient, RedisURI }
-import io.methvin.play.autoconfig._
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
-import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.common.config.*
+import lila.socket.{ GetVersion, SocketVersion }
 import lila.user.User
 
 @Module
@@ -39,14 +39,14 @@ final class Env(
     trophyApi: lila.user.TrophyApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     settingStore: lila.memo.SettingStore.Builder
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,
     idGenerator: lila.game.IdGenerator,
     mode: play.api.Mode
-) {
+):
 
   private val config = appConfig.get[TournamentConfig]("tournament")(AutoConfig.loader)
 
@@ -135,28 +135,25 @@ final class Env(
   private val redisClient = RedisClient create RedisURI.create(appConfig.get[String]("socket.redis.uri"))
   val lilaHttp            = wire[TournamentLilaHttp]
 
-  def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](tourId)(GetVersion)
+  def version(tourId: TourId): Fu[SocketVersion] =
+    socket.rooms.ask[SocketVersion](tourId into RoomId)(GetVersion.apply)
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
-  def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
+  def hasUser(tourId: TourId, userId: UserId): Fu[Boolean] =
     fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isPlaying(tourId, userId)
 
   def cli =
-    new lila.common.Cli {
-      def process = {
+    new lila.common.Cli:
+      def process =
         // case "tournament" :: "leaderboard" :: "generate" :: Nil =>
         //   leaderboardIndexer.generateAll inject "Done!"
         case "tournament" :: "feature" :: id :: Nil =>
-          api.toggleFeaturing(id, true) inject "Done!"
+          api.toggleFeaturing(TourId(id), true) inject "Done!"
         case "tournament" :: "unfeature" :: id :: Nil =>
-          api.toggleFeaturing(id, false) inject "Done!"
+          api.toggleFeaturing(TourId(id), false) inject "Done!"
         case "tournament" :: "recompute" :: id :: Nil =>
-          api.recomputeEntireTournament(id) inject "Done!"
-      }
-    }
-}
+          api.recomputeEntireTournament(TourId(id)) inject "Done!"
 
 trait TournamentReloadDelay
 trait TournamentReloadEndpoint

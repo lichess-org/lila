@@ -1,9 +1,9 @@
 package lila.lobby
 
-import actorApi._
-import cats.implicits._
+import actorApi.*
+import cats.implicits.*
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.Promise
 
 import lila.common.config.Max
@@ -20,10 +20,10 @@ final private class LobbySyncActor(
     playbanApi: lila.playban.PlaybanApi,
     poolApi: lila.pool.PoolApi,
     onStart: lila.round.OnStart
-)(implicit ec: scala.concurrent.ExecutionContext)
-    extends SyncActor {
+)(using ec: scala.concurrent.ExecutionContext)
+    extends SyncActor:
 
-  import LobbySyncActor._
+  import LobbySyncActor.*
 
   private val hookRepo = new HookRepo
 
@@ -31,7 +31,7 @@ final private class LobbySyncActor(
 
   private var socket: SyncActor = SyncActor.stub
 
-  val process: SyncActor.Receive = {
+  val process: SyncActor.Receive =
 
     // solve circular reference
     case SetSocket(trouper) => socket = trouper
@@ -42,12 +42,11 @@ final private class LobbySyncActor(
       hook.sid ?? { sid =>
         hookRepo bySid sid foreach remove
       }
-      !hook.compatibleWithPools ?? findCompatible(hook) match {
+      !hook.compatibleWithPools ?? findCompatible(hook) match
         case Some(h) => biteHook(h.id, hook.sri, hook.user)
         case None =>
           hookRepo save msg.hook
           socket ! msg
-      }
 
     case msg @ AddSeek(seek) =>
       lila.mon.lobby.seek.create.increment()
@@ -75,14 +74,13 @@ final private class LobbySyncActor(
     case BiteSeek(seekId, user) =>
       NoPlayban(user.some) {
         gameCache.nbPlaying(user.id) foreach { nbPlaying =>
-          if (lila.game.Game.maxPlaying > nbPlaying) {
+          if (lila.game.Game.maxPlaying > nbPlaying)
             lila.mon.lobby.seek.join.increment()
             seekApi find seekId foreach {
               _ foreach { seek =>
                 biter(seek, user) foreach this.!
               }
             }
-          }
         }
       }
 
@@ -102,7 +100,7 @@ final private class LobbySyncActor(
     case Tick(promise) =>
       hookRepo.truncateIfNeeded()
       socket
-        .ask[Sris](GetSrisP)
+        .ask[Sris](GetSrisP.apply)
         .chronometer
         .logIfSlow(100, logger) { r =>
           s"GetSris size=${r.sris.size}"
@@ -140,16 +138,14 @@ final private class LobbySyncActor(
 
     case lila.pool.HookThieve.StolenHookIds(ids) =>
       hookRepo byIds ids.toSet foreach remove
-  }
 
-  private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit = {
+  private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit =
     user.?? { u =>
       playbanApi.currentBan(u.id)
     } foreach {
       case None => f
       case _    =>
     }
-  }
 
   private def biteHook(hookId: String, sri: Sri, user: Option[LobbyUser]) =
     hookRepo byId hookId foreach { hook =>
@@ -169,31 +165,30 @@ final private class LobbySyncActor(
 
   def registerAbortedGame(g: Game) = recentlyAbortedUserIdPairs register g
 
-  private object recentlyAbortedUserIdPairs {
-    private val cache                                     = new lila.memo.ExpireSetMemo(1 hour)
-    private def makeKey(u1: User.ID, u2: User.ID): String = if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
+  private object recentlyAbortedUserIdPairs:
+    private val cache = lila.memo.ExpireSetMemo[CacheKey](1 hour)
+    private def makeKey(u1: UserId, u2: UserId) = CacheKey(
+      if (u1.value < u2.value) s"$u1/$u2" else s"$u2/$u1"
+    )
     def register(g: Game) =
       for {
         w <- g.whitePlayer.userId
         b <- g.blackPlayer.userId
         if g.fromLobby
       } cache.put(makeKey(w, b))
-    def exists(u1: User.ID, u2: User.ID) = cache.get(makeKey(u1, u2))
-  }
+    def exists(u1: UserId, u2: UserId) = cache.get(makeKey(u1, u2))
 
   private def findCompatible(seek: Seek): Fu[Option[Seek]] =
     seekApi forUser seek.user map {
       _ find (_ compatibleWith seek)
     }
 
-  private def remove(hook: Hook) = {
+  private def remove(hook: Hook) =
     hookRepo remove hook
     socket ! RemoveHook(hook.id)
     Bus.publish(RemoveHook(hook.id), s"hookRemove:${hook.id}")
-  }
-}
 
-private object LobbySyncActor {
+private object LobbySyncActor:
 
   case class SetSocket(trouper: SyncActor)
 
@@ -206,13 +201,16 @@ private object LobbySyncActor {
       resyncIdsPeriod: FiniteDuration
   )(
       makeTrouper: () => LobbySyncActor
-  )(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) = {
+  )(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) =
     val trouper = makeTrouper()
     Bus.subscribe(trouper, "lobbyActor")
     scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)
-    lila.common.LilaScheduler(_.Every(broomPeriod), _.AtMost(10 seconds), _.Delay(7 seconds)) {
-      trouper.ask[Unit](Tick)
+    lila.common.LilaScheduler(
+      "LobbySyncActor",
+      _.Every(broomPeriod),
+      _.AtMost(10 seconds),
+      _.Delay(7 seconds)
+    ) {
+      trouper.ask[Unit](Tick.apply)
     }
     trouper
-  }
-}

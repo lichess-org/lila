@@ -2,7 +2,7 @@ package lila.shutup
 
 import lila.common.constants.bannedYoutubeIds
 
-object Analyser {
+object Analyser:
 
   def apply(raw: String): TextAnalysis = lila.common.Chronometer
     .sync {
@@ -72,4 +72,3 @@ object Analyser {
       Dictionary.critical.mkString("(", "|", ")") +
       """\b"""
   }.r
-}

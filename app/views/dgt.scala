@@ -1,14 +1,14 @@
 package views.html
 
 import controllers.routes
-import scala.util.chaining._
+import scala.util.chaining.*
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.oauth.AccessToken
 
-object dgt {
+object dgt:
 
   private val liveChessVersion = "2.2.5+"
 
@@ -69,7 +69,7 @@ object dgt {
     )
 
   def play(token: AccessToken)(implicit ctx: Context) =
-    layout("play", embedJsUnsafeLoadThen(s"""LichessDgt.playPage("${token.plain.secret}")"""))(
+    layout("play", embedJsUnsafeLoadThen(s"""LichessDgt.playPage("${token.plain.value}")"""))(
       div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
       div(cls := "dgt__play__help")(
         h2(iconTag("", "If a move is not detected")),
@@ -234,4 +234,3 @@ object dgt {
         div(cls := s"page-menu__content box box-pad dgt__$path")(body)
       )
     )
-}

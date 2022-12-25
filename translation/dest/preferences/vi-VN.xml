@@ -2,7 +2,8 @@
 <resources>
   <string name="preferences">Sửa giao diện</string>
   <string name="display">Hiển thị</string>
-  <string name="privacy">Riêng tư</string>
+  <string name="privacy">Quyền riêng tư</string>
+  <string name="notifications">Thông báo</string>
   <string name="pieceAnimation">Tính linh hoạt của quân cờ</string>
   <string name="materialDifference">Chênh lệch giá trị quân cờ</string>
   <string name="boardHighlights">Đánh dấu trên bàn cờ (nước đi mới nhất và nước chiếu)</string>
@@ -15,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Chế độ Zen</string>
   <string name="showPlayerRatings">Hiện xếp hạng của người chơi</string>
   <string name="explainShowPlayerRatings">Cài đặt này cho phép ẩn toàn bộ xếp hạng từ trang web, giúp tập trung vào ván cờ. Ván đấu vẫn có thể tính xếp hạng, điều này chỉ là về những thứ bạn muốn nhìn thấy.</string>
-  <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ</string>
+  <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ bàn cờ</string>
   <string name="onlyOnInitialPosition">Chỉ ở vị trí khởi tạo</string>
   <string name="blindfoldChess">Cờ tưởng (quân cờ vô hình)</string>
   <string name="chessClock">đồng hồ chuyên dụng</string>
@@ -24,7 +25,7 @@
   <string name="horizontalGreenProgressBars">Thanh tiến trình ngang màu xanh</string>
   <string name="soundWhenTimeGetsCritical">Âm thanh khi khủng hoảng thời gian</string>
   <string name="giveMoreTime">Cho thêm thời gian</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Thao tác game</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Thao tác trò chơi</string>
   <string name="howDoYouMovePieces">Bạn di chuyển quân như thế nào?</string>
   <string name="clickTwoSquares">Nhấn hai ô</string>
   <string name="dragPiece">Thả quân cờ</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Giữ nút &lt;ctrl&gt; trong khi phong cấp để tạm thời hủy bỏ việc phong cấp tự động</string>
   <string name="whenPremoving">Khi đi trước</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Tự động hoà khi lặp lại ba lần</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Khi thời gian còn lại &lt; 30 giây</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Khi thời gian còn lại &lt; 30 giây</string>
   <string name="moveConfirmation">Xác nhận nước đi</string>
   <string name="inCorrespondenceGames">Cờ thư tín</string>
   <string name="correspondenceAndUnlimited">Cờ qua thư và không giới hạn</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Tùy chọn của bạn đã được lưu</string>
   <string name="scrollOnTheBoardToReplayMoves">Cuộn trên bảng ghi vị trí để xem lại các nước đi</string>
   <string name="correspondenceEmailNotification">Email thông báo hàng ngày sẽ bao gồm cả những ván đấu qua thư</string>
+  <string name="notifyStreamStart">Streamer đang phát trực tiếp</string>
+  <string name="notifyInboxMsg">Cuộc trò chuyện mới</string>
+  <string name="notifyForumMention">Bạn được nhắc đến trong một bình luận trên diễn đàn</string>
+  <string name="notifyInvitedStudy">Lời mời nghiên cứu</string>
+  <string name="notifyGameEvent">Cập nhật đánh cờ qua thư</string>
+  <string name="notifyChallenge">Thách đấu</string>
+  <string name="notifyTournamentSoon">Giải đấu sẽ sớm bắt đầu</string>
+  <string name="notifyTimeAlarm">Thời gian đánh cờ qua thư đã hết</string>
+  <string name="notifyBell">Chuông thông báo bên trong Lichess</string>
+  <string name="notifyPush">Thông báo tới thiết bị của bạn khi bạn không truy cập Lichess</string>
+  <string name="notifyWeb">Trình duyệt</string>
+  <string name="notifyDevice">Thiết bị</string>
 </resources>

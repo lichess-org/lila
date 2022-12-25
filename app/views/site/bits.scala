@@ -1,11 +1,11 @@
 package views.html.site
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import controllers.routes
 
-object bits {
+object bits:
 
   def getFishnet()(implicit ctx: Context) =
     views.html.base.layout(
@@ -66,4 +66,3 @@ object bits {
         )
       )
     }
-}

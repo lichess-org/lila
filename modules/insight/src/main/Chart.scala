@@ -1,10 +1,11 @@
 package lila.insight
 
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.LightUser
+import lila.common.Json.given
 
 case class Chart(
     question: JsonQuestion,
@@ -16,7 +17,7 @@ case class Chart(
     games: List[JsObject]
 )
 
-object Chart {
+object Chart:
 
   case class Xaxis(
       name: String,
@@ -38,11 +39,11 @@ object Chart {
 
   def fromAnswer[X](
       getLightUser: LightUser.Getter
-  )(answer: Answer[X])(implicit lang: Lang, ec: ExecutionContext): Fu[Chart] = {
+  )(answer: Answer[X])(using lang: Lang, ec: ExecutionContext): Fu[Chart] =
 
-    import answer._, question._
+    import answer.*, question.*
 
-    def xAxis(implicit lang: Lang) =
+    def xAxis(using lang: Lang) =
       Xaxis(
         name = dimension.name,
         categories = clusters.map(_.x).map(InsightDimension.valueJson(dimension)),
@@ -60,7 +61,7 @@ object Chart {
     def series =
       clusters
         .foldLeft(Map.empty[String, Serie]) { case (acc, cluster) =>
-          cluster.insight match {
+          cluster.insight match
             case Insight.Single(point) =>
               val key = metric.name
               acc.updated(
@@ -71,29 +72,28 @@ object Chart {
                       name = metric.name,
                       dataType = metric.dataType.name,
                       stack = none,
-                      data = List(point.y)
+                      data = List(point.value)
                     )
-                  case Some(s) => s.copy(data = point.y :: s.data)
+                  case Some(s) => s.copy(data = point.value :: s.data)
                 }
               )
             case Insight.Stacked(points) =>
               points.foldLeft(acc) { case (acc, (metricValueName, point)) =>
-                val key = s"${metric.name}/${metricValueName.name}"
+                val key = s"${metric.name}/${metricValueName}"
                 acc.updated(
                   key,
                   acc.get(key) match {
                     case None =>
                       Serie(
-                        name = metricValueName.name,
+                        name = metricValueName.value,
                         dataType = metric.dataType.name,
                         stack = metric.name.some,
-                        data = List(point.y)
+                        data = List(point.value)
                       )
-                    case Some(s) => s.copy(data = point.y :: s.data)
+                    case Some(s) => s.copy(data = point.value :: s.data)
                   }
                 )
               }
-          }
         }
         .map { case (_, serie) =>
           serie.copy(data = serie.data.reverse)
@@ -102,10 +102,9 @@ object Chart {
 
     def sortedSeries =
       answer.clusters.headOption.fold(series) {
-        _.insight match {
+        _.insight match
           case Insight.Single(_)       => series
-          case Insight.Stacked(points) => series.sortLike(points.map(_._1.name), _.name)
-        }
+          case Insight.Stacked(points) => series.sortLike(points.map(_._1.value), _.name)
       }
 
     def gameUserJson(player: lila.game.Player): Fu[JsObject] =
@@ -122,9 +121,9 @@ object Chart {
         user2 <- gameUserJson(pov.opponent)
       } yield Json.obj(
         "id"       -> pov.gameId,
-        "fen"      -> (chess.format.Forsyth exportBoard pov.game.board),
+        "fen"      -> (chess.format.Fen writeBoard pov.game.board),
         "color"    -> pov.player.color.name,
-        "lastMove" -> ~pov.game.lastMoveKeys,
+        "lastMove" -> (pov.game.lastMoveKeys | ""),
         "user1"    -> user1,
         "user2"    -> user2
       )
@@ -139,5 +138,3 @@ object Chart {
         games = games
       )
     }
-  }
-}

@@ -6,6 +6,7 @@ import * as cg from 'chessground/types';
 import { DrawShape } from 'chessground/draw';
 import resizeHandle from 'common/resize';
 import AnalyseCtrl from './ctrl';
+import * as Prefs from 'common/prefs';
 
 export const render = (ctrl: AnalyseCtrl): VNode =>
   h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {

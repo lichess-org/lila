@@ -1,12 +1,12 @@
 package views.html.mod
 
-import controllers.clas.routes.{ Clas => clasRoutes }
+import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.IpAddress
 import lila.mod.IpRender.RenderIp
 import lila.security.FingerHash
@@ -14,12 +14,12 @@ import lila.security.Granter
 import lila.user.Holder
 import lila.user.User
 
-object search {
+object search:
 
   private val email = tag("email")
   private val mark  = tag("marked")
 
-  def apply(mod: Holder, form: Form[_], users: List[User.WithEmails])(implicit ctx: Context) =
+  def apply(mod: Holder, form: Form[?], users: List[User.WithEmails])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc"),
@@ -69,6 +69,7 @@ object search {
                 )(if (blocked) "Banned" else "Ban this print")
               )
             else if (blocked) div(cls := "banned")("BANNED")
+            else emptyFrag
           ),
           isGranted(_.Admin) option div(cls := "box__pad")(
             h2("User agents"),
@@ -110,6 +111,7 @@ object search {
                 )(if (blocked) "Banned" else "Ban this IP")
               )
             else if (blocked) div(cls := "banned")("BANNED")
+            else emptyFrag
           ),
           isGranted(_.Admin) option div(cls := "box__pad")(
             h2("User agents"),
@@ -144,7 +146,7 @@ object search {
       )
     }
 
-  def teacher(teacherId: User.ID, classes: List[lila.clas.Clas])(implicit ctx: Context) =
+  def teacher(teacherId: UserId, classes: List[lila.clas.Clas])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Classes",
       moreCss = cssTag("mod.misc")
@@ -187,7 +189,7 @@ object search {
       )
     }
 
-  private def teacherLink(userId: User.ID)(implicit ctx: Context) =
+  private def teacherLink(userId: UserId)(implicit ctx: Context) =
     lightUser(userId).map { user =>
       a(
         href     := clasRoutes.teacher(user.name),
@@ -200,7 +202,7 @@ object search {
       )
     }
 
-  private def userTable(mod: Holder, users: List[User.WithEmails], eraseButton: Boolean = false)(implicit
+  private def userTable(mod: Holder, users: List[User.WithEmails], eraseButton: Boolean = false)(using
       ctx: Context
   ) =
     users.nonEmpty option table(cls := "slist slist-pad")(
@@ -223,7 +225,7 @@ object search {
               td(
                 userLink(u, withBestRating = true, params = "?mod"),
                 (isGranted(_.Admin) && isGranted(_.SetEmail)) option
-                  email(emails.list.map(_.value).mkString(", "))
+                  email(emails.strList.mkString(", "))
               )
             else td,
             td(u.count.game.localize),
@@ -233,7 +235,7 @@ object search {
               u.marks.boost option mark("BOOSTER"),
               u.marks.troll option mark("SHADOWBAN")
             ),
-            td(u.disabled option mark("CLOSED")),
+            td(u.enabled.no option mark("CLOSED")),
             td(momentFromNow(u.createdAt)),
             td(u.seenAt.map(momentFromNow(_))),
             isGranted(_.CloseAccount) option td(
@@ -254,4 +256,3 @@ object search {
         }
       )
     )
-}

@@ -1,18 +1,18 @@
 package views.html
 package game
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object importGame {
+object importGame:
 
   private def analyseHelp(implicit ctx: Context) =
     ctx.isAnon option a(cls := "blue", href := routes.Auth.signup)(trans.youNeedAnAccountToDoThat())
 
-  def apply(form: play.api.data.Form[_])(implicit ctx: Context) =
+  def apply(form: play.api.data.Form[?])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.importGame.txt(),
       moreCss = cssTag("importer"),
@@ -58,4 +58,3 @@ object importGame {
         )
       )
     }
-}

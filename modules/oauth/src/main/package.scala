@@ -1,6 +1,5 @@
-package lila
+package lila.oauth
 
-package object oauth extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[oauth] def logger = lila.log("oauth")
-}
+private val logger = lila.log("oauth")

@@ -1,20 +1,20 @@
 package views.html.opening
 
-import chess.opening.FullOpening
+import chess.opening.Opening
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningPage, OpeningWiki }
 
-object wiki {
+object wiki:
 
   def apply(page: OpeningPage)(implicit ctx: Context) =
     div(cls := List("opening__wiki" -> true, "opening__wiki--editor" -> isGranted(_.OpeningWiki)))(
       div(cls := "opening__wiki__markup")(
         page.wiki
-          .flatMap(_ markupForMove ~page.query.pgn.lastOption)
+          .flatMap(_ markupForMove page.query.sans.lastOption.??(_.value))
           .fold(frag("No description of the opening, yet. We're working on it!")) { markup =>
             raw(markup)
           }
@@ -56,7 +56,7 @@ object wiki {
       }
     )
 
-  def showMissing(ops: List[FullOpening]) = div(cls := "opening__wiki__missing")(
+  def showMissing(ops: List[Opening]) = div(cls := "opening__wiki__missing")(
     h2("Openings to explain"),
     p("Sorted by popularity"),
     ul(
@@ -65,4 +65,3 @@ object wiki {
       }
     )
   )
-}

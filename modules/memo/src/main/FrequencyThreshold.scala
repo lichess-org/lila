@@ -3,7 +3,7 @@ package lila.memo
 import scala.concurrent.duration.FiniteDuration
 import com.github.blemale.scaffeine.Scaffeine
 
-final class FrequencyThreshold[K](count: Int, duration: FiniteDuration) {
+final class FrequencyThreshold[K](count: Int, duration: FiniteDuration):
 
   private val cache = Scaffeine()
     .expireAfter[K, Int](
@@ -20,4 +20,3 @@ final class FrequencyThreshold[K](count: Int, duration: FiniteDuration) {
     key,
     (_, prev) => Option(prev).fold(1)(_ + 1)
   ) >= count
-}

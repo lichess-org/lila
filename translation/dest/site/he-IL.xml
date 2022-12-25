@@ -415,6 +415,7 @@
   <string name="siteDescription">שרת שחמט מקוון חינמי. שחקו שחמט כעת בממשק נקי. בלי הרשמה, בלי פרסומות, בלי להתקין שום דבר. שחקו שחמט עם המחשב, עם חברים או עם יריבים אקראיים.</string>
   <string name="xJoinedTeamY">%1$s הצטרף/ה לקבוצה %2$s</string>
   <string name="xCreatedTeamY">%1$s יצר/ה את הקבוצה %2$s</string>
+  <string name="startedStreaming">התחיל/ה לשדר</string>
   <string name="xStartedStreaming">%s התחיל/ה לשדר</string>
   <string name="averageElo">דירוג ממוצע</string>
   <string name="location">מיקום</string>
@@ -602,6 +603,8 @@
   <string name="blog">בלוג</string>
   <string name="notes">הערות</string>
   <string name="typePrivateNotesHere">הקלידו הערות פרטיות כאן</string>
+  <string name="writeAPrivateNoteAboutThisUser">כתבו הערה פרטית בנוגע למשתמש הזה</string>
+  <string name="noNoteYet">אין עדיין הערות</string>
   <string name="invalidUsernameOrPassword">שגיאה בשם המשתמש או בסיסמה</string>
   <string name="incorrectPassword">סיסמה שגויה</string>
   <string name="invalidAuthenticationCode">קוד אימות לא תקין</string>
@@ -673,7 +676,7 @@
   <string name="error.min">לפחות %s</string>
   <string name="error.max">%s או פחות</string>
   <string name="ifRatingIsPlusMinusX">אם הדירוג ± %s</string>
-  <string name="ifRegistered">אם רשום</string>
+  <string name="ifRegistered">רק משתמשים רשומים</string>
   <string name="onlyExistingConversations">שיחה קיימת בלבד</string>
   <string name="onlyFriends">חברים בלבד</string>
   <string name="menu">תפריט</string>
@@ -686,7 +689,7 @@
     <item quantity="many">%s פוסטים בפורום</item>
     <item quantity="other">%s פוסטים בפורום</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">זמן במשחק : %s</string>
+  <string name="tpTimeSpentPlaying">זמן במשחק: %s</string>
   <string name="watchGames">צפייה במשחקים</string>
   <string name="tpTimeSpentOnTV">זמן בטלוויזיה: %s</string>
   <string name="watch">צפו</string>
@@ -811,6 +814,7 @@
   <string name="light">בהיר</string>
   <string name="dark">כהה</string>
   <string name="transparent">שקוף</string>
+  <string name="deviceTheme">עיצוב המכשיר</string>
   <string name="backgroundImageUrl">כתובת תמונת רקע (URL):</string>
   <string name="boardGeometry">תצוגת הלוח</string>
   <string name="boardTheme">עיצוב הלוח</string>
@@ -859,8 +863,8 @@
   <string name="findBetterMoveForBlack">מצא/י מהלך טוב יותר לשחור</string>
   <string name="resumeLearning">המשיכו ללמוד</string>
   <string name="youCanDoBetter">יש מהלך טוב יותר:)</string>
-  <string name="tryAnotherMoveForWhite">נסה למצוא מהלך טוב יותר ללבן</string>
-  <string name="tryAnotherMoveForBlack">נסה למצוא מהלך טוב יותר לשחור</string>
+  <string name="tryAnotherMoveForWhite">נסו למצוא מהלך טוב יותר ללבן</string>
+  <string name="tryAnotherMoveForBlack">נסו למצוא מהלך טוב יותר לשחור</string>
   <string name="solution">פתרון</string>
   <string name="waitingForAnalysis">מחכים לניתוח המשחק</string>
   <string name="noMistakesFoundForWhite">אף טעות לא נמצאה עבור הלבן</string>

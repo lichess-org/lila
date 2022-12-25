@@ -1,10 +1,10 @@
 package controllers
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.push.WebSubscription
-import lila.push.WebSubscription.readers._
+import lila.push.WebSubscription.*
 
-final class Push(env: Env) extends LilaController(env) {
+final class Push(env: Env) extends LilaController(env):
 
   def mobileRegister(platform: String, deviceId: String) =
     Auth { implicit ctx => me =>
@@ -22,8 +22,7 @@ final class Push(env: Env) extends LilaController(env) {
       ctx.body.body
         .validate[WebSubscription]
         .fold(
-          err => BadRequest(err.toString).fuccess,
+          err => BadRequest(err.toString).toFuccess,
           data => env.push.webSubscriptionApi.subscribe(me, data, currentSessionId) inject NoContent
         )
     }
-}

@@ -1,25 +1,25 @@
 package lila.evalCache
 
-import cats.implicits._
-import chess.format.{ FEN, Uci }
-import play.api.libs.json._
+import cats.implicits.*
+import chess.format.{ Fen, Uci }
+import play.api.libs.json.*
 
-import lila.common.Json._
-import lila.evalCache.EvalCacheEntry._
-import lila.tree.Eval._
+import lila.common.Json.{ *, given }
+import lila.evalCache.EvalCacheEntry.*
+import lila.tree.Eval.*
 
-object JsonHandlers {
+object JsonHandlers:
 
-  implicit private val cpWriter     = intAnyValWriter[Cp](_.value)
-  implicit private val mateWriter   = intAnyValWriter[Mate](_.value)
-  implicit private val knodesWriter = intAnyValWriter[Knodes](_.value)
+  private given Writes[Cp]     = writeAs(_.value)
+  private given Writes[Mate]   = writeAs(_.value)
+  private given Writes[Knodes] = writeAs(_.value)
 
-  def writeEval(e: Eval, fen: FEN) =
+  def writeEval(e: Eval, fen: Fen.Epd) =
     Json.obj(
       "fen"    -> fen,
       "knodes" -> e.knodes,
       "depth"  -> e.depth,
-      "pvs"    -> e.pvs.toList.map(writePv)
+      "pvs"    -> JsArray(e.pvs.toList.map(writePv))
     )
 
   private def writePv(pv: Pv) =
@@ -34,14 +34,15 @@ object JsonHandlers {
     o obj "d" flatMap { readPutData(trustedUser, _) }
 
   private[evalCache] def readPutData(trustedUser: TrustedUser, d: JsObject): Option[Input.Candidate] =
-    for {
-      fen    <- d str "fen"
+    import chess.variant.Variant
+    for
+      fen    <- d.get[Fen.Epd]("fen")
       knodes <- d int "knodes"
       depth  <- d int "depth"
       pvObjs <- d objs "pvs"
       pvs    <- pvObjs.map(parsePv).sequence.flatMap(_.toNel)
-      variant = chess.variant.Variant orDefault ~d.str("variant")
-    } yield Input.Candidate(
+      variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
+    yield Input.Candidate(
       variant,
       fen,
       Eval(
@@ -56,17 +57,14 @@ object JsonHandlers {
   private def parsePv(d: JsObject): Option[Pv] =
     for {
       movesStr <- d str "moves"
-      moves <-
+      moves <- Moves from
         movesStr
           .split(' ')
-          .take(EvalCacheEntry.MAX_PV_SIZE)
+          .take(MAX_PV_SIZE)
           .foldLeft(List.empty[Uci].some) {
             case (Some(ucis), str) => Uci(str) map (_ :: ucis)
             case _                 => None
           }
-          .flatMap(_.reverse.toNel) map Moves.apply
-      cp   = d int "cp" map Cp.apply
-      mate = d int "mate" map Mate.apply
-      score <- cp.map(Score.cp) orElse mate.map(Score.mate)
+          .flatMap(_.reverse.toNel)
+      score <- d.get[Cp]("cp").map(Score.cp(_)) orElse d.get[Mate]("mate").map(Score.mate(_))
     } yield Pv(score, moves)
-}

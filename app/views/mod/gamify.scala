@@ -2,18 +2,18 @@ package views.html.mod
 
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.mod.Gamify.Period
 
 import controllers.routes
 
-object gamify {
+object gamify:
 
-  def index(leaderboards: lila.mod.Gamify.Leaderboards, history: List[lila.mod.Gamify.HistoryMonth])(implicit
+  def index(leaderboards: lila.mod.Gamify.Leaderboards, history: List[lila.mod.Gamify.HistoryMonth])(using
       ctx: Context
-  ) = {
+  ) =
     val title = "Moderator hall of fame"
     def yearHeader(year: Int) =
       tr(cls := "year")(
@@ -59,11 +59,10 @@ object gamify {
         )
       )
     }
-  }
 
-  def period(leaderboards: lila.mod.Gamify.Leaderboards, period: lila.mod.Gamify.Period)(implicit
+  def period(leaderboards: lila.mod.Gamify.Leaderboards, period: lila.mod.Gamify.Period)(using
       ctx: Context
-  ) = {
+  ) =
     val title = s"Moderators of the ${period.name}"
     views.html.base.layout(
       title = title,
@@ -104,9 +103,8 @@ object gamify {
         )
       )
     }
-  }
 
-  def champion(champ: Option[lila.mod.Gamify.ModMixed], img: String, period: lila.mod.Gamify.Period)(implicit
+  def champion(champ: Option[lila.mod.Gamify.ModMixed], img: String, period: lila.mod.Gamify.Period)(using
       lang: Lang
   ) =
     div(cls      := "champ")(
@@ -139,4 +137,3 @@ object gamify {
         " leaderboard"
       )
     )
-}

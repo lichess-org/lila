@@ -30,6 +30,7 @@ sonsuza kadar!</string>
   <string name="otherAmount">Diğer</string>
   <string name="pleaseEnterAmountInX">Lütfen %s cinsinden bir tutar girin</string>
   <string name="withCreditCard">Kredi Kartı</string>
+  <string name="logInToDonate">Bağış yapmak için kayıt olun</string>
   <string name="weAreSmallTeam">Biz küçük bir ekibiz, dolayısıyla desteğiniz büyük bir fark yaratacak!</string>
   <string name="celebratedPatrons">Lichess\'i mümkün kılan değerli destekçilerimiz</string>
   <string name="whereMoneyGoes">Bağışlar nereye gidiyor?</string>
@@ -43,7 +44,9 @@ Bununla birlikte, Lichess\'in kurucusu ve geliştiricisi olan %s\'a tam zamanlı
 Veya %s.</string>
   <string name="contactSupport">Lichess destek masasıyla iletişime geçin</string>
   <string name="otherMethods">Farklı bir bağış yapma yolu var mı?</string>
+  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess\'te %s kişi kayıtlı </string>
   <string name="bankTransfers">Banka havalesini de kabul ediyoruz</string>
+  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">Lütfen yalnızca yukarıdaki bağış formunun Kullanıcı statüsünü vereceğini unutmayın.</string>
   <string name="patronFeatures">Destekçilere özel ayrıcalıklar var mı?</string>
   <string name="noPatronFeatures">Hayır çünkü Lichess herkes için tamamen ve sonsuza kadar ücretsiz bir platform olarak kalacaktır. Buna söz veriyoruz.
 
@@ -63,7 +66,7 @@ Ancak Destekçilerimiz, müthiş profil simgeleriyle sonuna kadar övünme hakk�
   <string name="update">Güncelle</string>
   <string name="changeMonthlyAmount">Aylık ücreti değiştir (%s)</string>
   <string name="cancelSupport">desteğini iptal et</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s veya %2$s</string>
+  <string name="xOrY">%1$s veya %2$s</string>
   <string name="decideHowMuch">Lichess\'in sizin için ne kadar değerli olduğuna karar verin:</string>
   <string name="stopPayments">Kredi kartınızı geri çekin ve ödemeleri durdurun:</string>
   <string name="stopPaymentsPayPal">PayPal aboneliğini iptal et ve ödemeleri durdur:</string>

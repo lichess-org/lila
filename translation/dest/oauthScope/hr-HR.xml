@@ -9,6 +9,7 @@
   <string name="doNotShareIt">Bon će omogućiti pristup vašem računu. NEMOJTE to dijeliti ni s kim!</string>
   <string name="copyTokenNow">Pobrinite se da odmah kopirate svoj novi bon za osobni pristup. Nećete ga više moći vidjeti!</string>
   <string name="preferenceRead">Pročitajte postavke</string>
+  <string name="preferenceWrite">Napiši preferenciju</string>
   <string name="emailRead">Pročitajte adrese e-pošte</string>
   <string name="challengeRead">Pročitajte dolazne izazove</string>
   <string name="challengeWrite">Šaljite, prihvaćajte i odbijajte izazove</string>
@@ -17,9 +18,15 @@
   <string name="studyWrite">Stvorite, ažurirajte, brišite studija i emisije</string>
   <string name="tournamentWrite">Stvorite, ažurirajte i pridružite se turnirima</string>
   <string name="racerWrite">Stvorite i pridružite se utrkama zagonetki</string>
+  <string name="puzzleRead">Čitanje zagonetke</string>
   <string name="teamRead">Pročitajte informacije o privatnom timu</string>
   <string name="teamWrite">Pridružite se, napustite i upravljajte timom</string>
   <string name="teamLead">Upravljajte timovima koje vodite: šaljite osobne poruke, izbacite članove</string>
+  <string name="followRead">Pročitajte praćene igrače</string>
+  <string name="followWrite">Pratite i prestanite pratiti druge igrače</string>
+  <string name="msgWrite">Šaljite privatne poruke drugim igračima</string>
+  <string name="boardPlay">Igrajte igre s Api-jem za ploču</string>
+  <string name="botPlay">Igrajte igre s Api-jem za ploču</string>
   <string name="webLogin">Stvorite autentificirane sesije web stranice (omogućuje puni pristup!)</string>
   <string name="webMod">Koristite moderatorske alate (unutar granica vašeg dopuštenja)</string>
 </resources>

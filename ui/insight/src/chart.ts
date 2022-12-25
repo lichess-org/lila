@@ -2,6 +2,7 @@ import { h, VNode } from 'snabbdom';
 import Ctrl from './ctrl';
 import { Chart } from './interfaces';
 import type * as Highcharts from 'highcharts';
+import { currentTheme } from 'common/theme';
 
 function metricDataTypeFormat(dt: string) {
   if (dt === 'seconds') return '{point.y:.1f}';
@@ -49,7 +50,7 @@ interface Theme {
 }
 
 const theme = (function () {
-  const light = $('body').hasClass('light');
+  const light = currentTheme() === 'light';
   const t: Theme = {
     light: light,
     text: {

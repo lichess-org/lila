@@ -1,9 +1,11 @@
 package lila.lobby
 
 import chess.{ Clock, Mode, Speed }
+import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.game.PerfPicker
 import lila.rating.RatingRange
@@ -15,7 +17,7 @@ case class Hook(
     id: String,
     sri: Sri,            // owner socket sri
     sid: Option[String], // owner cookie (used to prevent multiple hooks)
-    variant: Int,
+    variant: Variant.Id,
     clock: Clock.Config,
     mode: Int,
     color: String,
@@ -23,11 +25,11 @@ case class Hook(
     ratingRange: String,
     createdAt: DateTime,
     boardApi: Boolean
-) {
+):
 
   val realColor = Color orDefault color
 
-  val realVariant = chess.variant.Variant orDefault variant
+  val realVariant = Variant.orDefault(variant)
 
   val realMode = Mode orDefault mode
 
@@ -58,25 +60,25 @@ case class Hook(
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
   lazy val perf: Option[LobbyPerf] = for { u <- user; pt <- perfType } yield u perfAt pt
-  def rating: Option[Int]          = perf.map(_.rating)
+  def rating: Option[IntRating]    = perf.map(_.rating)
 
-  def render: JsObject =
-    Json
-      .obj(
-        "id"    -> id,
-        "sri"   -> sri,
-        "clock" -> clock.show,
-        "t"     -> clock.estimateTotalSeconds,
-        "s"     -> speed.id,
-        "i"     -> (if (clock.incrementSeconds > 0) 1 else 0)
-      )
-      .add("prov" -> perf.map(_.provisional).filter(identity))
-      .add("u" -> user.map(_.username))
-      .add("rating" -> rating)
-      .add("variant" -> realVariant.exotic.option(realVariant.key))
-      .add("ra" -> realMode.rated.option(1))
-      .add("c" -> chess.Color.fromName(color).map(_.name))
-      .add("perf" -> perfType.map(_.key))
+  import lila.common.Json.given
+  def render: JsObject = Json
+    .obj(
+      "id"    -> id,
+      "sri"   -> sri,
+      "clock" -> clock.show,
+      "t"     -> clock.estimateTotalSeconds,
+      "s"     -> speed.id,
+      "i"     -> (if (clock.incrementSeconds > 0) 1 else 0)
+    )
+    .add("prov" -> perf.map(_.provisional))
+    .add("u" -> user.map(_.username))
+    .add("rating" -> rating)
+    .add("variant" -> realVariant.exotic.option(realVariant.key))
+    .add("ra" -> realMode.rated.option(1))
+    .add("c" -> chess.Color.fromName(color).map(_.name))
+    .add("perf" -> perfType.map(_.key))
 
   def randomColor = color == "random"
 
@@ -87,24 +89,24 @@ case class Hook(
   def compatibleWithPool(poolClock: chess.Clock.Config) =
     compatibleWithPools && clock == poolClock
 
-  def toPool =
+  def toPool = user map { u =>
     lila.pool.HookThieve.PoolHook(
       hookId = id,
       member = lila.pool.PoolMember(
-        userId = user.??(_.id),
+        userId = u.id,
         sri = sri,
         rating = rating | lila.rating.Glicko.default.intRating,
         ratingRange = realRatingRange,
         lame = user.??(_.lame),
-        blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
+        blocking = user.??(_.blocking),
         rageSitCounter = 0
       )
     )
+  }
 
   private lazy val speed = Speed(clock)
-}
 
-object Hook {
+object Hook:
 
   val idSize = 8
 
@@ -117,11 +119,11 @@ object Hook {
       user: Option[User],
       sid: Option[String],
       ratingRange: RatingRange,
-      blocking: Set[String],
+      blocking: lila.pool.Blocking,
       boardApi: Boolean = false
   ): Hook =
     new Hook(
-      id = lila.common.ThreadLocalRandom nextString idSize,
+      id = ThreadLocalRandom nextString idSize,
       sri = sri,
       variant = variant.id,
       clock = clock,
@@ -133,4 +135,3 @@ object Hook {
       createdAt = DateTime.now,
       boardApi = boardApi
     )
-}

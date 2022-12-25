@@ -1,11 +1,11 @@
 package lila.relation
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
-object JsonView {
+object JsonView:
 
-  implicit def relatedWrites(implicit userWrites: Writes[lila.user.User]) =
-    OWrites[Related] { r =>
+  given (using Writes[lila.user.User]): OWrites[Related] with
+    def writes(r: Related) =
       Json.obj(
         "user"       -> r.user,
         "patron"     -> r.user.isPatron,
@@ -13,5 +13,3 @@ object JsonView {
         "followable" -> r.followable,
         "relation"   -> r.relation
       )
-    }
-}

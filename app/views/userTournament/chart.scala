@@ -1,12 +1,12 @@
 package views.html
 package userTournament
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
-object chart {
+object chart:
 
   def apply(u: User, data: lila.tournament.LeaderboardApi.ChartData)(implicit ctx: Context) =
     bits.layout(
@@ -58,4 +58,3 @@ object chart {
         )
       )
     }
-}

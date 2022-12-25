@@ -1,15 +1,14 @@
 package lila.security
 
-sealed abstract class Permission(val key: String, val children: List[Permission] = Nil, val name: String) {
+sealed abstract class Permission(val key: String, val children: List[Permission] = Nil, val name: String):
 
   def this(key: String, name: String) = this(key, Nil, name)
 
   final def is(p: Permission): Boolean = this == p || children.exists(_ is p)
 
   val dbKey = s"ROLE_$key"
-}
 
-object Permission {
+object Permission:
 
   type Selector = Permission.type => Permission
 
@@ -287,18 +286,14 @@ object Permission {
     )
   )
 
-  lazy val all: Set[Permission] = categorized.flatMap { case (_, perms) =>
-    perms
-  }.toSet
+  lazy val all: Set[Permission] = categorized.flatMap { (_, perms) => perms }.toSet
 
   lazy val nonModPermissions: Set[Permission] =
     Set(Beta, Prismic, Coach, Teacher, Developer, Verified, ContentTeam, ApiHog, Relay)
 
   lazy val modPermissions: Set[Permission] = all diff nonModPermissions
 
-  lazy val allByDbKey: Map[String, Permission] = all.view map { p =>
-    (p.dbKey, p)
-  } toMap
+  lazy val allByDbKey: Map[String, Permission] = all.mapBy(_.dbKey)
 
   def apply(dbKey: String): Option[Permission] = allByDbKey get dbKey
 
@@ -310,4 +305,3 @@ object Permission {
   def diff(orig: Set[Permission], dest: Set[Permission]): Map[Permission, Boolean] = {
     orig.diff(dest).map(_ -> false) ++ dest.diff(orig).map(_ -> true)
   }.toMap
-}

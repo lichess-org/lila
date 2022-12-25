@@ -6,9 +6,10 @@ import lila.memo.{ PicfitImage, PicfitUrl }
 import lila.user.User
 import play.api.i18n.Lang
 import lila.common.Markdown
+import reactivemongo.api.bson.Macros.Annotations.Key
 
 case class UblogPost(
-    _id: UblogPost.Id,
+    @Key("_id") id: UblogPostId,
     blog: UblogBlog.Id,
     title: String,
     intro: String,
@@ -23,46 +24,43 @@ case class UblogPost(
     lived: Option[UblogPost.Recorded],
     likes: UblogPost.Likes,
     views: UblogPost.Views
-) extends UblogPost.BasePost {
+) extends UblogPost.BasePost:
 
   def isBy(u: User) = created.by == u.id
 
   def indexable = live && topics.exists(t => UblogTopic.chessExists(t.value))
-}
 
 case class UblogImage(id: PicfitImage.Id, alt: Option[String] = None, credit: Option[String] = None)
 
-object UblogPost {
+object UblogPost:
 
-  case class Id(value: String) extends AnyVal with StringValue
+  case class Recorded(by: UserId, at: DateTime)
 
-  case class Recorded(by: User.ID, at: DateTime)
+  opaque type Likes = Int
+  object Likes extends OpaqueInt[Likes]
+  opaque type Views = Int
+  object Views extends OpaqueInt[Views]
 
-  case class Likes(value: Int)     extends AnyVal
-  case class Views(value: Int)     extends AnyVal { def inc = Views(value + 1) }
-  case class Rank(value: DateTime) extends AnyVal
+  opaque type RankDate = DateTime
+  object RankDate extends OpaqueDate[RankDate]
 
   case class Create(post: UblogPost) extends AnyVal
 
-  case class LightPost(_id: UblogPost.Id, title: String) {
-    def id   = _id
+  case class LightPost(@Key("_id") id: UblogPostId, title: String):
     def slug = UblogPost slug title
-  }
 
-  trait BasePost {
-    val _id: UblogPost.Id
+  trait BasePost:
+    val id: UblogPostId
     val blog: UblogBlog.Id
     val title: String
     val intro: String
     val image: Option[UblogImage]
     val created: Recorded
     val lived: Option[Recorded]
-    def id   = _id
     def slug = UblogPost slug title
-  }
 
   case class PreviewPost(
-      _id: UblogPost.Id,
+      @Key("_id") id: UblogPostId,
       blog: UblogBlog.Id,
       title: String,
       intro: String,
@@ -74,20 +72,16 @@ object UblogPost {
 
   case class BlogPreview(nbPosts: Int, latests: List[PreviewPost])
 
-  def slug(title: String) = {
+  def slug(title: String) =
     val s = lila.common.String slugify title
     if (s.isEmpty) "-" else s
-  }
 
-  object thumbnail {
-    sealed abstract class Size(val width: Int) {
+  object thumbnail:
+    sealed abstract class Size(val width: Int):
       def height = width * 10 / 16
-    }
     case object Large extends Size(880)
     case object Small extends Size(400)
     type SizeSelector = thumbnail.type => Size
 
     def apply(picfitUrl: PicfitUrl, image: PicfitImage.Id, size: SizeSelector) =
       picfitUrl.thumbnail(image, size(thumbnail).width, size(thumbnail).height)
-  }
-}

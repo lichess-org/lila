@@ -1,16 +1,16 @@
 package lila.api
 
-import akka.actor._
-import com.softwaremill.macwire._
+import akka.actor.*
+import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.{ Configuration, Mode }
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.chat.GetLinkCheck
 import lila.common.Bus
-import lila.common.config._
+import lila.common.config.*
 import lila.hub.actorApi.Announce
-import lila.hub.actorApi.lpv._
+import lila.hub.actorApi.lpv.*
 import lila.user.User
 
 @Module
@@ -61,15 +61,16 @@ final class Env(
     mongoCacheApi: lila.memo.MongoCache.Api,
     ws: StandaloneWSClient,
     val mode: Mode
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    scheduler: Scheduler
-) {
+    scheduler: Scheduler,
+    materializer: akka.stream.Materializer
+):
 
   val config = ApiConfig loadFrom appConfig
-  import config.{ apiToken, pagerDuty => pagerDutyConfig }
-  import net.{ baseUrl, domain }
+  export config.{ apiToken, pagerDuty as pagerDutyConfig }
+  export net.{ baseUrl, domain }
 
   lazy val pgnDump: PgnDump = wire[PgnDump]
 
@@ -127,8 +128,8 @@ final class Env(
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     lila.mon.bus.classifiers.update(lila.common.Bus.size).unit
+    lila.mon.jvm.threads(lila.common.LilaJvm.threadGroups())
     // ensure the Lichess user is online
     socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + User.lichessId)
     userEnv.repo.setSeenAt(User.lichessId)
   }
-}

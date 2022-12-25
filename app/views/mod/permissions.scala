@@ -1,14 +1,14 @@
 package views.html.mod
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.{ Holder, User }
 import lila.security.Permission
 
 import controllers.routes
 
-object permissions {
+object permissions:
 
   def apply(u: User, me: Holder)(implicit ctx: Context) =
     views.html.base.layout(
@@ -63,4 +63,3 @@ object permissions {
         )
       )
     }
-}

@@ -13,36 +13,39 @@
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "@build/rollupProject": "2.0.0",
-    "@types/debounce-promise": "^3.1.4",
-    "@types/highcharts": "=4.2.57",
-    "@types/lichess": "2.0.0",
-    "@types/yaireo__tagify": "^4.16",
-    "highcharts": "=4.2.5",
-    "prop-types": "^15.8.1",
-    "rollup": "^2",
-    "typescript": "^4"
-  },
   "dependencies": {
-    "@badrap/result": "^0.2",
-    "@yaireo/tagify": "^4.16",
-    "ceval": "2.0.0",
-    "chat": "2.0.0",
-    "chess": "2.0.0",
-    "chessground": "^8.3.5",
-    "chessops": "^0.12",
-    "common": "2.0.0",
+    "@badrap/result": "^0.2.13",
+    "@types/cash": "workspace:*",
+    "@types/debounce-promise": "^3.1.6",
+    "@types/highcharts": "=4.2.57",
+    "@types/lichess": "workspace:*",
+    "@types/yaireo__tagify": "^4.16.0",
+    "@yaireo/tagify": "^4.17.6",
+    "ceval": "workspace:*",
+    "chart": "workspace:*",
+    "chat": "workspace:*",
+    "chess": "workspace:*",
+    "chessground": "^8.3.6",
+    "chessops": "^0.12.5",
+    "common": "workspace:*",
     "debounce-promise": "^3.1.2",
-    "game": "2.0.0",
-    "nvui": "2.0.0",
-    "snabbdom": "^3.3.1",
-    "tree": "2.0.0"
+    "game": "workspace:*",
+    "nvui": "workspace:*",
+    "prop-types": "^15.8.1",
+    "snabbdom": "^3.5.1",
+    "tree": "workspace:*"
   },
   "scripts": {
-    "dev": "rollup --failAfterWarnings --config",
-    "prod": "rollup --failAfterWarnings --config --config-prod",
-    "plugin-dev": "rollup --failAfterWarnings --config --config-plugin",
-    "plugin-prod": "rollup --failAfterWarnings --config --config-prod --config-plugin"
+    "compile": "tsc",
+    "dev": "tsc",
+    "prod": "tsc"
+  },
+  "lichess": {
+    "bundles": {
+      "src/main.ts": "analysisBoard",
+      "src/plugins/studyMain.ts": "analysisBoard.study",
+      "src/plugins/nvui.ts": "analysisBoard.nvui",
+      "src/plugins/studyTopicForm.ts": "study.topic.form"
+    }
   }
 }

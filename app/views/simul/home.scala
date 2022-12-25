@@ -1,12 +1,12 @@
 package views.html.simul
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object home {
+object home:
 
   def apply(
       pendings: List[lila.simul.Simul],
@@ -48,4 +48,3 @@ lichess.pubsub.on('socket.in.reload', () =>
         )
       )
     }
-}

@@ -3,6 +3,11 @@
   "include": ["src"],
   "compilerOptions": {
     "outDir": "./dist",
-    "types": ["lichess", "web", "cash"]
-  }
+    "rootDir": "src",
+    "types": ["lichess", "web"],
+    "declaration": true,
+    "composite": true
+  },
+  "isolatedModules": true,
+  "references": [{ "path": "../common/tsconfig.json" }]
 }

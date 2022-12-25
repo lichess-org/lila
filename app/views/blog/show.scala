@@ -1,12 +1,12 @@
 package views.html.blog
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object show {
+object show:
 
   def apply(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
     views.html.base.layout(
@@ -58,4 +58,3 @@ object show {
         )
       )
     )
-}

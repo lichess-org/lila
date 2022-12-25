@@ -12,8 +12,9 @@
   <string name="teachersX">Instruistoj: %s</string>
   <string name="newClass">Nova klaso</string>
   <string name="closeClass">Fermi klason</string>
+  <string name="removedByX">Forigita de %s</string>
   <string name="reopen">Remalfermu</string>
-  <string name="removeStudent">Forigi lernanto</string>
+  <string name="removeStudent">Forigi lernanton</string>
   <string name="removedStudents">Forigita</string>
   <string name="inviteTheStudentBack">Denove inviti la lernanton</string>
   <string name="sendAMessage">Sendi mesaĝon al ĉiuj lernantoj.</string>
@@ -84,6 +85,9 @@ Jen la ligo por aliri la klason.</string>
   <string name="variantXOverLastY">%1$s sur la lastaj %2$s</string>
   <string name="winrate">Venka procento</string>
   <string name="na">Ne havebla</string>
+  <string name="overview">Superrigardo</string>
+  <string name="news">Novaĵoj</string>
+  <string name="classNews">Novaĵoj de la lecionoj</string>
   <string name="editNews">Redakti novaĵojn</string>
   <string name="notifyAllStudents">Sciigi ĉiujn lernantojn</string>
   <string name="nothingHere">Ankoraŭ nenio ĉi tie.</string>
@@ -91,6 +95,11 @@ Jen la ligo por aliri la klason.</string>
   <string name="newsEdit2">Aldonu la lastajn novaĵojn ĉe la supro. Ne forigu antaŭajn novaĵojn.</string>
   <string name="newsEdit3">Apartaj novaĵoj kun ---
 Ĝi aperos horizontala linio.</string>
+  <string name="invite">Inviti</string>
+  <string name="youAcceptedThisInvitation">Vi akceptis ĉi tiun inviton.</string>
   <string name="youDeclinedThisInvitation">Vi malakceptis ĉi tiun inviton.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">aŭ</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">uzi ĉi tiun formularon</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">krei pli da klasoj</string>
+  <string name="xisNowAStudentOfTheClass">%s nun apartenas al la klaso</string>
 </resources>

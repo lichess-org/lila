@@ -799,6 +799,7 @@
   <string name="light">Svetlé</string>
   <string name="dark">Tmavé</string>
   <string name="transparent">Priehľadné</string>
+  <string name="deviceTheme">Motív zariadenia</string>
   <string name="backgroundImageUrl">URL obrázka na pozadí:</string>
   <string name="boardGeometry">Typ šachovnice</string>
   <string name="boardTheme">Vzhľad šachovnice</string>

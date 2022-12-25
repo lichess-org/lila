@@ -11,13 +11,13 @@ final class PublicChat(
     tournamentApi: lila.tournament.TournamentApi,
     swissFeature: lila.swiss.SwissFeature,
     userRepo: UserRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def all: Fu[(List[(Tournament, UserChat)], List[(Swiss, UserChat)])] =
     tournamentChats zip swissChats
 
-  def deleteAll(userId: User.ID): Funit =
-    userRepo byId userId map2 Suspect flatMap { _ ?? deleteAll }
+  def deleteAll(userId: UserId): Funit =
+    userRepo byId userId map2 Suspect.apply flatMap { _ ?? deleteAll }
 
   def deleteAll(suspect: Suspect): Funit =
     all.flatMap { case (tours, simuls) =>
@@ -30,10 +30,10 @@ final class PublicChat(
 
   private def tournamentChats: Fu[List[(Tournament, UserChat)]] =
     tournamentApi.fetchVisibleTournaments.flatMap { visibleTournaments =>
-      val ids = visibleTournaments.all.map(_.id) map Chat.Id
+      val ids = visibleTournaments.all.map(_.id into ChatId)
       chatApi.userChat.findAll(ids).map { chats =>
         chats.flatMap { chat =>
-          visibleTournaments.all.find(_.id == chat.id.value).map(_ -> chat)
+          visibleTournaments.all.find(_.id.value == chat.id.value).map(_ -> chat)
         }
       } map sortTournamentsByRelevance
     }
@@ -41,7 +41,7 @@ final class PublicChat(
   private def swissChats: Fu[List[(Swiss, UserChat)]] =
     swissFeature.get(Nil).flatMap { swisses =>
       val all = swisses.created ::: swisses.started
-      val ids = all.map(_.id.value) map Chat.Id
+      val ids = all.map(_.id into ChatId)
       chatApi.userChat.findAll(ids).map { chats =>
         chats.flatMap { chat =>
           all.find(_.id.value == chat.id.value).map(_ -> chat)
@@ -49,10 +49,8 @@ final class PublicChat(
       }
     }
 
-  /** Sort the tournaments by the tournaments most likely to require moderation attention
-    */
+  // Sort the tournaments by the tournaments most likely to require moderation attention
   private def sortTournamentsByRelevance(tournaments: List[(Tournament, UserChat)]) =
     tournaments.sortBy { t =>
       (t._1.isFinished, -t._1.nbPlayers)
     }
-}

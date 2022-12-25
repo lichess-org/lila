@@ -2,16 +2,16 @@ package views.html.opening
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.opening.{ Opening, OpeningConfig }
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.opening.{ NameSection, OpeningTree, OpeningConfig }
 
-object tree {
+object tree:
 
-  import bits._
+  import bits.*
 
-  def apply(root: Opening.Tree, config: OpeningConfig)(implicit ctx: Context) =
+  def apply(root: OpeningTree, config: OpeningConfig)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(none),
@@ -33,11 +33,11 @@ object tree {
       )
     }
 
-  private def renderChildren(node: Opening.Tree, level: Int): Frag =
+  private def renderChildren(node: OpeningTree, level: Int): Frag =
     node.children map { case (op, node) =>
       val fold = level < 4 && node.children.nonEmpty
       val content = frag(
-        (if (fold) summary else div)(op match {
+        (if (fold) summary else div) (op match {
           case (name, None)     => name
           case (name, Some(op)) => a(href := openingUrl(op))(name)
         }),
@@ -45,4 +45,3 @@ object tree {
       )
       if (fold) details(content) else content
     }
-}

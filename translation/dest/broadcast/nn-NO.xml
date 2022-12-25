@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">URL til noverande runde</string>
   <string name="currentGameUrl">URL til pågåande parti</string>
   <string name="downloadAllRounds">Last ned alle rundene</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Slett runden og tilhøyrande parti ugjenkalleleg.</string>
+  <string name="deleteAllGamesOfThisRound">Fjern alle parti frå denne runden. Kjelda må vera aktiv om dei skal kunne rettast opp att.</string>
 </resources>

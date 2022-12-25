@@ -1,13 +1,13 @@
 package views.html.mod
 
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object menu {
+object menu:
 
   def apply(active: String)(implicit ctx: Context) =
     st.nav(cls := "page-menu__menu subnav")(
@@ -51,4 +51,3 @@ object menu {
       isGranted(_.Cli) option
         a(cls := active.active("cli"), href := routes.Dev.cli)("CLI")
     )
-}

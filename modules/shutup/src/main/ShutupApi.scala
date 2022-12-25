@@ -1,9 +1,9 @@
 package lila.shutup
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
-import lila.db.dsl._
-import lila.game.GameRepo
+import lila.db.dsl.{ given, * }
+import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.shutup.PublicSource
 import lila.user.{ User, UserRepo }
 
@@ -13,12 +13,12 @@ final class ShutupApi(
     userRepo: UserRepo,
     relationApi: lila.relation.RelationApi,
     reporter: lila.hub.actors.Report
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  implicit private val UserRecordBSONHandler = Macros.handler[UserRecord]
-  import PublicLine.PublicLineBSONHandler
+  private given BSONDocumentHandler[UserRecord] = Macros.handler
+  import PublicLine.given
 
-  def getPublicLines(userId: User.ID): Fu[List[PublicLine]] =
+  def getPublicLines(userId: UserId): Fu[List[PublicLine]] =
     coll
       .find($doc("_id" -> userId), $doc("pub" -> 1).some)
       .one[Bdoc]
@@ -26,27 +26,27 @@ final class ShutupApi(
         ~_.flatMap(_.getAsOpt[List[PublicLine]]("pub"))
       }
 
-  def publicForumMessage(userId: User.ID, text: String) = record(userId, text, TextType.PublicForumMessage)
-  def teamForumMessage(userId: User.ID, text: String)   = record(userId, text, TextType.TeamForumMessage)
-  def publicChat(userId: User.ID, text: String, source: PublicSource) =
+  def publicForumMessage(userId: UserId, text: String) = record(userId, text, TextType.PublicForumMessage)
+  def teamForumMessage(userId: UserId, text: String)   = record(userId, text, TextType.TeamForumMessage)
+  def publicChat(userId: UserId, text: String, source: PublicSource) =
     record(userId, text, TextType.PublicChat, source.some)
 
-  def privateChat(chatId: String, userId: User.ID, text: String) =
-    gameRepo.getSourceAndUserIds(chatId) flatMap {
+  def privateChat(chatId: String, userId: UserId, text: String) =
+    gameRepo.getSourceAndUserIds(GameId(chatId)) flatMap {
       case (source, _) if source.has(lila.game.Source.Friend) => funit // ignore challenges
       case (_, userIds) =>
         record(userId, text, TextType.PrivateChat, none, userIds find (userId !=))
     }
 
-  def privateMessage(userId: User.ID, toUserId: User.ID, text: String) =
+  def privateMessage(userId: UserId, toUserId: UserId, text: String) =
     record(userId, text, TextType.PrivateMessage, none, toUserId.some)
 
   private def record(
-      userId: User.ID,
+      userId: UserId,
       text: String,
       textType: TextType,
       source: Option[PublicSource] = None,
-      toUserId: Option[User.ID] = None
+      toUserId: Option[UserId] = None
   ): Funit =
     userRepo isTroll userId flatMap {
       case true => funit
@@ -69,8 +69,8 @@ final class ShutupApi(
                 "$slice" -> -textType.rotation
               )
             ) ++ pushPublicLine
-            coll.ext
-              .findAndUpdate[UserRecord](
+            coll
+              .findAndUpdateSimplified[UserRecord](
                 selector = $id(userId),
                 update = $push(push),
                 fetchNewObject = true,
@@ -108,4 +108,3 @@ final class ShutupApi(
           s"${r.textType.name}: ${r.nbBad} dubious (out of ${r.ratios.size})"
       }
       .mkString("\n")
-}

@@ -2,10 +2,10 @@ package lila.insight
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.config
-import lila.common.Heapsort.implicits._
+import lila.common.Heapsort.botN
 import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
 
@@ -15,14 +15,14 @@ final class InsightApi(
     gameRepo: GameRepo,
     indexer: InsightIndexer,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import InsightApi._
+  import InsightApi.*
 
-  private val userCache = cacheApi[User.ID, InsightUser](1024, "insight.user") {
+  private val userCache = cacheApi[UserId, InsightUser](1024, "insight.user") {
     _.expireAfterWrite(15 minutes).maximumSize(4096).buildAsyncFuture(computeUser)
   }
-  private def computeUser(userId: User.ID): Fu[InsightUser] =
+  private def computeUser(userId: UserId): Fu[InsightUser] =
     storage count userId flatMap {
       case 0 => fuccess(InsightUser(0, Nil, Nil))
       case count =>
@@ -30,6 +30,7 @@ final class InsightApi(
           InsightUser(count, families, openings)
         }
     }
+  private given Ordering[GameId] = stringOrdering
 
   def insightUser(user: User): Fu[InsightUser] = userCache get user.id
 
@@ -79,15 +80,12 @@ final class InsightApi(
       .void
 
   def coll = storage.coll
-}
 
-object InsightApi {
+object InsightApi:
 
   sealed trait UserStatus
-  object UserStatus {
+  object UserStatus:
     case object NoGame extends UserStatus // the user has no rated games
     case object Empty  extends UserStatus // insights not yet generated
     case object Stale  extends UserStatus // new games not yet generated
     case object Fresh  extends UserStatus // up to date
-  }
-}

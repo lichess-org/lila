@@ -1,10 +1,10 @@
 package controllers
 
-import lila.app._
+import lila.app.{ given, * }
 
-final class Irwin(env: Env) extends LilaController(env) {
+final class Irwin(env: Env) extends LilaController(env):
 
-  import lila.irwin.JSONHandlers.reportReader
+  import lila.irwin.JSONHandlers.given
 
   def dashboard =
     Secure(_.MarkEngine) { implicit ctx => _ =>
@@ -28,7 +28,7 @@ final class Irwin(env: Env) extends LilaController(env) {
   def eventStream =
     Scoped() { req => me =>
       IfGranted(_.Admin, req, me) {
-        noProxyBuffer(Ok.chunked(env.irwin.irwinStream())).fuccess
+        noProxyBuffer(Ok.chunked(env.irwin.irwinStream())).toFuccess
       }
     }
 
@@ -38,4 +38,3 @@ final class Irwin(env: Env) extends LilaController(env) {
         Ok(views.html.kaladin.dashboard(d))
       }
     }
-}

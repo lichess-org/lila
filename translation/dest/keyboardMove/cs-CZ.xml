@@ -4,6 +4,8 @@
   <string name="performAMove">Provést tah</string>
   <string name="movePieceFromE2ToE4">Přesunout figuru z e2 na e4</string>
   <string name="moveKnightToC3">Přesunout jezdce na c3</string>
+  <string name="kingsideCastle">Malá rošáda</string>
+  <string name="queensideCastle">Velká rošáda</string>
   <string name="offerOrAcceptDraw">Nabídnout nebo přijmout remízu</string>
   <string name="readOutClocks">Přečíst čas</string>
   <string name="readOutOpponentName">Přečíst jméno soupeře</string>

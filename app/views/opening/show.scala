@@ -2,16 +2,16 @@ package views.html.opening
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.NamePart
 import lila.opening.{ OpeningPage, OpeningQuery }
 import lila.puzzle.PuzzleOpening
 
-object show {
+object show:
 
-  import bits._
+  import bits.*
 
   def apply(page: OpeningPage, puzzleKey: Option[String])(implicit ctx: Context) =
     views.html.base.layout(
@@ -22,11 +22,11 @@ object show {
         .OpenGraph(
           `type` = "article",
           image = cdnUrl(
-            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.opening.flatMap(_.uci.split(" ").lastOption), none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.opening.flatMap(_.lastUci).map(_.uci), none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = page.name,
           url = s"$netBaseUrl${queryUrl(page.query)}",
-          description = page.opening.??(_.pgn)
+          description = page.opening.??(_.pgn.value)
         )
         .some,
       csp = defaultCsp.withInlineIconFont.some
@@ -83,7 +83,7 @@ object show {
                 a(
                   cls      := "button text",
                   dataIcon := "",
-                  href     := s"${routes.UserAnalysis.pgn(page.query.pgn mkString "_")}#explorer"
+                  href     := s"${routes.UserAnalysis.pgn(page.query.sans mkString "_")}#explorer"
                 )(trans.openingExplorer())
               ),
               if (page.explored.??(_.history).nonEmpty)
@@ -116,8 +116,7 @@ object show {
       div(
         cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom",
         st.data("pgn")   := game.pgn.toString,
-        st.data("ply")   := page.query.pgn.size + 1,
+        st.data("ply")   := page.query.sans.size + 1,
         st.data("title") := titleGame(game.game)
       )(lpvPreload)
     })
-}

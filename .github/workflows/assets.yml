@@ -7,14 +7,14 @@ on:
       - 'public/**'
       - 'ui/**'
       - 'package.json'
-      - 'yarn.lock'
+      - 'pnpm-lock.yaml'
   pull_request:
     paths:
       - '.github/workflows/assets.yml'
       - 'public/**'
       - 'ui/**'
       - 'package.json'
-      - 'yarn.lock'
+      - 'pnpm-lock.yaml'
 
 jobs:
   assets:
@@ -23,11 +23,15 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
+      - uses: pnpm/action-setup@v2
+        with:
+          version: '7.18.2'
       - run: git submodule absorbgitdirs
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
-          cache: yarn
+          node-version: '19'
+          cache: pnpm
+      - run: pnpm install
       - uses: actions/checkout@v3
         with:
           repository: lichess-org/ab
@@ -36,10 +40,10 @@ jobs:
           path: ab
         continue-on-error: true
         id: ab
-      - run: yarn link --cwd "$GITHUB_WORKSPACE/ab" && yarn link ab --cwd ui/round
+      - run: pnpm link "$GITHUB_WORKSPACE/ab"
         if: steps.ab.outcome == 'success'
-      - run: ./ui/build prod
-      - run: cd ui && yarn run test && cd -
+      - run: ./ui/build --no-install -p
+      - run: cd ui && pnpm run test && cd -
       - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
       - run: cd assets && tar -cvpJf ../assets.tar.xz . && cd -
         env:

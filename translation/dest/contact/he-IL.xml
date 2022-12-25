@@ -71,6 +71,6 @@
   <string name="videosAndBooks">אתם יכול להציג את Lichess בסרטונים שלכם, ואתם יכול להדפיס צילומי מסך מתוך לִיצֶ\'ס בספרים שלכם.</string>
   <string name="creditAppreciated">מתן קרדיט מוערך אך אינו נדרש.</string>
   <string name="noneOfTheAbove">משהו אחר</string>
-  <string name="sendEmailAt">שלחו לנו אימייל ב%s.</string>
+  <string name="sendEmailAt">שלחו לנו אימייל ל־%s.</string>
   <string name="explainYourRequest">אנא הסבירו את בקשתכם בבירור וביסודיות. ציינו את שם המשתמש שלכם בליצ\'ס וכל מידע שיכול לעזור לנו לעזור לכם.</string>
 </resources>

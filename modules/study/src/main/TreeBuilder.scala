@@ -1,22 +1,20 @@
 package lila.study
 
-import chess.opening._
+import chess.opening.*
 import chess.variant.Variant
 import lila.tree
 
-object TreeBuilder {
+object TreeBuilder:
 
   private val initialStandardDests = chess.Game(chess.variant.Standard).situation.destinations
 
-  def apply(root: Node.Root, variant: Variant): tree.Root = {
+  def apply(root: Node.Root, variant: Variant): tree.Root =
     val dests =
-      if (variant.standard && root.fen.initial) initialStandardDests
-      else {
+      if (variant.standard && root.fen.isInitial) initialStandardDests
+      else
         val sit = chess.Game(variant.some, root.fen.some).situation
         sit.playable(false) ?? sit.destinations
-      }
     makeRoot(root, variant).copy(dests = dests.some)
-  }
 
   def toBranch(node: Node, variant: Variant): tree.Branch =
     tree.Branch(
@@ -33,7 +31,7 @@ object TreeBuilder {
       crazyData = node.crazyData,
       eval = node.score.map(_.eval),
       children = toBranches(node.children, variant),
-      opening = Variant.openingSensibleVariants(variant) ?? FullOpeningDB.findByFen(node.fen),
+      opening = Variant.list.openingSensibleVariants(variant) ?? OpeningDb.findByEpdFen(node.fen),
       forceVariation = node.forceVariation
     )
 
@@ -50,9 +48,8 @@ object TreeBuilder {
       crazyData = root.crazyData,
       eval = root.score.map(_.eval),
       children = toBranches(root.children, variant),
-      opening = Variant.openingSensibleVariants(variant) ?? FullOpeningDB.findByFen(root.fen)
+      opening = Variant.list.openingSensibleVariants(variant) ?? OpeningDb.findByEpdFen(root.fen)
     )
 
   private def toBranches(children: Node.Children, variant: Variant): List[tree.Branch] =
     children.nodes.view.map(toBranch(_, variant)).toList
-}

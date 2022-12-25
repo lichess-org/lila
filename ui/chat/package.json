@@ -8,21 +8,21 @@
   "types": "dist/main.d.ts",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "scripts": {
-    "compile": "tsc --incremental --declaration --inlineSourceMap",
-    "dev": "$npm_execpath run compile && rollup --failAfterWarnings --config",
-    "prod": "$npm_execpath run compile && rollup --failAfterWarnings --config --config-prod"
-  },
   "dependencies": {
-    "common": "2.0.0",
-    "palantir": "2.0.0",
-    "snabbdom": "^3.3.1"
+    "@types/cash": "workspace:*",
+    "@types/lichess": "workspace:*",
+    "common": "workspace:*",
+    "palantir": "workspace:*",
+    "snabbdom": "^3.5.1"
   },
-  "devDependencies": {
-    "@build/rollupProject": "2.0.0",
-    "@types/cash": "8.0.0",
-    "@types/lichess": "2.0.0",
-    "rollup": "^2",
-    "typescript": "^4"
+  "scripts": {
+    "compile": "tsc",
+    "dev": "tsc",
+    "prod": "tsc"
+  },
+  "lichess": {
+    "bundles": {
+      "src/main.ts": "chat"
+    }
   }
 }

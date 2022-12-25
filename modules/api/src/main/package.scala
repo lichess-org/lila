@@ -1,3 +1,5 @@
-package lila
+package lila.api
 
-package object api extends PackageObject
+export lila.Lila.{ *, given }
+
+private val logger = lila log "api"

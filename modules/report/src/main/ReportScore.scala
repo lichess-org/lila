@@ -6,7 +6,7 @@ final private class ReportScore(
     getAccuracy: Report.Candidate => Fu[Option[Accuracy]],
     gameRepo: GameRepo,
     domain: lila.common.config.NetDomain
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def apply(candidate: Report.Candidate): Fu[Report.Candidate.Scored] =
     getAccuracy(candidate) map { accuracy =>
@@ -14,14 +14,15 @@ final private class ReportScore(
         impl.accuracyScore(accuracy) +
         impl.reporterScore(candidate.reporter) +
         impl.autoScore(candidate)
-    } map impl.fixedAutoScore(candidate) map
-      Report.Score map
+    } map impl.fixedAutoScore(candidate) map {
+      Report.Score(_)
+    } map
       (_.withinBounds) map
       candidate.scored flatMap
       impl.dropScoreIfCheatReportHasNoAnalyzedGames map
       (_.withScore(_.withinBounds))
 
-  private object impl {
+  private object impl:
 
     val baseScore = 20
 
@@ -46,13 +47,11 @@ final private class ReportScore(
     private val gameRegex = ReportForm gameLinkRegex domain
 
     def dropScoreIfCheatReportHasNoAnalyzedGames(c: Report.Candidate.Scored): Fu[Report.Candidate.Scored] =
-      if (c.candidate.isCheat & !c.candidate.isIrwinCheat & !c.candidate.isKaladinCheat) {
-        val gameIds = gameRegex.findAllMatchIn(c.candidate.text).toList.take(20).map(_.group(1))
-        def isUsable(gameId: Game.ID) = gameRepo analysed gameId map { _.exists(_.turns > 30) }
+      if (c.candidate.isCheat & !c.candidate.isIrwinCheat & !c.candidate.isKaladinCheat)
+        val gameIds = gameRegex.findAllMatchIn(c.candidate.text).toList.take(20).map(m => GameId(m.group(1)))
+        def isUsable(gameId: GameId) = gameRepo analysed gameId map { _.exists(_.ply > 30) }
         lila.common.Future.exists(gameIds)(isUsable) map {
           case true  => c
-          case false => c.withScore(_ / 3)
+          case false => c.withScore(_.map(_ / 3))
         }
-      } else fuccess(c)
-  }
-}
+      else fuccess(c)

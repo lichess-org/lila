@@ -363,6 +363,7 @@
   <string name="siteDescription">Servidor de ajedrez en línea gratuito. Juega al ajedrez en una interfaz simple. Sin registro, sin publicidad, sin necesidad de complementos. Juega contra el ordenador, amigos u oponentes desconocidos.</string>
   <string name="xJoinedTeamY">%1$s se unió al equipo %2$s</string>
   <string name="xCreatedTeamY">%1$s creó el equipo %2$s</string>
+  <string name="startedStreaming">comenzó a transmitir</string>
   <string name="xStartedStreaming">%s comenzó a emitir</string>
   <string name="averageElo">Puntuación promedio</string>
   <string name="location">Ubicación</string>
@@ -538,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escribe aquí tus notas privadas</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escribe una nota privada sobre este usuario</string>
+  <string name="noNoteYet">Aún no hay notas</string>
   <string name="invalidUsernameOrPassword">Nombre de usuario o contraseña erróneo</string>
   <string name="incorrectPassword">Contraseña incorrecta</string>
   <string name="invalidAuthenticationCode">Código de autenticación inválido</string>
@@ -737,6 +740,7 @@
   <string name="light">Claro</string>
   <string name="dark">Oscuro</string>
   <string name="transparent">Transparente</string>
+  <string name="deviceTheme">Tema del dispositivo</string>
   <string name="backgroundImageUrl">URL de imagen de fondo:</string>
   <string name="boardGeometry">Geometría del tablero</string>
   <string name="boardTheme">Tema del tablero</string>

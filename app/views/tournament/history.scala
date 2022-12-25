@@ -2,14 +2,14 @@ package views.html.tournament
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.tournament.Schedule.Freq
 import lila.tournament.Tournament
 
-object history {
+object history:
 
   def apply(freq: Freq, pager: Paginator[Tournament])(implicit ctx: Context) =
     views.html.base.layout(
@@ -53,4 +53,3 @@ object history {
     Freq.Eastern,
     Freq.Hourly
   )
-}

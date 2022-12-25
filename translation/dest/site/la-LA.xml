@@ -17,6 +17,8 @@
   <string name="stalemate">Rex impeditus</string>
   <string name="white">Albus</string>
   <string name="black">Ater</string>
+  <string name="asWhite">sicut album</string>
+  <string name="asBlack">sicut nigrum</string>
   <string name="randomColor">Latus fortuitus</string>
   <string name="createAGame">Ludum facere</string>
   <string name="whiteIsVictorious">Albus victor est</string>
@@ -47,13 +49,17 @@
   <string name="blackResigned">Ater concessit</string>
   <string name="whiteLeftTheGame">Albus ludō decessus est</string>
   <string name="blackLeftTheGame">Ater ludō decessus est</string>
+  <string name="whiteDidntMove">Album non movet</string>
+  <string name="blackDidntMove">Nigrum non movet</string>
   <string name="requestAComputerAnalysis">Explicatio, quae ordinatrō fuit, quaerere</string>
   <string name="computerAnalysis">Explicatio quae ordinatrō fuit</string>
   <string name="computerAnalysisAvailable">Explicatio, ordinatrō fit, praebitus est</string>
+  <string name="computerAnalysisDisabled">Computatrum analysis pausa est</string>
   <string name="analysis">Explicatio</string>
   <string name="depthX">Profunditas %s</string>
   <string name="usingServerAnalysis">Explicatiō credentarii utitur</string>
   <string name="loadingEngine">Ordinatrum incohatur ...</string>
+  <string name="calculatingMoves">Computare movet...</string>
   <string name="cloudAnalysis">Explicatio nimbō</string>
   <string name="goDeeper">Plus analyzare</string>
   <string name="showThreat">Ostende minaciam</string>
@@ -85,6 +91,7 @@
     <item quantity="other">Mattum in %s semissibus</item>
   </plurals>
   <string name="noGameFound">Nulla ludum inventa</string>
+  <string name="openings">Principia</string>
   <string name="openingExplorer">Aperis indagatorem</string>
   <string name="xOpeningExplorer">%s aperis indagatorem</string>
   <string name="winPreventedBy50MoveRule">victoria prohibuit ab 50 actionis modo</string>
@@ -170,6 +177,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s hora</item>
     <item quantity="other">%s horae</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s temporis punctum</item>
+    <item quantity="other">%s temporis puncta</item>
   </plurals>
   <string name="time">Tempus</string>
   <string name="rating">Ordo</string>
@@ -320,6 +331,7 @@
   <string name="siteDescription">Liberi scacci in rete. Lude jam scaccos super clarissimas pagines. Nec conventum, nec praeconia mercatoria, nec plugin necesse sunt. Lude scaccos sive cum computatro, sive cum amicis, sive cum aleatoriis adversariis.</string>
   <string name="xJoinedTeamY">%1$s manu %2$s se iunxit</string>
   <string name="xCreatedTeamY">%1$s manum %2$s creavit</string>
+  <string name="xStartedStreaming">%s profluus incepit</string>
   <string name="averageElo">Medius ordo</string>
   <string name="location">Locus</string>
   <string name="filterGames">Lusiones percolare</string>
@@ -327,6 +339,7 @@
   <string name="apply">Adhibere</string>
   <string name="save">Serva</string>
   <string name="leaderboard">Ordines</string>
+  <string name="screenshotCurrentPosition">Depingere currens situm</string>
   <string name="pasteTheFenStringHere">Huc FEN catenam addere</string>
   <string name="pasteThePgnStringHere">Huc PGN catenam addere</string>
   <string name="fromPosition">A statu</string>
@@ -393,6 +406,7 @@
   <string name="losses">Clades</string>
   <string name="createdBy">Factum ab</string>
   <string name="tournamentIsStarting">Certamen mox incipiet</string>
+  <string name="pause">Pausa</string>
   <string name="youArePlaying">Ludis!</string>
   <string name="winRate">Victoriarum proportio</string>
   <string name="performance">Gressus</string>

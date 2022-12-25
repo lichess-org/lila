@@ -1,19 +1,19 @@
 package controllers
 
-import play.api.mvc._
+import play.api.mvc.*
 
 import lila.api.Context
-import lila.app._
-import lila.coach.{ Coach => CoachModel, CoachPager, CoachProfileForm }
-import views._
+import lila.app.{ given, * }
+import lila.coach.{ Coach as CoachModel, CoachPager, CoachProfileForm }
+import views.*
 import lila.user.Countries
 
-final class Coach(env: Env) extends LilaController(env) {
+final class Coach(env: Env) extends LilaController(env):
 
   private def api = env.coach.api
 
   def homeLang =
-    LangPage(routes.Learn.index)(searchResults("all", CoachPager.Order.Login.key, "all", 1)(_)) _
+    LangPage(routes.Learn.index)(searchResults("all", CoachPager.Order.Login.key, "all", 1)(_))
 
   def all(page: Int) = search("all", CoachPager.Order.Login.key, "all", page)
 
@@ -22,7 +22,7 @@ final class Coach(env: Env) extends LilaController(env) {
       searchResults(l, o, c, page)
     }
 
-  private def searchResults(l: String, o: String, c: String, page: Int)(implicit ctx: Context) = {
+  private def searchResults(l: String, o: String, c: String, page: Int)(implicit ctx: Context) =
     pageHit
     val order   = CoachPager.Order(o)
     val lang    = (l != "all") ?? play.api.i18n.Lang.get(l)
@@ -32,38 +32,34 @@ final class Coach(env: Env) extends LilaController(env) {
       countryCodes <- env.coach.api.allCountries
       pager        <- env.coach.pager(lang, order, country, page)
     } yield Ok(html.coach.index(pager, lang, order, langCodes, countryCodes, country))
-  }
 
-  def show(username: String) =
+  def show(username: UserStr) =
     Open { implicit ctx =>
       OptionFuResult(api find username) { c =>
         WithVisibleCoach(c) {
           for {
-            stu <- env.study.api.publicByIds {
-              c.coach.profile.studyIds.map(_.value).map(lila.study.Study.Id.apply)
-            }
+            stu      <- env.study.api.publicByIds(c.coach.profile.studyIds)
             studies  <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
             posts    <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
             reviews  <- api.reviews.approvedByCoach(c.coach)
             myReview <- ctx.me.?? { api.reviews.find(_, c.coach) }
-          } yield {
+          } yield
             lila.mon.coach.pageView.profile(c.coach.id.value).increment()
             Ok(html.coach.show(c, reviews, studies, posts, myReview))
-          }
         }
       }
     }
 
-  def review(username: String) =
+  def review(username: UserStr) =
     AuthBody { implicit ctx => me =>
       OptionFuResult(api find username) { c =>
         NoBot {
           WithVisibleCoach(c) {
-            implicit val req = ctx.body
+            given play.api.mvc.Request[?] = ctx.body
             lila.coach.CoachReviewForm.form
               .bindFromRequest()
               .fold(
-                _ => Redirect(routes.Coach.show(c.user.username)).fuccess,
+                _ => Redirect(routes.Coach.show(c.user.username)).toFuccess,
                 data => {
                   if (data.score < 4 && !me.marks.reportban)
                     env.report.api.create(
@@ -96,13 +92,13 @@ final class Coach(env: Env) extends LilaController(env) {
   def modReview(id: String) =
     SecureBody(_.DisapproveCoachReview) { implicit ctx => me =>
       OptionFuResult(api.reviews byId id) { review =>
-        env.mod.logApi.coachReview(me.id, review.coachId.value, review.userId) >>
+        env.mod.logApi.coachReview(me.id into ModId, review.coachId.userId, review.userId) >>
           api.reviews.mod(review) inject Redirect(routes.Coach.show(review.coachId.value))
       }
     }
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =
-    if (c.isListed || ctx.me.??(c.coach.is) || isGranted(_.Admin)) f
+    if (c.isListed || ctx.me.exists(_ is c.coach) || isGranted(_.Admin)) f
     else notFound
 
   def edit =
@@ -118,7 +114,7 @@ final class Coach(env: Env) extends LilaController(env) {
   def editApply =
     SecureBody(_.Coach) { implicit ctx => me =>
       OptionFuResult(api findOrInit me) { c =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         CoachProfileForm
           .edit(c.coach)
           .bindFromRequest()
@@ -139,13 +135,11 @@ final class Coach(env: Env) extends LilaController(env) {
   def pictureApply =
     SecureBody(parse.multipartFormData)(lila.security.Permission.Coach) { implicit ctx => me =>
       OptionFuResult(api findOrInit me) { c =>
-        ctx.body.body.file("picture") match {
+        ctx.body.body.file("picture") match
           case Some(pic) =>
             api.uploadPicture(c, pic) recover { case e: lila.base.LilaException =>
               BadRequest(html.coach.picture(c, e.message.some))
             } inject Redirect(routes.Coach.edit)
           case None => fuccess(Redirect(routes.Coach.edit))
-        }
       }
     }
-}

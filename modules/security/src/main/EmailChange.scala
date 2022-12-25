@@ -1,9 +1,10 @@
 package lila.security
 
-import scalatags.Text.all._
-import lila.common.config._
+import scalatags.Text.all.*
+import lila.common.config.*
 import lila.common.EmailAddress
-import lila.i18n.I18nKeys.{ emails => trans }
+import lila.common.Iso
+import lila.i18n.I18nKeys.{ emails as trans }
 import lila.user.{ User, UserRepo }
 import lila.mailer.Mailer
 
@@ -12,16 +13,16 @@ final class EmailChange(
     mailer: Mailer,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import Mailer.html._
+  import Mailer.html.*
 
   def send(user: User, email: EmailAddress): Funit =
     !email.looksLikeFakeEmail ?? {
       tokener make TokenPayload(user.id, email).some flatMap { token =>
         lila.mon.email.send.change.increment()
-        implicit val lang = user.realLang | lila.i18n.defaultLang
-        val url           = s"$baseUrl/account/email/confirm/$token"
+        given play.api.i18n.Lang = user.realLang | lila.i18n.defaultLang
+        val url                  = s"$baseUrl/account/email/confirm/$token"
         lila.log("auth").info(s"Change email URL ${user.username} $email $url")
         mailer send Mailer.Message(
           to = email,
@@ -55,20 +56,18 @@ ${trans.common_orPaste.txt()}
       }
     }
 
-  case class TokenPayload(userId: User.ID, email: EmailAddress)
+  case class TokenPayload(userId: UserId, email: EmailAddress)
 
-  implicit final private val payloadSerializable = new StringToken.Serializable[Option[TokenPayload]] {
+  private given Iso.StringIso[Option[TokenPayload]] with
     private val sep = ' '
-    def read(str: String) =
-      str.split(sep) match {
-        case Array(id, email) => EmailAddress from email map { TokenPayload(id, _) }
+    val from = str =>
+      str.split(sep) match
+        case Array(id, email) => EmailAddress from email map { TokenPayload(UserId(id), _) }
         case _                => none
-      }
-    def write(a: Option[TokenPayload]) =
-      a ?? { case TokenPayload(userId, EmailAddress(email)) =>
+    val to = a =>
+      a ?? { case TokenPayload(userId, email) =>
         s"$userId$sep$email"
       }
-  }
 
   private val tokener = new StringToken[Option[TokenPayload]](
     secret = tokenerSecret,
@@ -77,4 +76,3 @@ ${trans.common_orPaste.txt()}
         userRepo email userId dmap (_.??(_.value))
       }
   )
-}

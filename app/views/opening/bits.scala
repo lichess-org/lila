@@ -1,19 +1,19 @@
 package views.html.opening
 
 import cats.data.NonEmptyList
-import chess.opening.FullOpening
+import chess.opening.{ OpeningKey, Opening }
 import controllers.routes
-import play.api.libs.json.{ JsArray, Json }
+import play.api.libs.json.{ JsArray, Json, JsObject }
 import play.api.mvc.Call
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.opening.OpeningQuery.Query
-import lila.opening.{ Opening, OpeningConfig, OpeningExplored, OpeningPage, OpeningQuery, ResultCounts }
+import lila.opening.{ NameSection, OpeningConfig, OpeningExplored, OpeningPage, OpeningQuery, ResultCounts }
 
-object bits {
+object bits:
 
   def beta = span(cls := "opening__beta")("BETA")
 
@@ -35,15 +35,15 @@ object bits {
               resultSegments(next.result)
             },
             span(cls := "opening__next__board")(
-              views.html.board.bits.mini(next.fen, lastMove = next.uci.uci)(span)
+              views.html.board.bits.mini(next.fen.board, lastMove = next.uci.some)(span)
             )
           )
         )
       }
     )
 
-  def configForm(config: OpeningConfig, thenTo: String)(implicit ctx: Context) = {
-    import OpeningConfig._
+  def configForm(config: OpeningConfig, thenTo: String)(implicit ctx: Context) =
+    import OpeningConfig.*
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
         div(cls := "opening__config__summary__short")(
@@ -60,7 +60,7 @@ object bits {
       ),
       postForm(
         cls    := "opening__config__form",
-        action := routes.Opening.config(thenTo)
+        action := routes.Opening.config(thenTo.some.filter(_.nonEmpty) | "index")
       )(
         checkboxes(form("speeds"), speedChoices, config.speeds.map(_.id)),
         checkboxes(form("ratings"), ratingChoices, config.ratings),
@@ -69,7 +69,6 @@ object bits {
         )
       )
     )
-  }
 
   def moreJs(page: Option[OpeningPage])(implicit ctx: Context) = frag(
     jsModule("opening"),
@@ -77,7 +76,7 @@ object bits {
       page match {
         case Some(p) =>
           s"""LichessOpening.page(${safeJsonValue(
-              Json.obj("history" -> p.explored.??(_.history))
+              Json.obj("history" -> p.explored.??[List[Float]](_.history))
             )})"""
         case None =>
           s"""LichessOpening.search()"""
@@ -85,8 +84,8 @@ object bits {
     }
   )
 
-  def splitName(op: FullOpening) =
-    Opening.sectionsOf(op.name) match {
+  def splitName(op: Opening) =
+    NameSection.sectionsOf(op.name) match
       case NonEmptyList(family, variations) =>
         frag(
           span(cls := "opening-name__family")(family),
@@ -98,13 +97,12 @@ object bits {
             ", "
           )
         )
-    }
 
   def queryUrl(q: OpeningQuery): Call = queryUrl(q.query)
   def queryUrl(q: Query): Call =
     routes.Opening.byKeyAndMoves(q.key, q.moves.??(_.replace(" ", "_")))
-  def openingUrl(o: FullOpening) = keyUrl(o.key)
-  def keyUrl(key: String)        = routes.Opening.byKeyAndMoves(key, "")
+  def openingUrl(o: Opening)  = keyUrl(o.key)
+  def keyUrl(key: OpeningKey) = routes.Opening.byKeyAndMoves(key, "")
 
   val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
 
@@ -112,7 +110,7 @@ object bits {
   def percentFrag(v: Double)   = frag(strong(percentNumber(v)), "%")
 
   def resultSegments(result: ResultCounts) = result.sum > 0 option {
-    import result._
+    import result.*
     val (blackV, drawsV, whiteV) = exaggerateResults(result)
     frag(
       resultSegment("black", "Black wins", blackPercent, blackV),
@@ -121,7 +119,7 @@ object bits {
     )
   }
 
-  def resultSegment(key: String, help: String, percent: Double, visualPercent: Double) = {
+  def resultSegment(key: String, help: String, percent: Double, visualPercent: Double) =
     val visible = visualPercent > 7
     val text    = s"${Math.round(percent)}%"
     span(
@@ -129,10 +127,9 @@ object bits {
       style := s"height:${percentNumber(visualPercent)}%",
       title := s"$text $help"
     )(visible option text)
-  }
 
-  private def exaggerateResults(result: ResultCounts) = {
-    import result._
+  private def exaggerateResults(result: ResultCounts) =
+    import result.*
     val (lower, upper)   = (30d, 70d)
     val factor           = 100d / (upper - lower)
     val drawSquishing    = 50d / 100d
@@ -141,6 +138,3 @@ object bits {
     val blackTransformed = (blackPercent - lower) * factor + drawHalfSquished
     val whiteTransformed = (whitePercent - lower) * factor + drawHalfSquished
     (blackTransformed, drawTransformed, whiteTransformed)
-  }
-
-}

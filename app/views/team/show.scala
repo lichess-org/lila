@@ -3,28 +3,31 @@ package views.html.team
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.mashup.TeamInfo
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.common.String.html.safeJsonValue
+import lila.common.Json.given
 import lila.team.Team
 import lila.mod.Modlog
+import lila.socket.SocketVersion
+import lila.socket.SocketVersion.given
 
-object show {
+object show:
 
-  import trans.team._
+  import trans.team.*
 
   def apply(
       t: Team,
       members: Paginator[lila.common.LightUser],
       info: TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
-      socketVersion: Option[lila.socket.Socket.SocketVersion],
+      socketVersion: Option[SocketVersion],
       requestedModView: Boolean = false,
       log: List[Modlog] = Nil
-  )(implicit
+  )(using
       ctx: Context
   ) =
     bits.layout(
@@ -41,7 +44,7 @@ object show {
         embedJsUnsafeLoadThen(s"""teamStart(${safeJsonValue(
             Json
               .obj("id" -> t.id)
-              .add("socketVersion" -> socketVersion.map(_.value))
+              .add("socketVersion" -> socketVersion)
               .add("chat" -> chatOption.map { chat =>
                 views.html.chat.json(
                   chat.chat,
@@ -61,7 +64,7 @@ object show {
       main(
         cls := "team-show box",
         socketVersion.map { v =>
-          data("socket-version") := v.value
+          data("socket-version") := v
         }
       )(
         boxTop(
@@ -251,14 +254,13 @@ object show {
 
   // handle special teams here
   private def joinButton(t: Team)(implicit ctx: Context) =
-    t.id match {
+    t.id.value match
       case "english-chess-players" => joinAt("https://ecf.octoknight.com/")
       case "ecf"                   => joinAt(routes.Team.show("english-chess-players").url)
       case _ =>
         postForm(cls := "inline", action := routes.Team.join(t.id))(
           submitButton(cls := "button button-green")(joinTeam())
         )
-    }
 
   private def joinAt(url: String)(implicit ctx: Context) =
     a(cls := "button button-green", href := url)(joinTeam())
@@ -268,7 +270,7 @@ object show {
     ul(
       entries.map { e =>
         li(
-          userIdLink(e.mod.some),
+          userIdLink(e.mod.userId.some),
           " ",
           e.showAction,
           ": ",
@@ -277,4 +279,3 @@ object show {
       }
     )
   )
-}

@@ -1,16 +1,16 @@
 package lila.api
 
 import akka.stream.Materializer
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.chat.Chat
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.streamer.Streamer
 import lila.user.User
@@ -30,12 +30,12 @@ final class PersonalDataExport(
     coachApi: lila.coach.CoachApi,
     picfitUrl: lila.memo.PicfitUrl,
     mongoCacheApi: lila.memo.MongoCache.Api
-)(implicit ec: ExecutionContext, mat: Materializer) {
+)(using ec: ExecutionContext, mat: Materializer):
 
   private val lightPerSecond = 60
   private val heavyPerSecond = 30
 
-  def apply(user: User): Source[String, _] = {
+  def apply(user: User): Source[String, ?] =
 
     val intro =
       Source.futureSource {
@@ -63,7 +63,7 @@ final class PersonalDataExport(
     val followedUsers =
       Source.futureSource {
         relationEnv.api.fetchFollowing(user.id) map { userIds =>
-          Source(List(textTitle("Followed players")) ++ userIds)
+          Source(List(textTitle("Followed players")) ++ userIds.map(_.value))
         }
       }
 
@@ -133,7 +133,7 @@ final class PersonalDataExport(
     def gameChatsLookup(lookup: Bdoc) =
       gameEnv.gameRepo.coll
         .aggregateWith[Bdoc](readPreference = ReadPreference.secondaryPreferred) { framework =>
-          import framework._
+          import framework.*
           List(
             Match($doc(Game.BSONFields.playerUids -> user.id)),
             Project($id(true)),
@@ -146,7 +146,7 @@ final class PersonalDataExport(
           )
         }
         .documentSource()
-        .map { doc => doc.string("l").??(_.drop(user.id.size + 1)) }
+        .map { doc => doc.string("l").??(_.drop(user.id.value.size + 1)) }
         .throttle(heavyPerSecond, 1 second)
 
     val privateGameChats =
@@ -177,7 +177,7 @@ final class PersonalDataExport(
           .aggregateWith[Bdoc](
             readPreference = ReadPreference.secondaryPreferred
           ) { framework =>
-            import framework._
+            import framework.*
             List(
               Match($doc(Game.BSONFields.playerUids -> user.id)),
               Project($id(true)),
@@ -210,7 +210,7 @@ final class PersonalDataExport(
               "intro"  -> post.intro,
               "body"   -> post.markdown,
               "image"  -> post.image.??(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Large)),
-              "topics" -> post.topics.map(_.value).mkString(", ")
+              "topics" -> post.topics.mkString(", ")
             ).map { case (k, v) =>
               s"$k: $v"
             }.mkString("\n") + bigSep
@@ -219,7 +219,7 @@ final class PersonalDataExport(
 
     val outro = Source(List(textTitle("End of data export.")))
 
-    List(
+    List[Source[String, _]](
       intro,
       connections,
       followedUsers,
@@ -235,7 +235,6 @@ final class PersonalDataExport(
       outro
     ).foldLeft(Source.empty[String])(_ concat _)
       .keepAlive(15 seconds, () => " ")
-  }
 
   private val bigSep = "\n------------------------------------------\n"
 
@@ -243,4 +242,3 @@ final class PersonalDataExport(
 
   private val englishDateTimeFormatter = DateTimeFormat forStyle "MS"
   private def textDate(date: DateTime) = englishDateTimeFormatter print date
-}

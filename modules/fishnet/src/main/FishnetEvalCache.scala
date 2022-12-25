@@ -1,11 +1,11 @@
 package lila.fishnet
 
-import chess.format.Forsyth
+import chess.format.Fen
 import JsonApi.Request.Evaluation
 
 final private class FishnetEvalCache(
     evalCacheApi: lila.evalCache.EvalCacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   val maxPlies = 15
 
@@ -24,7 +24,7 @@ final private class FishnetEvalCache(
               cp = pv.score.cp,
               mate = pv.score.mate
             )
-            .invertIf((i + work.startPly) % 2 == 1), // fishnet evals are from POV
+            .invertIf((work.startPly + i).isOdd), // fishnet evals are from POV
           time = none,
           nodes = eval.knodes.intNodes.some,
           nps = none,
@@ -44,9 +44,8 @@ final private class FishnetEvalCache(
         _ => fuccess(Nil),
         _.zipWithIndex
           .map { case (sit, index) =>
-            evalCacheApi.getSinglePvEval(game.variant, Forsyth >> sit) dmap2 { index -> _ }
+            evalCacheApi.getSinglePvEval(game.variant, Fen write sit) dmap2 { index -> _ }
           }
           .sequenceFu
           .map(_.flatten)
       )
-}

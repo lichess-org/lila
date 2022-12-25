@@ -3,13 +3,13 @@ package round
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
-object player {
+object player:
 
   def apply(
       pov: Pov,
@@ -20,7 +20,7 @@ object player {
       playing: List[Pov],
       chatOption: Option[lila.chat.Chat.GameOrEvent],
       bookmarked: Boolean
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
     val chatJson = chatOption.map(_.either).map {
       case Left(c) =>
@@ -84,5 +84,3 @@ object player {
         div(cls := "round__underchat")(bits underchat pov.game)
       )
     )
-  }
-}

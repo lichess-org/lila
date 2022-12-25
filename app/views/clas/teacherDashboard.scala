@@ -1,17 +1,17 @@
 package views.html.clas
 
-import controllers.clas.routes.{ Clas => clasRoutes }
+import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite, ClasProgress, Student }
 import lila.common.String.html.richText
 import lila.rating.PerfType
 import lila.user.User
 
-object teacherDashboard {
+object teacherDashboard:
 
   private[clas] def layout(
       c: Clas,
@@ -151,7 +151,7 @@ object teacherDashboard {
               )
             ),
             tbody(
-              students.sortBy(_.user.username).map { case s @ Student.WithUser(_, user) =>
+              students.sortBy(_.user.username.value).map { case s @ Student.WithUser(_, user) =>
                 val prog = progress(user)
                 tr(
                   studentTd(c, s),
@@ -166,7 +166,7 @@ object teacherDashboard {
                   else td(dataSort := prog.millis)(showPeriod(prog.period)),
                   td(
                     if (progress.isPuzzle)
-                      a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.some))(
+                      a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.value.some))(
                         trans.puzzle.puzzleDashboard()
                       )
                     else
@@ -185,9 +185,9 @@ object teacherDashboard {
   def learn(
       c: Clas,
       students: List[Student.WithUser],
-      basicCompletion: Map[User.ID, Int],
-      practiceCompletion: Map[User.ID, Int],
-      coordScores: Map[User.ID, chess.Color.Map[Int]]
+      basicCompletion: Map[UserId, Int],
+      practiceCompletion: Map[UserId, Int],
+      coordScores: Map[UserId, chess.Color.Map[Int]]
   )(implicit ctx: Context) =
     layout(c, students, "progress")(
       progressHeader(c, none),
@@ -203,7 +203,7 @@ object teacherDashboard {
               )
             ),
             tbody(
-              students.sortBy(_.user.username).map { case s @ Student.WithUser(_, user) =>
+              students.sortBy(_.user.username.value).map { case s @ Student.WithUser(_, user) =>
                 val coord = coordScores.getOrElse(user.id, chess.Color.Map(0, 0))
                 tr(
                   studentTd(c, s),
@@ -241,7 +241,7 @@ object teacherDashboard {
             PerfType.Puzzle
           ).map { pt =>
             a(
-              cls  := progress.map(_.perfType.key.active(pt.key)),
+              cls  := progress.map(_.perfType.key.value.active(pt.key.value)),
               href := clasRoutes.progress(c.id.value, pt.key, progress.fold(7)(_.days))
             )(pt.trans)
           },
@@ -279,7 +279,7 @@ object teacherDashboard {
           )
         ),
         tbody(
-          students.sortBy(_.user.username).map { case s @ Student.WithUser(student, user) =>
+          students.sortBy(_.user.username.value).map { case s @ Student.WithUser(student, user) =>
             tr(
               studentTd(c, s),
               td(dataSort := user.perfs.bestRating, cls := "rating")(user.bestAny3Perfs.map {
@@ -311,4 +311,3 @@ object teacherDashboard {
         )
       )
     )
-}

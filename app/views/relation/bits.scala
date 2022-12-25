@@ -3,15 +3,15 @@ package views.html.relation
 import controllers.routes
 import play.api.mvc.Call
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.game.FavoriteOpponents
 import lila.relation.Related
 import lila.user.User
 
-object bits {
+object bits:
 
   def friends(u: User, pag: Paginator[Related])(implicit ctx: Context) =
     layout(s"${u.username} • ${trans.friends.txt()}")(
@@ -89,8 +89,7 @@ object bits {
               td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false))
             )
           },
-          pagerNextTable(pager, np => addQueryParameter(call.url, "page", np))
+          pagerNextTable(pager, np => addQueryParam(call.url, "page", np.toString))
         )
       else tbody(tr(td(colspan := 2)(trans.none())))
     )
-}

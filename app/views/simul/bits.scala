@@ -2,15 +2,15 @@ package views.html.simul
 
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object bits {
+object bits:
 
-  def link(simulId: lila.simul.Simul.ID): Frag =
+  def link(simulId: lila.simul.SimulId): Frag =
     a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
 
   def jsI18n()(implicit lang: Lang) = i18nJsObject(baseTranslations)
@@ -71,5 +71,4 @@ object bits {
     trans.by,
     trans.signIn,
     trans.mustBeInTeam
-  ).map(_.key)
-}
+  )

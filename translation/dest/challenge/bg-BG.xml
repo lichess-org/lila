@@ -22,4 +22,5 @@
   <string name="declineVariant">Не желая да играя този вариант в момента.</string>
   <string name="declineNoBot">Не приемам предизвикателства от ботове.</string>
   <string name="declineOnlyBot">Приемам предизвикателства само от ботове.</string>
+  <string name="inviteLichessUser">Или поканете Lichess потребител:</string>
 </resources>

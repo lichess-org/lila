@@ -61,7 +61,7 @@
   <string name="depthX">Глубина %s</string>
   <string name="usingServerAnalysis">Используется серверный анализ</string>
   <string name="loadingEngine">Загрузка движка...</string>
-  <string name="calculatingMoves">Идёт расчёт ходов...</string>
+  <string name="calculatingMoves">Вычисление...</string>
   <string name="engineFailed">Ошибка загрузки движка</string>
   <string name="cloudAnalysis">Облачный анализ</string>
   <string name="goDeeper">Анализировать глубже</string>
@@ -415,6 +415,7 @@
   <string name="siteDescription">Бесплатный шахматный сервер. Сыграйте в шахматы прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в шахматы с компьютером, друзьями или случайными соперниками.</string>
   <string name="xJoinedTeamY">%1$s вступил в клуб %2$s</string>
   <string name="xCreatedTeamY">%1$s организовал клуб %2$s</string>
+  <string name="startedStreaming">начал(а) стрим</string>
   <string name="xStartedStreaming">%s запустил стрим</string>
   <string name="averageElo">Средний рейтинг участников</string>
   <string name="location">Местоположение</string>
@@ -424,7 +425,7 @@
   <string name="save">Сохранить</string>
   <string name="leaderboard">Лучшие игроки</string>
   <string name="screenshotCurrentPosition">Сделать снимок этой позиции</string>
-  <string name="gameAsGIF">Партия в формате GIF</string>
+  <string name="gameAsGIF">Сохранить как GIF</string>
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
   <string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
   <string name="orUploadPgnFile">Или загрузите PGN-файл</string>
@@ -602,6 +603,8 @@
   <string name="blog">Блог</string>
   <string name="notes">Заметки</string>
   <string name="typePrivateNotesHere">Здесь вы можете оставить личные заметки об игре</string>
+  <string name="writeAPrivateNoteAboutThisUser">Написать приватную заметку об этом пользователе</string>
+  <string name="noNoteYet">Пока нет ни одной заметки</string>
   <string name="invalidUsernameOrPassword">Неверное имя пользователя или пароль</string>
   <string name="incorrectPassword">Неверный пароль</string>
   <string name="invalidAuthenticationCode">Неверный код аутентификации</string>
@@ -807,10 +810,11 @@
   <string name="anonymous">Аноним</string>
   <string name="yourScore">Ваш счёт: %s</string>
   <string name="language">Язык (Language)</string>
-  <string name="background">Фон</string>
-  <string name="light">Светлый</string>
-  <string name="dark">Тёмный</string>
-  <string name="transparent">Прозрачный</string>
+  <string name="background">Тема</string>
+  <string name="light">Светлая</string>
+  <string name="dark">Тёмная</string>
+  <string name="transparent">Прозрачная</string>
+  <string name="deviceTheme">Системная</string>
   <string name="backgroundImageUrl">URL фонового изображения:</string>
   <string name="boardGeometry">Вид и размер доски</string>
   <string name="boardTheme">Оформление доски</string>
@@ -956,7 +960,7 @@
   <string name="lichessPatronInfo">Lichess - это благотворительное и полностью бесплатное программное обеспечение с открытым исходным кодом.
 Все эксплуатационные расходы, разработка и контент финансируются исключительно за счет пожертвований пользователей.</string>
   <string name="coachManager">Для тренеров</string>
-  <string name="streamerManager">Управление трансляцией</string>
+  <string name="streamerManager">Управление стримом</string>
   <string name="cancelTournament">Отменить турнир</string>
   <string name="tournDescription">Описание турнира</string>
   <string name="tournDescriptionHelp">Хотите рассказать что-то пользователям? Постарайтесь быть лаконичны. Доступны ссылки в формате Markdown: [name](https://url)</string>

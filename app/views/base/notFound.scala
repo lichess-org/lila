@@ -1,13 +1,13 @@
 package views.html
 package base
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object notFound {
+object notFound:
 
   def apply()(implicit ctx: Context) =
     layout(
@@ -43,4 +43,3 @@ object notFound {
         )
       )
     }
-}

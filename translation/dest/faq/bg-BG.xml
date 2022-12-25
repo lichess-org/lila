@@ -11,7 +11,7 @@
   <string name="howCanIContributeToLichess">Как мога да допринеса за Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess съществува благодарение на дарения и усилията на екип от доброволци.</string>
   <string name="findMoreAndSeeHowHelp">Можете да научите повече за %1$s (включително %2$s). Ако искате да помогнете на Lichess, като дадете доброволно времето и уменията си, има много %3$s.</string>
-  <string name="beingAPatron">като меценат</string>
+  <string name="beingAPatron">като дарител</string>
   <string name="breakdownOfOurCosts">разбивка на нашите разходи</string>
   <string name="otherWaysToHelp">други начини за подпомагане</string>
   <string name="areThereWebsitesBasedOnLichess">Има ли уебсайтове, базирани на Lichess?</string>
@@ -84,6 +84,7 @@
   <string name="verificationForm">форма за верификация</string>
   <string name="noUpperCaseDot">Не.</string>
   <string name="canIChangeMyUsername">Мога ли да променя потребителското си име?</string>
+  <string name="usernamesCannotBeChanged">Не, поради технични и практически причини, промяната на потребителски имена не е позволена. Потребителските имена се използват на прекалено много места: бази данни, изтеглени файлове, записи, и в паметта на хората. Разрешено е да се разменят главни и малки букви, но само веднъж.</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">За съжаление не можем да върнем точки за рейтинг игри, загубени поради забавяне или прекъсване на връзката, независимо дали проблемът е бил от ваша или от наша страна. Последното обаче се случва много рядко. Също така имайте предвид, че когато Lichess се рестартира и поради това загубите по време, ние прекъсваме играта, за да предотвратим несправедлива загуба.</string>
   <string name="howToThreeDots">Как да...</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess може по желание да изпраща известия, например когато е ваш ред или сте получили лично съобщение.

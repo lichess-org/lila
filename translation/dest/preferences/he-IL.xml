@@ -3,6 +3,7 @@
   <string name="preferences">העדפות</string>
   <string name="display">תצוגה</string>
   <string name="privacy">פרטיות</string>
+  <string name="notifications">התראות</string>
   <string name="pieceAnimation">אנימציית הכלים</string>
   <string name="materialDifference">הבדל בחומר</string>
   <string name="boardHighlights">הדגשת המשבצות בלוח: המהלך האחרון ושח</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">לחצו על מקש &lt;ctrl&gt; בזמן הקידום כדי להשבית זמנית את ההכתרה האוטומטית</string>
   <string name="whenPremoving">כאשר מבצעים קדם-מהלך</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">הכרז על תיקו בחזרה משולשת באופן אוטומטי</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">כשהזמן הנותר קטן מ-30 שניות</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">כשהזמן הנותר קטן מ-30 שניות</string>
   <string name="moveConfirmation">אישור המהלכים</string>
   <string name="inCorrespondenceGames">במשחקים בהתכתבות</string>
   <string name="correspondenceAndUnlimited">התכתבות וללא הגבלה</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">העדפותיך נשמרו.</string>
   <string name="scrollOnTheBoardToReplayMoves">גלול על גבי הלוח כדי להראות מהלכים קודמים</string>
   <string name="correspondenceEmailNotification">הודעת מייל יומית עם רשימת המשחקים שלך בהתכתבות</string>
+  <string name="notifyStreamStart">משדר עולה לשידור חי</string>
+  <string name="notifyInboxMsg">הודעה חדשה בתיבת הדואר</string>
+  <string name="notifyForumMention">מזכירים אותך בתגובה בפורום</string>
+  <string name="notifyInvitedStudy">הזמנה ללוח למידה</string>
+  <string name="notifyGameEvent">עדכונים לגבי משחקים בהתכתבות</string>
+  <string name="notifyChallenge">הזמנות למשחקים</string>
+  <string name="notifyTournamentSoon">טורניר מתחיל בקרוב</string>
+  <string name="notifyTimeAlarm">אוזל הזמן במשחק התכתבות</string>
+  <string name="notifyBell">התראות פעמון בליצ׳ס</string>
+  <string name="notifyPush">התראה למכשיר גם כשאינך מחובר/ת לליצ׳ס</string>
+  <string name="notifyWeb">דפדפן</string>
+  <string name="notifyDevice">מכשיר</string>
 </resources>

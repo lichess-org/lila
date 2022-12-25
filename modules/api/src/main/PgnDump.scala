@@ -1,12 +1,13 @@
 package lila.api
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.format.pgn.Pgn
 
 import lila.analyse.{ Analysis, Annotator }
 import lila.game.Game
 import lila.game.PgnDump.WithFlags
 import lila.team.GameTeams
+import play.api.i18n.Lang
 
 final class PgnDump(
     val dumper: lila.game.PgnDump,
@@ -14,13 +15,13 @@ final class PgnDump(
     simulApi: lila.simul.SimulApi,
     getTournamentName: lila.tournament.GetTourName,
     getSwissName: lila.swiss.GetSwissName
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  implicit private val lang = lila.i18n.defaultLang
+  private given Lang = lila.i18n.defaultLang
 
   def apply(
       game: Game,
-      initialFen: Option[FEN],
+      initialFen: Option[Fen.Epd],
       analysis: Option[Analysis],
       flags: WithFlags,
       teams: Option[GameTeams] = None,
@@ -30,7 +31,7 @@ final class PgnDump(
       if (flags.tags)
         (game.simulId ?? simulApi.idToName)
           .orElse(game.tournamentId ?? getTournamentName.async)
-          .orElse(game.swissId.map(lila.swiss.Swiss.Id) ?? getSwissName.async) map {
+          .orElse(game.swissId ?? getSwissName.async) map {
           _.fold(pgn)(pgn.withEvent)
         }
       else fuccess(pgn)
@@ -45,9 +46,8 @@ final class PgnDump(
   def formatter(flags: WithFlags) =
     (
         game: Game,
-        initialFen: Option[FEN],
+        initialFen: Option[Fen.Epd],
         analysis: Option[Analysis],
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]
     ) => apply(game, initialFen, analysis, flags, teams, realPlayers) dmap annotator.toPgnString
-}

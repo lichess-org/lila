@@ -34,7 +34,7 @@
   <string name="explainPromoteToQueenAutomatically">jan utala li ante la sina ken pali e ni: &lt;ctrl&gt;. ni la ona li ante ala e lawa meli. sina ken ante e ona</string>
   <string name="whenPremoving">tenpo sama la jan li pilin e tawa pi tenpo kama</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">tawa li sama lon tawa tu wan la o sama e musi</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">tenpo tawa li lili tawa tenpo Sekunta 30</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">tenpo tawa li lili tawa tenpo Sekunta 30</string>
   <string name="moveConfirmation">sina wile tawa la o sina wile toki e ni pi tenpo tu</string>
   <string name="inCorrespondenceGames">musi pi tenpo suli</string>
   <string name="correspondenceAndUnlimited">musi pi tenpo suli en musi pi tenpo ale</string>

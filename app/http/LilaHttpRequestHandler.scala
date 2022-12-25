@@ -13,7 +13,7 @@ final class LilaHttpRequestHandler(
     configuration: HttpConfiguration,
     filters: Seq[EssentialFilter],
     controllerComponents: ControllerComponents
-) extends DefaultHttpRequestHandler(() => router, errorHandler, configuration, filters) {
+) extends DefaultHttpRequestHandler(() => router, errorHandler, configuration, filters):
 
   override def routeRequest(request: RequestHeader): Option[Handler] =
     if (request.method == "OPTIONS") optionsHandler.some
@@ -21,7 +21,7 @@ final class LilaHttpRequestHandler(
 
   // should be handled by nginx in production
   private val optionsHandler =
-    controllerComponents.actionBuilder { req =>
+    controllerComponents.actionBuilder { (req: RequestHeader) =>
       if (lila.common.HTTPRequest.isApiOrApp(req))
         Results.NoContent.withHeaders(
           "Allow"                  -> ResponseHeaders.allowMethods,
@@ -29,4 +29,3 @@ final class LilaHttpRequestHandler(
         )
       else Results.NotFound
     }
-}

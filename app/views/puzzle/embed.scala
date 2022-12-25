@@ -3,14 +3,14 @@ package views.html.puzzle
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.EmbedConfig
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.DailyPuzzle
 
-object embed {
+object embed:
 
-  import EmbedConfig.implicits._
+  import EmbedConfig.implicits.*
 
   def apply(daily: DailyPuzzle.WithHtml)(implicit config: EmbedConfig) =
     views.html.base.embed(
@@ -33,4 +33,3 @@ object embed {
     raw(daily.html),
     span(cls := "text")(daily.puzzle.color.fold(trans.whitePlays, trans.blackPlays)())
   )
-}

@@ -1,4 +1,5 @@
 import { Chart, LineElement, PointElement, RadarController, RadialLinearScale, Tooltip, Filler } from 'chart.js';
+import { currentTheme } from 'common/theme';
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Tooltip, Filler);
 
@@ -15,7 +16,6 @@ interface RadarData {
 export function renderRadar(data: RadarData) {
   const canvas = document.querySelector('.puzzle-dashboard__radar') as HTMLCanvasElement;
   const d = data.radar;
-  const dark = $('body').hasClass('dark');
   d.datasets[0] = {
     ...d.datasets[0],
     ...{
@@ -24,7 +24,7 @@ export function renderRadar(data: RadarData) {
       pointBackgroundColor: 'rgb(189,130,35,1)',
     },
   };
-  const fontColor = dark ? '#bababa' : '#4d4d4d';
+  const fontColor = currentTheme() === 'dark' ? '#bababa' : '#4d4d4d';
   const lineColor = 'rgba(127, 127, 127, .3)';
 
   new Chart(canvas, {
@@ -57,3 +57,5 @@ export function renderRadar(data: RadarData) {
     },
   });
 }
+
+(window as any).LichessPuzzleDashboard = { renderRadar };

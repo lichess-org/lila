@@ -1,29 +1,30 @@
 package controllers
 
-import lila.api._
+import lila.api.{ *, given }
 
-import play.api.http._
+import play.api.http.*
 import play.api.mvc.Codec
 
-trait ResponseWriter {
+trait ResponseWriter:
 
-  implicit def wUnit(implicit codec: Codec): Writeable[Unit] =
-    Writeable[Unit]((_: Unit) => codec encode "ok")
-  implicit def ctoUnit: ContentTypeOf[Unit] =
-    ContentTypeOf[Unit](Some(ContentTypes.TEXT))
+  private val textContentType = ContentTypeOf(Some(ContentTypes.TEXT))
 
-  implicit def wLong(implicit codec: Codec): Writeable[Long] =
-    Writeable[Long]((a: Long) => codec encode a.toString)
-  implicit def ctoLong: ContentTypeOf[Long] =
-    ContentTypeOf[Long](Some(ContentTypes.TEXT))
+  given (using codec: Codec): Writeable[Unit] = Writeable(_ => codec encode "ok")
+  given ContentTypeOf[Unit]                   = textContentType
 
-  implicit def wInt(implicit codec: Codec): Writeable[Int] =
-    Writeable[Int]((i: Int) => codec encode i.toString)
-  implicit def ctoInt: ContentTypeOf[Int] =
-    ContentTypeOf[Int](Some(ContentTypes.TEXT))
+  given (using codec: Codec): Writeable[Long] = Writeable(a => codec encode a.toString)
+  given ContentTypeOf[Long]                   = textContentType
 
-  implicit def wOptionString(implicit codec: Codec): Writeable[Option[String]] =
-    Writeable[Option[String]]((i: Option[String]) => codec encode ~i)
-  implicit def ctoOptionString: ContentTypeOf[Option[String]] =
-    ContentTypeOf[Option[String]](Some(ContentTypes.TEXT))
-}
+  given (using codec: Codec): Writeable[Int] = Writeable(i => codec encode i.toString)
+  given ContentTypeOf[Int]                   = textContentType
+
+  // given (using codec: Codec): Writeable[Option[String]] = Writeable(i => codec encode i.orZero)
+  // given ContentTypeOf[Option[String]]                   = textContentType
+
+  given stringRuntimeWriteable[A](using codec: Codec, sr: StringRuntime[A]): Writeable[A] =
+    Writeable(a => codec encode sr(a))
+  given stringRuntimeContentType[A: StringRuntime]: ContentTypeOf[A] = textContentType
+
+  given intRuntimeWriteable[A](using codec: Codec, sr: IntRuntime[A]): Writeable[A] =
+    Writeable(a => codec encode sr(a).toString)
+  given intRuntimeContentType[A: IntRuntime]: ContentTypeOf[A] = textContentType

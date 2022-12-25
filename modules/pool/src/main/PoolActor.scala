@@ -1,29 +1,30 @@
 package lila.pool
 
-import scala.concurrent.duration._
-import lila.common.ThreadLocalRandom
+import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
-import akka.actor._
+import akka.actor.*
 import akka.pattern.pipe
 
 import lila.socket.Socket.Sris
 import lila.user.User
+import scala.concurrent.ExecutionContext
 
 final private class PoolActor(
     config: PoolConfig,
     hookThieve: HookThieve,
     gameStarter: GameStarter
-) extends Actor {
+) extends Actor:
 
-  import PoolActor._
+  import PoolActor.*
 
   var members = Vector.empty[PoolMember]
 
-  private var lastPairedUserIds = Set.empty[User.ID]
+  private var lastPairedUserIds = Set.empty[UserId]
 
   var nextWave: Cancellable = _
 
-  implicit def ec = context.dispatcher
+  given ExecutionContext = context.dispatcher
 
   def scheduleWave() =
     nextWave = context.system.scheduler.scheduleOnce(
@@ -34,13 +35,13 @@ final private class PoolActor(
 
   scheduleWave()
 
-  def receive = {
+  def receive =
 
     case Join(joiner, _) if lastPairedUserIds(joiner.userId) =>
     // don't pair someone twice in a row, it's probably a client error
 
     case Join(joiner, rageSit) =>
-      members.find(joiner.is) match {
+      members.find(joiner.is) match
         case None =>
           members = members :+ PoolMember(joiner, config, rageSit)
           if (members.sizeIs >= config.wave.players.value) self ! FullWave
@@ -50,8 +51,6 @@ final private class PoolActor(
             case m                => m
           }
         case _ => // no change
-      }
-
     case Leave(userId) =>
       members.find(_.userId == userId) foreach { member =>
         members = members.filter(member !=)
@@ -94,7 +93,7 @@ final private class PoolActor(
       monitor.paired(monId).record(pairedMembers.size)
       monitor.missed(monId).record(members.size)
       pairings.foreach { p =>
-        monitor.ratingDiff(monId).record(p.ratingDiff)
+        monitor.ratingDiff(monId).record(p.ratingDiff.value)
       }
 
       lastPairedUserIds = pairedMembers.view.map(_.userId).toSet
@@ -105,18 +104,15 @@ final private class PoolActor(
       members = members.filter { m =>
         sris contains m.sri
       }
-  }
 
   val monitor = lila.mon.lobby.pool.wave
   val monId   = config.id.value.replace('+', '_')
-}
 
-private object PoolActor {
+private object PoolActor:
 
   case class Join(joiner: PoolApi.Joiner, rageSit: lila.playban.RageSit)
-  case class Leave(userId: User.ID) extends AnyVal
+  case class Leave(userId: UserId) extends AnyVal
 
   case object ScheduledWave
   case object FullWave
   case object RunWave
-}

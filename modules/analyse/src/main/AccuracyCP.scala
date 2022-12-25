@@ -4,21 +4,12 @@ import chess.Color
 
 import lila.game.Pov
 import lila.game.Game.SideAndStart
-import lila.tree.Eval._
+import lila.tree.Eval.*
 
-object AccuracyCP {
-
-  private def withSignOf(i: Int, signed: Int) = if (signed < 0) -i else i
-
-  private val makeDiff: PartialFunction[(Option[Cp], Option[Mate], Option[Cp], Option[Mate]), Int] = {
-    case (Some(s1), _, Some(s2), _) => s2.ceiled.centipawns - s1.ceiled.centipawns
-    case (Some(s1), _, _, Some(m2)) => withSignOf(Cp.CEILING, m2.value) - s1.ceiled.centipawns
-    case (_, Some(m1), Some(s2), _) => s2.ceiled.centipawns - withSignOf(Cp.CEILING, m1.value)
-    case (_, Some(m1), _, Some(m2)) => withSignOf(Cp.CEILING, m2.value) - withSignOf(Cp.CEILING, m1.value)
-  }
+object AccuracyCP:
 
   def diffsList(pov: SideAndStart, analysis: Analysis): List[Option[Int]] = {
-    if (pov.color == pov.startColor) Info.start(pov.startedAtTurn) :: analysis.infos
+    if (pov.color == pov.startColor) Info.start(pov.startedAtPly) :: analysis.infos
     else analysis.infos
   }.map(_.eval)
     .grouped(2)
@@ -30,7 +21,7 @@ object AccuracyCP {
     .toList
 
   def prevColorInfos(pov: SideAndStart, analysis: Analysis): List[Info] = {
-    if (pov.color == pov.startColor) Info.start(pov.startedAtTurn) :: analysis.infos
+    if (pov.color == pov.startColor) Info.start(pov.startedAtPly) :: analysis.infos
     else analysis.infos
   }.zipWithIndex.collect {
     case (e, i) if (i % 2) == 0 => e
@@ -40,4 +31,3 @@ object AccuracyCP {
     lila.common.Maths.mean(diffsList(pov, analysis).flatten).map(x => Math.round(x).toInt)
 
   def mean(pov: Pov, analysis: Analysis): Option[Int] = mean(pov.sideAndStart, analysis)
-}

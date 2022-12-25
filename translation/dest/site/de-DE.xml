@@ -363,6 +363,7 @@
   <string name="siteDescription">Kostenloser Online-Schach-Server. Spiele jetzt auf einer übersichtlichen Benutzeroberfläche Schach! Keine Registrierung und keine Plugins erforderlich, komplett ohne Werbung. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
   <string name="xJoinedTeamY">%1$s trat dem Team %2$s bei</string>
   <string name="xCreatedTeamY">%1$s hat das Team %2$s gegründet</string>
+  <string name="startedStreaming">hat einen Stream gestartet</string>
   <string name="xStartedStreaming">%s hat einen Stream gestartet</string>
   <string name="averageElo">Durchschnittswertung</string>
   <string name="location">Ort</string>
@@ -538,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notizen</string>
   <string name="typePrivateNotesHere">Private Notizen hier eingeben</string>
+  <string name="writeAPrivateNoteAboutThisUser">Verfasse eine private Notiz über diesen Benutzer</string>
+  <string name="noNoteYet">Noch keine Notiz</string>
   <string name="invalidUsernameOrPassword">Ungültiger Benutzername oder Passwort</string>
   <string name="incorrectPassword">Falsches Passwort</string>
   <string name="invalidAuthenticationCode">Ungültiger Authentifizierungscode</string>
@@ -737,6 +740,7 @@
   <string name="light">Hell</string>
   <string name="dark">Dunkel</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Mit Gerät synchronisieren</string>
   <string name="backgroundImageUrl">Hintergrundbild-URL:</string>
   <string name="boardGeometry">Brettgröße und 3D</string>
   <string name="boardTheme">Brettdesign</string>

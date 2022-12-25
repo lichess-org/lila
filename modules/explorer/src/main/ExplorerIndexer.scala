@@ -1,13 +1,15 @@
 package lila.explorer
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import org.joda.time.format.DateTimeFormat
-import play.api.libs.json._
-import play.api.libs.ws.JsonBodyWritables._
+import play.api.libs.json.*
+import play.api.libs.ws.JsonBodyWritables.*
 import scala.util.{ Failure, Success, Try }
+import java.util.concurrent.atomic.AtomicReference
 
 import lila.common.LilaStream
-import lila.db.dsl._
+import lila.common.Json.given
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Player }
 import lila.user.{ User, UserRepo }
 
@@ -17,10 +19,10 @@ final private class ExplorerIndexer(
     getBotUserIds: lila.user.GetBotIds,
     ws: play.api.libs.ws.StandaloneWSClient,
     internalEndpoint: InternalEndpoint
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) {
+):
 
   private val pgnDateFormat       = DateTimeFormat forPattern "yyyy.MM.dd"
   private val internalEndPointUrl = s"$internalEndpoint/import/lichess"
@@ -32,28 +34,27 @@ final private class ExplorerIndexer(
       }
     }
 
-  private object flowBuffer {
-    private val max = 30
-    private val buf = scala.collection.mutable.ArrayBuffer.empty[JsObject]
-    def apply(game: JsObject): Unit = {
-      buf += game
-      val startAt = nowMillis
-      if (buf.sizeIs >= max) {
-        ws.url(internalEndPointUrl).put(JsArray(buf)) andThen {
-          case Success(res) if res.status == 200 =>
-            lila.mon.explorer.index.time.record((nowMillis - startAt) / max)
-            lila.mon.explorer.index.count(true).increment(max)
-          case Success(res) =>
-            logger.warn(s"[${res.status}]")
-            lila.mon.explorer.index.count(false).increment(max)
-          case Failure(err) =>
-            logger.warn(s"$err", err)
-            lila.mon.explorer.index.count(false).increment(max)
+  private object flowBuffer:
+    private val max       = 30
+    private val bufferRef = new AtomicReference[Vector[JsObject]](Vector.empty)
+
+    def apply(game: JsObject): Unit =
+      if (bufferRef.updateAndGet(_ :+ game).size >= max)
+        val buffer = bufferRef.getAndSet(Vector.empty)
+        if (buffer.nonEmpty) {
+          val startAt = nowMillis
+          ws.url(internalEndPointUrl).put(JsArray(buffer)) andThen {
+            case Success(res) if res.status == 200 =>
+              lila.mon.explorer.index.time.record((nowMillis - startAt) / buffer.size)
+              lila.mon.explorer.index.count(true).increment(buffer.size)
+            case Success(res) =>
+              logger.warn(s"[${res.status}]")
+              lila.mon.explorer.index.count(false).increment(buffer.size)
+            case Failure(err) =>
+              logger.warn(s"$err", err)
+              lila.mon.explorer.index.count(false).increment(buffer.size)
+          } unit
         }
-        buf.clear()
-      }
-    }
-  }
 
   private def valid(game: Game) =
     game.finished &&
@@ -61,11 +62,9 @@ final private class ExplorerIndexer(
       game.variant != chess.variant.FromPosition &&
       !Game.isOldHorde(game)
 
-  private def stableRating(player: Player) = player.rating ifFalse player.provisional
-
   // probability of the game being indexed, between 0 and 100
-  private def probability(game: Game, rating: Int): Int = {
-    import lila.rating.PerfType._
+  private def probability(game: Game, rating: Int): Int =
+    import lila.rating.PerfType.*
     game.perfType ?? {
       case Correspondence | Classical => 100
 
@@ -93,15 +92,14 @@ final private class ExplorerIndexer(
       case _ if rating >= 1600 => 100 // variant games
       case _                   => 50  // noob variant games
     }
-  }
 
-  private def makeJson(game: Game, botUserIds: Set[User.ID]): Fu[Option[JsObject]] =
+  private def makeJson(game: Game, botUserIds: Set[UserId]): Fu[Option[JsObject]] =
     ~(for {
-      whiteRating <- stableRating(game.whitePlayer)
-      blackRating <- stableRating(game.blackPlayer)
+      whiteRating <- game.whitePlayer.stableRating
+      blackRating <- game.blackPlayer.stableRating
       if whiteRating >= 1501
       if blackRating >= 1501
-      averageRating = (whiteRating + blackRating) / 2
+      averageRating = (whiteRating + blackRating).value / 2
       if probability(game, averageRating) > (game.id.hashCode % 100)
       if !game.userIds.exists(botUserIds.contains)
       if valid(game)
@@ -109,8 +107,8 @@ final private class ExplorerIndexer(
       userRepo.usernamesByIds(game.userIds) map { usernames =>
         def username(color: chess.Color) =
           game.player(color).userId flatMap { id =>
-            usernames.find(_.toLowerCase == id)
-          } orElse game.player(color).userId getOrElse "?"
+            usernames.find(_.id == id)
+          } orElse game.player(color).userId.map(_ into UserName)
         Json
           .obj(
             "id"      -> game.id,
@@ -126,12 +124,11 @@ final private class ExplorerIndexer(
             ),
             "winner" -> game.winnerColor.map(_.name),
             "date"   -> pgnDateFormat.print(game.createdAt),
-            "fen"    -> initialFen.map(_.value),
-            "moves"  -> game.pgnMoves.mkString(" ")
+            "fen"    -> initialFen,
+            "moves"  -> game.sans.mkString(" ")
           )
           .some
       }
     })
 
   private val logger = lila.log("explorer")
-}

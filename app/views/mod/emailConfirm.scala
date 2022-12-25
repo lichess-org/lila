@@ -1,14 +1,14 @@
 package views.html.mod
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object emailConfirm {
+object emailConfirm:
 
-  def apply(query: String, user: Option[lila.user.User], email: Option[lila.common.EmailAddress])(implicit
+  def apply(query: String, user: Option[lila.user.User], email: Option[lila.common.EmailAddress])(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -55,7 +55,7 @@ this.setSelectionRange(this.value.length, this.value.length);
                     u.marks.engine option "ENGINE",
                     u.marks.boost option "BOOSTER",
                     u.marks.troll option "SHADOWBAN",
-                    u.disabled option "CLOSED"
+                    u.enabled.no option "CLOSED"
                   ),
                   td(momentFromNow(u.createdAt)),
                   td(u.seenAt.map(momentFromNow(_))),
@@ -70,4 +70,3 @@ this.setSelectionRange(this.value.length, this.value.length);
         )
       )
     }
-}

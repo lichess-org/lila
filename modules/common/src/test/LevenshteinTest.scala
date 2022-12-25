@@ -29,14 +29,14 @@ object LevenshteinTest {
 
 class LevenshteinTest extends Specification {
   import LevenshteinTest.{ check, mt }
-  "Levenshtein" should {
-    "random" in {
+  "Levenshtein" >> {
+    "random" >> {
       mt(1, 1000, 10, 2) must beTrue
       mt(2, 1000, 10, 3) must beTrue
       mt(3, 10, 1000, 2) must beTrue
       mt(4, 10, 1000, 3) must beTrue
     }
-    "empty" in {
+    "empty" >> {
       Levenshtein.isLevenshteinDistanceLessThan("", "", 0) must beFalse
       Levenshtein.isLevenshteinDistanceLessThan("", "", 1) must beTrue
       Levenshtein.isLevenshteinDistanceLessThan("a", "", 1) must beFalse
@@ -44,7 +44,7 @@ class LevenshteinTest extends Specification {
       Levenshtein.isLevenshteinDistanceLessThan("a", "", 2) must beTrue
       Levenshtein.isLevenshteinDistanceLessThan("", "a", 2) must beTrue
     }
-    "hand" in {
+    "hand" >> {
       check("aba", "a") must beTrue
       check("abb", "a") must beTrue
       check("aab", "a") must beTrue

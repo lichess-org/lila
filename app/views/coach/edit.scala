@@ -3,15 +3,15 @@ package views.html.coach
 import play.api.data.Form
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
 import lila.i18n.LangList
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.{ richText, safeJsonValue }
 
 import controllers.routes
 
-object edit {
+object edit:
 
   private val dataTab   = attr("data-tab")
   private val dataValue = attr("data-value")
@@ -29,9 +29,9 @@ object edit {
     }
   }
 
-  def apply(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(implicit
+  def apply(c: lila.coach.Coach.WithUser, form: Form[?], reviews: lila.coach.CoachReview.Reviews)(using
       ctx: Context
-  ) = {
+  ) =
     views.html.account.layout(
       title = s"${c.user.titleUsername} coach page",
       evenMoreCss = frag(cssTag("coach.editor"), cssTag("tagify")),
@@ -193,5 +193,3 @@ object edit {
         )
       )
     )
-  }
-}

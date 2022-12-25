@@ -1,36 +1,30 @@
 package lila.socket
 
-import chess.format.{ FEN, Uci }
-import chess.Pos
+import chess.format.{ Fen, Uci }
+import chess.{ Ply, Pos }
 import chess.variant.Crazyhouse
-import play.api.libs.json._
+import play.api.libs.json.*
 
 case class Step(
-    ply: Int,
-    move: Option[Step.Move],
-    fen: FEN,
+    ply: Ply,
+    move: Option[Uci.WithSan],
+    fen: Fen.Epd,
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]],
     drops: Option[List[Pos]],
     crazyData: Option[Crazyhouse.Data]
-) {
-
+):
   // who's color plays next
-  def color = chess.Color.fromPly(ply)
+  def color = ply.color
 
-  def toJson = Step.stepJsonWriter writes this
-}
+  def toJson = Json toJson this
 
-object Step {
-
-  case class Move(uci: Uci, san: String) {
-    def uciString = uci.uci
-  }
+object Step:
 
   // TODO copied from lila.game
   // put all that shit somewhere else
-  implicit private val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
+  given OWrites[Crazyhouse.Pocket] = OWrites { v =>
     JsObject(
       Crazyhouse.storableRoles.flatMap { role =>
         Some(v.roles.count(role ==)).filter(0 <).map { count =>
@@ -39,17 +33,17 @@ object Step {
       }
     )
   }
-  implicit private val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
+  given OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
     Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
   }
 
-  implicit val stepJsonWriter: Writes[Step] = Writes { step =>
-    import lila.common.Json._
-    import step._
+  given Writes[Step] = Writes { step =>
+    import lila.common.Json.given
+    import step.*
     Json
       .obj(
         "ply" -> ply,
-        "uci" -> move.map(_.uciString),
+        "uci" -> move.map(_.uci.uci),
         "san" -> move.map(_.san),
         "fen" -> fen
       )
@@ -58,7 +52,7 @@ object Step {
         "dests",
         dests.map {
           _.map { case (orig, dests) =>
-            s"${orig.piotr}${dests.map(_.piotr).mkString}"
+            s"${orig.asChar}${dests.map(_.asChar).mkString}"
           }.mkString(" ")
         }
       )
@@ -70,4 +64,3 @@ object Step {
       )
       .add("crazy", crazyData)
   }
-}

@@ -363,6 +363,7 @@
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou adversários aleatórios.</string>
   <string name="xJoinedTeamY">%1$s juntou-se à equipe %2$s</string>
   <string name="xCreatedTeamY">%1$s criou a equipe %2$s</string>
+  <string name="startedStreaming">começou uma transmissão</string>
   <string name="xStartedStreaming">%s começou a transmitir</string>
   <string name="averageElo">Média de classificação</string>
   <string name="location">Localização</string>
@@ -538,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Digite notas pessoais aqui</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escreva uma nota pessoal sobre este usuário</string>
+  <string name="noNoteYet">Nenhuma nota</string>
   <string name="invalidUsernameOrPassword">Nome de usuário ou senha incorretos</string>
   <string name="incorrectPassword">Senha incorreta</string>
   <string name="invalidAuthenticationCode">Código de verificação inválido</string>
@@ -737,6 +740,7 @@
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
   <string name="transparent">Transparente</string>
+  <string name="deviceTheme">Tema do dispositivo</string>
   <string name="backgroundImageUrl">URL da imagem de fundo:</string>
   <string name="boardGeometry">Geometria do tabuleiro</string>
   <string name="boardTheme">Estilo do tabuleiro</string>

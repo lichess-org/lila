@@ -363,6 +363,7 @@
   <string name="siteDescription">Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.</string>
   <string name="xJoinedTeamY">%1$s sloot zich bij team %2$s aan</string>
   <string name="xCreatedTeamY">%1$s heeft team %2$s opgericht</string>
+  <string name="startedStreaming">is begonnen met streamen</string>
   <string name="xStartedStreaming">%s is begonnen met streamen</string>
   <string name="averageElo">Gemiddelde rating</string>
   <string name="location">Plaats</string>
@@ -538,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notities</string>
   <string name="typePrivateNotesHere">Type privénotities hier</string>
+  <string name="writeAPrivateNoteAboutThisUser">Maak een privé aantekening over deze gebruiker</string>
+  <string name="noNoteYet">Nog geen aantekeningen</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
   <string name="incorrectPassword">Onjuist wachtwoord</string>
   <string name="invalidAuthenticationCode">Ongeldige authenticatiecode</string>
@@ -737,6 +740,7 @@
   <string name="light">Licht</string>
   <string name="dark">Donker</string>
   <string name="transparent">Transparant</string>
+  <string name="deviceTheme">Apparaatthema</string>
   <string name="backgroundImageUrl">Achtergrondafbeelding URL:</string>
   <string name="boardGeometry">Bordgeometrie</string>
   <string name="boardTheme">Bordthema</string>

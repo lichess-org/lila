@@ -1,8 +1,8 @@
 package lila.importer
 
-import chess._
+import chess.*
 
-private object Chess960 {
+private object Chess960:
 
   def isStartPosition(board: Board) =
     board valid {
@@ -30,4 +30,3 @@ private object Chess960 {
         case _                                                         => false
       }(Rank.Eighth)
     }
-}

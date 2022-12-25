@@ -82,6 +82,7 @@ POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id)
 GET   /api/stream/:username/mod        controllers.User.mod(username)
 POST  /@/:username/note                controllers.User.writeNote(username)
 POST  /note/delete/:id                 controllers.User.deleteNote(id)
+POST  /note/setDox/:id/:v              controllers.User.setDoxNote(id, v: Boolean)
 GET   /@/:username/mini                controllers.User.showMini(username)
 GET   /@/:username/tv                  controllers.User.tv(username)
 GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username, perfKey)
@@ -292,6 +293,7 @@ POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
 POST  /streamer/approval/request       controllers.Streamer.approvalRequest
 GET   /streamer/picture/edit           controllers.Streamer.picture
+POST  /streamer/subscribe/:streamer    controllers.Streamer.subscribe(streamer, set: Boolean ?= true)
 POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username)
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username)
@@ -460,6 +462,7 @@ GET   /fishnet/status                         controllers.Fishnet.status
 POST  /pref/:name                             controllers.Pref.set(name)
 GET   /account/preferences/:categ             controllers.Pref.form(categ)
 POST  /account/preferences                    controllers.Pref.formApply
+POST  /account/preferences/notification       controllers.Pref.notifyFormApply
 
 # Setup
 POST  /setup/ai                        controllers.Setup.ai
@@ -637,10 +640,10 @@ GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf,
 GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/user/puzzle-activity        controllers.Puzzle.activity
-GET   /api/puzzle/$id<\w{5}>           controllers.Puzzle.apiShow(id)
 GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
 GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Int)
+GET   /api/puzzle/$id<\w{5}>           controllers.Puzzle.apiShow(id)
 GET   /api/user/:name/tournament/created controllers.Api.tournamentsByOwner(name, status: List[Int])
 GET   /api/user/:name                  controllers.Api.user(name)
 GET   /api/user/:name/activity         controllers.Api.activity(name)
@@ -663,12 +666,13 @@ POST  /api/tournament/$id<\w{8}>/withdraw   controllers.Tournament.apiWithdraw(i
 POST  /api/tournament/$id<\w{8}>/terminate  controllers.Tournament.apiTerminate(id)
 POST  /api/tournament/team-battle/:id  controllers.Tournament.apiTeamBattleUpdate(id)
 POST  /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId)
-POST  /api/swiss/:id/edit              controllers.Swiss.apiUpdate(id)
-POST  /api/swiss/:id/join              controllers.Swiss.apiJoin(id)
-POST  /api/swiss/:id/terminate         controllers.Swiss.apiTerminate(id)
-GET   /api/swiss/:id                   controllers.Swiss.apiShow(id)
-GET   /api/swiss/:id/games             controllers.Api.swissGames(id)
-GET   /api/swiss/:id/results           controllers.Api.swissResults(id)
+POST  /api/swiss/$id<\w{8}>/edit       controllers.Swiss.apiUpdate(id)
+POST  /api/swiss/$id<\w{8}>/join       controllers.Swiss.apiJoin(id)
+POST  /api/swiss/$id<\w{8}>/withdraw   controllers.Swiss.apiWithdraw(id)
+POST  /api/swiss/$id<\w{8}>/terminate  controllers.Swiss.apiTerminate(id)
+GET   /api/swiss/$id<\w{8}>            controllers.Swiss.apiShow(id)
+GET   /api/swiss/$id<\w{8}>/games      controllers.Api.swissGames(id)
+GET   /api/swiss/$id<\w{8}>/results    controllers.Api.swissResults(id)
 GET   /api/simul                       controllers.Simul.apiList
 GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus

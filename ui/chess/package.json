@@ -23,18 +23,16 @@
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "scripts": {
-    "compile": "tsc --incremental",
-    "dev": "$npm_execpath run compile",
-    "prod": "$npm_execpath run compile"
-  },
   "dependencies": {
-    "chessground": "^8.3.5",
-    "common": "2.0.0",
-    "snabbdom": "^3.3.1"
+    "@types/cash": "workspace:*",
+    "@types/lichess": "workspace:*",
+    "chessground": "^8.3.6",
+    "common": "workspace:*",
+    "snabbdom": "^3.5.1"
   },
-  "devDependencies": {
-    "@types/lichess": "2.0.0",
-    "typescript": "^4"
+  "scripts": {
+    "compile": "tsc",
+    "dev": "tsc",
+    "prod": "tsc"
   }
 }

@@ -65,7 +65,7 @@
   <string name="goDeeper">Syvennä analyysiä</string>
   <string name="showThreat">Näytä uhka</string>
   <string name="inLocalBrowser">paikallisesta selaimesta</string>
-  <string name="toggleLocalEvaluation">Paikallinen analyysi päälle/päältä</string>
+  <string name="toggleLocalEvaluation">Paikallinen analyysi päälle/pois</string>
   <string name="promoteVariation">Nosta muunnelmaa</string>
   <string name="makeMainLine">Päämuunnelmaksi</string>
   <string name="deleteFromHere">Poista tästä alkaen</string>
@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Näytä täysikokoisena</string>
   <string name="logOut">Kirjaudu ulos</string>
   <string name="signIn">Kirjaudu sisään</string>
-  <string name="rememberMe" comment="Appears on the sign-in screen.">Muista minut</string>
+  <string name="rememberMe">Muista minut</string>
   <string name="youNeedAnAccountToDoThat">Tämä toiminto vaatii käyttäjätunnuksen</string>
   <string name="signUp">Rekisteröidy</string>
   <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneen avustamat pelaajat eivät saa pelata täällä. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien neuvoja. Ota myös huomioon, että useiden käyttäjätunnuksien luomista ei katsota lainkaan hyvällä, ja liiallisuuksiin mennessään se johtaa porttikieltoon.</string>
@@ -363,6 +363,7 @@
   <string name="siteDescription">Ilmaista virtuaalishakkia. Pelaa shakkia selkeällä käyttöliittymällä. Ei rekisteröitymistä, ei mainoksia eikä selaimen lisäosia. Pelaa shakkia kavereita, satunnaisia vastustajia tai tekoälyä vastaan.</string>
   <string name="xJoinedTeamY">%1$s liittyi joukkueeseen %2$s</string>
   <string name="xCreatedTeamY">%1$s loi joukkueen %2$s</string>
+  <string name="startedStreaming">alkoi striimata</string>
   <string name="xStartedStreaming">%s alkoi striimata</string>
   <string name="averageElo">Vahvuuslukukeskiarvo</string>
   <string name="location">Sijainti</string>
@@ -538,6 +539,8 @@
   <string name="blog">Blogi</string>
   <string name="notes">Muistiinpanot</string>
   <string name="typePrivateNotesHere">Kirjoita yksityisiä muistiinpanoja tähän</string>
+  <string name="writeAPrivateNoteAboutThisUser">Kirjoita tätä käyttäjää koskeva yksityinen muistiinpano</string>
+  <string name="noNoteYet">Ei vielä muistiinpanoja</string>
   <string name="invalidUsernameOrPassword">Virheellinen käyttäjätunnus tai salasana</string>
   <string name="incorrectPassword">Salasana ei kelpaa</string>
   <string name="invalidAuthenticationCode">Todennuskoodi ei kelpaa</string>
@@ -737,6 +740,7 @@
   <string name="light">Vaalea</string>
   <string name="dark">Tumma</string>
   <string name="transparent">Läpinäkyvä</string>
+  <string name="deviceTheme">Laitteen teema</string>
   <string name="backgroundImageUrl">Taustakuvan URL:</string>
   <string name="boardGeometry">Laudan geometria</string>
   <string name="boardTheme">Laudan tyyli</string>

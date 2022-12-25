@@ -1,26 +1,25 @@
 package lila.tutor
 
-import lila.common.Heapsort.implicits._
+import lila.common.Heapsort.topN
 import lila.insight.{ InsightDimension, InsightMetric }
 
 case class TutorCompare[D, V](
     dimensionType: InsightDimension[D],
     metric: TutorMetric[V],
     points: List[(D, TutorBothValueOptions[V])]
-)(implicit number: TutorNumber[V]) {
-  import TutorCompare._
-  import TutorNumber._
+)(implicit number: TutorNumber[V]):
+  import TutorCompare.*
+  import TutorNumber.*
 
   val totalCountMine = points.map(_._2.mine.??(_.count)).sum
 
-  lazy val dimensionComparisons: List[AnyComparison] = {
+  lazy val dimensionComparisons: List[AnyComparison] =
     val myPoints: List[(D, ValueCount[V])] =
       points.collect { case (dim, TutorBothValueOptions(Some(mine), _)) => dim -> mine }
     for {
       (dim1, met1) <- myPoints.filter(_._2 relevantTo totalCountMine)
       avg = number.mean(myPoints.filter(_._1 != dim1).map(_._2))
     } yield Comparison(dimensionType, dim1, metric, met1, DimAvg(avg))
-  }
 
   lazy val peerComparisons: List[AnyComparison] = points.collect {
     case (dim, TutorBothValueOptions(Some(mine), Some(peer)))
@@ -29,9 +28,8 @@ case class TutorCompare[D, V](
   }
 
   def allComparisons: List[AnyComparison] = dimensionComparisons ::: peerComparisons
-}
 
-object TutorCompare {
+object TutorCompare:
 
   case class Comparison[D, V](
       dimensionType: InsightDimension[D],
@@ -39,7 +37,7 @@ object TutorCompare {
       metric: TutorMetric[V],
       value: ValueCount[V],
       reference: Reference[V]
-  )(implicit number: TutorNumber[V]) {
+  )(implicit number: TutorNumber[V]):
 
     val grade = number.grade(value.value, reference.value.value)
 
@@ -50,24 +48,21 @@ object TutorCompare {
     def similarTo(other: AnyComparison) = other.dimensionType == dimensionType && other.metric == metric
 
     override def toString = s"(${grade.value}) $dimensionType $metric ${value.value} vs $reference"
-  }
 
-  implicit val comparisonOrdering: Ordering[AnyComparison] =
-    Ordering.by[AnyComparison, Double](_.importance.abs)
+  given compOrder: Ordering[AnyComparison] = Ordering.by(_.importance.abs)
 
-  type AnyComparison = Comparison[_, _]
-  type AnyCompare    = TutorCompare[_, _]
+  type AnyComparison = Comparison[?, ?]
+  type AnyCompare    = TutorCompare[?, ?]
 
   def mixedBag(comparisons: List[AnyComparison])(nb: Int): List[AnyComparison] = {
     val half = ~lila.common.Maths.divideRoundUp(nb, 2)
-    comparisons.partition(_.better) match {
+    comparisons.partition(_.better) match
       case (positives, negatives) => positives.topN(half) ::: negatives.topN(half)
-    }
-  } sorted comparisonOrdering.reverse take nb
+  } sorted compOrder.reverse take nb
 
   def sortAndPreventRepetitions(comparisons: List[AnyComparison])(nb: Int): List[AnyComparison] =
     comparisons
-      .sorted(comparisonOrdering.reverse)
+      .sorted(compOrder.reverse)
       .foldLeft(Vector.empty[AnyComparison]) {
         case (Vector(), c)                         => Vector(c)
         case (acc, _) if acc.size >= nb            => acc
@@ -79,4 +74,3 @@ object TutorCompare {
   sealed trait Reference[V] { val value: ValueCount[V] }
   case class Peers[V](value: ValueCount[V])  extends Reference[V]
   case class DimAvg[V](value: ValueCount[V]) extends Reference[V]
-}

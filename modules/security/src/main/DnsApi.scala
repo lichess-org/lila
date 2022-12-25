@@ -1,30 +1,25 @@
 package lila.security
 
-import play.api.libs.json._
-import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.json.*
+import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.base.LilaException
 import lila.common.Domain
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 final private class DnsApi(
     ws: StandaloneWSClient,
     config: SecurityConfig.DnsApi,
     mongoCache: lila.memo.MongoCache.Api
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-) {
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
 
   // only valid email domains that are not whitelisted should make it here
-  def mx(domain: Domain.Lower): Fu[List[Domain]] =
-    failsafe(domain, List(domain.domain)) {
-      mxCache get domain
+  def mx(lower: Domain.Lower): Fu[List[Domain]] =
+    failsafe(lower, List(lower into Domain)) {
+      mxCache get lower
     }
-
-  implicit private val DomainBSONHandler = stringAnyValHandler[Domain](_.value, Domain.apply)
 
   private val mxCache = mongoCache.noHeap[Domain.Lower, List[Domain]](
     "security.mx",
@@ -33,12 +28,16 @@ final private class DnsApi(
   ) { domain =>
     fetch(domain, "mx") {
       _ take 20 flatMap { obj =>
-        (obj \ "data").asOpt[String].map(_ split ' ') collect { case Array(_, domain) =>
-          Domain {
-            if (domain endsWith ".") domain.init
-            else domain
+        (obj \ "data")
+          .asOpt[String]
+          .map(_ split ' ')
+          .collect { case Array(_, domain) =>
+            Domain.from {
+              if (domain endsWith ".") domain.init
+              else domain
+            }
           }
-        }
+          .flatten
       }
     }.monSuccess(_.security.dnsApi.mx)
   }
@@ -47,7 +46,8 @@ final private class DnsApi(
     ws.url(config.url)
       .withQueryStringParameters("name" -> domain.value, "type" -> tpe)
       .withHttpHeaders("Accept" -> "application/dns-json")
-      .get() withTimeout config.timeout map {
+      .get()
+      .withTimeout(config.timeout, "DnsApi.fetch") map {
       case res if res.status == 200 || res.status == 404 =>
         f(~(res.body[JsValue] \ "Answer").asOpt[List[JsObject]])
       case res => throw LilaException(s"Status ${res.status}")
@@ -59,4 +59,3 @@ final private class DnsApi(
       logger.warn(s"DnsApi $domain", e)
       default
     }
-}

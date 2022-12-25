@@ -1,11 +1,11 @@
 package lila.puzzle
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.db.AsyncColl
 
 @Module
@@ -27,12 +27,13 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     mongo: lila.db.Env
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler,
+    materializer: akka.stream.Materializer,
     mode: play.api.Mode
-) {
+):
 
   private val config = appConfig.get[PuzzleConfig]("puzzle")(AutoConfig.loader)
 
@@ -94,7 +95,6 @@ final class Env(
         if (stale) logger.error("Puzzle paths appear to be stale! check that the regen cron is up")
       }
     }
-}
 
 final class PuzzleColls(
     val puzzle: AsyncColl,

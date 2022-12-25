@@ -9,7 +9,7 @@ import scala.concurrent.duration.FiniteDuration
 final class Moretimer(
     messenger: Messenger,
     prefApi: PrefApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   // pov of the player giving more time
   def apply(pov: Pov, duration: FiniteDuration): Fu[Option[Progress]] =
@@ -59,4 +59,3 @@ final class Moretimer(
         case true => fuccess(f)
         case _    => fufail(ClientError("[moretimer] disallowed by preferences " + game.id))
       }
-}

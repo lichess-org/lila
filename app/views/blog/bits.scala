@@ -1,14 +1,14 @@
 package views.html.blog
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.blog.MiniPost
 import lila.common.String.html.richText
 
 import controllers.routes
 
-object bits {
+object bits:
 
   def menu(year: Option[Int], active: Option[String])(implicit ctx: Context) =
     st.nav(cls := "page-menu__menu subnav")(
@@ -62,4 +62,3 @@ object bits {
     )
 
   private[blog] def csp(implicit ctx: Context) = defaultCsp.withPrismic(isGranted(_.Prismic)).some
-}

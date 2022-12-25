@@ -1,14 +1,15 @@
 package lila.fishnet
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
 final private class Monitor(
     repo: FishnetRepo,
     cacheApi: lila.memo.CacheApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
-) {
+):
 
   val statusCache = cacheApi.unit[Monitor.Status] {
     _.refreshAfterWrite(1 minute)
@@ -28,7 +29,7 @@ final private class Monitor(
       work: Work.Analysis,
       client: Client,
       result: JsonApi.Request.CompleteAnalysis
-  ) = {
+  ) =
     Monitor.success(work, client)
 
     val userId = client.userId.value
@@ -43,19 +44,17 @@ final private class Monitor(
         } / 1000000)
 
     val metaMovesSample = sample(result.evaluations.drop(6).filterNot(_.mateFound), 100)
-    def avgOf(f: JsonApi.Request.Evaluation => Option[Int]): Option[Int] = {
+    def avgOf(f: JsonApi.Request.Evaluation => Option[Int]): Option[Int] =
       val (sum, nb) = metaMovesSample.foldLeft(0 -> 0) { case ((sum, nb), move) =>
         f(move).fold(sum -> nb) { v =>
           (sum + v, nb + 1)
         }
       }
       (nb > 0) option (sum / nb)
-    }
     avgOf(_.time) foreach { monBy.movetime(userId).record(_) }
-    if (result.stockfish.isNnue) {
+    if (result.stockfish.isNnue)
       avgOf(_.nodes) foreach { monBy.node(userId).record(_) }
       avgOf(_.cappedNps) foreach { monBy.nps(userId).record(_) }
-    }
     avgOf(_.depth) foreach { monBy.depth(userId).record(_) }
     avgOf(_.pv.size.some) foreach { monBy.pvSize(userId).record(_) }
 
@@ -64,14 +63,13 @@ final private class Monitor(
 
     monBy.pv(userId, isLong = false).increment(significantPvSizes.count(_ < 3))
     monBy.pv(userId, isLong = true).increment(significantPvSizes.count(_ >= 6))
-  }
 
   private def sample[A](elems: List[A], n: Int) =
-    if (elems.sizeIs <= n) elems else lila.common.ThreadLocalRandom shuffle elems take n
+    if (elems.sizeIs <= n) elems else ThreadLocalRandom shuffle elems take n
 
   private def monitorClients(): Funit =
     repo.allRecentClients map { clients =>
-      import lila.mon.fishnet.client._
+      import lila.mon.fishnet.client.*
 
       status(true).update(clients.count(_.enabled))
       status(false).update(clients.count(_.disabled))
@@ -98,16 +96,15 @@ final private class Monitor(
     monitorClients() >> monitorStatus()
     ()
   }
-}
 
-object Monitor {
+object Monitor:
 
   case class StatusFor(acquired: Int, queued: Int, oldest: Int)
   case class Status(user: StatusFor, system: StatusFor)
 
   private val monResult = lila.mon.fishnet.client.result
 
-  private def success(work: Work.Analysis, client: Client) = {
+  private def success(work: Work.Analysis, client: Client) =
 
     monResult.success(client.userId.value).increment()
 
@@ -116,28 +113,23 @@ object Monitor {
         acquiredAt.getMillis - work.createdAt.getMillis
       }
     }
-  }
 
-  private[fishnet] def failure(work: Work, client: Client, e: Exception) = {
+  private[fishnet] def failure(work: Work, client: Client, e: Exception) =
     logger.warn(s"Received invalid analysis ${work.id} for ${work.game.id} by ${client.fullId}", e)
     monResult.failure(client.userId.value).increment()
-  }
 
-  private[fishnet] def timeout(userId: Client.UserId) =
+  private[fishnet] def timeout(userId: UserId) =
     monResult.timeout(userId.value).increment()
 
   private[fishnet] def abort(client: Client) =
     monResult.abort(client.userId.value).increment()
 
-  private[fishnet] def notFound(id: Work.Id, client: Client) = {
+  private[fishnet] def notFound(id: Work.Id, client: Client) =
     logger.info(s"Received unknown analysis $id by ${client.fullId}")
     monResult.notFound(client.userId.value).increment()
-  }
 
-  private[fishnet] def notAcquired(work: Work, client: Client) = {
+  private[fishnet] def notAcquired(work: Work, client: Client) =
     logger.info(
       s"Received unacquired analysis ${work.id} for ${work.game.id} by ${client.fullId}. Work current tries: ${work.tries} acquired: ${work.acquired}"
     )
     monResult.notAcquired(client.userId.value).increment()
-  }
-}

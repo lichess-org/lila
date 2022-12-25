@@ -3,15 +3,15 @@ package views.html.relay
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.relay.RelayTourForm.Data
 import lila.relay.{ RelayRound, RelayTour }
 
-object tourForm {
+object tourForm:
 
-  import trans.broadcast._
+  import trans.broadcast.*
 
   def create(form: Form[Data])(implicit ctx: Context) =
     layout(newBroadcast.txt(), menu = "new".some)(
@@ -94,4 +94,3 @@ AnishGiri;Anish Giri;2764""")
       ).some
     )(form3.textarea(_)(rows := 3))
   )
-}

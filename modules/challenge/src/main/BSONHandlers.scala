@@ -1,20 +1,21 @@
 package lila.challenge
 
 import chess.variant.Variant
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import scala.util.Success
 
 import lila.common.Days
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
+import lila.user.User
 
-private object BSONHandlers {
+private object BSONHandlers:
 
-  import Challenge._
-  import lila.game.BSONHandlers.RulesHandler
+  import Challenge.*
+  import lila.game.BSONHandlers.given
 
-  implicit val ColorChoiceBSONHandler = BSONIntegerHandler.as[ColorChoice](
+  given BSONHandler[ColorChoice] = BSONIntegerHandler.as[ColorChoice](
     {
       case 1 => ColorChoice.White
       case 2 => ColorChoice.Black
@@ -26,59 +27,52 @@ private object BSONHandlers {
       case ColorChoice.Random => 0
     }
   )
-  implicit val TimeControlBSONHandler = new BSON[TimeControl] {
-    import cats.implicits._
+  given BSON[TimeControl] with
+    import cats.implicits.*
+    import chess.Clock
     def reads(r: Reader) =
-      (r.intO("l"), r.intO("i")) mapN { (limit, inc) =>
+      (r.getO[Clock.LimitSeconds]("l"), r.getO[Clock.IncrementSeconds]("i")) mapN { (limit, inc) =>
         TimeControl.Clock(chess.Clock.Config(limit, inc))
       } orElse {
         r.getO[Days]("d") map TimeControl.Correspondence.apply
       } getOrElse TimeControl.Unlimited
     def writes(w: Writer, t: TimeControl) =
-      t match {
+      t match
         case TimeControl.Clock(chess.Clock.Config(l, i)) => $doc("l" -> l, "i" -> i)
         case TimeControl.Correspondence(d)               => $doc("d" -> d)
         case TimeControl.Unlimited                       => $empty
-      }
-  }
-  implicit val VariantBSONHandler       = valueMapHandler(Variant.byId)(_.id)
-  implicit val StatusBSONHandler        = valueMapHandler(Status.byId)(_.id)
-  implicit val DeclineReasonBSONHandler = valueMapHandler(DeclineReason.byKey)(_.key)
+  given BSONHandler[Variant]       = variantByIdHandler
+  given BSONHandler[Status]        = valueMapHandler(Status.byId)(_.id)
+  given BSONHandler[DeclineReason] = valueMapHandler(DeclineReason.byKey)(_.key)
 
-  implicit val RatingBSONHandler = new BSON[Rating] {
-    def reads(r: Reader) = Rating(r.int("i"), r.boolD("p"))
+  given BSON[Rating] with
+    def reads(r: Reader) = Rating(r.get("i"), r.yesnoD("p"))
     def writes(w: Writer, r: Rating) =
       $doc(
         "i" -> r.int,
-        "p" -> w.boolO(r.provisional)
+        "p" -> w.boolO(r.provisional.yes)
       )
-  }
-  implicit val RegisteredBSONHandler = new BSON[Challenger.Registered] {
-    def reads(r: Reader) = Challenger.Registered(r.str("id"), r.get[Rating]("r"))
+  given registeredHandler: BSON[Challenger.Registered] with
+    def reads(r: Reader) = Challenger.Registered(r.get[UserId]("id"), r.get[Rating]("r"))
     def writes(w: Writer, r: Challenger.Registered) =
       $doc(
         "id" -> r.id,
         "r"  -> r.rating
       )
-  }
-  implicit val AnonymousBSONHandler = new BSON[Challenger.Anonymous] {
+  given anonHandler: BSON[Challenger.Anonymous] with
     def reads(r: Reader)                           = Challenger.Anonymous(r.str("s"))
     def writes(w: Writer, a: Challenger.Anonymous) = $doc("s" -> a.secret)
-  }
-  implicit val ChallengerBSONHandler = new BSON[Challenger] {
+
+  given BSON[Challenger] with
     def reads(r: Reader) =
-      if (r contains "id") RegisteredBSONHandler reads r
-      else if (r contains "s") AnonymousBSONHandler reads r
+      if (r contains "id") registeredHandler reads r
+      else if (r contains "s") anonHandler reads r
       else Challenger.Open
     def writes(w: Writer, c: Challenger) =
-      c match {
-        case a: Challenger.Registered => RegisteredBSONHandler.writes(w, a)
-        case a: Challenger.Anonymous  => AnonymousBSONHandler.writes(w, a)
+      c match
+        case a: Challenger.Registered => registeredHandler.writes(w, a)
+        case a: Challenger.Anonymous  => anonHandler.writes(w, a)
         case _                        => $empty
-      }
-  }
 
-  implicit private val OpenForIdsBSONHandler = tuple2BSONHandler[lila.user.User.ID]
-  implicit val ChallengeOpenBSONHandler      = Macros.handler[Challenge.Open]
-  implicit val ChallengeBSONHandler          = Macros.handler[Challenge]
-}
+  given BSONDocumentHandler[Challenge.Open] = Macros.handler
+  given BSONDocumentHandler[Challenge]      = Macros.handler

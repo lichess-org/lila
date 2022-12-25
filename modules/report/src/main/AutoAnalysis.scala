@@ -1,17 +1,17 @@
 package lila.report
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.game.{ Game, GameRepo }
 
 final class AutoAnalysis(
     gameRepo: GameRepo,
     fishnet: lila.hub.actors.Fishnet
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   def apply(candidate: Report.Candidate): Funit =
     if (candidate.isCheat) doItNow(candidate)
@@ -48,4 +48,3 @@ final class AutoAnalysis(
       .sortBy(-_.createdAt.getSeconds)
       .take(10)
   }
-}

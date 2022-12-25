@@ -1,8 +1,8 @@
 package lila.clas
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-final class ClasMarkup {
+final class ClasMarkup:
 
   private val renderer =
     new lila.common.MarkdownRender(
@@ -19,4 +19,3 @@ final class ClasMarkup {
     .build[lila.common.Markdown, String]()
 
   def apply(clas: Clas): String = cache.get(clas.wall, renderer(s"clas:${clas.id}"))
-}

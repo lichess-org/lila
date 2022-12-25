@@ -1,10 +1,10 @@
 package lila.relay
 
 import chess.format.pgn.Tags
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.study.ChapterRepo
 import akka.actor.Scheduler
@@ -12,26 +12,25 @@ import chess.Outcome
 
 case class RelayLeaderboard(players: List[RelayLeaderboard.Player])
 
-object RelayLeaderboard {
+object RelayLeaderboard:
   case class Player(name: String, score: Double, played: Int, rating: Option[Int])
 
-  import play.api.libs.json._
-  implicit def playerWrites = Writes[Player] { p =>
+  import play.api.libs.json.*
+  given OWrites[Player] = OWrites { p =>
     Json.obj("name" -> p.name, "score" -> p.score, "played" -> p.played).add("rating", p.rating)
   }
-}
 
 final class RelayLeaderboardApi(
     tourRepo: RelayTourRepo,
     roundRepo: RelayRoundRepo,
     chapterRepo: ChapterRepo,
     cacheApi: CacheApi
-)(implicit
+)(using
     ec: ExecutionContext,
     scheduler: Scheduler
-) {
+):
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def apply(tour: RelayTour): Fu[Option[RelayLeaderboard]] = tour.autoLeaderboard ?? {
     cache get tour.id dmap some
@@ -47,9 +46,9 @@ final class RelayLeaderboardApi(
   }
 
   private def compute(id: RelayTour.Id): Fu[RelayLeaderboard] = for {
-    tour     <- tourRepo.coll.byId[RelayTour, RelayTour.Id](id) orFail s"No such relay tour $id"
+    tour     <- tourRepo.coll.byId[RelayTour](id) orFail s"No such relay tour $id"
     roundIds <- roundRepo.idsByTourOrdered(tour)
-    tags     <- chapterRepo.tagsByStudyIds(roundIds.map(_.studyId))
+    tags     <- chapterRepo.tagsByStudyIds(roundIds.map(_ into StudyId))
     players = tags.foldLeft(Map.empty[String, (Double, Int, Option[Int], Option[String])]) {
       case (lead, game: Tags) =>
         chess.Color.all.foldLeft(lead) { case (lead, color) =>
@@ -61,13 +60,12 @@ final class RelayLeaderboardApi(
             }
             val rating = game(s"${color}Elo").flatMap(_.toIntOption)
             val title  = game(s"${color}Title")
-            lead.getOrElse(name, (0d, 0, none, none)) match {
+            lead.getOrElse(name, (0d, 0, none, none)) match
               case (prevScore, prevPlayed, prevRating, prevTitle) =>
                 lead.updated(
                   name,
                   (prevScore + score, prevPlayed + played, rating orElse prevRating, title orElse prevTitle)
                 )
-            }
           }
         }
     }
@@ -77,4 +75,3 @@ final class RelayLeaderboardApi(
       RelayLeaderboard.Player(fullName, score, played, rating)
     }
   }
-}

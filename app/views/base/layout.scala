@@ -1,20 +1,20 @@
 package views.html.base
 
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
 import lila.api.{ AnnounceStore, Context }
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
 import lila.common.{ ContentSecurityPolicy, Nonce }
 
-object layout {
+object layout:
 
-  object bits {
+  object bits:
     val doctype                      = raw("<!DOCTYPE html>")
     def htmlTag(implicit lang: Lang) = html(st.lang := lang.code, dir := isRTL.option("rtl"))
     val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
@@ -28,19 +28,22 @@ object layout {
       }
     def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Frag =
       metaCsp(csp getOrElse defaultCsp)
-    def metaThemeColor(implicit ctx: Context): Frag =
+    def metaThemeColor(using ctx: Context): Frag = if (ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) raw {
+      s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
+        s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">"""
+    }
+    else
       raw {
         s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
       }
-    def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
+    def pieceSprite(using ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id   := "piece-sprite",
         href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get() ?? "external."}css"),
         rel  := "stylesheet"
       )
-  }
-  import bits._
+  import bits.*
 
   private val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
@@ -96,16 +99,16 @@ object layout {
       )
   }
   private def blindModeForm(implicit ctx: Context) =
-    raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (
-        ctx.blind
-      )
-        0
-      else
-        1}"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${if (
-        ctx.blind
-      )
-        "Disable"
-      else "Enable"} blind mode</button></form>""")
+    raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${
+        if (ctx.blind)
+          0
+        else
+          1
+      }"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${
+        if (ctx.blind)
+          "Disable"
+        else "Enable"
+      } blind mode</button></form>""")
 
   private def zenZone(implicit ctx: Context) =
     spaceless(s"""
@@ -187,7 +190,8 @@ object layout {
           jsModule("site")
         ),
       moreJs,
-      ctx.pageData.inquiry.isDefined option jsModule("mod.inquiry")
+      ctx.pageData.inquiry.isDefined option jsModule("mod.inquiry"),
+      ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs)
     )
 
   private def hrefLang(lang: String, path: String) =
@@ -271,7 +275,7 @@ object layout {
             tpe := "application/atom+xml",
             rel := "alternate"
           ),
-          ctx.currentBg == "transp" option ctx.pref.bgImgOrDefault map { img =>
+          ctx.pref.bg == lila.pref.Pref.Bg.TRANSPARENT option ctx.pref.bgImgOrDefault map { img =>
             raw(
               s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(img)
                   .replace("&amp;", "&")}");}</style>"""
@@ -302,12 +306,12 @@ object layout {
             )
           },
           dataDev,
-          dataVapid    := vapidPublicKey,
+          dataVapid    := ctx.isAuth option vapidPublicKey,
           dataUser     := ctx.userId,
           dataSoundSet := ctx.currentSoundSet.toString,
           dataSocketDomains,
           dataAssetUrl,
-          dataAssetVersion := assetVersion.value,
+          dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
           dataTheme        := ctx.currentBg,
           dataBoardTheme   := ctx.currentTheme.name,
@@ -324,7 +328,7 @@ object layout {
             .ifTrue(ctx.isAnon)
             .map(views.html.auth.bits.checkYourEmailBanner(_)),
           zenable option zenZone,
-          siteHeader.apply,
+          siteHeader(zenable),
           div(
             id := "main-wrap",
             cls := List(
@@ -333,7 +337,7 @@ object layout {
               "is3d"    -> ctx.pref.is3d
             )
           )(body),
-          ctx.me.exists(_.enabled) option div(id := "friend_box")(
+          ctx.me.exists(_.enabled.yes) option div(id := "friend_box")(
             div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(""))),
             div(cls   := "content_wrap none")(
               div(cls := "content list")
@@ -364,7 +368,7 @@ object layout {
       )
     )
 
-  object siteHeader {
+  object siteHeader:
 
     private val topnavToggle = spaceless(
       """
@@ -375,7 +379,7 @@ object layout {
 
     private def reports(implicit ctx: Context) =
       if (isGranted(_.SeeReport)) {
-        blockingReportScores match {
+        blockingReportScores match
           case (score, mid, high) =>
             a(
               cls := List(
@@ -388,7 +392,6 @@ object layout {
               dataCount := score,
               dataIcon  := ""
             )
-        }
       }.some
       else
         (isGranted(_.PublicChatView)) option
@@ -409,7 +412,7 @@ object layout {
           title     := trans.team.teams.txt()
         )
 
-    def apply(implicit ctx: Context) =
+    def apply(zenable: Boolean)(using ctx: Context) =
       header(id := "top")(
         div(cls := "site-title-nav")(
           !ctx.isAppealUser option topnavToggle,
@@ -419,7 +422,12 @@ object layout {
             a(href := langHref("/"))(siteNameFrag)
           ),
           ctx.blind option h2("Navigation"),
-          !ctx.isAppealUser option topnav()
+          !ctx.isAppealUser option frag(
+            topnav(),
+            ctx.noKid && ctx.me.exists(!_.isPatron) && !zenable option a(cls := "site-title-nav__donate")(
+              href := routes.Plan.index
+            )(trans.patron.donate())
+          )
         ),
         div(cls := "site-buttons")(
           !ctx.isAppealUser option clinput,
@@ -435,42 +443,40 @@ object layout {
             } getOrElse { !ctx.pageData.error option anonDasher }
         )
       )
-  }
 
-  object inlineJs {
+  object inlineJs:
 
     private val i18nKeys = List(
-      trans.pause.key,
-      trans.resume.key,
-      trans.nbFriendsOnline.key,
-      trans.timeago.justNow.key,
-      trans.timeago.inNbSeconds.key,
-      trans.timeago.inNbMinutes.key,
-      trans.timeago.inNbHours.key,
-      trans.timeago.inNbDays.key,
-      trans.timeago.inNbWeeks.key,
-      trans.timeago.inNbMonths.key,
-      trans.timeago.inNbYears.key,
-      trans.timeago.rightNow.key,
-      trans.timeago.nbSecondsAgo.key,
-      trans.timeago.nbMinutesAgo.key,
-      trans.timeago.nbHoursAgo.key,
-      trans.timeago.nbDaysAgo.key,
-      trans.timeago.nbWeeksAgo.key,
-      trans.timeago.nbMonthsAgo.key,
-      trans.timeago.nbYearsAgo.key
+      trans.pause,
+      trans.resume,
+      trans.nbFriendsOnline,
+      trans.timeago.justNow,
+      trans.timeago.inNbSeconds,
+      trans.timeago.inNbMinutes,
+      trans.timeago.inNbHours,
+      trans.timeago.inNbDays,
+      trans.timeago.inNbWeeks,
+      trans.timeago.inNbMonths,
+      trans.timeago.inNbYears,
+      trans.timeago.rightNow,
+      trans.timeago.nbSecondsAgo,
+      trans.timeago.nbMinutesAgo,
+      trans.timeago.nbHoursAgo,
+      trans.timeago.nbDaysAgo,
+      trans.timeago.nbWeeksAgo,
+      trans.timeago.nbMonthsAgo,
+      trans.timeago.nbYearsAgo
     )
 
     private val cache = scala.collection.mutable.AnyRefMap.empty[Lang, String]
 
-    private def jsCode(implicit lang: Lang) =
+    private def jsCode(using lang: Lang) =
       cache.getOrElseUpdate(
         lang,
         s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:${lila.i18n
             .JsQuantity(lang)},siteI18n:${safeJsonValue(i18nJsObject(i18nKeys))}}"""
       )
 
-    def apply(nonce: Nonce)(implicit lang: Lang) =
+    def apply(nonce: Nonce)(using Lang) =
       embedJsUnsafe(jsCode, nonce)
-  }
-}
+  end inlineJs

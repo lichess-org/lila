@@ -1,3 +1,3 @@
-package lila
+package lila.irc
 
-package object irc extends PackageObject
+export lila.Lila.{ *, given }

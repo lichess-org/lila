@@ -2,15 +2,15 @@ package views.html.challenge
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge
 import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
-object bits {
+object bits:
 
   def js(c: Challenge, json: play.api.libs.json.JsObject, owner: Boolean, color: Option[chess.Color] = None)(
       implicit ctx: Context
@@ -48,4 +48,3 @@ object bits {
         modeName(c.mode)
       )
     )
-}

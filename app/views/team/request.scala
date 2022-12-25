@@ -2,16 +2,15 @@ package views.html.team
 
 import controllers.routes
 import play.api.data.Form
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.richText
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object request {
+object request:
 
-  import trans.team._
+  import trans.team.*
 
-  def requestForm(t: lila.team.Team, form: Form[_])(implicit ctx: Context) = {
+  def requestForm(t: lila.team.Team, form: Form[?])(implicit ctx: Context) =
 
     val title = s"${joinTeam.txt()} ${t.name}"
 
@@ -41,9 +40,8 @@ object request {
         )
       )
     }
-  }
 
-  def all(requests: List[lila.team.RequestWithUser])(implicit ctx: Context) = {
+  def all(requests: List[lila.team.RequestWithUser])(implicit ctx: Context) =
     val title = xJoinRequests.pluralSameTxt(requests.size)
     bits.layout(title = title) {
       main(cls := "page-menu")(
@@ -54,9 +52,8 @@ object request {
         )
       )
     }
-  }
 
-  private[team] def list(requests: List[lila.team.RequestWithUser], t: Option[lila.team.Team])(implicit
+  private[team] def list(requests: List[lila.team.RequestWithUser], t: Option[lila.team.Team])(using
       ctx: Context
   ) =
     table(cls := "slist requests @if(t.isEmpty){all}else{for-team} datatable")(
@@ -65,7 +62,7 @@ object request {
           tr(
             if (t.isEmpty) td(userLink(request.user), " ", teamLink(request.team))
             else td(userLink(request.user)),
-            td(richText(request.message)),
+            td(request.message),
             td(momentFromNow(request.date)),
             td(cls := "process")(
               postForm(cls := "process-request", action := routes.Team.requestProcess(request.id))(
@@ -84,4 +81,3 @@ object request {
         }
       )
     )
-}

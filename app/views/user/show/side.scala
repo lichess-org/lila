@@ -3,24 +3,24 @@ package views.html.user.show
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.user.User
 
-object side {
+object side:
 
   def apply(
       u: User,
       rankMap: lila.rating.UserRankMap,
       active: Option[lila.rating.PerfType]
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
     def showNonEmptyPerf(perf: lila.rating.Perf, perfType: PerfType) =
       perf.nonEmpty option showPerf(perf, perfType)
 
-    def showPerf(perf: lila.rating.Perf, perfType: PerfType) = {
+    def showPerf(perf: lila.rating.Perf, perfType: PerfType) =
       val isPuzzle = perfType == lila.rating.PerfType.Puzzle
       a(
         dataIcon := perfType.iconChar,
@@ -43,14 +43,14 @@ object side {
                 else
                   strong(
                     perf.glicko.intRating,
-                    perf.provisional option "?"
+                    perf.provisional.yes option "?"
                   ),
                 " ",
                 ratingProgress(perf.progress),
                 " "
               ),
               span(
-                if (perfType.key == "puzzle") trans.nbPuzzles.plural(perf.nb, perf.nb.localize)
+                if (perfType.key.value == "puzzle") trans.nbPuzzles.plural(perf.nb, perf.nb.localize)
                 else trans.nbGames.plural(perf.nb, perf.nb.localize)
               )
             ),
@@ -62,7 +62,6 @@ object side {
         ),
         ctx.pref.showRatings option iconTag("")
       )
-    }
 
     div(cls := "side sub-ratings")(
       (!u.lame || ctx.is(u) || isGranted(_.UserModView)) option frag(
@@ -90,7 +89,6 @@ object side {
         )
       )
     )
-  }
 
   private def showStorm(storm: lila.rating.Perf.Storm, user: User)(implicit lang: Lang) =
     a(
@@ -151,4 +149,3 @@ object side {
       ),
       iconTag("")
     )
-}

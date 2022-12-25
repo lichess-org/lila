@@ -1,12 +1,12 @@
 package lila.streamer
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
-import play.api.Configuration
-import scala.concurrent.duration._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
+import play.api.{ ConfigLoader, Configuration }
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 
 @Module
 private class StreamerConfig(
@@ -28,29 +28,28 @@ final class Env(
     picfitApi: lila.memo.PicfitApi,
     notifyApi: lila.notify.NotifyApi,
     userRepo: lila.user.UserRepo,
-    timeline: lila.hub.actors.Timeline,
+    subsRepo: lila.relation.SubscriptionRepo,
+    prefApi: lila.pref.PrefApi,
     db: lila.db.Db
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
-  implicit private val twitchLoader  = AutoConfig.loader[TwitchConfig]
-  implicit private val keywordLoader = strLoader(Stream.Keyword.apply)
-  private val config                 = appConfig.get[StreamerConfig]("streamer")(AutoConfig.loader)
+  private given ConfigLoader[TwitchConfig]   = AutoConfig.loader[TwitchConfig]
+  private given ConfigLoader[Stream.Keyword] = strLoader(Stream.Keyword.apply)
+  private val config                         = appConfig.get[StreamerConfig]("streamer")(AutoConfig.loader)
 
   private lazy val streamerColl = db(config.streamerColl)
 
-  lazy val alwaysFeaturedSetting = {
-    import lila.memo.SettingStore.UserIds._
+  lazy val alwaysFeaturedSetting =
+    import lila.memo.SettingStore.UserIds.given
     import lila.common.UserIds
     settingStore[UserIds](
       "streamerAlwaysFeatured",
       default = UserIds(Nil),
-      text =
-        "Twitch streamers who get featured without the keyword - lichess usernames separated by a comma".some
+      text = "Twitch streamers featured without the keyword - lichess usernames separated by a comma".some
     )
-  }
 
   lazy val homepageMaxSetting =
     settingStore[Int](
@@ -69,9 +68,8 @@ final class Env(
     ws = ws,
     api = api,
     isOnline = isOnline,
-    timeline = timeline,
     keyword = config.keyword,
-    alwaysFeatured = alwaysFeaturedSetting.get _,
+    alwaysFeatured = (() => alwaysFeaturedSetting.get()),
     googleApiKey = config.googleApiKey,
     twitchApi = twitchApi
   )
@@ -85,4 +83,3 @@ final class Env(
   scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>
     api.autoDemoteFakes.unit
   }
-}

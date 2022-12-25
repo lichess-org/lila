@@ -436,6 +436,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tournamentIsStarting">musi li open</string>
   <string name="tournamentPairingsAreNowClosed">mi pini pali e linja tawa jan musi pi utala musi ni.</string>
   <string name="standByX">jan %s o, mi lukin e jan musi ante tawa sina. o awen!</string>
+  <string name="resume">o awen</string>
   <string name="youArePlaying">sina musi lon tenpo ni!</string>
   <string name="winRate">pini pona</string>
   <string name="berserkRate">musi pi tenpo lili</string>
@@ -470,6 +471,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="socialMediaLinks">nimi nasin pi lipu toki jan</string>
   <string name="oneUrlPerLine">insa linja la URL wan li lon.</string>
   <string name="inlineNotation">o sitelen e tawa lon linja wan</string>
+  <string name="clearSavedMoves">o weka e tawa</string>
   <string name="previouslyOnLichessTV">musi pini pi jan ante</string>
   <string name="onlinePlayers">jan lon</string>
   <string name="activePlayers">jan pi lape ala</string>
@@ -705,7 +707,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="xLikesY">sona %2$s li pona tawa %1$s</string>
   <string name="quickPairing">o open musi kepeken tenpo lili</string>
   <string name="lobby">o kama tawa musi open</string>
-  <string name="anonymous">jan pi nimi weka tawa sona sina</string>
+  <string name="anonymous">jan pi nimi ala</string>
   <string name="yourScore">nanpa sina: %s</string>
   <string name="language">toki</string>
   <string name="background">sitelen weka</string>

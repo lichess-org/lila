@@ -3,6 +3,7 @@
   <string name="preferences">Einstellungen</string>
   <string name="display">Anzeige</string>
   <string name="privacy">Privatsphäre</string>
+  <string name="notifications">Benachrichtigungen</string>
   <string name="pieceAnimation">Figurenanimation</string>
   <string name="materialDifference">Materialunterschied</string>
   <string name="boardHighlights">Markierungen auf dem Brett (letzter Zug und Schach)</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Halte die &lt;ctrl&gt; Taste während der Umwandlung um vorübergehend die automatische Umwandlung zu deaktivieren</string>
   <string name="whenPremoving">Bei Vorauszug</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reklamiere automatisch Remis bei dreifacher Stellungswiederholung</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Wenn Restzeit &lt; 30 Sekunden</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Wenn Restzeit &lt; 30 Sekunden</string>
   <string name="moveConfirmation">Zugbestätigung</string>
   <string name="inCorrespondenceGames">Im Fernschach</string>
   <string name="correspondenceAndUnlimited">Fernschach und unbegrenzt</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Deine Einstellungen wurden gespeichert.</string>
   <string name="scrollOnTheBoardToReplayMoves">Auf dem Brett scrollen, um Züge durchzugehen</string>
   <string name="correspondenceEmailNotification">Tägliche E-Mail-Benachrichtigung, die deine Fernschachpartien auflistet</string>
+  <string name="notifyStreamStart">Streamer ist live</string>
+  <string name="notifyInboxMsg">Neue Nachricht im Posteingang</string>
+  <string name="notifyForumMention">Forenkommentar erwähnt dich</string>
+  <string name="notifyInvitedStudy">Einladung zu Studie</string>
+  <string name="notifyGameEvent">Neuigkeiten in Fernschachpartie</string>
+  <string name="notifyChallenge">Herausforderungen</string>
+  <string name="notifyTournamentSoon">Turnier beginnt bald</string>
+  <string name="notifyTimeAlarm">Zeit in Fernschachpartie neigt sich dem Ende zu</string>
+  <string name="notifyBell">Benachrichtigungs-Glocke in Lichess</string>
+  <string name="notifyPush">Geräte-Benachrichtigung wenn du nicht auf Lichess bist</string>
+  <string name="notifyWeb">Browser</string>
+  <string name="notifyDevice">Gerät</string>
 </resources>

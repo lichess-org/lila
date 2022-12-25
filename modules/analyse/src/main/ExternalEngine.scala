@@ -1,17 +1,17 @@
 package lila.analyse
 
-import AnalyseBsonHandlers.externalEngineHandler
+import AnalyseBsonHandlers.given
 import chess.variant.Variant
 import com.roundeights.hasher.Algo
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.libs.json.{ Json, OWrites }
 import scala.concurrent.ExecutionContext
+import ornicar.scalalib.{ SecureRandom, ThreadLocalRandom }
 
-import lila.common.Bearer
-import lila.common.Form._
-import lila.common.{ SecureRandom, ThreadLocalRandom }
-import lila.db.dsl._
+import lila.common.Form.{ *, given }
+import lila.common.Json.given
+import lila.db.dsl.{ list as _, *, given }
 import lila.memo.CacheApi
 import lila.user.User
 
@@ -21,33 +21,33 @@ case class ExternalEngine(
     maxThreads: Int,
     maxHash: Int,
     defaultDepth: Int,
-    variants: List[String],
+    variants: List[Variant.UciKey],
     officialStockfish: Boolean, // Admissible for cloud evals
     providerSelector: String, // Hash of random secret chosen by the provider, possibly shared between registrations
     providerData: Option[String], // Arbitrary string the provider can use to store associated data
-    userId: User.ID,              // The user it has been registered for
+    userId: UserId,               // The user it has been registered for
     clientSecret: String          // Secret unique id of the registration
 ) {}
 
-object ExternalEngine {
+object ExternalEngine:
 
   case class FormData(
       name: String,
       maxThreads: Int,
       maxHash: Int,
       defaultDepth: Int,
-      variants: Option[List[String]],
+      variants: Option[List[Variant.UciKey]],
       officialStockfish: Option[Boolean],
       providerSecret: String,
       providerData: Option[String]
-  ) {
-    def make(userId: User.ID) = ExternalEngine(
+  ):
+    def make(userId: UserId) = ExternalEngine(
       _id = s"eei_${ThreadLocalRandom.nextString(12)}",
       name = name,
       maxThreads = maxThreads,
       maxHash = maxHash,
       defaultDepth = defaultDepth,
-      variants = variants.filter(_.nonEmpty) | List(chess.variant.Standard.key),
+      variants = variants.filter(_.nonEmpty) | List(Variant.default.uciKey),
       officialStockfish = ~officialStockfish,
       providerSelector = Algo.sha256("providerSecret:" + providerSecret).hex,
       providerData = providerData,
@@ -58,19 +58,18 @@ object ExternalEngine {
       _id = engine._id,
       clientSecret = engine.clientSecret
     )
-  }
 
   val form = Form(
     mapping(
-      "name"              -> cleanNonEmptyText(3, 200),
+      "name"              -> cleanNonEmptyText(1, 200),
       "maxThreads"        -> number(1, 65_536),
       "maxHash"           -> number(1, 1_048_576),
       "defaultDepth"      -> number(0, 246),
-      "variants"          -> optional(list(stringIn(chess.variant.Variant.all.map(_.uciKey).toSet))),
+      "variants"          -> optional(list(typeIn(Variant.list.all.map(_.uciKey).toSet))),
       "officialStockfish" -> optional(boolean),
       "providerSecret"    -> nonEmptyText(16, 1024),
       "providerData"      -> optional(text(maxLength = 8192))
-    )(FormData.apply)(FormData.unapply)
+    )(FormData.apply)(lila.common.unapply)
   )
 
   implicit val jsonWrites: OWrites[ExternalEngine] = OWrites { e =>
@@ -88,33 +87,31 @@ object ExternalEngine {
       )
       .add("officialStockfish" -> e.officialStockfish)
   }
-}
 
-final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(implicit ec: ExecutionContext) {
+final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using ec: ExecutionContext):
 
-  private val userCache = cacheApi[User.ID, List[ExternalEngine]](65_536, "externalEngine.user") {
+  private val userCache = cacheApi[UserId, List[ExternalEngine]](65_536, "externalEngine.user") {
     _.maximumSize(65_536).buildAsyncFuture(doFetchList)
   }
-  private def doFetchList(userId: User.ID) = coll.list[ExternalEngine]($doc("userId" -> userId), 64)
-  private def reloadCache(userId: User.ID) = userCache.put(userId, doFetchList(userId))
+  import lila.db.dsl.list
+  private def doFetchList(userId: UserId) = coll.list[ExternalEngine]($doc("userId" -> userId), 64)
+  private def reloadCache(userId: UserId) = userCache.put(userId, doFetchList(userId))
 
   def list(by: User): Fu[List[ExternalEngine]] = userCache get by.id
 
-  def create(by: User, data: ExternalEngine.FormData, oauthTokenId: String): Fu[ExternalEngine] = {
+  def create(by: User, data: ExternalEngine.FormData, oauthTokenId: String): Fu[ExternalEngine] =
     val engine = data make by.id
     val bson = {
-      externalEngineHandler writeOpt engine err "external engine bson"
+      engineHandler writeOpt engine err "external engine bson"
     } ++ $doc("oauthToken" -> oauthTokenId)
     coll.insert.one(bson) >>- reloadCache(by.id) inject engine
-  }
 
   def find(by: User, id: String): Fu[Option[ExternalEngine]] =
     list(by).map(_.find(_._id == id))
 
-  def update(prev: ExternalEngine, data: ExternalEngine.FormData): Fu[ExternalEngine] = {
+  def update(prev: ExternalEngine, data: ExternalEngine.FormData): Fu[ExternalEngine] =
     val engine = data update prev
     coll.update.one($id(engine._id), engine) >>- reloadCache(engine.userId) inject engine
-  }
 
   def delete(by: User, id: String): Fu[Boolean] =
     coll.delete.one($doc("userId" -> by.id) ++ $id(id)) map { result =>
@@ -123,9 +120,8 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(implicit ec: Execu
     }
 
   private[analyse] def onTokenRevoke(id: String) =
-    coll.primitiveOne[User.ID]($doc("oauthToken" -> id), "userId") flatMap {
+    coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId") flatMap {
       _ ?? { userId =>
         coll.delete.one($doc("oauthToken" -> id)).void >>- reloadCache(userId)
       }
     }
-}

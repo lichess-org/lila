@@ -1,23 +1,23 @@
 package lila.pref
 
 import play.api.mvc.RequestHeader
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
-import lila.db.dsl._
-import lila.memo.CacheApi._
+import lila.db.dsl.{ given, * }
+import lila.memo.CacheApi.*
 import lila.user.User
 
 final class PrefApi(
     val coll: Coll,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import PrefHandlers._
+  import PrefHandlers.given
 
-  private def fetchPref(id: User.ID): Fu[Option[Pref]] = coll.find($id(id)).one[Pref]
+  private def fetchPref(id: UserId): Fu[Option[Pref]] = coll.find($id(id)).one[Pref]
 
-  private val cache = cacheApi[User.ID, Option[Pref]](65536, "pref.fetchPref") {
+  private val cache = cacheApi[UserId, Option[Pref]](65536, "pref.fetchPref") {
     _.expireAfterAccess(10 minutes)
       .buildAsyncFuture(fetchPref)
   }
@@ -37,7 +37,7 @@ final class PrefApi(
         .void >>- { cache invalidate user.id }
   } >>- { cache invalidate user.id }
 
-  def getPrefById(id: User.ID): Fu[Option[Pref]] = cache get id
+  def getPrefById(id: UserId): Fu[Option[Pref]] = cache get id
 
   def getPref(user: User): Fu[Pref] = cache get user.id dmap {
     _ getOrElse Pref.create(user)
@@ -45,36 +45,36 @@ final class PrefApi(
 
   def getPref[A](user: User, pref: Pref => A): Fu[A] = getPref(user) dmap pref
 
-  def getPref[A](userId: User.ID, pref: Pref => A): Fu[A] =
+  def getPref[A](userId: UserId, pref: Pref => A): Fu[A] =
     getPrefById(userId).dmap(p => pref(p | Pref.default))
 
   def getPref(user: User, req: RequestHeader): Fu[Pref] =
     getPref(user) dmap RequestPref.queryParamOverride(req)
 
-  def followable(userId: User.ID): Fu[Boolean] =
+  def followable(userId: UserId): Fu[Boolean] =
     coll.primitiveOne[Boolean]($id(userId), "follow") map (_ | Pref.default.follow)
 
-  private def unfollowableIds(userIds: List[User.ID]): Fu[Set[User.ID]] =
-    coll.secondaryPreferred.distinctEasy[User.ID, Set](
+  private def unfollowableIds(userIds: List[UserId]): Fu[Set[UserId]] =
+    coll.secondaryPreferred.distinctEasy[UserId, Set](
       "_id",
       $inIds(userIds) ++ $doc("follow" -> false)
     )
 
-  def followableIds(userIds: List[User.ID]): Fu[Set[User.ID]] =
+  def followableIds(userIds: List[UserId]): Fu[Set[UserId]] =
     unfollowableIds(userIds) map userIds.toSet.diff
 
-  def followables(userIds: List[User.ID]): Fu[List[Boolean]] =
+  def followables(userIds: List[UserId]): Fu[List[Boolean]] =
     followableIds(userIds) map { followables =>
       userIds map followables.contains
     }
 
-  private def unmentionableIds(userIds: Set[User.ID]): Fu[Set[User.ID]] =
-    coll.secondaryPreferred.distinctEasy[User.ID, Set](
+  private def unmentionableIds(userIds: Set[UserId]): Fu[Set[UserId]] =
+    coll.secondaryPreferred.distinctEasy[UserId, Set](
       "_id",
       $inIds(userIds) ++ $doc("mention" -> false)
     )
 
-  def mentionableIds(userIds: Set[User.ID]): Fu[Set[User.ID]] =
+  def mentionableIds(userIds: Set[UserId]): Fu[Set[UserId]] =
     unmentionableIds(userIds) map userIds.diff
 
   def setPref(pref: Pref): Funit =
@@ -103,8 +103,6 @@ final class PrefApi(
         )
     )
 
-  def saveNewUserPrefs(user: User, req: RequestHeader): Funit = {
+  def saveNewUserPrefs(user: User, req: RequestHeader): Funit =
     val reqPref = RequestPref fromRequest req
     (reqPref != Pref.default) ?? setPref(reqPref.copy(_id = user.id))
-  }
-}

@@ -2,9 +2,9 @@ package views.html.coordinate
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.pref.Pref.Color
 import play.api.i18n.Lang
@@ -12,7 +12,7 @@ import play.api.i18n.Lang
 import controllers.routes
 import lila.common.LangPath
 
-object show {
+object show:
 
   def apply(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context) =
     views.html.base.layout(
@@ -47,4 +47,3 @@ object show {
         )
       )
     )
-}

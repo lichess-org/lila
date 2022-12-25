@@ -3,6 +3,7 @@
   <string name="preferences">Indstillinger</string>
   <string name="display">Udseende</string>
   <string name="privacy">Privatliv</string>
+  <string name="notifications">Notifikationer</string>
   <string name="pieceAnimation">Animation af brikkerne</string>
   <string name="materialDifference">Materialeforskel</string>
   <string name="boardHighlights">Fremhævninger på brættet (af sidste træk og skak)</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Hold &lt;ctrl&gt;-tasten nede, mens du forfremmer for midlertidigt at deaktivere auto-forfremmelse</string>
   <string name="whenPremoving">Ved forhåndstræk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Kræv automatisk remis ved trækgentagelse</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Når tilbageværende tid &lt; 30 sekunder</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Når tilbageværende tid &lt; 30 sekunder</string>
   <string name="moveConfirmation">Bekræft træk</string>
   <string name="inCorrespondenceGames">I korrespondancepartier</string>
   <string name="correspondenceAndUnlimited">Korrespondance og ubegrænset</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Dine præferencer er blevet gemt.</string>
   <string name="scrollOnTheBoardToReplayMoves">Brug musens scrollhjul på brættet for at afspille træk</string>
   <string name="correspondenceEmailNotification">Daglig e-mailnotifikation med dine korrespondance-spil</string>
+  <string name="notifyStreamStart">Streamer går live</string>
+  <string name="notifyInboxMsg">Ny besked i indbakke</string>
+  <string name="notifyForumMention">Kommentar i forum nævner dig</string>
+  <string name="notifyInvitedStudy">Invitation til studie</string>
+  <string name="notifyGameEvent">Opdateringer af korrespondancepartier</string>
+  <string name="notifyChallenge">Udfordringer</string>
+  <string name="notifyTournamentSoon">Turneringsstart nærmer sig</string>
+  <string name="notifyTimeAlarm">Ur i korrespondance er ved at løbe ud</string>
+  <string name="notifyBell">Klokkenotifikation i Lichess</string>
+  <string name="notifyPush">Notifikation på enhed, når du ikke er på Lichess</string>
+  <string name="notifyWeb">Browser</string>
+  <string name="notifyDevice">Enhed</string>
 </resources>

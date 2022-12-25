@@ -1,18 +1,18 @@
 package views.html
 package forum
 
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
-object topic {
+object topic:
 
-  def form(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) =
+  def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: lila.common.Captcha)(implicit ctx: Context) =
     views.html.base.layout(
       title = "New forum topic",
       moreCss = cssTag("forum"),
@@ -71,9 +71,9 @@ object topic {
     }
 
   def show(
-      categ: lila.forum.Categ,
-      topic: lila.forum.Topic,
-      posts: Paginator[lila.forum.Post.WithFrag],
+      categ: lila.forum.ForumCateg,
+      topic: lila.forum.ForumTopic,
+      posts: Paginator[lila.forum.ForumPost.WithFrag],
       formWithCaptcha: Option[FormWithCaptcha],
       unsub: Option[Boolean],
       canModCateg: Boolean
@@ -93,7 +93,7 @@ object topic {
           description = shorten(posts.currentPageResults.headOption.??(_.post.text), 152)
         )
         .some,
-      csp = defaultCsp.withInlineIconFont.some
+      csp = defaultCsp.withInlineIconFont.withTwitter.some
     ) {
       val teamOnly = categ.team.filterNot(isMyTeamSync)
       val pager = views.html.base.bits
@@ -224,4 +224,3 @@ object topic {
         )
       )
     )
-}

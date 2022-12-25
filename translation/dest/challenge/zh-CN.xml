@@ -22,4 +22,5 @@
   <string name="declineVariant">我现在不想玩这个变体。</string>
   <string name="declineNoBot">我不接受机器人的挑战。</string>
   <string name="declineOnlyBot">我只接受机器人的挑战。</string>
+  <string name="inviteLichessUser">或邀请一位 Lichess 用户：</string>
 </resources>

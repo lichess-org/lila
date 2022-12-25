@@ -1,19 +1,19 @@
 package views.html.analyse
 
 import bits.dataPanel
-import chess.format.Forsyth
+import chess.format.Fen
 import chess.variant.Crazyhouse
 import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
-object replay {
+object replay:
 
   private[analyse] def titleOf(pov: Pov)(implicit lang: Lang) =
     s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening
@@ -22,7 +22,7 @@ object replay {
   def apply(
       pov: Pov,
       data: play.api.libs.json.JsObject,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[chess.format.Fen.Epd],
       pgn: String,
       analysis: Option[lila.analyse.Analysis],
       analysisStarted: Boolean,
@@ -31,9 +31,9 @@ object replay {
       userTv: Option[lila.user.User],
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
-    import pov._
+    import pov.*
 
     val chatJson = chatOption map { c =>
       views.html.chat.json(
@@ -62,7 +62,7 @@ object replay {
         href := cdnUrl(
           routes.Export
             .fenThumbnail(
-              Forsyth.>>(pov.game.situation).value,
+              Fen.write(pov.game.situation).value,
               pov.color.name,
               None,
               pov.game.variant.key.some,
@@ -165,7 +165,7 @@ object replay {
                     trans.computerAnalysis()
                   ),
                 !game.isPgnImport option frag(
-                  game.turns > 1 option span(role := "tab", dataPanel := "move-times")(trans.moveTimes()),
+                  game.ply > 1 option span(role := "tab", dataPanel := "move-times")(trans.moveTimes()),
                   cross.isDefined option span(role := "tab", dataPanel := "ctable")(trans.crosstable())
                 ),
                 span(role := "tab", dataPanel := "fen-pgn")(trans.study.shareAndExport())
@@ -184,7 +184,7 @@ object replay {
                     )
                 ),
                 div(cls := "move-times")(
-                  game.turns > 1 option div(id := "movetimes-chart")
+                  game.ply > 1 option div(id := "movetimes-chart")
                 ),
                 div(cls := "fen-pgn")(
                   div(
@@ -218,15 +218,12 @@ object replay {
             )
           )
         ),
-        if (ctx.blind)
-          div(cls := "blind-content none")(
-            h2("PGN downloads"),
-            pgnLinks,
-            button(cls := "copy-pgn", attr("data-pgn") := pgn)(
-              "Copy PGN to clipboard"
-            )
+        ctx.blind option div(cls := "blind-content none")(
+          h2("PGN downloads"),
+          pgnLinks,
+          button(cls := "copy-pgn", attr("data-pgn") := pgn)(
+            "Copy PGN to clipboard"
           )
+        )
       )
     )
-  }
-}

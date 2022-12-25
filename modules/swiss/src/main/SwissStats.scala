@@ -1,10 +1,10 @@
 package lila.swiss
 
-import akka.stream.scaladsl._
-import reactivemongo.api.bson.Macros
-import scala.concurrent.duration._
+import akka.stream.scaladsl.*
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 case class SwissStats(
     games: Int = 0,
@@ -13,38 +13,33 @@ case class SwissStats(
     draws: Int = 0,
     byes: Int = 0,
     absences: Int = 0,
-    averageRating: Int = 0
+    averageRating: IntRating = IntRating(0)
 )
 
 final class SwissStatsApi(
-    colls: SwissColls,
+    mongo: SwissMongo,
     sheetApi: SwissSheetApi,
     mongoCache: lila.memo.MongoCache.Api
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) {
+):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def apply(swiss: Swiss): Fu[Option[SwissStats]] =
     swiss.isFinished ?? cache.get(swiss.id).dmap(some).dmap(_.filter(_.games > 0))
 
-  implicit private val statsBSONHandler = Macros.handler[SwissStats]
+  private given BSONDocumentHandler[SwissStats] = Macros.handler
 
-  private val cache = mongoCache[Swiss.Id, SwissStats](
-    64,
-    "swiss:stats",
-    60 days,
-    _.value
-  ) { loader =>
+  private val cache = mongoCache[SwissId, SwissStats](64, "swiss:stats", 60 days, _.value) { loader =>
     _.expireAfterAccess(5 seconds)
       .maximumSize(256)
       .buildAsyncFuture(loader(fetch))
   }
 
-  private def fetch(id: Swiss.Id): Fu[SwissStats] =
-    colls.swiss.byId[Swiss](id.value) flatMap {
+  private def fetch(id: SwissId): Fu[SwissStats] =
+    mongo.swiss.byId[Swiss](id) flatMap {
       _.filter(_.nbPlayers > 0).fold(fuccess(SwissStats())) { swiss =>
         sheetApi
           .source(swiss, sort = $empty)
@@ -60,8 +55,8 @@ final class SwissStatsApi(
               case (games, whiteWins, blackWins, draws) =>
                 sheet.outcomes.foldLeft((0, 0)) { case ((byes, absences), outcome) =>
                   (
-                    byes + (outcome == SwissSheet.Bye).??(1),
-                    absences + (outcome == SwissSheet.Absent).??(1)
+                    byes + (outcome == SwissSheet.Outcome.Bye).??(1),
+                    absences + (outcome == SwissSheet.Outcome.Absent).??(1)
                   )
                 } match {
                   case (byes, absences) =>
@@ -78,7 +73,8 @@ final class SwissStatsApi(
             }
           })(Keep.right)
           .run()
-          .dmap { s => s.copy(games = s.games / 2, averageRating = s.averageRating / swiss.nbPlayers) }
+          .dmap { s =>
+            s.copy(games = s.games / 2, averageRating = IntRating(s.averageRating.value / swiss.nbPlayers))
+          }
       }
     }
-}

@@ -3,7 +3,7 @@ package lila.i18n
 import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
 
-object I18nLangPicker {
+object I18nLangPicker:
 
   def apply(req: RequestHeader, userLang: Option[String] = None): Lang =
     userLang
@@ -29,10 +29,9 @@ object I18nLangPicker {
   def byStrOrDefault(str: Option[String]): Lang =
     str.flatMap(byStr) | defaultLang
 
-  def sortFor(langs: List[Lang], req: RequestHeader): List[Lang] = {
+  def sortFor(langs: List[Lang], req: RequestHeader): List[Lang] =
     val mine = allFromRequestHeaders(req).zipWithIndex.toMap
     langs.sortBy { mine.getOrElse(_, Int.MaxValue) }
-  }
 
   private val defaultByLanguage: Map[String, Lang] =
     LangList.all.keys.foldLeft(Map.empty[String, Lang]) { case (acc, lang) =>
@@ -49,18 +48,16 @@ object I18nLangPicker {
         lichessCodes.get(to.language)
 
   def byHref(code: String, req: RequestHeader): ByHref =
-    Lang get code flatMap findCloser match {
+    Lang get code flatMap findCloser match
       case Some(lang) if fixJavaLanguageCode(lang) == code =>
         if (req.acceptLanguages.isEmpty || req.acceptLanguages.exists(_.language == lang.language))
-          Found(lang)
-        else Refused(lang)
-      case Some(lang) => Redir(fixJavaLanguageCode(lang))
-      case None       => NotFound
-    }
+          ByHref.Found(lang)
+        else ByHref.Refused(lang)
+      case Some(lang) => ByHref.Redir(fixJavaLanguageCode(lang))
+      case None       => ByHref.NotFound
 
-  sealed trait ByHref
-  case class Found(lang: Lang)   extends ByHref
-  case class Refused(lang: Lang) extends ByHref
-  case class Redir(code: String) extends ByHref
-  case object NotFound           extends ByHref
-}
+  enum ByHref:
+    case Found(lang: Lang)
+    case Refused(lang: Lang)
+    case Redir(code: String)
+    case NotFound

@@ -1,50 +1,48 @@
 package lila.game
 
-import chess._
+import chess.*
 import chess.format.Uci
+import chess.format.pgn.SanStr
 
 import lila.db.ByteArray
 
-sealed trait PgnStorage
+private object PgnStorage:
 
-private object PgnStorage {
+  case object OldBin:
 
-  case object OldBin extends PgnStorage {
-
-    def encode(pgnMoves: PgnMoves) =
+    def encode(sans: Vector[SanStr]) =
       ByteArray {
         monitor(_.game.pgn.encode("old")) {
-          format.pgn.Binary.writeMoves(pgnMoves).get
+          format.pgn.Binary.writeMoves(sans).get
         }
       }
 
-    def decode(bytes: ByteArray, plies: Int): PgnMoves =
+    def decode(bytes: ByteArray, plies: Ply): Vector[SanStr] =
       monitor(_.game.pgn.decode("old")) {
-        format.pgn.Binary.readMoves(bytes.value.toList, plies).get.toVector
+        format.pgn.Binary.readMoves(bytes.value.toList, plies.value).get.toVector
       }
-  }
 
-  case object Huffman extends PgnStorage {
+  case object Huffman:
 
-    import org.lichess.compression.game.{ Encoder, Piece => JavaPiece, Role => JavaRole }
-    import scala.jdk.CollectionConverters._
+    import org.lichess.compression.game.{ Encoder, Piece as JavaPiece, Role as JavaRole }
+    import scala.jdk.CollectionConverters.*
 
-    def encode(pgnMoves: PgnMoves) =
+    def encode(sans: Vector[SanStr]) =
       ByteArray {
         monitor(_.game.pgn.encode("huffman")) {
-          Encoder.encode(pgnMoves.toArray)
+          Encoder.encode(SanStr raw sans.toArray)
         }
       }
-    def decode(bytes: ByteArray, plies: Int): Decoded =
+    def decode(bytes: ByteArray, plies: Ply): Decoded =
       monitor(_.game.pgn.decode("huffman")) {
-        val decoded      = Encoder.decode(bytes.value, plies)
-        val unmovedRooks = decoded.unmovedRooks.asScala.view.flatMap(chessPos).to(Set)
+        val decoded      = Encoder.decode(bytes.value, plies.value)
+        val unmovedRooks = decoded.unmovedRooks.asScala.view.map(Pos(_)).toSet
         Decoded(
-          pgnMoves = decoded.pgnMoves.toVector,
-          pieces = decoded.pieces.asScala.view.flatMap { case (k, v) =>
-            chessPos(k).map(_ -> chessPiece(v))
+          sans = SanStr from decoded.pgnMoves.toVector,
+          pieces = decoded.pieces.asScala.view.map { (k, v) =>
+            Pos(k) -> chessPiece(v)
           }.toMap,
-          positionHashes = decoded.positionHashes,
+          positionHashes = PositionHash(decoded.positionHashes),
           unmovedRooks = UnmovedRooks(unmovedRooks),
           lastMove = Option(decoded.lastUci) flatMap Uci.apply,
           castles = Castles(
@@ -53,34 +51,30 @@ private object PgnStorage {
             blackKingSide = unmovedRooks(Pos.H8),
             blackQueenSide = unmovedRooks(Pos.A8)
           ),
-          halfMoveClock = decoded.halfMoveClock
+          halfMoveClock = HalfMoveClock(decoded.halfMoveClock)
         )
       }
 
-    private def chessPos(sq: Integer): Option[Pos] = Pos(sq)
     private def chessRole(role: JavaRole): Role =
-      role match {
+      role match
         case JavaRole.PAWN   => Pawn
         case JavaRole.KNIGHT => Knight
         case JavaRole.BISHOP => Bishop
         case JavaRole.ROOK   => Rook
         case JavaRole.QUEEN  => Queen
         case JavaRole.KING   => King
-      }
     private def chessPiece(piece: JavaPiece): Piece =
       Piece(Color.fromWhite(piece.white), chessRole(piece.role))
-  }
 
   case class Decoded(
-      pgnMoves: PgnMoves,
+      sans: Vector[SanStr],
       pieces: PieceMap,
       positionHashes: PositionHash, // irrelevant after game ends
       unmovedRooks: UnmovedRooks,   // irrelevant after game ends
       lastMove: Option[Uci],
-      castles: Castles,  // irrelevant after game ends
-      halfMoveClock: Int // irrelevant after game ends
+      castles: Castles,            // irrelevant after game ends
+      halfMoveClock: HalfMoveClock // irrelevant after game ends
   )
 
   private def monitor[A](mon: lila.mon.TimerPath)(f: => A): A =
     lila.common.Chronometer.syncMon(mon)(f)
-}

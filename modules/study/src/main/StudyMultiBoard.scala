@@ -1,54 +1,52 @@
 package lila.study
 
-import BSONHandlers._
+import BSONHandlers.given
 import chess.Color
 import chess.format.pgn.Tags
-import chess.format.{ FEN, Uci }
+import chess.format.{ Fen, Uci }
 import com.github.blemale.scaffeine.AsyncLoadingCache
-import JsonView._
-import play.api.libs.json._
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.AdapterLike
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 final class StudyMultiBoard(
     chapterRepo: ChapterRepo,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   private val maxPerPage = MaxPerPage(9)
 
-  import StudyMultiBoard._
-  import handlers._
+  import StudyMultiBoard.*
 
-  def json(studyId: Study.Id, page: Int, playing: Boolean): Fu[JsObject] = {
+  def json(studyId: StudyId, page: Int, playing: Boolean): Fu[JsObject] = {
     if (page == 1 && !playing) firstPageCache.get(studyId)
     else fetch(studyId, page, playing)
   } map { PaginatorJson(_) }
 
-  def invalidate(studyId: Study.Id): Unit = firstPageCache.synchronous().invalidate(studyId)
+  def invalidate(studyId: StudyId): Unit = firstPageCache.synchronous().invalidate(studyId)
 
-  private val firstPageCache: AsyncLoadingCache[Study.Id, Paginator[ChapterPreview]] =
+  private val firstPageCache: AsyncLoadingCache[StudyId, Paginator[ChapterPreview]] =
     cacheApi.scaffeine
       .refreshAfterWrite(4 seconds)
       .expireAfterAccess(10 minutes)
-      .buildAsyncFuture[Study.Id, Paginator[ChapterPreview]] { fetch(_, 1, playing = false) }
+      .buildAsyncFuture[StudyId, Paginator[ChapterPreview]] { fetch(_, 1, playing = false) }
 
   private val playingSelector = $doc("tags" -> "Result:*", "relay.path" $ne "")
 
-  private def fetch(studyId: Study.Id, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] =
+  private def fetch(studyId: StudyId, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] =
     Paginator[ChapterPreview](
       new ChapterPreviewAdapter(studyId, playing),
       currentPage = page,
       maxPerPage = maxPerPage
     )
 
-  final private class ChapterPreviewAdapter(studyId: Study.Id, playing: Boolean)
-      extends AdapterLike[ChapterPreview] {
+  final private class ChapterPreviewAdapter(studyId: StudyId, playing: Boolean)
+      extends AdapterLike[ChapterPreview]:
 
     private val selector = $doc("studyId" -> studyId) ++ playing.??(playingSelector)
 
@@ -58,7 +56,7 @@ final class StudyMultiBoard(
       chapterRepo
         .coll {
           _.aggregateList(length, readPreference = readPref) { framework =>
-            import framework._
+            import framework.*
             Match(selector) -> List(
               Sort(Ascending("order")),
               Skip(offset),
@@ -85,11 +83,11 @@ final class StudyMultiBoard(
         .map { r =>
           for {
             doc  <- r
-            id   <- doc.getAsOpt[Chapter.Id]("_id")
-            name <- doc.getAsOpt[Chapter.Name]("name")
+            id   <- doc.getAsOpt[StudyChapterId]("_id")
+            name <- doc.getAsOpt[StudyChapterName]("name")
             comp <- doc.getAsOpt[Bdoc]("comp")
             node <- comp.getAsOpt[Bdoc]("node")
-            fen  <- node.getAsOpt[FEN]("fen")
+            fen  <- node.getAsOpt[Fen.Epd]("fen")
             lastMove = node.getAsOpt[Uci]("uci")
             tags     = comp.getAsOpt[Tags]("tags")
           } yield ChapterPreview(
@@ -102,41 +100,36 @@ final class StudyMultiBoard(
             playing = lastMove.isDefined && tags.flatMap(_(_.Result)).has("*")
           )
         }
+
+  import lila.common.Json.given
+  import JsonView.given
+
+  given Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player] { p =>
+    Json
+      .obj("name" -> p.name)
+      .add("title" -> p.title)
+      .add("rating" -> p.rating)
   }
 
-  private object handlers {
-
-    import lila.common.Json._
-
-    implicit val previewPlayerWriter: Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player] { p =>
-      Json
-        .obj("name" -> p.name)
-        .add("title" -> p.title)
-        .add("rating" -> p.rating)
-    }
-
-    implicit val previewPlayersWriter: Writes[ChapterPreview.Players] = Writes[ChapterPreview.Players] {
-      players =>
-        Json.obj("white" -> players.white, "black" -> players.black)
-    }
-
-    implicit val previewWriter: Writes[ChapterPreview] = Json.writes[ChapterPreview]
+  given Writes[ChapterPreview.Players] = Writes[ChapterPreview.Players] { players =>
+    Json.obj("white" -> players.white, "black" -> players.black)
   }
-}
 
-object StudyMultiBoard {
+  given Writes[ChapterPreview] = Json.writes
+
+object StudyMultiBoard:
 
   case class ChapterPreview(
-      id: Chapter.Id,
-      name: Chapter.Name,
+      id: StudyChapterId,
+      name: StudyChapterName,
       players: Option[ChapterPreview.Players],
       orientation: Color,
-      fen: FEN,
+      fen: Fen.Epd,
       lastMove: Option[Uci],
       playing: Boolean
   )
 
-  object ChapterPreview {
+  object ChapterPreview:
 
     case class Player(name: String, title: Option[String], rating: Option[Int])
 
@@ -150,5 +143,3 @@ object StudyMultiBoard {
         white = Player(wName, tags(_.WhiteTitle), tags(_.WhiteElo) flatMap (_.toIntOption)),
         black = Player(bName, tags(_.BlackTitle), tags(_.BlackElo) flatMap (_.toIntOption))
       )
-  }
-}

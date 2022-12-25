@@ -1,17 +1,17 @@
 package views.html.report
 
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
-object form {
+object form:
 
-  def apply(form: Form[_], reqUser: Option[User] = None, captcha: lila.common.Captcha)(implicit
+  def apply(form: Form[?], reqUser: Option[User] = None, captcha: lila.common.Captcha)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -41,7 +41,7 @@ object form {
           form3.group(form("username"), trans.user(), klass = "field_to complete-parent") { f =>
             reqUser
               .map { user =>
-                frag(userLink(user), form3.hidden(f, user.id.some))
+                frag(userLink(user), form3.hidden(f, user.id.value.some))
               }
               .getOrElse {
                 div(form3.input(f, klass = "user-autocomplete")(dataTag := "span", autofocus))
@@ -64,4 +64,3 @@ object form {
         )
       )
     }
-}

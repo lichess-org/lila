@@ -1,10 +1,11 @@
 package lila.common
 
-case class Nonce(value: String) extends AnyVal with StringValue {
-  def scriptSrc = s"'nonce-$value'"
-}
+import ornicar.scalalib.SecureRandom
 
-object Nonce {
+opaque type Nonce = String
+
+object Nonce extends OpaqueString[Nonce]:
+
+  extension (a: Nonce) def scriptSrc = s"'nonce-${a.value}'"
 
   def random: Nonce = Nonce(SecureRandom.nextString(24))
-}

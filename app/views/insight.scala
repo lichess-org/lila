@@ -2,16 +2,16 @@ package views.html
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.user.User
 import play.api.i18n.Lang
 
 import controllers.routes
 
-object insight {
+object insight:
 
   def index(
       u: User,
@@ -57,7 +57,7 @@ object insight {
       moreCss = cssTag("insight")
     )(
       main(cls := "box box-pad page-small")(
-        boxTop(h1(cls := "text", dataIcon := ""))(trans.insight.xChessInsights(u.username)),
+        boxTop(h1(cls := "text", dataIcon := "")(trans.insight.xChessInsights(u.username))),
         p(trans.insight.xHasNoChessInsights(userLink(u))),
         refreshForm(u, trans.insight.generateInsights.txt(u.username))
       )
@@ -86,4 +86,3 @@ object insight {
         p(strong(trans.insight.crunchingData()))
       )
     )
-}

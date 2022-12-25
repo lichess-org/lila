@@ -33,6 +33,7 @@
   <string name="otherAmount">أخرى</string>
   <string name="pleaseEnterAmountInX">يرجى كتابة المبلغ بالدولار الامريكي %s</string>
   <string name="withCreditCard">بطاقة ائتمان</string>
+  <string name="logInToDonate">قم بتسجيل الدخول للقيام بالتبرع</string>
   <string name="weAreSmallTeam">نحن فريق صغير، لذلك دعمك يشكل فارقاً كبيراً!</string>
   <string name="celebratedPatrons">الرعاة المتميزون والذين بفضلهم ما زالت Lichess قائمة</string>
   <string name="whereMoneyGoes">أين يذهب المال؟</string>
@@ -47,7 +48,9 @@
 أو يمكنك %s.</string>
   <string name="contactSupport">التواصل مع فريق الدعم في Lichess</string>
   <string name="otherMethods">طرق أخرى للتبرع؟</string>
+  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">موقع ليتشيس مسجل لدى %s.</string>
   <string name="bankTransfers">نقبل ايضاً التحويلات المصرفية</string>
+  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">يرجى الانتباه إلى أن التبرع من الخيارات أعلاه فقط تضمن حصولكم على شارة المتبرع.</string>
   <string name="patronFeatures">هل هناك بعض الميزات المخصصة للداعمين؟</string>
   <string name="noPatronFeatures">لا، لأن ليشيس مجاني، وإلى الأبد، ولكل شخص. هذا وعد.
 ومع ذلك، يحصل الداعمون على أيقونة جديدة رائعة.</string>
@@ -70,7 +73,7 @@
   <string name="update">تحديث</string>
   <string name="changeMonthlyAmount">تغيير المبلغ الشهري (%s)</string>
   <string name="cancelSupport">إلغاء دعمك</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s أو %2$s</string>
+  <string name="xOrY">%1$s أو %2$s</string>
   <string name="decideHowMuch">قرر ماذا يعني Lichess بالنسبة لك:</string>
   <string name="stopPayments">سحب بطاقة الائتمان الخاصة بك وإيقاف الدفع:</string>
   <string name="stopPaymentsPayPal">إلغاء الاشتراك  PayPal  وإيقاف الدفع:</string>

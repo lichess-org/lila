@@ -1,18 +1,18 @@
 package lila.analyse
 
-import org.joda.time._
+import org.joda.time.*
 import reactivemongo.api.bson.{ BSONBoolean, BSONInteger }
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ given, * }
 import lila.memo.CacheApi
 import lila.user.User
 
-final class RequesterApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class RequesterApi(coll: Coll)(using scala.concurrent.ExecutionContext):
 
   private val formatter = format.DateTimeFormat forPattern "yyyy-MM-dd"
 
-  def add(requester: User.ID, ownGame: Boolean): Funit =
+  def add(requester: UserId, ownGame: Boolean): Funit =
     coll.update
       .one(
         $id(requester),
@@ -24,7 +24,7 @@ final class RequesterApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
       .void
 
-  def countTodayAndThisWeek(userId: User.ID): Fu[(Int, Int)] = {
+  def countTodayAndThisWeek(userId: UserId): Fu[(Int, Int)] =
     val now = DateTime.now
     coll
       .one(
@@ -43,5 +43,3 @@ final class RequesterApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         }
         (~daily, weekly)
       }
-  }
-}

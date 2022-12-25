@@ -4,17 +4,17 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.mvc.Call
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.i18n.LangList
 import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
 
-object index {
+object index:
 
-  import views.html.ublog.{ post => postView }
+  import views.html.ublog.{ post as postView }
 
   def drafts(user: User, posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) =
     views.html.base.layout(
@@ -49,7 +49,7 @@ object index {
     title = "Friends blogs",
     posts = posts,
     menuItem = "friends",
-    route = routes.Ublog.friends _,
+    route = routes.Ublog.friends,
     onEmpty = "Nothing to show. Follow some authors!"
   )
 
@@ -57,7 +57,7 @@ object index {
     title = "Liked blog posts",
     posts = posts,
     menuItem = "liked",
-    route = routes.Ublog.liked _,
+    route = routes.Ublog.liked,
     onEmpty = "Nothing to show. Like some posts!"
   )
 
@@ -97,8 +97,11 @@ object index {
                 langSelections
                   .map { case (language, name) =>
                     a(
-                      href := routes.Ublog.communityLang(language),
-                      cls  := (language == lang.fold("all")(_.language)).option("current")
+                      href := {
+                        if language == "all" then routes.Ublog.communityAll()
+                        else routes.Ublog.communityLang(language)
+                      },
+                      cls := (language == lang.fold("all")(_.language)).option("current")
                     )(name)
                   }
               ),
@@ -179,4 +182,3 @@ object index {
         )
       )
     }
-}

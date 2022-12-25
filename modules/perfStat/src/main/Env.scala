@@ -1,10 +1,10 @@
 package lila.perfStat
 
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import play.api.Configuration
 
-import lila.common.config._
+import lila.common.config.*
 
 @Module
 final class Env(
@@ -15,10 +15,10 @@ final class Env(
     rankingsOf: lila.user.RankingsOf,
     rankingApi: lila.user.RankingApi,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   private lazy val storage = new PerfStatStorage(
     coll = yoloDb(CollName("perf_stat")).failingSilently()
@@ -36,4 +36,3 @@ final class Env(
         lila.log("perfStat").error(s"index game ${game.id}", e)
       } unit
   }
-}

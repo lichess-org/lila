@@ -1,12 +1,12 @@
 package controllers
 
-import chess.format.FEN
+import chess.format.Fen
 import play.api.libs.json.JsArray
-import play.api.mvc._
-import views._
+import play.api.mvc.*
+import views.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, Preload }
 import lila.game.{ PgnDump, Pov }
 import lila.round.JsonView.WithFlags
@@ -16,9 +16,9 @@ final class Analyse(
     env: Env,
     gameC: => Game,
     roundC: => Round
-) extends LilaController(env) {
+) extends LilaController(env):
 
-  def requestAnalysis(id: String) =
+  def requestAnalysis(id: GameId) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.game.gameRepo game id) { game =>
         env.fishnet.analyser(
@@ -30,10 +30,9 @@ final class Analyse(
             system = false
           )
         ) map { result =>
-          result.error match {
+          result.error match
             case None        => NoContent
             case Some(error) => BadRequest(error)
-          }
         }
       }
     }
@@ -60,7 +59,7 @@ final class Analyse(
                   pov,
                   lila.api.Mobile.Api.currentVersion,
                   tv = userTv.map { u =>
-                    lila.round.OnUserTv(u.id)
+                    lila.round.OnTv.User(u.id)
                   },
                   analysis,
                   initialFen = initialFen,
@@ -93,11 +92,11 @@ final class Analyse(
         }
       }
 
-  def embed(gameId: String, color: String) = embedReplayGame(gameId, color)
+  def embed(gameId: GameId, color: String) = embedReplayGame(gameId, color)
 
   val AcceptsPgn = Accepting("application/x-chess-pgn")
 
-  def embedReplayGame(gameId: String, color: String) =
+  def embedReplayGame(gameId: GameId, color: String) =
     Action.async { implicit req =>
       env.api.textLpvExpand.getPgn(gameId) map {
         case Some(pgn) =>
@@ -113,12 +112,12 @@ final class Analyse(
       }
     }
 
-  private def RedirectAtFen(pov: Pov, initialFen: Option[FEN])(or: => Fu[Result])(implicit ctx: Context) =
-    get("fen").map(FEN.clean).fold(or) { atFen =>
+  private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(implicit ctx: Context) =
+    (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]).fold(or) { atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       fuccess {
         chess.Replay
-          .plyAtFen(pov.game.pgnMoves, initialFen, pov.game.variant, atFen)
+          .plyAtFen(pov.game.sans, initialFen, pov.game.variant, atFen)
           .fold(
             err => {
               lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")
@@ -169,7 +168,7 @@ final class Analyse(
         lila.analyse.ExternalEngine.form
           .bindFromRequest()
           .fold(
-            err => newJsonFormError(err)(me.realLang | reqLang),
+            err => newJsonFormError(err)(using me.realLang | reqLang),
             data =>
               env.analyse.externalEngine.create(me, data, tokenId.value) map { engine =>
                 Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
@@ -185,7 +184,7 @@ final class Analyse(
           lila.analyse.ExternalEngine.form
             .bindFromRequest()
             .fold(
-              err => newJsonFormError(err)(me.realLang | reqLang),
+              err => newJsonFormError(err)(using me.realLang | reqLang),
               data =>
                 env.analyse.externalEngine.update(engine, data) map { engine =>
                   JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
@@ -201,4 +200,3 @@ final class Analyse(
         if (res) jsonOkResult else notFoundJsonSync()
       }
     }
-}

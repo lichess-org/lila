@@ -2,14 +2,14 @@ package views.html.user.show
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.game.{ Game, Pov }
 import lila.user.User
 
-object gamesContent {
+object gamesContent:
 
   def apply(
       u: User,
@@ -17,7 +17,7 @@ object gamesContent {
       pager: Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
       filterName: String,
-      notes: Map[Game.ID, String]
+      notes: Map[GameId, String]
   )(implicit ctx: Context) =
     frag(
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
@@ -62,4 +62,3 @@ object gamesContent {
           )
       )
     )
-}

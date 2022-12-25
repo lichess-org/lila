@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">現在のラウンドの URL</string>
   <string name="currentGameUrl">現在のゲームの URL</string>
   <string name="downloadAllRounds">全ラウンドをダウンロード</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">このラウンドのゲームをすべて削除する。</string>
+  <string name="deleteAllGamesOfThisRound">このラウンドのすべてのゲームを削除します。復活させるには情報源がアクティブでなくてはなりません。</string>
 </resources>

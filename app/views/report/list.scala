@@ -1,16 +1,16 @@
 package views.html.report
 
 import controllers.routes
-import controllers.appeal.routes.{ Appeal => appealRoutes }
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.appeal.routes.{ Appeal as appealRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.report.Report.WithSuspect
 import lila.user.Holder
 
-object list {
+object list:
 
   def apply(
       reports: List[lila.report.Report.WithSuspect],
@@ -47,7 +47,7 @@ object list {
                       span(cls := "head")(
                         reportScore(atom.score),
                         " ",
-                        userIdLink(atom.by.value.some),
+                        userIdLink(atom.by.userId.some),
                         " ",
                         momentFromNowOnce(atom.at)
                       ),
@@ -109,19 +109,22 @@ object list {
                 scoreTag(scores.highest)
               ),
               ctx.me ?? { me =>
-                lila.report.Room.all.filter(lila.report.Room.isGrantedFor(Holder(me))).map { room =>
-                  a(
-                    href := reportRoutes.listWithFilter(room.key),
-                    cls := List(
-                      "active"            -> (filter == room.key),
-                      s"room-${room.key}" -> true
+                lila.report.Room.values
+                  .filter(lila.report.Room.isGrantedFor(Holder(me)))
+                  .map { room =>
+                    a(
+                      href := reportRoutes.listWithFilter(room.key),
+                      cls := List(
+                        "active"            -> (filter == room.key),
+                        s"room-${room.key}" -> true
+                      )
+                    )(
+                      room.name,
+                      scores.get(room).filter(20 <=).map(scoreTag(_))
                     )
-                  )(
-                    room.name,
-                    scores.get(room).filter(20 <=).map(scoreTag(_))
-                  )
-                }
-              },
+                  }
+                  .toList
+              }: List[Frag],
               (appeals > 0 && isGranted(_.Appeals)) option a(
                 href := appealRoutes.queue,
                 cls := List(
@@ -143,4 +146,3 @@ object list {
         )
       )
     }
-}

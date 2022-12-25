@@ -1,14 +1,14 @@
 package views.html.challenge
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge
 import lila.challenge.Challenge.Status
 
 import controllers.routes
 
-object theirs {
+object theirs:
 
   def apply(
       c: Challenge,
@@ -42,7 +42,7 @@ object theirs {
               ),
               bits.details(c, color),
               c.notableInitialFen.map { fen =>
-                div(cls := "board-preview", views.html.board.bits.mini(fen, !c.finalColor)(div))
+                div(cls := "board-preview", views.html.board.bits.mini(fen.board, !c.finalColor)(div))
               },
               if (c.open.exists(!_.canJoin(ctx.me)))
                 div(
@@ -102,4 +102,3 @@ object theirs {
         }
       )
     }
-}

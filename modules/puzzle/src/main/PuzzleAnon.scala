@@ -1,11 +1,11 @@
 package lila.puzzle
 
 import chess.Color
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.ThreadLocalRandom
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 
 final class PuzzleAnon(
@@ -13,9 +13,9 @@ final class PuzzleAnon(
     cacheApi: CacheApi,
     pathApi: PuzzlePathApi,
     countApi: PuzzleCountApi
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def getOneFor(angle: PuzzleAngle, color: Option[Color]): Fu[Option[Puzzle]] =
     pool
@@ -28,13 +28,12 @@ final class PuzzleAnon(
         }
       }
 
-  private def selectWithColor(color: Color)(puzzles: Vector[Puzzle]): Option[Puzzle] = {
+  private def selectWithColor(color: Color)(puzzles: Vector[Puzzle]): Option[Puzzle] =
     def nextTry(attempts: Int): Option[Puzzle] =
       if (attempts < 10)
         ThreadLocalRandom oneOf puzzles filter (_.color == color) orElse nextTry(attempts + 1)
       else ThreadLocalRandom oneOf puzzles.filter(_.color == color)
     nextTry(1)
-  }
 
   def getBatchFor(nb: Int): Fu[Vector[Puzzle]] = {
     pool get PuzzleAngle.mix map (_ take nb)
@@ -62,7 +61,7 @@ final class PuzzleAnon(
               else 15
             colls.path {
               _.aggregateList(poolSize) { framework =>
-                import framework._
+                import framework.*
                 Match(pathApi.select(angle, tier, ratingRange)) -> List(
                   Sample(pathSampleSize),
                   Project($doc("puzzleId" -> "$ids", "_id" -> false)),
@@ -85,10 +84,9 @@ final class PuzzleAnon(
                   )
                 )
               }.map {
-                _.view.flatMap(PuzzleBSONReader.readOpt).toVector
+                _.view.flatMap(puzzleReader.readOpt).toVector
               }
             }
           }
         }
     }
-}

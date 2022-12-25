@@ -3,27 +3,26 @@ package views.html.streamer
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 
-object edit {
+object edit:
 
-  import trans.streamer._
+  import trans.streamer.*
 
   def apply(
       s: lila.streamer.Streamer.WithUserAndStream,
-      form: Form[_],
+      form: Form[?],
       modData: Option[((List[lila.mod.Modlog], List[lila.user.Note]), List[lila.streamer.Streamer])]
-  )(implicit ctx: Context) = {
-
+  )(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
       moreCss = cssTag("streamer.form")
     ) {
       main(cls := "page-menu")(
-        bits.menu("edit", s.withoutStream.some),
+        bits.menu("edit", s.some),
         div(cls := "page-menu__content box streamer-edit")(
           if (ctx.is(s.user))
             div(cls := "streamer-header")(
@@ -48,7 +47,7 @@ object edit {
                 bits.rules
               )
             )
-          else views.html.streamer.header(s),
+          else views.html.streamer.header(s, modData.isDefined),
           div(cls := "box-pad") {
             val granted = s.streamer.approval.granted
             frag(
@@ -86,11 +85,7 @@ object edit {
                   )
               ),
               ctx.is(s.user) option div(cls := "status")(
-                anotherLanguage(
-                  a(href := "https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes")(
-                    "2-letter ISO 639-1 code"
-                  )
-                )
+                streamerLanguageSettings()
               ),
               modData.map { case ((log, notes), same) =>
                 div(cls := "mod_log status")(
@@ -101,7 +96,7 @@ object edit {
                   log.nonEmpty option ul(
                     log.map { e =>
                       li(
-                        userIdLink(e.mod.some, withTitle = false),
+                        userIdLink(e.mod.userId.some, withTitle = false),
                         " ",
                         b(e.showAction),
                         " ",
@@ -245,5 +240,3 @@ object edit {
         )
       )
     }
-  }
-}

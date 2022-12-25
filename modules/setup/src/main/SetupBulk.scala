@@ -1,22 +1,23 @@
 package lila.setup
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import chess.variant.{ FromPosition, Variant }
-import chess.format.FEN
+import chess.format.Fen
 import chess.{ Clock, Mode }
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.libs.json.Json
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Json._
+import lila.common.Json.*
 import lila.common.{ Bearer, Days, Template }
 import lila.game.{ Game, GameRule, IdGenerator }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User
 
-object SetupBulk {
+object SetupBulk:
 
   val maxGames = 500
 
@@ -30,8 +31,8 @@ object SetupBulk {
       startClocksAt: Option[DateTime],
       message: Option[Template],
       rules: Set[GameRule],
-      fen: Option[FEN] = None
-  ) {
+      fen: Option[Fen.Epd] = None
+  ):
     def clockOrDays = clock.toLeft(days | Days(3))
 
     def allowMultiplePairingsPerUser = clock.isEmpty
@@ -39,9 +40,8 @@ object SetupBulk {
     def validFen = ApiConfig.validFen(variant, fen)
 
     def autoVariant =
-      if (variant.standard && fen.exists(!_.initial)) copy(variant = FromPosition)
+      if (variant.standard && fen.exists(!_.isInitial)) copy(variant = FromPosition)
       else this
-  }
 
   private def timestampInNearFuture = longNumber(
     min = 0,
@@ -65,10 +65,10 @@ object SetupBulk {
     ) {
       (
           tokens: String,
-          variant: Option[String],
+          variant: Option[Variant.LilaKey],
           clock: Option[Clock.Config],
           days: Option[Days],
-          fen: Option[FEN],
+          fen: Option[Fen.Epd],
           rated: Boolean,
           pairTs: Option[Long],
           clockTs: Option[Long],
@@ -77,13 +77,13 @@ object SetupBulk {
       ) =>
         BulkFormData(
           tokens,
-          Variant orDefault ~variant,
+          Variant.orDefault(variant),
           clock,
           days,
           rated,
           pairTs.map { new DateTime(_) },
           clockTs.map { new DateTime(_) },
-          message map Template,
+          message map Template.apply,
           ~rules,
           fen
         ).autoVariant
@@ -118,11 +118,11 @@ object SetupBulk {
 
   case class BadToken(token: Bearer, error: OAuthServer.AuthError)
 
-  case class ScheduledGame(id: Game.ID, white: User.ID, black: User.ID)
+  case class ScheduledGame(id: GameId, white: UserId, black: UserId)
 
   case class ScheduledBulk(
       _id: String,
-      by: User.ID,
+      by: UserId,
       games: List[ScheduledGame],
       variant: Variant,
       clock: Either[Clock.Config, Days],
@@ -133,24 +133,23 @@ object SetupBulk {
       message: Option[Template],
       rules: Set[GameRule] = Set.empty,
       pairedAt: Option[DateTime] = None,
-      fen: Option[FEN] = None
-  ) {
+      fen: Option[Fen.Epd] = None
+  ):
     def userSet = Set(games.flatMap(g => List(g.white, g.black)))
     def collidesWith(other: ScheduledBulk) = {
       pairAt == other.pairAt || startClocksAt == other.startClocksAt
     } && userSet.exists(other.userSet.contains)
     def nonEmptyRules = rules.nonEmpty option rules
-  }
 
-  sealed trait ScheduleError
-  case class BadTokens(tokens: List[BadToken])    extends ScheduleError
-  case class DuplicateUsers(users: List[User.ID]) extends ScheduleError
-  case object RateLimited                         extends ScheduleError
+  enum ScheduleError:
+    case BadTokens(tokens: List[BadToken])
+    case DuplicateUsers(users: List[UserId])
+    case RateLimited
 
-  def toJson(bulk: ScheduledBulk) = {
-    import bulk._
-    import lila.common.Json.jodaWrites
-    import lila.game.JsonView.ruleWriter
+  def toJson(bulk: ScheduledBulk) =
+    import bulk.*
+    import lila.common.Json.given
+    import lila.game.JsonView.given
     Json
       .obj(
         "id" -> _id,
@@ -180,20 +179,17 @@ object SetupBulk {
       .add("message" -> message.map(_.value))
       .add("rules" -> nonEmptyRules)
       .add("fen" -> fen)
-  }
 
-}
-
-final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(implicit
+final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) {
+):
 
-  import SetupBulk._
+  import SetupBulk.*
 
   type Result = Either[ScheduleError, ScheduledBulk]
 
-  private val rateLimit = new lila.memo.RateLimit[User.ID](
+  private val rateLimit = new lila.memo.RateLimit[UserId](
     credits = maxGames * 3,
     duration = 10.minutes,
     key = "challenge.bulk"
@@ -209,14 +205,14 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(imp
           _.left.map { BadToken(token, _) }
         }
       }
-      .runFold[Either[List[BadToken], List[User.ID]]](Right(Nil)) {
+      .runFold[Either[List[BadToken], List[UserId]]](Right(Nil)) {
         case (Left(bads), Left(bad))       => Left(bad :: bads)
         case (Left(bads), _)               => Left(bads)
         case (Right(_), Left(bad))         => Left(bad :: Nil)
         case (Right(users), Right(scoped)) => Right(scoped.user.id :: users)
       }
       .flatMap {
-        case Left(errors) => fuccess(Left(BadTokens(errors.reverse)))
+        case Left(errors) => fuccess(Left(ScheduleError.BadTokens(errors.reverse)))
         case Right(allPlayers) =>
           lazy val dups = allPlayers
             .groupBy(identity)
@@ -226,8 +222,9 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(imp
               case (u, nb) if nb > 1 => u
             }
             .toList
-          if (!data.allowMultiplePairingsPerUser && dups.nonEmpty) fuccess(Left(DuplicateUsers(dups)))
-          else {
+          if (!data.allowMultiplePairingsPerUser && dups.nonEmpty)
+            fuccess(Left(ScheduleError.DuplicateUsers(dups)))
+          else
             val pairs = allPlayers.reverse
               .grouped(2)
               .collect { case List(w, b) => (w, b) }
@@ -235,7 +232,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(imp
             val nbGames = pairs.size
             val cost    = nbGames * (if (me.isVerified || me.isApiHog) 1 else 3)
             rateLimit[Fu[Result]](me.id, cost = nbGames) {
-              lila.mon.api.challenge.bulk.scheduleNb(me.id).increment(nbGames).unit
+              lila.mon.api.challenge.bulk.scheduleNb(me.id.value).increment(nbGames).unit
               idGenerator
                 .games(nbGames)
                 .map {
@@ -248,7 +245,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(imp
                 }
                 .dmap {
                   ScheduledBulk(
-                    _id = lila.common.ThreadLocalRandom nextString 8,
+                    _id = ThreadLocalRandom nextString 8,
                     by = me.id,
                     _,
                     data.variant,
@@ -263,7 +260,5 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(imp
                   )
                 }
                 .dmap(Right.apply)
-            }(fuccess(Left(RateLimited)))
-          }
+            }(fuccess(Left(ScheduleError.RateLimited)))
       }
-}

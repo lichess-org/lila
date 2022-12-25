@@ -2,15 +2,15 @@ package controllers
 package appeal
 
 import play.api.mvc.Result
-import views._
+import views.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.report.Suspect
 import play.api.data.Form
 
 final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, userC: => User)
-    extends LilaController(env) {
+    extends LilaController(env):
 
   private def form(implicit ctx: Context) =
     if (isGranted(_.Appeals)) lila.appeal.Appeal.modForm
@@ -23,12 +23,12 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   def landing =
     Auth { implicit ctx => me =>
-      if (ctx.isAppealUser || isGranted(_.Appeals)) {
+      if (ctx.isAppealUser || isGranted(_.Appeals))
         pageHit
         OptionOk(prismicC getBookmark "appeal-landing") { case (doc, resolver) =>
           views.html.site.page.lone(doc, resolver)
         }
-      } else notFound
+      else notFound
     }
 
   private def renderAppealOrTree(
@@ -44,7 +44,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   def post =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       form
         .bindFromRequest()
         .fold(
@@ -60,13 +60,13 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       ) zip env.report.api.inquiries.allBySuspect zip reportC.getScores flatMap {
         case ((appeals, inquiries), ((scores, streamers), nbAppeals)) =>
           env.user.lightUserApi preloadUsers appeals.map(_.user)
-          env.mod.logApi.wereMarkedBy(me.id, appeals.map(_.user.id)) map { markedByMap =>
+          env.mod.logApi.wereMarkedBy(me.id into ModId, appeals.map(_.user.id)) map { markedByMap =>
             Ok(html.appeal.queue(appeals, inquiries, markedByMap, scores, streamers, nbAppeals))
           }
       }
     }
 
-  def show(username: String) =
+  def show(username: UserStr) =
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         getModData(me, appeal, suspect) map { modData =>
@@ -75,10 +75,10 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       }
     }
 
-  def reply(username: String) =
+  def reply(username: UserStr) =
     SecureBody(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         form
           .bindFromRequest()
           .fold(
@@ -91,21 +91,21 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
                 _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
                 preset = getPresets.findLike(text)
                 _ <- env.appeal.api.reply(text, appeal, me, preset.map(_.name))
-                _ <- env.mod.logApi.appealPost(me.id, suspect.user.id)
-              } yield Redirect(s"${routes.Appeal.show(username)}#appeal-actions")
+                _ <- env.mod.logApi.appealPost(me.id into ModId, suspect.user.id)
+              } yield Redirect(s"${routes.Appeal.show(username.value)}#appeal-actions")
           )
       }
     }
 
-  private def getModData(me: lila.user.Holder, appeal: lila.appeal.Appeal, suspect: Suspect)(implicit
-      ctx: Context
+  private def getModData(me: lila.user.Holder, appeal: lila.appeal.Appeal, suspect: Suspect)(using
+      Context
   ) =
     for {
       users      <- env.security.userLogins(suspect.user, 100)
       logins     <- userC.loginsTableData(suspect.user, users, 100)
       appeals    <- env.appeal.api.byUserIds(suspect.user.id :: logins.userLogins.otherUserIds)
       inquiry    <- env.report.api.inquiries.ofSuspectId(suspect.user.id)
-      markedByMe <- env.mod.logApi.wasMarkedBy(me.id, suspect.user.id)
+      markedByMe <- env.mod.logApi.wasMarkedBy(me.id into ModId, suspect.user.id)
     } yield html.appeal.discussion.ModData(
       mod = me,
       suspect = suspect,
@@ -117,27 +117,27 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       markedByMe = markedByMe
     )
 
-  def mute(username: String) =
+  def mute(username: UserStr) =
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.appeal.api.toggleMute(appeal) >>
-          env.report.api.inquiries.toggle(lila.report.Mod(me.user), appeal.id) inject
+          env.report.api.inquiries.toggle(lila.report.Mod(me.user), Right(appeal.userId)) inject
           Redirect(routes.Appeal.queue)
       }
     }
 
-  def sendToZulip(username: String) =
+  def sendToZulip(username: UserStr) =
     Secure(_.SendToZulip) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.irc.api.userAppeal(user = suspect.user, mod = me) inject NoContent
       }
     }
 
-  def snooze(username: String, dur: String) =
+  def snooze(username: UserStr, dur: String) =
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.appeal.api.snooze(me.user, appeal.id, dur)
-        env.report.api.inquiries.toggle(lila.report.Mod(me.user), appeal.id) inject
+        env.report.api.inquiries.toggle(lila.report.Mod(me.user), Right(appeal.userId)) inject
           Redirect(routes.Appeal.queue)
       }
     }
@@ -145,17 +145,12 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   private def getPresets = env.mod.presets.appealPresets.get()
 
   private def asMod(
-      username: String
-  )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    env.user.repo named username flatMap {
-      _ ?? { user =>
-        env.appeal.api get user flatMap {
-          _ ?? { appeal =>
-            f(appeal, Suspect(user)) dmap some
-          }
-        }
+      username: UserStr
+  )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(using Context): Fu[Result] =
+    env.user.repo byId username ifThen { user =>
+      env.appeal.api get user ifThen { appeal =>
+        f(appeal, Suspect(user)) dmap some
       }
     } flatMap {
       _.fold(notFound)(fuccess)
     }
-}

@@ -5,30 +5,27 @@ import lila.user.User
 import lila.playban.RageSit
 
 case class PoolMember(
-    userId: User.ID,
+    userId: UserId,
     sri: lila.socket.Socket.Sri,
-    rating: Int,
+    rating: IntRating,
     ratingRange: Option[RatingRange],
     lame: Boolean,
-    blocking: PoolMember.BlockedUsers,
+    blocking: Blocking,
     rageSitCounter: Int,
     misses: Int = 0 // how many waves they missed
-) {
+):
 
   def incMisses = copy(misses = misses + 1)
 
-  def ratingDiff(other: PoolMember) = Math.abs(rating - other.rating)
+  def ratingDiff(other: PoolMember) = IntRatingDiff(Math.abs(rating.value - other.rating.value))
 
   def withRange(r: Option[RatingRange]) =
     if (r == ratingRange) this
     else copy(ratingRange = r, misses = 0)
 
   def hasRange = ratingRange.isDefined
-}
 
-object PoolMember {
-
-  case class BlockedUsers(ids: Set[User.ID]) extends AnyVal
+object PoolMember:
 
   def apply(joiner: PoolApi.Joiner, config: PoolConfig, rageSit: RageSit): PoolMember =
     PoolMember(
@@ -37,7 +34,6 @@ object PoolMember {
       lame = joiner.lame,
       rating = joiner.rating,
       ratingRange = joiner.ratingRange,
-      blocking = BlockedUsers(joiner.blocking),
+      blocking = joiner.blocking,
       rageSitCounter = rageSit.counter / 10
     )
-}
