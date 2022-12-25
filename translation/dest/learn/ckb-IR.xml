@@ -21,4 +21,48 @@
   <string name="theBishop">فیل</string>
   <string name="itMovesDiagonally">بە لاری دەجولێت</string>
   <string name="bishopIntro">داواتر، فێردەبیت چۆن فیل لە مانۆڕەکانت بەکاربێنیت!</string>
+  <string name="youNeedBothBishops">یەک فیل لە چوارگۆشەی کاڵ،
+ یەک فیل چوارگۆشەی تۆخ.
+ پێویستت بە هەردووکی هەیە!</string>
+  <string name="bishopComplete">پیرۆزە، ئێستا دەتوانی فەرمان بە فیل بکەیت.</string>
+  <string name="theQueen">شاژن</string>
+  <string name="queenCombinesRookAndBishop">شاژن = قەڵا + فیل</string>
+  <string name="queenIntro">بەهێزترین داشی شەترەنجە، شکۆمەندی بۆ شاژن!</string>
+  <string name="queenComplete">پیرۆزە! شاژنەکان هیچ نهێنیەکیان بۆ تۆ نییە.</string>
+  <string name="theKing">پاشا</string>
+  <string name="theMostImportantPiece">گرنگترین داشی شەترەنجە</string>
+  <string name="kingIntro">تۆ پاشایت. بەڵام ئەگەر لە شەڕدا کەوتیت، ئەوە بە دۆڕاو هەژمار دەکرێیت.</string>
+  <string name="theKingIsSlow">پاشا لەسەرخۆیە.</string>
+  <string name="lastOne">دوواین دانە!</string>
+  <string name="kingComplete">ئێستا دەتوانیت فەرماندەیی فەرماندە بکەیت!</string>
+  <string name="theKnight">ئەسپ</string>
+  <string name="itMovesInAnLShape">لەسەر شێوەی پیتی L ـی ئینگلیزی جوڵە دەکات</string>
+  <string name="knightIntro">لێرەوە ئەوە بزانە. ئەسپ... پارچەیەکی فێڵاوییە.</string>
+  <string name="knightsHaveAFancyWay">ئەسپەکان ڕێگەیەکی فەنتازییان هەیە
+ لە بازدان بەدەوری خۆیاندا!</string>
+  <string name="knightsCanJumpOverObstacles">ئەسپەکان دەتوانن بەسەر بەربەستەکاندا باز بدەن!
+ هەڵهاتن و سەرکەوتن بەسەر ئەستێرەکاندا!</string>
+  <string name="knightComplete">پیرۆزە، ئێستا تۆ فێری بەکارهێنانی داشی ئەسپ بوویت.</string>
+  <string name="thePawn">سەرباز</string>
+  <string name="itMovesForwardOnly">تەنها بۆ پێشەوە دەجوڵێت</string>
+  <string name="pawnIntro">سەربازەکان لاوازن، بەڵام توانای شاراوەی زۆریان هەیە.</string>
+  <string name="pawnsMoveOneSquareOnly">سەربازەکان تەنها یەک چوارگۆشە دەجوڵێن.
+ بەڵام کاتێک دەگەنە ئەودیوی تەختەکە، دەبنە بەهێزترین داش!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">زۆربەی کات پلە بەرزکردنەوە بۆ شاژن باشترینە.
+ بەڵام هەندێک جار ئەسپێکیش دەتوانێت بەسوود بێت!</string>
+  <string name="pawnsMoveForward">سەربازەکان بۆ پێشەوە دەجوڵێن
+بەڵام بە شێوەی لار داشی بەرانبەر دەخۆن!</string>
+  <string name="captureThenPromote">دەتوانێت لەگەڵ خواردنی داش پلەی بەرزبکەیەوە!</string>
+  <string name="useAllThePawns">هەموو سەربازەکان بەکاربهێنە!
+ پێویست ناکات بەرەوپێش ببەین.</string>
+  <string name="aPawnOnTheSecondRank">سەرباز لە چوارگۆشەی دووەم دەتوانێت دوو چوارگۆشە بە یەکجار ببڕێت!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">هەموو سەربازەکان بەکاربهێنە!
+ پێویست ناکات بەرەوپێش ببەین.</string>
+  <string name="pawnComplete">پیرۆزە! سەربازەکان هیچ نهێنیەکیان بۆ تۆ نییە.</string>
+  <string name="pawnPromotion">پلە بەرزکردنەوەی سەرباز</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">سەربازەکەت دەبێت گەیشتبێتە کۆتایی تەختەکە!</string>
+  <string name="boardSetupComplete">پیرۆزە، تۆ ئێستا دەزانیت چۆن تەختەی شەترەنج رێکبخەی.</string>
+  <string name="castling">کاستڵینگ</string>
+  <string name="theSpecialKingMove">جوڵەیەکی تایبەتی پاشا</string>
+  <string name="castlingIntro">پاشاکەت بهێنە بۆ شوێنێکی سەلامەت، و قەڵاکەت بۆ هێرش بڵاوەپێبکە!</string>
 </resources>
