@@ -65,7 +65,7 @@
   <string name="goDeeper">Syvennä analyysiä</string>
   <string name="showThreat">Näytä uhka</string>
   <string name="inLocalBrowser">paikallisesta selaimesta</string>
-  <string name="toggleLocalEvaluation">Paikallinen analyysi päälle/päältä</string>
+  <string name="toggleLocalEvaluation">Paikallinen analyysi päälle/pois</string>
   <string name="promoteVariation">Nosta muunnelmaa</string>
   <string name="makeMainLine">Päämuunnelmaksi</string>
   <string name="deleteFromHere">Poista tästä alkaen</string>
@@ -539,6 +539,8 @@
   <string name="blog">Blogi</string>
   <string name="notes">Muistiinpanot</string>
   <string name="typePrivateNotesHere">Kirjoita yksityisiä muistiinpanoja tähän</string>
+  <string name="writeAPrivateNoteAboutThisUser">Kirjoita tätä käyttäjää koskeva yksityinen muistiinpano</string>
+  <string name="noNoteYet">Ei vielä muistiinpanoja</string>
   <string name="invalidUsernameOrPassword">Virheellinen käyttäjätunnus tai salasana</string>
   <string name="incorrectPassword">Salasana ei kelpaa</string>
   <string name="invalidAuthenticationCode">Todennuskoodi ei kelpaa</string>
