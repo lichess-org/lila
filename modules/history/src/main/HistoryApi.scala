@@ -15,7 +15,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
     using ec: scala.concurrent.ExecutionContext
 ):
 
-  import History.*
+  import History.{ given, * }
 
   def addPuzzle(user: User, completedAt: DateTime, perf: Perf): Funit = withColl { coll =>
     val days = daysBetween(user.createdAt, completedAt)

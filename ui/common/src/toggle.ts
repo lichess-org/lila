@@ -20,7 +20,6 @@ export function toggle(t: ToggleSettings, trans: Trans, redraw: () => void) {
         }
       : {},
     [
-      h('label', { attrs: { for: fullId } }, trans.noarg(t.name)),
       h('div.switch', [
         h('input#' + fullId + '.cmn-toggle', {
           attrs: {
@@ -32,6 +31,7 @@ export function toggle(t: ToggleSettings, trans: Trans, redraw: () => void) {
         }),
         h('label', { attrs: { for: fullId } }),
       ]),
+      h('label', { attrs: { for: fullId } }, trans.noarg(t.name)),
     ]
   );
 }
