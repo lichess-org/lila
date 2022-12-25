@@ -118,14 +118,14 @@ export default class CoordinateTrainerCtrl {
   selectedFiles: Files[] = [];
   selectedRanks: Ranks[] = [];
 
-  onFilesChange = (file: Files) => {
-    if (this.selectedFiles.includes(file)) this.selectedFiles = this.selectedFiles.filter(f => f !== file);
-    else this.selectedFiles.push(file);
+  onFilesChange = (file: Files, on: boolean) => {
+    if (on) this.selectedFiles.push(file);
+    else this.selectedFiles = this.selectedFiles.filter(f => f !== file);
   };
 
-  onRanksChange = (rank: Ranks) => {
-    if (this.selectedRanks.includes(rank)) this.selectedRanks = this.selectedRanks.filter(r => r !== rank);
-    else this.selectedRanks.push(rank);
+  onRanksChange = (rank: Ranks, on: boolean) => {
+    if (on) this.selectedRanks.push(rank);
+    else this.selectedRanks = this.selectedRanks.filter(r => r !== rank);
   };
 
   timeControl = withEffect(

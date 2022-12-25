@@ -34,7 +34,7 @@ const filesAndRanksSelection = (ctrl: CoordinateTrainerCtrl): VNodes =>
                   on: {
                     change: e => {
                       const target = e.target as HTMLInputElement;
-                      ctrl.onFilesChange(target.value as Files);
+                      ctrl.onFilesChange(target.value as Files, target.checked);
                     },
                     keyup: ctrl.onRadioInputKeyUp,
                   },
@@ -69,7 +69,7 @@ const filesAndRanksSelection = (ctrl: CoordinateTrainerCtrl): VNodes =>
                   on: {
                     change: e => {
                       const target = e.target as HTMLInputElement;
-                      ctrl.onRanksChange(target.value as Ranks);
+                      ctrl.onRanksChange(target.value as Ranks, target.checked);
                     },
                     keyup: ctrl.onRadioInputKeyUp,
                   },
