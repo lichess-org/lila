@@ -629,14 +629,12 @@
   <string name="webmasters">وێبداڕێژ</string>
   <string name="about">لەبارەی</string>
   <string name="aboutX">دەربارەی %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$بەخۆڕاییە (%2$s), خزمەتگوزاری شوترنجی بێ بانگەشەی بازرگانییە و سیستەمی کۆدی کراوەیە.</string>
   <string name="really">باوەڕپێکراوە</string>
   <string name="contribute">بەشداریکردن</string>
   <string name="termsOfService">مه‌رجه‌کانی خزمه‌تگوزاری</string>
   <string name="sourceCode">سەرچاوەی کۆدەکان</string>
   <string name="simultaneousExhibitions">پێشاندانی هاوکات</string>
   <string name="host">پێشکەشکار</string>
-  <string name="hostColorX">ڕەنگی داشەکانی پێشکەشکار</string>
   <string name="createdSimuls">نوێترینەکان</string>
   <string name="hostANewSimul">هاوکاتێکی نوێ دروستبکە</string>
   <string name="noSimulFound">لێکۆڵینەوەکە نەدۆزرایەوە</string>
