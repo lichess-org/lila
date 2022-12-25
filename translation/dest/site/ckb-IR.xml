@@ -14,7 +14,7 @@
   <string name="chat">دەمەتەقێ</string>
   <string name="resign">خۆبەدەستەوەدان</string>
   <string name="checkmate">کش مات</string>
-  <string name="stalemate">هەڵوێست</string>
+  <string name="stalemate">یەکسانبوون</string>
   <string name="white">سپی</string>
   <string name="black">رەش</string>
   <string name="asWhite">وەک سپی</string>
@@ -23,8 +23,8 @@
   <string name="createAGame">دروستکردن و ڕێکخستنی یاریەک</string>
   <string name="whiteIsVictorious">سپی براوەیە</string>
   <string name="blackIsVictorious">رەش براوەیە</string>
-  <string name="youPlayTheWhitePieces">یاری بە پارچە سپیەکان دەکەیت</string>
-  <string name="youPlayTheBlackPieces">یاری بە پارچە ڕەشەکان دەکەیت</string>
+  <string name="youPlayTheWhitePieces">یاری بە داشە سپیەکان دەکەیت</string>
+  <string name="youPlayTheBlackPieces">یاری بە داشە ڕەشەکان دەکەیت</string>
   <string name="itsYourTurn">سەرەی تۆیە!</string>
   <string name="cheatDetected">دەرکەوت کە فێڵ کراوە</string>
   <string name="kingInTheCenter">پاشا لە ناوەڕاست</string>
@@ -36,6 +36,10 @@
   <string name="joinTheGame">بەژداریکرن</string>
   <string name="whitePlays">یاری بە داشە سپیەکه بکه</string>
   <string name="blackPlays">یاری بە داشە ڕەشەکە بکە</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">بەرامبەرەکەت یاریەکەی جێهێشت. دەتوانیت لە %sچرکەدا دەبیت بە براوە.</item>
+    <item quantity="other">بەرامبەرەکەت یاریەکەی جێهێشت. دەتوانیت لە %s چرکەدا دەبیت بە براوە.</item>
+  </plurals>
   <string name="opponentLeftChoices">لایەنی بەرامبەر چووە دەرەوە لە یارییەکە. دەتوانی ببی بە براوە یان یەکسان بوون هەڵبژێری, یاخود چاوەڕێ بیت.</string>
   <string name="forceResignation">بردنەوە بە دەست بێنە</string>
   <string name="forceDraw">یەکسانبوون هەڵبژێرە</string>
@@ -52,7 +56,7 @@
   <string name="computerAnalysisAvailable">شیکاری کۆمپیوتەری بەردەستە</string>
   <string name="computerAnalysisDisabled">شیکاری کۆمپیوتەری ناچاڵاک کرا</string>
   <string name="analysis">شیکاری تەختەی شەترەنج</string>
-  <string name="depthX">قوڵایی%s</string>
+  <string name="depthX">قوڵیی %s</string>
   <string name="usingServerAnalysis">بەکارھێنانی شیکاری ڕاژەکاری</string>
   <string name="loadingEngine">بزوێنەرەکە لە باری هەڵگرتندایه...</string>
   <string name="calculatingMoves">لێکدانەوەی جوڵەکان...</string>
@@ -66,9 +70,9 @@
   <string name="makeMainLine">کردن بە رستەی سەرەکی</string>
   <string name="deleteFromHere">سڕینەوە</string>
   <string name="forceVariation">هێزی جۆراوجۆر</string>
-  <string name="move">جوڵان</string>
+  <string name="move">جوڵە</string>
   <string name="variantLoss">دۆرانی ناچاری</string>
-  <string name="variantWin">براوەی هەمەجۆری</string>
+  <string name="variantWin">براوەی هەمەجۆر</string>
   <string name="insufficientMaterial">یەکسانبوون بەهۆی نەمانی جوڵە بۆ کش</string>
   <string name="pawnMove">جوڵەی سەرباز</string>
   <string name="capture">گرتن</string>
@@ -78,11 +82,15 @@
   <string name="drawn">جولەی یەکسانبوون</string>
   <string name="unknown">نەزانراو</string>
   <string name="database">داتابەیس</string>
-  <string name="whiteDrawBlack">سپی / یەکسان / ڕەش</string>
+  <string name="whiteDrawBlack">سپی / یەکسانبوون / ڕەش</string>
   <string name="averageRatingX">پۆلێنکردنی تێکرا: %s</string>
   <string name="recentGames">دوایین یاریەکانت</string>
-  <string name="topGames">بەرزترین یاریەکان</string>
+  <string name="topGames">باشترین یاریەکان</string>
   <string name="masterDbExplanation">دوو ملیۆن یاری سەر بۆرد لە لایەن %1$s+ FIDE-یاریزانانی هەڵسەنگنراو، کە خەڵکی %2$s بۆ %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">لە %s نیوە جوڵەدا کش مات بکە</item>
+    <item quantity="other">کش مات لە %s</item>
+  </plurals>
   <string name="dtzWithRounding">DTZ50\'\' لەگەڵ نزیکخستنەوەیان، بە پێی ژمارەی نیوەی جووڵەکان تا زاڵبوونێکی دیکە یان جوڵەی سەرباز</string>
   <string name="noGameFound">هیچ یارییەک نەدۆزرایەوە</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ئایا دەتەویت جۆری تر دیاری بکەیت?</string>
@@ -96,11 +104,11 @@
   <string name="lossOr50MovesByPriorMistake">دۆڕاو یان 50 جووڵە بەهۆی هەڵەی پێشوو</string>
   <string name="unknownDueToRounding">براوە\دۆڕاو کاتێک دەستەبەر دەکرێت کە ئەوەی لە لایەن خشتەی سەر تەختەوە پێشنیار دەکرێت جێبەجێبکرێت، ئەوەش لە دواین زاڵبوون یان جوڵەی سەرباز دەێت، لەبەر ئەگەری نزیکخستنەوەی نرخی DTZ لە خشتەی سەر تەختای Syzygy.</string>
   <string name="allSet">ئامادەیە!</string>
-  <string name="importPgn">سکرین شوت PGN</string>
+  <string name="importPgn">هاوردەکردن بە شێوازی PGN</string>
   <string name="delete">سڕینەوە</string>
   <string name="deleteThisImportedGame">دڵنیای کە دەتەوێت بیسڕیەوە?</string>
   <string name="replayMode">سەیرکردنەوەی یاریەکە</string>
-  <string name="realtimeReplay">وەک خۆی</string>
+  <string name="realtimeReplay">کاتی ڕاستەقینە</string>
   <string name="byCPL">بەهۆی CPL</string>
   <string name="openStudy">خوێندنی کراوە</string>
   <string name="enable">چالاککراوە</string>
@@ -132,6 +140,10 @@
   <string name="claimADraw">داوای یەکسانی بکە</string>
   <string name="offerDraw">پێشکەشکردنی یەکسانبوون</string>
   <string name="draw">یەکسان</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s یاریزان</item>
+    <item quantity="other">%s یاریزانان</item>
+  </plurals>
   <string name="drawByMutualAgreement">بە رەزاماندی هەردولا یەکسان بوون</string>
   <string name="fiftyMovesWithoutProgress">پەنجا جوڵە بەبێ هیچ پێشکەوتنێک</string>
   <string name="currentGames">یارییەکانی ئێستا</string>
@@ -280,6 +292,10 @@
   <plurals name="nbWins">
     <item quantity="one">%s براوە</item>
     <item quantity="other">%s بردنەوەکان</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s دۆڕان</item>
+    <item quantity="other">%s دۆڕان</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s یەکسان</item>
@@ -808,4 +824,61 @@
   <string name="potentialProblem">کاتێک کێشەیەکی شاراوە دەستنیشان دەکرێت، ئێمە ئەم پەیامە پیشان دەدەین.</string>
   <string name="howToAvoidThis">چۆن خۆمان لەم شتە بەدوور بگرین?</string>
   <string name="playEveryGame">هەریاریێکت دەستپێکرد تەاوی بکە.</string>
+  <string name="tryToWin">هەوڵبدە هەموو یارییەک کە ئەنجامی دەدەیت ببەیتەوە (یان لانیکەم یەکسان بیت).</string>
+  <string name="resignLostGames">دەست لە یارییە دۆڕاوەکان بکێشەوە (چاوەڕێی کات مەکە تەواوبێت).</string>
+  <string name="temporaryInconvenience">داوای لێبوردن دەکەین بۆ ئەو ناڕەحەتییە کاتیە،</string>
+  <string name="wishYouGreatGames">هیوای یاریەکی نایاب لە لیچێس دۆت ئۆرگ.</string>
+  <string name="thankYouForReading">سوپاس بۆ خوێندنەو!</string>
+  <string name="lifetimeScore">نمرەی تەمەن</string>
+  <string name="currentMatchScore">نمرەی یارییەکانی ئێستا</string>
+  <string name="agreementAssistance">منیش ڕازیم کە لە هیچ کاتێکدا لە کاتی یارییەکانمدا یارمەتی وەرناگرم (لە کۆمپیوتەرێکی شەترەنج، کتێب، بنکەدراوە یان کەسێکی ترەوە).</string>
+  <string name="agreementNice">منیش لەگەڵ ئەوەدام کە هەمیشە ڕێز لە یاریزانەکانی تر دەگرم.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">منیش لەگەڵ ئەوەدام کە چەندین ئەکاونت دروست ناکەم (جگە لەو هۆکارانەی کە لە %s دا هاتووە).</string>
+  <string name="agreementPolicy">منیش لەگەڵ ئەوەدام کە هەموو سیاسەتەکانی لیچێس پەیڕەو دەکەم.</string>
+  <string name="searchOrStartNewDiscussion">گەڕان یان دەستپێکردنی گفتوگۆی نوێ</string>
+  <string name="edit">دەستکاریکردن</string>
+  <string name="rapid">خێرا</string>
+  <string name="classical">کلاسیک</string>
+  <string name="ultraBulletDesc">یارییە شێتانە خێراکان: کەمتر لە ٣٠ چرکە</string>
+  <string name="bulletDesc">یارییە زۆر خێراکان: کەمتر لە ٣ خولەک</string>
+  <string name="blitzDesc">یارییە خێراکان: ٣ بۆ ٨ خولەک</string>
+  <string name="rapidDesc">یارییە خێراکان: ٨ بۆ ٢٥ خولەک</string>
+  <string name="classicalDesc">یارییە کلاسیکییەکان: ٢٥ خولەک و زیاتر</string>
+  <string name="correspondenceDesc">یارییەکانی ماوە درێژەکان: یەک یان چەند ڕۆژێک بۆ هەر جوڵەیەک</string>
+  <string name="puzzleDesc">ڕاهێنەری تاکتیکەکانی شەترەنج</string>
+  <string name="important">گرنگ</string>
+  <string name="yourQuestionMayHaveBeenAnswered">پرسیارکەت رەنگە وەڵامەکەی لە %1$s هەبێت</string>
+  <string name="inTheFAQ">لە لاپەرەی پرسیارە دووبارەکان</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">بۆ ڕاپۆرتکردنی بەکارهێنەرێک بەهۆی فێڵکردن یان ڕەفتاری خراپەوە، %1$s</string>
+  <string name="useTheReportForm">فۆڕمی ڕاپۆرت بەکاربهێنە</string>
+  <string name="toRequestSupport">بۆ داوای پشتگیری، %1$s</string>
+  <string name="tryTheContactPage">لاپەڕەی پەیوەندیکردن تاقی بکەرەوە</string>
+  <string name="thisTopicIsArchived">ئەم بابەتە ئەرشیف کراوە و چیتر ناتوانرێت وەڵام بدرێتەوە.</string>
+  <string name="joinTheTeamXToPost">بەشداری %1$s بکە، بۆ پۆستکردن لەم یانەیەدا</string>
+  <string name="teamNamedX">%1$s یانە</string>
+  <string name="youCannotPostYetPlaySomeGames">هێشتا ناتوانیت لە مەکۆکان پۆست بکەیت. هەندێک یاری بکە!</string>
+  <string name="subscribe">سەبسکرایب بکەن</string>
+  <string name="unsubscribe">لابردنی سەبسکرایب</string>
+  <string name="mentionedYouInX">ئاماژەی بە تۆکردووە لە \"%1$s\".</string>
+  <string name="playComputerMove">باشترین جوڵە ئەنجامبدە کە کۆمپیوتەر پێشنیاری دەکات</string>
+  <string name="analysisOptions">بژاردەکانی شیکاری</string>
+  <string name="focusChat">وردبینی</string>
+  <string name="showHelpDialog">ئەو نامەی یارمەتییە پیشان بدە</string>
+  <string name="reopenYourAccount">هەژمارەکەت جارێکیدیکە بکەوە</string>
+  <string name="closedAccountChangedMind">ئەگەر ئەکاونتەکەت داخست، بەڵامبەشێوەیەک لە شێوەکان بیرۆکەکەت گۆڕیوە، ئەوا یەک چانسی وەرگرتنەوەی ئەکاونتەکەت بۆ دەگەڕێتەوە.</string>
+  <string name="onlyWorksOnce">ئەوە یەکجار کار دەکات.</string>
+  <string name="cantDoThisTwice">ئەگەر بۆ جاری دووەم ئەکاونتەکەت دابخەیت، هیچ ڕێگەیەک بۆ وەرگرتنەوەی نامێنێت.</string>
+  <string name="emailAssociatedToaccount">ناونیشانی ئیمەیڵی پەیوەست بە ئەکاونتەکەوە</string>
+  <string name="sentEmailWithLink">ئێمە ئیمێڵێکمان بۆ ناردووی لەگەڵ بەستەرێک.</string>
+  <string name="tournamentEntryCode">کۆدی بەشداری پاڵەوانیەتی</string>
+  <string name="hangOn">چاوەڕێبکە!</string>
+  <string name="gameInProgress">یارییەکت لە پێشە لەگەڵ %s.</string>
+  <string name="abortTheGame">یاریەکە هەڵوەشێنەوە</string>
+  <string name="resignTheGame">دەست لە یاریەکە بکێشە</string>
+  <string name="youCantStartNewGame">تا ئەم یارییە تەواو نەبێت ناتوانیت دەست بە یارییەکی نوێ بکەیت.</string>
+  <string name="since">لەوەتەی</string>
+  <string name="until">تاوەکو</string>
+  <string name="lichessDbExplanation">نمونەیەک لە یارییە هەڵسەنگێنراوەکان، لە هەموو یاریزانەکانی لیچێس</string>
+  <string name="switchSides">لای یاریکردن بگۆڕە</string>
+  <string name="closingAccountWithdrawAppeal">داخستنی ئەکاونتەکەت تانەکەت دەکێشێتەوە</string>
 </resources>
