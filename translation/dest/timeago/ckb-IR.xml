@@ -5,4 +5,41 @@
     <item quantity="one">لە %s چرکە</item>
     <item quantity="other">لە %s چەند چرکەیەک</item>
   </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">لە %s خولەک</item>
+    <item quantity="other">لە %s خولەک</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">لە %s کاژێر</item>
+    <item quantity="other">لە %s کاژێر</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">لە %s رۆژ</item>
+    <item quantity="other">لە %s رۆژ</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">لە %s هەفتە</item>
+    <item quantity="other">لە %s هەفتە</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">لە %s مانگ</item>
+    <item quantity="other">لە %s مانگ</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">لە %s ساڵ</item>
+    <item quantity="other">لە %s ساڵ</item>
+  </plurals>
+  <string name="rightNow">ئێستا</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s چرکە پێش ئێستا</item>
+    <item quantity="other">%s چرکە پێش ئێستا</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s خولەک پێش ئێستا</item>
+    <item quantity="other">%s خولەک پێش ئێستا</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s کاژێر پێش ئێستا</item>
+    <item quantity="other">%s کاژێر پێش ئێستا</item>
+  </plurals>
 </resources>
