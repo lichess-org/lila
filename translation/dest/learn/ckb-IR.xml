@@ -75,6 +75,16 @@
   <string name="keepYourPiecesSafe">داشەکانت بە پارێزراوی بهێڵەوە</string>
   <string name="protectionIntro">بەرگری بۆ ئەو داشانەت دابنێ کە بەرانبەرەکەت دەیەوێت هێرشیان بکاتەسەر!</string>
   <string name="protectionComplete">پیرۆزە! ئەو داشەی لەدەستی نادەی ئەو داشەیە کە بەدەستی دێنی!</string>
+  <string name="escape">هێرشکراوەتە سەرت!
+خۆت لە گەڕەشەکە دەربازبکە!</string>
+  <string name="noEscape">ناتوانی خۆت دەربازبکەی!
+بەڵام دەتوانی بەرگری لەخۆت بکەی!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">مەهێڵە هیچ داشێکت ببەن!</string>
+  <string name="combat">شەڕکردن</string>
+  <string name="captureAndDefendPieces">بەرگری لە داشەکان بکە و بیانبە</string>
+  <string name="combatIntro">جەنگاوەری ئازا دەبێت هەردووکیان بزانێت بەرگریکردن و هێرشکردن!</string>
+  <string name="combatComplete">پیرۆزە! ئێستا تۆ دەزانی چۆن شەڕ بە داشەکانی شەترەنج بکەی!</string>
+  <string name="checkInOne">کشکردن بە یەکجار</string>
   <string name="boardSetupComplete">پیرۆزە، تۆ ئێستا دەزانیت چۆن تەختەی شەترەنج رێکبخەی.</string>
   <string name="castling">کاستڵینگ</string>
   <string name="theSpecialKingMove">جوڵەیەکی تایبەتی پاشا</string>
