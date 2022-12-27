@@ -16,7 +16,7 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
     nextFor(user, PuzzleAngle.mix, nb)
 
   def nextFor(user: Option[User], angle: PuzzleAngle, nb: Int): Fu[Vector[Puzzle]] = (nb > 0) ?? {
-    user.fold(anonApi.getBatchFor(nb)) { user =>
+    user.fold(anonApi.getBatchFor(angle, nb)) { user =>
       val tier =
         if (user.perfs.puzzle.nb > 5000) PuzzleTier.Good
         else PuzzleTier.Top
