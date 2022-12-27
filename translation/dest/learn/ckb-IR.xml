@@ -14,13 +14,13 @@
   <string name="rookGoal">کلیک لەسەر قەڵاکە بکە و بیهێنە سەر ئەستێرەکە!</string>
   <string name="grabAllTheStars">هەموو ئەستێرەکان کۆبکەوە!</string>
   <string name="theFewerMoves">تا کەمتر جوڵە بکەیت،
- تا زیاتر خاڵ ببەیتەوە!</string>
+زیاتر خاڵ دەیتەوە!</string>
   <string name="useTwoRooks">دوو قەڵا بەکاربهێنە
  بۆ خێراکردنی فەرمانەکانت!</string>
   <string name="rookComplete">پیرۆزە! تۆ بە سەرکەوتوویی شارەزاییت لە قەڵا دروستکرد.</string>
   <string name="theBishop">فیل</string>
   <string name="itMovesDiagonally">بە لاری دەجولێت</string>
-  <string name="bishopIntro">داواتر، فێردەبیت چۆن فیل لە مانۆڕەکانت بەکاربێنیت!</string>
+  <string name="bishopIntro">دواتر، فێردەبیت چۆن فیل لە مانۆڕەکانت بەکاربێنیت!</string>
   <string name="youNeedBothBishops">یەک فیل لە چوارگۆشەی کاڵ،
  یەک فیل چوارگۆشەی تۆخ.
  پێویستت بە هەردووکی هەیە!</string>
@@ -37,7 +37,7 @@
   <string name="kingComplete">ئێستا دەتوانیت فەرماندەیی فەرماندە بکەیت!</string>
   <string name="theKnight">ئەسپ</string>
   <string name="itMovesInAnLShape">لەسەر شێوەی پیتی L ـی ئینگلیزی جوڵە دەکات</string>
-  <string name="knightIntro">لێرەوە ئەوە بزانە. ئەسپ... پارچەیەکی فێڵاوییە.</string>
+  <string name="knightIntro">لێرەوە ئەوە بزانە. ئەسپ... پارچەیەکی تەڵەکەبازە.</string>
   <string name="knightsHaveAFancyWay">ئەسپەکان ڕێگەیەکی فەنتازییان هەیە
  لە بازدان بەدەوری خۆیاندا!</string>
   <string name="knightsCanJumpOverObstacles">ئەسپەکان دەتوانن بەسەر بەربەستەکاندا باز بدەن!
@@ -56,15 +56,15 @@
   <string name="useAllThePawns">هەموو سەربازەکان بەکاربهێنە!
  پێویست ناکات بەرەوپێش ببەین.</string>
   <string name="aPawnOnTheSecondRank">سەرباز لە چوارگۆشەی دووەم دەتوانێت دوو چوارگۆشە بە یەکجار ببڕێت!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">هەموو سەربازەکان بەکاربهێنە!
- پێویست ناکات بەرەوپێش ببەین.</string>
+  <string name="grabAllTheStarsNoNeedToPromote">هەموو ئەستێرەکان بەکاربهێنە!
+ پێویستت بە پلە بەرزبوونەوە نییە.</string>
   <string name="pawnComplete">پیرۆزە! سەربازەکان هیچ نهێنیەکیان بۆ تۆ نییە.</string>
   <string name="pawnPromotion">پلە بەرزکردنەوەی سەرباز</string>
   <string name="yourPawnReachedTheEndOfTheBoard">سەربازەکەت دەبێت گەیشتبێتە کۆتایی تەختەکە!</string>
   <string name="itNowPromotesToAStrongerPiece">ئێستا پلەی بەرز دەبێتەوە بۆ داشێکی بەهێزتر.</string>
   <string name="selectThePieceYouWant">ئەو داشە هەڵبژێرە کە دەتەوێت!</string>
   <string name="fundamentals">بنەماکان</string>
-  <string name="capture">گرتن یان خواردن</string>
+  <string name="capture">گرتن</string>
   <string name="takeTheEnemyPieces">داشەکانی دوژمن ببە</string>
   <string name="captureIntro">ئەو داشانەی بەرانبەرت دیاریبکە کە بەرگریان نییە و بیانخۆ!</string>
   <string name="takeTheBlackPieces">داشە رەشەکان ببە!</string>
@@ -76,12 +76,12 @@
   <string name="protectionIntro">بەرگری بۆ ئەو داشانەت دابنێ کە بەرانبەرەکەت دەیەوێت هێرشیان بکاتەسەر!</string>
   <string name="protectionComplete">پیرۆزە! ئەو داشەی لەدەستی نادەی ئەو داشەیە کە بەدەستی دێنی!</string>
   <string name="escape">هێرشکراوەتە سەرت!
-خۆت لە گەڕەشەکە دەربازبکە!</string>
+خۆت لە هەڕەشەکە دەربازبکە!</string>
   <string name="noEscape">ناتوانی خۆت دەربازبکەی!
 بەڵام دەتوانی بەرگری لەخۆت بکەی!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">مەهێڵە هیچ داشێکت ببەن!</string>
   <string name="combat">شەڕکردن</string>
-  <string name="captureAndDefendPieces">بەرگری لە داشەکان بکە و بیانبە</string>
+  <string name="captureAndDefendPieces">داشەکان بگرە و تێکیان بشکێنە</string>
   <string name="combatIntro">جەنگاوەری ئازا دەبێت هەردووکیان بزانێت بەرگریکردن و هێرشکردن!</string>
   <string name="combatComplete">پیرۆزە! ئێستا تۆ دەزانی چۆن شەڕ بە داشەکانی شەترەنج بکەی!</string>
   <string name="checkInOne">کشکردن بە یەکجار</string>
@@ -89,7 +89,7 @@
   <string name="checkInOneIntro">بۆ کشـکردن، هێرش بکە سەر پاشای رکابەرەکەت، ئەوان دەبێت پارێزگاری لێبکەن!</string>
   <string name="checkInOneGoal">پاشای رکابەرەکەت بکە ئامانج بە یەک جوڵە!</string>
   <string name="checkInOneComplete">پیرۆزە، ئێستا تۆ کشـت لە رکابەرەکەت کردووە، ناچارتکردن بەرگری لە پاشاکەیان بکەن!</string>
-  <string name="outOfCheck">دوور لە کشـکردن</string>
+  <string name="outOfCheck">خۆ دورخستنەوە لە کش</string>
   <string name="defendYourKing">بەرگری لە پاشاکەت بکە</string>
   <string name="outOfCheckIntro">تۆ کشت لێکراوە، پێویستە پاشا بجوڵێنی یان ڕێگری لە هێرشەکە بکەیت.</string>
   <string name="escapeWithTheKing">هەڵاتن لەگەڵ پاشا!</string>
@@ -135,4 +135,24 @@
   <string name="castleQueenSideMovePiecesFirst">کاستڵینگ لا لای شاژن!
 پێویستە سەرەتا داشەکان بۆ دەرەوە بجوڵێنیی.</string>
   <string name="youCannotCastleIfMoved">ناتوانیت کاستڵ ئەنجامبدەی ئەگەر پێشتر جوڵەت بە قەڵا یان پاشا کردبێت.</string>
+  <string name="youCannotCastleIfAttacked">ناتوانیت کاستڵینگ بکەی ئەگەر 
+پاشات کش کرابێت دەبێت سەرەتا
+ رێگری لە کشـەکە بکەی پاشان کاستڵینگ!</string>
+  <string name="findAWayToCastleKingSide">رێگەیەک بدۆزەوە بۆ
+کاستڵینگ لە لای پاشا!</string>
+  <string name="findAWayToCastleQueenSide">رێگەیەک بدۆزەوە بۆ
+کاستڵینگ لە لای شاژن!</string>
+  <string name="castlingComplete">پیرۆزە، تا ڕاددەیەکی زۆر لە هەموویارییەک پێویستە کاستڵینگ بکەی.</string>
+  <string name="enPassant">ئانپاسانت</string>
+  <string name="theSpecialPawnMove">جوڵەیەکی تایبەتی سەرباز</string>
+  <string name="enPassantIntro">ئەگەر سەربازی رکابەرەکەت دوو چوارگۆشە جوڵەیکرد و هاتە بەرانبەر سەربازەکەت، سەربازەکەت دەتوانێت بیبات و بچێتە پشت خانەکەی.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">رەش دوو خانە هاتە پێش!
+بە جوڵەی ئانپاسانت بیبە.</string>
+  <string name="enPassantOnlyWorksImmediately">ئانپاسانت تەنهای و راستەوخۆ دوای جوڵەی بەرانبەر کاردەکات.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">ئانپاسانت تەنها ئەوکاتە کاردەکات کە سەربازێکت لە پێنجەم خانەبێت.</string>
+  <string name="takeAllThePawnsEnPassant">سەربازەکان بە جوڵەی ئانپاسانت ببە!</string>
+  <string name="enPassantComplete">پیرۆزە، تۆ ئێستا جوڵەی ئانپاسانت فێربوویت.</string>
+  <string name="stalemate">چەقبەستوو</string>
+  <string name="theGameIsADraw">یارییەکە یەکسان دەبێت</string>
+  <string name="stalemateIntro">کاتێک یاریزان کشـی لێ نەکراوە و هیچ جوڵەیەکی یاسایی نییە، یارییەکە دەچێتە باری چەقبەستن، یارییەکە یەکسان دەبێت، هیچکامیان بە دۆڕاو یان براوە هەژمار ناکرێت.</string>
 </resources>
