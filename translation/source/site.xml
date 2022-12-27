@@ -707,6 +707,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="kidMode">Kid mode</string>
   <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the Lichess logo gets a %s icon, so you know your kids are safe.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Your account is managed. Ask your chess teacher about lifting kid mode.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
   <string name="security">Security</string>
