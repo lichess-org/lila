@@ -877,6 +877,30 @@
   <string name="clickToRevealEmailAddress">[بۆ بینینی ناونیشانی ئیمەیڵ کلیک بکە]</string>
   <string name="download">داگرتن</string>
   <string name="welcome">بەخێربێیت!</string>
+  <string name="lichessPatronInfo">لیچێس وێبسایتێکی خێرخوازی و بەخۆڕایە، بە بێ هیچ رێکلامێک و بە تەواوەتی سەرچاوەی سیستەمی کراوەیە.
+هەموو سەرچاوە داراییەکانی ئیشپێکردن و گەشەپێدان و بەڕێوەبردنی لەلایەن بەکارهێنەرانی خۆبەخش دابین دەکرێت.</string>
+  <string name="coachManager">بەڕێوەبەری ڕاهێنەر</string>
+  <string name="streamerManager">بەڕێوەبەری ستریمەر</string>
+  <string name="cancelTournament">هەڵوەشاندنەوەی پاڵەوانییەتی</string>
+  <string name="tournDescription">باسێکی پاڵەوانێتییەکە بکە</string>
+  <string name="tournDescriptionHelp">هیچ شتێکی تایبەت هەیە بتەوێت بە هاوبەشەکان بڵێی؟ تکایە هەوڵدە بە کورتی بێت: [name](https://url)</string>
+  <string name="ratedFormHelp">یارییەکان ڕیزبەندییان بۆ کراوە
+ و کاریگەری لەسەر ڕیزبەندی یاریزانەکان دەبێت</string>
+  <string name="onlyMembersOfTeam">تەنها ئەندامەکانی یانە</string>
+  <string name="noRestriction">بێ مەرج</string>
+  <string name="minimumRatedGames">کەمترین یارییەکانی ڕیزبەندی</string>
+  <string name="minimumRating">کەمترین ڕیزبەندی</string>
+  <string name="maximumWeeklyRating">زۆرترین ڕیزبەندی هەفتانە</string>
+  <string name="onlyTitled">تەنها یاریزانی خاوەن نازناو</string>
+  <string name="onlyTitledHelp">پێویستە نازناوی فەرمیت هەبێت بۆ بەشداریکردن لە پاڵەوانیەتییەکە</string>
+  <string name="positionInputHelp">FEN ێکی دروست لێبدە بۆ دەستپێکردنی هەموو یارییەک لە شوێنێکی دیاریکراوەوە.
+ تەنها بۆ یارییە ستانداردەکان کاردەکات.
+ دەتوانیت %s بەکاربهێنیت بۆ دروستکردنی شوێنی FEN، پاشان لێرەدا لێی پەیست بکە.
+ بە بەتاڵی جێبهێڵە بۆ دەستپێکردنی یاریەکی ئاسایی.</string>
+  <string name="cancelSimul">هەڵوەشاندنەوەی یاری بە کۆمەڵ (سیمۆڵ)</string>
+  <string name="simulHostcolor">رەنگی داشەکانی هۆست بۆ هەر یارییەک</string>
+  <string name="estimatedStart">کاتی دەستپێکردنی مەزەندەکراو</string>
+  <string name="simulFeatured">تایبەتمەندی لەسەر %s</string>
   <string name="playComputerMove">باشترین جوڵە ئەنجامبدە کە کۆمپیوتەر پێشنیاری دەکات</string>
   <string name="analysisOptions">بژاردەکانی شیکاری</string>
   <string name="focusChat">وردبینی</string>
