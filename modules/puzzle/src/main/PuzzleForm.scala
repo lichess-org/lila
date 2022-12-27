@@ -2,8 +2,10 @@ package lila.puzzle
 
 import play.api.data.*
 import play.api.data.Forms.*
+import play.api.libs.json.*
 
 import lila.common.Form.{ numberIn, stringIn, given }
+import lila.common.Json.given
 import chess.Color
 
 object PuzzleForm:
@@ -42,6 +44,13 @@ object PuzzleForm:
     single("difficulty" -> stringIn(PuzzleDifficulty.all.map(_.key).toSet))
   )
 
+  object batch:
+    case class Solution(id: PuzzleId, win: PuzzleWin, rated: Boolean = true):
+      def mode = chess.Mode(rated)
+    case class SolveData(solutions: List[Solution])
+    given Reads[Solution]  = Json.reads
+    given Reads[SolveData] = Json.reads
+
   object bc:
 
     val round = Form(
@@ -54,10 +63,7 @@ object PuzzleForm:
 
     val vote = Form(single("vote" -> numberIn(Set(0, 1))))
 
-    import play.api.libs.json.*
-
-    case class Solution(id: Long, win: Boolean)
-    case class SolveData(solutions: List[Solution])
-
-    given Reads[Solution]  = Json.reads
-    given Reads[SolveData] = Json.reads
+    case class SolutionBc(id: Long, win: Boolean)
+    case class SolveDataBc(solutions: List[SolutionBc])
+    given Reads[SolutionBc]  = Json.reads
+    given Reads[SolveDataBc] = Json.reads
