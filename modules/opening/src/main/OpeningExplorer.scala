@@ -47,7 +47,7 @@ final private class OpeningExplorer(
   def configHistory(config: OpeningConfig): Fu[PopularityHistoryAbsolute] =
     historyOf(configParameters(config))
 
-  def simplePopularity(opening: Opening): Fu[Option[Int]] =
+  def simplePopularity(opening: Opening): Fu[Option[Long]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
         "play"        -> opening.uci.value.replace(" ", ","),
@@ -112,18 +112,18 @@ final private class OpeningExplorer(
 object OpeningExplorer:
 
   case class Position(
-      white: Int,
-      draws: Int,
-      black: Int,
+      white: Long,
+      draws: Long,
+      black: Long,
       moves: List[Move],
       topGames: List[GameRef],
       recentGames: List[GameRef]
   ):
     val sum      = white + draws + black
-    val movesSum = moves.foldLeft(0)(_ + _.sum)
+    val movesSum = moves.foldLeft(0L)(_ + _.sum)
     val games    = topGames ::: recentGames
 
-  case class Move(uci: String, san: String, averageRating: Int, white: Int, draws: Int, black: Int):
+  case class Move(uci: String, san: String, averageRating: Int, white: Long, draws: Long, black: Long):
     def sum = white + draws + black
 
   case class GameRef(id: GameId)
