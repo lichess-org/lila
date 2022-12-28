@@ -13,7 +13,7 @@
   <string name="toggleTheChat">Luba vestlust</string>
   <string name="chat">Saada sõnum</string>
   <string name="resign">Alistu</string>
-  <string name="checkmate">Šahh ja matt</string>
+  <string name="checkmate">Matt</string>
   <string name="stalemate">Patt</string>
   <string name="white">Valge</string>
   <string name="black">Must</string>
