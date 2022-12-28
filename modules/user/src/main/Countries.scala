@@ -212,6 +212,7 @@ object Countries:
     C("RO", "Romania"),
     C("RS", "Serbia"),
     C("RU", "Russia"),
+    C("RU-TAT", "Tatarstan"),
     C("RW", "Rwanda"),
     C("SA", "Saudi Arabia"),
     C("SB", "Solomon Islands"),
