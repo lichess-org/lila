@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">بەرەنگاربوونەوە</string>
+  <string name="challengeToPlay">بەرانگاربوونەوە بۆ یاریکردن</string>
+  <string name="challengeDeclined">بەرەنگاربوونەوەکە ڕەتکرایەوە</string>
+  <string name="challengeAccepted">بەرەنگاربوونەوەکە قبوڵکرا!</string>
+  <string name="challengeCanceled">بەرەنگاربوونەوەکە قبوڵنەکرا.</string>
+  <string name="registerToSendChallenges">تکایە خۆت تۆماربکە بۆ ئەوەی بتوانی بەرەنگاری ئەو بەکارهێنەرە ببیتەوە.</string>
+  <string name="youCannotChallengeX">ناتوانی بەرەنگاری %s ببیتەوە.</string>
+  <string name="xDoesNotAcceptChallenges">%s بەرەنگاربوونەوە قبوڵناکات.</string>
+  <string name="yourXRatingIsTooFarFromY">ڕیزبەندی تۆ %1$s بەرزترە لە %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">ناتوانن بەرەنگاری یەکترببنەوە بەهۆی ڕیزبەندی %s کاتییە.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s تەنها بەرەنگاری هاوڕێکانی قبوڵ دەکات.</string>
+  <string name="declineGeneric">لەو کاتەدا هیچ بەرەنگاربوونەوەیەک قبوڵ ناکەم.</string>
+  <string name="declineLater">ئێستا بۆ من کاتێکی گونجاو نییە، تکایە کاتێکیتر بۆم بنێرە.</string>
+</resources>
