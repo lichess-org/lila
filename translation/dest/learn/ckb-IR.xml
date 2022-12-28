@@ -155,4 +155,35 @@
   <string name="stalemate">چەقبەستوو</string>
   <string name="theGameIsADraw">یارییەکە یەکسان دەبێت</string>
   <string name="stalemateIntro">کاتێک یاریزان کشـی لێ نەکراوە و هیچ جوڵەیەکی یاسایی نییە، یارییەکە دەچێتە باری چەقبەستن، یارییەکە یەکسان دەبێت، هیچکامیان بە دۆڕاو یان براوە هەژمار ناکرێت.</string>
+  <string name="stalemateGoal">بۆ چەقبەستووکردنی ڕەش:
+ -ڕەش ناتوانێت لە هیچ شوێنێکدا بجوڵێت
+ - کش بوونی نییە.</string>
+  <string name="stalemateComplete">پیرۆزە، یارییەکەت چەقبەستووبێت باشترە لەوەی کشومات بکرێیت!</string>
+  <string name="advanced">پێشکەووتن</string>
+  <string name="pieceValue">بەهای داشەکان</string>
+  <string name="evaluatePieceStrength">هەڵسەنگاندن بۆ هێزی داشەکان</string>
+  <string name="pieceValueIntro">ئەو داشانەی کە جووڵەی بەرزیان هەیە بەهایەکی بەرزتریان هەیە!
+ شاژن = 9
+ قەڵا = 5
+ فیل = 3
+ ئەسپ = 3
+ سەرباز = 1
+ پاشا بێ نرخە! دۆڕاندنی واتە دۆڕانی یارییەکە.</string>
+  <string name="queenOverBishop">داشەکە ببە
+بەبەرزترین بەها!
+شاژن &gt; فیل</string>
+  <string name="pieceValueExchange">ئەو داشەی کە بەرزترین بەهای هەیە بیبە!
+ ئاڵوگۆڕ بە داشەکان مەکە!
+ داشێکی بەها بەرز بە داشێکی بەها کەمتر.</string>
+  <string name="pieceValueLegal">ئەو داشە ببە
+کە بەرزترین بەهای هەیە!
+ دڵنیابە لەوەی جوڵەکەت یاساییە!</string>
+  <string name="takeThePieceWithTheHighestValue">ئەو داشە ببە
+کە بەرزترین بەهای هەیە!</string>
+  <string name="pieceValueComplete">پیرۆزە! تۆ بەهای داشەکان دەزانیت!
+ شاژن = 9
+ قەڵا = 5
+ فیل = 3
+ ئەسپ = 3
+ سەرباز = 1</string>
 </resources>
