@@ -42,7 +42,11 @@ object notification {
             setting(
               correspondenceEmailNotification(),
               radios(form("correspondenceEmail"), translatedBooleanChoices)
-            )
+            ),
+            setting(
+              "Play sound when bell notification is recieved",
+              radios(form("playBellSound"), translatedBooleanChoices)
+            ),
           ),
           p(cls := "saved text none", dataIcon := "")(yourPreferencesHaveBeenSaved())
         )

@@ -36,7 +36,8 @@ case class NotificationPref(
     tournamentSoon: Allows,
     gameEvent: Allows,
     invitedStudy: Allows,
-    correspondenceEmail: Boolean
+    correspondenceEmail: Boolean,
+    playBellSound: Boolean
 ):
   // def allows(key: String): Allows =
   //   NotificationPref.Event.byKey.get(key) ?? allows
@@ -79,7 +80,8 @@ object NotificationPref:
     tournamentSoon = Allows(PUSH),
     gameEvent = Allows(PUSH),
     invitedStudy = Allows(BELL | PUSH),
-    correspondenceEmail = false
+    correspondenceEmail = false,
+    playBellSound = true,
   )
 
   object form:
@@ -98,7 +100,8 @@ object NotificationPref:
         "tournamentSoon"      -> allowsMapping,
         "gameEvent"           -> allowsMapping,
         "invitedStudy"        -> allowsMapping,
-        "correspondenceEmail" -> boolean
+        "correspondenceEmail" -> boolean,
+        "playBellSound"       -> boolean,
       )(NotificationPref.apply)(lila.notify.unapply)
     )
 
