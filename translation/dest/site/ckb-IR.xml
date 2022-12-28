@@ -91,13 +91,13 @@
     <item quantity="one">لە %s نیوە جوڵەدا کش مات بکە</item>
     <item quantity="other">لە %s نیوە جوڵەدا کش مات بکە</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\'\' لەگەڵ نزیکخستنەوەیان، بە پێی ژمارەی نیوەی جووڵەکان تا زاڵبوونێکی دیکە یان جوڵەی سەرباز</string>
+  <string name="dtzWithRounding">DTZ50\'\' لەگەڵ نزیکخستنەوەیان، بە پێی ژمارەی نیوەی جووڵەکان تا خواردنی داشی داهاتوو یان جوڵەی سەرباز</string>
   <string name="noGameFound">هیچ یارییەک نەدۆزرایەوە</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ئایا دەتەویت جۆری تر دیاری بکەیت?</string>
   <string name="openings">دەستپێک</string>
   <string name="openingExplorer">دۆزەرەوەی کردنەوەکان</string>
-  <string name="openingEndgameExplorer">دۆزەرەوەی کردنەوەکان\کۆتاییەکانی یاری</string>
-  <string name="xOpeningExplorer">%s دۆزەرەوەی کردنەوەکان</string>
+  <string name="openingEndgameExplorer">دۆزەرەوەی دەستپێکی یاری/کۆتاییەکانی یاری</string>
+  <string name="xOpeningExplorer">%s دۆزەرەوەی دەستپێکەکان</string>
   <string name="winPreventedBy50MoveRule">براوە دیاری ناکرێت بە یاسای-50 جووڵە</string>
   <string name="lossSavedBy50MoveRule">دۆڕاو دیاری ناکرێت بە یاسای-50 جووڵە</string>
   <string name="winOr50MovesByPriorMistake">براوە یان 50 جووڵە بەهۆی هەڵەی پێشوو</string>
