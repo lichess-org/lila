@@ -186,4 +186,28 @@
  فیل = 3
  ئەسپ = 3
  سەرباز = 1</string>
+  <string name="checkInTwo">بە دوو جوڵە کشومات بکە</string>
+  <string name="twoMovesToGiveCheck">کشوماتکردن بە دوو جوڵە</string>
+  <string name="checkInTwoIntro">ئەو دوو جوڵە درووستە بدۆزەوە کە بەهۆیەوە دەتوانی کشوماتی پاشات ڕکابەرەکەتی پێبکەی!</string>
+  <string name="checkInTwoGoal">بە دوو جوڵە هەڕەشە لە پاشای
+ ڕکابەرەکەت بکە!</string>
+  <string name="checkInTwoComplete">پیرۆزە، تۆ کشـت لە ڕکابەرەکەت کرد، ناچارتکردووە بەرگری لە پاشاکەی بکات!</string>
+  <string name="whatNext">دواتر چییە?</string>
+  <string name="youKnowHowToPlayChess">ئێستا تۆ دەزانی چۆن یاری شەترەنج بکەی، پیرۆزە! ئایا دەتەوێت ببی بە یاریزانێکی بەهێزتر?</string>
+  <string name="register">تۆمارکردن</string>
+  <string name="getAFreeLichessAccount">هەژمارێکی لیچێس بەخۆڕایی بەدەست بێنە</string>
+  <string name="practice">بەکارهێنان \"پڕاکتیز\"</string>
+  <string name="learnCommonChessPositions">پێگە باوەکانی شەترەنج فێرببە</string>
+  <string name="puzzles">مەتەڵەکان</string>
+  <string name="exerciseYourTacticalSkills">راهێنان بە توانا تاکتیکییەکانت بکە</string>
+  <string name="videos">کورتە ڤیدیۆ</string>
+  <string name="watchInstructiveChessVideos">سەیری کورتە ڤیدۆکانی فێربوونی شەترەنج بکە</string>
+  <string name="playPeople">ڕکابەری ئەوانیتر بکە</string>
+  <string name="opponentsFromAroundTheWorld">رکابەرەکانت لە سەرانسەری جیهان</string>
+  <string name="playMachine">یاری لەگەڵ کۆمپیوتەر بکە</string>
+  <string name="testYourSkillsWithTheComputer">بە کۆمپیوتەر تواناکانت تاقی بکەرەوە</string>
+  <string name="letsGo">دەستپێبکە!</string>
+  <string name="stageX">قۆناغی %s</string>
+  <string name="awesome">نـاوازەیە!</string>
+  <string name="excellent">نایابە!</string>
 </resources>
