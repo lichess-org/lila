@@ -706,6 +706,7 @@
   <string name="kidMode">Modo infantil</string>
   <string name="kidModeExplanation">Isto diz respeito à segurança. No modo infantil, todas as comunicações do site são desabilitadas. Habilite isso para seus filhos e alunos, para protegê-los de outros usuários da Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">No modo infantil, a logo do lichess tem um ícone %s, para que você saiba que suas crianças estão seguras.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Sua conta é gerenciada. Para desativar o modo infantil, peça ao seu professor.</string>
   <string name="enableKidMode">Habilitar o modo infantil</string>
   <string name="disableKidMode">Desabilitar o modo infantil</string>
   <string name="security">Segurança</string>
