@@ -7,11 +7,10 @@ import reactivemongo.api.*
 import scala.concurrent.duration.*
 
 import lila.common.config.Secret
-import lila.common.{ Bus, IpAddress }
+import lila.common.{ Bus, IpAddress, EmailAddress }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.user.{ User, UserRepo }
-import lila.common.EmailAddress
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -25,8 +24,9 @@ final class PlanApi(
     payPalIpnKey: Secret,
     monthlyGoalApi: MonthlyGoalApi,
     currencyApi: CurrencyApi,
-    pricingApi: PlanPricingApi
-)(using ec: scala.concurrent.ExecutionContext):
+    pricingApi: PlanPricingApi,
+    ip2proxy: lila.security.Ip2Proxy
+)(using scala.concurrent.ExecutionContext):
 
   import BsonHandlers.given
   import BsonHandlers.PatronHandlers.given
@@ -159,10 +159,16 @@ final class PlanApi(
     def patronCustomer(patron: Patron): Fu[Option[StripeCustomer]] =
       patron.stripe.map(_.customerId) ?? stripeClient.getCustomer
 
-    def createSession(data: CreateStripeSession)(using lang: Lang): Fu[StripeSession] =
-      data.checkout.freq match
-        case Freq.Onetime => stripeClient.createOneTimeSession(data)
-        case Freq.Monthly => stripeClient.createMonthlySession(data)
+    def createSession(data: CreateStripeSession, me: User, ip: IpAddress)(using Lang): Fu[StripeSession] =
+      canUse(me, ip, data.checkout.freq) flatMap { canUse =>
+        if canUse.yes then
+          data.checkout.freq match
+            case Freq.Onetime => stripeClient.createOneTimeSession(data)
+            case Freq.Monthly => stripeClient.createMonthlySession(data)
+        else
+          logger.warn(s"${me.username} $ip ${data.customerId} can't use stripe for ${data.checkout}")
+          fufail(StripeClient.CantUseException)
+      }
 
     def createPaymentUpdateSession(sub: StripeSubscription, nextUrls: NextUrls): Fu[StripeSession] =
       stripeClient.createPaymentUpdateSession(sub, nextUrls)
@@ -175,8 +181,32 @@ final class PlanApi(
         }
       }
 
+    def canUse(user: User, ip: IpAddress, freq: Freq): Fu[StripeCanUse] = ip2proxy(ip) flatMap { proxy =>
+      if (!proxy.is) fuccess(StripeCanUse.Yes)
+      else
+        freq match
+          case Freq.Monthly => // prevent several subscriptions in a row
+            StripeCanUse from mongo.charge
+              .countSel(
+                $doc(
+                  "userId" -> user.id,
+                  "date" $gt DateTime.now.minusWeeks(1),
+                  "stripe" $exists true,
+                  "giftTo" $exists false
+                )
+              )
+              .map(_ < 2)
+          case Freq.Onetime => // prevents mass gifting or one-time donations
+            StripeCanUse from mongo.charge
+              .countSel(
+                $doc("userId" -> user.id, "date" $gt DateTime.now.minusWeeks(1), "stripe" $exists true)
+              )
+              .map(_ < 1)
+    }
+
     private def customerIdPatron(id: StripeCustomerId): Fu[Option[Patron]] =
       mongo.patron.one[Patron]($doc("stripe.customerId" -> id))
+  end stripe
 
   object payPal:
 
@@ -383,6 +413,7 @@ final class PlanApi(
 
     private def subscriptionIdPatron(id: PayPalSubscriptionId): Fu[Option[Patron]] =
       mongo.patron.one[Patron]($doc("payPalCheckout.subscriptionId" -> id))
+  end payPal
 
   private def setDbUserPlanOnCharge(from: User, levelUp: Boolean): Funit =
     val user = from.mapPlan(p => if (levelUp) p.incMonths else p.enable)

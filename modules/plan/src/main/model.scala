@@ -142,6 +142,12 @@ case class StripeSetupIntent(payment_method: String)
 
 case class StripeSessionWithIntent(setup_intent: StripeSetupIntent)
 
+enum StripeMode:
+  case setup, payment, subscription
+
+opaque type StripeCanUse = Boolean
+object StripeCanUse extends YesNo[StripeCanUse]
+
 // payPal model
 
 case class PayPalAmount(value: BigDecimal, currency_code: Currency):

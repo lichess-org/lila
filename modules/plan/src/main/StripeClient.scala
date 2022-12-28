@@ -27,7 +27,7 @@ final private class StripeClient(
   private val STRIPE_VERSION = "2020-08-27"
 
   def sessionArgs(
-      mode: String,
+      mode: StripeMode,
       customerId: StripeCustomerId,
       currency: Currency,
       urls: NextUrls
@@ -43,26 +43,27 @@ final private class StripeClient(
       )
 
   def createOneTimeSession(data: CreateStripeSession)(using lang: Lang): Fu[StripeSession] =
-    val args = sessionArgs("payment", data.customerId, data.checkout.money.currency, data.urls) ::: List(
-      "line_items[0][price_data][product]" -> {
-        if (data.giftTo.isDefined) config.products.gift
-        else config.products.onetime
-      },
-      "line_items[0][price_data][currency]"    -> data.checkout.money.currency,
-      "line_items[0][price_data][unit_amount]" -> StripeAmount(data.checkout.money).value,
-      "line_items[0][quantity]"                -> 1
-    ) ::: data.isLifetime.?? {
-      List(
-        "line_items[0][description]" ->
-          lila.i18n.I18nKeys.patron.payLifetimeOnce.txt(data.checkout.money.display)
-      )
-    } ::: data.giftTo.?? { giftTo =>
-      List(
-        "metadata[giftTo]" -> giftTo.id.value,
-        "payment_intent_data[metadata][giftTo]" -> giftTo.id.value, // so we can get it from charge.metadata.giftTo
-        "line_items[0][description]" -> s"Gift Patron wings to ${giftTo.username}"
-      )
-    }
+    val args =
+      sessionArgs(StripeMode.payment, data.customerId, data.checkout.money.currency, data.urls) ::: List(
+        "line_items[0][price_data][product]" -> {
+          if (data.giftTo.isDefined) config.products.gift
+          else config.products.onetime
+        },
+        "line_items[0][price_data][currency]"    -> data.checkout.money.currency,
+        "line_items[0][price_data][unit_amount]" -> StripeAmount(data.checkout.money).value,
+        "line_items[0][quantity]"                -> 1
+      ) ::: data.isLifetime.?? {
+        List(
+          "line_items[0][description]" ->
+            lila.i18n.I18nKeys.patron.payLifetimeOnce.txt(data.checkout.money.display)
+        )
+      } ::: data.giftTo.?? { giftTo =>
+        List(
+          "metadata[giftTo]" -> giftTo.id.value,
+          "payment_intent_data[metadata][giftTo]" -> giftTo.id.value, // so we can get it from charge.metadata.giftTo
+          "line_items[0][description]" -> s"Gift Patron wings to ${giftTo.username}"
+        )
+      }
     postOne[StripeSession]("checkout/sessions", args*)
 
   private def recurringPriceArgs(name: String, money: Money) = List(
@@ -75,8 +76,9 @@ final private class StripeClient(
   )
 
   def createMonthlySession(data: CreateStripeSession): Fu[StripeSession] =
-    val args = sessionArgs("subscription", data.customerId, data.checkout.money.currency, data.urls) ++
-      recurringPriceArgs("line_items", data.checkout.money)
+    val args =
+      sessionArgs(StripeMode.subscription, data.customerId, data.checkout.money.currency, data.urls) ++
+        recurringPriceArgs("line_items", data.checkout.money)
     postOne[StripeSession]("checkout/sessions", args*)
 
   def createCustomer(user: User, data: PlanCheckout): Fu[StripeCustomer] =
@@ -118,7 +120,7 @@ final private class StripeClient(
     }
 
   def createPaymentUpdateSession(sub: StripeSubscription, urls: NextUrls): Fu[StripeSession] =
-    val args = sessionArgs("setup", sub.customer, sub.item.price.currency, urls) ++ List(
+    val args = sessionArgs(StripeMode.setup, sub.customer, sub.item.price.currency, urls) ++ List(
       "setup_intent_data[metadata][subscription_id]" -> sub.id
     )
     postOne[StripeSession]("checkout/sessions", args*)
@@ -178,7 +180,7 @@ final private class StripeClient(
   private def response[A: Reads](res: StandaloneWSResponse): Fu[A] =
     res.status match
       case 200 =>
-        (implicitly[Reads[A]] reads res.body[JsValue]).fold(
+        (summon[Reads[A]] reads res.body[JsValue]).fold(
           errs =>
             fufail {
               if (isDeleted(res.body[JsValue]))
@@ -208,6 +210,7 @@ object StripeClient:
   class StatusException(status: Int, msg: String)         extends StripeException(s"$status $msg")
   class NotFoundException(status: Int, msg: String)       extends StatusException(status, msg)
   class InvalidRequestException(status: Int, msg: String) extends StatusException(status, msg)
+  object CantUseException extends StripeException("You already donated this week, thank you.")
 
   import lila.common.autoconfig.*
   private[plan] case class Config(
