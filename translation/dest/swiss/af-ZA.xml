@@ -17,6 +17,7 @@
     <item quantity="one">Een ronde per dag</item>
     <item quantity="other">Een ronde elke %s dae</item>
   </plurals>
+  <string name="roundsAreStartedManually">Rondtes word nie automaties begin nie</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">%s sekonde tussen ronde</item>
     <item quantity="other">%s sekondes tussen rondes</item>
@@ -42,6 +43,8 @@
   <string name="swissVsArenaA">In \'n Switserse toernooi, speel alle deelnemers die selfde aantal spelle, en kan sleg eenkeer teen mekaar speel.
 Dit kan \'n goeie opsie wees vir klubs en amptelike toernooie.</string>
   <string name="pointsCalculationQ">Hoe word punte toegeken?</string>
+  <string name="pointsCalculationA">\'n Wen is een punt werd, \'n gelykop is \'n halwe punt werd, en \'n verloor is geen punte werd nie. 
+Wanneer \'n speler nie kan gepaar word deur \'n rondte nie, kry hulle \'n loslootjie terwaarde van een punt.</string>
   <string name="tiebreaksCalculationQ">Hoe word gelykop breuke bepaal?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger telling</string>
   <string name="tiebreaksCalculationA">Met die %s.
@@ -56,6 +59,12 @@ Tel die tellings van die spelers wat deur die speler gewen is op asook halfte va
   <string name="restrictedToTeamsA">Switserse toernooie is nie ontwerp vir aanlyn skaak nie. Dit verg stiptilikheid, toewyding en gedult van spelers.
 Ons dink hierdie voorwaardes is meer waarskynlik binne \'n span, as in werêlds-toernooie.</string>
   <string name="numberOfByesQ">Hoeveel loslootjies kan \'n speler kry?</string>
+  <string name="numberOfByesA">\'n Speler kry \'n loslootjie van een punt elke keer wat die paring sisteem nie \'n parings maat vir hul kan find nie.
+Aditioneel, \'n enkel loslootjie van \'n halwe punt word toegedien wanneer \'n speler \'n toernooi laat aansluit.</string>
+  <string name="whatIfOneDoesntPlayQ">Wat gebeur as \'n speler nie \'n spel speel nie?</string>
+  <string name="whatIfOneDoesntPlayA">Hulle klok sal aantik en hulle sal die spel verloor op tyd.
+Die systeem sal hulle uit die toernooi ontrek, sodat hulle nie meer spelle verloor nie.
+Hulle kan die toernooi enige tyd heraansluit.</string>
   <string name="lateJoinQ">Kan spelers laat aansluit?</string>
   <string name="willSwissReplaceArenasA">Nee. Hulle is komplementêre eienskappe.</string>
   <string name="roundRobinQ">Wat van rondomtalie toernooie?</string>
