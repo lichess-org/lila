@@ -210,4 +210,18 @@
   <string name="stageX">قۆناغی %s</string>
   <string name="awesome">نـاوازەیە!</string>
   <string name="excellent">نایابە!</string>
+  <string name="greatJob">کارێکی باش بوو!</string>
+  <string name="perfect">بێخەوشە!</string>
+  <string name="outstanding">نایاب!</string>
+  <string name="wayToGo">بەمشێوەیە بەردەوامبە!</string>
+  <string name="yesYesYes">بەڵێ، بەڵێ، بەڵێ!</string>
+  <string name="youreGoodAtThis">تۆ لەم کارەدا باشیت!</string>
+  <string name="nailedIt">زۆر تەواوت هێنا.</string>
+  <string name="rightOn">ڕێگە راستەکەت گرتووە!</string>
+  <string name="stageXComplete">قۆناغی %s تەواو</string>
+  <string name="next">دواتر</string>
+  <string name="nextX">دواتر: %s</string>
+  <string name="backToMenu">گەڕانەوە بۆ پێرست</string>
+  <string name="puzzleFailed">هەڵەتکرد لە مەتەڵەکە!</string>
+  <string name="retry">دووبارە هەوڵبدەوە</string>
 </resources>
