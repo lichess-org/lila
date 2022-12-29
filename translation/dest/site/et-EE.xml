@@ -13,7 +13,7 @@
   <string name="toggleTheChat">Luba vestlust</string>
   <string name="chat">Saada sõnum</string>
   <string name="resign">Alistu</string>
-  <string name="checkmate">Šahh ja matt</string>
+  <string name="checkmate">Matt</string>
   <string name="stalemate">Patt</string>
   <string name="white">Valge</string>
   <string name="black">Must</string>
@@ -363,6 +363,7 @@
   <string name="siteDescription">Tasuta online male. Mängi malet nüüd puhtas kasutajaliideses. Pole registreerimist, pole reklaami, pole pluginaid vaja. Mängi malet arvuti, sõprade või juhusliku vastasega.</string>
   <string name="xJoinedTeamY">%1$s liitus võistkonnaga %2$s</string>
   <string name="xCreatedTeamY">%1$s tegi tiimi %2$s</string>
+  <string name="startedStreaming">alustas otseülekannet</string>
   <string name="xStartedStreaming">%s alustas otseülekannet</string>
   <string name="averageElo">Keskmine Elo</string>
   <string name="location">Asukoht</string>
@@ -539,10 +540,12 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="blog">Blogi</string>
   <string name="notes">Märkmed</string>
   <string name="typePrivateNotesHere">Siia võib kirjutada märkmeid</string>
+  <string name="writeAPrivateNoteAboutThisUser">Kirjuta privaatne märge selle kasutaja kohta</string>
+  <string name="noNoteYet">Märkmed veel puuduvad</string>
   <string name="invalidUsernameOrPassword">Vale kasutajanimi või parool</string>
   <string name="incorrectPassword">Vale parool</string>
   <string name="invalidAuthenticationCode">Väär autentimise kood</string>
-  <string name="emailMeALink">Saada mulle link</string>
+  <string name="emailMeALink">Saada mulle link meilile</string>
   <string name="currentPassword">Praegune parool</string>
   <string name="newPassword">Uus parool</string>
   <string name="newPasswordAgain">Uus parool (uuesti)</string>
@@ -745,7 +748,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="boardSize">Laua suurus</string>
   <string name="pieceSet">Malendite kujundus</string>
   <string name="embedInYourWebsite">Sängita oma veebilehel</string>
-  <string name="usernameAlreadyUsed">See kasutajanimi on juba olemas, proovige midagi muud.</string>
+  <string name="usernameAlreadyUsed">See kasutajanimi on juba olemas, proovi midagi muud.</string>
   <string name="usernamePrefixInvalid">Kasutajanimi peab algama tähega.</string>
   <string name="usernameSuffixInvalid">Kasutajanimi peab lõppema numbri või tähega.</string>
   <string name="usernameCharsInvalid">Kasutajanimi peab sisaldama ainult tähti, numbreid, alakriipse ja sidekriipse. Järjestikused alakriipsud ega sidekriipsud ei ole lubatud.</string>
@@ -890,6 +893,10 @@ ja mõjutavad mängijate reitinguid</string>
   <string name="maximumWeeklyRating">Minimaalne nädalane reiting</string>
   <string name="onlyTitled">Ainult tiitliga mängijad</string>
   <string name="onlyTitledHelp">Turniiriga liitumiseks vajalik ametlik tiitel</string>
+  <string name="positionInputHelp">Sisesta kehtiv FEN, et alustada iga mängu antud positsioonilt.
+See töötab ainult standardmängude, mitte variantide puhul.
+FEN-i genereerimiseks on kasutada %s, seejärel saab selle siia kleepida.
+Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="cancelSimul">Tühista simultaan</string>
   <string name="simulHostcolor">Korraldaja värv igas mängus</string>
   <string name="estimatedStart">Eeldatav algusaeg</string>

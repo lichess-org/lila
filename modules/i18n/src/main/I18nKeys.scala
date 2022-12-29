@@ -565,6 +565,7 @@ object I18nKeys:
   val `kidMode` = I18nKey("kidMode")
   val `kidModeExplanation` = I18nKey("kidModeExplanation")
   val `inKidModeTheLichessLogoGetsIconX` = I18nKey("inKidModeTheLichessLogoGetsIconX")
+  val `askYourChessTeacherAboutLiftingKidMode` = I18nKey("askYourChessTeacherAboutLiftingKidMode")
   val `enableKidMode` = I18nKey("enableKidMode")
   val `disableKidMode` = I18nKey("disableKidMode")
   val `security` = I18nKey("security")
@@ -1617,6 +1618,7 @@ object I18nKeys:
   object settings:
     val `settings` = I18nKey("settings:settings")
     val `closeAccount` = I18nKey("settings:closeAccount")
+    val `managedAccountCannotBeClosed` = I18nKey("settings:managedAccountCannotBeClosed")
     val `closingIsDefinitive` = I18nKey("settings:closingIsDefinitive")
     val `cantOpenSimilarAccount` = I18nKey("settings:cantOpenSimilarAccount")
     val `changedMindDoNotCloseAccount` = I18nKey("settings:changedMindDoNotCloseAccount")
