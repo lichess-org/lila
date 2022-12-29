@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">بەرەوپێشچوونەکانی سەرباز</string>
+  <string name="advancedPawnDescription">یەکێک لە سەربازەکانت قووڵبۆتەوە ناو ناوچەی ڕکابەرەکەت، لەوانەیە هەڕەشەی پلە بەرزکردنەو بکات.</string>
+  <string name="advantage">سوود</string>
+  <string name="advantageDescription">چانسی خۆت بقۆزەوە بۆ ئەوەی سوودێکی یەکلاکەرەوە بەدەستبهێنیت. (200cp ≤ ڕیزبەندی ≤ 600cp)</string>
+</resources>
