@@ -10,14 +10,16 @@ import lila.opening.{ OpeningPage, OpeningWiki }
 
 object wiki:
 
-  def apply(page: OpeningPage)(implicit ctx: Context) =
+  def apply(page: OpeningPage)(using Context) =
     div(cls := List("opening__wiki" -> true, "opening__wiki--editor" -> isGranted(_.OpeningWiki)))(
       div(cls := "opening__wiki__markup")(
         page.wiki
           .flatMap(_ markupForMove page.query.sans.lastOption.??(_.value))
-          .fold(frag("No description of the opening, yet. We're working on it!")) { markup =>
-            raw(markup)
-          }
+          .fold(
+            div(cls := "opening__wiki__markup__placeholder")(
+              "No description of the opening, yet. We're working on it!"
+            )
+          )(raw)
       ),
       (page.query.openingAndExtraMoves._1.isDefined && isGranted(_.OpeningWiki)) option {
         details(cls := "opening__wiki__editor")(
