@@ -4,6 +4,7 @@ import { OpeningPage } from './interfaces';
 import { renderHistoryChart } from './chart';
 import { init as searchEngine } from './search';
 import panels from './panels';
+import renderPlaceholderWiki from './wiki';
 import { Config } from 'chessground/config';
 
 export function page(data: OpeningPage) {
@@ -29,7 +30,10 @@ export function page(data: OpeningPage) {
     if (id == 'opening-panel-games') loadExampleGames();
   });
   searchEngine();
-  lichess.requestIdleCallback(() => renderHistoryChart(data));
+  lichess.requestIdleCallback(() => {
+    renderHistoryChart(data);
+    renderPlaceholderWiki(data);
+  });
 }
 
 export const search = searchEngine;

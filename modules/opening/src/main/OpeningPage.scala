@@ -45,7 +45,7 @@ case class ResultCounts(
   private def percentOf(v: Long): Float = (v.toFloat * 100 / sum)
 
 case class OpeningNext(
-    san: String,
+    san: SanStr,
     uci: Uci.Move,
     fen: OpeningFen,
     query: OpeningQuery,

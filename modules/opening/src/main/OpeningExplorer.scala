@@ -1,7 +1,7 @@
 package lila.opening
 
-import chess.format.Fen
-import chess.format.Fen
+import chess.format.{ Fen, Uci }
+import chess.format.pgn.SanStr
 import chess.opening.Opening
 import com.softwaremill.tagging.*
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
@@ -123,7 +123,7 @@ object OpeningExplorer:
     val movesSum = moves.foldLeft(0L)(_ + _.sum)
     val games    = topGames ::: recentGames
 
-  case class Move(uci: String, san: String, averageRating: Int, white: Long, draws: Long, black: Long):
+  case class Move(uci: String, san: SanStr, averageRating: IntRating, white: Long, draws: Long, black: Long):
     def sum = white + draws + black
 
   case class GameRef(id: GameId)
