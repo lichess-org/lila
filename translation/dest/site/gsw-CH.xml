@@ -715,6 +715,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="kidMode">Chinder-Modus</string>
   <string name="kidModeExplanation">Sicherheitsiischtellig: Im Chinder-Modus isch die ganzi Kommunikation deaktiviert. Aktivier de Modus und schütz dini Chind vor andere Internetbenutzer.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Im Chinder-Modus erschint s\'Lichess-Logo mit %s-Icon, was dir zeigt, dass dini Chind gschützt sind.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Dis Konto wird verwaltet, frög din Schachlehrer für d\'Ufhebig vum Chindermodus.</string>
   <string name="enableKidMode">Chinder-Modus aktiviere</string>
   <string name="disableKidMode">Chinder-Modus deaktiviere</string>
   <string name="security">Sicherheit</string>
