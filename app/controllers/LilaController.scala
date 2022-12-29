@@ -550,12 +550,13 @@ abstract private[controllers] class LilaController(val env: Env)
           enabledId.??(env.team.api.nbRequests) zip
             enabledId.??(env.challenge.api.countInFor.get) zip
             enabledId.??(env.notifyM.api.unreadCount) zip
-            env.mod.inquiryApi.forMod(me)
+            env.mod.inquiryApi.forMod(me) zip
+            env.notifyM.api.prefs.getBellPref(me.id)
         else
           fuccess {
-            (((0, 0), lila.notify.Notification.UnreadCount(0)), none)
+            ((((0, 0), lila.notify.Notification.UnreadCount(0)), none), true)
           }
-      } map { case (pref, (((teamNbRequests, nbChallenges), nbNotifications), inquiry)) =>
+      } map { case (pref, ((((teamNbRequests, nbChallenges), nbNotifications), inquiry), playBellSound)) =>
         PageData(
           teamNbRequests,
           nbChallenges,
@@ -565,7 +566,8 @@ abstract private[controllers] class LilaController(val env: Env)
           hasFingerprint = hasFingerPrint,
           hasClas = isGranted(_.Teacher, me) || env.clas.studentCache.isStudent(me.id),
           inquiry = inquiry,
-          nonce = nonce
+          nonce = nonce,
+          playBellSound = playBellSound
         )
       }
     }

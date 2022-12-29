@@ -225,6 +225,7 @@ object layout:
   val dataAssetUrl              = attr("data-asset-url")      := netConfig.assetBaseUrl.value
   val dataAssetVersion          = attr("data-asset-version")
   val dataDev                   = attr("data-dev")            := (!netConfig.minifiedAssets).option("true")
+  val dataBell                  = attr("data-play-bell")
 
   def apply(
       title: String,
@@ -317,6 +318,7 @@ object layout:
           dataBoardTheme   := ctx.currentTheme.name,
           dataPieceSet     := ctx.currentPieceSet.name,
           dataAnnounce     := AnnounceStore.get.map(a => safeJsonValue(a.json)),
+          dataBell         := ctx.pageData.playBellSound,
           style            := zoomable option s"--zoom:${ctx.zoom}"
         )(
           blindModeForm,
