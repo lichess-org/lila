@@ -578,6 +578,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Beležke</string>
   <string name="typePrivateNotesHere">Piši zasebne beležke tukaj</string>
+  <string name="writeAPrivateNoteAboutThisUser">Napišite zasebno opombo o tem uporabniku</string>
+  <string name="noNoteYet">Ni opombe še</string>
   <string name="invalidUsernameOrPassword">Napačno uporabniško ime ali geslo</string>
   <string name="incorrectPassword">Nepravilno geslo</string>
   <string name="invalidAuthenticationCode">Nepravilna avtentikacijska koda</string>
