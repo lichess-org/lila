@@ -12,10 +12,9 @@ case class OpeningPage(
     explored: Option[OpeningExplored],
     wiki: Option[OpeningWiki]
 ):
-  def opening = query.opening
-  def name    = query.name
+  export query.{ opening, name, isExactOpening, openingAndExtraMoves }
 
-  def nameParts: NamePart.NamePartList = query.openingAndExtraMoves match
+  def nameParts: NamePart.NamePartList = openingAndExtraMoves match
     case (op, moves) => (op ?? NamePart.from) ::: NamePart.from(moves)
 
 case object NamePart:

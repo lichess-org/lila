@@ -40,7 +40,7 @@ object show:
             case None       => a(href := routes.Opening.index(), dataIcon := "")
           },
           span(cls := "opening__name")(
-            page.nameParts.zipWithIndex map { case (part, i) =>
+            page.nameParts.zipWithIndex map { (part, i) =>
               frag(
                 part match {
                   case Left(move) => span(cls := "opening__name__move")(i > 0 option ", ", move)

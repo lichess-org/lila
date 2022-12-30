@@ -23,7 +23,7 @@ object wiki:
       ),
       (page.query.openingAndExtraMoves._1.isDefined && isGranted(_.OpeningWiki)) option {
         details(cls := "opening__wiki__editor")(
-          summary(cls := "opening__wiki__editor__summary")("Edit the description"),
+          summary(cls := "opening__wiki__editor__summary")("Edit the description", priorityTag(page)),
           page.query.opening match {
             case Some(op) =>
               frag(
@@ -67,3 +67,13 @@ object wiki:
       }
     )
   )
+
+  private val priorityTexts = Vector("Highest", "High", "Average", "Low", "Lowest")
+  def priorityTag(page: OpeningPage) = {
+    for
+      wiki <- page.wiki
+      if page.isExactOpening
+      score = OpeningWiki.priorityOf(wiki)
+      text <- priorityTexts.lift(score)
+    yield div(cls := s"priority priority--$score")(text)
+  } | div(cls := s"priority priority--4")("Lowest")
