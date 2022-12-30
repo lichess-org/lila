@@ -3,7 +3,6 @@
   <string name="preferences">설정</string>
   <string name="display">화면</string>
   <string name="privacy">프라이버시</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">알림</string>
   <string name="pieceAnimation">기물 움직임 애니메이션</string>
   <string name="materialDifference">기물 차이</string>
   <string name="boardHighlights">보드 하이라이트 (마지막 움직임 및 체크)</string>
@@ -51,8 +50,4 @@
   <string name="yourPreferencesHaveBeenSaved">설정이 저장되었습니다.</string>
   <string name="scrollOnTheBoardToReplayMoves">보드에서 스크롤을 해서 수를 앞 뒤로 이동</string>
   <string name="correspondenceEmailNotification">매일 일간 게임의 목록을 보여주는 알림 메일을 받기</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">스트리머 생방송 시작</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">새로운 받은 편지함 메시지</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">포럼 댓글 귀하를 언급했을 때</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">연구 초대받았을 때</string>
 </resources>
