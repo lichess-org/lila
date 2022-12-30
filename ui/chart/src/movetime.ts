@@ -195,6 +195,10 @@ const movetime: Window['LichessChartGame']['movetime'] = async (
           if (e.yAxis[0].value < 0 == !(ply & 1)) ply += e.xAxis[0].value < ply ? -1 : 1;
           lichess.pubsub.emit('analysis.chart.click', ply);
         },
+        load(e: any) {
+          // Drop-in fix for Highcharts issue #7293
+          e.target.renderer.globalAnimation = false;
+        },
       },
     },
     tooltip: {
