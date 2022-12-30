@@ -66,6 +66,8 @@ Aditioneel, \'n enkel loslootjie van \'n halwe punt word toegedien wanneer \'n s
 Die systeem sal hulle uit die toernooi ontrek, sodat hulle nie meer spelle verloor nie.
 Hulle kan die toernooi enige tyd heraansluit.</string>
   <string name="lateJoinQ">Kan spelers laat aansluit?</string>
+  <string name="lateJoinA">Ja, totdat meer as halfde van die rondtes begin het; byvoorbeeld in \'n 11-rondtes switserse toernooi kan spelers aansluit tot voordat rondte 6 begin en in \'n 12-rondtes toernooi voor rondte 7 begin.
+Laat aansluiters kry \'n enkel loslootjie, selfs as hulle verskeie rondtes gemis het.</string>
   <string name="willSwissReplaceArenasQ">Gaan switserse toernooie, arena toernooie vervang?</string>
   <string name="willSwissReplaceArenasA">Nee. Hulle is komplementêre eienskappe.</string>
   <string name="roundRobinQ">Wat van rondomtalie toernooie?</string>
