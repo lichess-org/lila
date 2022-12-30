@@ -31,7 +31,3 @@ export const option = (value: string, current: string | undefined, name: string)
     },
     name
   );
-
-export function scrollTo(el: HTMLElement | undefined, target: HTMLElement | null) {
-  if (el && target) el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2;
-}
