@@ -12,4 +12,5 @@
   <string name="showPieces">Näita malendeid</string>
   <string name="startTraining">Alusta treeningut</string>
   <string name="findSquare">Leia ruut</string>
+  <string name="nameSquare">Nimeta ruut</string>
 </resources>
