@@ -68,10 +68,10 @@ Muundada pole tarvus.</string>
   <string name="capture">Löömine</string>
   <string name="takeTheEnemyPieces">Löö vastase malendid</string>
   <string name="captureIntro">Tuvasta vastase kaitseta malendid ning löö nad!</string>
-  <string name="takeTheBlackPieces">Löö vastase malendid!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Löö vastase malendid!
+  <string name="takeTheBlackPieces">Löö mustad malendid!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Löö mustad malendid!
 Ära kaota enda omi.</string>
-  <string name="captureComplete">Õnnitlused! Oskate vastase malendeid lüüa!</string>
+  <string name="captureComplete">Õnnitlused! Oskad vastase malendeid lüüa!</string>
   <string name="protection">Kaitsmine</string>
   <string name="keepYourPiecesSafe">Hoia oma malendid kaitse all</string>
   <string name="protectionIntro">Tuvasta malendid, mida vastane ründab ja kaitse neid!</string>
