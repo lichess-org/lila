@@ -61,7 +61,9 @@ case class OpeningExplored(
     games: List[GameWithPgn],
     next: List[OpeningNext],
     history: PopularityHistoryPercent
-)
+) {
+  def lastPopularityPercent: Option[Float] = history.lastOption
+}
 
 object OpeningPage:
   def apply(

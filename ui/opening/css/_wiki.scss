@@ -21,8 +21,26 @@
   &__editor {
     padding: 0.5em 2em;
     &__summary {
+      @extend %flex-between;
       cursor: pointer;
       color: $c-primary;
+      .priority {
+        @extend %box-neat;
+        text-transform: uppercase;
+        padding: 0.2em 0.8em;
+        background: $c-bg-zebra2;
+        color: $c-font-dim;
+        &--0 {
+          color: $c-brag;
+        }
+        &--1 {
+          color: $c-good;
+        }
+        &--3,
+        &--4 {
+          color: $c-bad;
+        }
+      }
     }
     form {
       @extend %flex-column;

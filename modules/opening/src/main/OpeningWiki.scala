@@ -138,6 +138,6 @@ object OpeningWiki:
       case html                    => html
     } mkString "\n"
 
-  // db.opening_wiki.aggregate({$bucketAuto:{groupBy:'$popularity',buckets:5}})
-  private val priorities            = List(0, 1707, 11513, 58744, 448694).reverse
-  def priorityOf(page: OpeningWiki) = priorities.indexWhere(_ <= page.popularity).pp(page.popularity.toString)
+  private val priorityByPopularityPercent = List(3, 0.5, 0.05, 0.005, 0)
+  def priorityOf(explored: OpeningExplored) =
+    priorityByPopularityPercent.indexWhere(_ <= ~explored.lastPopularityPercent)

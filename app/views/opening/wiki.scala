@@ -70,10 +70,7 @@ object wiki:
 
   private val priorityTexts = Vector("Highest", "High", "Average", "Low", "Lowest")
   def priorityTag(page: OpeningPage) = {
-    for
-      wiki <- page.wiki
-      if page.isExactOpening
-      score = OpeningWiki.priorityOf(wiki)
-      text <- priorityTexts.lift(score)
-    yield div(cls := s"priority priority--$score")(text)
-  } | div(cls := s"priority priority--4")("Lowest")
+    val score = page.explored.fold(priorityTexts.size - 1)(OpeningWiki.priorityOf)
+    val text  = priorityTexts.lift(score) | priorityTexts.last
+    strong(cls := s"priority priority--$score")(text, " priority")
+  }
