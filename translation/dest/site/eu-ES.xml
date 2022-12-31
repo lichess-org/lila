@@ -706,7 +706,7 @@
   <string name="kidMode">Haurren modua</string>
   <string name="kidModeExplanation">Hau segurtasunari buruzkoa da. Haurren moduan, webguneko komunikazio guztiak desaktibatuta daude. Aktibatu zure haur eta ikasleei beste Internet erabiltzaileengandik babesteko.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Haurren moduan, lichess logoak %s ikonoa du, haurrak seguru daudela jakin dezazun.</string>
-  <string name="askYourChessTeacherAboutLiftingKidMode" comment="askYourChessTeacherAboutLiftingKidMode&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Zure kontua beste norbaitek kudeatzen du. Eskatu zure irakasleari haur modua desaktibatzeko.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Zure kontua beste norbaitek kudeatzen du. Eskatu zure irakasleari haur modua desaktibatzeko.</string>
   <string name="enableKidMode">Haurren modua aktibatu</string>
   <string name="disableKidMode">Haurren modua desaktibatu</string>
   <string name="security">Segurtasuna</string>
