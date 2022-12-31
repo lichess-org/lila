@@ -255,7 +255,7 @@
   <string name="playingRightNow">Mängimas praegu</string>
   <string name="eventInProgress">Praegu mängimas</string>
   <string name="finished">Lõpetatud</string>
-  <string name="finishesX">lõpuni on veel %s</string>
+  <string name="finishesX">lõppeb %s</string>
   <string name="abortGame">Katkesta mäng</string>
   <string name="gameAborted">Mäng katkestatud</string>
   <string name="standard">Standard</string>
@@ -579,7 +579,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="allInformationIsPublicAndOptional">Kõik andmed on avalikud ja vabatahtlikud.</string>
   <string name="biographyDescription">Räägi endast, oma huvidest, mis meeldib male juures, lemmikavangud, mängijad, ...</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maksimum: %s märki.</item>
+    <item quantity="one">Maksimum: %s märk.</item>
     <item quantity="other">Maksimum: %s märki.</item>
   </plurals>
   <plurals name="blocks">
@@ -590,7 +590,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="human">Inimene</string>
   <string name="computer">Arvuti</string>
   <string name="side">Pool</string>
-  <string name="clock">Kell</string>
+  <string name="clock">Malekell</string>
   <string name="opponent">Vastane</string>
   <string name="learnMenu">Õpi</string>
   <string name="studyMenu">Uuri</string>
@@ -630,7 +630,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="webmasters">Administraatorid</string>
   <string name="about">Info</string>
   <string name="aboutX">Info %s kohta</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on täiesti tasuta (%2$s), reklaamivaba, avatud koodiga male server.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on täiesti tasuta (%2$s), reklaamivaba, avatud lähtekoodiga male server.</string>
   <string name="really">päriselt</string>
   <string name="contribute">Panusta</string>
   <string name="termsOfService">Kasutajatingimused</string>
@@ -722,7 +722,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="bulletBlitzClassical">Bullet, blitz, klassikaline</string>
   <string name="correspondenceChess">Kirimale</string>
   <string name="onlineAndOfflinePlay">Online ja offline mängud</string>
-  <string name="viewTheSolution">Vaata lahendus</string>
+  <string name="viewTheSolution">Vaata lahendust</string>
   <string name="followAndChallengeFriends">Jälgi sõpru ja esita väljakutseid</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Saadaval %s keeles!</item>
