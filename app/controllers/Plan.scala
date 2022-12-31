@@ -178,7 +178,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       checkout: PlanCheckout,
       customerId: StripeCustomerId,
       giftTo: Option[UserModel]
-  )(implicit ctx: Context) = {
+  )(using ctx: Context) = {
     for {
       isLifetime <- env.plan.priceApi.isLifetime(checkout.money)
       data = CreateStripeSession(
@@ -189,9 +189,10 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
           success = s"${env.net.baseUrl}${routes.Plan.thanks}"
         ),
         giftTo = giftTo,
-        isLifetime = isLifetime
+        isLifetime = isLifetime,
+        ip = ctx.ip
       )
-      session <- env.plan.api.stripe.createSession(data, me, ctx.ip)
+      session <- env.plan.api.stripe.createSession(data, me)
     } yield JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value)))
   }.recover(badStripeApiCall)
 
