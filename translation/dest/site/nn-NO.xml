@@ -86,7 +86,7 @@
   <string name="averageRatingX">Gjennomsnittleg rating: %s</string>
   <string name="recentGames">Nylege parti</string>
   <string name="topGames">Topp-parti</string>
-  <string name="masterDbExplanation">To millionar over-bordet spel av %1$s+ FIDE rangerte spelarar frå %2$s til %3$s</string>
+  <string name="masterDbExplanation">Brettsjakkparti med spelarar som har FIDE-rating %1$s+ frå %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt om %s halvtrekk</item>
     <item quantity="other">Matt om %s halvtrekk</item>
