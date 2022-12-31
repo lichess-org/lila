@@ -707,7 +707,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="kidMode">Modalità bambino</string>
   <string name="kidModeExplanation">Questa modalità riguarda la sicurezza: in modalità bambino tutte le comunicazioni sono disabilitate. Si consiglia di attivare questa modalità per bambini e studenti, in modo da proteggerli dagli altri utenti.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In \"modalità bambino\", al logo di lichess viene aggiunto %s, in questo modo sai che il bambino è sicuro.</string>
-  <string name="askYourChessTeacherAboutLiftingKidMode" comment="askYourChessTeacherAboutLiftingKidMode&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Il tuo account è gestito esternamente. Chiedi al tuo istruttore di disattivare la \"modalità bambino\".</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Il tuo account è gestito esternamente. Chiedi al tuo istruttore di disattivare la \"modalità bambino\".</string>
   <string name="enableKidMode">Attiva \"modalità bambino\"</string>
   <string name="disableKidMode">Disattiva \"modalità bambino\"</string>
   <string name="security">Sicurezza</string>
