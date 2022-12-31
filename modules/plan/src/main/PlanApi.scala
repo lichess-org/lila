@@ -72,7 +72,8 @@ final class PlanApi(
       patronOption <- customerIdPatron(stripeCharge.customer)
       giftTo       <- stripeCharge.giftTo ?? userRepo.byId
       money = stripeCharge.amount toMoney stripeCharge.currency
-      usd <- currencyApi toUsd money
+      usd   <- currencyApi toUsd money
+      proxy <- stripeCharge.ip.??(ip => ip2proxy(ip).dmap(some))
       charge = Charge
         .make(
           userId = patronOption.map(_.userId),
@@ -88,7 +89,7 @@ final class PlanApi(
           logger.info(s"Charged anon customer $charge")
           funit
         case Some(prevPatron) =>
-          logger.info(s"Charged $charge $prevPatron")
+          logger.info(s"Charged proxy:${proxy.flatMap(_.value)} $charge $prevPatron")
           userRepo byId prevPatron.userId orFail s"Missing user for $prevPatron" flatMap { user =>
             giftTo match
               case Some(to) => gift(user, to, money)
@@ -159,14 +160,14 @@ final class PlanApi(
     def patronCustomer(patron: Patron): Fu[Option[StripeCustomer]] =
       patron.stripe.map(_.customerId) ?? stripeClient.getCustomer
 
-    def createSession(data: CreateStripeSession, me: User, ip: IpAddress)(using Lang): Fu[StripeSession] =
-      canUse(me, ip, data.checkout.freq) flatMap { canUse =>
+    def createSession(data: CreateStripeSession, me: User)(using Lang): Fu[StripeSession] =
+      canUse(me, data.ip, data.checkout.freq) flatMap { canUse =>
         if canUse.yes then
           data.checkout.freq match
             case Freq.Onetime => stripeClient.createOneTimeSession(data)
             case Freq.Monthly => stripeClient.createMonthlySession(data)
         else
-          logger.warn(s"${me.username} $ip ${data.customerId} can't use stripe for ${data.checkout}")
+          logger.warn(s"${me.username} ${data.ip} ${data.customerId} can't use stripe for ${data.checkout}")
           fufail(StripeClient.CantUseException)
       }
 
