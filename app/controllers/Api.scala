@@ -384,7 +384,7 @@ final class Api(
   def toHttp(result: ApiResult): Result =
     result match {
       case Limited        => tooManyRequests
-      case NoData         => NotFound
+      case NoData         => notFoundJsonSync()
       case Custom(result) => result
       case Data(json)     => Ok(json) as JSON
     }

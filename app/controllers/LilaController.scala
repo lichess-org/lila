@@ -424,12 +424,11 @@ abstract private[controllers] class LilaController(val env: Env)
       api = _ => notFoundJson("Resource not found")
     )
 
-  def notFoundJson(msg: String = "Not found"): Fu[Result] =
-    fuccess {
-      NotFound(jsonError(msg))
-    }
-
   def jsonError[A: Writes](err: A): JsObject = Json.obj("error" -> err)
+
+  def notFoundJsonSync(msg: String = "Not found"): Result = NotFound(jsonError(msg)) as JSON
+
+  def notFoundJson(msg: String = "Not found"): Fu[Result] = fuccess(notFoundJsonSync(msg))
 
   def notForBotAccounts =
     BadRequest(
@@ -586,7 +585,7 @@ abstract private[controllers] class LilaController(val env: Env)
       max: Int = 40,
       errorPage: => Fu[Result] = BadRequest("resource too old").fuccess
   )(result: => Fu[Result]): Fu[Result] =
-    if (page < max) result else errorPage
+    if (page < max && page > 0) result else errorPage
 
   protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
     if (ctx.kid) notFound else f
@@ -650,12 +649,6 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def pageHit(req: RequestHeader): Unit =
     if (HTTPRequest isHuman req) lila.mon.http.path(req.path).increment().unit
-
-  protected def makeCustomResult(status: Int, reasonPhrase: String) =
-    Result(
-      header = new ResponseHeader(status, reasonPhrase = reasonPhrase.some).pp,
-      body = play.api.http.HttpEntity.NoEntity
-    )
 
   protected def pageHit(implicit ctx: lila.api.Context): Unit = pageHit(ctx.req)
 

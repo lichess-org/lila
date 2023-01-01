@@ -1,6 +1,7 @@
 package controllers
 
 import lila.app._
+import lila.blog.BlogLang
 
 final class Page(
     env: Env,
@@ -69,7 +70,7 @@ final class Page(
   private def explanation(uid: String) =
     Open { implicit ctx =>
       pageHit
-      OptionOk(prismicC.getPage("doc", uid, ctx.lang.code)) { case (doc, resolver) =>
+      OptionOk(prismicC.getPage("doc", uid, BlogLang.fromLang(ctx.lang))) { case (doc, resolver) =>
         views.html.site.page(doc, resolver)
       }
     }
@@ -77,7 +78,7 @@ final class Page(
   private def notationExplanation(uid: String) =
     Open { implicit ctx =>
       pageHit
-      OptionOk(prismicC.getPage("doc", uid, ctx.lang.code)) { case (doc, _) =>
+      OptionOk(prismicC.getPage("doc", uid, BlogLang.fromLang(ctx.lang))) { case (doc, _) =>
         views.html.site.notationExplanation(doc)
       }
     }
@@ -94,9 +95,10 @@ final class Page(
     Open { implicit ctx =>
       import play.api.libs.json._
       negotiate(
-        html = OptionOk(prismicC.getPage("doc", "variants", ctx.lang.code)) { case (doc, resolver) =>
-          views.html.site.variant.home(doc, resolver)
-        },
+        html =
+          OptionOk(prismicC.getPage("doc", "variants", BlogLang.fromLang(ctx.lang))) { case (doc, resolver) =>
+            views.html.site.variant.home(doc, resolver)
+          },
         api = _ =>
           Ok(JsArray(shogi.variant.Variant.all.map { v =>
             Json.obj(
@@ -108,12 +110,12 @@ final class Page(
       )
     }
 
-  def variant(key: String) =
+  def variant(key: String, lang: Option[String] = None) =
     Open { implicit ctx =>
       (for {
         variant  <- shogi.variant.Variant.byKey get key
         perfType <- lila.rating.PerfType byVariant variant
-      } yield OptionOk(prismicC.getVariant(variant, ctx.lang.code)) { case (doc, resolver) =>
+      } yield OptionOk(prismicC.getVariant(variant, BlogLang.fromLangCode(lang.getOrElse(ctx.lang.code)))) { case (doc, resolver) =>
         views.html.site.variant.show(doc, resolver, variant, perfType)
       }) | notFound
     }

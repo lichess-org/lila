@@ -81,7 +81,7 @@ object bits {
 
     if (!variant.standard)
       link(
-        href = routes.Page.variant(variant.key).url,
+        href = routes.Page.variant(variant.key, none).url,
         title = variant.title,
         name = variant.name.toUpperCase
       )
