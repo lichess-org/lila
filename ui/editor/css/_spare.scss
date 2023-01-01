@@ -67,6 +67,10 @@
 .board-editor.variant-minishogi .spare .no-square {
   flex: 0 0 calc(100% / 6);
 }
+
 .board-editor.variant-chushogi .spare .no-square {
-  flex: 0 0 calc(100% / 22);
+  flex: 0 0 calc(100% / 12);
+  @include breakpoint($mq-x-small) {
+    flex: 0 0 calc(100% / 22);
+  }
 }
