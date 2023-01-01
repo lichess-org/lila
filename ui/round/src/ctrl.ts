@@ -11,7 +11,7 @@ import { eagleLionAttacks, falconLionAttacks } from 'shogiops/attacks';
 import { checksSquareNames, shogigroundSecondLionStep, usiToSquareNames } from 'shogiops/compat';
 import { initialSfen, parseSfen } from 'shogiops/sfen';
 import { NormalMove, Piece, Role, isDrop } from 'shogiops/types';
-import { makeSquare, makeUsi, opposite, parseSquare, parseUsi, squareDist } from 'shogiops/util';
+import { defined, makeSquare, makeUsi, opposite, parseSquare, parseUsi, squareDist } from 'shogiops/util';
 import { Chushogi } from 'shogiops/variant/chushogi';
 import { unpromote } from 'shogiops/variant/util';
 import * as blur from './blur';
@@ -439,7 +439,7 @@ export default class RoundController {
         if (!capture || !samePiece(capture, piece)) this.shogiground.drop(piece, keys[0]);
       } else {
         // This block needs to be idempotent
-        if (move.midStep) {
+        if (defined(move.midStep)) {
           const orig = keys[0],
             midStep = keys[1],
             dest = keys[2];
