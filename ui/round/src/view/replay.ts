@@ -37,7 +37,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
 );
 
 function plyOffset(ctrl: RoundController): number {
-  return (ctrl.data.game.startedAtPly || 0) - ((ctrl.data.game.startedAtMove || 1) - 1);
+  return (ctrl.data.game.startedAtPly || 0) - ((ctrl.data.game.startedAtMove ?? 1) - 1);
 }
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
@@ -67,7 +67,7 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   const curMove = ctrl.ply - (ctrl.data.game.startedAtPly || 0) + (ctrl.data.game.startedAtMove ?? 1) - 1;
 
   steps.slice(1).forEach((s, i) => {
-    const moveNumber = i + (ctrl.data.game.startedAtMove || 1),
+    const moveNumber = i + (ctrl.data.game.startedAtMove ?? 1),
       useColorIcon = notationsWithColor.includes(ctrl.data.pref.notation);
     els.push(h('index', moveNumber));
     els.push(

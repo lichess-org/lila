@@ -75,7 +75,7 @@ export function makeConfig(ctrl: RoundController): Config {
         return promote(variant)(role);
       },
       movePromotionDialog: (orig: Key, dest: Key) => {
-        const piece = ctrl.shogiground.state.pieces.get(orig) as Piece,
+        const piece = ctrl.shogiground.state.pieces.get(orig) as Piece | undefined,
           capture = ctrl.shogiground.state.pieces.get(dest) as Piece | undefined;
         return (
           !!piece &&
@@ -84,7 +84,7 @@ export function makeConfig(ctrl: RoundController): Config {
         );
       },
       forceMovePromotion: (orig: Key, dest: Key) => {
-        const piece = ctrl.shogiground.state.pieces.get(orig) as Piece;
+        const piece = ctrl.shogiground.state.pieces.get(orig) as Piece | undefined;
         return !!piece && pieceForcePromote(variant)(piece, parseSquare(dest)!);
       },
     },
