@@ -30,11 +30,13 @@ final private class MsgSecurity(
 
   private object limitCost {
     val normal   = 25
+    val old      = 20
     val verified = 5
     val hog      = 1
     def apply(u: User.Contact) =
       if (u.isApiHog) hog
       else if (u.isVerified) verified
+      else if (u isDaysOld 30) old
       else if (u isDaysOld 3) normal
       else if (u isHoursOld 3) normal * 2
       else normal * 4
