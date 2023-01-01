@@ -67,6 +67,7 @@ object ChuPieceSet extends PieceSetBase {
   val all = List[String](
     default.name,
     "Chu_Intl",
+    "Chu_Intl_BnW",
     "Chu_Mnemonic"
   ) map { name =>
     new PieceSet(name)
