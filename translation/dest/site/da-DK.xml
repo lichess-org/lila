@@ -759,7 +759,7 @@
   <string name="invalidPgn">Ugyldig PGN</string>
   <string name="invalidFen">Ugyldig FEN</string>
   <string name="custom">Tilpasset</string>
-  <string name="notifications">Meddelelser</string>
+  <string name="notifications">Notifikationer</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til at lave det første træk</item>
