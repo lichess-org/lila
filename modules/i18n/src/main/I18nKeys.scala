@@ -1581,6 +1581,7 @@ object preferences {
 val `preferences` = new I18nKey("preferences:preferences")
 val `gameDisplay` = new I18nKey("preferences:gameDisplay")
 val `boardLayout` = new I18nKey("preferences:boardLayout")
+val `clearHands` = new I18nKey("preferences:clearHands")
 val `pieceAnimation` = new I18nKey("preferences:pieceAnimation")
 val `materialDifference` = new I18nKey("preferences:materialDifference")
 val `boardHighlightsLastDests` = new I18nKey("preferences:boardHighlightsLastDests")
