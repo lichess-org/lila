@@ -2,6 +2,8 @@
 <resources>
 	<string name="preferences">Ustawienia</string>
 	<string name="gameDisplay">Widok partii</string>
+	<string name="boardLayout">Board layout</string>
+	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="pieceAnimation">Animacja ruchu bierek</string>
 	<string name="materialDifference">Przewaga materialna</string>
 	<string name="boardHighlightsLastDests">Wyróżnienie pól szachownicy – ostatni ruch/wstawienie</string>

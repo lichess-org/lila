@@ -2,6 +2,8 @@
 <resources>
 	<string name="preferences">Předvolby</string>
 	<string name="gameDisplay">Zobrazení hry</string>
+	<string name="boardLayout">Board layout</string>
+	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="pieceAnimation">Animace figur</string>
 	<string name="materialDifference">Materiální rozdíl</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>

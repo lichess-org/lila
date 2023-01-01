@@ -2,6 +2,8 @@
 <resources>
 	<string name="preferences">Asetukset</string>
 	<string name="gameDisplay">Ulkoasu</string>
+	<string name="boardLayout">Board layout</string>
+	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="pieceAnimation">Nappuloiden animaatio</string>
 	<string name="materialDifference">Materiaaliero</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>

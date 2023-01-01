@@ -2,6 +2,8 @@
 <resources>
 	<string name="preferences">Sửa giao diện</string>
 	<string name="gameDisplay">Hiển thị ván cờ</string>
+	<string name="boardLayout">Board layout</string>
+	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="pieceAnimation">Tính linh hoạt của quân cờ</string>
 	<string name="materialDifference">Khác chất</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>

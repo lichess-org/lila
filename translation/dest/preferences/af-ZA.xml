@@ -2,6 +2,8 @@
 <resources>
 	<string name="preferences">Voorkeure</string>
 	<string name="gameDisplay">Spel vertoon</string>
+	<string name="boardLayout">Board layout</string>
+	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="pieceAnimation">Stuk animasie</string>
 	<string name="materialDifference">Materiaal verskil</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>

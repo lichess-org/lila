@@ -2,6 +2,8 @@
 <resources>
 	<string name="preferences">Inställningar</string>
 	<string name="gameDisplay">Spelutseende</string>
+	<string name="boardLayout">Board layout</string>
+	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="pieceAnimation">Pjäsanimation</string>
 	<string name="materialDifference">Materialskillnad</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>

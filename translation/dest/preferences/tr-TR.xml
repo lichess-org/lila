@@ -2,6 +2,8 @@
 <resources>
 	<string name="preferences">Seçenekler</string>
 	<string name="gameDisplay">Oyun görünümü</string>
+	<string name="boardLayout">Board layout</string>
+	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="pieceAnimation">Hamle animasyonu</string>
 	<string name="materialDifference">Taş farkı</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>

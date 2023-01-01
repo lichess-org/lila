@@ -2,6 +2,8 @@
 <resources>
 	<string name="preferences">Настройки</string>
 	<string name="gameDisplay">Внешний вид</string>
+	<string name="boardLayout">Board layout</string>
+	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="pieceAnimation">Анимация фигур</string>
 	<string name="materialDifference">Показывать разницу в материале</string>
 	<string name="boardHighlightsLastDests">Доска подсвечивает - последний ход/сброс</string>

@@ -2,6 +2,8 @@
 <resources>
 	<string name="preferences">設定</string>
 	<string name="gameDisplay">表示設定</string>
+	<string name="boardLayout">Board layout</string>
+	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="pieceAnimation">駒のアニメーション速度</string>
 	<string name="materialDifference">駒の損得</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>

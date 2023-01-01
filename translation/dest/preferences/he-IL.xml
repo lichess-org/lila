@@ -2,6 +2,8 @@
 <resources>
 	<string name="preferences">עדיפויות</string>
 	<string name="gameDisplay">תצוגת המשחק</string>
+	<string name="boardLayout">Board layout</string>
+	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="pieceAnimation">אנימציית הכלים</string>
 	<string name="materialDifference">הבדל בחומר</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>

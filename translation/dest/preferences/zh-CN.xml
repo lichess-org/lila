@@ -2,6 +2,8 @@
 <resources>
 	<string name="preferences">偏好设置</string>
 	<string name="gameDisplay">棋局显示</string>
+	<string name="boardLayout">Board layout</string>
+	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="pieceAnimation">棋子动画</string>
 	<string name="materialDifference">子力差距</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>

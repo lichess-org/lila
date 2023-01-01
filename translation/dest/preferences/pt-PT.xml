@@ -2,6 +2,8 @@
 <resources>
 	<string name="preferences">Preferências</string>
 	<string name="gameDisplay">Exibição do jogo</string>
+	<string name="boardLayout">Board layout</string>
+	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="pieceAnimation">Animação das peças</string>
 	<string name="materialDifference">Diferença material</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>

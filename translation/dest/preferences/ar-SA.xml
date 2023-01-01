@@ -2,6 +2,8 @@
 <resources>
 	<string name="preferences">تفضيلات</string>
 	<string name="gameDisplay">مظهر المباراة</string>
+	<string name="boardLayout">Board layout</string>
+	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="pieceAnimation">المؤثرات الحركية للقطعة</string>
 	<string name="materialDifference">الفرق المادي</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>

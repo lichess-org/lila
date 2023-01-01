@@ -2,6 +2,8 @@
 <resources>
 	<string name="preferences">Mga preperensiya</string>
 	<string name="gameDisplay">Game display</string>
+	<string name="boardLayout">Board layout</string>
+	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="pieceAnimation">Piece animation</string>
 	<string name="materialDifference">Material difference</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
