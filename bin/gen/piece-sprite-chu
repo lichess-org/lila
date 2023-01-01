@@ -8,11 +8,14 @@ lila_dir = pwd()
 source_dir = lila_dir + '/public/piece/'
 dest_dir = lila_dir + '/public/piece-css/'
 
-bidirectional = [['Mnemonic', 'svg']]
+bidirectional = [
+  ['Chu_Mnemonic', 'svg'],
+  ['Chu_Intl_BnW', 'svg'],
+]
 
 themes = [
-  ['Ryoko_1Kanji', 'svg'],
-  ['Intl', 'svg'],
+  ['Chu_Ryoko_1Kanji', 'svg'],
+  ['Chu_Intl', 'svg'],
 ]
 types = {
   'svg' => 'svg+xml;base64,',
@@ -60,6 +63,7 @@ roles = [
   'verticalmoverpromoted',
   'rookpromoted'
 ]
+rolesWithoutTama = roles.select { |role| role != 'tama' }
 colors = ['sente', 'gote']
 
 def sameUpDownM(role)
@@ -155,7 +159,7 @@ themes.map { |theme|
   classes = colors.map { |color|
     roles.map { |role|
       piece = (color == 'sente' ? '0_' : '1_') + role.upcase
-      file = source_dir + 'Chu_' + name + '/' + piece + '.' + ext
+      file = source_dir + name + '/' + piece + '.' + ext
       File.open(file, 'r') do|image_file|
         image = image_file.read
         base64 = Base64.strict_encode64(image)
@@ -169,21 +173,21 @@ themes.map { |theme|
   else
     classes.append("piece{ will-change: auto; background-repeat: no-repeat; }")
   end
-  File.open(dest_dir + 'Chu_' + name + '.css', 'w') { |f| f.puts classes.join("\n") }
+  File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
 bidirectional.map { |theme|
   name = theme[0]
   ext = theme[1]
   classes = ['-1', ''].map { |up|
     colors.map { |color|
-      roles.map { |role|
+      rolesWithoutTama.map { |role|
         piece = (color == 'sente' ? '0_' : '1_') + role.upcase + up
-        file = source_dir + 'Chu_' + name + '/' + piece + '.' + ext
-        if !(name == 'Mnemonic' && up == '-1' && sameUpDownM(role))
+        file = source_dir + name + '/' + piece + '.' + ext
+        if !(name == 'Chu_Mnemonic' && up == '-1' && sameUpDownM(role))
           File.open(file, 'r') do|image_file|
             image = image_file.read
             base64 = Base64.strict_encode64(image)
-            if sameUpDownM(role)
+            if (sameUpDownM(role) && name == 'Chu_Mnemonic')
               classesMnemonic(color, role) + ' {' +
               "background-image:url('data:image/" + types[ext] + base64 + "') !important;}"
             else
@@ -200,10 +204,10 @@ bidirectional.map { |theme|
   else
     classes.append("piece{ will-change: auto; background-repeat: no-repeat; }")
   end
-  if name == 'Mnemonic'
+  if name == 'Chu_Mnemonic'
     classes.append("piece{ background-size: contain !important; }")
   end
-  File.open(dest_dir + 'Chu_' + name + '.css', 'w') { |f| f.puts classes.join("\n") }
+  File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
 
 # external SVG
@@ -229,8 +233,8 @@ bidirectional.map { |theme|
   ext = theme[1]
   classes = ['-1', ''].map { |up|
     colors.map { |color|
-      roles.map { |role|
-        piece = (color == 'sente' ? '0_' : '1_') + role.upcase + (name == "Mnemonic" && sameUpDownM(role) ? "" : up)
+      rolesWithoutTama.map { |role|
+        piece = (color == 'sente' ? '0_' : '1_') + role.upcase + (name == "Chu_Mnemonic" && sameUpDownM(role) ? "" : up)
         classesWithOrientation(color, role, up.length != 0) + ' {' +
           "background-image:url('/assets/piece/" + name + "/" + piece + "." + ext + "') !important;}"     
       }
@@ -241,8 +245,8 @@ bidirectional.map { |theme|
   else
     classes.append("piece{ will-change: auto; background-repeat: no-repeat; }")
   end
-  if name == 'Mnemonic'
+  if name == 'Chu_Mnemonic'
     classes.append("piece{ background-size: contain !important; }")
   end
-  File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
+  File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }
