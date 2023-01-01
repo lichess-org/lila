@@ -38,6 +38,7 @@ object FormCompatLayer {
           "boardLayout",
           "animation",
           "coords",
+          "clearHands",
           "highlightLastDests",
           "highlightCheck",
           "squareOverlay",

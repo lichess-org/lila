@@ -257,6 +257,7 @@ object layout {
             s"${ctx.currentBg} ${ctx.currentTheme.cssClass} coords-${ctx.pref.coordsClass} notation-${ctx.pref.notation}" -> true,
             s"grid-width-${ctx.pref.customThemeOrDefault.gridWidth}" -> ctx.pref.isUsingCustomTheme,
             s"board-layout-${ctx.pref.boardLayout}"                  -> (ctx.pref.boardLayout != 0),
+            "clear-hands"                                            -> ctx.pref.clearHands,
             "no-touch"                                               -> !ctx.pref.squareOverlay,
             "zen"                                                    -> ctx.pref.isZen,
             "blind-mode"                                             -> ctx.blind,

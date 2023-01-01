@@ -32,12 +32,22 @@ sg-hand-wrap {
     top: 0;
     left: 0;
     background-size: cover;
-    &.promotion::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-color: #0000003f;
+    &.promotion {
+      .board-layout-1 & {
+        opacity: 0.6;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #0000003f;
+        z-index: 2;
+        .board-layout-1 & {
+          content: unset;
+          z-index: unset;
+        }
+      }
     }
 
     sg-hp-wrap {
@@ -58,10 +68,13 @@ sg-hand-wrap {
       }
 
       &[data-nb='0']:not(.drawing) {
-        opacity: 0.3;
-      }
-      .clearHands &[data-nb='0'] {
-        opacity: 0;
+        opacity: 0.2;
+        .board-layout-1 & {
+          opacity: 0.1;
+        }
+        .clear-hands & {
+          opacity: 0;
+        }
       }
       &:after {
         @extend %box-radius;

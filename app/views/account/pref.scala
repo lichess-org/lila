@@ -62,6 +62,10 @@ object pref {
               radios(form("display.coords"), translatedBoardCoordinateChoices)
             ),
             setting(
+              clearHands(),
+              radios(form("display.clearHands"), booleanChoices)
+            ),
+            setting(
               boardHighlightsLastDests(),
               radios(form("display.highlightLastDests"), booleanChoices)
             ),

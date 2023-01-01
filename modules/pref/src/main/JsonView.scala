@@ -26,6 +26,7 @@ object JsonView {
       "premove"            -> p.premove,
       "boardLayout"        -> p.boardLayout,
       "animation"          -> p.animation,
+      "clearHands"         -> p.clearHands,
       "follow"             -> p.follow,
       "highlightLastDests" -> p.highlightLastDests,
       "highlightCheck"     -> p.highlightCheck,
