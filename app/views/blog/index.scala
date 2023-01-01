@@ -3,7 +3,7 @@ package views.html.blog
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.blog.MiniPost
+import lila.blog.{ FullPost, MiniPost }
 import lila.common.paginator.Paginator
 
 import controllers.routes
@@ -14,7 +14,8 @@ object index {
       pager: Paginator[io.prismic.Document]
   )(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) = {
 
-    val primaryPost = (pager.currentPage == 1).??(pager.currentPageResults.headOption)
+    val primaryPost =
+      (pager.currentPage == 1).??(pager.currentPageResults.headOption) flatMap FullPost.fromDocument("blog")
 
     views.html.base.layout(
       title = "Blog",
@@ -64,27 +65,23 @@ object index {
     )
 
   private def latestPost(
-      doc: io.prismic.Document
+      post: FullPost
   )(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
     st.article(
-      doc.getText("blog.title").map { title =>
-        h2(a(href := routes.Blog.show(doc.id, doc.slug, prismic.maybeRef))(title))
-      },
-      bits.metas(doc),
+      h2(a(href := routes.Blog.show(post.id, prismic.maybeRef))(post.title)),
+      bits.metas(post),
       div(cls := "parts")(
-        doc.getImage("blog.image", "main").map { img =>
-          div(cls := "illustration")(
-            a(href := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef))(st.img(src := img.url))
-          )
-        },
+        div(cls := "illustration")(
+          a(href := routes.Blog.show(post.id, ref = prismic.maybeRef))(st.img(src := post.image))
+        ),
         div(cls := "body")(
-          doc.getStructuredText("blog.body").map { body =>
+          post.doc.getStructuredText(s"${post.coll}.body").map { body =>
             raw(lila.blog.BlogApi.extract(body))
           },
           p(cls := "more")(
             a(
               cls      := "button",
-              href     := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef),
+              href     := routes.Blog.show(post.id, ref = prismic.maybeRef),
               dataIcon := "G"
             )(
               trans.continueReadingThis()

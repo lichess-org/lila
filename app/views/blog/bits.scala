@@ -3,7 +3,7 @@ package views.html.blog
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.blog.MiniPost
+import lila.blog.{ FullPost, MiniPost }
 import lila.common.String.html.richText
 
 import controllers.routes
@@ -23,7 +23,7 @@ object bits {
       postClass: Option[String] = None,
       header: Tag = h2
   )(implicit ctx: Context) =
-    a(cls := postClass)(href := routes.Blog.show(post.id, post.slug))(
+    a(cls := postClass)(href := routes.Blog.show(post.id))(
       st.img(src             := post.image),
       div(cls := "content")(
         header(cls := "title")(post.title),
@@ -33,21 +33,15 @@ object bits {
     )
 
   private[blog] def metas(
-      doc: io.prismic.Document
+      post: FullPost
   )(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
     div(cls := "meta-headline")(
       div(cls := "meta")(
-        doc.getDate("blog.date").map { date =>
-          span(cls := "text", dataIcon := "p")(semanticDate(date.value.toDateTimeAtStartOfDay))
-        },
-        doc.getText("blog.author").map { author =>
-          span(cls := "text", dataIcon := "r")(richText(author))
-        },
-        doc.getText("blog.category").map { categ =>
-          span(cls := "text", dataIcon := "t")(categ)
-        }
+        span(cls := "text", dataIcon := "p")(semanticDate(post.date)),
+        span(cls := "text", dataIcon := "r")(richText(post.author)),
+        span(cls := "text", dataIcon := "t")(post.category)
       ),
-      strong(cls := "headline")(doc.getHtml("blog.shortlede", prismic.linkResolver).map(raw))
+      strong(cls := "headline")(post.doc.getHtml(s"${post.coll}.shortlede", prismic.linkResolver).map(raw))
     )
 
   private[blog] def csp(implicit ctx: Context) = defaultCsp.withPrismic(isGranted(_.Prismic)).some

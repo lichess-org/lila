@@ -1,12 +1,10 @@
 package controllers
 
-import io.prismic.Document
-import org.apache.commons.lang3.StringUtils
 import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.blog.BlogApi
+import lila.blog.{ BlogApi, BlogLang }
 import lila.common.config.MaxPerPage
 
 final class Blog(
@@ -22,22 +20,36 @@ final class Blog(
   def index(page: Int) =
     WithPrismic { implicit ctx => implicit prismic =>
       pageHit
-      blogApi.recent(prismic, page, MaxPerPage(12), ctx.lang.code) flatMap {
+      blogApi.recent(prismic, page, MaxPerPage(12), BlogLang.fromLang(ctx.lang)) flatMap {
         case Some(response) => fuccess(Ok(views.html.blog.index(response)))
         case _              => notFound
       }
     }
 
-  def show(id: String, slug: String, ref: Option[String]) =
+  def show(id: String, ref: Option[String]) =
     WithPrismic { implicit ctx => implicit prismic =>
       pageHit
-      blogApi.one(prismic, id) flatMap { maybeDocument =>
-        checkSlug(maybeDocument, slug) {
-          case Left(newSlug) => MovedPermanently(routes.Blog.show(id, newSlug, ref).url)
-          case Right(doc)    => Ok(views.html.blog.show(doc))
-        }
-      } recoverWith {
-        case e: RuntimeException if e.getMessage contains "Not Found" => notFound
+      blogApi.one(prismic, id) flatMap {
+        case Some(post) => fuccess(Ok(views.html.blog.show(post)))
+        case _          => notFound
+      }
+    }
+
+  def showBc(id: String, slug: String, ref: Option[String]) =
+    WithPrismic { implicit ctx => implicit prismic =>
+      blogApi.one(prismic, id) flatMap {
+        case Some(post) if post.doc.slugs.contains(slug) =>
+          fuccess(MovedPermanently(routes.Blog.show(post.id, ref).url))
+        case _ => notFound
+      }
+    }
+
+  def latest(ref: Option[String]) =
+    WithPrismic { implicit ctx => implicit prismic =>
+      blogApi.latest(prismic, BlogLang.fromLang(ctx.lang)) flatMap {
+        case Some(post) =>
+          fuccess(Redirect(routes.Blog.show(post.id, ref)))
+        case _ => notFound
       }
     }
 
@@ -60,10 +72,10 @@ final class Blog(
   import scala.concurrent.duration._
   import lila.memo.CacheApi._
   private val atomCache = env.memo.cacheApi.unit[String] {
-    _.refreshAfterWrite(30.minutes)
+    _.refreshAfterWrite(60.minutes)
       .buildAsyncFuture { _ =>
         blogApi.masterContext flatMap { implicit prismic =>
-          blogApi.recent(prismic.api, 1, MaxPerPage(50), none, "en-US") map {
+          blogApi.recent(prismic.api, 1, MaxPerPage(50), BlogLang.default, none) map {
             _ ?? { docs =>
               views.html.blog.atom(docs, env.net.baseUrl).render
             }
@@ -80,12 +92,12 @@ final class Blog(
     }
 
   private val sitemapCache = env.memo.cacheApi.unit[String] {
-    _.refreshAfterWrite(3.hours)
+    _.refreshAfterWrite(6.hours)
       .buildAsyncFuture { _ =>
         blogApi.masterContext flatMap { implicit prismic =>
-          blogApi.all("*") map {
+          blogApi.all() map {
             _.map { doc =>
-              s"${env.net.baseUrl}${routes.Blog.show(doc.id, doc.slug)}"
+              s"${env.net.baseUrl}${routes.Blog.show(doc.id)}"
             } mkString "\n"
           }
         }
@@ -101,7 +113,7 @@ final class Blog(
 
   def all =
     WithPrismic { implicit ctx => implicit prismic =>
-      blogApi.byYear(prismic, lila.blog.thisYear, ctx.lang.code) map { posts =>
+      blogApi.byYear(prismic, lila.blog.thisYear, BlogLang.fromLang(ctx.lang)) map { posts =>
         Ok(views.html.blog.index.byYear(lila.blog.thisYear, posts))
       }
     }
@@ -109,7 +121,7 @@ final class Blog(
   def year(year: Int) =
     WithPrismic { implicit ctx => implicit prismic =>
       if (lila.blog.allYears contains year)
-        blogApi.byYear(prismic, year, ctx.lang.code) map { posts =>
+        blogApi.byYear(prismic, year, BlogLang.fromLang(ctx.lang)) map { posts =>
           Ok(views.html.blog.index.byYear(year, posts))
         }
       else notFound
@@ -124,14 +136,14 @@ final class Blog(
         case true => fuccess(redirect)
         case _ =>
           blogApi.one(prismic.api, none, id) flatMap {
-            _ ?? { doc =>
+            _ ?? { post =>
               env.forum.categRepo.bySlug(categSlug) flatMap {
                 _ ?? { categ =>
                   env.forum.topicApi.makeBlogDiscuss(
                     categ = categ,
                     slug = topicSlug,
-                    name = doc.getText("blog.title") | "New blog post",
-                    url = s"${env.net.baseUrl}${routes.Blog.show(doc.id, doc.slug)}"
+                    name = post.title,
+                    url = s"${env.net.baseUrl}${routes.Blog.show(post.id)}"
                   )
                 }
               } inject redirect
@@ -147,13 +159,4 @@ final class Blog(
       }
     }
 
-  // -- Helper: Check if the slug is valid and redirect to the most recent version id needed
-  private def checkSlug(document: Option[Document], slug: String)(
-      callback: Either[String, Document] => Result
-  )(implicit ctx: lila.api.Context) =
-    document.collect {
-      case document if document.slug == slug => fuccess(callback(Right(document)))
-      case document if document.slugs.exists(StringUtils.stripEnd(_, ".") == slug) =>
-        fuccess(callback(Left(document.slug)))
-    } getOrElse notFound
 }

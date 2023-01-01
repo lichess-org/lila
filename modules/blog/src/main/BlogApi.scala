@@ -4,7 +4,6 @@ import io.prismic._
 import play.api.mvc.RequestHeader
 import play.api.libs.ws.WSClient
 
-import lila.common.BlogLangs
 import lila.common.config.MaxPerPage
 import lila.common.paginator._
 
@@ -18,12 +17,12 @@ final class BlogApi(
       api: Api,
       page: Int,
       maxPerPage: MaxPerPage,
-      ref: Option[String],
-      langCode: String
-  ): Fu[Option[Paginator[Document]]] = {
+      lang: BlogLang,
+      ref: Option[String]
+  ): Fu[Option[Paginator[Document]]] =
     api
       .forms(collection)
-      .set("lang", BlogLangs.parse(langCode))
+      .set("lang", lang.code)
       .ref(ref | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
       .pageSize(maxPerPage.value)
@@ -31,40 +30,48 @@ final class BlogApi(
       .submit()
       .fold(_ => none, some _)
       .dmap2 { PrismicPaginator(_, page, maxPerPage) }
-  }
+
   def recent(
       prismic: BlogApi.Context,
       page: Int,
       maxPerPage: MaxPerPage,
-      langCode: String
+      lang: BlogLang
   ): Fu[Option[Paginator[Document]]] =
-    recent(prismic.api, page, maxPerPage, prismic.ref.some, langCode)
+    recent(prismic.api, page, maxPerPage, lang, prismic.ref.some)
 
-  def one(api: Api, ref: Option[String], id: String): Fu[Option[Document]] =
+  def one(api: Api, ref: Option[String], id: String): Fu[Option[FullPost]] =
     api
       .forms(collection)
       .set("lang", "*")
       .query(s"""[[:d = at(document.id, "$id")]]""")
       .ref(ref | api.master.ref)
-      .submit() map (_.results.headOption)
+      .submit() map (_.results.flatMap(doc => FullPost.fromDocument(collection)(doc)).headOption)
 
-  def one(prismic: BlogApi.Context, id: String): Fu[Option[Document]] = one(prismic.api, prismic.ref.some, id)
+  def one(prismic: BlogApi.Context, id: String): Fu[Option[FullPost]] = one(prismic.api, prismic.ref.some, id)
 
-  def byYear(prismic: BlogApi.Context, year: Int, langCode: String): Fu[List[MiniPost]] = {
+  def latest(prismic: BlogApi.Context, lang: BlogLang): Fu[Option[FullPost]] =
     prismic.api
       .forms(collection)
-      .set("lang", BlogLangs.parse(langCode))
+      .set("lang", lang.code)
+      .ref(prismic.ref)
+      .orderings(s"[my.$collection.date desc]")
+      .pageSize(1)
+      .submit() map (_.results.flatMap(doc => FullPost.fromDocument(collection)(doc)).headOption)
+
+  def byYear(prismic: BlogApi.Context, year: Int, lang: BlogLang): Fu[List[MiniPost]] =
+    prismic.api
+      .forms(collection)
+      .set("lang", lang.code)
       .ref(prismic.ref)
       .query(s"[[date.year(my.$collection.date, $year)]]")
       .orderings(s"[my.$collection.date desc]")
       .pageSize(100) // prismic maximum
       .submit()
       .fold(_ => Nil, _.results flatMap MiniPost.fromDocument(collection, "wide"))
-  }
 
   def context(
       req: RequestHeader
-  )(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver): Fu[BlogApi.Context] = {
+  )(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver): Fu[BlogApi.Context] =
     prismicApi map { api =>
       val ref = resolveRef(api) {
         req.cookies
@@ -74,20 +81,18 @@ final class BlogApi(
       }
       BlogApi.Context(api, ref | api.master.ref, linkResolver(api, ref))
     }
-  }
 
   def masterContext(implicit
       linkResolver: (Api, Option[String]) => DocumentLinkResolver
-  ): Fu[BlogApi.Context] = {
+  ): Fu[BlogApi.Context] =
     prismicApi map { api =>
       BlogApi.Context(api, api.master.ref, linkResolver(api, none))
     }
-  }
 
-  def all(langCode: String, page: Int = 1)(implicit prismic: BlogApi.Context): Fu[List[Document]] =
-    recent(prismic.api, page, MaxPerPage(50), none, langCode) flatMap { res =>
+  def all(page: Int = 1)(implicit prismic: BlogApi.Context): Fu[List[Document]] =
+    recent(prismic.api, page, MaxPerPage(50), BlogLang.All, none) flatMap { res =>
       val docs = res.??(_.currentPageResults).toList
-      (docs.nonEmpty ?? all(langCode, page + 1)) map (docs ::: _)
+      (docs.nonEmpty ?? all(page + 1)) map (docs ::: _)
     }
 
   private def resolveRef(api: Api)(ref: Option[String]) =

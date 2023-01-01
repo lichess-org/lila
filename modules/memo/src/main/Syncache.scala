@@ -20,8 +20,7 @@ final private[memo] class Syncache[K, V](
     compute: K => Fu[V],
     default: K => V,
     strategy: Syncache.Strategy,
-    expireAfter: Syncache.ExpireAfter,
-    refreshAfter: Syncache.RefreshAfter = Syncache.RefreshNever
+    expireAfter: Syncache.ExpireAfter
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Syncache._
@@ -36,12 +35,6 @@ final private[memo] class Syncache[K, V](
         expireAfter match {
           case ExpireAfterAccess(duration) => c.expireAfterAccess(duration.toMillis, TimeUnit.MILLISECONDS)
           case ExpireAfterWrite(duration)  => c.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
-          case ExpireNever => c
-        }
-      }.pipe { c =>
-        refreshAfter match {
-          case RefreshAfterWrite(duration)  => c.refreshAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
-          case RefreshNever => c
         }
       }
       .recordStats
@@ -72,7 +65,6 @@ final private[memo] class Syncache[K, V](
         incMiss()
         strategy match {
           case NeverWait            => default(k)
-          case AlwaysWait(duration) => waitForResult(k, future, duration)
           case WaitAfterUptime(duration, uptime) =>
             if (Uptime startedSinceSeconds uptime) waitForResult(k, future, duration)
             else default(k)
@@ -114,15 +106,9 @@ object Syncache {
 
   sealed trait Strategy
   case object NeverWait                                                         extends Strategy
-  case class AlwaysWait(duration: FiniteDuration)                               extends Strategy
   case class WaitAfterUptime(duration: FiniteDuration, uptimeSeconds: Int = 20) extends Strategy
 
   sealed trait ExpireAfter
   case class ExpireAfterAccess(duration: FiniteDuration) extends ExpireAfter
   case class ExpireAfterWrite(duration: FiniteDuration)  extends ExpireAfter
-  case object ExpireNever extends ExpireAfter
-
-  sealed trait RefreshAfter
-  case class RefreshAfterWrite(duration: FiniteDuration)  extends RefreshAfter
-  case object RefreshNever extends RefreshAfter
 }

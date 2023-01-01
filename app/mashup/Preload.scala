@@ -47,7 +47,7 @@ final class Preload(
       events.mon(_.lobby segment "events") zip
       simuls.mon(_.lobby segment "simuls") zip
       tv.getBestGame.mon(_.lobby segment "tvBestGame") zip
-      (ctx.userId ?? timelineApi.userEntriesWithLang(ctx.lang.code)).mon(_.lobby segment "timeline") zip
+      (ctx.userId ?? timelineApi.userEntries).mon(_.lobby segment "timeline") zip
       userCached.topWeek.mon(_.lobby segment "userTopWeek") zip
       tourWinners.all.dmap(_.top).mon(_.lobby segment "tourWinners") zip
       (ctx.noBot ?? dailyPuzzle()).mon(_.lobby segment "puzzle") zip
@@ -78,7 +78,7 @@ final class Preload(
                 tWinners,
                 puzzle,
                 streams.excludeUsers(events.flatMap(_.hostedBy)),
-                lastPostCache.apply,
+                lastPostCache.apply(ctx.lang),
                 playban,
                 currentGame,
                 simulIsFeaturable,

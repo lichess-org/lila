@@ -15,12 +15,12 @@ final class Timeline(env: Env) extends LilaController(env) {
       negotiate(
         html =
           if (HTTPRequest isXhr ctx.req) for {
-            entries <- env.timeline.entryApi.userEntries(me.id, ctx.lang.code)
+            entries <- env.timeline.entryApi.userEntries(me.id)
             _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
           } yield html.timeline.entries(entries)
           else
             for {
-              entries <- env.timeline.entryApi.moreUserEntries(me.id, Max(30), ctx.lang.code)
+              entries <- env.timeline.entryApi.moreUserEntries(me.id, Max(30))
               _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
             } yield html.timeline.more(entries),
         _ =>
@@ -28,8 +28,7 @@ final class Timeline(env: Env) extends LilaController(env) {
             entries <- env.timeline.entryApi
               .moreUserEntries(
                 me.id,
-                Max(getInt("nb") | 10) atMost env.apiTimelineSetting.get(),
-                ctx.lang.code
+                Max(getInt("nb") | 10) atMost env.apiTimelineSetting.get()
               )
             users <- env.user.lightUserApi.asyncManyFallback(entries.flatMap(_.userIds).distinct)
             userMap = users.view.map { u => u.id -> u }.toMap

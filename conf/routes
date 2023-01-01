@@ -70,7 +70,9 @@ GET   /blog                            controllers.Blog.index(page: Int ?= 1)
 GET   /blog/all                        controllers.Blog.all
 GET   /blog/:year                      controllers.Blog.year(year: Int)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id: String)
-GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
+GET   /blog/post/latest                controllers.Blog.latest(ref: Option[String] ?= None)
+GET   /blog/post/:id                   controllers.Blog.show(id: String, ref: Option[String] ?= None)
+GET   /blog/:id/:slug                  controllers.Blog.showBc(id: String, slug: String, ref: Option[String] ?= None)
 GET   /blog.atom                       controllers.Blog.atom
 GET   /blog.txt                        controllers.Blog.sitemapTxt
 
@@ -705,7 +707,7 @@ GET   /explanation/csa                 controllers.Page.csa
 
 # Variants
 GET   /variant                         controllers.Page.variantHome
-GET   /variant/:key                    controllers.Page.variant(key)
+GET   /variant/:key                    controllers.Page.variant(key, lang: Option[String])
 
 # Help
 GET   /help/master                     controllers.Page.notSupported

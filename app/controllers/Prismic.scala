@@ -2,7 +2,7 @@ package controllers
 
 import io.prismic.{ Api => PrismicApi, _ }
 import lila.app._
-import lila.common.BlogLangs
+import lila.blog.BlogLang
 
 final class Prismic(
     env: Env
@@ -14,7 +14,7 @@ final class Prismic(
 
   implicit def makeLinkResolver(prismicApi: PrismicApi, ref: Option[String] = None) =
     DocumentLinkResolver(prismicApi) {
-      case (link, _) => routes.Blog.show(link.id, link.slug, ref).url
+      case (link, _) => routes.Blog.show(link.id, ref).url
       case _         => routes.Lobby.home.url
     }
 
@@ -29,11 +29,11 @@ final class Prismic(
       }
     }
 
-  private def getDocumentByUID(form: String, uid: String, langCode: String) =
+  private def getDocumentByUID(form: String, uid: String, lang: BlogLang) =
     prismicApi flatMap { api =>
       api
         .forms("everything")
-        .set("lang", BlogLangs.parse(langCode))
+        .set("lang", lang.code)
         .query(s"""[[:d = at(my.$form.uid, "$uid")]]""")
         .ref(api.master.ref)
         .submit() dmap {
@@ -41,9 +41,9 @@ final class Prismic(
       }
     }
 
-  def getPage(form: String, uid: String, langCode: String = BlogLangs.default) =
+  def getPage(form: String, uid: String, lang: BlogLang = BlogLang.default) =
     prismicApi flatMap { api =>
-      getDocumentByUID(form, uid, langCode) map2 { (doc: io.prismic.Document) =>
+      getDocumentByUID(form, uid, lang) map2 { (doc: io.prismic.Document) =>
         doc -> makeLinkResolver(api)
       }
     } recover { case e: Exception =>
@@ -61,11 +61,11 @@ final class Prismic(
       none
     }
 
-  def getVariant(variant: shogi.variant.Variant, langCode: String) =
+  def getVariant(variant: shogi.variant.Variant, lang: BlogLang) =
     prismicApi flatMap { api =>
       api
         .forms("variant")
-        .set("lang", BlogLangs.parse(langCode))
+        .set("lang", lang.code)
         .query(s"""[[:d = at(my.variant.key, "${variant.key}")]]""")
         .ref(api.master.ref)
         .submit() map {

@@ -23,35 +23,33 @@ object atom {
       link(rel := "self", tpe      := "application/atom+xml", href := s"$baseUrl${routes.Blog.atom}"),
       tag("title")("lishogi.org blog"),
       tag("updated")(pager.currentPageResults.headOption.flatMap(atomDate("blog.date"))),
-      pager.currentPageResults.map { doc =>
+      pager.currentPageResults.flatMap(doc => lila.blog.FullPost.fromDocument("blog")(doc)).map { post =>
         tag("entry")(
-          tag("id")(s"$baseUrl${routes.Blog.show(doc.id, doc.slug)}"),
-          tag("published")(atomDate("blog.date")(doc)),
-          tag("updated")(atomDate("blog.date")(doc)),
+          tag("id")(s"$baseUrl${routes.Blog.show(post.id)}"),
+          tag("published")(atomDate(post.date)),
+          tag("updated")(atomDate(post.date)),
           link(
             rel  := "alternate",
             tpe  := "text/html",
-            href := s"$baseUrl${routes.Blog.show(doc.id, doc.slug)}"
+            href := s"$baseUrl${routes.Blog.show(post.id)}"
           ),
-          tag("title")(doc.getText("blog.title")),
+          tag("title")(post.title),
           tag("category")(
-            tag("term")(doc.getText("blog.category")),
-            tag("label")(slugify(~doc.getText("blog.category")))
+            tag("term")(post.category),
+            tag("label")(slugify(post.category))
           ),
           tag("content")(tpe := "html")(
-            doc.getText("blog.shortlede"),
+            post.doc.getText(s"${post.coll}.shortlede"),
             "<br>", // yes, scalatags encodes it.
-            doc.getImage("blog.image", "main").map { img =>
-              st.img(src := img.url).render
-            },
+            st.img(src := post.image).render,
             "<br>",
-            doc
-              .getHtml("blog.body", prismic.linkResolver)
+            post.doc
+              .getHtml(s"${post.coll}.body", prismic.linkResolver)
               .map(lila.blog.Youtube.fixStartTimes)
               .map(lila.blog.BlogTransform.addProtocol)
           ),
-          tag("tag")("media:thumbnail")(attr("url") := doc.getImage(s"blog.image", "main").map(_.url)),
-          tag("author")(tag("name")(doc.getText("blog.author")))
+          tag("tag")("media:thumbnail")(attr("url") := post.image),
+          tag("author")(tag("name")(post.author))
         )
       },
       raw("</feed>")

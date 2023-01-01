@@ -5,11 +5,9 @@ import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.common.BlogLangs
 import lila.common.config.Max
 import lila.db.dsl._
 import lila.hub.actorApi.timeline.Atom
-import lila.hub.actorApi.timeline.BlogPost
 import lila.memo.CacheApi._
 import lila.user.User
 
@@ -23,13 +21,11 @@ final class EntryApi(
 
   private val projection = $doc("users" -> false)
 
-  def userEntries(userId: User.ID, langCode: String): Fu[Vector[Entry]] =
-    userEntries(userId, userMax) flatMap broadcast.interleaveWithLang(langCode)
+  def userEntries(userId: User.ID): Fu[Vector[Entry]] =
+    userEntries(userId, userMax) flatMap broadcast.interleave
 
-  def userEntriesWithLang(langCode: String)(userId: User.ID) = userEntries(userId, langCode)
-
-  def moreUserEntries(userId: User.ID, nb: Max, langCode: String): Fu[Vector[Entry]] =
-    userEntries(userId, nb) flatMap broadcast.interleaveWithLang(langCode)
+  def moreUserEntries(userId: User.ID, nb: Max): Fu[Vector[Entry]] =
+    userEntries(userId, nb) flatMap broadcast.interleave
 
   private def userEntries(userId: User.ID, max: Max): Fu[Vector[Entry]] =
     (max.value > 0) ?? coll
@@ -86,8 +82,6 @@ final class EntryApi(
         .buildAsyncFuture(_ => fetch)
     }
 
-    def cacheGet = cache.synchronous().get {}
-
     private def fetch: Fu[Vector[Entry]] =
       coll.ext
         .find(
@@ -98,27 +92,15 @@ final class EntryApi(
         )
         .sort($sort desc "date")
         .cursor[Entry](ReadPreference.primary) // must be on primary for cache refresh to work
-        .vector(3 * BlogLangs.langs.size)
+        .vector(1)
 
-    private[EntryApi] def interleaveWithLang(langCode: String)(entries: Vector[Entry]) =
-      interleave(entries, langCode)
-
-    private def interleave(entries: Vector[Entry], langCode: String): Fu[Vector[Entry]] = {
-      val langsToExclude = BlogLangs.langs.filter(BlogLangs.parse(langCode) !=).toList
+    private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] =
       cache.getUnit map { bcs =>
-        val bcsFiltered = bcs filter {
-          _.decode
-            .map {
-              case BlogPost(_, _, _, lc) => !(langsToExclude contains lc)
-              case _                     => true
-            }
-            .get
-        }
-        bcsFiltered.headOption.fold(entries) { mostRecentBc =>
+        bcs.headOption.fold(entries) { mostRecentBc =>
           val interleaved = {
             val oldestEntry = entries.lastOption
             if (oldestEntry.fold(true)(_.date isBefore mostRecentBc.date))
-              (entries ++ bcsFiltered).sortBy(-_.date.getMillis)
+              (entries ++ bcs).sortBy(-_.date.getMillis)
             else entries
           }
           // sneak recent broadcast at first place
@@ -127,7 +109,6 @@ final class EntryApi(
           else interleaved
         }
       }
-    }
 
     def insert(atom: Atom): Funit = coll.insert.one(Entry make atom).void >>- cache.invalidateUnit()
   }

@@ -106,8 +106,8 @@ object timeline {
           a(href := routes.Plan.index)(
             trans.patron.xBecamePatron(userIdLink(userId.some, withOnline = true))
           )
-        case BlogPost(id, slug, title, _) =>
-          a(cls := "text", dataIcon := "6", href := routes.Blog.show(id, slug))(title)
+        case BlogPost(_) =>
+          a(cls := "text", dataIcon := "6", href := routes.Blog.latest(none))(trans.officialBlog())
         case StreamStart(id, name) =>
           views.html.streamer.bits
             .redirectLink(id)(cls := "text", dataIcon := "")(trans.xStartedStreaming(name))
