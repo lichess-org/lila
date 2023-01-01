@@ -225,7 +225,7 @@ export function view(ctrl: StudyCtrl): VNode {
       'm-config',
       {
         key: member.user.id + '-config',
-        hook: onInsert(el => scrollTo($(el).parent('.members')[0] as HTMLElement, el)),
+        hook: onInsert(el => scrollTo($(el).parent('.study__members')[0] as HTMLElement, el)),
       },
       [
         h('div.role', [
