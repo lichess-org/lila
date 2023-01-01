@@ -60,7 +60,7 @@ final class Account(
         env.user.repo
           .setUsernameCased(me.id, username) inject
           Redirect(routes.User show me.username).flashSuccess recover { case e =>
-            BadRequest(html.account.username(me, env.user.forms.username(me))).flashFailure(e.getMessage)
+            Redirect(routes.Account.username).flashFailure(e.getMessage)
           }
       }
     }
