@@ -110,42 +110,23 @@ sg-squares {
 
 .gray {
   sg-board {
-    background-color: #878787; // dark squares
-    sq:nth-child(even) {
-      background-color: #d1d1d1; // light squares
-      &.oc.dest,
-      &.oc.pre-dest {
-        background-color: #d1d1d1; // light squares
-      }
-      &.selected {
-        background-color: #729377;
-      }
-      &.preselected,
-      &.current-pre {
-        background-color: #727793;
-      }
-      &.dest.hover {
-        background-color: #98ac9b;
-      }
-      &.pre-dest.hover {
-        background-color: #abadb8;
-      }
-      &.last-dest {
-        background-color: #bbcd7b;
-      }
+    background-color: #878787;
+    sq:nth-child(odd) {
+      background: #878787 !important; // dark squares
     }
+    sq:nth-child(even) {
+      background: #d1d1d1 !important; // light squares
+    }
+  }
+  .d-9x9 sg-board {
     sq:nth-child(-2n + 26),
     sq:nth-child(2n + 56) {
-      filter: brightness(90%);
+      background: #c0c0c0 !important;
     }
   }
   .d-12x12 sg-board {
-    sq[class=''] {
-      background-color: unset;
-      filter: unset;
-    }
-    sq:nth-child(even) {
-      background-color: #878787; // reset dark squares
+    sq {
+      background: #878787 !important; // reset squares
     }
     sq:nth-child(-n + 12):nth-child(even),
     sq:nth-child(n + 12):nth-child(-n + 24):nth-child(odd),
@@ -159,27 +140,7 @@ sg-squares {
     sq:nth-child(n + 109):nth-child(-n + 120):nth-child(odd),
     sq:nth-child(n + 121):nth-child(-n + 132):nth-child(even),
     sq:nth-child(n + 133):nth-child(-n + 144):nth-child(odd) {
-      background-color: #d1d1d1; // light squares
-      &.oc.dest,
-      &.oc.pre-dest {
-        background-color: #d1d1d1; // light squares
-      }
-      &.selected {
-        background-color: #729377;
-      }
-      &.preselected,
-      &.current-pre {
-        background-color: #727793;
-      }
-      &.dest.hover {
-        background-color: #98ac9b;
-      }
-      &.pre-dest.hover {
-        background-color: #abadb8;
-      }
-      &.last-dest {
-        background-color: #bbcd7b;
-      }
+      background: #d1d1d1 !important; // light squares
     }
   }
   #dasher_app .piece .list {
@@ -207,43 +168,23 @@ sg-squares {
 
 .blue {
   sg-board {
-    background-color: #617a8e; // dark squares
-    sq:nth-child(even) {
-      background-color: #99aec2; // light squares
-      &.oc.dest,
-      &.oc.pre-dest {
-        background-color: #99aec2; // light squares
-      }
-      &.selected {
-        background-color: #568270;
-      }
-      &.preselected,
-      &.current-pre,
-      &.oc.pre-dest {
-        background-color: #56668c;
-      }
-      &.dest.hover {
-        background-color: #719390;
-      }
-      &.pre-dest.hover {
-        background-color: #7e91ac;
-      }
-      &.last-dest {
-        background-color: #afd47e;
-      }
+    background-color: #617a8e;
+    sq:nth-child(odd) {
+      background: #617a8e !important; // dark squares
     }
+    sq:nth-child(even) {
+      background: #99aec2 !important; // light squares
+    }
+  }
+  .d-9x9 sg-board {
     sq:nth-child(-2n + 26),
     sq:nth-child(2n + 56) {
-      filter: brightness(90%);
+      background: #91a4b6 !important;
     }
   }
   .d-12x12 sg-board {
-    sq[class=''] {
-      background-color: unset;
-      filter: unset;
-    }
-    sq:nth-child(even) {
-      background-color: #617a8e; // reset dark squares
+    sq {
+      background: #617a8e !important; // reset squares
     }
     sq:nth-child(-n + 12):nth-child(even),
     sq:nth-child(n + 12):nth-child(-n + 24):nth-child(odd),
@@ -257,28 +198,7 @@ sg-squares {
     sq:nth-child(n + 109):nth-child(-n + 120):nth-child(odd),
     sq:nth-child(n + 121):nth-child(-n + 132):nth-child(even),
     sq:nth-child(n + 133):nth-child(-n + 144):nth-child(odd) {
-      background-color: #99aec2; // light squares
-      &.oc.dest,
-      &.oc.pre-dest {
-        background-color: #99aec2; // light squares
-      }
-      &.selected {
-        background-color: #568270;
-      }
-      &.preselected,
-      &.current-pre,
-      &.oc.pre-dest {
-        background-color: #56668c;
-      }
-      &.dest.hover {
-        background-color: #719390;
-      }
-      &.pre-dest.hover {
-        background-color: #7e91ac;
-      }
-      &.last-dest {
-        background-color: #afd47e;
-      }
+      background: #99aec2 !important; // light squares
     }
   }
   #dasher_app .piece .list {
@@ -312,6 +232,55 @@ sg-squares {
       border: none;
       &::after {
         content: unset !important;
+      }
+    }
+    sq:not([class='']) {
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+      &.dest::before {
+        background: radial-gradient(rgba(20, 85, 30, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
+      }
+      &.pre-dest::before {
+        background: radial-gradient(rgba(20, 30, 85, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
+      }
+      &.oc.dest::before {
+        background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
+      }
+      &.oc.pre-dest::before {
+        background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
+      }
+      &.last-dest::before {
+        background-color: rgba(155, 199, 0, 0.41);
+      }
+      &.check::before {
+        background: radial-gradient(
+          ellipse at center,
+          rgba(255, 0, 0, 1) 0%,
+          rgba(231, 0, 0, 1) 25%,
+          rgba(169, 0, 0, 0) 89%,
+          rgba(158, 0, 0, 0) 100%
+        );
+      }
+      &.selected::before {
+        background-color: rgba(20, 85, 30, 0.5);
+      }
+      &.preselected::before,
+      &.current-pre::before {
+        background-color: rgba(20, 30, 85, 0.5);
+      }
+      &.dest.hover::before {
+        background: rgba(20, 85, 30, 0.3);
+      }
+      &.pre-dest.hover::before {
+        background: rgba(20, 30, 85, 0.2);
+      }
+      &.force-selected:not(.selected)::before {
+        animation: selected 1s ease-in-out infinite alternate;
       }
     }
   }
