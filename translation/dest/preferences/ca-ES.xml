@@ -36,7 +36,7 @@
   <string name="promoteToQueenAutomatically">Corona la Dama automàticament</string>
   <string name="explainPromoteToQueenAutomatically">Mantingui premuda la tecla &lt;ctrl&gt; durant la promoció per deshabilitar la promoció automàtica temporalment</string>
   <string name="whenPremoving">En moviments anticipats</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Demana empat per repetició automàticament</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar taules per repetició automàticament</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quan restin &lt; 30 segons</string>
   <string name="moveConfirmation">Confirmació de moviment</string>
   <string name="inCorrespondenceGames">Només en partides per correspondència</string>
