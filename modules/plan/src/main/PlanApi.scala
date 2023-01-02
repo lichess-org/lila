@@ -11,6 +11,7 @@ import lila.common.{ Bus, IpAddress, EmailAddress }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.user.{ User, UserRepo }
+import org.joda.time.Days
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -185,6 +186,12 @@ final class PlanApi(
     def canUse(user: User, ip: IpAddress, freq: Freq): Fu[StripeCanUse] = ip2proxy(ip) flatMap { proxy =>
       if (!proxy.is) fuccess(StripeCanUse.Yes)
       else
+        val maxPerWeek = {
+          val verifiedBonus  = user.isVerified ?? 50
+          val nbGamesBonus   = math.sqrt(user.count.game / 50)
+          val seniorityBonus = math.sqrt(Days.daysBetween(user.createdAt, DateTime.now).getDays.toDouble / 30)
+          verifiedBonus + nbGamesBonus + seniorityBonus
+        }.toInt.atLeast(1).atMost(50)
         freq match
           case Freq.Monthly => // prevent several subscriptions in a row
             StripeCanUse from mongo.charge
@@ -196,13 +203,13 @@ final class PlanApi(
                   "giftTo" $exists false
                 )
               )
-              .map(_ < 2)
+              .map(_ < maxPerWeek)
           case Freq.Onetime => // prevents mass gifting or one-time donations
             StripeCanUse from mongo.charge
               .countSel(
                 $doc("userId" -> user.id, "date" $gt DateTime.now.minusWeeks(1), "stripe" $exists true)
               )
-              .map(_ < 1)
+              .map(_ < maxPerWeek)
     }
 
     private def customerIdPatron(id: StripeCustomerId): Fu[Option[Patron]] =
