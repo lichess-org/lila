@@ -854,6 +854,7 @@
   <string name="bestWasX">Найкращим був: %s</string>
   <string name="youBrowsedAway">Ви вийшли з перегляду</string>
   <string name="resumePractice">Продовжити тренування</string>
+  <string name="drawByFiftyMoves">Партія завершилась нічиєю за правилом п\'ятдесяти ходів.</string>
   <string name="theGameIsADraw">Гра закінчилася внічию.</string>
   <string name="computerThinking">Комп\'ютер думає...</string>
   <string name="seeBestMove">Показати найкращий хід</string>
