@@ -230,6 +230,14 @@
   <string name="passwordReset">Скинути пароль</string>
   <string name="forgotPassword">Забули пароль?</string>
   <string name="emailConfirmHelp">Допомога з підтвердженням електронної пошти</string>
+  <string name="emailConfirmNotReceived">Не отримали лист з підтвердженням після реєстрації?</string>
+  <string name="whatSignupUsername">Яке ім\'я користувача ви використовували для реєстрації?</string>
+  <string name="usernameNotFound">Ми не змогли знайти жодного користувача з таким іменем: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Ви можете використати це ім\'я користувача, щоб створити новий обліковий запис</string>
+  <string name="emailSent">Ми надіслали повідомлення на %s.</string>
+  <string name="emailCanTakeSomeTime">Отримання повідомлення може зайняти деякий час.</string>
+  <string name="refreshInboxAfterFiveMinutes">Зачекайте 5 хвилин і оновіть поштову скриньку.</string>
+  <string name="checkSpamFolder">Також перевірте папку \"Спам\", лист міг потрапити туди. Якщо так, то позначте його як не спам.</string>
   <string name="rank">Місце</string>
   <string name="rankX">Місце: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
