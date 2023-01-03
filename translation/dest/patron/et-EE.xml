@@ -29,6 +29,7 @@
   <string name="otherAmount">Muu</string>
   <string name="pleaseEnterAmountInX">Palun sisesta kogus %s-des</string>
   <string name="withCreditCard">Krediitkaart</string>
+  <string name="logInToDonate">Logi sisse, et annetada</string>
   <string name="weAreSmallTeam">Me oleme väike meeskond, sinu toetusel on suur panus!</string>
   <string name="celebratedPatrons">Auväärsed toetajad tänu kellele Lichess on olemas</string>
   <string name="whereMoneyGoes">Kuhu raha läheb?</string>

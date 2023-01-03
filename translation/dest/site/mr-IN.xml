@@ -95,9 +95,9 @@
   <string name="noGameFound">कोणताही खेळ सापडला नाही</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">प्राधान्य मेनूमधून अधिक खेळ समाविष्ट कराल?</string>
   <string name="openings">ओपनिंग</string>
-  <string name="openingExplorer">ओपेनिग अन्वेषक</string>
+  <string name="openingExplorer">ओपनिंग अन्वेषक</string>
   <string name="openingEndgameExplorer">ओपनिंग/अंत्यखेळ अन्वेषक</string>
-  <string name="xOpeningExplorer">%s ओपेनिग अन्वेषक</string>
+  <string name="xOpeningExplorer">%s ओपनिंग अन्वेषक</string>
   <string name="winPreventedBy50MoveRule">५० चाली नियमाने विजय रोखला</string>
   <string name="lossSavedBy50MoveRule">५० चाली नियमाने हार चुकली</string>
   <string name="winOr50MovesByPriorMistake">आधीच्या चुकीने विजय किंवा 50 चाली</string>
