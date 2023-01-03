@@ -29,7 +29,7 @@ object show:
           description = page.opening.??(_.pgn.value)
         )
         .some,
-      csp = defaultCsp.withInlineIconFont.some
+      csp = defaultCsp.withInlineIconFont.withWikiBooks.some
     ) {
       main(cls := "page box box-pad opening")(
         index.searchAndConfig(page.query.config, "", page.query.query.key),
@@ -40,7 +40,7 @@ object show:
             case None       => a(href := routes.Opening.index(), dataIcon := "")
           },
           span(cls := "opening__name")(
-            page.nameParts.zipWithIndex map { case (part, i) =>
+            page.nameParts.zipWithIndex map { (part, i) =>
               frag(
                 part match {
                   case Left(move) => span(cls := "opening__name__move")(i > 0 option ", ", move)

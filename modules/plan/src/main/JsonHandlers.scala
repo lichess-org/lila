@@ -5,6 +5,7 @@ import play.api.libs.functional.syntax.*
 import java.util.Currency
 import scala.util.Try
 import lila.common.Json.given
+import lila.common.IpAddress
 
 private object JsonHandlers:
 
@@ -20,7 +21,8 @@ private object JsonHandlers:
         (__ \ "customer").read[StripeCustomerId] and
         (__ \ "cancel_at_period_end").read[Boolean] and
         (__ \ "status").read[String] and
-        (__ \ "default_payment_method").readNullable[String]
+        (__ \ "default_payment_method").readNullable[String] and
+        (__ \ "ipAddress").readNullable[String].map(_ flatMap IpAddress.from)
     )(StripeSubscription.apply)
     given Reads[StripeSubscriptions]         = Json.reads
     given Reads[StripeCustomer]              = Json.reads
