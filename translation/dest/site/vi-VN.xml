@@ -670,6 +670,7 @@
   <string name="kidMode">Chế độ trẻ em</string>
   <string name="kidModeExplanation">Điều này là để an toàn. Trong chế độ trẻ em, tất cả mọi giao tiếp trên trang web đều bị vô hiệu. Kích hoạt điều này cho con của bạn và học sinh trong lớp để bảo vệ chúng khỏi những người dùng khác trên internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Trong chế độ trẻ em, biểu tượng lichess có một icon %s, từ đó bạn biết con bạn được an toàn.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Tài khoản của bạn đang bị quản lý. Hỏi giáo viên dạy cờ của bạn để lấy lại quyền điều khiển.</string>
   <string name="enableKidMode">Kích hoạt chế độ Trẻ Em</string>
   <string name="disableKidMode">Tắt chế độ Trẻ Em</string>
   <string name="security">Bảo mật</string>

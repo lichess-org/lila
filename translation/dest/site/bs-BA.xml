@@ -743,6 +743,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="kidMode">Dječji režim</string>
   <string name="kidModeExplanation">Ova opcija se nudi zbog sigurnosti. U dječjem režimu, sve komunikacije na stranici su ukinute. Omogućite ovu opciju za Vašu djecu i učenike, kako bi ste ih zaštitili od drugih internet korisnika.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">U dječjem režimu, logo lichess-a dobiva %s ikonu, tako da znate da su Vaša djeca sigurna.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Vaš je račun pod administracijom. Upitajte Vašeg učitelja šaha o isključivanju načina za djecu.</string>
   <string name="enableKidMode">Uključite dječji režim</string>
   <string name="disableKidMode">Isključite dječji režim</string>
   <string name="security">Sigurnost</string>

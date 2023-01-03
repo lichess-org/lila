@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">آدرس اینترنتی دور بازی کنونی</string>
   <string name="currentGameUrl">آدرس اینترنتی بازی در جریان</string>
   <string name="downloadAllRounds">دانلود تمام بازی ها</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">حذف کردن دور و بازی ها.</string>
+  <string name="deleteAllGamesOfThisRound">حذف کردن تمام بازی های دور. منبع نیاز به فعال شدن برای ساخت مجدد آن ها دارد.</string>
 </resources>

@@ -86,7 +86,7 @@
   <string name="averageRatingX">Gjennomsnittleg rating: %s</string>
   <string name="recentGames">Nylege parti</string>
   <string name="topGames">Topp-parti</string>
-  <string name="masterDbExplanation">To millionar over-bordet spel av %1$s+ FIDE rangerte spelarar frå %2$s til %3$s</string>
+  <string name="masterDbExplanation">Brettsjakkparti med spelarar som har FIDE-rating %1$s+ frå %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt om %s halvtrekk</item>
     <item quantity="other">Matt om %s halvtrekk</item>
@@ -707,6 +707,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="kidMode">Barnemodus</string>
   <string name="kidModeExplanation">Dette handlar om tryggleik. I barnemodus er all kommunikasjon avskrudd. Bruk dette for å verne barn og skoleelevar mot andre Internett-brukarar.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnemodus får lichess-logoen eit %s symbol, så du kan sjå at barna dine er trygge.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Kontoen din er under administrasjon. Spør sjakklæraren din om det er mogleg å få oppheva barnemodusen.</string>
   <string name="enableKidMode">Skru på barnemodus</string>
   <string name="disableKidMode">Skru av barnemodus</string>
   <string name="security">Tryggleik</string>
