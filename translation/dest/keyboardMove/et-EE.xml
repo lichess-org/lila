@@ -8,7 +8,9 @@
   <string name="queensideCastle">Vangerda liputiivale</string>
   <string name="promoteC8ToQueen">Edenda c8 lipuks</string>
   <string name="dropARookAtB4">Aseta vanker b4-le (ainult Crazyhouse variant)</string>
-  <string name="offerOrAcceptDraw">Paku viiki või võtta pakkumine vastu</string>
+  <string name="offerOrAcceptDraw">Paku viiki või võta pakkumine vastu</string>
+  <string name="readOutClocks">Loe kellade aeg</string>
+  <string name="readOutOpponentName">Loe vastase nimi</string>
   <string name="otherCommands">Muud käsud</string>
   <string name="tips">Nõuanded</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Kui ülaltoodud käigu notatsioon ei ole tuttav, loe siit lähemalt:</string>
