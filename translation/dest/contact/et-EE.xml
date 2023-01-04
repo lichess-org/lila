@@ -64,4 +64,5 @@
   <string name="creditAppreciated">Viitamine on tänuväärt aga me ei nõua seda.</string>
   <string name="noneOfTheAbove">Mitte ükski nendest</string>
   <string name="sendEmailAt">Saada meile e-mail %s.</string>
+  <string name="explainYourRequest">Palun kirjelda oma soov puhtalt ja selgelt. Maini oma Lichessi kasutajanimi ja muu informatsioon, mis aitaksid meid aitama sind.</string>
 </resources>
