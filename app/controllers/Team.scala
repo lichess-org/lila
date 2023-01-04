@@ -81,7 +81,7 @@ final class Team(
   ) =
     for {
       info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team, requestModView))
-      members <- paginator.teamMembers(team, page)
+      members <- paginator.teamMembersWithDate(team, page)
       log     <- (requestModView && isGranted(_.ManageTeam)).??(env.mod.logApi.teamLog(team.id))
       hasChat = canHaveChat(team, info, requestModView)
       chat <-
