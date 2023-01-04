@@ -5,6 +5,7 @@ import controllers.routes
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.i18n.LangList
 
 object header:
 
