@@ -97,10 +97,7 @@ object bits:
 
   def streamerTitle(s: lila.streamer.Streamer.WithContext)(implicit lang: Lang) =
     span(cls := "streamer-title")(
-      h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
-      s.streamer.lastStreamLang map { language =>
-        span(cls := "streamer-lang")(LangList nameByStr language)
-      }
+      h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name)
     )
 
   def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: Context, lang: Lang): Option[Tag] =
