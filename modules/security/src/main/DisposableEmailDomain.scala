@@ -208,5 +208,6 @@ private object DisposableEmailDomain:
     "hotmail.nl",
     "live.nl",
     "startmail.com",
-    "palaciodegranda.com"
+    "palaciodegranda.com",
+    "laudepalaciogranda.com"
   )
