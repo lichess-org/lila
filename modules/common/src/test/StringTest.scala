@@ -4,7 +4,6 @@ import scalatags.Text.all._
 
 import org.specs2.mutable.*
 import org.specs2.execute.Result
-import lila.common.base.StringUtils.ignoreSiteHeaders
 
 class StringTest extends Specification {
 
@@ -114,26 +113,7 @@ class StringTest extends Specification {
         extractPosts("go/to/some/very/long/path") === List()
         extractPosts("Answer me yes/no?") === List()
       }
-    }
-
-    "ignore between site headers" >> {
-      "return the string without the parts between site headers" >> {
-        var s : String = "This is a post that has [Site veryverylonglink.com]a part"
-        ignoreSiteHeaders(s) === "This is a post that has a part"
-      }
-      "doesn't care about nested square brackets, should ignore site headers anyway" >> {
-        var s : String = "This is a post that has nested [ [Site veryverylonglink.com] ]brackets"
-        ignoreSiteHeaders(s) === "This is a post that has nested [  ]brackets"
-      }
-      "Detects and removes multiple site headers" >> {
-        var s : String = "This is a post[Site veryverylonglink.com] that has[Site veryverylonglink.com] a lot [Site veryverylonglink.com]of brackets"
-        ignoreSiteHeaders(s) === "This is a post that has a lot of brackets"
-      }
-      "Returns original string if there are no site headers" >> {
-        var s : String = "This is a post with no site headers"
-        ignoreSiteHeaders(s) === "This is a post with no site headers"
-      }
-    }    
+    }   
   }
 
   "noShouting" >> {

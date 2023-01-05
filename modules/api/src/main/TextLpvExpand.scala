@@ -21,8 +21,6 @@ final class TextLpvExpand(
   def getPgn(id: GameId) = pgnCache get id
 
   def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] = {
-    //add ignore site headers here.
-    //Add the function to this class
     gameRegex
       .findAllMatchIn(ignoreSiteHeaders(text))
       .toList
