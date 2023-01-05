@@ -50,6 +50,7 @@ final private class FishnetOpeningBook(
               move <- data randomPonderedMove (game.turnColor, level)
             } yield move.uci
         }
+        .recover { case _: java.util.concurrent.TimeoutException => none }
         .monTry { res =>
           _.fishnet
             .openingBook(
