@@ -86,11 +86,15 @@ object side:
                 )(v.verdict match {
                   case SwissCondition.RefusedUntil(until) =>
                     frag(
-                      "Because you missed your last swiss game, you cannot enter a new swiss tournament until",
+                      "Because you missed your last swiss game, you cannot enter a new swiss tournament until ",
                       absClientDateTime(until),
                       "."
                     )
-                  case c => c.name(s.perfType)
+                  case _ =>
+                    v.condition match
+                      case SwissCondition.PlayYourGames if !v.verdict.accepted =>
+                        v.verdict.reason.map(_(ctx.lang))
+                      case c => c.name(s.perfType)
                 })
               }
             )
