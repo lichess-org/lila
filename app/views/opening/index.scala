@@ -13,7 +13,7 @@ object index:
 
   import bits.*
 
-  def apply(page: OpeningPage, wikiMissing: List[Opening])(implicit ctx: Context) =
+  def apply(page: OpeningPage, wikiMissing: List[Opening])(using ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(page.some),

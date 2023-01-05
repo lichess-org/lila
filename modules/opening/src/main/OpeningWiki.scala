@@ -16,7 +16,8 @@ import lila.user.User
 
 case class OpeningWiki(
     markup: Option[String],
-    revisions: List[OpeningWiki.Revision]
+    revisions: List[OpeningWiki.Revision],
+    popularity: Long
 ):
   def markupForMove(move: String): Option[String] =
     markup map OpeningWiki.filterMarkupForMove(move)
@@ -97,18 +98,19 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
         Match($id(key)) ->
           List(Project($doc("lastRev" -> $doc("$first" -> "$revisions"))))
       }
-    _ <- updatePopularity(key)
+    popularity <- updatePopularity(key)
     lastRev = docOpt.flatMap(_.getAsOpt[Revision]("lastRev"))
     text    = lastRev.map(_.text)
   } yield OpeningWiki(
     text map markdown.render(key),
-    Nil
+    Nil,
+    popularity
   )
 
-  private def updatePopularity(key: OpeningKey): Funit =
+  private def updatePopularity(key: OpeningKey): Fu[Long] =
     OpeningDb.shortestLines.get(key) ?? { op =>
       explorer.simplePopularity(op) flatMap {
-        _ ?? { popularity =>
+        _.?? { popularity =>
           coll.update
             .one(
               $id(key),
@@ -118,7 +120,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
               ),
               upsert = true
             )
-            .void
+            .inject(popularity)
         }
       }
     }
@@ -135,3 +137,7 @@ object OpeningWiki:
       case MoveLiRegex(m, content) => if (m.toLowerCase == move.toLowerCase) s"<p>${content.trim}</p>" else ""
       case html                    => html
     } mkString "\n"
+
+  private val priorityByPopularityPercent = List(3, 0.5, 0.05, 0.005, 0)
+  def priorityOf(explored: OpeningExplored) =
+    priorityByPopularityPercent.indexWhere(_ <= ~explored.lastPopularityPercent)

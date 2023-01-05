@@ -743,6 +743,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="kidMode">Dječji režim</string>
   <string name="kidModeExplanation">Ova opcija se nudi zbog sigurnosti. U dječjem režimu, sve komunikacije na stranici su ukinute. Omogućite ovu opciju za Vašu djecu i učenike, kako bi ste ih zaštitili od drugih internet korisnika.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">U dječjem režimu, logo lichess-a dobiva %s ikonu, tako da znate da su Vaša djeca sigurna.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Vaš je račun pod administracijom. Upitajte Vašeg učitelja šaha o isključivanju načina za djecu.</string>
   <string name="enableKidMode">Uključite dječji režim</string>
   <string name="disableKidMode">Isključite dječji režim</string>
   <string name="security">Sigurnost</string>
@@ -924,6 +925,17 @@ Svi operativni troškovi, razvoj i sadržaj finansiraju se isključivo od donaci
   <string name="streamerManager">Postavke za strimera</string>
   <string name="cancelTournament">Otkaži turnir</string>
   <string name="tournDescription">Opis turnira</string>
+  <string name="tournDescriptionHelp">Postoji li nešto posebno što bi htjeli reći učesnicima? Pokušajte biti kratki.
+Markdown linkovi su dostupni: [name](https://url)</string>
+  <string name="ratedFormHelp">Igre se ocjenjuju
+i utječu na ocjenu igrača</string>
+  <string name="onlyMembersOfTeam">Samo članovi tima</string>
+  <string name="noRestriction">Bez ograničenja</string>
+  <string name="minimumRatedGames">Minimalan broj ocijenjenih igri</string>
+  <string name="minimumRating">Minimalna ocjena</string>
+  <string name="maximumWeeklyRating">Maksimalna sedmična ocjena</string>
+  <string name="onlyTitled">Samo ovlašteni igrači</string>
+  <string name="onlyTitledHelp">Potrebno službeno ovlaštenje za pridruživanje turniru</string>
   <string name="tournamentEntryCode">Lozinka za ulaz u turnir</string>
   <string name="since">Od</string>
   <string name="until">Do</string>

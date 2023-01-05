@@ -24,7 +24,7 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
   def addEvals(p: Pgn, analysis: Analysis): Pgn =
     analysis.infos.foldLeft(p) { (pgn, info) =>
       pgn.updatePly(
-        info.prevPly,
+        info.ply,
         move => {
           val comment = info.cp
             .map(_.pawns.toString)

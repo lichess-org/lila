@@ -36,6 +36,8 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
     case (Some(op), moves) => s"${op.name}, ${moves mkString " "}"
     case (_, moves)        => moves mkString " "
 
+  def isExactOpening = openingAndExtraMoves._2.isEmpty
+
   override def toString = s"$query $config"
 
 object OpeningQuery:

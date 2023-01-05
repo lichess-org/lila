@@ -644,6 +644,8 @@ GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
 GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Int)
 GET   /api/puzzle/$id<\w{5}>           controllers.Puzzle.apiShow(id)
+GET   /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSelect(angle)
+POST  /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSolve(angle)
 GET   /api/user/:name/tournament/created controllers.Api.tournamentsByOwner(name, status: List[Int])
 GET   /api/user/:name                  controllers.Api.user(name)
 GET   /api/user/:name/activity         controllers.Api.activity(name)

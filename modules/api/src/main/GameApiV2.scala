@@ -206,7 +206,7 @@ final class GameApiV2(
         batchSize = config.perSecond.value
       )
       .grouped(20)
-      .mapAsync(1)(gameRepo.gamesFromSecondary)
+      .mapAsync(1)(gameRepo.gamesTemporarilyFromPrimary)
       .mapConcat(identity)
       .throttle(config.perSecond.value, 1 second)
       .mapAsync(4)(enrich(config.flags))

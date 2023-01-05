@@ -7,11 +7,11 @@ import reactivemongo.api.*
 import scala.concurrent.duration.*
 
 import lila.common.config.Secret
-import lila.common.{ Bus, IpAddress }
+import lila.common.{ Bus, IpAddress, EmailAddress }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.user.{ User, UserRepo }
-import lila.common.EmailAddress
+import org.joda.time.Days
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -25,8 +25,9 @@ final class PlanApi(
     payPalIpnKey: Secret,
     monthlyGoalApi: MonthlyGoalApi,
     currencyApi: CurrencyApi,
-    pricingApi: PlanPricingApi
-)(using ec: scala.concurrent.ExecutionContext):
+    pricingApi: PlanPricingApi,
+    ip2proxy: lila.security.Ip2Proxy
+)(using scala.concurrent.ExecutionContext):
 
   import BsonHandlers.given
   import BsonHandlers.PatronHandlers.given
@@ -72,7 +73,8 @@ final class PlanApi(
       patronOption <- customerIdPatron(stripeCharge.customer)
       giftTo       <- stripeCharge.giftTo ?? userRepo.byId
       money = stripeCharge.amount toMoney stripeCharge.currency
-      usd <- currencyApi toUsd money
+      usd   <- currencyApi toUsd money
+      proxy <- stripeCharge.ip.??(ip => ip2proxy(ip).dmap(some))
       charge = Charge
         .make(
           userId = patronOption.map(_.userId),
@@ -88,7 +90,7 @@ final class PlanApi(
           logger.info(s"Charged anon customer $charge")
           funit
         case Some(prevPatron) =>
-          logger.info(s"Charged $charge $prevPatron")
+          logger.info(s"Charged proxy:${proxy.flatMap(_.value)} $charge $prevPatron")
           userRepo byId prevPatron.userId orFail s"Missing user for $prevPatron" flatMap { user =>
             giftTo match
               case Some(to) => gift(user, to, money)
@@ -159,10 +161,16 @@ final class PlanApi(
     def patronCustomer(patron: Patron): Fu[Option[StripeCustomer]] =
       patron.stripe.map(_.customerId) ?? stripeClient.getCustomer
 
-    def createSession(data: CreateStripeSession)(using lang: Lang): Fu[StripeSession] =
-      data.checkout.freq match
-        case Freq.Onetime => stripeClient.createOneTimeSession(data)
-        case Freq.Monthly => stripeClient.createMonthlySession(data)
+    def createSession(data: CreateStripeSession, me: User)(using Lang): Fu[StripeSession] =
+      canUse(me, data.ip, data.checkout.freq) flatMap { canUse =>
+        if canUse.yes then
+          data.checkout.freq match
+            case Freq.Onetime => stripeClient.createOneTimeSession(data)
+            case Freq.Monthly => stripeClient.createMonthlySession(data)
+        else
+          logger.warn(s"${me.username} ${data.ip} ${data.customerId} can't use stripe for ${data.checkout}")
+          fufail(StripeClient.CantUseException)
+      }
 
     def createPaymentUpdateSession(sub: StripeSubscription, nextUrls: NextUrls): Fu[StripeSession] =
       stripeClient.createPaymentUpdateSession(sub, nextUrls)
@@ -175,8 +183,38 @@ final class PlanApi(
         }
       }
 
+    def canUse(user: User, ip: IpAddress, freq: Freq): Fu[StripeCanUse] = ip2proxy(ip) flatMap { proxy =>
+      if (!proxy.is) fuccess(StripeCanUse.Yes)
+      else
+        val maxPerWeek = {
+          val verifiedBonus  = user.isVerified ?? 50
+          val nbGamesBonus   = math.sqrt(user.count.game / 50)
+          val seniorityBonus = math.sqrt(Days.daysBetween(user.createdAt, DateTime.now).getDays.toDouble / 30)
+          verifiedBonus + nbGamesBonus + seniorityBonus
+        }.toInt.atLeast(1).atMost(50)
+        freq match
+          case Freq.Monthly => // prevent several subscriptions in a row
+            StripeCanUse from mongo.charge
+              .countSel(
+                $doc(
+                  "userId" -> user.id,
+                  "date" $gt DateTime.now.minusWeeks(1),
+                  "stripe" $exists true,
+                  "giftTo" $exists false
+                )
+              )
+              .map(_ < maxPerWeek)
+          case Freq.Onetime => // prevents mass gifting or one-time donations
+            StripeCanUse from mongo.charge
+              .countSel(
+                $doc("userId" -> user.id, "date" $gt DateTime.now.minusWeeks(1), "stripe" $exists true)
+              )
+              .map(_ < maxPerWeek)
+    }
+
     private def customerIdPatron(id: StripeCustomerId): Fu[Option[Patron]] =
       mongo.patron.one[Patron]($doc("stripe.customerId" -> id))
+  end stripe
 
   object payPal:
 
@@ -383,6 +421,7 @@ final class PlanApi(
 
     private def subscriptionIdPatron(id: PayPalSubscriptionId): Fu[Option[Patron]] =
       mongo.patron.one[Patron]($doc("payPalCheckout.subscriptionId" -> id))
+  end payPal
 
   private def setDbUserPlanOnCharge(from: User, levelUp: Boolean): Funit =
     val user = from.mapPlan(p => if (levelUp) p.incMonths else p.enable)

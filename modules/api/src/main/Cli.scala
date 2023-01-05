@@ -55,7 +55,7 @@ final private[api] class Cli(
       fuccess("started in background")
     case "threads" :: Nil =>
       fuccess {
-        val threads = lila.common.LilaJvm.threadGroups()
+        val threads = ornicar.scalalib.Jvm.threadGroups()
         s"${threads.map(_.total).sum} threads\n\n${threads.mkString("\n")}"
       }
 

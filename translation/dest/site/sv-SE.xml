@@ -708,6 +708,7 @@ https://lichess. org/study</string>
   <string name="kidMode">Barnsäkert läge</string>
   <string name="kidModeExplanation">Detta är en säkerhetsinställning. I barnsäkert läge är all kommunikation inaktiverad. Använd detta för dina barn och skolelever för att skydda dem från andra internetanvändare.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnsäkert läge får lichess-logotypen en %s ikon, så att du vet att dina barn är säkra.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Ditt konto hanteras. Fråga din schacklärare om att ta bort barnläget.</string>
   <string name="enableKidMode">Aktivera barnsäkert läge</string>
   <string name="disableKidMode">Avaktivera barnsäkert läge</string>
   <string name="security">Säkerhet</string>

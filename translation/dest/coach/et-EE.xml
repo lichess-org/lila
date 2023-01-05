@@ -9,6 +9,7 @@
   <string name="location">Asukoht</string>
   <string name="languages">Keeled</string>
   <string name="rating">Reiting</string>
+  <string name="hourlyRate">Tunnitasu</string>
   <string name="availability">Saadavus</string>
   <string name="accepting">Võtan vastu õpilasi</string>
   <string name="notAccepting">Ei võta tudengeid hetkel</string>

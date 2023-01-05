@@ -107,7 +107,7 @@ final class Env(
     endpoint = config.influxEventEndpoint,
     env = config.influxEventEnv
   )
-  if (mode == Mode.Prod) system.scheduler.scheduleOnce(5 seconds)(influxEvent.start())
+  if (mode == Mode.Prod) scheduler.scheduleOnce(5 seconds)(influxEvent.start())
 
   private lazy val linkCheck = wire[LinkCheck]
 
@@ -126,9 +126,9 @@ final class Env(
     }
   )
 
-  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+  scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     lila.mon.bus.classifiers.update(lila.common.Bus.size).unit
-    lila.mon.jvm.threads(lila.common.LilaJvm.threadGroups())
+    lila.mon.jvm.threads()
     // ensure the Lichess user is online
     socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + User.lichessId)
     userEnv.repo.setSeenAt(User.lichessId)

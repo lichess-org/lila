@@ -5,7 +5,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.mvc.RequestHeader
 
-import lila.common.Form.numberIn
+import lila.common.Form.{ typeIn, numberIn, given }
 import lila.common.Iso
 import lila.common.LilaCookie
 
@@ -48,7 +48,7 @@ final class OpeningConfigStore(baker: LilaCookie):
 
 object OpeningConfig:
 
-  val allRatings        = List[Int](1600, 1800, 2000, 2200, 2500)
+  val allRatings        = List[Int](600, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500)
   val contiguousRatings = allRatings.mkString(",")
 
   val allSpeeds =
@@ -74,7 +74,7 @@ object OpeningConfig:
       case Array(r, s) =>
         OpeningConfig(
           ratings = r.split(valueSep).flatMap(_.toIntOption).toSet,
-          speeds = s.split(valueSep).flatMap(_.toIntOption).flatMap(Speed.byId.get).toSet
+          speeds = chess.SpeedId.from(s.split(valueSep).flatMap(_.toIntOption)).flatMap(Speed.byId.get).toSet
         ).some
       case _ => none
 
@@ -86,7 +86,7 @@ object OpeningConfig:
   val form = Form(
     mapping(
       "ratings" -> set(numberIn(allRatings)),
-      "speeds"  -> set(numberIn(allSpeeds.map(_.id)).transform[Speed](s => Speed(s).get, _.id))
+      "speeds"  -> set(typeIn(allSpeeds.map(_.id).toSet).transform[Speed](s => Speed(s).get, _.id))
     )(OpeningConfig.apply)(lila.common.unapply)
   )
 

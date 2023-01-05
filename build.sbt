@@ -381,7 +381,7 @@ lazy val mailer = module("mailer",
 )
 
 lazy val plan = module("plan",
-  Seq(common, user),
+  Seq(common, user, security),
   Seq(play.jsonJoda) ++ specs2.bundle ++ reactivemongo.bundle
 )
 

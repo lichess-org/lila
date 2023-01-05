@@ -538,6 +538,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notten</string>
   <string name="typePrivateNotesHere">Schreiw hei deng privat Notten</string>
+  <string name="writeAPrivateNoteAboutThisUser">Schreiw eng privat Notiz iwwert dësen Benotzer</string>
+  <string name="noNoteYet">Nach keng Notiz</string>
   <string name="invalidUsernameOrPassword">Ongëltege Benotzernumm oder Passwuert</string>
   <string name="incorrectPassword">Inkorrekt Passwuert</string>
   <string name="invalidAuthenticationCode">Ongëltegen Authentifizéierungscode</string>

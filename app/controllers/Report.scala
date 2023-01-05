@@ -180,10 +180,10 @@ final class Report(
               }
             },
           data =>
-            if (data.user.id == me.id) notFound
+            if data.user.id == me.id then notFound
             else
               api.create(data, Reporter(me)) inject
-                Redirect(routes.Report.thanks(data.user.name))
+                Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
         )
     }
 
@@ -204,9 +204,11 @@ final class Report(
         )
     }
 
-  def thanks(reported: UserStr) =
+  def thanks =
     Auth { implicit ctx => me =>
-      env.relation.api.fetchBlocks(me.id, reported.id) map { blocked =>
-        html.report.thanks(reported.id, blocked)
+      ctx.req.flash.get("reported").flatMap(UserStr.read).fold(Redirect("/").toFuccess) { reported =>
+        env.relation.api.fetchBlocks(me.id, reported.id) map { blocked =>
+          html.report.thanks(reported.id, blocked)
+        }
       }
     }

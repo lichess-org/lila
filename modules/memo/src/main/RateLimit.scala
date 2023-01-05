@@ -17,7 +17,7 @@ final class RateLimit[K](
     .expireAfterWrite(duration)
     .build[K, (Cost, ClearAt)]()
 
-  private def makeClearAt = nowMillis + duration.toMillis
+  private inline def makeClearAt = nowMillis + duration.toMillis
 
   private lazy val logger  = lila.log("ratelimit").branch(key)
   private lazy val monitor = lila.mon.security.rateLimit(key)

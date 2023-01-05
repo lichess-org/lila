@@ -450,6 +450,26 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
+  def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read) { implicit req => me =>
+    val nb = getInt("nb", req) getOrElse 15 atLeast 1 atMost 30
+    env.puzzle.batch.nextFor(me, PuzzleAngle findOrMix angleStr, nb) flatMap
+      env.puzzle.jsonView.batch dmap { Ok(_) }
+  }
+  def apiBatchSolve(angleStr: String) = ScopedBody(parse.json)(Seq(_.Puzzle.Write)) { req => me =>
+    req.body
+      .validate[lila.puzzle.PuzzleForm.batch.SolveData]
+      .fold(
+        err => BadRequest(err.toString).toFuccess,
+        data =>
+          lila.common.Future
+            .applySequentially(data.solutions) { sol =>
+              env.puzzle
+                .finisher(sol.id, PuzzleAngle findOrMix angleStr, me, sol.win, sol.mode)
+                .void
+            } inject NoContent
+      )
+  }
+
   def mobileBcLoad(nid: Long) =
     Open { implicit ctx =>
       negotiate(
@@ -498,7 +518,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         import lila.puzzle.PuzzleForm.bc.*
         import lila.puzzle.PuzzleWin
         ctx.body.body
-          .validate[SolveData]
+          .validate[SolveDataBc]
           .fold(
             err => BadRequest(err.toString).toFuccess,
             data =>

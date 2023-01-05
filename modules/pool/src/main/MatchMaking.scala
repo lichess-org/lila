@@ -37,14 +37,17 @@ object MatchMaking:
     // quality of a potential pairing. Lower is better.
     // None indicates a forbidden pairing
     private def pairScore(a: PoolMember, b: PoolMember): Option[Int] =
-      !(rangeMalus(a, b) || rangeMalus(b, a) || blockMalus(a, b) || blockMalus(b, a)) ?? {
-        a.ratingDiff(b).value - {
-          missBonus(a) atMost missBonus(b)
-        } - {
-          rangeBonus(a, b)
-        } - {
-          ragesitBonus(a, b)
-        }
+      ! {
+        ratingRangeConflict(a, b) ||
+        ratingRangeConflict(b, a) ||
+        blockList(a, b) ||
+        blockList(b, a)
+      } ?? {
+        a.ratingDiff(b).value
+          - missBonus(a).atMost(missBonus(b))
+          - rangeBonus(a, b)
+          - ragesitBonus(a, b)
+
       }.some.filter(score => score <= ratingToMaxScore(a.rating atMost b.rating))
 
     // score bonus based on how many waves the member missed
@@ -53,7 +56,7 @@ object MatchMaking:
       (p.misses * 12) atMost ((460 + (p.rageSitCounter atMost -3) * 20) atLeast 0)
 
     // if players have conflicting rating ranges
-    private def rangeMalus(a: PoolMember, b: PoolMember) =
+    private def ratingRangeConflict(a: PoolMember, b: PoolMember): Boolean =
       a.ratingRange.exists(!_.contains(b.rating))
 
     // bonus if both players have rating ranges, and they're compatible
@@ -62,7 +65,7 @@ object MatchMaking:
       else 0
 
     // if players block each other
-    private def blockMalus(a: PoolMember, b: PoolMember) =
+    private def blockList(a: PoolMember, b: PoolMember): Boolean =
       a.blocking.value contains b.userId
 
     // bonus if the two players both have a good sit counter

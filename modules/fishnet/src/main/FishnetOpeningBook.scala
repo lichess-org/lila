@@ -89,9 +89,9 @@ object FishnetOpeningBook:
   given Reads[Response] = Json.reads
 
   private val levelRatings: Map[Int, Seq[Int]] = Map(
-    1 -> Seq(1600),
-    2 -> Seq(1600, 1800),
-    3 -> Seq(1800, 2000),
+    1 -> Seq(600),
+    2 -> Seq(1000, 1200),
+    3 -> Seq(1400, 1600),
     4 -> Seq(1800, 2000, 2200),
     5 -> Seq(1800, 2000, 2200),
     6 -> Seq(2000, 2200, 2500),

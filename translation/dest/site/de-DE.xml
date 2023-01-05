@@ -706,6 +706,7 @@
   <string name="kidMode">Kindermodus</string>
   <string name="kidModeExplanation">Dies ist eine Sicherheitseinstellung. Im Kindermodus sind alle Kommunikationsmöglichkeiten deaktiviert. Aktiviere diese Option, um Kinder und Schüler vor anderen Internetbenutzern zu schützen.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Im Kindermodus erhält das Lichess-Logo ein %s-Icon, an dem erkennen kannst, dass deine Kinder geschützt sind.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Dein Konto wird verwaltet. Bitte deinen Schachlehrer den Kindermodus aufzuheben.</string>
   <string name="enableKidMode">Kindermodus aktivieren</string>
   <string name="disableKidMode">Kindermodus deaktivieren</string>
   <string name="security">Sicherheit</string>
@@ -871,7 +872,7 @@
   <string name="resVsX">%1$s gegen %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Jemand hat dein Trainerprofil bewertet.</string>
   <string name="newPendingReview">Neue, ausstehende Rezension</string>
-  <string name="lostAgainstTOSViolator">Du hast gegen jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
+  <string name="lostAgainstTOSViolator">Du hast Wertungspunkte an jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
   <string name="refundXpointsTimeControlY">Rückerstattung: %1$s %2$s Wertungspunkte.</string>
   <string name="timeAlmostUp">Deine Zeit ist fast abgelaufen!</string>
   <string name="clickToRevealEmailAddress">[Klicke, um die E-Mail-Adresse anzuzeigen]</string>

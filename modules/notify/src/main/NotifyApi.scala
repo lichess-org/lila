@@ -108,14 +108,13 @@ final class NotifyApi(
   def notifyOne[U: UserIdOf](to: U, content: NotificationContent): Funit =
     val note = Notification.make(to, content)
     !shouldSkip(note) ifThen {
-      insertNotification(note) >> {
-        NotificationPref.Event.byKey.get(content.key) match
-          case None => fuccess(bellOne(note.to))
-          case Some(event) =>
-            prefs.allows(note.to, event) map { allows =>
-              if allows.bell then bellOne(note.to)
-              if allows.push then pushOne(NotifyAllows(note.to, allows), note.content)
-            }
+      NotificationPref.Event.byKey.get(content.key) match {
+        case None => bellOne(note)
+        case Some(event) =>
+          prefs.allows(note.to, event) map { allows =>
+            if allows.bell then bellOne(note)
+            if allows.push then pushOne(NotifyAllows(note.to, allows), note.content)
+          }
       }
     }
 
@@ -129,20 +128,21 @@ final class NotifyApi(
       }
     }
 
-  private def bellOne(to: UserId): Unit =
-    Bus.publish(
-      SendTo.onlineUser(
-        to,
-        "notifications",
-        () =>
-          for
-            notifications <- getNotifications(to, 1) zip unreadCount(to) dmap AndUnread.apply
-            langStr       <- userRepo.langOf(to)
-            lang = I18nLangPicker.byStrOrDefault(langStr)
-          yield jsonHandlers(notifications)(using lang)
-      ),
-      "socketUsers"
-    )
+  private def bellOne(note: Notification): Funit =
+    insertNotification(note) >>-
+      Bus.publish(
+        SendTo.onlineUser(
+          note.to,
+          "notifications",
+          () =>
+            for
+              notifications <- getNotifications(note.to, 1) zip unreadCount(note.to) dmap AndUnread.apply
+              langStr       <- userRepo.langOf(note.to)
+              lang = I18nLangPicker.byStrOrDefault(langStr)
+            yield jsonHandlers(notifications)(using lang)
+        ),
+        "socketUsers"
+      )
 
   private def bellMany(recips: Iterable[NotifyAllows], content: NotificationContent) =
     val bells = recips.collect { case r if r.allows.bell => r.userId }

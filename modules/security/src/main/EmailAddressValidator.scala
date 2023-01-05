@@ -3,7 +3,7 @@ package lila.security
 import play.api.data.validation.*
 import scala.concurrent.duration.*
 
-import lila.common.EmailAddress
+import lila.common.{ Domain, EmailAddress }
 import lila.user.{ User, UserRepo }
 import scala.concurrent.ExecutionContext
 import org.joda.time.DateTime
@@ -69,11 +69,13 @@ final class EmailAddressValidator(
     }
 
   // make sure the cache is warmed up, so next call can be synchronous
-  def preloadDns(e: EmailAddress): Funit = hasAcceptableDns(e).void
+  def preloadDns(e: EmailAddress): Funit = apply(e).void
 
   // only compute valid and non-whitelisted email domains
-  private def hasAcceptableDns(e: EmailAddress): Fu[Boolean] =
-    isAcceptable(e) ?? e.domain.map(_.lower) ?? { domain =>
+  private[security] def apply(e: EmailAddress): Fu[Boolean] = e.domain.map(_.lower) ?? validateDomain
+
+  private[security] def validateDomain(domain: Domain.Lower): Fu[Boolean] =
+    disposable.isOk(domain into Domain) ?? {
       if (DisposableEmailDomain whitelisted domain) fuccess(true)
       else
         dnsApi.mx(domain).dmap { domains =>
@@ -85,7 +87,7 @@ final class EmailAddressValidator(
   private[security] val withAcceptableDns = Constraint[String]("constraint.email_acceptable") { e =>
     if (
       EmailAddress.from(e).exists { email =>
-        hasAcceptableDns(email).awaitOrElse(
+        apply(email).awaitOrElse(
           90.millis,
           "dns", {
             logger.warn(
