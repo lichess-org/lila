@@ -15,13 +15,59 @@ final class EmailAddressValidator(
     disposable: DisposableEmailDomain,
     dnsApi: DnsApi,
     checkMail: CheckMail
-)(using ec: ExecutionContext):
+)(using ExecutionContext):
 
-  private def isAcceptable(email: EmailAddress): Boolean =
-    email.domain exists disposable.isOk
+  import EmailAddressValidator.*
 
-  def validate(email: EmailAddress): Option[EmailAddressValidator.Acceptable] =
-    isAcceptable(email) option EmailAddressValidator.Acceptable(email)
+  val sendableConstraint = Constraint[EmailAddress]("constraint.email_acceptable") { email =>
+    if (email.isSendable) Valid
+    else Invalid(ValidationError("error.email_acceptable"))
+  }
+
+  def uniqueConstraint(forUser: Option[User]) =
+    Constraint[EmailAddress]("constraint.email_unique") { email =>
+      val (taken, reused) =
+        (isTakenBySomeoneElse(email, forUser) zip wasUsedTwiceRecently(email)).await(2 seconds, "emailUnique")
+      if (taken || reused) Invalid(ValidationError("error.email_unique"))
+      else Valid
+    }
+
+  def differentConstraint(than: Option[EmailAddress]) =
+    Constraint[EmailAddress]("constraint.email_different") { email =>
+      if (than has email) Invalid(ValidationError("error.email_different"))
+      else Valid
+    }
+
+  // make sure the cache is warmed up, so next call can be synchronous
+  def preloadDns(e: EmailAddress): Funit = apply(e).void
+
+  // only compute valid and non-whitelisted email domains
+  private[security] def apply(e: EmailAddress): Fu[Boolean] = e.domain.map(_.lower) ?? validateDomain
+
+  private[security] def validateDomain(domain: Domain.Lower): Fu[Boolean] =
+    disposable.isOk(domain into Domain) ?? {
+      if (DisposableEmailDomain whitelisted domain) fuccess(true)
+      else
+        dnsApi.mx(domain).dmap { domains =>
+          domains.nonEmpty && !domains.exists { disposable(_) }
+        } >>& checkMail(domain)
+    }
+
+  // the DNS emails should have been preloaded
+  private[security] val withAcceptableDns = Constraint[EmailAddress]("constraint.email_acceptable") { email =>
+    if (
+      apply(email).awaitOrElse(
+        90.millis,
+        "dns", {
+          logger.warn(
+            s"EmailAddressValidator.withAcceptableDns timeout! $email records should have been preloaded"
+          )
+          false
+        }
+      )
+    ) Valid
+    else Invalid(ValidationError("error.email_acceptable"))
+  }
 
   /** Returns true if an E-mail address is taken by another user.
     * @param email
@@ -42,64 +88,4 @@ final class EmailAddressValidator(
     userRepo.countRecentByPrevEmail(email.normalize, DateTime.now.minusWeeks(1)).dmap(_ >= 2) >>|
       userRepo.countRecentByPrevEmail(email.normalize, DateTime.now.minusMonths(1)).dmap(_ >= 4)
 
-  val acceptableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
-    if (EmailAddress.from(e).exists(isAcceptable)) Valid
-    else Invalid(ValidationError("error.email_acceptable"))
-  }
-
-  val sendableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
-    if (EmailAddress.from(e).exists(_.isSendable)) Valid
-    else Invalid(ValidationError("error.email_acceptable"))
-  }
-
-  def uniqueConstraint(forUser: Option[User]) =
-    Constraint[String]("constraint.email_unique") { e =>
-      val email = EmailAddress(e)
-      val (taken, reused) =
-        (isTakenBySomeoneElse(email, forUser) zip wasUsedTwiceRecently(email)).await(2 seconds, "emailUnique")
-      if (taken || reused) Invalid(ValidationError("error.email_unique"))
-      else Valid
-    }
-
-  def differentConstraint(than: Option[EmailAddress]) =
-    Constraint[String]("constraint.email_different") { e =>
-      if (than has EmailAddress(e))
-        Invalid(ValidationError("error.email_different"))
-      else Valid
-    }
-
-  // make sure the cache is warmed up, so next call can be synchronous
-  def preloadDns(e: EmailAddress): Funit = apply(e).void
-
-  // only compute valid and non-whitelisted email domains
-  private[security] def apply(e: EmailAddress): Fu[Boolean] = e.domain.map(_.lower) ?? validateDomain
-
-  private[security] def validateDomain(domain: Domain.Lower): Fu[Boolean] =
-    disposable.isOk(domain into Domain) ?? {
-      if (DisposableEmailDomain whitelisted domain) fuccess(true)
-      else
-        dnsApi.mx(domain).dmap { domains =>
-          domains.nonEmpty && !domains.exists { disposable(_) }
-        } >>& checkMail(domain)
-    }
-
-  // the DNS emails should have been preloaded
-  private[security] val withAcceptableDns = Constraint[String]("constraint.email_acceptable") { e =>
-    if (
-      EmailAddress.from(e).exists { email =>
-        apply(email).awaitOrElse(
-          90.millis,
-          "dns", {
-            logger.warn(
-              s"EmailAddressValidator.withAcceptableDns timeout! $e records should have been preloaded"
-            )
-            false
-          }
-        )
-      }
-    ) Valid
-    else Invalid(ValidationError("error.email_acceptable"))
-  }
-
 object EmailAddressValidator:
-  case class Acceptable(acceptable: EmailAddress)

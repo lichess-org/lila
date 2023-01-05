@@ -207,14 +207,9 @@ final class Mod(
           .bindFromRequest()
           .fold(
             err => BadRequest(err.toString).toFuccess,
-            rawEmail => {
-              val email = env.security.emailAddressValidator
-                .validate(EmailAddress(rawEmail)) err s"Invalid email $rawEmail"
-              modApi.setEmail(me.id into ModId, user.id, email.acceptable) inject redirect(
-                user.username,
-                mod = true
-              )
-            }
+            email =>
+              modApi.setEmail(me.id into ModId, user.id, email) inject
+                redirect(user.username, mod = true)
           )
       }
     }
@@ -526,9 +521,8 @@ final class Mod(
       get("q") match
         case None => Ok(html.mod.emailConfirm("", none, none)).toFuccess
         case Some(rawQuery) =>
-          val query = rawQuery.trim.split(' ').toList
-          val email = query.headOption
-            .map(EmailAddress(_)) flatMap env.security.emailAddressValidator.validate
+          val query    = rawQuery.trim.split(' ').toList
+          val email    = query.headOption.flatMap(EmailAddress.from)
           val username = query lift 1
           def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
             env.mod.search(q) flatMap {
@@ -543,8 +537,8 @@ final class Mod(
               case _ => fuccess(none)
             }
           email.?? { em =>
-            tryWith(em.acceptable, em.acceptable.value) orElse {
-              username ?? { tryWith(em.acceptable, _) }
+            tryWith(em, em.value) orElse {
+              username ?? { tryWith(em, _) }
             } recover lila.db.recoverDuplicateKey(_ => none)
           } getOrElse BadRequest(html.mod.emailConfirm(rawQuery, none, none)).toFuccess
     }
