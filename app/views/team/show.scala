@@ -22,8 +22,7 @@ object show:
 
   def apply(
       t: Team,
-      //members: Paginator[lila.common.LightUser],
-      members: Paginator[TeamMember.UserAndDate],
+      members: Paginator[lila.common.LightUser],
       info: TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: Option[SocketVersion],
@@ -190,7 +189,7 @@ object show:
                 h2(a(href := routes.Team.members(t.slug))(teamRecentMembers())),
                 div(cls := "userlist infinite-scroll")(
                   members.currentPageResults.map { member =>
-                    div(cls := "paginated")(lightUserLink(member.user))
+                    div(cls := "paginated")(lightUserLink(member))
                   },
                   pagerNext(members, np => routes.Team.show(t.id, np).url)
                 )

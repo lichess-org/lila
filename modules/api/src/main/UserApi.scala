@@ -1,14 +1,17 @@
 package lila.api
 
 import play.api.libs.json.*
-
 import lila.common.config.*
-import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.user.{ Trophy, User }
-import lila.rating.{ PerfType, UserRankMap }
+import lila.common.paginator.{Paginator, PaginatorJson}
+import lila.user.{Trophy, User}
+import lila.rating.{PerfType, UserRankMap}
 import play.api.i18n.Lang
 import lila.common.Json.given
+import lila.db.dsl.{$doc, Bdoc, temporarilyPrimary}
 import lila.security.Granter
+import lila.team.{MemberRepo, Team}
+import lila.team.Team.nameToId
+import reactivemongo.api.bson.BSONDocument
 
 final class UserApi(
     jsonView: lila.user.JsonView,
@@ -25,11 +28,14 @@ final class UserApi(
     trophyApi: lila.user.TrophyApi,
     shieldApi: lila.tournament.TournamentShieldApi,
     revolutionApi: lila.tournament.RevolutionApi,
-    net: NetConfig
+    net: NetConfig,
+    repo: MemberRepo
 )(using scala.concurrent.ExecutionContext):
 
   def one(u: User): JsObject =
     addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
+      Json.obj("joined_at" -> repo.coll.find($doc("test_team"), $doc("user" -> true, "date" -> true)).some) ++
+      // "SELECT date FROM team_member WHERE team == "test_team" AND user == u"
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
 
   def extended(
