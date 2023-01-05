@@ -72,6 +72,7 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
     attrs: {
       placeholder,
       autocomplete: 'off',
+      enterkeyhint: 'send',
       maxlength: 140,
       disabled: ctrl.vm.timeout || !ctrl.vm.writeable,
       'aria-label': 'Chat input',
