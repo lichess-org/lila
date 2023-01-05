@@ -42,31 +42,34 @@ final class EmailAddressValidator(
   def preloadDns(e: EmailAddress): Funit = apply(e).void
 
   // only compute valid and non-whitelisted email domains
-  private[security] def apply(e: EmailAddress): Fu[Boolean] = e.domain.map(_.lower) ?? validateDomain
+  private[security] def apply(e: EmailAddress): Fu[Result] =
+    e.domain.map(_.lower).fold(fuccess(Result.DomainMissing))(validateDomain)
 
-  private[security] def validateDomain(domain: Domain.Lower): Fu[Boolean] =
-    disposable.isOk(domain into Domain) ?? {
-      if (DisposableEmailDomain whitelisted domain) fuccess(true)
-      else
-        dnsApi.mx(domain).dmap { domains =>
-          domains.nonEmpty && !domains.exists { disposable(_) }
-        } >>& checkMail(domain)
-    }
+  private[security] def validateDomain(domain: Domain.Lower): Fu[Result] =
+    if DisposableEmailDomain.whitelisted(domain) then fuccess(Result.Passlist)
+    else if disposable(domain into Domain) then fuccess(Result.Blocklist)
+    else
+      dnsApi.mx(domain).flatMap { domains =>
+        if domains.isEmpty then fuccess(Result.DnsMissing)
+        else if domains.exists(disposable.apply) then fuccess(Result.DnsBlocklist)
+        else
+          checkMail(domain).map { ck =>
+            if ck then Result.Alright else Result.Reputation
+          }
+      }
 
   // the DNS emails should have been preloaded
   private[security] val withAcceptableDns = Constraint[EmailAddress]("constraint.email_acceptable") { email =>
-    if (
-      apply(email).awaitOrElse(
-        90.millis,
-        "dns", {
-          logger.warn(
-            s"EmailAddressValidator.withAcceptableDns timeout! $email records should have been preloaded"
-          )
-          false
-        }
-      )
-    ) Valid
-    else Invalid(ValidationError("error.email_acceptable"))
+    val result: Result = apply(email).awaitOrElse(
+      90.millis,
+      "dns", {
+        logger.warn(
+          s"EmailAddressValidator.withAcceptableDns timeout! $email records should have been preloaded"
+        )
+        Result.DnsTimeout
+      }
+    )
+    result.error.fold(Valid)(e => Invalid(ValidationError(e)))
   }
 
   /** Returns true if an E-mail address is taken by another user.
@@ -89,3 +92,17 @@ final class EmailAddressValidator(
       userRepo.countRecentByPrevEmail(email.normalize, DateTime.now.minusMonths(1)).dmap(_ >= 4)
 
 object EmailAddressValidator:
+  enum Result(val error: Option[String]):
+    def valid = error.isEmpty
+    case Passlist      extends Result(none)
+    case Alright       extends Result(none)
+    case DomainMissing extends Result("The email address domain is missing.".some) // no translation needed
+    case Blocklist
+        extends Result("Disposable email addresses cannot be used for password recovery (Blocklist).".some)
+    case DnsMissing extends Result("This email domain doesn't seem to work (missing MX DNS)".some)
+    case DnsTimeout extends Result("This email domain doesn't seem to work (timeout MX DNS)".some)
+    case DnsBlocklist
+        extends Result(
+          "Disposable email addresses cannot be used for password recovery (DNS blocklist).".some
+        )
+    case Reputation extends Result("This email domain has a poor reputation and cannot be used.".some)
