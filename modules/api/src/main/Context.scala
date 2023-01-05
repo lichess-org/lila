@@ -18,8 +18,7 @@ case class PageData(
     hasClas: Boolean,
     inquiry: Option[lila.mod.Inquiry],
     nonce: Option[Nonce],
-    error: Boolean = false,
-    playBellSound: Boolean
+    error: Boolean = false
 )
 
 object PageData:
@@ -34,8 +33,7 @@ object PageData:
       hasFingerprint = false,
       hasClas = false,
       inquiry = none,
-      nonce = nonce,
-      playBellSound = true,
+      nonce = nonce
     )
 
   def error(req: RequestHeader, nonce: Option[Nonce]) = anon(req, nonce).copy(error = true)

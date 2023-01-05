@@ -45,10 +45,6 @@ final class NotifyApi(
         .primitiveOne[Allows]($id(userId), event.key)
         .dmap(_ | default.allows(event))
 
-    def getBellPref(userId: UserId): Fu[Boolean] =
-      colls.pref
-        .primitiveOne[Boolean]($id(userId), "playBellSound") map (_ | NotificationPref.default.playBellSound)
-
     def getAllows(userIds: Iterable[UserId], event: NotificationPref.Event): Fu[List[NotifyAllows]] =
       colls.pref.tempPrimary
         .find($inIds(userIds), $doc(event.key -> true).some)
