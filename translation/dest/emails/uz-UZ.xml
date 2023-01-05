@@ -8,15 +8,15 @@
   <string name="passwordReset_clickOrIgnore">Agar ushbu so\'rovni siz yuborgan bo\'lsangiz, quyidagi linkni bosing. Aksincha bo\'lsa, ushbu emailni e\'tiborsiz qoldirishingiz mumkin.</string>
   <string name="emailChange_subject">%s, yangi elektron manzilingizni tasdiqlang</string>
   <string name="emailChange_intro">Siz emailingizni almashtirish haqida so\'rov yubordingiz.</string>
-  <string name="emailChange_click">Ushbu xatga huquqingiz borligini tasdiqlash uchun quyidagi linkni bosing:</string>
+  <string name="emailChange_click">Ushbu emailga egalik huquqingizni tasdiqlash uchun, quyidagi linkni bosing:</string>
   <string name="welcome_subject">%s lichess.org ga xush kelibsiz</string>
-  <string name="welcome_text">Https://lichess.org da sizni hisobingiz muvaffaqiyatli yaratildi.
+  <string name="welcome_text">Sizning https://lichess.org\'dagi hisobingizni muvaffaqiyatli yaratdingiz.
 
-%1$s:sizni profil sahifangiz. %2$s da uni shaxsiylashtirishingiz mumkin. 
+%1$s:sizning shaxsiy sahifangiz. %2$s da uni tahrirlashingiz mumkin. 
 
- Omad yor bo\'lsin va doim sizni sipohlaringiz raqibingiz qiroli tomon yo\'l topa olsin:)!</string>
-  <string name="logInToLichess">%s, lichess.org ga kiring</string>
-  <string name="common_orPaste">(Bosish ishlamayabdimi? Buni browzeringizga qo\'yishga urinib ko\'ring!)</string>
-  <string name="common_note">%s ni ishlatishingiz bilan bog\'liq bo\'lgan xizmatchi email manzil.</string>
+ Zavqlaning, va doim sipohlaringiz raqibingiz qiroli tomon yo\'lni topa olsin!</string>
+  <string name="logInToLichess">%s, lichess.org ga kirishingiz mumkin</string>
+  <string name="common_orPaste">(Bosish foyda bermayapdimi? Buni brauzeringizga nusxalab qo\'yishni urinib ko\'ring!)</string>
+  <string name="common_note">%s ni ishlatishingiz bilan bog\'liq bo\'lgan yordamchi email manzil.</string>
   <string name="common_contact">Biz bilan bog\'lanish uchun %s dan foydalaning.</string>
 </resources>
