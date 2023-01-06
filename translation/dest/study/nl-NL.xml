@@ -62,6 +62,8 @@
   <string name="studyPgn">PGN bestuderen</string>
   <string name="downloadAllGames">Download alle partijen</string>
   <string name="chapterPgn">Hoofdstuk PGN</string>
+  <string name="copyChapterPgn">PGN kopiëren</string>
+  <string name="copyChapterPgnDescription">Kopieer hoofdstuk PGN naar klembord.</string>
   <string name="downloadGame">Partij downloaden</string>
   <string name="studyUrl">Studie URL</string>
   <string name="currentChapterUrl">Huidige hoofdstuk URL</string>
