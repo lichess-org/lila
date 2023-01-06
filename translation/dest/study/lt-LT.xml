@@ -68,6 +68,8 @@
   <string name="studyPgn">Studijos PGN</string>
   <string name="downloadAllGames">Atsisiųsti visus žaidimus</string>
   <string name="chapterPgn">Skyriaus PGN</string>
+  <string name="copyChapterPgn">Kopijuoti PGN</string>
+  <string name="copyChapterPgnDescription">Kopijuoti skyriaus PGN į iškarpinę.</string>
   <string name="downloadGame">Atsisiųsti žaidimą</string>
   <string name="studyUrl">Studijos URL</string>
   <string name="currentChapterUrl">Dabartinio skyriaus URL</string>
