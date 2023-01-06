@@ -802,7 +802,7 @@ case class CastleLastMove(castles: Castles, lastMove: Option[Uci])
 
 object CastleLastMove:
 
-  def init = CastleLastMove(Castles.full, None)
+  def init = CastleLastMove(Castles.all, None)
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.*
