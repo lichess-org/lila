@@ -68,6 +68,8 @@
   <string name="studyPgn">PGN студии</string>
   <string name="downloadAllGames">Скачать все партии</string>
   <string name="chapterPgn">PGN главы</string>
+  <string name="copyChapterPgn">Копировать PGN</string>
+  <string name="copyChapterPgnDescription">Скопировать главу PGN в буфер обмена.</string>
   <string name="downloadGame">Скачать партию</string>
   <string name="studyUrl">Ссылка на студию</string>
   <string name="currentChapterUrl">Ссылка на эту главу</string>
