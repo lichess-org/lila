@@ -138,6 +138,12 @@ class RawHtmlTest extends Specification {
         url
       ) === s"""<a rel="nofollow noopener noreferrer" href="https://$clean" target="_blank">$clean</a>"""
     }
+
+    "do not hyperlink urls covered in square brackets" >> {
+      val url = "http://zombo.com"
+
+      addLinks(s"""I found the [$url] here""") === s"""I found the [$url] here"""
+    }
   }
 
   "tracking parameters" >> {
