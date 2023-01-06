@@ -90,11 +90,7 @@ object side:
                       absClientDateTime(until),
                       "."
                     )
-                  case _ =>
-                    v.condition match
-                      case SwissCondition.PlayYourGames if !v.verdict.accepted =>
-                        v.verdict.reason.map(_(ctx.lang))
-                      case c => c.name(s.perfType)
+                  case _ => v.condition.name(s.perfType)
                 })
               }
             )
