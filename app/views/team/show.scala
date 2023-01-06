@@ -11,7 +11,6 @@ import lila.common.paginator.Paginator
 import lila.common.String.html.safeJsonValue
 import lila.common.Json.given
 import lila.team.Team
-import lila.team.TeamMember
 import lila.mod.Modlog
 import lila.socket.SocketVersion
 import lila.socket.SocketVersion.given

@@ -4,10 +4,13 @@ import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 import org.joda.time.DateTime
+
 import scala.concurrent.duration.*
 import lila.common.config.MaxPerSecond
-import lila.db.dsl.{ *, given }
-import lila.user.{ User, UserRepo }
+import lila.db.dsl.{*, given}
+import lila.user.{User, UserRepo}
+
+import scala.concurrent.Future
 
 final class TeamMemberStream(
     memberRepo: MemberRepo,
@@ -17,13 +20,13 @@ final class TeamMemberStream(
     mat: akka.stream.Materializer
 ):
 
-  def apply(team: Team, perSecond: MaxPerSecond): Source[User, ?] =
+  def apply(team: Team, perSecond: MaxPerSecond): Source[(User, DateTime), ?] =
     idsBatches(team, perSecond)
-      .mapAsync(1)(userRepo.usersFromSecondary)
+      .mapAsync(1).map(x => x._1)
       .mapConcat(identity)
 
-  def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[UserId, ?] =
-    idsBatches(team, perSecond, $doc("unsub" $ne true))
+  def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[(UserId, DateTime), ?] =
+    idsBatches(team, perSecond, $doc("unsub" $ne true)).map(x => x._1)
       .mapConcat(identity)
 
   private def idsBatches(
@@ -31,12 +34,6 @@ final class TeamMemberStream(
       perSecond: MaxPerSecond,
       selector: Bdoc = $empty
   ): Source[Seq[(UserId, DateTime)], ?] =
-
-    //for {
-    //  user <- dataFromMongo.map(_.flatMap(_.getAsOpt[UserId]("user"))).throttle(1, 1 second)
-    //  date <- dataFromMongo.map(_.flatMap(_.getAsOpt[DateTime]("date")))
-    //} yield (user, date)
-    
     memberRepo.coll
       .find($doc("team" -> team.id) ++ selector, $doc("user" -> true, "date" -> true).some)
       .sort($sort desc "date")
@@ -44,5 +41,5 @@ final class TeamMemberStream(
       .cursor[Bdoc](temporarilyPrimary)
       .documentSource()
       .grouped(perSecond.value)
-      .map(_.flatMap(_.getAsOpt[(UserId, DateTime)](("user", "date"))))
+      .map(_.flatMap(u => u.getAsOpt[UserId]("user").zip(u.getAsOpt[DateTime]("date"))))
       .throttle(1, 1 second)

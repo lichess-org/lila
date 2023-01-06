@@ -9,7 +9,7 @@ import play.api.i18n.Lang
 import lila.common.Json.given
 import lila.db.dsl.{$doc, Bdoc, temporarilyPrimary}
 import lila.security.Granter
-import lila.team.{MemberRepo, Team}
+import lila.team.Team
 import lila.team.Team.nameToId
 import reactivemongo.api.bson.BSONDocument
 
@@ -28,8 +28,7 @@ final class UserApi(
     trophyApi: lila.user.TrophyApi,
     shieldApi: lila.tournament.TournamentShieldApi,
     revolutionApi: lila.tournament.RevolutionApi,
-    net: NetConfig,
-    repo: MemberRepo
+    net: NetConfig
 )(using scala.concurrent.ExecutionContext):
 
   def one(u: User): JsObject =
