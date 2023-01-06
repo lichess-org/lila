@@ -62,6 +62,8 @@
   <string name="studyPgn">PGN का अध्ययन करें</string>
   <string name="downloadAllGames">सभी खेल नीचे लादें</string>
   <string name="chapterPgn">अध्याय PGN</string>
+  <string name="copyChapterPgn">पीजीएन की नकल लें</string>
+  <string name="copyChapterPgnDescription">पीजीएन की नकल क्लिपबोर्ड पर लें</string>
   <string name="downloadGame">खेल नीचे लादें</string>
   <string name="studyUrl">अध्ययन का URL</string>
   <string name="currentChapterUrl">वर्तमान अध्याय URL</string>
