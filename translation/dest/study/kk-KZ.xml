@@ -50,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Зерттеу қолдаушылары ғана компьютерлік талдауды сұрай алады.</string>
   <string name="getAFullComputerAnalysis">Сервер-жақты компьютер осы негізгі жолға толық талдау жасайтын болады.</string>
   <string name="makeSureTheChapterIsComplete">Талдауды бір рет қана сұрай аласыз, сондықтан бөлімді аяқтауды ұмытпаңыз.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Барлық үйлескен мүшелер өз күйінде қалады</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Барлық үйлескен мүшелер өз күйінде қалады</string>
   <string name="shareChanges">Көрермендермен өзгертулерді бөлісіңіз әрі серверде сақтап қойыңыз</string>
   <string name="playing">Қазір ойында</string>
   <string name="first">Бірінші</string>
