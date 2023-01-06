@@ -65,6 +65,7 @@
   <string name="studyPgn">PGN-ul studiului</string>
   <string name="downloadAllGames">Descarcă toate partidele</string>
   <string name="chapterPgn">PGN-ul capitolului</string>
+  <string name="copyChapterPgn">Copiază PGN</string>
   <string name="downloadGame">Descarcă partida</string>
   <string name="studyUrl">URL-ul studiului</string>
   <string name="currentChapterUrl">URL-ul capitolului curent</string>
