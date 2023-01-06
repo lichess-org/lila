@@ -408,14 +408,13 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
     }
 
   def setEmail(id: UserId, email: EmailAddress): Funit = {
-    val normalizedEmail = email.normalize
+    val normalized = email.normalize
     coll.update
       .one(
         $id(id),
-        $set(F.email -> normalizedEmail) ++ $unset(F.prevEmail) ++ {
-          if (email.value == normalizedEmail.value) $unset(F.verbatimEmail)
-          else $set(F.verbatimEmail -> email)
-        }
+        if email.value == normalized.value then
+          $set(F.email -> normalized) ++ $unset(F.prevEmail, F.verbatimEmail)
+        else $set(F.email -> normalized, F.verbatimEmail -> email) ++ $unset(F.prevEmail)
       )
       .void
   } >>- lila.common.Bus.publish(lila.hub.actorApi.user.ChangeEmail(id, email), "email")
