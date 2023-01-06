@@ -107,7 +107,9 @@ Amosará unha liña separadora horizontal.</string>
   <string name="createMultipleAccounts">Crea múltiples contas de Lichess dunha vez</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Tamén podes %s para crear varias contas de Lichess a partir dunha lista de nomes de estudantes.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">emprega este formulario</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Ten en conta que unha clase pode ter ata %1$s estudantes. Para administrar máis estudantes, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">crea máis clases</string>
+  <string name="studentsRealNamesOnePerLine">Nomes dos/as estudantes, un por liña</string>
   <string name="xisNowAStudentOfTheClass">%s é agora un/unha estudante da clase</string>
   <string name="anInvitationHasBeenSentToX">Enviouse invitación a %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s aínda ten unha invitación pendente</string>
