@@ -609,6 +609,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="error.min">Debe ser maior ou igual que %s</string>
   <string name="error.max">Debe ser menor ou igual que %s</string>
   <string name="ifRatingIsPlusMinusX">Se a puntuación é ± %s</string>
+  <string name="ifRegistered">Se está rexistrado/a</string>
   <string name="onlyExistingConversations">Só conversas existentes</string>
   <string name="onlyFriends">Só amigos</string>
   <string name="menu">Menú</string>
@@ -706,6 +707,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="kidMode">Modo infantil</string>
   <string name="kidModeExplanation">Por seguridade, no modo infantil desactívanse tódalas comunicacións. Activa isto para protexer aos teus nenos ou alumnos de outros usuarios de Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En modo infantil, o logo de lichess ten unha icona de %s, indicando que os nenos están seguros.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">A túa conta é xestionada. Pregúntalle ao/á teu/túa mestre acerca de quitar o modo para nenos/as.</string>
   <string name="enableKidMode">Activar modo infantil</string>
   <string name="disableKidMode">Desactivar modo infantil</string>
   <string name="security">Seguridade</string>
