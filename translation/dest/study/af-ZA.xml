@@ -62,6 +62,7 @@
   <string name="studyPgn">Studie PGN</string>
   <string name="downloadAllGames">Laai alle speletjies af</string>
   <string name="chapterPgn">Hoofstuk PGN</string>
+  <string name="copyChapterPgn">Kopieer PGN</string>
   <string name="downloadGame">Aflaai spel</string>
   <string name="studyUrl">Bestudeer URL</string>
   <string name="currentChapterUrl">Huidige hoofstuk URL</string>
