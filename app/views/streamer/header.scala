@@ -5,6 +5,7 @@ import controllers.routes
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.i18n.LangList
 
 object header:
 
@@ -60,7 +61,10 @@ object header:
             s.streamer.liveAt.map { liveAt =>
               p(cls := "at")(lastStream(momentFromNow(liveAt)))
             }
-          )
+          ),
+          s.streamer.lastStreamLang map {language => 
+            span(cls := "streamer lang")(LangList nameByStr language)
+          }
         ),
         !modView option bits.subscribeButtonFor(s)
       )
