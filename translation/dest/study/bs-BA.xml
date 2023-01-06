@@ -65,6 +65,8 @@
   <string name="studyPgn">Studirajte PGN</string>
   <string name="downloadAllGames">Skinite sve partije</string>
   <string name="chapterPgn">PGN poglavlja</string>
+  <string name="copyChapterPgn">Kopirajte PGN</string>
+  <string name="copyChapterPgnDescription">Kopirajte PGN-poglavlje u međuspremnik.</string>
   <string name="downloadGame">Skini partiju</string>
   <string name="studyUrl">Link studije</string>
   <string name="currentChapterUrl">Link trenutnog poglavlja</string>
