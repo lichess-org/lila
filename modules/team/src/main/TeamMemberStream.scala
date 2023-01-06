@@ -30,25 +30,12 @@ final class TeamMemberStream(
       team: Team,
       perSecond: MaxPerSecond,
       selector: Bdoc = $empty
-  ): Source[Seq[UserId], ?] =
-    
-    val test = memberRepo.coll
-          .find(selector, $doc("user" -> true, "date" -> true, "_id" -> false).some)
-          .cursor[Bdoc](temporarilyPrimary).documentSource()
-      .grouped(perSecond.value)
-      .map(_.flatMap(_.getAsOpt[DateTime]("date"))).throttle(1, 1 second)
-    println(test)
+  ): Source[Seq[(UserId, DateTime)], ?] =
 
-    val test2 = for {
-      docs <-
-        memberRepo.coll
-          .find(selector, $doc("user" -> true, "date" -> true, "_id" -> false).some)
-          .cursor[Bdoc]()
-          .list(5)
-      userIds = docs.flatMap(_.getAsOpt[UserId]("user"))
-      dates = docs.flatMap(_.getAsOpt[DateTime]("date"))
-    } yield userIds.zip(dates)
-    print(test2)
+    //for {
+    //  user <- dataFromMongo.map(_.flatMap(_.getAsOpt[UserId]("user"))).throttle(1, 1 second)
+    //  date <- dataFromMongo.map(_.flatMap(_.getAsOpt[DateTime]("date")))
+    //} yield (user, date)
     
     memberRepo.coll
       .find($doc("team" -> team.id) ++ selector, $doc("user" -> true, "date" -> true).some)
@@ -57,5 +44,5 @@ final class TeamMemberStream(
       .cursor[Bdoc](temporarilyPrimary)
       .documentSource()
       .grouped(perSecond.value)
-      .map(_.flatMap(_.getAsOpt[UserId]("user")))
+      .map(_.flatMap(_.getAsOpt[(UserId, DateTime)](("user", "date"))))
       .throttle(1, 1 second)

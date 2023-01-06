@@ -34,7 +34,7 @@ final class UserApi(
 
   def one(u: User): JsObject =
     addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
-      Json.obj("joined_at" -> repo.coll.find($doc("test_team"), $doc("user" -> true, "date" -> true)).some) ++
+      //Json.obj("joined_at" -> collection.find) ++
       // "SELECT date FROM team_member WHERE team == "test_team" AND user == u.username"
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
 
