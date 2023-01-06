@@ -63,6 +63,7 @@
   <string name="downloadAllGames">Baixar todas as partidas</string>
   <string name="chapterPgn">PGN do capítulo</string>
   <string name="copyChapterPgn">Copiar PGN</string>
+  <string name="copyChapterPgnDescription">Copiar o PGN do capítulo para a área de transferência.</string>
   <string name="downloadGame">Baixar partida</string>
   <string name="studyUrl">URL de estudo</string>
   <string name="currentChapterUrl">URL do capítulo atual</string>
