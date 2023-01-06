@@ -62,6 +62,8 @@
   <string name="studyPgn">Studien PGN</string>
   <string name="downloadAllGames">Lade alle Partien herunter</string>
   <string name="chapterPgn">Kapitel PGN</string>
+  <string name="copyChapterPgn">PGN kopieren</string>
+  <string name="copyChapterPgnDescription">Kapitel-PGN in die Zwischenablage kopieren.</string>
   <string name="downloadGame">Lade die Partie herunter</string>
   <string name="studyUrl">Studien URL</string>
   <string name="currentChapterUrl">URL des aktuellen Kapitels</string>
