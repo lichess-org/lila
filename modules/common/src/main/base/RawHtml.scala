@@ -25,11 +25,11 @@ object RawHtml:
     sb.toString
 
   private[this] val urlPattern = (
-    """(?i)\b[a-z](?>""" +                                     // pull out first char for perf.
-      """ttp(?<=http)s?://(\w[-\w.~!$&';=:@]{0,100})|""" +     // http(s) links
-      """(?<![/@.-].)(?:\w{1,15}+\.){1,3}(?>com|org|edu))""" + // "lichess.org", etc
-      """([/?#][-–—\w/.~!$&'()*+,;=:#?@%]{0,300}+)?""" +       // path, params
-      """(?![\w/~$&*+=#@%])"""                                 // neg lookahead
+    """(?i)\b[a-z](?>""" +                                                 // pull out first char for perf.
+    """ttp(?<=http)s?(?<!\[[^\]]{1,10})://(\w[-\w.~!$&';=:@]{0,100})|""" + // http(s) links not preceded by [
+    """(?<![/@.-].)(?:\w{1,15}+\.){1,3}(?>com|org|edu))""" +               // "lichess.org", etc
+    """([/?#][-–—\w/.~!$&'()*+,;=:#?@%]{0,300}+)?""" +                     // path, params
+    """(?![\w/~$&*+=#@%])"""                                               // neg lookahead
   ).r.pattern
 
   private[this] val USER_LINK = """/@/([\w-]{2,30}+)?""".r

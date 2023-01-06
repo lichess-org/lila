@@ -22,7 +22,7 @@ final class TextLpvExpand(
 
   def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] = {
     gameRegex
-      .findAllMatchIn(ignoreSiteHeaders(text))
+      .findAllMatchIn(text)
       .toList
       .flatMap { m =>
         Option(m group 1) filter { id =>
@@ -87,9 +87,3 @@ final class TextLpvExpand(
         }
       }
     }
-  
-  private def ignoreSiteHeaders(s: String) : String = {
-    if(s.indexOf('[') == -1 && s.indexOf(']') == -1 && !s.contains("Site")) 
-        return s;
-    return s.replaceAll(betweenSiteHeaders, "");
-  } 
