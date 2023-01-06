@@ -1,6 +1,6 @@
 import { prop, Prop } from 'common';
 import { bind } from 'common/snabbdom';
-import { url as xhrUrl } from 'common/xhr';
+import { text as xhrText, url as xhrUrl } from 'common/xhr';
 import { h, VNode } from 'snabbdom';
 import { renderIndexAndMove } from '../view/moveView';
 import { baseUrl } from '../view/util';
@@ -141,6 +141,21 @@ export function view(ctrl: StudyShareCtrl): VNode {
                 },
               },
               ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterPgn')
+            ),
+            h(
+              'a.button.text',
+              {
+                attrs: {
+                  'data-icon': '',
+                  title: ctrl.trans.noarg('copyChapterPgnDescription'),
+                },
+                hook: bind('click', async event => {
+                  const pgn = await xhrText(`/study/${studyId}/${chapter.id}.pgn`);
+                  await navigator.clipboard.writeText(pgn);
+                  (event.target as HTMLElement).setAttribute('data-icon', '');
+                }),
+              },
+              ctrl.trans.noarg('copyChapterPgn')
             ),
             h(
               'a.button.text',

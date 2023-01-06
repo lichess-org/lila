@@ -198,13 +198,11 @@ final class Account(
     AuthBody { implicit ctx => me =>
       auth.HasherRateLimit(me.id, ctx.req) { _ =>
         given play.api.mvc.Request[?] = ctx.body
-        env.security.forms.preloadEmailDns >> emailForm(me).flatMap { form =>
+        env.security.forms.preloadEmailDns() >> emailForm(me).flatMap { form =>
           FormFuResult(form) { err =>
             fuccess(html.account.email(err))
           } { data =>
-            val email = env.security.emailAddressValidator
-              .validate(data.realEmail) err s"Invalid email ${data.email}"
-            val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, email.acceptable)
+            val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.email)
             auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
               env.security.emailChange.send(me, newUserEmail.email) inject
                 Redirect(routes.Account.email).flashSuccess {
@@ -425,15 +423,15 @@ final class Account(
                 err => renderReopen(err.some, none) map { BadRequest(_) },
                 data =>
                   env.security.reopen
-                    .prepare(data.username, data.realEmail, env.mod.logApi.closedByMod) flatMap {
+                    .prepare(data.username, data.email, env.mod.logApi.closedByMod) flatMap {
                     case Left((code, msg)) =>
                       lila.mon.user.auth.reopenRequest(code).increment()
                       renderReopen(none, msg.some) map { BadRequest(_) }
                     case Right(user) =>
-                      auth.MagicLinkRateLimit(user, data.realEmail, ctx.req) {
+                      auth.MagicLinkRateLimit(user, data.email, ctx.req) {
                         lila.mon.user.auth.reopenRequest("success").increment()
-                        env.security.reopen.send(user, data.realEmail) inject Redirect(
-                          routes.Account.reopenSent(data.realEmail.value)
+                        env.security.reopen.send(user, data.email) inject Redirect(
+                          routes.Account.reopenSent(data.email.value)
                         )
                       }(rateLimitedFu)
                   }
