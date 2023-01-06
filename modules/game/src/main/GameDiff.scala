@@ -1,16 +1,16 @@
 package lila.game
 
 import chess.{ Black, CheckCount, Clock, Color, White }
-import Game.BSONFields._
-import reactivemongo.api.bson._
+import Game.BSONFields.*
+import reactivemongo.api.bson.*
 import scala.util.Try
 
 import chess.Centis
-import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.dsl.{ *, given }
 import lila.db.ByteArray
-import lila.db.ByteArray.ByteArrayBSONHandler
+import lila.db.ByteArray.byteArrayHandler
 
-object GameDiff {
+object GameDiff:
 
   private type Set   = (String, BSONValue)
   private type Unset = (String, BSONValue)
@@ -21,30 +21,25 @@ object GameDiff {
 
   private val w = lila.db.BSON.writer
 
-  def apply(a: Game, b: Game): Diff = {
+  def apply(a: Game, b: Game): Diff =
 
     val setBuilder   = scala.collection.mutable.ListBuffer[Set]()
     val unsetBuilder = scala.collection.mutable.ListBuffer[Unset]()
 
-    def d[A](name: String, getter: Game => A, toBson: A => BSONValue): Unit = {
+    def d[A](name: String, getter: Game => A, toBson: A => BSONValue): Unit =
       val vb = getter(b)
-      if (getter(a) != vb) {
+      if (getter(a) != vb)
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> bTrue)
         else setBuilder += name                                         -> toBson(vb)
-      }
-    }
 
-    def dOpt[A](name: String, getter: Game => A, toBson: A => Option[BSONValue]): Unit = {
+    def dOpt[A](name: String, getter: Game => A, toBson: A => Option[BSONValue]): Unit =
       val vb = getter(b)
-      if (getter(a) != vb) {
+      if (getter(a) != vb)
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> bTrue)
         else
-          toBson(vb) match {
+          toBson(vb) match
             case None    => unsetBuilder += (name -> bTrue)
             case Some(x) => setBuilder += name    -> x
-          }
-      }
-    }
 
     def dTry[A](name: String, getter: Game => A, toBson: A => Try[BSONValue]): Unit =
       d[A](name, getter, a => toBson(a).get)
@@ -59,17 +54,17 @@ object GameDiff {
 
     def clockHistoryToBytes(o: Option[ClockHistorySide]) =
       o.flatMap { case (x, y, z) =>
-        ByteArrayBSONHandler.writeOpt(BinaryFormat.clockHistory.writeSide(x, y, z))
+        byteArrayHandler.writeOpt(BinaryFormat.clockHistory.writeSide(x, y, z))
       }
 
-    if (a.variant.standard) dTry(huffmanPgn, _.pgnMoves, writeBytes compose PgnStorage.Huffman.encode)
-    else {
+    if (a.variant.standard) dTry(huffmanPgn, _.sans, writeBytes compose PgnStorage.Huffman.encode)
+    else
       val f = PgnStorage.OldBin
-      dTry(oldPgn, _.pgnMoves, writeBytes compose f.encode)
+      dTry(oldPgn, _.sans, writeBytes compose f.encode)
       dTry(binaryPieces, _.board.pieces, writeBytes compose BinaryFormat.piece.write)
-      d(positionHashes, _.history.positionHashes, w.bytes)
+      d(positionHashes, _.history.positionHashes, ph => w.bytes(ph.value))
       dTry(unmovedRooks, _.history.unmovedRooks, writeBytes compose BinaryFormat.unmovedRooks.write)
-      dTry(castleLastMove, makeCastleLastMove, CastleLastMove.castleLastMoveBSONHandler.writeTry)
+      dTry(castleLastMove, makeCastleLastMove, CastleLastMove.castleLastMoveHandler.writeTry)
       // since variants are always OldBin
       if (a.variant.threeCheck)
         dOpt(
@@ -81,11 +76,10 @@ object GameDiff {
         dOpt(
           crazyData,
           _.board.crazyData,
-          (o: Option[chess.variant.Crazyhouse.Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write
+          (o: Option[chess.variant.Crazyhouse.Data]) => o map BSONHandlers.crazyhouseDataHandler.write
         )
-    }
-    d(turns, _.turns, w.int)
-    dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o flatMap ByteArrayBSONHandler.writeOpt)
+    d(turns, _.ply, ply => w.int(ply.value))
+    dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o flatMap byteArrayHandler.writeOpt)
     dOpt(whiteClockHistory, getClockHistory(White), clockHistoryToBytes)
     dOpt(blackClockHistory, getClockHistory(Black), clockHistoryToBytes)
     dOpt(
@@ -97,26 +91,23 @@ object GameDiff {
         }
     )
     dTry(drawOffers, _.drawOffers, BSONHandlers.gameDrawOffersHandler.writeTry)
-    for (i <- 0 to 1) {
-      import Player.BSONFields._
+    for (i <- 0 to 1)
+      import Player.BSONFields.*
       val name                   = s"p$i."
       val player: Game => Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)
       dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)
-      dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, w.intO)
-      dTry(s"$name$blursBits", player(_).blurs, Blurs.BlursBSONHandler.writeTry)
-    }
-    dTry(movedAt, _.movedAt, BSONJodaDateTimeHandler.writeTry)
+      dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, ply => w.intO(ply.value))
+      dTry(s"$name$blursBits", player(_).blurs, Blurs.blursHandler.writeTry)
+    dTry(movedAt, _.movedAt, dateTimeHandler.writeTry)
 
     (setBuilder.toList, unsetBuilder.toList)
-  }
 
   private val bTrue = BSONBoolean(true)
 
-  private val writeBytes = ByteArrayBSONHandler.writeTry _
+  private val writeBytes = byteArrayHandler.writeTry
 
   private def makeCastleLastMove(g: Game) =
     CastleLastMove(
       lastMove = g.history.lastMove,
       castles = g.history.castles
     )
-}

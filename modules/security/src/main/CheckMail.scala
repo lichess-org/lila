@@ -1,13 +1,14 @@
 package lila.security
 
-import play.api.libs.json._
+import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.ws.DefaultBodyReadables.*
 import reactivemongo.api.ReadPreference
-import play.api.libs.ws.JsonBodyReadables._
-import scala.concurrent.duration._
+import play.api.libs.ws.JsonBodyReadables.*
+import scala.concurrent.duration.*
 
 import lila.common.Domain
-import lila.db.dsl._
+import lila.db.dsl.*
 
 /* An expensive API detecting disposable email.
  * Only hit after trying everything else (DnsApi)
@@ -16,10 +17,10 @@ final private class CheckMail(
     ws: StandaloneWSClient,
     config: SecurityConfig.CheckMail,
     mongoCache: lila.memo.MongoCache.Api
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   def apply(domain: Domain.Lower): Fu[Boolean] =
     if (config.key.value.isEmpty) fuccess(true)
@@ -64,10 +65,10 @@ final private class CheckMail(
       .withQueryStringParameters("domain" -> domain.value, "disable_test_connection" -> "true")
       .withHttpHeaders("x-rapidapi-key" -> config.key.value)
       .get()
-      .withTimeout(15.seconds)
+      .withTimeout(15.seconds, "CheckMail.fetch")
       .map {
         case res if res.status == 200 =>
-          val readBool   = readRandomBoolean(res.body[JsValue]) _
+          val readBool   = readRandomBoolean(res.body[JsValue])
           val valid      = readBool("valid")
           val block      = readBool("block")
           val disposable = readBool("disposable")
@@ -76,16 +77,12 @@ final private class CheckMail(
           logger.info(s"CheckMail $domain = $ok ($reason) {valid:$valid,block:$block,disposable:$disposable}")
           ok
         case res =>
-          throw lila.base.LilaException(s"${config.url} $domain ${res.status} ${res.body take 200}")
+          throw lila.base.LilaException(s"${config.url} $domain ${res.status} ${res.body[String] take 200}")
       }
       .monTry(res => _.security.checkMailApi.fetch(res.isSuccess, res.getOrElse(true)))
 
   // sometimes it's "1" and sometimes it's "true"
-  // and we're paying for that shit
   private def readRandomBoolean(js: JsValue)(key: String) =
-    ~ {
-      (js \ key).asOpt[Boolean] orElse
-        (js \ key).asOpt[Int].map(1.==) orElse
-        (js \ key).asOpt[String].map("1".==)
-    }
-}
+    (js \ key).asOpt[Boolean] orElse
+      (js \ key).asOpt[Int].map(1.==) orElse
+      (js \ key).asOpt[String].map("1".==) getOrElse false

@@ -34,4 +34,21 @@ lichess.load.then(() => {
   localPrefs.forEach(([categ, name, storeKey, def]) =>
     $(`#ir${categ}_${name}_${lichess.storage.get(storeKey) || def}`).prop('checked', true)
   );
+
+  $('form[action="/account/oauth/token/create"]').each(function (this: HTMLFormElement) {
+    const form = $(this),
+      submit = form.find('button.submit');
+    let isDanger = false;
+    const checkDanger = () => {
+      isDanger = !!form.find('.danger input:checked').length;
+      submit.toggleClass('button-red confirm', isDanger);
+      submit.attr('data-icon', isDanger ? '' : '');
+      submit.attr('title', isDanger ? submit.data('danger-title') : '');
+    };
+    checkDanger();
+    form.find('input').on('change', checkDanger);
+    submit.on('click', function (this: HTMLElement) {
+      return !isDanger || confirm(this.title);
+    });
+  });
 });

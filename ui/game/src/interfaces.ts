@@ -33,7 +33,9 @@ export interface Game {
   rematch?: string;
   rated?: boolean;
   perf: string;
+  rules?: GameRule[];
 }
+export declare type GameRule = 'noAbort' | 'noRematch' | 'noGiveTime' | 'noClaimWin';
 
 export interface Status {
   id: StatusId;
@@ -160,6 +162,7 @@ export interface Ctrl {
 export interface Blurs {
   nb: number;
   percent: number;
+  bits?: string;
 }
 
 export interface Trans {

@@ -1,14 +1,14 @@
 package lila.user
 
 import akka.actor.Scheduler
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.LightUser
 import lila.db.dsl.Coll
 
@@ -22,6 +22,10 @@ private class UserConfig(
     @ConfigName("password.bpass.secret") val passwordBPassSecret: Secret
 )
 
+object A:
+  object B:
+    val foo = "bar"
+
 @Module
 final class Env(
     appConfig: Configuration,
@@ -31,30 +35,34 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.socket.IsOnline,
     onlineIds: lila.socket.OnlineIds
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: Scheduler,
     ws: StandaloneWSClient
-) {
+):
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 
   val repo = new UserRepo(db(config.collectionUser))
 
   val lightUserApi: LightUserApi = wire[LightUserApi]
-  val lightUser                  = lightUserApi.async
-  val lightUserSync              = lightUserApi.sync
-  val isBotSync                  = new LightUser.IsBotSync(id => lightUserApi.sync(id).exists(_.isBot))
+
+  export lightUserApi.{
+    async as lightUser,
+    asyncFallback as lightUserFallback,
+    sync as lightUserSync,
+    syncFallback as lightUserSyncFallback,
+    isBotSync
+  }
 
   lazy val botIds     = new GetBotIds(() => cached.botIds.get {})
   lazy val rankingsOf = new RankingsOf(cached.rankingsOf)
 
   lazy val jsonView = wire[JsonView]
 
-  lazy val noteApi = {
+  lazy val noteApi =
     def mk = (coll: Coll) => wire[NoteApi]
     mk(db(config.collectionNote))
-  }
 
   lazy val trophyApi = new TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind), cacheApi)
 
@@ -87,4 +95,3 @@ final class Env(
       rankingApi.remove(userId).unit
     }
   )
-}

@@ -28,3 +28,5 @@ export default function LichessEditor(element: HTMLElement, config: Editor.Confi
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = Chessground;
+
+(window as any).LichessEditor = LichessEditor; // esbuild

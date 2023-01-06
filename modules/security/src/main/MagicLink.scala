@@ -1,11 +1,11 @@
 package lila.security
 
-import scala.concurrent.duration._
-import scalatags.Text.all._
+import scala.concurrent.duration.*
+import scalatags.Text.all.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.EmailAddress
-import lila.i18n.I18nKeys.{ emails => trans }
+import lila.i18n.I18nKeys.{ emails as trans }
 import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
 
@@ -14,15 +14,15 @@ final class MagicLink(
     userRepo: UserRepo,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import Mailer.html._
+  import Mailer.html.*
 
   def send(user: User, email: EmailAddress): Funit =
     tokener make user.id flatMap { token =>
       lila.mon.email.send.magicLink.increment()
-      val url           = s"$baseUrl/auth/magic-link/login/$token"
-      implicit val lang = user.realLang | lila.i18n.defaultLang
+      val url                  = s"$baseUrl/auth/magic-link/login/$token"
+      given play.api.i18n.Lang = user.realLang | lila.i18n.defaultLang
       mailer send Mailer.Message(
         to = email,
         subject = trans.logInToLichess.txt(user.username),
@@ -46,11 +46,10 @@ ${trans.common_orPaste.txt()}"""),
     }
 
   private val tokener = LoginToken.makeTokener(tokenerSecret, 10 minutes)
-}
 
-object MagicLink {
+object MagicLink:
 
-  import scala.concurrent.duration._
+  import scala.concurrent.duration.*
   import play.api.mvc.RequestHeader
   import alleycats.Zero
   import lila.memo.RateLimit
@@ -62,7 +61,7 @@ object MagicLink {
     key = "login.magicLink.ip"
   )
 
-  private lazy val rateLimitPerUser = new RateLimit[String](
+  private lazy val rateLimitPerUser = new RateLimit[UserId](
     credits = 3,
     duration = 1 hour,
     key = "login.magicLink.user"
@@ -84,4 +83,3 @@ object MagicLink {
         }(default)
       }(default)
     }(default)
-}

@@ -1,47 +1,59 @@
 package lila.swiss
 
-import cats.implicits._
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.db.dsl._
-import lila.hub.LightTeam.TeamID
-import lila.memo._
+import lila.db.dsl.{ *, given }
+import lila.memo.*
+import lila.memo.CacheApi.*
 
-final private class SwissCache(
-    colls: SwissColls,
+final class SwissCache(
+    mongo: SwissMongo,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
-  val name = cacheApi.sync[Swiss.Id, Option[String]](
+  object swissCache:
+
+    private val cache = cacheApi[SwissId, Option[Swiss]](512, "swiss.swiss") {
+      _.expireAfterWrite(1 second)
+        .buildAsyncFuture(id => mongo.swiss.byId[Swiss](id))
+    }
+    def clear(id: SwissId) = cache invalidate id
+
+    def byId                         = cache.get
+    def notFinishedById(id: SwissId) = byId(id).dmap(_.filter(_.isNotFinished))
+    def createdById(id: SwissId)     = byId(id).dmap(_.filter(_.isCreated))
+    def startedById(id: SwissId)     = byId(id).dmap(_.filter(_.isStarted))
+
+  val name = cacheApi.sync[SwissId, Option[String]](
     name = "swiss.name",
     initialCapacity = 4096,
-    compute = id => colls.swiss.primitiveOne[String]($id(id), "name"),
+    compute = id => mongo.swiss.primitiveOne[String]($id(id), "name"),
     default = _ => none,
-    strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(20 minutes)
+    strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
+    expireAfter = Syncache.ExpireAfter.Access(20 minutes)
   )
 
-  val roundInfo = cacheApi[Swiss.Id, Option[Swiss.RoundInfo]](32, "swiss.roundInfo") {
+  val roundInfo = cacheApi[SwissId, Option[Swiss.RoundInfo]](32, "swiss.roundInfo") {
     _.expireAfterWrite(1 minute)
       .buildAsyncFuture { id =>
-        colls.swiss.byId[Swiss](id.value).map2(_.roundInfo)
+        mongo.swiss.byId[Swiss](id).map2(_.roundInfo)
       }
   }
 
-  private[swiss] object featuredInTeam {
-    private val compute = (teamId: TeamID) => {
+  private[swiss] object featuredInTeam:
+    private val compute = (teamId: TeamId) => {
       val max = 5
       for {
-        enterable <- colls.swiss.primitive[Swiss.Id](
+        enterable <- mongo.swiss.primitive[SwissId](
           $doc("teamId" -> teamId, "finishedAt" $exists false),
           $sort asc "startsAt",
           nb = max,
           "_id"
         )
-        finished <- colls.swiss.primitive[Swiss.Id](
+        finished <- mongo.swiss.primitive[SwissId](
           $doc("teamId" -> teamId, "finishedAt" $exists true),
           $sort desc "startsAt",
           nb = max - enterable.size,
@@ -49,12 +61,10 @@ final private class SwissCache(
         )
       } yield enterable ::: finished
     }
-    private val cache = cacheApi[TeamID, List[Swiss.Id]](256, "swiss.visibleByTeam") {
+    private val cache = cacheApi[TeamId, List[SwissId]](256, "swiss.visibleByTeam") {
       _.expireAfterAccess(30 minutes)
         .buildAsyncFuture(compute)
     }
 
-    def get(teamId: TeamID)        = cache get teamId
-    def invalidate(teamId: TeamID) = cache.put(teamId, compute(teamId))
-  }
-}
+    def get(teamId: TeamId)        = cache get teamId
+    def invalidate(teamId: TeamId) = cache.put(teamId, compute(teamId))

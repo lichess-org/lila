@@ -1,59 +1,57 @@
 package lila.insight
 
 import chess.{ Color, Role }
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
-import lila.analyse.AnalyseBsonHandlers._
+import lila.analyse.AnalyseBsonHandlers.given
 import lila.analyse.{ AccuracyPercent, WinPercent }
-import lila.common.{ LilaOpening, LilaOpeningFamily }
+import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.db.BSON
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
-object BSONHandlers {
+object BSONHandlers:
 
-  implicit val RoleBSONHandler = tryHandler[Role](
+  given BSONHandler[Role] = tryHandler(
     { case BSONString(v) => Role.allByForsyth get v.head toTry s"Invalid role $v" },
     e => BSONString(e.forsyth.toString)
   )
-  implicit val RelativeStrengthBSONHandler = valueMapHandler(RelativeStrength.byId)(_.id)
-  implicit val ResultBSONHandler           = valueMapHandler(Result.byId)(_.id)
-  implicit val PhaseBSONHandler            = valueMapHandler(Phase.byId)(_.id)
-  implicit val TerminationBSONHandler      = valueMapHandler(Termination.byId)(_.id)
-  implicit val MovetimeRangeBSONHandler    = valueMapHandler(MovetimeRange.byId)(_.id)
-  implicit val CastlingBSONHandler         = valueMapHandler(Castling.byId)(_.id)
-  implicit val MaterialRangeBSONHandler    = valueMapHandler(MaterialRange.byId)(_.id)
-  implicit val EvalRangeBSONHandler        = valueMapHandler(EvalRange.byId)(_.id)
-  implicit val WinPercentRangeReader       = valueMapHandler(WinPercentRange.byPercent)(_.bottom.toInt)
-  implicit val AccuracyPercentRangeReader  = valueMapHandler(AccuracyPercentRange.byPercent)(_.bottom.toInt)
-  implicit val ClockPercentRangeReader     = valueMapHandler(ClockPercentRange.byPercent)(_.bottom.toInt)
-  implicit val QueenTradeBSONHandler       = BSONBooleanHandler.as[QueenTrade](QueenTrade.apply, _.id)
-  implicit val CplRangeBSONHandler         = valueMapHandler(CplRange.byId)(_.cpl)
+  given BSONHandler[RelativeStrength]     = valueMapHandler(RelativeStrength.byId)(_.id)
+  given BSONHandler[Result]               = valueMapHandler(Result.byId)(_.id)
+  given BSONHandler[Phase]                = valueMapHandler(Phase.byId)(_.id)
+  given BSONHandler[Termination]          = valueMapHandler(Termination.byId)(_.id)
+  given BSONHandler[MovetimeRange]        = valueMapHandler(MovetimeRange.byId)(_.id)
+  given BSONHandler[Castling]             = valueMapHandler(Castling.byId)(_.id)
+  given BSONHandler[MaterialRange]        = valueMapHandler(MaterialRange.byId)(_.id)
+  given BSONHandler[EvalRange]            = valueMapHandler(EvalRange.byId)(_.id)
+  given BSONHandler[WinPercentRange]      = valueMapHandler(WinPercentRange.byPercent)(_.bottom.toInt)
+  given BSONHandler[AccuracyPercentRange] = valueMapHandler(AccuracyPercentRange.byPercent)(_.bottom.toInt)
+  given BSONHandler[ClockPercentRange]    = valueMapHandler(ClockPercentRange.byPercent)(_.bottom.toInt)
+  given BSONHandler[QueenTrade]           = BSONBooleanHandler.as[QueenTrade](QueenTrade.apply, _.id)
+  given BSONHandler[Blur]                 = BSONBooleanNullHandler.as[Blur](Blur.apply, _.id)
+  given BSONHandler[CplRange]             = valueMapHandler(CplRange.byId)(_.cpl)
+  given BSONHandler[AccuracyPercent]      = percentAsIntHandler[AccuracyPercent]
 
   private val BSONBooleanNullHandler = quickHandler[Boolean](
     { case BSONBoolean(v) => v; case BSONNull => false },
     v => if (v) BSONBoolean(true) else BSONNull
   )
 
-  implicit val BlurBSONHandler = BSONBooleanNullHandler.as[Blur](Blur.apply, _.id)
-
-  implicit val TimeVarianceBSONHandler = BSONIntegerHandler.as[TimeVariance](
+  given BSONHandler[TimeVariance] = BSONIntegerHandler.as[TimeVariance](
     i => TimeVariance(i.toFloat / TimeVariance.intFactor),
     v => (v.id * TimeVariance.intFactor).toInt
   )
 
-  implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]
-  implicit val PeriodBSONHandler    = intAnyValHandler[Period](_.days, Period.apply)
-  implicit val clockPercentHandler: BSONHandler[ClockPercent] =
-    percentAsIntHandler[ClockPercent](_.value, ClockPercent.apply)
+  private[insight] given BSONDocumentHandler[lila.insight.DateRange] = Macros.handler
+  private[insight] given BSONHandler[Period]                         = intAnyValHandler(_.days, Period.apply)
 
-  implicit def MoveBSONHandler = new BSON[InsightMove] {
+  given BSON[InsightMove] with
     def reads(r: BSON.Reader) =
       InsightMove(
         phase = r.get[Phase]("p"),
-        tenths = r.get[Int]("t"),
-        clockPercent = r.get[ClockPercent]("s"),
+        tenths = r.intO("t"),
+        clockPercent = r.getO[ClockPercent]("s"),
         role = r.get[Role]("r"),
         eval = r.intO("e"),
         cpl = r.intO("c"),
@@ -81,28 +79,26 @@ object BSONHandlers {
         "b" -> w.boolO(b.blur),
         "v" -> b.timeCv.map(v => (v * TimeVariance.intFactor).toInt)
       )
-  }
 
-  implicit def EntryBSONHandler = new BSON[InsightEntry] {
-    import InsightEntry.BSONFields._
+  given BSON[InsightEntry] with
+    import InsightEntry.BSONFields.*
     def reads(r: BSON.Reader) =
       InsightEntry(
         id = r.str(id),
-        number = r.int(number),
-        userId = r.str(userId),
+        userId = r.get[UserId](userId),
         color = r.get[Color](color),
         perf = r.get[PerfType](perf),
-        opening = r.getO[LilaOpening](opening),
+        opening = r.getO[SimpleOpening](opening),
         myCastling = r.get[Castling](myCastling),
-        rating = r.intO(rating),
-        opponentRating = r.intO(opponentRating),
+        rating = r.getO[IntRating](rating),
+        opponentRating = r.getO[IntRating](opponentRating),
         opponentStrength = r.getO[RelativeStrength](opponentStrength),
         opponentCastling = r.get[Castling](opponentCastling),
         moves = r.get[List[InsightMove]](moves),
         queenTrade = r.get[QueenTrade](queenTrade),
         result = r.get[Result](result),
         termination = r.get[Termination](termination),
-        ratingDiff = r.int(ratingDiff),
+        ratingDiff = r.get[IntRatingDiff](ratingDiff),
         analysed = r.boolD(analysed),
         provisional = r.boolD(provisional),
         date = r.date(date)
@@ -110,7 +106,6 @@ object BSONHandlers {
     def writes(w: BSON.Writer, e: InsightEntry) =
       BSONDocument(
         id               -> e.id,
-        number           -> e.number,
         userId           -> e.userId,
         color            -> e.color,
         perf             -> e.perf,
@@ -130,5 +125,3 @@ object BSONHandlers {
         provisional      -> w.boolO(e.provisional),
         date             -> e.date
       )
-  }
-}

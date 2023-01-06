@@ -1,15 +1,15 @@
 package views.html.streamer
 
 import controllers.routes
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.streamer.Stream.YouTube
 
-object show {
+object show:
 
-  import trans.streamer._
+  import trans.streamer.*
 
   def apply(
       s: lila.streamer.Streamer.WithUserAndStream,
@@ -18,6 +18,7 @@ object show {
     views.html.base.layout(
       title = s"${s.titleName} streams chess",
       moreCss = cssTag("streamer.show"),
+      moreJs = jsModule("streamer"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${s.titleName} streams chess",
@@ -34,7 +35,7 @@ object show {
         st.aside(cls := "page-menu__menu")(
           s.streamer.approval.chatEnabled option div(cls := "streamer-chat")(
             s.stream match {
-              case Some(YouTube.Stream(_, _, videoId, _)) =>
+              case Some(YouTube.Stream(_, _, videoId, _, _)) =>
                 iframe(
                   st.frameborder  := "0",
                   frame.scrolling := "no",
@@ -50,11 +51,11 @@ object show {
                 }
             }
           ),
-          bits.menu("show", s.withoutStream.some)
+          bits.menu("show", s.some)
         ),
         div(cls := "page-menu__content")(
           s.stream match {
-            case Some(YouTube.Stream(_, _, videoId, _)) =>
+            case Some(YouTube.Stream(_, _, videoId, _, _)) =>
               div(cls := "box embed youTube")(
                 iframe(
                   src            := s"https://www.youtube.com/embed/$videoId?autoplay=1",
@@ -83,4 +84,3 @@ object show {
         )
       )
     )
-}

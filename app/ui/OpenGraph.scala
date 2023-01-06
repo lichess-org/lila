@@ -1,7 +1,7 @@
 package lila.app
 package ui
 
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 case class OpenGraph(
     title: String,
@@ -12,11 +12,11 @@ case class OpenGraph(
     twitterImage: Option[String] = None,
     siteName: String = "lichess.org",
     more: List[(String, String)] = Nil
-) {
+):
 
   def frags: List[Frag] = og.frags ::: twitter.frags
 
-  object og {
+  object og:
 
     private val property = attr("property")
 
@@ -26,7 +26,7 @@ case class OpenGraph(
         content  := value
       )
 
-    private val tupledTag = (tag _).tupled
+    private val tupledTag = (tag).tupled
 
     def frags: List[Frag] =
       List(
@@ -38,9 +38,8 @@ case class OpenGraph(
       ).map(tupledTag) :::
         image.map { tag("image", _) }.toList :::
         more.map(tupledTag)
-  }
 
-  object twitter {
+  object twitter:
 
     private def tag(name: String, value: String) =
       meta(
@@ -48,7 +47,7 @@ case class OpenGraph(
         content := value
       )
 
-    private val tupledTag = (tag _).tupled
+    private val tupledTag = (tag).tupled
 
     def frags: List[Frag] =
       List(
@@ -58,5 +57,3 @@ case class OpenGraph(
       ).map(tupledTag) :::
         (twitterImage orElse image).map { tag("image", _) }.toList :::
         more.map(tupledTag)
-  }
-}

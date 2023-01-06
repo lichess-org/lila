@@ -3,15 +3,15 @@ package user
 
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.user.User
 
 import controllers.routes
 
-object list {
+object list:
 
   def apply(
       tourneyWinners: List[lila.tournament.Winner],
@@ -96,7 +96,7 @@ object list {
       })
     )
 
-  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char])(implicit
+  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char])(using
       ctx: Context
   ) =
     st.section(cls := "user-top")(
@@ -108,4 +108,3 @@ object list {
         )
       })
     )
-}

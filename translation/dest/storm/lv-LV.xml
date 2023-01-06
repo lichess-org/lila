@@ -54,6 +54,7 @@
   <string name="skipExplanation">Izlaist gājienu, lai paturētu kombināciju! Darbojas tikai vienreiz katrās sacensībās.</string>
   <string name="failedPuzzles">Neizdevušies uzdevumi</string>
   <string name="slowPuzzles">Lēni atrisinātie</string>
+  <string name="skippedPuzzle">Izlaista puzle</string>
   <string name="thisWeek">Šonedēļ</string>
   <string name="thisMonth">Šomēnes</string>
   <string name="allTime">Visa laika</string>

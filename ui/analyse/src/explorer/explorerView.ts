@@ -170,11 +170,11 @@ function openGame(ctrl: AnalyseCtrl, gameId: string) {
 }
 
 function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
-  function send(insert: boolean) {
+  const send = (insert: boolean) => {
     ctrl.study!.explorerGame(game.id, insert);
     ctrl.explorer.gameMenu(null);
     ctrl.redraw();
-  }
+  };
   return h(
     'tr',
     {
@@ -232,8 +232,8 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
   );
 }
 
-function closeButton(ctrl: AnalyseCtrl): VNode {
-  return h(
+const closeButton = (ctrl: AnalyseCtrl): VNode =>
+  h(
     'button.button.button-empty.text',
     {
       attrs: dataIcon(''),
@@ -241,10 +241,9 @@ function closeButton(ctrl: AnalyseCtrl): VNode {
     },
     ctrl.trans.noarg('close')
   );
-}
 
-function showEmpty(ctrl: AnalyseCtrl, data?: OpeningData): VNode {
-  return h('div.data.empty', [
+const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode =>
+  h('div.data.empty', [
     explorerTitle(ctrl.explorer),
     openingTitle(ctrl, data),
     h('div.message', [
@@ -254,14 +253,12 @@ function showEmpty(ctrl: AnalyseCtrl, data?: OpeningData): VNode {
         : h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),
     ]),
   ]);
-}
 
-function showGameEnd(ctrl: AnalyseCtrl, title: string): VNode {
-  return h('div.data.empty', [
+const showGameEnd = (ctrl: AnalyseCtrl, title: string): VNode =>
+  h('div.data.empty', [
     h('div.title', ctrl.trans.noarg('gameOver')),
     h('div.message', [h('i', { attrs: dataIcon('') }), h('h3', ctrl.trans.noarg(title)), closeButton(ctrl)]),
   ]);
-}
 
 const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
   const opening = data?.opening;
@@ -364,7 +361,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       nodes
     );
   const playerName = explorer.config.data.playerName.value();
-  const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2021-11'),
+  const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2022-10'),
     lichessDbExplanation = explorer.root.trans('lichessDbExplanation');
   return h('div.explorer-title', [
     db == 'masters'

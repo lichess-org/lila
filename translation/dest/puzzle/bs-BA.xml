@@ -12,6 +12,8 @@
   <string name="specialMoves">Specijalni potezi</string>
   <string name="didYouLikeThisPuzzle">Je li Vam se svidio ovaj problem?</string>
   <string name="voteToLoadNextOne">Glasajte da učitate sljedeći!</string>
+  <string name="upVote">Pozitivno ocijenite problem</string>
+  <string name="downVote">Negativno ocijenite problem</string>
   <string name="findTheBestMoveForWhite">Nađite najbolji potez za bijelog.</string>
   <string name="findTheBestMoveForBlack">Nađite najbolji potez za crnog.</string>
   <string name="toGetPersonalizedPuzzles">Kako biste dobili personalizirane probleme:</string>
@@ -53,5 +55,5 @@
   <string name="searchPuzzles">Pretražite probleme</string>
   <string name="fromMyGamesNone">Nemate probleme u bazi podataka, ali Vas Lichess i dalje mnogo voli.
 Igrajte ubrzani i klasični šah kako biste povećali šanse da bude dodan Vaš problem!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">Pronađeno %1$s problema u partijama %2$s</string>
+  <string name="fromXGamesFound">Pronađeno %1$s problema u partijama %2$s</string>
 </resources>

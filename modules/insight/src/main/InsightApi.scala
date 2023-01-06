@@ -2,36 +2,37 @@ package lila.insight
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
+import scala.concurrent.duration.*
 
+import lila.common.config
+import lila.common.Heapsort.botN
 import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
-import lila.common.config
-import lila.common.Heapsort.implicits._
 
 final class InsightApi(
     storage: InsightStorage,
     pipeline: AggregationPipeline,
-    insightUserApi: InsightUserApi,
     gameRepo: GameRepo,
-    indexer: InsightIndexer
-)(implicit ec: scala.concurrent.ExecutionContext) {
+    indexer: InsightIndexer,
+    cacheApi: lila.memo.CacheApi
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import InsightApi._
+  import InsightApi.*
 
-  def insightUser(user: User): Fu[InsightUser] =
-    insightUserApi find user.id flatMap {
-      case Some(u) =>
-        u.lastSeen.isBefore(DateTime.now minusDays 1) ?? {
-          insightUserApi setSeenNow user
-        } inject u
-      case None =>
-        for {
-          count                <- storage count user.id
-          (families, openings) <- storage openings user.id
-          c = InsightUser.make(user.id, count, families, openings)
-          _ <- insightUserApi save c
-        } yield c
+  private val userCache = cacheApi[UserId, InsightUser](1024, "insight.user") {
+    _.expireAfterWrite(15 minutes).maximumSize(4096).buildAsyncFuture(computeUser)
+  }
+  private def computeUser(userId: UserId): Fu[InsightUser] =
+    storage count userId flatMap {
+      case 0 => fuccess(InsightUser(0, Nil, Nil))
+      case count =>
+        storage openings userId map { case (families, openings) =>
+          InsightUser(count, families, openings)
+        }
     }
+  private given Ordering[GameId] = stringOrdering
+
+  def insightUser(user: User): Fu[InsightUser] = userCache get user.id
 
   def ask[X](question: Question[X], user: User, withPovs: Boolean = true): Fu[Answer[X]] =
     pipeline
@@ -64,10 +65,7 @@ final class InsightApi(
     }
 
   def indexAll(user: User) =
-    indexer
-      .all(user)
-      .monSuccess(_.insight.index) >>
-      insightUserApi.remove(user.id)
+    indexer.all(user).monSuccess(_.insight.index) >>- userCache.put(user.id, computeUser(user.id))
 
   def updateGame(g: Game) =
     Pov(g)
@@ -82,15 +80,12 @@ final class InsightApi(
       .void
 
   def coll = storage.coll
-}
 
-object InsightApi {
+object InsightApi:
 
   sealed trait UserStatus
-  object UserStatus {
+  object UserStatus:
     case object NoGame extends UserStatus // the user has no rated games
     case object Empty  extends UserStatus // insights not yet generated
     case object Stale  extends UserStatus // new games not yet generated
     case object Fresh  extends UserStatus // up to date
-  }
-}

@@ -22,4 +22,5 @@
   <string name="declineVariant">Я не хочу играть в этот вариант шахмат сейчас.</string>
   <string name="declineNoBot">Я не принимаю вызовы от ботов.</string>
   <string name="declineOnlyBot">Я принимаю вызовы только от ботов.</string>
+  <string name="inviteLichessUser">Или пригласите пользователя Lichess:</string>
 </resources>

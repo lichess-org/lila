@@ -1,24 +1,23 @@
 package lila.oauth
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.common.Bearer
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
 import reactivemongo.api.ReadPreference
+import lila.hub.actorApi.oauth.TokenRevoke
 
 final class AccessTokenApi(
     coll: Coll,
     cacheApi: lila.memo.CacheApi,
     userRepo: UserRepo
-)(implicit
-    ec: scala.concurrent.ExecutionContext
-) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import OAuthScope.scopeHandler
-  import AccessToken.{ BSONFields => F }
+  import OAuthScope.given
+  import AccessToken.{ BSONFields as F, given }
 
   private def create(token: AccessToken): Fu[AccessToken] = coll.insert.one(token).inject(token)
 
@@ -39,7 +38,7 @@ final class AccessTokenApi(
       )
     }
 
-  def create(granted: AccessTokenRequest.Granted): Fu[AccessToken] = {
+  def create(granted: AccessTokenRequest.Granted): Fu[AccessToken] =
     val plain = Bearer.random()
     create(
       AccessToken(
@@ -53,13 +52,12 @@ final class AccessTokenApi(
         expires = DateTime.now().plusMonths(12).some
       )
     )
-  }
 
   def adminChallengeTokens(
       setup: OAuthTokenForm.AdminChallengeTokensData,
       admin: User
-  ): Fu[Map[User.ID, AccessToken]] =
-    userRepo.enabledNameds(setup.usernames) flatMap { users =>
+  ): Fu[Map[UserId, AccessToken]] =
+    userRepo.enabledByIds(setup.usernames) flatMap { users =>
       val scope = OAuthScope.Challenge.Write
       lila.common.Future
         .linear(users) { user =>
@@ -119,7 +117,7 @@ final class AccessTokenApi(
 
   def listClients(user: User, limit: Int): Fu[List[AccessTokenApi.Client]] =
     coll.aggregateList(limit) { framework =>
-      import framework._
+      import framework.*
       Match(
         $doc(
           F.userId       -> user.id,
@@ -139,7 +137,7 @@ final class AccessTokenApi(
         doc    <- docs
         origin <- doc.getAsOpt[String]("_id")
         usedAt = doc.getAsOpt[DateTime](F.usedAt)
-        scopes <- doc.getAsOpt[List[OAuthScope]](F.scopes)
+        scopes <- doc.getAsOpt[List[OAuthScope]](F.scopes)(using collectionReader)
       } yield AccessTokenApi.Client(origin, usedAt, scopes)
     }
 
@@ -151,7 +149,7 @@ final class AccessTokenApi(
           F.userId -> user.id
         )
       )
-      .map(_ => invalidateCached(id))
+      .void >>- onRevoke(id)
 
   def revokeByClientOrigin(clientOrigin: String, user: User): Funit =
     coll
@@ -173,13 +171,12 @@ final class AccessTokenApi(
               F.clientOrigin -> clientOrigin
             )
           )
-          .map(_ => invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)).foreach(invalidateCached))
+          .map(_ => invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)).foreach(onRevoke))
       }
 
-  def revoke(bearer: Bearer) = {
-    val id = AccessToken.Id.from(bearer)
-    coll.delete.one($id(id)).map(_ => invalidateCached(id))
-  }
+  def revoke(bearer: Bearer) =
+    val id = AccessToken.Id from bearer
+    coll.delete.one($id(id)) >>- onRevoke(id)
 
   def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
 
@@ -201,20 +198,19 @@ final class AccessTokenApi(
     }
 
   private def fetchAccessToken(id: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
-    coll.ext.findAndUpdate[AccessToken.ForAuth](
+    coll.findAndUpdateSimplified[AccessToken.ForAuth](
       selector = $id(id),
       update = $set(F.usedAt -> DateTime.now()),
       fields = AccessToken.forAuthProjection.some
     )
 
-  private def invalidateCached(id: AccessToken.Id): Unit =
+  private def onRevoke(id: AccessToken.Id): Unit =
     accessTokenCache.put(id, fuccess(none))
-}
+    lila.common.Bus.publish(TokenRevoke(id.value), "oauth")
 
-object AccessTokenApi {
+object AccessTokenApi:
   case class Client(
       origin: String,
       usedAt: Option[DateTime],
       scopes: List[OAuthScope]
   )
-}

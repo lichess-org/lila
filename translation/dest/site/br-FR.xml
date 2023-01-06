@@ -258,7 +258,7 @@
   <string name="rematchOfferCanceled">Kinnig c\'hoari en-dro nullet</string>
   <string name="rematchOfferDeclined">Kinnig c\'hoari en-dro nac\'het</string>
   <string name="cancelRematchOffer">Nullañ ar c\'hinnig c\'hoari en-dro</string>
-  <string name="viewRematch">Gwelet an dial</string>
+  <string name="viewRematch">Gwelet an digoll</string>
   <string name="confirmMove">Kadarnaat ar fiñvadenn</string>
   <string name="play">C\'hoari</string>
   <string name="inbox">Boest lizhiri</string>
@@ -393,9 +393,11 @@
   <string name="apply">Enrollañ</string>
   <string name="save">Saveteiñ</string>
   <string name="leaderboard">Taolenn ar re varrekañ</string>
+  <string name="screenshotCurrentPosition">Kaout al lec\'hiadur a vremañ</string>
   <string name="gameAsGIF">Krogad e stumm GIF</string>
   <string name="pasteTheFenStringHere">Pegañ an destenn FEN amañ</string>
   <string name="pasteThePgnStringHere">Pegañ an destenn PGN amañ</string>
+  <string name="orUploadPgnFile">Pe pellkargañ ur restr PGN</string>
   <string name="fromPosition">Kregiñ gant ul lec\'hiadur ispisial</string>
   <string name="continueFromHere">Kenderc\'hel adalek amañ</string>
   <string name="toStudy">Studiañ</string>
@@ -486,6 +488,8 @@
   <string name="tournamentIsStarting">Emañ an tournamant o kregiñ</string>
   <string name="tournamentPairingsAreNowClosed">Echu eo koubladegoù an tournamant.</string>
   <string name="standByX">Gortozit %s, o koublañ ar c\'hoarierien, bezit prest!</string>
+  <string name="pause">Ehan</string>
+  <string name="resume">Adkregiñ</string>
   <string name="youArePlaying">O c\'hoari emaoc\'h!</string>
   <string name="winRate">Feur trec\'hiñ</string>
   <string name="berserkRate">Feur berserk</string>
@@ -635,6 +639,8 @@
   <string name="error.email_acceptable">Ne c\'hall ket bet degemeret ar chomlec\'h postel-mañ. Gwiriit anezhañ mar plij, ha klaskit en-dro.</string>
   <string name="error.email_unique">Chomlec\'h postel fazius pe implijet dija</string>
   <string name="error.email_different">Ho chomlec\'h postel an hini eo dija</string>
+  <string name="error.min">A rank bezañ %s da nebeutañ</string>
+  <string name="error.max">A rank bezañ %s da vuiañ</string>
   <string name="ifRatingIsPlusMinusX">Ma \'z eo ar renkadur ± %s</string>
   <string name="onlyFriends">Mignoned hepken</string>
   <string name="menu">Lañser</string>
@@ -896,11 +902,17 @@
   <string name="youCannotPostYetPlaySomeGames">Ne c\'hallit ket skrivañ ur gemennadenn war ar foromoù evit poent. C\'hoarit un tamm a-raok!</string>
   <string name="subscribe">Heuliañ</string>
   <string name="unsubscribe">Paouez da heuliañ</string>
+  <string name="xMentionedYouInY">Meneget oc’h bet gant %1$s e \"%2$s\".</string>
+  <string name="invitedYouToX">en deus pedet ac’hanoc’h da \"%1$s\".</string>
+  <string name="xInvitedYouToY">Pedet oc’h bet gant %1$s da \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ezel eus ar skipailh oc’h bremañ.</string>
+  <string name="someoneYouReportedWasBanned">Skarzhet eo bet kuit unan bennak ho peus savet klemm outañ</string>
   <string name="congratsYouWon">Gourc’hemennoù, aet eo ar maout ganeoc’h!</string>
   <string name="clickToRevealEmailAddress">[Klikit da ziskouez ar chomlec’h postel]</string>
+  <string name="download">Pellgargañ</string>
   <string name="welcome">Degemer mat!</string>
   <string name="cancelTournament">Nullañ an tournamant</string>
+  <string name="onlyMembersOfTeam">Izili ar skipailh hepken</string>
   <string name="reopenYourAccount">Addigeriñ ho kont</string>
   <string name="closedAccountChangedMind">M\'ho peus serret ho kont, met cheñchet ho soñj ganeoc\'h, ho peus un tu da gaout ho kont en dro.</string>
   <string name="onlyWorksOnce">Ur wech e yelo en dro an dra se nemetken.</string>

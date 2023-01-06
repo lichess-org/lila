@@ -143,4 +143,7 @@
     <item quantity="one">%s adlaw</item>
     <item quantity="other">%s mga adlaw</item>
   </plurals>
+  <string name="passwordReset">I-reset ang password</string>
+  <string name="forgotPassword">Nalimutan ang password?</string>
+  <string name="cancel">Kanselahin</string>
 </resources>

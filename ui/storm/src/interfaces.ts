@@ -21,8 +21,6 @@ export interface StormVm {
   dupTab?: boolean;
   signed: Prop<string | undefined>;
   lateStart: boolean;
-  filterFailed: boolean;
-  filterSlow: boolean;
 }
 
 export interface DailyBest {

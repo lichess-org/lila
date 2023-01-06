@@ -2,15 +2,15 @@
 <resources>
   <string name="keyboardInputCommands">ကီးဘုတ်မှ ရိုက်နိုင်သည့် အမိန့်များ</string>
   <string name="performAMove">ရွှေ့ကွက် တစ်ခု ရွှေ့ပါ</string>
-  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">အရုပ်ကို e2 မှ e4 သို့ ရွှေ့ပါ</string>
-  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">နိုက်ကို c3 သို့ ရွှေ့ပါ</string>
+  <string name="movePieceFromE2ToE4">အရုပ်ကို e2 မှ e4 သို့ ရွှေ့ပါ</string>
+  <string name="moveKnightToC3">နိုက်ကို c3 သို့ ရွှေ့ပါ</string>
   <string name="kingsideCastle">ကင်းဘက်ခြမ်း ကာဆလ်</string>
   <string name="queensideCastle">ကွင်းဘက်ခြမ်း ကာဆလ်</string>
   <string name="promoteC8ToQueen">c8 တွင် ရာထူးတိုး ကွင်းယူပါ</string>
-  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">b4 တွင် ရွခ် တစ်လုံး ထည့်ပါ (Crazyhouse နည်းကွဲသာ)</string>
+  <string name="dropARookAtB4">b4 တွင် ရွခ် တစ်လုံး ထည့်ပါ (Crazyhouse နည်းကွဲသာ)</string>
   <string name="offerOrAcceptDraw">သရေ ကမ်းလှမ်း/လက်ခံပါ</string>
   <string name="readOutClocks">အချိန်မှတ်နာရီ ဖတ်ပြပါ</string>
-  <string name="readOutOpponentName" comment="readOutOpponentName&#10;&#10;Press a button on the keyboard to hear the opponent's name aloud. The feature is most useful for blind players.">ပြိုင်ဘက် အမည်ကို အသံထွက် ဖတ်ပြပါ</string>
+  <string name="readOutOpponentName">ပြိုင်ဘက် အမည်ကို အသံထွက် ဖတ်ပြပါ</string>
   <string name="otherCommands">အခြား အမိန့်များ</string>
   <string name="tips">အကြံပြုချက်များ</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">အထက်ပါ ရွှေ့ကွက် သင်္ကေတနှင့် မရင်းနှီးလျှင် ဤနေရာတွင် ထပ်လေ့လာပါ-</string>

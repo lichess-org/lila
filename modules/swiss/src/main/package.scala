@@ -1,16 +1,22 @@
-package lila
+package lila.swiss
 
 import lila.user.User
+export lila.Lila.{ *, given }
 
-package object swiss extends PackageObject {
+val lichessTeamId = TeamId("lichess-swiss")
 
-  val lichessTeamId = "lichess-swiss"
+type Ranking = Map[UserId, Rank]
 
-  type Ranking = Map[lila.user.User.ID, Int]
+private val logger = lila.log("swiss")
 
-  private[swiss] val logger = lila.log("swiss")
+// FIDE TRF player IDs
+private type PlayerIds = Map[UserId, Int]
+private type IdPlayers = Map[Int, UserId]
 
-  // FIDE TRF player IDs
-  private[swiss] type PlayerIds = Map[User.ID, Int]
-  private[swiss] type IdPlayers = Map[Int, User.ID]
-}
+opaque type SwissPoints = Int
+object SwissPoints:
+  def fromDouble(d: Int): SwissPoints = d
+  extension (p: SwissPoints)
+    def doubled: Int      = p
+    def value: Float      = p / 2f
+    def +(o: SwissPoints) = SwissPoints.doubled(p + o)

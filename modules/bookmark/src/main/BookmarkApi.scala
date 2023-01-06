@@ -1,22 +1,22 @@
 package lila.bookmark
 
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo }
 import lila.user.User
 
-case class Bookmark(game: lila.game.Game, user: lila.user.User)
+case class Bookmark(game: Game, user: User)
 
 final class BookmarkApi(
     coll: Coll,
     gameRepo: GameRepo,
     gameProxyRepo: lila.round.GameProxyRepo,
     paginator: PaginatorBuilder
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using scala.concurrent.ExecutionContext):
 
-  private def exists(gameId: Game.ID, userId: User.ID): Fu[Boolean] =
+  private def exists(gameId: GameId, userId: UserId): Fu[Boolean] =
     coll exists selectId(gameId, userId)
 
   def exists(game: Game, user: User): Fu[Boolean] =
@@ -26,23 +26,23 @@ final class BookmarkApi(
   def exists(game: Game, user: Option[User]): Fu[Boolean] =
     user.?? { exists(game, _) }
 
-  def filterGameIdsBookmarkedBy(games: Seq[Game], user: Option[User]): Fu[Set[Game.ID]] =
+  def filterGameIdsBookmarkedBy(games: Seq[Game], user: Option[User]): Fu[Set[GameId]] =
     user ?? { u =>
       val candidateIds = games collect { case g if g.bookmarks > 0 => g.id }
       candidateIds.nonEmpty ??
         coll.secondaryPreferred
-          .distinctEasy[Game.ID, Set]("g", userIdQuery(u.id) ++ $doc("g" $in candidateIds))
+          .distinctEasy[GameId, Set]("g", userIdQuery(u.id) ++ $doc("g" $in candidateIds))
     }
 
-  def removeByGameId(gameId: Game.ID): Funit =
+  def removeByGameId(gameId: GameId): Funit =
     coll.delete.one($doc("g" -> gameId)).void
 
-  def removeByGameIds(gameIds: List[Game.ID]): Funit =
+  def removeByGameIds(gameIds: List[GameId]): Funit =
     coll.delete.one($doc("g" $in gameIds)).void
 
-  def remove(gameId: Game.ID, userId: User.ID): Funit = coll.delete.one(selectId(gameId, userId)).void
+  def remove(gameId: GameId, userId: UserId): Funit = coll.delete.one(selectId(gameId, userId)).void
 
-  def toggle(gameId: Game.ID, userId: User.ID): Funit =
+  def toggle(gameId: GameId, userId: UserId): Funit =
     exists(gameId, userId) flatMap { e =>
       (if (e) remove(gameId, userId) else add(gameId, userId, DateTime.now)) inject !e
     } flatMap { bookmarked =>
@@ -56,7 +56,7 @@ final class BookmarkApi(
 
   def gamePaginatorByUser(user: User, page: Int) = paginator.byUser(user, page)
 
-  private def add(gameId: Game.ID, userId: User.ID, date: DateTime): Funit =
+  private def add(gameId: GameId, userId: UserId, date: DateTime): Funit =
     coll.insert
       .one(
         $doc(
@@ -68,7 +68,6 @@ final class BookmarkApi(
       )
       .void
 
-  private def userIdQuery(userId: User.ID)               = $doc("u" -> userId)
-  private def makeId(gameId: Game.ID, userId: User.ID)   = s"$gameId$userId"
-  private def selectId(gameId: Game.ID, userId: User.ID) = $id(makeId(gameId, userId))
-}
+  private def userIdQuery(userId: UserId)              = $doc("u" -> userId)
+  private def makeId(gameId: GameId, userId: UserId)   = s"$gameId$userId"
+  private def selectId(gameId: GameId, userId: UserId) = $id(makeId(gameId, userId))

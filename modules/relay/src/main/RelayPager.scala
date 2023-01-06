@@ -4,13 +4,13 @@ import reactivemongo.api.ReadPreference
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
-final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(implicit
+final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def inactive(page: Int): Fu[Paginator[RelayTour.WithLastRound]] =
     Paginator(
@@ -21,7 +21,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(impli
         def slice(offset: Int, length: Int): Fu[List[RelayTour.WithLastRound]] =
           tourRepo.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-              import framework._
+              import framework.*
               Match(tourRepo.selectors.officialInactive) -> List(
                 Sort(Descending("syncedAt")),
                 PipelineOperator(
@@ -53,4 +53,3 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(impli
       currentPage = page,
       maxPerPage = MaxPerPage(20)
     )
-}

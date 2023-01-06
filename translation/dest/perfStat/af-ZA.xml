@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="perfStats">%s statestiek</string>
+  <string name="perfStats">%s statistiek</string>
   <string name="viewTheGames">Bekyk die spelle</string>
   <string name="provisional">voorlopig</string>
   <string name="notEnoughRatedGames">Nie genoeg gegradeerde spelle is gespeel om \'n betroubare gradering te vestig nie.</string>
   <string name="progressOverLastXGames">Vordering oor die laaste %s spelle:</string>
   <string name="ratingDeviation">Gradering afwyking: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">\'n Laer waarde beteken dat die gradering is meer stabiel. Bo %1$s, word die gradering as voorlopig beskou. Om ingesluit te wees in die ranglys moet hierdie waarde of onder %2$s (standaard skaak) of onder %3$s (variante) wees.</string>
   <string name="totalGames">Totale spelle</string>
   <string name="ratedGames">Gegradeerde spelle</string>
   <string name="tournamentGames">Toernooi spelle</string>

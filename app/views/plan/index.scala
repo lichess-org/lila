@@ -4,14 +4,14 @@ import controllers.routes
 import java.util.Currency
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 
-object index {
+object index:
 
-  import trans.patron._
+  import trans.patron.*
 
   private[plan] val stripeScript = script(src := "https://js.stripe.com/v3/")
 
@@ -22,11 +22,11 @@ object index {
       stripePublicKey: String,
       payPalPublicKey: String,
       patron: Option[lila.plan.Patron],
-      recentIds: List[String],
-      bestIds: List[String],
+      recentIds: List[UserId],
+      bestIds: List[UserId],
       pricing: lila.plan.PlanPricing,
       methods: Set[String]
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
     val localeParam = lila.plan.PayPalClient.locale(ctx.lang) ?? { l => s"&locale=$l" }
     views.html.base.layout(
       title = becomePatron.txt(),
@@ -73,7 +73,7 @@ object index {
             div(cls := "banner one_time_active")(
               iconTag(patronIconChar),
               div(
-                h1(thankYou()),
+                h1(cls := "box__top")(thankYou()),
                 if (p.isLifetime) youHaveLifetime()
                 else
                   p.expiresAt.map { expires =>
@@ -89,7 +89,7 @@ object index {
           } getOrElse div(cls := "banner moto")(
             iconTag(patronIconChar),
             div(
-              h1(freeChess()),
+              h1(cls := "box__top")(freeChess()),
               p(noAdsNoSubs())
             ),
             iconTag(patronIconChar)
@@ -222,7 +222,7 @@ object index {
                         a(
                           cls  := "button",
                           href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
-                        )("Log in to donate")
+                        )(logInToDonate())
                     ),
                     ctx.isAuth option div(cls := "other-choices")(
                       a(cls := "currency-toggle")(trans.patron.changeCurrency()),
@@ -260,7 +260,6 @@ object index {
         )
       )
     }
-  }
 
   private def showCurrency(cur: Currency)(implicit ctx: Context) =
     s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"
@@ -270,7 +269,7 @@ object index {
       dl(
         dt(whereMoneyGoes()),
         dd(
-          serversAndDeveloper(userIdLink("thibault".some)),
+          serversAndDeveloper(userIdLink(UserId("thibault").some)),
           br,
           a(href := routes.Main.costs, targetBlank)(costBreakdown()),
           "."
@@ -290,14 +289,14 @@ object index {
         ),
         dt(otherMethods()),
         dd(
-          "Lichess is ",
-          a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("registered with Benevity"),
-          ".",
+          lichessIsRegisteredWith(
+            a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("Benevity")
+          ),
           br,
           views.html.site.contact.contactEmailLinkEmpty()(bankTransfers()),
           ".",
           br,
-          strong("Please note that only the donation form above will grant the Patron status.")
+          strong(onlyDonationFromAbove())
         )
       ),
       dl(
@@ -310,4 +309,3 @@ object index {
         )
       )
     )
-}

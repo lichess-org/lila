@@ -1,15 +1,15 @@
 package lila.plan
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
-import com.softwaremill.tagging._
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.Strings
-import lila.memo.SettingStore.Strings._
+import lila.memo.SettingStore.Strings.given
+import lila.db.dsl.Coll
 
 @Module
 private class PlanConfig(
@@ -31,12 +31,13 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
-    settingStore: lila.memo.SettingStore.Builder
-)(implicit
+    settingStore: lila.memo.SettingStore.Builder,
+    ip2proxy: lila.security.Ip2Proxy
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     mode: play.api.Mode
-) {
+):
 
   private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)
 
@@ -55,8 +56,10 @@ final class Env(
     text = "Stripe payment methods, separated by commas".some
   )
 
-  private lazy val patronColl = db(config.patronColl).taggedWith[PatronColl]
-  private lazy val chargeColl = db(config.chargeColl).taggedWith[ChargeColl]
+  private lazy val mongo = PlanMongo(
+    patron = db(config.patronColl),
+    charge = db(config.chargeColl)
+  )
 
   lazy val stripePaymentMethods: StripePaymentMethods = wire[StripePaymentMethods]
 
@@ -74,7 +77,7 @@ final class Env(
 
   private lazy val monthlyGoalApi = new MonthlyGoalApi(
     getGoal = () => Usd(donationGoalSetting.get()),
-    chargeColl = chargeColl
+    chargeColl = mongo.charge
   )
 
   lazy val api: PlanApi = wire[PlanApi]
@@ -83,7 +86,7 @@ final class Env(
 
   private lazy val expiration = new Expiration(
     userRepo,
-    patronColl,
+    mongo.patron,
     notifier
   )
 
@@ -91,18 +94,18 @@ final class Env(
     expiration.run.unit
   }
 
-  def cli =
-    new lila.common.Cli {
-      def process = {
-        case "patron" :: "lifetime" :: user :: Nil =>
-          userRepo named user flatMap { _ ?? api.setLifetime } inject "ok"
-        case "patron" :: "month" :: user :: Nil =>
-          userRepo named user flatMap { _ ?? api.freeMonth } inject "ok"
-        case "patron" :: "remove" :: user :: Nil =>
-          userRepo named user flatMap { _ ?? api.remove } inject "ok"
-      }
-    }
-}
+  lila.common.Bus.subscribeFun("email") { case lila.hub.actorApi.user.ChangeEmail(userId, email) =>
+    api.onEmailChange(userId, email).unit
+  }
 
-private trait PatronColl
-private trait ChargeColl
+  def cli =
+    new lila.common.Cli:
+      def process =
+        case "patron" :: "lifetime" :: user :: Nil =>
+          userRepo byId UserStr(user) flatMap { _ ?? api.setLifetime } inject "ok"
+        case "patron" :: "month" :: user :: Nil =>
+          userRepo byId UserStr(user) flatMap { _ ?? api.freeMonth } inject "ok"
+        case "patron" :: "remove" :: user :: Nil =>
+          userRepo byId UserStr(user) flatMap { _ ?? api.remove } inject "ok"
+
+final private class PlanMongo(val patron: Coll, val charge: Coll)

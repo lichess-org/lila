@@ -1,18 +1,17 @@
 package lila.tutor
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import chess.Color
-import com.softwaremill.tagging._
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.{ ExecutionContext, Future }
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.IpAddress
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.fishnet.{ Analyser, FishnetAwaiter }
 import lila.insight.{
-  Answer => InsightAnswer,
+  Answer as InsightAnswer,
   Cluster,
   Filter,
   Insight,
@@ -34,17 +33,17 @@ final private class TutorBuilder(
     perfStatsApi: InsightPerfStatsApi,
     userRepo: UserRepo,
     fishnet: TutorFishnet,
-    reportColl: Coll @@ ReportColl
-)(implicit ec: ExecutionContext) {
+    reportColl: Coll
+)(using ec: ExecutionContext):
 
-  import TutorBsonHandlers._
-  import TutorBuilder._
-  implicit private val insightApiImplicit = insightApi
+  import TutorBsonHandlers.given
+  import TutorBuilder.*
+  private given InsightApi = insightApi
 
   val maxTime = fishnet.maxTime + 3.minutes
 
-  def apply(userId: User.ID): Fu[Option[TutorFullReport]] = for {
-    user     <- userRepo named userId orFail s"No such user $userId"
+  def apply(userId: UserId): Fu[Option[TutorFullReport]] = for {
+    user     <- userRepo byId userId orFail s"No such user $userId"
     hasFresh <- hasFreshReport(user)
     report <- !hasFresh ?? {
       val chrono = lila.common.Chronometer.lapTry(produce(user))
@@ -52,21 +51,19 @@ final private class TutorBuilder(
       for {
         lap    <- chrono.lap
         report <- Future fromTry lap.result
-        doc = reportHandler.writeOpt(report).get ++ $doc(
+        doc = bsonWriteObjTry(report).get ++ $doc(
           "_id"    -> s"${report.user}:${dateFormatter print report.at}",
           "millis" -> lap.millis
         )
         _ <- reportColl.insert.one(doc).void
       } yield report.some
     }
-  } yield report
+  } yield none
 
   private def produce(user: User): Fu[TutorFullReport] = for {
     _ <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")
     perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider)
-      .monSuccess(
-        _.tutor buildSegment "perf-stats"
-      )
+      .monSuccess(_.tutor buildSegment "perf-stats")
     tutorUsers = perfStats
       .map { case (pt, stats) => TutorUser(user, pt, stats.stats) }
       .toList
@@ -80,7 +77,7 @@ final private class TutorBuilder(
       user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(2))
     }
 
-  private def hasFreshReport(user: User) = reportColl.exists(
+  private def hasFreshReport(user: User): Fu[Boolean] = reportColl.exists(
     $doc(
       TutorFullReport.F.user -> user.id,
       TutorFullReport.F.at $gt DateTime.now.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
@@ -88,9 +85,8 @@ final private class TutorBuilder(
   )
 
   private val dateFormatter = org.joda.time.format.DateTimeFormat forPattern "yyyy-MM-dd"
-}
 
-private object TutorBuilder {
+private object TutorBuilder:
 
   type Value = Double
   type Count = Int
@@ -98,19 +94,19 @@ private object TutorBuilder {
 
   val peerNbGames = config.Max(5_000)
 
-  def answerMine[Dim](question: Question[Dim], user: TutorUser)(implicit
+  def answerMine[Dim](question: Question[Dim], user: TutorUser)(using
       insightApi: InsightApi,
       ec: ExecutionContext
   ): Fu[AnswerMine[Dim]] = insightApi
     .ask(question filter perfFilter(user.perfType), user.user, withPovs = false)
-    .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key)) map AnswerMine.apply
+    .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key.value)) map AnswerMine.apply
 
-  def answerPeer[Dim](question: Question[Dim], user: TutorUser, nbGames: config.Max = peerNbGames)(implicit
+  def answerPeer[Dim](question: Question[Dim], user: TutorUser, nbGames: config.Max = peerNbGames)(using
       insightApi: InsightApi,
       ec: ExecutionContext
   ): Fu[AnswerPeer[Dim]] = insightApi
     .askPeers(question filter perfFilter(user.perfType), user.perfStats.rating, nbGames = nbGames)
-    .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key)) map AnswerPeer.apply
+    .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key.value)) map AnswerPeer.apply
 
   def answerBoth[Dim](question: Question[Dim], user: TutorUser, nbPeerGames: config.Max = peerNbGames)(
       implicit
@@ -121,7 +117,7 @@ private object TutorBuilder {
     peer <- answerPeer(question, user, nbPeerGames)
   } yield Answers(mine, peer)
 
-  def answerManyPerfs[Dim](question: Question[Dim], tutorUsers: NonEmptyList[TutorUser])(implicit
+  def answerManyPerfs[Dim](question: Question[Dim], tutorUsers: NonEmptyList[TutorUser])(using
       insightApi: InsightApi,
       ec: ExecutionContext
   ): Fu[Answers[Dim]] = for {
@@ -136,32 +132,29 @@ private object TutorBuilder {
     peer = AnswerPeer(InsightAnswer(question, peerByPerf.flatMap(_.answer.clusters), Nil))
   } yield Answers(mine, peer)
 
-  sealed abstract class Answer[Dim](answer: InsightAnswer[Dim]) {
+  sealed abstract class Answer[Dim](answer: InsightAnswer[Dim]):
 
     val list: List[(Dim, Pair)] =
       answer.clusters.view.collect { case Cluster(dimension, Insight.Single(point), nbGames, _) =>
-        (dimension, ValueCount(point.y, nbGames))
+        (dimension, ValueCount(point.value, nbGames))
       }.toList
 
     lazy val map: Map[Dim, Pair] = list.toMap
 
-    def get = map.get _
+    def get = map.get
 
     def dimensions = list.map(_._1)
 
     def alignedQuestion = answer.question filter Filter(answer.question.dimension, dimensions)
-  }
   case class AnswerMine[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)
   case class AnswerPeer[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)
 
-  case class Answers[Dim](mine: AnswerMine[Dim], peer: AnswerPeer[Dim]) {
+  case class Answers[Dim](mine: AnswerMine[Dim], peer: AnswerPeer[Dim]):
 
     def valueMetric(dim: Dim, myValue: Pair) = TutorBothValues(myValue, peer.get(dim))
 
     def valueMetric(dim: Dim) = TutorBothValueOptions(mine.get(dim), peer.get(dim))
-  }
 
   def colorFilter(color: Color)                  = Filter(InsightDimension.Color, List(color))
   def perfFilter(perfType: PerfType)             = Filter(InsightDimension.Perf, List(perfType))
   def perfsFilter(perfTypes: Iterable[PerfType]) = Filter(InsightDimension.Perf, perfTypes.toList)
-}

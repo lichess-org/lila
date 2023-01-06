@@ -1,20 +1,20 @@
 package lila.insight
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 import lila.common.config
 
-final private class AggregationPipeline(store: InsightStorage)(implicit
+final private class AggregationPipeline(store: InsightStorage)(using
     ec: scala.concurrent.ExecutionContext
-) {
-  import InsightStorage._
-  import BSONHandlers._
+):
+  import InsightStorage.*
+  import BSONHandlers.given
 
   val maxGames = config.Max(10_000)
 
-  def gameMatcher(filters: List[Filter[_]]) = combineDocs(filters.collect {
+  def gameMatcher(filters: List[Filter[?]]) = combineDocs(filters.collect {
     case f if f.dimension.isInGame => f.matcher
   })
 
@@ -29,10 +29,10 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
         maxDocs = Int.MaxValue,
         allowDiskUse = true
       ) { implicit framework =>
-        import framework._
+        import framework.*
         import question.{ dimension, filters, metric }
-        import lila.insight.{ InsightDimension => D, InsightMetric => M }
-        import InsightEntry.{ BSONFields => F }
+        import lila.insight.{ InsightDimension as D, InsightMetric as M }
+        import InsightEntry.{ BSONFields as F }
 
         val limitGames     = Limit(nbGames.value)
         val sortDate       = target.isLeft ?? List(Sort(Descending(F.date)))
@@ -42,12 +42,12 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
         def limit(nb: Int) = Limit(nb).some
 
         def groupOptions(identifiers: pack.Value)(ops: (String, Option[GroupFunction])*) =
-          Group(identifiers)(ops.collect { case (k, Some(f)) => k -> f }: _*)
+          Group(identifiers)(ops.collect { case (k, Some(f)) => k -> f }*)
         def groupFieldOptions(idField: String)(ops: (String, Option[GroupFunction])*) =
-          GroupField(idField)(ops.collect { case (k, Some(f)) => k -> f }: _*)
+          GroupField(idField)(ops.collect { case (k, Some(f)) => k -> f }*)
         def bucketAutoOptions(groupBy: pack.Value, buckets: Int, granularity: Option[String])(
             output: (String, Option[GroupFunction])*
-        ) = BucketAuto(groupBy, buckets, granularity)(output.collect { case (k, Some(f)) => k -> f }: _*)
+        ) = BucketAuto(groupBy, buckets, granularity)(output.collect { case (k, Some(f)) => k -> f }*)
 
         val regroupStacked = groupFieldOptions("_id.dimension")(
           "nb"    -> SumField("v").some,
@@ -135,9 +135,9 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
             )
           }
         lazy val timeVarianceIdDispatcher =
-          TimeVariance.all.reverse
+          TimeVariance.values.reverse
             .drop(1)
-            .foldLeft[BSONValue](BSONInteger(TimeVariance.VeryVariable.intFactored)) { case (acc, tvi) =>
+            .foldLeft[BSONValue](BSONInteger(TimeVariance.VeryVariable.intFactored)) { (acc, tvi) =>
               $doc(
                 "$cond" -> $arr(
                   $doc("$lte" -> $arr("$" + F.moves("v"), tvi.intFactored)),
@@ -146,8 +146,8 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 )
               )
             }
-        def dimensionGroupId(dim: InsightDimension[_]): BSONValue =
-          dim match {
+        def dimensionGroupId(dim: InsightDimension[?]): BSONValue =
+          dim match
             case InsightDimension.MovetimeRange        => movetimeIdDispatcher
             case InsightDimension.CplRange             => cplIdDispatcher
             case InsightDimension.AccuracyPercentRange => accuracyPercentDispatcher
@@ -157,17 +157,13 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
             case InsightDimension.TimeVariance         => timeVarianceIdDispatcher
             case InsightDimension.ClockPercentRange    => clockPercentDispatcher
             case d                                     => BSONString("$" + d.dbKey)
-          }
-        sealed trait Grouping
-        object Grouping {
-          object Group                                                            extends Grouping
-          case class BucketAuto(buckets: Int, granularity: Option[String] = None) extends Grouping
-        }
-        def dimensionGrouping(dim: InsightDimension[_]): Grouping =
-          dim match {
+        enum Grouping:
+          case Group
+          case BucketAuto(buckets: Int, granularity: Option[String] = None)
+        def dimensionGrouping(dim: InsightDimension[?]): Grouping =
+          dim match
             case D.Date => Grouping.BucketAuto(buckets = 12)
             case _      => Grouping.Group
-          }
 
         val gameIdsSlice       = withPovs option $doc("ids" -> $doc("$slice" -> $arr("$ids", 4)))
         val includeSomeGameIds = gameIdsSlice map AddFields.apply
@@ -175,7 +171,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
         val ratioToPercent     = $doc("v" -> $multiply(100, "$v"))
         val bsonRatioToPercent = $doc("v" -> $divide("$v", ratioBsonMultiplier / 100))
 
-        def group(d: InsightDimension[_], f: GroupFunction): List[Option[PipelineOperator]] =
+        def group(d: InsightDimension[?], f: GroupFunction): List[Option[PipelineOperator]] =
           List(dimensionGrouping(d) match {
             case Grouping.Group =>
               groupOptions(dimensionGroupId(d))(
@@ -191,7 +187,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
               )
           }) map some
 
-        def groupMulti(d: InsightDimension[_], metricDbKey: String): List[Option[PipelineOperator]] =
+        def groupMulti(d: InsightDimension[?], metricDbKey: String): List[Option[PipelineOperator]] =
           dimensionGrouping(d) ap {
             case Grouping.Group =>
               List(
@@ -426,4 +422,3 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
         pipeline
       }
     }
-}

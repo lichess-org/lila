@@ -1,38 +1,38 @@
 package controllers
 
-import play.api.mvc._
-import scala.concurrent.duration._
-import scala.util.chaining._
+import play.api.mvc.*
+import scala.concurrent.duration.*
+import scala.util.chaining.*
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.game.Pov
-import lila.user.{ User => UserModel }
+import lila.user.{ User as UserModel }
 
 // both bot & board APIs
 final class PlayApi(
     env: Env,
     apiC: => Api
-)(implicit
+)(using
     mat: akka.stream.Materializer
-) extends LilaController(env) {
+) extends LilaController(env):
 
-  implicit private def autoReqLang(implicit req: RequestHeader) = reqLang(req)
+  private given (using req: RequestHeader): play.api.i18n.Lang = reqLang(req)
 
   // bot endpoints
 
-  def botGameStream(id: String) =
+  def botGameStream(id: GameAnyId) =
     Scoped(_.Bot.Play) { implicit req => me =>
       WithPovAsBot(id, me) { impl.gameStream(me, _) }
     }
 
-  def botMove(id: String, uci: String, offeringDraw: Option[Boolean]) =
+  def botMove(id: GameAnyId, uci: String, offeringDraw: Option[Boolean]) =
     Scoped(_.Bot.Play) { _ => me =>
       WithPovAsBot(id, me) { impl.move(me, _, uci, offeringDraw) }
     }
 
   def botCommand(cmd: String) =
     ScopedBody(_.Bot.Play) { implicit req => me =>
-      cmd.split('/') match {
+      cmd.split('/') match
         case Array("account", "upgrade") =>
           env.user.repo.isManaged(me.id) flatMap {
             case true => notFoundJson()
@@ -48,17 +48,16 @@ final class PlayApi(
                 }
           }
         case _ => impl.command(me, cmd)(WithPovAsBot)
-      }
     }
 
   // board endpoints
 
-  def boardGameStream(id: String) =
+  def boardGameStream(id: GameAnyId) =
     Scoped(_.Board.Play) { implicit req => me =>
       WithPovAsBoard(id, me) { impl.gameStream(me, _) }
     }
 
-  def boardMove(id: String, uci: String, offeringDraw: Option[Boolean]) =
+  def boardMove(id: GameAnyId, uci: String, offeringDraw: Option[Boolean]) =
     Scoped(_.Board.Play) { _ => me =>
       WithPovAsBoard(id, me) {
         impl.move(me, _, uci, offeringDraw)
@@ -71,7 +70,7 @@ final class PlayApi(
     }
 
   // common code for bot & board APIs
-  private object impl {
+  private object impl:
 
     def gameStream(me: UserModel, pov: Pov)(implicit req: RequestHeader) =
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
@@ -82,11 +81,11 @@ final class PlayApi(
       env.bot.player(pov, me, uci, offeringDraw) pipe toResult
 
     def command(me: UserModel, cmd: String)(
-        as: (String, UserModel) => (Pov => Fu[Result]) => Fu[Result]
-    )(implicit req: Request[_]): Fu[Result] =
-      cmd.split('/') match {
+        as: (GameAnyId, UserModel) => (Pov => Fu[Result]) => Fu[Result]
+    )(implicit req: Request[?]): Fu[Result] =
+      cmd.split('/') match
         case Array("game", id, "chat") =>
-          as(id, me) { pov =>
+          as(GameAnyId(id), me) { pov =>
             env.bot.form.chat
               .bindFromRequest()
               .fold(
@@ -95,47 +94,50 @@ final class PlayApi(
               ) pipe catchClientError
           }
         case Array("game", id, "abort") =>
-          as(id, me) { pov =>
+          as(GameAnyId(id), me) { pov =>
             env.bot.player.abort(pov) pipe toResult
           }
         case Array("game", id, "resign") =>
-          as(id, me) { pov =>
+          as(GameAnyId(id), me) { pov =>
             env.bot.player.resign(pov) pipe toResult
           }
         case Array("game", id, "draw", bool) =>
-          as(id, me) { pov =>
+          as(GameAnyId(id), me) { pov =>
             fuccess(env.bot.player.setDraw(pov, lila.common.Form.trueish(bool))) pipe toResult
           }
         case Array("game", id, "takeback", bool) =>
-          as(id, me) { pov =>
+          as(GameAnyId(id), me) { pov =>
             fuccess(env.bot.player.setTakeback(pov, lila.common.Form.trueish(bool))) pipe toResult
           }
         case Array("game", id, "claim-victory") =>
-          as(id, me) { pov =>
+          as(GameAnyId(id), me) { pov =>
             env.bot.player.claimVictory(pov) pipe toResult
           }
+        case Array("game", id, "berserk") =>
+          as(GameAnyId(id), me) { pov =>
+            fuccess {
+              if (env.bot.player.berserk(pov.game, me)) jsonOkResult
+              else JsonBadRequest(jsonError("Cannot berserk"))
+            }
+          }
         case _ => notFoundJson("No such command")
-      }
-  }
 
   def boardCommandGet(cmd: String) =
     ScopedBody(_.Board.Play) { implicit req => me =>
-      cmd.split('/') match {
-        case Array("game", id, "chat") => WithPovAsBoard(id, me)(getChat)
+      cmd.split('/') match
+        case Array("game", id, "chat") => WithPovAsBoard(GameAnyId(id), me)(getChat)
         case _                         => notFoundJson("No such command")
-      }
     }
 
   def botCommandGet(cmd: String) =
     ScopedBody(_.Bot.Play) { implicit req => me =>
-      cmd.split('/') match {
-        case Array("game", id, "chat") => WithPovAsBot(id, me)(getChat)
+      cmd.split('/') match
+        case Array("game", id, "chat") => WithPovAsBot(GameAnyId(id), me)(getChat)
         case _                         => notFoundJson("No such command")
-      }
     }
 
   private def getChat(pov: Pov) =
-    env.chat.api.userChat.find(lila.chat.Chat.Id(pov.game.id)) map lila.chat.JsonView.boardApi map JsonOk
+    env.chat.api.userChat.find(ChatId(pov.game.id)) map lila.chat.JsonView.boardApi map JsonOk
 
   // utils
 
@@ -145,35 +147,34 @@ final class PlayApi(
       BadRequest(jsonError(e.getMessage))
     }
 
-  private def WithPovAsBot(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
+  private def WithPovAsBot(anyId: GameAnyId, me: UserModel)(f: Pov => Fu[Result]) =
     WithPov(anyId, me) { pov =>
       if (me.noBot)
         BadRequest(
           jsonError(
             "This endpoint can only be used with a Bot account. See https://lichess.org/api#operation/botAccountUpgrade"
           )
-        ).fuccess
+        ).toFuccess
       else if (!lila.game.Game.isBotCompatible(pov.game))
-        BadRequest(jsonError("This game cannot be played with the Bot API.")).fuccess
+        BadRequest(jsonError("This game cannot be played with the Bot API.")).toFuccess
       else f(pov)
     }
 
-  private def WithPovAsBoard(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
+  private def WithPovAsBoard(anyId: GameAnyId, me: UserModel)(f: Pov => Fu[Result]) =
     WithPov(anyId, me) { pov =>
-      if (me.isBot) notForBotAccounts.fuccess
+      if (me.isBot) notForBotAccounts.toFuccess
       else if (!lila.game.Game.isBoardCompatible(pov.game))
-        BadRequest(jsonError("This game cannot be played with the Board API.")).fuccess
+        BadRequest(jsonError("This game cannot be played with the Board API.")).toFuccess
       else f(pov)
     }
 
-  private def WithPov(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
-    env.round.proxyRepo.game(lila.game.Game takeGameId anyId) flatMap {
-      case None => NotFound(jsonError("No such game")).fuccess
+  private def WithPov(anyId: GameAnyId, me: UserModel)(f: Pov => Fu[Result]) =
+    env.round.proxyRepo.game(lila.game.Game strToId anyId) flatMap {
+      case None => NotFound(jsonError("No such game")).toFuccess
       case Some(game) =>
-        Pov(game, me) match {
-          case None      => NotFound(jsonError("Not your game")).fuccess
+        Pov(game, me) match
+          case None      => NotFound(jsonError("Not your game")).toFuccess
           case Some(pov) => f(pov)
-        }
     }
 
   def botOnline =
@@ -184,13 +185,12 @@ final class PlayApi(
     }
 
   def botOnlineApi =
-    Action { implicit req =>
+    Action { (req: RequestHeader) =>
       apiC.jsonStream {
         env.user.repo
           .botsByIdsCursor(env.bot.onlineApiUsers.get)
           .documentSource(getInt("nb", req) | Int.MaxValue)
           .throttle(50, 1 second)
-          .map { env.user.jsonView.full(_, withOnline = false, withRating = true) }
-      }
+          .map { env.user.jsonView.full(_, withRating = true, withProfile = true) }
+      }(req)
     }
-}

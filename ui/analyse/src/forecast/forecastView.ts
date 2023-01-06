@@ -24,7 +24,7 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
       h('span', [
         h('strong', ctrl.trans('playX', fixCrazySan(cNodes[0].san))),
         lines.length
-          ? h('span', ctrl.trans.plural('andSaveNbPremoveLines', lines.length))
+          ? h('span', ctrl.trans.pluralSame('andSaveNbPremoveLines', lines.length))
           : h('span', ctrl.trans.noarg('noConditionalPremoves')),
       ]),
     ]

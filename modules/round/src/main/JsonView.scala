@@ -1,17 +1,18 @@
 package lila.round
 
 import actorApi.SocketStatus
-import chess.format.{ FEN, Forsyth }
+import chess.format.Fen
 import chess.{ Clock, Color }
-import play.api.libs.json._
+import play.api.libs.json.*
 import scala.math
 
 import lila.common.{ ApiVersion, LightUser }
-import lila.common.Json._
-import lila.game.JsonView._
-import lila.game.{ Game, Player => GamePlayer, Pov }
+import lila.common.Json.given
+import lila.game.JsonView.{ *, given }
+import lila.game.{ Game, Player as GamePlayer, Pov }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
+import lila.socket.SocketVersion.given
 
 final class JsonView(
     userRepo: UserRepo,
@@ -24,20 +25,29 @@ final class JsonView(
     divider: lila.game.Divider,
     evalCache: lila.evalCache.EvalCacheApi,
     isOfferingRematch: Pov => Boolean
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import JsonView._
+  import JsonView.{ *, given }
 
   private def checkCount(game: Game, color: Color) =
     (game.variant == chess.variant.ThreeCheck) option game.history.checkCount(color)
 
-  private def commonPlayerJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
+  private def commonPlayerJson(
+      g: Game,
+      p: GamePlayer,
+      user: Option[Either[LightUser.Ghost, User]],
+      withFlags: WithFlags
+  ): JsObject =
     Json
       .obj("color" -> p.color.name)
-      .add("user" -> user.map { userJsonView.roundPlayer(_, g.perfType, withRating = withFlags.rating) })
+      .add("user" -> user.map {
+        _.toOption.fold(userJsonView.ghost) { u =>
+          userJsonView.roundPlayer(u, g.perfType, withRating = withFlags.rating)
+        }
+      })
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
-      .add("provisional" -> (p.provisional && withFlags.rating))
+      .add("provisional" -> (p.provisional.yes && withFlags.rating))
       .add("offeringRematch" -> isOfferingRematch(Pov(g, p)))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
@@ -49,23 +59,23 @@ final class JsonView(
       pov: Pov,
       pref: Pref,
       apiVersion: ApiVersion,
-      playerUser: Option[User],
-      initialFen: Option[FEN],
+      playerUser: Option[Either[LightUser.Ghost, User]],
+      initialFen: Option[Fen.Epd],
       withFlags: WithFlags,
       nvui: Boolean
   ): Fu[JsObject] =
     getSocketStatus(pov.game) zip
-      (pov.opponent.userId ?? userRepo.byId) zip
+      (pov.opponent.userId ?? userRepo.byIdOrGhost) zip
       takebacker.isAllowedIn(pov.game) zip
       moretimer.isAllowedIn(pov.game) map { case (((socket, opponentUser), takebackable), moretimeable) =>
-        import pov._
+        import pov.*
         Json
           .obj(
             "game" -> gameJsonView(game, initialFen),
             "player" -> {
               commonPlayerJson(game, player, playerUser, withFlags) ++ Json.obj(
                 "id"      -> playerId,
-                "version" -> socket.version.value
+                "version" -> socket.version
               )
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> {
@@ -103,7 +113,7 @@ final class JsonView(
               .add("enablePremove" -> pref.premove)
               .add("showCaptured" -> pref.captured)
               .add("submitMove" -> {
-                import Pref.SubmitMove._
+                import Pref.SubmitMove.*
                 pref.submitMove match {
                   case _ if game.hasAi || nvui                            => false
                   case ALWAYS                                             => true
@@ -138,7 +148,7 @@ final class JsonView(
       .add("ai" -> p.aiLevel)
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
-      .add("provisional" -> (p.provisional && withFlags.rating))
+      .add("provisional" -> (p.provisional.yes && withFlags.rating))
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
       .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
@@ -149,12 +159,12 @@ final class JsonView(
       apiVersion: ApiVersion,
       me: Option[User],
       tv: Option[OnTv],
-      initialFen: Option[FEN] = None,
+      initialFen: Option[Fen.Epd] = None,
       withFlags: WithFlags
   ) =
     getSocketStatus(pov.game) zip
       userRepo.pair(pov.player.userId, pov.opponent.userId) map { case (socket, (playerUser, opponentUser)) =>
-        import pov._
+        import pov.*
         Json
           .obj(
             "game" -> gameJsonView(game, initialFen)
@@ -166,7 +176,7 @@ final class JsonView(
             "correspondence" -> game.correspondenceClock,
             "player" -> {
               commonWatcherJson(game, player, playerUser, withFlags) ++ Json.obj(
-                "version"   -> socket.version.value,
+                "version"   -> socket.version,
                 "spectator" -> true,
                 "id"        -> me.flatMap(game.player).map(_.id)
               )
@@ -196,24 +206,24 @@ final class JsonView(
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           )
           .add("evalPut" -> me.??(evalCache.shouldPut))
-          .add("tv" -> tv.collect { case OnLichessTv(channel, flip) =>
+          .add("tv" -> tv.collect { case OnTv.Lichess(channel, flip) =>
             Json.obj("channel" -> channel, "flip" -> flip)
           })
-          .add("userTv" -> tv.collect { case OnUserTv(userId) =>
+          .add("userTv" -> tv.collect { case OnTv.User(userId) =>
             Json.obj("id" -> userId)
           })
       }
 
-  def replayJson(pov: Pov, pref: Pref, initialFen: Option[FEN]) =
+  def replayJson(pov: Pov, pref: Pref, initialFen: Option[Fen.Epd]) =
     pov.game.whitePlayer.userId.??(lightUserGet) zip pov.game.blackPlayer.userId.??(lightUserGet) map {
       case (white, black) =>
-        import pov._
+        import pov.*
         import LightUser.lightUserWrites
         Json
           .obj(
             "game" -> {
               gameJsonView(game, initialFen) ++ Json.obj(
-                "pgn" -> pov.game.pgnMoves.mkString(" ")
+                "pgn" -> pov.game.sans.mkString(" ")
               )
             },
             "white"       -> Json.obj("user" -> white),
@@ -233,14 +243,14 @@ final class JsonView(
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
-      initialFen: Option[FEN],
+      initialFen: Option[Fen.Epd],
       orientation: chess.Color,
       owner: Boolean,
       me: Option[User],
       division: Option[chess.Division] = None
-  ) = {
-    import pov._
-    val fen = Forsyth >> game.chess
+  ) =
+    import pov.*
+    val fen = Fen write game.chess
     Json
       .obj(
         "game" -> Json
@@ -249,7 +259,7 @@ final class JsonView(
             "variant" -> game.variant,
             "opening" -> game.opening,
             "fen"     -> fen,
-            "turns"   -> game.turns,
+            "turns"   -> game.ply,
             "player"  -> game.turnColor.name,
             "status"  -> game.status
           )
@@ -279,16 +289,15 @@ final class JsonView(
         "userAnalysis" -> true
       )
       .add("evalPut" -> me.??(evalCache.shouldPut))
-  }
 
   private def blurs(game: Game, player: lila.game.Player) =
     player.blurs.nonEmpty option {
-      blursWriter.writes(player.blurs) +
+      Json.toJsObject(player.blurs) +
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))
     }
 
   private def clockJson(clock: Clock): JsObject =
-    clockWriter.writes(clock) + ("moretime" -> JsNumber(actorApi.round.Moretime.defaultDuration.toSeconds))
+    Json.toJsObject(clock) + ("moretime" -> JsNumber(actorApi.round.Moretime.defaultDuration.toSeconds))
 
   private def possibleMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =
     (pov.game playableBy pov.player) option
@@ -306,9 +315,8 @@ final class JsonView(
       if (pov.game.finished) 1
       else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
     }
-}
 
-object JsonView {
+object JsonView:
 
   case class WithFlags(
       opening: Boolean = false,
@@ -319,4 +327,3 @@ object JsonView {
       rating: Boolean = true,
       puzzles: Boolean = false
   )
-}

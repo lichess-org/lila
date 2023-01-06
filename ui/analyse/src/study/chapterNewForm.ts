@@ -9,7 +9,7 @@ import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { option } from '../util';
+import { option } from '../view/util';
 import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
 import { chapter as chapterTour } from './studyTour';
 import { importPgn, variants as xhrVariants } from './studyXhr';
@@ -293,7 +293,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
           activeTab === 'pgn'
             ? h('div.form-group', [
                 h('textarea#chapter-pgn.form-control', {
-                  attrs: { placeholder: trans.plural('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax) },
+                  attrs: { placeholder: trans.pluralSame('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax) },
                 }),
                 h(
                   'a.button.button-empty',

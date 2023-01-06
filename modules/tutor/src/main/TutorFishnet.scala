@@ -1,7 +1,7 @@
 package lila.tutor
 
-import com.softwaremill.tagging._
-import scala.concurrent.duration._
+import com.softwaremill.tagging.*
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.config
@@ -17,7 +17,7 @@ final private class TutorFishnet(
     analyser: Analyser,
     awaiter: FishnetAwaiter,
     nbAnalysis: SettingStore[Int] @@ NbAnalysis
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
   def maxToAnalyse       = config.Max(nbAnalysis.get())
   def maxGamesToConsider = config.Max(maxToAnalyse.value * 2)
@@ -25,7 +25,7 @@ final private class TutorFishnet(
 
   val sender = Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
 
-  def ensureSomeAnalysis(stats: Map[PerfType, InsightPerfStats.WithGameIds]): Funit = {
+  def ensureSomeAnalysis(stats: Map[PerfType, InsightPerfStats.WithGameIds]): Funit =
     val totalNbGames = stats.values.map(_.stats.totalNbGames).sum
     stats.values.toList
       .map { s =>
@@ -37,5 +37,3 @@ final private class TutorFishnet(
       games.foreach { analyser(_, sender, ignoreConcurrentCheck = true) }
       awaiter(games.map(_.id), maxTime)
     }
-  }
-}

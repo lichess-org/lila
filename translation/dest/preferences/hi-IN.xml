@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; ऑटो-प्रमोशन को अस्थायी रूप से अक्षम करने के लिए प्रचार करते समय कुंजी</string>
   <string name="whenPremoving">पहले से चाल चलते समय</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">दावा तीन बार दोहराव पर स्वचालित रूप से ड्रा</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">जब बचा हुआ समय &lt; 30 सेकेंड</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">जब बचा हुआ समय &lt; 30 सेकेंड</string>
   <string name="moveConfirmation">चाल की पुष्टि करें</string>
   <string name="inCorrespondenceGames">लम्बे खेलों में</string>
   <string name="correspondenceAndUnlimited">पत्राचार और असीमित</string>

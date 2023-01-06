@@ -1,3 +1,3 @@
-package lila
+package lila.importer
 
-package object importer extends PackageObject
+export lila.Lila.{ *, given }

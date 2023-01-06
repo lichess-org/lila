@@ -3,7 +3,7 @@
   @extend %box-neat-force;
 
   background: $c-bg-box;
-  padding: #{$block-gap * 0.7} $block-gap;
+  padding: 1.5em;
 
   section:not(:last-child) {
     border-bottom: $border;
@@ -38,6 +38,11 @@
   &__players {
     margin-top: 0.3rem;
     font-size: 90%;
+
+    abbr {
+      text-decoration: none;
+      color: mix($c-font, $c-link, 50%);
+    }
   }
 
   .bookmark {

@@ -13,6 +13,8 @@
   <string name="specialMoves">Movimentos especiais</string>
   <string name="didYouLikeThisPuzzle">Você gostou deste quebra-cabeças?</string>
   <string name="voteToLoadNextOne">Vote para carregar o próximo!</string>
+  <string name="upVote">Votar a favor do quebra-cabeça</string>
+  <string name="downVote">Votar contra o quebra-cabeça</string>
   <string name="yourPuzzleRatingWillNotChange">Sua pontuação de quebra-cabeças não mudará. Note que os quebra-cabeças não são uma competição. A pontuação indica os quebra-cabeças que se adequam às suas habilidades.</string>
   <string name="findTheBestMoveForWhite">Encontre o melhor lance para as brancas.</string>
   <string name="findTheBestMoveForBlack">Encontre a melhor jogada para as pretas.</string>
@@ -70,7 +72,7 @@
   <string name="searchPuzzles">Procurar quebra-cabeças</string>
   <string name="fromMyGamesNone">Você não tem nenhum quebra-cabeça no banco de dados, mas o Lichess ainda te ama muito.
 Jogue partidas rápidas e clássicas para aumentar suas chances de ter um desafio seu adicionado!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s quebra-cabeças encontrados em %2$s partidas</string>
+  <string name="fromXGamesFound">%1$s quebra-cabeças encontrados em %2$s partidas</string>
   <string name="puzzleDashboardDescription">Treine, analise, melhore</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s jogado</item>

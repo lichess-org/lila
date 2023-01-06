@@ -9,6 +9,10 @@
     <item quantity="one">%s turni</item>
     <item quantity="other">%s turni</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s turno a sistema svizzero</item>
+    <item quantity="other">%s turni a sistema svizzero</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Un turno al giorno</item>
     <item quantity="other">Un turno ogni %s giorni</item>
@@ -100,4 +104,10 @@ Un modo per simulare un Round Robin online è giocare un torneo svizzero con un 
   <string name="streaksAndBerserk">Serie e Berserk</string>
   <string name="similarToOTB">Simile ai tornei OTB</string>
   <string name="unlimitedAndFree">Illimitato e gratuito</string>
+  <string name="predefinedUsers">Permetti solo a degli utenti prefissati di partecipare</string>
+  <string name="forbiddedUsers">Se questa lista non è vuota, gli utenti che non compaiono in questa lista non potranno partecipare. Un nome utente per ogni linea.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s turno a sistema svizzero</item>
+    <item quantity="other">%1$s / %2$s turni a sistema svizzero</item>
+  </plurals>
 </resources>

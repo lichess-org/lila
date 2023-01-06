@@ -1,15 +1,15 @@
 package views.html.team
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 import controllers.routes
 
-object list {
+object list:
 
-  import trans.team._
+  import trans.team.*
 
   def search(text: String, teams: Paginator[lila.team.Team])(implicit ctx: Context) =
     list(
@@ -31,7 +31,7 @@ object list {
       main(cls := "team-list page-menu")(
         bits.menu("mine".some),
         div(cls := "page-menu__content box")(
-          h1(myTeams()),
+          h1(cls := "box__top")(myTeams()),
           standardFlash(),
           ctx.me.filter(me => teams.size > lila.team.Team.maxJoin(me)) map { me =>
             flashMessage(cls := "flash-failure")(
@@ -51,7 +51,7 @@ object list {
       main(cls := "team-list page-menu")(
         bits.menu("leader".some),
         div(cls := "page-menu__content box")(
-          h1(teamsIlead()),
+          h1(cls := "box__top")(teamsIlead()),
           standardFlash(),
           table(cls := "slist slist-pad")(
             if (teams.nonEmpty) tbody(teams.map(bits.teamTr(_)))
@@ -81,7 +81,7 @@ object list {
       main(cls := "team-list page-menu")(
         bits.menu("all".some),
         div(cls := "page-menu__content box")(
-          div(cls := "box__top")(
+          boxTop(
             h1(name),
             div(cls := "box__top__actions")(
               st.form(cls     := "search", action := routes.Team.search())(
@@ -101,4 +101,3 @@ object list {
         )
       )
     }
-}

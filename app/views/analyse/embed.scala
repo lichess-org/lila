@@ -3,15 +3,14 @@ package views.html.analyse
 import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.EmbedConfig
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
-import lila.i18n.MessageKey
 
-object embed {
+object embed:
 
-  import EmbedConfig.implicits._
+  import EmbedConfig.implicits.*
 
   def lpv(pgn: String, orientation: Option[chess.Color])(implicit config: EmbedConfig) =
     views.html.base.embed(
@@ -32,12 +31,12 @@ object embed {
       )
     )
 
-  val lpvI18n: Vector[MessageKey] = Vector(
+  val lpvI18n = List(
     trans.flipBoard,
     trans.analysis,
     trans.practiceWithComputer,
     trans.download
-  ).map(_.key)
+  )
 
   def notFound(implicit config: EmbedConfig) =
     views.html.base.embed(
@@ -48,4 +47,3 @@ object embed {
         h1("Game not found")
       )
     )
-}

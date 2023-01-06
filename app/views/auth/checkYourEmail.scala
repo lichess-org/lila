@@ -2,17 +2,17 @@ package views.html.auth
 
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object checkYourEmail {
+object checkYourEmail:
 
   def apply(
       userEmail: Option[lila.security.EmailConfirm.UserEmail],
-      form: Option[Form[_]] = None
+      form: Option[Form[?]] = None
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "Check your email",
@@ -21,7 +21,7 @@ object checkYourEmail {
       main(
         cls := s"page-small box box-pad email-confirm ${if (form.exists(_.hasErrors)) "error" else "anim"}"
       )(
-        h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail()),
+        boxTop(h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail())),
         p(trans.weHaveSentYouAnEmailClickTheLink()),
         h2("Not receiving it?"),
         ol(
@@ -73,4 +73,3 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
         )
       )
     }
-}

@@ -102,14 +102,10 @@
 
     input[type='range'] {
       flex: 1 4 auto;
-      padding-#{$start-direction}: 1em;
+      padding: 0;
       height: 1.6em;
       width: 100%;
       margin: 0 1ch;
-
-      &[min='0'] {
-        padding: 0;
-      }
     }
 
     .range_value {

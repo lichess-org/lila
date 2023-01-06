@@ -2,27 +2,28 @@ package views.html
 package appeal
 
 import controllers.routes
+import controllers.appeal.routes.{ Appeal as appealRoutes }
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import views.html.appeal.tree
 import lila.appeal.Appeal
 import lila.common.String.html.richText
 import lila.mod.IpRender.RenderIp
-import lila.mod.{ ModPreset, ModPresets }
+import lila.mod.{ ModPreset, ModPresets, UserWithModlog }
 import lila.report.Report.Inquiry
 import lila.report.Suspect
 import lila.user.{ Holder, User }
 
-object discussion {
+object discussion:
 
   case class ModData(
       mod: Holder,
       suspect: Suspect,
       presets: ModPresets,
-      logins: lila.security.UserLogins.TableData,
+      logins: lila.security.UserLogins.TableData[UserWithModlog],
       appeals: List[lila.appeal.Appeal],
       renderIp: RenderIp,
       inquiry: Option[Inquiry],
@@ -51,7 +52,7 @@ object discussion {
                 submitButton(cls := "button")("Handle this appeal")
               )
             case Some(Inquiry(mod, _)) if ctx.userId has mod =>
-              postForm(action := routes.Appeal.mute(modData.suspect.user.username))(
+              postForm(action := appealRoutes.mute(modData.suspect.user.username))(
                 if (appeal.isMuted)
                   submitButton("Un-mute")(
                     title := "Be notified about user replies again",
@@ -66,7 +67,7 @@ object discussion {
             case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), nbsp, "is handling this.")
           },
           postForm(
-            action := routes.Appeal.sendToZulip(modData.suspect.user.id),
+            action := appealRoutes.sendToZulip(modData.suspect.user.id),
             cls    := "appeal__actions__slack"
           )(
             submitButton(cls := "button button-thin")("Send to Zulip")
@@ -99,7 +100,7 @@ object discussion {
       as.left.toOption map { m =>
         frag(
           div(cls := "mod-zone mod-zone-full none"),
-          views.html.user.mod.otherUsers(m.mod, m.suspect.user, m.logins, m.appeals)(ctx, m.renderIp)(
+          views.html.user.mod.otherUsers(m.mod, m.suspect.user, m.logins, m.appeals)(using ctx, m.renderIp)(
             cls := "mod-zone communication__logins"
           )
         )
@@ -124,25 +125,24 @@ object discussion {
           as.fold(_.inquiry.isDefined, _ => true) option renderForm(
             textForm,
             action =
-              if (as.isLeft) routes.Appeal.reply(appeal.id).url
-              else routes.Appeal.post.url,
+              if (as.isLeft) appealRoutes.reply(appeal.id).url
+              else appealRoutes.post.url,
             isNew = false,
             presets = as.left.toOption.map(_.presets)
           )
       )
     )
 
-  private def renderMark(suspect: User)(implicit ctx: Context) = {
+  private def renderMark(suspect: User)(implicit ctx: Context) =
     val query = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
-    if (suspect.disabled || query.contains("alt")) tree.closedByModerators
+    if (suspect.enabled.no || query.contains("alt")) tree.closedByModerators
     else if (suspect.marks.engine || query.contains("engine")) tree.engineMarked
     else if (suspect.marks.boost || query.contains("boost")) tree.boosterMarked
     else if (suspect.marks.troll || query.contains("shadowban")) tree.accountMuted
     else if (suspect.marks.rankban || query.contains("rankban")) tree.excludedFromLeaderboards
     else tree.cleanAllGood
-  }
 
-  private def renderUser(appeal: Appeal, userId: User.ID, asMod: Boolean)(implicit ctx: Context) =
+  private def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(implicit ctx: Context) =
     if (appeal isAbout userId) userIdLink(userId.some, params = asMod ?? "?mod")
     else
       span(
@@ -154,7 +154,7 @@ object discussion {
         )
       )
 
-  def renderForm(form: Form[String], action: String, isNew: Boolean, presets: Option[ModPresets])(implicit
+  def renderForm(form: Form[String], action: String, isNew: Boolean, presets: Option[ModPresets])(using
       ctx: Context
   ) =
     postForm(st.action := action)(
@@ -182,4 +182,3 @@ object discussion {
         )
       } getOrElse form3.submit(trans.send())
     )
-}

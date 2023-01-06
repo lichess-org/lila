@@ -13,6 +13,8 @@
   <string name="specialMoves">Mutări speciale</string>
   <string name="didYouLikeThisPuzzle">Ți-a plăcut această problemă?</string>
   <string name="voteToLoadNextOne">Votează pentru a-l încărca pe următorul!</string>
+  <string name="upVote">Îmi place</string>
+  <string name="downVote">Vot negativ</string>
   <string name="yourPuzzleRatingWillNotChange">Evaluarea ta la puzzle-uri nu se va schimba. Iți amintim că puzzle-urile nu sunt o competiție. Evaluarea ajută la selectarea celor mai bune puzzle-uri care corespund nivelului tău.</string>
   <string name="findTheBestMoveForWhite">Găsiți cea mai bună mutare pentru alb.</string>
   <string name="findTheBestMoveForBlack">Găsiți cea mai bună mutare pentru negru.</string>
@@ -73,7 +75,7 @@
   <string name="searchPuzzles">Caută puzzle-uri</string>
   <string name="fromMyGamesNone">Nu ai nici o problemă în baza de date, dar Lichess tot te apreciază foarte mult.
 Joacă jocuri rapide și clasice pentru a crește șansele de a vedea adăugată o problemă extrasă din partidele tale!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s probleme găsite în %2$s jocuri</string>
+  <string name="fromXGamesFound">%1$s probleme găsite în %2$s jocuri</string>
   <string name="puzzleDashboardDescription">Antreneaza-te, analizează, fii mai bun</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s jucat</item>

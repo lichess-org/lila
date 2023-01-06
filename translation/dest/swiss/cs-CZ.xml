@@ -13,6 +13,12 @@
     <item quantity="many">%s kol</item>
     <item quantity="other">%s kol</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s kolo Švýcarského turnaje</item>
+    <item quantity="few">%s kola Švýcarského turnaje</item>
+    <item quantity="many">%s kol Švýcarského turnaje</item>
+    <item quantity="other">%s kol Švýcarského turnaje</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Jedno kolo za den</item>
     <item quantity="few">Jedno kolo každé %s dny</item>
@@ -61,7 +67,7 @@ Přidá body od každého hráče, kterého porazí a půlku bodů hráče, se k
   <string name="pairingsA">Využívá se %1$s, realizován pomocí %2$s, v souladu s dokumentem %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Co se stane, pokud má turnaj více kol, než účastníků?</string>
   <string name="moreRoundsThanPlayersA">Když se všechny možné kombinace odehrají, turnaj bude ukončen a bude určen vítěz.</string>
-  <string name="restrictedToTeamsQ">Proč je zakázaný pro týmy?</string>
+  <string name="restrictedToTeamsQ">Proč je omezený jen pro týmy?</string>
   <string name="restrictedToTeamsA">Švýcarské turnaje nebyly koncipovány pro online šachy. Požadují od hráčů dochvilnost, obětavost a trpělivost.
 Myslíme si, že je pravděpodobnější, že tyto podmínky budou splněny v rámci týmu než v globálních turnajích.</string>
   <string name="numberOfByesQ">Kolik bodů zdarma může hráč dostat?</string>
@@ -110,4 +116,11 @@ Nejvíce se tomu blíží Švýcarský systém s velkým počtem kol, kdy je mo�
   <string name="streaksAndBerserk">Série a Berserk</string>
   <string name="similarToOTB">Podobné OTB turnajům</string>
   <string name="unlimitedAndFree">Neomezené a zdarma</string>
+  <string name="predefinedUsers">Povolit připojení pouze předem definovaným uživatelům</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s kolo Švýcarského turnaje</item>
+    <item quantity="few">%1$s / %2$s kolo Švýcarského turnaje</item>
+    <item quantity="many">%1$s / %2$s kolo Švýcarského turnaje</item>
+    <item quantity="other">%1$s / %2$s kolo Švýcarského turnaje</item>
+  </plurals>
 </resources>

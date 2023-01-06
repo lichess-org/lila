@@ -18,7 +18,9 @@ export default function (opts: RoundOpts): void {
         if (data.tv && data.tv.channel == o.channel) lichess.reload();
         else
           $('.tv-channels .' + o.channel + ' .champion').html(
-            o.player ? [o.player.title, o.player.name, o.player.rating].filter(x => x).join('&nbsp') : 'Anonymous'
+            o.player
+              ? [o.player.title, o.player.name, data.pref.ratings ? o.player.rating : ''].filter(x => x).join('&nbsp')
+              : 'Anonymous'
           );
       },
       endData() {

@@ -1,16 +1,16 @@
 package controllers
 
-import play.api.libs.json._
-import play.api.mvc._
+import play.api.libs.json.*
+import play.api.mvc.*
 import scala.util.{ Failure, Success }
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.HTTPRequest
-import lila.fishnet.JsonApi.readers._
-import lila.fishnet.JsonApi.writers._
+import lila.fishnet.JsonApi.readers.given
+import lila.fishnet.JsonApi.writers.given
 import lila.fishnet.{ JsonApi, Work }
 
-final class Fishnet(env: Env) extends LilaController(env) {
+final class Fishnet(env: Env) extends LilaController(env):
 
   private def api    = env.fishnet.api
   private val logger = lila.log("fishnet")
@@ -24,7 +24,7 @@ final class Fishnet(env: Env) extends LilaController(env) {
 
   def analysis(workId: String, slow: Boolean = false, stop: Boolean = false) =
     ClientAction[JsonApi.Request.PostAnalysis] { data => client =>
-      import lila.fishnet.FishnetApi._
+      import lila.fishnet.FishnetApi.*
       def onComplete =
         if (stop) fuccess(Left(NoContent))
         else api.acquire(client, slow) map Right.apply
@@ -39,7 +39,7 @@ final class Fishnet(env: Env) extends LilaController(env) {
           },
           {
             case PostAnalysisResult.Complete(analysis) =>
-              env.round.proxyRepo.updateIfPresent(analysis.id)(_.setAnalysed)
+              env.round.proxyRepo.updateIfPresent(GameId(analysis.id))(_.setAnalysed)
               onComplete
             case _: PostAnalysisResult.Partial    => fuccess(Left(NoContent))
             case PostAnalysisResult.UnusedPartial => fuccess(Left(NoContent))
@@ -74,11 +74,11 @@ final class Fishnet(env: Env) extends LilaController(env) {
         .fold(
           err => {
             logger.warn(s"Malformed request: $err\n${req.body}")
-            BadRequest(jsonError(JsError toJson err)).fuccess
+            BadRequest(jsonError(JsError toJson err)).toFuccess
           },
           data =>
             api.authenticateClient(data, HTTPRequest ipAddress req) flatMap {
-              case Failure(msg) => Unauthorized(jsonError(msg.getMessage)).fuccess
+              case Failure(msg) => Unauthorized(jsonError(msg.getMessage)).toFuccess
               case Success(client) =>
                 f(data)(client).map {
                   case Right(Some(work)) => Accepted(Json toJson work)
@@ -88,4 +88,3 @@ final class Fishnet(env: Env) extends LilaController(env) {
             }
         )
     }
-}

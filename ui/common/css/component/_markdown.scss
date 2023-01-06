@@ -50,18 +50,18 @@
 
   h2 {
     &:not(:first-child) {
-      margin-top: 1.8em;
+      margin-top: calc(0.9 * #{$element-margin});
     }
     border-bottom: 1px solid $c-brag;
     line-height: 1.5em;
-    padding-bottom: 0.5em;
+    padding-bottom: calc(0.25 * #{$element-margin});
   }
 
   h3 {
     @include fluid-size('font-size', 18px, 27px);
 
     font-weight: bold;
-    margin: 1.6em 0 1em 0;
+    margin: calc(0.8 * #{$element-margin}) 0 calc(0.5 * #{$element-margin}) 0;
 
     &:first-child {
       margin-top: 0;

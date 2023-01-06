@@ -3,14 +3,16 @@ package round
 
 import chess.variant.{ Crazyhouse, Variant }
 import controllers.routes
-import scala.util.chaining._
+import scala.util.chaining.*
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Pov }
+import lila.common.LangPath
+import lila.common.Json.given
 
-object bits {
+object bits:
 
   def layout(
       variant: Variant,
@@ -21,7 +23,8 @@ object bits {
       chessground: Boolean = true,
       playing: Boolean = false,
       zenable: Boolean = false,
-      robots: Boolean = false
+      robots: Boolean = false,
+      withHrefLangs: Option[LangPath] = None
   )(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
@@ -38,7 +41,8 @@ object bits {
       zenable = zenable,
       robots = robots,
       zoomable = true,
-      csp = defaultCsp.withPeer.some
+      csp = defaultCsp.withPeer.some,
+      withHrefLangs = withHrefLangs
     )(body)
 
   def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(implicit ctx: Context) =
@@ -124,7 +128,7 @@ object bits {
   )(implicit ctx: Context) =
     views.html.game.side(
       pov,
-      (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN.apply),
+      (data \ "game" \ "initialFen").asOpt[chess.format.Fen.Epd],
       tour,
       simul = simul,
       userTv = userTv,
@@ -136,4 +140,3 @@ object bits {
       div(cls := "round__app__board main-board")(chessground(pov)),
       div(cls := "col1-rmoves-preload")
     )
-}

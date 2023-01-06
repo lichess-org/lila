@@ -1,50 +1,48 @@
 package lila.lobby
 
-import akka.actor._
-import akka.stream.scaladsl._
-import play.api.libs.json._
-import scala.concurrent.duration._
+import akka.actor.*
+import akka.stream.scaladsl.*
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.common.Bus
 
 final class BoardApiHookStream(
     trouper: LobbySyncActor
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(using ec: scala.concurrent.ExecutionContext, system: ActorSystem):
 
   private case object SetOnline
 
   private val blueprint =
     Source.queue[Option[JsObject]](16, akka.stream.OverflowStrategy.dropHead)
 
-  def apply(hook: Hook): Source[Option[JsObject], _] =
+  def apply(hook: Hook): Source[Option[JsObject], ?] =
     blueprint mapMaterializedValue { queue =>
       val actor = system.actorOf(Props(mkActor(hook, queue)))
-      queue.watchCompletion().foreach { _ =>
+      queue.watchCompletion().addEffectAnyway {
         actor ! PoisonPill
       }
     }
 
   private def mkActor(hook: Hook, queue: SourceQueueWithComplete[Option[JsObject]]) =
-    new Actor {
+    new Actor:
 
       val classifiers = List(s"hookRemove:${hook.id}")
 
-      override def preStart(): Unit = {
+      override def preStart(): Unit =
         super.preStart()
         Bus.subscribe(self, classifiers)
         trouper ! actorApi.AddHook(hook)
-      }
 
-      override def postStop() = {
+      override def postStop() =
         super.postStop()
         Bus.unsubscribe(self, classifiers)
         trouper ! actorApi.CancelHook(hook.sri)
         queue.complete()
-      }
 
       self ! SetOnline
 
-      def receive = {
+      def receive =
 
         case actorApi.RemoveHook(_) => self ! PoisonPill
 
@@ -56,6 +54,3 @@ final class BoardApiHookStream(
               self ! SetOnline
             }
             .unit
-      }
-    }
-}

@@ -1,11 +1,13 @@
 package lila.streamer
 
 import org.joda.time.DateTime
-import play.api.libs.json._
-import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.json.*
+import play.api.libs.ws.JsonBodyReadables.*
+import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
-import scala.util.chaining._
+import scala.concurrent.duration.*
+import scala.util.chaining.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaScheduler }
 import lila.common.config.Secret
@@ -14,72 +16,64 @@ import lila.user.User
 final private class Streaming(
     ws: StandaloneWSClient,
     api: StreamerApi,
-    isOnline: User.ID => Boolean,
-    timeline: lila.hub.actors.Timeline,
+    isOnline: lila.socket.IsOnline,
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.UserIds,
     googleApiKey: Secret,
     twitchApi: TwitchApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
-  import Stream._
-  import YouTube.Reads._
+  import Stream.*
+  import YouTube.given
 
   private var liveStreams = LiveStreams(Nil)
 
-  def getLiveStreams = liveStreams
+  def getLiveStreams: LiveStreams = liveStreams
 
-  LilaScheduler(_.Every(15 seconds), _.AtMost(10 seconds), _.Delay(20 seconds)) {
+  LilaScheduler("Streaming", _.Every(15 seconds), _.AtMost(10 seconds), _.Delay(20 seconds)) {
     for {
       streamerIds <- api.allListedIds
       activeIds = streamerIds.filter { id =>
-        liveStreams.has(id) || isOnline(id.value)
+        liveStreams.has(id) || isOnline.value(id.userId)
       }
       streamers <- api byIds activeIds
       (twitchStreams, youTubeStreams) <-
         twitchApi.fetchStreams(streamers, 0, None) map {
-          _.collect { case Twitch.TwitchStream(name, title, _) =>
+          _.collect { case Twitch.TwitchStream(name, title, _, language) =>
             streamers.find { s =>
               s.twitch.exists(_.userId.toLowerCase == name.toLowerCase) && {
                 title.toLowerCase.contains(keyword.toLowerCase) ||
                 alwaysFeatured().value.contains(s.userId)
               }
-            } map { Twitch.Stream(name, title, _) }
+            } map { Twitch.Stream(name, title, _, language) }
           }.flatten
         } zip fetchYouTubeStreams(streamers)
       streams = LiveStreams {
-        lila.common.ThreadLocalRandom.shuffle {
+        ThreadLocalRandom.shuffle {
           (twitchStreams ::: youTubeStreams) pipe dedupStreamers
         }
       }
-      _ <- api.setLiveNow(streamers.withFilter(streams.has).map(_.id))
+      _ <- api.setLangLiveNow(streams.streams)
     } yield publishStreams(streamers, streams)
   }
 
-  private val streamStartMemo = new lila.memo.ExpireSetMemo(2 hour)
+  private val streamStartOnceEvery = lila.memo.OnceEvery[UserId](2 hour)
 
-  private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) = {
-    if (newStreams != liveStreams) {
+  private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
+    if (newStreams != liveStreams)
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
       } foreach { s =>
         import s.streamer.userId
-        if (!streamStartMemo.get(userId)) {
-          streamStartMemo.put(userId)
-          timeline ! {
-            import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
-            Propagate(StreamStart(userId, s.streamer.name.value)) toFollowersOf userId
-          }
+        if (streamStartOnceEvery(userId))
           Bus.publish(
-            lila.hub.actorApi.streamer.StreamStart(userId),
-            "streamStart"
+            lila.hub.actorApi.streamer.StreamStart(userId, s.streamer.name.value),
+            "notify"
           )
-        }
       }
-    }
     liveStreams = newStreams
     streamers foreach { streamer =>
       streamer.twitch.foreach { t =>
@@ -91,18 +85,17 @@ final private class Streaming(
           lila.mon.tv.streamer.present(s"${t.channelId}@youtube").increment()
       }
     }
-  }
 
   private var prevYouTubeStreams = YouTube.StreamsFetched(Nil, DateTime.now)
 
-  private def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] = {
+  private def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] =
     val youtubeStreamers = streamers.filter(_.youTube.isDefined)
     (youtubeStreamers.nonEmpty && googleApiKey.value.nonEmpty) ?? {
       val now = DateTime.now
       val res =
         if (prevYouTubeStreams.at.isAfter(now minusMinutes 15))
           fuccess(prevYouTubeStreams)
-        else {
+        else
           ws.url("https://www.googleapis.com/youtube/v3/search")
             .withQueryStringParameters(
               "part"      -> "snippet",
@@ -113,26 +106,23 @@ final private class Streaming(
             )
             .get()
             .flatMap { res =>
-              res.body[JsValue].validate[YouTube.Result](youtubeResultReads) match {
+              res.body[JsValue].validate[YouTube.Result] match
                 case JsSuccess(data, _) =>
                   fuccess(YouTube.StreamsFetched(data.streams(keyword, youtubeStreamers), now))
                 case JsError(err) =>
-                  fufail(s"youtube ${res.status} $err ${res.body.take(200)}")
-              }
+                  fufail(s"youtube ${res.status} $err ${res.body[String].take(200)}")
             }
             .monSuccess(_.tv.streamer.youTube)
             .recover { case e: Exception =>
               logger.warn(e.getMessage)
               YouTube.StreamsFetched(Nil, now)
             }
-        }
       res dmap { r =>
         logger.info(s"Fetched ${r.list.size} youtube streamers.")
         prevYouTubeStreams = r
         r.list
       }
     }
-  }
 
   private def dedupStreamers(streams: List[Stream]): List[Stream] =
     streams
@@ -141,4 +131,3 @@ final private class Streaming(
         case ((streamerIds, streams), stream) => (streamerIds + stream.streamer.id, stream :: streams)
       }
       ._2
-}

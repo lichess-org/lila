@@ -1,12 +1,12 @@
 package views.html
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object bookmark {
+object bookmark:
 
   def toggle(g: lila.game.Game, bookmarked: Boolean)(implicit ctx: Context) =
     if (ctx.isAuth)
@@ -27,4 +27,3 @@ object bookmark {
         span(dataIcon := "", cls := "is3")(g.showBookmarks)
       )
     else emptyFrag
-}

@@ -41,8 +41,8 @@
   <string name="unlike">いいね解除</string>
   <string name="newTag">新しいタグ</string>
   <string name="commentThisPosition">この局面にコメントする</string>
-  <string name="commentThisMove">この手にコメントする</string>
-  <string name="annotateWithGlyphs">記号で解説する</string>
+  <string name="commentThisMove">この手にコメント</string>
+  <string name="annotateWithGlyphs">解説記号を入れる</string>
   <string name="theChapterIsTooShortToBeAnalysed">章が短すぎて解析できません。</string>
   <string name="onlyContributorsCanRequestAnalysis">コンピュータ解析を要請できるのは投稿参加者だけです。</string>
   <string name="getAFullComputerAnalysis">主手順についてサーバ上でのコンピュータ解析を行なう。</string>

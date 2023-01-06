@@ -7,11 +7,12 @@ package lila.shutup
   *   - For en only: Past tense of last word in a string matches: "cheat" will also match "cheated", "you
   *     suck" will also match "you sucked" but "kill you" will NOT match "killed you"
   */
-private object Dictionary {
+private object Dictionary:
 
   def en = dict("""
 (f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|)
 (f|ph)agg?([oi]t|)
+(kill|hang|neck) my ?self
 [ck]um(shot|)
 [ck]unt(ing|)
 abortion
@@ -19,6 +20,7 @@ adol(f|ph)
 afraid
 anal(plug|sex|)
 anus
+ape
 arse(hole|wipe|)
 ass
 ass?(hole|fag)
@@ -32,10 +34,11 @@ blumpkin
 bollock
 boner
 boob
+braindea?d
 bugger
 buk?kake
 bull?shit
-cheat(ing|er|)
+che[ae]t(ing|er|)
 chess(|-|_)bot(.?com)?
 chicken
 chink
@@ -45,12 +48,14 @@ cock(suc?k(er|ing)|)
 condom
 coon
 coward?
+cripp?le
 cry(baby|ing|)
 cunn?ilingu
 dic?k(head|face|suc?ker|)
 dildo
 dogg?ystyle
 douche(bag|)
+downsie?
 dumb(ass?|)
 dyke
 engine
@@ -72,6 +77,7 @@ idiot
 incest
 jerk
 jizz?(um|)
+kill (you|u)
 labia
 lamer?
 lesbo
@@ -79,6 +85,7 @@ lo+ser
 masturbat(e|ion|ing)
 milf
 molest(er|)
+mong
 monkey
 moron
 mother(fuc?k(er|)|)
@@ -136,6 +143,7 @@ stfu
 stupid
 subhuman
 suicide
+suc?ker
 suck m[ey]
 terrorist
 tit(t?ies|ty|)(fuc?k|)
@@ -167,6 +175,7 @@ wog
 (|на|вы)ебнуть?ся
 blyat
 p[ie]d[aoe]?r
+uebok
 анус
 бля(|дь|ди|де|динам?|дине|дство|ть)
 вы[её]бывае?(ть?ся|тесь)
@@ -184,8 +193,7 @@ p[ie]d[aoe]?r
 идиот(|ам?|ы|у|ов)
 [оа]хуе(|л|ла|ли|ть|нн?о)
 педерасты?
-пид(о|а)р(а|ы|у|ам|асы?|асам?|ов)
-пидр
+пид(о|а|)р(а|ы|у|ам|асы?|асам?|ов|)
 поебень
 придур(ок|кам?|ков|ки)
 [сc][уy][кk](а|a|и|е|у|ам)
@@ -218,8 +226,10 @@ est[úu]pid[ao]
 idiota
 imbecil
 madre
-maric[oó]n
+maric[oó]na?
+maric[ao]
 mierda
+moduler[ao]
 payas[ao]
 pendejo
 put[ao]
@@ -244,14 +254,16 @@ sparati
 """)
 
   def hi = dict("""
-(madar|be?hen|beti)chod
+(mada?r|mother|be?hen|beti)chod
 bh?o?sdi?ke?
-chut(iya|)
+chut(iy[ae]|)
 gaa?ndu?
 """)
 
   def fr = dict("""
+batard
 connard
+encul[eé]
 fdp
 pd
 pute
@@ -264,7 +276,7 @@ angsthase
 arschloch
 bl(ö|oe|o)dmann?
 drecksa(u|ck)
-ficker
+fick(|er)
 fotze
 hurensohn
 mistkerl
@@ -307,4 +319,3 @@ rape
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
-}

@@ -35,8 +35,8 @@
     <item quantity="other">Hà finitu %s partite per via di a currispundenza</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Segue %s ghjucadore</item>
-    <item quantity="other">Segue %s ghjucadori</item>
+    <item quantity="one">Seguiteghja %s ghjucadore</item>
+    <item quantity="other">Seguiteghja %s ghjucadori</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Guadagna %s seguitore novu</item>

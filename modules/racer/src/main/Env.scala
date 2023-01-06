@@ -1,6 +1,6 @@
 package lila.racer
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 
 import lila.common.LightUser
 import lila.db.AsyncColl
@@ -16,14 +16,14 @@ final class Env(
     stormJson: StormJson,
     stormSign: StormSign,
     userRepo: lila.user.UserRepo,
-    lightUserGetter: LightUser.GetterSync,
+    lightUserGetter: LightUser.GetterSyncFallback,
     remoteSocketApi: lila.socket.RemoteSocket,
     db: lila.db.Db
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
-) {
+):
 
   private lazy val colls = new RacerColls(puzzle = puzzleColls.puzzle)
 
@@ -34,6 +34,5 @@ final class Env(
   lazy val json = wire[RacerJson]
 
   private val socket = wire[RacerSocket] // requires eager eval
-}
 
 final private class RacerColls(val puzzle: AsyncColl)

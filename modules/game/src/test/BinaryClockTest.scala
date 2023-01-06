@@ -18,75 +18,78 @@ class BinaryClockTest extends Specification {
   def write(c: Clock): List[String] = writeBytes(c).showBytes.split(',').toList
   def read(bytes: List[String])     = readBytes(ByteArray.parseBytes(bytes))
 
-  "binary Clock" should {
+  given Conversion[Int, Clock.LimitSeconds]     = Clock.LimitSeconds(_)
+  given Conversion[Int, Clock.IncrementSeconds] = Clock.IncrementSeconds(_)
+
+  "binary Clock" >> {
     val clock  = Clock(120, 2)
     val bits22 = List("00000010", "00000010")
-    "write" in {
-      write(clock) must_== {
+    "write" >> {
+      write(clock) === {
         bits22 ::: List.fill(6)(_0_)
       }
-      write(clock.giveTime(White, Centis(3))) must_== {
+      write(clock.giveTime(White, Centis(3))) === {
         bits22 ::: List("10000000", "00000000", "00000011") ::: List.fill(3)(_0_)
       }
-      write(clock.giveTime(White, Centis(-3))) must_== {
+      write(clock.giveTime(White, Centis(-3))) === {
         bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(3)(_0_)
       }
-      write(Clock(0, 3)) must_== {
+      write(Clock(0, 3)) === {
         List("00000000", "00000011", "10000000", "00000001", "00101100", "10000000", "00000001", "00101100")
       }
     }
-    "read" in {
-      "with timer" in {
-        read(bits22 ::: List.fill(11)(_0_)) must_== {
+    "read" >> {
+      "with timer" >> {
+        read(bits22 ::: List.fill(11)(_0_)) === {
           clock
         }
-        read(bits22 ::: List("10000000", "00000000", "00000011") ::: List.fill(8)(_0_)) must_== {
+        read(bits22 ::: List("10000000", "00000000", "00000011") ::: List.fill(8)(_0_)) === {
           clock.giveTime(White, Centis(3))
         }
-        read(bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(8)(_0_)) must_== {
+        read(bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(8)(_0_)) === {
           clock.giveTime(White, Centis(-3))
         }
       }
-      "without timer bytes" in {
-        read(bits22 ::: List.fill(7)(_0_)) must_== {
+      "without timer bytes" >> {
+        read(bits22 ::: List.fill(7)(_0_)) === {
           clock
         }
-        read(bits22 ::: List("10000000", "00000000", "00000011") ::: List.fill(4)(_0_)) must_== {
+        read(bits22 ::: List("10000000", "00000000", "00000011") ::: List.fill(4)(_0_)) === {
           clock.giveTime(White, Centis(3))
         }
-        read(bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(4)(_0_)) must_== {
+        read(bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(4)(_0_)) === {
           clock.giveTime(White, Centis(-3))
         }
       }
     }
-    "isomorphism" in {
+    "isomorphism" >> {
 
-      "without berserk" in {
-        isomorphism(clock) must_== clock
+      "without berserk" >> {
+        isomorphism(clock) === clock
 
         val c2 = clock.giveTime(White, Centis.ofSeconds(15))
-        isomorphism(c2) must_== c2
+        isomorphism(c2) === c2
 
         val c3 = clock.giveTime(chess.Black, Centis.ofSeconds(5))
-        isomorphism(c3) must_== c3
+        isomorphism(c3) === c3
 
         val c4 = clock.start
-        isomorphism(c4).timer.get.value must beCloseTo(c4.timer.get.value, 10)
+        isomorphism(c4).timer.get.value must beCloseTo(c4.timer.get.value, 10L)
 
         Clock(120, 60) pipe { c =>
-          isomorphism(c) must_== c
+          isomorphism(c) === c
         }
       }
 
-      "with berserk" in {
+      "with berserk" >> {
         val b1 = clock.goBerserk(White)
-        readBytes(writeBytes(b1), true) must_== b1
+        readBytes(writeBytes(b1), true) === b1
 
         val b2 = clock.giveTime(White, Centis(15)).goBerserk(White)
-        readBytes(writeBytes(b2), true) must_== b2
+        readBytes(writeBytes(b2), true) === b2
 
         val b3 = Clock(60, 2).goBerserk(White)
-        readBytes(writeBytes(b3), true) must_== b3
+        readBytes(writeBytes(b3), true) === b3
       }
     }
   }

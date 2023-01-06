@@ -1,59 +1,51 @@
 package lila.api
 
-import lila.forum.Categ
+import lila.forum.ForumCateg
 import lila.security.{ Granter, Permission }
 import lila.team.Team
 import lila.user.{ User, UserContext }
 
-final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached)(implicit
-    ec: scala.concurrent.ExecutionContext
-) {
+final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached)(using
+    scala.concurrent.ExecutionContext
+):
 
-  sealed trait Operation
-  case object Read  extends Operation
-  case object Write extends Operation
+  enum Operation:
+    case Read, Write
 
-  private def isGranted(categSlug: String, op: Operation)(implicit ctx: UserContext): Fu[Boolean] =
-    Categ.slugToTeamId(categSlug).fold(fuTrue) { teamId =>
-      ctx.me ?? { me =>
-        teamCached.forumAccess.get(teamId).flatMap {
-          case Team.Access.NONE => fuFalse
-          case Team.Access.EVERYONE =>
-            op match {
-              case Read => fuTrue
-              case Write =>
-                teamApi.belongsTo(
-                  teamId,
-                  me.id
-                ) // when the team forum is open to everyone, you still need to belong to the team in order to post
-            }
-          case Team.Access.MEMBERS => teamApi.belongsTo(teamId, me.id)
-          case Team.Access.LEADERS => teamApi.leads(teamId, me.id)
-        }
+  private def isGranted(categId: ForumCategId, op: Operation)(using ctx: UserContext): Fu[Boolean] =
+    ForumCateg.toTeamId(categId).fold(fuTrue) { teamId =>
+      teamCached.forumAccess get teamId flatMap {
+        case Team.Access.NONE     => fuFalse
+        case Team.Access.EVERYONE =>
+          // when the team forum is open to everyone, you still need to belong to the team in order to post
+          op match
+            case Operation.Read  => fuTrue
+            case Operation.Write => ctx.userId ?? { teamApi.belongsTo(teamId, _) }
+        case Team.Access.MEMBERS => ctx.userId ?? { teamApi.belongsTo(teamId, _) }
+        case Team.Access.LEADERS => ctx.userId ?? { teamApi.leads(teamId, _) }
       }
     }
 
-  def isGrantedRead(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
+  def isGrantedRead(categId: ForumCategId)(using ctx: UserContext): Fu[Boolean] =
     if (ctx.me ?? Granter(Permission.Shusher)) fuTrue
-    else isGranted(categSlug, Read)
+    else isGranted(categId, Operation.Read)
 
-  def isGrantedWrite(categSlug: String, tryingToPostAsMod: Boolean = false)(implicit
+  def isGrantedWrite(categId: ForumCategId, tryingToPostAsMod: Boolean = false)(using
       ctx: UserContext
   ): Fu[Boolean] =
     if (tryingToPostAsMod && ctx.me ?? Granter(Permission.Shusher)) fuTrue
-    else ctx.me.exists(canWriteInAnyForum) ?? isGranted(categSlug, Write)
+    else ctx.me.exists(canWriteInAnyForum) ?? isGranted(categId, Operation.Write)
 
   private def canWriteInAnyForum(u: User) =
     !u.isBot && {
       (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron
     }
 
-  def isGrantedMod(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
+  def isGrantedMod(categId: ForumCategId)(using ctx: UserContext): Fu[Boolean] =
     if (ctx.me ?? Granter(Permission.ModerateForum)) fuTrue
     else
-      Categ.slugToTeamId(categSlug) ?? { teamId =>
+      ForumCateg.toTeamId(categId) ?? { teamId =>
         ctx.userId ?? {
           teamApi.leads(teamId, _)
         }
       }
-}

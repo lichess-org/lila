@@ -36,8 +36,11 @@ Pelaa nopeasti ja palaa aulaan, niin voit pelata lisää pelejä ja ansaita lis�
     <item quantity="other">Jos peli päättyy tasan ensimmäisten %s siirron aikana, kumpikaan pelaaja ei saa pisteitä.</item>
   </plurals>
   <string name="thisIsPrivate">Turnaus on yksityinen</string>
-  <string name="shareUrl">Jaa tämä URL ihmisille, jotta he voivat liittyä: %s</string>
-  <string name="drawStreak">Tasapeliputket: Kun pelaaja pelaa areenassa peräkkäisiä tasapelejä, vain ensimmäisestä tasapelistä saa pisteen, tai yli %s siirtoa kestäneistä tasapeleistä. Tasapeliputken voi rikkoa vain voitto – ei häviö eikä tasapeli.</string>
+  <string name="shareUrl">Anna osallistujille tämä URL, jolla turnaukseen pääsee: %s</string>
+  <string name="drawStreakStandard">Tasapeliputket: Kun pelaaja pelaa areenassa peräkkäisiä tasapelejä, vain ensimmäisestä tasapelistä saa pisteen, tai yli %s siirtoa kestäneistä tasapeleistä tavallisissa peleissä. Tasapeliputken voi rikkoa vain voitto – ei häviö eikä tasapeli.</string>
+  <string name="drawStreakVariants">Kullakin variantilla on pelin vaadittava vähimmäispituus, jolla tasapeliin päättyneistä peleistä saa pisteitä. Alla olevassa taulukossa luetellaan kunkin variantin tasapeliraja.</string>
+  <string name="variant">Variantti</string>
+  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Pelin vähimmäispituus</string>
   <string name="history">Areenahistoria</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Näytä joukkue</item>

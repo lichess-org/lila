@@ -2,10 +2,11 @@ import AnalyseCtrl from '../../ctrl';
 import RelayCtrl from './relayCtrl';
 import { dataIcon } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
-import { innerHTML } from '../../util';
+import { innerHTML } from 'common/richText';
 import { LeadPlayer, RelayRound } from './interfaces';
 import { StudyCtrl } from '../interfaces';
 import { view as multiBoardView } from '../multiBoard';
+import { scrollToInnerSelector } from 'common';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study;
@@ -115,6 +116,13 @@ export function rounds(ctrl: StudyCtrl): VNode {
   const relay = ctrl.relay!;
   return h(
     'div.study__relay__rounds',
+    {
+      hook: {
+        update(vnode: VNode) {
+          scrollToInnerSelector(vnode.elm as HTMLElement, '.active');
+        },
+      },
+    },
     relay.data.rounds
       .map(round =>
         h(

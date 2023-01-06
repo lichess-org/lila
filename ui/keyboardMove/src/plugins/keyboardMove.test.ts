@@ -21,6 +21,8 @@ const defaultCtrl = {
   clock: unexpectedErrorThrower('clock'),
   confirmMove: () => null,
   draw: unexpectedErrorThrower('draw'),
+  next: unexpectedErrorThrower('next'),
+  vote: unexpectedErrorThrower('vote'),
   drop: unexpectedErrorThrower('drop'),
   hasSelected: () => undefined,
   jump: () => null,
@@ -76,6 +78,59 @@ describe('keyboardMove', () => {
     keyboardMovePlugin(startingFen, toMap({}), true);
 
     expect(mockDraw.mock.calls.length).toBe(1);
+    expect(input.value).toBe('');
+  });
+
+  test('goes to next puzzle', () => {
+    input.value = 'next';
+    const mockNext = jest.fn();
+    const keyboardMovePlugin = keyboardMove({
+      input,
+      ctrl: {
+        ...defaultCtrl,
+        next: mockNext,
+      },
+    }) as any;
+
+    keyboardMovePlugin(startingFen, toMap({}), true);
+
+    expect(mockNext).toHaveBeenCalledTimes(1);
+    expect(input.value).toBe('');
+  });
+
+  test('up votes puzzle', () => {
+    input.value = 'upv';
+    const mockVote = jest.fn();
+    const keyboardMovePlugin = keyboardMove({
+      input,
+      ctrl: {
+        ...defaultCtrl,
+        vote: mockVote,
+      },
+    }) as any;
+
+    keyboardMovePlugin(startingFen, toMap({}), true);
+
+    expect(mockVote).toHaveBeenCalledTimes(1);
+    expect(mockVote).toBeCalledWith(true);
+    expect(input.value).toBe('');
+  });
+
+  test('down votes puzzle', () => {
+    input.value = 'downv';
+    const mockVote = jest.fn();
+    const keyboardMovePlugin = keyboardMove({
+      input,
+      ctrl: {
+        ...defaultCtrl,
+        vote: mockVote,
+      },
+    }) as any;
+
+    keyboardMovePlugin(startingFen, toMap({}), true);
+
+    expect(mockVote).toHaveBeenCalledTimes(1);
+    expect(mockVote).toBeCalledWith(false);
     expect(input.value).toBe('');
   });
 
@@ -151,8 +206,51 @@ describe('keyboardMove', () => {
       expect(input.value).toBe('');
     });
 
-    test('with e2 selected, plays e4', () => {
+    test('with e2 selected, plays e4 via UCI', () => {
       input.value = 'e4';
+      const mockSelect = jest.fn();
+      const mockSan = jest.fn();
+      const keyboardMovePlugin = keyboardMove({
+        input,
+        ctrl: {
+          ...defaultCtrl,
+          hasSelected: () => 'e2',
+          san: mockSan,
+          select: mockSelect,
+        },
+      }) as any;
+
+      keyboardMovePlugin(startingFen, toMap({ e2: ['e4'] }), true);
+
+      expect(mockSelect.mock.calls.length).toBe(1);
+      expect(mockSelect.mock.calls[0][0]).toBe('e4');
+      // is it intended behavior to call both select and san?
+      expect(mockSan.mock.calls.length).toBe(1);
+      expect(mockSan.mock.calls[0][0]).toBe('e2');
+      expect(mockSan.mock.calls[0][1]).toBe('e4');
+      expect(input.value).toBe('');
+    });
+
+    test('selects e2 via ICCF', () => {
+      input.value = '52';
+      const mockSelect = jest.fn();
+      const keyboardMovePlugin = keyboardMove({
+        input,
+        ctrl: {
+          ...defaultCtrl,
+          select: mockSelect,
+        },
+      }) as any;
+
+      keyboardMovePlugin(startingFen, toMap({ e2: ['e4'] }), true);
+
+      expect(mockSelect.mock.calls.length).toBe(1);
+      expect(mockSelect.mock.calls[0][0]).toBe('e2');
+      expect(input.value).toBe('');
+    });
+
+    test('with e2 selected, plays e4 via ICCF', () => {
+      input.value = '54';
       const mockSelect = jest.fn();
       const mockSan = jest.fn();
       const keyboardMovePlugin = keyboardMove({

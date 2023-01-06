@@ -2,15 +2,15 @@ package lila.tutor
 
 import cats.data.NonEmptyList
 import chess.Color
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.analyse.AccuracyPercent
-import lila.common.Heapsort.implicits._
+import lila.common.Heapsort.given
 import lila.common.LilaOpeningFamily
-import lila.insight._
+import lila.insight.*
 import lila.rating.PerfType
-import lila.tutor.TutorCompare.{ comparisonOrdering, AnyComparison }
+import lila.tutor.TutorCompare.{ compOrder, AnyComparison }
 import lila.insight.Result
 import lila.common.config
 
@@ -25,7 +25,7 @@ case class TutorPerfReport(
     openings: Color.Map[TutorColorOpenings],
     phases: List[TutorPhase],
     flagging: TutorFlagging
-) {
+):
   lazy val estimateTotalTime: Option[FiniteDuration] = (perf != PerfType.Correspondence) option stats.time * 2
 
   // Dimension comparison is not interesting for phase accuracy (opening always better)
@@ -54,22 +54,27 @@ case class TutorPerfReport(
     List((perf, clockUsage))
   )
 
+  // lazy val flaggingCompare = TutorCompare[PerfType, ClockPercent](
+  //   InsightDimension.Perf,
+  //   TutorMetric.Flagging,
+  //   List((perf, flagging))
+  // )
+
   def phaseCompares = List(phaseAccuracyCompare, phaseAwarenessCompare)
 
   val clockCompares = List(globalPressureCompare, timeUsageCompare)
 
-  def openingCompares: List[TutorCompare[LilaOpeningFamily, _]] = openings.all.toList.flatMap { op =>
+  def openingCompares: List[TutorCompare[LilaOpeningFamily, ?]] = openings.all.toList.flatMap { op =>
     List(op.accuracyCompare, op.awarenessCompare, op.performanceCompare)
   }
 
-  lazy val allCompares: List[TutorCompare[_, _]] =
-    openingCompares ::: phaseCompares
+  lazy val allCompares: List[TutorCompare[?, ?]] = openingCompares ::: phaseCompares
 
-  val openingHighlights = TutorCompare.mixedBag(openingCompares.flatMap(_.allComparisons)) _
+  val openingHighlights = TutorCompare.mixedBag(openingCompares.flatMap(_.allComparisons))
 
-  val phaseHighlights = TutorCompare.mixedBag(phaseCompares.flatMap(_.peerComparisons)) _
+  val phaseHighlights = TutorCompare.mixedBag(phaseCompares.flatMap(_.peerComparisons))
 
-  val timeHighlights = TutorCompare.mixedBag(clockCompares.flatMap(_.peerComparisons)) _
+  val timeHighlights = TutorCompare.mixedBag(clockCompares.flatMap(_.peerComparisons))
 
   val relevantComparisons: List[AnyComparison] =
     openingCompares.flatMap(_.allComparisons) :::
@@ -78,11 +83,10 @@ case class TutorPerfReport(
 
   def openingFrequency(color: Color, fam: TutorOpeningFamily) =
     GoodPercent(fam.performance.mine.count, stats.nbGames(color))
-}
 
-private object TutorPerfReport {
+private object TutorPerfReport:
 
-  import TutorBuilder._
+  import TutorBuilder.*
 
   private val accuracyQuestion  = Question(InsightDimension.Perf, InsightMetric.MeanAccuracy)
   private val awarenessQuestion = Question(InsightDimension.Perf, InsightMetric.Awareness)
@@ -99,7 +103,7 @@ private object TutorPerfReport {
     awareness   <- answerManyPerfs(awarenessQuestion, users)
     globalClock <- answerManyPerfs(globalClockQuestion, users)
     clockUsage  <- TutorClockUsage compute users
-    perfReports <- users.toList.map { user =>
+    perfReports <- scala.concurrent.Future sequence users.toList.map { user =>
       for {
         openings <- TutorOpening compute user
         phases   <- TutorPhases compute user
@@ -107,15 +111,14 @@ private object TutorPerfReport {
       } yield TutorPerfReport(
         user.perfType,
         user.perfStats,
-        accuracy = accuracy valueMetric user.perfType map AccuracyPercent.apply,
-        awareness = awareness valueMetric user.perfType map GoodPercent.apply,
-        globalClock = globalClock valueMetric user.perfType map ClockPercent.fromPercent,
-        clockUsage = clockUsage valueMetric user.perfType map ClockPercent.fromPercent,
+        accuracy = AccuracyPercent.from(accuracy valueMetric user.perfType),
+        awareness = GoodPercent.from(awareness valueMetric user.perfType),
+        globalClock = ClockPercent.from(globalClock valueMetric user.perfType),
+        clockUsage = ClockPercent.from(clockUsage valueMetric user.perfType),
         openings,
         phases,
         flagging
       )
-    }.sequenceFu
+    }
 
   } yield perfReports
-}

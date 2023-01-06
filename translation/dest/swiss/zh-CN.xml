@@ -7,6 +7,9 @@
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s 轮</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="other">%s 回合瑞士锦标赛</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="other">每 %s 天一轮</item>
   </plurals>
@@ -93,4 +96,9 @@
   <string name="streaksAndBerserk">允许连胜和神速</string>
   <string name="similarToOTB">和 OTB 锦标赛相似</string>
   <string name="unlimitedAndFree">无限制并免费</string>
+  <string name="predefinedUsers">仅允许预定义的用户加入</string>
+  <string name="forbiddedUsers">如果这个列表是非空的，则此列表中缺少的用户将被禁止加入。每行一个用户名。</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="other">%1$s/%2$s 回合瑞士锦标赛</item>
+  </plurals>
 </resources>

@@ -43,8 +43,8 @@ object WMMatchingTest {
 
 class WMMatchingTest extends Specification {
   import WMMatchingTest.check0
-  "WMMatching" should {
-    "create S-blossom and use it for augmentation" in {
+  "WMMatching" >> {
+    "create S-blossom and use it for augmentation" >> {
       check0(Array((1, 2, 8), (1, 3, 9), (2, 3, 10), (3, 4, 7)), false, List(-1, 2, 1, 4, 3)) must beTrue
       check0(
         Array((1, 2, 9), (1, 3, 8), (2, 3, 10), (1, 4, 5), (4, 5, 3), (1, 6, 4)),
@@ -57,21 +57,21 @@ class WMMatchingTest extends Specification {
         List(-1, 2, 1, 6, 5, 4, 3)
       ) must beTrue
     }
-    "create S-blossom, relabel as T-blossom, use for augmentation" in {
+    "create S-blossom, relabel as T-blossom, use for augmentation" >> {
       check0(
         Array((1, 2, 9), (1, 3, 8), (2, 3, 10), (1, 4, 5), (4, 5, 4), (1, 6, 3)),
         false,
         List(-1, 6, 3, 2, 5, 4, 1)
       ) must beTrue
     }
-    "create nested S-blossom, use for augmentation" in {
+    "create nested S-blossom, use for augmentation" >> {
       check0(
         Array((1, 2, 9), (1, 3, 9), (2, 3, 10), (2, 4, 8), (3, 5, 8), (4, 5, 10), (5, 6, 6)),
         false,
         List(-1, 3, 4, 1, 2, 6, 5)
       ) must beTrue
     }
-    "create S-blossom, relabel as S, include in nested S-blossom" in {
+    "create S-blossom, relabel as S, include in nested S-blossom" >> {
       check0(
         Array(
           (1, 2, 10),
@@ -88,7 +88,7 @@ class WMMatchingTest extends Specification {
         List(-1, 2, 1, 4, 3, 6, 5, 8, 7)
       )
     }
-    "create nested S-blossom, augment, expand recursively" in {
+    "create nested S-blossom, augment, expand recursively" >> {
       check0(
         Array(
           (1, 2, 8),
@@ -106,14 +106,14 @@ class WMMatchingTest extends Specification {
         List(-1, 2, 1, 5, 6, 3, 4, 8, 7)
       ) must beTrue
     }
-    "create S-blossom, relabel as T, expand" in {
+    "create S-blossom, relabel as T, expand" >> {
       check0(
         Array((1, 2, 23), (1, 5, 22), (1, 6, 15), (2, 3, 25), (3, 4, 22), (4, 5, 25), (4, 8, 14), (5, 7, 13)),
         false,
         List(-1, 6, 3, 2, 8, 7, 1, 5, 4)
       ) must beTrue
     }
-    "create blossom, relabel as T in more than one way, expand, augment" in {
+    "create blossom, relabel as T in more than one way, expand, augment" >> {
       check0(
         Array(
           (1, 2, 45),
@@ -147,7 +147,7 @@ class WMMatchingTest extends Specification {
         List(-1, 6, 3, 2, 8, 7, 1, 5, 4, 10, 9)
       ) must beTrue
     }
-    "create blossom, relabel as T, expand such that a new least-slack S-to-free edge is produced, augment" in {
+    "create blossom, relabel as T, expand such that a new least-slack S-to-free edge is produced, augment" >> {
       check0(
         Array(
           (1, 2, 45),
@@ -165,7 +165,7 @@ class WMMatchingTest extends Specification {
         List(-1, 6, 3, 2, 8, 7, 1, 5, 4, 10, 9)
       ) must beTrue
     }
-    "create nested blossom, relabel as T in more than one way, expand outer blossom such that inner blossom ends up on an augmenting path" in {
+    "create nested blossom, relabel as T in more than one way, expand outer blossom such that inner blossom ends up on an augmenting path" >> {
       check0(
         Array(
           (1, 2, 45),
@@ -186,7 +186,7 @@ class WMMatchingTest extends Specification {
         List(-1, 8, 3, 2, 6, 9, 4, 10, 1, 5, 7, 12, 11)
       ) must beTrue
     }
-    "create nested S-blossom, relabel as S, expand recursively" in {
+    "create nested S-blossom, relabel as S, expand recursively" >> {
       check0(
         Array(
           (1, 2, 40),
@@ -205,7 +205,7 @@ class WMMatchingTest extends Specification {
         List(-1, 2, 1, 5, 9, 3, 7, 6, 10, 4, 8)
       ) must beTrue
     }
-    "hand" in {
+    "hand" >> {
       check0(Array((0, 1, 1)), false, List(1, 0)) must beTrue
       check0(Array((0, 1, 1)), false, List(1, 0)) must beTrue
       check0(Array((1, 2, 10), (2, 3, 11)), false, List(-1, -1, 3, 2)) must beTrue
@@ -217,7 +217,7 @@ class WMMatchingTest extends Specification {
         List(-1, 6, 3, 2, 5, 4, 1)
       ) must beTrue
     }
-    "random tests" in {
+    "random tests" >> {
       WMMatchingTest.check(2, Array(7), (1, 7)) must beTrue
       WMMatchingTest.check(3, Array(-1, 20, -1), (1, 20)) must beTrue
       WMMatchingTest.check(3, Array(37, 13, 5), (1, 5)) must beTrue

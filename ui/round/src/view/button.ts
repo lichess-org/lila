@@ -40,6 +40,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
     disabled = !me && !d.opponent.onGame && (!!d.clock || !d.player.user || !d.opponent.user),
     them = !!d.opponent.offeringRematch && !disabled,
     noarg = ctrl.noarg;
+  if (!game.rematchable(d)) return [];
   return [
     them
       ? h(
@@ -114,6 +115,7 @@ export function standard(
 
 export function opponentGone(ctrl: RoundController) {
   const gone = ctrl.opponentGone();
+  if (ctrl.data.game.rules?.includes('noClaimWin')) return null;
   return gone === true
     ? h('div.suggestion', [
         h('p', { hook: onSuggestionHook }, ctrl.noarg('opponentLeftChoices')),

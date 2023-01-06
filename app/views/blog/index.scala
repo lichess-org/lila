@@ -1,18 +1,18 @@
 package views.html.blog
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.blog.MiniPost
 import lila.common.paginator.Paginator
 
 import controllers.routes
 
-object index {
+object index:
 
   def apply(
       pager: Paginator[io.prismic.Document]
-  )(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) = {
+  )(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
 
     val primaryPost = (pager.currentPage == 1).??(pager.currentPageResults.headOption)
 
@@ -25,7 +25,7 @@ object index {
       main(cls := "page-menu")(
         bits.menu(none, "lichess".some),
         div(cls := "blog index page-menu__content page-small box force-ltr")(
-          div(cls := "box__top")(
+          boxTop(
             h1("Lichess Official Blog"),
             a(cls := "atom", st.title := "Atom RSS feed", href := routes.Blog.atom, dataIcon := "")
           ),
@@ -35,7 +35,7 @@ object index {
               h2("Previous blog posts")
             )
           },
-          div(cls := "blog-cards list infinite-scroll")(
+          div(cls := "blog-cards box__pad list infinite-scroll")(
             pager.currentPageResults flatMap MiniPost.fromDocument("blog", "wide") map { post =>
               primaryPost.fold(true)(_.id != post.id) option bits.postCard(post, "paginated".some, h3)
             },
@@ -44,7 +44,6 @@ object index {
         )
       )
     )
-  }
 
   def byYear(year: Int, posts: List[MiniPost])(implicit ctx: Context) =
     views.html.base.layout(
@@ -54,8 +53,8 @@ object index {
     )(
       main(cls := "page-menu")(
         bits.menu(year.some, none),
-        div(cls := "page-menu__content box force-ltr")(
-          div(cls := "box__top")(h1(s"Lichess blog posts from $year")),
+        div(cls := "page-menu__content box box-pad force-ltr")(
+          boxTop(h1(s"Lichess blog posts from $year")),
           st.section(
             div(cls := "blog-cards")(posts map { bits.postCard(_) })
           )
@@ -93,4 +92,3 @@ object index {
         )
       )
     )
-}

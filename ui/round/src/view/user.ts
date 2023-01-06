@@ -33,7 +33,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           },
         }),
         h(
-          'a.text.ulpt',
+          `a.text${user.id == 'ghost' ? '' : '.ulpt'}`,
           {
             attrs: {
               'data-pt-pos': 's',
@@ -83,9 +83,9 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
   );
 }
 
-export function userTxt(ctrl: RoundController, player: Player) {
-  if (player.user) {
-    return (player.user.title ? player.user.title + ' ' : '') + player.user.username;
-  } else if (player.ai) return aiName(ctrl, player.ai);
-  else return ctrl.noarg('anonymous');
-}
+export const userTxt = (ctrl: RoundController, player: Player) =>
+  player.user
+    ? (player.user.title ? player.user.title + ' ' : '') + player.user.username
+    : player.ai
+    ? aiName(ctrl, player.ai)
+    : ctrl.noarg('anonymous');

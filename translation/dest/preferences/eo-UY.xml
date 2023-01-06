@@ -34,7 +34,7 @@
   <string name="promoteToQueenAutomatically">Aŭtomata ŝanĝo (de peonoj) al damoj</string>
   <string name="whenPremoving">Ĉe antaŭmovoj</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Pretendi egalvenko sur trifoja ripetado aŭtomate</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Kiam restas malpli ol 30 sekundoj</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kiam restas malpli ol 30 sekundoj</string>
   <string name="moveConfirmation">Konfirmo de movoj</string>
   <string name="inCorrespondenceGames">En korespondaj ludoj</string>
   <string name="correspondenceAndUnlimited">Korespondado kaj senlima</string>

@@ -1,9 +1,8 @@
-import { prop, Prop } from 'common';
-import { bind, dataIcon } from 'common/snabbdom';
+import { prop, Prop, scrollToInnerSelector } from 'common';
+import { bind, dataIcon, iconTag } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
-import { iconTag, scrollTo } from '../util';
 import { ctrl as chapterEditForm, StudyChapterEditFormCtrl } from './chapterEditForm';
 import { ctrl as chapterNewForm, StudyChapterNewFormCtrl } from './chapterNewForm';
 import { LocalPaths, StudyChapter, StudyChapterConfig, StudyChapterMeta, StudyCtrl, TagArray } from './interfaces';
@@ -88,11 +87,11 @@ export function view(ctrl: StudyCtrl): VNode {
       el = vnode.elm as HTMLElement;
     if (vData.count !== newCount) {
       if (current.id !== ctrl.chapters.firstChapterId()) {
-        scrollTo(el, el.querySelector('.active'));
+        scrollToInnerSelector(el, '.active');
       }
     } else if (ctrl.vm.loading && vData.loadingId !== ctrl.vm.nextChapterId) {
       vData.loadingId = ctrl.vm.nextChapterId;
-      scrollTo(el, el.querySelector('.loading'));
+      scrollToInnerSelector(el, '.loading');
     }
     vData.count = newCount;
     if (canContribute && newCount > 1 && !vData.sortable) {

@@ -1,214 +1,214 @@
 package lila.base
 
-import org.specs2.mutable.Specification
-// import scalatags.Text.all._
+import org.specs2.mutable.*
 
+import lila.common.config
 import RawHtml._
 
 class RawHtmlTest extends Specification {
 
-  implicit def netDomain = lila.common.config.NetDomain("lichess.org")
+  given config.NetDomain = config.NetDomain("lichess.org")
 
   val htmlTags = "<[^>]++>".r
   def copyLinkConsistency(text: String) = {
-    // Plain text of linkified text should linkify to the same result.
+    // Plain text of linkified text >> linkify to the same result.
     val firstHtml = addLinks(text)
     val copyText  = htmlTags.replaceAllIn(firstHtml, "")
-    firstHtml must_== addLinks(copyText)
+    firstHtml === addLinks(copyText)
   }
 
-  "links" should {
-    "http external" in {
+  "links" >> {
+    "http external" >> {
       val url = "http://zombo.com"
-      addLinks(s"""link to $url here""") must_==
+      addLinks(s"""link to $url here""") ===
         s"""link to <a rel="nofollow noopener noreferrer" href="$url" target="_blank">$url</a> here"""
     }
-    "hide https in text" in {
+    "hide https >> text" >> {
       val url = "zombo.com"
-      addLinks(s"""link to https://$url here""") must_==
+      addLinks(s"""link to https://$url here""") ===
         s"""link to <a rel="nofollow noopener noreferrer" href="https://$url" target="_blank">$url</a> here"""
     }
-    "default to https" in {
+    "default to https" >> {
       val url = "zombo.com"
-      addLinks(s"""link to $url here""") must_==
+      addLinks(s"""link to $url here""") ===
         s"""link to <a rel="nofollow noopener noreferrer" href="https://$url" target="_blank">$url</a> here"""
     }
-    "skip buggy url like http://foo@bar" in {
+    "skip buggy url like http://foo@bar" >> {
       val url = "http://foo@bar"
-      addLinks(s"""link to $url here""") must not contain """href="http://foo""""
+      addLinks(s"""link to $url here""").must(contain("""href="http://foo"""")).not
     }
-    "ignore image from untrusted host" in {
+    "ignore image from untrusted host" >> {
       val url = "http://zombo.com/pic.jpg"
-      addLinks(s"""link to $url here""") must_==
+      addLinks(s"""link to $url here""") ===
         s"""link to <a rel="nofollow noopener noreferrer" href="$url" target="_blank">$url</a> here"""
     }
-    "detect direct giphy gif URL" in {
+    "detect direct giphy gif URL" >> {
       val url    = "https://media.giphy.com/media/s0mE1d/giphy.gif"
       val picUrl = "https://media.giphy.com/media/s0mE1d/giphy.gif"
-      addLinks(s"""img to $url here""") must_==
+      addLinks(s"""img to $url here""") ===
         s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
     }
-    "detect indirect without tags giphy gif URL" in {
+    "detect indirect without tags giphy gif URL" >> {
       val url    = "https://giphy.com/gifs/s0mE1d"
       val picUrl = "https://media.giphy.com/media/s0mE1d/giphy.gif"
-      addLinks(s"""img to $url here""") must_==
+      addLinks(s"""img to $url here""") ===
         s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
     }
-    "detect indirect with tags giphy gif URL" in {
+    "detect indirect with tags giphy gif URL" >> {
       val url    = "https://giphy.com/gifs/some-text-1-s0mE1d"
       val picUrl = "https://media.giphy.com/media/s0mE1d/giphy.gif"
-      addLinks(s"""img to $url here""") must_==
+      addLinks(s"""img to $url here""") ===
         s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
     }
-    "detect imgur image URL" in {
+    "detect imgur image URL" >> {
       val url    = "https://imgur.com/NXy19Im"
       val picUrl = "https://i.imgur.com/NXy19Im.jpg"
-      addLinks(s"""img to $url here""") must_==
+      addLinks(s"""img to $url here""") ===
         s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
     }
-    "ignore imgur image URL in quotes" in {
+    "ignore imgur image URL >> quotes" >> {
       val url = "http://i.imgur.com/Cku31nh.png"
-      addLinks(s"""img to "$url" here""") must_==
+      addLinks(s"""img to "$url" here""") ===
         s"""img to &quot;<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$url</a>&quot; here"""
     }
-    "ignore imgur gallery URL" in {
+    "ignore imgur gallery URL" >> {
       val url = "http://imgur.com/gallery/pMtTE"
-      addLinks(s"""link to $url here""") must_==
+      addLinks(s"""link to $url here""") ===
         s"""link to <a rel="nofollow noopener noreferrer" href="$url" target="_blank">$url</a> here"""
     }
 
-    "internal links" in {
-      addLinks("lichess.org/@/foo/games") must_==
+    "internal links" >> {
+      addLinks("lichess.org/@/foo/games") ===
         """<a href="/@/foo/games">lichess.org/@/foo/games</a>"""
-      addLinks("lichess.org/@/foo") must_== """<a href="/@/foo">@foo</a>"""
-      addLinks("http://lichess.org/") must_== """<a href="/">lichess.org/</a>"""
-      addLinks("http://lichess.org") must_== """<a href="/">lichess.org</a>"""
-      addLinks("@foo") must_== """<a href="/@/foo">@foo</a>"""
+      addLinks("lichess.org/@/foo") === """<a href="/@/foo">@foo</a>"""
+      addLinks("http://lichess.org/") === """<a href="/">lichess.org/</a>"""
+      addLinks("http://lichess.org") === """<a href="/">lichess.org</a>"""
+      addLinks("@foo") === """<a href="/@/foo">@foo</a>"""
     }
 
-    "handle weird characters" in {
-      addLinks("lichess.org/-–%20") must_== """<a href="/-–%20">lichess.org/-–%20</a>"""
+    "handle weird characters" >> {
+      addLinks("lichess.org/-–%20") === """<a href="/-–%20">lichess.org/-–%20</a>"""
     }
 
-    "handle multiple links" in {
+    "handle multiple links" >> {
       addLinks(
         "@foo blah lichess.org"
-      ) must_== """<a href="/@/foo">@foo</a> blah <a href="/">lichess.org</a>"""
-      addLinks("b foo.com blah lichess.org") must_==
+      ) === """<a href="/@/foo">@foo</a> blah <a href="/">lichess.org</a>"""
+      addLinks("b foo.com blah lichess.org") ===
         """b <a rel="nofollow noopener noreferrer" href="https://foo.com" target="_blank">foo.com</a> blah <a href="/">lichess.org</a>"""
     }
 
-    "handle trailing punctuation" in {
-      addLinks("lichess.org.") must_== """<a href="/">lichess.org</a>."""
-      addLinks("lichess.org)") must_== """<a href="/">lichess.org</a>)"""
-      addLinks("lichess.org/()") must_== """<a href="/()">lichess.org/()</a>"""
+    "handle trailing punctuation" >> {
+      addLinks("lichess.org.") === """<a href="/">lichess.org</a>."""
+      addLinks("lichess.org)") === """<a href="/">lichess.org</a>)"""
+      addLinks("lichess.org/()") === """<a href="/()">lichess.org/()</a>"""
 
-      addLinks("lichess.org/())") must_== """<a href="/()">lichess.org/()</a>)"""
-      addLinks("lichess.org/(2)-)?") must_== """<a href="/(2)-">lichess.org/(2)-</a>)?"""
+      addLinks("lichess.org/())") === """<a href="/()">lichess.org/()</a>)"""
+      addLinks("lichess.org/(2)-)?") === """<a href="/(2)-">lichess.org/(2)-</a>)?"""
 
-      addLinks("lichess.org.-") must_== """<a href="/">lichess.org</a>.-"""
+      addLinks("lichess.org.-") === """<a href="/">lichess.org</a>.-"""
 
-      addLinks("lichess.org/foo:bar") must_== """<a href="/foo:bar">lichess.org/foo:bar</a>"""
-      addLinks("lichess.org/foo:bar:") must_== """<a href="/foo:bar">lichess.org/foo:bar</a>:"""
+      addLinks("lichess.org/foo:bar") === """<a href="/foo:bar">lichess.org/foo:bar</a>"""
+      addLinks("lichess.org/foo:bar:") === """<a href="/foo:bar">lichess.org/foo:bar</a>:"""
     }
 
-    "handle embedded links" in {
-      addLinks(".lichess.org") must_== """.lichess.org"""
-      addLinks("/lichess.org") must_== """/lichess.org"""
-      addLinks(".http://lichess.org") must_== """.<a href="/">lichess.org</a>"""
+    "handle embedded links" >> {
+      addLinks(".lichess.org") === """.lichess.org"""
+      addLinks("/lichess.org") === """/lichess.org"""
+      addLinks(".http://lichess.org") === """.<a href="/">lichess.org</a>"""
 
-      addLinks("/http://lichess.org") must_== """/<a href="/">lichess.org</a>"""
+      addLinks("/http://lichess.org") === """/<a href="/">lichess.org</a>"""
     }
 
-    "handle ambig path separator" in {
-      addLinks("lichess.org#f") must_== """<a href="/#f">lichess.org/#f</a>"""
-      addLinks("lichess.org?f") must_== """<a href="/?f">lichess.org/?f</a>"""
+    "handle ambig path separator" >> {
+      addLinks("lichess.org#f") === """<a href="/#f">lichess.org/#f</a>"""
+      addLinks("lichess.org?f") === """<a href="/?f">lichess.org/?f</a>"""
     }
 
-    "pass through plain text (fast case)" in {
+    "pass through plain text (fast case)" >> {
       val noUrl = "blah blah foobar"
-      addLinks(noUrl) must_== noUrl  // eq
-      addLinks(noUrl) must be(noUrl) // instance eq - fails in scala 2.13
+      addLinks(noUrl) === noUrl      // eq
+      addLinks(noUrl) must be(noUrl) // instance eq - fails >> scala 2.13
     }
 
-    "remove tracking tags" in {
+    "remove tracking tags" >> {
       val url   = "example.com?UTM_CAMPAIGN=spy&utm_source=4everEVIL"
       val clean = "example.com/"
       addLinks(
         url
-      ) must_== s"""<a rel="nofollow noopener noreferrer" href="https://$clean" target="_blank">$clean</a>"""
+      ) === s"""<a rel="nofollow noopener noreferrer" href="https://$clean" target="_blank">$clean</a>"""
     }
   }
 
-  "tracking parameters" should {
-    "be removed" in {
-      removeUrlTrackingParameters("example.com?utm_campaign=spy&utm_source=evil") must_== "example.com"
-      removeUrlTrackingParameters("example.com?UTM_CAMPAIGN=spy&utm_source=4everEVIL") must_== "example.com"
+  "tracking parameters" >> {
+    "be removed" >> {
+      removeUrlTrackingParameters("example.com?utm_campaign=spy&utm_source=evil") === "example.com"
+      removeUrlTrackingParameters("example.com?UTM_CAMPAIGN=spy&utm_source=4everEVIL") === "example.com"
       removeUrlTrackingParameters(
         "example.com?UTM_CAMPAIGN=spy&amp;utm_source=4everEVIL"
-      ) must_== "example.com"
-      removeUrlTrackingParameters("example.com?gclid=spy") must_== "example.com"
-      removeUrlTrackingParameters("example.com?notutm_a=ok") must_== "example.com?notutm_a=ok"
+      ) === "example.com"
+      removeUrlTrackingParameters("example.com?gclid=spy") === "example.com"
+      removeUrlTrackingParameters("example.com?notutm_a=ok") === "example.com?notutm_a=ok"
     }
-    "preserve other params" in {
+    "preserve other params" >> {
       removeUrlTrackingParameters(
         "example.com?foo=42&utm_campaign=spy&bar=yay&utm_source=evil"
-      ) must_== "example.com?foo=42&bar=yay"
+      ) === "example.com?foo=42&bar=yay"
     }
   }
 
-  "markdown links" should {
+  "markdown links" >> {
 
-    "add http links" in {
+    "add http links" >> {
       val md = "[Example](http://example.com)"
       justMarkdownLinks(
         md
-      ) must_== """<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>"""
+      ) === """<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>"""
     }
 
-    "handle $ in link content" in {
+    "handle $ >> link content" >> {
       val md =
         "[$$$ test 9$ prize](https://lichess.org/tournament)"
       justMarkdownLinks(
         md
-      ) must_== """<a rel="nofollow noopener noreferrer" href="https://lichess.org/tournament">$$$ test 9$ prize</a>"""
+      ) === """<a rel="nofollow noopener noreferrer" href="https://lichess.org/tournament">$$$ test 9$ prize</a>"""
     }
 
-    "only allow safe protocols" in {
+    "only allow safe protocols" >> {
       val md = "A [link](javascript:powned) that is not safe."
-      justMarkdownLinks(md) must_== md
+      justMarkdownLinks(md) === md
     }
 
-    "not addBr" in {
-      justMarkdownLinks("\n") must_== "\n"
+    "not addBr" >> {
+      justMarkdownLinks("\n") === "\n"
     }
 
-    "not escape html" in {
-      justMarkdownLinks("&") must_== "&"
+    "not escape html" >> {
+      justMarkdownLinks("&") === "&"
     }
 
-    "remove tracking tags" in {
+    "remove tracking tags" >> {
       val md = "[Example](http://example.com?utm_campaign=spy&utm_source=evil)"
       justMarkdownLinks(
         md
-      ) must_== """<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>"""
+      ) === """<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>"""
     }
   }
 
-  "atUser" should {
-    "expand valid" in {
-      expandAtUser("@foo") must_== List("lichess.org/@/foo")
-      expandAtUser("@2foo") must_== List("lichess.org/@/2foo")
-      expandAtUser("@foo.") must_== List("lichess.org/@/foo", ".")
-      expandAtUser("@foo.com") must_== List("@foo.com")
+  "atUser" >> {
+    "expand valid" >> {
+      expandAtUser("@foo") === List("lichess.org/@/foo")
+      expandAtUser("@2foo") === List("lichess.org/@/2foo")
+      expandAtUser("@foo.") === List("lichess.org/@/foo", ".")
+      expandAtUser("@foo.com") === List("@foo.com")
 
-      expandAtUser("@foo./") must_== List("lichess.org/@/foo", "./")
-      expandAtUser("@foo/games") must_== List("lichess.org/@/foo", "/games")
+      expandAtUser("@foo./") === List("lichess.org/@/foo", "./")
+      expandAtUser("@foo/games") === List("lichess.org/@/foo", "/games")
     }
   }
 
-  "linkConsistency" should {
-    "at user links" in {
+  "linkConsistency" >> {
+    "at user links" >> {
       copyLinkConsistency("http://example.com")
       copyLinkConsistency("https://example.com/@foo")
       copyLinkConsistency("lichess.org/@/foo")
@@ -218,33 +218,33 @@ class RawHtmlTest extends Specification {
     }
   }
 
-  "nl2br" should {
-    "convert windows style newlines into <br>" in {
-      nl2br("hello\r\nworld") must_== "hello<br>world"
-      nl2br("\r\nworld") must_== "<br>world"
-      nl2br("hello\r\n") must_== "hello<br>"
-      nl2br("hello\r\nworld\r\nagain") must_== "hello<br>world<br>again"
+  "nl2br" >> {
+    "convert windows style newlines into <br>" >> {
+      nl2br("hello\r\nworld") === "hello<br>world"
+      nl2br("\r\nworld") === "<br>world"
+      nl2br("hello\r\n") === "hello<br>"
+      nl2br("hello\r\nworld\r\nagain") === "hello<br>world<br>again"
     }
 
-    "convert posix style newlines into <br>" in {
-      nl2br("hello\nworld") must_== "hello<br>world"
-      nl2br("\nworld") must_== "<br>world"
-      nl2br("hello\n") must_== "hello<br>"
-      nl2br("hello\nworld\nagain") must_== "hello<br>world<br>again"
+    "convert posix style newlines into <br>" >> {
+      nl2br("hello\nworld") === "hello<br>world"
+      nl2br("\nworld") === "<br>world"
+      nl2br("hello\n") === "hello<br>"
+      nl2br("hello\nworld\nagain") === "hello<br>world<br>again"
     }
 
-    "not output more than two consecutive <br> chars" in {
-      nl2br("\n\n\n\ndef") must_== "<br><br>def"
-      nl2br("abc\n\n\n\n") must_== "abc<br><br>"
-      nl2br("abc\n\n\n\ndef") must_== "abc<br><br>def"
-      nl2br("abc\n\n\n\ndef\n\n\n\nabc\n\n\n\ndef") must_== "abc<br><br>def<br><br>abc<br><br>def"
+    "not output more than two consecutive <br> chars" >> {
+      nl2br("\n\n\n\ndef") === "<br><br>def"
+      nl2br("abc\n\n\n\n") === "abc<br><br>"
+      nl2br("abc\n\n\n\ndef") === "abc<br><br>def"
+      nl2br("abc\n\n\n\ndef\n\n\n\nabc\n\n\n\ndef") === "abc<br><br>def<br><br>abc<br><br>def"
 
-      nl2br("\r\n\r\n\r\n\ndef") must_== "<br><br>def"
-      nl2br("abc\r\n\r\n\r\n\r\n") must_== "abc<br><br>"
-      nl2br("abc\r\n\r\n\r\n\r\ndef") must_== "abc<br><br>def"
+      nl2br("\r\n\r\n\r\n\ndef") === "<br><br>def"
+      nl2br("abc\r\n\r\n\r\n\r\n") === "abc<br><br>"
+      nl2br("abc\r\n\r\n\r\n\r\ndef") === "abc<br><br>def"
       nl2br(
         "abc\r\n\r\n\r\n\r\ndef\r\n\r\n\r\n\r\nabc\r\n\r\n\r\n\r\ndef"
-      ) must_== "abc<br><br>def<br><br>abc<br><br>def"
+      ) === "abc<br><br>def<br><br>abc<br><br>def"
     }
   }
 }

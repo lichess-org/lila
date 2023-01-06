@@ -1,28 +1,28 @@
 package lila.game
 
-import cats.implicits._
-import chess.Color
-import scala.util.chaining._
+import cats.implicits.*
+import chess.{ Ply, Color }
+import scala.util.chaining.*
 
 import lila.user.User
 
-case class PlayerUser(id: String, rating: Int, ratingDiff: Option[Int])
+case class PlayerUser(id: UserId, rating: IntRating, ratingDiff: Option[IntRatingDiff])
 
 case class Player(
-    id: Player.ID,
+    id: GamePlayerId,
     color: Color,
     aiLevel: Option[Int],
     isWinner: Option[Boolean] = None,
     isOfferingDraw: Boolean = false,
-    proposeTakebackAt: Int = 0, // ply when takeback was proposed
-    userId: Player.UserId = None,
-    rating: Option[Int] = None,
-    ratingDiff: Option[Int] = None,
-    provisional: Boolean = false,
-    blurs: Blurs = Blurs.blursZero.zero,
+    proposeTakebackAt: Ply = Ply(0), // ply when takeback was proposed
+    userId: Option[UserId] = None,
+    rating: Option[IntRating] = None,
+    ratingDiff: Option[IntRatingDiff] = None,
+    provisional: RatingProvisional = RatingProvisional.No,
+    blurs: Blurs = Blurs.zeroBlurs.zero,
     berserk: Boolean = false,
     name: Option[String] = None
-) {
+):
 
   def playerUser =
     userId flatMap { uid =>
@@ -52,11 +52,11 @@ case class Player(
 
   def removeDrawOffer = copy(isOfferingDraw = false)
 
-  def proposeTakeback(ply: Int) = copy(proposeTakebackAt = ply)
+  def proposeTakeback(ply: Ply) = copy(proposeTakebackAt = ply)
 
-  def removeTakebackProposition = copy(proposeTakebackAt = 0)
+  def removeTakebackProposition = copy(proposeTakebackAt = Ply(0))
 
-  def isProposingTakeback = proposeTakebackAt != 0
+  def isProposingTakeback = proposeTakebackAt > 0
 
   def nameSplit: Option[(String, Option[Int])] =
     name map {
@@ -65,50 +65,40 @@ case class Player(
     }
 
   def before(other: Player) =
-    ((rating, id), (other.rating, other.id)) match {
-      case ((Some(a), _), (Some(b), _)) if a != b => a > b
+    ((rating, id), (other.rating, other.id)) match
+      case ((Some(a), _), (Some(b), _)) if a != b => a.value > b.value
       case ((Some(_), _), (None, _))              => true
       case ((None, _), (Some(_), _))              => false
-      case ((_, a), (_, b))                       => a < b
-    }
+      case ((_, a), (_, b))                       => a.value < b.value
 
   def ratingAfter = rating map (_ + ~ratingDiff)
 
-  def stableRating = rating ifFalse provisional
+  def stableRating = rating ifFalse provisional.value
 
   def stableRatingAfter = stableRating map (_ + ~ratingDiff)
-}
 
-object Player {
+object Player:
 
   private val nameSplitRegex = """([^(]++)\((\d++)\)""".r
 
-  def make(
-      color: Color,
-      aiLevel: Option[Int] = None
-  ): Player =
-    Player(
-      id = IdGenerator.player(color),
-      color = color,
-      aiLevel = aiLevel
-    )
+  def make(color: Color, aiLevel: Option[Int] = None): Player = Player(
+    id = IdGenerator.player(color),
+    color = color,
+    aiLevel = aiLevel
+  )
+
+  def make(color: Color, userPerf: (UserId, lila.rating.Perf)): Player = make(
+    color = color,
+    userId = userPerf._1,
+    rating = userPerf._2.intRating,
+    provisional = userPerf._2.glicko.provisional
+  )
 
   def make(
       color: Color,
-      userPerf: (User.ID, lila.rating.Perf)
-  ): Player =
-    make(
-      color = color,
-      userId = userPerf._1,
-      rating = userPerf._2.intRating,
-      provisional = userPerf._2.glicko.provisional
-    )
-
-  def make(
-      color: Color,
-      userId: User.ID,
-      rating: Int,
-      provisional: Boolean
+      userId: UserId,
+      rating: IntRating,
+      provisional: RatingProvisional
   ): Player =
     Player(
       id = IdGenerator.player(color),
@@ -131,7 +121,7 @@ object Player {
   def makeImported(
       color: Color,
       name: Option[String],
-      rating: Option[Int]
+      rating: Option[IntRating]
   ): Player =
     Player(
       id = IdGenerator.player(color),
@@ -141,22 +131,23 @@ object Player {
       rating = rating
     )
 
-  case class HoldAlert(ply: Int, mean: Int, sd: Int) {
+  case class HoldAlert(ply: Ply, mean: Int, sd: Int):
     def suspicious = HoldAlert.suspicious(ply)
-  }
-  object HoldAlert {
+  object HoldAlert:
     type Map = Color.Map[Option[HoldAlert]]
     val emptyMap: Map                 = Color.Map(none, none)
-    def suspicious(ply: Int): Boolean = ply >= 16 && ply <= 40
+    def suspicious(ply: Ply): Boolean = ply >= 16 && ply <= 40
     def suspicious(m: Map): Boolean   = m exists { _ exists (_.suspicious) }
-  }
 
-  case class UserInfo(id: String, rating: Int, provisional: Boolean)
+  case class UserInfo(id: UserId, rating: IntRating, provisional: RatingProvisional)
 
-  import reactivemongo.api.bson.Macros
-  implicit val holdAlertBSONHandler = Macros.handler[HoldAlert]
+  import reactivemongo.api.bson.*
+  import lila.db.BSON
+  import lila.db.dsl.given
 
-  object BSONFields {
+  given BSONDocumentHandler[HoldAlert] = Macros.handler
+
+  object BSONFields:
 
     val aiLevel           = "ai"
     val isOfferingDraw    = "od"
@@ -168,60 +159,53 @@ object Player {
     val holdAlert         = "h"
     val berserk           = "be"
     val name              = "na"
+
+  type Win                   = Option[Boolean]
+  private[game] type Builder = Color => GamePlayerId => Option[UserId] => Win => Player
+
+  private def safeRange[A](range: Range)(a: A)(using ir: IntRuntime[A]): Option[A] =
+    range.contains(ir(a)) option a
+  private val ratingRange     = safeRange[IntRating](0 to 4000)
+  private val ratingDiffRange = safeRange[IntRatingDiff](-1000 to 1000)
+
+  import lila.db.dsl.{ *, given }
+
+  given playerReader: BSONDocumentReader[Builder] with
+    import scala.util.{ Try, Success }
+    def readDocument(doc: Bdoc): Try[Builder] = Success(builderRead(doc))
+
+  def builderRead(doc: Bdoc): Builder = color =>
+    id =>
+      userId =>
+        win =>
+          import BSONFields.*
+          Player(
+            id = id,
+            color = color,
+            aiLevel = doc int aiLevel,
+            isWinner = win,
+            isOfferingDraw = doc booleanLike isOfferingDraw getOrElse false,
+            proposeTakebackAt = Ply(doc.int(proposeTakebackAt) | 0),
+            userId = userId,
+            rating = doc.getAsOpt[IntRating](rating) flatMap ratingRange,
+            ratingDiff = doc.getAsOpt[IntRatingDiff](ratingDiff) flatMap ratingDiffRange,
+            provisional = ~doc.getAsOpt[RatingProvisional](provisional),
+            blurs = doc.getAsOpt[Blurs](blursBits) getOrElse Blurs.zeroBlurs.zero,
+            berserk = doc booleanLike berserk getOrElse false,
+            name = doc string name
+          )
+
+  def playerWrite(p: Player) = {
+    import BSONFields.*
+    import Blurs.*
+    $doc(
+      aiLevel           -> p.aiLevel,
+      isOfferingDraw    -> p.isOfferingDraw.option(true),
+      proposeTakebackAt -> p.proposeTakebackAt.some.filter(_ > 0),
+      rating            -> p.rating,
+      ratingDiff        -> p.ratingDiff,
+      provisional       -> p.provisional.yes.option(true),
+      blursBits         -> p.blurs.nonEmpty.??(p.blurs),
+      name              -> p.name
+    )
   }
-
-  import reactivemongo.api.bson._
-  import lila.db.BSON
-
-  type ID      = String
-  type UserId  = Option[String]
-  type Win     = Option[Boolean]
-  type Builder = Color => ID => UserId => Win => Player
-
-  private def safeRange(range: Range)(v: Int): Option[Int] =
-    range.contains(v) option v
-
-  private val ratingRange     = safeRange(0 to 4000) _
-  private val ratingDiffRange = safeRange(-1000 to 1000) _
-
-  implicit val playerBSONHandler = new BSON[Builder] {
-
-    import BSONFields._
-    import Blurs._
-
-    def reads(r: BSON.Reader) =
-      color =>
-        id =>
-          userId =>
-            win =>
-              Player(
-                id = id,
-                color = color,
-                aiLevel = r intO aiLevel,
-                isWinner = win,
-                isOfferingDraw = r boolD isOfferingDraw,
-                proposeTakebackAt = r intD proposeTakebackAt,
-                userId = userId,
-                rating = r intO rating flatMap ratingRange,
-                ratingDiff = r intO ratingDiff flatMap ratingDiffRange,
-                provisional = r boolD provisional,
-                blurs = r.getD[Blurs](blursBits, blursZero.zero),
-                berserk = r boolD berserk,
-                name = r strO name
-              )
-
-    def writes(w: BSON.Writer, o: Builder) =
-      o(chess.White)("0000")(none)(none) pipe { p =>
-        BSONDocument(
-          aiLevel           -> p.aiLevel,
-          isOfferingDraw    -> w.boolO(p.isOfferingDraw),
-          proposeTakebackAt -> w.intO(p.proposeTakebackAt),
-          rating            -> p.rating,
-          ratingDiff        -> p.ratingDiff,
-          provisional       -> w.boolO(p.provisional),
-          blursBits         -> p.blurs.nonEmpty.??(BlursBSONHandler writeOpt p.blurs),
-          name              -> p.name
-        )
-      }
-  }
-}

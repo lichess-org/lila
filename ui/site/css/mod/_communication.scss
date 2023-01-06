@@ -70,7 +70,8 @@
     padding: 6px;
   }
 
-  .player_chats .game .friend_title {
+  .player_chats .game .friend_title,
+  .thread .title .friend_title {
     color: green;
     font-style: italic;
   }
@@ -117,16 +118,15 @@
 
   .thread .title {
     margin-bottom: 20px;
+    strong {
+      font-size: 1.2em;
+      margin-right: 1em;
+    }
   }
 
   .thread .truncated-convo {
     text-align: center;
     font-style: italic;
-    display: block;
-  }
-
-  .thread .title strong {
-    font-size: 1.2em;
     display: block;
   }
 

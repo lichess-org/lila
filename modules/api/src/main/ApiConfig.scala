@@ -1,32 +1,28 @@
 package lila.api
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 
 final class ApiConfig(
     val apiToken: Secret,
     val influxEventEndpoint: String,
     val influxEventEnv: String,
     val prismicApiUrl: String,
-    val explorerEndpoint: String,
-    val tablebaseEndpoint: String,
     val accessibility: ApiConfig.Accessibility,
     val pagerDuty: ApiConfig.PagerDuty
 )
 
-object ApiConfig {
+object ApiConfig:
 
   final class Accessibility(
       val blindCookieName: String,
       blindCookieSalt: Secret
-  ) {
+  ):
     val blindCookieMaxAge = 365 days
-    def hash(implicit ctx: lila.user.UserContext) = {
-      import com.roundeights.hasher.Implicits._
-      (ctx.userId | "anon").salt(blindCookieSalt.value).md5.hex
-    }
-  }
+    def hash(using ctx: lila.user.UserContext) =
+      import com.roundeights.hasher.Implicits.*
+      ctx.userId.fold("anon")(_.value).salt(blindCookieSalt.value).md5.hex
 
   final class PagerDuty(val serviceId: String, val apiKey: Secret)
 
@@ -36,8 +32,6 @@ object ApiConfig {
       c.get[String]("api.influx_event.endpoint"),
       c.get[String]("api.influx_event.env"),
       c.get[String]("prismic.api_url"),
-      c.get[String]("explorer.endpoint"),
-      c.get[String]("explorer.tablebase.endpoint"),
       new Accessibility(
         c.get[String]("accessibility.blind.cookie.name"),
         c.get[Secret]("accessibility.blind.cookie.salt")
@@ -47,4 +41,3 @@ object ApiConfig {
         c.get[Secret]("pagerDuty.apiKey")
       )
     )
-}

@@ -2,25 +2,25 @@ package lila.forum
 
 import scala.concurrent.ExecutionContext
 import reactivemongo.api.ReadPreference
-import lila.common.paginator._
-import lila.db.dsl._
+import lila.common.paginator.*
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
 
 final class ForumPaginator(
-    topicRepo: TopicRepo,
-    postRepo: PostRepo,
+    topicRepo: ForumTopicRepo,
+    postRepo: ForumPostRepo,
     config: ForumConfig,
     textExpand: ForumTextExpand
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
-  def topicPosts(topic: Topic, page: Int, me: Option[User])(implicit
+  def topicPosts(topic: ForumTopic, page: Int, me: Option[User])(using
       netDomain: lila.common.config.NetDomain
-  ): Fu[Paginator[Post.WithFrag]] =
+  ): Fu[Paginator[ForumPost.WithFrag]] =
     Paginator(
-      new Adapter[Post](
+      new Adapter[ForumPost](
         collection = postRepo.coll,
         selector = postRepo.forUser(me) selectTopic topic.id,
         projection = none,
@@ -31,7 +31,7 @@ final class ForumPaginator(
     ).flatMap(_ mapFutureList textExpand.manyPosts)
 
   def categTopics(
-      categ: Categ,
+      categ: ForumCateg,
       forUser: Option[User],
       page: Int
   ): Fu[Paginator[TopicView]] =
@@ -47,7 +47,7 @@ final class ForumPaginator(
         def slice(offset: Int, length: Int): Fu[Seq[TopicView]] =
           topicRepo.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-              import framework._
+              import framework.*
               Match(selector) -> List(
                 Sort(Descending("updatedAt")),
                 Skip(offset),
@@ -65,12 +65,11 @@ final class ForumPaginator(
             .map { docs =>
               for {
                 doc   <- docs
-                topic <- doc.asOpt[Topic]
-                post = doc.getAsOpt[List[Post]]("post").flatMap(_.headOption)
+                topic <- doc.asOpt[ForumTopic]
+                post = doc.getAsOpt[List[ForumPost]]("post").flatMap(_.headOption)
               } yield TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
             }
 
         private def selector = topicRepo.forUser(forUser) byCategNotStickyQuery categ
       }
     )
-}

@@ -1,6 +1,6 @@
 package lila.user
 
-import scala._
+import scala.*
 
 final class Country(
     val code: String,
@@ -8,7 +8,7 @@ final class Country(
     val shortName: String
 )
 
-object Countries {
+object Countries:
 
   @inline private def C(code: String, name: String)                    = new Country(code, name, name)
   @inline private def C(code: String, name: String, shortName: String) = new Country(code, name, shortName)
@@ -212,6 +212,7 @@ object Countries {
     C("RO", "Romania"),
     C("RS", "Serbia"),
     C("RU", "Russia"),
+    C("RU-TAT", "Tatarstan"),
     C("RW", "Rwanda"),
     C("SA", "Saudi Arabia"),
     C("SB", "Solomon Islands"),
@@ -290,11 +291,7 @@ object Countries {
     c.code -> c.name
   }
 
-  val map: Map[String, Country] = all.view
-    .map { c =>
-      c.code -> c
-    }
-    .to(Map)
+  val map: Map[String, Country] = all.mapBy(_.code)
 
   val nameMap: Map[Country, String] = all.view
     .map { c =>
@@ -315,4 +312,3 @@ object Countries {
 
   def info(code: String): Option[Country] = map get code
   def name(country: Country): String      = nameMap.getOrElse(country, country.name)
-}

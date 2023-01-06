@@ -5,10 +5,10 @@ import org.joda.time.DateTime
 import lila.user.User
 
 case class CategView(
-    categ: Categ,
-    lastPost: Option[(Topic, Post, Int)],
+    categ: ForumCateg,
+    lastPost: Option[(ForumTopic, ForumPost, Int)],
     forUser: Option[User]
-) {
+):
 
   def nbTopics       = categ nbTopics forUser
   def nbPosts        = categ nbPosts forUser
@@ -18,15 +18,14 @@ case class CategView(
   def slug = categ.slug
   def name = categ.name
   def desc = categ.desc
-}
 
 case class TopicView(
-    categ: Categ,
-    topic: Topic,
-    lastPost: Option[Post],
+    categ: ForumCateg,
+    topic: ForumTopic,
+    lastPost: Option[ForumPost],
     lastPage: Int,
     forUser: Option[User]
-) {
+):
 
   def updatedAt      = topic updatedAt forUser
   def nbPosts        = topic nbPosts forUser
@@ -38,37 +37,37 @@ case class TopicView(
   def slug      = topic.slug
   def name      = topic.name
   def createdAt = topic.createdAt
-}
 
 case class PostView(
-    post: Post,
-    topic: Topic,
-    categ: Categ
-) {
+    post: ForumPost,
+    topic: ForumTopic,
+    categ: ForumCateg
+):
 
   def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
-}
 
-object PostView {
+object PostView:
   case class WithReadPerm(view: PostView, canRead: Boolean)
-}
 
-case class PostLiteView(post: Post, topic: Topic)
+case class PostLiteView(post: ForumPost, topic: ForumTopic)
 
 case class MiniForumPost(
     isTeam: Boolean,
-    postId: String,
+    postId: ForumPostId,
     topicName: String,
-    userId: Option[String],
+    userId: Option[UserId],
     text: String,
     createdAt: DateTime
 )
 
-case class PostUrlData(categ: String, topic: String, page: Int, number: Int)
+case class PostUrlData(categ: ForumCategId, topicSlug: String, page: Int, number: Int)
 
-object Filter {
-  sealed trait Filter
-  case object Safe                   extends Filter
-  case class SafeAnd(userId: String) extends Filter
-  case object Unsafe                 extends Filter
-}
+enum Filter:
+  case Safe
+  case SafeAnd(userId: UserId)
+  case Unsafe
+
+case class InsertPost(post: ForumPost)
+case class RemovePost(id: ForumPostId)
+case class RemovePosts(ids: List[ForumPostId])
+case class CreatePost(post: ForumPost)

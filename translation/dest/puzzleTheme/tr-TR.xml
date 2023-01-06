@@ -50,9 +50,9 @@
   <string name="fork">Çatal</string>
   <string name="forkDescription">Bir taşın aynı anda iki rakip taşa saldırdığı hamleler.</string>
   <string name="hangingPiece">Askıda taş</string>
-  <string name="hangingPieceDescription">Savunmasız veya yeterince korunmayan rakip taşların kol gezdiği taktikler.</string>
+  <string name="hangingPieceDescription">Savunmasız veya yeterince korunmayan, yenilebilecek taşları içeren taktikler.</string>
   <string name="hookMate">Kanca matı</string>
-  <string name="hookMateDescription">Kale, at, piyon ve rakip şahın kaçışını engelleyen rakip piyonla yapılan mattır.</string>
+  <string name="hookMateDescription">Bir kale, at ve piyonla beraber şahın kaçışını kısıtlayan bir rakip piyonun kullanıldığı mat.</string>
   <string name="interference">Yol Kesme</string>
   <string name="interferenceDescription">Rakip taşların arasına kendi taşını koyarak rakibin bir taşını ya da iki taşını da savunmasız bırak. Rakibin iki kalesinin arasındaki güvenli bir kareye atı oynamak gibi.</string>
   <string name="intermezzo">Ara hamle</string>

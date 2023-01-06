@@ -37,7 +37,10 @@
   </plurals>
   <string name="thisIsPrivate">Սա փակ մրցաշար է</string>
   <string name="shareUrl">Խաղացողների հրավիրելու համար տարածիր այս հղումը՝ %s</string>
-  <string name="drawStreak">Ոչ-ոքիների շարք. եթե խաղացողը «Արենայում» ունի իրար հաջորդող մի քանի ոչ-ոքի, ապա միավոր է տրվում միայն առաջին ոչ-ոքիի համար, կամ այն ոչ-ոքիի համար, որը կտևի %s քայլից ավելի։ Ոչ-ոքիների շարքը կարելի է ընդհատել միայն հաղթանակով, բայց ոչ պարտությամբ կամ ևս մեկ ոչ-ոքիով։</string>
+  <string name="drawStreakStandard">Ոչ-ոքիների շարք. եթե խաղացողն «Արենայում» ունի մի քանի հաջորդական ոչ-ոքի, ապա միավոր տրվում է միայն առաջին ոչ-ոքիի համար կամ այն ոչ-ոքիի համար, որը կտևի ավելին, քան %s քայլը ստանդարտ տարբերակում։ Ոչ-ոքիների շարքը կարելի է ընդհատել միայն հաղթանակով, բայց ոչ պարտությամբ կամ մեկ այլ ոչ-ոքիով։</string>
+  <string name="drawStreakVariants">Ոչ-ոքի ավարտված պարտիաների նվազագույն քայլերի քանակը, որի համար տրվում են միավորներ. կախված է խաղի տարբերակից։ Ներքևի աղյուսակում բերված են յուրաքանչյուր տարբերակի համար սահմանային արժեքները։</string>
+  <string name="variant">Տարբերակ</string>
+  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Քայլերի նվազագույն քանակ</string>
   <string name="history">«Արենայի» պատմություն</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Դիտել ակումբը</item>

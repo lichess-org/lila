@@ -1,6 +1,6 @@
 import { Config as CgConfig } from 'chessground/config';
 import { DrawShape } from 'chessground/draw';
-import { prop } from 'common';
+import { prop, defined } from 'common';
 import throttle, { throttlePromiseDelay } from 'common/throttle';
 import debounce from 'common/debounce';
 import AnalyseCtrl from '../ctrl';
@@ -87,6 +87,7 @@ export default function (
 
   const relayRecProp = storedBooleanProp('relay.rec', true);
   const nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
+  const chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
 
   const vm: StudyVm = (() => {
     const isManualChapter = data.chapter.id !== data.position.chapterId;
@@ -163,9 +164,7 @@ export default function (
     relay
   );
 
-  function isWriting(): boolean {
-    return vm.mode.write && !isGamebookPlay();
-  }
+  const isWriting = (): boolean => vm.mode.write && !isGamebookPlay();
 
   function makeChange(...args: StudySocketSendParams): boolean {
     if (isWriting()) {
@@ -211,16 +210,13 @@ export default function (
     };
   }
 
-  function isGamebookPlay() {
-    return (
-      data.chapter.gamebook &&
-      vm.gamebookOverride !== 'analyse' &&
-      (vm.gamebookOverride === 'play' || !members.canContribute())
-    );
-  }
+  const isGamebookPlay = () =>
+    data.chapter.gamebook &&
+    vm.gamebookOverride !== 'analyse' &&
+    (vm.gamebookOverride === 'play' || !members.canContribute());
 
   if (vm.mode.sticky && !isGamebookPlay()) ctrl.userJump(data.position.path);
-  else if (data.chapter.relay && !ctrl.initialPath) ctrl.userJump(data.chapter.relay.path);
+  else if (data.chapter.relay && !defined(ctrl.requestInitialPly)) ctrl.userJump(data.chapter.relay.path);
 
   function configureAnalysis() {
     if (ctrl.embed) return;
@@ -264,7 +260,7 @@ export default function (
     document.title = data.name;
     members.dict(s.members);
     chapters.list(s.chapters);
-    ctrl.flipped = false;
+    ctrl.flipped = chapterFlipMapProp(data.chapter.id);
 
     const merge = !vm.mode.write && sameChapter;
     ctrl.reloadData(d.analysis, merge);
@@ -296,7 +292,6 @@ export default function (
     configurePractice();
     serverEval.reset();
     commentForm.onSetPath(data.chapter.id, ctrl.path, ctrl.node);
-
     redraw();
     ctrl.startCeval();
   }
@@ -321,6 +316,7 @@ export default function (
       );
   });
 
+  ctrl.flipped = chapterFlipMapProp(data.chapter.id);
   if (members.canContribute()) form.openIfNew();
 
   const currentNode = () => ctrl.node;
@@ -649,6 +645,9 @@ export default function (
       if (gamebookPlay) gamebookPlay.onJump();
       else chapters.localPaths[vm.chapterId] = ctrl.path; // don't remember position on gamebook
       if (practice) practice.onJump();
+    },
+    onFlip() {
+      chapterFlipMapProp(data.chapter.id, ctrl.flipped);
     },
     withPosition,
     setPath(path, node) {

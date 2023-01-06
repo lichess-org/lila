@@ -1,14 +1,14 @@
 package lila.studySearch
 
-import akka.actor._
-import com.softwaremill.macwire._
-import scala.concurrent.duration._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import scala.concurrent.duration.*
 
 import lila.common.Bus
-import lila.common.paginator._
+import lila.common.paginator.*
 import lila.hub.actorApi.study.RemoveStudy
 import lila.hub.LateMultiThrottler
-import lila.search._
+import lila.search.*
 import lila.study.Study
 import lila.user.User
 
@@ -17,12 +17,12 @@ final class Env(
     chapterRepo: lila.study.ChapterRepo,
     pager: lila.study.StudyPager,
     makeClient: Index => ESClient
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer
-) {
+):
 
   private val client = makeClient(Index("study"))
 
@@ -33,7 +33,7 @@ final class Env(
   def apply(me: Option[User])(text: String, page: Int) =
     Paginator[Study.WithChaptersAndLiked](
       adapter = new AdapterLike[Study] {
-        def query                           = Query(text, me.map(_.id))
+        def query                           = Query(text take 100, me.map(_.id))
         def nbResults                       = api count query
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
       } mapFutureList pager.withChaptersAndLiking(me),
@@ -42,15 +42,12 @@ final class Env(
     )
 
   def cli =
-    new lila.common.Cli {
-      def process = {
+    new lila.common.Cli:
+      def process =
         case "study" :: "search" :: "reset" :: Nil          => api.reset("reset") inject "done"
         case "study" :: "search" :: "index" :: since :: Nil => api.reset(since) inject "done"
-      }
-    }
 
   Bus.subscribeFun("study") {
     case lila.study.actorApi.SaveStudy(study) => api.store(study).unit
-    case RemoveStudy(id, _)                   => client.deleteById(Id(id)).unit
+    case RemoveStudy(id, _)                   => client.deleteById(id into Id).unit
   }
-}

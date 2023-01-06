@@ -14,11 +14,11 @@ export default (ctrl: KeyboardController) =>
       control.next(ctrl);
       ctrl.redraw();
     })
-    .bind(['up', '0'], () => {
+    .bind(['up', '0', 'home'], () => {
       control.first(ctrl);
       ctrl.redraw();
     })
-    .bind(['down', '$'], () => {
+    .bind(['down', '$', 'end'], () => {
       control.last(ctrl);
       ctrl.redraw();
     })
@@ -33,9 +33,7 @@ export default (ctrl: KeyboardController) =>
     .bind('z', () => lichess.pubsub.emit('zen'))
     .bind('?', () => ctrl.keyboardHelp(!ctrl.keyboardHelp()))
     .bind('f', ctrl.flip)
-    .bind('n', () => {
-      if (ctrl.vm.mode === 'view') ctrl.nextPuzzle();
-    });
+    .bind('n', ctrl.nextPuzzle);
 
 export const view = (ctrl: Controller): VNode =>
   snabModal({

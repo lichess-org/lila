@@ -29,6 +29,7 @@
   <string name="otherAmount">Overige</string>
   <string name="pleaseEnterAmountInX">Voer een bedrag in %s in</string>
   <string name="withCreditCard">Creditcard</string>
+  <string name="logInToDonate">Log in om te doneren</string>
   <string name="weAreSmallTeam">We zijn een klein team, dus je steun maakt een enorm verschil!</string>
   <string name="celebratedPatrons">Enkele zeer gewaardeerde patronen die Lichess mogelijk maken</string>
   <string name="whereMoneyGoes">Waar wordt het geld aan uitgegeven?</string>
@@ -42,7 +43,9 @@ Daarnaast betalen we een voltijds ontwikkelaar: %s, de oprichter van Lichess.</s
 Of u kunt %s.</string>
   <string name="contactSupport">contact opnemen met de Lichess helpdesk</string>
   <string name="otherMethods">Andere vormen van donatie?</string>
+  <string name="lichessIsRegisteredWith">Lichess is geregistreerd bij %s.</string>
   <string name="bankTransfers">We accepteren ook bankoverschrijvingen</string>
+  <string name="onlyDonationFromAbove">Houd er rekening mee dat alleen het donatieformulier hierboven de Patron-status geeft.</string>
   <string name="patronFeatures">Zijn sommige functies enkel beschikbaar voor Patronen?</string>
   <string name="noPatronFeatures">Nee, omdat Lichess altijd gratis is, en voor iedereen. Dat is een belofte.
 Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waardering.</string>
@@ -61,7 +64,7 @@ Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waarder
   <string name="update">Bijwerken</string>
   <string name="changeMonthlyAmount">Het maandelijkse bedrag wijzigen (%s)</string>
   <string name="cancelSupport">je steun annuleren</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s of %2$s</string>
+  <string name="xOrY">%1$s of %2$s</string>
   <string name="decideHowMuch">Beslis wat Lichess voor jou waard is:</string>
   <string name="stopPayments">Trek je creditcard terug en stop de betalingen:</string>
   <string name="stopPaymentsPayPal">Abonnement via PayPal annuleren en betalingen stoppen:</string>

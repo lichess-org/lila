@@ -13,6 +13,8 @@
   <string name="specialMoves">Speciale zetten</string>
   <string name="didYouLikeThisPuzzle">Vond je deze puzzel leuk?</string>
   <string name="voteToLoadNextOne">Stem om de volgende te laden!</string>
+  <string name="upVote">Puzzel leuk vinden</string>
+  <string name="downVote">Puzzel niet leuk vinden</string>
   <string name="yourPuzzleRatingWillNotChange">Je puzzelrating zal niet veranderen: puzzels zijn geen competitie. De rating helpt bij het selecteren van de beste puzzels voor je huidige vaardigheid.</string>
   <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
   <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
@@ -70,7 +72,7 @@
   <string name="searchPuzzles">Puzzels zoeken</string>
   <string name="fromMyGamesNone">Je hebt geen puzzels in de database staan, maar Lichess waardeert je nog steeds heel erg.
 Speel rapid en klassieke partijen om de kans te vergroten dat een puzzel uit jouw partijen wordt toegevoegd!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s puzzels gevonden in %2$s partijen</string>
+  <string name="fromXGamesFound">%1$s puzzels gevonden in %2$s partijen</string>
   <string name="puzzleDashboardDescription">Train, analyseer, verbeter</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s gespeeld</item>

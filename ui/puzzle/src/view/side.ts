@@ -2,6 +2,8 @@ import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty } from '..
 import { dataIcon, onInsert, bind } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
+import perfIcons from 'common/perfIcons';
+import * as router from 'common/router';
 import PuzzleStreak from '../streak';
 
 export function puzzleBox(ctrl: Controller): VNode {
@@ -27,7 +29,7 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
                   'a',
                   {
                     attrs: {
-                      href: `/training/${puzzle.id}`,
+                      href: router.withLang(`/training/${puzzle.id}`),
                       ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
                     },
                   },
@@ -53,7 +55,7 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
 
 function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
   const gameName = `${game.clock} • ${game.perf.name}`;
-  return h('div.infos', { attrs: dataIcon(game.perf.icon) }, [
+  return h('div.infos', { attrs: dataIcon(perfIcons[game.perf.key]) }, [
     h('div', [
       h(
         'p',
@@ -121,7 +123,7 @@ export const userBox = (ctrl: Controller): VNode => {
   if (!data.user)
     return h('div.puzzle__side__user', [
       h('p', noarg('toGetPersonalizedPuzzles')),
-      h('a.button', { attrs: { href: '/signup' } }, noarg('signUp')),
+      h('a.button', { attrs: { href: router.withLang('/signup') } }, noarg('signUp')),
     ]);
   const diff = ctrl.vm.round?.ratingDiff,
     ratedId = 'puzzle-toggle-rated';
@@ -283,7 +285,7 @@ export const renderDifficultyForm = (ctrl: Controller): VNode =>
                 selected: key == ctrl.settings.difficulty,
                 title:
                   !!delta &&
-                  ctrl.trans.plural(
+                  ctrl.trans.pluralSame(
                     delta < 0 ? 'nbPointsBelowYourPuzzleRating' : 'nbPointsAboveYourPuzzleRating',
                     Math.abs(delta)
                   ),

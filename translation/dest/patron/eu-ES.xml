@@ -29,6 +29,7 @@
   <string name="otherAmount">Bestelakoa</string>
   <string name="pleaseEnterAmountInX">Idatzi kopurua %stan</string>
   <string name="withCreditCard">Kreditu txartela</string>
+  <string name="logInToDonate">Sartu dohaintza egiteko</string>
   <string name="weAreSmallTeam">Talde txikia gara, gure babesak asko lagunduko digu!</string>
   <string name="celebratedPatrons">Hauek dira Lichess posible egiten duten Babesleak</string>
   <string name="whereMoneyGoes">Nora doa dirua?</string>
@@ -42,7 +43,9 @@ Ondoren garatzaile baten soldata ordaintzen dugu: %s, Lichessen sortzailea.</str
 Edo %s.</string>
   <string name="contactSupport">jarri kontaktuan Lichessen arreta zerbitzuarekin</string>
   <string name="otherMethods">Dirua emateko beste aukera batzuk?</string>
+  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess hemen erregistratuta dago %s.</string>
   <string name="bankTransfers">Banku-transferentziak ere onartzen ditugu</string>
+  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">Kontuan hartu formulario honek bakarrik emango dizula Babesle egoera.</string>
   <string name="patronFeatures">Badago zerbait Babesleentzat bakarrik gordeta?</string>
   <string name="noPatronFeatures">Ez, Lichess osoa doakoa delako, betiko eta guztiontzat. Hori hitz ematen dugu. Hala ere, Babesleek beren profilaren orrialdean ikono berri bat jasotzen dute.</string>
   <string name="featuresComparison">Ikusi ezaugarrien alderaketa</string>
@@ -60,7 +63,7 @@ Edo %s.</string>
   <string name="update">Eguneratu</string>
   <string name="changeMonthlyAmount">Hileroko kopurua aldatu (%s)</string>
   <string name="cancelSupport">zure babesa ezeztatu</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s edo %2$s</string>
+  <string name="xOrY">%1$s edo %2$s</string>
   <string name="decideHowMuch">Erabaki zenbat balio duen Lichessek zuretzat:</string>
   <string name="stopPayments">Kendu zure kreditu txartela eta ordainketa egiteari utzi:</string>
   <string name="stopPaymentsPayPal">Bertan behera utzi PayPal bidezko harpidetza eta utzi ordaintzeari:</string>

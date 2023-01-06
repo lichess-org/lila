@@ -1,24 +1,27 @@
 package views.html
 package site
 
+import controllers.appeal.routes.{ Appeal as appealRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
-import scala.util.chaining._
+import scala.util.chaining.*
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object contact {
+object contact:
 
-  import trans.contact._
-  import views.html.base.navTree._
+  import trans.contact.*
+  import views.html.base.navTree.*
+  import views.html.base.navTree.Node.*
 
   def contactEmailLinkEmpty(email: String = contactEmailInClear) =
     a(cls := "contact-email-obfuscated", attr("data-email") := lila.common.String.base64.encode(email))
-  def contactEmailLink(email: String = contactEmailInClear)(implicit ctx: Context) =
+  def contactEmailLink(email: String = contactEmailInClear)(using Context) =
     contactEmailLinkEmpty(email)(trans.clickToRevealEmailAddress())
 
-  private def reopenLeaf(prefix: String)(implicit ctx: Context) =
+  private def reopenLeaf(prefix: String)(using Context) =
     Leaf(
       s"$prefix-reopen",
       wantReopen(),
@@ -28,7 +31,7 @@ object contact {
       )
     )
 
-  private def howToReportBugs(implicit ctx: Context): Frag =
+  private def howToReportBugs(using Context): Frag =
     frag(
       ul(
         li(
@@ -47,7 +50,7 @@ object contact {
       p(howToReportBug())
     )
 
-  private def menu(implicit ctx: Context): Branch =
+  private def menu(using Context): Branch =
     Branch(
       "root",
       whatCanWeHelpYouWith(),
@@ -85,27 +88,7 @@ object contact {
               lost2FA(),
               p(a(href := routes.Auth.passwordReset)(doPasswordReset()), ".")
             ),
-            reopenLeaf("login"),
-            Leaf(
-              "dns",
-              "\"This site can’t be reached\"",
-              frag(
-                p("If you can't reach Lichess, and your browser says something like:"),
-                ul(
-                  li("This site can't be reached."),
-                  li(strong("lichess.org"), "’s server IP address could not be found."),
-                  li("We can’t connect to the server at lichess.org.")
-                ),
-                p("Then you have a ", strong("DNS issue"), "."),
-                p(
-                  "There's nothing we can do about it, but ",
-                  a("here's how you can fix it")(
-                    href := "https://www.wikihow.com/Fix-DNS-Server-Not-Responding-Problem"
-                  ),
-                  "."
-                )
-              )
-            )
+            reopenLeaf("login")
           )
         ),
         Branch(
@@ -153,7 +136,7 @@ object contact {
           wantReport(),
           frag(
             p(
-              a(href := routes.Report.form)(toReportAPlayerUseForm()),
+              a(href := reportRoutes.form)(toReportAPlayerUseForm()),
               "."
             ),
             p(
@@ -179,7 +162,7 @@ object contact {
               illegalPawnCapture(),
               frag(
                 p(calledEnPassant()),
-                p(a(href := "/learn#/15")(tryEnPassant()), ".")
+                p(a(href := "/learn#/15")(tryEnPassant()))
               )
             ),
             Leaf(
@@ -266,7 +249,7 @@ object contact {
         ),
         frag(
           p(doNotMessageModerators()),
-          p(sendAppealTo(a(href := routes.Appeal.home)(netConfig.domain, routes.Appeal.home.url))),
+          p(sendAppealTo(a(href := appealRoutes.home)(netConfig.domain, appealRoutes.home.url))),
           p(
             falsePositives(),
             br,
@@ -372,7 +355,7 @@ object contact {
 
   val dmcaUrl = "/dmca"
 
-  def apply()(implicit ctx: Context) =
+  def apply()(using Context) =
     page.layout(
       title = trans.contact.contact.txt(),
       active = "contact",
@@ -381,8 +364,7 @@ object contact {
       contentCls = "page box box-pad"
     )(
       frag(
-        h1(contactLichess()),
+        h1(cls := "box__top")(contactLichess()),
         div(cls := "nav-tree")(renderNode(menu, none))
       )
     )
-}

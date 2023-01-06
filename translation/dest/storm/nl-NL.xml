@@ -52,6 +52,7 @@
   <string name="skipExplanation">Sla deze zet over om je combo te behouden! Werkt maar eenmaal per race.</string>
   <string name="failedPuzzles">Mislukte puzzels</string>
   <string name="slowPuzzles">Trage puzzels</string>
+  <string name="skippedPuzzle">Overgeslagen puzzel</string>
   <string name="thisWeek">Deze week</string>
   <string name="thisMonth">Deze maand</string>
   <string name="allTime">Record</string>

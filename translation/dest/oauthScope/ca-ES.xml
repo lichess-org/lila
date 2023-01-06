@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Nou t\'uquen personal d\'accés a l\'API</string>
+  <string name="tokenGrantsPermission">Un token dona permisos a altres persones per accedir al vostre compte.</string>
+  <string name="carefullySelect">Seleccioneu amb cura el que es pot fer en el vostre nom.</string>
+  <string name="tokenDescription">Descripció del token</string>
+  <string name="rememberTokenUse">Així recordeu perquè és el token</string>
+  <string name="whatTheTokenCanDo">Que pot fer el token en el vostre nom:</string>
+  <string name="doNotShareIt">El token dona accés al vostre compte. No el compartiu amb ningú!</string>
+  <string name="preferenceRead">Llegir les preferències</string>
+  <string name="preferenceWrite">Escriure les preferències</string>
+  <string name="emailRead">Llegir el correu electrónic</string>
+  <string name="challengeRead">Llegir els reptes entrants</string>
+  <string name="challengeWrite">Escriure reptes entrants</string>
+  <string name="challengeBulk">Crear més d\'una partida a la vegada per altres jugadors</string>
+  <string name="studyRead">Llegir estudis i retransmissions privats</string>
+  <string name="studyWrite">Crear, actualitzar, eliminar estudis i retransmissions</string>
+  <string name="tournamentWrite">Crear, actualitzar i unir-se a tornejos</string>
+  <string name="racerWrite">Crear i unir-se a carreres de problemes</string>
+  <string name="puzzleRead">Llegir l\'activitat de problemes</string>
+  <string name="teamRead">Llegir informació privada de l\'equip</string>
+  <string name="teamWrite">Unir-se, marxar i gestionar l\'equip</string>
+  <string name="followRead">Llegir els jugadors seguits</string>
+  <string name="followWrite">Seguir i deixar de seguir altres jugadors</string>
+  <string name="msgWrite">Enviar missatges privats a altres usuaris</string>
+  <string name="boardPlay">Jugar partides amb l\'api del tauler</string>
+  <string name="botPlay">Jugar partides amb l\'api de bots</string>
+  <string name="engineRead">Visualitzar i usar el motor d\'anàlisis extern</string>
+  <string name="engineWrite">Crear i actualitzar el motor d\'anàlisis extern</string>
+  <string name="webLogin">Crear sessions d\'autenticació del lloc web (permet l\'accés complet!)</string>
+  <string name="webMod">Utilitzar les eines de moderació (dins dels límits del vostre permís)</string>
+</resources>

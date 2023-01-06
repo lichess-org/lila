@@ -74,6 +74,13 @@ $user-list-width: 35ch;
   color: #333;
   text-shadow: 0 0 6px #fff;
   filter: drop-shadow(0 0 10px $c-brag);
+
+  @include breakpoint($mq-not-small) {
+    width: 50.25px;
+    height: 60px;
+    font-size: 30px;
+    line-height: 57px;
+  }
 }
 
 .tournament-categ-shields {

@@ -1,32 +1,27 @@
 package lila.game
 
-sealed abstract class Source(val id: Int) {
+enum Source(val id: Int):
 
-  lazy val name = toString.toLowerCase
-}
+  def name = toString.toLowerCase
 
-object Source {
+  case Lobby      extends Source(id = 1)
+  case Friend     extends Source(id = 2)
+  case Ai         extends Source(id = 3)
+  case Api        extends Source(id = 4)
+  case Tournament extends Source(id = 5)
+  case Position   extends Source(id = 6)
+  case Import     extends Source(id = 7)
+  case ImportLive extends Source(id = 9)
+  case Simul      extends Source(id = 10)
+  case Relay      extends Source(id = 11)
+  case Pool       extends Source(id = 12)
+  case Swiss      extends Source(id = 13)
 
-  case object Lobby      extends Source(id = 1)
-  case object Friend     extends Source(id = 2)
-  case object Ai         extends Source(id = 3)
-  case object Api        extends Source(id = 4)
-  case object Tournament extends Source(id = 5)
-  case object Position   extends Source(id = 6)
-  case object Import     extends Source(id = 7)
-  case object ImportLive extends Source(id = 9)
-  case object Simul      extends Source(id = 10)
-  case object Relay      extends Source(id = 11)
-  case object Pool       extends Source(id = 12)
-  case object Swiss      extends Source(id = 13)
+object Source:
 
-  val all = List(Lobby, Friend, Ai, Api, Tournament, Position, Import, Simul, Relay, Pool, Swiss)
-  val byId = all map { v =>
-    (v.id, v)
-  } toMap
+  val byId = values.mapBy(_.id)
 
-  val searchable             = List(Lobby, Friend, Ai, Position, Import, Tournament, Simul, Pool, Swiss)
-  val expirable: Set[Source] = Set(Lobby, Tournament, Pool, Swiss)
+  val searchable = List(Lobby, Friend, Ai, Position, Import, Tournament, Simul, Pool, Swiss)
+  val expirable  = Set(Lobby, Tournament, Pool, Swiss)
 
   def apply(id: Int): Option[Source] = byId get id
-}

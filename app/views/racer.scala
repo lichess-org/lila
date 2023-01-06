@@ -1,24 +1,26 @@
 package views.html
 
 import controllers.routes
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
-import lila.i18n.I18nKeys.{ storm => s }
+import lila.i18n.I18nKeys.{ storm as s }
 import lila.racer.RacerRace
 
-object racer {
+object racer:
 
   def home(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("racer-home"),
-      title = "Puzzle Racer"
+      title = "Puzzle Racer",
+      withHrefLangs = LangPath(routes.Racer.home).some
     ) {
       main(cls := "page page-small racer-home box box-pad")(
-        h1("Puzzle Racer"),
+        h1(cls := "box__top")("Puzzle Racer"),
         div(cls := "racer-home__buttons")(
           postForm(cls := "racer-home__lobby", action := routes.Racer.lobby)(
             submitButton(cls := "button button-fat")(i(cls := "car")(0), s.joinPublicRace())
@@ -61,7 +63,7 @@ object racer {
       )
     }
 
-  private val i18nKeys = {
+  private val i18nKeys =
     List(
       s.score,
       s.combo,
@@ -86,7 +88,6 @@ object racer {
       s.puzzlesPlayed,
       s.failedPuzzles,
       s.slowPuzzles,
+      s.skippedPuzzle,
       trans.flipBoard
-    ).map(_.key)
-  }
-}
+    )

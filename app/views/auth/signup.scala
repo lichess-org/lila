@@ -1,15 +1,16 @@
 package views.html
 package auth
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-
 import controllers.routes
 
-object signup {
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.{ HTTPRequest, LangPath }
 
-  def apply(form: lila.security.HcaptchaForm[_])(implicit ctx: Context) =
+object signup:
+
+  def apply(form: lila.security.HcaptchaForm[?])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.signUp.txt(),
       moreJs = frag(
@@ -19,17 +20,20 @@ object signup {
         fingerprintTag
       ),
       moreCss = cssTag("auth"),
-      csp = defaultCsp.withHcaptcha.some
+      csp = defaultCsp.withHcaptcha.some,
+      withHrefLangs = LangPath(routes.Auth.signup).some
     ) {
       main(cls := "auth auth-signup box box-pad")(
-        h1(trans.signUp()),
+        h1(cls := "box__top")(trans.signUp()),
         postForm(
           id := "signup-form",
           cls := List(
             "form3"             -> true,
             "h-captcha-enabled" -> form.enabled
           ),
-          action := routes.Auth.signupPost
+          action := HTTPRequest.queryStringGet(ctx.req, "referrer").foldLeft(routes.Auth.signupPost.url) {
+            (url, ref) => addQueryParam(url, "referrer", ref)
+          }
         )(
           auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
           input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
@@ -68,4 +72,3 @@ object signup {
     "account"    -> trans.agreementMultipleAccounts(a(href := routes.Page.tos)(trans.termsOfService())),
     "policy"     -> trans.agreementPolicy()
   )
-}

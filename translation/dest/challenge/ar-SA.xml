@@ -22,4 +22,5 @@
   <string name="declineVariant">أنا لا أرغب في لعب نوع الشطرنج هذا الآن.</string>
   <string name="declineNoBot">أنا لا أقبل التحديات من البوت.</string>
   <string name="declineOnlyBot">أنا أقبل التحديات فقط من البوت.</string>
+  <string name="inviteLichessUser">أو قم بدعوة أحد المستخدمين:</string>
 </resources>

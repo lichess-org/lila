@@ -36,4 +36,4 @@ const splitNumber = (s: string) => {
 };
 
 const trans = (ctrl: SimulCtrl, key: string, cond: (pairing: Pairing) => boolean) =>
-  splitNumber(ctrl.trans.plural(key, ctrl.data.pairings.filter(cond).length));
+  splitNumber(ctrl.trans.pluralSame(key, ctrl.data.pairings.filter(cond).length));

@@ -1,8 +1,5 @@
-package lila
+package lila.forum
 
-package object forum extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[forum] def teamSlug(id: String) = s"team-$id"
-
-  private[forum] val logger = lila.log("forum")
-}
+private val logger = lila.log("forum")

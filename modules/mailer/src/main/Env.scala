@@ -1,13 +1,13 @@
 package lila.mailer
 
-import akka.actor._
-import com.softwaremill.macwire._
+import akka.actor.*
+import com.softwaremill.macwire.*
 import play.api.Configuration
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.Strings
-import lila.memo.SettingStore.Strings._
+import lila.memo.SettingStore.Strings.*
 import lila.user.UserRepo
 
 @Module
@@ -17,14 +17,15 @@ final class Env(
     userRepo: UserRepo,
     settingStore: lila.memo.SettingStore.Builder,
     lightUser: lila.user.LightUserApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: Scheduler
-) {
-  import net.baseUrl
+):
+  private val baseUrl = net.baseUrl
+  import Mailer.given
 
-  private val config = appConfig.get[Mailer.Config]("mailer")(Mailer.configLoader)
+  private val config = appConfig.get[Mailer.Config]("mailer")
 
   lazy val mailerSecondaryPermilleSetting = settingStore[Int](
     "mailerSecondaryPermille",
@@ -57,4 +58,3 @@ final class Env(
         automaticEmail.dailyCorrespondenceNotice(userId, opponents).unit
     }
   )
-}

@@ -4,7 +4,7 @@
   <string name="frequentlyAskedQuestions">Ofte stillede spørgsmål</string>
   <string name="whyIsLichessCalledLichess">Hvorfor hedder det Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess er en kombination af live/light/libre og chess. Det udtales %1$s.</string>
-  <string name="leechess">lee-chess</string>
+  <string name="leechess">li-tjes</string>
   <string name="hearItPronouncedBySpecialist">Hør det udtalt af en specialist.</string>
   <string name="whyLiveLightLibre">Live, fordi partier spilles og ses i realtid 24/7; light og libre eftersom Lichess er open-source og ikke tynges af proprietært bras, der plager andre websteder.</string>
   <string name="whyIsLilaCalledLila">Tilsvarende gælder for Lichess-kildekoden, %1$s, der står for li[chess in sca]la, eftersom hovedparten af Lichess er skrevet i %2$s, et intuitivt programmeringssprog.</string>
@@ -63,6 +63,7 @@ Det beskrives i sektion 3.7 (d) af de %2$s:
 Tjek %3$s for dette træk og for at øve det.</string>
   <string name="goodIntroduction">god introduktion</string>
   <string name="lichessTraining">Lichess træning</string>
+  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Se International Mester Eric Rosen sætte %s skakmat.</string>
   <string name="threefoldRepetition">Trækgentagelse</string>
   <string name="threefoldRepetitionExplanation">Hvis en stilling forekommer tre gange, kan spillere forlange remis ved %1$s. Lichess implementerer de officielle FIDE-regler som beskrevet i Artikel 9.2 (d) i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trækgentagelse</string>

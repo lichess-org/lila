@@ -26,7 +26,7 @@ const toDate = (input: DateLike): Date =>
 const formatDiff = (seconds: number): string => {
   const absSeconds = Math.abs(seconds);
   const unit = units.find(unit => absSeconds >= unit[2] * unit[3])!;
-  return siteTrans.plural(unit[seconds < 0 ? 1 : 0], Math.floor(absSeconds / unit[2]));
+  return siteTrans.pluralSame(unit[seconds < 0 ? 1 : 0], Math.floor(absSeconds / unit[2]));
 };
 
 let formatterInst: (date: Date) => string;

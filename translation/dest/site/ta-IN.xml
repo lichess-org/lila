@@ -18,6 +18,7 @@
   <string name="white">வெள்ளை</string>
   <string name="black">கருப்பு</string>
   <string name="asWhite">வெள்ளைக் காய்களுடன்</string>
+  <string name="asBlack">கறுப்பாக</string>
   <string name="randomColor">ஏதாவது ஒரு நிறம்</string>
   <string name="createAGame">ஆட்டமொன்றை உருவாக்கு</string>
   <string name="whiteIsVictorious">வெள்ளை வென்றது</string>
@@ -25,6 +26,7 @@
   <string name="youPlayTheWhitePieces">நீங்கள் வெள்ளை நிறத்திலுள்ள காய்களுடன் ஆடுகிறீர்கள்</string>
   <string name="youPlayTheBlackPieces">நீங்கள் கருப்பு நிறத்திலுள்ள காய்களுடன் ஆடுகிறீர்கள்</string>
   <string name="itsYourTurn">நீங்கள் விளையாடனும்!</string>
+  <string name="cheatDetected">மோசடி கண்டுபிடிக்கப்பட்டது</string>
   <string name="kingInTheCenter">மையத்தில் கிங்</string>
   <string name="threeChecks">மூன்று காசோலைகளை</string>
   <string name="raceFinished">ரேஸ் முடிந்ததும்</string>
@@ -47,13 +49,18 @@
   <string name="blackResigned">கருப்பு விலகிற்று</string>
   <string name="whiteLeftTheGame">வெள்ளை ஆட்டத்தை விட்டது</string>
   <string name="blackLeftTheGame">கருப்பு ஆட்டத்தை விட்டது</string>
+  <string name="whiteDidntMove">வெள்ளை நகரவில்லை</string>
+  <string name="blackDidntMove">கருப்பு நகரவில்லை</string>
   <string name="requestAComputerAnalysis">கணினிப் பகுப்பாய்வு கோருக</string>
   <string name="computerAnalysis">கணினிப் பகுப்பாய்வு</string>
   <string name="computerAnalysisAvailable">கணினி பகுப்பாய்வு கிடைக்கும்</string>
+  <string name="computerAnalysisDisabled">கணினி பகுப்பாய்வு முடக்கப்பட்டுள்ளது</string>
   <string name="analysis">பகுப்பாய்வு</string>
   <string name="depthX">ஆழம் %s</string>
   <string name="usingServerAnalysis">லீசெசின் கணினியின் ஆராய்ச்சி</string>
   <string name="loadingEngine">சற்று நேரம் பொறுங்கள்...</string>
+  <string name="calculatingMoves">கணிக்கிறது நகர்கிறது...</string>
+  <string name="engineFailed">படத்தை ஏற்றுவதில் இயந்திரம்</string>
   <string name="cloudAnalysis">மேகம் பகுப்பாய்வு</string>
   <string name="goDeeper">இன்னும் ஆராய்ந்துக்கொள்ளுங்கள்</string>
   <string name="showThreat">அச்சுறுத்தல்களைக் காண்பி</string>
@@ -84,12 +91,17 @@
     <item quantity="one">%s ஆட்டத்தில் முடிவுரை</item>
     <item quantity="other">%s ஆட்டங்களில் முடிவுரை</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\" ரவுண்டிங்குடன், அடுத்த பிடிப்பு அல்லது சிப்பாய் நகரும் வரை அரை நகர்வுகளின் எண்ணிக்கையின் அடிப்படையில்</string>
   <string name="noGameFound">எந்த அணியும் கிட்டவில்லை</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">இன்னும் விளையாடின சதுரங்க ஆட்டத்தை காட்டுவதற்காக \"ப்ரிஃபரன்சச்\"சை மாற்றுங்கள்?</string>
   <string name="openingExplorer">திறப்புகளைஆய்வு &amp; தரவுத் தளம்</string>
+  <string name="openingEndgameExplorer">திறப்பு/எண்ட்கேம் எக்ஸ்ப்ளோரர்</string>
   <string name="xOpeningExplorer">%s விளையாட்டு திறப்பு ஆராய்ச்சி</string>
   <string name="winPreventedBy50MoveRule">ஐமபத்து ஆட்டம் அவகாசித்ததால் வெற்றி தடுப்புதல்</string>
   <string name="lossSavedBy50MoveRule">ஐமபத்து ஆட்டம் அவகாசித்ததால் தோல்வி தடுப்புதல்</string>
+  <string name="winOr50MovesByPriorMistake">வெற்றி அல்லது 50 நகர்வுகள் முன் தவறுதலாக</string>
+  <string name="lossOr50MovesByPriorMistake">இழப்பு அல்லது 50 நகர்வுகள் முன் தவறுதலாக</string>
+  <string name="unknownDueToRounding">Syzygy டேபிள்பேஸ்களில் DTZ மதிப்புகளின் சாத்தியமான ரவுண்டிங் காரணமாக, சிப்பாய் நகர்வைக் கைப்பற்றியதிலிருந்து பரிந்துரைக்கப்பட்ட டேபிள்பேஸ் லைன் பின்பற்றப்பட்டிருந்தால் மட்டுமே வெற்றி/தோல்வி உத்தரவாதம்.</string>
   <string name="allSet">எல்லாம் அமைக்கப்பட்டது!</string>
   <string name="importPgn">PGN இறக்குமதி</string>
   <string name="delete">நீக்கு</string>
@@ -113,6 +125,14 @@
     <item quantity="one">%s பெரிய தவறு</item>
     <item quantity="other">%s பெரிய தவறுகள்</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s தவறு</item>
+    <item quantity="other">%s தவறுகள்</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s துல்லியமின்மை</item>
+    <item quantity="other">%s கச்சிதப்பிழைகள்</item>
+  </plurals>
   <string name="moveTimes">நகர்த்தல் நேரங்கள்</string>
   <string name="flipBoard">பலகையை மாற்று</string>
   <string name="threefoldRepetition">மும்மடி மடக்கு</string>
@@ -123,6 +143,7 @@
     <item quantity="one">%s விளையாடிகள்</item>
     <item quantity="other">%s விளையாடிகள்</item>
   </plurals>
+  <string name="drawByMutualAgreement">Rapid</string>
   <string name="currentGames">இப்பொழுதைய ஆட்டங்கள்</string>
   <plurals name="nbGames">
     <item quantity="one">%s ஆட்டங்கள்</item>

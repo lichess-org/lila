@@ -1,12 +1,15 @@
 package lila.coach
 
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsSuccess, Json }
+import play.api.libs.json.Reads
 
-object CoachProfileForm {
+import lila.common.Form.given
+
+object CoachProfileForm:
 
   def edit(coach: Coach) =
     Form(
@@ -17,17 +20,17 @@ object CoachProfileForm {
         "profile" -> mapping(
           "headline"           -> optional(text(minLength = 5, maxLength = 170)),
           "hourlyRate"         -> optional(text(minLength = 3, maxLength = 140)),
-          "description"        -> optional(richText),
-          "playingExperience"  -> optional(richText),
-          "teachingExperience" -> optional(richText),
-          "otherExperience"    -> optional(richText),
-          "skills"             -> optional(richText),
-          "methodology"        -> optional(richText),
+          "description"        -> optional(of[RichText]),
+          "playingExperience"  -> optional(of[RichText]),
+          "teachingExperience" -> optional(of[RichText]),
+          "otherExperience"    -> optional(of[RichText]),
+          "skills"             -> optional(of[RichText]),
+          "methodology"        -> optional(of[RichText]),
           "youtubeVideos"      -> optional(nonEmptyText),
           "youtubeChannel"     -> optional(nonEmptyText),
           "publicStudies"      -> optional(nonEmptyText)
-        )(CoachProfile.apply)(CoachProfile.unapply)
-      )(Data.apply)(Data.unapply)
+        )(CoachProfile.apply)(unapply)
+      )(Data.apply)(unapply)
     ) fill Data(
       listed = coach.listed.value,
       available = coach.available.value,
@@ -36,14 +39,14 @@ object CoachProfileForm {
     )
 
   private case class TagifyLang(code: String)
-  implicit private val TagifyLangReads = Json.reads[TagifyLang]
+  private given Reads[TagifyLang] = Json.reads
 
   case class Data(
       listed: Boolean,
       available: Boolean,
       languages: String,
       profile: CoachProfile
-  ) {
+  ):
 
     def apply(coach: Coach) =
       coach.copy(
@@ -56,11 +59,3 @@ object CoachProfileForm {
         },
         updatedAt = DateTime.now
       )
-  }
-
-  import CoachProfile.RichText
-
-  implicit private val richTextFormat =
-    lila.common.Form.formatter.stringFormatter[RichText](_.value, RichText.apply)
-  private def richText = of[RichText]
-}

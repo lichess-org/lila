@@ -35,13 +35,9 @@ export interface TreeWrapper {
 }
 
 export function build(root: Tree.Node): TreeWrapper {
-  function lastNode(): MaybeNode {
-    return ops.findInMainline(root, (node: Tree.Node) => !node.children.length);
-  }
+  const lastNode = (): MaybeNode => ops.findInMainline(root, (node: Tree.Node) => !node.children.length);
 
-  function nodeAtPath(path: Tree.Path): Tree.Node {
-    return nodeAtPathFrom(root, path);
-  }
+  const nodeAtPath = (path: Tree.Path): Tree.Node => nodeAtPathFrom(root, path);
 
   function nodeAtPathFrom(node: Tree.Node, path: Tree.Path): Tree.Node {
     if (path === '') return node;
@@ -49,9 +45,7 @@ export function build(root: Tree.Node): TreeWrapper {
     return child ? nodeAtPathFrom(child, treePath.tail(path)) : node;
   }
 
-  function nodeAtPathOrNull(path: Tree.Path): Tree.Node | undefined {
-    return nodeAtPathOrNullFrom(root, path);
-  }
+  const nodeAtPathOrNull = (path: Tree.Path): Tree.Node | undefined => nodeAtPathOrNullFrom(root, path);
 
   function nodeAtPathOrNullFrom(node: Tree.Node, path: Tree.Path): Tree.Node | undefined {
     if (path === '') return node;
@@ -75,13 +69,9 @@ export function build(root: Tree.Node): TreeWrapper {
     return nodes;
   }
 
-  function pathIsMainline(path: Tree.Path): boolean {
-    return pathIsMainlineFrom(root, path);
-  }
+  const pathIsMainline = (path: Tree.Path): boolean => pathIsMainlineFrom(root, path);
 
-  function pathExists(path: Tree.Path): boolean {
-    return !!nodeAtPathOrNull(path);
-  }
+  const pathExists = (path: Tree.Path): boolean => !!nodeAtPathOrNull(path);
 
   function pathIsMainlineFrom(node: Tree.Node, path: Tree.Path): boolean {
     if (path === '') return true;
@@ -91,9 +81,7 @@ export function build(root: Tree.Node): TreeWrapper {
     return pathIsMainlineFrom(child, treePath.tail(path));
   }
 
-  function pathIsForcedVariation(path: Tree.Path): boolean {
-    return !!getNodeList(path).find(n => n.forceVariation);
-  }
+  const pathIsForcedVariation = (path: Tree.Path): boolean => !!getNodeList(path).find(n => n.forceVariation);
 
   function lastMainlineNodeFrom(node: Tree.Node, path: Tree.Path): Tree.Node {
     if (path === '') return node;
@@ -103,14 +91,13 @@ export function build(root: Tree.Node): TreeWrapper {
     return lastMainlineNodeFrom(child, treePath.tail(path));
   }
 
-  function getNodeList(path: Tree.Path): Tree.Node[] {
-    return ops.collect(root, function (node: Tree.Node) {
+  const getNodeList = (path: Tree.Path): Tree.Node[] =>
+    ops.collect(root, function (node: Tree.Node) {
       const id = treePath.head(path);
       if (id === '') return;
       path = treePath.tail(path);
       return ops.childById(node, id);
     });
-  }
 
   function updateAt(path: Tree.Path, update: (node: Tree.Node) => void): Tree.Node | undefined {
     const node = nodeAtPathOrNull(path);
@@ -165,8 +152,8 @@ export function build(root: Tree.Node): TreeWrapper {
     }
   }
 
-  function setCommentAt(comment: Tree.Comment, path: Tree.Path) {
-    return !comment.text
+  const setCommentAt = (comment: Tree.Comment, path: Tree.Path) =>
+    !comment.text
       ? deleteCommentAt(comment.id, path)
       : updateAt(path, function (node) {
           node.comments = node.comments || [];
@@ -176,26 +163,21 @@ export function build(root: Tree.Node): TreeWrapper {
           if (existing) existing.text = comment.text;
           else node.comments.push(comment);
         });
-  }
 
-  function deleteCommentAt(id: string, path: Tree.Path) {
-    return updateAt(path, function (node) {
+  const deleteCommentAt = (id: string, path: Tree.Path) =>
+    updateAt(path, function (node) {
       const comments = (node.comments || []).filter(function (c) {
         return c.id !== id;
       });
       node.comments = comments.length ? comments : undefined;
     });
-  }
 
-  function setGlyphsAt(glyphs: Tree.Glyph[], path: Tree.Path) {
-    return updateAt(path, function (node) {
+  const setGlyphsAt = (glyphs: Tree.Glyph[], path: Tree.Path) =>
+    updateAt(path, function (node) {
       node.glyphs = glyphs;
     });
-  }
 
-  function parentNode(path: Tree.Path): Tree.Node {
-    return nodeAtPath(treePath.init(path));
-  }
+  const parentNode = (path: Tree.Path): Tree.Node => nodeAtPath(treePath.init(path));
 
   function getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined {
     if (!('parentClock' in node)) {

@@ -9,6 +9,9 @@
   <string name="forgotPassword">Մոռացել եմ գաղտնաբառը։</string>
   <string name="forgotUsername">Մոռացել եմ մասնակցային անունս</string>
   <string name="youCanLoginWithEmail">Դուք կարող եք մուտք գործել այն էլեկտրոնային հասցեի օգնությամբ, որով գրանցվել եք</string>
+  <string name="accountSupport">Մասնակցային հաշվի հարցով օգնության կարիք ունեմ</string>
+  <string name="wantTitle">Ցանկանում եմ, որ իմ տիտղոսը երևա Lichess-ում</string>
+  <string name="visitTitleConfirmation">Ձեր տիտղոսը Lichess-ում ավելացնելու և տիտղոսային «Արենաներին» մասնակցելու համար այցելեք տիտղոսը հաստատելու էջ</string>
   <string name="wantCloseAccount">Ես ցանկանում եմ փակել իմ հաշիվը</string>
   <string name="closeYourAccount">Դուք կարող եք փակել ձեր հաշիվը այս էջում</string>
   <string name="doNotAskByEmail">Էլեկտրոնային փոստով մի՛ խնդրեք մեզ փակել ձեր հաշիվը, մենք դա չենք անելու։</string>
@@ -17,4 +20,7 @@
   <string name="doNotAskByEmailToReopen">Էլեկտրոնային փոստով մի՛ խնդրեք մեզ վերականգնել ձեր հաշիվը, մենք դա չենք անելու։</string>
   <string name="wantChangeUsername">Ես ցանկանում եմ փոխել իմ մասնակցային անունը</string>
   <string name="doNotMessageModerators">Անձնական հաղորդագրություններ մի ուղարկեք մոդերատորներին։</string>
+  <string name="calledEnPassant">Սա կոչվում է «կողանցիկ հարված» և շախմատի կանոններից մեկն է։</string>
+  <string name="tryEnPassant">Փորձեք այս փոքրիկ ինտերակտիվ խաղը՝ «կողանցիկ հարվածի» մասին ավելի շատ իմանալու համար։</string>
+  <string name="knightMate">Օրինակ, կարելի է մատ անել միայն ձիով կամ փղով, եթե մրցակիցն ունի ավելին, քան արքան։</string>
 </resources>

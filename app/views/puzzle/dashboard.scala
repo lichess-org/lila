@@ -5,15 +5,15 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.puzzle.PuzzleDashboard
 import lila.puzzle.PuzzleTheme
 import lila.user.User
 
-object dashboard {
+object dashboard:
 
   private val baseClass      = "puzzle-dashboard"
   private val metricClass    = s"${baseClass}__metric"
@@ -111,7 +111,7 @@ object dashboard {
       main(cls := "page-menu")(
         bits.pageMenu(path, user.some),
         div(cls := s"page-menu__content box box-pad $baseClass")(
-          div(cls := "box__top")(
+          boxTop(
             h1(
               title,
               strong(subtitle)
@@ -135,7 +135,7 @@ object dashboard {
       )
     )
 
-  private def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(implicit
+  private def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(using
       ctx: Context
   ) =
     themes.map { case (key, results) =>
@@ -150,7 +150,7 @@ object dashboard {
       )
     }
 
-  private def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(implicit
+  private def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(using
       ctx: Context
   ) =
     div(cls := s"${baseClass}__metrics")(
@@ -169,7 +169,7 @@ object dashboard {
       ),
       a(
         cls  := s"$metricClass $metricClass--fix",
-        href := results.canReplay.option(routes.Puzzle.replay(days, theme.value).url)
+        href := results.canReplay.option(routes.Puzzle.replay(days, theme).url)
       )(
         results.canReplay option span(cls := s"$metricClass--fix__text")(
           trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))
@@ -177,4 +177,3 @@ object dashboard {
         iconTag(if (results.canReplay) '' else '')
       )
     )
-}

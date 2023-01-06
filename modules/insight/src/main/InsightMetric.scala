@@ -1,10 +1,12 @@
 package lila.insight
 
-import scalatags.Text.all._
+import scalatags.Text.all.*
+import reactivemongo.api.bson.*
+import InsightMetric.DataType.*
+import InsightPosition.*
+import InsightEntry.{ BSONFields as F }
 
-import reactivemongo.api.bson._
-
-sealed abstract class InsightMetric(
+enum InsightMetric(
     val key: String,
     val name: String,
     val dbKey: String,
@@ -12,25 +14,9 @@ sealed abstract class InsightMetric(
     val per: InsightPosition,
     val dataType: InsightMetric.DataType,
     val description: String
-)
+):
 
-object InsightMetric {
-
-  sealed trait DataType {
-    def name = toString.toLowerCase
-  }
-  object DataType {
-    case object Seconds extends DataType
-    case object Count   extends DataType
-    case object Average extends DataType
-    case object Percent extends DataType
-  }
-
-  import DataType._
-  import InsightPosition._
-  import InsightEntry.{ BSONFields => F }
-
-  case object MeanCpl
+  case MeanCpl
       extends InsightMetric(
         "acpl",
         "Average centipawn loss",
@@ -41,7 +27,7 @@ object InsightMetric {
         """Precision of your moves. Lower is better."""
       )
 
-  case object CplBucket
+  case CplBucket
       extends InsightMetric(
         "cplBucket",
         "Centipawn loss bucket",
@@ -52,7 +38,7 @@ object InsightMetric {
         InsightDimension.CplRange.description
       )
 
-  case object MeanAccuracy
+  case MeanAccuracy
       extends InsightMetric(
         "accuracy",
         "Accuracy",
@@ -63,7 +49,7 @@ object InsightMetric {
         InsightDimension.AccuracyPercentRange.description
       )
 
-  case object Movetime
+  case Movetime
       extends InsightMetric(
         "movetime",
         "Move time",
@@ -74,7 +60,7 @@ object InsightMetric {
         InsightDimension.MovetimeRange.description
       )
 
-  case object Result
+  case Result
       extends InsightMetric(
         "result",
         "Game result",
@@ -85,7 +71,7 @@ object InsightMetric {
         InsightDimension.Result.description
       )
 
-  case object Termination
+  case Termination
       extends InsightMetric(
         "termination",
         "Game termination",
@@ -96,7 +82,7 @@ object InsightMetric {
         InsightDimension.Termination.description
       )
 
-  case object Performance
+  case Performance
       extends InsightMetric(
         "performance",
         "Performance",
@@ -107,7 +93,7 @@ object InsightMetric {
         "Estimated performance rating."
       )
 
-  case object RatingDiff
+  case RatingDiff
       extends InsightMetric(
         "ratingDiff",
         "Rating gain",
@@ -118,7 +104,7 @@ object InsightMetric {
         "The amount of rating points you win or lose when the game ends."
       )
 
-  case object OpponentRating
+  case OpponentRating
       extends InsightMetric(
         "opponentRating",
         "Opponent rating",
@@ -129,7 +115,7 @@ object InsightMetric {
         "The average rating of your opponent for the relevant variant."
       )
 
-  case object NbMoves
+  case NbMoves
       extends InsightMetric(
         "nbMoves",
         "Moves per game",
@@ -140,7 +126,7 @@ object InsightMetric {
         "Number of moves you play in the game. Doesn't count the opponent moves."
       )
 
-  case object PieceRole
+  case PieceRole
       extends InsightMetric(
         "piece",
         "Piece moved",
@@ -151,7 +137,7 @@ object InsightMetric {
         InsightDimension.PieceRole.description
       )
 
-  case object Awareness
+  case Awareness
       extends InsightMetric(
         "awareness",
         "Tactical awareness",
@@ -162,7 +148,7 @@ object InsightMetric {
         "How often you take advantage of your opponent mistakes."
       )
 
-  case object Luck
+  case Luck
       extends InsightMetric(
         "luck",
         "Luck",
@@ -173,7 +159,7 @@ object InsightMetric {
         "How often your opponent fails to punish your mistakes."
       )
 
-  case object Material
+  case Material
       extends InsightMetric(
         "material",
         "Material imbalance",
@@ -184,7 +170,7 @@ object InsightMetric {
         InsightDimension.MaterialRange.description
       )
 
-  case object ClockPercent
+  case ClockPercent
       extends InsightMetric(
         "clockPercent",
         "Time pressure",
@@ -195,7 +181,7 @@ object InsightMetric {
         InsightDimension.ClockPercentRange.description
       )
 
-  case object Blurs
+  case Blurs
       extends InsightMetric(
         "blurs",
         "Blurs",
@@ -206,7 +192,7 @@ object InsightMetric {
         "How often moves are preceded by a window blur."
       )
 
-  case object TimeVariance
+  case TimeVariance
       extends InsightMetric(
         "timeVariance",
         "Time variance",
@@ -217,54 +203,36 @@ object InsightMetric {
         "Low variance means consistent move times"
       )
 
-  val all = List(
-    MeanCpl,
-    CplBucket,
-    MeanAccuracy,
-    Movetime,
-    ClockPercent,
-    Result,
-    Termination,
-    Performance,
-    RatingDiff,
-    OpponentRating,
-    NbMoves,
-    PieceRole,
-    Awareness,
-    Luck,
-    Material,
-    Blurs,
-    TimeVariance
-  )
-  val byKey = all map { p =>
-    (p.key, p)
-  } toMap
+object InsightMetric:
 
-  def requiresAnalysis(m: InsightMetric) = m match {
+  enum DataType:
+    case Seconds, Count, Average, Percent
+    def name = toString.toLowerCase
+
+  val byKey = values.mapBy(_.key)
+
+  def requiresAnalysis(m: InsightMetric) = m match
     case MeanCpl | CplBucket | MeanAccuracy => true
     case _                                  => false
-  }
 
-  def requiresStableRating(m: InsightMetric) = m match {
+  def requiresStableRating(m: InsightMetric) = m match
     case Performance | RatingDiff | OpponentRating => true
     case _                                         => false
-  }
 
-  def isStacked(m: InsightMetric) = m match {
+  def isStacked(m: InsightMetric) = m match
     case Result      => true
     case Termination => true
     case PieceRole   => true
     case CplBucket   => true
     case _           => false
-  }
 
-  def valuesOf(metric: InsightMetric): List[MetricValue] = metric match {
+  def valuesOf(metric: InsightMetric): Seq[MetricValue] = metric match
     case Result =>
-      lila.insight.Result.all.map { r =>
+      lila.insight.Result.values.map { r =>
         MetricValue(BSONInteger(r.id), MetricValueName(r.name))
       }
     case Termination =>
-      lila.insight.Termination.all.map { r =>
+      lila.insight.Termination.values.map { r =>
         MetricValue(BSONInteger(r.id), MetricValueName(r.name))
       }
     case PieceRole =>
@@ -276,8 +244,8 @@ object InsightMetric {
         MetricValue(BSONInteger(cpl.cpl), MetricValueName(cpl.name))
       }
     case _ => Nil
-  }
 
-  case class MetricValueName(name: String) extends AnyVal
+  opaque type MetricValueName = String
+  object MetricValueName extends OpaqueString[MetricValueName]
+
   case class MetricValue(key: BSONValue, name: MetricValueName)
-}

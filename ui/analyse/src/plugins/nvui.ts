@@ -31,7 +31,6 @@ import {
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
-import * as moveView from '../moveView';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { Role } from 'chessground/types';
@@ -44,13 +43,14 @@ import { makeSan } from 'chessops/san';
 import { opposite, parseUci } from 'chessops/util';
 import { parseFen } from 'chessops/fen';
 import { setupPosition } from 'chessops/variant';
+import { plyToTurn } from '../util';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export default function (ctrl: AnalyseController) {
+export default (window as any).LichessAnalyseNvui = function (ctrl: AnalyseController) {
   const notify = new Notify(ctrl.redraw),
     moveStyle = styleSetting(),
     pieceStyle = pieceSetting(),
@@ -280,7 +280,7 @@ export default function (ctrl: AnalyseController) {
       ]);
     },
   };
-}
+};
 
 const NOT_ALLOWED = 'local evaluation not allowed';
 const NOT_POSSIBLE = 'local evaluation not possible';
@@ -338,7 +338,7 @@ function renderBestMove(ctrl: AnalyseController, style: Style): string {
   } else if (node.ceval) {
     pvs = node.ceval.pvs;
   }
-  const pos = setupPosition(lichessRules(instance.variant.key), setup);
+  const pos = setupPosition(lichessRules(instance.opts.variant.key), setup);
   if (pos.isOk && pvs.length > 0 && pvs[0].moves.length > 0) {
     const uci = pvs[0].moves[0];
     const san = makeSan(pos.unwrap(), parseUci(uci)!);
@@ -433,9 +433,7 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
                   selected: node.ply === ctrl.node.ply,
                 },
               },
-              [moveView.plyToTurn(node.ply), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(
-                ' '
-              )
+              [plyToTurn(node.ply), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(' ')
             )
           )
       )
@@ -485,12 +483,7 @@ function renderLineIndex(ctrl: AnalyseController): string {
 function renderCurrentNode(ctrl: AnalyseController, style: Style): string {
   const node = ctrl.node;
   if (!node.san || !node.uci) return 'Initial position';
-  return [
-    moveView.plyToTurn(node.ply),
-    renderSan(node.san, node.uci, style),
-    renderLineIndex(ctrl),
-    renderComments(node, style),
-  ]
+  return [plyToTurn(node.ply), renderSan(node.san, node.uci, style), renderLineIndex(ctrl), renderComments(node, style)]
     .join(' ')
     .trim();
 }

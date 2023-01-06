@@ -62,6 +62,10 @@
     <item quantity="one">%4$s में %3$s खेल के साथ %1$s (टॉप %2$s%%) रैंक किया गया</item>
     <item quantity="other">%4$s में %3$s खेल के साथ %1$s (टॉप %2$s%%) रैंक किया गया</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">%s स्विस टूर्नामेंट में भाग लिया</item>
+    <item quantity="other">%s स्विस टुर्नामेंटों में भाग लिया</item>
+  </plurals>
   <string name="rankedInSwissTournament">#%1$s स्थान %2$s मे</string>
   <string name="signedUp">lichess.org पर साइन किया गया</string>
   <plurals name="joinedNbTeams">

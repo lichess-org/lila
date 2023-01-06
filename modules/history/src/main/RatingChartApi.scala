@@ -1,17 +1,18 @@
 package lila.history
 
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
 import org.joda.time.DateTime
+import lila.common.Json.given
 
 final class RatingChartApi(
     historyApi: HistoryApi,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def apply(user: User): Fu[Option[String]] =
     cache.get(user.id) dmap { chart =>
@@ -23,7 +24,7 @@ final class RatingChartApi(
       ratingsMapToJson(user.id, user.createdAt, _)
     } map JsArray.apply
 
-  private val cache = cacheApi[User.ID, String](4096, "history.rating") {
+  private val cache = cacheApi[UserId, String](4096, "history.rating") {
     _.expireAfterWrite(10 minutes)
       .maximumSize(4096)
       .buildAsyncFuture { userId =>
@@ -31,13 +32,13 @@ final class RatingChartApi(
       }
   }
 
-  private def ratingsMapToJson(userId: User.ID, createdAt: DateTime, ratingsMap: RatingsMap) =
+  private def ratingsMapToJson(userId: UserId, createdAt: DateTime, ratingsMap: RatingsMap) =
     ratingsMap.map { case (days, rating) =>
       val date = createdAt plusDays days
       Json.arr(date.getYear, date.getMonthOfYear - 1, date.getDayOfMonth, rating)
     }
 
-  private def build(userId: User.ID): Fu[Option[String]] =
+  private def build(userId: UserId): Fu[Option[String]] =
     userRepo.createdAtById(userId) flatMap {
       _ ?? { createdAt =>
         historyApi get userId map2 { (history: History) =>
@@ -45,7 +46,7 @@ final class RatingChartApi(
             Json.toJson {
               RatingChartApi.perfTypes map { pt =>
                 Json.obj(
-                  "name"   -> pt.trans(lila.i18n.defaultLang),
+                  "name"   -> pt.trans(using lila.i18n.defaultLang),
                   "points" -> ratingsMapToJson(userId, createdAt, history(pt))
                 )
               }
@@ -54,13 +55,12 @@ final class RatingChartApi(
         }
       }
     }
-}
 
-object RatingChartApi {
+object RatingChartApi:
 
   def bestPerfIndex(user: User): Int = user.bestPerf ?? { perfTypes indexOf _ }
 
-  import lila.rating.PerfType._
+  import lila.rating.PerfType.*
   private val perfTypes = List(
     Bullet,
     Blitz,
@@ -78,4 +78,3 @@ object RatingChartApi {
     Puzzle,
     UltraBullet
   )
-}

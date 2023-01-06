@@ -1,12 +1,11 @@
 import { h, VNode } from 'snabbdom';
 import { Prop, prop } from 'common';
-import { bind, dataIcon, onInsert } from 'common/snabbdom';
+import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
 import { storedProp, storedJsonProp, StoredJsonProp, StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import { snabModal } from 'common/modal';
 import AnalyseCtrl from '../ctrl';
 import { perf } from 'game/perf';
-import { iconTag } from '../util';
 import { ucfirst } from './explorerUtil';
 import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';
@@ -14,7 +13,7 @@ import { Redraw } from '../interfaces';
 
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
-const allRatings = [1600, 1800, 2000, 2200, 2500];
+const allRatings = [600, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500];
 const minYear = 1952;
 const minLichessYear = 2012;
 
@@ -49,7 +48,12 @@ export class ExplorerConfigCtrl {
   myName?: string;
   participants: (string | undefined)[];
 
-  constructor(readonly root: AnalyseCtrl, readonly variant: VariantKey, readonly onClose: () => void) {
+  constructor(
+    readonly root: AnalyseCtrl,
+    readonly variant: VariantKey,
+    readonly onClose: () => void,
+    previous?: ExplorerConfigCtrl
+  ) {
     this.myName = document.body.dataset['user'];
     this.participants = [root.data.player.user?.username, root.data.opponent.user?.username].filter(
       name => name && name != this.myName
@@ -62,24 +66,25 @@ export class ExplorerConfigCtrl {
         until: storedStringProp('explorer.until-2.' + db, new Date().toISOString().slice(0, 7)),
       };
     }
+    const prevData = previous?.data;
     this.data = {
-      open: prop(false),
+      open: prevData?.open || prop(false),
       db: storedProp<ExplorerDb>(
-        'explorer.db.' + variant,
+        'explorer.db2.' + variant,
         this.allDbs[0],
         str => str as ExplorerDb,
         v => v
       ),
-      rating: storedJsonProp('explorer.rating', () => allRatings),
+      rating: storedJsonProp('explorer.rating', () => allRatings.filter(r => r >= 1600)),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
       byDbData,
       playerName: {
-        open: prop(false),
+        open: prevData?.playerName.open || prop(false),
         value: storedStringProp('explorer.player.name', document.body.dataset['user'] || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
-      color: prop('white'),
+      color: prevData?.color || prop('white'),
       byDb() {
         return this.byDbData[this.db() as ExplorerDb] || this.byDbData.lichess;
       },
@@ -312,7 +317,10 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [
         h('input', {
-          attrs: { placeholder: ctrl.root.trans.noarg('searchByUsername') },
+          attrs: {
+            placeholder: ctrl.root.trans.noarg('searchByUsername'),
+            spellcheck: 'false',
+          },
           hook: onInsert<HTMLInputElement>(input =>
             lichess.userComplete().then(uac => {
               uac({

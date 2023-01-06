@@ -1,13 +1,13 @@
 package views.html.simul
 
-import lila.api.Context
-import lila.app.templating.Environment._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
 import play.api.i18n.Lang
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object homeInner {
+object homeInner:
 
   def apply(
       pendings: List[lila.simul.Simul],
@@ -16,7 +16,7 @@ object homeInner {
       finisheds: List[lila.simul.Simul]
   )(implicit ctx: Context) =
     div(cls := "box")(
-      h1(trans.simultaneousExhibitions()),
+      h1(cls := "box__top")(trans.simultaneousExhibitions()),
       table(cls := "slist slist-pad")(
         pendings.nonEmpty option frag(
           thead(
@@ -51,9 +51,12 @@ object homeInner {
               td(cls := "players text", dataIcon := "")(sim.applicants.size)
             )
           },
-          ctx.isAuth option tr(cls := "create")(
+          tr(cls := "create")(
             td(colspan := "4")(
-              a(href := routes.Simul.form, cls := "action button text")(trans.hostANewSimul())
+              if (ctx.isAuth)
+                a(href := routes.Simul.form, cls := "action button text")(trans.hostANewSimul())
+              else
+                a(href := routes.Auth.signup, cls := "action button text")("Sign up to host or join a simul")
             )
           )
         ),
@@ -110,4 +113,3 @@ object homeInner {
         strong(sim.hostRating)
       )
     )
-}

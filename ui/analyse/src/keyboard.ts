@@ -25,11 +25,11 @@ export const bind = (ctrl: AnalyseCtrl) => {
       control.enterVariation(ctrl);
       ctrl.redraw();
     })
-    .bind(['up', '0'], () => {
+    .bind(['up', '0', 'home'], () => {
       if (!ctrl.fork.prev()) control.first(ctrl);
       ctrl.redraw();
     })
-    .bind(['down', '$'], () => {
+    .bind(['down', '$', 'end'], () => {
       if (!ctrl.fork.next()) control.last(ctrl);
       ctrl.redraw();
     })
@@ -90,6 +90,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     // navigation for next and prev chapters
     kbd.bind('p', ctrl.study.goToPrevChapter);
     kbd.bind('n', ctrl.study.goToNextChapter);
+    for (let i = 1; i < 7; i++) kbd.bind(i.toString(), () => ctrl.study?.glyphForm.toggleGlyph(i));
   }
 };
 

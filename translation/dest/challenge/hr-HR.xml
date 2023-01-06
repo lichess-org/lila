@@ -22,4 +22,5 @@
   <string name="declineVariant">Trenutačno ne želim igrati ovu varijantu.</string>
   <string name="declineNoBot">Ne prihvaćam izazove od botova.</string>
   <string name="declineOnlyBot">Prihvaćam izazove isključivo od botova.</string>
+  <string name="inviteLichessUser">Ili pozovite Lichess korisnika:</string>
 </resources>

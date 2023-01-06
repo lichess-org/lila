@@ -3,18 +3,18 @@ package views.html.ublog
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Captcha
 import lila.i18n.LangList
 import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
 
-object form {
+object form:
 
-  import views.html.ublog.{ post => postView }
+  import views.html.ublog.{ post as postView }
 
   private def moreCss(implicit ctx: Context) = frag(cssTag("ublog.form"), cssTag("tagify"))
 
@@ -28,7 +28,7 @@ object form {
         views.html.blog.bits.menu(none, "mine".some),
         div(cls := "page-menu__content box ublog-post-form")(
           standardFlash(),
-          h1(trans.ublog.newPost()),
+          boxTop(h1(trans.ublog.newPost())),
           etiquette,
           inner(f, Left(user), captcha.some)
         )
@@ -45,7 +45,7 @@ object form {
         views.html.blog.bits.menu(none, "mine".some),
         div(cls := "page-menu__content box ublog-post-form")(
           standardFlash(),
-          div(cls := "box__top")(
+          boxTop(
             h1(
               if (ctx isUserId post.created.by) trans.ublog.editYourBlogPost()
               else s"Edit ${usernameOrId(post.created.by)}'s post"
@@ -56,12 +56,12 @@ object form {
           inner(f, Right(post), none),
           postForm(
             cls    := "ublog-post-form__delete",
-            action := routes.Ublog.delete(post.id.value)
+            action := routes.Ublog.delete(post.id)
           )(
             form3.action(
               submitButton(
                 cls   := "button button-red button-empty confirm",
-                title := "Delete this blog post definitively"
+                title := trans.ublog.deleteBlog.txt()
               )(trans.delete())
             )
           )
@@ -72,7 +72,7 @@ object form {
   private def imageForm(post: UblogPost)(implicit ctx: Context) =
     postForm(
       cls     := "ublog-post-form__image",
-      action  := routes.Ublog.image(post.id.value),
+      action  := routes.Ublog.image(post.id),
       enctype := "multipart/form-data"
     )(
       form3.split(
@@ -82,7 +82,7 @@ object form {
             frag(
               p(trans.ublog.uploadAnImageForYourPost()),
               p(
-                "It is safe to use images from the following websites: ",
+                trans.ublog.safeToUseImages(),
                 fragList(
                   List(
                     "unsplash.com"        -> "https://unsplash.com",
@@ -97,13 +97,15 @@ object form {
                 )
               ),
               p(
-                "You can also use images that you made yourself, pictures you took, screenshots of Lichess... anything that is not copyrighted by someone else."
+                trans.ublog.useImagesYouMadeYourself()
               ),
               p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
               form3.file.image("image")
             )
           else
-            post.image.isDefined option submitButton(cls := "button button-red confirm")("Delete the image")
+            post.image.isDefined option submitButton(cls := "button button-red confirm")(
+              trans.ublog.deleteImage()
+            )
         )
       )
     )
@@ -145,13 +147,13 @@ object form {
       },
       post.toOption match {
         case None =>
-          form3.group(form("topics"), frag("Select the topics your post is about"))(
+          form3.group(form("topics"), frag(trans.ublog.selectPostTopics()))(
             form3.textarea(_)(dataRel := UblogTopic.all.mkString(","))
           )
         case _ =>
           div(
             form3.split(
-              form3.group(form("topics"), frag("Select the topics your post is about"), half = true)(
+              form3.group(form("topics"), frag(trans.ublog.selectPostTopics()), half = true)(
                 form3.textarea(_)(dataRel := UblogTopic.all.mkString(","))
               ),
               form3.group(form("language"), trans.language(), half = true) { field =>
@@ -189,13 +191,13 @@ object form {
         )(
           trans.cancel()
         ),
-        form3.submit((if (post.isRight) trans.apply else trans.ublog.saveDraft)())
+        form3.submit((if (post.isRight) trans.apply else trans.ublog.saveDraft) ())
       )
     )
 
   private def etiquette(implicit ctx: Context) = div(cls := "ublog-post-form__etiquette")(
-    p("Please only post safe and respectful content. Do not copy someone else's content."),
-    p("Anything inappropriate could get your account closed."),
+    p(trans.ublog.safeAndRespectfulContent()),
+    p(trans.ublog.inappropriateContentAccountClosed()),
     p(
       a(
         dataIcon := "",
@@ -212,5 +214,4 @@ object form {
     href     := routes.Page.loneBookmark("blog-tips"),
     cls      := "text",
     targetBlank
-  )("Our simple tips to write great blog posts")
-}
+  )(trans.ublog.blogTips())

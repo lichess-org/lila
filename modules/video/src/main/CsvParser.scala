@@ -17,7 +17,7 @@ package com.github.tototoshi.csv
 
 import scala.annotation.switch
 
-object CSVParser {
+object CSVParser:
 
   class MalformedCSVException(message: String) extends Exception(message)
 
@@ -30,7 +30,7 @@ object CSVParser {
   final private val QuoteEnd    = 5
   final private val QuotedField = 6
 
-  def apply(input: String, escapeChar: Char, delimiter: Char, quoteChar: Char): Option[List[String]] = {
+  def apply(input: String, escapeChar: Char, delimiter: Char, quoteChar: Char): Option[List[String]] =
     val buf: Array[Char]       = input.toCharArray
     var fields: Vector[String] = Vector()
     var field                  = new StringBuilder
@@ -38,15 +38,14 @@ object CSVParser {
     var pos                    = 0
     val buflen                 = buf.length
 
-    if (buf.length > 0 && buf(0) == '\uFEFF') {
+    if (buf.length > 0 && buf(0) == '\uFEFF')
       pos += 1
-    }
 
-    while (state != End && pos < buflen) {
+    while (state != End && pos < buflen)
       val c = buf(pos)
-      (state: @switch) match {
+      (state: @switch) match
         case Start => {
-          c match {
+          c match
             case `quoteChar` => {
               state = QuoteStart
               pos += 1
@@ -64,9 +63,8 @@ object CSVParser {
               pos += 1
             }
             case '\r' => {
-              if (pos + 1 < buflen && buf(1) == '\n') {
+              if (pos + 1 < buflen && buf(1) == '\n')
                 pos += 1
-              }
               fields :+= field.toString
               field = new StringBuilder
               state = End
@@ -77,10 +75,9 @@ object CSVParser {
               state = Field
               pos += 1
             }
-          }
         }
         case Delimiter => {
-          c match {
+          c match
             case `quoteChar` => {
               state = QuoteStart
               pos += 1
@@ -89,13 +86,11 @@ object CSVParser {
               if (
                 pos + 1 < buflen
                 && (buf(pos + 1) == escapeChar || buf(pos + 1) == delimiter)
-              ) {
+              )
                 field += buf(pos + 1)
                 state = Field
                 pos += 2
-              } else {
-                throw new MalformedCSVException(buf.mkString)
-              }
+              else throw new MalformedCSVException(buf.mkString)
             }
             case `delimiter` => {
               fields :+= field.toString
@@ -110,9 +105,8 @@ object CSVParser {
               pos += 1
             }
             case '\r' => {
-              if (pos + 1 < buflen && buf(1) == '\n') {
+              if (pos + 1 < buflen && buf(1) == '\n')
                 pos += 1
-              }
               fields :+= field.toString
               field = new StringBuilder
               state = End
@@ -123,26 +117,22 @@ object CSVParser {
               state = Field
               pos += 1
             }
-          }
         }
         case Field => {
-          c match {
+          c match
             case `escapeChar` => {
-              if (pos + 1 < buflen) {
+              if (pos + 1 < buflen)
                 if (
                   buf(pos + 1) == escapeChar
                   || buf(pos + 1) == delimiter
-                ) {
+                )
                   field += buf(pos + 1)
                   state = Field
                   pos += 2
-                } else {
-                  throw new MalformedCSVException(buf.mkString)
-                }
-              } else {
+                else throw new MalformedCSVException(buf.mkString)
+              else
                 state = QuoteEnd
                 pos += 1
-              }
             }
             case `delimiter` => {
               fields :+= field.toString
@@ -157,9 +147,8 @@ object CSVParser {
               pos += 1
             }
             case '\r' => {
-              if (pos + 1 < buflen && buf(1) == '\n') {
+              if (pos + 1 < buflen && buf(1) == '\n')
                 pos += 1
-              }
               fields :+= field.toString
               field = new StringBuilder
               state = End
@@ -170,45 +159,39 @@ object CSVParser {
               state = Field
               pos += 1
             }
-          }
         }
         case QuoteStart => {
-          c match {
+          c match
             case `escapeChar` if escapeChar != quoteChar => {
-              if (pos + 1 < buflen) {
+              if (pos + 1 < buflen)
                 if (
                   buf(pos + 1) == escapeChar
                   || buf(pos + 1) == quoteChar
-                ) {
+                )
                   field += buf(pos + 1)
                   state = QuotedField
                   pos += 2
-                } else {
-                  throw new MalformedCSVException(buf.mkString)
-                }
-              } else {
+                else throw new MalformedCSVException(buf.mkString)
+              else
                 throw new MalformedCSVException(buf.mkString)
-              }
             }
             case `quoteChar` => {
-              if (pos + 1 < buflen && buf(pos + 1) == quoteChar) {
+              if (pos + 1 < buflen && buf(pos + 1) == quoteChar)
                 field += quoteChar
                 state = QuotedField
                 pos += 2
-              } else {
+              else
                 state = QuoteEnd
                 pos += 1
-              }
             }
             case x => {
               field += x
               state = QuotedField
               pos += 1
             }
-          }
         }
         case QuoteEnd => {
-          c match {
+          c match
             case `delimiter` => {
               fields :+= field.toString
               field = new StringBuilder
@@ -222,9 +205,8 @@ object CSVParser {
               pos += 1
             }
             case '\r' => {
-              if (pos + 1 < buflen && buf(1) == '\n') {
+              if (pos + 1 < buflen && buf(1) == '\n')
                 pos += 1
-              }
               fields :+= field.toString
               field = new StringBuilder
               state = End
@@ -233,52 +215,45 @@ object CSVParser {
             case _ => {
               throw new MalformedCSVException(buf.mkString)
             }
-          }
         }
         case QuotedField => {
-          c match {
+          c match
             case `escapeChar` if escapeChar != quoteChar => {
-              if (pos + 1 < buflen) {
+              if (pos + 1 < buflen)
                 if (
                   buf(pos + 1) == escapeChar
                   || buf(pos + 1) == quoteChar
-                ) {
+                )
                   field += buf(pos + 1)
                   state = QuotedField
                   pos += 2
-                } else {
+                else
                   field += buf(pos)
                   field += buf(pos + 1)
                   state = QuotedField
                   pos += 2
-                }
-              } else {
+              else
                 throw new MalformedCSVException(buf.mkString)
-              }
             }
             case `quoteChar` => {
-              if (pos + 1 < buflen && buf(pos + 1) == quoteChar) {
+              if (pos + 1 < buflen && buf(pos + 1) == quoteChar)
                 field += quoteChar
                 state = QuotedField
                 pos += 2
-              } else {
+              else
                 state = QuoteEnd
                 pos += 1
-              }
             }
             case x => {
               field += x
               state = QuotedField
               pos += 1
             }
-          }
         }
         case End => {
           sys.error("unexpected error")
         }
-      }
-    }
-    (state: @switch) match {
+    (state: @switch) match
       case Delimiter => {
         fields :+= ""
         Some(fields.toList)
@@ -288,14 +263,10 @@ object CSVParser {
       }
       case _ => {
         // When no crlf at end of file
-        state match {
+        state match
           case Field | QuoteEnd => {
             fields :+= field.toString
           }
           case _ => {}
-        }
         Some(fields.toList)
       }
-    }
-  }
-}

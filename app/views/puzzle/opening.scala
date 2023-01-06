@@ -3,16 +3,16 @@ package html.puzzle
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LilaOpeningFamily
 import lila.puzzle.PuzzleOpening.Order
 import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleOpeningCollection, PuzzleTheme }
 
-object opening {
+object opening:
 
-  def all(openings: PuzzleOpeningCollection, mine: Option[PuzzleOpening.Mine], order: Order)(implicit
+  def all(openings: PuzzleOpeningCollection, mine: Option[PuzzleOpening.Mine], order: Order)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -23,7 +23,7 @@ object opening {
       main(cls := "page-menu")(
         bits.pageMenu("openings", ctx.me),
         div(cls := "page-menu__content box")(
-          div(cls := "box__top")(
+          boxTop(
             h1("Puzzles by openings"),
             orderSelect(order)
           ),
@@ -61,7 +61,7 @@ object opening {
       )
     })
 
-  private def treeOf(openings: PuzzleOpening.TreeList, mine: Option[PuzzleOpening.Mine])(implicit
+  private def treeOf(openings: PuzzleOpening.TreeList, mine: Option[PuzzleOpening.Mine])(using
       ctx: Context
   ) =
     openings map { case (fam, openings) =>
@@ -80,7 +80,7 @@ object opening {
             href := routes.Puzzle.show(op.opening.key.value)
           )(
             h3(
-              op.opening.variation.name,
+              op.opening.variation,
               em(op.count.localize)
             )
           )
@@ -93,13 +93,11 @@ object opening {
     dataFen := family.full.map(_.fen)
   )(href := routes.Puzzle.show(family.key.value))(family.name)
 
-  def orderSelect(order: Order)(implicit ctx: Context) = {
+  def orderSelect(order: Order)(implicit ctx: Context) =
     views.html.base.bits.mselect(
       "orders",
       span(order.name()),
-      Order.all map { o =>
+      Order.values.map { o =>
         a(href := routes.Puzzle.openings(o.key), cls := (order == o).option("current"))(o.name())
       }
     )
-  }
-}

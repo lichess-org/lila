@@ -4,7 +4,7 @@ import m from 'mithril';
 
 type OneOrMany<T> = T | T[];
 
-type Children<T> = OneOrMany<
+type Children<T extends _mithril.MithrilController> = OneOrMany<
   | string
   | number
   | null

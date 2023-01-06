@@ -1,36 +1,34 @@
 package lila.user
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
-import lila.memo._
+import lila.db.dsl.{ *, given }
+import lila.memo.*
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
 final class TrophyApi(
     coll: Coll,
     kindColl: Coll,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using scala.concurrent.ExecutionContext):
 
-  val kindCache = {
-    // careful of collisions with trophyKindStringBSONHandler
-    val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
-
+  val kindCache =
     cacheApi.sync[String, TrophyKind](
       name = "trophy.kind",
       initialCapacity = 32,
-      compute = id => kindColl.byId[TrophyKind](id)(trophyKindObjectBSONHandler).dmap(_ | TrophyKind.Unknown),
+      compute = id => {
+        given BSONDocumentReader[TrophyKind] = Macros.reader[TrophyKind]
+        kindColl.byId[TrophyKind](id).dmap(_ | TrophyKind.Unknown)
+      },
       default = _ => TrophyKind.Unknown,
-      strategy = Syncache.WaitAfterUptime(20 millis),
-      expireAfter = Syncache.ExpireAfterWrite(1 hour)
+      strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
+      expireAfter = Syncache.ExpireAfter.Write(1 hour)
     )
-  }
 
-  implicit private val trophyKindStringBSONHandler =
-    BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
+  private given BSONHandler[TrophyKind] = BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
 
-  implicit private val trophyBSONHandler = Macros.handler[Trophy]
+  private given BSONDocumentHandler[Trophy] = Macros.handler[Trophy]
 
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
     coll.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
@@ -73,15 +71,14 @@ final class TrophyApi(
       )
     ).flatten
 
-  def award(trophyUrl: String, userId: String, kindKey: String): Funit =
+  def award(trophyUrl: String, userId: UserId, kindKey: String): Funit =
     coll.insert
       .one(
         $doc(
-          "_id"  -> lila.common.ThreadLocalRandom.nextString(8),
+          "_id"  -> ThreadLocalRandom.nextString(8),
           "user" -> userId,
           "kind" -> kindKey,
           "url"  -> trophyUrl,
           "date" -> DateTime.now
         )
       ) void
-}

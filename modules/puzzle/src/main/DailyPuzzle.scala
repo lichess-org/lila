@@ -2,21 +2,22 @@ package lila.puzzle
 
 import akka.pattern.ask
 import org.joda.time.DateTime
-import Puzzle.{ BSONFields => F }
-import scala.concurrent.duration._
+import Puzzle.{ BSONFields as F }
+import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom.odds
+import chess.format.{ BoardFen, Uci }
 
-import lila.db.dsl._
-import lila.memo.CacheApi._
-import lila.common.ThreadLocalRandom
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.*
 
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,
     pathApi: PuzzlePathApi,
     renderer: lila.hub.actors.Renderer,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   private val cache =
     cacheApi.unit[Option[DailyPuzzle.WithHtml]] {
@@ -34,7 +35,7 @@ final private[puzzle] class DailyPuzzle(
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
     import makeTimeout.short
-    renderer.actor ? DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove, puzzle.line.head.uci) map {
+    renderer.actor ? DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove.board, puzzle.line.head) map {
       case html: String => DailyPuzzle.WithHtml(puzzle, html).some
     }
   } recover { case e: Exception =>
@@ -49,23 +50,23 @@ final private[puzzle] class DailyPuzzle(
         .one[Puzzle]
     }
 
-  private def findNewBiased(tries: Int = 0): Fu[Option[Puzzle]] = {
+  private def findNewBiased(tries: Int = 0): Fu[Option[Puzzle]] =
     def tryAgainMaybe = (tries < 7) ?? findNewBiased(tries + 1)
-    import lila.common.ThreadLocalRandom.odds
-    import PuzzleTheme._
+    import PuzzleTheme.*
     findNew flatMap {
       case None => tryAgainMaybe
       case Some(p) if p.hasTheme(anastasiaMate, arabianMate) && !odds(3) =>
         tryAgainMaybe dmap (_ orElse p.some)
       case p => fuccess(p)
     }
-  }
 
   private def findNew: Fu[Option[Puzzle]] =
     colls
       .path {
         _.aggregateOne() { framework =>
-          import framework._
+          import framework.*
+          val forbiddenThemes = List(PuzzleTheme.oneMove) :::
+            odds(2).??(List(PuzzleTheme.checkFirst))
           Match(pathApi.select(PuzzleAngle.mix, PuzzleTier.Top, 2150 to 2300)) -> List(
             Sample(3),
             Project($doc("ids" -> true, "_id" -> false)),
@@ -82,7 +83,7 @@ final private[puzzle] class DailyPuzzle(
                       Puzzle.BSONFields.plays $gt 9000,
                       Puzzle.BSONFields.day $exists false,
                       Puzzle.BSONFields.issue $exists false,
-                      Puzzle.BSONFields.themes $ne PuzzleTheme.oneMove.key.value
+                      Puzzle.BSONFields.themes $nin forbiddenThemes.map(_.key)
                     )
                   )
                 )
@@ -97,18 +98,16 @@ final private[puzzle] class DailyPuzzle(
         }
       }
       .flatMap { docOpt =>
-        docOpt.flatMap(PuzzleBSONReader.readOpt) ?? { puzzle =>
+        docOpt.flatMap(puzzleReader.readOpt) ?? { puzzle =>
           colls.puzzle {
-            _.update.one($id(puzzle.id), $set(F.day -> DateTime.now))
+            _.updateField($id(puzzle.id), F.day, DateTime.now)
           } inject puzzle.some
         }
       }
-}
 
-object DailyPuzzle {
+object DailyPuzzle:
   type Try = () => Fu[Option[DailyPuzzle.WithHtml]]
 
   case class WithHtml(puzzle: Puzzle, html: String)
 
-  case class Render(puzzle: Puzzle, fen: chess.format.FEN, lastMove: String)
-}
+  case class Render(puzzle: Puzzle, fen: BoardFen, lastMove: Uci)

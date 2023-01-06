@@ -1,18 +1,18 @@
 package views.html
 package coach
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 
 import controllers.routes
 
-object show {
+object show:
 
-  import trans.coach._
+  import trans.coach.*
 
-  private def section(title: Frag, text: Option[lila.coach.CoachProfile.RichText]) =
+  private def section(title: Frag, text: Option[RichText]) =
     text.map { t =>
       st.section(
         h2(cls := "coach-show__title")(title),
@@ -26,7 +26,7 @@ object show {
       studies: Seq[lila.study.Study.WithChaptersAndLiked],
       posts: Seq[lila.ublog.UblogPost.PreviewPost],
       myReview: Option[lila.coach.CoachReview]
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
     val profile   = c.coach.profile
     val coachName = s"${c.user.title.??(t => s"$t ")}${c.user.realNameOrUsername}"
     val title     = xCoachesStudents.txt(coachName)
@@ -49,7 +49,7 @@ object show {
           a(cls := "button button-empty", href := routes.User.show(c.user.username))(
             viewXProfile(c.user.username)
           ),
-          if (ctx.me.exists(c.coach.is))
+          if (ctx.me.exists(_ is c.coach))
             frag(
               if (c.coach.listed.value) p("This page is now public.")
               else "This page is not public yet. ",
@@ -109,5 +109,3 @@ object show {
         )
       )
     }
-  }
-}

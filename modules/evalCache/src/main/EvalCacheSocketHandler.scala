@@ -1,17 +1,18 @@
 package lila.evalCache
 
-import chess.variant.Variant
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import chess.format.FEN
-import lila.socket._
+import chess.variant.Variant
+import chess.format.Fen
+import lila.socket.*
 import lila.user.User
+import lila.common.Json.given
 
 final private class EvalCacheSocketHandler(
     api: EvalCacheApi,
     truster: EvalCacheTruster,
     upgrade: EvalCacheUpgrade
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using scala.concurrent.ExecutionContext):
 
   def evalGet(
       sri: Socket.Sri,
@@ -19,11 +20,11 @@ final private class EvalCacheSocketHandler(
       push: JsObject => Unit
   ): Unit =
     for {
-      fen <- d str "fen" map FEN.apply
-      variant = Variant orDefault ~d.str("variant")
+      fen <- d.get[Fen.Epd]("fen")
+      variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
       multiPv = (d int "mpv") | 1
       path <- d str "path"
-    } {
+    } yield {
       def pushData(data: JsObject) = push(Socket.makeMessage("evalHit", data))
       api.getEvalJson(variant, fen, multiPv) foreach {
         _ foreach { json =>
@@ -33,7 +34,7 @@ final private class EvalCacheSocketHandler(
       if (d.value contains "up") upgrade.register(sri, variant, fen, multiPv, path)(pushData)
     }
 
-  def untrustedEvalPut(sri: Socket.Sri, userId: User.ID, data: JsObject): Unit =
+  def untrustedEvalPut(sri: Socket.Sri, userId: UserId, data: JsObject): Unit =
     truster cachedTrusted userId foreach {
       _ foreach { tu =>
         JsonHandlers.readPutData(tu, data) foreach {
@@ -41,4 +42,3 @@ final private class EvalCacheSocketHandler(
         }
       }
     }
-}

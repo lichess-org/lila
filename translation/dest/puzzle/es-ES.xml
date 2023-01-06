@@ -13,6 +13,8 @@
   <string name="specialMoves">Movimientos especiales</string>
   <string name="didYouLikeThisPuzzle">¿Te ha gustado este ejercicio?</string>
   <string name="voteToLoadNextOne">¡Vota para pasar al siguiente!</string>
+  <string name="upVote">Votar positivamente el ejercicio</string>
+  <string name="downVote">Votar negativamente el ejercicio</string>
   <string name="yourPuzzleRatingWillNotChange">Tu puntuación de ejercicios no cambiará. Nota que los ejercicios no son una competición. La puntuación indica los ejercicios que se adecuan a tus habilidades.</string>
   <string name="findTheBestMoveForWhite">Encuentra el mejor movimiento para las blancas.</string>
   <string name="findTheBestMoveForBlack">Encuentra el mejor movimiento para las negras.</string>
@@ -70,7 +72,7 @@
   <string name="searchPuzzles">Buscar ejercicios</string>
   <string name="fromMyGamesNone">No tienes ejercicios en la base de datos, pero Lichess aún te quiere un montón.
 ¡Juega partidas rápidas y clásicas para tener más posibilidades de que se añadan tus ejercicios!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s ejercicios encontrados en las partidas de %2$s</string>
+  <string name="fromXGamesFound">%1$s ejercicios encontrados en las partidas de %2$s</string>
   <string name="puzzleDashboardDescription">Entrena, analiza, mejora</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s ejercicio</item>

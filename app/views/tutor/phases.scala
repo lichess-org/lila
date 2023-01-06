@@ -1,26 +1,28 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.{ TutorFullReport, TutorPerfReport }
 import lila.insight.Phase
 import lila.insight.InsightPosition
 
-object phases {
+object phases:
 
-  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(implicit
+  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(using
       ctx: Context
   ) =
     bits.layout(full, menu = perf.menu(full, user, report, "phases"))(
       cls := "tutor__phases box",
-      h1(
-        a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
-        report.perf.trans,
-        " phases"
+      boxTop(
+        h1(
+          a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
+          report.perf.trans,
+          " phases"
+        )
       ),
       bits.mascotSays(
         ul(report phaseHighlights 3 map compare.show)
@@ -35,10 +37,14 @@ object phases {
             ),
             div(cls := "tutor-card__content")(
               grade.peerGradeWithDetail(concept.accuracy, phase.accuracy, InsightPosition.Move),
-              grade.peerGradeWithDetail(concept.tacticalAwareness, phase.awareness, InsightPosition.Move)
+              grade.peerGradeWithDetail(concept.tacticalAwareness, phase.awareness, InsightPosition.Move),
+              a(
+                cls      := "button button-no-upper text",
+                dataIcon := "",
+                href     := routes.Puzzle.show(phase.phase.name)
+              )("Train with ", phase.phase.name, " puzzles")
             )
           )
         }
       )
     )
-}

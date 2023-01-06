@@ -9,7 +9,7 @@ case class RelayGame(
     variant: chess.variant.Variant,
     root: Node.Root,
     end: Option[PgnImport.End]
-) {
+):
 
   def staticTagsMatch(chapterTags: Tags): Boolean =
     RelayGame.staticTags forall { name =>
@@ -24,11 +24,9 @@ case class RelayGame(
       site startsWith s"https://$domain/"
     }
   }
-}
 
-private object RelayGame {
+private object RelayGame:
 
   val lichessDomains = List("lichess.org", "lichess.dev")
 
   val staticTags = List("white", "black", "round", "event", "site")
-}

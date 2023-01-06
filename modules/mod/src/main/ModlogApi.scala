@@ -1,51 +1,52 @@
 package lila.mod
 
 import org.joda.time.DateTime
-import reactivemongo.api._
+import reactivemongo.api.*
+import reactivemongo.api.bson.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
+import lila.game.Game
+import lila.irc.IrcApi
 import lila.msg.MsgPreset
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
 import lila.user.{ Holder, User, UserRepo }
-import lila.irc.IrcApi
-import lila.game.Game
 
-final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(implicit
-    ec: scala.concurrent.ExecutionContext
-) {
+final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(using
+    scala.concurrent.ExecutionContext
+):
 
   private def coll = repo.coll
 
-  import lila.db.BSON.BSONJodaDateTimeHandler
-  implicit private val ModlogBSONHandler = reactivemongo.api.bson.Macros.handler[Modlog]
+  private given BSONDocumentHandler[Modlog]           = Macros.handler
+  private given BSONDocumentHandler[Modlog.UserEntry] = Macros.handler
 
   private val markActions = List(Modlog.alt, Modlog.booster, Modlog.closeAccount, Modlog.engine, Modlog.troll)
 
-  def streamerDecline(mod: Mod, streamerId: User.ID) =
+  def streamerDecline(mod: Mod, streamerId: UserId) =
     add {
-      Modlog(mod.user.id, streamerId.some, Modlog.streamerDecline)
+      Modlog(mod.id, streamerId.some, Modlog.streamerDecline)
     }
-  def streamerList(mod: Mod, streamerId: User.ID, v: Boolean) =
+  def streamerList(mod: Mod, streamerId: UserId, v: Boolean) =
     add {
-      Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerList else Modlog.streamerUnlist)
+      Modlog(mod.id, streamerId.some, if (v) Modlog.streamerList else Modlog.streamerUnlist)
     }
-  def streamerTier(mod: Mod, streamerId: User.ID, v: Int) =
+  def streamerTier(mod: Mod, streamerId: UserId, v: Int) =
     add {
-      Modlog(mod.user.id, streamerId.some, Modlog.streamerTier, v.toString.some)
+      Modlog(mod.id, streamerId.some, Modlog.streamerTier, v.toString.some)
     }
   def blogTier(mod: Mod, sus: Suspect, blogId: String, tier: String) =
     add {
       Modlog.make(mod, sus, Modlog.blogTier, tier.some)
     }
-  def blogPostEdit(mod: Mod, sus: Suspect, postId: String, postName: String, action: String) =
+  def blogPostEdit(mod: Mod, sus: Suspect, postId: UblogPostId, postName: String, action: String) =
     add {
       Modlog.make(mod, sus, Modlog.blogPostEdit, s"$action #$postId $postName".some)
     }
 
-  def practiceConfig(mod: User.ID) =
+  def practiceConfig(mod: UserId) =
     add {
-      Modlog(mod, none, Modlog.practiceConfig)
+      Modlog(mod into ModId, none, Modlog.practiceConfig)
     }
 
   def alt(mod: Mod, sus: Suspect, v: Boolean) =
@@ -68,25 +69,25 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       Modlog.make(mod, sus, if (sus.user.marks.troll) Modlog.troll else Modlog.untroll)
     }
 
-  def setKidMode(mod: User.ID, kid: User.ID) =
+  def setKidMode(mod: ModId, kid: UserId) =
     add {
       Modlog(mod, kid.some, Modlog.setKidMode)
     }
 
-  def disableTwoFactor(mod: User.ID, user: User.ID) =
+  def disableTwoFactor(mod: ModId, user: UserId) =
     add {
       Modlog(mod, user.some, Modlog.disableTwoFactor)
     }
 
-  def closeAccount(mod: User.ID, user: User.ID) =
+  def closeAccount(mod: ModId, user: UserId) =
     add {
       Modlog(mod, user.some, Modlog.closeAccount)
     }
 
-  def selfCloseAccount(user: User.ID, openReports: List[Report]) =
+  def selfCloseAccount(user: UserId, openReports: List[Report]) =
     add {
       Modlog(
-        ModId.lichess.value,
+        User.lichessId into ModId,
         user.some,
         Modlog.selfCloseAccount,
         details = openReports.map(r => s"${r.reason.name} report").mkString(", ").some.filter(_.nonEmpty)
@@ -96,79 +97,62 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
   def closedByMod(user: User): Fu[Boolean] =
     fuccess(user.marks.alt) >>| coll.exists($doc("user" -> user.id, "action" -> Modlog.closeAccount))
 
-  def reopenAccount(mod: User.ID, user: User.ID) =
+  def reopenAccount(mod: ModId, user: UserId) =
     add {
       Modlog(mod, user.some, Modlog.reopenAccount)
     }
 
-  def addTitle(mod: User.ID, user: User.ID, title: String) =
+  def addTitle(mod: ModId, user: UserId, title: String) =
     add {
       Modlog(mod, user.some, Modlog.setTitle, title.some)
     }
 
-  def removeTitle(mod: User.ID, user: User.ID) =
+  def removeTitle(mod: ModId, user: UserId) =
     add {
       Modlog(mod, user.some, Modlog.removeTitle)
     }
 
-  def setEmail(mod: User.ID, user: User.ID) =
+  def setEmail(mod: ModId, user: UserId) =
     add {
       Modlog(mod, user.some, Modlog.setEmail)
     }
 
-  def deletePost(
-      mod: User.ID,
-      user: Option[User.ID],
-      author: Option[User.ID],
-      text: String
-  ) =
+  def deletePost(mod: ModId, user: Option[UserId], text: String) =
     add {
       Modlog(
         mod,
         user,
         Modlog.deletePost,
-        details = Some(
-          author.??(_ + " ") + text.take(400)
-        )
+        details = Some(text.take(400))
       )
     }
 
-  def toggleCloseTopic(mod: User.ID, categ: String, topic: String, closed: Boolean) =
+  def toggleCloseTopic(mod: ModId, categ: ForumCategId, topicSlug: String, closed: Boolean) =
     add {
       Modlog(
         mod,
         none,
         if (closed) Modlog.closeTopic else Modlog.openTopic,
-        details = s"$categ/$topic".some
+        details = s"$categ/$topicSlug".some
       )
     }
 
-  def toggleHideTopic(mod: User.ID, categ: String, topic: String, hidden: Boolean) =
-    add {
-      Modlog(
-        mod,
-        none,
-        if (hidden) Modlog.hideTopic else Modlog.showTopic,
-        details = s"$categ/$topic".some
-      )
-    }
-
-  def toggleStickyTopic(mod: User.ID, categ: String, topic: String, sticky: Boolean) =
+  def toggleStickyTopic(mod: ModId, categ: ForumCategId, topicSlug: String, sticky: Boolean) =
     add {
       Modlog(
         mod,
         none,
         if (sticky) Modlog.stickyTopic else Modlog.unstickyTopic,
-        details = s"$categ/$topic".some
+        details = s"$categ/$topicSlug".some
       )
     }
 
   // Not to be confused with the eponymous lichess account.
   def postOrEditAsAnonMod(
-      mod: User.ID,
-      categ: String,
+      mod: ModId,
+      categ: ForumCategId,
       topic: String,
-      postId: String,
+      postId: ForumPostId,
       text: String,
       edit: Boolean
   ) =
@@ -181,7 +165,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       )
     }
 
-  def deleteTeam(mod: User.ID, id: String, explain: String) =
+  def deleteTeam(mod: ModId, id: String, explain: String) =
     add {
       Modlog(
         mod,
@@ -191,7 +175,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       ) indexAs "team"
     }
 
-  def toggleTeam(mod: User.ID, id: String, closing: Boolean, explain: String) =
+  def toggleTeam(mod: ModId, id: String, closing: Boolean, explain: String) =
     add {
       Modlog(
         mod,
@@ -201,24 +185,24 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       ) indexAs "team"
     }
 
-  def teamLog(teamId: String): Fu[List[Modlog]] =
+  def teamLog(teamId: TeamId): Fu[List[Modlog]] =
     repo.coll
       .find($doc("index" -> "team", "details" $startsWith s"$teamId: "))
       .sort($sort desc "date")
       .cursor[Modlog]()
       .list(30)
 
-  def terminateTournament(mod: User.ID, name: String) =
+  def terminateTournament(mod: ModId, name: String) =
     add {
       Modlog(mod, none, Modlog.terminateTournament, details = name.some)
     }
 
-  def chatTimeout(mod: User.ID, user: User.ID, reason: String, text: String) =
+  def chatTimeout(mod: ModId, user: UserId, reason: String, text: String) =
     add {
       Modlog(mod, user.some, Modlog.chatTimeout, details = s"$reason: $text".some)
     }
 
-  def setPermissions(mod: Holder, user: User.ID, permissions: Map[Permission, Boolean]) =
+  def setPermissions(mod: Mod, user: UserId, permissions: Map[Permission, Boolean]) =
     add {
       Modlog(
         mod.id,
@@ -233,10 +217,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       )
     }
 
-  def wasUnteachered(user: User.ID): Fu[Boolean] =
+  def wasUnteachered(user: UserId): Fu[Boolean] =
     coll.exists($doc("user" -> user, "details" $regex s"-${Permission.Teacher.toString}"))
 
-  def wasMarkedBy(mod: User.ID, user: User.ID): Fu[Boolean] =
+  def wasMarkedBy(mod: ModId, user: UserId): Fu[Boolean] =
     coll.secondaryPreferred.exists(
       $doc(
         "user" -> user,
@@ -245,8 +229,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       )
     )
 
-  def wereMarkedBy(mod: User.ID, users: List[User.ID]): Fu[Set[User.ID]] =
-    coll.distinctEasy[User.ID, Set](
+  def wereMarkedBy(mod: ModId, users: List[UserId]): Fu[Set[UserId]] =
+    coll.distinctEasy[UserId, Set](
       "user",
       $doc(
         "user" $in users,
@@ -261,27 +245,27 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       Modlog.make(mod, sus, if (v) Modlog.reportban else Modlog.unreportban)
     }
 
-  def modMessage(mod: User.ID, user: User.ID, subject: String) =
+  def modMessage(mod: ModId, user: UserId, subject: String) =
     add {
       Modlog(mod, user.some, Modlog.modMessage, details = subject.some)
     }
 
-  def coachReview(mod: User.ID, coach: User.ID, author: User.ID) =
+  def coachReview(mod: ModId, coach: UserId, author: UserId) =
     add {
       Modlog(mod, coach.some, Modlog.coachReview, details = s"by $author".some)
     }
 
-  def cheatDetected(user: User.ID, gameId: Game.ID) =
+  def cheatDetected(user: UserId, gameId: GameId) =
     add {
-      Modlog("lichess", user.some, Modlog.cheatDetected, details = s"game $gameId".some)
+      Modlog(User.lichessId into ModId, user.some, Modlog.cheatDetected, details = s"game $gameId".some)
     }
 
-  def cheatDetectedAndCount(user: User.ID, gameId: Game.ID): Fu[Int] = for {
+  def cheatDetectedAndCount(user: UserId, gameId: GameId): Fu[Int] = for {
     prevCount <- countRecentCheatDetected(user)
     _         <- cheatDetected(user, gameId)
   } yield prevCount + 1
 
-  def cli(by: User.ID, command: String) =
+  def cli(by: ModId, command: String) =
     add {
       Modlog(by, none, Modlog.cli, command.some)
     }
@@ -296,17 +280,17 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       Modlog.make(mod, sus, if (v) Modlog.rankban else Modlog.unrankban)
     }
 
-  def teamKick(mod: User.ID, user: User.ID, teamName: String) =
+  def teamKick(mod: ModId, user: UserId, teamName: String) =
     add {
       Modlog(mod, user.some, Modlog.teamKick, details = Some(teamName take 140))
     }
 
-  def teamEdit(mod: User.ID, teamOwner: User.ID, teamName: String) =
+  def teamEdit(mod: ModId, teamOwner: UserId, teamName: String) =
     add {
       Modlog(mod, teamOwner.some, Modlog.teamEdit, details = Some(teamName take 140))
     }
 
-  def appealPost(mod: User.ID, user: User.ID) =
+  def appealPost(mod: ModId, user: UserId) =
     add { Modlog(mod, user.some, Modlog.appealPost, details = none) }
 
   def wasUnengined(sus: Suspect) =
@@ -317,7 +301,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       )
     )
 
-  def wasUnbooster(userId: User.ID) =
+  def wasUnbooster(userId: UserId) =
     coll.exists(
       $doc(
         "user"   -> userId,
@@ -325,10 +309,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       )
     )
 
-  def userHistory(userId: User.ID): Fu[List[Modlog]] =
+  def userHistory(userId: UserId): Fu[List[Modlog]] =
     coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().list(60)
 
-  def countRecentCheatDetected(userId: User.ID): Fu[Int] =
+  def countRecentCheatDetected(userId: UserId): Fu[Int] =
     coll.secondaryPreferred.countSel(
       $doc(
         "user"   -> userId,
@@ -337,7 +321,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       )
     )
 
-  def countRecentRatingManipulationsWarnings(userId: User.ID): Fu[Int] =
+  def countRecentRatingManipulationsWarnings(userId: UserId): Fu[Int] =
     coll.secondaryPreferred.countSel(
       $doc(
         "user"   -> userId,
@@ -347,19 +331,54 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       )
     )
 
-  private def add(m: Modlog): Funit = {
+  def recentBy(mod: Mod) =
+    coll.tempPrimary
+      .find($doc("mod" -> mod.id))
+      .sort($sort desc "date")
+      .cursor[Modlog]()
+      .list(100)
+
+  def addModlog(users: List[User]): Fu[List[UserWithModlog]] =
+    coll.tempPrimary
+      .find(
+        $doc(
+          "user" $in users.filter(_.marks.value.nonEmpty).map(_.id),
+          "action" $in List(
+            Modlog.engine,
+            Modlog.troll,
+            Modlog.booster,
+            Modlog.closeAccount,
+            Modlog.alt,
+            Modlog.reportban
+          )
+        ),
+        $doc("user" -> true, "action" -> true, "date" -> true).some
+      )
+      .sort($sort desc "date")
+      .cursor[Modlog.UserEntry]()
+      .listAll()
+      .map {
+        _.foldLeft(users.map(UserWithModlog(_, Nil))) { (users, log) =>
+          users.map {
+            case UserWithModlog(user, prevLog) if log.user is user =>
+              UserWithModlog(user, log :: prevLog)
+            case u => u
+          }
+        }
+      }
+
+  private def add(m: Modlog): Funit =
     lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
     m.notable ?? {
       coll.insert.one {
-        ModlogBSONHandler.writeTry(m).get ++ (!m.isLichess).??($doc("human" -> true))
+        bsonWriteObjTry[Modlog](m).get ++ (!m.isLichess).??($doc("human" -> true))
       } >> (m.notableZulip ?? zulipMonitor(m))
     }
-  }
 
-  private def zulipMonitor(m: Modlog): Funit = {
-    import lila.mod.{ Modlog => M }
-    val icon = m.action match {
+  private def zulipMonitor(m: Modlog): Funit =
+    import lila.mod.{ Modlog as M }
+    val icon = m.action match
       case M.alt | M.engine | M.booster | M.troll | M.closeAccount          => "thorhammer"
       case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "blue_circle"
       case M.deletePost | M.deleteTeam | M.terminateTournament              => "x"
@@ -369,11 +388,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       case M.modMessage | M.postAsAnonMod | M.editAsAnonMod                 => "left_speech_bubble"
       case M.blogTier | M.blogPostEdit                                      => "note"
       case _                                                                => "gear"
-    }
     val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u")} ${~m.details}"""
     userRepo.isMonitoredMod(m.mod) flatMap {
       _ ?? {
-        val monitorType = m.action match {
+        val monitorType = m.action match
           case M.closeAccount | M.alt => None
           case M.engine | M.unengine | M.reopenAccount | M.unalt =>
             Some(IrcApi.ModDomain.Cheat)
@@ -383,12 +401,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
               M.blogPostEdit =>
             Some(IrcApi.ModDomain.Comm)
           case _ => Some(IrcApi.ModDomain.Other)
-        }
         monitorType ?? {
-          ircApi.monitorMod(m.mod, icon = icon, text = text, _)
+          ircApi.monitorMod(m.mod.id, icon = icon, text = text, _)
         }
       }
     }
-    ircApi.logMod(m.mod, icon = icon, text = text)
-  }
-}
+    ircApi.logMod(m.mod.id, icon = icon, text = text)

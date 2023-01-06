@@ -6,11 +6,12 @@ import play.api.mvc.RequestHeader
 import lila.common.{ HTTPRequest, Nonce }
 import lila.pref.Pref
 import lila.user.{ BodyUserContext, HeaderUserContext, UserContext }
+import lila.notify.Notification.UnreadCount
 
 case class PageData(
     teamNbRequests: Int,
     nbChallenges: Int,
-    nbNotifications: Int,
+    nbNotifications: UnreadCount,
     pref: Pref,
     blindMode: Boolean,
     hasFingerprint: Boolean,
@@ -20,13 +21,13 @@ case class PageData(
     error: Boolean = false
 )
 
-object PageData {
+object PageData:
 
   def anon(req: RequestHeader, nonce: Option[Nonce], blindMode: Boolean = false) =
     PageData(
       teamNbRequests = 0,
       nbChallenges = 0,
-      nbNotifications = 0,
+      nbNotifications = UnreadCount(0),
       lila.pref.RequestPref fromRequest req,
       blindMode = blindMode,
       hasFingerprint = false,
@@ -36,9 +37,8 @@ object PageData {
     )
 
   def error(req: RequestHeader, nonce: Option[Nonce]) = anon(req, nonce).copy(error = true)
-}
 
-sealed trait Context extends lila.user.UserContextWrapper {
+sealed trait Context extends lila.user.UserContextWrapper:
 
   val userContext: UserContext
   val pageData: PageData
@@ -60,16 +60,17 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def currentTheme3d = lila.pref.Theme3d(pref.theme3d)
 
-  def currentPieceSet = lila.pref.PieceSet(pref.pieceSet)
+  def currentPieceSet = lila.pref.PieceSet.get(pref.pieceSet)
 
-  def currentPieceSet3d = lila.pref.PieceSet3d(pref.pieceSet3d)
+  def currentPieceSet3d = lila.pref.PieceSet3d.get(pref.pieceSet3d)
 
   def currentSoundSet = lila.pref.SoundSet(pref.soundSet)
 
   lazy val currentBg =
     if (pref.bg == Pref.Bg.TRANSPARENT) "transp"
     else if (pref.bg == Pref.Bg.LIGHT) "light"
-    else "dark"
+    else if (pref.bg == Pref.Bg.SYSTEM) "system"
+    else "dark" // dark && dark board
 
   lazy val mobileApiVersion = Mobile.Api requestVersion req
 
@@ -85,7 +86,6 @@ sealed trait Context extends lila.user.UserContextWrapper {
   } | 85
 
   def flash(name: String): Option[String] = req.flash get name
-}
 
 sealed abstract class BaseContext(
     val userContext: lila.user.UserContext,
@@ -95,22 +95,20 @@ sealed abstract class BaseContext(
 final class BodyContext[A](
     val bodyContext: BodyUserContext[A],
     data: PageData
-) extends BaseContext(bodyContext, data) {
+) extends BaseContext(bodyContext, data):
 
   def body = bodyContext.body
 
   def withLang(l: Lang) = new BodyContext(bodyContext withLang l, data)
-}
 
 final class HeaderContext(
     headerContext: HeaderUserContext,
     data: PageData
-) extends BaseContext(headerContext, data) {
+) extends BaseContext(headerContext, data):
 
   def withLang(l: Lang) = new HeaderContext(headerContext withLang l, data)
-}
 
-object Context {
+object Context:
 
   def error(req: RequestHeader, lang: Lang, nonce: Option[Nonce]): HeaderContext =
     new HeaderContext(UserContext(req, none, none, lang), PageData.error(req, nonce))
@@ -120,4 +118,3 @@ object Context {
 
   def apply[A](userContext: BodyUserContext[A], pageData: PageData): BodyContext[A] =
     new BodyContext(userContext, pageData)
-}

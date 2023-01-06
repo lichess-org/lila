@@ -1,12 +1,12 @@
 package views.html.tv
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object side {
+object side:
 
   def channels(
       channel: lila.tv.Tv.Channel,
@@ -45,8 +45,8 @@ object side {
 
   private val separator = " • "
 
-  def meta(pov: lila.game.Pov)(implicit ctx: Context): Frag = {
-    import pov._
+  def meta(pov: lila.game.Pov)(implicit ctx: Context): Frag =
+    import pov.*
     div(cls := "game__meta")(
       st.section(
         div(cls := "game__meta__infos", dataIcon := views.html.game.bits.gameIcon(game))(
@@ -76,7 +76,6 @@ object side {
         )
       }
     )
-  }
 
   def sides(
       pov: lila.game.Pov,
@@ -87,4 +86,3 @@ object side {
         views.html.game.crosstable(_, pov.gameId.some)
       }
     )
-}

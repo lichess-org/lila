@@ -1,20 +1,20 @@
 package views.html.oAuth.token
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object index {
+object index:
 
-  def apply(tokens: List[lila.oauth.AccessToken])(implicit ctx: Context) = {
+  def apply(tokens: List[lila.oauth.AccessToken])(implicit ctx: Context) =
 
     val title = "Personal API access tokens"
 
     views.html.account.layout(title = title, active = "oauth.token")(
       div(cls := "account oauth box")(
-        div(cls := "box__top")(
+        boxTop(
           h1(title),
           st.form(cls        := "box-top__actions", action   := routes.OAuthToken.create)(
             submitButton(cls := "button frameless", st.title := "New access token", dataIcon := "")
@@ -46,15 +46,15 @@ object index {
           "."
         ),
         tokens.headOption.filter(_.isBrandNew).map { token =>
-          div(cls            := "box__pad brand")(
-            iconTag("")(cls := "is-green"),
+          div(cls := "box__pad brand")(
+            if (token.isDangerous) iconTag("")(cls := "is-red")
+            else iconTag("")(cls                   := "is-green"),
             div(
-              p(
-                "Make sure to copy your new personal access token now.",
-                br,
-                "You won’t be able to see it again!"
-              ),
-              code(token.plain.secret)
+              if (token.isDangerous)
+                p(strong(trans.oauthScope.doNotShareIt()))
+              else
+                p(trans.oauthScope.copyTokenNow()),
+              code(token.plain.value)
             )
           )
         },
@@ -64,7 +64,7 @@ object index {
               td(
                 strong(t.description | "Unnamed"),
                 br,
-                em(t.scopes.map(_.name).mkString(", "))
+                em(t.scopes.map(_.name.txt()).mkString(", "))
               ),
               td(cls := "date")(
                 t.createdAt.map { created =>
@@ -87,5 +87,3 @@ object index {
         )
       )
     )
-  }
-}

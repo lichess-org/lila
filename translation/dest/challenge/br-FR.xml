@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="challenges">Daeoù</string>
+  <string name="challengeToPlay">Daeañ ar c\'hoarier-mañ</string>
+  <string name="challengeDeclined">Dae nac’het</string>
+  <string name="challengeAccepted">Dae asantet!</string>
+  <string name="challengeCanceled">Dae nullet.</string>
+  <string name="registerToSendChallenges">Kevreit evit daeañ an implijer-mañ mar plij.</string>
+  <string name="youCannotChallengeX">Ne c\'hallit ket daeañ %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s n\'he/en deus ket c\'hant da vezañ daeet.</string>
+  <string name="declineGeneric">Ne zegemeran ket daeoù er mare-mañ.</string>
 </resources>

@@ -1,15 +1,16 @@
 package lila.study
 
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 
 case class Study(
-    _id: Study.Id,
-    name: Study.Name,
+    _id: StudyId,
+    name: StudyName,
     members: StudyMembers,
     position: Position.Ref,
-    ownerId: User.ID,
+    ownerId: UserId,
     visibility: Study.Visibility,
     settings: Settings,
     from: Study.From,
@@ -18,21 +19,21 @@ case class Study(
     topics: Option[StudyTopics] = None,
     createdAt: DateTime,
     updatedAt: DateTime
-) {
+):
 
-  import Study._
+  import Study.*
 
-  def id = _id
+  inline def id = _id
 
   def owner = members get ownerId
 
-  def isOwner(id: User.ID) = ownerId == id
+  def isOwner(id: UserId) = ownerId == id
 
-  def isMember(id: User.ID) = members contains id
+  def isMember(id: UserId) = members contains id
 
-  def canChat(id: User.ID) = Settings.UserSelection.allows(settings.chat, this, id.some)
+  def canChat(id: UserId) = Settings.UserSelection.allows(settings.chat, this, id.some)
 
-  def canContribute(id: User.ID) =
+  def canContribute(id: UserId) =
     isOwner(id) || members.get(id).exists(_.canContribute) || id == User.lichessId
 
   def isCurrent(c: Chapter.Like) = c.id == position.chapterId
@@ -50,7 +51,7 @@ case class Study(
 
   def isOld = (nowSeconds - updatedAt.getSeconds) > 20 * 60
 
-  def cloneFor(user: User): Study = {
+  def cloneFor(user: User): Study =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     copy(
       _id = Study.makeId,
@@ -62,7 +63,6 @@ case class Study(
       createdAt = DateTime.now,
       updatedAt = DateTime.now
     )
-  }
 
   def nbMembers = members.members.size
 
@@ -76,111 +76,87 @@ case class Study(
     copy(
       topics = topics.fold(ts)(_ ++ ts).some
     )
-}
 
-object Study {
+object Study:
 
   val maxChapters = 64
 
-  case class Id(value: String) extends AnyVal with StringValue
-  implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
+  val previewNbMembers  = 4
+  val previewNbChapters = 4
 
-  case class Name(value: String) extends AnyVal with StringValue
-  implicit val nameIso = lila.common.Iso.string[Name](Name.apply, _.value)
+  case class IdName(_id: StudyId, name: StudyName):
+    inline def id = _id
 
-  case class IdName(_id: Id, name: Name) {
-    def id = _id
-  }
+  def toName(str: String) = StudyName(lila.common.String.fullCleanUp(str) take 100)
 
-  def toName(str: String) = Name(lila.common.String.fullCleanUp(str) take 100)
+  enum Visibility:
+    case Private, Unlisted, Public
+    val key = Visibility.this.toString.toLowerCase
+  object Visibility:
+    val byKey = values.mapBy(_.key)
 
-  sealed trait Visibility {
-    lazy val key = toString.toLowerCase
-  }
-  object Visibility {
-    case object Private  extends Visibility
-    case object Unlisted extends Visibility
-    case object Public   extends Visibility
-    val byKey = List(Private, Unlisted, Public).map { v =>
-      v.key -> v
-    }.toMap
-  }
+  opaque type Likes = Int
+  object Likes extends OpaqueInt[Likes]
 
-  case class Likes(value: Int) extends AnyVal
   case class Liking(likes: Likes, me: Boolean)
   val emptyLiking = Liking(Likes(0), me = false)
 
-  case class Rank(value: DateTime) extends AnyVal
-  object Rank {
+  opaque type Rank = DateTime
+  object Rank extends OpaqueDate[Rank]:
     def compute(likes: Likes, createdAt: DateTime) =
-      Rank {
-        createdAt plusHours likesToHours(likes)
-      }
+      Rank(createdAt plusHours likesToHours(likes))
     private def likesToHours(likes: Likes): Int =
-      if (likes.value < 1) 0
-      else (5 * math.log(likes.value) + 1).toInt.min(likes.value) * 24
-  }
+      if (likes < 1) 0
+      else (5 * math.log(likes) + 1).toInt.min(likes) * 24
 
-  sealed trait From
-  object From {
-    case object Scratch                      extends From
-    case class Game(id: String)              extends From
-    case class Study(id: Id)                 extends From
-    case class Relay(clonedFrom: Option[Id]) extends From
-  }
+  enum From:
+    case Scratch
+    case Game(id: GameId)
+    case Study(id: StudyId)
+    case Relay(clonedFrom: Option[StudyId])
 
   case class Data(
       name: String,
       visibility: String,
-      computer: String,
-      explorer: String,
-      cloneable: String,
-      chat: String,
+      computer: Settings.UserSelection,
+      explorer: Settings.UserSelection,
+      cloneable: Settings.UserSelection,
+      shareable: Settings.UserSelection,
+      chat: Settings.UserSelection,
       sticky: String,
       description: String
-  ) {
-    import Settings._
+  ):
     def vis = Visibility.byKey.getOrElse(visibility, Visibility.Public)
     def settings =
-      for {
-        comp <- UserSelection.byKey get computer
-        expl <- UserSelection.byKey get explorer
-        clon <- UserSelection.byKey get cloneable
-        chat <- UserSelection.byKey get chat
-        stic = sticky == "true"
-        desc = description == "true"
-      } yield Settings(comp, expl, clon, chat, stic, desc)
-  }
+      Settings(computer, explorer, cloneable, shareable, chat, sticky == "true", description == "true")
 
   case class WithChapter(study: Study, chapter: Chapter)
 
-  case class WithChapters(study: Study, chapters: Seq[Chapter.Name])
+  case class WithChapters(study: Study, chapters: Seq[StudyChapterName])
 
   case class WithActualChapters(study: Study, chapters: Seq[Chapter])
 
-  case class WithChaptersAndLiked(study: Study, chapters: Seq[Chapter.Name], liked: Boolean)
+  case class WithChaptersAndLiked(study: Study, chapters: Seq[StudyChapterName], liked: Boolean)
 
   case class WithLiked(study: Study, liked: Boolean)
 
-  case class LightStudy(isPublic: Boolean, contributors: Set[User.ID])
+  case class LightStudy(isPublic: Boolean, contributors: Set[UserId])
 
-  val idSize = 8
-
-  def makeId = Id(lila.common.ThreadLocalRandom nextString idSize)
+  def makeId = StudyId(ThreadLocalRandom nextString 8)
 
   def make(
       user: User,
       from: From,
-      id: Option[Study.Id] = None,
-      name: Option[Name] = None,
+      id: Option[StudyId] = None,
+      name: Option[StudyName] = None,
       settings: Option[Settings] = None
-  ) = {
+  ) =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     Study(
       _id = id | makeId,
-      name = name | Name(s"${user.username}'s Study"),
+      name = name | StudyName(s"${user.username}'s Study"),
       members = StudyMembers(Map(user.id -> owner)),
-      position = Position.Ref(Chapter.Id(""), Path.root),
+      position = Position.Ref(StudyChapterId(""), Path.root),
       ownerId = user.id,
       visibility = Visibility.Public,
       settings = settings | Settings.init,
@@ -189,5 +165,3 @@ object Study {
       createdAt = DateTime.now,
       updatedAt = DateTime.now
     )
-  }
-}

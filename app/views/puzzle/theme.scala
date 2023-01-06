@@ -3,23 +3,24 @@ package html.puzzle
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKey
 import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleOpeningCollection, PuzzleTheme }
 
-object theme {
+object theme:
 
   def list(all: PuzzleAngle.All)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.puzzle.puzzleThemes.txt(),
-      moreCss = cssTag("puzzle.page")
+      moreCss = cssTag("puzzle.page"),
+      withHrefLangs = lila.common.LangPath(routes.Puzzle.themes).some
     )(
       main(cls := "page-menu")(
         bits.pageMenu("themes", ctx.me),
         div(cls := "page-menu__content box")(
-          h1(trans.puzzle.puzzleThemes()),
+          h1(cls := "box__top")(trans.puzzle.puzzleThemes()),
           div(cls := "puzzle-themes")(
             all.themes take 2 map { case (cat, themes) =>
               themeCategory(cat, themes)
@@ -44,13 +45,13 @@ object theme {
 
   private def themeCategory(cat: I18nKey, themes: List[PuzzleTheme.WithCount])(implicit ctx: Context) =
     frag(
-      h2(id := cat.key)(cat()),
-      div(cls := s"puzzle-themes__list ${cat.key.replace(":", "-")}")(
+      h2(id := cat.value)(cat()),
+      div(cls := s"puzzle-themes__list ${cat.value.replace(":", "-")}")(
         themes.map { pt =>
           val url =
             if (pt.theme == PuzzleTheme.mix) routes.Puzzle.home
             else routes.Puzzle.show(pt.theme.key.value)
-          a(cls := "puzzle-themes__link", href := (pt.count > 0).option(url.url))(
+          a(cls := "puzzle-themes__link", href := (pt.count > 0).option(langHref(url)))(
             span(
               h3(
                 pt.theme.name(),
@@ -60,7 +61,7 @@ object theme {
             )
           )
         },
-        cat.key == "puzzle:origin" option
+        cat.value == "puzzle:origin" option
           a(cls := "puzzle-themes__link", href := routes.Puzzle.ofPlayer())(
             span(
               h3(trans.puzzleTheme.playerGames()),
@@ -69,4 +70,3 @@ object theme {
           )
       )
     )
-}

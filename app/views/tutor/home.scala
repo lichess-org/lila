@@ -2,21 +2,21 @@ package views.html.tutor
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.common.Heapsort.implicits._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.Heapsort.given
 import lila.tutor.{ TutorCompare, TutorFullReport, TutorPerfReport }
-import lila.tutor.TutorCompare.comparisonOrdering
+import lila.tutor.TutorCompare.given
 import lila.user.User
 import lila.insight.Phase
 
-object home {
+object home:
 
   def apply(full: TutorFullReport.Available, user: User)(implicit ctx: Context) =
     bits.layout(full, menu = menu(full, user, none))(
       cls := "tutor__home box",
-      h1("Lichess Tutor"),
+      boxTop(h1("Lichess Tutor")),
       if (full.report.perfs.isEmpty) empty.mascotSaysInsufficient
       else {
         bits.mascotSays(
@@ -41,13 +41,13 @@ object home {
     a(href := routes.Tutor.user(user.username), cls := report.isEmpty.option("active"))("Tutor"),
     full.report.perfs.map { p =>
       a(
-        cls  := p.perf.key.active(report.??(_.perf.key)),
+        cls  := p.perf.key.value.active(report.??(_.perf.key.value)),
         href := routes.Tutor.perf(user.username, p.perf.key)
       )(p.perf.trans)
     }
   )
 
-  private def perfReportCard(report: TutorFullReport, perfReport: TutorPerfReport, user: User)(implicit
+  private def perfReportCard(report: TutorFullReport, perfReport: TutorPerfReport, user: User)(using
       ctx: Context
   ) =
     st.article(
@@ -83,4 +83,3 @@ object home {
         bits.seeMore
       )
     )
-}

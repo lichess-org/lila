@@ -2,20 +2,19 @@ package lila.memo
 
 import scala.concurrent.duration.FiniteDuration
 
-object OnceEvery {
+object OnceEvery:
 
-  def apply(ttl: FiniteDuration): String => Boolean = {
+  def apply[K](ttl: FiniteDuration)(using SameRuntime[K, String]): K => Boolean =
 
-    val cache = new ExpireSetMemo(ttl)
+    val cache = new ExpireSetMemo[K](ttl)
 
     key => {
       val isNew = !cache.get(key)
       if (isNew) cache.put(key)
       isNew
     }
-  }
 
-  def hashCode[A](ttl: FiniteDuration): A => Boolean = {
+  def hashCode[A](ttl: FiniteDuration): A => Boolean =
 
     val cache = new HashCodeExpireSetMemo[A](ttl)
 
@@ -24,5 +23,3 @@ object OnceEvery {
       if (isNew) cache.put(key)
       isNew
     }
-  }
-}

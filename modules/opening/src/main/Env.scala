@@ -1,45 +1,37 @@
 package lila.opening
 
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
-import scala.concurrent.duration._
-
-import lila.common.config
-import lila.memo.{ CacheApi, MongoCache }
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
+import scala.concurrent.duration.*
+
+import lila.common.config.CollName
+import lila.game.{ GameRepo, PgnDump }
+import lila.memo.{ CacheApi, MongoCache }
 
 @Module
 final class Env(
     db: lila.db.Db,
+    gameRepo: GameRepo,
+    pgnDump: PgnDump,
     cacheApi: CacheApi,
-    mongoCache: MongoCache.Api,
     appConfig: Configuration,
+    cookieBaker: lila.common.LilaCookie,
     ws: StandaloneWSClient
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler,
-    mat: akka.stream.Materializer
-) {
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
 
   private val explorerEndpoint = appConfig.get[String]("explorer.endpoint").taggedWith[ExplorerEndpoint]
+  private lazy val wikiColl    = db(CollName("opening_wiki"))
 
-  private val openingColl = db(config.CollName("opening")).taggedWith[OpeningColl]
+  private lazy val explorer = wire[OpeningExplorer]
 
-  private lazy val update: OpeningUpdate = wire[OpeningUpdate]
+  lazy val config = wire[OpeningConfigStore]
 
-  private val allGamesHistory = cacheApi
-    .unit { _.refreshAfterWrite(1 hour).buildAsyncFuture { _ => update.fetchHistory(none) } }
-    .taggedWith[AllGamesHistory]
+  lazy val wiki = wire[OpeningWikiApi]
 
   lazy val api = wire[OpeningApi]
 
-  // api.updateOpenings.logFailure(logger).unit
-  scheduler.scheduleAtFixedRate(5 minutes, 7 day) { () =>
-    update.all.unit
-  }
-}
+  lazy val search = wire[OpeningSearch]
 
 trait ExplorerEndpoint
-trait OpeningColl
-trait AllGamesHistory

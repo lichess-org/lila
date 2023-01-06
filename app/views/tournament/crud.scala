@@ -4,14 +4,14 @@ package tournament
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.tournament.crud.CrudForm
 import lila.tournament.{ Tournament, TournamentForm }
 
-object crud {
+object crud:
 
   private def layout(title: String, evenMoreJs: Frag = emptyFrag, css: String = "mod.misc")(
       body: Frag
@@ -30,24 +30,24 @@ object crud {
       )
     }
 
-  def create(form: Form[_])(implicit ctx: Context) =
+  def create(form: Form[?])(implicit ctx: Context) =
     layout(
       title = "New tournament",
       css = "mod.form"
     ) {
       div(cls := "crud page-menu__content box box-pad")(
-        h1("New tournament"),
+        h1(cls := "box__top")("New tournament"),
         postForm(cls := "form3", action := routes.TournamentCrud.create)(inForm(form, none))
       )
     }
 
-  def edit(tour: Tournament, form: Form[_])(implicit ctx: Context) =
+  def edit(tour: Tournament, form: Form[?])(implicit ctx: Context) =
     layout(
       title = tour.name(),
       css = "mod.form"
     ) {
       div(cls := "crud edit page-menu__content box box-pad")(
-        div(cls := "box__top")(
+        boxTop(
           h1(
             a(href := routes.Tournament.show(tour.id))(tour.name()),
             " ",
@@ -64,7 +64,7 @@ object crud {
       )
     }
 
-  private def inForm(form: Form[_], tour: Option[Tournament])(implicit ctx: Context) =
+  private def inForm(form: Form[?], tour: Option[Tournament])(implicit ctx: Context) =
     frag(
       form3.split(
         form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(
@@ -139,7 +139,7 @@ object crud {
       evenMoreJs = infiniteScrollTag
     ) {
       div(cls := "crud page-menu__content box")(
-        div(cls := "box__top")(
+        boxTop(
           h1("Tournament manager"),
           div(cls := "box__top__actions")(
             a(cls := "button button-green", href := routes.TournamentCrud.form, dataIcon := "")
@@ -178,4 +178,3 @@ object crud {
         )
       )
     }
-}

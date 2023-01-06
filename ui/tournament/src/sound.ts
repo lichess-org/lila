@@ -7,7 +7,7 @@ function doCountDown(targetTime: number) {
   let started = false;
 
   return function curCounter() {
-    const secondsToStart = (targetTime - performance.now()) / 1000;
+    const secondsToStart = (targetTime - window.performance.now()) / 1000;
 
     // always play the 0 sound before completing.
     const bestTick = Math.max(0, Math.round(secondsToStart));
@@ -45,7 +45,7 @@ export function countDown(data: TournamentData) {
   if (countDownTimeout) return;
   if (data.secondsToStart > 60 * 60 * 24) return;
 
-  countDownTimeout = setTimeout(doCountDown(performance.now() + 1000 * data.secondsToStart - 100), 900); // wait 900ms before starting countdown.
+  countDownTimeout = setTimeout(doCountDown(window.performance.now() + 1000 * data.secondsToStart - 100), 900); // wait 900ms before starting countdown.
 
   // Preload countdown sounds.
   for (let i = 10; i >= 0; i--) {

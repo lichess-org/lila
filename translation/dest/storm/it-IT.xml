@@ -52,6 +52,7 @@
   <string name="skipExplanation">Salta questa mossa per mantenere la combo! È possibile farlo solo una volta per gara.</string>
   <string name="failedPuzzles">Tattiche fallite</string>
   <string name="slowPuzzles">Rompicapi lenti</string>
+  <string name="skippedPuzzle">Puzzle saltato</string>
   <string name="thisWeek">Questa settimana</string>
   <string name="thisMonth">Questo mese</string>
   <string name="allTime">Sempre</string>

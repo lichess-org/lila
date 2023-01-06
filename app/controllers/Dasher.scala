@@ -1,13 +1,13 @@
 package controllers
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.LightUser.lightUserWrites
-import lila.i18n.{ enLang, I18nKeys => trans, I18nLangPicker, LangList }
+import lila.i18n.{ enLang, I18nKeys as trans, I18nLangPicker, LangList }
 
-final class Dasher(env: Env) extends LilaController(env) {
+final class Dasher(env: Env) extends LilaController(env):
 
   private val translationsBase = List(
     trans.networkLagBetweenYouAndLichess,
@@ -17,18 +17,19 @@ final class Dasher(env: Env) extends LilaController(env) {
     trans.light,
     trans.dark,
     trans.transparent,
+    trans.deviceTheme,
     trans.backgroundImageUrl,
     trans.boardGeometry,
     trans.boardTheme,
     trans.boardSize,
     trans.pieceSet,
     trans.preferences.zenMode
-  ).map(_.key)
+  )
 
   private val translationsAnon = List(
     trans.signIn,
     trans.signUp
-  ).map(_.key) ::: translationsBase
+  ) ::: translationsBase
 
   private val translationsAuth = List(
     trans.profile,
@@ -37,7 +38,7 @@ final class Dasher(env: Env) extends LilaController(env) {
     trans.coachManager,
     trans.streamerManager,
     trans.logOut
-  ).map(_.key) ::: translationsBase
+  ) ::: translationsBase
 
   private def translations(implicit ctx: Context) =
     lila.i18n.JsDump.keysToObject(
@@ -45,7 +46,7 @@ final class Dasher(env: Env) extends LilaController(env) {
       ctx.lang
     ) ++ lila.i18n.JsDump.keysToObject(
       // the language settings should never be in a totally foreign language
-      List(trans.language.key),
+      List(trans.language),
       if (I18nLangPicker.allFromRequestHeaders(ctx.req).has(ctx.lang)) ctx.lang
       else I18nLangPicker.bestFromRequestHeaders(ctx.req) | enLang
     )
@@ -104,4 +105,3 @@ final class Dasher(env: Env) extends LilaController(env) {
           }
       )
     }
-}

@@ -1,15 +1,15 @@
 package views.html
 package tournament
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object faq {
+object faq:
 
-  import trans.arena._
+  import trans.arena.*
 
   def page(implicit ctx: Context) =
     views.html.base.layout(
@@ -17,9 +17,11 @@ object faq {
       moreCss = cssTag("page")
     ) {
       main(cls := "page-small box box-pad page")(
-        h1(
-          a(href := routes.Tournament.home, dataIcon := "", cls := "text"),
-          trans.tournamentFAQ()
+        boxTop(
+          h1(
+            a(href := routes.Tournament.home, dataIcon := "", cls := "text"),
+            trans.tournamentFAQ()
+          )
         ),
         div(cls := "body")(apply())
       )
@@ -53,6 +55,32 @@ object faq {
       h2(otherRules()),
       p(thereIsACountdown()),
       p(drawingWithinNbMoves.pluralSame(10)),
-      p(drawStreak(30))
+      p(drawStreakStandard(30)),
+      p(drawStreakVariants()),
+      table(cls := "slist slist-pad")(
+        thead(
+          tr(
+            th(variant()),
+            th(minimumGameLength())
+          )
+        ),
+        tbody(
+          tr(
+            td(trans.standard(), ", Chess960, Horde"),
+            td(30)
+          ),
+          tr(
+            td("Crazyhouse, King of the Hill"),
+            td(25)
+          ),
+          tr(
+            td("Antichess, Racing Kings"),
+            td(20)
+          ),
+          tr(
+            td("Three check, Atomic"),
+            td(10)
+          )
+        )
+      )
     )
-}

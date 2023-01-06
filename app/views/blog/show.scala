@@ -1,12 +1,12 @@
 package views.html.blog
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object show {
+object show:
 
   def apply(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
     views.html.base.layout(
@@ -27,7 +27,7 @@ object show {
       main(cls := "page-menu page-small")(
         bits.menu(none, "lichess".some),
         div(cls := s"blog page-menu__content box post force-ltr ${~doc.getText("blog.cssClasses")}")(
-          h1(doc.getText("blog.title")),
+          h1(cls := "box__top")(doc.getText("blog.title")),
           bits.metas(doc),
           doc.getImage("blog.image", "main").map { img =>
             div(cls := "illustration")(st.img(src := img.url))
@@ -58,4 +58,3 @@ object show {
         )
       )
     )
-}

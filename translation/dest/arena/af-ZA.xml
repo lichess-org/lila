@@ -39,6 +39,21 @@ Speel vinnig en keer terug na die ontvangs om meer te speel en meer punte te kry
   </plurals>
   <string name="thisIsPrivate">Hierdie is \'n privaat toernooi</string>
   <string name="shareUrl">Deel hierdie URL om mense te laat aansluit: %s</string>
-  <string name="drawStreak">Trekstrepe: as \'n speler agtereenvolgens gelykop speel in \'n arena, sal slegs die eerste loting \'n punt tot gevolg hê, of gelykop trekkings wat langer as %s beweeg. Die loting kan slegs deur \'n oorwinning gebreek word, nie deur \'n verlies of gelykop uitslag nie.</string>
+  <string name="drawStreakStandard">Gelykop reeks: Wanneer \'n speler opeenvolgend gelykop speel in \'n arena, sal slegs die eerste gelykop in \'n punt opeinding, of slegs gelykoppe wat meer as %s skuiwe in standaard spelle duur.</string>
+  <string name="drawStreakVariants">Die minimum lengte van gelykop spelle, voor punte toegeken word, verskil tussen variante. The tabel hieronder lys die afsnypunt vir elke variant.</string>
+  <string name="variant">Variant</string>
+  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Minimum spel lengte</string>
   <string name="history">Arena Geskiedenis</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Bekyk die span</item>
+    <item quantity="other">Bekyk al %s spanne</item>
+  </plurals>
+  <string name="newTeamBattle">Nuwe Span Geveg</string>
+  <string name="customStartDate">Aangepaste begin datum</string>
+  <string name="customStartDateHelp">In jou eie plaaslike tydsone. Hierdie oorskruif die \"Tydsduur tot aanvang van toernooi\" instelling</string>
+  <string name="allowBerserk">Laat Berserkers toe</string>
+  <string name="allowBerserkHelp">Laat spelers toe om die tyd op hul klok te halveer om n ekstra punt by te kry</string>
+  <string name="allowChatHelp">Laat spelers toe tot besprekings in \'n kletskamer</string>
+  <string name="arenaStreaks">Arena reekse</string>
+  <string name="arenaStreaksHelp">Na 2 wenne, elke opeenvolgende wen verdien 4 punte in plaas van 2.</string>
 </resources>

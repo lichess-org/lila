@@ -3,21 +3,22 @@ package views.html.lobby
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.mashup.Preload.Homepage
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
-object home {
+object home:
 
-  def apply(homepage: Homepage)(implicit ctx: Context) = {
-    import homepage._
+  def apply(homepage: Homepage)(implicit ctx: Context) =
+    import homepage.*
     views.html.base.layout(
       title = "",
       fullTitle = Some {
-        s"lichess.${if (netConfig.isProd) "org" else "dev"} • ${trans.freeOnlineChess.txt()}"
+        s"$siteName • ${trans.freeOnlineChess.txt()}"
       },
       moreJs = frag(
         jsModule("lobby"),
@@ -50,7 +51,7 @@ object home {
           description = trans.siteDescription.txt()
         )
         .some,
-      withHrefLangs = "".some
+      withHrefLangs = LangPath("/").some
     ) {
       main(
         cls := List(
@@ -60,7 +61,10 @@ object home {
         )
       )(
         div(cls := "lobby__table")(
-          div(cls   := "bg-switch", title := "Dark mode")(
+          (ctx.isAnon && ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) option div(
+            cls   := "bg-switch",
+            title := "Dark mode"
+          )(
             div(cls := "bg-switch__track"),
             div(cls := "bg-switch__thumb")
           ),
@@ -155,7 +159,6 @@ object home {
         )
       )
     }
-  }
 
   private val i18nKeys = List(
     trans.realTime,
@@ -199,5 +202,4 @@ object home {
     trans.white,
     trans.randomColor,
     trans.black
-  ).map(_.key)
-}
+  )

@@ -2,23 +2,23 @@ package lila.user
 
 import org.joda.time.DateTime
 import play.api.i18n.Lang
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.rating.{ Perf, PerfType }
-import lila.hub.actorApi.user.{ ClasId, KidId, NonKidId }
+import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONHandler, Macros }
 
 case class User(
-    id: String,
-    username: String,
+    id: UserId,
+    username: UserName,
     perfs: Perfs,
     count: Count,
-    enabled: Boolean,
+    enabled: UserEnabled,
     roles: List[String],
     profile: Option[Profile] = None,
     toints: Int = 0,
     playTime: Option[User.PlayTime],
-    title: Option[Title] = None,
+    title: Option[UserTitle] = None,
     createdAt: DateTime,
     seenAt: Option[DateTime],
     kid: Boolean,
@@ -26,34 +26,29 @@ case class User(
     plan: Plan,
     totpSecret: Option[TotpSecret] = None,
     marks: UserMarks = UserMarks.empty
-) extends Ordered[User] {
+):
 
   override def equals(other: Any) =
-    other match {
+    other match
       case u: User => id == u.id
       case _       => false
-    }
 
   override def hashCode: Int = id.hashCode
 
   override def toString =
-    s"User $username(${perfs.bestRating}) games:${count.game}${marks.troll ?? " troll"}${marks.engine ?? " engine"}${!enabled ?? " closed"}"
+    s"User $username(${perfs.bestRating}) games:${count.game}${marks.troll ?? " troll"}${marks.engine ?? " engine"}${enabled.no ?? " closed"}"
 
-  def light = LightUser(id = id, name = username, title = title.map(_.value), isPatron = isPatron)
+  def light = LightUser(id = id, name = username, title = title, isPatron = isPatron)
 
-  def realNameOrUsername = profileOrDefault.nonEmptyRealName | username
+  def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
   def realLang = lang flatMap Lang.get
-
-  def compare(other: User) = id compareTo other.id
-
-  def disabled = !enabled
 
   def canPalantir = !kid && !marks.troll
 
   def usernameWithBestRating = s"$username (${perfs.bestRating})"
 
-  def titleUsername = title.fold(username)(t => s"$t $username")
+  def titleUsername: String = title.fold(username.value)(t => s"$t $username")
 
   def hasVariantRating = PerfType.variants.exists(perfs.apply(_).nonEmpty)
 
@@ -84,11 +79,11 @@ case class User(
 
   def canBeFeatured = hasTitle && !lameOrTroll
 
-  def canFullyLogin = enabled || !lameOrTrollOrAlt
+  def canFullyLogin = enabled.yes || !lameOrTrollOrAlt
 
   def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
-  def lightPerf(key: String) =
+  def lightPerf(key: Perf.Key) =
     perfs(key) map { perf =>
       User.LightPerf(light, key, perf.intRating, perf.progress)
     }
@@ -122,9 +117,6 @@ case class User(
 
   def createdSinceDays(days: Int) = createdAt isBefore DateTime.now.minusDays(days)
 
-  def is(name: String) = id == User.normalize(name)
-  def is(other: User)  = id == other.id
-
   def isBot = title has Title.BOT
   def noBot = !isBot
 
@@ -137,16 +129,17 @@ case class User(
   def isAdmin           = roles.exists(_ contains "ROLE_ADMIN") || isSuperAdmin
   def isApiHog          = roles.exists(_ contains "ROLE_API_HOG")
   def isVerifiedOrAdmin = isVerified || isAdmin
-}
 
-object User {
+object User:
 
-  type ID = String
+  given UserIdOf[User] = _.id
+
+  export lila.user.{ UserEnabled as Enabled }
 
   type CredentialCheck = ClearPassword => Boolean
-  case class LoginCandidate(user: User, check: CredentialCheck) {
-    import LoginCandidate._
-    def apply(p: PasswordAndToken): Result = {
+  case class LoginCandidate(user: User, check: CredentialCheck):
+    import LoginCandidate.*
+    def apply(p: PasswordAndToken): Result =
       val res =
         if (check(p.password)) user.totpSecret.fold[Result](Success(user)) { tp =>
           p.token.fold[Result](MissingTotpToken) { token =>
@@ -156,66 +149,67 @@ object User {
         else InvalidUsernameOrPassword
       lila.mon.user.auth.count(res.success).increment()
       res
-    }
     def option(p: PasswordAndToken): Option[User] = apply(p).toOption
-  }
-  object LoginCandidate {
-    sealed abstract class Result(val toOption: Option[User]) {
+  object LoginCandidate:
+    sealed abstract class Result(val toOption: Option[User]):
       def success = toOption.isDefined
-    }
     case class Success(user: User)        extends Result(user.some)
     case object InvalidUsernameOrPassword extends Result(none)
     case object MissingTotpToken          extends Result(none)
     case object InvalidTotpToken          extends Result(none)
-  }
 
-  val anonymous                    = "Anonymous"
-  val anonMod                      = "A Lichess Moderator"
-  val lichessId                    = "lichess"
-  val broadcasterId                = "broadcaster"
-  val ghostId                      = "ghost"
-  def isLichess(username: String)  = normalize(username) == lichessId
-  def isOfficial(username: String) = isLichess(username) || normalize(username) == broadcasterId
+  val anonymous                        = UserName("Anonymous")
+  val anonMod                          = "A Lichess Moderator"
+  val lichessName                      = UserName("lichess")
+  val lichessId                        = lichessName.id
+  val broadcasterId                    = UserId("broadcaster")
+  val irwinId                          = UserId("irwin")
+  val kaladinId                        = UserId("kaladin")
+  val explorerId                       = UserId("openingexplorer")
+  val lichess4545Id                    = UserId("lichess4545")
+  val challengermodeId                 = UserId("challengermode")
+  val ghostId                          = UserId("ghost")
+  def isLichess[U: UserIdOf](user: U)  = lichessId is user
+  def isOfficial[U: UserIdOf](user: U) = isLichess(user) || broadcasterId.is(user)
 
   val seenRecently = 2.minutes
 
-  case class GDPRErase(user: User)  extends AnyVal
-  case class Erased(value: Boolean) extends AnyVal
+  case class GDPRErase(user: User) extends AnyVal
+  opaque type Erased = Boolean
+  object Erased extends YesNo[Erased]
 
-  case class LightPerf(user: LightUser, perfKey: String, rating: Int, progress: Int)
+  case class LightPerf(user: LightUser, perfKey: Perf.Key, rating: IntRating, progress: IntRatingDiff)
   case class LightCount(user: LightUser, count: Int)
 
-  case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]) {
-    def list = current.toList ::: previous.toList
-  }
+  case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
+    def strList = current.map(_.value).toList ::: previous.map(_.value).toList
+
   case class WithEmails(user: User, emails: Emails)
 
-  case class ClearPassword(value: String) extends AnyVal {
+  case class ClearPassword(value: String) extends AnyVal:
     override def toString = "ClearPassword(****)"
-  }
 
   case class TotpToken(value: String) extends AnyVal
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
   case class Speaker(
-      username: String,
-      title: Option[Title],
+      username: UserName,
+      title: Option[UserTitle],
       enabled: Boolean,
       plan: Option[Plan],
       marks: Option[UserMarks]
-  ) {
+  ):
     def isBot    = title has Title.BOT
     def isTroll  = marks.exists(_.troll)
     def isPatron = plan.exists(_.active)
-  }
 
   case class Contact(
-      _id: ID,
+      _id: UserId,
       kid: Option[Boolean],
       marks: Option[UserMarks],
       roles: Option[List[String]],
       createdAt: DateTime
-  ) {
+  ):
     def id                     = _id
     def isKid                  = ~kid
     def isTroll                = marks.exists(_.troll)
@@ -223,20 +217,17 @@ object User {
     def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
     def isDaysOld(days: Int)   = createdAt isBefore DateTime.now.minusDays(days)
     def isHoursOld(hours: Int) = createdAt isBefore DateTime.now.minusHours(hours)
-    def clasId: ClasId         = if (isKid) KidId(id) else NonKidId(id)
-  }
-  case class Contacts(orig: Contact, dest: Contact) {
+    def isLichess              = _id == User.lichessId
+  case class Contacts(orig: Contact, dest: Contact):
     def hasKid  = orig.isKid || dest.isKid
     def userIds = List(orig.id, dest.id)
-  }
 
-  case class PlayTime(total: Int, tv: Int) {
+  case class PlayTime(total: Int, tv: Int):
     import org.joda.time.Period
     def totalPeriod      = new Period(total * 1000L)
     def tvPeriod         = new Period(tv * 1000L)
     def nonEmptyTvPeriod = (tv > 0) option tvPeriod
-  }
-  implicit def playTimeHandler = reactivemongo.api.bson.Macros.handler[PlayTime]
+  given BSONDocumentHandler[PlayTime] = Macros.handler[PlayTime]
 
   // what existing usernames are like
   val historicalUsernameRegex = "(?i)[a-z0-9][a-z0-9_-]{0,28}[a-z0-9]".r
@@ -247,17 +238,15 @@ object User {
   val newUsernameChars   = "(?i)^[a-z0-9_-]*$".r
   val newUsernameLetters = "(?i)^([a-z0-9][_-]?)+$".r
 
-  def couldBeUsername(str: User.ID) = noGhost(str) && historicalUsernameRegex.matches(str)
+  def couldBeUsername(str: UserStr) = noGhost(str.id) && historicalUsernameRegex.matches(str.value)
 
-  def normalize(username: String) = username.toLowerCase
+  def validateId(str: UserStr): Option[UserId] = couldBeUsername(str) option str.id
 
-  def validateId(name: String): Option[User.ID] = couldBeUsername(name) option normalize(name)
+  def isGhost(id: UserId) = id == ghostId || id.value.headOption.has('!')
 
-  def isGhost(name: String) = normalize(name) == ghostId || name.headOption.has('!')
+  def noGhost(id: UserId) = !isGhost(id)
 
-  def noGhost(name: String) = !isGhost(name)
-
-  object BSONFields {
+  object BSONFields:
     val id                    = "_id"
     val username              = "username"
     val perfs                 = "perfs"
@@ -289,37 +278,35 @@ object User {
     val eraseAt               = "eraseAt"
     val erasedAt              = "erasedAt"
     val blind                 = "blind"
-  }
 
   def withFields[A](f: BSONFields.type => A): A = f(BSONFields)
 
   import lila.db.BSON
-  import lila.db.dsl._
+  import lila.db.dsl.{ *, given }
+  import Plan.given
+  import Title.given
 
-  implicit private def planHandler = Plan.planBSONHandler
+  given BSONDocumentHandler[User] = new BSON[User]:
 
-  implicit val userBSONHandler = new BSON[User] {
+    import BSONFields.*
+    import UserMark.given
+    import Title.given
+    import Count.given
+    import Profile.given
+    import Perfs.given
+    import TotpSecret.given
 
-    import BSONFields._
-    import reactivemongo.api.bson.BSONDocument
-    import UserMarks.marksBsonHandler
-    import Title.titleBsonHandler
-    implicit private def countHandler      = Count.countBSONHandler
-    implicit private def profileHandler    = Profile.profileBSONHandler
-    implicit private def perfsHandler      = Perfs.perfsBSONHandler
-    implicit private def totpSecretHandler = TotpSecret.totpSecretBSONHandler
-
-    def reads(r: BSON.Reader): User = {
-      val userTitle = r.getO[Title](title)
+    def reads(r: BSON.Reader): User =
+      val userTitle = r.getO[UserTitle](title)
       User(
-        id = r str id,
-        username = r str username,
+        id = r.get[UserId](id),
+        username = r.get[UserName](username),
         perfs = r.getO[Perfs](perfs).fold(Perfs.default) { perfs =>
           if (userTitle has Title.BOT) perfs.copy(ultraBullet = Perf.default)
           else perfs
         },
         count = r.get[Count](count),
-        enabled = r bool enabled,
+        enabled = r.get[UserEnabled](enabled),
         roles = ~r.getO[List[String]](roles),
         profile = r.getO[Profile](profile),
         toints = r nIntD toints,
@@ -333,7 +320,6 @@ object User {
         totpSecret = r.getO[TotpSecret](totpSecret),
         marks = r.getO[UserMarks](marks) | UserMarks.empty
       )
-    }
 
     def writes(w: BSON.Writer, o: User) =
       BSONDocument(
@@ -355,10 +341,9 @@ object User {
         totpSecret -> o.totpSecret,
         marks      -> o.marks.nonEmpty
       )
-  }
 
-  implicit val speakerHandler = reactivemongo.api.bson.Macros.handler[Speaker]
-  implicit val contactHandler = reactivemongo.api.bson.Macros.handler[Contact]
+  given BSONDocumentHandler[Speaker] = Macros.handler[Speaker]
+  given BSONDocumentHandler[Contact] = Macros.handler[Contact]
 
   private val firstRow: List[PerfType] =
     List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
@@ -374,4 +359,3 @@ object User {
     PerfType.Horde,
     PerfType.RacingKings
   )
-}

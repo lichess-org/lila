@@ -67,7 +67,7 @@
   <string name="searchPuzzles">퍼즐 찾기</string>
   <string name="fromMyGamesNone">데이터베이스에 퍼즐이 없습니다만, Lichess는 여전히 당신을 사랑합니다.
 래피드나 클래시컬 게임을 플레이해서 당신의 퍼즐이 추가될 확률을 높이세요!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%2$s의 게임에서 찾은 %1$s개의 퍼즐</string>
+  <string name="fromXGamesFound">%2$s의 게임에서 찾은 %1$s개의 퍼즐</string>
   <string name="puzzleDashboardDescription">훈련, 분석, 개선</string>
   <plurals name="nbPlayed">
     <item quantity="other">%s 플레이함</item>

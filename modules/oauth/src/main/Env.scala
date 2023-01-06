@@ -1,11 +1,11 @@
 package lila.oauth
 
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 
 import lila.common.config.CollName
 import lila.common.Strings
-import lila.memo.SettingStore.Strings._
+import lila.memo.SettingStore.Strings.given
 
 @Module
 final class Env(
@@ -13,7 +13,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     settingStore: lila.memo.SettingStore.Builder,
     db: lila.db.Db
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   lazy val originBlocklistSetting = settingStore[Strings](
     "oauthOriginBlocklist",
@@ -28,6 +28,5 @@ final class Env(
   lazy val tokenApi = new AccessTokenApi(db(CollName("oauth2_access_token")), cacheApi, userRepo)
 
   lazy val server = wire[OAuthServer]
-}
 
 trait OriginBlocklist

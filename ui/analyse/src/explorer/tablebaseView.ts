@@ -38,7 +38,7 @@ function showDtm(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats) {
       'result.' + winnerOf(fen, move),
       {
         attrs: {
-          title: ctrl.trans.plural('mateInXHalfMoves', Math.abs(move.dtm)) + ' (Depth To Mate)',
+          title: ctrl.trans.pluralSame('mateInXHalfMoves', Math.abs(move.dtm)) + ' (Depth To Mate)',
         },
       },
       'DTM ' + Math.abs(move.dtm)

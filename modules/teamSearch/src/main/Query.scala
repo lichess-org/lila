@@ -1,8 +1,7 @@
 package lila.teamSearch
 
-private[teamSearch] case class Query(text: String)
+import play.api.libs.json.*
 
-object Query {
+private case class Query(text: String)
 
-  implicit val jsonWriter = play.api.libs.json.Json.writes[Query]
-}
+private given Writes[Query] = Json.writes[Query]

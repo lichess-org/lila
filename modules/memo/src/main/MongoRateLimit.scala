@@ -1,12 +1,11 @@
 package lila.memo
 
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 /** For slow rate limiters only! */
 final class MongoRateLimit[K](
@@ -17,7 +16,7 @@ final class MongoRateLimit[K](
     coll: Coll,
     enforce: Boolean,
     log: Boolean
-) {
+):
   import RateLimit.Cost
 
   private def makeClearAt = DateTime.now plusMinutes duration.toMinutes.toInt
@@ -26,15 +25,15 @@ final class MongoRateLimit[K](
   private lazy val monitor = lila.mon.security.rateLimit(s"mongo.$name")
 
   private case class Entry(_id: String, v: Int, e: DateTime)
-  implicit private val entryBSONHandler = Macros.handler[Entry]
+  private given BSONDocumentHandler[Entry] = Macros.handler[Entry]
 
   private def makeDbKey(k: K) = s"ratelimit:$name:${keyToString(k)}"
 
   def apply[A](k: K, cost: Cost = 1, msg: => String = "")(
       op: => Fu[A]
-  )(default: => A)(implicit ec: ExecutionContext): Fu[A] =
+  )(default: => A)(using ec: ExecutionContext): Fu[A] =
     if (cost < 1) op
-    else {
+    else
       val dbKey = makeDbKey(k)
       coll.one[Entry]($id(dbKey)) flatMap {
         case None =>
@@ -50,10 +49,8 @@ final class MongoRateLimit[K](
         case _ =>
           op
       }
-    }
-}
 
-final class MongoRateLimitApi(db: lila.db.Db, config: MemoConfig) {
+final class MongoRateLimitApi(db: lila.db.Db, config: MemoConfig):
 
   private val coll = db(config.cacheColl)
 
@@ -73,4 +70,3 @@ final class MongoRateLimitApi(db: lila.db.Db, config: MemoConfig) {
     enforce = enforce,
     log = log
   )
-}

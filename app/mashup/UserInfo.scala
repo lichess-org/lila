@@ -5,7 +5,7 @@ import play.api.data.Form
 
 import lila.api.{ Context, UserApi }
 import lila.bookmark.BookmarkApi
-import lila.forum.PostApi
+import lila.forum.ForumPostApi
 import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.security.Granter
@@ -23,23 +23,21 @@ case class UserInfo(
     nbForumPosts: Int,
     ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,
-    teamIds: List[lila.team.Team.ID],
+    teamIds: List[lila.team.TeamId],
     isStreamer: Boolean,
     isCoach: Boolean,
     insightVisible: Boolean
-) {
+):
   def ranks      = trophies.ranks
   def crosstable = nbs.crosstable
-}
 
-object UserInfo {
+object UserInfo:
 
   sealed abstract class Angle(val key: String)
-  object Angle {
+  object Angle:
     case object Activity                          extends Angle("activity")
-    case class Games(searchForm: Option[Form[_]]) extends Angle("games")
+    case class Games(searchForm: Option[Form[?]]) extends Angle("games")
     case object Other                             extends Angle("other")
-  }
 
   case class Social(
       relation: Option[lila.relation.Relation],
@@ -52,7 +50,7 @@ object UserInfo {
       relationApi: RelationApi,
       noteApi: lila.user.NoteApi,
       prefApi: lila.pref.PrefApi
-  ) {
+  ):
     def apply(u: User, ctx: Context): Fu[Social] =
       ctx.userId.?? {
         relationApi.fetchRelation(_, u.id).mon(_.user segment "relation")
@@ -75,22 +73,20 @@ object UserInfo {
           (!n.dox || Granter(_.Admin)(me))
         }
       }
-  }
 
   case class NbGames(
       crosstable: Option[Crosstable.WithMatchup],
       playing: Int,
       imported: Int,
       bookmark: Int
-  ) {
+  ):
     def withMe: Option[Int] = crosstable.map(_.crosstable.nbGames)
-  }
 
   final class NbGamesApi(
       bookmarkApi: BookmarkApi,
       gameCached: lila.game.Cached,
       crosstableApi: lila.game.CrosstableApi
-  ) {
+  ):
     def apply(u: User, ctx: Context, withCrosstable: Boolean): Fu[NbGames] =
       (withCrosstable ?? ctx.me.filter(u.!=) ?? { me =>
         crosstableApi.withMatchup(me.id, u.id) dmap some
@@ -106,11 +102,10 @@ object UserInfo {
               bookmark = bookmark
             )
         }
-  }
 
   final class UserInfoApi(
       relationApi: RelationApi,
-      postApi: PostApi,
+      postApi: ForumPostApi,
       ublogApi: UblogApi,
       studyRepo: lila.study.StudyRepo,
       ratingChartApi: lila.history.RatingChartApi,
@@ -119,10 +114,11 @@ object UserInfo {
       isHostingSimul: lila.round.IsSimulHost,
       streamerApi: lila.streamer.StreamerApi,
       teamApi: lila.team.TeamApi,
+      teamCache: lila.team.Cached,
       coachApi: lila.coach.CoachApi,
       insightShare: lila.insight.Share,
       playbanApi: lila.playban.PlaybanApi
-  )(implicit ec: ExecutionContext) {
+  )(using ExecutionContext):
     def apply(user: User, nbs: NbGames, ctx: Context, withUblog: Boolean = true): Fu[UserInfo] =
       ((ctx.noBlind && ctx.pref.showRatings) ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip
         relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip
@@ -155,5 +151,5 @@ object UserInfo {
               insightVisible = insightVisible
             )
         }
-  }
-}
+
+    def preloadTeams(info: UserInfo) = teamCache.nameCache.preloadMany(info.teamIds)

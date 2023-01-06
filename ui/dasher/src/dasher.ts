@@ -70,8 +70,8 @@ export function makeCtrl(data: DasherData, redraw: Redraw): DasherCtrl {
     sound: soundCtrl(data.sound.list, trans, redraw, close),
     background: backgroundCtrl(data.background, trans, redraw, close),
     board: boardCtrl(data.board, trans, redraw, close),
-    theme: themeCtrl(data.theme, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, setMode),
-    piece: pieceCtrl(data.piece, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, setMode),
+    theme: themeCtrl(data.theme, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, close),
+    piece: pieceCtrl(data.piece, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, close),
   };
 
   lichess.pubsub.on('top.toggle.user_tag', () => setMode(defaultMode));

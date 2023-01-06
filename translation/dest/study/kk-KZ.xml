@@ -48,11 +48,11 @@
   <string name="annotateWithGlyphs">Глифтермен түсіндірме жазуу</string>
   <string name="theChapterIsTooShortToBeAnalysed">Бөлім талдауға жарамды болу үшін тым қысқа.</string>
   <string name="onlyContributorsCanRequestAnalysis">Зерттеу қолдаушылары ғана компьютерлік талдауды сұрай алады.</string>
-  <string name="getAFullComputerAnalysis">Негізгі жолдың толық сервер жақты компьютерлік талдауына қол жеткізу.</string>
-  <string name="makeSureTheChapterIsComplete">Бөлім аяқталғанын тексеріңіз. Талдауды бір рет қана сұрай аласыз.</string>
+  <string name="getAFullComputerAnalysis">Сервер-жақты компьютер осы негізгі жолға толық талдау жасайтын болады.</string>
+  <string name="makeSureTheChapterIsComplete">Талдауды бір рет қана сұрай аласыз, сондықтан бөлімді аяқтауды ұмытпаңыз.</string>
   <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Барлық үйлескен мүшелер өз күйінде қалады</string>
   <string name="shareChanges">Көрермендермен өзгертулерді бөлісіңіз әрі серверде сақтап қойыңыз</string>
-  <string name="playing">Ойналуда</string>
+  <string name="playing">Қазір ойында</string>
   <string name="first">Бірінші</string>
   <string name="previous">Алдыңғы</string>
   <string name="next">Келесі</string>
@@ -65,7 +65,7 @@
   <string name="downloadGame">Ойынды жүктеп алу</string>
   <string name="studyUrl">Зерттеудің сілтемесі</string>
   <string name="currentChapterUrl">Қазіргі бөлімнің сілтемесі</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Сіз бұны форумға енгізу үшін қоя аласыз</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Сіз бұны форумға не Личес блогыңызға қоя аласыз</string>
   <string name="startAtInitialPosition">Басталуы: бастапқы күйден</string>
   <string name="startAtX">Басталуы: %s</string>
   <string name="embedInYourWebsite">Сіздің сайт не блогыңызға арналған енгізу сілтемесі</string>

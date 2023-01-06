@@ -60,6 +60,7 @@
   <string name="skipExplanation">تخطى هذه الحركة للحفاظ على سلسلة الانتصارات.</string>
   <string name="failedPuzzles">الألغاز التي فشلت في حلها</string>
   <string name="slowPuzzles">ألغاز بطيئة</string>
+  <string name="skippedPuzzle">الالغاز التي تم تخطيها</string>
   <string name="thisWeek">هذا الأسبوع</string>
   <string name="thisMonth">هذا الشهر</string>
   <string name="allTime">كل الأوقات</string>

@@ -1,10 +1,10 @@
 package lila.study
 
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import chess.format.pgn.{ Tag, TagType, Tags }
 
-object PgnTags {
+object PgnTags:
 
   def apply(tags: Tags): Tags =
     tags pipe filterRelevant pipe removeContradictingTermination pipe sort
@@ -18,7 +18,7 @@ object PgnTags {
     })
 
   private def removeContradictingTermination(tags: Tags) =
-    if (tags.resultColor.isDefined)
+    if (tags.outcome.isDefined)
       Tags(tags.value.filterNot { t =>
         t.name == Tag.Termination && t.value.toLowerCase == "unterminated"
       })
@@ -26,8 +26,8 @@ object PgnTags {
 
   private val unknownValues = Set("", "?", "unknown")
 
-  private val sortedTypes: List[TagType] = {
-    import Tag._
+  private val sortedTypes: List[TagType] =
+    import Tag.*
     List(
       White,
       WhiteElo,
@@ -47,7 +47,6 @@ object PgnTags {
       Board,
       Annotator
     )
-  }
 
   val typesToString = sortedTypes mkString ","
 
@@ -61,4 +60,3 @@ object PgnTags {
         typePositions.getOrElse(t.name, Int.MaxValue)
       }
     }
-}

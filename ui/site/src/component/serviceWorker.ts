@@ -7,7 +7,7 @@ export default function () {
       assetUrl(jsModule('serviceWorker'), {
         sameDomain: true,
       }),
-      self.location.href
+      self.location.href // eslint-disable-line no-restricted-globals
     );
     workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url')!);
     if (document.body.getAttribute('data-dev')) workerUrl.searchParams.set('dev', '1');
@@ -39,8 +39,8 @@ export default function () {
                       },
                       body: JSON.stringify(sub),
                     }).then(res => {
-                      if (res.ok) store.set('' + Date.now());
-                      else console.log('submitting push subscription failed', res.statusText);
+                      if (res.ok && !res.redirected) store.set('' + Date.now());
+                      else sub.unsubscribe();
                     }),
                   err => {
                     console.log('push subscribe failed', err.message);

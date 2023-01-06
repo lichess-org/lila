@@ -18,67 +18,27 @@
   },
   "homepage": "https://lichess.org",
   "engines": {
-    "node": ">=14.3 <=18",
-    "yarn": "^1"
+    "node": ">=14 <=19",
+    "pnpm": "^7.18.2"
   },
   "dependencies": {
-    "prettier": "2.7.1",
-    "xml2js": "0.4.23"
-  },
-  "devDependencies": {
-    "@types/web": "0.0.69",
-    "@typescript-eslint/eslint-plugin": "^5.21.0",
-    "@typescript-eslint/parser": "^5.21.0",
-    "eslint": "^8.14.0",
+    "@types/node": "^18.11.17",
+    "@types/web": "^0.0.84",
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
+    "ab": "https://github.com/lichess-org/ab-stub",
+    "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
-    "typescript": "^4"
+    "prettier": "2.8.1",
+    "typescript": "^4.9.4",
+    "xml2js": "0.4.23"
   },
   "scripts": {
     "format": "prettier --write .",
     "check-format": "prettier --check .",
-    "lint": "eslint . --ext .ts"
-  },
-  "workspaces": [
-    "ui",
-    "ui/analyse",
-    "ui/ceval",
-    "ui/challenge",
-    "ui/chat",
-    "ui/chess",
-    "ui/cli",
-    "ui/common",
-    "ui/chart",
-    "ui/coordinateTrainer",
-    "ui/dasher",
-    "ui/editor",
-    "ui/game",
-    "ui/keyboardMove",
-    "ui/nvui",
-    "ui/mod",
-    "ui/palantir",
-    "ui/insight",
-    "ui/learn",
-    "ui/lobby",
-    "ui/notify",
-    "ui/puzzle",
-    "ui/round",
-    "ui/serviceWorker",
-    "ui/simul",
-    "ui/site",
-    "ui/swiss",
-    "ui/tournament",
-    "ui/tournamentSchedule",
-    "ui/tournamentCalendar",
-    "ui/tree",
-    "ui/msg",
-    "ui/tutor",
-    "ui/dgt",
-    "ui/puz",
-    "ui/storm",
-    "ui/racer",
-    "ui/opening",
-    "ui/@build/rollupProject",
-    "ui/@types/lichess",
-    "ui/@types/cash"
-  ]
+    "lint": "eslint . --ext .ts",
+    "lila-journal": "journalctl --user -fu lila -o cat",
+    "serverlog": "multitail -cT ansi -l 'pnpm lila-journal' -cT ansi -ke '^[0-9\\.]{10} ' -I .metals/metals.log",
+    "multilog": "multitail -cT ansi -l 'pnpm lila-journal' -cT ansi -L 'ui/build -w' -cT ansi -ke '^[0-9\\.]{10} ' -I .metals/metals.log -cT ansi -I logs/all.log"
+  }
 }

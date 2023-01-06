@@ -3,6 +3,7 @@
   <string name="preferences">Preferències</string>
   <string name="display">Visualització</string>
   <string name="privacy">Privacitat</string>
+  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Notificacions</string>
   <string name="pieceAnimation">Animació de les peces</string>
   <string name="materialDifference">Diferència de material</string>
   <string name="boardHighlights">Marcar caselles (últim moviment i escac)</string>
@@ -35,19 +36,31 @@
   <string name="promoteToQueenAutomatically">Corona la Dama automàticament</string>
   <string name="explainPromoteToQueenAutomatically">Mantingui premuda la tecla &lt;ctrl&gt; durant la promoció per deshabilitar la promoció automàtica temporalment</string>
   <string name="whenPremoving">En moviments anticipats</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Demana empat per repetició automàticament</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Quan restin &lt; 30 segons</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar taules per repetició automàticament</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Quan restin &lt; 30 segons</string>
   <string name="moveConfirmation">Confirmació de moviment</string>
   <string name="inCorrespondenceGames">Només en partides per correspondència</string>
   <string name="correspondenceAndUnlimited">Per correspondència i sense límit de temps</string>
-  <string name="confirmResignationAndDrawOffers">Confirmar abandonar i oferiment de taules</string>
+  <string name="confirmResignationAndDrawOffers">Confirmar resignació i oferiment de taules</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Mètode d\'Enroc</string>
   <string name="castleByMovingTwoSquares">Moure el rei dues caselles</string>
   <string name="castleByMovingOntoTheRook">Moure el rei a la torre</string>
   <string name="inputMovesWithTheKeyboard">Moure peces amb el teclat</string>
-  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Fletxes cap a moviments vàlids</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Apuntar fletxes a jugades legals</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Dir “Bona partida, ben jugat!” quan perds o fas taules</string>
   <string name="yourPreferencesHaveBeenSaved">Les teves preferències s\'han desat.</string>
   <string name="scrollOnTheBoardToReplayMoves">Desplaça\'t amb la rodeta pel tauler per reproduir jugades</string>
   <string name="correspondenceEmailNotification">Correu electrònic diari de notificació amb les vostres partides per correspondència</string>
+  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Un streamer que seguiu ha començat una transmissió</string>
+  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Nou missatge a la safata d\'entrada</string>
+  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Un comentari del fòrum et menciona</string>
+  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Invitació a un estudi</string>
+  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Partida per correspondència actualitzada</string>
+  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Desafiaments</string>
+  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Un torneig comença aviat</string>
+  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">S\'està esgotant el rellotge d\'una partida per correspondència</string>
+  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Notificació emergent a Lichess</string>
+  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Notifica un dispositiu quan no esteu a Lichess</string>
+  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Navegador</string>
+  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Dispositiu</string>
 </resources>

@@ -1,13 +1,14 @@
 package lila.api
 
-import akka.actor._
-import akka.stream.scaladsl._
+import akka.actor.*
+import akka.stream.scaladsl.*
 import org.joda.time.DateTime
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.challenge.Challenge
 import lila.common.Bus
+import lila.common.Json.given
 import lila.game.actorApi.{ FinishGame, StartGame }
 import lila.game.{ Game, Pov, Rematches }
 import lila.user.{ LightUserApi, User, UserRepo }
@@ -20,11 +21,11 @@ final class EventStream(
     gameJsonView: lila.game.JsonView,
     rematches: Rematches,
     lightUserApi: LightUserApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   private case object SetOnline
 
@@ -35,7 +36,7 @@ final class EventStream(
       me: User,
       gamesInProgress: List[Game],
       challenges: List[Challenge]
-  ): Source[Option[JsObject], _] = {
+  ): Source[Option[JsObject], ?] =
 
     // kill previous one if any
     Bus.publish(PoisonPill, s"eventStreamFor:${me.id}")
@@ -46,14 +47,13 @@ final class EventStream(
 
       val actor = system.actorOf(Props(mkActor(me, queue)))
 
-      queue.watchCompletion().foreach { _ =>
+      queue.watchCompletion().addEffectAnyway {
         actor ! PoisonPill
       }
     }
-  }
 
   private def mkActor(me: User, queue: SourceQueueWithComplete[Option[JsObject]]) =
-    new Actor {
+    new Actor:
 
       val classifiers = List(
         s"userStartGame:${me.id}",
@@ -66,37 +66,33 @@ final class EventStream(
       var lastSetSeenAt = me.seenAt | me.createdAt
       var online        = true
 
-      override def preStart(): Unit = {
+      override def preStart(): Unit =
         super.preStart()
         Bus.subscribe(self, classifiers)
-      }
 
-      override def postStop() = {
+      override def postStop() =
         super.postStop()
         Bus.unsubscribe(self, classifiers)
         queue.complete()
         online = false
-      }
 
       self ! SetOnline
 
-      def receive = {
+      def receive =
 
         case SetOnline =>
           onlineApiUsers.setOnline(me.id)
 
-          if (lastSetSeenAt isBefore DateTime.now.minusMinutes(10)) {
+          if (lastSetSeenAt isBefore DateTime.now.minusMinutes(10))
             userRepo setSeenAt me.id
             lastSetSeenAt = DateTime.now
-          }
 
           context.system.scheduler
             .scheduleOnce(6 second) {
-              if (online) {
+              if (online)
                 // gotta send a message to check if the client has disconnected
                 queue offer None
                 self ! SetOnline
-              }
             }
             .unit
 
@@ -136,11 +132,9 @@ final class EventStream(
             )
             queue.offer(json.some).unit
           }
-      }
 
       private def isMyChallenge(c: Challenge) =
         c.destUserId.has(me.id) || c.challengerUserId.has(me.id)
-    }
 
   private def gameJson(game: Game, tpe: String, me: User) =
     Pov(game, me) map { pov =>
@@ -162,7 +156,7 @@ final class EventStream(
   private def challengeJson(tpe: String)(c: Challenge) =
     Json.obj(
       "type"      -> tpe,
-      "challenge" -> challengeJsonView(none)(c)(lila.i18n.defaultLang)
+      "challenge" -> challengeJsonView(none)(c)(using lila.i18n.defaultLang)
     )
 
   private def challengeCompat(c: Challenge, me: User) = compatJson(
@@ -172,4 +166,3 @@ final class EventStream(
 
   private def compatJson(bot: Boolean, board: Boolean) =
     Json.obj("compat" -> Json.obj("bot" -> bot, "board" -> board))
-}

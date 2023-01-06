@@ -46,7 +46,7 @@
   <string name="endgameDescription">Ойынның соңғы кезеңіндегі тактика.</string>
   <string name="enPassantDescription">Бір сазбаз, қасынан қарсыластың сарбазы өткенде, оны басып алатын жағдайды, яғни жолай басып алуды қамтитын тактика.</string>
   <string name="exposedKing">Жалаңаш патша</string>
-  <string name="exposedKingDescription">Қорғанысы нашар патша әдетте маттың иісін иіскеп отырады.</string>
+  <string name="exposedKingDescription">Қорғанысы нашар патша әдетте маттың иісін сезіп тұрады.</string>
   <string name="fork">Шанышқы</string>
   <string name="forkDescription">Қарсыластың бірден екі тасын ұратын тас жүрісі.</string>
   <string name="hangingPiece">Олжа тас</string>
@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Бір тастың қарсылас тасын аттай бір шаршыны қорғауы не шабуылдауы.</string>
   <string name="zugzwang">Цугцванг</string>
   <string name="zugzwangDescription">Жүрісі шектелген тастардың әр жүрісі жалпы жағдайдың нашарлауына әкеп соқтыратын кез.</string>
-  <string name="healthyMix">Пайдалы микс</string>
+  <string name="healthyMix">Аралас дастархан</string>
   <string name="healthyMixDescription">Барлығынан аз-аздан. Күтпеген жағдайларға бейім болыңыз! Дәл нағыз шахматтағыдай!</string>
   <string name="playerGames">Ойыншылардан</string>
   <string name="playerGamesDescription">Сіздің не басқаның ойындарынан құрылған жұмбақтарды табу.</string>

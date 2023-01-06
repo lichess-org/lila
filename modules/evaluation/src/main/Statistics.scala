@@ -3,12 +3,11 @@ package lila.evaluation
 import chess.{ Centis, Stats }
 import lila.common.Maths
 
-object Statistics {
+object Statistics:
 
-  case class IntAvgSd(avg: Int, sd: Int) {
+  case class IntAvgSd(avg: Int, sd: Int):
     override def toString = s"$avg ± $sd"
     def /(div: Int)       = IntAvgSd(avg / div, sd / div)
-  }
 
   def intAvgSd(values: List[Int]) = IntAvgSd(
     avg = listAverage(values).toInt,
@@ -16,10 +15,9 @@ object Statistics {
   )
 
   // Coefficient of Variance
-  def coefVariation(a: List[Int]): Option[Float] = {
+  def coefVariation(a: List[Int]): Option[Float] =
     val s = Stats(a)
     s.stdDev.map { _ / s.mean }
-  }
 
   // ups all values by 0.1s
   // as to avoid very high variation on bullet games
@@ -55,7 +53,7 @@ object Statistics {
     moveTimes(pov) ?? {
       _.iterator
         .sliding(14)
-        .map(_.toList.sorted.drop(1).dropRight(1))
+        .map(_.toList.sorted(intOrdering).drop(1).dropRight(1))
         .filter(_.count(instantaneous ==) < 4)
         .flatMap(moveTimeCoefVariationNoDrop)
         .some
@@ -65,12 +63,10 @@ object Statistics {
     moveTimeCoefVariation(pov) ?? { cvIndicatesModeratelyFlatTimes(_) }
 
   private val fastMove = Centis(50)
-  def noFastMoves(pov: lila.game.Pov): Boolean = {
+  def noFastMoves(pov: lila.game.Pov): Boolean =
     val moveTimes = ~pov.game.moveTimes(pov.color)
-    moveTimes.count(fastMove >) <= (moveTimes.size / 20) + 2
-  }
+    moveTimes.count(fastMove > _) <= (moveTimes.size / 20) + 2
 
   def listAverage[T: Numeric](x: List[T]) = ~Maths.mean(x)
 
   def listDeviation[T: Numeric](x: List[T]) = ~Stats(x).stdDev
-}

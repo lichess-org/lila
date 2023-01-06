@@ -17,6 +17,14 @@
     <item quantity="many">%s جولات</item>
     <item quantity="other">%s جولات</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="zero">%s جولة سويسرية</item>
+    <item quantity="one">%s جولة سويسرية</item>
+    <item quantity="two">%s جولة سويسرية</item>
+    <item quantity="few">%s جولة سويسرية</item>
+    <item quantity="many">%s جولة سويسرية</item>
+    <item quantity="other">%s جولة سويسرية</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="zero">جولة واحدة في اليوم</item>
     <item quantity="one">جولة واحدة في اليوم</item>
@@ -125,4 +133,14 @@
   <string name="streaksAndBerserk">الفوز المتتالي و تحدي نصف الوقت</string>
   <string name="similarToOTB">مشابه للبطولات التي تقام على الرقعة</string>
   <string name="unlimitedAndFree">غير محدود و مجاني</string>
+  <string name="predefinedUsers">السماح فقط للمستخدمين المحددين مسبقاً بالانضمام</string>
+  <string name="forbiddedUsers">إذا كانت هذه القائمة غير فارغة، فسيتم منع أسماء المستخدمين المتغيبين من هذه القائمة من الانضمام. اسم مستخدم واحد لكل سطر.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="zero">%1$s/%2$s جولة سويسرية</item>
+    <item quantity="one">%1$s/%2$s جولة سويسرية</item>
+    <item quantity="two">%1$s/%2$s جولة سويسرية</item>
+    <item quantity="few">%1$s/%2$s جولة سويسرية</item>
+    <item quantity="many">%1$s/%2$s جولة سويسرية</item>
+    <item quantity="other">%1$s/%2$s جولة سويسرية</item>
+  </plurals>
 </resources>

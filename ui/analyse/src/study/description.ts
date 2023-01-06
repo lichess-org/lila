@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { bind, onInsert } from 'common/snabbdom';
+import { richHTML } from 'common/richText';
 import { StudyCtrl } from './interfaces';
-import { richHTML } from '../util';
 
 export type Save = (t: string) => void;
 

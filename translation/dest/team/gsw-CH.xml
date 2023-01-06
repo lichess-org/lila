@@ -34,8 +34,8 @@
   <string name="teamBattle">Teamkampf</string>
   <string name="teamBattleOverview">En Kampf vu mehrere Teams, alli Schpiller sammled Pünkt für ihres Team</string>
   <string name="teamTournament">Team-Turnier</string>
-  <string name="teamTournamentOverview">Es Arena Turnier, wo nur Mitglider vu dim Team biträtte chönd</string>
-  <string name="swissTournamentOverview">Es Turnier nach \"Schweizer System\", wo nur Mitglider vu dim Team biträtte chönd</string>
+  <string name="teamTournamentOverview">Es Arena Turnier, wo nur Mitglider vu dim Team biträte chönd</string>
+  <string name="swissTournamentOverview">Es Turnier nach \"Schweizer System\", wo nur Mitglider vu dim Team biträte chönd</string>
   <string name="messageAllMembers">Benachrichtig alli Mitglider</string>
   <string name="messageAllMembersOverview">Schick e privati Nachricht a alli Mitglider vom Team</string>
   <string name="messageAllMembersLongDescription">Schick e privati Nachricht a ALLI Mitglider vu dem Team. Du chasch die Funktion benutze, um Schpiller uf z\'fordere sich ame Turnier oder ame Team-Kampf z\'beteilige. Schpiller wo die Nachrichte nöd wänd empfange, chönd s\'Team verlah.</string>

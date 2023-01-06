@@ -1,15 +1,14 @@
 package lila.security
 
-sealed abstract class Permission(val key: String, val children: List[Permission] = Nil, val name: String) {
+sealed abstract class Permission(val key: String, val children: List[Permission] = Nil, val name: String):
 
   def this(key: String, name: String) = this(key, Nil, name)
 
   final def is(p: Permission): Boolean = this == p || children.exists(_ is p)
 
   val dbKey = s"ROLE_$key"
-}
 
-object Permission {
+object Permission:
 
   type Selector = Permission.type => Permission
 
@@ -17,6 +16,7 @@ object Permission {
   case object ModerateForum    extends Permission("MODERATE_FORUM", "Moderate forum")
   case object ModerateBlog     extends Permission("MODERATE_BLOG", "Moderate blog")
   case object ChatTimeout      extends Permission("CHAT_TIMEOUT", "Chat timeout")
+  case object BroadcastTimeout extends Permission("BROADCAST_TIMEOUT", "Broadcast timeout")
   case object PublicChatView   extends Permission("VIEW_PUBLIC_CHAT", "See public chat page")
   case object GamifyView       extends Permission("GAMIFY_VIEW", "See mod leaderboard")
   case object UserModView      extends Permission("USER_SPY", "User profile mod view")
@@ -42,6 +42,7 @@ object Permission {
   case object SeeInsight       extends Permission("SEE_INSIGHT", "View player insights")
   case object PracticeConfig   extends Permission("PRACTICE_CONFIG", "Configure practice")
   case object PuzzleCurator    extends Permission("PUZZLE_CURATOR", "Classify puzzles")
+  case object OpeningWiki      extends Permission("OPENING_WIKI", "Opening wiki")
   case object Beta             extends Permission("BETA", "Beta features")
   case object UserSearch       extends Permission("USER_SEARCH", "Mod user search")
   case object ManageTeam       extends Permission("MANAGE_TEAM", "Manage teams")
@@ -174,13 +175,15 @@ object Permission {
           ManageEvent,
           PracticeConfig,
           PuzzleCurator,
+          OpeningWiki,
           Presets,
           DisapproveCoachReview,
           Relay,
           Streamers,
           DisableTwoFactor,
           ChangePermission,
-          StudyAdmin
+          StudyAdmin,
+          BroadcastTimeout
         ),
         "Admin"
       )
@@ -241,12 +244,14 @@ object Permission {
     ),
     "Content" -> List(
       Relay,
+      BroadcastTimeout,
       ManageEvent,
       ManageTournament,
       ManageSimul,
       StudyAdmin,
       PracticeConfig,
       PuzzleCurator,
+      OpeningWiki,
       Presets
     ),
     "Dev" -> List(
@@ -281,18 +286,14 @@ object Permission {
     )
   )
 
-  lazy val all: Set[Permission] = categorized.flatMap { case (_, perms) =>
-    perms
-  }.toSet
+  lazy val all: Set[Permission] = categorized.flatMap { (_, perms) => perms }.toSet
 
   lazy val nonModPermissions: Set[Permission] =
     Set(Beta, Prismic, Coach, Teacher, Developer, Verified, ContentTeam, ApiHog, Relay)
 
   lazy val modPermissions: Set[Permission] = all diff nonModPermissions
 
-  lazy val allByDbKey: Map[String, Permission] = all.view map { p =>
-    (p.dbKey, p)
-  } toMap
+  lazy val allByDbKey: Map[String, Permission] = all.mapBy(_.dbKey)
 
   def apply(dbKey: String): Option[Permission] = allByDbKey get dbKey
 
@@ -304,4 +305,3 @@ object Permission {
   def diff(orig: Set[Permission], dest: Set[Permission]): Map[Permission, Boolean] = {
     orig.diff(dest).map(_ -> false) ++ dest.diff(orig).map(_ -> true)
   }.toMap
-}

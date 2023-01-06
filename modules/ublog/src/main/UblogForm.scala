@@ -1,38 +1,39 @@
 package lila.ublog
 
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, toMarkdown }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, into, given }
 import lila.i18n.{ defaultLang, LangList }
 import lila.user.User
 import play.api.i18n.Lang
 import lila.common.Markdown
 
-final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(implicit
+final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(using
     ec: scala.concurrent.ExecutionContext
-) extends lila.hub.CaptchedForm {
+) extends lila.hub.CaptchedForm:
 
-  import UblogForm._
+  import UblogForm.*
 
   private val base =
     mapping(
       "title"       -> cleanNonEmptyText(minLength = 3, maxLength = 80),
       "intro"       -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
-      "markdown"    -> toMarkdown(cleanNonEmptyText(minLength = 0, maxLength = 100_000)),
+      "markdown"    -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).into[Markdown],
       "imageAlt"    -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "language"    -> optional(stringIn(LangList.popularNoRegion.map(_.code).toSet)),
       "topics"      -> optional(text),
       "live"        -> boolean,
       "discuss"     -> boolean,
-      "gameId"      -> text,
+      "gameId"      -> of[GameId],
       "move"        -> text
-    )(UblogPostData.apply)(UblogPostData.unapply)
+    )(UblogPostData.apply)(unapply)
 
   val create = Form(
-    base.verifying(captchaFailMessage, validateCaptcha _)
+    base.verifying(captchaFailMessage, validateCaptcha)
   )
 
   def edit(post: UblogPost) =
@@ -44,20 +45,19 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
         imageAlt = post.image.flatMap(_.alt),
         imageCredit = post.image.flatMap(_.credit),
         language = post.language.code.some,
-        topics = post.topics.map(_.value).mkString(", ").some,
+        topics = post.topics.mkString(", ").some,
         live = post.live,
         discuss = ~post.discuss,
-        gameId = "",
+        gameId = GameId(""),
         move = ""
       )
     )
 
   // $$something$$ breaks the TUI editor WYSIWYG
   private val latexRegex                      = s"""\\$${2,}+ *([^\\$$]+) *\\$${2,}+""".r
-  private def removeLatex(markdown: Markdown) = markdown(m => latexRegex.replaceAllIn(m, """\$\$ $1 \$\$"""))
-}
+  private def removeLatex(markdown: Markdown) = markdown.map(latexRegex.replaceAllIn(_, """\$\$ $1 \$\$"""))
 
-object UblogForm {
+object UblogForm:
 
   case class UblogPostData(
       title: String,
@@ -69,15 +69,15 @@ object UblogForm {
       topics: Option[String],
       live: Boolean,
       discuss: Boolean,
-      gameId: String,
+      gameId: GameId,
       move: String
-  ) {
+  ):
 
     def realLanguage = language flatMap Lang.get
 
     def create(user: User) =
       UblogPost(
-        _id = UblogPost.Id(lila.common.ThreadLocalRandom nextString 8),
+        id = UblogPostId(ThreadLocalRandom nextString 8),
         blog = UblogBlog.Id.User(user.id),
         title = title,
         intro = intro,
@@ -109,7 +109,5 @@ object UblogForm {
         updated = UblogPost.Recorded(user.id, DateTime.now).some,
         lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, DateTime.now))
       )
-  }
 
   val tier = Form(single("tier" -> number(min = UblogBlog.Tier.HIDDEN, max = UblogBlog.Tier.BEST)))
-}

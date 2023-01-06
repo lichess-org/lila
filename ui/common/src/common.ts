@@ -42,3 +42,28 @@ export const withEffect =
     } else returnValue = prop();
     return returnValue;
   };
+
+export interface Toggle extends PropWithEffect<boolean> {
+  toggle(): void;
+}
+
+export const toggle = (initialValue: boolean, effect: (value: boolean) => void = () => {}): Toggle => {
+  const prop = propWithEffect<boolean>(initialValue, effect) as Toggle;
+  prop.toggle = () => prop(!prop());
+  return prop;
+};
+
+// Only computes a value once. The computed value must not be undefined.
+export const memoize = <A>(compute: () => A): (() => A) => {
+  let computed: A;
+  return () => {
+    if (computed === undefined) computed = compute();
+    return computed;
+  };
+};
+
+export const scrollToInnerSelector = (el: HTMLElement, selector: string) => scrollTo(el, el.querySelector(selector));
+
+export const scrollTo = (el: HTMLElement, target: HTMLElement | null) => {
+  if (target) el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2;
+};

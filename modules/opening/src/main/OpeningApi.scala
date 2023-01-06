@@ -1,55 +1,74 @@
 package lila.opening
 
-import com.softwaremill.tagging._
-import scala.concurrent.duration._
+import chess.opening.OpeningDb
+import play.api.mvc.RequestHeader
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
-import lila.common.{ LilaOpening, LilaOpeningFamily }
-import lila.db.dsl._
+import lila.db.dsl.*
+import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
-import com.github.blemale.scaffeine.AsyncLoadingCache
+import lila.user.User
 
 final class OpeningApi(
+    wikiApi: OpeningWikiApi,
     cacheApi: CacheApi,
-    coll: Coll @@ OpeningColl,
-    allGamesHistory: AsyncLoadingCache[Unit, List[OpeningHistorySegment[Int]]] @@ AllGamesHistory
-)(implicit ec: ExecutionContext) {
+    gameRepo: GameRepo,
+    pgnDump: PgnDump,
+    explorer: OpeningExplorer,
+    configStore: OpeningConfigStore
+)(using ec: ExecutionContext):
 
-  def getPopular: Fu[PopularOpenings] = popularCache.get(())
+  import OpeningQuery.Query
 
-  def find(key: String): Fu[Option[OpeningData.WithAll]] = apply(LilaOpening.Key(key))
-
-  def apply(key: LilaOpening.Key): Fu[Option[OpeningData.WithAll]] =
-    getPopular map {
-      _.byKey get key
-    } orElse {
-      coll.byId[OpeningData](key.value)
-    } flatMap {
-      _ ?? { opening =>
-        allGamesHistory.get(()) map { OpeningData.WithAll(opening, _).some }
-      }
-    }
-
-  def variationsOf(fam: LilaOpeningFamily): Fu[List[OpeningData.Preview]] =
-    variationsCache.get(fam.key)
-
-  private val variationsCache =
-    cacheApi[LilaOpeningFamily.Key, List[OpeningData.Preview]](64, "opening.variations") {
-      _.expireAfterWrite(1 hour)
-        .buildAsyncFuture { key =>
-          coll
-            .find($doc("_id" $startsWith s"${key}_"), OpeningData.previewProjection.some)
-            .sort($sort desc "nbGames")
-            .cursor[OpeningData.Preview]()
-            .list(64)
-        }
-    }
-
-  private val popularCache = cacheApi.unit[PopularOpenings] {
-    _.refreshAfterWrite(5 second)
-      .buildAsyncFuture { _ =>
-        import OpeningData.openingDataHandler
-        coll.find($empty).sort($sort desc "nbGames").cursor[OpeningData]().list(500) map PopularOpenings
-      }
+  private val defaultCache = cacheApi.notLoading[Query, Option[OpeningPage]](1024, "opening.defaultCache") {
+    _.maximumSize(4096).expireAfterWrite(5 minute).buildAsync()
   }
-}
+
+  def index(implicit req: RequestHeader): Fu[Option[OpeningPage]] =
+    lookup(Query("", none), withWikiRevisions = false)
+
+  def lookup(q: Query, withWikiRevisions: Boolean)(using
+      req: RequestHeader
+  ): Fu[Option[OpeningPage]] =
+    val config = readConfig
+    if (config.isDefault && !withWikiRevisions)
+      defaultCache.getFuture(q, _ => lookup(q, config, withWikiRevisions))
+    else lookup(q, config, withWikiRevisions)
+
+  private def lookup(
+      q: Query,
+      config: OpeningConfig,
+      withWikiRevisions: Boolean
+  ): Fu[Option[OpeningPage]] =
+    OpeningQuery(q, config) ?? { compute(_, withWikiRevisions) }
+
+  private def compute(query: OpeningQuery, withWikiRevisions: Boolean): Fu[Option[OpeningPage]] =
+    explorer.stats(query) zip
+      explorer.queryHistory(query) zip
+      allGamesHistory.get(query.config) zip
+      query.openingAndExtraMoves._1.??(op => wikiApi(op, withWikiRevisions) dmap some) flatMap {
+        case (((stats, history), allHistory), wiki) =>
+          for {
+            games <- gameRepo.gamesFromSecondary(stats.??(_.games).map(_.id))
+            withPgn <- games.map { g =>
+              pgnDump(g, None, PgnDump.WithFlags(evals = false)) dmap { GameWithPgn(g, _) }
+            }.sequenceFu
+          } yield OpeningPage(query, stats, withPgn, historyPercent(history, allHistory), wiki).some
+      }
+
+  def readConfig(implicit req: RequestHeader) = configStore.read
+
+  private def historyPercent(
+      query: PopularityHistoryAbsolute,
+      config: PopularityHistoryAbsolute
+  ): PopularityHistoryPercent =
+    query.zipAll(config, 0, 0) map {
+      case (_, 0)     => 0
+      case (cur, all) => (cur * 100f) / all
+    }
+
+  private val allGamesHistory =
+    cacheApi[OpeningConfig, PopularityHistoryAbsolute](32, "opening.allGamesHistory") {
+      _.expireAfterWrite(1 hour).buildAsyncFuture(explorer.configHistory)
+    }

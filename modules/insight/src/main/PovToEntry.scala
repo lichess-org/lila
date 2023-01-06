@@ -1,57 +1,56 @@
 package lila.insight
 
 import cats.data.NonEmptyList
-import chess.format.{ FEN, Forsyth }
-import chess.opening.FullOpeningDB
-import chess.{ Centis, Clock, Role, Situation, Stats }
-import scala.util.chaining._
+import chess.format.Fen
+import chess.opening.OpeningDb
+import chess.{ Ply, Centis, Clock, Role, Situation, Stats }
+import chess.format.pgn.SanStr
+import scala.util.chaining.*
 
 import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, WinPercent }
 import lila.game.{ Game, Pov }
 import lila.user.User
-import lila.common.{ LilaOpening, LilaOpeningFamily }
+import lila.common.{ LilaOpeningFamily, SimpleOpening }
 
 case class RichPov(
     pov: Pov,
     provisional: Boolean,
     analysis: Option[lila.analyse.Analysis],
     situations: NonEmptyList[Situation],
-    clock: Clock.Config,
-    movetimes: Vector[Centis],
-    clockStates: Vector[Centis],
+    clock: Option[Clock.Config],
+    movetimes: Option[Vector[Centis]],
+    clockStates: Option[Vector[Centis]],
     advices: Map[Ply, Advice]
-) {
+):
   lazy val division = chess.Divider(situations.map(_.board).toList)
-}
 
 final private class PovToEntry(
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  def apply(game: Game, userId: User.ID, provisional: Boolean): Fu[Either[Game, InsightEntry]] =
+  def apply(game: Game, userId: UserId, provisional: Boolean): Fu[Either[Game, InsightEntry]] =
     enrich(game, userId, provisional) map
       (_ flatMap convert toRight game)
 
-  private def removeWrongAnalysis(game: Game): Boolean = {
-    if (game.metadata.analysed && !game.analysable) {
+  private def removeWrongAnalysis(game: Game): Boolean =
+    if (game.metadata.analysed && !game.analysable)
       gameRepo setUnanalysed game.id
-      analysisRepo remove game.id
+      analysisRepo remove game.id.value
       true
-    } else false
-  }
+    else false
 
-  private def enrich(game: Game, userId: User.ID, provisional: Boolean): Fu[Option[RichPov]] =
+  private def enrich(game: Game, userId: UserId, provisional: Boolean): Fu[Option[RichPov]] =
     if (removeWrongAnalysis(game)) fuccess(none)
     else
       lila.game.Pov.ofUserId(game, userId) ?? { pov =>
         gameRepo.initialFen(game) zip
-          (game.metadata.analysed ?? analysisRepo.byId(game.id)) map { case (fen, an) =>
+          (game.metadata.analysed ?? analysisRepo.byId(game.id.value)) map { case (fen, an) =>
             for {
               situations <-
                 chess.Replay
                   .situations(
-                    moveStrs = game.pgnMoves,
+                    sans = game.sans,
                     initialFen = fen orElse {
                       !pov.game.variant.standardInitialPosition option pov.game.variant.initialFen
                     },
@@ -59,39 +58,29 @@ final private class PovToEntry(
                   )
                   .toOption
                   .flatMap(_.toNel)
-              clock       <- game.clock
-              movetimes   <- game moveTimes pov.color
-              clockStates <- game.clockHistory.map(_(pov.color))
             } yield RichPov(
               pov = pov,
               provisional = provisional,
               analysis = an,
               situations = situations,
-              clock = clock.config,
-              movetimes = movetimes.toVector,
-              clockStates = clockStates,
-              advices = an.?? {
-                _.advices.view
-                  .map { a =>
-                    a.info.ply -> a
-                  }
-                  .toMap
-              }
+              clock = game.clock.map(_.config),
+              movetimes = game.clock.flatMap(_ => game.moveTimes(pov.color)) map (_.toVector),
+              clockStates = game.clockHistory.map(_(pov.color)),
+              advices = an.??(_.advices.mapBy(_.info.ply))
             )
           }
       }
 
-  private def pgnMoveToRole(pgn: String): Role =
-    pgn.head match {
+  private def sanToRole(san: SanStr): Role =
+    san.value.head match
       case 'N'       => chess.Knight
       case 'B'       => chess.Bishop
       case 'R'       => chess.Rook
       case 'Q'       => chess.Queen
       case 'K' | 'O' => chess.King
       case _         => chess.Pawn
-    }
 
-  private def makeMoves(from: RichPov): List[InsightMove] = {
+  private def makeMoves(from: RichPov): List[InsightMove] =
     val sideAndStart = from.pov.sideAndStart
     def cpDiffs      = from.analysis ?? { AccuracyCP.diffsList(sideAndStart, _).toVector }
     val accuracyPercents = from.analysis map {
@@ -102,42 +91,38 @@ final private class PovToEntry(
         from.pov.color.fold(is, is.map(_.invert))
       }
     }
-    val roles = from.pov.game.pgnMoves(from.pov.color) map pgnMoveToRole
-    val situations = {
+    val roles = from.pov.game.sansOf(from.pov.color) map sanToRole
+    val situations =
       val pivot = if (from.pov.color == from.pov.game.startColor) 0 else 1
       from.situations.toList.zipWithIndex.collect {
         case (e, i) if (i % 2) == pivot => e
       }
-    }
-    val blurs = {
+    val blurs =
       val bools = from.pov.player.blurs.booleans
-      bools ++ Array.fill(from.movetimes.size - bools.length)(false)
-    }
-    val timeCvs = slidingMoveTimesCvs(from.movetimes)
-    from.clockStates.toList
-      .zip(from.movetimes)
-      .zip(roles)
+      bools ++ Array.fill(roles.size - bools.length)(false)
+    val timeCvs = from.movetimes map slidingMoveTimesCvs
+    roles.toList
       .zip(situations)
       .zip(blurs)
-      .zip(timeCvs)
+      .zip(timeCvs | Vector.fill(roles.size)(none))
+      .zip(from.clockStates.map(_.map(some)) | Vector.fill(roles.size)(none))
+      .zip(from.movetimes.map(_.map(some)) | Vector.fill(roles.size)(none))
       .zipWithIndex
-      .map { case ((((((clock, movetime), role), situation), blur), timeCv), i) =>
-        val ply      = i * 2 + from.pov.color.fold(1, 2)
+      .map { case ((((((role, situation), blur), timeCv), clock), movetime), i) =>
+        val ply      = Ply(i * 2 + from.pov.color.fold(1, 2))
         val prevInfo = prevInfos lift i
         val awareness = from.advices.get(ply - 1) flatMap {
           case o if o.judgment.isMistakeOrBlunder =>
-            from.advices get ply match {
+            from.advices get ply match
               case Some(p) if p.judgment.isMistakeOrBlunder => false.some
               case _                                        => true.some
-            }
           case _ => none
         }
         val luck = from.advices.get(ply) flatMap {
           case o if o.judgment.isMistakeOrBlunder =>
-            from.advices.get(ply + 1) match {
+            from.advices.get(ply + 1) match
               case Some(p) if p.judgment.isMistakeOrBlunder => true.some
               case _                                        => false.some
-            }
           case _ => none
         }
         val accuracyPercent = accuracyPercents flatMap { accs =>
@@ -150,8 +135,8 @@ final private class PovToEntry(
 
         InsightMove(
           phase = Phase.of(from.division, ply),
-          tenths = movetime.roundTenths,
-          clockPercent = ClockPercent(from.clock, clock),
+          tenths = movetime.map(_.roundTenths),
+          clockPercent = from.clock.flatMap(clk => clock.map(ClockPercent(clk, _))),
           role = role,
           eval = prevInfo.flatMap(_.eval.forceAsCp).map(_.ceiled.centipawns),
           cpl = cpDiffs.lift(i).flatten,
@@ -164,13 +149,12 @@ final private class PovToEntry(
           timeCv = timeCv
         )
       }
-  }
 
-  private def slidingMoveTimesCvs(movetimes: Vector[Centis]): Seq[Option[Float]] = {
+  private def slidingMoveTimesCvs(movetimes: Vector[Centis]): Seq[Option[Float]] =
     val sliding = 13 // should be odd
     val nb      = movetimes.size
     if (nb < sliding) Vector.fill(nb)(none[Float])
-    else {
+    else
       val sides = Vector.fill(sliding / 2)(none[Float])
       val cvs = movetimes
         .sliding(sliding)
@@ -179,17 +163,14 @@ final private class PovToEntry(
           coefVariation(a.map(_.centis + 10).sorted.drop(1).dropRight(1))
         }
       sides ++ cvs ++ sides
-    }
-  }
 
-  private def coefVariation(a: Seq[Int]): Option[Float] = {
+  private def coefVariation(a: Seq[Int]): Option[Float] =
     val s = Stats(a)
     s.stdDev.map { _ / s.mean }
-  }
 
   private def queenTrade(from: RichPov) =
     QueenTrade {
-      from.division.end.fold(from.situations.last.some)(from.situations.toList.lift) match {
+      from.division.end.map(_.value).fold(from.situations.last.some)(from.situations.toList.lift) match
         case Some(situation) =>
           chess.Color.all.forall { color =>
             !situation.board.hasPiece(chess.Piece(color, chess.Queen))
@@ -197,11 +178,10 @@ final private class PovToEntry(
         case _ =>
           logger.warn(s"https://lichess.org/${from.pov.gameId} missing endgame board")
           false
-      }
     }
 
-  private def convert(from: RichPov): Option[InsightEntry] = {
-    import from._
+  private def convert(from: RichPov): Option[InsightEntry] =
+    import from.*
     import pov.game
     for {
       myId     <- pov.player.userId
@@ -211,16 +191,15 @@ final private class PovToEntry(
       opening  = findOpening(from)
     } yield InsightEntry(
       id = InsightEntry povToId pov,
-      number = 0, // temporary :-/ the Indexer will set it
       userId = myId,
       color = pov.color,
       perf = perfType,
       opening = opening,
-      myCastling = Castling.fromMoves(game pgnMoves pov.color),
+      myCastling = Castling.fromMoves(game sansOf pov.color),
       rating = myRating,
       opponentRating = opRating,
-      opponentStrength = for { m <- myRating; o <- opRating } yield RelativeStrength(o - m),
-      opponentCastling = Castling.fromMoves(game pgnMoves !pov.color),
+      opponentStrength = for { m <- myRating; o <- opRating } yield RelativeStrength(m, o),
+      opponentCastling = Castling.fromMoves(game sansOf !pov.color),
       moves = makeMoves(from),
       queenTrade = queenTrade(from),
       result = game.winnerUserId match {
@@ -234,17 +213,15 @@ final private class PovToEntry(
       provisional = provisional,
       date = game.createdAt
     )
-  }
 
-  private def findOpening(from: RichPov): Option[LilaOpening] =
+  private def findOpening(from: RichPov): Option[SimpleOpening] =
     from.pov.game.variant.standard ??
       from.situations.tail.view
-        .takeWhile(_.board.actors.size > 16)
-        .foldRight(none[LilaOpening]) {
+        .takeWhile(_.board.actors.sizeIs >= 20)
+        .foldRight(none[SimpleOpening]) {
           case (sit, None) =>
-            FullOpeningDB
-              .findByFen(FEN(Forsyth exportStandardPositionTurnCastlingEp sit))
-              .flatMap(LilaOpening.apply)
+            OpeningDb
+              .findByOpeningFen(Fen writeOpening sit)
+              .flatMap(SimpleOpening.apply)
           case (_, found) => found
         }
-}

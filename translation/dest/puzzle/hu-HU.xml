@@ -13,6 +13,8 @@
   <string name="specialMoves">Különleges lépések</string>
   <string name="didYouLikeThisPuzzle">Tetszett ez a feladvány?</string>
   <string name="voteToLoadNextOne">Szavazz egy újért cserébe!</string>
+  <string name="upVote">Tetszett</string>
+  <string name="downVote">Nem tetszett</string>
   <string name="yourPuzzleRatingWillNotChange">A feladvány értékelésed nem fog változni. Ne feledd, a feladványoknak nincs tétje. Az értékelésed csupán segít kiválasztani az aktuális szintednek legjobban megfelelőket.</string>
   <string name="findTheBestMoveForWhite">Találd meg világos legjobb lépését.</string>
   <string name="findTheBestMoveForBlack">Találd meg sötét legjobb lépését.</string>
@@ -50,7 +52,7 @@
     <item quantity="other">%s ponttal az értékszámod felett</item>
   </plurals>
   <string name="example">Példa</string>
-  <string name="addAnotherTheme">Új téma hozzáadása</string>
+  <string name="addAnotherTheme">Másik téma hozzáadása</string>
   <string name="nextPuzzle">Következő feladvány</string>
   <string name="jumpToNextPuzzleImmediately">Rögtön a következő feladányhoz ugrás</string>
   <string name="puzzleDashboard">Feladvány statisztika</string>
@@ -70,7 +72,7 @@
   <string name="searchPuzzles">Feladványok keresése</string>
   <string name="fromMyGamesNone">Nincsenek feladványaid az adatbázisban, de ez semmi rosszat nem jelent.
 Játssz rapid vagy klasszikus partikat, így nagyobb eséllyel szerepelhetnek a te játszmáid feladványai is!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s feladvány található %2$s játszmái között</string>
+  <string name="fromXGamesFound">%1$s feladvány található %2$s játszmái között</string>
   <string name="puzzleDashboardDescription">Gyakorolj, elemezz, fejlődj</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s játszott</item>

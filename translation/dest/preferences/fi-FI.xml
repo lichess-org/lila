@@ -3,6 +3,7 @@
   <string name="preferences">Asetukset</string>
   <string name="display">Näyttöasetukset</string>
   <string name="privacy">Yksityisyysasetukset</string>
+  <string name="notifications">Ilmoitukset</string>
   <string name="pieceAnimation">Nappuloiden animaatio</string>
   <string name="materialDifference">Materiaaliero</string>
   <string name="boardHighlights">Laudan korostukset (viimeisin siirto ja shakki)</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Pidä &lt;ctrl&gt;-näppäintä painettuna korottaessasi sotilaan, jos haluat ottaa automaattisen korotuksen väliaikaisesti pois käytöstä</string>
   <string name="whenPremoving">Esisiirtäessä</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Vaadi tasapeli automaattisesti kolminkertaisen toiston sattuessa</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Kun aikaa on jäljellä &lt; 30 sekuntia</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kun aikaa on jäljellä &lt; 30 sekuntia</string>
   <string name="moveConfirmation">Siirron vahvistus</string>
   <string name="inCorrespondenceGames">Kirjeshakissa</string>
   <string name="correspondenceAndUnlimited">Kirjeshakki ja aikarajaton</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Asetuksesi on tallennettu.</string>
   <string name="scrollOnTheBoardToReplayMoves">Vierittämällä laudan yllä voit katsoa siirtoja uudelleen</string>
   <string name="correspondenceEmailNotification">Päivittäinen sähköposti-ilmoitus, jossa listataan kirjeshakkipelisi</string>
+  <string name="notifyStreamStart">Striimaaja aloittaa striimin</string>
+  <string name="notifyInboxMsg">Uusi saapunut viesti</string>
+  <string name="notifyForumMention">Sinut mainitaan foorumin kommentissa</string>
+  <string name="notifyInvitedStudy">Kutsu tutkielmaan</string>
+  <string name="notifyGameEvent">Kirjeshakkipelien uudet tapahtumat</string>
+  <string name="notifyChallenge">Haasteet</string>
+  <string name="notifyTournamentSoon">Turnaus alkamassa pian</string>
+  <string name="notifyTimeAlarm">Kirjeshakkipelin aika loppumassa</string>
+  <string name="notifyBell">Kilahtava ilmoitus Lichessissä</string>
+  <string name="notifyPush">Laitteen ilmoitus, kun et ole Lichessissä</string>
+  <string name="notifyWeb">Selain</string>
+  <string name="notifyDevice">Laite</string>
 </resources>

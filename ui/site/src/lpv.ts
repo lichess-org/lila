@@ -10,6 +10,7 @@ export function autostart() {
         pgn: this.dataset['pgn']!.replace(/<br>/g, '\n'),
         orientation: this.dataset['orientation'] as Color | undefined,
         lichess: location.origin,
+        initialPly: this.dataset['ply'] as number | 'last',
       });
     });
   });
@@ -24,3 +25,5 @@ export const loadPgnAndStart = async (el: HTMLElement, url: string, opts: Opts) 
   });
   return Lpv(el, { ...opts, pgn });
 };
+
+(window as any).LilaLpv = { autostart, loadPgnAndStart };

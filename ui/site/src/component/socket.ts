@@ -97,7 +97,6 @@ export default class StrongSocket {
     };
     this.version = version;
     this.pubsub.on('socket.send', this.send);
-    window.addEventListener('unload', this.destroy);
     this.connect();
   }
 
@@ -288,7 +287,7 @@ export default class StrongSocket {
 
   onError = (e: unknown) => {
     this.options.debug = true;
-    this.debug('error: ' + JSON.stringify(e));
+    this.debug(`error: ${e} ${JSON.stringify(e)}`); // e not always from lila
     this.tryOtherUrl = true;
     clearTimeout(this.pingSchedule);
   };

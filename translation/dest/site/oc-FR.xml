@@ -37,6 +37,7 @@
   <string name="whitePlays">Jogan los blancs</string>
   <string name="blackPlays">Jogan los negres</string>
   <string name="delete">Suprimir</string>
+  <string name="signupUsernameHint">Acertatz vos de causir un nom d\'usatgièr benestant. Lo podratz pas cambiar aprèp e los comptes d\'usatgièrs pas corrèctes seran tampats!</string>
   <string name="cancel">Anullar</string>
   <string name="pause">Pausa</string>
   <string name="resume">Reprene</string>

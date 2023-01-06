@@ -3,7 +3,7 @@ import { isEmpty } from 'common';
 import { MaybeVNodes } from 'common/snabbdom';
 import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
-import * as moveView from '../moveView';
+import * as moveView from '../view/moveView';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import AnalyseCtrl from '../ctrl';
 import { ConcealOf, Conceal } from '../interfaces';
@@ -17,8 +17,8 @@ import {
   retroLine,
   Ctx as BaseCtx,
   Opts as BaseOpts,
-} from './treeView';
-import { enrichText, innerHTML } from '../util';
+} from './common';
+import { enrichText, innerHTML } from 'common/richText';
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;

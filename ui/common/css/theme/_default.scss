@@ -51,6 +51,7 @@ $c-secondary-over: #fff;
 /* Accent: orange */
 $c-accent: hsl(22, 100%, 42%);
 $c-accent-dim: c-dimmer($c-accent);
+$c-accent-faint: hsla(22, 100%, 42%, 0.4);
 $c-accent-clear: c-clearer($c-accent);
 $c-accent-over: #fff;
 
@@ -110,6 +111,7 @@ $c-link-over: $c-primary-over;
 $c-bg-box: $c-bg-high;
 $c-bg-box-opaque: $c-bg-box;
 $c-bg-input: c-light($c-bg-page, 98%);
+$c-bg-variation: $c-bg-zebra2;
 
 $c-border: hsl(0, 0%, 85%);
 $c-border-page: hsl(0, 0%, 80%);

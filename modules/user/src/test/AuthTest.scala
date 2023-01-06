@@ -9,6 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class AuthTest extends Specification {
 
+  given Conversion[String, UserId] = UserId(_)
+
   val secret = Secret(Array.fill(32)(1.toByte).toBase64)
   final def getAuth(passHasher: PasswordHasher) =
     new Authenticator(
@@ -18,7 +20,7 @@ class AuthTest extends Specification {
 
   val auth = getAuth(new PasswordHasher(secret, 2))
 
-  "bcrypt checks" in {
+  "bcrypt checks" >> {
     val bCryptUser = AuthData(
       "",
       bpass = HashedPassword(
@@ -38,14 +40,14 @@ class AuthTest extends Specification {
       )
     }
 
-    "very long password" in {
+    "very long password" >> {
       val a100 = P("a" * 100)
       val user = AuthData("", bpass = auth.passEnc(a100))
       "correct" >> auth.compare(user, a100)
       "wrong fails" >> !auth.compare(user, P("a" * 99))
     }
 
-    "handle crazy passwords" in {
+    "handle crazy passwords" >> {
       val abcUser = AuthData("", bpass = auth.passEnc(P("abc")))
 
       "test eq" >> auth.compare(abcUser, P("abc"))
@@ -55,7 +57,7 @@ class AuthTest extends Specification {
     }
   }
 
-  "migrated user" in {
+  "migrated user" >> {
     val shaToBcrypt = AuthData(
       "",
       salt = Some("7IzdmPSe0iZnGc1ChY32fVsfrZBLdIlN"),

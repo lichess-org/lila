@@ -17,6 +17,8 @@
   <string name="specialMoves">حرکات مخصوص</string>
   <string name="didYouLikeThisPuzzle">شما این پازل را دوست داشتید؟</string>
   <string name="voteToLoadNextOne">برای بارگزاری بعدی رای دهید</string>
+  <string name="upVote">پازل خوبی بود</string>
+  <string name="downVote">پازل بدی بود</string>
   <string name="yourPuzzleRatingWillNotChange">ریتینگ پازل شما تغییری نخواهد کرد. توجه کنید که پازل ها یک مسابقه نیستند. ریتینگ پازل شما به انتخاب پازل مناسب در سطح خودتان کمک می کند.</string>
   <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید</string>
   <string name="findTheBestMoveForBlack">بهترین حرکت را برای سیاه بیابید</string>
@@ -74,7 +76,7 @@
   <string name="fromXGames">پازل ها در بازی های %s</string>
   <string name="searchPuzzles">جستجوی پازل ها</string>
   <string name="fromMyGamesNone">شما هیچ پازلی در پایگاه داده ندارید، اما لایچس همچنان عاشق شماست. بازیهای رپید و کلاسیک انجام بدین تا شانس داشتن پازل از بازی های شما افزایش پیدا کند!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">تعداد %1$s پازل در تعداد %2$s بازی یافت شد</string>
+  <string name="fromXGamesFound">تعداد %1$s پازل در تعداد %2$s بازی یافت شد</string>
   <string name="puzzleDashboardDescription">تعلیم، تحلیل، پیش‌رفت</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s نفر بازی کردند</item>

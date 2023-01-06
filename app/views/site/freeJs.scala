@@ -1,10 +1,10 @@
 package views
 package html.site
 
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object freeJs {
+object freeJs:
 
   private lazy val agpl = a(href := "https://www.gnu.org/licenses/agpl-3.0.en.html")("AGPL-3.0+")
 
@@ -38,7 +38,7 @@ object freeJs {
 
   def apply(): Frag =
     frag(
-      div(cls := "box__top")(
+      boxTop(
         h1("JavaScript modules")
       ),
       p(cls := "box__pad")(
@@ -65,4 +65,3 @@ object freeJs {
         )
       )
     )
-}

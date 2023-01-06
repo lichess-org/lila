@@ -1,10 +1,11 @@
-import ctrl from './ctrl';
+import CevalCtrl from './ctrl';
 import * as view from './view';
 import * as winningChances from './winningChances';
 
-export { CevalCtrl, NodeEvals, Eval, EvalMeta, CevalOpts } from './types';
+export type { NodeEvals, Eval, EvalMeta, CevalOpts } from './types';
+export type { ExternalEngine } from './worker';
 export { isEvalBetter, renderEval, sanIrreversible } from './util';
-export { ctrl, view, winningChances };
+export { CevalCtrl, view, winningChances };
 
 // stop when another tab starts. Listen only once here,
 // as the ctrl can be instantiated several times.

@@ -1,8 +1,9 @@
 package lila.round
 
-import com.softwaremill.tagging._
-import scala.concurrent.duration._
+import com.softwaremill.tagging.*
+import scala.concurrent.duration.*
 import scala.util.matching.Regex
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ IpAddress, Strings }
 import lila.game.Game
@@ -17,28 +18,28 @@ final class SelfReport(
     proxyRepo: GameProxyRepo,
     endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
 
-  private val onceEvery = lila.memo.OnceEvery(1 hour)
+  private val onceEvery = lila.memo.OnceEvery[UserId](1 hour)
 
   def apply(
-      userId: Option[User.ID],
+      userId: Option[UserId],
       ip: IpAddress,
-      fullId: Game.FullId,
+      fullId: GameFullId,
       name: String
   ): Funit =
-    userId ?? userRepo.named map { user =>
+    userId ?? userRepo.byId map { user =>
       val known = user.exists(_.marks.engine)
-      lila.mon.cheat.cssBot.increment()
       // user.ifTrue(!known && name != "ceval") ?? { u =>
       //   Env.report.api.autoBotReport(u.id, referer, name)
       // }
       def doLog(): Unit =
-        if (name != "ceval") {
+        if (name != "ceval")
           lila.log("cheat").branch("jslog").info {
             s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
           }
           user.filter(u => onceEvery(u.id)) foreach { u =>
+            lila.mon.cheat.selfReport(name, userId.isDefined).increment()
             ircApi.selfReport(
               typ = name,
               path = fullId.value,
@@ -46,10 +47,9 @@ final class SelfReport(
               ip = ip
             )
           }
-        }
       if (fullId.value == "____________") doLog()
       else
-        proxyRepo.pov(fullId.value) foreach {
+        proxyRepo.pov(fullId) foreach {
           _ ?? { pov =>
             if (!known) doLog()
             user foreach { u =>
@@ -61,9 +61,12 @@ final class SelfReport(
                 ))
               ) tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
               if (markUserSetting.get().matches(name))
-                lila.common.Bus.publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
+                scheduler.scheduleOnce(
+                  (10 + ThreadLocalRandom.nextInt(24 * 60)).minutes
+                ) {
+                  lila.common.Bus.publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
+                }
             }
           }
         }
     }
-}

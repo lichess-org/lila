@@ -1,23 +1,24 @@
 package lila.app
-
 package ui
 
 import alleycats.Zero
-import scalatags.Text.all._
+import scalatags.Text.all.*
 import scalatags.text.Builder
+import scalatags.Text.GenericAttr
 import scalatags.Text.{ Aggregate, Cap }
 
 import lila.api.Context
 import lila.user.Title
 
 // collection of lila attrs
-trait ScalatagsAttrs {
+trait ScalatagsAttrs:
   val dataTag                = attr("data-tag")
   val dataIcon               = attr("data-icon")
   val dataHref               = attr("data-href")
   val dataCount              = attr("data-count")
   val dataColor              = attr("data-color")
   val dataFen                = attr("data-fen")
+  val dataUci                = attr("data-uci")
   val dataRel                = attr("data-rel")
   val dataTitle              = attr("data-title")
   val novalidate             = attr("novalidate").empty
@@ -27,25 +28,24 @@ trait ScalatagsAttrs {
   val downloadAttr           = attr("download").empty
   val viewBoxAttr            = attr("viewBox")
   def attrData(name: String) = attr(s"data-$name")
+  def aria(key: String)      = attr(s"aria-$key")
 
-  object frame {
+  object frame:
     val scrolling       = attr("scrolling")
     val allowfullscreen = attr("allowfullscreen").empty
-  }
 
   val dataSortNumberTh = th(attr("data-sort-method") := "number")
   val dataSort         = attr("data-sort")
   val dataSortDefault  = attr("data-sort-default").empty
-}
 
 // collection of lila snippets
-trait ScalatagsSnippets extends Cap {
+trait ScalatagsSnippets:
   this: ScalatagsExtensions with ScalatagsAttrs =>
 
-  import scalatags.Text.all._
+  import scalatags.Text.all.*
 
-  val nbsp                                   = raw("&nbsp;")
-  val amp                                    = raw("&amp;")
+  val nbsp: Frag                             = raw("&nbsp;")
+  val amp: Frag                              = raw("&amp;")
   def iconTag(icon: Char): Tag               = iconTag(icon.toString)
   def iconTag(icon: String): Tag             = i(dataIcon := icon)
   def iconTag(icon: Char, text: Frag): Tag   = iconTag(icon.toString, text)
@@ -60,13 +60,17 @@ trait ScalatagsSnippets extends Cap {
   val svgTag                                 = tag("svg")
   val svgGroupTag                            = tag("g")
   val svgTextTag                             = tag("text")
+  val details                                = tag("details")
+  val summary                                = tag("summary")
+  val abbr                                   = tag("abbr")
+  val boxTop                                 = div(cls := "box__top")
 
-  def userTitleTag(t: Title) =
+  def userTitleTag(t: UserTitle) =
     span(
       cls := "utitle",
       t == lila.user.Title.BOT option dataBotAttr,
       title := Title titleName t
-    )(t.value)
+    )(t)
 
   val utcLink =
     a(
@@ -74,19 +78,13 @@ trait ScalatagsSnippets extends Cap {
       targetBlank,
       title := "Coordinated Universal Time"
     )("UTC")
-}
 
 // basic imports from scalatags
-trait ScalatagsBundle
-    extends Cap
-    with Attrs
-    with scalatags.text.Tags
-    // with DataConverters
-    with Aggregate
+trait ScalatagsBundle extends Attrs with scalatags.text.Tags
 
 // short prefix
-trait ScalatagsPrefix {
-  object st extends Cap with Attrs with scalatags.text.Tags {
+trait ScalatagsPrefix:
+  object st extends Cap with Attrs with scalatags.text.Tags:
     val group     = tag("group")
     val headTitle = tag("title")
     val nav       = tag("nav")
@@ -96,16 +94,16 @@ trait ScalatagsPrefix {
     val rating    = tag("rating")
 
     val frameborder = attr("frameborder")
-  }
-}
 
 // what to import in a pure scalatags template
 trait ScalatagsTemplate
-    extends ScalatagsBundle
+    extends Cap
+    with Aggregate
+    with ScalatagsBundle
     with ScalatagsAttrs
     with ScalatagsExtensions
     with ScalatagsSnippets
-    with ScalatagsPrefix {
+    with ScalatagsPrefix:
 
   val trans     = lila.i18n.I18nKeys
   def main      = scalatags.Text.tags2.main
@@ -113,42 +111,42 @@ trait ScalatagsTemplate
   def cssHeight = scalatags.Text.styles.height
 
   /* Convert play URLs to scalatags attributes with toString */
-  implicit val playCallAttr = genericAttr[play.api.mvc.Call]
-}
+  given GenericAttr[play.api.mvc.Call] = GenericAttr[play.api.mvc.Call]
 
 object ScalatagsTemplate extends ScalatagsTemplate
 
 // generic extensions
-trait ScalatagsExtensions {
+trait ScalatagsExtensions:
 
-  implicit def stringValueFrag(sv: StringValue): Frag = new StringFrag(sv.value)
+  given Conversion[StringValue, scalatags.Text.Frag] = sv => StringFrag(sv.value)
 
-  implicit val stringValueAttr = new AttrValue[StringValue] {
-    def apply(t: scalatags.text.Builder, a: Attr, v: StringValue): Unit =
-      t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(v.value))
-  }
+  implicit def opaqueStringFrag[A](a: A)(implicit r: StringRuntime[A]): Frag = stringFrag(r(a))
+  implicit def opaqueIntFrag[A](a: A)(implicit r: IntRuntime[A]): Frag       = intFrag(r(a))
 
-  implicit val charAttr       = genericAttr[Char]
-  implicit val bigDecimalAttr = genericAttr[BigDecimal]
+  given opaqueStringAttr[A](using bts: StringRuntime[A]): AttrValue[A] with
+    def apply(t: Builder, a: Attr, v: A): Unit = stringAttr(t, a, bts(v))
 
-  implicit val optionStringAttr = new AttrValue[Option[String]] {
-    def apply(t: scalatags.text.Builder, a: Attr, v: Option[String]): Unit = {
-      v foreach { s =>
-        t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(s))
-      }
-    }
-  }
+  given opaqueIntAttr[A](using bts: SameRuntime[A, Int]): AttrValue[A] with
+    def apply(t: Builder, a: Attr, v: A): Unit = intAttr(t, a, bts(v))
+
+  given AttrValue[StringValue] with
+    def apply(t: Builder, a: Attr, v: StringValue): Unit =
+      t.setAttr(a.name, Builder.GenericAttrValueSource(v.value))
+
+  given GenericAttr[Char]       = GenericAttr[Char]
+  given GenericAttr[BigDecimal] = GenericAttr[BigDecimal]
+
+  given [A](using av: AttrValue[A]): AttrValue[Option[A]] with
+    def apply(t: Builder, a: Attr, v: Option[A]): Unit = v foreach { av.apply(t, a, _) }
 
   /* for class maps such as List("foo" -> true, "active" -> isActive) */
-  implicit val classesAttr = new AttrValue[List[(String, Boolean)]] {
-    def apply(t: scalatags.text.Builder, a: Attr, m: List[(String, Boolean)]): Unit = {
+  given AttrValue[List[(String, Boolean)]] with
+    def apply(t: Builder, a: Attr, m: List[(String, Boolean)]): Unit =
       val cls = m collect { case (s, true) => s } mkString " "
-      if (cls.nonEmpty) t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(cls))
-    }
-  }
+      if (cls.nonEmpty) t.setAttr(a.name, Builder.GenericAttrValueSource(cls))
 
-  val emptyFrag: Frag                   = new RawFrag("")
-  implicit val LilaFragZero: Zero[Frag] = Zero(emptyFrag)
+  val emptyFrag: Frag = new RawFrag("")
+  given Zero[Frag]    = Zero(emptyFrag)
 
   val targetBlank: Modifier = (t: Builder) => {
     // Prevent tab nabbing when opening untrusted links. Apply also to trusted
@@ -168,10 +166,9 @@ trait ScalatagsExtensions {
   }
 
   def titleOrText(blind: Boolean, v: String): Modifier = (t: Builder) =>
-    if (blind) t.addChild(v)
+    if (blind) t.addChild(StringFrag(v))
     else t.setAttr("title", Builder.GenericAttrValueSource(v))
 
-  def titleOrText(v: String)(implicit ctx: Context): Modifier = titleOrText(ctx.blind, v)
-}
+  def titleOrText(v: String)(using ctx: Context): Modifier = titleOrText(ctx.blind, v)
 
 object ScalatagsExtensions extends ScalatagsExtensions

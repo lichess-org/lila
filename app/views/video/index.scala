@@ -1,17 +1,17 @@
 package views.html.video
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 import controllers.routes
 
-object index {
+object index:
 
-  def apply(videos: Paginator[lila.video.VideoView], count: Long, control: lila.video.UserControl)(implicit
+  def apply(videos: Paginator[lila.video.VideoView], count: Long, control: lila.video.UserControl)(using
       ctx: Context
-  ) = {
+  ) =
 
     val tagString =
       s"${if (control.filter.tags.nonEmpty) control.filter.tags.mkString(" + ") + " • " else ""}"
@@ -21,15 +21,16 @@ object index {
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${tagString}free, carefully curated chess videos",
-          description =
-            s"${videos.nbResults} curated chess videos${if (tagString.nonEmpty) " matching the tags " + tagString
-              else " • "}free for all",
+          description = s"${videos.nbResults} curated chess videos${
+              if (tagString.nonEmpty) " matching the tags " + tagString
+              else " • "
+            }free for all",
           url = s"$netBaseUrl${routes.Video.index}?${control.queryString}"
         )
         .some,
       control = control
     )(
-      div(cls := "box__top")(
+      boxTop(
         h1(
           if (control.filter.tags.nonEmpty) frag(pluralize("video", videos.nbResults), " found")
           else "Chess videos"
@@ -60,5 +61,3 @@ object index {
         pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np")
       )
     )
-  }
-}

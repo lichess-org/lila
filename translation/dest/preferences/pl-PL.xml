@@ -3,6 +3,7 @@
   <string name="preferences">Ustawienia</string>
   <string name="display">Wyświetlanie</string>
   <string name="privacy">Ochrona danych</string>
+  <string name="notifications">Powiadomienia</string>
   <string name="pieceAnimation">Animacja ruchu bierek</string>
   <string name="materialDifference">Przewaga materialna</string>
   <string name="boardHighlights">Wyróżnienie pól szachownicy (ostatni ruch i szach)</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Przytrzymaj klawisz &lt;ctrl&gt; podczas promocji pionka, aby tymczasowo wyłączyć automatyczną przemianę w hetmana</string>
   <string name="whenPremoving">W czasie ruchu planowanego</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatyczny remis po trzykrotnym powtórzeniu pozycji</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Kiedy pozostało mniej niż 30 sekund</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kiedy pozostało mniej niż 30 sekund</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="correspondenceAndUnlimited">Korespondencyjne i bez limitu czasu</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="scrollOnTheBoardToReplayMoves">Przewiń myszką, aby powtórzyć ruchy</string>
   <string name="correspondenceEmailNotification">Codzienne powiadomienia mailowe z listą Twoich partii korespondencyjnych</string>
+  <string name="notifyStreamStart">Streamer jest na żywo</string>
+  <string name="notifyInboxMsg">Nowa wiadomość</string>
+  <string name="notifyForumMention">Wspomniano o Tobie w komentarzu na forum</string>
+  <string name="notifyInvitedStudy">Zaproszenie do wspólnego opracowania</string>
+  <string name="notifyGameEvent">Zdarzenie w partii korespondencyjnej</string>
+  <string name="notifyChallenge">Wyzwania</string>
+  <string name="notifyTournamentSoon">Turniej rozpocznie się wkrótce</string>
+  <string name="notifyTimeAlarm">Czas w partii korespondencyjnej dobiega końca</string>
+  <string name="notifyBell">Powiadomienie dźwiękowe gdy jesteś zalogowany na Lichess</string>
+  <string name="notifyPush">Powiadomienie na urządzenie, gdy nie jesteś zalogowany na Lichess</string>
+  <string name="notifyWeb">Przeglądarka</string>
+  <string name="notifyDevice">Urządzenie</string>
 </resources>

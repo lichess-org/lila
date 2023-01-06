@@ -9,29 +9,29 @@ Es isch also möglich, während de Wartezit ime andere Tab z\'schpille.</string>
   <string name="someRated">Einigi Turnier sind gwertet und werded dini Wertig beiflusse.</string>
   <string name="howAreScoresCalculated">Wie werded d\'Pünkt berächnet?</string>
   <string name="howAreScoresCalculatedAnswer">En Sieg git 2 Pünkt, es Remis 1 Punkt, e Niderlag 0. Nach 2 Sieg in Serie, gits für jede witeri Sieg doppleti Pünkt. 
-Das wird dur e Flamme, bi de Punktzahl, azeigt. Doppleti Pünkt gits so lang, bis es Schpil verlore gaht oder Remis ändet. 
+Das wird dur e Flamme, bi de Punktzahl, azeigt. Doppleti Pünkt gits so lang, bis es Schpiel verlore gaht oder Remis ändet. 
 Bischpil: 4 Sieg und dänn es Remis ergit 14 Pünkt ( 2 + 2 + 2x2 + 2x2 + 2x1 = 14 ) und ab dänn, wider normal.</string>
   <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">Klickt en Schpiller vor Schpilbeginn uf \"Berserk\", dänn halbiert er sini Bedänkzit. 
-Wänn er das Schpil trotzdem günnt, gits 1 zuesätzliche Turnier Punkt.
+  <string name="berserkAnswer">Klickt en Schpiller vor Schpielbeginn uf \"Berserk\", dänn halbiert er sini Bedänkzit. 
+Wänn er das Schpiel trotzdem günnt, gits 1 zuesätzliche Turnier Punkt.
 
 Im Zitmodus mit Inkrement entfernt \"Berserk\" das Inkrement. 
 (1+2 isch e Usnahm, es wird zu 1+0.)
 
-Bi Schpil ohni Grundbedänkziit (0+1, 0+2) isch \"Berserk\" nöd möglich.
+Bi Schpiel ohni Grundbedänkziit (0+1, 0+2) isch \"Berserk\" nöd möglich.
 
-De zuesätzlich \"Berserk Punkt\" gits nur, wänn im Schpil 
+De zuesätzlich \"Berserk Punkt\" gits nur, wänn im Schpiel 
 meh als 6 Züg gschpillt worde sind.</string>
   <string name="howIsTheWinnerDecided">Wie wird de Sieger ermittlet?</string>
   <string name="howIsTheWinnerDecidedAnswer">De/die Schpiller wo bi Turnierändi die meischte Pünkt händ werded als Sieger bekanntgeh. 
 Wänn 2 oder meh Schpiller glich vill Pünkt händ, entscheidet d\'Turnierleischtig d\'Reihefolg.</string>
   <string name="howDoesPairingWork">Wie werded d\'Paarige gmacht?</string>
   <string name="howDoesPairingWorkAnswer">Am Afang werded Paarige gemäss Wertigszahl gmacht. 
-Sobald es Schpil beändet isch, gahts zrugg id Turnierübersicht. Dänn werded Schpiller 
+Sobald es Schpiel beändet isch, gahts zrugg id Turnierübersicht. Dänn werded Schpiller 
 mit ähnlichem Rang paaret. Es cha si, dass mer nöd gäge all Schpiller im Turnier spillt. 
-Wer schnäll schpillt und sofort zrugg id Turnierübersicht gaht, hät meh Schpil und cha meh Pünkt mache.</string>
+Wer schnäll schpillt und sofort zrugg id Turnierübersicht gaht, hät meh Schpiel und cha meh Pünkt mache.</string>
   <string name="howDoesItEnd">Wie ändet es Turnier?</string>
-  <string name="howDoesItEndAnswer">Es Turnier hät e \"Countdown Uhr\" - isch d\'Turnierzit abgloffe, werded alli Räng fix und de Sieger wird bekannt geh. Schpil wo no am laufe sind, müend fertig gschpillt werde, sie zelled aber nümme fürs Turnier.</string>
+  <string name="howDoesItEndAnswer">Es Turnier hät e \"Countdown Uhr\" - isch d\'Turnierzit abgloffe, werded alli Räng fix und de Sieger wird bekannt geh. Schpiel wo no am laufe sind, müend fertig gschpillt werde, sie zelled aber nümme fürs Turnier.</string>
   <string name="otherRules">Anderi wichtigi Regle</string>
   <string name="thereIsACountdown">Es lauft en \"Countdown\" für de 1. Zug... 
 Isch nach 12 Sekunde nöd zoge worde, gits es Forfait für de Gägner.</string>
@@ -41,7 +41,10 @@ Isch nach 12 Sekunde nöd zoge worde, gits es Forfait für de Gägner.</string>
   </plurals>
   <string name="thisIsPrivate">Das isch es privats Turnier</string>
   <string name="shareUrl">Teil die URL um anderi Lüt izlade: %s</string>
-  <string name="drawStreak">Remis Serie: Werded i de Arena mehreri Remis in Serie gschpillt, gits nur fürs 1. Remis oder für Remis mit meh als %s Züg en Punkt. So e Serie cha nur dur en Sieg abbroche werde und nöd dur e Niderlag oder es erneuts Remis.</string>
+  <string name="drawStreakStandard">Remis Serie: Macht en Schpiller, in ere Arena, in Serie mehreri Remis, gits nur fürs erschte Remis oder für Remispartie mit meh als %s Züg en Punkt. So e Serie chann nur dur en Sieg underbroche werde, nöd dur e Niederlag oder dur es witers Remis.</string>
+  <string name="drawStreakVariants">Die chürzischti Schpieldur, für Remispartie, wo Pünkt gänd, isch je nach Variante underschiedlich. Folgendi Tabälle zeigt de jewiligi Schwellewert für jedi Variante.</string>
+  <string name="variant">Variante</string>
+  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Minimali Schpieldur</string>
   <string name="history">Arena Verlauf</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Zeig s\'Team</item>

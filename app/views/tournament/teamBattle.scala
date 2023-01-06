@@ -4,15 +4,15 @@ package tournament
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.TeamBattle
 import lila.tournament.Tournament
 
-object teamBattle {
+object teamBattle:
 
-  def edit(tour: Tournament, form: Form[_])(implicit ctx: Context) =
+  def edit(tour: Tournament, form: Form[?])(implicit ctx: Context) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
@@ -23,7 +23,7 @@ object teamBattle {
     )(
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
-          h1(tour.name()),
+          h1(cls := "box__top")(tour.name()),
           standardFlash(),
           if (tour.isFinished) p("This tournament is over, and the teams can no longer be updated.")
           else p("List the teams that will compete in this battle."),
@@ -61,7 +61,7 @@ object teamBattle {
       moreCss = cssTag("tournament.show.team-battle")
     )(
       main(cls := "box")(
-        h1(a(href := routes.Tournament.show(tour.id))(tour.name())),
+        h1(cls := "box__top")(a(href := routes.Tournament.show(tour.id))(tour.name())),
         table(cls := "slist slist-pad tour__team-standing tour__team-standing--full")(
           tbody(
             standing.map { t =>
@@ -86,7 +86,7 @@ object teamBattle {
       )
     )
 
-  def teamInfo(tour: Tournament, team: lila.team.Team.Mini, info: TeamBattle.TeamInfo)(implicit
+  def teamInfo(tour: Tournament, team: lila.team.Team.Mini, info: TeamBattle.TeamInfo)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -94,10 +94,12 @@ object teamBattle {
       moreCss = cssTag("tournament.show.team-battle")
     )(
       main(cls := "box")(
-        h1(
-          a(href := routes.Tournament.battleTeams(tour.id))(tour.name()),
-          " • ",
-          a(href := routes.Team.show(team.id))(team.name)
+        boxTop(
+          h1(
+            a(href := routes.Tournament.battleTeams(tour.id))(tour.name()),
+            " • ",
+            a(href := routes.Team.show(team.id))(team.name)
+          )
         ),
         table(cls := "slist slist-pad")(
           tbody(
@@ -134,4 +136,3 @@ object teamBattle {
         )
       )
     )
-}

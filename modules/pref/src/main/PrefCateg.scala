@@ -1,15 +1,12 @@
 package lila.pref
 
-sealed abstract class PrefCateg(val slug: String)
+enum PrefCateg(val slug: String):
 
-object PrefCateg {
+  case Display      extends PrefCateg("display")
+  case ChessClock   extends PrefCateg("chess-clock")
+  case GameBehavior extends PrefCateg("game-behavior")
+  case Privacy      extends PrefCateg("privacy")
 
-  case object Display      extends PrefCateg("display")
-  case object ChessClock   extends PrefCateg("chess-clock")
-  case object GameBehavior extends PrefCateg("game-behavior")
-  case object Privacy      extends PrefCateg("privacy")
+object PrefCateg:
 
-  val all: List[PrefCateg] = List(Display, ChessClock, GameBehavior, Privacy)
-
-  def apply(slug: String) = all.find(_.slug == slug)
-}
+  def apply(slug: String) = values.find(_.slug == slug)

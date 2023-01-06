@@ -13,6 +13,8 @@
   <string name="specialMoves">Speciella drag</string>
   <string name="didYouLikeThisPuzzle">Gillade du det här problemet?</string>
   <string name="voteToLoadNextOne">Rösta för att ladda nästa!</string>
+  <string name="upVote">Rösta upp pussel</string>
+  <string name="downVote">Rösta ner pussel</string>
   <string name="yourPuzzleRatingWillNotChange">Din pusselrating kommer inte ändras. Observera att pussel inte är en tävling. Rating hjälper till att välja de bästa pusseln för din nuvarande skicklighet.</string>
   <string name="findTheBestMoveForWhite">Hitta bästa draget för vit.</string>
   <string name="findTheBestMoveForBlack">Hitta bästa draget för svart.</string>
@@ -70,7 +72,7 @@
   <string name="searchPuzzles">Sök schackproblem</string>
   <string name="fromMyGamesNone">Du har inga schackproblem i databasen, men Lichess tycker om dig väldigt mycket ändå.
 Spela snabbschack och klassiska partier för att öka dina chanser att få ett av dina schackproblem tillagt!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s schackproblem hittade i %2$s partier</string>
+  <string name="fromXGamesFound">%1$s schackproblem hittade i %2$s partier</string>
   <string name="puzzleDashboardDescription">Träna, analysera, förbättra</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s spelad</item>

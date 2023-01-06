@@ -13,6 +13,8 @@
   <string name="specialMoves">Jugades especials</string>
   <string name="didYouLikeThisPuzzle">T\'ha agradat aquest problema?</string>
   <string name="voteToLoadNextOne">Vota per passar al següent!</string>
+  <string name="upVote">Vota positivament el problema</string>
+  <string name="downVote">Vota negativament el problema</string>
   <string name="yourPuzzleRatingWillNotChange">La teva puntuació de problemes no canviarà. Tingues en compte que els problemes no són una competició. La puntuació indica els problemes que més s\'assimilen a les teves habilitats.</string>
   <string name="findTheBestMoveForWhite">Troba la millor jugada de les blanques.</string>
   <string name="findTheBestMoveForBlack">Troba la millor jugada de les negres.</string>
@@ -58,7 +60,7 @@
   <string name="strengths">Fortaleses</string>
   <string name="history">Historial de problemes</string>
   <string name="solved">resolt</string>
-  <string name="failed">fallit</string>
+  <string name="failed">fallat</string>
   <string name="streakDescription">Soluciona problemes cada vegada més difícils i aconsegueix una ratxa de victòries. No hi ha temps, pren-t\'ho amb calma. Si fas un moviment erroni, s\'acaba el joc! Però pots ometre un moviment per sessió.</string>
   <string name="yourStreakX">Victòries consecutives: %s</string>
   <string name="streakSkipExplanation">Omet aquest moviment i preserva la teva ratxa! Només funciona una vegada per sessió.</string>
@@ -70,7 +72,7 @@
   <string name="searchPuzzles">Cercar problemes</string>
   <string name="fromMyGamesNone">No hi ha problemes teus a la base de dates, però Lichess t\'estima molt igualment.
 Juga partides ràpides i clàssiques per augmentar les possibilitats que se n\'hi afegeixi algun!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s problemes trobats en %2$s partides</string>
+  <string name="fromXGamesFound">%1$s problemes trobats en %2$s partides</string>
   <string name="puzzleDashboardDescription">Entrena, analitza, millora</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s jugat</item>

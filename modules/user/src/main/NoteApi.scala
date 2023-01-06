@@ -1,32 +1,31 @@
 package lila.user
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 case class Note(
     _id: String,
-    from: User.ID,
-    to: User.ID,
+    from: UserId,
+    to: UserId,
     text: String,
     mod: Boolean,
     dox: Boolean,
     date: DateTime
-) {
+):
   def userIds            = List(from, to)
   def isFrom(user: User) = user.id == from
-}
 
 final class NoteApi(
     userRepo: UserRepo,
     coll: Coll
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     ws: play.api.libs.ws.StandaloneWSClient
-) {
+):
 
-  import reactivemongo.api.bson._
-  import lila.db.BSON.BSONJodaDateTimeHandler
-  implicit private val noteBSONHandler = Macros.handler[Note]
+  import reactivemongo.api.bson.*
+  private given BSONDocumentHandler[Note] = Macros.handler[Note]
 
   def get(user: User, me: User, isMod: Boolean): Fu[List[Note]] =
     coll
@@ -45,14 +44,14 @@ final class NoteApi(
       .cursor[Note]()
       .list(20)
 
-  def byUserForMod(id: User.ID): Fu[List[Note]] =
+  def byUserForMod(id: UserId): Fu[List[Note]] =
     coll
       .find($doc("to" -> id, "mod" -> true))
       .sort($sort desc "date")
       .cursor[Note]()
       .list(50)
 
-  def byUsersForMod(ids: List[User.ID]): Fu[List[Note]] =
+  def byUsersForMod(ids: List[UserId]): Fu[List[Note]] =
     coll
       .find($doc("to" $in ids, "mod" -> true))
       .sort($sort desc "date")
@@ -62,7 +61,7 @@ final class NoteApi(
   def write(to: User, text: String, from: User, modOnly: Boolean, dox: Boolean) = {
 
     val note = Note(
-      _id = lila.common.ThreadLocalRandom nextString 8,
+      _id = ThreadLocalRandom nextString 8,
       from = from.id,
       to = to.id,
       text = text,
@@ -97,4 +96,5 @@ final class NoteApi(
   def byId(id: String): Fu[Option[Note]] = coll.byId[Note](id)
 
   def delete(id: String) = coll.delete.one($id(id))
-}
+
+  def setDox(id: String, dox: Boolean) = coll.update.one($id(id), $set("dox" -> dox)).void

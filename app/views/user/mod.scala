@@ -1,22 +1,25 @@
 package views.html.user
 
+import controllers.appeal.{ routes as appealRoutes }
+import controllers.clas.routes.{ Clas as clasRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
 import lila.common.EmailAddress
 import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
-import lila.mod.ModPresets
+import lila.mod.{ ModPresets, UserWithModlog }
 import lila.playban.RageSit
-import lila.security.Granter
-import lila.security.{ Permission, UserLogins }
+import lila.security.{ Granter, Permission, UserLogins, Dated, UserClient, userAgentParser }
 import lila.user.{ Holder, User }
+import org.joda.time.DateTime
 
-object mod {
+object mod:
   private def mzSection(key: String) =
     div(cls := s"mz-section mz-section--$key", dataRel := key, id := s"mz_$key")
 
@@ -31,7 +34,7 @@ object mod {
       a(href := "#identification_screen")("Identification")
     )
 
-  def actions(u: User, emails: User.Emails, erased: User.Erased, pmPresets: ModPresets)(implicit
+  def actions(u: User, emails: User.Emails, erased: User.Erased, pmPresets: ModPresets)(using
       ctx: Context
   ): Frag =
     mzSection("actions")(
@@ -140,7 +143,7 @@ object mod {
         }
       ),
       isGranted(_.CloseAccount) option div(cls := "btn-rack")(
-        if (u.enabled) {
+        if (u.enabled.yes) {
           postForm(
             action := routes.Mod.closeAccount(u.username),
             title  := "Disables this account.",
@@ -178,7 +181,7 @@ object mod {
             submitButton(cls := "btn-rack__btn confirm")("Disable 2FA")
           )
         },
-        (isGranted(_.Impersonate) || (isGranted(_.Admin) && u.id == "lichess")) option {
+        (isGranted(_.Impersonate) || (isGranted(_.Admin) && u.id == User.lichessId)) option {
           postForm(action := routes.Mod.impersonate(u.username))(
             submitButton(cls := "btn-rack__btn")("Impersonate")
           )
@@ -196,8 +199,8 @@ object mod {
       isGranted(_.SetTitle) option {
         postForm(cls := "fide-title", action := routes.Mod.setTitle(u.username))(
           form3.select(
-            lila.user.UserForm.title.fill(u.title.map(_.value))("title"),
-            lila.user.Title.acronyms.map(t => t -> t),
+            lila.user.UserForm.title.fill(u.title)("title"),
+            lila.user.Title.acronyms.map(t => t -> t.value),
             "No title".some
           )
         )
@@ -221,7 +224,7 @@ object mod {
   def prefs(u: User)(pref: lila.pref.Pref)(implicit ctx: Context) =
     frag(
       canViewRoles(u) option mzSection("roles")(
-        (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
+        (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span) (
           strong(cls := "text inline", dataIcon := " ")("Permissions: "),
           if (u.roles.isEmpty) "Add some" else Permission(u.roles).map(_.name).mkString(", ")
         )
@@ -291,7 +294,7 @@ object mod {
       "Created by ",
       userLink(managed.createdBy),
       " for class ",
-      a(href := routes.Clas.show(managed.clas.id.value))(managed.clas.name)
+      a(href := clasRoutes.show(managed.clas.id.value))(managed.clas.name)
     )
 
   def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(implicit lang: Lang) =
@@ -305,12 +308,14 @@ object mod {
           ul(
             history.map { e =>
               li(
-                userIdLink(e.mod.some, withTitle = false),
+                userIdLink(e.mod.userId.some, withTitle = false),
                 " ",
                 b(e.showAction),
                 " ",
-                e.gameId.fold[Frag](~e.details) { gameId =>
-                  a(href := s"${routes.Round.watcher(gameId, "white").url}?pov=${~e.user}")(~e.details)
+                e.gameId.fold[Frag](e.details.orZero: String) { gameId =>
+                  a(href := s"${routes.Round.watcher(gameId, "white").url}?pov=${e.user.??(_.value)}")(
+                    e.details.orZero: String
+                  )
                 },
                 " ",
                 momentFromNowServer(e.date)
@@ -323,7 +328,7 @@ object mod {
       appeal map { a =>
         frag(
           div(cls := "mod_log mod_log--appeal")(
-            st.a(href := routes.Appeal.show(a.id))(
+            st.a(href := appealRoutes.Appeal.show(a.id))(
               strong(cls := "text", dataIcon := "")(
                 "Appeal status: ",
                 a.status.toString
@@ -331,7 +336,7 @@ object mod {
             ),
             br,
             a.msgs.map(_.text).map(shorten(_, 140)).map(p(_)),
-            a.msgs.size > 1 option st.a(href := routes.Appeal.show(a.id))(
+            a.msgs.size > 1 option st.a(href := appealRoutes.Appeal.show(a.id))(
               frag("and ", pluralize("more message", a.msgs.size - 1))
             )
           )
@@ -348,7 +353,7 @@ object mod {
         ),
         reports.by.map { r =>
           r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
-            postForm(action := routes.Report.inquiry(r.id))(
+            postForm(action := reportRoutes.inquiry(r.id))(
               submitButton(reportScore(r.score), " ", strong(r.reason.name)),
               " ",
               userIdLink(r.user.some),
@@ -366,13 +371,13 @@ object mod {
           reports.about.isEmpty option ": nothing to show."
         ),
         reports.about.map { r =>
-          postForm(action := routes.Report.inquiry(r.id))(
+          postForm(action := reportRoutes.inquiry(r.id))(
             submitButton(reportScore(r.score), " ", strong(r.reason.name)),
             div(cls := "atoms")(
               r.bestAtoms(3).map { atom =>
                 div(cls := "atom")(
                   "By ",
-                  userIdLink(atom.by.value.some),
+                  userIdLink(atom.by.userId.some),
                   " ",
                   momentFromNowServer(atom.at),
                   ": ",
@@ -386,7 +391,7 @@ object mod {
       )
     )
 
-  def assessments(u: User, pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(implicit
+  def assessments(u: User, pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(using
       ctx: Context
   ): Frag =
     mzSection("assessments")(
@@ -543,15 +548,16 @@ object mod {
   private val clean: Frag     = iconTag("")
   private val reportban       = iconTag("")
   private val notesText       = iconTag("")
-  private def markTd(nb: Int, content: => Frag) =
-    if (nb > 0) td(cls := "i", dataSort := nb)(content)
+  private def markTd(nb: Int, content: => Frag, date: Option[DateTime] = None) =
+    if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(momentFromNowServerText))(content)
     else td
 
-  def otherUsers(mod: Holder, u: User, data: UserLogins.TableData, appeals: List[Appeal])(implicit
+  def otherUsers(mod: Holder, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(
+      using
       ctx: Context,
       renderIp: RenderIp
-  ): Tag = {
-    import data._
+  ): Tag =
+    import data.*
     mzSection("others")(
       table(cls := "slist")(
         thead(
@@ -581,7 +587,7 @@ object mod {
           )
         ),
         tbody(
-          othersWithEmail.others.map { case other @ UserLogins.OtherUser(o, _, _) =>
+          othersWithEmail.others.map { case other @ UserLogins.OtherUser(log @ UserWithModlog(o, _), _, _) =>
             val userNotes =
               notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Admin)))
             val userAppeal = appeals.find(_.isAbout(o.id))
@@ -604,13 +610,13 @@ object mod {
                   .mkString(", ")
               ),
               td(dataSort := o.count.game)(o.count.game.localize),
-              markTd(~bans.get(o.id), playban(cls := "text")(~bans.get(o.id))),
-              markTd(o.marks.alt ?? 1, alt),
-              markTd(o.marks.troll ?? 1, shadowban),
-              markTd(o.marks.boost ?? 1, boosting),
-              markTd(o.marks.engine ?? 1, engine),
-              markTd(o.disabled ?? 1, closed),
-              markTd(o.marks.reportban ?? 1, reportban),
+              markTd(~bans.get(o.id), playban(cls := "text")(~bans.get(o.id): Int)),
+              markTd(o.marks.alt ?? 1, alt, log.dateOf(_.alt)),
+              markTd(o.marks.troll ?? 1, shadowban, log.dateOf(_.troll)),
+              markTd(o.marks.boost ?? 1, boosting, log.dateOf(_.booster)),
+              markTd(o.marks.engine ?? 1, engine, log.dateOf(_.engine)),
+              markTd(o.enabled.no ?? 1, closed, log.dateOf(_.closeAccount)),
+              markTd(o.marks.reportban ?? 1, reportban, log.dateOf(_.reportban)),
               userNotes.nonEmpty option {
                 td(dataSort := userNotes.size)(
                   a(href := s"${routes.User.show(o.username)}?notes")(
@@ -627,7 +633,7 @@ object mod {
                 case Some(appeal) =>
                   td(dataSort := 1)(
                     a(
-                      href := isGranted(_.Appeals).option(routes.Appeal.show(o.username).url),
+                      href := isGranted(_.Appeals).option(appealRoutes.Appeal.show(o.username).url),
                       cls := List(
                         "text"         -> true,
                         "appeal-muted" -> appeal.isMuted
@@ -650,18 +656,17 @@ object mod {
         )
       )
     )
-  }
 
-  private def emailValueOf(emails: UserLogins.WithMeSortedWithEmails)(u: User) =
+  private def emailValueOf(emails: UserLogins.WithMeSortedWithEmails[UserWithModlog])(u: User) =
     emails.emails.get(u.id).map(_.value) map {
-      case EmailAddress.clasIdRegex(id) => a(href := routes.Clas.show(id))(s"Class #$id")
+      case EmailAddress.clasIdRegex(id) => a(href := clasRoutes.show(id))(s"Class #$id")
       case email                        => frag(email)
     }
 
-  def identification(mod: Holder, user: User, logins: UserLogins)(implicit
+  def identification(mod: Holder, user: User, logins: UserLogins)(using
       ctx: Context,
       renderIp: RenderIp
-  ): Frag = {
+  ): Frag =
     val canIpBan  = isGranted(_.IpBan)
     val canFpBan  = isGranted(_.PrintBan)
     val canLocate = isGranted(_.Admin)
@@ -671,6 +676,7 @@ object mod {
           thead(
             tr(
               th("Country"),
+              th("Proxy"),
               th("Region"),
               th("City"),
               sortNumberTh("Date")
@@ -679,12 +685,13 @@ object mod {
           tbody(
             logins.distinctLocations.toList
               .sortBy(-_.seconds)
-              .map { loc =>
+              .map { l =>
                 tr(
-                  td(loc.value.country),
-                  td(loc.value.region),
-                  td(loc.value.city),
-                  td(dataSort := loc.date.getMillis)(momentFromNowServer(loc.date))
+                  td(l.value.location.country),
+                  td(l.value.proxy map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
+                  td(l.value.location.region),
+                  td(l.value.location.city),
+                  td(dataSort := l.date.getMillis)(momentFromNowServer(l.date))
                 )
               }
               .toList
@@ -705,16 +712,16 @@ object mod {
           tbody(
             logins.uas
               .sortBy(-_.seconds)
-              .map { ua =>
-                val parsed = ua.value.parse
+              .map { case Dated(ua, date) =>
+                val parsed = userAgentParser.parse(ua.value)
                 tr(
-                  td(title := ua.value.value)(
+                  td(title := ua.value)(
                     if (parsed.device.family == "Other") "Computer" else parsed.device.family
                   ),
                   td(parts(parsed.os.family.some, parsed.os.major)),
                   td(parts(parsed.userAgent.family.some, parsed.userAgent.major)),
-                  td(dataSort := ua.date.getMillis)(momentFromNowServer(ua.date)),
-                  td(ua.value.client.toString)
+                  td(dataSort := date.getMillis)(momentFromNowServer(date)),
+                  td(UserClient(ua).toString)
                 )
               }
           )
@@ -724,7 +731,7 @@ object mod {
         table(cls := "slist spy_filter slist--sort")(
           thead(
             tr(
-              th(pluralize("IP", logins.prints.size)),
+              th(pluralize("IP", logins.ips.size)),
               sortNumberTh("Alts"),
               th,
               th("Client"),
@@ -738,7 +745,7 @@ object mod {
               tr(cls := ip.blocked option "blocked")(
                 td(a(href := routes.Mod.singleIp(renderedIp))(renderedIp)),
                 td(dataSort := ip.alts.score)(altMarks(ip.alts)),
-                td(ip.proxy option span(cls := "proxy")("PROXY")),
+                td(ip.proxy map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
                 td(ip.clients.toList.map(_.toString).sorted mkString ", "),
                 td(dataSort := ip.ip.date.getMillis)(momentFromNowServer(ip.ip.date)),
                 canIpBan option td(dataSort := (9999 - ip.alts.cleans))(
@@ -788,7 +795,6 @@ object mod {
         )
       )
     )
-  }
 
   private def parts(ps: Option[String]*) = ps.flatten.distinct mkString " "
 
@@ -813,7 +819,6 @@ object mod {
       o.marks.troll option shadowban,
       o.marks.boost option boosting,
       o.marks.engine option engine,
-      o.disabled option closed,
+      o.enabled.no option closed,
       o.marks.reportban option reportban
     )
-}

@@ -52,6 +52,7 @@
   <string name="skipExplanation">Überspringe diesen Zug, um deine Kombination beizubehalten! Du kannst das nur einmal pro Rennen machen.</string>
   <string name="failedPuzzles">Fehlgeschlagene Aufgaben</string>
   <string name="slowPuzzles">Langsame Aufgaben</string>
+  <string name="skippedPuzzle">Übersprungene Aufgabe</string>
   <string name="thisWeek">Diese Woche</string>
   <string name="thisMonth">Dieser Monat</string>
   <string name="allTime">Insgesamt</string>

@@ -13,6 +13,8 @@
   <string name="specialMoves">نقلات مميزة</string>
   <string name="didYouLikeThisPuzzle">هل أعجبك هذا اللغز؟</string>
   <string name="voteToLoadNextOne">صوت لتبدأ الغز التالي!</string>
+  <string name="upVote">أعجبني اللغز</string>
+  <string name="downVote">لم يعجبني اللغز</string>
   <string name="yourPuzzleRatingWillNotChange">تقييم الألغاز الخاص بك لن يتغير. لاحظ أن الألغاز ليست مسابقة. التقييم يساعد على اختيار أفضل الألغاز لمهاراتك الحالية.</string>
   <string name="findTheBestMoveForWhite">جد أفضل نقلة للأبيض.</string>
   <string name="findTheBestMoveForBlack">جد أفضل نقلة للأسود.</string>
@@ -82,7 +84,7 @@
   <string name="searchPuzzles">ابحث عن ألغاز</string>
   <string name="fromMyGamesNone">ليس لديك أي ألغز في قاعدة البيانات، لكن Lichess تحبك جداً.
 إلعب مبارايات سريعة أو مبارايات كلاسيكية لزيادة فرصك في الحصول على ألغازك الخاصة!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s ألغاز وجدت في %2$s مباراة</string>
+  <string name="fromXGamesFound">%1$s ألغاز وجدت في %2$s مباراة</string>
   <string name="puzzleDashboardDescription">تدرب،حلل،تطور</string>
   <plurals name="nbPlayed">
     <item quantity="zero">%s لعبت</item>

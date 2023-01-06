@@ -9,6 +9,10 @@
     <item quantity="one">%s ronda</item>
     <item quantity="other">%s rondas</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s ronda Suiza</item>
+    <item quantity="other">%s rondas suizas</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Una ronda al día</item>
     <item quantity="other">Una ronda cada %s días</item>
@@ -101,4 +105,10 @@ El formato más próximo a un torneo en línea de todos contra todos es un torne
   <string name="streaksAndBerserk">Rachas y Berserk</string>
   <string name="similarToOTB">Similar a torneos presenciales</string>
   <string name="unlimitedAndFree">Ilimitado y gratuito</string>
+  <string name="predefinedUsers">Permitir unirse únicamente a usuarios predefinidos</string>
+  <string name="forbiddedUsers">Si esta lista no está vacía, a los usuarios ausentes de esta lista les estará prohibido unirse. Un nombre de usuario por línea.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s ronda suiza</item>
+    <item quantity="other">%1$s / %2$s rondas suizas</item>
+  </plurals>
 </resources>

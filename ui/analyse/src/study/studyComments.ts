@@ -1,7 +1,8 @@
 import { h, VNode } from 'snabbdom';
 import { bind } from 'common/snabbdom';
+import { richHTML } from 'common/richText';
 import AnalyseCtrl from '../ctrl';
-import { nodeFullName, richHTML } from '../util';
+import { nodeFullName } from '../view/util';
 import { StudyCtrl } from './interfaces';
 
 export type AuthorObj = {

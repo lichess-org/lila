@@ -2,20 +2,20 @@
 <resources>
   <string name="keyboardInputCommands">Teklatuko sarrera aginduak</string>
   <string name="performAMove">Egin ezazu jokaldi bat</string>
-  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Mugitu pieza e2-tik e4-ra</string>
-  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Mugitu zaldia c3-ra</string>
+  <string name="movePieceFromE2ToE4">Mugitu pieza e2-tik e4-ra</string>
+  <string name="moveKnightToC3">Mugitu zaldia c3-ra</string>
   <string name="kingsideCastle">Endrokea erregearen aldera</string>
   <string name="queensideCastle">Endrokea erreginaren aldera</string>
   <string name="promoteC8ToQueen">c8 erregina bilakatu</string>
-  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Utzi gaztelua b4 laukian (Crazyhouse aldaeran bakarrik)</string>
+  <string name="dropARookAtB4">Utzi gaztelua b4 laukian (Crazyhouse aldaeran bakarrik)</string>
   <string name="offerOrAcceptDraw">Berdinketa eskeini edo onartu</string>
   <string name="readOutClocks">Ozen esan erlojuak</string>
-  <string name="readOutOpponentName" comment="readOutOpponentName&#10;&#10;Press a button on the keyboard to hear the opponent's name aloud. The feature is most useful for blind players.">Irakurri aurkariaren izena</string>
+  <string name="readOutOpponentName">Irakurri aurkariaren izena</string>
   <string name="otherCommands">Beste aginduak</string>
   <string name="tips">~Iradokizunak</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Goiko mugimenduen notazioa ez bada ezaguna, gehiago ikasi hemen:</string>
   <string name="includingAXToIndicateACapture">Harrapaketa adierazteko \"x\" idaztea hautazkoa da</string>
-  <string name="bothTheLetterOAndTheDigitZero" comment="bothTheLetterOAndTheDigitZero&#10;&#10;Only the Latin character 'o' works.">Bai \"o\" hizkia, bai zero \"0\" digitua erabil daitezke endrokatzean</string>
+  <string name="bothTheLetterOAndTheDigitZero">Bai \"o\" hizkia, bai zero \"0\" digitua erabil daitezke endrokatzean</string>
   <string name="ifItIsLegalToCastleBothWays">Bi aldeetako endrokea egitea legezkoa bada erabili enter endroke laburra egiteko</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">Letra larriak alfila eta b-ko peoia bereizte erabiltzen dira (piezen izenak ingelesez daude Alfila = Bishop ingelesez)</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">Aurre-mugimendua egiteko, idatzi nahi duzun mugimendua zure txanda izan aurretik</string>

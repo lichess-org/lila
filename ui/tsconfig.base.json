@@ -12,6 +12,7 @@
     "module": "esnext",
     "lib": ["ES2018"],
     "esModuleInterop": true,
-    "types": ["lichess", "web"]
+    "isolatedModules": true,
+    "types": ["lichess", "web", "cash"]
   }
 }

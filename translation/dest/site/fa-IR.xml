@@ -59,6 +59,8 @@
   <string name="depthX">عمق بررسی تا %s حرکت</string>
   <string name="usingServerAnalysis">استفاده از سرور برای تحلیل</string>
   <string name="loadingEngine">موتور پردازش بارگذاری می‌گردد...</string>
+  <string name="calculatingMoves">محاسبه حرکت ها...</string>
+  <string name="engineFailed">مشکل در بارگذاری انجین</string>
   <string name="cloudAnalysis">تحلیل ابری</string>
   <string name="goDeeper">عمق و تعداد بیشتری از حرکتها را بررسی نمایید</string>
   <string name="showThreat">تهدید را نمایش بدهید</string>
@@ -92,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' با گرد کردن، بر اساس تعداد حرکات نیمه تا زمان دستگیری یا حرکت پیاده بعدی</string>
   <string name="noGameFound">هیچ بازی یافت نشد</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">بازی‌های بیشتری از لیست ترجیحات لحاظ شوند؟</string>
+  <string name="openings">گشایش</string>
   <string name="openingExplorer">جویشگر حرکت گشاینده بازی</string>
   <string name="openingEndgameExplorer">جویشگر حرکت گشاینده/پایان‌دهنده بازی</string>
   <string name="xOpeningExplorer">حرکت گشاینده %s برای تنوع مورد بررسی</string>
@@ -155,6 +158,7 @@
   <string name="viewInFullSize">نمایش در اندازه کامل</string>
   <string name="logOut">خروج</string>
   <string name="signIn">ورود</string>
+  <string name="rememberMe">مرا به خاطر بسپار</string>
   <string name="youNeedAnAccountToDoThat">شما برای انجام این کار به یک حساب کاربری نیاز دارید.</string>
   <string name="signUp">نام نویسی</string>
   <string name="computersAreNotAllowedToPlay">كامپيوتر و بازيكناني كه از كامپيوتر كمك مي گيرند،مجاز به بازی نیستند.لطفا از انجین شطرنج يا دیتابیس شطرنج و يا بازيكنان ديگر كمک نگيريد. همچنین توجه کنید که داشتن چند حساب کاربری به شدت نهی شده است. استفاده فزاینده از چند حساب منجر به مسدود شدن حساب شما خواهد شد.</string>
@@ -195,12 +199,31 @@
   <string name="changeUsername">تغییر نام کاربری</string>
   <string name="changeUsernameNotSame">تنها اندازه حروف میتوانند تغییر کنند. برای مثال \"johndoe\" به \"JohnDoe\".</string>
   <string name="changeUsernameDescription">نام کاربری خود را تغییر دهید. این تنها یک بار انجام پذیر است و شما تنها مجازید اندازه حروف نام کاربری‌تان را تغییر دهید.</string>
+  <string name="signupUsernameHint">مطمئن شوید که یک نام کاربری مناسب انتخاب میکنید. بعداً نمی توانید آن را تغییر دهید و هر حسابی با نام کاربری نامناسب بسته می شود!</string>
+  <string name="signupEmailHint">ما فقط از آن برای تنظیم مجدد رمز عبور استفاده خواهیم کرد.</string>
   <string name="password">رمز عبور</string>
   <string name="changePassword">تغییر کلمه عبور</string>
   <string name="changeEmail">تغییر ایمیل</string>
   <string name="email">ایمیل</string>
   <string name="passwordReset">بازیابی کلمه عبور</string>
   <string name="forgotPassword">آیا کلمه عبور را فراموش کرده اید؟</string>
+  <string name="emailConfirmHelp">کمک با تائید ایمیل</string>
+  <string name="emailConfirmNotReceived">آیا ایمیل تائید بعد از ثبت نام را دریافت نکرده اید؟</string>
+  <string name="whatSignupUsername">از چه نام کاربری برای ثبت نام استفاده کردید؟</string>
+  <string name="usernameNotFound">ما هیچ کابری با این نام نیافتیم: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">شما می توانید از این نام کاربری برای ایجاد یک حساب کاربری جدید استفاده کنید</string>
+  <string name="emailSent">ما یک ایمیل به آدرس %s ارسال کرده ایم.</string>
+  <string name="emailCanTakeSomeTime">ممکن است کمی طول بکشد تا برسد.</string>
+  <string name="refreshInboxAfterFiveMinutes">5 دقیقه صبر کنید و صندوق ورودی ایمیل خود را تازه کنید.</string>
+  <string name="checkSpamFolder">پوشه اسپم خود را نیز بررسی کنید، ممکن است ایمیل را آنجا بیابید. اگر چنین است، آن را به عنوان غیر اسپم (امن) علامت گذاری کنید.</string>
+  <string name="emailForSignupHelp">اگر تمام موارد ناموفق بود، این ایمیل را برای ما ارسال کنید:</string>
+  <string name="copyTextToEmail">متن بالا را کپی و پیست کرده و به آدرس زیر ارسال کنید %s</string>
+  <string name="waitForSignupHelp">ما به زودی با شما تماس خواهیم گرفت تا به شما کمک کنیم ثبت نام خود را تکمیل کنید.</string>
+  <string name="accountConfirmed">کاربر با نام %s با موفقیت تایید شده است.</string>
+  <string name="accountCanLogin">شما می توانید همین الان با نام %s وارد شوید.</string>
+  <string name="accountConfirmationEmailNotNeeded">شما نیازی به ایمیل تایید ندارید.</string>
+  <string name="accountClosed">حساب کاربری %s بسته شده است.</string>
+  <string name="accountRegisteredWithoutEmail">حساب کاربری %s بدون ایمیل ثبت نام شده بود.</string>
   <string name="rank">رتبه</string>
   <string name="rankX">رتبه:%s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -340,6 +363,7 @@
   <string name="siteDescription">شطرنج آنلاین رایگان. همین حالا شطرنج بازی کنید. بدون نیاز به ثبت نام، بدون تبلیغات، بدون نیاز به افزونه. بازی با کامپیوتر، دوستان و یا حریفان تصادفی.</string>
   <string name="xJoinedTeamY">%1$s به تیم %2$s پیوست</string>
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
+  <string name="startedStreaming">شروع به استریم کرده است</string>
   <string name="xStartedStreaming">%s شروع به استریم کرده است</string>
   <string name="averageElo">میانگین ریتینگ</string>
   <string name="location">محل</string>
@@ -464,6 +488,10 @@
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
   <string name="oneUrlPerLine">یک ادرس اینترنتی در هر خط.</string>
   <string name="inlineNotation">نمایش اطلاعات درون خطها</string>
+  <string name="savingMoves">دخیره سازی حرکت موقت</string>
+  <string name="savingMovesHelp">ما همیشه تغییرات شما را در حافظه پنهان مرورگر شما ذخیره می کنیم.</string>
+  <string name="makeAStudy">برای نگهداری مطمئن و اشتراک گذاری، ساختن یک پژوهش را در نظر بگیرید.</string>
+  <string name="clearSavedMoves">حرکت های واضح</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
   <string name="onlinePlayers">بازکنان آنلاین</string>
   <string name="activePlayers">بازیکنان فعال</string>
@@ -511,6 +539,8 @@
   <string name="blog">بلاگ</string>
   <string name="notes">یادداشت ها</string>
   <string name="typePrivateNotesHere">یادداشت خصوصی را اینجا وارد کنید</string>
+  <string name="writeAPrivateNoteAboutThisUser">یک یادداشت خصوصی در مورد این کاربر بنویسید</string>
+  <string name="noNoteYet">هنوز یادداشتی وجود ندارد</string>
   <string name="invalidUsernameOrPassword">نام کاربری یا رمز عبور نادرست است</string>
   <string name="incorrectPassword">رمزعبور اشتباه</string>
   <string name="invalidAuthenticationCode">کد اصالت سنجی نامعتبر</string>
@@ -627,6 +657,7 @@
   <string name="tournamentFAQ">سوالات متداول مسابقات</string>
   <string name="timeBeforeTournamentStarts">زمان باقی مانده به شروع مسابقه</string>
   <string name="averageCentipawnLoss">میانگین سرباز از دست داده</string>
+  <string name="accuracy">دقت</string>
   <string name="keyboardShortcuts">میانبر های صفحه کلید</string>
   <string name="keyMoveBackwardOrForward">حرکت به عقب/جلو</string>
   <string name="keyGoToStartOrEnd">رفتن به آغاز/پایان</string>
@@ -675,6 +706,7 @@
   <string name="kidMode">حالت کودکان</string>
   <string name="kidModeExplanation">این گزینه،امنیتی است.با فعال کردن حالت ((کودکانه))،همه ی ارتباطات(چت کردن و...)غیر فعال می شوند.با فعال کردن این گزینه،کودکان خود را محافطت کنید.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودکانه،به نماد لیچس،یک %s اضافه می شود تا شما از فعال بودن آن مطلع شوید.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">اکانت شما مدیریت شده است. برای برداشتن حالت کودک از معلم شطرنج خود درخواست کنید.</string>
   <string name="enableKidMode">فعال کردن حالت کودکانه</string>
   <string name="disableKidMode">غیر فعال کردن حالت کودکانه</string>
   <string name="security">امنیت</string>
@@ -709,6 +741,7 @@
   <string name="light">روشن</string>
   <string name="dark">تیره</string>
   <string name="transparent">شفاف</string>
+  <string name="deviceTheme">طرح زمینه دستگاه</string>
   <string name="backgroundImageUrl">لینک تصویر پس زمینه:</string>
   <string name="boardGeometry">بعد صفحه</string>
   <string name="boardTheme">تم صفحه</string>
@@ -737,6 +770,7 @@
   <string name="bestWasX">بهترین حرکت %s بود</string>
   <string name="youBrowsedAway">پوزیشن را به هم زدید!</string>
   <string name="resumePractice">ادامه تمرین</string>
+  <string name="drawByFiftyMoves">بازی با قانون پنجاه حرکت مساوی شده است.</string>
   <string name="theGameIsADraw">بازی مساوی است.</string>
   <string name="computerThinking">کامپیوتر در حال محاسبه است...</string>
   <string name="seeBestMove">مشاهده بهترین حرکت</string>

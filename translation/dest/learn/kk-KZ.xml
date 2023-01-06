@@ -31,7 +31,7 @@
   <string name="queenIntro">Ең қуатты шахмат тасы! Мәртебелі уәзір, төрге шығыңыз!</string>
   <string name="queenComplete">Құтты болсын! Уәзірдің бүкіл қыр-сырын аштыңыз.</string>
   <string name="theKing">Патша</string>
-  <string name="theMostImportantPiece">Ең маңызды тас</string>
+  <string name="theMostImportantPiece">Ең құнды тас</string>
   <string name="kingIntro">Сіз патшасыз. Егер шайқаста құласаңыз, жалпы ойында жеңілесіз.</string>
   <string name="theKingIsSlow">Патшаның қимылы - баяу.</string>
   <string name="lastOne">Соңғысы!</string>
@@ -167,7 +167,7 @@
   <string name="takeAllThePawnsEnPassant">Барлық сарбаздарды жолай басып алыңыз!</string>
   <string name="enPassantComplete">Құтты болсын! Енді сіз жолай басып алуды білесіз.</string>
   <string name="stalemate">Пат</string>
-  <string name="theGameIsADraw">Ойындағы теңдік жағдайы</string>
+  <string name="theGameIsADraw">Ойындағы теңдік жағдай</string>
   <string name="stalemateIntro">Егер ойыншы шахқа ұрынбаса, онымен қатар, жүретін жолы болмаса, бұл пат деген сөз. Ойын нәтижесі – тепе-теңдік: ешкім жеңбеді де, жеңілмеді.</string>
   <string name="stalemateGoal">Қараның патқа ұрынғаны:
 -Қараның жүретін жолы жоқ

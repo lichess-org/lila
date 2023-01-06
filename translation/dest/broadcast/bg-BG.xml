@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">URL на настоящия гунд</string>
   <string name="currentGameUrl">URL на настоящата партия</string>
   <string name="downloadAllRounds">Изтегли всички рундове</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Окончателно изтрийте този рунд и всичките му игри.</string>
+  <string name="deleteAllGamesOfThisRound">Изтрийте този рунд и всичките му игри. Източникът трябва да е активен за да можете да ги възстановите.</string>
 </resources>

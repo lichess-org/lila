@@ -13,6 +13,8 @@
   <string name="specialMoves">Bearta speisialta</string>
   <string name="didYouLikeThisPuzzle">Ba mhaith leat an fadhb seo?</string>
   <string name="voteToLoadNextOne">Vótáil chun an chéad cheann eile a lódáil!</string>
+  <string name="upVote">Fadhb vóta suas</string>
+  <string name="downVote">Fadhb vóta síos</string>
   <string name="yourPuzzleRatingWillNotChange">Ní thiocfaidh aon athrú ar do rátáil fadhbanna. Tabhair faoi deara nach comórtas iad fadhbanna. Cuidíonn rátáil leis na fadhbanna is fearr a roghnú do do scil reatha.</string>
   <string name="findTheBestMoveForWhite">Faigh an beart is fearr do bán.</string>
   <string name="findTheBestMoveForBlack">Faigh an beart is fearr do dubh.</string>
@@ -79,7 +81,7 @@
   <string name="searchPuzzles">Cuardaigh fadhbanna</string>
   <string name="fromMyGamesNone">Níl aon fadhb agat sa bhunachar sonraí, ach is breá le Lichess tú go mór fós. 
 Imir cluichí gasta agus clasaiceacha chun cur leis na seansanna go gcuirfear fadhb de do chuid féin leis!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s fadhb le fáil i %2$s cluiche</string>
+  <string name="fromXGamesFound">%1$s fadhb le fáil i %2$s cluiche</string>
   <string name="puzzleDashboardDescription">Traenáil, anailís, feabhsú</string>
   <plurals name="nbPlayed">
     <item quantity="one">D\'imir %s</item>

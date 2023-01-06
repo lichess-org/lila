@@ -1,13 +1,13 @@
 package controllers
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.oauth.OAuthScope
 
-final class DgtCtrl(env: Env) extends LilaController(env) {
+final class DgtCtrl(env: Env) extends LilaController(env):
 
   def index =
     Auth { implicit ctx => _ =>
-      Ok(views.html.dgt.index).fuccess
+      Ok(views.html.dgt.index).toFuccess
     }
 
   def config =
@@ -44,7 +44,7 @@ final class DgtCtrl(env: Env) extends LilaController(env) {
       }
     }
 
-  private val dgtScopes: Set[OAuthScope] = {
+  private val dgtScopes: Set[OAuthScope] =
     Set(
       OAuthScope.Challenge.Read,
       OAuthScope.Challenge.Write,
@@ -52,8 +52,6 @@ final class DgtCtrl(env: Env) extends LilaController(env) {
       OAuthScope.Msg.Write,
       OAuthScope.Board.Play
     )
-  }
 
   private def findToken(me: lila.user.User) =
     env.oAuth.tokenApi.findCompatiblePersonal(me, dgtScopes)
-}

@@ -3,12 +3,12 @@ package views.html
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.hub.actorApi.timeline._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.hub.actorApi.timeline.*
 
-object timeline {
+object timeline:
 
   def entries(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
     div(cls := "entries")(
@@ -23,7 +23,7 @@ object timeline {
       moreCss = cssTag("slist")
     )(
       main(cls := "timeline page-small box")(
-        h1(trans.timeline()),
+        h1(cls := "box__top")(trans.timeline()),
         table(cls := "slist slist-pad")(
           tbody(
             filterEntries(entries) map { e =>
@@ -38,11 +38,10 @@ object timeline {
     if (ctx.noKid) entries
     else entries.filter(e => e.okForKid)
 
-  private def userLink(userId: lila.user.User.ID)(implicit ctx: Context) =
-    ctx.me match {
-      case Some(me) if me.is(userId) => lightUserLink(me.light, withOnline = true)(ctx.lang)(cls := "online")
+  private def userLink(userId: UserId)(implicit ctx: Context) =
+    ctx.me match
+      case Some(me) if me.is(userId) => lightUserLink(me.light, withOnline = true)(cls := "online")
       case _                         => userIdLink(userId.some, withOnline = true)
-    }
 
   private def entry(e: lila.timeline.Entry)(implicit ctx: Context) =
     frag(
@@ -88,7 +87,7 @@ object timeline {
             a(href := routes.Simul.show(simulId))(simulName)
           )
         case GameEnd(playerId, opponent, win, perfKey) =>
-          lila.rating.PerfType(perfKey) map { perf =>
+          lila.rating.PerfType(lila.rating.Perf.Key(perfKey)) map { perf =>
             (win match {
               case Some(true)  => trans.victoryVsYInZ
               case Some(false) => trans.defeatVsYInZ
@@ -135,4 +134,3 @@ object timeline {
       " ",
       momentFromNowWithPreload(e.date)
     )
-}

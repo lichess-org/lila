@@ -9,6 +9,10 @@
     <item quantity="one">%s խաղափուլ</item>
     <item quantity="other">%s խաղափուլ</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s խաղափուլ շվեյցարական մրցակարգով</item>
+    <item quantity="other">%s խաղափուլ շվեյցարական մրցակարգով</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Մեկ խաղափուլ %s օրում</item>
     <item quantity="other">Մեկ խաղափուլ %s օրում</item>
@@ -90,4 +94,10 @@
   <string name="streaksAndBerserk">Շարքեր և բերսերկ</string>
   <string name="similarToOTB">Նման է OTB մրցաշարերին</string>
   <string name="unlimitedAndFree">Անսահմանափակ և անվճար</string>
+  <string name="predefinedUsers">Թույլատրել միայն թվարկված խաղացողների մասնակցությունը</string>
+  <string name="forbiddedUsers">Եթե ցանկը դատարկ չէ, ապա կարող են մասնակցել միայն ցանկում եղած խաղացողները։ Յուրաքանչյուր տողում՝ մեկ խաղացող։</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s խաղափուլ շվեյցարական մրցակարգով</item>
+    <item quantity="other">%1$s / %2$s խաղափուլ շվեյցարական մրցակարգով</item>
+  </plurals>
 </resources>

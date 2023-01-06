@@ -28,4 +28,7 @@ export const initWith = (node: HTMLElement, fen: string, orientation: Color, lm?
 };
 
 export const initAll = (parent?: HTMLElement) =>
-  Array.from((parent || document).getElementsByClassName('mini-board--init')).forEach(init);
+  Array.from((parent || document).getElementsByClassName('mini-board--init')).forEach((el: HTMLElement) => {
+    el.classList.remove('mini-board--init');
+    init(el);
+  });

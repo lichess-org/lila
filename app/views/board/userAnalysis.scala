@@ -2,17 +2,17 @@ package views.html.board
 
 import play.api.libs.json.{ JsObject, Json }
 
-import chess.variant.Crazyhouse
+import chess.variant.{ Variant, FromPosition, Crazyhouse }
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.rating.PerfType.iconByVariant
 
 import controllers.routes
 
-object userAnalysis {
+object userAnalysis:
 
   def apply(
       data: JsObject,
@@ -34,15 +34,15 @@ object userAnalysis {
         embedJsUnsafe(s"""lichess.userAnalysis=${safeJsonValue(
             Json
               .obj(
-                "data"     -> data,
-                "i18n"     -> userAnalysisI18n(withForecast = withForecast),
-                "explorer" -> bits.explorerConfig,
-                "wiki"     -> pov.game.variant.standard
+                "data" -> data,
+                "i18n" -> userAnalysisI18n(withForecast = withForecast),
+                "wiki" -> pov.game.variant.standard
               )
-              .add("inlinePgn", inlinePgn)
+              .add("inlinePgn", inlinePgn) ++
+              views.html.board.bits.explorerAndCevalConfig
           )}""")
       ),
-      csp = defaultCsp.withWebAssembly.withAnyWs.withWikiBooks.some,
+      csp = analysisCsp.withWikiBooks.some,
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
@@ -63,7 +63,7 @@ object userAnalysis {
           views.html.base.bits.mselect(
             "analyse-variant",
             span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
-            chess.variant.Variant.all.filter(chess.variant.FromPosition.!=).map { v =>
+            Variant.list.all.filter(FromPosition != _).map { v =>
               a(
                 dataIcon := iconByVariant(v),
                 cls      := (pov.game.variant == v).option("current"),
@@ -78,4 +78,3 @@ object userAnalysis {
         div(cls := "analyse__controls")
       )
     }
-}

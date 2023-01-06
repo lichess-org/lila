@@ -13,6 +13,8 @@
   <string name="specialMoves">Speciální tahy</string>
   <string name="didYouLikeThisPuzzle">Líbila se vám tato hádanka?</string>
   <string name="voteToLoadNextOne">Hlasujte pro načtení dalšího!</string>
+  <string name="upVote">Dobrá úloha</string>
+  <string name="downVote">Špatná úloha</string>
   <string name="yourPuzzleRatingWillNotChange">Vaše hodnocení hádanky se nezmění. Hádanky nejsou soutěží. Hodnocení pomáhá vybírat nejlepší hádanky pro vaši aktuální dovednost.</string>
   <string name="findTheBestMoveForWhite">Najděte nejlepší tah za bílého.</string>
   <string name="findTheBestMoveForBlack">Najděte nejlepší tah za černého.</string>
@@ -45,6 +47,7 @@
   <string name="hardest">Nejtěžší</string>
   <string name="example">Příklad</string>
   <string name="addAnotherTheme">Přidat další téma</string>
+  <string name="nextPuzzle">Další úloha</string>
   <string name="jumpToNextPuzzleImmediately">Okamžitě přejít na další úlohu</string>
   <string name="puzzleDashboard">Shrnutí Vašeho řešení úloh</string>
   <string name="improvementAreas">Zlepšení pozice</string>
@@ -63,7 +66,7 @@
   <string name="searchPuzzles">Hledat hádanky</string>
   <string name="fromMyGamesNone">V databázi nemáte žádné úlohy, ale Lichess vás stále velmi miluje.
 Hrajte rapid a klasické hry ke zvýšení šance na přidání vlastní úlohy!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s úloh nalezeno v %2$s partiích</string>
+  <string name="fromXGamesFound">%1$s úloh nalezeno v %2$s partiích</string>
   <string name="puzzleDashboardDescription">Trénujte, analyzujte, zlepšujte</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s zahána</item>

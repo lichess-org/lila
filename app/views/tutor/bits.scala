@@ -2,16 +2,16 @@ package views.html.tutor
 
 import controllers.routes
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 import scalatags.Text
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.InsightPosition
 import lila.tutor.{ Rating, TutorBothValueOptions, TutorFullReport, TutorNumber, ValueCount }
 
-object bits {
+object bits:
 
   val mascot =
     img(
@@ -47,4 +47,3 @@ object bits {
         div(cls := "page-menu__content")(content)
       )
     }
-}

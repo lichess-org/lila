@@ -46,8 +46,15 @@
   <string name="castlingPrevented">Рокадата се предотвратява само ако кралят мине през контролиран квадрат.</string>
   <string name="castlingRules">Уверете се, че разбирате правилата за рокада</string>
   <string name="tryCastling">Опитайте тази малка интерактивна игра, за да упражните рокадата</string>
+  <string name="castlingImported">Ако сте импортирали играта или сте я започнали от позиция, уверете се, че сте определили правилно правата на рокада.</string>
+  <string name="fideMate">Според правилата на ФИДЕ за шахмат §6. 9, ако матът е възможен с всяка легална последователност от ходове, то партията не е реми</string>
+  <string name="knightMate">Възможно е да дадете мат само с кон или офицер, ако противникът има и други фигури освен един цар на дъската.</string>
+  <string name="ratedGame">Уверете се, че сте играли игра с рейтинг. Приятелските игри не влияят на рейтинга на играчите.</string>
   <string name="botRatingAbuse">В някои случаи, игри с рейтинг срещу ботове могат да не донесат точки, ако система определи че играчът експлоатира бота за увеличаване на рейтинга си.</string>
   <string name="errorPage">Страница за грешката</string>
+  <string name="banAppeal">Жалба за бан или IP ограничение</string>
+  <string name="engineAppeal">Програма или измама</string>
+  <string name="sendAppealTo">Можете да изпратите жалба до %s.</string>
   <string name="monetizing">Монетизация на Lichess</string>
   <string name="buyingLichess">Покупка на Lichess</string>
   <string name="authorizationToUse">Разрешение за използване на Lichess</string>

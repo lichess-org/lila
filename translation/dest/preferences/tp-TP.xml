@@ -34,14 +34,14 @@
   <string name="explainPromoteToQueenAutomatically">jan utala li ante la sina ken pali e ni: &lt;ctrl&gt;. ni la ona li ante ala e lawa meli. sina ken ante e ona</string>
   <string name="whenPremoving">tenpo sama la jan li pilin e tawa pi tenpo kama</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">tawa li sama lon tawa tu wan la o sama e musi</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">tenpo tawa li lili tawa tenpo Sekunta 30</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">tenpo tawa li lili tawa tenpo Sekunta 30</string>
   <string name="moveConfirmation">sina wile tawa la o sina wile toki e ni pi tenpo tu</string>
   <string name="inCorrespondenceGames">musi pi tenpo suli</string>
   <string name="correspondenceAndUnlimited">musi pi tenpo suli en musi pi tenpo ale</string>
   <string name="confirmResignationAndDrawOffers">o toki e ni: sina wile pini ike anu sina wile sama e musi</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">o tawa e tomo utala, e jan lawa lon tenpo tawa sama kepeken nasin seme?</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">o tawa e tomo utala, e lawa mije lon tenpo tawa sama kepeken nasin seme?</string>
   <string name="castleByMovingTwoSquares">o tawa e lawa mije lon ma pi weka tu</string>
-  <string name="castleByMovingOntoTheRook">o tawa e jan lawa tawa ma pi tomo utala</string>
+  <string name="castleByMovingOntoTheRook">o tawa e lawa mije tawa ma pi tomo utala</string>
   <string name="inputMovesWithTheKeyboard">ilo sitelen la sina sitelen e pali</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">mi sitelen e palisa lon supa musi la, o pali ala pali e ni: palisa li nasin tawa tawa ken taso?</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">mi pini ike anu pini pi anpa ala e musi la, o toki \"musi pona, sina pona\" (toki Inli)</string>

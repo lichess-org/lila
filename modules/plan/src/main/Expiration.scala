@@ -1,6 +1,6 @@
 package lila.plan
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.UserRepo
 
 import org.joda.time.DateTime
@@ -9,10 +9,10 @@ final private class Expiration(
     userRepo: UserRepo,
     patronColl: Coll,
     notifier: PlanNotifier
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import BsonHandlers._
-  import PatronHandlers._
+  import BsonHandlers.given
+  import BsonHandlers.PatronHandlers.given
 
   def run: Funit =
     getExpired flatMap {
@@ -39,4 +39,3 @@ final private class Expiration(
       ),
       50
     )
-}

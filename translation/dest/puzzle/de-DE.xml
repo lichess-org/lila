@@ -13,6 +13,8 @@
   <string name="specialMoves">Besondere Züge</string>
   <string name="didYouLikeThisPuzzle">Hat dir diese Aufgabe gefallen?</string>
   <string name="voteToLoadNextOne">Stimme ab, um die nächste zu laden!</string>
+  <string name="upVote">Die Aufgabe gut bewerten</string>
+  <string name="downVote">Die Aufgabe schlecht bewerten</string>
   <string name="yourPuzzleRatingWillNotChange">Deine Aufgaben-Wertung wird sich nicht ändern. Beachte, dass Aufgaben kein Wettbewerb sind. Deine Wertung hilft, die geeignetsten Aufgaben für deine aktuelle Fähigkeit auszuwählen.</string>
   <string name="findTheBestMoveForWhite">Finde den besten Zug für Weiß.</string>
   <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>
@@ -58,10 +60,10 @@
   <string name="strengths">Stärken</string>
   <string name="history">Aufgabenverlauf</string>
   <string name="solved">gelöst</string>
-  <string name="failed">fehlgeschlagen</string>
+  <string name="failed">falsch</string>
   <string name="streakDescription">Löse schwieriger werdende Aufgaben und baue eine Erfolgsserie auf. Es gibt keine Uhr, also nimm dir Zeit. Ein falscher Zug und es ist vorbei! Du kannst jedoch einen Zug pro Sitzung überspringen.</string>
   <string name="yourStreakX">Deine Erfolgsserie: %s</string>
-  <string name="streakSkipExplanation">Überspringe diesen Zug, um deine Erfolgsserie beizubehalten! Du kannst das nur einmal pro Durchlauf machen.</string>
+  <string name="streakSkipExplanation">Überspringe diesen Zug, um deine Antwortserie zu bewahren! Dies funktioniert nur einmal pro Durchlauf.</string>
   <string name="continueTheStreak">Erfolgsserie fortsetzen</string>
   <string name="newStreak">Neue Erfolgsserie</string>
   <string name="fromMyGames">Aus meinen Partien</string>
@@ -71,7 +73,7 @@
   <string name="fromMyGamesNone">Es befinden sich keine Aufgaben aus deinen Partien in der Datenbank, aber Lichess schätzt dich immer noch sehr.
 
 Spiele Schnellschach und klassische Partien, um deine Chancen zu erhöhen, dass eine Aufgabe aus deinen Partien hinzugefügt wird!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s Aufgaben in %2$s Partien gefunden</string>
+  <string name="fromXGamesFound">%1$s Aufgaben in %2$s Partien gefunden</string>
   <string name="puzzleDashboardDescription">Trainiere, analysiere, verbessere</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s gespielt</item>
@@ -84,5 +86,5 @@ Spiele Schnellschach und klassische Partien, um deine Chancen zu erhöhen, dass 
   <string name="percentSolved">%s gelöst</string>
   <string name="noPuzzlesToShow">Nichts zu zeigen, spiel erst ein paar Aufgaben!</string>
   <string name="improvementAreasDescription">Trainiere diese, um deinen Fortschritt zu optimieren!</string>
-  <string name="strengthDescription">Diese Aufgabengebiete liegen dir am meisten</string>
+  <string name="strengthDescription">Bei diesen Themen schneiden Sie am besten ab</string>
 </resources>
