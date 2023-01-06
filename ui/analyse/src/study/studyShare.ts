@@ -91,140 +91,14 @@ export function view(ctrl: StudyShareCtrl): VNode {
     ctrl.onMainline() ? (ctrl.withPly() ? `${path}#${ctrl.currentNode().ply}` : path) : `${path}#last`;
   const youCanPasteThis = () =>
     h('p.form-help.text', { attrs: { 'data-icon': '' } }, ctrl.trans.noarg('youCanPasteThisInTheForumToEmbed'));
-  return h('div.study__share', [
-    h('div.downloads', [
-      ctrl.cloneable
-        ? h(
-            'a.button.text',
-            {
-              attrs: {
-                'data-icon': '',
-                href: `/study/${studyId}/clone`,
-              },
-            },
-            ctrl.trans.noarg('cloneStudy')
-          )
-        : null,
-      ctrl.relay &&
-        h(
-          'a.button.text',
-          {
-            attrs: {
-              'data-icon': '',
-              href: `/api/broadcast/${ctrl.relay.data.tour.id}.pgn`,
-              download: true,
-            },
-          },
-          ctrl.trans.noarg('downloadAllRounds')
-        ),
-      h(
-        'a.button.text',
-        {
-          attrs: {
-            'data-icon': '',
-            href: ctrl.relay ? `${ctrl.relay.roundPath()}.pgn` : `/study/${studyId}.pgn`,
-            download: true,
-          },
-        },
-        ctrl.trans.noarg(ctrl.relay ? 'downloadAllGames' : 'studyPgn')
-      ),
-      h(
-        'a.button.text',
-        {
-          attrs: {
-            'data-icon': '',
-            href: `/study/${studyId}/${chapter.id}.pgn`,
-            download: true,
-          },
-        },
-        ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterPgn')
-      ),
-      h(
-        'a.button.text',
-        {
-          attrs: {
-            'data-icon': '',
-            title: ctrl.trans.noarg('copyChapterPgnDescription'),
-          },
-          hook: bind('click', async event => {
-            const pgn = await xhrText(`/study/${studyId}/${chapter.id}.pgn`);
-            await navigator.clipboard.writeText(pgn);
-            (event.target as HTMLElement).setAttribute('data-icon', '');
-          }),
-        },
-        ctrl.trans.noarg('copyChapterPgn')
-      ),
-      h(
-        'a.button.text',
-        {
-          attrs: {
-            'data-icon': '',
-            href: xhrUrl(`/export/gif/${ctrl.currentNode().fen.replace(/ /g, '_')}`, {
-              color: ctrl.bottomColor(),
-              lastMove: ctrl.currentNode().uci,
-              variant: ctrl.variantKey,
-            }),
-            download: true,
-          },
-        },
-        'Board'
-      ),
-      h(
-        'a.button.text',
-        {
-          attrs: {
-            'data-icon': '',
-            href: `/study/${studyId}/${chapter.id}.gif`,
-            download: true,
-          },
-        },
-        'GIF'
-      ),
-    ]),
-    h('form.form3', [
-      ...(ctrl.relay
-        ? [
-            ['broadcastUrl', ctrl.relay.tourPath()],
-            ['currentRoundUrl', ctrl.relay.roundPath()],
-            ['currentGameUrl', addPly(`${ctrl.relay.roundPath()}/${chapter.id}`), true],
-          ]
-        : [
-            ['studyUrl', `/study/${studyId}`],
-            ['currentChapterUrl', addPly(`/study/${studyId}/${chapter.id}`), true],
-          ]
-      ).map(([i18n, path, pastable]: [string, string, boolean]) =>
-        h('div.form-group', [
-          h('label.form-label', ctrl.trans.noarg(i18n)),
-          h('input.form-control.autoselect', {
-            attrs: {
-              readonly: true,
-              value: `${baseUrl()}${path}`,
-            },
-          }),
-          ...(pastable ? [fromPly(ctrl), !isPrivate ? youCanPasteThis() : null] : []),
-        ])
-      ),
-      h(
-        'div.form-group',
-        [
-          h('label.form-label', ctrl.trans.noarg('embedInYourWebsite')),
-          h('input.form-control.autoselect', {
-            attrs: {
-              readonly: true,
-              disabled: isPrivate,
-              value: !isPrivate
-                ? `<iframe width=600 height=371 src="${baseUrl()}${addPly(
-                    `/study/embed/${studyId}/${chapter.id}`
-                  )}" frameborder=0></iframe>`
-                : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded'),
-            },
-          }),
-        ].concat(
-          !isPrivate
-            ? [
-                fromPly(ctrl),
-                h(
-                  'a.form-help.text',
+  return h(
+    'div.study__share',
+    ctrl.shareable()
+      ? [
+          h('div.downloads', [
+            ctrl.cloneable()
+              ? h(
+                  'a.button.text',
                   {
                     attrs: {
                       'data-icon': '',
@@ -267,6 +141,21 @@ export function view(ctrl: StudyShareCtrl): VNode {
                 },
               },
               ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterPgn')
+            ),
+            h(
+              'a.button.text',
+              {
+                attrs: {
+                  'data-icon': '',
+                  title: ctrl.trans.noarg('copyChapterPgnDescription'),
+                },
+                hook: bind('click', async event => {
+                  const pgn = await xhrText(`/study/${studyId}/${chapter.id}.pgn`);
+                  await navigator.clipboard.writeText(pgn);
+                  (event.target as HTMLElement).setAttribute('data-icon', '');
+                }),
+              },
+              ctrl.trans.noarg('copyChapterPgn')
             ),
             h(
               'a.button.text',
