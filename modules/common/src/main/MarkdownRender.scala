@@ -210,13 +210,13 @@ object MarkdownRender:
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
         def justAsLink() = renderLinkWithBase(node, context, html, link)
 
-        if(matchesSiteHeader(node))
-          return justAsLink()
-                
-        link.getUrl match
-          case gameRegex(id, color, ply) =>
-            expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
-          case _ => justAsLink()
+        if (matchesSiteHeader(node))
+          justAsLink()
+        else
+          link.getUrl match
+            case gameRegex(id, color, ply) =>
+              expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
+            case _ => justAsLink()
 
     private def renderAutoLink(
         node: AutoLink,
@@ -230,13 +230,13 @@ object MarkdownRender:
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
         def justAsLink() = renderLinkWithBase(node, context, html, link)
 
-        if(matchesSiteHeader(node))
-          return justAsLink()
-
-        link.getUrl match
-          case gameRegex(id, color, ply) =>
-            expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
-          case _ => justAsLink()
+        if (matchesSiteHeader(node))
+          justAsLink()
+        else
+          link.getUrl match
+            case gameRegex(id, color, ply) =>
+              expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
+            case _ => justAsLink()
 
     private def renderLinkWithBase(
         node: LinkNode,
@@ -271,10 +271,13 @@ object MarkdownRender:
         .tag("/div")
         .unit
 
-    //Catches the site headers for https://github.com/lichess-org/lila/issues/11450
-    private def matchesSiteHeader(node : LinkNode) : Boolean = {
-      val parentValue : BasedSequence = Option(node.getParent()).get.getChars()
-      parentValue.baseSubSequence(Integer.max(0, node.getStartOffset() - 7), node.getStartOffset()).matches("\\[Site..*")
+    // Catches the site headers for https://github.com/lichess-org/lila/issues/11450
+    private def matchesSiteHeader(node: LinkNode): Boolean = {
+      Option(node.getParent).fold(false)(
+        _.getChars
+          .baseSubSequence(Integer.max(0, node.getStartOffset() - 7), node.getStartOffset())
+          .matches("\\[Site..*")
+      )
     }
 
   private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension:
@@ -291,4 +294,3 @@ object MarkdownRender:
       if ((node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK)
         attributes.replaceValue("rel", rel).unit
         attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href"))).unit
-  
