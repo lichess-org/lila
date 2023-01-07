@@ -44,7 +44,7 @@ object notification {
               radios(form("correspondenceEmail"), translatedBooleanChoices)
             ),
             setting(
-              "Play sound when bell notification is received",
+              "Bell notification sound",
               radios(form("notification.playBellSound"), translatedBooleanIntChoices)
             )
           ),
