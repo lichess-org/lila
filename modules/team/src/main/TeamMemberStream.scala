@@ -20,13 +20,14 @@ final class TeamMemberStream(
     mat: akka.stream.Materializer
 ):
 
-  def apply(team: Team, perSecond: MaxPerSecond): Source[(User, DateTime), ?] =
+  def apply(team: Team, perSecond: MaxPerSecond): Source[User, ?] =
     idsBatches(team, perSecond)
-      .mapAsync(1).map(x => x._1)
+      //.mapAsync(1)(x => getUser(x))
+      .mapAsync(1)(x => userRepo.usersFromSecondary(x.map(x => x._1)))
       .mapConcat(identity)
 
-  def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[(UserId, DateTime), ?] =
-    idsBatches(team, perSecond, $doc("unsub" $ne true)).map(x => x._1)
+  def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[UserId, ?] =
+    idsBatchesWithoutTime(team, perSecond, $doc("unsub" $ne true))
       .mapConcat(identity)
 
   private def idsBatches(
@@ -42,4 +43,19 @@ final class TeamMemberStream(
       .documentSource()
       .grouped(perSecond.value)
       .map(_.flatMap(u => u.getAsOpt[UserId]("user").zip(u.getAsOpt[DateTime]("date"))))
+      .throttle(1, 1 second)
+
+  private def idsBatchesWithoutTime(
+      team: Team,
+      perSecond: MaxPerSecond,
+      selector: Bdoc = $empty
+  ): Source[Seq[UserId], ?] =
+    memberRepo.coll
+      .find($doc("team" -> team.id) ++ selector, $doc("user" -> true, "date" -> true).some)
+      .sort($sort desc "date")
+      .batchSize(perSecond.value)
+      .cursor[Bdoc](temporarilyPrimary)
+      .documentSource()
+      .grouped(perSecond.value)
+      .map(_.flatMap(_.getAsOpt[UserId]("user")))
       .throttle(1, 1 second)
