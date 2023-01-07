@@ -1,4 +1,4 @@
 export interface OpeningPage {
-  name: string;
   history: number[];
+  sans: string[];
 }

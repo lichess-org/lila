@@ -17,13 +17,17 @@ export default class Persistence {
   }
 
   clear = (): void => {
-    this.moveDb?.remove(this.ctrl.data.game.id);
+    this.moveDb?.put(this.ctrl.data.game.id, {
+      root: undefined,
+      path: undefined,
+      flipped: this.ctrl.flipped,
+    });
     lichess.reload();
   };
 
-  save(): void {
-    if (this.moveDb && this.isDirty) {
-      this.moveDb.put(this.ctrl.data.game.id, {
+  save(force = false): void {
+    if (this.isDirty || force) {
+      this.moveDb?.put(this.ctrl.data.game.id, {
         root: this.ctrl.tree.root,
         path: this.ctrl.path,
         flipped: this.ctrl.flipped,
@@ -42,15 +46,15 @@ export default class Persistence {
     try {
       this.moveDb = await objectStorage<AnalyseState>('analyse-state');
       const state = await this.moveDb.get(this.ctrl.data.game.id);
-      if (state) {
-        this.isDirty = true;
+      if (state?.root && state?.path) {
         this.ctrl.tree.merge(state.root);
         if (!this.ctrl.ongoing) this.ctrl.jump(state.path);
-        if (state.flipped != this.ctrl.flipped) this.ctrl.flip();
+        this.isDirty = true;
       }
+      if (state?.flipped === !this.ctrl.flipped) this.ctrl.flip();
       this.ctrl.redraw();
     } catch (e) {
-      console.log(`IDB unavailable due to security settings or quota: ${e}`);
+      console.log('IDB unavailable.', e);
     }
   }
 }

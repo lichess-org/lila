@@ -29,6 +29,7 @@ final private class FishnetOpeningBook(
   def apply(game: Game, level: Int): Fu[Option[Uci]] =
     (game.ply < depth.get() && !outOfBook.get(game.id)) ?? {
       ws.url(s"${config.explorerEndpoint}/lichess")
+        .withRequestTimeout(800.millis)
         .withQueryStringParameters(
           "variant"     -> game.variant.key.value,
           "fen"         -> Fen.write(game.chess).value,
@@ -49,6 +50,7 @@ final private class FishnetOpeningBook(
               move <- data randomPonderedMove (game.turnColor, level)
             } yield move.uci
         }
+        .recover { case _: java.util.concurrent.TimeoutException => none }
         .monTry { res =>
           _.fishnet
             .openingBook(

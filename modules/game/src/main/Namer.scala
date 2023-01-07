@@ -36,7 +36,7 @@ object Namer:
         s"${playerTextUser(game.whitePlayer, wu, withRatings)} - ${playerTextUser(game.blackPlayer, bu, withRatings)}"
       }
 
-  def ratingString(p: Player): String =
-    p.rating.fold("?") { rating =>
+  def ratingString(p: Player): Option[String] =
+    p.rating.map { rating =>
       s"$rating${p.provisional.yes ?? "?"}"
     }

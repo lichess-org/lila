@@ -65,6 +65,8 @@ object jsI18n:
       studyPgn,
       downloadAllGames,
       chapterPgn,
+      copyChapterPgn,
+      copyChapterPgnDescription,
       downloadGame,
       studyUrl,
       currentChapterUrl,

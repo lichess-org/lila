@@ -27,18 +27,14 @@ object SwissCondition:
   sealed abstract class Verdict(val accepted: Boolean, val reason: Option[Lang => String])
   case object Accepted                        extends Verdict(true, none)
   case class Refused(because: Lang => String) extends Verdict(false, because.some)
+  case class RefusedUntil(until: DateTime)    extends Verdict(false, none)
 
   case class WithVerdict(condition: SwissCondition, verdict: Verdict)
 
   case object PlayYourGames extends SwissCondition:
     def name(perf: PerfType)(using lang: Lang) = "Play your games"
     def withBan(bannedUntil: Option[DateTime]) = withVerdict {
-      bannedUntil.fold[Verdict](Accepted) { until =>
-        Refused { lang =>
-          val showUntil = DateTimeFormat.forStyle("MS").withLocale(lang.toLocale) print until
-          s"Because you missed your last swiss game, you cannot enter a new swiss tournament until $showUntil."
-        }
-      }
+      bannedUntil.fold[Verdict](Accepted)(RefusedUntil.apply)
     }
 
   case object Titled extends SwissCondition with FlatCond:

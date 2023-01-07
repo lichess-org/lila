@@ -31,7 +31,8 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
-    settingStore: lila.memo.SettingStore.Builder
+    settingStore: lila.memo.SettingStore.Builder,
+    ip2proxy: lila.security.Ip2Proxy
 )(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,

@@ -706,6 +706,7 @@
   <string name="kidMode">Kindvriendelijke modus</string>
   <string name="kidModeExplanation">Dit gaat over veiligheid. In kindvriendelijke modus, worden alle communicatiemogelijkheden op de website uitgeschakeld. Activeer dit voor kinderen en scholieren, om hen te beschermen tegen andere internetgebruikers.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kindvriendelijke modus, krijgt het Lichess-logo een %s-icoontje, zodat je weet dat je kinderen veilig zijn.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Je account wordt beheerd. Vraag je schaakdocent om de kindermodus uit te zetten.</string>
   <string name="enableKidMode">Activeer Kindermodus</string>
   <string name="disableKidMode">Deactiveer Kindermodus</string>
   <string name="security">Beveiliging</string>

@@ -47,8 +47,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona en visitar aquest enllaç jugarà amb tu.</string>
   <string name="whiteResigned">Les blanques s\'han rendit</string>
   <string name="blackResigned">Les negres s\'han rendit</string>
-  <string name="whiteLeftTheGame">Les blanques han abandonat la partida</string>
-  <string name="blackLeftTheGame">Les negres han abandonat la partida</string>
+  <string name="whiteLeftTheGame">Les blanques han marxat de la partida</string>
+  <string name="blackLeftTheGame">Les negres han marxat de la partida</string>
   <string name="whiteDidntMove">Les blanques no van moure</string>
   <string name="blackDidntMove">Les negres no van moure</string>
   <string name="requestAComputerAnalysis">Demana una anàlisi computeritzada</string>
@@ -58,7 +58,7 @@
   <string name="analysis">Tauler d\'anàlisi</string>
   <string name="depthX">Profunditat %s</string>
   <string name="usingServerAnalysis">Utilitzant l\'anàlisi del servidor</string>
-  <string name="loadingEngine">Carregant màquina...</string>
+  <string name="loadingEngine">Carregant motor...</string>
   <string name="calculatingMoves">Calculant...</string>
   <string name="engineFailed">Error carregant màquina</string>
   <string name="cloudAnalysis">Anàlisi en el núvol</string>
@@ -312,7 +312,7 @@
     <item quantity="other">Dóna %s segons</item>
   </plurals>
   <string name="thisAccountViolatedTos">Aquest compte ha violat els Termes de Servei de Lichess</string>
-  <string name="openingExplorerAndTablebase">Explorador d\'obertures &amp; taula de moviments</string>
+  <string name="openingExplorerAndTablebase">Explorador d\'obertures &amp; taula de finals</string>
   <string name="takeback">Desfés la jugada</string>
   <string name="proposeATakeback">Proposa desfer la jugada</string>
   <string name="takebackPropositionSent">La proposta de desfer la jugada s\'ha enviat</string>
@@ -706,6 +706,7 @@
   <string name="kidMode">Mode infantil</string>
   <string name="kidModeExplanation">Es tracta de seguretat. En el mode nen, totes les comunicacions de la pàgina estan inhabilitades. Activa això als seus nens o alumnes, per protegir-los d\'altres usuaris d\'internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En el mode nen, el logo de lichess té una icona de %s, per què sàpigues que els teus nens estan segurs.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">El vostre compte és gestionat. Demaneu al vostre professor deixar el mode per a nens.</string>
   <string name="enableKidMode">Activar el mode de nen</string>
   <string name="disableKidMode">Desactivar el mode de nen</string>
   <string name="security">Seguretat</string>

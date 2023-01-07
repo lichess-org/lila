@@ -706,6 +706,7 @@
   <string name="kidMode">Lapsitila</string>
   <string name="kidModeExplanation">Turvallisuusasia. Lapsitilassa kaikki kommunikointi sivustolla on pois käytöstä. Käytä tätä suojaamaan lasta tai koululaista muilta internetin käyttäjiltä.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Lapsitilassa Lichessin logoon liitetään %s-kuvake, josta tiedät lastesi olevan turvassa.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Käyttäjätunnuksesi on hallinnassa. Lapsitilan poistoa voit pyytää shakkiopettajaltasi.</string>
   <string name="enableKidMode">Lapsitila käyttöön</string>
   <string name="disableKidMode">Lapsitila käytöstä</string>
   <string name="security">Turvallisuus</string>

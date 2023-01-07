@@ -8,7 +8,7 @@ import play.api.data.format.Formatter
 import play.api.data.Forms.*
 import play.api.data.JodaForms.*
 import play.api.data.validation.{ Constraint, Constraints }
-import play.api.data.{ Field, FormError, JodaFormats, Mapping }
+import play.api.data.{ Field, FormError, JodaFormats, Mapping, Form => PlayForm }
 import play.api.data.validation as V
 import scala.util.Try
 
@@ -230,6 +230,8 @@ object Form:
   extension [A](m: Mapping[A])
     def into[B](using sr: SameRuntime[A, B], rs: SameRuntime[B, A]): Mapping[B] =
       m.transform(sr.apply, rs.apply)
+
+  extension [A](f: PlayForm[A]) def fillOption(o: Option[A]) = o.fold(f)(f.fill)
 
   object strings:
     def separator(sep: String) = of[List[String]](

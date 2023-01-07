@@ -78,9 +78,7 @@ final class Signup(
               case Hcaptcha.Result.Pass if !blind => fuccess(Signup.Result.MissingCaptcha)
               case hcaptchaResult =>
                 signupRateLimit(data.username.id, if (hcaptchaResult == Hcaptcha.Result.Valid) 1 else 2) {
-                  val email = emailAddressValidator
-                    .validate(data.realEmail) err s"Invalid email ${data.email}"
-                  MustConfirmEmail(data.fingerPrint, email.acceptable) flatMap { mustConfirm =>
+                  MustConfirmEmail(data.fingerPrint, data.email) flatMap { mustConfirm =>
                     lila.mon.user.register.count(none)
                     lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
                     val passwordHash = authenticator passEnc User.ClearPassword(data.password)
@@ -88,15 +86,15 @@ final class Signup(
                       .create(
                         data.username,
                         passwordHash,
-                        email.acceptable,
+                        data.email,
                         blind,
                         none,
                         mustConfirmEmail = mustConfirm.value
                       )
                       .orFail(s"No user could be created for ${data.username}")
-                      .addEffect { logSignup(req, _, email.acceptable, data.fingerPrint, none, mustConfirm) }
+                      .addEffect { logSignup(req, _, data.email, data.fingerPrint, none, mustConfirm) }
                       .flatMap {
-                        confirmOrAllSet(email, mustConfirm, data.fingerPrint, none)
+                        confirmOrAllSet(data.email, mustConfirm, data.fingerPrint, none)
                       }
                   }
                 }
@@ -105,20 +103,20 @@ final class Signup(
     }
 
   private def confirmOrAllSet(
-      email: EmailAddressValidator.Acceptable,
+      email: EmailAddress,
       mustConfirm: MustConfirmEmail,
       fingerPrint: Option[FingerPrint],
       apiVersion: Option[ApiVersion]
   )(user: User)(implicit req: RequestHeader, lang: Lang): Fu[Signup.Result] =
     store.deletePreviousSessions(user) >> {
       if (mustConfirm.value)
-        emailConfirm.send(user, email.acceptable) >> {
+        emailConfirm.send(user, email) >> {
           if (emailConfirm.effective)
             api.saveSignup(user.id, apiVersion, fingerPrint) inject
-              Signup.Result.ConfirmEmail(user, email.acceptable)
-          else fuccess(Signup.Result.AllSet(user, email.acceptable))
+              Signup.Result.ConfirmEmail(user, email)
+          else fuccess(Signup.Result.AllSet(user, email))
         }
-      else fuccess(Signup.Result.AllSet(user, email.acceptable))
+      else fuccess(Signup.Result.AllSet(user, email))
     }
 
   def mobile(
@@ -134,8 +132,6 @@ final class Signup(
           },
         data =>
           signupRateLimit(data.username.id, cost = 2) {
-            val email = emailAddressValidator
-              .validate(data.realEmail) err s"Invalid email ${data.email}"
             val mustConfirm = MustConfirmEmail.YesBecauseMobile
             lila.mon.user.register.count(apiVersion.some).increment()
             lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
@@ -144,15 +140,15 @@ final class Signup(
               .create(
                 data.username,
                 passwordHash,
-                email.acceptable,
+                data.email,
                 blind = false,
                 apiVersion.some,
                 mustConfirmEmail = mustConfirm.value
               )
               .orFail(s"No user could be created for ${data.username}")
-              .addEffect { logSignup(req, _, email.acceptable, none, apiVersion.some, mustConfirm) }
+              .addEffect { logSignup(req, _, data.email, none, apiVersion.some, mustConfirm) }
               .flatMap {
-                confirmOrAllSet(email, mustConfirm, none, apiVersion.some)
+                confirmOrAllSet(data.email, mustConfirm, none, apiVersion.some)
               }
           }
       )

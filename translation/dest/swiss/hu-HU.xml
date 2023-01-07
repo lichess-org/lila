@@ -100,4 +100,6 @@ Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon 
   <string name="streaksAndBerserk">Nyerő széria és Berserk</string>
   <string name="similarToOTB">Hasonló a valódi sakkversenyekhez</string>
   <string name="unlimitedAndFree">Korlátlan és ingyenes</string>
+  <string name="predefinedUsers">Csak engedélyezett játékosok csatlakozhatnak</string>
+  <string name="forbiddedUsers">Amennyiben a lista nem üres, úgy a listán nem szereplő játékosok nem csatlakozhatnak. Soronként egy felhasználónév.</string>
 </resources>

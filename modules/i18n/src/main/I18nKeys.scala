@@ -565,6 +565,7 @@ object I18nKeys:
   val `kidMode` = I18nKey("kidMode")
   val `kidModeExplanation` = I18nKey("kidModeExplanation")
   val `inKidModeTheLichessLogoGetsIconX` = I18nKey("inKidModeTheLichessLogoGetsIconX")
+  val `askYourChessTeacherAboutLiftingKidMode` = I18nKey("askYourChessTeacherAboutLiftingKidMode")
   val `enableKidMode` = I18nKey("enableKidMode")
   val `disableKidMode` = I18nKey("disableKidMode")
   val `security` = I18nKey("security")
@@ -1137,6 +1138,8 @@ object I18nKeys:
     val `studyPgn` = I18nKey("study:studyPgn")
     val `downloadAllGames` = I18nKey("study:downloadAllGames")
     val `chapterPgn` = I18nKey("study:chapterPgn")
+    val `copyChapterPgn` = I18nKey("study:copyChapterPgn")
+    val `copyChapterPgnDescription` = I18nKey("study:copyChapterPgnDescription")
     val `downloadGame` = I18nKey("study:downloadGame")
     val `studyUrl` = I18nKey("study:studyUrl")
     val `currentChapterUrl` = I18nKey("study:currentChapterUrl")
@@ -1617,6 +1620,7 @@ object I18nKeys:
   object settings:
     val `settings` = I18nKey("settings:settings")
     val `closeAccount` = I18nKey("settings:closeAccount")
+    val `managedAccountCannotBeClosed` = I18nKey("settings:managedAccountCannotBeClosed")
     val `closingIsDefinitive` = I18nKey("settings:closingIsDefinitive")
     val `cantOpenSimilarAccount` = I18nKey("settings:cantOpenSimilarAccount")
     val `changedMindDoNotCloseAccount` = I18nKey("settings:changedMindDoNotCloseAccount")
@@ -2433,4 +2437,3 @@ object I18nKeys:
     val `engineWrite` = I18nKey("oauthScope:engineWrite")
     val `webLogin` = I18nKey("oauthScope:webLogin")
     val `webMod` = I18nKey("oauthScope:webMod")
-

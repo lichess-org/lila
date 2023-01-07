@@ -207,5 +207,7 @@ private object DisposableEmailDomain:
     "freeshell.org",
     "hotmail.nl",
     "live.nl",
-    "startmail.com"
+    "startmail.com",
+    "palaciodegranda.com",
+    "laudepalaciogranda.com"
   )

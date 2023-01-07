@@ -28,7 +28,7 @@
   <string name="bishopComplete">अभिनंदन! आपण उंटाला यशस्वीरित्या प्रभुत्व केले.</string>
   <string name="theQueen">वझीर(राणी)</string>
   <string name="queenCombinesRookAndBishop">वझीर = हत्ती + उंट</string>
-  <string name="queenIntro">सर्वात शक्तिशाली बुद्धीबळ सोंगटी आत प्रवेश करते. वझीरजी पधार रहे है!</string>
+  <string name="queenIntro">सर्वात शक्तिशाली सोंगटी प्रवेश करत आहे. वझीरजी पधार रहे है!</string>
   <string name="queenComplete">अभिनंदन! तुम्हाला वझीराबद्दल सर्व काही माहित झालय.</string>
   <string name="theKing">राजा</string>
   <string name="theMostImportantPiece">सर्वात महत्वाची सोंगटी</string>
@@ -171,7 +171,7 @@
   <string name="stalemateComplete">अभिनंदन! शहमात मिळण्यापेक्षा अर्धवट मात चांगली आहे!</string>
   <string name="advanced">प्रगत</string>
   <string name="pieceValue">सोंगट्यांचे मूल्य</string>
-  <string name="evaluatePieceStrength">सोंगट्यांच्या शक्तिचे मूल्यमापन करा</string>
+  <string name="evaluatePieceStrength">सोंगट्यांच्या शक्तीचे मूल्यमापन करा</string>
   <string name="pieceValueIntro">सोंगट्यांच्या हालचाली प्रमाणे त्यांना जास्त किंमत असते!
 वजीर = 9
 हत्ती = 5
