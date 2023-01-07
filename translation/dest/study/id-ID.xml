@@ -47,7 +47,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Hanya kontributor yang dapat meminta analisa komputer.</string>
   <string name="getAFullComputerAnalysis">Dapatkan analisis komputer penuh di pihak server dari jalur utama.</string>
   <string name="makeSureTheChapterIsComplete">Pastikan bab ini selesai. Anda hanya dapat meminta analisis satu kali.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Semua anggota yang ter-sinkron tetap pada posisi yang sama</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Semua anggota yang ter-sinkron tetap pada posisi yang sama</string>
   <string name="shareChanges">Bagikan perubahan dengan penonton dan simpan di server</string>
   <string name="playing">Memainkan</string>
   <string name="first">Pertama</string>

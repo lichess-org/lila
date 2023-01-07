@@ -53,7 +53,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Tikai izpētes ieguldītāji var pieprasīt datoranalīzi.</string>
   <string name="getAFullComputerAnalysis">Iegūstiet pilnu servera puses pamatvarianta datoranalīzi.</string>
   <string name="makeSureTheChapterIsComplete">Pārliecinieties, ka nodaļa ir pabeigta. Datoranalīzi var pieprasīt tikai vienreiz.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Visi SYNC dalībnieki paliek vienā pozīcijā</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Visi SYNC dalībnieki paliek vienā pozīcijā</string>
   <string name="shareChanges">Koplietot izmaiņas ar skatītājiem un saglabāt tās serverī</string>
   <string name="playing">Notiek</string>
   <string name="first">Pirmais</string>
