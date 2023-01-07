@@ -742,6 +742,7 @@
   <string name="kidMode">Bērnu režīms</string>
   <string name="kidModeExplanation">Runa ir par drošību. Bērnu režīmā jebkāda saziņa ir atspējota. Ieslēdziet šo režīmu, lai pasargātu savus bērnus un skolēnus no citiem interneta lietotājiem.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Bērnu režīmā Lichess logo tiek pievienota %s ikona, lai jūs zinātu, ka jūsu bērni ir drošībā.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Jūsu konts tiek pārvaldīts. Prasiet savam šaha skolotājam, ja vēlaties noņemt bērnu režīmu.</string>
   <string name="enableKidMode">Iespējot Bērnu režīmu</string>
   <string name="disableKidMode">Atspējot Bērnu režīmu</string>
   <string name="security">Drošība</string>

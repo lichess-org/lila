@@ -48,7 +48,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Bert tey, ið geva sítt íkast til rannsóknina, kunnu biðja um eina teldugreining.</string>
   <string name="getAFullComputerAnalysis">Fá eina fullfíggjaða teldugreining av høvuðsbrigdinum frá ambætaranum.</string>
   <string name="makeSureTheChapterIsComplete">Tryggja tær, at kapittulin er fullfíggjaður. Tú kanst bert biðja um greining eina ferð.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Allir SYNC-limir verða verandi í somu støðu</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Allir SYNC-limir verða verandi í somu støðu</string>
   <string name="shareChanges">Deil broytingar við áskoðarar, og goym tær á ambætaranum</string>
   <string name="playing">Í gongd</string>
   <string name="first">Fyrsta</string>

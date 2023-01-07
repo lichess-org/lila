@@ -37,4 +37,12 @@
   <string name="defensiveMove">جوڵەی بەرگریکردن</string>
   <string name="defensiveMoveDescription">جوڵەیەک یان زنجیرە جوڵەیەکی ورد و گرنگە، بە ئەوەی داشەکانت لەدەست نەدەیت و ڕێژەی دۆڕانت کەمکەیتەوە.</string>
   <string name="deflection">لادان</string>
+  <string name="deflectionDescription">جوڵەیەک کە وا دەکات داشی بەرانبەر ئەرکێک وەرگرێت و سەرقاڵبێت بە بەرگریکردن لە خانەیەکی دیکەی گرنگ، زۆرجار پێی دەگوترێت \"زیاد بارکردن\".</string>
+  <string name="discoveredAttack">دۆزینەوەی هێرشەکان</string>
+  <string name="discoveredAttackDescription">جوڵاندنی داشێکی (وەک ئەسپ)، کە پێشتر ڕێگری لە کشێک کردبوو لە ڕێگەی داشێکی مەودا دوورەوە (وەک قەڵا).</string>
+  <string name="doubleCheck">کشکردن لە دوولاوە</string>
+  <string name="doubleCheckDescription">کشکردن بە دوو داش لە یەک کاتدا، ئەنجامی هێرشێکە کە بە دوو داش دەکرێت لە کاتی جوڵانی داشێک کە کشی پێدەکەیت و داشێک کە نەتجوڵاندووە و ئۆتۆماتیکی دەکەوێتە بەرانبەر پاشای رکابەرەکەت و کش دەکات.</string>
+  <string name="endgame">قۆناغی کۆتایی یاری</string>
+  <string name="endgameDescription">تاکتیکی ماوەی قۆناغی کۆتایی یاری.</string>
+  <string name="enPassantDescription">تاکتیکێک کە یاسای ئانپاسان دەگرێتەوە، لە شوێنێک سەربازی رکابەرەکەت دوو خانە جوڵە دەکات تۆ دەتوانی بیگریت \"بیخۆیت\" کاتێک جوڵەکە لە بەرانبەر سەربازی تۆ دەکرێت.</string>
 </resources>

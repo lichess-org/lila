@@ -54,15 +54,15 @@ Tačiau pasiekę kitą lentos pusę, jie tampa stipresnėmis figūromis!</string
 Tačiau kartais gali praversti ir žirgas!</string>
   <string name="pawnsMoveForward">Pėstininkai eina į priekį,
 tačiau kerta įstrižai!</string>
-  <string name="captureThenPromote">Nukirsk ir perkelk į aukštesnį lygį!</string>
-  <string name="useAllThePawns">Naudok visus pėstininkus! Paversti juos nebūtina.</string>
+  <string name="captureThenPromote">Nukirskite ir paaukštinkite!</string>
+  <string name="useAllThePawns">Naudok visus pėstininkus! Nebūtina juos paaukštinti.</string>
   <string name="aPawnOnTheSecondRank">Nuo antros gulstinės pėstininkai gali judėti per du laukelius iš karto!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Griebk visas žvaigždes!
-Paversti nebūtina.</string>
+Paaukštinti nebūtina.</string>
   <string name="pawnComplete">Sveikiname! Pėstininkai nebeturi tau jokių paslapčių.</string>
   <string name="pawnPromotion">Pėstininkų pavertimas</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Tavo pėstininkas pasiekė lentos galą!</string>
-  <string name="itNowPromotesToAStrongerPiece">Dabar jis virsta stipresne figūra.</string>
+  <string name="itNowPromotesToAStrongerPiece">Jis dabar paaukštinamas į stipresnę figūrą.</string>
   <string name="selectThePieceYouWant">Pasirink, kurios figūros nori!</string>
   <string name="fundamentals">Pagrindai</string>
   <string name="capture">Kirtimas</string>

@@ -39,7 +39,7 @@ lichess.load.then(() => {
     $('body').toggleClass('no-inquiry');
   });
 
-  const nextStore = lichess.storage.makeBoolean('inquiry-auto-next');
+  const nextStore = lichess.storage.boolean('inquiry-auto-next');
 
   if (!nextStore.get()) {
     $('#inquiry .switcher input').prop('checked', false);

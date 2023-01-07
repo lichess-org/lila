@@ -742,6 +742,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="light">Lys</string>
   <string name="dark">Mørk</string>
   <string name="transparent">Gjennomskinleg</string>
+  <string name="deviceTheme">Einingstema</string>
   <string name="backgroundImageUrl">URL for bakgrunnsbilete:</string>
   <string name="boardGeometry">Brettgeometri</string>
   <string name="boardTheme">Brett-tema</string>
