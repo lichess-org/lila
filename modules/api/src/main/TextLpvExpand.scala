@@ -67,8 +67,6 @@ final class TextLpvExpand(
   private val notGames =
     Set("training", "analysis", "insights", "practice", "features", "password", "streamer", "timeline")
 
-  private val betweenSiteHeaders = "\\[Site.(.*?)\\]";
-
   private def lichessPgnViewer(game: Game.WithInitialFen, pgn: Pgn): Frag =
     div(cls := "lpv", attr("data-pgn") := pgn.toString)
 
