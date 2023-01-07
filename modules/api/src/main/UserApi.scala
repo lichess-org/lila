@@ -29,14 +29,15 @@ final class UserApi(
     net: NetConfig
 )(using scala.concurrent.ExecutionContext):
 
-  def one(u: User): JsObject =
-    addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
-      Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
-
-  def oneWithTime(u: User, timeOfJoining: DateTime): JsObject =
-    addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
-      Json.obj("joinedTeamAt" -> timeOfJoining) ++
-      Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
+  def one(u: User, timeOfJoining: Option[DateTime]): JsObject = {
+    timeOfJoining match {
+      case Some(x) => addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
+        Json.obj("joinedTeamAt" -> x) ++
+        Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
+      case None => addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
+        Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
+      }
+  }
 
   def extended(
       username: UserStr,

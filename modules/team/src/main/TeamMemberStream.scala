@@ -10,8 +10,6 @@ import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
 
-import scala.concurrent.Future
-
 final class TeamMemberStream(
     memberRepo: MemberRepo,
     userRepo: UserRepo
