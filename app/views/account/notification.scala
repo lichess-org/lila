@@ -42,6 +42,10 @@ object notification {
             setting(
               correspondenceEmailNotification(),
               radios(form("correspondenceEmail"), translatedBooleanChoices)
+            ),
+            setting(
+              "Bell notification sound",
+              radios(form("notification.playBellSound"), translatedBooleanIntChoices)
             )
           ),
           p(cls := "saved text none", dataIcon := "")(yourPreferencesHaveBeenSaved())

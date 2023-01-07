@@ -29,7 +29,8 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
 
   function attention() {
     const id = data?.pager.currentPageResults.find(n => !n.read)?.content.user?.id;
-    if (!lichess.quietMode || id == 'lichess') lichess.sound.playOnce('newPM');
+    const playBell = lichess.storage.get('playBellSound') != '0';
+    if ((!lichess.quietMode || id == 'lichess') && playBell) lichess.sound.playOnce('newPM');
     opts.pulse();
   }
 

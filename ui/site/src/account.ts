@@ -1,10 +1,11 @@
 import * as xhr from 'common/xhr';
 
 lichess.load.then(() => {
-  const localPrefs: [string, string, string, number][] = [
+  const localPrefs: [string, string, string, number | string][] = [
     ['behavior', 'arrowSnap', 'arrow.snap', 1],
     ['behavior', 'courtesy', 'courtesy', 0],
     ['behavior', 'scrollMoves', 'scrollMoves', 1],
+    ['notification', 'playBellSound', 'playBellSound', 1],
   ];
 
   $('.security table form').on('submit', function (this: HTMLFormElement) {
