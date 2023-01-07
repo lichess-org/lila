@@ -424,7 +424,7 @@ export default function (deps?: typeof studyDeps) {
             addChapterId(study, 'div.analyse__board.main-board'),
             {
               hook:
-                'ontouchstart' in window || lichess.storage.get('scrollMoves') == '0'
+                'ontouchstart' in window || !lichess.storage.boolean('scrollMoves').getOrDefault(false)
                   ? undefined
                   : bindNonPassive(
                       'wheel',

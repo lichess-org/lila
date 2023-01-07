@@ -2,7 +2,7 @@ import sri from './sri';
 
 const builder = (storage: Storage): LichessStorageHelper => {
   const api = {
-    get: (k: string) => storage.getItem(k),
+    get: (k: string): string | null => storage.getItem(k),
     set: (k: string, v: string): void => storage.setItem(k, v),
     fire: (k: string, v?: string) =>
       storage.setItem(
@@ -33,8 +33,12 @@ const builder = (storage: Storage): LichessStorageHelper => {
           if (parsed?.sri && parsed.sri !== sri) f(parsed);
         }),
     }),
-    makeBoolean: (k: string) => ({
+    boolean: (k: string) => ({
       get: () => api.get(k) == '1',
+      getOrDefault: (defaultValue: boolean) => {
+        const stored = api.get(k);
+        return stored === null ? defaultValue : stored == '1';
+      },
       set: (v: boolean): void => api.set(k, v ? '1' : '0'),
       toggle: () => api.set(k, api.get(k) == '1' ? '0' : '1'),
     }),

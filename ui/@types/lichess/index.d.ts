@@ -156,7 +156,7 @@ interface Pubsub {
 
 interface LichessStorageHelper {
   make(k: string): LichessStorage;
-  makeBoolean(k: string): LichessBooleanStorage;
+  boolean(k: string): LichessBooleanStorage;
   get(k: string): string | null;
   set(k: string, v: string): void;
   fire(k: string, v?: string): void;
@@ -173,6 +173,7 @@ interface LichessStorage {
 
 interface LichessBooleanStorage {
   get(): boolean;
+  getOrDefault(defaultValue: boolean): boolean;
   set(v: boolean): void;
   toggle(): void;
 }
