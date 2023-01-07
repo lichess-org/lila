@@ -45,7 +45,7 @@ object notification {
             ),
             setting(
               "Play sound when bell notification is received",
-              radios(form("notification.playBellSound"), translatedBooleanChoices)
+              radios(form("notification.playBellSound"), translatedBooleanIntChoices)
             )
           ),
           p(cls := "saved text none", dataIcon := "")(yourPreferencesHaveBeenSaved())
