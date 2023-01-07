@@ -143,6 +143,15 @@ class RawHtmlTest extends Specification {
       val url = "http://zombo.com"
 
       addLinks(s"""I found the [$url] here""") === s"""I found the [$url] here"""
+      addLinks("[Site https://lichess.org/12345678") === "[Site https://lichess.org/12345678"
+      addLinks("[]https://lichess.org") === """[]<a href="/">lichess.org</a>"""
+      addLinks(" oh hai [https://lichess.org") === " oh hai [https://lichess.org"
+      addLinks(" [zz]https://lichess.org") === """ [zz]<a href="/">lichess.org</a>"""
+      addLinks("zz[zz][https://lichess.org") === "zz[zz][https://lichess.org"
+      addLinks("[exceed lookbehind cap https://lichess.org") ===
+        """[exceed lookbehind cap <a href="/">lichess.org</a>"""
+      addLinks(s"""[zombo.com here]""") ===
+        s"""[<a rel="nofollow noopener noreferrer" href="https://zombo.com" target="_blank">zombo.com</a> here]"""      
     }
   }
 
