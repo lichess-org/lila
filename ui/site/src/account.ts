@@ -5,7 +5,7 @@ lichess.load.then(() => {
     ['behavior', 'arrowSnap', 'arrow.snap', true],
     ['behavior', 'courtesy', 'courtesy', false],
     ['behavior', 'scrollMoves', 'scrollMoves', true],
-    ['notification', 'playBellSound', 'playBellSound', false],
+    ['notification', 'playBellSound', 'playBellSound', true],
   ];
 
   $('.security table form').on('submit', function (this: HTMLFormElement) {
