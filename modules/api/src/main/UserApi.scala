@@ -1,17 +1,15 @@
 package lila.api
 
 import play.api.libs.json.*
+
 import lila.common.config.*
-import lila.common.paginator.{Paginator, PaginatorJson}
-import lila.user.{Trophy, User}
-import lila.rating.{PerfType, UserRankMap}
+import lila.common.paginator.{ Paginator, PaginatorJson }
+import lila.user.{ Trophy, User }
+import lila.rating.{ PerfType, UserRankMap }
 import play.api.i18n.Lang
 import lila.common.Json.given
-import lila.db.dsl.{$doc, Bdoc, temporarilyPrimary}
 import lila.security.Granter
-import lila.team.Team
-import lila.team.Team.nameToId
-import reactivemongo.api.bson.BSONDocument
+import org.joda.time.DateTime
 
 final class UserApi(
     jsonView: lila.user.JsonView,
@@ -35,9 +33,9 @@ final class UserApi(
     addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
 
-  def oneWithTime(u: User, timestring: String): JsObject =
+  def oneWithTime(u: User, timeOfJoining: DateTime): JsObject =
     addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
-      Json.obj("joined_at" -> timestring) ++
+      Json.obj("joinedTeamAt" -> timeOfJoining) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
 
   def extended(
