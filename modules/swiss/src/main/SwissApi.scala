@@ -195,7 +195,7 @@ final class SwissApi(
   def gameIdSource(
       swissId: SwissId,
       batchSize: Int = 0,
-      readPreference: ReadPreference = ReadPreference.temporarilyPrimary
+      readPreference: ReadPreference = temporarilyPrimary
   ): Source[GameId, ?] =
     SwissPairing.fields { f =>
       mongo.pairing
