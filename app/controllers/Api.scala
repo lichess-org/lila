@@ -300,6 +300,7 @@ final class Api(
             format = GameApiV2.Format byRequest req,
             flags = gameC.requestPgnFlags(req, extended = false),
             perSecond = gamesPerSecond(me),
+            player = getUserStr("player", req).map(_.id)
           )
           GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
             env.api.gameApiV2.exportBySwiss(config)
