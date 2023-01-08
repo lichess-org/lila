@@ -35,7 +35,8 @@ final class MsgApi(
       .find($doc("users" -> me.id, "del" $ne me.id))
       .sort($sort desc "lastMsg.date")
       .cursor[MsgThread]()
-      .list(50)
+      // .list(50)
+      .list(5)
       .map(prioritize)
 
   private def prioritize(threads: List[MsgThread]) =
@@ -73,9 +74,10 @@ final class MsgApi(
       dest: UserId,
       text: String,
       multi: Boolean = false,
+      date: DateTime = DateTime.now,
       ignoreSecurity: Boolean = false
   ): Fu[PostResult] =
-    Msg.make(text, orig).fold[Fu[PostResult]](fuccess(PostResult.Invalid)) { msgPre =>
+    Msg.make(text, orig, date).fold[Fu[PostResult]](fuccess(PostResult.Invalid)) { msgPre =>
       val threadId = MsgThread.id(orig, dest)
       for {
         contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
@@ -84,6 +86,7 @@ final class MsgApi(
           if (ignoreSecurity) fuccess(MsgSecurity.Ok)
           else security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
         _ = lila.mon.msg.post(verdict.toString, isNew = isNew, multi = multi).increment()
+        lastDirectMsg <- if multi then lastDirectMsg(threadId, orig) else fuccess(Some(msgPre.asLast))
         res <- verdict match
           case MsgSecurity.Limit     => fuccess(PostResult.Limited)
           case _: MsgSecurity.Reject => fuccess(PostResult.Bounced)
@@ -91,6 +94,8 @@ final class MsgApi(
             val msg =
               if (verdict == MsgSecurity.Spam) msgPre.copy(text = spam.replace(msgPre.text)) else msgPre
             val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
+            val multiField =
+              if multi then $set("multi" -> MsgThread.Multi(orig, lastDirectMsg)) else $unset("multi")
             val threadWrite =
               if (isNew)
                 colls.thread.insert.one {
@@ -99,15 +104,17 @@ final class MsgApi(
                     delBy = List(
                       multi option orig,
                       send.mute option dest
-                    ).flatten
+                    ).flatten,
+                    multi option MsgThread.Multi(orig, None)
                   )
                 }.void
               else
                 colls.thread.update
                   .one(
                     $id(threadId),
-                    $set("lastMsg" -> msg.asLast) ++ {
-                      if (multi) $pull("del" -> List(orig))
+                    multiField ++ $set("lastMsg" -> msg.asLast) ++ {
+                      if (multi)
+                        $pull("del" -> List(orig))
                       else
                         $pull(
                           // unset "deleted by receiver" unless the message is muted
@@ -131,6 +138,10 @@ final class MsgApi(
       } yield res
     }
 
+  def lastDirectMsg(threadId: MsgThread.Id, collapseFor: UserId): Fu[Option[Msg.Last]] =
+    colls.thread.one[MsgThread]($id(threadId)) collect { case Some(doc) =>
+      if doc.multi.exists(_.from == collapseFor) then doc.multi.get.lastDM else Some(doc.lastMsg)
+    }
   def setRead(userId: UserId, contactId: UserId): Funit =
     val threadId = MsgThread.id(userId, contactId)
     colls.thread

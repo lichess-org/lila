@@ -8,7 +8,8 @@ case class MsgThread(
     user1: UserId,
     user2: UserId,
     lastMsg: Msg.Last,
-    del: Option[List[UserId]] = None
+    del: Option[List[UserId]] = None,
+    multi: Option[MsgThread.Multi] = None
 ):
 
   def users = List(user1, user2)
@@ -29,6 +30,7 @@ object MsgThread:
   opaque type Id = String
   object Id extends OpaqueString[Id]
 
+  case class Multi(from: UserId, lastDM: Option[Msg.Last])
   case class WithMsgs(thread: MsgThread, msgs: List[Msg])
 
   case class WithContact(thread: MsgThread, contact: LightUser)

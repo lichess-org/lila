@@ -9,8 +9,10 @@ import lila.db.BSON
 
 private object BsonHandlers:
 
+  import MsgThread.Multi
   import Msg.Last
-  given BSONDocumentHandler[Last] = Macros.handler
+  given BSONDocumentHandler[Last]  = Macros.handler
+  given BSONDocumentHandler[Multi] = Macros.handler
 
   given threadHandler: BSON[MsgThread] with
     def reads(r: BSON.Reader) =
@@ -39,5 +41,5 @@ private object BsonHandlers:
       "tid" -> threadId
     )
 
-  def writeThread(thread: MsgThread, delBy: List[UserId]): Bdoc =
-    threadHandler.writeTry(thread).get ++ $doc("del" -> delBy)
+  def writeThread(thread: MsgThread, delBy: List[UserId], multi: Option[Multi]): Bdoc =
+    threadHandler.writeTry(thread).get ++ $doc("del" -> delBy) ++ $doc("multi" -> multi)
