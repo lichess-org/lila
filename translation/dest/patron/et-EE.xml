@@ -57,9 +57,10 @@ Võimalik on ka %s.</string>
   <string name="tyvm">Suured tänud su abi eest. Sa oled parim!</string>
   <string name="currentStatus">Praegune olek</string>
   <string name="nextPayment">Järgmine makse</string>
-  <string name="makeAdditionalDonation">Tee lisaannetus nüüd</string>
+  <string name="youWillBeChargedXOnY">Maks %1$s peetakse kinni %2$s.</string>
+  <string name="makeAdditionalDonation">Tee lisaannetus</string>
   <string name="giftPatronWings">Kingi Toetaja tiivad mängijale</string>
-  <string name="update">Uuenda</string>
+  <string name="update">Värskenda</string>
   <string name="changeMonthlyAmount">Muuda igakuist summat (%s)</string>
   <string name="cancelSupport">tühista toetus</string>
   <string name="xOrY">%1$s või %2$s</string>
