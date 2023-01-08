@@ -612,7 +612,10 @@ export default class RoundController {
   };
 
   private corresClockTick = (): void => {
-    if (this.corresClock && game.playable(this.data)) this.corresClock.tick(this.data.game.player);
+    if (this.corresClock && game.playable(this.data)) {
+      this.corresClock.tick(this.data.game.player);
+      this.redraw();
+    }
   };
 
   private setQuietMode = () => {
