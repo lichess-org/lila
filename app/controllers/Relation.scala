@@ -155,7 +155,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     apiC.jsonStream {
       env.relation.stream
         .follow(me, Direction.Following, MaxPerSecond(30))
-        .map(x => env.api.userApi.one(x, None))
+        .map(env.api.userApi.one)
     }.toFuccess
   }
 

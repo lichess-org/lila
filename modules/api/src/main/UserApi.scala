@@ -29,7 +29,7 @@ final class UserApi(
     net: NetConfig
 )(using scala.concurrent.ExecutionContext):
 
-  def one(u: User, joinedAt: Option[DateTime]): JsObject = {
+  def one(u: User, joinedAt: Option[DateTime] = None): JsObject = {
     addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
   }.add("joinedTeamAt", joinedAt)
