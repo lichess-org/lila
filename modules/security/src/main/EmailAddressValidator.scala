@@ -51,7 +51,7 @@ final class EmailAddressValidator(
     else
       dnsApi.mx(domain).flatMap { domains =>
         if domains.isEmpty then fuccess(Result.DnsMissing)
-        else if domains.exists(disposable.apply) then fuccess(Result.DnsBlocklist)
+        else if domains.exists(disposable.asMxRecord) then fuccess(Result.DnsBlocklist)
         else
           checkMail(domain).map { ck =>
             if ck then Result.Alright else Result.Reputation
