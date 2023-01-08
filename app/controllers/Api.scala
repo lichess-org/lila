@@ -230,7 +230,7 @@ final class Api(
             tour = tour,
             format = GameApiV2.Format byRequest req,
             flags = gameC.requestPgnFlags(req, extended = false),
-            perSecond = MaxPerSecond(20 + me.isDefined ?? 10)
+            perSecond = gamesPerSecond(me)
           )
           GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
             env.api.gameApiV2.exportByTournament(config, onlyUserId)
@@ -299,7 +299,8 @@ final class Api(
             swissId = swiss.id,
             format = GameApiV2.Format byRequest req,
             flags = gameC.requestPgnFlags(req, extended = false),
-            perSecond = MaxPerSecond(20 + me.isDefined ?? 10)
+            perSecond = gamesPerSecond(me),
+            player = getUserStr("player", req).map(_.id)
           )
           GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
             env.api.gameApiV2.exportBySwiss(config)
@@ -312,6 +313,10 @@ final class Api(
         }
       }
     }
+
+  private def gamesPerSecond(me: Option[lila.user.User]) = MaxPerSecond(
+    30 + me.isDefined.??(20) + me.exists(_.isVerified).??(40)
+  )
 
   def swissResults(id: SwissId) = Action.async { implicit req =>
     val csv = HTTPRequest.acceptsCsv(req) || get("as", req).has("csv")

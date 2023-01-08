@@ -157,7 +157,7 @@ final class GameApiV2(
         batchSize = config.perSecond.value
       )
       .documentSource()
-      .grouped(20)
+      .grouped(30)
       .mapAsync(1) { pairings =>
         config.tour.isTeamBattle.?? {
           playerRepo.teamsOfPlayers(config.tour.id, pairings.flatMap(_.users).distinct).dmap(_.toMap)
@@ -203,9 +203,10 @@ final class GameApiV2(
     swissApi
       .gameIdSource(
         swissId = config.swissId,
+        player = config.player,
         batchSize = config.perSecond.value
       )
-      .grouped(20)
+      .grouped(30)
       .mapAsync(1)(gameRepo.gamesTemporarilyFromPrimary)
       .mapConcat(identity)
       .throttle(config.perSecond.value, 1 second)
@@ -396,5 +397,6 @@ object GameApiV2:
       swissId: SwissId,
       format: Format,
       flags: WithFlags,
-      perSecond: MaxPerSecond
+      perSecond: MaxPerSecond,
+      player: Option[UserId]
   ) extends Config
