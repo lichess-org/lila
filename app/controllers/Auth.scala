@@ -200,7 +200,7 @@ final class Auth(
       given play.api.mvc.Request[?] = ctx.body
       NoTor {
         Firewall {
-          forms.preloadEmailDns >> negotiate(
+          forms.preloadEmailDns() >> negotiate(
             html = env.security.signup
               .website(ctx.blind)
               .flatMap {
@@ -267,7 +267,7 @@ final class Auth(
     OpenBody { implicit ctx =>
       lila.security.EmailConfirm.cookie.get(ctx.req) ?? { userEmail =>
         given play.api.mvc.Request[?] = ctx.body
-        forms.preloadEmailDns >> forms
+        forms.preloadEmailDns() >> forms
           .fixEmail(userEmail.email)
           .bindFromRequest()
           .fold(
@@ -278,7 +278,7 @@ final class Auth(
                   env.user.repo.mustConfirmEmail(user.id) flatMap {
                     case false => Redirect(routes.Auth.login).toFuccess
                     case _ =>
-                      val newUserEmail = userEmail.copy(email = EmailAddress(email))
+                      val newUserEmail = userEmail.copy(email = email)
                       EmailConfirmRateLimit(newUserEmail, ctx.req) {
                         lila.mon.email.send.fix.increment()
                         env.user.repo.setEmail(user.id, newUserEmail.email) >>
@@ -366,7 +366,7 @@ final class Auth(
               .fold(
                 err => renderPasswordReset(err.some, fail = true) map { BadRequest(_) },
                 data =>
-                  env.user.repo.enabledWithEmail(data.realEmail.normalize) flatMap {
+                  env.user.repo.enabledWithEmail(data.email.normalize) flatMap {
                     case Some((user, storedEmail)) =>
                       lila.mon.user.auth.passwordResetRequest("success").increment()
                       env.security.passwordReset.send(user, storedEmail) inject Redirect(
@@ -374,7 +374,7 @@ final class Auth(
                       )
                     case _ =>
                       lila.mon.user.auth.passwordResetRequest("noEmail").increment()
-                      Redirect(routes.Auth.passwordResetSent(data.realEmail.conceal)).toFuccess
+                      Redirect(routes.Auth.passwordResetSent(data.email.conceal)).toFuccess
                   }
               )
           }
@@ -455,7 +455,7 @@ final class Auth(
                 .fold(
                   err => renderMagicLink(err.some, fail = true) map { BadRequest(_) },
                   data =>
-                    env.user.repo.enabledWithEmail(data.realEmail.normalize) flatMap {
+                    env.user.repo.enabledWithEmail(data.email.normalize) flatMap {
                       case Some((user, storedEmail)) =>
                         MagicLinkRateLimit(user, storedEmail, ctx.req) {
                           lila.mon.user.auth.magicLinkRequest("success").increment()
@@ -465,7 +465,7 @@ final class Auth(
                         }(rateLimitedFu)
                       case _ =>
                         lila.mon.user.auth.magicLinkRequest("no_email").increment()
-                        Redirect(routes.Auth.magicLinkSent(data.realEmail.value)).toFuccess
+                        Redirect(routes.Auth.magicLinkSent(data.email.value)).toFuccess
                     }
                 )
             }

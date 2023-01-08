@@ -24,9 +24,8 @@ final private[security] class Cli(userRepo: UserRepo, emailValidator: EmailAddre
         .flatMap(_.domain)
         .orElse(Domain.from(emailOrDomain))
         .fold(fuccess("Invalid email or domain")) { dom =>
-          emailValidator.validateDomain(dom.lower) map {
-            case false => "Blocked disposable domain"
-            case true  => "Accepted domain"
+          emailValidator.validateDomain(dom.lower) map { r =>
+            s"$r ${r.error | ""}"
           }
         }
 

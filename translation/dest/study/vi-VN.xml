@@ -47,7 +47,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Chỉ có những người đóng góp mới có thể yêu cầu máy tính phân tích.</string>
   <string name="getAFullComputerAnalysis">Nhận một phân tích đầy đủ của biến chính từ máy tính phía server.</string>
   <string name="makeSureTheChapterIsComplete">Đảm bảo chương đã hoàn thành. Bạn chỉ có thể yêu cầu phân tích 1 lần.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Đồng bộ hóa tất cả các thành viên trên cùng một thế cờ</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Đồng bộ hóa tất cả các thành viên trên cùng một thế cờ</string>
   <string name="shareChanges">Chia sẻ các thay đổi với khán giả và lưu chúng trên máy chủ</string>
   <string name="playing">Đang chơi</string>
   <string name="first">Trang đầu</string>
@@ -59,6 +59,8 @@
   <string name="studyPgn">PGN nghiên cứu</string>
   <string name="downloadAllGames">Tải xuống tất cả ván đấu</string>
   <string name="chapterPgn">PGN chương</string>
+  <string name="copyChapterPgn">Sao chép PGN</string>
+  <string name="copyChapterPgnDescription">Sao chép PGN chương vào khay nhớ tạm.</string>
   <string name="downloadGame">Tải xuống ván cờ</string>
   <string name="studyUrl">URL nghiên cứu</string>
   <string name="currentChapterUrl">URL chương hiện tại</string>

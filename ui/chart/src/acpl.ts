@@ -77,6 +77,10 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
         click(e: any) {
           lichess.pubsub.emit('analysis.chart.click', Math.round(e.xAxis[0].value));
         },
+        load(e: any) {
+          // Drop-in fix for Highcharts issue #7293
+          e.target.renderer.globalAnimation = false;
+        },
       },
     },
     plotOptions: {

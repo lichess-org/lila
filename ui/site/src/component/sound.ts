@@ -21,7 +21,7 @@ const sound: SoundI = new (class {
   soundSetSounds = new Map<Name, Howl>(); // The loaded sounds and their instances
   standaloneSounds = new Map<Name, Howl>(); // Sounds that are independent of the sound set
   soundSet = $('body').data('sound-set');
-  speechStorage = storage.makeBoolean('speech.enabled');
+  speechStorage = storage.boolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
   baseUrl = assetUrl('sound', {
     version: '_____1', // 6 random letters to update

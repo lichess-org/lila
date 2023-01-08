@@ -52,6 +52,7 @@
   <string name="skipExplanation">Omet aquest moviment per preservar el teu combo! Només funciona un cop per cursa.</string>
   <string name="failedPuzzles">Puzzles errats</string>
   <string name="slowPuzzles">Problemes lents</string>
+  <string name="skippedPuzzle">Problema omès</string>
   <string name="thisWeek">Aquesta setmana</string>
   <string name="thisMonth">Aquest mes</string>
   <string name="allTime">Tot</string>
