@@ -20,11 +20,14 @@ final class TeamMemberStream(
 
   def apply(team: Team, perSecond: MaxPerSecond): Source[(User, DateTime), ?] =
     idsBatches(team, perSecond)
-      .mapAsync(1)(x => userRepo.usersFromSecondary(x.map(y => y._1)).map(us => us zip x.map(y => y._2)))
+      .mapAsync(1) { members =>
+        userRepo.usersFromSecondary(members.map(_._1)).map(_ zip members.map(_._2))
+      }
       .mapConcat(identity)
 
   def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[UserId, ?] =
-    idsBatches(team, perSecond, $doc("unsub" $ne true)).map(x => x.map(y => y._1))
+    idsBatches(team, perSecond, $doc("unsub" $ne true))
+      .map(_.map(_._1))
       .mapConcat(identity)
 
   private def idsBatches(
