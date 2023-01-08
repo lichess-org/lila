@@ -386,7 +386,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         perSecond = MaxPerSecond(20)
       )
       apiC
-        .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some)(env.puzzle.activity.stream(config)) {
+        .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some, me.some)(env.puzzle.activity.stream(config)) {
           source =>
             Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
         }

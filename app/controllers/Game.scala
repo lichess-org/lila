@@ -87,7 +87,7 @@ final class Game(
             vs = vs,
             since = getTimestamp("since", req),
             until = getTimestamp("until", req),
-            max = getInt("max", req) map (_ atLeast 1),
+            max = getInt("max", req).map(_ atLeast 1),
             rated = getBoolOpt("rated", req),
             perfType = (~get("perfType", req) split "," map { Perf.Key(_) } flatMap PerfType.apply).toSet,
             color = get("color", req) flatMap chess.Color.fromName,
@@ -112,15 +112,16 @@ final class Game(
               .toFuccess
           else
             apiC
-              .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(env.api.gameApiV2.exportByUser(config)) {
-                source =>
-                  Ok.chunked(source)
-                    .pipe(
-                      asAttachmentStream(
-                        s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
-                      )
+              .GlobalConcurrencyLimitPerIpAndUserOption(req, me, user.some)(
+                env.api.gameApiV2.exportByUser(config)
+              ) { source =>
+                Ok.chunked(source)
+                  .pipe(
+                    asAttachmentStream(
+                      s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
                     )
-                    .as(gameContentType(config))
+                  )
+                  .as(gameContentType(config))
               }
               .toFuccess
 
@@ -141,7 +142,7 @@ final class Game(
       if (!me.is(username)) Forbidden("Imported games of other players cannot be downloaded")
       else
         apiC
-          .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some)(
+          .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some, me.some)(
             env.api.gameApiV2.exportUserImportedGames(me)
           ) { source =>
             Ok.chunked(source)
