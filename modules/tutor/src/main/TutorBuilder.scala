@@ -65,7 +65,7 @@ final private class TutorBuilder(
     perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider)
       .monSuccess(_.tutor buildSegment "perf-stats")
     tutorUsers = perfStats
-      .map { case (pt, stats) => TutorUser(user, pt, stats.stats) }
+      .map { (pt, stats) => TutorUser(user, pt, stats.stats) }
       .toList
       .sortBy(-_.perfStats.totalNbGames)
     _     <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
@@ -74,7 +74,7 @@ final private class TutorBuilder(
 
   private[tutor] def eligiblePerfTypesOf(user: User) =
     PerfType.standardWithUltra.filter { pt =>
-      user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(2))
+      user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(6))
     }
 
   private def hasFreshReport(user: User): Fu[Boolean] = reportColl.exists(
