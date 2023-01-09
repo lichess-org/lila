@@ -28,7 +28,7 @@
   <string name="notTheMove">ही ती चाल नव्हे!</string>
   <string name="trySomethingElse">काही वेगळा प्रयत्न करा.</string>
   <string name="ratingX">मूल्यांकन: %s</string>
-  <string name="hidden">लपवलेला</string>
+  <string name="hidden">लपवले आहे</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s वेळा खेळले</item>
     <item quantity="other">%s वेळा खेळले</item>
