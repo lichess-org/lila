@@ -42,6 +42,18 @@ case class TutorPerfReport(
     phases.map { phase => (phase.phase, phase.awareness) }
   )
 
+  lazy val globalAccuracyCompare = TutorCompare[PerfType, AccuracyPercent](
+    InsightDimension.Perf,
+    TutorMetric.Accuracy,
+    List((perf, accuracy))
+  )
+
+  lazy val globalAwarenessCompare = TutorCompare[PerfType, GoodPercent](
+    InsightDimension.Perf,
+    TutorMetric.Awareness,
+    List((perf, awareness))
+  )
+
   lazy val globalPressureCompare = TutorCompare[PerfType, ClockPercent](
     InsightDimension.Perf,
     TutorMetric.GlobalClock,
@@ -60,6 +72,8 @@ case class TutorPerfReport(
   //   List((perf, flagging))
   // )
 
+  def skillCompares = List(globalAccuracyCompare, globalAwarenessCompare)
+
   def phaseCompares = List(phaseAccuracyCompare, phaseAwarenessCompare)
 
   val clockCompares = List(globalPressureCompare, timeUsageCompare)
@@ -69,6 +83,8 @@ case class TutorPerfReport(
   }
 
   lazy val allCompares: List[TutorCompare[?, ?]] = openingCompares ::: phaseCompares
+
+  val skillHighlights = TutorCompare.mixedBag(skillCompares.flatMap(_.peerComparisons))
 
   val openingHighlights = TutorCompare.mixedBag(openingCompares.flatMap(_.allComparisons))
 

@@ -48,6 +48,11 @@ final class Tutor(env: Env) extends LilaController(env):
         }
     }
 
+  def skills(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
+    implicit ctx => me => report => perf =>
+      Ok(views.html.tutor.skills(report, perf, me)).toFuccess
+  }
+
   def phases(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
     implicit ctx => me => report => perf =>
       Ok(views.html.tutor.phases(report, perf, me)).toFuccess
