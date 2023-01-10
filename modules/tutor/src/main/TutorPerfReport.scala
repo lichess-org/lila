@@ -20,6 +20,8 @@ case class TutorPerfReport(
     stats: InsightPerfStats,
     accuracy: TutorBothValueOptions[AccuracyPercent],
     awareness: TutorBothValueOptions[GoodPercent],
+    resourcefulness: TutorBothValueOptions[GoodPercent],
+    conversion: TutorBothValueOptions[GoodPercent],
     globalClock: TutorBothValueOptions[ClockPercent],
     clockUsage: TutorBothValueOptions[ClockPercent],
     openings: Color.Map[TutorColorOpenings],
@@ -42,6 +44,18 @@ case class TutorPerfReport(
     phases.map { phase => (phase.phase, phase.awareness) }
   )
 
+  lazy val globalAccuracyCompare = TutorCompare[PerfType, AccuracyPercent](
+    InsightDimension.Perf,
+    TutorMetric.Accuracy,
+    List((perf, accuracy))
+  )
+
+  lazy val globalAwarenessCompare = TutorCompare[PerfType, GoodPercent](
+    InsightDimension.Perf,
+    TutorMetric.Awareness,
+    List((perf, awareness))
+  )
+
   lazy val globalPressureCompare = TutorCompare[PerfType, ClockPercent](
     InsightDimension.Perf,
     TutorMetric.GlobalClock,
@@ -60,6 +74,8 @@ case class TutorPerfReport(
   //   List((perf, flagging))
   // )
 
+  def skillCompares = List(globalAccuracyCompare, globalAwarenessCompare)
+
   def phaseCompares = List(phaseAccuracyCompare, phaseAwarenessCompare)
 
   val clockCompares = List(globalPressureCompare, timeUsageCompare)
@@ -69,6 +85,8 @@ case class TutorPerfReport(
   }
 
   lazy val allCompares: List[TutorCompare[?, ?]] = openingCompares ::: phaseCompares
+
+  val skillHighlights = TutorCompare.mixedBag(skillCompares.flatMap(_.peerComparisons))
 
   val openingHighlights = TutorCompare.mixedBag(openingCompares.flatMap(_.allComparisons))
 
@@ -99,10 +117,12 @@ private object TutorPerfReport:
   def compute(
       users: NonEmptyList[TutorUser]
   )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[List[TutorPerfReport]] = for {
-    accuracy    <- answerManyPerfs(accuracyQuestion, users)
-    awareness   <- answerManyPerfs(awarenessQuestion, users)
-    globalClock <- answerManyPerfs(globalClockQuestion, users)
-    clockUsage  <- TutorClockUsage compute users
+    accuracy        <- answerManyPerfs(accuracyQuestion, users)
+    awareness       <- answerManyPerfs(awarenessQuestion, users)
+    resourcefulness <- TutorResourcefulness compute users
+    conversion      <- TutorConversion compute users
+    globalClock     <- answerManyPerfs(globalClockQuestion, users)
+    clockUsage      <- TutorClockUsage compute users
     perfReports <- scala.concurrent.Future sequence users.toList.map { user =>
       for {
         openings <- TutorOpening compute user
@@ -113,6 +133,8 @@ private object TutorPerfReport:
         user.perfStats,
         accuracy = AccuracyPercent.from(accuracy valueMetric user.perfType),
         awareness = GoodPercent.from(awareness valueMetric user.perfType),
+        resourcefulness = GoodPercent.from(resourcefulness valueMetric user.perfType),
+        conversion = GoodPercent.from(conversion valueMetric user.perfType),
         globalClock = ClockPercent.from(globalClock valueMetric user.perfType),
         clockUsage = ClockPercent.from(clockUsage valueMetric user.perfType),
         openings,

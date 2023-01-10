@@ -40,7 +40,8 @@ object bits:
     views.html.base.layout(
       moreCss = cssTag("tutor"),
       moreJs = jsModule("tutor"),
-      title = "Lichess Tutor"
+      title = "Lichess Tutor",
+      csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(
         st.aside(cls := "page-menu__menu subnav")(menu),

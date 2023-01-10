@@ -28,6 +28,12 @@ object perf:
       ),
       bits.mascotSays(ul(report.relevantComparisons.topN(3) map compare.show)),
       div(cls := "tutor__perf__angles tutor-cards")(
+        angleCard(routes.Tutor.skills(user.username, report.perf.key), frag(report.perf.trans, " skills"))(
+          grade.peerGrade(concept.accuracy, report.accuracy),
+          grade.peerGrade(concept.tacticalAwareness, report.awareness),
+          grade.peerGrade(concept.resourcefulness, report.resourcefulness),
+          grade.peerGrade(concept.conversion, report.conversion)
+        ),
         angleCard(
           routes.Tutor.openings(user.username, report.perf.key),
           frag(report.perf.trans, " openings")
@@ -59,11 +65,12 @@ object perf:
       user: User,
       report: TutorPerfReport,
       active: String
-  )(using
-      ctx: Context
-  ) = frag(
+  )(using Context) = frag(
     a(href := routes.Tutor.perf(user.username, report.perf.key), cls := active.active("perf"))(
       report.perf.trans
+    ),
+    a(href := routes.Tutor.skills(user.username, report.perf.key), cls := active.active("skills"))(
+      "Skills"
     ),
     a(href := routes.Tutor.openings(user.username, report.perf.key), cls := active.active("openings"))(
       "Openings"

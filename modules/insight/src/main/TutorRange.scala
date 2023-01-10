@@ -121,7 +121,7 @@ object AccuracyPercentRange:
 final class WinPercentRange(val name: String, val bottom: WinPercent)
 object WinPercentRange:
   val all: NonEmptyList[WinPercentRange] = (0 to 90 by 10).toList.toNel.get.map { pc =>
-    new WinPercentRange(s"$pc% to ${pc + 10}%", WinPercent(pc))
+    WinPercentRange(s"$pc% to ${pc + 10}%", WinPercent(pc))
   }
   val byPercent                        = all.toList.mapBy(_.bottom.toInt)
   def toRange(bottom: WinPercentRange) = (bottom.bottom, WinPercent(bottom.bottom.value + 10))

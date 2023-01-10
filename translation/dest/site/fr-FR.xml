@@ -912,7 +912,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="noChat">Aucun salon de discussion</string>
   <string name="onlyTeamLeaders">Seulement les chefs de l\'équipe</string>
   <string name="onlyTeamMembers">Seulement les membres de l\'équipe</string>
-  <string name="navigateMoveTree">Naviguer dans l\'arbre</string>
+  <string name="navigateMoveTree">Naviguer dans l\'arborescence</string>
   <string name="mouseTricks">Astuces pour la souris</string>
   <string name="toggleLocalAnalysis">Activer/désactiver l’analyse locale</string>
   <string name="toggleAllAnalysis">Activer/désactiver toutes les analyses</string>

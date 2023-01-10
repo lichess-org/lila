@@ -21,8 +21,8 @@ case class TutorBothValuesAvailable[A](mine: ValueCount[A], peer: ValueCount[A])
     o: Ordering[A]
 ):
   // def map[B: Ordering](f: A => B)                           = TutorBothValuesAvailable(mine map f, peer map f)
-  def higher                                        = o.compare(mine.value, peer.value) >= 0
-  def grade(implicit number: TutorNumber[A]): Grade = number.grade(mine.value, peer.value)
+  def higher                                     = o.compare(mine.value, peer.value) >= 0
+  def grade(using number: TutorNumber[A]): Grade = number.grade(mine.value, peer.value)
 case class TutorBothValues[A](mine: ValueCount[A], peer: Option[ValueCount[A]])(implicit o: Ordering[A]):
   def map[B: Ordering](f: A => B) = TutorBothValues(mine map f, peer map (_ map f))
   def higher                      = peer.exists(p => o.compare(mine.value, p.value) >= 0)

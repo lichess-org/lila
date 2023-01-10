@@ -715,11 +715,15 @@ importers:
     specifiers:
       '@types/cash': workspace:*
       '@types/lichess': workspace:*
+      chessground: ^8.3.6
       common: workspace:*
+      lichess-pgn-viewer: ^1.4.4
     dependencies:
       '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
+      chessground: 8.3.6
       common: link:../common
+      lichess-pgn-viewer: 1.4.4
 
 packages:
 
