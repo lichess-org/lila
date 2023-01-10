@@ -26,7 +26,9 @@ object concept:
   val accuracy          = TutorConcept("Accuracy", InsightMetric.MeanAccuracy.description, percent)
   val tacticalAwareness = TutorConcept("Tactical Awareness", InsightMetric.Awareness.description, percent)
   val resourcefulness =
-    TutorConcept("Resourcefulness", "Ability to come back from lost positions", percent)
+    TutorConcept("Resourcefulness", "Accuracy in lost positions", percent)
+  val overcome =
+    TutorConcept("Overcome", "Ability to come back from lost positions", percent)
 
   val performance = TutorConcept("Performance", InsightMetric.Performance.description, rating)
 

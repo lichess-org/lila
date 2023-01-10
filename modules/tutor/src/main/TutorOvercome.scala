@@ -7,7 +7,7 @@ import lila.insight.*
 import lila.rating.PerfType
 import lila.common.config
 
-object TutorClockUsage:
+object TutorOvercome:
 
   val maxGames = config.Max(10_000)
 
@@ -22,26 +22,36 @@ object TutorClockUsage:
     val perfs = users.toList.map(_.perfType)
     val question = Question(
       InsightDimension.Perf,
-      InsightMetric.ClockPercent,
+      InsightMetric.MeanAccuracy,
       List(Filter(InsightDimension.Perf, perfs))
     )
+
     def clusterParser(docs: List[Bdoc]) = for {
-      doc          <- docs
-      perf         <- doc.getAsOpt[PerfType]("_id")
-      clockPercent <- doc.getAsOpt[ClockPercent]("cp")
-      size         <- doc.int("nb")
-    } yield Cluster(perf, Insight.Single(Point(100 - clockPercent.value)), size, Nil)
+      doc     <- docs
+      perf    <- doc.getAsOpt[PerfType]("_id")
+      winDiff <- doc.getAsOpt[Double]("diff")
+      size    <- doc.int("nb")
+    } yield Cluster(perf, Insight.Single(Point(50 + winDiff)), size, Nil)
+
     def aggregate(select: Bdoc, sort: Boolean) = insightApi.coll {
       _.aggregateList(maxDocs = Int.MaxValue) { framework =>
         import framework.*
-        Match($doc(F.result -> Result.Loss.id, F.perf $in perfs) ++ select) -> List(
+        Match($doc(F.analysed -> true, F.perf $in perfs) ++ select) -> List(
           sort option Sort(Descending(F.date)),
           Limit(maxGames.value).some,
-          Project($doc(F.perf -> true, F.moves -> $doc("$last" -> s"$$${F.moves}"))).some,
+          Project($doc(F.perf -> true, s"${F.moves}.w" -> true)).some,
           UnwindField(F.moves).some,
-          Project($doc(F.perf -> true, "cp" -> s"$$${F.moves}.s")).some,
-          GroupField(F.perf)("cp" -> AvgField("cp"), "nb" -> SumAll).some,
-          Project($doc(F.perf -> true, "nb" -> true, "cp" -> $doc("$toInt" -> "$cp"))).some
+          GroupField("_id")(
+            F.perf -> FirstField(F.perf),
+            "mean" -> AvgField(s"${F.moves}.w"),
+            "last" -> LastField(s"${F.moves}.w")
+          ).some,
+          Match($doc("mean" $lt 50)).some,
+          AddFields($doc("diff" -> $doc("$subtract" -> $arr("$last", "$mean")))).some,
+          GroupField(F.perf)(
+            "diff" -> AvgField("diff"),
+            "nb"   -> SumAll
+          ).some
         ).flatten
       }
     }

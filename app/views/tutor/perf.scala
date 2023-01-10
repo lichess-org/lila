@@ -31,7 +31,8 @@ object perf:
         angleCard(routes.Tutor.skills(user.username, report.perf.key), frag(report.perf.trans, " skills"))(
           grade.peerGrade(concept.accuracy, report.accuracy),
           grade.peerGrade(concept.tacticalAwareness, report.awareness),
-          grade.peerGrade(concept.resourcefulness, report.resourcefulness)
+          grade.peerGrade(concept.resourcefulness, report.resourcefulness),
+          grade.peerGrade(concept.overcome, report.overcome)
         ),
         angleCard(
           routes.Tutor.openings(user.username, report.perf.key),
