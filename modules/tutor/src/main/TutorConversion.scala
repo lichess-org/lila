@@ -8,7 +8,6 @@ import lila.rating.PerfType
 import lila.common.config
 import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeIdHandler
-import lila.insight.{ Insight, Cluster, Answer, InsightStorage, Point }
 import lila.insight.InsightEntry.{ BSONFields as F }
 import lila.insight.BSONHandlers.given
 
@@ -18,40 +17,38 @@ object TutorConversion:
 
   private[tutor] def compute(
       users: NonEmptyList[TutorUser]
-  )(using insightApi: InsightApi, ec: ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
+  )(using InsightApi, ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
     val perfs = users.toList.map(_.perfType)
-    val question = Question(
-      InsightDimension.Perf,
-      InsightMetric.Result,
-      List(Filter(InsightDimension.Perf, perfs))
+    TutorCustomInsight.compute(
+      monitoringKey = "conversion",
+      users = users,
+      question = Question(
+        InsightDimension.Perf,
+        InsightMetric.Result,
+        List(Filter(InsightDimension.Perf, perfs))
+      ),
+      aggregate = (insightApi, select, sort) =>
+        insightApi.coll {
+          _.aggregateList(maxDocs = Int.MaxValue) { framework =>
+            import framework.*
+            Match($doc(F.analysed -> true, F.perf $in perfs, s"${F.moves}.w" $gt 75) ++ select) -> List(
+              sort option Sort(Descending(F.date)),
+              Limit(maxGames.value).some,
+              GroupField(F.perf)(
+                "win" -> Sum(
+                  $doc("$cond" -> $arr($doc("$eq" -> $arr(s"$$${F.result}", Result.Win.id)), 1, 0))
+                ),
+                "nb" -> SumAll
+              ).some
+            ).flatten
+          }
+        },
+      clusterParser = docs =>
+        for
+          doc  <- docs
+          perf <- doc.getAsOpt[PerfType]("_id")
+          wins <- doc.getAsOpt[Int]("win")
+          size <- doc.int("nb")
+          percent = wins * 100d / size
+        yield Cluster(perf, Insight.Single(Point(percent)), size, Nil)
     )
-
-    def clusterParser(docs: List[Bdoc]) = for
-      doc  <- docs
-      perf <- doc.getAsOpt[PerfType]("_id")
-      wins <- doc.getAsOpt[Int]("win")
-      size <- doc.int("nb")
-      percent = wins * 100d / size
-    yield Cluster(perf, Insight.Single(Point(percent)), size, Nil)
-
-    def aggregate(select: Bdoc, sort: Boolean) = insightApi.coll {
-      _.aggregateList(maxDocs = Int.MaxValue) { framework =>
-        import framework.*
-        Match($doc(F.analysed -> true, F.perf $in perfs, s"${F.moves}.w" $gt 75) ++ select) -> List(
-          sort option Sort(Descending(F.date)),
-          Limit(maxGames.value).some,
-          GroupField(F.perf)(
-            "win" -> Sum($doc("$cond" -> $arr($doc("$eq" -> $arr(s"$$${F.result}", Result.Win.id)), 1, 0))),
-            "nb"  -> SumAll
-          ).some
-        ).flatten
-      }
-    }
-    for {
-      mine <- aggregate(InsightStorage.selectUserId(users.head.user.id), true)
-        .map { docs => TutorBuilder.AnswerMine(Answer(question, clusterParser(docs), Nil)) }
-        .monSuccess(_.tutor.askMine(question.monKey, "all"))
-      peer <- aggregate(InsightStorage.selectPeers(Question.Peers(users.head.perfStats.rating)), false)
-        .map { docs => TutorBuilder.AnswerPeer(Answer(question, clusterParser(docs), Nil)) }
-        .monSuccess(_.tutor.askPeer(question.monKey, "all"))
-    } yield TutorBuilder.Answers(mine, peer)
