@@ -29,6 +29,8 @@ object concept:
     TutorConcept("Resourcefulness", "Accuracy in lost positions", percent)
   val overcome =
     TutorConcept("Overcome", "Ability to come back from lost positions", percent)
+  val conversion =
+    TutorConcept("Conversion", "Ability to convert good positions into victories", percent)
 
   val performance = TutorConcept("Performance", InsightMetric.Performance.description, rating)
 

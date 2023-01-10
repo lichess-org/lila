@@ -6,6 +6,11 @@ import scala.concurrent.ExecutionContext
 import lila.insight.*
 import lila.rating.PerfType
 import lila.common.config
+import lila.db.dsl.{ *, given }
+import lila.rating.BSONHandlers.perfTypeIdHandler
+import lila.insight.{ Insight, Cluster, Answer, InsightStorage, Point }
+import lila.insight.InsightEntry.{ BSONFields as F }
+import lila.insight.BSONHandlers.given
 
 object TutorOvercome:
 
@@ -14,11 +19,6 @@ object TutorOvercome:
   private[tutor] def compute(
       users: NonEmptyList[TutorUser]
   )(using insightApi: InsightApi, ec: ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
-    import lila.db.dsl.{ *, given }
-    import lila.rating.BSONHandlers.perfTypeIdHandler
-    import lila.insight.{ Insight, Cluster, Answer, InsightStorage, Point }
-    import lila.insight.InsightEntry.{ BSONFields as F }
-    import lila.insight.BSONHandlers.given
     val perfs = users.toList.map(_.perfType)
     val question = Question(
       InsightDimension.Perf,

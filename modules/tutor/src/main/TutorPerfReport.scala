@@ -22,6 +22,7 @@ case class TutorPerfReport(
     awareness: TutorBothValueOptions[GoodPercent],
     resourcefulness: TutorBothValueOptions[GoodPercent],
     overcome: TutorBothValueOptions[GoodPercent],
+    conversion: TutorBothValueOptions[GoodPercent],
     globalClock: TutorBothValueOptions[ClockPercent],
     clockUsage: TutorBothValueOptions[ClockPercent],
     openings: Color.Map[TutorColorOpenings],
@@ -129,6 +130,7 @@ private object TutorPerfReport:
     awareness       <- answerManyPerfs(awarenessQuestion, users)
     resourcefulness <- answerManyPerfs(resourcefulnessQuestion, users)
     overcome        <- TutorOvercome compute users
+    conversion      <- TutorConversion compute users
     globalClock     <- answerManyPerfs(globalClockQuestion, users)
     clockUsage      <- TutorClockUsage compute users
     perfReports <- scala.concurrent.Future sequence users.toList.map { user =>
@@ -143,6 +145,7 @@ private object TutorPerfReport:
         awareness = GoodPercent.from(awareness valueMetric user.perfType),
         resourcefulness = GoodPercent.from(resourcefulness valueMetric user.perfType),
         overcome = GoodPercent.from(overcome valueMetric user.perfType),
+        conversion = GoodPercent.from(conversion valueMetric user.perfType),
         globalClock = ClockPercent.from(globalClock valueMetric user.perfType),
         clockUsage = ClockPercent.from(clockUsage valueMetric user.perfType),
         openings,

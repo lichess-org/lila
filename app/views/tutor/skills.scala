@@ -30,8 +30,10 @@ object skills:
         hr,
         grade.peerGradeWithDetail(concept.tacticalAwareness, report.awareness, InsightPosition.Move),
         hr,
-        grade.peerGradeWithDetail(concept.resourcefulness, report.resourcefulness, InsightPosition.Game),
+        grade.peerGradeWithDetail(concept.resourcefulness, report.resourcefulness, InsightPosition.Move),
         hr,
-        grade.peerGradeWithDetail(concept.overcome, report.overcome, InsightPosition.Game)
+        grade.peerGradeWithDetail(concept.overcome, report.overcome, InsightPosition.Game),
+        hr,
+        grade.peerGradeWithDetail(concept.conversion, report.conversion, InsightPosition.Game)
       )
     )
