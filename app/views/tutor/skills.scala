@@ -32,8 +32,6 @@ object skills:
         hr,
         grade.peerGradeWithDetail(concept.resourcefulness, report.resourcefulness, InsightPosition.Move),
         hr,
-        grade.peerGradeWithDetail(concept.overcome, report.overcome, InsightPosition.Game),
-        hr,
         grade.peerGradeWithDetail(concept.conversion, report.conversion, InsightPosition.Game)
       )
     )

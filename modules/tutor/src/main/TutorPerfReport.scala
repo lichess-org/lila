@@ -21,7 +21,6 @@ case class TutorPerfReport(
     accuracy: TutorBothValueOptions[AccuracyPercent],
     awareness: TutorBothValueOptions[GoodPercent],
     resourcefulness: TutorBothValueOptions[GoodPercent],
-    overcome: TutorBothValueOptions[GoodPercent],
     conversion: TutorBothValueOptions[GoodPercent],
     globalClock: TutorBothValueOptions[ClockPercent],
     clockUsage: TutorBothValueOptions[ClockPercent],
@@ -109,14 +108,6 @@ private object TutorPerfReport:
 
   private val accuracyQuestion  = Question(InsightDimension.Perf, InsightMetric.MeanAccuracy)
   private val awarenessQuestion = Question(InsightDimension.Perf, InsightMetric.Awareness)
-  private val resourcefulnessQuestion = Question(
-    InsightDimension.Perf,
-    InsightMetric.MeanAccuracy,
-    List(
-      Filter(InsightDimension.WinPercentRange, WinPercentRange.all.toList.take(3)),
-      Filter(InsightDimension.Result, List(Result.Draw, Result.Win))
-    )
-  )
   private val globalClockQuestion = Question(
     InsightDimension.Perf,
     InsightMetric.ClockPercent,
@@ -128,8 +119,7 @@ private object TutorPerfReport:
   )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[List[TutorPerfReport]] = for {
     accuracy        <- answerManyPerfs(accuracyQuestion, users)
     awareness       <- answerManyPerfs(awarenessQuestion, users)
-    resourcefulness <- answerManyPerfs(resourcefulnessQuestion, users)
-    overcome        <- TutorOvercome compute users
+    resourcefulness <- TutorResourcefulness compute users
     conversion      <- TutorConversion compute users
     globalClock     <- answerManyPerfs(globalClockQuestion, users)
     clockUsage      <- TutorClockUsage compute users
@@ -144,7 +134,6 @@ private object TutorPerfReport:
         accuracy = AccuracyPercent.from(accuracy valueMetric user.perfType),
         awareness = GoodPercent.from(awareness valueMetric user.perfType),
         resourcefulness = GoodPercent.from(resourcefulness valueMetric user.perfType),
-        overcome = GoodPercent.from(overcome valueMetric user.perfType),
         conversion = GoodPercent.from(conversion valueMetric user.perfType),
         globalClock = ClockPercent.from(globalClock valueMetric user.perfType),
         clockUsage = ClockPercent.from(clockUsage valueMetric user.perfType),

@@ -32,7 +32,6 @@ object perf:
           grade.peerGrade(concept.accuracy, report.accuracy),
           grade.peerGrade(concept.tacticalAwareness, report.awareness),
           grade.peerGrade(concept.resourcefulness, report.resourcefulness),
-          grade.peerGrade(concept.overcome, report.overcome),
           grade.peerGrade(concept.conversion, report.conversion)
         ),
         angleCard(

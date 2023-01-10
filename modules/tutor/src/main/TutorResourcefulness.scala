@@ -11,7 +11,7 @@ import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.insight.InsightEntry.{ BSONFields as F }
 import lila.insight.BSONHandlers.given
 
-object TutorOvercome:
+object TutorResourcefulness:
 
   val maxGames = config.Max(10_000)
 
