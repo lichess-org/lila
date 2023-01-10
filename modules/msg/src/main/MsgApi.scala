@@ -26,6 +26,7 @@ final class MsgApi(
 )(using scala.concurrent.ExecutionContext, akka.stream.Materializer):
 
   val msgsPerPage = MaxPerPage(100)
+  val inboxSize = 50
 
   import BsonHandlers.{ *, given }
   import MsgApi.*
@@ -35,14 +36,24 @@ final class MsgApi(
       .find($doc("users" -> me.id, "del" $ne me.id))
       .sort($sort desc "lastMsg.date")
       .cursor[MsgThread]()
-      // .list(50)
-      .list(5)
+      .list(inboxSize)
+      .flatMap(maybeCollapse(me, _))
       .map(prioritize)
 
   private def prioritize(threads: List[MsgThread]) =
     threads.find(_.isPriority) match
       case None        => threads
       case Some(found) => found :: threads.filterNot(_.isPriority)
+
+  private def maybeCollapse(me: User, threads: List[MsgThread]): Fu[List[MsgThread]] =
+    val candidates = threads.filter(_.maskFor.contains(me.id))
+    val distinct = candidates.distinctBy(_.lastMsg)
+    if (candidates.length <= 1 || distinct.length == candidates.length) fuccess(threads)
+    else colls.thread
+      .find($doc("users" -> me.id, "del" $ne me.id))
+      .sort($sort desc "maskWith.date")
+      .cursor[MsgThread]()
+      .list(inboxSize)
 
   def convoWith(me: User, username: UserStr, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] =
     val userId   = username.id
@@ -86,9 +97,9 @@ final class MsgApi(
           if (ignoreSecurity) fuccess(MsgSecurity.Ok)
           else security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
         _       = lila.mon.msg.post(verdict.toString, isNew = isNew, multi = multi).increment()
-        sortFor = multi option orig
-        sortWith <-
-          if (multi && !isNew) then lastUnmasked(threadId, orig) else fuccess(None)
+        maskFor = multi option orig
+        maskWith <-
+          if (multi && !isNew) then lastDirectMsg(threadId, orig) else fuccess(None)
         res <- verdict match
           case MsgSecurity.Limit     => fuccess(PostResult.Limited)
           case _: MsgSecurity.Reject => fuccess(PostResult.Bounced)
@@ -100,7 +111,7 @@ final class MsgApi(
               if (isNew)
                 colls.thread.insert.one {
                   writeThread(
-                    MsgThread.make(orig, dest, msg, sortFor, sortWith),
+                    MsgThread.make(orig, dest, msg, maskFor, maskWith),
                     List(
                       multi option orig,
                       send.mute option dest
@@ -112,13 +123,13 @@ final class MsgApi(
                   .one(
                     $id(threadId),
                     if (multi) {
-                      $set("lastMsg"   -> msg.asLast, "sortFor" -> sortFor, "sortWith" -> sortWith)
+                      $set("lastMsg"   -> msg.asLast, "maskFor" -> maskFor, "maskWith" -> maskWith)
                         ++ $pull("del" -> List(orig))
                     } else {
-                      $set("lastMsg" -> msg.asLast, "sortWith.date" -> msg.date)
-                        ++ $unset("sortFor", "sortWith.text", "sortWith.user", "sortWith.read")
+                      $set("lastMsg" -> msg.asLast, "maskWith.date" -> msg.date)
+                        ++ $unset("maskFor", "maskWith.text", "maskWith.user", "maskWith.read")
                         ++ $pull("del" $in (orig :: (!send.mute).option(dest).toList))
-                      // keep sortWith.date always valid (though sometimes redundant)
+                      // keep maskWith.date always valid (though sometimes redundant)
                       // unset "deleted by receiver" unless the message is muted
                     }
                   )
@@ -138,10 +149,10 @@ final class MsgApi(
       } yield res
     }
 
-  def lastUnmasked(threadId: MsgThread.Id, sortFor: UserId): Fu[Option[Msg.Last]] =
+  def lastDirectMsg(threadId: MsgThread.Id, maskFor: UserId): Fu[Option[Msg.Last]] =
     colls.thread.one[MsgThread]($id(threadId)) map {
       case Some(doc) =>
-        if doc.sortFor.contains(sortFor) then doc.sortWith
+        if doc.maskFor.contains(maskFor) then doc.maskWith
         else Some(doc.lastMsg)
       case None => None
     }

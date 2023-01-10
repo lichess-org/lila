@@ -9,8 +9,8 @@ case class MsgThread(
     user2: UserId,
     lastMsg: Msg.Last,
     del: Option[List[UserId]] = None,
-    sortFor: Option[UserId] = None,
-    sortWith: Option[Msg.Last] = None
+    maskFor: Option[UserId] = None,
+    maskWith: Option[Msg.Last] = None
 ):
 
   def users = List(user1, user2)
@@ -44,7 +44,7 @@ object MsgThread:
       case (user1, user2) => s"$user1$idSep$user2"
   }
 
-  def make(u1: UserId, u2: UserId, msg: Msg, sortFor: Option[UserId], sortWith: Option[Msg.Last]): MsgThread =
+  def make(u1: UserId, u2: UserId, msg: Msg, maskFor: Option[UserId], maskWith: Option[Msg.Last]): MsgThread =
     sortUsers(u1, u2) match
       case (user1, user2) =>
         MsgThread(
@@ -52,8 +52,8 @@ object MsgThread:
           user1 = user1,
           user2 = user2,
           lastMsg = msg.asLast,
-          sortFor = sortFor,
-          sortWith = sortWith
+          maskFor = maskFor,
+          maskWith = maskWith
         )
 
   private def sortUsers(u1: UserId, u2: UserId): (UserId, UserId) =

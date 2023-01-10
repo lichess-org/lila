@@ -21,8 +21,8 @@ private object BsonHandlers:
             user1 = UserId(u1),
             user2 = UserId(u2),
             lastMsg = r.get[Last]("lastMsg"),
-            sortFor = r.getO[UserId]("sortFor"),
-            sortWith = r.getO[Last]("sortWith")
+            maskFor = r.getO[UserId]("maskFor"),
+            maskWith = r.getO[Last]("maskWith")
           )
         case x => sys error s"Invalid MsgThread users: $x"
     def writes(w: BSON.Writer, t: MsgThread) =
@@ -30,8 +30,8 @@ private object BsonHandlers:
         "_id"      -> t.id,
         "users"    -> t.users.sorted(using stringOrdering),
         "lastMsg"  -> t.lastMsg,
-        "sortFor"  -> t.sortFor,
-        "sortWith" -> t.sortWith
+        "maskFor"  -> t.maskFor,
+        "maskWith" -> t.maskWith
       )
 
   // given BSONHandler[Msg.Id]                  = stringAnyValHandler[Msg.Id](_.value, Msg.Id.apply)
@@ -45,5 +45,5 @@ private object BsonHandlers:
 
   def writeThread(thread: MsgThread, delBy: List[UserId]): Bdoc =
     threadHandler.writeTry(thread).get ++ $doc("del" -> delBy)
-      ++ $doc("sortWith" -> $doc("date" -> thread.lastMsg.date))
+      ++ $doc("maskWith" -> $doc("date" -> thread.lastMsg.date))
     // looks weird, but maybe.. it is the way
