@@ -7,7 +7,7 @@ case class TutorCompare[D, V](
     dimensionType: InsightDimension[D],
     metric: TutorMetric[V],
     points: List[(D, TutorBothValueOptions[V])]
-)(implicit number: TutorNumber[V]):
+)(using number: TutorNumber[V]):
   import TutorCompare.*
   import TutorNumber.*
 
@@ -37,7 +37,7 @@ object TutorCompare:
       metric: TutorMetric[V],
       value: ValueCount[V],
       reference: Reference[V]
-  )(implicit number: TutorNumber[V]):
+  )(using number: TutorNumber[V]):
 
     val grade = number.grade(value.value, reference.value.value)
 

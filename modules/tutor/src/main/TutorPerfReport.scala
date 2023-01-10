@@ -20,6 +20,7 @@ case class TutorPerfReport(
     stats: InsightPerfStats,
     accuracy: TutorBothValueOptions[AccuracyPercent],
     awareness: TutorBothValueOptions[GoodPercent],
+    resourcefulness: TutorBothValueOptions[GoodPercent],
     globalClock: TutorBothValueOptions[ClockPercent],
     clockUsage: TutorBothValueOptions[ClockPercent],
     openings: Color.Map[TutorColorOpenings],
@@ -106,6 +107,14 @@ private object TutorPerfReport:
 
   private val accuracyQuestion  = Question(InsightDimension.Perf, InsightMetric.MeanAccuracy)
   private val awarenessQuestion = Question(InsightDimension.Perf, InsightMetric.Awareness)
+  private val resourcefulnessQuestion = Question(
+    InsightDimension.Perf,
+    InsightMetric.MeanAccuracy,
+    List(
+      Filter(InsightDimension.WinPercentRange, WinPercentRange.all.toList.take(3)),
+      Filter(InsightDimension.Result, List(Result.Draw, Result.Win))
+    )
+  )
   private val globalClockQuestion = Question(
     InsightDimension.Perf,
     InsightMetric.ClockPercent,
@@ -115,10 +124,11 @@ private object TutorPerfReport:
   def compute(
       users: NonEmptyList[TutorUser]
   )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[List[TutorPerfReport]] = for {
-    accuracy    <- answerManyPerfs(accuracyQuestion, users)
-    awareness   <- answerManyPerfs(awarenessQuestion, users)
-    globalClock <- answerManyPerfs(globalClockQuestion, users)
-    clockUsage  <- TutorClockUsage compute users
+    accuracy        <- answerManyPerfs(accuracyQuestion, users)
+    awareness       <- answerManyPerfs(awarenessQuestion, users)
+    resourcefulness <- answerManyPerfs(resourcefulnessQuestion, users)
+    globalClock     <- answerManyPerfs(globalClockQuestion, users)
+    clockUsage      <- TutorClockUsage compute users
     perfReports <- scala.concurrent.Future sequence users.toList.map { user =>
       for {
         openings <- TutorOpening compute user
@@ -129,6 +139,7 @@ private object TutorPerfReport:
         user.perfStats,
         accuracy = AccuracyPercent.from(accuracy valueMetric user.perfType),
         awareness = GoodPercent.from(awareness valueMetric user.perfType),
+        resourcefulness = GoodPercent.from(resourcefulness valueMetric user.perfType),
         globalClock = ClockPercent.from(globalClock valueMetric user.perfType),
         clockUsage = ClockPercent.from(clockUsage valueMetric user.perfType),
         openings,

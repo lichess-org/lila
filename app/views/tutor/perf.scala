@@ -30,7 +30,8 @@ object perf:
       div(cls := "tutor__perf__angles tutor-cards")(
         angleCard(routes.Tutor.skills(user.username, report.perf.key), frag(report.perf.trans, " skills"))(
           grade.peerGrade(concept.accuracy, report.accuracy),
-          grade.peerGrade(concept.tacticalAwareness, report.awareness)
+          grade.peerGrade(concept.tacticalAwareness, report.awareness),
+          grade.peerGrade(concept.resourcefulness, report.resourcefulness)
         ),
         angleCard(
           routes.Tutor.openings(user.username, report.perf.key),
