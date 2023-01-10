@@ -31,30 +31,30 @@ object TutorOvercome:
         insightApi.coll {
           _.aggregateList(maxDocs = Int.MaxValue) { framework =>
             import framework.*
-            Match($doc(F.analysed -> true, F.perf $in perfs) ++ select) -> List(
+            Match(
+              $doc(
+                F.analysed -> true,
+                F.perf $in perfs,
+                F.moves -> $doc("$elemMatch" -> $doc("w" $lt 33.3, "i" $lt -1))
+              ) ++ select
+            ) -> List(
               sort option Sort(Descending(F.date)),
               Limit(maxGames.value).some,
-              Project($doc(F.perf -> true, s"${F.moves}.w" -> true)).some,
-              UnwindField(F.moves).some,
-              GroupField("_id")(
-                F.perf -> FirstField(F.perf),
-                "mean" -> AvgField(s"${F.moves}.w"),
-                "last" -> LastField(s"${F.moves}.w")
-              ).some,
-              Match($doc("mean" $lt 50)).some,
-              AddFields($doc("diff" -> $doc("$subtract" -> $arr("$last", "$mean")))).some,
               GroupField(F.perf)(
-                "diff" -> AvgField("diff"),
-                "nb"   -> SumAll
+                "loss" -> Sum(
+                  $doc("$cond" -> $arr($doc("$eq" -> $arr(s"$$${F.result}", Result.Loss.id)), 1, 0))
+                ),
+                "nb" -> SumAll
               ).some
             ).flatten
           }
         },
       clusterParser = docs =>
         for
-          doc     <- docs
-          perf    <- doc.getAsOpt[PerfType]("_id")
-          winDiff <- doc.getAsOpt[Double]("diff")
-          size    <- doc.int("nb")
-        yield Cluster(perf, Insight.Single(Point(50 + winDiff)), size, Nil)
+          doc  <- docs
+          perf <- doc.getAsOpt[PerfType]("_id")
+          loss <- doc.getAsOpt[Int]("loss")
+          size <- doc.int("nb")
+          percent = (size - loss) * 100d / size
+        yield Cluster(perf, Insight.Single(Point(percent)), size, Nil)
     )

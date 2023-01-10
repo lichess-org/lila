@@ -31,7 +31,13 @@ object TutorConversion:
         insightApi.coll {
           _.aggregateList(maxDocs = Int.MaxValue) { framework =>
             import framework.*
-            Match($doc(F.analysed -> true, F.perf $in perfs, s"${F.moves}.w" $gt 75) ++ select) -> List(
+            Match(
+              $doc(
+                F.analysed -> true,
+                F.perf $in perfs,
+                F.moves -> $doc("$elemMatch" -> $doc("w" $gt 66.6, "i" $gt 1))
+              ) ++ select
+            ) -> List(
               sort option Sort(Descending(F.date)),
               Limit(maxGames.value).some,
               GroupField(F.perf)(
