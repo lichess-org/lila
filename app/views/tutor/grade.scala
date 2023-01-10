@@ -20,11 +20,11 @@ import lila.tutor.{
 
 object grade:
 
-  def peerGrade[A](
+  def peerGrade[A: TutorNumber](
       c: TutorConcept,
       metricOptions: TutorBothValueOptions[A],
       titleTag: Text.Tag = h3
-  )(implicit lang: Lang, number: TutorNumber[A]): Option[Tag] =
+  )(using Lang): Option[Tag] =
     metricOptions.asAvailable map { metric =>
       div(cls := "tutor-grade")(
         titleTag(cls := "tutor-grade__name")(concept show c),
@@ -37,7 +37,7 @@ object grade:
       metricOptions: TutorBothValueOptions[A],
       position: InsightPosition,
       titleTag: Text.Tag = h2
-  )(implicit lang: Lang): Option[Tag] =
+  )(using Lang): Option[Tag] =
     metricOptions.asAvailable map { metric =>
       div(cls := "tutor-grade tutor-grade--detail")(
         titleTag(cls := "tutor-grade__name")(concept show c),
@@ -63,9 +63,7 @@ object grade:
       )
     }
 
-  private def gradeVisual[A](c: TutorConcept, metric: TutorBothValuesAvailable[A])(using
-      number: TutorNumber[A]
-  ) =
+  private def gradeVisual[A: TutorNumber](c: TutorConcept, metric: TutorBothValuesAvailable[A]) =
     val grade = metric.grade
     div(
       cls   := s"tutor-grade__visual tutor-grade__visual--${grade.wording.id}",
