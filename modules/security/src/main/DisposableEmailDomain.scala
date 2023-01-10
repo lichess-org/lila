@@ -40,7 +40,8 @@ final class DisposableEmailDomain(
 
   def isOk(domain: Domain) = !apply(domain) && !mxRecordPasslist(domain)
 
-  def asMxRecord(domain: Domain): Boolean = apply(domain) && !mxRecordPasslist(domain)
+  def asMxRecord(domain: Domain): Boolean =
+    apply(domain) && !mxRecordPasslist(domain.withoutSubdomain | domain)
 
 private object DisposableEmailDomain:
 
