@@ -9,7 +9,8 @@ case class MsgThread(
     user2: UserId,
     lastMsg: Msg.Last,
     del: Option[List[UserId]] = None,
-    multi: Option[MsgThread.Multi] = None
+    sortFor: Option[UserId] = None,
+    sortWith: Option[Msg.Last] = None
 ):
 
   def users = List(user1, user2)
@@ -30,7 +31,6 @@ object MsgThread:
   opaque type Id = String
   object Id extends OpaqueString[Id]
 
-  case class Multi(from: UserId, lastDM: Option[Msg.Last])
   case class WithMsgs(thread: MsgThread, msgs: List[Msg])
 
   case class WithContact(thread: MsgThread, contact: LightUser)
@@ -44,14 +44,16 @@ object MsgThread:
       case (user1, user2) => s"$user1$idSep$user2"
   }
 
-  def make(u1: UserId, u2: UserId, msg: Msg): MsgThread =
+  def make(u1: UserId, u2: UserId, msg: Msg, sortFor: Option[UserId], sortWith: Option[Msg.Last]): MsgThread =
     sortUsers(u1, u2) match
       case (user1, user2) =>
         MsgThread(
           id = id(user1, user2),
           user1 = user1,
           user2 = user2,
-          lastMsg = msg.asLast
+          lastMsg = msg.asLast,
+          sortFor = sortFor,
+          sortWith = sortWith
         )
 
   private def sortUsers(u1: UserId, u2: UserId): (UserId, UserId) =

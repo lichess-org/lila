@@ -85,8 +85,10 @@ final class MsgApi(
         verdict <-
           if (ignoreSecurity) fuccess(MsgSecurity.Ok)
           else security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
-        _ = lila.mon.msg.post(verdict.toString, isNew = isNew, multi = multi).increment()
-        lastDirectMsg <- if multi then lastDirectMsg(threadId, orig) else fuccess(Some(msgPre.asLast))
+        _       = lila.mon.msg.post(verdict.toString, isNew = isNew, multi = multi).increment()
+        sortFor = multi option orig
+        sortWith <-
+          if (multi && !isNew) then lastUnmasked(threadId, orig) else fuccess(None)
         res <- verdict match
           case MsgSecurity.Limit     => fuccess(PostResult.Limited)
           case _: MsgSecurity.Reject => fuccess(PostResult.Bounced)
@@ -94,32 +96,30 @@ final class MsgApi(
             val msg =
               if (verdict == MsgSecurity.Spam) msgPre.copy(text = spam.replace(msgPre.text)) else msgPre
             val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
-            val multiField =
-              if multi then $set("multi" -> MsgThread.Multi(orig, lastDirectMsg)) else $unset("multi")
             val threadWrite =
               if (isNew)
                 colls.thread.insert.one {
                   writeThread(
-                    MsgThread.make(orig, dest, msg),
-                    delBy = List(
+                    MsgThread.make(orig, dest, msg, sortFor, sortWith),
+                    List(
                       multi option orig,
                       send.mute option dest
-                    ).flatten,
-                    multi option MsgThread.Multi(orig, None)
+                    ).flatten
                   )
                 }.void
               else
                 colls.thread.update
                   .one(
                     $id(threadId),
-                    multiField ++ $set("lastMsg" -> msg.asLast) ++ {
-                      if (multi)
-                        $pull("del" -> List(orig))
-                      else
-                        $pull(
-                          // unset "deleted by receiver" unless the message is muted
-                          "del" $in (orig :: (!send.mute).option(dest).toList)
-                        )
+                    if (multi) {
+                      $set("lastMsg"   -> msg.asLast, "sortFor" -> sortFor, "sortWith" -> sortWith)
+                        ++ $pull("del" -> List(orig))
+                    } else {
+                      $set("lastMsg" -> msg.asLast, "sortWith.date" -> msg.date)
+                        ++ $unset("sortFor", "sortWith.text", "sortWith.user", "sortWith.read")
+                        ++ $pull("del" $in (orig :: (!send.mute).option(dest).toList))
+                      // keep sortWith.date always valid (though sometimes redundant)
+                      // unset "deleted by receiver" unless the message is muted
                     }
                   )
                   .void
@@ -138,10 +138,14 @@ final class MsgApi(
       } yield res
     }
 
-  def lastDirectMsg(threadId: MsgThread.Id, collapseFor: UserId): Fu[Option[Msg.Last]] =
-    colls.thread.one[MsgThread]($id(threadId)) collect { case Some(doc) =>
-      if doc.multi.exists(_.from == collapseFor) then doc.multi.get.lastDM else Some(doc.lastMsg)
+  def lastUnmasked(threadId: MsgThread.Id, sortFor: UserId): Fu[Option[Msg.Last]] =
+    colls.thread.one[MsgThread]($id(threadId)) map {
+      case Some(doc) =>
+        if doc.sortFor.contains(sortFor) then doc.sortWith
+        else Some(doc.lastMsg)
+      case None => None
     }
+
   def setRead(userId: UserId, contactId: UserId): Funit =
     val threadId = MsgThread.id(userId, contactId)
     colls.thread
@@ -161,10 +165,11 @@ final class MsgApi(
     post(User.lichessId, destId, text, multi = true, ignoreSecurity = true)
 
   def multiPost(orig: Holder, destSource: Source[UserId, ?], text: String): Fu[Int] =
+    val now = DateTime.now // same timestamp on all
     destSource
       .filter(orig.id !=)
       .mapAsync(4) {
-        post(orig.id, _, text, multi = true).logFailure(logger).recoverDefault(PostResult.Invalid)
+        post(orig.id, _, text, multi = true, date = now).logFailure(logger).recoverDefault(PostResult.Invalid)
       }
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
