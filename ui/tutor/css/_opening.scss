@@ -1,0 +1,11 @@
+.tutor__opening {
+  .mascot-says__content {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    gap: 2em;
+    .lpv {
+      flex: 0 0 240px;
+    }
+  }
+}

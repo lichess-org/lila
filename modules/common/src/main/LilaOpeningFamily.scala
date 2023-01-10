@@ -27,7 +27,7 @@ object LilaOpeningFamily:
   def find(key: String): Option[LilaOpeningFamily] = apply(Key(key))
 
   lazy val families: Map[Key, LilaOpeningFamily] = OpeningDb.all
-    .foldLeft(Map.empty[Key, LilaOpeningFamily]) { case (acc, fullOp) =>
+    .foldLeft(Map.empty[Key, LilaOpeningFamily]) { (acc, fullOp) =>
       val fam = LilaOpeningFamily(fullOp.family, fullOp.variation.isEmpty option fullOp)
       acc.get(fam.key) match
         case Some(LilaOpeningFamily(_, None)) if fam.full.isDefined => acc.updated(fam.key, fam)

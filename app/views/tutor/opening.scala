@@ -19,7 +19,7 @@ object opening:
       as: chess.Color,
       user: lila.user.User,
       puzzle: Option[lila.puzzle.PuzzleOpening.FamilyWithCount]
-  )(implicit ctx: Context) =
+  )(using Context) =
     bits.layout(
       full,
       title = s"Lichess Tutor • ${perfReport.perf.trans} • ${as.name} • ${report.family.name.value}",
@@ -49,36 +49,45 @@ object opening:
         )
       ),
       bits.mascotSays(
-        p(
-          "You played the ",
-          report.family.name.value,
-          " in ",
-          report.performance.mine.count.localize,
-          " games, which is ",
-          bits.percentFrag(perfReport.openingFrequency(as, report)),
-          " of the time you played as ",
-          as.name,
-          "."
-        ),
-        div(cls := "button-set")(
-          report.family.full.map { op =>
-            a(
-              cls      := "button button-no-upper text",
-              dataIcon := "",
-              href     := views.html.opening.bits.openingUrl(op)
-            )("Learn about this opening")
-          },
-          puzzle.map { p =>
-            a(
-              cls      := "button button-no-upper text",
-              dataIcon := "",
-              href     := routes.Puzzle.angleAndColor(p.family.key.value, as.name)
-            )(
-              "Train with ",
-              p.family.name.value,
-              " puzzles"
-            )
-          }
+        report.family.full.map { op =>
+          div(
+            cls              := "lpv lpv--todo",
+            st.data("pgn")   := op.pgn,
+            st.data("title") := op.name
+          )
+        },
+        div(cls := "mascot-says__content__text")(
+          p(
+            "You played the ",
+            report.family.name.value,
+            " in ",
+            report.performance.mine.count.localize,
+            " games, which is ",
+            bits.percentFrag(perfReport.openingFrequency(as, report)),
+            " of the time you played as ",
+            as.name,
+            "."
+          ),
+          div(cls := "button-set")(
+            report.family.full.map { op =>
+              a(
+                cls      := "button button-no-upper text",
+                dataIcon := "",
+                href     := views.html.opening.bits.openingUrl(op)
+              )("Learn about this opening")
+            },
+            puzzle.map { p =>
+              a(
+                cls      := "button button-no-upper text",
+                dataIcon := "",
+                href     := routes.Puzzle.angleAndColor(p.family.key.value, as.name)
+              )(
+                "Train with ",
+                p.family.name.value,
+                " puzzles"
+              )
+            }
+          )
         )
       ),
       div(cls := "tutor__pad")(
