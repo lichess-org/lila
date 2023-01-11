@@ -34,7 +34,6 @@ private object BsonHandlers:
         "maskWith" -> t.maskWith
       )
 
-  // given BSONHandler[Msg.Id]                  = stringAnyValHandler[Msg.Id](_.value, Msg.Id.apply)
   given msgHandler: BSONDocumentHandler[Msg] = Macros.handler
 
   def writeMsg(msg: Msg, threadId: MsgThread.Id): Bdoc =

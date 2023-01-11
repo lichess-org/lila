@@ -26,7 +26,7 @@ final class MsgApi(
 )(using scala.concurrent.ExecutionContext, akka.stream.Materializer):
 
   val msgsPerPage = MaxPerPage(100)
-  val inboxSize = 50
+  val inboxSize   = 50
 
   import BsonHandlers.{ *, given }
   import MsgApi.*
@@ -47,13 +47,14 @@ final class MsgApi(
 
   private def maybeCollapse(me: User, threads: List[MsgThread]): Fu[List[MsgThread]] =
     val candidates = threads.filter(_.maskFor.contains(me.id))
-    val distinct = candidates.distinctBy(_.lastMsg)
-    if (candidates.length <= 1 || distinct.length == candidates.length) fuccess(threads)
-    else colls.thread
-      .find($doc("users" -> me.id, "del" $ne me.id))
-      .sort($sort desc "maskWith.date")
-      .cursor[MsgThread]()
-      .list(inboxSize)
+    val distinct   = candidates.distinctBy(_.lastMsg)
+    if (candidates.isEmpty || distinct.sizeCompare(candidates) == 0) fuccess(threads)
+    else
+      colls.thread
+        .find($doc("users" -> me.id, "del" $ne me.id))
+        .sort($sort desc "maskWith.date")
+        .cursor[MsgThread]()
+        .list(inboxSize)
 
   def convoWith(me: User, username: UserStr, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] =
     val userId   = username.id
