@@ -1,15 +1,21 @@
-const buffer = [];
-const flush = () => {
-  if (buffer.length) db.insight_int.insertMany(buffer, { ordered: false });
-  buffer = [];
-};
-db.insight_int.drop();
-db.insight.find().forEach(i => {
-  i.m.forEach(m => {
-    if (m.w) m.w = NumberInt(m.w * 1000);
-    if (m.s) m.s = NumberInt(m.s * 1000);
-  });
-  buffer.push(i);
-  if (buffer.length > 99) flush();
-});
-flush();
+db.insight.aggregate([
+  { $match: { $or: [{ 'm.s': { $type: 'double' } }, { 'm.w': { $type: 'double' } }] } },
+  {
+    $set: {
+      m: {
+        $map: {
+          input: '$m',
+          as: 'n',
+          in: {
+            $mergeObjects: [
+              '$$n',
+              { $cond: [{ $gt: ['$$n.s', -1] }, { s: { $toInt: { $multiply: ['$$n.s', 1000] } } }, {}] },
+              { $cond: [{ $gt: ['$$n.w', -1] }, { w: { $toInt: { $multiply: ['$$n.w', 1000] } } }, {}] },
+            ],
+          },
+        },
+      },
+    },
+  },
+  { $merge: 'insight' },
+]);
