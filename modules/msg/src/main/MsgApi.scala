@@ -40,14 +40,16 @@ final class MsgApi(
       .flatMap(maybeSortAgain(me, _))
       .map(prioritize)
 
-  // maybeSortAgain does some juggling to preserve the previous inbox thread ordering for team leaders when
-  // they send a PM-all.  for a more thorough explanation, see the comments on lines 43-44 of MsgApi.scala
-
+  // maybeSortAgain maintains usable inbox thread ordering for team leaders after PM alls.
+  
   private def maybeSortAgain(me: User, threads: List[MsgThread]): Fu[List[MsgThread]] =
     val candidates = threads.filter(_.maskFor.contains(me.id))
     val distinct   = candidates.distinctBy(_.lastMsg)
-    if (candidates.length <= 1 || distinct.length == candidates.length) fuccess(threads)
+    if (candidates.length <= 1 || distinct.length == candidates.length)
+      // we don't need to sort again
+      fuccess(threads)
     else
+      // we need to sort again, with likely a different set of 50 due to the new ordering
       colls.thread
         .find($doc("users" -> me.id, "del" $ne me.id))
         .sort($sort desc "maskWith.date")
