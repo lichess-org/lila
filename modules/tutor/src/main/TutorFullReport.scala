@@ -52,11 +52,12 @@ object TutorFullReport:
 
   val freshness = 1 day
 
-  sealed abstract class Availability
-  case class Available(report: TutorFullReport, fresher: Option[TutorQueue.Status]) extends Availability:
-    def isFresh = fresher.isEmpty
-  case class Empty(status: TutorQueue.Status) extends Availability
-  case object InsufficientGames               extends Availability
+  enum Availability:
+    case Available(report: TutorFullReport, fresher: Option[TutorQueue.Status])
+    case Empty(status: TutorQueue.Status)
+    case InsufficientGames
+
+  export Availability.*
 
   object F:
     val user   = "user"

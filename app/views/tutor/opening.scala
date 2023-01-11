@@ -66,24 +66,24 @@ object opening:
             as.name,
             "."
           ),
-          div(cls := "button-set")(
-            report.family.full.map { op =>
-              a(
-                cls      := "button button-no-upper text",
-                dataIcon := "",
-                href     := views.html.opening.bits.openingUrl(op)
-              )("Learn about this opening")
-            },
+          div(cls := "mascot-says__buttons")(
+            a(
+              cls      := "button button-no-upper text",
+              dataIcon := "",
+              href     := views.html.opening.bits.openingUrl(report.family.anyOpening)
+            )("Learn about this opening"),
+            a(
+              cls      := "button button-no-upper text",
+              dataIcon := "",
+              href := s"${routes.UserAnalysis
+                  .pgn(report.family.anyOpening.pgn.value.replace(" ", "_"))}#explorer/${user.username}"
+            )("Personal opening explorer"),
             puzzle.map { p =>
               a(
                 cls      := "button button-no-upper text",
                 dataIcon := "",
                 href     := routes.Puzzle.angleAndColor(p.family.key.value, as.name)
-              )(
-                "Train with ",
-                p.family.name.value,
-                " puzzles"
-              )
+              )("Train with puzzles")
             }
           )
         )
