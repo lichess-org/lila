@@ -26,7 +26,7 @@ final class MsgApi(
 )(using scala.concurrent.ExecutionContext, akka.stream.Materializer):
 
   val msgsPerPage = MaxPerPage(100)
-  val inboxSize = 50
+  val inboxSize   = 50
 
   import BsonHandlers.{ *, given }
   import MsgApi.*
@@ -37,23 +37,27 @@ final class MsgApi(
       .sort($sort desc "lastMsg.date")
       .cursor[MsgThread]()
       .list(inboxSize)
-      .flatMap(maybeCollapse(me, _))
+      .flatMap(maybeSortAgain(me, _))
       .map(prioritize)
+
+  // maybeSortAgain does some juggling to preserve the previous inbox thread ordering for team leaders when
+  // they send a PM-all.  for a more thorough explanation, see the comments on lines 43-44 of MsgApi.scala
+
+  private def maybeSortAgain(me: User, threads: List[MsgThread]): Fu[List[MsgThread]] =
+    val candidates = threads.filter(_.maskFor.contains(me.id))
+    val distinct   = candidates.distinctBy(_.lastMsg)
+    if (candidates.length <= 1 || distinct.length == candidates.length) fuccess(threads)
+    else
+      colls.thread
+        .find($doc("users" -> me.id, "del" $ne me.id))
+        .sort($sort desc "maskWith.date")
+        .cursor[MsgThread]()
+        .list(inboxSize)
 
   private def prioritize(threads: List[MsgThread]) =
     threads.find(_.isPriority) match
       case None        => threads
       case Some(found) => found :: threads.filterNot(_.isPriority)
-
-  private def maybeCollapse(me: User, threads: List[MsgThread]): Fu[List[MsgThread]] =
-    val candidates = threads.filter(_.maskFor.contains(me.id))
-    val distinct = candidates.distinctBy(_.lastMsg)
-    if (candidates.length <= 1 || distinct.length == candidates.length) fuccess(threads)
-    else colls.thread
-      .find($doc("users" -> me.id, "del" $ne me.id))
-      .sort($sort desc "maskWith.date")
-      .cursor[MsgThread]()
-      .list(inboxSize)
 
   def convoWith(me: User, username: UserStr, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] =
     val userId   = username.id
