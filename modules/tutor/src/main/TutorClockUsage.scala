@@ -24,7 +24,7 @@ object TutorClockUsage:
       question = Question(
         InsightDimension.Perf,
         InsightMetric.ClockPercent,
-        List(Filter(InsightDimension.Perf, perfs))
+        List(Filter(InsightDimension.Perf, perfs.filter(_ != PerfType.Correspondence)))
       ),
       aggregate = (insightApi, select, sort) =>
         insightApi.coll {

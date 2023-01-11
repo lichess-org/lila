@@ -6,10 +6,15 @@ import scala.concurrent.ExecutionContext
 import lila.common.config
 import lila.insight.*
 import lila.rating.PerfType
+import alleycats.Zero
 
 case class TutorFlagging(win: TutorBothValueOptions[GoodPercent], loss: TutorBothValueOptions[GoodPercent])
 
 object TutorFlagging:
+
+  given Zero[TutorFlagging] =
+    val values = TutorBothValueOptions.zero[GoodPercent].zero
+    Zero(TutorFlagging(values, values))
 
   val maxPeerGames = config.Max(10_000)
 

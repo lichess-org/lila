@@ -113,34 +113,34 @@ private object TutorPerfReport:
     InsightMetric.ClockPercent,
     List(Filter(InsightDimension.Phase, List(Phase.Middle, Phase.End)))
   )
+  private def hasClock(p: PerfType) = p != PerfType.Correspondence
 
-  def compute(
-      users: NonEmptyList[TutorUser]
-  )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[List[TutorPerfReport]] = for {
-    accuracy        <- answerManyPerfs(accuracyQuestion, users)
-    awareness       <- answerManyPerfs(awarenessQuestion, users)
-    resourcefulness <- TutorResourcefulness compute users
-    conversion      <- TutorConversion compute users
-    globalClock     <- answerManyPerfs(globalClockQuestion, users)
-    clockUsage      <- TutorClockUsage compute users
-    perfReports <- scala.concurrent.Future sequence users.toList.map { user =>
-      for {
-        openings <- TutorOpening compute user
-        phases   <- TutorPhases compute user
-        flagging <- TutorFlagging compute user
-      } yield TutorPerfReport(
-        user.perfType,
-        user.perfStats,
-        accuracy = AccuracyPercent.from(accuracy valueMetric user.perfType),
-        awareness = GoodPercent.from(awareness valueMetric user.perfType),
-        resourcefulness = GoodPercent.from(resourcefulness valueMetric user.perfType),
-        conversion = GoodPercent.from(conversion valueMetric user.perfType),
-        globalClock = ClockPercent.from(globalClock valueMetric user.perfType),
-        clockUsage = ClockPercent.from(clockUsage valueMetric user.perfType),
-        openings,
-        phases,
-        flagging
-      )
-    }
-
-  } yield perfReports
+  def compute(users: NonEmptyList[TutorUser])(using InsightApi, ExecutionContext): Fu[List[TutorPerfReport]] =
+    for
+      accuracy        <- answerManyPerfs(accuracyQuestion, users)
+      awareness       <- answerManyPerfs(awarenessQuestion, users)
+      resourcefulness <- TutorResourcefulness compute users
+      conversion      <- TutorConversion compute users
+      clockUsers = users.filter(_.perfType != PerfType.Correspondence).toNel
+      globalClock <- clockUsers.?? { answerManyPerfs(globalClockQuestion, _).dmap(some) }
+      clockUsage  <- clockUsers.?? { TutorClockUsage.compute(_).dmap(some) }
+      perfReports <- scala.concurrent.Future sequence users.toList.map { user =>
+        for
+          openings <- TutorOpening compute user
+          phases   <- TutorPhases compute user
+          flagging <- hasClock(user.perfType) ?? TutorFlagging.compute(user)
+        yield TutorPerfReport(
+          user.perfType,
+          user.perfStats,
+          accuracy = AccuracyPercent.from(accuracy valueMetric user.perfType),
+          awareness = GoodPercent.from(awareness valueMetric user.perfType),
+          resourcefulness = GoodPercent.from(resourcefulness valueMetric user.perfType),
+          conversion = GoodPercent.from(conversion valueMetric user.perfType),
+          globalClock = ClockPercent.from(globalClock.??(_ valueMetric user.perfType)),
+          clockUsage = ClockPercent.from(clockUsage.??(_ valueMetric user.perfType)),
+          openings,
+          phases,
+          flagging
+        )
+      }
+    yield perfReports

@@ -15,7 +15,7 @@ case class ValueCount[V](value: V, count: Int):
   def reliableEnough         = count >= 50
   def relevantTo(total: Int) = reliableEnough && count * 10 > total
 
-  def double(implicit number: TutorNumber[V]) = ValueCount[Double](number double value, count)
+  def double(using number: TutorNumber[V]) = ValueCount[Double](number double value, count)
 
 case class TutorBothValuesAvailable[A](mine: ValueCount[A], peer: ValueCount[A])(using
     o: Ordering[A]
@@ -23,23 +23,27 @@ case class TutorBothValuesAvailable[A](mine: ValueCount[A], peer: ValueCount[A])
   // def map[B: Ordering](f: A => B)                           = TutorBothValuesAvailable(mine map f, peer map f)
   def higher                                     = o.compare(mine.value, peer.value) >= 0
   def grade(using number: TutorNumber[A]): Grade = number.grade(mine.value, peer.value)
-case class TutorBothValues[A](mine: ValueCount[A], peer: Option[ValueCount[A]])(implicit o: Ordering[A]):
+
+case class TutorBothValues[A](mine: ValueCount[A], peer: Option[ValueCount[A]])(using o: Ordering[A]):
   def map[B: Ordering](f: A => B) = TutorBothValues(mine map f, peer map (_ map f))
   def higher                      = peer.exists(p => o.compare(mine.value, p.value) >= 0)
   def toOption                    = TutorBothValueOptions(mine.some, peer)
+
 case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[ValueCount[A]])(using
     o: Ordering[A]
 ):
   def map[B: Ordering](f: A => B) = TutorBothValueOptions(mine map (_ map f), peer map (_ map f))
   def higher                      = mine.exists(m => peer.exists(p => o.compare(m.value, p.value) >= 0))
   def asAvailable                 = for { m <- mine; p <- peer } yield TutorBothValuesAvailable(m, p)
-  def grade(implicit number: TutorNumber[A]): Option[Grade] = asAvailable.map(_.grade)
+  def grade(using TutorNumber[A]): Option[Grade] = asAvailable.map(_.grade)
 
-  def mix(other: TutorBothValueOptions[A])(implicit number: TutorNumber[A]): TutorBothValueOptions[A] =
+  def mix(other: TutorBothValueOptions[A])(using number: TutorNumber[A]): TutorBothValueOptions[A] =
     TutorBothValueOptions(
       mine = number.mean(mine, other.mine).some.filter(_.count > 0),
       peer = number.mean(peer, other.peer).some.filter(_.count > 0)
     )
+object TutorBothValueOptions:
+  given zero[A: Ordering]: Zero[TutorBothValueOptions[A]] = Zero(TutorBothValueOptions[A](none, none))
 
 sealed abstract class TutorMetric[V](val metric: InsightMetric)
 
