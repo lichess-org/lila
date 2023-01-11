@@ -37,24 +37,29 @@ final class MsgApi(
       .sort($sort desc "lastMsg.date")
       .cursor[MsgThread]()
       .list(inboxSize)
-      .flatMap(maybeCollapse(me, _))
+      .flatMap(maybeSortAgain(me, _))
       .map(prioritize)
 
-  private def prioritize(threads: List[MsgThread]) =
-    threads.find(_.isPriority) match
-      case None        => threads
-      case Some(found) => found :: threads.filterNot(_.isPriority)
-
-  private def maybeCollapse(me: User, threads: List[MsgThread]): Fu[List[MsgThread]] =
+  // maybeSortAgain maintains usable inbox thread ordering for team leaders after PM alls.
+  
+  private def maybeSortAgain(me: User, threads: List[MsgThread]): Fu[List[MsgThread]] =
     val candidates = threads.filter(_.maskFor.contains(me.id))
     val distinct   = candidates.distinctBy(_.lastMsg)
-    if (candidates.isEmpty || distinct.sizeCompare(candidates) == 0) fuccess(threads)
+    if (candidates.length <= 1 || distinct.length == candidates.length)
+      // we don't need to sort again
+      fuccess(threads)
     else
+      // we need to sort again, with likely a different set of 50 due to the new ordering
       colls.thread
         .find($doc("users" -> me.id, "del" $ne me.id))
         .sort($sort desc "maskWith.date")
         .cursor[MsgThread]()
         .list(inboxSize)
+
+  private def prioritize(threads: List[MsgThread]) =
+    threads.find(_.isPriority) match
+      case None        => threads
+      case Some(found) => found :: threads.filterNot(_.isPriority)
 
   def convoWith(me: User, username: UserStr, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] =
     val userId   = username.id
