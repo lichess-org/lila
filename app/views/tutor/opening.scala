@@ -49,13 +49,11 @@ object opening:
         )
       ),
       bits.mascotSays(
-        report.family.full.map { op =>
-          div(
-            cls              := "lpv lpv--todo",
-            st.data("pgn")   := op.pgn,
-            st.data("title") := op.name
-          )
-        },
+        div(
+          cls              := "lpv lpv--todo",
+          st.data("pgn")   := report.family.anyOpening.pgn,
+          st.data("title") := report.family.name
+        ),
         div(cls := "mascot-says__content__text")(
           p(
             "You played the ",
