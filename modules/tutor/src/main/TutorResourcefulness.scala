@@ -10,6 +10,7 @@ import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.insight.InsightEntry.{ BSONFields as F }
 import lila.insight.BSONHandlers.given
+import lila.analyse.WinPercent
 
 object TutorResourcefulness:
 
@@ -35,7 +36,7 @@ object TutorResourcefulness:
               $doc(
                 F.analysed -> true,
                 F.perf $in perfs,
-                F.moves -> $doc("$elemMatch" -> $doc("w" $lt 33.3, "i" $lt -1))
+                F.moves -> $doc("$elemMatch" -> $doc("w" $lt WinPercent(33.3), "i" $lt -1))
               ) ++ select
             ) -> List(
               sort option Sort(Descending(F.date)),
