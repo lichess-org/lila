@@ -55,7 +55,7 @@ final class MsgApi(
         .cursor[MsgThread]()
         .list(inboxSize)
         // last we filter receivedMultis and reinsert them according to their lastMsg.date
-        .map(sorted => merge(sorted.filterNot(receivedMultis.contains(_)), receivedMultis))
+        .map(sorted => merge(sorted.filterNot(receivedMultis.contains), receivedMultis))
 
   private def merge(sorteds: List[MsgThread], multis: List[MsgThread]): List[MsgThread] =
     (sorteds, multis) match {
