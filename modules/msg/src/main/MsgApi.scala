@@ -42,18 +42,33 @@ final class MsgApi(
 
   // maybeSortAgain maintains usable inbox thread ordering for team leaders after PM alls.
   private def maybeSortAgain(me: User, threads: List[MsgThread]): Fu[List[MsgThread]] =
-    val candidates = threads.filter(_.maskFor.contains(me.id))
-    val distinct   = candidates.distinctBy(_.lastMsg)
+    val candidates     = threads.filter(_.maskFor.contains(me.id))
+    val receivedMultis = threads.filter(_.maskFor.exists(_ != me.id))
+    val distinct       = candidates.distinctBy(_.lastMsg)
     if (candidates.sizeIs <= 1 || distinct.sizeCompare(candidates) == 0)
-      // we don't need to sort again
+      // we're done
       fuccess(threads)
     else
-      // we need to sort again, with likely a different set of 50 due to the new ordering
       colls.thread
         .find($doc("users" -> me.id, "del" $ne me.id))
-        .sort($sort desc "maskWith.date")
+        .sort($sort desc "maskWith.date") // sorting on maskWith.date now
         .cursor[MsgThread]()
         .list(inboxSize)
+        // last we filter receivedMultis and reinsert them according to their lastMsg.date
+        .map(sorted => merge(sorted.filterNot(receivedMultis.contains(_)), receivedMultis))
+
+  private def merge(sorteds: List[MsgThread], multis: List[MsgThread]): List[MsgThread] =
+    (sorteds, multis) match {
+      case (Nil, Nil)                => Nil
+      case (_, Nil)                  => sorteds
+      case (Nil, _)                  => multis
+      case (sorted :: _, multi :: _) =>
+        // we're comparing lastMsg.date in multis to maskWith.date in sorteds
+        if (sorted.maskWith.exists(sortMsg => multi.lastMsg.date.compareTo(sortMsg.date) > 0))
+          multi :: merge(sorteds, multis.tail)
+        else
+          sorted :: merge(sorteds.tail, multis)
+    }
 
   private def prioritize(threads: List[MsgThread]) =
     threads.find(_.isPriority) match
