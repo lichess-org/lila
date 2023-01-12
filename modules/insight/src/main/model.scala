@@ -14,7 +14,8 @@ case class InsightUser(
 ):
   def isEmpty = count == 0
 
-case class MeanRating(value: Int) extends AnyVal
+opaque type MeanRating = Int
+object MeanRating extends OpaqueInt[MeanRating]
 
 case class InsightMove(
     phase: Phase,

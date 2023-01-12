@@ -218,7 +218,7 @@ trait Handlers:
 
   def valueMapHandler[K, V](mapping: Map[K, V])(toKey: V => K)(using
       keyHandler: BSONHandler[K]
-  ) = new BSONHandler[V]:
+  ): BSONHandler[V] = new:
     def readTry(bson: BSONValue) = keyHandler.readTry(bson) flatMap { k =>
       mapping.get(k) toTry s"No such value in mapping: $k"
     }
