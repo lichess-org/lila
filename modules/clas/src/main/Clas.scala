@@ -4,7 +4,6 @@ import cats.data.NonEmptyList
 import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Markdown
 import lila.user.User
 
 case class Clas(

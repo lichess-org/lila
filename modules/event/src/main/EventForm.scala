@@ -54,7 +54,7 @@ object EventForm:
   case class Data(
       title: String,
       headline: String,
-      description: Option[lila.common.Markdown],
+      description: Option[Markdown],
       homepageHours: BigDecimal,
       url: String,
       lang: String,

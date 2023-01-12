@@ -9,7 +9,6 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
-import lila.common.Markdown
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
@@ -74,7 +73,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
   private object markdown:
 
-    private val renderer = new lila.common.MarkdownRender(
+    private val renderer = lila.common.MarkdownRender(
       autoLink = false,
       list = true,
       header = true,

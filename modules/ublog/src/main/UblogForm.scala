@@ -9,7 +9,6 @@ import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, into, given }
 import lila.i18n.{ defaultLang, LangList }
 import lila.user.User
 import play.api.i18n.Lang
-import lila.common.Markdown
 
 final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(using
     ec: scala.concurrent.ExecutionContext

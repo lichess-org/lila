@@ -10,7 +10,7 @@ case class Event(
     _id: String,
     title: String,
     headline: String,
-    description: Option[lila.common.Markdown],
+    description: Option[Markdown],
     homepageHours: Double,
     url: String,
     lang: Lang,
