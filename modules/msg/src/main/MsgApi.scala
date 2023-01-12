@@ -42,13 +42,13 @@ final class MsgApi(
 
   // maybeSortAgain maintains usable inbox thread ordering for team leaders after PM alls.
   private def maybeSortAgain(me: User, threads: List[MsgThread]): Fu[List[MsgThread]] =
-    val candidates     = threads.filter(_.maskFor.contains(me.id))
-    val receivedMultis = threads.filter(_.maskFor.exists(_ != me.id))
-    val distinct       = candidates.distinctBy(_.lastMsg)
+    val candidates = threads.filter(_.maskFor.contains(me.id))
+    val distinct   = candidates.distinctBy(_.lastMsg)
     if (candidates.sizeIs <= 1 || distinct.sizeCompare(candidates) == 0)
       // we're done
       fuccess(threads)
     else
+      val receivedMultis = threads.filter(_.maskFor.exists(_ != me.id))
       colls.thread
         .find($doc("users" -> me.id, "del" $ne me.id))
         .sort($sort desc "maskWith.date") // sorting on maskWith.date now
@@ -58,17 +58,16 @@ final class MsgApi(
         .map(sorted => merge(sorted.filterNot(receivedMultis.contains), receivedMultis))
 
   private def merge(sorteds: List[MsgThread], multis: List[MsgThread]): List[MsgThread] =
-    (sorteds, multis) match {
-      case (Nil, Nil)                => Nil
-      case (_, Nil)                  => sorteds
-      case (Nil, _)                  => multis
-      case (sorted :: _, multi :: _) =>
+    (sorteds, multis) match
+      case (Nil, Nil)                                 => Nil
+      case (_, Nil)                                   => sorteds
+      case (Nil, _)                                   => multis
+      case (sorted :: sortedTail, multi :: multiTail) =>
         // we're comparing lastMsg.date in multis to maskWith.date in sorteds
-        if (sorted.maskWith.exists(sortMsg => multi.lastMsg.date.compareTo(sortMsg.date) > 0))
-          multi :: merge(sorteds, multis.tail)
+        if (sorted.maskWith.exists(sortMsg => multi.lastMsg.date.isAfter(sortMsg.date)))
+          multi :: merge(sorteds, multiTail)
         else
-          sorted :: merge(sorteds.tail, multis)
-    }
+          sorted :: merge(sortedTail, multis)
 
   private def prioritize(threads: List[MsgThread]) =
     threads.find(_.isPriority) match
