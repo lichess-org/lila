@@ -16,7 +16,7 @@ trait LilaModel:
     def of[A](w: TotalWrapper[A, Double]): Percent[A] = new:
       def apply(a: Double): A = w(a)
       def value(a: A): Double = w.value(a)
-    def toInt[A](a: A)(using p: Percent[A]) = Math.round(p.value(a)).toInt // round to closest
+    def toInt[A](a: A)(using p: Percent[A]): Int = Math.round(p.value(a)).toInt // round to closest
 
   opaque type GameAnyId = String
   object GameAnyId extends OpaqueString[GameAnyId]

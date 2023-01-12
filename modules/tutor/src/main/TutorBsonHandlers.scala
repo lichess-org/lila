@@ -73,7 +73,6 @@ private object TutorBsonHandlers:
   //     },
   //     _.mapKeys(_.key)
   //   )
-  given BSONHandler[MeanRating]               = intAnyValHandler(_.value, MeanRating.apply)
   given BSONDocumentHandler[InsightPerfStats] = Macros.handler
   given BSONDocumentHandler[TutorPerfReport]  = Macros.handler
   given BSONDocumentHandler[TutorFullReport]  = Macros.handler
