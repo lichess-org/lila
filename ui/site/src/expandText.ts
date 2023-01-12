@@ -73,7 +73,7 @@ lichess.load.then(() => {
   }
 
   function expandYoutube(a: Candidate) {
-    const $iframe = $('<div class="embed"><iframe src="' + a.src + '"></iframe></div>');
+    const $iframe = $('<div class="embed"><iframe src="' + a.src + '" credentialless></iframe></div>');
     $(a.element).replaceWith($iframe);
     return $iframe;
   }

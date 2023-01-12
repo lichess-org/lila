@@ -35,7 +35,8 @@ object show:
             tpe := "text/html",
             src := s"https://www.youtube.com/embed/${video.id}?autoplay=1&origin=https://lichess.org&start=${video.startTime}",
             st.frameborder := "0",
-            frame.allowfullscreen
+            frame.allowfullscreen,
+            frame.credentialless
           )
         ),
         h1(cls := "box__pad")(

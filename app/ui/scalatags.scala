@@ -35,6 +35,7 @@ trait ScalatagsAttrs:
   object frame:
     val scrolling       = attr("scrolling")
     val allowfullscreen = attr("allowfullscreen").empty
+    val credentialless  = attr("credentialless").empty
 
   val dataSortNumberTh = th(attr("data-sort-method") := "number")
   val dataSort         = attr("data-sort")

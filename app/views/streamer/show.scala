@@ -37,6 +37,7 @@ object show:
             s.stream match {
               case Some(YouTube.Stream(_, _, videoId, _, _)) =>
                 iframe(
+                  frame.credentialless,
                   st.frameborder  := "0",
                   frame.scrolling := "no",
                   src := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=${netConfig.domain}"
@@ -44,6 +45,7 @@ object show:
               case _ =>
                 s.streamer.twitch.map { twitch =>
                   iframe(
+                    frame.credentialless,
                     st.frameborder  := "0",
                     frame.scrolling := "yes",
                     src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.currentBg != "light") ?? "darkpopout&"}parent=${netConfig.domain}"
@@ -60,7 +62,8 @@ object show:
                 iframe(
                   src            := s"https://www.youtube.com/embed/$videoId?autoplay=1",
                   st.frameborder := "0",
-                  frame.allowfullscreen
+                  frame.allowfullscreen,
+                  frame.credentialless
                 )
               )
             case _ =>
@@ -68,7 +71,8 @@ object show:
                 div(cls := "box embed twitch")(
                   iframe(
                     src := s"https://player.twitch.tv/?channel=${twitch.userId}&parent=${netConfig.domain}",
-                    frame.allowfullscreen
+                    frame.allowfullscreen,
+                    frame.credentialless
                   )
                 )
               } getOrElse div(cls := "box embed")(div(cls := "nostream")(offline()))
