@@ -19,7 +19,7 @@ object wiki:
             div(cls := "opening__wiki__markup__placeholder")(
               "No description of the opening, yet. We're working on it!"
             )
-          )(raw)
+          )(rawHtml)
       ),
       (page.query.openingAndExtraMoves._1.isDefined && isGranted(_.OpeningWiki)) option {
         details(cls := "opening__wiki__editor")(

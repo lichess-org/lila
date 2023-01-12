@@ -117,3 +117,6 @@ trait LilaModel:
 
   opaque type UserAgent = String
   object UserAgent extends OpaqueString[UserAgent]
+
+  opaque type Html = String
+  object Html extends OpaqueString[Html]
