@@ -52,4 +52,4 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(using
         .unit
     }
 
-  scheduler.scheduleWithFixedDelay(2.minute, 24 hours) { (() => rebuildBloomFilter()) }.unit
+  scheduler.scheduleWithFixedDelay(71.seconds, 24.hours) { (() => rebuildBloomFilter()) }.unit
