@@ -18,6 +18,7 @@ object skills:
       boxTop(
         h1(
           a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
+          bits.otherUser(user),
           report.perf.trans,
           " skills"
         )

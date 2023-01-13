@@ -23,6 +23,7 @@ object perf:
       boxTop(
         h1(
           a(href := routes.Tutor.user(user.username), dataIcon := "", cls := "text"),
+          bits.otherUser(user),
           "Tutor: ",
           report.perf.trans
         )

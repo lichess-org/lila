@@ -29,6 +29,9 @@ object bits:
   def percentNumber[A](v: A)(implicit number: TutorNumber[A]) = f"${number double v}%1.1f"
   def percentFrag[A](v: A)(implicit number: TutorNumber[A])   = frag(strong(percentNumber(v)), "%")
 
+  private[tutor] def otherUser(user: lila.user.User)(using ctx: Context) =
+    !ctx.is(user) option userSpan(user, withOnline = false)
+
   private[tutor] def layout(
       availability: TutorFullReport.Availability,
       menu: Frag,

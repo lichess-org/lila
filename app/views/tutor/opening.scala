@@ -41,6 +41,7 @@ object opening:
             dataIcon := "",
             cls      := "text"
           ),
+          bits.otherUser(user),
           perfReport.perf.trans,
           ": ",
           report.family.name,
