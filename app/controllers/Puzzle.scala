@@ -451,22 +451,27 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read) { implicit req => me =>
-    val nb = getInt("nb", req) getOrElse 15 atLeast 1 atMost 30
-    env.puzzle.batch.nextFor(me, PuzzleAngle findOrMix angleStr, nb) flatMap
-      env.puzzle.jsonView.batch dmap { Ok(_) }
+    apiBatchSelect(me, PuzzleAngle findOrMix angleStr, getInt("nb", req) | 15)
   }
+  private def apiBatchSelect(me: UserModel, angle: PuzzleAngle, nb: Int)(using
+      req: RequestHeader
+  ): Fu[Result] =
+    env.puzzle.batch.nextFor(me, PuzzleAngle findOrMix angleStr, nb atLeast 1 atMost 30) flatMap
+      env.puzzle.jsonView.batch dmap { Ok(_) }
+
   def apiBatchSolve(angleStr: String) = ScopedBody(parse.json)(Seq(_.Puzzle.Write)) { req => me =>
     req.body
       .validate[lila.puzzle.PuzzleForm.batch.SolveData]
       .fold(
         err => BadRequest(err.toString).toFuccess,
         data =>
+          val angle = PuzzleAngle findOrMix angleStr
           lila.common.Future
             .applySequentially(data.solutions) { sol =>
               env.puzzle
-                .finisher(sol.id, PuzzleAngle findOrMix angleStr, me, sol.win, sol.mode)
+                .finisher(sol.id, angle, me, sol.win, sol.mode)
                 .void
-            } inject NoContent
+            } >> getInt("nb", req).fold(fuccess(NoContent))(apiBatchSelect(me, angle, _)(req))
       )
   }
 
