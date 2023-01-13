@@ -1,4 +1,8 @@
 .tutor {
+  h1 .user-link {
+    margin-right: 1ch;
+    color: $c-good;
+  }
   &__home {
     .tutor__mascot-says h2 {
       font-size: 1.5em;
