@@ -25,13 +25,13 @@
   <string name="publicStudies">לוחות הלמידה הפומביים שלי</string>
   <string name="youtubeVideos">סרטוני YouTube</string>
   <plurals name="studentReviews">
-    <item quantity="one">ביקורות %s תלמידים</item>
-    <item quantity="two">ביקורות %s תלמידים</item>
-    <item quantity="many">ביקורות %s תלמידים</item>
-    <item quantity="other">ביקורות %s תלמידים</item>
+    <item quantity="one">נכתבה ביקורת אחת</item>
+    <item quantity="two">%s ביקורות של תלמידים</item>
+    <item quantity="many">%s ביקורות של תלמידים</item>
+    <item quantity="other">%s ביקורות של תלמידים</item>
   </plurals>
   <string name="thankYouForReview">תודה לך על הביקורת!</string>
   <string name="xWillApproveIt">%s יאשר זאת בהקדם, או שמנהל יסתכל על זה.</string>
   <string name="reviewCoach">כתוב הערה על מאמן זה</string>
-  <string name="describeExperienceWith">תאר את חוויית הלמידה שלך עם %s</string>
+  <string name="describeExperienceWith">תאר/י את חוויית הלמידה שלך עם %s</string>
 </resources>
