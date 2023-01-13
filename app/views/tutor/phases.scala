@@ -36,11 +36,18 @@ object phases:
             div(cls := "tutor-card__content")(
               grade.peerGradeWithDetail(concept.accuracy, phase.accuracy, InsightPosition.Move),
               grade.peerGradeWithDetail(concept.tacticalAwareness, phase.awareness, InsightPosition.Move),
-              a(
-                cls      := "button button-no-upper text",
-                dataIcon := "",
-                href     := routes.Puzzle.show(phase.phase.name)
-              )("Train with ", phase.phase.name, " puzzles")
+              div(cls := "tutor__phases__phase__buttons")(
+                a(
+                  cls      := "button button-no-upper text",
+                  dataIcon := "",
+                  href     := routes.Puzzle.show(phase.phase.name)
+                )("Train with ", phase.phase.name, " puzzles"),
+                a(
+                  cls      := "button button-no-upper text",
+                  dataIcon := "",
+                  href     := s"${routes.Video.index}?tags=${phase.phase.name}"
+                )("Watch ", phase.phase.name, " videos")
+              )
             )
           )
         }
