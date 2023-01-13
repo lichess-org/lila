@@ -34,11 +34,10 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
   def pageContent(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver) = frag(
     h1(cls := "box__top")(doc.getText("doc.title")),
     div(cls := "body")(
-      raw {
-        ~doc
-          .getHtml("doc.content", resolver)
-          .map(lila.blog.BlogTransform.markdown.apply)
-      }
+      Html
+        .from(doc.getHtml("doc.content", resolver))
+        .map(lila.blog.BlogTransform.markdown.apply)
+        .map(rawHtml)
     )
   )
 

@@ -514,6 +514,12 @@ final class Api(
     ttl = 1.hour,
     maxConcurrency = 2
   )
+  private[controllers] val GlobalConcurrencyGenerousLimitPerIP = new lila.memo.ConcurrencyLimit[IpAddress](
+    name = "API generous concurrency per IP",
+    key = "api.ip.generous",
+    ttl = 1.hour,
+    maxConcurrency = 20
+  )
   private[controllers] val GlobalConcurrencyLimitUser = new lila.memo.ConcurrencyLimit[UserId](
     name = "API concurrency per user",
     key = "api.user",
@@ -527,11 +533,15 @@ final class Api(
       GlobalConcurrencyLimitUser.compose[T](u.id)
     }
 
-  private[controllers] def GlobalConcurrencyLimitPerIpAndUserOption[T](
+  private[controllers] def GlobalConcurrencyLimitPerIpAndUserOption[T, U: UserIdOf](
       req: RequestHeader,
-      me: Option[lila.user.User]
+      me: Option[lila.user.User],
+      about: Option[U]
   )(makeSource: => Source[T, ?])(makeResult: Source[T, ?] => Result): Result =
-    GlobalConcurrencyLimitPerIP.compose[T](HTTPRequest ipAddress req) flatMap { limitIp =>
+    val ipLimiter =
+      if me.exists(u => about.exists(u.is(_))) then GlobalConcurrencyGenerousLimitPerIP
+      else GlobalConcurrencyLimitPerIP
+    ipLimiter.compose[T](HTTPRequest ipAddress req) flatMap { limitIp =>
       GlobalConcurrencyLimitPerUserOption[T](me) map { limitUser =>
         makeResult(limitIp(limitUser(makeSource)))
       }

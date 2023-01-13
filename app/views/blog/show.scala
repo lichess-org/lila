@@ -33,12 +33,12 @@ object show:
             div(cls := "illustration")(st.img(src := img.url))
           },
           div(cls := "body expand-text")(
-            doc
-              .getHtml("blog.body", prismic.linkResolver)
+            Html
+              .from(doc.getHtml("blog.body", prismic.linkResolver))
               .map(lila.blog.Youtube.fixStartTimes)
               .map(lila.blog.BlogTransform.removeProtocol)
               .map(lila.blog.BlogTransform.markdown.apply)
-              .map(raw)
+              .map(rawHtml)
           ),
           ctx.noKid option
             div(cls := "footer")(

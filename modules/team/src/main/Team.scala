@@ -8,7 +8,6 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 import org.joda.time.Days
-import lila.common.Markdown
 import lila.hub.LightTeam.TeamName
 
 case class Team(

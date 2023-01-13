@@ -20,17 +20,20 @@ private object BsonHandlers:
             id = r.get[MsgThread.Id]("_id"),
             user1 = UserId(u1),
             user2 = UserId(u2),
-            lastMsg = r.get[Last]("lastMsg")
+            lastMsg = r.get[Last]("lastMsg"),
+            maskFor = r.getO[UserId]("maskFor"),
+            maskWith = r.getO[Last]("maskWith")
           )
         case x => sys error s"Invalid MsgThread users: $x"
     def writes(w: BSON.Writer, t: MsgThread) =
       $doc(
-        "_id"     -> t.id,
-        "users"   -> t.users.sorted(using stringOrdering),
-        "lastMsg" -> t.lastMsg
+        "_id"      -> t.id,
+        "users"    -> t.users.sorted(using stringOrdering),
+        "lastMsg"  -> t.lastMsg,
+        "maskFor"  -> t.maskFor,
+        "maskWith" -> t.maskWith
       )
 
-  // given BSONHandler[Msg.Id]                  = stringAnyValHandler[Msg.Id](_.value, Msg.Id.apply)
   given msgHandler: BSONDocumentHandler[Msg] = Macros.handler
 
   def writeMsg(msg: Msg, threadId: MsgThread.Id): Bdoc =
@@ -41,3 +44,5 @@ private object BsonHandlers:
 
   def writeThread(thread: MsgThread, delBy: List[UserId]): Bdoc =
     threadHandler.writeTry(thread).get ++ $doc("del" -> delBy)
+      ++ $doc("maskWith" -> $doc("date" -> thread.lastMsg.date))
+    // looks weird, but maybe.. it is the way

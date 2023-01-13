@@ -10,7 +10,6 @@ import lila.game.Game
 import lila.security.Granter
 import lila.study.Study
 import lila.user.User
-import lila.common.Markdown
 
 final class RelayTourForm:
 

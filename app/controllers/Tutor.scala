@@ -48,6 +48,11 @@ final class Tutor(env: Env) extends LilaController(env):
         }
     }
 
+  def skills(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
+    implicit ctx => me => report => perf =>
+      Ok(views.html.tutor.skills(report, perf, me)).toFuccess
+  }
+
   def phases(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
     implicit ctx => me => report => perf =>
       Ok(views.html.tutor.phases(report, perf, me)).toFuccess
@@ -68,7 +73,7 @@ final class Tutor(env: Env) extends LilaController(env):
     Secure(_.Beta) { implicit ctx => holder =>
       def proceed(user: UserModel) = env.tutor.api.availability(user) flatMap f(ctx)(user)
       if (!holder.user.is(username))
-        if (isGranted(_.SeeInsight)) env.user.repo.byId(username) flatMap { _ ?? proceed }
+        if (isGranted(_.SeeInsight)) env.user.repo.byId(username) flatMap { _.fold(notFound)(proceed) }
         else redirHome(holder.user)
       else proceed(holder.user)
     }

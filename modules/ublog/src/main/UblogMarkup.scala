@@ -34,7 +34,9 @@ final class UblogMarkup(
     gameExpand = MarkdownRender.GameExpand(netDomain, pgnCache.getIfPresent).some
   )
 
-  def apply(post: UblogPost) = cache.get((post.id, post.markdown)).map(scalatags.Text.all.raw)
+  def apply(post: UblogPost) = cache.get((post.id, post.markdown)).map { html =>
+    scalatags.Text.all.raw(html.value)
+  }
 
   private val cache = cacheApi[(UblogPostId, Markdown), Html](2048, "ublog.markup") {
     _.maximumSize(2048)
@@ -59,11 +61,9 @@ final class UblogMarkup(
 
   // put images into a container for styling
   private def imageParagraph(markup: Html) =
-    markup.replace("""<p><img src=""", """<p class="img-container"><img src=""")
+    markup.map(_.replace("""<p><img src=""", """<p class="img-container"><img src="""))
 
 private[ublog] object UblogMarkup:
-
-  private type Html = String
 
   private def unescape(txt: String) = txt.replace("""\_""", "_")
 
@@ -72,10 +72,13 @@ private[ublog] object UblogMarkup:
   object unescapeUnderscoreInLinks:
     private val hrefRegex    = """href="([^"]+)"""".r
     private val contentRegex = """>([^<]+)</a>""".r
-    def apply(markup: Html) = contentRegex.replaceAllIn(
-      hrefRegex.replaceAllIn(markup, m => s"""href="${Matcher.quoteReplacement(unescape(m group 1))}""""),
-      m => s""">${Matcher.quoteReplacement(unescape(m group 1))}</a>"""
-    )
+    def apply(markup: Html) = Html {
+      contentRegex.replaceAllIn(
+        hrefRegex
+          .replaceAllIn(markup.value, m => s"""href="${Matcher.quoteReplacement(unescape(m group 1))}""""),
+        m => s""">${Matcher.quoteReplacement(unescape(m group 1))}</a>"""
+      )
+    }
 
   // toastui editor escapes `_` as `\_` and it breaks @username
   object unescapeAtUsername:

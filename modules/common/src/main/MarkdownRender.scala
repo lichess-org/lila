@@ -44,7 +44,7 @@ final class MarkdownRender(
     code: Boolean = false,
     gameExpand: Option[MarkdownRender.GameExpand] = None
 ):
-  import MarkdownRender.{ Html, Key }
+  import MarkdownRender.Key
 
   private val extensions = new java.util.ArrayList[com.vladsch.flexmark.util.misc.Extension]()
   if (table) extensions.add(TablesExtension.create())
@@ -85,7 +85,7 @@ final class MarkdownRender(
     tooManyUnderscoreRegex.replaceAllIn(text.value, "_" * 3)
   )
 
-  def apply(key: Key, pgns: Map[String, Pgn] = Map.empty)(text: Markdown): Html =
+  def apply(key: Key, pgns: Map[String, Pgn] = Map.empty)(text: Markdown): Html = Html {
     Chronometer
       .sync {
         try renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text)).value))
@@ -97,11 +97,11 @@ final class MarkdownRender(
       .mon(_.markdown.time)
       .logIfSlow(50, logger.branch(key))(_ => s"slow markdown size:${text.value.size}")
       .result
+  }
 
 object MarkdownRender:
 
-  type Key  = String
-  type Html = String
+  type Key = String
 
   case class GameExpand(domain: config.NetDomain, getPgn: GameId => Option[String])
 

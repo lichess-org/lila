@@ -62,6 +62,8 @@
   <string name="studyPgn">Tutkielman PGN</string>
   <string name="downloadAllGames">Lataa kaikki pelit</string>
   <string name="chapterPgn">Luvun PGN</string>
+  <string name="copyChapterPgn">Kopioi PGN</string>
+  <string name="copyChapterPgnDescription">Kopioi tämän luvun PGN leikepöydälle.</string>
   <string name="downloadGame">Lataa peli</string>
   <string name="studyUrl">Tutkielman URL</string>
   <string name="currentChapterUrl">Tämän luvun URL</string>

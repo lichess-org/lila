@@ -12,7 +12,7 @@ object studentDashboard:
 
   def apply(
       c: Clas,
-      wall: Frag,
+      wall: Html,
       teachers: List[User],
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
@@ -58,7 +58,7 @@ object studentDashboard:
           }
         )
       ),
-      c.wall.value.nonEmpty option div(cls := "box__pad clas-wall")(wall),
+      c.wall.value.nonEmpty option div(cls := "box__pad clas-wall")(rawHtml(wall)),
       div(cls := "students")(studentList(students))
     )
 

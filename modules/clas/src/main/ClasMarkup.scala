@@ -16,6 +16,6 @@ final class ClasMarkup:
   private val cache = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(20 minutes)
     .maximumSize(512)
-    .build[lila.common.Markdown, String]()
+    .build[Markdown, Html]()
 
-  def apply(clas: Clas): String = cache.get(clas.wall, renderer(s"clas:${clas.id}"))
+  def apply(clas: Clas): Html = cache.get(clas.wall, renderer(s"clas:${clas.id}"))

@@ -10,8 +10,9 @@ import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.insight.InsightEntry.{ BSONFields as F }
 import lila.insight.BSONHandlers.given
+import lila.analyse.WinPercent
 
-object TutorClockUsage:
+object TutorResourcefulness:
 
   val maxGames = config.Max(10_000)
 
@@ -20,33 +21,41 @@ object TutorClockUsage:
   )(using InsightApi, ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
     val perfs = users.toList.map(_.perfType)
     TutorCustomInsight.compute(
+      monitoringKey = "overcome",
       users = users,
       question = Question(
         InsightDimension.Perf,
-        InsightMetric.ClockPercent,
-        List(Filter(InsightDimension.Perf, perfs.filter(_ != PerfType.Correspondence)))
+        InsightMetric.MeanAccuracy,
+        List(Filter(InsightDimension.Perf, perfs))
       ),
       aggregate = (insightApi, select, sort) =>
         insightApi.coll {
           _.aggregateList(maxDocs = Int.MaxValue) { framework =>
             import framework.*
-            Match($doc(F.result -> Result.Loss.id, F.perf $in perfs) ++ select) -> List(
+            Match(
+              $doc(
+                F.analysed -> true,
+                F.perf $in perfs,
+                F.moves -> $doc("$elemMatch" -> $doc("w" $lt WinPercent(33.3), "i" $lt -1))
+              ) ++ select
+            ) -> List(
               sort option Sort(Descending(F.date)),
               Limit(maxGames.value).some,
-              Project($doc(F.perf -> true, F.moves -> $doc("$last" -> s"$$${F.moves}"))).some,
-              UnwindField(F.moves).some,
-              Project($doc(F.perf -> true, "cp" -> s"$$${F.moves}.s")).some,
-              GroupField(F.perf)("cp" -> AvgField("cp"), "nb" -> SumAll).some,
-              Project($doc(F.perf -> true, "nb" -> true, "cp" -> $doc("$toInt" -> "$cp"))).some
+              GroupField(F.perf)(
+                "loss" -> Sum(
+                  $doc("$cond" -> $arr($doc("$eq" -> $arr(s"$$${F.result}", Result.Loss.id)), 1, 0))
+                ),
+                "nb" -> SumAll
+              ).some
             ).flatten
           }
         },
       clusterParser = docs =>
         for
-          doc          <- docs
-          perf         <- doc.getAsOpt[PerfType]("_id")
-          clockPercent <- doc.getAsOpt[ClockPercent]("cp")
-          size         <- doc.int("nb")
-        yield Cluster(perf, Insight.Single(Point(100 - clockPercent.value)), size, Nil),
-      monitoringKey = "clock_usage"
+          doc  <- docs
+          perf <- doc.getAsOpt[PerfType]("_id")
+          loss <- doc.getAsOpt[Int]("loss")
+          size <- doc.int("nb")
+          percent = (size - loss) * 100d / size
+        yield Cluster(perf, Insight.Single(Point(percent)), size, Nil)
     )

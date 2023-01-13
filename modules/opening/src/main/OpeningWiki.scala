@@ -9,17 +9,16 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
-import lila.common.Markdown
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
 
 case class OpeningWiki(
-    markup: Option[String],
+    markup: Option[Html],
     revisions: List[OpeningWiki.Revision],
     popularity: Long
 ):
-  def markupForMove(move: String): Option[String] =
+  def markupForMove(move: String): Option[Html] =
     markup map OpeningWiki.filterMarkupForMove(move)
 
 final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: CacheApi)(using ExecutionContext):
@@ -74,7 +73,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
   private object markdown:
 
-    private val renderer = new lila.common.MarkdownRender(
+    private val renderer = lila.common.MarkdownRender(
       autoLink = false,
       list = true,
       header = true,
@@ -83,9 +82,9 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
     )
 
     private val moveNumberRegex = """(\d+)\.""".r
-    def render(key: OpeningKey)(markdown: Markdown) = renderer(s"opening:$key") {
+    def render(key: OpeningKey)(markdown: Markdown): Html = renderer(s"opening:$key") {
       markdown.map { moveNumberRegex.replaceAllIn(_, "$1{DOT}") }
-    }.replace("{DOT}", ".")
+    }.map(_.replace("{DOT}", "."))
 
   private val cache = cacheApi[OpeningKey, OpeningWiki](1024, "opening.wiki") {
     _.maximumSize(4096).buildAsyncFuture(compute)
@@ -132,11 +131,13 @@ object OpeningWiki:
   val form = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 10_000)))
 
   private val MoveLiRegex = """(?i)^<li>(\w{2,5}\+?):(.+)</li>""".r
-  private def filterMarkupForMove(move: String)(markup: String) =
-    markup.linesIterator collect {
-      case MoveLiRegex(m, content) => if (m.toLowerCase == move.toLowerCase) s"<p>${content.trim}</p>" else ""
-      case html                    => html
+  private def filterMarkupForMove(move: String)(markup: Html) = markup map {
+    _.linesIterator collect {
+      case MoveLiRegex(m, content) =>
+        if (m.toLowerCase == move.toLowerCase) s"<p>${content.trim}</p>" else ""
+      case html => html
     } mkString "\n"
+  }
 
   private val priorityByPopularityPercent = List(3, 0.5, 0.05, 0.005, 0)
   def priorityOf(explored: OpeningExplored) =

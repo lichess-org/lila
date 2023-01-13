@@ -39,8 +39,8 @@ object TutorNumber:
     val iso = Iso.double[AccuracyPercent](AccuracyPercent.apply(_), _.value)
     def grade(a: AccuracyPercent, b: AccuracyPercent) = Grade.percent(a, b)
   given TutorNumber[Rating] with
-    val iso                                  = Iso.double[Rating](Rating.apply(_), _.value)
-    override def grade(a: Rating, b: Rating) = Grade((a.value - b.value) / 150)
+    val iso                         = Iso.double[Rating](Rating.apply(_), _.value)
+    def grade(a: Rating, b: Rating) = Grade((a.value - b.value) / 150)
   given TutorNumber[ClockPercent] with
     val iso = Iso.double[ClockPercent](ClockPercent.fromPercent(_), _.value)
     def grade(a: ClockPercent, b: ClockPercent) = Grade.percent(a, b)

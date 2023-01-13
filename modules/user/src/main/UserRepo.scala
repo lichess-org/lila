@@ -687,5 +687,5 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
     ) ++ {
       (email.value != normalizedEmail.value) ?? $doc(F.verbatimEmail -> email)
     } ++ {
-      if (blind) $doc(F.blind -> true) else $empty
+      blind ?? $doc(F.blind -> true)
     }

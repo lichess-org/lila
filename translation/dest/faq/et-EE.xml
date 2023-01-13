@@ -11,6 +11,7 @@
   <string name="otherWaysToHelp">muud võimalused aidata</string>
   <string name="fairPlay">Aus mäng</string>
   <string name="howCanIBecomeModerator">Kuidas ma saan moderaatoriks?</string>
+  <string name="fairPlayPage">ausa mängu lehekülg</string>
   <string name="gameplay">Mängimine</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
@@ -20,6 +21,7 @@
   <string name="threefoldRepetition">Kolmekordne kordus</string>
   <string name="threefoldRepetitionLowerCase">kolmekordne kordus</string>
   <string name="positions">positsioonid</string>
+  <string name="accounts">Kasutajatunnused</string>
   <string name="noUpperCaseDot">Ei.</string>
   <string name="canIChangeMyUsername">Kas ma saan muuta oma kasutajanime?</string>
   <string name="usernamesCannotBeChanged">Ei, kasutajanime ei või muuta praktilistel ja tehnoloogilistel põhjustel. Kasutajanimed kajastuvad liiga mitmes kohas: andmebaasid, ekspordid, logid ja inimeste meeltes. Võimalik on muuta tähtede suurust ühe korra.</string>

@@ -83,9 +83,9 @@ object event:
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(10 minutes)
       .maximumSize(64)
-      .build[Int, String]()
+      .build[Int, Html]()
     def apply(e: Event, text: Markdown): Frag =
-      raw(cache.get(text.hashCode, _ => renderer(s"event:${e.id}")(text)))
+      rawHtml(cache.get(text.hashCode, _ => renderer(s"event:${e.id}")(text)))
 
   def manager(events: List[Event])(implicit ctx: Context) =
     val title = "Event manager"

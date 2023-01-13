@@ -65,6 +65,8 @@ trait ScalatagsSnippets:
   val abbr                                   = tag("abbr")
   val boxTop                                 = div(cls := "box__top")
 
+  def rawHtml(html: Html) = raw(html.value)
+
   def userTitleTag(t: UserTitle) =
     span(
       cls := "utitle",

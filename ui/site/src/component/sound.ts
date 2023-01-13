@@ -76,7 +76,7 @@ const sound: SoundI = new (class {
     // increase chances that the first tab can put a local storage lock
     const doIt = () => {
       const storage = lichess.storage.make('just-played');
-      if (Date.now() - parseInt(storage.get()!, 10) < 1000) return;
+      if (Date.now() - parseInt(storage.get()!, 10) < 2000) return;
       storage.set('' + Date.now());
       this.play(name);
     };

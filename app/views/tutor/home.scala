@@ -74,6 +74,8 @@ object home:
       div(cls := "tutor-card__content")(
         grade.peerGrade(concept.accuracy, perfReport.accuracy),
         grade.peerGrade(concept.tacticalAwareness, perfReport.awareness),
+        grade.peerGrade(concept.resourcefulness, perfReport.resourcefulness),
+        grade.peerGrade(concept.conversion, perfReport.conversion),
         grade.peerGrade(concept.speed, perfReport.globalClock),
         grade.peerGrade(concept.clockFlagVictory, perfReport.flagging.win),
         grade.peerGrade(concept.clockTimeUsage, perfReport.clockUsage),

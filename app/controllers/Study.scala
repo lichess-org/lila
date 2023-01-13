@@ -507,7 +507,7 @@ final class Study(
     val flags  = requestPgnFlags(req)
     val isMe   = me.exists(_ is userId)
     apiC
-      .GlobalConcurrencyLimitPerIpAndUserOption(req, me) {
+      .GlobalConcurrencyLimitPerIpAndUserOption(req, me, userId.some) {
         env.study.studyRepo
           .sourceByOwner(userId, isMe)
           .flatMapConcat(env.study.pgnDump(_, flags))

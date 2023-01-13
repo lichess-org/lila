@@ -42,6 +42,11 @@
           background: mix($c-brag, $c-bg-box, 80%);
         }
       }
+      &--4 {
+        > div.lit {
+          background: desaturate(mix($c-good, $c-bg-box, 80%), 10%);
+        }
+      }
     }
     &__detail {
       font-size: 0.9em;
