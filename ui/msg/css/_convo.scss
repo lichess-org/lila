@@ -48,10 +48,6 @@
         color: $c-font-clear;
         font-size: 1.4em;
 
-        .utitle {
-          margin-#{$end-direction}: 0.7ch;
-        }
-
         .line {
           @include rtl-mirrored;
 
