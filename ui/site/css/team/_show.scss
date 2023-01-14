@@ -8,6 +8,9 @@ $section-margin-more: 5vh;
 
   h1 {
     @extend %break-word-hard, %zalgoverflow;
+
+    unicode-bidi: plaintext;
+    display: flex;
   }
 
   .mchat {
@@ -51,6 +54,11 @@ $section-margin-more: 5vh;
   &__meta {
     color: $c-font-dim;
     margin-bottom: $section-margin;
+
+    .user-link {
+      display: inline-block;
+      vertical-align: bottom;
+    }
   }
 
   &__actions {
@@ -84,6 +92,7 @@ $section-margin-more: 5vh;
     background: $c-bg-high;
     font-size: 1.1em;
     margin-bottom: $section-margin-more;
+    text-align: start;
   }
 
   &__members {
