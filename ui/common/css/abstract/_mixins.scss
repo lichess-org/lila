@@ -74,3 +74,13 @@
     overflow-y: scroll;
   }
 }
+
+@mixin margin-inline-start($amount) {
+  margin-#{$start-direction}: $amount;
+  margin-inline: $amount 0; // this doesn't have perfect browser support so keep the other margin as fallback
+}
+
+@mixin margin-inline-end($amount) {
+  margin-#{$end-direction}: $amount;
+  margin-inline: 0 $amount; // this doesn't have perfect browser support so keep the other margin as fallback
+}

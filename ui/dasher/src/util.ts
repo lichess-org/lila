@@ -36,15 +36,10 @@ export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | 
 }
 
 export function header(name: string, close: Close) {
-  let icon = ''; // <
-  if (document.dir == 'rtl') {
-    icon = ''; // >
-  }
-
   return h(
     'button.head.text',
     {
-      attrs: { 'data-icon': icon, type: 'button' },
+      attrs: { 'data-icon': '', type: 'button' },
       hook: bind('click', close),
     },
     name

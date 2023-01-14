@@ -55,6 +55,7 @@ textarea.form-control {
 .password-complexity-label {
   font-size: 90%;
   margin-top: 0.25rem;
+  unicode-bidi: plaintext;
 }
 
 .form3 .error {
@@ -81,6 +82,7 @@ textarea.form-control {
 .form-check .form-label {
   margin-bottom: 0;
   cursor: pointer;
+  unicode-bidi: plaintext;
 }
 
 .form-actions {

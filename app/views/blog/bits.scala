@@ -11,7 +11,7 @@ import controllers.routes
 object bits:
 
   def menu(year: Option[Int], active: Option[String])(implicit ctx: Context) =
-    st.nav(cls := "page-menu__menu subnav")(
+    st.nav(cls := "page-menu__menu subnav force-ltr")(
       a(cls := active.has("community").option("active"), href := langHref(routes.Ublog.communityAll()))(
         "Community blogs"
       ),

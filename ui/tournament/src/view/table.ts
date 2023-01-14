@@ -65,7 +65,7 @@ function renderDuel(ctrl: TournamentController) {
     duelTeams = ctrl.data.duelTeams;
   return (d: Duel) =>
     h(
-      'a.glpt',
+      'a.glpt.force-ltr',
       {
         key: d.id,
         attrs: { href: '/' + d.id },

@@ -73,7 +73,7 @@
         @extend %nowrap-ellipsis;
 
         flex: 1 1 auto;
-        padding: 0.8em 1.5em 0.8em 0;
+        @include padding-direction(0.8em, 1.5em, 0.8em, 0);
       }
 
       &__head {

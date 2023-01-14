@@ -20,7 +20,7 @@ object layout:
       wrapClass = "full-screen-force",
       openGraph = openGraph
     ) {
-      main(cls := "video page-menu")(
+      main(cls := "video page-menu force-ltr")(
         st.aside(cls := "page-menu__menu")(
           div(cls := "subnav")(
             control.tags.map { t =>

@@ -278,7 +278,7 @@ object tree:
     bits.layout("Appeal a moderation decision") {
       val query    = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
       val isMarked = playban || me.marks.engine || me.marks.boost || me.marks.troll || me.marks.rankban
-      main(cls := "page page-small box box-pad appeal")(
+      main(cls := "page page-small box box-pad appeal force-ltr")(
         h1(cls := "box__top")("Appeal"),
         div(cls := s"nav-tree${if (isMarked) " marked" else ""}")(
           if (me.enabled.no || query.contains("alt")) altScreen
@@ -292,7 +292,8 @@ object tree:
                 else if (me.marks.rankban || query.contains("rankban")) rankBanMenu
                 else cleanMenu
               },
-              none
+              none,
+              forceLtr = true
             )
         ),
         div(cls := "appeal__rules")(
