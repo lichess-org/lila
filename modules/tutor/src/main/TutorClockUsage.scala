@@ -31,7 +31,7 @@ object TutorClockUsage:
           _.aggregateList(maxDocs = Int.MaxValue) { framework =>
             import framework.*
             Match($doc(F.result -> Result.Loss.id, F.perf $in perfs) ++ select) -> List(
-              sort option Sort(Descending(F.date)),
+              sort.yes option Sort(Descending(F.date)),
               Limit(maxGames.value).some,
               Project($doc(F.perf -> true, F.moves -> $doc("$last" -> s"$$${F.moves}"))).some,
               UnwindField(F.moves).some,

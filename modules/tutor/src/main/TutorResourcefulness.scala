@@ -39,7 +39,7 @@ object TutorResourcefulness:
                 F.moves -> $doc("$elemMatch" -> $doc("w" $lt WinPercent(33.3), "i" $lt -1))
               ) ++ select
             ) -> List(
-              sort option Sort(Descending(F.date)),
+              sort.yes option Sort(Descending(F.date)),
               Limit(maxGames.value).some,
               GroupField(F.perf)(
                 "loss" -> Sum(

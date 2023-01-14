@@ -39,7 +39,7 @@ object TutorConversion:
                 F.moves -> $doc("$elemMatch" -> $doc("w" $gt WinPercent(66.6), "i" $gt 1))
               ) ++ select
             ) -> List(
-              sort option Sort(Descending(F.date)),
+              sort.yes option Sort(Descending(F.date)),
               Limit(maxGames.value).some,
               GroupField(F.perf)(
                 "win" -> Sum(
