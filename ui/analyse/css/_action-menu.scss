@@ -102,7 +102,7 @@
     }
 
     .switch + label {
-      margin-left: 1ch;
+      margin-#{$start-direction}: 1ch;
     }
 
     input[type='range'] {
@@ -114,6 +114,7 @@
     }
 
     .range_value {
+      direction: ltr;
       flex: 0 0 auto;
       display: block;
       text-align: right;
