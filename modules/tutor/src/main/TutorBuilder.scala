@@ -29,11 +29,11 @@ import lila.common.config
 import cats.data.NonEmptyList
 
 final private class TutorBuilder(
+    colls: TutorColls,
     insightApi: InsightApi,
     perfStatsApi: InsightPerfStatsApi,
     userRepo: UserRepo,
-    fishnet: TutorFishnet,
-    reportColl: Coll
+    fishnet: TutorFishnet
 )(using ec: ExecutionContext):
 
   import TutorBsonHandlers.given
@@ -55,7 +55,7 @@ final private class TutorBuilder(
           "_id"    -> s"${report.user}:${dateFormatter print report.at}",
           "millis" -> lap.millis
         )
-        _ <- reportColl.insert.one(doc).void
+        _ <- colls.report.insert.one(doc).void
       } yield report.some
     }
   } yield none
@@ -74,10 +74,10 @@ final private class TutorBuilder(
 
   private[tutor] def eligiblePerfTypesOf(user: User) =
     PerfType.standardWithUltra.filter { pt =>
-      user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(6))
+      user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(12))
     }
 
-  private def hasFreshReport(user: User): Fu[Boolean] = reportColl.exists(
+  private def hasFreshReport(user: User): Fu[Boolean] = colls.report.exists(
     $doc(
       TutorFullReport.F.user -> user.id,
       TutorFullReport.F.at $gt DateTime.now.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)

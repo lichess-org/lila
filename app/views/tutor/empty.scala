@@ -11,7 +11,7 @@ import lila.user.User
 
 object empty:
 
-  def start(user: User)(implicit ctx: Context) =
+  def start(user: User)(using Context) =
     bits.layout(TutorFullReport.Empty(TutorQueue.NotInQueue), menu = emptyFrag, pageSmall = true)(
       cls := "tutor__empty box",
       boxTop(h1("Lichess Tutor")),
@@ -21,7 +21,7 @@ object empty:
       )
     )
 
-  def queued(in: TutorQueue.InQueue, user: User)(implicit ctx: Context) =
+  def queued(in: TutorQueue.InQueue, user: User, pgns: List[PgnStr])(using Context) =
     bits.layout(
       TutorFullReport.Empty(in),
       menu = emptyFrag,
@@ -50,8 +50,15 @@ object empty:
             "."
           )
         ),
-      spinner
+      div(cls := "tutor__waiting-games")(pgns.map(waitGame))
     )
+
+  private def waitGame(pgn: PgnStr)(using Context) =
+    div(
+      cls            := "tutor__waiting-game lpv lpv--todo lpv--moves-false lpv--controls-false",
+      st.data("pgn") := pgn.value
+    )(lpvPreload)
+  private val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
 
   private def examinationMethod = frag(
     p(
@@ -62,7 +69,7 @@ object empty:
     )
   )
 
-  def insufficientGames(implicit ctx: Context) =
+  def insufficientGames(using Context) =
     bits.layout(TutorFullReport.InsufficientGames, menu = emptyFrag, pageSmall = true)(
       cls := "tutor__insufficient box",
       boxTop(h1("Lichess Tutor")),

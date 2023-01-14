@@ -10,7 +10,7 @@
     "@types/lichess": "workspace:*",
     "chessground": "^8.3.6",
     "common": "workspace:*",
-    "lichess-pgn-viewer": "^1.4.4"
+    "lichess-pgn-viewer": "^1.5"
   },
   "scripts": {
     "compile": "tsc",

@@ -1,5 +1,6 @@
 package lila.tutor
 
+import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import play.api.Mode
 import scala.concurrent.duration.*
@@ -10,9 +11,9 @@ import lila.memo.CacheApi
 import lila.user.User
 
 final class TutorApi(
+    colls: TutorColls,
     queue: TutorQueue,
     builder: TutorBuilder,
-    reportColl: Coll,
     cacheApi: CacheApi
 )(using
     ec: scala.concurrent.ExecutionContext,
@@ -75,7 +76,7 @@ final class TutorApi(
       .buildAsyncFuture(findLatest)
   }
 
-  private def findLatest(userId: UserId) = reportColl
+  private def findLatest(userId: UserId) = colls.report
     .find($doc(TutorFullReport.F.user -> userId))
     .sort($sort desc TutorFullReport.F.at)
     .one[TutorFullReport]

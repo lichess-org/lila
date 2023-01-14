@@ -37,9 +37,7 @@ object bits:
       menu: Frag,
       title: String = "Lichess Tutor",
       pageSmall: Boolean = false
-  )(
-      content: Modifier*
-  )(implicit ctx: Context) =
+  )(content: Modifier*)(using Context) =
     views.html.base.layout(
       moreCss = cssTag("tutor"),
       moreJs = jsModule("tutor"),

@@ -25,4 +25,15 @@
       margin: 10vh auto;
     }
   }
+  &__waiting-games {
+    @extend %flex-center-nowrap;
+    // height: 240px;
+    width: 100%;
+    overflow: hidden;
+    gap: 1em;
+    margin: 3em 0;
+  }
+  &__waiting-game {
+    flex: 0 0 200px;
+  }
 }
