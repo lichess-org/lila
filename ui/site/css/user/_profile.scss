@@ -54,6 +54,9 @@
     flex: 1 1 auto;
     padding: 0.8em;
     overflow: auto;
+
+    unicode-bidi: plaintext;
+    text-align: start;
   }
 
   .insight {
