@@ -11,12 +11,11 @@ export const redirect = (opts: string | Opts) => {
   else {
     url = opts.url;
     if (opts.cookie) {
-      const domain = document.domain.replace(/^.+(\.[^.]+\.[^.]+)$/, '$1');
       const cookie = [
         encodeURIComponent(opts.cookie.name) + '=' + opts.cookie.value,
         '; max-age=' + opts.cookie.maxAge,
         '; path=/',
-        '; domain=' + domain,
+        '; domain=' + location.hostname,
       ].join('');
       document.cookie = cookie;
     }
