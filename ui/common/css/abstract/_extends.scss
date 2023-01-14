@@ -223,6 +223,7 @@
   speak: none;
   content: attr(data-icon);
   opacity: 0.9;
+  unicode-bidi: isolate;
 }
 
 %data-icon-top {
