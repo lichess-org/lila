@@ -49,6 +49,8 @@ final class ChallengeMaker(
       timeControl = timeControl,
       mode = pov.game.mode,
       color = (!pov.color).name,
+      // for anon, we don't know the secret, but this challenge is only serialized to json and sent to a listening bot anyway,
+      // which doesn't use the secret, so we just use an empty string
       challenger = challenger
         .fold(Challenge.Challenger.Anonymous(""))(Challenge.toRegistered(pov.game.variant, timeControl)),
       destUser = dest.some,
