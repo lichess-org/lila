@@ -15,7 +15,7 @@ export default (window as any).LichessInsight = function (element: Element, opts
   const blueprint = view(ctrl);
   let vnode = patch(element, blueprint);
 
-  // Wait until vnode has been intialized to call askQuestion because
+  // Wait until vnode has been initialized to call askQuestion because
   // askQuestion can call redraw
   ctrl.askQuestion();
 

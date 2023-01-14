@@ -29,6 +29,7 @@
 
   tr.long .user-link .rating {
     display: block;
+    direction: ltr;
     padding-#{$start-direction}: 0px;
   }
 
@@ -74,7 +75,7 @@
   }
 
   td.rank {
-    padding: 1em 0.5em 1em 10px;
+    @include padding-direction(1em, 0.5em, 1em, 10px);
     width: 1px;
 
     /* helps keeping it as small as possible */

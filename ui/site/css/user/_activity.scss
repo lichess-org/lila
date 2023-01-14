@@ -63,6 +63,7 @@ $c-contours: mix($c-brag, $c-shade, 80%);
     @extend %zalgoverflow;
     margin: 3px 0;
     font-size: 1rem;
+    direction: ltr;
   }
 
   .sub:last-child {
@@ -92,10 +93,12 @@ $c-contours: mix($c-brag, $c-shade, 80%);
   rating {
     @extend %roboto;
 
+    display: inline-block;
+    direction: ltr;
     margin-#{$start-direction}: 0.7em;
 
     .rp {
-      margin-#{$start-direction}: 0.2em;
+      margin-left: 0.2em;
     }
   }
 

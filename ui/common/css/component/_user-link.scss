@@ -28,6 +28,8 @@
 
     /* not sure about that */
     &.patron {
+      @include rtl-mirrored;
+
       opacity: 0.8;
     }
 

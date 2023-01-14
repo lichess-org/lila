@@ -17,6 +17,7 @@ private object TutorBsonHandlers:
   import lila.analyse.AnalyseBsonHandlers.given
 
   given BSONHandler[FiniteDuration] = lila.db.dsl.minutesHandler
+  given BSONHandler[GoodPercent]    = percentAsIntHandler[GoodPercent]
 
   given [A](using handler: BSONHandler[A]): BSONHandler[Color.Map[A]] =
     summon[BSONHandler[Map[String, A]]]

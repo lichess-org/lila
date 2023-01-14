@@ -49,7 +49,7 @@
       &::before {
         @extend %data-icon;
         font-size: 1.5em;
-        margin-#{$end-direction}: 0.2em;
+        @include margin-inline-end(0.2em);
         content: '';
         color: $c-bad-over;
       }

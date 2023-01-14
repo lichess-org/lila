@@ -48,11 +48,9 @@
         color: $c-font-clear;
         font-size: 1.4em;
 
-        .utitle {
-          margin-#{$end-direction}: 0.7ch;
-        }
-
         .line {
+          @include rtl-mirrored;
+
           flex: 0 0 auto;
           font-size: 1.5em;
         }
@@ -61,7 +59,7 @@
       &__actions {
         @extend %flex-center-nowrap;
 
-        margin-#{$end-direction}: 1.2em;
+        margin-#{$end-direction}: 0.7em;
       }
     }
 

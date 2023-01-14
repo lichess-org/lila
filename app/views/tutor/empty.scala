@@ -8,20 +8,21 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.{ TutorFullReport, TutorQueue }
 import lila.user.User
+import lila.game.Pov
 
 object empty:
 
-  def start(user: User)(implicit ctx: Context) =
+  def start(user: User)(using Context) =
     bits.layout(TutorFullReport.Empty(TutorQueue.NotInQueue), menu = emptyFrag, pageSmall = true)(
       cls := "tutor__empty box",
       boxTop(h1("Lichess Tutor")),
       bits.mascotSays("Explain what tutor is about here."),
       postForm(cls := "tutor__empty__cta", action := routes.Tutor.refresh(user.username))(
-        submitButton(cls := "button button-fat")("Analyse my games and help me improve")
+        submitButton(cls := "button button-fat button-no-upper")("Analyse my games and help me improve")
       )
     )
 
-  def queued(in: TutorQueue.InQueue, user: User)(implicit ctx: Context) =
+  def queued(in: TutorQueue.InQueue, user: User, waitGames: List[(Pov, PgnStr)])(using Context) =
     bits.layout(
       TutorFullReport.Empty(in),
       menu = emptyFrag,
@@ -50,7 +51,16 @@ object empty:
             "."
           )
         ),
-      spinner
+      div(cls := "tutor__waiting-games")(
+        div(cls := "tutor__waiting-games__carousel")(waitGames.map(waitGame))
+      )
+    )
+
+  private def waitGame(game: (Pov, PgnStr))(using Context) =
+    div(
+      cls            := "tutor__waiting-game lpv lpv--todo lpv--moves-false lpv--controls-false",
+      st.data("pgn") := game._2.value,
+      st.data("pov") := game._1.color.name
     )
 
   private def examinationMethod = frag(
@@ -62,7 +72,7 @@ object empty:
     )
   )
 
-  def insufficientGames(implicit ctx: Context) =
+  def insufficientGames(using Context) =
     bits.layout(TutorFullReport.InsufficientGames, menu = emptyFrag, pageSmall = true)(
       cls := "tutor__insufficient box",
       boxTop(h1("Lichess Tutor")),

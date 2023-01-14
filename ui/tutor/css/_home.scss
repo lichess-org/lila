@@ -25,4 +25,46 @@
       margin: 10vh auto;
     }
   }
+  &__queued {
+    overflow: hidden;
+  }
+  &__waiting-games {
+    margin: 3em 0;
+    min-height: 255px;
+
+    position: relative;
+    --move-initial: calc(0%);
+    --move-final: calc(-200px * 30);
+
+    &__carousel {
+      @extend %flex-center-nowrap;
+      gap: 2em;
+      width: fit-content;
+      position: relative;
+      transform: translate3d(var(--move-initial), 0, 0);
+      animation: marquee 61s linear infinite;
+      animation-play-state: running;
+    }
+  }
+  &__waiting-game {
+    flex: 0 0 200px;
+    transition: 0.5s;
+    .lpv__player__name {
+      font-size: 1.5em;
+    }
+    &.lpv:hover {
+      @extend %popup-shadow;
+      transform: scale(1.2);
+      z-index: 50;
+    }
+  }
+  @keyframes marquee {
+    0% {
+      transform: translate3d(var(--move-initial), 0, 0);
+    }
+
+    100% {
+      transform: translate3d(var(--move-final), 0, 0);
+    }
+  }
 }

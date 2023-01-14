@@ -19,7 +19,8 @@ final class Env(
     insightApi: lila.insight.InsightApi,
     perfStatsApi: lila.insight.InsightPerfStatsApi,
     settingStore: lila.memo.SettingStore.Builder,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
+    lightUserApi: lila.user.LightUserApi
 )(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
@@ -27,7 +28,7 @@ final class Env(
     mat: akka.stream.Materializer
 ):
 
-  private val reportColl = db(config.CollName("tutor_report"))
+  private val colls = TutorColls(db(config.CollName("tutor_report")), db(config.CollName("tutor_queue")))
 
   lazy val nbAnalysisSetting = settingStore[Int](
     "tutorNbAnalysis",
@@ -37,11 +38,9 @@ final class Env(
 
   private lazy val fishnet = wire[TutorFishnet]
   private lazy val builder = wire[TutorBuilder]
-  private lazy val queue =
-    TutorQueue(reportColl = reportColl, queueColl = db(config.CollName("tutor_queue")), cacheApi = cacheApi)
+  lazy val queue           = wire[TutorQueue]
 
   lazy val api = wire[TutorApi]
 
-trait ReportColl
-trait QueueColl
+final private class TutorColls(val report: Coll, val queue: Coll)
 trait NbAnalysis

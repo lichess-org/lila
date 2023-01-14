@@ -101,13 +101,8 @@ const linkCfg = (href: string, icon: string, more?: Record<string, string>) => (
 });
 
 function modeCfg(ctrl: DasherCtrl, m: Mode): any {
-  let icon = ''; // >
-  if (document.dir == 'rtl') {
-    icon = ''; // <
-  }
-
   return {
     hook: bind('click', () => ctrl.setMode(m)),
-    attrs: { 'data-icon': icon, type: 'button' },
+    attrs: { 'data-icon': '', type: 'button' },
   };
 }

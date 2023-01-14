@@ -111,7 +111,7 @@ object show:
       )
     }
 
-  private def exampleGames(page: OpeningPage)(implicit ctx: Context) =
+  private def exampleGames(page: OpeningPage)(using Context) =
     div(cls := "opening__games")(page.explored.??(_.games).map { game =>
       div(
         cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom",

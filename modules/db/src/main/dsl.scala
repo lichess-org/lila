@@ -610,7 +610,7 @@ object dsl extends dsl with Handlers:
         readPreference: ReadPreference = ReadPreference.primary,
         allowDiskUse: Boolean = false
     )(
-        f: coll.AggregationFramework => (coll.PipelineOperator, List[coll.PipelineOperator])
+        f: coll.AggregationFramework => AggregationPipeline[coll.PipelineOperator]
     )(using cp: CursorProducer[Bdoc]): Fu[List[Bdoc]] =
       coll
         .aggregateWith[Bdoc](
@@ -626,7 +626,7 @@ object dsl extends dsl with Handlers:
         readPreference: ReadPreference = ReadPreference.primary,
         allowDiskUse: Boolean = false
     )(
-        f: coll.AggregationFramework => (coll.PipelineOperator, List[coll.PipelineOperator])
+        f: coll.AggregationFramework => AggregationPipeline[coll.PipelineOperator]
     )(using cp: CursorProducer[Bdoc]): Fu[Option[Bdoc]] =
       coll
         .aggregateWith[Bdoc](
@@ -643,7 +643,7 @@ object dsl extends dsl with Handlers:
         readPreference: ReadPreference = ReadPreference.primary,
         allowDiskUse: Boolean = false
     )(
-        f: coll.AggregationFramework => (coll.PipelineOperator, List[coll.PipelineOperator])
+        f: coll.AggregationFramework => AggregationPipeline[coll.PipelineOperator]
     )(using cp: CursorProducer[Bdoc]): Fu[Boolean] =
       coll
         .aggregateWith[Bdoc](

@@ -2,7 +2,7 @@
   @extend %flex-center-nowrap, %break-word;
 
   border-bottom: $border;
-  padding: 2em var(--box-padding) 2em 0;
+  @include padding-direction(2em, var(--box-padding), 2em, 0);
   position: relative;
 
   @include transition;

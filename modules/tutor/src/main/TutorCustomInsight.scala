@@ -6,26 +6,34 @@ import scala.concurrent.ExecutionContext
 import lila.insight.*
 import lila.rating.PerfType
 import lila.common.config
+import lila.rating.BSONHandlers.perfTypeIdHandler
+import lila.db.AggregationPipeline
 import lila.db.dsl.{ *, given }
 
-object TutorCustomInsight:
+final private class TutorCustomInsight(
+    users: NonEmptyList[TutorUser],
+    question: Question[PerfType],
+    monitoringKey: String
+)(clusterParser: List[Bdoc] => List[Cluster[PerfType]]):
 
-  private[tutor] def compute(
-      users: NonEmptyList[TutorUser],
-      question: Question[PerfType],
-      aggregate: (InsightApi, Bdoc, Boolean) => Fu[List[Bdoc]],
-      clusterParser: List[Bdoc] => List[Cluster[PerfType]],
-      monitoringKey: String
-  )(using insightApi: InsightApi, ec: ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
+  def apply(insightColl: Coll)(
+      aggregateMine: Bdoc => AggregationPipeline[insightColl.PipelineOperator],
+      aggregatePeer: Bdoc => AggregationPipeline[insightColl.PipelineOperator]
+  )(using ec: ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
     for
-      mine <- aggregate(insightApi, InsightStorage.selectUserId(users.head.user.id), true)
+      mine <- insightColl
+        .aggregateList(maxDocs = Int.MaxValue)(_ =>
+          aggregateMine(InsightStorage.selectUserId(users.head.user.id))
+        )
         .map { docs => TutorBuilder.AnswerMine(Answer(question, clusterParser(docs), Nil)) }
         .monSuccess(_.tutor.askMine(monitoringKey, "all"))
-      peer <- aggregate(
-        insightApi,
-        InsightStorage.selectPeers(Question.Peers(users.head.perfStats.rating)),
-        false
-      )
-        .map { docs => TutorBuilder.AnswerPeer(Answer(question, clusterParser(docs), Nil)) }
-        .monSuccess(_.tutor.askPeer(monitoringKey, "all"))
+      peerDocs <- users.toList.map { u =>
+        val peerSelect = $doc(lila.insight.InsightEntry.BSONFields.perf -> u.perfType) ++
+          InsightStorage.selectPeers(Question.Peers(u.perfStats.rating))
+        insightColl
+          .aggregateList(maxDocs = Int.MaxValue)(_ => aggregatePeer(peerSelect))
+          .map(clusterParser)
+          .monSuccess(_.tutor.askPeer(monitoringKey, u.perfType.key.value))
+      }.sequenceFu
+      peer = TutorBuilder.AnswerPeer(Answer(question, peerDocs.flatten, Nil))
     yield TutorBuilder.Answers(mine, peer)

@@ -17,36 +17,38 @@ object TutorClockUsage:
 
   private[tutor] def compute(
       users: NonEmptyList[TutorUser]
-  )(using InsightApi, ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
+  )(using insightApi: InsightApi, ec: ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
     val perfs = users.toList.map(_.perfType)
-    TutorCustomInsight.compute(
-      users = users,
-      question = Question(
-        InsightDimension.Perf,
-        InsightMetric.ClockPercent,
-        List(Filter(InsightDimension.Perf, perfs.filter(_ != PerfType.Correspondence)))
-      ),
-      aggregate = (insightApi, select, sort) =>
-        insightApi.coll {
-          _.aggregateList(maxDocs = Int.MaxValue) { framework =>
-            import framework.*
-            Match($doc(F.result -> Result.Loss.id, F.perf $in perfs) ++ select) -> List(
-              sort option Sort(Descending(F.date)),
-              Limit(maxGames.value).some,
-              Project($doc(F.perf -> true, F.moves -> $doc("$last" -> s"$$${F.moves}"))).some,
-              UnwindField(F.moves).some,
-              Project($doc(F.perf -> true, "cp" -> s"$$${F.moves}.s")).some,
-              GroupField(F.perf)("cp" -> AvgField("cp"), "nb" -> SumAll).some,
-              Project($doc(F.perf -> true, "nb" -> true, "cp" -> $doc("$toInt" -> "$cp"))).some
-            ).flatten
-          }
-        },
-      clusterParser = docs =>
-        for
-          doc          <- docs
-          perf         <- doc.getAsOpt[PerfType]("_id")
-          clockPercent <- doc.getAsOpt[ClockPercent]("cp")
-          size         <- doc.int("nb")
-        yield Cluster(perf, Insight.Single(Point(100 - clockPercent.value)), size, Nil),
-      monitoringKey = "clock_usage"
+    val question = Question(
+      InsightDimension.Perf,
+      InsightMetric.ClockPercent,
+      List(Filter(InsightDimension.Perf, perfs.filter(_ != PerfType.Correspondence)))
     )
+    val select = $doc(F.result -> Result.Loss.id)
+    val compute = TutorCustomInsight(users, question, "clock_usage") { docs =>
+      for
+        doc          <- docs
+        perf         <- doc.getAsOpt[PerfType]("_id")
+        clockPercent <- doc.getAsOpt[ClockPercent]("cp")
+        size         <- doc.int("nb")
+      yield Cluster(perf, Insight.Single(Point(100 - clockPercent.value)), size, Nil)
+    }
+    insightApi.coll { coll =>
+      import coll.AggregationFramework.*
+      val sharedPipeline = List(
+        Project($doc(F.perf -> true, F.moves -> $doc("$last" -> s"$$${F.moves}"))),
+        UnwindField(F.moves),
+        Project($doc(F.perf -> true, "cp" -> s"$$${F.moves}.s")),
+        GroupField(F.perf)("cp" -> AvgField("cp"), "nb" -> SumAll),
+        Project($doc(F.perf -> true, "nb" -> true, "cp" -> $doc("$toInt" -> "$cp")))
+      )
+      compute(coll)(
+        aggregateMine = mineSelect =>
+          Match(mineSelect ++ select ++ $doc(F.perf $in perfs)) -> List(
+            Sort(Descending(F.date)),
+            Limit(maxGames.value)
+          ).appendedAll(sharedPipeline),
+        aggregatePeer = peerSelect =>
+          Match(peerSelect ++ select) -> List(Limit(maxGames.value / 2)).appendedAll(sharedPipeline)
+      )
+    }

@@ -71,7 +71,7 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  // eargerly load captcher actor
+  // eagerly load captcher actor
   private val captcher = system.actorOf(Props(new Captcher(gameRepo)), name = config.captcherName)
   scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration) { () =>
     captcher ! actorApi.NewCaptcha

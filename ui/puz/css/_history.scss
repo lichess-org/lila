@@ -57,7 +57,7 @@
     &::before {
       @extend %data-icon;
 
-      margin-#{$end-direction}: 0.2em;
+      @include margin-inline-end(0.2em);
     }
   }
 
