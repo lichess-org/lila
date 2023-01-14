@@ -108,7 +108,7 @@ object topic:
               dataIcon := "",
               cls      := "text"
             ),
-            topic.name
+            span(cls := "bidi-text")(topic.name)
           )
         ),
         pager,

@@ -107,7 +107,7 @@ object post:
           ),
           a(cls := "anchor", href := url)(s"#${post.number}")
         ),
-        p(cls := "forum-post__message force-ltr expand-text")(
+        p(cls := "forum-post__message expand-text")(
           if (post.erased) "<Comment deleted by user>"
           else body
         ),
