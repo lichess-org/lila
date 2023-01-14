@@ -12,7 +12,7 @@
       @extend %data-icon;
 
       content: '';
-      margin-#{$end-direction}: 1em;
+      @include margin-inline-end(1em);
       font-size: 1.5em;
     }
 

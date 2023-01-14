@@ -27,7 +27,7 @@
 
       content: '';
       font-size: 2em;
-      margin-#{$end-direction}: 0.4em;
+      @include margin-inline-end(0.4em);
     }
   }
 
