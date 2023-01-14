@@ -110,6 +110,8 @@
     <item quantity="other">Санпа %s вӑйӑ выљанӑ</item>
   </plurals>
   <string name="cancel">Пӑрахӑҫла</string>
+  <string name="whiteTimeOut">Шуррисен вӑхӑчӗ тухнӑ</string>
+  <string name="blackTimeOut">Хурисен вӑхӑчӗ тухнӑ</string>
   <string name="drawOfferSent">Парма-пар сӗннине йанӑ</string>
   <string name="drawOfferAccepted">Парма-пар сӗннине йышӑннӑ</string>
   <string name="drawOfferCanceled">Парма-пар сӗннине пӑрахӑҫланӑ</string>
@@ -122,6 +124,7 @@
   <string name="decline">Сир</string>
   <string name="playingRightNow">Халлех пыракан</string>
   <string name="finished">Вӗҫленнисем</string>
+  <string name="finishesX">%s вӗҫленет</string>
   <string name="abortGame">Вӑййине пӑрахӑҫла</string>
   <string name="gameAborted">Вӑййине пӑрахӑҫланӑ</string>
   <string name="standard">Стандартла</string>
@@ -184,6 +187,7 @@
   <string name="filterGames">Вӑйӑ али</string>
   <string name="reset">Силле</string>
   <string name="apply">Ҫирӗплет</string>
+  <string name="save">Упра</string>
   <string name="leaderboard">Лидӗрсен йышӗ</string>
   <string name="pasteTheFenStringHere">FEN текстне кунта кӗрт</string>
   <string name="pasteThePgnStringHere">PGN текстне кунта кӗрт</string>
@@ -201,6 +205,7 @@
   <string name="follow">Ҫырӑн</string>
   <string name="following">Ҫырӑнса тӑни</string>
   <string name="unfollow">Ҫырӑнма пӑрах</string>
+  <string name="followX">%s ҫырӑн</string>
   <string name="block">Чарса ларт</string>
   <string name="blocked">Чарса лартнӑ</string>
   <string name="unblock">Чарӑва сир</string>
@@ -348,6 +353,7 @@
   <string name="videoLibrary">Курма пуххи</string>
   <string name="mobileApp">Мобиллӗ хушӑм</string>
   <string name="webmasters">Веб маҫтӑрсем</string>
+  <string name="aboutX">%s пирки</string>
   <string name="contribute">Пулӑшасси</string>
   <string name="termsOfService">Шыв-йӗркипе</string>
   <string name="sourceCode">Source Code</string>
@@ -395,6 +401,8 @@
   <string name="analysisShapesHowTo">Хӑма ҫинче ҫаврашка тата йӗпӗ ӳкерес тесе shift+click йе right-click ҫине пус.</string>
   <string name="letOtherPlayersMessageYou">Ытти вӑйӑҫ ман пата ҫырасси</string>
   <string name="kidMode">Ача-пӑча решимӗ</string>
+  <string name="security">Сыхӑлӑх</string>
+  <string name="sessions">Сесси</string>
   <string name="playChessEverywhere">Шахматла пур ҫӗрте выљасси</string>
   <string name="asFreeAsLichess">Lichess пекех тӳлевсӗр</string>
   <string name="builtForTheLoveOfChessNotMoney">Укҫашӑн мар, шахматшӑн хайланӑ</string>
