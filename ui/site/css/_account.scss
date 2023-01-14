@@ -110,6 +110,7 @@
         @extend %roboto;
         margin-#{$start-direction}: 1rem;
         color: $c-font-dimmer;
+        unicode-bidi: plaintext;
       }
     }
   }
