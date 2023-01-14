@@ -56,11 +56,11 @@
 
   .b .utitle,
   .b .rank {
-    margin-#{$end-direction}: 0.3em;
+    margin-right: 0.3em;
   }
 
   .a .utitle,
   .a .rank {
-    margin-#{$start-direction}: 0.3em;
+    margin-left: 0.3em;
   }
 }
