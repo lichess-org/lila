@@ -64,7 +64,7 @@ lichess.load.then(() => {
   });
 
   $('#communication').on('click', '.line.author, .post.author', function (this: HTMLElement) {
-    // Need to take username from the communcation page so that when being in inquiry for user A and checking communication of user B
+    // Need to take username from the communication page so that when being in inquiry for user A and checking communication of user B
     // the notes cannot be mistakenly attributed to user A.
     const username = $('#communication').find('.title').text().split(' ')[0];
     const message = $(this).find('.message').text();

@@ -76,7 +76,7 @@ export const update = (node: HTMLElement, data: UpdateData) => {
 export const finish = (node: HTMLElement, win?: string) =>
   ['white', 'black'].forEach(color => {
     const $clock = $(node).find('.mini-game__clock--' + color);
-    // don't interfer with snabbdom clocks
+    // don't interfere with snabbdom clocks
     if (!$clock.data('managed'))
       $clock.replaceWith(`<span class="mini-game__result">${win ? (win == color[0] ? 1 : 0) : '½'}</span>`);
   });

@@ -611,7 +611,7 @@
         height: auto;
       }
 
-      // no suggested-complete are shown in mix-mode while higilighting dropdown options
+      // no suggested-complete are shown in mix-mode while highlighting dropdown options
       &::after {
         content: none;
       }
