@@ -36,7 +36,6 @@ object Translator:
     private def escapeArgs(args: Seq[Matchable]): Seq[RawFrag] =
       args.map {
         case s: String     => escapeHtml(Html(s))
-        case h: Html       => escapeHtml(h)
         case r: RawFrag    => r
         case f: StringFrag => RawFrag(f.render)
         case a             => RawFrag(a.toString)
