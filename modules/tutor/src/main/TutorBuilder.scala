@@ -108,8 +108,7 @@ private object TutorBuilder:
     .askPeers(question filter perfFilter(user.perfType), user.perfStats.rating, nbGames = nbGames)
     .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key.value)) map AnswerPeer.apply
 
-  def answerBoth[Dim](question: Question[Dim], user: TutorUser, nbPeerGames: config.Max = peerNbGames)(
-      implicit
+  def answerBoth[Dim](question: Question[Dim], user: TutorUser, nbPeerGames: config.Max = peerNbGames)(using
       insightApi: InsightApi,
       ec: ExecutionContext
   ): Fu[Answers[Dim]] = for {
