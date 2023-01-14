@@ -140,33 +140,35 @@ object String:
 
   object html:
 
+    inline def raw(inline html: Html) = scalatags.Text.all.raw(html.value)
+
     def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true)(using
         config.NetDomain
     ): Frag =
       raw {
         val withLinks = RawHtml.addLinks(rawText, expandImg)
-        if (nl2br) RawHtml.nl2br(withLinks) else withLinks
+        if (nl2br) RawHtml.nl2br(withLinks.value) else withLinks
       }
 
     def nl2brUnsafe(text: String): Frag =
       raw {
-        RawHtml nl2br text
+        RawHtml.nl2br(text)
       }
 
     def nl2br(text: String): Frag = nl2brUnsafe(escapeHtmlRaw(text))
 
-    def escapeHtml(s: String): RawFrag =
+    def escapeHtml(h: Html): RawFrag =
       raw {
-        escapeHtmlRaw(s)
+        Html(escapeHtmlRaw(h.value))
       }
-    def unescapeHtml(html: String): String =
-      org.apache.commons.text.StringEscapeUtils.unescapeHtml4(html)
+    def unescapeHtml(html: Html): Html =
+      html.map(org.apache.commons.text.StringEscapeUtils.unescapeHtml4)
 
-    def markdownLinksOrRichText(text: String)(implicit netDomain: config.NetDomain): Frag =
-      val escaped = escapeHtmlRaw(text)
+    def markdownLinksOrRichText(text: String)(using config.NetDomain): Frag =
+      val escaped = Html(escapeHtmlRaw(text))
       val marked  = RawHtml.justMarkdownLinks(escaped)
       if (marked == escaped) richText(text)
-      else nl2brUnsafe(marked)
+      else nl2brUnsafe(marked.value)
 
     def safeJsonValue(jsValue: JsValue): String =
       // Borrowed from:
@@ -180,7 +182,7 @@ object String:
         case JsArray(items) => items.map(safeJsonValue).mkString("[", ",", "]")
         case JsObject(fields) =>
           fields
-            .map { case (k, v) =>
+            .map { (k, v) =>
               s"${safeJsonString(k)}:${safeJsonValue(v)}"
             }
             .mkString("{", ",", "}")

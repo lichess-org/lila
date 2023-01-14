@@ -45,7 +45,7 @@ final private class Streaming(
           _.collect { case Twitch.TwitchStream(name, title, _, language) =>
             streamers.find { s =>
               s.twitch.exists(_.userId.toLowerCase == name.toLowerCase) && {
-                title.toLowerCase.contains(keyword.toLowerCase) ||
+                title.value.toLowerCase.contains(keyword.toLowerCase) ||
                 alwaysFeatured().value.contains(s.userId)
               }
             } map { Twitch.Stream(name, title, _, language) }
