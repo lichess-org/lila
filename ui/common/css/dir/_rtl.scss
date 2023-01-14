@@ -14,6 +14,14 @@ $transform-direction: -1;
   }
 }
 
+@mixin margin-direction($top, $end, $bottom, $start, $important: false) {
+  @if $important {
+    margin: $top $start $bottom $end !important;
+  } @else {
+    margin: $top $start $bottom $end;
+  }
+}
+
 .force-ltr {
   direction: ltr;
   text-align: left;
