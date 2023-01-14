@@ -17,7 +17,7 @@ object empty:
       boxTop(h1("Lichess Tutor")),
       bits.mascotSays("Explain what tutor is about here."),
       postForm(cls := "tutor__empty__cta", action := routes.Tutor.refresh(user.username))(
-        submitButton(cls := "button button-fat")("Analyse my games and help me improve")
+        submitButton(cls := "button button-fat button-no-upper")("Analyse my games and help me improve")
       )
     )
 
