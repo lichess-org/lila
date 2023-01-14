@@ -1,5 +1,7 @@
 .pull-quote {
   margin: 0 auto;
+  direction: ltr;
+  text-align: left;
 
   p {
     color: $c-font;
@@ -17,11 +19,11 @@
         content: '';
         position: absolute;
         bottom: -9px;
-        #{$start-direction}: 42px;
+        left: 42px;
         width: 15px;
         height: 15px;
         background: $c-bg-box;
-        border-#{$start-direction}: 2px solid $c-border;
+        border-left: 2px solid $c-border;
         border-bottom: 1px solid $c-border;
         transform: skew(45deg) rotate(-45deg);
       }
