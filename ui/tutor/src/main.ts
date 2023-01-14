@@ -29,15 +29,15 @@ lichess.load.then(() => {
   $('.tutor__waiting-game').each(function (this: HTMLElement) {
     const lpv = Lpv(this, {
       pgn: this.dataset['pgn']!,
+      orientation: this.dataset['pov'] as Color,
       showMoves: false,
-      showClocks: true,
+      showClocks: false,
       showPlayers: true,
       showControls: false,
       chessground: { coordinates: false },
       drawArrows: false,
     });
     const nbMoves = Array.from(lpv.game.moves.mainline()).length;
-    const interval = 60 / nbMoves;
-    setInterval(() => lpv.goTo('next', false), interval * 1000);
+    setInterval(() => lpv.goTo('next', false), (60 / nbMoves) * 1000);
   });
 });

@@ -19,7 +19,8 @@ final class Env(
     insightApi: lila.insight.InsightApi,
     perfStatsApi: lila.insight.InsightPerfStatsApi,
     settingStore: lila.memo.SettingStore.Builder,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
+    lightUserApi: lila.user.LightUserApi
 )(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,

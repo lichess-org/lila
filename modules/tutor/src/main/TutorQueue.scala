@@ -9,13 +9,15 @@ import scala.concurrent.ExecutionContext
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.user.User
+import lila.user.{ User, LightUserApi }
 import lila.common.config.Max
+import lila.game.Pov
 
 final private class TutorQueue(
     colls: TutorColls,
     gameRepo: lila.game.GameRepo,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
+    lightUserApi: LightUserApi
 )(using ExecutionContext, akka.actor.Scheduler):
 
   import TutorQueue.*
@@ -54,22 +56,29 @@ final private class TutorQueue(
   def start(userId: UserId): Funit  = colls.queue.updateField($id(userId), F.startedAt, DateTime.now).void
   def remove(userId: UserId): Funit = colls.queue.delete.one($id(userId)).void
 
-  def waitingGames(user: User): Fu[List[PgnStr]] = gameRepo.recentPovsByUserFromSecondary(user, 10) map {
-    _.map { pov =>
-      PgnStr(pov.game.chess.sans.mkString(" "))
-    }
+  def waitingGames(user: User): Fu[List[(Pov, PgnStr)]] = for
+    all <- gameRepo.recentPovsByUserFromSecondary(user, 60)
+    (rated, casual) = all.partition(_.game.rated)
+    many            = rated ::: casual.take(30 - rated.size)
+    povs            = ornicar.scalalib.ThreadLocalRandom.shuffle(many).take(30)
+    _ <- lightUserApi.preloadMany(povs.flatMap(_.game.userIds))
+  yield povs map { pov =>
+    import chess.format.pgn.*
+    def playerTag(player: lila.game.Player) =
+      player.userId.map { uid => Tag(player.color.name, lightUserApi.syncFallback(uid).titleName) }
+    val tags = Tags(pov.game.players.flatMap(playerTag))
+    pov -> PgnStr(s"$tags\n\n${pov.game.chess.sans.mkString(" ")}")
   }
 
   private def fetchStatus(user: User): Fu[Status] =
-    fuccess(InQueue(1, 5.minutes))
-    // queueColl.primitiveOne[DateTime]($id(user.id), F.requestedAt) flatMap {
-    //   case None => fuccess(NotInQueue)
-    //   case Some(at) =>
-    //     for {
-    //       position    <- queueColl.countSel($doc(F.requestedAt $lte at))
-    //       avgDuration <- durationCache.get({})
-    //     } yield InQueue(position, avgDuration)
-    // }
+    colls.queue.primitiveOne[DateTime]($id(user.id), F.requestedAt) flatMap {
+      case None => fuccess(NotInQueue)
+      case Some(at) =>
+        for
+          position    <- colls.queue.countSel($doc(F.requestedAt $lte at))
+          avgDuration <- durationCache.get({})
+        yield InQueue(position, avgDuration)
+    }
 
 object TutorQueue:
 

@@ -94,8 +94,8 @@ final class Tutor(env: Env) extends LilaController(env):
         case TutorFullReport.InsufficientGames =>
           BadRequest(views.html.tutor.empty.insufficientGames).toFuccess
         case TutorFullReport.Empty(in: TutorQueue.InQueue) =>
-          env.tutor.queue.waitingGames(user) map { pgns =>
-            Accepted(views.html.tutor.empty.queued(in, user, pgns))
+          env.tutor.queue.waitingGames(user) map { waitGames =>
+            Accepted(views.html.tutor.empty.queued(in, user, waitGames))
           }
         case TutorFullReport.Empty(_)             => Accepted(views.html.tutor.empty.start(user)).toFuccess
         case available: TutorFullReport.Available => f(ctx)(user)(available)

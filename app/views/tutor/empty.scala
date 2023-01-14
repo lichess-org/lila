@@ -8,6 +8,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.{ TutorFullReport, TutorQueue }
 import lila.user.User
+import lila.game.Pov
 
 object empty:
 
@@ -21,7 +22,7 @@ object empty:
       )
     )
 
-  def queued(in: TutorQueue.InQueue, user: User, pgns: List[PgnStr])(using Context) =
+  def queued(in: TutorQueue.InQueue, user: User, waitGames: List[(Pov, PgnStr)])(using Context) =
     bits.layout(
       TutorFullReport.Empty(in),
       menu = emptyFrag,
@@ -50,15 +51,17 @@ object empty:
             "."
           )
         ),
-      div(cls := "tutor__waiting-games")(pgns.map(waitGame))
+      div(cls := "tutor__waiting-games")(
+        div(cls := "tutor__waiting-games__carousel")(waitGames.map(waitGame))
+      )
     )
 
-  private def waitGame(pgn: PgnStr)(using Context) =
+  private def waitGame(game: (Pov, PgnStr))(using Context) =
     div(
       cls            := "tutor__waiting-game lpv lpv--todo lpv--moves-false lpv--controls-false",
-      st.data("pgn") := pgn.value
-    )(lpvPreload)
-  private val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
+      st.data("pgn") := game._2.value,
+      st.data("pov") := game._1.color.name
+    )
 
   private def examinationMethod = frag(
     p(
