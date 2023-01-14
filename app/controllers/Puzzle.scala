@@ -3,7 +3,7 @@ package controllers
 import chess.Color
 import play.api.data.Form
 import play.api.libs.json.*
-import play.api.mvc.Result
+import play.api.mvc.*
 import scala.util.chaining.*
 import views.*
 
@@ -450,13 +450,13 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read) { implicit req => me =>
+  def apiBatchSelect(angleStr: String): Fu[Result] = AnonOrScoped(_.Puzzle.Read) { implicit req => me =>
     apiBatchSelect(me, PuzzleAngle findOrMix angleStr, getInt("nb", req) | 15)
   }
   private def apiBatchSelect(me: UserModel, angle: PuzzleAngle, nb: Int)(using
       req: RequestHeader
   ): Fu[Result] =
-    env.puzzle.batch.nextFor(me, PuzzleAngle findOrMix angleStr, nb atLeast 1 atMost 30) flatMap
+    env.puzzle.batch.nextFor(me.some, angle, nb atLeast 1 atMost 30) flatMap
       env.puzzle.jsonView.batch dmap { Ok(_) }
 
   def apiBatchSolve(angleStr: String) = ScopedBody(parse.json)(Seq(_.Puzzle.Write)) { req => me =>
