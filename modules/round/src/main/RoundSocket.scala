@@ -234,7 +234,7 @@ final class RoundSocket(
       gameId -> promise
     }.toMap
 
-    // fullfill the promises with batched DB requests
+    // fulfill the promises with batched DB requests
     rooms
       .map(_._1)
       .grouped(1024)

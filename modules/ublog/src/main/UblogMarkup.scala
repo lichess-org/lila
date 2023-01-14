@@ -82,7 +82,7 @@ private[ublog] object UblogMarkup:
 
   // toastui editor escapes `_` as `\_` and it breaks @username
   object unescapeAtUsername:
-    // Same as `atUsernameRegex` in `RawHtmlTest.scala` but it also matchs the '\' character.
+    // Same as `atUsernameRegex` in `RawHtmlTest.scala` but it also matches the '\' character.
     // Can't end with '\', which would be escaping something after the username, like '\)'
     private val atUsernameRegexEscaped = """@(?<![\w@#/]@)([\w\\-]{1,29}\w)(?![@\w-]|\.\w)""".r
     def apply(markdown: Markdown) =
