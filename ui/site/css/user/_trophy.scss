@@ -138,7 +138,7 @@
   flex: 0 0 auto;
   font-size: 60px;
   margin: 0 -10px 0 30px;
-  transform: scale(-1, 1);
+  transform: scaleX(-1 * $transform-direction);
   color: $c-brag;
   transition: margin-top 0.5s;
 

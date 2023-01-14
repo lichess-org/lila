@@ -20,3 +20,21 @@
 .is-gold::before {
   color: $c-brag;
 }
+
+// mirror arrow icons in RTL
+
+@if $direction == 'rtl' {
+  [data-icon=''],
+  [data-icon=''],
+  [data-icon=''],
+  [data-icon=''],
+  [data-icon=''],
+  [data-icon=''],
+  [data-icon=''],
+  [data-icon=''] {
+    &::before {
+      display: inline-block;
+      transform: scaleX(-1);
+    }
+  }
+}

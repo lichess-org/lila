@@ -35,16 +35,6 @@ function controls(ctrl: Controller): VNode {
   const node = ctrl.vm.node;
   const nextNode = node.children[0];
   const goNext = ctrl.vm.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
-  let iconFirst = '';
-  let iconPrev = '';
-  let iconNext = '';
-  let iconLast = '';
-  if (document.dir == 'rtl') {
-    iconLast = '';
-    iconNext = '';
-    iconPrev = '';
-    iconFirst = '';
-  }
   return h(
     'div.puzzle__controls.analyse-controls',
     {
@@ -64,10 +54,10 @@ function controls(ctrl: Controller): VNode {
     },
     [
       h('div.jumps', [
-        jumpButton(iconFirst, 'first', !node.ply),
-        jumpButton(iconPrev, 'prev', !node.ply),
-        jumpButton(iconNext, 'next', !nextNode, goNext),
-        jumpButton(iconLast, 'last', !nextNode, goNext),
+        jumpButton('', 'first', !node.ply),
+        jumpButton('', 'prev', !node.ply),
+        jumpButton('', 'next', !nextNode, goNext),
+        jumpButton('', 'last', !nextNode, goNext),
       ]),
     ]
   );

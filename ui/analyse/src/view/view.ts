@@ -155,16 +155,6 @@ function controls(ctrl: AnalyseCtrl) {
     canJumpNext = !!ctrl.node.children[0],
     menuIsOpen = ctrl.actionMenu(),
     noarg = ctrl.trans.noarg;
-  let iconFirst = '';
-  let iconPrev = '';
-  let iconNext = '';
-  let iconLast = '';
-  if (document.dir == 'rtl') {
-    iconLast = '';
-    iconNext = '';
-    iconPrev = '';
-    iconFirst = '';
-  }
   return h(
     'div.analyse__controls.analyse-controls',
     {
@@ -246,10 +236,10 @@ function controls(ctrl: AnalyseCtrl) {
                 ]
           ),
       h('div.jumps', [
-        jumpButton(iconFirst, 'first', canJumpPrev),
-        jumpButton(iconPrev, 'prev', canJumpPrev),
-        jumpButton(iconNext, 'next', canJumpNext),
-        jumpButton(iconLast, 'last', canJumpNext),
+        jumpButton('', 'first', canJumpPrev),
+        jumpButton('', 'prev', canJumpPrev),
+        jumpButton('', 'next', canJumpNext),
+        jumpButton('', 'last', canJumpNext),
       ]),
       ctrl.studyPractice
         ? h('div.noop')

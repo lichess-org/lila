@@ -6,6 +6,10 @@ $end-direction: left;
 
 $transform-direction: -1;
 
+@mixin rtl-mirrored {
+  transform: scaleX(-1);
+}
+
 @mixin padding-direction($top, $end, $bottom, $start, $important: false) {
   @if $important {
     padding: $top $start $bottom $end !important;
