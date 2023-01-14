@@ -97,6 +97,11 @@
     margin-top: 3em;
     padding: 2em 3em;
     background: $c-bg-zebra;
+
+    p {
+      unicode-bidi: normal;
+      display: flex;
+    }
   }
 
   @keyframes reveal {

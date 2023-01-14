@@ -32,7 +32,7 @@
   [data-icon=''],
   [data-icon=''],
   [data-icon=''] {
-    &::before {
+    &:not(.no-mirror)::before {
       display: inline-block;
       transform: scaleX(-1);
     }
