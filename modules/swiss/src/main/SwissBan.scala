@@ -15,7 +15,7 @@ case class SwissBan(_id: UserId, until: DateTime, hours: Int)
  * Consecutive failures result in doubling ban duration.
  * Playing a swiss game resets the duration.
  */
-final class SwissBanApi(mongo: SwissMongo)(using ec: ExecutionContext):
+final class SwissBanApi(mongo: SwissMongo)(using ExecutionContext):
 
   def bannedUntil(user: UserId): Fu[Option[DateTime]] =
     mongo.ban.primitiveOne[DateTime]($id(user) ++ $doc("until" $gt DateTime.now), "until")
@@ -32,7 +32,12 @@ final class SwissBanApi(mongo: SwissMongo)(using ec: ExecutionContext):
       .void
 
   private def onStall(user: UserId): Funit = get(user) flatMap { prev =>
-    val hours = prev.fold(24)(_.hours * 2)
+    val hours: Int = prev
+      .fold(24) { ban =>
+        if (ban.until.isBefore(DateTime.now)) ban.hours * 2 // consecutive
+        else (ban.hours * 1.5).toInt                        // simultaneous
+      }
+      .atMost(30 * 24)
     mongo.ban.update
       .one(
         $id(user),
