@@ -9,6 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.{ TutorFullReport, TutorQueue }
 import lila.user.User
 import lila.game.Pov
+import play.api.i18n.Lang
 
 object empty:
 
@@ -31,22 +32,25 @@ object empty:
     )(
       data("eta") := (in.avgDuration.toMillis atMost 60_000 atLeast 10_000),
       cls         := "tutor__empty tutor__queued box",
-      boxTop(h1("Lichess Tutor")),
+      boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
       if (in.position == 1)
         bits.mascotSays(
           p(strong(cls := "tutor__intro")("I'm examining your games now!")),
           examinationMethod,
+          nbGames(user),
           p("It should be done in a minute or two.")
         )
       else
         bits.mascotSays(
           p(strong(cls := "tutor__intro")("I will examine your games as soon as possible.")),
           examinationMethod,
+          nbGames(user),
           p(
             "There are ",
             (in.position - 1),
-            " players in the queue before you. ",
-            "You will get your results in ",
+            " players in the queue before you.",
+            br,
+            "You will get your results in about ",
             showMinutes(in.eta.toMinutes.toInt atLeast 1),
             "."
           )
@@ -63,13 +67,18 @@ object empty:
       st.data("pov") := game._1.color.name
     )
 
-  private def examinationMethod = frag(
-    p(
-      "Using the best chess engine: ",
-      views.html.plan.features.engineFullName,
-      ", ",
-      "and comparing your playstyle to thousands of other players with similar rating."
-    )
+  private def nbGames(user: User)(using Lang) = {
+    val nb = lila.rating.PerfType.standardWithUltra.foldLeft(0) { (nb, pt) =>
+      nb + user.perfs(pt).nb
+    }
+    p(s"Looks like you have ", strong(nb.atMost(10_000).localize), " rated games to look at, excellent!")
+  }
+
+  private def examinationMethod = p(
+    "Using the best chess engine: ",
+    views.html.plan.features.engineFullName,
+    ", ",
+    "and comparing your playstyle to thousands of other players with similar rating."
   )
 
   def insufficientGames(using Context) =
