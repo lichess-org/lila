@@ -17,6 +17,7 @@ case class InsightPerfStats(
     time: FiniteDuration
 ):
   def totalNbGames = nbGames.white + nbGames.black
+  def peers        = Question.Peers(rating)
 
 object InsightPerfStats:
   case class WithGameIds(stats: InsightPerfStats, gameIds: List[GameId])

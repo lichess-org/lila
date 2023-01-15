@@ -19,7 +19,7 @@ final private class TutorCustomInsight(
   def apply(insightColl: Coll)(
       aggregateMine: Bdoc => AggregationPipeline[insightColl.PipelineOperator],
       aggregatePeer: Bdoc => AggregationPipeline[insightColl.PipelineOperator]
-  )(using ec: ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
+  )(using ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
     for
       mine <- insightColl
         .aggregateList(maxDocs = Int.MaxValue)(_ =>
@@ -29,7 +29,7 @@ final private class TutorCustomInsight(
         .monSuccess(_.tutor.askMine(monitoringKey, "all"))
       peerDocs <- users.toList.map { u =>
         val peerSelect = $doc(lila.insight.InsightEntry.BSONFields.perf -> u.perfType) ++
-          InsightStorage.selectPeers(Question.Peers(u.perfStats.rating))
+          InsightStorage.selectPeers(u.perfStats.peers)
         insightColl
           .aggregateList(maxDocs = Int.MaxValue)(_ => aggregatePeer(peerSelect))
           .map(clusterParser)

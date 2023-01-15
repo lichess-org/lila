@@ -14,10 +14,13 @@ case class Question[X](
 object Question:
 
   case class Peers(rating: MeanRating):
-    def ratingRange =
+    def ratingRange: Range =
       // based on https://lichess.org/stat/rating/distribution/blitz
       val diff = Math.ceil(0.0002647 * Math.pow(rating.value, 2) - 0.80735 * rating.value + 635.4411).toInt
       Range(rating.value - diff, rating.value + diff)
+    def showRatingRange =
+      val rr = ratingRange
+      s"${rr.min}-${rr.max}"
 
 case class Filter[A](
     dimension: InsightDimension[A],
