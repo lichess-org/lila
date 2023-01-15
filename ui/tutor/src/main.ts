@@ -26,10 +26,12 @@ lichess.load.then(() => {
     });
   });
 
-  $('.tutor__waiting-game').each(function (this: HTMLElement) {
-    const lpv = Lpv(this, {
-      pgn: this.dataset['pgn']!,
-      orientation: this.dataset['pov'] as Color,
+  const waitingGames = Array.from($('.tutor__waiting-game')),
+    nbWaitingGames = waitingGames.length;
+  waitingGames.forEach((el: HTMLElement, index: number) => {
+    const lpv = Lpv(el, {
+      pgn: el.dataset['pgn']!,
+      orientation: el.dataset['pov'] as Color,
       showMoves: false,
       showClocks: false,
       showPlayers: true,
@@ -37,7 +39,14 @@ lichess.load.then(() => {
       chessground: { coordinates: false },
       drawArrows: false,
     });
+    for (let i = 5 - index; i > 0; i--) {
+      lpv.goTo('next', false);
+    }
     const nbMoves = Array.from(lpv.game.moves.mainline()).length;
-    setInterval(() => lpv.goTo('next', false), (60 / nbMoves) * 1000);
+    const delayBeforeStart = (index * 1000 * 67) / nbWaitingGames - 9000;
+    const moveInterval = 270 - nbMoves;
+    setTimeout(() => {
+      setInterval(() => lpv.goTo('next', false), moveInterval);
+    }, delayBeforeStart);
   });
 });

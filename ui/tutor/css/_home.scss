@@ -29,6 +29,9 @@
     overflow: hidden;
   }
   &__waiting-games {
+    @media (prefers-reduced-motion: reduce) {
+      display: none;
+    }
     margin: 3em 0;
     min-height: 255px;
 
@@ -49,8 +52,12 @@
   &__waiting-game {
     flex: 0 0 200px;
     transition: 0.5s;
-    .lpv__player__name {
-      font-size: 1.5em;
+    .lpv__player {
+      overflow: hidden;
+      &__name {
+        font-size: 1.5em;
+        white-space: nowrap;
+      }
     }
     &.lpv:hover {
       @extend %popup-shadow;
