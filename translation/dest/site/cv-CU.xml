@@ -48,6 +48,7 @@
   <string name="averageRatingX">Вӑтамри рейтинг: %s</string>
   <string name="recentGames">Паҫӑрхи вӑйӑсем</string>
   <string name="noGameFound">Пӗр вӑйӑ та тупӑнман</string>
+  <string name="allSet">Пурне те лартнӑ!</string>
   <string name="delete">Катерт</string>
   <string name="enable">Пултар</string>
   <string name="mistake">Йӑнӑш</string>
@@ -78,6 +79,10 @@
   <string name="xPostedInForumY">%1$s усӑҫ %2$s темӑра ҫырнӑ</string>
   <string name="latestForumPosts">Форумра тин ҫырнисем</string>
   <string name="players">Вӑйӑҫсем</string>
+  <string name="friends">Туссем</string>
+  <string name="discussions">Сӳтсе йавни</string>
+  <string name="today">Пайан</string>
+  <string name="yesterday">Ӗнер</string>
   <string name="minutesPerSide">Минут хисепӗ</string>
   <string name="variant">Вӑйӑ тӗсӗ</string>
   <string name="variants">Вӑйӑ тӗсӗ</string>
@@ -92,11 +97,15 @@
   <plurals name="nbHours">
     <item quantity="other">%s сехет</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="other">%s минут</item>
+  </plurals>
   <string name="time">Вӑхӑт</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтинг графӗкӗсем</string>
   <string name="username">Усӑҫ йачӗ</string>
   <string name="usernameOrEmail">Усӑҫ йачӗ йе ел. пушти</string>
+  <string name="changeUsername">Хушма йата улӑштар</string>
   <string name="password">Кӗме сӑмах</string>
   <string name="changePassword">Кӗме сӑмах улӑштарни</string>
   <string name="changeEmail">Ел. пуштӑ улӑштарни</string>
@@ -160,6 +169,9 @@
   <plurals name="nbDraws">
     <item quantity="other">%s парма-пар</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="other">%s вӑйӑ</item>
+  </plurals>
   <string name="exportGames">Вӑйӑ еспортласси</string>
   <string name="ratingRange">Рейтинг хушши</string>
   <plurals name="giveNbSeconds">
@@ -185,7 +197,7 @@
   <string name="averageElo">Вӑтам рейтинг</string>
   <string name="location">Вырӑн</string>
   <string name="filterGames">Вӑйӑ али</string>
-  <string name="reset">Силле</string>
+  <string name="reset">Пуҫлантар</string>
   <string name="apply">Ҫирӗплет</string>
   <string name="save">Упра</string>
   <string name="leaderboard">Лидӗрсен йышӗ</string>
@@ -202,6 +214,9 @@
   <string name="notACheckmate">Мат туни мар</string>
   <string name="retry">Тепӗр хут</string>
   <string name="reconnecting">Ҫӗнӗрен ҫыхӑнасси</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="other">%s тус тетелте</item>
+  </plurals>
   <string name="follow">Ҫырӑн</string>
   <string name="following">Ҫырӑнса тӑни</string>
   <string name="unfollow">Ҫырӑнма пӑрах</string>
@@ -351,6 +366,7 @@
   <string name="tpTimeSpentOnTV">TV курнӑ вӑхӑт: %s</string>
   <string name="watch">Тишкерӳ</string>
   <string name="videoLibrary">Курма пуххи</string>
+  <string name="streamersMenu">Стримҫӗ</string>
   <string name="mobileApp">Мобиллӗ хушӑм</string>
   <string name="webmasters">Веб маҫтӑрсем</string>
   <string name="aboutX">%s пирки</string>
@@ -423,13 +439,13 @@
   <string name="lobby">Суйласси</string>
   <string name="anonymous">Йатсӑр ҫын</string>
   <string name="language">Чӗлхе</string>
-  <string name="background">Фон</string>
+  <string name="background">Хыҫай</string>
   <string name="light">Ҫутӑ</string>
   <string name="dark">Тӗттӗм</string>
   <string name="transparent">Витӗр курӑнакан</string>
-  <string name="backgroundImageUrl">Фонри ӳкерчӗк каҫҫи:</string>
+  <string name="backgroundImageUrl">Хыҫай ӳкерчӗкӗн каҫҫи:</string>
   <string name="boardGeometry">Хӑма геометрийӗ</string>
-  <string name="boardTheme">Хӑма теми</string>
+  <string name="boardTheme">Тӗс майлашӑвӗ</string>
   <string name="boardSize">Хӑма калӑпӑшӗ</string>
   <string name="pieceSet">Кӗлетке пуххи</string>
   <string name="chessBasics">Шахмат никӗсӗсем</string>
@@ -442,4 +458,14 @@
     <item quantity="other">%s ҫеккунт</item>
   </plurals>
   <string name="endgame">Ендшпил</string>
+  <string name="sorry">Каҫар :(</string>
+  <string name="edit">Тӳрлет</string>
+  <string name="classical">Классикӑллӑ</string>
+  <string name="teamNamedX">%1$s ушкӑн</string>
+  <string name="subscribe">Ҫырӑн</string>
+  <string name="unsubscribe">Ҫырӑнма пӑрах</string>
+  <string name="invitedYouToX">сана \"%1$s\" чӗннӗ.</string>
+  <string name="xInvitedYouToY">%1$s сана \"%2$s\" чӗннӗ.</string>
+  <string name="youHaveJoinedTeamX">Эсӗ \"%1$s\" хутшӑннӑ.</string>
+  <string name="resVsX">%1$s vs %2$s</string>
 </resources>
