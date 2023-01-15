@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <plurals name="inNbMinutes">
+    <item quantity="other">%s минутран</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="other">%s сахатран</item>
+  </plurals>
+  <plurals name="nbSecondsAgo">
+    <item quantity="other">%s ҫек кайалла</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="other">%s минут кайалла</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="other">%s сахат кайалла</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="other">%s кун кайалла</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="other">%s эрне кайалла</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="other">%s уйӑх кайалла</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="other">%s ҫул кайалла</item>
+  </plurals>
+</resources>
