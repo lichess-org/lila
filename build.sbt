@@ -272,7 +272,7 @@ lazy val importer = module("importer",
 
 lazy val insight = module("insight",
   Seq(common, game, user, analyse, relation, pref, socket, round, security),
-  Seq(scalatags) ++ reactivemongo.bundle
+  Seq(scalatags, breeze) ++ reactivemongo.bundle
 )
 
 lazy val tutor = module("tutor",
