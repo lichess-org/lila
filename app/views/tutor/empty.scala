@@ -16,7 +16,7 @@ object empty:
   def start(user: User)(using Context) =
     bits.layout(TutorFullReport.Empty(TutorQueue.NotInQueue), menu = emptyFrag, pageSmall = true)(
       cls := "tutor__empty box",
-      boxTop(h1("Lichess Tutor")),
+      boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
       bits.mascotSays("Explain what tutor is about here."),
       postForm(cls := "tutor__empty__cta", action := routes.Tutor.refresh(user.username))(
         submitButton(cls := "button button-fat button-no-upper")("Analyse my games and help me improve")
@@ -81,12 +81,18 @@ object empty:
     "and comparing your playstyle to thousands of other players with similar rating."
   )
 
-  def insufficientGames(using Context) =
+  def insufficientGames(user: User)(using Context) =
     bits.layout(TutorFullReport.InsufficientGames, menu = emptyFrag, pageSmall = true)(
       cls := "tutor__insufficient box",
-      boxTop(h1("Lichess Tutor")),
+      boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
       mascotSaysInsufficient
     )
 
   def mascotSaysInsufficient =
-    bits.mascotSays("Not enough rated games to examine! Go and play some more chess.")
+    bits.mascotSays(
+      frag(
+        strong("Not enough rated games to examine!"),
+        br,
+        "Please come back after you have played more chess."
+      )
+    )

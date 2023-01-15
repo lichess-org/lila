@@ -36,7 +36,7 @@ lichess.load.then(() => {
       showClocks: false,
       showPlayers: true,
       showControls: false,
-      chessground: { coordinates: false },
+      chessground: { coordinates: false, animation: { duration: 100 } },
       drawArrows: false,
     });
     for (let i = 5 - index; i > 0; i--) {
