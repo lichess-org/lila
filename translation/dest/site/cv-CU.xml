@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">Туспа выльа</string>
   <string name="playWithTheMachine">Машшинпа выльа</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Пӗр-пӗр ҫынпа выльас тесен каҫҫине йар</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Пӗр-пӗр ҫынпа выљас тесен, каҫҫине йар</string>
   <string name="gameOver">Вӑйӑ вӗҫленчӗ</string>
   <string name="waitingForOpponent">Ӑмӑртуҫсене кӗтсе тӑни</string>
   <string name="waiting">Кӗтсе тӑни</string>
@@ -20,6 +20,8 @@
   <string name="createAGame">Вӑйӑ йӗркеле</string>
   <string name="whiteIsVictorious">Шуррисем ҫӗнтерчӗҫ</string>
   <string name="blackIsVictorious">Хурисем ҫӗнтерчӗҫ</string>
+  <string name="youPlayTheWhitePieces">Эсӗ шуррисемшӗн выльатӑн</string>
+  <string name="youPlayTheBlackPieces">Эсӗ хурисемшӗн выльатӑн</string>
   <string name="kingInTheCenter">Патша варринче</string>
   <string name="threeChecks">Виҫӗ шах пани</string>
   <string name="raceFinished">Чупу вӗҫленчӗ</string>
@@ -371,7 +373,7 @@
   <string name="webmasters">Веб маҫтӑрсем</string>
   <string name="aboutX">%s пирки</string>
   <string name="contribute">Пулӑшасси</string>
-  <string name="termsOfService">Шыв-йӗркипе</string>
+  <string name="termsOfService">Шыв-йӗрки</string>
   <string name="sourceCode">Source Code</string>
   <string name="simultaneousExhibitions">Пӗр вӑхӑтри вӑйӑсем</string>
   <string name="host">Хост</string>
