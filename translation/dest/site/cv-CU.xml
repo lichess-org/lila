@@ -40,10 +40,13 @@
   <string name="blackResigned">Хурисем парӑнчӗҫ</string>
   <string name="whiteLeftTheGame">Шуррисем вӑййинчен тухрӗҫ</string>
   <string name="blackLeftTheGame">Хурисем вӑййинчен тухрӗҫ</string>
+  <string name="whiteDidntMove">Шуррисем ҫӳремен</string>
+  <string name="blackDidntMove">Хурисем ҫӳремен</string>
   <string name="requestAComputerAnalysis">Компйутӑр тишкервне ыйт</string>
   <string name="computerAnalysis">Компйутӑр тишкерӗвӗ</string>
   <string name="analysis">Тишкерӳ хӑми</string>
   <string name="deleteFromHere">Кунтан пуҫласа катерт</string>
+  <string name="capture">Тытса илни</string>
   <string name="close">Хуп</string>
   <string name="database">Пӗлӗм пуххи</string>
   <string name="whiteDrawBlack">Шуррисем / Пармапар / Хурисем</string>
@@ -470,4 +473,5 @@
   <string name="xInvitedYouToY">%1$s сана \"%2$s\" чӗннӗ.</string>
   <string name="youHaveJoinedTeamX">Эсӗ \"%1$s\" хутшӑннӑ.</string>
   <string name="resVsX">%1$s vs %2$s</string>
+  <string name="welcome">Хапӑл тӑватпӑр!</string>
 </resources>
