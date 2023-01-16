@@ -18,7 +18,7 @@ case class TutorColorOpenings(
     TutorMetric.Accuracy,
     families.map { f => (f.family, f.accuracy) }
   )
-  lazy val performanceCompare = TutorCompare[LilaOpeningFamily, Rating](
+  lazy val performanceCompare = TutorCompare[LilaOpeningFamily, IntRating](
     InsightDimension.OpeningFamily,
     TutorMetric.Performance,
     families.map { f => (f.family, f.performance.toOption) }
@@ -35,7 +35,7 @@ case class TutorColorOpenings(
 
 case class TutorOpeningFamily(
     family: LilaOpeningFamily,
-    performance: TutorBothValues[Rating],
+    performance: TutorBothValues[IntRating],
     accuracy: TutorBothValueOptions[AccuracyPercent],
     awareness: TutorBothValueOptions[GoodPercent]
 ):
@@ -75,7 +75,7 @@ private case object TutorOpening:
     performances.mine.list.map { (family, myPerformance) =>
       TutorOpeningFamily(
         family,
-        performance = Rating from performances.valueMetric(family, myPerformance),
+        performance = IntRating from performances.valueMetric(family, myPerformance).map(roundToInt),
         accuracy = AccuracyPercent from accuracy.valueMetric(family),
         awareness = GoodPercent from awareness.valueMetric(family)
       )

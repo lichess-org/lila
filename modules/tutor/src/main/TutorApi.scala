@@ -9,6 +9,8 @@ import lila.common.{ LilaScheduler, Uptime }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
+import lila.common.Future
+import lila.common.Chronometer
 
 final class TutorApi(
     colls: TutorColls,
@@ -43,28 +45,29 @@ final class TutorApi(
 
   LilaScheduler("TutorApi", _.Every(1 second), _.AtMost(10 seconds), _.Delay(3 seconds))(pollQueue)
 
-  private def pollQueue = queue.next flatMap {
-    _ ?? { next =>
-      next.startedAt match
-        case None => buildThenRemoveFromQueue(next.userId)
-        case Some(at)
-            if at.isBefore(DateTime.now minusSeconds builder.maxTime.toSeconds.toInt) || at.isBefore(
-              Uptime.startedAt
-            ) =>
-          for {
-            _    <- queue remove next.userId
-            next <- queue.next
-            _    <- next.map(_.userId) ?? buildThenRemoveFromQueue
-          } yield lila.mon.tutor.buildTimeout.increment().unit
-        case _ => funit
-    }
+  private def pollQueue = queue.next flatMap { items =>
+    lila.mon.tutor.parallelism.update(items.size)
+    Future
+      .applySequentially(items) { next =>
+        next.startedAt.fold(buildThenRemoveFromQueue(next.userId)) { started =>
+          val expired =
+            started.isBefore(DateTime.now minusSeconds builder.maxTime.toSeconds.toInt) ||
+              started.isBefore(Uptime.startedAt)
+          expired ?? queue.remove(next.userId) >>- lila.mon.tutor.buildTimeout.increment().unit
+        }
+      }
   }
 
   // we only wait for queue.start
   // NOT for builder
   private def buildThenRemoveFromQueue(userId: UserId) =
+    val chrono = Chronometer.start
+    logger.info(s"Start $userId")
     queue.start(userId) >>- {
       builder(userId) foreach { built =>
+        logger.info(
+          s"${if built.isDefined then "Complete" else "Fail"} $userId in ${chrono().seconds} seconds"
+        )
         built match
           case Some(report) => cache.put(userId, fuccess(report.some))
           case None         => cache.put(userId, findLatest(userId))

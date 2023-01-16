@@ -3,26 +3,28 @@ package lila.tutor
 import org.joda.time.DateTime
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+import com.softwaremill.tagging.*
 import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
-import lila.memo.CacheApi
 import lila.user.{ User, LightUserApi }
 import lila.common.config.Max
 import lila.game.Pov
+import lila.memo.{ SettingStore, CacheApi }
 
 final private class TutorQueue(
     colls: TutorColls,
     gameRepo: lila.game.GameRepo,
     cacheApi: CacheApi,
-    lightUserApi: LightUserApi
+    lightUserApi: LightUserApi,
+    parallelism: SettingStore[Int] @@ Parallelism
 )(using ExecutionContext, akka.actor.Scheduler):
 
   import TutorQueue.*
 
-  private val workQueue = lila.hub.AsyncActorSequencer(maxSize = Max(64), timeout = 5 seconds, "tutorQueue")
+  private val workQueue = lila.hub.AsyncActorSequencer(maxSize = Max(64), timeout = 5.seconds, "tutorQueue")
 
   private val durationCache = cacheApi.unit[FiniteDuration] {
     _.refreshAfterWrite(1 minutes)
@@ -51,8 +53,8 @@ final private class TutorQueue(
       .void >> fetchStatus(user)
   }
 
-  private given BSONDocumentReader[Next] = Macros.reader
-  def next: Fu[Option[Next]]             = colls.queue.find($empty).sort($sort asc F.requestedAt).one[Next]
+  def next: Fu[List[Next]] =
+    colls.queue.find($empty).sort($sort asc F.requestedAt).cursor[Next]().list(parallelism.get())
   def start(userId: UserId): Funit  = colls.queue.updateField($id(userId), F.startedAt, DateTime.now).void
   def remove(userId: UserId): Funit = colls.queue.delete.one($id(userId)).void
 
@@ -72,12 +74,12 @@ final private class TutorQueue(
 
   private def fetchStatus(user: User): Fu[Status] =
     colls.queue.primitiveOne[DateTime]($id(user.id), F.requestedAt) flatMap {
-      case None => fuccess(NotInQueue)
-      case Some(at) =>
+      _.fold(fuccess(NotInQueue)) { at =>
         for
           position    <- colls.queue.countSel($doc(F.requestedAt $lte at))
           avgDuration <- durationCache.get({})
         yield InQueue(position, avgDuration)
+      }
     }
 
 object TutorQueue:
@@ -87,8 +89,10 @@ object TutorQueue:
   case class InQueue(position: Int, avgDuration: FiniteDuration) extends Status:
     def eta = avgDuration * position
 
-  private[tutor] case class Next(_id: UserId, startedAt: Option[DateTime]):
+  case class Next(_id: UserId, startedAt: Option[DateTime]):
     def userId = _id
+  object Next:
+    given BSONDocumentReader[Next] = Macros.reader
 
   object F:
     val id          = "_id"
