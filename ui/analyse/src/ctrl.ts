@@ -869,11 +869,13 @@ export default class AnalyseCtrl {
   }
 
   instanciateEvalCache() {
+    const chess = ['standard', 'fromPosition', 'chess960'].includes(this.data.game.variant.key);
     this.evalCache = makeEvalCache({
       variant: this.data.game.variant.key,
-      canGet: () => this.canEvalGet(),
+      canGet: () => chess && this.canEvalGet(),
       canPut: () =>
         !!(
+          chess &&
           this.ceval?.cachable &&
           this.data.evalPut &&
           this.canEvalGet() &&
