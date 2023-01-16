@@ -20,13 +20,14 @@
     background: $c-bg-zebra;
 
     &--link {
+      border-radius: 20px;
       position: relative;
-      outline: 3px solid mix($c-link, $c-bg-box, 30%);
+      // outline: 3px solid mix($c-link, $c-bg-box, 30%);
       cursor: pointer;
       &:hover {
         outline: 3px solid mix($c-link, $c-bg-box, 60%);
         background: mix($c-link, $c-bg-zebra, 10%);
-        box-shadow: 0 0 30px mix($c-link, $c-bg-box, 50%);
+        box-shadow: 0 0 30px mix($c-link, $c-bg-box, 20%);
       }
     }
 

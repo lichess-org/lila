@@ -93,7 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' med afrunding, baseret på antallet af halv-træk indtil næste fangst eller bondetræk</string>
   <string name="noGameFound">Intet parti fundet</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prøv eventuelt at inkludere flere partier fra præferencemenuen?</string>
   <string name="openings">Åbninger</string>
   <string name="openingExplorer">Åbningsbog</string>
   <string name="openingEndgameExplorer">Åbning/slutspilsbog</string>
