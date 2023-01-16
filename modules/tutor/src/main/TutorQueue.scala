@@ -36,9 +36,9 @@ final private class TutorQueue(
             )
           }
           .map {
-            ~_.flatMap(_.getAsOpt[Int](TutorFullReport.F.millis))
+            ~_.flatMap(_.getAsOpt[Double](TutorFullReport.F.millis))
           }
-          .map(_.millis)
+          .map(_.toInt.millis)
       }
   }
 
