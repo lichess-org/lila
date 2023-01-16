@@ -30,8 +30,7 @@ object empty:
       title = "Lichess Tutor - Examining games...",
       pageSmall = true
     )(
-      data("eta") := (in.avgDuration.toMillis atMost 60_000 atLeast 10_000),
-      cls         := "tutor__empty tutor__queued box",
+      cls := "tutor__empty tutor__queued box",
       boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
       if (in.position == 1)
         bits.mascotSays(
