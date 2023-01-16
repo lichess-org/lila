@@ -58,7 +58,7 @@ final private class TutorBuilder(
         _ <- colls.report.insert.one(doc).void
       } yield report.some
     }
-  } yield none
+  } yield report
 
   private def produce(user: User): Fu[TutorFullReport] = for {
     _ <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")

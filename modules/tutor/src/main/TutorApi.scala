@@ -64,14 +64,17 @@ final class TutorApi(
   // NOT for builder
   private def buildThenRemoveFromQueue(userId: UserId) =
     queue.start(userId) >>- {
-      builder(userId) foreach { reportOpt =>
-        cache.put(userId, fuccess(reportOpt))
+      builder(userId) foreach { built =>
+        built match
+          case Some(report) => cache.put(userId, fuccess(report.some))
+          case None         => cache.put(userId, findLatest(userId))
         queue.remove(userId)
       }
     }
 
   private val cache = cacheApi[UserId, Option[TutorFullReport]](256, "tutor.report") {
-    _.expireAfterAccess(if (mode == Mode.Prod) 5 minutes else 1 second)
+    // _.expireAfterAccess(if (mode == Mode.Prod) 5 minutes else 1 second)
+    _.expireAfterAccess(3.minutes)
       .maximumSize(1024)
       .buildAsyncFuture(findLatest)
   }
