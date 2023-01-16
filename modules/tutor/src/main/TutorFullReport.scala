@@ -63,3 +63,4 @@ object TutorFullReport:
     val user   = "user"
     val at     = "at"
     val millis = "millis"
+    val perfs  = "perfs"

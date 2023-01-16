@@ -92,4 +92,9 @@ object Grade:
     case object MuchWorse      extends Wording(1, "much worse than", -Better.top)
     val list = List[Wording](MuchWorse, Worse, SlightlyWorse, Similar, SlightlyBetter, Better, MuchBetter)
 
-case class TutorUser(user: User, perfType: PerfType, perfStats: InsightPerfStats)
+case class TutorUser(
+    user: User,
+    perfType: PerfType,
+    perfStats: InsightPerfStats,
+    peerMatch: Option[TutorPerfReport.PeerMatch]
+)

@@ -64,8 +64,9 @@ final private class TutorBuilder(
     _ <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")
     perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider)
       .monSuccess(_.tutor buildSegment "perf-stats")
+    peerMatches <- findPeerMatches(perfStats.mapValues(_.stats.rating).toMap)
     tutorUsers = perfStats
-      .map { (pt, stats) => TutorUser(user, pt, stats.stats) }
+      .map { (pt, stats) => TutorUser(user, pt, stats.stats, peerMatches.find(_.perf == pt)) }
       .toList
       .sortBy(-_.perfStats.totalNbGames)
     _     <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
@@ -83,6 +84,38 @@ final private class TutorBuilder(
       TutorFullReport.F.at $gt DateTime.now.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
     )
   )
+
+  private def findPeerMatches(
+      perfs: Map[PerfType, lila.insight.MeanRating]
+  ): Fu[List[TutorPerfReport.PeerMatch]] =
+    perfs
+      .map { (pt, rating) =>
+        colls.report
+          .one[Bdoc](
+            $doc(
+              TutorFullReport.F.perfs -> $doc(
+                "$elemMatch" -> $doc("perf" -> pt.id, "stats.rating" -> rating)
+              ),
+              TutorFullReport.F.at $gt DateTime.now.minusMonths(1) // index hit
+            ),
+            $doc(s"${TutorFullReport.F.perfs}.$$" -> true)
+          )
+          .map { docO =>
+            for
+              doc     <- docO
+              reports <- doc.getAsOpt[List[TutorPerfReport]](TutorFullReport.F.perfs)
+              report  <- reports.headOption
+              if report.perf == pt
+            yield TutorPerfReport.PeerMatch(report)
+          }
+      }
+      .sequenceFu
+      .map(_.toList.flatten)
+      .addEffect { matches =>
+        perfs.keys.foreach { pt =>
+          lila.mon.tutor.peerMatch(matches.exists(_.perf == pt))
+        }
+      }
 
   private val dateFormatter = org.joda.time.format.DateTimeFormat forPattern "yyyy-MM-dd"
 

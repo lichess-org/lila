@@ -104,6 +104,9 @@ case class TutorPerfReport(
 
 private object TutorPerfReport:
 
+  case class PeerMatch(report: TutorPerfReport):
+    export report.*
+
   import TutorBuilder.*
 
   private val accuracyQuestion  = Question(InsightDimension.Perf, InsightMetric.MeanAccuracy)

@@ -25,7 +25,7 @@ object TutorClockUsage:
       List(Filter(InsightDimension.Perf, perfs.filter(_ != PerfType.Correspondence)))
     )
     val select = $doc(F.result -> Result.Loss.id)
-    val compute = TutorCustomInsight(users, question, "clock_usage") { docs =>
+    val compute = TutorCustomInsight(users, question, "clock_usage", _.clockUsage) { docs =>
       for
         doc          <- docs
         perf         <- doc.getAsOpt[PerfType]("_id")

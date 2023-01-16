@@ -169,6 +169,7 @@ object mon:
     def askMine                       = askAs("mine")
     def askPeer                       = askAs("peer")
     def buildTimeout                  = counter("tutor.build.timeout").withoutTags()
+    def peerMatch(hit: Boolean)       = counter("tutor.peerMatch").withTag("hit", hitTag(hit))
     private def askAs(as: String)(question: String, perf: String) =
       future("tutor.insight.ask", tags("question" -> question, "perf" -> perf, "as" -> as))
   object search:
