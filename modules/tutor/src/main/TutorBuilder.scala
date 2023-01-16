@@ -142,17 +142,17 @@ private object TutorBuilder:
     .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key.value)) map AnswerPeer.apply
 
   def answerBoth[Dim](question: Question[Dim], user: TutorUser, nbPeerGames: config.Max = peerNbGames)(using
-      insightApi: InsightApi,
-      ec: ExecutionContext
-  ): Fu[Answers[Dim]] = for {
+      InsightApi,
+      ExecutionContext
+  ): Fu[Answers[Dim]] = for
     mine <- answerMine(question, user)
     peer <- answerPeer(question, user, nbPeerGames)
-  } yield Answers(mine, peer)
+  yield Answers(mine, peer)
 
   def answerManyPerfs[Dim](question: Question[Dim], tutorUsers: NonEmptyList[TutorUser])(using
       insightApi: InsightApi,
       ec: ExecutionContext
-  ): Fu[Answers[Dim]] = for {
+  ): Fu[Answers[Dim]] = for
     mine <- insightApi
       .ask(
         question filter perfsFilter(tutorUsers.toList.map(_.perfType)),
@@ -162,7 +162,7 @@ private object TutorBuilder:
       .monSuccess(_.tutor.askMine(question.monKey, "all")) map AnswerMine.apply
     peerByPerf <- tutorUsers.toList.map { answerPeer(question, _) }.sequenceFu
     peer = AnswerPeer(InsightAnswer(question, peerByPerf.flatMap(_.answer.clusters), Nil))
-  } yield Answers(mine, peer)
+  yield Answers(mine, peer)
 
   sealed abstract class Answer[Dim](answer: InsightAnswer[Dim]):
 
@@ -178,6 +178,7 @@ private object TutorBuilder:
     def dimensions = list.map(_._1)
 
     def alignedQuestion = answer.question filter Filter(answer.question.dimension, dimensions)
+
   case class AnswerMine[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)
   case class AnswerPeer[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)
 
