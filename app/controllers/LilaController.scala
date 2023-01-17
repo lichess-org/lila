@@ -43,13 +43,18 @@ abstract private[controllers] class LilaController(val env: Env)
     def withCanonical(url: String): Result =
       result.withHeaders(LINK -> s"<${env.net.baseUrl}${url}>; rel=\"canonical\"")
     def withCanonical(url: Call): Result = withCanonical(url.url)
-    def enableSharedArrayBuffer(using req: RequestHeader): Result = result.withHeaders(
-      "Origin-Trial" -> "Axk8HBUXv5gVOmovajzIAlyRblFQP2aYEM/OplPEZF+gMW4mHsJ2yK67kgiZ32wBtHSHaDKiru0Vm744orqaKZkAAABTeyJvcmlnaW4iOiJodHRwczovL2xpY2hlc3Mub3JnIiwiZmVhdHVyZSI6IkNvZXBDcmVkZW50aWFsbGVzcyIsImV4cGlyeSI6MTcwNDA2MzYwMH0=", // https://bugzilla.mozilla.org/show_bug.cgi?id=1809849
-      "Cross-Origin-Opener-Policy" -> "same-origin",
-      "Cross-Origin-Embedder-Policy" -> {
-        if (HTTPRequest supportsCredentialless req) "credentialless" else "require-corp"
-      }
-    )
+    def enableSharedArrayBuffer(using req: RequestHeader): Result = if HTTPRequest.supportsCredentialless(req)
+    then
+      result.withHeaders(
+        "Origin-Trial" -> "Axk8HBUXv5gVOmovajzIAlyRblFQP2aYEM/OplPEZF+gMW4mHsJ2yK67kgiZ32wBtHSHaDKiru0Vm744orqaKZkAAABTeyJvcmlnaW4iOiJodHRwczovL2xpY2hlc3Mub3JnIiwiZmVhdHVyZSI6IkNvZXBDcmVkZW50aWFsbGVzcyIsImV4cGlyeSI6MTcwNDA2MzYwMH0=", // https://bugzilla.mozilla.org/show_bug.cgi?id=1809849
+        "Cross-Origin-Opener-Policy"   -> "same-origin",
+        "Cross-Origin-Embedder-Policy" -> "credentialless"
+      )
+    else
+      result.withHeaders(
+        "Cross-Origin-Opener-Policy"   -> "same-origin",
+        "Cross-Origin-Embedder-Policy" -> "require-corp"
+      )
     def noCache: Result = result.withHeaders(
       CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
       EXPIRES       -> "0"
