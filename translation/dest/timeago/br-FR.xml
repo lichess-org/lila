@@ -54,9 +54,9 @@
   <plurals name="nbSecondsAgo">
     <item quantity="one">%s eilenn zo</item>
     <item quantity="two">%s eilenn zo</item>
-    <item quantity="few">%s eilennoù zo</item>
-    <item quantity="many">%s eilennoù zo</item>
-    <item quantity="other">%s eilennoù zo</item>
+    <item quantity="few">%s eilenn zo</item>
+    <item quantity="many">%s eilenn zo</item>
+    <item quantity="other">%s eilenn zo</item>
   </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s vunutenn zo</item>
