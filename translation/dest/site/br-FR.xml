@@ -966,7 +966,10 @@
   <string name="clickToRevealEmailAddress">[Klikit da ziskouez ar chomlec’h postel]</string>
   <string name="download">Pellgargañ</string>
   <string name="welcome">Degemer mat!</string>
+  <string name="streamerManager">Merañ ar stream</string>
   <string name="cancelTournament">Nullañ an tournamant</string>
+  <string name="tournDescription">Ur gerig diwar-benn an tournamant</string>
+  <string name="tournDescriptionHelp">Un dra bennak a fell deoc\'h lâret d\'ar re a gemero perzh? E berr gomzoù mar plij. Liammoù Markdown zo: [name](https://url)</string>
   <string name="onlyMembersOfTeam">Izili ar skipailh hepken</string>
   <string name="onlyTitled">C\'hoarierien titlet hepken</string>
   <string name="simulHostcolor">Liv an ostiz evit pep krogad</string>
