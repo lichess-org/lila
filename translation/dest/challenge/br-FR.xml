@@ -9,4 +9,5 @@
   <string name="youCannotChallengeX">Ne c\'hallit ket daeañ %s.</string>
   <string name="xDoesNotAcceptChallenges">%s n\'he/en deus ket c\'hant da vezañ daeet.</string>
   <string name="declineGeneric">Ne zegemeran ket daeoù er mare-mañ.</string>
+  <string name="inviteLichessUser">Pediñ ur c\'hoarier war Lichess mod-all:</string>
 </resources>
