@@ -167,13 +167,7 @@ object show:
                 )(
                   span(
                     strong(messageAllMembers()),
-                    em(
-                      (if (info.pmAllsLeft > 0)
-                         (if (info.pmAllsLeft < 7) s"${info.pmAllsLeft} of 7"
-                          else "All messages") + " remaining"
-                       else "None left")
-                        + (info.pmAllsLeft < 7) ?? s" until ${momentFromNowServerText(info.pmAllsRefresh, true)}"
-                    )
+                    em(pmAllsRemainingText(info.pmAllsLeft, info.pmAllsRefresh))
                   )
                 )
               ),
@@ -286,3 +280,8 @@ object show:
       }
     )
   )
+
+  private def pmAllsRemainingText(left: Int, until: org.joda.time.DateTime) = (
+    if (left <= 0) "None left"
+    else (if (left < 7) s"$left of 7" else "All messages") + " remaining"
+  ) + (left < 7) ?? s" until ${momentFromNowServerText(until, true)}"
