@@ -635,7 +635,10 @@ final class Team(
         err => Left(err),
         msg =>
           Right {
-            PmAllLimitPerTeam[RateLimit.Result](team.id, if (me.isVerifiedOrAdmin) 1 else pmAllCost) {
+            env.teamInfo.pmAllLimiter[RateLimit.Result](
+              team.id,
+              if (me.isVerifiedOrAdmin) 1 else env.teamInfo.pmAllCost
+            ) {
               val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
               val full = s"""$msg
 ---
@@ -654,13 +657,6 @@ You received this because you are subscribed to messages of the team $url."""
             }(RateLimit.Result.Limited)
           }
       )
-
-  private val pmAllCost = 5
-  private val PmAllLimitPerTeam = env.memo.mongoRateLimitApi[lila.team.TeamId](
-    "team.pm.all",
-    credits = 7 * pmAllCost,
-    duration = 7.days
-  )
 
   private def LimitPerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.countCreatedRecently(me) flatMap { count =>

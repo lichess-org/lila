@@ -161,12 +161,19 @@ object show:
                 ),
                 a(
                   href     := routes.Team.pmAll(t.id),
-                  cls      := "button button-empty text",
-                  dataIcon := ""
+                  cls      := s"${(info.pmAllsLeft <= 0) ?? "disabled "}button button-empty text",
+                  dataIcon := "",
+                  style    := (info.pmAllsLeft <= 0) ?? "pointer-events: none;"
                 )(
                   span(
                     strong(messageAllMembers()),
-                    em(messageAllMembersOverview())
+                    em(
+                      (if (info.pmAllsLeft > 0)
+                         (if (info.pmAllsLeft < 7) s"${info.pmAllsLeft} of 7"
+                          else "All messages") + " remaining"
+                       else "None left")
+                        + (info.pmAllsLeft < 7) ?? s" until ${momentFromNowServerText(info.pmAllsRefresh, true)}"
+                    )
                   )
                 )
               ),

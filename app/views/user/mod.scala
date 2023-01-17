@@ -549,7 +549,7 @@ object mod:
   private val reportban       = iconTag("")
   private val notesText       = iconTag("")
   private def markTd(nb: Int, content: => Frag, date: Option[DateTime] = None) =
-    if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(momentFromNowServerText))(content)
+    if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(momentFromNowServerText(_, false)))(content)
     else td
 
   def otherUsers(mod: Holder, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(

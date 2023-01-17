@@ -24,10 +24,16 @@ final class MongoRateLimit[K](
   private lazy val logger  = lila.log("ratelimit").branch("mongo").branch(name)
   private lazy val monitor = lila.mon.security.rateLimit(s"mongo.$name")
 
-  private case class Entry(_id: String, v: Int, e: DateTime)
+  case class Entry(_id: String, v: Int, e: DateTime)
   private given BSONDocumentHandler[Entry] = Macros.handler[Entry]
 
   private def makeDbKey(k: K) = s"ratelimit:$name:${keyToString(k)}"
+
+  def getSpent(k: K)(using ExecutionContext): Fu[Entry] =
+    coll.one[Entry]($id(makeDbKey(k))) map {
+      case Some(v) => v
+      case _       => Entry(k.toString(), 0, makeClearAt)
+    }
 
   def apply[A](k: K, cost: Cost = 1, msg: => String = "")(
       op: => Fu[A]

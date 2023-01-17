@@ -1,6 +1,8 @@
 package lila.app
 package mashup
 
+import concurrent.duration.DurationInt
+
 import lila.forum.MiniForumPost
 import lila.team.{ Request, RequestRepo, RequestWithUser, Team, TeamApi }
 import lila.tournament.{ Tournament, TournamentApi }
@@ -16,7 +18,9 @@ case class TeamInfo(
     requests: List[RequestWithUser],
     forum: Option[List[MiniForumPost]],
     tours: TeamInfo.PastAndNext,
-    simuls: Seq[Simul]
+    simuls: Seq[Simul],
+    pmAllsLeft: Int,
+    pmAllsRefresh: org.joda.time.DateTime
 ):
 
   def hasRequests = requests.nonEmpty
@@ -43,10 +47,18 @@ final class TeamInfoApi(
     tourApi: TournamentApi,
     swissApi: SwissApi,
     simulApi: SimulApi,
-    requestRepo: RequestRepo
+    requestRepo: RequestRepo,
+    mongoRateLimitApi: lila.memo.MongoRateLimitApi
 )(using ec: scala.concurrent.ExecutionContext):
 
   import TeamInfo.*
+
+  val pmAllCost = 5
+  lazy val pmAllLimiter = mongoRateLimitApi[TeamId](
+    "team.pm.all",
+    credits = 7 * pmAllCost,
+    duration = 7.days
+  )
 
   def apply(team: Team, me: Option[User], withForum: Boolean => Boolean): Fu[TeamInfo] =
     for {
@@ -57,6 +69,7 @@ final class TeamInfoApi(
       forumPosts <- withForum(mine) ?? forumRecent(team.id).dmap(some)
       tours      <- tournaments(team, 5, 5)
       simuls     <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
+      entry      <- pmAllLimiter.getSpent(team.id)
     } yield TeamInfo(
       mine = mine,
       ledByMe = me.exists(m => team.leaders(m.id)),
@@ -65,7 +78,9 @@ final class TeamInfoApi(
       requests = requests,
       forum = forumPosts,
       tours = tours,
-      simuls = simuls
+      simuls = simuls,
+      pmAllsLeft = if me.exists(m => team.leaders(m.id)) then 7 - entry.v / pmAllCost else 0,
+      pmAllsRefresh = entry.e
     )
 
   def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =
