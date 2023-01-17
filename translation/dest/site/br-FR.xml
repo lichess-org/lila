@@ -63,6 +63,7 @@
   <string name="usingServerAnalysis">O tielfennañ emañ an urzhiataer</string>
   <string name="loadingEngine">O kargañ ar c\'heflusker...</string>
   <string name="calculatingMoves">O jediñ fiñvadennoù...</string>
+  <string name="engineFailed">Ur gudenn zo bet</string>
   <string name="cloudAnalysis">Dielfennañ er goumoulenn</string>
   <string name="goDeeper">Mont pelloc\'h</string>
   <string name="showThreat">Diskouez ar gourdrouz</string>
@@ -232,7 +233,13 @@
   <string name="email">Postel</string>
   <string name="passwordReset">Adderaouekaat ar ger-tremen</string>
   <string name="forgotPassword">Disoñjet hoc\'h eus ho ker-tremen?</string>
+  <string name="usernameCanBeUsedForNewAccount">Gallout a rit ober gant an anv implijer-mañ evit krouiñ ur gont nevez</string>
   <string name="emailSent">Kaset hon eus ur postel da %s.</string>
+  <string name="emailCanTakeSomeTime">Marteze ne vo ket resevet diouzhtu-dak.</string>
+  <string name="refreshInboxAfterFiveMinutes">Gortozit pemp munutenn ha freskait ho pajenn goude-se.</string>
+  <string name="checkSpamFolder">Taolit ur sell en ho strobelloù e ken kas. Ma c\'hoarvez seul taol ganeoc\'h e vo dav resisaat n\'eo ket ur strobell.</string>
+  <string name="emailForSignupHelp">Kasit deomp ar postel-mañ ma n\'oc\'h ket deuet a-benn:</string>
+  <string name="copyTextToEmail">Eilit ha pegit an destennig ha kasit anezhi da %s</string>
   <string name="accountCanLogin">Gallout a rit kevreañ dindan an anv %s.</string>
   <string name="accountClosed">Serr eo ar gont %s.</string>
   <string name="rank">Renk</string>
