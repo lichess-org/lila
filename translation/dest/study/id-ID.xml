@@ -59,6 +59,8 @@
   <string name="studyPgn">Studi PGN</string>
   <string name="downloadAllGames">Unduh semua permainan</string>
   <string name="chapterPgn">Bab PGN</string>
+  <string name="copyChapterPgn">Salin PGN</string>
+  <string name="copyChapterPgnDescription">Salin PGN ke clipboard.</string>
   <string name="downloadGame">Unduh permainan</string>
   <string name="studyUrl">URL studi</string>
   <string name="currentChapterUrl">URL Bab saat ini</string>

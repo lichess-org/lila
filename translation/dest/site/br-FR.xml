@@ -97,6 +97,7 @@
   </plurals>
   <string name="noGameFound">Krogad ebet kavet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Degemer muioc\'h a grogadoù o tont eus lañser an dibaboù?</string>
+  <string name="openings">Digoradurioù</string>
   <string name="openingExplorer">Furcher an digoradurioù</string>
   <string name="openingEndgameExplorer">Ergerzher digoradur/dibenn-partienn</string>
   <string name="xOpeningExplorer">furcher an digoradurioù %s</string>
@@ -153,6 +154,7 @@
   <string name="viewInFullSize">Brasaat</string>
   <string name="logOut">Digevreañ</string>
   <string name="signIn">Kevreañ</string>
+  <string name="rememberMe">Chom a rin kevreet</string>
   <string name="youNeedAnAccountToDoThat">Ezhomm ho peus da gaout ur gont evit hen ober</string>
   <string name="signUp">Lakaat e anv</string>
   <string name="computersAreNotAllowedToPlay">Urzhiataerioù ha c\'hoarierien sikouret gant un urzhiataer n\'int ket aotreet da c\'hoari. Na vezit ket skoazellet gant mekanikoù, diaz roadennoù pe c\'hoarierien all pa vezit o c\'hoari. Ne aliomp ket ac\'hanoc\'h da gaout kalz kontoù kennebeut. M\'ho peus re a gontoù e veoc\'h forbannet.</string>
@@ -201,6 +203,7 @@
   <string name="email">Postel</string>
   <string name="passwordReset">Adderaouekaat ar ger-tremen</string>
   <string name="forgotPassword">Disoñjet hoc\'h eus ho ker-tremen?</string>
+  <string name="emailSent">Kaset hon eus ur postel da %s.</string>
   <string name="rank">Renk</string>
   <string name="rankX">Renk: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -908,11 +911,14 @@
   <string name="youAreNowPartOfTeam">Ezel eus ar skipailh oc’h bremañ.</string>
   <string name="someoneYouReportedWasBanned">Skarzhet eo bet kuit unan bennak ho peus savet klemm outañ</string>
   <string name="congratsYouWon">Gourc’hemennoù, aet eo ar maout ganeoc’h!</string>
+  <string name="resVsX">%1$s a-enep %2$s</string>
+  <string name="timeAlmostUp">Ne chom ket kalz amzer!</string>
   <string name="clickToRevealEmailAddress">[Klikit da ziskouez ar chomlec’h postel]</string>
   <string name="download">Pellgargañ</string>
   <string name="welcome">Degemer mat!</string>
   <string name="cancelTournament">Nullañ an tournamant</string>
   <string name="onlyMembersOfTeam">Izili ar skipailh hepken</string>
+  <string name="onlyTitled">C\'hoarierien titlet hepken</string>
   <string name="reopenYourAccount">Addigeriñ ho kont</string>
   <string name="closedAccountChangedMind">M\'ho peus serret ho kont, met cheñchet ho soñj ganeoc\'h, ho peus un tu da gaout ho kont en dro.</string>
   <string name="onlyWorksOnce">Ur wech e yelo en dro an dra se nemetken.</string>
@@ -920,4 +926,9 @@
   <string name="emailAssociatedToaccount">Postel liammet ouzh ar gont</string>
   <string name="sentEmailWithLink">Ur postel gant ul liamm \'zo bet kaset deoc\'h.</string>
   <string name="tournamentEntryCode">Kod mont e-barzh an tournamant</string>
+  <string name="abortTheGame">Nullañ ar c\'hrogad</string>
+  <string name="youCantStartNewGame">Ne c\'haller ket kregiñ gant ur c\'hrogad all keit ha ma ne vo ket echu gant ar c\'hrogad-mañ.</string>
+  <string name="since">Adalek</string>
+  <string name="until">Betek</string>
+  <string name="switchSides">Cheñch tu</string>
 </resources>
