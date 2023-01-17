@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Tournamantoù suis</string>
+  <string name="tournDuration">Padelezh an tournamant</string>
+  <string name="numberOfGames">Niver a grogadoù</string>
+  <string name="identicalForbidden">Difennet</string>
+  <string name="lateJoin">Kemer perzh gant dale</string>
+  <string name="pause">Ehan</string>
+  <string name="similarToOTB">Damheñvel ouzh an tournamantoù ezlinenn (OTB)</string>
+  <string name="unlimitedAndFree">Didermen ha digoust</string>
 </resources>
