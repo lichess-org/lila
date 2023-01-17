@@ -40,7 +40,7 @@ object TutorNumber:
     def grade(a: AccuracyPercent, b: AccuracyPercent) = Grade.percent(a, b)
   given TutorNumber[IntRating] with
     val iso = Iso.double[IntRating](d => IntRating(roundToInt(d)), _.value.toDouble)
-    def grade(a: IntRating, b: IntRating) = Grade((a.value - b.value) / 150)
+    def grade(a: IntRating, b: IntRating) = Grade((a.value - b.value) / 150d)
   given TutorNumber[ClockPercent] with
     val iso = Iso.double[ClockPercent](ClockPercent.fromPercent(_), _.value)
     def grade(a: ClockPercent, b: ClockPercent) = Grade.percent(a, b)
