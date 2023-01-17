@@ -80,7 +80,8 @@ case class TutorPerfReport(
 
   val clockCompares = List(globalPressureCompare, timeUsageCompare)
 
-  def openingCompares: List[TutorCompare[LilaOpeningFamily, ?]] = openings.all.toList.flatMap { op =>
+  def openingCompares: List[TutorCompare[LilaOpeningFamily, ?]] = Color.all.flatMap { color =>
+    val op = openings(color)
     List(op.accuracyCompare, op.awarenessCompare, op.performanceCompare)
   }
 
