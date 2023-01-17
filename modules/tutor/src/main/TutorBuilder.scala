@@ -113,7 +113,7 @@ final private class TutorBuilder(
       .map(_.toList.flatten)
       .addEffect { matches =>
         perfs.keys.foreach { pt =>
-          lila.mon.tutor.peerMatch(matches.exists(_.perf == pt))
+          lila.mon.tutor.peerMatch(matches.exists(_.perf == pt)).increment()
         }
       }
 
