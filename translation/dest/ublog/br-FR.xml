@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">Blog %s</string>
+  <string name="xPublishedY">%2$s zo bet embannet gant %1$s</string>
+  <string name="deleteImage">Dilemel ar skeudenn</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Un nebeud alioù fur da skrivañ traoù kaer en ho plog</string>
+</resources>
