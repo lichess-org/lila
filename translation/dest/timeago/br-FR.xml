@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="justNow">bremañ</string>
+  <string name="rightNow">bremañ</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s eilenn zo</item>
+    <item quantity="two">%s eilenn zo</item>
+    <item quantity="few">%s eilennoù zo</item>
+    <item quantity="many">%s eilennoù zo</item>
+    <item quantity="other">%s eilennoù zo</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s bloaz zo</item>
+    <item quantity="two">%s vloaz zo</item>
+    <item quantity="few">%s bloavezhioù zo</item>
+    <item quantity="many">%s bloavezhioù zo</item>
+    <item quantity="other">%s bloavezhioù zo</item>
+  </plurals>
+</resources>

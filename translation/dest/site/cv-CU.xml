@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">Машшинпа выльа</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Пӗр-пӗр ҫынпа выљас тесен, каҫҫине йар</string>
   <string name="gameOver">Вӑйӑ вӗҫленчӗ</string>
-  <string name="waitingForOpponent">Ӑмӑртуҫсене кӗтсе тӑни</string>
+  <string name="waitingForOpponent">Ӑмӑртуҫа кӗтсе тӑни</string>
   <string name="waiting">Кӗтсе тӑни</string>
   <string name="yourTurn">Санӑн куҫармалла</string>
   <string name="aiNameLevelAiLevel">%1$s шайӗ: %2$s</string>
@@ -31,6 +31,9 @@
   <string name="joinTheGame">Вӑййине хутшӑн</string>
   <string name="whitePlays">Шуррисен ҫӳремелле</string>
   <string name="blackPlays">Хурисен ҫӳремелле</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">Ӑмӑртуҫу вӑййинчен тухнӑ. %s ҫеккунтран ҫӗнтерӳ пирки пӗлтерме пултаратӑн.</item>
+  </plurals>
   <string name="opponentLeftChoices">Тепӗр вӑйӑҫ вӑййинчен тухнӑ пек турӗ. Ҫӗнтерӳ, парма-пар ҫинчен пӗлтер йе кӗтсе тӑр.</string>
   <string name="forceResignation">Ҫӗнтерӳ пирки пӗлтер</string>
   <string name="forceDraw">Парма-пар пирки пӗлтер</string>

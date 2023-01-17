@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Poelladennoù</string>
+  <string name="goals">Palioù</string>
+  <string name="origin">Mammenn</string>
+  <string name="didYouLikeThisPuzzle">Ha plijet oc\'h bet gant ar boelladenn-mañ?</string>
+  <string name="voteToLoadNextOne">Votit evit kaout unan all!</string>
+  <string name="keepGoing">Kendalc\'hit…</string>
+  <string name="puzzleSuccess">Deuet eo ganeoc\'h!</string>
+  <string name="hidden">kuzhet</string>
+  <string name="continueTraining">Kenderc\'hel gant ar pleustriñ</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Aesoc\'h</string>
+  <string name="easiest">Aesañ</string>
+  <string name="harder">Startoc\'h</string>
+  <string name="hardest">Startañ</string>
+  <string name="example">Skouer</string>
+  <string name="nextPuzzle">Poelladenn nesañ</string>
+  <string name="jumpToNextPuzzleImmediately">Cheñch poelladenn diouzhtu</string>
+  <string name="failed">n\'eo ket mat</string>
+  <string name="improvementAreasDescription">Pleustrit war ar re-mañ evit mont war-raok!</string>
+</resources>
