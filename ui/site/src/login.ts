@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
 import { storedJsonProp } from 'common/storage';
-import { objectStorage, ObjectStorage } from 'common/objectStorage';
+import { objectStorage } from 'common/objectStorage';
 
 import type * as PasswordComplexity from './passwordComplexity';
 
@@ -19,15 +19,9 @@ class LoginHistory {
   };
 }
 
-export async function loginStart() {
+export function loginStart() {
   const selector = '.auth-login form';
   const history = new LoginHistory();
-  let serviceWorkerParams: ObjectStorage<any>;
-  try {
-    serviceWorkerParams = await objectStorage<any>('service-worker-params');
-  } catch (e) {
-    console.log(e);
-  }
   const toggleSubmit = ($submit: Cash, v: boolean) => $submit.prop('disabled', !v).toggleClass('disabled', !v);
 
   (function load() {
@@ -49,10 +43,14 @@ export async function loginStart() {
     form.addEventListener('submit', async (e: Event) => {
       e.preventDefault();
       const username = $f.find('input[name=username]').val() as string;
-      $f.find('input[name=remember]').prop('checked')
-        ? serviceWorkerParams?.remove(username)
-        : serviceWorkerParams?.put(username, { onlyNotifyWindow: true });
-
+      try {
+        const serviceWorkerParams = await objectStorage<any>('service-worker-params');
+        $f.find('input[name=remember]').prop('checked')
+          ? serviceWorkerParams?.remove(username)
+          : serviceWorkerParams?.put(username, { onlyNotifyWindow: true });
+      } catch (e) {
+        console.log(e);
+      }
       toggleSubmit($f.find('.submit'), false);
       fetch(form.action, {
         ...xhr.defaultInit,

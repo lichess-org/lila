@@ -168,7 +168,7 @@ lichess.load.then(() => {
           body: e.data.body,
           tag: e.data.tag,
           data: e.data.payload,
-          requireInteraction: true,
+          requireInteraction: false, // don't make them close it, they're already here
         });
       }
     });
