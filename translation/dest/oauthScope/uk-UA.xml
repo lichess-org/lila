@@ -5,4 +5,7 @@
   <string name="carefullySelect">Обережно оберіть те, що дозволено робити від вашого імені.</string>
   <string name="tokenDescription">Опис токену</string>
   <string name="rememberTokenUse">Пам\'ятайте для чого цей токен</string>
+  <string name="whatTheTokenCanDo">Що токен може робити від вашого імені:</string>
+  <string name="copyTokenNow">Переконайтеся, що ви скопіювали ваш токен. Ви не зможете побачити його ще раз!</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Переглядати налаштування</string>
 </resources>
