@@ -30,7 +30,7 @@ export default function resizeHandle(els: cg.Elements, pref: Prefs.ShowResizeHan
 
       zoom = Math.round(Math.min(100, Math.max(0, initialZoom + delta / 10)));
 
-      document.body.setAttribute('style', '--zoom:' + zoom);
+      document.body.style.setProperty('--zoom', zoom.toString());
       window.dispatchEvent(new Event('resize'));
 
       saveZoom();
