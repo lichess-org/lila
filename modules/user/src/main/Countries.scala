@@ -85,6 +85,7 @@ object Countries:
     C("ES", "Spain"),
     C("ES-CT", "Catalonia"),
     C("ES-EU", "Basque Country"),
+    C("ES-GA", "Galicia"),
     C("ET", "Ethiopia"),
     C("FI", "Finland"),
     C("FJ", "Fiji"),
