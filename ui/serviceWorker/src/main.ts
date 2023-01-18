@@ -1,15 +1,26 @@
-export {}; // for tsc isolatedModules
+import { objectStorage } from 'common/objectStorage';
 
 const searchParams = new URL(self.location.href).searchParams;
 const assetBase = new URL(searchParams.get('asset-url')!, self.location.href).href;
+const sameOrigin = new BroadcastChannel('lichess.org');
 
 function assetUrl(path: string): string {
   return `${assetBase}assets/${path}`;
 }
 
-self.addEventListener('push', event => {
+self.addEventListener('push', async event => {
   const data = event.data!.json();
-  return event.waitUntil(
+  try {
+    const uid = data.payload.userId;
+    const params = uid && (await (await objectStorage<any>('service-worker-params'))?.get(uid));
+    if (params?.onlyNotifyWindow) {
+      sameOrigin.postMessage(data);
+      return;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+  event.waitUntil(
     self.registration.showNotification(data.title, {
       badge: assetUrl('logo/lichess-mono-128.png'),
       icon: assetUrl('logo/lichess-favicon-192.png'),

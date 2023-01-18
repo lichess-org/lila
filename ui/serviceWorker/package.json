@@ -8,6 +8,7 @@
   "dependencies": {
     "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
+    "common": "workspace:*",
     "types-serviceworker": "^0.0.1"
   },
   "scripts": {

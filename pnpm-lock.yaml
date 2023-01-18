@@ -539,10 +539,12 @@ importers:
     specifiers:
       '@types/cash': workspace:*
       '@types/lichess': workspace:*
+      common: workspace:*
       types-serviceworker: ^0.0.1
     dependencies:
       '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
+      common: link:../common
       types-serviceworker: 0.0.1
 
   ui/simul:

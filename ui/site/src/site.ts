@@ -156,6 +156,22 @@ lichess.load.then(() => {
     agreement();
 
     serviceWorker();
+    // we must listen on a same origin broadcast channel for notifications redirected from
+    // service worker for privacy reasons.  http://github.com/lichess-org/lila/issues/12193
+    new BroadcastChannel('lichess.org').addEventListener('message', (e: MessageEvent) => {
+      const forUser = e.data.payload.userId;
+      const me = document.body.getAttribute('data-user');
+      if (me && (!forUser || forUser == me)) {
+        new Notification(e.data.title, {
+          badge: lichess.assetUrl('logo/lichess-mono-128.png'),
+          icon: lichess.assetUrl('logo/lichess-favicon-192.png'),
+          body: e.data.body,
+          tag: e.data.tag,
+          data: e.data.payload,
+          requireInteraction: true,
+        });
+      }
+    });
 
     // socket default receive handlers
     pubsub.on('socket.in.redirect', (d: RedirectTo) => {
