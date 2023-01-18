@@ -291,7 +291,7 @@ export default class AnalyseCtrl {
     });
   }
 
-  getDests: () => void = throttle(800, () => {
+  private getDests: () => void = throttle(800, () => {
     if (!this.embed && !defined(this.node.dests))
       this.socket.sendAnaDests({
         variant: this.data.game.variant.key,
