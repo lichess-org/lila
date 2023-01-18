@@ -83,6 +83,7 @@ object Countries:
     C("EH", "Western Sahara"),
     C("ER", "Eritrea"),
     C("ES", "Spain"),
+    C("ES-AN", "Andalusia"),
     C("ES-CT", "Catalonia"),
     C("ES-EU", "Basque Country"),
     C("ES-GA", "Galicia"),
