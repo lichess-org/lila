@@ -973,7 +973,11 @@
   <string name="onlyMembersOfTeam">Izili ar skipailh hepken</string>
   <string name="onlyTitled">C\'hoarierien titlet hepken</string>
   <string name="simulHostcolor">Liv an ostiz evit pep krogad</string>
+  <string name="simulDescriptionHelp">Un dra bennak da lâret d\'ar re a gemero perzh?</string>
   <string name="noChat">Flap ebet</string>
+  <string name="onlyTeamLeaders">Mistri ar skipailh hepken</string>
+  <string name="onlyTeamMembers">Izili ar skipailh hepken</string>
+  <string name="mouseTricks">Gant al logodenn</string>
   <string name="analysisOptions">Optionoù dielfennañ</string>
   <string name="focusChat">Ar flap da gentañ</string>
   <string name="reopenYourAccount">Addigeriñ ho kont</string>
