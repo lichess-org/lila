@@ -20,7 +20,7 @@ export default function () {
       .then(reg => {
         const store = storage.make('push-subscribed');
         const vapid = document.body.getAttribute('data-vapid');
-        if (vapid && Notification.permission == 'granted')
+        if (vapid && Notification.permission == 'granted') {
           reg.pushManager.getSubscription().then(sub => {
             const resub = parseInt(store.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
             const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
@@ -49,7 +49,10 @@ export default function () {
                 );
             }
           });
-        else store.remove();
+        } else {
+          store.remove();
+          reg.pushManager.getSubscription().then(sub => sub?.unsubscribe());
+        }
       });
   }
 }
