@@ -128,21 +128,21 @@
     <item quantity="two">%s vourd</item>
     <item quantity="few">%s bourd</item>
     <item quantity="many">%s bourd</item>
-    <item quantity="other">%s a vourdoù</item>
+    <item quantity="other">%s bourd</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s fazi</item>
     <item quantity="two">%s fazi</item>
     <item quantity="few">%s fazi</item>
     <item quantity="many">%s fazi</item>
-    <item quantity="other">%s a fazioù</item>
+    <item quantity="other">%s fazi</item>
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s diresisted</item>
     <item quantity="two">%s ziresisted</item>
     <item quantity="few">%s diresisted</item>
     <item quantity="many">%s diresisted</item>
-    <item quantity="other">%s a ziresistedoù</item>
+    <item quantity="other">%s diresisted</item>
   </plurals>
   <string name="moveTimes">Amzer dre fiñvadenn</string>
   <string name="flipBoard">Cheñch tu an dablez c\'hoari</string>
@@ -740,6 +740,7 @@
   <string name="tournamentFAQ">FAG aren an tournamant</string>
   <string name="timeBeforeTournamentStarts">Ar pezh a chom a-raok ma krogfe an tournamant</string>
   <string name="averageCentipawnLoss">Koll keitat e sentipawn</string>
+  <string name="accuracy">Resisted</string>
   <string name="keyboardShortcuts">Berradennoù an douchennaoueg</string>
   <string name="keyMoveBackwardOrForward">mont war-raok/kilañ</string>
   <string name="keyGoToStartOrEnd">mont d\'an deroù/d\'ar fin</string>
@@ -880,7 +881,7 @@
   <string name="waitingForAnalysis">O c\'hortoz an dielfennañ</string>
   <string name="noMistakesFoundForWhite">Fazi ebet a-berzh ar re wenn</string>
   <string name="noMistakesFoundForBlack">Fazi ebet a-berzh ar re zu</string>
-  <string name="doneReviewingWhiteMistakes">Echu gant an deskiñ diouizh fazioù ar re wenn</string>
+  <string name="doneReviewingWhiteMistakes">Echu gant an deskiñ diouzh fazioù ar re wenn</string>
   <string name="doneReviewingBlackMistakes">Echu gant an deskiñ diouzh fazioù ar re zu</string>
   <string name="doItAgain">Klask en-dro</string>
   <string name="reviewWhiteMistakes">Studiañ fazioù ar re wenn</string>

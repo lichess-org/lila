@@ -354,7 +354,7 @@ object mod:
         reports.by.map { r =>
           r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
             postForm(action := reportRoutes.inquiry(r.id))(
-              submitButton(reportScore(r.score), " ", strong(r.reason.name)),
+              reportSubmitButton(r),
               " ",
               userIdLink(r.user.some),
               " ",
@@ -372,7 +372,7 @@ object mod:
         ),
         reports.about.map { r =>
           postForm(action := reportRoutes.inquiry(r.id))(
-            submitButton(reportScore(r.score), " ", strong(r.reason.name)),
+            reportSubmitButton(r),
             div(cls := "atoms")(
               r.bestAtoms(3).map { atom =>
                 div(cls := "atom")(
@@ -810,6 +810,14 @@ object mod:
       case (nb, tag) if nb > 4 => frag(List.fill(3)(tag), "+", nb - 3)
       case (nb, tag) if nb > 0 => frag(List.fill(nb)(tag))
     }
+
+  private def reportSubmitButton(r: lila.report.Report)(using lang: Lang) =
+    submitButton(
+      title := (if (r.open) { "open" }
+                else {
+                  s"closed: ${r.done.fold("no data")(done => s"by ${done.by} at ${showDateTimeUTC(done.at)}")}"
+                })
+    )(reportScore(r.score), " ", strong(r.reason.name))
 
   def userMarks(o: User, playbans: Option[Int]) =
     div(cls := "user_marks")(

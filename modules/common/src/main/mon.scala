@@ -529,7 +529,7 @@ object mon:
       def in(platform: String) = counter("push.register").withTag("platform", platform)
       val out                  = counter("push.register.out").withoutTags()
     object send:
-      private def send(tpe: String)(platform: String, success: Boolean): Unit =
+      private def send(tpe: String)(platform: String, success: Boolean, count: Int = 1): Unit =
         counter("push.send")
           .withTags(
             tags(
@@ -538,7 +538,7 @@ object mon:
               "success"  -> successTag(success)
             )
           )
-          .increment()
+          .increment(count)
         ()
       val move         = send("move")
       val takeback     = send("takeback")
