@@ -51,9 +51,11 @@ object BSONHandlers:
   given tourHandler: BSON[Tournament] with
     def reads(r: BSON.Reader) =
       val variant = Variant.idOrDefault(r.getO[Variant.Id]("variant"))
-      val position: Option[Fen.Epd] =
-        r.getO[Fen.Epd]("fen").filterNot(_.isInitial) orElse
-          r.strO("eco").flatMap(Thematic.byEco).map(_.fen) // for BC
+      val position: Option[Fen.Opening] =
+        r.getO[Fen.Epd]("fen")
+          .map(_.opening: Fen.Opening)
+          .filter(_ != Fen.Opening.initial) orElse
+          r.getO[chess.opening.Eco]("eco").flatMap(Thematic.byEco).map(_.fen) // for BC
       val startsAt   = r date "startsAt"
       val conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty
       Tournament(

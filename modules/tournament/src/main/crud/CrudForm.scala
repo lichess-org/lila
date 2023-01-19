@@ -84,7 +84,7 @@ object CrudForm:
 
     def realVariant = Variant orDefault variant
 
-    def realPosition = position ifTrue realVariant.standard
+    def realPosition: Option[Fen.Opening] = position.ifTrue(realVariant.standard).map(_.opening)
 
     def validClock = (clockTime + clockIncrement.value) > 0
 
