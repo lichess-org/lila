@@ -579,15 +579,15 @@ object JsonView:
     )
   }
 
-  private[tournament] def positionJson(fen: Fen.Epd): JsObject =
+  private[tournament] def positionJson(fen: Fen.Opening): JsObject =
     Thematic.byFen(fen) match
       case Some(pos) =>
         Json
           .obj(
-            "eco"      -> pos.eco,
-            "name"     -> pos.name,
-            "wikiPath" -> pos.wikiPath,
-            "fen"      -> pos.fen
+            "eco"  -> pos.eco,
+            "name" -> pos.name,
+            "fen"  -> pos.fen,
+            "url"  -> pos.url
           )
       case None =>
         Json
