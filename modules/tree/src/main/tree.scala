@@ -132,7 +132,7 @@ object Node:
       case Lichess
       case Unknown
 
-      def sameAs(other: Author) = (this, other) match
+      def is(other: Author) = (this, other) match
         case (User(a, _), User(b, _)) => a == b
         case _                        => this == other
     def sanitize(text: String) = Text {
@@ -147,11 +147,11 @@ object Node:
   opaque type Comments = List[Comment]
   object Comments extends TotalWrapper[Comments, List[Comment]]:
     extension (a: Comments)
-      def findBy(author: Comment.Author) = a.value.find(_.by == author)
+      def findBy(author: Comment.Author) = a.value.find(_.by is author)
       def set(comment: Comment): Comments = {
-        if (a.value.exists(_.by.sameAs(comment.by))) a.value.map {
-          case c if c.by.sameAs(comment.by) => c.copy(text = comment.text, by = comment.by)
-          case c                            => c
+        if (a.value.exists(_.by.is(comment.by))) a.value.map {
+          case c if c.by.is(comment.by) => c.copy(text = comment.text, by = comment.by)
+          case c                        => c
         }
         else a.value :+ comment
       }
