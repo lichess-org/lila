@@ -80,7 +80,7 @@ final private class TournamentScheduler(
 
     val isHalloween = today.getDayOfMonth == 31 && today.getMonthOfYear == OCTOBER
 
-    def opening(offset: Int) =
+    def openingAt(offset: Int): StartingPosition =
       val positions = StartingPosition.featurable
       positions((today.getDayOfYear + offset) % positions.size)
 
@@ -314,22 +314,27 @@ Thank you all, you rock!""",
         at(today, 7) map { date =>
           Schedule(Eastern, Rapid, Standard, none, date pipe orTomorrow).plan
         }
-      ).flatten,
-      (if (isHalloween) // replace more thematic tournaments on halloween
-         List(
-           1  -> StartingPosition.presets.halloween,
-           5  -> StartingPosition.presets.frankenstein,
-           9  -> StartingPosition.presets.halloween,
-           13 -> StartingPosition.presets.frankenstein,
-           17 -> StartingPosition.presets.halloween,
-           21 -> StartingPosition.presets.frankenstein
-         )
-       else
-         List( // random opening replaces hourly 3 times a day
-           3  -> opening(offset = 2),
-           11 -> opening(offset = 1),
-           19 -> opening(offset = 0)
-         )).flatMap { case (hour, opening) =>
+      ).flatten, {
+        {
+          for
+            halloween    <- StartingPosition.presets.halloween
+            frankenstein <- StartingPosition.presets.frankenstein
+            if isHalloween // replace more thematic tournaments on halloween
+          yield List(
+            1  -> halloween,
+            5  -> frankenstein,
+            9  -> halloween,
+            13 -> frankenstein,
+            17 -> halloween,
+            21 -> frankenstein
+          )
+        } |
+          List( // random opening replaces hourly 3 times a day
+            3  -> openingAt(offset = 2),
+            11 -> openingAt(offset = 1),
+            19 -> openingAt(offset = 0)
+          )
+      }.flatMap { (hour, opening) =>
         List(
           at(today, hour) map { date =>
             Schedule(Hourly, Bullet, Standard, opening.fen.some, date pipe orTomorrow).plan

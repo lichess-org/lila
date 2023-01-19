@@ -5,12 +5,12 @@ import scala.concurrent.duration.*
 final class RelayMarkup:
 
   private val renderer = lila.common.MarkdownRender(
-      autoLink = true,
-      list = true,
-      table = true,
-      strikeThrough = true,
-      header = true
-    )
+    autoLink = true,
+    list = true,
+    table = true,
+    strikeThrough = true,
+    header = true
+  )
 
   private val cache = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(20 minutes)

@@ -13,7 +13,7 @@ case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
-    position: Option[Fen.Epd],
+    position: Option[Fen.Opening],
     at: DateTime,
     conditions: Condition.All = Condition.All.empty
 ):
@@ -74,7 +74,7 @@ case class Schedule(
         case (_, Some(max))         => s"≤${max.rating} ${speed.trans}"
     else if (variant.standard)
       val n = position.flatMap(Thematic.byFen).fold(speed.trans) { pos =>
-        s"${pos.shortName} ${speed.trans}"
+        s"${pos.family.name} ${speed.trans}"
       }
       if (full) xArena.txt(n) else n
     else
