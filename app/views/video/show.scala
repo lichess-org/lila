@@ -38,7 +38,7 @@ object show:
             frame.allowfullscreen
           )
         ),
-        h1(cls  := "box__pad")(
+        h1(cls := "box__pad")(
           a(cls := "is4 text", dataIcon := "", href := s"${routes.Video.index}?${control.queryString}"),
           video.title
         ),

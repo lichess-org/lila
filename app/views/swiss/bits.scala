@@ -81,7 +81,7 @@ object bits:
         else trans.swiss.xMinutesBetweenRounds.pluralSame(s.settings.intervalSeconds / 60)
 
   def homepageSpotlight(s: Swiss)(implicit ctx: Context) =
-    a(href                     := routes.Swiss.show(s.id), cls := "tour-spotlight little")(
+    a(href := routes.Swiss.show(s.id), cls := "tour-spotlight little")(
       iconTag(iconChar(s))(cls := "img icon"),
       span(cls := "content")(
         span(cls := "name")(s.name, " Swiss"),
