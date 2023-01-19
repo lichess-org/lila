@@ -50,6 +50,7 @@
   <string name="skipExplanation">이 수를 건너뛰고 콤보 기록을 보존하세요! 한 레이스에 한 번만 가능합니다.</string>
   <string name="failedPuzzles">실패한 퍼즐</string>
   <string name="slowPuzzles">느린 퍼즐</string>
+  <string name="skippedPuzzle">건너뛴 퍼즐</string>
   <string name="thisWeek">이번 주</string>
   <string name="thisMonth">이번 달</string>
   <string name="allTime">모든 기간</string>
