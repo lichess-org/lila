@@ -584,11 +584,11 @@ object JsonView:
       case Some(pos) =>
         Json
           .obj(
-            "eco"      -> pos.eco,
-            "name"     -> pos.name,
-            "wikiPath" -> pos.wikiPath,
-            "fen"      -> pos.fen
+            "eco"  -> pos.eco,
+            "name" -> pos.name,
+            "fen"  -> pos.fen
           )
+          .add("url", pos.url)
       case None =>
         Json
           .obj(
