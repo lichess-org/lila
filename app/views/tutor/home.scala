@@ -27,6 +27,10 @@ object home:
               full.report.nbGames.localize,
               " recent rated games of yours."
             )
+          ),
+          p("Let's compare your play style to your peers: players with a rating very similar to yours."),
+          p(
+            "It should give us some idea about what your strengths are, and where you have room for improvement."
           )
         )
       },
@@ -63,12 +67,23 @@ object home:
             perfReport.perf.trans,
             " games"
           ),
-          report percentTimeOf perfReport.perf map { percent =>
-            div(cls := "tutor-card__top__title__sub")(
-              bits.percentFrag(percent),
-              " of your chess playing time."
+          div(cls := "tutor-card__top__title__sub")(
+            p(
+              report percentTimeOf perfReport.perf map { percent =>
+                frag(
+                  bits.percentFrag(percent),
+                  " of your chess playing time.",
+                  br
+                )
+              },
+              frag(
+                "Average rating: ",
+                strong(perfReport.stats.rating),
+                ". Peers rating: ",
+                strong(perfReport.stats.peers.showRatingRange)
+              )
             )
-          }
+          )
         )
       ),
       div(cls := "tutor-card__content")(

@@ -17,7 +17,7 @@ object Dependencies {
   val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.1.1"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.2"
-  val chess       = "org.lichess"                  %% "scalachess"                      % "13.2.5"
+  val chess       = "org.lichess"                  %% "scalachess"                      % "14.1.0"
   val compression = "org.lichess"                  %% "compression"                     % "1.8"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "3.0.2"
   val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-1"
@@ -33,6 +33,7 @@ object Dependencies {
   val uaparser    = "org.uaparser"               %% "uap-scala"    % "0.14.0"
   val apacheText  = "org.apache.commons"          % "commons-text" % "1.10.0"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter" % "0.13.1_lila-1"
+  val breeze      = "org.scalanlp"               %% "breeze"       % "2.1.0"
 
   object specs2 {
     val version = "5.2.0"

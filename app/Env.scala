@@ -134,6 +134,7 @@ final class Env(
     default = false,
     text = "Use external piece images".some
   )
+  lazy val rateLimitApi = memo.mongoRateLimitApi
 
   lazy val preloader     = wire[mashup.Preload]
   lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]

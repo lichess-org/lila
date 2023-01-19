@@ -75,13 +75,8 @@ object show:
                 case Some("black") => trans.black()
                 case _             => trans.randomColor()
               }),
-              sim.position.flatMap(lila.tournament.Thematic.byFen) map { pos =>
-                frag(
-                  br,
-                  a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
-                  " • ",
-                  views.html.base.bits.fenAnalysisLink(pos.fen)
-                )
+              sim.position.flatMap(p => lila.tournament.Thematic.byFen(p.opening)) map { pos =>
+                frag(br, a(targetBlank, href := pos.url)(pos.name))
               } orElse sim.position.map { fen =>
                 frag(
                   br,

@@ -21,7 +21,7 @@ final private class TutorFishnet(
 
   def maxToAnalyse       = config.Max(nbAnalysis.get())
   def maxGamesToConsider = config.Max(maxToAnalyse.value * 2)
-  val maxTime            = 5 minutes
+  val maxTime            = 5.minutes
 
   val sender = Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
 

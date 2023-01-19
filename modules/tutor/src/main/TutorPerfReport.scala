@@ -80,7 +80,8 @@ case class TutorPerfReport(
 
   val clockCompares = List(globalPressureCompare, timeUsageCompare)
 
-  def openingCompares: List[TutorCompare[LilaOpeningFamily, ?]] = openings.all.toList.flatMap { op =>
+  def openingCompares: List[TutorCompare[LilaOpeningFamily, ?]] = Color.all.flatMap { color =>
+    val op = openings(color)
     List(op.accuracyCompare, op.awarenessCompare, op.performanceCompare)
   }
 
@@ -103,6 +104,9 @@ case class TutorPerfReport(
     GoodPercent(fam.performance.mine.count, stats.nbGames(color))
 
 private object TutorPerfReport:
+
+  case class PeerMatch(report: TutorPerfReport):
+    export report.*
 
   import TutorBuilder.*
 

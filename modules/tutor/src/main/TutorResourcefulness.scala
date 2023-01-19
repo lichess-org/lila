@@ -29,7 +29,7 @@ object TutorResourcefulness:
       F.analysed -> true,
       F.moves    -> $doc("$elemMatch" -> $doc("w" $lt WinPercent(33.3), "i" $lt -1))
     )
-    val compute = TutorCustomInsight(users, question, "resourcefulness") { docs =>
+    val compute = TutorCustomInsight(users, question, "resourcefulness", _.resourcefulness) { docs =>
       for
         doc  <- docs
         perf <- doc.getAsOpt[PerfType]("_id")

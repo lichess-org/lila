@@ -519,9 +519,10 @@ final class Team(
 
   private def renderPmAll(team: TeamModel, form: Form[?])(implicit ctx: Context) =
     for {
-      tours  <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
-      unsubs <- env.team.cached.unsubs.get(team.id)
-    } yield Ok(html.team.admin.pmAll(team, form, tours, unsubs))
+      tours   <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
+      unsubs  <- env.team.cached.unsubs.get(team.id)
+      limiter <- env.teamInfo.pmAllStatus(team.id)
+    } yield Ok(html.team.admin.pmAll(team, form, tours, unsubs, limiter))
 
   def pmAllSubmit(id: TeamId) =
     AuthOrScopedBody(_.Team.Lead)(
@@ -635,7 +636,10 @@ final class Team(
         err => Left(err),
         msg =>
           Right {
-            PmAllLimitPerTeam[RateLimit.Result](team.id, if (me.isVerifiedOrAdmin) 1 else pmAllCost) {
+            env.teamInfo.pmAllLimiter[RateLimit.Result](
+              team.id,
+              if (me.isVerifiedOrAdmin) 1 else mashup.TeamInfo.pmAllCost
+            ) {
               val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
               val full = s"""$msg
 ---
@@ -654,13 +658,6 @@ You received this because you are subscribed to messages of the team $url."""
             }(RateLimit.Result.Limited)
           }
       )
-
-  private val pmAllCost = 5
-  private val PmAllLimitPerTeam = env.memo.mongoRateLimitApi[lila.team.TeamId](
-    "team.pm.all",
-    credits = 7 * pmAllCost,
-    duration = 7.days
-  )
 
   private def LimitPerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.countCreatedRecently(me) flatMap { count =>

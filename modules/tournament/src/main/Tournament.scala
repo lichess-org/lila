@@ -20,7 +20,7 @@ case class Tournament(
     clock: ClockConfig,
     minutes: Int,
     variant: chess.variant.Variant,
-    position: Option[Fen.Epd],
+    position: Option[Fen.Opening],
     mode: Mode,
     password: Option[String] = None,
     conditions: Condition.All,
@@ -48,7 +48,7 @@ case class Tournament(
 
   def isTeamBattle = teamBattle.isDefined
 
-  def name(full: Boolean = true)(using lang: Lang): String =
+  def name(full: Boolean = true)(using Lang): String =
     if (isMarathon || isUnique) name
     else if (isTeamBattle && full) lila.i18n.I18nKeys.tourname.xTeamBattle.txt(name)
     else if (isTeamBattle) name
@@ -93,9 +93,9 @@ case class Tournament(
 
   def isDistant = startsAt.isAfter(DateTime.now plusDays 1)
 
-  def duration = new Duration(minutes * 60 * 1000)
+  def duration = Duration(minutes * 60 * 1000)
 
-  def interval = new Interval(startsAt, duration)
+  def interval = Interval(startsAt, duration)
 
   def overlaps(other: Tournament) = interval overlaps other.interval
 
@@ -136,7 +136,7 @@ case class Tournament(
 
   def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
 
-  def startingPosition = position flatMap Thematic.byFen
+  def startingPosition = position flatMap Thematic.byFen pp position.toString
 
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
@@ -155,7 +155,7 @@ object Tournament:
       clock: ClockConfig,
       minutes: Int,
       variant: chess.variant.Variant,
-      position: Option[Fen.Epd],
+      position: Option[Fen.Opening],
       mode: Mode,
       password: Option[String],
       waitMinutes: Int,
@@ -169,7 +169,7 @@ object Tournament:
     Tournament(
       id = makeId,
       name = name | (position match {
-        case Some(pos) => Thematic.byFen(pos).fold("Custom position")(_.shortName)
+        case Some(pos) => Thematic.byFen(pos).fold("Custom position")(_.name.value)
         case None      => GreatPlayer.randomName
       }),
       status = Status.Created,

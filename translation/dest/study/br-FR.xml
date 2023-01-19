@@ -14,7 +14,7 @@
   <string name="dateAddedNewest">Deiziad ouzhpennet (nevesañ)</string>
   <string name="dateAddedOldest">Deiziad ouzhpennet (koshañ)</string>
   <string name="recentlyUpdated">Hizivaet a-nevez</string>
-  <string name="mostPopular">Karet ar muiañ</string>
+  <string name="mostPopular">Muiañ karet</string>
   <string name="addNewChapter">Ouzhpennañ ur pennad</string>
   <plurals name="nbChapters">
     <item quantity="one">%s pennad</item>

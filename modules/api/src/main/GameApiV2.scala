@@ -233,7 +233,7 @@ final class GameApiV2(
   private def preparationFlow(config: Config, realPlayers: Option[RealPlayers]) =
     Flow[Game]
       .mapAsync(4)(enrich(config.flags))
-      .mapAsync(4) { case (game, fen, analysis) =>
+      .mapAsync(4) { (game, fen, analysis) =>
         formatterFor(config)(game, fen, analysis, None, realPlayers)
       }
 
@@ -327,6 +327,7 @@ final class GameApiV2(
           "totalTime" -> clock.estimateTotalSeconds
         )
       })
+      .add("lastFen" -> withFlags.lastFen.option(Fen.write(g.chess.situation)))
 
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
     (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser)

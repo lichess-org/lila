@@ -117,7 +117,7 @@ object Event:
         enpassant = (move.capture ifTrue move.enpassant).map {
           Event.Enpassant(_, !move.color)
         },
-        castle = move.castle.map { case (king, rook) =>
+        castle = move.castle.map(_.value).map { (king, rook) =>
           Castling(king, rook, move.color)
         },
         state = state,

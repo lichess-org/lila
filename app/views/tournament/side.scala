@@ -104,16 +104,12 @@ object side:
           tour.startsAt
         ),
         tour.startingPosition.map { pos =>
-          p(
-            a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
-            separator,
-            views.html.base.bits.fenAnalysisLink(pos.fen)
-          )
+          p(a(targetBlank, href := pos.url)(pos.name))
         } orElse tour.position.map { fen =>
           p(
             "Custom position",
             separator,
-            views.html.base.bits.fenAnalysisLink(fen)
+            views.html.base.bits.fenAnalysisLink(fen into chess.format.Fen.Epd)
           )
         }
       ),

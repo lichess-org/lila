@@ -10,16 +10,17 @@ import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.db.AggregationPipeline
 import lila.db.dsl.{ *, given }
 
-final private class TutorCustomInsight(
+final private class TutorCustomInsight[A: TutorNumber](
     users: NonEmptyList[TutorUser],
     question: Question[PerfType],
-    monitoringKey: String
+    monitoringKey: String,
+    peerMatch: TutorPerfReport.PeerMatch => TutorBothValueOptions[A]
 )(clusterParser: List[Bdoc] => List[Cluster[PerfType]]):
 
   def apply(insightColl: Coll)(
       aggregateMine: Bdoc => AggregationPipeline[insightColl.PipelineOperator],
       aggregatePeer: Bdoc => AggregationPipeline[insightColl.PipelineOperator]
-  )(using ec: ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
+  )(using ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
     for
       mine <- insightColl
         .aggregateList(maxDocs = Int.MaxValue)(_ =>
@@ -28,12 +29,16 @@ final private class TutorCustomInsight(
         .map { docs => TutorBuilder.AnswerMine(Answer(question, clusterParser(docs), Nil)) }
         .monSuccess(_.tutor.askMine(monitoringKey, "all"))
       peerDocs <- users.toList.map { u =>
-        val peerSelect = $doc(lila.insight.InsightEntry.BSONFields.perf -> u.perfType) ++
-          InsightStorage.selectPeers(Question.Peers(u.perfStats.rating))
-        insightColl
-          .aggregateList(maxDocs = Int.MaxValue)(_ => aggregatePeer(peerSelect))
-          .map(clusterParser)
-          .monSuccess(_.tutor.askPeer(monitoringKey, u.perfType.key.value))
+        u.peerMatch.flatMap(peerMatch(_).peer) match
+          case Some(cached) =>
+            fuccess(List(Cluster(u.perfType, Insight.Single(Point(cached.double.value)), cached.count, Nil)))
+          case None =>
+            val peerSelect = $doc(lila.insight.InsightEntry.BSONFields.perf -> u.perfType) ++
+              InsightStorage.selectPeers(u.perfStats.peers)
+            insightColl
+              .aggregateList(maxDocs = Int.MaxValue)(_ => aggregatePeer(peerSelect))
+              .map(clusterParser)
+              .monSuccess(_.tutor.askPeer(monitoringKey, u.perfType.key.value))
       }.sequenceFu
       peer = TutorBuilder.AnswerPeer(Answer(question, peerDocs.flatten, Nil))
     yield TutorBuilder.Answers(mine, peer)

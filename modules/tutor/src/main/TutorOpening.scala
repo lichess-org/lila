@@ -8,7 +8,7 @@ import lila.common.{ Heapsort, LilaOpeningFamily }
 import lila.insight.{ Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
 import lila.rating.PerfType
 import lila.tutor.TutorCompare.compOrder
-import lila.common.config
+import lila.common.config.Max
 
 case class TutorColorOpenings(
     families: List[TutorOpeningFamily]
@@ -18,7 +18,7 @@ case class TutorColorOpenings(
     TutorMetric.Accuracy,
     families.map { f => (f.family, f.accuracy) }
   )
-  lazy val performanceCompare = TutorCompare[LilaOpeningFamily, Rating](
+  lazy val performanceCompare = TutorCompare[LilaOpeningFamily, IntRating](
     InsightDimension.OpeningFamily,
     TutorMetric.Performance,
     families.map { f => (f.family, f.performance.toOption) }
@@ -29,13 +29,13 @@ case class TutorColorOpenings(
     families.map { f => (f.family, f.awareness) }
   )
 
-  lazy val allCompares = List(accuracyCompare, performanceCompare, awarenessCompare)
+  // lazy val allCompares = List(accuracyCompare, performanceCompare, awarenessCompare)
 
   def find(fam: LilaOpeningFamily) = families.find(_.family == fam)
 
 case class TutorOpeningFamily(
     family: LilaOpeningFamily,
-    performance: TutorBothValues[Rating],
+    performance: TutorBothValues[IntRating],
     accuracy: TutorBothValueOptions[AccuracyPercent],
     awareness: TutorBothValueOptions[GoodPercent]
 ):
@@ -46,8 +46,7 @@ private case object TutorOpening:
 
   import TutorBuilder.*
 
-  val nbOpeningsPerColor  = 8
-  private val peerNbGames = config.Max(10_000)
+  val nbOpeningsPerColor = 8
 
   def compute(user: TutorUser)(using InsightApi, ExecutionContext): Fu[Color.Map[TutorColorOpenings]] = for
     whiteOpenings <- computeOpenings(user, Color.White)
@@ -64,19 +63,19 @@ private case object TutorOpening:
         clusters = myPerfsFull.answer.clusters take nbOpeningsPerColor
       )
     )
-    peerPerfs <- answerPeer(myPerfs.alignedQuestion, user, peerNbGames)
+    peerPerfs <- answerPeer(myPerfs.alignedQuestion, user, Max(10_000))
     performances = Answers(myPerfs, peerPerfs)
     accuracyQuestion = myPerfs.alignedQuestion
       .withMetric(InsightMetric.MeanAccuracy)
       .filter(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
-    accuracy <- answerBoth(accuracyQuestion, user, peerNbGames)
+    accuracy <- answerBoth(accuracyQuestion, user, Max(1000))
     awarenessQuestion = accuracyQuestion withMetric InsightMetric.Awareness
-    awareness <- answerBoth(awarenessQuestion, user, peerNbGames)
+    awareness <- answerBoth(awarenessQuestion, user, Max(1000))
   yield TutorColorOpenings {
     performances.mine.list.map { (family, myPerformance) =>
       TutorOpeningFamily(
         family,
-        performance = Rating from performances.valueMetric(family, myPerformance),
+        performance = IntRating from performances.valueMetric(family, myPerformance).map(roundToInt),
         accuracy = AccuracyPercent from accuracy.valueMetric(family),
         awareness = GoodPercent from awareness.valueMetric(family)
       )

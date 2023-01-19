@@ -44,14 +44,14 @@ trait RequestGetter:
   protected def getTimestamp(name: String, req: RequestHeader) =
     getLong(name, req) map { new DateTime(_) }
 
-  protected def getBool(name: String)(using UserContext) =
+  protected def getBool(name: String)(using UserContext): Boolean =
     (getInt(name) exists trueish) || (get(name) exists trueish)
 
-  protected def getBool(name: String, req: RequestHeader) =
+  protected def getBool(name: String, req: RequestHeader): Boolean =
     (getInt(name, req) exists trueish) || (get(name, req) exists trueish)
 
-  protected def getBoolOpt(name: String)(using UserContext) =
-    (getInt(name) map trueish) orElse (get(name) map trueish)
+  protected def getBoolOpt(name: String)(using UserContext): Option[Boolean] =
+    getInt(name).map(trueish) orElse get(name).map(trueish)
 
-  protected def getBoolOpt(name: String, req: RequestHeader) =
-    (getInt(name, req) map trueish) orElse (get(name, req) map trueish)
+  protected def getBoolOpt(name: String, req: RequestHeader): Option[Boolean] =
+    getInt(name, req).map(trueish) orElse get(name, req).map(trueish)
