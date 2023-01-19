@@ -190,7 +190,8 @@ object PgnDump:
       rating: Boolean = true,
       literate: Boolean = false,
       pgnInJson: Boolean = false,
-      delayMoves: Boolean = false
+      delayMoves: Boolean = false,
+      lastFen: Boolean = false
   ):
     def applyDelay[M](moves: Seq[M]): Seq[M] =
       if (!delayMoves) moves

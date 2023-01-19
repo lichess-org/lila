@@ -14,10 +14,14 @@ case class Question[X](
 object Question:
 
   private val peerDistribution = {
-    // based on https://lichess.org/stat/rating/distribution/blitz
-    // https://hq.lichess.ovh/#narrow/stream/1-general/topic/tutor.2C.20let's.20build.20it.20together/near/2159478
+    // > db.insight.estimatedDocumentCount()
+    // 277226337
+    // > db.insight.aggregate([{$sample:{size:10000000}},{$project:{_id:0,mr:1}},{$match:{mr:{$exists:1}}},{$group:{_id:null,ratings:{$avg:'$mr'}}}])
+    // { "_id" : null, "ratings" : 1878.1484907826184 }
+    // > db.insight.aggregate([{$sample:{size:10000000}},{$project:{_id:0,mr:1}},{$match:{mr:{$exists:1}}},{$group:{_id:null,ratings:{$stdDevSamp:'$mr'}}}])
+    // { "_id" : null, "ratings" : 357.42969844387625 }
     import breeze.stats.distributions.*
-    Gaussian(1465d, 394d)(using Rand)
+    Gaussian(1878d, 357d)(using Rand)
   }
 
   case class Peers(rating: MeanRating):

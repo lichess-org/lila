@@ -169,6 +169,8 @@ object mon:
     def askMine                       = askAs("mine")
     def askPeer                       = askAs("peer")
     def buildTimeout                  = counter("tutor.build.timeout").withoutTags()
+    def peerMatch(hit: Boolean)       = counter("tutor.peerMatch").withTag("hit", hitTag(hit))
+    def parallelism                   = gauge("tutor.build.parallelism").withoutTags()
     private def askAs(as: String)(question: String, perf: String) =
       future("tutor.insight.ask", tags("question" -> question, "perf" -> perf, "as" -> as))
   object search:
@@ -527,7 +529,7 @@ object mon:
       def in(platform: String) = counter("push.register").withTag("platform", platform)
       val out                  = counter("push.register.out").withoutTags()
     object send:
-      private def send(tpe: String)(platform: String, success: Boolean): Unit =
+      private def send(tpe: String)(platform: String, success: Boolean, count: Int = 1): Unit =
         counter("push.send")
           .withTags(
             tags(
@@ -536,7 +538,7 @@ object mon:
               "success"  -> successTag(success)
             )
           )
-          .increment()
+          .increment(count)
         ()
       val move         = send("move")
       val takeback     = send("takeback")

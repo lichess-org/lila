@@ -185,9 +185,10 @@ final class Game(
       clocks = getBoolOpt("clocks", req) | extended,
       evals = getBoolOpt("evals", req) | extended,
       opening = getBoolOpt("opening", req) | extended,
-      literate = getBoolOpt("literate", req) | false,
-      pgnInJson = getBoolOpt("pgnInJson", req) | false,
-      delayMoves = delayMovesFromReq(req)
+      literate = getBool("literate", req),
+      pgnInJson = getBool("pgnInJson", req),
+      delayMoves = delayMovesFromReq(req),
+      lastFen = getBool("lastFen", req)
     )
 
   private[controllers] def delayMovesFromReq(req: RequestHeader) =

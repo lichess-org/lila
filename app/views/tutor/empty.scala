@@ -30,31 +30,22 @@ object empty:
       title = "Lichess Tutor - Examining games...",
       pageSmall = true
     )(
-      data("eta") := (in.avgDuration.toMillis atMost 60_000 atLeast 10_000),
-      cls         := "tutor__empty tutor__queued box",
+      cls := "tutor__empty tutor__queued box",
       boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
-      if (in.position == 1)
-        bits.mascotSays(
-          p(strong(cls := "tutor__intro")("I'm examining your games now!")),
-          examinationMethod,
-          nbGames(user),
-          p("It should be done in a minute or two.")
+      bits.mascotSays(
+        p(strong(cls := "tutor__intro")("I'm examining your games.")),
+        examinationMethod,
+        nbGames(user),
+        p(
+          "There are ",
+          (in.position - 1),
+          " players in the queue before you.",
+          br,
+          "You will get your results in about ",
+          showMinutes(in.eta.toMinutes.toInt atLeast 1),
+          "."
         )
-      else
-        bits.mascotSays(
-          p(strong(cls := "tutor__intro")("I will examine your games as soon as possible.")),
-          examinationMethod,
-          nbGames(user),
-          p(
-            "There are ",
-            (in.position - 1),
-            " players in the queue before you.",
-            br,
-            "You will get your results in about ",
-            showMinutes(in.eta.toMinutes.toInt atLeast 1),
-            "."
-          )
-        ),
+      ),
       div(cls := "tutor__waiting-games")(
         div(cls := "tutor__waiting-games__carousel")(waitGames.map(waitGame))
       )

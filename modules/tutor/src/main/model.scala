@@ -25,14 +25,14 @@ case class TutorBothValuesAvailable[A](mine: ValueCount[A], peer: ValueCount[A])
   def grade(using number: TutorNumber[A]): Grade = number.grade(mine.value, peer.value)
 
 case class TutorBothValues[A](mine: ValueCount[A], peer: Option[ValueCount[A]])(using o: Ordering[A]):
-  def map[B: Ordering](f: A => B) = TutorBothValues(mine map f, peer map (_ map f))
+  def map[B: Ordering](f: A => B) = TutorBothValues(mine map f, peer.map(_ map f))
   def higher                      = peer.exists(p => o.compare(mine.value, p.value) >= 0)
   def toOption                    = TutorBothValueOptions(mine.some, peer)
 
 case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[ValueCount[A]])(using
     o: Ordering[A]
 ):
-  def map[B: Ordering](f: A => B) = TutorBothValueOptions(mine map (_ map f), peer map (_ map f))
+  def map[B: Ordering](f: A => B) = TutorBothValueOptions(mine.map(_ map f), peer.map(_ map f))
   def higher                      = mine.exists(m => peer.exists(p => o.compare(m.value, p.value) >= 0))
   def asAvailable                 = for { m <- mine; p <- peer } yield TutorBothValuesAvailable(m, p)
   def grade(using TutorNumber[A]): Option[Grade] = asAvailable.map(_.grade)
@@ -54,7 +54,7 @@ object TutorMetric:
   case object Flagging    extends TutorMetric[ClockPercent](InsightMetric.Termination)
   case object Accuracy    extends TutorMetric[AccuracyPercent](InsightMetric.MeanAccuracy)
   case object Awareness   extends TutorMetric[GoodPercent](InsightMetric.Awareness)
-  case object Performance extends TutorMetric[Rating](InsightMetric.Performance)
+  case object Performance extends TutorMetric[IntRating](InsightMetric.Performance)
 
 // higher is better
 opaque type GoodPercent = Double
@@ -92,4 +92,9 @@ object Grade:
     case object MuchWorse      extends Wording(1, "much worse than", -Better.top)
     val list = List[Wording](MuchWorse, Worse, SlightlyWorse, Similar, SlightlyBetter, Better, MuchBetter)
 
-case class TutorUser(user: User, perfType: PerfType, perfStats: InsightPerfStats)
+case class TutorUser(
+    user: User,
+    perfType: PerfType,
+    perfStats: InsightPerfStats,
+    peerMatch: Option[TutorPerfReport.PeerMatch]
+)

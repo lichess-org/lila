@@ -1,7 +1,7 @@
 .forum-topic {
   h1 {
     display: flex;
-    unicode-bidi: text;
+    unicode-bidi: plaintext;
   }
 
   &.topic-form {

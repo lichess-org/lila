@@ -211,7 +211,7 @@ object InsightMetric:
 
   val byKey = values.mapBy(_.key)
 
-  val requiresAnalysis     = Set(MeanCpl, CplBucket, MeanAccuracy)
+  val requiresAnalysis     = Set(MeanCpl, CplBucket, MeanAccuracy, Awareness)
   val requiresStableRating = Set(Performance, RatingDiff, OpponentRating)
   val isStacked            = Set(Result, Termination, PieceRole, CplBucket)
 

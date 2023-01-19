@@ -7,7 +7,7 @@ import scala.concurrent.duration.FiniteDuration
 import lila.common.Iso
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.insight.{ InsightPerfStats, MeanRating }
+import lila.insight.InsightPerfStats
 import lila.rating.PerfType
 
 private object TutorBsonHandlers:

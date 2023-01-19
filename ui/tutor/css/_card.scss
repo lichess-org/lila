@@ -3,7 +3,7 @@
     @extend %box-padding-horiz;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-    grid-gap: $block-gap;
+    grid-gap: 1em;
     margin: var(--box-padding) 0;
     &--triple {
       grid-template-columns: 1fr;
@@ -18,6 +18,9 @@
   &-card {
     @extend %box-neat;
     background: $c-bg-zebra;
+
+    $card-padding-w: 2em;
+    $card-padding-h: 2em;
 
     &--link {
       border-radius: 20px;
@@ -43,7 +46,7 @@
       }
       &__title {
         &--pad {
-          @include padding-direction(2rem, 1rem, 0, 2rem);
+          @include padding-direction(2rem, #{$card-padding-w}, 0, #{$card-padding-w});
         }
         i + & {
           margin-top: 1em;
@@ -51,6 +54,9 @@
         &__text {
           font-size: 1.7em;
           margin-top: 0.5rem;
+        }
+        &--pad .tutor-card__top__title__text {
+          margin-top: 0;
         }
         &__sub {
           margin-top: 0.5rem;
@@ -60,7 +66,7 @@
     }
 
     &__content {
-      padding: $block-gap;
+      padding: #{$card-padding-h} #{$card-padding-w};
     }
     &__more {
       display: block;

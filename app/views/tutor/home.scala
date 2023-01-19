@@ -27,6 +27,10 @@ object home:
               full.report.nbGames.localize,
               " recent rated games of yours."
             )
+          ),
+          p("Let's compare your play style to your peers: players with a rating very similar to yours."),
+          p(
+            "It should give us some idea about what your strengths are, and where you have room for improvement."
           )
         )
       },

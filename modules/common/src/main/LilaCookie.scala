@@ -25,7 +25,16 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
   def withSession(remember: Boolean)(op: Session => Session)(using req: RequestHeader): Cookie =
     cookie(
       baker.COOKIE_NAME,
-      baker.encode(baker.serialize(op(req.session + (LilaCookie.sessionId -> generateSessionId())))),
+      baker.encode(
+        baker.serialize(
+          op(
+            (if remember then req.session - LilaCookie.noRemember
+             else
+               req.session + (LilaCookie.noRemember -> "1")
+            ) + (LilaCookie.sessionId -> generateSessionId())
+          )
+        )
+      ),
       if (remember) none else 0.some
     )
 
@@ -42,6 +51,8 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
       baker.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
       httpOnly | baker.httpOnly
     )
+
+  def isRememberMe(req: RequestHeader) = !req.session.get(LilaCookie.noRemember).has("1")
 
   def discard(name: String) =
     DiscardingCookie(name, "/", cookieDomain.some, baker.httpOnly)
@@ -61,4 +72,5 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
 
 object LilaCookie:
 
-  val sessionId = "sid"
+  val sessionId  = "sid"
+  val noRemember = "noRemember"
