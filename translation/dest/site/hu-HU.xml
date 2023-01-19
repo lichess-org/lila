@@ -136,7 +136,7 @@
   </plurals>
   <string name="moveTimes">Lépésidők</string>
   <string name="flipBoard">Tábla megfordítása</string>
-  <string name="threefoldRepetition">Háromszori lépésismétlés</string>
+  <string name="threefoldRepetition">Háromszori állásismétlés</string>
   <string name="claimADraw">Döntetlen igénylése</string>
   <string name="offerDraw">Döntetlen felajánlása</string>
   <string name="draw">Döntetlen</string>
