@@ -16,8 +16,8 @@ import lila.memo.SettingStore
  * and listening to new evals stored.
  */
 final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: akka.actor.Scheduler)(using
-    ec: scala.concurrent.ExecutionContext,
-    mode: play.api.Mode
+    scala.concurrent.ExecutionContext,
+    play.api.Mode
 ):
   import EvalCacheUpgrade.*
 
@@ -36,7 +36,7 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
       }
       val setupId = makeSetupId(variant, fen, multiPv)
       members += (sri.value -> WatchingMember(push, setupId, path))
-      evals += (setupId     -> evals.get(setupId).fold(EvalState(Set(sri.value), 0))(_ addSri sri))
+      evals += (setupId     -> evals.get(setupId).fold(EvalState(Set(sri), 0))(_ addSri sri))
       expirableSris put sri
 
   def onEval(input: EvalCacheEntry.Input, sri: Socket.Sri): Unit = if (setting.get())
@@ -47,7 +47,7 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
       _._2.depth < input.eval.depth
     } foreach { case (setupId, eval) =>
       evals += (setupId -> eval.copy(depth = input.eval.depth))
-      val wms = eval.sris.withFilter(sri.value !=) flatMap members.get
+      val wms = eval.sris.withFilter(sri !=) flatMap { sri => members.get(sri.value) }
       if (wms.nonEmpty)
         val json = JsonHandlers.writeEval(input.eval, input.fen)
         wms foreach { wm =>
@@ -64,7 +64,7 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
 
   private def unregisterEval(setupId: SetupId, sri: Socket.Sri): Unit =
     evals get setupId foreach { eval =>
-      val newSris = eval.sris - sri.value
+      val newSris = eval.sris - sri
       if (newSris.isEmpty) evals -= setupId
       else evals += (setupId -> eval.copy(sris = newSris))
     }
@@ -81,8 +81,8 @@ private object EvalCacheUpgrade:
   private type SetupId   = String
   private type Push      = JsObject => Unit
 
-  private case class EvalState(sris: Set[SriString], depth: Int):
-    def addSri(sri: Socket.Sri) = copy(sris = sris + sri.value)
+  private case class EvalState(sris: Set[Socket.Sri], depth: Int):
+    def addSri(sri: Socket.Sri) = copy(sris = sris + sri)
 
   private def makeSetupId(variant: Variant, fen: Fen.Epd, multiPv: Int): SetupId =
     s"${variant.id}${SmallFen.make(variant, fen.simple)}^$multiPv"
