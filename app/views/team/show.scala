@@ -159,19 +159,16 @@ object show:
                     em(swissTournamentOverview())
                   )
                 ),
-                info.pmAlls.map { pmAlls =>
-                  val remaining = TeamInfo.pmAllCredits - pmAlls.v / TeamInfo.pmAllCost
-                  a(
-                    href     := (remaining > 0).option(routes.Team.pmAll(t.id)),
-                    cls      := s"${(remaining <= 0) ?? "disabled "}button button-empty text",
-                    dataIcon := ""
-                  )(
-                    span(
-                      strong(messageAllMembers()),
-                      em(pmAllsRemainingText(remaining, pmAlls.until))
-                    )
+                a(
+                  href     := routes.Team.pmAll(t.id),
+                  cls      := "button button-empty text",
+                  dataIcon := ""
+                )(
+                  span(
+                    strong(messageAllMembers()),
+                    em(messageAllMembersOverview())
                   )
-                }
+                )
               ),
               ((t.enabled && info.ledByMe) || manageTeamEnabled) option
                 a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "")(
@@ -282,8 +279,3 @@ object show:
       }
     )
   )
-
-  private def pmAllsRemainingText(left: Int, until: org.joda.time.DateTime) = (
-    if (left <= 0) "None left"
-    else (if (left < 7) s"$left of 7" else "All messages") + " remaining"
-  ) + (left < 7) ?? s" until ${momentFromNowServerText(until, true)}"

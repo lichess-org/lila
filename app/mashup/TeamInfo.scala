@@ -9,6 +9,7 @@ import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
 import lila.swiss.{ Swiss, SwissApi }
 import lila.simul.{ Simul, SimulApi }
+import org.joda.time.DateTime
 
 case class TeamInfo(
     mine: Boolean,
@@ -18,8 +19,7 @@ case class TeamInfo(
     requests: List[RequestWithUser],
     forum: Option[List[MiniForumPost]],
     tours: TeamInfo.PastAndNext,
-    simuls: Seq[Simul],
-    pmAlls: Option[lila.memo.MongoRateLimit.Entry]
+    simuls: Seq[Simul]
 ):
 
   def hasRequests = requests.nonEmpty
@@ -60,17 +60,20 @@ final class TeamInfoApi(
     credits = pmAllCredits * pmAllCost,
     duration = pmAllDays.days
   )
+  def pmAllStatus(id: TeamId): Fu[(Int, DateTime)] =
+    pmAllLimiter.getSpent(id) map { entry =>
+      (pmAllCredits - entry.v / pmAllCost, entry.until)
+    }
 
   def apply(team: Team, me: Option[User], withForum: Boolean => Boolean): Fu[TeamInfo] =
     for {
-      requests     <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(team)
-      mine         <- me.??(m => api.belongsTo(team.id, m.id))
-      myRequest    <- !mine ?? me.??(m => requestRepo.find(team.id, m.id))
-      subscribed   <- me.ifTrue(mine) ?? { api.isSubscribed(team, _) }
-      forumPosts   <- withForum(mine) ?? forumRecent(team.id).dmap(some)
-      tours        <- tournaments(team, 5, 5)
-      simuls       <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
-      pmAllLimiter <- me.exists(u => team.leaders(u.id)) ?? pmAllLimiter.getSpent(team.id).dmap(some)
+      requests   <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(team)
+      mine       <- me.??(m => api.belongsTo(team.id, m.id))
+      myRequest  <- !mine ?? me.??(m => requestRepo.find(team.id, m.id))
+      subscribed <- me.ifTrue(mine) ?? { api.isSubscribed(team, _) }
+      forumPosts <- withForum(mine) ?? forumRecent(team.id).dmap(some)
+      tours      <- tournaments(team, 5, 5)
+      simuls     <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
     } yield TeamInfo(
       mine = mine,
       ledByMe = me.exists(m => team.leaders(m.id)),
@@ -79,8 +82,7 @@ final class TeamInfoApi(
       requests = requests,
       forum = forumPosts,
       tours = tours,
-      simuls = simuls,
-      pmAlls = pmAllLimiter
+      simuls = simuls
     )
 
   def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =

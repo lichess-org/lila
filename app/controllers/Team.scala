@@ -519,9 +519,10 @@ final class Team(
 
   private def renderPmAll(team: TeamModel, form: Form[?])(implicit ctx: Context) =
     for {
-      tours  <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
-      unsubs <- env.team.cached.unsubs.get(team.id)
-    } yield Ok(html.team.admin.pmAll(team, form, tours, unsubs))
+      tours   <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
+      unsubs  <- env.team.cached.unsubs.get(team.id)
+      limiter <- env.teamInfo.pmAllStatus(team.id)
+    } yield Ok(html.team.admin.pmAll(team, form, tours, unsubs, limiter))
 
   def pmAllSubmit(id: TeamId) =
     AuthOrScopedBody(_.Team.Lead)(
