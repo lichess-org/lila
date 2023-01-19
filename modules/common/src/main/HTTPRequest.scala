@@ -46,7 +46,8 @@ object HTTPRequest:
     req.headers get HeaderNames.USER_AGENT
   }
 
-  val supportsCredentialless = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])|Firefox/(?:10[8-9]|1[1-9]\d)""")
+  val isChrome96Plus   = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
+  val isFirefox108Plus = UaMatcher("""Firefox/(?:10[8-9]|1[1-9]\d)""")
 
   val isMobile = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
 
