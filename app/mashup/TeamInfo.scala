@@ -19,8 +19,7 @@ case class TeamInfo(
     forum: Option[List[MiniForumPost]],
     tours: TeamInfo.PastAndNext,
     simuls: Seq[Simul],
-    pmAllsLeft: Option[Int],
-    pmAllsRefresh: Option[org.joda.time.DateTime]
+    pmAlls: Option[lila.memo.MongoRateLimit.Entry]
 ):
 
   def hasRequests = requests.nonEmpty
@@ -28,6 +27,9 @@ case class TeamInfo(
   def userIds = forum.??(_.flatMap(_.userId))
 
 object TeamInfo:
+  val pmAllCost    = 5
+  val pmAllCredits = 7
+  val pmAllDays    = 7
   opaque type AnyTour = Either[Tournament, Swiss]
   object AnyTour extends TotalWrapper[AnyTour, Either[Tournament, Swiss]]:
     extension (e: AnyTour)
@@ -53,11 +55,10 @@ final class TeamInfoApi(
 
   import TeamInfo.*
 
-  val pmAllCost = 5
   lazy val pmAllLimiter = mongoRateLimitApi[TeamId](
     "team.pm.all",
-    credits = 7 * pmAllCost,
-    duration = 7.days
+    credits = pmAllCredits * pmAllCost,
+    duration = pmAllDays.days
   )
 
   def apply(team: Team, me: Option[User], withForum: Boolean => Boolean): Fu[TeamInfo] =
@@ -79,8 +80,7 @@ final class TeamInfoApi(
       forum = forumPosts,
       tours = tours,
       simuls = simuls,
-      pmAllsLeft = pmAllLimiter.map(l => 7 - l.v / pmAllCost),
-      pmAllsRefresh = pmAllLimiter.map(_.e)
+      pmAlls = pmAllLimiter
     )
 
   def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =

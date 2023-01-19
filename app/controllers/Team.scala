@@ -637,7 +637,7 @@ final class Team(
           Right {
             env.teamInfo.pmAllLimiter[RateLimit.Result](
               team.id,
-              if (me.isVerifiedOrAdmin) 1 else env.teamInfo.pmAllCost
+              if (me.isVerifiedOrAdmin) 1 else mashup.TeamInfo.pmAllCost
             ) {
               val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
               val full = s"""$msg

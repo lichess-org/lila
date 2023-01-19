@@ -159,17 +159,19 @@ object show:
                     em(swissTournamentOverview())
                   )
                 ),
-                a(
-                  href     := routes.Team.pmAll(t.id),
-                  cls      := s"${(~info.pmAllsLeft <= 0) ?? "disabled "}button button-empty text",
-                  dataIcon := "",
-                  style    := (~info.pmAllsLeft <= 0) ?? "pointer-events: none;"
-                )(
-                  span(
-                    strong(messageAllMembers()),
-                    info.pmAllsRefresh.map { date => em(pmAllsRemainingText(~info.pmAllsLeft, date)) }
+                info.pmAlls.map { pmAlls =>
+                  val remaining = TeamInfo.pmAllCredits - pmAlls.v / TeamInfo.pmAllCost
+                  a(
+                    href     := (remaining > 0).option(routes.Team.pmAll(t.id)),
+                    cls      := s"${(remaining <= 0) ?? "disabled "}button button-empty text",
+                    dataIcon := ""
+                  )(
+                    span(
+                      strong(messageAllMembers()),
+                      em(pmAllsRemainingText(remaining, pmAlls.until))
+                    )
                   )
-                )
+                }
               ),
               ((t.enabled && info.ledByMe) || manageTeamEnabled) option
                 a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "")(
