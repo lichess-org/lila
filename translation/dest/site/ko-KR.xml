@@ -677,6 +677,7 @@
   <string name="light">밝게</string>
   <string name="dark">어둡게</string>
   <string name="transparent">투명하게</string>
+  <string name="deviceTheme">기기 테마</string>
   <string name="backgroundImageUrl">배경 이미지 URL:</string>
   <string name="boardGeometry">보드 모양</string>
   <string name="boardTheme">보드 테마</string>
