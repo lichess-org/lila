@@ -161,13 +161,13 @@ object show:
                 ),
                 a(
                   href     := routes.Team.pmAll(t.id),
-                  cls      := s"${(info.pmAllsLeft <= 0) ?? "disabled "}button button-empty text",
+                  cls      := s"${(~info.pmAllsLeft <= 0) ?? "disabled "}button button-empty text",
                   dataIcon := "",
-                  style    := (info.pmAllsLeft <= 0) ?? "pointer-events: none;"
+                  style    := (~info.pmAllsLeft <= 0) ?? "pointer-events: none;"
                 )(
                   span(
                     strong(messageAllMembers()),
-                    em(pmAllsRemainingText(info.pmAllsLeft, info.pmAllsRefresh))
+                    info.pmAllsRefresh.map { date => em(pmAllsRemainingText(~info.pmAllsLeft, date)) }
                   )
                 )
               ),

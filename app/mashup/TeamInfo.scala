@@ -19,8 +19,8 @@ case class TeamInfo(
     forum: Option[List[MiniForumPost]],
     tours: TeamInfo.PastAndNext,
     simuls: Seq[Simul],
-    pmAllsLeft: Int,
-    pmAllsRefresh: org.joda.time.DateTime
+    pmAllsLeft: Option[Int],
+    pmAllsRefresh: Option[org.joda.time.DateTime]
 ):
 
   def hasRequests = requests.nonEmpty
@@ -49,7 +49,7 @@ final class TeamInfoApi(
     simulApi: SimulApi,
     requestRepo: RequestRepo,
     mongoRateLimitApi: lila.memo.MongoRateLimitApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   import TeamInfo.*
 
@@ -62,14 +62,14 @@ final class TeamInfoApi(
 
   def apply(team: Team, me: Option[User], withForum: Boolean => Boolean): Fu[TeamInfo] =
     for {
-      requests   <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(team)
-      mine       <- me.??(m => api.belongsTo(team.id, m.id))
-      myRequest  <- !mine ?? me.??(m => requestRepo.find(team.id, m.id))
-      subscribed <- me.ifTrue(mine) ?? { api.isSubscribed(team, _) }
-      forumPosts <- withForum(mine) ?? forumRecent(team.id).dmap(some)
-      tours      <- tournaments(team, 5, 5)
-      simuls     <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
-      entry      <- pmAllLimiter.getSpent(team.id)
+      requests     <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(team)
+      mine         <- me.??(m => api.belongsTo(team.id, m.id))
+      myRequest    <- !mine ?? me.??(m => requestRepo.find(team.id, m.id))
+      subscribed   <- me.ifTrue(mine) ?? { api.isSubscribed(team, _) }
+      forumPosts   <- withForum(mine) ?? forumRecent(team.id).dmap(some)
+      tours        <- tournaments(team, 5, 5)
+      simuls       <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
+      pmAllLimiter <- me.exists(u => team.leaders(u.id)) ?? pmAllLimiter.getSpent(team.id).dmap(some)
     } yield TeamInfo(
       mine = mine,
       ledByMe = me.exists(m => team.leaders(m.id)),
@@ -79,8 +79,8 @@ final class TeamInfoApi(
       forum = forumPosts,
       tours = tours,
       simuls = simuls,
-      pmAllsLeft = if me.exists(m => team.leaders(m.id)) then 7 - entry.v / pmAllCost else 0,
-      pmAllsRefresh = entry.e
+      pmAllsLeft = pmAllLimiter.map(l => 7 - l.v / pmAllCost),
+      pmAllsRefresh = pmAllLimiter.map(_.e)
     )
 
   def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =
