@@ -811,12 +811,12 @@ object mod:
       case (nb, tag) if nb > 0 => frag(List.fill(nb)(tag))
     }
 
-  private def reportSubmitButton(r: lila.report.Report)(using lang: Lang) =
+  private def reportSubmitButton(r: lila.report.Report)(using Lang) =
     submitButton(
-      title := (if (r.open) { "open" }
-                else {
-                  s"closed: ${r.done.fold("no data")(done => s"by ${done.by} at ${showDateTimeUTC(done.at)}")}"
-                })
+      title := {
+        if r.open then "open"
+        else s"closed: ${r.done.fold("no data")(done => s"by ${done.by} at ${showDateTimeUTC(done.at)}")}"
+      }
     )(reportScore(r.score), " ", strong(r.reason.name))
 
   def userMarks(o: User, playbans: Option[Int]) =
