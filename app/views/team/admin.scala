@@ -129,9 +129,9 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
                     momentFromNowOnce(until),
                     "."
                   ),
-                  remaining > 0 option form3.actions(
+                  form3.actions(
                     a(href := routes.Team.show(t.slug))(trans.cancel()),
-                    form3.submit(trans.send())
+                    remaining > 0 option form3.submit(trans.send())
                   )
                 )
           )
