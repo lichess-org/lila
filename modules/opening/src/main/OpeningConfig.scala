@@ -36,10 +36,10 @@ case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
 final class OpeningConfigStore(baker: LilaCookie):
   import OpeningConfig.*
 
-  def read(implicit req: RequestHeader): OpeningConfig =
+  def read(using req: RequestHeader): OpeningConfig =
     req.cookies.get(cookie.name).map(_.value).flatMap(cookie.read) | OpeningConfig.default
 
-  def write(config: OpeningConfig)(implicit req: RequestHeader) = baker.cookie(
+  def write(config: OpeningConfig)(using req: RequestHeader) = baker.cookie(
     cookie.name,
     cookie.write(config),
     maxAge = cookie.maxAge.some,
