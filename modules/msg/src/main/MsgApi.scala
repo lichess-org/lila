@@ -142,7 +142,7 @@ final class MsgApi(
                   .one(
                     $id(threadId),
                     if (multi) {
-                      $set("lastMsg"   -> msg.asLast, "maskFor" -> maskFor, "maskWith" -> maskWith)
+                      $set("lastMsg" -> msg.asLast, "maskFor" -> maskFor, "maskWith" -> maskWith)
                         ++ $pull("del" -> List(orig))
                     } else {
                       $set("lastMsg" -> msg.asLast, "maskWith.date" -> msg.date)
