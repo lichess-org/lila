@@ -82,7 +82,7 @@ case class TutorPerfReport(
 
   def openingCompares: List[TutorCompare[LilaOpeningFamily, ?]] = Color.all.flatMap { color =>
     val op = openings(color)
-    List(op.accuracyCompare, op.awarenessCompare, op.performanceCompare)
+    List(op.accuracyCompare, op.awarenessCompare, op.performanceCompare).map(_ as color)
   }
 
   lazy val allCompares: List[TutorCompare[?, ?]] = openingCompares ::: phaseCompares
