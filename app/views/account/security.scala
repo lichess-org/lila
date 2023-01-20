@@ -77,7 +77,7 @@ object security:
           curSessionId.map { cur =>
             td(
               s.session.id != cur option
-                postForm(action    := routes.Account.signout(s.session.id))(
+                postForm(action := routes.Account.signout(s.session.id))(
                   submitButton(cls := "button button-red", title := trans.logOut.txt(), dataIcon := "")
                 )
             )
@@ -106,7 +106,7 @@ object security:
             }
           ),
           td(
-            postForm(action    := routes.OAuth.revokeClient)(
+            postForm(action := routes.OAuth.revokeClient)(
               input(tpe        := "hidden", name             := "origin", value    := client.origin),
               submitButton(cls := "button button-red", title := "Revoke", dataIcon := "")
             )

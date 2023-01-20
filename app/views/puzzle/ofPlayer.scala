@@ -58,7 +58,7 @@ object ofPlayer:
                               href := routes.Puzzle.show(puzzle.id)
                             )
                           ),
-                          span(cls   := "puzzle-of-player__puzzle__meta")(
+                          span(cls := "puzzle-of-player__puzzle__meta")(
                             span(cls := "puzzle-of-player__puzzle__id", s"#${puzzle.id}"),
                             span(cls := "puzzle-of-player__puzzle__rating", puzzle.glicko.intRating)
                           )
