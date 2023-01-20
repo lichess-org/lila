@@ -16,7 +16,7 @@ object index:
       div(cls := "account oauth box")(
         boxTop(
           h1(title),
-          st.form(cls        := "box-top__actions", action   := routes.OAuthToken.create)(
+          st.form(cls := "box-top__actions", action := routes.OAuthToken.create)(
             submitButton(cls := "button frameless", st.title := "New access token", dataIcon := "")
           )
         ),

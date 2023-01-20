@@ -86,6 +86,6 @@ final private class StudyInvite(
         .one(
           $id(study.id),
           $set(s"members.${user.id}" -> $doc("role" -> "w", "admin" -> true)) ++
-            $addToSet("uids"         -> user.id)
+            $addToSet("uids" -> user.id)
         )
     }.void

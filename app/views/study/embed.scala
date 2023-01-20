@@ -23,7 +23,7 @@ object embed:
       title = s"${s.name} ${chapter.name}",
       cssModule = "analyse.embed"
     )(
-      div(cls    := "is2d")(
+      div(cls := "is2d")(
         main(cls := "analyse")
       ),
       footer {

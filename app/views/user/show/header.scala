@@ -145,7 +145,7 @@ object header:
               div(cls := "user-infos")(
                 !ctx.is(u) option frag(
                   u.lame option div(cls := "warning tos_warning")(
-                    span(dataIcon       := "", cls := "is4"),
+                    span(dataIcon := "", cls := "is4"),
                     trans.thisAccountViolatedTos()
                   )
                 ),
@@ -165,7 +165,7 @@ object header:
                     span(cls := "location")(l)
                   },
                   profile.countryInfo.map { c =>
-                    span(cls  := "country")(
+                    span(cls := "country")(
                       img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
                       " ",
                       c.name
