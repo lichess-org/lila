@@ -39,19 +39,21 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
       evals += (setupId     -> evals.get(setupId).fold(EvalState(Set(sri), 0))(_ addSri sri))
       expirableSris put sri
 
-  def onEval(input: EvalCacheEntry.Input, sri: Socket.Sri): Unit = if (setting.get())
+  def onEval(input: EvalCacheEntry.Input, fromSri: Socket.Sri): Unit = if (setting.get())
     (1 to input.eval.multiPv) flatMap { multiPv =>
       val setupId = makeSetupId(input.id.variant, input.fen, multiPv)
       evals get setupId map (setupId -> _)
     } filter {
       _._2.depth < input.eval.depth
-    } foreach { case (setupId, eval) =>
+    } foreach { (setupId, eval) =>
       evals += (setupId -> eval.copy(depth = input.eval.depth))
-      val wms = eval.sris.withFilter(sri !=) flatMap { sri => members.get(sri.value) }
+      val wms = eval.sris.withFilter(_ != fromSri) flatMap { sri => members.get(sri.value) }
       if (wms.nonEmpty)
         val json = JsonHandlers.writeEval(input.eval, input.fen)
-        wms foreach { wm =>
-          wm.push(json + ("path" -> JsString(wm.path)))
+        wms.groupBy(_.path).map { (path, wms) =>
+          wms foreach { wm =>
+            wm.push(json + ("path" -> JsString(path)))
+          }
         }
         upgradeMon.count.increment(wms.size)
     }
