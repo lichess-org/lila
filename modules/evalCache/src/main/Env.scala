@@ -7,7 +7,7 @@ import play.api.Configuration
 
 import lila.common.Bus
 import lila.common.config.CollName
-import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
+import lila.hub.actorApi.socket.remote.TellSriIn
 import lila.socket.Socket.Sri
 
 @Module
@@ -17,11 +17,7 @@ final class Env(
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler,
-    mode: play.api.Mode
-):
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler, play.api.Mode):
 
   private lazy val coll = yoloDb(CollName("eval_cache")).failingSilently()
 
@@ -42,7 +38,7 @@ final class Env(
   // remote socket support
   Bus.subscribeFun("remoteSocketIn:evalGet") { case TellSriIn(sri, _, msg) =>
     msg obj "d" foreach { d =>
-      socketHandler.evalGet(Sri(sri), d, res => Bus.publish(TellSriOut(sri, res), "remoteSocketOut"))
+      socketHandler.evalGet(Sri(sri), d)
     }
   }
   Bus.subscribeFun("remoteSocketIn:evalPut") { case TellSriIn(sri, Some(userId), msg) =>

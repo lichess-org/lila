@@ -27,15 +27,13 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
 
   private val upgradeMon = lila.mon.evalCache.upgrade
 
-  def register(sri: Socket.Sri, variant: Variant, fen: Fen.Epd, multiPv: Int, path: String)(
-      push: Push
-  ): Unit =
+  def register(sri: Socket.Sri, variant: Variant, fen: Fen.Epd, multiPv: Int, path: String): Unit =
     if (setting.get())
       members get sri.value foreach { wm =>
         unregisterEval(wm.setupId, sri)
       }
       val setupId = makeSetupId(variant, fen, multiPv)
-      members += (sri.value -> WatchingMember(push, setupId, path))
+      members += (sri.value -> WatchingMember(sri, setupId, path))
       evals += (setupId     -> evals.get(setupId).fold(EvalState(Set(sri), 0))(_ addSri sri))
       expirableSris put sri
 
@@ -49,11 +47,9 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
       evals += (setupId -> eval.copy(depth = input.eval.depth))
       val wms = eval.sris.withFilter(_ != fromSri) flatMap { sri => members.get(sri.value) }
       if (wms.nonEmpty)
-        val json = JsonHandlers.writeEval(input.eval, input.fen)
+        val evalJson = JsonHandlers.writeEval(input.eval, input.fen)
         wms.groupBy(_.path).map { (path, wms) =>
-          wms foreach { wm =>
-            wm.push(json + ("path" -> JsString(path)))
-          }
+          EvalCacheSocketHandler.pushHits(wms.map(_.sri), evalJson + ("path" -> JsString(path)))
         }
         upgradeMon.count.increment(wms.size)
     }
@@ -89,4 +85,4 @@ private object EvalCacheUpgrade:
   private def makeSetupId(variant: Variant, fen: Fen.Epd, multiPv: Int): SetupId =
     s"${variant.id}${SmallFen.make(variant, fen.simple)}^$multiPv"
 
-  private case class WatchingMember(push: Push, setupId: SetupId, path: String)
+  private case class WatchingMember(sri: Socket.Sri, setupId: SetupId, path: String)

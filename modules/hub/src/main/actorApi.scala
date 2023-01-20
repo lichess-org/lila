@@ -35,6 +35,7 @@ package socket:
   object remote:
     case class TellSriIn(sri: String, user: Option[UserId], msg: JsObject)
     case class TellSriOut(sri: String, payload: JsValue)
+    case class TellSrisOut(sris: Iterable[String], payload: JsValue)
     case class TellUserIn(user: UserId, msg: JsObject)
   case class ApiUserIsOnline(userId: UserId, isOnline: Boolean)
 

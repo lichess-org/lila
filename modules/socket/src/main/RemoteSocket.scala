@@ -18,7 +18,7 @@ import lila.hub.actorApi.Announce
 import lila.hub.actorApi.relation.{ Follow, UnFollow }
 import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
-import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellUserIn }
+import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellSrisOut, TellUserIn }
 import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToOnlineUser, SendTos }
 
 final class RemoteSocket(
@@ -102,6 +102,8 @@ final class RemoteSocket(
       send(Out.tellFlag(flag, payload))
     case TellSriOut(sri, payload) =>
       send(Out.tellSri(Sri(sri), payload))
+    case TellSrisOut(sris, payload) =>
+      send(Out.tellSris(Sri from sris, payload))
     case CloseAccount(userId) =>
       send(Out.disconnectUser(userId))
     case lila.hub.actorApi.mod.Shadowban(userId, v) =>
