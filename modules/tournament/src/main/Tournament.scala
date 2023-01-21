@@ -136,7 +136,7 @@ case class Tournament(
 
   def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
 
-  def startingPosition = position flatMap Thematic.byFen pp position.toString
+  def startingPosition = position flatMap Thematic.byFen
 
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
