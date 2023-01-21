@@ -101,7 +101,7 @@ final class BlogApi(
     }
 
   def expand(html: Html) = Html(
-    legacyExpandRe.replaceAllIn(
+    expandGameRegex.replaceAllIn(
       html.value,
       m =>
         pgnCache.getIfPresent(GameId(m.group(1))).fold(m.matched) { pgn =>
@@ -113,8 +113,8 @@ final class BlogApi(
     )
   )
 
-  private val legacyExpandRe =
-    """<a href=\"https://lichess\.org/(\w{8})(?:(?:/(white|black))|\w{4}|)(?:#(\d+))?\">https://lichess\.org/[^<]{8,18}</a>""".r
+  private val expandGameRegex =
+    """<a href="https://lichess\.org/(\w{8})(?:/(white|black)|\w{4}|)(?:#(\d+))?">https://lichess\.org/[^<]{8,18}</a>""".r
 
   private val pgnCache = cacheApi.notLoadingSync[GameId, PgnStr](256, "prisblog.markup.pgn") {
     _.expireAfterWrite(1 second).build()
