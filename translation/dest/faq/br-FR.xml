@@ -35,6 +35,7 @@
   <string name="whatIsProvisionalRating">Perak ez eus ur pik goulennata (?) e-kichen ur renkadur?</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">N\'eo ket bet c\'hoariet trawalc\'h a grogadoù renket a-enep %1$s er rummad a-zoare.</string>
   <string name="similarOpponents">enebourien a-live an eil re gant ar re all</string>
+  <string name="notPlayedRecently">N\'eo ket bet c\'hoariet trawalc\'h a grogadoù evit an deizioù. Goude tamm pe damm ur bloaz hep kemer perzh e voc\'h renket da c\'hortoz en-dro, se zo diouzh an niver a grogadoù bet c\'hoariet.</string>
   <string name="inOrderToAppearsYouMust">A-benn bezañ meneget er %1$s eo ret deoc\'h:</string>
   <string name="ratingLeaderboards">renkadur ar re wellañ</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">bezañ kemeret perzh e 30 krogad renket en ur stumm bennak,</string>

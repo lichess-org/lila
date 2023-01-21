@@ -7,12 +7,13 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.EmbedConfig
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
+import chess.format.pgn.PgnStr
 
 object embed:
 
   import EmbedConfig.implicits.*
 
-  def lpv(pgn: String, orientation: Option[chess.Color])(implicit config: EmbedConfig) =
+  def lpv(pgn: PgnStr, orientation: Option[chess.Color])(implicit config: EmbedConfig) =
     views.html.base.embed(
       title = "Lichess PGN viewer",
       cssModule = "lpv.embed"

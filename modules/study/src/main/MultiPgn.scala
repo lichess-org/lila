@@ -1,11 +1,13 @@
 package lila.study
 
-case class MultiPgn(value: List[String]) extends AnyVal
+import chess.format.pgn.PgnStr
+
+case class MultiPgn(value: List[PgnStr]) extends AnyVal
 
 object MultiPgn:
 
   private[this] val splitPat = """\n\n(?=\[)""".r.pattern
-  def split(str: String, max: Int) =
+  def split(str: PgnStr, max: Int) =
     MultiPgn {
-      splitPat.split(str.replaceIf('\r', ""), max + 1).take(max).toList
+      PgnStr from splitPat.split(str.value.replaceIf('\r', ""), max + 1).take(max).toList
     }

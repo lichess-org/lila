@@ -35,6 +35,7 @@ package socket:
   object remote:
     case class TellSriIn(sri: String, user: Option[UserId], msg: JsObject)
     case class TellSriOut(sri: String, payload: JsValue)
+    case class TellSrisOut(sris: Iterable[String], payload: JsValue)
     case class TellUserIn(user: UserId, msg: JsObject)
   case class ApiUserIsOnline(userId: UserId, isOnline: Boolean)
 
@@ -98,7 +99,7 @@ package captcha:
   case class ValidCaptcha(id: GameId, solution: String)
 
 package lpv:
-  case class GamePgnsFromText(text: String, promise: Promise[Map[GameId, String]])
+  case class GamePgnsFromText(text: String, promise: Promise[Map[GameId, chess.format.pgn.PgnStr]])
   case class LpvLinkRenderFromText(text: String, promise: Promise[lila.base.RawHtml.LinkRender])
 
 package simul:

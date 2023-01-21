@@ -87,7 +87,7 @@ object show:
                 )(trans.openingExplorer())
               ),
               if (page.explored.??(_.history).nonEmpty)
-                div(cls      := "opening__popularity opening__popularity--chart")(
+                div(cls := "opening__popularity opening__popularity--chart")(
                   canvas(cls := "opening__popularity__chart")
                 )
               else

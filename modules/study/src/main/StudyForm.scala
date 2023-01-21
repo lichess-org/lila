@@ -1,11 +1,12 @@
 package lila.study
 
 import chess.format.Fen
+import chess.format.pgn.PgnStr
 import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanNonEmptyText, formatter, given }
+import lila.common.Form.{ cleanNonEmptyText, formatter, into, given }
 import play.api.data.format.Formatter
 
 object StudyForm:
@@ -23,7 +24,7 @@ object StudyForm:
         "gameId"      -> optional(of[GameId]),
         "orientation" -> optional(of[ChapterMaker.Orientation]),
         "fen"         -> optional(lila.common.Form.fen.playable(strict = false)),
-        "pgn"         -> optional(nonEmptyText),
+        "pgn"         -> optional(nonEmptyText.into[PgnStr]),
         "variant"     -> optional(of[Variant]),
         "as"          -> optional(nonEmptyText)
       )(Data.apply)(unapply)
@@ -33,7 +34,7 @@ object StudyForm:
         gameId: Option[GameId] = None,
         orientation: Option[ChapterMaker.Orientation] = None,
         fen: Option[Fen.Epd] = None,
-        pgnStr: Option[String] = None,
+        pgnStr: Option[PgnStr] = None,
         variant: Option[Variant] = None,
         asStr: Option[String] = None
     ):
@@ -68,7 +69,7 @@ object StudyForm:
         "mode"          -> of[ChapterMaker.Mode],
         "initial"       -> boolean,
         "sticky"        -> boolean,
-        "pgn"           -> nonEmptyText,
+        "pgn"           -> nonEmptyText.into[PgnStr],
         "isDefaultName" -> boolean
       )(Data.apply)(unapply)
     )
@@ -80,13 +81,13 @@ object StudyForm:
         mode: ChapterMaker.Mode,
         initial: Boolean,
         sticky: Boolean,
-        pgn: String,
+        pgn: PgnStr,
         isDefaultName: Boolean
     ):
 
       def toChapterDatas =
         val pgns = MultiPgn.split(pgn, max = 32).value
-        pgns.zipWithIndex map { case (onePgn, index) =>
+        pgns.zipWithIndex map { (onePgn, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named
             name = StudyChapterName((index == 0) ?? name),

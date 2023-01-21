@@ -66,4 +66,10 @@ class FormTest extends Specification {
     }
   }
 
+  "special chars" >> {
+    val half = '½'
+    single("t" -> cleanTextWithSymbols).bind(Map("t" -> half.toString)) === Right(half.toString)
+    single("t" -> cleanText).bind(Map("t" -> half.toString)) === Right(half.toString)
+  }
+
 }

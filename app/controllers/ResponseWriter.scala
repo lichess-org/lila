@@ -4,6 +4,7 @@ import lila.api.{ *, given }
 
 import play.api.http.*
 import play.api.mvc.Codec
+import chess.format.pgn.PgnStr
 
 trait ResponseWriter:
 
@@ -17,6 +18,10 @@ trait ResponseWriter:
 
   given (using codec: Codec): Writeable[Int] = Writeable(i => codec encode i.toString)
   given ContentTypeOf[Int]                   = textContentType
+
+  val pgnContentType = "application/x-chess-pgn"
+  given pgnWriteable(using codec: Codec): Writeable[PgnStr] =
+    Writeable(p => codec encode p.toString, pgnContentType.some)
 
   // given (using codec: Codec): Writeable[Option[String]] = Writeable(i => codec encode i.orZero)
   // given ContentTypeOf[Option[String]]                   = textContentType

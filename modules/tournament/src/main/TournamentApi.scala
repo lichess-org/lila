@@ -679,15 +679,23 @@ final class TournamentApi(
       maxPerPage = MaxPerPage(20)
     )
 
-  def resultStream(tour: Tournament, perSecond: MaxPerSecond, nb: Int): Source[Player.Result, ?] =
+  def resultStream(
+      tour: Tournament,
+      perSecond: MaxPerSecond,
+      nb: Int,
+      withSheet: Boolean
+  ): Source[Player.Result, ?] =
     playerRepo
       .sortedCursor(tour.id, perSecond.value)
       .documentSource(nb)
       .throttle(perSecond.value, 1 second)
+      .mapAsync(1) { player =>
+        withSheet.??(cached.sheet(tour, player.userId) dmap some).dmap(player -> _)
+      }
       .zipWithIndex
-      .mapAsync(8) { case (player, index) =>
+      .mapAsync(8) { case ((player, sheet), index) =>
         lightUserApi.asyncFallback(player.userId) map {
-          Player.Result(player, _, index.toInt + 1)
+          Player.Result(player, _, index.toInt + 1, sheet)
         }
       }
 

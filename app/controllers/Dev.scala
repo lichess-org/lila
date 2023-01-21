@@ -34,7 +34,8 @@ final class Dev(env: Env) extends LilaController(env):
     env.evalCache.enable,
     env.tournament.reloadEndpointSetting,
     env.tutor.nbAnalysisSetting,
-    env.tutor.parallelismSetting
+    env.tutor.parallelismSetting,
+    env.firefoxOriginTrial
   )
 
   def settings =

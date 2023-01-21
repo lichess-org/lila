@@ -2,7 +2,7 @@ package lila.api
 
 import akka.stream.scaladsl.*
 import chess.format.Fen
-import chess.format.pgn.Tag
+import chess.format.pgn.{ Tag, PgnStr }
 import org.joda.time.DateTime
 import play.api.libs.json.*
 import scala.concurrent.duration.*
@@ -32,10 +32,7 @@ final class GameApiV2(
     getLightUser: LightUser.Getter,
     realPlayerApi: RealPlayerApi,
     gameProxy: GameProxyRepo
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
-):
+)(using scala.concurrent.ExecutionContext, akka.actor.ActorSystem):
 
   import GameApiV2.*
 
@@ -43,7 +40,7 @@ final class GameApiV2(
 
   def exportOne(game: Game, config: OneConfig): Fu[String] =
     game.pgnImport ifTrue config.imported match
-      case Some(imported) => fuccess(imported.pgn)
+      case Some(imported) => fuccess(imported.pgn.value)
       case None =>
         for {
           realPlayers                  <- config.playerFile.??(realPlayerApi.apply)
@@ -58,7 +55,7 @@ final class GameApiV2(
                 analysis,
                 config.flags,
                 realPlayers = realPlayers
-              ) dmap annotator.toPgnString
+              ) dmap annotator.toPgnString dmap (_.value)
         } yield formatted
 
   private val fileR = """[\s,]""".r
@@ -211,7 +208,7 @@ final class GameApiV2(
       .mapConcat(identity)
       .throttle(config.perSecond.value, 1 second)
       .mapAsync(4)(enrich(config.flags))
-      .mapAsync(4) { case (game, fen, analysis) =>
+      .mapAsync(4) { (game, fen, analysis) =>
         config.format match
           case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, none, none)
           case Format.JSON =>
@@ -220,12 +217,12 @@ final class GameApiV2(
             }
       }
 
-  def exportUserImportedGames(user: User): Source[String, ?] =
+  def exportUserImportedGames(user: User): Source[PgnStr, ?] =
     gameRepo
       .sortedCursor(Query imported user.id, Query.importedSort, batchSize = 20)
       .documentSource()
       .throttle(20, 1 second)
-      .mapConcat(_.pgnImport.map(_.pgn + "\n\n\n").toList)
+      .mapConcat(_.pgnImport.map(_.pgn.map(_ + "\n\n\n")).toList)
 
   private val upgradeOngoingGame =
     Flow[Game].mapAsync(4)(gameProxy.upgradeIfPresent)

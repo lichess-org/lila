@@ -207,7 +207,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       .one(
         $id(userId),
         $inc(s"perfs.$field.runs" -> 1) ++
-          $doc("$max"             -> $doc(s"perfs.$field.score" -> score))
+          $doc("$max" -> $doc(s"perfs.$field.score" -> score))
       )
       .void
 

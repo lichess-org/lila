@@ -13,6 +13,7 @@ import lila.user.{ User, LightUserApi }
 import lila.common.config.Max
 import lila.game.Pov
 import lila.memo.{ SettingStore, CacheApi }
+import chess.format.pgn.PgnStr
 
 final private class TutorQueue(
     colls: TutorColls,

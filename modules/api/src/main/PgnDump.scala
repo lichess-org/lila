@@ -50,4 +50,5 @@ final class PgnDump(
         analysis: Option[Analysis],
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]
-    ) => apply(game, initialFen, analysis, flags, teams, realPlayers) dmap annotator.toPgnString
+    ) =>
+      apply(game, initialFen, analysis, flags, teams, realPlayers) dmap annotator.toPgnString dmap (_.value)

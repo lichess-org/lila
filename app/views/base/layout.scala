@@ -339,7 +339,7 @@ object layout:
           )(body),
           ctx.me.exists(_.enabled.yes) option div(id := "friend_box")(
             div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(""))),
-            div(cls   := "content_wrap none")(
+            div(cls := "content_wrap none")(
               div(cls := "content list")
             )
           ),

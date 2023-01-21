@@ -71,7 +71,7 @@ object String:
 
   object normalize:
 
-    private val ordinalRegex = "[º°ª]".r
+    private val ordinalRegex = "[º°ª½]".r
 
     // convert weird chars into letters when possible
     // but preserve ordinals
@@ -82,12 +82,14 @@ object String:
           _.group(0)(0) match {
             case 'º' | '°' => "\u0001".toString
             case 'ª'       => '\u0002'.toString
+            case '½'       => '\u0003'.toString
           }
         ),
         Normalizer.Form.NFKC
       )
       .replace('\u0001', 'º')
       .replace('\u0002', 'ª')
+      .replace('\u0003', '½')
 
   // https://www.compart.com/en/unicode/block/U+1F300
   // https://www.compart.com/en/unicode/block/U+1F600

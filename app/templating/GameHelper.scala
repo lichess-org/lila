@@ -1,10 +1,9 @@
 package lila.app
 package templating
 
-import chess.{ Black, Clock, Color, Mode, Outcome, Status as S, White }
+import chess.{ Black, Clock, Color, Mode, Outcome, Ply, White, Status as S }
 import controllers.routes
 import play.api.i18n.Lang
-
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Namer, Player, Pov }
@@ -71,8 +70,8 @@ trait GameHelper:
           case chess.variant.Crazyhouse    => "Drop captured pieces on the board"
           case _                           => "Variant ending"
       case _ => "Game is still being played"
-    val moves = s"${game.chess.fullMoveNumber} moves"
-    s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
+    val moves = (game.chess.ply.value + 1) / 2
+    s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after ${pluralize("move", moves)}. Click to replay, analyse, and discuss the game!".pp
 
   def shortClockName(clock: Option[Clock.Config])(using lang: Lang): Frag =
     clock.fold[Frag](trans.unlimited())(shortClockName)

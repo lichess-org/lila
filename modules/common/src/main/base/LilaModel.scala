@@ -120,6 +120,3 @@ trait LilaModel:
 
   opaque type UserAgent = String
   object UserAgent extends OpaqueString[UserAgent]
-
-  opaque type PgnStr = String
-  object PgnStr extends OpaqueString[PgnStr]

@@ -64,7 +64,7 @@ object bits:
       )(
         checkboxes(form("speeds"), speedChoices, config.speeds.map(_.id)),
         checkboxes(form("ratings"), ratingChoices, config.ratings),
-        div(cls                           := "opening__config__form__submit")(
+        div(cls := "opening__config__form__submit")(
           form3.submit(trans.apply())(cls := "button-empty")
         )
       )
@@ -101,7 +101,7 @@ object bits:
 
   def queryUrl(q: OpeningQuery): Call = queryUrl(q.query)
   def queryUrl(q: Query): Call =
-    routes.Opening.byKeyAndMoves(q.key, q.moves.??(_.replace(" ", "_")))
+    routes.Opening.byKeyAndMoves(q.key, q.moves.??(_.value.replace(" ", "_")))
   def openingUrl(o: Opening)  = keyUrl(o.key)
   def keyUrl(key: OpeningKey) = routes.Opening.byKeyAndMoves(key, "")
 

@@ -4,7 +4,7 @@ import scala.concurrent.duration.*
 
 import chess.{ Color, Status }
 import chess.format.Fen
-import chess.format.pgn.SanStr
+import chess.format.pgn.{ PgnStr, SanStr }
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.commands.WriteResult
@@ -508,7 +508,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
       .skip(ThreadLocalRandom nextInt 1000)
       .one[Game]
 
-  def findPgnImport(pgn: String): Fu[Option[Game]] =
+  def findPgnImport(pgn: PgnStr): Fu[Option[Game]] =
     coll.one[Game](
       $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
     )

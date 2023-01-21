@@ -5,6 +5,7 @@ import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
 import scala.concurrent.duration.*
+import chess.format.pgn.PgnStr
 
 import lila.study.MultiPgn
 import lila.memo.CacheApi
@@ -83,7 +84,7 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
       }
 
   private def looksLikePgn(body: String): Boolean =
-    MultiPgn.split(body, 1).value.headOption ?? { pgn =>
+    MultiPgn.split(PgnStr(body), 1).value.headOption ?? { pgn =>
       lila.study.PgnImport(pgn, Nil).isValid
     }
   private def looksLikePgn(url: URL): Fu[Boolean] = httpGet(url).map { _ exists looksLikePgn }

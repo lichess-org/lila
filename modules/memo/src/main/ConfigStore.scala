@@ -30,10 +30,8 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
   }
 
   def parse(text: String): Either[List[String], A] =
-    try
-      Right(loader.load(ConfigFactory.parseString(text)))
-    catch
-      case e: Exception => Left(List(e.getMessage))
+    try Right(loader.load(ConfigFactory.parseString(text)))
+    catch case e: Exception => Left(List(e.getMessage))
 
   def get: Fu[Option[A]] = cache.get(())
 

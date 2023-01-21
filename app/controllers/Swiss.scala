@@ -110,7 +110,7 @@ final class Swiss(
       }
     }
 
-  private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.userId ?? { env.team.cached.isLeader(teamId, _) } flatMap { _ ?? f }
 
   def form(teamId: TeamId) =

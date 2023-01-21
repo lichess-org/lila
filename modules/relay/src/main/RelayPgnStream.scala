@@ -7,15 +7,16 @@ import scala.concurrent.ExecutionContext
 
 import lila.study.{ Chapter, ChapterRepo, PgnDump, Study, StudyRepo }
 import lila.common.Bus
+import chess.format.pgn.PgnStr
 
 final class RelayPgnStream(
     roundRepo: RelayRoundRepo,
     studyRepo: StudyRepo,
     studyChapterRepo: ChapterRepo,
     studyPgnDump: PgnDump
-)(using ec: ExecutionContext):
+)(using ExecutionContext):
 
-  def exportFullTour(tour: RelayTour): Source[String, ?] =
+  def exportFullTour(tour: RelayTour): Source[PgnStr, ?] =
     Source futureSource {
       roundRepo.idsByTourOrdered(tour) flatMap { ids =>
         studyRepo.byOrderedIds(StudyId.from[List, RelayRoundId](ids)) map { studies =>
@@ -32,9 +33,9 @@ final class RelayPgnStream(
     val date = dateFormat.print(tour.syncedAt | tour.createdAt)
     fileR.replaceAllIn(s"lichess_broadcast_${tour.slug}_${tour.id}_$date", "")
 
-  def streamRoundGames(rt: RelayRound.WithTourAndStudy): Source[String, ?] = {
+  def streamRoundGames(rt: RelayRound.WithTourAndStudy): Source[PgnStr, ?] = {
     if (rt.relay.hasStarted) studyPgnDump(rt.study, flags)
-    else Source.empty[String]
+    else Source.empty[PgnStr]
   } concat Source
     .queue[Set[StudyChapterId]](8, akka.stream.OverflowStrategy.dropHead)
     .mapMaterializedValue { queue =>

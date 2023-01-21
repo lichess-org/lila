@@ -192,7 +192,7 @@ object index:
                           label(`for` := id)(money.display)
                         )
                       },
-                      div(cls     := "other")(
+                      div(cls := "other")(
                         input(tpe := "radio", name := "plan", id := "plan_other", value := "other"),
                         label(
                           `for`                    := "plan_other",

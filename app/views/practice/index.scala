@@ -26,7 +26,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
     ) {
       main(cls := "page-menu force-ltr")(
         st.aside(cls := "page-menu__menu practice-side")(
-          i(cls      := "fat"),
+          i(cls := "fat"),
           h1("Practice"),
           h2("makes your chess perfect"),
           div(cls := "progress")(
