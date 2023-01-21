@@ -543,6 +543,8 @@ https://lichess. org/study</string>
   <string name="blog">Blogg</string>
   <string name="notes">Anteckningar</string>
   <string name="typePrivateNotesHere">Skriv privata anteckningar här</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skriv en privat anteckning om den här användaren</string>
+  <string name="noNoteYet">Ingen anteckning ännu</string>
   <string name="invalidUsernameOrPassword">Ogiltigt användarnamn eller lösenord</string>
   <string name="incorrectPassword">Felaktigt lösenord</string>
   <string name="invalidAuthenticationCode">Ogiltig bekräftelsekod</string>
