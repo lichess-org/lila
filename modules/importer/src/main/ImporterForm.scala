@@ -1,7 +1,7 @@
 package lila.importer
 
 import cats.data.Validated
-import chess.format.pgn.{ ParsedPgn, Parser, Reader, Tag, TagType, Tags }
+import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader, Tag, TagType, Tags }
 import chess.format.Fen
 import chess.{ Color, Mode, Outcome, Replay, Status }
 import play.api.data.*
@@ -9,17 +9,18 @@ import play.api.data.Forms.*
 import scala.util.chaining.*
 
 import lila.game.*
+import lila.common.Form.into
 
 final class ImporterForm:
 
   lazy val importForm = Form(
     mapping(
-      "pgn"     -> nonEmptyText.verifying("invalidPgn", p => checkPgn(p).isValid),
+      "pgn"     -> nonEmptyText.into[PgnStr].verifying("invalidPgn", p => checkPgn(p).isValid),
       "analyse" -> optional(nonEmptyText)
     )(ImportData.apply)(unapply)
   )
 
-  def checkPgn(pgn: String): Validated[String, Preprocessed] = ImporterForm.catchOverflow { () =>
+  def checkPgn(pgn: PgnStr): Validated[String, Preprocessed] = ImporterForm.catchOverflow { () =>
     ImportData(pgn, none).preprocess(none)
   }
 
@@ -38,7 +39,7 @@ case class Preprocessed(
     parsed: ParsedPgn
 )
 
-case class ImportData(pgn: String, analyse: Option[String]):
+case class ImportData(pgn: PgnStr, analyse: Option[String]):
 
   private type TagPicker = Tag.type => TagType
 

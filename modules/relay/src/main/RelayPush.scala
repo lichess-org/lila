@@ -2,6 +2,7 @@ package lila.relay
 
 import akka.actor.*
 import scala.concurrent.duration.*
+import chess.format.pgn.PgnStr
 
 import lila.study.MultiPgn
 
@@ -12,7 +13,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi)(using
 
   private val throttler = new lila.hub.EarlyMultiThrottler[RelayRoundId](logger)
 
-  def apply(rt: RelayRound.WithTour, pgn: String): Fu[Option[String]] =
+  def apply(rt: RelayRound.WithTour, pgn: PgnStr): Fu[Option[String]] =
     if (rt.round.sync.hasUpstream)
       fuccess("The relay has an upstream URL, and cannot be pushed to.".some)
     else
@@ -23,7 +24,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi)(using
         none
       }
 
-  private def pushNow(rt: RelayRound.WithTour, pgn: String): Funit =
+  private def pushNow(rt: RelayRound.WithTour, pgn: PgnStr): Funit =
     RelayFetch
       .multiPgnToGames(MultiPgn.split(pgn, RelayFetch.maxChapters(rt.tour)))
       .flatMap { games =>

@@ -1,7 +1,7 @@
 package lila.relay
 
 import akka.actor.*
-import chess.format.pgn.{ Tags, SanStr }
+import chess.format.pgn.{ Tags, SanStr, PgnStr }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import org.joda.time.DateTime
@@ -187,7 +187,7 @@ final private class RelayFetch(
       case RelayFormat.SingleFile(doc) =>
         doc.format match
           // all games in a single PGN file
-          case RelayFormat.DocFormat.Pgn => httpGet(doc.url) map { MultiPgn.split(_, max) }
+          case RelayFormat.DocFormat.Pgn => httpGetPgn(doc.url) map { MultiPgn.split(_, max) }
           // maybe a single JSON game? Why not
           case RelayFormat.DocFormat.Json =>
             httpGetJson[GameJson](doc.url) map { game =>
@@ -200,7 +200,7 @@ final private class RelayFetch(
               val number  = i + 1
               val gameDoc = makeGameDoc(number)
               (gameDoc.format match {
-                case RelayFormat.DocFormat.Pgn => httpGet(gameDoc.url)
+                case RelayFormat.DocFormat.Pgn => httpGetPgn(gameDoc.url)
                 case RelayFormat.DocFormat.Json =>
                   httpGetJson[GameJson](gameDoc.url).recover { case _: Exception =>
                     GameJson(moves = Nil, result = none)
@@ -222,6 +222,8 @@ final private class RelayFetch(
         case res if res.status == 200 => fuccess(res.body)
         case res                      => fufail(s"[${res.status}] $url")
       }
+
+  private def httpGetPgn(url: URL): Fu[PgnStr] = PgnStr from httpGet(url)
 
   private def httpGetJson[A: Reads](url: URL): Fu[A] =
     for {
@@ -287,7 +289,7 @@ private object RelayFetch:
             secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
           )
         } mkString " "
-        s"$extraTags\n\n$strMoves"
+        PgnStr(s"$extraTags\n\n$strMoves")
     given Reads[GameJson] = Json.reads
 
   object multiPgnToGames:
@@ -308,12 +310,12 @@ private object RelayFetch:
         .future
         .dmap(_._1)
 
-    private val pgnCache: LoadingCache[String, Try[Int => RelayGame]] = CacheApi.scaffeineNoScheduler
+    private val pgnCache: LoadingCache[PgnStr, Try[Int => RelayGame]] = CacheApi.scaffeineNoScheduler
       .expireAfterAccess(2 minutes)
       .maximumSize(512)
       .build(compute)
 
-    private def compute(pgn: String): Try[Int => RelayGame] =
+    private def compute(pgn: PgnStr): Try[Int => RelayGame] =
       lila.study
         .PgnImport(pgn, Nil)
         .fold(

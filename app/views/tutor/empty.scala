@@ -10,6 +10,7 @@ import lila.tutor.{ TutorFullReport, TutorQueue }
 import lila.user.User
 import lila.game.Pov
 import play.api.i18n.Lang
+import chess.format.pgn.PgnStr
 
 object empty:
 

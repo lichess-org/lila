@@ -1,7 +1,7 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags }
+import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr }
 import chess.format.{ pgn as chessPgn }
 import org.joda.time.format.DateTimeFormat
 import scala.concurrent.duration.*
@@ -20,13 +20,13 @@ final class PgnDump(
 
   import PgnDump.*
 
-  def apply(study: Study, flags: WithFlags): Source[String, ?] =
+  def apply(study: Study, flags: WithFlags): Source[PgnStr, ?] =
     chapterRepo
       .orderedByStudySource(study.id)
       .throttle(16, 1 second)
       .mapAsync(1)(ofChapter(study, flags))
 
-  def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[String] =
+  def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
     chapter.serverEval.exists(_.done) ?? analyser.byId(chapter.id.value) map { analysis =>
       val pgn = Pgn(
         tags = makeTags(study, chapter),

@@ -8,6 +8,7 @@ import views.*
 
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
+import chess.format.pgn.PgnStr
 
 final class Importer(env: Env) extends LilaController(env):
 
@@ -23,7 +24,7 @@ final class Importer(env: Env) extends LilaController(env):
     OpenBody { implicit ctx =>
       fuccess {
         val pgn  = ctx.body.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
-        val data = lila.importer.ImportData(pgn, None)
+        val data = lila.importer.ImportData(PgnStr(pgn), None)
         Ok(html.game.importGame(env.importer.forms.importForm.fill(data)))
       }
     }

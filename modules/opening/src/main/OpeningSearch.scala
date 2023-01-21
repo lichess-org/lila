@@ -7,9 +7,10 @@ import lila.common.base.StringUtils.levenshtein
 import lila.common.Chronometer
 import lila.common.Heapsort.topN
 import lila.memo.CacheApi
+import chess.format.pgn.PgnMovesStr
 
 case class OpeningSearchResult(opening: Opening):
-  def pgn   = OpeningSearch.removePgnMoveNumbers(opening.pgn.value)
+  def pgn   = OpeningSearch.removePgnMoveNumbers(opening.pgn)
   def query = OpeningQuery.Query(opening.key.value, pgn.some)
 
 final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer):
@@ -29,8 +30,8 @@ final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer):
 private object OpeningSearch:
 
   object removePgnMoveNumbers:
-    private val numbersRegex = """\d{1,2}\.{1,3}\s?""".r
-    def apply(pgn: String)   = pgn.replaceAllIn(numbersRegex, "").trim
+    private val numbersRegex    = """\d{1,2}\.{1,3}\s?""".r
+    def apply(pgn: PgnMovesStr) = pgn.map(_.replaceAllIn(numbersRegex, "").trim)
 
   private val openings: Vector[Opening] = OpeningDb.shortestLines.values.toVector
 

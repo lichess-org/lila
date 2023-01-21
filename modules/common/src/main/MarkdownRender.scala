@@ -33,6 +33,7 @@ import chess.format.pgn.Pgn
 import com.vladsch.flexmark.util.misc.Extension
 import lila.base.RawHtml
 import com.vladsch.flexmark.html.renderer.ResolvedLink
+import chess.format.pgn.PgnStr
 
 final class MarkdownRender(
     autoLink: Boolean = true,
@@ -103,7 +104,7 @@ object MarkdownRender:
 
   type Key = String
 
-  case class GameExpand(domain: config.NetDomain, getPgn: GameId => Option[String])
+  case class GameExpand(domain: config.NetDomain, getPgn: GameId => Option[PgnStr])
 
   private val rel = "nofollow noopener noreferrer"
 
@@ -246,12 +247,12 @@ object MarkdownRender:
         node: LinkNode,
         html: HtmlWriter,
         link: ResolvedLink,
-        pgn: String,
+        pgn: PgnStr,
         color: String,
         ply: String
     ) =
       html
-        .attr("data-pgn", pgn)
+        .attr("data-pgn", pgn.value)
         .attr("data-orientation", Option(color) | "white")
         .attr("data-ply", Option(ply) | "")
         .attr("class", "lpv--autostart")

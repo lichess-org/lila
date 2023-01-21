@@ -683,7 +683,6 @@ abstract private[controllers] class LilaController(val env: Env)
     res.withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=$name")
   protected def asAttachmentStream(name: String) = (res: Result) => noProxyBuffer(asAttachment(name)(res))
 
-  protected val pgnContentType    = "application/x-chess-pgn"
   protected val ndJsonContentType = "application/x-ndjson"
   protected val csvContentType    = "text/csv"
 

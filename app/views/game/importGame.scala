@@ -4,6 +4,7 @@ package game
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import chess.format.pgn.PgnStr
 
 import controllers.routes
 
@@ -33,7 +34,7 @@ object importGame:
           form3.group(form("pgn"), trans.pasteThePgnStringHere())(form3.textarea(_)()),
           form("pgn").value flatMap { pgn =>
             lila.importer
-              .ImportData(pgn, none)
+              .ImportData(PgnStr(pgn), none)
               .preprocess(none)
               .fold(
                 err =>

@@ -10,6 +10,7 @@ import lila.analyse.AnalysisRepo
 import lila.common.config
 import lila.game.{ Game, GameRepo }
 import lila.memo.CacheApi
+import chess.format.pgn.PgnStr
 
 final class TextLpvExpand(
     gameRepo: GameRepo,
@@ -46,7 +47,7 @@ final class TextLpvExpand(
         }
     }
 
-  def gamePgnsFromText(text: String): Fu[Map[GameId, String]] =
+  def gamePgnsFromText(text: String): Fu[Map[GameId, PgnStr]] =
     val gameIds = gameRegex
       .findAllMatchIn(text)
       .toList
@@ -71,7 +72,7 @@ final class TextLpvExpand(
   private val pgnFlags =
     lila.game.PgnDump.WithFlags(clocks = true, evals = true, opening = false, literate = true)
 
-  private val pgnCache = cacheApi[GameId, Option[String]](512, "textLpvExpand.pgn") {
+  private val pgnCache = cacheApi[GameId, Option[PgnStr]](512, "textLpvExpand.pgn") {
     _.expireAfterWrite(10 minutes).buildAsyncFuture(id => gameIdToPgn(id).map2(_.render))
   }
 

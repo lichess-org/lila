@@ -101,7 +101,7 @@ object bits:
 
   def queryUrl(q: OpeningQuery): Call = queryUrl(q.query)
   def queryUrl(q: Query): Call =
-    routes.Opening.byKeyAndMoves(q.key, q.moves.??(_.replace(" ", "_")))
+    routes.Opening.byKeyAndMoves(q.key, q.moves.??(_.value.replace(" ", "_")))
   def openingUrl(o: Opening)  = keyUrl(o.key)
   def keyUrl(key: OpeningKey) = routes.Opening.byKeyAndMoves(key, "")
 

@@ -12,6 +12,7 @@ import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourM
 import lila.user.{ User as UserModel }
 import views.*
 import lila.common.HTTPRequest
+import chess.format.pgn.PgnStr
 
 final class RelayRound(
     env: Env,
@@ -174,7 +175,7 @@ final class RelayRound(
             .GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
               env.relay.pgnStream.streamRoundGames(rt)
             ) { source =>
-              noProxyBuffer(Ok chunked source.keepAlive(60.seconds, () => " ") as pgnContentType)
+              noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
             }
             .toFuccess
         }(Unauthorized.toFuccess, Forbidden.toFuccess)
@@ -195,7 +196,7 @@ final class RelayRound(
     ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { req => me =>
       env.relay.api.byIdAndContributor(id, me) flatMap {
         case None     => notFoundJson()
-        case Some(rt) => env.relay.push(rt, req.body) inject jsonOkResult
+        case Some(rt) => env.relay.push(rt, PgnStr(req.body)) inject jsonOkResult
       }
     }
 
