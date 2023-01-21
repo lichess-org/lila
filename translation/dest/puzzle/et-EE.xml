@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Ülesanded</string>
+  <string name="puzzles">Pusled</string>
   <string name="puzzleThemes">Pusle teemad</string>
   <string name="recommended">Soovitame</string>
   <string name="phases">Etapid</string>
@@ -59,8 +59,12 @@
   <string name="continueTheStreak">Jätka seeriat</string>
   <string name="newStreak">Uus seeria</string>
   <string name="fromMyGames">Minu mängudest</string>
+  <string name="lookupOfPlayer">Otsi puslesid mängija partiidest</string>
   <string name="fromXGames">Pusled %s mängudest</string>
   <string name="searchPuzzles">Otsi puslesid</string>
+  <string name="fromMyGamesNone">Sul ei ole puslesid andmebaasis, aga oled Lichessile ikkagi tähtis.
+
+Mängi kiirmalet või klassikalist malet tõstmaks võimalusi, et lisatakse pusle sinu mängust!</string>
   <string name="fromXGamesFound">%1$s puslet leitud %2$s mängudes</string>
   <string name="puzzleDashboardDescription">Treeni, analüüsi, täiusta</string>
   <plurals name="nbPlayed">

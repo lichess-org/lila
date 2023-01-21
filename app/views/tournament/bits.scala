@@ -10,7 +10,7 @@ import controllers.routes
 
 object bits:
 
-  def notFound()(implicit ctx: Context) =
+  def notFound()(using Context) =
     views.html.base.layout(
       title = trans.tournamentNotFound.txt()
     ) {
@@ -24,7 +24,7 @@ object bits:
       )
     }
 
-  def enterable(tours: List[Tournament])(implicit ctx: Context) =
+  def enterable(tours: List[Tournament])(using Context) =
     table(cls := "tournaments")(
       tours map { tour =>
         tr(
@@ -50,7 +50,7 @@ object bits:
         "If it has prizes, Lichess is not responsible for paying them."
       )
 
-  def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
+  def jsI18n(using Context) = i18nJsObject(i18nKeys)
 
   private val i18nKeys = List(
     trans.standing,

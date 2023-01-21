@@ -88,8 +88,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         forStudent = (clas, students) =>
           env.clas.api.clas.teachers(clas) map { teachers =>
             preloadStudentUsers(students)
-            val wall = scalatags.Text.all.raw(env.clas.markup(clas))
-            Ok(views.html.clas.studentDashboard(clas, wall, teachers, students))
+            Ok(views.html.clas.studentDashboard(clas, env.clas.markup(clas), teachers, students))
           },
         orDefault = _ =>
           if (isGranted(_.UserModView))
@@ -129,8 +128,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       WithClassAny(id, me.user)(
         forTeacher = WithClass(me, id) { clas =>
           env.clas.api.student.allWithUsers(clas) map { students =>
-            val wall = scalatags.Text.all.raw(env.clas.markup(clas))
-            views.html.clas.wall.show(clas, wall, students)
+            views.html.clas.wall.show(clas, env.clas.markup(clas), students)
           }
         },
         forStudent = (clas, _) => Redirect(routes.Clas.show(clas.id.value)).toFuccess
@@ -524,18 +522,19 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       WithClassAndStudents(me, id) { (clas, students) =>
         WithStudent(clas, username) { s =>
           if (s.student.managed)
-            env.security.forms.preloadEmailDns(ctx.body, formBinding) >> env.clas.forms.student.release
+            env.security.forms.preloadEmailDns()(using
+              ctx.body,
+              formBinding
+            ) >> env.clas.forms.student.release
               .bindFromRequest()(ctx.body, formBinding)
               .fold(
                 err => BadRequest(html.clas.student.release(clas, students, s, err)).toFuccess,
-                data => {
-                  val email = env.security.emailAddressValidator
-                    .validate(lila.common.EmailAddress(data)) err s"Invalid email $data"
-                  val newUserEmail = lila.security.EmailConfirm.UserEmail(s.user.username, email.acceptable)
+                email => {
+                  val newUserEmail = lila.security.EmailConfirm.UserEmail(s.user.username, email)
                   authC.EmailConfirmRateLimit(newUserEmail, ctx.req) {
                     env.security.emailChange.send(s.user, newUserEmail.email) inject
                       Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).flashSuccess {
-                        s"A confirmation email was sent to ${email.acceptable.value}. ${s.student.realName} must click the link in the email to release the account."
+                        s"A confirmation email was sent to ${email}. ${s.student.realName} must click the link in the email to release the account."
                       }
                   }(rateLimitedFu)
                 }

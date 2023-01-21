@@ -199,7 +199,7 @@
   <string name="changeUsername">Benutzernamen ändern</string>
   <string name="changeUsernameNotSame">Nur die Groß-/Kleinschreibung kann geändert werden, z.B. \"jondoe\" zu \"JonDoe\".</string>
   <string name="changeUsernameDescription">Ändere deinen Benutzernamen. Dies ist nur einmalig möglich und bezieht sich lediglich auf Anpassungen der Groß- und Kleinschreibung deines Benutzernamens.</string>
-  <string name="signupUsernameHint">Bitte wähle einen familienfreundlichen Benutzernamen. Du kannst ihn später nicht mehr ändern und Konten mit unpassenden Benutzernamen werden geschlossen!</string>
+  <string name="signupUsernameHint">Bitte wähle einen familienfreundlichen Benutzernamen. Du kannst ihn später nicht mehr ändern und Konten mit unangemessenen Benutzernamen werden geschlossen!</string>
   <string name="signupEmailHint">Wir werden sie nur zum Zurücksetzen deines Passworts verwenden.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändern</string>
@@ -872,7 +872,7 @@
   <string name="resVsX">%1$s gegen %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Jemand hat dein Trainerprofil bewertet.</string>
   <string name="newPendingReview">Neue, ausstehende Rezension</string>
-  <string name="lostAgainstTOSViolator">Du hast gegen jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
+  <string name="lostAgainstTOSViolator">Du hast Wertungspunkte an jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
   <string name="refundXpointsTimeControlY">Rückerstattung: %1$s %2$s Wertungspunkte.</string>
   <string name="timeAlmostUp">Deine Zeit ist fast abgelaufen!</string>
   <string name="clickToRevealEmailAddress">[Klicke, um die E-Mail-Adresse anzuzeigen]</string>

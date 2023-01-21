@@ -116,7 +116,7 @@ lichess.load.then(() => {
                   const forumParticipantCandidates = searchCandidates(term, participants);
 
                   if (forumParticipantCandidates.length != 0) {
-                    // We always prefer a match on the forum thread partcipants' usernames
+                    // We always prefer a match on the forum thread participants' usernames
                     callback(forumParticipantCandidates);
                   } else if (term.length >= 3) {
                     // We fall back to every site user after 3 letters of the username have been entered

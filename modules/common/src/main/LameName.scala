@@ -19,7 +19,7 @@ object LameName:
       + "(?:" + titlePattern + "M.*)|"                // uppercase title at start
       + "(?i:.*[^a-z]" + titlePattern + "M)|"         // title at end, separated by non-letter
       + "(?i:.*[^a-z]" + titlePattern + "M[^a-z].*)|" // title in middle, surrounded by non-letters
-      + "(?:.*[^A-Z]" + titlePattern + "M(?:[A-Z]?[^A-Z].*)?)" // uppercase title not preceeded by uppercase letter,
+      + "(?:.*[^A-Z]" + titlePattern + "M(?:[A-Z]?[^A-Z].*)?)" // uppercase title not preceded by uppercase letter,
       + "$" //   either at end or followed by at most one uppercase letter and then something else
   ).r
 

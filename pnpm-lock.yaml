@@ -197,7 +197,7 @@ importers:
       '@types/dom-screen-wake-lock': 1.0.0
       '@types/lichess': workspace:*
       chessground: ^8.3.6
-      lichess-pgn-viewer: ^1.4.4
+      lichess-pgn-viewer: ^1.5.2
       snabbdom: ^3.5.1
       tablesort: ^5.3.0
     dependencies:
@@ -205,7 +205,7 @@ importers:
       '@types/dom-screen-wake-lock': 1.0.0
       '@types/lichess': link:../@types/lichess
       chessground: 8.3.6
-      lichess-pgn-viewer: 1.4.4
+      lichess-pgn-viewer: 1.5.2
       snabbdom: 3.5.1
       tablesort: 5.3.0
 
@@ -422,7 +422,7 @@ importers:
       common: workspace:*
       date-fns: ^2.29.3
       debounce-promise: ^3.1.2
-      lichess-pgn-viewer: ^1.4.4
+      lichess-pgn-viewer: ^1.5.2
     dependencies:
       '@types/cash': link:../@types/cash
       '@types/debounce-promise': 3.1.6
@@ -433,7 +433,7 @@ importers:
       common: link:../common
       date-fns: 2.29.3
       debounce-promise: 3.1.2
-      lichess-pgn-viewer: 1.4.4
+      lichess-pgn-viewer: 1.5.2
 
   ui/palantir:
     specifiers:
@@ -566,7 +566,7 @@ importers:
   ui/site:
     specifiers:
       '@fnando/sparkline': ^0.3.10
-      '@toast-ui/editor': ^3.2.1
+      '@toast-ui/editor': '=3.1.7'
       '@types/cash': workspace:*
       '@types/debounce-promise': ^3.1.6
       '@types/fnando__sparkline': ^0.3.4
@@ -582,7 +582,7 @@ importers:
       flatpickr: ^4.6.13
       highcharts: '=4.2.5'
       hopscotch: ^0.3.1
-      lichess-pgn-viewer: ^1.4.4
+      lichess-pgn-viewer: ^1.5.2
       prop-types: ^15.8.1
       stockfish-mv.wasm: ^0.6.1
       stockfish-nnue.wasm: 1.0.0-1946a675.smolnet
@@ -592,7 +592,7 @@ importers:
       zxcvbn: ^4.4.2
     dependencies:
       '@fnando/sparkline': 0.3.10
-      '@toast-ui/editor': 3.2.1
+      '@toast-ui/editor': 3.1.7
       '@types/cash': link:../@types/cash
       '@types/debounce-promise': 3.1.6
       '@types/fnando__sparkline': 0.3.4
@@ -608,7 +608,7 @@ importers:
       flatpickr: 4.6.13
       highcharts: 4.2.5
       hopscotch: 0.3.1
-      lichess-pgn-viewer: 1.4.4
+      lichess-pgn-viewer: 1.5.2
       prop-types: 15.8.1
       stockfish-mv.wasm: 0.6.1
       stockfish-nnue.wasm: 1.0.0-1946a675.smolnet
@@ -715,11 +715,15 @@ importers:
     specifiers:
       '@types/cash': workspace:*
       '@types/lichess': workspace:*
+      chessground: ^8.3.6
       common: workspace:*
+      lichess-pgn-viewer: ^1.5.2
     dependencies:
       '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
+      chessground: 8.3.6
       common: link:../common
+      lichess-pgn-viewer: 1.5.2
 
 packages:
 
@@ -2551,14 +2555,14 @@ packages:
       '@sinonjs/commons': 1.8.6
     dev: false
 
-  /@toast-ui/editor/3.2.1:
-    resolution: {integrity: sha512-05nKfqK2n/6Mq8WpO1E7OnOjlhiFfxr1G2i/DpG/pFjKlY3E7uOtSAyuz7rybKWHgUzXRzRGv7MqDL6lXfqnWg==}
+  /@toast-ui/editor/3.1.7:
+    resolution: {integrity: sha512-SEfahMrrphveuGhOQyYX3UwjJWjCRnnL6pVPc67uVDBS/JsOESJDG2kcfW9MHJhHnOv6m6WV1jRQW9kPatgumw==}
     dependencies:
       dompurify: 2.4.1
-      prosemirror-commands: 1.5.0
-      prosemirror-history: 1.3.0
-      prosemirror-inputrules: 1.2.0
-      prosemirror-keymap: 1.2.0
+      prosemirror-commands: 1.1.12
+      prosemirror-history: 1.1.3
+      prosemirror-inputrules: 1.1.3
+      prosemirror-keymap: 1.1.5
       prosemirror-model: 1.18.3
       prosemirror-state: 1.4.2
       prosemirror-view: 1.29.1
@@ -4790,8 +4794,8 @@ packages:
       type-check: 0.4.0
     dev: false
 
-  /lichess-pgn-viewer/1.4.4:
-    resolution: {integrity: sha512-wQ9ld3wxxdzMzfz3a+Wj0xXtJ3Ss8QWU+Ia5MSWvJxtKYyuHM/heR0BUw8Z+HNnG8PrSsAtdPr2LXN8J87DDLg==}
+  /lichess-pgn-viewer/1.5.2:
+    resolution: {integrity: sha512-2T3Xj7jrcJnVkFCZPOf1RtdcYTezAT4SWkTaCYi+5L1jokzcbr0a79RqvgaOkwKGt8BjVb+r+Ut7bBacu9Pkbg==}
     dependencies:
       chessground: 8.3.6
       chessops: 0.12.5
@@ -5139,31 +5143,31 @@ packages:
       react-is: 16.13.1
     dev: false
 
-  /prosemirror-commands/1.5.0:
-    resolution: {integrity: sha512-zL0Fxbj3fh71GPNHn5YdYgYGX2aU2XLecZYk2ekEF0oOD259HcXtM+96VjPVi5o3h4sGUdDfEEhGiREXW6U+4A==}
+  /prosemirror-commands/1.1.12:
+    resolution: {integrity: sha512-+CrMs3w/ZVPSkR+REg8KL/clyFLv/1+SgY/OMN+CB22Z24j9TZDje72vL36lOZ/E4NeRXuiCcmENcW/vAcG67A==}
     dependencies:
       prosemirror-model: 1.18.3
       prosemirror-state: 1.4.2
       prosemirror-transform: 1.7.0
     dev: false
 
-  /prosemirror-history/1.3.0:
-    resolution: {integrity: sha512-qo/9Wn4B/Bq89/YD+eNWFbAytu6dmIM85EhID+fz9Jcl9+DfGEo8TTSrRhP15+fFEoaPqpHSxlvSzSEbmlxlUA==}
+  /prosemirror-history/1.1.3:
+    resolution: {integrity: sha512-zGDotijea+vnfnyyUGyiy1wfOQhf0B/b6zYcCouBV8yo6JmrE9X23M5q7Nf/nATywEZbgRLG70R4DmfSTC+gfg==}
     dependencies:
       prosemirror-state: 1.4.2
       prosemirror-transform: 1.7.0
       rope-sequence: 1.3.3
     dev: false
 
-  /prosemirror-inputrules/1.2.0:
-    resolution: {integrity: sha512-eAW/M/NTSSzpCOxfR8Abw6OagdG0MiDAiWHQMQveIsZtoKVYzm0AflSPq/ymqJd56/Su1YPbwy9lM13wgHOFmQ==}
+  /prosemirror-inputrules/1.1.3:
+    resolution: {integrity: sha512-ZaHCLyBtvbyIHv0f5p6boQTIJjlD6o2NPZiEaZWT2DA+j591zS29QQEMT4lBqwcLW3qRSf7ZvoKNbf05YrsStw==}
     dependencies:
       prosemirror-state: 1.4.2
       prosemirror-transform: 1.7.0
     dev: false
 
-  /prosemirror-keymap/1.2.0:
-    resolution: {integrity: sha512-TdSfu+YyLDd54ufN/ZeD1VtBRYpgZnTPnnbY+4R08DDgs84KrIPEPbJL8t1Lm2dkljFx6xeBE26YWH3aIzkPKg==}
+  /prosemirror-keymap/1.1.5:
+    resolution: {integrity: sha512-8SZgPH3K+GLsHL2wKuwBD9rxhsbnVBTwpHCO4VUO5GmqUQlxd/2GtBVWTsyLq4Dp3N9nGgPd3+lZFKUDuVp+Vw==}
     dependencies:
       prosemirror-state: 1.4.2
       w3c-keyname: 2.2.6

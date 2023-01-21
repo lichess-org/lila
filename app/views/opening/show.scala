@@ -40,7 +40,7 @@ object show:
             case None       => a(href := routes.Opening.index(), dataIcon := "")
           },
           span(cls := "opening__name")(
-            page.nameParts.zipWithIndex map { case (part, i) =>
+            page.nameParts.zipWithIndex map { (part, i) =>
               frag(
                 part match {
                   case Left(move) => span(cls := "opening__name__move")(i > 0 option ", ", move)
@@ -87,7 +87,7 @@ object show:
                 )(trans.openingExplorer())
               ),
               if (page.explored.??(_.history).nonEmpty)
-                div(cls      := "opening__popularity opening__popularity--chart")(
+                div(cls := "opening__popularity opening__popularity--chart")(
                   canvas(cls := "opening__popularity__chart")
                 )
               else
@@ -111,7 +111,7 @@ object show:
       )
     }
 
-  private def exampleGames(page: OpeningPage)(implicit ctx: Context) =
+  private def exampleGames(page: OpeningPage)(using Context) =
     div(cls := "opening__games")(page.explored.??(_.games).map { game =>
       div(
         cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom",

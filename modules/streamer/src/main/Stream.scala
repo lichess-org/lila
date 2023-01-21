@@ -10,7 +10,7 @@ import lila.common.Json.given
 
 trait Stream:
   def serviceName: String
-  val status: String
+  val status: Html
   val streamer: Streamer
   val language: String
 
@@ -19,7 +19,7 @@ trait Stream:
   def twitch                      = serviceName == "twitch"
   def youTube                     = serviceName == "youTube"
 
-  lazy val cleanStatus = removeMultibyteSymbols(status).trim
+  lazy val cleanStatus = status.map(s => removeMultibyteSymbols(s).trim)
 
   lazy val lang: String = (language.length == 2) ?? language.toLowerCase
 
@@ -29,13 +29,13 @@ object Stream:
     def toLowerCase = value.toLowerCase
 
   object Twitch:
-    case class TwitchStream(user_name: String, title: String, `type`: String, language: String):
+    case class TwitchStream(user_name: String, title: Html, `type`: String, language: String):
       def name   = user_name
       def isLive = `type` == "live"
     case class Pagination(cursor: Option[String])
     case class Result(data: Option[List[TwitchStream]], pagination: Option[Pagination]):
       def liveStreams = (~data).filter(_.isLive)
-    case class Stream(userId: String, status: String, streamer: Streamer, language: String)
+    case class Stream(userId: String, status: Html, streamer: Streamer, language: String)
         extends lila.streamer.Stream:
       def serviceName = "twitch"
     private given Reads[TwitchStream] = Json.reads
@@ -45,7 +45,7 @@ object Stream:
   object YouTube:
     case class Snippet(
         channelId: String,
-        title: String,
+        title: Html,
         liveBroadcastContent: String,
         defaultAudioLanguage: Option[String]
     )
@@ -56,7 +56,7 @@ object Stream:
         items
           .withFilter { item =>
             item.snippet.liveBroadcastContent == "live" &&
-            item.snippet.title.toLowerCase.contains(keyword.toLowerCase)
+            item.snippet.title.value.toLowerCase.contains(keyword.toLowerCase)
           }
           .flatMap { item =>
             streamers.find(s => s.youTube.exists(_.channelId == item.snippet.channelId)) map {
@@ -71,7 +71,7 @@ object Stream:
           }
     case class Stream(
         channelId: String,
-        status: String,
+        status: Html,
         videoId: String,
         streamer: Streamer,
         language: String

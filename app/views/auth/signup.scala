@@ -24,7 +24,7 @@ object signup:
       withHrefLangs = LangPath(routes.Auth.signup).some
     ) {
       main(cls := "auth auth-signup box box-pad")(
-        boxTop(trans.signUp()),
+        h1(cls := "box__top")(trans.signUp()),
         postForm(
           id := "signup-form",
           cls := List(

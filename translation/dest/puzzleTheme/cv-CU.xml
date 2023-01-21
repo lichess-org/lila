@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="arabianMate">Арабла мат</string>
+  <string name="bodenMate">Боден мачӗ</string>
+  <string name="fork">Кармак</string>
+  <string name="mate">Шах та мат</string>
+  <string name="pin">Ҫирӗплет</string>
+</resources>

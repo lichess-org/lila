@@ -83,20 +83,21 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def momentFromNowServer(date: DateTime): Frag =
     timeTag(title := f"${showEnglishDateTime(date)} UTC")(momentFromNowServerText(date))
 
-  def momentFromNowServerText(date: DateTime): String =
+  def momentFromNowServerText(date: DateTime, inFuture: Boolean = false): String =
     val (dateSec, nowSec) = (date.getMillis / 1000, nowSeconds)
-    val seconds           = (nowSec - dateSec).toInt atLeast 0
+    val seconds           = (if inFuture then dateSec - nowSec else nowSec - dateSec).toInt atLeast 0
     val minutes           = seconds / 60
     val hours             = minutes / 60
     val days              = hours / 24
     lazy val weeks        = days / 7
     lazy val months       = days / 30
     lazy val years        = days / 365
+    val preposition       = if inFuture then " from now" else " ago"
     if (minutes == 0) "right now"
-    else if (hours == 0) s"${pluralize("minute", minutes)} ago"
-    else if (days < 2) s"${pluralize("hour", hours)} ago"
-    else if (weeks == 0) s"${pluralize("day", days)} ago"
-    else if (months == 0) s"${pluralize("week", weeks)} ago"
-    else if (years == 0) s"${pluralize("month", months)} ago"
-    else s"${pluralize("year", years)} ago"
+    else if (hours == 0) s"${pluralize("minute", minutes)}$preposition"
+    else if (days < 2) s"${pluralize("hour", hours)}$preposition"
+    else if (weeks == 0) s"${pluralize("day", days)}$preposition"
+    else if (months == 0) s"${pluralize("week", weeks)}$preposition"
+    else if (years == 0) s"${pluralize("month", months)}$preposition"
+    else s"${pluralize("year", years)}$preposition"
 }

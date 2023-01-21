@@ -5,7 +5,10 @@ import lila.tree.Eval
 // How likely one is to win a position, based on subjective Stockfish centipawns
 opaque type WinPercent = Double
 object WinPercent extends OpaqueDouble[WinPercent]:
-  given Percent[WinPercent]           = Percent.of(WinPercent)
+
+  given lila.db.NoDbHandler[WinPercent] with {}
+  given Percent[WinPercent] = Percent.of(WinPercent)
+
   extension (a: WinPercent) def toInt = Percent.toInt(a)
 
   def fromEval(eval: Eval): Option[WinPercent] =

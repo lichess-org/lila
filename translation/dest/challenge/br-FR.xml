@@ -8,5 +8,11 @@
   <string name="registerToSendChallenges">Kevreit evit daeañ an implijer-mañ mar plij.</string>
   <string name="youCannotChallengeX">Ne c\'hallit ket daeañ %s.</string>
   <string name="xDoesNotAcceptChallenges">%s n\'he/en deus ket c\'hant da vezañ daeet.</string>
+  <string name="yourXRatingIsTooFarFromY">Re vras an diforc\'h etre ho renkadur %1$s hag hini %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Ne c\'hallit ket daeañ abalamour d\'ar renkadur %s da c\'hortoz.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">Ne vez ket degemeret daeoù nemet digant mignoned gant %s.</string>
   <string name="declineGeneric">Ne zegemeran ket daeoù er mare-mañ.</string>
+  <string name="declineRated">Kasit din un dae renket kentoc\'h, mar plij ganeoc\'h.</string>
+  <string name="declineNoBot">Ne zegemeran ket daeoù kaset gant robotoù.</string>
+  <string name="inviteLichessUser">Pediñ ur c\'hoarier war Lichess mod-all:</string>
 </resources>

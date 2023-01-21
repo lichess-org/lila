@@ -56,7 +56,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Tylko współautorzy opracowania mogą prosić o analizę komputerową.</string>
   <string name="getAFullComputerAnalysis">Uzyskaj pełną, zdalną analizę komputerową głównego wariantu.</string>
   <string name="makeSureTheChapterIsComplete">Upewnij się, że rozdział jest kompletny. O jego analizę możesz poprosić tylko raz.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Wszyscy zsynchronizowani uczestnicy pozostają na tej samej pozycji</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Wszyscy zsynchronizowani uczestnicy pozostają na tej samej pozycji</string>
   <string name="shareChanges">Współdzielenie zmian z obserwatorami i ich zapis na serwerze</string>
   <string name="playing">W toku</string>
   <string name="first">Pierwszy</string>
@@ -68,6 +68,8 @@
   <string name="studyPgn">PGN opracowania</string>
   <string name="downloadAllGames">Pobierz wszystkie partie</string>
   <string name="chapterPgn">PGN rozdziału</string>
+  <string name="copyChapterPgn">Kopiuj PGN</string>
+  <string name="copyChapterPgnDescription">Skopiuj rozdział w PGN do schowka.</string>
   <string name="downloadGame">Pobierz partię</string>
   <string name="studyUrl">Link do opracowania</string>
   <string name="currentChapterUrl">URL bieżącego rozdziału</string>

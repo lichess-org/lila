@@ -671,6 +671,7 @@
   <string name="kidMode">キッズモード</string>
   <string name="kidModeExplanation">これは安全対策です。「キッズモード」ではサイト上の会話がすべて無効になります。子供や生徒のアカウントでこのモードを有効にしておけば、彼らを他のユーザーから守ることができます。</string>
   <string name="inKidModeTheLichessLogoGetsIconX">キッズモードでは Lichess のロゴに %s のアイコンが付き、安全であることを示します。</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">あなたのアカウントは管理されています。キッズモードの停止は講師に依頼してください。</string>
   <string name="enableKidMode">キッズモードを有効化</string>
   <string name="disableKidMode">キッズモードを無効化</string>
   <string name="security">セキュリティ</string>

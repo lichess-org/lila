@@ -54,7 +54,7 @@ object AutoConfig:
             // parameter name
             val paramName = Expr(param.name)
 
-            // see if the name needs to be overriden using ConfigName annotation
+            // see if the name needs to be overridden using ConfigName annotation
             val nameOverride = param.annotations
               .collectFirst {
                 case a if a.tpe.derivesFrom(TypeRepr.of[ConfigName].typeSymbol) =>

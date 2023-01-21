@@ -6,8 +6,9 @@ import lila.insight.{ InsightDimension, InsightMetric }
 case class TutorCompare[D, V](
     dimensionType: InsightDimension[D],
     metric: TutorMetric[V],
-    points: List[(D, TutorBothValueOptions[V])]
-)(implicit number: TutorNumber[V]):
+    points: List[(D, TutorBothValueOptions[V])],
+    color: Option[chess.Color] = None
+)(using number: TutorNumber[V]):
   import TutorCompare.*
   import TutorNumber.*
 
@@ -19,15 +20,17 @@ case class TutorCompare[D, V](
     for {
       (dim1, met1) <- myPoints.filter(_._2 relevantTo totalCountMine)
       avg = number.mean(myPoints.filter(_._1 != dim1).map(_._2))
-    } yield Comparison(dimensionType, dim1, metric, met1, DimAvg(avg))
+    } yield Comparison(dimensionType, dim1, metric, met1, DimAvg(avg), color)
 
   lazy val peerComparisons: List[AnyComparison] = points.collect {
     case (dim, TutorBothValueOptions(Some(mine), Some(peer)))
         if mine.relevantTo(totalCountMine) && peer.reliableEnough =>
-      Comparison(dimensionType, dim, metric, mine, Peers(peer))
+      Comparison(dimensionType, dim, metric, mine, Peers(peer), color)
   }
 
   def allComparisons: List[AnyComparison] = dimensionComparisons ::: peerComparisons
+
+  def as(color: chess.Color) = copy(color = color.some)
 
 object TutorCompare:
 
@@ -36,8 +39,9 @@ object TutorCompare:
       dimension: D,
       metric: TutorMetric[V],
       value: ValueCount[V],
-      reference: Reference[V]
-  )(implicit number: TutorNumber[V]):
+      reference: Reference[V],
+      color: Option[chess.Color] = None
+  )(using number: TutorNumber[V]):
 
     val grade = number.grade(value.value, reference.value.value)
 

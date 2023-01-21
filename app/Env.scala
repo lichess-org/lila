@@ -134,6 +134,12 @@ final class Env(
     default = false,
     text = "Use external piece images".some
   )
+  lazy val firefoxOriginTrial = memo.settingStore[String](
+    "firefoxOriginTrial",
+    default = "",
+    text = "Firefox COEP:credentialless origin trial token. Empty to disable.".some
+  )
+  lazy val rateLimitApi = memo.mongoRateLimitApi
 
   lazy val preloader     = wire[mashup.Preload]
   lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]

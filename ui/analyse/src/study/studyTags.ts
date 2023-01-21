@@ -30,9 +30,7 @@ function editable(value: string, submit: (v: string, el: HTMLInputElement) => vo
   });
 }
 
-function fixed(text: string) {
-  return h('span', text);
-}
+const fixed = (text: string) => h('span', text);
 
 let selectedType: string;
 

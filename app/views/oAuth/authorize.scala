@@ -33,7 +33,7 @@ object authorize:
       ),
       csp = defaultCsp.withLegacyCompatibility.some
     ) {
-      main(cls := "oauth box box-pad")(
+      main(cls := "oauth box box-pad force-ltr")(
         div(cls := "oauth__top")(
           ringsImage,
           h1("Authorize"),

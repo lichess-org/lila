@@ -17,6 +17,7 @@ final class MongoRateLimit[K](
     enforce: Boolean,
     log: Boolean
 ):
+  import MongoRateLimit.{ *, given }
   import RateLimit.Cost
 
   private def makeClearAt = DateTime.now plusMinutes duration.toMinutes.toInt
@@ -24,14 +25,17 @@ final class MongoRateLimit[K](
   private lazy val logger  = lila.log("ratelimit").branch("mongo").branch(name)
   private lazy val monitor = lila.mon.security.rateLimit(s"mongo.$name")
 
-  private case class Entry(_id: String, v: Int, e: DateTime)
-  private given BSONDocumentHandler[Entry] = Macros.handler[Entry]
-
   private def makeDbKey(k: K) = s"ratelimit:$name:${keyToString(k)}"
+
+  def getSpent(k: K)(using ExecutionContext): Fu[Entry] =
+    coll.one[Entry]($id(makeDbKey(k))) map {
+      case Some(v) => v
+      case _       => Entry(k.toString(), 0, makeClearAt)
+    }
 
   def apply[A](k: K, cost: Cost = 1, msg: => String = "")(
       op: => Fu[A]
-  )(default: => A)(using ec: ExecutionContext): Fu[A] =
+  )(default: => A)(using ExecutionContext): Fu[A] =
     if (cost < 1) op
     else
       val dbKey = makeDbKey(k)
@@ -49,6 +53,11 @@ final class MongoRateLimit[K](
         case _ =>
           op
       }
+
+object MongoRateLimit:
+  case class Entry(_id: String, v: Int, e: DateTime):
+    def until = e
+  private given BSONDocumentHandler[Entry] = Macros.handler[Entry]
 
 final class MongoRateLimitApi(db: lila.db.Db, config: MemoConfig):
 

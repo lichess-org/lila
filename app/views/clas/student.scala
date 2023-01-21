@@ -18,7 +18,7 @@ object student:
       students: List[Student],
       s: Student.WithUserAndManagingClas,
       activities: Vector[lila.activity.ActivityView]
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show",
       top(clas, s.withUser),
@@ -70,7 +70,7 @@ object student:
       )
     )
 
-  private def top(clas: Clas, s: Student.WithUser)(implicit ctx: Context) =
+  private def top(clas: Clas, s: Student.WithUser)(using Context) =
     div(cls := "student-show__top")(
       boxTop(
         h1(dataIcon := "")(
@@ -107,12 +107,16 @@ object student:
             cls  := "button button-empty"
           )(
             trans.puzzle.puzzleDashboard()
-          )
+          ),
+          isGranted(_.Beta) option a(
+            href := routes.Tutor.user(s.user.username.value),
+            cls  := "button button-empty"
+          )("Tutor")
         )
       )
     )
 
-  private def realNameField(form: Form[?], fieldName: String = "realName")(implicit ctx: Context) =
+  private def realNameField(form: Form[?], fieldName: String = "realName")(using Context) =
     form3.group(
       form(fieldName),
       trans.clas.realName(),
@@ -126,7 +130,7 @@ object student:
       create: Form[?],
       nbStudents: Int,
       created: Option[lila.clas.Student.WithPassword] = none
-  )(implicit ctx: Context) =
+  )(using Context) =
     bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
       cls := "box-pad student-add",
       boxTop(
@@ -218,7 +222,7 @@ object student:
       form: Form[?],
       nbStudents: Int,
       created: Seq[lila.clas.Student.WithPassword] = Nil
-  )(implicit ctx: Context) =
+  )(using Context) =
     bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
       cls := "box-pad student-add-many",
       h1(cls := "box__top")(trans.clas.createMultipleAccounts()),
@@ -274,7 +278,7 @@ object student:
       )
     )
 
-  def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(implicit ctx: Context) =
+  def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using Context) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),
@@ -310,9 +314,7 @@ object student:
       )
     )
 
-  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using
-      ctx: Context
-  ) =
+  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using Context) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),
@@ -338,9 +340,7 @@ object student:
       )
     )
 
-  def close(clas: Clas, students: List[Student], s: Student.WithUser)(using
-      ctx: Context
-  ) =
+  def close(clas: Clas, students: List[Student], s: Student.WithUser)(using Context) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),

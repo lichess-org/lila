@@ -2,8 +2,8 @@
 
 UI_DIR=$(dirname $(readlink -f  "${BASH_SOURCE:-$0}"))
 
-cd "$UI_DIR/.."
 if [ `expr "$*" : '.*--no-install'` -eq 0 ]; then
+  cd "$UI_DIR/.."
   pnpm i
 fi
 

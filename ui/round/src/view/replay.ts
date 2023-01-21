@@ -11,7 +11,7 @@ import { h, VNode } from 'snabbdom';
 import { Step, MaybeVNodes } from '../interfaces';
 
 const scrollMax = 99999,
-  moveTag = 'u8t',
+  moveTag = 'kwdb',
   indexTag = 'i5z',
   indexTagUC = indexTag.toUpperCase(),
   movesTag = 'l4x',
@@ -149,16 +149,6 @@ function renderButtons(ctrl: RoundController) {
   const d = ctrl.data,
     firstPly = round.firstPly(d),
     lastPly = round.lastPly(d);
-  let iconFirst = '';
-  let iconPrev = '';
-  let iconNext = '';
-  let iconLast = '';
-  if (document.dir == 'rtl') {
-    iconLast = '';
-    iconNext = '';
-    iconPrev = '';
-    iconFirst = '';
-  }
 
   return h(
     'div.buttons',
@@ -192,10 +182,10 @@ function renderButtons(ctrl: RoundController) {
         },
       }),
       ...[
-        [iconFirst, firstPly],
-        [iconPrev, ctrl.ply - 1],
-        [iconNext, ctrl.ply + 1],
-        [iconLast, lastPly],
+        ['', firstPly],
+        ['', ctrl.ply - 1],
+        ['', ctrl.ply + 1],
+        ['', lastPly],
       ].map((b, i) => {
         const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
         return h('button.fbt', {

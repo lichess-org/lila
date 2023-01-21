@@ -26,7 +26,7 @@ $c-mselect: $c-primary;
       content: '';
       font-size: 70%;
       color: $c-mselect;
-      margin-#{$start-direction}: 0.4rem;
+      @include margin-inline-start(0.4em);
     }
   }
 

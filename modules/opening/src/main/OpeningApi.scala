@@ -17,7 +17,7 @@ final class OpeningApi(
     pgnDump: PgnDump,
     explorer: OpeningExplorer,
     configStore: OpeningConfigStore
-)(using ec: ExecutionContext):
+)(using ExecutionContext):
 
   import OpeningQuery.Query
 
@@ -25,12 +25,10 @@ final class OpeningApi(
     _.maximumSize(4096).expireAfterWrite(5 minute).buildAsync()
   }
 
-  def index(implicit req: RequestHeader): Fu[Option[OpeningPage]] =
+  def index(using req: RequestHeader): Fu[Option[OpeningPage]] =
     lookup(Query("", none), withWikiRevisions = false)
 
-  def lookup(q: Query, withWikiRevisions: Boolean)(using
-      req: RequestHeader
-  ): Fu[Option[OpeningPage]] =
+  def lookup(q: Query, withWikiRevisions: Boolean)(using RequestHeader): Fu[Option[OpeningPage]] =
     val config = readConfig
     if (config.isDefault && !withWikiRevisions)
       defaultCache.getFuture(q, _ => lookup(q, config, withWikiRevisions))
@@ -57,7 +55,7 @@ final class OpeningApi(
           } yield OpeningPage(query, stats, withPgn, historyPercent(history, allHistory), wiki).some
       }
 
-  def readConfig(implicit req: RequestHeader) = configStore.read
+  def readConfig(using RequestHeader) = configStore.read
 
   private def historyPercent(
       query: PopularityHistoryAbsolute,

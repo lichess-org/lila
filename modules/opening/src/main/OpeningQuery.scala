@@ -36,6 +36,8 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
     case (Some(op), moves) => s"${op.name}, ${moves mkString " "}"
     case (_, moves)        => moves mkString " "
 
+  def isExactOpening = openingAndExtraMoves._2.isEmpty
+
   override def toString = s"$query $config"
 
 object OpeningQuery:
@@ -51,11 +53,11 @@ object OpeningQuery:
 
   private def byOpening(str: String, config: OpeningConfig) = {
     OpeningDb.shortestLines.get(OpeningKey(str)) orElse
-      lila.common.String
-        .decodeUriPath(str)
-        .map(OpeningName(_))
-        .map(OpeningKey.fromName(_))
-        .flatMap(OpeningDb.shortestLines.get)
+      OpeningDb.shortestLines
+        .get(
+          OpeningKey
+            .fromName(OpeningName(lila.common.String.decodeUriPath(str) | str))
+        )
   }.map(_.pgn.value) flatMap { fromPgn(_, config) }
 
   private def fromPgn(pgn: String, config: OpeningConfig) = for {

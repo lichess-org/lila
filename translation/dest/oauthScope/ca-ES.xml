@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">Nou t\'uquen personal d\'accés a l\'API</string>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Nou token personal d\'accés a l\'API</string>
   <string name="tokenGrantsPermission">Un token dona permisos a altres persones per accedir al vostre compte.</string>
   <string name="carefullySelect">Seleccioneu amb cura el que es pot fer en el vostre nom.</string>
   <string name="tokenDescription">Descripció del token</string>
-  <string name="rememberTokenUse">Així recordeu perquè és el token</string>
-  <string name="whatTheTokenCanDo">Que pot fer el token en el vostre nom:</string>
+  <string name="rememberTokenUse">Així recordeu per a què és el token</string>
+  <string name="whatTheTokenCanDo">Què pot fer el token en el vostre nom:</string>
   <string name="doNotShareIt">El token dona accés al vostre compte. No el compartiu amb ningú!</string>
-  <string name="preferenceRead">Llegir les preferències</string>
-  <string name="preferenceWrite">Escriure les preferències</string>
-  <string name="emailRead">Llegir el correu electrónic</string>
+  <string name="copyTokenNow">Assegura\'t de copiar el teu nou token d\'accés personal. No el podràs tornar a veure!</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Llegir les preferències</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Escriure les preferències</string>
+  <string name="emailRead">Llegir el correu electrònic</string>
   <string name="challengeRead">Llegir els reptes entrants</string>
-  <string name="challengeWrite">Escriure reptes entrants</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Envia, accepta i rebutja reptes entrants</string>
   <string name="challengeBulk">Crear més d\'una partida a la vegada per altres jugadors</string>
-  <string name="studyRead">Llegir estudis i retransmissions privats</string>
-  <string name="studyWrite">Crear, actualitzar, eliminar estudis i retransmissions</string>
-  <string name="tournamentWrite">Crear, actualitzar i unir-se a tornejos</string>
-  <string name="racerWrite">Crear i unir-se a carreres de problemes</string>
-  <string name="puzzleRead">Llegir l\'activitat de problemes</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Llegir estudis privats i retransmissions</string>
+  <string name="studyWrite">Crea, actualitza, elimina estudis i retransmissions</string>
+  <string name="tournamentWrite">Crea, actualitza i uneix-te a tornejos</string>
+  <string name="racerWrite">Crea i uneix-te a carreres de problemes</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Llegir l\'activitat de problemes</string>
   <string name="teamRead">Llegir informació privada de l\'equip</string>
-  <string name="teamWrite">Unir-se, marxar i gestionar l\'equip</string>
+  <string name="teamWrite">Uneix-te i surt d\'equips</string>
+  <string name="teamLead">Administra els equips que dirigeixes: envia missatges privats, expulsa membres</string>
   <string name="followRead">Llegir els jugadors seguits</string>
-  <string name="followWrite">Seguir i deixar de seguir altres jugadors</string>
-  <string name="msgWrite">Enviar missatges privats a altres usuaris</string>
-  <string name="boardPlay">Jugar partides amb l\'api del tauler</string>
-  <string name="botPlay">Jugar partides amb l\'api de bots</string>
-  <string name="engineRead">Visualitzar i usar el motor d\'anàlisis extern</string>
+  <string name="followWrite">Segueix i deixa de seguir altres jugadors</string>
+  <string name="msgWrite">Envia missatges privats a altres usuaris</string>
+  <string name="boardPlay">Juga partides amb l\'api del tauler</string>
+  <string name="botPlay">Juga partides amb l\'api de bots</string>
+  <string name="engineRead">Visualitza i empra el teu motor d\'anàlisi extern</string>
   <string name="engineWrite">Crear i actualitzar el motor d\'anàlisis extern</string>
-  <string name="webLogin">Crear sessions d\'autenticació del lloc web (permet l\'accés complet!)</string>
-  <string name="webMod">Utilitzar les eines de moderació (dins dels límits del vostre permís)</string>
+  <string name="webLogin">Crea sessions d\'autenticació del lloc web (permet l\'accés complet!)</string>
+  <string name="webMod">Utilitza les eines de moderació (dins dels límits del vostre permís)</string>
 </resources>

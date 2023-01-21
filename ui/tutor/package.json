@@ -8,7 +8,9 @@
   "dependencies": {
     "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
-    "common": "workspace:*"
+    "chessground": "^8.3.6",
+    "common": "workspace:*",
+    "lichess-pgn-viewer": "^1.5.2"
   },
   "scripts": {
     "compile": "tsc",

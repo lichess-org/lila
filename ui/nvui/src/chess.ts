@@ -521,7 +521,7 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
         $boardLive.text('Promote to? q for queen, n for knight, r for rook, b for bishop');
         return false;
       }
-      // this section depends on the form being the granparent of the input.move box.
+      // this section depends on the form being the grandparent of the input.move box.
       const $form = $moveBox.parent().parent();
       const $event = new Event('submit', {
         cancelable: true,
@@ -597,7 +597,7 @@ export function possibleMovesHandler(
 
     let rawMoves;
 
-    // possible ineffecient to reparse fen; but seems to work when it is AND when it is not the users' turn. Also note that this FEN is incomplete as it only contains the piece information.
+    // possible inefficient to reparse fen; but seems to work when it is AND when it is not the users' turn. Also note that this FEN is incomplete as it only contains the piece information.
     // if it is your turn
     if (turnColor() === yourColor) {
       rawMoves = moveable();
@@ -609,7 +609,7 @@ export function possibleMovesHandler(
           if (move) fromSetup.play(move);
         }
       });
-      // important to override whoes turn it is so only the users' own turns will show up
+      // important to override whose turn it is so only the users' own turns will show up
       fromSetup.turn = yourColor;
       rawMoves = chessgroundDests(fromSetup);
     }

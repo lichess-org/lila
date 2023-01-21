@@ -84,7 +84,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     drawable: {
       enabled: !ctrl.embed,
       eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice,
-      defaultSnapToValidMove: (lichess.storage.get('arrow.snap') || 1) != '0',
+      defaultSnapToValidMove: lichess.storage.boolean('arrow.snap').getOrDefault(true),
     },
     highlight: {
       lastMove: pref.highlight,

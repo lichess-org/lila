@@ -107,6 +107,14 @@
     <item quantity="many">Renket #%1$s (to%2$s%%) gant %3$s krogad e %4$s</item>
     <item quantity="other">Renket #%1$s (to%2$s%%) gant %3$s krogad e %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Kemeret he/en deus perzh e %s tournamant suis</item>
+    <item quantity="two">Kemeret he/en deus perzh e %s tournamant suis</item>
+    <item quantity="few">Kemeret he/en deus perzh e %s tournamant suis</item>
+    <item quantity="many">Kemeret he/en deus perzh e %s tournamant suis</item>
+    <item quantity="other">Kemeret he/en deus perzh e %s tournamant suis</item>
+  </plurals>
+  <string name="rankedInSwissTournament">Renket #%1$s e %2$s</string>
   <string name="signedUp">Lakaet en deus e anv war lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Ezel eus %s skipailh</item>

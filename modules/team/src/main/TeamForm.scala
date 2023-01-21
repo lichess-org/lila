@@ -14,7 +14,6 @@ import lila.common.Form.{
   into,
   given
 }
-import lila.common.Markdown
 import lila.db.dsl.{ *, given }
 
 final private[team] class TeamForm(

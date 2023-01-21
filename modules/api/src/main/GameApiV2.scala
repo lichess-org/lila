@@ -157,7 +157,7 @@ final class GameApiV2(
         batchSize = config.perSecond.value
       )
       .documentSource()
-      .grouped(20)
+      .grouped(30)
       .mapAsync(1) { pairings =>
         config.tour.isTeamBattle.?? {
           playerRepo.teamsOfPlayers(config.tour.id, pairings.flatMap(_.users).distinct).dmap(_.toMap)
@@ -203,10 +203,11 @@ final class GameApiV2(
     swissApi
       .gameIdSource(
         swissId = config.swissId,
+        player = config.player,
         batchSize = config.perSecond.value
       )
-      .grouped(20)
-      .mapAsync(1)(gameRepo.gamesFromSecondary)
+      .grouped(30)
+      .mapAsync(1)(gameRepo.gamesTemporarilyFromPrimary)
       .mapConcat(identity)
       .throttle(config.perSecond.value, 1 second)
       .mapAsync(4)(enrich(config.flags))
@@ -232,7 +233,7 @@ final class GameApiV2(
   private def preparationFlow(config: Config, realPlayers: Option[RealPlayers]) =
     Flow[Game]
       .mapAsync(4)(enrich(config.flags))
-      .mapAsync(4) { case (game, fen, analysis) =>
+      .mapAsync(4) { (game, fen, analysis) =>
         formatterFor(config)(game, fen, analysis, None, realPlayers)
       }
 
@@ -326,6 +327,7 @@ final class GameApiV2(
           "totalTime" -> clock.estimateTotalSeconds
         )
       })
+      .add("lastFen" -> withFlags.lastFen.option(Fen.write(g.chess.situation)))
 
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
     (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser)
@@ -396,5 +398,6 @@ object GameApiV2:
       swissId: SwissId,
       format: Format,
       flags: WithFlags,
-      perSecond: MaxPerSecond
+      perSecond: MaxPerSecond,
+      player: Option[UserId]
   ) extends Config

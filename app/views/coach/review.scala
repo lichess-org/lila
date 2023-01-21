@@ -65,7 +65,7 @@ object review:
 
   def barRating(selected: Option[Int], enabled: Boolean) =
     if (enabled)
-      select(cls     := "rate", name := "score", required)(
+      select(cls := "rate", name := "score", required)(
         option(value := ""),
         List(1, 2, 3, 4, 5).map { score =>
           option(value := score, selected.contains(score) option st.selected)(score)

@@ -26,7 +26,7 @@ final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer):
     OpeningSearch(q, max).map(OpeningSearchResult.apply)
 
 // linear performance but it's fine for 3,067 unique openings
-object OpeningSearch:
+private object OpeningSearch:
 
   object removePgnMoveNumbers:
     private val numbersRegex = """\d{1,2}\.{1,3}\s?""".r

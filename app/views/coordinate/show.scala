@@ -39,7 +39,7 @@ object show:
       withHrefLangs = LangPath(routes.Coordinate.home).some
     )(
       main(id := "trainer")(
-        div(cls   := "trainer")(
+        div(cls := "trainer")(
           div(cls := "side"),
           div(cls := "main-board")(chessgroundBoard),
           div(cls := "table"),

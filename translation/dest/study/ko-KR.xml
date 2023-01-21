@@ -47,7 +47,7 @@
   <string name="onlyContributorsCanRequestAnalysis">연구 기여자만이 컴퓨터 분석을 요청할 수 있습니다.</string>
   <string name="getAFullComputerAnalysis">메인라인에 대한 전체 서버 컴퓨터 분석을 가져옵니다.</string>
   <string name="makeSureTheChapterIsComplete">챕터가 완료되었는지 확인하세요. 분석은 한번만 요청할 수 있습니다.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">동기화된 모든 멤버들은 같은 포지션을 공유합니다</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">동기화된 모든 멤버들은 같은 포지션을 공유합니다</string>
   <string name="shareChanges">관전자와 변경 사항을 공유하고 서버에 저장</string>
   <string name="playing">플레이중</string>
   <string name="first">처음</string>
@@ -59,6 +59,8 @@
   <string name="studyPgn">연구 PGN</string>
   <string name="downloadAllGames">모든 게임 다운로드</string>
   <string name="chapterPgn">챕터 PGN</string>
+  <string name="copyChapterPgn">PGN 복사</string>
+  <string name="copyChapterPgnDescription">클립보드에 챕터 PGN 복사</string>
   <string name="downloadGame">게임 다운로드</string>
   <string name="studyUrl">연구 URL</string>
   <string name="currentChapterUrl">현재 챕터 URL</string>

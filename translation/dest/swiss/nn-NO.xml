@@ -9,7 +9,7 @@
     <item quantity="one">%s runde</item>
     <item quantity="other">%s rundar</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
     <item quantity="one">%s runde sveitsisk</item>
     <item quantity="other">%s rundar sveitsisk</item>
   </plurals>
@@ -99,7 +99,7 @@ Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet t
   <string name="pause">Pause</string>
   <string name="pauseSwiss">Ja, men talet på rundar kan verte redusert</string>
   <string name="streaksAndBerserk">Vinstrekkjer og Berserk</string>
-  <string name="similarToOTB">Svarande til turneringar over bordet (\"OTB\")</string>
+  <string name="similarToOTB">Tilsvarar brettsjakkturneringar (\"OTB\")</string>
   <string name="unlimitedAndFree">Uavgrensa og fritt tilgjengeleg</string>
   <string name="predefinedUsers">Tillat berre førehandsbestemde brukarar å delta</string>
   <string name="forbiddedUsers">Så sant denne lista ikkje er tom vil brukarar som ikkje er oppførde bli nekta å vera med. Eit brukarnamn per linje.</string>

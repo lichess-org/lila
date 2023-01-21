@@ -1,16 +1,17 @@
 package lila.tournament
 package crud
 
-import BSONHandlers.given
 import org.joda.time.DateTime
 import scala.util.chaining.*
 import chess.Clock
+import chess.format.Fen
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
+import lila.tournament.BSONHandlers.given
 
 final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
 
@@ -27,7 +28,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       clockIncrement = tour.clock.incrementSeconds,
       minutes = tour.minutes,
       variant = tour.variant.id,
-      position = tour.position,
+      position = tour.position.map(_ into Fen.Epd),
       date = tour.startsAt,
       image = ~tour.spotlight.flatMap(_.iconImg),
       headline = tour.spotlight.??(_.headline),

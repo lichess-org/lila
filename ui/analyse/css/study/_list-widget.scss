@@ -41,6 +41,8 @@ $c-study: $c-primary;
       @extend %nowrap-ellipsis;
 
       color: $c-font-dim;
+      unicode-bidi: plaintext;
+      display: flex;
 
       &::before {
         color: $c-font-dimmer;
@@ -58,6 +60,7 @@ $c-study: $c-primary;
         color: $c-study;
         display: block;
         margin: 0;
+        unicode-bidi: plaintext;
       }
 
       div {

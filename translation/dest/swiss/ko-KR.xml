@@ -7,6 +7,9 @@
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s 라운드</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+    <item quantity="other">%s 라운드 스위스</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="other">%s일마다 1라운드</item>
   </plurals>
@@ -95,4 +98,9 @@
   <string name="streaksAndBerserk">연승/버서크 모드</string>
   <string name="similarToOTB">OTB 토너먼트와 유사한가</string>
   <string name="unlimitedAndFree">무제한/무료인가</string>
+  <string name="predefinedUsers">특정한 사용자만 참가할 수 있도록 허용</string>
+  <string name="forbiddedUsers">이 목록이 비어있지 않다면, 이 목록에 없는 사용자는 가입이 금지됩니다. 한 줄에 한 사용자 이름을 적으세요.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="other">%1$s / %2$s 라운드 스위스</item>
+  </plurals>
 </resources>

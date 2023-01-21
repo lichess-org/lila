@@ -7,7 +7,7 @@ import scala.concurrent.duration.FiniteDuration
 import lila.common.Iso
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.insight.{ InsightPerfStats, MeanRating }
+import lila.insight.InsightPerfStats
 import lila.rating.PerfType
 
 private object TutorBsonHandlers:
@@ -17,6 +17,7 @@ private object TutorBsonHandlers:
   import lila.analyse.AnalyseBsonHandlers.given
 
   given BSONHandler[FiniteDuration] = lila.db.dsl.minutesHandler
+  given BSONHandler[GoodPercent]    = percentAsIntHandler[GoodPercent]
 
   given [A](using handler: BSONHandler[A]): BSONHandler[Color.Map[A]] =
     summon[BSONHandler[Map[String, A]]]
@@ -73,7 +74,6 @@ private object TutorBsonHandlers:
   //     },
   //     _.mapKeys(_.key)
   //   )
-  given BSONHandler[MeanRating]               = intAnyValHandler(_.value, MeanRating.apply)
   given BSONDocumentHandler[InsightPerfStats] = Macros.handler
   given BSONDocumentHandler[TutorPerfReport]  = Macros.handler
   given BSONDocumentHandler[TutorFullReport]  = Macros.handler

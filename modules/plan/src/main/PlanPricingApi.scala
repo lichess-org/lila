@@ -29,7 +29,7 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(using ec: ExecutionContext)
     suggestions = List(5, 10, 20, 50).map(eur => Money(eur, EUR)),
     min = Money(1, EUR),
     max = Money(10000, EUR),
-    lifetime = Money(200, EUR)
+    lifetime = Money(250, EUR)
   )
 
   def pricingFor(currency: Currency): Fu[Option[PlanPricing]] =

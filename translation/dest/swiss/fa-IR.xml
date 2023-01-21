@@ -9,6 +9,10 @@
     <item quantity="one">%s دور</item>
     <item quantity="other">%s دور</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+    <item quantity="one">%s دور سوئیسی</item>
+    <item quantity="other">%s دور سوئیسی</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">یک دور در هر روز</item>
     <item quantity="other">یک دور در هر %s روز</item>
@@ -42,6 +46,7 @@
   <string name="pointsCalculationA">به هر برد یک امتیاز و هر مساوی یک امتیاز تعلق می گیرد و باخت هیچ امتیازی ندارد.
 زمانی که یک بازیکن در یک دور هیچ حریفی نداشته باشد، یک استراحت به ایشان تعلق می گیرد که یک امتیاز به حسب می آید.</string>
   <string name="tiebreaksCalculationQ">امتیاز شکنی چطور محاسبه میشود؟</string>
+  <string name="sonnebornBergerScore">امتیاز Sonneborn–Berger</string>
   <string name="tiebreaksCalculationA">با %s .
 امتیازهای هر حریفی را که بازیکن شکست می دهد و نیمی از امتیاز هر بازی که مساوی میشود را اضافه کنید.</string>
   <string name="pairingsQ">سیستم جفت سازی چطور کار میکند؟</string>
@@ -69,14 +74,15 @@
   <string name="otherSystemsQ">در مورد سایر سیستم های مسابقه ای چطور؟</string>
   <string name="otherSystemsA">در حال حاضر ما قصد اضافه کردن روش برگزاری مسابقه ی دیگری به لیچس نداریم.</string>
   <string name="swissDescription">در یک تورنمنت سوئیسی %1$s، هر شرکت کننده لزوماً با سایر شرکت کنندگان بازی نمی کند. رقبا در هر دور یک به یک بازی میکنند و با استفاده از مجموعه‌ای از قوانین طراحی‌شده برای اطمینان از اینکه هر رقیب با حریفانی با امتیاز مشابه بازی می‌کند، جفت می‌شوند، اما با هر حریف بیشتر از یک بار نه. برنده مسابقه کسی هست که بیشترین امتیاز را در همه راندها کسب کرده باشد. همه باهم در هر دور بازی می کنند مگر اینکه تعداد بازیکنان فرد وجود داشته باشد.\"</string>
-  <string name="teamOnly">مسابقات سوئیسی تنها میتواند توسط رهبر تیم ایجاد شود، و تنها توسط اعضای تیم بازی شود. 
-%1$s برای شروع بازی در مسابقات سوئیسی.</string>
+  <string name="teamOnly">مسابقات سوئیسی تنها میتوانند توسط رهبران تیم ایجاد شود، و تنها توسط اعضای تیم بازی شود. 
+%1$s تا شروع بازی در مسابقات سوئیسی.</string>
   <string name="joinOrCreateTeam">به یک تیم بپیوندید یا یک تیم ایجاد نمایید</string>
   <string name="nowPlaying">در حال بازی</string>
   <string name="startingSoon">بزودی شروع می‌شود</string>
   <string name="comparison">مقایسه</string>
   <string name="tournDuration">مدت زمان مسابقه</string>
   <string name="predefinedDuration">مدت زمان از پیش تعریف شده به دقیقه</string>
+  <string name="durationUnknown">حداکثر تعداد دورها از قبل تعیین شده، ولی زمان نا مشخص است</string>
   <string name="numberOfGames">تعداد بازی‌ها</string>
   <string name="numberOfGamesAsManyAsPossible">هر تعداد که می توان در مدت زمان تعیین شده بازی کرد</string>
   <string name="numberOfGamesPreDefined">از قبل تصمیم گرفته شده است، برای همه بازیکنان یکسان است</string>
@@ -93,6 +99,13 @@
   <string name="lateJoinUntil">بله تا زمانی که بیش از نیمی از دور شروع نشده باشد</string>
   <string name="pause">درنگ</string>
   <string name="pauseSwiss">بله، اما ممکن است تعداد دورها را کاهش دهد</string>
+  <string name="streaksAndBerserk">پیروزی های پی در پی و برسرک</string>
   <string name="similarToOTB">مشابه مسابقات بر روی تخته</string>
   <string name="unlimitedAndFree">بدون محدودیت و رایگان</string>
+  <string name="predefinedUsers">تنها کاربران از پیش تعریف شده اجازه ورود دارند</string>
+  <string name="forbiddedUsers">اگر این لیست خالی نیست، بنابراین کاربرانی که در لیست نیستند امکان ورود ندارند. یک نام کاربری در هر خط.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s از %2$s دور سوئیسی</item>
+    <item quantity="other">%1$s از %2$s دور سوئیسی</item>
+  </plurals>
 </resources>

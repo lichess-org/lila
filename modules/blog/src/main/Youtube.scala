@@ -11,14 +11,15 @@ object Youtube:
    * <div data-oembed="https://www.youtube.com/watch?v=uz-dZ2W4Bf0#t=4m14s" data-oembed-type="video" data-oembed-provider="youtube"><iframe width="480" height="270" src="https://www.youtube.com/embed/uz-dZ2W4Bf0?feature=oembed" frameborder="0" allowfullscreen></iframe></div>
    * <div data-oembed="https://www.youtube.com/watch?v=uz-dZ2W4Bf0#t=4m14s" data-oembed-type="video" data-oembed-provider="youtube"><iframe width="480" height="270" src="https://www.youtube.com/embed/uz-dZ2W4Bf0?feature=oembed&start=254" frameborder="0" allowfullscreen></iframe></div>
    */
-  def fixStartTimes(html: String) =
+  def fixStartTimes(html: Html) = Html {
     EmbedRegex.replaceAllIn(
-      html,
+      html.value,
       m => {
         val orig = m group 0
         parseSeconds(m group 1).fold(orig)(seconds => s"$orig&start=$seconds")
       }
     )
+  }
 
   private def parseSeconds(text: String) =
     text match

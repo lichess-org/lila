@@ -9,8 +9,9 @@ object Chronometer:
 
   case class Lap[A](result: A, nanos: Long):
 
-    def millis = (nanos / 1000000).toInt
-    def micros = (nanos / 1000).toInt
+    def millis  = (nanos / 1000000).toInt
+    def micros  = (nanos / 1000).toInt
+    def seconds = (millis / 1000).toInt
 
     def logIfSlow(threshold: Int, logger: lila.log.Logger)(msg: A => String) =
       if (millis >= threshold) log(logger)(msg)
@@ -110,3 +111,7 @@ object Chronometer:
     val res   = f
     timer.stop()
     res
+
+  def start =
+    val at = nowNanos
+    () => Lap((), nowNanos - at)

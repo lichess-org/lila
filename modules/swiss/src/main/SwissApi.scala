@@ -194,12 +194,13 @@ final class SwissApi(
 
   def gameIdSource(
       swissId: SwissId,
+      player: Option[UserId],
       batchSize: Int = 0,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = temporarilyPrimary
   ): Source[GameId, ?] =
     SwissPairing.fields { f =>
       mongo.pairing
-        .find($doc(f.swissId -> swissId), $id(true).some)
+        .find($doc(f.swissId -> swissId) ++ player.??(u => $doc(f.players -> u)), $id(true).some)
         .sort($sort asc f.round)
         .batchSize(batchSize)
         .cursor[Bdoc](readPreference)
