@@ -3,6 +3,7 @@
   <string name="arabianMate">Арабла мат</string>
   <string name="bishopEndgame">Пил ендшпилӗ</string>
   <string name="bodenMate">Боден мачӗ</string>
+  <string name="castling">Рокировка</string>
   <string name="endgame">Ендшпил</string>
   <string name="fork">Кармак</string>
   <string name="knightEndgame">Лаша ендшпилӗ</string>
