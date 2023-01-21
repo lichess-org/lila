@@ -24,7 +24,7 @@ final class Round(
 ) extends LilaController(env)
     with TheftPrevention:
 
-  private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] =
+  private def renderPlayer(pov: Pov)(using ctx: Context): Fu[Result] =
     negotiate(
       html =
         if (!pov.game.started) notFound
@@ -78,7 +78,7 @@ final class Round(
       }
     }
 
-  private def otherPovs(game: GameModel)(implicit ctx: Context) =
+  private def otherPovs(game: GameModel)(using ctx: Context) =
     ctx.me ?? { user =>
       env.round.proxyRepo urgentGames user map {
         _ filter { pov =>
