@@ -250,8 +250,19 @@ final class Api(
       env.tournament.tournamentRepo byId id map {
         _ ?? { tour =>
           import lila.tournament.JsonView.playerResultWrites
+          val withSheet = getBool("sheet", req)
+          val perSecond = MaxPerSecond {
+            if withSheet then {
+              (20 - (tour.estimateNumberOfGamesOneCanPlay / 20).toInt).atLeast(10)
+            } else 50
+          }
           val source = env.tournament.api
-            .resultStream(tour, MaxPerSecond(40), getInt("nb", req) | Int.MaxValue)
+            .resultStream(
+              tour,
+              perSecond,
+              getInt("nb", req) | Int.MaxValue,
+              withSheet = withSheet
+            )
           val result =
             if (csv) csvStream(lila.tournament.TournamentCsv(source))
             else jsonStream(source.map(lila.tournament.JsonView.playerResultWrites.writes))

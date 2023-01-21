@@ -107,7 +107,7 @@ final class TournamentLilaHttp(
           "name"   -> light.name,
           "rating" -> p.rating,
           "score"  -> p.score,
-          "sheet"  -> JsonView.scoresToString(sheet)
+          "sheet"  -> sheet.scoresToString
         )
         .add("title" -> light.title)
         .add("provisional" -> p.provisional)

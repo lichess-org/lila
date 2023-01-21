@@ -338,9 +338,7 @@ final class JsonView(
                     withScores = false
                   )
                 } yield json ++ Json
-                  .obj(
-                    "nb" -> sheetNbs(sheet)
-                  )
+                  .obj("nb" -> sheetNbs(sheet))
                   .add("performance" -> player.performanceOption)
               }.sequenceFu: Fu[List[JsObject]]
             } map { l =>
@@ -501,7 +499,7 @@ object JsonView:
     }
 
   val playerResultWrites: OWrites[Player.Result] = OWrites[Player.Result] {
-    case Player.Result(player, user, rank) =>
+    case Player.Result(player, user, rank, sheet) =>
       Json
         .obj(
           "rank"     -> rank,
@@ -512,6 +510,7 @@ object JsonView:
         .add("title" -> user.title)
         .add("performance" -> player.performanceOption)
         .add("team" -> player.team)
+        .add("sheet", sheet.map(sheetJson(streakFire = false, withScores = true)))
   }
 
   def playerJson(
@@ -534,7 +533,7 @@ object JsonView:
       rankedPlayer: RankedPlayer,
       streakable: Boolean,
       withScores: Boolean
-  )(using ec: ExecutionContext): Fu[JsObject] =
+  )(using ExecutionContext): Fu[JsObject] =
     val p = rankedPlayer.player
     lightUserApi asyncFallback p.userId map { light =>
       Json
@@ -544,25 +543,18 @@ object JsonView:
           "rating" -> p.rating,
           "score"  -> p.score
         )
-        .add("sheet", sheet.map(sheetJson(streakable = streakable, withScores = withScores)))
+        .add("sheet", sheet.map(sheetJson(streakFire = streakable, withScores = withScores)))
         .add("title" -> light.title)
         .add("provisional" -> p.provisional)
         .add("withdraw" -> p.withdraw)
         .add("team" -> p.team)
     }
 
-  private[tournament] def sheetJson(streakable: Boolean, withScores: Boolean)(s: arena.Sheet) =
+  private[tournament] def sheetJson(streakFire: Boolean, withScores: Boolean)(s: arena.Sheet) =
     Json
       .obj()
-      .add("scores", withScores option scoresToString(s))
-      .add("fire", (streakable && s.isOnFire))
-
-  def scoresToString(sheet: arena.Sheet): String =
-    val sb = new java.lang.StringBuilder(16)
-    sheet.scores foreach { score =>
-      sb append score.value
-    }
-    sb.toString
+      .add("scores", withScores option s.scoresToString)
+      .add("fire", streakFire && s.isOnFire)
 
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
 
