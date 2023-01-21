@@ -85,7 +85,6 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
 
   def show(id: TourId) =
-    chess.StartingPosition.all.find(_.url.isEmpty).pp
     Open { implicit ctx =>
       val page = getInt("page")
       cachedTour(id) flatMap { tourOption =>
