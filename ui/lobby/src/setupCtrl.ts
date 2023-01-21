@@ -159,6 +159,7 @@ export default class SetupController {
 
   openModal = (gameType: GameType, forceOptions?: ForceSetupOptions, friendUser?: string) => {
     this.root.leavePool();
+    this.root.redraw();
     this.gameType = gameType;
     this.loading = false;
     this.fenError = false;
