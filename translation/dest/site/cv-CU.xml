@@ -9,6 +9,7 @@
   <string name="yourTurn">Санӑн куҫармалла</string>
   <string name="aiNameLevelAiLevel">%1$s шайӗ: %2$s</string>
   <string name="level">Шай</string>
+  <string name="strength">Хӑват</string>
   <string name="toggleTheChat">Чатӑн кантӑка кӑтарт</string>
   <string name="chat">Ҫырса яр</string>
   <string name="resign">Парӑн</string>
@@ -22,6 +23,7 @@
   <string name="blackIsVictorious">Хурисем ҫӗнтерчӗҫ</string>
   <string name="youPlayTheWhitePieces">Эсӗ шуррисемшӗн выльатӑн</string>
   <string name="youPlayTheBlackPieces">Эсӗ хурисемшӗн выльатӑн</string>
+  <string name="itsYourTurn">Ҫӳре!</string>
   <string name="kingInTheCenter">Патша варринче</string>
   <string name="threeChecks">Виҫӗ шах пани</string>
   <string name="raceFinished">Чупу вӗҫленчӗ</string>
@@ -29,8 +31,8 @@
   <string name="newOpponent">Ҫӗнӗ ӑмӑртуҫӑ</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Ӑмӑртуҫу санпа тепӗр хут выльасшӑн</string>
   <string name="joinTheGame">Вӑййине хутшӑн</string>
-  <string name="whitePlays">Шуррисен ҫӳремелле</string>
-  <string name="blackPlays">Хурисен ҫӳремелле</string>
+  <string name="whitePlays">Шуррисем ҫӳремелле</string>
+  <string name="blackPlays">Хурисем ҫӳремелле</string>
   <plurals name="opponentLeftCounter">
     <item quantity="other">Ӑмӑртуҫу вӑййинчен тухнӑ. %s ҫеккунтран ҫӗнтерӳ пирки пӗлтерме пултаратӑн.</item>
   </plurals>
@@ -62,7 +64,7 @@
   <string name="mistake">Йӑнӑш</string>
   <string name="inaccuracy">Кӳрӗнмелле йӑнӑш</string>
   <string name="moveTimes">Шутланӑ вӑхӑт хушшисем</string>
-  <string name="flipBoard">Хӑмана валтӑрт</string>
+  <string name="flipBoard">Хӑмине валтӑрт</string>
   <string name="threefoldRepetition">Пӗр лартӑмах виҫ хут лекни</string>
   <string name="claimADraw">Парма-паршӑн пӗлтер</string>
   <string name="offerDraw">Парма-пар сӗн</string>
@@ -477,4 +479,5 @@
   <string name="youHaveJoinedTeamX">Эсӗ \"%1$s\" хутшӑннӑ.</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="welcome">Хапӑл тӑватпӑр!</string>
+  <string name="noChat">Калаҫусӑр</string>
 </resources>
