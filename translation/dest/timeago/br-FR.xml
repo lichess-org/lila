@@ -96,8 +96,8 @@
   <plurals name="nbYearsAgo">
     <item quantity="one">%s bloaz zo</item>
     <item quantity="two">%s vloaz zo</item>
-    <item quantity="few">%s bloavezhioù zo</item>
-    <item quantity="many">%s bloavezhioù zo</item>
-    <item quantity="other">%s bloavezhioù zo</item>
+    <item quantity="few">%s bloaz zo</item>
+    <item quantity="many">%s bloaz zo</item>
+    <item quantity="other">%s bloaz zo</item>
   </plurals>
 </resources>
