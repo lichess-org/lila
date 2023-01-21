@@ -53,6 +53,7 @@
   <string name="deleteFromHere">Кунтан пуҫласа катерт</string>
   <string name="capture">Тытса илни</string>
   <string name="close">Хуп</string>
+  <string name="unknown">Паллӑ мар</string>
   <string name="database">Пӗлӗм пуххи</string>
   <string name="whiteDrawBlack">Шуррисем / Пармапар / Хурисем</string>
   <string name="averageRatingX">Вӑтамри рейтинг: %s</string>
@@ -148,7 +149,7 @@
   <string name="gameAborted">Вӑййине пӑрахӑҫланӑ</string>
   <string name="standard">Стандартла</string>
   <string name="unlimited">Чикӗсӗр</string>
-  <string name="mode">Хаклани</string>
+  <string name="mode">Сӑсӑк</string>
   <string name="casual">Ахаљ</string>
   <string name="rated">Хаклавшӑн</string>
   <string name="casualTournament">Ахаљ</string>
@@ -213,7 +214,7 @@
   <string name="leaderboard">Лидӗрсен йышӗ</string>
   <string name="pasteTheFenStringHere">FEN текстне кунта кӗрт</string>
   <string name="pasteThePgnStringHere">PGN текстне кунта кӗрт</string>
-  <string name="fromPosition">Поҫитсирен</string>
+  <string name="fromPosition">Тӑрӑмран</string>
   <string name="continueFromHere">Кунтан малалла тӑс</string>
   <string name="importGame">Вӑйӑ импортласси</string>
   <plurals name="nbImportedGames">
@@ -269,10 +270,12 @@
   <string name="whiteWins">Шуррисем ҫӗнтерни</string>
   <string name="blackWins">Хурисем ҫӗнтерни</string>
   <string name="draws">Парма-пар</string>
+  <string name="nextXTournament">Тепӗр %s турнир:</string>
   <string name="boardEditor">Хӑма хайласси</string>
-  <string name="startPosition">Пуҫламӑш поҫитси</string>
+  <string name="endgamePositions">Ендшпил тӑрӑмӗ</string>
+  <string name="startPosition">Пуҫламӑш тӑрӑм</string>
   <string name="clearBoard">Хӑмана тасат</string>
-  <string name="loadPosition">Поҫитсине ларт</string>
+  <string name="loadPosition">Тӑрӑм ларт</string>
   <string name="isPrivate">Харкам</string>
   <string name="reportXToModerators">Модӑратӑра %s ҫинчен пӗлтер</string>
   <string name="profile">Профӗлӳ</string>
@@ -482,5 +485,8 @@
   <string name="youHaveJoinedTeamX">Эсӗ \"%1$s\" хутшӑннӑ.</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="welcome">Хапӑл тӑватпӑр!</string>
+  <string name="cancelTournament">Турнира пӑрахӑҫла</string>
+  <string name="tournDescription">Турнир пирки</string>
+  <string name="tournChat">Турнир калаҫӑвӗ</string>
   <string name="noChat">Калаҫусӑр</string>
 </resources>
