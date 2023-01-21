@@ -10,6 +10,7 @@ import lila.common.Bus
 import lila.common.config.MaxPerPage
 import lila.common.paginator.*
 import lila.hub.actorApi.lpv.GamePgnsFromText
+import chess.format.pgn.PgnStr
 
 final class BlogApi(
     config: BlogConfig,
@@ -102,21 +103,20 @@ final class BlogApi(
   def expand(html: Html) = Html(
     legacyExpandRe.replaceAllIn(
       html.value,
-      { m =>
+      m =>
         pgnCache.getIfPresent(GameId(m.group(1))).fold(m.matched) { pgn =>
-          val esc   = lila.common.base.StringUtils.escapeHtmlRaw(pgn)
+          val esc   = lila.common.base.StringUtils.escapeHtmlRaw(pgn.value)
           val color = Option(m.group(2)).getOrElse("white")
           val ply   = Option(m.group(3)).getOrElse("0")
           s"""<div class="lpv--autostart" data-pgn="$esc" data-orientation="$color" data-ply="$ply"></div>"""
         }
-      }
     )
   )
 
   private val legacyExpandRe =
     """<a href=\"https://lichess\.org/(\w{8})(?:(?:/(white|black))|\w{4}|)(?:#(\d+))?\">https://lichess\.org/[^<]{8,18}</a>""".r
 
-  private val pgnCache = cacheApi.notLoadingSync[GameId, String](256, "prisblog.markup.pgn") {
+  private val pgnCache = cacheApi.notLoadingSync[GameId, PgnStr](256, "prisblog.markup.pgn") {
     _.expireAfterWrite(1 second).build()
   }
 
