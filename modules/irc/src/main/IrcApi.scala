@@ -117,7 +117,7 @@ final class IrcApi(
   def printBan(mod: Holder, print: String, v: Boolean, userIds: List[UserId]): Funit =
     logMod(
       mod.id,
-      "paw prints",
+      "paw_prints",
       s"${if (v) "Banned" else "Unbanned"} print ${markdown
           .printLink(print)} of ${userIds.length} user(s): ${markdown userIdLinks userIds}"
     )
