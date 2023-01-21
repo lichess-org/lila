@@ -22,7 +22,7 @@ object show:
         )
         .some,
       moreCss = cssTag("blog"),
-      csp = bits.csp
+      csp = bits.csp.map(_.withInlineIconFont)
     )(
       main(cls := "page-menu page-small")(
         bits.menu(none, "lichess".some),
@@ -38,6 +38,7 @@ object show:
               .map(lila.blog.Youtube.fixStartTimes)
               .map(lila.blog.BlogTransform.removeProtocol)
               .map(lila.blog.BlogTransform.markdown.apply)
+              .map(env.blog.api.expand)
               .map(rawHtml)
           ),
           ctx.noKid option
