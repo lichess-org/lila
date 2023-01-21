@@ -78,7 +78,7 @@ object Form:
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
 
   // trims and removes garbage chars before validation
-  private def makeCleanTextFormatter(keepSymbols: Boolean): Formatter[String] = new Formatter[String]:
+  private def makeCleanTextFormatter(keepSymbols: Boolean): Formatter[String] = new:
     def bind(key: String, data: Map[String, String]) =
       data
         .get(key)

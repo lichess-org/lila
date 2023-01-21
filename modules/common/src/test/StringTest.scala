@@ -35,6 +35,9 @@ class StringTest extends Specification {
         rms(txt) === txt
       }
     }
+    "preserve half point" >> {
+      rms("½") === "½"
+    }
   }
 
   "remove garbage chars" >> {
@@ -50,6 +53,9 @@ class StringTest extends Specification {
     "keep º and ª" >> {
       String.normalize("keep normal text") === "keep normal text"
       String.normalize("keep º and ª") === "keep º and ª"
+    }
+    "preserve half point" >> {
+      String.normalize("½") === "½"
     }
   }
 
