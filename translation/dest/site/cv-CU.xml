@@ -459,7 +459,7 @@
   <string name="chessBasics">Шахмат никӗсӗсем</string>
   <string name="coaches">Хӑнӑхтаруҫӑ</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="other">1-мӗш хускану тумашкӑн %s ҫек йулчӗ</item>
+    <item quantity="other">1-ш хускану тумашкӑн %s ҫ йулчӗ</item>
   </plurals>
   <string name="practiceWithComputer">Машинпа практикӑла</string>
   <plurals name="nbSeconds">
