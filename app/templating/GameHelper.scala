@@ -70,9 +70,8 @@ trait GameHelper:
           case chess.variant.Crazyhouse    => "Drop captured pieces on the board"
           case _                           => "Variant ending"
       case _ => "Game is still being played"
-    val fullMoveNumber = if (game.chess.ply == Ply(0)) 0 else (game.chess.ply - 1).fullMoveNumber
-    val moves = s"${fullMoveNumber} move${if (fullMoveNumber != 1) "s" else ""}"
-    s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
+    val moves = game.chess.ply.value / 2
+    s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after ${pluralize("move", moves)}. Click to replay, analyse, and discuss the game!".pp
 
   def shortClockName(clock: Option[Clock.Config])(using lang: Lang): Frag =
     clock.fold[Frag](trans.unlimited())(shortClockName)
