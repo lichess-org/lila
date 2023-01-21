@@ -68,6 +68,8 @@
   <string name="studyPgn">PGN дослідження</string>
   <string name="downloadAllGames">Завантажити всі ігри</string>
   <string name="chapterPgn">PGN розділу</string>
+  <string name="copyChapterPgn">Скопіювати PGN</string>
+  <string name="copyChapterPgnDescription">Скопіювати PGN розділу в буфер обміну.</string>
   <string name="downloadGame">Завантажити гру</string>
   <string name="studyUrl">Посилання на дослідження</string>
   <string name="currentChapterUrl">Посилання на цей розділ</string>
