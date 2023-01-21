@@ -27,8 +27,8 @@ ass?(hole|fag)
 autist(ic|)
 aus?c?hwitz
 bastard?
-be[ea]+ch
-bit?ch
+be[ea]+t?ch
+biy?t?ch
 blow(job|)
 blumpkin
 bollock
@@ -113,6 +113,7 @@ punani
 puss(i|y|ie|)
 queer
 rapist
+rat
 rect(al|um)
 retard
 rimjob
@@ -312,6 +313,7 @@ yarra[gğ][iı] yediniz
 
   def critical = dict("""
 cancer
+(go|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|suicide)
 ((ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )*)+ (die|burn)s?|((die|burn)s? irl))
 (kill|hang|neck) ?((yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)( and )?)+
 kys
