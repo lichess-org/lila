@@ -71,7 +71,7 @@ trait GameHelper:
           case _                           => "Variant ending"
       case _ => "Game is still being played"
     val moves = (game.chess.ply.value + 1) / 2
-    s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after ${pluralize("move", moves)}. Click to replay, analyse, and discuss the game!".pp
+    s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after ${pluralize("move", moves)}. Click to replay, analyse, and discuss the game!"
 
   def shortClockName(clock: Option[Clock.Config])(using lang: Lang): Frag =
     clock.fold[Frag](trans.unlimited())(shortClockName)
