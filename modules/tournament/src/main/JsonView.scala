@@ -332,7 +332,7 @@ final class JsonView(
                   sheet <- cached.sheet(tour, player.userId)
                   json <- playerJson(
                     lightUserApi,
-                    sheet.some,
+                    none,
                     rp,
                     streakable = tour.streakable,
                     withScores = false
