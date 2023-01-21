@@ -58,8 +58,7 @@ final class TextLpvExpand(
       _.collect { case (gameId, Some(pgn)) => gameId -> pgn }
     }
 
-  private val gameRegex =
-    s"""[:.]\\w{1,5}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?\\b""".r
+  private val gameRegex = """/(?:embed/)?(?:game/)?(\w{8})(?:/(white|black)|\w{4}|)(#\d+)?\b""".r
 
   private val plyRegex = raw"#(\d+)\z".r
 
