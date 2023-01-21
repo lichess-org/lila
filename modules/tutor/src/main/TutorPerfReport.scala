@@ -90,6 +90,8 @@ case class TutorPerfReport(
   val skillHighlights = TutorCompare.mixedBag(skillCompares.flatMap(_.peerComparisons))
 
   val openingHighlights = TutorCompare.mixedBag(openingCompares.flatMap(_.allComparisons))
+  val openingStrengths  = TutorCompare.strengths(openingCompares.flatMap(_.allComparisons))
+  val openingWeaknesses = TutorCompare.weaknesses(openingCompares.flatMap(_.allComparisons))
 
   val phaseHighlights = TutorCompare.mixedBag(phaseCompares.flatMap(_.peerComparisons))
 
@@ -98,7 +100,11 @@ case class TutorPerfReport(
   val relevantComparisons: List[AnyComparison] =
     openingCompares.flatMap(_.allComparisons) :::
       phaseCompares.flatMap(_.peerComparisons) :::
-      clockCompares.flatMap(_.peerComparisons)
+      clockCompares.flatMap(_.peerComparisons) :::
+      skillCompares.flatMap(_.peerComparisons)
+
+  def strengths  = relevantComparisons.filter(_.better)
+  def weaknesses = relevantComparisons.filter(_.worse)
 
   def openingFrequency(color: Color, fam: TutorOpeningFamily) =
     GoodPercent(fam.performance.mine.count, stats.nbGames(color))

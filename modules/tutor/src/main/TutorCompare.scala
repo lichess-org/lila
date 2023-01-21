@@ -34,6 +34,10 @@ case class TutorCompare[D, V](
 
 object TutorCompare:
 
+  enum StrengthOrWeakness:
+    case Strength, Weakness
+  export StrengthOrWeakness.*
+
   case class Comparison[D, V](
       dimensionType: InsightDimension[D],
       dimension: D,
@@ -49,6 +53,7 @@ object TutorCompare:
 
     def better                          = grade.better
     def worse                           = grade.worse
+    def sow                             = if better then Strength else Weakness
     def similarTo(other: AnyComparison) = other.dimensionType == dimensionType && other.metric == metric
 
     override def toString = s"(${grade.value}) $dimensionType $metric ${value.value} vs $reference"
@@ -57,6 +62,14 @@ object TutorCompare:
 
   type AnyComparison = Comparison[?, ?]
   type AnyCompare    = TutorCompare[?, ?]
+
+  def strengths  = oriented(Strength)
+  def weaknesses = oriented(Weakness)
+
+  private def oriented(sow: StrengthOrWeakness)(comparisons: List[AnyComparison])(
+      nb: Int
+  ): List[AnyComparison] =
+    sortAndPreventRepetitions(comparisons.filter(_.sow == sow))(nb)
 
   def mixedBag(comparisons: List[AnyComparison])(nb: Int): List[AnyComparison] = {
     val half = ~lila.common.Maths.divideRoundUp(nb, 2)

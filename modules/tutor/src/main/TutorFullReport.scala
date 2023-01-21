@@ -31,16 +31,15 @@ case class TutorFullReport(
       GoodPercent(time.toSeconds.toDouble, totalTime.toSeconds.toDouble)
     }
 
-  def strengths = ponderedHighlights(_.better)
-
-  val weaknesses = ponderedHighlights(_.worse)
+  def strengths  = ponderedHighlights(TutorCompare.Strength)
+  val weaknesses = ponderedHighlights(TutorCompare.Weakness)
 
   // perfs with more games have more highlights
-  def ponderedHighlights(compFilter: AnyComparison => Boolean)(nb: Int): List[(AnyComparison, PerfType)] =
+  def ponderedHighlights(sow: TutorCompare.StrengthOrWeakness)(nb: Int): List[(AnyComparison, PerfType)] =
     perfs
       .flatMap { p =>
         TutorCompare.sortAndPreventRepetitions(
-          p.relevantComparisons.filter(compFilter)
+          if sow == TutorCompare.Strength then p.strengths else p.weaknesses
         )(Math.ceil(nb.toDouble * p.stats.totalNbGames / nbGames).toInt) map (_ -> p.perf)
       }
       .sortBy(-_._1.grade.abs)

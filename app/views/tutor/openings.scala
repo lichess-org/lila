@@ -31,7 +31,11 @@ object openings:
         )
       ),
       bits.mascotSays(
-        report openingHighlights 3 map compare.show
+        report openingHighlights 3 map compare.show,
+        h2("Your strengths"),
+        ul(report.openingStrengths(3) map compare.show),
+        h2("Your weaknesses"),
+        ul(report.openingWeaknesses(3) map compare.show)
       ),
       div(cls := "tutor__openings__colors tutor__pad")(chess.Color.all.map { color =>
         st.section(cls := "tutor__openings__color")(

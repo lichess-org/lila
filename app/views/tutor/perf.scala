@@ -28,7 +28,23 @@ object perf:
           report.perf.trans
         )
       ),
-      bits.mascotSays(ul(report.relevantComparisons.topN(3) map compare.show)),
+      bits.mascotSays(
+        p(
+          "Your average ",
+          report.perf.trans,
+          " rating is ",
+          report.stats.rating,
+          ". We're comparing you to players rated between ",
+          report.stats.peers.ratingRange.start,
+          " and ",
+          report.stats.peers.ratingRange.end,
+          ", to determine what your strengths and weaknesses are."
+        ),
+        h2("Your strengths"),
+        ul(report.strengths.topN(3) map compare.show),
+        h2("Your weaknesses"),
+        ul(report.weaknesses.topN(3) map compare.show)
+      ),
       div(cls := "tutor__perf__angles tutor-cards")(
         angleCard(
           frag(report.perf.trans, " skills"),
