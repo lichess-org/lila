@@ -368,7 +368,7 @@
   <string name="ifRatingIsPlusMinusX">Рейтингӗ ± %s пулсан</string>
   <string name="onlyFriends">Тус кӑна</string>
   <string name="menu">Менӳ</string>
-  <string name="castling">Роклани</string>
+  <string name="castling">Роикровка</string>
   <string name="whiteCastlingKingside">Шурӑ O-O</string>
   <string name="blackCastlingKingside">Хура O-O</string>
   <plurals name="nbForumPosts">
