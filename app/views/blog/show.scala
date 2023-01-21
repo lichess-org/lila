@@ -38,6 +38,7 @@ object show:
               .map(lila.blog.Youtube.fixStartTimes)
               .map(lila.blog.BlogTransform.removeProtocol)
               .map(lila.blog.BlogTransform.markdown.apply)
+              .map(env.blog.api.expand)
               .map(rawHtml)
           ),
           ctx.noKid option
