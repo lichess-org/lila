@@ -81,7 +81,9 @@ object index:
                 div(cls := "search__status box__pad")(
                   strong(xGamesFound(pager.nbResults.localize, pager.nbResults)),
                   " • ",
-                  permalink
+                  permalink,
+                  " • ",
+                  a(cls := "button", href := routes.Game.exportByIds)(trans.download())
                 ),
                 div(cls := "search__rows infinite-scroll")(
                   views.html.game.widgets(pager.currentPageResults),
