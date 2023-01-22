@@ -39,7 +39,7 @@ object Analyser:
 
   private def latinWordsRegexes =
     Dictionary.en.map { word =>
-      word + (if (word endsWith "e") "" else "e?+") + "[ds]?+"
+      word + (if (word endsWith "e") "" else "e?+") + "s?+"
     } ++
       Dictionary.es.map { word =>
         word + (if (word endsWith "e") "" else "e?+") + "s?+"
