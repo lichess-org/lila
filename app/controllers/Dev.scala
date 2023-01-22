@@ -23,7 +23,6 @@ final class Dev(env: Env) extends LilaController(env):
     env.streamer.alwaysFeaturedSetting,
     env.rating.ratingFactorsSetting,
     env.plan.donationGoalSetting,
-    env.plan.paymentMethodsSetting,
     env.apiTimelineSetting,
     env.apiExplorerGamesPerSecond,
     env.fishnet.openingBookDepth,
