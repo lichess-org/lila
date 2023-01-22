@@ -1,11 +1,8 @@
 package lila.shutup
 
-/**   - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
-  *   - words do not partial match. "anal" will NOT match "analysis".
+/**   - words do not partial match. "anal" will NOT match "analysis".
   *   - en, es, de and fr words are automatically pluralized. "tit" will also match "tits", "cabron" will also
   *     match "cabrones" etc.
-  *   - For en only: Past tense of last word in a string matches: "cheat" will also match "cheated", "you
-  *     suck" will also match "you sucked" but "kill you" will NOT match "killed you"
   */
 private object Dictionary:
 
@@ -38,7 +35,7 @@ braindea?d
 bugger
 buk?kake
 bull?shit
-che[ae]t(ing|er|)
+che[ae]t(ing|er|ed|)
 chess(|-|_)bot(.?com)?
 chicken
 chink
@@ -48,7 +45,7 @@ cock(suc?k(er|ing)|)
 condom
 coon
 coward?
-cripp?le
+cripp?led?
 cry(baby|ing|)
 cunn?ilingu
 dic?k(head|face|suc?ker|)
@@ -61,7 +58,7 @@ dyke
 engine
 fck(er|r|u|k|t|ing?|ign|tard?|face|off?|)
 foreskin
-gangbang
+gangbang(e?d|)
 gay
 gobshite?
 gook
@@ -82,9 +79,9 @@ labia
 lamer?
 lesbo
 lo+ser
-masturbat(e|ion|ing)
+masturbat(ed?|ion|ing)
 milf
-molest(er|)
+molest(er|ed|)
 mong
 monkey
 moron
@@ -115,18 +112,18 @@ queer
 rapist
 rat
 rect(al|um)
-retard
+retard(ed|)
 rimjob
 run
-sandbagg?(er|ing|)
-scare
+sandbagg?(er|ing|ed|)
+scared?
 schlong
-screw
+screw(e?d|)
 scrotum
 scum(bag|)
 semen
 sex
-shag
+shagg?(e?d|)
 shemale
 shit(z|e|y|ty|bag|)
 sissy
@@ -139,13 +136,13 @@ sperm
 spick
 spooge
 spunk
-smurff?(er|ing|)
+smurff?(er|ing|e?d|)
 stfu
 stupid
 subhuman
-suicide
+suicided?
 suc?ker
-suck m[ey]
+suck(e?d|) m[ey]
 terrorist
 tit(t?ies|ty|)(fuc?k|)
 tosser
@@ -162,7 +159,7 @@ wanc?k(er|)
 weak
 wetback
 wog
-(you|u) suck
+(you|u) suck(e?d|)
 """) ++ critical
 
   def ru = dict("""
@@ -317,7 +314,7 @@ cancer
 ((ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )*)+ (die|burn)s?|((die|burn)s? irl))
 (kill|hang|neck) ?((yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)( and )?)+
 kys
-rape
+rape(d|ing|)
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
