@@ -288,6 +288,7 @@ wichser
 """)
 
   def tr = dict("""
+oç
 am[iı]na (koyay[iı]m|koy?dum)
 amc[iı]k
 anan[iı]n am[iı]
