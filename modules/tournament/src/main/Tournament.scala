@@ -141,11 +141,9 @@ case class Tournament(
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
   def estimateNumberOfGamesOneCanPlay: Double =
-    val estimatedGameSeconds: Double = {
-      // There are 2 players, and they don't always use all their time (0.8)
-      // add 15 seconds for pairing delay
-      (clock.limitSeconds.value + clock.incrementSeconds.value * 30) * 2 * 0.8
-    } + 15
+    // There are 2 players, and they don't always use all their time (0.8)
+    // add 15 seconds for pairing delay
+    val estimatedGameSeconds: Double = clock.estimateTotalSeconds * 2 * 0.8 + 15
     (minutes * 60) / estimatedGameSeconds
 
   override def toString =
