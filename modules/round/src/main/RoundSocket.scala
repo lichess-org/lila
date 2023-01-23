@@ -96,7 +96,7 @@ final class RoundSocket(
 
   private def tellRound(gameId: GameId, msg: Any): Unit = rounds.tell(gameId, msg)
 
-  private lazy val roundHandler: Handler =
+  private val roundHandler: Handler =
     case Protocol.In.PlayerMove(fullId, uci, blur, lag) if !stopping =>
       tellRound(Game fullToId fullId, HumanPlay(Game takePlayerId fullId, uci, blur, lag, none))
     case Protocol.In.PlayerDo(fullId, tpe) if !stopping =>
@@ -223,7 +223,7 @@ final class RoundSocket(
     val bootLog = lila log "boot"
 
     // load all actors synchronously, giving them game futures from promises we'll fulfill later
-    val gamePromises: Map[GameId, Promise[Option[Game]]] = rooms.view.map { case (id, version) =>
+    val gamePromises: Map[GameId, Promise[Option[Game]]] = rooms.view.map { (id, version) =>
       val promise = Promise[Option[Game]]()
       val gameId  = GameId(id)
       rounds.loadOrTell(
@@ -240,8 +240,8 @@ final class RoundSocket(
       .grouped(1024)
       .map { ids =>
         roundDependencies.gameRepo
-          .byIdsCursor(ids map { GameId(_) })
-          .foldWhile[Set[GameId]](Set.empty[GameId])(
+          .byIdsCursor(GameId from ids)
+          .foldWhile(Set.empty[GameId])(
             (ids, game) =>
               Cursor.Cont[Set[GameId]] {
                 gamePromises.get(game.id).foreach(_ success game.some)
