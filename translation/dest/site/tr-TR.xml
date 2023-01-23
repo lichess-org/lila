@@ -168,7 +168,7 @@
   <string name="latestForumPosts">En son forum gönderileri</string>
   <string name="players">Oyuncular</string>
   <string name="friends">Arkadaşlar</string>
-  <string name="discussions">Sohbetler</string>
+  <string name="discussions">Konuşmalar</string>
   <string name="today">Bugün</string>
   <string name="yesterday">Dün</string>
   <string name="minutesPerSide">Taraf başına dakika</string>
@@ -286,7 +286,7 @@
   <string name="incrementInSeconds">Hamle başına eklenen saniye</string>
   <string name="freeOnlineChess">Ücretsiz Çevrimiçi Satranç</string>
   <plurals name="nbRated">
-    <item quantity="one">%s dereceli</item>
+    <item quantity="one">%s puanlı</item>
     <item quantity="other">%s dereceli</item>
   </plurals>
   <plurals name="nbWins">
