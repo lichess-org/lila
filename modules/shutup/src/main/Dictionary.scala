@@ -110,7 +110,7 @@ punani
 puss(i|y|ie|)
 queer
 rapist
-rat
+rat\b
 rect(al|um)
 retard(ed|)
 rimjob
