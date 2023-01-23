@@ -12,4 +12,5 @@
   <string name="networkBetweenLichessAndYouExplanation">Aeg, mis kulub käigu saatmisest vastuse saamiseni sinu arvutist Lichessi serverile ja tagasi. See oleneb sinu kaugusest Lichessile (Prantsusmaal) ja internetiühenduse kvaliteedist. Lichessi arendajad ei saa sinu Wi-Fi ühendust parandada ega valguskiirust ületada.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Mõlemad väärtused on kiiresti leitavad oma kasutajanime peale klikkates lehe ülemisel real.</string>
   <string name="lagCompensation">Viivise hüvitamine</string>
+  <string name="lagCompensationExplanation">Lichess kompenseerib võrgu aegluse, seal hulgas püsivate ja äkiliste aegluste eest. On olemas limiidid ja heuristikad, mis põhinevad aja reguleerimisest ja siiamaani kompenseeritud aeglusest, nii et tulemus tunduks mõlemale mängijale aus. Selle tõttu ei ole vastasest aeglasema võrgu kasutamine edeks!</string>
 </resources>
