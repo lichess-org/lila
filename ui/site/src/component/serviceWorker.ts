@@ -23,7 +23,7 @@ export default async function () {
     const sub = await reg.pushManager.getSubscription();
     const resub = parseInt(store.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
     const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
-    if (sub || resub) {
+    if (!sub || resub) {
       const newSub = await reg.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: applicationServerKey,
