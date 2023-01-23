@@ -283,7 +283,7 @@ final private[round] class RoundAsyncActor(
 
     case DrawForce(playerId) =>
       handle(playerId) { pov =>
-        (pov.game.forceDrawable && !pov.game.hasAi && pov.game.hasClock) ?? {
+        (pov.game.forceDrawable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn) ?? {
           getPlayer(!pov.color).isLongGone flatMap {
             case true => finisher.rageQuit(pov.game, None)
             case _    => fuccess(List(Event.Reload))
