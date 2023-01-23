@@ -354,4 +354,5 @@ trait LilaLibraryExtensions extends LilaTypes:
         case Some(scala.util.Success(v)) => v
         case _                           => None
 
+    def mapz[B: Zero](fb: A => B)(using EC): Fu[B]        = fua.map { _ ?? fb }
     def ifThen[B: Zero](fub: A => Fu[B])(using EC): Fu[B] = fua.flatMap { _ ?? fub }
