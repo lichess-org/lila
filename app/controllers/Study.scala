@@ -525,7 +525,8 @@ final class Study(
     lila.study.PgnDump.WithFlags(
       comments = getBoolOpt("comments", req) | true,
       variations = getBoolOpt("variations", req) | true,
-      clocks = getBoolOpt("clocks", req) | true
+      clocks = getBoolOpt("clocks", req) | true,
+      source = getBool("source", req)
     )
 
   def chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String]) =
