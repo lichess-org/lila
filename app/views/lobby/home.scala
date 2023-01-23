@@ -69,9 +69,9 @@ object home:
             div(cls := "bg-switch__thumb")
           ),
           div(cls := "lobby__start")(
-            a(cls := "button button-metal", trans.createAGame()),
-            a(cls := "button button-metal", trans.playWithAFriend()),
-            a(cls := "button button-metal", trans.playWithTheMachine())
+            button(cls := "button button-metal", tpe := "button", trans.createAGame()),
+            button(cls := "button button-metal", tpe := "button", trans.playWithAFriend()),
+            button(cls := "button button-metal", tpe := "button", trans.playWithTheMachine())
           )
         ),
         currentGame.map(bits.currentGameInfo) orElse
