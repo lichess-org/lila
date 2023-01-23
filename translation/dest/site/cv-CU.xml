@@ -6,7 +6,7 @@
   <string name="gameOver">Вӑйӑ вӗҫленчӗ</string>
   <string name="waitingForOpponent">Ӑмӑртуҫа кӗтсе тӑни</string>
   <string name="waiting">Кӗтсе тӑни</string>
-  <string name="yourTurn">Санӑн куҫармалла</string>
+  <string name="yourTurn">Сан черет</string>
   <string name="aiNameLevelAiLevel">%1$s шайӗ: %2$s</string>
   <string name="level">Шай</string>
   <string name="strength">Хӑват</string>
@@ -466,6 +466,7 @@
   <string name="chessBasics">Шахмат никӗсӗсем</string>
   <string name="coaches">Хӑнӑхтаруҫӑ</string>
   <string name="custom">Уйрӑм</string>
+  <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">1-ш хускану тумашкӑн  %s ҫ йулчӗ</item>
   </plurals>
