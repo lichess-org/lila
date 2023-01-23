@@ -19,8 +19,8 @@
   <string name="black">Хуррисем</string>
   <string name="randomColor">Ӑнсӑрт йен</string>
   <string name="createAGame">Вӑйӑ йӗркеле</string>
-  <string name="whiteIsVictorious">Шуррисем ҫӗнтерчӗҫ</string>
-  <string name="blackIsVictorious">Хурисем ҫӗнтерчӗҫ</string>
+  <string name="whiteIsVictorious">Шуррисем ҫӗнтернӗ</string>
+  <string name="blackIsVictorious">Хурисем ҫӗнтернӗ</string>
   <string name="youPlayTheWhitePieces">Эсӗ шуррисемшӗн выльатӑн</string>
   <string name="youPlayTheBlackPieces">Эсӗ хурисемшӗн выльатӑн</string>
   <string name="itsYourTurn">Ҫӳре!</string>
@@ -467,7 +467,7 @@
   <string name="coaches">Хӑнӑхтаруҫӑ</string>
   <string name="custom">Уйрӑм</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="other">1-ш хускану тумашкӑн %s ҫ йулчӗ</item>
+    <item quantity="other">1-ш хускану тумашкӑн  %s ҫ йулчӗ</item>
   </plurals>
   <string name="practiceWithComputer">Машинпа практикӑла</string>
   <plurals name="nbSeconds">
