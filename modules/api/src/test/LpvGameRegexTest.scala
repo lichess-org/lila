@@ -1,7 +1,6 @@
 package lila.api
 
 import org.specs2.mutable.Specification
-import chess.format.pgn.PgnStr
 
 class LpvGameRegexTest extends Specification {
 
@@ -74,25 +73,5 @@ class LpvGameRegexTest extends Specification {
 
     "extract game id 2" >>
       group(re.gamePgnsRe, "boo.org:8080/1234abcd1234#123", 1).contains("1234abcd")
-
   }
 }
-/*
-"extract color 1" >>
-      group(re.gamePgnsRe, "boo.org:8080/abcdefgh/white#2", "color").contains("white")
-
-"fail extract color" >>
-  group(re.gamePgnsRe, "https://boo.org:8080/abcd1234#white", "color").contains(null)
-
-"extract ply 1" >>
-  group(re.gamePgnsRe, "https://boo.org:8080/12345678/black#0", "ply").contains("0")
-
-"extract ply 2" >>
-  group(re.gamePgnsRe, "https://boo.org:8080/abcd12345678#222", "ply").contains("222")
-
-"extract ply 3" >>
-  group(re.gamePgnsRe, "boo.org:8080/12345678#last", "ply").contains("last")
-
-"fail extract ply" >>
-  group(re.gamePgnsRe, "boo.org:8080/zyxwvuts#l23", "ply").contains(null)
- */

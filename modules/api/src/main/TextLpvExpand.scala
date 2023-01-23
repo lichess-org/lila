@@ -21,8 +21,8 @@ final class TextLpvExpand(
 
   def getPgn(id: GameId) = pgnCache get id
 
-  // forum linkRenderFromText builds a mapper from relative game urls -> lpv div tags
-  //
+  // forum linkRenderFromText builds a LinkRender from relative game urls -> lpv div tags.
+  // substitution occurs in common/../RawHtml.scala addLinks
   def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] =
     regex.linkRenderRe
       .findAllMatchIn(text)
