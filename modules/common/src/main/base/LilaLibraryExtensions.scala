@@ -318,8 +318,10 @@ trait LilaLibraryExtensions extends LilaTypes:
     def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
       fua.flatMap { if (_) fuTrue else fub }(EC.parasitic)
 
-    def ifThen[A](fub: => Fu[A])(using zero: Zero[A]): Fu[A] =
+    def flatMapz[B](fub: => Fu[B])(using zero: Zero[B]): Fu[B] =
       fua.flatMap { if (_) fub else fuccess(zero.zero) }(EC.parasitic)
+    def mapz[B](fb: => B)(using zero: Zero[B]): Fu[B] =
+      fua.map { if (_) fb else zero.zero }(EC.parasitic)
 
     inline def unary_! = fua.map { !_ }(EC.parasitic)
 
@@ -354,5 +356,5 @@ trait LilaLibraryExtensions extends LilaTypes:
         case Some(scala.util.Success(v)) => v
         case _                           => None
 
-    def mapz[B: Zero](fb: A => B)(using EC): Fu[B]        = fua.map { _ ?? fb }
-    def ifThen[B: Zero](fub: A => Fu[B])(using EC): Fu[B] = fua.flatMap { _ ?? fub }
+    def mapz[B: Zero](fb: A => B)(using EC): Fu[B]          = fua.map { _ ?? fb }
+    def flatMapz[B: Zero](fub: A => Fu[B])(using EC): Fu[B] = fua.flatMap { _ ?? fub }
