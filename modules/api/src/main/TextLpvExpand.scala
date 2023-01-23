@@ -91,8 +91,8 @@ final class LpvGameRegex(domain: String):
 
 // linkified forum hrefs are relative but this regex runs pre-linkify, match path & id
   val linkRenderRe =
-    raw"(?m)^(?:https?://)?(?:$domain)?(/(\w{8})(?:(?:/(?:white|black))|\w{4}|)(?:#\d+)?)\b".r
+    raw"(?m)^(?:(?:https?://)?$domain)?(/(\w{8})(?:/(?:white|black)|\w{4}|)(?:#(?:last|\d+))?)\b".r
 
 // for blogs, only allow absolute links and match id
   val gamePgnsRe =
-    raw"(?:https?://)?$domain/(\w{8})(?:(?:/(?:white|black))|\w{4}|)(?:#(?:last|\d+))?\b".r
+    raw"(?:https?://)?$domain/(\w{8})(?:/(?:white|black)|\w{4}|)(?:#(?:last|\d+))?\b".r
