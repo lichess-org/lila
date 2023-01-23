@@ -8,7 +8,7 @@ import org.specs2.mutable._
 
 class PgnDumpTest extends Specification {
 
-  given PgnDump.WithFlags    = PgnDump.WithFlags(true, true, true)
+  given PgnDump.WithFlags    = PgnDump.WithFlags(true, true, true, false, false)
   given Conversion[Int, Ply] = Ply(_)
 
   val P = PgnDump
