@@ -56,7 +56,7 @@ downsie?
 dumb(ass?|)
 dyke
 engine
-fck(er|r|u|k|t|ing?|ign|tard?|face|off?|)
+fck(er|r|u|k|t|ing?|ign|tard?|face|off?|e?d)
 foreskin
 gangbang(e?d|)
 gay
