@@ -78,6 +78,7 @@ export interface StudyCtrl {
 
 export type Tab = 'intro' | 'members' | 'chapters';
 export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 'multiBoard';
+export type RelayTab = 'overview' | 'schedule' | 'leaderboard';
 export type Visibility = 'public' | 'unlisted' | 'private';
 
 export interface StudyVm {
