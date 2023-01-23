@@ -299,6 +299,7 @@ bok yedin
 gerizekal[iı]
 ibne
 ka[sş]ar
+oç
 orospu( ([çc]o[çc]u[ğg]?u|evlad[ıi]))?
 piç(lik)?
 pu[sş]t
