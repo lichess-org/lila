@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Пуҫлас тесен ҫӳре</string>
   <string name="time">Вӑхӑт</string>
   <string name="skip">сиктер</string>
 </resources>

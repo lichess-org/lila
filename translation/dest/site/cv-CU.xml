@@ -6,7 +6,7 @@
   <string name="gameOver">Вӑйӑ вӗҫленчӗ</string>
   <string name="waitingForOpponent">Ӑмӑртуҫа кӗтсе тӑни</string>
   <string name="waiting">Кӗтсе тӑни</string>
-  <string name="yourTurn">Санӑн куҫармалла</string>
+  <string name="yourTurn">Сан черет</string>
   <string name="aiNameLevelAiLevel">%1$s шайӗ: %2$s</string>
   <string name="level">Шай</string>
   <string name="strength">Хӑват</string>
@@ -19,8 +19,8 @@
   <string name="black">Хуррисем</string>
   <string name="randomColor">Ӑнсӑрт йен</string>
   <string name="createAGame">Вӑйӑ йӗркеле</string>
-  <string name="whiteIsVictorious">Шуррисем ҫӗнтерчӗҫ</string>
-  <string name="blackIsVictorious">Хурисем ҫӗнтерчӗҫ</string>
+  <string name="whiteIsVictorious">Шуррисем ҫӗнтернӗ</string>
+  <string name="blackIsVictorious">Хурисем ҫӗнтернӗ</string>
   <string name="youPlayTheWhitePieces">Эсӗ шуррисемшӗн выльатӑн</string>
   <string name="youPlayTheBlackPieces">Эсӗ хурисемшӗн выльатӑн</string>
   <string name="itsYourTurn">Ҫӳре!</string>
@@ -462,11 +462,13 @@
   <string name="boardTheme">Тӗс майлашӑвӗ</string>
   <string name="boardSize">Хӑма калӑпӑшӗ</string>
   <string name="pieceSet">Кӗлетке пуххи</string>
+  <string name="playChessInStyle">Шахматла стиллӗ пулса выльа</string>
   <string name="chessBasics">Шахмат никӗсӗсем</string>
   <string name="coaches">Хӑнӑхтаруҫӑ</string>
   <string name="custom">Уйрӑм</string>
+  <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="other">1-ш хускану тумашкӑн %s ҫ йулчӗ</item>
+    <item quantity="other">1-ш хускану тумашкӑн  %s ҫ йулчӗ</item>
   </plurals>
   <string name="practiceWithComputer">Машинпа практикӑла</string>
   <plurals name="nbSeconds">

@@ -58,6 +58,7 @@
   <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Yazışmalı oyun güncellemeleri</string>
   <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Meydan okumalar</string>
   <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Yakında başlayan turnuva</string>
+  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">Yazışmalı oyununuzda süreniz azalıyor</string>
   <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Lichess içinde çan bildirimi</string>
   <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Lichess\'te değilken cihaz bildirimleri</string>
   <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Tarayıcı</string>
