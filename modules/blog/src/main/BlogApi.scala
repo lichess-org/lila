@@ -117,7 +117,7 @@ final class BlogApi(
 
   // match the entire <a.../> tag with scheme & domain.  href value should be identical to inner text
   private val expandGameRegex =
-    """<a href="https://lichess\.org/(\w{8})(?:/(white|black)|\w{4}|)(?:#(last|\d+))?">https://lichess\.org/[^<]{8,18}</a>""".r
+    """<a href="https://lichess\.org/(\w{8})(?:/(white|black)|\w{4}|)(?:#(last|\d+))?">https://lichess\.org/[^<]{8,19}</a>""".r
 
   private val pgnCache = cacheApi.notLoadingSync[GameId, PgnStr](256, "prisblog.markup.pgn") {
     _.expireAfterWrite(1 second).build()
