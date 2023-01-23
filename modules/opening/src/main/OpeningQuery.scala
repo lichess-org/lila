@@ -48,7 +48,10 @@ object OpeningQuery:
   case class Query(key: String, moves: Option[PgnMovesStr])
 
   def queryFromUrl(key: String, moves: Option[String]) =
-    Query(key, PgnMovesStr from moves.map(_.trim.replace("_", " ")).filter(_.nonEmpty))
+    Query(
+      key.replace("Defence", "Defense"),
+      PgnMovesStr from moves.map(_.trim.replace("_", " ")).filter(_.nonEmpty)
+    )
 
   def apply(q: Query, config: OpeningConfig): Option[OpeningQuery] =
     if (q.key.isEmpty && q.moves.isEmpty) fromPgn(PgnMovesStr(""), config)
