@@ -98,11 +98,12 @@ final private class Streaming(
         else
           ws.url("https://www.googleapis.com/youtube/v3/search")
             .withQueryStringParameters(
-              "part"      -> "snippet",
-              "type"      -> "video",
-              "eventType" -> "live",
-              "q"         -> keyword.value,
-              "key"       -> googleApiKey.value
+              "part"       -> "snippet",
+              "type"       -> "video",
+              "eventType"  -> "live",
+              "maxResults" -> "50",
+              "q"          -> keyword.value,
+              "key"        -> googleApiKey.value
             )
             .get()
             .flatMap { res =>
