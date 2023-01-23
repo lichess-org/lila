@@ -82,7 +82,9 @@ final class PgnDump(
           Tag(_.FEN, chapter.root.fen.value),
           Tag("SetUp", "1")
         )
-      ) ::: flags.source.??(List(Tag("Source", chapterUrl(study.id, chapter.id))))
+      ) :::
+        flags.source.??(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::
+        flags.orientation.??(List(Tag("Orientation", chapter.setup.orientation.name)))
       genTags
         .foldLeft(chapter.tags.value.reverse) { case (tags, tag) =>
           if (tags.exists(t => tag.name == t.name)) tags
@@ -93,7 +95,13 @@ final class PgnDump(
 
 object PgnDump:
 
-  case class WithFlags(comments: Boolean, variations: Boolean, clocks: Boolean, source: Boolean)
+  case class WithFlags(
+      comments: Boolean,
+      variations: Boolean,
+      clocks: Boolean,
+      source: Boolean,
+      orientation: Boolean
+  )
 
   private type Variations = Vector[Node]
   private val noVariations: Variations = Vector.empty

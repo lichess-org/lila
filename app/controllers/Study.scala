@@ -526,7 +526,8 @@ final class Study(
       comments = getBoolOpt("comments", req) | true,
       variations = getBoolOpt("variations", req) | true,
       clocks = getBoolOpt("clocks", req) | true,
-      source = getBool("source", req)
+      source = getBool("source", req),
+      orientation = getBool("orientation", req)
     )
 
   def chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String]) =
