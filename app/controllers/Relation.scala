@@ -53,12 +53,10 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   )
 
   private def FollowingUser(me: UserModel, str: UserStr)(f: LightUser => Fu[Result]): Fu[Result] =
-    env.user.lightUserApi.async(str.id) flatMap {
-      _ ?? { user =>
-        FollowLimitPerUser(me.id) {
-          f(user)
-        }(rateLimitedFu)
-      }
+    env.user.lightUserApi.async(str.id) flatMapz { user =>
+      FollowLimitPerUser(me.id) {
+        f(user)
+      }(rateLimitedFu)
     }
 
   def follow(username: UserStr) =

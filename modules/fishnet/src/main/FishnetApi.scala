@@ -69,10 +69,8 @@ final class FishnetApi(
           )
         )
         .one[Work.Analysis]
-        .flatMap {
-          _ ?? { work =>
-            repo.updateAnalysis(work assignTo client) inject work.some: Fu[Option[Work.Analysis]]
-          }
+        .flatMapz { work =>
+          repo.updateAnalysis(work assignTo client) inject work.some: Fu[Option[Work.Analysis]]
         }
     }.map { _ map JsonApi.analysisFromWork(config.analysisNodes) }
 
@@ -129,11 +127,9 @@ final class FishnetApi(
 
   def abort(workId: Work.Id, client: Client): Funit =
     workQueue {
-      repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
-        _ ?? { work =>
-          Monitor.abort(client)
-          repo.updateAnalysis(work.abort)
-        }
+      repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMapz { work =>
+        Monitor.abort(client)
+        repo.updateAnalysis(work.abort)
       }
     }
 

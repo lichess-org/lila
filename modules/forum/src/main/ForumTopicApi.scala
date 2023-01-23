@@ -39,11 +39,9 @@ final private class ForumTopicApi(
       netDomain: lila.common.config.NetDomain
   ): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
     for {
-      data <- categRepo byId categId flatMap {
-        _ ?? { categ =>
-          topicRepo.forUser(forUser).byTree(categId, slug) dmap {
-            _ map (categ -> _)
-          }
+      data <- categRepo byId categId flatMapz { categ =>
+        topicRepo.forUser(forUser).byTree(categId, slug) dmap {
+          _ map (categ -> _)
         }
       }
       res <- data ?? { case (categ, topic) =>
@@ -119,27 +117,25 @@ final private class ForumTopicApi(
       ublogId: String,
       authorId: UserId
   ): Funit =
-    categRepo.byId(ForumCateg.ublogId) flatMap {
-      _ ?? { categ =>
-        val topic = ForumTopic.make(
-          categId = categ.slug,
-          slug = slug,
-          name = name,
-          troll = false,
-          userId = authorId,
-          ublogId = ublogId.some
-        )
-        val post = ForumPost.make(
-          topicId = topic.id,
-          userId = authorId.some,
-          troll = false,
-          text = s"Comments on $url",
-          lang = none,
-          number = 1,
-          categId = categ.id
-        )
-        makeNewTopic(categ, topic, post)
-      }
+    categRepo.byId(ForumCateg.ublogId) flatMapz { categ =>
+      val topic = ForumTopic.make(
+        categId = categ.slug,
+        slug = slug,
+        name = name,
+        troll = false,
+        userId = authorId,
+        ublogId = ublogId.some
+      )
+      val post = ForumPost.make(
+        topicId = topic.id,
+        userId = authorId.some,
+        troll = false,
+        text = s"Comments on $url",
+        lang = none,
+        number = 1,
+        categId = categ.id
+      )
+      makeNewTopic(categ, topic, post)
     }
 
   def makeBlogDiscuss(categ: ForumCateg, slug: String, name: String, url: String) =

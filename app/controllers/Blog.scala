@@ -63,10 +63,8 @@ final class Blog(
     _.refreshAfterWrite(30.minutes)
       .buildAsyncFuture { _ =>
         blogApi.masterContext flatMap { implicit prismic =>
-          blogApi.recent(prismic.api, 1, MaxPerPage(50), none) map {
-            _ ?? { docs =>
-              views.html.blog.atom(docs).render
-            }
+          blogApi.recent(prismic.api, 1, MaxPerPage(50), none) mapz { docs =>
+            views.html.blog.atom(docs).render
           }
         }
       }
@@ -123,19 +121,15 @@ final class Blog(
       env.forum.topicRepo.existsByTree(categId, topicSlug) flatMap {
         case true => fuccess(redirect)
         case _ =>
-          blogApi.one(prismic.api, none, id) flatMap {
-            _ ?? { doc =>
-              env.forum.categRepo.byId(categId) flatMap {
-                _ ?? { categ =>
-                  env.forum.topicApi.makeBlogDiscuss(
-                    categ = categ,
-                    slug = topicSlug,
-                    name = doc.getText("blog.title") | "New blog post",
-                    url = s"${env.net.baseUrl}${routes.Blog.show(doc.id, doc.slug)}"
-                  )
-                }
-              } inject redirect
-            }
+          blogApi.one(prismic.api, none, id) flatMapz { doc =>
+            env.forum.categRepo.byId(categId) flatMapz { categ =>
+              env.forum.topicApi.makeBlogDiscuss(
+                categ = categ,
+                slug = topicSlug,
+                name = doc.getText("blog.title") | "New blog post",
+                url = s"${env.net.baseUrl}${routes.Blog.show(doc.id, doc.slug)}"
+              )
+            } inject redirect
           }
       }
     }

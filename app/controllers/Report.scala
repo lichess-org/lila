@@ -141,10 +141,8 @@ final class Report(
   def currentCheatInquiry(username: UserStr) =
     Secure(_.CheatHunter) { implicit ctx => me =>
       OptionFuResult(env.user.repo byId username) { user =>
-        api.currentCheatReport(lila.report.Suspect(user)) flatMap {
-          _ ?? { report =>
-            api.inquiries.toggle(me, Left(report.id)).void
-          } inject modC.redirect(username, mod = true)
+        api.currentCheatReport(lila.report.Suspect(user)) flatMapz { report =>
+          api.inquiries.toggle(me, Left(report.id)).void
         }
       }
     }
@@ -195,11 +193,9 @@ final class Report(
         .fold(
           _ => BadRequest.toFuccess,
           data =>
-            env.user.repo byId data.username flatMap {
-              _ ?? { user =>
-                if (user == me) BadRequest.toFuccess
-                else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
-              }
+            env.user.repo byId data.username flatMapz { user =>
+              if (user == me) BadRequest.toFuccess
+              else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
             }
         )
     }

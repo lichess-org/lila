@@ -56,15 +56,13 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
     def guessManyFiles(url: URL): Fu[Option[RelayFormat]] =
       lila.common.Future.find(
         List(url) ::: mostCommonIndexNames.filterNot(url.pathSegments.contains).map(addPart(url, _))
-      )(looksLikeJson) flatMap {
-        _ ?? { index =>
-          val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
-          val pgnUrl  = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
-          looksLikeJson(jsonUrl(1).url).map(_ option jsonUrl) orElse
-            looksLikePgn(pgnUrl(1).url).map(_ option pgnUrl) dmap2 {
-              ManyFiles(index, _)
-            }
-        }
+      )(looksLikeJson) flatMapz { index =>
+        val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
+        val pgnUrl  = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
+        looksLikeJson(jsonUrl(1).url).map(_ option jsonUrl) orElse
+          looksLikePgn(pgnUrl(1).url).map(_ option pgnUrl) dmap2 {
+            ManyFiles(index, _)
+          }
       }
 
     guessLcc(originalUrl) orElse

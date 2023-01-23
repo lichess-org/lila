@@ -67,16 +67,14 @@ final private class RatingRefund(
             notifier.refund(victim, pt, points)
 
         def applyRefund(ref: Refund) =
-          userRepo byId ref.victim flatMap {
-            _ ?? { user =>
-              perfStat.get(user, ref.perf) flatMap { perfs =>
-                val points = pointsToRefund(
-                  ref,
-                  curRating = user.perfs(ref.perf).intRating,
-                  perfs = perfs
-                )
-                (points > 0) ?? refundPoints(Victim(user), ref.perf, points)
-              }
+          userRepo byId ref.victim flatMapz { user =>
+            perfStat.get(user, ref.perf) flatMap { perfs =>
+              val points = pointsToRefund(
+                ref,
+                curRating = user.perfs(ref.perf).intRating,
+                perfs = perfs
+              )
+              (points > 0) ?? refundPoints(Victim(user), ref.perf, points)
             }
           }
 

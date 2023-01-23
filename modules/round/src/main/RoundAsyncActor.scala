@@ -361,10 +361,8 @@ final private[round] class RoundAsyncActor(
 
     case Moretime(playerId, duration) =>
       handle(playerId) { pov =>
-        moretimer(pov, duration) flatMap {
-          _ ?? { progress =>
-            proxy save progress inject progress.events
-          }
+        moretimer(pov, duration) flatMapz { progress =>
+          proxy save progress inject progress.events
         }
       }
 

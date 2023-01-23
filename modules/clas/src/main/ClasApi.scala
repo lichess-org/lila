@@ -175,12 +175,10 @@ final class ClasApi(
       coll.updateField($doc("userId" -> user.id, "managed" -> true), "managed", false).void
 
     def findManaged(user: User): Fu[Option[Student.ManagedInfo]] =
-      coll.find($doc("userId" -> user.id, "managed" -> true)).one[Student] flatMap {
-        _ ?? { student =>
-          userRepo.byId(student.created.by) zip clas.byId(student.clasId) map {
-            case (Some(teacher), Some(clas)) => Student.ManagedInfo(teacher, clas).some
-            case _                           => none
-          }
+      coll.find($doc("userId" -> user.id, "managed" -> true)).one[Student] flatMapz { student =>
+        userRepo.byId(student.created.by) zip clas.byId(student.clasId) map {
+          case (Some(teacher), Some(clas)) => Student.ManagedInfo(teacher, clas).some
+          case _                           => none
         }
       }
 
@@ -319,27 +317,21 @@ ${clas.desc}""",
     def get(id: ClasInvite.Id) = colls.invite.one[ClasInvite]($id(id))
 
     def view(id: ClasInvite.Id, user: User): Fu[Option[(ClasInvite, Clas)]] =
-      colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)) flatMap {
-        _ ?? { invite =>
-          colls.clas.byId[Clas](invite.clasId.value).map2 { invite -> _ }
-        }
+      colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)) flatMapz { invite =>
+        colls.clas.byId[Clas](invite.clasId.value).map2 { invite -> _ }
       }
 
     def accept(id: ClasInvite.Id, user: User): Fu[Option[Student]] =
-      colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)) flatMap {
-        _ ?? { invite =>
-          colls.clas.one[Clas]($id(invite.clasId)) flatMap {
-            _ ?? { clas =>
-              studentCache addStudent user.id
-              val stu = Student.make(user, clas, invite.created.by, invite.realName, managed = false)
-              colls.student.insert.one(stu) >>
-                colls.invite.updateField($id(id), "accepted", true) >>
-                student.sendWelcomeMessage(invite.created.by, user, clas) inject
-                stu.some recoverWith lila.db.recoverDuplicateKey { _ =>
-                  student.get(clas, user.id)
-                }
+      colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)) flatMapz { invite =>
+        colls.clas.one[Clas]($id(invite.clasId)) flatMapz { clas =>
+          studentCache addStudent user.id
+          val stu = Student.make(user, clas, invite.created.by, invite.realName, managed = false)
+          colls.student.insert.one(stu) >>
+            colls.invite.updateField($id(id), "accepted", true) >>
+            student.sendWelcomeMessage(invite.created.by, user, clas) inject
+            stu.some recoverWith lila.db.recoverDuplicateKey { _ =>
+              student.get(clas, user.id)
             }
-          }
         }
       }
 

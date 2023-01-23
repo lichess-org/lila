@@ -109,11 +109,9 @@ final class SecurityApi(
       appeal.authenticate(sessionId) match {
         case Some(userId) => userRepo byId userId map2 { u => Left(AppealUser(u)) }
         case None =>
-          store.authInfo(sessionId) flatMap {
-            _ ?? { d =>
-              userRepo byId d.user dmap {
-                _ map { u => Right(FingerPrintedUser(stripRolesOfCookieUser(u), d.hasFp)) }
-              }
+          store.authInfo(sessionId) flatMapz { d =>
+            userRepo byId d.user dmap {
+              _ map { u => Right(FingerPrintedUser(stripRolesOfCookieUser(u), d.hasFp)) }
             }
           }
       }: Fu[Option[AppealOrUser]]

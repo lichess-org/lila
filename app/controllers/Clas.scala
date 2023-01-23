@@ -40,11 +40,9 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     }
 
   def teacher(username: UserStr) = Secure(_.Admin) { implicit ctx => _ =>
-    env.user.repo byId username flatMap {
-      _ ?? { teacher =>
-        env.clas.api.clas.of(teacher) map { classes =>
-          Ok(html.mod.search.teacher(teacher.id, classes))
-        }
+    env.user.repo byId username flatMapz { teacher =>
+      env.clas.api.clas.of(teacher) map { classes =>
+        Ok(html.mod.search.teacher(teacher.id, classes))
       }
     }
   }
@@ -92,12 +90,10 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           },
         orDefault = _ =>
           if (isGranted(_.UserModView))
-            env.clas.api.clas.byId(id) flatMap {
-              _ ?? { clas =>
-                env.clas.api.student.allWithUsers(clas) flatMap { students =>
-                  env.user.repo.withEmails(students.map(_.user)) map { users =>
-                    Ok(html.mod.search.clas(Holder(me), clas, users))
-                  }
+            env.clas.api.clas.byId(id) flatMapz { clas =>
+              env.clas.api.student.allWithUsers(clas) flatMap { students =>
+                env.user.repo.withEmails(students.map(_.user)) map { users =>
+                  Ok(html.mod.search.clas(Holder(me), clas, users))
                 }
               }
             }
@@ -113,12 +109,10 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, id)) flatMap {
       case true => forTeacher
       case _ =>
-        env.clas.api.clas.byId(id) flatMap {
-          _ ?? { clas =>
-            env.clas.api.student.activeWithUsers(clas) flatMap { students =>
-              if (students.exists(_.student is me)) forStudent(clas, students)
-              else orDefault(ctx)
-            }
+        env.clas.api.clas.byId(id) flatMapz { clas =>
+          env.clas.api.student.activeWithUsers(clas) flatMap { students =>
+            if (students.exists(_.student is me)) forStudent(clas, students)
+            else orDefault(ctx)
           }
         }
     }
@@ -279,9 +273,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def studentForm(id: ClasId) =
     Secure(_.Teacher) { implicit ctx => me =>
-      if (getBool("gen")) env.clas.nameGenerator() map {
-        _ ?? { Ok(_) }
-      }
+      if (getBool("gen")) env.clas.nameGenerator() mapz { Ok(_) }
       else
         WithClassAndStudents(me, id) { (clas, students) =>
           for {
@@ -418,21 +410,19 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 )
               },
             data =>
-              env.user.repo enabledById data.username flatMap {
-                _ ?? { user =>
-                  import lila.clas.ClasInvite.{ Feedback as F }
-                  import lila.i18n.{ I18nKeys as trans }
-                  env.clas.api.invite.create(clas, user, data.realName, me) map { feedback =>
-                    Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
-                      feedback match
-                        case F.Already => "success" -> trans.clas.xisNowAStudentOfTheClass.txt(user.username)
-                        case F.Invited =>
-                          "success" -> trans.clas.anInvitationHasBeenSentToX.txt(user.username)
-                        case F.Found =>
-                          "warning" -> trans.clas.xAlreadyHasAPendingInvitation.txt(user.username)
-                        case F.CantMsgKid(url) =>
-                          "warning" -> trans.clas.xIsAKidAccountWarning.txt(user.username, url)
-                    }
+              env.user.repo enabledById data.username flatMapz { user =>
+                import lila.clas.ClasInvite.{ Feedback as F }
+                import lila.i18n.{ I18nKeys as trans }
+                env.clas.api.invite.create(clas, user, data.realName, me) map { feedback =>
+                  Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
+                    feedback match
+                      case F.Already => "success" -> trans.clas.xisNowAStudentOfTheClass.txt(user.username)
+                      case F.Invited =>
+                        "success" -> trans.clas.anInvitationHasBeenSentToX.txt(user.username)
+                      case F.Found =>
+                        "warning" -> trans.clas.xAlreadyHasAPendingInvitation.txt(user.username)
+                      case F.CantMsgKid(url) =>
+                        "warning" -> trans.clas.xIsAKidAccountWarning.txt(user.username, url)
                   }
                 }
               }
@@ -612,11 +602,9 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def invitationRevoke(id: lila.clas.ClasInvite.Id) =
     Secure(_.Teacher) { _ => me =>
-      env.clas.api.invite.get(id) flatMap {
-        _ ?? { invite =>
-          WithClass(me, invite.clasId) { clas =>
-            env.clas.api.invite.delete(invite._id) inject Redirect(routes.Clas.students(clas.id.value))
-          }
+      env.clas.api.invite.get(id) flatMapz { invite =>
+        WithClass(me, invite.clasId) { clas =>
+          env.clas.api.invite.delete(invite._id) inject Redirect(routes.Clas.students(clas.id.value))
         }
       }
     }
@@ -630,7 +618,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   private def WithClass(me: Holder, clasId: ClasId)(
       f: lila.clas.Clas => Fu[Result]
   ): Fu[Result] =
-    env.clas.api.clas.getAndView(clasId, me.user) flatMap { _ ?? f }
+    env.clas.api.clas.getAndView(clasId, me.user) flatMapz f
 
   private def WithClassAndStudents(me: Holder, clasId: ClasId)(
       f: (lila.clas.Clas, List[lila.clas.Student]) => Fu[Result]
@@ -642,10 +630,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   private def WithStudent(clas: lila.clas.Clas, username: UserStr)(
       f: lila.clas.Student.WithUser => Fu[Result]
   ): Fu[Result] =
-    env.user.repo byId username flatMap {
-      _ ?? { user =>
-        env.clas.api.student.get(clas, user) flatMap { _ ?? f }
-      }
+    env.user.repo byId username flatMapz { user =>
+      env.clas.api.student.get(clas, user) flatMapz f
     }
 
   private def SafeTeacher(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =

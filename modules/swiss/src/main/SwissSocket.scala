@@ -41,10 +41,8 @@ final private class SwissSocket(
       logger,
       roomId => _.Swiss(SwissId(roomId.value)).some,
       localTimeout = Some { (roomId, modId, _) =>
-        teamOf(SwissId(roomId.value)) flatMap {
-          _ ?? { teamId =>
-            lila.common.Bus.ask[Boolean]("teamIsLeader") { IsLeader(teamId, modId, _) }
-          }
+        teamOf(SwissId(roomId.value)) flatMapz { teamId =>
+          lila.common.Bus.ask[Boolean]("teamIsLeader") { IsLeader(teamId, modId, _) }
         }
       },
       chatBusChan = _.Swiss

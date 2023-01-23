@@ -226,8 +226,8 @@ final class User(
     }
 
   private def currentlyPlaying(user: UserModel): Fu[Option[Pov]] =
-    env.game.cached.lastPlayedPlayingId(user.id) flatMap {
-      _ ?? { env.round.proxyRepo.pov(_, user) }
+    env.game.cached.lastPlayedPlayingId(user.id) flatMapz {
+      env.round.proxyRepo.pov(_, user)
     }
 
   private def lastPlayed(user: UserModel): Fu[Option[Pov]] =
@@ -304,19 +304,17 @@ final class User(
 
   def topNb(nb: Int, perfKey: Perf.Key) =
     Open { implicit ctx =>
-      topNbUsers(nb, perfKey) flatMap {
-        _ ?? { case (users, perfType) =>
-          negotiate(
-            html = (nb == 200) ?? Ok(html.user.top(perfType, users)).toFuccess,
-            api = _ => fuccess(topNbJson(users))
-          )
-        }
+      topNbUsers(nb, perfKey) flatMapz { (users, perfType) =>
+        negotiate(
+          html = (nb == 200) ?? Ok(html.user.top(perfType, users)).toFuccess,
+          api = _ => fuccess(topNbJson(users))
+        )
       }
     }
 
   def topNbApi(nb: Int, perfKey: Perf.Key) =
     Action.async {
-      topNbUsers(nb, perfKey) map { _ ?? { users => topNbJson(users._1) } }
+      topNbUsers(nb, perfKey) mapz { users => topNbJson(users._1) }
     }
 
   private def topNbUsers(nb: Int, perfKey: Perf.Key) =
@@ -434,18 +432,13 @@ final class User(
           _.flatMap(_.response) ?? html.kaladin.report
         }
 
-        val irwin = isGranted(_.MarkEngine) ?? env.irwin.irwinApi.reports.withPovs(user).map {
-          _ ?? { reps =>
-            html.irwin.report(reps)
-          }
-        }
+        val irwin =
+          isGranted(_.MarkEngine) ?? env.irwin.irwinApi.reports.withPovs(user).mapz(html.irwin.report)
         val assess = isGranted(_.MarkEngine) ?? env.mod.assessApi.getPlayerAggregateAssessmentWithGames(
           user.id
-        ) flatMap {
-          _ ?? { as =>
-            env.user.lightUserApi
-              .preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(user, as)
-          }
+        ) flatMapz { as =>
+          env.user.lightUserApi
+            .preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(user, as)
         }
         implicit val extractor = EventSource.EventDataExtractor[Frag](_.render)
         Ok.chunked {
@@ -496,12 +489,10 @@ final class User(
 
   def apiReadNote(username: UserStr) =
     Scoped() { implicit req => me =>
-      env.user.repo byId username flatMap {
-        _ ?? {
-          env.socialInfo.fetchNotes(_, me) flatMap {
-            lila.user.JsonView.notes(_)(using env.user.lightUserApi)
-          } map JsonOk
-        }
+      env.user.repo byId username flatMapz {
+        env.socialInfo.fetchNotes(_, me) flatMap {
+          lila.user.JsonView.notes(_)(using env.user.lightUserApi)
+        } map JsonOk
       }
     }
 
@@ -520,13 +511,9 @@ final class User(
       me: UserModel,
       data: lila.user.UserForm.NoteData
   )(f: UserModel => Fu[Result]) =
-    env.user.repo byId username flatMap {
-      _ ?? { user =>
-        {
-          val isMod = data.mod && isGranted(_.ModNote, me)
-          env.user.noteApi.write(user, data.text, me, isMod, isMod && data.dox)
-        } >> f(user)
-      }
+    env.user.repo byId username flatMapz { user =>
+      val isMod = data.mod && isGranted(_.ModNote, me)
+      env.user.noteApi.write(user, data.text, me, isMod, isMod && data.dox) >> f(user)
     }
 
   def deleteNote(id: String) =
@@ -572,8 +559,7 @@ final class User(
 
   def perfStat(username: UserStr, perfKey: Perf.Key) =
     Open { implicit ctx =>
-      env.perfStat.api.data(username, perfKey, ctx.me) flatMap {
-        _ ?? { data =>
+      env.perfStat.api.data(username, perfKey, ctx.me) flatMapz { data =>
           negotiate(
             html = env.history.ratingChartApi(data.user) map { chart =>
               Ok(html.user.perfStat(data, chart))
@@ -587,7 +573,6 @@ final class User(
                 }
               }
           )
-        }
       }
     }
 

@@ -42,7 +42,7 @@ final class PlaybanApi(
 
   private def IfBlameable[A: alleycats.Zero](game: Game)(f: => Fu[A]): Fu[A] =
     (mode != Mode.Prod || Uptime.startedSinceMinutes(10)) ?? {
-      blameable(game) flatMap { _ ?? f }
+      blameable(game) flatMapz f
     }
 
   def abort(pov: Pov, isOnGame: Set[Color]): Funit =
@@ -271,11 +271,9 @@ final class PlaybanApi(
             if (record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60))
               userRepo
                 .byId(record.userId)
-                .flatMap {
-                  _ ?? { user =>
-                    noteApi.lichessWrite(user, "Closed for ragesit recidive") >>-
-                      Bus.publish(lila.hub.actorApi.playban.RageSitClose(user.id), "rageSitClose")
-                  }
+                .flatMapz { user =>
+                  noteApi.lichessWrite(user, "Closed for ragesit recidive") >>-
+                    Bus.publish(lila.hub.actorApi.playban.RageSitClose(user.id), "rageSitClose")
                 }
                 .unit
           }

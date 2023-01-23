@@ -107,11 +107,9 @@ final class Insight(env: Env) extends LilaController(env):
     }
 
   private def AccessibleApi(username: UserStr)(me: Option[lila.user.User])(f: lila.user.User => Fu[Result]) =
-    env.user.repo byId username flatMap {
-      _ ?? { u =>
-        env.insight.share.grant(u, me) flatMap {
-          case true => f(u)
-          case _    => fuccess(Forbidden)
-        }
+    env.user.repo byId username flatMapz { u =>
+      env.insight.share.grant(u, me) flatMap {
+        case true => f(u)
+        case _    => fuccess(Forbidden)
       }
     }

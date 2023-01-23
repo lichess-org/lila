@@ -84,28 +84,26 @@ final class ChatApi(
         busChan: BusChan.Select,
         persist: Boolean = true
     ): Funit =
-      makeLine(chatId, userId, text) flatMap {
-        _ ?? { line =>
-          linkCheck(line, publicSource) flatMap {
-            case false =>
-              logger.info(s"Link check rejected $line in $publicSource")
-              funit
-            case true =>
-              (persist ?? persistLine(chatId, line)) >>- {
-                if (persist)
-                  if (publicSource.isDefined) cached invalidate chatId
-                  shutup ! {
-                    publicSource match
-                      case Some(source) => RecordPublicChat(userId, text, source)
-                      case _            => RecordPrivateChat(chatId.value, userId, text)
-                  }
-                  lila.mon.chat
-                    .message(publicSource.fold("player")(_.parentName), line.troll)
-                    .increment()
-                    .unit
-                publish(chatId, ChatLine(chatId, line), busChan)
-              }
-          }
+      makeLine(chatId, userId, text) flatMapz { line =>
+        linkCheck(line, publicSource) flatMap {
+          case false =>
+            logger.info(s"Link check rejected $line in $publicSource")
+            funit
+          case true =>
+            (persist ?? persistLine(chatId, line)) >>- {
+              if (persist)
+                if (publicSource.isDefined) cached invalidate chatId
+                shutup ! {
+                  publicSource match
+                    case Some(source) => RecordPublicChat(userId, text, source)
+                    case _            => RecordPrivateChat(chatId.value, userId, text)
+                }
+                lila.mon.chat
+                  .message(publicSource.fold("player")(_.parentName), line.troll)
+                  .increment()
+                  .unit
+              publish(chatId, ChatLine(chatId, line), busChan)
+            }
         }
       }
 
@@ -167,10 +165,8 @@ final class ChatApi(
       }
 
     def userModInfo(username: UserStr): Fu[Option[UserModInfo]] =
-      userRepo byId username flatMap {
-        _ ?? { user =>
-          chatTimeout.history(user, 20) dmap { UserModInfo(user, _).some }
-        }
+      userRepo byId username flatMapz { user =>
+        chatTimeout.history(user, 20) dmap { UserModInfo(user, _).some }
       }
 
     private def doTimeout(

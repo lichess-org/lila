@@ -32,7 +32,7 @@ final class StudySearchApi(
   def store(study: Study) = fuccess {
     indexThrottler ! LateMultiThrottler.work(
       id = study.id,
-      run = studyRepo byId study.id flatMap { _ ?? doStore },
+      run = studyRepo byId study.id flatMapz doStore,
       delay = 30.seconds.some
     )
   }

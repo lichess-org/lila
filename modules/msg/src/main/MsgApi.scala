@@ -79,15 +79,13 @@ final class MsgApi(
     val before = beforeMillis flatMap { millis =>
       Try(new DateTime(millis)).toOption
     }
-    (userId != me.id) ?? lightUserApi.async(userId).flatMap {
-      _ ?? { contact =>
-        for {
-          _         <- setReadBy(threadId, me, userId)
-          msgs      <- threadMsgsFor(threadId, me, before)
-          relations <- relationApi.fetchRelations(me.id, userId)
-          postable  <- security.may.post(me.id, userId, isNew = msgs.headOption.isEmpty)
-        } yield MsgConvo(contact, msgs, relations, postable).some
-      }
+    (userId != me.id) ?? lightUserApi.async(userId).flatMapz { contact =>
+      for
+        _         <- setReadBy(threadId, me, userId)
+        msgs      <- threadMsgsFor(threadId, me, before)
+        relations <- relationApi.fetchRelations(me.id, userId)
+        postable  <- security.may.post(me.id, userId, isNew = msgs.headOption.isEmpty)
+      yield MsgConvo(contact, msgs, relations, postable).some
     }
 
   def delete(me: User, username: UserStr): Funit =

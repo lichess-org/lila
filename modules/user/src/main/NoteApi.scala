@@ -87,10 +87,8 @@ final class NoteApi(
   }
 
   def lichessWrite(to: User, text: String) =
-    userRepo.lichess flatMap {
-      _ ?? {
-        write(to, text, _, modOnly = true, dox = false)
-      }
+    userRepo.lichess flatMapz {
+      write(to, text, _, modOnly = true, dox = false)
     }
 
   def byId(id: String): Fu[Option[Note]] = coll.byId[Note](id)

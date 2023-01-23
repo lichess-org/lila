@@ -23,10 +23,8 @@ final class ForumSearchApi(
     client.count(query).dmap(_.value)
 
   def store(post: ForumPost) =
-    postApi liteView post flatMap {
-      _ ?? { view =>
-        client.store(view.post.id into Id, toDoc(view))
-      }
+    postApi liteView post flatMapz { view =>
+      client.store(view.post.id into Id, toDoc(view))
     }
 
   private def toDoc(view: PostLiteView) = Json.obj(

@@ -127,9 +127,7 @@ final private class MsgSecurity(
   object may:
 
     def post(orig: UserId, dest: UserId, isNew: Boolean): Fu[Boolean] =
-      userRepo.contacts(orig, dest) flatMap {
-        _ ?? { post(_, isNew) }
-      }
+      userRepo.contacts(orig, dest) flatMapz { post(_, isNew) }
 
     def post(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
       fuccess(!contacts.dest.isLichess) >>& {

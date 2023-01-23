@@ -11,7 +11,7 @@ final class LoginToken(secret: Secret, userRepo: UserRepo)(using ec: scala.concu
   def generate(user: User): Fu[String] = tokener make user.id
 
   def consume(token: String): Fu[Option[User]] =
-    tokener read token flatMap { _ ?? userRepo.byId }
+    tokener read token flatMapz userRepo.byId
 
   private val tokener = LoginToken.makeTokener(secret, 1 minute)
 

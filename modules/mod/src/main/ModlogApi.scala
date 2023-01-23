@@ -389,21 +389,18 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       case M.blogTier | M.blogPostEdit                                      => "note"
       case _                                                                => "gear"
     val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u")} ${~m.details}"""
-    userRepo.isMonitoredMod(m.mod) flatMap {
-      _ ?? {
-        val monitorType = m.action match
-          case M.closeAccount | M.alt => None
-          case M.engine | M.unengine | M.reopenAccount | M.unalt =>
-            Some(IrcApi.ModDomain.Cheat)
-          case M.booster | M.unbooster => Some(IrcApi.ModDomain.Boost)
-          case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam |
-              M.enableTeam | M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod | M.blogTier |
-              M.blogPostEdit =>
-            Some(IrcApi.ModDomain.Comm)
-          case _ => Some(IrcApi.ModDomain.Other)
-        monitorType ?? {
-          ircApi.monitorMod(m.mod.id, icon = icon, text = text, _)
-        }
+    userRepo.isMonitoredMod(m.mod) flatMapz {
+      val monitorType = m.action match
+        case M.closeAccount | M.alt => None
+        case M.engine | M.unengine | M.reopenAccount | M.unalt =>
+          Some(IrcApi.ModDomain.Cheat)
+        case M.booster | M.unbooster => Some(IrcApi.ModDomain.Boost)
+        case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam | M.enableTeam |
+            M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod | M.blogTier | M.blogPostEdit =>
+          Some(IrcApi.ModDomain.Comm)
+        case _ => Some(IrcApi.ModDomain.Other)
+      monitorType ?? {
+        ircApi.monitorMod(m.mod.id, icon = icon, text = text, _)
       }
     }
     ircApi.logMod(m.mod.id, icon = icon, text = text)

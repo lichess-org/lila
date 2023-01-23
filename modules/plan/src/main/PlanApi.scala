@@ -110,17 +110,15 @@ final class PlanApi(
     } yield ()
 
     def onSubscriptionDeleted(sub: StripeSubscription): Funit =
-      customerIdPatron(sub.customer) flatMap {
-        _ ?? { patron =>
-          if (patron.isLifetime) funit
-          else
-            userRepo byId patron.userId orFail s"Missing user for $patron" flatMap { user =>
-              setDbUserPlan(user.mapPlan(_.disable)) >>
-                mongo.patron.update.one($id(user.id), patron.removeStripe).void >>-
-                notifier.onExpire(user) >>-
-                logger.info(s"Unsubed ${user.username} $sub")
-            }
-        }
+      customerIdPatron(sub.customer) flatMapz { patron =>
+        if (patron.isLifetime) funit
+        else
+          userRepo byId patron.userId orFail s"Missing user for $patron" flatMap { user =>
+            setDbUserPlan(user.mapPlan(_.disable)) >>
+              mongo.patron.update.one($id(user.id), patron.removeStripe).void >>-
+              notifier.onExpire(user) >>-
+              logger.info(s"Unsubed ${user.username} $sub")
+          }
       }
 
     def customerInfo(user: User, customer: StripeCustomer): Fu[Option[CustomerInfo]] =
@@ -149,9 +147,7 @@ final class PlanApi(
       }
 
     def userCustomer(user: User): Fu[Option[StripeCustomer]] =
-      userCustomerId(user) flatMap {
-        _ ?? stripeClient.getCustomer
-      }
+      userCustomerId(user) flatMapz stripeClient.getCustomer
 
     def makeCustomer(user: User, data: PlanCheckout): Fu[StripeCustomer] =
       stripeClient.createCustomer(user, data) flatMap { customer =>
@@ -176,11 +172,9 @@ final class PlanApi(
       stripeClient.createPaymentUpdateSession(sub, nextUrls)
 
     def updatePaymentMethod(sub: StripeSubscription, sessionId: String) =
-      stripeClient.getSession(sessionId) flatMap {
-        _ ?? { session =>
-          stripeClient.setCustomerPaymentMethod(sub.customer, session.setup_intent.payment_method) zip
-            stripeClient.setSubscriptionPaymentMethod(sub, session.setup_intent.payment_method) void
-        }
+      stripeClient.getSession(sessionId) flatMapz { session =>
+        stripeClient.setCustomerPaymentMethod(sub.customer, session.setup_intent.payment_method) zip
+          stripeClient.setSubscriptionPaymentMethod(sub, session.setup_intent.payment_method) void
       }
 
     def canUse(user: User, ip: IpAddress, freq: Freq): Fu[StripeCanUse] = ip2proxy(ip) flatMap { proxy =>
@@ -250,41 +244,39 @@ final class PlanApi(
             usd = usd
           )
           addCharge(charge, ipn.country) >>
-            (ipn.userId ?? userRepo.byId) flatMap {
-              _ ?? { user =>
-                giftTo match
-                  case Some(to) => gift(user, to, money)
-                  case None =>
-                    val payPal =
-                      Patron.PayPalLegacy(
-                        ipn.email,
-                        ipn.subId,
-                        DateTime.now
-                      )
-                    userPatron(user).flatMap {
-                      case None =>
-                        mongo.patron.insert.one(
-                          Patron(
-                            _id = user.id,
-                            payPal = payPal.some,
-                            lastLevelUp = Some(DateTime.now)
-                          ).expireInOneMonth
-                        ) >>
-                          setDbUserPlanOnCharge(user, levelUp = false)
-                      case Some(patron) =>
-                        val p2 = patron
-                          .copy(
-                            payPal = payPal.some,
-                            free = none
-                          )
-                          .levelUpIfPossible
-                          .expireInOneMonth
-                        mongo.patron.update.one($id(patron.id), p2) >>
-                          setDbUserPlanOnCharge(user, patron.canLevelUp)
-                    } >> {
-                      isLifetime ?? setLifetime(user)
-                    } >>- logger.info(s"Charged ${user.username} with paypal: $money")
-              }
+            (ipn.userId ?? userRepo.byId) flatMapz { user =>
+              giftTo match
+                case Some(to) => gift(user, to, money)
+                case None =>
+                  val payPal =
+                    Patron.PayPalLegacy(
+                      ipn.email,
+                      ipn.subId,
+                      DateTime.now
+                    )
+                  userPatron(user).flatMap {
+                    case None =>
+                      mongo.patron.insert.one(
+                        Patron(
+                          _id = user.id,
+                          payPal = payPal.some,
+                          lastLevelUp = Some(DateTime.now)
+                        ).expireInOneMonth
+                      ) >>
+                        setDbUserPlanOnCharge(user, levelUp = false)
+                    case Some(patron) =>
+                      val p2 = patron
+                        .copy(
+                          payPal = payPal.some,
+                          free = none
+                        )
+                        .levelUpIfPossible
+                        .expireInOneMonth
+                      mongo.patron.update.one($id(patron.id), p2) >>
+                        setDbUserPlanOnCharge(user, patron.canLevelUp)
+                  } >> {
+                    isLifetime ?? setLifetime(user)
+                  } >>- logger.info(s"Charged ${user.username} with paypal: $money")
             }
     } yield ()
 
@@ -294,9 +286,7 @@ final class PlanApi(
       }
 
     def userSubscription(user: User): Fu[Option[PayPalSubscription]] =
-      userSubscriptionId(user) flatMap {
-        _ ?? payPalClient.getSubscription
-      }
+      userSubscriptionId(user) flatMapz payPalClient.getSubscription
 
     def createOrder(checkout: PlanCheckout, user: User, giftTo: Option[lila.user.User]) =
       for {
@@ -327,36 +317,34 @@ final class PlanApi(
             usd = usd
           )
           addCharge(charge, order.country) >>
-            (order.userId ?? userRepo.byId) flatMap {
-              _ ?? { user =>
-                giftTo match
-                  case Some(to) => gift(user, to, money)
-                  case None =>
-                    def newPayPalCheckout = Patron.PayPalCheckout(order.payer.id, none)
-                    userPatron(user).flatMap {
-                      case None =>
-                        mongo.patron.insert.one(
-                          Patron(
-                            _id = user.id,
-                            payPalCheckout = newPayPalCheckout.some,
-                            lastLevelUp = Some(DateTime.now)
-                          ).expireInOneMonth
-                        ) >>
-                          setDbUserPlanOnCharge(user, levelUp = false)
-                      case Some(patron) =>
-                        val p2 = patron
-                          .copy(
-                            payPalCheckout = patron.payPalCheckout orElse newPayPalCheckout.some,
-                            free = none
-                          )
-                          .levelUpIfPossible
-                          .expireInOneMonth
-                        mongo.patron.update.one($id(patron.id), p2) >>
-                          setDbUserPlanOnCharge(user, patron.canLevelUp)
-                    } >> {
-                      isLifetime ?? setLifetime(user)
-                    } >>- logger.info(s"Charged ${user.username} with paypal: $money")
-              }
+            (order.userId ?? userRepo.byId) flatMapz { user =>
+              giftTo match
+                case Some(to) => gift(user, to, money)
+                case None =>
+                  def newPayPalCheckout = Patron.PayPalCheckout(order.payer.id, none)
+                  userPatron(user).flatMap {
+                    case None =>
+                      mongo.patron.insert.one(
+                        Patron(
+                          _id = user.id,
+                          payPalCheckout = newPayPalCheckout.some,
+                          lastLevelUp = Some(DateTime.now)
+                        ).expireInOneMonth
+                      ) >>
+                        setDbUserPlanOnCharge(user, levelUp = false)
+                    case Some(patron) =>
+                      val p2 = patron
+                        .copy(
+                          payPalCheckout = patron.payPalCheckout orElse newPayPalCheckout.some,
+                          free = none
+                        )
+                        .levelUpIfPossible
+                        .expireInOneMonth
+                      mongo.patron.update.one($id(patron.id), p2) >>
+                        setDbUserPlanOnCharge(user, patron.canLevelUp)
+                  } >> {
+                    isLifetime ?? setLifetime(user)
+                  } >>- logger.info(s"Charged ${user.username} with paypal: $money")
             }
     } yield ()
 
@@ -586,12 +574,10 @@ final class PlanApi(
       .map(_.flatMap(_.toGift))
 
   private[plan] def onEmailChange(userId: UserId, email: EmailAddress): Funit =
-    userRepo enabledById userId flatMap {
-      _ ?? { user =>
-        stripe.userCustomer(user) flatMap {
-          _.filterNot(_.email.has(email.value)) ?? {
-            stripeClient.setCustomerEmail(_, email)
-          }
+    userRepo enabledById userId flatMapz { user =>
+      stripe.userCustomer(user) flatMap {
+        _.filterNot(_.email.has(email.value)) ?? {
+          stripeClient.setCustomerEmail(_, email)
         }
       }
     }

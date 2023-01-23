@@ -37,17 +37,15 @@ final class ReportApi(
 
   def create(data: ReportSetup, reporter: Reporter): Funit =
     Reason(data.reason) ?? { reason =>
-      getSuspect(data.user.id) flatMap {
-        _ ?? { suspect =>
-          create(
-            Report.Candidate(
-              reporter,
-              suspect,
-              reason,
-              data.text take 1000
-            )
+      getSuspect(data.user.id) flatMapz { suspect =>
+        create(
+          Report.Candidate(
+            reporter,
+            suspect,
+            reason,
+            data.text take 1000
           )
-        }
+        )
       }
     }
 
@@ -92,17 +90,15 @@ final class ReportApi(
 
   def autoCommFlag(suspectId: SuspectId, resource: String, text: String) =
     getLichessReporter flatMap { reporter =>
-      getSuspect(suspectId.value) flatMap {
-        _ ?? { suspect =>
-          create(
-            Candidate(
-              reporter,
-              suspect,
-              Reason.Comm,
-              s"${Reason.Comm.flagText} $resource ${text take 140}"
-            )
+      getSuspect(suspectId.value) flatMapz { suspect =>
+        create(
+          Candidate(
+            reporter,
+            suspect,
+            Reason.Comm,
+            s"${Reason.Comm.flagText} $resource ${text take 140}"
           )
-        }
+        )
       }
     }
 
@@ -468,11 +464,9 @@ final class ReportApi(
     }
 
   def snooze(mod: Mod, reportId: Report.Id, duration: String): Fu[Option[Report]] =
-    byId(reportId) flatMap {
-      _ ?? { report =>
-        snoozer.set(Report.SnoozeKey(mod.user.id, reportId), duration)
-        inquiries.toggleNext(mod, report.room)
-      }
+    byId(reportId) flatMapz { report =>
+      snoozer.set(Report.SnoozeKey(mod.user.id, reportId), duration)
+      inquiries.toggleNext(mod, report.room)
     }
 
   object accuracy:
@@ -601,10 +595,8 @@ final class ReportApi(
 
     def toggleNext(mod: Mod, room: Room): Fu[Option[Report]] =
       workQueue {
-        findNext(mod, room) flatMap {
-          _ ?? { report =>
-            doToggle(mod, Left(report.id)).dmap(_._2)
-          }
+        findNext(mod, room) flatMapz { report =>
+          doToggle(mod, Left(report.id)).dmap(_._2)
         }
       }
 

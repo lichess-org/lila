@@ -233,37 +233,35 @@ final class SwissApi(
       (Swiss.PastAndNext.apply).tupled
 
   def playerInfo(swiss: Swiss, userId: UserId): Fu[Option[SwissPlayer.ViewExt]] =
-    userRepo byId userId flatMap {
-      _ ?? { user =>
-        mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, user.id).value) flatMap {
-          _ ?? { player =>
-            SwissPairing.fields { f =>
-              mongo.pairing
-                .find($doc(f.swissId -> swiss.id, f.players -> player.userId))
-                .sort($sort asc f.round)
-                .cursor[SwissPairing]()
-                .listAll()
-            } flatMap {
-              pairingViews(_, player)
-            } flatMap { pairings =>
-              SwissPlayer.fields { f =>
-                mongo.player.countSel($doc(f.swissId -> swiss.id, f.score $gt player.score)).dmap(1.+)
-              } map { rank =>
-                val pairingMap = pairings.mapBy(_.pairing.round)
-                SwissPlayer
-                  .ViewExt(
-                    player,
-                    rank,
-                    user.light,
-                    pairingMap,
-                    SwissSheet.one(swiss, pairingMap.view.mapValues(_.pairing).toMap, player)
-                  )
-                  .some
-              }
-            }
+    userRepo byId userId flatMapz { user =>
+      mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, user.id).value) flatMapz { player =>
+        SwissPairing.fields { f =>
+          mongo.pairing
+            .find($doc(f.swissId -> swiss.id, f.players -> player.userId))
+            .sort($sort asc f.round)
+            .cursor[SwissPairing]()
+            .listAll()
+        } flatMap {
+          pairingViews(_, player)
+        } flatMap { pairings =>
+          SwissPlayer.fields { f =>
+            mongo.player.countSel($doc(f.swissId -> swiss.id, f.score $gt player.score)).dmap(1.+)
+          } map { rank =>
+            val pairingMap = pairings.mapBy(_.pairing.round)
+            SwissPlayer
+              .ViewExt(
+                player,
+                rank,
+                user.light,
+                pairingMap,
+                SwissSheet.one(swiss, pairingMap.view.mapValues(_.pairing).toMap, player)
+              )
+              .some
           }
         }
+
       }
+
     }
 
   def pairingViews(pairings: Seq[SwissPairing], player: SwissPlayer): Fu[Seq[SwissPairing.View]] =
@@ -310,12 +308,11 @@ final class SwissApi(
     }
 
   def gameView(pov: Pov): Fu[Option[GameView]] =
-    (pov.game.swissId ?? cache.swissCache.byId) flatMap {
-      _ ?? { swiss =>
-        getGameRanks(swiss, pov.game) dmap {
-          GameView(swiss, _).some
-        }
+    (pov.game.swissId ?? cache.swissCache.byId) flatMapz { swiss =>
+      getGameRanks(swiss, pov.game) dmap {
+        GameView(swiss, _).some
       }
+
     }
 
   private def getGameRanks(swiss: Swiss, game: Game): Fu[Option[GameRanks]] =
@@ -523,13 +520,11 @@ final class SwissApi(
     mongo.swiss.primitiveOne[TeamId]($id(id), "teamId")
 
   private def recomputeAndUpdateAll(id: SwissId): Funit =
-    scoring(id).flatMap {
-      _ ?? { res =>
-        rankingApi.update(res)
-        standingApi.update(res) >>
-          boardApi.update(res) >>-
-          socket.reload(id)
-      }
+    scoring(id).flatMapz { res =>
+      rankingApi.update(res)
+      standingApi.update(res) >>
+        boardApi.update(res) >>-
+        socket.reload(id)
     }
 
   private[swiss] def startPendingRounds: Funit =
@@ -662,8 +657,8 @@ final class SwissApi(
 
   def filterPlaying(id: SwissId, userIds: Seq[UserId]): Fu[List[UserId]] =
     userIds.nonEmpty ??
-      mongo.swiss.exists($id(id) ++ $doc("finishedAt" $exists false)) flatMap {
-        _ ?? SwissPlayer.fields { f =>
+      mongo.swiss.exists($id(id) ++ $doc("finishedAt" $exists false)) flatMapz {
+        SwissPlayer.fields { f =>
           mongo.player.distinctEasy[UserId, List](
             f.userId,
             $doc(
@@ -698,7 +693,5 @@ final class SwissApi(
       id: SwissId
   )(fetch: SwissId => Fu[Option[Swiss]])(run: Swiss => Fu[A]): Fu[A] =
     sequencer(id) {
-      fetch(id) flatMap {
-        _ ?? run
-      }
+      fetch(id) flatMapz run
     }

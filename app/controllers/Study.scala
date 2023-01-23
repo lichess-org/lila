@@ -317,20 +317,18 @@ final class Study(
 
   def delete(id: StudyId) =
     Auth { _ => me =>
-      env.study.api.byIdAndOwnerOrAdmin(id, me) flatMap {
-        _ ?? { study =>
-          env.study.api.delete(study) >> env.relay.api.deleteRound(id into RelayRoundId).map {
-            case None       => Redirect(routes.Study.mine("hot"))
-            case Some(tour) => Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
-          }
+      env.study.api.byIdAndOwnerOrAdmin(id, me) flatMapz { study =>
+        env.study.api.delete(study) >> env.relay.api.deleteRound(id into RelayRoundId).map {
+          case None       => Redirect(routes.Study.mine("hot"))
+          case Some(tour) => Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
         }
       }
     }
 
   def clearChat(id: StudyId) =
     Auth { _ => me =>
-      env.study.api.isOwnerOrAdmin(id, me) flatMap {
-        _ ?? env.chat.api.userChat.clear(id into ChatId)
+      env.study.api.isOwnerOrAdmin(id, me) flatMapz {
+        env.chat.api.userChat.clear(id into ChatId)
       } inject Redirect(routes.Study.show(id))
     }
 

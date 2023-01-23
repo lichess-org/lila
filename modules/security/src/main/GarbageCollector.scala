@@ -56,7 +56,7 @@ final class GarbageCollector(
   private def apply(data: ApplyData): Funit =
     data match
       case ApplyData(user, ip, email, req) =>
-        for {
+        for
           spy    <- userLogins(user, 300)
           ipSusp <- ipTrust.isSuspicious(ip)
           _ <-
@@ -81,7 +81,7 @@ final class GarbageCollector(
                       )
                     }
                 }
-        } yield ()
+        yield ()
 
   private def badOtherAccounts(accounts: List[User]): Option[List[User]] =
     val others = accounts

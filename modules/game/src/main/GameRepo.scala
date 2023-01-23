@@ -448,11 +448,9 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
     else fuccess(none)
 
   def gameWithInitialFen(gameId: GameId): Fu[Option[Game.WithInitialFen]] =
-    game(gameId) flatMap {
-      _ ?? { game =>
-        initialFen(game) dmap { fen =>
-          Game.WithInitialFen(game, fen).some
-        }
+    game(gameId) flatMapz { game =>
+      initialFen(game) dmap { fen =>
+        Game.WithInitialFen(game, fen).some
       }
     }
 

@@ -74,27 +74,25 @@ final class SwissJson(
   }.monSuccess(_.swiss.json)
 
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
-    mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, me.id).value) flatMap {
-      _ ?? { player =>
-        updatePlayerRating(swiss, player, me) >>
-          SwissPairing.fields { f =>
-            (swiss.nbOngoing > 0)
-              .?? {
-                mongo.pairing
-                  .find(
-                    $doc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
-                    $doc(f.id -> true).some
-                  )
-                  .one[Bdoc]
-                  .dmap { _.flatMap(_.getAsOpt[GameId](f.id)) }
+    mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, me.id).value) flatMapz { player =>
+      updatePlayerRating(swiss, player, me) >>
+        SwissPairing.fields { f =>
+          (swiss.nbOngoing > 0)
+            .?? {
+              mongo.pairing
+                .find(
+                  $doc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
+                  $doc(f.id -> true).some
+                )
+                .one[Bdoc]
+                .dmap { _.flatMap(_.getAsOpt[GameId](f.id)) }
+            }
+            .flatMap { gameId =>
+              rankingApi(swiss).dmap(_ get player.userId) map2 {
+                MyInfo(_, gameId, me, player)
               }
-              .flatMap { gameId =>
-                rankingApi(swiss).dmap(_ get player.userId) map2 {
-                  MyInfo(_, gameId, me, player)
-                }
-              }
-          }
-      }
+            }
+        }
     }
 
   private def updatePlayerRating(swiss: Swiss, player: SwissPlayer, user: User): Funit =

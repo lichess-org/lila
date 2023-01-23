@@ -55,11 +55,9 @@ final class RelayApi(
     }
 
   def byIdWithStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
-    byIdWithTour(id) flatMap {
-      _ ?? { case RelayRound.WithTour(relay, tour) =>
-        studyApi.byId(relay.studyId) dmap2 {
-          RelayRound.WithTourAndStudy(relay, tour, _)
-        }
+    byIdWithTour(id) flatMapz { case RelayRound.WithTour(relay, tour) =>
+      studyApi.byId(relay.studyId) dmap2 {
+        RelayRound.WithTourAndStudy(relay, tour, _)
       }
     }
 
@@ -151,8 +149,8 @@ final class RelayApi(
       leaderboard.invalidate(tour.id)
 
   def create(data: RelayRoundForm.Data, user: User, tour: RelayTour): Fu[RelayRound] =
-    roundRepo.lastByTour(tour) flatMap {
-      _ ?? { last => studyRepo.byId(last.studyId) }
+    roundRepo.lastByTour(tour) flatMapz { last =>
+      studyRepo.byId(last.studyId)
     } flatMap { lastStudy =>
       import lila.study.{ StudyMember, StudyMembers }
       val relay = data.make(user, tour)
@@ -228,18 +226,14 @@ final class RelayApi(
     } >> requestPlay(old.id, v = true)
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =
-    byIdWithTour(roundId) flatMap {
-      _ ?? { rt =>
-        roundRepo.coll.delete.one($id(rt.round.id)) >>
-          denormalizeTourActive(rt.tour.id) inject rt.tour.some
-      }
+    byIdWithTour(roundId) flatMapz { rt =>
+      roundRepo.coll.delete.one($id(rt.round.id)) >>
+        denormalizeTourActive(rt.tour.id) inject rt.tour.some
     }
 
   def getOngoing(id: RelayRoundId): Fu[Option[RelayRound.WithTour]] =
-    roundRepo.coll.one[RelayRound]($doc("_id" -> id, "finished" -> false)) flatMap {
-      _ ?? { relay =>
-        tourById(relay.tourId) map2 relay.withTour
-      }
+    roundRepo.coll.one[RelayRound]($doc("_id" -> id, "finished" -> false)) flatMapz { relay =>
+      tourById(relay.tourId) map2 relay.withTour
     }
 
   def canUpdate(user: User, tour: RelayTour): Fu[Boolean] =
@@ -327,7 +321,7 @@ final class RelayApi(
     }
 
   private[relay] def WithRelay[A: Zero](id: RelayRoundId)(f: RelayRound => Fu[A]): Fu[A] =
-    byId(id) flatMap { _ ?? f }
+    byId(id) flatMapz f
 
   private[relay] def onStudyRemove(studyId: StudyId) =
     roundRepo.coll.delete.one($id(studyId into RelayRoundId)).void

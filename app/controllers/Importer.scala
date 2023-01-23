@@ -98,11 +98,9 @@ final class Importer(env: Env) extends LilaController(env):
 
   def masterGame(id: GameId, orientation: String) =
     Open { implicit ctx =>
-      env.explorer.importer(id) map {
-        _ ?? { game =>
-          val url      = routes.Round.watcher(game.id, orientation).url
-          val fenParam = get("fen").??(f => s"?fen=$f")
-          Redirect(s"$url$fenParam")
-        }
+      env.explorer.importer(id) mapz { game =>
+        val url      = routes.Round.watcher(game.id, orientation).url
+        val fenParam = get("fen").??(f => s"?fen=$f")
+        Redirect(s"$url$fenParam")
       }
     }

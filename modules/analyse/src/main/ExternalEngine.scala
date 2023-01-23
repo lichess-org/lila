@@ -120,8 +120,6 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using ec: Executio
     }
 
   private[analyse] def onTokenRevoke(id: String) =
-    coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId") flatMap {
-      _ ?? { userId =>
-        coll.delete.one($doc("oauthToken" -> id)).void >>- reloadCache(userId)
-      }
+    coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId") flatMapz { userId =>
+      coll.delete.one($doc("oauthToken" -> id)).void >>- reloadCache(userId)
     }

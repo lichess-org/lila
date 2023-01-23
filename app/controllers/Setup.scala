@@ -169,29 +169,27 @@ final class Setup(
       NoBot {
         PostRateLimit(ctx.ip) {
           NoPlaybanOrCurrent {
-            env.game.gameRepo game gameId flatMap {
-              _ ?? { game =>
-                for {
-                  blocking <- ctx.userId ?? env.relation.api.fetchBlocking
-                  hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
-                  hookConfigWithRating = get("rr").fold(
-                    hookConfig.withRatingRange(
-                      ctx.me.fold(Glicko.default.intRating.some)(_.perfs.ratingOf(game.perfKey)),
-                      get("deltaMin"),
-                      get("deltaMax")
+            env.game.gameRepo game gameId flatMapz { game =>
+              for
+                blocking <- ctx.userId ?? env.relation.api.fetchBlocking
+                hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
+                hookConfigWithRating = get("rr").fold(
+                  hookConfig.withRatingRange(
+                    ctx.me.fold(Glicko.default.intRating.some)(_.perfs.ratingOf(game.perfKey)),
+                    get("deltaMin"),
+                    get("deltaMax")
+                  )
+                )(rr => hookConfig withRatingRange rr) updateFrom game
+                sameOpponents = game.userIds
+                hookResult <-
+                  processor
+                    .hook(
+                      hookConfigWithRating,
+                      Sri(sri),
+                      HTTPRequest sid ctx.req,
+                      lila.pool.Blocking(blocking ++ sameOpponents)
                     )
-                  )(rr => hookConfig withRatingRange rr) updateFrom game
-                  sameOpponents = game.userIds
-                  hookResult <-
-                    processor
-                      .hook(
-                        hookConfigWithRating,
-                        Sri(sri),
-                        HTTPRequest sid ctx.req,
-                        lila.pool.Blocking(blocking ++ sameOpponents)
-                      )
-                } yield hookResponse(hookResult)
-              }
+              yield hookResponse(hookResult)
             }
           }
         }(rateLimitedFu)

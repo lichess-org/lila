@@ -244,13 +244,11 @@ final class Round(
         case (_, _, Some(sid)) =>
           env.swiss.api
             .roundInfo(SwissId(sid))
-            .flatMap { _ ?? swissC.canHaveChat }
-            .flatMap {
-              _ ?? {
-                env.chat.api.userChat.cached
-                  .findMine(sid into ChatId, ctx.me)
-                  .dmap(toEventChat(s"swiss/$sid"))
-              }
+            .flatMapz(swissC.canHaveChat)
+            .flatMapz {
+              env.chat.api.userChat.cached
+                .findMine(sid into ChatId, ctx.me)
+                .dmap(toEventChat(s"swiss/$sid"))
             }
         case _ =>
           game.hasChat ?? {
