@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="white">Aq</string>
+  <string name="black">Qara</string>
+  <string name="delete">Óshiriw</string>
+  <string name="logOut">Shıǵıw</string>
+  <string name="signIn">Kiriw</string>
+  <string name="signUp">Dizimnen ótiw</string>
+  <string name="today">Búgin</string>
+  <string name="yesterday">Erteń</string>
+  <string name="time">Waqıt</string>
+</resources>
