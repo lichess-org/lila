@@ -76,8 +76,8 @@ final class RoundSocket(
   )
 
   private def makeRoundActor(id: GameId, version: SocketVersion, gameFu: Fu[Option[Game]]) =
-    val proxy = new GameProxy(id, proxyDependencies, gameFu)
-    val roundActor = new RoundAsyncActor(
+    val proxy = GameProxy(id, proxyDependencies, gameFu)
+    val roundActor = RoundAsyncActor(
       dependencies = roundDependencies,
       gameId = id,
       socketSend = sendForGameId(id),
@@ -215,7 +215,7 @@ final class RoundSocket(
     lila.mon.round.asyncActorCount.update(rounds.size).unit
   }
 
-  private val terminationDelay = new TerminationDelay(system.scheduler, 1 minute, finishRound)
+  private val terminationDelay = TerminationDelay(system.scheduler, 1 minute, finishRound)
 
   // on startup we get all ongoing game IDs and versions from lila-ws
   // load them into round actors with batched DB queries
@@ -400,7 +400,7 @@ object RoundSocket:
         s"r/goneIn $fullId $seconds"
 
       def tellVersion(roomId: RoomId, version: SocketVersion, e: Event) =
-        val flags = new StringBuilder(2)
+        val flags = StringBuilder(2)
         if (e.watcher) flags += 's'
         else if (e.owner) flags += 'p'
         else
@@ -433,7 +433,7 @@ object RoundSocket:
   )(using ec: scala.concurrent.ExecutionContext):
     import java.util.concurrent.ConcurrentHashMap
 
-    private[this] val terminations = new ConcurrentHashMap[GameId, Cancellable](65536)
+    private[this] val terminations = ConcurrentHashMap[GameId, Cancellable](65536)
 
     def schedule(gameId: GameId): Unit =
       terminations
