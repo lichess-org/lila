@@ -53,7 +53,7 @@
     font-size: 2em;
     background: var(--c-bg);
     border: 1px solid var(--c-font);
-    gap: 0.7em;
+    gap: 0.3em 1em;
 
     > div {
       @extend %flex-center, %roboto;
