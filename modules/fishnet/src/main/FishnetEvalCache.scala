@@ -15,7 +15,7 @@ final private class FishnetEvalCache(
 
   def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]] =
     rawEvals(work.game) map {
-      _.map { case (i, eval) =>
+      _.map { (i, eval) =>
         val pv = eval.pvs.head
         i -> Evaluation(
           pv = pv.moves.value.toList,
@@ -43,7 +43,7 @@ final private class FishnetEvalCache(
       .fold(
         _ => fuccess(Nil),
         _.zipWithIndex
-          .map { case (sit, index) =>
+          .map { (sit, index) =>
             evalCacheApi.getSinglePvEval(game.variant, Fen write sit) dmap2 { index -> _ }
           }
           .sequenceFu

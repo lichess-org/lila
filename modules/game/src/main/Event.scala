@@ -195,7 +195,7 @@ object Event:
       if (moves.isEmpty) JsNull
       else
         moves.foldLeft(JsObject(Nil)) { case (res, (o, d)) =>
-          res + (o.key -> JsString(d map (_.key) mkString))
+          res + (o.key -> JsString(d.map(_.key) mkString))
         }
 
   case class Enpassant(pos: Pos, color: Color) extends Event:

@@ -96,19 +96,19 @@ final class Api(
       }
     }
 
-  private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val UserGamesRateLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 10 * 1000,
     duration = 10.minutes,
     key = "user_games.api.ip"
   )
 
-  private val UserGamesRateLimitPerUA = new lila.memo.RateLimit[Option[UserAgent]](
+  private val UserGamesRateLimitPerUA = lila.memo.RateLimit[Option[UserAgent]](
     credits = 10 * 1000,
     duration = 5.minutes,
     key = "user_games.api.ua"
   )
 
-  private val UserGamesRateLimitGlobal = new lila.memo.RateLimit[String](
+  private val UserGamesRateLimitGlobal = lila.memo.RateLimit[String](
     credits = 20 * 1000,
     duration = 2.minute,
     key = "user_games.api.global"
@@ -156,7 +156,7 @@ final class Api(
       }
     }
 
-  private val GameRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val GameRateLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 100,
     duration = 1.minute,
     key = "game.api.one.ip"
@@ -170,7 +170,7 @@ final class Api(
       }(fuccess(ApiResult.Limited))
     }
 
-  private val CrosstableRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val CrosstableRateLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 30,
     duration = 10.minutes,
     key = "crosstable.api.ip"
@@ -385,7 +385,7 @@ final class Api(
           env.evalCache.api.getEvalJson(
             Variant.orDefault(getAs[Variant.LilaKey]("variant", req)),
             chess.format.Fen.Epd.clean(fen),
-            getInt("multiPv", req) | 1
+            getIntAs[MultiPv]("multiPv", req) | MultiPv(1)
           )
         )
       }
@@ -400,7 +400,7 @@ final class Api(
       }
     }
 
-  private val UserActivityRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val UserActivityRateLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 15,
     duration = 2.minutes,
     key = "user_activity.api.ip"
@@ -420,7 +420,7 @@ final class Api(
     }
 
   private val ApiMoveStreamGlobalConcurrencyLimitPerIP =
-    new lila.memo.ConcurrencyLimit[IpAddress](
+    lila.memo.ConcurrencyLimit[IpAddress](
       name = "API concurrency per IP",
       key = "round.apiMoveStream.ip",
       ttl = 20.minutes,
@@ -501,19 +501,19 @@ final class Api(
   private def sourceToCsv(source: Source[String, ?]): Result =
     Ok.chunked(source.map(_ + "\n")).as(csvContentType) pipe noProxyBuffer
 
-  private[controllers] val GlobalConcurrencyLimitPerIP = new lila.memo.ConcurrencyLimit[IpAddress](
+  private[controllers] val GlobalConcurrencyLimitPerIP = lila.memo.ConcurrencyLimit[IpAddress](
     name = "API concurrency per IP",
     key = "api.ip",
     ttl = 1.hour,
     maxConcurrency = 2
   )
-  private[controllers] val GlobalConcurrencyGenerousLimitPerIP = new lila.memo.ConcurrencyLimit[IpAddress](
+  private[controllers] val GlobalConcurrencyGenerousLimitPerIP = lila.memo.ConcurrencyLimit[IpAddress](
     name = "API generous concurrency per IP",
     key = "api.ip.generous",
     ttl = 1.hour,
     maxConcurrency = 20
   )
-  private[controllers] val GlobalConcurrencyLimitUser = new lila.memo.ConcurrencyLimit[UserId](
+  private[controllers] val GlobalConcurrencyLimitUser = lila.memo.ConcurrencyLimit[UserId](
     name = "API concurrency per user",
     key = "api.user",
     ttl = 1.hour,

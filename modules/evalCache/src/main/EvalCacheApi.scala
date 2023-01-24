@@ -24,11 +24,8 @@ final class EvalCacheApi(
   import EvalCacheEntry.*
   import BSONHandlers.given
 
-  def getEvalJson(variant: Variant, fen: Fen.Epd, multiPv: Int): Fu[Option[JsObject]] =
-    getEval(
-      id = Id(variant, SmallFen.make(variant, fen.simple)),
-      multiPv = multiPv
-    ) map {
+  def getEvalJson(variant: Variant, fen: Fen.Epd, multiPv: MultiPv): Fu[Option[JsObject]] =
+    getEval(Id(variant, SmallFen.make(variant, fen.simple)), multiPv) map {
       _.map { JsonHandlers.writeEval(_, fen) }
     } addEffect { res =>
       Fen.readPly(fen) foreach { ply =>
@@ -42,10 +39,7 @@ final class EvalCacheApi(
   def shouldPut(user: User) = setting.get() && truster.shouldPut(user)
 
   def getSinglePvEval(variant: Variant, fen: Fen.Epd): Fu[Option[Eval]] =
-    getEval(
-      id = Id(variant, SmallFen.make(variant, fen.simple)),
-      multiPv = 1
-    )
+    getEval(Id(variant, SmallFen.make(variant, fen.simple)), MultiPv(1))
 
   private[evalCache] def drop(variant: Variant, fen: Fen.Epd): Funit =
     val id = Id(variant, SmallFen.make(variant, fen.simple))
@@ -56,7 +50,7 @@ final class EvalCacheApi(
       .buildAsyncFuture(fetchAndSetAccess)
   }
 
-  private def getEval(id: Id, multiPv: Int): Fu[Option[Eval]] =
+  private def getEval(id: Id, multiPv: MultiPv): Fu[Option[Eval]] =
     getEntry(id) map {
       _.flatMap(_ makeBestMultiPvEval multiPv)
     }

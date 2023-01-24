@@ -8,11 +8,11 @@ export lila.Lila.{ *, given }
 
 private val logger = lila.log("evalCache")
 
-val MIN_KNODES   = 3000
-val MIN_DEPTH    = 20
+val MIN_KNODES   = Knodes(3000)
+val MIN_DEPTH    = Depth(20)
 val MIN_PV_SIZE  = 6
 val MAX_PV_SIZE  = 10
-val MAX_MULTI_PV = 5
+val MAX_MULTI_PV = MultiPv(5)
 
 opaque type Knodes = Int
 object Knodes extends OpaqueInt[Knodes]:
@@ -29,9 +29,7 @@ object Moves extends TotalWrapper[Moves, NonEmptyList[Uci]]:
 
 opaque type Trust = Double
 object Trust extends OpaqueDouble[Trust]:
-  extension (a: Trust)
-    inline def isTooLow = a.value <= 0
-    inline def isEnough = !a.isTooLow
+  extension (a: Trust) def isEnough = a > 0
 
 opaque type SmallFen = String
 object SmallFen extends OpaqueString[SmallFen]:

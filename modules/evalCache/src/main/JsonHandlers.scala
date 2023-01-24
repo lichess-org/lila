@@ -10,10 +10,6 @@ import lila.tree.Eval.*
 
 object JsonHandlers:
 
-  private given Writes[Cp]     = writeAs(_.value)
-  private given Writes[Mate]   = writeAs(_.value)
-  private given Writes[Knodes] = writeAs(_.value)
-
   def writeEval(e: Eval, fen: Fen.Epd) =
     Json.obj(
       "fen"    -> fen,
@@ -22,13 +18,10 @@ object JsonHandlers:
       "pvs"    -> JsArray(e.pvs.toList.map(writePv))
     )
 
-  private def writePv(pv: Pv) =
-    Json
-      .obj(
-        "moves" -> pv.moves.value.toList.map(_.uci).mkString(" ")
-      )
-      .add("cp", pv.score.cp)
-      .add("mate", pv.score.mate)
+  private def writePv(pv: Pv) = Json
+    .obj("moves" -> pv.moves.value.toList.map(_.uci).mkString(" "))
+    .add("cp", pv.score.cp)
+    .add("mate", pv.score.mate)
 
   private[evalCache] def readPut(trustedUser: TrustedUser, o: JsObject): Option[Input.Candidate] =
     o obj "d" flatMap { readPutData(trustedUser, _) }
@@ -38,7 +31,7 @@ object JsonHandlers:
     for
       fen    <- d.get[Fen.Epd]("fen")
       knodes <- d int "knodes"
-      depth  <- d int "depth"
+      depth  <- d.get[Depth]("depth")
       pvObjs <- d objs "pvs"
       pvs    <- pvObjs.map(parsePv).sequence.flatMap(_.toNel)
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))

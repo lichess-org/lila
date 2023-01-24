@@ -27,19 +27,19 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
 
   private val upgradeMon = lila.mon.evalCache.upgrade
 
-  def register(sri: Socket.Sri, variant: Variant, fen: Fen.Epd, multiPv: Int, path: String): Unit =
+  def register(sri: Socket.Sri, variant: Variant, fen: Fen.Epd, multiPv: MultiPv, path: String): Unit =
     if (setting.get())
       members get sri.value foreach { wm =>
         unregisterEval(wm.setupId, sri)
       }
       val setupId = makeSetupId(variant, fen, multiPv)
       members += (sri.value -> WatchingMember(sri, setupId, path))
-      evals += (setupId     -> evals.get(setupId).fold(EvalState(Set(sri), 0))(_ addSri sri))
+      evals += (setupId     -> evals.get(setupId).fold(EvalState(Set(sri), Depth(0)))(_ addSri sri))
       expirableSris put sri
 
   def onEval(input: EvalCacheEntry.Input, fromSri: Socket.Sri): Unit = if (setting.get())
-    (1 to input.eval.multiPv) flatMap { multiPv =>
-      val setupId = makeSetupId(input.id.variant, input.fen, multiPv)
+    (1 to input.eval.multiPv.value) flatMap { multiPv =>
+      val setupId = makeSetupId(input.id.variant, input.fen, MultiPv(multiPv))
       evals get setupId map (setupId -> _)
     } filter {
       _._2.depth < input.eval.depth
@@ -79,10 +79,10 @@ private object EvalCacheUpgrade:
   private type SetupId   = String
   private type Push      = JsObject => Unit
 
-  private case class EvalState(sris: Set[Socket.Sri], depth: Int):
+  private case class EvalState(sris: Set[Socket.Sri], depth: Depth):
     def addSri(sri: Socket.Sri) = copy(sris = sris + sri)
 
-  private def makeSetupId(variant: Variant, fen: Fen.Epd, multiPv: Int): SetupId =
+  private def makeSetupId(variant: Variant, fen: Fen.Epd, multiPv: MultiPv): SetupId =
     s"${variant.id}${SmallFen.make(variant, fen.simple)}^$multiPv"
 
   private case class WatchingMember(sri: Socket.Sri, setupId: SetupId, path: String)

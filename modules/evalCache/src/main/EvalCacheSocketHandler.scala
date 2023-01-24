@@ -21,7 +21,7 @@ final private class EvalCacheSocketHandler(
     for
       fen <- d.get[Fen.Epd]("fen")
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
-      multiPv = (d int "mpv") | 1
+      multiPv = d.get[MultiPv]("mpv") | MultiPv(1)
       path <- d str "path"
     yield
       api.getEvalJson(variant, fen, multiPv) foreach {

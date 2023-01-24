@@ -300,7 +300,7 @@ final class JsonView(
     Json.toJsObject(clock) + ("moretime" -> JsNumber(actorApi.round.Moretime.defaultDuration.toSeconds))
 
   private def possibleMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =
-    (pov.game playableBy pov.player) option
+    pov.game.playableBy(pov.player) option
       lila.game.Event.PossibleMoves.json(pov.game.situation.destinations, apiVersion)
 
   private def possibleDrops(pov: Pov): Option[JsValue] =
