@@ -52,6 +52,7 @@
   <string name="knightMate">Moguće je matirati samo sa skakačem ili lovcem, ukoliko protivnik ima dodatnih figura na ploči osim kralja.</string>
   <string name="noRatingPoints">Nisu dodijeljeni rejting bodovi</string>
   <string name="ratedGame">Potvrdite da ste igrali partiju za rejting bodove. Prijateljske partije na utiču na rejting igrača.</string>
+  <string name="botRatingAbuse">U određenim slučajevima kad igrate protiv bot računa, možda vam ocijenjena igra neće nagraditi poene ako se ustanovi da je igrač zloupotrebljavao bota da bi dobili poene.</string>
   <string name="errorPage">Stranica u slučaju greške</string>
   <string name="reportErrorPage">Ukoliko ste dobili stranicu u slučaju greške, možete je prijaviti:</string>
   <string name="banAppeal">Žalba na zabranu ili ograničenje IP adrese</string>
