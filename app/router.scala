@@ -60,14 +60,15 @@ object ReverseRouterConversions:
   given variantKeyOpt: Conversion[Option[Variant.LilaKey], Option[String]] = Variant.LilaKey.raw(_)
   given Conversion[Option[UserName], Option[String]]                       = UserName.raw(_)
   // where a UserStr is accepted, we can pass a UserName or UserId
-  given Conversion[UserName, UserStr]                       = _ into UserStr
-  given Conversion[UserId, UserStr]                         = _ into UserStr
-  given Conversion[ForumCategId, String]                    = _.value
-  given Conversion[ForumTopicId, String]                    = _.value
-  given appealIdConv: Conversion[Appeal.Id, String]         = _.value
-  given reportIdConv: Conversion[Report.Id, String]         = _.value
-  given postIdConv: Conversion[ForumPostId, String]         = _.value
-  given clasIdConv: Conversion[Clas.Id, String]             = _.value
-  given clasInviteIdConv: Conversion[ClasInvite.Id, String] = _.value
-  given perfKeyConv: Conversion[Perf.Key, String]           = _.value
-  given puzzleKeyConv: Conversion[PuzzleTheme.Key, String]  = _.value
+  given Conversion[UserName, UserStr]                                = _ into UserStr
+  given Conversion[UserId, UserStr]                                  = _ into UserStr
+  given Conversion[ForumCategId, String]                             = _.value
+  given Conversion[ForumTopicId, String]                             = _.value
+  given appealIdConv: Conversion[Appeal.Id, String]                  = _.value
+  given reportIdConv: Conversion[Report.Id, String]                  = _.value
+  given postIdConv: Conversion[ForumPostId, String]                  = _.value
+  given clasIdConv: Conversion[Clas.Id, String]                      = _.value
+  given clasInviteIdConv: Conversion[ClasInvite.Id, String]          = _.value
+  given relayTourIdConv: Conversion[lila.relay.RelayTour.Id, String] = _.value
+  given perfKeyConv: Conversion[Perf.Key, String]                    = _.value
+  given puzzleKeyConv: Conversion[PuzzleTheme.Key, String]           = _.value

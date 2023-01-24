@@ -80,13 +80,13 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           }
     )
 
-  def edit(id: String) = Auth { implicit ctx => me =>
+  def edit(id: TourModel.Id) = Auth { implicit ctx => me =>
     WithTourCanUpdate(id) { tour =>
       Ok(html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))).toFuccess
     }
   }
 
-  def update(id: String) =
+  def update(id: TourModel.Id) =
     AuthOrScopedBody(_.Study.Write)(
       auth = implicit ctx =>
         me =>
@@ -103,7 +103,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           },
       scoped = implicit req =>
         me =>
-          env.relay.api tourById TourModel.Id(id) flatMapz { tour =>
+          env.relay.api tourById id flatMapz { tour =>
             env.relay.api.canUpdate(me, tour) flatMapz {
               env.relay.tourForm
                 .edit(tour)
@@ -134,9 +134,9 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
     }
   }
 
-  def pgn(id: String) =
+  def pgn(id: TourModel.Id) =
     Action.async { req =>
-      env.relay.api tourById TourModel.Id(id) mapz { tour =>
+      env.relay.api tourById id mapz { tour =>
         apiC.GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
           env.relay.pgnStream.exportFullTour(tour)
         ) { source =>
@@ -156,7 +156,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       }.toFuccess
     }
 
-  private def redirectToTour(tour: TourModel)(implicit ctx: Context): Fu[Result] =
+  private def redirectToTour(tour: TourModel)(using ctx: Context): Fu[Result] =
     env.relay.api.activeTourNextRound(tour) orElse env.relay.api.tourLastRound(tour) flatMap {
       case None =>
         ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMapz {
@@ -165,25 +165,25 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       case Some(round) => Redirect(round.withTour(tour).path).toFuccess
     }
 
-  private def WithTour(id: String)(
+  private def WithTour(id: TourModel.Id)(
       f: TourModel => Fu[Result]
-  )(implicit ctx: Context): Fu[Result] =
-    OptionFuResult(env.relay.api tourById TourModel.Id(id))(f)
+  )(using Context): Fu[Result] =
+    OptionFuResult(env.relay.api tourById id)(f)
 
-  private def WithTourCanUpdate(id: String)(
+  private def WithTourCanUpdate(id: TourModel.Id)(
       f: TourModel => Fu[Result]
-  )(implicit ctx: Context): Fu[Result] =
+  )(using ctx: Context): Fu[Result] =
     WithTour(id) { tour =>
       ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMapz f(tour)
     }
 
-  private val CreateLimitPerUser = new lila.memo.RateLimit[UserId](
+  private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 10 * 10,
     duration = 24.hour,
     key = "broadcast.tournament.user"
   )
 
-  private val CreateLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val CreateLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 10 * 10,
     duration = 24.hour,
     key = "broadcast.tournament.ip"
@@ -193,9 +193,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       me: UserModel,
       req: RequestHeader,
       fail: => Result
-  )(
-      create: => Fu[Result]
-  ): Fu[Result] =
+  )(create: => Fu[Result]): Fu[Result] =
     val cost =
       if (isGranted(_.Relay, me)) 2
       else if (me.hasTitle || me.isVerified) 5
