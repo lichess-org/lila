@@ -1,6 +1,6 @@
 import AnalyseCtrl from '../../ctrl';
 import RelayCtrl from './relayCtrl';
-import { bind, dataIcon } from 'common/snabbdom';
+import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
 import { RelayRound } from './interfaces';
@@ -93,11 +93,7 @@ const overview = (relay: RelayCtrl, study: StudyCtrl) => {
           ? h(
               'time.timeago',
               {
-                hook: {
-                  insert(vnode) {
-                    (vnode.elm as HTMLElement).setAttribute('datetime', '' + round.startsAt);
-                  },
-                },
+                hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)),
               },
               lichess.timeago(round.startsAt)
             )
@@ -157,11 +153,7 @@ export function rounds(ctrl: StudyCtrl): VNode {
   return h(
     'div.study__relay__rounds',
     {
-      hook: {
-        update(vnode: VNode) {
-          scrollToInnerSelector(vnode.elm as HTMLElement, '.active');
-        },
-      },
+      hook: onInsert(el => scrollToInnerSelector(el, '.active')),
     },
     relay.data.rounds
       .map(round =>
