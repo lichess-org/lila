@@ -39,7 +39,7 @@ final class Practice(
       sectionId: String,
       studySlug: String,
       studyId: StudyId,
-      chapterId: String
+      chapterId: StudyChapterId
   ) =
     Open { implicit ctx =>
       OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
@@ -63,7 +63,7 @@ final class Practice(
     }
 
   private def showUserPractice(us: lila.practice.UserStudy)(implicit ctx: Context) =
-    analysisJson(us) map { case (analysisJson, studyJson) =>
+    analysisJson(us) map { (analysisJson, studyJson) =>
       Ok(
         html.practice
           .show(
@@ -78,10 +78,10 @@ final class Practice(
         .withCanonical(s"${us.url}/${us.study.chapter.id}")
     }
 
-  def chapter(studyId: StudyId, chapterId: String) =
+  def chapter(studyId: StudyId, chapterId: StudyChapterId) =
     Open { implicit ctx =>
       OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId)) { us =>
-        analysisJson(us) map { case (analysisJson, studyJson) =>
+        analysisJson(us) map { (analysisJson, studyJson) =>
           JsonOk(
             Json.obj(
               "study"    -> studyJson,
@@ -116,7 +116,7 @@ final class Practice(
           (analysis, studyJson)
         }
 
-  def complete(chapterId: String, nbMoves: Int) =
+  def complete(chapterId: StudyChapterId, nbMoves: Int) =
     Auth { implicit ctx => me =>
       api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
     }
@@ -147,5 +147,3 @@ final class Practice(
         }
       }
     }
-
-  implicit private def makeChapterId(id: String): lila.study.StudyChapterId = lila.study.StudyChapterId(id)

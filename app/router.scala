@@ -28,6 +28,7 @@ given appealId: Conversion[String, Appeal.Id]                            = Appea
 given reportId: Conversion[String, Report.Id]                            = Report.Id(_)
 given clasId: Conversion[String, Clas.Id]                                = Clas.Id(_)
 given clasInviteId: Conversion[String, ClasInvite.Id]                    = ClasInvite.Id(_)
+given relayTourInviteId: Conversion[String, lila.relay.RelayTour.Id]     = lila.relay.RelayTour.Id(_)
 given Conversion[String, ForumPostId]                                    = ForumPostId(_)
 given Conversion[String, UserStr]                                        = UserStr(_)
 given userOpt: Conversion[Option[String], Option[UserStr]]               = UserStr from _

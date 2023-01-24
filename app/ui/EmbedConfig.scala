@@ -17,9 +17,8 @@ case class EmbedConfig(
 
 object EmbedConfig:
 
-  object implicits:
-    implicit def configLang(implicit config: EmbedConfig): Lang         = config.lang
-    implicit def configReq(implicit config: EmbedConfig): RequestHeader = config.req
+  given configLang(using config: EmbedConfig): Lang         = config.lang
+  given configReq(using config: EmbedConfig): RequestHeader = config.req
 
   def apply(req: RequestHeader): EmbedConfig =
     EmbedConfig(
