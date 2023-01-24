@@ -627,7 +627,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="videoLibrary">Videod</string>
   <string name="streamersMenu">Striimijad</string>
   <string name="mobileApp">Mobiilirakendus</string>
-  <string name="webmasters">Administraatorid</string>
+  <string name="webmasters">Veebmeistritele</string>
   <string name="about">Info</string>
   <string name="aboutX">Info %s kohta</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on täiesti tasuta (%2$s), reklaamivaba, avatud lähtekoodiga male server.</string>
