@@ -354,11 +354,11 @@ final private class PushApi(
         )
       )
     )
-    val webRecips = recips.collect { case u if u.web => u.userId }
+    val webRecips = recips.collect { case u if u.allows.web => u.userId }
     webPush(webRecips, pushData).addEffects { res =>
       lila.mon.push.send.streamStart("web", res.isSuccess, webRecips.size)
     } >>- {
-      recips collect { case u if u.device => u.userId } foreach {
+      recips collect { case u if u.allows.device => u.userId } foreach {
         firebasePush(_, pushData).addEffects { res =>
           lila.mon.push.send.streamStart("firebase", res.isSuccess, 1)
         }
@@ -378,10 +378,10 @@ final private class PushApi(
     }
 
   private def filterPush(to: NotifyAllows, monitor: MonitorType, data: PushApi.Data): Funit = for
-    _ <- to.web ?? webPush(to.userId, data).addEffects(res =>
+    _ <- to.allows.web ?? webPush(to.userId, data).addEffects(res =>
       monitor(lila.mon.push.send)("web", res.isSuccess, 1)
     )
-    _ <- to.device ?? firebasePush(to.userId, data).addEffects(res =>
+    _ <- to.allows.device ?? firebasePush(to.userId, data).addEffects(res =>
       monitor(lila.mon.push.send)("firebase", res.isSuccess, 1)
     )
   yield ()

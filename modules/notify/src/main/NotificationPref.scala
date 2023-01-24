@@ -21,8 +21,7 @@ object Allows extends OpaqueInt[Allows]:
   def toForm(allows: Allows): Some[(Boolean, Boolean)] =
     Some((allows.bell, allows.push))
 
-case class NotifyAllows(userId: UserId, allows: Allows):
-  export allows.*
+case class NotifyAllows(userId: UserId, allows: Allows)
 
 // take care with NotificationPref field names - they map directly to db and ws channels
 
