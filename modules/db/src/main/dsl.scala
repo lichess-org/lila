@@ -61,7 +61,7 @@ trait dsl:
   // End of Helpers
   // **********************************************************************************************//
 
-  implicit val LilaBSONDocumentZero: Zero[Bdoc] = Zero($empty)
+  given Zero[Bdoc] = Zero($empty)
 
   // **********************************************************************************************//
   // Top Level Logical Operators

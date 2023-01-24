@@ -137,7 +137,7 @@ object JsonApi:
       ~Uci.readList(str)
     }
 
-    implicit val EvaluationReads: Reads[Request.Evaluation] = (
+    given EvaluationReads: Reads[Request.Evaluation] = (
       (__ \ "pv").readNullable[List[Uci]].map(~_) and
         (__ \ "score").read[Request.Evaluation.Score] and
         (__ \ "time").readNullable[Int] and

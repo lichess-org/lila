@@ -49,7 +49,7 @@ final class Api(
     )(using lang) map toApiResult map toHttp
     OpenOrScoped()(
       ctx => get(ctx.req, ctx.lang, ctx.me),
-      req => me => get(req, me.realLang | reqLang(req), me.some)
+      req => me => get(req, me.realLang | reqLang(using req), me.some)
     )
 
   private[controllers] def userWithFollows(req: RequestHeader) =
@@ -194,7 +194,7 @@ final class Api(
 
   def currentTournaments =
     ApiRequest { implicit req =>
-      implicit val lang: Lang = reqLang
+      given Lang = reqLang
       env.tournament.api.fetchVisibleTournaments flatMap
         env.tournament.apiJsonView.apply map ApiResult.Data.apply
     }
@@ -439,7 +439,7 @@ final class Api(
     }
 
   def perfStat(username: UserStr, perfKey: lila.rating.Perf.Key) = ApiRequest { req =>
-    given play.api.i18n.Lang = reqLang(req)
+    given play.api.i18n.Lang = reqLang(using req)
     env.perfStat.api.data(username, perfKey, none) map {
       _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
     }

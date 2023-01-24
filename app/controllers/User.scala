@@ -382,7 +382,7 @@ final class User(
       case UserModel.WithEmails(user, emails) =>
         import html.user.{ mod as view }
         import lila.app.ui.ScalatagsExtensions.{ emptyFrag, given }
-        implicit val renderIp = env.mod.ipRender(holder)
+        given lila.mod.IpRender.RenderIp = env.mod.ipRender(holder)
 
         val nbOthers = getInt("nbOthers") | 100
 
@@ -440,7 +440,7 @@ final class User(
           env.user.lightUserApi
             .preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(user, as)
         }
-        implicit val extractor = EventSource.EventDataExtractor[Frag](_.render)
+        given EventSource.EventDataExtractor[Frag] = EventSource.EventDataExtractor[Frag](_.render)
         Ok.chunked {
           Source.single(html.user.mod.menu) merge
             modZoneSegment(actions, "actions", user) merge
@@ -560,19 +560,19 @@ final class User(
   def perfStat(username: UserStr, perfKey: Perf.Key) =
     Open { implicit ctx =>
       env.perfStat.api.data(username, perfKey, ctx.me) flatMapz { data =>
-          negotiate(
-            html = env.history.ratingChartApi(data.user) map { chart =>
-              Ok(html.user.perfStat(data, chart))
-            },
-            api = _ =>
-              JsonOk {
-                getBool("graph").?? {
-                  env.history.ratingChartApi.singlePerf(data.user, data.stat.perfType) map some
-                } map { graph =>
-                  env.perfStat.jsonView(data).add("graph", graph)
-                }
+        negotiate(
+          html = env.history.ratingChartApi(data.user) map { chart =>
+            Ok(html.user.perfStat(data, chart))
+          },
+          api = _ =>
+            JsonOk {
+              getBool("graph").?? {
+                env.history.ratingChartApi.singlePerf(data.user, data.stat.perfType) map some
+              } map { graph =>
+                env.perfStat.jsonView(data).add("graph", graph)
               }
-          )
+            }
+        )
       }
     }
 

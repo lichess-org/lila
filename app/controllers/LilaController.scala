@@ -69,7 +69,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val rateLimitedJson = Results.TooManyRequests(jsonError(rateLimitedMsg))
   protected val rateLimitedFu   = rateLimited.toFuccess
 
-  implicit protected def LilaFunitToResult(funit: Funit)(implicit req: RequestHeader): Fu[Result] =
+  implicit protected def LilaFunitToResult(funit: Funit)(using req: RequestHeader): Fu[Result] =
     negotiate(
       html = fuccess(Ok("ok")),
       api = _ => fuccess(jsonOkResult)
@@ -82,10 +82,10 @@ abstract private[controllers] class LilaController(val env: Env)
   given lila.common.config.NetDomain              = env.net.domain
 
   // we can't move to `using` yet, because we can't do `Open { using ctx =>`
-  implicit def ctxLang(implicit ctx: Context): Lang                   = ctx.lang
-  implicit def ctxReq(implicit ctx: Context): RequestHeader           = ctx.req
-  implicit def reqConfig(implicit req: RequestHeader): ui.EmbedConfig = ui.EmbedConfig(req)
-  def reqLang(implicit req: RequestHeader): Lang                      = I18nLangPicker(req)
+  implicit def ctxLang(using ctx: Context): Lang                   = ctx.lang
+  implicit def ctxReq(using ctx: Context): RequestHeader           = ctx.req
+  implicit def reqConfig(using req: RequestHeader): ui.EmbedConfig = ui.EmbedConfig(req)
+  def reqLang(using req: RequestHeader): Lang                      = I18nLangPicker(req)
 
   protected def Open(f: Context => Fu[Result]): Action[Unit] =
     Open(parse.empty)(f)

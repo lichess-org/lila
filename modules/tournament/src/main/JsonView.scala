@@ -35,7 +35,7 @@ final class JsonView(
     reloadEndpointSetting: SettingStore[String] @@ TournamentReloadEndpoint
 )(using ec: ExecutionContext):
 
-  import JsonView.*
+  import JsonView.{ *, given }
   import Condition.JSONHandlers.given
   private given Ordering[TeamId] = stringOrdering
 
@@ -554,7 +554,7 @@ object JsonView:
       "speed" -> s.speed.key
     )
 
-  implicit val clockWrites: OWrites[chess.Clock.Config] = OWrites { clock =>
+  given OWrites[chess.Clock.Config] = OWrites { clock =>
     Json.obj(
       "limit"     -> clock.limitSeconds,
       "increment" -> clock.incrementSeconds
@@ -578,7 +578,7 @@ object JsonView:
             "fen"  -> fen
           )
 
-  implicit private[tournament] val spotlightWrites: OWrites[Spotlight] = OWrites { s =>
+  private[tournament] given OWrites[Spotlight] = OWrites { s =>
     Json
       .obj(
         "headline"    -> s.headline,
@@ -588,14 +588,14 @@ object JsonView:
       .add("iconFont" -> s.iconFont)
   }
 
-  implicit private[tournament] def perfTypeWrites(using lang: Lang): OWrites[PerfType] =
+  private[tournament] given (using lang: Lang): OWrites[PerfType] =
     OWrites { pt =>
       Json
         .obj("key" -> pt.key, "name" -> pt.trans)
         .add("icon" -> mobileBcIcons.get(pt)) // mobile BC only
     }
 
-  implicit private[tournament] val statsWrites: Writes[TournamentStats] = Json.writes[TournamentStats]
+  private[tournament] given Writes[TournamentStats] = Json.writes[TournamentStats]
 
   private[tournament] val mobileBcIcons: Map[PerfType, String] = Map(
     PerfType.UltraBullet -> "{",

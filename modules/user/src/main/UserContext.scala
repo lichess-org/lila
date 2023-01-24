@@ -91,4 +91,3 @@ object UserContext:
 
   trait ToLang:
     given (using ctx: UserContext): Lang = ctx.lang
-    // implicit def ctxLang(implicit ctx: UserContext): Lang = ctx.lang

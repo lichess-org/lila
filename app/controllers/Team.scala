@@ -230,7 +230,7 @@ final class Team(
   def close(id: TeamId) =
     SecureBody(_.ManageTeam) { implicit ctx => me =>
       OptionFuResult(api team id) { team =>
-        implicit val body: play.api.mvc.Request[?] = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms.explain
           .bindFromRequest()
           .fold(
@@ -245,7 +245,7 @@ final class Team(
   def disable(id: TeamId) =
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
-        implicit val body: play.api.mvc.Request[?] = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms.explain
           .bindFromRequest()
           .fold(
@@ -329,7 +329,7 @@ final class Team(
                   negotiate(
                     html = webJoin(team, me, request = none, password = none),
                     api = _ => {
-                      implicit val body: play.api.mvc.Request[?] = ctx.body
+                      given play.api.mvc.Request[?] = ctx.body
                       forms
                         .apiRequest(team)
                         .bindFromRequest()

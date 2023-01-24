@@ -32,7 +32,7 @@ final class Account(
 
   def profileApply =
     AuthBody { implicit ctx => me =>
-      implicit val req: Request[?] = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       FormFuResult(env.user.forms.profile) { err =>
         fuccess(html.account.profile(me, err))
       } { profile =>
@@ -53,7 +53,7 @@ final class Account(
 
   def usernameApply =
     AuthBody { implicit ctx => me =>
-      implicit val req: Request[?] = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       FormFuResult(env.user.forms.username(me)) { err =>
         fuccess(html.account.username(me, err))
       } { username =>

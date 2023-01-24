@@ -72,7 +72,7 @@ object ExternalEngine:
     )(FormData.apply)(lila.common.unapply)
   )
 
-  implicit val jsonWrites: OWrites[ExternalEngine] = OWrites { e =>
+  given jsonWrites: OWrites[ExternalEngine] = OWrites { e =>
     Json
       .obj(
         "id"           -> e._id,

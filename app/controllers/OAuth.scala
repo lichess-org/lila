@@ -136,7 +136,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   def revokeClient =
     AuthBody { implicit ctx => me =>
-      implicit def body: play.api.mvc.Request[?] = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       revokeClientForm
         .bindFromRequest()
         .fold(

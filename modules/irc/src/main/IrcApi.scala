@@ -12,9 +12,8 @@ import cats.syntax.show.*
 
 final class IrcApi(
     zulip: ZulipClient,
-    noteApi: lila.user.NoteApi,
-    implicit val lightUser: LightUser.Getter
-)(using ec: scala.concurrent.ExecutionContext):
+    noteApi: lila.user.NoteApi
+)(using val lightUser: LightUser.Getter, ec: scala.concurrent.ExecutionContext):
 
   import IrcApi.*
 

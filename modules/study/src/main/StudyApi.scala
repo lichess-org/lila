@@ -855,7 +855,7 @@ final class StudyApi(
     fuccess(study isOwner userId) >>| studyRepo.isAdminMember(study, userId)
 
   import alleycats.Zero
-  private def Contribute[A](userId: UserId, study: Study)(f: => A)(implicit default: Zero[A]): A =
+  private def Contribute[A](userId: UserId, study: Study)(f: => A)(using default: Zero[A]): A =
     if (study canContribute userId) f else default.zero
 
   // work around circular dependency

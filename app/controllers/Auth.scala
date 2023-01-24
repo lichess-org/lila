@@ -105,8 +105,8 @@ final class Auth(
     OpenBody { implicit ctx =>
       NoCrawlers {
         Firewall {
-          def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
-          implicit val req            = ctx.body
+          def redirectTo(url: String)   = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
+          given play.api.mvc.Request[?] = ctx.body
           val referrer = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers)
           api.usernameOrEmailForm
             .bindFromRequest()

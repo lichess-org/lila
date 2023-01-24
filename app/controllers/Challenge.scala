@@ -278,7 +278,7 @@ final class Challenge(
       NoBot {
         import play.api.data.*
         import play.api.data.Forms.*
-        implicit val req: Request[?] = ctx.body
+        given Request[?] = ctx.body
         OptionFuResult(api byId id) { c =>
           if (isMine(c))
             Form(single("username" -> lila.user.UserForm.historicalUsernameField))

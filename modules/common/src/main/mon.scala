@@ -680,4 +680,4 @@ object mon:
   private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
   import scala.language.implicitConversions
-  implicit def mapToTags(m: Map[String, Any]): TagSet = TagSet from m
+  given Conversion[Map[String, Any], TagSet] = TagSet.from

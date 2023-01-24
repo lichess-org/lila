@@ -263,7 +263,7 @@ final class Mod(
       if (priv) perms.ViewPrivateComms else perms.Shadowban
     } { implicit ctx => me =>
       OptionFuOk(env.user.repo byId username) { user =>
-        implicit val renderIp = env.mod.ipRender(me)
+        given lila.mod.IpRender.RenderIp = env.mod.ipRender(me)
         env.game.gameRepo
           .recentPovsByUserFromSecondary(user, 80)
           .mon(_.mod.comm.segment("recentPovs"))
@@ -444,7 +444,7 @@ final class Mod(
 
   def singleIp(ip: String) =
     SecureBody(_.ViewPrintNoIP) { implicit ctx => me =>
-      implicit val renderIp = env.mod.ipRender(me)
+      given lila.mod.IpRender.RenderIp = env.mod.ipRender(me)
       env.mod.ipRender.decrypt(ip) ?? { address =>
         for {
           uids       <- env.security.api recentUserIdsByIp address
@@ -473,9 +473,9 @@ final class Mod(
 
   def chatUser(username: UserStr) =
     Secure(_.ChatTimeout) { _ => _ =>
-      implicit val lightUser = env.user.lightUserSync
       JsonOptionOk {
-        env.chat.api.userChat userModInfo username map2 lila.chat.JsonView.userModInfo
+        env.chat.api.userChat userModInfo username map2
+          lila.chat.JsonView.userModInfo(using env.user.lightUserSync)
       }
     }
 

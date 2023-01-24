@@ -189,7 +189,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def setTier(blogId: String) = SecureBody(_.ModerateBlog) { implicit ctx => me =>
     UblogBlog.Id(blogId).??(env.ublog.api.getBlog) flatMapz { blog =>
-      implicit val body: play.api.mvc.Request[?] = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       lila.ublog.UblogForm.tier
         .bindFromRequest()
         .fold(

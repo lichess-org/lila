@@ -7,9 +7,9 @@ import lila.common.Json.given
 import lila.rating.PerfType
 import lila.user.LightUserApi
 
-final class ApiJsonView(lightUserApi: LightUserApi)(using ec: scala.concurrent.ExecutionContext):
+final class ApiJsonView(lightUserApi: LightUserApi)(using scala.concurrent.ExecutionContext):
 
-  import JsonView.*
+  import JsonView.{ *, given }
   import Condition.JSONHandlers.given
 
   def apply(tournaments: VisibleTournaments)(using lang: Lang): Fu[JsObject] =
