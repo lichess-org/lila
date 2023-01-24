@@ -29,4 +29,6 @@
   <string name="botPlay">Speel spellen met de bot api</string>
   <string name="engineRead">Bekijk en gebruik je externe engines</string>
   <string name="engineWrite">Externe engines aanmaken en bijwerken</string>
+  <string name="webLogin">Geauthenticeerde website-sessies maken (verleent volledige toegang!)</string>
+  <string name="webMod">Gebruik moderatortools (binnen de perken van uw toestemming)</string>
 </resources>
