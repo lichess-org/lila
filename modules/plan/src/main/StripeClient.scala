@@ -32,7 +32,10 @@ final private class StripeClient(
       "cancel_url"          -> urls.cancel,
       "customer"            -> data.customerId.value,
       "metadata[ipAddress]" -> data.ipOption.fold("?")(_.value)
-    )
+    ) ::: {
+      // https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_method_types
+      (mode == StripeMode.setup) ?? List("payment_method_types[]" -> "card")
+    }
 
   def createOneTimeSession(data: CreateStripeSession)(using Lang): Fu[StripeSession] =
     val args =
