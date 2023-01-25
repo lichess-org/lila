@@ -9,7 +9,7 @@ import scala.concurrent.duration.FiniteDuration
 final class Moretimer(
     messenger: Messenger,
     prefApi: PrefApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   // pov of the player giving more time
   def apply(pov: Pov, duration: FiniteDuration): Fu[Option[Progress]] =

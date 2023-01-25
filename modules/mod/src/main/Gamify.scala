@@ -16,7 +16,7 @@ final class Gamify(
     modApi: lila.mod.ModApi,
     cacheApi: lila.memo.CacheApi,
     historyRepo: HistoryRepo
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Gamify.*
   import lila.report.BSONHandlers.given

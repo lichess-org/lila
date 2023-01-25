@@ -19,7 +19,7 @@ final class Env(
     makeClient: Index => ESClient,
     teamRepo: lila.team.TeamRepo
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     materializer: akka.stream.Materializer
 ):

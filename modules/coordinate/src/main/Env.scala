@@ -9,7 +9,7 @@ import lila.common.autoconfig.given
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private lazy val scoreColl = db(appConfig.get[CollName]("coordinate.collection.score"))
 

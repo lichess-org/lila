@@ -17,7 +17,7 @@ final class BotPlayer(
     rematches: Rematches,
     spam: lila.security.Spam
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

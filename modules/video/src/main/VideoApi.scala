@@ -14,7 +14,7 @@ final private[video] class VideoApi(
     videoColl: Coll,
     viewColl: Coll,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private given BSONDocumentHandler[Youtube.Metadata] = Macros.handler
   private given BSONDocumentHandler[Video]            = Macros.handler

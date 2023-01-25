@@ -1,7 +1,6 @@
 package lila.racer
 
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.memo.CacheApi
 import lila.storm.StormSelector
@@ -16,7 +15,7 @@ final class RacerApi(
     cacheApi: CacheApi,
     lightUser: LightUser.GetterSyncFallback
 )(implicit
-    ec: ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

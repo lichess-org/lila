@@ -13,7 +13,7 @@ final private class GameStarter(
     idGenerator: IdGenerator,
     onStart: GameId => Unit
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

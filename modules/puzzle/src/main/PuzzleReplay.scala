@@ -3,7 +3,6 @@ package lila.puzzle
 import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 import scala.util.chaining.*
 
 import lila.db.dsl.{ *, given }
@@ -24,7 +23,7 @@ case class PuzzleReplay(
 final class PuzzleReplayApi(
     colls: PuzzleColls,
     cacheApi: CacheApi
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 

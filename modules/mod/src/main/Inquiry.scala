@@ -27,7 +27,7 @@ final class InquiryApi(
     logApi: ModlogApi
 ):
 
-  def forMod(mod: User)(using ec: scala.concurrent.ExecutionContext): Fu[Option[Inquiry]] =
+  def forMod(mod: User)(using Executor): Fu[Option[Inquiry]] =
     lila.security.Granter(_.SeeReport)(mod).?? {
       reportApi.inquiries.ofModId(mod.id).flatMapz { report =>
         reportApi.moreLike(report, 10) zip

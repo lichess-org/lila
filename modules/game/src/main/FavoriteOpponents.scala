@@ -8,7 +8,7 @@ final class FavoriteOpponents(
     userRepo: UserRepo,
     gameRepo: GameRepo,
     cacheApi: lila.memo.CacheApi
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private val userIdsCache = cacheApi[UserId, List[(UserId, Int)]](64, "favoriteOpponents") {
     _.expireAfterWrite(15 minutes)

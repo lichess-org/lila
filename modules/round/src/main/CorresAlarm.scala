@@ -15,7 +15,7 @@ final private class CorresAlarm(
     hasUserId: (Game, UserId) => Fu[Boolean],
     proxyGame: GameId => Fu[Option[Game]]
 )(using
-    scala.concurrent.ExecutionContext,
+    Executor,
     akka.actor.Scheduler,
     akka.stream.Materializer
 ):

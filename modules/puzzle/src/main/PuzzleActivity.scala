@@ -14,7 +14,7 @@ import lila.user.User
 final class PuzzleActivity(
     colls: PuzzleColls
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem
 ):
 

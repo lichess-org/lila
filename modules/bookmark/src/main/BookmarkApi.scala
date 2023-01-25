@@ -14,7 +14,7 @@ final class BookmarkApi(
     gameRepo: GameRepo,
     gameProxyRepo: lila.round.GameProxyRepo,
     paginator: PaginatorBuilder
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private def exists(gameId: GameId, userId: UserId): Fu[Boolean] =
     coll exists selectId(gameId, userId)

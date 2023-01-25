@@ -12,7 +12,7 @@ import lila.common.config.Max
  */
 final class BoundedAsyncActor(maxSize: Max, name: String, logging: Boolean = true)(
     process: AsyncActor.ReceiveAsync
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BoundedAsyncActor.*
 

@@ -56,7 +56,7 @@ final class UserForm(authenticator: Authenticator):
   ):
     def samePasswords = newPasswd1 == newPasswd2
 
-  def passwd(u: User)(using ec: scala.concurrent.ExecutionContext) =
+  def passwd(u: User)(using Executor) =
     authenticator loginCandidate u map { candidate =>
       Form(
         mapping(

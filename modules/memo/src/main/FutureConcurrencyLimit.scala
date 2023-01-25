@@ -10,7 +10,7 @@ final class FutureConcurrencyLimit[K](
     ttl: FiniteDuration,
     maxConcurrency: Int = 1,
     toString: K => String = (k: K) => k.toString
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private val storage = new ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
 

@@ -22,7 +22,7 @@ final class IrwinApi(
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   lazy val thresholds = IrwinThresholds.makeSetting("irwin", settingStore)
 
@@ -53,15 +53,14 @@ final class IrwinApi(
       reportColl.byId[IrwinReport](userId)
 
     def withPovs(user: User): Fu[Option[IrwinReport.WithPovs]] =
-      get(user) flatMap {
-        _ ?? { report =>
-          gameRepo.gamesTemporarilyFromPrimary(report.games.map(_.gameId)) dmap { games =>
-            val povs = games.flatMap { g =>
-              Pov(g, user) map { g.id -> _ }
-            }.toMap
-            IrwinReport.WithPovs(report, povs).some
-          }
+      get(user) flatMapz { report =>
+        gameRepo.gamesTemporarilyFromPrimary(report.games.map(_.gameId)) dmap { games =>
+          val povs = games.flatMap { g =>
+            Pov(g, user) map { g.id -> _ }
+          }.toMap
+          IrwinReport.WithPovs(report, povs).some
         }
+
       }
 
     private def getSuspect(suspectId: UserId) =

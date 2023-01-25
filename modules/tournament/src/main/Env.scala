@@ -40,7 +40,7 @@ final class Env(
     remoteSocketApi: lila.socket.RemoteSocket,
     settingStore: lila.memo.SettingStore.Builder
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,

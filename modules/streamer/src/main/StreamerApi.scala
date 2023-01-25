@@ -18,7 +18,7 @@ final class StreamerApi(
     notifyApi: lila.notify.NotifyApi,
     subsRepo: lila.relation.SubscriptionRepo,
     ytApi: YouTubeApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 

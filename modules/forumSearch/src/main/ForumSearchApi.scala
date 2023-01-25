@@ -11,7 +11,7 @@ final class ForumSearchApi(
     client: ESClient,
     postApi: ForumPostApi,
     postRepo: ForumPostRepo
-)(using scala.concurrent.ExecutionContext, akka.stream.Materializer)
+)(using Executor, akka.stream.Materializer)
     extends SearchReadApi[PostView, Query]:
 
   def search(query: Query, from: From, size: Size) =

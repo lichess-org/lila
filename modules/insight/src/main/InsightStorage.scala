@@ -10,7 +10,7 @@ import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 import lila.user.User
 
-final private class InsightStorage(val coll: AsyncColl)(using ec: scala.concurrent.ExecutionContext):
+final private class InsightStorage(val coll: AsyncColl)(using Executor):
 
   import InsightStorage.*
   import BSONHandlers.given

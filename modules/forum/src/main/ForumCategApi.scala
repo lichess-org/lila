@@ -10,7 +10,7 @@ final class ForumCategApi(
     categRepo: ForumCategRepo,
     paginator: ForumPaginator,
     config: ForumConfig
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BSONHandlers.given
 

@@ -30,7 +30,7 @@ final class SecurityApi(
     oAuthServer: lila.oauth.OAuthServer,
     tor: Tor
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
     mode: Mode
 ):

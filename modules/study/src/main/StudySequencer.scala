@@ -9,7 +9,7 @@ import lila.common.config.Max
 final private class StudySequencer(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler, play.api.Mode):
+)(using Executor, akka.actor.Scheduler, play.api.Mode):
 
   private val workQueue = AsyncActorSequencers[StudyId](
     maxSize = Max(64),

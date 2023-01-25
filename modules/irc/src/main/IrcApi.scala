@@ -13,7 +13,7 @@ import cats.syntax.show.*
 final class IrcApi(
     zulip: ZulipClient,
     noteApi: lila.user.NoteApi
-)(using val lightUser: LightUser.Getter, ec: scala.concurrent.ExecutionContext):
+)(using val lightUser: LightUser.Getter, ec: Executor):
 
   import IrcApi.*
 

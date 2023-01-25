@@ -19,7 +19,7 @@ final class AutomaticEmail(
     mailer: Mailer,
     baseUrl: BaseUrl,
     lightUser: lila.user.LightUserApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Mailer.html.*
 

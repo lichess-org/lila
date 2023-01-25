@@ -44,7 +44,7 @@ final class TournamentApi(
     lightUserApi: lila.user.LightUserApi,
     proxyRepo: lila.round.GameProxyRepo
 )(using
-    scala.concurrent.ExecutionContext,
+    Executor,
     akka.actor.ActorSystem,
     akka.actor.Scheduler,
     akka.stream.Materializer
@@ -745,10 +745,10 @@ final class TournamentApi(
       fetch: TourId => Fu[Option[Tournament]]
   )(run: Tournament => Funit): Funit =
     fetch(tourId) flatMapz { tour =>
-        if (tour.nbPlayers > 1000)
-          run(tour).chronometer.mon(_.tournament.action(tourId.value, action)).result
-        else
-          run(tour)
+      if (tour.nbPlayers > 1000)
+        run(tour).chronometer.mon(_.tournament.action(tourId.value, action)).result
+      else
+        run(tour)
     }
 
   private object publish:

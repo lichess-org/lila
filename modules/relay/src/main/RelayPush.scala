@@ -8,7 +8,7 @@ import lila.study.MultiPgn
 
 final class RelayPush(sync: RelaySync, api: RelayApi)(using
     system: ActorSystem,
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   private val throttler = new lila.hub.EarlyMultiThrottler[RelayRoundId](logger)

@@ -25,7 +25,7 @@ final class Env(
     memberRepo: lila.team.MemberRepo,
     teamCache: lila.team.Cached
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem
 ):
 

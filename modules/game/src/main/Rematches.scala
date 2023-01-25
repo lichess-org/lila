@@ -2,7 +2,6 @@ package lila.game
 
 import chess.Color
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 /* Prev game ID -> Next game ID
  * The next game might not yet exist in the DB,
@@ -11,7 +10,7 @@ import scala.concurrent.ExecutionContext
  * That mechanism is used by bots/boards who receive
  * rematch offers as challenges.
  */
-final class Rematches(idGenerator: IdGenerator)(using ec: ExecutionContext):
+final class Rematches(idGenerator: IdGenerator)(using Executor):
 
   import Rematches.*
 

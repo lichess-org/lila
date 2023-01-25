@@ -8,7 +8,7 @@ final private class TeamSocket(
     chat: lila.chat.ChatApi,
     cached: Cached
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mode: play.api.Mode
 ):
 

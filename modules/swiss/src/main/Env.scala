@@ -26,7 +26,7 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     baseUrl: lila.common.config.BaseUrl
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,

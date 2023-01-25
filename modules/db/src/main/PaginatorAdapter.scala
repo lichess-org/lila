@@ -4,7 +4,6 @@ package paginator
 import dsl.*
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-import scala.concurrent.ExecutionContext
 import scala.util.chaining.*
 
 import lila.common.paginator.AdapterLike
@@ -12,7 +11,7 @@ import lila.common.paginator.AdapterLike
 final class CachedAdapter[A](
     adapter: AdapterLike[A],
     val nbResults: Fu[Int]
-)(using ec: ExecutionContext)
+)(using Executor)
     extends AdapterLike[A]:
 
   def slice(offset: Int, length: Int): Fu[Seq[A]] =
@@ -25,7 +24,7 @@ final class Adapter[A: BSONDocumentReader](
     sort: Bdoc,
     readPreference: ReadPreference = ReadPreference.primary,
     hint: Option[Bdoc] = None
-)(using ec: ExecutionContext)
+)(using Executor)
     extends AdapterLike[A]:
 
   def nbResults: Fu[Int] = collection.secondaryPreferred.countSel(selector)
@@ -45,7 +44,7 @@ final class Adapter[A: BSONDocumentReader](
 
   def withNbResults(nb: Fu[Int]) = new CachedAdapter(this, nb)
 
-final class StaticAdapter[A](results: Seq[A])(using ec: ExecutionContext) extends AdapterLike[A]:
+final class StaticAdapter[A](results: Seq[A])(using Executor) extends AdapterLike[A]:
 
   def nbResults = fuccess(results.size)
 

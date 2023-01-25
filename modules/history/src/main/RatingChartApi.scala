@@ -12,7 +12,7 @@ final class RatingChartApi(
     historyApi: HistoryApi,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def apply(user: User): Fu[Option[String]] =
     cache.get(user.id) dmap { chart =>

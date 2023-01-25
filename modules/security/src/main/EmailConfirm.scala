@@ -31,7 +31,7 @@ final class EmailConfirmMailer(
     mailer: Mailer,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(using ec: scala.concurrent.ExecutionContext)
+)(using Executor)
     extends EmailConfirm:
 
   import Mailer.html.*
@@ -163,7 +163,7 @@ object EmailConfirm:
       single("username" -> lila.user.UserForm.historicalUsernameField)
     )
 
-    def getStatus(userRepo: UserRepo, u: UserStr)(using scala.concurrent.ExecutionContext): Fu[Status] =
+    def getStatus(userRepo: UserRepo, u: UserStr)(using Executor): Fu[Status] =
       import Status.*
       userRepo withEmails u flatMap {
         case None => fuccess(NoSuchUser(u into UserName))

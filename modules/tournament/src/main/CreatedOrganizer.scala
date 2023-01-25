@@ -2,7 +2,6 @@ package lila.tournament
 
 import akka.stream.scaladsl.*
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.common.LilaScheduler
 
@@ -10,7 +9,7 @@ final private class CreatedOrganizer(
     api: TournamentApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo
-)(using ExecutionContext, akka.actor.Scheduler, akka.stream.Materializer):
+)(using Executor, akka.actor.Scheduler, akka.stream.Materializer):
 
   LilaScheduler(
     "Tournament.CreatedOrganizer",

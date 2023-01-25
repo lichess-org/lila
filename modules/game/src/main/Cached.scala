@@ -11,7 +11,7 @@ final class Cached(
     gameRepo: GameRepo,
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def nbImportedBy(userId: UserId): Fu[Int] = nbImportedCache.get(userId)
   export nbImportedCache.invalidate as clearNbImportedByCache

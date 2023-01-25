@@ -26,7 +26,7 @@ final class Env(
     shutup: lila.hub.actors.Shutup,
     cacheApi: lila.memo.CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

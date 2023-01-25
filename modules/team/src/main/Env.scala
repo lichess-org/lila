@@ -23,7 +23,7 @@ final class Env(
     userJson: lila.user.JsonView,
     db: lila.db.Db
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     mode: play.api.Mode,
     materializer: akka.stream.Materializer

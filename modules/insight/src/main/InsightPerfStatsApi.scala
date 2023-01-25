@@ -25,7 +25,7 @@ object InsightPerfStats:
 final class InsightPerfStatsApi(
     storage: InsightStorage,
     pipeline: AggregationPipeline
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def apply(
       user: User,

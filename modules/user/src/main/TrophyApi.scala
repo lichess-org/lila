@@ -11,7 +11,7 @@ final class TrophyApi(
     coll: Coll,
     kindColl: Coll,
     cacheApi: CacheApi
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   val kindCache =
     cacheApi.sync[String, TrophyKind](

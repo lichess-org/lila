@@ -13,7 +13,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   import Store.*

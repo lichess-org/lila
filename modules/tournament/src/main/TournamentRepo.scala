@@ -10,7 +10,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
   import BSONHandlers.given
 

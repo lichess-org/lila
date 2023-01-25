@@ -18,7 +18,6 @@ import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
 import lila.user.{ Holder, User as UserModel, UserContext }
 import lila.common.config
-import scala.concurrent.ExecutionContext
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -29,7 +28,7 @@ abstract private[controllers] class LilaController(val env: Env)
   export _root_.router.ReverseRouterConversions.given
 
   def controllerComponents   = env.controllerComponents
-  given ExecutionContext     = env.executionContext
+  given Executor             = env.executor
   given akka.actor.Scheduler = env.scheduler
 
   protected given Zero[Result] = Zero(Results.NotFound)

@@ -10,8 +10,11 @@ import play.api.libs.json.{ JsError, JsObject, JsResult }
 
 trait LilaTypes:
 
-  type Fu[A] = Future[A]
-  type Funit = Fu[Unit]
+  type Fu[A]     = Future[A]
+  type Funit     = Fu[Unit]
+  type PairOf[A] = (A, A)
+
+  type Executor = scala.concurrent.ExecutionContext
 
   def fuccess[A](a: A): Fu[A]        = Future.successful(a)
   def fufail[X](t: Throwable): Fu[X] = Future.failed(t)

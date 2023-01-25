@@ -11,7 +11,7 @@ import lila.user.User
 import play.api.i18n.Lang
 
 final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(using
-    ec: scala.concurrent.ExecutionContext
+    Executor
 ) extends lila.hub.CaptchedForm:
 
   import UblogForm.*

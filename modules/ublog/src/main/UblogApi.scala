@@ -3,7 +3,6 @@ package lila.ublog
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.*
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.Propagate
@@ -18,7 +17,7 @@ final class UblogApi(
     picfitApi: PicfitApi,
     timeline: lila.hub.actors.Timeline,
     irc: lila.irc.IrcApi
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import UblogBsonHandlers.{ *, given }
 

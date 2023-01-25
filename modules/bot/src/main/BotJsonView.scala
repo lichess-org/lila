@@ -12,7 +12,7 @@ final class BotJsonView(
     lightUserApi: lila.user.LightUserApi,
     gameRepo: GameRepo,
     rematches: lila.game.Rematches
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def gameFull(game: Game)(using lang: Lang): Fu[JsObject] = gameRepo.withInitialFen(game) flatMap gameFull
 

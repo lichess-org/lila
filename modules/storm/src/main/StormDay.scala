@@ -1,7 +1,5 @@
 package lila.storm
 
-import scala.concurrent.ExecutionContext
-
 import lila.common.config.MaxPerPage
 import lila.common.{ Bus, LichessDay }
 import lila.common.paginator.Paginator
@@ -51,7 +49,7 @@ object StormDay:
   def empty(id: Id) = StormDay(id, 0, 0, 0, 0, 0, IntRating(0), 0)
 
 final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, sign: StormSign)(using
-    ExecutionContext
+    Executor
 ):
 
   import StormDay.*

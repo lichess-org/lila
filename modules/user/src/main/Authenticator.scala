@@ -10,7 +10,7 @@ import lila.user.User.{ BSONFields as F, ClearPassword, PasswordAndToken }
 final class Authenticator(
     passHasher: PasswordHasher,
     userRepo: UserRepo
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
   import Authenticator.{ *, given }
 
   def passEnc(p: ClearPassword): HashedPassword = passHasher.hash(p)

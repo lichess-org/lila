@@ -14,7 +14,7 @@ import lila.user.User
 final class JsonView(
     gameJson: GameJson,
     gameRepo: GameRepo
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import JsonView.{ *, given }
 

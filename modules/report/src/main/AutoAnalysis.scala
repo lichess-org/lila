@@ -9,7 +9,7 @@ final class AutoAnalysis(
     gameRepo: GameRepo,
     fishnet: lila.hub.actors.Fishnet
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

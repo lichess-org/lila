@@ -21,7 +21,7 @@ final private class Rematcher(
     messenger: Messenger,
     onStart: OnStart,
     rematches: Rematches
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private given play.api.i18n.Lang = defaultLang
 

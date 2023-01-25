@@ -23,7 +23,7 @@ final class Env(
     swissApi: lila.swiss.SwissApi,
     lightUserApi: lila.user.LightUserApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

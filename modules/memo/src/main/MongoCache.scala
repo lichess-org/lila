@@ -17,7 +17,7 @@ final class MongoCache[K, V: BSONHandler] private (
     keyToString: K => String,
     build: MongoCache.LoaderWrapper[K, V] => AsyncLoadingCache[K, V],
     val coll: Coll
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private case class Entry(_id: String, v: V, e: DateTime)
 
@@ -61,7 +61,7 @@ object MongoCache:
       config: MemoConfig,
       cacheApi: CacheApi,
       mode: play.api.Mode
-  )(using scala.concurrent.ExecutionContext):
+  )(using Executor):
 
     private val coll = db(config.cacheColl)
 

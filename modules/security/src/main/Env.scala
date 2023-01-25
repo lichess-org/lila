@@ -29,7 +29,7 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     db: lila.db.Db
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: Scheduler,
     mode: play.api.Mode

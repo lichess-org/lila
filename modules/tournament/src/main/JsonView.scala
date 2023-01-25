@@ -7,7 +7,6 @@ import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.common.Json.given
 import lila.common.{ GreatPlayer, LightUser, Preload, Uptime }
@@ -33,7 +32,7 @@ final class JsonView(
     standingApi: TournamentStandingApi,
     pause: Pause,
     reloadEndpointSetting: SettingStore[String] @@ TournamentReloadEndpoint
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import JsonView.{ *, given }
   import Condition.JSONHandlers.given
@@ -508,7 +507,7 @@ object JsonView:
       sheets: Map[UserId, arena.Sheet],
       streakable: Boolean,
       withScores: Boolean
-  )(rankedPlayer: RankedPlayer)(using ec: ExecutionContext): Fu[JsObject] =
+  )(rankedPlayer: RankedPlayer)(using Executor): Fu[JsObject] =
     playerJson(
       lightUserApi,
       sheets get rankedPlayer.player.userId,
@@ -523,7 +522,7 @@ object JsonView:
       rankedPlayer: RankedPlayer,
       streakable: Boolean,
       withScores: Boolean
-  )(using ExecutionContext): Fu[JsObject] =
+  )(using Executor): Fu[JsObject] =
     val p = rankedPlayer.player
     lightUserApi asyncFallback p.userId map { light =>
       Json

@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -41,7 +40,7 @@ object UblogTopic extends OpaqueString[UblogTopic]:
 
   case class WithPosts(topic: UblogTopic, posts: List[UblogPost.PreviewPost], nb: Int)
 
-final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using ec: ExecutionContext):
+final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor):
 
   import UblogBsonHandlers.{ *, given }
 

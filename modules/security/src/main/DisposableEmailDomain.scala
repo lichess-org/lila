@@ -9,7 +9,7 @@ final class DisposableEmailDomain(
     ws: StandaloneWSClient,
     providerUrl: String,
     checkMailBlocked: () => Fu[List[String]]
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import DisposableEmailDomain.*
 

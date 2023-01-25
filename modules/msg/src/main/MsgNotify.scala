@@ -13,7 +13,7 @@ final private class MsgNotify(
     colls: MsgColls,
     notifyApi: lila.notify.NotifyApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

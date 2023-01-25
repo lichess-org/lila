@@ -40,7 +40,7 @@ final private class StudyUserTopicRepo(val coll: AsyncColl)
 
 final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTopicRepo, studyRepo: StudyRepo)(
     implicit
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

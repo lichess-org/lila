@@ -6,16 +6,13 @@ import chess.Color
 import chess.format.{ BoardFen, Fen }
 import chess.{ Centis, Replay }
 import play.api.libs.json.*
-import scala.concurrent.ExecutionContext
 
 import lila.common.Bus
 import lila.common.Json.given
 import lila.game.actorApi.{ FinishGame, MoveGameEvent }
 import lila.game.{ Game, GameRepo }
 
-final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(using
-    ExecutionContext
-):
+final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(using Executor):
 
   def apply(game: Game, delayMoves: Boolean): Source[JsObject, ?] =
     Source futureSource {

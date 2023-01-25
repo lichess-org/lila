@@ -31,7 +31,7 @@ final class Env(
     net: lila.common.config.NetConfig,
     cacheApi: lila.memo.CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,
     mode: play.api.Mode

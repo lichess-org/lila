@@ -66,7 +66,7 @@ object LiveStreams:
 final class LiveStreamApi(
     cacheApi: lila.memo.CacheApi,
     streaming: Streaming
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private val cache = cacheApi.unit[LiveStreams] {
     _.refreshAfterWrite(2 seconds)

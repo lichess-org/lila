@@ -19,7 +19,7 @@ final private class Finisher(
     crosstableApi: lila.game.CrosstableApi,
     getSocketStatus: Game => Fu[actorApi.SocketStatus],
     recentTvGames: RecentTvGames
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private given play.api.i18n.Lang = defaultLang
 

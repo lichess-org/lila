@@ -2,7 +2,6 @@ package lila.puzzle
 
 import chess.Color
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
@@ -13,7 +12,7 @@ final class PuzzleAnon(
     cacheApi: CacheApi,
     pathApi: PuzzlePathApi,
     countApi: PuzzleCountApi
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 

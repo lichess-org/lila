@@ -3,14 +3,13 @@ package lila.tournament
 import akka.actor.ActorSystem
 import org.joda.time.DateTime
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.common.Bus
 import lila.common.LilaScheduler
 import lila.hub.actorApi.push.TourSoon
 
 final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCache)(using
-    ExecutionContext,
+    Executor,
     akka.actor.Scheduler
 ):
 

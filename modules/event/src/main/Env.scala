@@ -10,7 +10,7 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private lazy val eventColl = db(appConfig.get[CollName]("event.collection.event"))
 

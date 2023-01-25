@@ -5,7 +5,7 @@ import scala.concurrent.duration.*
 import scala.util.matching.Regex
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.{ IpAddress, Strings }
+import lila.common.{ IpAddress, IpAddressStr, Strings }
 import lila.game.Game
 import lila.memo.SettingStore
 import lila.user.{ User, UserRepo }
@@ -18,9 +18,10 @@ final class SelfReport(
     proxyRepo: GameProxyRepo,
     endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
-)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
+)(using ec: Executor, scheduler: akka.actor.Scheduler):
 
-  private val onceEvery = lila.memo.OnceEvery[UserId](1 hour)
+  private val logOnceEvery     = lila.memo.OnceEvery[IpAddressStr](1 minute)
+  private val monitorOnceEvery = lila.memo.OnceEvery[UserId](1 hour)
 
   def apply(
       userId: Option[UserId],
@@ -35,10 +36,11 @@ final class SelfReport(
       // }
       def doLog(): Unit =
         if (name != "ceval")
-          lila.log("cheat").branch("jslog").info {
-            s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
-          }
-          user.filter(u => onceEvery(u.id)) foreach { u =>
+          if logOnceEvery(ip.str) then
+            lila.log("cheat").branch("jslog").info {
+              s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
+            }
+          user.filter(u => monitorOnceEvery(u.id)) foreach { u =>
             lila.mon.cheat.selfReport(name, userId.isDefined).increment()
             ircApi.selfReport(
               typ = name,

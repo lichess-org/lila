@@ -1,7 +1,6 @@
 package lila.storm
 
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -27,7 +26,7 @@ object StormHigh:
     case class Month(previous: Int)   extends NewHigh("month")
     case class AllTime(previous: Int) extends NewHigh("allTime")
 
-final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using ctx: ExecutionContext):
+final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   import StormBsonHandlers.given
   import StormHigh.NewHigh

@@ -16,7 +16,7 @@ final class CoachApi(
     picfitApi: PicfitApi,
     cacheApi: lila.memo.CacheApi,
     notifyApi: NotifyApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 

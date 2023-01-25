@@ -22,7 +22,7 @@ final class RelationApi(
     cacheApi: lila.memo.CacheApi,
     userRepo: lila.user.UserRepo,
     config: RelationConfig
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import RelationRepo.makeId
 

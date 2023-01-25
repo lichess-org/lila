@@ -6,7 +6,6 @@ import com.softwaremill.tagging.*
 import com.typesafe.config.Config
 import play.api.Configuration
 import reactivemongo.api.*
-import scala.concurrent.ExecutionContext
 
 import lila.common.Lilakka
 
@@ -17,7 +16,7 @@ trait YoloDb
 final class Env(
     appConfig: Configuration,
     shutdown: CoordinatedShutdown
-)(using ec: ExecutionContext):
+)(using Executor):
 
   private val driver = new AsyncDriver(appConfig.get[Config]("mongodb").some)
 

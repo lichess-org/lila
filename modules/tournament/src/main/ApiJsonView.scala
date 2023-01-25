@@ -7,7 +7,7 @@ import lila.common.Json.given
 import lila.rating.PerfType
 import lila.user.LightUserApi
 
-final class ApiJsonView(lightUserApi: LightUserApi)(using scala.concurrent.ExecutionContext):
+final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
 
   import JsonView.{ *, given }
   import Condition.JSONHandlers.given

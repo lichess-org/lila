@@ -6,7 +6,7 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
 import scala.concurrent.duration.*
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.Future
 
 import lila.common.config.*
 import lila.common.{ Bus, Strings, UserIds }
@@ -90,7 +90,7 @@ final class Env(
 )(using
     val system: ActorSystem,
     val scheduler: akka.actor.Scheduler,
-    val executionContext: ExecutionContext,
+    val executor: Executor,
     val mode: play.api.Mode
 ):
 
@@ -168,7 +168,7 @@ final class EnvBoot(
     cookieBacker: SessionCookieBaker,
     shutdown: CoordinatedShutdown
 )(using
-    ec: ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     ws: StandaloneWSClient,
     materializer: akka.stream.Materializer

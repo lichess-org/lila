@@ -18,7 +18,7 @@ final private class CheckMail(
     config: SecurityConfig.CheckMail,
     mongoCache: lila.memo.MongoCache.Api
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

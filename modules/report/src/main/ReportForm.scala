@@ -13,7 +13,7 @@ final private[report] class ReportForm(
     lightUserAsync: LightUser.Getter,
     val captcher: lila.hub.actors.Captcher,
     domain: config.NetDomain
-)(using ec: scala.concurrent.ExecutionContext)
+)(using Executor)
     extends lila.hub.CaptchedForm:
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink") { setup =>
     if (setup.reason != "cheat" || ReportForm.gameLinkRegex(domain).findFirstIn(setup.text).isDefined)

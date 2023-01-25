@@ -14,7 +14,7 @@ import cats.Show
 import cats.syntax.show.*
 
 final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(using
-    scala.concurrent.ExecutionContext
+    Executor
 ):
   private val dedupMsg = lila.memo.OnceEvery.hashCode[ZulipMessage](15 minutes)
 

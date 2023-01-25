@@ -17,7 +17,7 @@ final class SecurityForm(
     emailValidator: EmailAddressValidator,
     lameNameCheck: LameNameCheck,
     hcaptcha: Hcaptcha
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import SecurityForm.*
 

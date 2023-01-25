@@ -6,7 +6,7 @@ import org.joda.time.Days
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class PuzzleTrustApi(colls: PuzzleColls)(using scala.concurrent.ExecutionContext):
+final private class PuzzleTrustApi(colls: PuzzleColls)(using Executor):
 
   import BsonHandlers.*
 

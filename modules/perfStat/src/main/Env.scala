@@ -16,7 +16,7 @@ final class Env(
     rankingApi: lila.user.RankingApi,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

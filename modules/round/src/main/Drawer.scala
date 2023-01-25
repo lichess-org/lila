@@ -13,7 +13,7 @@ final private[round] class Drawer(
     finisher: Finisher,
     prefApi: PrefApi,
     isBotSync: lila.common.LightUser.IsBotSync
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private given Lang = defaultLang
 

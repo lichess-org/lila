@@ -22,7 +22,7 @@ final class AssessApi(
     fishnet: lila.hub.actors.Fishnet,
     gameRepo: lila.game.GameRepo,
     analysisRepo: AnalysisRepo
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private def bottomDate = DateTime.now.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
 

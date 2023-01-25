@@ -6,7 +6,7 @@ import org.lichess.compression.game.Encoder
 
 import lila.game.{ Game, GameRepo }
 
-final class Importer(gameRepo: GameRepo)(using scala.concurrent.ExecutionContext):
+final class Importer(gameRepo: GameRepo)(using Executor):
 
   def apply(data: ImportData, user: Option[UserId], forceId: Option[GameId] = None): Fu[Game] =
 

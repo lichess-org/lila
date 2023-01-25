@@ -9,7 +9,7 @@ import scala.concurrent.Promise
  * Sequential like an actor, but for async functions,
  * and using an atomic backend instead of akka actor.
  */
-abstract class AsyncActor(using ec: scala.concurrent.ExecutionContext) extends lila.common.Tellable:
+abstract class AsyncActor(using Executor) extends lila.common.Tellable:
 
   import AsyncActor.*
 

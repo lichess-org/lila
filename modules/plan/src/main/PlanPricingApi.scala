@@ -2,7 +2,6 @@ package lila.plan
 
 import cats.implicits.*
 import java.util.{ Currency, Locale }
-import scala.concurrent.ExecutionContext
 
 case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetime: Money):
 
@@ -14,7 +13,7 @@ case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetim
   def valid(money: Money): Boolean       = money.currency == currency && valid(money.amount)
   def valid(amount: BigDecimal): Boolean = min.amount <= amount && amount <= max.amount
 
-final class PlanPricingApi(currencyApi: CurrencyApi)(using ec: ExecutionContext):
+final class PlanPricingApi(currencyApi: CurrencyApi)(using Executor):
 
   import currencyApi.{ EUR, USD }
 

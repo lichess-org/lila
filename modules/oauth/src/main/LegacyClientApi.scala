@@ -5,7 +5,7 @@ import com.roundeights.hasher.Algo
 
 import lila.db.dsl.{ *, given }
 
-final class LegacyClientApi(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final class LegacyClientApi(val coll: Coll)(using Executor):
   import LegacyClientApi.{ BSONFields as F, * }
 
   def apply(clientId: Protocol.ClientId, redirectUri: Protocol.RedirectUri): Fu[Option[HashedClientSecret]] =

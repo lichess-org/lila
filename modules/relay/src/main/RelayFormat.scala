@@ -12,7 +12,7 @@ import lila.memo.CacheApi
 import lila.memo.CacheApi.*
 
 final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   import RelayFormat.*

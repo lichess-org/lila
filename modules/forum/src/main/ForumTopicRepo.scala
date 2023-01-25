@@ -7,7 +7,7 @@ import lila.user.User
 import scala.concurrent.duration.*
 
 final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
-    scala.concurrent.ExecutionContext
+    Executor
 ):
 
   import BSONHandlers.given

@@ -26,7 +26,7 @@ final private class ForumTopicApi(
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BSONHandlers.given
 

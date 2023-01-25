@@ -14,7 +14,7 @@ final class UserGameApi(
     bookmarkApi: lila.bookmark.BookmarkApi,
     lightUser: lila.user.LightUserApi,
     getTournamentName: lila.tournament.GetTourName
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import lila.game.JsonView.given
   import LightUser.lightUserWrites

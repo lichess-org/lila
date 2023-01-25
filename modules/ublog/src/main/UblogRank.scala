@@ -7,7 +7,6 @@ import org.joda.time.DateTime
 import play.api.i18n.Lang
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
@@ -17,7 +16,7 @@ import lila.user.User
 final class UblogRank(
     colls: UblogColls,
     timeline: lila.hub.actors.Timeline
-)(using ec: ExecutionContext, mat: akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer):
 
   import UblogBsonHandlers.given
 

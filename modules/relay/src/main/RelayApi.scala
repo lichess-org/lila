@@ -27,7 +27,7 @@ final class RelayApi(
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     leaderboard: RelayLeaderboardApi
-)(using ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer):
+)(using ec: Executor, mat: akka.stream.Materializer):
 
   import BSONHandlers.{ readRoundWithTour, given }
   import lila.study.BSONHandlers.given

@@ -27,6 +27,7 @@ object Bearer extends OpaqueString[Bearer]:
 sealed trait IpAddress:
   def value: String
   def inet: Option[InetAddress]
+  def str: IpAddressStr = IpAddressStr(value)
   override def toString = value
 
 case class IpV4Address(value: String) extends IpAddress:
@@ -41,6 +42,9 @@ object IpAddress:
   }
   def from(str: String): Option[IpAddress] = parse(str).toOption
   def unchecked(str: String): IpAddress    = parse(str).get
+
+opaque type IpAddressStr = String
+object IpAddressStr extends OpaqueString[IpAddressStr]
 
 opaque type Domain = String
 object Domain extends OpaqueString[Domain]:

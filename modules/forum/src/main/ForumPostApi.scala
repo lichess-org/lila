@@ -24,7 +24,7 @@ final class ForumPostApi(
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BSONHandlers.given
 

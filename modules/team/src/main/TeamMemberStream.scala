@@ -14,7 +14,7 @@ final class TeamMemberStream(
     memberRepo: MemberRepo,
     userRepo: UserRepo
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mat: akka.stream.Materializer
 ):
 

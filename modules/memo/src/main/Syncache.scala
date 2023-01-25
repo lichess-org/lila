@@ -19,7 +19,7 @@ final class Syncache[K, V](
     default: K => V,
     strategy: Syncache.Strategy,
     expireAfter: Syncache.ExpireAfter
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Syncache.*
 

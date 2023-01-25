@@ -17,7 +17,7 @@ import lila.db.dsl.{ *, given }
 final class StudyMultiBoard(
     chapterRepo: ChapterRepo,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private val maxPerPage = MaxPerPage(9)
 

@@ -4,7 +4,6 @@ import chess.StartingPosition
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants.*
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 import scala.util.chaining.*
 
 import lila.common.{ LilaScheduler, LilaStream }
@@ -12,7 +11,7 @@ import lila.common.{ LilaScheduler, LilaStream }
 final private class TournamentScheduler(
     api: TournamentApi,
     tournamentRepo: TournamentRepo
-)(using ec: ExecutionContext, scheduler: akka.actor.Scheduler, mat: akka.stream.Materializer):
+)(using ec: Executor, scheduler: akka.actor.Scheduler, mat: akka.stream.Materializer):
 
   import Schedule.Freq.*
   import Schedule.Speed.*

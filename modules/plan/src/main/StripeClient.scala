@@ -16,7 +16,7 @@ import play.api.ConfigLoader
 final private class StripeClient(
     ws: StandaloneWSClient,
     config: StripeClient.Config
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import StripeClient.*
   import JsonHandlers.given

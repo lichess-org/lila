@@ -16,7 +16,7 @@ final private[tv] class TvSyncActor(
     recentTvGames: lila.round.RecentTvGames,
     gameProxyRepo: lila.round.GameProxyRepo,
     rematches: lila.game.Rematches
-)(using ec: scala.concurrent.ExecutionContext)
+)(using Executor)
     extends SyncActor:
 
   import TvSyncActor.*

@@ -22,7 +22,7 @@ final class EventStream(
     rematches: Rematches,
     lightUserApi: LightUserApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: akka.actor.Scheduler
 ):

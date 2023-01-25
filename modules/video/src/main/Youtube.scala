@@ -15,7 +15,7 @@ final private[video] class Youtube(
     apiKey: Secret,
     max: Max,
     api: VideoApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Youtube.*
 

@@ -10,7 +10,7 @@ final private class PuzzleCountApi(
     colls: PuzzleColls,
     cacheApi: CacheApi,
     openingApi: PuzzleOpeningApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def countsByTheme: Fu[Map[PuzzleTheme.Key, Int]] =
     byThemeCache get {}

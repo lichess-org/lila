@@ -23,7 +23,7 @@ final class MsgApi(
     security: MsgSecurity,
     shutup: lila.hub.actors.Shutup,
     spam: lila.security.Spam
-)(using scala.concurrent.ExecutionContext, akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer):
 
   val msgsPerPage = MaxPerPage(100)
   val inboxSize   = 50
@@ -121,7 +121,11 @@ final class MsgApi(
           case _: MsgSecurity.Reject => fuccess(PostResult.Bounced)
           case send: MsgSecurity.Send =>
             val msg =
-              if (verdict == MsgSecurity.Spam) msgPre.copy(text = spam.replace(msgPre.text)) else msgPre
+              if verdict == MsgSecurity.Spam
+              then {
+                logger.branch("spam").warn(s"$orig->$dest $msgPre.text")
+                msgPre.copy(text = spam.replace(msgPre.text))
+              } else msgPre
             val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
             val threadWrite =
               if (isNew)

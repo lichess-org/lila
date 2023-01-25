@@ -2,7 +2,6 @@ package lila.tutor
 
 import com.softwaremill.tagging.*
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.common.config
 import lila.fishnet.{ Analyser, FishnetAwaiter, Work }
@@ -17,7 +16,7 @@ final private class TutorFishnet(
     analyser: Analyser,
     awaiter: FishnetAwaiter,
     nbAnalysis: SettingStore[Int] @@ NbAnalysis
-)(using ec: ExecutionContext):
+)(using Executor):
 
   def maxToAnalyse       = config.Max(nbAnalysis.get())
   def maxGamesToConsider = config.Max(maxToAnalyse.value * 2)

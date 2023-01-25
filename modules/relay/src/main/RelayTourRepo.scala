@@ -6,7 +6,7 @@ import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 
-final private class RelayTourRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final private class RelayTourRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
 

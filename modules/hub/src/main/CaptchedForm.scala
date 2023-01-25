@@ -24,7 +24,7 @@ trait CaptchedForm:
   def getCaptcha(id: GameId): Fu[Captcha] =
     (captcher.actor ? GetCaptcha(id)).mapTo[Captcha]
 
-  def withCaptcha[A](form: Form[A])(using scala.concurrent.ExecutionContext): Fu[(Form[A], Captcha)] =
+  def withCaptcha[A](form: Form[A])(using Executor): Fu[(Form[A], Captcha)] =
     anyCaptcha map (form -> _)
 
   import scala.language.reflectiveCalls

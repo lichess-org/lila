@@ -29,7 +29,7 @@ final class TeamApi(
     indexer: lila.hub.actors.TeamSearch,
     modLog: ModlogApi,
     chatApi: ChatApi
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BSONHandlers.given
 

@@ -14,7 +14,7 @@ final class TournamentCache(
     tournamentRepo: TournamentRepo,
     cacheApi: CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   object tourCache:

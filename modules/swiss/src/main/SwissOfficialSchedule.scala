@@ -1,13 +1,12 @@
 package lila.swiss
 
 import org.joda.time.DateTime
-import scala.concurrent.ExecutionContext
 import chess.Clock.{ LimitMinutes, LimitSeconds, IncrementSeconds }
 
 import lila.db.dsl.{ *, given }
 
 final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(using
-    ec: ExecutionContext
+    Executor
 ):
   import SwissOfficialSchedule.*
 

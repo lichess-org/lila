@@ -8,7 +8,7 @@ final class Tv(
     gameRepo: GameRepo,
     trouper: SyncActor,
     gameProxyRepo: lila.round.GameProxyRepo
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Tv.*
   import ChannelSyncActor.*

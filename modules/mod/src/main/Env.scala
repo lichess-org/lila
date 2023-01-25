@@ -34,7 +34,7 @@ final class Env(
     ircApi: lila.irc.IrcApi,
     msgApi: lila.msg.MsgApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: Scheduler
 ):

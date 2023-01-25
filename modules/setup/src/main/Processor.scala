@@ -12,7 +12,7 @@ final private[setup] class Processor(
     gameRepo: GameRepo,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     onStart: lila.round.OnStart
-)(using ec: scala.concurrent.ExecutionContext, idGenerator: IdGenerator):
+)(using ec: Executor, idGenerator: IdGenerator):
 
   def ai(config: AiConfig)(using ctx: UserContext): Fu[Pov] = for {
     pov <- config pov ctx.me

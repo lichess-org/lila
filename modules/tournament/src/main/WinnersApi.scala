@@ -59,7 +59,7 @@ final class WinnersApi(
     tournamentRepo: TournamentRepo,
     mongoCache: lila.memo.MongoCache.Api,
     scheduler: akka.actor.Scheduler
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BSONHandlers.given
   import reactivemongo.api.bson.*

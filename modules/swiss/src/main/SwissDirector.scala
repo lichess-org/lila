@@ -15,7 +15,7 @@ final private class SwissDirector(
     gameRepo: lila.game.GameRepo,
     onStart: GameId => Unit
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     idGenerator: lila.game.IdGenerator
 ):
   import BsonHandlers.given

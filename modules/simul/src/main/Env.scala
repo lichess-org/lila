@@ -31,7 +31,7 @@ final class Env(
     proxyRepo: lila.round.GameProxyRepo,
     isOnline: lila.socket.IsOnline
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
 ):

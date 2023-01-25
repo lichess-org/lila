@@ -15,7 +15,7 @@ import play.api.ConfigLoader
 final class DetectLanguage(
     ws: StandaloneWSClient,
     config: DetectLanguage.Config
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import DetectLanguage.Detection
 

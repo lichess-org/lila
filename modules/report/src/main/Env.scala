@@ -33,7 +33,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: Scheduler
 ):

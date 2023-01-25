@@ -1,7 +1,6 @@
 package lila.api
 
 import cats.implicits.*
-import scala.concurrent.ExecutionContext
 
 import lila.chat.UserLine
 import lila.common.config.NetDomain
@@ -31,7 +30,7 @@ final private class LinkCheck(
     simulApi: SimulApi,
     swissApi: SwissApi,
     studyRepo: StudyRepo
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import LinkCheck.*
 

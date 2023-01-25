@@ -33,7 +33,7 @@ final class Env(
     db: lila.db.Db,
     net: lila.common.config.NetConfig
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

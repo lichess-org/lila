@@ -26,7 +26,7 @@ final class Env(
     msgApi: lila.msg.MsgApi,
     baseUrl: BaseUrl
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler,
     materializer: akka.stream.Materializer,

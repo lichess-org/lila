@@ -7,7 +7,7 @@ import chess.format.Uci
 import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
 import play.api.libs.json.*
 import scala.concurrent.duration.*
-import scala.concurrent.{ ExecutionContext, Promise }
+import scala.concurrent.Promise
 
 import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }
@@ -33,7 +33,7 @@ final class RoundSocket(
     goneWeightsFor: Game => Fu[(Float, Float)],
     shutdown: CoordinatedShutdown
 )(using
-    ec: ExecutionContext,
+    ec: Executor,
     system: ActorSystem
 ):
 
@@ -430,7 +430,7 @@ object RoundSocket:
       scheduler: Scheduler,
       duration: FiniteDuration,
       terminate: GameId => Unit
-  )(using ec: scala.concurrent.ExecutionContext):
+  )(using Executor):
     import java.util.concurrent.ConcurrentHashMap
 
     private[this] val terminations = ConcurrentHashMap[GameId, Cancellable](65536)

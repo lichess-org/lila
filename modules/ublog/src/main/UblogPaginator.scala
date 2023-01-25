@@ -2,7 +2,6 @@ package lila.ublog
 
 import scala.concurrent.duration.*
 import reactivemongo.api.*
-import scala.concurrent.ExecutionContext
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
@@ -17,7 +16,7 @@ final class UblogPaginator(
     colls: UblogColls,
     relationApi: lila.relation.RelationApi,
     cacheApi: lila.memo.CacheApi
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import UblogBsonHandlers.{ *, given }
   import UblogPost.PreviewPost

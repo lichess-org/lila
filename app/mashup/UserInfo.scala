@@ -11,7 +11,6 @@ import lila.relation.RelationApi
 import lila.security.Granter
 import lila.ublog.{ UblogApi, UblogPost }
 import lila.user.{ Trophy, TrophyApi, User }
-import scala.concurrent.ExecutionContext
 
 case class UserInfo(
     user: User,
@@ -118,7 +117,7 @@ object UserInfo:
       coachApi: lila.coach.CoachApi,
       insightShare: lila.insight.Share,
       playbanApi: lila.playban.PlaybanApi
-  )(using ExecutionContext):
+  )(using Executor):
     def apply(user: User, nbs: NbGames, ctx: Context, withUblog: Boolean = true): Fu[UserInfo] =
       ((ctx.noBlind && ctx.pref.showRatings) ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip
         relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip

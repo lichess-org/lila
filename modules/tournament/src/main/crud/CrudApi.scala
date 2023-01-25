@@ -55,7 +55,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       startsAt = DateTime.now plusDays 7
     )
 
-  def paginator(page: Int)(using ec: scala.concurrent.ExecutionContext) =
+  def paginator(page: Int)(using Executor) =
     Paginator[Tournament](
       adapter = new Adapter[Tournament](
         collection = tournamentRepo.coll,

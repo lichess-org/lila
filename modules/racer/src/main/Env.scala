@@ -20,7 +20,7 @@ final class Env(
     remoteSocketApi: lila.socket.RemoteSocket,
     db: lila.db.Db
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
 ):

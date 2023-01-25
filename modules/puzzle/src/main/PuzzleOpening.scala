@@ -59,7 +59,7 @@ final class PuzzleOpeningApi(
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
     mat: akka.stream.Materializer
 ):

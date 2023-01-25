@@ -28,7 +28,7 @@ final class KaladinApi(
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
+)(using Executor, akka.actor.Scheduler):
 
   import BSONHandlers.given
 

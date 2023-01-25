@@ -6,7 +6,7 @@ import reactivemongo.api.ReadPreference
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 
-final class NoteApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final class NoteApi(coll: Coll)(using Executor):
 
   def collName  = coll.name
   val noteField = "t"

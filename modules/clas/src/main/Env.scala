@@ -18,7 +18,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     baseUrl: BaseUrl
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,
     mode: play.api.Mode

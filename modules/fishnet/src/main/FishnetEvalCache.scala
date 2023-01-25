@@ -5,7 +5,7 @@ import JsonApi.Request.Evaluation
 
 final private class FishnetEvalCache(
     evalCacheApi: lila.evalCache.EvalCacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   val maxPlies = 15
 

@@ -21,7 +21,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     gameProxyRepo: lila.round.GameProxyRepo
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem
 ):
 

@@ -7,14 +7,13 @@ import com.softwaremill.tagging.*
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.ExecutionContext
 
 import lila.game.Game
 
 final private class OpeningExplorer(
     ws: StandaloneWSClient,
     explorerEndpoint: String @@ ExplorerEndpoint
-)(using ec: ExecutionContext):
+)(using Executor):
   import OpeningExplorer.*
 
   def stats(query: OpeningQuery): Fu[Option[Position]] =

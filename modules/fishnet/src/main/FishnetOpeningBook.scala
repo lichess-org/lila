@@ -7,7 +7,6 @@ import com.softwaremill.tagging.*
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
@@ -20,7 +19,7 @@ final private class FishnetOpeningBook(
     ws: StandaloneWSClient,
     depth: SettingStore[Int] @@ FishnetOpeningBook.Depth,
     config: FishnetConfig
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import FishnetOpeningBook.{ *, given }
 

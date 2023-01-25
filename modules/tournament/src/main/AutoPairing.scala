@@ -12,7 +12,7 @@ final class AutoPairing(
     duelStore: DuelStore,
     lightUserApi: lila.user.LightUserApi,
     onStart: GameId => Unit
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] =
     val clock                             = tour.clock.toClock

@@ -14,7 +14,7 @@ final class Cached(
     memberRepo: MemberRepo,
     requestRepo: RequestRepo,
     cacheApi: lila.memo.CacheApi
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   val nameCache = cacheApi.sync[TeamId, Option[TeamName]](
     name = "team.name",

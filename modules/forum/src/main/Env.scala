@@ -40,7 +40,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer
 ):

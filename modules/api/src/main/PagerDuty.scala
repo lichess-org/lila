@@ -9,7 +9,7 @@ import play.api.libs.ws.StandaloneWSClient
 import lila.hub.actorApi.Announce
 
 final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDuty)(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   def lilaRestart(date: DateTime): Funit =

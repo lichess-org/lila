@@ -13,7 +13,7 @@ final private class SwissSocket(
     chat: lila.chat.ChatApi,
     teamOf: SwissId => Fu[Option[TeamId]]
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode

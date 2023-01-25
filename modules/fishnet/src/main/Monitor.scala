@@ -7,7 +7,7 @@ final private class Monitor(
     repo: FishnetRepo,
     cacheApi: lila.memo.CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem
 ):
 

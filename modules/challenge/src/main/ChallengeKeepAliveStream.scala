@@ -7,7 +7,7 @@ import scala.concurrent.duration.*
 import lila.common.Bus
 
 final class ChallengeKeepAliveStream(api: ChallengeApi)(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
   def apply(challenge: Challenge, initialJson: JsObject): Source[JsValue, ?] =

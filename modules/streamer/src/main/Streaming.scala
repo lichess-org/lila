@@ -22,7 +22,7 @@ final private class Streaming(
     twitchApi: TwitchApi,
     ytApi: YouTubeApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

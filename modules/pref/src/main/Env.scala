@@ -8,6 +8,6 @@ import lila.common.config.CollName
 final class Env(
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   val api = new PrefApi(db(CollName("pref")), cacheApi)

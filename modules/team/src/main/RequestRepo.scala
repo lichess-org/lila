@@ -3,7 +3,7 @@ package lila.team
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class RequestRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
+final class RequestRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
 

@@ -20,7 +20,7 @@ final class NoteApi(
     userRepo: UserRepo,
     coll: Coll
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     ws: play.api.libs.ws.StandaloneWSClient
 ):
 

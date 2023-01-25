@@ -9,7 +9,7 @@ import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 
 final class ChapterRepo(val coll: AsyncColl)(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mat: akka.stream.Materializer
 ):
 

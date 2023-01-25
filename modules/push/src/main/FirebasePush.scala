@@ -20,7 +20,7 @@ final private class FirebasePush(
     ws: StandaloneWSClient,
     config: FirebasePush.Config
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

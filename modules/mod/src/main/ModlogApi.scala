@@ -13,7 +13,7 @@ import lila.security.Permission
 import lila.user.{ Holder, User, UserRepo }
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(using
-    scala.concurrent.ExecutionContext
+    Executor
 ):
 
   private def coll = repo.coll

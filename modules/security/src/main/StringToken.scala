@@ -20,7 +20,7 @@ final class StringToken[A](
     currentValueHashSize: Option[Int] = Some(6), // won't hash if None
     separator: Char = '|'
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     iso: Iso.StringIso[A]
 ):
 

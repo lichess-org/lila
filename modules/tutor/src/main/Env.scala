@@ -22,7 +22,7 @@ final class Env(
     cacheApi: CacheApi,
     lightUserApi: lila.user.LightUserApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode,
     mat: akka.stream.Materializer

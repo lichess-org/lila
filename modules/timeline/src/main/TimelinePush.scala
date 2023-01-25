@@ -9,7 +9,6 @@ import lila.hub.actorApi.timeline.Propagation
 import lila.hub.actorApi.timeline.{ Atom, Propagate, ReloadTimelines }
 import lila.security.Permission
 import lila.user.{ User, UserRepo }
-import scala.concurrent.ExecutionContext
 
 final private[timeline] class TimelinePush(
     relationApi: lila.relation.RelationApi,
@@ -20,7 +19,7 @@ final private[timeline] class TimelinePush(
     teamCache: lila.team.Cached
 ) extends Actor:
 
-  private given ExecutionContext = context.dispatcher
+  private given Executor = context.dispatcher
 
   private val dedup = lila.memo.OnceEvery.hashCode[Atom](10 minutes)
 

@@ -9,7 +9,6 @@ import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.base.LilaInvalid
 import lila.common.LilaScheduler
@@ -28,7 +27,7 @@ final private class RelayFetch(
     pgnDump: PgnDump,
     gameProxy: GameProxyRepo,
     ws: StandaloneWSClient
-)(using ExecutionContext, akka.actor.Scheduler):
+)(using Executor, akka.actor.Scheduler):
 
   LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(30 seconds)) {
     syncRelays(official = true)

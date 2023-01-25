@@ -11,7 +11,7 @@ final private class VideoSheet(
     ws: StandaloneWSClient,
     url: String,
     api: VideoApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import VideoSheet.*
 

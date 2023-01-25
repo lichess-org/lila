@@ -3,7 +3,6 @@ package lila.tutor
 import cats.data.NonEmptyList
 import chess.Color
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.analyse.AccuracyPercent
 import lila.common.Heapsort.given
@@ -119,7 +118,7 @@ private object TutorPerfReport:
   )
   private def hasClock(p: PerfType) = p != PerfType.Correspondence
 
-  def compute(users: NonEmptyList[TutorUser])(using InsightApi, ExecutionContext): Fu[List[TutorPerfReport]] =
+  def compute(users: NonEmptyList[TutorUser])(using InsightApi, Executor): Fu[List[TutorPerfReport]] =
     for
       accuracy        <- answerManyPerfs(accuracyQuestion, users)
       awareness       <- answerManyPerfs(awarenessQuestion, users)

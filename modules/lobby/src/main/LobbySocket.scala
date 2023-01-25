@@ -27,7 +27,7 @@ final class LobbySocket(
     relationApi: lila.relation.RelationApi,
     poolApi: PoolApi,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
+)(using ec: Executor, scheduler: akka.actor.Scheduler):
 
   import LobbySocket.*
   import Protocol.*

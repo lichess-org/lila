@@ -11,7 +11,7 @@ import lila.db.dsl.{ *, given }
 final class Firewall(
     coll: Coll,
     scheduler: akka.actor.Scheduler
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private var current: Set[String] = Set.empty
 

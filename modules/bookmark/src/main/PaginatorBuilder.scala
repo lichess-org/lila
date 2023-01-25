@@ -11,7 +11,7 @@ import lila.user.User
 final class PaginatorBuilder(
     coll: Coll,
     gameRepo: GameRepo
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def byUser(user: User, page: Int): Fu[Paginator[Game]] =
     Paginator(

@@ -1,10 +1,8 @@
 package lila.clas
 
-import scala.concurrent.ExecutionContext
-
 import lila.common.CuteNameGenerator
 
-final class NameGenerator(userRepo: lila.user.UserRepo)(using ExecutionContext):
+final class NameGenerator(userRepo: lila.user.UserRepo)(using Executor):
 
   def apply(maxSize: Int = 17, triesLeft: Int = 20): Fu[Option[UserName]] =
     CuteNameGenerator.make(maxSize) ?? { name =>

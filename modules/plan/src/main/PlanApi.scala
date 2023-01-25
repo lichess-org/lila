@@ -27,7 +27,7 @@ final class PlanApi(
     currencyApi: CurrencyApi,
     pricingApi: PlanPricingApi,
     ip2proxy: lila.security.Ip2Proxy
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
   import BsonHandlers.PatronHandlers.given

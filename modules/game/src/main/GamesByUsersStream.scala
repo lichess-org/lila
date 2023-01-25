@@ -14,7 +14,7 @@ import lila.db.dsl.given
 
 final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
     mat: akka.stream.Materializer,
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   private val chans = List("startGame", "finishGame")

@@ -9,7 +9,7 @@ final private class Expiration(
     userRepo: UserRepo,
     patronColl: Coll,
     notifier: PlanNotifier
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
   import BsonHandlers.PatronHandlers.given

@@ -10,7 +10,7 @@ import lila.memo.CacheApi.*
 final class SwissCache(
     mongo: SwissMongo,
     cacheApi: CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 

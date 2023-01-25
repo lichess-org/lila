@@ -13,7 +13,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     settingStore: lila.memo.SettingStore.Builder,
     db: lila.db.Db
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   lazy val originBlocklistSetting = settingStore[Strings](
     "oauthOriginBlocklist",

@@ -9,7 +9,7 @@ import lila.user.{ User, UserRepo }
 final private class EvalCacheTruster(
     cacheApi: lila.memo.CacheApi,
     userRepo: UserRepo
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import EvalCacheEntry.TrustedUser
 

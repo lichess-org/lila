@@ -1,7 +1,6 @@
 package lila.tutor
 
 import cats.data.NonEmptyList
-import scala.concurrent.ExecutionContext
 
 import lila.insight.*
 import lila.rating.PerfType
@@ -20,7 +19,7 @@ final private class TutorCustomInsight[A: TutorNumber](
   def apply(insightColl: Coll)(
       aggregateMine: Bdoc => AggregationPipeline[insightColl.PipelineOperator],
       aggregatePeer: Bdoc => AggregationPipeline[insightColl.PipelineOperator]
-  )(using ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
+  )(using Executor): Fu[TutorBuilder.Answers[PerfType]] =
     for
       mine <- insightColl
         .aggregateList(maxDocs = Int.MaxValue)(_ =>

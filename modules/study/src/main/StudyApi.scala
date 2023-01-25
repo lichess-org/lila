@@ -29,7 +29,7 @@ final class StudyApi(
     timeline: lila.hub.actors.Timeline,
     serverEvalRequester: ServerEval.Requester
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mat: akka.stream.Materializer
 ):
 

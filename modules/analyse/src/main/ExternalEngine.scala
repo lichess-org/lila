@@ -6,7 +6,6 @@ import com.roundeights.hasher.Algo
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.{ Json, OWrites }
-import scala.concurrent.ExecutionContext
 import ornicar.scalalib.{ SecureRandom, ThreadLocalRandom }
 
 import lila.common.Form.{ *, given }
@@ -88,7 +87,7 @@ object ExternalEngine:
       .add("officialStockfish" -> e.officialStockfish)
   }
 
-final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using ec: ExecutionContext):
+final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   private val userCache = cacheApi[UserId, List[ExternalEngine]](65_536, "externalEngine.user") {
     _.maximumSize(65_536).buildAsyncFuture(doFetchList)

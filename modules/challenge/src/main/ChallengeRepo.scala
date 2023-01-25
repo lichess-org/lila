@@ -8,7 +8,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final private class ChallengeRepo(colls: ChallengeColls)(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   import BSONHandlers.given

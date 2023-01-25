@@ -10,7 +10,7 @@ final class TournamentStatsApi(
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
     mongoCache: lila.memo.MongoCache.Api
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def apply(tournament: Tournament): Fu[Option[TournamentStats]] =
     tournament.isFinished ?? cache.get(tournament.id).dmap(some)

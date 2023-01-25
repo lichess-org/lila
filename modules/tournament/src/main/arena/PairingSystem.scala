@@ -9,7 +9,7 @@ final private[tournament] class PairingSystem(
     userRepo: UserRepo,
     colorHistoryApi: ColorHistoryApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     idGenerator: lila.game.IdGenerator
 ):
 
