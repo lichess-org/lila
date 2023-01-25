@@ -93,9 +93,9 @@ final private class YouTubeApi(
         bulk.element(
           q = $id(tuber.id),
           u = $doc(
-            if liveVid nonEmpty then
-              $set("youTube.liveVideoId" -> liveVid.get.videoId) ++ $unset("youTube.pubsubVideoId")
-            else $unset("youTube.liveVideoId", "youTube.pubsubVideoId")
+            liveVid match
+              case Some(v) => $set("youTube.liveVideoId" -> v.videoId) ++ $unset("youTube.pubsubVideoId")
+              case None    => $unset("youTube.liveVideoId", "youTube.pubsubVideoId")
           )
         )
       }
