@@ -20,15 +20,17 @@ final private class YouTubeApi(
     keyword: Stream.Keyword,
     cfg: StreamerConfig,
     net: NetConfig
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private var lastResults: List[YouTube.Stream] = List()
 
+  private case class Tuber(streamer: Streamer, youTube: Streamer.YouTube)
+
   def fetchStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] =
     val maxResults = 50
-    val tubers     = streamers.filter(_.youTube.isDefined)
+    val tubers     = streamers.flatMap { s => s.youTube.map(Tuber(s, _)) }
     val idPages = tubers
-      .flatMap(x => Seq(x.youTube.get.pubsubVideoId, x.youTube.get.liveVideoId).flatten)
+      .flatMap(tb => Seq(tb.youTube.pubsubVideoId, tb.youTube.liveVideoId).flatten)
       .distinct
       .grouped(maxResults)
 
@@ -46,7 +48,7 @@ final private class YouTubeApi(
             .map { rsp =>
               rsp.body[JsValue].validate[YouTube.Result] match
                 case JsSuccess(data, _) =>
-                  data.streams(keyword, tubers)
+                  data.streams(keyword, tubers.map(_.streamer))
                 case JsError(err) =>
                   logger.warn(s"youtube ${rsp.status} $err ${rsp.body[String].take(200)}")
                   Nil
@@ -85,13 +87,13 @@ final private class YouTubeApi(
   private def asFormBody(params: (String, String)*): String =
     s"${params.map(x => s"${x._1}=${java.net.URLEncoder.encode(x._2, "UTF-8")}").toList.mkString("&")}"
 
-  private def syncDb(tubers: List[Streamer], results: List[YouTube.Stream]): Funit =
+  private def syncDb(tubers: List[Tuber], results: List[YouTube.Stream]): Funit =
     val bulk = coll.update(ordered = false)
     tubers
       .map { tuber =>
-        val liveVid = results.find(_.channelId == tuber.youTube.get.channelId)
+        val liveVid = results.find(_.channelId == tuber.youTube.channelId)
         bulk.element(
-          q = $id(tuber.id),
+          q = $id(tuber.streamer.id),
           u = $doc(
             liveVid match
               case Some(v) => $set("youTube.liveVideoId" -> v.videoId) ++ $unset("youTube.pubsubVideoId")
