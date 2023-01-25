@@ -30,7 +30,8 @@ final class Env(
     userRepo: lila.user.UserRepo,
     subsRepo: lila.relation.SubscriptionRepo,
     prefApi: lila.pref.PrefApi,
-    db: lila.db.Db
+    db: lila.db.Db,
+    net: lila.common.config.NetConfig
 )(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
@@ -58,7 +59,8 @@ final class Env(
       text = "Max streamers on homepage".some
     )
 
-  lazy val api: StreamerApi = wire[StreamerApi]
+  lazy val ytApi: YouTubeApi = wire[YouTubeApi]
+  lazy val api: StreamerApi  = wire[StreamerApi]
 
   lazy val pager = wire[StreamerPager]
 
@@ -70,8 +72,8 @@ final class Env(
     isOnline = isOnline,
     keyword = config.keyword,
     alwaysFeatured = (() => alwaysFeaturedSetting.get()),
-    googleApiKey = config.googleApiKey,
-    twitchApi = twitchApi
+    twitchApi = twitchApi,
+    ytApi = ytApi
   )
 
   lazy val liveStreamApi = wire[LiveStreamApi]
@@ -84,4 +86,5 @@ final class Env(
 
   scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>
     api.autoDemoteFakes.unit
+    ytApi.subscribeAll // max lease is 10 days
   }

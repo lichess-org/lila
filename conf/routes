@@ -287,6 +287,9 @@ POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(
 GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
 GET   /api/streamer/featured           controllers.Streamer.featured
 GET   /api/streamer/live               controllers.Streamer.live
+ # /api/x indicates xml request payload (PubSubHubub)
+POST  /api/x/streamer/youtube-pubsub   controllers.Streamer.onYouTubeVideo
+GET   /api/x/streamer/youtube-pubsub   controllers.Streamer.youTubePubSubChallenge
 GET   /streamer/live                   controllers.Main.movedPermanently(to = "/api/streamer/live")
 GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create

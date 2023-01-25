@@ -49,8 +49,7 @@ object Stream:
         liveBroadcastContent: String,
         defaultAudioLanguage: Option[String]
     )
-    case class Id(videoId: String)
-    case class Item(id: Id, snippet: Snippet)
+    case class Item(id: String, snippet: Snippet)
     case class Result(items: List[Item]):
       def streams(keyword: Keyword, streamers: List[Streamer]): List[Stream] =
         items
@@ -63,7 +62,7 @@ object Stream:
               Stream(
                 item.snippet.channelId,
                 unescapeHtml(item.snippet.title),
-                item.id.videoId,
+                item.id,
                 _,
                 ~item.snippet.defaultAudioLanguage
               )
@@ -79,11 +78,8 @@ object Stream:
       def serviceName = "youTube"
 
     private given Reads[Snippet] = Json.reads
-    private given Reads[Id]      = Json.reads
     private given Reads[Item]    = Json.reads
     given Reads[Result]          = Json.reads
-
-    case class StreamsFetched(list: List[YouTube.Stream], at: DateTime)
 
   def toJson(stream: Stream) = Json.obj(
     "stream" -> Json.obj(

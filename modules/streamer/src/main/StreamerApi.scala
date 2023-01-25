@@ -16,7 +16,8 @@ final class StreamerApi(
     cacheApi: lila.memo.CacheApi,
     picfitApi: PicfitApi,
     notifyApi: lila.notify.NotifyApi,
-    subsRepo: lila.relation.SubscriptionRepo
+    subsRepo: lila.relation.SubscriptionRepo,
+    ytApi: YouTubeApi
 )(using ec: scala.concurrent.ExecutionContext):
 
   import BsonHandlers.given
@@ -84,40 +85,50 @@ final class StreamerApi(
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] =
     val streamer = data(prev, asMod)
-    coll.update.one($id(streamer.id), streamer) >>-
-      cache.listedIds.invalidateUnit() inject {
-        val modChange = Streamer.ModChange(
-          list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
-          tier = prev.approval.tier != streamer.approval.tier option streamer.approval.tier,
-          decline = !streamer.approval.granted && !streamer.approval.requested && prev.approval.requested
-        )
-        ~modChange.list ?? {
-          notifyApi.notifyOne(
-            streamer,
-            lila.notify.GenericLink(
-              url = "/streamer/edit",
-              title = "Listed on /streamer".some,
-              text = "Your streamer page is public".some,
-              icon = ""
-            )
-          ) >>- cache.candidateIds.invalidateUnit()
-        }
-        modChange
-      }
+    coll.update.one($id(streamer.id), streamer) >>- {
+      cache.listedIds.invalidateUnit()
+      streamer.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
+    } inject modChange(prev, streamer)
+
+  private def modChange(current: Streamer, prev: Streamer): Streamer.ModChange =
+    val list = prev.approval.granted != current.approval.granted option current.approval.granted
+    ~list ?? notifyApi.notifyOne(
+      current,
+      lila.notify.GenericLink(
+        url = "/streamer/edit",
+        title = "Listed on /streamer".some,
+        text = "Your streamer page is public".some,
+        icon = ""
+      )
+    )
+    Streamer.ModChange(
+      list = list,
+      tier = prev.approval.tier != current.approval.tier option current.approval.tier,
+      decline = !current.approval.granted && !current.approval.requested && prev.approval.requested
+    )
 
   def demote(userId: UserId): Funit =
-    coll.update
-      .one(
+    coll
+      .findAndUpdate(
         $id(userId),
-        $set(
-          "approval.requested" -> false,
-          "approval.granted"   -> false
-        )
+        $set("approval.requested" -> false, "approval.granted" -> false),
+        fetchNewObject = true
       )
-      .void
+      .map { doc =>
+        for {
+          streamer <- doc.value
+          tuber    <- streamer.getAsOpt[Streamer.YouTube]("youTube")
+        } yield ytApi.channelSubscribe(tuber.channelId, false)
+      }
 
   def delete(user: User): Funit =
-    coll.delete.one($id(user.id)).void
+    coll
+      .find($id(user.id))
+      .one[Streamer]
+      .map(_.foreach { s =>
+        s.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, false))
+        coll.delete.one($id(user.id)).void
+      })
 
   def create(u: User): Funit =
     coll.insert.one(Streamer make u).void.recover(lila.db.ignoreDuplicateKey)
