@@ -41,7 +41,7 @@ ${trans.common_orPaste.txt()}"""),
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener read token flatMap { _ ?? userRepo.enabledById } map {
+    tokener read token flatMapz userRepo.enabledById map {
       _.filter(_.canFullyLogin)
     }
 

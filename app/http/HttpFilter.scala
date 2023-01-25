@@ -6,7 +6,7 @@ import play.api.mvc.*
 
 import lila.common.HTTPRequest
 
-final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter:
+final class HttpFilter(env: Env)(using val mat: Materializer) extends Filter:
 
   private val httpMon     = lila.mon.http
   private val net         = env.net

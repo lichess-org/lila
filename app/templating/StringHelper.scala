@@ -11,14 +11,14 @@ trait StringHelper { self: I18nHelper with NumberHelper =>
 
   def pluralize(s: String, n: Int) = s"$n $s${if (n != 1) "s" else ""}"
 
-  def pluralizeLocalize(s: String, n: Int)(using lang: Lang) = s"${n.localize} $s${if (n != 1) "s" else ""}"
+  def pluralizeLocalize(s: String, n: Int)(using Lang) = s"${n.localize} $s${if (n != 1) "s" else ""}"
 
   def showNumber(n: Int): String = if (n > 0) s"+$n" else n.toString
 
   private val NumberFirstRegex = """(\d++)\s(.+)""".r
   private val NumberLastRegex  = """\s(\d++)$""".r.unanchored
 
-  def splitNumber(s: Frag)(using lang: Lang): Frag =
+  def splitNumber(s: Frag)(using Lang): Frag =
     val rendered = s.render
     rendered match
       case NumberFirstRegex(number, html) =>

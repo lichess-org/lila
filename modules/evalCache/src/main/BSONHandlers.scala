@@ -12,7 +12,7 @@ private object BSONHandlers:
 
   import EvalCacheEntry.*
 
-  given BSONHandler[NonEmptyList[Pv]] = new BSONHandler[NonEmptyList[Pv]]:
+  given BSONHandler[NonEmptyList[Pv]] = new:
     private def scoreWrite(s: Score): String = s.value.fold(_.value.toString, m => s"#${m.value}")
     private def scoreRead(str: String): Option[Score] =
       if (str startsWith "#") str.drop(1).toIntOption map { m =>

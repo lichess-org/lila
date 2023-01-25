@@ -105,8 +105,8 @@ final class Auth(
     OpenBody { implicit ctx =>
       NoCrawlers {
         Firewall {
-          def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
-          implicit val req            = ctx.body
+          def redirectTo(url: String)   = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
+          given play.api.mvc.Request[?] = ctx.body
           val referrer = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers)
           api.usernameOrEmailForm
             .bindFromRequest()
@@ -330,16 +330,14 @@ final class Auth(
       lila.mon.http.fingerPrint.record(ms)
       api
         .setFingerPrint(ctx.req, FingerPrint(fp))
-        .logFailure(lila log "fp", _ => s"${HTTPRequest print ctx.req} $fp") flatMap {
-        _ ?? { hash =>
-          !me.lame ?? (for {
-            otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filter(me.id.!=))
-            _ <- (otherIds.sizeIs >= 2) ?? env.user.repo.countLameOrTroll(otherIds).flatMap {
-              case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoAltPrintReport(me.id)
-              case _                                        => funit
-            }
-          } yield ())
-        }
+        .logFailure(lila log "fp", _ => s"${HTTPRequest print ctx.req} $fp") flatMapz { hash =>
+        !me.lame ?? (for
+          otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filter(me.id.!=))
+          _ <- (otherIds.sizeIs >= 2) ?? env.user.repo.countLameOrTroll(otherIds).flatMap {
+            case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoAltPrintReport(me.id)
+            case _                                        => funit
+          }
+        yield ())
       } inject NoContent
     }
 
@@ -415,8 +413,8 @@ final class Auth(
           } { data =>
             HasherRateLimit(user.id, ctx.req) { _ =>
               env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
-                env.user.repo.setEmailConfirmed(user.id).flatMap {
-                  _ ?? { welcome(user, _, sendWelcomeEmail = false) }
+                env.user.repo.setEmailConfirmed(user.id).flatMapz {
+                  welcome(user, _, sendWelcomeEmail = false)
                 } >>
                 env.user.repo.disableTwoFactor(user.id) >>
                 env.security.store.closeAllSessionsOf(user.id) >>

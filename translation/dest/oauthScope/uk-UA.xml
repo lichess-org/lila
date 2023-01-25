@@ -17,6 +17,7 @@
   <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Переглядати інформацію про приватні студії та трансляції</string>
   <string name="studyWrite">Створювати, поновлювати та видаляти студії й трансляції</string>
   <string name="tournamentWrite">Створювати, поновлювати й брати участь у турнірах</string>
+  <string name="racerWrite">Створювати та приєднуватись до пазлових перегонів</string>
   <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Переглядати активність по задачах</string>
   <string name="teamRead">Переглядати інформацію приватних команд</string>
   <string name="teamWrite">Приєднуватися та покидати команди</string>
@@ -26,6 +27,8 @@
   <string name="msgWrite">Надсилати приватні повідомлення іншим гравцям</string>
   <string name="boardPlay">Грати ігри з API дошкою</string>
   <string name="botPlay">Грати ігри з API ботом</string>
+  <string name="engineRead">Переглядати та використовувати ваші зовнішні рушії</string>
+  <string name="engineWrite">Створювати та оновлювати зовнішні рушії</string>
   <string name="webLogin">Створювати автентифіковані сесії на вебсайті (надає повний доступ!)</string>
   <string name="webMod">Використовувати інструменти модерації (в рамках ваших дозволів)</string>
 </resources>

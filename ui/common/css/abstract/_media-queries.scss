@@ -7,13 +7,13 @@ $mq-medium: min-width 980px;
 $mq-large: min-width 1120px;
 $mq-x-large: min-width 1260px;
 
-$mq-less-than-400: max-width 399px;
-$mq-not-xx-small: max-width 499px;
-$mq-not-x-small: max-width 649px;
-$mq-not-small: max-width 799px;
-$mq-not-medium: max-width 979px;
-$mq-not-large: max-width 1119px;
-$mq-not-x-large: max-width 1259px;
+$mq-less-than-400: max-width 399.99px;
+$mq-not-xx-small: max-width 499.99px;
+$mq-not-x-small: max-width 649.99px;
+$mq-not-small: max-width 799.99px;
+$mq-not-medium: max-width 979.99px;
+$mq-not-large: max-width 1119.99px;
+$mq-not-x-large: max-width 1259.99px;
 
 /* Heights */
 
@@ -22,7 +22,7 @@ $mq-short: min-height 500px;
 $mq-tall: min-height 600px;
 $mq-x-tall: min-height 700px;
 
-$mq-not-x-short: max-height 399px;
+$mq-not-x-short: max-height 399.99px;
 
 /* Orientations */
 

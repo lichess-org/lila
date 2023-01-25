@@ -71,9 +71,7 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
   import EmailConfirm.Result
 
   def confirm(token: String): Fu[Result] =
-    tokener read token flatMap {
-      _ ?? userRepo.enabledById
-    } flatMap {
+    tokener read token flatMapz userRepo.enabledById flatMap {
       _.fold[Fu[Result]](fuccess(Result.NotFound)) { user =>
         userRepo.mustConfirmEmail(user.id) flatMap {
           case true  => (userRepo setEmailConfirmed user.id) inject Result.JustConfirmed(user)

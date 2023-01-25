@@ -29,16 +29,14 @@ final class InquiryApi(
 
   def forMod(mod: User)(using ec: scala.concurrent.ExecutionContext): Fu[Option[Inquiry]] =
     lila.security.Granter(_.SeeReport)(mod).?? {
-      reportApi.inquiries.ofModId(mod.id).flatMap {
-        _ ?? { report =>
-          reportApi.moreLike(report, 10) zip
-            userRepo.byId(report.user) zip
-            noteApi.byUserForMod(report.user) zip
-            logApi.userHistory(report.user) map { case (((moreReports, userOption), notes), history) =>
-              userOption ?? { user =>
-                Inquiry(mod.light, report, moreReports, notes, history, user).some
-              }
+      reportApi.inquiries.ofModId(mod.id).flatMapz { report =>
+        reportApi.moreLike(report, 10) zip
+          userRepo.byId(report.user) zip
+          noteApi.byUserForMod(report.user) zip
+          logApi.userHistory(report.user) map { case (((moreReports, userOption), notes), history) =>
+            userOption ?? { user =>
+              Inquiry(mod.light, report, moreReports, notes, history, user).some
             }
-        }
+          }
       }
     }

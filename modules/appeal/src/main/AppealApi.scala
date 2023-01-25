@@ -53,8 +53,8 @@ final class AppealApi(
     val appeal = prev.post(text, mod.user)
     coll.update.one($id(appeal.id), appeal) >> {
       preset ?? { note =>
-        userRepo.byId(appeal.id) flatMap {
-          _ ?? { noteApi.write(_, s"Appeal reply: $note", mod.user, modOnly = true, dox = false) }
+        userRepo.byId(appeal.id) flatMapz {
+          noteApi.write(_, s"Appeal reply: $note", mod.user, modOnly = true, dox = false)
         }
       }
     } inject appeal
@@ -117,10 +117,10 @@ final class AppealApi(
     coll.update.one($id(appeal.id), appeal.toggleMute).void
 
   def setReadById(userId: UserId) =
-    byId(userId) flatMap { _ ?? setRead }
+    byId(userId) flatMapz setRead
 
   def setUnreadById(userId: UserId) =
-    byId(userId) flatMap { _ ?? setUnread }
+    byId(userId) flatMapz setUnread
 
   def onAccountClose(user: User) = setReadById(user.id)
 

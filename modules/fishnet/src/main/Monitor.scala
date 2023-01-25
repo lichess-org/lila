@@ -55,7 +55,7 @@ final private class Monitor(
     if (result.stockfish.isNnue)
       avgOf(_.nodes) foreach { monBy.node(userId).record(_) }
       avgOf(_.cappedNps) foreach { monBy.nps(userId).record(_) }
-    avgOf(_.depth) foreach { monBy.depth(userId).record(_) }
+    avgOf(e => Depth raw e.depth) foreach { monBy.depth(userId).record(_) }
     avgOf(_.pv.size.some) foreach { monBy.pvSize(userId).record(_) }
 
     val significantPvSizes =

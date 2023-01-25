@@ -17,10 +17,13 @@
   <string name="next">Тепри</string>
   <string name="last">Йулашки</string>
   <string name="copyChapterPgn">PGN копиле</string>
+  <string name="startAtX">%s-ран пуҫла</string>
   <string name="empty">Пушӑ</string>
+  <string name="public">Уҫӑ</string>
   <string name="members">Пайташ</string>
   <string name="start">Пуҫла</string>
   <string name="save">Упра</string>
+  <string name="clearChat">Калаҫӑва тасат</string>
   <string name="mistake">Йӑнӑш</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Чуксванк</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Тапӑну</string>

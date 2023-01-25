@@ -14,10 +14,8 @@ final private class ExplorerGame(
 )(using ec: scala.concurrent.ExecutionContext):
 
   def quote(gameId: GameId): Fu[Option[Comment]] =
-    importer(gameId) map {
-      _ ?? { game =>
-        gameComment(game).some
-      }
+    importer(gameId) mapz { game =>
+      gameComment(game).some
     }
 
   def insert(study: Study, position: Position, gameId: GameId): Fu[Option[(Chapter, Path)]] =
@@ -25,18 +23,16 @@ final private class ExplorerGame(
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(none)
     else
-      importer(gameId) map {
-        _ ?? { game =>
-          position.node ?? { fromNode =>
-            GameToRoot(game, none, withClocks = false).pipe { root =>
-              root.setCommentAt(
-                comment = gameComment(game),
-                path = Path(root.mainline.map(_.id))
-              )
-            } ?? { gameRoot =>
-              merge(fromNode, position.path, gameRoot) flatMap { case (newNode, path) =>
-                position.chapter.addNode(newNode, path) map (_ -> path)
-              }
+      importer(gameId) mapz { game =>
+        position.node ?? { fromNode =>
+          GameToRoot(game, none, withClocks = false).pipe { root =>
+            root.setCommentAt(
+              comment = gameComment(game),
+              path = Path(root.mainline.map(_.id))
+            )
+          } ?? { gameRoot =>
+            merge(fromNode, position.path, gameRoot) flatMap { case (newNode, path) =>
+              position.chapter.addNode(newNode, path) map (_ -> path)
             }
           }
         }

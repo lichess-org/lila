@@ -462,4 +462,4 @@ object Pref:
   )
 
   import alleycats.Zero
-  implicit def PrefZero: Zero[Pref] = Zero(default)
+  given PrefZero: Zero[Pref] = Zero(default)

@@ -71,7 +71,7 @@ object JsonApi:
         time: Option[Int],
         nodes: Option[Int],
         nps: Option[Int],
-        depth: Option[Int]
+        depth: Option[Depth]
     ):
       val cappedNps = nps.map(_ min Evaluation.npsCeil)
 
@@ -137,13 +137,13 @@ object JsonApi:
       ~Uci.readList(str)
     }
 
-    implicit val EvaluationReads: Reads[Request.Evaluation] = (
+    given EvaluationReads: Reads[Request.Evaluation] = (
       (__ \ "pv").readNullable[List[Uci]].map(~_) and
         (__ \ "score").read[Request.Evaluation.Score] and
         (__ \ "time").readNullable[Int] and
         (__ \ "nodes").readNullable[Long].map(_.map(_.toSaturatedInt)) and
         (__ \ "nps").readNullable[Long].map(_.map(_.toSaturatedInt)) and
-        (__ \ "depth").readNullable[Int]
+        (__ \ "depth").readNullable[Depth]
     )(Request.Evaluation.apply)
     given Reads[Option[Request.Evaluation.OrSkipped]] = Reads {
       case JsNull => JsSuccess(None)

@@ -32,7 +32,7 @@ final class Account(
 
   def profileApply =
     AuthBody { implicit ctx => me =>
-      implicit val req: Request[?] = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       FormFuResult(env.user.forms.profile) { err =>
         fuccess(html.account.profile(me, err))
       } { profile =>
@@ -53,7 +53,7 @@ final class Account(
 
   def usernameApply =
     AuthBody { implicit ctx => me =>
-      implicit val req: Request[?] = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       FormFuResult(env.user.forms.username(me)) { err =>
         fuccess(html.account.username(me, err))
       } { username =>
@@ -184,10 +184,8 @@ final class Account(
 
   def apiEmail =
     Scoped(_.Email.Read) { _ => me =>
-      env.user.repo email me.id map {
-        _ ?? { email =>
-          JsonOk(Json.obj("email" -> email.value))
-        }
+      env.user.repo email me.id mapz { email =>
+        JsonOk(Json.obj("email" -> email.value))
       }
     }
 
@@ -216,19 +214,17 @@ final class Account(
 
   def emailConfirm(token: String) =
     Open { implicit ctx =>
-      env.security.emailChange.confirm(token) flatMap {
-        _ ?? { case (user, prevEmail) =>
-          (prevEmail.exists(_.isNoReply) ?? env.clas.api.student.release(user)) >>
-            auth.authenticateUser(
-              user,
-              remember = true,
-              result =
-                if (prevEmail.exists(_.isNoReply))
-                  Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
-                else
-                  Some(_ => Redirect(routes.Account.email).flashSuccess)
-            )
-        }
+      env.security.emailChange.confirm(token) flatMapz { (user, prevEmail) =>
+        (prevEmail.exists(_.isNoReply) ?? env.clas.api.student.release(user)) >>
+          auth.authenticateUser(
+            user,
+            remember = true,
+            result =
+              if (prevEmail.exists(_.isNoReply))
+                Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
+              else
+                Some(_ => Redirect(routes.Account.email).flashSuccess)
+          )
       }
     }
 
@@ -463,16 +459,14 @@ final class Account(
     val userId: UserId = getUserStr("user")
       .map(_.id)
       .filter(id => me == id || isGranted(_.Impersonate)) | me.id
-    env.user.repo byId userId map {
-      _ ?? { user =>
-        if (getBool("text"))
-          apiC.GlobalConcurrencyLimitUser(me.id)(
-            env.api.personalDataExport(user)
-          ) { source =>
-            Ok.chunked(source.map(_ + "\n"))
-              .pipe(asAttachmentStream(s"lichess_${user.username}.txt"))
-          }
-        else Ok(html.account.bits.data(user))
-      }
+    env.user.repo byId userId mapz { user =>
+      if (getBool("text"))
+        apiC.GlobalConcurrencyLimitUser(me.id)(
+          env.api.personalDataExport(user)
+        ) { source =>
+          Ok.chunked(source.map(_ + "\n"))
+            .pipe(asAttachmentStream(s"lichess_${user.username}.txt"))
+        }
+      else Ok(html.account.bits.data(user))
     }
   }

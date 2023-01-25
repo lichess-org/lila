@@ -82,9 +82,7 @@ final class UblogRank(
     }
 
   def recomputeRankOfAllPostsOfBlog(blogId: UblogBlog.Id): Funit =
-    colls.blog.byId[UblogBlog](blogId.full) flatMap {
-      _ ?? recomputeRankOfAllPostsOfBlog
-    }
+    colls.blog.byId[UblogBlog](blogId.full) flatMapz recomputeRankOfAllPostsOfBlog
 
   def recomputeRankOfAllPostsOfBlog(blog: UblogBlog): Funit =
     colls.post

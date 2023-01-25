@@ -2,6 +2,7 @@
 <resources>
   <string name="preferences">Ӗнерлев</string>
   <string name="privacy">Вӑрттӑнлӑх</string>
+  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Систерни</string>
   <string name="pieceAnimation">Кӗлетке хусканӑвӗ</string>
   <string name="materialDifference">Материаллӑ уйрӑмлӑх</string>
   <string name="boardHighlights">Утӑм ҫути (кайранхи утӑм тата шах туни)</string>

@@ -77,7 +77,7 @@ final class UblogApi(
     val blogId = UblogBlog.Id.User(user.id)
     val canView = fuccess(forUser exists { user.is(_) }) >>|
       colls.blog.primitiveOne[UblogBlog.Tier]($id(blogId.full), "tier").dmap(~_ >= UblogBlog.Tier.VISIBLE)
-    canView flatMap { _ ?? blogPreview(blogId, nb).dmap(some) }
+    canView flatMapz { blogPreview(blogId, nb).dmap(some) }
 
   def blogPreview(blogId: UblogBlog.Id, nb: Int): Fu[UblogPost.BlogPreview] =
     colls.post.countSel($doc("blog" -> blogId, "live" -> true)) zip

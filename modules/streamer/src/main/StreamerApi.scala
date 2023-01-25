@@ -28,7 +28,7 @@ final class StreamerApi(
   def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer, Streamer.Id](ids)
 
   def find(username: UserStr): Fu[Option[Streamer.WithUser]] =
-    userRepo byId username flatMap { _ ?? find }
+    userRepo byId username flatMapz find
 
   def find(user: User): Fu[Option[Streamer.WithUser]] =
     byId(user.id into Streamer.Id) dmap {
@@ -43,10 +43,8 @@ final class StreamerApi(
 
   def forSubscriber(streamerName: UserStr, me: Option[User]): Fu[Option[Streamer.WithContext]] =
     me.foldLeft(find(streamerName)) { (streamerFu, me) =>
-      streamerFu flatMap {
-        _ ?? { s =>
-          subsRepo.isSubscribed(me.id, s.streamer).map { sub => s.copy(subscribed = sub).some }
-        }
+      streamerFu flatMapz { s =>
+        subsRepo.isSubscribed(me.id, s.streamer).map { sub => s.copy(subscribed = sub).some }
       }
     }
 

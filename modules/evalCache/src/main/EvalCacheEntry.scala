@@ -29,7 +29,7 @@ case class EvalCacheEntry(
 
   // finds the best eval with at least multiPv pvs,
   // and truncates its pvs to multiPv
-  def makeBestMultiPvEval(multiPv: Int): Option[Eval] =
+  def makeBestMultiPvEval(multiPv: MultiPv): Option[Eval] =
     evals
       .find(_.multiPv >= multiPv.atMost(nbMoves))
       .map(_ takePvs multiPv)
@@ -42,12 +42,12 @@ object EvalCacheEntry:
   case class Eval(
       pvs: NonEmptyList[Pv],
       knodes: Knodes,
-      depth: Int,
+      depth: Depth,
       by: UserId,
       trust: Trust
   ):
 
-    def multiPv = pvs.size
+    def multiPv = MultiPv(pvs.size)
 
     def bestPv: Pv = pvs.head
 
@@ -60,10 +60,8 @@ object EvalCacheEntry:
 
     def truncatePvs = copy(pvs = pvs.map(_.truncate))
 
-    def takePvs(multiPv: Int) =
-      copy(
-        pvs = NonEmptyList(pvs.head, pvs.tail.take(multiPv - 1))
-      )
+    def takePvs(multiPv: MultiPv) =
+      copy(pvs = NonEmptyList(pvs.head, pvs.tail.take(multiPv.value - 1)))
 
     def depthAboveMin = (depth - MIN_DEPTH) atLeast 0
 

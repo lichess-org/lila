@@ -101,10 +101,8 @@ final class ForumPostApi(
     }
 
   def get(postId: ForumPostId): Fu[Option[(ForumTopic, ForumPost)]] =
-    getPost(postId) flatMap {
-      _ ?? { post =>
-        topicRepo.byId(post.topicId) dmap2 { _ -> post }
-      }
+    getPost(postId) flatMapz { post =>
+      topicRepo.byId(post.topicId) dmap2 { _ -> post }
     }
 
   def getPost(postId: ForumPostId): Fu[Option[ForumPost]] =
@@ -219,10 +217,8 @@ final class ForumPostApi(
       }
 
   def teamIdOfPostId(postId: ForumPostId): Fu[Option[TeamId]] =
-    postRepo.coll.byId[ForumPost](postId) flatMap {
-      _ ?? { post =>
-        categRepo.coll.primitiveOne[TeamId]($id(post.categId), "team")
-      }
+    postRepo.coll.byId[ForumPost](postId) flatMapz { post =>
+      categRepo.coll.primitiveOne[TeamId]($id(post.categId), "team")
     }
 
   private def logAnonPost(userId: UserId, post: ForumPost, edit: Boolean): Funit =

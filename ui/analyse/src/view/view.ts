@@ -83,7 +83,10 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
     h('div.pair', [
       h('label.name', 'FEN'),
       h('input.copyable.autoselect.analyse__underboard__fen', {
-        attrs: { spellcheck: 'false' },
+        attrs: {
+          spellcheck: 'false',
+          enterkeyhint: 'done',
+        },
         hook: {
           insert: vnode => {
             const el = vnode.elm as HTMLInputElement;

@@ -116,33 +116,29 @@ final class Team(
 
   def users(teamId: TeamId) =
     AnonOrScoped(_.Team.Read) { req => me =>
-      api teamEnabled teamId flatMap {
-        _ ?? { team =>
-          val canView: Fu[Boolean] =
-            if (team.publicMembers) fuccess(true)
-            else me.??(u => api.belongsTo(team.id, u.id))
-          canView map {
-            case true =>
-              apiC.jsonStream(
-                env.team
-                  .memberStream(team, config.MaxPerSecond(20))
-                  .map { (user, joinedAt) =>
-                    env.api.userApi.one(user, joinedAt.some)
-                  }
-              )(req)
-            case false => Unauthorized
-          }
+      api teamEnabled teamId flatMapz { team =>
+        val canView: Fu[Boolean] =
+          if (team.publicMembers) fuccess(true)
+          else me.??(u => api.belongsTo(team.id, u.id))
+        canView map {
+          case true =>
+            apiC.jsonStream(
+              env.team
+                .memberStream(team, config.MaxPerSecond(20))
+                .map { (user, joinedAt) =>
+                  env.api.userApi.one(user, joinedAt.some)
+                }
+            )(req)
+          case false => Unauthorized
         }
       }
     }
 
   def tournaments(teamId: TeamId) =
     Open { implicit ctx =>
-      api teamEnabled teamId flatMap {
-        _ ?? { team =>
-          env.teamInfo.tournaments(team, 30, 30) map { tours =>
-            Ok(html.team.tournaments.page(team, tours))
-          }
+      api teamEnabled teamId flatMapz { team =>
+        env.teamInfo.tournaments(team, 30, 30) map { tours =>
+          Ok(html.team.tournaments.page(team, tours))
         }
       }
     }
@@ -234,7 +230,7 @@ final class Team(
   def close(id: TeamId) =
     SecureBody(_.ManageTeam) { implicit ctx => me =>
       OptionFuResult(api team id) { team =>
-        implicit val body: play.api.mvc.Request[?] = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms.explain
           .bindFromRequest()
           .fold(
@@ -249,7 +245,7 @@ final class Team(
   def disable(id: TeamId) =
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
-        implicit val body: play.api.mvc.Request[?] = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms.explain
           .bindFromRequest()
           .fold(
@@ -321,66 +317,62 @@ final class Team(
     AuthOrScopedBody(_.Team.Write)(
       auth = implicit ctx =>
         me =>
-          api.teamEnabled(id) flatMap {
-            _ ?? { team =>
-              OneAtATime(me.id, rateLimitedFu) {
-                api hasJoinedTooManyTeams me flatMap { tooMany =>
-                  if (tooMany)
-                    negotiate(
-                      html = tooManyTeams(me),
-                      api = _ => BadRequest(jsonError("You have joined too many teams")).toFuccess
-                    )
-                  else
-                    negotiate(
-                      html = webJoin(team, me, request = none, password = none),
-                      api = _ => {
-                        implicit val body: play.api.mvc.Request[?] = ctx.body
-                        forms
-                          .apiRequest(team)
-                          .bindFromRequest()
-                          .fold(
-                            newJsonFormError,
-                            setup =>
-                              api.join(team, me, setup.message, setup.password) flatMap {
-                                case Requesting.Joined => jsonOkResult.toFuccess
-                                case Requesting.NeedRequest =>
-                                  BadRequest(jsonError("This team requires confirmation.")).toFuccess
-                                case Requesting.NeedPassword =>
-                                  BadRequest(jsonError("This team requires a password.")).toFuccess
-                              }
-                          )
-                      }
-                    )
-                }
+          api.teamEnabled(id) flatMapz { team =>
+            OneAtATime(me.id, rateLimitedFu) {
+              api hasJoinedTooManyTeams me flatMap { tooMany =>
+                if (tooMany)
+                  negotiate(
+                    html = tooManyTeams(me),
+                    api = _ => BadRequest(jsonError("You have joined too many teams")).toFuccess
+                  )
+                else
+                  negotiate(
+                    html = webJoin(team, me, request = none, password = none),
+                    api = _ => {
+                      given play.api.mvc.Request[?] = ctx.body
+                      forms
+                        .apiRequest(team)
+                        .bindFromRequest()
+                        .fold(
+                          newJsonFormError,
+                          setup =>
+                            api.join(team, me, setup.message, setup.password) flatMap {
+                              case Requesting.Joined => jsonOkResult.toFuccess
+                              case Requesting.NeedRequest =>
+                                BadRequest(jsonError("This team requires confirmation.")).toFuccess
+                              case Requesting.NeedPassword =>
+                                BadRequest(jsonError("This team requires a password.")).toFuccess
+                            }
+                        )
+                    }
+                  )
               }
             }
           },
       scoped = implicit req =>
         me =>
-          api.team(id) flatMap {
-            _ ?? { team =>
-              given play.api.i18n.Lang = reqLang
-              forms
-                .apiRequest(team)
-                .bindFromRequest()
-                .fold(
-                  newJsonFormError,
-                  setup =>
-                    OneAtATime(me.id, rateLimitedFu) {
-                      api.join(team, me, setup.message, setup.password) flatMap {
-                        case Requesting.Joined => jsonOkResult.toFuccess
-                        case Requesting.NeedPassword =>
-                          Forbidden(jsonError("This team requires a password.")).toFuccess
-                        case Requesting.NeedRequest =>
-                          Forbidden(
-                            jsonError(
-                              "This team requires confirmation, and is not owned by the oAuth app owner."
-                            )
-                          ).toFuccess
-                      }
+          api.team(id) flatMapz { team =>
+            given play.api.i18n.Lang = reqLang
+            forms
+              .apiRequest(team)
+              .bindFromRequest()
+              .fold(
+                newJsonFormError,
+                setup =>
+                  OneAtATime(me.id, rateLimitedFu) {
+                    api.join(team, me, setup.message, setup.password) flatMap {
+                      case Requesting.Joined => jsonOkResult.toFuccess
+                      case Requesting.NeedPassword =>
+                        Forbidden(jsonError("This team requires a password.")).toFuccess
+                      case Requesting.NeedRequest =>
+                        Forbidden(
+                          jsonError(
+                            "This team requires confirmation, and is not owned by the oAuth app owner."
+                          )
+                        ).toFuccess
                     }
-                )
-            }
+                  }
+              )
           }
     )
 
@@ -571,19 +563,17 @@ final class Team(
   def apiShow(id: TeamId) =
     Open { ctx =>
       JsonOptionOk {
-        api teamEnabled id flatMap {
-          _ ?? { team =>
-            for {
-              joined    <- ctx.userId.?? { api.belongsTo(id, _) }
-              requested <- ctx.userId.ifFalse(joined).?? { env.team.requestRepo.exists(id, _) }
-            } yield {
-              env.team.jsonView.teamWrites.writes(team) ++ Json
-                .obj(
-                  "joined"    -> joined,
-                  "requested" -> requested
-                )
-            }.some
-          }
+        api teamEnabled id flatMapz { team =>
+          for
+            joined    <- ctx.userId.?? { api.belongsTo(id, _) }
+            requested <- ctx.userId.ifFalse(joined).?? { env.team.requestRepo.exists(id, _) }
+          yield {
+            env.team.jsonView.teamWrites.writes(team) ++ Json
+              .obj(
+                "joined"    -> joined,
+                "requested" -> requested
+              )
+          }.some
         }
       }
     }

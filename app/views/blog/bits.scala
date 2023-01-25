@@ -61,4 +61,4 @@ object bits:
       strong(cls := "headline")(doc.getHtml("blog.shortlede", prismic.linkResolver).map(raw))
     )
 
-  private[blog] def csp(implicit ctx: Context) = defaultCsp.withPrismic(isGranted(_.Prismic)).some
+  private[blog] def csp(using Context) = defaultCsp.withPrismic(isGranted(_.Prismic)).some

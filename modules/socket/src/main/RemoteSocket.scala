@@ -131,8 +131,8 @@ final class RemoteSocket(
       if (!stopping) conn.async.publish(s"$channel:$subChannel", msg).unit
 
   def makeSender(channel: Channel, parallelism: Int = 1): Sender =
-    if (parallelism > 1) new RoundRobinSender(redisClient.connectPubSub(), channel, parallelism)
-    else new StoppableSender(redisClient.connectPubSub(), channel)
+    if parallelism > 1 then RoundRobinSender(redisClient.connectPubSub(), channel, parallelism)
+    else StoppableSender(redisClient.connectPubSub(), channel)
 
   private val send: Send = makeSender("site-out").apply
 

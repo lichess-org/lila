@@ -15,9 +15,8 @@ import play.api.ConfigLoader
 
 final private class StripeClient(
     ws: StandaloneWSClient,
-    config: StripeClient.Config,
-    paymentMethods: StripePaymentMethods
-)(using ec: scala.concurrent.ExecutionContext):
+    config: StripeClient.Config
+)(using scala.concurrent.ExecutionContext):
 
   import StripeClient.*
   import JsonHandlers.given
@@ -27,16 +26,16 @@ final private class StripeClient(
   private val STRIPE_VERSION = "2020-08-27"
 
   def sessionArgs(mode: StripeMode, data: StripeSessionData, urls: NextUrls): List[(String, Matchable)] =
-    paymentMethods(mode, data.currency).toList.zipWithIndex.map { (method, index) =>
-      s"payment_method_types[$index]" -> method
-    } :::
-      List(
-        "mode"                -> mode,
-        "success_url"         -> urls.success,
-        "cancel_url"          -> urls.cancel,
-        "customer"            -> data.customerId.value,
-        "metadata[ipAddress]" -> data.ipOption.fold("?")(_.value)
-      )
+    List(
+      "mode"                -> mode,
+      "success_url"         -> urls.success,
+      "cancel_url"          -> urls.cancel,
+      "customer"            -> data.customerId.value,
+      "metadata[ipAddress]" -> data.ipOption.fold("?")(_.value)
+    ) ::: {
+      // https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_method_types
+      (mode == StripeMode.setup) ?? List("payment_method_types[]" -> "card")
+    }
 
   def createOneTimeSession(data: CreateStripeSession)(using Lang): Fu[StripeSession] =
     val args =

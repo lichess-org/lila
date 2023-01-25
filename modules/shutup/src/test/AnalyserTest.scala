@@ -66,6 +66,9 @@ class AnalyserTest extends Specification {
       find("foo chessbotcom bar") === List("chessbotcom")
       find("foo http://chess-bot.com bar") === List("chess-bot.com")
     }
+    "rat false positives" >> {
+      find("test rat is rate some rates what rated") === List("rat")
+    }
     "russian chars" >> {
       find("sеx") === List("sex")
     }

@@ -305,12 +305,10 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       mustConfirmEmail: Boolean,
       lang: Option[String] = None
   ): Fu[Option[User]] =
-    !exists(name) flatMap {
-      _ ?? {
-        val doc = newUser(name, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
-          ("len" -> BSONInteger(name.value.length))
-        coll.insert.one(doc) >> byId(name.id)
-      }
+    !exists(name) flatMapz {
+      val doc = newUser(name, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
+        ("len" -> BSONInteger(name.value.length))
+      coll.insert.one(doc) >> byId(name.id)
     }
 
   def exists[U](id: U)(using uid: UserIdOf[U]): Fu[Boolean] = coll exists $id(uid(id))
@@ -429,13 +427,13 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
     coll
       .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true).some)
       .one[Bdoc]
-      .map { _ ?? anyEmail }
+      .mapz(anyEmail)
 
   def emailOrPrevious(id: UserId): Fu[Option[EmailAddress]] =
     coll
       .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true, F.prevEmail -> true).some)
       .one[Bdoc]
-      .map { _ ?? anyEmailOrPrevious }
+      .mapz(anyEmailOrPrevious)
 
   def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
     coll
@@ -456,25 +454,21 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
     coll
       .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true, F.prevEmail -> true).some)
       .one[Bdoc]
-      .map {
-        _ ?? { doc =>
-          anyEmail(doc) orElse doc.getAsOpt[EmailAddress](F.prevEmail)
-        }
+      .mapz { doc =>
+        anyEmail(doc) orElse doc.getAsOpt[EmailAddress](F.prevEmail)
       }
 
   def withEmails[U: UserIdOf](u: U)(using r: BSONHandler[User]): Fu[Option[User.WithEmails]] =
-    coll.find($id(u.id)).one[Bdoc].map {
-      _ ?? { doc =>
-        r readOpt doc map {
-          User
-            .WithEmails(
-              _,
-              User.Emails(
-                current = anyEmail(doc),
-                previous = doc.getAsOpt[NormalizedEmailAddress](F.prevEmail)
-              )
+    coll.find($id(u.id)).one[Bdoc].mapz { doc =>
+      r readOpt doc map {
+        User
+          .WithEmails(
+            _,
+            User.Emails(
+              current = anyEmail(doc),
+              previous = doc.getAsOpt[NormalizedEmailAddress](F.prevEmail)
             )
-        }
+          )
       }
     }
 

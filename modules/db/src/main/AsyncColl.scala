@@ -27,7 +27,7 @@ final class AsyncCollFailingSilently(coll: AsyncColl, timeout: FiniteDuration)(u
     Scheduler
 ):
 
-  def apply[A](f: Coll => Fu[A])(implicit default: Zero[A]) =
+  def apply[A](f: Coll => Fu[A])(using default: Zero[A]) =
     coll.get
       .withTimeout(timeout, coll.name.value)
       .transformWith {

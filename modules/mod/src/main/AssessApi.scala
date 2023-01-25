@@ -110,20 +110,19 @@ final class AssessApi(
       userId: UserId,
       nb: Int = 100
   ): Fu[Option[PlayerAggregateAssessment.WithGames]] =
-    getPlayerAggregateAssessment(userId, nb) flatMap {
-      _ ?? { pag =>
-        withGames(pag) dmap some
-      }
+    getPlayerAggregateAssessment(userId, nb) flatMapz { pag =>
+      withGames(pag) dmap some
     }
 
   def refreshAssessOf(user: User): Funit =
     !user.isBot ??
       (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
-        (gs map { g =>
-          analysisRepo.byGame(g) flatMap {
-            _ ?? { onAnalysisReady(g, _, thenAssessUser = false) }
+        gs.map { g =>
+          analysisRepo.byGame(g) flatMapz {
+            onAnalysisReady(g, _, thenAssessUser = false)
           }
-        }).sequenceFu.void
+        }.sequenceFu
+          .void
       }) >> assessUser(user.id)
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =
@@ -150,31 +149,29 @@ final class AssessApi(
     }
 
   def assessUser(userId: UserId): Funit =
-    getPlayerAggregateAssessment(userId) flatMap {
-      _ ?? { playerAggregateAssessment =>
-        playerAggregateAssessment.action match
-          case AccountAction.Engine | AccountAction.EngineAndBan =>
-            userRepo.getTitle(userId).flatMap {
-              case None =>
-                modApi
-                  .autoMark(
-                    SuspectId(userId),
-                    User.lichessId into ModId,
-                    playerAggregateAssessment.reportText(3)
-                  )
-              case Some(_) =>
-                fuccess {
-                  reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
-                }
-            }
-          case AccountAction.Report(_) =>
-            fuccess {
-              reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
-            }
-          case AccountAction.Nothing =>
-            // reporter ! lila.hub.actorApi.report.Clean(userId)
-            funit
-      }
+    getPlayerAggregateAssessment(userId) flatMapz { playerAggregateAssessment =>
+      playerAggregateAssessment.action match
+        case AccountAction.Engine | AccountAction.EngineAndBan =>
+          userRepo.getTitle(userId).flatMap {
+            case None =>
+              modApi
+                .autoMark(
+                  SuspectId(userId),
+                  User.lichessId into ModId,
+                  playerAggregateAssessment.reportText(3)
+                )
+            case Some(_) =>
+              fuccess {
+                reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
+              }
+          }
+        case AccountAction.Report(_) =>
+          fuccess {
+            reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
+          }
+        case AccountAction.Nothing =>
+          // reporter ! lila.hub.actorApi.report.Clean(userId)
+          funit
     }
 
   private val assessableSources: Set[Source] =
@@ -256,9 +253,7 @@ final class AssessApi(
           else none
         }
 
-    shouldAnalyse map {
-      _ ?? { reason =>
-        lila.mon.cheat.autoAnalysis(reason.toString).increment()
-        fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
-      }
+    shouldAnalyse mapz { reason =>
+      lila.mon.cheat.autoAnalysis(reason.toString).increment()
+      fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
     }

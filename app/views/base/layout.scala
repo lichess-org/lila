@@ -161,7 +161,8 @@ object layout:
         spellcheck   := "false",
         autocomplete := ctx.blind.toString,
         aria.label   := trans.search.search.txt(),
-        placeholder  := trans.search.search.txt()
+        placeholder  := trans.search.search.txt(),
+        enterkeyhint := "search"
       )
     )
 

@@ -42,12 +42,10 @@ final class ModApi(
       sus       <- reportApi.getSuspect(suspectId.value) orFail s"No such suspect $suspectId"
       unengined <- logApi.wasUnengined(sus)
       _ <- (!sus.user.isBot && !sus.user.marks.engine && !unengined) ?? {
-        reportApi.getMod(modId) flatMap {
-          _ ?? { mod =>
-            lila.mon.cheat.autoMark.increment()
-            setEngine(mod, sus, v = true) >>
-              noteApi.lichessWrite(sus.user, note)
-          }
+        reportApi.getMod(modId) flatMapz { mod =>
+          lila.mon.cheat.autoMark.increment()
+          setEngine(mod, sus, v = true) >>
+            noteApi.lichessWrite(sus.user, note)
         }
       }
     } yield ()

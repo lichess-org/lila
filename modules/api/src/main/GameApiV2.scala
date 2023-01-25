@@ -49,13 +49,13 @@ final class GameApiV2(
             case Format.JSON =>
               toJson(game, initialFen, analysis, config.flags, realPlayers = realPlayers) dmap Json.stringify
             case Format.PGN =>
-              pgnDump(
+              PgnStr raw pgnDump(
                 game,
                 initialFen,
                 analysis,
                 config.flags,
                 realPlayers = realPlayers
-              ) dmap annotator.toPgnString dmap (_.value)
+              ).dmap(annotator.toPgnString)
         } yield formatted
 
   private val fileR = """[\s,]""".r
@@ -311,6 +311,9 @@ final class GameApiV2(
       .add("opening" -> g.opening.ifTrue(withFlags.opening))
       .add("moves" -> withFlags.moves.option {
         withFlags keepDelayIf g.playable applyDelay g.sans mkString " "
+      })
+      .add("clocks" -> withFlags.clocks.??(g.bothClockStates).map { clocks =>
+        withFlags keepDelayIf g.playable applyDelay clocks
       })
       .add("pgn" -> pgn)
       .add("daysPerTurn" -> g.daysPerTurn)

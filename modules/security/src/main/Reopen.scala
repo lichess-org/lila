@@ -72,10 +72,8 @@ ${trans.common_orPaste.txt()}"""),
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener read token flatMap { _ ?? userRepo.disabledById } flatMap {
-      _ ?? { user =>
-        userRepo reopen user.id inject user.some
-      }
+    tokener read token flatMapz userRepo.disabledById flatMapz { user =>
+      userRepo reopen user.id inject user.some
     }
 
   private val tokener = LoginToken.makeTokener(tokenerSecret, 20 minutes)

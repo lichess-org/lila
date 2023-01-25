@@ -64,7 +64,7 @@ object show:
               resultSegments(exp.result)
             }),
             div(
-              cls              := "lpv lpv--todo lpv--moves-bottom",
+              cls              := "lpv lpv--todo lpv--moves-bottom is2d",
               st.data("pgn")   := page.query.pgnString,
               st.data("title") := page.opening.map(_.name)
             )(lpvPreload)
@@ -114,7 +114,7 @@ object show:
   private def exampleGames(page: OpeningPage)(using Context) =
     div(cls := "opening__games")(page.explored.??(_.games).map { game =>
       div(
-        cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom",
+        cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom is2d",
         st.data("pgn")   := game.pgn.toString,
         st.data("ply")   := page.query.sans.size + 1,
         st.data("title") := titleGame(game.game)

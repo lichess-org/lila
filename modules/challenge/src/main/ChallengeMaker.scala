@@ -15,22 +15,18 @@ final class ChallengeMaker(
 )(using scala.concurrent.ExecutionContext):
 
   def makeRematchFor(gameId: GameId, dest: User): Fu[Option[Challenge]] =
-    gameRepo.game(gameId) flatMap {
-      _ ?? { game =>
-        game.opponentByUserId(dest.id) ?? { challenger =>
-          (challenger.userId ?? userRepo.byId) flatMap {
-            makeRematch(Pov(game, challenger), _, dest) dmap some
-          }
+    gameRepo.game(gameId) flatMapz { game =>
+      game.opponentByUserId(dest.id) ?? { challenger =>
+        (challenger.userId ?? userRepo.byId) flatMap {
+          makeRematch(Pov(game, challenger), _, dest) dmap some
         }
       }
     }
 
   private[challenge] def makeRematchOf(game: Game, challenger: User): Fu[Option[Challenge]] =
     Pov.ofUserId(game, challenger.id) ?? { pov =>
-      pov.opponent.userId ?? userRepo.byId flatMap {
-        _ ?? { dest =>
-          makeRematch(pov, challenger.some, dest) dmap some
-        }
+      pov.opponent.userId ?? userRepo.byId flatMapz { dest =>
+        makeRematch(pov, challenger.some, dest) dmap some
       }
     }
 

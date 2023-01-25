@@ -11,7 +11,6 @@ import scala.concurrent.{ Await, ExecutionContext as EC, Future }
 import scala.util.matching.Regex
 import scala.util.Try
 
-import cats.data.NonEmptyList
 import java.util.Base64
 import akka.actor.Scheduler
 import lila.common.Chronometer
@@ -53,7 +52,7 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     def fold[X](some: A => X, none: => X): X = self.fold(none)(some)
 
-    def orDefault(implicit z: Zero[A]): A = self getOrElse z.zero
+    def orDefault(using z: Zero[A]): A = self getOrElse z.zero
 
     def toTryWith(err: => Exception): Try[A] =
       self.fold[Try[A]](scala.util.Failure(err))(scala.util.Success.apply)
@@ -85,7 +84,7 @@ trait LilaLibraryExtensions extends LilaTypes:
   extension (date: DateTime)
     def getSeconds: Long                   = date.getMillis / 1000
     def getCentis: Long                    = date.getMillis / 10
-    def toNow                              = new Duration(date, DateTime.now)
+    def toNow                              = Duration(date, DateTime.now)
     def atMost(other: DateTime): DateTime  = if (other isBefore date) other else date
     def atLeast(other: DateTime): DateTime = if (other isAfter date) other else date
 
@@ -123,10 +122,6 @@ trait LilaLibraryExtensions extends LilaTypes:
       list.sortWith { (x, y) =>
         other.indexOf(f(x)) < other.indexOf(f(y))
       }
-    def toNel: Option[NonEmptyList[A]] =
-      list match
-        case Nil           => None
-        case first :: rest => Some(NonEmptyList(first, rest))
     def tailOption: Option[List[A]] = list match
       case Nil       => None
       case _ :: rest => Some(rest)
@@ -318,8 +313,10 @@ trait LilaLibraryExtensions extends LilaTypes:
     def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
       fua.flatMap { if (_) fuTrue else fub }(EC.parasitic)
 
-    def ifThen[A](fub: => Fu[A])(using zero: Zero[A]): Fu[A] =
+    def flatMapz[B](fub: => Fu[B])(using zero: Zero[B]): Fu[B] =
       fua.flatMap { if (_) fub else fuccess(zero.zero) }(EC.parasitic)
+    def mapz[B](fb: => B)(using zero: Zero[B]): Fu[B] =
+      fua.map { if (_) fb else zero.zero }(EC.parasitic)
 
     inline def unary_! = fua.map { !_ }(EC.parasitic)
 
@@ -354,4 +351,5 @@ trait LilaLibraryExtensions extends LilaTypes:
         case Some(scala.util.Success(v)) => v
         case _                           => None
 
-    def ifThen[B: Zero](fub: A => Fu[B])(using EC): Fu[B] = fua.flatMap { _ ?? fub }
+    def mapz[B: Zero](fb: A => B)(using EC): Fu[B]          = fua.map { _ ?? fb }
+    def flatMapz[B: Zero](fub: A => Fu[B])(using EC): Fu[B] = fua.flatMap { _ ?? fub }

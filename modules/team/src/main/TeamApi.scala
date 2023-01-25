@@ -171,15 +171,13 @@ final class TeamApi(
     } yield !belongs && !requested
 
   def createRequest(team: Team, user: User, msg: String): Funit =
-    requestable(team, user) flatMap {
-      _ ?? {
-        val request = Request.make(
-          team = team.id,
-          user = user.id,
-          message = if (user.marks.troll) Request.defaultMessage else msg
-        )
-        requestRepo.coll.insert.one(request).void >>- (cached.nbRequests invalidate team.createdBy)
-      }
+    requestable(team, user) flatMapz {
+      val request = Request.make(
+        team = team.id,
+        user = user.id,
+        message = if (user.marks.troll) Request.defaultMessage else msg
+      )
+      requestRepo.coll.insert.one(request).void >>- (cached.nbRequests invalidate team.createdBy)
     }
 
   def cancelRequestOrQuit(team: Team, user: User): Funit =
@@ -212,15 +210,13 @@ final class TeamApi(
     }
 
   def doJoin(team: Team, user: User): Funit =
-    !belongsTo(team.id, user.id) flatMap {
-      _ ?? {
-        memberRepo.add(team.id, user.id) >>
-          teamRepo.incMembers(team.id, +1) >>- {
-            cached invalidateTeamIds user.id
-            timeline ! Propagate(TeamJoin(user.id, team.id)).toFollowersOf(user.id)
-            Bus.publish(JoinTeam(id = team.id, userId = user.id), "team")
-          }
-      } recover lila.db.ignoreDuplicateKey
+    !belongsTo(team.id, user.id) flatMapz {
+      memberRepo.add(team.id, user.id) >>
+        teamRepo.incMembers(team.id, +1) >>- {
+          cached invalidateTeamIds user.id
+          timeline ! Propagate(TeamJoin(user.id, team.id)).toFollowersOf(user.id)
+          Bus.publish(JoinTeam(id = team.id, userId = user.id), "team")
+        }
     }
 
   def teamsOf(username: UserStr) =

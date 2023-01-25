@@ -61,7 +61,7 @@ trait dsl:
   // End of Helpers
   // **********************************************************************************************//
 
-  implicit val LilaBSONDocumentZero: Zero[Bdoc] = Zero($empty)
+  given Zero[Bdoc] = Zero($empty)
 
   // **********************************************************************************************//
   // Top Level Logical Operators
@@ -599,10 +599,8 @@ object dsl extends dsl with Handlers:
         case Some(v) => updateField(selector, field, v).dmap(_.n)
 
     def fetchUpdate[D: BSONDocumentHandler](selector: Bdoc)(update: D => Bdoc): Funit =
-      one[D](selector) flatMap {
-        _ ?? { doc =>
-          coll.update.one(selector, update(doc)).void
-        }
+      one[D](selector) flatMapz { doc =>
+        coll.update.one(selector, update(doc)).void
       }
 
     def aggregateList(

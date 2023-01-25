@@ -283,7 +283,7 @@ final private[round] class RoundAsyncActor(
 
     case DrawForce(playerId) =>
       handle(playerId) { pov =>
-        (pov.game.forceDrawable && !pov.game.hasAi && pov.game.hasClock) ?? {
+        (pov.game.forceDrawable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn) ?? {
           getPlayer(!pov.color).isLongGone flatMap {
             case true => finisher.rageQuit(pov.game, None)
             case _    => fuccess(List(Event.Reload))
@@ -361,10 +361,8 @@ final private[round] class RoundAsyncActor(
 
     case Moretime(playerId, duration) =>
       handle(playerId) { pov =>
-        moretimer(pov, duration) flatMap {
-          _ ?? { progress =>
-            proxy save progress inject progress.events
-          }
+        moretimer(pov, duration) flatMapz { progress =>
+          proxy save progress inject progress.events
         }
       }
 

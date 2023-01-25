@@ -80,10 +80,10 @@ object ChatTimeout:
   )
 
   case class Reinstate(_id: String, chat: ChatId, user: UserId)
-  implicit val ReinstateBSONReader: BSONDocumentReader[Reinstate] = Macros.reader
+  given BSONDocumentReader[Reinstate] = Macros.reader
 
   case class UserEntry(mod: UserId, reason: Reason, createdAt: DateTime)
-  implicit val UserEntryBSONReader: BSONDocumentReader[UserEntry] = Macros.reader
+  given BSONDocumentReader[UserEntry] = Macros.reader
 
   enum Scope:
     case Local, Global

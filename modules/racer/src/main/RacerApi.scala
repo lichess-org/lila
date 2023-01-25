@@ -32,6 +32,12 @@ final class RacerApi(
     case Some(u) => RacerPlayer.Id.User(u.id)
     case None    => RacerPlayer.Id.Anon(sessionId)
 
+  def createKeepOwnerAndJoin(race: RacerRace, player: RacerPlayer.Id): Fu[RacerRace.Id] =
+    create(race.owner, 10).map { id =>
+      join(id, player)
+      id
+    }
+
   def createAndJoin(player: RacerPlayer.Id): Fu[RacerRace.Id] =
     create(player, 10).map { id =>
       join(id, player)
@@ -64,7 +70,7 @@ final class RacerApi(
       fuccess(found.id)
     case None =>
       rematchQueue {
-        createAndJoin(player) map { rematchId =>
+        createKeepOwnerAndJoin(race, player) map { rematchId =>
           save(race.copy(rematch = rematchId.some))
           rematchId
         }

@@ -173,7 +173,7 @@ object Node:
 
   // TODO copied from lila.game
   // put all that shit somewhere else
-  implicit private val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
+  private given OWrites[Crazyhouse.Pocket] = OWrites { v =>
     JsObject(
       Crazyhouse.storableRoles.flatMap { role =>
         Some(v.roles.count(role ==)).filter(0 <).map { count =>
@@ -182,18 +182,18 @@ object Node:
       }
     )
   }
-  implicit private val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
+  private given OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
     Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
   }
 
-  implicit val openingWriter: OWrites[chess.opening.Opening] = OWrites { o =>
+  given OWrites[chess.opening.Opening] = OWrites { o =>
     Json.obj(
       "eco"  -> o.eco,
       "name" -> o.name
     )
   }
 
-  implicit private val posWrites: Writes[Pos] = Writes[Pos] { p =>
+  private given Writes[Pos] = Writes[Pos] { p =>
     JsString(p.key)
   }
   private val shapeCircleWrites = Json.writes[Shape.Circle]

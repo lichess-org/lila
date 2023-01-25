@@ -40,8 +40,8 @@ final class UserApi(
       withFollows: Boolean,
       withTrophies: Boolean
   )(using Lang): Fu[Option[JsObject]] =
-    userRepo byId username flatMap {
-      _ ?? { extended(_, as, withFollows, withTrophies) dmap some }
+    userRepo byId username flatMapz {
+      extended(_, as, withFollows, withTrophies) dmap some
     }
 
   def extended(

@@ -120,3 +120,9 @@ trait LilaModel:
 
   opaque type UserAgent = String
   object UserAgent extends OpaqueString[UserAgent]
+
+  opaque type MultiPv = Int
+  object MultiPv extends OpaqueInt[MultiPv]
+
+  opaque type Depth = Int
+  object Depth extends OpaqueInt[Depth]

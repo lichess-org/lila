@@ -168,7 +168,7 @@
   <string name="latestForumPosts">En son forum gönderileri</string>
   <string name="players">Oyuncular</string>
   <string name="friends">Arkadaşlar</string>
-  <string name="discussions">Sohbetler</string>
+  <string name="discussions">Konuşmalar</string>
   <string name="today">Bugün</string>
   <string name="yesterday">Dün</string>
   <string name="minutesPerSide">Taraf başına dakika</string>
@@ -286,7 +286,7 @@
   <string name="incrementInSeconds">Hamle başına eklenen saniye</string>
   <string name="freeOnlineChess">Ücretsiz Çevrimiçi Satranç</string>
   <plurals name="nbRated">
-    <item quantity="one">%s dereceli</item>
+    <item quantity="one">%s puanlı</item>
     <item quantity="other">%s dereceli</item>
   </plurals>
   <plurals name="nbWins">
@@ -363,6 +363,7 @@
   <string name="siteDescription">Bedava çevrimiçi satranç sunucusu. Sade bir arayüzde satranç oynayın. Kayda gerek yok, reklam yok, eklenti yok. Bilgisayara karşı, arkadaşlarınızla veya rastgele bir rakiple satranç oynayın.</string>
   <string name="xJoinedTeamY">%1$s, %2$s takımına katıldı</string>
   <string name="xCreatedTeamY">%1$s, %2$s takımını kurdu</string>
+  <string name="startedStreaming">bir yayın başlattı</string>
   <string name="xStartedStreaming">%s canlı yayında</string>
   <string name="averageElo">Ortalama derece</string>
   <string name="location">Yer</string>
@@ -538,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notlar</string>
   <string name="typePrivateNotesHere">Özel notlarınızı buraya yazın</string>
+  <string name="writeAPrivateNoteAboutThisUser">Bu kullanıcı hakkında özel bir not oluştur</string>
+  <string name="noNoteYet">Henüz bir not yok</string>
   <string name="invalidUsernameOrPassword">Hatalı kullanıcı adı ya da şifre</string>
   <string name="incorrectPassword">Şifre yanlış</string>
   <string name="invalidAuthenticationCode">Geçersiz kimlik doğrulama kodu</string>
@@ -703,6 +706,7 @@
   <string name="kidMode">Çocuk modu</string>
   <string name="kidModeExplanation">Bu mod çocuğunuzun güvenliği ile ilgilidir. Tüm site bağlantıları devre dışı bırakılır. Eğer çocuklarınızı veya okul öğrencilerinizi diğer internet kullanıcılarına karşı korumak istiyorsanız, bu modu etkinleştirin.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Çocuk modunda, lichess.org logosu yerine %s belirir, bilin ki çocuğunuz güvendedir :)</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Hesabınız kısıtlandı. Çocuk modunu kaldırmak için satranç öğretmeninize danışın.</string>
   <string name="enableKidMode">Çocuk modunu aktifleştir</string>
   <string name="disableKidMode">Çocuk modunu devre dışı bırak</string>
   <string name="security">Güvenlik</string>

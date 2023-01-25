@@ -159,14 +159,14 @@ final class Study(
     )
 
   private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) =
-    implicit val pagerWriter = Writes[StudyModel.WithChaptersAndLiked] { s =>
+    given Writes[StudyModel.WithChaptersAndLiked] = Writes[StudyModel.WithChaptersAndLiked] { s =>
       env.study.jsonView.pagerData(s)
     }
     Ok(Json.obj("paginator" -> PaginatorJson(pager))).toFuccess
 
   private def orRelay(id: StudyId, chapterId: Option[StudyChapterId] = None)(
       f: => Fu[Result]
-  )(implicit ctx: Context): Fu[Result] =
+  )(using ctx: Context): Fu[Result] =
     if (HTTPRequest isRedirectable ctx.req) env.relay.api.getOngoing(id into RelayRoundId) flatMap {
       _.fold(f) { rt =>
         Redirect(chapterId.fold(rt.path)(rt.path)).toFuccess
@@ -174,7 +174,7 @@ final class Study(
     }
     else f
 
-  private def showQuery(query: Fu[Option[WithChapter]])(implicit ctx: Context): Fu[Result] =
+  private def showQuery(query: Fu[Option[WithChapter]])(using ctx: Context): Fu[Result] =
     OptionFuResult(query) { oldSc =>
       CanView(oldSc.study, ctx.me) {
         for {
@@ -207,7 +207,7 @@ final class Study(
       }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
     } dmap (_.noCache)
 
-  private[controllers] def getJsonData(sc: WithChapter)(implicit ctx: Context): Fu[(WithChapter, JsData)] =
+  private[controllers] def getJsonData(sc: WithChapter)(using ctx: Context): Fu[(WithChapter, JsData)] =
     for {
       chapters                <- env.study.chapterRepo.orderedMetadataByStudy(sc.study.id)
       (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
@@ -263,7 +263,7 @@ final class Study(
       }
     }
 
-  private[controllers] def chatOf(study: lila.study.Study)(implicit ctx: Context) = {
+  private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
     ctx.noKid && ctx.noBot && // no public chats for kids and bots
     ctx.me.fold(true) {       // anon can see public chats
       env.chat.panic.allowed
@@ -317,20 +317,18 @@ final class Study(
 
   def delete(id: StudyId) =
     Auth { _ => me =>
-      env.study.api.byIdAndOwnerOrAdmin(id, me) flatMap {
-        _ ?? { study =>
-          env.study.api.delete(study) >> env.relay.api.deleteRound(id into RelayRoundId).map {
-            case None       => Redirect(routes.Study.mine("hot"))
-            case Some(tour) => Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
-          }
+      env.study.api.byIdAndOwnerOrAdmin(id, me) flatMapz { study =>
+        env.study.api.delete(study) >> env.relay.api.deleteRound(id into RelayRoundId).map {
+          case None       => Redirect(routes.Study.mine("hot"))
+          case Some(tour) => Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
         }
       }
     }
 
   def clearChat(id: StudyId) =
     Auth { _ => me =>
-      env.study.api.isOwnerOrAdmin(id, me) flatMap {
-        _ ?? env.chat.api.userChat.clear(id into ChatId)
+      env.study.api.isOwnerOrAdmin(id, me) flatMapz {
+        env.chat.api.userChat.clear(id into ChatId)
       } inject Redirect(routes.Study.show(id))
     }
 
@@ -414,13 +412,13 @@ final class Study(
       }
     }
 
-  private val CloneLimitPerUser = new lila.memo.RateLimit[UserId](
+  private val CloneLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 10 * 3,
     duration = 24.hour,
     key = "study.clone.user"
   )
 
-  private val CloneLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val CloneLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 20 * 3,
     duration = 24.hour,
     key = "study.clone.ip"
@@ -442,7 +440,7 @@ final class Study(
       }(rateLimitedFu)
     }
 
-  private val PgnRateLimitPerIp = new lila.memo.RateLimit[IpAddress](
+  private val PgnRateLimitPerIp = lila.memo.RateLimit[IpAddress](
     credits = 31,
     duration = 1.minute,
     key = "export.study.pgn.ip"
@@ -525,7 +523,9 @@ final class Study(
     lila.study.PgnDump.WithFlags(
       comments = getBoolOpt("comments", req) | true,
       variations = getBoolOpt("variations", req) | true,
-      clocks = getBoolOpt("clocks", req) | true
+      clocks = getBoolOpt("clocks", req) | true,
+      source = getBool("source", req),
+      orientation = getBool("orientation", req)
     )
 
   def chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String]) =
@@ -593,14 +593,14 @@ final class Study(
   }
 
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
-  def privateUnauthorizedFu(study: StudyModel)(implicit ctx: lila.api.Context) =
+  def privateUnauthorizedFu(study: StudyModel)(using Context) =
     negotiate(
       html = fuccess(Unauthorized(html.site.message.privateStudy(study))),
       api = _ => fuccess(privateUnauthorizedJson)
     )
 
   def privateForbiddenJson = Forbidden(jsonError("This study is now private"))
-  def privateForbiddenFu(study: StudyModel)(implicit ctx: lila.api.Context) =
+  def privateForbiddenFu(study: StudyModel)(using Context) =
     negotiate(
       html = fuccess(Forbidden(html.site.message.privateStudy(study))),
       api = _ => fuccess(privateForbiddenJson)

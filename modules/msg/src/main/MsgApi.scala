@@ -43,8 +43,7 @@ final class MsgApi(
   // maybeSortAgain maintains usable inbox thread ordering for team leaders after PM alls.
   private def maybeSortAgain(me: User, threads: List[MsgThread]): Fu[List[MsgThread]] =
     val candidates = threads.filter(_.maskFor.contains(me.id))
-    val distinct   = candidates.distinctBy(_.lastMsg)
-    if (candidates.sizeIs <= 1 || distinct.sizeCompare(candidates) == 0)
+    if (candidates.sizeIs <= 1)
       // we're done
       fuccess(threads)
     else
@@ -80,15 +79,13 @@ final class MsgApi(
     val before = beforeMillis flatMap { millis =>
       Try(new DateTime(millis)).toOption
     }
-    (userId != me.id) ?? lightUserApi.async(userId).flatMap {
-      _ ?? { contact =>
-        for {
-          _         <- setReadBy(threadId, me, userId)
-          msgs      <- threadMsgsFor(threadId, me, before)
-          relations <- relationApi.fetchRelations(me.id, userId)
-          postable  <- security.may.post(me.id, userId, isNew = msgs.headOption.isEmpty)
-        } yield MsgConvo(contact, msgs, relations, postable).some
-      }
+    (userId != me.id) ?? lightUserApi.async(userId).flatMapz { contact =>
+      for
+        _         <- setReadBy(threadId, me, userId)
+        msgs      <- threadMsgsFor(threadId, me, before)
+        relations <- relationApi.fetchRelations(me.id, userId)
+        postable  <- security.may.post(me.id, userId, isNew = msgs.headOption.isEmpty)
+      yield MsgConvo(contact, msgs, relations, postable).some
     }
 
   def delete(me: User, username: UserStr): Funit =

@@ -17,7 +17,7 @@ final class PublicChat(
     tournamentChats zip swissChats
 
   def deleteAll(userId: UserId): Funit =
-    userRepo byId userId map2 Suspect.apply flatMap { _ ?? deleteAll }
+    userRepo byId userId map2 Suspect.apply flatMapz deleteAll
 
   def deleteAll(suspect: Suspect): Funit =
     all.flatMap { case (tours, swisses) =>

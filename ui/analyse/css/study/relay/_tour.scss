@@ -39,17 +39,15 @@ main.has-relay-tour {
     }
   }
 
+  .study__multiboard {
+    margin-top: $block-gap;
+  }
+
   &__text {
     @extend %box-neat;
 
     background: $c-bg-box;
     padding: 3vmin;
-    max-height: 50vh;
-    overflow-y: auto;
-
-    .slist {
-      border-bottom: 0;
-    }
 
     &__schedule {
       td:nth-child(3) {
@@ -86,7 +84,7 @@ main.has-relay-tour {
     }
 
     .slist {
-      margin-bottom: 1em;
+      border-bottom: 0;
       ongoing {
         color: $c-red;
       }
@@ -98,6 +96,7 @@ main.has-relay-tour {
     h1 {
       @include fluid-size('font-size', 15px, 27px);
 
+      color: $c-brag;
       margin-bottom: 3vh;
     }
 

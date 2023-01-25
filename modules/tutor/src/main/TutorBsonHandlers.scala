@@ -55,25 +55,10 @@ private object TutorBsonHandlers:
       metric => List(metric.mine, metric.peer)
     )
 
-  // given BSONDocumentHandler[TutorTimeReport] = Macros.handler
   given BSONDocumentHandler[TutorOpeningFamily] = Macros.handler
   given BSONDocumentHandler[TutorColorOpenings] = Macros.handler
-  // given BSONDocumentHandler[Color.Map[TutorColorOpenings]] = Macros.handler
-
-  given BSONDocumentHandler[TutorPhase] = Macros.handler
-
-  given BSONDocumentHandler[TutorFlagging] = Macros.handler
-  // given BSONDocumentHandler[TutorPhases] = Macros.handler
-
-  // given BSONDocumentHandler[TutorPerfReport] = Macros.handler
-
-  // implicit val perfsHandler: BSONHandler[TutorFullReport.PerfMap] =
-  //   implicitly[BSONHandler[Map[String, TutorPerfReport]]].as[TutorFullReport.PerfMap](
-  //     _ flatMap { case (key, report) =>
-  //       PerfType(key).map(_ -> report)
-  //     },
-  //     _.mapKeys(_.key)
-  //   )
-  given BSONDocumentHandler[InsightPerfStats] = Macros.handler
-  given BSONDocumentHandler[TutorPerfReport]  = Macros.handler
-  given BSONDocumentHandler[TutorFullReport]  = Macros.handler
+  given BSONDocumentHandler[TutorPhase]         = Macros.handler
+  given BSONDocumentHandler[TutorFlagging]      = Macros.handler
+  given BSONDocumentHandler[InsightPerfStats]   = Macros.handler
+  given BSONDocumentHandler[TutorPerfReport]    = Macros.handler
+  given BSONDocumentHandler[TutorFullReport]    = Macros.handler

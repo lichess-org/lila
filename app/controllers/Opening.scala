@@ -21,11 +21,9 @@ final class Opening(env: Env) extends LilaController(env):
           else html.opening.search.resultsPage(searchQuery, results, env.opening.api.readConfig)
         }.toFuccess
       else
-        env.opening.api.index flatMap {
-          _ ?? { page =>
-            isGranted(_.OpeningWiki).??(env.opening.wiki.popularOpeningsWithShortWiki) map { wikiMissing =>
-              Ok(html.opening.index(page, wikiMissing))
-            }
+        env.opening.api.index flatMapz { page =>
+          isGranted(_.OpeningWiki).??(env.opening.wiki.popularOpeningsWithShortWiki) map { wikiMissing =>
+            Ok(html.opening.index(page, wikiMissing))
           }
         }
     }
@@ -70,8 +68,8 @@ final class Opening(env: Env) extends LilaController(env):
     given play.api.mvc.Request[?] = ctx.body
     env.opening.api
       .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki))
-      .map(_.flatMap(_.query.opening)) flatMap {
-      _ ?? { op =>
+      .map(_.flatMap(_.query.opening))
+      .flatMapz { op =>
         val redirect = Redirect(routes.Opening.byKeyAndMoves(key, moves))
         lila.opening.OpeningWiki.form
           .bindFromRequest()
@@ -80,7 +78,6 @@ final class Opening(env: Env) extends LilaController(env):
             text => env.opening.wiki.write(op, text, me.user) inject redirect
           )
       }
-    }
   }
 
   def tree = Open { implicit ctx =>

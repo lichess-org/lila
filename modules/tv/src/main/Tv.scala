@@ -16,12 +16,12 @@ final class Tv(
   private def roundProxyGame = gameProxyRepo.game
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    trouper.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
+    trouper.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)) flatMapz roundProxyGame
 
   def getReplacementGame(channel: Tv.Channel, oldId: GameId, exclude: List[GameId]): Fu[Option[Game]] =
     trouper
       .ask[Option[GameId]](TvSyncActor.GetReplacementGameId(channel, oldId, exclude, _))
-      .flatMap { _ ?? roundProxyGame }
+      .flatMapz(roundProxyGame)
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
     trouper.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)) flatMap {

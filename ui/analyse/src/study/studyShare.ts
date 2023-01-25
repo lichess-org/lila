@@ -150,9 +150,10 @@ export function view(ctrl: StudyShareCtrl): VNode {
                   title: ctrl.trans.noarg('copyChapterPgnDescription'),
                 },
                 hook: bind('click', async event => {
-                  const pgn = await xhrText(`/study/${studyId}/${chapter.id}.pgn`);
+                  const pgn = await xhrText(`/study/${studyId}/${ctrl.chapter().id}.pgn`);
                   await navigator.clipboard.writeText(pgn);
                   (event.target as HTMLElement).setAttribute('data-icon', '');
+                  setTimeout(() => (event.target as HTMLElement).setAttribute('data-icon', ''), 1000);
                 }),
               },
               ctrl.trans.noarg('copyChapterPgn')

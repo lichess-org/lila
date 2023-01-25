@@ -41,6 +41,7 @@ private object OpeningSearch:
   private[opening] object tokenize:
     private val nonLetterRegex = """[^a-zA-Z0-9]+""".r
     private val exclude        = Set("opening", "variation")
+    private val replace        = Map("defence" -> "defense")
     def apply(str: String): Set[Token] =
       str
         .take(200)
@@ -57,6 +58,7 @@ private object OpeningSearch:
             .toLowerCase
             .replaceAllIn(nonLetterRegex, "")
         }
+        .map(t => replace.getOrElse(t, t))
         .toSet
         .diff(exclude)
     def apply(opening: Opening): Set[Token] =

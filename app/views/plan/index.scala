@@ -24,8 +24,7 @@ object index:
       patron: Option[lila.plan.Patron],
       recentIds: List[UserId],
       bestIds: List[UserId],
-      pricing: lila.plan.PlanPricing,
-      methods: Set[String]
+      pricing: lila.plan.PlanPricing
   )(implicit ctx: Context) =
     val localeParam = lila.plan.PayPalClient.locale(ctx.lang) ?? { l => s"&locale=$l" }
     views.html.base.layout(
@@ -211,9 +210,7 @@ object index:
                     div(cls := "buttons")(
                       if (ctx.isAuth)
                         frag(
-                          (pricing.currency.getCurrencyCode != "CNY" || !methods("alipay")) option
-                            button(cls := "stripe button")(withCreditCard()),
-                          methods("alipay") option button(cls := "stripe button")("Alipay"),
+                          button(cls := "stripe button")(withCreditCard()),
                           div(cls := "paypal paypal--order"),
                           div(cls := "paypal paypal--subscription"),
                           button(cls := "paypal button disabled paypal--disabled")("PAYPAL")

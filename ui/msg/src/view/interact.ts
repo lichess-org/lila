@@ -35,6 +35,7 @@ function renderTextarea(ctrl: MsgCtrl, user: User): VNode {
   return h('textarea.msg-app__convo__post__text', {
     attrs: {
       rows: 1,
+      enterkeyhint: 'send',
     },
     hook: {
       insert(vnode) {

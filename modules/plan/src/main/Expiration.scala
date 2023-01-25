@@ -24,11 +24,9 @@ final private class Expiration(
     }
 
   private def disableUserPlanOf(patron: Patron): Funit =
-    userRepo byId patron.userId flatMap {
-      _ ?? { user =>
-        userRepo.setPlan(user, user.plan.disable) >>-
-          notifier.onExpire(user)
-      }
+    userRepo byId patron.userId flatMapz { user =>
+      userRepo.setPlan(user, user.plan.disable) >>-
+        notifier.onExpire(user)
     }
 
   private def getExpired =

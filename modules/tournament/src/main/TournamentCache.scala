@@ -78,8 +78,8 @@ final class TournamentCache(
       cacheApi[TourId, List[TeamBattle.RankedTeam]](32, "tournament.teamStanding") {
         _.expireAfterWrite(1 second)
           .buildAsyncFuture { id =>
-            tournamentRepo teamBattleOf id flatMap {
-              _ ?? { playerRepo.bestTeamIdsByTour(id, _) }
+            tournamentRepo teamBattleOf id flatMapz {
+              playerRepo.bestTeamIdsByTour(id, _)
             }
           }
       }

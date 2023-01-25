@@ -31,7 +31,7 @@ final private[puzzle] class DailyPuzzle(
     (findCurrent orElse findNewBiased()) recover { case e: Exception =>
       logger.error("find daily", e)
       none
-    } flatMap { _ ?? makeDaily }
+    } flatMapz makeDaily
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
     import makeTimeout.short

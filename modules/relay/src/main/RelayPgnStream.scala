@@ -25,7 +25,13 @@ final class RelayPgnStream(
       }
     }
 
-  private val flags      = PgnDump.WithFlags(comments = false, variations = false, clocks = true)
+  private val flags = PgnDump.WithFlags(
+    comments = false,
+    variations = false,
+    clocks = true,
+    source = false,
+    orientation = false
+  )
   private val fileR      = """[\s,]""".r
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd"
 

@@ -23,7 +23,7 @@ final class CoachApi(
   def byId[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[Coach]] = coachColl.byId[Coach](idOf(u))
 
   def find(username: UserStr): Fu[Option[Coach.WithUser]] =
-    userRepo byId username flatMap { _ ?? find }
+    userRepo byId username flatMapz find
 
   def find(user: User): Fu[Option[Coach.WithUser]] =
     Granter(_.Coach)(user) ?? {
@@ -50,10 +50,8 @@ final class CoachApi(
 
   def setRating(userPre: User): Funit =
     Granter(_.Coach)(userPre) ?? {
-      userRepo.byId(userPre.id) flatMap {
-        _ ?? { user =>
-          coachColl.update.one($id(user.id), $set("user.rating" -> user.perfs.bestStandardRating)).void
-        }
+      userRepo.byId(userPre.id) flatMapz { user =>
+        coachColl.update.one($id(user.id), $set("user.rating" -> user.perfs.bestStandardRating)).void
       }
     }
 

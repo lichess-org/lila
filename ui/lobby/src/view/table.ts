@@ -20,9 +20,10 @@ export default function table(ctrl: LobbyController) {
           ['ai', 'playWithTheMachine', hasOngoingRealTimeGame],
         ].map(([gameType, transKey, disabled]: [GameType, string, boolean]) =>
           h(
-            `a.button.button-metal.config_${gameType}`,
+            `button.button.button-metal.config_${gameType}`,
             {
               class: { active: ctrl.setupCtrl.gameType === gameType, disabled },
+              attrs: { type: 'button' },
               hook: disabled
                 ? {}
                 : bind(opts.blindMode ? 'click' : 'mousedown', () => ctrl.setupCtrl.openModal(gameType), ctrl.redraw),

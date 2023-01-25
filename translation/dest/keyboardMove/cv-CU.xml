@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="kingsideCastle">Кӗске рокировка</string>
+  <string name="queensideCastle">Вӑрӑм рокировка</string>
+  <string name="promoteC8ToQueen">c8 ҫарпуҫа куҫни</string>
+</resources>

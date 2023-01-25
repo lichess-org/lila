@@ -48,19 +48,23 @@ object OpeningQuery:
   case class Query(key: String, moves: Option[PgnMovesStr])
 
   def queryFromUrl(key: String, moves: Option[String]) =
-    Query(key, PgnMovesStr from moves.map(_.trim.replace("_", " ")).filter(_.nonEmpty))
+    Query(
+      key.replace("Defence", "Defense"),
+      PgnMovesStr from moves.map(_.trim.replace("_", " ")).filter(_.nonEmpty)
+    )
 
   def apply(q: Query, config: OpeningConfig): Option[OpeningQuery] =
     if (q.key.isEmpty && q.moves.isEmpty) fromPgn(PgnMovesStr(""), config)
     else q.moves.flatMap(fromPgn(_, config)) orElse byOpening(q.key, config)
 
+  private lazy val openingsByLowerCaseKey: Map[OpeningKey, Opening] =
+    OpeningDb.shortestLines.mapKeys(_.map(_.toLowerCase))
+
   private def byOpening(str: String, config: OpeningConfig) = {
-    OpeningDb.shortestLines.get(OpeningKey(str)) orElse
-      OpeningDb.shortestLines
-        .get(
-          OpeningKey
-            .fromName(OpeningName(lila.common.String.decodeUriPath(str) | str))
-        )
+    OpeningDb.shortestLines.get(OpeningKey(str)) orElse {
+      val lowercase = (lila.common.String.decodeUriPath(str) | str).toLowerCase
+      openingsByLowerCaseKey.get(OpeningKey.fromName(OpeningName(lowercase)))
+    }
   }.map(_.pgn) flatMap { fromPgn(_, config) }
 
   private def fromPgn(pgn: PgnMovesStr, config: OpeningConfig) = for {
