@@ -24,7 +24,7 @@ private object RelayInputSanity:
   private type RelayChapter = (Chapter, Chapter.Relay)
 
   private def detectMissingOrMisplaced(chapters: List[RelayChapter], games: Vector[RelayGame]): Option[Fail] =
-    chapters flatMap { case (chapter, relay) =>
+    chapters flatMap { (chapter, relay) =>
       games.lift(relay.index) match
         case None => Missing(relay.index).some
         case Some(game) if !game.staticTagsMatch(chapter) =>

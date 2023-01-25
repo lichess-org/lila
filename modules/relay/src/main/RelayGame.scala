@@ -14,8 +14,9 @@ case class RelayGame(
   def staticTagsMatch(chapterTags: Tags): Boolean =
     import RelayGame.*
     def allSame(tagNames: List[String]) = tagNames.forall { tag => chapterTags(tag) == tags(tag) }
+    println(tags)
     allSame(staticTags) && {
-      if fideIdTags.forall(id => chapterTags(id).isDefined && tags(id).isDefined)
+      if fideIdTags.forall(id => chapterTags.exists(id) && tags.exists(id))
       then allSame(fideIdTags)
       else allSame(nameTags)
     }
