@@ -13,6 +13,8 @@ trait LilaTypes:
   type Fu[A] = Future[A]
   type Funit = Fu[Unit]
 
+  type PairOf[A] = (A, A)
+
   def fuccess[A](a: A): Fu[A]        = Future.successful(a)
   def fufail[X](t: Throwable): Fu[X] = Future.failed(t)
   def fufail[X](s: String): Fu[X]    = fufail(LilaException(s))
