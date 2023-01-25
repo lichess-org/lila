@@ -9,9 +9,7 @@ import lila.common.config.CollName
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
-    ec: Executor
-):
+final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Executor):
   import BSONHandlers.given
 
   private val enterableSelect                  = $doc("status" $lt Status.Finished.id)
