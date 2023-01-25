@@ -11,7 +11,6 @@ import scala.concurrent.{ Await, ExecutionContext as EC, Future }
 import scala.util.matching.Regex
 import scala.util.Try
 
-import cats.data.NonEmptyList
 import java.util.Base64
 import akka.actor.Scheduler
 import lila.common.Chronometer
@@ -53,7 +52,7 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     def fold[X](some: A => X, none: => X): X = self.fold(none)(some)
 
-    def orDefault(implicit z: Zero[A]): A = self getOrElse z.zero
+    def orDefault(using z: Zero[A]): A = self getOrElse z.zero
 
     def toTryWith(err: => Exception): Try[A] =
       self.fold[Try[A]](scala.util.Failure(err))(scala.util.Success.apply)
@@ -85,7 +84,7 @@ trait LilaLibraryExtensions extends LilaTypes:
   extension (date: DateTime)
     def getSeconds: Long                   = date.getMillis / 1000
     def getCentis: Long                    = date.getMillis / 10
-    def toNow                              = new Duration(date, DateTime.now)
+    def toNow                              = Duration(date, DateTime.now)
     def atMost(other: DateTime): DateTime  = if (other isBefore date) other else date
     def atLeast(other: DateTime): DateTime = if (other isAfter date) other else date
 
@@ -123,10 +122,6 @@ trait LilaLibraryExtensions extends LilaTypes:
       list.sortWith { (x, y) =>
         other.indexOf(f(x)) < other.indexOf(f(y))
       }
-    def toNel: Option[NonEmptyList[A]] =
-      list match
-        case Nil           => None
-        case first :: rest => Some(NonEmptyList(first, rest))
     def tailOption: Option[List[A]] = list match
       case Nil       => None
       case _ :: rest => Some(rest)
