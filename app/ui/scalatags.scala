@@ -27,6 +27,7 @@ trait ScalatagsAttrs:
   val deferAttr              = attr("defer").empty
   val downloadAttr           = attr("download").empty
   val viewBoxAttr            = attr("viewBox")
+  val enterkeyhint           = attr("enterkeyhint")
   def attrData(name: String) = attr(s"data-$name")
   def aria(key: String)      = attr(s"aria-$key")
 
