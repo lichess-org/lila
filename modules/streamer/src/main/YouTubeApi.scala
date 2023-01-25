@@ -85,7 +85,7 @@ final private class YouTubeApi(
     .void
 
   private def asFormBody(params: (String, String)*): String =
-    s"${params.map(x => s"${x._1}=${java.net.URLEncoder.encode(x._2, "UTF-8")}").toList.mkString("&")}"
+    params.map((key, value) => s"$key=${java.net.URLEncoder.encode(value, "UTF-8")}").mkString("&")
 
   private def syncDb(tubers: List[Tuber], results: List[YouTube.Stream]): Funit =
     val bulk = coll.update(ordered = false)
