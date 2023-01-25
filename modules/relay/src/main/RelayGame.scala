@@ -1,6 +1,6 @@
 package lila.relay
 
-import chess.format.pgn.Tags
+import chess.format.pgn.{ Tags, Tag, TagType }
 import lila.study.{ Chapter, Node, PgnImport }
 
 case class RelayGame(
@@ -13,8 +13,7 @@ case class RelayGame(
 
   def staticTagsMatch(chapterTags: Tags): Boolean =
     import RelayGame.*
-    def allSame(tagNames: List[String]) = tagNames.forall { tag => chapterTags(tag) == tags(tag) }
-    println(tags)
+    def allSame(tagNames: TagNames) = tagNames.forall { tag => chapterTags(tag) == tags(tag) }
     allSame(staticTags) && {
       if fideIdTags.forall(id => chapterTags.exists(id) && tags.exists(id))
       then allSame(fideIdTags)
@@ -34,6 +33,7 @@ private object RelayGame:
 
   val lichessDomains = List("lichess.org", "lichess.dev")
 
-  val staticTags = List("round", "event", "site")
-  val nameTags   = List("white", "black")
-  val fideIdTags = List("WhiteFideId", "BlackFideId")
+  type TagNames = List[Tag.type => TagType]
+  val staticTags: TagNames = List(_.Round, _.Event, _.Site)
+  val nameTags: TagNames   = List(_.White, _.Black)
+  val fideIdTags: TagNames = List(_.WhiteFideId, _.BlackFideId)
