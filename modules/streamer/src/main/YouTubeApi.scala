@@ -56,7 +56,7 @@ final private class YouTubeApi(
       .map(_.flatten)
       .addEffect { streams =>
         if streams != lastResults then
-          syncDb(tubers, streams.pp)
+          syncDb(tubers, streams)
           lastResults = streams
       }
 
