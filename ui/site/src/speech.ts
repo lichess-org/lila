@@ -1,7 +1,11 @@
 const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
 
 function renderSan(san: San) {
-  if (san.includes('O-O-O')) return 'long castle';
+  if (san.includes('O-O-O#')) return 'long castle checkmate';
+  else if (san.includes('O-O-O+')) return 'long castle check';
+  else if (san.includes('O-O-O')) return 'long castle';
+  else if (san.includes('O-O#')) return 'short castle checkmate';
+  else if (san.includes('O-O+')) return 'short castle check';
   else if (san.includes('O-O')) return 'short castle';
   else
     return hackFix(
