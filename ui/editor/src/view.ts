@@ -311,6 +311,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
       h('input.copyable', {
         attrs: {
           spellcheck: 'false',
+          enterkeyhint: 'done',
         },
         props: {
           value: fen,
@@ -331,6 +332,12 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
             el.value = ctrl.getFen();
             el.setCustomValidity('');
           },
+          keypress(e) {
+            const el = e.target as HTMLInputElement;
+            if (e.key === 'Enter') {
+              el.blur();
+            }
+          }
         },
       }),
     ]),

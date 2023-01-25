@@ -158,11 +158,11 @@ object layout:
     div(id := "clinput")(
       clinputLink,
       input(
-        spellcheck           := "false",
-        autocomplete         := ctx.blind.toString,
-        aria.label           := trans.search.search.txt(),
-        placeholder          := trans.search.search.txt(),
-        attr("enterkeyhint") := "search"
+        spellcheck   := "false",
+        autocomplete := ctx.blind.toString,
+        aria.label   := trans.search.search.txt(),
+        placeholder  := trans.search.search.txt(),
+        enterkeyhint := "search"
       )
     )
 

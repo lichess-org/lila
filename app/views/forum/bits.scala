@@ -15,10 +15,10 @@ object bits:
     div(cls := "box__top__actions")(
       form(cls := "search", action := routes.ForumPost.search())(
         input(
-          name                 := "text",
-          value                := search,
-          placeholder          := trans.search.search.txt(),
-          attr("enterkeyhint") := "search"
+          name         := "text",
+          value        := search,
+          placeholder  := trans.search.search.txt(),
+          enterkeyhint := "search"
         )
       )
     )
