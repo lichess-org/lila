@@ -75,7 +75,7 @@ object Future:
 
   def delay[A](
       duration: FiniteDuration
-  )(run: => Fu[A])(using ec: Executor, scheduler: Scheduler): Fu[A] =
+  )(run: => Fu[A])(using ec: lila.Lila.Executor, scheduler: Scheduler): Fu[A] =
     if (duration == 0.millis) run
     else akka.pattern.after(duration, scheduler)(run)
 
