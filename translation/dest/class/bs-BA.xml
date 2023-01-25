@@ -12,6 +12,7 @@
   <string name="teachersX">Instruktori: %s</string>
   <string name="newClass">Novi čas</string>
   <string name="closeClass">Zatvorite Čas</string>
+  <string name="removedByX">Uklonjen od %s</string>
   <string name="reopen">Otvorite ponovo</string>
   <string name="removeStudent">Uklonite učenika/cu</string>
   <string name="removedStudents">Uklonjen</string>
@@ -45,6 +46,7 @@ Lozinka: %3$s</string>
   <string name="createDesc2">E-mail adresa nije potrebna. Lozinka će biti generisana i Vi ćete je morati proslijediti učenicima, kako bi se oni mogli logirati.</string>
   <string name="createDesc3">Važno: učenik ne smije imati više korisničkih računa.</string>
   <string name="createDesc4">Ukoliko učenici već imaju korisnički račun, nemojte kreirati novi račun nego ih pozovite.</string>
+  <string name="createStudentWarning">Napravite račune isključivo za prave učenike. Nemojte ovo koristiti za izradu višestrukih vlastitih računa. Zabraniti ćemo vam pristup.</string>
   <string name="lichessUsername">Lichess korisničko ime</string>
   <string name="generateANewUsername">Generišite novo korisničko ime</string>
   <string name="welcomeToClass">Dobro došli na Vaš čas: %s.
@@ -66,6 +68,10 @@ Evo linka za pristup času.</string>
   <string name="releaseDesc1">Oslobođenim računom se više ne može upravljati. Učenik/ca će moći sam/a uključiti ili isključiti dječji režim i resetovati lozinku.</string>
   <string name="releaseDesc2">Učenici će ostati u času i nakon oslobođanja njihovog računa.</string>
   <string name="realUniqueEmail">Stvarna, jedinstvena e-mail adresa učenika. Ova adresa će dobiti potvrdnu e-mail poruku sa linkom čijim aktiviranjem će doći do oslobođenja računa.</string>
+  <string name="closeStudent">Zatvori račun</string>
+  <string name="closeTheAccount">Zatvori učenički račun zastalno.</string>
+  <string name="closeDesc1">Učenik više nikad neće moći koristiti ovaj račun. Zatvaranje je konačno. Vidite jel učenik ovo razumije i da se slaže sa time.</string>
+  <string name="closeDesc2">Umjesto zatvaranja možda želite dati učeniku kontrolu nad računom tako da ga može nastaviti koristiti.</string>
   <string name="teachers">Instruktori</string>
   <plurals name="nbTeachers">
     <item quantity="one">Instruktor</item>
@@ -86,10 +92,28 @@ Evo linka za pristup času.</string>
   <string name="variantXOverLastY">%1$s tokom poslednjih %2$s</string>
   <string name="winrate">Postotak pobjeda</string>
   <string name="na">NIje dostupno</string>
+  <string name="overview">Pregled</string>
+  <string name="news">Vijesti</string>
+  <string name="classNews">Nastavne vijesti</string>
   <string name="editNews">Uredite vijesti</string>
   <string name="notifyAllStudents">Obavjestite sve učenike</string>
   <string name="nothingHere">Ovde još uvijek nema ništa.</string>
   <string name="newsEdit1">Sve vijesti časa u jednom polju.</string>
   <string name="newsEdit2">Dodajte najnoviju vijest na vrh. Ne brišite prethodne vijesti.</string>
   <string name="newsEdit3">Odvojite vijesti sa --- kako biste prikazali horizontalnu liniju.</string>
+  <string name="invite">Pozovite</string>
+  <string name="youHaveBeenInvitedByX">Pozvani ste od %s.</string>
+  <string name="youAcceptedThisInvitation">Prihvatili ste ovu pozivnicu.</string>
+  <string name="youDeclinedThisInvitation">Odbili ste ovu pozivnicu.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ili</string>
+  <string name="createMultipleAccounts">Napravite više Lichess računa odjednom</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Isto možete %s da bi napravili više Lichess računa odjednom iz popisa imena studenata.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">koristite ovaj obrazac</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Uzmite u obzir da razred može imati do %1$s studenata. Da biste sa više studenta upravljali, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">napravite nove razrede</string>
+  <string name="studentsRealNamesOnePerLine">Prava imena studenata, jedno po redu</string>
+  <string name="xisNowAStudentOfTheClass">%s je sad student u razredu</string>
+  <string name="anInvitationHasBeenSentToX">Pozivnica je poslana %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s već ima pozivnicu na čekanju</string>
+  <string name="xIsAKidAccountWarning">%1$s je dječiji račun i ne može primati vaše poruke. Morate im ručno poslati vezu: %2$s</string>
 </resources>
