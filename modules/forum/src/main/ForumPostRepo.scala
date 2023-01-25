@@ -9,7 +9,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
-    scala.concurrent.ExecutionContext
+    Executor
 ):
 
   def forUser(user: Option[User]) =

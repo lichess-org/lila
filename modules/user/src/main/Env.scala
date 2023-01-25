@@ -36,7 +36,7 @@ final class Env(
     isOnline: lila.socket.IsOnline,
     onlineIds: lila.socket.OnlineIds
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: Scheduler,
     ws: StandaloneWSClient
 ):

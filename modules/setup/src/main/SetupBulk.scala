@@ -181,7 +181,7 @@ object SetupBulk:
       .add("fen" -> fen)
 
 final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mat: akka.stream.Materializer
 ):
 

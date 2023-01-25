@@ -24,7 +24,7 @@ final class Signup(
     irc: lila.irc.IrcApi,
     disposableEmailAttempt: DisposableEmailAttempt,
     netConfig: NetConfig
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   sealed abstract private class MustConfirmEmail(val value: Boolean)
   private object MustConfirmEmail:

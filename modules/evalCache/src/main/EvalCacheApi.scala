@@ -19,7 +19,7 @@ final class EvalCacheApi(
     upgrade: EvalCacheUpgrade,
     cacheApi: lila.memo.CacheApi,
     setting: SettingStore[Boolean]
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import EvalCacheEntry.*
   import BSONHandlers.given

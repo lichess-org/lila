@@ -86,7 +86,7 @@ object GameFilterMenu:
       gameRepo: lila.game.GameRepo,
       gameProxyRepo: lila.round.GameProxyRepo,
       bookmarkApi: lila.bookmark.BookmarkApi
-  )(using ec: scala.concurrent.ExecutionContext):
+  )(using Executor):
 
     def apply(
         user: User,

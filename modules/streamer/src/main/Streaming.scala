@@ -22,7 +22,7 @@ final private class Streaming(
     googleApiKey: Secret,
     twitchApi: TwitchApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

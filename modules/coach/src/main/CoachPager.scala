@@ -16,7 +16,7 @@ import lila.user.{ Country, User, UserMark, UserRepo }
 final class CoachPager(
     userRepo: UserRepo,
     coll: Coll
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   val maxPerPage = lila.common.config.MaxPerPage(10)
 

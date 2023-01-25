@@ -15,7 +15,7 @@ final class PerfsUpdater(
     rankingApi: RankingApi,
     botFarming: BotFarming,
     ratingFactors: () => RatingFactors
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   // returns rating diffs
   def save(game: Game, white: User, black: User): Fu[Option[RatingDiffs]] =

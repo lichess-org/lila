@@ -10,7 +10,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningApi)(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mat: akka.stream.Materializer
 ):
   import BsonHandlers.given

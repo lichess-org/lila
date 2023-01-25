@@ -2,7 +2,7 @@ package lila
 
 object Lila extends Lila:
 
-  // https://www.scala-lang.org/api/2.13.4/scala/concurrent/ExecutionContext%24.html#global:scala.concurrent.ExecutionContextExecutor
+  // https://www.scala-lang.org/api/2.13.4/Executor%24.html#global:Executor
   val defaultExecutor: scala.concurrent.ExecutionContextExecutor =
     scala.concurrent.ExecutionContext.getClass
       .getDeclaredMethod("opportunistic")

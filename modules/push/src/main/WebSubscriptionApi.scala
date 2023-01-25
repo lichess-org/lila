@@ -8,7 +8,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 import reactivemongo.api.ReadPreference
 
-final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final class WebSubscriptionApi(coll: Coll)(using Executor):
 
   import WebSubscription.given
 

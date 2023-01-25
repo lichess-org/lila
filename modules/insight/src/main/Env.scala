@@ -17,7 +17,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     mongo: lila.db.Env
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer
 ):

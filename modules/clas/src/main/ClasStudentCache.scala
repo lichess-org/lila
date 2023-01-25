@@ -8,14 +8,13 @@ import bloomfilter.CanGenerateHashFrom
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
 
 final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(using
-    ec: ExecutionContext,
+    ec: Executor,
     scheduler: Scheduler,
     mat: Materializer
 ):

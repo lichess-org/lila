@@ -1,13 +1,11 @@
 package lila.puzzle
 
-import scala.concurrent.ExecutionContext
-
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
 // mobile app BC
 final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: PuzzlePathApi)(using
-    ec: ExecutionContext
+    Executor
 ):
 
   import BsonHandlers.given

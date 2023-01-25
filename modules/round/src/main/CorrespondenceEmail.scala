@@ -14,7 +14,7 @@ import lila.pref.PrefApi
 import lila.user.UserRepo
 
 final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, prefApi: PrefApi)(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mat: akka.stream.Materializer
 ):
 

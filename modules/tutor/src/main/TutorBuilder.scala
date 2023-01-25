@@ -4,7 +4,7 @@ import akka.stream.scaladsl.*
 import chess.Color
 import org.joda.time.DateTime
 import scala.concurrent.duration.*
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.Future
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.IpAddress
@@ -34,7 +34,7 @@ final private class TutorBuilder(
     perfStatsApi: InsightPerfStatsApi,
     userRepo: UserRepo,
     fishnet: TutorFishnet
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import TutorBsonHandlers.given
   import TutorBuilder.*
@@ -129,21 +129,21 @@ private object TutorBuilder:
 
   def answerMine[Dim](question: Question[Dim], user: TutorUser)(using
       insightApi: InsightApi,
-      ec: ExecutionContext
+      ec: Executor
   ): Fu[AnswerMine[Dim]] = insightApi
     .ask(question filter perfFilter(user.perfType), user.user, withPovs = false)
     .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key.value)) map AnswerMine.apply
 
   def answerPeer[Dim](question: Question[Dim], user: TutorUser, nbGames: config.Max = peerNbGames)(using
       insightApi: InsightApi,
-      ec: ExecutionContext
+      ec: Executor
   ): Fu[AnswerPeer[Dim]] = insightApi
     .askPeers(question filter perfFilter(user.perfType), user.perfStats.rating, nbGames = nbGames)
     .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key.value)) map AnswerPeer.apply
 
   def answerBoth[Dim](question: Question[Dim], user: TutorUser, nbPeerGames: config.Max = peerNbGames)(using
       InsightApi,
-      ExecutionContext
+      Executor
   ): Fu[Answers[Dim]] = for
     mine <- answerMine(question, user)
     peer <- answerPeer(question, user, nbPeerGames)
@@ -151,7 +151,7 @@ private object TutorBuilder:
 
   def answerManyPerfs[Dim](question: Question[Dim], tutorUsers: NonEmptyList[TutorUser])(using
       insightApi: InsightApi,
-      ec: ExecutionContext
+      ec: Executor
   ): Fu[Answers[Dim]] = for
     mine <- insightApi
       .ask(

@@ -15,7 +15,7 @@ final private class EvalCacheSocketHandler(
     api: EvalCacheApi,
     truster: EvalCacheTruster,
     upgrade: EvalCacheUpgrade
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def evalGet(sri: Socket.Sri, d: JsObject): Unit =
     for

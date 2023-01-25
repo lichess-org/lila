@@ -1,7 +1,6 @@
 package lila.tutor
 
 import cats.data.NonEmptyList
-import scala.concurrent.ExecutionContext
 
 import lila.insight.*
 import lila.rating.PerfType
@@ -18,7 +17,7 @@ object TutorConversion:
 
   private[tutor] def compute(
       users: NonEmptyList[TutorUser]
-  )(using insightApi: InsightApi, ec: ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
+  )(using insightApi: InsightApi, ec: Executor): Fu[TutorBuilder.Answers[PerfType]] =
     val perfs = users.toList.map(_.perfType)
     val question = Question(
       InsightDimension.Perf,

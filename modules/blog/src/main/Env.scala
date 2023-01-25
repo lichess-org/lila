@@ -17,7 +17,7 @@ final class Env(
     timelineApi: lila.timeline.EntryApi,
     cacheApi: lila.memo.CacheApi
 )(using
-    scala.concurrent.ExecutionContext,
+    Executor,
     akka.actor.Scheduler,
     play.api.libs.ws.StandaloneWSClient
 ):

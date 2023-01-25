@@ -20,7 +20,7 @@ final private class ExplorerIndexer(
     ws: play.api.libs.ws.StandaloneWSClient,
     internalEndpoint: InternalEndpoint
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mat: akka.stream.Materializer
 ):
 

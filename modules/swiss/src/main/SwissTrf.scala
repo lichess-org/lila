@@ -11,7 +11,7 @@ final class SwissTrf(
     sheetApi: SwissSheetApi,
     mongo: SwissMongo,
     baseUrl: lila.common.config.BaseUrl
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private type Bits = List[(Int, String)]
 

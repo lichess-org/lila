@@ -7,7 +7,7 @@ import lila.user.User
 import lila.common.config
 
 final private class AggregationPipeline(store: InsightStorage)(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
   import InsightStorage.*
   import BSONHandlers.given

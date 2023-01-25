@@ -2,7 +2,6 @@ package lila.tournament
 
 import akka.actor.*
 import org.joda.time.DateTime
-import scala.concurrent.ExecutionContext
 
 import lila.game.actorApi.FinishGame
 import lila.user.User
@@ -13,7 +12,7 @@ final private class TournamentBusHandler(
     shieldApi: TournamentShieldApi,
     winnersApi: WinnersApi,
     tournamentRepo: TournamentRepo
-)(using ec: ExecutionContext):
+)(using Executor):
 
   lila.common.Bus.subscribeFun(
     "finishGame",

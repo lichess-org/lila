@@ -13,7 +13,6 @@ import ornicar.scalalib.ThreadLocalRandom
 import lila.common.String.html.nl2br
 import lila.common.{ Chronometer, EmailAddress }
 import lila.i18n.I18nKeys.{ emails as trans }
-import scala.concurrent.ExecutionContext
 import com.typesafe.config.DefaultConfigLoadingStrategy
 import play.api.ConfigLoader
 
@@ -22,7 +21,7 @@ final class Mailer(
     getSecondaryPermille: () => Int
 )(implicit system: ActorSystem):
 
-  private given blockingExecutionContext: ExecutionContext =
+  private given blockingExecutor: Executor =
     system.dispatchers.lookup("blocking-smtp-dispatcher")
 
   private val primaryClient   = new SMTPMailer(config.primary.toClientConfig)

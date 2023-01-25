@@ -15,7 +15,7 @@ final private[puzzle] class DailyPuzzle(
     pathApi: PuzzlePathApi,
     renderer: lila.hub.actors.Renderer,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 

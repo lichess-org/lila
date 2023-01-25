@@ -12,7 +12,7 @@ import lila.memo.CacheApi.*
 final class RevolutionApi(
     tournamentRepo: TournamentRepo,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Revolution.*
   import BSONHandlers.given

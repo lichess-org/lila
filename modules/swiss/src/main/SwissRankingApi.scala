@@ -10,7 +10,7 @@ import lila.user.User
 final private class SwissRankingApi(
     mongo: SwissMongo,
     cacheApi: CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
   import BsonHandlers.given
 
   def apply(swiss: Swiss): Fu[Ranking] =

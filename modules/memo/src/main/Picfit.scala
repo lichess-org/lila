@@ -9,7 +9,6 @@ import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler, Macros }
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.config
@@ -36,7 +35,7 @@ object PicfitImage:
   given BSONDocumentHandler[PicfitImage] = Macros.handler
 
 final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, config: PicfitConfig)(using
-    ExecutionContext
+    Executor
 ):
 
   import PicfitApi.*

@@ -25,7 +25,7 @@ final private[api] class GameApi(
     gameCache: lila.game.Cached,
     analysisRepo: lila.analyse.AnalysisRepo,
     crosstableApi: CrosstableApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import GameApi.WithFlags
 

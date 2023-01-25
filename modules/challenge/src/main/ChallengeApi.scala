@@ -24,7 +24,7 @@ final class ChallengeApi(
     gameCache: lila.game.Cached,
     cacheApi: lila.memo.CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler
 ):

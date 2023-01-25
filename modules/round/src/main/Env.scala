@@ -55,7 +55,7 @@ final class Env(
     ratingFactors: () => lila.rating.RatingFactors,
     shutdown: akka.actor.CoordinatedShutdown
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: akka.actor.Scheduler,
     materializer: akka.stream.Materializer

@@ -3,7 +3,6 @@ package lila.opening
 import chess.opening.OpeningDb
 import play.api.mvc.RequestHeader
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.*
 import lila.game.{ GameRepo, PgnDump }
@@ -17,7 +16,7 @@ final class OpeningApi(
     pgnDump: PgnDump,
     explorer: OpeningExplorer,
     configStore: OpeningConfigStore
-)(using ExecutionContext):
+)(using Executor):
 
   import OpeningQuery.Query
 

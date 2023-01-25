@@ -22,7 +22,7 @@ final class NotifyApi(
     cacheApi: lila.memo.CacheApi,
     maxPerPage: MaxPerPage,
     prefApi: lila.pref.PrefApi
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Notification.*
   import BSONHandlers.given

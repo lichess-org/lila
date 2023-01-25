@@ -44,7 +44,7 @@ final class TournamentApi(
     lightUserApi: lila.user.LightUserApi,
     proxyRepo: lila.round.GameProxyRepo
 )(using
-    scala.concurrent.ExecutionContext,
+    Executor,
     akka.actor.ActorSystem,
     akka.actor.Scheduler,
     akka.stream.Materializer

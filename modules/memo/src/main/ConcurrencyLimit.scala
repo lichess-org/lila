@@ -17,7 +17,7 @@ final class ConcurrencyLimit[K](
     maxConcurrency: Int = 1,
     limitedDefault: Int => Result = ConcurrencyLimit.limitedDefault,
     toString: K => String = (k: K) => k.toString
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private val storage = new ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
 

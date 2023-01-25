@@ -22,7 +22,7 @@ final private class MsgSecurity(
     spam: lila.security.Spam,
     chatPanic: lila.chat.ChatPanic
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

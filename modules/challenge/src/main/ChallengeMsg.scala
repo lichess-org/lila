@@ -1,13 +1,9 @@
 package lila.challenge
 
-import scala.concurrent.ExecutionContext
-
 import lila.common.{ LightUser, Template }
 import lila.user.{ LightUserApi, User }
 
-final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(using
-    ec: ExecutionContext
-):
+final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(using Executor):
 
   def onApiPair(challenge: Challenge)(managedBy: User, template: Option[Template]): Funit =
     challenge.userIds.map(lightUserApi.async).sequenceFu.flatMap {

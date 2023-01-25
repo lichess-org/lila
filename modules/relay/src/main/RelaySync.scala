@@ -12,7 +12,7 @@ final private class RelaySync(
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
     leaderboard: RelayLeaderboardApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private type NbMoves = Int
 

@@ -32,7 +32,7 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     db: lila.db.Db
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

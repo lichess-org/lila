@@ -3,7 +3,6 @@ package lila.puzzle
 import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -86,7 +85,7 @@ object PuzzleDashboard:
 final class PuzzleDashboardApi(
     colls: PuzzleColls,
     cacheApi: CacheApi
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import PuzzleDashboard.*
 

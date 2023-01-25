@@ -9,7 +9,7 @@ import lila.common.Bus
 
 final class BoardApiHookStream(
     trouper: LobbySyncActor
-)(using ec: scala.concurrent.ExecutionContext, system: ActorSystem):
+)(using ec: Executor, system: ActorSystem):
 
   private case object SetOnline
 

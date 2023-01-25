@@ -17,7 +17,7 @@ final private[api] class Cli(
     video: lila.video.Env,
     puzzle: lila.puzzle.Env,
     accountClosure: AccountClosure
-)(using ec: scala.concurrent.ExecutionContext)
+)(using Executor)
     extends lila.common.Cli:
 
   private val logger = lila.log("cli")

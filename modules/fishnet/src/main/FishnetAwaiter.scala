@@ -1,14 +1,13 @@
 package lila.fishnet
 
 import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.ExecutionContext
 import scala.concurrent.Promise
 
 import lila.game.Game
 import lila.common.Bus
 
 /* async wait for analysis to complete */
-final class FishnetAwaiter(using ExecutionContext, akka.actor.Scheduler):
+final class FishnetAwaiter(using Executor, akka.actor.Scheduler):
 
   private val busChannel = "analysisReady"
 

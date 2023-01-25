@@ -14,7 +14,7 @@ final class Env(
     system: ActorSystem,
     recentTvGames: lila.round.RecentTvGames,
     rematches: lila.game.Rematches
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private val tvSyncActor = wire[TvSyncActor]
 

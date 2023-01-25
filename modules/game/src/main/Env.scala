@@ -32,7 +32,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: Scheduler,
     materializer: Materializer,

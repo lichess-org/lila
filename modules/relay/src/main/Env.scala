@@ -22,7 +22,7 @@ final class Env(
     irc: lila.irc.IrcApi,
     baseUrl: BaseUrl
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: Scheduler,
     materializer: akka.stream.Materializer

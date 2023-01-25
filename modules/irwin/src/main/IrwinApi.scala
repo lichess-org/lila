@@ -22,7 +22,7 @@ final class IrwinApi(
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   lazy val thresholds = IrwinThresholds.makeSetting("irwin", settingStore)
 

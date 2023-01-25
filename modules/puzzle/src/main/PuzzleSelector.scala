@@ -1,7 +1,6 @@
 package lila.puzzle
 
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 import scala.util.chaining.*
 import chess.Color
 
@@ -12,7 +11,7 @@ final class PuzzleSelector(
     colls: PuzzleColls,
     pathApi: PuzzlePathApi,
     sessionApi: PuzzleSessionApi
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 

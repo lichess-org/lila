@@ -5,7 +5,7 @@ import lila.common.EmailAddress
 import lila.common.Domain
 
 final private[security] class Cli(userRepo: UserRepo, emailValidator: EmailAddressValidator)(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ) extends lila.common.Cli:
 
   def process =

@@ -9,7 +9,6 @@ import lila.common.LilaStream
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Query }
 import lila.round.actorApi.round.{ Abandon, QuietFlag }
-import scala.concurrent.ExecutionContext
 
 /*
  * Cleans up unfinished games
@@ -31,7 +30,7 @@ final private[round] class Titivate(
     scheduleNext()
     context setReceiveTimeout 30.seconds
 
-  given ExecutionContext = context.system.dispatcher
+  given Executor = context.system.dispatcher
 
   def scheduleNext(): Unit = context.system.scheduler.scheduleOnce(5 seconds, self, Run).unit
 

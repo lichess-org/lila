@@ -1,7 +1,6 @@
 package lila.tutor
 
 import chess.Color
-import scala.concurrent.ExecutionContext
 
 import lila.analyse.AccuracyPercent
 import lila.common.{ Heapsort, LilaOpeningFamily }
@@ -48,14 +47,14 @@ private case object TutorOpening:
 
   val nbOpeningsPerColor = 8
 
-  def compute(user: TutorUser)(using InsightApi, ExecutionContext): Fu[Color.Map[TutorColorOpenings]] = for
+  def compute(user: TutorUser)(using InsightApi, Executor): Fu[Color.Map[TutorColorOpenings]] = for
     whiteOpenings <- computeOpenings(user, Color.White)
     blackOpenings <- computeOpenings(user, Color.Black)
   yield Color.Map(whiteOpenings, blackOpenings)
 
   def computeOpenings(user: TutorUser, color: Color)(using
       InsightApi,
-      ExecutionContext
+      Executor
   ): Fu[TutorColorOpenings] = for
     myPerfsFull <- answerMine(perfQuestion(color), user)
     myPerfs = myPerfsFull.copy(answer =

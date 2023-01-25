@@ -12,7 +12,7 @@ import lila.common.Captcha
 import lila.hub.actorApi.captcha.*
 
 // only works with standard chess (not chess960)
-final private class Captcher(gameRepo: GameRepo)(using ec: scala.concurrent.ExecutionContext) extends Actor:
+final private class Captcher(gameRepo: GameRepo)(using Executor) extends Actor:
 
   def receive =
 

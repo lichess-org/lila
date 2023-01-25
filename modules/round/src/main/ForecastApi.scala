@@ -10,7 +10,7 @@ import chess.format.Uci
 import Forecast.Step
 import lila.game.{ Game, Pov }
 
-final class ForecastApi(coll: Coll, tellRound: TellRound)(using ec: scala.concurrent.ExecutionContext):
+final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
 
   private given BSONDocumentHandler[Step]     = Macros.handler
   private given BSONDocumentHandler[Forecast] = Macros.handler

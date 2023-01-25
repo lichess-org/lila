@@ -34,7 +34,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     ip2proxy: lila.security.Ip2Proxy
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
     mode: play.api.Mode
 ):

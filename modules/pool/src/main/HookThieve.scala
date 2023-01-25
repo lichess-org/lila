@@ -5,7 +5,7 @@ import scala.concurrent.Promise
 import lila.common.Bus
 
 final private class HookThieve()(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler
 ):

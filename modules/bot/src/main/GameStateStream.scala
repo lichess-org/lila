@@ -28,7 +28,7 @@ final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
     jsonView: BotJsonView
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem
 ):
   import GameStateStream.*

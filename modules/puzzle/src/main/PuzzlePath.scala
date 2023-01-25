@@ -1,7 +1,5 @@
 package lila.puzzle
 
-import scala.concurrent.ExecutionContext
-
 import lila.db.dsl.{ *, given }
 import lila.user.User
 import org.joda.time.DateTime
@@ -21,7 +19,7 @@ object PuzzlePath:
 
   given Iso.StringIso[Id] = Iso.string(Id.apply, _.value)
 
-final private class PuzzlePathApi(colls: PuzzleColls)(using ec: ExecutionContext):
+final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
 
   import BsonHandlers.given
   import PuzzlePath.{ *, given }

@@ -9,7 +9,7 @@ import lila.rating.PerfType
 import lila.user.User
 import lila.tournament.BSONHandlers.given
 
-final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final class PlayerRepo(coll: Coll)(using Executor):
 
   private def selectTour(tourId: TourId) = $doc("tid" -> tourId)
   private def selectTourUser(tourId: TourId, userId: UserId) =

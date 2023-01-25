@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
-final class PerfStatStorage(coll: AsyncCollFailingSilently)(using ec: scala.concurrent.ExecutionContext):
+final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
 
   private given ratingAtHandler: BSONDocumentHandler[RatingAt] = Macros.handler
   private given BSONDocumentHandler[GameAt]                    = Macros.handler

@@ -12,7 +12,7 @@ final class PerfStatIndexer(
     gameRepo: GameRepo,
     storage: PerfStatStorage
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler
 ):
 

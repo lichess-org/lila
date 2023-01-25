@@ -18,7 +18,7 @@ final class TutorApi(
     builder: TutorBuilder,
     cacheApi: CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler,
     mode: Mode
 ):

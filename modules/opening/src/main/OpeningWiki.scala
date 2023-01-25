@@ -7,7 +7,6 @@ import play.api.data.Forms.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -21,7 +20,7 @@ case class OpeningWiki(
   def markupForMove(move: String): Option[Html] =
     markup map OpeningWiki.filterMarkupForMove(move)
 
-final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: CacheApi)(using ExecutionContext):
+final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: CacheApi)(using Executor):
 
   import OpeningWiki.Revision
 

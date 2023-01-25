@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
 import play.api.libs.json.*
-import scala.concurrent.ExecutionContext
 
 import lila.common.{ GreatPlayer, LightUser }
 import lila.common.Json.given
@@ -22,7 +21,7 @@ final class SwissJson(
     statsApi: SwissStatsApi,
     userRepo: UserRepo,
     lightUserApi: lila.user.LightUserApi
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import SwissJson.{ *, given }
   import BsonHandlers.given

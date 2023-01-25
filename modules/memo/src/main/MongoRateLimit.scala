@@ -3,7 +3,6 @@ package lila.memo
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
 
@@ -27,7 +26,7 @@ final class MongoRateLimit[K](
 
   private def makeDbKey(k: K) = s"ratelimit:$name:${keyToString(k)}"
 
-  def getSpent(k: K)(using ExecutionContext): Fu[Entry] =
+  def getSpent(k: K)(using Executor): Fu[Entry] =
     coll.one[Entry]($id(makeDbKey(k))) map {
       case Some(v) => v
       case _       => Entry(k.toString(), 0, makeClearAt)
@@ -35,7 +34,7 @@ final class MongoRateLimit[K](
 
   def apply[A](k: K, cost: Cost = 1, msg: => String = "")(
       op: => Fu[A]
-  )(default: => A)(using ExecutionContext): Fu[A] =
+  )(default: => A)(using Executor): Fu[A] =
     if (cost < 1) op
     else
       val dbKey = makeDbKey(k)

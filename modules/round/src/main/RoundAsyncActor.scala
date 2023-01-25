@@ -30,10 +30,8 @@ final private[round] class RoundAsyncActor(
     gameId: GameId,
     socketSend: SocketSend,
     private var version: SocketVersion
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    proxy: GameProxy
-) extends AsyncActor:
+)(using ec: Executor, proxy: GameProxy)
+    extends AsyncActor:
 
   import RoundSocket.Protocol
   import RoundAsyncActor.*

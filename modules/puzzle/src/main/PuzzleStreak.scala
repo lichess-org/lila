@@ -1,14 +1,13 @@
 package lila.puzzle
 
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 
 case class PuzzleStreak(ids: String, first: Puzzle)
 
-final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using ec: ExecutionContext):
+final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Executor):
 
   import BsonHandlers.given
   import lila.puzzle.PuzzlePath.sep

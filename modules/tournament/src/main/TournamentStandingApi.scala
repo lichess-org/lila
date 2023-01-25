@@ -19,7 +19,7 @@ final class TournamentStandingApi(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mat: akka.stream.Materializer
 ):
 

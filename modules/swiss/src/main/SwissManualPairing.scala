@@ -4,7 +4,7 @@ import lila.db.dsl.{ *, given }
 import lila.swiss.BsonHandlers.given
 import lila.user.User
 
-final private class SwissManualPairing(mongo: SwissMongo)(using scala.concurrent.ExecutionContext):
+final private class SwissManualPairing(mongo: SwissMongo)(using Executor):
 
   def apply(swiss: Swiss): Option[Fu[List[SwissPairing.ByeOrPending]]] =
     swiss.settings.manualPairings.some.filter(_.nonEmpty) map { str =>

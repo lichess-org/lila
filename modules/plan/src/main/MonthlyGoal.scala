@@ -6,7 +6,7 @@ import reactivemongo.api.bson.BSONNull
 import lila.db.dsl.{ *, given }
 
 final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   def get: Fu[MonthlyGoal] =

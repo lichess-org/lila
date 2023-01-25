@@ -12,7 +12,7 @@ import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.user.User
 
-final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Materializer):
+final class PairingRepo(coll: Coll)(using Executor, Materializer):
 
   def selectTour(tourId: TourId) = $doc("tid" -> tourId)
   def selectUser(userId: UserId) = $doc("u" -> userId)

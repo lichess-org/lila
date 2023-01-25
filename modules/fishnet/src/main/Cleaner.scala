@@ -13,7 +13,7 @@ final private class Cleaner(
     analysisColl: Coll,
     system: akka.actor.ActorSystem
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mat: akka.stream.Materializer
 ):
 

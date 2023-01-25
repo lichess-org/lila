@@ -7,7 +7,7 @@ import scala.concurrent.duration.{ Duration, DurationInt }
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class NotificationRepo(colls: NotifyColls)(using ec: scala.concurrent.ExecutionContext):
+final private class NotificationRepo(colls: NotifyColls)(using Executor):
 
   import BSONHandlers.given
   import Notification.UnreadCount

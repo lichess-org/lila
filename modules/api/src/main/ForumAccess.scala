@@ -6,7 +6,7 @@ import lila.team.Team
 import lila.user.{ User, UserContext }
 
 final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached)(using
-    scala.concurrent.ExecutionContext
+    Executor
 ):
 
   enum Operation:

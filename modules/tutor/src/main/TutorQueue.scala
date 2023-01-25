@@ -5,7 +5,6 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 import com.softwaremill.tagging.*
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
@@ -21,7 +20,7 @@ final private class TutorQueue(
     cacheApi: CacheApi,
     lightUserApi: LightUserApi,
     parallelism: SettingStore[Int] @@ Parallelism
-)(using ExecutionContext, akka.actor.Scheduler):
+)(using Executor, akka.actor.Scheduler):
 
   import TutorQueue.*
 

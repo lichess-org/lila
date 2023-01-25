@@ -12,7 +12,7 @@ final class ChallengeMaker(
     userRepo: lila.user.UserRepo,
     gameRepo: GameRepo,
     rematches: Rematches
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def makeRematchFor(gameId: GameId, dest: User): Fu[Option[Challenge]] =
     gameRepo.game(gameId) flatMapz { game =>

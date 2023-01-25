@@ -10,7 +10,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final class StudyRepo(private[study] val coll: AsyncColl)(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mat: akka.stream.Materializer
 ):
 

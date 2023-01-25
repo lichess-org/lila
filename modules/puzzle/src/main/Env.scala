@@ -28,7 +28,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     mongo: lila.db.Env
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler,
     materializer: akka.stream.Materializer,

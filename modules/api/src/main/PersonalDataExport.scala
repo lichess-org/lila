@@ -7,7 +7,6 @@ import org.joda.time.format.DateTimeFormat
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.chat.Chat
 import lila.db.dsl.{ *, given }
@@ -30,7 +29,7 @@ final class PersonalDataExport(
     coachApi: lila.coach.CoachApi,
     picfitUrl: lila.memo.PicfitUrl,
     mongoCacheApi: lila.memo.MongoCache.Api
-)(using ec: ExecutionContext, mat: Materializer):
+)(using Executor, Materializer):
 
   private val lightPerSecond = 60
   private val heavyPerSecond = 30

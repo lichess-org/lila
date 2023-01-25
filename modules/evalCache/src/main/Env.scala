@@ -17,7 +17,7 @@ final class Env(
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler, play.api.Mode):
+)(using Executor, akka.actor.Scheduler, play.api.Mode):
 
   private lazy val coll = yoloDb(CollName("eval_cache")).failingSilently()
 

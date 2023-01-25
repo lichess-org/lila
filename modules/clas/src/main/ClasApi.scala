@@ -20,7 +20,7 @@ final class ClasApi(
     msgApi: MsgApi,
     authenticator: Authenticator,
     baseUrl: BaseUrl
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 

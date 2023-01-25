@@ -11,7 +11,7 @@ final private class Biter(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     idGenerator: lila.game.IdGenerator
 ):
 

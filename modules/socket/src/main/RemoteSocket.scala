@@ -24,7 +24,7 @@ import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToOnlineUser, Sen
 final class RemoteSocket(
     redisClient: RedisClient,
     shutdown: CoordinatedShutdown
-)(using scala.concurrent.ExecutionContext, Scheduler):
+)(using Executor, Scheduler):
 
   import RemoteSocket.*, Protocol.*
 

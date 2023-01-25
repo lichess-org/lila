@@ -68,7 +68,7 @@ private object SwissSheet:
     }
 
 final private class SwissSheetApi(mongo: SwissMongo)(using
-    scala.concurrent.ExecutionContext,
+    Executor,
     akka.stream.Materializer
 ):
 

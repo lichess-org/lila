@@ -43,7 +43,7 @@ final class ClasProgressApi(
     historyApi: lila.history.HistoryApi,
     puzzleColls: lila.puzzle.PuzzleColls,
     studentCache: ClasStudentCache
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   case class PlayStats(nb: Int, wins: Int, millis: Long)
 

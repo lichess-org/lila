@@ -27,7 +27,7 @@ final class ActivityReadApi(
     teamRepo: lila.team.TeamRepo,
     lightUserApi: lila.user.LightUserApi,
     getTourName: lila.tournament.GetTourName
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BSONHandlers.{ *, given }
   import model.*

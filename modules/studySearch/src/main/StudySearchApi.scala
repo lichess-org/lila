@@ -19,7 +19,7 @@ final class StudySearchApi(
     indexThrottler: ActorRef,
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler, akka.stream.Materializer)
+)(using Executor, akka.actor.Scheduler, akka.stream.Materializer)
     extends SearchReadApi[Study, Query]:
 
   def search(query: Query, from: From, size: Size) =

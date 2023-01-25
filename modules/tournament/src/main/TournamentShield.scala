@@ -11,7 +11,7 @@ import lila.memo.CacheApi.*
 final class TournamentShieldApi(
     tournamentRepo: TournamentRepo,
     cacheApi: lila.memo.CacheApi
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import TournamentShield.*
   import BSONHandlers.given

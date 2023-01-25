@@ -5,7 +5,7 @@ import ornicar.scalalib.{ ThreadLocalRandom, SecureRandom }
 
 import lila.db.dsl.{ *, given }
 
-final class IdGenerator(gameRepo: GameRepo)(using ec: scala.concurrent.ExecutionContext):
+final class IdGenerator(gameRepo: GameRepo)(using Executor):
 
   import IdGenerator.*
 

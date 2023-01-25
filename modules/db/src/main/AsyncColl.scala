@@ -3,13 +3,12 @@ package lila.db
 import akka.actor.Scheduler
 import alleycats.Zero
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 import scala.util.{ Failure, Success }
 
 import lila.common.config.CollName
 import lila.db.dsl.*
 
-final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(using ExecutionContext):
+final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(using Executor):
 
   def get: Fu[Coll] = resolve()
 
@@ -23,7 +22,7 @@ final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(using Executi
 /* For data we don't really care about,
  * this DB coll with fallback to default when any operation fails. */
 final class AsyncCollFailingSilently(coll: AsyncColl, timeout: FiniteDuration)(using
-    ExecutionContext,
+    Executor,
     Scheduler
 ):
 

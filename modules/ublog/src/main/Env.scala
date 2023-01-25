@@ -21,7 +21,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     net: NetConfig
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,
     mode: play.api.Mode

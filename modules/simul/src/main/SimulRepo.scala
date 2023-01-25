@@ -9,7 +9,7 @@ import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private[simul] class SimulRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final private[simul] class SimulRepo(val coll: Coll)(using Executor):
 
   import lila.game.BSONHandlers.given
   private given BSONHandler[SimulStatus] = tryHandler(

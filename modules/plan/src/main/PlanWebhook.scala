@@ -2,7 +2,7 @@ package lila.plan
 
 import play.api.libs.json.*
 
-final class PlanWebhook(api: PlanApi)(using ec: scala.concurrent.ExecutionContext):
+final class PlanWebhook(api: PlanApi)(using Executor):
 
   import JsonHandlers.given
   import JsonHandlers.stripe.given

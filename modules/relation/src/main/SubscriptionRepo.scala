@@ -9,7 +9,7 @@ import lila.relation.RelationRepo.makeId
 import lila.user.User
 
 final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
-    scala.concurrent.ExecutionContext
+    Executor
 ) {
   val coll = colls.subscription
 

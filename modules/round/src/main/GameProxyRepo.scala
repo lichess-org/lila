@@ -8,7 +8,7 @@ import lila.hub.actorApi.mailer.*
 final class GameProxyRepo(
     gameRepo: lila.game.GameRepo,
     roundSocket: RoundSocket
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def game(gameId: GameId): Fu[Option[Game]] = Game.validId(gameId) ?? roundSocket.getGame(gameId)
 

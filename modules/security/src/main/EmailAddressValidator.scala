@@ -5,7 +5,6 @@ import scala.concurrent.duration.*
 
 import lila.common.{ Domain, EmailAddress }
 import lila.user.{ User, UserRepo }
-import scala.concurrent.ExecutionContext
 import org.joda.time.DateTime
 
 /** Validate and normalize emails
@@ -15,7 +14,7 @@ final class EmailAddressValidator(
     disposable: DisposableEmailDomain,
     dnsApi: DnsApi,
     checkMail: CheckMail
-)(using ExecutionContext):
+)(using Executor):
 
   import EmailAddressValidator.*
 

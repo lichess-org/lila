@@ -6,7 +6,6 @@ import play.api.libs.json.Json
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration.*
 import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.ExecutionContext
 import scala.util.Try
 
 import lila.db.dsl.{ *, given }
@@ -15,7 +14,7 @@ import lila.report.Room
 import lila.user.User
 
 final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cacheApi: lila.memo.CacheApi)(
-    using ec: ExecutionContext
+    using Executor
 ):
 
   import ModActivity.*

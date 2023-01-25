@@ -3,7 +3,6 @@ package lila.api
 import chess.format.pgn.Pgn
 import play.api.Mode
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 import scalatags.Text.all.*
 
 import lila.analyse.AnalysisRepo
@@ -17,7 +16,7 @@ final class TextLpvExpand(
     pgnDump: PgnDump,
     cacheApi: CacheApi,
     net: lila.common.config.NetConfig
-)(using ec: ExecutionContext):
+)(using Executor):
 
   def getPgn(id: GameId) = pgnCache get id
 

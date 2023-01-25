@@ -1,7 +1,7 @@
 package lila.common
 
 import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.Future
 import scala.util.Try
 import lila.Lila.Fu
 
@@ -82,7 +82,7 @@ object Chronometer:
     def result =
       lap.flatMap { l =>
         Future.fromTry(l.result)
-      }(ExecutionContext.parasitic)
+      }(scala.concurrent.ExecutionContext.parasitic)
 
   def apply[A](f: Fu[A]): FuLap[A] =
     val start = nowNanos
@@ -93,7 +93,7 @@ object Chronometer:
     FuLapTry {
       f.transformWith { r =>
         fuccess(LapTry(r, nowNanos - start))
-      }(ExecutionContext.parasitic)
+      }(scala.concurrent.ExecutionContext.parasitic)
     }
 
   def sync[A](f: => A): Lap[A] =

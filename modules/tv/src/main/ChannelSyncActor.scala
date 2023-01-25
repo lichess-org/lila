@@ -14,7 +14,7 @@ final private[tv] class ChannelSyncActor(
     proxyGame: GameId => Fu[Option[Game]],
     rematchOf: GameId => Option[GameId],
     lightUserSync: LightUser.GetterSync
-)(using ec: scala.concurrent.ExecutionContext)
+)(using Executor)
     extends SyncActor:
 
   import ChannelSyncActor.*

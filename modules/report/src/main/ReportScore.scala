@@ -6,7 +6,7 @@ final private class ReportScore(
     getAccuracy: Report.Candidate => Fu[Option[Accuracy]],
     gameRepo: GameRepo,
     domain: lila.common.config.NetDomain
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def apply(candidate: Report.Candidate): Fu[Report.Candidate.Scored] =
     getAccuracy(candidate) map { accuracy =>

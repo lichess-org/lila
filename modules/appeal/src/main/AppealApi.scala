@@ -11,7 +11,7 @@ final class AppealApi(
     userRepo: UserRepo,
     noteApi: NoteApi,
     snoozer: lila.memo.Snoozer[Appeal.SnoozeKey]
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 

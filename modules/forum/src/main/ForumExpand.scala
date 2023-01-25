@@ -1,13 +1,12 @@
 package lila.forum
 
-import scala.concurrent.ExecutionContext
 import scalatags.Text.all.{ raw, Frag }
 
 import lila.base.RawHtml
 import lila.common.config
 import lila.common.String.html.richText
 
-final class ForumTextExpand(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
+final class ForumTextExpand(using Executor, akka.actor.Scheduler):
 
   private def one(text: String)(using config.NetDomain): Fu[Frag] =
     lila.common.Bus.ask("lpv")(lila.hub.actorApi.lpv.LpvLinkRenderFromText(text, _)) map { linkRender =>

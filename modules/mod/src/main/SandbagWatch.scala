@@ -14,7 +14,7 @@ final private class SandbagWatch(
     messenger: MsgApi,
     reportApi: ReportApi,
     modLogApi: ModlogApi
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import SandbagWatch.*
   import Outcome.*

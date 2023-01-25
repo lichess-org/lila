@@ -15,7 +15,7 @@ final class EntryApi(
     coll: Coll,
     userMax: Max,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Entry.given
 

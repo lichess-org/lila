@@ -11,7 +11,7 @@ final private class ExplorerGame(
     importer: lila.explorer.ExplorerImporter,
     lightUserApi: lila.user.LightUserApi,
     net: lila.common.config.NetConfig
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def quote(gameId: GameId): Fu[Option[Comment]] =
     importer(gameId) mapz { game =>

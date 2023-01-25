@@ -9,7 +9,7 @@ import lila.db.dsl.{ *, given }
 final private class FishnetLimiter(
     analysisColl: Coll,
     requesterApi: lila.analyse.RequesterApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import FishnetLimiter.*
 

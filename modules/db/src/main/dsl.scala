@@ -20,7 +20,6 @@ import alleycats.Zero
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 import scala.collection.Factory
-import scala.concurrent.ExecutionContext
 
 trait dsl:
 
@@ -370,7 +369,7 @@ trait dsl:
 
 object dsl extends dsl with Handlers:
 
-  extension [A](c: Cursor[A])(using ec: ExecutionContext)
+  extension [A](c: Cursor[A])(using Executor)
 
     // like collect, but with stopOnError defaulting to false
     def gather[M[_]](upTo: Int = Int.MaxValue)(implicit cbf: Factory[A, M[A]]): Fu[M[A]] =
@@ -383,7 +382,7 @@ object dsl extends dsl with Handlers:
     def uno: Fu[Option[A]] =
       c.collect[Iterable](1, Cursor.ContOnError[Iterable[A]]()).map(_.headOption)
 
-      // extension [A](cursor: Cursor.WithOps[A])(using ec: ExecutionContext)
+      // extension [A](cursor: Cursor.WithOps[A])(using Executor)
 
       //   def gather[M[_]](upTo: Int)(implicit factory: Factory[A, M[A]]): Fu[M[A]] =
       //     cursor.collect[M](upTo, Cursor.ContOnError[M[A]]())
@@ -401,7 +400,7 @@ object dsl extends dsl with Handlers:
 
   import reactivemongo.api.WriteConcern as CWC
 
-  extension (coll: Coll)(using ec: ExecutionContext)
+  extension (coll: Coll)(using Executor)
 
     def secondaryPreferred = coll withReadPreference ReadPreference.secondaryPreferred
     def secondary          = coll withReadPreference ReadPreference.secondary

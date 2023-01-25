@@ -5,7 +5,6 @@ import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr }
 import chess.format.{ pgn as chessPgn }
 import org.joda.time.format.DateTimeFormat
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.common.String.slugify
 import lila.tree.Node.{ Shape, Shapes }
@@ -16,7 +15,7 @@ final class PgnDump(
     annotator: lila.analyse.Annotator,
     lightUserApi: lila.user.LightUserApi,
     net: lila.common.config.NetConfig
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import PgnDump.*
 

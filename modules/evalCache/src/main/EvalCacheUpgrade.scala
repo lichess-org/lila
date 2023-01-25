@@ -16,7 +16,7 @@ import lila.memo.SettingStore
  * and listening to new evals stored.
  */
 final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: akka.actor.Scheduler)(using
-    scala.concurrent.ExecutionContext,
+    Executor,
     play.api.Mode
 ):
   import EvalCacheUpgrade.*

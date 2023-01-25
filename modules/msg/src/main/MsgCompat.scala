@@ -20,7 +20,7 @@ final class MsgCompat(
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.socket.IsOnline,
     lightUserApi: LightUserApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private val maxPerPage = MaxPerPage(25)
 

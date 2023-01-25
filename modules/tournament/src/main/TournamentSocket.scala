@@ -18,7 +18,7 @@ final private class TournamentSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode

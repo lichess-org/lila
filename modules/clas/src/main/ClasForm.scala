@@ -11,7 +11,7 @@ final class ClasForm(
     lightUserAsync: lila.common.LightUser.Getter,
     securityForms: lila.security.SecurityForm,
     nameGenerator: NameGenerator
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import ClasForm.*
 

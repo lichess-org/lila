@@ -21,7 +21,7 @@ final class PlaybanApi(
     noteApi: NoteApi,
     cacheApi: lila.memo.CacheApi,
     messenger: MsgApi
-)(using ec: scala.concurrent.ExecutionContext, mode: Mode):
+)(using ec: Executor, mode: Mode):
 
   private given BSONHandler[Outcome] = tryHandler(
     { case BSONInteger(v) => Outcome(v) toTry s"No such playban outcome: $v" },

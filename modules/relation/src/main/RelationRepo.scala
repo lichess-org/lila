@@ -8,7 +8,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   import RelationRepo.*

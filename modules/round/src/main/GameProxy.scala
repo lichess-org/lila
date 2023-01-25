@@ -12,7 +12,7 @@ final private class GameProxy(
     id: GameId,
     dependencies: GameProxy.Dependencies,
     private[this] var cache: Fu[Option[Game]]
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import GameProxy.*
   import dependencies.*

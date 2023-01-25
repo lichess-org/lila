@@ -18,7 +18,7 @@ final class Env(
     pager: lila.study.StudyPager,
     makeClient: Index => ESClient
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer

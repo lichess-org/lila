@@ -21,7 +21,7 @@ final class SwissStatsApi(
     sheetApi: SwissSheetApi,
     mongoCache: lila.memo.MongoCache.Api
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mat: akka.stream.Materializer
 ):
 

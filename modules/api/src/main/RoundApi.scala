@@ -32,7 +32,7 @@ final private[api] class RoundApi(
     externalEngineApi: lila.analyse.ExternalEngineApi,
     getTeamName: lila.team.GetTeamNameSync,
     getLightUser: lila.common.LightUser.GetterSync
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def player(pov: Pov, tour: Option[TourView], apiVersion: ApiVersion)(using
       ctx: Context

@@ -17,7 +17,7 @@ final class StreamerApi(
     picfitApi: PicfitApi,
     notifyApi: lila.notify.NotifyApi,
     subsRepo: lila.relation.SubscriptionRepo
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 

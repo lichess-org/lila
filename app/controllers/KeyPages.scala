@@ -9,7 +9,7 @@ import lila.app.{ *, given }
 import lila.memo.CacheApi.*
 import views.*
 
-final class KeyPages(env: Env)(using ec: scala.concurrent.ExecutionContext):
+final class KeyPages(env: Env)(using Executor):
 
   def home(status: Results.Status)(implicit ctx: Context): Fu[Result] =
     homeHtml

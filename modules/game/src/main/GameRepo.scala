@@ -16,7 +16,7 @@ import lila.db.isDuplicateKey
 import lila.user.User
 import lila.common.config
 
-final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
+final class GameRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
   import Game.{ BSONFields as F }

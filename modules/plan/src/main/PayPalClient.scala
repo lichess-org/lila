@@ -23,7 +23,7 @@ final private class PayPalClient(
     ws: StandaloneWSClient,
     config: PayPalClient.Config,
     cacheApi: CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import PayPalClient.*
   import JsonHandlers.given

@@ -2,7 +2,6 @@ package lila.puzzle
 
 import chess.Color
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 import scala.util.chaining.*
 
 import lila.db.dsl.{ *, given }
@@ -43,7 +42,7 @@ final class PuzzleSessionApi(
     colls: PuzzleColls,
     pathApi: PuzzlePathApi,
     cacheApi: CacheApi
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.*
 

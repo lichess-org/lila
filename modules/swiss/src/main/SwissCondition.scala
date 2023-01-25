@@ -7,7 +7,6 @@ import play.api.i18n.Lang
 import lila.i18n.I18nKeys as trans
 import lila.rating.PerfType
 import lila.user.{ Title, User }
-import scala.concurrent.ExecutionContext
 
 sealed trait SwissCondition:
 
@@ -62,7 +61,7 @@ object SwissCondition:
 
     def apply(perf: PerfType, getMaxRating: GetMaxRating)(
         user: User
-    )(using ExecutionContext): Fu[Verdict] =
+    )(using Executor): Fu[Verdict] =
       if (user.perfs(perf).provisional.yes) fuccess(Refused { lang =>
         given Lang = lang
         trans.yourPerfRatingIsProvisional.txt(perf.trans)
@@ -134,7 +133,7 @@ object SwissCondition:
         perf: PerfType,
         getMaxRating: GetMaxRating,
         getBannedUntil: GetBannedUntil
-    )(user: User)(using ExecutionContext): Fu[All.WithVerdicts] =
+    )(user: User)(using Executor): Fu[All.WithVerdicts] =
       list.map {
         case PlayYourGames => getBannedUntil(user.id) map PlayYourGames.withBan
         case c: MaxRating  => c(perf, getMaxRating)(user) map c.withVerdict
@@ -167,7 +166,7 @@ object SwissCondition:
 
   final class Verify(historyApi: lila.history.HistoryApi, banApi: SwissBanApi):
 
-    def apply(swiss: Swiss, user: User)(using ExecutionContext): Fu[All.WithVerdicts] =
+    def apply(swiss: Swiss, user: User)(using Executor): Fu[All.WithVerdicts] =
       val getBan: GetBannedUntil     = banApi.bannedUntil
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
       swiss.settings.conditions.withVerdicts(swiss.perfType, getMaxRating, getBan)(user)

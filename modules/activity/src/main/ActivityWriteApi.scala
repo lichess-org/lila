@@ -11,7 +11,7 @@ import lila.user.User
 final class ActivityWriteApi(
     withColl: AsyncCollFailingSilently,
     studyApi: lila.study.StudyApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Activity.*
   import BSONHandlers.{ *, given }

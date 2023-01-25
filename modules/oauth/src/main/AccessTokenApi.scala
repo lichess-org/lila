@@ -14,7 +14,7 @@ final class AccessTokenApi(
     coll: Coll,
     cacheApi: lila.memo.CacheApi,
     userRepo: UserRepo
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import OAuthScope.given
   import AccessToken.{ BSONFields as F, given }

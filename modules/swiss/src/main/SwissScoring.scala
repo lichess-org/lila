@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 
 final private class SwissScoring(mongo: SwissMongo)(using
     scheduler: akka.actor.Scheduler,
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mode: play.api.Mode
 ):
 

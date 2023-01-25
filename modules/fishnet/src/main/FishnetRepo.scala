@@ -11,7 +11,7 @@ final private class FishnetRepo(
     analysisColl: Coll,
     clientColl: Coll,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BSONHandlers.given
 

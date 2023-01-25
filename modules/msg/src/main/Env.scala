@@ -25,7 +25,7 @@ final class Env(
     shutup: lila.hub.actors.Shutup,
     mongoCache: lila.memo.MongoCache.Api
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler,
     materializer: akka.stream.Materializer

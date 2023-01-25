@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class DeviceApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final private class DeviceApi(coll: Coll)(using Executor):
 
   private given BSONDocumentHandler[Device] = Macros.handler
 

@@ -62,7 +62,7 @@ final class Env(
     ws: StandaloneWSClient,
     val mode: Mode
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: Scheduler,
     materializer: akka.stream.Materializer
