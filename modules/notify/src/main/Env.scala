@@ -48,11 +48,10 @@ final class Env(
           }
         }
     },
-    "streamStart" -> {
-      case lila.hub.actorApi.streamer.StreamStart(userId, streamerName) =>
-        subsRepo.subscribersOnlineSince(userId, 7) map { subs =>
-          api.notifyMany(subs, StreamStart(userId, streamerName))
-        }
+    "streamStart" -> { case lila.hub.actorApi.streamer.StreamStart(userId, streamerName) =>
+      subsRepo.subscribersOnlineSince(userId, 7) map { subs =>
+        api.notifyMany(subs, StreamStart(userId, streamerName))
+      }
     }
   )
 
