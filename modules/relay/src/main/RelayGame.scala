@@ -12,8 +12,12 @@ case class RelayGame(
 ):
 
   def staticTagsMatch(chapterTags: Tags): Boolean =
-    RelayGame.staticTags forall { name =>
-      chapterTags(name) == tags(name)
+    import RelayGame.*
+    def allSame(tagNames: List[String]) = tagNames.forall { tag => chapterTags(tag) == tags(tag) }
+    allSame(staticTags) && {
+      if fideIdTags.forall(id => chapterTags(id).isDefined && tags(id).isDefined)
+      then allSame(fideIdTags)
+      else allSame(nameTags)
     }
   def staticTagsMatch(chapter: Chapter): Boolean = staticTagsMatch(chapter.tags)
 
@@ -29,4 +33,6 @@ private object RelayGame:
 
   val lichessDomains = List("lichess.org", "lichess.dev")
 
-  val staticTags = List("white", "black", "round", "event", "site")
+  val staticTags = List("round", "event", "site")
+  val nameTags   = List("white", "black")
+  val fideIdTags = List("WhiteFideId", "BlackFideId")
