@@ -86,7 +86,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         attrs: {
           spellcheck: 'false',
           enterkeyhint: 'done',
-       },
+        },
         hook: {
           insert: vnode => {
             const el = vnode.elm as HTMLInputElement;

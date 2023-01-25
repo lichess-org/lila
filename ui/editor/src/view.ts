@@ -337,7 +337,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
             if (e.key === 'Enter') {
               el.blur();
             }
-          }
+          },
         },
       }),
     ]),
