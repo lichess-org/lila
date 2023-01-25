@@ -194,7 +194,7 @@ object PgnDump:
       lastFen: Boolean = false
   ):
     def applyDelay[M](moves: Seq[M]): Seq[M] =
-      if (!delayMoves) moves
+      if !delayMoves then moves
       else moves.take((moves.size - delayMovesBy) atLeast delayKeepsFirstMoves)
 
     def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
