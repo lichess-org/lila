@@ -86,5 +86,5 @@ final class Env(
 
   scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>
     api.autoDemoteFakes.unit
-    ytApi.subscribeAll // max lease is 10 days
   }
+  scheduler.scheduleWithFixedDelay(3 minutes, 8 days)(() => ytApi.subscribeAll.unit)

@@ -106,7 +106,7 @@ final private class YouTubeApi(
 
   private[streamer] def subscribeAll: Funit = coll
     .find(
-      $doc("youTube.channelId" $exists true),
+      $doc("youTube.channelId" $exists true, "approval.granted" -> true),
       $doc("youTube.channelId" -> true).some
     )
     .cursor[Bdoc]()
