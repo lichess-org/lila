@@ -128,7 +128,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
   private[tournament] def countByTourIdAndUserIds(tourId: TourId): Fu[Map[UserId, Int]] =
     val max = 10_000
     coll
-      .aggregateList(maxDocs = max, ReadPreference.secondaryPreferred) { framework =>
+      .aggregateList(maxDocs = max, temporarilyPrimary) { framework =>
         import framework.*
         Match(selectTour(tourId)) -> List(
           Project($doc("u" -> true, "_id" -> false)),
