@@ -64,11 +64,9 @@ export default class StormCtrl implements PuzCtrl {
       }
     }, config.timeToStart + 1000);
     lichess.pubsub.on('zen', () => {
-      if (!this.run.endAt) {
-        const zen = $('body').toggleClass('zen').hasClass('zen');
-        window.dispatchEvent(new Event('resize'));
-        xhr.setZen(zen);
-      }
+      const zen = $('body').toggleClass('zen').hasClass('zen');
+      window.dispatchEvent(new Event('resize'));
+      xhr.setZen(zen);
     });
     $('#zentog').on('click', this.toggleZen);
   }
