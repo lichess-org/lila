@@ -222,12 +222,11 @@ object Tournament:
 
   case class PastAndNext(past: List[Tournament], next: List[Tournament])
 
-  sealed abstract class JoinResult(val error: Option[String]):
+  enum JoinResult(val error: Option[String]):
     def ok = error.isEmpty
-  object JoinResult:
-    case object Ok             extends JoinResult(none)
-    case object WrongEntryCode extends JoinResult("Wrong entry code".some)
-    case object Paused         extends JoinResult("Your pause is not over yet".some)
-    case object Verdicts       extends JoinResult("Tournament restrictions".some)
-    case object MissingTeam    extends JoinResult("Missing team".some)
-    case object Nope           extends JoinResult("Couldn't join for some reason?".some)
+    case Ok             extends JoinResult(none)
+    case WrongEntryCode extends JoinResult("Wrong entry code".some)
+    case Paused         extends JoinResult("Your pause is not over yet".some)
+    case Verdicts       extends JoinResult("Tournament restrictions".some)
+    case MissingTeam    extends JoinResult("Missing team".some)
+    case Nope           extends JoinResult("Couldn't join for some reason?".some)

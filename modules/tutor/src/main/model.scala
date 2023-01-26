@@ -45,16 +45,14 @@ case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[Va
 object TutorBothValueOptions:
   given zero[A: Ordering]: Zero[TutorBothValueOptions[A]] = Zero(TutorBothValueOptions[A](none, none))
 
-sealed abstract class TutorMetric[V](val metric: InsightMetric)
-
-object TutorMetric:
-  case object GlobalClock extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
+enum TutorMetric[V](val metric: InsightMetric):
+  case GlobalClock extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
   // time used when losing ((100 - clockPercent) on last move)
-  case object ClockUsage  extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
-  case object Flagging    extends TutorMetric[ClockPercent](InsightMetric.Termination)
-  case object Accuracy    extends TutorMetric[AccuracyPercent](InsightMetric.MeanAccuracy)
-  case object Awareness   extends TutorMetric[GoodPercent](InsightMetric.Awareness)
-  case object Performance extends TutorMetric[IntRating](InsightMetric.Performance)
+  case ClockUsage  extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
+  case Flagging    extends TutorMetric[ClockPercent](InsightMetric.Termination)
+  case Accuracy    extends TutorMetric[AccuracyPercent](InsightMetric.MeanAccuracy)
+  case Awareness   extends TutorMetric[GoodPercent](InsightMetric.Awareness)
+  case Performance extends TutorMetric[IntRating](InsightMetric.Performance)
 
 // higher is better
 opaque type GoodPercent = Double
@@ -80,17 +78,17 @@ object Grade:
   def percent[P](a: P, b: P)(using p: Percent[P]): Grade = apply((p.value(a) - p.value(b)) / 25)
   def apply(value: Double): Grade                        = new Grade(value atLeast -1 atMost 1)
 
-  sealed abstract class Wording(val id: Int, val value: String, val top: Double) extends Ordered[Wording]:
+  enum Wording(val id: Int, val value: String, val top: Double) extends Ordered[Wording]:
     def compare(other: Wording) = top compare other.top
+    case MuchBetter     extends Wording(7, "much better than", 1)
+    case Better         extends Wording(6, "better than", 0.6)
+    case SlightlyBetter extends Wording(5, "slightly better than", 0.3)
+    case Similar        extends Wording(4, "similar to", 0.1)
+    case SlightlyWorse  extends Wording(3, "slightly worse than", -Similar.top)
+    case Worse          extends Wording(2, "worse than", -SlightlyBetter.top)
+    case MuchWorse      extends Wording(1, "much worse than", -Better.top)
   object Wording:
-    case object MuchBetter     extends Wording(7, "much better than", 1)
-    case object Better         extends Wording(6, "better than", 0.6)
-    case object SlightlyBetter extends Wording(5, "slightly better than", 0.3)
-    case object Similar        extends Wording(4, "similar to", 0.1)
-    case object SlightlyWorse  extends Wording(3, "slightly worse than", -Similar.top)
-    case object Worse          extends Wording(2, "worse than", -SlightlyBetter.top)
-    case object MuchWorse      extends Wording(1, "much worse than", -Better.top)
-    val list = List[Wording](MuchWorse, Worse, SlightlyWorse, Similar, SlightlyBetter, Better, MuchBetter)
+    val list = values.reverse.toList
 
 case class TutorUser(
     user: User,

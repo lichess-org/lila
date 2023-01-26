@@ -70,14 +70,13 @@ package shutup:
   case class RecordPrivateChat(chatId: String, userId: UserId, text: String)
   case class RecordPublicChat(userId: UserId, text: String, source: PublicSource)
 
-  sealed abstract class PublicSource(val parentName: String)
-  object PublicSource:
-    case class Tournament(id: TourId)  extends PublicSource("tournament")
-    case class Simul(id: SimulId)      extends PublicSource("simul")
-    case class Study(id: StudyId)      extends PublicSource("study")
-    case class Watcher(gameId: GameId) extends PublicSource("watcher")
-    case class Team(id: TeamId)        extends PublicSource("team")
-    case class Swiss(id: SwissId)      extends PublicSource("swiss")
+  enum PublicSource(val parentName: String):
+    case Tournament(id: TourId)  extends PublicSource("tournament")
+    case Simul(id: SimulId)      extends PublicSource("simul")
+    case Study(id: StudyId)      extends PublicSource("study")
+    case Watcher(gameId: GameId) extends PublicSource("watcher")
+    case Team(id: TeamId)        extends PublicSource("team")
+    case Swiss(id: SwissId)      extends PublicSource("swiss")
 
 package mod:
   case class MarkCheater(userId: UserId, value: Boolean)
