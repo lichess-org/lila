@@ -109,4 +109,6 @@ object UblogForm:
         lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, DateTime.now))
       )
 
-  val tier = Form(single("tier" -> number(min = UblogBlog.Tier.HIDDEN, max = UblogBlog.Tier.BEST)))
+  val tier = Form(
+    single("tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value))
+  )
