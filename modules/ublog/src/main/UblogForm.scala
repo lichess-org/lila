@@ -110,5 +110,8 @@ object UblogForm:
       )
 
   val tier = Form(
-    single("tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value))
+    single(
+      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
+        .into[UblogBlog.Tier]
+    )
   )
