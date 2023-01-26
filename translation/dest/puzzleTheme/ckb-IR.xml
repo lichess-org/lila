@@ -46,4 +46,10 @@
   <string name="endgameDescription">تاکتیکی ماوەی قۆناغی کۆتایی یاری.</string>
   <string name="enPassantDescription">تاکتیکێک کە یاسای ئانپاسان دەگرێتەوە، لە شوێنێک سەربازی رکابەرەکەت دوو خانە جوڵە دەکات تۆ دەتوانی بیگریت \"بیخۆیت\" کاتێک جوڵەکە لە بەرانبەر سەربازی تۆ دەکرێت.</string>
   <string name="exposedKing">پاشای ئاشکرا</string>
+  <string name="exposedKingDescription">زۆرجار تاکتیکێک کە پاشا تێیدا بەشدارە لە کاتێکدا بە چەند بەرگریکارێکی کەم دەورەدراوە دەبێتە هۆی کشومات.</string>
+  <string name="fork">چەتاڵ</string>
+  <string name="forkDescription">جوڵیەکە کە داشی جوڵاو لە یەککاتدا هێرش دەکاتە سەر دوو داشی ڕکابەرەکەت.</string>
+  <string name="hangingPiece">داشی بێ بەرگری</string>
+  <string name="hangingPieceDescription">تاکتیکێکە داشێکی بەرانبەرەکەتی تێدا بەشدارە کە هیچ بەرگریەکی نییە، یان بەرگری پێویستی نییە و ئاسان دەتوانی بەدەستی بێنی.</string>
+  <string name="hookMate">کشومات بە قەڵغان</string>
 </resources>
