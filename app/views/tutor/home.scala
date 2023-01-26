@@ -13,7 +13,7 @@ import lila.insight.Phase
 
 object home:
 
-  def apply(full: TutorFullReport.Available, user: User)(implicit ctx: Context) =
+  def apply(full: TutorFullReport.Available, user: User)(using Context) =
     bits.layout(full, menu = menu(full, user, none))(
       cls := "tutor__home box",
       boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
@@ -39,8 +39,8 @@ object home:
       )
     )
 
-  private[tutor] def menu(full: TutorFullReport.Available, user: User, report: Option[TutorPerfReport])(
-      implicit ctx: Context
+  private[tutor] def menu(full: TutorFullReport.Available, user: User, report: Option[TutorPerfReport])(using
+      Context
   ) = frag(
     a(href := routes.Tutor.user(user.username), cls := report.isEmpty.option("active"))("Tutor"),
     full.report.perfs.map { p =>
@@ -52,7 +52,7 @@ object home:
   )
 
   private def perfReportCard(report: TutorFullReport, perfReport: TutorPerfReport, user: User)(using
-      ctx: Context
+      Context
   ) =
     st.article(
       cls      := "tutor__perfs__perf tutor-card tutor-card--link",

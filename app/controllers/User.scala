@@ -119,7 +119,7 @@ final class User(
                   filter = filters.current,
                   me = ctx.me,
                   page = page
-                )(ctx.body, formBinding, reqLang)
+                )(using ctx.body, formBinding, reqLang)
                 _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
                 _ <- env.tournament.cached.nameCache preloadMany {
                   pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
@@ -128,14 +128,15 @@ final class User(
                   env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), me.id)
                 }
                 res <-
-                  if (HTTPRequest isSynchronousHttp ctx.req) for {
-                    info   <- env.userInfo(u, nbs, ctx, withUblog = false)
-                    _      <- env.team.cached.nameCache preloadMany info.teamIds
-                    social <- env.socialInfo(u, ctx)
-                    searchForm = (filters.current == GameFilter.Search) option
-                      GameFilterMenu
-                        .searchForm(userGameSearch, filters.current)(ctx.body, formBinding, reqLang)
-                  } yield html.user.show.page.games(u, info, pag, filters, searchForm, social, notes)
+                  if HTTPRequest.isSynchronousHttp(ctx.req) then
+                    for
+                      info   <- env.userInfo(u, nbs, ctx, withUblog = false)
+                      _      <- env.team.cached.nameCache preloadMany info.teamIds
+                      social <- env.socialInfo(u, ctx)
+                      searchForm = (filters.current == GameFilter.Search) option
+                        GameFilterMenu
+                          .searchForm(userGameSearch, filters.current)(using ctx.body, formBinding, reqLang)
+                    yield html.user.show.page.games(u, info, pag, filters, searchForm, social, notes)
                   else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter, notes))
               } yield Ok(res).withCanonical(routes.User.games(u.username, filters.current.name)),
               api = _ => apiGames(u, filter, page)
@@ -247,23 +248,23 @@ final class User(
       u: UserModel,
       filterName: String,
       page: Int
-  )(implicit ctx: BodyContext[?]): Fu[Paginator[GameModel]] =
+  )(using ctx: BodyContext[?]): Fu[Paginator[GameModel]] =
     UserGamesRateLimitPerIP(ctx.ip, cost = page, msg = s"on ${u.username}") {
       lila.mon.http.userGamesCost.increment(page.toLong)
-      for {
+      for
         pagFromDb <- env.gamePaginator(
           user = u,
           nbs = none,
           filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
           me = ctx.me,
           page = page
-        )(ctx.body, formBinding, reqLang)
+        )(using ctx.body, formBinding, reqLang)
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
         _ <- env.tournament.cached.nameCache preloadMany {
           pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
         }
         _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
-      } yield pag
+      yield pag
     }(fuccess(Paginator.empty[GameModel]))
 
   def list =
@@ -271,12 +272,12 @@ final class User(
       env.user.cached.top10.get {} flatMap { leaderboards =>
         negotiate(
           html =
-            for {
+            for
               nbAllTime      <- env.user.cached.top10NbGame.get {}
               tourneyWinners <- env.tournament.winners.all.map(_.top)
               topOnline      <- env.user.cached.getTop50Online
               _              <- env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
-            } yield Ok(
+            yield Ok(
               html.user.list(
                 tourneyWinners = tourneyWinners,
                 online = topOnline,

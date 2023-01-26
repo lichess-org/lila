@@ -23,10 +23,11 @@ object SwissCondition:
   type GetMaxRating   = PerfType => Fu[IntRating]
   type GetBannedUntil = UserId => Fu[Option[DateTime]]
 
-  sealed abstract class Verdict(val accepted: Boolean, val reason: Option[Lang => String])
-  case object Accepted                        extends Verdict(true, none)
-  case class Refused(because: Lang => String) extends Verdict(false, because.some)
-  case class RefusedUntil(until: DateTime)    extends Verdict(false, none)
+  enum Verdict(val accepted: Boolean, val reason: Option[Lang => String]):
+    case Accepted                         extends Verdict(true, none)
+    case Refused(because: Lang => String) extends Verdict(false, because.some)
+    case RefusedUntil(until: DateTime)    extends Verdict(false, none)
+  export Verdict.*
 
   case class WithVerdict(condition: SwissCondition, verdict: Verdict)
 
