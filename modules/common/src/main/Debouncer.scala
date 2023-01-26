@@ -23,8 +23,8 @@ final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
           case None =>
             f(id)
             scheduler.scheduleOnce(duration) { runScheduled(id) }
-            Empty
-          case _ => Another
+            Queued.Empty
+          case _ => Queued.Another
         }
     )
     .unit
@@ -33,10 +33,10 @@ final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
     .computeIfPresent(
       id,
       (_, queued) =>
-        if (queued == Another) {
+        if (queued == Queued.Another) {
           f(id)
           scheduler.scheduleOnce(duration) { runScheduled(id) }
-          Empty
+          Queued.Empty
         } else nullToRemove
     )
     .unit
@@ -47,6 +47,5 @@ private object Debouncer:
 
   // can't use a boolean or int,
   // the ConcurrentHashMap uses weird defaults instead of null for missing values
-  sealed private trait Queued
-  private object Another extends Queued
-  private object Empty   extends Queued
+  private enum Queued:
+    case Another, Empty
