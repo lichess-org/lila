@@ -31,13 +31,12 @@ final class Env(
     trophyApi: lila.user.TrophyApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     settingStore: lila.memo.SettingStore.Builder
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    scheduler: akka.actor.Scheduler,
-    mat: akka.stream.Materializer,
-    idGenerator: lila.game.IdGenerator,
-    mode: play.api.Mode
+)(using scheduler: akka.actor.Scheduler)(using
+    Executor,
+    ActorSystem,
+    akka.stream.Materializer,
+    lila.game.IdGenerator,
+    play.api.Mode
 ):
 
   lazy val forms = wire[TournamentForm]

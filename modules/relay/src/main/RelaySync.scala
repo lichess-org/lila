@@ -14,8 +14,6 @@ final private class RelaySync(
     leaderboard: RelayLeaderboardApi
 )(using Executor):
 
-  private type NbMoves = Int
-
   def apply(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] =
     studyApi byId rt.round.studyId orFail "Missing relay study!" flatMap { study =>
       chapterRepo orderedByStudy study.id flatMap { chapters =>
@@ -66,10 +64,11 @@ final private class RelaySync(
       game: RelayGame
   ): Fu[SyncResult.ChapterResult] =
     updateChapterTags(tour, study, chapter, game) zip
-      updateChapterTree(study, chapter, game) map { case (tagUpdate, nbMoves) =>
+      updateChapterTree(study, chapter, game) map { (tagUpdate, nbMoves) =>
         SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves)
       }
 
+  private type NbMoves = Int
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
     val who = actorApi.Who(chapter.ownerId, sri)
     game.root.mainline.foldLeft(Path.root -> none[Node]) {
