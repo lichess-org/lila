@@ -188,7 +188,8 @@ final class Game(
       literate = getBool("literate", req),
       pgnInJson = getBool("pgnInJson", req),
       delayMoves = delayMovesFromReq(req),
-      lastFen = getBool("lastFen", req)
+      lastFen = getBool("lastFen", req),
+      accuracy = getBool("accuracy", req)
     )
 
   private[controllers] def delayMovesFromReq(req: RequestHeader) =
