@@ -82,7 +82,11 @@ final private class YouTubeApi(
         "hub.lease_seconds" -> s"${3600 * 24 * 10}" // 10 days seems to be the max
       )
     )
-    .void
+    .flatMap {
+      case res if res.status / 100 != 2 =>
+        fufail(s"YouTubeApi.channelSubscribe status: ${res.status} ${res.body[String].take(200)}")
+      case _ => funit
+    }
 
   private def asFormBody(params: (String, String)*): String =
     params.map((key, value) => s"$key=${java.net.URLEncoder.encode(value, "UTF-8")}").mkString("&")
