@@ -194,6 +194,16 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       fuccess(Ok)
     }
 
+  def onYouTubeVideo = Action.async(parse.tolerantXml) { req =>
+    env.streamer.ytApi
+      .onVideo((req.body \ "entry" \ "channelId").text, (req.body \ "entry" \ "videoId").text)
+    fuccess(Ok)
+  }
+
+  def youTubePubSubChallenge = Action.async(parse.empty) { req =>
+    fuccess(Ok(get("hub.challenge", req).get))
+  }
+
   private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(implicit ctx: Context) =
     ctx.me.fold(notFound) { me =>
       if (StreamerModel.canApply(me) || isGranted(_.Streamers))

@@ -12,23 +12,15 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
 
   private val classical   = Config("Classical", 30, IncrementSeconds(0), 5, 5)
   private val rapid       = Config("Rapid", 10, IncrementSeconds(0), 7, 8)
-  private val blitz       = Config("Blitz", 5, IncrementSeconds(0), 12, 12)
-  private val superblitz  = Config("SuperBlitz", 3, IncrementSeconds(0), 15, 12)
-  private val bullet      = Config("Bullet", 1, IncrementSeconds(0), 25, 15)
-  private val hyperbullet = Config("HyperBullet", 0.5, IncrementSeconds(0), 25, 15)
+  private val blitz       = Config("Blitz", 5, IncrementSeconds(0), 10, 12)
+  private val superblitz  = Config("SuperBlitz", 3, IncrementSeconds(0), 12, 12)
+  private val bullet      = Config("Bullet", 1, IncrementSeconds(0), 15, 15)
+  private val hyperbullet = Config("HyperBullet", 0.5, IncrementSeconds(0), 20, 15)
 
   // length must divide 24 (schedule starts at 0AM)
   // so either 3, 4, 6, 8, 12
-  private val schedule = Vector(
-    classical,
-    bullet,
-    rapid,
-    hyperbullet,
-    blitz,
-    superblitz
-  )
-  private def daySchedule =
-    (0 to 23).toList.flatMap(i => schedule.lift(i % schedule.length))
+  private val schedule    = Vector(classical, bullet, rapid, hyperbullet, blitz, superblitz)
+  private def daySchedule = (0 to 23).toList.flatMap(i => schedule.lift(i % schedule.length))
 
   def generate: Funit =
     val dayStart = DateTime.now.plusDays(3).withTimeAtStartOfDay
