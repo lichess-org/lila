@@ -52,4 +52,6 @@
   <string name="hangingPiece">داشی بێ بەرگری</string>
   <string name="hangingPieceDescription">تاکتیکێکە داشێکی بەرانبەرەکەتی تێدا بەشدارە کە هیچ بەرگریەکی نییە، یان بەرگری پێویستی نییە و ئاسان دەتوانی بەدەستی بێنی.</string>
   <string name="hookMate">کشومات بە قەڵغان</string>
+  <string name="hookMateDescription">کشومات بە قەڵا و ئەسپ و سەرباز، لەگەڵ سەربازێکی دوژمن بۆ کەمکردنەوەی سنوری هەڵاتنی پاشا.</string>
+  <string name="interference">تێکەڵبوون</string>
 </resources>
