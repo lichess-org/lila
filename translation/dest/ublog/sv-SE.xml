@@ -9,8 +9,8 @@
   <string name="postBody">Brödtext</string>
   <string name="drafts">Utkast</string>
   <string name="published">Publicerat</string>
-  <string name="createBlogDiscussion">Aktivera kommentarer</string>
-  <string name="createBlogDiscussionHelp">Ett forum kommer att skapas för personer att kommentera ditt inlägg</string>
+  <string name="createBlogDiscussion">Tillåt kommentarer</string>
+  <string name="createBlogDiscussionHelp">Ett forumämne kommer att skapas för personer att kommentera ditt inlägg</string>
   <string name="publishOnYourBlog">Publicera på din blogg</string>
   <string name="publishHelp">Om markerad, kommer inlägget att visas på din blogg. Om inte, kommer det att vara dolt, bland dina utkast</string>
   <plurals name="publishedNbBlogPosts">
