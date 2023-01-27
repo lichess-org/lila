@@ -172,11 +172,11 @@ object Challenge:
       def increment = config.increment
       def show      = config.show
 
-  sealed abstract class ColorChoice(val trans: I18nKey)
+  enum ColorChoice(val trans: I18nKey):
+    case Random extends ColorChoice(I18nKeys.randomColor)
+    case White  extends ColorChoice(I18nKeys.white)
+    case Black  extends ColorChoice(I18nKeys.black)
   object ColorChoice:
-    case object Random extends ColorChoice(I18nKeys.randomColor)
-    case object White  extends ColorChoice(I18nKeys.white)
-    case object Black  extends ColorChoice(I18nKeys.black)
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
 
   case class Open(userIds: Option[(UserId, UserId)]):

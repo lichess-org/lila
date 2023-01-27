@@ -11,13 +11,13 @@ import views.*
 
 final class KeyPages(env: Env)(using Executor):
 
-  def home(status: Results.Status)(implicit ctx: Context): Fu[Result] =
+  def home(status: Results.Status)(using ctx: Context): Fu[Result] =
     homeHtml
       .map { html =>
         env.lilaCookie.ensure(ctx.req)(status(html))
       }
 
-  def homeHtml(implicit ctx: Context): Fu[Frag] =
+  def homeHtml(using ctx: Context): Fu[Frag] =
     env
       .preloader(
         tours = env.tournament.cached.onHomepage.getUnit.recoverDefault,
@@ -36,7 +36,7 @@ final class KeyPages(env: Env)(using Executor):
   def notFound(ctx: Context): Result =
     Results.NotFound(html.base.notFound()(ctx))
 
-  def blacklisted(implicit ctx: Context): Result =
+  def blacklisted(using ctx: Context): Result =
     if (lila.api.Mobile.Api requested ctx.req)
       Results.Unauthorized(
         Json.obj(

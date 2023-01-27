@@ -203,7 +203,7 @@ object inquiry:
               autoNextInput
             ),
             div(cls := "separator"),
-            lila.memo.Snooze.Duration.all.map { snooze =>
+            lila.memo.Snooze.Duration.values.map { snooze =>
               postForm(action := snoozeUrl(in.report, snooze.toString))(
                 submitButton(cls := "fbt")(s"Snooze ${snooze.name}"),
                 autoNextInput

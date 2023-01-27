@@ -26,18 +26,17 @@ final class Signup(
     netConfig: NetConfig
 )(using Executor):
 
-  sealed abstract private class MustConfirmEmail(val value: Boolean)
+  private enum MustConfirmEmail(val value: Boolean):
+    case Nope                   extends MustConfirmEmail(false)
+    case YesBecausePrintExists  extends MustConfirmEmail(true)
+    case YesBecausePrintMissing extends MustConfirmEmail(true)
+    case YesBecauseIpExists     extends MustConfirmEmail(true)
+    case YesBecauseIpSusp       extends MustConfirmEmail(true)
+    case YesBecauseMobile       extends MustConfirmEmail(true)
+    case YesBecauseUA           extends MustConfirmEmail(true)
+    case YesBecauseEmailDomain  extends MustConfirmEmail(true)
+
   private object MustConfirmEmail:
-
-    case object Nope                   extends MustConfirmEmail(false)
-    case object YesBecausePrintExists  extends MustConfirmEmail(true)
-    case object YesBecausePrintMissing extends MustConfirmEmail(true)
-    case object YesBecauseIpExists     extends MustConfirmEmail(true)
-    case object YesBecauseIpSusp       extends MustConfirmEmail(true)
-    case object YesBecauseMobile       extends MustConfirmEmail(true)
-    case object YesBecauseUA           extends MustConfirmEmail(true)
-    case object YesBecauseEmailDomain  extends MustConfirmEmail(true)
-
     def apply(print: Option[FingerPrint], email: EmailAddress)(using
         req: RequestHeader
     ): Fu[MustConfirmEmail] =

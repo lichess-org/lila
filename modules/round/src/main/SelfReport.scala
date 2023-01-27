@@ -14,14 +14,12 @@ final class SelfReport(
     tellRound: TellRound,
     gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
-    ircApi: lila.irc.IrcApi,
     proxyRepo: GameProxyRepo,
     endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
 )(using ec: Executor, scheduler: akka.actor.Scheduler):
 
-  private val logOnceEvery     = lila.memo.OnceEvery[IpAddressStr](1 minute)
-  private val monitorOnceEvery = lila.memo.OnceEvery[UserId](1 hour)
+  private val logOnceEvery = lila.memo.OnceEvery[IpAddressStr](1 minute)
 
   def apply(
       userId: Option[UserId],
@@ -40,15 +38,7 @@ final class SelfReport(
             lila.log("cheat").branch("jslog").info {
               s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
             }
-          user.filter(u => monitorOnceEvery(u.id)) foreach { u =>
             lila.mon.cheat.selfReport(name, userId.isDefined).increment()
-            ircApi.selfReport(
-              typ = name,
-              path = fullId.value,
-              user = u,
-              ip = ip
-            )
-          }
       if (fullId.value == "____________") doLog()
       else
         proxyRepo.pov(fullId) foreach {
@@ -63,8 +53,15 @@ final class SelfReport(
                 ))
               ) tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
               if (markUserSetting.get().matches(name))
+                val rating = u.perfs.bestRating
+                val hours =
+                  if rating > 2500 then 0
+                  else if rating > 2300 then 1
+                  else if rating > 2000 then 6
+                  else if rating > 1800 then 12
+                  else 24
                 scheduler.scheduleOnce(
-                  (5 + ThreadLocalRandom.nextInt(12 * 60)).minutes
+                  (2 + hours + ThreadLocalRandom.nextInt(hours * 60)).minutes
                 ) {
                   lila.common.Bus.publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
                 }

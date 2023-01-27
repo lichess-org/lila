@@ -67,7 +67,7 @@ final private[puzzle] class DailyPuzzle(
           import framework.*
           val forbiddenThemes = List(PuzzleTheme.oneMove) :::
             odds(2).??(List(PuzzleTheme.checkFirst))
-          Match(pathApi.select(PuzzleAngle.mix, PuzzleTier.Top, 2150 to 2300)) -> List(
+          Match(pathApi.select(PuzzleAngle.mix, PuzzleTier.top, 2150 to 2300)) -> List(
             Sample(3),
             Project($doc("ids" -> true, "_id" -> false)),
             UnwindField("ids"),

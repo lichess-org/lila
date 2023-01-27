@@ -9,9 +9,7 @@ import lila.common.config.CollName
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
-    ec: Executor
-):
+final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Executor):
   import BSONHandlers.given
 
   private val enterableSelect                  = $doc("status" $lt Status.Finished.id)
@@ -237,9 +235,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
           case Unique => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)((_: Int) * 60)
           case Unique | Yearly | Marathon => 24 * 60
           case Monthly | Shield           => 6 * 60
-          case Weekly | Weekend           => 3 * 60
-          case Daily                      => 1 * 60
-          case _                          => 30
+          case Weekly | Weekend           => 3 * 45
+          case Daily                      => 1 * 30
+          case _                          => 20
         if (tour.variant.exotic && schedule.freq != Unique) base / 3 else base
       }
     }

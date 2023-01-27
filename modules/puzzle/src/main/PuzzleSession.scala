@@ -112,6 +112,6 @@ final class PuzzleSessionApi(
 
   private def createSessionFor(user: User, angle: PuzzleAngle, settings: PuzzleSettings): Fu[PuzzleSession] =
     pathApi
-      .nextFor(user, angle, PuzzleTier.Top, settings.difficulty, Set.empty)
+      .nextFor(user, angle, PuzzleTier.top, settings.difficulty, Set.empty)
       .orFail(s"No puzzle path found for ${user.id}, angle: $angle")
       .dmap(pathId => PuzzleSession(settings, pathId, 0))

@@ -49,16 +49,16 @@ final class UblogRank(
           )
         }
         .map { docOption =>
-          for {
+          for
             doc      <- docOption
             id       <- doc.getAsOpt[UblogPostId]("_id")
             likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
             topics   <- doc.getAsOpt[List[UblogTopic]]("topics")
             liveAt   <- doc.getAsOpt[DateTime]("at")
-            tier     <- doc int "tier"
+            tier     <- doc.getAsOpt[UblogBlog.Tier]("tier")
             language <- doc.getAsOpt[Lang]("language")
             title    <- doc string "title"
-          } yield (id, topics, likes, liveAt, tier, language, title)
+          yield (id, topics, likes, liveAt, tier, language, title)
         }
         .flatMap {
           case None                                                     => fuccess(UblogPost.Likes(0))
@@ -133,7 +133,6 @@ final class UblogRank(
     if (tier < LOW) liveAt minusMonths 3
     else
       liveAt plusHours {
-
         val tierBase = 24 * (tier match {
           case LOW    => -30
           case NORMAL => 0

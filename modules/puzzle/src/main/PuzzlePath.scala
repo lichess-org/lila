@@ -33,7 +33,7 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
       compromise: Int = 0
   ): Fu[Option[Id]] = {
     val actualTier =
-      if (tier == PuzzleTier.Top && PuzzleDifficulty.isExtreme(difficulty)) PuzzleTier.Good
+      if (tier == PuzzleTier.top && PuzzleDifficulty.isExtreme(difficulty)) PuzzleTier.good
       else tier
     colls
       .path {
@@ -52,10 +52,10 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
       }
       .flatMap {
         case Some(path) => fuccess(path.some)
-        case _ if actualTier == PuzzleTier.Top =>
-          nextFor(user, angle, PuzzleTier.Good, difficulty, previousPaths)
-        case _ if actualTier == PuzzleTier.Good && compromise == 2 =>
-          nextFor(user, angle, PuzzleTier.All, difficulty, previousPaths, compromise = 1)
+        case _ if actualTier == PuzzleTier.top =>
+          nextFor(user, angle, PuzzleTier.good, difficulty, previousPaths)
+        case _ if actualTier == PuzzleTier.good && compromise == 2 =>
+          nextFor(user, angle, PuzzleTier.all, difficulty, previousPaths, compromise = 1)
         case _ if compromise < 5 =>
           nextFor(user, angle, actualTier, difficulty, previousPaths, compromise + 1)
         case _ => fuccess(none)

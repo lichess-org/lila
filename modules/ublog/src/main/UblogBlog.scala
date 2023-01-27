@@ -24,14 +24,14 @@ object UblogBlog:
       case Array("user", id) => User(UserId(id)).some
       case _                 => none
 
-  type Tier = Int
-  object Tier:
-    val HIDDEN  = 0 // not visible
-    val VISIBLE = 1 // not listed in community page
-    val LOW     = 2 // from here, ranking boost
-    val NORMAL  = 3
-    val HIGH    = 4
-    val BEST    = 5
+  opaque type Tier = Int
+  object Tier extends OpaqueInt[Tier]:
+    val HIDDEN: Tier  = 0 // not visible
+    val VISIBLE: Tier = 1 // not listed in community page
+    val LOW: Tier     = 2 // from here, ranking boost
+    val NORMAL: Tier  = 3
+    val HIGH: Tier    = 4
+    val BEST: Tier    = 5
 
     def default(user: User) =
       if (user.marks.troll) Tier.HIDDEN

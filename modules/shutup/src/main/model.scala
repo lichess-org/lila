@@ -38,19 +38,12 @@ case class TextAnalysis(
 
   lazy val critical = badWords.nonEmpty && Analyser.isCritical(text)
 
-sealed abstract class TextType(
-    val key: String,
-    val rotation: Int,
-    val name: String
-)
-
-object TextType:
-
-  case object PublicForumMessage extends TextType("puf", 20, "Public forum message")
-  case object TeamForumMessage   extends TextType("tef", 20, "Team forum message")
-  case object PrivateMessage     extends TextType("prm", 20, "Private message")
-  case object PrivateChat        extends TextType("prc", 40, "Private chat")
-  case object PublicChat         extends TextType("puc", 60, "Public chat")
+enum TextType(val key: String, val rotation: Int, val name: String):
+  case PublicForumMessage extends TextType("puf", 20, "Public forum message")
+  case TeamForumMessage   extends TextType("tef", 20, "Team forum message")
+  case PrivateMessage     extends TextType("prm", 20, "Private message")
+  case PrivateChat        extends TextType("prc", 40, "Private chat")
+  case PublicChat         extends TextType("puc", 60, "Public chat")
 
 case class TextReport(textType: TextType, ratios: List[Double]):
 

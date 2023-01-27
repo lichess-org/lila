@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 import play.api.libs.json.*
 import scala.concurrent.duration.*
 
-import lila.analyse.{ Analysis, JsonView as analysisJson }
+import lila.analyse.{ Analysis, AccuracyPercent, JsonView as analysisJson }
 import lila.common.config.MaxPerSecond
 import lila.common.Json.given
 import lila.common.{ HTTPRequest, LightUser }
@@ -277,6 +277,9 @@ final class GameApiV2(
         .apply(g, initialFen, analysisOption, withFlags, realPlayers = realPlayers)
         .dmap(annotator.toPgnString)
         .dmap(some)
+    accuracy = analysisOption.ifTrue(withFlags.accuracy).flatMap {
+      AccuracyPercent.gameAccuracy(g.startedAtPly.color, _)
+    }
   yield Json
     .obj(
       "id"         -> g.id,
@@ -287,7 +290,7 @@ final class GameApiV2(
       "createdAt"  -> g.createdAt,
       "lastMoveAt" -> g.movedAt,
       "status"     -> g.status.name,
-      "players" -> JsObject(g.players zip lightUsers map { case (p, user) =>
+      "players" -> JsObject(g.players zip lightUsers map { (p, user) =>
         p.color.name -> Json
           .obj()
           .add("user", user)
@@ -298,11 +301,11 @@ final class GameApiV2(
           .add("aiLevel" -> p.aiLevel)
           .add(
             "analysis" -> analysisOption.flatMap(
-              analysisJson.player(g pov p.color sideAndStart)(_, accuracy = none)
+              analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy = none)
             )
           )
           .add("team" -> teams.map(_(p.color)))
-      // .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
+          .add("accuracy" -> accuracy.map(_(p.color)).map(_.toInt))
       })
     )
     .add("initialFen" -> initialFen)

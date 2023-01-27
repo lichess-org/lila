@@ -13,7 +13,7 @@ import lila.game.Pov
 
 object home:
 
-  def apply(homepage: Homepage)(implicit ctx: Context) =
+  def apply(homepage: Homepage)(using ctx: Context) =
     import homepage.*
     views.html.base.layout(
       title = "",

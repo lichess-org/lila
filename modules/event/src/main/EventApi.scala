@@ -8,10 +8,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.user.User
 
-final class EventApi(
-    coll: Coll,
-    cacheApi: lila.memo.CacheApi
-)(using Executor):
+final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
   import BsonHandlers.given
 
@@ -57,7 +54,7 @@ final class EventApi(
     }
 
   def update(old: Event, data: EventForm.Data, by: User): Fu[Int] =
-    (coll.update.one($id(old.id), data.update(old, by)) >>- promotable.invalidateUnit()).map(_.n)
+    (coll.update.one($id(old.id), data.update(old, by)) >>- promotable.invalidateUnit()).dmap(_.n)
 
   def createForm = EventForm.form
 
