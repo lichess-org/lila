@@ -20,7 +20,7 @@ final private class YouTubeApi(
     keyword: Stream.Keyword,
     cfg: StreamerConfig,
     net: NetConfig
-)(using Executor):
+)(using Executor, akka.stream.Materializer):
 
   private var lastResults: List[YouTube.Stream] = List()
 
@@ -104,17 +104,18 @@ final private class YouTubeApi(
       .sequenceFu
       .map(bulk many _)
 
-  private[streamer] def subscribeAll: Funit = coll
-    .find(
-      $doc("youTube.channelId" $exists true, "approval.granted" -> true),
-      $doc("youTube.channelId" -> true).some
-    )
-    .cursor[Bdoc]()
-    .list(10000)
-    .map { docs =>
-      for
-        doc       <- docs
-        ytDoc     <- doc.getAsOpt[Bdoc]("youTube")
-        channelId <- ytDoc string "channelId"
-      yield channelSubscribe(channelId, true)
-    }
+  private[streamer] def subscribeAll: Funit =
+    import akka.stream.scaladsl.*
+    import reactivemongo.akkastream.cursorProducer
+    coll
+      .find(
+        $doc("youTube.channelId" $exists true, "approval.granted" -> true),
+        $doc("youTube.channelId" -> true).some
+      )
+      .cursor[Bdoc]()
+      .documentSource()
+      .mapConcat(_.getAsOpt[Bdoc]("youTube").flatMap(_.string("channelId")).toList)
+      .mapAsyncUnordered(1) { channelSubscribe(_, true) }
+      .toMat(lila.common.LilaStream.sinkCount)(Keep.right)
+      .run()
+      .map(nb => logger.info(s"YouTubeApi.subscribeAll: done $nb"))
