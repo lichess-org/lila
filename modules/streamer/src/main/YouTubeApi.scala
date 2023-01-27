@@ -108,7 +108,7 @@ final private class YouTubeApi(
       .sequenceFu
       .map(bulk many _)
 
-  private[streamer] def subscribeAll: Funit =
+  private[streamer] def subscribeAll: Funit = cfg.googleApiKey.value.nonEmpty ?? {
     import akka.stream.scaladsl.*
     import reactivemongo.akkastream.cursorProducer
     coll
@@ -123,3 +123,4 @@ final private class YouTubeApi(
       .toMat(lila.common.LilaStream.sinkCount)(Keep.right)
       .run()
       .map(nb => logger.info(s"YouTubeApi.subscribeAll: done $nb"))
+  }
