@@ -56,7 +56,7 @@ final class Env(
   lazy val homepageMaxSetting =
     settingStore[Int](
       "streamerHomepageMax",
-      default = 6,
+      default = 5,
       text = "Max streamers on homepage".some
     )
 
@@ -67,7 +67,7 @@ final class Env(
 
   private lazy val twitchApi: TwitchApi = wire[TwitchApi]
 
-  private val streaming = new Streaming(
+  private val streaming = Streaming(
     ws = ws,
     api = api,
     isOnline = isOnline,
@@ -88,4 +88,4 @@ final class Env(
   scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>
     api.autoDemoteFakes.unit
   }
-  scheduler.scheduleWithFixedDelay(3 minutes, 8 days)(() => ytApi.subscribeAll.unit)
+  scheduler.scheduleWithFixedDelay(21 minutes, 8 days)(() => ytApi.subscribeAll.unit)
