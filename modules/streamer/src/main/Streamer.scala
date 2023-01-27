@@ -99,7 +99,7 @@ object Streamer:
         case UrlRegex(u)    => u.some
         case _              => none
 
-  case class YouTube(channelId: String):
+  case class YouTube(channelId: String, liveVideoId: Option[String], pubsubVideoId: Option[String]):
     def fullUrl = s"https://www.youtube.com/channel/$channelId/live"
     def minUrl  = s"youtube.com/channel/$channelId/live"
   object YouTube:

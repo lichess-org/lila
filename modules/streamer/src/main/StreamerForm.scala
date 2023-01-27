@@ -74,12 +74,14 @@ object StreamerForm:
   ):
 
     def apply(streamer: Streamer, asMod: Boolean) =
+      val liveVideoId   = streamer.youTube.flatMap(_.liveVideoId)
+      val pubsubVideoId = streamer.youTube.flatMap(_.pubsubVideoId)
       val newStreamer = streamer.copy(
         name = name,
         headline = headline,
         description = description,
         twitch = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply),
-        youTube = youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply),
+        youTube = youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply(_, liveVideoId, pubsubVideoId)),
         listed = listed,
         updatedAt = DateTime.now
       )
