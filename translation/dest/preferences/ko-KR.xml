@@ -33,7 +33,7 @@
   <string name="takebacksWithOpponentApproval">무르기 (상대 승인과 함께)</string>
   <string name="inCasualGamesOnly">캐주얼 모드에서만</string>
   <string name="promoteToQueenAutomatically">퀸으로 자동 승급</string>
-  <string name="explainPromoteToQueenAutomatically">일시적으로 자동 승급을 끄기 위해 승급하는 동안 &lt;ctrl&gt;를 누르세요</string>
+  <string name="explainPromoteToQueenAutomatically">일시적으로 자동 승진을 끄기 위해 승진하는 동안 &lt;ctrl&gt;를 누르세요</string>
   <string name="whenPremoving">미리 뒀을 때만</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">세 번 반복하면 자동으로 무승부 요청</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">남은 시간이 30초 미만일 때만</string>
