@@ -34,7 +34,8 @@ final class Env(
     net: lila.common.config.NetConfig
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: akka.actor.Scheduler,
+    mat: akka.stream.Materializer
 ):
 
   private given ConfigLoader[TwitchConfig]   = AutoConfig.loader[TwitchConfig]
