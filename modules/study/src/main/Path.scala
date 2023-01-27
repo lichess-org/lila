@@ -2,54 +2,48 @@ package lila.study
 
 import chess.format.UciCharPair
 
-case class Path(ids: Vector[UciCharPair]) extends AnyVal:
-
-  def head: Option[UciCharPair] = ids.headOption
-
-  // def tail: Path = Path(ids drop 1)
-
-  def parent: Path = Path(ids dropRight 1)
-
-  def split: Option[(UciCharPair, Path)] = head.map(_ -> Path(ids.drop(1)))
-
-  def isEmpty = ids.isEmpty
-
-  def +(id: UciCharPair): Path = Path(ids appended id)
-  def +(node: Node): Path      = Path(ids appended node.id)
-  def +(more: Path): Path      = Path(ids appendedAll more.ids)
-
-  def prepend(id: UciCharPair) = Path(ids prepended id)
-
-  def intersect(other: Path): Path =
-    Path {
-      ids zip other.ids takeWhile { case (a, b) =>
-        a == b
-      } map (_._1)
-    }
-
-  def toDbField =
-    if (ids.isEmpty) s"root.${Path.rootDbKey}"
-    else s"root.${Path encodeDbKey this}"
-
-  def depth = ids.size
-
-  override def toString = ids.mkString
-
+opaque type Path = String
 object Path:
+  def apply(p: String): Path                  = p
+  def apply(ids: Iterable[UciCharPair]): Path = ids.mkString
 
-  def apply(str: String): Path =
-    Path {
-      str
-        .grouped(2)
-        .flatMap { p =>
-          p lift 1 map { b =>
-            UciCharPair(p(0), b)
-          }
-        }
-        .toVector
-    }
+  extension (e: Path)
 
-  def fromDbKey(key: String): Path = apply(decodeDbKey(key))
+    // def allIds: Vector[UciCharPair] = e
+    //   .grouped(2)
+    //   .flatMap { p =>
+    //     p lift 1 map { b =>
+    //       UciCharPair(p(0), b)
+    //     }
+    //   }
+    //   .toVector
+
+    def value: String = e
+
+    def head: Option[UciCharPair] = e.sizeIs > 1 option UciCharPair(e(0), e(1))
+
+    def parent: Path = Path(e dropRight 2)
+
+    def split: Option[(UciCharPair, Path)] = head.map(_ -> e.drop(2))
+
+    def isEmpty = e.isEmpty
+
+    def +(id: UciCharPair): Path = e + id.toString
+    def +(node: Node): Path      = e + node.id.toString
+    def +(more: Path): Path      = e + more
+
+    def prepend(id: UciCharPair): Path = id.toString + e
+
+    def intersect(other: Path): Path =
+      val p = e.zip(other).takeWhile(_ == _).map(_._1)
+      Path(p.take(p.size / 2).mkString)
+
+    def toDbField =
+      if e.isEmpty then s"root.${Path.rootDbKey}" else s"root.${encodeDbKey(e)}"
+
+    def depth = e.size / 2
+
+  private[study] def fromDbKey(key: String): Path = apply(decodeDbKey(key))
 
   val root = Path("")
 
@@ -57,13 +51,13 @@ object Path:
   val rootDbKey = "_"
 
   // mongodb objects don't support '.' and '$' in keys
-  def encodeDbKey(path: Path): String        = encodeDbKey(path.ids.mkString)
-  def encodeDbKey(pair: UciCharPair): String = encodeDbKey(pair.toString)
-  def encodeDbKey(pathStr: String): String   = pathStr.replace('.', 144.toChar).replace('$', 145.toChar)
-  def decodeDbKey(key: String): String       = key.replace(144.toChar, '.').replace(145.toChar, '$')
+  private def encodeDbKey(pair: UciCharPair): String = encodeDbKey(pair.toString)
+  private def encodeDbKey(path: Path): String = path.value.replace('.', 144.toChar).replace('$', 145.toChar)
+  private inline def decodeDbKey(inline key: String): String =
+    key.replace(144.toChar, '.').replace(145.toChar, '$')
 
   def isMainline(node: RootOrNode, path: Path): Boolean =
-    path.split.fold(true) { case (id, rest) =>
+    split(path).fold(true) { (id, rest) =>
       node.children.first ?? { child =>
         child.id == id && isMainline(child, rest)
       }
