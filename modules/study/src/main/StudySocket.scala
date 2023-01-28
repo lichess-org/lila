@@ -233,7 +233,7 @@ final private class StudySocket(
         m.chapterId.ifTrue(opts.write) foreach { chapterId =>
           api.addNode(
             studyId,
-            Position.Ref(StudyChapterId(chapterId), Path.fromStr(m.path)),
+            Position.Ref(StudyChapterId(chapterId), Path(m.path)),
             Node.fromBranch(branch) withClock opts.clock,
             opts
           )(who)
@@ -422,7 +422,6 @@ object StudySocket:
           reader.reads(d).asOpt
         } foreach f
 
-      given Reads[Path] = stringRead(Path.fromStr)
       case class AtPosition(path: Path, chapterId: StudyChapterId):
         def ref = Position.Ref(chapterId, path)
       given Reads[AtPosition] =

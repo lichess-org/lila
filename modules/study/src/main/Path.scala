@@ -3,16 +3,13 @@ package lila.study
 import chess.format.UciCharPair
 
 opaque type Path = String
-object Path:
-  def fromStr(p: String): Path                  = p
+object Path extends OpaqueString[Path]:
   def fromId(id: UciCharPair): Path             = id.toString
   def fromIds(ids: Iterable[UciCharPair]): Path = ids.mkString
 
   extension (e: Path)
 
     def computeIds: Iterator[UciCharPair] = e.grouped(2).flatMap { strToId(_) }
-
-    def value: String = e
 
     def head: Option[UciCharPair] = strToId(e)
 
@@ -32,7 +29,8 @@ object Path:
 
     def intersect(other: Path): Path =
       val p = e.zip(other).takeWhile(_ == _).map(_._1)
-      p.take(p.size / 2).mkString
+      // `/ 2 * 2` makes sure the size is even. It's necessary!
+      p.take(p.size / 2 * 2).mkString
 
     def toDbField =
       if e.isEmpty then s"root.${Path.rootDbKey}" else s"root.${encodeDbKey(e)}"
@@ -55,7 +53,7 @@ object Path:
   private def encodeDbKey(pair: UciCharPair): String = encodeDbKey(pair.toString)
   private[study] def encodeDbKey(path: Path): String =
     path.value.replace('.', 144.toChar).replace('$', 145.toChar)
-  private inline def decodeDbKey(inline key: String): String =
+  private[study] inline def decodeDbKey(inline key: String): String =
     key.replace(144.toChar, '.').replace(145.toChar, '$')
 
   def isMainline(node: RootOrNode, path: Path): Boolean =

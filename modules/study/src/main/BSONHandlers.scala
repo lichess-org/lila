@@ -217,7 +217,6 @@ object BSONHandlers:
       }
     )
 
-  given BSONHandler[Path]    = BSONStringHandler.as[Path](Path.fromStr, _.value)
   given BSONHandler[Variant] = variantByIdHandler
 
   given BSONHandler[Tag] = tryHandler[Tag](
