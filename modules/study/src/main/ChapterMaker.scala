@@ -86,7 +86,7 @@ final private class ChapterMaker(
             check = sit.situation.check,
             clock = none,
             crazyData = sit.situation.board.crazyData,
-            children = Node.emptyChildren
+            children = Children.empty
           ) -> true
         case None => Node.Root.default(variant) -> false
     Chapter.make(

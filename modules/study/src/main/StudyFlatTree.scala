@@ -14,7 +14,7 @@ private object StudyFlatTree:
 
     def toNodeWithChildren(children: Option[Children]): Option[Node] =
       path.lastId.flatMap { readNode(data, _) }.map {
-        _.copy(children = children | Node.emptyChildren)
+        _.copy(children = children | Children.empty)
       }
 
   object reader:
@@ -42,7 +42,7 @@ private object StudyFlatTree:
             }
           }
         }
-        .get(UciPath.root) | Node.emptyChildren
+        .get(UciPath.root) | Children.empty
 
   object writer:
 

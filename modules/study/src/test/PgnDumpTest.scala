@@ -13,7 +13,7 @@ class PgnDumpTest extends Specification {
 
   val P = PgnDump
 
-  def node(ply: Ply, uci: String, san: String, children: Children = emptyChildren) =
+  def node(ply: Ply, uci: String, san: String, children: Children = Children.empty) =
     Node(
       id = UciCharPair(Uci(uci).get),
       ply = ply,

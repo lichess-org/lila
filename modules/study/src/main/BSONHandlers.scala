@@ -155,7 +155,7 @@ object BSONHandlers:
       score,
       clock,
       crazy,
-      Node.emptyChildren,
+      Children.empty,
       forceVariation
     )
 

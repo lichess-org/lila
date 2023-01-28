@@ -15,7 +15,6 @@ sealed trait RootOrNode:
   val shapes: Shapes
   val clock: Option[Centis]
   val crazyData: Option[Crazyhouse.Data]
-  val children: Node.Children
   val comments: Comments
   val gamebook: Option[Gamebook]
   val glyphs: Glyphs
@@ -39,18 +38,16 @@ case class Node(
     score: Option[Score] = None,
     clock: Option[Centis],
     crazyData: Option[Crazyhouse.Data],
-    children: Node.Children,
+    children: Children,
     forceVariation: Boolean
 ) extends RootOrNode:
-
-  import Node.Children
 
   def withChildren(f: Children => Option[Children]) =
     f(children) map { newChildren =>
       copy(children = newChildren)
     }
 
-  def withoutChildren = copy(children = Node.emptyChildren)
+  def withoutChildren = copy(children = Children.empty)
 
   def addChild(child: Node): Node = copy(children = children addNode child)
 
@@ -85,7 +82,7 @@ case class Node(
 
   def clearVariations: Node =
     copy(
-      children = children.first.fold(Node.emptyChildren) { child => Children(Vector(child.clearVariations)) }
+      children = children.first.fold(Children.empty) { child => Children(Vector(child.clearVariations)) }
     )
 
   def merge(n: Node): Node =
@@ -106,137 +103,11 @@ case class Node(
   def moveOption = move.some
 
   override def toString = s"$ply.${move.san}"
+end Node
 
 object Node:
 
   val MAX_PLIES = 400
-
-  case class Children(nodes: Vector[Node]) extends AnyVal:
-
-    def first      = nodes.headOption
-    def variations = nodes drop 1
-
-    def nodeAt(path: UciPath): Option[Node] =
-      path.split.flatMap { (head, rest) =>
-        rest.computeIds.foldLeft(get(head)) { (cur, id) =>
-          cur.flatMap(_.children.get(id))
-        }
-      }
-
-    // select all nodes on that path
-    def nodesOn(path: UciPath): Vector[(Node, UciPath)] =
-      path.split
-        .?? { (head, tail) =>
-          get(head).?? { first =>
-            (first, UciPath.fromId(head)) +: first.children.nodesOn(tail).map { (n, p) =>
-              (n, p prepend head)
-            }
-          }
-        }
-
-    def addNodeAt(node: Node, path: UciPath): Option[Children] =
-      path.split match
-        case None               => addNode(node).some
-        case Some((head, tail)) => updateChildren(head, _.addNodeAt(node, tail))
-
-    def addNode(node: Node): Children =
-      get(node.id).fold(Children(nodes :+ node)) { prev =>
-        Children(nodes.filterNot(_.id == node.id) :+ prev.merge(node))
-      }
-
-    def deleteNodeAt(path: UciPath): Option[Children] =
-      path.split flatMap {
-        case (head, p) if p.isEmpty && has(head) => Children(nodes.filterNot(_.id == head)).some
-        case (_, p) if p.isEmpty                 => none
-        case (head, tail)                        => updateChildren(head, _.deleteNodeAt(tail))
-      }
-
-    def promoteToMainlineAt(path: UciPath): Option[Children] =
-      path.split match
-        case None => this.some
-        case Some((head, tail)) =>
-          get(head).flatMap { node =>
-            node.withChildren(_.promoteToMainlineAt(tail)).map { promoted =>
-              Children(promoted +: nodes.filterNot(node ==))
-            }
-          }
-
-    def promoteUpAt(path: UciPath): Option[(Children, Boolean)] =
-      path.split match
-        case None => Some(this -> false)
-        case Some((head, tail)) =>
-          for {
-            node                  <- get(head)
-            mainlineNode          <- nodes.headOption
-            (newChildren, isDone) <- node.children promoteUpAt tail
-            newNode = node.copy(children = newChildren)
-          } yield
-            if (isDone) update(newNode) -> true
-            else if (newNode.id == mainlineNode.id) update(newNode) -> false
-            else Children(newNode +: nodes.filterNot(newNode ==))   -> true
-
-    def updateAt(path: UciPath, f: Node => Node): Option[Children] =
-      path.split flatMap {
-        case (head, p) if p.isEmpty => updateWith(head, n => Some(f(n)))
-        case (head, tail)           => updateChildren(head, _.updateAt(tail, f))
-      }
-
-    def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)
-
-    def getNodeAndIndex(id: UciCharPair): Option[(Node, Int)] =
-      nodes.zipWithIndex.collectFirst {
-        case pair if pair._1.id == id => pair
-      }
-
-    def has(id: UciCharPair): Boolean = nodes.exists(_.id == id)
-
-    def updateAllWith(op: Node => Node): Children =
-      Children {
-        nodes.map { n =>
-          op(n.copy(children = n.children.updateAllWith(op)))
-        }
-      }
-
-    def updateWith(id: UciCharPair, op: Node => Option[Node]): Option[Children] =
-      get(id) flatMap op map update
-
-    def updateChildren(id: UciCharPair, f: Children => Option[Children]): Option[Children] =
-      updateWith(id, _ withChildren f)
-
-    def update(child: Node): Children =
-      Children(nodes.map {
-        case n if child.id == n.id => child
-        case n                     => n
-      })
-
-    def updateMainline(f: Node => Node): Children =
-      Children(nodes match {
-        case main +: others =>
-          val newNode = f(main)
-          newNode.copy(children = newNode.children.updateMainline(f)) +: others
-        case x => x
-      })
-
-    def takeMainlineWhile(f: Node => Boolean): Children =
-      updateMainline { node =>
-        node.children.first.fold(node) { mainline =>
-          if (f(mainline)) node
-          else node.withoutChildren
-        }
-      }
-
-    def countRecursive: Int =
-      nodes.foldLeft(nodes.size) { (count, n) =>
-        count + n.children.countRecursive
-      }
-
-    def lastMainlineNode: Option[Node] =
-      nodes.headOption map { first =>
-        first.children.lastMainlineNode | first
-      }
-
-    override def toString = nodes.mkString(", ")
-  val emptyChildren = Children(Vector.empty)
 
   case class Root(
       ply: Ply,
@@ -257,7 +128,7 @@ object Node:
         copy(children = newChildren)
       }
 
-    def withoutChildren = copy(children = Node.emptyChildren)
+    def withoutChildren = copy(children = Children.empty)
 
     def addChild(child: Node) = copy(children = children addNode child)
 
@@ -304,7 +175,7 @@ object Node:
 
     def clearVariations =
       copy(
-        children = children.first.fold(Node.emptyChildren) { child =>
+        children = children.first.fold(Children.empty) { child =>
           Children(Vector(child.clearVariations))
         }
       )
@@ -342,7 +213,7 @@ object Node:
         check = Check.No,
         clock = none,
         crazyData = variant.crazyhouse option Crazyhouse.Data.init,
-        children = emptyChildren
+        children = Children.empty
       )
 
     def fromRoot(b: lila.tree.Root): Root =
@@ -383,3 +254,137 @@ object Node:
     val crazy          = "z"
     val forceVariation = "fv"
     val order          = "o"
+end Node
+
+opaque type Children = Vector[Node]
+object Children:
+
+  def apply(v: Vector[Node]): Children = v
+
+  val empty: Children = Vector.empty
+
+  extension (e: Children)
+
+    def nodes: Vector[Node] = e
+    def first               = e.headOption
+    def variations          = e drop 1
+
+    def nodeAt(path: UciPath): Option[Node] =
+      path.split.flatMap { (head, rest) =>
+        rest.computeIds.foldLeft(get(head)) { (cur, id) =>
+          cur.flatMap(_.children.get(id))
+        }
+      }
+
+    // select all nodes on that path
+    def nodesOn(path: UciPath): Vector[(Node, UciPath)] =
+      path.split
+        .?? { (head, tail) =>
+          get(head).?? { first =>
+            (first, UciPath.fromId(head)) +: first.children.nodesOn(tail).map { (n, p) =>
+              (n, p prepend head)
+            }
+          }
+        }
+
+    def addNodeAt(node: Node, path: UciPath): Option[Children] =
+      path.split match
+        case None               => addNode(node).some
+        case Some((head, tail)) => updateChildren(head, _.addNodeAt(node, tail))
+
+    def addNode(node: Node): Children =
+      get(node.id).fold(Children(nodes :+ node)) { prev =>
+        Children(nodes.filterNot(_.id == node.id) :+ prev.merge(node))
+      }
+
+    def deleteNodeAt(path: UciPath): Option[Children] =
+      path.split flatMap {
+        case (head, p) if p.isEmpty && has(head) => Children(nodes.filterNot(_.id == head)).some
+        case (_, p) if p.isEmpty                 => none
+        case (head, tail)                        => updateChildren(head, _.deleteNodeAt(tail))
+      }
+
+    def promoteToMainlineAt(path: UciPath): Option[Children] =
+      path.split match
+        case None => e.some
+        case Some((head, tail)) =>
+          get(head).flatMap { node =>
+            node.withChildren(_.promoteToMainlineAt(tail)).map { promoted =>
+              Children(promoted +: nodes.filterNot(node ==))
+            }
+          }
+
+    def promoteUpAt(path: UciPath): Option[(Children, Boolean)] =
+      path.split match
+        case None => Some(e -> false)
+        case Some((head, tail)) =>
+          for {
+            node                  <- get(head)
+            mainlineNode          <- nodes.headOption
+            (newChildren, isDone) <- node.children promoteUpAt tail
+            newNode = node.copy(children = newChildren)
+          } yield
+            if (isDone) update(newNode) -> true
+            else if (newNode.id == mainlineNode.id) update(newNode) -> false
+            else Children(newNode +: nodes.filterNot(newNode ==))   -> true
+
+    def updateAt(path: UciPath, f: Node => Node): Option[Children] =
+      path.split flatMap {
+        case (head, p) if p.isEmpty => updateWith(head, n => Some(f(n)))
+        case (head, tail)           => updateChildren(head, _.updateAt(tail, f))
+      }
+
+    def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)
+
+    def getNodeAndIndex(id: UciCharPair): Option[(Node, Int)] =
+      nodes.zipWithIndex.collectFirst {
+        case pair if pair._1.id == id => pair
+      }
+
+    def has(id: UciCharPair): Boolean = nodes.exists(_.id == id)
+
+    def updateAllWith(op: Node => Node): Children =
+      e.map { n =>
+        op(n.copy(children = n.children.updateAllWith(op)))
+      }
+
+    def updateWith(id: UciCharPair, op: Node => Option[Node]): Option[Children] =
+      get(id) flatMap op map update
+
+    def updateChildren(id: UciCharPair, f: Children => Option[Children]): Option[Children] =
+      updateWith(id, _ withChildren f)
+
+    def update(child: Node): Children =
+      e.map {
+        case n if child.id == n.id => child
+        case n                     => n
+      }
+
+    def updateMainline(f: Node => Node): Children =
+      e match {
+        case main +: others =>
+          val newNode = f(main)
+          newNode.copy(children = newNode.children.updateMainline(f)) +: others
+        case x => x
+      }
+
+    def takeMainlineWhile(f: Node => Boolean): Children =
+      updateMainline { node =>
+        node.children.first.fold(node) { mainline =>
+          if (f(mainline)) node
+          else node.withoutChildren
+        }
+      }
+
+    def countRecursive: Int =
+      nodes.foldLeft(nodes.size) { (count, n) =>
+        count + n.children.countRecursive
+      }
+
+    def lastMainlineNode: Option[Node] =
+      nodes.headOption map { first =>
+        first.children.lastMainlineNode | first
+      }
+
+  end extension
+end Children
