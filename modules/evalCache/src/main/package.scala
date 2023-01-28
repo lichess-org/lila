@@ -27,10 +27,6 @@ opaque type Moves = NonEmptyList[Uci]
 object Moves extends TotalWrapper[Moves, NonEmptyList[Uci]]:
   extension (a: Moves) def truncate: Moves = NonEmptyList(a.value.head, a.value.tail.take(MAX_PV_SIZE - 1))
 
-opaque type Trust = Double
-object Trust extends OpaqueDouble[Trust]:
-  extension (a: Trust) def isEnough = a > 0
-
 opaque type SmallFen = String
 object SmallFen extends OpaqueString[SmallFen]:
   def make(variant: Variant, fen: Fen.Simple): SmallFen =

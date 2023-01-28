@@ -12,8 +12,7 @@ private object BSONHandlers:
 
   import EvalCacheEntry.*
 
-  given BSONHandler[NonEmptyList[Pv]] = new:
-    private def scoreWrite(s: Score): String = s.value.fold(_.value.toString, m => s"#${m.value}")
+  given BSONReader[NonEmptyList[Pv]] = new:
     private def scoreRead(str: String): Option[Score] =
       if (str startsWith "#") str.drop(1).toIntOption map { m =>
         Score mate Mate(m)
@@ -22,13 +21,11 @@ private object BSONHandlers:
         str.toIntOption map { c =>
           Score cp Cp(c)
         }
-    private def movesWrite(moves: Moves): String = Uci writeListChars moves.value.toList
     private def movesRead(str: String): Option[Moves] = Moves from {
       Uci readListChars str flatMap (_.toNel)
     }
     private val scoreSeparator = ':'
     private val pvSeparator    = '/'
-    private val pvSeparatorStr = pvSeparator.toString
     def readTry(bs: BSONValue) =
       bs match
         case BSONString(value) =>
@@ -46,12 +43,6 @@ private object BSONHandlers:
             _.toNel toTry s"Empty PVs $value"
           }
         case b => lila.db.BSON.handlerBadType[NonEmptyList[Pv]](b)
-    def writeTry(x: NonEmptyList[Pv]) =
-      Success(BSONString {
-        x.toList.map { pv =>
-          s"${scoreWrite(pv.score)}$scoreSeparator${movesWrite(pv.moves)}"
-        } mkString pvSeparatorStr
-      })
 
   given BSONHandler[Id] = tryHandler[Id](
     { case BSONString(value) =>
@@ -77,5 +68,5 @@ private object BSONHandlers:
       }
   )
 
-  given BSONDocumentHandler[Eval]           = Macros.handler
-  given BSONDocumentHandler[EvalCacheEntry] = Macros.handler
+  given BSONDocumentReader[Eval]           = Macros.reader
+  given BSONDocumentReader[EvalCacheEntry] = Macros.reader
