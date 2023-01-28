@@ -3,14 +3,11 @@ package lila.evalCache
 import chess.variant.Variant
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import play.api.Configuration
 
-import lila.common.Bus
 import lila.common.config.CollName
 
 @Module
 final class Env(
-    userRepo: lila.user.UserRepo,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     cacheApi: lila.memo.CacheApi
 )(using Executor, akka.actor.Scheduler, play.api.Mode):

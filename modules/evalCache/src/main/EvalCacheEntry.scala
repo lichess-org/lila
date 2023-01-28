@@ -26,8 +26,6 @@ object EvalCacheEntry:
     def takePvs(multiPv: MultiPv) =
       copy(pvs = NonEmptyList(pvs.head, pvs.tail.take(multiPv.value - 1)))
 
-    def depthAboveMin = (depth - MIN_DEPTH) atLeast 0
-
   case class Pv(score: Score, moves: Moves)
 
   case class Id(variant: Variant, smallFen: SmallFen)
