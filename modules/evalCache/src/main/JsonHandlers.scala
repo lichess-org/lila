@@ -23,9 +23,6 @@ object JsonHandlers:
     .add("cp", pv.score.cp)
     .add("mate", pv.score.mate)
 
-  private[evalCache] def readPut(trustedUser: TrustedUser, o: JsObject): Option[Input.Candidate] =
-    o obj "d" flatMap { readPutData(trustedUser, _) }
-
   private[evalCache] def readPutData(trustedUser: TrustedUser, d: JsObject): Option[Input.Candidate] =
     import chess.variant.Variant
     for
