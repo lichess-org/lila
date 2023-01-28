@@ -4,14 +4,14 @@ import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.Crazyhouse
 
-import chess.{ Ply, Centis }
+import chess.{ Ply, Centis, Check }
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
 
 sealed trait RootOrNode:
   val ply: Ply
   val fen: Fen.Epd
-  val check: Boolean
+  val check: Check
   val shapes: Shapes
   val clock: Option[Centis]
   val crazyData: Option[Crazyhouse.Data]
@@ -31,7 +31,7 @@ case class Node(
     ply: Ply,
     move: Uci.WithSan,
     fen: Fen.Epd,
-    check: Boolean,
+    check: Check,
     shapes: Shapes = Shapes(Nil),
     comments: Comments = Comments(Nil),
     gamebook: Option[Gamebook] = None,
@@ -241,7 +241,7 @@ object Node:
   case class Root(
       ply: Ply,
       fen: Fen.Epd,
-      check: Boolean,
+      check: Check,
       shapes: Shapes = Shapes(Nil),
       comments: Comments = Comments(Nil),
       gamebook: Option[Gamebook] = None,
@@ -339,7 +339,7 @@ object Node:
       Root(
         ply = Ply(0),
         fen = variant.initialFen,
-        check = false,
+        check = Check.No,
         clock = none,
         crazyData = variant.crazyhouse option Crazyhouse.Data.init,
         children = emptyChildren

@@ -3,7 +3,7 @@ package lila.study
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags, SanStr }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Centis, Color, Pos, PromotableRole, Role, Outcome, Ply }
+import chess.{ Centis, Color, Pos, PromotableRole, Role, Outcome, Ply, Check }
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import scala.util.Success
@@ -126,14 +126,14 @@ object BSONHandlers:
       )
     )
 
-  def readNode(doc: Bdoc, id: UciCharPair): Option[Node] =
+  private[study] def readNode(doc: Bdoc, id: UciCharPair): Option[Node] =
     import Node.{ BsonFields as F }
     for {
       ply <- doc.getAsOpt[Ply](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
       san <- doc.getAsOpt[SanStr](F.san)
       fen <- doc.getAsOpt[Fen.Epd](F.fen)
-      check          = ~doc.getAsOpt[Boolean](F.check)
+      check          = ~doc.getAsOpt[Check](F.check)
       shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
       comments       = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty
       gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
@@ -159,7 +159,7 @@ object BSONHandlers:
       forceVariation
     )
 
-  def writeNode(n: Node) =
+  private[study] def writeNode(n: Node) =
     import Node.BsonFields.*
     val w = new Writer
     $doc(
@@ -167,7 +167,7 @@ object BSONHandlers:
       uci            -> n.move.uci,
       san            -> n.move.san,
       fen            -> n.fen,
-      check          -> w.boolO(n.check),
+      check          -> w.yesnoO(n.check),
       shapes         -> n.shapes.value.nonEmpty.option(n.shapes),
       comments       -> n.comments.value.nonEmpty.option(n.comments),
       gamebook       -> n.gamebook,
@@ -190,7 +190,7 @@ object BSONHandlers:
       Root(
         ply = r.get[Ply](ply),
         fen = r.get[Fen.Epd](fen),
-        check = r boolD check,
+        check = r yesnoD check,
         shapes = r.getO[Shapes](shapes) | Shapes.empty,
         comments = r.getO[Comments](comments) | Comments.empty,
         gamebook = r.getO[Gamebook](gamebook),
@@ -205,7 +205,7 @@ object BSONHandlers:
         UciPathDb.rootDbKey -> $doc(
           ply      -> r.ply,
           fen      -> r.fen,
-          check    -> r.check.some.filter(identity),
+          check    -> w.yesnoO(r.check),
           shapes   -> r.shapes.value.nonEmpty.option(r.shapes),
           comments -> r.comments.value.nonEmpty.option(r.comments),
           gamebook -> r.gamebook,

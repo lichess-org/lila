@@ -50,10 +50,8 @@ final class GifExport(
         framesRec(
           tail,
           arr :+ Json
-            .obj(
-              "fen" -> node.fen.value
-            )
-            .add("check", node.check option true)
+            .obj("fen" -> node.fen.value)
+            .add("check", node.check)
             .add("lastMove", node.moveOption.map(_.uci.uci))
             .add("delay", tail.isEmpty option 500) // more delay for last frame
         )

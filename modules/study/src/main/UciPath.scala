@@ -23,9 +23,11 @@ private[study] object UciPathDb:
 
   // mongodb objects don't support '.' and '$' in keys
   private def encodeDbKey(id: UciCharPair): String = encodeDbKey(UciPath.fromId(id))
+
   def encodeDbKey(path: UciPath): String =
     path.value.replace('.', 144.toChar).replace('$', 145.toChar)
-  inline def decodeDbKey(inline key: String): UciPath =
+
+  def decodeDbKey(key: String): UciPath =
     UciPath(key.replace(144.toChar, '.').replace(145.toChar, '$'))
 
   def isMainline(node: RootOrNode, path: UciPath): Boolean =

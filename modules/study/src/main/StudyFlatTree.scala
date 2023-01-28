@@ -33,19 +33,16 @@ private object StudyFlatTree:
 
     private def traverse(children: List[FlatNode]): Children =
       children
-        .foldLeft(Map.empty[UciPath, Children]) { (allChildren, flat) =>
-          update(allChildren, flat)
+        .foldLeft(Map.empty[UciPath, Children]) { (roots, flat) =>
+          // assumes that node has a greater depth than roots (sort beforehand)
+          flat.toNodeWithChildren(roots get flat.path).fold(roots) { node =>
+            roots.removed(flat.path).updatedWith(flat.path.parent) {
+              case None           => Children(Vector(node)).some
+              case Some(siblings) => siblings.addNode(node).some
+            }
+          }
         }
         .get(UciPath.root) | Node.emptyChildren
-
-    // assumes that node has a greater depth than roots (sort beforehand)
-    private def update(roots: Map[UciPath, Children], flat: FlatNode): Map[UciPath, Children] =
-      flat.toNodeWithChildren(roots get flat.path).fold(roots) { node =>
-        roots.removed(flat.path).updatedWith(flat.path.parent) {
-          case None           => Children(Vector(node)).some
-          case Some(siblings) => siblings.addNode(node).some
-        }
-      }
 
   object writer:
 
