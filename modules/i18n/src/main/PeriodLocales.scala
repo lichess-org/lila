@@ -26,5 +26,5 @@ object PeriodLocales:
       }
     )
 
-  def showPeriod(period: Period)(using lang: Lang): String =
+  def showPeriod(period: Period)(using Lang): String =
     periodFormatter print period.normalizedStandard(periodType)

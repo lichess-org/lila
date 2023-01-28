@@ -19,13 +19,13 @@ import play.api.ConfigLoader
 final class Mailer(
     config: Mailer.Config,
     getSecondaryPermille: () => Int
-)(implicit system: ActorSystem):
+)(using system: ActorSystem):
 
   private given blockingExecutor: Executor =
     system.dispatchers.lookup("blocking-smtp-dispatcher")
 
-  private val primaryClient   = new SMTPMailer(config.primary.toClientConfig)
-  private val secondaryClient = new SMTPMailer(config.secondary.toClientConfig)
+  private val primaryClient   = SMTPMailer(config.primary.toClientConfig)
+  private val secondaryClient = SMTPMailer(config.secondary.toClientConfig)
 
   private def randomClient(): (SMTPMailer, Mailer.Smtp) =
     if (ThreadLocalRandom.nextInt(1000) < getSecondaryPermille()) (secondaryClient, config.secondary)
@@ -91,12 +91,12 @@ object Mailer:
 
   object txt:
 
-    private def serviceNote(using lang: Lang): String = s"""
+    private def serviceNote(using Lang): String = s"""
 ${trans.common_note("https://lichess.org").render}
 
 ${trans.common_contact("https://lichess.org/contact").render}"""
 
-    def addServiceNote(body: String)(using lang: Lang) = s"""$body
+    def addServiceNote(body: String)(using Lang) = s"""$body
 
 $serviceNote"""
 
@@ -121,7 +121,7 @@ $serviceNote"""
       href     := "https://lichess.org/"
     )(span(itemprop := "name")("lichess.org"))
 
-    def serviceNote(using lang: Lang) =
+    def serviceNote(using Lang) =
       publisher(
         small(
           trans.common_note(Mailer.html.noteLink),
@@ -136,17 +136,17 @@ $serviceNote"""
         )
       )
 
-    def standardEmail(body: String)(using lang: Lang): Frag =
+    def standardEmail(body: String)(using Lang): Frag =
       emailMessage(
         pDesc(nl2br(body)),
         serviceNote
       )
 
-    def url(u: String, clickOrPaste: Boolean = true)(using lang: Lang) =
+    def url(u: String, clickOrPaste: Boolean = true)(using Lang) =
       frag(
         meta(itemprop := "url", content := u),
         p(a(itemprop := "target", href := u)(u)),
-        clickOrPaste option p(trans.common_orPaste(lang))
+        clickOrPaste option p(trans.common_orPaste())
       )
 
     private[Mailer] def wrap(subject: String, htmlBody: Frag): Frag =

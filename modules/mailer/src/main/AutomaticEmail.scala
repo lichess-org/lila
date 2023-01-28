@@ -27,7 +27,7 @@ final class AutomaticEmail(
 
 The Lichess team"""
 
-  def welcomeEmail(user: User, email: EmailAddress)(using lang: Lang): Funit =
+  def welcomeEmail(user: User, email: EmailAddress)(using Lang): Funit =
     lila.mon.email.send.welcome.increment()
     val profileUrl = s"$baseUrl/@/${user.username}"
     val editUrl    = s"$baseUrl/account/profile"
@@ -64,7 +64,7 @@ $regards
 """
       }
       _ <- emailOption ?? { email =>
-        given play.api.i18n.Lang = userLang(user)
+        given Lang = userLang(user)
         mailer send Mailer.Message(
           to = email,
           subject = s"$title title confirmed on lichess.org",
@@ -126,7 +126,7 @@ Following your request, the Lichess account "${user.username}" will be fully era
 $regards
 """
     userRepo emailOrPrevious user.id flatMapz { email =>
-      given play.api.i18n.Lang = userLang(user)
+      given Lang = userLang(user)
       mailer send Mailer.Message(
         to = email,
         subject = "lichess.org account erasure",
@@ -184,7 +184,7 @@ To make a new donation, head to $baseUrl/patron"""
     userRepo withEmails userId flatMapz { userWithEmail =>
       lightUser.preloadMany(opponents.flatMap(_.opponentId)) >>
         userWithEmail.emails.current.filterNot(_.isNoReply) ?? { email =>
-          given play.api.i18n.Lang = userLang(userWithEmail.user)
+          given Lang = userLang(userWithEmail.user)
           val hello =
             "Hello and thank you for playing correspondence chess on Lichess!"
           val disableSettingNotice =
@@ -216,14 +216,14 @@ $disableSettingNotice $disableLink"""
         }
     }
 
-  private def showGame(opponent: CorrespondenceOpponent)(using lang: Lang) =
+  private def showGame(opponent: CorrespondenceOpponent)(using Lang) =
     val opponentName = opponent.opponentId.fold("Anonymous")(lightUser.syncFallback(_).name)
     opponent.remainingTime.fold(s"It's your turn in your game with $opponentName:") { remainingTime =>
       s"You have ${showPeriod(remainingTime)} remaining in your game with $opponentName:"
     }
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String =
-    given play.api.i18n.Lang = userLang(user)
+    given Lang = userLang(user)
     body(userLang(user)) tap { txt =>
       lila.common.Bus.publish(SystemMsg(user.id, txt), "msgSystemSend")
     }
@@ -231,7 +231,7 @@ $disableSettingNotice $disableLink"""
   private def sendAsPrivateMessageAndEmail(user: User)(subject: Lang => String, body: Lang => String): Funit =
     alsoSendAsPrivateMessage(user)(body) pipe { body =>
       userRepo email user.id flatMapz { email =>
-        given lang: play.api.i18n.Lang = userLang(user)
+        given lang: Lang = userLang(user)
         mailer send Mailer.Message(
           to = email,
           subject = subject(lang),
