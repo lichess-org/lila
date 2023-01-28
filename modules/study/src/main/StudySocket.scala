@@ -10,7 +10,7 @@ import scala.concurrent.duration.*
 import lila.common.Bus
 import lila.common.Json.{ *, given }
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.socket.RemoteSocket.{ Protocol as P, * }
+import lila.socket.RemoteSocket.{ Protocol as P, Path as _, * }
 import lila.socket.Socket.{ makeMessage, Sri }
 import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
 import lila.tree.Node.{ defaultNodeJsonWriter, Comment, Gamebook, Shape, Shapes }
@@ -80,7 +80,7 @@ final private class StudySocket(
           }
         case "deleteNode" =>
           reading[AtPosition](o) { position =>
-            (o \ "d" \ "jumpTo").asOpt[String] map Path.apply foreach { jumpTo =>
+            (o \ "d" \ "jumpTo").asOpt[Path].foreach { jumpTo =>
               who foreach api.setPath(studyId, position.ref.withPath(jumpTo))
               who foreach api.deleteNodeAt(studyId, position.ref)
             }
@@ -233,7 +233,7 @@ final private class StudySocket(
         m.chapterId.ifTrue(opts.write) foreach { chapterId =>
           api.addNode(
             studyId,
-            Position.Ref(StudyChapterId(chapterId), Path(m.path)),
+            Position.Ref(StudyChapterId(chapterId), Path.fromStr(m.path)),
             Node.fromBranch(branch) withClock opts.clock,
             opts
           )(who)
@@ -422,12 +422,11 @@ object StudySocket:
           reader.reads(d).asOpt
         } foreach f
 
-      case class AtPosition(path: String, chapterId: StudyChapterId):
-        def ref = Position.Ref(chapterId, Path(path))
-      given Reads[AtPosition] = (
-        (__ \ "path").read[String] and
-          (__ \ "ch").read[StudyChapterId]
-      )(AtPosition.apply)
+      given Reads[Path] = stringRead(Path.fromStr)
+      case class AtPosition(path: Path, chapterId: StudyChapterId):
+        def ref = Position.Ref(chapterId, path)
+      given Reads[AtPosition] =
+        ((__ \ "path").read[Path] and (__ \ "ch").read[StudyChapterId])(AtPosition.apply)
       case class SetRole(userId: UserId, role: String)
       given Reads[SetRole]                  = Json.reads
       given Reads[ChapterMaker.Mode]        = optRead(ChapterMaker.Mode.apply)

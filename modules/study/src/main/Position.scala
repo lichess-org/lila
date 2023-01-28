@@ -18,10 +18,10 @@ case object Position:
 
     def withPath(p: Path) = copy(path = p)
 
-  object Ref:
+  private[study] object Ref:
 
     def decode(str: String): Option[Ref] =
       str.split(' ') match
-        case Array(chapterId, path) => Ref(StudyChapterId(chapterId), Path(path)).some
+        case Array(chapterId, path) => Ref(StudyChapterId(chapterId), Path.fromStr(path)).some
         case Array(chapterId)       => Ref(StudyChapterId(chapterId), Path.root).some
         case _                      => none

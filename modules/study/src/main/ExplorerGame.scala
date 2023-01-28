@@ -28,7 +28,7 @@ final private class ExplorerGame(
           GameToRoot(game, none, withClocks = false).pipe { root =>
             root.setCommentAt(
               comment = gameComment(game),
-              path = Path(root.mainline.map(_.id))
+              path = Path.fromIds(root.mainline.map(_.id))
             )
           } ?? { gameRoot =>
             merge(fromNode, position.path, gameRoot) flatMap { case (newNode, path) =>

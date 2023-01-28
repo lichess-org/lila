@@ -9,10 +9,10 @@ import lila.db.dsl.{ *, given }
 private object StudyFlatTree:
 
   private case class FlatNode(path: Path, data: Bdoc):
-    val depth = path.ids.size
+    val depth = path.depth
 
     def toNodeWithChildren(children: Option[Children]): Option[Node] =
-      readNode(data, path.ids.last) map {
+      path.lastId.flatMap { readNode(data, _) }.map {
         _.copy(children = children | Node.emptyChildren)
       }
 

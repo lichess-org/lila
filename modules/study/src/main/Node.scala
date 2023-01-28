@@ -97,7 +97,7 @@ case class Node(
       score = n.score orElse score,
       clock = n.clock orElse clock,
       crazyData = n.crazyData orElse crazyData,
-      children = n.children.nodes.foldLeft(children) { case (cs, c) =>
+      children = n.children.nodes.foldLeft(children) { (cs, c) =>
         cs addNode c
       },
       forceVariation = n.forceVariation || forceVariation
@@ -117,21 +117,22 @@ object Node:
     def variations = nodes drop 1
 
     def nodeAt(path: Path): Option[Node] =
-      path.split flatMap { (head, rest) =>
-        rest.ids.foldLeft(get(head)) { (cur, id) =>
+      path.split.flatMap { (head, rest) =>
+        rest.computeIds.foldLeft(get(head)) { (cur, id) =>
           cur.flatMap(_.children.get(id))
         }
       }
 
     // select all nodes on that path
     def nodesOn(path: Path): Vector[(Node, Path)] =
-      path.split ?? { case (head, tail) =>
-        get(head) ?? { first =>
-          (first, Path(Vector(head))) +: first.children.nodesOn(tail).map { case (n, p) =>
-            (n, p prepend head)
+      path.split
+        .?? { (head, tail) =>
+          get(head).?? { first =>
+            (first, Path.fromId(head)) +: first.children.nodesOn(tail).map { (n, p) =>
+              (n, p prepend head)
+            }
           }
         }
-      }
 
     def addNodeAt(node: Node, path: Path): Option[Children] =
       path.split match
@@ -145,8 +146,8 @@ object Node:
 
     def deleteNodeAt(path: Path): Option[Children] =
       path.split flatMap {
-        case (head, Path(Vector())) if has(head) => Children(nodes.filterNot(_.id == head)).some
-        case (_, Path(Vector()))                 => none
+        case (head, p) if p.isEmpty && has(head) => Children(nodes.filterNot(_.id == head)).some
+        case (_, p) if p.isEmpty                 => none
         case (head, tail)                        => updateChildren(head, _.deleteNodeAt(tail))
       }
 
@@ -176,7 +177,7 @@ object Node:
 
     def updateAt(path: Path, f: Node => Node): Option[Children] =
       path.split flatMap {
-        case (head, Path(Vector())) => updateWith(head, n => Some(f(n)))
+        case (head, p) if p.isEmpty => updateWith(head, n => Some(f(n)))
         case (head, tail)           => updateChildren(head, _.updateAt(tail, f))
       }
 
@@ -225,7 +226,7 @@ object Node:
       }
 
     def countRecursive: Int =
-      nodes.foldLeft(nodes.size) { case (count, n) =>
+      nodes.foldLeft(nodes.size) { (count, n) =>
         count + n.children.countRecursive
       }
 
@@ -314,12 +315,12 @@ object Node:
 
     def lastMainlinePlyOf(path: Path) =
       mainline
-        .zip(path.ids)
+        .zip(path.computeIds)
         .takeWhile { (node, id) => node.id == id }
         .lastOption
         .fold(Ply(0)) { (node, _) => node.ply }
 
-    def mainlinePath = Path(mainline.map(_.id))
+    def mainlinePath = Path.fromIds(mainline.map(_.id))
 
     def lastMainlineNode: RootOrNode = children.lastMainlineNode getOrElse this
 

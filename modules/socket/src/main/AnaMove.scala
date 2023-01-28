@@ -15,6 +15,7 @@ trait AnaAny:
   def chapterId: Option[String]
   def path: String
 
+// TODO StudyChapterId, UciPath
 case class AnaMove(
     orig: chess.Pos,
     dest: chess.Pos,
