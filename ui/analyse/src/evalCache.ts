@@ -104,7 +104,7 @@ export function make(opts: EvalCacheOpts): EvalCache {
       };
       if (opts.variant !== 'standard') obj.variant = opts.variant;
       if (multiPv > 1) obj.mpv = multiPv;
-      if (upgradable()) obj.up = true;
+      if (true || upgradable()) obj.up = true;
       opts.send('evalGet', obj);
     },
     onCloudEval(serverEval: CachedEval) {
