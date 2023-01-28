@@ -3,6 +3,7 @@ package lila.study
 import actorApi.Who
 import akka.stream.scaladsl.*
 import chess.Centis
+import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
 import scala.concurrent.duration.*
 
@@ -259,7 +260,7 @@ final class StudyApi(
                     who
                   )
                 ) inject {
-                  (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path)) option { () =>
+                  (opts.promoteToMainline && !newPosition.path.isMainline(chapter.root)) option { () =>
                     promote(study.id, position.ref + node, toMainline = true)(who)
                   }
                 }
@@ -346,7 +347,7 @@ final class StudyApi(
       }
     }
 
-  private def doForceVariation(sc: Study.WithChapter, path: Path, force: Boolean, who: Who): Funit =
+  private def doForceVariation(sc: Study.WithChapter, path: UciPath, force: Boolean, who: Who): Funit =
     sc.chapter.forceVariation(force, path) match
       case Some(newChapter) =>
         chapterRepo.forceVariation(force)(newChapter, path) >>-
@@ -459,7 +460,7 @@ final class StudyApi(
     (chapter.tags != oldChapter.tags) ?? {
       chapterRepo.setTagsFor(chapter) >> {
         PgnTags.setRootClockFromTags(chapter) ?? { c =>
-          doSetClock(Study.WithChapter(study, c), Position(c, Path.root).ref, c.root.clock)(who)
+          doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, c.root.clock)(who)
         }
       } >>-
         sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
@@ -660,7 +661,7 @@ final class StudyApi(
             chapterRepo.update(newChapter) >> {
               if (chapter.conceal != newChapter.conceal)
                 (newChapter.conceal.isDefined && study.position.chapterId == chapter.id).?? {
-                  val newPosition = study.position.withPath(Path.root)
+                  val newPosition = study.position.withPath(UciPath.root)
                   studyRepo.setPosition(study.id, newPosition)
                 } >>-
                   sendTo(study.id)(_.reloadAll)

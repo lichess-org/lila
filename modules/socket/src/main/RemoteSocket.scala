@@ -202,7 +202,7 @@ object RemoteSocket:
 
   object Protocol:
 
-    final class RawMsg(val path: Path, val args: Args):
+    final class RawMsg(val path: String, val args: Args):
       def get(nb: Int)(f: PartialFunction[Array[String], Option[In]]): Option[In] =
         f.applyOrElse(args.split(" ", nb), (_: Array[String]) => None)
       def all = args split ' '
@@ -320,6 +320,5 @@ object RemoteSocket:
   val initialUserIds = Set(UserId("lichess"))
 
   type Channel = String
-  type Path    = String
   type Args    = String
   type Handler = PartialFunction[Protocol.In, Unit]

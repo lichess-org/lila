@@ -1,7 +1,7 @@
 package lila.socket
 
 import cats.data.Validated
-import chess.format.{ Fen, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.*
 import chess.variant.Variant
 import play.api.libs.json.*
@@ -10,10 +10,9 @@ import lila.tree.Branch
 import lila.common.Json.given
 
 trait AnaAny:
-
   def branch: Validated[String, Branch]
-  def chapterId: Option[String]
-  def path: String
+  def chapterId: Option[StudyChapterId]
+  def path: UciPath
 
 // TODO StudyChapterId, UciPath
 case class AnaMove(
@@ -21,8 +20,8 @@ case class AnaMove(
     dest: chess.Pos,
     variant: Variant,
     fen: Fen.Epd,
-    path: String,
-    chapterId: Option[String],
+    path: UciPath,
+    chapterId: Option[StudyChapterId],
     promotion: Option[chess.PromotableRole]
 ) extends AnaAny:
 
@@ -56,7 +55,7 @@ object AnaMove:
       orig <- d str "orig" flatMap { chess.Pos.fromKey(_) }
       dest <- d str "dest" flatMap { chess.Pos.fromKey(_) }
       fen  <- d.get[Fen.Epd]("fen")
-      path <- d str "path"
+      path <- d.get[UciPath]("path")
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
     yield AnaMove(
       orig = orig,
@@ -64,6 +63,6 @@ object AnaMove:
       variant = variant,
       fen = fen,
       path = path,
-      chapterId = d str "ch",
+      chapterId = d.get[StudyChapterId]("ch"),
       promotion = d str "promotion" flatMap chess.Role.promotable
     )

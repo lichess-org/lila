@@ -3,6 +3,7 @@ package lila.relay
 import org.joda.time.DateTime
 
 import chess.format.pgn.{ Tag, Tags }
+import chess.format.UciPath
 import lila.socket.Socket.Sri
 import lila.study.*
 
@@ -71,9 +72,9 @@ final private class RelaySync(
   private type NbMoves = Int
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
     val who = actorApi.Who(chapter.ownerId, sri)
-    game.root.mainline.foldLeft(Path.root -> none[Node]) {
+    game.root.mainline.foldLeft(UciPath.root -> none[Node]) {
       case ((parentPath, None), gameNode) =>
-        val path = parentPath + gameNode
+        val path = parentPath + gameNode.id
         chapter.root.nodeAt(path) match
           case None => parentPath -> gameNode.some
           case Some(existing) =>
@@ -88,7 +89,7 @@ final private class RelaySync(
       case (found, _) => found
     } match
       case (path, newNode) =>
-        !Path.isMainline(chapter.root, path) ?? {
+        !path.isMainline(chapter.root) ?? {
           logger.info(s"Change mainline ${showSC(study, chapter)} $path")
           studyApi.promote(
             studyId = study.id,
@@ -105,7 +106,7 @@ final private class RelaySync(
               relay = Chapter
                 .Relay(
                   index = game.index,
-                  path = position.path + n,
+                  path = position.path + n.id,
                   lastMoveAt = DateTime.now
                 )
                 .some
@@ -149,7 +150,7 @@ final private class RelaySync(
     }
 
   private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit =
-    chapterRepo.setRelayPath(chapter.id, Path.root) >> {
+    chapterRepo.setRelayPath(chapter.id, UciPath.root) >> {
       (tour.official && chapter.root.mainline.sizeIs > 10) ?? studyApi.analysisRequest(
         studyId = study.id,
         chapterId = chapter.id,

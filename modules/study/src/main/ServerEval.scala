@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.Glyphs
-import chess.format.{ Fen, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import play.api.libs.json.*
 import scala.concurrent.duration.*
 
@@ -69,7 +69,7 @@ object ServerEval:
           case Study.WithChapter(_, chapter) =>
             (complete ?? chapterRepo.completeServerEval(chapter)) >> {
               lila.common.Future
-                .fold(chapter.root.mainline.zip(analysis.infoAdvices).toList)(Path.root) {
+                .fold(chapter.root.mainline.zip(analysis.infoAdvices).toList)(UciPath.root) {
                   case (path, (node, (info, advOpt))) =>
                     chapter.root.nodeAt(path).flatMap { parent =>
                       analysisLine(parent, chapter.setup.variant, info) map { subTree =>
@@ -85,7 +85,7 @@ object ServerEval:
                         chapterRepo
                           .setNodeValues(
                             chapter,
-                            path + node,
+                            path + node.id,
                             List(
                               F.score -> info.eval.score
                                 .ifTrue {
@@ -109,7 +109,7 @@ object ServerEval:
                                 .flatMap(bsonWriteOpt)
                             )
                           )
-                    } inject path + node
+                    } inject path + node.id
                 } void
             } >>- {
               chapterRepo.byId(StudyChapterId(analysis.id)).foreach {

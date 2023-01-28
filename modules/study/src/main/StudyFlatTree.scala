@@ -5,10 +5,11 @@ import Node.Children
 
 import lila.common.Chronometer
 import lila.db.dsl.{ *, given }
+import chess.format.UciPath
 
 private object StudyFlatTree:
 
-  private case class FlatNode(path: Path, data: Bdoc):
+  private case class FlatNode(path: UciPath, data: Bdoc):
     val depth = path.depth
 
     def toNodeWithChildren(children: Option[Children]): Option[Node] =
@@ -23,8 +24,8 @@ private object StudyFlatTree:
         traverse {
           flatTree.elements.toList
             .collect {
-              case el if el.name != Path.rootDbKey =>
-                FlatNode(Path.fromDbKey(el.name), el.value.asOpt[Bdoc].get)
+              case el if el.name != UciPathDb.rootDbKey =>
+                FlatNode(UciPathDb.decodeDbKey(el.name), el.value.asOpt[Bdoc].get)
             }
             .sortBy(-_.depth)
         }
@@ -32,13 +33,13 @@ private object StudyFlatTree:
 
     private def traverse(children: List[FlatNode]): Children =
       children
-        .foldLeft(Map.empty[Path, Children]) { (allChildren, flat) =>
+        .foldLeft(Map.empty[UciPath, Children]) { (allChildren, flat) =>
           update(allChildren, flat)
         }
-        .get(Path.root) | Node.emptyChildren
+        .get(UciPath.root) | Node.emptyChildren
 
     // assumes that node has a greater depth than roots (sort beforehand)
-    private def update(roots: Map[Path, Children], flat: FlatNode): Map[Path, Children] =
+    private def update(roots: Map[UciPath, Children], flat: FlatNode): Map[UciPath, Children] =
       flat.toNodeWithChildren(roots get flat.path).fold(roots) { node =>
         roots.removed(flat.path).updatedWith(flat.path.parent) {
           case None           => Children(Vector(node)).some
@@ -50,13 +51,13 @@ private object StudyFlatTree:
 
     def rootChildren(root: Node.Root): Vector[(String, Bdoc)] =
       Chronometer.syncMon(_.study.tree.write) {
-        root.children.nodes.flatMap { traverse(_, Path.root) }
+        root.children.nodes.flatMap { traverse(_, UciPath.root) }
       }
 
-    private def traverse(node: Node, parentPath: Path): Vector[(String, Bdoc)] =
+    private def traverse(node: Node, parentPath: UciPath): Vector[(String, Bdoc)] =
       (parentPath.depth < Node.MAX_PLIES) ?? {
         val path = parentPath + node.id
         node.children.nodes.flatMap {
           traverse(_, path)
-        } appended (Path.encodeDbKey(path) -> writeNode(node))
+        } appended (UciPathDb.encodeDbKey(path) -> writeNode(node))
       }

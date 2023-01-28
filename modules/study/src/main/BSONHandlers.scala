@@ -185,7 +185,7 @@ object BSONHandlers:
   private[study] given BSON[Root] with
     import Node.BsonFields.*
     def reads(fullReader: Reader) =
-      val rootNode = fullReader.doc.getAsOpt[Bdoc](Path.rootDbKey) err "Missing root"
+      val rootNode = fullReader.doc.getAsOpt[Bdoc](UciPathDb.rootDbKey) err "Missing root"
       val r        = new Reader(rootNode)
       Root(
         ply = r.get[Ply](ply),
@@ -202,7 +202,7 @@ object BSONHandlers:
       )
     def writes(w: Writer, r: Root) = $doc(
       StudyFlatTree.writer.rootChildren(r) appended {
-        Path.rootDbKey -> $doc(
+        UciPathDb.rootDbKey -> $doc(
           ply      -> r.ply,
           fen      -> r.fen,
           check    -> r.check.some.filter(identity),
