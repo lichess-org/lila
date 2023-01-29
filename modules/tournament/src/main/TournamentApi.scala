@@ -243,7 +243,7 @@ final class TournamentApi(
     import lila.tournament.Tournament.tournamentUrl
     tour.schedule.exists(_.freq == Schedule.Freq.Marathon) ?? {
       playerRepo.bestByTourWithRank(tour.id, 500).flatMap { players =>
-        lila.common.Future
+        lila.common.LilaFuture
           .applySequentially(players) {
             case rp if rp.rank.value == 1 =>
               trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonWinner)
@@ -494,7 +494,7 @@ final class TournamentApi(
               }
             } >> pairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
               pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
-                lila.common.Future.applySequentially(uids.toList)(recomputePlayerAndSheet(tour))
+                lila.common.LilaFuture.applySequentially(uids.toList)(recomputePlayerAndSheet(tour))
             }
           }
         } >>

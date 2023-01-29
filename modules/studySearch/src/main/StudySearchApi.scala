@@ -131,7 +131,7 @@ final class StudySearchApi(
             }
             .via(lila.common.LilaStream.logRate[Study]("study index")(logger))
             .mapAsyncUnordered(8) { study =>
-              lila.common.Future.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)
+              lila.common.LilaFuture.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)
             }
             .toMat(Sink.ignore)(Keep.right)
             .run()

@@ -278,7 +278,7 @@ trait LilaLibraryExtensions extends LilaTypes:
       )
 
     def delay(duration: FiniteDuration)(using Executor, Scheduler) =
-      lila.common.Future.delay(duration)(fua)
+      lila.common.LilaFuture.delay(duration)(fua)
 
     def chronometer    = Chronometer(fua)
     def chronometerTry = Chronometer.lapTry(fua)

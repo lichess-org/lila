@@ -22,7 +22,7 @@ final class BotPlayer(
   private def clientError[A](msg: String): Fu[A] = fufail(lila.round.ClientError(msg))
 
   def apply(pov: Pov, me: User, uciStr: String, offeringDraw: Option[Boolean]): Funit =
-    lila.common.Future.delay((pov.game.hasAi ?? 500) millis) {
+    lila.common.LilaFuture.delay((pov.game.hasAi ?? 500) millis) {
       Uci(uciStr).fold(clientError[Unit](s"Invalid UCI: $uciStr")) { uci =>
         lila.mon.bot.moves(me.username.value).increment()
         if (!pov.isMyTurn) clientError("Not your turn, or game already over")
@@ -56,7 +56,7 @@ final class BotPlayer(
     rematches.prevGameIdOffering(challengeId) ?? gameRepo.game map {
       _.flatMap(Pov(_, me)) ?? { pov =>
         // delay so it feels more natural
-        lila.common.Future.delay(if (accept) 100.millis else 1.second) {
+        lila.common.LilaFuture.delay(if (accept) 100.millis else 1.second) {
           fuccess {
             tellRound(pov.gameId, if (accept) RematchYes(pov.playerId) else RematchNo(pov.playerId))
           }
@@ -102,7 +102,7 @@ final class BotPlayer(
   def claimVictory(pov: Pov): Funit =
     pov.mightClaimWin ?? {
       tellRound(pov.gameId, ResignForce(pov.playerId))
-      lila.common.Future.delay(500 millis) {
+      lila.common.LilaFuture.delay(500 millis) {
         gameRepo.finished(pov.gameId) map {
           _.exists(_.winner.map(_.id) has pov.playerId)
         }

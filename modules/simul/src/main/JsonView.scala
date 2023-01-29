@@ -52,7 +52,7 @@ final class JsonView(
     }
 
   def api(simuls: List[Simul]): Fu[JsArray] =
-    lila.common.Future.linear(simuls)(apiJson) map JsArray.apply
+    lila.common.LilaFuture.linear(simuls)(apiJson) map JsArray.apply
 
   def apiAll(
       pending: List[Simul],

@@ -462,7 +462,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         err => BadRequest(err.toString).toFuccess,
         data =>
           val angle = PuzzleAngle findOrMix angleStr
-          lila.common.Future
+          lila.common.LilaFuture
             .applySequentially(data.solutions) { sol =>
               env.puzzle
                 .finisher(sol.id, angle, me, sol.win, sol.mode)

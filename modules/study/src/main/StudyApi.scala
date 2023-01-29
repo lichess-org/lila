@@ -568,7 +568,7 @@ final class StudyApi(
   ): Funit =
     data.manyGames match
       case Some(datas) =>
-        lila.common.Future.applySequentially(datas) { data =>
+        lila.common.LilaFuture.applySequentially(datas) { data =>
           addChapter(studyId, data, sticky, withRatings)(who)
         }
       case _ =>
@@ -604,7 +604,7 @@ final class StudyApi(
   def importPgns(studyId: StudyId, datas: List[ChapterMaker.Data], sticky: Boolean, withRatings: Boolean)(
       who: Who
   ) =
-    lila.common.Future.applySequentially(datas) { data =>
+    lila.common.LilaFuture.applySequentially(datas) { data =>
       addChapter(studyId, data, sticky, withRatings)(who)
     }
 

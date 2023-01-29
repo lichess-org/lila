@@ -13,7 +13,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
       NotForKids {
         for {
           allTeamIds <- ctx.userId ?? teamCache.teamIdsList
-          teamIds <- lila.common.Future.filter(allTeamIds) {
+          teamIds <- lila.common.LilaFuture.filter(allTeamIds) {
             teamCache.forumAccess.get(_).map(_ != Team.Access.NONE)
           }
           categs <- postApi.categsForUser(teamIds, ctx.me)

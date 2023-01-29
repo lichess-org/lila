@@ -146,7 +146,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def thanks =
     Open { implicit ctx =>
       // wait for the payment data from stripe or paypal
-      lila.common.Future.delay(2.seconds) {
+      lila.common.LilaFuture.delay(2.seconds) {
         for {
           patron   <- ctx.me ?? env.plan.api.userPatron
           customer <- patron ?? env.plan.api.stripe.patronCustomer

@@ -6,7 +6,7 @@ import scala.concurrent.{ Future as ScalaFu, Promise }
 import scala.concurrent.duration.FiniteDuration
 import lila.Lila.Fu
 
-object Future:
+object LilaFuture:
 
   def fold[T, R](
       list: List[T]

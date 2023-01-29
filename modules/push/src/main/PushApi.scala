@@ -5,7 +5,7 @@ import play.api.libs.json.*
 
 import lila.challenge.Challenge
 import lila.common.String.shorten
-import lila.common.{ Future, LightUser }
+import lila.common.{ LilaFuture, LightUser }
 import lila.common.Json.given
 import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
@@ -80,7 +80,7 @@ final private class PushApi(
         .void
 
   def move(move: MoveEvent): Funit =
-    Future.delay(2 seconds) {
+    LilaFuture.delay(2 seconds) {
       proxyRepo.game(move.gameId) flatMap {
         _.filter(_.playable) ?? { game =>
           val pov = Pov(game, game.player.color)
@@ -114,7 +114,7 @@ final private class PushApi(
     }
 
   def takebackOffer(gameId: GameId): Funit =
-    Future.delay(1 seconds) {
+    LilaFuture.delay(1 seconds) {
       proxyRepo.game(gameId) flatMap {
         _.filter(_.playable).?? { game =>
           game.players.collectFirst {
@@ -147,7 +147,7 @@ final private class PushApi(
     }
 
   def drawOffer(gameId: GameId): Funit =
-    Future.delay(1 seconds) {
+    LilaFuture.delay(1 seconds) {
       proxyRepo.game(gameId) flatMap {
         _.filter(_.playable).?? { game =>
           game.players.collectFirst {
@@ -293,7 +293,7 @@ final private class PushApi(
     }
 
   def tourSoon(tour: TourSoon): Funit =
-    lila.common.Future.applySequentially(tour.userIds.toList) { userId =>
+    lila.common.LilaFuture.applySequentially(tour.userIds.toList) { userId =>
       maybePush(
         userId,
         _.tourSoon,

@@ -67,7 +67,7 @@ final private class SwissDirector(
             }
             _ <- mongo.pairing.insert.many(pairings).void
             games = pairings.map(makeGame(swiss, players.mapBy(_.userId)))
-            _ <- lila.common.Future.applySequentially(games) { game =>
+            _ <- lila.common.LilaFuture.applySequentially(games) { game =>
               gameRepo.insertDenormalized(game) >>- onStart(game.id)
             }
           } yield swiss.some

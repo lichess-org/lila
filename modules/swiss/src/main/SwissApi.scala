@@ -533,7 +533,7 @@ final class SwissApi(
       .list(10)
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
       .flatMap { ids =>
-        lila.common.Future.applySequentially(ids) { id =>
+        lila.common.LilaFuture.applySequentially(ids) { id =>
           Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
             if (swiss.round.value >= swiss.settings.nbRounds) doFinish(swiss)
             else if (swiss.nbPlayers >= 2)

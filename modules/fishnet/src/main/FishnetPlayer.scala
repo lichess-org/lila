@@ -4,7 +4,7 @@ import chess.format.Uci
 import chess.{ Black, Clock, White }
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.{ Bus, Future }
+import lila.common.{ Bus, LilaFuture }
 import lila.game.{ Game, GameRepo, UciMemo }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.FishnetPlay
@@ -22,7 +22,7 @@ final class FishnetPlayer(
 
   def apply(game: Game): Funit =
     game.aiLevel ?? { level =>
-      Future.delay(delayFor(game) | 0.millis) {
+      LilaFuture.delay(delayFor(game) | 0.millis) {
         openingBook(game, level) flatMap {
           case Some(move) =>
             uciMemo sign game map { sign =>

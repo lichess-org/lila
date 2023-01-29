@@ -17,7 +17,7 @@ final private class VideoSheet(
 
   def fetchAll: Fu[Int] =
     fetch flatMap { entries =>
-      lila.common.Future
+      lila.common.LilaFuture
         .linear(entries) { entry =>
           api.video
             .find(entry.youtubeId)

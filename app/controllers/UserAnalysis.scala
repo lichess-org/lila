@@ -179,7 +179,7 @@ final class UserAnalysis(
               forecasts => {
                 val wait = 50 + (Forecast maxPlies forecasts min 10) * 50
                 env.round.forecastApi.playAndSave(pov, uci, forecasts).recoverDefault >>
-                  lila.common.Future.sleep(wait.millis) inject
+                  lila.common.LilaFuture.sleep(wait.millis) inject
                   forecastReload
               }
             )

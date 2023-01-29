@@ -8,7 +8,7 @@ import lila.common.{ LilaScheduler, Uptime }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
-import lila.common.Future
+import lila.common.LilaFuture
 import lila.common.Chronometer
 
 final class TutorApi(
@@ -46,7 +46,7 @@ final class TutorApi(
 
   private def pollQueue = queue.next flatMap { items =>
     lila.mon.tutor.parallelism.update(items.size)
-    Future
+    LilaFuture
       .applySequentially(items) { next =>
         next.startedAt.fold(buildThenRemoveFromQueue(next.userId)) { started =>
           val expired =

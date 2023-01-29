@@ -67,7 +67,7 @@ object ServerEval:
         sequencer.sequenceStudyWithChapter(studyId, StudyChapterId(analysis.id)) {
           case Study.WithChapter(_, chapter) =>
             (complete ?? chapterRepo.completeServerEval(chapter)) >> {
-              lila.common.Future
+              lila.common.LilaFuture
                 .fold(chapter.root.mainline.zip(analysis.infoAdvices).toList)(UciPath.root) {
                   case (path, (node, (info, advOpt))) =>
                     chapter.root.nodeAt(path).flatMap { parent =>

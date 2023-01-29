@@ -58,7 +58,7 @@ final class AccessTokenApi(
   ): Fu[Map[UserId, AccessToken]] =
     userRepo.enabledByIds(setup.usernames) flatMap { users =>
       val scope = OAuthScope.Challenge.Write
-      lila.common.Future
+      lila.common.LilaFuture
         .linear(users) { user =>
           coll.one[AccessToken](
             $doc(

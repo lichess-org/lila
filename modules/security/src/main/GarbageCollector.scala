@@ -34,7 +34,7 @@ final class GarbageCollector(
         .scheduleOnce(6 seconds) {
           val applyData = ApplyData(user, ip, email, req)
           logger.debug(s"delay $applyData")
-          lila.common.Future
+          lila.common.LilaFuture
             .retry(
               () => ensurePrintAvailable(applyData),
               delay = 10 seconds,
@@ -70,7 +70,7 @@ final class GarbageCollector(
               case _ =>
                 badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
                   logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
-                  lila.common.Future
+                  lila.common.LilaFuture
                     .exists(spy.ips)(ipTrust.isSuspicious)
                     .map {
                       _ ?? collect(

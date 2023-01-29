@@ -111,10 +111,10 @@ final class IrwinApi(
       )
 
     private[irwin] def fromTournamentLeaders(suspects: List[Suspect]): Funit =
-      lila.common.Future.applySequentially(suspects) { insert(_, _.Tournament) }
+      lila.common.LilaFuture.applySequentially(suspects) { insert(_, _.Tournament) }
 
     private[irwin] def topOnline(leaders: List[Suspect]): Funit =
-      lila.common.Future.applySequentially(leaders) { insert(_, _.Leaderboard) }
+      lila.common.LilaFuture.applySequentially(leaders) { insert(_, _.Leaderboard) }
 
     import lila.game.BSONHandlers.given
 

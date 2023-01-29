@@ -91,7 +91,7 @@ final class UblogRank(
       )
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
       .list(500) flatMap { docs =>
-      lila.common.Future.applySequentially(docs) { doc =>
+      lila.common.LilaFuture.applySequentially(docs) { doc =>
         (
           doc.string("_id"),
           doc.getAsOpt[List[UblogTopic]]("topics"),

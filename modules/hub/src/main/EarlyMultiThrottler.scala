@@ -49,7 +49,7 @@ final private class EarlyMultiThrottlerActor(logger: Logger)(using Executor) ext
   given Scheduler = context.system.scheduler
 
   def execute(work: Work): Funit =
-    lila.common.Future.makeItLast(work.cooldown) { work.run() }
+    lila.common.LilaFuture.makeItLast(work.cooldown) { work.run() }
 
 private object EarlyMultiThrottlerActor:
   case class Work(
