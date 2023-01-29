@@ -12,9 +12,7 @@ import lila.user.User
 
 object bits:
 
-  def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(using
-      ctx: Context
-  ) =
+  def formFields(username: Field, password: Field, email: Option[Field], register: Boolean)(using Context) =
     frag(
       form3.group(
         username,
@@ -23,21 +21,21 @@ object bits:
       ) { f =>
         frag(
           form3.input(f)(autofocus, required, autocomplete := "username"),
-          p(cls := "error username-exists none")(trans.usernameAlreadyUsed())
+          register option p(cls := "error username-exists none")(trans.usernameAlreadyUsed())
         )
       },
       form3.passwordModified(password, trans.password())(
         autocomplete := (if (register) "new-password" else "current-password")
       ),
       register option form3.passwordComplexityMeter(trans.newPasswordStrength()),
-      emailOption.map { email =>
+      email.map { email =>
         form3.group(email, trans.email(), help = trans.signupEmailHint().some)(
           form3.input(_, typ = "email")(required)
         )
       }
     )
 
-  def passwordReset(form: HcaptchaForm[?], fail: Boolean)(implicit ctx: Context) =
+  def passwordReset(form: HcaptchaForm[?], fail: Boolean)(using Context) =
     views.html.base.layout(
       title = trans.passwordReset.txt(),
       moreCss = cssTag("auth"),
@@ -61,7 +59,7 @@ object bits:
       )
     }
 
-  def passwordResetSent(email: String)(implicit ctx: Context) =
+  def passwordResetSent(email: String)(using Context) =
     views.html.base.layout(
       title = trans.passwordReset.txt()
     ) {
@@ -72,9 +70,7 @@ object bits:
       )
     }
 
-  def passwordResetConfirm(u: User, token: String, form: Form[?], ok: Option[Boolean] = None)(using
-      ctx: Context
-  ) =
+  def passwordResetConfirm(u: User, token: String, form: Form[?], ok: Option[Boolean] = None)(using Context) =
     views.html.base.layout(
       title = s"${u.username} - ${trans.changePassword.txt()}",
       moreCss = cssTag("form3"),
@@ -113,7 +109,7 @@ object bits:
       )
     }
 
-  def magicLink(form: HcaptchaForm[?], fail: Boolean)(implicit ctx: Context) =
+  def magicLink(form: HcaptchaForm[?], fail: Boolean)(using Context) =
     views.html.base.layout(
       title = "Log in by email",
       moreCss = cssTag("auth"),
@@ -138,7 +134,7 @@ object bits:
       )
     }
 
-  def magicLinkSent(implicit ctx: Context) =
+  def magicLinkSent(using Context) =
     views.html.base.layout(
       title = "Log in by email"
     ) {
@@ -149,7 +145,7 @@ object bits:
       )
     }
 
-  def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(implicit ctx: Context) =
+  def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(using Context) =
     views.html.base.layout(
       title = s"Log in as ${user.username}",
       moreCss = cssTag("form3")
@@ -198,7 +194,7 @@ body { margin-top: 45px; }
       )
     )
 
-  def tor()(implicit ctx: Context) =
+  def tor()(using Context) =
     views.html.base.layout(
       title = "Tor exit node"
     ) {
@@ -209,7 +205,7 @@ body { margin-top: 45px; }
       )
     }
 
-  def logout()(implicit ctx: Context) =
+  def logout()(using Context) =
     views.html.base.layout(
       title = trans.logOut.txt()
     ) {

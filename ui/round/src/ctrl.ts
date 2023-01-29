@@ -148,7 +148,7 @@ export default class RoundController {
       this.redraw();
     });
 
-    lichess.pubsub.on('sound_set', set => {
+    lichess.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
         lichess.loadScript('javascripts/music/play.js').then(() => {
           this.music = lichess.playMusic();
