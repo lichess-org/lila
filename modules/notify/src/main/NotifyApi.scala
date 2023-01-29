@@ -1,7 +1,6 @@
 package lila.notify
 
 import play.api.libs.json.Json
-import scala.concurrent.Future
 
 import lila.common.Bus
 import lila.common.config.MaxPerPage

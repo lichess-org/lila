@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.Future
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.config.*

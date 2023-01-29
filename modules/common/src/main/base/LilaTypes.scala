@@ -1,6 +1,5 @@
 package lila.base
 
-import scala.concurrent.Future
 import ornicar.scalalib.newtypes.*
 
 import org.joda.time.DateTime
@@ -13,7 +12,7 @@ trait LilaTypes:
   type Funit     = Fu[Unit]
   type PairOf[A] = (A, A)
 
-  export scala.concurrent.{ ExecutionContext as Executor, Promise }
+  export scala.concurrent.{ ExecutionContext as Executor, Future, Promise }
   export scala.concurrent.duration.{ DurationInt, DurationLong, IntMult, Duration, FiniteDuration }
 
   def fuccess[A](a: A): Fu[A]        = Future.successful(a)

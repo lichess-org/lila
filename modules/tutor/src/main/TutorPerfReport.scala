@@ -126,7 +126,7 @@ private object TutorPerfReport:
       clockUsers = users.filter(_.perfType != PerfType.Correspondence).toNel
       globalClock <- clockUsers.?? { answerManyPerfs(globalClockQuestion, _).dmap(some) }
       clockUsage  <- clockUsers.?? { TutorClockUsage.compute(_).dmap(some) }
-      perfReports <- scala.concurrent.Future sequence users.toList.map { user =>
+      perfReports <- Future sequence users.toList.map { user =>
         for
           openings <- TutorOpening compute user
           phases   <- TutorPhases compute user

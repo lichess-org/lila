@@ -6,7 +6,7 @@ import com.typesafe.config.Config
 import java.util.concurrent.TimeUnit
 import java.lang.Math.{ max, min }
 import org.joda.time.{ DateTime, Duration }
-import scala.concurrent.{ Await, Future, ExecutionContext as EC }
+import scala.concurrent.{ Await, ExecutionContext as EC }
 import scala.util.matching.Regex
 import scala.util.Try
 

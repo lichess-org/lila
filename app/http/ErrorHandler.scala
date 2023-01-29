@@ -6,7 +6,6 @@ import play.api.mvc.*
 import play.api.mvc.Results.*
 import play.api.routing.*
 import play.api.{ Configuration, Environment, UsefulException }
-import scala.concurrent.Future
 
 import lila.common.HTTPRequest
 

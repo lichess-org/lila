@@ -7,7 +7,6 @@ import io.lettuce.core.pubsub.StatefulRedisPubSubConnection as PubSub
 import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.ConcurrentHashMap
 import play.api.libs.json.*
-import scala.concurrent.{ Future, Promise }
 import scala.util.chaining.*
 import lila.socket.Socket.Sri
 import ornicar.scalalib.ThreadLocalRandom

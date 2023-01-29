@@ -33,7 +33,7 @@ final private class YouTubeApi(
       .distinct
       .grouped(maxResults)
 
-    cfg.googleApiKey.value.nonEmpty ?? scala.concurrent.Future
+    cfg.googleApiKey.value.nonEmpty ?? Future
       .sequence {
         idPages.map { idPage =>
           ws.url("https://youtube.googleapis.com/youtube/v3/videos")

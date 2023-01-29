@@ -34,7 +34,7 @@ final private[timeline] class TimelinePush(
   }
 
   private def propagate(propagations: List[Propagation]): Fu[List[UserId]] =
-    scala.concurrent.Future.traverse(propagations) {
+    Future.traverse(propagations) {
       case Propagation.Users(ids)    => fuccess(ids)
       case Propagation.Followers(id) => relationApi.freshFollowersFromSecondary(id)
       case Propagation.Friends(id)   => relationApi.fetchFriends(id)

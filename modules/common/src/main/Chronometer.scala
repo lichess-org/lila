@@ -1,6 +1,5 @@
 package lila.common
 
-import scala.concurrent.Future
 import scala.util.Try
 import lila.Lila.Fu
 

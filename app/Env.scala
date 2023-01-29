@@ -5,7 +5,6 @@ import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
-import scala.concurrent.Future
 
 import lila.common.config.*
 import lila.common.{ Bus, Strings, UserIds }

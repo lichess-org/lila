@@ -4,7 +4,6 @@ import akka.actor.CoordinatedShutdown
 import chess.format.Uci
 import io.lettuce.core.*
 import io.lettuce.core.pubsub.*
-import scala.concurrent.Future
 
 import lila.common.{ Bus, Lilakka }
 import lila.hub.actorApi.map.{ Tell, TellAll }

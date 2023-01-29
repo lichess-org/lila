@@ -34,7 +34,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected given Zero[Result] = Zero(Results.NotFound)
 
   extension (result: Result)
-    def toFuccess                         = scala.concurrent.Future successful result
+    def toFuccess                         = Future successful result
     def flashSuccess(msg: String): Result = result.flashing("success" -> msg)
     def flashSuccess: Result              = flashSuccess("")
     def flashFailure(msg: String): Result = result.flashing("failure" -> msg)

@@ -5,7 +5,6 @@ import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.JsonBodyReadables.*
 import scala.annotation.nowarn
-import scala.concurrent.Future
 
 final private class VideoSheet(
     ws: StandaloneWSClient,

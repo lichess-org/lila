@@ -3,7 +3,6 @@ package lila.tutor
 import akka.stream.scaladsl.*
 import chess.Color
 import org.joda.time.DateTime
-import scala.concurrent.Future
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.IpAddress

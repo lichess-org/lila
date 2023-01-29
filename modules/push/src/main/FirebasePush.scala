@@ -5,7 +5,7 @@ import lila.common.autoconfig.*
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.{ blocking, Future }
+import scala.concurrent.blocking
 
 import lila.common.Chronometer
 import lila.memo.FrequencyThreshold
