@@ -75,6 +75,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     good: loadSound('lisp/PuzzleStormGood', 0.7, 500),
     end: loadSound('lisp/PuzzleStormEnd', 1, 1000),
   };
+  let music: any;
 
   let flipped = false;
 
@@ -255,6 +256,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     reorderChildren(path);
     redraw();
     speech.node(node, false);
+    if (music) music.jump(node);
   }
 
   function reorderChildren(path: Tree.Path, recursive?: boolean): void {
@@ -477,6 +479,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     withGround(g => g.selectSquare(null));
     jump(path);
     speech.node(vm.node, true);
+    if (music) music.jump(vm.node);
   }
 
   function userJumpPlyDelta(plyDelta: Ply) {
@@ -579,6 +582,14 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   document.addEventListener('visibilitychange', () => lichess.requestIdleCallback(() => jump(vm.path), 500));
 
   speech.setup();
+
+  lichess.pubsub.on('sound_set', (set: string) => {
+    if (!music && set === 'music')
+      lichess.loadScript('javascripts/music/play.js').then(() => {
+        music = lichess.playMusic();
+      });
+    if (music && set !== 'music') music = undefined;
+  });
 
   lichess.pubsub.on('zen', () => {
     const zen = $('body').toggleClass('zen').hasClass('zen');
