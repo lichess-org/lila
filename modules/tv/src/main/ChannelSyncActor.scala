@@ -1,8 +1,6 @@
 package lila.tv
 
 import chess.Color
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 
 import lila.common.LightUser
 import lila.game.Game

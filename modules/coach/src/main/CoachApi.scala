@@ -1,7 +1,6 @@
 package lila.coach
 
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi

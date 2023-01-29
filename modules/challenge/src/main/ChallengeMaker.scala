@@ -2,7 +2,6 @@ package lila.challenge
 
 import Challenge.TimeControl
 import com.github.blemale.scaffeine.Cache
-import scala.concurrent.duration.*
 
 import lila.game.{ Game, GameRepo, Pov, Rematches }
 import lila.memo.CacheApi

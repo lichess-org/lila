@@ -4,7 +4,6 @@ import akka.stream.scaladsl.*
 import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr }
 import chess.format.{ pgn as chessPgn }
 import org.joda.time.format.DateTimeFormat
-import scala.concurrent.duration.*
 
 import lila.common.String.slugify
 import lila.tree.Node.{ Shape, Shapes }

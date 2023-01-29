@@ -1,6 +1,5 @@
 package lila.racer
 
-import scala.concurrent.duration.*
 import lila.common.config.Max
 
 final class RacerLobby(api: RacerApi)(using ec: Executor, scheduler: akka.actor.Scheduler):

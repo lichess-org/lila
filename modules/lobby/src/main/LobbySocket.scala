@@ -2,8 +2,6 @@ package lila.lobby
 
 import actorApi.*
 import play.api.libs.json.*
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 
 import lila.game.Pov
 import lila.hub.actorApi.timeline.*

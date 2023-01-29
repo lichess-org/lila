@@ -1,6 +1,5 @@
 package controllers
 
-import scala.concurrent.duration.*
 import views.*
 
 import lila.app.{ given, * }

@@ -2,7 +2,6 @@ package controllers
 
 import cats.implicits.*
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 import views.*
 
 import lila.app.{ given, * }

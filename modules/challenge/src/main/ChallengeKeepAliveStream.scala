@@ -2,7 +2,6 @@ package lila.challenge
 
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 

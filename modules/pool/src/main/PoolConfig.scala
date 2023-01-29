@@ -1,7 +1,5 @@
 package lila.pool
 
-import scala.concurrent.duration.*
-
 import lila.rating.{ Perf, PerfType }
 
 case class PoolConfig(

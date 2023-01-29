@@ -2,7 +2,6 @@ package lila.socket
 
 import chess.Centis
 import com.github.blemale.scaffeine.Cache
-import scala.concurrent.duration.*
 
 object UserLagCache:
 

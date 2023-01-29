@@ -3,7 +3,6 @@ package controllers
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Results
-import scala.concurrent.duration.*
 
 import chess.format.Fen
 import lila.api.{ BodyContext, Context }

@@ -10,7 +10,6 @@ import play.api.data.Forms.*
 import play.api.data.validation
 import play.api.data.validation.Constraint
 import play.api.Mode
-import scala.concurrent.duration.*
 
 import lila.common.Form.{ *, given }
 import lila.user.User

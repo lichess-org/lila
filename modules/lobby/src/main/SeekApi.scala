@@ -1,7 +1,6 @@
 package lila.lobby
 
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.db.dsl.{ *, given }

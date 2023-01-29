@@ -7,7 +7,6 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.WSAuthScheme
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
-import scala.concurrent.duration.*
 
 import lila.common.config
 import lila.common.WebService

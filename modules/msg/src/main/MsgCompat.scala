@@ -4,7 +4,6 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.common.Json.given

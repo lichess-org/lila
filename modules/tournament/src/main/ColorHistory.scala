@@ -1,7 +1,6 @@
 package lila.tournament
 
 import chess.Color
-import scala.concurrent.duration.*
 
 import lila.memo.CacheApi
 

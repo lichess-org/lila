@@ -4,7 +4,6 @@ import akka.actor.*
 import akka.stream.scaladsl.*
 import org.joda.time.DateTime
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.challenge.Challenge
 import lila.common.Bus

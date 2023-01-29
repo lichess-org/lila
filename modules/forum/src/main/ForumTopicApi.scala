@@ -1,7 +1,5 @@
 package lila.forum
 
-import scala.concurrent.duration.*
-
 import lila.common.Bus
 import lila.common.paginator.*
 import lila.common.String.noShouting

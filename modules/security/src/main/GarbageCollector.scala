@@ -2,7 +2,6 @@ package lila.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress }

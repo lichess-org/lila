@@ -3,7 +3,6 @@ package lila.security
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }

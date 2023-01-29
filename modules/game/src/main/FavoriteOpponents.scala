@@ -1,7 +1,5 @@
 package lila.game
 
-import scala.concurrent.duration.*
-
 import lila.user.{ User, UserRepo }
 
 final class FavoriteOpponents(

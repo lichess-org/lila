@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 import views.*
 
 import lila.app.{ given, * }

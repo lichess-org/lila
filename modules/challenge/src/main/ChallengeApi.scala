@@ -3,7 +3,6 @@ package lila.challenge
 import cats.data.Validated
 import cats.data.Validated.{ Invalid, Valid }
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.common.config.Max

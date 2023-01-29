@@ -1,7 +1,5 @@
 package lila.msg
 
-import scala.concurrent.duration.*
-
 import lila.memo.MongoCache
 import lila.user.{ User, UserRepo }
 

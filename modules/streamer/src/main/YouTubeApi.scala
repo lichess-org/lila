@@ -6,7 +6,6 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
 
 import lila.common.{ given, * }
 import lila.common.config.NetConfig

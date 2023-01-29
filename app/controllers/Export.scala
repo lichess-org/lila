@@ -6,7 +6,6 @@ import chess.Color
 import chess.format.{ Fen, Uci }
 import chess.variant.{ Standard, Variant }
 import play.api.mvc.{ RequestHeader, Result }
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 
 import lila.app.{ given, * }

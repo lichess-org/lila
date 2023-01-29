@@ -2,7 +2,6 @@ package lila.insight
 
 import chess.{ Centis, Ply, Clock, Color, Role }
 import chess.format.pgn.SanStr
-import scala.concurrent.duration.FiniteDuration
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
 import lila.common.{ LilaOpeningFamily, SimpleOpening }

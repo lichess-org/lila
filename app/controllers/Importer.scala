@@ -3,7 +3,6 @@ package controllers
 import play.api.libs.json.Json
 import scala.util.{ Either, Left, Right }
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import views.*
 
 import lila.app.{ given, * }

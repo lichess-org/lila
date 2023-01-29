@@ -3,7 +3,6 @@ package lila.simul
 import akka.actor.*
 import chess.variant.Variant
 import play.api.libs.json.Json
-import scala.concurrent.duration.*
 
 import lila.common.{ Bus, Debouncer }
 import lila.db.dsl.{ *, given }

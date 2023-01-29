@@ -4,7 +4,6 @@ import akka.stream.scaladsl.*
 import org.joda.time.DateTime
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.common.LilaStream
 import lila.db.dsl.{ *, given }

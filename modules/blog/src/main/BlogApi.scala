@@ -1,6 +1,5 @@
 package lila.blog
 
-import scala.concurrent.duration.DurationInt
 import scala.util.Try
 import io.prismic.*
 import play.api.mvc.RequestHeader

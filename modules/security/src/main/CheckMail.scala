@@ -5,7 +5,6 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
 import reactivemongo.api.ReadPreference
 import play.api.libs.ws.JsonBodyReadables.*
-import scala.concurrent.duration.*
 
 import lila.common.Domain
 import lila.db.dsl.*

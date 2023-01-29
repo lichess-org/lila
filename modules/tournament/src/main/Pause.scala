@@ -1,7 +1,6 @@
 package lila.tournament
 
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import lila.user.User
 

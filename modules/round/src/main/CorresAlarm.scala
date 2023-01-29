@@ -3,7 +3,6 @@ package lila.round
 import akka.stream.scaladsl.*
 import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
-import scala.concurrent.duration.*
 import reactivemongo.api.bson.*
 
 import lila.common.{ Bus, LilaScheduler, LilaStream }

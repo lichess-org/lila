@@ -7,7 +7,6 @@ import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 
 import lila.common.config.MaxPerSecond

@@ -4,7 +4,6 @@ import lila.db.dsl.{ *, given }
 import lila.memo.*
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 final class TrophyApi(

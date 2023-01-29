@@ -2,7 +2,6 @@ package lila.event
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*

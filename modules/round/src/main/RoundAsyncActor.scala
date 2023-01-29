@@ -5,8 +5,6 @@ import alleycats.Zero
 import chess.{ Black, Centis, Color, White }
 import org.joda.time.DateTime
 import play.api.libs.json.*
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 import scala.util.chaining.*
 
 import lila.game.{ Event, Game, GameRepo, Player as GamePlayer, Pov, Progress }

@@ -4,7 +4,6 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import org.joda.time.DateTime
-import scala.concurrent.Promise
 
 import chess.format.Uci
 import Forecast.Step

@@ -1,7 +1,6 @@
 package lila.tutor
 
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import lila.common.Heapsort.given
 import lila.rating.PerfType

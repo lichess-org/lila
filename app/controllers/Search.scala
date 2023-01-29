@@ -1,6 +1,5 @@
 package controllers
 
-import scala.concurrent.duration.*
 import views.*
 
 import play.api.i18n.Lang

@@ -1,7 +1,5 @@
 package lila.memo
 
-import scala.concurrent.duration.FiniteDuration
-
 object OnceEvery:
 
   def apply[K](ttl: FiniteDuration)(using SameRuntime[K, String]): K => Boolean =

@@ -6,8 +6,6 @@ import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import org.joda.time.DateTime
 import play.api.libs.json.*
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 import scala.util.chaining.*
 
 import lila.common.config.{ MaxPerPage, MaxPerSecond }

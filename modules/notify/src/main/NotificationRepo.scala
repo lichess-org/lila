@@ -2,7 +2,6 @@ package lila.notify
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson.ElementProducer
-import scala.concurrent.duration.{ Duration, DurationInt }
 
 import lila.db.dsl.{ *, given }
 import lila.user.User

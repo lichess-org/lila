@@ -4,7 +4,6 @@ import actorApi.{ FinishGame, StartGame }
 import akka.stream.scaladsl.*
 import chess.format.Fen
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.common.Json.given

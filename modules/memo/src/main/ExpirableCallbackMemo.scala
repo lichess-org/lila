@@ -2,7 +2,6 @@ package lila.memo
 
 import akka.actor.{ Cancellable, Scheduler }
 import java.util.concurrent.ConcurrentHashMap
-import scala.concurrent.duration.FiniteDuration
 import scala.jdk.CollectionConverters.*
 
 // calls a function when a key expires

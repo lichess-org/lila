@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 import com.softwaremill.tagging.*
-import scala.concurrent.duration.*
 
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }

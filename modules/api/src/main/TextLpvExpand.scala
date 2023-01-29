@@ -2,7 +2,6 @@ package lila.api
 
 import chess.format.pgn.Pgn
 import play.api.Mode
-import scala.concurrent.duration.*
 import scalatags.Text.all.*
 
 import lila.analyse.AnalysisRepo

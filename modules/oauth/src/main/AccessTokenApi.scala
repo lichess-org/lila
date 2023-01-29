@@ -1,6 +1,5 @@
 package lila.oauth
 
-import scala.concurrent.duration.*
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 

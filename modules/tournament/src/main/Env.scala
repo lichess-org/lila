@@ -6,7 +6,6 @@ import com.softwaremill.tagging.*
 import io.lettuce.core.{ RedisClient, RedisURI }
 import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }

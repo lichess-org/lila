@@ -6,7 +6,6 @@ import play.api.data.Form
 import play.api.data.Forms.*
 import play.api.libs.json.{ JsNull, JsObject, JsString, JsValue, Json }
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import scalatags.Text.all.stringFrag
 import views.*
 import ornicar.scalalib.ThreadLocalRandom

@@ -2,7 +2,6 @@ package lila.ublog
 
 import java.util.regex.Matcher
 import play.api.Mode
-import scala.concurrent.duration.*
 
 import lila.common.config
 import lila.common.{ Bus, Chronometer, Markdown, MarkdownRender }

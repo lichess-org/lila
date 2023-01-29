@@ -3,8 +3,6 @@ package lila.lobby
 import actorApi.*
 import cats.implicits.*
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 
 import lila.common.config.Max
 import lila.common.{ Bus, LilaScheduler }

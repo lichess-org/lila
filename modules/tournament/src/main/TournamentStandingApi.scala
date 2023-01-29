@@ -3,7 +3,6 @@ package lila.tournament
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.memo.CacheApi.*
 

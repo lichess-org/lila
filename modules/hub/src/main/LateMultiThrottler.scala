@@ -1,7 +1,6 @@
 package lila.hub
 
 import akka.actor.*
-import scala.concurrent.duration.*
 
 /** Delays the work, only runs once at a time per id. Work is ran as late as possible.
   */

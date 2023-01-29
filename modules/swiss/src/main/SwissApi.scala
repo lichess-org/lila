@@ -8,7 +8,6 @@ import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 
 import lila.chat.Chat

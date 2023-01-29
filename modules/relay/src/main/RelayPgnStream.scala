@@ -2,7 +2,6 @@ package lila.relay
 
 import akka.stream.scaladsl.*
 import org.joda.time.format.DateTimeFormat
-import scala.concurrent.duration.*
 
 import lila.study.{ Chapter, ChapterRepo, PgnDump, Study, StudyRepo }
 import lila.common.Bus

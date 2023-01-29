@@ -2,8 +2,6 @@ package lila.tv
 
 import akka.pattern.{ ask as actorAsk }
 import play.api.libs.json.Json
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 
 import lila.common.{ Bus, LightUser }
 import lila.common.Json.given
@@ -24,7 +22,7 @@ final private[tv] class TvSyncActor(
   Bus.subscribe(this, "startGame")
 
   private val channelTroupers: Map[Tv.Channel, ChannelSyncActor] = Tv.Channel.all.map { c =>
-    c -> new ChannelSyncActor(
+    c -> ChannelSyncActor(
       c,
       onSelect = this.!,
       gameProxyRepo.game,

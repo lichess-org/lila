@@ -3,7 +3,6 @@ package lila.puzzle
 import chess.format.{ Fen, Uci }
 import chess.{ Divider, Division }
 import reactivemongo.akkastream.cursorProducer
-import scala.concurrent.duration.*
 
 import lila.common.LilaStream
 import lila.db.dsl.{ *, given }

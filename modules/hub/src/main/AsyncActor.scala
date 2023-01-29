@@ -3,7 +3,6 @@ package lila.hub
 import java.util.concurrent.atomic.AtomicReference
 import java.util.function.UnaryOperator
 import scala.collection.immutable.Queue
-import scala.concurrent.Promise
 
 /*
  * Sequential like an actor, but for async functions,

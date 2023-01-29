@@ -112,7 +112,6 @@ object EmailConfirm:
         UserEmail(UserName(username), EmailAddress(email))
       }
 
-  import scala.concurrent.duration.*
   import play.api.mvc.RequestHeader
   import alleycats.Zero
   import lila.memo.RateLimit

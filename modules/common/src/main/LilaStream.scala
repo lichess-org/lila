@@ -3,7 +3,6 @@ package lila.common
 import akka.NotUsed
 import akka.stream.scaladsl.*
 import scala.annotation.nowarn
-import scala.concurrent.duration.*
 
 object LilaStream:
 
@@ -14,7 +13,7 @@ object LilaStream:
     Flow[T]
       .conflateWithSeed(metric(_)) { case (acc, x) => acc + metric(x) }
       .zip(Source.tick(outputDelay, outputDelay, NotUsed))
-      .map(_._1.toDouble / outputDelay.toUnit(SECONDS))
+      .map(_._1.toDouble / outputDelay.toUnit(concurrent.duration.SECONDS))
 
   def logRate[T](
       name: String,

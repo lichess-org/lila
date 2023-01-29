@@ -3,7 +3,6 @@ package lila.puzzle
 import akka.stream.scaladsl.*
 import chess.opening.{ Opening, OpeningDb, OpeningFamily, OpeningVariation }
 import reactivemongo.akkastream.cursorProducer
-import scala.concurrent.duration.*
 
 import lila.common.{ LilaOpeningFamily, LilaStream, SimpleOpening }
 import lila.db.dsl.{ *, given }

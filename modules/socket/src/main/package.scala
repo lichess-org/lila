@@ -1,6 +1,5 @@
 package lila.socket
 
-import scala.concurrent.Promise
 import play.api.libs.json.*
 import alleycats.Zero
 

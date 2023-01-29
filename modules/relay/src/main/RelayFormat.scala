@@ -4,7 +4,6 @@ import io.mola.galimatias.URL
 import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
-import scala.concurrent.duration.*
 import chess.format.pgn.PgnStr
 
 import lila.study.MultiPgn

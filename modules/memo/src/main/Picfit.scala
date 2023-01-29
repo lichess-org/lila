@@ -8,7 +8,6 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler, Macros }
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.config

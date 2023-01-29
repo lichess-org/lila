@@ -2,7 +2,6 @@ package lila.mod
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.game.BSONHandlers.given

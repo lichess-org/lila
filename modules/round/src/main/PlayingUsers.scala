@@ -1,7 +1,5 @@
 package lila.round
 
-import scala.concurrent.duration.*
-
 import lila.user.User
 import lila.common.Bus
 

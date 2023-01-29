@@ -2,7 +2,6 @@ package lila.studySearch
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.common.paginator.*

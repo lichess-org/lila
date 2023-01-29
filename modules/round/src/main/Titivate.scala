@@ -3,7 +3,6 @@ package lila.round
 import akka.actor.*
 import akka.stream.scaladsl.*
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import lila.common.LilaStream
 import lila.db.dsl.{ *, given }

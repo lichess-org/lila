@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.{ Json, Writes }
 import play.api.mvc.Result
-import scala.concurrent.duration.*
 
 import lila.api.Context
 import lila.app.{ given, * }

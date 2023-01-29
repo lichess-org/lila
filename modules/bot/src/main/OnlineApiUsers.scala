@@ -1,7 +1,5 @@
 package lila.bot
 
-import scala.concurrent.duration.*
-
 import lila.common.Bus
 import lila.hub.actorApi.socket.ApiUserIsOnline
 import lila.memo.ExpireCallbackMemo

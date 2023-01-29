@@ -2,7 +2,6 @@ package lila.pref
 
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ given, * }
 import lila.memo.CacheApi.*

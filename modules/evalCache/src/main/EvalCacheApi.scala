@@ -4,7 +4,6 @@ import chess.format.Fen
 import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.libs.json.JsObject
-import scala.concurrent.duration.*
 
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }

@@ -2,7 +2,6 @@ package lila.study
 
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.common.Future
 import lila.db.AsyncColl

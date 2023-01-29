@@ -9,7 +9,6 @@ import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 import scala.annotation.nowarn
-import scala.concurrent.duration.*
 import ornicar.scalalib.SecureRandom
 
 import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress }

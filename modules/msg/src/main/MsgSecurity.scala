@@ -1,7 +1,6 @@
 package lila.msg
 
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }

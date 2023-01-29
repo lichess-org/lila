@@ -3,7 +3,6 @@ package lila.relay
 import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 

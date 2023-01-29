@@ -1,7 +1,6 @@
 package lila.history
 
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.rating.PerfType
 import lila.user.{ User, UserRepo }

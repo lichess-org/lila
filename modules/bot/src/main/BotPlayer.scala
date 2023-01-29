@@ -1,8 +1,6 @@
 package lila.bot
 
 import chess.format.Uci
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 
 import lila.common.Bus
 import lila.game.{ Game, GameRepo, Pov, Rematches }

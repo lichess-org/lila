@@ -45,7 +45,6 @@ object bits:
     }
 
   private[team] object markdown:
-    import scala.concurrent.duration.*
     private val renderer = new MarkdownRender(header = true, list = true, table = true)
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(10 minutes)

@@ -1,6 +1,5 @@
 package lila.ublog
 
-import scala.concurrent.duration.*
 import reactivemongo.api.*
 
 import lila.common.config.MaxPerPage

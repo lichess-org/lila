@@ -1,8 +1,6 @@
 package lila.hub
 
 import com.github.blemale.scaffeine.LoadingCache
-import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.Promise
 
 import lila.base.LilaTimeout
 import lila.common.config.Max

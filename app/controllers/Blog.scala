@@ -57,7 +57,6 @@ final class Blog(
       }
     }
 
-  import scala.concurrent.duration.*
   import lila.memo.CacheApi.*
   private val atomCache = env.memo.cacheApi.unit[String] {
     _.refreshAfterWrite(30.minutes)

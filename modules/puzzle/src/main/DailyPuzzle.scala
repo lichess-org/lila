@@ -3,7 +3,6 @@ package lila.puzzle
 import akka.pattern.ask
 import org.joda.time.DateTime
 import Puzzle.{ BSONFields as F }
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom.odds
 import chess.format.{ BoardFen, Uci }
 

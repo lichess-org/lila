@@ -2,7 +2,6 @@ package lila.memo
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 

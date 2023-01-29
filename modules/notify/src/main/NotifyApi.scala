@@ -1,7 +1,6 @@
 package lila.notify
 
 import play.api.libs.json.Json
-import scala.concurrent.duration.*
 import scala.concurrent.Future
 
 import lila.common.Bus

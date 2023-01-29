@@ -2,7 +2,6 @@ package lila.db
 
 import akka.actor.Scheduler
 import alleycats.Zero
-import scala.concurrent.duration.*
 import scala.util.{ Failure, Success }
 
 import lila.common.config.CollName

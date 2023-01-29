@@ -1,7 +1,6 @@
 package lila.security
 
 import play.api.data.validation.*
-import scala.concurrent.duration.*
 
 import lila.common.{ Domain, EmailAddress }
 import lila.user.{ User, UserRepo }

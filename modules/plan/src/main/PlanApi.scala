@@ -4,7 +4,6 @@ import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import play.api.i18n.Lang
 import reactivemongo.api.*
-import scala.concurrent.duration.*
 
 import lila.common.config.Secret
 import lila.common.{ Bus, IpAddress, EmailAddress }

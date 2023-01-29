@@ -2,7 +2,6 @@ package lila.analyse
 
 import org.joda.time.*
 import reactivemongo.api.bson.{ BSONBoolean, BSONInteger }
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ given, * }
 import lila.memo.CacheApi

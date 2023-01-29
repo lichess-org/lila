@@ -1,7 +1,5 @@
 package lila.round
 
-import scala.concurrent.duration.FiniteDuration
-
 import lila.game.{ Game, Pov }
 import lila.user.User
 import play.api.libs.json.JsObject

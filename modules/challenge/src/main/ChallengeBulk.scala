@@ -6,7 +6,6 @@ import chess.format.Fen
 import chess.{ Situation, Speed }
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 
 import lila.common.{ Bus, Days, LilaStream, Template }

@@ -2,7 +2,6 @@ package lila.tournament
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import chess.variant.{ FromPosition, Standard, Variant }
 import lila.db.dsl.{ *, given }

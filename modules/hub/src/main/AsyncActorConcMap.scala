@@ -3,7 +3,6 @@ package lila.hub
 import java.util.concurrent.ConcurrentHashMap
 import java.util.function.Function
 import alleycats.Zero
-import scala.concurrent.Promise
 import scala.jdk.CollectionConverters.*
 
 final class AsyncActorConcMap[Id, D <: AsyncActor](

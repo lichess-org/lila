@@ -8,7 +8,6 @@ import org.joda.time.DateTime
 import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
-import scala.concurrent.duration.*
 
 import lila.base.LilaInvalid
 import lila.common.LilaScheduler

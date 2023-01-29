@@ -4,7 +4,6 @@ import akka.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 
 import lila.api.{ Context, GameApiV2 }

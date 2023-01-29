@@ -2,7 +2,6 @@ package lila.user
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 import scala.util.Success
 
 import lila.db.AsyncCollFailingSilently

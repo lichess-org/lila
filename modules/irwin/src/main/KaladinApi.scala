@@ -5,7 +5,6 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.Cursor
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }

@@ -1,7 +1,5 @@
 package lila.swiss
 
-import scala.concurrent.duration.*
-
 import lila.common.LightUser
 import lila.game.Game
 

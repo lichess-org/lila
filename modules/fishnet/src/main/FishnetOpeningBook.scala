@@ -7,7 +7,6 @@ import com.softwaremill.tagging.*
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Json.{ *, given }

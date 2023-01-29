@@ -8,7 +8,6 @@ import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Json.*

@@ -64,7 +64,6 @@ final private class PasswordHasher(
 
 object PasswordHasher:
 
-  import scala.concurrent.duration.*
   import play.api.mvc.RequestHeader
   import lila.memo.RateLimit
   import lila.common.{ HTTPRequest, IpAddress }

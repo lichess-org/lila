@@ -1,7 +1,6 @@
 package lila.puzzle
 
 import chess.Color
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 
 import lila.db.dsl.{ *, given }

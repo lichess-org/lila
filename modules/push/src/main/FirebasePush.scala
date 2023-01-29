@@ -5,7 +5,6 @@ import lila.common.autoconfig.*
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
 import scala.concurrent.{ blocking, Future }
 
 import lila.common.Chronometer

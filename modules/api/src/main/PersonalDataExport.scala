@@ -6,7 +6,6 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.chat.Chat
 import lila.db.dsl.{ *, given }

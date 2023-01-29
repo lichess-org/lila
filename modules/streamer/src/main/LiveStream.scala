@@ -5,7 +5,6 @@ import akka.pattern.ask
 import makeTimeout.short
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration.*
 
 import lila.memo.CacheApi.*
 import lila.user.User

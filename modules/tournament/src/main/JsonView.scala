@@ -6,7 +6,6 @@ import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.common.Json.given
 import lila.common.{ GreatPlayer, LightUser, Preload, Uptime }

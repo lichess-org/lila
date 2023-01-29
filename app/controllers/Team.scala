@@ -4,7 +4,6 @@ import play.api.data.Form
 import play.api.data.Forms.*
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import views.*
 
 import lila.api.Context

@@ -1,7 +1,6 @@
 package lila.game
 
 import com.github.blemale.scaffeine.Cache
-import scala.concurrent.duration.*
 
 import chess.Division
 import chess.variant.Variant

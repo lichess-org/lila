@@ -2,7 +2,6 @@ package lila.push
 
 import akka.actor.*
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.challenge.Challenge
 import lila.common.String.shorten

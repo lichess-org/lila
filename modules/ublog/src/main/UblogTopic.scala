@@ -3,7 +3,6 @@ package lila.ublog
 import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi

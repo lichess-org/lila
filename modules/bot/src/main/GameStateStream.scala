@@ -4,7 +4,6 @@ import akka.actor.*
 import akka.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.chat.{ Chat, UserLine }

@@ -3,7 +3,6 @@ package lila.ublog
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.db.dsl.Coll

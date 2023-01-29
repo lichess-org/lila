@@ -7,7 +7,6 @@ import chess.variant.Variant
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
-import scala.concurrent.duration.*
 import scala.util.{ Failure, Success, Try, NotGiven }
 
 import lila.common.Iso.*

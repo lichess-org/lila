@@ -72,7 +72,6 @@ object Form:
     fixed match
       case Some(fixedId) => field.verifying("The ID cannot be changed now", id => id == fixedId)
       case None =>
-        import scala.concurrent.duration.*
         field.verifying("This ID is already in use", id => !exists(id).await(1.second, "unique ID"))
 
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)

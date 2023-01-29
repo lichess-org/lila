@@ -2,7 +2,6 @@ package lila.ublog
 
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.*
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.Propagate

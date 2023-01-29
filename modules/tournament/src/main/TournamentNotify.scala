@@ -2,7 +2,6 @@ package lila.tournament
 
 import akka.actor.ActorSystem
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.common.LilaScheduler

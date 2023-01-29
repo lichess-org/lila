@@ -2,7 +2,6 @@ package lila.simul
 
 import com.softwaremill.macwire.*
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.autoconfig.{ *, given }
 import lila.common.Bus

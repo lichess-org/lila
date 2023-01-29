@@ -1,7 +1,6 @@
 package lila.chat
 
 import lila.user.User
-import scala.concurrent.Promise
 import lila.hub.actorApi.shutup.PublicSource
 
 case class UserModInfo(

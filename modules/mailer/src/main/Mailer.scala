@@ -4,7 +4,6 @@ import akka.actor.ActorSystem
 import lila.common.autoconfig.*
 import play.api.i18n.Lang
 import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
-import scala.concurrent.duration.{ span as _, * }
 import scala.concurrent.{ blocking, Future }
 import scalatags.Text.all.{ html as htmlTag, * }
 import scalatags.Text.tags2.{ title as titleTag }

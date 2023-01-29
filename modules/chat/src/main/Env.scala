@@ -3,7 +3,6 @@ package lila.chat
 import com.softwaremill.macwire.*
 import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config.*
 

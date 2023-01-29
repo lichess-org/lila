@@ -2,7 +2,6 @@ package controllers
 
 import play.api.data.Form
 import play.api.mvc.*
-import scala.concurrent.duration.*
 
 import lila.api.Context
 import lila.app.{ given, * }

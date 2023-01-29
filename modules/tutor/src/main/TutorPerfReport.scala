@@ -2,7 +2,6 @@ package lila.tutor
 
 import cats.data.NonEmptyList
 import chess.Color
-import scala.concurrent.duration.*
 
 import lila.analyse.AccuracyPercent
 import lila.common.Heapsort.given

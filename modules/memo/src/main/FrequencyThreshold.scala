@@ -1,6 +1,5 @@
 package lila.memo
 
-import scala.concurrent.duration.FiniteDuration
 import com.github.blemale.scaffeine.Scaffeine
 
 final class FrequencyThreshold[K](count: Int, duration: FiniteDuration):

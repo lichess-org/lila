@@ -3,7 +3,6 @@ package lila.relation
 import org.joda.time.DateTime
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.common.Json.given

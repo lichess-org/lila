@@ -1,6 +1,5 @@
 package lila.puzzle
 
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 import chess.Color
 

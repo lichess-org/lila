@@ -2,7 +2,6 @@ package lila.app
 package http
 
 import play.api.mvc.*
-import scala.concurrent.duration.*
 
 import lila.common.HTTPRequest
 import lila.api.Context

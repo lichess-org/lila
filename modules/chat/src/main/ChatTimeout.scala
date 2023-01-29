@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import play.api.data.Form
 import play.api.data.Forms.*
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }

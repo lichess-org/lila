@@ -4,7 +4,6 @@ package actorApi
 import chess.format.{ BoardFen, Uci, Fen }
 import org.joda.time.{ DateTime, Period }
 import play.api.libs.json.*
-import scala.concurrent.Promise
 
 // announce something to all clients
 case class Announce(msg: String, date: DateTime, json: JsObject)

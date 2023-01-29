@@ -2,7 +2,6 @@ package lila.swiss
 
 import akka.actor.ActorSystem
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import lila.common.{ Bus, LilaScheduler }
 import lila.db.dsl.{ *, given }

@@ -2,7 +2,6 @@ package lila.streamer
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 import play.api.i18n.Lang
 
 import lila.db.dsl.{ *, given }

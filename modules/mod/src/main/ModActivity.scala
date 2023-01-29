@@ -4,8 +4,6 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.Json
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
-import scala.concurrent.duration.FiniteDuration
 import scala.util.Try
 
 import lila.db.dsl.{ *, given }

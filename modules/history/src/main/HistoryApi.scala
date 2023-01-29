@@ -3,7 +3,6 @@ package lila.history
 import chess.Speed
 import org.joda.time.{ DateTime, Days }
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }

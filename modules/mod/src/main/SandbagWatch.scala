@@ -2,7 +2,6 @@ package lila.mod
 
 import chess.Color
 import com.github.blemale.scaffeine.Cache
-import scala.concurrent.duration.*
 
 import lila.game.Game
 import lila.msg.{ MsgApi, MsgPreset }

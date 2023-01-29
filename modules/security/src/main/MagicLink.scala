@@ -1,6 +1,5 @@
 package lila.security
 
-import scala.concurrent.duration.*
 import scalatags.Text.all.*
 
 import lila.common.config.*
@@ -49,7 +48,6 @@ ${trans.common_orPaste.txt()}"""),
 
 object MagicLink:
 
-  import scala.concurrent.duration.*
   import play.api.mvc.RequestHeader
   import alleycats.Zero
   import lila.memo.RateLimit

@@ -5,7 +5,6 @@ import akka.stream.scaladsl.*
 import chess.Centis
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
-import scala.concurrent.duration.*
 
 import lila.chat.{ Chat, ChatApi }
 import lila.common.Bus

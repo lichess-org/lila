@@ -1,6 +1,5 @@
 package lila.blog
 
-import scala.concurrent.duration.*
 import scala.util.matching.Regex
 
 import lila.common.{ Markdown, MarkdownRender }

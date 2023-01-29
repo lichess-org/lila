@@ -4,7 +4,6 @@ import akka.actor.Scheduler
 import com.github.benmanes.caffeine
 import com.github.blemale.scaffeine.*
 import play.api.Mode
-import scala.concurrent.duration.*
 
 final class CacheApi(mode: Mode)(using Executor, Scheduler):
 

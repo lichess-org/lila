@@ -1,7 +1,6 @@
 package lila.tournament
 
 import play.api.i18n.Lang
-import scala.concurrent.duration.*
 
 import chess.variant.Variant
 import lila.memo.*

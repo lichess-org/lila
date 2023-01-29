@@ -2,7 +2,6 @@ package lila.msg
 
 import akka.actor.Cancellable
 import java.util.concurrent.ConcurrentHashMap
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.notify.{ PrivateMessage }

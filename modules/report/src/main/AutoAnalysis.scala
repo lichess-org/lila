@@ -1,7 +1,6 @@
 package lila.report
 
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import lila.game.{ Game, GameRepo }
 

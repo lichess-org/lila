@@ -1,7 +1,6 @@
 package lila.puzzle
 
 import reactivemongo.api.*
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi

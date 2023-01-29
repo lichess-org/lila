@@ -4,7 +4,6 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.common.Strings

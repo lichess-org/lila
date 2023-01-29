@@ -2,7 +2,6 @@ package lila.fishnet
 
 import chess.format.Uci
 import chess.{ Black, Clock, White }
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, Future }
@@ -54,7 +53,7 @@ final class FishnetPlayer(
         millis     = sleep * 10
         randomized = millis + millis * (ThreadLocalRandom.nextDouble() - 0.5)
         divided    = randomized / (if (g.ply > 9) 1 else 2)
-      } yield divided.millis
+      } yield divided.toInt.millis
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
     if (game.situation playable true)

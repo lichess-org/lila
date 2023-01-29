@@ -6,7 +6,6 @@ import chess.format.pgn.Tag
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.hub.LateMultiThrottler
 import lila.search.*

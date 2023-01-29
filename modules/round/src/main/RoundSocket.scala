@@ -6,8 +6,6 @@ import akka.actor.{ ActorSystem, Cancellable, CoordinatedShutdown, Scheduler }
 import chess.format.Uci
 import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
 import play.api.libs.json.*
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 
 import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }

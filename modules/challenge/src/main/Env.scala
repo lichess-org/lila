@@ -2,7 +2,6 @@ package lila.challenge
 
 import com.softwaremill.macwire.*
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }

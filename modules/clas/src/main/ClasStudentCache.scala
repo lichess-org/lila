@@ -7,7 +7,6 @@ import bloomfilter.mutable.BloomFilter
 import bloomfilter.CanGenerateHashFrom
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi

@@ -3,7 +3,6 @@ package lila.timeline
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.config.Max
 import lila.db.dsl.{ *, given }

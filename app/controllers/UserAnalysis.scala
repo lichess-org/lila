@@ -5,7 +5,6 @@ import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ Black, Situation, White, FullMoveNumber }
 import play.api.libs.json.Json
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import views.*
 
 import lila.api.Context

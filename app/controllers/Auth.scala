@@ -5,7 +5,6 @@ import play.api.data.FormError
 import play.api.libs.json.*
 import play.api.mvc.*
 import scala.annotation.nowarn
-import scala.concurrent.duration.*
 import views.*
 
 import lila.api.Context

@@ -2,7 +2,6 @@ package lila.hub
 
 import akka.pattern.ask
 import play.api.data.*
-import scala.concurrent.duration.*
 
 import actorApi.captcha.*
 import lila.common.Captcha

@@ -4,7 +4,6 @@ import chess.Color
 
 import lila.game.{ Event, Game, Pov, Progress }
 import lila.pref.{ Pref, PrefApi }
-import scala.concurrent.duration.FiniteDuration
 
 final class Moretimer(
     messenger: Messenger,

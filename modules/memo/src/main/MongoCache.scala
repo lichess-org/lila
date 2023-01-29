@@ -4,7 +4,6 @@ import CacheApi.*
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import reactivemongo.api.bson.BSONDocumentHandler.apply

@@ -1,8 +1,6 @@
 package lila.app
 package templating
 
-import scala.concurrent.duration.DurationInt
-
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.UserContext
 

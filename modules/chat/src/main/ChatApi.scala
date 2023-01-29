@@ -2,7 +2,6 @@ package lila.chat
 
 import chess.Color
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.common.config.NetDomain

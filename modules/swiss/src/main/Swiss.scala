@@ -4,7 +4,6 @@ import chess.Clock.{ Config as ClockConfig }
 import chess.format.Fen
 import chess.Speed
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType

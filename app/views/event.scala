@@ -77,7 +77,6 @@ object event:
     }
 
   private object markdown:
-    import scala.concurrent.duration.*
     private val renderer = new MarkdownRender(table = true, list = true)
     // hashcode caching is safe for official events
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler

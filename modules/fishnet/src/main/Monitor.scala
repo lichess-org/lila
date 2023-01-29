@@ -1,6 +1,5 @@
 package lila.fishnet
 
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 final private class Monitor(

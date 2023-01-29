@@ -2,7 +2,6 @@ package controllers
 
 import play.api.data.*
 import play.api.data.Forms.{ list as formList, * }
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 
 import lila.api.Context

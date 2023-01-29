@@ -3,7 +3,6 @@ package lila.game
 import actorApi.{ FinishGame, StartGame }
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }

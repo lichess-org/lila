@@ -2,7 +2,6 @@ package lila.swiss
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.Heapsort
 import lila.db.dsl.{ *, given }

@@ -6,7 +6,6 @@ import play.api.data.*
 import play.api.data.Forms.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi

@@ -1,7 +1,6 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import chess.Ply
 import lila.analyse.AnalysisRepo

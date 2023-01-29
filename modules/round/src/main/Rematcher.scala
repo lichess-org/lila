@@ -6,7 +6,6 @@ import chess.{ Board, Castles, Clock, Color as ChessColor, Ply, Game as ChessGam
 import ChessColor.{ Black, White }
 import com.github.blemale.scaffeine.Cache
 import lila.memo.CacheApi
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, PerfPicker, Pov, Rematches, Source }

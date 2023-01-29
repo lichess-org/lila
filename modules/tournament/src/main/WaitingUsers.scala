@@ -2,8 +2,6 @@ package lila.tournament
 
 import chess.Clock.{ Config as TournamentClock }
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 
 import lila.memo.ExpireSetMemo
 import lila.user.User

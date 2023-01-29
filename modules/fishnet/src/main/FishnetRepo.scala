@@ -2,8 +2,6 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
-
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 

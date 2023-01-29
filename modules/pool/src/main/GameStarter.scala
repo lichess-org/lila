@@ -1,7 +1,5 @@
 package lila.pool
 
-import scala.concurrent.duration.*
-
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
 import lila.rating.Perf
 import lila.user.{ User, UserRepo }

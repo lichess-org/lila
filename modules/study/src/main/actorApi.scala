@@ -2,7 +2,6 @@ package lila.study
 package actorApi
 
 import chess.format.UciPath
-import scala.concurrent.Promise
 
 case class StartStudy(studyId: StudyId)
 case class SaveStudy(study: Study)

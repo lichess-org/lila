@@ -6,7 +6,6 @@ import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONHandler, BSONNull, Macros }
 import reactivemongo.api.{ CursorProducer, ReadPreference }
 import scala.concurrent.blocking
-import scala.concurrent.duration.*
 
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
 import lila.db.dsl.{ *, given }

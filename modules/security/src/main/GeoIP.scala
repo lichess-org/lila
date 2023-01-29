@@ -2,7 +2,6 @@ package lila.security
 
 import com.github.blemale.scaffeine.LoadingCache
 import lila.common.autoconfig.*
-import scala.concurrent.duration.*
 
 import lila.common.IpAddress
 import com.maxmind.geoip2.DatabaseReader

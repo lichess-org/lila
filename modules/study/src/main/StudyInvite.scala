@@ -1,7 +1,5 @@
 package lila.study
 
-import scala.concurrent.duration.*
-
 import lila.db.dsl.{ *, given }
 import lila.notify.{ InvitedToStudy, Notification, NotifyApi }
 import lila.pref.Pref

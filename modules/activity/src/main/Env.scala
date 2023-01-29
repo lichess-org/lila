@@ -2,7 +2,6 @@ package lila.activity
 
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.hub.actorApi.round.CorresMoveEvent

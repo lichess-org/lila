@@ -1,7 +1,6 @@
 package lila.forum
 
 import org.joda.time.DateTime
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User

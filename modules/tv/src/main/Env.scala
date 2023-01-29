@@ -2,7 +2,6 @@ package lila.tv
 
 import akka.actor.ActorSystem
 import com.softwaremill.macwire.*
-import scala.concurrent.duration.*
 
 @Module
 final class Env(

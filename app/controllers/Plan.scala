@@ -3,7 +3,6 @@ package controllers
 import java.util.Currency
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.concurrent.duration.*
 
 import lila.api.Context
 import lila.app.{ given, * }

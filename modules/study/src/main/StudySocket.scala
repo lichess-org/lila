@@ -6,7 +6,6 @@ import chess.Centis
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.UciPath
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.common.Json.{ *, given }

@@ -2,7 +2,6 @@ package lila.user
 
 import org.joda.time.DateTime
 import play.api.i18n.Lang
-import scala.concurrent.duration.*
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.rating.{ Perf, PerfType }

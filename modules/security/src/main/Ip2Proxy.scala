@@ -4,7 +4,6 @@ import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
 
 import lila.common.IpAddress
 

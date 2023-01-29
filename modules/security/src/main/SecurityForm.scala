@@ -4,7 +4,6 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration.*
 
 import lila.common.{ EmailAddress, Form as LilaForm, LameName }
 import lila.common.Form.{ *, given }

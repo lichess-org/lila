@@ -6,7 +6,6 @@ import play.api.http.ContentTypes
 import play.api.libs.EventSource
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import scala.language.existentials
 import scala.util.chaining.*
 import scalatags.Text.Frag

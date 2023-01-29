@@ -3,7 +3,6 @@ package lila.irwin
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.report.Suspect

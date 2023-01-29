@@ -1,7 +1,6 @@
 package lila.hub
 
 import akka.actor.*
-import scala.concurrent.duration.*
 
 import lila.log.Logger
 
