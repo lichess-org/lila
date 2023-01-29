@@ -44,7 +44,7 @@ final private class FirebasePush(
           }.chronometer.mon(_.push.googleTokenTime).result flatMap { token =>
             // TODO http batch request is possible using a multipart/mixed content
             // unfortunately it doesn't seem easily doable with play WS
-            devices.map(send(token, _, data)).sequenceFu.void
+            devices.map(send(token, _, data)).parallel.void
           }
       }
     }

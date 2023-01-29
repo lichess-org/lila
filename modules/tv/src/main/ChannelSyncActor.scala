@@ -46,7 +46,7 @@ final private[tv] class ChannelSyncActor(
     case TvSyncActor.Select =>
       candidateIds.keys
         .map(proxyGame)
-        .sequenceFu
+        .parallel
         .map(
           _.view
             .collect {

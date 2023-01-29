@@ -104,7 +104,7 @@ final private class YouTubeApi(
           )
         )
       }
-      .sequenceFu
+      .parallel
       .map(bulk many _)
 
   private[streamer] def subscribeAll: Funit = cfg.googleApiKey.value.nonEmpty ?? {

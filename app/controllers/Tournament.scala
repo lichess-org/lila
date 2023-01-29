@@ -611,7 +611,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
               .map { stream =>
                 env.tournament.hasUser(tourId, stream.streamer.userId).dmap(_ option stream.streamer.userId)
               }
-              .sequenceFu
+              .parallel
               .dmap(_.flatten)
           }
         }

@@ -36,7 +36,7 @@ final class Firewall(
           upsert = true
         )
         .void
-    }.sequenceFu >> loadFromDb
+    }.parallel >> loadFromDb
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
     coll.delete.one($inIds(ips)).void >>- loadFromDb.unit

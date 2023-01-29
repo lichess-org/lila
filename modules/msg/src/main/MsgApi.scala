@@ -250,7 +250,7 @@ final class MsgApi(
         contact <- doc.getAsOpt[User]("contact")
       } yield relationApi.fetchRelation(contact.id, user.id) map { relation =>
         ModMsgConvo(contact, msgs take 10, Relations(relation, none), msgs.length == 11)
-      }).sequenceFu
+      }).parallel
     }
 
   def deleteAllBy(user: User): Funit =

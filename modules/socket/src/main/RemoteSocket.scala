@@ -154,7 +154,7 @@ final class RemoteSocket(
         .map { index =>
           subscribe(s"$channel:$index", reader)(handler)
         }
-        .sequenceFu
+        .parallel
         .void
     }
 

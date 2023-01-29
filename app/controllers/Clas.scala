@@ -347,7 +347,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 .get(clas, u)
                 .map2(lila.clas.Student.WithPassword(_, lila.user.User.ClearPassword(p)))
             }
-            .sequenceFu
+            .parallel
             .map(_.flatten)
         } flatMap { created =>
           env.clas.api.student.count(clas.id) map { nbStudents =>

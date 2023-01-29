@@ -169,7 +169,7 @@ final private class ForumTopicApi(
         postRepo.coll.byId[ForumPost](topic lastPostId forUser) map { post =>
           TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
         }
-      }.sequenceFu
+      }.parallel
     }
 
   def toggleClose(categ: ForumCateg, topic: ForumTopic, mod: Holder): Funit =

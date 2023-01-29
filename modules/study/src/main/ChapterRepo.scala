@@ -101,7 +101,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
         .map { case (id, index) =>
           c.updateField($studyId(study.id) ++ $id(id), "order", index + 1)
         }
-        .sequenceFu
+        .parallel
         .void
     }
 

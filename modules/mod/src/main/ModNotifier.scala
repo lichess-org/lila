@@ -14,7 +14,7 @@ final private class ModNotifier(
         .map { reporterId =>
           notifyApi.notifyOne(reporterId, lila.notify.ReportedBanned)
         }
-        .sequenceFu
+        .parallel
         .void
     }
 

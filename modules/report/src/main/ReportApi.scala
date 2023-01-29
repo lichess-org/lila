@@ -364,7 +364,7 @@ final class ReportApi(
               )
               .dmap(room -> _)
           }
-          .sequenceFu
+          .parallel
           .dmap { scores =>
             Room.Scores(scores.map { (room, s) =>
               room -> s.??(_.toInt)

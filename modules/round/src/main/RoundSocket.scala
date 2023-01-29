@@ -53,7 +53,7 @@ final class RoundSocket(
   def getGames(gameIds: List[GameId]): Fu[List[(GameId, Option[Game])]] =
     gameIds.map { id =>
       rounds.getOrMake(id).getGame dmap { id -> _ }
-    }.sequenceFu
+    }.parallel
 
   def gameIfPresent(gameId: GameId): Fu[Option[Game]] = rounds.getIfPresent(gameId).??(_.getGame)
 
@@ -255,7 +255,7 @@ final class RoundSocket(
           .log(bootLog)(loadedIds => s"RoundSocket Loaded ${loadedIds.size}/${ids.size} round games")
           .result
       }
-      .sequenceFu
+      .parallel
       .map(_.flatten.toSet)
       .andThen {
         case scala.util.Success(loadedIds) =>

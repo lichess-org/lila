@@ -24,7 +24,7 @@ final class PublicChat(
       (tours.map(_._2) ::: swisses.map(_._2))
         .filter(_ hasLinesOf suspect.user)
         .map(chatApi.userChat.delete(_, suspect.user, _.Global))
-        .sequenceFu
+        .parallel
         .void
     }
 

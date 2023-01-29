@@ -59,12 +59,12 @@ final class Gamify(
         }.toList
       }
       .toList
-      .sequenceFu
+      .parallel
       .map(_.flatten)
       .flatMap {
         _.map { month =>
           historyRepo.coll.update.one($doc("_id" -> month._id), month, upsert = true).void
-        }.sequenceFu
+        }.parallel
       }
       .void
 

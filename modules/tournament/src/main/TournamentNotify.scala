@@ -35,6 +35,6 @@ final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCac
                 )
               lila.mon.tournament.notifier.tournaments.increment(ranking.playerIndex.size)
           }
-        }.sequenceFu.void
+        }.parallel.void
       }
   }

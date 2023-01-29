@@ -70,7 +70,7 @@ final private class SwissScoring(mongo: SwissMongo)(using
                   )
                   .void
               }
-              .sequenceFu
+              .parallel
               .void
           }
         } yield SwissScoring

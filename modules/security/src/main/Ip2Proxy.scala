@@ -55,7 +55,7 @@ final class Ip2ProxyServer(
       case Nil     => fuccess(Seq.empty[IsProxy])
       case Seq(ip) => apply(ip).dmap(Seq(_))
       case ips =>
-        ips.flatMap(cache.getIfPresent).sequenceFu flatMap { cached =>
+        ips.flatMap(cache.getIfPresent).parallel flatMap { cached =>
           if (cached.sizeIs == ips.size) fuccess(cached)
           else
             ws.url(s"$checkUrl/batch")

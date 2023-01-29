@@ -41,7 +41,7 @@ final class AsyncActorConcMap[Id, D <: AsyncActor](
   def tellAllWithAck(makeMsg: Promise[Unit] => Matchable)(using Executor): Fu[Int] =
     asyncActors.values.asScala
       .map(_ ask makeMsg)
-      .sequenceFu
+      .parallel
       .map(_.size)
 
   def size: Int = asyncActors.size()

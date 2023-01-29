@@ -27,7 +27,7 @@ final class SwissBanApi(mongo: SwissMongo)(using Executor):
         if (game.playerWhoDidNotMove.exists(_.userId has userId)) onStall(userId)
         else onGoodGame(userId)
       }
-      .sequenceFu
+      .parallel
       .void
 
   private def onStall(user: UserId): Funit = get(user) flatMap { prev =>

@@ -77,7 +77,7 @@ final private class RatingRefund(
             }
           }
 
-        lastGames map makeRefunds flatMap { _.all.map(applyRefund).sequenceFu } void
+        lastGames map makeRefunds flatMap { _.all.map(applyRefund).parallel } void
     }
 
 private object RatingRefund:

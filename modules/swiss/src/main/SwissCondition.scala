@@ -139,7 +139,7 @@ object SwissCondition:
         case PlayYourGames => getBannedUntil(user.id) map PlayYourGames.withBan
         case c: MaxRating  => c(perf, getMaxRating)(user) map c.withVerdict
         case c: FlatCond   => fuccess(c withVerdict c(user, perf))
-      }.sequenceFu dmap All.WithVerdicts.apply
+      }.parallel dmap All.WithVerdicts.apply
 
     def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
 

@@ -75,7 +75,7 @@ final class InsightApi(
           }
         }
       }
-      .sequenceFu
+      .parallel
       .void
 
   def coll = storage.coll

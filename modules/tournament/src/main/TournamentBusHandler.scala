@@ -34,7 +34,7 @@ final private class TournamentBusHandler(
           .flatMap {
             _.map {
               api.removePlayerAndRewriteHistory(_, userId)
-            }.sequenceFu
+            }.parallel
           } >>
         shieldApi.clearAfterMarking(userId) >>
         winnersApi.clearAfterMarking(userId)
@@ -53,5 +53,5 @@ final private class TournamentBusHandler(
     tournamentRepo.withdrawableIds(userId, reason = "ejectFromEnterable") flatMap {
       _.map {
         api.ejectLameFromEnterable(_, userId)
-      }.sequenceFu
+      }.parallel
     }

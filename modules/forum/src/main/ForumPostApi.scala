@@ -190,7 +190,7 @@ final class ForumPostApi(
             forUser
           )
         }
-      }.sequenceFu
+      }.parallel
     } yield views
 
   private def recentUserIds(topic: ForumTopic, newPostNumber: Int) =

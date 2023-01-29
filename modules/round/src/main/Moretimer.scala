@@ -43,7 +43,7 @@ final class Moretimer(
   private def isAllowedByPrefs(game: Game): Fu[Boolean] =
     game.userIds.map {
       prefApi.getPref(_, (p: Pref) => p.moretime)
-    }.sequenceFu dmap {
+    }.parallel dmap {
       _.forall { p =>
         p == Pref.Moretime.ALWAYS || (p == Pref.Moretime.CASUAL && game.casual)
       }

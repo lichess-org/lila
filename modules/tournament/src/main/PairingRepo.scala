@@ -118,7 +118,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
               )
             )
           }
-          .sequenceFu
+          .parallel
       }
       .void
 

@@ -32,7 +32,7 @@ final class ActivityWriteApi(
         ActivityFields.corres -> a.corres.orDefault.add(game.id, moved = false, ended = true)
       )
       setGames ++ setCorres
-    }).sequenceFu.void
+    }).parallel.void
 
   def forumPost(post: lila.forum.ForumPost): Funit =
     post.userId.filter(User.lichessId !=) ?? { userId =>
@@ -111,7 +111,7 @@ final class ActivityWriteApi(
                 $pull("f.i.ids" -> from.id)
               )
             }
-            .sequenceFu
+            .parallel
             .void
         }
       }

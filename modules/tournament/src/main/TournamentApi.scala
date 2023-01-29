@@ -153,7 +153,7 @@ final class TournamentApi(
                           .mon(_.tournament.pairing.createAutoPairing)
                           .map { socket.startGame(tour.id, _) }
                       }
-                      .sequenceFu
+                      .parallel
                       .void
                       .mon(_.tournament.pairing.createInserts) >>- {
                       lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
@@ -386,7 +386,7 @@ final class TournamentApi(
     tournamentRepo.withdrawableIds(user.id, reason = "withdrawAll") flatMap {
       _.map {
         withdraw(_, user.id, isPause = false, isStalling = false)
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   private[tournament] def berserk(gameId: GameId, userId: UserId): Funit =
@@ -411,7 +411,7 @@ final class TournamentApi(
       pairingRepo.finishAndGet(game) flatMap { pairingOpt =>
         Parallel(tourId, "finishGame")(cached.tourCache.started) { tour =>
           pairingOpt ?? { pairing =>
-            game.userIds.map(updatePlayerAfterGame(tour, game, pairing)).sequenceFu.void
+            game.userIds.map(updatePlayerAfterGame(tour, game, pairing)).parallel.void
           } >>- {
             duelStore.remove(game)
             socket.reload(tour.id)
@@ -465,7 +465,7 @@ final class TournamentApi(
     tournamentRepo.withdrawableIds(userId, reason = "pausePlaybanned") flatMap {
       _.map {
         playerRepo.withdraw(_, userId)
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   private[tournament] def kickFromTeam(teamId: TeamId, userId: UserId): Funit =
@@ -477,7 +477,7 @@ final class TournamentApi(
             else playerRepo.withdraw(tour.id, userId)
           fu >> updateNbPlayers(tourId) >>- socket.reload(tourId)
         }
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   // withdraws the player and forfeits all pairings in ongoing tournaments
@@ -646,7 +646,7 @@ final class TournamentApi(
     tournamentRepo.standardPublicStartedFromSecondary.flatMap {
       _.map { tour =>
         tournamentTop(tour.id) dmap (tour -> _)
-      }.sequenceFu
+      }.parallel
         .dmap(_.toMap)
     }
 

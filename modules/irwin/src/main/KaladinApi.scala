@@ -149,7 +149,7 @@ final class KaladinApi(
           .map { modId =>
             notifyApi.notifyOne(modId, lila.notify.KaladinDone(user.suspectId.value))
           }
-          .sequenceFu
+          .parallel
           .void
       }
 

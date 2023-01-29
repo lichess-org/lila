@@ -298,7 +298,7 @@ final class RelayApi(
       _.map { relay =>
         logger.info(s"Automatically start $relay")
         requestPlay(relay.id, v = true)
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   private[relay] def autoFinishNotSyncing: Funit =
@@ -316,7 +316,7 @@ final class RelayApi(
       _.map { relay =>
         logger.info(s"Automatically finish $relay")
         update(relay)(_.finish)
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   private[relay] def WithRelay[A: Zero](id: RelayRoundId)(f: RelayRound => Fu[A]): Fu[A] =

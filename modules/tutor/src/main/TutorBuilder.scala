@@ -107,7 +107,7 @@ final private class TutorBuilder(
             yield TutorPerfReport.PeerMatch(report)
           }
       }
-      .sequenceFu
+      .parallel
       .map(_.toList.flatten)
       .addEffect { matches =>
         perfs.keys.foreach { pt =>
@@ -158,7 +158,7 @@ private object TutorBuilder:
         withPovs = false
       )
       .monSuccess(_.tutor.askMine(question.monKey, "all")) map AnswerMine.apply
-    peerByPerf <- tutorUsers.toList.map { answerPeer(question, _) }.sequenceFu
+    peerByPerf <- tutorUsers.toList.map { answerPeer(question, _) }.parallel
     peer = AnswerPeer(InsightAnswer(question, peerByPerf.flatMap(_.answer.clusters), Nil))
   yield Answers(mine, peer)
 

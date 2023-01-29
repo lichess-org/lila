@@ -635,7 +635,7 @@ final class Study(
                       _ option stream.streamer.userId
                     }
                   }
-                  .sequenceFu
+                  .parallel
                   .dmap(_.flatten)
               }
             }

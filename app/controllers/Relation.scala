@@ -192,6 +192,6 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           ctx.userId ?? { api.fetchRelation(_, u.id) } map { rel =>
             lila.relation.Related(u, none, followables(u.id), rel)
           }
-        }.sequenceFu
+        }.parallel
       }
     }

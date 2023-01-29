@@ -32,7 +32,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
           case _ => mongo.swiss.insert.one(BsonHandlers.addFeaturable(makeSwiss(config, startAt))) inject true
         }
       }
-      .sequenceFu
+      .parallel
       .map { res =>
         if (res.exists(identity)) cache.featuredInTeam.invalidate(lichessTeamId)
       }

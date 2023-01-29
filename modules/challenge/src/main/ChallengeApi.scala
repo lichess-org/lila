@@ -149,7 +149,7 @@ final class ChallengeApi(
         .map { userId =>
           gameCache.nbPlaying(userId) dmap (lila.game.Game.maxPlaying <=)
         }
-        .sequenceFu
+        .parallel
         .dmap(_ exists identity)
 
   private[challenge] def sweep: Funit =

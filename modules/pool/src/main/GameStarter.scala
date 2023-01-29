@@ -26,7 +26,7 @@ final private class GameStarter(
         val userIds = couples.flatMap(_.userIds)
         userRepo.perfOf(userIds, pool.perfType) zip idGenerator.games(couples.size) flatMap {
           case (perfs, ids) =>
-            couples.zip(ids).map((one(pool, perfs)).tupled).sequenceFu.map { pairings =>
+            couples.zip(ids).map((one(pool, perfs)).tupled).parallel.map { pairings =>
               lila.common.Bus.publish(Pairings(pairings.flatten.toList), "poolPairings")
             }
         }
