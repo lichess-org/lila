@@ -166,7 +166,7 @@ export default class AnalyseCtrl {
         lichess.loadScript('javascripts/music/play.js').then(() => {
           this.music = lichess.playMusic();
         });
-      if (this.music && set !== 'music') this.music = null;
+      if (this.music && set !== 'music') this.music = undefined;
     });
 
     lichess.pubsub.on('ply.trigger', () =>
