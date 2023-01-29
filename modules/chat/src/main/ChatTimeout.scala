@@ -56,9 +56,8 @@ final class ChatTimeout(
         "expiresAt" $lt DateTime.now
       )
     ) flatMap {
-      case Nil => fuccess(Nil)
-      case objs =>
-        coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true) inject objs
+      case Nil  => fuccess(Nil)
+      case objs => coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true) inject objs
     }
 
 object ChatTimeout:
