@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">díreach anois</string>
+  <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
+    <item quantity="one">i soicind amháín</item>
+    <item quantity="two">i %s soicind</item>
+    <item quantity="few">i %s soicind</item>
+    <item quantity="many">i %s soicind</item>
+    <item quantity="other">i %s soicind</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">i nóiméad amháin</item>
+    <item quantity="two">i %s nóiméad</item>
+    <item quantity="few">i %s nóiméad</item>
+    <item quantity="many">i %s nóiméad</item>
+    <item quantity="other">i %s nóiméad</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">in uair amháin</item>
+    <item quantity="two">i %s uair</item>
+    <item quantity="few">i %s uair</item>
+    <item quantity="many">i %s uair</item>
+    <item quantity="other">i %s uair</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">i lá amháín</item>
+    <item quantity="two">i %s lá</item>
+    <item quantity="few">i %s lá</item>
+    <item quantity="many">i %s lá</item>
+    <item quantity="other">i %s lá</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">i seachtain amháin</item>
+    <item quantity="two">i %s sheachtain</item>
+    <item quantity="few">i %s seachtain</item>
+    <item quantity="many">i %s seachtain</item>
+    <item quantity="other">i %s seachtain</item>
+  </plurals>
   <plurals name="inNbMonths">
     <item quantity="one">i gceann míosa</item>
     <item quantity="two">i %s mhí</item>
