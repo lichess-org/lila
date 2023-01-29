@@ -56,7 +56,7 @@ final class BlogApi(
       .map(_.results.headOption)
 
   def one(prismic: BlogApi.Context, id: String): Fu[Option[Document]] =
-    one(prismic.api, prismic.ref.some, id).collect { case Some(doc) =>
+    one(prismic.api, prismic.ref.some, id).flatMapz { doc =>
       doc.getHtml("blog.body", prismic.linkResolver) match {
         case Some(html) =>
           Bus
@@ -64,7 +64,7 @@ final class BlogApi(
             .map(pgnCache.putAll) inject doc.some
         case _ => fuccess(doc.some)
       }
-    }.flatten
+    }
 
   def byYear(prismic: BlogApi.Context, year: Int): Fu[List[MiniPost]] =
     prismic.api
