@@ -163,10 +163,10 @@ export default class AnalyseCtrl {
 
     lichess.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
-        lichess.loadScript('javascripts/music/replay.js').then(() => {
-          this.music = window.lichessReplayMusic();
+        lichess.loadScript('javascripts/music/play.js').then(() => {
+          this.music = lichess.playMusic();
         });
-      if (this.music && set !== 'music') this.music = null;
+      if (this.music && set !== 'music') this.music = undefined;
     });
 
     lichess.pubsub.on('ply.trigger', () =>
