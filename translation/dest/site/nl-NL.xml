@@ -539,8 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notities</string>
   <string name="typePrivateNotesHere">Type privénotities hier</string>
-  <string name="writeAPrivateNoteAboutThisUser">Maak een privé aantekening over deze gebruiker</string>
-  <string name="noNoteYet">Nog geen aantekeningen</string>
+  <string name="writeAPrivateNoteAboutThisUser">Maak een privé-notitie over deze gebruiker</string>
+  <string name="noNoteYet">Nog geen notities</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
   <string name="incorrectPassword">Onjuist wachtwoord</string>
   <string name="invalidAuthenticationCode">Ongeldige authenticatiecode</string>
