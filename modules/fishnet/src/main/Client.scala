@@ -41,7 +41,7 @@ object Client:
     skill = Skill.All,
     instance = None,
     enabled = true,
-    createdAt = DateTime.now
+    createdAt = nowDate
   )
 
   opaque type Key = String
@@ -63,7 +63,7 @@ object Client:
 
   object Instance:
 
-    def recentSince = DateTime.now.minusMinutes(15)
+    def recentSince = nowDate.minusMinutes(15)
 
   enum Skill:
     case Move

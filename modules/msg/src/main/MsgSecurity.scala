@@ -119,7 +119,7 @@ final private class MsgSecurity(
 
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
       (isNew && Analyser(text).dirty) ??
-        !userRepo.isCreatedSince(user.id, DateTime.now.minusDays(30)) dmap { _ option Dirt }
+        !userRepo.isCreatedSince(user.id, nowDate.minusDays(30)) dmap { _ option Dirt }
 
   object may:
 

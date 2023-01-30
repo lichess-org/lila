@@ -19,7 +19,7 @@ final class SwissFeature(
     _.refreshAfterWrite(1 minute)
       .buildAsyncFuture { _ =>
         mongo.swiss
-          .find($doc("teamId" -> lichessTeamId, "startsAt" $gt DateTime.now.minusMinutes(10)))
+          .find($doc("teamId" -> lichessTeamId, "startsAt" $gt nowDate.minusMinutes(10)))
           .sort($sort asc "startsAt")
           .one[Swiss]
       }
@@ -50,7 +50,7 @@ final class SwissFeature(
   private val cache = cacheApi.unit[FeaturedSwisses] {
     _.refreshAfterWrite(10 seconds)
       .buildAsyncFuture { _ =>
-        val now = DateTime.now
+        val now = nowDate
         cacheCompute($doc("$gt" -> now, "$lt" -> now.plusHours(1))) zip
           cacheCompute($doc("$gt" -> now.minusHours(3), "$lt" -> now)) map { case (created, started) =>
             FeaturedSwisses(created, started)

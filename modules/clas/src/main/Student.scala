@@ -38,7 +38,7 @@ object Student:
       realName = realName,
       notes = "",
       managed = managed,
-      created = Clas.Recorded(teacherId, DateTime.now),
+      created = Clas.Recorded(teacherId, nowDate),
       archived = none
     )
 

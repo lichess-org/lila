@@ -573,7 +573,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       .dmap(_.toMap)
 
   def setSeenAt(id: UserId): Unit =
-    coll.updateFieldUnchecked($id(id), F.seenAt, DateTime.now)
+    coll.updateFieldUnchecked($id(id), F.seenAt, nowDate)
 
   def setLang(user: User, lang: play.api.i18n.Lang) =
     coll.updateField($id(user.id), "lang", lang.code).void
@@ -648,7 +648,7 @@ final class UserRepo(val coll: Coll)(using Executor):
     )
 
   def setEraseAt(user: User) =
-    coll.updateField($id(user.id), F.eraseAt, DateTime.now plusDays 1).void
+    coll.updateField($id(user.id), F.eraseAt, nowDate plusDays 1).void
 
   private def newUser(
       name: UserName,
@@ -667,14 +667,14 @@ final class UserRepo(val coll: Coll)(using Executor):
       F.id                    -> name.id,
       F.username              -> name,
       F.email                 -> normalizedEmail,
-      F.mustConfirmEmail      -> mustConfirmEmail.option(DateTime.now),
+      F.mustConfirmEmail      -> mustConfirmEmail.option(nowDate),
       F.bpass                 -> passwordHash,
       F.perfs                 -> $empty,
       F.count                 -> Count.default,
       F.enabled               -> true,
-      F.createdAt             -> DateTime.now,
+      F.createdAt             -> nowDate,
       F.createdWithApiVersion -> mobileApiVersion,
-      F.seenAt                -> DateTime.now,
+      F.seenAt                -> nowDate,
       F.playTime              -> User.PlayTime(0, 0),
       F.lang                  -> lang
     ) ++ {

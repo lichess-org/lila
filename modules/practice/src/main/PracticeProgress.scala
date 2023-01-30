@@ -23,7 +23,7 @@ case class PracticeProgress(
       chapters = chapters - chapterId + {
         chapterId -> NbMoves(math.min(chapters.get(chapterId).fold(999)(_.value), nbMoves.value))
       },
-      updatedAt = DateTime.now
+      updatedAt = nowDate
     )
 
   def countDone(chapterIds: List[StudyChapterId]): Int =
@@ -49,8 +49,8 @@ object PracticeProgress:
     PracticeProgress(
       _id = id,
       chapters = Map.empty,
-      createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      createdAt = nowDate,
+      updatedAt = nowDate
     )
 
   def anon = empty(UserId("anon"))

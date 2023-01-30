@@ -60,8 +60,8 @@ case class Study(
       visibility = Study.Visibility.Private,
       from = Study.From.Study(id),
       likes = Likes(1),
-      createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      createdAt = nowDate,
+      updatedAt = nowDate
     )
 
   def nbMembers = members.members.size
@@ -162,6 +162,6 @@ object Study:
       settings = settings | Settings.init,
       from = from,
       likes = Likes(1),
-      createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      createdAt = nowDate,
+      updatedAt = nowDate
     )

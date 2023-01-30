@@ -24,5 +24,5 @@ object TeamMember:
     _id = makeId(team, user),
     user = user,
     team = team,
-    date = DateTime.now
+    date = nowDate
   )

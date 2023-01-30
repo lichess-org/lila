@@ -15,7 +15,7 @@ case class SwissBan(_id: UserId, until: DateTime, hours: Int)
 final class SwissBanApi(mongo: SwissMongo)(using Executor):
 
   def bannedUntil(user: UserId): Fu[Option[DateTime]] =
-    mongo.ban.primitiveOne[DateTime]($id(user) ++ $doc("until" $gt DateTime.now), "until")
+    mongo.ban.primitiveOne[DateTime]($id(user) ++ $doc("until" $gt nowDate), "until")
 
   def get(user: UserId): Fu[Option[SwissBan]] = mongo.ban.byId[SwissBan](user)
 
@@ -31,14 +31,14 @@ final class SwissBanApi(mongo: SwissMongo)(using Executor):
   private def onStall(user: UserId): Funit = get(user) flatMap { prev =>
     val hours: Int = prev
       .fold(24) { ban =>
-        if (ban.until.isBefore(DateTime.now)) ban.hours * 2 // consecutive
+        if (ban.until.isBefore(nowDate)) ban.hours * 2 // consecutive
         else (ban.hours * 1.5).toInt                        // simultaneous
       }
       .atMost(30 * 24)
     mongo.ban.update
       .one(
         $id(user),
-        SwissBan(user, DateTime.now plusHours hours, hours),
+        SwissBan(user, nowDate plusHours hours, hours),
         upsert = true
       )
       .void

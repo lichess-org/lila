@@ -7,7 +7,7 @@ case class Modlog(
     user: Option[UserId],
     action: String,
     details: Option[String] = None,
-    date: DateTime = DateTime.now,
+    date: DateTime = nowDate,
     index: Option[String] = None
 ):
 

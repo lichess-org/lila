@@ -136,9 +136,9 @@ object ModActivity:
       else if (str == "month") Month
       else Week
     def dateSince(period: Period) = period match
-      case Period.Week  => DateTime.now.minusWeeks(1)
-      case Period.Month => DateTime.now.minusMonths(1)
-      case Period.Year  => DateTime.now.minusYears(1)
+      case Period.Week  => nowDate.minusWeeks(1)
+      case Period.Month => nowDate.minusMonths(1)
+      case Period.Year  => nowDate.minusYears(1)
 
   sealed abstract class Who(val key: String)
   object Who:

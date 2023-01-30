@@ -1,6 +1,6 @@
 package lila.perfStat
 
-import org.joda.time.{ DateTime, Period }
+import org.joda.time.Period
 
 import lila.common.Heapsort
 import lila.game.Pov
@@ -24,7 +24,7 @@ case class PerfStat(
   def agg(pov: Pov) =
     if (!pov.game.finished) this
     else
-      val thisYear = pov.game.createdAt isAfter DateTime.now.minusYears(1)
+      val thisYear = pov.game.createdAt isAfter nowDate.minusYears(1)
       copy(
         highest = RatingAt.agg(highest, pov, 1),
         lowest = if (thisYear) RatingAt.agg(lowest, pov, -1) else lowest,
@@ -75,7 +75,7 @@ case class PlayStreak(nb: Streaks, time: Streaks, lastDate: Option[DateTime]):
       )
     }
   def checkCurrent =
-    if (isContinued(DateTime.now)) this
+    if (isContinued(nowDate)) this
     else copy(nb = nb.reset, time = time.reset)
   private def isContinued(at: DateTime) =
     lastDate.fold(true) { ld =>
@@ -106,7 +106,7 @@ case class Streak(v: Int, from: Option[GameAt], to: Option[GameAt]):
     val at  = GameAt(pov.game.createdAt, pov.gameId).some
     val end = GameAt(pov.game.movedAt, pov.gameId).some
     Streak(v + by, from orElse at, end)
-  def period = new Period(v * 1000L)
+  def period = Period(v * 1000L)
 object Streak:
   val init = Streak(0, none, none)
 
@@ -140,7 +140,7 @@ case class Count(
         if (~pov.loss && pov.game.status == chess.Status.Timeout) 1 else 0
       }
     )
-  def period = new Period(seconds * 1000L)
+  def period = Period(seconds * 1000L)
 object Count:
   val init = Count(
     all = 0,

@@ -40,5 +40,5 @@ object SyncLog:
         case _: java.util.concurrent.TimeoutException => "Request timeout"
         case e: Exception                             => e.getMessage take 100
       },
-      at = DateTime.now
+      at = nowDate
     )

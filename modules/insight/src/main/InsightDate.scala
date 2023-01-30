@@ -3,7 +3,7 @@ package lila.insight
 case class DateRange(min: DateTime, max: DateTime)
 
 case class Period(days: Int):
-  def max = DateTime.now
+  def max = nowDate
   def min = max minusDays days
 
   override def toString =

@@ -89,7 +89,7 @@ object Seek:
     color = color,
     user = LobbyUser.make(user, blocking),
     ratingRange = ratingRange.toString,
-    createdAt = DateTime.now
+    createdAt = nowDate
   )
 
   def renew(seek: Seek) = Seek(
@@ -100,7 +100,7 @@ object Seek:
     color = seek.color,
     user = seek.user,
     ratingRange = seek.ratingRange,
-    createdAt = DateTime.now
+    createdAt = nowDate
   )
 
   import reactivemongo.api.bson.*

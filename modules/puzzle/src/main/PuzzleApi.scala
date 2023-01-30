@@ -100,7 +100,7 @@ final class PuzzleApi(
               ) ++ {
                 (newVote <= -100 && doc
                   .getAsOpt[DateTime](F.day)
-                  .exists(_ isAfter DateTime.now.minusDays(1))) ??
+                  .exists(_ isAfter nowDate.minusDays(1))) ??
                   $unset(F.day)
               }
             )

@@ -540,11 +540,11 @@ object RoundAsyncActor:
 
   private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[DateTime]):
 
-    def decline = TakebackSituation(nbDeclined + 1, DateTime.now.some)
+    def decline = TakebackSituation(nbDeclined + 1, nowDate.some)
 
     def delaySeconds = (math.pow(nbDeclined min 10, 2) * 10).toInt
 
-    def offerable = lastDeclined.fold(true) { _ isBefore DateTime.now.minusSeconds(delaySeconds) }
+    def offerable = lastDeclined.fold(true) { _ isBefore nowDate.minusSeconds(delaySeconds) }
 
     def reset = takebackSituationZero.zero
 

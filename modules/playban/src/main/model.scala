@@ -79,7 +79,7 @@ object TempBan:
 
   private def make(minutes: Int) =
     TempBan(
-      DateTime.now,
+      nowDate,
       minutes atMost 3 * 24 * 60
     )
 

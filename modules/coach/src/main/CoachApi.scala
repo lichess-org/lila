@@ -43,7 +43,7 @@ final class CoachApi(
     )
 
   def setSeenAt(user: User): Funit =
-    Granter(_.Coach)(user) ?? coachColl.update.one($id(user.id), $set("user.seenAt" -> DateTime.now)).void
+    Granter(_.Coach)(user) ?? coachColl.update.one($id(user.id), $set("user.seenAt" -> nowDate)).void
 
   def setRating(userPre: User): Funit =
     Granter(_.Coach)(userPre) ?? {
@@ -106,15 +106,15 @@ final class CoachApi(
               score = data.score,
               text = data.text,
               approved = false,
-              createdAt = DateTime.now,
-              updatedAt = DateTime.now
+              createdAt = nowDate,
+              updatedAt = nowDate
             )
           case Some(r) =>
             r.copy(
               score = data.score,
               text = data.text,
               approved = false,
-              updatedAt = DateTime.now
+              updatedAt = nowDate
             )
         if (me.marks.troll) fuccess(review)
         else
@@ -141,7 +141,7 @@ final class CoachApi(
         $id(r.id),
         $set(
           "approved" -> false,
-          "moddedAt" -> DateTime.now
+          "moddedAt" -> nowDate
         )
       ) >> refreshCoachNbReviews(r.coachId)
 

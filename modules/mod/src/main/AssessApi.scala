@@ -23,7 +23,7 @@ final class AssessApi(
     analysisRepo: AnalysisRepo
 )(using Executor):
 
-  private def bottomDate = DateTime.now.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
+  private def bottomDate = nowDate.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
 
   import lila.evaluation.EvaluationBsonHandlers.given
   import lila.analyse.AnalyseBsonHandlers.given

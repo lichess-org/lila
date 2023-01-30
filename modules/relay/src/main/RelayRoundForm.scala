@@ -127,7 +127,7 @@ object RelayRoundForm:
         tourId = tour.id,
         name = name,
         sync = makeSync(user),
-        createdAt = DateTime.now,
+        createdAt = nowDate,
         finished = false,
         startsAt = startsAt,
         startedAt = none

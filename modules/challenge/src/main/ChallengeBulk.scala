@@ -56,7 +56,7 @@ final class ChallengeBulkApi(
 
   def startClocks(id: String, me: User): Fu[Boolean] =
     coll
-      .updateField($doc("_id" -> id, "by" -> me.id, "pairedAt" $exists true), "startClocksAt", DateTime.now)
+      .updateField($doc("_id" -> id, "by" -> me.id, "pairedAt" $exists true), "startClocksAt", nowDate)
       .map(_.n == 1)
 
   def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by) {
@@ -74,14 +74,14 @@ final class ChallengeBulkApi(
     checkForPairing >> checkForClocks
 
   private def checkForPairing: Funit =
-    coll.one[ScheduledBulk]($doc("pairAt" $lte DateTime.now, "pairedAt" $exists false)) flatMapz { bulk =>
+    coll.one[ScheduledBulk]($doc("pairAt" $lte nowDate, "pairedAt" $exists false)) flatMapz { bulk =>
       workQueue(bulk.by) {
         makePairings(bulk).void
       }
     }
 
   private def checkForClocks: Funit =
-    coll.one[ScheduledBulk]($doc("startClocksAt" $lte DateTime.now, "pairedAt" $exists true)) flatMapz {
+    coll.one[ScheduledBulk]($doc("startClocksAt" $lte nowDate, "pairedAt" $exists true)) flatMapz {
       bulk =>
         workQueue(bulk.by) {
           startClocksNow(bulk)
@@ -135,6 +135,6 @@ final class ChallengeBulkApi(
         lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(nb).unit
       } >> {
       if (bulk.startClocksAt.isDefined)
-        coll.updateField($id(bulk._id), "pairedAt", DateTime.now)
+        coll.updateField($id(bulk._id), "pairedAt", nowDate)
       else coll.delete.one($id(bulk._id))
     }.void

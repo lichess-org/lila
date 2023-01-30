@@ -79,7 +79,7 @@ final class ForumPostApi(
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
         case (_, post) =>
-          val newPost = post.editPost(DateTime.now, spam replace newText)
+          val newPost = post.editPost(nowDate, spam replace newText)
           (newPost.text != post.text).?? {
             postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.?? {
               logAnonPost(user.id, newPost, edit = true)
@@ -199,7 +199,7 @@ final class ForumPostApi(
         $doc(
           "topicId" -> topic.id,
           "number" $gt (newPostNumber - 10),
-          "createdAt" $gt DateTime.now.minusDays(5)
+          "createdAt" $gt nowDate.minusDays(5)
         ),
         ReadPreference.secondaryPreferred
       )

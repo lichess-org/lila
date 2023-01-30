@@ -47,7 +47,7 @@ object show:
                 (doc
                   .getDate("blog.date")
                   .exists(
-                    _.value.toDateTimeAtStartOfDay isAfter org.joda.time.DateTime.now.minusWeeks(2)
+                    _.value.toDateTimeAtStartOfDay isAfter nowDate.minusWeeks(2)
                   )) option
                   a(href := routes.Blog.discuss(doc.id), cls := "button text discuss", dataIcon := "")(
                     "Discuss this blog post in the forum"

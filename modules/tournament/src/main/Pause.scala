@@ -48,9 +48,9 @@ object Pause:
     def add =
       copy(
         pauses = pauses + 1,
-        pausedAt = DateTime.now
+        pausedAt = nowDate
       )
-  val newRecord = Record(1, DateTime.now)
+  val newRecord = Record(1, nowDate)
 
   // pause counter of a player
   opaque type Delay = Int

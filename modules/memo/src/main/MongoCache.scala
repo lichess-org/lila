@@ -30,7 +30,7 @@ final class MongoCache[K, V: BSONHandler] private (
           .flatMap { v =>
             coll.update.one(
               $id(dbKey),
-              Entry(dbKey, v, DateTime.now.plusSeconds(dbTtl.toSeconds.toInt)),
+              Entry(dbKey, v, nowDate.plusSeconds(dbTtl.toSeconds.toInt)),
               upsert = true
             ) inject v
           }

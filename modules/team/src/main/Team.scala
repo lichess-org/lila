@@ -61,7 +61,7 @@ object Team:
     if (u.isVerified) maxJoinCeiling * 2
     else
       {
-        15 + Days.daysBetween(u.createdAt, DateTime.now).getDays / 7
+        15 + Days.daysBetween(u.createdAt, nowDate).getDays / 7
       } atMost maxJoinCeiling
 
   type Access = Int
@@ -114,7 +114,7 @@ object Team:
     nbMembers = 1,
     enabled = true,
     open = open,
-    createdAt = DateTime.now,
+    createdAt = nowDate,
     createdBy = createdBy.id,
     leaders = Set(createdBy.id),
     chat = Access.MEMBERS,

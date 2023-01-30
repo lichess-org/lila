@@ -36,8 +36,8 @@ case class Game(
     binaryMoveTimes: Option[ByteArray] = None,
     mode: Mode = Mode.default,
     bookmarks: Int = 0,
-    createdAt: DateTime = DateTime.now,
-    movedAt: DateTime = DateTime.now,
+    createdAt: DateTime = nowDate,
+    movedAt: DateTime = nowDate,
     metadata: Metadata
 ):
 
@@ -198,7 +198,7 @@ case class Game(
       },
       loadClockHistory = _ => newClockHistory,
       status = game.situation.status | status,
-      movedAt = DateTime.now
+      movedAt = nowDate
     )
 
     val state = Event.State(
@@ -482,7 +482,7 @@ case class Game(
 
   def withClock(c: Clock) = Progress(this, copy(chess = chess.copy(clock = Some(c))))
 
-  def correspondenceGiveTime = Progress(this, copy(movedAt = DateTime.now))
+  def correspondenceGiveTime = Progress(this, copy(movedAt = nowDate))
 
   def estimateClockTotalTime = clock.map(_.estimateTotalSeconds)
 
@@ -542,9 +542,9 @@ case class Game(
 
   def isBeingPlayed = !isPgnImport && !finishedOrAborted
 
-  def olderThan(seconds: Int) = movedAt isBefore DateTime.now.minusSeconds(seconds)
+  def olderThan(seconds: Int) = movedAt isBefore nowDate.minusSeconds(seconds)
 
-  def justCreated = createdAt isAfter DateTime.now.minusSeconds(1)
+  def justCreated = createdAt isAfter nowDate.minusSeconds(1)
 
   def unplayed = !bothPlayersHaveMoved && (createdAt isBefore Game.unplayedDate)
 
@@ -689,10 +689,10 @@ object Game:
   val tokenSize    = 4
 
   val unplayedHours = 24
-  def unplayedDate  = DateTime.now minusHours unplayedHours
+  def unplayedDate  = nowDate minusHours unplayedHours
 
   val abandonedDays = Days(21)
-  def abandonedDate = DateTime.now minusDays abandonedDays.value
+  def abandonedDate = nowDate minusDays abandonedDays.value
 
   def strToIdOpt(str: String): Option[GameId]        = strToId(str).some.filter(validId)
   inline def strToId(str: String): GameId            = GameId(str take gameIdSize)
@@ -735,7 +735,7 @@ object Game:
       daysPerTurn: Option[Days] = None,
       rules: Set[GameRule] = Set.empty
   ): NewGame =
-    val createdAt = DateTime.now
+    val createdAt = nowDate
     NewGame(
       Game(
         id = IdGenerator.uncheckedGame,

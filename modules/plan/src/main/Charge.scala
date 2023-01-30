@@ -51,7 +51,7 @@ object Charge:
       payPalCheckout = payPalCheckout,
       money = money,
       usd = usd,
-      date = DateTime.now
+      date = nowDate
     )
 
   case class Stripe(

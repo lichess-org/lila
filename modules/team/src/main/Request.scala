@@ -25,7 +25,7 @@ object Request:
       user = user,
       team = team,
       message = message.trim,
-      date = DateTime.now,
+      date = nowDate,
       declined = false
     )
 

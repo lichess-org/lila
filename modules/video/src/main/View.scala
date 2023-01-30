@@ -18,7 +18,7 @@ object View:
       id = makeId(videoId, userId),
       videoId = videoId,
       userId = userId,
-      date = DateTime.now
+      date = nowDate
     )
 
   object BSONFields:

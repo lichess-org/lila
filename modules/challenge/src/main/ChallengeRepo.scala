@@ -103,7 +103,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
       .list(max)
 
   private[challenge] def expired(max: Int): Fu[List[Challenge]] =
-    coll.list[Challenge]("expiresAt" $lt DateTime.now, max)
+    coll.list[Challenge]("expiresAt" $lt nowDate, max)
 
   def setSeenAgain(id: Challenge.ID) =
     coll.update
@@ -112,7 +112,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
         $doc(
           "$set" -> $doc(
             "status"    -> Status.Created.id,
-            "seenAt"    -> DateTime.now,
+            "seenAt"    -> nowDate,
             "expiresAt" -> inTwoWeeks
           )
         )
@@ -120,7 +120,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
       .void
 
   def setSeen(id: Challenge.ID) =
-    coll.updateField($id(id), "seenAt", DateTime.now).void
+    coll.updateField($id(id), "seenAt", nowDate).void
 
   def offline(challenge: Challenge) = setStatus(challenge, Status.Offline, Some(_ plusHours 3))
   def cancel(challenge: Challenge)  = setStatus(challenge, Status.Canceled, Some(_ plusHours 3))
@@ -145,7 +145,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
         $doc(
           "$set" -> $doc(
             "status"    -> status.id,
-            "expiresAt" -> expiresAt.fold(inTwoWeeks) { _(DateTime.now) }
+            "expiresAt" -> expiresAt.fold(inTwoWeeks) { _(nowDate) }
           )
         )
       )

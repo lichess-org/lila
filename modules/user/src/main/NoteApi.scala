@@ -66,7 +66,7 @@ final class NoteApi(
       text = text,
       mod = modOnly,
       dox = modOnly && (dox || Title.fromUrl.toFideId(text).isDefined),
-      date = DateTime.now
+      date = nowDate
     )
 
     coll.insert.one(note) >>-

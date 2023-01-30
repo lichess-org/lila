@@ -59,7 +59,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
             rel = rel,
             name = part.filename,
             size = part.fileSize.toInt,
-            createdAt = DateTime.now
+            createdAt = nowDate
           )
           picfitServer.store(image, part) >>
             deleteByRel(image.rel) >>

@@ -41,7 +41,7 @@ private case class WaitingUsers(
     }
 
   def update(fromWebSocket: Set[UserId]) =
-    val newDate      = DateTime.now
+    val newDate      = nowDate
     val withApiUsers = fromWebSocket ++ apiUsers.??(_.keySet)
     copy(
       date = newDate,
@@ -100,7 +100,7 @@ final private class WaitingUsersApi:
       (_: TourId, cur: WaitingUsers.WithNext) =>
         f(
           Option(cur) | WaitingUsers.WithNext(
-            WaitingUsers(Map.empty, None, tour.clock, DateTime.now),
+            WaitingUsers(Map.empty, None, tour.clock, nowDate),
             none
           )
         )

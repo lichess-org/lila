@@ -33,7 +33,7 @@ case class PuzzleRound(
 
   def updateWithWin(win: PuzzleWin) = copy(
     win = win,
-    fixedAt = fixedAt orElse win.yes.option(DateTime.now)
+    fixedAt = fixedAt orElse win.yes.option(nowDate)
   )
 
   def firstWin = win.yes && fixedAt.isEmpty

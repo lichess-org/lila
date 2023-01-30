@@ -259,9 +259,9 @@ object Challenge:
       challenger = challenger,
       destUser = destUser map toRegistered(variant, timeControl),
       rematchOf = rematchOf,
-      createdAt = DateTime.now,
-      seenAt = !isOpen option DateTime.now,
-      expiresAt = if (isOpen) DateTime.now.plusDays(1) else inTwoWeeks,
+      createdAt = nowDate,
+      seenAt = !isOpen option nowDate,
+      expiresAt = if (isOpen) nowDate.plusDays(1) else inTwoWeeks,
       open = isOpen option Open(openToUserIds),
       name = name,
       rules = rules

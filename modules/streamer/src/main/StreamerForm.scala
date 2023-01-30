@@ -82,7 +82,7 @@ object StreamerForm:
         twitch = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply),
         youTube = youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply(_, liveVideoId, pubsubVideoId)),
         listed = listed,
-        updatedAt = DateTime.now
+        updatedAt = nowDate
       )
       newStreamer.copy(
         approval = approval.map(_.resolve) match {
@@ -96,7 +96,7 @@ object StreamerForm:
               },
               ignored = m.ignored && !m.granted,
               chatEnabled = m.chat,
-              lastGrantedAt = m.granted.option(DateTime.now) orElse streamer.approval.lastGrantedAt
+              lastGrantedAt = m.granted.option(nowDate) orElse streamer.approval.lastGrantedAt
             )
           case _ =>
             streamer.approval.copy(

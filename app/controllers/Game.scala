@@ -128,7 +128,7 @@ final class Game(
       }
     }
 
-  private def fileDate = DateTimeFormat forPattern "yyyy-MM-dd" print DateTime.now
+  private def fileDate = DateTimeFormat forPattern "yyyy-MM-dd" print nowDate
 
   def apiExportByUserImportedGames(username: UserStr) =
     AuthOrScoped()(

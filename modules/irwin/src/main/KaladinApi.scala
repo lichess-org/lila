@@ -187,7 +187,7 @@ final class KaladinApi(
           import lila.db.ByteArray.given
           gameRepo.coll
             .find(
-              Query.user(userId) ++ Query.rated ++ Query.createdSince(DateTime.now minusMonths 6),
+              Query.user(userId) ++ Query.rated ++ Query.createdSince(nowDate minusMonths 6),
               $doc(F.turns -> true, F.clock -> true).some
             )
             .cursor[Bdoc](ReadPreference.secondaryPreferred)

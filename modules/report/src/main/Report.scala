@@ -68,7 +68,7 @@ case class Report(
   def process(by: User) =
     copy(
       open = false,
-      done = Report.Done(by.id into ModId, DateTime.now).some
+      done = Report.Done(by.id into ModId, nowDate).some
     )
 
   def userIds: List[UserId] = user :: atoms.toList.map(_.by.userId)
@@ -148,7 +148,7 @@ object Report:
           by = candidate.reporter.id,
           text = candidate.text,
           score = score,
-          at = DateTime.now
+          at = nowDate
         )
 
   private[report] val spontaneousText = "Spontaneous inquiry"

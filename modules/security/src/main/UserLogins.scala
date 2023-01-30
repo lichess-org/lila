@@ -109,7 +109,7 @@ final class UserLoginsApi(
               "fp" $in fpSet
             ),
             "user" $ne user.id,
-            "date" $gt DateTime.now.minusYears(1)
+            "date" $gt nowDate.minusYears(1)
           )
         ) -> List(
           GroupField("user")(

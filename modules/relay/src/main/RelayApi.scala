@@ -126,7 +126,7 @@ final class RelayApi(
         Match(
           $doc(
             "sync.until" $exists true,
-            "sync.nextAt" $lt DateTime.now
+            "sync.nextAt" $lt nowDate
           )
         ) -> List(
           PipelineOperator(tourRepo lookup "tourId"),
@@ -288,8 +288,8 @@ final class RelayApi(
   private[relay] def autoStart: Funit =
     roundRepo.coll.list[RelayRound](
       $doc(
-        "startsAt" $lt DateTime.now.plusMinutes(30) // start 30 minutes early to fetch boards
-          $gt DateTime.now.minusDays(1),            // bit late now
+        "startsAt" $lt nowDate.plusMinutes(30) // start 30 minutes early to fetch boards
+          $gt nowDate.minusDays(1),            // bit late now
         "startedAt" $exists false,
         "sync.until" $exists false
       )
@@ -305,10 +305,10 @@ final class RelayApi(
       $doc(
         "sync.until" $exists false,
         "finished" -> false,
-        "startedAt" $lt DateTime.now.minusHours(3),
+        "startedAt" $lt nowDate.minusHours(3),
         $or(
           "startsAt" $exists false,
-          "startsAt" $lt DateTime.now
+          "startsAt" $lt nowDate
         )
       )
     ) flatMap {

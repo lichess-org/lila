@@ -5,7 +5,7 @@ import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
 import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 import org.joda.time.format.ISODateTimeFormat
-import org.joda.time.{ DateTime, DateTimeZone, DurationFieldType, Period }
+import org.joda.time.{ DateTimeZone, Period }
 import play.api.i18n.Lang
 import scala.collection.mutable
 
@@ -37,10 +37,10 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
       _ => DateTimeFormat.forStyle(dateStyle).withLocale(lang.toLocale)
     )
 
-  def showDateTimeZone(date: DateTime, zone: DateTimeZone)(using lang: Lang): String =
+  def showDateTimeZone(date: DateTime, zone: DateTimeZone)(using Lang): String =
     dateTimeFormatter print date.toDateTime(zone)
 
-  def showDateTimeUTC(date: DateTime)(using lang: Lang): String =
+  def showDateTimeUTC(date: DateTime)(using Lang): String =
     showDateTimeZone(date, DateTimeZone.UTC)
 
   def showDate(date: DateTime)(using lang: Lang): String =
@@ -52,14 +52,14 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def showEnglishDateTime(date: DateTime): String =
     englishDateTimeFormatter print date
 
-  def semanticDate(date: DateTime)(using lang: Lang): Tag =
+  def semanticDate(date: DateTime)(using Lang): Tag =
     timeTag(datetimeAttr := isoDate(date))(showDate(date))
 
-  def showPeriod(period: Period)(using lang: Lang): String =
+  def showPeriod(period: Period)(using Lang): String =
     PeriodLocales.showPeriod(period)
 
-  def showMinutes(minutes: Int)(using lang: Lang): String =
-    showPeriod(new Period(minutes * 60 * 1000L))
+  def showMinutes(minutes: Int)(using Lang): String =
+    showPeriod(Period(minutes * 60 * 1000L))
 
   def isoDate(date: DateTime): String = isoFormatter print date
 
@@ -78,7 +78,7 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def momentFromNowOnce(date: DateTime): Tag = momentFromNow(date, once = true)
 
   def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false): Tag =
-    momentFromNow(DateTime.now plusSeconds seconds, alwaysRelative)
+    momentFromNow(nowDate plusSeconds seconds, alwaysRelative)
 
   def momentFromNowServer(date: DateTime): Frag =
     timeTag(title := f"${showEnglishDateTime(date)} UTC")(momentFromNowServerText(date))

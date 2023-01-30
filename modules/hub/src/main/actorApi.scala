@@ -2,7 +2,7 @@ package lila.hub
 package actorApi
 
 import chess.format.{ BoardFen, Uci, Fen }
-import org.joda.time.{ DateTime, Period }
+import org.joda.time.Period
 import play.api.libs.json.*
 
 // announce something to all clients

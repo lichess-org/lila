@@ -45,8 +45,8 @@ object EventForm:
     url = "",
     lang = lila.i18n.enLang.code,
     enabled = true,
-    startsAt = DateTime.now,
-    finishesAt = DateTime.now,
+    startsAt = nowDate,
+    finishesAt = nowDate,
     countdown = true
   )
 
@@ -79,7 +79,7 @@ object EventForm:
         hostedBy = hostedBy.map(_.id),
         icon = icon.some.filter(_.nonEmpty),
         countdown = countdown,
-        updatedAt = DateTime.now.some,
+        updatedAt = nowDate.some,
         updatedBy = by.id.some
       )
 
@@ -96,7 +96,7 @@ object EventForm:
         startsAt = startsAt,
         finishesAt = finishesAt,
         createdBy = userId,
-        createdAt = DateTime.now,
+        createdAt = nowDate,
         updatedAt = none,
         updatedBy = none,
         hostedBy = hostedBy.map(_.id),

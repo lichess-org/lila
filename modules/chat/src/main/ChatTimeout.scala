@@ -30,8 +30,8 @@ final class ChatTimeout(
               "mod"       -> mod.id,
               "user"      -> user.id,
               "reason"    -> reason,
-              "createdAt" -> DateTime.now,
-              "expiresAt" -> DateTime.now.plusSeconds(duration.toSeconds.toInt)
+              "createdAt" -> nowDate,
+              "expiresAt" -> nowDate.plusSeconds(duration.toSeconds.toInt)
             )
           ) inject true
     }
@@ -51,7 +51,7 @@ final class ChatTimeout(
   def checkExpired: Fu[List[Reinstate]] =
     coll.list[Reinstate](
       $doc(
-        "expiresAt" $lt DateTime.now
+        "expiresAt" $lt nowDate
       )
     ) flatMap {
       case Nil  => fuccess(Nil)

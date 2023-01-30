@@ -152,7 +152,7 @@ object PlayerAssessment:
       userId = game.player(color).userId err s"PlayerAssessment $game $color no userId",
       color = color,
       assessment = assessment,
-      date = DateTime.now,
+      date = nowDate,
       basics = basics,
       analysis = intAvgSd(AccuracyCP.diffsList(pov.sideAndStart, analysis).flatten),
       flags = flags,

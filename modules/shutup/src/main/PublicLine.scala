@@ -14,7 +14,7 @@ case class PublicLine(
 object PublicLine:
 
   def make(text: String, from: Source): PublicLine =
-    PublicLine(text, from.some, DateTime.now.some)
+    PublicLine(text, from.some, nowDate.some)
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.*

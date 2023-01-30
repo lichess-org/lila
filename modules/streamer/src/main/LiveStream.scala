@@ -96,7 +96,7 @@ final class LiveStreamApi(
   //               ignored = false,
   //               tier = 5,
   //               chatEnabled = true,
-  //               lastGrantedAt = DateTime.now.some
+  //               lastGrantedAt = nowDate.some
   //             ),
   //             picturePath = none,
   //             name = Streamer.Name("thibault"),
@@ -104,10 +104,10 @@ final class LiveStreamApi(
   //             description = none,
   //             twitch = none,
   //             youTube = none,
-  //             seenAt = DateTime.now,      // last seen online
-  //             liveAt = DateTime.now.some, // last seen streaming
-  //             createdAt = DateTime.now,
-  //             updatedAt = DateTime.now
+  //             seenAt = nowDate,      // last seen online
+  //             liveAt = nowDate.some, // last seen streaming
+  //             createdAt = nowDate,
+  //             updatedAt = nowDate
   //           )
   //         )
   //       )

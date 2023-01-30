@@ -71,7 +71,7 @@ case class Chapter(
       _id = Chapter.makeId,
       studyId = study.id,
       ownerId = study.ownerId,
-      createdAt = DateTime.now
+      createdAt = nowDate
     )
 
   def metadata = Chapter.Metadata(
@@ -130,7 +130,7 @@ object Chapter:
     def looksAlive =
       tags.outcome.isEmpty &&
         relay.lastMoveAt.isAfter {
-          DateTime.now.minusMinutes {
+          nowDate.minusMinutes {
             tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
           }
         }
@@ -187,5 +187,5 @@ object Chapter:
       gamebook = gamebook option true,
       conceal = conceal,
       relay = relay,
-      createdAt = DateTime.now
+      createdAt = nowDate
     )

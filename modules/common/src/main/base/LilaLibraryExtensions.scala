@@ -5,7 +5,6 @@ import cats.data.Validated
 import com.typesafe.config.Config
 import java.util.concurrent.TimeUnit
 import java.lang.Math.{ max, min }
-import org.joda.time.{ DateTime, Duration }
 import scala.concurrent.{ Await, ExecutionContext as EC }
 import scala.util.matching.Regex
 import scala.util.Try
@@ -83,7 +82,7 @@ trait LilaLibraryExtensions extends LilaTypes:
   extension (date: DateTime)
     def getSeconds: Long                   = date.getMillis / 1000
     def getCentis: Long                    = date.getMillis / 10
-    def toNow                              = org.joda.time.Duration(date, DateTime.now)
+    def toNow                              = org.joda.time.Duration(date, org.joda.time.DateTime.now)
     def atMost(other: DateTime): DateTime  = if other.isBefore(date) then other else date
     def atLeast(other: DateTime): DateTime = if other.isAfter(date) then other else date
 

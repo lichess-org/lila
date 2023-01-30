@@ -131,6 +131,6 @@ object Hook:
       user = user map { LobbyUser.make(_, blocking) },
       sid = sid,
       ratingRange = ratingRange.toString,
-      createdAt = DateTime.now,
+      createdAt = nowDate,
       boardApi = boardApi
     )

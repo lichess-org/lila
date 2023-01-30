@@ -28,7 +28,7 @@ final class AccessTokenApi(
           plain = plain,
           userId = me.id,
           description = setup.description.some,
-          createdAt = DateTime.now().some,
+          createdAt = nowDate.some,
           scopes = setup.scopes.flatMap(OAuthScope.byKey.get).filterNot(_ == OAuthScope.Bot.Play && noBot),
           clientOrigin = None,
           expires = None
@@ -44,10 +44,10 @@ final class AccessTokenApi(
         plain = plain,
         userId = granted.userId,
         description = None,
-        createdAt = DateTime.now().some,
+        createdAt = nowDate.some,
         scopes = granted.scopes,
         clientOrigin = granted.redirectUri.clientOrigin.some,
-        expires = DateTime.now().plusMonths(12).some
+        expires = nowDate.plusMonths(12).some
       )
     )
 
@@ -73,10 +73,10 @@ final class AccessTokenApi(
                 plain = plain,
                 userId = user.id,
                 description = s"Challenge admin: ${admin.username}".some,
-                createdAt = DateTime.now().some,
+                createdAt = nowDate.some,
                 scopes = List(scope),
                 clientOrigin = setup.description.some,
-                expires = Some(DateTime.now plusMonths 6)
+                expires = Some(nowDate plusMonths 6)
               )
             )
           } map { user.id -> _ }
@@ -198,7 +198,7 @@ final class AccessTokenApi(
   private def fetchAccessToken(id: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
     coll.findAndUpdateSimplified[AccessToken.ForAuth](
       selector = $id(id),
-      update = $set(F.usedAt -> DateTime.now()),
+      update = $set(F.usedAt -> nowDate),
       fields = AccessToken.forAuthProjection.some
     )
 
@@ -207,8 +207,4 @@ final class AccessTokenApi(
     lila.common.Bus.publish(TokenRevoke(id.value), "oauth")
 
 object AccessTokenApi:
-  case class Client(
-      origin: String,
-      usedAt: Option[DateTime],
-      scopes: List[OAuthScope]
-  )
+  case class Client(origin: String, usedAt: Option[DateTime], scopes: List[OAuthScope])

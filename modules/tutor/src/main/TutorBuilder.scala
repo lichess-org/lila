@@ -68,17 +68,17 @@ final private class TutorBuilder(
       .sortBy(-_.perfStats.totalNbGames)
     _     <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
     perfs <- (tutorUsers.toNel ?? TutorPerfReport.compute).monSuccess(_.tutor buildSegment "perf-reports")
-  } yield TutorFullReport(user.id, DateTime.now, perfs)
+  } yield TutorFullReport(user.id, nowDate, perfs)
 
   private[tutor] def eligiblePerfTypesOf(user: User) =
     PerfType.standardWithUltra.filter { pt =>
-      user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(12))
+      user.perfs(pt).latest.exists(_ isAfter nowDate.minusMonths(12))
     }
 
   private def hasFreshReport(user: User): Fu[Boolean] = colls.report.exists(
     $doc(
       TutorFullReport.F.user -> user.id,
-      TutorFullReport.F.at $gt DateTime.now.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
+      TutorFullReport.F.at $gt nowDate.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
     )
   )
 
@@ -93,7 +93,7 @@ final private class TutorBuilder(
               TutorFullReport.F.perfs -> $doc(
                 "$elemMatch" -> $doc("perf" -> pt.id, "stats.rating" -> rating)
               ),
-              TutorFullReport.F.at $gt DateTime.now.minusMonths(1) // index hit
+              TutorFullReport.F.at $gt nowDate.minusMonths(1) // index hit
             ),
             $doc(s"${TutorFullReport.F.perfs}.$$" -> true)
           )

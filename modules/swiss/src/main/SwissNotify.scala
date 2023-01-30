@@ -19,7 +19,7 @@ final private class SwissNotify(mongo: SwissMongo)(using Executor, akka.actor.Sc
           "featurable" -> true,
           "settings.i" $lte 600 // hits the partial index
         ) ++ $doc(
-          "startsAt" $gt DateTime.now.plusMinutes(10) $lt DateTime.now.plusMinutes(11),
+          "startsAt" $gt nowDate.plusMinutes(10) $lt nowDate.plusMinutes(11),
           "_id" $nin doneMemo.keys
         )
       )

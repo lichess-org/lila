@@ -61,7 +61,7 @@ object RelayTourForm:
         ownerId = user.id,
         tier = tier ifTrue Granter(_.Relay)(user),
         active = false,
-        createdAt = DateTime.now,
+        createdAt = nowDate,
         syncedAt = none,
         autoLeaderboard = autoLeaderboard,
         players = players

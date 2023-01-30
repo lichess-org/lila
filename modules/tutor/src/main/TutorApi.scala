@@ -49,7 +49,7 @@ final class TutorApi(
       .applySequentially(items) { next =>
         next.startedAt.fold(buildThenRemoveFromQueue(next.userId)) { started =>
           val expired =
-            started.isBefore(DateTime.now minusSeconds builder.maxTime.toSeconds.toInt) ||
+            started.isBefore(nowDate minusSeconds builder.maxTime.toSeconds.toInt) ||
               started.isBefore(Uptime.startedAt)
           expired ?? queue.remove(next.userId) >>- lila.mon.tutor.buildTimeout.increment().unit
         }

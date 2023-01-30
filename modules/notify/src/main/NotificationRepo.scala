@@ -40,10 +40,10 @@ final private class NotificationRepo(colls: NotifyColls)(using Executor):
     hasFresh(to, tpe = "privateMessage", criteria = "content.user" -> from.value, matchUnreadSince(3.days))
 
   private def matchSince(since: Duration) =
-    $doc("createdAt" $gt DateTime.now.minus(since.toMillis))
+    $doc("createdAt" $gt nowDate.minus(since.toMillis))
 
   private def matchUnreadSince(unreadSince: Duration) =
-    $doc("read" -> false, "createdAt" $gt DateTime.now.minus(unreadSince.toMillis))
+    $doc("read" -> false, "createdAt" $gt nowDate.minus(unreadSince.toMillis))
 
   private def matchRecentOrUnreadSince(since: Duration) =
     $or(matchSince(10.minutes), matchUnreadSince(since))

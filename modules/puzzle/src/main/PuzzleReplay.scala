@@ -69,7 +69,7 @@ final class PuzzleReplayApi(
           Match(
             $doc(
               "u" -> user.id,
-              "d" $gt DateTime.now.minusDays(days),
+              "d" $gt nowDate.minusDays(days),
               "w" $ne true
             )
           ) -> List(

@@ -113,7 +113,7 @@ case class User(
 
   def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
 
-  def createdSinceDays(days: Int) = createdAt isBefore DateTime.now.minusDays(days)
+  def createdSinceDays(days: Int) = createdAt isBefore nowDate.minusDays(days)
 
   def isBot = title has Title.BOT
   def noBot = !isBot
@@ -213,8 +213,8 @@ object User:
     def isTroll                = marks.exists(_.troll)
     def isVerified             = roles.exists(_ contains "ROLE_VERIFIED")
     def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
-    def isDaysOld(days: Int)   = createdAt isBefore DateTime.now.minusDays(days)
-    def isHoursOld(hours: Int) = createdAt isBefore DateTime.now.minusHours(hours)
+    def isDaysOld(days: Int)   = createdAt isBefore nowDate.minusDays(days)
+    def isHoursOld(hours: Int) = createdAt isBefore nowDate.minusHours(hours)
     def isLichess              = _id == User.lichessId
   case class Contacts(orig: Contact, dest: Contact):
     def hasKid  = orig.isKid || dest.isKid

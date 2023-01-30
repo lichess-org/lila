@@ -39,7 +39,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
         $doc(
           "$push" -> $doc(
             "revisions" -> $doc(
-              "$each"     -> List(Revision(Markdown(text), by.id, DateTime.now)),
+              "$each"     -> List(Revision(Markdown(text), by.id, nowDate)),
               "$position" -> 0,
               "$slice"    -> 30
             )
@@ -112,7 +112,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
               $id(key),
               $set(
                 "popularity"   -> popularity,
-                "popularityAt" -> DateTime.now
+                "popularityAt" -> nowDate
               ),
               upsert = true
             )

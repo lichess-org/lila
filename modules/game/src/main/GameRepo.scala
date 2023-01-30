@@ -269,7 +269,7 @@ final class GameRepo(val coll: Coll)(using Executor):
       .sort(Query.sortAntiChronological)
       .one[Game]
 
-  def setTv(id: GameId) = coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
+  def setTv(id: GameId) = coll.updateFieldUnchecked($id(id), F.tvAt, nowDate)
 
   def setAnalysed(id: GameId): Funit  = coll.updateField($id(id), F.analysed, true).void
   def setUnanalysed(id: GameId): Unit = coll.updateFieldUnchecked($id(id), F.analysed, false)
@@ -408,7 +408,7 @@ final class GameRepo(val coll: Coll)(using Executor):
       else some(24 * 10)
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.initialFen  -> fen,
-      F.checkAt     -> checkInHours.map(DateTime.now.plusHours),
+      F.checkAt     -> checkInHours.map(nowDate.plusHours),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     coll.insert.one(bson) addFailureEffect {
@@ -418,7 +418,7 @@ final class GameRepo(val coll: Coll)(using Executor):
   def removeRecentChallengesOf(userId: UserId) =
     coll.delete.one(
       Query.created ++ Query.friend ++ Query.user(userId) ++
-        Query.createdSince(DateTime.now minusHours 1)
+        Query.createdSince(nowDate minusHours 1)
     )
 
   def setCheckAt(g: Game, at: DateTime) =

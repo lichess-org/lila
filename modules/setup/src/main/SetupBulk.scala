@@ -43,7 +43,7 @@ object SetupBulk:
 
   private def timestampInNearFuture = longNumber(
     min = 0,
-    max = DateTime.now.plusDays(1).getMillis
+    max = nowDate.plusDays(1).getMillis
   )
 
   def form = Form[BulkFormData](
@@ -249,11 +249,11 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
                     data.variant,
                     data.clockOrDays,
                     Mode(data.rated),
-                    pairAt = data.pairAt | DateTime.now,
+                    pairAt = data.pairAt | nowDate,
                     startClocksAt = data.startClocksAt,
                     message = data.message,
                     rules = data.rules,
-                    scheduledAt = DateTime.now,
+                    scheduledAt = nowDate,
                     fen = data.fen
                   )
                 }

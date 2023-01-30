@@ -6,7 +6,7 @@ final class Rating(
     var ratingDeviation: Double,
     var volatility: Double,
     var numberOfResults: Int,
-    var lastRatingPeriodEnd: Option[DateTime] = None
+    var lastRatingPeriodEnd: Option[org.joda.time.DateTime] = None
 ):
 
   import RatingCalculator.*

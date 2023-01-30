@@ -56,10 +56,10 @@ object Streamer:
       description = none,
       twitch = none,
       youTube = none,
-      seenAt = DateTime.now,
+      seenAt = nowDate,
       liveAt = none,
-      createdAt = DateTime.now,
-      updatedAt = DateTime.now,
+      createdAt = nowDate,
+      updatedAt = nowDate,
       lastStreamLang = none
     )
 

@@ -49,11 +49,11 @@ final private class SwissDirector(
                   $unset("nextRoundAt", "settings.mp") ++ $set(
                     "round"       -> swiss.round,
                     "nbOngoing"   -> pairings.size,
-                    "lastRoundAt" -> DateTime.now
+                    "lastRoundAt" -> nowDate
                   )
                 )
                 .void
-            date = DateTime.now
+            date = nowDate
             byes = pendings.collect { case Left(bye) => bye.player }
             _ <- SwissPlayer.fields { f =>
               mongo.player.update

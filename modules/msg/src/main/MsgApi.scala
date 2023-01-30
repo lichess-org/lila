@@ -100,7 +100,7 @@ final class MsgApi(
       dest: UserId,
       text: String,
       multi: Boolean = false,
-      date: DateTime = DateTime.now,
+      date: DateTime = nowDate,
       ignoreSecurity: Boolean = false
   ): Fu[PostResult] =
     Msg.make(text, orig, date).fold[Fu[PostResult]](fuccess(PostResult.Invalid)) { msgPre =>
@@ -195,7 +195,7 @@ final class MsgApi(
     post(User.lichessId, destId, text, multi = true, ignoreSecurity = true)
 
   def multiPost(orig: Holder, destSource: Source[UserId, ?], text: String): Fu[Int] =
-    val now = DateTime.now // same timestamp on all
+    val now = nowDate // same timestamp on all
     destSource
       .filter(orig.id !=)
       .mapAsync(4) {

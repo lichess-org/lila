@@ -27,4 +27,4 @@ object RacerPlayer:
   val lichess = Id.User(User.lichessId)
 
   def make(id: Id, user: Option[LightUser]) =
-    RacerPlayer(id = id, user = user, score = 0, createdAt = DateTime.now)
+    RacerPlayer(id = id, user = user, score = 0, createdAt = nowDate)

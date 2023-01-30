@@ -81,9 +81,9 @@ final class EventStream(
         case SetOnline =>
           onlineApiUsers.setOnline(me.id)
 
-          if (lastSetSeenAt isBefore DateTime.now.minusMinutes(10))
+          if (lastSetSeenAt isBefore nowDate.minusMinutes(10))
             userRepo setSeenAt me.id
-            lastSetSeenAt = DateTime.now
+            lastSetSeenAt = nowDate
 
           context.system.scheduler
             .scheduleOnce(6 second) {

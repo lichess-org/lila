@@ -45,7 +45,7 @@ final private class VideoSheet(
                   ads = entry.ads,
                   startTime = entry.startTime,
                   metadata = Youtube.empty,
-                  createdAt = DateTime.now
+                  createdAt = nowDate
                 )
                 logger.info(s"sheet insert $video")
                 api.video.save(video)
