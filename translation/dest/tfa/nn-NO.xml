@@ -14,4 +14,6 @@
   <string name="twoFactorDisable">For å skru av tofaktorautentiseringa treng du passordet og ein autentiseringskode frå tofaktorautentiseringsappen.
 Dersom du mistar tilgangen til autentiseringskodene dine, kan du tilbakestille passordet ditt vha. e-post.</string>
   <string name="openTwoFactorApp">Opna 2-stegs autentiseringsappen på eininga di for å sjå autentiseringskoden og verifisera identiteten din.</string>
+  <string name="setupReminder">For å sikra kontoen din vert du oppmoda om å aktivera totrinns-autensering på https://lichess.org/account/twofactor.
+Du mottek denne meldinga fordi kontoen din har spesielle ansvarsområde som gruppeleiar, trenar, lærar eller strøymar</string>
 </resources>
