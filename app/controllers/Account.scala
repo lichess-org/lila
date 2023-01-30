@@ -140,7 +140,7 @@ final class Account(
 
   def passwd =
     Auth { implicit ctx => me =>
-      env.user.forms passwd me map { form =>
+      env.security.forms passwdChange me map { form =>
         Ok(html.account.passwd(form))
       }
     }
@@ -149,7 +149,7 @@ final class Account(
     AuthBody { implicit ctx => me =>
       auth.HasherRateLimit(me.id, ctx.req) { _ =>
         given play.api.mvc.Request[?] = ctx.body
-        env.user.forms passwd me flatMap { form =>
+        env.security.forms passwdChange me flatMap { form =>
           FormFuResult(form) { err =>
             fuccess(html.account.passwd(err))
           } { data =>
@@ -160,7 +160,7 @@ final class Account(
       }
     }
 
-  private def refreshSessionId(me: UserModel, result: Result)(implicit ctx: Context): Fu[Result] =
+  private def refreshSessionId(me: UserModel, result: Result)(using ctx: Context): Fu[Result] =
     env.security.store.closeAllSessionsOf(me.id) >>
       env.push.webSubscriptionApi.unsubscribeByUser(me) >>
       env.push.unregisterDevices(me) >>

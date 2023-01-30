@@ -131,6 +131,25 @@ final class SecurityForm(
       .verifying("newPasswordsDontMatch", _.samePasswords)
   )
 
+  case class Passwd(
+      oldPasswd: String,
+      newPasswd1: String,
+      newPasswd2: String
+  ):
+    def samePasswords = newPasswd1 == newPasswd2
+
+  def passwdChange(user: User)(using Executor) =
+    authenticator loginCandidate user map { candidate =>
+      Form(
+        mapping(
+          "oldPasswd"  -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+          "newPasswd1" -> newPasswordFieldFor(user),
+          "newPasswd2" -> newPasswordFieldFor(user)
+        )(Passwd.apply)(unapply)
+          .verifying("newPasswordsDontMatch", _.samePasswords)
+      )
+    }
+
   def magicLink(using req: RequestHeader) = hcaptcha.form(
     Form(
       mapping(

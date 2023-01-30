@@ -49,25 +49,6 @@ final class UserForm(authenticator: Authenticator):
 
   private def nameField = optional(cleanText(minLength = 1, maxLength = 20))
 
-  case class Passwd(
-      oldPasswd: String,
-      newPasswd1: String,
-      newPasswd2: String
-  ):
-    def samePasswords = newPasswd1 == newPasswd2
-
-  def passwd(u: User)(using Executor) =
-    authenticator loginCandidate u map { candidate =>
-      Form(
-        mapping(
-          "oldPasswd"  -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
-          "newPasswd1" -> text(minLength = 2),
-          "newPasswd2" -> text(minLength = 2)
-        )(Passwd.apply)(unapply)
-          .verifying("newPasswordsDontMatch", _.samePasswords)
-      )
-    }
-
 object UserForm:
 
   val note = Form(
