@@ -35,7 +35,7 @@ object teacherDashboard:
           )
         )
       ),
-      standardFlash(),
+      standardFlash,
       c.archived map { archived =>
         div(cls := "clas-show__archived archived")(
           bits.showArchived(archived),

@@ -16,7 +16,7 @@ object kid:
     ) {
       div(cls := "account box box-pad")(
         h1(cls := "box__top")(trans.kidMode()),
-        standardFlash(),
+        standardFlash,
         p(trans.kidModeExplanation()),
         br,
         br,

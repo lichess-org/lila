@@ -168,6 +168,8 @@ object I18nKeys:
   val `forgotPassword` = I18nKey("forgotPassword")
   val `error.weakPassword` = I18nKey("error.weakPassword")
   val `error.namePassword` = I18nKey("error.namePassword")
+  val `passwordSuggestion` = I18nKey("passwordSuggestion")
+  val `emailSuggestion` = I18nKey("emailSuggestion")
   val `emailConfirmHelp` = I18nKey("emailConfirmHelp")
   val `emailConfirmNotReceived` = I18nKey("emailConfirmNotReceived")
   val `whatSignupUsername` = I18nKey("whatSignupUsername")

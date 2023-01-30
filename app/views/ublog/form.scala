@@ -27,7 +27,7 @@ object form:
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, "mine".some),
         div(cls := "page-menu__content box ublog-post-form")(
-          standardFlash(),
+          standardFlash,
           boxTop(h1(trans.ublog.newPost())),
           etiquette,
           inner(f, Left(user), captcha.some)
@@ -44,7 +44,7 @@ object form:
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, "mine".some),
         div(cls := "page-menu__content box ublog-post-form")(
-          standardFlash(),
+          standardFlash,
           boxTop(
             h1(
               if (ctx isUserId post.created.by) trans.ublog.editYourBlogPost()

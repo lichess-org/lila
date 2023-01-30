@@ -52,7 +52,7 @@ object blog:
                 )
             )
           ),
-          standardFlash(),
+          standardFlash,
           if (posts.nbResults > 0)
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
               posts.currentPageResults map { postView.card(_) },

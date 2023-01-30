@@ -54,7 +54,7 @@ object post:
               image.credit.map { p(cls := "ublog-post__image-credit")(_) }
             )
           },
-          ctx.is(user) || isGranted(_.ModerateBlog) option standardFlash(),
+          ctx.is(user) || isGranted(_.ModerateBlog) option standardFlash,
           h1(cls := "ublog-post__title")(post.title),
           div(cls := "ublog-post__meta")(
             a(

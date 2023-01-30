@@ -17,7 +17,7 @@ object roundForm:
   def create(form: Form[Data], tour: RelayTour)(implicit ctx: Context) =
     layout(newBroadcast.txt())(
       boxTop(h1(a(href := routes.RelayTour.edit(tour.id.value))(tour.name), " • ", addRound())),
-      standardFlash(),
+      standardFlash,
       inner(form, routes.RelayRound.create(tour.id.value), tour, create = true)
     )
 
