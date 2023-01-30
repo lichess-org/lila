@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">URL babhta reatha</string>
   <string name="currentGameUrl">URL cluiche reatha</string>
   <string name="downloadAllRounds">Íoslódáil gach babhta</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Scrios go cinntitheach an babhta agus a chuid cluichí.</string>
+  <string name="deleteAllGamesOfThisRound">Scrios gach cluiche den bhabhta seo. Caithfidh an fhoinse a bheith gníomhach chun iad a athchruthú.</string>
 </resources>

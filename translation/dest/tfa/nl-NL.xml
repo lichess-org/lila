@@ -14,4 +14,6 @@
   <string name="twoFactorDisable">Je hebt je wachtwoord en een verificatiecode van je authenticatie-app nodig om tweestapsverificatie uit te schakelen.
 Als je geen toegang meer hebt tot je verificatiecodes, kun je ook je wachtwoord resetten via e-mail.</string>
   <string name="openTwoFactorApp">Open de tweestapsverificatie-app op uw apparaat om uw authenticatiecode te bekijken en uw identiteit te verifiëren.</string>
+  <string name="setupReminder">Schakel tweestapsverificatie in om je account te beveiligen op https://lichess.org/account/twofactor.
+Je ontvangt dit bericht omdat je account speciale verantwoordelijkheden heeft, zoals teamleider, coach, leraar of streamer</string>
 </resources>

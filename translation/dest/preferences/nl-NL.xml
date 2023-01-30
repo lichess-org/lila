@@ -52,7 +52,7 @@
   <string name="scrollOnTheBoardToReplayMoves">Scroll op het bord om zetten opnieuw af te spelen</string>
   <string name="correspondenceEmailNotification">Dagelijkse e-mailmeldingen met de lijst van jouw correspondentiepartijen</string>
   <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Streamer gaat live</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Nieuw inbox bericht</string>
+  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Nieuw bericht inbox</string>
   <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Opmerking op het forum noemt u</string>
   <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Studie uitnodiging</string>
   <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Spelupdates voor correspondentiepartijen</string>

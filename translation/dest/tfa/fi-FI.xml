@@ -14,4 +14,6 @@
   <string name="twoFactorDisable">Poistaaksesi kaksivaiheisen tunnistautumisen käytöstä tarvitset salasanasi sekä tunnistautumiskoodin tunnistautumissovelluksestasi.
 Jos olet menettänyt pääsyn tunnistautumiskoodeihin, voit myös nollata salasanasi sähköpostitse.</string>
   <string name="openTwoFactorApp">Avaa laitteessasi sovellus kaksivaiheiseen tunnistautumiseen, katso siitä tunnistautumiskoodisi ja vahvista henkilöllisyytesi.</string>
+  <string name="setupReminder">Ota käyttöön kaksivaiheinen todennus suojataksesi tilisi osoitteessa https://lichess.org/account/twofactor.
+Sait tämän viestin, koska tililläsi on erityisiä velvollisuuksia, kuten tiimin johtaja, valmentaja, opettaja tai striimaaja</string>
 </resources>

@@ -15,4 +15,6 @@
 
 Kimlik doğrulama kodlarına erişimi kaybettiyseniz e-posta yoluyla şifrenizi sıfırlayabilirsiniz.</string>
   <string name="openTwoFactorApp">Doğrulama kodunu görüntüleyerek kimliğinizi doğrulamak için cihazınızdan iki faktörlü kimlik doğrulama uygulamasını açın.</string>
+  <string name="setupReminder">Lütfen hesabınızın güvenliği için https://lichess.org/account/twofactor üzerinden iki faktörlü kimlik doğrulamayı etkinleştirin.
+Bu mesajı aldınız çünkü hesabınız takım liderliği, koç, öğretmen ya da yayıncı gibi özel bir sorumluluğa sahip</string>
 </resources>

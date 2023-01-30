@@ -14,4 +14,7 @@
   <string name="twoFactorDisable">Du benötigsch dis Passwort und en Authentifizierigscode us dinere Authentifizierigs-App, zum die Zwei-Faktor-Authentifizierig z\'deaktiviere.
 Wänn du de Zuegang zu dim Authentifizierigscode verlürsch, muesch dis Passwort au per E-Mail zruggsetze.</string>
   <string name="openTwoFactorApp">Mach uf dim Grät d\'App für die zweischtufig Authentifizierig uf, det findsch din Authentifizierigscode, wo dini Identität beschtätigt.</string>
+  <string name="setupReminder">Bitte tue d\'Zwei-Faktore-Authentifizierig aktiviere und demit dis Konto uf - 
+https://lichess.org/account/twofactor - sichere! 
+Du häsch de Hiwis übercho, will du - mit dim Konto - bsunderi Funkzione usüebsch, z.B. als Teamleiter, als Trainer, als Lehrer oder Streamer.</string>
 </resources>
