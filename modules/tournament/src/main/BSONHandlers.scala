@@ -60,7 +60,7 @@ object BSONHandlers {
   implicit val tournamentHandler = new BSON[Tournament] {
     def reads(r: BSON.Reader) = {
       val variant                = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
-      val position: Option[Sfen] = r.getO[Sfen]("fen").filterNot(_.initialOf(variant))
+      val position: Option[Sfen] = r.getO[Sfen]("sfen").filterNot(_.initialOf(variant))
       val startsAt               = r date "startsAt"
       val conditions             = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty
       Tournament(
@@ -101,7 +101,7 @@ object BSONHandlers {
         "clock"      -> o.clock,
         "minutes"    -> o.minutes,
         "variant"    -> o.variant.some.filterNot(_.standard).map(_.id),
-        "fen"        -> o.position.map(_.value),
+        "sfen"       -> o.position.map(_.value),
         "mode"       -> o.mode.some.filterNot(_.rated).map(_.id),
         "password"   -> o.password,
         "conditions" -> o.conditions.ifNonEmpty,

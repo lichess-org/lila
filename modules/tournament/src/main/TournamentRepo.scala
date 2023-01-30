@@ -321,7 +321,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
           tour.hasChat option "chat",
           tour.password.isEmpty option "password",
           tour.conditions.list.isEmpty option "conditions",
-          tour.position.isEmpty option "fen",
+          tour.position.isEmpty option "sfen",
           tour.variant.standard option "variant"
         ).flatten
       )

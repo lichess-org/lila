@@ -16,7 +16,7 @@ private object StormBsonHandlers {
   implicit val StormPuzzleBSONReader = new BSONDocumentReader[StormPuzzle] {
     def readDocument(r: BSONDocument) = for {
       id      <- r.getAsTry[Puzzle.Id]("_id")
-      sfen    <- r.getAsTry[Sfen]("fen")
+      sfen    <- r.getAsTry[Sfen]("sfen")
       lineStr <- r.getAsTry[String]("line")
       line <- lineStr
         .split(' ')
