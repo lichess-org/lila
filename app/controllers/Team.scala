@@ -143,9 +143,10 @@ final class Team(
     }
 
   def edit(id: TeamId) =
-    Auth { implicit ctx => _ =>
+    Auth { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
-        fuccess(html.team.form.edit(team, forms edit team))
+        env.msg.twoFactorReminder(me.id) inject
+          html.team.form.edit(team, forms edit team)
       }
     }
 
