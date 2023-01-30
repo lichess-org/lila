@@ -54,7 +54,7 @@ final private class RelayFetch(
             if (rt.tour.official) irc.broadcastError(rt.round.id.value, rt.fullName, msg)
             api.update(rt.round)(_.finish)
           else fuccess(rt.round)
-        }.sequenceFu
+        }.parallel
       }
       .void
 
@@ -149,7 +149,7 @@ final private class RelayFetch(
             if (games.size == ids.size)
               games.map { case (game, fen) =>
                 pgnDump(game, fen, gameIdsUpstreamPgnFlags).dmap(_.render)
-              }.sequenceFu dmap MultiPgn.apply
+              }.parallel dmap MultiPgn.apply
             else
               throw LilaInvalid(
                 s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)) mkString ", "}"
@@ -204,7 +204,7 @@ final private class RelayFetch(
                   } map { _.toPgn(pairing.tags) }
               }) map (number -> _)
             }
-            .sequenceFu
+            .parallel
             .map { results =>
               MultiPgn(results.sortBy(_._1).map(_._2))
             }

@@ -38,7 +38,7 @@ object Dependencies {
   object specs2 {
     val version = "5.2.0"
     val core    = "org.specs2" %% "specs2-core" % version  % Test
-    val cats    = "org.specs2" %% "specs2-cats" % "4.19.0" % Test
+    val cats    = "org.specs2" %% "specs2-cats" % "4.19.2" % Test
     val bundle  = Seq(core, cats)
   }
 

@@ -68,7 +68,7 @@ final class RankingApi(
                   )
                 }
               }
-            }.sequenceFu.dmap(_.flatten)
+            }.parallel.dmap(_.flatten)
           }
       }
     }

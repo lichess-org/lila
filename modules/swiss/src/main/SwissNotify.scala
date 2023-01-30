@@ -38,6 +38,6 @@ final private class SwissNotify(mongo: SwissMongo)(using Executor, akka.actor.Sc
                 )
               }
           }
-        }.sequenceFu.void
+        }.parallel.void
       }
   }

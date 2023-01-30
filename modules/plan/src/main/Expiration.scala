@@ -18,7 +18,7 @@ final private class Expiration(
         patronColl.update.one($id(patron.id), patron.removePayPal) >>
           disableUserPlanOf(patron) >>-
           logger.info(s"Expired $patron")
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   private def disableUserPlanOf(patron: Patron): Funit =

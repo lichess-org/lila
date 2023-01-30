@@ -76,7 +76,7 @@ final private class PushApi(
             }
           }
         }
-        .sequenceFu
+        .parallel
         .void
 
   def move(move: MoveEvent): Funit =

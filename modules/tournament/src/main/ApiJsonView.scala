@@ -13,9 +13,9 @@ final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
   import Condition.JSONHandlers.given
 
   def apply(tournaments: VisibleTournaments)(using Lang): Fu[JsObject] = for
-    created  <- tournaments.created.map(fullJson).sequenceFu
-    started  <- tournaments.started.map(fullJson).sequenceFu
-    finished <- tournaments.finished.map(fullJson).sequenceFu
+    created  <- tournaments.created.map(fullJson).parallel
+    started  <- tournaments.started.map(fullJson).parallel
+    finished <- tournaments.finished.map(fullJson).parallel
   yield Json.obj(
     "created"  -> created,
     "started"  -> started,
@@ -23,7 +23,7 @@ final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
   )
 
   def featured(tournaments: List[Tournament])(using Lang): Fu[JsObject] =
-    tournaments.map(fullJson).sequenceFu map { objs =>
+    tournaments.map(fullJson).parallel map { objs =>
       Json.obj("featured" -> objs)
     }
 

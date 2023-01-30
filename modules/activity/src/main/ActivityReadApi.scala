@@ -49,7 +49,7 @@ final class ActivityReadApi(
       }
       views <- activities.map { a =>
         one(practiceStructure, a).mon(_.user segment "activity.view")
-      }.sequenceFu
+      }.parallel
       _ <- preloadAll(views)
     } yield addSignup(u.createdAt, views)
 

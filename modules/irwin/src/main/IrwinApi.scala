@@ -156,6 +156,6 @@ final class IrwinApi(
           .map { modId =>
             notifyApi.notifyOne(modId, lila.notify.IrwinDone(report.suspectId.value))
           }
-          .sequenceFu
+          .parallel
           .void
       }

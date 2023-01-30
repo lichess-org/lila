@@ -331,7 +331,7 @@ final class StudyApi(
                   case (node, path) if node.forceVariation =>
                     doForceVariation(Study.WithChapter(study, newChapter), path, force = false, who)
                 }
-                .sequenceFu
+                .parallel
                 .void
           case None =>
             fufail(s"Invalid promoteToMainline $studyId $position") >>-

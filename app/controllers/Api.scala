@@ -90,7 +90,7 @@ final class Api(
           (env.round.playing(u.id) ?? env.game.cached.lastPlayedPlayingId(u.id)) map { gameId =>
             toJson(u).add("playingId", gameId)
           }
-        }.sequenceFu map toApiResult
+        }.parallel map toApiResult
         else fuccess(toApiResult(users map toJson))
       }
     }
@@ -412,7 +412,7 @@ final class Api(
         lila.mon.api.activity.increment(1)
         env.user.repo byId name flatMapz { user =>
           env.activity.read.recentAndPreload(user) flatMap {
-            _.map { env.activity.jsonView(_, user) }.sequenceFu
+            _.map { env.activity.jsonView(_, user) }.parallel
           }
         } map toApiResult
       }(fuccess(ApiResult.Limited))

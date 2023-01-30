@@ -55,7 +55,7 @@ final class Cached(
             .map { perf =>
               rankingApi.topPerf(perf.id, 1)
             }
-            .sequenceFu
+            .parallel
             .dmap(_.flatten)
         }
       }

@@ -65,15 +65,15 @@ final class Syncache[K, V](
             else default(k)
 
   // maybe optimize later with cache batching
-  def asyncMany(ks: List[K]): Fu[List[V]] = ks.map(async).sequenceFu
+  def asyncMany(ks: List[K]): Fu[List[V]] = ks.map(async).parallel
 
   def invalidate(k: K): Unit = cache invalidate k
 
   def preloadOne(k: K): Funit = async(k).void
 
   // maybe optimize later with cache batching
-  def preloadMany(ks: Seq[K]): Funit = ks.distinct.map(preloadOne).sequenceFu.void
-  def preloadSet(ks: Set[K]): Funit  = ks.map(preloadOne).sequenceFu.void
+  def preloadMany(ks: Seq[K]): Funit = ks.distinct.map(preloadOne).parallel.void
+  def preloadSet(ks: Set[K]): Funit  = ks.map(preloadOne).parallel.void
 
   def set(k: K, v: V): Unit = cache.put(k, fuccess(v))
 

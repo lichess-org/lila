@@ -205,7 +205,7 @@ final class TeamApi(
           teamRepo.leadersOf(request.team).map {
             _ foreach cached.nbRequests.invalidate
           }
-      }.sequenceFu
+      }.parallel
     }
 
   def doJoin(team: Team, user: User): Funit =
@@ -238,7 +238,7 @@ final class TeamApi(
     cached.teamIdsList(userId) flatMap { teamIds =>
       memberRepo.removeByUser(userId) >>
         requestRepo.removeByUser(userId) >>
-        teamIds.map { teamRepo.incMembers(_, -1) }.sequenceFu.void >>-
+        teamIds.map { teamRepo.incMembers(_, -1) }.parallel.void >>-
         cached.invalidateTeamIds(userId) inject teamIds
     }
 

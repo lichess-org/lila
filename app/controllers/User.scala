@@ -552,7 +552,7 @@ final class User(
                     lila.relation.Related(u, nb.some, followable, _)
                   }
                 }
-                .sequenceFu
+                .parallel
           } yield html.relation.bits.opponents(user, relateds)
         }
     }

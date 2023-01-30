@@ -112,7 +112,7 @@ final class SimulApi(
       repo.findCreated(simulId) flatMapz { simul =>
         simul.start ?? { started =>
           userRepo byId started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
-            started.pairings.zipWithIndex.map(makeGame(started, host)).sequenceFu map { games =>
+            started.pairings.zipWithIndex.map(makeGame(started, host)).parallel map { games =>
               games.headOption foreach { case (game, _) =>
                 socket.startSimul(simul, game)
               }

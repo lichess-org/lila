@@ -174,7 +174,7 @@ final class Team(
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
         given play.api.mvc.Request[?] = ctx.body
-        forms.members.bindFromRequest().value ?? { api.kickMembers(team, _, me).sequenceFu } inject Redirect(
+        forms.members.bindFromRequest().value ?? { api.kickMembers(team, _, me).parallel } inject Redirect(
           routes.Team.show(team.id)
         ).flashSuccess
       }

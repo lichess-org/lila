@@ -18,7 +18,7 @@ final class ForumTextExpand(using Executor, akka.actor.Scheduler):
     }
 
   private def many(texts: Seq[String])(using config.NetDomain): Fu[Seq[Frag]] =
-    texts.map(one).sequenceFu
+    texts.map(one).parallel
 
   def manyPosts(posts: Seq[ForumPost])(using config.NetDomain): Fu[Seq[ForumPost.WithFrag]] =
     many(posts.map(_.text)) map {

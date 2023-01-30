@@ -35,7 +35,7 @@ final class MentionNotifier(
               )
             )
           }
-          .sequenceFu
+          .parallel
           .void
       }
     }

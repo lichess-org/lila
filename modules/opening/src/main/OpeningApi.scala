@@ -49,7 +49,7 @@ final class OpeningApi(
             games <- gameRepo.gamesFromSecondary(stats.??(_.games).map(_.id))
             withPgn <- games.map { g =>
               pgnDump(g, None, PgnDump.WithFlags(evals = false)) dmap { GameWithPgn(g, _) }
-            }.sequenceFu
+            }.parallel
           } yield OpeningPage(query, stats, withPgn, historyPercent(history, allHistory), wiki).some
       }
 

@@ -457,7 +457,7 @@ final class GameRepo(val coll: Coll)(using Executor):
   def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen.Epd])]] =
     games.map { game =>
       initialFen(game) dmap { game -> _ }
-    }.sequenceFu
+    }.parallel
 
   def count(query: Query.type => Bdoc): Fu[Int]    = coll countSel query(Query)
   def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondaryPreferred countSel query(Query)

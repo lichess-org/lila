@@ -78,7 +78,7 @@ final class AssessApi(
                     createPlayerAssessment(PlayerAssessment.make(pov, analysis, holdAlerts(pov.color)))
                   }
                 }
-                .sequenceFu
+                .parallel
                 .void
             }
     }
@@ -120,7 +120,7 @@ final class AssessApi(
           analysisRepo.byGame(g) flatMapz {
             onAnalysisReady(g, _, thenAssessUser = false)
           }
-        }.sequenceFu
+        }.parallel
           .void
       }) >> assessUser(user.id)
 

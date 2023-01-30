@@ -42,7 +42,7 @@ final private class MsgNotify(
         cancel(thread.id)
         notifyApi.remove(thread other user, $doc("content.user" -> user.id)).void
       }
-      .sequenceFu
+      .parallel
       .void
 
   private def schedule(threadId: MsgThread.Id): Unit =

@@ -84,7 +84,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
             )
           )
           .void
-      }.sequenceFu >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
+      }.parallel >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
     } inject NoContent
 
   private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId]) =

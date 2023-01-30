@@ -170,8 +170,8 @@ final class CoachApi(
         reviews <- reviewColl.list[CoachReview]($doc("userId" -> userId))
         _ <- reviews.map { review =>
           reviewColl.delete.one($doc("userId" -> review.userId)).void
-        }.sequenceFu
-        _ <- reviews.map(_.coachId).distinct.map(refreshCoachNbReviews).sequenceFu
+        }.parallel
+        _ <- reviews.map(_.coachId).distinct.map(refreshCoachNbReviews).parallel
       } yield ()
 
     private def findRecent(selector: Bdoc): Fu[CoachReview.Reviews] =

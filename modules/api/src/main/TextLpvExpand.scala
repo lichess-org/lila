@@ -33,7 +33,7 @@ final class TextLpvExpand(
       .map { case (matched, id) =>
         pgnCache.get(GameId(id)) map2 { matched -> _ }
       }
-      .sequenceFu
+      .parallel
       .map(_.flatten.toMap) map { matches => (url: String, text: String) =>
       matches
         .get(url)

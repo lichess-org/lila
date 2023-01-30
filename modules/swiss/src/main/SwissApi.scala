@@ -142,7 +142,7 @@ final class SwissApi(
           SwissPlayer.Fields.provisional -> perf.provisional.yes.option(true)
         )
       )
-    }.sequenceFu
+    }.parallel
     _ <- elements.nonEmpty ?? update.many(elements).void
   } yield ()
 
@@ -355,7 +355,7 @@ final class SwissApi(
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
 
   private def kickFromSwissIds(userId: UserId, swissIds: Seq[SwissId], forfeit: Boolean = false): Funit =
-    swissIds.map { withdraw(_, userId, forfeit) }.sequenceFu.void
+    swissIds.map { withdraw(_, userId, forfeit) }.parallel.void
 
   def withdraw(id: SwissId, userId: UserId, forfeit: Boolean = false): Funit =
     Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
@@ -383,7 +383,7 @@ final class SwissApi(
             .map { pairing =>
               mongo.pairing.update.one($id(pairing.id), pairing forfeit userId)
             }
-            .sequenceFu
+            .parallel
             .void
         }
     }
@@ -611,9 +611,9 @@ final class SwissApi(
               finished
             }
           } flatMap {
-            _.map(finishGame).sequenceFu.void
+            _.map(finishGame).parallel.void
           }
-        }.sequenceFu.void
+        }.parallel.void
       }
 
   private def systemChat(id: SwissId, text: String, volatile: Boolean = false): Unit =
@@ -647,7 +647,7 @@ final class SwissApi(
       }
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
       .flatMap {
-        _.map { withdraw(_, user.id) }.sequenceFu.void
+        _.map { withdraw(_, user.id) }.parallel.void
       }
 
   def isUnfinished(id: SwissId): Fu[Boolean] =

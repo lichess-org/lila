@@ -74,7 +74,7 @@ final class StreamerApi(
             "lastStreamLang" -> Lang.get(s.lang).map(_.language)
           )
         )
-      }.sequenceFu
+      }.parallel
       _            <- elements.nonEmpty ?? update.many(elements).void
       candidateIds <- cache.candidateIds.getUnit
     } yield if (streams.map(_.streamer.id).exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()

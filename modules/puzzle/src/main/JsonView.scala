@@ -123,7 +123,7 @@ final class JsonView(
           "puzzle" -> puzzleJson(puzzle)
         )
       }
-    }.sequenceFu
+    }.parallel
   } yield Json.obj("puzzles" -> jsons)
 
   object bc:
@@ -151,7 +151,7 @@ final class JsonView(
             "puzzle" -> puzzleJson(puzzle)
           )
         }
-      }.sequenceFu
+      }.parallel
     } yield Json
       .obj("puzzles" -> jsons)
       .add("user" -> user.map(_.perfs.puzzle.intRating).map(userJson))

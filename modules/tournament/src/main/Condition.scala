@@ -152,7 +152,7 @@ object Condition:
         case c: MaxRating  => c(getMaxRating)(user) map c.withVerdict
         case c: FlatCond   => fuccess(c withVerdict c(user))
         case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
-      }.sequenceFu dmap All.WithVerdicts.apply
+      }.parallel dmap All.WithVerdicts.apply
 
     def withRejoinVerdicts(user: User, getUserTeamIds: User => Fu[List[TeamId]])(using
         Executor
@@ -160,7 +160,7 @@ object Condition:
       list.map {
         case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
         case c             => fuccess(WithVerdict(c, Accepted))
-      }.sequenceFu dmap All.WithVerdicts.apply
+      }.parallel dmap All.WithVerdicts.apply
 
     def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
 
