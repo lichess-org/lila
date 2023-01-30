@@ -81,7 +81,7 @@ final class Api(
       env.user.lightUserApi asyncMany ids dmap (_.flatten) flatMap { users =>
         val streamingIds = env.streamer.liveStreamApi.userIds
         def toJson(u: LightUser) =
-          lila.common.LightUser.lightUserWrites
+          LightUser.lightUserWrites
             .writes(u)
             .add("online" -> env.socket.isOnline.value(u.id))
             .add("playing" -> env.round.playing(u.id))
@@ -376,18 +376,21 @@ final class Api(
     if (ids.size > max) JsonBadRequest(jsonError(s"Too many ids: ${ids.size}, expected up to $max"))
     else f(ids)
 
-  def cloudEval =
+  val cloudEval =
+    val rateLimit = lila.memo.RateLimit[IpAddress](2_000, 1.day, "cloud-eval.api.ip")
     Action.async { req =>
-      get("fen", req).fold(notFoundJson("Missing FEN")) { fen =>
-        import chess.variant.Variant
-        JsonOptionOk(
-          env.evalCache.api.getEvalJson(
-            Variant.orDefault(getAs[Variant.LilaKey]("variant", req)),
-            chess.format.Fen.Epd.clean(fen),
-            getIntAs[MultiPv]("multiPv", req) | MultiPv(1)
+      rateLimit(HTTPRequest ipAddress req) {
+        get("fen", req).fold(notFoundJson("Missing FEN")) { fen =>
+          import chess.variant.Variant
+          JsonOptionOk(
+            env.evalCache.api.getEvalJson(
+              Variant.orDefault(getAs[Variant.LilaKey]("variant", req)),
+              chess.format.Fen.Epd.clean(fen),
+              getIntAs[MultiPv]("multiPv", req) | MultiPv(1)
+            )
           )
-        )
-      }
+        }
+      }(rateLimitedFu)
     }
 
   def eventStream =
