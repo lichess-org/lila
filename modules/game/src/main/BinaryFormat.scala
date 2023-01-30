@@ -12,8 +12,6 @@ import org.lishogi.compression.clock.{ Encoder => ClockEncoder }
 import lila.db.ByteArray
 
 object BinaryFormat {
-  private val maxLimit = Game.maxChushogiPlies
-
   object usi {
     def write(moves: UsiMoves, variant: Variant): ByteArray =
       ByteArray {
@@ -21,7 +19,7 @@ object BinaryFormat {
       }
 
     def read(ba: ByteArray, variant: Variant): UsiMoves =
-      shogi.format.usi.Binary.decodeMoves(ba.value.toList, variant, maxLimit)
+      shogi.format.usi.Binary.decodeMoves(ba.value.toList, variant, Game.maxPlies(variant))
 
   }
 

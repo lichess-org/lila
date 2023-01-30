@@ -54,11 +54,11 @@ object BSONHandlers {
       val startedAtColor = initialSfen.flatMap(_.color) | Sente
       val startedAtPly   = startedAtMove - (if ((startedAtMove % 2 == 1) == startedAtColor.sente) 1 else 0)
 
-      val plies     = r int F.plies atMost Game.maxPlies // unlimited can cause StackOverflowError
-      val plyColor  = Color.fromPly(plies)
-      val createdAt = r date F.createdAt
-
       val gameVariant = Variant(r intD F.variant) | shogi.variant.Standard
+
+      val plies    = r int F.plies atMost Game.maxPlies(gameVariant) // unlimited can cause StackOverflowError
+      val plyColor = Color.fromPly(plies)
+      val createdAt = r date F.createdAt
 
       val periodEntries = BinaryFormat.periodEntries
         .read(
