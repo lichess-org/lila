@@ -218,6 +218,8 @@
   <string name="email">Email</string>
   <string name="passwordReset">Resetează parola</string>
   <string name="forgotPassword">Ți-ai uitat parola?</string>
+  <string name="error.weakPassword">Această parolă este extrem de comună şi prea uşor de ghicit.</string>
+  <string name="error.namePassword">Te rugăm să nu folosești numele tău de utilizator ca parolă.</string>
   <string name="emailConfirmHelp">Ajutor cu confirmarea adresei de email</string>
   <string name="emailConfirmNotReceived">Nu ai primit emailul de confirmare după înregistrare?</string>
   <string name="whatSignupUsername">Ce nume de utilizator ai folosit pentru a te înregistra?</string>
