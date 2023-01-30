@@ -3,7 +3,6 @@ package lila.memo
 import akka.stream.scaladsl.{ FileIO, Source }
 import akka.util.ByteString
 import com.github.blemale.scaffeine.LoadingCache
-import org.joda.time.DateTime
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.mvc.MultipartFormData

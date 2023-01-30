@@ -2,7 +2,6 @@ package lila.user
 
 import lila.db.dsl.{ *, given }
 import lila.memo.*
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import ornicar.scalalib.ThreadLocalRandom
 

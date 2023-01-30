@@ -1,7 +1,5 @@
 package lila.report
 
-import org.joda.time.DateTime
-
 import lila.game.{ Game, GameRepo }
 
 final class AutoAnalysis(

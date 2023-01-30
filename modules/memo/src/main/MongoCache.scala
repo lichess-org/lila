@@ -2,7 +2,6 @@ package lila.memo
 
 import CacheApi.*
 import com.github.blemale.scaffeine.AsyncLoadingCache
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }

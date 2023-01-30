@@ -1,7 +1,5 @@
 package lila.irc
 
-import org.joda.time.DateTime
-
 import lila.common.IpAddress
 import lila.common.{ ApiVersion, EmailAddress, Heapsort, IpAddress, LightUser }
 import lila.hub.actorApi.irc.*

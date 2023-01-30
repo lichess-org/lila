@@ -2,7 +2,6 @@ package lila.swiss
 
 import akka.stream.scaladsl.*
 import BsonHandlers.given
-import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 

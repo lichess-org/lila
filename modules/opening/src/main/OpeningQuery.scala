@@ -6,7 +6,6 @@ import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 import chess.Replay
 import chess.variant.Standard
 import chess.{ Situation, Speed }
-import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
 import lila.common.LilaOpeningFamily

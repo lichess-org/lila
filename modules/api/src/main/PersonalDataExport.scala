@@ -2,7 +2,6 @@ package lila.api
 
 import akka.stream.Materializer
 import akka.stream.scaladsl.*
-import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference

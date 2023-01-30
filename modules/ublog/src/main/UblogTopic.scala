@@ -1,6 +1,5 @@
 package lila.ublog
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
 

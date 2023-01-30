@@ -1,7 +1,5 @@
 package lila.insight
 
-import org.joda.time.DateTime
-
 case class DateRange(min: DateTime, max: DateTime)
 
 case class Period(days: Int):

@@ -1,6 +1,5 @@
 package lila.swiss
 
-import org.joda.time.DateTime
 import chess.Clock.{ LimitMinutes, LimitSeconds, IncrementSeconds }
 
 import lila.db.dsl.{ *, given }

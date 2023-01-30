@@ -1,7 +1,6 @@
 package lila.tournament
 package crud
 
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 

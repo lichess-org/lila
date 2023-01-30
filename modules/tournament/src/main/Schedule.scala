@@ -3,7 +3,6 @@ package lila.tournament
 import chess.format.Fen
 import chess.variant.Variant
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
-import org.joda.time.DateTime
 import play.api.i18n.Lang
 
 import lila.i18n.I18nKeys

@@ -1,6 +1,5 @@
 package lila.plan
 
-import org.joda.time.DateTime
 import cats.implicits.*
 import ornicar.scalalib.ThreadLocalRandom
 

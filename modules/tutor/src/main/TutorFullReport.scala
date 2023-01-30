@@ -1,7 +1,5 @@
 package lila.tutor
 
-import org.joda.time.DateTime
-
 import lila.common.Heapsort.given
 import lila.rating.PerfType
 import lila.user.User

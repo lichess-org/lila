@@ -1,6 +1,5 @@
 package views.html.search
 
-import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.data.Form
 import play.api.i18n.Lang

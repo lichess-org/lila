@@ -1,6 +1,5 @@
 package lila.mod
 
-import org.joda.time.DateTime
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 

@@ -9,7 +9,6 @@ import lila.rating.{ PerfType, UserRankMap }
 import play.api.i18n.Lang
 import lila.common.Json.given
 import lila.security.Granter
-import org.joda.time.DateTime
 
 final class UserApi(
     jsonView: lila.user.JsonView,

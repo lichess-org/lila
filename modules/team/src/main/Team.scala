@@ -1,6 +1,5 @@
 package lila.team
 
-import org.joda.time.DateTime
 import java.security.MessageDigest
 import java.nio.charset.StandardCharsets.UTF_8
 import scala.util.chaining.*

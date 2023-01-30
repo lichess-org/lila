@@ -1,7 +1,5 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
-
 import chess.Ply
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, UciMemo }

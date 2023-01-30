@@ -1,7 +1,5 @@
 package lila.practice
 
-import org.joda.time.DateTime
-
 import lila.user.User
 import lila.study.{ Chapter, Study }
 import lila.common.Iso

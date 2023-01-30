@@ -1,6 +1,5 @@
 package lila.clas
 
-import org.joda.time.DateTime
 import ornicar.scalalib.SecureRandom
 
 import lila.user.User

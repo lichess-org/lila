@@ -1,6 +1,5 @@
 package lila.user
 
-import org.joda.time.DateTime
 import play.api.i18n.Lang
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }

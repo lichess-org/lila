@@ -1,6 +1,5 @@
 package lila.puzzle
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }

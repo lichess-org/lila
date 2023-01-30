@@ -1,7 +1,5 @@
 package lila.coach
 
-import org.joda.time.DateTime
-
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.notify.NotifyApi

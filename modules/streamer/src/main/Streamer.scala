@@ -1,7 +1,5 @@
 package lila.streamer
 
-import org.joda.time.DateTime
-
 import lila.memo.PicfitImage
 import lila.user.User
 

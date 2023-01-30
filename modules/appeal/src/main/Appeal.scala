@@ -1,6 +1,5 @@
 package lila.appeal
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.user.User

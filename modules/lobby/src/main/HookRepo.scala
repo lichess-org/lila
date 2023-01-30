@@ -1,7 +1,5 @@
 package lila.lobby
 
-import org.joda.time.DateTime
-
 import lila.common.{ Heapsort, MultiKeyMap }
 import lila.socket.Socket.Sri
 import scala.collection.View

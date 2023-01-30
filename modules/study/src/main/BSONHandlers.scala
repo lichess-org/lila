@@ -4,7 +4,6 @@ import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags, SanStr }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ Centis, Color, Pos, PromotableRole, Role, Outcome, Ply, Check }
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import scala.util.Success
 

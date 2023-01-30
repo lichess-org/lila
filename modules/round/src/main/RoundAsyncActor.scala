@@ -3,7 +3,6 @@ package lila.round
 import actorApi.*, round.*
 import alleycats.Zero
 import chess.{ Black, Centis, Color, White }
-import org.joda.time.DateTime
 import play.api.libs.json.*
 import scala.util.chaining.*
 

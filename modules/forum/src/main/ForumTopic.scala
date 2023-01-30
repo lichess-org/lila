@@ -1,6 +1,5 @@
 package lila.forum
 
-import org.joda.time.DateTime
 import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
 

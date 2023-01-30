@@ -2,7 +2,6 @@ package lila.evalCache
 
 import chess.format.Fen
 import chess.variant.Variant
-import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 
 import lila.db.AsyncCollFailingSilently

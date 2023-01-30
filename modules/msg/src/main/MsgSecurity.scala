@@ -1,7 +1,5 @@
 package lila.msg
 
-import org.joda.time.DateTime
-
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }

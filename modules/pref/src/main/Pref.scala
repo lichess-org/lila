@@ -1,7 +1,5 @@
 package lila.pref
 
-import org.joda.time.DateTime
-
 import lila.user.User
 
 case class Pref(

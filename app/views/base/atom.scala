@@ -1,7 +1,6 @@
 package views.html.base
 
 import controllers.routes
-import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.mvc.Call
 

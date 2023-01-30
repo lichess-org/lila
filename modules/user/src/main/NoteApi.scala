@@ -1,7 +1,6 @@
 package lila.user
 
 import lila.db.dsl.{ *, given }
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 case class Note(

@@ -1,7 +1,6 @@
 package lila.irwin
 
 import chess.Speed
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.Cursor
 import reactivemongo.api.ReadPreference

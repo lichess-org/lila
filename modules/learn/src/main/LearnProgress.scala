@@ -1,7 +1,5 @@
 package lila.learn
 
-import org.joda.time.DateTime
-
 case class LearnProgress(
     _id: UserId,
     stages: Map[String, StageProgress],

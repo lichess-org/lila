@@ -1,6 +1,5 @@
 package lila.forum
 
-import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 import scala.util.chaining.*

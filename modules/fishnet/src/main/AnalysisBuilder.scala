@@ -1,7 +1,5 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
-
 import chess.Ply
 import chess.format.Uci
 import chess.format.pgn.SanStr

@@ -1,6 +1,5 @@
 package lila.bookmark
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }

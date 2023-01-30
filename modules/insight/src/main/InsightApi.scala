@@ -1,6 +1,5 @@
 package lila.insight
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 
 import lila.common.config

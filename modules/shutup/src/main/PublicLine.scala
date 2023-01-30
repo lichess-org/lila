@@ -1,6 +1,5 @@
 package lila.shutup
 
-import org.joda.time.DateTime
 import scala.util.Success
 import lila.db.dsl.given
 

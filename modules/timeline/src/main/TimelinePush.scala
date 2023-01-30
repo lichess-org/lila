@@ -1,7 +1,6 @@
 package lila.timeline
 
 import akka.actor.*
-import org.joda.time.DateTime
 
 import lila.common.config.Max
 import lila.hub.actorApi.timeline.Propagation

@@ -1,7 +1,5 @@
 package lila.chat
 
-import org.joda.time.DateTime
-
 import lila.user.User
 
 final class ChatPanic:

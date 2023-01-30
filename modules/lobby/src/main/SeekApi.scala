@@ -1,7 +1,5 @@
 package lila.lobby
 
-import org.joda.time.DateTime
-
 import lila.common.config.*
 import lila.db.dsl.{ *, given }
 import lila.user.User

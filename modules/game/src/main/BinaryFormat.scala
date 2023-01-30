@@ -4,7 +4,6 @@ import chess.*
 import chess.format.Uci
 import chess.format.pgn.SanStr
 import chess.variant.Variant
-import org.joda.time.DateTime
 import org.lichess.compression.clock.{ Encoder as ClockEncoder }
 import scala.util.Try
 

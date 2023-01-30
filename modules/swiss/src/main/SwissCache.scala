@@ -1,7 +1,5 @@
 package lila.swiss
 
-import org.joda.time.DateTime
-
 import lila.db.dsl.{ *, given }
 import lila.memo.*
 import lila.memo.CacheApi.*

@@ -3,8 +3,6 @@ package lila.plan
 import lila.db.dsl.{ *, given }
 import lila.user.UserRepo
 
-import org.joda.time.DateTime
-
 final private class Expiration(
     userRepo: UserRepo,
     patronColl: Coll,

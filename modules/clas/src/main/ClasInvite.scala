@@ -1,6 +1,5 @@
 package lila.clas
 
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.{ Holder, User }

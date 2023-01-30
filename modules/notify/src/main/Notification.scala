@@ -1,6 +1,5 @@
 package lila.notify
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.Macros.Annotations.Key
 import ornicar.scalalib.ThreadLocalRandom
 import alleycats.Zero

@@ -1,7 +1,6 @@
 package lila.swiss
 
 import chess.{ Black, Color, White }
-import org.joda.time.DateTime
 import scala.util.chaining.*
 
 import lila.db.dsl.{ *, given }

@@ -1,6 +1,5 @@
 package lila.streamer
 
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import play.api.i18n.Lang
 

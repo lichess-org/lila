@@ -1,7 +1,5 @@
 package lila.irwin
 
-import org.joda.time.DateTime
-
 import lila.report.SuspectId
 import lila.user.User
 import lila.report.Suspect

@@ -1,6 +1,5 @@
 package lila.notify
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.ElementProducer
 
 import lila.db.dsl.{ *, given }

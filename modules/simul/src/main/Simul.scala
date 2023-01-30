@@ -5,7 +5,6 @@ import chess.Color
 import chess.format.Fen
 import chess.variant.Variant
 import chess.Speed
-import org.joda.time.DateTime
 
 import lila.rating.PerfType
 import lila.user.User

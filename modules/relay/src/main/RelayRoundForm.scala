@@ -1,7 +1,6 @@
 package lila.relay
 
 import io.mola.galimatias.URL
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import scala.util.Try

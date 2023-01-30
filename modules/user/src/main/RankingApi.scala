@@ -1,6 +1,5 @@
 package lila.user
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import scala.util.Success
 

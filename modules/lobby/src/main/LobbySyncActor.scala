@@ -2,7 +2,6 @@ package lila.lobby
 
 import actorApi.*
 import cats.implicits.*
-import org.joda.time.DateTime
 
 import lila.common.config.Max
 import lila.common.{ Bus, LilaScheduler }

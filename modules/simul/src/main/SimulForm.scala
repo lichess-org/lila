@@ -4,7 +4,6 @@ import cats.implicits.*
 import chess.format.{ Fen, OpeningFen }
 import chess.StartingPosition
 import chess.variant.Variant
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraint

@@ -1,7 +1,5 @@
 package lila.irwin
 
-import org.joda.time.DateTime
-
 import lila.game.{ Game, Pov }
 import lila.report.SuspectId
 

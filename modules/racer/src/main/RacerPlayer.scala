@@ -1,6 +1,5 @@
 package lila.racer
 
-import org.joda.time.DateTime
 import lila.common.CuteNameGenerator
 import lila.user.User
 import lila.common.LightUser

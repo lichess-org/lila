@@ -1,6 +1,5 @@
 package lila.puzzle
 
-import org.joda.time.DateTime
 import org.joda.time.Days
 
 import lila.db.dsl.{ *, given }

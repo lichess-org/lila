@@ -1,6 +1,5 @@
 package lila.coach
 
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.i18n.Lang

@@ -2,7 +2,6 @@ package lila.fishnet
 
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
-import org.joda.time.DateTime
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }

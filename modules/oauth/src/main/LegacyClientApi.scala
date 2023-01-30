@@ -1,6 +1,5 @@
 package lila.oauth
 
-import org.joda.time.DateTime
 import com.roundeights.hasher.Algo
 
 import lila.db.dsl.{ *, given }

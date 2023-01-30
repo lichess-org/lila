@@ -1,6 +1,5 @@
 package lila.rating
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.{ BSONDocument, Macros }
 
 import lila.db.BSON

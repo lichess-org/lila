@@ -1,6 +1,5 @@
 package lila.video
 
-import org.joda.time.DateTime
 import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.JsonBodyReadables.*

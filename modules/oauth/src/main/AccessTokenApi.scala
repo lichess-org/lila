@@ -1,6 +1,5 @@
 package lila.oauth
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 
 import lila.common.Bearer

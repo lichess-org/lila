@@ -2,7 +2,6 @@ package lila.api
 
 import akka.actor.*
 import akka.stream.scaladsl.*
-import org.joda.time.DateTime
 import play.api.libs.json.*
 
 import lila.challenge.Challenge

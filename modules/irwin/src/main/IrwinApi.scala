@@ -1,6 +1,5 @@
 package lila.irwin
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 

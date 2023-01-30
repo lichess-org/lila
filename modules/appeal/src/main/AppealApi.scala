@@ -1,7 +1,5 @@
 package lila.appeal
 
-import org.joda.time.DateTime
-
 import lila.db.dsl.{ given, * }
 import lila.user.{ Holder, NoteApi, User, UserRepo }
 import reactivemongo.api.ReadPreference

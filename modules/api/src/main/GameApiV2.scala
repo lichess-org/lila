@@ -3,7 +3,6 @@ package lila.api
 import akka.stream.scaladsl.*
 import chess.format.Fen
 import chess.format.pgn.{ Tag, PgnStr }
-import org.joda.time.DateTime
 import play.api.libs.json.*
 
 import lila.analyse.{ Analysis, AccuracyPercent, JsonView as analysisJson }

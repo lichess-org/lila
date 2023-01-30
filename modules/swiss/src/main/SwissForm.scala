@@ -4,7 +4,6 @@ import chess.Clock.{ Config as ClockConfig, LimitMinutes, LimitSeconds, Incremen
 import chess.Speed
 import chess.format.Fen
 import chess.variant.Variant
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation

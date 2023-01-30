@@ -1,7 +1,6 @@
 package lila.gameSearch
 
 import chess.{ Mode, Status }
-import org.joda.time.DateTime
 
 import lila.common.Json.given
 import lila.rating.RatingRange

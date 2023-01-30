@@ -1,7 +1,6 @@
 package lila.report
 
 import com.softwaremill.macwire.*
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 
 import lila.common.{ Bus, Heapsort }

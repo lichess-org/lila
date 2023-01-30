@@ -3,7 +3,6 @@ package lila.swiss
 import chess.Clock.{ Config as ClockConfig }
 import chess.format.Fen
 import chess.Speed
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType

@@ -1,6 +1,5 @@
 package lila.oauth
 
-import org.joda.time.DateTime
 import play.api.mvc.{ RequestHeader, Result }
 
 import lila.common.{ Bearer, HTTPRequest, Strings }

@@ -2,7 +2,6 @@ package lila.tournament
 package arena
 
 import chess.variant.Variant
-import org.joda.time.DateTime
 import lila.user.User
 
 // most recent first

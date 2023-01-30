@@ -1,6 +1,5 @@
 package lila.round
 
-import org.joda.time.DateTime
 import play.api.libs.json.*
 
 import chess.format.{ Uci, Fen }

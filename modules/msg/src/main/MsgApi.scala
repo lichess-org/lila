@@ -1,7 +1,6 @@
 package lila.msg
 
 import akka.stream.scaladsl.*
-import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 import scala.util.Try

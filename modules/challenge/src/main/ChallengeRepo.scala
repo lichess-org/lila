@@ -1,6 +1,5 @@
 package lila.challenge
 
-import org.joda.time.DateTime
 import scala.annotation.nowarn
 
 import lila.common.config.Max

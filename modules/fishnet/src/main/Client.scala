@@ -5,8 +5,6 @@ import lila.common.IpAddress
 import scala.util.{ Failure, Success, Try }
 import ornicar.scalalib.SecureRandom
 
-import org.joda.time.DateTime
-
 case class Client(
     _id: Client.Key,                   // API key used to authenticate and assign move or analysis
     userId: UserId,                    // lichess user ID

@@ -2,7 +2,6 @@ package lila.puzzle
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
-import org.joda.time.DateTime
 import lila.common.Iso
 
 object PuzzlePath:

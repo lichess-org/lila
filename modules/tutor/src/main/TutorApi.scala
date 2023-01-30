@@ -1,7 +1,6 @@
 package lila.tutor
 
 import com.softwaremill.tagging.*
-import org.joda.time.DateTime
 import play.api.Mode
 
 import lila.common.{ LilaScheduler, Uptime }

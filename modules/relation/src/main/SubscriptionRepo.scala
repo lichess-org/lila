@@ -1,6 +1,5 @@
 package lila.relation
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 

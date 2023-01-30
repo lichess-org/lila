@@ -4,7 +4,6 @@ import akka.stream.scaladsl.*
 import chess.variant.{ FromPosition, Variant }
 import chess.format.Fen
 import chess.{ Clock, Mode }
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json

@@ -1,7 +1,5 @@
 package lila.video
 
-import org.joda.time.DateTime
-
 case class View(
     id: String, // userId/videoId
     videoId: Video.ID,

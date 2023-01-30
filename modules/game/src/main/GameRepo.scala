@@ -3,7 +3,6 @@ package lila.game
 import chess.{ Color, Status }
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, SanStr }
-import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, ReadPreference, WriteConcern }

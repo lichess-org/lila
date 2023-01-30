@@ -1,6 +1,5 @@
 package lila.forum
 
-import org.joda.time.DateTime
 import Filter.*
 import lila.db.dsl.{ *, given }
 import lila.user.User

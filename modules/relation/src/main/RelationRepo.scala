@@ -2,7 +2,6 @@ package lila.relation
 
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import org.joda.time.DateTime
 
 import lila.db.dsl.{ *, given }
 import lila.user.User

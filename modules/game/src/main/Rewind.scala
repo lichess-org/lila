@@ -2,7 +2,6 @@ package lila.game
 
 import cats.data.Validated
 import chess.format.{ pgn as chessPgn, Fen }
-import org.joda.time.DateTime
 
 object Rewind:
 

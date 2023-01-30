@@ -1,7 +1,6 @@
 package lila.clas
 
 import cats.data.NonEmptyList
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User

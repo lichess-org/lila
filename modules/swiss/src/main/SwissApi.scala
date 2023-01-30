@@ -4,7 +4,6 @@ import akka.stream.scaladsl.*
 import alleycats.Zero
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
-import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*

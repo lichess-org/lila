@@ -1,7 +1,6 @@
 package lila.user
 
 import chess.Speed
-import org.joda.time.DateTime
 
 import lila.common.Heapsort.*
 import lila.db.BSON

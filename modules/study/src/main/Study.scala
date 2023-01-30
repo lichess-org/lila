@@ -1,6 +1,5 @@
 package lila.study
 
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 import chess.format.UciPath
 

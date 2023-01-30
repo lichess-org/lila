@@ -2,7 +2,6 @@ package lila.mod
 
 import lila.security.UserLogins
 import lila.user.User
-import org.joda.time.DateTime
 
 export lila.Lila.{ *, given }
 

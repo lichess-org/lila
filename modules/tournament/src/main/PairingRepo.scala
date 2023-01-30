@@ -3,7 +3,6 @@ package lila.tournament
 import akka.stream.Materializer
 import akka.stream.scaladsl.*
 import BSONHandlers.given
-import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference

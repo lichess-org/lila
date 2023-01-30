@@ -3,7 +3,6 @@ package lila.round
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import org.joda.time.DateTime
 
 import chess.format.Uci
 import Forecast.Step

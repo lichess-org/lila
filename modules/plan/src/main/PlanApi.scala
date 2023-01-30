@@ -1,7 +1,6 @@
 package lila.plan
 
 import com.softwaremill.tagging.*
-import org.joda.time.DateTime
 import play.api.i18n.Lang
 import reactivemongo.api.*
 

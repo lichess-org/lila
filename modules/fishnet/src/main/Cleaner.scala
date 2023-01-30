@@ -1,7 +1,6 @@
 package lila.fishnet
 
 import akka.stream.scaladsl.*
-import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 

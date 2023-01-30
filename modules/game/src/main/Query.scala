@@ -1,7 +1,6 @@
 package lila.game
 
 import chess.Status
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }

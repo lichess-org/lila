@@ -1,6 +1,5 @@
 package lila.racer
 
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.storm.StormPuzzle

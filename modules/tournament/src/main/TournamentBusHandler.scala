@@ -1,7 +1,6 @@
 package lila.tournament
 
 import akka.actor.*
-import org.joda.time.DateTime
 
 import lila.game.actorApi.FinishGame
 import lila.user.User

@@ -1,7 +1,5 @@
 package lila.security
 
-import org.joda.time.DateTime
-
 import lila.common.config.Secret
 import lila.user.{ User, UserRepo }
 

@@ -1,6 +1,5 @@
 package lila.clas
 
-import org.joda.time.DateTime
 import reactivemongo.api.*
 import ornicar.scalalib.ThreadLocalRandom
 

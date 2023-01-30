@@ -2,7 +2,6 @@ package lila.puzzle
 
 import cats.implicits.*
 import lila.rating.glicko2
-import org.joda.time.DateTime
 import scala.util.chaining.*
 
 import lila.common.Bus

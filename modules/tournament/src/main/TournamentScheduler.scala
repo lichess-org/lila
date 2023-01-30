@@ -1,8 +1,6 @@
 package lila.tournament
 
 import chess.StartingPosition
-import org.joda.time.DateTime
-import org.joda.time.DateTimeConstants.*
 import scala.util.chaining.*
 
 import lila.common.{ LilaScheduler, LilaStream }

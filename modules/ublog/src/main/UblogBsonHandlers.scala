@@ -1,6 +1,5 @@
 package lila.ublog
 
-import org.joda.time.DateTime
 import play.api.i18n.Lang
 import reactivemongo.api.bson.*
 import scala.util.{ Success, Try }

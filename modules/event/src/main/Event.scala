@@ -1,6 +1,5 @@
 package lila.event
 
-import org.joda.time.DateTime
 import play.api.i18n.Lang
 import ornicar.scalalib.ThreadLocalRandom
 

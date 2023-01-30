@@ -4,7 +4,6 @@ import play.api.data.validation.*
 
 import lila.common.{ Domain, EmailAddress }
 import lila.user.{ User, UserRepo }
-import org.joda.time.DateTime
 
 /** Validate and normalize emails
   */

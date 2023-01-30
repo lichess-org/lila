@@ -1,7 +1,5 @@
 package lila.ublog
 
-import org.joda.time.DateTime
-
 import lila.memo.{ PicfitImage, PicfitUrl }
 import lila.user.User
 import play.api.i18n.Lang

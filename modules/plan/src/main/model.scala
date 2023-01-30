@@ -2,7 +2,6 @@ package lila.plan
 
 import java.text.NumberFormat
 import java.util.{ Currency, Locale }
-import org.joda.time.DateTime
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsObject }
 

@@ -1,7 +1,6 @@
 package lila.tournament
 package crud
 
-import org.joda.time.DateTime
 import scala.util.chaining.*
 import chess.Clock
 import chess.format.Fen

@@ -1,7 +1,6 @@
 package lila.playban
 
 import chess.{ Centis, Color, Status }
-import org.joda.time.DateTime
 import play.api.Mode
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference

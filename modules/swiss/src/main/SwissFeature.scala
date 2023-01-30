@@ -1,6 +1,5 @@
 package lila.swiss
 
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 
 import lila.common.Heapsort

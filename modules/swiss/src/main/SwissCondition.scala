@@ -1,6 +1,5 @@
 package lila.swiss
 
-import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.i18n.Lang
 

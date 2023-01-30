@@ -9,7 +9,6 @@ import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
 import lila.swiss.{ Swiss, SwissApi }
 import lila.simul.{ Simul, SimulApi }
-import org.joda.time.DateTime
 
 case class TeamInfo(
     mine: Boolean,

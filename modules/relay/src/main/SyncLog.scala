@@ -1,7 +1,5 @@
 package lila.relay
 
-import org.joda.time.DateTime
-
 case class SyncLog(events: Vector[SyncLog.Event]) extends AnyVal:
 
   def isOk = events.lastOption.exists(_.isOk)

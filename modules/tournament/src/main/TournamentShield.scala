@@ -1,6 +1,5 @@
 package lila.tournament
 
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }

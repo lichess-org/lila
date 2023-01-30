@@ -1,7 +1,6 @@
 package lila.user
 
 import cats.implicits.*
-import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*

@@ -1,7 +1,6 @@
 package lila.puzzle
 
 import cats.implicits.*
-import org.joda.time.DateTime
 
 import lila.common.paginator.Paginator
 import lila.common.config.{ Max, MaxPerPage }

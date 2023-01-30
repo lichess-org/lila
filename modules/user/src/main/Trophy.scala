@@ -1,7 +1,5 @@
 package lila.user
 
-import org.joda.time.DateTime
-
 case class Trophy(
     _id: String, // random
     user: UserId,

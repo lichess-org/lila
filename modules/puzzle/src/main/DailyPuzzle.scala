@@ -1,7 +1,6 @@
 package lila.puzzle
 
 import akka.pattern.ask
-import org.joda.time.DateTime
 import Puzzle.{ BSONFields as F }
 import ornicar.scalalib.ThreadLocalRandom.odds
 import chess.format.{ BoardFen, Uci }

@@ -1,6 +1,5 @@
 package lila.mod
 
-import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.*
 import reactivemongo.api.ReadPreference

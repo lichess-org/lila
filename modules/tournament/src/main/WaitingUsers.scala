@@ -1,7 +1,6 @@
 package lila.tournament
 
 import chess.Clock.{ Config as TournamentClock }
-import org.joda.time.DateTime
 
 import lila.memo.ExpireSetMemo
 import lila.user.User

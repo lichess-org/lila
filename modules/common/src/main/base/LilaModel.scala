@@ -2,7 +2,6 @@ package lila.base
 
 import alleycats.Zero
 import cats.Show
-import org.joda.time.DateTime
 import ornicar.scalalib.newtypes.*
 
 trait LilaModel:

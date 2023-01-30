@@ -1,6 +1,5 @@
 package lila.irwin
 
-import org.joda.time.DateTime
 import play.api.libs.functional.syntax.*
 import play.api.libs.json.*
 import lila.common.Json.given

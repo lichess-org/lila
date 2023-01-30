@@ -1,7 +1,6 @@
 package lila.api
 
 import chess.format.Fen
-import org.joda.time.DateTime
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference

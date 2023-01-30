@@ -1,7 +1,5 @@
 package lila.relay
 
-import org.joda.time.DateTime
-
 import chess.format.pgn.{ Tag, Tags }
 import chess.format.UciPath
 import lila.socket.Socket.Sri
@@ -97,20 +95,21 @@ final private class RelaySync(
             toMainline = true
           )(who) >> chapterRepo.setRelayPath(chapter.id, path)
         } >> newNode.?? { node =>
-          lila.common.LilaFuture.fold(node.mainline.toList)(Position(chapter, path).ref) { case (position, n) =>
-            studyApi.addNode(
-              studyId = study.id,
-              position = position,
-              node = n,
-              opts = moveOpts.copy(clock = n.clock),
-              relay = Chapter
-                .Relay(
-                  index = game.index,
-                  path = position.path + n.id,
-                  lastMoveAt = DateTime.now
-                )
-                .some
-            )(who) inject position + n
+          lila.common.LilaFuture.fold(node.mainline.toList)(Position(chapter, path).ref) {
+            case (position, n) =>
+              studyApi.addNode(
+                studyId = study.id,
+                position = position,
+                node = n,
+                opts = moveOpts.copy(clock = n.clock),
+                relay = Chapter
+                  .Relay(
+                    index = game.index,
+                    path = position.path + n.id,
+                    lastMoveAt = DateTime.now
+                  )
+                  .some
+              )(who) inject position + n
           } inject {
             if (chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty)
               studyApi.reloadChapters(study)

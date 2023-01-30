@@ -1,7 +1,6 @@
 package lila.tournament
 
 import chess.variant.Variant
-import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 

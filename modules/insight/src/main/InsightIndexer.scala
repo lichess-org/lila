@@ -1,7 +1,6 @@
 package lila.insight
 
 import akka.stream.scaladsl.*
-import org.joda.time.DateTime
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 

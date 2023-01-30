@@ -18,7 +18,6 @@ import chess.{
   Speed,
   Status
 }
-import org.joda.time.DateTime
 
 import lila.common.{ Days, Sequence }
 import lila.db.ByteArray

@@ -1,7 +1,5 @@
 package lila.game
 
-import org.joda.time.DateTime
-
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.user.User

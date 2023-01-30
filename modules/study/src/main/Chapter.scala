@@ -5,7 +5,6 @@ import chess.format.UciPath
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.Variant
 import chess.{ Ply, Centis, Color, Outcome }
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
