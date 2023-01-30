@@ -7,10 +7,7 @@ import play.api.libs.json.JsObject
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 
-final class EvalCacheApi(
-    coll: AsyncCollFailingSilently,
-    cacheApi: lila.memo.CacheApi
-)(using Executor):
+final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.CacheApi)(using Executor):
 
   import EvalCacheEntry.*
   import BSONHandlers.given
@@ -37,12 +34,11 @@ final class EvalCacheApi(
     }
 
   private val cache = cacheApi[Id, Option[EvalCacheEntry]](512, "evalCache") {
-    _.expireAfterAccess(5 minutes)
-      .buildAsyncFuture(fetchAndSetAccess)
-  }
-
-  private def fetchAndSetAccess(id: Id): Fu[Option[EvalCacheEntry]] = coll { c =>
-    c.one[EvalCacheEntry]($id(id)) addEffect { res =>
-      if (res.isDefined) c.updateFieldUnchecked($id(id), "usedAt", nowDate)
+    _.expireAfterAccess(5 minutes).buildAsyncFuture { id =>
+      coll { c =>
+        c.one[EvalCacheEntry]($id(id)) addEffect { res =>
+          if (res.isDefined) c.updateFieldUnchecked($id(id), "usedAt", nowDate)
+        }
+      }
     }
   }
