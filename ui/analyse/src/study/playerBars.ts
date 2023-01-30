@@ -4,7 +4,7 @@ import { ops as treeOps } from 'tree';
 import renderClocks from '../clocks';
 import AnalyseCtrl from '../ctrl';
 import { TagArray } from './interfaces';
-import { findTag, isFinished, resultOf } from './studyChapters';
+import { findTag, isFinished } from './studyChapters';
 
 interface PlayerNames {
   sente: string;
@@ -36,8 +36,7 @@ function renderPlayer(
   top: boolean
 ): VNode {
   const title = findTag(tags, `${color}title`),
-    elo = findTag(tags, `${color}elo`),
-    result = resultOf(tags, color === 'sente');
+    elo = findTag(tags, `${color}elo`);
   return h(
     `div.study__player.study__player-${top ? 'top' : 'bot'}`,
     {
@@ -45,7 +44,6 @@ function renderPlayer(
     },
     [
       h('div.left', [
-        result && h('span.result', result),
         h('span.info', [
           title && h('span.title', title + ' '),
           h('span.name', playerNames[color]),

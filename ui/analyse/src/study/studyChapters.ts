@@ -67,19 +67,6 @@ export function findTag(tags: TagArray[], name: string): string | undefined {
   return t && t[1];
 }
 
-export function resultOf(tags: TagArray[], isSente: boolean): string | undefined {
-  switch (findTag(tags, 'result')) {
-    case '1-0':
-      return isSente ? 'W' : 'L';
-    case '0-1':
-      return isSente ? 'L' : 'W';
-    case '1/2-1/2':
-      return '-';
-    default:
-      return;
-  }
-}
-
 export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
