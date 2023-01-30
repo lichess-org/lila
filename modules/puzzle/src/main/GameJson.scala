@@ -29,7 +29,7 @@ final private class GameJson(
     }
   private def writeKey(id: Game.ID, ply: Int) = s"$id$ply"
 
-  private val cache = cacheApi[String, JsObject](4096, "puzzle.gameJson") {
+  private val cache = cacheApi[String, JsObject](512, "puzzle.gameJson") {
     _.expireAfterAccess(5 minutes)
       .maximumSize(1024)
       .buildAsyncFuture(key =>
