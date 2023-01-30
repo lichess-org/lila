@@ -1616,6 +1616,7 @@ object I18nKeys:
     val `twoFactorEnabled` = I18nKey("tfa:twoFactorEnabled")
     val `twoFactorDisable` = I18nKey("tfa:twoFactorDisable")
     val `openTwoFactorApp` = I18nKey("tfa:openTwoFactorApp")
+    val `setupReminder` = I18nKey("tfa:setupReminder")
 
   object settings:
     val `settings` = I18nKey("settings:settings")
@@ -2437,3 +2438,4 @@ object I18nKeys:
     val `engineWrite` = I18nKey("oauthScope:engineWrite")
     val `webLogin` = I18nKey("oauthScope:webLogin")
     val `webMod` = I18nKey("oauthScope:webMod")
+

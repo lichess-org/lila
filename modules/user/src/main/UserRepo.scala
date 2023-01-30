@@ -363,7 +363,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   def setRoles(id: UserId, roles: List[String]): Funit =
     coll.updateField($id(id), F.roles, roles).void
 
-  def hasTwoFactor(id: UserId) = coll.exists($id(id) ++ $doc(F.totpSecret $exists true))
+  def withoutTwoFactor(id: UserId) = coll.one[User]($id(id) ++ $doc(F.totpSecret $exists false))
 
   def disableTwoFactor(id: UserId) = coll.update.one($id(id), $unset(F.totpSecret))
 

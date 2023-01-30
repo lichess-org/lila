@@ -13,9 +13,14 @@ final class TwoFactorReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, ap
     _.expireAfterWrite(11 days)
       .buildAsyncFuture {
         loader { userId =>
-          userRepo hasTwoFactor userId flatMap { has =>
-            (!has ?? api.postPreset(userId, MsgPreset.enableTwoFactor).void) inject has
-          }
+          userRepo
+            .withoutTwoFactor(userId)
+            .flatMap {
+              case Some(user) =>
+                given play.api.i18n.Lang = user.realLang | lila.i18n.defaultLang
+                api.systemPost(userId, lila.i18n.I18nKeys.tfa.setupReminder.txt()) inject false
+              case _ => fuccess(true)
+            }
         }
       }
   }
