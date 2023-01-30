@@ -31,13 +31,15 @@ object BsonHandlers {
       plays  <- r.getAsTry[Int](F.plays)
       vote   <- r.getAsTry[Float](F.vote)
       themes <- r.getAsTry[Set[PuzzleTheme.Key]](F.themes)
-      gameId      = r.getAsOpt[Game.ID](F.gameId)
-      author      = r.getAsOpt[String](F.author)
-      description = r.getAsOpt[String](F.description)
+      ambiguousPromotions = r.getAsOpt[List[Int]](F.ambiguousPromotions).getOrElse(Nil)
+      gameId              = r.getAsOpt[Game.ID](F.gameId)
+      author              = r.getAsOpt[String](F.author)
+      description         = r.getAsOpt[String](F.description)
     } yield Puzzle(
       id = id,
       sfen = sfen,
       line = line,
+      ambiguousPromotions = ambiguousPromotions,
       glicko = glicko,
       plays = plays,
       vote = vote,

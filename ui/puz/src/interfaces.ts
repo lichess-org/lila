@@ -24,6 +24,7 @@ export interface Puzzle {
   sfen: string;
   line: string;
   rating: number;
+  ambPromotions?: number[];
 }
 
 export interface Run {

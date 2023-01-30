@@ -114,17 +114,19 @@ final class JsonView(
     "performance"     -> res.performance
   )
 
-  private def puzzleJson(puzzle: Puzzle): JsObject = Json.obj(
-    "id"         -> puzzle.id,
-    "rating"     -> puzzle.glicko.intRating,
-    "plays"      -> puzzle.plays,
-    "initialPly" -> puzzle.initialPly,
-    "solution" -> {
-      if (puzzle.gameId.isDefined) puzzle.line.tail.map(_.usi).toList
-      else puzzle.line.map(_.usi).toList
-    },
-    "themes" -> simplifyThemes(puzzle.themes)
-  )
+  private def puzzleJson(puzzle: Puzzle): JsObject = Json
+    .obj(
+      "id"         -> puzzle.id,
+      "rating"     -> puzzle.glicko.intRating,
+      "plays"      -> puzzle.plays,
+      "initialPly" -> puzzle.initialPly,
+      "solution" -> {
+        if (puzzle.gameId.isDefined) puzzle.line.tail.map(_.usi).toList
+        else puzzle.line.map(_.usi).toList
+      },
+      "themes" -> simplifyThemes(puzzle.themes)
+    )
+    .add("ambPromotions", puzzle.ambiguousPromotions.some.filter(_.nonEmpty))
 
   private def simplifyThemes(themes: Set[PuzzleTheme.Key]) =
     themes.filterNot(_ == PuzzleTheme.mate.key)

@@ -12,7 +12,7 @@ type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
 
 // checks whether both usi actually aren't the same, although it doesn't look like it at first
 // for example - 1i1a+ === 1i1a if promotion is forced anyways
-function sameMove(u1: string, u2: string, shogi: Shogi): boolean {
+function sameMove(u1: string, u2: string, ignoreProm: boolean, shogi: Shogi): boolean {
   const usi1 = parseUsi(u1)!,
     usi2 = parseUsi(u2)!;
   if (isDrop(usi1) && isDrop(usi2)) {
@@ -22,7 +22,8 @@ function sameMove(u1: string, u2: string, shogi: Shogi): boolean {
     return (
       usi1.from === usi2.from &&
       usi1.to === usi2.to &&
-      (!!usi1.promotion === !!usi2.promotion ||
+      (ignoreProm ||
+        !!usi1.promotion === !!usi2.promotion ||
         (!!role && pieceForcePromote('standard')({ role: role, color: shogi.turn }, usi1.to)))
     );
   }
@@ -36,17 +37,15 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
   const playedByColor = opposite(plyColor(vm.node.ply));
   if (playedByColor !== vm.pov) return;
 
-  const nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(node => ({
-    usi: node.usi,
-    sfen: node.sfen!,
-  }));
+  const nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1);
 
   for (const i in nodes) {
     const shogi = parseSfen('standard', nodes[i].sfen, false).unwrap() as Shogi;
     if (shogi.isCheckmate()) return (vm.node.puzzle = 'win');
     const usi = nodes[i].usi!,
+      isAmbProm = puzzle.ambPromotions?.includes(nodes[i].ply),
       solUsi = puzzle.solution[i];
-    if (!sameMove(usi, solUsi, shogi)) return (vm.node.puzzle = 'fail');
+    if (!sameMove(usi, solUsi, isAmbProm, shogi)) return (vm.node.puzzle = 'fail');
   }
 
   const nextUsi = puzzle.solution[nodes.length];
