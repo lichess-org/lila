@@ -136,12 +136,17 @@ function makeBundle(filename) {
 }
 
 const gitSha = cb => {
-  const latestCommit = JSON.parse(execSync('curl -s https://api.github.com/repos/WandererXII/lishogi/commits/master')),
-    info = JSON.stringify({
-      date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
-      commit: (latestCommit.sha || '').trim(),
-      message: (latestCommit.commit?.message || '').trim(),
-    });
+  let latestCommit;
+  try {
+    latestCommit = JSON.parse(execSync('curl -s https://api.github.com/repos/WandererXII/lishogi/commits/master'));
+  } catch (ex) {
+    latestCommit = {};
+  }
+  const info = JSON.stringify({
+    date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
+    commit: (latestCommit.sha || '').trim(),
+    message: (latestCommit.commit?.message || '').trim(),
+  });
   if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
   fs.writeFileSync(
     './dist/consolemsg.js',
