@@ -107,17 +107,17 @@ final class Auth(
           def redirectTo(url: String)   = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
           given play.api.mvc.Request[?] = ctx.body
           val referrer = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers)
-          api.usernameOrEmailForm
+          api.loginForm
             .bindFromRequest()
             .fold(
               err =>
                 negotiate(
-                  html = Unauthorized(html.auth.login(api.loginForm, referrer)).toFuccess,
+                  html = Unauthorized(html.auth.login(err, referrer)).toFuccess,
                   api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).toFuccess
                 ),
-              usernameOrEmail =>
-                HasherRateLimit(usernameOrEmail into UserId, ctx.req) { chargeIpLimiter =>
-                  api.loadLoginForm(usernameOrEmail) flatMap {
+              data =>
+                HasherRateLimit(data._1 into UserId, ctx.req) { chargeIpLimiter =>
+                  api.loadLoginForm(data._1) flatMap {
                     _.bindFromRequest()
                       .fold(
                         err => {

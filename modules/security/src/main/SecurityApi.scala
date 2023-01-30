@@ -11,7 +11,7 @@ import scala.annotation.nowarn
 import ornicar.scalalib.SecureRandom
 
 import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress }
-import lila.common.Form.into
+import lila.common.Form.{ trim, into }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User.LoginCandidate
@@ -38,31 +38,32 @@ final class SecurityApi(
   private val usernameOrEmailMapping =
     lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength).into[UserStrOrEmail]
 
-  lazy val usernameOrEmailForm = Form(
-    single("username" -> usernameOrEmailMapping)
-  )
-
   lazy val loginForm = Form(
     tuple(
       "username" -> usernameOrEmailMapping, // can also be an email
-      "password" -> nonEmptyText
+      "password" -> trim(nonEmptyText)
+    ).verifying(
+      "This password is too easy to guess. Request a password reset email.",
+      x => x._1.value != x._2
     )
   )
+
   lazy val rememberForm = Form(single("remember" -> boolean))
 
   private def loadedLoginForm(candidate: Option[LoginCandidate]) =
+    import LoginCandidate.Result.*
     Form(
       mapping(
         "username" -> usernameOrEmailMapping, // can also be an email
-        "password" -> nonEmptyText,
+        "password" -> trim(nonEmptyText),
         "token"    -> optional(nonEmptyText)
       )(authenticateCandidate(candidate)) {
-        case LoginCandidate.Success(user) => (user.username into UserStrOrEmail, "", none).some
-        case _                            => none
+        case Success(user) => (user.username into UserStrOrEmail, "", none).some
+        case _             => none
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
         t match {
-          case LoginCandidate.Success(_) => FormValid
-          case LoginCandidate.InvalidUsernameOrPassword =>
+          case Success(_) => FormValid
+          case InvalidUsernameOrPassword =>
             Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
           case err => Invalid(Seq(ValidationError(err.toString)))
         }
@@ -80,7 +81,7 @@ final class SecurityApi(
       password: String,
       token: Option[String]
   ): LoginCandidate.Result =
-    candidate.fold[LoginCandidate.Result](LoginCandidate.InvalidUsernameOrPassword) {
+    candidate.fold[LoginCandidate.Result](LoginCandidate.Result.InvalidUsernameOrPassword) {
       _(User.PasswordAndToken(User.ClearPassword(password), token map User.TotpToken.apply))
     }
 
