@@ -15,6 +15,8 @@ case class TeamBattle(
 
 object TeamBattle {
 
+  val maxTeams = 200
+
   def init(teamId: TeamID) = TeamBattle(Set(teamId), 5)
 
   case class TeamVs(teams: shogi.Color.Map[TeamID])
