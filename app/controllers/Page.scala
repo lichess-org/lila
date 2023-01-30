@@ -115,8 +115,9 @@ final class Page(
       (for {
         variant  <- shogi.variant.Variant.byKey get key
         perfType <- lila.rating.PerfType byVariant variant
-      } yield OptionOk(prismicC.getVariant(variant, BlogLang.fromLangCode(lang.getOrElse(ctx.lang.code)))) { case (doc, resolver) =>
-        views.html.site.variant.show(doc, resolver, variant, perfType)
+      } yield OptionOk(prismicC.getVariant(variant, BlogLang.fromLangCode(lang.getOrElse(ctx.lang.code)))) {
+        case (doc, resolver) =>
+          views.html.site.variant.show(doc, resolver, variant, perfType)
       }) | notFound
     }
 }

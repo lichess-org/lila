@@ -113,7 +113,8 @@ final class Gamify(
           )
         ) -> List(
           GroupField("mod")("nb" -> SumAll),
-          Sort(Descending("nb"))
+          Sort(Descending("nb")),
+          Limit(100)
         )
       }
       .map {
