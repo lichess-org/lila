@@ -8,9 +8,9 @@ import sign from 'puz/sign';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { Shogiground } from 'shogiground';
 import { Api as SgApi } from 'shogiground/api';
-import { SquareSet } from 'shogiops/squareSet';
-import { Move, Piece, Role, isDrop } from 'shogiops/types';
+import { Move, Piece, Role, isDrop, isNormal } from 'shogiops/types';
 import { makeUsi, parseSquare, parseUsi } from 'shogiops/util';
+import { pieceForcePromote } from 'shogiops/variant/util';
 import config from './config';
 import { StormData, StormOpts, StormPrefs, StormRecap, StormVm } from './interfaces';
 import * as xhr from './xhr';
@@ -111,7 +111,8 @@ export default class StormCtrl {
     if (
       pos.isCheckmate() ||
       usi == puzzle.expectedMove() ||
-      (!isDrop(move) && this.isForcedPromotion(usi, puzzle.expectedMove(), pos.turn, pos.board.getRole(move.from)))
+      (!isDrop(move) &&
+        this.isSameMove(usi, puzzle.expectedMove(), puzzle.isAmbPromotion(), pos.turn, pos.board.getRole(move.from)))
     ) {
       puzzle.moveIndex++;
       this.run.combo.inc();
@@ -150,21 +151,22 @@ export default class StormCtrl {
     window.lishogi.pubsub.emit('ply', this.run.moves);
   }
 
-  private backrank(color: Color): SquareSet {
-    return SquareSet.fromRank(color === 'sente' ? 0 : 8);
-  }
-  private secondBackrank(color: Color): SquareSet {
-    return color === 'sente' ? SquareSet.ranksAbove(2) : SquareSet.ranksBelow(6);
-  }
   // When not promotion isn't an option usi in solution might not contain '+'
-  private isForcedPromotion(u1: string, u2: string, turn: Color, role?: Role): boolean {
-    const m1 = parseUsi(u1);
-    const m2 = parseUsi(u2);
-    if (!role || !m1 || !m2 || isDrop(m1) || isDrop(m2) || m1.from != m2.from || m1.to != m2.to) return false;
-    return (
-      (role === 'knight' && this.secondBackrank(turn).has(m1.to)) ||
-      ((role === 'pawn' || role === 'lance' || role === 'knight') && this.backrank(turn).has(m1.to))
-    );
+  private isSameMove(u1: string, u2: string, ignoreProm: boolean, turn: Color, role?: Role): boolean {
+    const usi1 = parseUsi(u1)!,
+      usi2 = parseUsi(u2)!;
+    if (isDrop(usi1) && isDrop(usi2)) {
+      return usi1.role === usi2.role && usi1.to === usi2.to;
+    } else if (isNormal(usi1) && isNormal(usi2)) {
+      return (
+        usi1.from === usi2.from &&
+        usi1.to === usi2.to &&
+        (ignoreProm ||
+          !!usi1.promotion === !!usi2.promotion ||
+          (!!role && pieceForcePromote('standard')({ role: role, color: turn }, usi1.to)))
+      );
+    }
+    return false;
   }
 
   private redrawQuick = () => setTimeout(this.redraw, 100);

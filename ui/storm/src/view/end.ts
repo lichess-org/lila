@@ -2,6 +2,7 @@ import * as miniBoard from 'common/mini-board';
 import { numberSpread } from 'common/number';
 import { onInsert } from 'common/snabbdom';
 import { getNow } from 'puz/util';
+import { toColor } from 'shogiops/util';
 import { VNode, h } from 'snabbdom';
 import StormCtrl from '../ctrl';
 
@@ -116,8 +117,7 @@ const renderHistory = (ctrl: StormCtrl): VNode => {
                   target: '_blank',
                 },
                 hook: onInsert(e => {
-                  // tsume starts always from sente side
-                  miniBoard.initWith(e, round.puzzle.sfen, 'sente');
+                  miniBoard.initWith(e, round.puzzle.sfen, toColor(round.puzzle.sfen.split(' ')[1]));
                 }),
               }),
               h('span.storm--end__history__round__meta', [

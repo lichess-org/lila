@@ -27,7 +27,7 @@ export const initWith = (node: HTMLElement, sfen: string, orientation: Color, lm
           visible: false,
         },
       };
-    domData.set(node, 'shogiground', window.Shogiground(config, node));
+    domData.set(node, 'shogiground', window.Shogiground(config, { board: node }));
   }
 };
 
