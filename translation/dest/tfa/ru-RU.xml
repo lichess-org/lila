@@ -2,7 +2,7 @@
 <resources>
   <string name="twoFactorAuth">Двухфакторная аутентификация</string>
   <string name="twoFactorHelp">Двухфакторная аутентификация повышает степень безопасности вашей учетной записи.</string>
-  <string name="twoFactorApp">Для двухфакторной аутентификации скачайте приложение, например Google Authenticator для %1$s или %2$s.</string>
+  <string name="twoFactorApp">Используйте приложение для двухфакторной аутентификации, например Google Authenticator для %1$s или %2$s.</string>
   <string name="scanTheCode">Сканируйте QR-код в приложении.</string>
   <string name="enterPassword">Для завершения настройки введите ваши пароль и код аутентификации, сгенерированный приложением. Код аутентификации будет необходим при каждом входе в систему.</string>
   <string name="ifYouCannotScanEnterX">Если вы не можете отсканировать штрихкод, введите секретный код %s в ваше приложение.</string>
