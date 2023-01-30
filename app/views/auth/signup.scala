@@ -7,6 +7,7 @@ import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ HTTPRequest, LangPath }
+import lila.security.PasswordCheck
 
 object signup:
 
@@ -36,6 +37,7 @@ object signup:
           }
         )(
           auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
+          globalErrorNamed(form.form, PasswordCheck.errorSame),
           input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
           div(cls := "form-group text", dataIcon := "")(
             trans.computersAreNotAllowedToPlay(),

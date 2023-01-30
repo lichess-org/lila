@@ -395,7 +395,7 @@ final class Auth(
         case Some(user) =>
           authLog(user.username, "-", "Reset password")
           lila.mon.user.auth.passwordResetConfirm("tokenOk").increment()
-          fuccess(html.auth.bits.passwordResetConfirm(user, token, forms.passwdReset, none))
+          fuccess(html.auth.bits.passwordResetConfirm(user, token, forms.passwdResetFor(user), none))
       }
     }
 
@@ -407,7 +407,7 @@ final class Auth(
           notFound
         case Some(user) =>
           given play.api.mvc.Request[?] = ctx.body
-          FormFuResult(forms.passwdReset) { err =>
+          FormFuResult(forms.passwdResetFor(user)) { err =>
             fuccess(html.auth.bits.passwordResetConfirm(user, token, err, false.some))
           } { data =>
             HasherRateLimit(user.id, ctx.req) { _ =>

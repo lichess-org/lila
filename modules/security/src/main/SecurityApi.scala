@@ -44,7 +44,7 @@ final class SecurityApi(
       "password" -> trim(nonEmptyText)
     ).verifying(
       "This password is too easy to guess. Request a password reset email.",
-      x => !PasswordCheck.isWeak(User.ClearPassword(x._2), x._1)
+      x => !PasswordCheck.isWeak(User.ClearPassword(x._2), x._1.value)
     )
   )
 

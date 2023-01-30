@@ -60,7 +60,7 @@ final class Signup(
 
   def website(
       blind: Boolean
-  )(implicit req: Request[?], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
+  )(using req: Request[?], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
     forms.signup.website flatMap {
       _.form
         .bindFromRequest()
@@ -79,7 +79,7 @@ final class Signup(
                   MustConfirmEmail(data.fingerPrint, data.email) flatMap { mustConfirm =>
                     lila.mon.user.register.count(none)
                     lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-                    val passwordHash = authenticator passEnc User.ClearPassword(data.password)
+                    val passwordHash = authenticator passEnc data.clearPassword
                     userRepo
                       .create(
                         data.username,
