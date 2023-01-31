@@ -16,10 +16,15 @@ final class SwissFeature(
   import BsonHandlers.given
 
   val onHomepage = cacheApi.unit[Option[Swiss]] {
-    _.refreshAfterWrite(1 minute)
+    _.refreshAfterWrite(30 seconds)
       .buildAsyncFuture { _ =>
         mongo.swiss
-          .find($doc("teamId" -> lichessTeamId, "startsAt" $gt nowDate.minusMinutes(10)))
+          .find(
+            $doc(
+              "teamId" -> lichessTeamId,
+              "startsAt" $gt nowDate.minusMinutes(5) $lt nowDate.plusMinutes(10)
+            )
+          )
           .sort($sort asc "startsAt")
           .one[Swiss]
       }
