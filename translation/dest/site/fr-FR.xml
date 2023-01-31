@@ -207,6 +207,10 @@
   <string name="email">Courriel</string>
   <string name="passwordReset">Réinitialisation du mot de passe</string>
   <string name="forgotPassword">Mot de passe oublié ?</string>
+  <string name="error.weakPassword">Ce mot de passe très courant est trop facile à deviner.</string>
+  <string name="error.namePassword">N\'employez pas votre nom d\'utilisateur comme mot de passe.</string>
+  <string name="passwordSuggestion">N\'utilisez pas un mot de passe suggéré par une autre personne. Elle pourrait l\'utiliser pour voler votre compte.</string>
+  <string name="emailSuggestion">N\'utilisez pas une adresse de courriel suggérée par une autre personne. Celle-ci pourrait l\'utiliser pour voler votre compte.</string>
   <string name="emailConfirmHelp">Aide sur la confirmation par courriel</string>
   <string name="emailConfirmNotReceived">Vous n\'avez pas reçu votre courriel de confirmation après votre inscription?</string>
   <string name="whatSignupUsername">Avec quel nom d\'utilisateur vous êtes-vous inscrit?</string>
