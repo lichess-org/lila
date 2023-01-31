@@ -208,9 +208,11 @@
   <string name="passwordReset">Reimpostare la password</string>
   <string name="forgotPassword">Password dimenticata?</string>
   <string name="error.weakPassword">Questa password è estremamente comune e troppo facile da indovinare.</string>
-  <string name="error.namePassword">Per piacere, non usare il tuo nome utente come password.</string>
-  <string name="passwordSuggestion">Non utilizzare una password che ti è stata suggerita da qualcun altro. C\'è il rischio che la usino per rubare il tuo account.</string>
-  <string name="emailSuggestion">Non utilizzare un indirizzo email che ti è stato suggerito da qualcun altro. C\'è il rischio che lo usino per rubare il tuo account.</string>
+  <string name="error.namePassword">Sei pregato di non utilizzare il tuo nome utente come password.</string>
+  <string name="youAreLeavingLichess">Stai uscendo da Lichess</string>
+  <string name="neverTypeYourPassword">Non digitare mai la tua password di Lichess su un altro sito!</string>
+  <string name="passwordSuggestion">Non impostare una password suggerita da qualcun altro. La utilizzeranno per rubare il tuo profilo.</string>
+  <string name="emailSuggestion">Non impostare un indirizzo email suggerito da qualcun altro. Lo utilizzeranno per rubare il tuo profilo.</string>
   <string name="emailConfirmHelp">Aiuto per la conferma dell\'email</string>
   <string name="emailConfirmNotReceived">Non hai ricevuto la tua email di conferma dopo la registrazione?</string>
   <string name="whatSignupUsername">Quale nome utente hai usato per registrarti?</string>
