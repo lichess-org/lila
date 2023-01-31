@@ -20,7 +20,9 @@ final class AsyncActorSequencer(maxSize: Max, timeout: FiniteDuration, name: Str
   private[this] val asyncActor = BoundedAsyncActor(maxSize, name, logging) {
     case TaskWithPromise(task, promise) =>
       promise.completeWith {
-        task().withTimeout(timeout, s"AsyncActorSequencer $name")
+        task()
+          .withTimeout(timeout, s"AsyncActorSequencer $name")
+          .monSuccess(_.asyncActor.sequencer.run(name))
       }.future
   }
 
@@ -39,7 +41,7 @@ final class AsyncActorSequencers[K](
   private val sequencers: LoadingCache[K, AsyncActorSequencer] =
     lila.common.LilaCache.scaffeine
       .expireAfterAccess(expiration)
-      .build(key => new AsyncActorSequencer(maxSize, timeout, s"$name:$key", logging))
+      .build(key => AsyncActorSequencer(maxSize, timeout, s"$name:$key", logging))
 
 object AsyncActorSequencer:
 
