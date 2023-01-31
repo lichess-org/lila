@@ -15,12 +15,12 @@ import lila.pref.{ PieceSet, Theme }
 
 final class Export(env: Env) extends LilaController(env):
 
-  private val ExportImageRateLimitGlobal = new lila.memo.RateLimit[String](
+  private val ExportImageRateLimitGlobal = lila.memo.RateLimit[String](
     credits = 600,
     duration = 1.minute,
     key = "export.image.global"
   )
-  private val ExportImageRateLimitByIp = new lila.memo.RateLimit[IpAddress](
+  private val ExportImageRateLimitByIp = lila.memo.RateLimit[IpAddress](
     credits = 15,
     duration = 1.minute,
     key = "export.image.ip"

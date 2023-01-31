@@ -479,7 +479,7 @@ final class Auth(
       }
     }
 
-  private lazy val magicLinkLoginRateLimitPerToken = new RateLimit[String](
+  private lazy val magicLinkLoginRateLimitPerToken = RateLimit[String](
     credits = 3,
     duration = 1 hour,
     key = "login.magicLink.token"

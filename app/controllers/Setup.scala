@@ -26,7 +26,7 @@ final class Setup(
   private def forms     = env.setup.forms
   private def processor = env.setup.processor
 
-  private[controllers] val PostRateLimit = new lila.memo.RateLimit[IpAddress](
+  private[controllers] val PostRateLimit = lila.memo.RateLimit[IpAddress](
     5,
     1.minute,
     key = "setup.post",
@@ -42,7 +42,7 @@ final class Setup(
     ("slow", 300, 1.day)
   )
 
-  private[controllers] val BotAiRateLimit = new lila.memo.RateLimit[UserId](
+  private[controllers] val BotAiRateLimit = lila.memo.RateLimit[UserId](
     50,
     1.day,
     key = "setup.post.bot.ai"

@@ -37,13 +37,13 @@ final private class MsgSecurity(
       else if (u isHoursOld 12) normal * 2
       else normal * 4
 
-  private val CreateLimitPerUser = new RateLimit[UserId](
+  private val CreateLimitPerUser = RateLimit[UserId](
     credits = 20 * limitCost.normal,
     duration = 24 hour,
     key = "msg_create.user"
   )
 
-  private val ReplyLimitPerUser = new RateLimit[UserId](
+  private val ReplyLimitPerUser = RateLimit[UserId](
     credits = 20 * limitCost.normal,
     duration = 1 minute,
     key = "msg_reply.user"

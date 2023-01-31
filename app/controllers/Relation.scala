@@ -45,7 +45,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         }
     }
 
-  private val FollowLimitPerUser = new lila.memo.RateLimit[UserId](
+  private val FollowLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 150,
     duration = 72.hour,
     key = "follow.user"

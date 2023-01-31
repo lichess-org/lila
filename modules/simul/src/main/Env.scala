@@ -58,7 +58,7 @@ final class Env(
     simul.team.isEmpty && featureLimiter(simul.hostId)(true)(false)
   )
 
-  private val featureLimiter = new lila.memo.RateLimit[UserId](
+  private val featureLimiter = lila.memo.RateLimit[UserId](
     credits = config.featureViews.value,
     duration = 24 hours,
     key = "simul.feature",
