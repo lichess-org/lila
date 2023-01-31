@@ -12,8 +12,8 @@ export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
     'div.msg-app__convo__msgs',
     {
       hook: {
-        insert: setupMsgs(true),
-        postpatch: setupMsgs(false),
+        insert: setupMsgs(ctrl, true),
+        postpatch: setupMsgs(ctrl, false),
       },
     },
     [
@@ -122,11 +122,11 @@ const renderText = (msg: Msg) =>
       })
     : h('t', msg.text);
 
-const setupMsgs = (insert: boolean) => (vnode: VNode) => {
+const setupMsgs = (ctrl: MsgCtrl, insert: boolean) => (vnode: VNode) => {
   const el = vnode.elm as HTMLElement;
   if (insert) scroller.init(el);
   enhance.expandLpvs(el);
-  protect.makeLinkPopups(el);
+  protect.makeLinkPopups(el, ctrl.trans);
   scroller.toMarker() || scroller.auto();
 };
 

@@ -44,5 +44,7 @@ object msg:
     trans.friends,
     trans.discussions,
     trans.today,
-    trans.yesterday
+    trans.yesterday,
+    trans.youAreLeavingLichess,
+    trans.neverTypeYourPassword
   )
