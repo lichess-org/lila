@@ -39,13 +39,17 @@ final class Api(
       Ok(views.html.site.bits.api)
     }
 
+  val userRateLimit = lila.memo.RateLimit[IpAddress](3_000, 1.day, "user.show.api.ip")
   def user(name: UserStr) =
-    def get(req: RequestHeader, lang: Lang, me: Option[lila.user.User]) = userApi.extended(
-      name,
-      me,
-      withFollows = userWithFollows(req),
-      withTrophies = getBool("trophies", req)
-    )(using lang) map toApiResult map toHttp
+    def get(req: RequestHeader, lang: Lang, me: Option[lila.user.User]) =
+      userRateLimit(HTTPRequest ipAddress req) {
+        userApi.extended(
+          name,
+          me,
+          withFollows = userWithFollows(req),
+          withTrophies = getBool("trophies", req)
+        )(using lang) map toApiResult map toHttp
+      }(rateLimitedFu)
     OpenOrScoped()(
       ctx => get(ctx.req, ctx.lang, ctx.me),
       req => me => get(req, me.realLang | reqLang(using req), me.some)
@@ -377,7 +381,7 @@ final class Api(
     else f(ids)
 
   val cloudEval =
-    val rateLimit = lila.memo.RateLimit[IpAddress](2_000, 1.day, "cloud-eval.api.ip")
+    val rateLimit = lila.memo.RateLimit[IpAddress](3_000, 1.day, "cloud-eval.api.ip")
     Action.async { req =>
       rateLimit(HTTPRequest ipAddress req) {
         get("fen", req).fold(notFoundJson("Missing FEN")) { fen =>
