@@ -3,6 +3,7 @@
   <string name="preferences">Astellungen</string>
   <string name="display">Usiicht</string>
   <string name="privacy">Privatsphär</string>
+  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Benoriichtegungen</string>
   <string name="pieceAnimation">Figurenanimatioun</string>
   <string name="materialDifference">Materialënnerscheed</string>
   <string name="boardHighlights">Briet Highlights (leschten Zuch an Schach)</string>
@@ -47,4 +48,7 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">No Defaite oder Remis \"Good game, well played\" (Gudd Partie, gudd gespillt) soen</string>
   <string name="yourPreferencesHaveBeenSaved">Deng Astellungen goufen gespäichert.</string>
   <string name="scrollOnTheBoardToReplayMoves">Scroll iwwer d\'Briet fir Zich nozespillen</string>
+  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Erausfuerderungen</string>
+  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Web-Browser</string>
+  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Gerät</string>
 </resources>
