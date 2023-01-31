@@ -1,3 +1,4 @@
+import { memoize } from 'common';
 import modal from 'common/modal';
 
 export const linkPopup = (dom: HTMLElement) => {
@@ -9,8 +10,7 @@ export const linkPopup = (dom: HTMLElement) => {
 
 const onClick = (a: HTMLLinkElement): boolean => {
   const url = new URL(a.href);
-  if (url.host == 'lichess.org') return true;
-  console.log(url);
+  if (url.host == 'lichess.org' || isPassList(url)) return true;
   lichess.loadCssPath('modal');
   modal({
     content: $(
@@ -33,3 +33,13 @@ const onClick = (a: HTMLLinkElement): boolean => {
   });
   return false;
 };
+
+const isPassList = (url: URL) => passList().find(h => h == url.host || url.host.endsWith('.' + h));
+
+const passList = memoize<string[]>(() =>
+  `lichess4545.com ligacatur.com
+github.com discord.com crowdin.com mastodon.online
+google.com twitter.com facebook.com wikipedia.org wikimedia.org
+chess24.com chess.com chessable.com
+`.split(/[ \n]/)
+);
