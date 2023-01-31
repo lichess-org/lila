@@ -39,3 +39,31 @@ body {
     }
   }
 }
+
+.msg-modal {
+  font-size: 1.1em;
+  &__content {
+    @extend %flex-center-nowrap;
+    &::before {
+      @extend %data-icon;
+      content: '';
+      font-size: 5em;
+      @include margin-inline-end(2rem);
+    }
+    &__title {
+      text-align: $start-direction;
+    }
+    &__advice {
+      font-size: 1.1em;
+      line-height: 2em;
+      color: $c-brag;
+      margin: 0;
+    }
+    margin-bottom: 2em;
+  }
+  &__actions {
+    @extend %flex-center;
+    justify-content: center;
+    gap: 2em;
+  }
+}

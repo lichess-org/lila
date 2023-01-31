@@ -47,8 +47,6 @@ const expandTeamMessage = (html: string) =>
 export const enhance = (str: string) =>
   expandTeamMessage(expandGameIds(expandMentions(expandUrls(lichess.escapeHtml(str))))).replace(newLineRegex, '<br>');
 
-/* Enhance with iframe expansion */
-
 interface Expandable {
   element: HTMLElement;
   link: Link;
