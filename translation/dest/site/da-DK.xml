@@ -209,6 +209,8 @@
   <string name="forgotPassword">Glemt adgangskode?</string>
   <string name="error.weakPassword">Denne adgangskode er ekstremt almindelig og for let at gætte.</string>
   <string name="error.namePassword">Brug ikke dit brugernavn som din adgangskode.</string>
+  <string name="youAreLeavingLichess">Du forlader Lichess</string>
+  <string name="neverTypeYourPassword">Indtast aldrig din Lichess-adgangskode på et andet websted!</string>
   <string name="passwordSuggestion">Angiv ikke en adgangskode, som er foreslået af en anden person. De vil bruge den til at stjæle din konto.</string>
   <string name="emailSuggestion">Angiv ikke en e-mailadresse, som er foreslået af en anden person. De vil bruge den til at stjæle din konto.</string>
   <string name="emailConfirmHelp">Hjælp med bekræftelse af e-mail</string>
