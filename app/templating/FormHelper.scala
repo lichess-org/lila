@@ -24,7 +24,7 @@ trait FormHelper { self: I18nHelper =>
     form.globalError map errMsg
 
   def globalErrorNamed(form: Form[?], name: String)(using Lang): Option[Frag] =
-    form.globalError.find(_.message.pp == name) map errMsg
+    form.globalError.find(_.message == name) map errMsg
 
   val booleanChoices = Seq("true" -> "✓ Yes", "false" -> "✗ No")
 
