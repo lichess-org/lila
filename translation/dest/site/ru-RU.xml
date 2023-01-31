@@ -229,10 +229,10 @@
   <string name="email">Электронная почта</string>
   <string name="passwordReset">Сброс пароля</string>
   <string name="forgotPassword">Забыли пароль?</string>
-  <string name="error.weakPassword">Этот пароль очень распространен, и его слишком легко угадать.</string>
+  <string name="error.weakPassword">Этот пароль очень распространён, и его слишком легко угадать.</string>
   <string name="error.namePassword">Пожалуйста, не используйте свой логин в качестве пароля.</string>
-  <string name="passwordSuggestion">Не устанавливайте пароль, предложенный другими людьми. Они с помощью него украдут вашу учётную запись.</string>
-  <string name="emailSuggestion">Не устанавливайте адрес электронной почты, предложенный другими людьми. Они с помощью него украдут вашу учётную запись.</string>
+  <string name="passwordSuggestion">Не устанавливайте пароль, предложенный другими людьми. Они с его помощью украдут вашу учётную запись.</string>
+  <string name="emailSuggestion">Не устанавливайте адрес электронной почты, предложенный другими людьми. Они с его помощью украдут вашу учётную запись.</string>
   <string name="emailConfirmHelp">Помощь с подтверждением электронной почты</string>
   <string name="emailConfirmNotReceived">Не получили подтверждение по электронной почте после регистрации?</string>
   <string name="whatSignupUsername">Какое имя пользователя вы использовали для регистрации?</string>
