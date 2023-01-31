@@ -126,7 +126,7 @@ const setupMsgs = (insert: boolean) => (vnode: VNode) => {
   const el = vnode.elm as HTMLElement;
   if (insert) scroller.init(el);
   enhance.expandLpvs(el);
-  protect.linkPopup(el);
+  protect.makeLinkPopups(el);
   scroller.toMarker() || scroller.auto();
 };
 
