@@ -151,6 +151,8 @@ export class Protocol {
         if (depth >= this.work.maxDepth && elapsedMs > 8000 && nodes > 4000 * Math.exp(this.work.maxDepth * 0.3))
           this.stop();
       }
+    } else if (command && !['Stockfish', 'id', 'option', 'info'].includes(parts[0])) {
+      console.log('SF:', command);
     }
   }
 
