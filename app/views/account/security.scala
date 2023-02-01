@@ -23,7 +23,7 @@ object security:
       div(cls := "account security")(
         div(cls := "box")(
           h1(cls := "box__top")(trans.security()),
-          standardFlash.map(_(cls := "box__pad")),
+          standardFlash.map(div(cls := "box__pad")(_)),
           div(cls := "box__pad")(
             p(
               "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to ",
