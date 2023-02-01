@@ -11,7 +11,7 @@ import scala.annotation.nowarn
 import ornicar.scalalib.SecureRandom
 
 import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress }
-import lila.common.Form.{ trim, into }
+import lila.common.Form.into
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User.LoginCandidate
@@ -41,7 +41,7 @@ final class SecurityApi(
   lazy val loginForm = Form(
     tuple(
       "username" -> usernameOrEmailMapping, // can also be an email
-      "password" -> trim(nonEmptyText)
+      "password" -> nonEmptyText
     ).verifying(
       "This password is too easy to guess. Request a password reset email.",
       x => !PasswordCheck.isWeak(User.ClearPassword(x._2), x._1.value)
@@ -55,7 +55,7 @@ final class SecurityApi(
     Form(
       mapping(
         "username" -> usernameOrEmailMapping, // can also be an email
-        "password" -> trim(nonEmptyText),
+        "password" -> nonEmptyText,
         "token"    -> optional(nonEmptyText)
       )(authenticateCandidate(candidate)) {
         case Success(user) => (user.username into UserStrOrEmail, "", none).some
