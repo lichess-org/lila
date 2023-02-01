@@ -176,7 +176,7 @@ final class EnvBoot(
   val netConfig   = config.get[NetConfig]("net")
   export netConfig.{ domain, baseUrl }
 
-  // lazy load the Uptime object to fix a precise date
+  // eagerly load the Uptime object to fix a precise date
   lila.common.Uptime.startedAt.unit
 
   // wire all the lila modules
