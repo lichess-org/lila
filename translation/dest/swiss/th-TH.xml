@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="startingSoon">กำลังจะเริ่มในเร็ว ๆ นี้</string>
+  <string name="numberOfGames">จำนวนเกม</string>
+  <string name="pairingSystem">ระบบจับคู่</string>
+  <string name="pause">การหยุดพัก</string>
+  <string name="streaksAndBerserk">คะแนนเมื่อชนะต่อเนื่อง และการ Berserk</string>
+</resources>

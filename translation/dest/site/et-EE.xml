@@ -102,7 +102,7 @@
   <string name="lossSavedBy50MoveRule">50 käigu reegel päästis kaotusest</string>
   <string name="winOr50MovesByPriorMistake">Võit või 50 käiku eelneva vea tõttu</string>
   <string name="lossOr50MovesByPriorMistake">Kaotus või 50 käiku eelneva vea tõttu</string>
-  <string name="unknownDueToRounding">Võit/kaotus on tagatud ainult siis, kui on järgitud andmebaasi soovitatud käikude järjekorda alates viimasest löömisest või etturi liigutusest, sest Syzygy andmebaaside DTZ väärtused võivad olla ümardatud.</string>
+  <string name="unknownDueToRounding">Võit/kaotus on tagatud ainult siis, kui on järgitud andmebaasi soovitatud käikude järjekorda alates viimasest löömisest või etturi käigust, sest Syzygy andmebaaside DTZ väärtused võivad olla ümardatud.</string>
   <string name="allSet">Valmis!</string>
   <string name="importPgn">Impordi PGN</string>
   <string name="delete">Kustuta</string>
@@ -209,6 +209,8 @@
   <string name="forgotPassword">Unustasid parooli?</string>
   <string name="error.weakPassword">See parool on väga levinud ning liiga lihtne arvata.</string>
   <string name="error.namePassword">Palun ära kasuta oma kasutajanime paroolina.</string>
+  <string name="youAreLeavingLichess">Lahkud Lichessist</string>
+  <string name="neverTypeYourPassword">Ära kirjuta oma Lichessi parooli teisele leheküljele!</string>
   <string name="passwordSuggestion">Ära kasuta kellegi teise poolt soovitatud parooli. Nad võivad su konto kaaperdada.</string>
   <string name="emailSuggestion">Ära kasuta kellegi teise poolt soovitatud e-maili aadressi. Nad võivad su konto kaaperdada.</string>
   <string name="emailConfirmHelp">Abi emaili kinnitamisega</string>
@@ -224,7 +226,7 @@
   <string name="copyTextToEmail">Kopeerige ülaltoodud tekst ja saatke see aadressile %s</string>
   <string name="waitForSignupHelp">Me võtame teiega peagi ühendust, et aidata teil registreerimist lõpule viia.</string>
   <string name="accountConfirmed">Kasutaja %s on edukalt kinnitatud.</string>
-  <string name="accountCanLogin">Saate praegu siise logida kui %s.</string>
+  <string name="accountCanLogin">Saate praegu sisse logida kui %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Te ei vaja kinnitusmeili.</string>
   <string name="accountClosed">Konto %s on suletud.</string>
   <string name="accountRegisteredWithoutEmail">Konto %s registreeriti ilma e-posti aadressita.</string>
@@ -648,7 +650,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="noSimulExplanation">Seda simultaani ei ole olemas.</string>
   <string name="returnToSimulHomepage">Tagasi simultaanide lehele</string>
   <string name="aboutSimul">Simultaanides mängib üks maletaja samaaegselt paljude teiste vastu.</string>
-  <string name="aboutSimulImage">Fischer võitis simultaanis 50 partiist 47, viigistas kaks ja kaotas ühe.</string>
+  <string name="aboutSimulImage">Fischer võitis simultaani 50 partiist 47, viigistas kaks ja kaotas ühe.</string>
   <string name="aboutSimulRealLife">See mõiste on võetud reaalsest elust. Päris elus simultaani andja liigub laualt lauale, et teha ühte käiku.</string>
   <string name="aboutSimulRules">Simultaani algades, iga mängija alustab mängu korraldajaga, kes mängib valgete nuppudega. Simultaan lõpeb kui kõik mängud on mängitud.</string>
   <string name="aboutSimulSettings">Simultaanid on alati ilma reitinguta. Kordusmäng, käikude tagasivõtmised ning aja lisamine on keelatud.</string>

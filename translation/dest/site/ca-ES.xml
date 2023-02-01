@@ -209,6 +209,8 @@
   <string name="forgotPassword">Has oblidat la contrasenya?</string>
   <string name="error.weakPassword">La contrasenya és massa comuna i massa fàcil d\'endevinar.</string>
   <string name="error.namePassword">Si us plau, no feu servir el vostre nom d\'usuari com a contrasenya.</string>
+  <string name="youAreLeavingLichess">Esteu sortint de Lichess</string>
+  <string name="neverTypeYourPassword">Mai introduïu la contrasenya de Lichess en un altre lloc web!</string>
   <string name="passwordSuggestion">No feu servir una contrasenya suggerida per algú altre. La farà servir per robar el vostre compte.</string>
   <string name="emailSuggestion">No feu server un correu electrònic suggerit per algú altre. La farà servir per robar el vostre compte.</string>
   <string name="emailConfirmHelp">Ajuda amb l\'email de confirmació</string>
