@@ -47,8 +47,8 @@ sealed trait Context extends lila.user.UserContextWrapper:
 
   def lang = userContext.lang
 
-  export pageData.{ teamNbRequests, nbChallenges, nbNotifications, pref, blindMode, nonce, hasClas }
-  def noBlind = !blindMode
+  export pageData.{ teamNbRequests, nbChallenges, nbNotifications, pref, blindMode as blind, nonce, hasClas }
+  def noBlind = !blind
 
   def currentTheme      = lila.pref.Theme(pref.theme)
   def currentTheme3d    = lila.pref.Theme3d(pref.theme3d)

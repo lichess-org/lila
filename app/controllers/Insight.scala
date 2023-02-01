@@ -19,6 +19,10 @@ final class Insight(env: Env) extends LilaController(env):
     }
 
   def index(username: UserStr) =
+    def jsonStatus(user: lila.user.User) =
+      env.insight.api userStatus user map { status =>
+        Ok(Json.obj("status" -> status.toString))
+      }
     OpenOrScoped()(
       open = implicit ctx =>
         Accessible(username) { user =>
@@ -29,10 +33,6 @@ final class Insight(env: Env) extends LilaController(env):
         },
       scoped = req => me => AccessibleApi(username)(me.some)(jsonStatus)
     )
-    def jsonStatus(user: lila.user.User) =
-      env.insight.api userStatus user map { status =>
-        Ok(Json.obj("status" -> status.toString))
-      }
 
   def path(username: UserStr, metric: String, dimension: String, filters: String) =
     Open { implicit ctx =>
@@ -66,8 +66,8 @@ final class Insight(env: Env) extends LilaController(env):
   def json(username: UserStr) =
     import lila.app.ui.EmbedConfig.given
     OpenOrScopedBody(parse.json)(Nil)(
-      open = ctx => AccessibleApi(username)(ctx.me) { processQuestion(_, ctx.body) },
-      scoped = req => me => AccessibleApi(username)(me.some) { processQuestion(_, req) }
+      open = implicit ctx => AccessibleApi(username)(ctx.me) { processQuestion(_, ctx.body) },
+      scoped = implicit req => me => AccessibleApi(username)(me.some) { processQuestion(_, req) }
     )
 
   private def processQuestion(user: lila.user.User, body: Request[JsValue])(using Lang) =
