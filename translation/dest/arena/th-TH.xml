@@ -28,5 +28,7 @@
   </plurals>
   <string name="thisIsPrivate">นี่คือทัวร์นาเมนต์ส่วนตัว</string>
   <string name="shareUrl">แชร์ URL นี้เพื่อให้คนอื่นๆได้เข้าร่วม: %s</string>
+  <string name="variant">ตัวแปรกติกา</string>
+  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">ความยาวเกมขั้นต่ำ</string>
   <string name="allowBerserk">อนุญาตให้เบอร์เซิร์ก</string>
 </resources>
