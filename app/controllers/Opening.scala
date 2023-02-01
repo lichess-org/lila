@@ -49,19 +49,21 @@ final class Opening(env: Env) extends LilaController(env):
 
   def config(thenTo: String) =
     OpenBody { implicit ctx =>
-      given play.api.mvc.Request[?] = ctx.body
-      val redir =
-        Redirect {
-          lila.common.HTTPRequest.referer(ctx.req) | {
-            if (thenTo.isEmpty || thenTo == "index") routes.Opening.index().url
-            else if (thenTo startsWith "q:") routes.Opening.index(thenTo.drop(2).some).url
-            else routes.Opening.byKeyAndMoves(thenTo, "").url
+      NoCrawlers {
+        given play.api.mvc.Request[?] = ctx.body
+        val redir =
+          Redirect {
+            lila.common.HTTPRequest.referer(ctx.req) | {
+              if (thenTo.isEmpty || thenTo == "index") routes.Opening.index().url
+              else if (thenTo startsWith "q:") routes.Opening.index(thenTo.drop(2).some).url
+              else routes.Opening.byKeyAndMoves(thenTo, "").url
+            }
           }
-        }
-      lila.opening.OpeningConfig.form
-        .bindFromRequest()
-        .fold(_ => redir, cfg => redir.withCookies(env.opening.config.write(cfg)))
-        .toFuccess
+        lila.opening.OpeningConfig.form
+          .bindFromRequest()
+          .fold(_ => redir, cfg => redir.withCookies(env.opening.config.write(cfg)))
+          .toFuccess
+      }
     }
 
   def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { implicit ctx => me =>
