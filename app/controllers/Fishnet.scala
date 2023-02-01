@@ -59,14 +59,13 @@ final class Fishnet(env: Env) extends LilaController(env):
       }
     }
 
-  def status =
-    Action.async {
-      api.status map { Ok(_) }
-    }
+  val status = Action.async {
+    api.status map { JsonStrOk(_) }
+  }
 
   private def ClientAction[A <: JsonApi.Request](
       f: A => lila.fishnet.Client => Fu[Either[Result, Option[JsonApi.Work]]]
-  )(implicit reads: Reads[A]) =
+  )(using Reads[A]) =
     Action.async(parse.tolerantJson) { req =>
       req.body
         .validate[A]

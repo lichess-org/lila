@@ -52,10 +52,10 @@ abstract private[controllers] class LilaController(val env: Env)
       api = _ => fuccess(jsonOkResult)
     )
 
-  given Conversion[Context, Lang]                 = _.lang
-  given Conversion[Context, RequestHeader]        = _.req
-  given Conversion[RequestHeader, Lang]           = I18nLangPicker(_)
-  given lila.common.config.NetDomain              = env.net.domain
+  given Conversion[Context, Lang]          = _.lang
+  given Conversion[Context, RequestHeader] = _.req
+  given Conversion[RequestHeader, Lang]    = I18nLangPicker(_)
+  given lila.common.config.NetDomain       = env.net.domain
 
   // we can't move to `using` yet, because we can't do `Open { using ctx =>`
   implicit def ctxLang(using ctx: Context): Lang                   = ctx.lang
@@ -368,6 +368,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def JsonOk(body: JsValue): Result             = Ok(body) as JSON
   protected def JsonOk[A: Writes](body: A): Result        = Ok(Json toJson body) as JSON
   protected def JsonOk[A: Writes](fua: Fu[A]): Fu[Result] = fua dmap { JsonOk(_) }
+  protected def JsonStrOk(str: JsonStr): Result           = Ok(str) as JSON
   protected def JsonBadRequest(body: JsValue): Result     = BadRequest(body) as JSON
 
   protected val jsonOkBody   = Json.obj("ok" -> true)

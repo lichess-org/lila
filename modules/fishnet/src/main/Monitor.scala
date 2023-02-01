@@ -5,10 +5,7 @@ import ornicar.scalalib.ThreadLocalRandom
 final private class Monitor(
     repo: FishnetRepo,
     cacheApi: lila.memo.CacheApi
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem
-):
+)(using ec: Executor, scheduler: akka.actor.Scheduler):
 
   val statusCache = cacheApi.unit[Monitor.Status] {
     _.refreshAfterWrite(1 minute)
@@ -20,7 +17,7 @@ final private class Monitor(
   private val monBy = lila.mon.fishnet.analysis.by
 
   private def sumOf[A](items: List[A])(f: A => Option[Int]) =
-    items.foldLeft(0) { case (acc, a) =>
+    items.foldLeft(0) { (acc, a) =>
       acc + f(a).getOrElse(0)
     }
 
@@ -91,7 +88,7 @@ final private class Monitor(
       ()
     }
 
-  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+  scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     monitorClients() >> monitorStatus()
     ()
   }
@@ -99,7 +96,25 @@ final private class Monitor(
 object Monitor:
 
   case class StatusFor(acquired: Int, queued: Int, oldest: Int)
-  case class Status(user: StatusFor, system: StatusFor)
+  case class Status(user: StatusFor, system: StatusFor):
+    lazy val json: JsonStr =
+      import play.api.libs.json.Json
+      def statusFor(s: Monitor.StatusFor) =
+        Json.obj(
+          "acquired" -> s.acquired,
+          "queued"   -> s.queued,
+          "oldest"   -> s.oldest
+        )
+      JsonStr(
+        Json.stringify(
+          Json.obj(
+            "analysis" -> Json.obj(
+              "user"   -> statusFor(user),
+              "system" -> statusFor(system)
+            )
+          )
+        )
+      )
 
   private val monResult = lila.mon.fishnet.client.result
 

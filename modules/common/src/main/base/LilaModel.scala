@@ -125,3 +125,6 @@ trait LilaModel:
 
   opaque type Depth = Int
   object Depth extends OpaqueInt[Depth]
+
+  opaque type JsonStr = String
+  object JsonStr extends OpaqueString[JsonStr]
