@@ -112,7 +112,7 @@ final class Account(
         )(using I18nLangPicker(req, me.lang)) dmap { JsonOk(_) }
       }(
         rateLimitedFu(
-          "Please don't poll this endpoint. Use https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
+          "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
         )
       )
     }
