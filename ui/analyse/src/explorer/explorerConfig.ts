@@ -75,8 +75,8 @@ export class ExplorerConfigCtrl {
         str => str as ExplorerDb,
         v => v
       ),
-      rating: storedJsonProp('explorer.rating', () => allRatings.filter(r => r >= 1600)),
-      speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
+      rating: storedJsonProp('explorer.rating', () => allRatings.slice(1)),
+      speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds.slice(1)),
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
       byDbData,
       playerName: {
