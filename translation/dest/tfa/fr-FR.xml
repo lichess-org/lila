@@ -15,5 +15,5 @@
 Si vous avez perdu l\'accès à vos codes d\'authentification, vous pouvez également réinitialiser le mot de passe par courriel.</string>
   <string name="openTwoFactorApp">Ouvrez l\'application d\'authentification à deux facteurs sur votre appareil pour voir votre code d\'authentification et vérifier votre identité.</string>
   <string name="setupReminder">Activez l\'authentification à deux facteurs pour sécuriser votre compte sur https://lichess.org/account/twofactor.
-Vous avez reçu ce message parce que des responsabilités spéciales (chef d\'équipe, entraîneur, enseignant ou streamer) sont rattachées à votre compte.</string>
+Vous avez reçu ce message parce que des responsabilités particulières (chef d\'équipe, entraîneur, enseignant ou diffuseur) sont rattachées à votre compte.</string>
 </resources>

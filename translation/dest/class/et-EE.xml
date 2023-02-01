@@ -59,8 +59,8 @@ Siin on link klassi sisenemiseks.</string>
   </plurals>
   <string name="onlyVisibleToTeachers">Nähtav ainult klassi õpetajate poolt</string>
   <string name="lastActiveDate">Aktiivne</string>
-  <string name="managed">Õnnestus</string>
-  <string name="thisStudentAccountIsManaged">See õpilane on loodud</string>
+  <string name="managed">Hallatud</string>
+  <string name="thisStudentAccountIsManaged">See õpilaskonto on hallatud</string>
   <string name="upgradeFromManaged">Uuenda iseseisvaks</string>
   <string name="release">Vabasta</string>
   <string name="releaseTheAccount">Vabasta kasutaja, et õpilane saaks seda muuta ise.</string>

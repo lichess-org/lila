@@ -206,6 +206,8 @@
   <string name="email">इ-मेल</string>
   <string name="passwordReset">पासवर्ड बदलें</string>
   <string name="forgotPassword">क्या आप अपना पासवर्ड भूल गए हैं?</string>
+  <string name="youAreLeavingLichess">आप लिचेस छोड़ रहे हैं</string>
+  <string name="neverTypeYourPassword">अपना लिचेस पासवर्ड कभी भी किसी अन्य साइट पर न लिखें!</string>
   <string name="emailConfirmHelp">ईमेल कन्फ़र्मेशन में सहायता</string>
   <string name="emailConfirmNotReceived">साइन अप के बाद कन्फ़र्मेशन ईमेल नहीं मिला?</string>
   <string name="whatSignupUsername">आपने साइन अप के लिए कौन से यूज़रनेम का इस्तेमाल किया?</string>

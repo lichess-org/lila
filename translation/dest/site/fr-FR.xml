@@ -209,6 +209,8 @@
   <string name="forgotPassword">Mot de passe oublié ?</string>
   <string name="error.weakPassword">Ce mot de passe très courant est trop facile à deviner.</string>
   <string name="error.namePassword">N\'employez pas votre nom d\'utilisateur comme mot de passe.</string>
+  <string name="youAreLeavingLichess">Vous quittez Lichess</string>
+  <string name="neverTypeYourPassword">N\'utilisez jamais votre mot de passe Lichess sur un autre site.</string>
   <string name="passwordSuggestion">N\'utilisez pas un mot de passe suggéré par une autre personne. Elle pourrait l\'utiliser pour voler votre compte.</string>
   <string name="emailSuggestion">N\'utilisez pas une adresse de courriel suggérée par une autre personne. Celle-ci pourrait l\'utiliser pour voler votre compte.</string>
   <string name="emailConfirmHelp">Aide sur la confirmation par courriel</string>

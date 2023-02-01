@@ -59,6 +59,8 @@
   <string name="depthX">Dýpd %s</string>
   <string name="usingServerAnalysis">Nýtir ambætaragreining</string>
   <string name="loadingEngine">Inntekur engine ...</string>
+  <string name="calculatingMoves">Roknar leikir út...</string>
+  <string name="engineFailed">Maskinuinnlesing miseydnaðist</string>
   <string name="cloudAnalysis">Skíggjagreining</string>
   <string name="goDeeper">Greina djúpari</string>
   <string name="showThreat">Vís hóttan</string>
@@ -196,6 +198,8 @@
   <string name="email">Teldupostur</string>
   <string name="passwordReset">Endurset loyniorð</string>
   <string name="forgotPassword">Gloymt loyniorð?</string>
+  <string name="youAreLeavingLichess">Tú fert nú úr Lichess</string>
+  <string name="neverTypeYourPassword">Skriva ongantíð títt Lichess loyniorð á aðra síðu!</string>
   <string name="rank">Støða</string>
   <string name="rankX">Støða: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">

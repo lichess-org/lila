@@ -196,6 +196,12 @@
   <string name="email">メールアドレス</string>
   <string name="passwordReset">パスワードをリセットする</string>
   <string name="forgotPassword">パスワードを忘れた方はこちら</string>
+  <string name="error.weakPassword">このパスワードはありふれすぎていて簡単に破られます。</string>
+  <string name="error.namePassword">パスワードはユーザー名と同じにしないでください。</string>
+  <string name="youAreLeavingLichess">Lichess から移動します</string>
+  <string name="neverTypeYourPassword">別のサイトで同じパスワードを使わないで！</string>
+  <string name="passwordSuggestion">他の人が提案したパスワードは使わないように。アカウントが乗っ取られるかもしれません。</string>
+  <string name="emailSuggestion">他の人が提案したメールアドレスは使わないように。アカウントが乗っ取られるかもしれません。</string>
   <string name="emailConfirmHelp">確認メールについてのヘルプ</string>
   <string name="emailConfirmNotReceived">サインアップしたのに確認メールが届きませんでしたか？</string>
   <string name="whatSignupUsername">サインアップに使用したユーザー名は？</string>
