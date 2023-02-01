@@ -313,7 +313,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       ) 5
       else 20
     CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost, msg = me.username) {
+      CreateLimitPerIP(req.ipAddress, cost = cost, msg = me.username) {
         create
       }(fail.toFuccess)
     }(fail.toFuccess)

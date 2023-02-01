@@ -5,7 +5,6 @@ import play.api.mvc.*
 import scala.util.{ Failure, Success }
 
 import lila.app.{ given, * }
-import lila.common.HTTPRequest
 import lila.fishnet.JsonApi.readers.given
 import lila.fishnet.JsonApi.writers.given
 import lila.fishnet.{ JsonApi, Work }
@@ -77,7 +76,7 @@ final class Fishnet(env: Env) extends LilaController(env):
             BadRequest(jsonError(JsError toJson err)).toFuccess
           },
           data =>
-            api.authenticateClient(data, HTTPRequest ipAddress req) flatMap {
+            api.authenticateClient(data, req.ipAddress) flatMap {
               case Failure(msg) => Unauthorized(jsonError(msg.getMessage)).toFuccess
               case Success(client) =>
                 f(data)(client).map {

@@ -9,7 +9,6 @@ import views.html
 import lila.api.AnnounceStore
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
 import lila.user.{ Holder, TotpSecret, User as UserModel }
 import lila.i18n.I18nLangPicker

@@ -23,7 +23,8 @@ abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
     with ContentTypes
     with RequestGetter
-    with ResponseWriter:
+    with ResponseWriter
+    with CtrlExtensions:
 
   export _root_.router.ReverseRouterConversions.given
 
@@ -32,30 +33,6 @@ abstract private[controllers] class LilaController(val env: Env)
   given akka.actor.Scheduler = env.scheduler
 
   protected given Zero[Result] = Zero(Results.NotFound)
-
-  extension (result: Result)
-    def toFuccess                         = Future successful result
-    def flashSuccess(msg: String): Result = result.flashing("success" -> msg)
-    def flashSuccess: Result              = flashSuccess("")
-    def flashFailure(msg: String): Result = result.flashing("failure" -> msg)
-    def flashFailure: Result              = flashFailure("")
-    def withCanonical(url: String): Result =
-      result.withHeaders(LINK -> s"<${env.net.baseUrl}${url}>; rel=\"canonical\"")
-    def withCanonical(url: Call): Result = withCanonical(url.url)
-    def enableSharedArrayBuffer(using req: RequestHeader): Result = {
-      if HTTPRequest.isChrome96Plus(req) then
-        result.withHeaders("Cross-Origin-Embedder-Policy" -> "credentialless")
-      else if HTTPRequest.isFirefox108Plus(req) && env.firefoxOriginTrial.get().nonEmpty then
-        result.withHeaders(
-          "Origin-Trial"                 -> env.firefoxOriginTrial.get(),
-          "Cross-Origin-Embedder-Policy" -> "credentialless"
-        )
-      else result.withHeaders("Cross-Origin-Embedder-Policy" -> "require-corp")
-    }.withHeaders("Cross-Origin-Opener-Policy" -> "same-origin")
-    def noCache: Result = result.withHeaders(
-      CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
-      EXPIRES       -> "0"
-    )
 
   protected given Conversion[Frag, Result]    = Ok(_)
   protected given Conversion[Int, ApiVersion] = ApiVersion(_)
@@ -77,7 +54,6 @@ abstract private[controllers] class LilaController(val env: Env)
 
   given Conversion[Context, Lang]                 = _.lang
   given Conversion[Context, RequestHeader]        = _.req
-  given Conversion[RequestHeader, ui.EmbedConfig] = ui.EmbedConfig(_)
   given Conversion[RequestHeader, Lang]           = I18nLangPicker(_)
   given lila.common.config.NetDomain              = env.net.domain
 

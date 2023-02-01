@@ -9,7 +9,7 @@ import play.api.mvc.{ RequestHeader, Result }
 import scala.util.chaining.*
 
 import lila.app.{ given, * }
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.IpAddress
 import lila.game.Pov
 import lila.pref.{ PieceSet, Theme }
 
@@ -30,7 +30,7 @@ final class Export(env: Env) extends LilaController(env):
     Action.async { implicit req =>
       fetch flatMap {
         _.fold(notFoundJson()) { res =>
-          ExportImageRateLimitByIp(HTTPRequest ipAddress req) {
+          ExportImageRateLimitByIp(req.ipAddress) {
             ExportImageRateLimitGlobal("-") {
               convert(res)
             }(rateLimitedFu)

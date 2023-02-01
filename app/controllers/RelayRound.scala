@@ -10,7 +10,6 @@ import lila.app.{ given, * }
 import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourModel }
 import lila.user.{ User as UserModel }
 import views.*
-import lila.common.HTTPRequest
 import chess.format.pgn.PgnStr
 
 final class RelayRound(
@@ -164,7 +163,7 @@ final class RelayRound(
     env.relay.api.byIdWithStudy(id) flatMapz { rt =>
       studyC.CanView(rt.study, me) {
         apiC
-          .GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
+          .GlobalConcurrencyLimitPerIP(req.ipAddress)(
             env.relay.pgnStream.streamRoundGames(rt)
           ) { source =>
             noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
@@ -256,7 +255,7 @@ final class RelayRound(
       else if (me.hasTitle || me.isVerified) 5
       else 10
     CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost) {
+      CreateLimitPerIP(req.ipAddress, cost = cost) {
         create
       }(fail.toFuccess)
     }(fail.toFuccess)
