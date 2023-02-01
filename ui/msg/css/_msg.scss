@@ -39,3 +39,37 @@ body {
     }
   }
 }
+
+.msg-modal {
+  @extend %box-neat;
+  font-size: 1.1em;
+  padding: 0 !important;
+  max-width: 600px;
+  &__content {
+    @extend %flex-center-nowrap;
+    background: $c-bg-zebra;
+    padding: 2em;
+    &::before {
+      @extend %data-icon;
+      content: '';
+      font-size: 5em;
+      opacity: 0.5;
+      @include margin-inline-end(2rem);
+    }
+    &__title {
+      text-align: $start-direction;
+    }
+    &__advice {
+      font-size: 1.1em;
+      line-height: 2em;
+      color: $c-brag;
+      margin: 0;
+    }
+  }
+  &__actions {
+    @extend %flex-center;
+    padding: 2em;
+    justify-content: center;
+    gap: 2em;
+  }
+}

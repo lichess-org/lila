@@ -18,9 +18,7 @@ final private class OpeningExplorer(
 
   def stats(query: OpeningQuery): Fu[Option[Position]] =
     ws.url(s"$explorerEndpoint/lichess")
-      .withQueryStringParameters(
-        queryParameters(query) ::: List("moves" -> "12")*
-      )
+      .withQueryStringParameters(queryParameters(query)*)
       .get()
       .flatMap {
         case res if res.status == 404 => fuccess(none)

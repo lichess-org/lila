@@ -237,7 +237,7 @@ final class User(
         env.round.proxyRepo.upgradeIfPresent(p) dmap some
       })
 
-  private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val UserGamesRateLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 500,
     duration = 10.minutes,
     key = "user_games.web.ip"

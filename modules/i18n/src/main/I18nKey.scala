@@ -5,9 +5,13 @@ import scalatags.Text.RawFrag
 
 opaque type I18nKey = String
 
-object I18nKey extends OpaqueString[I18nKey]:
+object I18nKey:
+
+  def apply(key: String): I18nKey = key
 
   extension (key: I18nKey)
+
+    def value: String = key
 
     def apply(args: Matchable*)(using lang: Lang): RawFrag =
       Translator.frag.literal(key, args, lang)

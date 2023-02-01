@@ -41,7 +41,9 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
 
   def uploadFile(rel: String, uploaded: FilePart, userId: UserId): Fu[PicfitImage] =
-    uploadSource(rel, uploaded.copy[ByteSource](ref = FileIO.fromPath(uploaded.ref.path)), userId)
+    val ref: ByteSource = FileIO.fromPath(uploaded.ref.path)
+    val source          = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
+    uploadSource(rel, source, userId)
 
   def uploadSource(rel: String, part: SourcePart, userId: UserId): Fu[PicfitImage] =
     if (part.fileSize > uploadMaxBytes)

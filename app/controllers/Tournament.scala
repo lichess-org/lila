@@ -197,7 +197,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  private val JoinLimitPerUser = new lila.memo.RateLimit[UserId](
+  private val JoinLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 30,
     duration = 10 minutes,
     key = "tournament.user.join"
@@ -283,13 +283,13 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  private val CreateLimitPerUser = new lila.memo.RateLimit[UserId](
+  private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 240,
     duration = 24.hour,
     key = "tournament.user"
   )
 
-  private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
+  private val CreateLimitPerIP = lila.memo.RateLimit[lila.common.IpAddress](
     credits = 400,
     duration = 24.hour,
     key = "tournament.ip"

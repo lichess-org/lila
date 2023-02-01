@@ -18,7 +18,7 @@ object Lila extends Lila:
   inline def nowCentis: Long   = nowMillis / 10
   inline def nowTenths: Long   = nowMillis / 100
   inline def nowSeconds: Int   = (nowMillis / 1000).toInt
-  inline def nowDate: DateTime = org.joda.time.DateTime.now
+  inline def nowDate: DateTime = org.joda.time.DateTime()
 
   object makeTimeout:
 

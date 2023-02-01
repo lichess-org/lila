@@ -117,19 +117,19 @@ object EmailConfirm:
   import lila.memo.RateLimit
   import lila.common.{ HTTPRequest, IpAddress }
 
-  private lazy val rateLimitPerIP = new RateLimit[IpAddress](
+  private lazy val rateLimitPerIP = RateLimit[IpAddress](
     credits = 40,
     duration = 1 hour,
     key = "email.confirms.ip"
   )
 
-  private lazy val rateLimitPerUser = new RateLimit[UserId](
+  private lazy val rateLimitPerUser = RateLimit[UserId](
     credits = 3,
     duration = 1 hour,
     key = "email.confirms.user"
   )
 
-  private lazy val rateLimitPerEmail = new RateLimit[String](
+  private lazy val rateLimitPerEmail = RateLimit[String](
     credits = 3,
     duration = 1 hour,
     key = "email.confirms.email"

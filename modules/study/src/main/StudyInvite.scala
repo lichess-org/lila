@@ -16,7 +16,7 @@ final private class StudyInvite(
     relationApi: lila.relation.RelationApi
 )(using Executor):
 
-  private val notifyRateLimit = new lila.memo.RateLimit[UserId](
+  private val notifyRateLimit = lila.memo.RateLimit[UserId](
     credits = 500,
     duration = 1 day,
     key = "study.invite.user"

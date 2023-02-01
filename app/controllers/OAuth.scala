@@ -158,7 +158,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       else Unauthorized(jsonError("Missing permission")).toFuccess
     }
 
-  private val testTokenRateLimit = new lila.memo.RateLimit[IpAddress](
+  private val testTokenRateLimit = lila.memo.RateLimit[IpAddress](
     credits = 10_000,
     duration = 10.minutes,
     key = "api.token.test"

@@ -187,7 +187,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
 
   type Result = Either[ScheduleError, ScheduledBulk]
 
-  private val rateLimit = new lila.memo.RateLimit[UserId](
+  private val rateLimit = lila.memo.RateLimit[UserId](
     credits = maxGames * 3,
     duration = 10.minutes,
     key = "challenge.bulk"

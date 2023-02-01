@@ -229,6 +229,8 @@
   <string name="email">דוא״ל</string>
   <string name="passwordReset">איפוס סיסמה</string>
   <string name="forgotPassword">שכחת סיסמה?</string>
+  <string name="error.weakPassword">הסיסמה הזו נפוצה ביותר וקלה מדי לניחוש.</string>
+  <string name="error.namePassword">נא לא להשתמש בשם המשתמש בתור הסיסמה.</string>
   <string name="emailConfirmHelp">עזרה עם אימייל האישור</string>
   <string name="emailConfirmNotReceived">לא קיבלת מייל אישור לאחר שנרשמת?</string>
   <string name="whatSignupUsername">עם איזה שם משתמש נרשמת?</string>

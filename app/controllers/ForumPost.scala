@@ -10,7 +10,7 @@ import router.ReverseRouterConversions.postIdConv
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
 
   private val CreateRateLimit =
-    new lila.memo.RateLimit[IpAddress](
+    lila.memo.RateLimit[IpAddress](
       credits = 4,
       duration = 5.minutes,
       key = "forum.post",
