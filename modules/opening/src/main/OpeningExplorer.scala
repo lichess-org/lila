@@ -78,6 +78,7 @@ final private class OpeningExplorer(
   private def historyOf(params: List[(String, String)]): Fu[PopularityHistoryAbsolute] =
     ws.url(s"$explorerEndpoint/lichess/history")
       .withQueryStringParameters(params ::: List("since" -> OpeningQuery.firstMonth)*)
+      .withRequestTimeout(requestTimeout)
       .get()
       .flatMap {
         case res if res.status != 200 =>
