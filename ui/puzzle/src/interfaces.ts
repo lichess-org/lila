@@ -211,7 +211,7 @@ export interface Puzzle {
 
 export interface PuzzleResult {
   round?: PuzzleRound;
-  next: PuzzleData;
+  next?: PuzzleData;
   replayComplete?: boolean;
 }
 

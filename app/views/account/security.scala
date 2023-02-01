@@ -16,9 +16,7 @@ object security:
       curSessionId: String,
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
-  )(using
-      ctx: Context
-  ) =
+  )(using Context) =
     account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security") {
       div(cls := "account security")(
         div(cls := "box")(
@@ -52,7 +50,7 @@ object security:
       curSessionId: Option[String],
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
-  )(implicit lang: Lang) =
+  )(using Lang) =
     st.table(cls := "slist slist-pad")(
       sessions.map { s =>
         tr(
