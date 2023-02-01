@@ -38,15 +38,18 @@ final class SecurityApi(
   private val usernameOrEmailMapping =
     lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength).into[UserStrOrEmail]
 
-  lazy val loginForm = Form(
-    tuple(
+  lazy val loginForm = Form {
+    val form = tuple(
       "username" -> usernameOrEmailMapping, // can also be an email
       "password" -> nonEmptyText
-    ).verifying(
-      "This password is too easy to guess. Request a password reset email.",
-      x => !PasswordCheck.isWeak(User.ClearPassword(x._2), x._1.value)
     )
-  )
+    if mode == Mode.Prod then 
+      form.verifying(
+        "This password is too easy to guess. Request a password reset email.",
+        x => !PasswordCheck.isWeak(User.ClearPassword(x._2), x._1.value)
+      )
+    else form
+  }
 
   lazy val rememberForm = Form(single("remember" -> boolean))
 
