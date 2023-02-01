@@ -14,7 +14,7 @@ object show:
   def apply(
       s: lila.streamer.Streamer.WithUserAndStream,
       activities: Vector[lila.activity.ActivityView]
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     views.html.base.layout(
       title = s"${s.titleName} streams chess",
       moreCss = cssTag("streamer.show"),

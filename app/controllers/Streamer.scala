@@ -11,7 +11,7 @@ import lila.common.Json.given
 
 final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
-  private def api = env.streamer.api
+  export env.streamer.api
 
   def index(page: Int) =
     Open { implicit ctx =>
@@ -51,12 +51,13 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def live = apiC.ApiRequest { _ =>
-    for {
+    for
       s     <- env.streamer.liveStreamApi.all
       users <- env.user.lightUserApi asyncManyFallback s.streams.map(_.streamer.userId)
-    } yield apiC.toApiResult {
-      (s.streams zip users).map { case (stream, user) =>
-        lila.common.LightUser.lightUserWrites.writes(user) ++ lila.streamer.Stream.toJson(stream)
+    yield apiC.toApiResult {
+      (s.streams zip users).map { (stream, user) =>
+        lila.common.LightUser.lightUserWrites.writes(user) ++
+          lila.streamer.Stream.toJson(env.memo.picfitUrl, stream)
       }
     }
   }
