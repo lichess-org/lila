@@ -32,7 +32,8 @@ final class RoundSocket(
     shutdown: CoordinatedShutdown
 )(using
     ec: Executor,
-    system: ActorSystem
+    system: ActorSystem,
+    scheduler: akka.actor.Scheduler
 ):
 
   import RoundSocket.*
@@ -206,14 +207,14 @@ final class RoundSocket(
     }
   }
 
-  system.scheduler.scheduleWithFixedDelay(25 seconds, tickInterval) { () =>
+  scheduler.scheduleWithFixedDelay(25 seconds, tickInterval) { () =>
     rounds.tellAll(RoundAsyncActor.Tick)
   }
-  system.scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds) { () =>
+  scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds) { () =>
     lila.mon.round.asyncActorCount.update(rounds.size).unit
   }
 
-  private val terminationDelay = TerminationDelay(system.scheduler, 1 minute, finishRound)
+  private val terminationDelay = TerminationDelay(scheduler, 1 minute, finishRound)
 
   // on startup we get all ongoing game IDs and versions from lila-ws
   // load them into round actors with batched DB queries
