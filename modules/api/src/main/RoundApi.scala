@@ -48,7 +48,7 @@ final private[api] class RoundApi(
           ctx.me.map(Right.apply),
           withFlags = ctxFlags,
           initialFen = initialFen,
-          nvui = ctx.blind
+          nvui = ctx.blindMode
         ) zip
           (pov.game.simulId ?? simulApi.find) zip
           swissApi.gameView(pov) zip

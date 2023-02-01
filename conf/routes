@@ -97,7 +97,7 @@ GET   /player/top/:nb/:perfKey         controllers.User.topNb(nb: Int, perfKey)
 GET   /api/player/top/:nb/:perfKey     controllers.User.topNbApi(nb: Int, perfKey)
 GET   /player/top/week                 controllers.User.topWeek
 GET   /player/online                   controllers.User.online
-GET   /player/autocomplete             controllers.User.autocomplete
+GET   /api/player/autocomplete         controllers.User.autocomplete
 GET   /api/player                      controllers.User.apiList
 
 GET   /dasher                          controllers.Dasher.get

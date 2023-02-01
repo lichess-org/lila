@@ -47,24 +47,14 @@ sealed trait Context extends lila.user.UserContextWrapper:
 
   def lang = userContext.lang
 
-  def teamNbRequests  = pageData.teamNbRequests
-  def nbChallenges    = pageData.nbChallenges
-  def nbNotifications = pageData.nbNotifications
-  def pref            = pageData.pref
-  def blind           = pageData.blindMode
-  def noBlind         = !blind
-  def nonce           = pageData.nonce
-  def hasClas         = pageData.hasClas
+  export pageData.{ teamNbRequests, nbChallenges, nbNotifications, pref, blindMode, nonce, hasClas }
+  def noBlind = !blindMode
 
-  def currentTheme = lila.pref.Theme(pref.theme)
-
-  def currentTheme3d = lila.pref.Theme3d(pref.theme3d)
-
-  def currentPieceSet = lila.pref.PieceSet.get(pref.pieceSet)
-
+  def currentTheme      = lila.pref.Theme(pref.theme)
+  def currentTheme3d    = lila.pref.Theme3d(pref.theme3d)
+  def currentPieceSet   = lila.pref.PieceSet.get(pref.pieceSet)
   def currentPieceSet3d = lila.pref.PieceSet3d.get(pref.pieceSet3d)
-
-  def currentSoundSet = lila.pref.SoundSet(pref.soundSet)
+  def currentSoundSet   = lila.pref.SoundSet(pref.soundSet)
 
   lazy val currentBg =
     if (pref.bg == Pref.Bg.TRANSPARENT) "transp"

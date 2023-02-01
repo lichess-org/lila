@@ -41,7 +41,11 @@ final class Api(
 
   val userRateLimit = lila.memo.RateLimit[IpAddress](3_000, 1.day, "user.show.api.ip")
   def user(name: UserStr) =
-    def get(req: RequestHeader, lang: Lang, me: Option[lila.user.User]) =
+    OpenOrScoped()(
+      ctx => get(ctx.req, ctx.me, ctx.lang),
+      req => me => get(req, me.some, me.realLang | reqLang(using req))
+    )
+    def get(req: RequestHeader, me: Option[lila.user.User], lang: Lang) =
       userRateLimit(HTTPRequest ipAddress req) {
         userApi.extended(
           name,
@@ -50,10 +54,6 @@ final class Api(
           withTrophies = getBool("trophies", req)
         )(using lang) map toApiResult map toHttp
       }(rateLimitedFu)
-    OpenOrScoped()(
-      ctx => get(ctx.req, ctx.lang, ctx.me),
-      req => me => get(req, me.realLang | reqLang(using req), me.some)
-    )
 
   private[controllers] def userWithFollows(req: RequestHeader) =
     HTTPRequest.apiVersion(req).exists(_.value < 6) && !getBool("noFollows", req)

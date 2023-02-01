@@ -489,34 +489,26 @@ final class Study(
     }
 
   def exportPgn(username: UserStr) =
-    OpenOrScoped(_.Study.Read)(
-      open = ctx => handleExport(username, ctx.me, ctx.req),
-      scoped = req => me => handleExport(username, me.some, req)
-    )
-
-  private def handleExport(
-      username: UserStr,
-      me: Option[lila.user.User],
-      req: RequestHeader
-  ) =
-    val name   = if (username.value == "me") me.fold(UserName("me"))(_.username) else username.into(UserName)
-    val userId = name.id
-    val flags  = requestPgnFlags(req)
-    val isMe   = me.exists(_ is userId)
-    apiC
-      .GlobalConcurrencyLimitPerIpAndUserOption(req, me, userId.some) {
-        env.study.studyRepo
-          .sourceByOwner(userId, isMe)
-          .flatMapConcat(env.study.pgnDump(_, flags))
-          .withAttributes(
-            akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
-          )
-      } { source =>
-        Ok.chunked(source)
-          .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
-          .as(pgnContentType)
-      }
-      .toFuccess
+    OpenOrScoped(_.Study.Read) { (req, me) =>
+      val name = if (username.value == "me") me.fold(UserName("me"))(_.username) else username.into(UserName)
+      val userId = name.id
+      val flags  = requestPgnFlags(req)
+      val isMe   = me.exists(_ is userId)
+      apiC
+        .GlobalConcurrencyLimitPerIpAndUserOption(req, me, userId.some) {
+          env.study.studyRepo
+            .sourceByOwner(userId, isMe)
+            .flatMapConcat(env.study.pgnDump(_, flags))
+            .withAttributes(
+              akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
+            )
+        } { source =>
+          Ok.chunked(source)
+            .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
+            .as(pgnContentType)
+        }
+        .toFuccess
+    }
 
   private def requestPgnFlags(req: RequestHeader) =
     lila.study.PgnDump.WithFlags(

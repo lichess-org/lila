@@ -111,6 +111,14 @@ abstract private[controllers] class LilaController(val env: Env)
       else handleOpen(open, req)
     }
 
+  protected def OpenOrScoped(selectors: OAuthScope.Selector*)(
+      f: (RequestHeader, Option[UserModel]) => Fu[Result]
+  ): Action[Unit] =
+    OpenOrScoped(selectors*)(
+      open = ctx => f(ctx.req, ctx.me),
+      scoped = req => me => f(req, me.some)
+    )
+
   private def handleOpen(f: Context => Fu[Result], req: RequestHeader): Fu[Result] =
     CSRF(req) {
       reqToCtx(req) flatMap f
