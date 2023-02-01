@@ -20,7 +20,7 @@ object index:
             submitButton(cls := "button frameless", st.title := "New access token", dataIcon := "")
           )
         ),
-        standardFlash.map(_(cls := "box__pad")),
+        standardFlash.map(div(cls := "box__pad")(_)),
         p(cls := "box__pad force-ltr")(
           "You can make OAuth requests without going through the ",
           a(href := s"${routes.Api.index}#section/Authentication")("authorization code flow"),

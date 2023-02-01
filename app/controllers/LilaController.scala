@@ -111,6 +111,14 @@ abstract private[controllers] class LilaController(val env: Env)
       else handleOpen(open, req)
     }
 
+  protected def OpenOrScoped(selectors: OAuthScope.Selector*)(
+      f: (RequestHeader, Option[UserModel]) => Fu[Result]
+  ): Action[Unit] =
+    OpenOrScoped(selectors*)(
+      open = ctx => f(ctx.req, ctx.me),
+      scoped = req => me => f(req, me.some)
+    )
+
   private def handleOpen(f: Context => Fu[Result], req: RequestHeader): Fu[Result] =
     CSRF(req) {
       reqToCtx(req) flatMap f
@@ -622,13 +630,13 @@ abstract private[controllers] class LilaController(val env: Env)
   )(result: => Fu[Result]): Fu[Result] =
     if (page < max.value && page > 0) result else errorPage
 
-  protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
-    if (ctx.kid) notFound else f
+  protected def NotForKids(f: => Fu[Result])(using ctx: Context) =
+    if ctx.kid then notFound else f
 
-  protected def NoCrawlers(result: => Fu[Result])(implicit ctx: Context) =
-    if (HTTPRequest isCrawler ctx.req) notFound else result
+  protected def NoCrawlers(result: => Fu[Result])(using ctx: Context) =
+    if HTTPRequest.isCrawler(ctx.req) then notFound else result
 
-  protected def NotManaged(result: => Fu[Result])(implicit ctx: Context) =
+  protected def NotManaged(result: => Fu[Result])(using ctx: Context) =
     ctx.me.??(env.clas.api.student.isManaged) flatMap {
       case true => notFound
       case _    => result

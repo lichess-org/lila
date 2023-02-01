@@ -15,7 +15,7 @@ object message:
       back: Option[String] = None,
       icon: Option[String] = None,
       moreCss: Option[Frag] = None
-  )(message: Modifier*)(implicit ctx: Context) =
+  )(message: Modifier*)(using Context) =
     views.html.base.layout(title = title, moreCss = ~moreCss) {
       main(cls := "box box-pad")(
         boxTop(
@@ -30,25 +30,25 @@ object message:
       )
     }
 
-  def noBot(implicit ctx: Context) =
+  def noBot(using Context) =
     apply("No bot area") {
       frag("Sorry, bot accounts are not allowed here.")
     }
 
-  def noEngine(implicit ctx: Context) =
+  def noEngine(using Context) =
     apply("No engine area") {
       "Sorry, engine assisted players are not allowed here."
     }
 
-  def noBooster(implicit ctx: Context) =
+  def noBooster(using Context) =
     apply("No booster area") {
       "Sorry, boosters and sandbaggers are not allowed here."
     }
 
-  def blacklistedMessage(implicit ctx: Context) =
+  def blacklistedMessage(using ctx: Context) =
     s"Sorry, your IP address ${ctx.ip} has been used to violate the ToS, and is now blacklisted."
 
-  def privateStudy(study: lila.study.Study)(implicit ctx: Context) =
+  def privateStudy(study: lila.study.Study)(using Context) =
     apply(
       title = s"${titleNameOrId(study.ownerId)}'s study",
       back = routes.Study.allDefault(1).url.some
@@ -59,7 +59,7 @@ object message:
       )
     )
 
-  def streamingMod(implicit ctx: Context) =
+  def streamingMod(using Context) =
     apply("Disabled while streaming") {
       frag(
         "This moderation feature is disabled while streaming, ",
@@ -67,13 +67,13 @@ object message:
       )
     }
 
-  def challengeDenied(msg: String)(implicit ctx: Context) =
+  def challengeDenied(msg: String)(using Context) =
     apply(
       title = trans.challenge.challengeToPlay.txt(),
       back = routes.Lobby.home.url.some
     )(msg)
 
-  def insightNoGames(u: User)(implicit ctx: Context) =
+  def insightNoGames(u: User)(using Context) =
     apply(
       title = s"${u.username} has not played a rated game yet!",
       back = routes.User.show(u.id).url.some
@@ -85,25 +85,25 @@ object message:
       )
     )
 
-  def teamCreateLimit(implicit ctx: Context) =
+  def teamCreateLimit(using Context) =
     apply("Cannot create a team") {
       "You have already created a team this week."
     }
 
-  def teamJoinLimit(implicit ctx: Context) =
+  def teamJoinLimit(using Context) =
     apply("Cannot join the team") {
       "You have already joined too many teams."
     }
 
-  def authFailed(implicit ctx: Context) =
+  def authFailed(using Context) =
     apply("403 - Access denied!") {
       "You tried to visit a page you're not authorized to access."
     }
 
-  def temporarilyDisabled(implicit ctx: Context) =
+  def temporarilyDisabled(using Context) =
     apply("Temporarily disabled")(
-      "Sorry, his feature is temporarily disabled while we figure out a way to bring it back."
+      "Sorry, this feature is temporarily disabled while we figure out a way to bring it back."
     )
 
-  def notYet(text: String)(implicit ctx: Context) =
+  def notYet(text: String)(using Context) =
     apply("Not yet available")(text)

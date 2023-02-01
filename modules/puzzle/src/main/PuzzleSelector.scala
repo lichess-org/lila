@@ -14,16 +14,26 @@ final class PuzzleSelector(
 
   import BsonHandlers.given
 
-  sealed abstract private class NextPuzzleResult(val name: String)
-  private object NextPuzzleResult:
-    case object PathMissing                        extends NextPuzzleResult("pathMissing")
-    case object PathEnded                          extends NextPuzzleResult("pathEnded")
-    case class WrongColor(puzzle: Puzzle)          extends NextPuzzleResult("wrongColor")
-    case class PuzzleMissing(id: PuzzleId)         extends NextPuzzleResult("puzzleMissing")
-    case class PuzzleAlreadyPlayed(puzzle: Puzzle) extends NextPuzzleResult("puzzlePlayed")
-    case class PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult("puzzleFound")
+  private enum NextPuzzleResult(val name: String):
+    case PathMissing                         extends NextPuzzleResult("pathMissing")
+    case PathEnded                           extends NextPuzzleResult("pathEnded")
+    case WrongColor(puzzle: Puzzle)          extends NextPuzzleResult("wrongColor")
+    case PuzzleMissing(id: PuzzleId)         extends NextPuzzleResult("puzzleMissing")
+    case PuzzleAlreadyPlayed(puzzle: Puzzle) extends NextPuzzleResult("puzzlePlayed")
+    case PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult("puzzleFound")
 
-  def nextPuzzleFor(user: User, angle: PuzzleAngle, retries: Int = 0): Fu[Puzzle] =
+  def nextPuzzleFor(user: User, angle: PuzzleAngle): Fu[Option[Puzzle]] =
+    findNextPuzzleFor(user, angle, 0)
+      .fold(
+        err =>
+          logger.warn(s"PuzzleSelector.nextPuzzleFor ${err.getMessage}")
+          none
+        ,
+        some
+      )
+      .mon(_.puzzle.selector.user.time(angle.key))
+
+  private def findNextPuzzleFor(user: User, angle: PuzzleAngle, retries: Int = 0): Fu[Puzzle] =
     sessionApi
       .continueOrCreateSessionFor(user, angle)
       .flatMap { session =>
@@ -35,7 +45,7 @@ final class PuzzleSelector(
             s"No puzzle path for ${user.id} $angle $tier" flatMap { pathId =>
               val newSession = session.switchTo(pathId)
               sessionApi.set(user, newSession)
-              nextPuzzleFor(user, angle, retries = retries + 1)
+              findNextPuzzleFor(user, angle, retries = retries + 1)
             }
 
         def serveAndMonitor(puzzle: Puzzle) =
@@ -56,21 +66,20 @@ final class PuzzleSelector(
             case PuzzleMissing(id) =>
               logger.warn(s"Puzzle missing: $id")
               sessionApi.set(user, session.next)
-              nextPuzzleFor(user, angle, retries)
+              findNextPuzzleFor(user, angle, retries)
             case PuzzleAlreadyPlayed(_) if retries < 5 =>
               sessionApi.set(user, session.next)
-              nextPuzzleFor(user, angle, retries = retries + 1)
+              findNextPuzzleFor(user, angle, retries = retries + 1)
             case PuzzleAlreadyPlayed(puzzle) =>
               session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath(retries))
             case WrongColor(_) if retries < 10 =>
               sessionApi.set(user, session.next)
-              nextPuzzleFor(user, angle, retries = retries + 1)
+              findNextPuzzleFor(user, angle, retries = retries + 1)
             case WrongColor(puzzle) =>
               session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath(retries - 5))
             case PuzzleFound(puzzle) => fuccess(serveAndMonitor(puzzle))
           }
       }
-      .mon(_.puzzle.selector.user.time(angle.key))
 
   private def nextPuzzleResult(user: User, session: PuzzleSession): Fu[NextPuzzleResult] =
     colls

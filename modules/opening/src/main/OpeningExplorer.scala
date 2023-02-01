@@ -16,9 +16,12 @@ final private class OpeningExplorer(
 )(using Executor):
   import OpeningExplorer.*
 
+  private val requestTimeout = 2.seconds
+
   def stats(query: OpeningQuery): Fu[Option[Position]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(queryParameters(query)*)
+      .withRequestTimeout(requestTimeout)
       .get()
       .flatMap {
         case res if res.status == 404 => fuccess(none)
@@ -52,6 +55,7 @@ final private class OpeningExplorer(
         "topGames"    -> "0",
         "recentGames" -> "0"
       )
+      .withRequestTimeout(requestTimeout)
       .get()
       .flatMap {
         case res if res.status == 404 => fuccess(none)
@@ -74,6 +78,7 @@ final private class OpeningExplorer(
   private def historyOf(params: List[(String, String)]): Fu[PopularityHistoryAbsolute] =
     ws.url(s"$explorerEndpoint/lichess/history")
       .withQueryStringParameters(params ::: List("since" -> OpeningQuery.firstMonth)*)
+      .withRequestTimeout(requestTimeout)
       .get()
       .flatMap {
         case res if res.status != 200 =>

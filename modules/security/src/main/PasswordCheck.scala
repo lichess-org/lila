@@ -22,7 +22,7 @@ object PasswordCheck:
   }
 
   // https://github.com/danielmiessler/SecLists/blob/master/Passwords/Common-Credentials/10-million-password-list-top-1000.txt
-  val commonPasswords = Set("chess", "lichess") ++ Set(
+  val commonPasswords = Set("chess", "lichess", "lichess.org") ++ Set(
     "123456",
     "password",
     "12345678",

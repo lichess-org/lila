@@ -429,18 +429,16 @@ final class Team(
   def requestProcess(requestId: String) =
     AuthBody { implicit ctx => me =>
       import cats.implicits.*
-      OptionFuRedirectUrl(for {
+      OptionFuRedirectUrl(for
         requestOption <- api request requestId
         teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
-      } yield (teamOption, requestOption).mapN((_, _))) { case (team, request) =>
+      yield (teamOption, requestOption).mapN((_, _))) { (team, request) =>
         given play.api.mvc.Request[?] = ctx.body
         forms.processRequest
           .bindFromRequest()
           .fold(
             _ => fuccess(routes.Team.show(team.id).toString),
-            { case (decision, url) =>
-              api.processRequest(team, request, decision) inject url
-            }
+            { (decision, url) => api.processRequest(team, request, decision) inject url }
           )
       }
     }

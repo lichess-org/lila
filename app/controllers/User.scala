@@ -31,8 +31,9 @@ final class User(
     puzzleC: => Puzzle
 ) extends LilaController(env):
 
-  private def relationApi    = env.relation.api
-  private def userGameSearch = env.gameSearch.userGameSearch
+  import env.relation.{ api as relationApi }
+  import env.gameSearch.userGameSearch
+  import env.user.lightUserApi
 
   def tv(username: UserStr) =
     Open { implicit ctx =>
@@ -119,7 +120,7 @@ final class User(
                   me = ctx.me,
                   page = page
                 )(using ctx.body, formBinding, reqLang)
-                _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+                _ <- lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
                 _ <- env.tournament.cached.nameCache preloadMany {
                   pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
                 }
@@ -262,7 +263,7 @@ final class User(
         _ <- env.tournament.cached.nameCache preloadMany {
           pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
         }
-        _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+        _ <- lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
       yield pag
     }(fuccess(Paginator.empty[GameModel]))
 
@@ -275,7 +276,7 @@ final class User(
               nbAllTime      <- env.user.cached.top10NbGame.get {}
               tourneyWinners <- env.tournament.winners.all.map(_.top)
               topOnline      <- env.user.cached.getTop50Online
-              _              <- env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
+              _              <- lightUserApi preloadMany tourneyWinners.map(_.userId)
             yield Ok(
               html.user.list(
                 tourneyWinners = tourneyWinners,
@@ -402,7 +403,7 @@ final class User(
         val reportLog = isGranted(_.SeeReport) ?? env.report.api
           .byAndAbout(user, 20, holder)
           .flatMap { rs =>
-            env.user.lightUserApi.preloadMany(rs.userIds) inject rs
+            lightUserApi.preloadMany(rs.userIds) inject rs
           }
           .map(view.reportLog(user))
 
@@ -437,8 +438,7 @@ final class User(
         val assess = isGranted(_.MarkEngine) ?? env.mod.assessApi.getPlayerAggregateAssessmentWithGames(
           user.id
         ) flatMapz { as =>
-          env.user.lightUserApi
-            .preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(user, as)
+          lightUserApi.preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(user, as)
         }
         given EventSource.EventDataExtractor[Frag] = EventSource.EventDataExtractor[Frag](_.render)
         Ok.chunked {
@@ -491,7 +491,7 @@ final class User(
     Scoped() { implicit req => me =>
       env.user.repo byId username flatMapz {
         env.socialInfo.fetchNotes(_, me) flatMap {
-          lila.user.JsonView.notes(_)(using env.user.lightUserApi)
+          lila.user.JsonView.notes(_)(using lightUserApi)
         } map JsonOk
       }
     }
@@ -577,35 +577,35 @@ final class User(
     }
 
   def autocomplete =
-    Open { implicit ctx =>
-      getUserStr("term", ctx.req).flatMap(UserModel.validateId) match
+    OpenOrScoped() { (req, me) =>
+      getUserStr("term", req).flatMap(UserModel.validateId) match
         case None => BadRequest("No search term provided").toFuccess
-        case Some(id) if getBool("exists") =>
+        case Some(id) if getBool("exists", req) =>
           env.user.repo exists id map { r =>
             Ok(JsBoolean(r))
           }
         case Some(term) =>
           {
-            (get("tour"), get("swiss"), get("team")) match
+            (get("tour", req), get("swiss", req), get("team", req)) match
               case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
               case (_, Some(swissId), _) =>
                 env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
               case (_, _, Some(teamId)) => env.team.api.searchMembers(TeamId(teamId), term, 10)
               case _ =>
-                ctx.me.ifTrue(getBool("friend")) match
+                me.ifTrue(getBool("friend", req)) match
                   case Some(follower) =>
                     env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
                       case Nil     => env.user.cached userIdsLike term
                       case userIds => fuccess(userIds)
                     }
-                  case None if getBool("teacher") =>
+                  case None if getBool("teacher", req) =>
                     env.user.repo.userIdsLikeWithRole(term, lila.security.Permission.Teacher.dbKey)
                   case None => env.user.cached userIdsLike term
           } flatMap { userIds =>
-            if (getBool("names")) env.user.lightUserApi.asyncMany(userIds) map { users =>
+            if (getBool("names", req)) lightUserApi.asyncMany(userIds) map { users =>
               Json toJson users.flatMap(_.map(_.name))
             }
-            else if (getBool("object")) env.user.lightUserApi.asyncMany(userIds) map { users =>
+            else if (getBool("object", req)) lightUserApi.asyncMany(userIds) map { users =>
               Json.obj(
                 "result" -> JsArray(users collect { case Some(u) =>
                   lila.common.LightUser.lightUserWrites

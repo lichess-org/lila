@@ -100,44 +100,43 @@ final class Env(
   val appVersionCommit  = config.getOptional[String]("app.version.commit")
   val appVersionMessage = config.getOptional[String]("app.version.message")
 
-  lazy val apiTimelineSetting = memo.settingStore[Int](
+  val apiTimelineSetting = memo.settingStore[Int](
     "apiTimelineEntries",
     default = 10,
     text = "API timeline entries to serve".some
   )
-  lazy val noDelaySecretSetting = memo.settingStore[Strings](
+  val noDelaySecretSetting = memo.settingStore[Strings](
     "noDelaySecrets",
     default = Strings(Nil),
     text =
       "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some
   )
-  lazy val featuredTeamsSetting = memo.settingStore[Strings](
+  val featuredTeamsSetting = memo.settingStore[Strings](
     "featuredTeams",
     default = Strings(Nil),
     text = "Team IDs that always get their tournaments visible on /tournament. Separated by commas.".some
   )
-  lazy val prizeTournamentMakers = memo.settingStore[UserIds](
+  val prizeTournamentMakers = memo.settingStore[UserIds](
     "prizeTournamentMakers",
     default = UserIds(Nil),
     text =
       "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
   )
-  lazy val apiExplorerGamesPerSecond = memo.settingStore[Int](
+  val apiExplorerGamesPerSecond = memo.settingStore[Int](
     "apiExplorerGamesPerSecond",
     default = 300,
     text = "Opening explorer games per second".some
   )
-  lazy val pieceImageExternal = memo.settingStore[Boolean](
+  val pieceImageExternal = memo.settingStore[Boolean](
     "pieceImageExternal",
     default = false,
     text = "Use external piece images".some
   )
-  lazy val firefoxOriginTrial = memo.settingStore[String](
+  val firefoxOriginTrial = memo.settingStore[String](
     "firefoxOriginTrial",
     default = "",
     text = "Firefox COEP:credentialless origin trial token. Empty to disable.".some
   )
-  lazy val rateLimitApi = memo.mongoRateLimitApi
 
   lazy val preloader     = wire[mashup.Preload]
   lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
@@ -177,7 +176,7 @@ final class EnvBoot(
   val netConfig   = config.get[NetConfig]("net")
   export netConfig.{ domain, baseUrl }
 
-  // lazy load the Uptime object to fix a precise date
+  // eagerly load the Uptime object to fix a precise date
   lila.common.Uptime.startedAt.unit
 
   // wire all the lila modules

@@ -333,16 +333,23 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       streak,
       opts.settings.color
     );
-    if (res.next?.user && data.user) {
-      data.user.rating = res.next.user.rating;
-      data.user.provisional = res.next.user.provisional;
+    const next = res.next;
+    if (next?.user && data.user) {
+      data.user.rating = next.user.rating;
+      data.user.provisional = next.user.provisional;
       vm.round = res.round;
       if (res.round?.ratingDiff) session.setRatingDiff(data.puzzle.id, res.round.ratingDiff);
     }
     if (win) speech.success();
-    vm.next.resolve(data.replay && res.replayComplete ? data.replay : res.next);
-    if (streak && win) streak.onComplete(true, res.next);
+    if (next) {
+      vm.next.resolve(data.replay && res.replayComplete ? data.replay : next);
+      if (streak && win) streak.onComplete(true, res.next);
+    }
     redraw();
+    if (!next) {
+      alert('No more puzzles available! Try another theme.');
+      lichess.redirect('/training/themes');
+    }
   }
 
   const isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
