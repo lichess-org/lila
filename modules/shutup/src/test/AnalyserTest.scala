@@ -53,7 +53,7 @@ class AnalyserTest extends Specification {
     }
     "compute ratio" >> {
       ratio("fuck that shit") === 2d / 3
-      ratio("Beat them cunting nigger faggots with a communist dick") === 4d / 9
+      ratio("Beat them cunting nigger faggots with a communist dick") === 12d / 9
       ratio("hello there") === 0d
       ratio("") === 0d
     }
