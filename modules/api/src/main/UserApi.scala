@@ -52,9 +52,7 @@ final class UserApi(
     if (u.enabled.no) fuccess(jsonView disabled u.light)
     else
       gameProxyRepo.urgentGames(u).dmap(_.headOption) zip
-        (as.filter(u !=) ?? { me =>
-          crosstableApi.nbGames(me.id, u.id)
-        }) zip
+        as.filter(u !=).?? { me => crosstableApi.nbGames(me.id, u.id) } zip
         withFollows.??(relationApi.countFollowing(u.id) dmap some) zip
         withFollows.??(relationApi.countFollowers(u.id) dmap some) zip
         as.isDefined.?? { prefApi followable u.id } zip

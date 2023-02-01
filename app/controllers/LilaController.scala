@@ -61,12 +61,13 @@ abstract private[controllers] class LilaController(val env: Env)
   protected given Conversion[Int, ApiVersion] = ApiVersion(_)
   protected given formBinding: FormBinding    = parse.formBinding(parse.DefaultMaxTextLength)
 
-  protected val keyPages        = new KeyPages(env)
-  protected val renderNotFound  = keyPages.notFound
-  protected val rateLimitedMsg  = "Too many requests. Try again later."
-  protected val rateLimited     = Results.TooManyRequests(rateLimitedMsg)
-  protected val rateLimitedJson = Results.TooManyRequests(jsonError(rateLimitedMsg))
-  protected val rateLimitedFu   = rateLimited.toFuccess
+  protected val keyPages                   = KeyPages(env)
+  protected val renderNotFound             = keyPages.notFound
+  protected val rateLimitedMsg             = "Too many requests. Try again later."
+  protected val rateLimited                = Results.TooManyRequests(rateLimitedMsg)
+  protected val rateLimitedJson            = Results.TooManyRequests(jsonError(rateLimitedMsg))
+  protected val rateLimitedFu              = rateLimited.toFuccess
+  protected def rateLimitedFu(msg: String) = Results.TooManyRequests(jsonError(msg)).toFuccess
 
   implicit protected def LilaFunitToResult(funit: Funit)(using req: RequestHeader): Fu[Result] =
     negotiate(

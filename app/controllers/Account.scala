@@ -100,14 +100,21 @@ final class Account(
       )
     }
 
-  def apiMe =
+  val apiMe =
+    val rateLimit = lila.memo.RateLimit[UserId](30, 10.minutes, "api.account.user")
     Scoped() { req => me =>
-      env.api.userApi.extended(
-        me,
-        me.some,
-        withFollows = apiC.userWithFollows(req),
-        withTrophies = false
-      )(using I18nLangPicker(req, me.lang)) dmap { JsonOk(_) }
+      rateLimit(me.id) {
+        env.api.userApi.extended(
+          me,
+          me.some,
+          withFollows = apiC.userWithFollows(req),
+          withTrophies = false
+        )(using I18nLangPicker(req, me.lang)) dmap { JsonOk(_) }
+      }(
+        rateLimitedFu(
+          "Please don't poll this endpoint. Use https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
+        )
+      )
     }
 
   def apiNowPlaying =
