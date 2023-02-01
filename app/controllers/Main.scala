@@ -177,6 +177,12 @@ Allow: /
       Ok(html.site.faq()).toFuccess
     }
 
+  def temporarilyDisabled =
+    Open { implicit ctx =>
+      pageHit
+      NotImplemented(html.site.message.temporarilyDisabled).toFuccess
+    }
+
   def keyboardMoveHelp =
     Open { implicit ctx =>
       Ok(html.site.keyboardHelpModal.keyboardMove).toFuccess

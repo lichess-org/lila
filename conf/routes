@@ -811,6 +811,7 @@ GET   /costs                           controllers.Main.costs
 GET   /verify-title                    controllers.Main.verifyTitle
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
+GET   /temporarily-disabled            controllers.Main.temporarilyDisabled
 
 # Dev
 GET   /dev/cli                         controllers.Dev.cli
