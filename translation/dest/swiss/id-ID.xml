@@ -7,9 +7,6 @@
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s babak</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
-    <item quantity="other">Indonesia</item>
-  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="other">Satu babak per %s hari</item>
   </plurals>

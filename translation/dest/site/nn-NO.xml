@@ -209,6 +209,8 @@
   <string name="forgotPassword">Har du gløymt passordet?</string>
   <string name="error.weakPassword">Passordet er svært vanleg og for lett å gjette.</string>
   <string name="error.namePassword">Ikkje bruk namnet ditt som passord.</string>
+  <string name="youAreLeavingLichess">Du forlèt Lichess</string>
+  <string name="neverTypeYourPassword">Skriv aldri Lichess-passordet på ei anna webside!</string>
   <string name="emailConfirmHelp">Hjelp med å stadfesta e-posten</string>
   <string name="emailConfirmNotReceived">Mottok du ikkje stadfesting på e-post etter at du registrerte deg?</string>
   <string name="whatSignupUsername">Kva var brukarnamnet du registrerte deg med?</string>
