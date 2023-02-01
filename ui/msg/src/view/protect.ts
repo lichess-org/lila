@@ -8,7 +8,7 @@ export const makeLinkPopups = (dom: HTMLElement, trans: Trans) =>
 
 const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
   const url = new URL(a.href);
-  if (url.host == 'lichess.org' || url.host.endsWith('.lichess.org') || isPassList(url)) return true;
+  if (isPassList(url)) return true;
   lichess.loadCssPath('modal');
   modal({
     content: $(
@@ -35,8 +35,8 @@ const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
 const isPassList = (url: URL) => passList().find(h => h == url.host || url.host.endsWith('.' + h));
 
 const passList = memoize<string[]>(() =>
-  `lichess4545.com ligacatur.com
-github.com discord.com crowdin.com mastodon.online
+  `lichess.org lichess4545.com ligacatur.com
+github.com discord.com mastodon.online
 twitter.com facebook.com
 wikipedia.org wikimedia.org
 chess24.com chess.com chessable.com
