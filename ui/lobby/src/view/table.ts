@@ -3,6 +3,7 @@ import { bind, onInsert } from 'common/snabbdom';
 import LobbyController from '../ctrl';
 import { GameType } from '../interfaces';
 import renderSetupModal from './setup/modal';
+import { numberFormat } from 'common/number';
 
 export default function table(ctrl: LobbyController) {
   const { data, trans, opts } = ctrl;
@@ -54,7 +55,7 @@ export default function table(ctrl: LobbyController) {
                     ctrl.spreadPlayersNumber = ctrl.initNumberSpreader(elm, 10, members);
                   }),
                 },
-                members
+                numberFormat(members)
               )
             )
           ),
@@ -72,7 +73,7 @@ export default function table(ctrl: LobbyController) {
                     ctrl.spreadGamesNumber = ctrl.initNumberSpreader(elm, 8, rounds);
                   }),
                 },
-                rounds
+                numberFormat(rounds)
               )
             )
           ),
