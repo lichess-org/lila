@@ -102,7 +102,7 @@ object message:
 
   def temporarilyDisabled(using Context) =
     apply("Temporarily disabled")(
-      "Sorry, his feature is temporarily disabled while we figure out a way to bring it back."
+      "Sorry, this feature is temporarily disabled while we figure out a way to bring it back."
     )
 
   def notYet(text: String)(using Context) =
