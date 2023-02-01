@@ -12,9 +12,17 @@ final class AsyncDb(
     driver: AsyncDriver
 )(using Executor):
 
+  private val connOpts = reactivemongo.api.MongoConnectionOptions(nettyEventLoopThreads = 3)
+
   private lazy val connection: Fu[(MongoConnection, Option[String])] =
     MongoConnection.fromString(uri) flatMap { parsedUri =>
-      driver.connect(parsedUri, name.some).dmap(_ -> parsedUri.db)
+      driver
+        .connect(
+          parsedUri.hosts.map((h, p) => s"$h:$p").toSeq,
+          parsedUri.options.copy(nettyEventLoopThreads = 3),
+          name
+        )
+        .dmap(_ -> parsedUri.db)
     }
 
   private def makeDb: Future[DB] =
@@ -42,7 +50,11 @@ final class Db(
       .fromString(uri)
       .flatMap { parsedUri =>
         driver
-          .connect(parsedUri, name.some)
+          .connect(
+            parsedUri.hosts.map((h, p) => s"$h:$p").toSeq,
+            parsedUri.options.copy(nettyEventLoopThreads = 64),
+            name
+          )
           .flatMap(_ database parsedUri.db.getOrElse("lichess"))
       }
       .await(5.seconds, s"db:$name")
