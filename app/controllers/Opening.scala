@@ -37,11 +37,14 @@ final class Opening(env: Env) extends LilaController(env):
           case None => Redirect(routes.Opening.index(key.some)).toFuccess
           case Some(page) =>
             val query = page.query.query
+            println(s"${page.query.pgnUnderscored} ${moves}")
             if (query.key.isEmpty) Redirect(routes.Opening.index(key.some)).toFuccess
             else if (query.key != key)
               Redirect(routes.Opening.byKeyAndMoves(query.key, moves)).toFuccess
-            else if (moves.nonEmpty && query.moves.??(_.value) != moves)
-              Redirect(routes.Opening.byKeyAndMoves(query.key, query.moves.??(_.value))).toFuccess
+            else if (moves.nonEmpty && page.query.pgnUnderscored != moves && !getBool("r"))
+              Redirect {
+                s"${routes.Opening.byKeyAndMoves(query.key, page.query.pgnUnderscored)}?r=1"
+              }.toFuccess
             else
               page.query.opening.??(env.puzzle.opening.getClosestTo) map { puzzle =>
                 val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
