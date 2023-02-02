@@ -239,8 +239,13 @@
   <string name="emailConfirmNotReceived">Nedostali ste váš konfirmačný email po registrácii?</string>
   <string name="whatSignupUsername">Aké používateľske meno ste použili pri registrácii?</string>
   <string name="usernameNotFound">Nepodarilo sa nám nájsť používateľa s týmto menom: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Môžte použiť toto meno pre registráciu</string>
+  <string name="emailSent">Poslali sme vám e-mail na adresu %s.</string>
+  <string name="emailCanTakeSomeTime">Bude to trvať nejaký čas kým to príde.</string>
   <string name="refreshInboxAfterFiveMinutes">Vyčkajte 5 minút a obnovte vašu mailovú schránku.</string>
+  <string name="checkSpamFolder">Prosím skontrolujte tiež priečinok so spamom či tam nieje. Ak je označte ho, že nieje spam.</string>
   <string name="emailForSignupHelp">Ak zlyhá všetko ostatné, zašlite nám tento email:</string>
+  <string name="copyTextToEmail">Skopírujte a prilepte vyššie uvedený text a pošlite ho na %s</string>
   <string name="accountClosed">Účet %s je zrušený.</string>
   <string name="accountRegisteredWithoutEmail">Účet %s bol zaregistrovaný bez mailovej adresy.</string>
   <string name="rank">Poradie</string>
