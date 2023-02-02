@@ -10,7 +10,7 @@ import controllers.routes
 
 object categ:
 
-  def index(categs: List[lila.forum.CategView])(implicit ctx: Context) =
+  def index(categs: List[lila.forum.CategView])(using Context) =
     views.html.base.layout(
       title = trans.forum.txt(),
       moreCss = cssTag("forum"),
@@ -42,7 +42,7 @@ object categ:
       topics: Paginator[lila.forum.TopicView],
       canWrite: Boolean,
       stickyPosts: List[lila.forum.TopicView]
-  )(implicit ctx: Context) =
+  )(using Context) =
 
     val newTopicButton = canWrite option
       a(
@@ -115,7 +115,7 @@ object categ:
       )
     }
 
-  private def showCategs(categs: List[lila.forum.CategView])(implicit ctx: Context) =
+  private def showCategs(categs: List[lila.forum.CategView])(using Context) =
     table(cls := "categs slist slist-pad")(
       thead(
         tr(
