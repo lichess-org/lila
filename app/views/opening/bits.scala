@@ -17,10 +17,11 @@ object bits:
 
   def beta = span(cls := "opening__beta")("BETA")
 
-  def whatsNext(explored: OpeningExplored)(implicit ctx: Context) =
+  def whatsNext(explored: OpeningExplored)(using Context) =
     div(cls := "opening__nexts")(
       explored.next.map { next =>
-        a(cls := "opening__next", href := queryUrl(next.query))(
+        val canFollow = explored.lastPopularityPercent.exists(_ > 0.01)
+        a(cls := "opening__next", href := queryUrl(next.query), (!canFollow).option(noFollow))(
           span(cls := "opening__next__popularity")(
             span(style := s"width:${percentNumber(next.percent)}%", title := "Popularity")(
               s"${Math.round(next.percent)}%"
@@ -42,7 +43,7 @@ object bits:
       }
     )
 
-  def configForm(config: OpeningConfig, thenTo: String)(implicit ctx: Context) =
+  def configForm(config: OpeningConfig, thenTo: String)(using Context) =
     import OpeningConfig.*
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
