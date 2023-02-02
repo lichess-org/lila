@@ -185,8 +185,6 @@ object mon:
   object asyncActor:
     def overflow(name: String)  = counter("asyncActor.overflow").withTag("name", name)
     def queueSize(name: String) = histogram("asyncActor.queueSize").withTag("name", name)
-    object sequencer:
-      def run(name: String) = future("asyncActor.sequencer.run", name)
   object irc:
     object zulip:
       def say(stream: String) = future("irc.zulip.say", tags("stream" -> stream))

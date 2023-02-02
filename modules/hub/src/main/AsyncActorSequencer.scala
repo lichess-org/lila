@@ -20,9 +20,7 @@ final class AsyncActorSequencer(maxSize: Max, timeout: FiniteDuration, name: Str
   private[this] val asyncActor = BoundedAsyncActor(maxSize, name, logging) {
     case TaskWithPromise(task, promise) =>
       promise.completeWith {
-        task()
-          .withTimeout(timeout, s"AsyncActorSequencer $name")
-          .monSuccess(_.asyncActor.sequencer.run(name))
+        task().withTimeout(timeout, s"AsyncActorSequencer $name")
       }.future
   }
 
