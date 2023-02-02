@@ -22,6 +22,8 @@ object Analyser:
   def isCritical(raw: String) =
     criticalRegex.find(latinify(raw.toLowerCase))
 
+  def containsLink(raw: String) = raw.contains("http://") || raw.contains("https://")
+
   private val logger = lila log "security" branch "shutup"
 
   private def latinify(text: String): String =
