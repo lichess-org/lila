@@ -98,6 +98,7 @@
   <string name="dtzWithRounding">DTZ50\" so zaokrúhlením, vychádzajúci s počtu polťahov až do najbližšieho brania alebo ťahu pešiakom</string>
   <string name="noGameFound">Nenašla sa žiadna partia</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možno vyberte viac partií z menu preferencií?</string>
+  <string name="openings">Otváranie</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
   <string name="openingEndgameExplorer">Prieskumník otvorení/koncoviek</string>
   <string name="xOpeningExplorer">%s prieskumník otvorení</string>
@@ -228,6 +229,14 @@
   <string name="email">Email</string>
   <string name="passwordReset">Obnova hesla</string>
   <string name="forgotPassword">Zabudli ste heslo?</string>
+  <string name="error.weakPassword">Toto heslo je veľmi bežné, a ľahké na uhádnutie.</string>
+  <string name="error.namePassword">Zadajte prihlasovacie meno a heslo.</string>
+  <string name="youAreLeavingLichess">Odchádzate z Lichessu</string>
+  <string name="neverTypeYourPassword">Nikdy nepoužívajte vaše Lichess heslo na inom webe!</string>
+  <string name="passwordSuggestion">Nepoužívajte heslo ktoré, vám dal niekto iný. Mohol by vám ukradnúť účet.</string>
+  <string name="emailSuggestion">Nepoužívajte e-mail, ktorý, vám dal niekto iný. Mohol by vám ukradnúť účet.</string>
+  <string name="emailConfirmHelp">Pomoc s overením e-mailu</string>
+  <string name="emailConfirmNotReceived">Nedostali ste váš konfirmačný email po registrácii?</string>
   <string name="whatSignupUsername">Aké používateľske meno ste použili pri registrácii?</string>
   <string name="usernameNotFound">Nepodarilo sa nám nájsť používateľa s týmto menom: %s.</string>
   <string name="refreshInboxAfterFiveMinutes">Vyčkajte 5 minút a obnovte vašu mailovú schránku.</string>
