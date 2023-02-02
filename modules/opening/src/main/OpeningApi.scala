@@ -24,24 +24,31 @@ final class OpeningApi(
   }
 
   def index(using req: RequestHeader): Fu[Option[OpeningPage]] =
-    lookup(Query("", none), withWikiRevisions = false)
+    lookup(Query("", none), withWikiRevisions = false, asCrawler = false)
 
-  def lookup(q: Query, withWikiRevisions: Boolean)(using RequestHeader): Fu[Option[OpeningPage]] =
+  def lookup(q: Query, withWikiRevisions: Boolean, asCrawler: Boolean)(using
+      RequestHeader
+  ): Fu[Option[OpeningPage]] =
     val config = readConfig
-    if (config.isDefault && !withWikiRevisions)
-      defaultCache.getFuture(q, _ => lookup(q, config, withWikiRevisions))
-    else lookup(q, config, withWikiRevisions)
+    if (asCrawler || (config.isDefault && !withWikiRevisions))
+      defaultCache.getFuture(q, _ => lookup(q, config, withWikiRevisions, asCrawler))
+    else lookup(q, config, withWikiRevisions, false)
 
   private def lookup(
       q: Query,
       config: OpeningConfig,
-      withWikiRevisions: Boolean
+      withWikiRevisions: Boolean,
+      asCrawler: Boolean
   ): Fu[Option[OpeningPage]] =
-    OpeningQuery(q, config) ?? { compute(_, withWikiRevisions) }
+    OpeningQuery(q, config) ?? { compute(_, withWikiRevisions, asCrawler) }
 
-  private def compute(query: OpeningQuery, withWikiRevisions: Boolean): Fu[Option[OpeningPage]] =
+  private def compute(
+      query: OpeningQuery,
+      withWikiRevisions: Boolean,
+      asCrawler: Boolean
+  ): Fu[Option[OpeningPage]] =
     explorer.stats(query) zip
-      explorer.queryHistory(query) zip
+      (!asCrawler ?? explorer.queryHistory(query)) zip
       allGamesHistory.get(query.config) zip
       query.openingAndExtraMoves._1.??(op => wikiApi(op, withWikiRevisions) dmap some) flatMap {
         case (((stats, history), allHistory), wiki) =>
