@@ -56,10 +56,7 @@ private object SecurityConfig:
   )
   given ConfigLoader[DisposableEmail] = AutoConfig.loader
 
-  case class DnsApi(
-      url: String,
-      timeout: FiniteDuration
-  )
+  case class DnsApi(url: String, timeout: FiniteDuration)
   given ConfigLoader[DnsApi] = AutoConfig.loader
 
   case class CheckMail(

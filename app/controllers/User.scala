@@ -145,7 +145,7 @@ final class User(
       }
     }
 
-  private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: Context): Fu[Result] =
     if (UserModel.isGhost(username.id))
       negotiate(
         html = Ok(html.site.bits.ghost).toFuccess,
@@ -579,11 +579,8 @@ final class User(
   def autocomplete =
     OpenOrScoped() { (req, me) =>
       getUserStr("term", req).flatMap(UserModel.validateId) match
-        case None => BadRequest("No search term provided").toFuccess
-        case Some(id) if getBool("exists", req) =>
-          env.user.repo exists id map { r =>
-            Ok(JsBoolean(r))
-          }
+        case None                               => BadRequest("No search term provided").toFuccess
+        case Some(id) if getBool("exists", req) => env.user.repo exists id map JsonOk
         case Some(term) =>
           {
             (get("tour", req), get("swiss", req), get("team", req)) match
