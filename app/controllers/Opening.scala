@@ -31,13 +31,12 @@ final class Opening(env: Env) extends LilaController(env):
   def byKeyAndMoves(key: String, moves: String) =
     Open { implicit ctx =>
       val isCrawler = HTTPRequest.isCrawler(ctx.req)
-      if moves.sizeIs > 30 && isCrawler then Forbidden.toFuccess
+      if moves.sizeIs > 40 && isCrawler then Forbidden.toFuccess
       else
         env.opening.api.lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), isCrawler) flatMap {
           case None => Redirect(routes.Opening.index(key.some)).toFuccess
           case Some(page) =>
             val query = page.query.query
-            println(s"${page.query.pgnUnderscored} ${moves}")
             if (query.key.isEmpty) Redirect(routes.Opening.index(key.some)).toFuccess
             else if (query.key != key)
               Redirect(routes.Opening.byKeyAndMoves(query.key, moves)).toFuccess
