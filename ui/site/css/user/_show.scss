@@ -18,7 +18,7 @@
   /* this fixes profile overflow, but cuts out the trophies */
 
   .flash {
-    @extend %box-padding-horiz;
+    @extend %box-margin-horiz;
   }
 
   &__social {
