@@ -246,6 +246,10 @@
   <string name="checkSpamFolder">Prosím skontrolujte tiež priečinok so spamom či tam nieje. Ak je označte ho, že nieje spam.</string>
   <string name="emailForSignupHelp">Ak zlyhá všetko ostatné, zašlite nám tento email:</string>
   <string name="copyTextToEmail">Skopírujte a prilepte vyššie uvedený text a pošlite ho na %s</string>
+  <string name="waitForSignupHelp">Čoskoro sa vám ozveme, aby sme vám pomohli dokončiť registráciu.</string>
+  <string name="accountConfirmed">Používateľ %s je úspešne potvrdený.</string>
+  <string name="accountCanLogin">Teraz sa môžete prihlásiť ako %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Nové heslo vám bolo odoslané.</string>
   <string name="accountClosed">Účet %s je zrušený.</string>
   <string name="accountRegisteredWithoutEmail">Účet %s bol zaregistrovaný bez mailovej adresy.</string>
   <string name="rank">Poradie</string>
@@ -417,6 +421,7 @@
   <string name="siteDescription">Šach online zadarmo. Hrajte šach teraz v novom rozhraní. Bez registrácie, reklám a zásuvných modulov. Hrajte šach s počítačom, priateľmi alebo náhodnými protivníkmi.</string>
   <string name="xJoinedTeamY">%1$s sa pripojil/a k tímu %2$s</string>
   <string name="xCreatedTeamY">%1$s vytvoril/a tím %2$s</string>
+  <string name="startedStreaming">začal vysielať</string>
   <string name="xStartedStreaming">%s začal vysielať</string>
   <string name="averageElo">Priemerný rating</string>
   <string name="location">Poloha</string>
@@ -604,6 +609,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Poznámky</string>
   <string name="typePrivateNotesHere">Sem píšte súkromné správy</string>
+  <string name="writeAPrivateNoteAboutThisUser">Napíšte súkromnú poznámku o tomto používateľovi</string>
+  <string name="noNoteYet">Zatiaľ žiadne</string>
   <string name="invalidUsernameOrPassword">Nesprávne meno alebo heslo</string>
   <string name="incorrectPassword">Nesprávne heslo</string>
   <string name="invalidAuthenticationCode">Neplatný overovací kód</string>
@@ -777,6 +784,7 @@
   <string name="kidMode">Detský režim</string>
   <string name="kidModeExplanation">V detskom režime je pre ochranu detí a mládeže pred ostatnými užívateľmi akákoľvek komunikácia zablokovaná.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Keď je zapnutý detský režim, tak sa pri logu Lichess objaví ikona %s. Podľa toho viete, že je Vaše dieťa v bezpečí.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Váš účet je pod kotrolou. Opýtajte sa učiteľa okolo odstránenia detského módu.</string>
   <string name="enableKidMode">Povoliť detský režim</string>
   <string name="disableKidMode">Vypnúť detský režim</string>
   <string name="security">Zabezpečenie</string>
