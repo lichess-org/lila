@@ -30,21 +30,23 @@ final class Opening(env: Env) extends LilaController(env):
 
   def byKeyAndMoves(key: String, moves: String) =
     Open { implicit ctx =>
-      env.opening.api.lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki)) flatMap {
-        case None => Redirect(routes.Opening.index(key.some)).toFuccess
-        case Some(page) =>
-          val query = page.query.query
-          if (query.key.isEmpty) Redirect(routes.Opening.index(key.some)).toFuccess
-          else if (query.key != key)
-            Redirect(routes.Opening.byKeyAndMoves(query.key, moves)).toFuccess
-          else if (moves.nonEmpty && query.moves.??(_.value) != moves)
-            Redirect(routes.Opening.byKeyAndMoves(query.key, query.moves.??(_.value))).toFuccess
-          else
-            page.query.opening.??(env.puzzle.opening.getClosestTo) map { puzzle =>
-              val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
-              Ok(html.opening.show(page, puzzleKey))
-            }
-      }
+      if moves.sizeIs > 30 && HTTPRequest.isCrawler(ctx.req) then Forbidden.toFuccess
+      else
+        env.opening.api.lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki)) flatMap {
+          case None => Redirect(routes.Opening.index(key.some)).toFuccess
+          case Some(page) =>
+            val query = page.query.query
+            if (query.key.isEmpty) Redirect(routes.Opening.index(key.some)).toFuccess
+            else if (query.key != key)
+              Redirect(routes.Opening.byKeyAndMoves(query.key, moves)).toFuccess
+            else if (moves.nonEmpty && query.moves.??(_.value) != moves)
+              Redirect(routes.Opening.byKeyAndMoves(query.key, query.moves.??(_.value))).toFuccess
+            else
+              page.query.opening.??(env.puzzle.opening.getClosestTo) map { puzzle =>
+                val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
+                Ok(html.opening.show(page, puzzleKey))
+              }
+        }
     }
 
   def config(thenTo: String) =
