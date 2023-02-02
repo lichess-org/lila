@@ -83,14 +83,16 @@ export function signupStart() {
   const $form = $('#signup-form'),
     $exists = $form.find('.username-exists'),
     $username = $form.find('input[name="username"]').on('change keyup paste', () => {
-      $exists.hide();
+      $exists.addClass('none');
       usernameCheck();
     });
 
   const usernameCheck = debounce(() => {
     const name = $username.val() as string;
     if (name.length >= 3)
-      xhr.json(xhr.url('/api/player/autocomplete', { term: name, exists: 1 })).then(res => $exists.toggle(res));
+      xhr
+        .json(xhr.url('/api/player/autocomplete', { term: name, exists: 1 }))
+        .then(res => $exists.toggleClass('none', !res));
   }, 300);
 
   $form.on('submit', () => {
