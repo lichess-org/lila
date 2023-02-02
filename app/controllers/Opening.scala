@@ -72,7 +72,7 @@ final class Opening(env: Env) extends LilaController(env):
   def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { implicit ctx => me =>
     given play.api.mvc.Request[?] = ctx.body
     env.opening.api
-      .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki))
+      .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), false)
       .map(_.flatMap(_.query.opening))
       .flatMapz { op =>
         val redirect = Redirect(routes.Opening.byKeyAndMoves(key, moves))
