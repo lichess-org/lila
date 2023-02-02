@@ -9,7 +9,6 @@ import views.html
 import lila.api.AnnounceStore
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
 import lila.user.{ Holder, TotpSecret, User as UserModel }
 import lila.i18n.I18nLangPicker
@@ -100,14 +99,21 @@ final class Account(
       )
     }
 
-  def apiMe =
+  val apiMe =
+    val rateLimit = lila.memo.RateLimit[UserId](30, 10.minutes, "api.account.user")
     Scoped() { req => me =>
-      env.api.userApi.extended(
-        me,
-        me.some,
-        withFollows = apiC.userWithFollows(req),
-        withTrophies = false
-      )(using I18nLangPicker(req, me.lang)) dmap { JsonOk(_) }
+      rateLimit(me.id) {
+        env.api.userApi.extended(
+          me,
+          me.some,
+          withFollows = apiC.userWithFollows(req),
+          withTrophies = false
+        )(using I18nLangPicker(req, me.lang)) dmap { JsonOk(_) }
+      }(
+        rateLimitedFu(
+          "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
+        )
+      )
     }
 
   def apiNowPlaying =

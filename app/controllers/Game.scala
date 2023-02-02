@@ -160,7 +160,7 @@ final class Game(
         playerFile = get("players", req)
       )
       apiC
-        .GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
+        .GlobalConcurrencyLimitPerIP(req.ipAddress)(
           env.api.gameApiV2.exportByIds(config)
         ) { source =>
           noProxyBuffer(Ok.chunked(source)).as(gameContentType(config))

@@ -6,7 +6,7 @@ import play.api.mvc.*
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.common.{ EmailAddress, HTTPRequest }
+import lila.common.EmailAddress
 import lila.plan.{
   CreateStripeSession,
   Freq,
@@ -341,7 +341,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
           ipn =>
             env.plan.api.payPal.onLegacyCharge(
               ipn,
-              ip = HTTPRequest ipAddress req,
+              ip = req.ipAddress,
               key = get("key", req) | "N/A"
             ) inject Ok
         )

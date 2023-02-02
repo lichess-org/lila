@@ -30,21 +30,26 @@ final class Opening(env: Env) extends LilaController(env):
 
   def byKeyAndMoves(key: String, moves: String) =
     Open { implicit ctx =>
-      env.opening.api.lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki)) flatMap {
-        case None => Redirect(routes.Opening.index(key.some)).toFuccess
-        case Some(page) =>
-          val query = page.query.query
-          if (query.key.isEmpty) Redirect(routes.Opening.index(key.some)).toFuccess
-          else if (query.key != key)
-            Redirect(routes.Opening.byKeyAndMoves(query.key, moves)).toFuccess
-          else if (moves.nonEmpty && query.moves.??(_.value) != moves)
-            Redirect(routes.Opening.byKeyAndMoves(query.key, query.moves.??(_.value))).toFuccess
-          else
-            page.query.opening.??(env.puzzle.opening.getClosestTo) map { puzzle =>
-              val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
-              Ok(html.opening.show(page, puzzleKey))
-            }
-      }
+      val isCrawler = HTTPRequest.isCrawler(ctx.req)
+      if moves.sizeIs > 40 && isCrawler then Forbidden.toFuccess
+      else
+        env.opening.api.lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), isCrawler) flatMap {
+          case None => Redirect(routes.Opening.index(key.some)).toFuccess
+          case Some(page) =>
+            val query = page.query.query
+            if (query.key.isEmpty) Redirect(routes.Opening.index(key.some)).toFuccess
+            else if (query.key != key)
+              Redirect(routes.Opening.byKeyAndMoves(query.key, moves)).toFuccess
+            else if (moves.nonEmpty && page.query.pgnUnderscored != moves && !getBool("r"))
+              Redirect {
+                s"${routes.Opening.byKeyAndMoves(query.key, page.query.pgnUnderscored)}?r=1"
+              }.toFuccess
+            else
+              page.query.opening.??(env.puzzle.opening.getClosestTo) map { puzzle =>
+                val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
+                Ok(html.opening.show(page, puzzleKey))
+              }
+        }
     }
 
   def config(thenTo: String) =
@@ -69,7 +74,7 @@ final class Opening(env: Env) extends LilaController(env):
   def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { implicit ctx => me =>
     given play.api.mvc.Request[?] = ctx.body
     env.opening.api
-      .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki))
+      .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), false)
       .map(_.flatMap(_.query.opening))
       .flatMapz { op =>
         val redirect = Redirect(routes.Opening.byKeyAndMoves(key, moves))

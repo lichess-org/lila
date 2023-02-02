@@ -459,7 +459,7 @@ final class Study(
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { req => me =>
     env.study.api.byId(id).map {
       _.fold(NotFound(jsonError("Study not found"))) { study =>
-        PgnRateLimitPerIp(HTTPRequest ipAddress req, msg = id) {
+        PgnRateLimitPerIp(req.ipAddress, msg = id) {
           CanView(study, me) {
             doPgn(study, req)
           }(privateUnauthorizedJson, privateForbiddenJson)

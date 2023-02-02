@@ -8,6 +8,7 @@ import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.common.config.Max
+import lila.base.LilaNoStackTrace
 
 final class FishnetApi(
     repo: FishnetRepo,
@@ -33,11 +34,11 @@ final class FishnetApi(
     if (config.offlineMode) repo.getOfflineClient map some
     else repo.getEnabledClient(req.fishnet.apikey)
   } map {
-    case None         => Failure(new Exception("Can't authenticate: invalid key or disabled client"))
+    case None         => Failure(LilaNoStackTrace("Can't authenticate: invalid key or disabled client"))
     case Some(client) => clientVersion accept req.fishnet.version map (_ => client)
   } flatMap {
     case Success(client) => repo.updateClientInstance(client, req instance ip) map Success.apply
-    case failure         => fuccess(failure)
+    case invalid         => fuccess(invalid)
   }
 
   def acquire(client: Client, slow: Boolean): Fu[Option[JsonApi.Work]] =
@@ -139,22 +140,7 @@ final class FishnetApi(
       )
     )
 
-  def status =
-    monitor.statusCache.get {} map { c =>
-      import play.api.libs.json.Json
-      def statusFor(s: Monitor.StatusFor) =
-        Json.obj(
-          "acquired" -> s.acquired,
-          "queued"   -> s.queued,
-          "oldest"   -> s.oldest
-        )
-      Json.obj(
-        "analysis" -> Json.obj(
-          "user"   -> statusFor(c.user),
-          "system" -> statusFor(c.system)
-        )
-      )
-    }
+  def status: Fu[JsonStr] = monitor.statusCache.get {} map (_.json)
 
   private[fishnet] def createClient(userId: UserId): Fu[Client] =
     val client = Client(

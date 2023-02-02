@@ -9,7 +9,7 @@ import views.*
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.IpAddress
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
 import lila.user.{ User as UserModel }
 import lila.common.config
@@ -136,7 +136,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   def pgn(id: TourModel.Id) =
     Action.async { req =>
       env.relay.api tourById id mapz { tour =>
-        apiC.GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
+        apiC.GlobalConcurrencyLimitPerIP(req.ipAddress)(
           env.relay.pgnStream.exportFullTour(tour)
         ) { source =>
           asAttachmentStream(s"${env.relay.pgnStream filename tour}.pgn")(
@@ -198,7 +198,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       else if (me.hasTitle || me.isVerified) 5
       else 10
     CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost) {
+      CreateLimitPerIP(req.ipAddress, cost = cost) {
         create
       }(fail.toFuccess)
     }(fail.toFuccess)

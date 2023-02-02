@@ -194,7 +194,7 @@ final class Team(
     Scoped(_.Team.Lead) { req => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         ApiKickRateLimitPerIP[Fu[ApiResult]](
-          HTTPRequest ipAddress req,
+          req.ipAddress,
           cost = if (me.isVerified || me.isApiHog) 0 else 1
         ) {
           api.kick(team, username.id, me) inject ApiResult.Done
@@ -202,7 +202,7 @@ final class Team(
           if (kickLimitReportOnce(username.id))
             lila
               .log("security")
-              .warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${HTTPRequest ipAddress req}")
+              .warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${req.ipAddress}")
           fuccess(ApiResult.Limited)
         }
       }

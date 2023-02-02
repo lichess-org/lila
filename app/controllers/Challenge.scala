@@ -10,7 +10,7 @@ import lila.api.Context
 import lila.app.{ given, * }
 import lila.challenge.{ Challenge as ChallengeModel }
 import lila.challenge.Challenge.ID
-import lila.common.{ Bearer, HTTPRequest, IpAddress, Template }
+import lila.common.{ Bearer, IpAddress, Template }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ AccessToken, OAuthScope }
 import lila.setup.ApiConfig
@@ -87,7 +87,7 @@ final class Challenge(
 
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) =
     challenge.challenger match
-      case lila.challenge.Challenge.Challenger.Anonymous(secret) => HTTPRequest sid ctx.req contains secret
+      case lila.challenge.Challenge.Challenger.Anonymous(secret)     => ctx.req.sid contains secret
       case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId contains userId
       case lila.challenge.Challenge.Challenger.Open                  => false
 
@@ -100,7 +100,7 @@ final class Challenge(
       OptionFuResult(api byId id) { c =>
         val cc = color flatMap chess.Color.fromName
         isForMe(c, ctx.me) ?? api
-          .accept(c, ctx.me, HTTPRequest sid ctx.req, cc)
+          .accept(c, ctx.me, ctx.req.sid, cc)
           .flatMap {
             case Validated.Valid(Some(pov)) =>
               negotiate(
@@ -312,12 +312,12 @@ final class Challenge(
         .fold(
           newJsonFormError,
           config =>
-            ChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isApiHog) 0 else 1) {
+            ChallengeIpRateLimit(req.ipAddress, cost = if (me.isApiHog) 0 else 1) {
               env.user.repo enabledById username flatMap {
                 case None => JsonBadRequest(jsonError(s"No such user: $username")).toFuccess
                 case Some(destUser) =>
                   val cost = if (me.isApiHog) 0 else if (destUser.isBot) 1 else 5
-                  BotChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isBot) 1 else 0) {
+                  BotChallengeIpRateLimit(req.ipAddress, cost = if (me.isBot) 1 else 0) {
                     ChallengeUserRateLimit(me.id, cost = cost) {
                       val challenge = makeOauthChallenge(config, me, destUser)
                       config.acceptByToken match {
@@ -371,7 +371,7 @@ final class Challenge(
       dest: UserModel,
       challenge: lila.challenge.Challenge,
       strToken: String
-  )(managedBy: lila.user.User, message: Option[Template])(implicit req: RequestHeader) =
+  )(managedBy: lila.user.User, message: Option[Template])(using req: RequestHeader) =
     env.oAuth.server.auth(
       Bearer(strToken),
       List(lila.oauth.OAuthScope.Challenge.Write),
@@ -405,7 +405,7 @@ final class Challenge(
         .fold(
           err => BadRequest(apiFormError(err)).toFuccess,
           config =>
-            ChallengeIpRateLimit(HTTPRequest ipAddress req) {
+            ChallengeIpRateLimit(req.ipAddress) {
               import lila.challenge.Challenge.*
               val challenge = lila.challenge.Challenge.make(
                 variant = config.variant,
