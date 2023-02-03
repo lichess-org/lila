@@ -101,8 +101,7 @@ object show:
             (
               "next",
               "Popular continuations",
-              page.explored.map(whatsNext) |
-                p(cls := "opening__error")("Couldn't fetch the next moves, try again later.")
+              whatsNext(page) | p(cls := "opening__error")("Couldn't fetch the next moves, try again later.")
             ),
             ("games", "Example games", exampleGames(page))
           )

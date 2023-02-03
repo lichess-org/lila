@@ -17,31 +17,33 @@ object bits:
 
   def beta = span(cls := "opening__beta")("BETA")
 
-  def whatsNext(explored: OpeningExplored)(using Context) =
-    div(cls := "opening__nexts")(
-      explored.next.map { next =>
-        val canFollow = explored.lastPopularityPercent.exists(_ > 0.01)
-        a(cls := "opening__next", href := queryUrl(next.query), (!canFollow).option(noFollow))(
-          span(cls := "opening__next__popularity")(
-            span(style := s"width:${percentNumber(next.percent)}%", title := "Popularity")(
-              s"${Math.round(next.percent)}%"
-            )
-          ),
-          span(cls := "opening__next__title")(
-            span(cls := "opening__next__name")(next.shortName.fold(nbsp)(frag(_))),
-            span(cls := "opening__next__san")(next.san)
-          ),
-          span(cls := "opening__next__result-board")(
-            span(cls := "opening__next__result result-bar") {
-              resultSegments(next.result)
-            },
-            span(cls := "opening__next__board")(
-              views.html.board.bits.mini(next.fen.board, lastMove = next.uci.some)(span)
+  def whatsNext(page: OpeningPage)(using Context): Option[Tag] =
+    page.explored.map { explored =>
+      div(cls := "opening__nexts")(
+        explored.next.map { next =>
+          val canFollow = page.query.uci.isEmpty || explored.lastPopularityPercent.exists(_ > 0.01)
+          a(cls := "opening__next", href := queryUrl(next.query), (!canFollow).option(noFollow))(
+            span(cls := "opening__next__popularity")(
+              span(style := s"width:${percentNumber(next.percent)}%", title := "Popularity")(
+                s"${Math.round(next.percent)}%"
+              )
+            ),
+            span(cls := "opening__next__title")(
+              span(cls := "opening__next__name")(next.shortName.fold(nbsp)(frag(_))),
+              span(cls := "opening__next__san")(next.san)
+            ),
+            span(cls := "opening__next__result-board")(
+              span(cls := "opening__next__result result-bar") {
+                resultSegments(next.result)
+              },
+              span(cls := "opening__next__board")(
+                views.html.board.bits.mini(next.fen.board, lastMove = next.uci.some)(span)
+              )
             )
           )
-        )
-      }
-    )
+        }
+      )
+    }
 
   def configForm(config: OpeningConfig, thenTo: String)(using Context) =
     import OpeningConfig.*

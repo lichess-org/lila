@@ -41,8 +41,7 @@ object index:
             a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
           )
         ),
-        page.explored.map(whatsNext) |
-          p(cls := "opening__error")("Couldn't fetch the next moves, try again later."),
+        whatsNext(page) | p(cls := "opening__error")("Couldn't fetch the next moves, try again later."),
         isGranted(_.OpeningWiki) option wiki.showMissing(wikiMissing)
       )
     }
