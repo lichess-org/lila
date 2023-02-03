@@ -7,14 +7,14 @@ import lila.tree.Node.{ Shape, Shapes }
 
 private[study] object CommentParser:
 
-  private val circlesRegex         = """(?s)\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]""".r.unanchored
-  private val circlesRemoveRegex   = """\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]""".r
-  private val arrowsRegex          = """(?s)\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]""".r.unanchored
-  private val arrowsRemoveRegex    = """\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]""".r
-  private val clockRegex           = """(?s)\[\%clk[\s\r\n]+([\d:\.]+)\]""".r.unanchored
-  private val clockRemoveRegex     = """\[\%clk[\s\r\n]+[\d:\.]+\]""".r
-  private val tcecClockRegex       = """(?s)tl=([\d:\.]+)""".r.unanchored
-  private val tcecClockRemoveRegex = """tl=[\d:\.]+""".r
+  private val circlesRegex         = """(?s)\[\%csl[\s\r\n]++((?:\w{3}[,\s]*+)++)\]""".r.unanchored
+  private val circlesRemoveRegex   = """\[\%csl[\s\r\n]++((?:\w{3}[,\s]*+)++)\]""".r
+  private val arrowsRegex          = """(?s)\[\%cal[\s\r\n]++((?:\w{5}[,\s]*+)++)\]""".r.unanchored
+  private val arrowsRemoveRegex    = """\[\%cal[\s\r\n]++((?:\w{5}[,\s]*+)++)\]""".r
+  private val clockRegex           = """(?s)\[\%clk[\s\r\n]++([\d:\.]++)\]""".r.unanchored
+  private val clockRemoveRegex     = """\[\%clk[\s\r\n]++[\d:\.]++\]""".r
+  private val tcecClockRegex       = """(?s)tl=([\d:\.]++)""".r.unanchored
+  private val tcecClockRemoveRegex = """tl=[\d:\.]++""".r
 
   case class ParsedComment(
       shapes: Shapes,
