@@ -52,7 +52,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
     )
 
   // $$something$$ breaks the TUI editor WYSIWYG
-  private val latexRegex                      = s"""\\$${2,}+ *([^\\$$]+) *\\$${2,}+""".r
+  private val latexRegex                      = """\${2,}+([^\$]++)\${2,}+""".r
   private def removeLatex(markdown: Markdown) = markdown.map(latexRegex.replaceAllIn(_, """\$\$ $1 \$\$"""))
 
 object UblogForm:

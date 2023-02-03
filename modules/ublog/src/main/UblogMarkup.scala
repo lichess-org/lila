@@ -69,8 +69,8 @@ private[ublog] object UblogMarkup:
   // https://github.com/lichess-org/lila/issues/9767
   // toastui editor escapes `_` as `\_` and it breaks autolinks
   object unescapeUnderscoreInLinks:
-    private val hrefRegex    = """href="([^"]+)"""".r
-    private val contentRegex = """>([^<]+)</a>""".r
+    private val hrefRegex    = """href="([^"]++)"""".r
+    private val contentRegex = """>([^<]++)</a>""".r
     def apply(markup: Html) = Html {
       contentRegex.replaceAllIn(
         hrefRegex
