@@ -19,7 +19,7 @@ object bits:
       simuls: List[lila.simul.Simul],
       leaderboard: List[lila.user.User.LightPerf],
       tournamentWinners: List[lila.tournament.Winner]
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     frag(
       ctx.pref.showRatings option div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
@@ -105,7 +105,7 @@ object bits:
       ctx.noKid option (uposts map { views.html.ublog.post.card(_, showAuthor = false, showIntro = false) })
     )
 
-  def showUnreadLichessMessage(implicit ctx: Context) =
+  def showUnreadLichessMessage(using Context) =
     nopeInfo(
       cls := "unread-lichess-message",
       p("You have received a private message from Lichess."),
@@ -116,7 +116,7 @@ object bits:
       )
     )
 
-  def playbanInfo(ban: lila.playban.TempBan)(implicit ctx: Context) =
+  def playbanInfo(ban: lila.playban.TempBan)(using Context) =
     nopeInfo(
       h1(trans.sorry()),
       p(trans.weHadToTimeYouOutForAWhile()),
@@ -144,7 +144,7 @@ object bits:
       )
     )
 
-  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(implicit ctx: Context) =
+  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(using Context) =
     nopeInfo(
       h1(trans.hangOn()),
       p(trans.gameInProgress(strong(current.opponent))),
@@ -175,7 +175,7 @@ object bits:
       )
     )
 
-  def spotlight(e: lila.event.Event)(implicit ctx: Context) =
+  def spotlight(e: lila.event.Event)(using Context) =
     a(
       href := (if (e.isNow || !e.countdown) e.url else routes.Event.show(e.id).url),
       cls := List(

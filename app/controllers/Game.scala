@@ -153,7 +153,7 @@ final class Game(
   def exportByIds =
     Action.async(parse.tolerantText) { req =>
       val config = GameApiV2.ByIdsConfig(
-        ids = req.body.split(',').view.take(300).toSeq map { GameId(_) },
+        ids = GameId from req.body.split(',').view.take(300).toSeq,
         format = GameApiV2.Format byRequest req,
         flags = requestPgnFlags(req, extended = false),
         perSecond = MaxPerSecond(30),

@@ -81,6 +81,10 @@ final class RelayApi(
       .sort($doc("startedAt" -> -1, "startsAt" -> -1))
       .one[RelayRound]
 
+  private var spotlightCache: List[RelayTour.ActiveWithNextRound] = Nil
+
+  def spotlight = spotlightCache
+
   val officialActive = cacheApi.unit[List[RelayTour.ActiveWithNextRound]] {
     _.refreshAfterWrite(5 seconds)
       .buildAsyncFuture { _ =>
@@ -108,11 +112,20 @@ final class RelayApi(
             )
           }
           .map { docs =>
-            for {
+            for
               doc   <- docs
               tour  <- doc.asOpt[RelayTour]
               round <- doc.getAsOpt[RelayRound]("round")
-            } yield RelayTour.ActiveWithNextRound(tour, round)
+            yield RelayTour.ActiveWithNextRound(tour, round)
+          }
+          .addEffect { trs =>
+            spotlightCache = trs
+              .filter(_.tour.tier.has(RelayTour.Tier.BEST))
+              .filterNot(_.round.finished)
+              .filter { tr =>
+                tr.round.hasStarted || tr.round.startsAt.exists(_.isBefore(nowDate.plusMinutes(30)))
+              }
+              .take(2)
           }
       }
   }
