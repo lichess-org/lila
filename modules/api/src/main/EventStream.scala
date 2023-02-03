@@ -50,89 +50,88 @@ final class EventStream(
       }
     }
 
-  private def mkActor(me: User, queue: SourceQueueWithComplete[Option[JsObject]]) =
-    new Actor:
+  private def mkActor(me: User, queue: SourceQueueWithComplete[Option[JsObject]]): Actor = new:
 
-      val classifiers = List(
-        s"userStartGame:${me.id}",
-        s"userFinishGame:${me.id}",
-        s"rematchFor:${me.id}",
-        s"eventStreamFor:${me.id}",
-        "challenge"
-      )
+    val classifiers = List(
+      s"userStartGame:${me.id}",
+      s"userFinishGame:${me.id}",
+      s"rematchFor:${me.id}",
+      s"eventStreamFor:${me.id}",
+      "challenge"
+    )
 
-      var lastSetSeenAt = me.seenAt | me.createdAt
-      var online        = true
+    var lastSetSeenAt = me.seenAt | me.createdAt
+    var online        = true
 
-      override def preStart(): Unit =
-        super.preStart()
-        Bus.subscribe(self, classifiers)
+    override def preStart(): Unit =
+      super.preStart()
+      Bus.subscribe(self, classifiers)
 
-      override def postStop() =
-        super.postStop()
-        Bus.unsubscribe(self, classifiers)
-        queue.complete()
-        online = false
+    override def postStop() =
+      super.postStop()
+      Bus.unsubscribe(self, classifiers)
+      queue.complete()
+      online = false
 
-      self ! SetOnline
+    self ! SetOnline
 
-      def receive =
+    def receive =
 
-        case SetOnline =>
-          onlineApiUsers.setOnline(me.id)
+      case SetOnline =>
+        onlineApiUsers.setOnline(me.id)
 
-          if (lastSetSeenAt isBefore nowDate.minusMinutes(10))
-            userRepo setSeenAt me.id
-            lastSetSeenAt = nowDate
+        if (lastSetSeenAt isBefore nowDate.minusMinutes(10))
+          userRepo setSeenAt me.id
+          lastSetSeenAt = nowDate
 
-          context.system.scheduler
-            .scheduleOnce(6 second) {
-              if (online)
-                // gotta send a message to check if the client has disconnected
-                queue offer None
-                self ! SetOnline
-            }
-            .unit
-
-        case StartGame(game) => queue.offer(gameJson(game, "gameStart", me)).unit
-
-        case FinishGame(game, _, _) => queue.offer(gameJson(game, "gameFinish", me)).unit
-
-        case lila.challenge.Event.Create(c) if isMyChallenge(c) =>
-          val json = challengeJson("challenge")(c) ++ challengeCompat(c, me)
-          lila.common.LilaFuture // give time for anon challenger to load the challenge page
-            .delay(if (c.challengerIsAnon) 2.seconds else 0.seconds) {
-              queue.offer(json.some).void
-            }
-            .unit
-
-        case lila.challenge.Event.Decline(c) if isMyChallenge(c) =>
-          queue.offer(challengeJson("challengeDeclined")(c).some).unit
-
-        case lila.challenge.Event.Cancel(c) if isMyChallenge(c) =>
-          queue.offer(challengeJson("challengeCanceled")(c).some).unit
-
-        // pretend like the rematch is a challenge
-        case lila.hub.actorApi.round.RematchOffer(gameId) =>
-          challengeMaker.makeRematchFor(gameId, me) foreach {
-            _ foreach { c =>
-              val json = challengeJson("challenge")(c) ++ challengeCompat(c, me)
-              queue offer json.some
-            }
+        context.system.scheduler
+          .scheduleOnce(6 second) {
+            if (online)
+              // gotta send a message to check if the client has disconnected
+              queue offer None
+              self ! SetOnline
           }
+          .unit
 
-        // pretend like the rematch cancel is a challenge cancel
-        case lila.hub.actorApi.round.RematchCancel(gameId) =>
-          rematches.getOffered(gameId).map(_.nextId) foreach { challengeId =>
-            val json = Json.obj(
-              "type"      -> "challengeCanceled",
-              "challenge" -> Json.obj("id" -> challengeId)
-            )
-            queue.offer(json.some).unit
+      case StartGame(game) => queue.offer(gameJson(game, "gameStart", me)).unit
+
+      case FinishGame(game, _, _) => queue.offer(gameJson(game, "gameFinish", me)).unit
+
+      case lila.challenge.Event.Create(c) if isMyChallenge(c) =>
+        val json = challengeJson("challenge")(c) ++ challengeCompat(c, me)
+        lila.common.LilaFuture // give time for anon challenger to load the challenge page
+          .delay(if (c.challengerIsAnon) 2.seconds else 0.seconds) {
+            queue.offer(json.some).void
           }
+          .unit
 
-      private def isMyChallenge(c: Challenge) =
-        c.destUserId.has(me.id) || c.challengerUserId.has(me.id)
+      case lila.challenge.Event.Decline(c) if isMyChallenge(c) =>
+        queue.offer(challengeJson("challengeDeclined")(c).some).unit
+
+      case lila.challenge.Event.Cancel(c) if isMyChallenge(c) =>
+        queue.offer(challengeJson("challengeCanceled")(c).some).unit
+
+      // pretend like the rematch is a challenge
+      case lila.hub.actorApi.round.RematchOffer(gameId) =>
+        challengeMaker.makeRematchFor(gameId, me) foreach {
+          _ foreach { c =>
+            val json = challengeJson("challenge")(c) ++ challengeCompat(c, me)
+            queue offer json.some
+          }
+        }
+
+      // pretend like the rematch cancel is a challenge cancel
+      case lila.hub.actorApi.round.RematchCancel(gameId) =>
+        rematches.getOffered(gameId).map(_.nextId) foreach { challengeId =>
+          val json = Json.obj(
+            "type"      -> "challengeCanceled",
+            "challenge" -> Json.obj("id" -> challengeId)
+          )
+          queue.offer(json.some).unit
+        }
+
+    private def isMyChallenge(c: Challenge) =
+      c.destUserId.has(me.id) || c.challengerUserId.has(me.id)
 
   private def gameJson(game: Game, tpe: String, me: User) =
     Pov(game, me) map { pov =>

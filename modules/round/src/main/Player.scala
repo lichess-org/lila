@@ -25,7 +25,7 @@ final private class Player(
 
   private[round] def human(play: HumanPlay, round: RoundAsyncActor)(
       pov: Pov
-  )(implicit proxy: GameProxy): Fu[Events] =
+  )(using proxy: GameProxy): Fu[Events] =
     play match
       case HumanPlay(_, uci, blur, lag, _) =>
         pov match
@@ -50,7 +50,7 @@ final private class Player(
           case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
           case _ => fufail(ClientError(s"$pov move refused for some reason"))
 
-  private[round] def bot(uci: Uci, round: RoundAsyncActor)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+  private[round] def bot(uci: Uci, round: RoundAsyncActor)(pov: Pov)(using proxy: GameProxy): Fu[Events] =
     pov match
       case Pov(game, _) if game.ply > Game.maxPlies =>
         round ! TooManyPlies
@@ -73,7 +73,7 @@ final private class Player(
       pov: Pov,
       progress: Progress,
       moveOrDrop: MoveOrDrop
-  )(implicit proxy: GameProxy): Fu[Events] =
+  )(using GameProxy): Fu[Events] =
     if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
     notifyMove(moveOrDrop, progress.game)
     if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
@@ -84,11 +84,11 @@ final private class Player(
       if (progress.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
         round ! ForecastPlay(move)
       }
-      scheduleExpiration(progress.game)
+      scheduleExpiration.value(progress.game)
       fuccess(progress.events)
     }
 
-  private[round] def fishnet(game: Game, sign: String, uci: Uci)(implicit proxy: GameProxy): Fu[Events] =
+  private[round] def fishnet(game: Game, sign: String, uci: Uci)(using proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi)
       uciMemo sign game flatMap { expectedSign =>
         if (expectedSign == sign)
@@ -137,12 +137,12 @@ final private class Player(
   ): Validated[String, MoveResult] =
     (uci match {
       case Uci.Move(orig, dest, prom) =>
-        game.chess.moveWithCompensated(orig, dest, prom, metrics) map { case (ncg, move) =>
-          ncg -> (Left(move): MoveOrDrop)
+        game.chess.moveWithCompensated(orig, dest, prom, metrics) map { (ncg, move) =>
+          ncg -> Left(move)
         }
       case Uci.Drop(role, pos) =>
-        game.chess.drop(role, pos, metrics) map { case (ncg, drop) =>
-          Clock.WithCompensatedLag(ncg, None) -> (Right(drop): MoveOrDrop)
+        game.chess.drop(role, pos, metrics) map { (ncg, drop) =>
+          Clock.WithCompensatedLag(ncg, None) -> Right(drop)
         }
     }).map {
       case (ncg, _) if ncg.value.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged
@@ -182,15 +182,15 @@ final private class Player(
       )
 
     // publish simul moves
-    for {
+    for
       simulId        <- game.simulId
       opponentUserId <- game.player(!color).userId
-    } Bus.publish(
+    yield Bus.publish(
       SimulMoveEvent(move = moveEvent, simulId = simulId, opponentUserId = opponentUserId),
       "moveEventSimul"
     )
 
-  private def moveFinish(game: Game)(implicit proxy: GameProxy): Fu[Events] =
+  private def moveFinish(game: Game)(using GameProxy): Fu[Events] =
     game.status match
       case Status.Mate       => finisher.other(game, _.Mate, game.situation.winner)
       case Status.VariantEnd => finisher.other(game, _.VariantEnd, game.situation.winner)

@@ -85,7 +85,7 @@ final class RoundSocket(
     terminationDelay schedule id
     gameFu dforeach {
       _ foreach { game =>
-        scheduleExpiration(game)
+        scheduleExpiration.value(game)
         goneWeightsFor(game) dforeach { w =>
           roundActor ! RoundAsyncActor.SetGameInfo(game, w)
         }

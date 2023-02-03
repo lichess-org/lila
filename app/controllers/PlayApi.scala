@@ -26,22 +26,21 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
 
   def botCommand(cmd: String) =
     ScopedBody(_.Bot.Play) { implicit req => me =>
-      cmd.split('/') match
-        case Array("account", "upgrade") =>
-          env.user.repo.isManaged(me.id) flatMap {
-            case true => notFoundJson()
-            case _ =>
-              env.tournament.api.withdrawAll(me) >>
-                env.team.cached.teamIdsList(me.id).flatMap { env.swiss.api.withdrawAll(me, _) } >>
-                env.user.repo.setBot(me) >>
-                env.pref.api.setBot(me) >>
-                env.streamer.api.delete(me) >>-
-                env.user.lightUserApi.invalidate(me.id) pipe
-                toResult recover { case lila.base.LilaInvalid(msg) =>
-                  BadRequest(jsonError(msg))
-                }
-          }
-        case _ => impl.command(me, cmd)(WithPovAsBot)
+      if cmd == "account/upgrade" then
+        env.user.repo.isManaged(me.id) flatMap {
+          case true => notFoundJson()
+          case _ =>
+            env.tournament.api.withdrawAll(me) >>
+              env.team.cached.teamIdsList(me.id).flatMap { env.swiss.api.withdrawAll(me, _) } >>
+              env.user.repo.setBot(me) >>
+              env.pref.api.setBot(me) >>
+              env.streamer.api.delete(me) >>-
+              env.user.lightUserApi.invalidate(me.id) pipe
+              toResult recover { case lila.base.LilaInvalid(msg) =>
+                BadRequest(jsonError(msg))
+              }
+        }
+      else impl.command(me, cmd)(WithPovAsBot)
     }
 
   // board endpoints

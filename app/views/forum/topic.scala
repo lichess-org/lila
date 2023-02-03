@@ -172,7 +172,7 @@ object topic:
             canModCateg || ctx.me.exists(topic.isAuthor) option deleteModal
           )
         ),
-        formWithCaptcha.map { case (form, captcha) =>
+        formWithCaptcha.map { (form, captcha) =>
           postForm(
             cls    := "form3 reply",
             action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",

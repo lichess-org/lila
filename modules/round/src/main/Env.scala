@@ -75,13 +75,13 @@ final class Env(
   private val isSimulHost =
     IsSimulHost(userId => Bus.ask[Set[UserId]]("simulGetHosts")(GetHostIds.apply).dmap(_ contains userId))
 
-  private val scheduleExpiration = ScheduleExpiration(game => {
+  private val scheduleExpiration = ScheduleExpiration { game =>
     game.timeBeforeExpiration foreach { centis =>
       scheduler.scheduleOnce((centis.millis + 1000).millis) {
         tellRound(game.id, actorApi.round.NoStart)
       }
     }
-  })
+  }
 
   private lazy val proxyDependencies = GameProxy.Dependencies(gameRepo, scheduler)
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]

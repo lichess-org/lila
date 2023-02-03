@@ -91,16 +91,14 @@ final class PrefApi(
     coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true).void >>-
       cache.invalidate(user.id)
 
-  def setBot(user: User): Funit =
-    setPref(
-      user,
-      (p: Pref) =>
-        p.copy(
-          takeback = Pref.Takeback.NEVER,
-          moretime = Pref.Moretime.NEVER,
-          insightShare = Pref.InsightShare.EVERYBODY
-        )
+  def setBot(user: User): Funit = setPref(
+    user,
+    _.copy(
+      takeback = Pref.Takeback.NEVER,
+      moretime = Pref.Moretime.NEVER,
+      insightShare = Pref.InsightShare.EVERYBODY
     )
+  )
 
   def saveNewUserPrefs(user: User, req: RequestHeader): Funit =
     val reqPref = RequestPref fromRequest req

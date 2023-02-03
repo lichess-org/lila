@@ -13,8 +13,8 @@ final class TellRound(f: (GameId, Any) => Unit) extends ((GameId, Any) => Unit):
 final class IsSimulHost(f: UserId => Fu[Boolean]) extends (UserId => Fu[Boolean]):
   def apply(u: UserId) = f(u)
 
-final private class ScheduleExpiration(f: Game => Unit) extends (Game => Unit):
-  def apply(g: Game) = f(g)
+opaque type ScheduleExpiration = Game => Unit
+object ScheduleExpiration extends TotalWrapper[ScheduleExpiration, Game => Unit]
 
 final class IsOfferingRematch(f: Pov => Boolean) extends (Pov => Boolean):
   def apply(p: Pov) = f(p)
