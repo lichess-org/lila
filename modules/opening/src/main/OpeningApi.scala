@@ -49,7 +49,7 @@ final class OpeningApi(
       crawler: Crawler
   ): Fu[Option[OpeningPage]] =
     query.closestOpening.??(op => wikiApi(op, withWikiRevisions) dmap some) flatMap { wiki =>
-      val useExplorer = crawler.no || wiki.isDefined
+      val useExplorer = crawler.no || wiki.exists(_.hasMarkup)
       (useExplorer ?? explorer.stats(query)) zip
         ((crawler.no && query.uci.nonEmpty) ?? explorer.queryHistory(query)) zip
         allGamesHistory.get(query.config) flatMap { case ((stats, history), allHistory) =>

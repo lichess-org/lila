@@ -15,6 +15,7 @@ case class OpeningWiki(
     revisions: List[OpeningWiki.Revision],
     popularity: Long
 ):
+  def hasMarkup = markup.exists(_.value.nonEmpty)
   def markupForMove(move: String): Option[Html] =
     markup map OpeningWiki.filterMarkupForMove(move)
 

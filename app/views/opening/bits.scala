@@ -21,7 +21,7 @@ object bits:
     page.explored.map { explored =>
       div(cls := "opening__nexts")(
         explored.next.map { next =>
-          val canFollow = page.query.uci.isEmpty || explored.lastPopularityPercent.exists(_ > 0.01)
+          val canFollow = page.query.uci.isEmpty || page.wiki.exists(_.hasMarkup)
           a(cls := "opening__next", href := queryUrl(next.query), (!canFollow).option(noFollow))(
             span(cls := "opening__next__popularity")(
               span(style := s"width:${percentNumber(next.percent)}%", title := "Popularity")(

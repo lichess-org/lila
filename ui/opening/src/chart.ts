@@ -18,6 +18,7 @@ chart.Chart.register(
 const firstDate = new Date('2017-01-01');
 
 export const renderHistoryChart = (data: OpeningPage) => {
+  if (!data.history.find(p => p > 0)) return;
   const canvas = document.querySelector('.opening__popularity__chart') as HTMLCanvasElement;
   new chart.Chart(canvas, {
     type: 'line',
