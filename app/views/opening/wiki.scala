@@ -24,7 +24,7 @@ object wiki:
       (page.query.openingAndExtraMoves._1.isDefined && isGranted(_.OpeningWiki)) option {
         details(cls := "opening__wiki__editor")(
           summary(cls := "opening__wiki__editor__summary")("Edit the description", priorityTag(page)),
-          page.query.opening match {
+          page.query.exactOpening match {
             case Some(op) =>
               frag(
                 postForm(action := routes.Opening.wikiWrite(op.key, page.query.pgnUnderscored))(

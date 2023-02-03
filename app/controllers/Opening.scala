@@ -45,7 +45,7 @@ final class Opening(env: Env) extends LilaController(env):
                 s"${routes.Opening.byKeyAndMoves(query.key, page.query.pgnUnderscored)}?r=1"
               }.toFuccess
             else
-              page.query.opening.??(env.puzzle.opening.getClosestTo) map { puzzle =>
+              page.query.exactOpening.??(env.puzzle.opening.getClosestTo) map { puzzle =>
                 val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
                 Ok(html.opening.show(page, puzzleKey))
               }
@@ -75,7 +75,7 @@ final class Opening(env: Env) extends LilaController(env):
     given play.api.mvc.Request[?] = ctx.body
     env.opening.api
       .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), Crawler.No)
-      .map(_.flatMap(_.query.opening))
+      .map(_.flatMap(_.query.exactOpening))
       .flatMapz { op =>
         val redirect = Redirect(routes.Opening.byKeyAndMoves(key, moves))
         lila.opening.OpeningWiki.form

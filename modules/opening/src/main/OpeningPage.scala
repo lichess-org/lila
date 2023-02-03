@@ -12,7 +12,7 @@ case class OpeningPage(
     explored: Option[OpeningExplored],
     wiki: Option[OpeningWiki]
 ):
-  export query.{ opening, name, isExactOpening, openingAndExtraMoves }
+  export query.{ closestOpening, exactOpening, name, openingAndExtraMoves }
 
   def nameParts: NamePart.NamePartList = openingAndExtraMoves match
     case (op, moves) => (op ?? NamePart.from) ::: NamePart.from(moves)
@@ -95,7 +95,7 @@ object OpeningPage:
                 result,
                 (result.sum * 100d / exp.movesSum),
                 opening,
-                shortName = NameSection.variationName(query.opening, opening)
+                shortName = NameSection.variationName(query.exactOpening, opening)
               )
             }
             .sortBy(-_.result.sum),
