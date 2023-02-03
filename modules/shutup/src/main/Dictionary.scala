@@ -7,7 +7,7 @@ package lila.shutup
 private object Dictionary:
 
   def en = dict("""
-(f++|ph)[uae]++c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|e?d|)
+(f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|e?d|)
 (f|ph)agg?([oi]t|)
 (kill|hang|neck) my ?self
 [ck]um(shot|)
