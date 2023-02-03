@@ -169,9 +169,9 @@ object RawHtml:
       ) { last -= 1 }
     last + 1
 
-  private[this] val imgurRegex = """https?://(?:i\.)?imgur\.com/(\w+)(?:\.jpe?g|\.png|\.gif)?""".r
+  private[this] val imgurRegex = """https?://(?:i\.)?imgur\.com/(\w++)(?:\.jpe?g|\.png|\.gif)?""".r
   private[this] val giphyRegex =
-    """https://(?:media\.giphy\.com/media/|giphy\.com/gifs/(?:\w+-)*)(\w+)(?:/giphy\.gif)?""".r
+    """https://(?:media\.giphy\.com/media/|giphy\.com/gifs/(?:\w+-)*+)(\w+)(?:/giphy\.gif)?""".r
 
   private[this] def imgUrl(url: String): Option[Html] =
     url match {
