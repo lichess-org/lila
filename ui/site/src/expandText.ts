@@ -101,11 +101,11 @@ lichess.load.then(() => {
     }
   }
 
-  function expand(a: Candidate) {
+  function expandStudy(a: Candidate) {
     const $iframe: any = $('<iframe>')
       .addClass('analyse ' + a.type)
       .attr('src', a.src);
-    $(a.element).replaceWith($('<div class="embed embed--game">').prepend($iframe));
+    $(a.element).replaceWith($('<div class="embed embed--study">').prepend($iframe));
     return $iframe
       .on('load', function (this: HTMLIFrameElement) {
         if (this.contentDocument?.title.startsWith('404')) this.style.height = '100px';
@@ -119,7 +119,7 @@ lichess.load.then(() => {
     const a = as.shift();
     wait = Math.min(1500, wait);
     if (a)
-      expand(a).on('load', () => {
+      expandStudy(a).on('load', () => {
         setTimeout(() => expandStudies(as, wait + 200), wait);
       });
   }
