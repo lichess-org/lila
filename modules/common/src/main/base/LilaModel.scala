@@ -128,3 +128,6 @@ trait LilaModel:
 
   opaque type JsonStr = String
   object JsonStr extends OpaqueString[JsonStr]
+
+  opaque type Crawler = Boolean
+  object Crawler extends YesNo[Crawler]

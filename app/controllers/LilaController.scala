@@ -612,7 +612,7 @@ abstract private[controllers] class LilaController(val env: Env)
     if ctx.kid then notFound else f
 
   protected def NoCrawlers(result: => Fu[Result])(using ctx: Context) =
-    if HTTPRequest.isCrawler(ctx.req) then notFound else result
+    if HTTPRequest.isCrawler(ctx.req).yes then notFound else result
 
   protected def NotManaged(result: => Fu[Result])(using ctx: Context) =
     ctx.me.??(env.clas.api.student.isManaged) flatMap {

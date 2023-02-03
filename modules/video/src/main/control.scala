@@ -19,7 +19,7 @@ case class UserControl(
     filter: Filter,
     tags: List[TagNb],
     query: Option[String],
-    bot: Boolean
+    crawler: Crawler
 ):
 
   def toggleTag(tag: String) =
@@ -36,4 +36,4 @@ case class UserControl(
       }
     ).flatten mkString "&"
 
-  def queryStringUnlessBot = !bot ?? queryString
+  def queryStringUnlessBot = crawler.no ?? queryString

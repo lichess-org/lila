@@ -30,10 +30,10 @@ final class Opening(env: Env) extends LilaController(env):
 
   def byKeyAndMoves(key: String, moves: String) =
     Open { implicit ctx =>
-      val isCrawler = HTTPRequest.isCrawler(ctx.req)
-      if moves.sizeIs > 40 && isCrawler then Forbidden.toFuccess
+      val crawler = HTTPRequest.isCrawler(ctx.req)
+      if moves.sizeIs > 40 && crawler.yes then Forbidden.toFuccess
       else
-        env.opening.api.lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), isCrawler) flatMap {
+        env.opening.api.lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), crawler) flatMap {
           case None => Redirect(routes.Opening.index(key.some)).toFuccess
           case Some(page) =>
             val query = page.query.query
@@ -74,7 +74,7 @@ final class Opening(env: Env) extends LilaController(env):
   def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { implicit ctx => me =>
     given play.api.mvc.Request[?] = ctx.body
     env.opening.api
-      .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), false)
+      .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), Crawler.No)
       .map(_.flatMap(_.query.opening))
       .flatMapz { op =>
         val redirect = Redirect(routes.Opening.byKeyAndMoves(key, moves))
