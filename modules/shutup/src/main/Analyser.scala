@@ -59,18 +59,18 @@ object Analyser:
 
   private val latinBigRegex = {
     """(?i)\b""" +
-      latinWordsRegexes.mkString("(", "|", ")").replaceAll("(", "(?:") +
+      latinWordsRegexes.mkString("(", "|", ")").replace("(", "(?:") +
       """\b"""
   }.r
 
   private val ruBigRegex = {
     """(?iu)\b""" +
-      Dictionary.ru.mkString("(", "|", ")") .replaceAll("(", "(?:")+
+      Dictionary.ru.mkString("(", "|", ")").replace("(", "(?:")+
       """\b"""
   }.r
 
   private val criticalRegex = {
     """(?i)\b""" +
-      Dictionary.critical.mkString("(", "|", ")").replaceAll("(", "(?:") +
+      Dictionary.critical.mkString("(", "|", ")").replace("(", "(?:") +
       """\b"""
   }.r
