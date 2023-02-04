@@ -318,7 +318,7 @@ cancer
 (kill|hang|neck) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
 kys
 nigg?er
-rap(ed?|e?ing|)
+rap(ed?|e?ing)
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
