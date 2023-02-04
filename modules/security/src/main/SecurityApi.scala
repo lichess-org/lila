@@ -43,7 +43,7 @@ final class SecurityApi(
       "username" -> usernameOrEmailMapping, // can also be an email
       "password" -> nonEmptyText
     )
-    if mode == Mode.Prod then 
+    if mode == Mode.Prod then
       form.verifying(
         "This password is too easy to guess. Request a password reset email.",
         x => !PasswordCheck.isWeak(User.ClearPassword(x._2), x._1.value)
