@@ -4,7 +4,7 @@
 	<string name="coordinateTraining">Koordinat Antrenmanı</string>
 	<string name="averageScoreAsWhiteX">Beyaz olarak ortalama skor: %s</string>
 	<string name="averageScoreAsBlackX">Siyah olarak ortalama skor: %s</string>
-	<string name="averageScoreAsXX">Average score as %s: %s</string>
+	<string name="averageScoreAsX">Average score as %s:</string>
 	<string name="knowingTheShogiBoard">Shogi tahtasının koordinatlarını bilmek çok önemli bir Shogi becerisidir:</string>
 	<string name="mostShogiCourses">Tüm shogi kursları ve çalışmaları bir kaç çeşit shogi notasyonu kullanır. Japon ve batı notasyonları arasından istediğini seçebilirsin.</string>
 	<string name="talkToYourShogiFriends">İkiniz de \'shogi dilini\' anladığınız için, shogi arkadaşlarınızla konuşmayı kolaylaştırır.</string>

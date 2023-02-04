@@ -4,7 +4,7 @@
 	<string name="coordinateTraining">座標訓練</string>
 	<string name="averageScoreAsWhiteX">後手方平均分數: %s</string>
 	<string name="averageScoreAsBlackX">先手方平均分數: %s</string>
-	<string name="averageScoreAsXX">Average score as %s: %s</string>
+	<string name="averageScoreAsX">Average score as %s:</string>
 	<string name="knowingTheShogiBoard">知道棋盤上的座標是一項很重要的技巧。</string>
 	<string name="mostShogiCourses">所有將棋課程與練習都仰賴將棋記譜方法。您可以選擇您習慣的記譜方法。</string>
 	<string name="talkToYourShogiFriends">這讓你跟和棋友更容易聊天，因為你們都知道「將棋的語言」。</string>

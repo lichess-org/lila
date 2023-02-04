@@ -4,7 +4,7 @@
 	<string name="coordinateTraining">Запоминание координат полей</string>
 	<string name="averageScoreAsWhiteX">Средний счёт за белых: %s</string>
 	<string name="averageScoreAsBlackX">Средний счёт за чёрных: %s</string>
-	<string name="averageScoreAsXX">Average score as %s: %s</string>
+	<string name="averageScoreAsX">Average score as %s:</string>
 	<string name="knowingTheShogiBoard">Знание координат на доске для сёги — очень важный навык:</string>
 	<string name="mostShogiCourses">Все курсы и упражнения по сёги используют специальную нотацию. Вы можете выбрать между японской и западной.</string>
 	<string name="talkToYourShogiFriends">Вам будет проще общаться с другом по сёги, если вы оба будете понимать «язык сёги».</string>

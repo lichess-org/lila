@@ -4,7 +4,7 @@
 	<string name="coordinateTraining">Trening współrzędnych pól</string>
 	<string name="averageScoreAsWhiteX">Średni wynik białymi: %s</string>
 	<string name="averageScoreAsBlackX">Średni wynik czarnymi: %s</string>
-	<string name="averageScoreAsXX">Average score as %s: %s</string>
+	<string name="averageScoreAsX">Average score as %s:</string>
 	<string name="knowingTheShogiBoard">Znajomość współrzędnych pól na szachownicy jest bardzo ważną umiejętnością:</string>
 	<string name="mostShogiCourses">Wszystkie kursy i ćwiczenia shogi używają jakiejś formy notacji. Możesz wybrać między japońską notacją i zachodnią notacją.</string>
 	<string name="talkToYourShogiFriends">Rozmowa ze znajomymi graczami będzie łatwiejsza, gdy będziecie się porozumiewać w „języku shogi”.</string>
