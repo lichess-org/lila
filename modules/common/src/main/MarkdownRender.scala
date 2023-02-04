@@ -209,10 +209,14 @@ object MarkdownRender:
       else
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
         def justAsLink() = renderLinkWithBase(node, context, html, link)
-        link.getUrl match
-          case gameRegex(id, color, ply) =>
-            expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
-          case _ => justAsLink()
+
+        if (matchesSiteHeader(node))
+          justAsLink()
+        else
+          link.getUrl match
+            case gameRegex(id, color, ply) =>
+              expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
+            case _ => justAsLink()
 
     private def renderAutoLink(
         node: AutoLink,
@@ -225,10 +229,23 @@ object MarkdownRender:
       else
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
         def justAsLink() = renderLinkWithBase(node, context, html, link)
-        link.getUrl match
-          case gameRegex(id, color, ply) =>
-            expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
-          case _ => justAsLink()
+
+        if (matchesSiteHeader(node))
+          justAsLink()
+        else
+          link.getUrl match
+            case gameRegex(id, color, ply) =>
+              expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
+            case _ => justAsLink()
+
+    private def matchesSiteHeader(node: LinkNode): Boolean = {
+      Option(node.getParent).fold(false)(
+        _.getChars
+          .baseSubSequence(Integer.max(0, node.getStartOffset() - 7), node.getStartOffset())
+          .unescape
+          .matches("\\[Site..*")
+      )
+    }
 
     private def renderLinkWithBase(
         node: LinkNode,
