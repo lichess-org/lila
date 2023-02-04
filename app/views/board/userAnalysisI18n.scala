@@ -103,8 +103,8 @@ object userAnalysisI18n {
     trans.getAHint,
     trans.evaluatingYourMove,
     // gamebook
-    trans.findTheBestMoveForWhite,
-    trans.findTheBestMoveForBlack
+    trans.puzzle.findTheBestMoveForWhite,
+    trans.puzzle.findTheBestMoveForBlack
   ).map(_.key)
 
   private val cevalTranslations: Vector[MessageKey] = Vector(
