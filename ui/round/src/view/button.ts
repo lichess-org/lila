@@ -1,4 +1,4 @@
-import { MaybeVNodes } from 'common/snabbdom';
+import { bind, MaybeVNodes } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import * as game from 'game';
 import { PlayerUser } from 'game';
@@ -18,6 +18,57 @@ function analysisBoardOrientation(data: RoundData) {
 
 function poolUrl(clock: ClockData, blocking?: PlayerUser) {
   return '/#pool/' + clock.initial / 60 + '+' + clock.increment + (blocking ? '/' + blocking.id : '');
+}
+
+function studyForm(ctrl: RoundController): VNode {
+  return h(
+    'form',
+    {
+      attrs: {
+        method: 'post',
+        action: '/study/as',
+      },
+    },
+    [
+      h('input', {
+        attrs: { type: 'hidden', name: 'gameId', value: ctrl.data.game.id },
+      }),
+      //hiddenInput('orientation', ctrl.shogiground.state.orientation),
+      //hiddenInput('variant', ctrl.data.game.variant.key),
+      //hiddenInput('sfen', ctrl.tree.root.sfen),
+      h(
+        'button.button',
+        {
+          attrs: {
+            type: 'submit',
+          },
+        },
+        ctrl.trans.noarg('toStudy')
+      ),
+    ]
+  );
+}
+
+function studyButton(ctrl: RoundController): VNode | null {
+  const d = ctrl.data;
+  return game.replayable(d)
+    ? h(
+        'a.fbt',
+        {
+          hook: bind('click', _ => $.modal($('.continue-with.g_' + d.game.id))),
+        },
+        [
+          ctrl.noarg('toStudy'),
+          h('div.continue-with.none.g_' + d.game.id, [
+            h('div.study-options', [
+              h('button.button', {}, 'Study with opponent'),
+              h('button.button', {}, 'Study with invitation'),
+              studyForm(ctrl),
+            ]),
+          ]),
+        ]
+      )
+    : null;
 }
 
 function analysisButton(ctrl: RoundController): VNode | null {
@@ -496,6 +547,7 @@ export function followUp(ctrl: RoundController): VNode {
           ctrl.noarg('newOpponent')
         )
       : null,
+    studyButton(ctrl),
     analysisButton(ctrl),
   ]);
 }

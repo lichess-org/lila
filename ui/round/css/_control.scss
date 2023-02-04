@@ -230,3 +230,14 @@
     }
   }
 }
+
+#modal-overlay {
+  .study-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    button {
+      width: 100%;
+    }
+  }
+}

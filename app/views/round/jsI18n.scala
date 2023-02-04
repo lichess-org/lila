@@ -95,6 +95,8 @@ object jsI18n {
     trans.preferences.giveMoreTime,
     trans.gameOver,
     trans.analysis,
+    trans.studyMenu,
+    trans.toStudy,
     trans.yourOpponentWantsToPlayANewGameWithYou,
     trans.youPlayTheWhitePieces,
     trans.youPlayTheBlackPieces,
