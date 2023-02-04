@@ -49,4 +49,6 @@
   <string name="yourPreferencesHaveBeenSaved">Vaše nastavenia boli uložené.</string>
   <string name="scrollOnTheBoardToReplayMoves">Rolovaním po šachovnici prehrávať ťahy</string>
   <string name="correspondenceEmailNotification">Denný mailový výpis Vašich korešpondenčných partií</string>
+  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Streamer začal streamovať</string>
+  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Nová správa</string>
 </resources>

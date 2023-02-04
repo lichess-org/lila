@@ -7,6 +7,18 @@
     <item quantity="many">o %s sekúnd</item>
     <item quantity="other">o %s sekúnd</item>
   </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">o %s minútu</item>
+    <item quantity="few">o %s minút</item>
+    <item quantity="many">o %s minút</item>
+    <item quantity="other">o %s minút</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">o %s hodinu</item>
+    <item quantity="few">o %s hodiny</item>
+    <item quantity="many">o %s hodín</item>
+    <item quantity="other">o %s hodín</item>
+  </plurals>
   <plurals name="inNbDays">
     <item quantity="one">o %s deň</item>
     <item quantity="few">o %s dni</item>

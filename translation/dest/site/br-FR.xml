@@ -233,6 +233,12 @@
   <string name="email">Postel</string>
   <string name="passwordReset">Adderaouekaat ar ger-tremen</string>
   <string name="forgotPassword">Disoñjet hoc\'h eus ho ker-tremen?</string>
+  <string name="error.weakPassword">Ordin eo ho ker-kuzh betek re hag aes-tre da gavout.</string>
+  <string name="error.namePassword">Disheñvel e vo ho ker-kuzh diouzh hoc\'h anv-implijer mar plij ganeoc\'h.</string>
+  <string name="youAreLeavingLichess">O kuitaat Lichess emaoc\'h</string>
+  <string name="neverTypeYourPassword">Arabat bizskrivañ ho ker-kuzh Lichess war ul lec\'hienn all!</string>
+  <string name="passwordSuggestion">Na choazit ket ur ger-kuzh bet silet e pleg ho skouarn gant unan all. Arveriet e vo evit laerezh ho kont diganeoc\'h.</string>
+  <string name="emailSuggestion">Na choazit ket ur chomlec\'h postel bet aliet deoc\'h gant unan all. Arveriet e vo evit laerezh ho kont diganeoc\'h.</string>
   <string name="usernameCanBeUsedForNewAccount">Gallout a rit ober gant an anv implijer-mañ evit krouiñ ur gont nevez</string>
   <string name="emailSent">Kaset hon eus ur postel da %s.</string>
   <string name="emailCanTakeSomeTime">Marteze ne vo ket resevet diouzhtu-dak.</string>

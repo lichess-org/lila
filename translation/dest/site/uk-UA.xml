@@ -7,7 +7,7 @@
   <string name="waitingForOpponent">Очікування на суперника</string>
   <string name="waiting">Очікування</string>
   <string name="yourTurn">Ваш хід</string>
-  <string name="aiNameLevelAiLevel">%1$s рівень %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s, рівень %2$s</string>
   <string name="level">Рівень</string>
   <string name="strength">Сила</string>
   <string name="toggleTheChat">Вимк./увімк. чат</string>
@@ -229,6 +229,12 @@
   <string name="email">Електронна пошта</string>
   <string name="passwordReset">Скинути пароль</string>
   <string name="forgotPassword">Забули пароль?</string>
+  <string name="error.weakPassword">Цей пароль дуже поширений, і його легко відгадати.</string>
+  <string name="error.namePassword">Будь ласка, не використовуйте ваше ім\'я користувача як ваш пароль.</string>
+  <string name="youAreLeavingLichess">Ви залишаєте Lichess</string>
+  <string name="neverTypeYourPassword">Ніколи не вводьте ваш пароль Lichess на іншому сайті!</string>
+  <string name="passwordSuggestion">Не встановлюйте пароль, запропонований кимось. Він може використати його для крадіжки Вашого облікового запису.</string>
+  <string name="emailSuggestion">Не встановлюйте поштову адресу, запропоновану кимось. Він може використати його для крадіжки Вашого облікового запису.</string>
   <string name="emailConfirmHelp">Допомога з підтвердженням електронної пошти</string>
   <string name="emailConfirmNotReceived">Не отримали лист з підтвердженням після реєстрації?</string>
   <string name="whatSignupUsername">Яке ім\'я користувача ви використовували для реєстрації?</string>

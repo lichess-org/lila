@@ -52,7 +52,7 @@
   <string name="addAnotherTheme">เพิ่มธีมใหม่</string>
   <string name="nextPuzzle">ปริศนาต่อไป</string>
   <string name="jumpToNextPuzzleImmediately">ข้ามสู่ปริศนาต่อไปทันทีเมื่อแก้ปริศนาปัจจุบันสำเร็จ</string>
-  <string name="puzzleDashboard">ประวัติการแก้ปริศนา</string>
+  <string name="puzzleDashboard">ภาพรวมการแก้ปริศนา</string>
   <string name="improvementAreas">จุดอ่อน</string>
   <string name="strengths">จุดแข็ง</string>
   <string name="history">ประวัติการแก้ปริศนา</string>
