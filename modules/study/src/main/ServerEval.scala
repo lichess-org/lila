@@ -139,7 +139,7 @@ object ServerEval:
     private def analysisLine(root: RootOrNode, variant: chess.variant.Variant, info: Info): Option[Node] =
       chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen, variant) match
         case (_, games, error) =>
-          error foreach { logger.info(_) }
+          error foreach { e => logger.info(e.value) }
           games.reverse match
             case Nil => none
             case (g, m) :: rest =>

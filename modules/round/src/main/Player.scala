@@ -3,7 +3,7 @@ package lila.round
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import cats.data.Validated
 import chess.format.{ Fen, Uci }
-import chess.{ Centis, Clock, MoveMetrics, MoveOrDrop, Status }
+import chess.{ Centis, Clock, MoveMetrics, MoveOrDrop, Status, ErrorStr }
 import java.util.concurrent.TimeUnit
 
 import lila.common.Bus
@@ -57,7 +57,7 @@ final private class Player(
         fuccess(Nil)
       case Pov(game, color) if game playableBy color =>
         applyUci(game, uci, blur = false, botLag)
-          .fold(errs => fufail(ClientError(errs)), fuccess)
+          .fold(errs => fufail(ClientError(ErrorStr raw errs)), fuccess)
           .flatMap {
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop, _) =>
@@ -93,7 +93,7 @@ final private class Player(
       uciMemo sign game flatMap { expectedSign =>
         if (expectedSign == sign)
           applyUci(game, uci, blur = false, metrics = fishnetLag)
-            .fold(errs => fufail(ClientError(errs)), fuccess)
+            .fold(errs => fufail(ClientError(ErrorStr raw errs)), fuccess)
             .flatMap {
               case Flagged => finisher.outOfTime(game)
               case MoveApplied(progress, moveOrDrop, _) =>
@@ -134,8 +134,8 @@ final private class Player(
       uci: Uci,
       blur: Boolean,
       metrics: MoveMetrics
-  ): Validated[String, MoveResult] =
-    (uci match {
+  ): Validated[ErrorStr, MoveResult] =
+    (uci match
       case Uci.Move(orig, dest, prom) =>
         game.chess.moveWithCompensated(orig, dest, prom, metrics) map { (ncg, move) =>
           ncg -> Left(move)
@@ -144,7 +144,7 @@ final private class Player(
         game.chess.drop(role, pos, metrics) map { (ncg, drop) =>
           Clock.WithCompensatedLag(ncg, None) -> Right(drop)
         }
-    }).map {
+    ).map {
       case (ncg, _) if ncg.value.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged
       case (ncg, moveOrDrop) =>
         MoveApplied(

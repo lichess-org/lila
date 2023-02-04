@@ -28,7 +28,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor)
       chess
         .Replay(work.game.uciList, work.game.initialFen, work.game.variant)
         .fold(
-          fufail(_),
+          err => fufail(err.value),
           replay =>
             UciToPgn(
               replay,

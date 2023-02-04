@@ -119,5 +119,5 @@ object TreeBuilder:
               .setComp
 
   private val logChessError = (id: GameId) =>
-    (err: String) =>
-      logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.linesIterator.toList.headOption}")
+    (err: chess.ErrorStr) =>
+      logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.value.linesIterator.toList.headOption}")

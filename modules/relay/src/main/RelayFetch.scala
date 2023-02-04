@@ -316,7 +316,7 @@ private object RelayFetch:
       lila.study
         .PgnImport(pgn, Nil)
         .fold(
-          err => Failure(LilaInvalid(err)),
+          err => Failure(LilaInvalid(err.value)),
           res =>
             Success(index =>
               RelayGame(

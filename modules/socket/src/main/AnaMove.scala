@@ -4,13 +4,14 @@ import cats.data.Validated
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.*
 import chess.variant.Variant
+import chess.ErrorStr
 import play.api.libs.json.*
 
 import lila.tree.Branch
 import lila.common.Json.given
 
 trait AnaAny:
-  def branch: Validated[String, Branch]
+  def branch: Validated[ErrorStr, Branch]
   def chapterId: Option[StudyChapterId]
   def path: UciPath
 
@@ -25,9 +26,9 @@ case class AnaMove(
     promotion: Option[chess.PromotableRole]
 ) extends AnaAny:
 
-  def branch: Validated[String, Branch] =
+  def branch: Validated[ErrorStr, Branch] =
     chess.Game(variant.some, fen.some)(orig, dest, promotion) andThen { (game, move) =>
-      game.sans.lastOption toValid "Moved but no last move!" map { san =>
+      game.sans.lastOption toValid ErrorStr("Moved but no last move!") map { san =>
         val uci     = Uci(move)
         val movable = game.situation playable false
         val fen     = chess.format.Fen write game
