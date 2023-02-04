@@ -119,7 +119,7 @@ object Node:
     opaque type Id = String
     object Id extends OpaqueString[Id]:
       def make = Id(ThreadLocalRandom nextString 4)
-    private val metaReg = """\[%[^\]]+\]""".r
+    private val metaReg = """\[%[^\]]++\]""".r
     opaque type Text = String
     object Text extends OpaqueString[Text]:
       extension (a: Text)
