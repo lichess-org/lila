@@ -10,9 +10,16 @@ case class Path(ids: Vector[UsiCharPair]) extends AnyVal {
 
   def parent: Path = Path(ids dropRight 1)
 
+  def take(i: Int) = Path(ids take i)
+
+  def drop(i: Int) = Path(ids drop i)
+
   def split: Option[(UsiCharPair, Path)] = head.map(_ -> Path(ids.drop(1)))
 
   def isEmpty = ids.isEmpty
+
+  def isOnPathOf(other: Path): Boolean =
+    other.toString.startsWith(this.toString)
 
   def +(id: UsiCharPair): Path = Path(ids appended id)
   def +(node: Node): Path      = Path(ids appended node.id)
@@ -27,9 +34,17 @@ case class Path(ids: Vector[UsiCharPair]) extends AnyVal {
       } map (_._1)
     }
 
-  def toDbField =
-    if (ids.isEmpty) s"root.${Path.rootDbKey}"
-    else s"root.${Path encodeDbKey this}"
+  def toDbField(root: Node.Root) =
+    if (root.isGameRoot) {
+      val intersection = this.intersect(root.mainlinePath)
+      if (intersection == this)
+        s"root.${Path.gameMainlineExtensionDbKey}.${this.depth}"
+      else
+        s"root.${intersection.depth}${Path.gameMainlineSep}${Path encodeDbKey this.drop(intersection.depth)}"
+    } else {
+      if (ids.isEmpty) s"root.${Path.rootDbKey}"
+      else s"root.${Path encodeDbKey this}"
+    }
 
   def depth = ids.size
 
@@ -56,6 +71,13 @@ object Path {
 
   // mongodb objects don't support empty keys
   val rootDbKey = 255.toChar.toString
+
+  val gameMainlineDbKey          = 254.toChar.toString
+  val gameMainlineExtensionDbKey = 253.toChar.toString
+  // $ply$gameMainlineSep$path
+  val gameMainlineSep = gameMainlineDbKey
+
+  val dbKeys = List(rootDbKey, gameMainlineDbKey, gameMainlineExtensionDbKey)
 
   // mongodb objects don't support '.' and '$' in keys
   def encodeDbKey(path: Path): String        = encodeDbKey(path.ids.mkString)

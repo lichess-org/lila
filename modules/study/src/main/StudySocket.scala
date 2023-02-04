@@ -13,8 +13,7 @@ import lila.common.Bus
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, Sri }
-import lila.socket.{ AnaAny, AnaUsi }
-import lila.tree.Node.{ defaultNodeJsonWriter, Comment, Gamebook, Shape, Shapes }
+import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
 import lila.user.User
 
 final private class StudySocket(
@@ -44,7 +43,7 @@ final private class StudySocket(
 
   def onServerEval(studyId: Study.Id, eval: ServerEval.Progress): Unit =
     eval match {
-      case ServerEval.Progress(chapterId, tree, analysis, division) =>
+      case ServerEval.Progress(chapterId, root, analysis, division) =>
         import lila.game.JsonView.divisionWriter
         import JsonView._
         send(
@@ -55,7 +54,7 @@ final private class StudySocket(
               Json.obj(
                 "analysis" -> analysis,
                 "ch"       -> chapterId,
-                "tree"     -> defaultNodeJsonWriter.writes(tree),
+                "tree"     -> JsonView.defaultNodeJsonWriter.writes(root),
                 "division" -> division
               )
             )
@@ -228,14 +227,14 @@ final private class StudySocket(
     chatBusChan = _.Study
   )
 
-  private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts)(who: Who) =
-    m.branch match {
-      case Validated.Valid(branch) if branch.ply < Node.MAX_PLIES =>
-        m.chapterId.ifTrue(opts.write) foreach { chapterId =>
+  private def moveOrDrop(studyId: Study.Id, au: AnaUsi, opts: MoveOpts)(who: Who) =
+    au.node match {
+      case Validated.Valid(node) if node.ply < Node.MAX_PLIES =>
+        au.chapterId.ifTrue(opts.write) foreach { chapterId =>
           api.addNode(
             studyId,
-            Position.Ref(Chapter.Id(chapterId), Path(m.path)),
-            Node.fromBranch(branch) withClock opts.clock,
+            Position.Ref(Chapter.Id(chapterId), Path(au.path)),
+            node withClock opts.clock,
             opts
           )(who)
         }
@@ -252,14 +251,7 @@ final private class StudySocket(
 
   import JsonView._
   import jsonView.membersWrites
-  import lila.tree.Node.{
-    clockWrites,
-    commentWriter,
-    defaultNodeJsonWriter,
-    glyphsWriter,
-    openingWriter,
-    shapesWrites
-  }
+  import lila.tree.Node.{ clockWrites, commentWriter, glyphsWriter, openingWriter, shapesWrites }
   private type SendToStudy = Study.Id => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy =
     studyId => rooms.tell(studyId.value, NotifyVersion(tpe, data))
@@ -281,7 +273,7 @@ final private class StudySocket(
       "addNode",
       Json
         .obj(
-          "n" -> defaultNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
+          "n" -> JsonView.defaultNodeJsonWriter.writes(node),
           "p" -> pos,
           "w" -> who,
           "o" -> shogi.variant.Variant.openingSensibleVariants(variant) ?? {

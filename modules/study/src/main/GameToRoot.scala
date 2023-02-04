@@ -1,28 +1,75 @@
 package lila.study
 
+import shogi.format.usi.{ Usi, UsiCharPair }
+import shogi.Centis
+
 import lila.game.Game
-import lila.round.JsonView.WithFlags
 
-private object GameToRoot {
+object GameToRoot {
 
-  def apply(game: Game, withClocks: Boolean): Node.Root = {
-    val root = Node.Root.fromRoot {
-      lila.round.TreeBuilder(
-        game = game,
-        analysis = none,
-        withFlags = WithFlags(clocks = withClocks)
+  def apply(
+      game: Game,
+      withClocks: Boolean
+  ): Node.Root = {
+    val clocks = withClocks ?? (
+      for {
+        initTime <- game.clock.map(c => Centis.ofSeconds(c.limitSeconds))
+        times    <- game.bothClockStates
+      } yield (initTime +: times)
+    )
+
+    apply(
+      Node.GameMainline(
+        id = game.id,
+        variant = game.variant,
+        usiMoves = game.usiMoves,
+        initialSfen = game.initialSfen,
+        clocks = clocks
       )
-    }
-    endComment(game).fold(root) { comment =>
-      root updateMainlineLast { _.setComment(comment) }
+    )
+  }
+
+  def apply(
+      gm: Node.GameMainline
+  ): Node.Root = {
+    val usiMoves = gm.pp("GameToRoot").usiMoves.take(Node.MAX_PLIES)
+    shogi.Replay.gamesWhileValid(usiMoves, gm.initialSfen, gm.variant) match {
+      case (gamesWithInit, error) =>
+        error foreach logShogiError(gm.id)
+        val init  = gamesWithInit.head
+        val games = gamesWithInit.tail
+        val root = Node.Root(
+          ply = init.plies,
+          sfen = init.toSfen,
+          check = init.situation.check,
+          clock = gm.clocks.flatMap(_.headOption),
+          gameMainline = gm.some,
+          children = Node.emptyChildren
+        )
+        def makeNode(g: shogi.Game, usi: Usi) =
+          Node(
+            id = UsiCharPair(usi, g.variant),
+            ply = g.plies,
+            usi = usi,
+            sfen = g.toSfen,
+            check = g.situation.check,
+            clock = gm.clocks flatMap (_ lift (g.plies - init.plies - 1)),
+            forceVariation = false,
+            children = Node.emptyChildren
+          )
+
+        games.zip(usiMoves).reverse match {
+          case Nil => root
+          case (g, m) :: rest =>
+            root addChild rest.foldLeft(makeNode(g, m)) { case (node, (g, m)) =>
+              makeNode(g, m) addChild node
+            }
+        }
     }
   }
 
-  private def endComment(game: Game) =
-    game.finished option {
-      import lila.tree.Node.Comment
-      val status = lila.game.StatusText(game)
-      val text   = s"$status"
-      Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lishogi)
-    }
+  private val logShogiError = (id: String) =>
+    (err: String) =>
+      logger.warn(s"study.GameToRoot https://lishogi.org/$id ${err.linesIterator.toList.headOption}")
+
 }

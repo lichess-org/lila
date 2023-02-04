@@ -13,7 +13,6 @@ import lila.study.actorApi.Who
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.{ Chapter, Order, Study => StudyModel }
-import lila.tree.Node.partitionTreeJsonWriter
 import views._
 
 final class Study(
@@ -219,9 +218,11 @@ final class Study(
       study = studyJson,
       analysis = baseData
         .add(
-          "treeParts" -> partitionTreeJsonWriter.writes {
-            lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-          }.some
+          "treeParts" -> lila.study.JsonView.partitionTreeJsonWriter
+            .writes(
+              chapter.root
+            )
+            .some
         )
         .add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) })
     )
@@ -359,9 +360,9 @@ final class Study(
               me = none
             )
             analysis = baseData ++ Json.obj(
-              "treeParts" -> partitionTreeJsonWriter.writes {
-                lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
-              }
+              "treeParts" -> lila.study.JsonView.partitionTreeJsonWriter.writes(
+                chapter.root
+              )
             )
             data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
             result <- negotiate(

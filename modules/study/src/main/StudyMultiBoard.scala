@@ -72,7 +72,7 @@ final class StudyMultiBoard(
                       "body" -> """function(root, tags) {
                     |tags = tags.filter(t => t.startsWith('Sente') || t.startsWith('Gote') || t.startsWith('Result'));
                     |const node = tags.length ? Object.keys(root).reduce((acc, i) => (root[i].p > acc.p) ? root[i] : acc, root['ÿ']) : root['ÿ'];
-                    |return {node:{fen:node.f,usi:node.u},tags} }""".stripMargin
+                    |return {node:{sfen:node.f,usi:node.u},tags} }""".stripMargin
                     )
                   ),
                   "orientation" -> "$setup.orientation",
@@ -90,7 +90,7 @@ final class StudyMultiBoard(
             name <- doc.getAsOpt[Chapter.Name]("name")
             comp <- doc.getAsOpt[Bdoc]("comp")
             node <- comp.getAsOpt[Bdoc]("node")
-            sfen <- node.getAsOpt[Sfen]("fen")
+            sfen <- node.getAsOpt[Sfen]("sfen")
             lastMove = node.getAsOpt[Usi]("usi")
             tags     = comp.getAsOpt[Tags]("tags")
           } yield ChapterPreview(

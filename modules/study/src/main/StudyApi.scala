@@ -225,7 +225,10 @@ final class StudyApi(
       opts: MoveOpts,
       relay: Option[Chapter.Relay]
   )(who: Who): Funit = {
-    val node         = rawNode.withoutChildren
+    val node =
+      if (position.chapter.isGameChapter && position.path.parent == position.chapter.root.mainlinePath)
+        rawNode.withoutChildren.withForceVariation(true)
+      else rawNode.withoutChildren
     def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
     if (position.chapter.isOverweight) {
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
@@ -306,7 +309,8 @@ final class StudyApi(
             else children.promoteUpAt(position.path).map(_._1)
           }
         } match {
-          case Some(newChapter) =>
+          case Some(newChapter)
+              if (!chapter.isGameChapter || newChapter.root.mainline.sameElements(chapter.root.mainline)) =>
             chapterRepo.update(newChapter) >>-
               sendTo(study.id)(_.promote(position, toMainline, who)) >>
               newChapter.root.children
@@ -319,7 +323,7 @@ final class StudyApi(
                 }
                 .sequenceFu
                 .void
-          case None =>
+          case _ =>
             fufail(s"Invalid promoteToMainline $studyId $position") >>-
               reloadSriBecauseOf(study, who.sri, chapter.id)
         }

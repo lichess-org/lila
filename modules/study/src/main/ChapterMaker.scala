@@ -78,7 +78,7 @@ final private class ChapterMaker(
           ply = parsed.plies,
           sfen = parsed.toSfen,
           check = parsed.situation.check,
-          clock = none,
+          gameMainline = none,
           children = Node.emptyChildren
         ) -> true
       case None =>
@@ -86,7 +86,7 @@ final private class ChapterMaker(
           ply = 0,
           sfen = variant.initialSfen,
           check = false,
-          clock = none,
+          gameMainline = none,
           children = Node.emptyChildren
         ) -> false
     }) match {

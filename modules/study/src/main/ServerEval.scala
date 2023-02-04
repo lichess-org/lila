@@ -9,7 +9,6 @@ import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.tree.Node.Comment
 import lila.user.User
-import lila.{ tree => T }
 
 object ServerEval {
 
@@ -98,7 +97,7 @@ object ServerEval {
                     studyId,
                     ServerEval.Progress(
                       chapterId = chapter.id,
-                      tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
+                      root = chapter.root,
                       analysis = toJson(chapter, analysis),
                       division = divisionOf(chapter)
                     )
@@ -118,7 +117,7 @@ object ServerEval {
       )
 
     private def analysisLine(root: RootOrNode, variant: shogi.variant.Variant, info: Info): Option[Node] = {
-      val variation = info.variation take 20
+      val variation = info.variation take 15
       val usis      = ~Usi.readList(variation).orElse(UciToUsi.readList(variation))
       shogi.Replay.gamesWhileValid(usis, root.sfen.some, variant) match {
         case (games, error) =>
@@ -147,7 +146,7 @@ object ServerEval {
       )
   }
 
-  case class Progress(chapterId: Chapter.Id, tree: T.Root, analysis: JsObject, division: shogi.Division)
+  case class Progress(chapterId: Chapter.Id, root: Node.Root, analysis: JsObject, division: shogi.Division)
 
   def toJson(chapter: Chapter, analysis: Analysis) =
     lila.analyse.JsonView.bothPlayers(

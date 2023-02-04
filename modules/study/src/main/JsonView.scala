@@ -235,4 +235,56 @@ object JsonView {
   implicit val topicsWrites: Writes[StudyTopics] = Writes[StudyTopics] { topics =>
     JsArray(topics.value map topicWrites.writes)
   }
+
+  implicit val defaultNodeJsonWriter: Writes[RootOrNode] =
+    makeNodeJsonWriter(alwaysChildren = true)
+
+  val minimalNodeJsonWriter: Writes[RootOrNode] =
+    makeNodeJsonWriter(alwaysChildren = false)
+
+  def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[RootOrNode] =
+    Writes { nr =>
+      try {
+        import lila.tree.Node.{ glyphsWriter, clockWrites, commentWriter }
+        import lila.tree.Eval.JsonHandlers.evalWrites
+        val comments   = nr.comments.list.flatMap(_.removeMeta)
+        val variations = nr.children.variations
+        Json
+          .obj(
+            "ply"  -> nr.ply,
+            "sfen" -> nr.sfen
+          )
+          .add("id", nr.idOption.map(_.toString))
+          .add("usi", nr.usiOption.map(_.usi))
+          .add("check", nr.check)
+          .add("eval", nr.score.map(_.eval).filterNot(_.isEmpty))
+          .add("comments", if (comments.nonEmpty) Some(JsArray(comments map commentWriter.writes)) else None)
+          .add("gamebook", nr.gamebook)
+          .add("glyphs", nr.glyphs.nonEmpty)
+          .add("shapes", if (nr.shapes.list.nonEmpty) Some(nr.shapes.list) else None)
+          .add("clock", nr.clock)
+          .add(
+            "children",
+            if (alwaysChildren || variations.nonEmpty) Some {
+              JsArray(variations map makeNodeJsonWriter(true).writes)
+            }
+            else None
+          )
+          .add("forceVariation", nr.forceVariation)
+      } catch {
+        case e: StackOverflowError =>
+          e.printStackTrace
+          sys error s"### StackOverflowError ### in study.jsonView.makeNodeJsonWriter"
+      }
+    }
+
+  val partitionTreeJsonWriter: Writes[Node.Root] = Writes { root =>
+    JsArray {
+      (root +: root.mainline).map(minimalNodeJsonWriter.writes)
+    }
+  }
+
+  def nodeJsonWriter(alwaysChildren: Boolean): Writes[RootOrNode] =
+    makeNodeJsonWriter(alwaysChildren)
+
 }

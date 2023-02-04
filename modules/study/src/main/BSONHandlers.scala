@@ -146,6 +146,11 @@ object BSONHandlers {
     )
   }
 
+  implicit val VariantBSONHandler = quickHandler[Variant](
+    { case BSONInteger(v) => Variant.orDefault(v) },
+    x => BSONInteger(x.id)
+  )
+
   def readNode(doc: Bdoc, id: UsiCharPair): Option[Node] = {
     import Node.{ BsonFields => F }
     for {
@@ -198,48 +203,98 @@ object BSONHandlers {
     )
   }
 
+  def readGameMainlineExtension(doc: Bdoc): Node.GameMainlineExtension = {
+    import Node.{ BsonFields => F }
+    Node.GameMainlineExtension(
+      shapes = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty,
+      comments = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty,
+      glyphs = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty
+    )
+  }
+
+  def writeGameMainlineExtension(rn: RootOrNode): Bdoc = {
+    import Node.BsonFields._
+    $doc(
+      shapes   -> rn.shapes.value.nonEmpty.option(rn.shapes),
+      comments -> rn.comments.value.nonEmpty.option(rn.comments),
+      glyphs   -> rn.glyphs.nonEmpty,
+      order -> {
+        (rn.children.nodes.sizeIs > 1) option rn.children.nodes.map(_.id)
+      }
+    )
+  }
+
   import Node.Root
   implicit private[study] lazy val NodeRootBSONHandler: BSON[Root] = new BSON[Root] {
-    import Node.BsonFields._
+    import Node.{ BsonFields => F }
     def reads(fullReader: Reader) = {
-      val rootNode = fullReader.doc.getAsOpt[Bdoc](Path.rootDbKey) err "Missing root"
-      val r        = new Reader(rootNode)
-      val rootSfen = r.get[Sfen](sfen)
-      Root(
-        sfen = rootSfen,
-        ply = r int ply,
-        check = r boolD check,
-        shapes = r.getO[Shapes](shapes) | Shapes.empty,
-        comments = r.getO[Comments](comments) | Comments.empty,
-        gamebook = r.getO[Gamebook](gamebook),
-        glyphs = r.getO[Glyphs](glyphs) | Glyphs.empty,
-        score = r.getO[Score](score),
-        clock = r.getO[Centis](clock),
-        children = StudyFlatTree.reader.rootChildren(fullReader.doc)
-      )
+      val rootNode = fullReader.doc.getAsOpt[Bdoc](Path.rootDbKey)
+      rootNode.fold {
+        val gameMainlineEl =
+          fullReader.doc.getAsOpt[Bdoc](Path.gameMainlineDbKey) err "Missing root"
+        val r       = new Reader(gameMainlineEl)
+        val variant = r.get[Variant](F.variant)
+        val gm = Node.GameMainline(
+          id = r strD F.gameId,
+          variant = variant,
+          usiMoves = shogi.format.usi.Binary.decodeMoves(
+            (r bytesD F.usiMoves).value.toList,
+            variant,
+            Node.MAX_PLIES
+          ),
+          initialSfen = r.getO[Sfen](F.initialSfen),
+          clocks = r.getO[Vector[Centis]](F.clocks)
+        )
+        StudyFlatTree.reader.mergeGameRoot(GameRootCache(gm), fullReader.doc)
+      } { rn =>
+        val r = new Reader(rn)
+        Root(
+          sfen = r.get[Sfen](F.sfen),
+          ply = r int F.ply,
+          check = r boolD F.check,
+          shapes = r.getO[Shapes](F.shapes) | Shapes.empty,
+          comments = r.getO[Comments](F.comments) | Comments.empty,
+          gamebook = r.getO[Gamebook](F.gamebook),
+          glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
+          score = r.getO[Score](F.score),
+          clock = r.getO[Centis](F.clock),
+          gameMainline = none,
+          children = StudyFlatTree.reader.rootChildren(fullReader.doc)
+        )
+      }
     }
     def writes(w: Writer, r: Root) = $doc(
-      StudyFlatTree.writer.rootChildren(r) appended {
-        Path.rootDbKey -> $doc(
-          ply      -> r.ply,
-          sfen     -> r.sfen,
-          check    -> r.check.some.filter(identity),
-          shapes   -> r.shapes.value.nonEmpty.option(r.shapes),
-          comments -> r.comments.value.nonEmpty.option(r.comments),
-          gamebook -> r.gamebook,
-          glyphs   -> r.glyphs.nonEmpty,
-          score    -> r.score,
-          clock    -> r.clock
-        )
+      r.gameMainline.fold {
+        StudyFlatTree.writer.rootChildren(r) appended {
+          Path.rootDbKey -> $doc(
+            F.ply      -> r.ply,
+            F.sfen     -> r.sfen,
+            F.check    -> r.check.some.filter(identity),
+            F.shapes   -> r.shapes.value.nonEmpty.option(r.shapes),
+            F.comments -> r.comments.value.nonEmpty.option(r.comments),
+            F.gamebook -> r.gamebook,
+            F.glyphs   -> r.glyphs.nonEmpty,
+            F.score    -> r.score,
+            F.clock    -> r.clock
+          )
+        }
+      } { gm =>
+        StudyFlatTree.writer.gameRoot(r) appended {
+          Path.gameMainlineDbKey -> $doc(
+            F.gameId  -> gm.id,
+            F.variant -> gm.variant,
+            F.usiMoves -> lila.db.ByteArray {
+              shogi.format.usi.Binary.encodeMoves(gm.usiMoves, gm.variant)
+            },
+            F.initialSfen -> gm.initialSfen,
+            F.clocks      -> gm.clocks
+          )
+        }
       }
     )
   }
 
   implicit val PathBSONHandler = BSONStringHandler.as[Path](Path.apply, _.toString)
-  implicit val VariantBSONHandler = quickHandler[Variant](
-    { case BSONInteger(v) => Variant.orDefault(v) },
-    x => BSONInteger(x.id)
-  )
 
   implicit val TagBSONHandler = tryHandler[Tag](
     { case BSONString(v) =>

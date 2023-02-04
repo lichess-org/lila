@@ -6,7 +6,6 @@ import shogi.{ Centis, Color }
 import org.joda.time.DateTime
 
 import shogi.opening.FullOpening
-import shogi.opening.FullOpeningDB
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
 
@@ -61,9 +60,7 @@ case class Chapter(
   def forceVariation(force: Boolean, path: Path): Option[Chapter] =
     updateRoot(_.forceVariationAt(force, path))
 
-  def opening: Option[FullOpening] =
-    if (!Variant.openingSensibleVariants(setup.variant)) none
-    else FullOpeningDB searchInSfens root.mainline.map(_.sfen)
+  def opening: Option[FullOpening] = none
 
   def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
 
@@ -80,6 +77,8 @@ case class Chapter(
   def isPractice = ~practice
   def isGamebook = ~gamebook
   def isConceal  = conceal.isDefined
+
+  def isGameChapter = root.isGameRoot
 
   def withoutChildren = copy(root = root.withoutChildren)
 

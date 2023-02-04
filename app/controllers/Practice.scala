@@ -9,7 +9,6 @@ import lila.practice.JsonView._
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
 import lila.study.Study.WithChapter
 import lila.study.{ Chapter, Study => StudyModel }
-import lila.tree.Node.partitionTreeJsonWriter
 import views._
 
 final class Practice(
@@ -112,9 +111,9 @@ final class Practice(
               me = ctx.me
             )
           val analysis = baseData ++ Json.obj(
-            "treeParts" -> partitionTreeJsonWriter.writes {
-              lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-            },
+            "treeParts" -> lila.study.JsonView.partitionTreeJsonWriter.writes(
+              chapter.root
+            ),
             "practiceGoal" -> lila.practice.PracticeGoal(chapter)
           )
           (analysis, studyJson)

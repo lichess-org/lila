@@ -41,6 +41,7 @@ object NotationImport {
               comments = comments,
               glyphs = Glyphs.empty,
               clock = parsedNotation.tags.clockConfig.map(_.limit),
+              gameMainline = none,
               children = Node.Children {
                 val variations = makeVariations(parsedNotation.parsedMoves.value, replay.setup, annotator)
                 makeNode(
@@ -58,14 +59,8 @@ object NotationImport {
                 statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
               )
             }
-            val commented =
-              if (root.mainline.lastOption.??(_.isCommented)) root
-              else
-                end.map(endComment).fold(root) { comment =>
-                  root updateMainlineLast { _.setComment(comment) }
-                }
             Result(
-              root = commented,
+              root = root,
               variant = game.variant,
               tags = KifTags(parsedNotation.tags), // tags in studies are kif format even for CSA
               end = end
@@ -87,6 +82,7 @@ object NotationImport {
               comments = comments,
               glyphs = Glyphs.empty,
               clock = parsedNotation.tags.clockConfig.map(_.limit),
+              gameMainline = none,
               children = Node.Children {
                 val variations = makeVariations(parsedNotation.parsedMoves.value, replay.setup, annotator)
                 makeNode(
