@@ -2,8 +2,8 @@
 <resources>
 	<string name="preferences">Preferencias</string>
 	<string name="gameDisplay">Configuración visual del juego</string>
-	<string name="boardLayout">Board layout</string>
-	<string name="clearHands">Hide ghosts of pieces in hand</string>
+	<string name="boardLayout">Diseño del tablero</string>
+	<string name="clearHands">Ocultar la silueta de las piezas sujetadas</string>
 	<string name="pieceAnimation">Animación de las piezas</string>
 	<string name="materialDifference">Diferencia material</string>
 	<string name="boardHighlightsLastDests">Resaltar tablero - último movimiento/reintroducción</string>

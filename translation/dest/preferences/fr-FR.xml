@@ -2,8 +2,8 @@
 <resources>
 	<string name="preferences">Préférences</string>
 	<string name="gameDisplay">Affichage de la partie</string>
-	<string name="boardLayout">Board layout</string>
-	<string name="clearHands">Hide ghosts of pieces in hand</string>
+	<string name="boardLayout">tableau de bord</string>
+	<string name="clearHands">Cacher les pièces invisibles à la main</string>
 	<string name="pieceAnimation">Animation des pièces</string>
 	<string name="materialDifference">Différence de matériel</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
@@ -20,7 +20,7 @@
 	<string name="shogiClock">Pendule de shogi</string>
 	<string name="tenthsOfSeconds">Dixièmes de seconde</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">Quand il reste moins de 10 secondes</string>
-	<string name="clockTickingStart">Clock should start ticking at</string>
+	<string name="clockTickingStart">La pendule devrait commencer à s\'écouler à</string>
 	<string name="soundWhenTimeGetsCritical">Alerte quand le temps restant devient critique</string>
 	<string name="giveMoreTime">Donner plus de temps</string>
 	<string name="gameBehavior">Conduite de la partie</string>
