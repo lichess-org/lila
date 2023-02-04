@@ -1,20 +1,10 @@
-package lila.socket
+package lila.study
 
 import cats.data.Validated
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.{ Usi, UsiCharPair }
-import shogi.opening._
 import shogi.variant.Variant
 import play.api.libs.json._
-
-import lila.tree.Branch
-
-trait AnaAny {
-
-  def branch: Validated[String, Branch]
-  def chapterId: Option[String]
-  def path: String
-}
 
 case class AnaUsi(
     usi: Usi,
@@ -22,20 +12,19 @@ case class AnaUsi(
     variant: Variant,
     path: String,
     chapterId: Option[String]
-) extends AnaAny {
+) {
 
-  def branch: Validated[String, Branch] = {
+  def node: Validated[String, Node] = {
     shogi.Game(variant.some, sfen.some)(usi) map { game =>
-      val sfen = game.toSfen
-      Branch(
+      Node(
         id = UsiCharPair(usi, variant),
         ply = game.plies,
         usi = usi,
-        sfen = sfen,
+        sfen = game.toSfen,
         check = game.situation.check,
-        opening = (game.plies <= 30 && Variant.openingSensibleVariants(variant)) ?? {
-          FullOpeningDB findBySfen sfen
-        }
+        clock = none,
+        children = Node.emptyChildren,
+        forceVariation = false
       )
     }
   }
