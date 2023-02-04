@@ -60,11 +60,7 @@ function studyButton(ctrl: RoundController): VNode | null {
         [
           ctrl.noarg('toStudy'),
           h('div.continue-with.none.g_' + d.game.id, [
-            h('div.study-options', [
-              h('button.button', {}, 'Study with opponent'),
-              h('button.button', {}, 'Study with invitation'),
-              studyForm(ctrl),
-            ]),
+            h('div.study-options', [h('button.button', {}, 'Study with opponent'), studyForm(ctrl)]),
           ]),
         ]
       )
