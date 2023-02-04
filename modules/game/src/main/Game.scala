@@ -506,12 +506,13 @@ case class Game(
       Centis.ofMillis(movedAt.getMillis - nowMillis + timeForFirstMove.millis).nonNeg
     }
 
-  def playerWhoDidNotMove: Option[Player] =
+  def playerWhoDidNotMove: Option[Player] = {
     playedPlies match {
       case 0 => player(startColor).some
       case 1 => player(!startColor).some
       case _ => none
     }
+  } filterNot { player => winnerColor contains player.color }
 
   def onePlayerHasMoved    = playedPlies > 0
   def bothPlayersHaveMoved = playedPlies > 1
