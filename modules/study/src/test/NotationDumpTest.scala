@@ -8,7 +8,13 @@ import org.specs2.mutable._
 
 class NotationDumpTest extends Specification {
 
-  implicit private val flags = NotationDump.WithFlags(false, true, true, true)
+  implicit private val flags = NotationDump.WithFlags(
+    csa = false,
+    comments = true,
+    variations = true,
+    shiftJis = false,
+    clocks = true
+  )
 
   val P = NotationDump
 

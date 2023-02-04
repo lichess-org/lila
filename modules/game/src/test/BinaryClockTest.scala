@@ -95,14 +95,14 @@ class BinaryClockTest extends Specification {
         isomorphism(c3) must_== c3
 
         val c4 = clock.start
-        isomorphism(c4).timer.get.value must beCloseTo(c4.timer.get.value, 10)
+        isomorphism(c4).timer.get.value must beCloseTo(c4.timer.get.value, 10L)
 
         Clock(120, 60, 0, 0) pipe { c =>
           isomorphism(c) must_== c
         }
 
         val c5 = Clock(15, 0, 10, 1).giveTime(Sente, Centis.ofSeconds(-20)).start
-        isomorphism(c5).timer.get.value must beCloseTo(c5.timer.get.value, 10)
+        isomorphism(c5).timer.get.value must beCloseTo(c5.timer.get.value, 10L)
         isomorphism(c5).currentClockFor(Sente) pipe { cc =>
           cc.periods must_== 1
           cc.time.centis must beCloseTo(500, 10)
