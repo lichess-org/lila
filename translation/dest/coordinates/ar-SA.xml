@@ -4,6 +4,7 @@
 	<string name="coordinateTraining">التدريب على الاحداثيات</string>
 	<string name="averageScoreAsWhiteX">متوسط الدرجات كأبيض: %s</string>
 	<string name="averageScoreAsBlackX">متوسط الدرجات كأسود: %s</string>
+	<string name="averageScoreAsXX">Average score as %s: %s</string>
 	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
 	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
 	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>

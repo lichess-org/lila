@@ -16,6 +16,7 @@
   <string name="yourPuzzleRatingX">Seu rating em problemas: %s</string>
   <string name="findTheBestMoveForWhite">Encontre o melhor lance para gote.</string>
   <string name="findTheBestMoveForBlack">Encontre o melhor lance para sente.</string>
+  <string name="findTheBestMoveForX">Find the best move for %s.</string>
   <string name="toGetPersonalizedPuzzles">Para obter problemas personalizados:</string>
   <string name="puzzleId">Problema %s</string>
   <string name="puzzleOfTheDay">Problema do dia</string>

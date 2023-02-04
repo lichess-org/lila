@@ -4,6 +4,7 @@
 	<string name="coordinateTraining">符号トレーニング</string>
 	<string name="averageScoreAsWhiteX">後手での平均スコア: %s</string>
 	<string name="averageScoreAsBlackX">先手での平均スコア: %s</string>
+	<string name="averageScoreAsXX">Average score as %s: %s</string>
 	<string name="knowingTheShogiBoard">将棋盤の符号を知ることは、とても重要なスキルです。</string>
 	<string name="mostShogiCourses">すべての将棋講座、問題では、何らかの表記法が用いられています。日本式と西洋式のいずれかを選ぶことができます。</string>
 	<string name="talkToYourShogiFriends">また将棋の友人と話をするのも簡単になります。双方がいわば「将棋語」を理解しているからです。</string>

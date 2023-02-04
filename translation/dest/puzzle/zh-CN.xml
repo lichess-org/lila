@@ -16,6 +16,7 @@
   <string name="yourPuzzleRatingX">你的解题积分：%s</string>
   <string name="findTheBestMoveForWhite">找出后手的最佳着</string>
   <string name="findTheBestMoveForBlack">找出先手的最佳着</string>
+  <string name="findTheBestMoveForX">Find the best move for %s.</string>
   <string name="toGetPersonalizedPuzzles">获取个性化谜题</string>
   <string name="puzzleId">训练题编号%s</string>
   <string name="puzzleOfTheDay">每日一题</string>

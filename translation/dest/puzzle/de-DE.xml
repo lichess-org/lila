@@ -16,6 +16,7 @@
   <string name="yourPuzzleRatingX">Deine Taktikwertung: %s</string>
   <string name="findTheBestMoveForWhite">Finde den besten Zug.</string>
   <string name="findTheBestMoveForBlack">Finde den besten Zug.</string>
+  <string name="findTheBestMoveForX">Find the best move for %s.</string>
   <string name="toGetPersonalizedPuzzles">Um personalisierte Aufgaben zu erhalten:</string>
   <string name="puzzleId">Aufgabe %s</string>
   <string name="puzzleOfTheDay">Aufgabe des Tages</string>

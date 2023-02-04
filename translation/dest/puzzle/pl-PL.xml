@@ -16,6 +16,7 @@
   <string name="yourPuzzleRatingX">Twój ranking treningowy: %s</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch.</string>
+  <string name="findTheBestMoveForX">Find the best move for %s.</string>
   <string name="toGetPersonalizedPuzzles">Aby uzyskać spersonalizowane zadania:</string>
   <string name="puzzleId">Zadanie %s</string>
   <string name="puzzleOfTheDay">Zadanie dnia</string>

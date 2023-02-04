@@ -16,6 +16,7 @@
   <string name="yourPuzzleRatingX">您的解題等級：%s</string>
   <string name="findTheBestMoveForWhite">找出後手的最佳著法</string>
   <string name="findTheBestMoveForBlack">找出先手的最佳著法</string>
+  <string name="findTheBestMoveForX">Find the best move for %s.</string>
   <string name="toGetPersonalizedPuzzles">得到個人推薦題目：</string>
   <string name="puzzleId">問題編號%s</string>
   <string name="puzzleOfTheDay">每日一題</string>

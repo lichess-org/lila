@@ -4,6 +4,7 @@
 	<string name="coordinateTraining">Treinamento de coordenadas</string>
 	<string name="averageScoreAsWhiteX">Pontuação média como gote: %s</string>
 	<string name="averageScoreAsBlackX">Pontuação média como sente: %s</string>
+	<string name="averageScoreAsXX">Average score as %s: %s</string>
 	<string name="knowingTheShogiBoard">Saber as coordenadas do tabuleiro é habilidade muito importante no shogi:</string>
 	<string name="mostShogiCourses">Todos os cursos e exercícios de shogi usam algum tipo de notação. Você pode escolher entre a notação japonesa e a ocidental.</string>
 	<string name="talkToYourShogiFriends">Isso torna mais fácil conversar com seus amigos de shogi, desde que ambos entendam a \"linguagem do shogi\".</string>

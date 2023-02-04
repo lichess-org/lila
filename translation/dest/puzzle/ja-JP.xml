@@ -16,6 +16,7 @@
   <string name="yourPuzzleRatingX">あなたのレーティング: %s</string>
   <string name="findTheBestMoveForWhite">後手の最善手を見つけてください。</string>
   <string name="findTheBestMoveForBlack">先手の最善手を見つけてください。</string>
+  <string name="findTheBestMoveForX">Find the best move for %s.</string>
   <string name="toGetPersonalizedPuzzles">あなたに合わせた問題を解くには:</string>
   <string name="puzzleId">問題番号 %s</string>
   <string name="puzzleOfTheDay">本日の問題</string>

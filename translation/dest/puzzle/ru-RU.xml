@@ -16,6 +16,7 @@
   <string name="yourPuzzleRatingX">Ваш рейтинг в решении задач: %s</string>
   <string name="findTheBestMoveForWhite">Найдите лучший ход за готэ.</string>
   <string name="findTheBestMoveForBlack">Найдите лучший ход за сэнтэ.</string>
+  <string name="findTheBestMoveForX">Find the best move for %s.</string>
   <string name="toGetPersonalizedPuzzles">Чтобы получить персонализированные задачи:</string>
   <string name="puzzleId">Задача %s</string>
   <string name="puzzleOfTheDay">Задача дня</string>

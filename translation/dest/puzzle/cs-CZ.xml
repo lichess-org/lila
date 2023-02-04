@@ -16,6 +16,7 @@
   <string name="yourPuzzleRatingX">Vaše hodnocení: %s</string>
   <string name="findTheBestMoveForWhite">Najděte nejlepší tah pro bílého.</string>
   <string name="findTheBestMoveForBlack">Najděte nejlepší tah pro černého.</string>
+  <string name="findTheBestMoveForX">Find the best move for %s.</string>
   <string name="toGetPersonalizedPuzzles">Možnost přizpůsobit hádanky:</string>
   <string name="puzzleId">Hádanky %s</string>
   <string name="puzzleOfTheDay">Hádanka dne</string>
