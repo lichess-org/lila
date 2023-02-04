@@ -335,7 +335,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     needsInnerCoords = !!gaugeOn || !!playerBars,
     intro = relayIntro(ctrl);
   return h(
-    'main.analyse.variant-' + ctrl.data.game.variant.key,
+    'main.sb-insert.analyse.variant-' + ctrl.data.game.variant.key, // sb-insert - to force snabbdom to call insert
     {
       hook: {
         insert: vn => {
