@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">คำถามที่พบบ่อย</string>
+  <string name="frequentlyAskedQuestions">คำถามที่พบบ่อย</string>
   <string name="whyIsLichessCalledLichess">ทำไม Lichess ถึงมีชื่อว่า Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess เป็นการผสมผสานคำว่า live/light/libre กับ chess คำว่า Lichess อ่านออกเสียงว่า %1$s</string>
+  <string name="leechess">ลี-เชส</string>
+  <string name="hearItPronouncedBySpecialist">ฟังการอ่านออกเสียงโดยผู้เชี่ยวชาญ</string>
+  <string name="whyLiveLightLibre">Live เพราะมีการเล่นและการดูเกมในเวลาจริงทั้ง 24 ชั่วโมง; Light และ Libre เพราะว่า Lichess นั้น เป็นซอฟต์แวร์โอเพนซอร์สที่ไม่ผูกพันกับซอฟต์แวร์เอกสิทธิ์เฉพาะ ที่เห็นได้ทั่วไปตามเว็บไซต์อึ่น</string>
+  <string name="whyIsLilaCalledLila">เช่นเดียวกัน ซอร์สโค้ดของ Lichess ชี่อว่า %1$s มีความหมายว่า li[chess in sca]la (lichess ในภาษา scala)
+เพราะว่าโค้ดส่วนใหญ่ของ Lichess ถูกเขียนในภาษา %2$s ซึ่งเป็นภาษาที่ใช้งานง่าย</string>
+  <string name="howCanIContributeToLichess">ฉันจะช่วยสนับสนุน Lichess ได้อย่างไร?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess ได้รับการสนับสนุนโดยการบริจาคจากผู้อุปถัมภ์ และการร่วมมือกันของทีมอาสาสมัคร</string>
+  <string name="findMoreAndSeeHowHelp">คุณสามารถเรียนรู้เพิ่มเติมเกี่ยวกับ %1$s (รวมถึง %2$s) ถ้าคุณอยากช่วย Lichess โดยการอาสาสมัครด้วยเวลาและฝีมือ มี %3$s</string>
+  <string name="beingAPatron">เป็นผู้อุปถัมภ์</string>
   <string name="canIChangeMyUsername">ฉันสามารถเปลี่ยนชื่อผู้ใช้งานของฉันได้ไหม?</string>
 </resources>
