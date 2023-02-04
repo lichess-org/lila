@@ -2,7 +2,7 @@ package lila.blog
 
 object Youtube:
 
-  private val EmbedRegex      = """youtube\.com/watch\?v=[\w-]++\#t=([^"]+).+\?feature=oembed""".r
+  private val EmbedRegex      = """youtube\.com/watch\?v=[\w-]++\#t=([^"]++)[^?]++\?feature=oembed""".r
   private val HourMinSecRegex = """(\d++)h(\d++)m(\d++)s""".r
   private val MinSecRegex     = """(\d++)m(\d++)s""".r
   private val SecRegex        = """(\d++)s""".r

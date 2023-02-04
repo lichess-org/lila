@@ -109,6 +109,9 @@
 
       margin: $block-gap auto;
     }
+    .embed--study {
+      @extend %study-embed;
+    }
 
     .twitter-tweet {
       color-scheme: normal;

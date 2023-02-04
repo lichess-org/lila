@@ -144,7 +144,7 @@ object Modlog:
   val appealPost          = "appealPost"
   val setKidMode          = "setKidMode"
 
-  private val explainRegex = """^[\w-]{3,}: (.+)$""".r
+  private val explainRegex = """^[\w-]{3,}+: (.++)$""".r
   def explain(e: Modlog) = (e.index has "team") ?? ~e.details match
     case explainRegex(explain) => explain.some
     case _                     => none
