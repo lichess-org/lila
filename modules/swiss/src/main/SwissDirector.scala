@@ -12,7 +12,7 @@ final private class SwissDirector(
     pairingSystem: PairingSystem,
     manualPairing: SwissManualPairing,
     gameRepo: lila.game.GameRepo,
-    onStart: GameId => Unit
+    onStart: lila.round.OnStart
 )(using
     ec: Executor,
     idGenerator: lila.game.IdGenerator

@@ -88,7 +88,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
   def titleNameOrAnon(userId: Option[UserId]): String =
     userId.flatMap(lightUser).fold(User.anonymous.value)(_.titleName)
 
-  def isOnline(userId: UserId) = env.socket.isOnline.value(userId)
+  def isOnline(userId: UserId) = env.socket.isOnline(userId)
 
   def isStreaming(userId: UserId) = env.streamer.liveStreamApi isStreaming userId
 

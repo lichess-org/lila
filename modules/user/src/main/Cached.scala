@@ -78,7 +78,7 @@ final class Cached(
   private val top50OnlineCache = cacheApi.unit[List[User]] {
     _.refreshAfterWrite(1 minute)
       .buildAsyncFuture { _ =>
-        userRepo.byIdsSortRatingNoBot(onlineUserIds.value(), 50)
+        userRepo.byIdsSortRatingNoBot(onlineUserIds(), 50)
       }
   }
 

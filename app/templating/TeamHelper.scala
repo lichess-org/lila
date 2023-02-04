@@ -14,7 +14,7 @@ trait TeamHelper { self: HasEnv with RouterHelper =>
   def isMyTeamSync(teamId: TeamId)(using ctx: Context): Boolean =
     ctx.userId.?? { env.team.api.syncBelongsTo(teamId, _) }
 
-  def teamIdToName(id: TeamId): TeamName = env.team.getTeamName.value(id).getOrElse(id.value)
+  def teamIdToName(id: TeamId): TeamName = env.team.getTeamName(id).getOrElse(id.value)
 
   def teamLink(id: TeamId, withIcon: Boolean = true): Tag =
     teamLink(id, teamIdToName(id), withIcon)

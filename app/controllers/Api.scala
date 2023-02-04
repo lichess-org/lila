@@ -86,7 +86,7 @@ final class Api(
         def toJson(u: LightUser) =
           LightUser.lightUserWrites
             .writes(u)
-            .add("online" -> env.socket.isOnline.value(u.id))
+            .add("online" -> env.socket.isOnline(u.id))
             .add("playing" -> env.round.playing(u.id))
             .add("streaming" -> streamingIds(u.id))
         if (getBool("withGameIds", req)) users.map { u =>
@@ -210,7 +210,7 @@ final class Api(
           page = page.some,
           me = none,
           getUserTeamIds = _ => fuccess(Nil),
-          getTeamName = env.team.getTeamName.value,
+          getTeamName = env.team.getTeamName.apply,
           playerInfoExt = none,
           socketVersion = none,
           partial = false,

@@ -85,7 +85,7 @@ final class RoundSocket(
     terminationDelay schedule id
     gameFu dforeach {
       _ foreach { game =>
-        scheduleExpiration.value(game)
+        scheduleExpiration(game)
         goneWeightsFor(game) dforeach { w =>
           roundActor ! RoundAsyncActor.SetGameInfo(game, w)
         }
@@ -169,11 +169,11 @@ final class RoundSocket(
 
   Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame") {
     case TvSelect(gameId, speed, json) =>
-      sendForGameId(gameId).value(Protocol.Out.tvSelect(gameId, speed, json))
+      sendForGameId(gameId)(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(id, e @ BotConnected(color, v)) =>
       val gameId = GameId(id)
       rounds.tell(gameId, e)
-      sendForGameId(gameId).value(Protocol.Out.botConnected(gameId, color, v))
+      sendForGameId(gameId)(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg)          => rounds.tell(GameId(gameId), msg)
     case TellIfExists(gameId, msg)  => rounds.tellIfPresent(GameId(gameId), msg)
     case TellMany(gameIds, msg)     => rounds.tellIds(gameIds.asInstanceOf[Seq[GameId]], msg)
@@ -182,11 +182,11 @@ final class RoundSocket(
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
-        sendForGameId(game.id).value(Protocol.Out.startGame(usersPlaying))
+        sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
       }
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
-        sendForGameId(game.id).value(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
+        sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
       }
   }
 

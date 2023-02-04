@@ -47,7 +47,7 @@ final class Env(
 
   private val simulSocket = wire[SimulSocket]
 
-  val isHosting = new lila.round.IsSimulHost(u => api.currentHostIds.dmap(_ contains u))
+  val isHosting = lila.round.IsSimulHost(u => api.currentHostIds.dmap(_ contains u))
 
   val allCreatedFeaturable = cacheApi.unit[List[Simul]] {
     _.refreshAfterWrite(3 seconds)

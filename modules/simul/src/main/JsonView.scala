@@ -85,7 +85,7 @@ final class JsonView(
           .add("gameId" -> simul.hostGameId.ifTrue(simul.isRunning))
           .add("title" -> host.title)
           .add("patron" -> host.isPatron)
-          .add("online" -> isOnline.value(host.id))
+          .add("online" -> isOnline(host.id))
       },
       "name"       -> simul.name,
       "fullName"   -> simul.fullName,

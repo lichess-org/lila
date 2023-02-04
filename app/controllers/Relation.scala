@@ -166,7 +166,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
             lila.user.JsonView.perfs(r.user, best.some)
           }
         )
-        .add("online" -> env.socket.isOnline.value(r.user.id))
+        .add("online" -> env.socket.isOnline(r.user.id))
     }))
 
   def blocks(page: Int) =

@@ -278,7 +278,7 @@ final private[api] class RoundApi(
         .add(
           "team",
           v.teamVs.map(_.teams(pov.color)) map { id =>
-            Json.obj("name" -> getTeamName.value(id))
+            Json.obj("name" -> getTeamName(id))
           }
         )
     })

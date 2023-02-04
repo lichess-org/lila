@@ -455,7 +455,7 @@ final class ReportApi(
       reports
         .flatMap { r =>
           users.find(_.id == r.user) map { u =>
-            Report.WithSuspect(r, Suspect(u), isOnline.value(u.id))
+            Report.WithSuspect(r, Suspect(u), isOnline(u.id))
           }
         }
         .sortBy(-_.urgency)

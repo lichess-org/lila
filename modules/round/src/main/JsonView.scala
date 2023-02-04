@@ -24,7 +24,7 @@ final class JsonView(
     moretimer: Moretimer,
     divider: lila.game.Divider,
     evalCache: lila.evalCache.EvalCacheApi,
-    isOfferingRematch: Pov => Boolean
+    isOfferingRematch: IsOfferingRematch
 )(using Executor):
 
   import JsonView.{ *, given }

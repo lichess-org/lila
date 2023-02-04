@@ -105,7 +105,7 @@ final class MsgApi(
   ): Fu[PostResult] =
     Msg.make(text, orig, date).fold[Fu[PostResult]](fuccess(PostResult.Invalid)) { msgPre =>
       val threadId = MsgThread.id(orig, dest)
-      for {
+      for
         contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
         isNew    <- !colls.thread.exists($id(threadId))
         verdict <-
@@ -121,20 +121,17 @@ final class MsgApi(
           case send: MsgSecurity.Send =>
             val msg =
               if verdict == MsgSecurity.Spam
-              then {
+              then
                 logger.branch("spam").warn(s"$orig->$dest $msgPre.text")
                 msgPre.copy(text = spam.replace(msgPre.text))
-              } else msgPre
+              else msgPre
             val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
             val threadWrite =
               if (isNew)
                 colls.thread.insert.one {
                   writeThread(
                     MsgThread.make(orig, dest, msg, maskFor, maskWith),
-                    List(
-                      multi option orig,
-                      send.mute option dest
-                    ).flatten
+                    List(multi option orig, send.mute option dest).flatten
                   )
                 }.void
               else
@@ -165,7 +162,7 @@ final class MsgApi(
                 )
                 shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
             } inject PostResult.Success
-      } yield res
+      yield res
     }
 
   def lastDirectMsg(threadId: MsgThread.Id, maskFor: UserId): Fu[Option[Msg.Last]] =
@@ -243,11 +240,11 @@ final class MsgApi(
           UnwindField("contact")
         )
       } flatMap { docs =>
-      (for {
+      (for
         doc     <- docs
         msgs    <- doc.getAsOpt[List[Msg]]("msgs")
         contact <- doc.getAsOpt[User]("contact")
-      } yield relationApi.fetchRelation(contact.id, user.id) map { relation =>
+      yield relationApi.fetchRelation(contact.id, user.id) map { relation =>
         ModMsgConvo(contact, msgs take 10, Relations(relation, none), msgs.length == 11)
       }).parallel
     }
@@ -335,11 +332,11 @@ final class MsgApi(
       }
       .documentSource()
       .mapConcat { doc =>
-        (for {
+        (for
           msg  <- doc child "msg"
           text <- msg string "text"
           date <- msg.getAsOpt[DateTime]("date")
-        } yield (text, date)).toList
+        yield (text, date)).toList
       }
 
 object MsgApi:

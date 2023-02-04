@@ -84,7 +84,7 @@ final private class Player(
       if (progress.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
         round ! ForecastPlay(move)
       }
-      scheduleExpiration.value(progress.game)
+      scheduleExpiration(progress.game)
       fuccess(progress.events)
     }
 

@@ -175,7 +175,7 @@ final class User(
             ctx.isAuth.?? { env.pref.api.followable(user.id) } zip
             ctx.userId.?? { relationApi.fetchRelation(_, user.id) } flatMap {
               case (((blocked, crosstable), followable), relation) =>
-                val ping = env.socket.isOnline.value(user.id) ?? UserLagCache.getLagRating(user.id)
+                val ping = env.socket.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
                 negotiate(
                   html = !ctx.is(user) ?? currentlyPlaying(user) map { pov =>
                     Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
@@ -607,7 +607,7 @@ final class User(
                 "result" -> JsArray(users collect { case Some(u) =>
                   lila.common.LightUser.lightUserWrites
                     .writes(u)
-                    .add("online" -> env.socket.isOnline.value(u.id))
+                    .add("online" -> env.socket.isOnline(u.id))
                 })
               )
             }
