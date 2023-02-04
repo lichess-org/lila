@@ -92,13 +92,18 @@ object home:
           div(cls := "lobby__spotlights")(
             events.map(bits.spotlight),
             relays.map(views.html.relay.bits.spotlight),
-            !ctx.isBot option frag(
-              lila.tournament.Spotlight.select(tours, ctx.me, 3 - events.size) map {
-                views.html.tournament.homepageSpotlight(_)
-              },
-              swiss map views.html.swiss.bits.homepageSpotlight,
-              simuls.filter(isFeaturable) map views.html.simul.bits.homepageSpotlight
-            )
+            !ctx.isBot option {
+              val simulBBBs = simuls.filter(isFeaturable(_) && events.size + relays.size < 4)
+              val forcedBBBs = events.size + relays.size + simulBBBs.size
+              val tourBBBs = if forcedBBBs > 3 then 0 else if forcedBBBs == 3 then 1 else 3 - forcedBBBs
+              frag(
+                lila.tournament.Spotlight.select(tours, ctx.me, tourBBBs) map {
+                  views.html.tournament.homepageSpotlight(_)
+                },
+                swiss.ifTrue(forcedBBBs < 3) map views.html.swiss.bits.homepageSpotlight,
+                simulBBBs map views.html.simul.bits.homepageSpotlight
+              )
+            }
           ),
           if (ctx.isAuth)
             div(cls := "timeline")(
