@@ -98,7 +98,7 @@ object LameName {
 
     list
       .map {
-        _.map(l => subs.getOrElse(l, l)).iterator.map(l => s"$l+").mkString
+        _.map(l => subs.getOrElse(l, l.toString)).iterator.map(l => s"$l+").mkString
       }
       .mkString("|")
       .r

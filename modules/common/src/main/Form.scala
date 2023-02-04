@@ -165,6 +165,7 @@ object Form {
   }
   object Timestamp {
     val formatter = new Formatter[org.joda.time.DateTime] {
+      @scala.annotation.nowarn("cat=lint")
       def bind(key: String, data: Map[String, String]) =
         stringFormat
           .bind(key, data)

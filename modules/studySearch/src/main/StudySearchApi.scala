@@ -57,7 +57,7 @@ final class StudySearchApi(
           .collect { case c if !Chapter.isDefaultName(c.name) => c.name.value }
           .mkString(" "),
       Fields.chapterTexts -> noMultiSpace {
-        (s.study.description.toList :+ s.chapters.flatMap(chapterText)).mkString(" ")
+        (s.study.description.toList ++ s.chapters.flatMap(chapterText)).mkString(" ")
       },
       Fields.topics -> s.study.topicsOrEmpty.value.map(_.value),
       // Fields.createdAt -> study.createdAt)

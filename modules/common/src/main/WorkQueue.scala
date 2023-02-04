@@ -42,6 +42,7 @@ final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parall
     }
   }
 
+  @scala.annotation.nowarn("cat=lint")
   private val queue = Source
     .queue[TaskWithPromise[_]](buffer)
     .mapAsyncUnordered(parallelism) { case (task, promise) =>

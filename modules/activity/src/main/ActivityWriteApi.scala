@@ -35,8 +35,8 @@ final class ActivityWriteApi(
           _ <-
             (!setters.isEmpty) ?? coll.update
               .one($id(a.id), $set(setters), upsert = true)
-              .recover(ignoreDuplicateKey)
               .void
+              .recover(ignoreDuplicateKey)
         } yield ()
       }
       .sequenceFu

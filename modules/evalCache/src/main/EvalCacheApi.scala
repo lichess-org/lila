@@ -75,7 +75,7 @@ final class EvalCacheApi(
               evals = List(input.eval),
               usedAt = DateTime.now
             )
-            coll.insert.one(entry).recover(lila.db.ignoreDuplicateKey).void >>-
+            coll.insert.one(entry).void.recover(lila.db.ignoreDuplicateKey) >>-
               cache.put(input.id, fuccess(entry.some)) >>-
               upgrade.onEval(input, sri)
           case Some(oldEntry) =>

@@ -99,7 +99,7 @@ final class CrosstableApi(
 
   private def create(u1: User.ID, u2: User.ID): Fu[Crosstable] = {
     val crosstable = Crosstable.empty(u1, u2)
-    coll.insert.one(crosstable) recover lila.db.recoverDuplicateKey(_ => ()) inject crosstable
+    coll.insert.one(crosstable).void recover lila.db.recoverDuplicateKey(_ => ()) inject crosstable
   }
 
   private def select(u1: User.ID, u2: User.ID) =
