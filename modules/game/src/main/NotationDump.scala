@@ -156,6 +156,7 @@ object NotationDump {
       evals: Boolean = true,
       opening: Boolean = true,
       literate: Boolean = false,
+      shiftJis: Boolean = false,
       notationInJson: Boolean = false,
       delayMoves: Int = 0
   )

@@ -47,7 +47,8 @@ final class Game(
         )
         env.api.gameApiV2.exportOne(game, config) flatMap { content =>
           env.api.gameApiV2.filename(game, config) map { filename =>
-            Ok(content)
+            val contentEncoded = if (config.flags.shiftJis) content.getBytes("Shift-JIS") else content.getBytes
+            Ok(contentEncoded)
               .withHeaders(
                 CONTENT_DISPOSITION -> s"attachment; filename=$filename"
               )
@@ -152,6 +153,7 @@ final class Game(
       evals = getBoolOpt("evals", req) | extended,
       opening = getBoolOpt("opening", req) | extended,
       literate = getBoolOpt("literate", req) | false,
+      shiftJis = getBoolOpt("shiftJis", req) | false,
       notationInJson = getBoolOpt("notationInJson", req) | false
     )
 

@@ -96,7 +96,13 @@ final class NotationDump(
 
 object NotationDump {
 
-  case class WithFlags(csa: Boolean, comments: Boolean, variations: Boolean, clocks: Boolean)
+  case class WithFlags(
+    csa: Boolean,
+    comments: Boolean,
+    variations: Boolean,
+    shiftJis: Boolean,
+    clocks: Boolean
+  )
 
   private type Variations = Vector[Node]
   private val noVariations: Variations = Vector.empty

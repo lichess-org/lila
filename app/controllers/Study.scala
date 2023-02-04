@@ -446,7 +446,9 @@ final class Study(
           CanViewResult(study) {
             lila.mon.notation.studyChapter.increment()
             val flags = requestNotationFlags(ctx.req, csa)
-            Ok(env.study.notationDump.ofChapter(study, flags)(chapter).toString)
+            val content = env.study.notationDump.ofChapter(study, flags)(chapter).toString
+            val contentEncoded = if (flags.shiftJis) content.getBytes("Shift-JIS") else content.getBytes
+            Ok(contentEncoded)
               .withHeaders(
                 CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump
                     .filename(study, chapter)}${fileType(flags)}"
@@ -466,6 +468,7 @@ final class Study(
       csa = getBoolOpt("csa", req) | csa,
       comments = getBoolOpt("comments", req) | true,
       variations = getBoolOpt("variations", req) | true,
+      shiftJis = getBoolOpt("shiftJis", req) | false,
       clocks = getBoolOpt("clocks", req) | true
     )
 

@@ -1,9 +1,7 @@
 package views.html.analyse
 
-import shogi.format.Tag
 import play.api.i18n.Lang
 import play.api.libs.json.Json
-import play.utils.UriEncoding
 
 import bits.dataPanel
 import lila.api.Context
@@ -71,22 +69,14 @@ object replay {
         a(
           dataIcon := "x",
           cls      := "text",
-          href     := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kif, "UTF-8")}",
-          attr(
-            "download"
-          ) := s"lishogi_game_${Tag.UTCDate.format
-              .print(game.createdAt)}_${playerName(game.sentePlayer)}_vs_${playerName(game.gotePlayer)}_${game.id}.kif"
+          href     := s"${routes.Game.exportOne(game.id)}?clocks=0&evals=0"
         )(
           trans.downloadRaw()
         ),
         a(
           dataIcon := "x",
           cls      := "text jis",
-          href     := s"data:text/plain;charset=shift-jis,${UriEncoding.encodePathSegment(kif, "Shift-JIS")}",
-          attr(
-            "download"
-          ) := s"lishogi_game_${Tag.UTCDate.format
-              .print(game.createdAt)}_${playerName(game.sentePlayer)}_vs_${playerName(game.gotePlayer)}_${game.id}.kif"
+          href     := s"${routes.Game.exportOne(game.id)}?clocks=0&evals=0&shiftJis=1"
         )(
           "Shift-JIS"
         )
