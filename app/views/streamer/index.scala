@@ -55,7 +55,10 @@ object index:
               }
             )
           ),
-          !requests option bits.subscribeButtonFor(s)
+          !requests option bits.subscribeButtonFor(s),
+          s.streamer.lastStreamLang map { language =>
+            h3(cls := "at")(LangList nameByStr language)
+          }
         )
       )
 
