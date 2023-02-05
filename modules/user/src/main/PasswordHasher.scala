@@ -90,7 +90,7 @@ object PasswordHasher:
       enforce: lila.common.config.RateLimit,
       ipCost: Int
   )(id: UserId, req: RequestHeader)(run: RateLimit.Charge => Fu[A])(default: => Fu[A]): Fu[A] =
-    if (enforce.value)
+    if enforce.yes then
       val ip = HTTPRequest ipAddress req
       rateLimitPerUser(id, cost = 1) {
         rateLimitPerIP.chargeable(ip, cost = ipCost, msg = s"IP: $ip") { charge =>

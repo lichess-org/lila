@@ -1,27 +1,24 @@
 package lila.security
 
-import lila.common.IpAddress
-import lila.user.User
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.DefaultBodyReadables.*
-import java.security.MessageDigest
+import com.roundeights.hasher.Implicits.*
 import play.api.libs.json.JsValue
 
-final class Pwned(ws: StandaloneWSClient, url: String)(using Executor, akka.actor.Scheduler):
+// https://github.com/lichess-org/lila-pwned
+final class Pwned(ws: StandaloneWSClient, url: String)(using Executor):
 
-  def apply(pass: User.ClearPassword): Fu[Boolean] =
+  def apply(pass: lila.user.User.ClearPassword): Fu[Boolean] =
     if url.isEmpty then fuFalse
     else
-      val sha1 = String(MessageDigest getInstance "SHA-1" digest pass.value.getBytes)
       ws.url(url)
-        .addQueryStringParameters("sha1" -> sha1)
+        .addQueryStringParameters("sha1" -> pass.value.sha1)
+        .withRequestTimeout(1.second)
         .get()
-        .withTimeout(1 seconds, "Pwned.get")
         .map {
           case res if res.status == 200 =>
-            val n = (res.body[JsValue] \ "n").asOpt[Int]
-            n.exists(_ > 0)
+            (res.body[JsValue] \ "n").asOpt[Int].exists(_ > 0)
           case res =>
             logger.warn(s"Pwnd ${url} ${res.status} ${res.body[String] take 200}")
             false

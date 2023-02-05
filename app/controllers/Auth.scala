@@ -564,7 +564,7 @@ final class Auth(
     env.security.ip2proxy(HTTPRequest.ipAddress(req)) flatMap { proxy =>
       PasswordHasher.rateLimit[Result](
         enforce = env.net.rateLimit,
-        ipCost = if proxy.is then 10 else 1
+        ipCost = if proxy.is then 15 else 1
       )(id, req)(run)(rateLimitedFu)
     }
 
