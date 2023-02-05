@@ -219,14 +219,9 @@ object show {
 
   // handle special teams here
   private def joinButton(t: Team)(implicit ctx: Context) =
-    t.id match {
-      case "english-chess-players" => joinAt("https://ecf.octoknight.com/")
-      case "ecf"                   => joinAt(routes.Team.show("english-chess-players").url)
-      case _ =>
-        postForm(cls := "inline", action := routes.Team.join(t.id))(
-          submitButton(cls := "button button-green")(joinTeam())
-        )
-    }
+    postForm(cls := "inline", action := routes.Team.join(t.id))(
+      submitButton(cls := "button button-green")(joinTeam())
+    )
 
   private def joinAt(url: String)(implicit ctx: Context) =
     a(cls := "button button-green", href := url)(joinTeam())
