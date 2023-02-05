@@ -51,7 +51,7 @@ object captcha {
             ),
             br,
             br,
-            trans.thisIsAChessCaptcha(),
+            trans.thisIsAShogiCaptcha(),
             br,
             trans.clickOnTheBoardToMakeYourMove(),
             br,

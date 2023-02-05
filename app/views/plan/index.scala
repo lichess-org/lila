@@ -29,7 +29,7 @@ object index {
         .OpenGraph(
           title = becomePatron.txt(),
           url = s"$netBaseUrl${routes.Plan.index.url}",
-          description = freeChess.txt()
+          description = freeShogi.txt()
         )
         .some,
       csp = defaultCsp.withStripe.some
@@ -64,7 +64,7 @@ object index {
           } getOrElse div(cls := "banner moto")(
             iconTag(patronIconChar),
             div(
-              h1(freeChess()),
+              h1(freeShogi()),
               p(noAdsNoSubs())
             ),
             iconTag(patronIconChar)

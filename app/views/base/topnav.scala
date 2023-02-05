@@ -46,7 +46,7 @@ object topnav {
         linkTitle(routes.Learn.index.toString, trans.learnMenu()),
         div(role := "group")(
           ctx.noBot option frag(
-            a(href := routes.Learn.index)(trans.chessBasics()),
+            a(href := routes.Learn.index)(trans.shogiBasics()),
             // a(href := routes.Practice.index)(trans.practice()),
             a(href := routes.Coordinate.home)(trans.coordinates.coordinates())
           ),

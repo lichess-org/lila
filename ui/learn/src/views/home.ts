@@ -88,14 +88,14 @@ function whatNext(ctrl: LearnCtrl) {
   const userId = ctrl.progress.progress._id;
   return h('div.categ.what_next', [
     h('h2', ctrl.trans.noarg('whatNext')),
-    h('p', ctrl.trans.noarg('youKnowHowToPlayChess')),
+    h('p', ctrl.trans.noarg('youKnowHowToPlayShogi')),
     h('div.categ_stages', [
       userId
         ? makeStage('/@/' + userId, 'beams-aura', 'register', 'getAFreeLishogiAccount', true)
         : makeStage('/signup', 'beams-aura', 'register', 'getAFreeLishogiAccount'),
       makeStage('/resources', 'king', 'shogiResources', 'curatedShogiResources'),
       makeStage('/training', 'bullseye', 'puzzles', 'exerciseYourTacticalSkills'),
-      makeStage('/video', 'tied-scroll', 'videos', 'watchInstructiveChessVideos'),
+      makeStage('/video', 'tied-scroll', 'videos', 'watchInstructiveShogiVideos'),
       makeStage('/#hook', 'sword-clash', 'playPeople', 'opponentsFromAroundTheWorld'),
       makeStage('/#ai', 'vintage-robot', 'playMachine', 'testYourSkillsWithTheComputer'),
     ]),

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="lishogiClasses">Classes</string>
-	<string name="teachClassesOfChessStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
+	<string name="teachClassesOfShogiStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
 	<string name="features">Features</string>
 	<string name="quicklyGenerateSafeUsernames">Quickly generate safe usernames and passwords for students</string>
 	<string name="trackStudentProgress">Track student progress in games and puzzles</string>

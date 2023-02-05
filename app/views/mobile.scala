@@ -13,7 +13,7 @@ object mobile {
     ) {
       main(
         div(cls := "mobile page-small box box-pad")(
-          h1(trans.playChessEverywhere()),
+          h1(trans.playShogiEverywhere()),
           div(cls := "sides")(
             div(cls := "left-side")(
               div(cls := "stores")(
@@ -25,7 +25,7 @@ object mobile {
               ),
               h2(trans.asFreeAsLishogi()),
               ul(cls := "block")(
-                li(trans.builtForTheLoveOfChessNotMoney()),
+                li(trans.builtForTheLoveOfShogiNotMoney()),
                 li(trans.everybodyGetsAllFeaturesForFree()),
                 li(trans.zeroAdvertisement()),
                 li("Entirely ", a(href := "https://github.com/veloce/lichobile")("Open Source"))
@@ -34,7 +34,7 @@ object mobile {
               ul(cls := "block")(
                 li(trans.phoneAndTablet()),
                 li(trans.bulletBlitzClassical()),
-                li(trans.correspondenceChess()),
+                li(trans.correspondenceShogi()),
                 li(trans.onlineAndOfflinePlay()),
                 li(trans.tournaments()),
                 li(trans.puzzles()),
@@ -69,7 +69,7 @@ object mobile {
   lazy val appleStoreButton = raw(
     """
 <a class="store"
-  href="https://itunes.apple.com/us/app/lichess-free-online-chess/id968371784">
+  href="">
   <img alt="Download on the Apple App Store"
   width="172"
   height="50"
@@ -81,7 +81,7 @@ object mobile {
   lazy val googlePlayButton = raw(
     """
 <a class="store"
-  href="https://play.google.com/store/apps/details?id=org.lichess.mobileapp">
+  href="">
   <img alt="Android app on Google Play"
   width="192"
   height="74"

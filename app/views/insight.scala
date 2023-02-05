@@ -21,7 +21,7 @@ object insight {
       stale: Boolean
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${u.username}'s chess insights",
+      title = s"${u.username}'s shogi insights",
       moreJs = frag(
         highchartsLatestTag,
         jsAt("vendor/multiple-select/multiple-select.js"),
@@ -63,23 +63,23 @@ lishogi.insight = LishogiInsight(document.getElementById('insight'), ${safeJsonV
 
   def empty(u: User)(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${u.username}'s chess insights",
+      title = s"${u.username}'s shogi insights",
       moreJs = jsTag("insight-refresh.js"),
       moreCss = cssTag("insight")
     )(
       main(cls := "box box-pad page-small")(
-        h1(cls := "text", dataIcon := "7")(u.username, " chess insights"),
-        p(userLink(u), " has no chess insights yet!"),
-        refreshForm(u, s"Generate ${u.username}'s chess insights")
+        h1(cls := "text", dataIcon := "7")(u.username, " shogi insights"),
+        p(userLink(u), " has no shogi insights yet!"),
+        refreshForm(u, s"Generate ${u.username}'s shogi insights")
       )
     )
 
   def forbidden(u: User)(implicit ctx: Context) =
     views.html.site.message(
-      title = s"${u.username}'s chess insights are protected",
+      title = s"${u.username}'s shogi insights are protected",
       back = routes.User.show(u.id).url.some
     )(
-      p("Sorry, you cannot see ", userLink(u), "'s chess insights."),
+      p("Sorry, you cannot see ", userLink(u), "'s shogi insights."),
       br,
       p(
         "Maybe ask them to change their ",

@@ -79,7 +79,7 @@ object message {
       back = routes.User.show(u.id).url.some
     )(
       frag(
-        "Before using chess insights,",
+        "Before using shogi insights,",
         userLink(u),
         " has to play at least one rated game."
       )

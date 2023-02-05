@@ -144,7 +144,7 @@ object faq {
             li(havePlayedMoreThanThirtyGamesInThatRating()),
             li(havePlayedARatedGameAtLeastOneWeekAgo()),
             li(
-              ratingDeviationLowerThanXinChessYinVariants(
+              ratingDeviationLowerThanXinShogiYinVariants(
                 lila.rating.Glicko.standardRankableDeviation,
                 lila.rating.Glicko.variantRankableDeviation
               )

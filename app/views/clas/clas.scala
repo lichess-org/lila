@@ -23,7 +23,7 @@ object clas {
       main(cls := "page-small box box-pad page clas-home")(
         h1(trans.clas.lishogiClasses()),
         div(cls := "clas-home__doc body")(
-          p(trans.clas.teachClassesOfChessStudents()),
+          p(trans.clas.teachClassesOfShogiStudents()),
           h2(trans.clas.features()),
           ul(
             li(trans.clas.quicklyGenerateSafeUsernames()),

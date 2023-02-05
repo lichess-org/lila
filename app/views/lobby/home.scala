@@ -18,7 +18,7 @@ object home {
     views.html.base.layout(
       title = "",
       fullTitle = Some {
-        s"lishogi.${if (isProd && !isStage) "org" else "dev"} • ${trans.freeOnlineChess.txt()}"
+        s"lishogi.${if (isProd && !isStage) "org" else "dev"} • ${trans.freeOnlineShogi.txt()}"
       },
       moreJs = frag(
         jsModule("lobby", defer = true),
@@ -129,7 +129,7 @@ object home {
           else
             div(cls := "about-side")(
               ctx.blind option h2("About"),
-              trans.xIsAFreeYLibreOpenSourceChessServer(
+              trans.xIsAFreeYLibreOpenSourceShogiServer(
                 "Lishogi",
                 a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
               ),

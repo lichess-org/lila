@@ -186,7 +186,7 @@ object teacherDashboard {
             tr(
               th(attr("data-sort-default") := "1")(
                 trans.clas.nbStudents.pluralSame(students.size),
-                sortNumberTh(trans.chessBasics()),
+                sortNumberTh(trans.shogiBasics()),
                 sortNumberTh(trans.practice()),
                 sortNumberTh(trans.coordinates.coordinates())
               )
