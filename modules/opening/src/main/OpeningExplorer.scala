@@ -76,12 +76,14 @@ final private class OpeningExplorer(
         none
       }
 
+  private val dateFormat = DateTimeFormat.forPattern("yyyy-MM")
+
   private def historyOf(params: List[(String, String)]): Fu[PopularityHistoryAbsolute] =
     ws.url(s"$explorerEndpoint/lichess/history")
       .withQueryStringParameters(
         params ::: List(
           "since" -> OpeningQuery.firstMonth,
-          "until" -> DateTimeFormat.forPattern("yyyy-MM").print(nowDate.minusDays(45))
+          "until" -> dateFormat.print(nowDate.minusDays(45))
         )*
       )
       .withRequestTimeout(requestTimeout)
