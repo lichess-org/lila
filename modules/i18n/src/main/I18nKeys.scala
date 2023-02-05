@@ -2,6 +2,7 @@
 package lila.i18n
 // format: OFF
 object I18nKeys {
+val `shogi` = new I18nKey("shogi")
 val `playWithAFriend` = new I18nKey("playWithAFriend")
 val `playWithTheMachine` = new I18nKey("playWithTheMachine")
 val `toInviteSomeoneToPlayGiveThisUrl` = new I18nKey("toInviteSomeoneToPlayGiveThisUrl")
@@ -256,6 +257,8 @@ val `mustBeInTeam` = new I18nKey("mustBeInTeam")
 val `youAreNotInTeam` = new I18nKey("youAreNotInTeam")
 val `backToGame` = new I18nKey("backToGame")
 val `siteDescription` = new I18nKey("siteDescription")
+val `shogiDescription` = new I18nKey("shogiDescription")
+val `learnShogiHereX` = new I18nKey("learnShogiHereX")
 val `xJoinedTeamY` = new I18nKey("xJoinedTeamY")
 val `xCreatedTeamY` = new I18nKey("xCreatedTeamY")
 val `xStartedStreaming` = new I18nKey("xStartedStreaming")

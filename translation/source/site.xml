@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">Play with a friend</string>
 	<string name="playWithTheMachine">Play with the computer</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
@@ -338,6 +339,8 @@
 	<string name="youAreNotInTeam">You are not in the team %s</string>
 	<string name="backToGame">Back to game</string>
 	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="shogiDescription">Shogi, also known as "将棋" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as "Japanese chess" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s joined team %2$s</string>
 	<string name="xCreatedTeamY">%1$s created team %2$s</string>
 	<string name="xStartedStreaming">%s started streaming</string>
