@@ -70,31 +70,31 @@ final class Auth(
 
   private def authenticateCookie(sessionId: String, remember: Boolean)(
       result: Result
-  )(implicit req: RequestHeader) =
+  )(using req: RequestHeader) =
     result.withCookies(
       env.lilaCookie.withSession(remember = remember) {
         _ + (api.sessionIdKey -> sessionId) - api.AccessUri - lila.security.EmailConfirm.cookie.name
       }
     )
 
-  private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] =
+  private def authRecovery(using ctx: Context): PartialFunction[Throwable, Fu[Result]] =
     case lila.security.SecurityApi.MustConfirmEmail(_) =>
       fuccess {
         if (HTTPRequest isXhr ctx.req) Ok(s"ok:${routes.Auth.checkYourEmail}")
         else BadRequest(accountC.renderCheckYourEmail)
       }
 
-  def login     = Open(serveLogin(_))
-  def loginLang = LangPage(routes.Auth.login)(serveLogin(_))
+  def login     = Open(serveLogin(using _))
+  def loginLang = LangPage(routes.Auth.login)(serveLogin(using _))
 
-  private def serveLogin(implicit ctx: Context) = NoBot {
+  private def serveLogin(using ctx: Context) = NoBot {
     val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
     val switch   = get("switch")
     referrer ifTrue ctx.isAuth ifTrue switch.isEmpty match
       case Some(url) => Redirect(url).toFuccess // redirect immediately if already logged in
       case None =>
         val prefillUsername = lila.security.UserStrOrEmail(~switch.filter(_ != "1"))
-        val form            = api.loginForm.fill(prefillUsername -> "")
+        val form            = api.loginFormFilled(prefillUsername)
         Ok(html.auth.login(form, referrer)).withCanonical(routes.Auth.login).toFuccess
   }
 
@@ -115,9 +115,10 @@ final class Auth(
                   html = Unauthorized(html.auth.login(err, referrer)).toFuccess,
                   api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).toFuccess
                 ),
-              data =>
-                HasherRateLimit(data._1 into UserId, ctx.req) { chargeIpLimiter =>
-                  api.loadLoginForm(data._1) flatMap {
+              (login, pass) =>
+                HasherRateLimit(login into UserId, ctx.req) { chargeIpLimiter =>
+                  env.security.pwned(pass) foreach { _ ?? chargeIpLimiter() }
+                  api.loadLoginForm(login) flatMap {
                     _.bindFromRequest()
                       .fold(
                         err => {

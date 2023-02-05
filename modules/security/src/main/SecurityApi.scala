@@ -14,7 +14,7 @@ import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress }
 import lila.common.Form.into
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
-import lila.user.User.LoginCandidate
+import lila.user.User.{ ClearPassword, LoginCandidate }
 import lila.user.{ User, UserRepo }
 
 final class SecurityApi(
@@ -37,19 +37,21 @@ final class SecurityApi(
 
   private val usernameOrEmailMapping =
     lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength).into[UserStrOrEmail]
+  private val loginPasswordMapping = nonEmptyText.transform(ClearPassword(_), _.value)
 
   lazy val loginForm = Form {
     val form = tuple(
       "username" -> usernameOrEmailMapping, // can also be an email
-      "password" -> nonEmptyText
+      "password" -> loginPasswordMapping
     )
     if mode == Mode.Prod then
       form.verifying(
         "This password is too easy to guess. Request a password reset email.",
-        x => !PasswordCheck.isWeak(User.ClearPassword(x._2), x._1.value)
+        (login, pass) => !PasswordCheck.isWeak(pass, login.value)
       )
     else form
   }
+  def loginFormFilled(login: UserStrOrEmail) = loginForm.fill(login -> ClearPassword(""))
 
   lazy val rememberForm = Form(single("remember" -> boolean))
 
@@ -58,10 +60,10 @@ final class SecurityApi(
     Form(
       mapping(
         "username" -> usernameOrEmailMapping, // can also be an email
-        "password" -> nonEmptyText,
+        "password" -> loginPasswordMapping,
         "token"    -> optional(nonEmptyText)
       )(authenticateCandidate(candidate)) {
-        case Success(user) => (user.username into UserStrOrEmail, "", none).some
+        case Success(user) => (user.username into UserStrOrEmail, ClearPassword(""), none).some
         case _             => none
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
         t match {
@@ -81,11 +83,11 @@ final class SecurityApi(
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
       _str: UserStrOrEmail,
-      password: String,
+      password: ClearPassword,
       token: Option[String]
   ): LoginCandidate.Result =
     candidate.fold[LoginCandidate.Result](LoginCandidate.Result.InvalidUsernameOrPassword) {
-      _(User.PasswordAndToken(User.ClearPassword(password), token map User.TotpToken.apply))
+      _(User.PasswordAndToken(password, token map User.TotpToken.apply))
     }
 
   def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion])(using

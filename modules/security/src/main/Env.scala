@@ -150,7 +150,7 @@ final class Env(
 
   lazy val ipTrust: IpTrust = wire[IpTrust]
 
-  lazy val pwned: Pwned = wire[Pwned]
+  lazy val pwned: Pwned = Pwned(ws, config.pwnedUrl)
 
   lazy val api = wire[SecurityApi]
 
