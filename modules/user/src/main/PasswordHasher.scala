@@ -69,7 +69,7 @@ object PasswordHasher:
   import lila.common.{ HTTPRequest, IpAddress }
 
   private lazy val rateLimitPerIP = RateLimit[IpAddress](
-    credits = 150 * 2, // double cost in case of hash check failure
+    credits = 200,
     duration = 10 minutes,
     key = "password.hashes.ip"
   )
@@ -95,8 +95,8 @@ object PasswordHasher:
       rateLimitPerUser(id, cost = 1) {
         rateLimitPerIP.chargeable(ip, cost = ipCost) { charge =>
           rateLimitGlobal("-", cost = 1, msg = ip.value) {
-            run(charge)
+            run(() => charge(ipCost))
           }(default)
         }(default)
       }(default)
-    else run(_ => ())
+    else run(() => ())

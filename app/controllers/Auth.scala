@@ -121,7 +121,7 @@ final class Auth(
                     _.bindFromRequest()
                       .fold(
                         err => {
-                          chargeIpLimiter(1)
+                          chargeIpLimiter()
                           negotiate(
                             html = fuccess {
                               err.errors match {
