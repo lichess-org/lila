@@ -23,7 +23,7 @@ final class RateLimit[K](
   def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(
       op: Charge => A
   )(default: => A): A =
-    apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg") {} {}) }(default)
+    apply(k, cost, msg) { op(c => apply(k, c * cost, s"charge: $msg") {} {}) }(default)
 
   def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(default: => A): A =
     if (cost < 1) op
