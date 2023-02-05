@@ -93,7 +93,7 @@ object PasswordHasher:
     if (enforce.value)
       val ip = HTTPRequest ipAddress req
       rateLimitPerUser(id, cost = 1) {
-        rateLimitPerIP.chargeable(ip, cost = ipCost) { charge =>
+        rateLimitPerIP.chargeable(ip, cost = ipCost, msg = s"IP: $ip") { charge =>
           rateLimitGlobal("-", cost = 1, msg = ip.value) {
             run(() => charge(ipCost))
           }(default)
