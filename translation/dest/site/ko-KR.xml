@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">친구와 게임하기</string>
 	<string name="playWithTheMachine">체스 엔진과 게임하기</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대해 친구와 같이 체스를 두세요.</string>
@@ -18,14 +19,14 @@
 	<string name="stalemate">스테일메이트</string>
 	<string name="impasse">Impasse</string>
 	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost">All royal pieces lost</string>
-	<string name="bareKing">Bare king</string>
+	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
+	<string name="bareKing" comment="Used in chushogi">Bare king</string>
 	<string name="gote">Gote</string>
 	<string name="white">백색</string>
 	<string name="sente">Sente</string>
 	<string name="black">흑색</string>
-	<string name="shitate">Shitate</string>
-	<string name="uwate">Uwate</string>
+	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor">무작위</string>
 	<string name="createAGame">새 게임 만들기</string>
 	<string name="whiteIsVictorious">백색 승리</string>
@@ -33,7 +34,7 @@
 	<string name="xIsVictorious">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">당신은 백으로 둡니다</string>
 	<string name="youPlayTheBlackPieces">당신은 흑으로 둡니다</string>
-	<string name="youPlayAsX">You play as %</string>
+	<string name="youPlayAsX">You play as %s</string>
 	<string name="itsYourTurn">당신이 둘 차례입니다!</string>
 	<string name="cheatDetected">Cheat Detected</string>
 	<string name="variantEnding">변형 게임 엔딩</string>
@@ -60,6 +61,7 @@
 	<string name="whiteLeftTheGame">백색이 게임을 나갔습니다</string>
 	<string name="blackLeftTheGame">흑색이 게임을 나갔습니다</string>
 	<string name="xLeftTheGame">%s left the game</string>
+	<string name="xDidntMove">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">이 URL을 공유해서 관전할 수 있게 하세요.</string>
 	<string name="theComputerAnalysisHasFailed">컴퓨터 분석에 실패하였습니다</string>
 	<string name="viewTheComputerAnalysis">컴퓨터 분석 보기</string>
@@ -249,7 +251,7 @@
 	<string name="incrementInSeconds">턴 당 추가 시간(초)</string>
 	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
 	<string name="numberOfPeriods">Number of periods</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="freeOnlineShogi">Free Online Shogi</string>
 	<string name="spectators">관전자:</string>
 	<plurals name="nbRated">
 		<item quantity="other">%s번의 레이팅 대국</item>
@@ -316,6 +318,8 @@
 	<string name="youAreNotInTeam">팀 %s 에 소속되지 않았습니다.</string>
 	<string name="backToGame">게임으로 돌아가기</string>
 	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s(이)가 팀 %2$s에 가입했습니다.</string>
 	<string name="xCreatedTeamY">%1$s(이)가 팀 %2$s(을)를 만들었습니다.</string>
 	<string name="xStartedStreaming">%s 님이 스트리밍을 시작했습니다</string>
@@ -330,7 +334,7 @@
 	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">정해진 보드판에서 시작</string>
-	<string name="default">Default</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">Default</string>
 	<string name="continueFromHere">여기서부터 시작</string>
 	<string name="toStudy">연구</string>
 	<string name="importGame">게임 불러오기</string>
@@ -339,7 +343,7 @@ computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">불러온 게임 %s개</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">보드를 클릭해서 체스 퍼즐을 풀고 당신이 사람임을 알려주세요.</string>
 	<string name="captcha.fail">Please solve the shogi captcha.</string>
 	<string name="notACheckmate">체크메이트가 아닙니다.</string>
@@ -412,7 +416,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="movesPlayed">말 이동 횟수</string>
 	<string name="whiteWins">하얀 말로 우승</string>
 	<string name="blackWins">검은 말로 우승</string>
-	<string name="xWins">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">무승부</string>
 	<string name="nextXTournament">다음 %s 대회:</string>
 	<string name="averageOpponent">상대의 평균 승점</string>
@@ -608,7 +612,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="webmasters">웹마스터</string>
 	<string name="about">Lishogi 개요</string>
 	<string name="aboutX">%s에 대해</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
 	<string name="really">정말입니다!</string>
 	<string name="contribute">기여하기</string>
 	<string name="termsOfService">이용 약관</string>
@@ -694,15 +698,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">사용자 계정에 로그인한 장치의 목록입니다. 이 중 낯선 장치가 보이면 세션을 취소하세요.</string>
 	<string name="alternativelyYouCanX">%s를 하셔도 됩니다.</string>
 	<string name="revokeAllSessions">모든 세션 비활성화</string>
-	<string name="playChessEverywhere">Play shogi everywhere</string>
+	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
-	<string name="builtForTheLoveOfChessNotMoney">Built for the love of shogi, not money</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">모두가 모든 기능을 무료로 이용할 수 있습니다</string>
 	<string name="zeroAdvertisement">광고가 없습니다</string>
 	<string name="fullFeatured">모든 기능을 지원합니다</string>
 	<string name="phoneAndTablet">스마트폰과 태블릿 지원</string>
 	<string name="bulletBlitzClassical">불릿, 블릿츠, 클래식 방식 지원</string>
-	<string name="correspondenceChess">Correspondence shogi</string>
+	<string name="correspondenceShogi">Correspondence shogi</string>
 	<string name="onlineAndOfflinePlay">온라인/오프라인 게임 모두 지원</string>
 	<string name="viewTheSolution">해답 보기</string>
 	<string name="followAndChallengeFriends">친구를 팔로우하고 도전하기</string>
@@ -744,8 +748,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="usernameCharsInvalid">유저 이름에는 알파벳, 숫자, 언더스코어 ( _ ), 하이픈 ( - ) 만을 사용할 수 있습니다.</string>
 	<string name="usernameUnacceptable">사용자 이름을 사용할 수 없습니다.</string>
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
-	<string name="playChessInStyle">Play shogi in style</string>
-	<string name="chessBasics">Shogi basics</string>
+	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">코치</string>
 	<string name="invalidKif">Invalid KIF</string>
@@ -827,7 +831,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="weHadToTimeYouOutForAWhile">짧은 시간동안 정지를 받으셨습니다.</string>
 	<string name="timeoutExpires">타임아웃은 %s 후에 후에 만료됩니다.</string>
 	<string name="why">왜 그런가요?</string>
-	<string name="pleasantChessExperience">We aim to provide a pleasant shogi experience for everyone.</string>
+	<string name="pleasantShogiExperience">We aim to provide a pleasant shogi experience for everyone.</string>
 	<string name="goodPractice">그러기 위해서는, 우리는 모든 플레이어가 좋은 관행을 따르도록 보장해야 합니다.</string>
 	<string name="potentialProblem">잠재적인 문제가 감지되었을 때는, 우리는 이 메시지를 표시합니다.</string>
 	<string name="howToAvoidThis">이것을 어떻게 피할 수 있나요?</string>
@@ -867,7 +871,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="youCannotPostYetPlaySomeGames">이 포럼에 글을 올리시기에는 게임 수가 부족합니다.</string>
 	<string name="subscribe">구독</string>
 	<string name="unsubscribe">구독 취소</string>
-	<string name="notationType">Notation</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
 	<string name="blogPostsFromYear">Blog posts from %1$s</string>

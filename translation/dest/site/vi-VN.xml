@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">Chơi với bạn bè</string>
 	<string name="playWithTheMachine">Chơi với máy tính</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi đường dẫn này</string>
@@ -18,14 +19,14 @@
 	<string name="stalemate">Hòa pat</string>
 	<string name="impasse">Impasse</string>
 	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost">All royal pieces lost</string>
-	<string name="bareKing">Bare king</string>
+	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
+	<string name="bareKing" comment="Used in chushogi">Bare king</string>
 	<string name="gote">Gote</string>
 	<string name="white">Trắng</string>
 	<string name="sente">Sente</string>
 	<string name="black">Đen</string>
-	<string name="shitate">Người được chấp quân</string>
-	<string name="uwate">Người chấp quân</string>
+	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Người được chấp quân</string>
+	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Người chấp quân</string>
 	<string name="randomColor">Chọn màu quân ngẫu nhiên</string>
 	<string name="createAGame">Khởi tạo ván cờ</string>
 	<string name="whiteIsVictorious">Bên Trắng thắng</string>
@@ -33,7 +34,7 @@
 	<string name="xIsVictorious">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">Bạn chơi quân trắng</string>
 	<string name="youPlayTheBlackPieces">Bạn chơi quân đen</string>
-	<string name="youPlayAsX">You play as %</string>
+	<string name="youPlayAsX">You play as %s</string>
 	<string name="itsYourTurn">Đến lượt bạn!</string>
 	<string name="cheatDetected">Phát hiện gian lận</string>
 	<string name="variantEnding">Hết cờ theo luật</string>
@@ -60,6 +61,7 @@
 	<string name="whiteLeftTheGame">Trắng đã thoát khỏi ván cờ</string>
 	<string name="blackLeftTheGame">Đen đã thoát khỏi ván cờ</string>
 	<string name="xLeftTheGame">%s left the game</string>
+	<string name="xDidntMove">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Chia sẻ url này để mời khán giả đến xem ván cờ</string>
 	<string name="theComputerAnalysisHasFailed">Máy tính không thể phân tích</string>
 	<string name="viewTheComputerAnalysis">Xem phân tích</string>
@@ -249,7 +251,7 @@
 	<string name="incrementInSeconds">Thêm giây</string>
 	<string name="byoyomiInSeconds">Byoyomi theo giây</string>
 	<string name="numberOfPeriods">Số các chu kì</string>
-	<string name="freeOnlineChess">Shogi online và miễn phí</string>
+	<string name="freeOnlineShogi">Free Online Shogi</string>
 	<string name="spectators">Khán giả:</string>
 	<plurals name="nbRated">
 		<item quantity="other">%s tính elo</item>
@@ -316,6 +318,8 @@
 	<string name="youAreNotInTeam">Bạn không ở trong đội %s</string>
 	<string name="backToGame">Quay lại ván đấu</string>
 	<string name="siteDescription">Chơi Shogi online miễn phí. Chơi Shogi với giao diện đẹp. Không cần đăng ký, không quảng cáo, không yêu cầu plugin. Chơi Shogi với máy tính, bạn bè hoặc đối thủ ngẫu nhiên.</string>
+	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s tham gia đội %2$s</string>
 	<string name="xCreatedTeamY">%1$s tạo đội %2$s</string>
 	<string name="xStartedStreaming">%s bắt đầu phát trực tuyến</string>
@@ -330,7 +334,7 @@
 	<string name="pasteTheSfenStringHere">Dán chuỗi FEN ở đây</string>
 	<string name="pasteTheKifCsaStringHere">Dán chuỗi FEN ở đây</string>
 	<string name="fromPosition">Từ thế trận</string>
-	<string name="default">Default</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">Default</string>
 	<string name="continueFromHere">Tiếp tục từ đây</string>
 	<string name="toStudy">Học chơi</string>
 	<string name="importGame">Nhập ván cờ</string>
@@ -339,7 +343,7 @@ computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">%s các ván cờ đã nhập</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">Đây là mã CAPTCHA shogi.</string>
+	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Bấm vào bàn cờ để di chuyển, chứng minh bạn là con người</string>
 	<string name="captcha.fail">Hãy giải captcha shogi.</string>
 	<string name="notACheckmate">Không phải là một nước chiếu hết</string>
@@ -412,7 +416,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="movesPlayed">Số nước đi</string>
 	<string name="whiteWins">Trắng thắng</string>
 	<string name="blackWins">Đen thắng</string>
-	<string name="xWins">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Hoà</string>
 	<string name="nextXTournament">Giải đấu tiếp theo %s:</string>
 	<string name="averageOpponent">Rate đối thủ (trung bình)</string>
@@ -608,7 +612,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="webmasters">Các quản trị</string>
 	<string name="about">Giới thiệu</string>
 	<string name="aboutX">Về %s</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ đánh cờ (%2$s) miễn phí, không quảng cáo, mã nguồn mở.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
 	<string name="really">thật sự</string>
 	<string name="contribute">Đóng góp</string>
 	<string name="termsOfService">Điều khoản dịch vụ</string>
@@ -694,15 +698,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Đây là danh sách các thiết bị đã đăng nhập bằng tài khoản của bạn. Hãy xóa những phiên đăng nhập mà bạn không hận ra.</string>
 	<string name="alternativelyYouCanX">Ngoài ra, bạn có thể %s.</string>
 	<string name="revokeAllSessions">xóa toàn bộ phiên đăng nhập</string>
-	<string name="playChessEverywhere">Chơi cờ ở bất cứ đâu</string>
+	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">Miễn phí như Lishogi</string>
-	<string name="builtForTheLoveOfChessNotMoney">Xây dựng trên nền tảng tình yêu dành cho shogi, không phải vì tiền bạc</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">Mọi người có tất cả các ứng dụng miễn phí</string>
 	<string name="zeroAdvertisement">Không quảng cáo</string>
 	<string name="fullFeatured">Các chức năng đầy đủ</string>
 	<string name="phoneAndTablet">Điện thoại và máy tính bảng</string>
 	<string name="bulletBlitzClassical">Cờ siêu chớp. cờ chớp, cờ chậm</string>
-	<string name="correspondenceChess">Cờ qua thư</string>
+	<string name="correspondenceShogi">Correspondence shogi</string>
 	<string name="onlineAndOfflinePlay">Chơi online và ofline</string>
 	<string name="viewTheSolution">Xem lời giải</string>
 	<string name="followAndChallengeFriends">Theo dõi và thách thức bạn bè</string>
@@ -744,8 +748,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="usernameCharsInvalid">Username chỉ được chứa ký tự, số, dấu gạch chân và dấu gạch dưới.</string>
 	<string name="usernameUnacceptable">Username này không được chấp nhận.</string>
 	<string name="directlySupportLishogi">Ủng hộ trực tiếp Lishogi</string>
-	<string name="playChessInStyle">Chơi cờ phong cách</string>
-	<string name="chessBasics">Shogi cơ bản</string>
+	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Tài nguyên về Shogi</string>
 	<string name="coaches">Huấn luyện viên</string>
 	<string name="invalidKif">PGN không hợp lệ</string>
@@ -827,7 +831,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="weHadToTimeYouOutForAWhile">Chúng tôi phải ngừng bạn lại một thời gian.</string>
 	<string name="timeoutExpires">Hiệu lực đến %s.</string>
 	<string name="why">Vì sao?</string>
-	<string name="pleasantChessExperience">Mục tiêu của chúng tôi là cung cấp trải nghiệm chơi cờ vui vẻ cho mọi người.</string>
+	<string name="pleasantShogiExperience">We aim to provide a pleasant shogi experience for everyone.</string>
 	<string name="goodPractice">Để đạt được mục đích, chúng tôi phải chắc chắn rằng mọi người phải tuân thủ tốt.</string>
 	<string name="potentialProblem">Khi có vấn đề tiềm ẩn, chúng tôi sẽ cho hiển thị lỗi này.</string>
 	<string name="howToAvoidThis">Làm thế nào để tránh điều này?</string>
@@ -867,7 +871,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="youCannotPostYetPlaySomeGames">Bạn bây giờ chưa thể đăng bài lên diễn đàng được. Chơi vài trận đi!</string>
 	<string name="subscribe">Đăng kí</string>
 	<string name="unsubscribe">Hủy đăng ký</string>
-	<string name="notationType">Kí hiệu</string>
 	<string name="notationSystem">Kí hiệu</string>
 	<string name="officialBlog">Blog chính thức của Lishogi</string>
 	<string name="blogPostsFromYear">Bài blog từ %1$s</string>

@@ -5,7 +5,7 @@
 	<string name="whyIsLishogiCalledLishogi">Que signifie Lishogi ?</string>
 	<string name="forkedFromLichess">Lishogi est un projet open source forké de lichess, mais comme on joue à shogi ici, il s\'appelle lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Parce qu\'il dérive du lichess. Et lichess s\'appelle lichess parce qu\'il s\'agit d\'une combinaison de \"live/light/libre\" et \"chess\". Lishogi se prononce %1$s.</string>
-	<string name="leechess">li-shô-gui</string>
+	<string name="leeshogi">lee-shogi</string>
 	<string name="whyLiveLightLibre">Live, parce que les jeux sont joués et regardés en temps réel 24 heures sur 24 et 7 jours sur 7 ; light et libre, parce que Lishogi est un logiciel libre et non encombré par des logiciels malveillants qui affligent d\'autres sites web.</string>
 	<string name="whyIsLilaCalledLila">De même, le code source de Lishogi, %1$s, signifie li[chess in sca]la, étant donné que la majeure partie de Lishogi est écrite en %2$s, un langage de programmation intuitif.</string>
 	<string name="howCanIContributeToLishogi">Comment puis-je contribuer à Lishogi ?</string>
@@ -35,7 +35,7 @@ Par exemple, la durée estimée d\'un jeu 5+3|4 est de 60 x 5 + 60 × 3 + 25 x 4
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Quelles variantes puis-je jouer sur Lishogi ?</string>
-	<string name="lishogiSupportChessAnd">Lishogi propose le shogi standard et %1$s.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
 	<string name="whatIsACPL">Quelle est la perte moyenne de centipions (ACPL) ?</string>
 	<string name="acplExplanation">Le centipion est l\'unité de mesure utilisée aux échecs comme représentation de l\'avantage. Un centipion est égal à 1/100ème d\'un pion. Donc 100 centipions = 1 pion. Ces valeurs ne jouent aucun rôle formel dans le jeu mais sont utiles aux joueurs, et essentielles aux échecs informatiques, pour évaluer les positions.
 
@@ -95,7 +95,7 @@ Il faut également noter que l\'intervalle de confiance augmente avec le temps. 
 	<string name="ratingLeaderboards">classement des leaders</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">avoir joué à au moins 30 parties classées dans un jeu donné,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">avoir à un jeu classé au cours de la dernière semaine pour cette classification</string>
-	<string name="ratingDeviationLowerThanXinChessYinVariants">avoir un écart de notation inférieur à %1$s, au shogi standard, et inférieur à %2$s dans les variantes,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
 	<string name="beInTopTen">être dans le top 10 de ce classement.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La deuxième exigence est pour que les joueurs qui n\'utilisent plus leur compte cessent de remplir les classements.</string>
 	<string name="whyAreRatingHigher">Pourquoi les notes sont-elles plus élevées que celles d\'autres sites et organisations tels que la FIDE, l\'USCF et la CPI ?</string>

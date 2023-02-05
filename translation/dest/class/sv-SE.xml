@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="lishogiClasses">Classes</string>
-	<string name="teachClassesOfChessStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
+	<string name="teachClassesOfShogiStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
 	<string name="features">Funktioner</string>
 	<string name="quicklyGenerateSafeUsernames">Skapa snabbt säkra användarnamn och lösenord för studenter</string>
 	<string name="trackStudentProgress">Spåra studenternas framsteg i partier och schackproblem</string>

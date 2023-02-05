@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="lishogiClasses">Třídy</string>
-	<string name="teachClassesOfChessStudents">Učte shogi s Lishogi nástrojem.</string>
+	<string name="teachClassesOfShogiStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
 	<string name="features">Funkce</string>
 	<string name="quicklyGenerateSafeUsernames">Rychle generovat bezpečná uživatelská jména a hesla pro studenty</string>
 	<string name="trackStudentProgress">Sledovat pokrok studentů ve hrách a hlavolamech</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">मित्र के साथ खेलें</string>
 	<string name="playWithTheMachine">कंप्यूटर के साथ खेलें</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">इस खेल में किसी को आमंत्रित करने के लिए उन्हें ये URL दें</string>
@@ -18,14 +19,14 @@
 	<string name="stalemate">स्टेलमेट (Stalemate)</string>
 	<string name="impasse">इमपास्से (Impasse)</string>
 	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost">All royal pieces lost</string>
-	<string name="bareKing">Bare king</string>
+	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
+	<string name="bareKing" comment="Used in chushogi">Bare king</string>
 	<string name="gote">Gote</string>
 	<string name="white">गोते (Gote/White)</string>
 	<string name="sente">Sente</string>
 	<string name="black">सेनटे (Sente/Black)</string>
-	<string name="shitate">शिताते (Shitate)</string>
-	<string name="uwate">ऊवाते (Uwate)</string>
+	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">शिताते (Shitate)</string>
+	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">ऊवाते (Uwate)</string>
 	<string name="randomColor">कोई भी रंग</string>
 	<string name="createAGame">नया खेल बनाएं</string>
 	<string name="whiteIsVictorious">सफेद (Gote) विजय हुआ</string>
@@ -33,7 +34,7 @@
 	<string name="xIsVictorious">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">आप सफेद (Gote) के रूप में खेलते हैं</string>
 	<string name="youPlayTheBlackPieces">आप काले (सेंटे) के रूप में खेलते हैं</string>
-	<string name="youPlayAsX">You play as %</string>
+	<string name="youPlayAsX">You play as %s</string>
 	<string name="itsYourTurn">यह आपकी बारी है!</string>
 	<string name="cheatDetected">धोखा का पता चला</string>
 	<string name="variantEnding">प्रकार समाप्त</string>
@@ -61,6 +62,7 @@
 	<string name="whiteLeftTheGame">सफेद (Gote) खेल छोड़ कर चला गया</string>
 	<string name="blackLeftTheGame">काले (Sente) खेल छोड़ कर चला गया</string>
 	<string name="xLeftTheGame">%s left the game</string>
+	<string name="xDidntMove">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">दर्शकों को यह खेल दिखाने के लिए उन्हें यह URL दें</string>
 	<string name="theComputerAnalysisHasFailed">कम्प्यूटर विश्लेषण असफल</string>
 	<string name="viewTheComputerAnalysis">कंप्यूटर विश्लेषण देखें</string>
@@ -258,7 +260,7 @@
 	<string name="incrementInSeconds">हर चाल पर सेकंड्स की वृद्धि</string>
 	<string name="byoyomiInSeconds">Byoyomi सेकंड में</string>
 	<string name="numberOfPeriods">अवधि की संख्या</string>
-	<string name="freeOnlineChess">मुफ्त ऑनलाइन shogi</string>
+	<string name="freeOnlineShogi">Free Online Shogi</string>
 	<string name="spectators">दर्शक (Spectator)</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s रेटेड</item>
@@ -337,6 +339,8 @@
 	<string name="youAreNotInTeam">आप %s टीम मे नही हो</string>
 	<string name="backToGame">खेल पर लौटें।</string>
 	<string name="siteDescription">खेलें shogi मुफ्त और ऑनलाइन साफ़ सुथरे अंदाज में। न कोई पंजीकरण, न कोई प्रचार और न ही किसी अन्य बहरी चीज की आव्यशकता। shogi कम्प्युटर, दोस्तों या किसी भी प्रतिद्वंदी के साथ खेलें।</string>
+	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s %2$s समूह से जुड़ा</string>
 	<string name="xCreatedTeamY">%1$s ने %2$s समूह बनाया</string>
 	<string name="xStartedStreaming">%s ने स्ट्रीमिंग शुरू किया</string>
@@ -351,7 +355,7 @@
 	<string name="pasteTheSfenStringHere">SFEN को यहा रखें</string>
 	<string name="pasteTheKifCsaStringHere">KIF या CSA को यहा रखें</string>
 	<string name="fromPosition">स्थिति से (From position)</string>
-	<string name="default">डिफॉल्ट (Default)</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">डिफॉल्ट (Default)</string>
 	<string name="continueFromHere">यहा से जारी करें</string>
 	<string name="toStudy">अध्ययन</string>
 	<string name="importGame">खेल इम्पोर्ट करे</string>
@@ -361,7 +365,7 @@
 		<item quantity="one">%s खेल इम्पोर्ट किये गए</item>
 		<item quantity="other">%s खेल इम्पोर्ट किये गए</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">यह इंसानों और कम्प्यूटरों को अलग करने के लिए shogi की पहेली है।</string>
+	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">अपनी चाल चलने के लिए बोर्ड पर क्लिक करें और साबित करे की आप इंसान हैं।</string>
 	<string name="captcha.fail">कृपया shogi कैप्चा (shogi captcha) हल करें।</string>
 	<string name="notACheckmate">शह और मात नहीं</string>
@@ -438,7 +442,7 @@
 	<string name="movesPlayed">चालें चलायीं</string>
 	<string name="whiteWins">Gote विजयी हुआ</string>
 	<string name="blackWins">Sente विजयी हुआ</string>
-	<string name="xWins">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">ड्रा</string>
 	<string name="nextXTournament">अगले %s टूर्नामेंट:</string>
 	<string name="averageOpponent">औसत प्रतिद्वंद्वी</string>
@@ -639,7 +643,7 @@
 	<string name="webmasters">वेबमास्टर्स (Webmasters)</string>
 	<string name="about">जानकारी</string>
 	<string name="aboutX">%s के बारे में</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s एक मुफ्त (%2$s), स्वतंत्र (libre), विज्ञापनों से मुक्त (no-ads), खुला स्रोत (open source) shogi सर्वर है।</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
 	<string name="really">सचमुच</string>
 	<string name="contribute">योगदान</string>
 	<string name="termsOfService">सेवा की शर्तें (Terms of Service)</string>
@@ -726,15 +730,15 @@
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">यह उन डिवाइसों की सूची है जो आपके खाते में लॉग इन हैं। उन सत्रों को रद्द करें जिन्हें आप नहीं पहचानते हैं।</string>
 	<string name="alternativelyYouCanX">वैकल्पिक रूप से आप %s कर सकते हैं।</string>
 	<string name="revokeAllSessions">सभी सत्र रद्द</string>
-	<string name="playChessEverywhere">हर जगह shogi खेलें</string>
+	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">Lishogi जैसा मुक्त</string>
-	<string name="builtForTheLoveOfChessNotMoney">Shogi के प्यार के लिए निर्मित, धन के लिए नहीं</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">हर कोई मुफ्त में सभी सुविधाओं प्राप्त करता है</string>
 	<string name="zeroAdvertisement">शून्य विज्ञापन</string>
 	<string name="fullFeatured">पूरा प्रदर्शित</string>
 	<string name="phoneAndTablet">फोन और टैबलेट</string>
 	<string name="bulletBlitzClassical">बुलेट, ब्लिट्ज, क्लासिकल (Bullet, blitz, classical)</string>
-	<string name="correspondenceChess">पत्राचार (Correspondence) shogi</string>
+	<string name="correspondenceShogi">Correspondence shogi</string>
 	<string name="onlineAndOfflinePlay">ऑनलाइन और ऑफ़लाइन खेल</string>
 	<string name="viewTheSolution">समाधान देखें</string>
 	<string name="followAndChallengeFriends">अपने दोस्तों का अनुसरण करें और उनको चुनौती दें</string>
@@ -777,8 +781,8 @@
 	<string name="usernameCharsInvalid">जो नाम आप उपयोग करते, उनमें सिर्फ पत्र, संख्या, अंडरस्कोर और हाइफ़न होना चाहिए।</string>
 	<string name="usernameUnacceptable">यह उपयोगकर्ता नाम स्वीकार्य नहीं है।</string>
 	<string name="directlySupportLishogi">Lishogi का समर्थन करें</string>
-	<string name="playChessInStyle">शैली में shogi खेलें</string>
-	<string name="chessBasics">Shogi बेसिक्स (Shogi basics)</string>
+	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi संसाधन</string>
 	<string name="coaches">कोच</string>
 	<string name="invalidKif">अमान्य KIF</string>
@@ -863,7 +867,7 @@
 	<string name="weHadToTimeYouOutForAWhile">हमें आपको कुछ समय के लिए प्रतिबंधित करना पड़ा।</string>
 	<string name="timeoutExpires">आपका प्रतिबंध %s समाप्त हो जाएगा।</string>
 	<string name="why">क्यों ?</string>
-	<string name="pleasantChessExperience">हम सभी के लिए एक सुखद shogi अनुभव प्रदान करना चाहते हैं।</string>
+	<string name="pleasantShogiExperience">We aim to provide a pleasant shogi experience for everyone.</string>
 	<string name="goodPractice">इसलिए, हमें यह सुनिश्चित करना होगा कि सभी खिलाड़ी अच्छे अभ्यास का पालन करें।</string>
 	<string name="potentialProblem">जब एक संभावित समस्या का पता चलता है, हम इस संदेश को प्रदर्शित करते हैं।</string>
 	<string name="howToAvoidThis">इससे कैसे बचा जाए ?</string>
@@ -903,7 +907,6 @@
 	<string name="youCannotPostYetPlaySomeGames">आप अभी तक फ़ोरम में पोस्ट नहीं कर सकते। कुछ खेल खेलें !</string>
 	<string name="subscribe">सब्सक्राइब</string>
 	<string name="unsubscribe">सदस्यता रद्द (Unsubscribe)</string>
-	<string name="notationType">अंकन पद्धति (Notation)</string>
 	<string name="notationSystem">अंकन पद्धति (Notation)</string>
 	<string name="officialBlog">Lishogi आधिकारिक ब्लॉग</string>
 	<string name="blogPostsFromYear">%1$s से ब्लॉग पोस्ट</string>

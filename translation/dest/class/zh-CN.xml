@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="lishogiClasses">班</string>
-	<string name="teachClassesOfChessStudents">使用 Lishogi 班级工具包教将棋学生班。</string>
+	<string name="teachClassesOfShogiStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
 	<string name="features">特性</string>
 	<string name="quicklyGenerateSafeUsernames">快速为学生生成安全的用户名和密码</string>
 	<string name="trackStudentProgress">跟踪学生在棋局和棋题中的进度</string>

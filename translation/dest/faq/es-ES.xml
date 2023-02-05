@@ -5,7 +5,7 @@
 	<string name="whyIsLishogiCalledLishogi">¿Por qué Lishogi se llama así?</string>
 	<string name="forkedFromLichess">Lishpgo es un proyecto de código abierto bifurcado de liсhess, pero ya que es para jugar shogi, se llama lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Porque se deriva de Liсhess. Y Liсhess se llama Liсhess porque es una combinación de liviano/luz/libre y ajedrez. Se pronouncia %1$s.</string>
-	<string name="leechess">lee-shogi</string>
+	<string name="leeshogi">lee-shogi</string>
 	<string name="whyLiveLightLibre">En directo, porque los partidas se juegan y se ven en tiempo real 24/7; ligero y libre porque Lishogi es de código abierto y sin la basura propietaria que abunda en otras páginas.</string>
 	<string name="whyIsLilaCalledLila">Del mismo modo, el código fuente de Lishogi, %1$s, significa li[shogi en sca]la, dado que la mayor parte de Lishogi está escrito en %2$s, un intuitivo lenguaje de programación.</string>
 	<string name="howCanIContributeToLishogi">¿Cómo puedo contribuir a Lishogi?</string>
@@ -35,7 +35,7 @@
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$s s = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
 	<string name="whatVariantsCanIplay">¿Qué variantes puedo jugar en Lishogi?</string>
-	<string name="lishogiSupportChessAnd">Lishogi soporta shogi estándar y %1$s.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
 	<string name="whatIsACPL">¿Qué es la \"pérdida media de centipeón\"?</string>
 	<string name="acplExplanation">El centipeón es la unidad de medida utilizada en el ajedrez como representación de la ventaja. Un centipeón es igual a 1/100 de un peón. Por lo tanto 100 centipeones = 1 peón. Estos valores no juegan ningún papel formal en el juego, pero son útiles para los jugadores y esenciales en el ajedrez por computadora para evaluar las posiciones.
 
@@ -95,7 +95,7 @@ Otro punto que cabe señalar es que, si pasa un tiempo sin jugar, el intervalo d
 	<string name="ratingLeaderboards">tablero de liderazgo</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">haber jugado al menos 30 partidas por puntos en una puntuación dada,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">haber jugado una partida por puntos en la última semana para esta puntuación,</string>
-	<string name="ratingDeviationLowerThanXinChessYinVariants">tener una desviación de puntuación menor que %1$s, en shogi estándar, y menor que %2$s en variantes,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
 	<string name="beInTopTen">estar entre los 10 primeros de esta clasificación.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">El segundo requisito es que los jugadores que ya no usan sus cuentas dejen de poblar los tableros de liderazgo.</string>
 	<string name="whyAreRatingHigher">¿Por qué son más altas las puntuaciones en comparación con otros sitios y organizaciones como FIDE, USCF y el CIC?</string>

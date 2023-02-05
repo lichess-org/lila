@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="lishogiClasses">Các lớp học</string>
-	<string name="teachClassesOfChessStudents">Dạy học viên Shogi tại các lớp với Bộ Công cụ Lớp học Lishogi</string>
+	<string name="teachClassesOfShogiStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
 	<string name="features">Tính năng</string>
 	<string name="quicklyGenerateSafeUsernames">Nhanh chóng tạo tên người dùng và mật khẩu an toàn cho học viên</string>
 	<string name="trackStudentProgress">Theo dõi sự tiến bộ của học viên trong các ván đấu và câu đố</string>

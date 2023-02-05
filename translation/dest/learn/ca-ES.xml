@@ -210,17 +210,17 @@ Take the most valuable piece.</string>
 en dos moviments!</string>
 	<string name="checkInTwoComplete">Felicitats! Has posat en escac a l\'oponent, obligant-lo a defensar el seu rei!</string>
 	<string name="whatNext">I ara què ve?</string>
-	<string name="youKnowHowToPlayChess">Ja saps com jugar al shogi, enhorabona! Vols convertir-te en un jugador més fort?</string>
+	<string name="youKnowHowToPlayShogi">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
 	<string name="register">Registra\'t</string>
 	<string name="getAFreeLishogiAccount">Crea un nou compte a Lishogi</string>
 	<string name="practice">Pràctica</string>
-	<string name="learnCommonChessPositions">Aprèn posicions comunes de shogi</string>
+	<string name="learnCommonShogiPositions">Learn common shogi positions</string>
 	<string name="puzzles">Problemes</string>
 	<string name="exerciseYourTacticalSkills">Exercitar les teves habilitats tàctiques</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="curatedShogiResources">See our curated list of shogi resources</string>
 	<string name="videos">Vídeos</string>
-	<string name="watchInstructiveChessVideos">Mira vídeos educatius de shogi</string>
+	<string name="watchInstructiveShogiVideos">Watch instructive shogi videos</string>
 	<string name="playPeople">Jugar amb gent</string>
 	<string name="opponentsFromAroundTheWorld">Oponents de tot el món</string>
 	<string name="playMachine">Juga amb l\'ordinador</string>

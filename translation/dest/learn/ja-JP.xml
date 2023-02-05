@@ -211,17 +211,17 @@ Take the most valuable piece.</string>
 狙ってください！</string>
 	<string name="checkInTwoComplete">おめでとうございます！相手の王将/玉将を王手して、防ぐ手を指させました！</string>
 	<string name="whatNext">その次は？</string>
-	<string name="youKnowHowToPlayChess">おめでとうございます。あなたは将棋のルールを覚えました。もっと強くなりたいですか？</string>
+	<string name="youKnowHowToPlayShogi">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
 	<string name="register">登録</string>
 	<string name="getAFreeLishogiAccount">Lishogi の無料アカウントを作る</string>
 	<string name="practice">練習</string>
-	<string name="learnCommonChessPositions">将棋のよくある局面を知る</string>
+	<string name="learnCommonShogiPositions">Learn common shogi positions</string>
 	<string name="puzzles">タクティクス問題</string>
 	<string name="exerciseYourTacticalSkills">戦術の技を磨く</string>
 	<string name="shogiResources">英語圏向けの将棋資料</string>
 	<string name="curatedShogiResources">厳選された将棋資料一覧をご覧ください</string>
 	<string name="videos">動画</string>
-	<string name="watchInstructiveChessVideos">将棋の教材動画を見る</string>
+	<string name="watchInstructiveShogiVideos">Watch instructive shogi videos</string>
 	<string name="playPeople">対人戦</string>
 	<string name="opponentsFromAroundTheWorld">世界中に相手がいます</string>
 	<string name="playMachine">マシンと対局</string>

@@ -206,17 +206,17 @@ cu cea mai mare valoare!</string>
 în două mutări!</string>
 	<string name="checkInTwoComplete">Felicitări! Ai dat șah oponentului tău, forțându-i să-și apere regele!</string>
 	<string name="whatNext">Ce urmează?</string>
-	<string name="youKnowHowToPlayChess">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="youKnowHowToPlayShogi">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
 	<string name="register">Înregistrează-te</string>
 	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
 	<string name="practice">Practică</string>
-	<string name="learnCommonChessPositions">Learn common shogi positions</string>
+	<string name="learnCommonShogiPositions">Learn common shogi positions</string>
 	<string name="puzzles">Probleme de șah</string>
 	<string name="exerciseYourTacticalSkills">Exersează-ți abilitățile tactice</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="curatedShogiResources">See our curated list of shogi resources</string>
 	<string name="videos">Videoclipuri</string>
-	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
+	<string name="watchInstructiveShogiVideos">Watch instructive shogi videos</string>
 	<string name="playPeople">Joacă cu oameni</string>
 	<string name="opponentsFromAroundTheWorld">Oponenți din jurul lumii</string>
 	<string name="playMachine">Joacă cu cumputerul</string>

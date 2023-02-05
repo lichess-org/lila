@@ -5,7 +5,7 @@
 	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
 	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
-	<string name="leechess">lee-shogi</string>
+	<string name="leeshogi">lee-shogi</string>
 	<string name="whyLiveLightLibre">Live, koska pelejä pelataan ja katsellaan reaaliajassa 24 tuntia päivässä; light (kevyt) ja libre (vapaa) siksi, että Lishogi perustuu avoimelle lähdekoodille, eikä sitä rasita toisia nettisivuja turmeleva omisteinen roina.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
@@ -35,7 +35,7 @@ Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</strin
 	<string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
 	<string name="whatVariantsCanIplay">Mitä variantteja voin pelata Lishogiissä?</string>
-	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
 	<string name="whatIsACPL">Mikä on keskimääräinen sadasosasotilaan menetys (ACPL)?</string>
 	<string name="acplExplanation">Sadasosasotilas on shakissa käytettävä mittayksikkö, jolla kuvataan pelaajan etua. Sadasosasotilas on 1/100 sotilaan arvosta. Näin ollen 100 sadasosasotilasta = 1 sotilas. Näillä arvoilla ei ole pelissä mitään muodollista virkaa, mutta asemien arvioinnin kannalta ne ovat pelaajille hyödyksi ja tietokoneshakissa olennaisia.
 
@@ -95,7 +95,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingLeaderboards">pistetaulukkoihin</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">sinulla tulee olla vähintään 30 pisteytettyä peliä pelattuna kyseisessä kategoriassa,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">sinulla tulee olla vähintään yksi pisteytetty peli viime viikon ajalta kyseisessä kategoriassa,</string>
-	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
 	<string name="beInTopTen">sinun tulee kuulua kyseisen kategorian kärkikymmenikköön.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Toinen ehdoista on asetettu sitä varten, etteivät ne pelaajat, jotka eivät enää käytä tunnuksiaan, jäisi kansoittamaan pistetaulukkoja.</string>
 	<string name="whyAreRatingHigher">Miksi vahvuusluvut ovat korkeampia kuin toisilla sivustoilla ja sellaisilla organisaatioilla kuin FIDE, USCF ja ICC?</string>

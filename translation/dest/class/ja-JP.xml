@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="lishogiClasses">教室</string>
-	<string name="teachClassesOfChessStudents">「Lishogiクラス」機能を使って教室にいる生徒に将棋を教えよう</string>
+	<string name="teachClassesOfShogiStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
 	<string name="features">特徴</string>
 	<string name="quicklyGenerateSafeUsernames">生徒のために安全なユーザー名とパスワードをすぐに生成する</string>
 	<string name="trackStudentProgress">対局やタクティクス問題での生徒の進捗を表示</string>

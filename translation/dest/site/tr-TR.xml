@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">Bir arkadaşınla oyna</string>
 	<string name="playWithTheMachine">Bilgisayara karşı oyna</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
@@ -18,14 +19,14 @@
 	<string name="stalemate">Pat</string>
 	<string name="impasse">Impasse</string>
 	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost">All royal pieces lost</string>
-	<string name="bareKing">Bare king</string>
+	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
+	<string name="bareKing" comment="Used in chushogi">Bare king</string>
 	<string name="gote">Gote</string>
 	<string name="white">Gote</string>
 	<string name="sente">Sente</string>
 	<string name="black">Sente</string>
-	<string name="shitate">Shitate</string>
-	<string name="uwate">Uwate</string>
+	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor">Rastgele renk</string>
 	<string name="createAGame">Yeni bir oyun kur</string>
 	<string name="whiteIsVictorious">Zafer Beyazın</string>
@@ -33,7 +34,7 @@
 	<string name="xIsVictorious">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">Beyaz taşlar sizin</string>
 	<string name="youPlayTheBlackPieces">Siyah taşlar sizin</string>
-	<string name="youPlayAsX">You play as %</string>
+	<string name="youPlayAsX">You play as %s</string>
 	<string name="itsYourTurn">Sıra sizde!</string>
 	<string name="cheatDetected">Hile Tespit Edildi</string>
 	<string name="variantEnding">Varyant bitti</string>
@@ -61,6 +62,7 @@
 	<string name="whiteLeftTheGame">Gote oyundan ayrıldı</string>
 	<string name="blackLeftTheGame">Sente oyundan ayrıldı</string>
 	<string name="xLeftTheGame">%s left the game</string>
+	<string name="xDidntMove">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Oyunu izlemek isteyenlerle bu bağlantıyı paylaşın</string>
 	<string name="theComputerAnalysisHasFailed">Bilgisayar analizi başarısız oldu</string>
 	<string name="viewTheComputerAnalysis">Bilgisayar analizini incele</string>
@@ -258,7 +260,7 @@
 	<string name="incrementInSeconds">Hamle başına eklenen saniye</string>
 	<string name="byoyomiInSeconds">Saniye olarak geri sayım</string>
 	<string name="numberOfPeriods">Periyot sayısı</string>
-	<string name="freeOnlineChess">Ücretsiz çevrimiçi shogi</string>
+	<string name="freeOnlineShogi">Free Online Shogi</string>
 	<string name="spectators">İzleyiciler</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s puanlı</item>
@@ -337,6 +339,8 @@
 	<string name="youAreNotInTeam">%s takımının üyesi değilsiniz.</string>
 	<string name="backToGame">Oyuna dön</string>
 	<string name="siteDescription">Bedava online shogi sunucusu. Şimdi sade bir arayüzde Shogi oyna. Kayıt olmaya gerek yok, reklam yok, eklenti yok. Bilgisayara karşı, arkadaşlarına veya rastgele bir rakiple shogi oyna.</string>
+	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s, %2$s takımına katıldı</string>
 	<string name="xCreatedTeamY">%1$s, %2$s takımını kurdu</string>
 	<string name="xStartedStreaming">%s canlı yayında</string>
@@ -351,7 +355,7 @@
 	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">Özel pozisyondan</string>
-	<string name="default">Default</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">Default</string>
 	<string name="continueFromHere">Bu pozisyondan devam et</string>
 	<string name="toStudy">Çalışma oluştur</string>
 	<string name="importGame">Oyun yükle</string>
@@ -361,7 +365,7 @@ computer analysis, game chat and shareable URL.</string>
 		<item quantity="one">%s yüklenen oyun</item>
 		<item quantity="other">%s yüklenen oyun</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">Bu bir shogi CAPTCHA\'sıdır.</string>
+	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">İnsan olduğunuzu kanıtlamak için tahtaya tıklayın ve hamlenizi yapın.</string>
 	<string name="captcha.fail">Lütfen shogi captcha\'sını çözün.</string>
 	<string name="notACheckmate">Mat değil</string>
@@ -438,7 +442,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="movesPlayed">Toplam hamle sayısı</string>
 	<string name="whiteWins">Beyaz zaferleri</string>
 	<string name="blackWins">Siyah zaferleri</string>
-	<string name="xWins">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Beraberlikler</string>
 	<string name="nextXTournament">Sıradaki %s Turnuvası:</string>
 	<string name="averageOpponent">Ortalama rakip</string>
@@ -639,7 +643,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="webmasters">Site Yöneticileri</string>
 	<string name="about">Hakkında</string>
 	<string name="aboutX">%s hakkında</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s; tamamen ücretsiz (%2$s), özgür, reklamsız, açık kaynak kodlu bir shogi sitesidir.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
 	<string name="really">ciddiyiz</string>
 	<string name="contribute">Katkıda bulun</string>
 	<string name="termsOfService">Hizmet koşulları</string>
@@ -726,15 +730,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Bu, hesabınıza giriş yaptığınız cihazların listesidir. Tanımadığınız veya bilmediğiniz tüm oturumları kapatın.</string>
 	<string name="alternativelyYouCanX">Ayrıca %s de yapabilirsiniz.</string>
 	<string name="revokeAllSessions">tüm oturumları kaldır</string>
-	<string name="playChessEverywhere">Her yerde shogi oyna</string>
+	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">Lishogi kadar özgür</string>
-	<string name="builtForTheLoveOfChessNotMoney">Para için değil, shogi sevgisi için geliştirilmiştir</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">Bütün özellikler ücretsizdir</string>
 	<string name="zeroAdvertisement">Sıfır reklam</string>
 	<string name="fullFeatured">Tüm özellikler</string>
 	<string name="phoneAndTablet">Telefon ve tablet</string>
 	<string name="bulletBlitzClassical">Kurşun, yıldırım, klasik</string>
-	<string name="correspondenceChess">Yazışmalı shogi</string>
+	<string name="correspondenceShogi">Correspondence shogi</string>
 	<string name="onlineAndOfflinePlay">Çevrimiçi ve çevrimdışı oyna</string>
 	<string name="viewTheSolution">Çözümü göster</string>
 	<string name="followAndChallengeFriends">Takip edin ve arkadaşlarınıza meydan okuyun</string>
@@ -777,8 +781,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="usernameCharsInvalid">Kullanıcı adı yalnızca harf, sayı, alt çizgi ve çizgi içerebilir.</string>
 	<string name="usernameUnacceptable">Bu kullanıcı adı uygun değil.</string>
 	<string name="directlySupportLishogi">Lishogi\'yi destekleyin</string>
-	<string name="playChessInStyle">Shogiyi tarz ile oynayın</string>
-	<string name="chessBasics">Shogi temelleri</string>
+	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi kaynakları</string>
 	<string name="coaches">Eğitmenler</string>
 	<string name="invalidKif">Invalid KIF</string>
@@ -863,7 +867,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="weHadToTimeYouOutForAWhile">Sizi bir süreliğine oyunlardan men etmek zorunda kaldık.</string>
 	<string name="timeoutExpires">Men süresi %s dolacak.</string>
 	<string name="why">Neden?</string>
-	<string name="pleasantChessExperience">Herkese keyifli bir shogi deneyimi sunmayı amaçlıyoruz.</string>
+	<string name="pleasantShogiExperience">We aim to provide a pleasant shogi experience for everyone.</string>
 	<string name="goodPractice">Bu nedenle, bütün oyuncuların doğru davranışlar sergilemesine özen gösteriyoruz.</string>
 	<string name="potentialProblem">Potansiyel bir sorun tespit edildiğinde bu mesajı görüntülüyoruz.</string>
 	<string name="howToAvoidThis">Tekrar olmaması için ne yapmalıyım?</string>
@@ -903,7 +907,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="youCannotPostYetPlaySomeGames">Şu anda bu forumlarda konu açamazsınız. Biraz oyun oynamayı deneyebilirsiniz :)</string>
 	<string name="subscribe">Abone ol</string>
 	<string name="unsubscribe">Abonelikten çık</string>
-	<string name="notationType">Notasyon</string>
 	<string name="notationSystem">Notasyon</string>
 	<string name="officialBlog">Lishogi resmi blog sayfası</string>
 	<string name="blogPostsFromYear">%1$s\'dan blog gönderisi</string>

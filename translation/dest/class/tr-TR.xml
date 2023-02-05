@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="lishogiClasses">Sınıflar</string>
-	<string name="teachClassesOfChessStudents">Shogi öğrencilerine Lishogi Sınıflar aracıyla ders verin.</string>
+	<string name="teachClassesOfShogiStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
 	<string name="features">Özellikler</string>
 	<string name="quicklyGenerateSafeUsernames">Öğrenciler için hızlıca güvenli kullanıcı adları ve şifreleri oluşturun</string>
 	<string name="trackStudentProgress">Oyunlar ve bulmacalardaki öğrenci ilerlemesini takip edin</string>

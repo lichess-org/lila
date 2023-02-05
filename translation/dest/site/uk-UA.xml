@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">Грай з другом</string>
 	<string name="playWithTheMachine">Грай з обчислювачем</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">Дай ланку, аби запросити когось до гри</string>
@@ -18,14 +19,14 @@
 	<string name="stalemate">Безвихідь</string>
 	<string name="impasse">Безвихідь</string>
 	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost">All royal pieces lost</string>
-	<string name="bareKing">Bare king</string>
+	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
+	<string name="bareKing" comment="Used in chushogi">Bare king</string>
 	<string name="gote">Gote</string>
 	<string name="white">Наступник</string>
 	<string name="sente">Sente</string>
 	<string name="black">Попередник</string>
-	<string name="shitate">Недоважник</string>
-	<string name="uwate">Переважник</string>
+	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Недоважник</string>
+	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Переважник</string>
 	<string name="randomColor">Випадковий колір</string>
 	<string name="createAGame">Створи гру</string>
 	<string name="whiteIsVictorious">Перемога наступника</string>
@@ -33,7 +34,7 @@
 	<string name="xIsVictorious">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">Граєш наступником</string>
 	<string name="youPlayTheBlackPieces">Граєш попередником</string>
-	<string name="youPlayAsX">You play as %</string>
+	<string name="youPlayAsX">You play as %s</string>
 	<string name="itsYourTurn">Твій хід!</string>
 	<string name="cheatDetected">Викрито обман</string>
 	<string name="variantEnding">Инак завершено</string>
@@ -63,6 +64,7 @@
 	<string name="whiteLeftTheGame">Наступник покинув</string>
 	<string name="blackLeftTheGame">Попередник покинув</string>
 	<string name="xLeftTheGame">%s left the game</string>
+	<string name="xDidntMove">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Пошир ланку иншим, щоб могли бачити гру</string>
 	<string name="theComputerAnalysisHasFailed">Розбір обчислювача провалився</string>
 	<string name="viewTheComputerAnalysis">Поглянь розбір обчислювача</string>
@@ -276,7 +278,7 @@
 	<string name="incrementInSeconds">Додати секунд на хід</string>
 	<string name="byoyomiInSeconds">Бйойомі в секундах</string>
 	<string name="numberOfPeriods">Кількість ігор</string>
-	<string name="freeOnlineChess">Дармові мережеві шьоґі</string>
+	<string name="freeOnlineShogi">Free Online Shogi</string>
 	<string name="spectators">Глядачі:</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s щабельна</item>
@@ -379,6 +381,8 @@
 	<string name="youAreNotInTeam">Ти не в раті %s</string>
 	<string name="backToGame">Назад до гри</string>
 	<string name="siteDescription">Дармові мережеві шьоґі. Грай в шьоґі в чистому проміжнику. Без запису, реклам і втичок. Грай в шьоґі з обчислювачом, друзями або випадковими противниками.</string>
+	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s вступив до раті %2$s</string>
 	<string name="xCreatedTeamY">%1$s створив рать %2$s</string>
 	<string name="xStartedStreaming">%s почав трансляцію</string>
@@ -393,7 +397,7 @@
 	<string name="pasteTheSfenStringHere">Встав SFEN сюди</string>
 	<string name="pasteTheKifCsaStringHere">Встав KIF чи CSA сюди</string>
 	<string name="fromPosition">З розташови</string>
-	<string name="default">Відсутньо</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">Відсутньо</string>
 	<string name="continueFromHere">Продовж звідси</string>
 	<string name="toStudy">Дослід</string>
 	<string name="importGame">Принеси гру</string>
@@ -405,7 +409,7 @@
 		<item quantity="many">%s пренесених ігор</item>
 		<item quantity="other">%s пренесених ігор</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">Шьоґова капча.</string>
+	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Натисніть на дошці, щоб зробити хід і довести, що ви людина.</string>
 	<string name="captcha.fail">Виріш шьоґову капчу.</string>
 	<string name="notACheckmate">Не мат</string>
@@ -490,7 +494,7 @@
 	<string name="movesPlayed">Ходів зіграно</string>
 	<string name="whiteWins">Білі виграли</string>
 	<string name="blackWins">Чорні виграли</string>
-	<string name="xWins">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Нічиї</string>
 	<string name="nextXTournament">Наступний змаг в %s:</string>
 	<string name="averageOpponent">Середній щабель суперника</string>
@@ -701,7 +705,7 @@
 	<string name="webmasters">Розробники</string>
 	<string name="about">Про сайт</string>
 	<string name="aboutX">Про %s</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s є дармовим (%2$s), вільним, без реклам, відкритим сервером шьоґі.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
 	<string name="really">справді</string>
 	<string name="contribute">Внеси</string>
 	<string name="termsOfService">Умови користування</string>
@@ -790,15 +794,15 @@
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Це список пристроїв, з котрих заходили в Ваш аккаунт. Завершіть будь-які підозрілі сеанси.</string>
 	<string name="alternativelyYouCanX">Крім того, Ви можете %s.</string>
 	<string name="revokeAllSessions">завершити усі сеанси</string>
-	<string name="playChessEverywhere">Грай в шьоґі всюди</string>
+	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">Дармо як Lishogi</string>
-	<string name="builtForTheLoveOfChessNotMoney">Створений з любовʼю до шьоґі, не для грошей</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">Усі можливості безкоштовні для всіх</string>
 	<string name="zeroAdvertisement">Без реклами</string>
 	<string name="fullFeatured">Повнофункціональний</string>
 	<string name="phoneAndTablet">Для смартфонів та планшетів</string>
 	<string name="bulletBlitzClassical">Куля, бліц, класичний контроль</string>
-	<string name="correspondenceChess">Шьоґі по переписці</string>
+	<string name="correspondenceShogi">Correspondence shogi</string>
 	<string name="onlineAndOfflinePlay">Гра онлайн та оффлайн</string>
 	<string name="viewTheSolution">Дивитись рішення</string>
 	<string name="followAndChallengeFriends">Стежте та викликайте друзів</string>
@@ -843,8 +847,8 @@
 	<string name="usernameCharsInvalid">Ім\'я користувача має містити тільки літери, цифри, символи підкреслення і тире.</string>
 	<string name="usernameUnacceptable">Неприйнятне ім\'я користувача.</string>
 	<string name="directlySupportLishogi">Прямо підтримай Lishogi</string>
-	<string name="playChessInStyle">Грай в шьоґі виразно</string>
-	<string name="chessBasics">Основи шьоґі</string>
+	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Джерела шьоґі</string>
 	<string name="coaches">Тренери</string>
 	<string name="invalidKif">Неволодний KIF</string>
@@ -935,7 +939,7 @@
 	<string name="weHadToTimeYouOutForAWhile">Нам довелося тебе деавторизувати на певний час.</string>
 	<string name="timeoutExpires">Тайм-аут закінчується через %s.</string>
 	<string name="why">Чому?</string>
-	<string name="pleasantChessExperience">Наша ціль — приємний досвід по шьоґі для всіх.</string>
+	<string name="pleasantShogiExperience">We aim to provide a pleasant shogi experience for everyone.</string>
 	<string name="goodPractice">Щоб домігтися цього ефекту, ми повинні впевнитися, що всі гравці дотримуються хорошої практики.</string>
 	<string name="potentialProblem">Це повідомлення відображається якщо ми знайшли потенційну проблему.</string>
 	<string name="howToAvoidThis">Як цього уникнути?</string>
@@ -975,7 +979,6 @@
 	<string name="youCannotPostYetPlaySomeGames">Ви не можете писати нові повідомлення у форумах. Зіграйте кілька ігор!</string>
 	<string name="subscribe">Підписатись</string>
 	<string name="unsubscribe">Відписатись</string>
-	<string name="notationType">Позначка</string>
 	<string name="notationSystem">Позначка</string>
 	<string name="officialBlog">Службовий денник Lishogi</string>
 	<string name="blogPostsFromYear">Допис до денника від %1$s</string>

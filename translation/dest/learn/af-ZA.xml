@@ -211,17 +211,17 @@ met die hoogste waarde!</string>
 in twee skuiwe!</string>
 	<string name="checkInTwoComplete">Jy is \'n legende! Jy het jou opponent gedwing om sy koning te beskerm, deur hom te skaak!</string>
 	<string name="whatNext">Wat nou?</string>
-	<string name="youKnowHowToPlayChess">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="youKnowHowToPlayShogi">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
 	<string name="register">Registreer</string>
 	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
 	<string name="practice">Oefen</string>
-	<string name="learnCommonChessPositions">Learn common shogi positions</string>
+	<string name="learnCommonShogiPositions">Learn common shogi positions</string>
 	<string name="puzzles">Kopkrappers</string>
 	<string name="exerciseYourTacticalSkills">Oefen jou taktiese vermoëns</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="curatedShogiResources">See our curated list of shogi resources</string>
 	<string name="videos">Video’s</string>
-	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
+	<string name="watchInstructiveShogiVideos">Watch instructive shogi videos</string>
 	<string name="playPeople">Speel teen mense</string>
 	<string name="opponentsFromAroundTheWorld">Opponente van regoor die aarde</string>
 	<string name="playMachine">Speel teen rekenaar</string>

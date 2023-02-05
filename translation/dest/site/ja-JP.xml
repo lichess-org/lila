@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">将棋</string>
 	<string name="playWithAFriend">友達と対局する</string>
 	<string name="playWithTheMachine">AI と対局する</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">対局に招待するとき、下記のリンク先を知らせてください</string>
@@ -18,14 +19,14 @@
 	<string name="stalemate">ステイルメイト</string>
 	<string name="impasse">持将棋</string>
 	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost">All royal pieces lost</string>
-	<string name="bareKing">Bare king</string>
+	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
+	<string name="bareKing" comment="Used in chushogi">Bare king</string>
 	<string name="gote">後手</string>
 	<string name="white">後手</string>
 	<string name="sente">先手</string>
 	<string name="black">先手</string>
-	<string name="shitate">下手</string>
-	<string name="uwate">上手</string>
+	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">下手</string>
+	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">上手</string>
 	<string name="randomColor">ランダム</string>
 	<string name="createAGame">対局を作成する</string>
 	<string name="whiteIsVictorious">後手の勝ちです</string>
@@ -60,6 +61,7 @@
 	<string name="whiteLeftTheGame">後手が退席しました</string>
 	<string name="blackLeftTheGame">先手が退席しました</string>
 	<string name="xLeftTheGame">%sが退席しました</string>
+	<string name="xDidntMove">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">誰かに対局を見てほしい場合、このURLを共有してください</string>
 	<string name="theComputerAnalysisHasFailed">コンピューター解析に失敗しました</string>
 	<string name="viewTheComputerAnalysis">コンピューター解析を見る</string>
@@ -249,7 +251,7 @@
 	<string name="incrementInSeconds">１手ごとに増える秒数</string>
 	<string name="byoyomiInSeconds">秒読み</string>
 	<string name="numberOfPeriods">考慮時間</string>
-	<string name="freeOnlineChess">無料オンライン将棋</string>
+	<string name="freeOnlineShogi">無料オンライン将棋</string>
 	<string name="spectators">観覧者:</string>
 	<plurals name="nbRated">
 		<item quantity="other">%s 局レート戦</item>
@@ -316,6 +318,8 @@
 	<string name="youAreNotInTeam">チーム %s に入っていません</string>
 	<string name="backToGame">対局に戻る</string>
 	<string name="siteDescription">無料オンライン将棋。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。コンピューターと、友達と、知らない相手とも対局できます。</string>
+	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s がチーム %2$s に参加</string>
 	<string name="xCreatedTeamY">%1$s がチーム %2$s を作成</string>
 	<string name="xStartedStreaming">%s が配信を開始</string>
@@ -330,7 +334,7 @@
 	<string name="pasteTheSfenStringHere">ここにSFEN形式の局面をペースト</string>
 	<string name="pasteTheKifCsaStringHere">KIFあるいはCSAをここに貼り付けてください</string>
 	<string name="fromPosition">特定の局面から</string>
-	<string name="default">Default</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">Default</string>
 	<string name="continueFromHere">中断した所から再開</string>
 	<string name="toStudy">研究</string>
 	<string name="importGame">棋譜をインポート</string>
@@ -339,13 +343,13 @@
 	<plurals name="nbImportedGames">
 		<item quantity="other">%s 局をインポート</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">これはロボットよけの認証です。</string>
+	<string name="thisIsAShogiCaptcha">これはロボットよけの認証です。</string>
 	<string name="clickOnTheBoardToMakeYourMove">駒を動かしてあなたが人間である事を証明して下さい。</string>
 	<string name="captcha.fail">問題を解いて人間だと証明してください。</string>
 	<string name="notACheckmate">詰みではありません</string>
 	<string name="whiteCheckmatesInOneMove">後手 1 手で詰み</string>
 	<string name="blackCheckmatesInOneMove">先手 1 手で詰み</string>
-	<string name="xCheckmatesInOneMove">%s to checkmate in one move</string>
+	<string name="xCheckmatesInOneMove">%s 1 手で詰み</string>
 	<string name="retry">もう一度</string>
 	<string name="reconnecting">再接続</string>
 	<plurals name="nbFriendsOnline">
@@ -412,7 +416,7 @@
 	<string name="movesPlayed">総手数</string>
 	<string name="whiteWins">後手勝ち</string>
 	<string name="blackWins">先手勝ち</string>
-	<string name="xWins">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s 勝</string>
 	<string name="draws">引き分け</string>
 	<string name="nextXTournament">次の %s トーナメント:</string>
 	<string name="averageOpponent">対局相手の平均</string>
@@ -531,7 +535,7 @@
 	<string name="fast">速い</string>
 	<string name="normal">普通</string>
 	<string name="slow">遅い</string>
-	<string name="compact">Compact</string>
+	<string name="compact">コンパクト</string>
 	<string name="insideTheBoard">盤の内</string>
 	<string name="outsideTheBoard">盤の外</string>
 	<string name="edgeOfTheBoard">Edge of the board</string>
@@ -608,7 +612,7 @@
 	<string name="webmasters">ウェブサイト運営者の方へ</string>
 	<string name="about">Lishogi の概要</string>
 	<string name="aboutX">%s について</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・ 自由・広告なし・オープンソースの将棋サーバーです。</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s は無料 (%2$s)・ 自由・広告なし・オープンソースの将棋サーバーです。</string>
 	<string name="really">本当に</string>
 	<string name="contribute">貢献する</string>
 	<string name="termsOfService">利用規約（英文）</string>
@@ -694,15 +698,15 @@
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">これはあなたのアカウントにログインしたデバイスの一覧です。覚えのないセッションは削除してください。</string>
 	<string name="alternativelyYouCanX">あるいは %s こともできます。</string>
 	<string name="revokeAllSessions">すべてのセッションを取り消す</string>
-	<string name="playChessEverywhere">どこでも将棋を対局</string>
+	<string name="playShogiEverywhere">どこでも将棋を対局</string>
 	<string name="asFreeAsLishogi">Lishogi は常に無料</string>
-	<string name="builtForTheLoveOfChessNotMoney">お金のためではなく将棋愛のために作られた</string>
+	<string name="builtForTheLoveOfShogiNotMoney">お金のためではなく将棋愛のために作られた</string>
 	<string name="everybodyGetsAllFeaturesForFree">誰でもすべての機能が無料です</string>
 	<string name="zeroAdvertisement">広告いっさいなし</string>
 	<string name="fullFeatured">幅広い機能</string>
 	<string name="phoneAndTablet">携帯やタブレットで</string>
 	<string name="bulletBlitzClassical">ブレット、ブリッツ、クラシカル</string>
-	<string name="correspondenceChess">通信将棋</string>
+	<string name="correspondenceShogi">通信将棋</string>
 	<string name="onlineAndOfflinePlay">オンラインでもオフラインでも</string>
 	<string name="viewTheSolution">解答を見る</string>
 	<string name="followAndChallengeFriends">友達をフォローして対局しよう</string>
@@ -744,8 +748,8 @@
 	<string name="usernameCharsInvalid">ユーザー名に使えるのは英字、数字、アンダースコア、ハイフンだけです。</string>
 	<string name="usernameUnacceptable">このユーザー名は認められません。</string>
 	<string name="directlySupportLishogi">Lishogi を直接支援</string>
-	<string name="playChessInStyle">グッズ購入</string>
-	<string name="chessBasics">将棋の基本</string>
+	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="shogiBasics">将棋の基本</string>
 	<string name="shogiResources">将棋資料</string>
 	<string name="coaches">コーチ</string>
 	<string name="invalidKif">無効なKIF</string>
@@ -776,7 +780,7 @@
 	<string name="evaluatingYourMove">あなたの手を評価中…</string>
 	<string name="whiteWinsGame">後手勝ち</string>
 	<string name="blackWinsGame">先手勝ち</string>
-	<string name="xWinsGame">%s wins</string>
+	<string name="xWinsGame">%s勝</string>
 	<string name="learnFromYourMistakes">自分の悪手に学ぼう</string>
 	<string name="learnFromThisMistake">この悪手に学ぶ</string>
 	<string name="skipThisMove">この手を飛ばす</string>
@@ -784,7 +788,7 @@
 	<string name="xWasPlayed">指されたのは %s</string>
 	<string name="findBetterMoveForWhite">後手のもっといい手を見つけてください</string>
 	<string name="findBetterMoveForBlack">先手のもっといい手を見つけてください</string>
-	<string name="findBetterMoveForX">Find a better move for %s</string>
+	<string name="findBetterMoveForX">%sのもっといい手を見つけてください</string>
 	<string name="resumeLearning">学習を続ける</string>
 	<string name="youCanDoBetter">もっといい手があります</string>
 	<string name="tryAnotherMoveForWhite">後手の別の手を考えてください</string>
@@ -827,7 +831,7 @@
 	<string name="weHadToTimeYouOutForAWhile">しばらく対局を禁止します。</string>
 	<string name="timeoutExpires">禁止は %s 後に解けます。</string>
 	<string name="why">どうして？</string>
-	<string name="pleasantChessExperience">Lishogi ではすべての人に楽しい将棋体験を提供しています。</string>
+	<string name="pleasantShogiExperience">Lishogi ではすべての人に楽しい将棋体験を提供しています。</string>
 	<string name="goodPractice">そのためには、すべての人にマナーを守っていただく必要があります。</string>
 	<string name="potentialProblem">問題があった場合、このメッセージ画面が表示されます。</string>
 	<string name="howToAvoidThis">どう避ければいいの？</string>
@@ -867,7 +871,6 @@
 	<string name="youCannotPostYetPlaySomeGames">何局か指し終えるまで投稿はできません。対局をしよう！</string>
 	<string name="subscribe">投稿をフォロー</string>
 	<string name="unsubscribe">投稿のフォローをはずす</string>
-	<string name="notationType">表記方法</string>
 	<string name="notationSystem">表記方法</string>
 	<string name="officialBlog">Lishogi 公式ブログ</string>
 	<string name="blogPostsFromYear">%1$s によるブログ投稿</string>

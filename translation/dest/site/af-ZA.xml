@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">Speel teen \'n vriend</string>
 	<string name="playWithTheMachine">Speel teen die rekenaar</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">Nooi iemand vir \'n spel, gebruik hierdie URL</string>
@@ -18,14 +19,14 @@
 	<string name="stalemate">Dooiepunt</string>
 	<string name="impasse">Impasse</string>
 	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost">All royal pieces lost</string>
-	<string name="bareKing">Bare king</string>
+	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
+	<string name="bareKing" comment="Used in chushogi">Bare king</string>
 	<string name="gote">Gote</string>
 	<string name="white">Wit</string>
 	<string name="sente">Sente</string>
 	<string name="black">Swart</string>
-	<string name="shitate">Shitate</string>
-	<string name="uwate">Uwate</string>
+	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor">Lukrake kant</string>
 	<string name="createAGame">Skep \'n spel</string>
 	<string name="whiteIsVictorious">Wit het gewen</string>
@@ -61,6 +62,7 @@
 	<string name="whiteLeftTheGame">Wit het die spel verlaat</string>
 	<string name="blackLeftTheGame">Swart het die spel verlaat</string>
 	<string name="xLeftTheGame">%s het die spel verlaat</string>
+	<string name="xDidntMove">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Deel die URL vir toeskouers</string>
 	<string name="theComputerAnalysisHasFailed">Die rekenaar analise het misluk</string>
 	<string name="viewTheComputerAnalysis">Beskou die rekenaar analise</string>
@@ -258,7 +260,7 @@
 	<string name="incrementInSeconds">Inkrement in sekondes</string>
 	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
 	<string name="numberOfPeriods">Number of periods</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="freeOnlineShogi">Free Online Shogi</string>
 	<string name="spectators">Toeskouers:</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s gegradeer</item>
@@ -337,6 +339,8 @@
 	<string name="youAreNotInTeam">Jy is nie in %s span nie</string>
 	<string name="backToGame">Terug na spel</string>
 	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s het aangesluit by span %2$s</string>
 	<string name="xCreatedTeamY">%1$s het span %2$s geskep</string>
 	<string name="xStartedStreaming">%s het begin met \'n uitsending</string>
@@ -351,7 +355,7 @@
 	<string name="pasteTheSfenStringHere">Plak die SFEN string hier</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">Van posisie</string>
-	<string name="default">Default</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">Default</string>
 	<string name="continueFromHere">Gaan voort van hier af</string>
 	<string name="toStudy">Bestudeer</string>
 	<string name="importGame">Voer spel in</string>
@@ -361,7 +365,7 @@ computer analysis, game chat and shareable URL.</string>
 		<item quantity="one">%s het spel ingevoer</item>
 		<item quantity="other">%s het spelle ingetrek</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Kliek op die bord om jou skuif te maak, en te bewys jy is \'n mens.</string>
 	<string name="captcha.fail">Please solve the shogi captcha.</string>
 	<string name="notACheckmate">Nie skaakmat nie</string>
@@ -438,7 +442,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="movesPlayed">Skuiwe gespeel</string>
 	<string name="whiteWins">Gewen deur wit</string>
 	<string name="blackWins">Gewen deur swart</string>
-	<string name="xWins">%s gewen</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s gewen</string>
 	<string name="draws">Gelykop gespeel</string>
 	<string name="nextXTournament">Volgende %s toernooi:</string>
 	<string name="averageOpponent">Gemmidelde opponent</string>
@@ -640,7 +644,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="webmasters">Webmeesters</string>
 	<string name="about">Leer meer</string>
 	<string name="aboutX">Leer meer oor %s</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
 	<string name="really">regtig</string>
 	<string name="contribute">Dra by</string>
 	<string name="termsOfService">Bepalings en Voorwaardes</string>
@@ -727,15 +731,15 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Hierdie is \'n lys van toestelle wat in jou rekening ingeteken het. Herroep enige sessies wat jy nie herken nie.</string>
 	<string name="alternativelyYouCanX">Andersins kan jy %s.</string>
 	<string name="revokeAllSessions">alle sessies herroep</string>
-	<string name="playChessEverywhere">Play shogi everywhere</string>
+	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
-	<string name="builtForTheLoveOfChessNotMoney">Built for the love of shogi, not money</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">Almal kry al die funksies gratis</string>
 	<string name="zeroAdvertisement">Niks advertensies</string>
 	<string name="fullFeatured">Volledige kenmerke</string>
 	<string name="phoneAndTablet">Selfoon en tablet</string>
 	<string name="bulletBlitzClassical">Bullet, blitz, klassieke</string>
-	<string name="correspondenceChess">Correspondence shogi</string>
+	<string name="correspondenceShogi">Correspondence shogi</string>
 	<string name="onlineAndOfflinePlay">Aanlyn en aflyn speel</string>
 	<string name="viewTheSolution">Kyk na die oplossing</string>
 	<string name="followAndChallengeFriends">Volg en daag vriende uit</string>
@@ -778,8 +782,8 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="usernameCharsInvalid">Die gebruikersnaam mag net letters, nommers, onderstrepings en koppeltekens bevat.</string>
 	<string name="usernameUnacceptable">Hierdie gebruikersnaam is nie aanvaarbaar nie.</string>
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
-	<string name="playChessInStyle">Play shogi in style</string>
-	<string name="chessBasics">Shogi basics</string>
+	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Afrigters</string>
 	<string name="invalidKif">Ongeldige KIF</string>
@@ -864,7 +868,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="weHadToTimeYouOutForAWhile">Jy moet vir \'n rukkie in die hoek sit.</string>
 	<string name="timeoutExpires">Jy mag weer uitkom %s.</string>
 	<string name="why">Hoekom?</string>
-	<string name="pleasantChessExperience">We aim to provide a pleasant shogi experience for everyone.</string>
+	<string name="pleasantShogiExperience">We aim to provide a pleasant shogi experience for everyone.</string>
 	<string name="goodPractice">Om dit reg te kry, moet ons seker maak dat alle spelers goeie praktyke handhaaf.</string>
 	<string name="potentialProblem">As \'n potensiele probleem opgemerk word, wys ons hierdie boodskap.</string>
 	<string name="howToAvoidThis">Hoe om hierdie te vermy?</string>
@@ -904,7 +908,6 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="youCannotPostYetPlaySomeGames">You can\'t post in the forums yet. Play some games!</string>
 	<string name="subscribe">Skryf in</string>
 	<string name="unsubscribe">Beëindig inskrywing</string>
-	<string name="notationType">Notation</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
 	<string name="blogPostsFromYear">Blog posts from %1$s</string>

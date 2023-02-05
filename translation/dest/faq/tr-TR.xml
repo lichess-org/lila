@@ -5,7 +5,7 @@
 	<string name="whyIsLishogiCalledLishogi">Lishogi\'nin adı neden Lishogi?</string>
 	<string name="forkedFromLichess">Lishogi, Lichess\'ten esinlenmiş açık kaynak kodlu bir platformdur fakat shogi oynamak için kurulmuştur, bu yüzden adı lishogi\'dir.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Çünkü bu site Lichess\'ten türetilmiştir ve lichess, lichess diye okunur çünkü canlı/hafif/yaşam ve satranç kelimelerinin birleşimidir (live/light/libre/chess). Lishogi, %1$s olarak telaffuz edilir.</string>
-	<string name="leechess">Lishogi</string>
+	<string name="leeshogi">lee-shogi</string>
 	<string name="whyLiveLightLibre">Canlı, çünkü oyunlar gerçek zamanlı olarak 24/7 oynanır ve izlenir; bunun nedeni Lishogi açık kaynak kodludur ve diğer web sitelerini rahatsız eden önemsiz sıkıntılar tarafından engellenmemesi içindir.</string>
 	<string name="whyIsLilaCalledLila">Benzer şekilde, Lishogi\'nin kaynak kodu %1$s\'dur. Zira Lishogi\'nin büyük bir bölümü sezgisel bir programlama dili olan %2$s ile yazılmıştır.</string>
 	<string name="howCanIContributeToLishogi">Lishogi\'ye nasıl katkıda bulunabilirim?</string>
@@ -35,7 +35,7 @@
 	<string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Lishogi\'te hangi varyantları oynayabilirim?</string>
-	<string name="lishogiSupportChessAnd">Lishogi, standart shogiyi ve %1$s\'yi destekler.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
 	<string name="whatIsACPL">Ortalama santipiyon kaybı (OSK) nedir?</string>
 	<string name="acplExplanation">Santipiyon, satrançta avantajın temsili olarak kullanılan ölçü birimidir. Bir santipiyon, bir piyonun 1 / 100\'üne eşittir. Bu nedenle 100 santipiyon = 1 piyon. Bu değerler oyunda resmi bir rol oynamaz, ancak oyuncular için yararlıdır ve bilgisayar satrancında pozisyonları değerlendirmek için gereklidir.
 
@@ -95,7 +95,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingLeaderboards">liderlik tablosu</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">en az 30 puanlı oyun oynamak,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">bu derecelendirme için son bir hafta içinde puanlı oyun oynamak,</string>
-	<string name="ratingDeviationLowerThanXinChessYinVariants">normal shogi\'de %1$s\'den daha düşük ve başka shogi varyantlarında %2$s\'den daha düşük bir derecelendirme sapması olması,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
 	<string name="beInTopTen">bu derecelendirmede ilk 10 içerisinde yer almak.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2. şart, artık hesaplarını kullanmayan oyuncuların skor tablolarını doldurmayı bırakmasıdır.</string>
 	<string name="whyAreRatingHigher">Derecelendirmeler FIDE, USCF ve ICC gibi diğer sitelere ve kuruluşlara göre neden daha yüksek?</string>

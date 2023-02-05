@@ -213,17 +213,17 @@ shogi के हर खेल के !
 दो चाल में !</string>
 	<string name="checkInTwoComplete">बधाई हो ! आपने अपने प्रतिद्वंद्वी को शह दी, उन्हें अपने राजा का बचाव करने के लिए मजबूर किया !</string>
 	<string name="whatNext">आगे क्या है ?</string>
-	<string name="youKnowHowToPlayChess">आप shogi खेलना सीख चुके है, बधाई हो ! क्या आप एक मजबूत खिलाड़ी बनना चाहते हैं ?</string>
+	<string name="youKnowHowToPlayShogi">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
 	<string name="register">रजिस्टर करें</string>
 	<string name="getAFreeLishogiAccount">एक मुफ्त Lishogi खाता प्राप्त करें</string>
 	<string name="practice">अभ्यास</string>
-	<string name="learnCommonChessPositions">सामान्य shogi की स्थिति जानें</string>
+	<string name="learnCommonShogiPositions">Learn common shogi positions</string>
 	<string name="puzzles">पहेलियाँ</string>
 	<string name="exerciseYourTacticalSkills">अपने सामरिक कौशल का प्रयोग करें</string>
 	<string name="shogiResources">Shogi संसाधन</string>
 	<string name="curatedShogiResources">Shogi संसाधनों की हमारी क्यूरेटेड सूची देखें</string>
 	<string name="videos">वीडियो (Videos)</string>
-	<string name="watchInstructiveChessVideos">उपकारी shogi वीडियो देखें</string>
+	<string name="watchInstructiveShogiVideos">Watch instructive shogi videos</string>
 	<string name="playPeople">लोगों के साथ खेलें</string>
 	<string name="opponentsFromAroundTheWorld">दुनिया भर के विरोधियों</string>
 	<string name="playMachine">मशीन के साथ खेलें</string>

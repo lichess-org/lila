@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="lishogiClasses">कक्ष्यायें</string>
-	<string name="teachClassesOfChessStudents">शोगी खेलने वाले विद्यार्थियों को Lichess कक्ष्यायें यंत्र से पदाए</string>
+	<string name="teachClassesOfShogiStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
 	<string name="features">विशेषताएं</string>
 	<string name="quicklyGenerateSafeUsernames">जल्दी से विद्यार्थियों के लिए सुरक्षित उपयोगकर्ता और पासवर्ड बनाए</string>
 	<string name="trackStudentProgress">खेल और पहेली में छात्र प्रगति को ट्रैक करें</string>

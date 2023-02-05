@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">Juga amb un amic</string>
 	<string name="playWithTheMachine">Juga amb la màquina</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquesta URL</string>
@@ -18,14 +19,14 @@
 	<string name="stalemate">Ofegat</string>
 	<string name="impasse">Impasse</string>
 	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost">All royal pieces lost</string>
-	<string name="bareKing">Bare king</string>
+	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
+	<string name="bareKing" comment="Used in chushogi">Bare king</string>
 	<string name="gote">Gote</string>
 	<string name="white">Blanques</string>
 	<string name="sente">Sente</string>
 	<string name="black">Negres</string>
-	<string name="shitate">Shitate</string>
-	<string name="uwate">Uwate</string>
+	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor">Color a l\'atzar</string>
 	<string name="createAGame">Crea una partida</string>
 	<string name="whiteIsVictorious">Les blanques han guanyat</string>
@@ -33,7 +34,7 @@
 	<string name="xIsVictorious">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">Jugues les peces blanques</string>
 	<string name="youPlayTheBlackPieces">Jugues les peces negres</string>
-	<string name="youPlayAsX">You play as %</string>
+	<string name="youPlayAsX">You play as %s</string>
 	<string name="itsYourTurn">És el teu torn!</string>
 	<string name="cheatDetected">Cheat Detected</string>
 	<string name="variantEnding">Acabament de variant</string>
@@ -61,6 +62,7 @@
 	<string name="whiteLeftTheGame">Les blanques han abandonat la partida</string>
 	<string name="blackLeftTheGame">Les negres han abandonat la partida</string>
 	<string name="xLeftTheGame">%s left the game</string>
+	<string name="xDidntMove">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Comparteix aquesta URL perquè els espectadors puguin veure la partida</string>
 	<string name="theComputerAnalysisHasFailed">L\'anàlisi computeritzada ha fallat</string>
 	<string name="viewTheComputerAnalysis">Veure l\'anàlisi computeritzada</string>
@@ -258,7 +260,7 @@
 	<string name="incrementInSeconds">Increment en segons</string>
 	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
 	<string name="numberOfPeriods">Number of periods</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="freeOnlineShogi">Free Online Shogi</string>
 	<string name="spectators">Espectadors</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s per punts</item>
@@ -337,6 +339,8 @@
 	<string name="youAreNotInTeam">No sou de l\'equip %s</string>
 	<string name="backToGame">Torna a la partida</string>
 	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s s\'ha unit a l\'equip %2$s</string>
 	<string name="xCreatedTeamY">%1$s ha creat l\'equip %2$s</string>
 	<string name="xStartedStreaming">%s transmissió començada</string>
@@ -351,7 +355,7 @@
 	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">Des de la posició</string>
-	<string name="default">Default</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">Default</string>
 	<string name="continueFromHere">Continua des d\'aquí</string>
 	<string name="toStudy">Estudi</string>
 	<string name="importGame">Importa una partida</string>
@@ -361,7 +365,7 @@ computer analysis, game chat and shareable URL.</string>
 		<item quantity="one">%s partides importades</item>
 		<item quantity="other">%s partides importades</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Clica al tauler per fer el teu moviment i demostrar que ets una persona.</string>
 	<string name="captcha.fail">Please solve the shogi captcha.</string>
 	<string name="notACheckmate">No és escac i mat</string>
@@ -438,7 +442,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="movesPlayed">Moviments jugats</string>
 	<string name="whiteWins">Les blanques guanyen</string>
 	<string name="blackWins">Les negres guanyen</string>
-	<string name="xWins">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Taules</string>
 	<string name="nextXTournament">Proper torneig de %s:</string>
 	<string name="averageOpponent">Oponent mitjà</string>
@@ -642,7 +646,7 @@ en %3$s</string>
 	<string name="webmasters">Webmasters</string>
 	<string name="about">En quant a</string>
 	<string name="aboutX">En quant a %s</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
 	<string name="really">realment</string>
 	<string name="contribute">Contribuïu-hi</string>
 	<string name="termsOfService">Condicions del servei</string>
@@ -729,15 +733,15 @@ en %3$s</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Aquesta és una llista de dispositius que han iniciat sessió al teu compte. Si us plau tanqui qualsevol session que no reconegui.</string>
 	<string name="alternativelyYouCanX">Alternativament pots %s.</string>
 	<string name="revokeAllSessions">tancar totes les sessions</string>
-	<string name="playChessEverywhere">Play shogi everywhere</string>
+	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
-	<string name="builtForTheLoveOfChessNotMoney">Built for the love of shogi, not money</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">Tothom accedeix gratuïtament a totes les funcions</string>
 	<string name="zeroAdvertisement">Cap anunci</string>
 	<string name="fullFeatured">Amb totes les funcions</string>
 	<string name="phoneAndTablet">Telèfon i tauleta</string>
 	<string name="bulletBlitzClassical">Bullet, blitz, clàssic</string>
-	<string name="correspondenceChess">Correspondence shogi</string>
+	<string name="correspondenceShogi">Correspondence shogi</string>
 	<string name="onlineAndOfflinePlay">Jugar en línia i desconectat</string>
 	<string name="viewTheSolution">Veure la solució</string>
 	<string name="followAndChallengeFriends">Seguiu i desafieu amics</string>
@@ -780,8 +784,8 @@ en %3$s</string>
 	<string name="usernameCharsInvalid">Els noms d\'usuari només poden contenir lletres, números, guions i guions baixos.</string>
 	<string name="usernameUnacceptable">Aquest nom d\'usuari no és acceptable.</string>
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
-	<string name="playChessInStyle">Play shogi in style</string>
-	<string name="chessBasics">Shogi basics</string>
+	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Entrenador</string>
 	<string name="invalidKif">Invalid KIF</string>
@@ -866,7 +870,7 @@ en %3$s</string>
 	<string name="weHadToTimeYouOutForAWhile">Hem hagut de penalitzar-te una estona.</string>
 	<string name="timeoutExpires">La penalització acaba en %s.</string>
 	<string name="why">Perquè?</string>
-	<string name="pleasantChessExperience">We aim to provide a pleasant shogi experience for everyone.</string>
+	<string name="pleasantShogiExperience">We aim to provide a pleasant shogi experience for everyone.</string>
 	<string name="goodPractice">Per això, hem de garantir que tots els jugadors segueixin bones pràctiques.</string>
 	<string name="potentialProblem">Quan un problema potancial es detecta, mostrem aquest missatge.</string>
 	<string name="howToAvoidThis">Com evitar-ho?</string>
@@ -906,7 +910,6 @@ en %3$s</string>
 	<string name="youCannotPostYetPlaySomeGames">Encara no pots publicar en els fòrums. Juga algunes partides!</string>
 	<string name="subscribe">Subscriure’s</string>
 	<string name="unsubscribe">Anul·la subscripció</string>
-	<string name="notationType">Notation</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
 	<string name="blogPostsFromYear">Blog posts from %1$s</string>

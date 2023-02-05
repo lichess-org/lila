@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">Spela med en vän</string>
 	<string name="playWithTheMachine">Spela mot datorn</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">För att bjuda in någon att spela, ge dem den här länken</string>
@@ -18,14 +19,14 @@
 	<string name="stalemate">Patt</string>
 	<string name="impasse">Impasse</string>
 	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost">All royal pieces lost</string>
-	<string name="bareKing">Bare king</string>
+	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
+	<string name="bareKing" comment="Used in chushogi">Bare king</string>
 	<string name="gote">Gote</string>
 	<string name="white">Vit</string>
 	<string name="sente">Sente</string>
 	<string name="black">Svart</string>
-	<string name="shitate">Shitate</string>
-	<string name="uwate">Uwate</string>
+	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor">Slumpvis färg</string>
 	<string name="createAGame">Skapa ett parti</string>
 	<string name="whiteIsVictorious">Vit har vunnit</string>
@@ -33,7 +34,7 @@
 	<string name="xIsVictorious">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">Du spelar med de vita pjäserna</string>
 	<string name="youPlayTheBlackPieces">Du spelar med de svarta pjäserna</string>
-	<string name="youPlayAsX">You play as %</string>
+	<string name="youPlayAsX">You play as %s</string>
 	<string name="itsYourTurn">Det är din tur!</string>
 	<string name="cheatDetected">Cheat Detected</string>
 	<string name="variantEnding">Variantbaserat slut</string>
@@ -61,6 +62,7 @@
 	<string name="whiteLeftTheGame">Vitspelaren har lämnat partiet</string>
 	<string name="blackLeftTheGame">Svartspelaren har lämnat partiet</string>
 	<string name="xLeftTheGame">%s left the game</string>
+	<string name="xDidntMove">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Dela länken till åskådare som vill se partiet</string>
 	<string name="theComputerAnalysisHasFailed">Datoranalysen misslyckades</string>
 	<string name="viewTheComputerAnalysis">Visa datoranalys</string>
@@ -258,7 +260,7 @@
 	<string name="incrementInSeconds">Tilläggssekunder</string>
 	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
 	<string name="numberOfPeriods">Number of periods</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="freeOnlineShogi">Free Online Shogi</string>
 	<string name="spectators">Åskådare:</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s rankat</item>
@@ -337,6 +339,8 @@
 	<string name="youAreNotInTeam">Du är inte medlem i %s</string>
 	<string name="backToGame">Tillbaka till partiet</string>
 	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s gick med i lag %2$s</string>
 	<string name="xCreatedTeamY">%1$s skapade lag %2$s</string>
 	<string name="xStartedStreaming">%s började sända video</string>
@@ -351,7 +355,7 @@
 	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">Från position</string>
-	<string name="default">Default</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">Default</string>
 	<string name="continueFromHere">Fortsätt härifrån</string>
 	<string name="toStudy">Studera</string>
 	<string name="importGame">Importera parti</string>
@@ -361,7 +365,7 @@ computer analysis, game chat and shareable URL.</string>
 		<item quantity="one">%s Importerat parti</item>
 		<item quantity="other">%s Importerade partier</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Klicka på brädet och gör ditt drag för att bevisa att du är en människa.</string>
 	<string name="captcha.fail">Please solve the shogi captcha.</string>
 	<string name="notACheckmate">Inte schackmatt</string>
@@ -438,7 +442,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="movesPlayed">Drag spelade</string>
 	<string name="whiteWins">Vinster Vit</string>
 	<string name="blackWins">Vinster Svart</string>
-	<string name="xWins">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Remier</string>
 	<string name="nextXTournament">Nästa %s turnering:</string>
 	<string name="averageOpponent">Genomsnittlig motståndare</string>
@@ -639,7 +643,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="webmasters">Webbmasters</string>
 	<string name="about">Om Lishogi</string>
 	<string name="aboutX">Om %s</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
 	<string name="really">på riktigt</string>
 	<string name="contribute">Hjälp till</string>
 	<string name="termsOfService">Användarvillkor</string>
@@ -726,15 +730,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Detta är en lista över enheter som har loggat in på ditt konto. Återkalla alla sessioner som du inte känner igen.</string>
 	<string name="alternativelyYouCanX">Alternativt kan du %s.</string>
 	<string name="revokeAllSessions">återkalla alla sessioner</string>
-	<string name="playChessEverywhere">Play shogi everywhere</string>
+	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
-	<string name="builtForTheLoveOfChessNotMoney">Built for the love of shogi, not money</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">Alla får alla funktioner gratis</string>
 	<string name="zeroAdvertisement">Ingen reklam</string>
 	<string name="fullFeatured">Alla funktioner</string>
 	<string name="phoneAndTablet">Mobil och platta</string>
 	<string name="bulletBlitzClassical">Bullet, blixt och klassiskt</string>
-	<string name="correspondenceChess">Correspondence shogi</string>
+	<string name="correspondenceShogi">Correspondence shogi</string>
 	<string name="onlineAndOfflinePlay">Spela uppkopplad eller nedkopplad</string>
 	<string name="viewTheSolution">Visa lösningen</string>
 	<string name="followAndChallengeFriends">Följ och utmana vänner</string>
@@ -777,8 +781,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="usernameCharsInvalid">Användarnamnet får bara innehålla bokstäver, siffror, understrykningstecken och bindestreck.</string>
 	<string name="usernameUnacceptable">Detta användarnamn är inte acceptabelt.</string>
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
-	<string name="playChessInStyle">Play shogi in style</string>
-	<string name="chessBasics">Shogi basics</string>
+	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Schacktränare</string>
 	<string name="invalidKif">Invalid KIF</string>
@@ -863,7 +867,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="weHadToTimeYouOutForAWhile">Vi är tvugna att stänga av dig en stund.</string>
 	<string name="timeoutExpires">Avstängningen upphör om %s.</string>
 	<string name="why">Varför?</string>
-	<string name="pleasantChessExperience">We aim to provide a pleasant shogi experience for everyone.</string>
+	<string name="pleasantShogiExperience">We aim to provide a pleasant shogi experience for everyone.</string>
 	<string name="goodPractice">Därför måste vi försäkra oss om att alla spelare följer god sed.</string>
 	<string name="potentialProblem">När ett möjligt problem upptäcks visar vi detta meddelande.</string>
 	<string name="howToAvoidThis">Hur undviker jag det här?</string>
@@ -903,7 +907,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="youCannotPostYetPlaySomeGames">Du kan inte posta i forumen ännu. Spela några partier!</string>
 	<string name="subscribe">Prenumerera</string>
 	<string name="unsubscribe">Avprenumerera</string>
-	<string name="notationType">Notation</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
 	<string name="blogPostsFromYear">Blog posts from %1$s</string>

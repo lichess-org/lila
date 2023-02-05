@@ -5,7 +5,7 @@
 	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
 	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
-	<string name="leechess">lee-shogi</string>
+	<string name="leeshogi">lee-shogi</string>
 	<string name="whyLiveLightLibre">\"Live\" (vida, direto), porque os jogos são jogados e vistos em tempo real 24/7; \"light\" (leve) e \"libre\" (livre) uma vez que o Lishogi é open-source e está livre de lixo proprietário que infesta outros sites.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
@@ -35,7 +35,7 @@ Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segu
 	<string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
 	<string name="whatVariantsCanIplay">Que variantes posso jogar no Lishogi?</string>
-	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
 	<string name="whatIsACPL">O que é a perda média de centésimas de peão (ACPL)?</string>
 	<string name="acplExplanation">Uma centésima de peão é a unidade de medida usada no xadrez para a representação da vantagem. Uma centésima de peão é igual a 1/100 de um peão. Portanto, 100 centésimas de peão = 1 peão. Estes valores não têm um papel formal no jogo mas são úteis para os jogadores, e essenciais para muitos computadores de xadrez, para avaliar posições.
 
@@ -97,7 +97,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingLeaderboards">tabela de liderança</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">ter jogado pelo menos 30 partidas a valer pontos num dado modo,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">ter jogado uma partida a valer pontos na última semana nesse modo,</string>
-	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
 	<string name="beInTopTen">estar entre os 10 melhores (que satisfazem as condições acima) nesse modo.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">O segundo requisito é para que jogadores que já não usam as suas contas não estejam a preencher as tabelas de liderança.</string>
 	<string name="whyAreRatingHigher">Por que é que as pontuações são maiores quando comparadas a outros sites e organizações como por exemplo, FIDE, USCF e ICC?</string>

@@ -213,17 +213,17 @@ joka on arvokkain!</string>
 kahdella siirrolla!</string>
 	<string name="checkInTwoComplete">Onneksi olkoon! Shakkasit vastustajaa ja pakotit hänet puolustamaan kuningastaan!</string>
 	<string name="whatNext">Mitä seuraavaksi?</string>
-	<string name="youKnowHowToPlayChess">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="youKnowHowToPlayShogi">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
 	<string name="register">Rekisteröidy</string>
 	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
 	<string name="practice">Harjoittele</string>
-	<string name="learnCommonChessPositions">Learn common shogi positions</string>
+	<string name="learnCommonShogiPositions">Learn common shogi positions</string>
 	<string name="puzzles">Tehtävät</string>
 	<string name="exerciseYourTacticalSkills">Harjoita taktisia kykyjäsi</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="curatedShogiResources">See our curated list of shogi resources</string>
 	<string name="videos">Videot</string>
-	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
+	<string name="watchInstructiveShogiVideos">Watch instructive shogi videos</string>
 	<string name="playPeople">Pelaa toisia vastaan</string>
 	<string name="opponentsFromAroundTheWorld">Vastustajia kaikkialta maailmasta</string>
 	<string name="playMachine">Pelaa konetta vastaan</string>

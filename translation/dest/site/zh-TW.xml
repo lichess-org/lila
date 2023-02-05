@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">和好友下棋</string>
 	<string name="playWithTheMachine">和電腦下棋</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">請分享這個網址以邀人下棋</string>
@@ -18,14 +19,14 @@
 	<string name="stalemate">逼和</string>
 	<string name="impasse">僵局</string>
 	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost">All royal pieces lost</string>
-	<string name="bareKing">Bare king</string>
+	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
+	<string name="bareKing" comment="Used in chushogi">Bare king</string>
 	<string name="gote">Gote</string>
 	<string name="white">後手</string>
 	<string name="sente">Sente</string>
 	<string name="black">先手</string>
-	<string name="shitate">下手</string>
-	<string name="uwate">上手</string>
+	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">下手</string>
+	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">上手</string>
 	<string name="randomColor">隨機選色</string>
 	<string name="createAGame">開始對局</string>
 	<string name="whiteIsVictorious">後手勝利</string>
@@ -33,7 +34,7 @@
 	<string name="xIsVictorious">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">您為後手</string>
 	<string name="youPlayTheBlackPieces">您使用黑棋</string>
-	<string name="youPlayAsX">You play as %</string>
+	<string name="youPlayAsX">You play as %s</string>
 	<string name="itsYourTurn">您的回合!</string>
 	<string name="cheatDetected">偵測到作弊行為</string>
 	<string name="variantEnding">變體終局</string>
@@ -60,6 +61,7 @@
 	<string name="whiteLeftTheGame">後手離開遊戲</string>
 	<string name="blackLeftTheGame">先手離開遊戲</string>
 	<string name="xLeftTheGame">%s left the game</string>
+	<string name="xDidntMove">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">分享這個網址，邀請觀眾觀戰</string>
 	<string name="theComputerAnalysisHasFailed">電腦分析失敗</string>
 	<string name="viewTheComputerAnalysis">查看電腦分析結果</string>
@@ -249,7 +251,7 @@
 	<string name="incrementInSeconds">增加秒數</string>
 	<string name="byoyomiInSeconds">秒讀</string>
 	<string name="numberOfPeriods">考慮時間</string>
-	<string name="freeOnlineChess">免費線上將棋</string>
+	<string name="freeOnlineShogi">Free Online Shogi</string>
 	<string name="spectators">旁觀者：</string>
 	<plurals name="nbRated">
 		<item quantity="other">%s 評分</item>
@@ -316,6 +318,8 @@
 	<string name="youAreNotInTeam">您不在%s團隊中</string>
 	<string name="backToGame">返回棋局</string>
 	<string name="siteDescription">免費的線上將棋平台。用簡單的界面開始對局。毋須註冊，沒有廣告，也不需要任何插件。和電腦、朋友或是隨機對手來上一局！</string>
+	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s加入%2$s隊</string>
 	<string name="xCreatedTeamY">%1$s組建%2$s隊</string>
 	<string name="xStartedStreaming">%s開始直播</string>
@@ -330,7 +334,7 @@
 	<string name="pasteTheSfenStringHere">將 SFEN 棋譜在這裡貼上</string>
 	<string name="pasteTheKifCsaStringHere">將 KIF 或是 CSA 棋譜在這裡貼上</string>
 	<string name="fromPosition">自定義局面</string>
-	<string name="default">預設值</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">預設值</string>
 	<string name="continueFromHere">從此處繼續</string>
 	<string name="toStudy">研究</string>
 	<string name="importGame">導入棋局</string>
@@ -338,7 +342,7 @@
 	<plurals name="nbImportedGames">
 		<item quantity="other">已導入%s盤棋局</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">這是驗證碼。</string>
+	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">點擊棋盤走棋以證明您是人類。</string>
 	<string name="captcha.fail">請完成驗證。</string>
 	<string name="notACheckmate">沒有詰</string>
@@ -411,7 +415,7 @@
 	<string name="movesPlayed">步數</string>
 	<string name="whiteWins">後手獲勝</string>
 	<string name="blackWins">先手獲勝</string>
-	<string name="xWins">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">和棋</string>
 	<string name="nextXTournament">下一個%s錦標賽</string>
 	<string name="averageOpponent">平均對手評分</string>
@@ -607,7 +611,7 @@
 	<string name="webmasters">網站管理員</string>
 	<string name="about">關於</string>
 	<string name="aboutX">關於 %s</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
 	<string name="really">真的</string>
 	<string name="contribute">協助</string>
 	<string name="termsOfService">服務條款</string>
@@ -693,15 +697,15 @@
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">這是已登入到您帳戶的裝置列表，您可以登出任何您無法識別的裝置。</string>
 	<string name="alternativelyYouCanX">或者，您可以%s</string>
 	<string name="revokeAllSessions">登出所有裝置</string>
-	<string name="playChessEverywhere">隨處下棋！</string>
+	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">完全免費。</string>
-	<string name="builtForTheLoveOfChessNotMoney">由將棋的熱愛所創造</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">每個人都能免費使用所有功能</string>
 	<string name="zeroAdvertisement">沒有廣告</string>
 	<string name="fullFeatured">功能全面</string>
 	<string name="phoneAndTablet">手機和平板電腦</string>
 	<string name="bulletBlitzClassical">快棋與慢棋</string>
-	<string name="correspondenceChess">通訊將棋</string>
+	<string name="correspondenceShogi">Correspondence shogi</string>
 	<string name="onlineAndOfflinePlay">線上或離線下棋</string>
 	<string name="viewTheSolution">看解答</string>
 	<string name="followAndChallengeFriends">添加好友並與他們對戰</string>
@@ -743,8 +747,8 @@
 	<string name="usernameCharsInvalid">使用者名稱只能包含字母、 數字、 底線和短劃線。</string>
 	<string name="usernameUnacceptable">此使用者名稱不可用</string>
 	<string name="directlySupportLishogi">直接支援 Lishogi</string>
-	<string name="playChessInStyle">Play shogi in style</string>
-	<string name="chessBasics">將棋基本</string>
+	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">將棋資源</string>
 	<string name="coaches">教練</string>
 	<string name="invalidKif">無效的 KIF 檔案</string>
@@ -826,7 +830,7 @@
 	<string name="weHadToTimeYouOutForAWhile">您被封鎖了，在一陣子的時間內將不能下棋</string>
 	<string name="timeoutExpires">封鎖結束至%s</string>
 	<string name="why">為什麼？</string>
-	<string name="pleasantChessExperience">我們專注於為所有人提供愉快的將棋體驗</string>
+	<string name="pleasantShogiExperience">We aim to provide a pleasant shogi experience for everyone.</string>
 	<string name="goodPractice">為此，我們必須確保所有參與者都遵循良好做法</string>
 	<string name="potentialProblem">當檢測到不良行為時，我們將顯示此消息</string>
 	<string name="howToAvoidThis">如何避免這件事發生?</string>
@@ -866,7 +870,6 @@
 	<string name="youCannotPostYetPlaySomeGames">您目前不能發表文章在論壇裡，先下幾盤棋吧!</string>
 	<string name="subscribe">訂閱</string>
 	<string name="unsubscribe">取消訂閱</string>
-	<string name="notationType">記譜方法</string>
 	<string name="notationSystem">記譜方法</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
 	<string name="blogPostsFromYear">Blog posts from %1$s</string>

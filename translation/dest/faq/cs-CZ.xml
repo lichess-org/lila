@@ -5,7 +5,7 @@
 	<string name="whyIsLishogiCalledLishogi">Proč se Lishogi nazývá Lishogi?</string>
 	<string name="forkedFromLichess">Lishogi je projekt s otevřeným zdrojovým kódem vycházející z liShessu, ale protože je určen k hraní shogi, nazývá se lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Protože je to odvozeno od Liсhess. A Liсhess se nazývá Liсhess, protože je to kombinace live (živě)/light (lehkého)/libre (zdarma) a šachu. Lishogi se vyslovuje %1$s</string>
-	<string name="leechess">lee-shogi</string>
+	<string name="leeshogi">lee-shogi</string>
 	<string name="whyLiveLightLibre">Živé, protože hry jsou hrány a sledovány v reálném čase 24/7; lehké a volné, protože Lishogi má otevřený zdrojový kód a je nezatížené proprietárním nepořádkem, který zaplavuje ostatní weby.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
@@ -35,7 +35,7 @@ For instance, the estimated duration of a 5+3|4 game is 60 × 5 + 60 × 3 + 25 �
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Jaké varianty mohu hrát na Lishogi?</string>
-	<string name="lishogiSupportChessAnd">Lishogi podporuje standardní shogi a %1$s.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
 	<string name="whatIsACPL">Co je to průměrná pěšcová ztráta (angl. \"average centipawn loss\")?</string>
 	<string name="acplExplanation">V šachu se jako jednotka síly jednotlivých tahů ve srovnání s nejlepšími možnými tahy doporučenými počítačem používá tzv. centipawn (z angličtiny). Jeden centipawn je ekvivalentní jedné setině hodnoty pěšáka. To znamená, že 100 centipawnů odpovídá jednomu pěšákovi.
 
@@ -95,7 +95,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingLeaderboards">rating leaderboard</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">have played at least 30 rated games in a given rating,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">have played a rated game within the last week for this rating,</string>
-	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
 	<string name="beInTopTen">be in the top 10 in this rating.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">The 2nd requirement is so that players who no longer use their accounts stop populating leaderboards.</string>
 	<string name="whyAreRatingHigher">Why are ratings different compared to other sites and organisations such as 81Dojo and Shogi Club 24?</string>

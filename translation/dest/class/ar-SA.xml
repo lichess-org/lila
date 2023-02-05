@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="lishogiClasses">أقسام</string>
-	<string name="teachClassesOfChessStudents">تعليم أقسام تلاميذ shogi بمجموعة أدوات الأقسام في Lishogi.</string>
+	<string name="teachClassesOfShogiStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
 	<string name="features">مزايا</string>
 	<string name="quicklyGenerateSafeUsernames">إنشاء لأسماء المستخدمين وكلمات مرور آمنة للطلاب بسرعة</string>
 	<string name="trackStudentProgress">تابع مستوي تقدم الطلبة في الألعاب و الألغاز</string>

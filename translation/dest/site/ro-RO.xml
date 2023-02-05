@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">Jucaţi cu un prieten</string>
 	<string name="playWithTheMachine">Jucați cu calculatorul</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
@@ -18,14 +19,14 @@
 	<string name="stalemate">Pat</string>
 	<string name="impasse">Impasse</string>
 	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost">All royal pieces lost</string>
-	<string name="bareKing">Bare king</string>
+	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
+	<string name="bareKing" comment="Used in chushogi">Bare king</string>
 	<string name="gote">Gote</string>
 	<string name="white">Alb</string>
 	<string name="sente">Sente</string>
 	<string name="black">Negru</string>
-	<string name="shitate">Shitate</string>
-	<string name="uwate">Uwate</string>
+	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor">Culoare aleatorie</string>
 	<string name="createAGame">Creează un joc nou</string>
 	<string name="whiteIsVictorious">Albul a câştigat</string>
@@ -33,7 +34,7 @@
 	<string name="xIsVictorious">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">Joci cu albele</string>
 	<string name="youPlayTheBlackPieces">Joci cu negrele</string>
-	<string name="youPlayAsX">You play as %</string>
+	<string name="youPlayAsX">You play as %s</string>
 	<string name="itsYourTurn">E rândul tău!</string>
 	<string name="cheatDetected">Cheat Detected</string>
 	<string name="variantEnding">Sfârșit prin variantă</string>
@@ -62,6 +63,7 @@
 	<string name="whiteLeftTheGame">Albul a părăsit partida</string>
 	<string name="blackLeftTheGame">Negrul a părăsit partida</string>
 	<string name="xLeftTheGame">%s left the game</string>
+	<string name="xDidntMove">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Distribuiţi acest link pentru a permite spectatorilor să vizioneze partida</string>
 	<string name="theComputerAnalysisHasFailed">Analiza computerului a eșuat</string>
 	<string name="viewTheComputerAnalysis">Vezi analiza computer-ului</string>
@@ -267,7 +269,7 @@
 	<string name="incrementInSeconds">Adaos de timp în secunde</string>
 	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
 	<string name="numberOfPeriods">Number of periods</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="freeOnlineShogi">Free Online Shogi</string>
 	<string name="spectators">Spectatori</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s evaluat</item>
@@ -358,6 +360,8 @@
 	<string name="youAreNotInTeam">Nu sunteți în echipa %s</string>
 	<string name="backToGame">Înapoi la joc</string>
 	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s a intrat în echipa %2$s</string>
 	<string name="xCreatedTeamY">%1$s a creat echipa %2$s</string>
 	<string name="xStartedStreaming">%s a început să facă stream</string>
@@ -372,7 +376,7 @@
 	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">De la poziția</string>
-	<string name="default">Default</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">Default</string>
 	<string name="continueFromHere">Continuați de aici</string>
 	<string name="toStudy">Studiază</string>
 	<string name="importGame">Importați partida</string>
@@ -383,7 +387,7 @@ computer analysis, game chat and shareable URL.</string>
 		<item quantity="few">%s partide importate</item>
 		<item quantity="other">%s partide importate</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Apăsați pe tablă pentru a muta, dovedind că sunteți om.</string>
 	<string name="captcha.fail">Please solve the shogi captcha.</string>
 	<string name="notACheckmate">Nu este mat</string>
@@ -464,7 +468,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="movesPlayed">Mutări jucate</string>
 	<string name="whiteWins">Albul câștigă</string>
 	<string name="blackWins">Negrul câștigă</string>
-	<string name="xWins">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Remize</string>
 	<string name="nextXTournament">Următorul turneu %s:</string>
 	<string name="averageOpponent">Cota medie a adversarilor</string>
@@ -670,7 +674,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="webmasters">Webmasteri</string>
 	<string name="about">Despre</string>
 	<string name="aboutX">Despre %s</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
 	<string name="really">pe bune</string>
 	<string name="contribute">Contribuie</string>
 	<string name="termsOfService">Termeni și condiții</string>
@@ -758,15 +762,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Aceasta este o listă cu device-urile logate la contul dvs.. Revocați orice sesiune pe care n-o recunoașteți.</string>
 	<string name="alternativelyYouCanX">Alternativ, puteți %s.</string>
 	<string name="revokeAllSessions">revocați toate sesiunile</string>
-	<string name="playChessEverywhere">Play shogi everywhere</string>
+	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
-	<string name="builtForTheLoveOfChessNotMoney">Built for the love of shogi, not money</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">Toata lumea are access la toate opțiunile, gratis</string>
 	<string name="zeroAdvertisement">Zero reclame</string>
 	<string name="fullFeatured">Toate opțiunile</string>
 	<string name="phoneAndTablet">Telefon și tabletă</string>
 	<string name="bulletBlitzClassical">Glonț, fulger și clasic</string>
-	<string name="correspondenceChess">Correspondence shogi</string>
+	<string name="correspondenceShogi">Correspondence shogi</string>
 	<string name="onlineAndOfflinePlay">Joc online și offline</string>
 	<string name="viewTheSolution">Vezi soluţia</string>
 	<string name="followAndChallengeFriends">Urmareşte si provoacă-ţi prietenii</string>
@@ -810,8 +814,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="usernameCharsInvalid">Numele de utilizator poate conține doar litere, cifre, linii de subliniere și cratime.</string>
 	<string name="usernameUnacceptable">Numele de utilizator nu e acceptabil.</string>
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
-	<string name="playChessInStyle">Play shogi in style</string>
-	<string name="chessBasics">Shogi basics</string>
+	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Antrenori</string>
 	<string name="invalidKif">Invalid KIF</string>
@@ -899,7 +903,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="weHadToTimeYouOutForAWhile">Am fost nevoiți să suspendăm activitatea pentru puțin timp.</string>
 	<string name="timeoutExpires">Suspendarea se termină %s.</string>
 	<string name="why">De ce?</string>
-	<string name="pleasantChessExperience">We aim to provide a pleasant shogi experience for everyone.</string>
+	<string name="pleasantShogiExperience">We aim to provide a pleasant shogi experience for everyone.</string>
 	<string name="goodPractice">Ca acest lucru să se întâmple, trebuie să ne asigurăm că toți jucătorii respectă bunele practici.</string>
 	<string name="potentialProblem">Când o potențială problemă este detectată, afișăm acest mesaj.</string>
 	<string name="howToAvoidThis">Cum puteți preveni suspendarea?</string>
@@ -939,7 +943,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="youCannotPostYetPlaySomeGames">Încă nu puteți posta în forumuri. Jucați câteva partide!</string>
 	<string name="subscribe">Abonați-vă</string>
 	<string name="unsubscribe">Dezabonați-vă</string>
-	<string name="notationType">Notation</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
 	<string name="blogPostsFromYear">Blog posts from %1$s</string>

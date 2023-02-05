@@ -5,7 +5,7 @@
 	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
 	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
-	<string name="leechess">lee-shogi</string>
+	<string name="leeshogi">lee-shogi</string>
 	<string name="whyLiveLightLibre">Live, omdat voortdurend partijen worden gespeeld en bekeken; licht en vrij omdat Lishogi open source is en niet gebukt gaat onder allerhande ballast die andere websites plaagt.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
@@ -35,7 +35,7 @@
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Welke varianten kan ik spelen op Lishogi?</string>
-	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
 	<string name="whatIsACPL">Wat is het gemiddelde centipion verlies (ACPL)?</string>
 	<string name="acplExplanation">De centipion is de maateenheid die in schaken wordt gebruikt als een voordeel. Eén centipion is gelijk aan 1/100 van een pion. Dus 100 centipionnen = 1 pion. Deze waarden spelen formeel geen rol in het spel, maar zijn nuttig voor spelers en essentieel voor computerschaak om posities te beoordelen.
 
@@ -95,7 +95,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingLeaderboards">ranglijst</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">minstens 30 partijen hebben gespeeld met een gegeven rating,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">de afgelopen week een partij met rating gespeeld voor deze beoordeling,</string>
-	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
 	<string name="beInTopTen">deel uitmaken van de top 10 van deze rating.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">De tweede vereiste is dat spelers die hun accounts niet meer gebruiken, niet langer in de scoreborden worden vermeld.</string>
 	<string name="whyAreRatingHigher">Waarom zijn de ratings hoger dan bij andere sites en organisaties zoals FIDE, USCF en het ICC?</string>

@@ -207,17 +207,17 @@ Take the most valuable piece.</string>
 σε δύο κινήσεις!</string>
 	<string name="checkInTwoComplete">Συγχαρητήρια! Κάνατε σαχ στον αντίπαλο, αναγκάζοντας τον να προστατεύσει τον βασιλιά του!</string>
 	<string name="whatNext">Τι υπάρχει στη συνέχεια;</string>
-	<string name="youKnowHowToPlayChess">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="youKnowHowToPlayShogi">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
 	<string name="register">Εγγραφείτε</string>
 	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
 	<string name="practice">Εξάσκηση</string>
-	<string name="learnCommonChessPositions">Learn common shogi positions</string>
+	<string name="learnCommonShogiPositions">Learn common shogi positions</string>
 	<string name="puzzles">Γρίφοι</string>
 	<string name="exerciseYourTacticalSkills">Εξασκήστε τις τακτικές σας ικανότητες</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="curatedShogiResources">See our curated list of shogi resources</string>
 	<string name="videos">Βίντεο</string>
-	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
+	<string name="watchInstructiveShogiVideos">Watch instructive shogi videos</string>
 	<string name="playPeople">Παίξτε με ανθρώπους</string>
 	<string name="opponentsFromAroundTheWorld">Αντίπαλοι από όλο τον κόσμο</string>
 	<string name="playMachine">Παίξτε με τον υπολογιστή</string>

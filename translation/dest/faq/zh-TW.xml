@@ -5,7 +5,7 @@
 	<string name="whyIsLishogiCalledLishogi">為什麼叫做Lishogi呢?</string>
 	<string name="forkedFromLichess">Lishogi 是一個從 Lichess 分支出來的開源專案，但因為這個網站只專注於將棋，我們便稱他為 Lishogi。</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
-	<string name="leechess">ㄌㄧ ㄒㄧㄡ ㄍㄧ</string>
+	<string name="leeshogi">lee-shogi</string>
 	<string name="whyLiveLightLibre">直播(live)，無時無刻都有人在下棋，而每一場棋局也都被觀賞。光明及自由(light and libre) 代表Lishogi是開源軟體及不被版權蟑螂影響。</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
@@ -37,7 +37,7 @@
 	<string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">有哪些變體是在Lishogi上玩得到的？</string>
-	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
 	<string name="whatIsACPL">平均釐兵損失 (ACPL) 是什麼？</string>
 	<string name="acplExplanation">釐兵是國際象棋計算優勢所用的計量單位。1釐兵等於兵價值的1/100。也就是說，100釐兵=1兵。這些價值在游戲中不起正式作用，但對玩家有用，對電腦來評估局面也很重要。
 
@@ -97,7 +97,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingLeaderboards">評分排行表</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">have played at least 30 rated games in a given rating,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">have played a rated game within the last week for this rating,</string>
-	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
 	<string name="beInTopTen">在此模式下得到前10的積分</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">The 2nd requirement is so that players who no longer use their accounts stop populating leaderboards.</string>
 	<string name="whyAreRatingHigher">Why are ratings different compared to other sites and organisations such as 81Dojo and Shogi Club 24?</string>

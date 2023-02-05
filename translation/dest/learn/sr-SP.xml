@@ -204,17 +204,17 @@ Take the most valuable piece.</string>
 у два потеза!</string>
 	<string name="checkInTwoComplete">Честитамо! Дали сте шах вашем противнику, терајући их да одбране свог краља!</string>
 	<string name="whatNext">Шта је следеће?</string>
-	<string name="youKnowHowToPlayChess">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="youKnowHowToPlayShogi">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
 	<string name="register">Региструјте се</string>
 	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
 	<string name="practice">Вежбај</string>
-	<string name="learnCommonChessPositions">Learn common shogi positions</string>
+	<string name="learnCommonShogiPositions">Learn common shogi positions</string>
 	<string name="puzzles">Тактике</string>
 	<string name="exerciseYourTacticalSkills">Вежбајте ваше тактичке вештине</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="curatedShogiResources">See our curated list of shogi resources</string>
 	<string name="videos">Видеи</string>
-	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
+	<string name="watchInstructiveShogiVideos">Watch instructive shogi videos</string>
 	<string name="playPeople">Играј против осталих</string>
 	<string name="opponentsFromAroundTheWorld">Противници из целог света</string>
 	<string name="playMachine">Играј против компјутера</string>

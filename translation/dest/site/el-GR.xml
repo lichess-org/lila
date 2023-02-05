@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">Παίξτε με έναν φίλο</string>
 	<string name="playWithTheMachine">Παίξτε με τον υπολογιστή</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">Για να προσκαλέσετε κάποιον σε ένα παιχνίδι, στείλτε του αυτήν τη διεύθυνση</string>
@@ -18,14 +19,14 @@
 	<string name="stalemate">Πατ</string>
 	<string name="impasse">Impasse</string>
 	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost">All royal pieces lost</string>
-	<string name="bareKing">Bare king</string>
+	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
+	<string name="bareKing" comment="Used in chushogi">Bare king</string>
 	<string name="gote">Gote</string>
 	<string name="white">Λευκά</string>
 	<string name="sente">Sente</string>
 	<string name="black">Μαύρα</string>
-	<string name="shitate">Shitate</string>
-	<string name="uwate">Uwate</string>
+	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor">Τυχαίο χρώμα</string>
 	<string name="createAGame">Δημιουργήστε παιχνίδι</string>
 	<string name="whiteIsVictorious">Τα λευκά νίκησαν</string>
@@ -33,7 +34,7 @@
 	<string name="xIsVictorious">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">Παίζετε τα λευκά</string>
 	<string name="youPlayTheBlackPieces">Παίζετε τα μαύρα</string>
-	<string name="youPlayAsX">You play as %</string>
+	<string name="youPlayAsX">You play as %s</string>
 	<string name="itsYourTurn">Είναι η σειρά σας!</string>
 	<string name="cheatDetected">Cheat Detected</string>
 	<string name="variantEnding">Εκδοχή ολοκληρώθηκε</string>
@@ -61,6 +62,7 @@
 	<string name="whiteLeftTheGame">Τα λευκά έφυγαν από το παιχνίδι</string>
 	<string name="blackLeftTheGame">Τα μαύρα έφυγαν από το παιχνίδι</string>
 	<string name="xLeftTheGame">%s left the game</string>
+	<string name="xDidntMove">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Στείλτε αυτήν τη διεύθυνση για να επιτρέψετε σε θεατές να δουν το παιχνίδι</string>
 	<string name="theComputerAnalysisHasFailed">Η ανάλυση του υπολογιστή απέτυχε</string>
 	<string name="viewTheComputerAnalysis">Δείτε την ανάλυση του υπολογιστή</string>
@@ -258,7 +260,7 @@
 	<string name="incrementInSeconds">Προσαύξηση σε δευτερόλεπτα</string>
 	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
 	<string name="numberOfPeriods">Number of periods</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="freeOnlineShogi">Free Online Shogi</string>
 	<string name="spectators">Θεατές:</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s βαθμολογημένο</item>
@@ -337,6 +339,8 @@
 	<string name="youAreNotInTeam">Δεν είστε στην ομάδα %s</string>
 	<string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
 	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">Ο %1$s έθεσε συμμετοχή στην ομάδα %2$s</string>
 	<string name="xCreatedTeamY">Ο %1$s δημιούργησε την ομάδα %2$s</string>
 	<string name="xStartedStreaming">%s ξεκίνησε να μεταδίδει</string>
@@ -351,7 +355,7 @@
 	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">Από συγκεκριμένη θέση</string>
-	<string name="default">Default</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">Default</string>
 	<string name="continueFromHere">Συνέχεια από εδώ</string>
 	<string name="toStudy">Μελέτη</string>
 	<string name="importGame">Εισαγωγή παιχνιδιού</string>
@@ -361,7 +365,7 @@ computer analysis, game chat and shareable URL.</string>
 		<item quantity="one">%s Εισαγόμενο παιχνίδι</item>
 		<item quantity="other">%s Εισαγόμενα παιχνίδια</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Κάνετε κλικ στη σκακιέρα για να κινήσετε τα πιόνια και να αποδείξετε πως είστε άνθρωπος.</string>
 	<string name="captcha.fail">Please solve the shogi captcha.</string>
 	<string name="notACheckmate">Δεν είναι ματ</string>
@@ -438,7 +442,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="movesPlayed">Παιγμένες κινήσεις</string>
 	<string name="whiteWins">Τα άσπρα νικούν</string>
 	<string name="blackWins">Τα μαύρα νικούν</string>
-	<string name="xWins">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Ισοπαλίες</string>
 	<string name="nextXTournament">Επόμενο %s πρωτάθλημα:</string>
 	<string name="averageOpponent">Μέση βαθμολογία αντιπάλων</string>
@@ -639,7 +643,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="webmasters">Διαχειριστές</string>
 	<string name="about">Σχετικά με</string>
 	<string name="aboutX">Σχετικά με %s</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
 	<string name="really">πραγματικά</string>
 	<string name="contribute">Συνεισφέρετε</string>
 	<string name="termsOfService">Όροι χρήσης</string>
@@ -726,15 +730,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Αυτή είναι η λίστα συσκευών συνδεδεμένες με τον λογαριασμό σας. Ανακαλέστε τις συνεδρίες που δεν αναγνωρίζετε.</string>
 	<string name="alternativelyYouCanX">Εναλλακτικά, μπορείτε να %s.</string>
 	<string name="revokeAllSessions">ανακαλέστε όλες τις συνεδρίες</string>
-	<string name="playChessEverywhere">Play shogi everywhere</string>
+	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
-	<string name="builtForTheLoveOfChessNotMoney">Built for the love of shogi, not money</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">Όλα τα στοιχεία είναι δωρεάν για όλους</string>
 	<string name="zeroAdvertisement">Χωρίς διαφημίσεις</string>
 	<string name="fullFeatured">Πλήρη χαρακτηριστικά</string>
 	<string name="phoneAndTablet">Τηλέφωνο και τάμπλετ</string>
 	<string name="bulletBlitzClassical">Υπερταχέα, ταχέα, κλασικά</string>
-	<string name="correspondenceChess">Correspondence shogi</string>
+	<string name="correspondenceShogi">Correspondence shogi</string>
 	<string name="onlineAndOfflinePlay">Παιχνίδια διαδικτυακώς και εκτός σύνδεσης</string>
 	<string name="viewTheSolution">Δείτε τη λύση</string>
 	<string name="followAndChallengeFriends">Ακολουθήστε και προκαλέστε φίλους</string>
@@ -777,8 +781,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="usernameCharsInvalid">Το όνομα χρήστη πρέπει να περιέχει μόνο γράμματα, αριθμούς, κάτω παύλες και ενωτικά.</string>
 	<string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
-	<string name="playChessInStyle">Play shogi in style</string>
-	<string name="chessBasics">Shogi basics</string>
+	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Προπονητές</string>
 	<string name="invalidKif">Invalid KIF</string>
@@ -863,7 +867,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="weHadToTimeYouOutForAWhile">Πρέπει να σας αποκλείσουμε για λίγο.</string>
 	<string name="timeoutExpires">Ο αποκλεισμός λήγει σε %s.</string>
 	<string name="why">Γιατί;</string>
-	<string name="pleasantChessExperience">We aim to provide a pleasant shogi experience for everyone.</string>
+	<string name="pleasantShogiExperience">We aim to provide a pleasant shogi experience for everyone.</string>
 	<string name="goodPractice">Για να πραγματοποιηθεί αυτό, πρέπει να βεβαιωθούμε ότι όλοι οι παίκτες ακολουθούν τους κανόνες.</string>
 	<string name="potentialProblem">Όταν ανιχνευτεί ένα πιθανό πρόβλημα, εμφανίζεται αυτό το μήνυμα.</string>
 	<string name="howToAvoidThis">Πώς να το αποφύγετε αυτό;</string>
@@ -903,7 +907,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="youCannotPostYetPlaySomeGames">Δεν μπορείτε να δημοσιεύσετε σε αυτό το φόρουμ ακόμα. Παίξτε μερικά παιχνίδια!</string>
 	<string name="subscribe">Εγγραφείτε</string>
 	<string name="unsubscribe">Απεγγραφείτε</string>
-	<string name="notationType">Notation</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
 	<string name="blogPostsFromYear">Blog posts from %1$s</string>

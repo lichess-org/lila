@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="lishogiClasses">Turmas</string>
-	<string name="teachClassesOfChessStudents">Ensine turmas de estudantes de shogi com o pacote Turmas do Lishogi.</string>
+	<string name="teachClassesOfShogiStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
 	<string name="features">Recursos</string>
 	<string name="quicklyGenerateSafeUsernames">Gere rapidamente nomes de usuário e senhas seguras para estudantes</string>
 	<string name="trackStudentProgress">Observe o progresso dos estudantes em partidas e quebra-cabeças</string>

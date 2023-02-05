@@ -5,7 +5,7 @@
 	<string name="whyIsLishogiCalledLishogi">Lishogi はなぜ Lishogi と呼ばれるのですか？</string>
 	<string name="forkedFromLichess">Lishogi は lichess から枝分かれしたオープンソースプロジェクトですが、将棋をするので lishogi と呼ばれます。</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Lichess から派生しているからです。そして Lichess が Lichess と呼ばれるのはライブ/軽い/自由 (live/light/libre) とチェスの組み合わせだからです。Lishogi は %1$s と発音します。</string>
-	<string name="leechess">リーショウギ</string>
+	<string name="leeshogi">lee-shogi</string>
 	<string name="whyLiveLightLibre">「ライブ」それは24時間常に対局・観戦できるから。「軽い」「自由」は Lishogi がオープンソースで、他のサイトにありがちな誰かの権利などにわずらわされないからです。</string>
 	<string name="whyIsLilaCalledLila">同様に、Lishogi のソースコード %1$s は li[shogi in sca]la の略であり、 Lishogi の大部分は直感的なプログラミング言語である %2$s で書かれています。</string>
 	<string name="howCanIContributeToLishogi">どうやったら Lishogi に貢献できますか？</string>
@@ -35,7 +35,7 @@
 	<string name="inferiorThanXsEqualYtimeControl">＜ %1$s秒 = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s秒 = %2$s</string>
 	<string name="whatVariantsCanIplay">Lishogi にはどんなバリアント（変則ルール）がありますか？</string>
-	<string name="lishogiSupportChessAnd">Lishogi は本将棋と %1$s をサポートしています。</string>
+	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
 	<string name="whatIsACPL">「平均センチポーン差（ACPL: average centipawn loss）」とは？</string>
 	<string name="acplExplanation">「センチポーン」とはチェスで局面の有利さを表現するために使われる単位です。1 センチポーンは 1/100 ポーン、つまり 100 センチポーン＝1 ポーンです。この数字は対局には関係ありませんが、局面を評価する際に便利であり、コンピューターチェスでは欠かせないものとなっています。
   コンピュータの示す最善手をゼロとして、他の手で生じる局面を評価し、その差をセンチポーン単位で表現します。
@@ -85,7 +85,7 @@ Glicko 方式ではレーティングの算出と表示に「信頼区間」を�
 	<string name="ratingLeaderboards">レーティングのランキング</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">そのカテゴリーでレート戦 30 局以上を終え、</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">そのカテゴリーで過去 1 週間以内にレート戦を指し、</string>
-	<string name="ratingDeviationLowerThanXinChessYinVariants">レーティング偏差が%1$s（バリアントでは%2$s）未満で、</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
 	<string name="beInTopTen">そのカテゴリーで上位 10 人に入っていることです。</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2 番目の要件は、アカウントを使わなくなった人がランキングの中に残らないようにするためです。</string>
 	<string name="whyAreRatingHigher">レーティングの数字が他のチェスサイトや団体 (FIDE, USCFなど) より高いのはなぜ？</string>

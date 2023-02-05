@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="lishogiClasses">課程</string>
-	<string name="teachClassesOfChessStudents">使用Lishogi教導工具箱教導學生將棋</string>
+	<string name="teachClassesOfShogiStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
 	<string name="features">功能</string>
 	<string name="quicklyGenerateSafeUsernames">快速為學生建立安全的使用者名稱及密碼</string>
 	<string name="trackStudentProgress">記錄學生在棋局和解題中的成績</string>

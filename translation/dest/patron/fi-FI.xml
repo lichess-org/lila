@@ -6,7 +6,7 @@
 	<string name="becomePatron">Ryhdy Lishogiin tukijaksi</string>
 	<string name="xBecamePatron">%s ryhtyi Lishogiin tukijaksi</string>
 	<string name="newPatrons">Uusia tukijoita</string>
-	<string name="freeChess">Free shogi for everyone, forever!</string>
+	<string name="freeShogi">Free shogi for everyone, forever!</string>
 	<string name="noAdsNoSubs">Ei mainoksia, ei maksullisia tilauksia; vain avointa lähdekoodia ja intohimoa.</string>
 	<string name="thankYou">Kiitos lahjoituksestasi!</string>
 	<string name="youHaveLifetime">Sinulla on elinikäinen tukijatili. Se on aivan upeaa!</string>

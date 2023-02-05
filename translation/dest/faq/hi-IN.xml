@@ -5,7 +5,7 @@
 	<string name="whyIsLishogiCalledLishogi">Lishogi को Lishogi क्यों कहा जाता है?</string>
 	<string name="forkedFromLichess">Lishogi ओपन सोर्स प्रोजेक्ट (Open Source Project) है, जो Lichess से लिया गया है, लेकिन चूंकि यह shogi खेलने के लिए है, इसलिए इसे Lishogi कहा जाता है।</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">क्योंकि यह Liсhess से लिया गया है। और Liсhess को Liсhess कहा जाता है क्योंकि यह लाइव (live)/ लाइट(light) / लिबर्रे(libre) और शतरंज का संयोजन है। Lishogi का उच्चारण %1$s है।</string>
-	<string name="leechess">ली-शोगी (lee-shogi)</string>
+	<string name="leeshogi">lee-shogi</string>
 	<string name="whyLiveLightLibre">लाइव, क्योंकि गेम वास्तविक समय 24/7 में खेले और देखे जाते हैं; इस तथ्य के लिए कि Lishogi ओपन-सोर्स है और स्वामित्व वाली कबाड़ से अप्रभावित है जो अन्य वेबसाइटों को नुकसान पहुंचाती है।</string>
 	<string name="whyIsLilaCalledLila">इसी तरह, lishogi के लिए सोर्स कोड, %1$s, li[shogi in sca]la हे, यह देखते हुए कि lishogi के थोक को %2$s मे हे, एक सहज ज्ञान युक्त प्रोग्रामिंग भाषा में लिखा गया है।</string>
 	<string name="howCanIContributeToLishogi">मैं lishogi में कैसे योगदान कर सकता हूं ?</string>
@@ -35,7 +35,7 @@
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$s = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
 	<string name="whatVariantsCanIplay">Lishogi पर मैं कौन से संस्करण (variants) खेल सकता हूं ?</string>
-	<string name="lishogiSupportChessAnd">Lishogi मानक shogi और %1$s का समर्थन करता है।</string>
+	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
 	<string name="whatIsACPL">औसत सेंटीपोन हानि (एसीपीएल) क्या है?</string>
 	<string name="acplExplanation">सेंटपिपेन shogi में इस्तेमाल की जाने वाली माप की इकाई है जो कि लाभ का प्रतिनिधित्व करती है। एक सेंटिपोन एक मोहरे के 1/100 वें हिस्से के बराबर है। इसलिए 100 सेंटीपोन्स = 1 मोहरा। ये मूल्य खेल में कोई औपचारिक भूमिका नहीं निभाते हैं, लेकिन खिलाड़ियों के लिए उपयोगी होते हैं, और पदों के मूल्यांकन के लिए कंप्यूटर shogi में आवश्यक हैं।
 
@@ -95,7 +95,7 @@ LM शीर्षक के लिए मत पूछो।</string>
 	<string name="ratingLeaderboards">रेटिंग लीडरबोर्ड</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">किसी रेटिंग में कम से कम 30 रेटेड गेम खेले हैं,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">इस रेटिंग के लिए पिछले सप्ताह के भीतर एक रेटेड गेम खेला है,</string>
-	<string name="ratingDeviationLowerThanXinChessYinVariants">मानक shogi में %1$s से कम रेटिंग विचलन है, और वेरिएंट में %2$s से कम है,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
 	<string name="beInTopTen">इस रेटिंग में शीर्ष 10 में रहें।</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">दूसरी आवश्यकता इतनी है कि जो खिलाड़ी अब अपने खातों का उपयोग नहीं करते हैं वे लीडरबोर्ड को आबाद करना बंद कर देते हैं।</string>
 	<string name="whyAreRatingHigher">81Dojo और Shogi Club 24 जैसी अन्य साइटों और संगठनों की तुलना में रेटिंग अधिक क्यों हैं ?</string>

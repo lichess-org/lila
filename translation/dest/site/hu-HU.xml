@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">Játék egy ismerőssel</string>
 	<string name="playWithTheMachine">Játék a gép ellen</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">Küldd el ezt a linket annak, akivel játszani szeretnél</string>
@@ -18,14 +19,14 @@
 	<string name="stalemate">Patt</string>
 	<string name="impasse">Impasse</string>
 	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost">All royal pieces lost</string>
-	<string name="bareKing">Bare king</string>
+	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
+	<string name="bareKing" comment="Used in chushogi">Bare king</string>
 	<string name="gote">Gote</string>
 	<string name="white">Világos</string>
 	<string name="sente">Sente</string>
 	<string name="black">Sötét</string>
-	<string name="shitate">Shitate</string>
-	<string name="uwate">Uwate</string>
+	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor">Véletlen szín</string>
 	<string name="createAGame">Játék létrehozása</string>
 	<string name="whiteIsVictorious">Világos nyert</string>
@@ -33,7 +34,7 @@
 	<string name="xIsVictorious">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">Fehérrel fogsz játszani</string>
 	<string name="youPlayTheBlackPieces">Sötéttel fogsz játszani</string>
-	<string name="youPlayAsX">You play as %</string>
+	<string name="youPlayAsX">You play as %s</string>
 	<string name="itsYourTurn">Te következel</string>
 	<string name="cheatDetected">Cheat Detected</string>
 	<string name="variantEnding">Variáns vége</string>
@@ -61,6 +62,7 @@
 	<string name="whiteLeftTheGame">Világos elhagyta a játékot</string>
 	<string name="blackLeftTheGame">Sötét elhagyta a játékot</string>
 	<string name="xLeftTheGame">%s left the game</string>
+	<string name="xDidntMove">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Oszd meg ezt az linket, hogy mások nézhessék a játszmát</string>
 	<string name="theComputerAnalysisHasFailed">A számítógépes elemzés sikertelen</string>
 	<string name="viewTheComputerAnalysis">Számítógépes elemzés megtekintése</string>
@@ -258,7 +260,7 @@
 	<string name="incrementInSeconds">Többletidő (másodpercben)</string>
 	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
 	<string name="numberOfPeriods">Number of periods</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="freeOnlineShogi">Free Online Shogi</string>
 	<string name="spectators">Nézők:</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s értékelt</item>
@@ -337,6 +339,8 @@
 	<string name="youAreNotInTeam">Nem vagy a %s csapatban</string>
 	<string name="backToGame">Vissza a játékhoz</string>
 	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s csatlakozott a következő csapathoz: %2$s</string>
 	<string name="xCreatedTeamY">%1$s elkészítette a következő csapatot: %2$s</string>
 	<string name="xStartedStreaming">%s elkezdte a közvetítést</string>
@@ -351,7 +355,7 @@
 	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">Adott állásból</string>
-	<string name="default">Default</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">Default</string>
 	<string name="continueFromHere">Folytatás innen</string>
 	<string name="toStudy">Tanulmány</string>
 	<string name="importGame">Játszma importálása</string>
@@ -361,7 +365,7 @@ computer analysis, game chat and shareable URL.</string>
 		<item quantity="one">%s Importált játszma</item>
 		<item quantity="other">%s Importált játszma</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Kattints a táblára és lépj - innen tudjuk, hogy ember vagy.</string>
 	<string name="captcha.fail">Please solve the shogi captcha.</string>
 	<string name="notACheckmate">Ez nem matt</string>
@@ -438,7 +442,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="movesPlayed">Lépések száma</string>
 	<string name="whiteWins">Világos győzelmek</string>
 	<string name="blackWins">Sötét győzelmek</string>
-	<string name="xWins">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Döntetlenek</string>
 	<string name="nextXTournament">Következő %s verseny:</string>
 	<string name="averageOpponent">Ellenfelek átlaga</string>
@@ -639,7 +643,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="webmasters">Webmester</string>
 	<string name="about">Rólunk</string>
 	<string name="aboutX">%s névjegy</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
 	<string name="really">tényleg</string>
 	<string name="contribute">Hozzájárul</string>
 	<string name="termsOfService">Használati útmutató</string>
@@ -726,15 +730,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ezen a listán megtalálod az összes eszközt, amin be vagy jelentkezve. Ha nem ismersz fel egy eszközt, vond vissza.</string>
 	<string name="alternativelyYouCanX">Ha úgy gondolod %s.</string>
 	<string name="revokeAllSessions">eltávolíthatod az összes eszközt</string>
-	<string name="playChessEverywhere">Play shogi everywhere</string>
+	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
-	<string name="builtForTheLoveOfChessNotMoney">Built for the love of shogi, not money</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">Az összes funkció ingyenes, mindenki számára</string>
 	<string name="zeroAdvertisement">Nulla hírdetés</string>
 	<string name="fullFeatured">Teljeskörű funkciók</string>
 	<string name="phoneAndTablet">Telefon vagy táblagép</string>
 	<string name="bulletBlitzClassical">Bullet, blitz, hagyományos</string>
-	<string name="correspondenceChess">Correspondence shogi</string>
+	<string name="correspondenceShogi">Correspondence shogi</string>
 	<string name="onlineAndOfflinePlay">Játsz adatkapcsolattal vagy adatkapcsolat nélkül</string>
 	<string name="viewTheSolution">Megoldás megtekintése</string>
 	<string name="followAndChallengeFriends">Kövesd és hívd ki  a barátaidat</string>
@@ -777,8 +781,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="usernameCharsInvalid">A felhasználói névben nem szerepelhet más mint betűk, számok, aláhúzás- és kötőjel.</string>
 	<string name="usernameUnacceptable">A felhasználói név nem megfelelő.</string>
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
-	<string name="playChessInStyle">Play shogi in style</string>
-	<string name="chessBasics">Shogi basics</string>
+	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Oktatók</string>
 	<string name="invalidKif">Invalid KIF</string>
@@ -863,7 +867,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="weHadToTimeYouOutForAWhile">Kénytelenek vagyunk egy kis időre visszatartani.</string>
 	<string name="timeoutExpires">Feloldás %s múlva.</string>
 	<string name="why">Miért?</string>
-	<string name="pleasantChessExperience">We aim to provide a pleasant shogi experience for everyone.</string>
+	<string name="pleasantShogiExperience">We aim to provide a pleasant shogi experience for everyone.</string>
 	<string name="goodPractice">Ennek érdekében minden játékosnak követnie kell megfelelő magatartást.</string>
 	<string name="potentialProblem">Akkor mutatjuk ezt az üzenetet, ha potenciális problémát észlelünk.</string>
 	<string name="howToAvoidThis">Hogyan kerülhető el mindez?</string>
@@ -903,7 +907,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="youCannotPostYetPlaySomeGames">Még nem írhatsz a fórumokba. Játssz néhány partit!</string>
 	<string name="subscribe">Feliratkozás</string>
 	<string name="unsubscribe">Leiratkozás</string>
-	<string name="notationType">Notation</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
 	<string name="blogPostsFromYear">Blog posts from %1$s</string>

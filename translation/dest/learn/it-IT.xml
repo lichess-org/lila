@@ -212,17 +212,17 @@ con il valore più alto!</string>
 in due mosse!</string>
 	<string name="checkInTwoComplete">Congratulazioni! Hai dato scacco al tuo avversario costringendolo a difendere il re!</string>
 	<string name="whatNext">E ora?</string>
-	<string name="youKnowHowToPlayChess">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="youKnowHowToPlayShogi">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
 	<string name="register">Registrati</string>
 	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
 	<string name="practice">Allenamento</string>
-	<string name="learnCommonChessPositions">Learn common shogi positions</string>
+	<string name="learnCommonShogiPositions">Learn common shogi positions</string>
 	<string name="puzzles">Tattiche</string>
 	<string name="exerciseYourTacticalSkills">Allenati nelle tattiche scacchistiche</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="curatedShogiResources">See our curated list of shogi resources</string>
 	<string name="videos">Video</string>
-	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
+	<string name="watchInstructiveShogiVideos">Watch instructive shogi videos</string>
 	<string name="playPeople">Sfide!</string>
 	<string name="opponentsFromAroundTheWorld">Avversari da tutto il mondo</string>
 	<string name="playMachine">Gioca contro il computer</string>

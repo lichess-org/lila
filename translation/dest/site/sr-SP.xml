@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">Играј са пријатељем</string>
 	<string name="playWithTheMachine">Играј са рачунаром</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">Да позовете некога да игра, проследите овaј УРЛ</string>
@@ -18,14 +19,14 @@
 	<string name="stalemate">Пат</string>
 	<string name="impasse">Impasse</string>
 	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost">All royal pieces lost</string>
-	<string name="bareKing">Bare king</string>
+	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
+	<string name="bareKing" comment="Used in chushogi">Bare king</string>
 	<string name="gote">Gote</string>
 	<string name="white">Бели</string>
 	<string name="sente">Sente</string>
 	<string name="black">Црни</string>
-	<string name="shitate">Shitate</string>
-	<string name="uwate">Uwate</string>
+	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor">Насумична боја</string>
 	<string name="createAGame">Започни нову партију</string>
 	<string name="whiteIsVictorious">Бели је победник</string>
@@ -33,7 +34,7 @@
 	<string name="xIsVictorious">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">Играш са белим фигурама</string>
 	<string name="youPlayTheBlackPieces">Играш са црним фигурама</string>
-	<string name="youPlayAsX">You play as %</string>
+	<string name="youPlayAsX">You play as %s</string>
 	<string name="itsYourTurn">Ти си на потезу!</string>
 	<string name="cheatDetected">Cheat Detected</string>
 	<string name="variantEnding">Крај варијацијом</string>
@@ -62,6 +63,7 @@
 	<string name="whiteLeftTheGame">Бели је напустио партију</string>
 	<string name="blackLeftTheGame">Црни је напустио партију</string>
 	<string name="xLeftTheGame">%s left the game</string>
+	<string name="xDidntMove">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Подели овај линк како би посматрачи могли да гледају партију</string>
 	<string name="theComputerAnalysisHasFailed">Рачунарска анализа није успела</string>
 	<string name="viewTheComputerAnalysis">Погледај рачунарску анализу</string>
@@ -267,7 +269,7 @@
 	<string name="incrementInSeconds">Додавање у секундама</string>
 	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
 	<string name="numberOfPeriods">Number of periods</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="freeOnlineShogi">Free Online Shogi</string>
 	<string name="spectators">Посматрачи:</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s рангирана</item>
@@ -358,6 +360,8 @@
 	<string name="youAreNotInTeam">Ви нисте члан тима %s</string>
 	<string name="backToGame">Повратак у игру</string>
 	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s придружио/ла се тиму %2$s</string>
 	<string name="xCreatedTeamY">%1$s креирао/ла тим %2$s</string>
 	<string name="xStartedStreaming">%s је почео са приказивањем</string>
@@ -372,7 +376,7 @@
 	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">Од позиције</string>
-	<string name="default">Default</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">Default</string>
 	<string name="continueFromHere">Настави одавде</string>
 	<string name="toStudy">Проучи</string>
 	<string name="importGame">Увези игру</string>
@@ -383,7 +387,7 @@ computer analysis, game chat and shareable URL.</string>
 		<item quantity="few">%s увезене игре</item>
 		<item quantity="other">%s увезених игара</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Кликни на таблу и направи потез да би доказао да си човек.</string>
 	<string name="captcha.fail">Please solve the shogi captcha.</string>
 	<string name="notACheckmate">Није шахмат</string>
@@ -464,7 +468,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="movesPlayed">Одиграно потеза</string>
 	<string name="whiteWins">Победе као бели</string>
 	<string name="blackWins">Победе као црни</string>
-	<string name="xWins">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Ремија</string>
 	<string name="nextXTournament">Следећи %s турнир:</string>
 	<string name="averageOpponent">Просечан противник</string>
@@ -670,7 +674,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="webmasters">Вебмастери</string>
 	<string name="about">О нама</string>
 	<string name="aboutX">О %s</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
 	<string name="really">стварно</string>
 	<string name="contribute">Допринос</string>
 	<string name="termsOfService">Услови коришћења услуге</string>
@@ -758,15 +762,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ово је листа уређаја који су евидентирани у ваш налог. Опозовите све сесије које не препознајете.</string>
 	<string name="alternativelyYouCanX">Алтернативно, можете %s.</string>
 	<string name="revokeAllSessions">опозвати све сесије</string>
-	<string name="playChessEverywhere">Play shogi everywhere</string>
+	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
-	<string name="builtForTheLoveOfChessNotMoney">Built for the love of shogi, not money</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">Сви добијају све функције бесплатно</string>
 	<string name="zeroAdvertisement">Без огласа</string>
 	<string name="fullFeatured">Потпуно опремљен</string>
 	<string name="phoneAndTablet">Телефон или таблет</string>
 	<string name="bulletBlitzClassical">Булит, Блиц, Класична</string>
-	<string name="correspondenceChess">Correspondence shogi</string>
+	<string name="correspondenceShogi">Correspondence shogi</string>
 	<string name="onlineAndOfflinePlay">Играјте онлине и оффлине</string>
 	<string name="viewTheSolution">Погледај решење</string>
 	<string name="followAndChallengeFriends">Прати и изазови пријатеља</string>
@@ -810,8 +814,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="usernameCharsInvalid">Корисничко име може само да садржи слова, бројеве, доње црте и цртице.</string>
 	<string name="usernameUnacceptable">Ово корисничко име није прихватљиво.</string>
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
-	<string name="playChessInStyle">Play shogi in style</string>
-	<string name="chessBasics">Shogi basics</string>
+	<string name="playShogiInStyle">Play shogi in style</string>
+	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Тренери</string>
 	<string name="invalidKif">Invalid KIF</string>
@@ -899,7 +903,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="weHadToTimeYouOutForAWhile">Морали смо Вас привремено избацити.</string>
 	<string name="timeoutExpires">Тајм аут истиче %s.</string>
 	<string name="why">Зашто?</string>
-	<string name="pleasantChessExperience">We aim to provide a pleasant shogi experience for everyone.</string>
+	<string name="pleasantShogiExperience">We aim to provide a pleasant shogi experience for everyone.</string>
 	<string name="goodPractice">Баш због тога, ми се морамо потрудити да се сви играчи држе добре праксе.</string>
 	<string name="potentialProblem">Када је потенцијални проблем детектован, ми прикажемо ову поруку.</string>
 	<string name="howToAvoidThis">Како ово избећи?</string>
@@ -939,7 +943,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="youCannotPostYetPlaySomeGames">Још увек не можете писати поруке на овај форум. Играјте још коју партију!</string>
 	<string name="subscribe">Претплати се</string>
 	<string name="unsubscribe">Одјавите претплату</string>
-	<string name="notationType">Notation</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
 	<string name="blogPostsFromYear">Blog posts from %1$s</string>
