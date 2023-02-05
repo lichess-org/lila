@@ -15,7 +15,7 @@
     "common": "workspace:*",
     "date-fns": "^2.29.3",
     "debounce-promise": "^3.1.2",
-    "lichess-pgn-viewer": "^1.5.4"
+    "lichess-pgn-viewer": "^1.5.5"
   },
   "scripts": {
     "compile": "tsc",
