@@ -81,11 +81,10 @@ final class ChallengeBulkApi(
     }
 
   private def checkForClocks: Funit =
-    coll.one[ScheduledBulk]($doc("startClocksAt" $lte nowDate, "pairedAt" $exists true)) flatMapz {
-      bulk =>
-        workQueue(bulk.by) {
-          startClocksNow(bulk)
-        }
+    coll.one[ScheduledBulk]($doc("startClocksAt" $lte nowDate, "pairedAt" $exists true)) flatMapz { bulk =>
+      workQueue(bulk.by) {
+        startClocksNow(bulk)
+      }
     }
 
   private def startClocksNow(bulk: ScheduledBulk): Funit =

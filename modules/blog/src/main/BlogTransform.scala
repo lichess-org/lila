@@ -23,7 +23,7 @@ object BlogTransform:
       .maximumSize(64)
       .build[Int, Html]()
 
-    private val PreRegex = """<pre>markdown([^<]++)</pre>""".r
+    private val PreRegex = """<pre>markdown(.+)</pre>""".r
 
     def apply(html: Html): Html = Html {
       PreRegex.replaceAllIn(
