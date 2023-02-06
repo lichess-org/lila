@@ -63,4 +63,5 @@
   <string name="notifyPush">Obavještenje na uređaju kad niste na Lichessu</string>
   <string name="notifyWeb">Preglednik</string>
   <string name="notifyDevice">Uređaj</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Zvuk obavještenja</string>
 </resources>
