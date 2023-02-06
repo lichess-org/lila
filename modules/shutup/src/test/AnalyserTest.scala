@@ -87,4 +87,7 @@ class AnalyserTest extends Specification {
       ) must beTrue
     }
   }
+  "weird accents" >> {
+    find("you stupi̇d ni̇gger") === List("stupid", "nigger")
+  }
 }
