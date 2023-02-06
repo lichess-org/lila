@@ -55,4 +55,8 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
   <string name="allowChatHelp">Permite a los jugadores comunicarse en una sala de chat</string>
   <string name="arenaStreaks">Rachas de torneos</string>
   <string name="arenaStreaksHelp">Después de ganar 2 partidas seguidas, cada victoria consecutiva concede 4 puntos en lugar de 2.</string>
+  <string name="noBerserkAllowed">No permitir Berserk</string>
+  <string name="noArenaStreaks">Sin rachas de torneo</string>
+  <string name="averagePerformance">Rendimiento medio</string>
+  <string name="averageScore">Puntuación media</string>
 </resources>
