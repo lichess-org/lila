@@ -63,4 +63,5 @@
   <string name="notifyPush">Notificação do dispositivo quando não está no Lichess</string>
   <string name="notifyWeb">Navegador</string>
   <string name="notifyDevice">Dispositivo</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Som da notificação</string>
 </resources>
