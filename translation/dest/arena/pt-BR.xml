@@ -39,7 +39,7 @@ Assim que terminar a sua partida, você voltará a aguardar o emparceiramento co
   <string name="drawStreakStandard">Sequência de empate: se um jogador tiver empates consecutivos num torneio de arena, ou empates que ocorrerem após %s lances em partidas normais, apenas o primeiro conta pontos. A única maneira de interromper essa sequência é com uma vitória.</string>
   <string name="drawStreakVariants">O número mínimo de lances, para que se ganhe pontos com empates, difere por variante. A tabela abaixo mostra os valores mínimos para cada uma.</string>
   <string name="variant">Variante</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in a game">Número mínimo de lances</string>
+  <string name="minimumGameLength">Número mínimo de lances</string>
   <string name="history">Histórico de arenas</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Ver a equipe</item>
@@ -53,4 +53,8 @@ Assim que terminar a sua partida, você voltará a aguardar o emparceiramento co
   <string name="allowChatHelp">Permite que os jogadores discutam em uma sala de chat</string>
   <string name="arenaStreaks">Sequências de vitória em arena</string>
   <string name="arenaStreaksHelp">Após ganhar 2 partidas, vitórias consecutivas valem 4 pontos, ao invés de 2.</string>
+  <string name="noBerserkAllowed">Não é permitido Berserk</string>
+  <string name="noArenaStreaks">Sem sequências de vitória em arena</string>
+  <string name="averagePerformance">Desempenho médio</string>
+  <string name="averageScore">Pontuação média</string>
 </resources>
