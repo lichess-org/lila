@@ -3,7 +3,7 @@
   <string name="preferences">Indstillinger</string>
   <string name="display">Udseende</string>
   <string name="privacy">Privatliv</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Notifikationer</string>
+  <string name="notifications">Notifikationer</string>
   <string name="pieceAnimation">Animation af brikkerne</string>
   <string name="materialDifference">Materialeforskel</string>
   <string name="boardHighlights">Fremhævninger på brættet (af sidste træk og skak)</string>
@@ -51,16 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Dine præferencer er blevet gemt.</string>
   <string name="scrollOnTheBoardToReplayMoves">Brug musens scrollhjul på brættet for at afspille træk</string>
   <string name="correspondenceEmailNotification">Daglig e-mailnotifikation med dine korrespondance-spil</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Streamer går live</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Ny besked i indbakke</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Kommentar i forum nævner dig</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Invitation til studie</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Opdateringer af korrespondancepartier</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Udfordringer</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Turneringsstart nærmer sig</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">Ur i korrespondance er ved at løbe ud</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Klokkenotifikation i Lichess</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Notifikation på enhed, når du ikke er på Lichess</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Browser</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Enhed</string>
+  <string name="notifyStreamStart">Streamer går live</string>
+  <string name="notifyInboxMsg">Ny besked i indbakke</string>
+  <string name="notifyForumMention">Kommentar i forum nævner dig</string>
+  <string name="notifyInvitedStudy">Invitation til studie</string>
+  <string name="notifyGameEvent">Opdateringer af korrespondancepartier</string>
+  <string name="notifyChallenge">Udfordringer</string>
+  <string name="notifyTournamentSoon">Turneringsstart nærmer sig</string>
+  <string name="notifyTimeAlarm">Ur i korrespondance er ved at løbe ud</string>
+  <string name="notifyBell">Klokkenotifikation i Lichess</string>
+  <string name="notifyPush">Notifikation på enhed, når du ikke er på Lichess</string>
+  <string name="notifyWeb">Browser</string>
+  <string name="notifyDevice">Enhed</string>
 </resources>
