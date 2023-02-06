@@ -1,7 +1,5 @@
 package lila.game
 
-import org.joda.time.DateTime
-
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.user.User
@@ -82,7 +80,7 @@ final class CrosstableApi(
                 F.score1 -> inc1,
                 F.score2 -> inc2
               ) ++ $set(
-                F.lastPlayed -> DateTime.now
+                F.lastPlayed -> nowDate
               ),
               upsert = true
             )

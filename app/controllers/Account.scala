@@ -9,7 +9,6 @@ import views.html
 import lila.api.AnnounceStore
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
 import lila.user.{ Holder, TotpSecret, User as UserModel }
 import lila.i18n.I18nLangPicker
@@ -100,14 +99,21 @@ final class Account(
       )
     }
 
-  def apiMe =
+  val apiMe =
+    val rateLimit = lila.memo.RateLimit[UserId](30, 10.minutes, "api.account.user")
     Scoped() { req => me =>
-      env.api.userApi.extended(
-        me,
-        me.some,
-        withFollows = apiC.userWithFollows(req),
-        withTrophies = false
-      )(using I18nLangPicker(req, me.lang)) dmap { JsonOk(_) }
+      rateLimit(me.id) {
+        env.api.userApi.extended(
+          me,
+          me.some,
+          withFollows = apiC.userWithFollows(req),
+          withTrophies = false
+        )(using I18nLangPicker(req, me.lang)) dmap { JsonOk(_) }
+      }(
+        rateLimitedFu(
+          "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
+        )
+      )
     }
 
   def apiNowPlaying =
@@ -140,16 +146,16 @@ final class Account(
 
   def passwd =
     Auth { implicit ctx => me =>
-      env.user.forms passwd me map { form =>
+      env.security.forms passwdChange me map { form =>
         Ok(html.account.passwd(form))
       }
     }
 
   def passwdApply =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.id, ctx.req) { _ =>
+      auth.HasherRateLimit(me.id, ctx.req) {
         given play.api.mvc.Request[?] = ctx.body
-        env.user.forms passwd me flatMap { form =>
+        env.security.forms passwdChange me flatMap { form =>
           FormFuResult(form) { err =>
             fuccess(html.account.passwd(err))
           } { data =>
@@ -160,7 +166,7 @@ final class Account(
       }
     }
 
-  private def refreshSessionId(me: UserModel, result: Result)(implicit ctx: Context): Fu[Result] =
+  private def refreshSessionId(me: UserModel, result: Result)(using ctx: Context): Fu[Result] =
     env.security.store.closeAllSessionsOf(me.id) >>
       env.push.webSubscriptionApi.unsubscribeByUser(me) >>
       env.push.unregisterDevices(me) >>
@@ -194,7 +200,7 @@ final class Account(
 
   def emailApply =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.id, ctx.req) { _ =>
+      auth.HasherRateLimit(me.id, ctx.req) {
         given play.api.mvc.Request[?] = ctx.body
         env.security.forms.preloadEmailDns() >> emailForm(me).flatMap { form =>
           FormFuResult(form) { err =>
@@ -263,7 +269,7 @@ final class Account(
 
   def setupTwoFactor =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.id, ctx.req) { _ =>
+      auth.HasherRateLimit(me.id, ctx.req) {
         given play.api.mvc.Request[?] = ctx.body
         env.security.forms.setupTwoFactor(me) flatMap { form =>
           FormFuResult(form) { err =>
@@ -278,7 +284,7 @@ final class Account(
 
   def disableTwoFactor =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.id, ctx.req) { _ =>
+      auth.HasherRateLimit(me.id, ctx.req) {
         given play.api.mvc.Request[?] = ctx.body
         env.security.forms.disableTwoFactor(me) flatMap { form =>
           FormFuResult(form) { err =>
@@ -304,7 +310,7 @@ final class Account(
     AuthBody { implicit ctx => me =>
       NotManaged {
         given play.api.mvc.Request[?] = ctx.body
-        auth.HasherRateLimit(me.id, ctx.req) { _ =>
+        auth.HasherRateLimit(me.id, ctx.req) {
           env.security.forms closeAccount me flatMap { form =>
             FormFuResult(form) { err =>
               fuccess(html.account.close(me, err, managed = false))

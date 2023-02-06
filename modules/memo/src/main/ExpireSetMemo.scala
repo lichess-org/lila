@@ -3,7 +3,6 @@ package lila.memo
 import com.github.blemale.scaffeine.Cache
 import alleycats.Zero
 import scala.annotation.nowarn
-import scala.concurrent.duration.FiniteDuration
 
 final class ExpireSetMemo[K](ttl: FiniteDuration)(using StringRuntime[K]):
 

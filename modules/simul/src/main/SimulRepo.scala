@@ -2,7 +2,6 @@ package lila.simul
 
 import chess.{ Clock, Status }
 import chess.variant.Variant
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 
 import lila.db.BSON
@@ -81,8 +80,8 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
       .find(
         // hits partial index hostSeenAt_-1
         createdSelect ++ featurableSelect ++ $doc(
-          "hostSeenAt" $gte DateTime.now.minusSeconds(12),
-          "createdAt" $gte DateTime.now.minusHours(1)
+          "hostSeenAt" $gte nowDate.minusSeconds(12),
+          "createdAt" $gte nowDate.minusHours(1)
         )
       )
       .sort(createdSort)
@@ -139,7 +138,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
     coll.update
       .one(
         $id(simul.id),
-        $set("hostSeenAt" -> DateTime.now)
+        $set("hostSeenAt" -> nowDate)
       )
       .void
 
@@ -154,6 +153,6 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
   def cleanup =
     coll.delete.one(
       createdSelect ++ $doc(
-        "createdAt" -> $doc("$lt" -> (DateTime.now minusMinutes 60))
+        "createdAt" -> $doc("$lt" -> (nowDate minusMinutes 60))
       )
     )

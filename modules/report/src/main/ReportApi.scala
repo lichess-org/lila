@@ -1,9 +1,7 @@
 package lila.report
 
 import com.softwaremill.macwire.*
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.{ Bus, Heapsort }
 import lila.db.dsl.{ *, given }
@@ -307,7 +305,7 @@ final class ReportApi(
         selector,
         $set(
           "open" -> false,
-          "done" -> Report.Done(by, DateTime.now)
+          "done" -> Report.Done(by, nowDate)
         ) ++ $unset("inquiry"),
         multi = true
       )
@@ -365,7 +363,7 @@ final class ReportApi(
               )
               .dmap(room -> _)
           }
-          .sequenceFu
+          .parallel
           .dmap { scores =>
             Room.Scores(scores.map { (room, s) =>
               room -> s.??(_.toInt)
@@ -432,7 +430,7 @@ final class ReportApi(
       "atoms.by",
       $doc(
         "user" -> sus.user.id,
-        "atoms.0.at" $gt DateTime.now.minusDays(3)
+        "atoms.0.at" $gt nowDate.minusDays(3)
       ),
       ReadPreference.secondaryPreferred
     ) dmap (_ filterNot ReporterId.lichess.==)
@@ -457,7 +455,7 @@ final class ReportApi(
       reports
         .flatMap { r =>
           users.find(_.id == r.user) map { u =>
-            Report.WithSuspect(r, Suspect(u), isOnline.value(u.id))
+            Report.WithSuspect(r, Suspect(u), isOnline(u.id))
           }
         }
         .sortBy(-_.urgency)
@@ -518,7 +516,7 @@ final class ReportApi(
 
   private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc =
     $doc(
-      "atoms.0.at" $gt DateTime.now.minusDays(7),
+      "atoms.0.at" $gt nowDate.minusDays(7),
       "user"   -> suspect.value,
       "reason" -> reason
     )
@@ -587,7 +585,7 @@ final class ReportApi(
               .updateField(
                 $id(r.id),
                 "inquiry",
-                Report.Inquiry(mod.user.id, DateTime.now)
+                Report.Inquiry(mod.user.id, nowDate)
               )
               .void
           }
@@ -630,7 +628,7 @@ final class ReportApi(
               ) scored Report.Score(0),
               none
             )
-            .copy(inquiry = Report.Inquiry(mod.user.id, DateTime.now).some)
+            .copy(inquiry = Report.Inquiry(mod.user.id, nowDate).some)
           coll.insert.one(report) inject report
         }
       }
@@ -639,7 +637,7 @@ final class ReportApi(
       workQueue {
         val selector = $doc(
           "inquiry.mod" $exists true,
-          "inquiry.seenAt" $lt DateTime.now.minusMinutes(20)
+          "inquiry.seenAt" $lt nowDate.minusMinutes(20)
         )
         coll.delete.one(selector ++ $doc("text" -> Report.spontaneousText)) >>
           coll.update.one(selector, $unset("inquiry"), multi = true).void

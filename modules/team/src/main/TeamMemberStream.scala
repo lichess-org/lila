@@ -3,8 +3,6 @@ package lila.team
 import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
-import org.joda.time.DateTime
 
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }

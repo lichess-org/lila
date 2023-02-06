@@ -4,10 +4,7 @@ import akka.stream.scaladsl.*
 import com.roundeights.hasher.Algo
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
-import org.joda.time.DateTime
 import play.api.libs.json.*
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 import scala.util.chaining.*
 
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
@@ -155,7 +152,7 @@ final class TournamentApi(
                           .mon(_.tournament.pairing.createAutoPairing)
                           .map { socket.startGame(tour.id, _) }
                       }
-                      .sequenceFu
+                      .parallel
                       .void
                       .mon(_.tournament.pairing.createInserts) >>- {
                       lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
@@ -245,7 +242,7 @@ final class TournamentApi(
     import lila.tournament.Tournament.tournamentUrl
     tour.schedule.exists(_.freq == Schedule.Freq.Marathon) ?? {
       playerRepo.bestByTourWithRank(tour.id, 500).flatMap { players =>
-        lila.common.Future
+        lila.common.LilaFuture
           .applySequentially(players) {
             case rp if rp.rank.value == 1 =>
               trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonWinner)
@@ -388,7 +385,7 @@ final class TournamentApi(
     tournamentRepo.withdrawableIds(user.id, reason = "withdrawAll") flatMap {
       _.map {
         withdraw(_, user.id, isPause = false, isStalling = false)
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   private[tournament] def berserk(gameId: GameId, userId: UserId): Funit =
@@ -413,7 +410,7 @@ final class TournamentApi(
       pairingRepo.finishAndGet(game) flatMap { pairingOpt =>
         Parallel(tourId, "finishGame")(cached.tourCache.started) { tour =>
           pairingOpt ?? { pairing =>
-            game.userIds.map(updatePlayerAfterGame(tour, game, pairing)).sequenceFu.void
+            game.userIds.map(updatePlayerAfterGame(tour, game, pairing)).parallel.void
           } >>- {
             duelStore.remove(game)
             socket.reload(tour.id)
@@ -467,7 +464,7 @@ final class TournamentApi(
     tournamentRepo.withdrawableIds(userId, reason = "pausePlaybanned") flatMap {
       _.map {
         playerRepo.withdraw(_, userId)
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   private[tournament] def kickFromTeam(teamId: TeamId, userId: UserId): Funit =
@@ -479,7 +476,7 @@ final class TournamentApi(
             else playerRepo.withdraw(tour.id, userId)
           fu >> updateNbPlayers(tourId) >>- socket.reload(tourId)
         }
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   // withdraws the player and forfeits all pairings in ongoing tournaments
@@ -496,7 +493,7 @@ final class TournamentApi(
               }
             } >> pairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
               pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
-                lila.common.Future.applySequentially(uids.toList)(recomputePlayerAndSheet(tour))
+                lila.common.LilaFuture.applySequentially(uids.toList)(recomputePlayerAndSheet(tour))
             }
           }
         } >>
@@ -648,12 +645,12 @@ final class TournamentApi(
     tournamentRepo.standardPublicStartedFromSecondary.flatMap {
       _.map { tour =>
         tournamentTop(tour.id) dmap (tour -> _)
-      }.sequenceFu
+      }.parallel
         .dmap(_.toMap)
     }
 
   def calendar: Fu[List[Tournament]] =
-    val from = DateTime.now.minusDays(1)
+    val from = nowDate.minusDays(1)
     tournamentRepo.calendar(from = from, to = from plusYears 1)
 
   def history(freq: Schedule.Freq, page: Int): Fu[Paginator[Tournament]] =

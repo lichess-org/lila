@@ -1,7 +1,5 @@
 package lila.pool
 
-import scala.concurrent.Promise
-
 import lila.common.Bus
 
 final private class HookThieve()(using

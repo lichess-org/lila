@@ -1,8 +1,6 @@
 package lila.puzzle
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -108,7 +106,7 @@ final class PuzzleDashboardApi(
           "fixes"  -> Sum(countField("f")),
           "rating" -> AvgField("puzzle.rating")
         )
-        Match($doc("u" -> userId, "d" $gt DateTime.now.minusDays(days))) -> List(
+        Match($doc("u" -> userId, "d" $gt nowDate.minusDays(days))) -> List(
           Sort(Descending("d")),
           Limit(10_000),
           PipelineOperator(

@@ -2,12 +2,10 @@ package lila.relay
 
 import akka.stream.scaladsl.Source
 import alleycats.Zero
-import org.joda.time.DateTime
 import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 
 import lila.common.config.MaxPerSecond
@@ -83,6 +81,10 @@ final class RelayApi(
       .sort($doc("startedAt" -> -1, "startsAt" -> -1))
       .one[RelayRound]
 
+  private var spotlightCache: List[RelayTour.ActiveWithNextRound] = Nil
+
+  def spotlight = spotlightCache
+
   val officialActive = cacheApi.unit[List[RelayTour.ActiveWithNextRound]] {
     _.refreshAfterWrite(5 seconds)
       .buildAsyncFuture { _ =>
@@ -110,11 +112,20 @@ final class RelayApi(
             )
           }
           .map { docs =>
-            for {
+            for
               doc   <- docs
               tour  <- doc.asOpt[RelayTour]
               round <- doc.getAsOpt[RelayRound]("round")
-            } yield RelayTour.ActiveWithNextRound(tour, round)
+            yield RelayTour.ActiveWithNextRound(tour, round)
+          }
+          .addEffect { trs =>
+            spotlightCache = trs
+              .filter(_.tour.tier.has(RelayTour.Tier.BEST))
+              .filterNot(_.round.finished)
+              .filter { tr =>
+                tr.round.hasStarted || tr.round.startsAt.exists(_.isBefore(nowDate.plusMinutes(30)))
+              }
+              .take(2)
           }
       }
   }
@@ -128,7 +139,7 @@ final class RelayApi(
         Match(
           $doc(
             "sync.until" $exists true,
-            "sync.nextAt" $lt DateTime.now
+            "sync.nextAt" $lt nowDate
           )
         ) -> List(
           PipelineOperator(tourRepo lookup "tourId"),
@@ -290,8 +301,8 @@ final class RelayApi(
   private[relay] def autoStart: Funit =
     roundRepo.coll.list[RelayRound](
       $doc(
-        "startsAt" $lt DateTime.now.plusMinutes(30) // start 30 minutes early to fetch boards
-          $gt DateTime.now.minusDays(1),            // bit late now
+        "startsAt" $lt nowDate.plusMinutes(30) // start 30 minutes early to fetch boards
+          $gt nowDate.minusDays(1),            // bit late now
         "startedAt" $exists false,
         "sync.until" $exists false
       )
@@ -299,7 +310,7 @@ final class RelayApi(
       _.map { relay =>
         logger.info(s"Automatically start $relay")
         requestPlay(relay.id, v = true)
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   private[relay] def autoFinishNotSyncing: Funit =
@@ -307,17 +318,17 @@ final class RelayApi(
       $doc(
         "sync.until" $exists false,
         "finished" -> false,
-        "startedAt" $lt DateTime.now.minusHours(3),
+        "startedAt" $lt nowDate.minusHours(3),
         $or(
           "startsAt" $exists false,
-          "startsAt" $lt DateTime.now
+          "startsAt" $lt nowDate
         )
       )
     ) flatMap {
       _.map { relay =>
         logger.info(s"Automatically finish $relay")
         update(relay)(_.finish)
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   private[relay] def WithRelay[A: Zero](id: RelayRoundId)(f: RelayRound => Fu[A]): Fu[A] =

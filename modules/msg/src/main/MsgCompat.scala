@@ -4,7 +4,6 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.common.Json.given
@@ -126,6 +125,6 @@ final class MsgCompat(
 
   private def renderUser(user: LightUser) =
     LightUser.lightUserWrites.writes(user) ++ Json.obj(
-      "online"   -> isOnline.value(user.id),
+      "online"   -> isOnline(user.id),
       "username" -> user.name // for mobile app BC
     )

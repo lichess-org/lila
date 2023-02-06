@@ -1,6 +1,5 @@
 package lila.racer
 
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.storm.StormPuzzle
@@ -35,7 +34,7 @@ case class RacerRace(
 
   def startCountdown: Option[RacerRace] =
     startsAt.isEmpty && players.size > (if (isLobby) 2 else 1) option
-      copy(startsAt = DateTime.now.plusSeconds(countdownSeconds).some)
+      copy(startsAt = nowDate.plusSeconds(countdownSeconds).some)
 
   def startsInMillis = startsAt.map(d => d.getMillis - nowMillis)
 

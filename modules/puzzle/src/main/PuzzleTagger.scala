@@ -3,7 +3,6 @@ package lila.puzzle
 import chess.format.{ Fen, Uci }
 import chess.{ Divider, Division }
 import reactivemongo.akkastream.cursorProducer
-import scala.concurrent.duration.*
 
 import lila.common.LilaStream
 import lila.db.dsl.{ *, given }
@@ -50,14 +49,14 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
         logger.error(s"Can't compute phase of puzzle $puzzle")
         funit
 
-  private def checkFirstTheme(puzzle: Puzzle): Funit = ~ {
-    for {
+  private def checkFirstTheme(puzzle: Puzzle): Funit = {
+    for
       init <- puzzle.situationAfterInitialMove
       if !puzzle.hasTheme(PuzzleTheme.mateIn1)
       move  <- puzzle.line.tail.headOption
       first <- init.move(move).toOption.map(_.situationAfter)
-    } yield first.check
-  } ?? {
+    yield first.check
+  }.exists(_.yes) ?? {
     colls.round {
       _.update
         .one(

@@ -1,7 +1,6 @@
 package lila.memo
 
 import play.api.mvc.Result
-import scala.concurrent.duration.FiniteDuration
 
 /** only allow X futures at a time per key
   */

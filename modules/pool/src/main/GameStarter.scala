@@ -1,7 +1,5 @@
 package lila.pool
 
-import scala.concurrent.duration.*
-
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
 import lila.rating.Perf
 import lila.user.{ User, UserRepo }
@@ -12,10 +10,7 @@ final private class GameStarter(
     gameRepo: GameRepo,
     idGenerator: IdGenerator,
     onStart: GameId => Unit
-)(using
-    ec: Executor,
-    scheduler: akka.actor.Scheduler
-):
+)(using Executor, akka.actor.Scheduler):
 
   import PoolApi.*
 
@@ -28,7 +23,7 @@ final private class GameStarter(
         val userIds = couples.flatMap(_.userIds)
         userRepo.perfOf(userIds, pool.perfType) zip idGenerator.games(couples.size) flatMap {
           case (perfs, ids) =>
-            couples.zip(ids).map((one(pool, perfs)).tupled).sequenceFu.map { pairings =>
+            couples.zip(ids).map((one(pool, perfs)).tupled).parallel.map { pairings =>
               lila.common.Bus.publish(Pairings(pairings.flatten.toList), "poolPairings")
             }
         }
@@ -41,7 +36,7 @@ final private class GameStarter(
   ): Fu[Option[Pairing]] =
     import couple.*
     import cats.implicits.*
-    (perfs.get(p1.userId), perfs.get(p2.userId)).mapN((_, _)) ?? { case (perf1, perf2) =>
+    (perfs.get(p1.userId), perfs.get(p2.userId)).mapN((_, _)) ?? { (perf1, perf2) =>
       for {
         p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)
         (whitePerf, blackPerf)     = if (p1White) perf1 -> perf2 else perf2 -> perf1

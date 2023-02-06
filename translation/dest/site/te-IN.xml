@@ -3,9 +3,9 @@
   <string name="playWithAFriend">మిత్రులతో ఆడండి</string>
   <string name="playWithTheMachine">కంప్యూటర్ తో ఆడండి</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ఆటకు ఆహ్వానించడానికి ఈ లింక్ ఇవ్వండి</string>
-  <string name="gameOver">ఆట సమాప్తం</string>
+  <string name="gameOver">ఆట ముగిసిపోయింది</string>
   <string name="waitingForOpponent">ప్రత్యర్థి కోసం ఎదురుచూస్తున్నాం</string>
-  <string name="waiting">కాచుకొని ఉన్నాం</string>
+  <string name="waiting">ఎదురుచాస్తున్నాం</string>
   <string name="yourTurn">మీ వంతు</string>
   <string name="aiNameLevelAiLevel">%1$s స్థాయి %2$s</string>
   <string name="level">స్థాయి</string>
@@ -28,7 +28,7 @@
   <string name="itsYourTurn">ఇప్పుడు మీ వంతు!</string>
   <string name="cheatDetected">మోసం కనుగొనబడింది</string>
   <string name="kingInTheCenter">రాజు రంగమధ్యం చేరారు</string>
-  <string name="threeChecks">మూడువైపుల నుంచి కత్తులు దూస్తున్నాయి</string>
+  <string name="threeChecks">మూడు చెక్కులు</string>
   <string name="raceFinished">పరుగు ముగిసింది</string>
   <string name="variantEnding">మరొక ముగింపు</string>
   <string name="newOpponent">కొత్త ప్రత్యర్థి</string>

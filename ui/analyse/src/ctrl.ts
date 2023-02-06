@@ -163,10 +163,10 @@ export default class AnalyseCtrl {
 
     lichess.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
-        lichess.loadScript('javascripts/music/replay.js').then(() => {
-          this.music = window.lichessReplayMusic();
+        lichess.loadScript('javascripts/music/play.js').then(() => {
+          this.music = lichess.playMusic();
         });
-      if (this.music && set !== 'music') this.music = null;
+      if (this.music && set !== 'music') this.music = undefined;
     });
 
     lichess.pubsub.on('ply.trigger', () =>
@@ -449,7 +449,6 @@ export default class AnalyseCtrl {
         ...pgnImport(pgn),
         orientation: this.bottomColor(),
         pref: this.data.pref,
-        evalPut: this.data.evalPut,
       } as AnalyseData;
       if (andReload) {
         this.reloadData(data, false);
@@ -875,7 +874,6 @@ export default class AnalyseCtrl {
       canPut: () =>
         !!(
           this.ceval?.cachable &&
-          this.data.evalPut &&
           this.canEvalGet() &&
           // if not in study, only put decent opening moves
           (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99))

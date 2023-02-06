@@ -8,7 +8,6 @@ import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.common.HTTPRequest

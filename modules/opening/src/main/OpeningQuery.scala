@@ -6,7 +6,6 @@ import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 import chess.Replay
 import chess.variant.Standard
 import chess.{ Situation, Speed }
-import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
 import lila.common.LilaOpeningFamily
@@ -17,8 +16,8 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   def position         = replay.state.situation
   def variant          = chess.variant.Standard
   val fen              = Fen writeOpening replay.state.situation
-  val opening          = OpeningDb findByOpeningFen fen
-  val family           = opening.map(_.family)
+  val exactOpening     = OpeningDb findByOpeningFen fen
+  val family           = exactOpening.map(_.family)
   def pgnString        = PgnMovesStr(sans mkString " ")
   def pgnUnderscored   = sans mkString "_"
   def initial          = sans.isEmpty
@@ -30,16 +29,16 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   )
 
   val openingAndExtraMoves: (Option[Opening], List[SanStr]) =
-    opening.map(_.some -> Nil) orElse OpeningDb.search(replay).map { case Opening.AtPly(op, ply) =>
+    exactOpening.map(_.some -> Nil) orElse OpeningDb.search(replay).map { case Opening.AtPly(op, ply) =>
       op.some -> sans.drop(ply.value + 1).toList
     } getOrElse (none, sans.toList)
+
+  def closestOpening: Option[Opening] = openingAndExtraMoves._1
 
   val name: String = openingAndExtraMoves match
     case (Some(op), Nil)   => op.name.value
     case (Some(op), moves) => s"${op.name}, ${moves mkString " "}"
     case (_, moves)        => moves mkString " "
-
-  def isExactOpening = openingAndExtraMoves._2.isEmpty
 
   override def toString = s"$query $config"
 

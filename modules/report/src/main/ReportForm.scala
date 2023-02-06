@@ -3,7 +3,6 @@ package lila.report
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.*
-import scala.concurrent.duration.*
 
 import lila.common.{ config, LightUser }
 import lila.common.Form.given

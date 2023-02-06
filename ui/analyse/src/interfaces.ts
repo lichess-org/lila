@@ -45,7 +45,6 @@ export interface AnalyseData {
   forecast?: ForecastData;
   sidelines?: Tree.Node[][];
   treeParts: Tree.Node[];
-  evalPut?: boolean;
   practiceGoal?: PracticeGoal;
   clock?: Clock;
   pref: AnalysePref;

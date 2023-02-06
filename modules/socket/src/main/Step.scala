@@ -1,7 +1,7 @@
 package lila.socket
 
 import chess.format.{ Fen, Uci }
-import chess.{ Ply, Pos }
+import chess.{ Check, Ply, Pos }
 import chess.variant.Crazyhouse
 import play.api.libs.json.*
 
@@ -9,7 +9,7 @@ case class Step(
     ply: Ply,
     move: Option[Uci.WithSan],
     fen: Fen.Epd,
-    check: Boolean,
+    check: Check,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]],
     drops: Option[List[Pos]],

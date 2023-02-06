@@ -7,7 +7,6 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.Mode
-import scala.concurrent.duration.*
 import scala.util.Try
 
 import lila.common.config

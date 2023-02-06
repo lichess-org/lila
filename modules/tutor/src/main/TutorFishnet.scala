@@ -1,7 +1,6 @@
 package lila.tutor
 
 import com.softwaremill.tagging.*
-import scala.concurrent.duration.*
 
 import lila.common.config
 import lila.fishnet.{ Analyser, FishnetAwaiter, Work }
@@ -31,7 +30,7 @@ final private class TutorFishnet(
         val ids = s.gameIds.take(s.stats.totalNbGames * maxGamesToConsider.value / totalNbGames)
         gameRepo.unanalysedGames(ids, config.Max(s.stats.totalNbGames * maxToAnalyse.value / totalNbGames))
       }
-      .sequenceFu
+      .parallel
       .map(_.flatten) flatMap { games =>
       games.foreach { analyser(_, sender, ignoreConcurrentCheck = true) }
       awaiter(games.map(_.id), maxTime)

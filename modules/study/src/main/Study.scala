@@ -1,7 +1,7 @@
 package lila.study
 
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
+import chess.format.UciPath
 
 import lila.user.User
 
@@ -41,7 +41,7 @@ case class Study(
   def withChapter(c: Chapter.Like): Study = if (isCurrent(c)) this else rewindTo(c)
 
   def rewindTo(c: Chapter.Like): Study =
-    copy(position = Position.Ref(chapterId = c.id, path = Path.root))
+    copy(position = Position.Ref(chapterId = c.id, path = UciPath.root))
 
   def isPublic   = visibility == Study.Visibility.Public
   def isUnlisted = visibility == Study.Visibility.Unlisted
@@ -60,8 +60,8 @@ case class Study(
       visibility = Study.Visibility.Private,
       from = Study.From.Study(id),
       likes = Likes(1),
-      createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      createdAt = nowDate,
+      updatedAt = nowDate
     )
 
   def nbMembers = members.members.size
@@ -156,12 +156,12 @@ object Study:
       _id = id | makeId,
       name = name | StudyName(s"${user.username}'s Study"),
       members = StudyMembers(Map(user.id -> owner)),
-      position = Position.Ref(StudyChapterId(""), Path.root),
+      position = Position.Ref(StudyChapterId(""), UciPath.root),
       ownerId = user.id,
       visibility = Visibility.Public,
       settings = settings | Settings.init,
       from = from,
       likes = Likes(1),
-      createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      createdAt = nowDate,
+      updatedAt = nowDate
     )

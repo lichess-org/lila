@@ -146,6 +146,7 @@
   <string name="viewInFullSize">ดูแบบเต็มขนาด</string>
   <string name="logOut">ลงชื่อออก</string>
   <string name="signIn">ลงชื่อเข้าใช้</string>
+  <string name="rememberMe">ให้ฉันคงอยู่ในระบบ</string>
   <string name="youNeedAnAccountToDoThat">คุณต้องมีบัญชีผู้ใช้เพื่อทำสิ่งนั้น</string>
   <string name="signUp">ลงทะเบียน</string>
   <string name="computersAreNotAllowedToPlay">ผู้เล่นที่เป็นคอมพิวเตอร์หรือใช้คอมพิวเตอร์ช่วย จะไม่ได้รับอนุญาตให้เล่น  โปรดอย่าใช้การช่วยเหลือจากตัวช่วยเล่นหมากรุก, ฐานข้อมูล หรือบุคคลอื่น ในขณะเล่น</string>
@@ -191,13 +192,27 @@
   <string name="email">อีเมล</string>
   <string name="passwordReset">ตั้งรหัสผ่านใหม่</string>
   <string name="forgotPassword">ลืมรหัสผ่าน?</string>
+  <string name="error.weakPassword">รหัสผ่านนี้ เป็นรหัสผ่านที่ใช้กันทั่วไป และสามารถเดาได้ง่าย</string>
+  <string name="error.namePassword">โปรดอย่าใส่ชื่อผู้ใช้งานเป็นรหัสผ่าน</string>
+  <string name="youAreLeavingLichess">คุณกำลังออกจากเว็บไซต์ Lichess</string>
+  <string name="neverTypeYourPassword">อย่าบอกรหัสผ่าน Lichess ของคุณให้เว็บไซต์อื่น!</string>
+  <string name="passwordSuggestion">อย่าตั้งรหัสผ่านที่คนอี่นแนะนำให้ตั้ง พวกเขาจะสามารถขโมยบัญชีของคุณได้</string>
+  <string name="emailSuggestion">อย่าตั้งรหัสผ่านที่คนอี่นแนะนำให้ตั้ง พวกเขาจะสามารถขโมยบัญชีของคุณได้</string>
   <string name="emailConfirmHelp">ขอความช่วยเหลือในการรับอีเมลยืนยันตัวตน</string>
   <string name="emailConfirmNotReceived">ไม่ได้รับอีเมลยืนยันตัวตนหลังสมัครบัญชี?</string>
   <string name="whatSignupUsername">ชื่อบัญชีที่คุณสมัครคืออะไร</string>
   <string name="usernameNotFound">ไม่พบชื่อบัญชีในชื่อ: %s</string>
+  <string name="usernameCanBeUsedForNewAccount">คุณสามารถใช้ชื่อผู้ใช้นี้เพื่อสร้างบัญชีใหม่ได้</string>
   <string name="emailSent">เราได้ส่งอีเมลไปที่ %s</string>
   <string name="emailCanTakeSomeTime">อาจจะเป็นเวลาสักพักก่อนที่จะได้รับ</string>
   <string name="refreshInboxAfterFiveMinutes">รอ 5 นาทีและรีเฟรชกล่องจดหมายของคุณ</string>
+  <string name="emailForSignupHelp">ถ้ายังไม่สามารถสมัครได้ ส่งอีเมลมาหาเราที่นี่:</string>
+  <string name="copyTextToEmail">คัดลอกและวางข้อความข้างบน แล้วส่งไปที่ %s</string>
+  <string name="waitForSignupHelp">เราจะติดต่อคุณอย่างรวดเร็วเพื่อช่วยคุณสมัครบัญชีให้สำเร็จ</string>
+  <string name="accountCanLogin">คุณสามารถเข้าใช้งานได้แล้ว ด้วยชื่อ %s</string>
+  <string name="accountConfirmationEmailNotNeeded">คุณไม่จำเป็นต้องมีอีเมลยืนยัน</string>
+  <string name="accountClosed">บัญชี %s ถูกปิดแล้ว</string>
+  <string name="accountRegisteredWithoutEmail">บัญชี %s ถูกสมัครโดยไม่มีอีเมล</string>
   <string name="rank">อันดับ</string>
   <string name="rankX">อันดับ: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -322,6 +337,7 @@
   <string name="siteDescription">เกมหมากรุกสากลออนไลน์ฟรี เล่นได้ทันทีในรูปลักษณ์ที่สะอาดตา โดยไม่จำเป็นต้องลงทะเบียน, ไม่มีโฆษณา, ไม่ต้องการปลั๊กอิน, เล่นหมากรุกกับคอมพิวเตอร์หรือเพื่อน หรือสุ่มคู่แข่งก็ได้</string>
   <string name="xJoinedTeamY">%1$s ได้เข้าร่วมทีม %2$s</string>
   <string name="xCreatedTeamY">%1$s ได้สร้างทีม %2$s</string>
+  <string name="startedStreaming">ได้เริ่มการสตรีม</string>
   <string name="xStartedStreaming">%s ได้เริ่มการสตรีม</string>
   <string name="averageElo">ระดับคะแนนเฉลี่ย</string>
   <string name="location">ที่ตั้ง</string>
@@ -487,6 +503,8 @@
   <string name="blog">บล็อก</string>
   <string name="notes">หมายเหตุ</string>
   <string name="typePrivateNotesHere">พิมพ์หมายเหตุส่วนตัวตรงนี้</string>
+  <string name="writeAPrivateNoteAboutThisUser">เขียนหมายเหตุเกี่ยวกับผู้ใช้นี้</string>
+  <string name="noNoteYet">ยังไม่มีหมายเหตุ</string>
   <string name="invalidUsernameOrPassword">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
   <string name="incorrectPassword">รหัสผ่านไม่ถูกต้อง</string>
   <string name="invalidAuthenticationCode">โค้ดยืนยันตัวตนไม่ถูกต้อง</string>
@@ -600,6 +618,7 @@
   <string name="tournamentFAQ">ถามตอบสนามทัวร์นาเมนต์</string>
   <string name="timeBeforeTournamentStarts">เวลาก่อนทัวร์นาเมนต์จะเริ่ม</string>
   <string name="averageCentipawnLoss">เบี้ยร้อยละที่เสียโดยเฉลี่ย</string>
+  <string name="accuracy">ความแม่นยำ</string>
   <string name="keyboardShortcuts">ปุ่มลัดแป้นพิมพ์</string>
   <string name="keyMoveBackwardOrForward">เดินถอยหลัง/ไปหน้า</string>
   <string name="keyGoToStartOrEnd">ไปยังตอนเริ่ม/ตอนจบ</string>
@@ -707,6 +726,7 @@
   <string name="bestWasX">ดีที่สุดคือ %s</string>
   <string name="youBrowsedAway">คุณได้หลุดออกไป</string>
   <string name="resumePractice">ฝึกหัดต่อ</string>
+  <string name="drawByFiftyMoves">เกมนี้เสมอเพราะกฎการเดินห้าสิบ</string>
   <string name="theGameIsADraw">เกมเสมอกัน</string>
   <string name="computerThinking">คอมพิวเตอร์กำลังคิด...</string>
   <string name="seeBestMove">ดูการเดินที่ดีที่สุด</string>
@@ -812,6 +832,8 @@
   <string name="clickToRevealEmailAddress">[คลิกเพื่อเผยที่อยู่อีเมล]</string>
   <string name="download">ดาวน์โหลด</string>
   <string name="welcome">ยินดีต้อนรับ!</string>
+  <string name="lichessPatronInfo">Lichess เป็นมูลนิธิ และเป็นซอฟต์แวร์โอเพนซอร์สที่ฟรีอย่างสิ้นเชิง
+ค่าบริการ การพัฒนา และเนี้อหาของ Lichess ได้รับทุนสนับสนุนจากการบริจาคเงินของผู้ใช้เว็บไซต์อย่างเดียว</string>
   <string name="coachManager">ตัวจัดการผู้ฝึกสอน</string>
   <string name="streamerManager">ตัวจัดการผู้สตรีม</string>
   <string name="cancelTournament">ยกเลิกทัวร์นาเมนต์</string>

@@ -23,9 +23,9 @@ object student:
       cls := "student-show",
       top(clas, s.withUser),
       div(cls := "box__pad")(
-        standardFlash(),
+        standardFlash,
         ctx.flash("password").map { password =>
-          flashMessage(cls := "student-show__password")(
+          flashMessageWith(cls := "student-show__password")(
             div(
               p(trans.clas.makeSureToCopy()),
               pre(trans.clas.passwordX(password))
@@ -141,7 +141,7 @@ object student:
       ),
       nbStudents > (lila.clas.Clas.maxStudents / 2) option maxStudentsWarning(clas),
       created map { case Student.WithPassword(student, password) =>
-        flashMessage(cls := "student-add__created")(
+        flashMessageWith(cls := "student-add__created")(
           strong(
             trans.clas.lichessProfileXCreatedForY(
               userIdLink(student.userId.some, withOnline = false),
@@ -154,7 +154,7 @@ object student:
           )
         )
       },
-      standardFlash(),
+      standardFlash,
       (nbStudents < lila.clas.Clas.maxStudents) option frag(
         div(cls := "student-add__choice")(
           div(cls := "info")(
@@ -228,7 +228,7 @@ object student:
       h1(cls := "box__top")(trans.clas.createMultipleAccounts()),
       maxStudentsWarning(clas),
       created.nonEmpty option frag(
-        flashMessage(cls := "student-add-many__created")(
+        flashMessageWith(cls := "student-add-many__created")(
           s"${created.size} students accounts have been created."
         ),
         div(cls := "student-add-many__list")(
@@ -283,7 +283,7 @@ object student:
       cls := "student-show student-edit",
       top(clas, s),
       div(cls := "box__pad")(
-        standardFlash(),
+        standardFlash,
         postForm(cls := "form3", action := clasRoutes.studentUpdate(clas.id.value, s.user.username))(
           form3.globalError(form),
           realNameField(form),

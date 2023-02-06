@@ -1,8 +1,6 @@
 package lila.mod
 
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.game.BSONHandlers.given
@@ -35,7 +33,7 @@ final private class RatingRefund(
           gameRepo.coll
             .find(
               Query.user(sus.user.id) ++ Query.rated ++ Query
-                .createdSince(DateTime.now minusDays 3) ++ Query.finished
+                .createdSince(nowDate minusDays 3) ++ Query.finished
             )
             .sort(Query.sortCreated)
             .cursor[Game](ReadPreference.secondaryPreferred)
@@ -78,7 +76,7 @@ final private class RatingRefund(
             }
           }
 
-        lastGames map makeRefunds flatMap { _.all.map(applyRefund).sequenceFu } void
+        lastGames map makeRefunds flatMap { _.all.map(applyRefund).parallel } void
     }
 
 private object RatingRefund:

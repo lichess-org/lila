@@ -207,6 +207,10 @@
   <string name="email">Email</string>
   <string name="passwordReset">Passwuert zerécksetzen</string>
   <string name="forgotPassword">Passwuert vergiess?</string>
+  <string name="error.weakPassword">Dëst Passwuert ass extrem heefeg an einfach ze roden.</string>
+  <string name="error.namePassword">Wannechgelifft benotz net däin Benotzernumm als Passwuert.</string>
+  <string name="youAreLeavingLichess">Du verléiss Lichess</string>
+  <string name="neverTypeYourPassword">Gëff däin Lichess Passwuert nie ob enger anerer Säit an!</string>
   <string name="emailConfirmHelp">Hëllef bei der Email Confirmatioun</string>
   <string name="emailConfirmNotReceived">Huet dir keng Confirmatiouns Email kritt nom Umellen?</string>
   <string name="whatSignupUsername">Mat wéiengem Benotzernumm huet dir iech ugemellt?</string>
@@ -363,6 +367,7 @@
   <string name="siteDescription">Gratis Online Schach Server. Spill Schach an engem propperen Interface. Keng Registratioun, keng Reklammen, keen Plugin néideg. Spill Schach géint Computer, Frënn oder zoufälleg Géigner.</string>
   <string name="xJoinedTeamY">%1$s ass Ekipp %2$s beigetrueden</string>
   <string name="xCreatedTeamY">%1$s huet Ekipp %2$s gegrënnt</string>
+  <string name="startedStreaming">huet ugefang ze streamen</string>
   <string name="xStartedStreaming">%s huet en Stream gestart</string>
   <string name="averageElo">Duerchschnëttlech Wäertung</string>
   <string name="location">Standuert</string>

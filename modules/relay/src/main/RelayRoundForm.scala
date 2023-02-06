@@ -1,7 +1,6 @@
 package lila.relay
 
 import io.mola.galimatias.URL
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import scala.util.Try
@@ -128,7 +127,7 @@ object RelayRoundForm:
         tourId = tour.id,
         name = name,
         sync = makeSync(user),
-        createdAt = DateTime.now,
+        createdAt = nowDate,
         finished = false,
         startsAt = startsAt,
         startedAt = none

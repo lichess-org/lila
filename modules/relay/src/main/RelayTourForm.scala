@@ -1,6 +1,5 @@
 package lila.relay
 
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import scala.util.chaining.*
@@ -62,7 +61,7 @@ object RelayTourForm:
         ownerId = user.id,
         tier = tier ifTrue Granter(_.Relay)(user),
         active = false,
-        createdAt = DateTime.now,
+        createdAt = nowDate,
         syncedAt = none,
         autoLeaderboard = autoLeaderboard,
         players = players

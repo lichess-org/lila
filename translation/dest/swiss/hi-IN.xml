@@ -47,7 +47,16 @@
   <string name="pairingsA">%1$s के साथ, %3$s के अनुसार %2$s द्वारा क्रियान्वित किया गया।</string>
   <string name="moreRoundsThanPlayersQ">यदि टूर्नामेंट में खिलाड़ियों की तुलना में अधिक राउंड हों तो क्या होगा?</string>
   <string name="moreRoundsThanPlayersA">जब सभी संभावित जोड़ी खेली जा चुकी हों, तो टूर्नामेंट समाप्त हो जाएगा और एक विजेता घोषित किया जाएगा।</string>
+  <string name="restrictedToTeamsQ">यह टीमों तक ही सीमित क्यों है?</string>
+  <string name="restrictedToTeamsA">स्विस प्रतियोगिता ऑनलाइन शतरंज को ध्यान में रखते हुए नहीं बनाए गए थे। वे खिलाड़ियों से समय की पाबंदी, समर्पण और धैर्य की मांग करते हैं।
+हमें लगता है कि वैश्विक प्रतियोगिताएं की तुलना में इन शर्तों के एक टीम के भीतर मिलने की अधिक संभावना है।</string>
+  <string name="lateJoinQ">क्या खिलाड़ी देर से शामिल हो सकते हैं?</string>
+  <string name="willSwissReplaceArenasQ">क्या स्विस एरेना प्रतियोगिता की जगह लेगा?</string>
+  <string name="willSwissReplaceArenasA">नहीं, वे अतिरिक्त विशेषताएं हैं।</string>
   <string name="pairingWaitTime">पेयरिंग प्रतीक्षा समय</string>
   <string name="identicalForbidden">निषिद्ध</string>
+  <string name="pause">रुकिये</string>
   <string name="pauseSwiss">हाँ, परन्तु यह दौर की संख्या को कम कर सकता है</string>
+  <string name="similarToOTB">बोर्ड-ऊपरी प्रतियोगिताओं से मिलती जुलती</string>
+  <string name="unlimitedAndFree">असीमित और मुफ़्त</string>
 </resources>

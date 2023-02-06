@@ -1,7 +1,6 @@
 package lila.api
 
 import akka.actor.Scheduler
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.security.Granter

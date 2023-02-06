@@ -207,6 +207,12 @@
   <string name="email">Correo electrónico</string>
   <string name="passwordReset">Cambiar contrasinal</string>
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
+  <string name="error.weakPassword">Ese contrasinal é extremadamente común e demasiado doado de adiviñar.</string>
+  <string name="error.namePassword">Por favor, non uses o teu usuario como contrasinal.</string>
+  <string name="youAreLeavingLichess">Estas abandoando Lichess</string>
+  <string name="neverTypeYourPassword">Nunca empregues o teu contrasinal de Lichess noutro sitio web!</string>
+  <string name="passwordSuggestion">Non empregues un contrasinal suxerido por alguén. Poden empregalo para roubar a túa conta.</string>
+  <string name="emailSuggestion">Non empregues un enderezo de correo suxerido por alguén. Poden empregalo para roubar a túa conta.</string>
   <string name="emailConfirmHelp">Axuda coa confirmación por correo</string>
   <string name="emailConfirmNotReceived">Non recibiches correo de confirmación despois de rexistrarte?</string>
   <string name="whatSignupUsername">Que nome de usuario quere empregar para rexistrarte?</string>

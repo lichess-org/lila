@@ -2,7 +2,6 @@ package lila.api
 
 import chess.format.pgn.Pgn
 import play.api.Mode
-import scala.concurrent.duration.*
 import scalatags.Text.all.*
 
 import lila.analyse.AnalysisRepo
@@ -34,7 +33,7 @@ final class TextLpvExpand(
       .map { case (matched, id) =>
         pgnCache.get(GameId(id)) map2 { matched -> _ }
       }
-      .sequenceFu
+      .parallel
       .map(_.flatten.toMap) map { matches => (url: String, text: String) =>
       matches
         .get(url)

@@ -2,7 +2,6 @@ package lila.lobby
 
 import chess.{ Clock, Mode, Speed }
 import chess.variant.Variant
-import org.joda.time.DateTime
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
@@ -132,6 +131,6 @@ object Hook:
       user = user map { LobbyUser.make(_, blocking) },
       sid = sid,
       ratingRange = ratingRange.toString,
-      createdAt = DateTime.now,
+      createdAt = nowDate,
       boardApi = boardApi
     )

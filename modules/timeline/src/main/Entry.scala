@@ -1,6 +1,5 @@
 package lila.timeline
 
-import org.joda.time.DateTime
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 import scala.util.{ Failure, Success, Try }
@@ -53,7 +52,7 @@ object Entry:
       case d: StreamStart   => "stream-start"    -> toBson(d)
   } match
     case (typ, bson) =>
-      new Entry(BSONObjectID.generate(), typ, data.channel.some, bson, DateTime.now)
+      new Entry(BSONObjectID.generate(), typ, data.channel.some, bson, nowDate)
 
   object atomBsonHandlers:
     given followHandler: BSONDocumentHandler[Follow]               = Macros.handler

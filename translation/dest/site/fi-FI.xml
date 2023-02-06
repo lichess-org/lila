@@ -207,6 +207,11 @@
   <string name="email">Sähköpostiosoite</string>
   <string name="passwordReset">Salasanan uusiminen</string>
   <string name="forgotPassword">Unohditko salasanasi?</string>
+  <string name="error.weakPassword">Tämä salasana on erittäin yleinen ja liian helppo arvata.</string>
+  <string name="error.namePassword">Älä laita salasanaksesi käyttäjänimeäsi.</string>
+  <string name="neverTypeYourPassword">Älä koskaan kirjoita Lichess-salasanaasi toiselle sivustolle!</string>
+  <string name="passwordSuggestion">Älä ota käyttöön jonkun toisen ehdottamaa salasanaa. Hän voi varastaa sen avulla käyttäjätunnuksesi.</string>
+  <string name="emailSuggestion">Älä ota käyttöön jonkun toisen ehdottamaa sähköpostiosoitetta. Hän voi varastaa sen avulla käyttäjätunnuksesi.</string>
   <string name="emailConfirmHelp">Apua sähköpostin vahvistamiseen</string>
   <string name="emailConfirmNotReceived">Etkö saanut vahvistussähköpostiasi rekisteröitymisen jälkeen?</string>
   <string name="whatSignupUsername">Millä nimellä rekisteröidyit käyttäjäksi?</string>

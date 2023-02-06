@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 
 import lila.api.Context
@@ -460,7 +459,7 @@ final class Study(
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { req => me =>
     env.study.api.byId(id).map {
       _.fold(NotFound(jsonError("Study not found"))) { study =>
-        PgnRateLimitPerIp(HTTPRequest ipAddress req, msg = id) {
+        PgnRateLimitPerIp(req.ipAddress, msg = id) {
           CanView(study, me) {
             doPgn(study, req)
           }(privateUnauthorizedJson, privateForbiddenJson)
@@ -490,34 +489,26 @@ final class Study(
     }
 
   def exportPgn(username: UserStr) =
-    OpenOrScoped(_.Study.Read)(
-      open = ctx => handleExport(username, ctx.me, ctx.req),
-      scoped = req => me => handleExport(username, me.some, req)
-    )
-
-  private def handleExport(
-      username: UserStr,
-      me: Option[lila.user.User],
-      req: RequestHeader
-  ) =
-    val name   = if (username.value == "me") me.fold(UserName("me"))(_.username) else username.into(UserName)
-    val userId = name.id
-    val flags  = requestPgnFlags(req)
-    val isMe   = me.exists(_ is userId)
-    apiC
-      .GlobalConcurrencyLimitPerIpAndUserOption(req, me, userId.some) {
-        env.study.studyRepo
-          .sourceByOwner(userId, isMe)
-          .flatMapConcat(env.study.pgnDump(_, flags))
-          .withAttributes(
-            akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
-          )
-      } { source =>
-        Ok.chunked(source)
-          .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
-          .as(pgnContentType)
-      }
-      .toFuccess
+    OpenOrScoped(_.Study.Read) { (req, me) =>
+      val name = if (username.value == "me") me.fold(UserName("me"))(_.username) else username.into(UserName)
+      val userId = name.id
+      val flags  = requestPgnFlags(req)
+      val isMe   = me.exists(_ is userId)
+      apiC
+        .GlobalConcurrencyLimitPerIpAndUserOption(req, me, userId.some) {
+          env.study.studyRepo
+            .sourceByOwner(userId, isMe)
+            .flatMapConcat(env.study.pgnDump(_, flags))
+            .withAttributes(
+              akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
+            )
+        } { source =>
+          Ok.chunked(source)
+            .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
+            .as(pgnContentType)
+        }
+        .toFuccess
+    }
 
   private def requestPgnFlags(req: RequestHeader) =
     lila.study.PgnDump.WithFlags(
@@ -636,7 +627,7 @@ final class Study(
                       _ option stream.streamer.userId
                     }
                   }
-                  .sequenceFu
+                  .parallel
                   .dmap(_.flatten)
               }
             }

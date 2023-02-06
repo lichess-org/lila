@@ -15,6 +15,7 @@
   <string name="myTeams">M\'fhoirne</string>
   <string name="noTeamFound">Níor aimsíodh aon fhoireann</string>
   <string name="joinTeam">Bí ar foireann</string>
+  <string name="onlyLeaderLeavesTeam">Cuir ceannaire foirne nua leis sula bhfágann tú, nó dún an fhoireann.</string>
   <string name="quitTeam">Fág foireann</string>
   <string name="manuallyReviewAdmissionRequests">Déan athbhreithniú de láimh ar iarratais iontrála</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Má dhéantar seiceáil uirthi, beidh ar ficheallaithe iarratas a scríobh chun dul isteach ar foireann, ar féidir leat a dhiúltú nó glacadh.</string>

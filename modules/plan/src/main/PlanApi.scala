@@ -1,10 +1,8 @@
 package lila.plan
 
 import com.softwaremill.tagging.*
-import org.joda.time.DateTime
 import play.api.i18n.Lang
 import reactivemongo.api.*
-import scala.concurrent.duration.*
 
 import lila.common.config.Secret
 import lila.common.{ Bus, IpAddress, EmailAddress }
@@ -98,7 +96,7 @@ final class PlanApi(
                 stripeClient.getCustomer(stripeCharge.customer) flatMap { customer =>
                   val freq = if (customer.exists(_.renew)) Freq.Monthly else Freq.Onetime
                   val patron = prevPatron
-                    .copy(lastLevelUp = prevPatron.lastLevelUp orElse DateTime.now.some)
+                    .copy(lastLevelUp = prevPatron.lastLevelUp orElse nowDate.some)
                     .levelUpIfPossible
                     .expireInOneMonth(freq == Freq.Onetime)
                   mongo.patron.update.one($id(prevPatron.id), patron) >>
@@ -183,7 +181,7 @@ final class PlanApi(
         val maxPerWeek = {
           val verifiedBonus  = user.isVerified ?? 50
           val nbGamesBonus   = math.sqrt(user.count.game / 50)
-          val seniorityBonus = math.sqrt(Days.daysBetween(user.createdAt, DateTime.now).getDays.toDouble / 30)
+          val seniorityBonus = math.sqrt(Days.daysBetween(user.createdAt, nowDate).getDays.toDouble / 30)
           verifiedBonus + nbGamesBonus + seniorityBonus
         }.toInt.atLeast(1).atMost(50)
         freq match
@@ -192,7 +190,7 @@ final class PlanApi(
               .countSel(
                 $doc(
                   "userId" -> user.id,
-                  "date" $gt DateTime.now.minusWeeks(1),
+                  "date" $gt nowDate.minusWeeks(1),
                   "stripe" $exists true,
                   "giftTo" $exists false
                 )
@@ -201,7 +199,7 @@ final class PlanApi(
           case Freq.Onetime => // prevents mass gifting or one-time donations
             StripeCanUse from mongo.charge
               .countSel(
-                $doc("userId" -> user.id, "date" $gt DateTime.now.minusWeeks(1), "stripe" $exists true)
+                $doc("userId" -> user.id, "date" $gt nowDate.minusWeeks(1), "stripe" $exists true)
               )
               .map(_ < maxPerWeek)
     }
@@ -252,7 +250,7 @@ final class PlanApi(
                     Patron.PayPalLegacy(
                       ipn.email,
                       ipn.subId,
-                      DateTime.now
+                      nowDate
                     )
                   userPatron(user).flatMap {
                     case None =>
@@ -260,7 +258,7 @@ final class PlanApi(
                         Patron(
                           _id = user.id,
                           payPal = payPal.some,
-                          lastLevelUp = Some(DateTime.now)
+                          lastLevelUp = Some(nowDate)
                         ).expireInOneMonth
                       ) >>
                         setDbUserPlanOnCharge(user, levelUp = false)
@@ -328,7 +326,7 @@ final class PlanApi(
                         Patron(
                           _id = user.id,
                           payPalCheckout = newPayPalCheckout.some,
-                          lastLevelUp = Some(DateTime.now)
+                          lastLevelUp = Some(nowDate)
                         ).expireInOneMonth
                       ) >>
                         setDbUserPlanOnCharge(user, levelUp = false)
@@ -380,7 +378,7 @@ final class PlanApi(
                   Patron(
                     _id = user.id,
                     payPalCheckout = payPalCheckout.some,
-                    lastLevelUp = Some(DateTime.now)
+                    lastLevelUp = Some(nowDate)
                   ).expireInOneMonth
                 ) >>
                   setDbUserPlanOnCharge(user, levelUp = false)
@@ -481,9 +479,9 @@ final class PlanApi(
       .one(
         $id(user.id),
         $set(
-          "lastLevelUp" -> DateTime.now,
+          "lastLevelUp" -> nowDate,
           "lifetime"    -> true,
-          "free"        -> Patron.Free(DateTime.now, by = none)
+          "free"        -> Patron.Free(nowDate, by = none)
         ),
         upsert = true
       )
@@ -494,10 +492,10 @@ final class PlanApi(
       .one(
         $id(user.id),
         $set(
-          "lastLevelUp" -> DateTime.now,
+          "lastLevelUp" -> nowDate,
           "lifetime"    -> false,
-          "free"        -> Patron.Free(DateTime.now, by = none),
-          "expiresAt"   -> DateTime.now.plusMonths(1)
+          "free"        -> Patron.Free(nowDate, by = none),
+          "expiresAt"   -> nowDate.plusMonths(1)
         ),
         upsert = true
       )
@@ -511,10 +509,10 @@ final class PlanApi(
         .one(
           $id(to.id),
           $set(
-            "lastLevelUp" -> DateTime.now,
+            "lastLevelUp" -> nowDate,
             "lifetime"    -> isLifetime,
-            "free"        -> Patron.Free(DateTime.now, by = from.id.some),
-            "expiresAt"   -> (!isLifetime option DateTime.now.plusMonths(1))
+            "free"        -> Patron.Free(nowDate, by = from.id.some),
+            "expiresAt"   -> (!isLifetime option nowDate.plusMonths(1))
           ),
           upsert = true
         )
@@ -527,7 +525,7 @@ final class PlanApi(
       .find(
         $doc(
           "free.by" -> from.id,
-          "free.at" $gt DateTime.now.minusMinutes(2)
+          "free.at" $gt nowDate.minusMinutes(2)
         )
       )
       .sort($sort desc "free.at")
@@ -643,7 +641,7 @@ final class PlanApi(
             username = charge.userId.map(lightUserApi.syncFallback).fold(UserName("Anonymous"))(_.name),
             cents = charge.usd.cents,
             percent = m.percent,
-            DateTime.now
+            nowDate
           ),
           "plan"
         )

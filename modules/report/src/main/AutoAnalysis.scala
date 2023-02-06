@@ -1,8 +1,5 @@
 package lila.report
 
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
-
 import lila.game.{ Game, GameRepo }
 
 final class AutoAnalysis(
@@ -37,7 +34,7 @@ final class AutoAnalysis(
       gameRepo.lastGamesBetween(
         candidate.suspect.user,
         candidate.reporter.user,
-        DateTime.now.minusHours(2),
+        nowDate.minusHours(2),
         10
       ) dmap { as ++ _ }
     }

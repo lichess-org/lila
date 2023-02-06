@@ -12,7 +12,7 @@ import lila.common.paginator.Paginator
 
 object topic:
 
-  def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: lila.common.Captcha)(implicit ctx: Context) =
+  def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: lila.common.Captcha)(using Context) =
     views.html.base.layout(
       title = "New forum topic",
       moreCss = cssTag("forum"),
@@ -77,7 +77,7 @@ object topic:
       formWithCaptcha: Option[FormWithCaptcha],
       unsub: Option[Boolean],
       canModCateg: Boolean
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     views.html.base.layout(
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
       moreJs = frag(
@@ -172,7 +172,7 @@ object topic:
             canModCateg || ctx.me.exists(topic.isAuthor) option deleteModal
           )
         ),
-        formWithCaptcha.map { case (form, captcha) =>
+        formWithCaptcha.map { (form, captcha) =>
           postForm(
             cls    := "form3 reply",
             action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
@@ -203,7 +203,7 @@ object topic:
       )
     }
 
-  private def deleteModal(implicit ctx: Context) =
+  private def deleteModal(using Context) =
     div(cls := "forum-delete-modal none")(
       p("Delete the post"),
       st.form(method := "post", cls := "form3")(

@@ -5,6 +5,7 @@ import play.api.libs.json.*
 import chess.variant.Crazyhouse
 import chess.{
   Ply,
+  Check,
   Centis,
   Clock as ChessClock,
   Color,
@@ -43,7 +44,7 @@ object Event:
 
     def data(
         fen: BoardFen,
-        check: Boolean,
+        check: Check,
         threefold: Boolean,
         state: State,
         clock: Option[ClockEvent],
@@ -74,7 +75,7 @@ object Event:
       dest: Pos,
       san: SanStr,
       fen: BoardFen,
-      check: Boolean,
+      check: Check,
       threefold: Boolean,
       promotion: Option[Promotion],
       enpassant: Option[Enpassant],
@@ -132,7 +133,7 @@ object Event:
       pos: Pos,
       san: SanStr,
       fen: BoardFen,
-      check: Boolean,
+      check: Check,
       threefold: Boolean,
       state: State,
       clock: Option[ClockEvent],

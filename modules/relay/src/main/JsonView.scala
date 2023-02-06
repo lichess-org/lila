@@ -1,7 +1,6 @@
 package lila.relay
 
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.common.config.BaseUrl
 import lila.common.Json.given

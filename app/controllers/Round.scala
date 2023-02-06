@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import views.*
 
 import lila.api.Context
@@ -320,7 +319,6 @@ final class Round(
           fuccess(routes.Lobby.home)
         else
           env.round resign pov
-          import scala.concurrent.duration.*
           akka.pattern.after(500.millis, env.system.scheduler)(fuccess(routes.Lobby.home))
       }
     }

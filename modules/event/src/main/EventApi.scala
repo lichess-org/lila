@@ -1,8 +1,6 @@
 package lila.event
 
-import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
@@ -32,7 +30,7 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
       .find(
         $doc(
           "enabled" -> true,
-          "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(1)
+          "startsAt" $gt nowDate.minusDays(1) $lt nowDate.plusDays(1)
         )
       )
       .sort($sort asc "startsAt")
@@ -65,5 +63,5 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
   def clone(old: Event) =
     old.copy(
       title = s"${old.title} (clone)",
-      startsAt = DateTime.now plusDays 7
+      startsAt = nowDate plusDays 7
     )

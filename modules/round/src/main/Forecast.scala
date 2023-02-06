@@ -1,6 +1,5 @@
 package lila.round
 
-import org.joda.time.DateTime
 import play.api.libs.json.*
 
 import chess.format.{ Uci, Fen }
@@ -18,7 +17,7 @@ case class Forecast(_id: GameFullId, steps: Forecast.Steps, date: DateTime):
           case fst :: snd :: rest if rest.nonEmpty && g.ply == fst.ply && fst.is(lastMove) && snd.is(move) =>
             rest
         },
-        date = DateTime.now
+        date = nowDate
       ) -> move
     }
 

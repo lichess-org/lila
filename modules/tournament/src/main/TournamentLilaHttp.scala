@@ -5,7 +5,6 @@ import com.softwaremill.tagging.*
 import io.lettuce.core.RedisClient
 import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.{ LilaScheduler, LilaStream }
 import lila.common.Json.given

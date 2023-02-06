@@ -1,10 +1,7 @@
 package lila.base
 
-import scala.concurrent.duration.Duration
-import scala.concurrent.Future
 import ornicar.scalalib.newtypes.*
 
-import org.joda.time.DateTime
 import alleycats.Zero
 import play.api.libs.json.{ JsError, JsObject, JsResult }
 
@@ -14,7 +11,9 @@ trait LilaTypes:
   type Funit     = Fu[Unit]
   type PairOf[A] = (A, A)
 
-  type Executor = scala.concurrent.ExecutionContext
+  export scala.concurrent.{ ExecutionContext as Executor, Future, Promise }
+  export scala.concurrent.duration.{ DurationInt, DurationLong, IntMult, Duration, FiniteDuration }
+  export org.joda.time.DateTime
 
   def fuccess[A](a: A): Fu[A]        = Future.successful(a)
   def fufail[X](t: Throwable): Fu[X] = Future.failed(t)
@@ -30,8 +29,8 @@ trait LilaTypes:
   given [A](using az: Zero[A]): Zero[Fu[A]] with
     def zero = fuccess(az.zero)
 
-  given Zero[Duration] with
-    def zero = Duration.Zero
+  // given Zero[Duration] with
+  //   def zero = Duration.Zero
   given Zero[JsObject] with
     def zero = JsObject(Seq.empty)
 

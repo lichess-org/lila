@@ -1,15 +1,13 @@
 package lila.tutor
 
 import com.softwaremill.tagging.*
-import org.joda.time.DateTime
 import play.api.Mode
-import scala.concurrent.duration.*
 
 import lila.common.{ LilaScheduler, Uptime }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
-import lila.common.Future
+import lila.common.LilaFuture
 import lila.common.Chronometer
 
 final class TutorApi(
@@ -47,11 +45,11 @@ final class TutorApi(
 
   private def pollQueue = queue.next flatMap { items =>
     lila.mon.tutor.parallelism.update(items.size)
-    Future
+    LilaFuture
       .applySequentially(items) { next =>
         next.startedAt.fold(buildThenRemoveFromQueue(next.userId)) { started =>
           val expired =
-            started.isBefore(DateTime.now minusSeconds builder.maxTime.toSeconds.toInt) ||
+            started.isBefore(nowDate minusSeconds builder.maxTime.toSeconds.toInt) ||
               started.isBefore(Uptime.startedAt)
           expired ?? queue.remove(next.userId) >>- lila.mon.tutor.buildTimeout.increment().unit
         }

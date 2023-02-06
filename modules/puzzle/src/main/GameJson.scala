@@ -3,7 +3,6 @@ package lila.puzzle
 import chess.format.{ Fen, UciCharPair }
 import chess.Ply
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.i18n.defaultLang

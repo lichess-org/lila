@@ -22,4 +22,15 @@
   <string name="sortBy">เรียงตาม</string>
   <string name="analysis">การวิเคราะห์</string>
   <string name="onlyAnalysed">เฉพาะเกมที่วิเคราะห์ด้วยคอมพิวเตอร์ได้</string>
+  <string name="color">สี</string>
+  <string name="evaluation">การประเมินผล</string>
+  <string name="maxNumber">จำนวนเกมสูงสุด</string>
+  <string name="maxNumberExplanation">จำนวนเกมสูงสุดที่จะให้ค้นหา</string>
+  <string name="include">รวม</string>
+  <string name="descending">จากมากไปน้อย</string>
+  <string name="ascending">จากน้อยไปมาก</string>
+  <plurals name="gamesFound">
+    <item quantity="other">พบ %s เกม</item>
+  </plurals>
+  <string name="ratingExplanation">ระดับคะแนนโดยประมาณของผู้เล่นทั้งสองคน</string>
 </resources>

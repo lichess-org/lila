@@ -1,6 +1,5 @@
 package lila.oauth
 
-import org.joda.time.DateTime
 import cats.data.Validated
 import reactivemongo.api.bson.*
 import lila.db.dsl.*
@@ -19,7 +18,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
         request.redirectUri,
         request.challenge,
         request.scopes,
-        DateTime.now().plusSeconds(120)
+        nowDate.plusSeconds(120)
       )
     ) inject code
 
@@ -31,7 +30,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
         pending <- doc
           .result[PendingAuthorization]
           .toValid(Protocol.Error.AuthorizationCodeInvalid)
-          .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(DateTime.now()))
+          .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(nowDate))
           .ensure(Protocol.Error.MismatchingRedirectUri)(_.redirectUri.matches(request.redirectUri))
           .ensure(Protocol.Error.MismatchingClient)(_.clientId == request.clientId)
         _ <- pending.challenge match

@@ -207,6 +207,7 @@
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinir a palavra-passe</string>
   <string name="forgotPassword">Esqueceste-te da tua palavra-passe?</string>
+  <string name="youAreLeavingLichess">Você está a sair do Lichess</string>
   <string name="emailConfirmHelp">Ajuda com a confirmação do endereço eletrónico</string>
   <string name="emailConfirmNotReceived">Não recebeu no seu correio eletrónico uma mensagem de confirmação após o registo?</string>
   <string name="whatSignupUsername">Que nome de utilizador usou para se registar?</string>

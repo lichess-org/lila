@@ -1,7 +1,5 @@
 package lila.bot
 
-import scala.concurrent.duration.*
-
 import lila.common.Bus
 import lila.hub.actorApi.socket.ApiUserIsOnline
 import lila.memo.ExpireCallbackMemo
@@ -20,7 +18,7 @@ final class OnlineApiUsers(
   )
 
   def setOnline(userId: UserId): Unit =
-    val wasOffline = !isOnline.value(userId) && !cache.get(userId)
+    val wasOffline = !isOnline(userId) && !cache.get(userId)
     cache.put(userId)
     if (wasOffline) publish(userId, isOnline = true)
 

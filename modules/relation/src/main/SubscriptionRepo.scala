@@ -1,6 +1,5 @@
 package lila.relation
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
@@ -26,7 +25,7 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
               local = "u",
               foreign = "_id",
               pipe = List(
-                $doc("$match"   -> $expr($doc("$gt" -> $arr("$seenAt", DateTime.now.minusDays(daysAgo))))),
+                $doc("$match"   -> $expr($doc("$gt" -> $arr("$seenAt", nowDate.minusDays(daysAgo))))),
                 $doc("$project" -> $id(true))
               )
             )

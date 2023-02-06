@@ -1,7 +1,6 @@
 package lila.gameSearch
 
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.game.{ Game, GameRepo }
 import lila.common.Json.given
@@ -27,7 +26,7 @@ final class GameSearchApi(
   def store(game: Game) =
     storable(game) ?? {
       gameRepo isAnalysed game.id flatMap { analysed =>
-        lila.common.Future
+        lila.common.LilaFuture
           .retry(
             () => client.store(game.id into Id, toDoc(game, analysed)),
             delay = 20.seconds,

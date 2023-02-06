@@ -24,7 +24,7 @@ object teamBattle:
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1(cls := "box__top")(tour.name()),
-          standardFlash(),
+          standardFlash,
           if (tour.isFinished) p("This tournament is over, and the teams can no longer be updated.")
           else p("List the teams that will compete in this battle."),
           postForm(cls := "form3", action := routes.Tournament.teamBattleUpdate(tour.id))(
@@ -106,9 +106,9 @@ object teamBattle:
             tr(th("Players"), td(info.nbPlayers)),
             ctx.pref.showRatings option frag(
               tr(th(trans.averageElo()), td(info.avgRating)),
-              tr(th("Average performance"), td(info.avgPerf))
+              tr(th(trans.arena.averagePerformance()), td(info.avgPerf))
             ),
-            tr(th("Average score"), td(info.avgScore))
+            tr(th(trans.arena.averageScore()), td(info.avgScore))
           )
         ),
         table(cls := "slist slist-pad tour__team-info")(

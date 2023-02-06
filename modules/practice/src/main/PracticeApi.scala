@@ -1,6 +1,5 @@
 package lila.practice
 
-import scala.concurrent.duration.*
 import reactivemongo.api.ReadPreference
 
 import lila.common.Bus

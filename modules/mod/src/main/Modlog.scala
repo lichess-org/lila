@@ -1,7 +1,5 @@
 package lila.mod
 
-import org.joda.time.DateTime
-
 import lila.report.{ ModId, Mod, Suspect }
 
 case class Modlog(
@@ -9,7 +7,7 @@ case class Modlog(
     user: Option[UserId],
     action: String,
     details: Option[String] = None,
-    date: DateTime = DateTime.now,
+    date: DateTime = nowDate,
     index: Option[String] = None
 ):
 
@@ -146,7 +144,7 @@ object Modlog:
   val appealPost          = "appealPost"
   val setKidMode          = "setKidMode"
 
-  private val explainRegex = """^[\w-]{3,}: (.+)$""".r
+  private val explainRegex = """^[\w-]{3,}+: (.++)$""".r
   def explain(e: Modlog) = (e.index has "team") ?? ~e.details match
     case explainRegex(explain) => explain.some
     case _                     => none

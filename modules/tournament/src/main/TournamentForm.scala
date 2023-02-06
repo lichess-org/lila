@@ -4,7 +4,6 @@ import cats.implicits.*
 import chess.format.Fen
 import chess.{ Clock, Mode, StartingPosition }
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation

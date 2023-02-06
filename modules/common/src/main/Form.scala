@@ -2,7 +2,7 @@ package lila.common
 
 import chess.Color
 import chess.format.Fen
-import org.joda.time.{ DateTime, DateTimeZone }
+import org.joda.time.DateTimeZone
 import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
 import play.api.data.Forms.*
@@ -72,7 +72,6 @@ object Form:
     fixed match
       case Some(fixedId) => field.verifying("The ID cannot be changed now", id => id == fixedId)
       case None =>
-        import scala.concurrent.duration.*
         field.verifying("This ID is already in use", id => !exists(id).await(1.second, "unique ID"))
 
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
@@ -248,7 +247,7 @@ object Form:
   def inTheFuture(m: Mapping[DateTime]) =
     m.verifying(
       "The date must be set in the future",
-      DateTime.now.isBefore(_)
+      nowDate.isBefore(_)
     )
 
   object UTCDate:
@@ -266,7 +265,7 @@ object Form:
     val isoDateTime           = jodaDate(datePattern, DateTimeZone.UTC)
     given Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(datePattern)
   object Timestamp:
-    val formatter = new Formatter[org.joda.time.DateTime]:
+    val formatter = new Formatter[DateTime]:
       def bind(key: String, data: Map[String, String]) =
         stringFormat
           .bind(key, data)
@@ -277,17 +276,17 @@ object Form:
           }
           .left
           .map(_ => Seq(FormError(key, "Invalid timestamp", Nil)))
-      def unbind(key: String, value: org.joda.time.DateTime) = Map(key -> value.getMillis.toString)
-    val timestamp = of[org.joda.time.DateTime](formatter)
+      def unbind(key: String, value: DateTime) = Map(key -> value.getMillis.toString)
+    val timestamp = of[DateTime](formatter)
   object ISODateOrTimestamp:
-    val formatter = new Formatter[org.joda.time.DateTime]:
+    val formatter = new Formatter[DateTime]:
       def bind(key: String, data: Map[String, String]) =
         ISODate.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data)
-      def unbind(key: String, value: org.joda.time.DateTime) = ISODate.formatter.unbind(key, value)
-    val isoDateOrTimestamp = of[org.joda.time.DateTime](formatter)
+      def unbind(key: String, value: DateTime) = ISODate.formatter.unbind(key, value)
+    val isoDateOrTimestamp = of[DateTime](formatter)
   object ISODateTimeOrTimestamp:
-    val formatter = new Formatter[org.joda.time.DateTime]:
+    val formatter = new Formatter[DateTime]:
       def bind(key: String, data: Map[String, String]) =
         ISODateTime.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data)
-      def unbind(key: String, value: org.joda.time.DateTime) = ISODateTime.formatter.unbind(key, value)
-    val isoDateTimeOrTimestamp = of[org.joda.time.DateTime](formatter)
+      def unbind(key: String, value: DateTime) = ISODateTime.formatter.unbind(key, value)
+    val isoDateTimeOrTimestamp = of[DateTime](formatter)

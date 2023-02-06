@@ -1,11 +1,8 @@
 package lila.mod
 
-import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.Json
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
-import scala.concurrent.duration.FiniteDuration
 import scala.util.Try
 
 import lila.db.dsl.{ *, given }
@@ -139,9 +136,9 @@ object ModActivity:
       else if (str == "month") Month
       else Week
     def dateSince(period: Period) = period match
-      case Period.Week  => DateTime.now.minusWeeks(1)
-      case Period.Month => DateTime.now.minusMonths(1)
-      case Period.Year  => DateTime.now.minusYears(1)
+      case Period.Week  => nowDate.minusWeeks(1)
+      case Period.Month => nowDate.minusMonths(1)
+      case Period.Year  => nowDate.minusYears(1)
 
   sealed abstract class Who(val key: String)
   object Who:

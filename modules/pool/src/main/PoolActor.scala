@@ -1,6 +1,5 @@
 package lila.pool
 
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import akka.actor.*

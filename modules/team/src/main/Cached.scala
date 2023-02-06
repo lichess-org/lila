@@ -2,7 +2,6 @@ package lila.team
 
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.Syncache

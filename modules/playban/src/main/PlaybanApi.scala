@@ -1,11 +1,9 @@
 package lila.playban
 
 import chess.{ Centis, Color, Status }
-import org.joda.time.DateTime
 import play.api.Mode
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.{ Bus, Iso, Uptime }
 import lila.db.dsl.{ *, given }

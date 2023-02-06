@@ -32,7 +32,7 @@ final class ActivityWriteApi(
         ActivityFields.corres -> a.corres.orDefault.add(game.id, moved = false, ended = true)
       )
       setGames ++ setCorres
-    }).sequenceFu.void
+    }).parallel.void
 
   def forumPost(post: lila.forum.ForumPost): Funit =
     post.userId.filter(User.lichessId !=) ?? { userId =>
@@ -75,7 +75,7 @@ final class ActivityWriteApi(
   }
 
   def simul(simul: lila.simul.Simul) =
-    lila.common.Future.applySequentially(simul.hostId :: simul.pairings.map(_.player.user)) {
+    lila.common.LilaFuture.applySequentially(simul.hostId :: simul.pairings.map(_.player.user)) {
       simulParticipant(simul, _)
     }
 
@@ -111,7 +111,7 @@ final class ActivityWriteApi(
                 $pull("f.i.ids" -> from.id)
               )
             }
-            .sequenceFu
+            .parallel
             .void
         }
       }
@@ -137,7 +137,7 @@ final class ActivityWriteApi(
     }
 
   def swiss(id: SwissId, ranking: lila.swiss.Ranking) =
-    lila.common.Future.applySequentially(ranking.toList) { case (userId, rank) =>
+    lila.common.LilaFuture.applySequentially(ranking.toList) { case (userId, rank) =>
       update(userId) { a =>
         $doc(ActivityFields.swisses -> { ~a.swisses + SwissRank(id, rank) })
       }

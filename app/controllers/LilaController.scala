@@ -23,7 +23,8 @@ abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
     with ContentTypes
     with RequestGetter
-    with ResponseWriter:
+    with ResponseWriter
+    with CtrlExtensions:
 
   export _root_.router.ReverseRouterConversions.given
 
@@ -33,40 +34,17 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected given Zero[Result] = Zero(Results.NotFound)
 
-  extension (result: Result)
-    def toFuccess                         = scala.concurrent.Future successful result
-    def flashSuccess(msg: String): Result = result.flashing("success" -> msg)
-    def flashSuccess: Result              = flashSuccess("")
-    def flashFailure(msg: String): Result = result.flashing("failure" -> msg)
-    def flashFailure: Result              = flashFailure("")
-    def withCanonical(url: String): Result =
-      result.withHeaders(LINK -> s"<${env.net.baseUrl}${url}>; rel=\"canonical\"")
-    def withCanonical(url: Call): Result = withCanonical(url.url)
-    def enableSharedArrayBuffer(using req: RequestHeader): Result = {
-      if HTTPRequest.isChrome96Plus(req) then
-        result.withHeaders("Cross-Origin-Embedder-Policy" -> "credentialless")
-      else if HTTPRequest.isFirefox108Plus(req) && env.firefoxOriginTrial.get().nonEmpty then
-        result.withHeaders(
-          "Origin-Trial"                 -> env.firefoxOriginTrial.get(),
-          "Cross-Origin-Embedder-Policy" -> "credentialless"
-        )
-      else result.withHeaders("Cross-Origin-Embedder-Policy" -> "require-corp")
-    }.withHeaders("Cross-Origin-Opener-Policy" -> "same-origin")
-    def noCache: Result = result.withHeaders(
-      CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
-      EXPIRES       -> "0"
-    )
-
   protected given Conversion[Frag, Result]    = Ok(_)
   protected given Conversion[Int, ApiVersion] = ApiVersion(_)
   protected given formBinding: FormBinding    = parse.formBinding(parse.DefaultMaxTextLength)
 
-  protected val keyPages        = new KeyPages(env)
-  protected val renderNotFound  = keyPages.notFound
-  protected val rateLimitedMsg  = "Too many requests. Try again later."
-  protected val rateLimited     = Results.TooManyRequests(rateLimitedMsg)
-  protected val rateLimitedJson = Results.TooManyRequests(jsonError(rateLimitedMsg))
-  protected val rateLimitedFu   = rateLimited.toFuccess
+  protected val keyPages                   = KeyPages(env)
+  protected val renderNotFound             = keyPages.notFound
+  protected val rateLimitedMsg             = "Too many requests. Try again later."
+  protected val rateLimited                = Results.TooManyRequests(rateLimitedMsg)
+  protected val rateLimitedJson            = Results.TooManyRequests(jsonError(rateLimitedMsg))
+  protected val rateLimitedFu              = rateLimited.toFuccess
+  protected def rateLimitedFu(msg: String) = Results.TooManyRequests(jsonError(msg)).toFuccess
 
   implicit protected def LilaFunitToResult(funit: Funit)(using req: RequestHeader): Fu[Result] =
     negotiate(
@@ -74,11 +52,10 @@ abstract private[controllers] class LilaController(val env: Env)
       api = _ => fuccess(jsonOkResult)
     )
 
-  given Conversion[Context, Lang]                 = _.lang
-  given Conversion[Context, RequestHeader]        = _.req
-  given Conversion[RequestHeader, ui.EmbedConfig] = ui.EmbedConfig(_)
-  given Conversion[RequestHeader, Lang]           = I18nLangPicker(_)
-  given lila.common.config.NetDomain              = env.net.domain
+  given Conversion[Context, Lang]          = _.lang
+  given Conversion[Context, RequestHeader] = _.req
+  given Conversion[RequestHeader, Lang]    = I18nLangPicker(_)
+  given lila.common.config.NetDomain       = env.net.domain
 
   // we can't move to `using` yet, because we can't do `Open { using ctx =>`
   implicit def ctxLang(using ctx: Context): Lang                   = ctx.lang
@@ -110,6 +87,14 @@ abstract private[controllers] class LilaController(val env: Env)
       if (HTTPRequest isOAuth req) handleScoped(selectors)(scoped)(req)
       else handleOpen(open, req)
     }
+
+  protected def OpenOrScoped(selectors: OAuthScope.Selector*)(
+      f: (RequestHeader, Option[UserModel]) => Fu[Result]
+  ): Action[Unit] =
+    OpenOrScoped(selectors*)(
+      open = ctx => f(ctx.req, ctx.me),
+      scoped = req => me => f(req, me.some)
+    )
 
   private def handleOpen(f: Context => Fu[Result], req: RequestHeader): Fu[Result] =
     CSRF(req) {
@@ -383,6 +368,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def JsonOk(body: JsValue): Result             = Ok(body) as JSON
   protected def JsonOk[A: Writes](body: A): Result        = Ok(Json toJson body) as JSON
   protected def JsonOk[A: Writes](fua: Fu[A]): Fu[Result] = fua dmap { JsonOk(_) }
+  protected def JsonStrOk(str: JsonStr): Result           = Ok(str) as JSON
   protected def JsonBadRequest(body: JsValue): Result     = BadRequest(body) as JSON
 
   protected val jsonOkBody   = Json.obj("ok" -> true)
@@ -622,13 +608,13 @@ abstract private[controllers] class LilaController(val env: Env)
   )(result: => Fu[Result]): Fu[Result] =
     if (page < max.value && page > 0) result else errorPage
 
-  protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
-    if (ctx.kid) notFound else f
+  protected def NotForKids(f: => Fu[Result])(using ctx: Context) =
+    if ctx.kid then notFound else f
 
-  protected def NoCrawlers(result: => Fu[Result])(implicit ctx: Context) =
-    if (HTTPRequest isCrawler ctx.req) notFound else result
+  protected def NoCrawlers(result: => Fu[Result])(using ctx: Context) =
+    if HTTPRequest.isCrawler(ctx.req).yes then notFound else result
 
-  protected def NotManaged(result: => Fu[Result])(implicit ctx: Context) =
+  protected def NotManaged(result: => Fu[Result])(using ctx: Context) =
     ctx.me.??(env.clas.api.student.isManaged) flatMap {
       case true => notFound
       case _    => result

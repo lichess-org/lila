@@ -39,7 +39,7 @@ final class OpeningConfigStore(baker: LilaCookie):
   def read(using req: RequestHeader): OpeningConfig =
     req.cookies.get(cookie.name).map(_.value).flatMap(cookie.read) | OpeningConfig.default
 
-  def write(config: OpeningConfig)(using req: RequestHeader) = baker.cookie(
+  def write(config: OpeningConfig)(using RequestHeader) = baker.cookie(
     cookie.name,
     cookie.write(config),
     maxAge = cookie.maxAge.some,

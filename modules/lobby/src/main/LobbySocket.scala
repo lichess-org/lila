@@ -2,8 +2,6 @@ package lila.lobby
 
 import actorApi.*
 import play.api.libs.json.*
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 
 import lila.game.Pov
 import lila.hub.actorApi.timeline.*
@@ -145,7 +143,7 @@ final class LobbySocket(
   // solve circular reference
   lobby ! LobbySyncActor.SetSocket(actor)
 
-  private val poolLimitPerSri = new lila.memo.RateLimit[SriStr](
+  private val poolLimitPerSri = lila.memo.RateLimit[SriStr](
     credits = 14,
     duration = 30 seconds,
     key = "lobby.hook_pool.member"

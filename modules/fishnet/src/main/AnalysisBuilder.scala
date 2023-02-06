@@ -1,7 +1,5 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
-
 import chess.Ply
 import chess.format.Uci
 import chess.format.pgn.SanStr
@@ -30,7 +28,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor)
       chess
         .Replay(work.game.uciList, work.game.initialFen, work.game.variant)
         .fold(
-          fufail(_),
+          err => fufail(err.value),
           replay =>
             UciToPgn(
               replay,
@@ -40,7 +38,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor)
                 infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
                 startPly = work.startPly,
                 fk = !client.lichess option client.key.value,
-                date = DateTime.now
+                date = nowDate
               )
             ) match {
               case (analysis, errors) =>

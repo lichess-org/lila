@@ -1,7 +1,6 @@
 package lila.study
 
 import alleycats.Zero
-import scala.concurrent.duration.*
 
 import lila.hub.AsyncActorSequencers
 import lila.common.config.Max

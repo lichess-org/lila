@@ -91,6 +91,7 @@ object home:
           ),
           div(cls := "lobby__spotlights")(
             events.map(bits.spotlight),
+            relays.map(views.html.relay.bits.spotlight),
             !ctx.isBot option frag(
               lila.tournament.Spotlight.select(tours, ctx.me, 3 - events.size) map {
                 views.html.tournament.homepageSpotlight(_)

@@ -1,8 +1,5 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
-
 import chess.Ply
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, UciMemo }
@@ -124,7 +121,7 @@ final class Analyser(
       lastTryByKey = none,
       acquired = none,
       skipPositions = Nil,
-      createdAt = DateTime.now
+      createdAt = nowDate
     )
 
 object Analyser:

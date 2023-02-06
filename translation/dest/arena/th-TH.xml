@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">ทัวร์นาเมนต์สังเวียน</string>
   <string name="isItRated">มันถูกคิดคะแนนหรือไม่?</string>
   <string name="willBeNotified">คุณจะได้รับการแจ้งเตือนเมื่อทัวร์นาเมนต์เริ่มต้น ดังนั้นจึงปลอดภัยหากจะเล่นในแท็บอื่นระหว่างรอ</string>
   <string name="isRated">ทัวร์นาเมนต์นี้ถูกคิดคะแนน และจะมีผลต่อระดับคะแนนของคุณ</string>
@@ -28,5 +29,17 @@
   </plurals>
   <string name="thisIsPrivate">นี่คือทัวร์นาเมนต์ส่วนตัว</string>
   <string name="shareUrl">แชร์ URL นี้เพื่อให้คนอื่นๆได้เข้าร่วม: %s</string>
+  <string name="drawStreakStandard">การเสมอต่อเนื่อง: เมึ่อผู้เล่นเสมอต่อเนื่องใน Arena
+จะนับคะแนน การเสมอครั้งแรก หรือการเสมอที่มีตาเดินมากกว่า %s ตาเดินในเกมมาตรฐานเท่านั้น
+การเสมอต่อเนื่อง จะสามารถจบลงได้ด้วยการชนะเท่านั้น การแพ้หรือเสมอจะไม่ทำให้จบการเสมอต่อเนื่อง</string>
+  <string name="drawStreakVariants">ความยาวเกมอย่างต่ำเพี่อที่จะให้เกมที่เสมอนั้นนับคะแนนจะต่างกันไปในแต่ละตัวแปรกติกา ตารางข้างล่างนี้แสดงจุดเริ่มต้นคิดคะแนนสำหรับแต่ละตัวแปรกติกา</string>
+  <string name="variant">ตัวแปรกติกา</string>
+  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">ความยาวเกมขั้นต่ำ</string>
+  <string name="history">ประวัติการเล่นสังเวียน</string>
+  <string name="customStartDate">กำหนดเวลาแข่งเอง</string>
   <string name="allowBerserk">อนุญาตให้เบอร์เซิร์ก</string>
+  <string name="allowBerserkHelp">ผู้เล่นจะสามารถลดเวลาเล่นของตัวเองครึ่งหนึ่งเพี่อที่จะได้คะแนนเพิ่ม 1 คะแนนถ้าชนะ</string>
+  <string name="allowChatHelp">ผู้เล่นจะสามารถพูดคุยในห้องแชตได้</string>
+  <string name="arenaStreaks">เพิ่มคะแนนเมื่อชนะต่อเนื่อง</string>
+  <string name="arenaStreaksHelp">หลังจากชนะ 2 ครั้ง การชนะต่อเนื่องจะให้คะแนน 4 คะแนน แทน 2 คะแนน</string>
 </resources>

@@ -1,7 +1,5 @@
 package lila.swiss
 
-import scala.concurrent.duration.*
-
 import lila.hub.actorApi.team.IsLeader
 import lila.hub.LateMultiThrottler
 import lila.room.RoomSocket.{ Protocol as RP, * }

@@ -3,9 +3,7 @@ package lila.api
 import akka.stream.scaladsl.*
 import chess.format.Fen
 import chess.format.pgn.{ Tag, PgnStr }
-import org.joda.time.DateTime
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.analyse.{ Analysis, AccuracyPercent, JsonView as analysisJson }
 import lila.common.config.MaxPerSecond

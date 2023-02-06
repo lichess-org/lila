@@ -1,11 +1,8 @@
 package lila.game
 
-import scala.concurrent.duration.*
-
 import chess.{ Color, Status }
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, SanStr }
-import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, ReadPreference, WriteConcern }
@@ -272,7 +269,7 @@ final class GameRepo(val coll: Coll)(using Executor):
       .sort(Query.sortAntiChronological)
       .one[Game]
 
-  def setTv(id: GameId) = coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
+  def setTv(id: GameId) = coll.updateFieldUnchecked($id(id), F.tvAt, nowDate)
 
   def setAnalysed(id: GameId): Funit  = coll.updateField($id(id), F.analysed, true).void
   def setUnanalysed(id: GameId): Unit = coll.updateFieldUnchecked($id(id), F.analysed, false)
@@ -411,7 +408,7 @@ final class GameRepo(val coll: Coll)(using Executor):
       else some(24 * 10)
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.initialFen  -> fen,
-      F.checkAt     -> checkInHours.map(DateTime.now.plusHours),
+      F.checkAt     -> checkInHours.map(nowDate.plusHours),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     coll.insert.one(bson) addFailureEffect {
@@ -421,7 +418,7 @@ final class GameRepo(val coll: Coll)(using Executor):
   def removeRecentChallengesOf(userId: UserId) =
     coll.delete.one(
       Query.created ++ Query.friend ++ Query.user(userId) ++
-        Query.createdSince(DateTime.now minusHours 1)
+        Query.createdSince(nowDate minusHours 1)
     )
 
   def setCheckAt(g: Game, at: DateTime) =
@@ -460,7 +457,7 @@ final class GameRepo(val coll: Coll)(using Executor):
   def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen.Epd])]] =
     games.map { game =>
       initialFen(game) dmap { game -> _ }
-    }.sequenceFu
+    }.parallel
 
   def count(query: Query.type => Bdoc): Fu[Int]    = coll countSel query(Query)
   def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondaryPreferred countSel query(Query)

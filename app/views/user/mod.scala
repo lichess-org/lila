@@ -17,7 +17,6 @@ import lila.mod.{ ModPresets, UserWithModlog }
 import lila.playban.RageSit
 import lila.security.{ Granter, Permission, UserLogins, Dated, UserClient, userAgentParser }
 import lila.user.{ Holder, User }
-import org.joda.time.DateTime
 
 object mod:
   private def mzSection(key: String) =

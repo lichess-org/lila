@@ -1,8 +1,6 @@
 package lila.memo
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 
@@ -19,7 +17,7 @@ final class MongoRateLimit[K](
   import MongoRateLimit.{ *, given }
   import RateLimit.Cost
 
-  private def makeClearAt = DateTime.now plusMinutes duration.toMinutes.toInt
+  private def makeClearAt = nowDate plusMinutes duration.toMinutes.toInt
 
   private lazy val logger  = lila.log("ratelimit").branch("mongo").branch(name)
   private lazy val monitor = lila.mon.security.rateLimit(s"mongo.$name")

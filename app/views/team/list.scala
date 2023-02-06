@@ -11,7 +11,7 @@ object list:
 
   import trans.team.*
 
-  def search(text: String, teams: Paginator[lila.team.Team])(implicit ctx: Context) =
+  def search(text: String, teams: Paginator[lila.team.Team])(using Context) =
     list(
       name = s"""${trans.search.search.txt()} "$text"""",
       teams = teams,
@@ -19,22 +19,22 @@ object list:
       search = text
     )
 
-  def all(teams: Paginator[lila.team.Team])(implicit ctx: Context) =
+  def all(teams: Paginator[lila.team.Team])(using Context) =
     list(
       name = trans.team.teams.txt(),
       teams = teams,
       nextPageUrl = n => routes.Team.all(n).url
     )
 
-  def mine(teams: List[lila.team.Team])(implicit ctx: Context) =
+  def mine(teams: List[lila.team.Team])(using ctx: Context) =
     bits.layout(title = myTeams.txt()) {
       main(cls := "team-list page-menu")(
         bits.menu("mine".some),
         div(cls := "page-menu__content box")(
           h1(cls := "box__top")(myTeams()),
-          standardFlash(),
+          standardFlash,
           ctx.me.filter(me => teams.size > lila.team.Team.maxJoin(me)) map { me =>
-            flashMessage(cls := "flash-failure")(
+            flashMessage("failure")(
               s"You have joined ${teams.size} out of ${lila.team.Team.maxJoin(me)} teams. Leave some teams before you can join others."
             )
           },
@@ -46,13 +46,13 @@ object list:
       )
     }
 
-  def ledByMe(teams: List[lila.team.Team])(implicit ctx: Context) =
+  def ledByMe(teams: List[lila.team.Team])(using Context) =
     bits.layout(title = myTeams.txt()) {
       main(cls := "team-list page-menu")(
         bits.menu("leader".some),
         div(cls := "page-menu__content box")(
           h1(cls := "box__top")(teamsIlead()),
-          standardFlash(),
+          standardFlash,
           table(cls := "slist slist-pad")(
             if (teams.nonEmpty) tbody(teams.map(bits.teamTr(_)))
             else noTeam()
@@ -61,7 +61,7 @@ object list:
       )
     }
 
-  private def noTeam()(implicit ctx: Context) =
+  private def noTeam()(using Context) =
     tbody(
       tr(
         td(colspan := "2")(
@@ -76,7 +76,7 @@ object list:
       teams: Paginator[lila.team.Team],
       nextPageUrl: Int => String,
       search: String = ""
-  )(implicit ctx: Context) =
+  )(using Context) =
     bits.layout(title = "%s - page %d".format(name, teams.currentPage)) {
       main(cls := "team-list page-menu")(
         bits.menu("all".some),
@@ -89,7 +89,7 @@ object list:
               )
             )
           ),
-          standardFlash(),
+          standardFlash,
           table(cls := "slist slist-pad")(
             if (teams.nbResults > 0)
               tbody(cls := "infinite-scroll")(

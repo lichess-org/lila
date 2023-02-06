@@ -3,7 +3,7 @@ package lila.tournament
 import chess.Clock.Config as ClockConfig
 import chess.format.Fen
 import chess.{ Mode, Speed }
-import org.joda.time.{ DateTime, Duration, Interval }
+import org.joda.time.{ Duration, Interval }
 import play.api.i18n.Lang
 import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
@@ -89,9 +89,9 @@ case class Tournament(
 
   def isRecentlyStarted = isStarted && (nowSeconds - startsAt.getSeconds) < 15
 
-  def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
+  def isNowOrSoon = startsAt.isBefore(nowDate plusMinutes 15) && !isFinished
 
-  def isDistant = startsAt.isAfter(DateTime.now plusDays 1)
+  def isDistant = startsAt.isAfter(nowDate plusDays 1)
 
   def duration = Duration(minutes * 60 * 1000)
 
@@ -182,7 +182,7 @@ object Tournament:
       clock = clock,
       minutes = minutes,
       createdBy = by.fold(identity, _.id),
-      createdAt = DateTime.now,
+      createdAt = nowDate,
       nbPlayers = 0,
       variant = variant,
       position = position,
@@ -193,7 +193,7 @@ object Tournament:
       noBerserk = !berserkable,
       noStreak = !streakable,
       schedule = None,
-      startsAt = startDate | DateTime.now.plusMinutes(waitMinutes),
+      startsAt = startDate | nowDate.plusMinutes(waitMinutes),
       description = description,
       hasChat = hasChat
     )
@@ -206,7 +206,7 @@ object Tournament:
       clock = Schedule clockFor sched,
       minutes = minutes,
       createdBy = User.lichessId,
-      createdAt = DateTime.now,
+      createdAt = nowDate,
       nbPlayers = 0,
       variant = sched.variant,
       position = sched.position,

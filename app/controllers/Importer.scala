@@ -3,11 +3,10 @@ package controllers
 import play.api.libs.json.Json
 import scala.util.{ Either, Left, Right }
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import views.*
 
 import lila.app.{ given, * }
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.IpAddress
 import chess.format.pgn.PgnStr
 
 final class Importer(env: Env) extends LilaController(env):
@@ -65,7 +64,7 @@ final class Importer(env: Env) extends LilaController(env):
 
   def apiSendGame =
     AnonOrScopedBody(parse.anyContent)() { req => me =>
-      ImportRateLimitPerIP(HTTPRequest ipAddress req, cost = if (me.isDefined) 1 else 2) {
+      ImportRateLimitPerIP(req.ipAddress, cost = if (me.isDefined) 1 else 2) {
         env.importer.forms.importForm
           .bindFromRequest()(req, formBinding)
           .fold(

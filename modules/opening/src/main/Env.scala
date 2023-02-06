@@ -4,7 +4,6 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
 
 import lila.common.config.CollName
 import lila.game.{ GameRepo, PgnDump }

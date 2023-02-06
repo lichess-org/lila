@@ -1,7 +1,6 @@
 package lila.fishnet
 
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
@@ -21,7 +20,7 @@ final private class FishnetLimiter(
       (result.ok ?? requesterApi.add(sender.userId, ownGame)) inject result
     }
 
-  private val RequestLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val RequestLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 120,
     duration = 1 day,
     key = "request_analysis.ip"

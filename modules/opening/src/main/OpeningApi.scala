@@ -2,7 +2,6 @@ package lila.opening
 
 import chess.opening.OpeningDb
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration.*
 
 import lila.db.dsl.*
 import lila.game.{ GameRepo, PgnDump }
@@ -25,34 +24,44 @@ final class OpeningApi(
   }
 
   def index(using req: RequestHeader): Fu[Option[OpeningPage]] =
-    lookup(Query("", none), withWikiRevisions = false)
+    lookup(Query("", none), withWikiRevisions = false, crawler = Crawler.No)
 
-  def lookup(q: Query, withWikiRevisions: Boolean)(using RequestHeader): Fu[Option[OpeningPage]] =
-    val config = readConfig
-    if (config.isDefault && !withWikiRevisions)
-      defaultCache.getFuture(q, _ => lookup(q, config, withWikiRevisions))
-    else lookup(q, config, withWikiRevisions)
+  def lookup(q: Query, withWikiRevisions: Boolean, crawler: Crawler)(using
+      RequestHeader
+  ): Fu[Option[OpeningPage]] =
+    val config   = if crawler.yes then OpeningConfig.default else readConfig
+    def doLookup = lookup(q, config, withWikiRevisions, crawler)
+    if crawler.no && config.isDefault && !withWikiRevisions
+    then defaultCache.getFuture(q, _ => doLookup)
+    else doLookup
 
   private def lookup(
       q: Query,
       config: OpeningConfig,
-      withWikiRevisions: Boolean
+      withWikiRevisions: Boolean,
+      crawler: Crawler
   ): Fu[Option[OpeningPage]] =
-    OpeningQuery(q, config) ?? { compute(_, withWikiRevisions) }
+    OpeningQuery(q, config) ?? { compute(_, withWikiRevisions, crawler) }
 
-  private def compute(query: OpeningQuery, withWikiRevisions: Boolean): Fu[Option[OpeningPage]] =
-    explorer.stats(query) zip
-      explorer.queryHistory(query) zip
-      allGamesHistory.get(query.config) zip
-      query.openingAndExtraMoves._1.??(op => wikiApi(op, withWikiRevisions) dmap some) flatMap {
-        case (((stats, history), allHistory), wiki) =>
-          for {
+  private def compute(
+      query: OpeningQuery,
+      withWikiRevisions: Boolean,
+      crawler: Crawler
+  ): Fu[Option[OpeningPage]] =
+    query.closestOpening.??(op => wikiApi(op, withWikiRevisions) dmap some) flatMap { wiki =>
+      val useExplorer = crawler.no || wiki.exists(_.hasMarkup)
+      (useExplorer ?? explorer.stats(query)) zip
+        ((crawler.no && query.uci.nonEmpty) ?? explorer.queryHistory(query)) zip
+        allGamesHistory.get(query.config) flatMap { case ((stats, history), allHistory) =>
+          for
             games <- gameRepo.gamesFromSecondary(stats.??(_.games).map(_.id))
             withPgn <- games.map { g =>
               pgnDump(g, None, PgnDump.WithFlags(evals = false)) dmap { GameWithPgn(g, _) }
-            }.sequenceFu
-          } yield OpeningPage(query, stats, withPgn, historyPercent(history, allHistory), wiki).some
-      }
+            }.parallel
+            relHistory = query.uci.nonEmpty ?? historyPercent(history, allHistory)
+          yield OpeningPage(query, stats, withPgn, relHistory, wiki).some
+        }
+    }
 
   def readConfig(using RequestHeader) = configStore.read
 

@@ -2,8 +2,6 @@ package lila.insight
 
 import chess.{ Centis, Color }
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
-import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config
 import lila.db.dsl.{ *, given }

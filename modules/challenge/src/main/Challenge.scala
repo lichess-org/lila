@@ -3,7 +3,6 @@ package lila.challenge
 import chess.format.Fen
 import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
 import chess.{ Color, Mode, Speed }
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Days
@@ -260,9 +259,9 @@ object Challenge:
       challenger = challenger,
       destUser = destUser map toRegistered(variant, timeControl),
       rematchOf = rematchOf,
-      createdAt = DateTime.now,
-      seenAt = !isOpen option DateTime.now,
-      expiresAt = if (isOpen) DateTime.now.plusDays(1) else inTwoWeeks,
+      createdAt = nowDate,
+      seenAt = !isOpen option nowDate,
+      expiresAt = if (isOpen) nowDate.plusDays(1) else inTwoWeeks,
       open = isOpen option Open(openToUserIds),
       name = name,
       rules = rules

@@ -1,9 +1,7 @@
 package lila.ublog
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -64,7 +62,7 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor)
                       "$filter" -> $doc(
                         "input" -> $doc("$slice" -> $arr("$posts", 4)),
                         "as"    -> "post",
-                        "cond"  -> $doc("$gt" -> $arr("$$post.rank", DateTime.now))
+                        "cond"  -> $doc("$gt" -> $arr("$$post.rank", nowDate))
                       )
                     )
                   )

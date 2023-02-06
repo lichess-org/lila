@@ -2,7 +2,6 @@ package lila.swiss
 
 import com.softwaremill.macwire.*
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.common.LilaScheduler
@@ -110,7 +109,7 @@ final class Env(
     api.checkOngoingGames
   )
 
-  LilaScheduler("Swiss.generate", _.Every(1 hour), _.AtMost(15 seconds), _.Delay(5 minutes))(
+  LilaScheduler("Swiss.generate", _.Every(3 hours), _.AtMost(15 seconds), _.Delay(15 minutes))(
     officialSchedule.generate
   )
 

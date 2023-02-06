@@ -27,9 +27,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       replay: Option[lila.puzzle.PuzzleReplay] = None,
       newUser: Option[UserModel] = None,
       apiVersion: Option[ApiVersion] = None
-  )(using
-      ctx: Context
-  ): Fu[JsObject] =
+  )(using ctx: Context): Fu[JsObject] =
     if (apiVersion.exists(v => !ApiVersion.puzzleV2(v)))
       env.puzzle.jsonView.bc(puzzle = puzzle, user = newUser orElse ctx.me)
     else
@@ -46,7 +44,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       color: Option[Color] = None,
       replay: Option[lila.puzzle.PuzzleReplay] = None,
       langPath: Option[LangPath] = None
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     renderJson(puzzle, angle, replay) zip
       ctx.me.??(u => env.puzzle.session.getSettings(u) dmap some) map { case (json, settings) =>
         Ok(
@@ -91,27 +89,31 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def home = Open(serveHome(_))
+  def home = Open(serveHome(using _))
 
-  def homeLang = LangPage(routes.Puzzle.home.url)(serveHome(_))
+  def homeLang = LangPage(routes.Puzzle.home.url)(serveHome(using _))
 
-  private def serveHome(implicit ctx: Context) =
+  private def serveHome(using Context) =
     NoBot {
       val angle = PuzzleAngle.mix
       nextPuzzleForMe(angle, none) flatMap {
-        renderShow(_, angle, langPath = LangPath(routes.Puzzle.home).some)
+        _.fold(redirectNoPuzzle) {
+          renderShow(_, angle, langPath = LangPath(routes.Puzzle.home).some)
+        }
       }
     }
 
   private def nextPuzzleForMe(angle: PuzzleAngle, color: Option[Option[Color]])(using
       ctx: Context
-  ): Fu[Puz] =
+  ): Fu[Option[Puz]] =
     ctx.me match
       case Some(me) =>
-        color.?? { colorChoice =>
-          env.puzzle.session.setAngleAndColor(me, angle, colorChoice)
-        } >> env.puzzle.selector.nextPuzzleFor(me, angle)
-      case None => env.puzzle.anon.getOneFor(angle, ~color) orFail "Couldn't find a puzzle for anon!"
+        color.?? { env.puzzle.session.setAngleAndColor(me, angle, _) } >>
+          env.puzzle.selector.nextPuzzleFor(me, angle)
+      case None => env.puzzle.anon.getOneFor(angle, ~color)
+
+  private def redirectNoPuzzle(using Context) =
+    Redirect(routes.Puzzle.themes).flashFailure("No more puzzles available! Try another theme.").toFuccess
 
   def complete(angleStr: String, id: PuzzleId) =
     OpenBody { implicit ctx =>
@@ -149,7 +151,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         jsonFormError,
         data =>
           {
-            data.streakPuzzleId match {
+            data.streakPuzzleId match
               case Some(streakNextId) =>
                 env.puzzle.api.puzzle.find(streakNextId) flatMap {
                   case None => fuccess(Json.obj("streakComplete" -> true))
@@ -206,7 +208,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                               case _ =>
                                 for
                                   next     <- nextPuzzleForMe(angle, none)
-                                  nextJson <- renderJson(next, angle, none, newUser.some)
+                                  nextJson <- next.?? { renderJson(_, angle, none, newUser.some) dmap some }
                                 yield Json.obj(
                                   "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
                                   "next"  -> nextJson
@@ -219,12 +221,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                     if (mobileBc) fuccess(Json.obj("user" -> false))
                     else
                       nextPuzzleForMe(angle, data.color map some) flatMap {
-                        renderJson(_, angle)
+                        _.?? { renderJson(_, angle) dmap some }
                       } map { json =>
                         Json.obj("next" -> json)
                       }
                 }
-            }
+            end match
           } dmap JsonOk
       )
 
@@ -314,17 +316,17 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  def show(angleOrId: String) = Open(serveShow(angleOrId)(_))
+  def show(angleOrId: String) = Open(serveShow(angleOrId)(using _))
   def showLang(lang: String, angleOrId: String) =
-    LangPage(routes.Puzzle.show(angleOrId).url)(serveShow(angleOrId)(_))(lang)
+    LangPage(routes.Puzzle.show(angleOrId).url)(serveShow(angleOrId)(using _))(lang)
 
-  private def serveShow(angleOrId: String)(implicit ctx: Context) =
+  private def serveShow(angleOrId: String)(using ctx: Context) =
     NoBot {
       val langPath = LangPath(routes.Puzzle.show(angleOrId)).some
       PuzzleAngle find angleOrId match
         case Some(angle) =>
           nextPuzzleForMe(angle, none) flatMap {
-            renderShow(_, angle, langPath = langPath)
+            _.fold(redirectNoPuzzle) { renderShow(_, angle, langPath = langPath) }
           }
         case _ =>
           lila.puzzle.Puzzle toId angleOrId match
@@ -360,7 +362,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       PuzzleAngle.find(angleKey).fold(Redirect(routes.Puzzle.openings()).toFuccess) { angle =>
         val color = Color fromName colorKey
         nextPuzzleForMe(angle, color.some) flatMap {
-          renderShow(_, angle, color = color)
+          _.fold(redirectNoPuzzle) { renderShow(_, angle, color = color) }
         }
       }
     }
@@ -462,7 +464,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         err => BadRequest(err.toString).toFuccess,
         data =>
           val angle = PuzzleAngle findOrMix angleStr
-          lila.common.Future
+          lila.common.LilaFuture
             .applySequentially(data.solutions) { sol =>
               env.puzzle
                 .finisher(sol.id, angle, me, sol.win, sol.mode)
@@ -490,9 +492,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           html = notFound,
           api = v => {
             val angle = PuzzleAngle.mix
-            nextPuzzleForMe(angle, none) flatMap { puzzle =>
-              renderJson(puzzle, angle, apiVersion = v.some)
-            } dmap JsonOk
+            nextPuzzleForMe(angle, none) flatMap {
+              _.fold(notFoundJson()) { p => JsonOk(renderJson(p, angle, apiVersion = v.some)) }
+            }
           }
         )
       }

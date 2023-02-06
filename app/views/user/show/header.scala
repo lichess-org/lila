@@ -130,7 +130,7 @@ object header:
       ),
       !ctx.is(u) option noteZone(u, social.notes),
       isGranted(_.UserModView) option div(cls := "mod-zone mod-zone-full none"),
-      standardFlash(),
+      standardFlash,
       angle match {
         case Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
         case _ =>

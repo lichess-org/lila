@@ -1,8 +1,6 @@
 package lila.tv
 
 import chess.Color
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 
 import lila.common.LightUser
 import lila.game.Game
@@ -48,7 +46,7 @@ final private[tv] class ChannelSyncActor(
     case TvSyncActor.Select =>
       candidateIds.keys
         .map(proxyGame)
-        .sequenceFu
+        .parallel
         .map(
           _.view
             .collect {

@@ -60,7 +60,7 @@
   <string name="depthX">Dubina %s</string>
   <string name="usingServerAnalysis">U uporabi je serverska analiza</string>
   <string name="loadingEngine">Učitavanje računalne analize...</string>
-  <string name="calculatingMoves">Kalkuliram poteze...</string>
+  <string name="calculatingMoves">Kalkuliranje poteza...</string>
   <string name="engineFailed">Greška pri učitavanju šahovskog programa</string>
   <string name="cloudAnalysis">Analiza u oblaku</string>
   <string name="goDeeper">Idi dublje</string>

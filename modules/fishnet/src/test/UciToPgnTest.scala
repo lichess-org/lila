@@ -14,7 +14,7 @@ final class UciToPgnTest extends Specification {
   private given Conversion[String, SanStr] = SanStr(_)
   private given Conversion[Int, Ply]       = Ply(_)
 
-  private val now = org.joda.time.DateTime.now
+  private val now = nowDate
 
   private def evenIncomplete(result: Reader.Result): Replay =
     result match {

@@ -1,12 +1,10 @@
 package lila.security
 
-import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONHandler, BSONNull, Macros }
 import reactivemongo.api.{ CursorProducer, ReadPreference }
 import scala.concurrent.blocking
-import scala.concurrent.duration.*
 
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
 import lila.db.dsl.{ *, given }
@@ -27,8 +25,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
           .one[Bdoc]
           .map {
             _.flatMap { doc =>
-              if (doc.getAsOpt[DateTime]("date").fold(true)(_ isBefore DateTime.now.minusHours(12)))
-                coll.updateFieldUnchecked($id(id), "date", DateTime.now)
+              if (doc.getAsOpt[DateTime]("date").fold(true)(_ isBefore nowDate.minusHours(12)))
+                coll.updateFieldUnchecked($id(id), "date", nowDate)
               doc.getAsOpt[UserId]("user") map { AuthInfo(_, doc.contains("fp")) }
             }
           }
@@ -65,7 +63,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
           "user" -> userId,
           "ip"   -> HTTPRequest.ipAddress(req),
           "ua"   -> HTTPRequest.userAgent(req).fold("?")(_.value),
-          "date" -> DateTime.now,
+          "date" -> nowDate,
           "up"   -> up,
           "api"  -> apiVersion,
           "fp"   -> fp.flatMap(FingerHash.from)
@@ -138,7 +136,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
       .find(
         $doc(
           "user" -> user.id,
-          "date" $gt (user.createdAt atLeast DateTime.now.minusYears(1))
+          "date" $gt (user.createdAt atLeast nowDate.minusYears(1))
         ),
         $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true).some
       )
@@ -207,13 +205,13 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
 
   private[security] def recentByIpExists(ip: IpAddress, since: FiniteDuration): Fu[Boolean] =
     coll.secondaryPreferred.exists(
-      $doc("ip" -> ip, "date" -> $gt(DateTime.now minusMinutes since.toMinutes.toInt))
+      $doc("ip" -> ip, "date" -> $gt(nowDate minusMinutes since.toMinutes.toInt))
     )
 
   private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =
     FingerHash.from(fp) ?? { hash =>
       coll.secondaryPreferred.exists(
-        $doc("fp" -> hash, "date" -> $gt(DateTime.now minusDays 7))
+        $doc("fp" -> hash, "date" -> $gt(nowDate minusDays 7))
       )
     }
 

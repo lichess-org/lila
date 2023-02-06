@@ -1,6 +1,5 @@
 package lila.relay
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
@@ -11,7 +10,7 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   import BSONHandlers.given
 
   def setSyncedNow(tour: RelayTour): Funit =
-    coll.updateField($id(tour.id), "syncedAt", DateTime.now).void
+    coll.updateField($id(tour.id), "syncedAt", nowDate).void
 
   def setActive(tourId: RelayTour.Id, active: Boolean): Funit =
     coll.updateField($id(tourId), "active", active).void

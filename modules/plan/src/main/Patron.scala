@@ -1,7 +1,5 @@
 package lila.plan
 
-import org.joda.time.DateTime
-
 import lila.user.User
 
 case class Patron(
@@ -18,16 +16,16 @@ case class Patron(
   inline def id     = _id
   inline def userId = _id
 
-  def canLevelUp = lastLevelUp.exists(_.isBefore(DateTime.now.minusDays(25)))
+  def canLevelUp = lastLevelUp.exists(_.isBefore(nowDate.minusDays(25)))
 
   def levelUpIfPossible =
     copy(
-      lastLevelUp = if (canLevelUp) Some(DateTime.now) else lastLevelUp orElse Some(DateTime.now)
+      lastLevelUp = if (canLevelUp) Some(nowDate) else lastLevelUp orElse Some(nowDate)
     )
 
   def expireInOneMonth: Patron =
     copy(
-      expiresAt = DateTime.now.plusMonths(1).plusDays(1).some
+      expiresAt = nowDate.plusMonths(1).plusDays(1).some
     )
 
   def expireInOneMonth(cond: Boolean): Patron =

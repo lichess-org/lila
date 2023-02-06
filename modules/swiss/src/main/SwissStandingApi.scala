@@ -1,7 +1,6 @@
 package lila.swiss
 
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.common.LightUser
 import lila.db.dsl.{ *, given }

@@ -1,8 +1,5 @@
 package lila.coach
 
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
-
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.notify.NotifyApi
@@ -46,7 +43,7 @@ final class CoachApi(
     )
 
   def setSeenAt(user: User): Funit =
-    Granter(_.Coach)(user) ?? coachColl.update.one($id(user.id), $set("user.seenAt" -> DateTime.now)).void
+    Granter(_.Coach)(user) ?? coachColl.update.one($id(user.id), $set("user.seenAt" -> nowDate)).void
 
   def setRating(userPre: User): Funit =
     Granter(_.Coach)(userPre) ?? {
@@ -109,15 +106,15 @@ final class CoachApi(
               score = data.score,
               text = data.text,
               approved = false,
-              createdAt = DateTime.now,
-              updatedAt = DateTime.now
+              createdAt = nowDate,
+              updatedAt = nowDate
             )
           case Some(r) =>
             r.copy(
               score = data.score,
               text = data.text,
               approved = false,
-              updatedAt = DateTime.now
+              updatedAt = nowDate
             )
         if (me.marks.troll) fuccess(review)
         else
@@ -144,7 +141,7 @@ final class CoachApi(
         $id(r.id),
         $set(
           "approved" -> false,
-          "moddedAt" -> DateTime.now
+          "moddedAt" -> nowDate
         )
       ) >> refreshCoachNbReviews(r.coachId)
 
@@ -173,8 +170,8 @@ final class CoachApi(
         reviews <- reviewColl.list[CoachReview]($doc("userId" -> userId))
         _ <- reviews.map { review =>
           reviewColl.delete.one($doc("userId" -> review.userId)).void
-        }.sequenceFu
-        _ <- reviews.map(_.coachId).distinct.map(refreshCoachNbReviews).sequenceFu
+        }.parallel
+        _ <- reviews.map(_.coachId).distinct.map(refreshCoachNbReviews).parallel
       } yield ()
 
     private def findRecent(selector: Bdoc): Fu[CoachReview.Reviews] =

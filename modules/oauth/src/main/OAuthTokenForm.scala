@@ -1,6 +1,5 @@
 package lila.oauth
 
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import reactivemongo.api.bson.BSONObjectID

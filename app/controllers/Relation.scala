@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.{ Json, Writes }
 import play.api.mvc.Result
-import scala.concurrent.duration.*
 
 import lila.api.Context
 import lila.app.{ given, * }
@@ -46,7 +45,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         }
     }
 
-  private val FollowLimitPerUser = new lila.memo.RateLimit[UserId](
+  private val FollowLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 150,
     duration = 72.hour,
     key = "follow.user"
@@ -167,7 +166,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
             lila.user.JsonView.perfs(r.user, best.some)
           }
         )
-        .add("online" -> env.socket.isOnline.value(r.user.id))
+        .add("online" -> env.socket.isOnline(r.user.id))
     }))
 
   def blocks(page: Int) =
@@ -193,6 +192,6 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           ctx.userId ?? { api.fetchRelation(_, u.id) } map { rel =>
             lila.relation.Related(u, none, followables(u.id), rel)
           }
-        }.sequenceFu
+        }.parallel
       }
     }

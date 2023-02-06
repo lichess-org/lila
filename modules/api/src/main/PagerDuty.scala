@@ -1,6 +1,5 @@
 package lila.api
 
-import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json.Json
 import play.api.libs.ws.JsonBodyWritables.*

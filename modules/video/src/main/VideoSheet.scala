@@ -1,11 +1,9 @@
 package lila.video
 
-import org.joda.time.DateTime
 import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.JsonBodyReadables.*
 import scala.annotation.nowarn
-import scala.concurrent.Future
 
 final private class VideoSheet(
     ws: StandaloneWSClient,
@@ -17,7 +15,7 @@ final private class VideoSheet(
 
   def fetchAll: Fu[Int] =
     fetch flatMap { entries =>
-      lila.common.Future
+      lila.common.LilaFuture
         .linear(entries) { entry =>
           api.video
             .find(entry.youtubeId)
@@ -47,7 +45,7 @@ final private class VideoSheet(
                   ads = entry.ads,
                   startTime = entry.startTime,
                   metadata = Youtube.empty,
-                  createdAt = DateTime.now
+                  createdAt = nowDate
                 )
                 logger.info(s"sheet insert $video")
                 api.video.save(video)

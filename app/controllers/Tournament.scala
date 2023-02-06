@@ -3,7 +3,6 @@ package controllers
 import play.api.libs.json.*
 import play.api.mvc.*
 import scala.annotation.nowarn
-import scala.concurrent.duration.*
 import views.*
 
 import lila.api.Context
@@ -106,7 +105,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                   page = page,
                   me = ctx.me,
                   getUserTeamIds = getUserTeamIds,
-                  getTeamName = env.team.getTeamName.value,
+                  getTeamName = env.team.getTeamName.apply,
                   playerInfoExt = none,
                   socketVersion = version.some,
                   partial = false,
@@ -137,7 +136,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                     page = page,
                     me = ctx.me,
                     getUserTeamIds = getUserTeamIds,
-                    getTeamName = env.team.getTeamName.value,
+                    getTeamName = env.team.getTeamName.apply,
                     playerInfoExt = playerInfoExt,
                     socketVersion = socketVersion,
                     partial = partial,
@@ -198,7 +197,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  private val JoinLimitPerUser = new lila.memo.RateLimit[UserId](
+  private val JoinLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 30,
     duration = 10 minutes,
     key = "tournament.user.join"
@@ -284,13 +283,13 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  private val CreateLimitPerUser = new lila.memo.RateLimit[UserId](
+  private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 240,
     duration = 24.hour,
     key = "tournament.user"
   )
 
-  private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
+  private val CreateLimitPerIP = lila.memo.RateLimit[lila.common.IpAddress](
     credits = 400,
     duration = 24.hour,
     key = "tournament.ip"
@@ -314,7 +313,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       ) 5
       else 20
     CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost, msg = me.username) {
+      CreateLimitPerIP(req.ipAddress, cost = cost, msg = me.username) {
         create
       }(fail.toFuccess)
     }(fail.toFuccess)
@@ -367,7 +366,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                     none,
                     none,
                     getUserTeamIds = _ => fuccess(teams.map(_.id)),
-                    env.team.getTeamName.value,
+                    env.team.getTeamName.apply,
                     none,
                     none,
                     partial = false,
@@ -397,7 +396,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                       none,
                       none,
                       getUserTeamIds = _ => fuccess(teams.map(_.id)),
-                      env.team.getTeamName.value,
+                      env.team.getTeamName.apply,
                       none,
                       none,
                       partial = false,
@@ -476,7 +475,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                       none,
                       none,
                       getUserTeamIds = getUserTeamIds,
-                      env.team.getTeamName.value,
+                      env.team.getTeamName.apply,
                       none,
                       none,
                       partial = false,
@@ -612,7 +611,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
               .map { stream =>
                 env.tournament.hasUser(tourId, stream.streamer.userId).dmap(_ option stream.streamer.userId)
               }
-              .sequenceFu
+              .parallel
               .dmap(_.flatten)
           }
         }

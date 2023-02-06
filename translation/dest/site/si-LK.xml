@@ -59,6 +59,7 @@
   <string name="depthX">ගැඹුර %s</string>
   <string name="usingServerAnalysis">සර්වර් විශ්ලේෂණය භාවිතා කිරීම</string>
   <string name="loadingEngine">එන්ජිම පූරණය වේ ...</string>
+  <string name="calculatingMoves">ගණනය වෙමින්...</string>
   <string name="cloudAnalysis">වලාකුළු විශ්ලේෂණය</string>
   <string name="goDeeper">ගැඹුරට යන්න</string>
   <string name="showThreat">තර්ජනය පෙන්වන්න</string>

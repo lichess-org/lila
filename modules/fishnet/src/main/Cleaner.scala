@@ -1,10 +1,8 @@
 package lila.fishnet
 
 import akka.stream.scaladsl.*
-import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 
@@ -22,7 +20,7 @@ final private class Cleaner(
   private def analysisTimeout(plies: Int) = plies * Cleaner.timeoutPerPly + 3.seconds
   private def analysisTimeoutBase         = analysisTimeout(20)
 
-  private def durationAgo(d: FiniteDuration) = DateTime.now.minusSeconds(d.toSeconds.toInt)
+  private def durationAgo(d: FiniteDuration) = nowDate.minusSeconds(d.toSeconds.toInt)
 
   private def cleanAnalysis: Funit =
     analysisColl

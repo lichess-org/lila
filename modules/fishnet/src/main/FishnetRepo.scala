@@ -1,9 +1,6 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
-
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
@@ -15,15 +12,14 @@ final private class FishnetRepo(
 
   import BSONHandlers.given
 
-  private val clientCache = cacheApi[Client.Key, Option[Client]](32, "fishnet.client") {
+  private val clientCache = cacheApi[Client.Key, Option[Client]](128, "fishnet.client") {
     _.expireAfterWrite(10 minutes)
       .buildAsyncFuture { key =>
         clientColl.one[Client]($id(key))
       }
   }
 
-  def getClient(key: Client.Key)        = clientCache get key
-  def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
+  def getEnabledClient(key: Client.Key) = clientCache.get(key).dmap { _.filter(_.enabled) }
   def getOfflineClient: Fu[Client] =
     getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
   def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
@@ -64,20 +60,19 @@ final private class FishnetRepo(
           (nowSeconds - date.getSeconds).toInt atLeast 0
         }))
 
-    def compute =
-      for {
-        all            <- analysisColl.countSel($empty)
-        userAcquired   <- analysisColl.countSel(system(false) ++ acquired(true))
-        userQueued     <- analysisColl.countSel(system(false) ++ acquired(false))
-        userOldest     <- oldestSeconds(false)
-        systemAcquired <- analysisColl.countSel(system(true) ++ acquired(true))
-        systemQueued =
-          all - userAcquired - userQueued - systemAcquired // because counting this is expensive (no useful index)
-        systemOldest <- oldestSeconds(true)
-      } yield Monitor.Status(
-        user = Monitor.StatusFor(acquired = userAcquired, queued = userQueued, oldest = userOldest),
-        system = Monitor.StatusFor(acquired = systemAcquired, queued = systemQueued, oldest = systemOldest)
-      )
+    def compute = for
+      all            <- analysisColl.countSel($empty)
+      userAcquired   <- analysisColl.countSel(system(false) ++ acquired(true))
+      userQueued     <- analysisColl.countSel(system(false) ++ acquired(false))
+      userOldest     <- oldestSeconds(false)
+      systemAcquired <- analysisColl.countSel(system(true) ++ acquired(true))
+      // because counting this is expensive (no useful index)
+      systemQueued = all - userAcquired - userQueued - systemAcquired
+      systemOldest <- oldestSeconds(true)
+    yield Monitor.Status(
+      user = Monitor.StatusFor(acquired = userAcquired, queued = userQueued, oldest = userOldest),
+      system = Monitor.StatusFor(acquired = systemAcquired, queued = systemQueued, oldest = systemOldest)
+    )
 
   def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
     analysisColl.one[Work.Analysis]($doc("game.id" -> work.game.id))

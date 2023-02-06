@@ -1,7 +1,5 @@
 package lila.clas
 
-import scala.concurrent.duration.*
-
 final class ClasMarkup:
 
   private val renderer =

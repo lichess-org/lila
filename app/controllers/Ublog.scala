@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.i18n.Lang
-import scala.concurrent.duration.*
 import views.*
 
 import lila.api.Context
@@ -100,7 +99,7 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  private val CreateLimitPerUser = new lila.memo.RateLimit[UserId](
+  private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 5 * 3,
     duration = 24.hour,
     key = "ublog.create.user"

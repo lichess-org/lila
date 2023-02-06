@@ -1,7 +1,5 @@
 package lila.memo
 
-import scala.concurrent.duration.FiniteDuration
-
 /** Throttler that allows X operations per Y unit of time Not thread safe
   */
 final class RateLimit[K](
@@ -23,7 +21,7 @@ final class RateLimit[K](
   private lazy val monitor = lila.mon.security.rateLimit(key)
 
   def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(
-      op: Charge => A
+      op: ChargeWith => A
   )(default: => A): A =
     apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg") {} {}) }(default)
 
@@ -49,14 +47,15 @@ final class RateLimit[K](
 
 object RateLimit:
 
-  type Charge = Cost => Unit
+  type ChargeWith = Cost => Unit
+  type Charge = () => Unit
   type Cost   = Int
 
   trait RateLimiter[K]:
 
     def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(default: => A): A
 
-    def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(default: => A): A
+    def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A)(default: => A): A
 
   enum Result:
     case Through, Limited
@@ -86,7 +85,7 @@ object RateLimit:
         }
         if (accepted) op else default
 
-      def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(default: => A): A =
+      def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A)(default: => A): A =
         apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg") {} {}) }(default)
 
   private type ClearAt = Long

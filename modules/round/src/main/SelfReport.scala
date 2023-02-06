@@ -1,7 +1,6 @@
 package lila.round
 
 import com.softwaremill.tagging.*
-import scala.concurrent.duration.*
 import scala.util.matching.Regex
 import ornicar.scalalib.ThreadLocalRandom
 
@@ -14,14 +13,12 @@ final class SelfReport(
     tellRound: TellRound,
     gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
-    ircApi: lila.irc.IrcApi,
     proxyRepo: GameProxyRepo,
     endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
 )(using ec: Executor, scheduler: akka.actor.Scheduler):
 
-  private val logOnceEvery     = lila.memo.OnceEvery[IpAddressStr](1 minute)
-  private val monitorOnceEvery = lila.memo.OnceEvery[UserId](1 hour)
+  private val logOnceEvery = lila.memo.OnceEvery[IpAddressStr](1 minute)
 
   def apply(
       userId: Option[UserId],
@@ -40,15 +37,7 @@ final class SelfReport(
             lila.log("cheat").branch("jslog").info {
               s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
             }
-          user.filter(u => monitorOnceEvery(u.id)) foreach { u =>
             lila.mon.cheat.selfReport(name, userId.isDefined).increment()
-            ircApi.selfReport(
-              typ = name,
-              path = fullId.value,
-              user = u,
-              ip = ip
-            )
-          }
       if (fullId.value == "____________") doLog()
       else
         proxyRepo.pov(fullId) foreach {

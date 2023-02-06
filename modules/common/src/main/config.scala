@@ -1,6 +1,5 @@
 package lila.common
 
-import scala.concurrent.duration.FiniteDuration
 import lila.common.autoconfig.*
 import scala.jdk.CollectionConverters.*
 import play.api.ConfigLoader

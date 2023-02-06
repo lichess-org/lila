@@ -3,8 +3,8 @@ package lila.study
 import actorApi.Who
 import akka.stream.scaladsl.*
 import chess.Centis
+import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
-import scala.concurrent.duration.*
 
 import lila.chat.{ Chat, ChatApi }
 import lila.common.Bus
@@ -259,7 +259,7 @@ final class StudyApi(
                     who
                   )
                 ) inject {
-                  (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path)) option { () =>
+                  (opts.promoteToMainline && !newPosition.path.isMainline(chapter.root)) option { () =>
                     promote(study.id, position.ref + node, toMainline = true)(who)
                   }
                 }
@@ -331,7 +331,7 @@ final class StudyApi(
                   case (node, path) if node.forceVariation =>
                     doForceVariation(Study.WithChapter(study, newChapter), path, force = false, who)
                 }
-                .sequenceFu
+                .parallel
                 .void
           case None =>
             fufail(s"Invalid promoteToMainline $studyId $position") >>-
@@ -346,7 +346,7 @@ final class StudyApi(
       }
     }
 
-  private def doForceVariation(sc: Study.WithChapter, path: Path, force: Boolean, who: Who): Funit =
+  private def doForceVariation(sc: Study.WithChapter, path: UciPath, force: Boolean, who: Who): Funit =
     sc.chapter.forceVariation(force, path) match
       case Some(newChapter) =>
         chapterRepo.forceVariation(force)(newChapter, path) >>-
@@ -459,7 +459,7 @@ final class StudyApi(
     (chapter.tags != oldChapter.tags) ?? {
       chapterRepo.setTagsFor(chapter) >> {
         PgnTags.setRootClockFromTags(chapter) ?? { c =>
-          doSetClock(Study.WithChapter(study, c), Position(c, Path.root).ref, c.root.clock)(who)
+          doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, c.root.clock)(who)
         }
       } >>-
         sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
@@ -568,7 +568,7 @@ final class StudyApi(
   ): Funit =
     data.manyGames match
       case Some(datas) =>
-        lila.common.Future.applySequentially(datas) { data =>
+        lila.common.LilaFuture.applySequentially(datas) { data =>
           addChapter(studyId, data, sticky, withRatings)(who)
         }
       case _ =>
@@ -604,7 +604,7 @@ final class StudyApi(
   def importPgns(studyId: StudyId, datas: List[ChapterMaker.Data], sticky: Boolean, withRatings: Boolean)(
       who: Who
   ) =
-    lila.common.Future.applySequentially(datas) { data =>
+    lila.common.LilaFuture.applySequentially(datas) { data =>
       addChapter(studyId, data, sticky, withRatings)(who)
     }
 
@@ -660,7 +660,7 @@ final class StudyApi(
             chapterRepo.update(newChapter) >> {
               if (chapter.conceal != newChapter.conceal)
                 (newChapter.conceal.isDefined && study.position.chapterId == chapter.id).?? {
-                  val newPosition = study.position.withPath(Path.root)
+                  val newPosition = study.position.withPath(UciPath.root)
                   studyRepo.setPosition(study.id, newPosition)
                 } >>-
                   sendTo(study.id)(_.reloadAll)

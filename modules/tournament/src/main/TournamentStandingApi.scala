@@ -3,7 +3,6 @@ package lila.tournament
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.memo.CacheApi.*
 
@@ -86,11 +85,11 @@ final class TournamentStandingApi(
         .map { p =>
           cached.sheet(tour, p.player.userId) dmap { p.player.userId -> _ }
         }
-        .sequenceFu
+        .parallel
         .dmap(_.toMap)
       players <- rankedPlayers
         .map(JsonView.playerJson(lightUserApi, sheets, streakable = tour.streakable, withScores = withScores))
-        .sequenceFu
+        .parallel
     } yield Json.obj(
       "page"    -> page,
       "players" -> players

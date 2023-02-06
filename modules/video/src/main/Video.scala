@@ -1,7 +1,5 @@
 package lila.video
 
-import org.joda.time.DateTime
-
 case class Video(
     _id: Video.ID, // youtube ID
     title: String,

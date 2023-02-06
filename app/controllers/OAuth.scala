@@ -1,12 +1,10 @@
 package controllers
 
 import cats.data.Validated
-import org.joda.time.DateTime
 import play.api.data.Form
 import play.api.data.Forms.*
 import play.api.libs.json.{ JsNull, JsObject, JsString, JsValue, Json }
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import scalatags.Text.all.stringFrag
 import views.*
 import ornicar.scalalib.ThreadLocalRandom
@@ -160,7 +158,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       else Unauthorized(jsonError("Missing permission")).toFuccess
     }
 
-  private val testTokenRateLimit = new lila.memo.RateLimit[IpAddress](
+  private val testTokenRateLimit = lila.memo.RateLimit[IpAddress](
     credits = 10_000,
     duration = 10.minutes,
     key = "api.token.test"
@@ -168,7 +166,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
   def testTokens =
     Action.async(parse.tolerantText) { req =>
       val bearers = Bearer from req.body.split(',').view.take(1000).toList
-      testTokenRateLimit[Fu[Api.ApiResult]](HTTPRequest ipAddress req, cost = bearers.size) {
+      testTokenRateLimit[Fu[Api.ApiResult]](req.ipAddress, cost = bearers.size) {
         env.oAuth.tokenApi.test(bearers) map { tokens =>
           import lila.common.Json.given
           ApiResult.Data(JsObject(tokens.map { case (bearer, token) =>

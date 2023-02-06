@@ -1,7 +1,5 @@
 package lila.irc
 
-import org.joda.time.DateTime
-
 import lila.common.IpAddress
 import lila.common.{ ApiVersion, EmailAddress, Heapsort, IpAddress, LightUser }
 import lila.hub.actorApi.irc.*
@@ -13,7 +11,7 @@ import cats.syntax.show.*
 final class IrcApi(
     zulip: ZulipClient,
     noteApi: lila.user.NoteApi
-)(using val lightUser: LightUser.Getter, ec: Executor):
+)(using lightUser: LightUser.Getter, ec: Executor):
 
   import IrcApi.*
 
@@ -29,7 +27,7 @@ final class IrcApi(
       case _               => ZulipClient.stream.mod.adminGeneral
     noteApi
       .byUserForMod(user.id)
-      .map(_.headOption.filter(_.date isAfter DateTime.now.minusMinutes(5)))
+      .map(_.headOption.filter(_.date isAfter nowDate.minusMinutes(5)))
       .flatMap {
         case None =>
           zulip.sendAndGetLink(stream, "/" + user.username)(
@@ -190,7 +188,7 @@ final class IrcApi(
 
     def apply(event: ChargeEvent): Funit =
       buffer = buffer :+ event
-      buffer.head.date.isBefore(DateTime.now.minusHours(12)) ?? {
+      buffer.head.date.isBefore(nowDate.minusHours(12)) ?? {
         val firsts    = Heapsort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.cents).sum
         val patrons =

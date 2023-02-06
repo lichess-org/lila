@@ -7,8 +7,6 @@ import io.lettuce.core.pubsub.StatefulRedisPubSubConnection as PubSub
 import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.ConcurrentHashMap
 import play.api.libs.json.*
-import scala.concurrent.duration.*
-import scala.concurrent.{ Future, Promise }
 import scala.util.chaining.*
 import lila.socket.Socket.Sri
 import ornicar.scalalib.ThreadLocalRandom
@@ -156,7 +154,7 @@ final class RemoteSocket(
         .map { index =>
           subscribe(s"$channel:$index", reader)(handler)
         }
-        .sequenceFu
+        .parallel
         .void
     }
 
@@ -202,7 +200,7 @@ object RemoteSocket:
 
   object Protocol:
 
-    final class RawMsg(val path: Path, val args: Args):
+    final class RawMsg(val path: String, val args: Args):
       def get(nb: Int)(f: PartialFunction[Array[String], Option[In]]): Option[In] =
         f.applyOrElse(args.split(" ", nb), (_: Array[String]) => None)
       def all = args split ' '
@@ -320,6 +318,5 @@ object RemoteSocket:
   val initialUserIds = Set(UserId("lichess"))
 
   type Channel = String
-  type Path    = String
   type Args    = String
   type Handler = PartialFunction[Protocol.In, Unit]

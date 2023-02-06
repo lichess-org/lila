@@ -1,7 +1,6 @@
 package lila.game
 
 import chess.Status
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -59,7 +58,7 @@ object Query:
   def nowPlaying(u: UserId) = $doc(F.playingUids -> u)
 
   def recentlyPlaying(u: UserId) =
-    nowPlaying(u) ++ $doc(F.movedAt $gt DateTime.now.minusMinutes(5))
+    nowPlaying(u) ++ $doc(F.movedAt $gt nowDate.minusMinutes(5))
 
   def nowPlayingVs(u1: UserId, u2: UserId) = $doc(F.playingUids $all List(u1, u2))
 
@@ -102,9 +101,9 @@ object Query:
   def turnsGt(nb: Int)    = F.turns $gt nb
   def turns(range: Range) = F.turns $inRange range
 
-  def checkable = F.checkAt $lt DateTime.now
+  def checkable = F.checkAt $lt nowDate
 
-  def checkableOld = F.checkAt $lt DateTime.now.minusHours(1)
+  def checkableOld = F.checkAt $lt nowDate.minusHours(1)
 
   def variant(v: chess.variant.Variant) =
     $doc(F.variant -> (if (v.standard) $exists(false) else $int(v.id)))

@@ -3,7 +3,6 @@ package lila.tournament
 import akka.stream.Materializer
 import akka.stream.scaladsl.*
 import BSONHandlers.given
-import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
@@ -118,7 +117,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
               )
             )
           }
-          .sequenceFu
+          .parallel
       }
       .void
 
@@ -168,7 +167,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
   def insert(pairings: List[Pairing]) =
     coll.insert.many {
       pairings.map { p =>
-        pairingHandler.write(p) ++ $doc("d" -> DateTime.now)
+        pairingHandler.write(p) ++ $doc("d" -> nowDate)
       }
     }.void
 

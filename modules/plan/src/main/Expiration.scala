@@ -3,8 +3,6 @@ package lila.plan
 import lila.db.dsl.{ *, given }
 import lila.user.UserRepo
 
-import org.joda.time.DateTime
-
 final private class Expiration(
     userRepo: UserRepo,
     patronColl: Coll,
@@ -20,7 +18,7 @@ final private class Expiration(
         patronColl.update.one($id(patron.id), patron.removePayPal) >>
           disableUserPlanOf(patron) >>-
           logger.info(s"Expired $patron")
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   private def disableUserPlanOf(patron: Patron): Funit =
@@ -32,7 +30,7 @@ final private class Expiration(
   private def getExpired =
     patronColl.list[Patron](
       $doc(
-        "expiresAt" $lt DateTime.now,
+        "expiresAt" $lt nowDate,
         "lifetime" $ne true
       ),
       50

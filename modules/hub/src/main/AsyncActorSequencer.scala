@@ -1,8 +1,6 @@
 package lila.hub
 
 import com.github.blemale.scaffeine.LoadingCache
-import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.Promise
 
 import lila.base.LilaTimeout
 import lila.common.config.Max
@@ -41,7 +39,7 @@ final class AsyncActorSequencers[K](
   private val sequencers: LoadingCache[K, AsyncActorSequencer] =
     lila.common.LilaCache.scaffeine
       .expireAfterAccess(expiration)
-      .build(key => new AsyncActorSequencer(maxSize, timeout, s"$name:$key", logging))
+      .build(key => AsyncActorSequencer(maxSize, timeout, s"$name:$key", logging))
 
 object AsyncActorSequencer:
 

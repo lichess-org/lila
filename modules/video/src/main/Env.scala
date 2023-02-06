@@ -5,7 +5,6 @@ import play.api.Mode
 import com.softwaremill.macwire.*
 import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 

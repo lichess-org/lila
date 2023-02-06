@@ -2,7 +2,6 @@ package lila.game
 
 import chess.format.UciDump
 import com.github.blemale.scaffeine.Cache
-import scala.concurrent.duration.*
 
 final class UciMemo(gameRepo: GameRepo)(using Executor):
 

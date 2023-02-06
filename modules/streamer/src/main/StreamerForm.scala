@@ -1,6 +1,5 @@
 package lila.streamer
 
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints
@@ -74,14 +73,16 @@ object StreamerForm:
   ):
 
     def apply(streamer: Streamer, asMod: Boolean) =
+      val liveVideoId   = streamer.youTube.flatMap(_.liveVideoId)
+      val pubsubVideoId = streamer.youTube.flatMap(_.pubsubVideoId)
       val newStreamer = streamer.copy(
         name = name,
         headline = headline,
         description = description,
         twitch = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply),
-        youTube = youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply),
+        youTube = youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply(_, liveVideoId, pubsubVideoId)),
         listed = listed,
-        updatedAt = DateTime.now
+        updatedAt = nowDate
       )
       newStreamer.copy(
         approval = approval.map(_.resolve) match {
@@ -95,7 +96,7 @@ object StreamerForm:
               },
               ignored = m.ignored && !m.granted,
               chatEnabled = m.chat,
-              lastGrantedAt = m.granted.option(DateTime.now) orElse streamer.approval.lastGrantedAt
+              lastGrantedAt = m.granted.option(nowDate) orElse streamer.approval.lastGrantedAt
             )
           case _ =>
             streamer.approval.copy(

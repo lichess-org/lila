@@ -72,7 +72,7 @@
   <string name="forceVariation">भिन्नता सक्तीची करा</string>
   <string name="move">चाल</string>
   <string name="variantLoss">प्रकार हरला</string>
-  <string name="variantWin">प्रकार विजयी</string>
+  <string name="variantWin">या प्रकारातील विजय</string>
   <string name="insufficientMaterial">अपर्याप्त सोंगट्या</string>
   <string name="pawnMove">प्याद्याची चाल</string>
   <string name="capture">ताब्यात घेतले</string>

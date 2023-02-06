@@ -1,6 +1,5 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 import chess.Ply
@@ -91,7 +90,7 @@ object Work:
         acquired = Acquired(
           clientKey = client.key,
           userId = client.userId,
-          date = DateTime.now
+          date = nowDate
         ).some,
         lastTryByKey = client.key.some,
         tries = tries + 1

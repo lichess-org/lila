@@ -105,7 +105,7 @@ object discussion:
           )
         )
       },
-      standardFlash(),
+      standardFlash,
       div(cls := "body")(
         appeal.msgs.map { msg =>
           div(cls := s"appeal__msg appeal__msg--${if (appeal isByMod msg) "mod" else "suspect"}")(

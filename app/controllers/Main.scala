@@ -104,6 +104,7 @@ Allow: /
 Disallow: /game/export/
 Disallow: /games/export/
 Disallow: /api/
+Disallow: /opening/config/
 Allow: /game/export/gif/thumbnail/
 
 User-agent: Twitterbot
@@ -175,6 +176,12 @@ Allow: /
     Open { implicit ctx =>
       pageHit
       Ok(html.site.faq()).toFuccess
+    }
+
+  def temporarilyDisabled =
+    Open { implicit ctx =>
+      pageHit
+      NotImplemented(html.site.message.temporarilyDisabled).toFuccess
     }
 
   def keyboardMoveHelp =

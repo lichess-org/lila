@@ -1,8 +1,7 @@
 package lila.relay
 
-import org.joda.time.DateTime
-
 import chess.format.pgn.{ Tag, Tags }
+import chess.format.UciPath
 import lila.socket.Socket.Sri
 import lila.study.*
 
@@ -20,7 +19,7 @@ final private class RelaySync(
         RelayInputSanity(chapters, games) match
           case Left(fail) => fufail(fail.msg)
           case Right(games) =>
-            lila.common.Future.linear(games) { game =>
+            lila.common.LilaFuture.linear(games) { game =>
               findCorrespondingChapter(game, chapters, games.size) match
                 case Some(chapter) => updateChapter(rt.tour, study, chapter, game) dmap some
                 case None =>
@@ -71,9 +70,9 @@ final private class RelaySync(
   private type NbMoves = Int
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
     val who = actorApi.Who(chapter.ownerId, sri)
-    game.root.mainline.foldLeft(Path.root -> none[Node]) {
+    game.root.mainline.foldLeft(UciPath.root -> none[Node]) {
       case ((parentPath, None), gameNode) =>
-        val path = parentPath + gameNode
+        val path = parentPath + gameNode.id
         chapter.root.nodeAt(path) match
           case None => parentPath -> gameNode.some
           case Some(existing) =>
@@ -88,7 +87,7 @@ final private class RelaySync(
       case (found, _) => found
     } match
       case (path, newNode) =>
-        !Path.isMainline(chapter.root, path) ?? {
+        !path.isMainline(chapter.root) ?? {
           logger.info(s"Change mainline ${showSC(study, chapter)} $path")
           studyApi.promote(
             studyId = study.id,
@@ -96,20 +95,21 @@ final private class RelaySync(
             toMainline = true
           )(who) >> chapterRepo.setRelayPath(chapter.id, path)
         } >> newNode.?? { node =>
-          lila.common.Future.fold(node.mainline.toList)(Position(chapter, path).ref) { case (position, n) =>
-            studyApi.addNode(
-              studyId = study.id,
-              position = position,
-              node = n,
-              opts = moveOpts.copy(clock = n.clock),
-              relay = Chapter
-                .Relay(
-                  index = game.index,
-                  path = position.path + n,
-                  lastMoveAt = DateTime.now
-                )
-                .some
-            )(who) inject position + n
+          lila.common.LilaFuture.fold(node.mainline.toList)(Position(chapter, path).ref) {
+            case (position, n) =>
+              studyApi.addNode(
+                studyId = study.id,
+                position = position,
+                node = n,
+                opts = moveOpts.copy(clock = n.clock),
+                relay = Chapter
+                  .Relay(
+                    index = game.index,
+                    path = position.path + n.id,
+                    lastMoveAt = nowDate
+                  )
+                  .some
+              )(who) inject position + n
           } inject {
             if (chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty)
               studyApi.reloadChapters(study)
@@ -149,7 +149,7 @@ final private class RelaySync(
     }
 
   private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit =
-    chapterRepo.setRelayPath(chapter.id, Path.root) >> {
+    chapterRepo.setRelayPath(chapter.id, UciPath.root) >> {
       (tour.official && chapter.root.mainline.sizeIs > 10) ?? studyApi.analysisRequest(
         studyId = study.id,
         chapterId = chapter.id,
@@ -189,7 +189,7 @@ final private class RelaySync(
           .Relay(
             index = game.index,
             path = game.root.mainlinePath,
-            lastMoveAt = DateTime.now
+            lastMoveAt = nowDate
           )
           .some
       )

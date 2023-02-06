@@ -5,8 +5,6 @@ import lila.common.IpAddress
 import scala.util.{ Failure, Success, Try }
 import ornicar.scalalib.SecureRandom
 
-import org.joda.time.DateTime
-
 case class Client(
     _id: Client.Key,                   // API key used to authenticate and assign move or analysis
     userId: UserId,                    // lichess user ID
@@ -43,7 +41,7 @@ object Client:
     skill = Skill.All,
     instance = None,
     enabled = true,
-    createdAt = DateTime.now
+    createdAt = nowDate
   )
 
   opaque type Key = String
@@ -65,7 +63,7 @@ object Client:
 
   object Instance:
 
-    def recentSince = DateTime.now.minusMinutes(15)
+    def recentSince = nowDate.minusMinutes(15)
 
   enum Skill:
     case Move

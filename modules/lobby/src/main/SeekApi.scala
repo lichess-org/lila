@@ -1,8 +1,5 @@
 package lila.lobby
 
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
-
 import lila.common.config.*
 import lila.db.dsl.{ *, given }
 import lila.user.User
@@ -71,7 +68,7 @@ final class SeekApi(
   def insert(seek: Seek) =
     coll.insert.one(seek) >> findByUser(seek.user.id).flatMap {
       case seeks if seeks.sizeIs <= maxPerUser.value => funit
-      case seeks                                     => seeks.drop(maxPerUser.value).map(remove).sequenceFu
+      case seeks                                     => seeks.drop(maxPerUser.value).map(remove).parallel
     }.void >>- cacheClear()
 
   def findByUser(userId: UserId): Fu[List[Seek]] =
@@ -87,7 +84,7 @@ final class SeekApi(
   def archive(seek: Seek, gameId: GameId) =
     val archiveDoc = bsonWriteObjTry[Seek](seek).get ++ $doc(
       "gameId"     -> gameId,
-      "archivedAt" -> DateTime.now
+      "archivedAt" -> nowDate
     )
     coll.delete.one($doc("_id" -> seek.id)).void >>-
       cacheClear() >>

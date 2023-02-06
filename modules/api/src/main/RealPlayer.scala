@@ -3,7 +3,6 @@ package lila.api
 import chess.format.pgn.{ Pgn, Tag, Tags }
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
-import scala.concurrent.duration.*
 
 import lila.user.User
 

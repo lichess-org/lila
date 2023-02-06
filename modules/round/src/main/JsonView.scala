@@ -24,7 +24,7 @@ final class JsonView(
     moretimer: Moretimer,
     divider: lila.game.Divider,
     evalCache: lila.evalCache.EvalCacheApi,
-    isOfferingRematch: Pov => Boolean
+    isOfferingRematch: IsOfferingRematch
 )(using Executor):
 
   import JsonView.{ *, given }
@@ -202,10 +202,8 @@ final class JsonView(
               .add("highlight" -> pref.highlight)
               .add("destination" -> (pref.destination && !pref.isBlindfold))
               .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
-              .add("showCaptured" -> pref.captured),
-            "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
+              .add("showCaptured" -> pref.captured)
           )
-          .add("evalPut" -> me.??(evalCache.shouldPut))
           .add("tv" -> tv.collect { case OnTv.Lichess(channel, flip) =>
             Json.obj("channel" -> channel, "flip" -> flip)
           })
@@ -288,7 +286,6 @@ final class JsonView(
           .add("destination" -> (pref.destination && !pref.isBlindfold)),
         "userAnalysis" -> true
       )
-      .add("evalPut" -> me.??(evalCache.shouldPut))
 
   private def blurs(game: Game, player: lila.game.Player) =
     player.blurs.nonEmpty option {

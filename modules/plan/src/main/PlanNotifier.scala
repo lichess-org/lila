@@ -1,7 +1,6 @@
 package lila.plan
 
 import akka.actor.*
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.hub.actorApi.timeline.Propagate

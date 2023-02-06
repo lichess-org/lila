@@ -17,7 +17,7 @@ final class Video(env: Env) extends LilaController(env):
         filter = Filter(reqTags),
         tags = tags,
         query = get("q"),
-        bot = HTTPRequest isCrawler ctx.req
+        crawler = HTTPRequest isCrawler ctx.req
       )
     } flatMap f
 

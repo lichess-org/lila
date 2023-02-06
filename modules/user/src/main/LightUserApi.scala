@@ -1,7 +1,6 @@
 package lila.user
 
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 import scala.util.Success
 
 import lila.common.LightUser
@@ -29,7 +28,7 @@ final class LightUserApi(
   def asyncMany = cache.asyncMany
 
   def asyncManyFallback(ids: Seq[UserId]): Fu[Seq[LightUser]] =
-    ids.map(asyncFallback).sequenceFu
+    ids.map(asyncFallback).parallel
 
   val isBotSync: LightUser.IsBotSync = LightUser.IsBotSync(id => sync(id).exists(_.isBot))
 

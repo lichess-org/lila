@@ -1,7 +1,6 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.*
 
@@ -102,7 +101,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
             "settings"    -> s.settings,
             "visibility"  -> s.visibility,
             "description" -> ~s.description,
-            "updatedAt"   -> DateTime.now
+            "updatedAt"   -> nowDate
           )
         )
     }.void
@@ -112,7 +111,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       _.update
         .one(
           $id(s.id),
-          $set("topics" -> s.topics, "updatedAt" -> DateTime.now)
+          $set("topics" -> s.topics, "updatedAt" -> nowDate)
         )
     }.void
 
@@ -133,13 +132,13 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
           $id(studyId),
           $set(
             "position"  -> position,
-            "updatedAt" -> DateTime.now
+            "updatedAt" -> nowDate
           )
         )
     ).void
 
   def updateNow(s: Study): Funit =
-    coll.map(_.updateFieldUnchecked($id(s.id), "updatedAt", DateTime.now))
+    coll.map(_.updateFieldUnchecked($id(s.id), "updatedAt", nowDate))
 
   def addMember(study: Study, member: StudyMember): Funit =
     coll {

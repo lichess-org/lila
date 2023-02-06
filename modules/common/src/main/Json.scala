@@ -1,6 +1,5 @@
 package lila.common
 
-import org.joda.time.DateTime
 import play.api.libs.json.{ Json as PlayJson, * }
 import chess.format.{ Uci }
 

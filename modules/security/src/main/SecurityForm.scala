@@ -4,7 +4,6 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration.*
 
 import lila.common.{ EmailAddress, Form as LilaForm, LameName }
 import lila.common.Form.{ *, given }
@@ -21,7 +20,10 @@ final class SecurityForm(
 
   import SecurityForm.*
 
-  private val passwordMinLength = 4
+  private val newPasswordField =
+    text(minLength = 4, maxLength = 999).verifying(PasswordCheck.newConstraint)
+  private def newPasswordFieldFor(user: User) =
+    newPasswordField.verifying(PasswordCheck.sameConstraint(user.username into UserStr))
 
   private val anyEmail: Mapping[EmailAddress] =
     LilaForm
@@ -83,24 +85,26 @@ final class SecurityForm(
       "policy"     -> agreementBool
     )(AgreementData.apply)(unapply)
 
-    def website(implicit req: RequestHeader) = hcaptcha.form(
+    def website(using RequestHeader) = hcaptcha.form(
       Form(
         mapping(
           "username"  -> username,
-          "password"  -> text(minLength = passwordMinLength),
+          "password"  -> newPasswordField,
           "email"     -> emailField,
           "agreement" -> agreement,
           "fp"        -> optional(nonEmptyText)
         )(SignupData.apply)(_ => None)
+          .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
       )
     )
 
     val mobile = Form(
       mapping(
         "username" -> username,
-        "password" -> text(minLength = passwordMinLength),
+        "password" -> newPasswordField,
         "email"    -> emailField
       )(MobileSignupData.apply)(_ => None)
+        .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
     )
 
   def passwordReset(implicit req: RequestHeader) = hcaptcha.form(
@@ -111,26 +115,43 @@ final class SecurityForm(
     )
   )
 
-  val newPassword = Form(
+  def newPasswordFor(user: User) = Form(
     single(
-      "password" -> text(minLength = passwordMinLength)
+      "password" -> newPasswordFieldFor(user)
     )
   )
 
   case class PasswordResetConfirm(newPasswd1: String, newPasswd2: String):
     def samePasswords = newPasswd1 == newPasswd2
 
-  val passwdReset = Form(
+  def passwdResetFor(user: User) = Form(
     mapping(
-      "newPasswd1" -> nonEmptyText(minLength = passwordMinLength),
-      "newPasswd2" -> nonEmptyText(minLength = passwordMinLength)
-    )(PasswordResetConfirm.apply)(unapply).verifying(
-      "newPasswordsDontMatch",
-      _.samePasswords
-    )
+      "newPasswd1" -> newPasswordFieldFor(user),
+      "newPasswd2" -> newPasswordFieldFor(user)
+    )(PasswordResetConfirm.apply)(unapply)
+      .verifying("newPasswordsDontMatch", _.samePasswords)
   )
 
-  def magicLink(implicit req: RequestHeader) = hcaptcha.form(
+  case class Passwd(
+      oldPasswd: String,
+      newPasswd1: String,
+      newPasswd2: String
+  ):
+    def samePasswords = newPasswd1 == newPasswd2
+
+  def passwdChange(user: User)(using Executor) =
+    authenticator loginCandidate user map { candidate =>
+      Form(
+        mapping(
+          "oldPasswd"  -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+          "newPasswd1" -> newPasswordFieldFor(user),
+          "newPasswd2" -> newPasswordFieldFor(user)
+        )(Passwd.apply)(unapply)
+          .verifying("newPasswordsDontMatch", _.samePasswords)
+      )
+    }
+
+  def magicLink(using req: RequestHeader) = hcaptcha.form(
     Form(
       mapping(
         "email" -> sendableEmail // allow unacceptable emails for BC
@@ -224,7 +245,8 @@ object SecurityForm:
       agreement: AgreementData,
       fp: Option[String]
   ):
-    def fingerPrint = FingerPrint from fp.filter(_.nonEmpty)
+    def fingerPrint   = FingerPrint from fp.filter(_.nonEmpty)
+    def clearPassword = User.ClearPassword(password)
 
   case class MobileSignupData(
       username: UserName,

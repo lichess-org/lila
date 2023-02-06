@@ -207,6 +207,12 @@
   <string name="email">Correo</string>
   <string name="passwordReset">Cambiar contraseña</string>
   <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
+  <string name="error.weakPassword">Esta contraseña es extremadamente común, y muy fácil de adivinar.</string>
+  <string name="error.namePassword">Por favor, no uses tu nombre de usuario como contraseña.</string>
+  <string name="youAreLeavingLichess">Estás saliendo de Lichess</string>
+  <string name="neverTypeYourPassword">¡Nunca escribas tu contraseña de Lichess en otro sitio!</string>
+  <string name="passwordSuggestion">No establezcas una contraseña sugerida por otra persona. La usarán para robar tu cuenta.</string>
+  <string name="emailSuggestion">No establezcas una dirección de correo electrónico sugerida por otra persona. La usarán para robar tu cuenta.</string>
   <string name="emailConfirmHelp">Ayuda con confirmación de correo electrónico</string>
   <string name="emailConfirmNotReceived">¿No recibiste tu correo de confirmación después de registrarte?</string>
   <string name="whatSignupUsername">¿Qué nombre de usuario utilizaste para registrarte?</string>

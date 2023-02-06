@@ -2,9 +2,7 @@ package lila.memo
 
 import CacheApi.*
 import com.github.blemale.scaffeine.AsyncLoadingCache
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import reactivemongo.api.bson.BSONDocumentHandler.apply
@@ -32,7 +30,7 @@ final class MongoCache[K, V: BSONHandler] private (
           .flatMap { v =>
             coll.update.one(
               $id(dbKey),
-              Entry(dbKey, v, DateTime.now.plusSeconds(dbTtl.toSeconds.toInt)),
+              Entry(dbKey, v, nowDate.plusSeconds(dbTtl.toSeconds.toInt)),
               upsert = true
             ) inject v
           }

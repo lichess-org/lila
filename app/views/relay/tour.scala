@@ -17,7 +17,7 @@ object tour:
   def index(
       active: List[RelayTour.ActiveWithNextRound],
       pager: Paginator[RelayTour.WithLastRound]
-  )(implicit ctx: Context) =
+  )(using Context) =
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
@@ -66,7 +66,7 @@ object tour:
     }
 
   def page(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, active: String)(using
-      ctx: Context
+      Context
   ) =
     val title = ~doc.getText("doc.title")
     views.html.base.layout(
@@ -82,7 +82,7 @@ object tour:
       )
     }
 
-  private def layout(title: String, active: String)(body: Modifier*)(implicit ctx: Context) =
+  private def layout(title: String, active: String)(body: Modifier*)(using Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("relay.index")
@@ -93,7 +93,7 @@ object tour:
       )
     )
 
-  def pageMenu(menu: String)(implicit ctx: Context) =
+  def pageMenu(menu: String)(using Context) =
     st.nav(cls := "page-menu__menu subnav")(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.tournamentCalendar()),

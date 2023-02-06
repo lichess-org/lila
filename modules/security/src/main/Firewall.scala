@@ -1,9 +1,7 @@
 package lila.security
 
-import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
@@ -33,11 +31,11 @@ final class Firewall(
       coll.update
         .one(
           $id(ip),
-          $doc("_id" -> ip, "date" -> DateTime.now),
+          $doc("_id" -> ip, "date" -> nowDate),
           upsert = true
         )
         .void
-    }.sequenceFu >> loadFromDb
+    }.parallel >> loadFromDb
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
     coll.delete.one($inIds(ips)).void >>- loadFromDb.unit

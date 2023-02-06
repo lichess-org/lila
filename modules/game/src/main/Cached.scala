@@ -1,7 +1,6 @@
 package lila.game
 
 import com.github.blemale.scaffeine.LoadingCache
-import scala.concurrent.duration.*
 
 import lila.db.dsl.*
 import lila.memo.{ CacheApi, MongoCache }

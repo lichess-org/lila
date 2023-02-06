@@ -1,7 +1,5 @@
 package lila.relay
 
-import scala.concurrent.duration.*
-
 final class RelayMarkup:
 
   private val renderer = lila.common.MarkdownRender(

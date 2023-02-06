@@ -40,6 +40,6 @@ final class Env(
 
   lazy val mongoRateLimitApi = wire[MongoRateLimitApi]
 
-  lazy val picfitUrl = new lila.memo.PicfitUrl(config.picfit)
+  lazy val picfitUrl = lila.memo.PicfitUrl(config.picfit)
 
-  lazy val picfitApi = new PicfitApi(db(config.picfit.collection), picfitUrl, ws, config.picfit)
+  lazy val picfitApi = PicfitApi(db(config.picfit.collection), picfitUrl, ws, config.picfit)

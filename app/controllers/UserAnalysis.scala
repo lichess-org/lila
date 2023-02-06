@@ -5,7 +5,6 @@ import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ Black, Situation, White, FullMoveNumber }
 import play.api.libs.json.Json
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import views.*
 
 import lila.api.Context
@@ -180,7 +179,7 @@ final class UserAnalysis(
               forecasts => {
                 val wait = 50 + (Forecast maxPlies forecasts min 10) * 50
                 env.round.forecastApi.playAndSave(pov, uci, forecasts).recoverDefault >>
-                  lila.common.Future.sleep(wait.millis) inject
+                  lila.common.LilaFuture.sleep(wait.millis) inject
                   forecastReload
               }
             )

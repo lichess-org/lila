@@ -4,11 +4,9 @@ import akka.actor.*
 import chess.format.pgn.{ Tags, SanStr, PgnStr }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
-import org.joda.time.DateTime
 import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
-import scala.concurrent.duration.*
 
 import lila.base.LilaInvalid
 import lila.common.LilaScheduler
@@ -56,7 +54,7 @@ final private class RelayFetch(
             if (rt.tour.official) irc.broadcastError(rt.round.id.value, rt.fullName, msg)
             api.update(rt.round)(_.finish)
           else fuccess(rt.round)
-        }.sequenceFu
+        }.parallel
       }
       .void
 
@@ -119,7 +117,7 @@ final private class RelayFetch(
           }
       rt.round.withSync {
         _.copy(
-          nextAt = DateTime.now plusSeconds {
+          nextAt = nowDate plusSeconds {
             seconds atLeast {
               if (rt.round.sync.log.justTimedOut) 10 else 2
             }
@@ -151,7 +149,7 @@ final private class RelayFetch(
             if (games.size == ids.size)
               games.map { case (game, fen) =>
                 pgnDump(game, fen, gameIdsUpstreamPgnFlags).dmap(_.render)
-              }.sequenceFu dmap MultiPgn.apply
+              }.parallel dmap MultiPgn.apply
             else
               throw LilaInvalid(
                 s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)) mkString ", "}"
@@ -206,7 +204,7 @@ final private class RelayFetch(
                   } map { _.toPgn(pairing.tags) }
               }) map (number -> _)
             }
-            .sequenceFu
+            .parallel
             .map { results =>
               MultiPgn(results.sortBy(_._1).map(_._2))
             }
@@ -227,7 +225,7 @@ final private class RelayFetch(
   private def httpGetJson[A: Reads](url: URL): Fu[A] =
     for {
       str  <- httpGet(url)
-      json <- scala.concurrent.Future(Json parse str) // Json.parse throws exceptions (!)
+      json <- Future(Json parse str) // Json.parse throws exceptions (!)
       data <-
         implicitly[Reads[A]]
           .reads(json)
@@ -318,7 +316,7 @@ private object RelayFetch:
       lila.study
         .PgnImport(pgn, Nil)
         .fold(
-          err => Failure(LilaInvalid(err)),
+          err => Failure(LilaInvalid(err.value)),
           res =>
             Success(index =>
               RelayGame(

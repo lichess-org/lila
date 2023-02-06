@@ -207,6 +207,12 @@
   <string name="email">Email</string>
   <string name="passwordReset">Nieuw wachtwoord</string>
   <string name="forgotPassword">Wachtwoord vergeten?</string>
+  <string name="error.weakPassword">Dit wachtwoord komt heel vaak voor en is te gemakkelijk te raden.</string>
+  <string name="error.namePassword">Gebruik uw gebruikersnaam niet als wachtwoord.</string>
+  <string name="youAreLeavingLichess">Je verlaat Lichess</string>
+  <string name="neverTypeYourPassword">Voer uw Lichess wachtwoord nooit in op een andere website!</string>
+  <string name="passwordSuggestion">Stel geen wachtwoord in dat iemand anders voorstelt. Ze kunnen het gebruiken om je account te stelen.</string>
+  <string name="emailSuggestion">Stel geen e-mailadres in dat iemand anders voorstelt. Ze kunnen het gebruiken om je account te stelen.</string>
   <string name="emailConfirmHelp">Hulp met e-mailbevestiging</string>
   <string name="emailConfirmNotReceived">Geen bevestigingsmail ontvangen na aanmelden?</string>
   <string name="whatSignupUsername">Welke gebruikersnaam heb je gebruikt om je aan te melden?</string>
@@ -539,8 +545,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notities</string>
   <string name="typePrivateNotesHere">Type privénotities hier</string>
-  <string name="writeAPrivateNoteAboutThisUser">Maak een privé aantekening over deze gebruiker</string>
-  <string name="noNoteYet">Nog geen aantekeningen</string>
+  <string name="writeAPrivateNoteAboutThisUser">Maak een privé-notitie over deze gebruiker</string>
+  <string name="noNoteYet">Nog geen notities</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
   <string name="incorrectPassword">Onjuist wachtwoord</string>
   <string name="invalidAuthenticationCode">Ongeldige authenticatiecode</string>

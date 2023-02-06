@@ -1,6 +1,5 @@
 package lila.socket
 
-import scala.concurrent.Promise
 import play.api.libs.json.*
 import alleycats.Zero
 
@@ -12,13 +11,13 @@ object SocketVersion extends OpaqueInt[SocketVersion]:
   given Zero[SocketVersion]                   = Zero(0)
 
 opaque type SocketSend = String => Unit
-object SocketSend extends TotalWrapper[SocketSend, String => Unit]
+object SocketSend extends FunctionWrapper[SocketSend, String => Unit]
 
 opaque type IsOnline = UserId => Boolean
-object IsOnline extends TotalWrapper[IsOnline, UserId => Boolean]
+object IsOnline extends FunctionWrapper[IsOnline, UserId => Boolean]
 
 opaque type OnlineIds = () => Set[UserId]
-object OnlineIds extends TotalWrapper[OnlineIds, () => Set[UserId]]
+object OnlineIds extends FunctionWrapper[OnlineIds, () => Set[UserId]]
 
 case class GetVersion(promise: Promise[SocketVersion])
 case class SendToFlag(flag: String, message: JsObject)

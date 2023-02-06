@@ -36,7 +36,7 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(using Executor):
     else if (currency == EUR) fuccess(eurPricing.some)
     else
       for {
-        allSuggestions <- usdPricing.suggestions.map(convertAndRound(_, currency)).sequenceFu.map(_.sequence)
+        allSuggestions <- usdPricing.suggestions.map(convertAndRound(_, currency)).parallel.map(_.sequence)
         suggestions = allSuggestions.map(_.distinct)
         min      <- convertAndRound(usdPricing.min, currency)
         max      <- convertAndRound(usdPricing.max, currency)

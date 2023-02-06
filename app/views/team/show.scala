@@ -196,7 +196,7 @@ object show:
             )
           ),
           div(cls := "team-show__content__col2")(
-            standardFlash(),
+            standardFlash,
             t.intro.isEmpty && info.ledByMe option div(cls := "flash flash-warning")(
               div(cls := "flash__content")(
                 a(href := routes.Team.edit(t.id))("Give your team a short introduction text!")

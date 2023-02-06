@@ -1,8 +1,6 @@
 package lila.tournament
 
 import akka.actor.*
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 
 import lila.game.Game
 import lila.hub.LateMultiThrottler

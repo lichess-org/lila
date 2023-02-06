@@ -45,4 +45,22 @@
   <string name="endgame">قۆناغی کۆتایی یاری</string>
   <string name="endgameDescription">تاکتیکی ماوەی قۆناغی کۆتایی یاری.</string>
   <string name="enPassantDescription">تاکتیکێک کە یاسای ئانپاسان دەگرێتەوە، لە شوێنێک سەربازی رکابەرەکەت دوو خانە جوڵە دەکات تۆ دەتوانی بیگریت \"بیخۆیت\" کاتێک جوڵەکە لە بەرانبەر سەربازی تۆ دەکرێت.</string>
+  <string name="exposedKing">پاشای ئاشکرا</string>
+  <string name="exposedKingDescription">زۆرجار تاکتیکێک کە پاشا تێیدا بەشدارە لە کاتێکدا بە چەند بەرگریکارێکی کەم دەورەدراوە دەبێتە هۆی کشومات.</string>
+  <string name="fork">چەتاڵ</string>
+  <string name="forkDescription">جوڵیەکە کە داشی جوڵاو لە یەککاتدا هێرش دەکاتە سەر دوو داشی ڕکابەرەکەت.</string>
+  <string name="hangingPiece">داشی بێ بەرگری</string>
+  <string name="hangingPieceDescription">تاکتیکێکە داشێکی بەرانبەرەکەتی تێدا بەشدارە کە هیچ بەرگریەکی نییە، یان بەرگری پێویستی نییە و ئاسان دەتوانی بەدەستی بێنی.</string>
+  <string name="hookMate">کشومات بە قەڵغان</string>
+  <string name="hookMateDescription">کشومات بە قەڵا و ئەسپ و سەرباز، لەگەڵ سەربازێکی دوژمن بۆ کەمکردنەوەی سنوری هەڵاتنی پاشا.</string>
+  <string name="interference">تێکەڵبوون</string>
+  <string name="interferenceDescription">جوڵاندنی داشێکە بۆ نێوان دوو داشی بەرگری لێ نەکراوی بەرانبەر، وەک جوڵاندنی فیل بۆ خانەیەک بتوانێ هێرش بکاتە سەر دوو قەڵا.</string>
+  <string name="intermezzo">جوڵەی نێوان</string>
+  <string name="intermezzoDescription">لەبری ئەوەی جوڵەی چاوەڕوانکراو یاری بکەیت، سەرەتا جوڵەیەکی تر بخەرە نێوانیانەوە کە مەترسییەکی دەستبەجێ دروست بکات کە دەبێت بەرامبەرەکە وەڵامی بداتەوە. ئەو شێوازە بە \"زویشنزوگ\" یان \"لە نێوانیاندا\" ناسراوە.</string>
+  <string name="knightEndgame">قۆناغی کۆتایی یاری بە فیل</string>
+  <string name="knightEndgameDescription">جۆرێک لە قۆناغی کۆتایی یاری کە تەنها فیلەکان و سەربازەکان بەشدارن.</string>
+  <string name="long">مەتەڵێکی درێژ</string>
+  <string name="longDescription">سێ جوڵە بۆ بوون بە براوە.</string>
+  <string name="master">یاری یاریزانە بەهێزەکان</string>
+  <string name="masterDescription">مەتەڵانێک کە لەو یاریانەوە دەرهێنراون کە لە لایەن یاریزانە هەڵسەنگێنراوەکانەوە کراوە.</string>
 </resources>

@@ -1,7 +1,6 @@
 package lila.swiss
 
 import chess.{ Black, Color, White }
-import org.joda.time.DateTime
 import scala.util.chaining.*
 
 import lila.db.dsl.{ *, given }
@@ -13,7 +12,7 @@ final private class SwissDirector(
     pairingSystem: PairingSystem,
     manualPairing: SwissManualPairing,
     gameRepo: lila.game.GameRepo,
-    onStart: GameId => Unit
+    onStart: lila.round.OnStart
 )(using
     ec: Executor,
     idGenerator: lila.game.IdGenerator
@@ -50,11 +49,11 @@ final private class SwissDirector(
                   $unset("nextRoundAt", "settings.mp") ++ $set(
                     "round"       -> swiss.round,
                     "nbOngoing"   -> pairings.size,
-                    "lastRoundAt" -> DateTime.now
+                    "lastRoundAt" -> nowDate
                   )
                 )
                 .void
-            date = DateTime.now
+            date = nowDate
             byes = pendings.collect { case Left(bye) => bye.player }
             _ <- SwissPlayer.fields { f =>
               mongo.player.update
@@ -67,7 +66,7 @@ final private class SwissDirector(
             }
             _ <- mongo.pairing.insert.many(pairings).void
             games = pairings.map(makeGame(swiss, players.mapBy(_.userId)))
-            _ <- lila.common.Future.applySequentially(games) { game =>
+            _ <- lila.common.LilaFuture.applySequentially(games) { game =>
               gameRepo.insertDenormalized(game) >>- onStart(game.id)
             }
           } yield swiss.some

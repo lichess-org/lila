@@ -1,6 +1,5 @@
 package lila.racer
 
-import org.joda.time.DateTime
 import lila.common.CuteNameGenerator
 import lila.user.User
 import lila.common.LightUser
@@ -28,4 +27,4 @@ object RacerPlayer:
   val lichess = Id.User(User.lichessId)
 
   def make(id: Id, user: Option[LightUser]) =
-    RacerPlayer(id = id, user = user, score = 0, createdAt = DateTime.now)
+    RacerPlayer(id = id, user = user, score = 0, createdAt = nowDate)

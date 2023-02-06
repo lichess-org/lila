@@ -1,7 +1,6 @@
 package lila.tournament
 
 import akka.stream.scaladsl.*
-import scala.concurrent.duration.*
 
 import lila.common.{ LilaScheduler, LilaStream }
 

@@ -5,7 +5,6 @@ import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.WSAuthScheme
-import scala.concurrent.duration.*
 
 import lila.common.config.Secret
 import lila.common.String.urlencode

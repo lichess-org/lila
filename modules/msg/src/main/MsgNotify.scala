@@ -2,7 +2,6 @@ package lila.msg
 
 import akka.actor.Cancellable
 import java.util.concurrent.ConcurrentHashMap
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.notify.{ PrivateMessage }
@@ -43,7 +42,7 @@ final private class MsgNotify(
         cancel(thread.id)
         notifyApi.remove(thread other user, $doc("content.user" -> user.id)).void
       }
-      .sequenceFu
+      .parallel
       .void
 
   private def schedule(threadId: MsgThread.Id): Unit =

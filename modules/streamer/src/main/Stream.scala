@@ -1,7 +1,6 @@
 package lila.streamer
 
 import play.api.libs.json.*
-import org.joda.time.DateTime
 
 import lila.user.User
 import lila.common.String.html.unescapeHtml
@@ -49,8 +48,7 @@ object Stream:
         liveBroadcastContent: String,
         defaultAudioLanguage: Option[String]
     )
-    case class Id(videoId: String)
-    case class Item(id: Id, snippet: Snippet)
+    case class Item(id: String, snippet: Snippet)
     case class Result(items: List[Item]):
       def streams(keyword: Keyword, streamers: List[Streamer]): List[Stream] =
         items
@@ -63,7 +61,7 @@ object Stream:
               Stream(
                 item.snippet.channelId,
                 unescapeHtml(item.snippet.title),
-                item.id.videoId,
+                item.id,
                 _,
                 ~item.snippet.defaultAudioLanguage
               )
@@ -79,13 +77,10 @@ object Stream:
       def serviceName = "youTube"
 
     private given Reads[Snippet] = Json.reads
-    private given Reads[Id]      = Json.reads
     private given Reads[Item]    = Json.reads
     given Reads[Result]          = Json.reads
 
-    case class StreamsFetched(list: List[YouTube.Stream], at: DateTime)
-
-  def toJson(stream: Stream) = Json.obj(
+  def toJson(picfit: lila.memo.PicfitUrl, stream: Stream) = Json.obj(
     "stream" -> Json.obj(
       "service" -> stream.serviceName,
       "status"  -> stream.status,
@@ -97,6 +92,7 @@ object Stream:
       .add("description" -> stream.streamer.description)
       .add("twitch" -> stream.streamer.twitch.map(_.fullUrl))
       .add("youTube" -> stream.streamer.youTube.map(_.fullUrl))
+      .add("image" -> stream.streamer.picture.map { pic =>
+        picfit.thumbnail(pic, Streamer.imageSize, Streamer.imageSize)
+      })
   )
-
-  private val LangRegex = """\[(\w\w)\]""".r.unanchored

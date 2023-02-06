@@ -1,6 +1,5 @@
 package lila.clas
 
-import org.joda.time.DateTime
 import reactivemongo.api.*
 import ornicar.scalalib.ThreadLocalRandom
 
@@ -64,7 +63,7 @@ final class ClasApi(
       coll
         .findAndUpdateSimplified[Clas](
           selector = $id(id) ++ $doc("teachers" -> teacher.id),
-          update = $set("viewedAt" -> DateTime.now),
+          update = $set("viewedAt" -> nowDate),
           fetchNewObject = true
         )
 
@@ -115,7 +114,7 @@ final class ClasApi(
       coll.update
         .one(
           $id(c.id),
-          if (v) $set("archived" -> Clas.Recorded(t.id, DateTime.now))
+          if (v) $set("archived" -> Clas.Recorded(t.id, nowDate))
           else $unset("archived")
         )
         .void
@@ -250,7 +249,7 @@ final class ClasApi(
         teacher: User
     ): Fu[List[Student.WithPassword]] =
       count(clas.id) flatMap { nbCurrentStudents =>
-        lila.common.Future.linear(data.realNames.take(Clas.maxStudents - nbCurrentStudents)) { realName =>
+        lila.common.LilaFuture.linear(data.realNames.take(Clas.maxStudents - nbCurrentStudents)) { realName =>
           nameGenerator() flatMap { username =>
             val data = ClasForm.CreateStudent(
               username = username | UserName(ThreadLocalRandom.nextString(10)),
@@ -270,7 +269,7 @@ final class ClasApi(
         .findAndUpdateSimplified[Student](
           selector = $id(sId),
           update =
-            if (v) $set("archived" -> Clas.Recorded(by.id, DateTime.now))
+            if (v) $set("archived" -> Clas.Recorded(by.id, nowDate))
             else $unset("archived"),
           fetchNewObject = true
         )

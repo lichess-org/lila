@@ -2,10 +2,9 @@ package lila.fishnet
 
 import chess.format.Uci
 import chess.{ Black, Clock, White }
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.{ Bus, Future }
+import lila.common.{ Bus, LilaFuture }
 import lila.game.{ Game, GameRepo, UciMemo }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.FishnetPlay
@@ -23,7 +22,7 @@ final class FishnetPlayer(
 
   def apply(game: Game): Funit =
     game.aiLevel ?? { level =>
-      Future.delay(delayFor(game) | 0.millis) {
+      LilaFuture.delay(delayFor(game) | 0.millis) {
         openingBook(game, level) flatMap {
           case Some(move) =>
             uciMemo sign game map { sign =>
@@ -54,7 +53,7 @@ final class FishnetPlayer(
         millis     = sleep * 10
         randomized = millis + millis * (ThreadLocalRandom.nextDouble() - 0.5)
         divided    = randomized / (if (g.ply > 9) 1 else 2)
-      } yield divided.millis
+      } yield divided.toInt.millis
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
     if (game.situation playable true)

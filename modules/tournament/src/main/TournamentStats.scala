@@ -1,7 +1,6 @@
 package lila.tournament
 
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import chess.Color
 import lila.db.dsl.{ *, given }

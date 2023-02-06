@@ -1,7 +1,6 @@
 package lila.round
 
 import akka.actor.{ Cancellable, Scheduler }
-import scala.concurrent.duration.*
 import scala.util.Success
 
 import chess.Color

@@ -13,8 +13,6 @@ final class HttpFilter(env: Env)(using val mat: Materializer) extends Filter:
   private val logger      = lila.log("http")
   private val logRequests = env.config.get[Boolean]("net.http.log")
 
-  private val coep = "Cross-Origin-Embedder-Policy"
-
   def apply(nextFilter: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
     if (HTTPRequest isAssets req)
       nextFilter(req) dmap { result =>

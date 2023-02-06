@@ -3,11 +3,10 @@ package controllers
 import java.util.Currency
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.concurrent.duration.*
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.common.{ EmailAddress, HTTPRequest }
+import lila.common.EmailAddress
 import lila.plan.{
   CreateStripeSession,
   Freq,
@@ -147,7 +146,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def thanks =
     Open { implicit ctx =>
       // wait for the payment data from stripe or paypal
-      lila.common.Future.delay(2.seconds) {
+      lila.common.LilaFuture.delay(2.seconds) {
         for {
           patron   <- ctx.me ?? env.plan.api.userPatron
           customer <- patron ?? env.plan.api.stripe.patronCustomer
@@ -342,7 +341,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
           ipn =>
             env.plan.api.payPal.onLegacyCharge(
               ipn,
-              ip = HTTPRequest ipAddress req,
+              ip = req.ipAddress,
               key = get("key", req) | "N/A"
             ) inject Ok
         )

@@ -1,7 +1,5 @@
 package lila.team
 
-import org.joda.time.DateTime
-
 import lila.user.User
 
 case class Request(
@@ -27,7 +25,7 @@ object Request:
       user = user,
       team = team,
       message = message.trim,
-      date = DateTime.now,
+      date = nowDate,
       declined = false
     )
 

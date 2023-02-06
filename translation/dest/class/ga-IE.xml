@@ -122,4 +122,5 @@ Beidh líne chothrománach le feiceáil.</string>
   <string name="xisNowAStudentOfTheClass">Is mac léinn den rang é %s anois</string>
   <string name="anInvitationHasBeenSentToX">Tá cuireadh seolta chuig %s</string>
   <string name="xAlreadyHasAPendingInvitation">Tá cuireadh ar feitheamh ag %s cheana féin</string>
+  <string name="xIsAKidAccountWarning">Is cuntas páiste é %1$s agus ní féidir leis do theachtaireacht a fháil. Caithfidh tú an cuiridh URL a thabhairt dóibh de lámh: %2$s</string>
 </resources>

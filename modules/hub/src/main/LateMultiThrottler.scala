@@ -1,7 +1,6 @@
 package lila.hub
 
 import akka.actor.*
-import scala.concurrent.duration.*
 
 /** Delays the work, only runs once at a time per id. Work is ran as late as possible.
   */
@@ -19,7 +18,7 @@ final class LateMultiThrottler(
 
     case Work(id, run, delayOption, timeoutOption) if !executions.contains(id) =>
       given Scheduler = context.system.scheduler
-      lila.common.Future.delay(delayOption | 0.seconds) {
+      lila.common.LilaFuture.delay(delayOption | 0.seconds) {
         timeoutOption.orElse(executionTimeout).fold(run()) { timeout =>
           run().withTimeout(timeout, "LateMultiThrottler")
         } addEffectAnyway {

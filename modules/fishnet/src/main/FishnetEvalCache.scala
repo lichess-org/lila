@@ -46,6 +46,6 @@ final private class FishnetEvalCache(
           .map { (sit, index) =>
             evalCacheApi.getSinglePvEval(game.variant, Fen write sit) dmap2 { index -> _ }
           }
-          .sequenceFu
+          .parallel
           .map(_.flatten)
       )

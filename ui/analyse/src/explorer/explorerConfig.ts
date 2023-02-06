@@ -15,7 +15,6 @@ const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', '
 const allModes: ExplorerMode[] = ['casual', 'rated'];
 const allRatings = [600, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500];
 const minYear = 1952;
-const minLichessYear = 2012;
 
 type Month = string;
 type ByDbSetting = {
@@ -62,8 +61,8 @@ export class ExplorerConfigCtrl {
     const byDbData = {} as ByDbSettings;
     for (const db of this.allDbs) {
       byDbData[db] = {
-        since: storedStringProp('explorer.since-2.' + db, (db === 'masters' ? minYear : minLichessYear) + '-01'),
-        until: storedStringProp('explorer.until-2.' + db, new Date().toISOString().slice(0, 7)),
+        since: storedStringProp('explorer.since-2.' + db, ''),
+        until: storedStringProp('explorer.until-2.' + db, ''),
       };
     }
     const prevData = previous?.data;
@@ -75,8 +74,8 @@ export class ExplorerConfigCtrl {
         str => str as ExplorerDb,
         v => v
       ),
-      rating: storedJsonProp('explorer.rating', () => allRatings.filter(r => r >= 1600)),
-      speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
+      rating: storedJsonProp('explorer.rating', () => allRatings.slice(1)),
+      speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds.slice(1)),
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
       byDbData,
       playerName: {

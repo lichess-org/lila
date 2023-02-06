@@ -2,7 +2,6 @@ package lila.relation
 
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import org.joda.time.DateTime
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
@@ -31,7 +30,7 @@ final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(usi
               local = "u1",
               foreign = "_id",
               pipe = List(
-                $doc("$match"   -> $expr($doc("$gt" -> $arr("$seenAt", DateTime.now.minusDays(10))))),
+                $doc("$match"   -> $expr($doc("$gt" -> $arr("$seenAt", nowDate.minusDays(10))))),
                 $doc("$project" -> $id(true))
               )
             )

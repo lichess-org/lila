@@ -1,6 +1,5 @@
 package lila.clas
 
-import org.joda.time.DateTime
 import ornicar.scalalib.SecureRandom
 
 import lila.user.User
@@ -39,7 +38,7 @@ object Student:
       realName = realName,
       notes = "",
       managed = managed,
-      created = Clas.Recorded(teacherId, DateTime.now),
+      created = Clas.Recorded(teacherId, nowDate),
       archived = none
     )
 

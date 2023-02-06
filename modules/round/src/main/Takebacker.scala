@@ -74,7 +74,7 @@ final private class Takebacker(
     else
       game.userIds.map {
         prefApi.getPref(_, (p: Pref) => p.takeback)
-      }.sequenceFu dmap {
+      }.parallel dmap {
         _.forall { p =>
           p == Pref.Takeback.ALWAYS || (p == Pref.Takeback.CASUAL && game.casual)
         }

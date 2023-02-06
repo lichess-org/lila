@@ -1,7 +1,6 @@
 package lila.insight
 
 import chess.Color
-import org.joda.time.DateTime
 
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.game.{ Game, Pov }

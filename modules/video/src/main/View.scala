@@ -1,7 +1,5 @@
 package lila.video
 
-import org.joda.time.DateTime
-
 case class View(
     id: String, // userId/videoId
     videoId: Video.ID,
@@ -20,7 +18,7 @@ object View:
       id = makeId(videoId, userId),
       videoId = videoId,
       userId = userId,
-      date = DateTime.now
+      date = nowDate
     )
 
   object BSONFields:

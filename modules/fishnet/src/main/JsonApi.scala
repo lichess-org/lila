@@ -2,7 +2,6 @@ package lila.fishnet
 
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
-import org.joda.time.DateTime
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
@@ -15,7 +14,7 @@ object JsonApi:
   sealed trait Request:
     val fishnet: Request.Fishnet
 
-    def instance(ip: IpAddress) = Client.Instance(fishnet.version, ip, DateTime.now)
+    def instance(ip: IpAddress) = Client.Instance(fishnet.version, ip, nowDate)
 
   object Request:
 

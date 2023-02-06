@@ -1,7 +1,5 @@
 package lila.racer
 
-import scala.concurrent.duration.*
-
 import lila.memo.CacheApi
 import lila.storm.StormSelector
 import lila.user.{ User, UserRepo }

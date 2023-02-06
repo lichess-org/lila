@@ -1,7 +1,5 @@
 package lila.common
 
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 import scala.jdk.CollectionConverters.*
 
 import akka.actor.{ ActorRef, ActorSystem, Scheduler }

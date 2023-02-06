@@ -1,6 +1,5 @@
 package lila.push
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -37,7 +36,7 @@ final private class DeviceApi(coll: Coll)(using Executor):
           _id = deviceId,
           platform = platform,
           userId = user.id,
-          seenAt = DateTime.now
+          seenAt = nowDate
         ),
         upsert = true
       )

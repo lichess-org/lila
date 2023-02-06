@@ -1,7 +1,5 @@
 package lila.pref
 
-import org.joda.time.DateTime
-
 import lila.user.User
 
 case class Pref(
@@ -399,7 +397,7 @@ object Pref:
   object Agreement:
     val current    = 2
     val changedAt  = new DateTime(2021, 12, 28, 8, 0)
-    val showPrompt = changedAt.isAfter(DateTime.now minusMonths 6)
+    val showPrompt = changedAt.isAfter(nowDate minusMonths 6)
 
   object Zen     extends BooleanPref {}
   object Ratings extends BooleanPref {}

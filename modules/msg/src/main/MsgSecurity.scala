@@ -1,8 +1,5 @@
 package lila.msg
 
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
-
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
@@ -33,20 +30,22 @@ final private class MsgSecurity(
     val normal   = 25
     val verified = 5
     val hog      = 1
-    def apply(u: User.Contact) =
+    def apply(u: User.Contact): Int =
       if (u.isApiHog) hog
       else if (u.isVerified) verified
-      else if (u isDaysOld 3) normal
-      else if (u isHoursOld 12) normal * 2
-      else normal * 4
+      else if (u isDaysOld 30) normal
+      else if (u isDaysOld 7) normal * 2
+      else if (u isDaysOld 3) normal * 3
+      else if (u isHoursOld 12) normal * 4
+      else normal * 5
 
-  private val CreateLimitPerUser = new RateLimit[UserId](
+  private val CreateLimitPerUser = RateLimit[UserId](
     credits = 20 * limitCost.normal,
     duration = 24 hour,
     key = "msg_create.user"
   )
 
-  private val ReplyLimitPerUser = new RateLimit[UserId](
+  private val ReplyLimitPerUser = RateLimit[UserId](
     credits = 20 * limitCost.normal,
     duration = 1 minute,
     key = "msg_reply.user"
@@ -69,7 +68,7 @@ final private class MsgSecurity(
         may.post(contacts, isNew) flatMap {
           case false => fuccess(Block)
           case _ =>
-            isLimited(contacts, isNew, unlimited) orElse
+            isLimited(contacts, isNew, unlimited, text) orElse
               isFakeTeamMessage(rawText, unlimited) orElse
               isSpam(text) orElse
               isTroll(contacts) orElse
@@ -96,19 +95,25 @@ final private class MsgSecurity(
           case _ =>
         }
 
-    private def isLimited(contacts: User.Contacts, isNew: Boolean, unlimited: Boolean): Fu[Option[Verdict]] =
+    private def isLimited(
+        contacts: User.Contacts,
+        isNew: Boolean,
+        unlimited: Boolean,
+        text: String
+    ): Fu[Option[Verdict]] =
+      def limitWith(limiter: RateLimit[UserId]) =
+        val cost = limitCost(contacts.orig) * {
+          if !contacts.orig.isVerified && Analyser.containsLink(text) then 2 else 1
+        }
+        limiter(contacts.orig.id, cost)(none)(Limit.some)
       if (unlimited) fuccess(none)
       else if (isNew) {
         isLeaderOf(contacts) >>| isTeacherOf(contacts)
       } map {
         case true => none
-        case _ =>
-          CreateLimitPerUser[Option[Verdict]](contacts.orig.id, limitCost(contacts.orig))(none)(Limit.some)
+        case _    => limitWith(CreateLimitPerUser)
       }
-      else
-        fuccess {
-          ReplyLimitPerUser[Option[Verdict]](contacts.orig.id, limitCost(contacts.orig))(none)(Limit.some)
-        }
+      else fuccess(limitWith(ReplyLimitPerUser))
 
     private def isFakeTeamMessage(text: String, unlimited: Boolean): Fu[Option[Verdict]] =
       (!unlimited && text.contains("You received this because you are subscribed to messages of the team")) ??
@@ -122,7 +127,7 @@ final private class MsgSecurity(
 
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
       (isNew && Analyser(text).dirty) ??
-        !userRepo.isCreatedSince(user.id, DateTime.now.minusDays(30)) dmap { _ option Dirt }
+        !userRepo.isCreatedSince(user.id, nowDate.minusDays(30)) dmap { _ option Dirt }
 
   object may:
 

@@ -1,10 +1,10 @@
 package lila.study
 
 import chess.format.pgn.{ Glyph, Tags }
+import chess.format.UciPath
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.Variant
 import chess.{ Ply, Centis, Color, Outcome }
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
@@ -32,32 +32,32 @@ case class Chapter(
       copy(root = newRoot)
     }
 
-  def addNode(node: Node, path: Path, newRelay: Option[Chapter.Relay] = None): Option[Chapter] =
+  def addNode(node: Node, path: UciPath, newRelay: Option[Chapter.Relay] = None): Option[Chapter] =
     updateRoot {
       _.withChildren(_.addNodeAt(node, path))
     } map {
       _.copy(relay = newRelay orElse relay)
     }
 
-  def setShapes(shapes: Shapes, path: Path): Option[Chapter] =
+  def setShapes(shapes: Shapes, path: UciPath): Option[Chapter] =
     updateRoot(_.setShapesAt(shapes, path))
 
-  def setComment(comment: Comment, path: Path): Option[Chapter] =
+  def setComment(comment: Comment, path: UciPath): Option[Chapter] =
     updateRoot(_.setCommentAt(comment, path))
 
-  def setGamebook(gamebook: Gamebook, path: Path): Option[Chapter] =
+  def setGamebook(gamebook: Gamebook, path: UciPath): Option[Chapter] =
     updateRoot(_.setGamebookAt(gamebook, path))
 
-  def deleteComment(commentId: Comment.Id, path: Path): Option[Chapter] =
+  def deleteComment(commentId: Comment.Id, path: UciPath): Option[Chapter] =
     updateRoot(_.deleteCommentAt(commentId, path))
 
-  def toggleGlyph(glyph: Glyph, path: Path): Option[Chapter] =
+  def toggleGlyph(glyph: Glyph, path: UciPath): Option[Chapter] =
     updateRoot(_.toggleGlyphAt(glyph, path))
 
-  def setClock(clock: Option[Centis], path: Path): Option[Chapter] =
+  def setClock(clock: Option[Centis], path: UciPath): Option[Chapter] =
     updateRoot(_.setClockAt(clock, path))
 
-  def forceVariation(force: Boolean, path: Path): Option[Chapter] =
+  def forceVariation(force: Boolean, path: UciPath): Option[Chapter] =
     updateRoot(_.forceVariationAt(force, path))
 
   def opening: Option[Opening] =
@@ -71,7 +71,7 @@ case class Chapter(
       _id = Chapter.makeId,
       studyId = study.id,
       ownerId = study.ownerId,
-      createdAt = DateTime.now
+      createdAt = nowDate
     )
 
   def metadata = Chapter.Metadata(
@@ -106,7 +106,7 @@ object Chapter:
     val setup: Chapter.Setup
     inline def id = _id
 
-    def initialPosition = Position.Ref(id, Path.root)
+    def initialPosition = Position.Ref(id, UciPath.root)
 
   case class Setup(
       gameId: Option[GameId],
@@ -118,19 +118,19 @@ object Chapter:
 
   case class Relay(
       index: Int, // game index in the source URL
-      path: Path,
+      path: UciPath,
       lastMoveAt: DateTime
   ):
     def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.getSeconds).toInt
 
-  case class ServerEval(path: Path, done: Boolean)
+  case class ServerEval(path: UciPath, done: Boolean)
 
   case class RelayAndTags(id: StudyChapterId, relay: Relay, tags: Tags):
 
     def looksAlive =
       tags.outcome.isEmpty &&
         relay.lastMoveAt.isAfter {
-          DateTime.now.minusMinutes {
+          nowDate.minusMinutes {
             tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
           }
         }
@@ -187,5 +187,5 @@ object Chapter:
       gamebook = gamebook option true,
       conceal = conceal,
       relay = relay,
-      createdAt = DateTime.now
+      createdAt = nowDate
     )

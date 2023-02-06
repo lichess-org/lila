@@ -1,7 +1,6 @@
 package lila.mod
 
 import chess.{ Black, Color, White }
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 import ornicar.scalalib.ThreadLocalRandom
@@ -24,7 +23,7 @@ final class AssessApi(
     analysisRepo: AnalysisRepo
 )(using Executor):
 
-  private def bottomDate = DateTime.now.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
+  private def bottomDate = nowDate.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
 
   import lila.evaluation.EvaluationBsonHandlers.given
   import lila.analyse.AnalyseBsonHandlers.given
@@ -79,7 +78,7 @@ final class AssessApi(
                     createPlayerAssessment(PlayerAssessment.make(pov, analysis, holdAlerts(pov.color)))
                   }
                 }
-                .sequenceFu
+                .parallel
                 .void
             }
     }
@@ -121,7 +120,7 @@ final class AssessApi(
           analysisRepo.byGame(g) flatMapz {
             onAnalysisReady(g, _, thenAssessUser = false)
           }
-        }.sequenceFu
+        }.parallel
           .void
       }) >> assessUser(user.id)
 

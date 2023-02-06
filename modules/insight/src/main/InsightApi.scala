@@ -1,8 +1,6 @@
 package lila.insight
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
-import scala.concurrent.duration.*
 
 import lila.common.config
 import lila.common.Heapsort.botN
@@ -76,7 +74,7 @@ final class InsightApi(
           }
         }
       }
-      .sequenceFu
+      .parallel
       .void
 
   def coll = storage.coll

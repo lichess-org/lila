@@ -14,4 +14,6 @@
   <string name="twoFactorDisable">Necesitas tu contraseña y un código de autenticación de tu aplicación de autenticación para desactivar la autenticación en dos pasos.
 Si perdiste el acceso a tus códigos de autenticación, también puedes restablecer tu contraseña por correo electrónico.</string>
   <string name="openTwoFactorApp">Abre la aplicación de autenticación en dos pasos en tu dispositivo para ver el código de autenticación y verificar tu identidad.</string>
+  <string name="setupReminder">Por favor, habilita la autenticación de dos factores para proteger tu cuenta en https://lichess.org/account/twofactor.
+Has recibido este mensaje porque tu cuenta tiene responsabilidades especiales como líder de equipo, entrenador, profesor o presentador</string>
 </resources>

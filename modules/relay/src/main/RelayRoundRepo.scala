@@ -1,6 +1,5 @@
 package lila.relay
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference

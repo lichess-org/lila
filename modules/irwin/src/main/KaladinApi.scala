@@ -1,11 +1,9 @@
 package lila.irwin
 
 import chess.Speed
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.Cursor
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
@@ -88,7 +86,7 @@ final class KaladinApi(
         .flatMap { docs =>
           docs.nonEmpty ?? {
             coll.update.one($inIds(docs.map(_.id)), $set("response.read" -> true), multi = true) >>
-              lila.common.Future.applySequentially(docs)(readResponse)
+              lila.common.LilaFuture.applySequentially(docs)(readResponse)
           }
         }
         .void
@@ -150,7 +148,7 @@ final class KaladinApi(
           .map { modId =>
             notifyApi.notifyOne(modId, lila.notify.KaladinDone(user.suspectId.value))
           }
-          .sequenceFu
+          .parallel
           .void
       }
 
@@ -189,7 +187,7 @@ final class KaladinApi(
           import lila.db.ByteArray.given
           gameRepo.coll
             .find(
-              Query.user(userId) ++ Query.rated ++ Query.createdSince(DateTime.now minusMonths 6),
+              Query.user(userId) ++ Query.rated ++ Query.createdSince(nowDate minusMonths 6),
               $doc(F.turns -> true, F.clock -> true).some
             )
             .cursor[Bdoc](ReadPreference.secondaryPreferred)
@@ -216,10 +214,10 @@ final class KaladinApi(
     request(user, requester)
 
   private[irwin] def tournamentLeaders(suspects: List[Suspect]): Funit =
-    lila.common.Future.applySequentially(suspects)(autoRequest(KaladinUser.Requester.TournamentLeader))
+    lila.common.LilaFuture.applySequentially(suspects)(autoRequest(KaladinUser.Requester.TournamentLeader))
 
   private[irwin] def topOnline(suspects: List[Suspect]): Funit =
-    lila.common.Future.applySequentially(suspects)(autoRequest(KaladinUser.Requester.TopOnline))
+    lila.common.LilaFuture.applySequentially(suspects)(autoRequest(KaladinUser.Requester.TopOnline))
 
   private def getSuspect(suspectId: UserId) =
     userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect.apply

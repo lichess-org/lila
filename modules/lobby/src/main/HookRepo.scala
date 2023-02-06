@@ -1,7 +1,5 @@
 package lila.lobby
 
-import org.joda.time.DateTime
-
 import lila.common.{ Heapsort, MultiKeyMap }
 import lila.socket.Socket.Sri
 import scala.collection.View
@@ -54,7 +52,7 @@ final private class HookRepo:
 
   // returns removed hooks
   def cleanupOld: Set[Hook] =
-    val limit   = DateTime.now minusMinutes 15
+    val limit   = nowDate minusMinutes 15
     val removed = hooks.values.view.filter(_.createdAt isBefore limit).toSet
     hooks = hooks removed removed
     removed

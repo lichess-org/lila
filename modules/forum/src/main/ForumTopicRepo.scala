@@ -1,10 +1,8 @@
 package lila.forum
 
-import org.joda.time.DateTime
 import Filter.*
 import lila.db.dsl.{ *, given }
 import lila.user.User
-import scala.concurrent.duration.*
 
 final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
     Executor

@@ -1,7 +1,5 @@
 package lila.memo
 
-import scala.concurrent.duration.*
-
 object Snooze:
 
   enum Duration(val value: FiniteDuration, val name: String):

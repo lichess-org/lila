@@ -11,7 +11,7 @@ final class AutoPairing(
     gameRepo: GameRepo,
     duelStore: DuelStore,
     lightUserApi: lila.user.LightUserApi,
-    onStart: GameId => Unit
+    onStart: lila.round.OnStart
 )(using Executor):
 
   def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] =

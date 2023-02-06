@@ -1,6 +1,6 @@
 package lila.forum
 
-import lila.common.Future
+import lila.common.LilaFuture
 import lila.notify.NotifyApi
 import lila.notify.{ MentionedInThread, Notification }
 import lila.relation.RelationApi
@@ -35,7 +35,7 @@ final class MentionNotifier(
               )
             )
           }
-          .sequenceFu
+          .parallel
           .void
       }
     }
@@ -53,7 +53,7 @@ final class MentionNotifier(
           .filterExists(candidates take 10)
           .map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
-      users <- Future.filterNot(mentionableUsers.toList) { relationApi.fetchBlocks(_, mentionedBy) }
+      users <- LilaFuture.filterNot(mentionableUsers.toList) { relationApi.fetchBlocks(_, mentionedBy) }
     } yield users
 
   private def extractMentionedUsers(post: ForumPost): Set[UserId] =

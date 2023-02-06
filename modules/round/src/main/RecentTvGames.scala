@@ -1,7 +1,5 @@
 package lila.round
 
-import scala.concurrent.duration.*
-
 import lila.game.{ Game, GameRepo }
 
 final class RecentTvGames(gameRepo: GameRepo):

@@ -1,6 +1,5 @@
 package lila.security
 
-import scala.concurrent.duration.*
 import scalatags.Text.all.*
 
 import lila.common.config.*
@@ -49,25 +48,24 @@ ${trans.common_orPaste.txt()}"""),
 
 object MagicLink:
 
-  import scala.concurrent.duration.*
   import play.api.mvc.RequestHeader
   import alleycats.Zero
   import lila.memo.RateLimit
   import lila.common.{ HTTPRequest, IpAddress }
 
-  private lazy val rateLimitPerIP = new RateLimit[IpAddress](
+  private lazy val rateLimitPerIP = RateLimit[IpAddress](
     credits = 5,
     duration = 1 hour,
     key = "login.magicLink.ip"
   )
 
-  private lazy val rateLimitPerUser = new RateLimit[UserId](
+  private lazy val rateLimitPerUser = RateLimit[UserId](
     credits = 3,
     duration = 1 hour,
     key = "login.magicLink.user"
   )
 
-  private lazy val rateLimitPerEmail = new RateLimit[String](
+  private lazy val rateLimitPerEmail = RateLimit[String](
     credits = 3,
     duration = 1 hour,
     key = "login.magicLink.email"

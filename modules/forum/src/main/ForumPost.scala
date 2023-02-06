@@ -1,7 +1,5 @@
 package lila.forum
 
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
@@ -68,7 +66,7 @@ case class ForumPost(
       reactions = reactions.map(_.view.filterKeys(k => !ForumPost.Reaction.positive(k)).toMap)
     )
 
-  def erase = editPost(DateTime.now, "").copy(erasedAt = DateTime.now.some)
+  def erase = editPost(nowDate, "").copy(erasedAt = nowDate.some)
 
   def hasEdits = editHistory.isDefined
 
@@ -132,7 +130,7 @@ object ForumPost:
       number = number,
       lang = lang,
       troll = troll,
-      createdAt = DateTime.now,
+      createdAt = nowDate,
       categId = categId,
       modIcon = modIcon
     )

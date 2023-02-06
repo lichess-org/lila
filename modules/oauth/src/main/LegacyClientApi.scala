@@ -1,6 +1,5 @@
 package lila.oauth
 
-import org.joda.time.DateTime
 import com.roundeights.hasher.Algo
 
 import lila.db.dsl.{ *, given }
@@ -12,7 +11,7 @@ final class LegacyClientApi(val coll: Coll)(using Executor):
     coll
       .findAndUpdate(
         $doc(F.id     -> clientId.value, F.redirectUri -> redirectUri.value.toString),
-        $set(F.usedAt -> DateTime.now)
+        $set(F.usedAt -> nowDate)
       )
       .map {
         _.result[Bdoc].flatMap(_.getAsOpt[String](F.hashedSecret)).map(HashedClientSecret.apply)

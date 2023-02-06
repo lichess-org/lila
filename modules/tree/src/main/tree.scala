@@ -4,7 +4,7 @@ import chess.Centis
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.Opening
-import chess.{ Ply, Pos }
+import chess.{ Ply, Pos, Check }
 import chess.variant.Crazyhouse
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
@@ -14,7 +14,7 @@ import lila.common.Json.{ *, given }
 sealed trait Node:
   def ply: Ply
   def fen: Fen.Epd
-  def check: Boolean
+  def check: Check
   // None when not computed yet
   def dests: Option[Map[Pos, List[Pos]]]
   def drops: Option[List[Pos]]
@@ -45,7 +45,7 @@ sealed trait Node:
 case class Root(
     ply: Ply,
     fen: Fen.Epd,
-    check: Boolean,
+    check: Check,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
     drops: Option[List[Pos]] = None,
@@ -74,7 +74,7 @@ case class Branch(
     ply: Ply,
     move: Uci.WithSan,
     fen: Fen.Epd,
-    check: Boolean,
+    check: Check,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
     drops: Option[List[Pos]] = None,
@@ -119,7 +119,7 @@ object Node:
     opaque type Id = String
     object Id extends OpaqueString[Id]:
       def make = Id(ThreadLocalRandom nextString 4)
-    private val metaReg = """\[%[^\]]+\]""".r
+    private val metaReg = """\[%[^\]]++\]""".r
     opaque type Text = String
     object Text extends OpaqueString[Text]:
       extension (a: Text)

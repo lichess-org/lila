@@ -1,8 +1,6 @@
 package lila.tournament
 
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import chess.variant.{ FromPosition, Standard, Variant }
 import lila.db.dsl.{ *, given }
@@ -24,9 +22,9 @@ case class FreqWinners(
 ):
 
   lazy val top: Option[Winner] =
-    daily.filter(_.date isAfter DateTime.now.minusHours(2)) orElse
-      weekly.filter(_.date isAfter DateTime.now.minusDays(1)) orElse
-      monthly.filter(_.date isAfter DateTime.now.minusDays(3)) orElse
+    daily.filter(_.date isAfter nowDate.minusHours(2)) orElse
+      weekly.filter(_.date isAfter nowDate.minusDays(1)) orElse
+      monthly.filter(_.date isAfter nowDate.minusDays(3)) orElse
       yearly orElse monthly orElse weekly orElse daily
 
   def userIds = List(yearly, monthly, weekly, daily).flatten.map(_.userId)
@@ -93,12 +91,12 @@ final class WinnersApi(
 
   private def fetchAll: Fu[AllWinners] =
     for {
-      yearlies  <- fetchLastFreq(Freq.Yearly, DateTime.now.minusYears(1))
-      monthlies <- fetchLastFreq(Freq.Monthly, DateTime.now.minusMonths(2))
-      weeklies  <- fetchLastFreq(Freq.Weekly, DateTime.now.minusWeeks(2))
-      dailies   <- fetchLastFreq(Freq.Daily, DateTime.now.minusDays(2))
-      elites    <- fetchLastFreq(Freq.Weekend, DateTime.now.minusWeeks(3))
-      marathons <- fetchLastFreq(Freq.Marathon, DateTime.now.minusMonths(13))
+      yearlies  <- fetchLastFreq(Freq.Yearly, nowDate.minusYears(1))
+      monthlies <- fetchLastFreq(Freq.Monthly, nowDate.minusMonths(2))
+      weeklies  <- fetchLastFreq(Freq.Weekly, nowDate.minusWeeks(2))
+      dailies   <- fetchLastFreq(Freq.Daily, nowDate.minusDays(2))
+      elites    <- fetchLastFreq(Freq.Weekend, nowDate.minusWeeks(3))
+      marathons <- fetchLastFreq(Freq.Marathon, nowDate.minusMonths(13))
     } yield
       def standardFreqWinners(speed: Speed): FreqWinners =
         FreqWinners(

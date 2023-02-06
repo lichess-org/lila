@@ -1,12 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Dostıńızdı mirat etiw ushın, usı siltemeni jiberıń</string>
+  <string name="level">Dáreje</string>
   <string name="white">Aq</string>
   <string name="black">Qara</string>
   <string name="delete">Óshiriw</string>
+  <string name="enable">Iske túsiriw</string>
+  <string name="memory">Yad</string>
+  <string name="mistake">Qátelik</string>
   <string name="logOut">Shıǵıw</string>
   <string name="signIn">Kiriw</string>
   <string name="signUp">Dizimnen ótiw</string>
+  <string name="games">Oyınlar</string>
+  <string name="forum">Forum</string>
+  <string name="players">Oyınshılar</string>
+  <string name="friends">Doslar</string>
   <string name="today">Búgin</string>
   <string name="yesterday">Erteń</string>
+  <string name="oneDay">Bir kún</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s kún</item>
+    <item quantity="other">%s kún</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s kún</item>
+    <item quantity="other">%s kún</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minut</item>
+    <item quantity="other">%s minut</item>
+  </plurals>
   <string name="time">Waqıt</string>
+  <string name="cancel">Biykarlaw</string>
+  <string name="unlimited">Sheklewsiz</string>
+  <string name="play">Oynaw</string>
+  <string name="send">Jiberiw</string>
+  <string name="tournament">Jarıs</string>
+  <string name="tournaments">Jarıslar</string>
+  <string name="save">Saqlaw</string>
+  <string name="follow">Jazılıw</string>
+  <string name="following">Jazılǵansız</string>
+  <string name="followX">%s jazılıw</string>
+  <string name="block">Bloklaw</string>
+  <string name="blocked">Bloklanǵan</string>
+  <string name="unblock">Bloktan shıǵarıw</string>
+  <string name="followsYou">Sizge jazılǵan</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s jazılıwshı</item>
+    <item quantity="other">%s jazılıwshı</item>
+  </plurals>
+  <string name="more">Jáne</string>
+  <string name="player">Oyınshı</string>
+  <string name="list">Dizim</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">%s minuttan az</item>
+    <item quantity="other">%s minuttan az</item>
+  </plurals>
+  <string name="join">Qosılıw</string>
+  <string name="youArePlaying">Siz oyındasız!</string>
+  <string name="profile">Profil</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Mámleket yamasa bayraq</string>
+  <string name="no">Yaq</string>
+  <string name="yes">Awa</string>
+  <string name="lastPost">Sońǵı xabar</string>
+  <string name="replies">Juwaplar</string>
+  <string name="message">Xabar</string>
+  <string name="user">Paydalanıwshı</string>
+  <string name="reason">Sebep</string>
+  <string name="other">Basqa</string>
+  <string name="blog">Blog</string>
+  <string name="sound">Dawıs</string>
+  <string name="none">Joq</string>
+  <string name="fast">Tez</string>
+  <string name="slow">Ásten</string>
+  <string name="always">Hámiyshe</string>
+  <string name="never">Heshqashan</string>
+  <string name="learnMenu">Uyreniw</string>
+  <string name="tools">Ásbaplar</string>
+  <string name="mobileApp">Mobil baǵdarlama</string>
+  <string name="accuracy">Anıqlıq</string>
+  <string name="keyMoveBackwardOrForward">aldıǵa/artqa júriw</string>
+  <string name="newTournament">Jańa jarıs</string>
+  <string name="tournamentNotFound">Jarıs tabılmadı</string>
+  <string name="security">Qáwipsizlik</string>
+  <string name="viewTheSolution">Juwaptı kóriw</string>
+  <string name="language">Til</string>
+  <string name="light">Jaqtı</string>
+  <string name="dark">Qaranǵı</string>
+  <string name="notifications">Xabarlandırıwlar</string>
+  <string name="solution">Shesimi</string>
+  <string name="sorry">Keshirersiz :(</string>
+  <string name="why">Ne ushın?</string>
+  <string name="edit">Ózgeris kiritiw</string>
+  <string name="rapid">Tez</string>
+  <string name="subscribe">Jazılıw</string>
+  <string name="download">Júklep alıw</string>
+  <string name="welcome">Xosh keldińiz!</string>
+  <string name="noRestriction">Sheklewsiz</string>
+  <string name="since">Baslap</string>
+  <string name="until">Deyin</string>
 </resources>

@@ -11,7 +11,6 @@ import lila.user.User
 import lila.common.Json.given
 
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 object RoomSocket:
 

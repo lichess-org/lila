@@ -1,6 +1,5 @@
 package lila.security
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -17,7 +16,7 @@ final class PrintBan(coll: Coll)(using Executor):
       coll.update
         .one(
           $id(hash.value),
-          $doc("_id" -> hash.value, "date" -> DateTime.now),
+          $doc("_id" -> hash.value, "date" -> nowDate),
           upsert = true
         )
         .void

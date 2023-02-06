@@ -1,7 +1,5 @@
 package lila.appeal
 
-import org.joda.time.DateTime
-
 import lila.db.dsl.{ given, * }
 import lila.user.{ Holder, NoteApi, User, UserRepo }
 import reactivemongo.api.ReadPreference
@@ -35,13 +33,13 @@ final class AppealApi(
               AppealMsg(
                 by = me.id,
                 text = text,
-                at = DateTime.now
+                at = nowDate
               )
             ),
             status = Appeal.Status.Unread,
-            createdAt = DateTime.now,
-            updatedAt = DateTime.now,
-            firstUnrepliedAt = DateTime.now
+            createdAt = nowDate,
+            updatedAt = nowDate,
+            firstUnrepliedAt = nowDate
           )
         coll.insert.one(appeal) inject appeal
       case Some(prev) =>

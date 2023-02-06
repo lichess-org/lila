@@ -7,7 +7,6 @@ import chess.format.{ Fen, Uci }
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.AdapterLike

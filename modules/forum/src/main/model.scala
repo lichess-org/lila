@@ -1,7 +1,5 @@
 package lila.forum
 
-import org.joda.time.DateTime
-
 import lila.user.User
 
 case class CategView(

@@ -1,10 +1,8 @@
 package lila.tutor
 
-import org.joda.time.DateTime
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 import com.softwaremill.tagging.*
-import scala.concurrent.duration.*
 
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
@@ -48,14 +46,14 @@ final private class TutorQueue(
 
   def enqueue(user: User): Fu[Status] = workQueue {
     colls.queue.insert
-      .one($doc(F.id -> user.id, F.requestedAt -> DateTime.now))
+      .one($doc(F.id -> user.id, F.requestedAt -> nowDate))
       .recover(lila.db.ignoreDuplicateKey)
       .void >> fetchStatus(user)
   }
 
   def next: Fu[List[Next]] =
     colls.queue.find($empty).sort($sort asc F.requestedAt).cursor[Next]().list(parallelism.get())
-  def start(userId: UserId): Funit  = colls.queue.updateField($id(userId), F.startedAt, DateTime.now).void
+  def start(userId: UserId): Funit  = colls.queue.updateField($id(userId), F.startedAt, nowDate).void
   def remove(userId: UserId): Funit = colls.queue.delete.one($id(userId)).void
 
   def waitingGames(user: User): Fu[List[(Pov, PgnStr)]] = for

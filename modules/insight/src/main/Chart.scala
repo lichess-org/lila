@@ -126,7 +126,7 @@ object Chart:
         "user1"    -> user1,
         "user2"    -> user2
       )
-    }.sequenceFu map { games =>
+    }.parallel map { games =>
       Chart(
         question = JsonQuestion fromQuestion question,
         xAxis = xAxis,

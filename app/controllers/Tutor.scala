@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.Result
-import scala.concurrent.duration.*
 import views.*
 
 import lila.api.Context

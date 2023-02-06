@@ -2,7 +2,6 @@ package lila.security
 
 import com.github.blemale.scaffeine.Cache
 import org.joda.time.Instant
-import scala.concurrent.duration.FiniteDuration
 
 import lila.common.base.Levenshtein.isLevenshteinDistanceLessThan
 import lila.user.User

@@ -1,7 +1,6 @@
 package lila.relay
 
 import akka.actor.*
-import scala.concurrent.duration.*
 import chess.format.pgn.PgnStr
 
 import lila.study.MultiPgn

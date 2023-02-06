@@ -3,7 +3,6 @@ package lila.security
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
 
 import lila.base.LilaException
 import lila.common.Domain

@@ -1,8 +1,6 @@
 package lila.simul
 package actorApi
 
-import scala.concurrent.Promise
-
 import lila.game.Game
 import lila.user.User
 

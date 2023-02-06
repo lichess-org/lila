@@ -1,6 +1,5 @@
 package lila.team
 
-import org.joda.time.DateTime
 import org.joda.time.Period
 import play.api.libs.json.{ JsSuccess, Json, Reads }
 import reactivemongo.api.{ Cursor, ReadPreference }
@@ -188,12 +187,12 @@ final class TeamApi(
 
   def processRequest(team: Team, request: Request, decision: String): Funit = {
     if (decision == "decline") requestRepo.coll.updateField($id(request.id), "declined", true).void
-    else if (decision == "accept") for {
+    else if (decision == "accept") for
       _          <- requestRepo.remove(request.id)
       userOption <- userRepo byId request.user
       _ <-
         userOption.??(user => doJoin(team, user) >> notifier.acceptRequest(team, request))
-    } yield ()
+    yield ()
     else funit
   } addEffect { _ =>
     cached.nbRequests invalidate team.createdBy
@@ -206,10 +205,10 @@ final class TeamApi(
           teamRepo.leadersOf(request.team).map {
             _ foreach cached.nbRequests.invalidate
           }
-      }.sequenceFu
+      }.parallel
     }
 
-  def doJoin(team: Team, user: User): Funit =
+  def doJoin(team: Team, user: User): Funit = {
     !belongsTo(team.id, user.id) flatMapz {
       memberRepo.add(team.id, user.id) >>
         teamRepo.incMembers(team.id, +1) >>- {
@@ -218,6 +217,7 @@ final class TeamApi(
           Bus.publish(JoinTeam(id = team.id, userId = user.id), "team")
         }
     }
+  } recover lila.db.ignoreDuplicateKey
 
   def teamsOf(username: UserStr) =
     cached.teamIdsList(username.id) flatMap {
@@ -239,7 +239,7 @@ final class TeamApi(
     cached.teamIdsList(userId) flatMap { teamIds =>
       memberRepo.removeByUser(userId) >>
         requestRepo.removeByUser(userId) >>
-        teamIds.map { teamRepo.incMembers(_, -1) }.sequenceFu.void >>-
+        teamIds.map { teamRepo.incMembers(_, -1) }.parallel.void >>-
         cached.invalidateTeamIds(userId) inject teamIds
     }
 

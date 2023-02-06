@@ -2,7 +2,6 @@ package lila.tutor
 
 import chess.Color
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.FiniteDuration
 
 import lila.common.Iso
 import lila.db.BSON

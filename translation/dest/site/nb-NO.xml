@@ -207,6 +207,12 @@
   <string name="email">E-post</string>
   <string name="passwordReset">Tilbakestill passord</string>
   <string name="forgotPassword">Glemt passord?</string>
+  <string name="error.weakPassword">Passordet er svært vanlig og for lett å gjette.</string>
+  <string name="error.namePassword">Ikke bruk navnet ditt som passord.</string>
+  <string name="youAreLeavingLichess">Du forlater Lichess</string>
+  <string name="neverTypeYourPassword">Ikke bruk Lichess-passordet ditt andre steder!</string>
+  <string name="passwordSuggestion">Ikke bruk passord foreslått av andre. Kontoen din vil bli stjålet.</string>
+  <string name="emailSuggestion">Ikke bruk e-postadresse foreslått av andre. Kontoen din vil bli stjålet.</string>
   <string name="emailConfirmHelp">Hjelp med å bekrefte e-posten</string>
   <string name="emailConfirmNotReceived">Mottok du ikke bekreftelsesmelding etter at du registrerte deg?</string>
   <string name="whatSignupUsername">Hvilket brukernavn registrerte du deg med?</string>

@@ -4,7 +4,6 @@ import play.api.data.Form
 import play.api.data.Forms.*
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import views.*
 
 import lila.api.Context
@@ -144,9 +143,10 @@ final class Team(
     }
 
   def edit(id: TeamId) =
-    Auth { implicit ctx => _ =>
+    Auth { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
-        fuccess(html.team.form.edit(team, forms edit team))
+        env.msg.twoFactorReminder(me.id) inject
+          html.team.form.edit(team, forms edit team)
       }
     }
 
@@ -175,7 +175,7 @@ final class Team(
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
         given play.api.mvc.Request[?] = ctx.body
-        forms.members.bindFromRequest().value ?? { api.kickMembers(team, _, me).sequenceFu } inject Redirect(
+        forms.members.bindFromRequest().value ?? { api.kickMembers(team, _, me).parallel } inject Redirect(
           routes.Team.show(team.id)
         ).flashSuccess
       }
@@ -194,7 +194,7 @@ final class Team(
     Scoped(_.Team.Lead) { req => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         ApiKickRateLimitPerIP[Fu[ApiResult]](
-          HTTPRequest ipAddress req,
+          req.ipAddress,
           cost = if (me.isVerified || me.isApiHog) 0 else 1
         ) {
           api.kick(team, username.id, me) inject ApiResult.Done
@@ -202,7 +202,7 @@ final class Team(
           if (kickLimitReportOnce(username.id))
             lila
               .log("security")
-              .warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${HTTPRequest ipAddress req}")
+              .warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${req.ipAddress}")
           fuccess(ApiResult.Limited)
         }
       }
@@ -429,18 +429,16 @@ final class Team(
   def requestProcess(requestId: String) =
     AuthBody { implicit ctx => me =>
       import cats.implicits.*
-      OptionFuRedirectUrl(for {
+      OptionFuRedirectUrl(for
         requestOption <- api request requestId
         teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
-      } yield (teamOption, requestOption).mapN((_, _))) { case (team, request) =>
+      yield (teamOption, requestOption).mapN((_, _))) { (team, request) =>
         given play.api.mvc.Request[?] = ctx.body
         forms.processRequest
           .bindFromRequest()
           .fold(
             _ => fuccess(routes.Team.show(team.id).toString),
-            { case (decision, url) =>
-              api.processRequest(team, request, decision) inject url
-            }
+            { (decision, url) => api.processRequest(team, request, decision) inject url }
           )
       }
     }

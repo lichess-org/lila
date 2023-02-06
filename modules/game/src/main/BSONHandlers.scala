@@ -14,7 +14,6 @@ import chess.{
   UnmovedRooks
 }
 import chess.format.Fen
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import scala.util.{ Success, Try }
 

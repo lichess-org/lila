@@ -63,6 +63,7 @@
   <string name="downloadAllGames">Descarrega tots els jocs</string>
   <string name="chapterPgn">PGN del capítol</string>
   <string name="copyChapterPgn">Copiar PGN</string>
+  <string name="copyChapterPgnDescription">Copia el capítol PGN al porta-retalls.</string>
   <string name="downloadGame">Descarrega partida</string>
   <string name="studyUrl">URL de l’estudi</string>
   <string name="currentChapterUrl">URL del capítol actual</string>

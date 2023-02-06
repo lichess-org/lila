@@ -1,9 +1,7 @@
 package lila.relation
 
-import org.joda.time.DateTime
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.common.Json.given
@@ -145,7 +143,7 @@ final class RelationApi(
       }
     }
 
-  private val limitFollowRateLimiter = new lila.memo.RateLimit[UserId](
+  private val limitFollowRateLimiter = lila.memo.RateLimit[UserId](
     credits = 1,
     duration = 1 hour,
     key = "follow.limit.cleanup"
@@ -155,7 +153,7 @@ final class RelationApi(
     countFollowing(u) flatMap { nb =>
       (nb > config.maxFollow.value) ?? {
         limitFollowRateLimiter(u) {
-          fetchFollowing(u) flatMap userRepo.filterClosedOrInactiveIds(DateTime.now.minusDays(90))
+          fetchFollowing(u) flatMap userRepo.filterClosedOrInactiveIds(nowDate.minusDays(90))
         }(fuccess(Nil)) flatMap {
           case Nil => repo.drop(u, true, nb - config.maxFollow.value)
           case inactiveIds =>

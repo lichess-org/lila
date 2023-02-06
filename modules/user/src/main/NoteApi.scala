@@ -1,7 +1,6 @@
 package lila.user
 
 import lila.db.dsl.{ *, given }
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 case class Note(
@@ -67,7 +66,7 @@ final class NoteApi(
       text = text,
       mod = modOnly,
       dox = modOnly && (dox || Title.fromUrl.toFideId(text).isDefined),
-      date = DateTime.now
+      date = nowDate
     )
 
     coll.insert.one(note) >>-

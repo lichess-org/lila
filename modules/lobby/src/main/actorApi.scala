@@ -1,8 +1,6 @@
 package lila.lobby
 package actorApi
 
-import scala.concurrent.Promise
-
 import lila.game.Game
 import lila.socket.Socket.{ Sri, Sris }
 

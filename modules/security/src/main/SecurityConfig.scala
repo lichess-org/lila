@@ -2,7 +2,6 @@ package lila.security
 
 import com.softwaremill.macwire.*
 import lila.common.autoconfig.{ *, given }
-import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config.*
 
@@ -24,7 +23,8 @@ final private class SecurityConfig(
     @ConfigName("check_mail_api") val checkMail: CheckMail,
     val hcaptcha: Hcaptcha.Config,
     @ConfigName("ip2proxy") val ip2Proxy: Ip2Proxy,
-    @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck
+    @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck,
+    @ConfigName("pwned.url") val pwnedUrl: String
 )
 
 private object SecurityConfig:
@@ -57,10 +57,7 @@ private object SecurityConfig:
   )
   given ConfigLoader[DisposableEmail] = AutoConfig.loader
 
-  case class DnsApi(
-      url: String,
-      timeout: FiniteDuration
-  )
+  case class DnsApi(url: String, timeout: FiniteDuration)
   given ConfigLoader[DnsApi] = AutoConfig.loader
 
   case class CheckMail(

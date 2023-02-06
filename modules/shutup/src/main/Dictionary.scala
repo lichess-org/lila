@@ -7,7 +7,7 @@ package lila.shutup
 private object Dictionary:
 
   def en = dict("""
-(f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|e?d|)
+(f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|e?d|)
 (f|ph)agg?([oi]t|)
 (kill|hang|neck) my ?self
 [ck]um(shot|)
@@ -24,7 +24,7 @@ ass?(hole|fag)
 autist(ic|)
 aus?c?hwitz
 bastard?
-be[ea]+t?ch
+be[ea]++t?ch
 biy?t?ch
 blow(job|)
 blumpkin
@@ -64,7 +64,7 @@ gobshite?
 gook
 gypo
 handjob
-hitler+
+hitler++
 homm?o(sexual|)
 honkey
 hooker
@@ -78,7 +78,7 @@ kill (you|u)
 labia
 lamer?
 lesbo
-lo+ser
+lo++ser
 masturbat(ed?|ion|ing)
 milf
 molest(er|ed|)
@@ -88,9 +88,9 @@ moron
 mother(fuc?k(er|)|)
 mthrfckr
 nazi
-nigg?(er|a|ah)
+nigg?ah?
 nonce
-noo+b
+noo++b
 nutsac?k
 pa?edo((f|ph)ile|)
 paki
@@ -102,7 +102,7 @@ pimp
 piss
 poof
 poon
-poo+p(face|)
+poo++p(face|)
 porn(hub|)
 pric?k
 prostitute
@@ -313,10 +313,12 @@ yarra[gğ][iı] yediniz
   def critical = dict("""
 cancer
 (go|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|suicide)
-((ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )*)+ (die|burn)s?|((die|burn)s? irl))
-(kill|hang|neck) ?((yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)( and )?)+
+(ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )?)++ (die|burn)s?
+(die|burn)s? irl
+(kill|hang|neck) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
 kys
-rape(d|ing|)
+nigg?er
+rap(ed?|e?ing)
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)

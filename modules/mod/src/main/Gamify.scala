@@ -1,9 +1,7 @@
 package lila.mod
 
-import org.joda.time.DateTime
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
@@ -25,7 +23,7 @@ final class Gamify(
   private given BSONDocumentHandler[HistoryMonth] = Macros.handler
 
   def history(orCompute: Boolean = true): Fu[List[HistoryMonth]] =
-    val until  = DateTime.now minusMonths 1 withDayOfMonth 1
+    val until  = nowDate minusMonths 1 withDayOfMonth 1
     val lastId = HistoryMonth.makeId(until.getYear, until.getMonthOfYear)
     historyRepo.coll
       .find($empty)
@@ -60,12 +58,12 @@ final class Gamify(
         }.toList
       }
       .toList
-      .sequenceFu
+      .parallel
       .map(_.flatten)
       .flatMap {
         _.map { month =>
           historyRepo.coll.update.one($doc("_id" -> month._id), month, upsert = true).void
-        }.sequenceFu
+        }.parallel
       }
       .void
 
@@ -74,9 +72,9 @@ final class Gamify(
   private val leaderboardsCache = cacheApi.unit[Leaderboards] {
     _.expireAfterWrite(10 minutes)
       .buildAsyncFuture { _ =>
-        mixedLeaderboard(DateTime.now minusDays 1, none) zip
-          mixedLeaderboard(DateTime.now minusWeeks 1, none) zip
-          mixedLeaderboard(DateTime.now minusMonths 1, none) map { case ((daily, weekly), monthly) =>
+        mixedLeaderboard(nowDate minusDays 1, none) zip
+          mixedLeaderboard(nowDate minusWeeks 1, none) zip
+          mixedLeaderboard(nowDate minusMonths 1, none) map { case ((daily, weekly), monthly) =>
             Leaderboards(daily, weekly, monthly)
           }
       }

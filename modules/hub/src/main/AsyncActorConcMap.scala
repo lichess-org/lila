@@ -3,7 +3,6 @@ package lila.hub
 import java.util.concurrent.ConcurrentHashMap
 import java.util.function.Function
 import alleycats.Zero
-import scala.concurrent.Promise
 import scala.jdk.CollectionConverters.*
 
 final class AsyncActorConcMap[Id, D <: AsyncActor](
@@ -42,7 +41,7 @@ final class AsyncActorConcMap[Id, D <: AsyncActor](
   def tellAllWithAck(makeMsg: Promise[Unit] => Matchable)(using Executor): Fu[Int] =
     asyncActors.values.asScala
       .map(_ ask makeMsg)
-      .sequenceFu
+      .parallel
       .map(_.size)
 
   def size: Int = asyncActors.size()

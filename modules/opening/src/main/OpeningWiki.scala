@@ -1,12 +1,10 @@
 package lila.opening
 
 import chess.opening.{ Opening, OpeningDb, OpeningKey }
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -17,6 +15,7 @@ case class OpeningWiki(
     revisions: List[OpeningWiki.Revision],
     popularity: Long
 ):
+  def hasMarkup = markup.exists(_.value.nonEmpty)
   def markupForMove(move: String): Option[Html] =
     markup map OpeningWiki.filterMarkupForMove(move)
 
@@ -41,7 +40,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
         $doc(
           "$push" -> $doc(
             "revisions" -> $doc(
-              "$each"     -> List(Revision(Markdown(text), by.id, DateTime.now)),
+              "$each"     -> List(Revision(Markdown(text), by.id, nowDate)),
               "$position" -> 0,
               "$slice"    -> 30
             )
@@ -89,21 +88,15 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
     _.maximumSize(4096).buildAsyncFuture(compute)
   }
 
-  private def compute(key: OpeningKey): Fu[OpeningWiki] = for {
+  private def compute(key: OpeningKey): Fu[OpeningWiki] = for
     docOpt <- coll
-      .aggregateOne() { framework =>
-        import framework.*
-        Match($id(key)) ->
-          List(Project($doc("lastRev" -> $doc("$first" -> "$revisions"))))
+      .aggregateOne() { F =>
+        F.Match($id(key)) -> List(F.Project($doc("lastRev" -> $doc("$first" -> "$revisions"))))
       }
     popularity <- updatePopularity(key)
     lastRev = docOpt.flatMap(_.getAsOpt[Revision]("lastRev"))
     text    = lastRev.map(_.text)
-  } yield OpeningWiki(
-    text map markdown.render(key),
-    Nil,
-    popularity
-  )
+  yield OpeningWiki(text map markdown.render(key), Nil, popularity)
 
   private def updatePopularity(key: OpeningKey): Fu[Long] =
     OpeningDb.shortestLines.get(key) ?? { op =>
@@ -114,7 +107,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
               $id(key),
               $set(
                 "popularity"   -> popularity,
-                "popularityAt" -> DateTime.now
+                "popularityAt" -> nowDate
               ),
               upsert = true
             )

@@ -1,7 +1,6 @@
 package lila.api
 
 import chess.format.Fen
-import org.joda.time.DateTime
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
@@ -176,7 +175,7 @@ final private[api] class GameApi(
       if (withFlags.analysis) analysisRepo byIds games.map(_.id.value)
       else fuccess(List.fill(games.size)(none[Analysis]))
     allAnalysis flatMap { analysisOptions =>
-      (games map gameRepo.initialFen).sequenceFu map { initialFens =>
+      (games map gameRepo.initialFen).parallel map { initialFens =>
         games zip analysisOptions zip initialFens map { case ((g, analysisOption), initialFen) =>
           gameToJson(g, analysisOption, initialFen, checkToken(withFlags))
         }

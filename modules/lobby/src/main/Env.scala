@@ -2,7 +2,6 @@ package lila.lobby
 
 import com.softwaremill.macwire.*
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 

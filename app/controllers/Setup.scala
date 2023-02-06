@@ -3,12 +3,11 @@ package controllers
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Results
-import scala.concurrent.duration.*
 
 import chess.format.Fen
 import lila.api.{ BodyContext, Context }
 import lila.app.{ given, * }
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.IpAddress
 import lila.game.{ AnonCookie, Pov }
 import lila.rating.Glicko
 import lila.setup.Processor.HookResult
@@ -27,7 +26,7 @@ final class Setup(
   private def forms     = env.setup.forms
   private def processor = env.setup.processor
 
-  private[controllers] val PostRateLimit = new lila.memo.RateLimit[IpAddress](
+  private[controllers] val PostRateLimit = lila.memo.RateLimit[IpAddress](
     5,
     1.minute,
     key = "setup.post",
@@ -43,7 +42,7 @@ final class Setup(
     ("slow", 300, 1.day)
   )
 
-  private[controllers] val BotAiRateLimit = new lila.memo.RateLimit[UserId](
+  private[controllers] val BotAiRateLimit = lila.memo.RateLimit[UserId](
     50,
     1.day,
     key = "setup.post.bot.ai"
@@ -100,7 +99,7 @@ final class Setup(
                       timeControl = timeControl,
                       mode = config.mode,
                       color = config.color.name,
-                      challenger = (ctx.me, HTTPRequest sid ctx.req) match {
+                      challenger = (ctx.me, ctx.req.sid) match {
                         case (Some(user), _) => toRegistered(config.variant, timeControl)(user)
                         case (_, Some(sid))  => Challenger.Anonymous(sid)
                         case _               => Challenger.Open
@@ -153,7 +152,7 @@ final class Setup(
                       processor.hook(
                         userConfig withinLimits ctx.me,
                         Sri(sri),
-                        HTTPRequest sid ctx.req,
+                        ctx.req.sid,
                         lila.pool.Blocking(blocking)
                       ) map hookResponse
                     }
@@ -186,7 +185,7 @@ final class Setup(
                     .hook(
                       hookConfigWithRating,
                       Sri(sri),
-                      HTTPRequest sid ctx.req,
+                      ctx.req.sid,
                       lila.pool.Blocking(blocking ++ sameOpponents)
                     )
               yield hookResponse(hookResult)
@@ -217,7 +216,7 @@ final class Setup(
                 config.fixColor
                   .hook(Sri(uniqId), me.some, sid = uniqId.some, lila.pool.Blocking(blocking)) match {
                   case Left(hook) =>
-                    PostRateLimit(HTTPRequest ipAddress req) {
+                    PostRateLimit(req.ipAddress) {
                       BoardApiHookConcurrencyLimitPerUser(me.id)(
                         env.lobby.boardApiHookStream(hook.copy(boardApi = true))
                       )(apiC.sourceToNdJsonOption).toFuccess
@@ -250,7 +249,7 @@ final class Setup(
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       given play.api.i18n.Lang = reqLang
       BotAiRateLimit(me.id, cost = me.isBot ?? 1) {
-        PostRateLimit(HTTPRequest ipAddress req) {
+        PostRateLimit(req.ipAddress) {
           forms.api.ai
             .bindFromRequest()
             .fold(

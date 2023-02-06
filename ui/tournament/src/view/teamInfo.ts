@@ -42,8 +42,8 @@ export default function (ctrl: TournamentController): VNode | undefined {
                 ctrl.opts.showRatings ? numberRow(noarg('averageElo'), data.rating, 'raw') : null,
                 ...(data.perf
                   ? [
-                      ctrl.opts.showRatings ? numberRow('Average performance', data.perf, 'raw') : null,
-                      numberRow('Average score', data.score, 'raw'),
+                      ctrl.opts.showRatings ? numberRow(noarg('averagePerformance'), data.perf, 'raw') : null,
+                      numberRow(noarg('averageScore'), data.score, 'raw'),
                     ]
                   : []),
               ]
@@ -57,7 +57,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
                 {
                   attrs: { href: '/team/' + data.id },
                 },
-                'Team page'
+                noarg('teamPage')
               )
             )
           ),

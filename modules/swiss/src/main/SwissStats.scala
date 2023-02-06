@@ -2,7 +2,6 @@ package lila.swiss
 
 import akka.stream.scaladsl.*
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 

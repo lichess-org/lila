@@ -159,6 +159,10 @@
 %box-padding-horiz {
   padding: 0 var(--box-padding);
 }
+%box-margin-horiz {
+  margin-left: var(--box-padding);
+  margin-right: var(--box-padding);
+}
 
 %break-word {
   overflow-wrap: break-word;
@@ -207,7 +211,7 @@
   }
 }
 
-%game-embed {
+%study-embed {
   @include breakpoint($mq-not-xx-small) {
     padding-bottom: 160%;
   }

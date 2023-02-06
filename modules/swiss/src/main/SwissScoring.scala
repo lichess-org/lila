@@ -1,7 +1,6 @@
 package lila.swiss
 
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 
@@ -71,7 +70,7 @@ final private class SwissScoring(mongo: SwissMongo)(using
                   )
                   .void
               }
-              .sequenceFu
+              .parallel
               .void
           }
         } yield SwissScoring

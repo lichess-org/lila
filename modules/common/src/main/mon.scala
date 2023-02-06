@@ -301,6 +301,9 @@ object mon:
         counter("hcaptcha.hit").withTags(tags("client" -> client, "result" -> result))
       def form(client: String, result: String) =
         counter("hcaptcha.form").withTags(tags("client" -> client, "result" -> result))
+    object pwned:
+      def get(res: Boolean) =
+        timer("security.pwned.result").withTag("res", res)
   object shutup:
     def analyzer = timer("shutup.analyzer.time").withoutTags()
   object tv:

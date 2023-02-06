@@ -3,7 +3,6 @@ package lila.common
 import io.mola.galimatias.IPv4Address.parseIPv4Address
 import io.mola.galimatias.IPv6Address.parseIPv6Address
 import play.api.mvc.Call
-import scala.concurrent.duration.*
 import scala.util.Try
 import lila.base.LilaTypes
 import java.net.InetAddress

@@ -3,8 +3,6 @@ package lila.round
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import org.joda.time.DateTime
-import scala.concurrent.Promise
 
 import chess.format.Uci
 import Forecast.Step
@@ -23,7 +21,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
         Forecast(
           _id = pov.fullId,
           steps = steps.filter(_.nonEmpty),
-          date = DateTime.now
+          date = nowDate
         ).truncate,
         upsert = true
       )

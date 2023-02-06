@@ -2,7 +2,7 @@ package lila.study
 
 import scala.util.chaining.*
 
-import chess.format.Fen
+import chess.format.{ Fen, UciPath }
 import chess.format.pgn.Parser
 import lila.game.{ Game, Namer }
 import lila.tree.Node.Comment
@@ -18,7 +18,7 @@ final private class ExplorerGame(
       gameComment(game).some
     }
 
-  def insert(study: Study, position: Position, gameId: GameId): Fu[Option[(Chapter, Path)]] =
+  def insert(study: Study, position: Position, gameId: GameId): Fu[Option[(Chapter, UciPath)]] =
     if (position.chapter.isOverweight)
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(none)
@@ -28,7 +28,7 @@ final private class ExplorerGame(
           GameToRoot(game, none, withClocks = false).pipe { root =>
             root.setCommentAt(
               comment = gameComment(game),
-              path = Path(root.mainline.map(_.id))
+              path = UciPath.fromIds(root.mainline.map(_.id))
             )
           } ?? { gameRoot =>
             merge(fromNode, position.path, gameRoot) flatMap { case (newNode, path) =>
@@ -40,11 +40,11 @@ final private class ExplorerGame(
 
   private def compareFens(a: Fen.Epd, b: Fen.Epd) = a.simple == b.simple
 
-  private def merge(fromNode: RootOrNode, fromPath: Path, game: Node.Root): Option[(Node, Path)] =
+  private def merge(fromNode: RootOrNode, fromPath: UciPath, game: Node.Root): Option[(Node, UciPath)] =
     val gameNodes = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen)) drop 1
-    val (path, foundGameNode) = gameNodes.foldLeft((Path.root, none[Node])) {
+    val (path, foundGameNode) = gameNodes.foldLeft((UciPath.root, none[Node])) {
       case ((path, None), gameNode) =>
-        val nextPath = path + gameNode
+        val nextPath = path + gameNode.id
         if (fromNode.children.nodeAt(nextPath).isDefined) (nextPath, none)
         else (path, gameNode.some)
       case (found, _) => found

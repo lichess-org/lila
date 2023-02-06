@@ -3,7 +3,6 @@ package lila.irwin
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.report.Suspect
@@ -46,7 +45,7 @@ final class Env(
     scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes) { () =>
       (for {
         leaders <- tournamentApi.allCurrentLeadersInStandard
-        suspects <- lila.common.Future
+        suspects <- lila.common.LilaFuture
           .linear(leaders.toList) { case (tour, top) =>
             userRepo byIds top.value.zipWithIndex
               .filter(_._2 <= tour.nbPlayers * 2 / 100)

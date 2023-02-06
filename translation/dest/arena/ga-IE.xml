@@ -42,6 +42,8 @@ Imir go tapa agus filleadh chuig an forhalla chun níos mó cluichí a imirt agu
   </plurals>
   <string name="thisIsPrivate">Is comórtas príobháideach é seo</string>
   <string name="shareUrl">Comhroinn an URL seo chun ligean do imreoirí a bheith páirteach: %s</string>
+  <string name="drawStreakStandard">Stríoc cothroma: Nuair a bhíonn cluichí cothroma as a chéile ag imreoir i réimse, ní bheidh pointe mar thoradh ach ar an gcéad cluiche cothrom, nó cluichí a bhfuil níos mó ná %s beart i gnáth gcluichí. Ní féidir an stríoc cothroma a bhriseadh ach le bua, ní le cailliúint nó le cothrom.</string>
+  <string name="drawStreakVariants">Tá difríocht idir an t-íosfhad cluiche do chluichí tarraingthe chun pointí a bhronnadh de réir malairtí. Liostaíonn an tábla thíos an tairseach do gach leagan.</string>
   <string name="variant">Leagan</string>
   <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Íosfhad cluiche</string>
   <string name="history">Stair Láithreach</string>

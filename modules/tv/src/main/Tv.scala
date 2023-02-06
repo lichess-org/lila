@@ -33,7 +33,7 @@ final class Tv(
               .map { id =>
                 roundProxyGame(id) orElse gameRepo.game(id)
               }
-              .sequenceFu
+              .parallel
               .dmap(_.flatten)
           history = games map Pov.naturalOrientation
         } yield game map (_ -> history)
@@ -41,7 +41,7 @@ final class Tv(
 
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
     getGameIds(channel, max) flatMap {
-      _.map(roundProxyGame).sequenceFu.map(_.flatten)
+      _.map(roundProxyGame).parallel.map(_.flatten)
     }
 
   def getGameIds(channel: Tv.Channel, max: Int): Fu[List[GameId]] =

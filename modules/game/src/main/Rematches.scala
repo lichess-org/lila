@@ -1,7 +1,6 @@
 package lila.game
 
 import chess.Color
-import scala.concurrent.duration.*
 
 /* Prev game ID -> Next game ID
  * The next game might not yet exist in the DB,

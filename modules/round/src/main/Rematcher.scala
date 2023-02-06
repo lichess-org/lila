@@ -6,7 +6,6 @@ import chess.{ Board, Castles, Clock, Color as ChessColor, Ply, Game as ChessGam
 import ChessColor.{ Black, White }
 import com.github.blemale.scaffeine.Cache
 import lila.memo.CacheApi
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, PerfPicker, Pov, Rematches, Source }
@@ -94,7 +93,7 @@ final private class Rematcher(
   private def returnGame(pov: Pov, withId: Option[GameId]): Fu[Game] =
     for {
       initialFen <- gameRepo initialFen pov.game
-      situation = initialFen flatMap Fen.readWithMoveNumber
+      situation = initialFen.flatMap(Fen.readWithMoveNumber(pov.game.variant, _))
       pieces = pov.game.variant match
         case Chess960 =>
           if (chess960 get pov.gameId) Chess960.pieces

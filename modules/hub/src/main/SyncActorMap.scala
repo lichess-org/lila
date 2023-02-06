@@ -2,8 +2,6 @@ package lila.hub
 
 import com.github.blemale.scaffeine.LoadingCache
 import com.github.benmanes.caffeine.cache.RemovalCause
-import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.Promise
 
 final class SyncActorMap[Id: StringRuntime, T <: SyncActor](
     mkActor: Id => T,

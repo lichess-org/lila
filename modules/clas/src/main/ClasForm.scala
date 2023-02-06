@@ -2,7 +2,6 @@ package lila.clas
 
 import play.api.data.*
 import play.api.data.Forms.*
-import scala.concurrent.duration.*
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 import lila.user.User

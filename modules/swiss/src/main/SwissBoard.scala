@@ -1,7 +1,5 @@
 package lila.swiss
 
-import scala.concurrent.duration.*
-
 import lila.common.LightUser
 import lila.game.Game
 
@@ -34,7 +32,7 @@ final private class SwissBoardApi(
         gameProxyRepo.game(board.gameId) map2 {
           SwissBoard.WithGame(board, _)
         }
-      }.sequenceFu.dmap(_.flatten)
+      }.parallel.dmap(_.flatten)
     }
 
   def update(data: SwissScoring.Result): Funit =

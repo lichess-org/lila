@@ -1,11 +1,9 @@
 package lila.security
 
 import play.api.data.validation.*
-import scala.concurrent.duration.*
 
 import lila.common.{ Domain, EmailAddress }
 import lila.user.{ User, UserRepo }
-import org.joda.time.DateTime
 
 /** Validate and normalize emails
   */
@@ -87,8 +85,8 @@ final class EmailAddressValidator(
     }
 
   private def wasUsedTwiceRecently(email: EmailAddress): Fu[Boolean] =
-    userRepo.countRecentByPrevEmail(email.normalize, DateTime.now.minusWeeks(1)).dmap(_ >= 2) >>|
-      userRepo.countRecentByPrevEmail(email.normalize, DateTime.now.minusMonths(1)).dmap(_ >= 4)
+    userRepo.countRecentByPrevEmail(email.normalize, nowDate.minusWeeks(1)).dmap(_ >= 2) >>|
+      userRepo.countRecentByPrevEmail(email.normalize, nowDate.minusMonths(1)).dmap(_ >= 4)
 
 object EmailAddressValidator:
   enum Result(val error: Option[String]):

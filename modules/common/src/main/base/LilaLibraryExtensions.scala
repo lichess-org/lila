@@ -5,9 +5,7 @@ import cats.data.Validated
 import com.typesafe.config.Config
 import java.util.concurrent.TimeUnit
 import java.lang.Math.{ max, min }
-import org.joda.time.{ DateTime, Duration }
-import scala.concurrent.duration.*
-import scala.concurrent.{ Await, Future, ExecutionContext as EC }
+import scala.concurrent.{ Await, ExecutionContext as EC }
 import scala.util.matching.Regex
 import scala.util.Try
 
@@ -84,9 +82,9 @@ trait LilaLibraryExtensions extends LilaTypes:
   extension (date: DateTime)
     def getSeconds: Long                   = date.getMillis / 1000
     def getCentis: Long                    = date.getMillis / 10
-    def toNow                              = Duration(date, DateTime.now)
-    def atMost(other: DateTime): DateTime  = if (other isBefore date) other else date
-    def atLeast(other: DateTime): DateTime = if (other isAfter date) other else date
+    def toNow                              = org.joda.time.Duration(date, org.joda.time.DateTime.now)
+    def atMost(other: DateTime): DateTime  = if other.isBefore(date) then other else date
+    def atLeast(other: DateTime): DateTime = if other.isAfter(date) then other else date
 
   extension [A](v: Try[A])
 
@@ -136,12 +134,13 @@ trait LilaLibraryExtensions extends LilaTypes:
 
   extension (self: Array[Byte]) def toBase64 = Base64.getEncoder.encodeToString(self)
 
-  extension [A](list: List[Fu[A]]) def sequenceFu(using Executor): Fu[List[A]]         = Future sequence list
-  extension [A](vec: Vector[Fu[A]]) def sequenceFu(using Executor): Fu[Vector[A]]      = Future sequence vec
-  extension [A](set: Set[Fu[A]]) def sequenceFu(using Executor): Fu[Set[A]]            = Future sequence set
-  extension [A](seq: Seq[Fu[A]]) def sequenceFu(using Executor): Fu[Seq[A]]            = Future sequence seq
-  extension [A](iter: Iterable[Fu[A]]) def sequenceFu(using Executor): Fu[Iterable[A]] = Future sequence iter
-  extension [A](iter: Iterator[Fu[A]]) def sequenceFu(using Executor): Fu[Iterator[A]] = Future sequence iter
+  // run a collection of futures in parallel
+  extension [A](list: List[Fu[A]]) def parallel(using Executor): Fu[List[A]]         = Future sequence list
+  extension [A](vec: Vector[Fu[A]]) def parallel(using Executor): Fu[Vector[A]]      = Future sequence vec
+  extension [A](set: Set[Fu[A]]) def parallel(using Executor): Fu[Set[A]]            = Future sequence set
+  extension [A](seq: Seq[Fu[A]]) def parallel(using Executor): Fu[Seq[A]]            = Future sequence seq
+  extension [A](iter: Iterable[Fu[A]]) def parallel(using Executor): Fu[Iterable[A]] = Future sequence iter
+  extension [A](iter: Iterator[Fu[A]]) def parallel(using Executor): Fu[Iterator[A]] = Future sequence iter
 
   extension [A](fua: Fu[A])
 
@@ -279,7 +278,7 @@ trait LilaLibraryExtensions extends LilaTypes:
       )
 
     def delay(duration: FiniteDuration)(using Executor, Scheduler) =
-      lila.common.Future.delay(duration)(fua)
+      lila.common.LilaFuture.delay(duration)(fua)
 
     def chronometer    = Chronometer(fua)
     def chronometerTry = Chronometer.lapTry(fua)

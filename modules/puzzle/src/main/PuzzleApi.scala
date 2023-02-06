@@ -1,8 +1,6 @@
 package lila.puzzle
 
 import cats.implicits.*
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import lila.common.paginator.Paginator
 import lila.common.config.{ Max, MaxPerPage }
@@ -102,7 +100,7 @@ final class PuzzleApi(
               ) ++ {
                 (newVote <= -100 && doc
                   .getAsOpt[DateTime](F.day)
-                  .exists(_ isAfter DateTime.now.minusDays(1))) ??
+                  .exists(_ isAfter nowDate.minusDays(1))) ??
                   $unset(F.day)
               }
             )

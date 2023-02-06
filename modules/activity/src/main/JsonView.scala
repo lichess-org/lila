@@ -87,7 +87,7 @@ final class JsonView(
     given Writes[Follows]    = Json.writes
     given Writes[Teams] = Writes { s =>
       JsArray(s.value.map { id =>
-        Json.obj("url" -> s"/team/$id", "name" -> getTeamName.value(id))
+        Json.obj("url" -> s"/team/$id", "name" -> getTeamName(id))
       })
     }
     given Writes[Patron] = Json.writes

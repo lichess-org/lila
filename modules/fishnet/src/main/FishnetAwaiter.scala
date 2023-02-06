@@ -1,8 +1,5 @@
 package lila.fishnet
 
-import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.Promise
-
 import lila.game.Game
 import lila.common.Bus
 

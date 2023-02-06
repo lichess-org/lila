@@ -1,6 +1,5 @@
 package lila.bookmark
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -44,7 +43,7 @@ final class BookmarkApi(
 
   def toggle(gameId: GameId, userId: UserId): Funit =
     exists(gameId, userId) flatMap { e =>
-      (if (e) remove(gameId, userId) else add(gameId, userId, DateTime.now)) inject !e
+      (if (e) remove(gameId, userId) else add(gameId, userId, nowDate)) inject !e
     } flatMap { bookmarked =>
       val inc = if (bookmarked) 1 else -1
       gameRepo.incBookmarks(gameId, inc) >> gameProxyRepo.updateIfPresent(gameId)(

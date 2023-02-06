@@ -1,6 +1,5 @@
 package lila.irwin
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
@@ -111,10 +110,10 @@ final class IrwinApi(
       )
 
     private[irwin] def fromTournamentLeaders(suspects: List[Suspect]): Funit =
-      lila.common.Future.applySequentially(suspects) { insert(_, _.Tournament) }
+      lila.common.LilaFuture.applySequentially(suspects) { insert(_, _.Tournament) }
 
     private[irwin] def topOnline(leaders: List[Suspect]): Funit =
-      lila.common.Future.applySequentially(leaders) { insert(_, _.Leaderboard) }
+      lila.common.LilaFuture.applySequentially(leaders) { insert(_, _.Leaderboard) }
 
     import lila.game.BSONHandlers.given
 
@@ -124,7 +123,7 @@ final class IrwinApi(
         Query.rated ++
         Query.user(suspect.id.value) ++
         Query.turnsGt(20) ++
-        Query.createdSince(DateTime.now minusMonths 6)
+        Query.createdSince(nowDate minusMonths 6)
 
     private def getAnalyzedGames(suspect: Suspect, nb: Int): Fu[List[(Game, Analysis)]] =
       gameRepo.coll
@@ -157,6 +156,6 @@ final class IrwinApi(
           .map { modId =>
             notifyApi.notifyOne(modId, lila.notify.IrwinDone(report.suspectId.value))
           }
-          .sequenceFu
+          .parallel
           .void
       }
