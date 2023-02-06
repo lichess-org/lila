@@ -40,7 +40,7 @@ Mängige kiiresti ning naaske ooteruumi, et mängida rohkem mänge ja võita roh
   <string name="drawStreakStandard">Viigiseeria: kui mängijal on turniiril mitu järjestikust viiki, ainult esimene viik või viik enam kui %s käiku annab punkti. Viigiseeria võib katkestada ainult võit, mitte kaotus, ega viik.</string>
   <string name="drawStreakVariants">Viigistatud partiide minimaalne pikkus punktide saamiseks on variantide kaupa erinev. Alljärgnevas tabelis on loetletud iga variandi piir.</string>
   <string name="variant">Variant</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Vähim käikude arv</string>
+  <string name="minimumGameLength">Vähim käikude arv</string>
   <string name="history">Areena ajalugu</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Vaata võistkonda</item>
