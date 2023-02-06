@@ -50,7 +50,9 @@ object bits:
         "If it has prizes, Lichess is not responsible for paying them."
       )
 
-  def jsI18n(tour: Tournament)(using Context) = i18nJsObject(i18nKeys + (tour.isTeamBattle ?? teamBattleI18nKeys))
+  def scheduleJsI18n(using Context) = i18nJsObject(schedulei18nKeys)
+
+  def jsI18n(tour: Tournament)(using Context) = i18nJsObject(i18nKeys ++ (tour.isTeamBattle ?? teamBattleI18nKeys))
 
   private val i18nKeys = List(
     trans.standing,
@@ -76,8 +78,6 @@ object bits:
     trans.draws,
     trans.nextXTournament,
     trans.averageOpponent,
-    trans.ratedTournament,
-    trans.casualTournament,
     trans.tournamentEntryCode
   )
 
@@ -86,4 +86,9 @@ object bits:
     trans.arena.averagePerformance,
     trans.arena.averageScore,
     trans.team.teamPage
+  )
+
+  private val schedulei18nKeys = List(
+    trans.ratedTournament,
+    trans.casualTournament
   )

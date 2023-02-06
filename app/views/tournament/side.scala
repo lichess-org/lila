@@ -97,8 +97,8 @@ object side:
             }
           )
         ),
-        tour.noBerserk option div(cls := "text", dataIcon := "")(trans.noBerserkAllowed()),
-        tour.noStreak option div(cls := "text", dataIcon := "")(trans.noArenaStreaks()),
+        tour.noBerserk option div(cls := "text", dataIcon := "")(trans.arena.noBerserkAllowed()),
+        tour.noStreak option div(cls := "text", dataIcon := "")(trans.arena.noArenaStreaks()),
         !tour.isScheduled option frag(small(trans.by(userIdLink(tour.createdBy.some))), br),
         (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)) option absClientDateTime(
           tour.startsAt
