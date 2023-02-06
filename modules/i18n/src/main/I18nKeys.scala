@@ -1698,6 +1698,7 @@ object I18nKeys:
     val `notifyPush` = I18nKey("preferences:notifyPush")
     val `notifyWeb` = I18nKey("preferences:notifyWeb")
     val `notifyDevice` = I18nKey("preferences:notifyDevice")
+    val `bellNotificationSound` = I18nKey("preferences:bellNotificationSound")
 
   object team:
     val `team` = I18nKey("team:team")
