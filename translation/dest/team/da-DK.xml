@@ -55,4 +55,5 @@ Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.
   <string name="completedTourns">Afsluttede turneringer</string>
   <string name="declinedRequests">Afviste anmodninger</string>
   <string name="joinLichessVariantTeam">Meld dig til det officielle %s hold for nyheder og begivenheder</string>
+  <string name="teamPage">Holdside</string>
 </resources>
