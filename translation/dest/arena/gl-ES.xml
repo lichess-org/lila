@@ -40,7 +40,7 @@ Xoga rápido e volta ao lobby para xogar máis partidas e gañar máis puntos.</
   <string name="drawStreakStandard">Rachas de táboas: Cando un xogador fai táboas en varias partidas consecutivas nun torneo, só se conceden un punto a primeira delas e as que duraran %s movementos ou máis. Unha racha de táboas só pode romperse mediante unha victoria, non serven nen unha derrota nen unhas táboas.</string>
   <string name="drawStreakVariants">O número mínimo de movementos en partidas rematadas en táboas para gañar puntos difire segundo a variante. A seguinte táboa amosa o límite para cada variante.</string>
   <string name="variant">Variante</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Número mínimo de movementos</string>
+  <string name="minimumGameLength">Número mínimo de movementos</string>
   <string name="history">Historial de torneos Arena</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Ver o equipo</item>
