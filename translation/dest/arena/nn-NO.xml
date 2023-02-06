@@ -48,4 +48,8 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
   <string name="allowChatHelp">Lat spelarane diskutera i samtalerom</string>
   <string name="arenaStreaks">Arena-vinstrekkjer</string>
   <string name="arenaStreaksHelp">Etter to sigrar gjev seinara sigrar fire poeng i staden for to.</string>
+  <string name="noBerserkAllowed">Berserk er ikkje tillate</string>
+  <string name="noArenaStreaks">Ingen arena-strøymingar</string>
+  <string name="averagePerformance">Gjennomsnittleg prestasjon</string>
+  <string name="averageScore">Gjennomsnittleg poengsum</string>
 </resources>
