@@ -29,7 +29,7 @@ object show:
         embedJsUnsafeLoadThen(s"""LichessTournament(${safeJsonValue(
             Json.obj(
               "data"   -> data,
-              "i18n"   -> bits.jsI18n,
+              "i18n"   -> bits.jsI18n(tour),
               "userId" -> ctx.userId,
               "chat" -> chatOption.map { c =>
                 chat.json(
