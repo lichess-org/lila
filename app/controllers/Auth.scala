@@ -561,7 +561,7 @@ final class Auth(
   private[controllers] def HasherRateLimit(id: UserId, req: RequestHeader)(
       run: RateLimit.Charge => Fu[Result]
   ): Fu[Result] =
-    env.security.ip2proxy(HTTPRequest.ipAddress(req)) flatMap { proxy =>
+    env.security.ip2proxy(req.ipAddress) flatMap { proxy =>
       PasswordHasher.rateLimit[Result](
         enforce = env.net.rateLimit,
         ipCost = if proxy.is then 15 else 1
