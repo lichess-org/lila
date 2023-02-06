@@ -34,7 +34,7 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="drawStreakStandard">Remisrekke: En spiller med en ubrutt rekke partier som ender med remis i en arena, får bare poeng for den første remisen, eller ved remiser etter mer enn %s trekk for standardpartier. En remisrekke blir bare brutt av en seier, ikke av et nederlag eller en remis.</string>
   <string name="drawStreakVariants">Den minste partilengden som gir poeng for remispartier, varierer mellom variantene. Tabellen nedenfor viser de forskjellige grensene.</string>
   <string name="variant">Variant</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Minste partilengde</string>
+  <string name="minimumGameLength">Minste partilengde</string>
   <string name="history">Arena-historikk</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Vis laget</item>
