@@ -42,7 +42,7 @@
   <string name="drawStreakStandard">Тепе-теңдік тізбегі: егер Алаңда қатарынан бірнеше тепе-теңдік шықса, олардың арасынан ұпай беретіні –тек алғашқысы немесе %s жүрістен асқаны ғана. Тепе-теңдік тізбегін үзу үшін сізге тек жеңіс керек.</string>
   <string name="drawStreakVariants">Ұпайға ие болу үшін тепе-теңдікпен аяқталған ойын ұзындығы. Төмендегі тізім әр шахмат түріне сәйкес осы межені көрсетеді.</string>
   <string name="variant">Шахмат түрі</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Ойын ұзындығының кемі</string>
+  <string name="minimumGameLength">Ойын ұзындығының кемі</string>
   <string name="history">Алаң журналы</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Топты қарау</item>
