@@ -63,4 +63,5 @@
   <string name="notifyPush">Geräte-Benachrichtigung wenn du nicht auf Lichess bist</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Gerät</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Glocken-Benachrichtigungston</string>
 </resources>
