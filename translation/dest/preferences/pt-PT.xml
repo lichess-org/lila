@@ -3,7 +3,7 @@
   <string name="preferences">Preferências</string>
   <string name="display">Mostrar</string>
   <string name="privacy">Privacidade</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Notificações</string>
+  <string name="notifications">Notificações</string>
   <string name="pieceAnimation">Animação das peças</string>
   <string name="materialDifference">Diferença material</string>
   <string name="boardHighlights">Destacar casas do tabuleiro (último movimento e xeque)</string>
@@ -51,16 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">As tuas preferências foram guardadas.</string>
   <string name="scrollOnTheBoardToReplayMoves">Rolar no tabuleiro para repetir os movimentos</string>
   <string name="correspondenceEmailNotification">Notificações diárias por email listando seus jogos por correspondência</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Streamer começou uma transmissão ao vivo</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Nova mensagem na caixa de entrada</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Um comentário do fórum menciona-o</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Convite para estudo</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Atualizações dos jogos por correspondência</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Desafios</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">O torneio começará em breve</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">Está a acabar o tempo no jogo por correspondência</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Notificação do sino no Lichess</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Notificação do dispositivo quando não está no Lichess</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Navegador</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Dispositivo</string>
+  <string name="notifyStreamStart">Streamer começou uma transmissão ao vivo</string>
+  <string name="notifyInboxMsg">Nova mensagem na caixa de entrada</string>
+  <string name="notifyForumMention">Um comentário do fórum menciona-o</string>
+  <string name="notifyInvitedStudy">Convite para estudo</string>
+  <string name="notifyGameEvent">Atualizações dos jogos por correspondência</string>
+  <string name="notifyChallenge">Desafios</string>
+  <string name="notifyTournamentSoon">O torneio começará em breve</string>
+  <string name="notifyTimeAlarm">Está a acabar o tempo no jogo por correspondência</string>
+  <string name="notifyBell">Notificação do sino no Lichess</string>
+  <string name="notifyPush">Notificação do dispositivo quando não está no Lichess</string>
+  <string name="notifyWeb">Navegador</string>
+  <string name="notifyDevice">Dispositivo</string>
 </resources>
