@@ -3,7 +3,7 @@
   <string name="preferences">Postavke</string>
   <string name="display">Prikaz</string>
   <string name="privacy">Privatnost</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Obavještenja</string>
+  <string name="notifications">Obavještenja</string>
   <string name="pieceAnimation">Animacija figura</string>
   <string name="materialDifference">Razlika materijala</string>
   <string name="boardHighlights">Označi na ploči zadnji potez i šah</string>
@@ -51,16 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Vaše postavke su sačuvane.</string>
   <string name="scrollOnTheBoardToReplayMoves">Pomaknite kotačić miša na ploči da biste ponovili poteze</string>
   <string name="correspondenceEmailNotification">Dnevne obavijesti e-poštom sa spiskom Vaših dopisnih partija</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Strimer ide uživo</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Nova poruka</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Spomenuti ste u komentaru na forumu</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Poziv na studiju</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Ažuriranja u dopisnim partijama</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Izazovi</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Turnir počinje uskoro</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">Istječe vrijeme za dopisnu partiju</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Zvučno obavještenje na Lichessu</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Obavještenje na uređaju kad niste na Lichessu</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Preglednik</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Uređaj</string>
+  <string name="notifyStreamStart">Strimer ide uživo</string>
+  <string name="notifyInboxMsg">Nova poruka</string>
+  <string name="notifyForumMention">Spomenuti ste u komentaru na forumu</string>
+  <string name="notifyInvitedStudy">Poziv na studiju</string>
+  <string name="notifyGameEvent">Ažuriranja u dopisnim partijama</string>
+  <string name="notifyChallenge">Izazovi</string>
+  <string name="notifyTournamentSoon">Turnir počinje uskoro</string>
+  <string name="notifyTimeAlarm">Istječe vrijeme za dopisnu partiju</string>
+  <string name="notifyBell">Zvučno obavještenje na Lichessu</string>
+  <string name="notifyPush">Obavještenje na uređaju kad niste na Lichessu</string>
+  <string name="notifyWeb">Preglednik</string>
+  <string name="notifyDevice">Uređaj</string>
 </resources>
