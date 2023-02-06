@@ -63,4 +63,5 @@
   <string name="notifyPush">התראה למכשיר גם כשאינך מחובר/ת לליצ׳ס</string>
   <string name="notifyWeb">דפדפן</string>
   <string name="notifyDevice">מכשיר</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">השמע צליל עבור התראות פעמון</string>
 </resources>
