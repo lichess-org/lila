@@ -3,7 +3,7 @@
   <string name="preferences">Préférences</string>
   <string name="display">Affichage</string>
   <string name="privacy">Confidentialité</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Notifications</string>
+  <string name="notifications">Notifications</string>
   <string name="pieceAnimation">Animation des pièces</string>
   <string name="materialDifference">Différence de matériel</string>
   <string name="boardHighlights">Mettre en évidence les cases (dernier coup et échec)</string>
@@ -51,16 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Vos préférences ont été sauvegardées.</string>
   <string name="scrollOnTheBoardToReplayMoves">Utiliser la molette pour jouer les coups</string>
   <string name="correspondenceEmailNotification">Liste des avis par courriel quotidiens de vos parties par correspondance</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Le diffuseur passe en direct</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Nouveau message</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Un commentaire du forum vous mentionne</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Invitation à une étude</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Mise à jour des parties par correspondance</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Défis</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Le tournoi va bientôt commencer</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">Le temps de la partie par correspondance est presque épuisé</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Notification sonore sur Lichess</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Notification sur votre appareil quand vous n\'êtes pas sur Lichess</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Navigateur</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Appareil</string>
+  <string name="notifyStreamStart">Le diffuseur passe en direct</string>
+  <string name="notifyInboxMsg">Nouveau message</string>
+  <string name="notifyForumMention">Un commentaire du forum vous mentionne</string>
+  <string name="notifyInvitedStudy">Invitation à une étude</string>
+  <string name="notifyGameEvent">Mise à jour des parties par correspondance</string>
+  <string name="notifyChallenge">Défis</string>
+  <string name="notifyTournamentSoon">Le tournoi va bientôt commencer</string>
+  <string name="notifyTimeAlarm">Le temps de la partie par correspondance est presque épuisé</string>
+  <string name="notifyBell">Notification sonore sur Lichess</string>
+  <string name="notifyPush">Notification sur votre appareil quand vous n\'êtes pas sur Lichess</string>
+  <string name="notifyWeb">Navigateur</string>
+  <string name="notifyDevice">Appareil</string>
 </resources>
