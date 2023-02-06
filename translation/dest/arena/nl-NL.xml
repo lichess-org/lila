@@ -54,4 +54,5 @@ Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer 
   <string name="allowChatHelp">Spelers kunnen chatten in de chatruimte</string>
   <string name="arenaStreaks">Arena streaks</string>
   <string name="arenaStreaksHelp">Na 2 overwinningen geven opeenvolgende overwinningen 4 punten in plaats van 2.</string>
+  <string name="noBerserkAllowed">Berserk niet toegestaan</string>
 </resources>
