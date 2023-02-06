@@ -39,7 +39,7 @@ Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti 
   <string name="shareUrl">Zdieľaním tejto adresy umožníte ľuďom účasť v turnaji: %s</string>
   <string name="drawStreakStandard">Séria remíz: Ak hráč v aréne remízuje viackrát po sebe, bod sa udelí iba za prvú remízu alebo za remízy, ktoré trvajú viac ako %s ťahov. Séria remíz môže byť prerušená iba výhrou, nie prehrou alebo remízou.</string>
   <string name="variant">Variant</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Minimálna dĺžka hry</string>
+  <string name="minimumGameLength">Minimálna dĺžka hry</string>
   <string name="history">História zápasov v aréne</string>
   <string name="newTeamBattle">Nový tímový súboj</string>
 </resources>
