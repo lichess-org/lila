@@ -39,4 +39,4 @@ final class LobbyApi(
         }
       }
 
-  def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)(lightUserApi.sync)
+  def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)

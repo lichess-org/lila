@@ -8,7 +8,7 @@ import chess.{ Clock, Color }
 import lila.common.Json.{ *, given }
 import lila.common.LightUser
 
-final class JsonView(rematches: Rematches):
+final class JsonView(rematches: Rematches, luserApi: lila.user.LightUserApi):
 
   import JsonView.{ *, given }
 
@@ -26,7 +26,8 @@ final class JsonView(rematches: Rematches):
         "startedAtTurn" -> game.chess.startedAtPly,
         "source"        -> game.source,
         "status"        -> game.status,
-        "createdAt"     -> game.createdAt
+        "createdAt"     -> game.createdAt,
+        "players"       -> players(game)
       )
       .add("initialFen" -> initialFen)
       .add("threefold" -> game.history.threefoldRepetition)
@@ -40,7 +41,7 @@ final class JsonView(rematches: Rematches):
       .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
       .add("rules" -> game.metadata.nonEmptyRules)
 
-  def ownerPreview(pov: Pov)(lightUserSync: LightUser.GetterSync) =
+  def ownerPreview(pov: Pov) =
     Json
       .obj(
         "fullId"   -> pov.fullId,
@@ -61,7 +62,7 @@ final class JsonView(rematches: Rematches):
           .obj(
             "id" -> pov.opponent.userId,
             "username" -> lila.game.Namer
-              .playerTextBlocking(pov.opponent, withRating = false)(using lightUserSync)
+              .playerTextBlocking(pov.opponent, withRating = false)(using luserApi.sync)
           )
           .add("rating" -> pov.opponent.rating)
           .add("ai" -> pov.opponent.aiLevel),
@@ -70,6 +71,19 @@ final class JsonView(rematches: Rematches):
       .add("secondsLeft" -> pov.remainingSeconds)
       .add("tournamentId" -> pov.game.tournamentId)
       .add("swissId" -> pov.game.swissId)
+
+  private def players(game: Game) =
+    game.players.collect { p =>
+      val sink = lila.game.Namer.playerKitchenSync(p)(using luserApi.sync)
+      Json.obj(
+        "color" -> p.color,
+        "user" -> Json
+          .obj("name" -> sink._1)
+          .add("id" -> sink._2)
+          .add("title" -> sink._3)
+          .add("rating" -> lila.game.Namer.ratingString(p))
+      )
+    }
 
 object JsonView:
 
