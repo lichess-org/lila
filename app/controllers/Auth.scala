@@ -116,7 +116,7 @@ final class Auth(
                   api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).toFuccess
                 ),
               (login, pass) =>
-                HasherRateLimit(login into UserId, ctx.req) { chargeIpLimiter =>
+                LoginRateLimit(login.normalize, ctx.req) { chargeIpLimiter =>
                   env.security.pwned(pass) foreach { _ ?? chargeIpLimiter() }
                   api.loadLoginForm(login) flatMap {
                     _.bindFromRequest()
@@ -411,7 +411,7 @@ final class Auth(
           FormFuResult(forms.passwdResetFor(user)) { err =>
             fuccess(html.auth.bits.passwordResetConfirm(user, token, err, false.some))
           } { data =>
-            HasherRateLimit(user.id, ctx.req) { _ =>
+            HasherRateLimit(user.id, ctx.req) {
               env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
                 env.user.repo.setEmailConfirmed(user.id).flatMapz {
                   welcome(user, _, sendWelcomeEmail = false)
@@ -558,14 +558,24 @@ final class Auth(
 
   private given limitedDefault: Zero[Result] = Zero(rateLimited)
 
-  private[controllers] def HasherRateLimit(id: UserId, req: RequestHeader)(
+  private[controllers] def LoginRateLimit(id: UserIdOrEmail, req: RequestHeader)(
       run: RateLimit.Charge => Fu[Result]
   ): Fu[Result] =
     env.security.ip2proxy(req.ipAddress) flatMap { proxy =>
       PasswordHasher.rateLimit[Result](
         enforce = env.net.rateLimit,
-        ipCost = if proxy.is then 15 else 1
+        ipCost = 1 +
+          proxy.is.??(15) +
+          EmailAddress.isValid(id.value).??(15)
       )(id, req)(run)(rateLimitedFu)
+    }
+
+  private[controllers] def HasherRateLimit(id: UserId, req: RequestHeader)(run: => Fu[Result]): Fu[Result] =
+    env.security.ip2proxy(req.ipAddress) flatMap { proxy =>
+      PasswordHasher.rateLimit[Result](
+        enforce = env.net.rateLimit,
+        ipCost = if proxy.is then 10 else 1
+      )(id into UserIdOrEmail, req)(_ => run)(rateLimitedFu)
     }
 
   private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result]

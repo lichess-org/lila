@@ -74,7 +74,7 @@ object PasswordHasher:
     key = "password.hashes.ip"
   )
 
-  private lazy val rateLimitPerUser = RateLimit[UserId](
+  private lazy val rateLimitPerUser = RateLimit[UserIdOrEmail](
     credits = 10,
     duration = 10 minutes,
     key = "password.hashes.user"
@@ -89,12 +89,12 @@ object PasswordHasher:
   def rateLimit[A](
       enforce: lila.common.config.RateLimit,
       ipCost: Int
-  )(id: UserId, req: RequestHeader)(run: RateLimit.Charge => Fu[A])(default: => Fu[A]): Fu[A] =
+  )(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[A])(default: => Fu[A]): Fu[A] =
     if enforce.yes then
       val ip = HTTPRequest ipAddress req
-      rateLimitPerUser(id, cost = 1) {
-        rateLimitPerIP.chargeable(ip, cost = ipCost, msg = s"IP: $ip") { charge =>
-          rateLimitGlobal("-", cost = 1, msg = ip.value) {
+      rateLimitPerUser(id, cost = 1, msg = s"IP: $ip") {
+        rateLimitPerIP.chargeable(ip, cost = ipCost) { charge =>
+          rateLimitGlobal("-", cost = 1, msg = s"IP: $ip") {
             run(() => charge(ipCost))
           }(default)
         }(default)

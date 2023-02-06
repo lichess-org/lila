@@ -36,7 +36,7 @@ final class Signup(
     case YesBecauseEmailDomain  extends MustConfirmEmail(true)
 
   private object MustConfirmEmail:
-    def apply(print: Option[FingerPrint], email: EmailAddress)(using
+    def apply(print: Option[FingerPrint], email: EmailAddress, suspIp: Boolean)(using
         req: RequestHeader
     ): Fu[MustConfirmEmail] =
       val ip = HTTPRequest ipAddress req
@@ -45,15 +45,11 @@ final class Signup(
         else if (HTTPRequest weirdUA req) fuccess(YesBecauseUA)
         else
           print.fold[Fu[MustConfirmEmail]](fuccess(YesBecausePrintMissing)) { fp =>
-            store.recentByPrintExists(fp) flatMap { printFound =>
-              if (printFound) fuccess(YesBecausePrintExists)
-              else
-                ipTrust.isSuspicious(ip).map {
-                  case true => YesBecauseIpSusp
-                  case _ =>
-                    if (email.domain.map(_.lower) exists DisposableEmailDomain.whitelisted) Nope
-                    else YesBecauseEmailDomain
-                }
+            store.recentByPrintExists(fp) map { printFound =>
+              if printFound then YesBecausePrintExists
+              else if suspIp then YesBecauseIpSusp
+              else if email.domain.map(_.lower).exists(DisposableEmailDomain.whitelisted) then Nope
+              else YesBecauseEmailDomain
             }
           }
       }
@@ -61,6 +57,7 @@ final class Signup(
   def website(
       blind: Boolean
   )(using req: Request[?], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
+    val ip = HTTPRequest ipAddress req
     forms.signup.website flatMap {
       _.form
         .bindFromRequest()
@@ -71,32 +68,39 @@ final class Signup(
               Signup.Result.Bad(err tap signupErrLog)
             },
           data =>
-            hcaptcha.verify().flatMap {
-              case Hcaptcha.Result.Fail           => fuccess(Signup.Result.MissingCaptcha)
-              case Hcaptcha.Result.Pass if !blind => fuccess(Signup.Result.MissingCaptcha)
-              case hcaptchaResult =>
-                signupRateLimit(data.username.id, if (hcaptchaResult == Hcaptcha.Result.Valid) 1 else 2) {
-                  MustConfirmEmail(data.fingerPrint, data.email) flatMap { mustConfirm =>
-                    lila.mon.user.register.count(none)
-                    lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-                    val passwordHash = authenticator passEnc data.clearPassword
-                    userRepo
-                      .create(
-                        data.username,
-                        passwordHash,
-                        data.email,
-                        blind,
-                        none,
-                        mustConfirmEmail = mustConfirm.value
-                      )
-                      .orFail(s"No user could be created for ${data.username}")
-                      .addEffect { logSignup(req, _, data.email, data.fingerPrint, none, mustConfirm) }
-                      .flatMap {
-                        confirmOrAllSet(data.email, mustConfirm, data.fingerPrint, none)
-                      }
+            for
+              suspIp <- ipTrust.isSuspicious(ip)
+              result <- hcaptcha.verify().flatMap {
+                case Hcaptcha.Result.Fail           => fuccess(Signup.Result.MissingCaptcha)
+                case Hcaptcha.Result.Pass if !blind => fuccess(Signup.Result.MissingCaptcha)
+                case hcaptchaResult =>
+                  signupRateLimit(
+                    data.username.id,
+                    suspIp = suspIp,
+                    captched = hcaptchaResult == Hcaptcha.Result.Valid
+                  ) {
+                    MustConfirmEmail(data.fingerPrint, data.email, suspIp = suspIp) flatMap { mustConfirm =>
+                      lila.mon.user.register.count(none)
+                      lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
+                      val passwordHash = authenticator passEnc data.clearPassword
+                      userRepo
+                        .create(
+                          data.username,
+                          passwordHash,
+                          data.email,
+                          blind,
+                          none,
+                          mustConfirmEmail = mustConfirm.value
+                        )
+                        .orFail(s"No user could be created for ${data.username}")
+                        .addEffect { logSignup(req, _, data.email, data.fingerPrint, none, mustConfirm) }
+                        .flatMap {
+                          confirmOrAllSet(data.email, mustConfirm, data.fingerPrint, none)
+                        }
+                    }
                   }
-                }
-            }
+              }
+            yield result
         )
     }
 
@@ -120,6 +124,7 @@ final class Signup(
   def mobile(
       apiVersion: ApiVersion
   )(implicit req: Request[?], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
+    val ip = HTTPRequest ipAddress req
     forms.signup.mobile
       .bindFromRequest()
       .fold[Fu[Signup.Result]](
@@ -129,30 +134,30 @@ final class Signup(
             Signup.Result.Bad(err tap signupErrLog)
           },
         data =>
-          signupRateLimit(data.username.id, cost = 2) {
-            val mustConfirm = MustConfirmEmail.YesBecauseMobile
-            lila.mon.user.register.count(apiVersion.some).increment()
-            lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-            val passwordHash = authenticator passEnc User.ClearPassword(data.password)
-            userRepo
-              .create(
-                data.username,
-                passwordHash,
-                data.email,
-                blind = false,
-                apiVersion.some,
-                mustConfirmEmail = mustConfirm.value
-              )
-              .orFail(s"No user could be created for ${data.username}")
-              .addEffect { logSignup(req, _, data.email, none, apiVersion.some, mustConfirm) }
-              .flatMap {
-                confirmOrAllSet(data.email, mustConfirm, none, apiVersion.some)
-              }
-          }
+          for
+            suspIp <- ipTrust.isSuspicious(ip)
+            result <- signupRateLimit(data.username.id, suspIp = suspIp, captched = false) {
+              val mustConfirm = MustConfirmEmail.YesBecauseMobile
+              lila.mon.user.register.count(apiVersion.some).increment()
+              lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
+              val passwordHash = authenticator passEnc User.ClearPassword(data.password)
+              userRepo
+                .create(
+                  data.username,
+                  passwordHash,
+                  data.email,
+                  blind = false,
+                  apiVersion.some,
+                  mustConfirmEmail = mustConfirm.value
+                )
+                .orFail(s"No user could be created for ${data.username}")
+                .addEffect { logSignup(req, _, data.email, none, apiVersion.some, mustConfirm) }
+                .flatMap {
+                  confirmOrAllSet(data.email, mustConfirm, none, apiVersion.some)
+                }
+            }
+          yield result
       )
-
-  private def HasherRateLimit =
-    PasswordHasher.rateLimit[Signup.Result](enforce = netConfig.rateLimit, ipCost = 1)
 
   private lazy val signupRateLimitPerIP = RateLimit.composite[IpAddress](
     key = "account.create.ip",
@@ -164,12 +169,14 @@ final class Signup(
 
   private val rateLimitDefault = fuccess(Signup.Result.RateLimited)
 
-  private def signupRateLimit(id: UserId, cost: Int)(
+  private def signupRateLimit(id: UserId, suspIp: Boolean, captched: Boolean)(
       f: => Fu[Signup.Result]
-  )(implicit req: RequestHeader): Fu[Signup.Result] =
-    HasherRateLimit(id, req) { _ =>
-      signupRateLimitPerIP(HTTPRequest ipAddress req, cost = cost)(f)(rateLimitDefault)
-    }(rateLimitDefault)
+  )(using req: RequestHeader): Fu[Signup.Result] =
+    val cost = (if suspIp then 2 else 1) * (if captched then 1 else 2)
+    PasswordHasher
+      .rateLimit[Signup.Result](enforce = netConfig.rateLimit, ipCost = cost)(id into UserIdOrEmail, req) {
+        _ => signupRateLimitPerIP(HTTPRequest ipAddress req, cost = cost)(f)(rateLimitDefault)
+      }(rateLimitDefault)
 
   private def logSignup(
       req: RequestHeader,

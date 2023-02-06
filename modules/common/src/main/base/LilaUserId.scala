@@ -36,5 +36,13 @@ trait LilaUserId:
       if clean.lengthIs > 1 then Some(UserStr(clean)) else None
     }
 
+  opaque type UserStrOrEmail = String
+  object UserStrOrEmail extends OpaqueString[UserStrOrEmail]:
+    extension (e: UserStrOrEmail)
+      def normalize = UserIdOrEmail(lila.common.EmailAddress.from(e).fold(e.toLowerCase)(_.normalize.value))
+
+  opaque type UserIdOrEmail = String
+  object UserIdOrEmail extends OpaqueString[UserIdOrEmail]
+
   opaque type ModId = String
   object ModId extends OpaqueUserId[ModId]
