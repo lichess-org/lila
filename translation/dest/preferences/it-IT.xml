@@ -3,7 +3,7 @@
   <string name="preferences">Preferenze</string>
   <string name="display">Mostra</string>
   <string name="privacy">Privacy</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Notifiche</string>
+  <string name="notifications">Notifiche</string>
   <string name="pieceAnimation">Animazione dei pezzi</string>
   <string name="materialDifference">Differenza di materiale</string>
   <string name="boardHighlights">Segnalazioni sulla scacchiera (ultima mossa e scacco)</string>
@@ -51,16 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Le tue preferenze sono state salvate.</string>
   <string name="scrollOnTheBoardToReplayMoves">Scorri sulla scacchiera per riprodurre le mosse</string>
   <string name="correspondenceEmailNotification">Notifica di posta giornaliera che elenca le tue partite per corrispondenza</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Lo streamer va in diretta</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Nuovo messaggio</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Un commento nel forum ti ha menzionato</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Invito ad uno Studio</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Aggiornamenti in una partita per corrispondenza</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Sfide</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Il torneo sta per iniziare</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">Il tempo sta per scadere in una partita per corrispondenza</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Notifica sonora in Lichess</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Notifiche dispositivo (push) quando non sei collegato a Lichess</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Browser</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Dispositivo</string>
+  <string name="notifyStreamStart">Lo streamer va in diretta</string>
+  <string name="notifyInboxMsg">Nuovo messaggio</string>
+  <string name="notifyForumMention">Un commento nel forum ti ha menzionato</string>
+  <string name="notifyInvitedStudy">Invito ad uno Studio</string>
+  <string name="notifyGameEvent">Aggiornamenti in una partita per corrispondenza</string>
+  <string name="notifyChallenge">Sfide</string>
+  <string name="notifyTournamentSoon">Il torneo sta per iniziare</string>
+  <string name="notifyTimeAlarm">Il tempo sta per scadere in una partita per corrispondenza</string>
+  <string name="notifyBell">Notifica sonora in Lichess</string>
+  <string name="notifyPush">Notifiche dispositivo (push) quando non sei collegato a Lichess</string>
+  <string name="notifyWeb">Browser</string>
+  <string name="notifyDevice">Dispositivo</string>
 </resources>
