@@ -208,6 +208,11 @@
   <string name="passwordReset">Құпиясөзді қайта орнату</string>
   <string name="forgotPassword">Құпиясөзді ұмытып қалдыңыз ба?</string>
   <string name="error.weakPassword">Осындай құпиясөз қолданыста көп, оны табу оңайға соғады.</string>
+  <string name="error.namePassword">Құпиясөз ретінде өз тіркеулі атыңызды жазбаңыз.</string>
+  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Сіз Личес-тен шыққалы тұрсыз</string>
+  <string name="neverTypeYourPassword">Личестегі құпиясөзіңізді басқа сайттарда қолданбаңыз!</string>
+  <string name="passwordSuggestion">Басқа біреу ұсынған құпиясөзді қолданбаңыз. Ол адам тіркелгіңізді ұрлауы мүмкін.</string>
+  <string name="emailSuggestion">Басқа біреу ұсынған пошта мекенжайын қолданбаңыз. Ол адам тіркелгіңізді ұрлауы мүмкін.</string>
   <string name="emailConfirmHelp">Поштаны растау туралы көмек</string>
   <string name="emailConfirmNotReceived">Тіркелуден кейін поштаңызға растау хаты келмеді ме?</string>
   <string name="whatSignupUsername">Қай атпен тіркелдіңіз?</string>
@@ -364,6 +369,7 @@
   <string name="siteDescription">Тегін онлайн шахмат алаңы. Кескіні таза сайтта шахмат ойнаңыз. Жарнама жоқ, тіркелу мен қосымша програмды қажет етпейді. Шахматты компьютермен, достарыңызбен не кез-келген қарсыласпен ойнаңыз.</string>
   <string name="xJoinedTeamY">%1$s %2$s тобына қосылды</string>
   <string name="xCreatedTeamY">%1$s %2$s тобын құрды</string>
+  <string name="startedStreaming">стрим басталды</string>
   <string name="xStartedStreaming">%s стрим бастады</string>
   <string name="averageElo">Орташа рейтинг</string>
   <string name="location">Аймақ</string>
@@ -540,6 +546,8 @@
   <string name="blog">Блог</string>
   <string name="notes">Жазбалар</string>
   <string name="typePrivateNotesHere">Жеке жазбаларыңыз үшін</string>
+  <string name="writeAPrivateNoteAboutThisUser">Бұл ойыншы туралы жеке жазба жазу</string>
+  <string name="noNoteYet">Жазба жоқ</string>
   <string name="invalidUsernameOrPassword">Атыңыз не құпиясөз қате</string>
   <string name="incorrectPassword">Құпиясөз қате</string>
   <string name="invalidAuthenticationCode">Сәйкестік-растау құлыпсөзі қате</string>
@@ -705,6 +713,7 @@
   <string name="kidMode">Балалық нұсқа</string>
   <string name="kidModeExplanation">Бұл сақтық үшін. Балалық нұсқада бүкіл әңгімелесу жолдары жабылған. Мақсатыңыз – бала мен мектеп оқушыларын басқа интернет қолданушыларынан қорғау болса, осы нұсқаны іске қосыңыз.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Балалық нұсқа кезінде Личес таңбасына %s белгісі қосылады, осылайша балаңызға қауіп жоқ екенін білесіз.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Тіркелгіңізді ұстаз басқарады. Балалық нұсқаны өшіруді одан сұраңыз.</string>
   <string name="enableKidMode">Балалық нұсқаны іске қосу</string>
   <string name="disableKidMode">Балалық нұсқаны сөндіру</string>
   <string name="security">Қорғаныс</string>
@@ -739,6 +748,7 @@
   <string name="light">Жарық</string>
   <string name="dark">Қараңғы</string>
   <string name="transparent">Мөлдір</string>
+  <string name="deviceTheme">Құрылғы кейпі</string>
   <string name="backgroundImageUrl">Фон суретіне сілтеме:</string>
   <string name="boardGeometry">Тақта пішіні</string>
   <string name="boardTheme">Тақта өңі</string>
