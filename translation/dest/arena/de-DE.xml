@@ -56,7 +56,7 @@ Spiele schnell und kehre zur Turnierübersicht zurück, um mehr Spiele zu spiele
   <string name="arenaStreaks">Arena-Siegesserien</string>
   <string name="arenaStreaksHelp">Nach 2 Siegen gewähren aufeinander folgende Siege 4 Punkte anstelle von 2.</string>
   <string name="noBerserkAllowed">Kein Berserken erlaubt</string>
-  <string name="noArenaStreaks">Keine Arena-Gewinnsträhnen</string>
+  <string name="noArenaStreaks">Keine Arena-Siegesserien</string>
   <string name="averagePerformance">Durchschnittliche Leistung</string>
   <string name="averageScore">Durchschnittliche Punktzahl</string>
 </resources>
