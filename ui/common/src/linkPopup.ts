@@ -1,6 +1,6 @@
 import modal from './modal';
 
-export const makeLinkPopups = (dom: HTMLElement | Cash, trans: Trans, selector: string = 'a[href^="http"]') =>
+export const makeLinkPopups = (dom: HTMLElement | Cash, trans: Trans, selector = 'a[href^="http"]') =>
   $(dom).on('click', selector, function (this: HTMLLinkElement) {
     return onClick(this, trans);
   });
