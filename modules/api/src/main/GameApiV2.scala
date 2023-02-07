@@ -299,11 +299,10 @@ final class GameApiV2(
           .add("aiLevel" -> p.aiLevel)
           .add(
             "analysis" -> analysisOption.flatMap(
-              analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy = none)
+              analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy)
             )
           )
           .add("team" -> teams.map(_(p.color)))
-          .add("accuracy" -> accuracy.map(_(p.color)).map(_.toInt))
       })
     )
     .add("initialFen" -> initialFen)
