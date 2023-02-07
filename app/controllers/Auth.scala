@@ -561,12 +561,10 @@ final class Auth(
   private[controllers] def LoginRateLimit(id: UserIdOrEmail, req: RequestHeader)(
       run: RateLimit.Charge => Fu[Result]
   ): Fu[Result] =
-    env.security.ip2proxy(req.ipAddress) flatMap { proxy =>
+    env.security.ipTrust.isSuspicious(req.ipAddress) flatMap { ipSusp =>
       PasswordHasher.rateLimit[Result](
         enforce = env.net.rateLimit,
-        ipCost = 1 +
-          proxy.is.??(15) +
-          EmailAddress.isValid(id.value).??(15)
+        ipCost = 1 + ipSusp.??(15) + EmailAddress.isValid(id.value).??(15)
       )(id, req)(run)(rateLimitedFu)
     }
 
