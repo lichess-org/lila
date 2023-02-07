@@ -1,6 +1,6 @@
 package lila.tournament
 
-import cats.implicits.*
+import cats.syntax.all.*
 import chess.format.Fen
 import chess.{ Clock, Mode, StartingPosition }
 import chess.Clock.{ LimitSeconds, IncrementSeconds }

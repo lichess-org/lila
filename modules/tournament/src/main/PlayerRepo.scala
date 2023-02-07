@@ -174,7 +174,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
   def teamVs(tourId: TourId, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
     game.twoUserIds ?? { case (w, b) =>
       teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
-        import cats.implicits.*
+        import cats.syntax.all.*
         (m.get(w), m.get(b)).mapN((_, _)) ?? { case (wt, bt) =>
           TeamBattle.TeamVs(chess.Color.Map(wt, bt)).some
         }

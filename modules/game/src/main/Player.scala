@@ -1,6 +1,6 @@
 package lila.game
 
-import cats.implicits.*
+import cats.syntax.all.*
 import chess.{ Ply, Color }
 import scala.util.chaining.*
 

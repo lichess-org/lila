@@ -128,7 +128,7 @@ final class PracticeApi(
         .map {
           _.view
             .flatMap { obj =>
-              import cats.implicits.*
+              import cats.syntax.all.*
               (obj.getAsOpt[UserId]("_id"), obj.int("nb")) mapN { (k, v) =>
                 k -> (v * 100f / PracticeStructure.totalChapters).toInt
               }

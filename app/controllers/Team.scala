@@ -428,7 +428,7 @@ final class Team(
 
   def requestProcess(requestId: String) =
     AuthBody { implicit ctx => me =>
-      import cats.implicits.*
+      import cats.syntax.all.*
       OptionFuRedirectUrl(for
         requestOption <- api request requestId
         teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))

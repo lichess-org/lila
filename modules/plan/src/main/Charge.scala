@@ -1,6 +1,6 @@
 package lila.plan
 
-import cats.implicits.*
+import cats.syntax.all.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User

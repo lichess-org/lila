@@ -2,7 +2,7 @@ package lila.fishnet
 
 import cats.data.Validated
 import cats.data.Validated.valid
-import cats.implicits.*
+import cats.syntax.all.*
 import chess.format.pgn.{ Dumper, SanStr }
 import chess.format.Uci
 import chess.{ Ply, Drop, Move, Replay, Situation }

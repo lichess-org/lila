@@ -285,7 +285,7 @@ private object LobbySocket:
       val reader: P.In.Reader = raw =>
         raw.path match
           case "counters" =>
-            import cats.implicits.*
+            import cats.syntax.all.*
             raw.get(2) { case Array(m, r) =>
               (m.toIntOption, r.toIntOption).mapN(Counters.apply)
             }

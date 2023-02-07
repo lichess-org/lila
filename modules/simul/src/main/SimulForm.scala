@@ -1,6 +1,6 @@
 package lila.simul
 
-import cats.implicits.*
+import cats.syntax.all.*
 import chess.format.{ Fen, OpeningFen }
 import chess.StartingPosition
 import chess.variant.Variant
