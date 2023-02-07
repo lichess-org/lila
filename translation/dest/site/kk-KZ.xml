@@ -661,7 +661,7 @@
   <string name="simulAddExtraTime">Көпшілікке қарсы ойынды жеңілдету үшін өзіңізге қосымша уақыт қоса аласыз.</string>
   <string name="simulHostExtraTime">Бас ойыншыға қосымша уақыт</string>
   <string name="lichessTournaments">Личес жарыстары</string>
-  <string name="tournamentFAQ">Алаң жарысының ЖҚС</string>
+  <string name="tournamentFAQ">Алаң жарысы туралы Жұрттан-сұрақ</string>
   <string name="timeBeforeTournamentStarts">Жарыс басталуына қалған уақыт</string>
   <string name="averageCentipawnLoss">Қателіктердің орташа мәні</string>
   <string name="accuracy">Дәлдік</string>
@@ -856,7 +856,7 @@
   <string name="puzzleDesc">Шахмат тактикасын үйретуші</string>
   <string name="important">Ескерту</string>
   <string name="yourQuestionMayHaveBeenAnswered">Сіздің сұрағыңызға %1$s жауап табылар</string>
-  <string name="inTheFAQ">ЖҚС-да</string>
+  <string name="inTheFAQ">Жұрттан-сұрақта</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Дөрекі қылық не алдап ойнау туралы шағымдану үшін %1$s</string>
   <string name="useTheReportForm">шағым үлгісін қолданыңыз</string>
   <string name="toRequestSupport">Жәрдем іздесеңіз %1$s</string>
