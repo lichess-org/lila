@@ -56,4 +56,8 @@
   <string name="allowChatHelp">Ойыншыларға чат бөлмесінде сөйлесуді рұқсат ету</string>
   <string name="arenaStreaks">Алаң тізбектері</string>
   <string name="arenaStreaksHelp">Қатарынан болған 2 жеңіс 2 ұпайдың орнына 4 ұпай тұрады.</string>
+  <string name="noBerserkAllowed">Берсерк болмайды</string>
+  <string name="noArenaStreaks">Алаң тізбектерін өшіру</string>
+  <string name="averagePerformance">Орташа жетістік</string>
+  <string name="averageScore">Орташа ұпай</string>
 </resources>
