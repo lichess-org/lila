@@ -54,5 +54,8 @@ Pelaa nopeasti ja palaa aulaan, niin voit pelata lisää pelejä ja ansaita lis�
   <string name="allowChatHelp">Anna pelaajien kirjoittaa keskusteluhuoneeseen</string>
   <string name="arenaStreaks">Areenaputket</string>
   <string name="arenaStreaksHelp">Kahden voiton jälkeen jokaisesta seuraavasta voitosta saa 4 pistettä (2 pisteen sijaan).</string>
+  <string name="noBerserkAllowed">Berserkki ei käytettävissä</string>
   <string name="noArenaStreaks">Ei areenaputkia</string>
+  <string name="averagePerformance">Keskimääräinen suoritus</string>
+  <string name="averageScore">Keskimääräinen pistemäärä</string>
 </resources>
