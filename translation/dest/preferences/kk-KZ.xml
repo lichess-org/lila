@@ -59,6 +59,9 @@
   <string name="notifyChallenge">Шақырулар</string>
   <string name="notifyTournamentSoon">Жарыс жақында басталады</string>
   <string name="notifyTimeAlarm">Хат-хабарлы ойын уақыты бітер алдында</string>
-  <string name="notifyBell">Личестегі қоңыраулы хабар</string>
+  <string name="notifyBell">Личестегі қоңыраулы ескерту</string>
+  <string name="notifyPush">Құрылғының ескертуі, Личестен тыс кезіңізде</string>
+  <string name="notifyWeb">Браузер</string>
+  <string name="notifyDevice">Құрылғы</string>
   <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Қоңыраулы ескерту</string>
 </resources>
