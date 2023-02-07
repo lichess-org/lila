@@ -54,4 +54,5 @@ Pelaa nopeasti ja palaa aulaan, niin voit pelata lis채채 pelej채 ja ansaita lis�
   <string name="allowChatHelp">Anna pelaajien kirjoittaa keskusteluhuoneeseen</string>
   <string name="arenaStreaks">Areenaputket</string>
   <string name="arenaStreaksHelp">Kahden voiton j채lkeen jokaisesta seuraavasta voitosta saa 4 pistett채 (2 pisteen sijaan).</string>
+  <string name="noArenaStreaks">Ei areenaputkia</string>
 </resources>
