@@ -63,4 +63,5 @@
   <string name="notifyPush">Notifikation på enhed, når du ikke er på Lichess</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Enhed</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Notifikationslyd</string>
 </resources>
