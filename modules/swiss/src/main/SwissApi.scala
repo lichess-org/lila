@@ -317,7 +317,7 @@ final class SwissApi(
     game.whitePlayer.userId.ifTrue(swiss.isStarted) ?? { whiteId =>
       game.blackPlayer.userId ?? { blackId =>
         rankingApi(swiss) map { ranking =>
-          import cats.implicits.*
+          import cats.syntax.all.*
           (ranking.get(whiteId), ranking.get(blackId)) mapN GameRanks.apply
         }
       }

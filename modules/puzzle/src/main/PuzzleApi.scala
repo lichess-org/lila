@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import cats.implicits.*
+import cats.syntax.all.*
 
 import lila.common.paginator.Paginator
 import lila.common.config.{ Max, MaxPerPage }

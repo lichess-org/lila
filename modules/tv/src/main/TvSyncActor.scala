@@ -63,7 +63,7 @@ final private[tv] class TvSyncActor(
 
     case Selected(channel, game) =>
       import lila.socket.Socket.makeMessage
-      import cats.implicits.*
+      import cats.syntax.all.*
       given Ordering[lila.game.Player] = Ordering.by { p =>
         p.rating.fold(0)(_.value) + ~p.userId
           .flatMap(lightUserApi.sync)

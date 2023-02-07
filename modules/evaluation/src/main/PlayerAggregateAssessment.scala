@@ -1,6 +1,6 @@
 package lila.evaluation
 
-import cats.implicits.*
+import cats.syntax.all.*
 import scala.math.sqrt
 
 import lila.user.User

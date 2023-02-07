@@ -170,7 +170,7 @@ final class TournamentApi(
       }
 
   private def featureOneOf(tour: Tournament, pairings: List[Pairing.WithPlayers], ranking: Ranking): Funit =
-    import cats.implicits.*
+    import cats.syntax.all.*
     tour.featuredId.ifTrue(pairings.nonEmpty) ?? pairingRepo.byId map2
       RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
         pairings.flatMap(p => RankedPairing(ranking)(p.pairing)).minimumByOption(_.bestRank.value) ?? {
@@ -606,7 +606,7 @@ final class TournamentApi(
       game.whitePlayer.userId.ifTrue(tour.isStarted) ?? { whiteId =>
         game.blackPlayer.userId ?? { blackId =>
           cached ranking tour map { ranking =>
-            import cats.implicits.*
+            import cats.syntax.all.*
             (ranking.ranking.get(whiteId), ranking.ranking.get(blackId)) mapN { (whiteR, blackR) =>
               GameRanks(whiteR + 1, blackR + 1)
             }

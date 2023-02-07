@@ -1,7 +1,7 @@
 package lila.lobby
 
 import actorApi.*
-import cats.implicits.*
+import cats.syntax.all.*
 
 import lila.common.config.Max
 import lila.common.{ Bus, LilaScheduler }

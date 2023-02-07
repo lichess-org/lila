@@ -234,7 +234,7 @@ final class Challenge(
 
   def apiStartClocks(id: GameId) =
     Action.async { req =>
-      import cats.implicits.*
+      import cats.syntax.all.*
       val scopes = List(OAuthScope.Challenge.Write)
       (Bearer from get("token1", req), Bearer from get("token2", req)).mapN {
         env.oAuth.server.authBoth(scopes, req)
