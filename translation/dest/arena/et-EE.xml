@@ -54,4 +54,5 @@ Mängige kiiresti ning naaske ooteruumi, et mängida rohkem mänge ja võita roh
   <string name="allowChatHelp">Luba mängijatel jututoas arutleda</string>
   <string name="arenaStreaks">Areeniseeria</string>
   <string name="arenaStreaksHelp">2 võidu pärast annab iga järjestik võit 2 punkti asemel 4 punkti.</string>
+  <string name="averageScore">Keskmine skoor</string>
 </resources>
