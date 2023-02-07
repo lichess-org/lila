@@ -48,8 +48,11 @@ final class RateLimit[K](
 object RateLimit:
 
   type ChargeWith = Cost => Unit
-  type Charge = () => Unit
-  type Cost   = Int
+  type Charge     = () => Unit
+  type Cost       = Int
+
+  enum Result:
+    case Through, Limited
 
   trait RateLimiter[K]:
 
