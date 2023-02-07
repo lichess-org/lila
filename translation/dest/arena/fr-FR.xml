@@ -54,7 +54,7 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   <string name="arenaStreaks">Série de victoires dans l\'arène</string>
   <string name="arenaStreaksHelp">Après 2 victoires, des victoires consécutives donnent 4 points au lieu de 2.</string>
   <string name="noBerserkAllowed">Aucune partie Berserk autorisée</string>
-  <string name="noArenaStreaks">Pas de streak dans l\'arène</string>
+  <string name="noArenaStreaks">Les séries de nulles ne sont pas prises en compte dans le tournoi arène</string>
   <string name="averagePerformance">Performance moyenne</string>
   <string name="averageScore">Score moyen</string>
 </resources>
