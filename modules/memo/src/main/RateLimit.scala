@@ -57,9 +57,6 @@ object RateLimit:
 
     def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A)(default: => A): A
 
-  enum Result:
-    case Through, Limited
-
   def composite[K](
       key: String,
       enforce: Boolean = true,

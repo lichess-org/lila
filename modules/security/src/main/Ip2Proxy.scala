@@ -96,9 +96,9 @@ final class Ip2ProxyServer(
     }
 
   private def readProxyName(js: JsValue): IsProxy = IsProxy {
-    for {
+    for
       tpe <- (js \ "proxy_type").asOpt[String]
       if tpe != "-"
       country = (js \ "country_short").asOpt[String]
-    } yield s"$tpe:${country | "?"}"
+    yield s"$tpe:${country | "?"}"
   }
