@@ -207,6 +207,7 @@
   <string name="email">Пошта</string>
   <string name="passwordReset">Құпиясөзді қайта орнату</string>
   <string name="forgotPassword">Құпиясөзді ұмытып қалдыңыз ба?</string>
+  <string name="error.weakPassword">Осындай құпиясөз қолданыста көп, оны табу оңайға соғады.</string>
   <string name="emailConfirmHelp">Поштаны растау туралы көмек</string>
   <string name="emailConfirmNotReceived">Тіркелуден кейін поштаңызға растау хаты келмеді ме?</string>
   <string name="whatSignupUsername">Қай атпен тіркелдіңіз?</string>
