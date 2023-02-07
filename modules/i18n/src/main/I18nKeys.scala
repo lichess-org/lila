@@ -856,6 +856,10 @@ object I18nKeys:
     val `allowChatHelp` = I18nKey("arena:allowChatHelp")
     val `arenaStreaks` = I18nKey("arena:arenaStreaks")
     val `arenaStreaksHelp` = I18nKey("arena:arenaStreaksHelp")
+    val `noBerserkAllowed` = I18nKey("arena:noBerserkAllowed")
+    val `noArenaStreaks` = I18nKey("arena:noArenaStreaks")
+    val `averagePerformance` = I18nKey("arena:averagePerformance")
+    val `averageScore` = I18nKey("arena:averageScore")
     val `drawingWithinNbMoves` = I18nKey("arena:drawingWithinNbMoves")
     val `viewAllXTeams` = I18nKey("arena:viewAllXTeams")
 
@@ -1698,6 +1702,7 @@ object I18nKeys:
     val `notifyPush` = I18nKey("preferences:notifyPush")
     val `notifyWeb` = I18nKey("preferences:notifyWeb")
     val `notifyDevice` = I18nKey("preferences:notifyDevice")
+    val `bellNotificationSound` = I18nKey("preferences:bellNotificationSound")
 
   object team:
     val `team` = I18nKey("team:team")
@@ -1741,6 +1746,7 @@ object I18nKeys:
     val `completedTourns` = I18nKey("team:completedTourns")
     val `declinedRequests` = I18nKey("team:declinedRequests")
     val `joinLichessVariantTeam` = I18nKey("team:joinLichessVariantTeam")
+    val `teamPage` = I18nKey("team:teamPage")
     val `nbMembers` = I18nKey("team:nbMembers")
     val `teamLeaders` = I18nKey("team:teamLeaders")
     val `xJoinRequests` = I18nKey("team:xJoinRequests")
