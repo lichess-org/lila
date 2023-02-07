@@ -50,4 +50,5 @@
   <string name="yourPreferencesHaveBeenSaved">Баптауыңыз сақталды.</string>
   <string name="scrollOnTheBoardToReplayMoves">Тақта бетінде тіңтуір айналдырумен жүрістерді қайта көрсету</string>
   <string name="correspondenceEmailNotification">Хат-хабарлы ойындарыңыз туралы күнде поштаңызға ескертпе жіберу</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Қоңыраулы ескерту</string>
 </resources>
