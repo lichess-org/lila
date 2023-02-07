@@ -1,25 +1,24 @@
-import { memoize } from 'common';
-import modal from 'common/modal';
+import modal from './modal';
 
-export const makeLinkPopups = (dom: HTMLElement, trans: Trans) =>
-  $(dom).on('click', 'their a[href^="http"]', function (this: HTMLLinkElement) {
+export const makeLinkPopups = (dom: HTMLElement | Cash, trans: Trans, selector: string = 'a[href^="http"]') =>
+  $(dom).on('click', selector, function (this: HTMLLinkElement) {
     return onClick(this, trans);
   });
 
-const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
+export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
   const url = new URL(a.href);
   if (isPassList(url)) return true;
-  lichess.loadCssPath('modal');
+  lichess.loadCssPath('linkPopup');
   modal({
     content: $(
-      `<div class="msg-modal">
-        <div class="msg-modal__content">
-          <div class="msg-modal__content__title">
+      `<div class="link-popup">
+        <div class="link-popup__content">
+          <div class="link-popup__content__title">
             <h2>${trans('youAreLeavingLichess')}</h2>
-            <p class="msg-modal__content__advice">${trans('neverTypeYourPassword')}</p>
+            <p class="link-popup__content__advice">${trans('neverTypeYourPassword')}</p>
           </div>
         </div>
-        <div class="msg-modal__actions">
+        <div class="link-popup__actions">
           <a class="cancel">Cancel</a>
           <a href="${a.href}" target="_blank" class="button button-red button-no-upper">Proceed to ${url.host}</a>
         </div>
@@ -34,11 +33,10 @@ const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
 
 const isPassList = (url: URL) => passList().find(h => h == url.host || url.host.endsWith('.' + h));
 
-const passList = memoize<string[]>(() =>
+const passList = () =>
   `lichess.org lichess4545.com ligacatur.com
-github.com discord.com mastodon.online
-twitter.com facebook.com
+github.com discord.com discord.gg mastodon.online
+twitter.com facebook.com twitch.tv
 wikipedia.org wikimedia.org
 chess24.com chess.com chessable.com
-`.split(/[ \n]/)
-);
+`.split(/[ \n]/);
