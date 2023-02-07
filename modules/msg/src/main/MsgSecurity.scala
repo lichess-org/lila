@@ -84,7 +84,12 @@ final private class MsgSecurity(
           case Dirt =>
             if (dirtSpamDedup(text))
               Bus.publish(
-                AutoFlag(contacts.orig.id, s"msg/${contacts.orig.id}/${contacts.dest.id}", text),
+                AutoFlag(
+                  contacts.orig.id,
+                  s"msg/${contacts.orig.id}/${contacts.dest.id}",
+                  text,
+                  Analyser.isCritical(text)
+                ),
                 "autoFlag"
               )
 
