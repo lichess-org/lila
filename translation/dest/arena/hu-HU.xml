@@ -54,4 +54,8 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="allowChatHelp">Chatszoba engedélyezése a játékosoknak</string>
   <string name="arenaStreaks">Aréna sorozatok</string>
   <string name="arenaStreaksHelp">A második nyert játszmát követően minden nyert játszma 4 pontot ér 2 helyett.</string>
+  <string name="noBerserkAllowed">Berserk nem engedélyezett</string>
+  <string name="noArenaStreaks">Nincsenek Aréna streak-ek</string>
+  <string name="averagePerformance">Átlagos teljesítmény</string>
+  <string name="averageScore">Átlagos pontszám</string>
 </resources>
