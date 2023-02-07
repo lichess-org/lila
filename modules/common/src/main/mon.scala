@@ -304,6 +304,11 @@ object mon:
     object pwned:
       def get(res: Boolean) =
         timer("security.pwned.result").withTag("res", res)
+    object login:
+      def attempt(byEmail: Boolean, result: Boolean) =
+        counter("security.login.attempt").withTags(
+          tags("by" -> (if byEmail then "email" else "name"), "result" -> result)
+        )
   object shutup:
     def analyzer = timer("shutup.analyzer.time").withoutTags()
   object tv:

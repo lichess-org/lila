@@ -118,11 +118,13 @@ final class Auth(
               (login, pass) =>
                 LoginRateLimit(login.normalize, ctx.req) { chargeIpLimiter =>
                   env.security.pwned(pass) foreach { _ ?? chargeIpLimiter() }
+                  val isEmail = EmailAddress.isValid(login.value)
                   api.loadLoginForm(login) flatMap {
                     _.bindFromRequest()
                       .fold(
                         err => {
                           chargeIpLimiter()
+                          lila.mon.security.login.attempt(isEmail, result = false)
                           negotiate(
                             html = fuccess {
                               err.errors match {
@@ -146,6 +148,7 @@ final class Auth(
                                 api = _ => Unauthorized(jsonError("This account is closed.")).toFuccess
                               )
                             case Some(u) =>
+                              lila.mon.security.login.attempt(isEmail, result = true)
                               env.user.repo.email(u.id) foreach {
                                 _ foreach { garbageCollect(u, _) }
                               }
