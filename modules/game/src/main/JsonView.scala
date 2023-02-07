@@ -13,6 +13,7 @@ final class JsonView(rematches: Rematches, luserApi: lila.user.LightUserApi):
   import JsonView.{ *, given }
 
   def apply(game: Game, initialFen: Option[Fen.Epd]) =
+    val moves = chess.format.UciDump(game.sans, initialFen, game.variant).toOption
     Json
       .obj(
         "id"            -> game.id,
@@ -27,8 +28,14 @@ final class JsonView(rematches: Rematches, luserApi: lila.user.LightUserApi):
         "source"        -> game.source,
         "status"        -> game.status,
         "createdAt"     -> game.createdAt,
-        "players"       -> players(game)
+        "white"         -> player(game.whitePlayer),
+        "black"         -> player(game.blackPlayer),
+        "wtime"         -> game.whitePov.millisRemaining,
+        "btime"         -> game.blackPov.millisRemaining,
+        "winc"          -> (game.clock.??(_.config.increment.millis): Long),
+        "binc"          -> (game.clock.??(_.config.increment.millis): Long)
       )
+      .add("moves" -> moves)
       .add("initialFen" -> initialFen)
       .add("threefold" -> game.history.threefoldRepetition)
       .add("boosted" -> game.boosted)
@@ -72,21 +79,15 @@ final class JsonView(rematches: Rematches, luserApi: lila.user.LightUserApi):
       .add("tournamentId" -> pov.game.tournamentId)
       .add("swissId" -> pov.game.swissId)
 
-  private def players(game: Game) =
-    game.players.collect { p =>
-      val user = p.userId flatMap luserApi.sync match
-        case Some(lu) => (lu.name, lu.id.some, lu.title)
-        case _        => (UserName(p.aiLevel.fold("Anonymous")("Stockfish " + _)), None, None)
-      Json.obj(
-        "color" -> p.color,
-        "user" ->
-          Json
-            .obj("name" -> user._1)
-            .add("id" -> user._2)
-            .add("title" -> user._3)
-            .add("rating" -> lila.game.Namer.ratingString(p))
-      )
-    }
+  private def player(p: Player) =
+    val user = p.userId flatMap luserApi.sync match
+      case Some(lu) => (lu.name, lu.id.some, lu.title)
+      case _        => (UserName(p.aiLevel.fold("Anonymous")("Stockfish " + _)), None, None)
+    Json
+      .obj("name" -> user._1)
+      .add("id" -> user._2)
+      .add("title" -> user._3)
+      .add("rating" -> lila.game.Namer.ratingString(p))
 
 object JsonView:
 
