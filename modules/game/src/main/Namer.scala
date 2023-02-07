@@ -9,13 +9,6 @@ object Namer:
   ): String =
     playerTextUser(player, player.userId flatMap lightUser, withRating)
 
-  def playerKitchenSync(player: Player)(using
-      luserSync: LightUser.GetterSync
-  ): (UserName, Option[UserId], Option[UserTitle]) =
-    player.userId flatMap luserSync match
-      case Some(lu) => (lu.name, lu.id.some, lu.title)
-      case _        => (UserName(player.aiLevel.fold("Anonymous")("Stockfish " + _)), None, None)
-
   def playerText(player: Player, withRating: Boolean = false)(using lightUser: LightUser.Getter): Fu[String] =
     player.userId.??(lightUser) dmap {
       playerTextUser(player, _, withRating)

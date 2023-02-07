@@ -74,14 +74,17 @@ final class JsonView(rematches: Rematches, luserApi: lila.user.LightUserApi):
 
   private def players(game: Game) =
     game.players.collect { p =>
-      val sink = lila.game.Namer.playerKitchenSync(p)(using luserApi.sync)
+      val user = p.userId flatMap luserApi.sync match
+        case Some(lu) => (lu.name, lu.id.some, lu.title)
+        case _        => (UserName(p.aiLevel.fold("Anonymous")("Stockfish " + _)), None, None)
       Json.obj(
         "color" -> p.color,
-        "user" -> Json
-          .obj("name" -> sink._1)
-          .add("id" -> sink._2)
-          .add("title" -> sink._3)
-          .add("rating" -> lila.game.Namer.ratingString(p))
+        "user" ->
+          Json
+            .obj("name" -> user._1)
+            .add("id" -> user._2)
+            .add("title" -> user._3)
+            .add("rating" -> lila.game.Namer.ratingString(p))
       )
     }
 
