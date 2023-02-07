@@ -234,7 +234,7 @@ final class GameApiV2(
 
   private def enrich(flags: WithFlags)(game: Game) =
     gameRepo initialFen game flatMap { initialFen =>
-      (flags.requiresAccuracy ?? analysisRepo.byGame(game)) dmap {
+      (flags.requiresAnalysis ?? analysisRepo.byGame(game)) dmap {
         (game, initialFen, _)
       }
     }
