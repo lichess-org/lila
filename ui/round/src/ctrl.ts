@@ -87,7 +87,6 @@ export default class RoundController {
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
   voiceMove: boolean;
-  keybaordMove: boolean;
 
   private music?: any;
 
