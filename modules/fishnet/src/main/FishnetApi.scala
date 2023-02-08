@@ -19,7 +19,7 @@ final class FishnetApi(
     socketExists: GameId => Fu[Boolean],
     clientVersion: Client.ClientVersion,
     config: FishnetApi.Config
-)(using Executor, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   import FishnetApi.*
   import JsonApi.Request.{ CompleteAnalysis, PartialAnalysis }

@@ -12,7 +12,7 @@ final class PerfStatIndexer(
     storage: PerfStatStorage
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   private val workQueue =

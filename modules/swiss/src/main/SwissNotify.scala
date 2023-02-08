@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.push.TourSoon
 import lila.user.User
 
-final private class SwissNotify(mongo: SwissMongo)(using Executor, akka.actor.Scheduler):
+final private class SwissNotify(mongo: SwissMongo)(using Executor, Scheduler):
   import BsonHandlers.given
 
   private val doneMemo = lila.memo.ExpireSetMemo[SwissId](10 minutes)

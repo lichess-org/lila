@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 
 final private class SwissScoring(mongo: SwissMongo)(using
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     ec: Executor,
     mode: play.api.Mode
 ):

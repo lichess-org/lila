@@ -1,6 +1,5 @@
 package lila.memo
 
-import akka.actor.Scheduler
 import com.github.benmanes.caffeine
 import com.github.blemale.scaffeine.*
 import play.api.Mode
@@ -96,7 +95,7 @@ object CacheApi:
   private[memo] def startMonitor(
       name: String,
       cache: caffeine.cache.Cache[?, ?]
-  )(using ec: Executor, scheduler: akka.actor.Scheduler): Unit =
+  )(using ec: Executor, scheduler: Scheduler): Unit =
     scheduler
       .scheduleWithFixedDelay(1 minute, 1 minute) { () =>
         lila.mon.caffeineStats(cache, name)

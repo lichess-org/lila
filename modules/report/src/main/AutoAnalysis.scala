@@ -7,7 +7,7 @@ final class AutoAnalysis(
     fishnet: lila.hub.actors.Fishnet
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   def apply(candidate: Report.Candidate): Funit =

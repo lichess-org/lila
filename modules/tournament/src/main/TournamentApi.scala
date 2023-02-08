@@ -43,7 +43,7 @@ final class TournamentApi(
 )(using
     Executor,
     akka.actor.ActorSystem,
-    akka.actor.Scheduler,
+    Scheduler,
     akka.stream.Materializer
 ):
 

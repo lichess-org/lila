@@ -14,7 +14,7 @@ final class RacerApi(
     lightUser: LightUser.GetterSyncFallback
 )(implicit
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   import RacerRace.Id

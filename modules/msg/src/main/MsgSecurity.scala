@@ -20,7 +20,7 @@ final private class MsgSecurity(
     chatPanic: lila.chat.ChatPanic
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   import BsonHandlers.given

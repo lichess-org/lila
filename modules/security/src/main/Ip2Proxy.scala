@@ -28,7 +28,7 @@ final class Ip2ProxyServer(
     ws: StandaloneWSClient,
     cacheApi: lila.memo.CacheApi,
     checkUrl: String
-)(using Executor, akka.actor.Scheduler)
+)(using Executor, Scheduler)
     extends Ip2Proxy:
 
   def apply(ip: IpAddress): Fu[IsProxy] =

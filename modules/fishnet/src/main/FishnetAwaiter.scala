@@ -4,7 +4,7 @@ import lila.game.Game
 import lila.common.Bus
 
 /* async wait for analysis to complete */
-final class FishnetAwaiter(using Executor, akka.actor.Scheduler):
+final class FishnetAwaiter(using Executor, Scheduler):
 
   private val busChannel = "analysisReady"
 

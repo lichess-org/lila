@@ -23,7 +23,7 @@ private class VideoConfig(
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     mode: Mode

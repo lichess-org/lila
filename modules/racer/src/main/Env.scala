@@ -21,7 +21,7 @@ final class Env(
     db: lila.db.Db
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mode: play.api.Mode
 ):
 

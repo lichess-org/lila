@@ -7,7 +7,7 @@ import lila.common.Bus
 
 final class ChallengeKeepAliveStream(api: ChallengeApi)(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
   def apply(challenge: Challenge, initialJson: JsObject): Source[JsValue, ?] =
     Source(List(initialJson)) concat

@@ -17,7 +17,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi
 )(using
     Executor,
-    akka.actor.Scheduler,
+    Scheduler,
     play.api.libs.ws.StandaloneWSClient
 ):
 

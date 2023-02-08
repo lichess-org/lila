@@ -1,7 +1,5 @@
 package lila.api
 
-import akka.actor.Scheduler
-
 import lila.common.Bus
 import lila.security.Granter
 import lila.user.Holder

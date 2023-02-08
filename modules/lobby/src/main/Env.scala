@@ -21,7 +21,7 @@ final class Env(
 )(using
     ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     idGenerator: lila.game.IdGenerator
 ):
 

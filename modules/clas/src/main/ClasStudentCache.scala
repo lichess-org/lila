@@ -1,6 +1,5 @@
 package lila.clas
 
-import akka.actor.Scheduler
 import akka.stream.Materializer
 import akka.stream.scaladsl.*
 import bloomfilter.mutable.BloomFilter

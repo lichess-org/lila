@@ -10,7 +10,6 @@ import scala.util.matching.Regex
 import scala.util.Try
 
 import java.util.Base64
-import akka.actor.Scheduler
 import lila.common.Chronometer
 import scala.collection.BuildFrom
 import ornicar.scalalib.extensions.*

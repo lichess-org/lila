@@ -1,6 +1,5 @@
 package lila.user
 
-import akka.actor.Scheduler
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import lila.common.autoconfig.{ *, given }

@@ -14,7 +14,7 @@ final private class CorresAlarm(
     proxyGame: GameId => Fu[Option[Game]]
 )(using
     Executor,
-    akka.actor.Scheduler,
+    Scheduler,
     akka.stream.Materializer
 ):
 

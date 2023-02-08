@@ -5,7 +5,7 @@ import lila.common.Bus
 final private class HookThieve()(using
     ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   import HookThieve.*

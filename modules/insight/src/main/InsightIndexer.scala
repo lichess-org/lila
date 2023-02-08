@@ -16,7 +16,7 @@ final private class InsightIndexer(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     storage: InsightStorage
-)(using Executor, akka.actor.Scheduler, akka.stream.Materializer):
+)(using Executor, Scheduler, akka.stream.Materializer):
 
   private val workQueue =
     lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 1 minute, name = "insightIndexer")

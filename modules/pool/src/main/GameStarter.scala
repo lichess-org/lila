@@ -10,7 +10,7 @@ final private class GameStarter(
     gameRepo: GameRepo,
     idGenerator: IdGenerator,
     onStart: GameId => Unit
-)(using Executor, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   import PoolApi.*
 

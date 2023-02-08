@@ -24,7 +24,7 @@ final class ReportApi(
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
     domain: lila.common.config.NetDomain
-)(using Executor, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   import BSONHandlers.given
   import Report.Candidate

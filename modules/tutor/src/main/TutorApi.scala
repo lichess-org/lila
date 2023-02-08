@@ -17,7 +17,7 @@ final class TutorApi(
     cacheApi: CacheApi
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mode: Mode
 ):
 
