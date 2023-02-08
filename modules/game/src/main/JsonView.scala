@@ -28,11 +28,7 @@ final class JsonView(rematches: Rematches, luserApi: lila.user.LightUserApi):
         "status"        -> game.status,
         "createdAt"     -> game.createdAt,
         "white"         -> player(game.whitePlayer),
-        "black"         -> player(game.blackPlayer),
-        "wtime"         -> game.whitePov.millisRemaining,
-        "btime"         -> game.blackPov.millisRemaining,
-        "winc"          -> (game.clock.??(_.config.increment.millis): Long),
-        "binc"          -> (game.clock.??(_.config.increment.millis): Long)
+        "black"         -> player(game.blackPlayer)
       )
       .add("initialFen" -> initialFen)
       .add("threefold" -> game.history.threefoldRepetition)
