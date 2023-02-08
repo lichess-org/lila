@@ -13,7 +13,6 @@ final class JsonView(rematches: Rematches, luserApi: lila.user.LightUserApi):
   import JsonView.{ *, given }
 
   def apply(game: Game, initialFen: Option[Fen.Epd]) =
-    val moves = chess.format.UciDump(game.sans, initialFen, game.variant).toOption
     Json
       .obj(
         "id"            -> game.id,
@@ -35,7 +34,6 @@ final class JsonView(rematches: Rematches, luserApi: lila.user.LightUserApi):
         "winc"          -> (game.clock.??(_.config.increment.millis): Long),
         "binc"          -> (game.clock.??(_.config.increment.millis): Long)
       )
-      .add("moves" -> moves)
       .add("initialFen" -> initialFen)
       .add("threefold" -> game.history.threefoldRepetition)
       .add("boosted" -> game.boosted)
