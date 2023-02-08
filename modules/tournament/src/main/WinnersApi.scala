@@ -56,7 +56,7 @@ case class AllWinners(
 final class WinnersApi(
     tournamentRepo: TournamentRepo,
     mongoCache: lila.memo.MongoCache.Api,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 )(using Executor):
 
   import BSONHandlers.given

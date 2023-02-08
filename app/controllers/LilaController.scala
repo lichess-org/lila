@@ -30,7 +30,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   def controllerComponents   = env.controllerComponents
   given Executor             = env.executor
-  given akka.actor.Scheduler = env.scheduler
+  given Scheduler = env.scheduler
 
   protected given Zero[Result] = Zero(Results.NotFound)
 

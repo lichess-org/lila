@@ -24,7 +24,7 @@ final class ChallengeApi(
 )(using
     ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   import Challenge.*

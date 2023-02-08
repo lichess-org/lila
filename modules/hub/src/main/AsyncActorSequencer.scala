@@ -7,7 +7,7 @@ import lila.common.config.Max
 
 final class AsyncActorSequencer(maxSize: Max, timeout: FiniteDuration, name: String, logging: Boolean = true)(
     using
-    akka.actor.Scheduler,
+    Scheduler,
     Executor
 ):
 
@@ -31,7 +31,7 @@ final class AsyncActorSequencers[K](
     timeout: FiniteDuration,
     name: String,
     logging: Boolean = true
-)(using StringRuntime[K], akka.actor.Scheduler, Executor):
+)(using StringRuntime[K], Scheduler, Executor):
 
   def apply[A <: Matchable](key: K)(task: => Fu[A]): Fu[A] =
     sequencers.get(key).run(() => task)

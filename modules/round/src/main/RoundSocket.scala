@@ -33,7 +33,7 @@ final class RoundSocket(
 )(using
     ec: Executor,
     system: ActorSystem,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   import RoundSocket.*

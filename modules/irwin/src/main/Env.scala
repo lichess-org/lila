@@ -27,7 +27,7 @@ final class Env(
     insightDb: lila.db.AsyncDb @@ lila.insight.InsightDb
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   lazy val irwinStream = wire[IrwinStream]

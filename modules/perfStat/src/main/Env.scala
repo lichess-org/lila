@@ -17,7 +17,7 @@ final class Env(
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   private lazy val storage = new PerfStatStorage(

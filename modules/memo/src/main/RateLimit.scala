@@ -48,17 +48,17 @@ final class RateLimit[K](
 object RateLimit:
 
   type ChargeWith = Cost => Unit
-  type Charge = () => Unit
-  type Cost   = Int
+  type Charge     = () => Unit
+  type Cost       = Int
+
+  enum Result:
+    case Through, Limited
 
   trait RateLimiter[K]:
 
     def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(default: => A): A
 
     def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A)(default: => A): A
-
-  enum Result:
-    case Through, Limited
 
   def composite[K](
       key: String,

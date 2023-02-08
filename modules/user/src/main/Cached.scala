@@ -14,7 +14,7 @@ final class Cached(
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     rankingApi: RankingApi
-)(using Executor, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   private given BSONDocumentHandler[LightUser]  = Macros.handler
   private given BSONDocumentHandler[LightPerf]  = Macros.handler

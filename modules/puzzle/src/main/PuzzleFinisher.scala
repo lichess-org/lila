@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import cats.implicits.*
+import cats.syntax.all.*
 import lila.rating.glicko2
 import scala.util.chaining.*
 
@@ -16,7 +16,7 @@ final private[puzzle] class PuzzleFinisher(
     userRepo: UserRepo,
     historyApi: lila.history.HistoryApi,
     colls: PuzzleColls
-)(using ec: Executor, scheduler: akka.actor.Scheduler, mode: play.api.Mode):
+)(using ec: Executor, scheduler: Scheduler, mode: play.api.Mode):
 
   import BsonHandlers.given
 

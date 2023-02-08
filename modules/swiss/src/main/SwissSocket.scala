@@ -13,7 +13,7 @@ final private class SwissSocket(
 )(using
     ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mode: play.api.Mode
 ):
 

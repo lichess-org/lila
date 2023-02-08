@@ -40,7 +40,7 @@ Pelaa nopeasti ja palaa aulaan, niin voit pelata lisää pelejä ja ansaita lis�
   <string name="drawStreakStandard">Tasapeliputket: Kun pelaaja pelaa areenassa peräkkäisiä tasapelejä, vain ensimmäisestä tasapelistä saa pisteen, tai yli %s siirtoa kestäneistä tasapeleistä tavallisissa peleissä. Tasapeliputken voi rikkoa vain voitto – ei häviö eikä tasapeli.</string>
   <string name="drawStreakVariants">Kullakin variantilla on pelin vaadittava vähimmäispituus, jolla tasapeliin päättyneistä peleistä saa pisteitä. Alla olevassa taulukossa luetellaan kunkin variantin tasapeliraja.</string>
   <string name="variant">Variantti</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Pelin vähimmäispituus</string>
+  <string name="minimumGameLength">Pelin vähimmäispituus</string>
   <string name="history">Areenahistoria</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Näytä joukkue</item>
@@ -54,4 +54,8 @@ Pelaa nopeasti ja palaa aulaan, niin voit pelata lisää pelejä ja ansaita lis�
   <string name="allowChatHelp">Anna pelaajien kirjoittaa keskusteluhuoneeseen</string>
   <string name="arenaStreaks">Areenaputket</string>
   <string name="arenaStreaksHelp">Kahden voiton jälkeen jokaisesta seuraavasta voitosta saa 4 pistettä (2 pisteen sijaan).</string>
+  <string name="noBerserkAllowed">Berserkki ei käytettävissä</string>
+  <string name="noArenaStreaks">Ei areenaputkia</string>
+  <string name="averagePerformance">Keskimääräinen suoritus</string>
+  <string name="averageScore">Keskimääräinen pistemäärä</string>
 </resources>

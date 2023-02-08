@@ -63,4 +63,5 @@
   <string name="notifyPush">Melding på eininga når du ikkje brukar Lichess</string>
   <string name="notifyWeb">Nettlesar</string>
   <string name="notifyDevice">Eining</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Varsellyd</string>
 </resources>

@@ -41,7 +41,7 @@ final class Env(
     ws: StandaloneWSClient
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mat: akka.stream.Materializer
 ):
 

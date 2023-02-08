@@ -14,7 +14,7 @@ final class Env(
     db: lila.db.AsyncDb @@ lila.db.YoloDb
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   private lazy val coll = db(CollName("history4")).failingSilently()

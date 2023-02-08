@@ -106,9 +106,9 @@ object teamBattle:
             tr(th("Players"), td(info.nbPlayers)),
             ctx.pref.showRatings option frag(
               tr(th(trans.averageElo()), td(info.avgRating)),
-              tr(th("Average performance"), td(info.avgPerf))
+              tr(th(trans.arena.averagePerformance()), td(info.avgPerf))
             ),
-            tr(th("Average score"), td(info.avgScore))
+            tr(th(trans.arena.averageScore()), td(info.avgScore))
           )
         ),
         table(cls := "slist slist-pad tour__team-info")(

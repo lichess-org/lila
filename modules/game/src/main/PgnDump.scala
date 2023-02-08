@@ -200,5 +200,7 @@ object PgnDump:
 
     def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
 
+    def requiresAnalysis = evals || accuracy
+
   def result(game: Game) =
     Outcome.showResult(game.finished option Outcome(game.winnerColor))

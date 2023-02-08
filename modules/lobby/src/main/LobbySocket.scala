@@ -25,7 +25,7 @@ final class LobbySocket(
     relationApi: lila.relation.RelationApi,
     poolApi: PoolApi,
     cacheApi: lila.memo.CacheApi
-)(using ec: Executor, scheduler: akka.actor.Scheduler):
+)(using ec: Executor, scheduler: Scheduler):
 
   import LobbySocket.*
   import Protocol.*
@@ -285,7 +285,7 @@ private object LobbySocket:
       val reader: P.In.Reader = raw =>
         raw.path match
           case "counters" =>
-            import cats.implicits.*
+            import cats.syntax.all.*
             raw.get(2) { case Array(m, r) =>
               (m.toIntOption, r.toIntOption).mapN(Counters.apply)
             }

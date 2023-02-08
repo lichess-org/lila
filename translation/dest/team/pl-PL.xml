@@ -61,4 +61,5 @@ Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.<
   <string name="completedTourns">Ukończone turnieje</string>
   <string name="declinedRequests">Odrzucone prośby</string>
   <string name="joinLichessVariantTeam">Dołącz do oficjalnego klubu %s, aby być na bieżąco z naszymi aktualnościami i wydarzeniami</string>
+  <string name="teamPage">Strona klubu</string>
 </resources>

@@ -1,6 +1,6 @@
 package lila.plan
 
-import cats.implicits.*
+import cats.syntax.all.*
 import java.util.{ Currency, Locale }
 
 case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetime: Money):

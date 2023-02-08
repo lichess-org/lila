@@ -22,7 +22,7 @@ final class EventStream(
 )(using
     ec: Executor,
     system: ActorSystem,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   private case object SetOnline

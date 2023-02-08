@@ -3,7 +3,7 @@
   <string name="preferences">Preferensi</string>
   <string name="display">Tampilan</string>
   <string name="privacy">Privasi</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Notifikasi</string>
+  <string name="notifications">Notifikasi</string>
   <string name="pieceAnimation">Animasi Buah Catur</string>
   <string name="materialDifference">Perbedaan materi</string>
   <string name="boardHighlights">Tanda papan (langkah terakhir dan skak)</string>
@@ -49,9 +49,9 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Ucapkan \"Good game, well played\" apabila kalah atau seri</string>
   <string name="yourPreferencesHaveBeenSaved">Preferensi telah disimpan.</string>
   <string name="scrollOnTheBoardToReplayMoves">Gulir pada papan untuk mengulang gerakan</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Streamer memulai siaran</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Pesan masuk</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Tantangan</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Browser</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Perangkat</string>
+  <string name="notifyStreamStart">Streamer memulai siaran</string>
+  <string name="notifyInboxMsg">Pesan masuk</string>
+  <string name="notifyChallenge">Tantangan</string>
+  <string name="notifyWeb">Browser</string>
+  <string name="notifyDevice">Perangkat</string>
 </resources>

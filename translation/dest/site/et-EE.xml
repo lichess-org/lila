@@ -209,7 +209,7 @@
   <string name="forgotPassword">Unustasid parooli?</string>
   <string name="error.weakPassword">See parool on väga levinud ning liiga lihtne arvata.</string>
   <string name="error.namePassword">Palun ära kasuta oma kasutajanime paroolina.</string>
-  <string name="youAreLeavingLichess">Lahkud Lichessist</string>
+  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Lahkud Lichessist</string>
   <string name="neverTypeYourPassword">Ära kirjuta oma Lichessi parooli teisele leheküljele!</string>
   <string name="passwordSuggestion">Ära kasuta kellegi teise poolt soovitatud parooli. Nad võivad su konto kaaperdada.</string>
   <string name="emailSuggestion">Ära kasuta kellegi teise poolt soovitatud e-maili aadressi. Nad võivad su konto kaaperdada.</string>
@@ -766,7 +766,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="invalidPgn">Väär PGN</string>
   <string name="invalidFen">Väär FEN</string>
   <string name="custom">Kohandatud</string>
-  <string name="notifications">Teated</string>
+  <string name="notifications">Teavitused</string>
   <string name="perfRatingX">Reiting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund, et teha esimene käik</item>

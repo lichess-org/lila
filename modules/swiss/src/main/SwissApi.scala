@@ -36,7 +36,7 @@ final class SwissApi(
     roundSocket: lila.round.RoundSocket
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mat: akka.stream.Materializer,
     mode: play.api.Mode
 ):
@@ -317,7 +317,7 @@ final class SwissApi(
     game.whitePlayer.userId.ifTrue(swiss.isStarted) ?? { whiteId =>
       game.blackPlayer.userId ?? { blackId =>
         rankingApi(swiss) map { ranking =>
-          import cats.implicits.*
+          import cats.syntax.all.*
           (ranking.get(whiteId), ranking.get(blackId)) mapN GameRanks.apply
         }
       }

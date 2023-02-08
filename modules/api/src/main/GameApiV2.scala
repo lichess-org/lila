@@ -159,7 +159,7 @@ final class GameApiV2(
         } flatMap { playerTeams =>
           gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)) map {
             _.zip(pairings) collect { case (Some(game), pairing) =>
-              import cats.implicits.*
+              import cats.syntax.all.*
               (
                 game,
                 pairing,
@@ -234,7 +234,7 @@ final class GameApiV2(
 
   private def enrich(flags: WithFlags)(game: Game) =
     gameRepo initialFen game flatMap { initialFen =>
-      (flags.evals ?? analysisRepo.byGame(game)) dmap {
+      (flags.requiresAnalysis ?? analysisRepo.byGame(game)) dmap {
         (game, initialFen, _)
       }
     }

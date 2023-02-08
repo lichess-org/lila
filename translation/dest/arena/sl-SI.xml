@@ -58,4 +58,8 @@ Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagot
   <string name="allowChatHelp">Naj igralci razpravljajo v klepetalnici</string>
   <string name="arenaStreaks">Arena proge</string>
   <string name="arenaStreaksHelp">Po 2 zaporednih zmagah nadaljne zmage namesto 2 dodelijo 4 točke.</string>
+  <string name="noBerserkAllowed">Norenje ni dovoljeno</string>
+  <string name="noArenaStreaks">Arena brez prog</string>
+  <string name="averagePerformance">Povprečna zmogljivost</string>
+  <string name="averageScore">Povprečen rezultat</string>
 </resources>

@@ -32,7 +32,7 @@ final class Env(
     postApi: lila.forum.ForumPostApi
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)

@@ -21,7 +21,7 @@ final private class StudySocket(
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi
-)(using Executor, akka.actor.Scheduler, play.api.Mode):
+)(using Executor, Scheduler, play.api.Mode):
 
   import StudySocket.{ *, given }
 

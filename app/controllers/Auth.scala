@@ -116,44 +116,52 @@ final class Auth(
                   api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).toFuccess
                 ),
               (login, pass) =>
-                HasherRateLimit(login into UserId, ctx.req) { chargeIpLimiter =>
+                LoginRateLimit(login.normalize, ctx.req) { chargeIpLimiter =>
                   env.security.pwned(pass) foreach { _ ?? chargeIpLimiter() }
-                  api.loadLoginForm(login) flatMap {
-                    _.bindFromRequest()
-                      .fold(
-                        err => {
-                          chargeIpLimiter()
-                          negotiate(
-                            html = fuccess {
-                              err.errors match {
-                                case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
-                                case _ => Unauthorized(html.auth.login(err, referrer))
-                              }
-                            },
-                            api = _ =>
-                              Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).toFuccess
-                          )
-                        },
-                        result =>
-                          result.toOption match {
-                            case None => InternalServerError("Authentication error").toFuccess
-                            case Some(u) if u.enabled.no =>
-                              negotiate(
-                                html = env.mod.logApi.closedByMod(u) flatMap {
-                                  case true => authenticateAppealUser(u, redirectTo)
-                                  case _    => redirectTo(routes.Account.reopen.url).toFuccess
-                                },
-                                api = _ => Unauthorized(jsonError("This account is closed.")).toFuccess
-                              )
-                            case Some(u) =>
-                              env.user.repo.email(u.id) foreach {
-                                _ foreach { garbageCollect(u, _) }
-                              }
-                              val remember = api.rememberForm.bindFromRequest().value | true
-                              authenticateUser(u, remember, Some(redirectTo))
-                          }
-                      )
-                  }
+                  val isEmail  = EmailAddress.isValid(login.value)
+                  val stuffing = ctx.req.headers.get("X-Stuffing") | "no" // from nginx
+                  if stuffing == "full" || stuffing == "partial" && isEmail then
+                    Unauthorized(html.auth.login(api.loginForm, referrer)).toFuccess
+                  else
+                    api.loadLoginForm(login) flatMap {
+                      _.bindFromRequest()
+                        .fold(
+                          err => {
+                            chargeIpLimiter()
+                            lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = false)
+                            negotiate(
+                              html = fuccess {
+                                err.errors match
+                                  case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
+                                  case _ => Unauthorized(html.auth.login(err, referrer))
+                              },
+                              api = _ =>
+                                Unauthorized(
+                                  ridiculousBackwardCompatibleJsonError(errorsAsJson(err))
+                                ).toFuccess
+                            )
+                          },
+                          result =>
+                            result.toOption match {
+                              case None => InternalServerError("Authentication error").toFuccess
+                              case Some(u) if u.enabled.no =>
+                                negotiate(
+                                  html = env.mod.logApi.closedByMod(u) flatMap {
+                                    case true => authenticateAppealUser(u, redirectTo)
+                                    case _    => redirectTo(routes.Account.reopen.url).toFuccess
+                                  },
+                                  api = _ => Unauthorized(jsonError("This account is closed.")).toFuccess
+                                )
+                              case Some(u) =>
+                                lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = true)
+                                env.user.repo.email(u.id) foreach {
+                                  _ foreach { garbageCollect(u, _) }
+                                }
+                                val remember = api.rememberForm.bindFromRequest().value | true
+                                authenticateUser(u, remember, Some(redirectTo))
+                            }
+                        )
+                    }
                 }
             )
         }
@@ -411,7 +419,7 @@ final class Auth(
           FormFuResult(forms.passwdResetFor(user)) { err =>
             fuccess(html.auth.bits.passwordResetConfirm(user, token, err, false.some))
           } { data =>
-            HasherRateLimit(user.id, ctx.req) { _ =>
+            HasherRateLimit(user.id, ctx.req) {
               env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
                 env.user.repo.setEmailConfirmed(user.id).flatMapz {
                   welcome(user, _, sendWelcomeEmail = false)
@@ -558,14 +566,22 @@ final class Auth(
 
   private given limitedDefault: Zero[Result] = Zero(rateLimited)
 
-  private[controllers] def HasherRateLimit(id: UserId, req: RequestHeader)(
+  private[controllers] def LoginRateLimit(id: UserIdOrEmail, req: RequestHeader)(
       run: RateLimit.Charge => Fu[Result]
   ): Fu[Result] =
+    env.security.ipTrust.isSuspicious(req.ipAddress) flatMap { ipSusp =>
+      PasswordHasher.rateLimit[Result](
+        enforce = env.net.rateLimit,
+        ipCost = 1 + ipSusp.??(15) + EmailAddress.isValid(id.value).??(15)
+      )(id, req)(run)(rateLimitedFu)
+    }
+
+  private[controllers] def HasherRateLimit(id: UserId, req: RequestHeader)(run: => Fu[Result]): Fu[Result] =
     env.security.ip2proxy(req.ipAddress) flatMap { proxy =>
       PasswordHasher.rateLimit[Result](
         enforce = env.net.rateLimit,
-        ipCost = if proxy.is then 15 else 1
-      )(id, req)(run)(rateLimitedFu)
+        ipCost = if proxy.is then 10 else 1
+      )(id into UserIdOrEmail, req)(_ => run)(rateLimitedFu)
     }
 
   private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result]

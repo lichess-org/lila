@@ -1,6 +1,6 @@
 package lila.api
 
-import cats.implicits.*
+import cats.syntax.all.*
 
 import lila.chat.UserLine
 import lila.common.config.NetDomain

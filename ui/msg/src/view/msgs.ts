@@ -3,7 +3,7 @@ import * as xhr from 'common/xhr';
 import { bind } from 'common/snabbdom';
 import { Convo, Msg, Daily } from '../interfaces';
 import * as enhance from './enhance';
-import * as protect from './protect';
+import { makeLinkPopups } from 'common/linkPopup';
 import { scroller } from './scroller';
 import MsgCtrl from '../ctrl';
 
@@ -126,7 +126,7 @@ const setupMsgs = (ctrl: MsgCtrl, insert: boolean) => (vnode: VNode) => {
   const el = vnode.elm as HTMLElement;
   if (insert) scroller.init(el);
   enhance.expandLpvs(el);
-  protect.makeLinkPopups(el, ctrl.trans);
+  makeLinkPopups(el, ctrl.trans, 'their a[href^="http"]');
   scroller.toMarker() || scroller.auto();
 };
 

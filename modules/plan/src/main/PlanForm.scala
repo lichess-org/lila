@@ -1,6 +1,6 @@
 package lila.plan
 
-import cats.implicits.*
+import cats.syntax.all.*
 import play.api.data.*
 import play.api.data.Forms.*
 import lila.common.Form.into

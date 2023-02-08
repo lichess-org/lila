@@ -22,7 +22,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mode: play.api.Mode,
     mat: akka.stream.Materializer
 ):

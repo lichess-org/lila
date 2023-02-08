@@ -3,7 +3,7 @@
   <string name="preferences">Lehentasunak</string>
   <string name="display">Erakutsi</string>
   <string name="privacy">Pribatutasuna</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Jakinarazpenak</string>
+  <string name="notifications">Jakinarazpenak</string>
   <string name="pieceAnimation">Piezen animazioa</string>
   <string name="materialDifference">Material desoreka</string>
   <string name="boardHighlights">Taulan markak erakutsi (azken jokaldia eta xakea)</string>
@@ -51,16 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Zure lehentasunak gorde dira</string>
   <string name="scrollOnTheBoardToReplayMoves">Mugitu taula gainean jokaldiak ikusteko</string>
   <string name="correspondenceEmailNotification">Jaso posta elektronikoz zure posta-bidezko partiden jakinarazpenen zerrenda egunero</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Streamerra zuzenean dago</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Mezu berria postontzian</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Foroko erantzunean aipatu zaituzte</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Azterlanreko gonbidapena</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Posta bidezko partidetan eguneraketa</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Erronkak</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Txapelketa laster hasiko da</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">Posta bidezko partidaren denbora amaitzen ari da</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Kanpai bidezko jakinarazpena Lichess barruan</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Gailuko jakinarazpena Lichessen ez zaudenean</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Nabigatzailea</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Gailua</string>
+  <string name="notifyStreamStart">Streamerra zuzenean dago</string>
+  <string name="notifyInboxMsg">Mezu berria postontzian</string>
+  <string name="notifyForumMention">Foroko erantzunean aipatu zaituzte</string>
+  <string name="notifyInvitedStudy">Azterlanreko gonbidapena</string>
+  <string name="notifyGameEvent">Posta bidezko partidetan eguneraketa</string>
+  <string name="notifyChallenge">Erronkak</string>
+  <string name="notifyTournamentSoon">Txapelketa laster hasiko da</string>
+  <string name="notifyTimeAlarm">Posta bidezko partidaren denbora amaitzen ari da</string>
+  <string name="notifyBell">Kanpai bidezko jakinarazpena Lichess barruan</string>
+  <string name="notifyPush">Gailuko jakinarazpena Lichessen ez zaudenean</string>
+  <string name="notifyWeb">Nabigatzailea</string>
+  <string name="notifyDevice">Gailua</string>
 </resources>

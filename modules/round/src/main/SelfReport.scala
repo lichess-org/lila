@@ -16,7 +16,7 @@ final class SelfReport(
     proxyRepo: GameProxyRepo,
     endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
-)(using ec: Executor, scheduler: akka.actor.Scheduler):
+)(using ec: Executor, scheduler: Scheduler):
 
   private val logOnceEvery = lila.memo.OnceEvery[IpAddressStr](1 minute)
 

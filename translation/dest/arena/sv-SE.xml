@@ -34,7 +34,7 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="drawStreakStandard">Remiserier: När en spelare har konsekutiva remier i en arena så kommer bara den första att ge ett poäng, eller remier som varar mer än %s drag i standardpartier. Remiserien kan bara brytas av en vinst, inte en förlust eller remi.</string>
   <string name="drawStreakVariants">Minsta partilängden för att remier ska ge poäng är olika mellan varianter. Tabellen nedan listar gränsvärden för varje variant.</string>
   <string name="variant">Variant</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Minsta partilängd</string>
+  <string name="minimumGameLength">Minsta partilängd</string>
   <string name="history">Arena-historik</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Visa laget</item>

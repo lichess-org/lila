@@ -153,7 +153,7 @@ final class Account(
 
   def passwdApply =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.id, ctx.req) { _ =>
+      auth.HasherRateLimit(me.id, ctx.req) {
         given play.api.mvc.Request[?] = ctx.body
         env.security.forms passwdChange me flatMap { form =>
           FormFuResult(form) { err =>
@@ -200,7 +200,7 @@ final class Account(
 
   def emailApply =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.id, ctx.req) { _ =>
+      auth.HasherRateLimit(me.id, ctx.req) {
         given play.api.mvc.Request[?] = ctx.body
         env.security.forms.preloadEmailDns() >> emailForm(me).flatMap { form =>
           FormFuResult(form) { err =>
@@ -269,7 +269,7 @@ final class Account(
 
   def setupTwoFactor =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.id, ctx.req) { _ =>
+      auth.HasherRateLimit(me.id, ctx.req) {
         given play.api.mvc.Request[?] = ctx.body
         env.security.forms.setupTwoFactor(me) flatMap { form =>
           FormFuResult(form) { err =>
@@ -284,7 +284,7 @@ final class Account(
 
   def disableTwoFactor =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.id, ctx.req) { _ =>
+      auth.HasherRateLimit(me.id, ctx.req) {
         given play.api.mvc.Request[?] = ctx.body
         env.security.forms.disableTwoFactor(me) flatMap { form =>
           FormFuResult(form) { err =>
@@ -310,7 +310,7 @@ final class Account(
     AuthBody { implicit ctx => me =>
       NotManaged {
         given play.api.mvc.Request[?] = ctx.body
-        auth.HasherRateLimit(me.id, ctx.req) { _ =>
+        auth.HasherRateLimit(me.id, ctx.req) {
           env.security.forms closeAccount me flatMap { form =>
             FormFuResult(form) { err =>
               fuccess(html.account.close(me, err, managed = false))

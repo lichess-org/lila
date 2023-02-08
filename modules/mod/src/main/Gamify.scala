@@ -117,7 +117,7 @@ final class Gamify(
       }
       .map {
         _.flatMap { obj =>
-          import cats.implicits.*
+          import cats.syntax.all.*
           (obj.getAsOpt[UserId]("_id"), obj.int("nb")) mapN ModCount.apply
         }
       }
