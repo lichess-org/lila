@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/lichess-org/lila/issues"
   },
-  "homepage": "https://lichess.org",
+  "homepage": "https://shess.krk.finance",
   "engines": {
     "node": ">=14 <=19",
     "pnpm": "^7.18.2"
