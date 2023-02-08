@@ -8,11 +8,11 @@ import chess.{ Clock, Color }
 import lila.common.Json.{ *, given }
 import lila.common.LightUser
 
-final class JsonView(rematches: Rematches, luserApi: lila.user.LightUserApi):
+final class JsonView(rematches: Rematches):
 
   import JsonView.{ *, given }
 
-  def apply(game: Game, initialFen: Option[Fen.Epd]) =
+  def base(game: Game, initialFen: Option[Fen.Epd]) =
     Json
       .obj(
         "id"            -> game.id,
@@ -26,9 +26,7 @@ final class JsonView(rematches: Rematches, luserApi: lila.user.LightUserApi):
         "startedAtTurn" -> game.chess.startedAtPly,
         "source"        -> game.source,
         "status"        -> game.status,
-        "createdAt"     -> game.createdAt,
-        "white"         -> player(game.whitePlayer),
-        "black"         -> player(game.blackPlayer)
+        "createdAt"     -> game.createdAt
       )
       .add("initialFen" -> initialFen)
       .add("threefold" -> game.history.threefoldRepetition)
@@ -42,7 +40,7 @@ final class JsonView(rematches: Rematches, luserApi: lila.user.LightUserApi):
       .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
       .add("rules" -> game.metadata.nonEmptyRules)
 
-  def ownerPreview(pov: Pov) =
+  def ownerPreview(pov: Pov)(using LightUser.GetterSync) =
     Json
       .obj(
         "fullId"   -> pov.fullId,
@@ -63,7 +61,7 @@ final class JsonView(rematches: Rematches, luserApi: lila.user.LightUserApi):
           .obj(
             "id" -> pov.opponent.userId,
             "username" -> lila.game.Namer
-              .playerTextBlocking(pov.opponent, withRating = false)(using luserApi.sync)
+              .playerTextBlocking(pov.opponent, withRating = false)
           )
           .add("rating" -> pov.opponent.rating)
           .add("ai" -> pov.opponent.aiLevel),
@@ -73,15 +71,15 @@ final class JsonView(rematches: Rematches, luserApi: lila.user.LightUserApi):
       .add("tournamentId" -> pov.game.tournamentId)
       .add("swissId" -> pov.game.swissId)
 
-  private def player(p: Player) =
-    val user = p.userId flatMap luserApi.sync match
-      case Some(lu) => (lu.name, lu.id.some, lu.title)
-      case _        => (UserName(p.aiLevel.fold("Anonymous")("Stockfish " + _)), None, None)
+  def player(p: Player, user: Option[LightUser]) =
     Json
-      .obj("name" -> user._1)
-      .add("id" -> user._2)
-      .add("title" -> user._3)
-      .add("rating" -> lila.game.Namer.ratingString(p))
+      .obj()
+      .add("user", user)
+      .add("rating", p.rating)
+      .add("ratingDiff", p.ratingDiff)
+      .add("name", p.name)
+      .add("provisional" -> p.provisional)
+      .add("aiLevel" -> p.aiLevel)
 
 object JsonView:
 

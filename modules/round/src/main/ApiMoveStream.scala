@@ -1,6 +1,5 @@
 package lila.round
 
-import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.*
 import chess.Color
 import chess.format.{ BoardFen, Fen }
@@ -22,7 +21,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
       gameRepo.initialFen(game) map { initialFen =>
         val buffer = scala.collection.mutable.Queue.empty[JsObject]
         var moves  = 0
-        Source(List(gameJsonView(game, initialFen))) concat
+        Source(List(gameJsonView.base(game, initialFen))) concat
           Source
             .queue[JsObject]((game.ply.value + 3) atLeast 16, akka.stream.OverflowStrategy.dropHead)
             .statefulMapConcat { () => js =>
@@ -57,7 +56,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                 }
               }
               if (game.finished)
-                queue offer gameJsonView(game, initialFen)
+                queue offer gameJsonView.base(game, initialFen)
                 queue.complete()
               else
                 val chans = List(MoveGameEvent makeChan game.id, "finishGame")
@@ -65,7 +64,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                   case MoveGameEvent(g, fen, move) =>
                     queue.offer(toJson(g, fen, move.some)).unit
                   case FinishGame(g, _, _) if g.id == game.id =>
-                    queue offer gameJsonView(g, initialFen)
+                    queue offer gameJsonView.base(g, initialFen)
                     (1 to buffer.size) foreach { _ => queue.offer(Json.obj()) } // push buffer content out
                     queue.complete()
                 }
@@ -90,12 +89,12 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
       fen: BoardFen,
       turnColor: Color,
       lastMoveUci: Option[String],
-      clock: Option[(Centis, Centis)]
+      clock: Option[PairOf[Centis]]
   ): JsObject =
     clock.foldLeft(
       Json
         .obj("fen" -> fen.andColor(turnColor))
         .add("lm" -> lastMoveUci)
-    ) { case (js, clk) =>
+    ) { (js, clk) =>
       js ++ Json.obj("wc" -> clk._1.roundSeconds, "bc" -> clk._2.roundSeconds)
     }

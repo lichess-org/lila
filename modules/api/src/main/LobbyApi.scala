@@ -5,6 +5,7 @@ import play.api.libs.json.{ JsArray, JsObject, Json }
 import lila.game.Pov
 import lila.lobby.{ LobbySocket, SeekApi }
 import lila.common.Json.given
+import lila.common.LightUser
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,
@@ -19,10 +20,11 @@ final class LobbyApi(
       (ctx.me ?? gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") flatMap { case (seeks, povs) =>
         val displayedPovs = povs take 9
         lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId)) inject {
+          given LightUser.GetterSync = lightUserApi.sync // ok because of preload above
           Json
             .obj(
               "seeks"        -> seeks.map(_.render),
-              "nowPlaying"   -> displayedPovs.map(nowPlaying),
+              "nowPlaying"   -> displayedPovs.map(gameJson.ownerPreview),
               "nbNowPlaying" -> povs.size,
               "counters" -> Json.obj(
                 "members" -> lobbySocket.counters.members,
@@ -38,5 +40,3 @@ final class LobbyApi(
             ) -> displayedPovs
         }
       }
-
-  def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)
