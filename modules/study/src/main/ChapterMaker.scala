@@ -121,7 +121,7 @@ final private class ChapterMaker(
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
       name <-
         if (data.isDefaultName)
-          Namer.gameVsText(game, withRatings)(lightUser.async) dmap { StudyChapterName(_) }
+          StudyChapterName from Namer.gameVsText(game, withRatings)(using lightUser.async)
         else fuccess(data.name)
       _ = notifyChat(study, game, userId)
     } yield Chapter.make(
