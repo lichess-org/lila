@@ -20,11 +20,10 @@ final class LobbyApi(
       (ctx.me ?? gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") flatMap { case (seeks, povs) =>
         val displayedPovs = povs take 9
         lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId)) inject {
-          given LightUser.GetterSync = lightUserApi.sync // ok because of preload above
           Json
             .obj(
               "seeks"        -> seeks.map(_.render),
-              "nowPlaying"   -> displayedPovs.map(gameJson.ownerPreview),
+              "nowPlaying"   -> displayedPovs.map(nowPlaying),
               "nbNowPlaying" -> povs.size,
               "counters" -> Json.obj(
                 "members" -> lobbySocket.counters.members,
@@ -40,3 +39,5 @@ final class LobbyApi(
             ) -> displayedPovs
         }
       }
+
+  def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)(using lightUserApi.sync)
