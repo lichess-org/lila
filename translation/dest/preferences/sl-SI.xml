@@ -48,4 +48,5 @@
   <string name="yourPreferencesHaveBeenSaved">Nastavitve so bile shranjene.</string>
   <string name="scrollOnTheBoardToReplayMoves">Pomaknite se po plošči za predvajanje potez</string>
   <string name="correspondenceEmailNotification">Dnevno obvestilo po pošti z naštevanjem vaših korespondenčnih iger</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Zvok obvestila zvonca</string>
 </resources>

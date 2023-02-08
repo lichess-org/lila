@@ -58,4 +58,8 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
   <string name="allowChatHelp">Pozwól graczom dyskutować na czacie</string>
   <string name="arenaStreaks">Serie aren</string>
   <string name="arenaStreaksHelp">Po dwóch zwycięstwach, kolejne zwycięstwa dają 4 punkty zamiast 2.</string>
+  <string name="noBerserkAllowed">Berserk niedozwolony</string>
+  <string name="noArenaStreaks">Bez premii za serię zwycięstw</string>
+  <string name="averagePerformance">Średni wynik</string>
+  <string name="averageScore">Średnia ocena</string>
 </resources>

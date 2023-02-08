@@ -44,7 +44,7 @@ Isch nach 12 Sekunde nöd zoge worde, gits es Forfait für de Gägner.</string>
   <string name="drawStreakStandard">Remis Serie: Macht en Schpiller, in ere Arena, in Serie mehreri Remis, gits nur fürs erschte Remis oder für Remispartie mit meh als %s Züg en Punkt. So e Serie chann nur dur en Sieg underbroche werde, nöd dur e Niederlag oder dur es witers Remis.</string>
   <string name="drawStreakVariants">Die chürzischti Schpieldur, für Remispartie, wo Pünkt gänd, isch je nach Variante underschiedlich. Folgendi Tabälle zeigt de jewiligi Schwellewert für jedi Variante.</string>
   <string name="variant">Variante</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Minimali Schpieldur</string>
+  <string name="minimumGameLength">Minimali Schpieldur</string>
   <string name="history">Arena Verlauf</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Zeig s\'Team</item>
@@ -58,4 +58,8 @@ Isch nach 12 Sekunde nöd zoge worde, gits es Forfait für de Gägner.</string>
   <string name="allowChatHelp">Lass d\'Schpiller ime Chatruum diskutiere</string>
   <string name="arenaStreaks">Arena Sieges Serie</string>
   <string name="arenaStreaksHelp">Nach 2 Sieg in Serie gits 4 Pünkt anstatt 2.</string>
+  <string name="noBerserkAllowed">Berserk nöd möglich</string>
+  <string name="noArenaStreaks">Kei Arena-Serie</string>
+  <string name="averagePerformance">Durchschnittlichi Leischtig</string>
+  <string name="averageScore">Durchschnittlichi Punktzahl</string>
 </resources>

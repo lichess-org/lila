@@ -3,7 +3,7 @@
   <string name="preferences">Налаштування</string>
   <string name="display">Відображення</string>
   <string name="privacy">Конфіденційність</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Сповіщення</string>
+  <string name="notifications">Сповіщення</string>
   <string name="pieceAnimation">Анімація ходів</string>
   <string name="materialDifference">Співвідношення матеріалу</string>
   <string name="boardHighlights">Підсвітлення кольором (останнього ходу та шаху)</string>
@@ -51,16 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Ваші налаштування збережено.</string>
   <string name="scrollOnTheBoardToReplayMoves">Прокрутіть колесом миші на дошці, для того щоб відтворити ходи</string>
   <string name="correspondenceEmailNotification">Щоденне сповіщення на електронну пошту зі списком ваших заочних ігор</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Стример почав трансляцію</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Нове вхідне повідомлення</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Вас згадали у коментарі на форумі</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Запрошення на урок</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Оновлення заочних партій</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Завдання</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Турнір скоро почнеться</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">Час на відповідь закінчується</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Дзвінкове сповіщення в Lichess</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Сповіщення на пристрої коли ви не на Lichess</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Браузер</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Пристрій</string>
+  <string name="notifyStreamStart">Стример почав трансляцію</string>
+  <string name="notifyInboxMsg">Нове вхідне повідомлення</string>
+  <string name="notifyForumMention">Вас згадали у коментарі на форумі</string>
+  <string name="notifyInvitedStudy">Запрошення на урок</string>
+  <string name="notifyGameEvent">Оновлення заочних партій</string>
+  <string name="notifyChallenge">Завдання</string>
+  <string name="notifyTournamentSoon">Турнір скоро почнеться</string>
+  <string name="notifyTimeAlarm">Час на відповідь закінчується</string>
+  <string name="notifyBell">Дзвінкове сповіщення в Lichess</string>
+  <string name="notifyPush">Сповіщення на пристрої коли ви не на Lichess</string>
+  <string name="notifyWeb">Браузер</string>
+  <string name="notifyDevice">Пристрій</string>
 </resources>

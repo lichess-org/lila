@@ -61,6 +61,7 @@
   <string name="depthX">Глыбіня %s</string>
   <string name="usingServerAnalysis">Выкарыстоўваецца серверны аналіз</string>
   <string name="loadingEngine">Загрузка рухавічка...</string>
+  <string name="calculatingMoves">Пралічваем хады...</string>
   <string name="cloudAnalysis">Воблачны аналіз</string>
   <string name="goDeeper">Паглыбіць</string>
   <string name="showThreat">Паказваць пагрозы</string>

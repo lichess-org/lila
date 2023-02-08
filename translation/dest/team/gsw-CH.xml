@@ -53,4 +53,5 @@
   <string name="completedTourns">Beendeti Turnier</string>
   <string name="declinedRequests">Abglähnti Afrage</string>
   <string name="joinLichessVariantTeam">Chumm is offizielli %s Team für Neuigkeite und Ereignis</string>
+  <string name="teamPage">Team - Site</string>
 </resources>

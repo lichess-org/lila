@@ -41,7 +41,7 @@
   <string name="drawStreakStandard">연속 무승부: 플레이어가 2게임 이상 연속으로 무승부를 기록할 경우, 첫 무승부 또는 %s수 이상을 두고 발생한 무승부에만 점수가 주어질 것입니다. 연속 무승부는 게임에서 승리하면 초기화됩니다.</string>
   <string name="drawStreakVariants">승점을 얻을 수 있는 비긴 게임의 최소 길이는 게임 종류에 따라 다릅니다. 아래 표에는 각 게임 종류에 따른 최소 값이 있습니다.</string>
   <string name="variant">게임 종류</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">최소 게임 길이</string>
+  <string name="minimumGameLength">최소 게임 길이</string>
   <string name="history">아레나 히스토리</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">모두 %s개 팀 보기</item>
