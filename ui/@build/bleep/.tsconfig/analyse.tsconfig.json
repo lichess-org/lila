@@ -1,5 +1,0 @@
-{
-  "extends": "/home/sam/Documents/git/lila/ui/tsconfig.base.json",
-  "compilerOptions": { "esModuleInterop": true, "rootDir": "/home/sam/Documents/git/lila/ui/analyse/src" },
-  "include": ["/home/sam/Documents/git/lila/ui/analyse/src"]
-}

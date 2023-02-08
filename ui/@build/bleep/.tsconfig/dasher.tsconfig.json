@@ -1,5 +1,0 @@
-{
-  "extends": "/home/sam/Documents/git/lila/ui/tsconfig.base.json",
-  "compilerOptions": { "types": ["lichess", "web", "cash"], "rootDir": "/home/sam/Documents/git/lila/ui/dasher/src" },
-  "include": ["/home/sam/Documents/git/lila/ui/dasher/src"]
-}
