@@ -57,7 +57,7 @@ final private class StudyMaker(
     for {
       root <- chapterMaker.getBestRoot(pov.game, data.form.pgnStr, initialFen)
       tags <- pgnDump.tags(pov.game, initialFen, none, withOpening = true, withRatings)
-      name <- Namer.gameVsText(pov.game, withRatings)(lightUserApi.async) dmap { StudyChapterName(_) }
+      name <- StudyChapterName from Namer.gameVsText(pov.game, withRatings)(using lightUserApi.async)
       study = Study.make(user, Study.From.Game(pov.gameId), data.id, StudyName("Game study").some)
       chapter = Chapter.make(
         studyId = study.id,
