@@ -8,10 +8,12 @@ import { ChatCtrl } from 'chat';
 import { ExplorerOpts } from './explorer/interfaces';
 import { StudyData } from './study/interfaces';
 import { AnalyseSocketSend } from './socket';
+import { ExternalEngine } from 'ceval';
+import * as Prefs from 'common/prefs';
 
 export type Seconds = number;
 
-export { Key, Piece } from 'chessground/types';
+export type { Key, Piece } from 'chessground/types';
 
 export interface NvuiPlugin {
   render(): VNode;
@@ -41,6 +43,7 @@ export interface AnalyseData {
   analysis?: Analysis;
   userAnalysis: boolean;
   forecast?: ForecastData;
+  sidelines?: Tree.Node[][];
   treeParts: Tree.Node[];
   evalPut?: boolean;
   practiceGoal?: PracticeGoal;
@@ -53,6 +56,7 @@ export interface AnalyseData {
     id: string;
   };
   puzzle?: OpeningPuzzle;
+  externalEngines?: ExternalEngine[];
 }
 
 export interface AnalysePref {
@@ -126,6 +130,7 @@ export interface AnalysisSide {
   inaccuracy: number;
   mistake: number;
   blunder: number;
+  accuracy: number;
 }
 
 export interface AnalyseOpts {
@@ -150,6 +155,7 @@ export interface AnalyseOpts {
   };
   wiki?: boolean;
   inlinePgn?: string;
+  externalEngineEndpoint: string;
 }
 
 export interface JustCaptured extends cg.Piece {

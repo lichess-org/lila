@@ -1,15 +1,15 @@
 package controllers
 
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.libs.json.Json
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.HTTPRequest
 
-final class I18n(env: Env) extends LilaController(env) {
+final class I18n(env: Env) extends LilaController(env):
 
-  private def toLang = lila.i18n.I18nLangPicker.byStr _
+  private def toLang = lila.i18n.I18nLangPicker.byStr
 
   private val form = Form(single("lang" -> text.verifying { code =>
     toLang(code).isDefined
@@ -17,7 +17,7 @@ final class I18n(env: Env) extends LilaController(env) {
 
   def select =
     OpenBody { implicit ctx =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       form
         .bindFromRequest()
         .fold(
@@ -43,10 +43,9 @@ final class I18n(env: Env) extends LilaController(env) {
                 }
                 if (ctx.isAnon) redir.withCookies(env.lilaCookie.session("lang", lang.code))
                 else redir
-              }.fuccess,
-              api = _ => Ok(Json.obj("lang" -> lang.code)).fuccess
+              }.toFuccess,
+              api = _ => Ok(Json.obj("lang" -> lang.code)).toFuccess
             )
           }
         )
     }
-}

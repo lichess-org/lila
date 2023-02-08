@@ -1,31 +1,30 @@
 package lila.bot
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.hub.actorApi.socket.ApiUserIsOnline
 import lila.memo.ExpireCallbackMemo
 import lila.socket.IsOnline
+import lila.user.User
 
 final class OnlineApiUsers(
     isOnline: IsOnline,
     scheduler: akka.actor.Scheduler
-)(implicit ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
+)(using scala.concurrent.ExecutionContext, play.api.Mode):
 
-  private val cache = new ExpireCallbackMemo(
+  private val cache = ExpireCallbackMemo[UserId](
     scheduler,
     10.seconds,
     userId => publish(userId, isOnline = false)
   )
 
-  def setOnline(userId: lila.user.User.ID): Unit = {
-    val wasOffline = !isOnline(userId) && !cache.get(userId)
+  def setOnline(userId: UserId): Unit =
+    val wasOffline = !isOnline.value(userId) && !cache.get(userId)
     cache.put(userId)
     if (wasOffline) publish(userId, isOnline = true)
-  }
 
-  def get: Set[lila.user.User.ID] = cache.keySet
+  def get: Set[UserId] = cache.keySet
 
-  private def publish(userId: lila.user.User.ID, isOnline: Boolean) =
+  private def publish(userId: UserId, isOnline: Boolean) =
     Bus.publish(ApiUserIsOnline(userId, isOnline), "onlineApiUsers")
-}

@@ -1,14 +1,15 @@
 package lila.game
 
-import akka.actor._
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
+import akka.stream.Materializer
 
 final private class GameConfig(
     @ConfigName("collection.game") val gameColl: CollName,
@@ -30,12 +31,13 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: Scheduler,
+    materializer: Materializer,
     mode: play.api.Mode
-) {
+):
 
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
 
@@ -61,6 +63,7 @@ final class Env(
   )
 
   lazy val gamesByUsersStream = wire[GamesByUsersStream]
+  lazy val gamesByIdsStream   = wire[GamesByIdsStream]
 
   lazy val favoriteOpponents = wire[FavoriteOpponents]
 
@@ -73,4 +76,3 @@ final class Env(
   scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration) { () =>
     captcher ! actorApi.NewCaptcha
   }
-}

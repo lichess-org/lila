@@ -46,7 +46,7 @@ Flýðu og drottnaðu yfir stjörnunum!</string>
   <string name="knightComplete">Til hamingju! Þú hefur náð tökum á riddaranum.</string>
   <string name="thePawn">Peðið</string>
   <string name="itMovesForwardOnly">Það getur einungis færst áfram</string>
-  <string name="pawnIntro">Peðin virðast máttlaus en það getur snúist við.</string>
+  <string name="pawnIntro">Peðin virðast máttlaus, en þau hafa mikla möguleika.</string>
   <string name="pawnsMoveOneSquareOnly">Peðin færa sig um einn reit í einu.
 En þegar þau komast að hinum enda borðsins verða þau sterkari!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Oftast er best að breyta peðinu í drottningu.
@@ -188,6 +188,12 @@ Kóngurinn er ómetanlegur! Ef þú tapar honum taparðu leiknum.</string>
   <string name="queenOverBishop">Taktu taflmanninn
 sem er mest virði!
 Drottning &gt; biskup</string>
+  <string name="pieceValueExchange">Dreptu verðmætasta taflmanninn!
+Ekki skipta
+verðmætari taflmanni fyrir verðminni taflmann.</string>
+  <string name="pieceValueLegal">Dreptu taflmanninn
+sem er verðmætastur!
+Vertu viss um að hreyfingin þín sé lögleg!</string>
   <string name="takeThePieceWithTheHighestValue">Dreptu taflmanninn
 sem er mest virði!</string>
   <string name="pieceValueComplete">Til hamingju! Nú veistu hvers virði mennirnir eru!
@@ -230,6 +236,7 @@ Peð = 1</string>
   <string name="rightOn">Einmitt!</string>
   <string name="stageXComplete">Stigi %s er lokið</string>
   <string name="next">Næst</string>
+  <string name="nextX">Næst: %s</string>
   <string name="backToMenu">Aftur í valmynd</string>
   <string name="puzzleFailed">Þrautin mistókst!</string>
   <string name="retry">Aftur</string>

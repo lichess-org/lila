@@ -3,34 +3,34 @@ package views.html
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ Markdown, MarkdownRender }
 import lila.event.{ Event, EventForm }
 import lila.i18n.LangList
 
-object event {
+object event:
 
   private val dataSeconds = attr("data-seconds")
 
-  def create(form: Form[_])(implicit ctx: Context) =
+  def create(form: Form[?])(implicit ctx: Context) =
     layout(title = "New event", css = "mod.form") {
       div(cls := "crud page-menu__content box box-pad")(
-        h1("New event"),
+        h1(cls := "box__top")("New event"),
         postForm(cls := "content_box_content form3", action := routes.Event.create)(inForm(form))
       )
     }
 
-  def edit(event: Event, form: Form[_])(implicit ctx: Context) =
+  def edit(event: Event, form: Form[?])(implicit ctx: Context) =
     layout(title = event.title, css = "mod.form") {
       div(cls := "crud edit page-menu__content box box-pad")(
-        div(cls := "box__top")(
+        boxTop(
           h1(
             a(href := routes.Event.show(event.id))(event.title),
-            span("Created by ", titleNameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt)),
+            span("Created by ", titleNameOrId(event.createdBy), " ", momentFromNow(event.createdAt)),
             event.updatedBy map { updatedBy =>
-              span("Updated by ", titleNameOrId(updatedBy.value), " ", event.updatedAt.map(momentFromNow(_)))
+              span("Updated by ", titleNameOrId(updatedBy), " ", event.updatedAt.map(momentFromNow(_)))
             }
           ),
           st.form(cls := "box__top__actions", action := routes.Event.cloneE(event.id), method := "get")(
@@ -43,11 +43,10 @@ object event {
     }
 
   def iconOf(e: Event) =
-    e.icon match {
+    e.icon match
       case None                                     => i(cls := "img", dataIcon := "")
       case Some(c) if c == EventForm.icon.broadcast => i(cls := "img", dataIcon := "")
       case Some(c)                                  => img(cls := "img", src := assetUrl(s"images/$c"))
-    }
 
   def show(e: Event)(implicit ctx: Context) =
     views.html.base.layout(
@@ -56,7 +55,7 @@ object event {
       moreJs = jsTag("event-countdown.js")
     ) {
       main(cls := "page-small event box box-pad")(
-        div(cls := "box__top")(
+        boxTop(
           iconOf(e),
           div(
             h1(e.title),
@@ -77,8 +76,8 @@ object event {
       )
     }
 
-  private object markdown {
-    import scala.concurrent.duration._
+  private object markdown:
+    import scala.concurrent.duration.*
     private val renderer = new MarkdownRender(table = true, list = true)
     // hashcode caching is safe for official events
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
@@ -87,13 +86,12 @@ object event {
       .build[Int, String]()
     def apply(e: Event, text: Markdown): Frag =
       raw(cache.get(text.hashCode, _ => renderer(s"event:${e.id}")(text)))
-  }
 
-  def manager(events: List[Event])(implicit ctx: Context) = {
+  def manager(events: List[Event])(implicit ctx: Context) =
     val title = "Event manager"
     layout(title = title) {
       div(cls := "crud page-menu__content box")(
-        div(cls := "box__top")(
+        boxTop(
           h1(title),
           div(cls := "box__top__actions")(
             a(cls := "button button-green", href := routes.Event.form, dataIcon := "")
@@ -132,9 +130,8 @@ object event {
         )
       )
     }
-  }
 
-  private def inForm(form: Form[_])(implicit ctx: Context) =
+  private def inForm(form: Form[?])(implicit ctx: Context) =
     frag(
       form3.split(
         form3.group(form("startsAt"), frag("Start date ", strong(utcLink)), half = true)(
@@ -232,4 +229,3 @@ object event {
         body
       )
     }
-}

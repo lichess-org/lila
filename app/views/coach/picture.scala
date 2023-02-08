@@ -3,13 +3,13 @@ package coach
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.coach.Coach
 import lila.user.User
 
-object picture {
+object picture:
 
   def apply(c: Coach.WithUser, error: Option[String] = None)(implicit ctx: Context) =
     views.html.account.layout(
@@ -41,7 +41,7 @@ object picture {
       )
     }
 
-  object thumbnail {
+  object thumbnail:
     def apply(c: Coach.WithUser, cssSize: Int = Coach.imageSize) =
       img(
         widthA    := Coach.imageSize,
@@ -53,9 +53,6 @@ object picture {
         alt       := s"${c.user.titleUsername} Lichess coach picture"
       )
     def url(c: Coach) =
-      c.picture match {
+      c.picture match
         case Some(image) => picfitUrl.thumbnail(image, Coach.imageSize, Coach.imageSize)
         case _           => assetUrl("images/placeholder.png")
-      }
-  }
-}

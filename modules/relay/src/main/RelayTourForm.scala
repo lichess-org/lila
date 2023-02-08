@@ -1,45 +1,46 @@
 package lila.relay
 
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
-import scala.util.chaining._
+import play.api.data.*
+import play.api.data.Forms.*
+import scala.util.chaining.*
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, toMarkdown }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, formatter, into }
 import lila.game.Game
 import lila.security.Granter
 import lila.study.Study
 import lila.user.User
 import lila.common.Markdown
 
-final class RelayTourForm {
+final class RelayTourForm:
 
-  import RelayTourForm._
+  import RelayTourForm.*
 
   val form = Form(
     mapping(
       "name"            -> cleanText(minLength = 3, maxLength = 80),
       "description"     -> cleanText(minLength = 3, maxLength = 400),
-      "markdown"        -> optional(toMarkdown(cleanText(maxLength = 20_000))),
+      "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
       "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
-      "autoLeaderboard" -> boolean
-    )(Data.apply)(Data.unapply)
+      "autoLeaderboard" -> boolean,
+      "players"         -> optional(of(formatter.stringFormatter[RelayPlayers](_.text, RelayPlayers.apply)))
+    )(Data.apply)(unapply)
   )
 
   def create = form
 
   def edit(t: RelayTour) = form fill Data.make(t)
-}
 
-object RelayTourForm {
+object RelayTourForm:
 
   case class Data(
       name: String,
       description: String,
       markup: Option[Markdown],
       tier: Option[RelayTour.Tier],
-      autoLeaderboard: Boolean
-  ) {
+      autoLeaderboard: Boolean,
+      players: Option[RelayPlayers]
+  ):
 
     def update(tour: RelayTour, user: User) =
       tour
@@ -48,7 +49,8 @@ object RelayTourForm {
           description = description,
           markup = markup,
           tier = tier ifTrue Granter(_.Relay)(user),
-          autoLeaderboard = autoLeaderboard
+          autoLeaderboard = autoLeaderboard,
+          players = players
         )
         .reAssignIfOfficial
 
@@ -63,11 +65,11 @@ object RelayTourForm {
         active = false,
         createdAt = DateTime.now,
         syncedAt = none,
-        autoLeaderboard = autoLeaderboard
+        autoLeaderboard = autoLeaderboard,
+        players = players
       ).reAssignIfOfficial
-  }
 
-  object Data {
+  object Data:
 
     def make(tour: RelayTour) =
       Data(
@@ -75,7 +77,6 @@ object RelayTourForm {
         description = tour.description,
         markup = tour.markup,
         tier = tour.tier,
-        autoLeaderboard = tour.autoLeaderboard
+        autoLeaderboard = tour.autoLeaderboard,
+        players = tour.players
       )
-  }
-}

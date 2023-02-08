@@ -1,18 +1,18 @@
 package lila.tutor
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.Heapsort.implicits._
+import lila.common.Heapsort.given
 import lila.rating.PerfType
 import lila.user.User
 import lila.tutor.TutorCompare.AnyComparison
 
 case class TutorFullReport(
-    user: User.ID,
+    user: UserId,
     at: DateTime,
     perfs: List[TutorPerfReport]
-) {
+):
   def apply(perfType: PerfType) = perfs.find(_.perf == perfType)
   def isFresh = at isAfter DateTime.now.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
 
@@ -31,9 +31,9 @@ case class TutorFullReport(
       GoodPercent(time.toSeconds.toDouble, totalTime.toSeconds.toDouble)
     }
 
-  def strengths = ponderedHighlights(_.better) _
+  def strengths = ponderedHighlights(_.better)
 
-  val weaknesses = ponderedHighlights(_.worse) _
+  val weaknesses = ponderedHighlights(_.worse)
 
   // perfs with more games have more highlights
   def ponderedHighlights(compFilter: AnyComparison => Boolean)(nb: Int): List[(AnyComparison, PerfType)] =
@@ -47,22 +47,18 @@ case class TutorFullReport(
       .take(nb)
 
   override def toString = s"Report($user, $at, ${perfs.map(_.perf.key) mkString "+"})"
-}
 
-object TutorFullReport {
+object TutorFullReport:
 
   val freshness = 1 day
 
   sealed abstract class Availability
-  case class Available(report: TutorFullReport, fresher: Option[TutorQueue.Status]) extends Availability {
+  case class Available(report: TutorFullReport, fresher: Option[TutorQueue.Status]) extends Availability:
     def isFresh = fresher.isEmpty
-  }
   case class Empty(status: TutorQueue.Status) extends Availability
   case object InsufficientGames               extends Availability
 
-  object F {
+  object F:
     val user   = "user"
     val at     = "at"
     val millis = "millis"
-  }
-}

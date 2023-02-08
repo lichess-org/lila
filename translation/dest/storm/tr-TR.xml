@@ -52,6 +52,7 @@
   <string name="skipExplanation">Serini korumak için bu hamleyi atla! Her yarışta sadece bir atlama hakkın var.</string>
   <string name="failedPuzzles">Yanlış çözülen bulmacalar</string>
   <string name="slowPuzzles">Yavaş çözülen bulmacalar</string>
+  <string name="skippedPuzzle">Atlanan bulmaca</string>
   <string name="thisWeek">Bu hafta</string>
   <string name="thisMonth">Bu ay</string>
   <string name="allTime">Hep</string>

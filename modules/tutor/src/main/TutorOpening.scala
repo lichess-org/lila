@@ -7,12 +7,12 @@ import lila.analyse.AccuracyPercent
 import lila.common.{ Heapsort, LilaOpeningFamily }
 import lila.insight.{ Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
 import lila.rating.PerfType
-import lila.tutor.TutorCompare.comparisonOrdering
+import lila.tutor.TutorCompare.compOrder
 import lila.common.config
 
 case class TutorColorOpenings(
     families: List[TutorOpeningFamily]
-) {
+):
   lazy val accuracyCompare = TutorCompare[LilaOpeningFamily, AccuracyPercent](
     InsightDimension.OpeningFamily,
     TutorMetric.Accuracy,
@@ -32,26 +32,24 @@ case class TutorColorOpenings(
   lazy val allCompares = List(accuracyCompare, performanceCompare, awarenessCompare)
 
   def find(fam: LilaOpeningFamily) = families.find(_.family == fam)
-}
 
 case class TutorOpeningFamily(
     family: LilaOpeningFamily,
     performance: TutorBothValues[Rating],
     accuracy: TutorBothValueOptions[AccuracyPercent],
     awareness: TutorBothValueOptions[GoodPercent]
-) {
+):
 
   def mix: TutorBothValueOptions[GoodPercent] = accuracy.map(a => GoodPercent(a.value)) mix awareness
-}
 
-private case object TutorOpening {
+private case object TutorOpening:
 
-  import TutorBuilder._
+  import TutorBuilder.*
 
   val nbOpeningsPerColor  = 8
   private val peerNbGames = config.Max(10_000)
 
-  def compute(user: TutorUser)(implicit
+  def compute(user: TutorUser)(using
       insightApi: InsightApi,
       ec: ExecutionContext
   ): Fu[Color.Map[TutorColorOpenings]] = for {
@@ -59,10 +57,10 @@ private case object TutorOpening {
     blackOpenings <- computeOpenings(user, Color.Black)
   } yield Color.Map(whiteOpenings, blackOpenings)
 
-  def computeOpenings(user: TutorUser, color: Color)(implicit
+  def computeOpenings(user: TutorUser, color: Color)(using
       insightApi: InsightApi,
       ec: ExecutionContext
-  ): Fu[TutorColorOpenings] = {
+  ): Fu[TutorColorOpenings] =
     for {
       myPerfsFull <- answerMine(perfQuestion(color), user)
       myPerfs = myPerfsFull.copy(answer =
@@ -82,17 +80,15 @@ private case object TutorOpening {
       performances.mine.list.map { case (family, myPerformance) =>
         TutorOpeningFamily(
           family,
-          performance = performances.valueMetric(family, myPerformance) map Rating.apply,
-          accuracy = accuracy valueMetric family map AccuracyPercent.apply,
-          awareness = awareness valueMetric family map GoodPercent.apply
+          performance = Rating from performances.valueMetric(family, myPerformance),
+          accuracy = AccuracyPercent from accuracy.valueMetric(family),
+          awareness = GoodPercent from awareness.valueMetric(family)
         )
       }
     }
-  }
 
   def perfQuestion(color: Color) = Question(
     InsightDimension.OpeningFamily,
     InsightMetric.Performance,
     List(colorFilter(color))
   )
-}

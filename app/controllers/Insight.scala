@@ -2,16 +2,16 @@ package controllers
 
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsValue, Json }
-import play.api.mvc._
-import views._
+import play.api.mvc.*
+import views.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.insight.{ InsightDimension, InsightMetric }
 
-final class Insight(env: Env) extends LilaController(env) {
+final class Insight(env: Env) extends LilaController(env):
 
-  def refresh(username: String) =
+  def refresh(username: UserStr) =
     OpenOrScoped()(
       open = implicit ctx =>
         Accessible(username) { user =>
@@ -24,7 +24,7 @@ final class Insight(env: Env) extends LilaController(env) {
           }
     )
 
-  def index(username: String) = {
+  def index(username: UserStr) =
     def jsonStatus(user: lila.user.User) =
       env.insight.api userStatus user map { status =>
         Ok(Json.obj("status" -> status.toString))
@@ -39,38 +39,37 @@ final class Insight(env: Env) extends LilaController(env) {
         },
       scoped = req => me => AccessibleApi(username)(me.some)(jsonStatus)
     )
-  }
 
-  def path(username: String, metric: String, dimension: String, filters: String) =
+  def path(username: UserStr, metric: String, dimension: String, filters: String) =
     Open { implicit ctx =>
       Accessible(username) { doPath(_, metric, dimension, ~lila.common.String.decodeUriPath(filters)) }
     }
 
-  private def doPath(user: lila.user.User, metric: String, dimension: String, filters: String)(implicit
+  private def doPath(user: lila.user.User, metric: String, dimension: String, filters: String)(using
       ctx: Context
-  ) = {
-    import lila.insight.InsightApi.UserStatus._
+  ) =
+    import lila.insight.InsightApi.UserStatus.*
     env.insight.api userStatus user flatMap {
-      case NoGame => Ok(html.site.message.insightNoGames(user)).fuccess
-      case Empty  => Ok(html.insight.empty(user)).fuccess
+      case NoGame => Ok(html.site.message.insightNoGames(user)).toFuccess
+      case Empty  => Ok(html.insight.empty(user)).toFuccess
       case s =>
         for {
-          cache  <- env.insight.api insightUser user
-          prefId <- env.insight.share getPrefId user
+          insightUser <- env.insight.api insightUser user
+          prefId      <- env.insight.share getPrefId user
         } yield Ok(
           html.insight.index(
             u = user,
-            cache = cache,
+            insightUser = insightUser,
             prefId = prefId,
-            ui = env.insight.jsonView.ui(cache.families, cache.openings, asMod = isGranted(_.ViewBlurs)),
+            ui = env.insight.jsonView
+              .ui(insightUser.families, insightUser.openings, asMod = isGranted(_.ViewBlurs)),
             question = env.insight.jsonView.question(metric, dimension, filters),
             stale = s == Stale
           )
         )
     }
-  }
 
-  def json(username: String) =
+  def json(username: UserStr) =
     OpenOrScopedBody(parse.json)(Nil)(
       open = implicit ctx => {
         AccessibleApi(username)(ctx.me) { user =>
@@ -84,22 +83,21 @@ final class Insight(env: Env) extends LilaController(env) {
           }
     )
 
-  private def processQuestion(user: lila.user.User, body: Request[JsValue])(implicit lang: Lang) = {
-    import lila.insight.JsonQuestion, JsonQuestion._
+  private def processQuestion(user: lila.user.User, body: Request[JsValue])(implicit lang: Lang) =
+    import lila.insight.JsonQuestion, JsonQuestion.*
     body.body
       .validate[JsonQuestion]
       .fold(
-        err => BadRequest(jsonError(err.toString)).fuccess,
-        _.question.fold(BadRequest.fuccess) { q =>
-          env.insight.api.ask(q, user) map
-            lila.insight.Chart.fromAnswer(env.user.lightUserSync) map
-            env.insight.jsonView.chart.apply map { Ok(_) }
+        err => BadRequest(jsonError(err.toString)).toFuccess,
+        _.question.fold(BadRequest.toFuccess) { q =>
+          env.insight.api.ask(q, user) flatMap
+            lila.insight.Chart.fromAnswer(env.user.lightUser) map
+            env.insight.jsonView.chartWrites.writes map { Ok(_) }
         }
       )
-  }
 
-  private def Accessible(username: String)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
-    env.user.repo named username flatMap {
+  private def Accessible(username: UserStr)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
+    env.user.repo byId username flatMap {
       _.fold(notFound) { u =>
         env.insight.share.grant(u, ctx.me) flatMap {
           case true => f(u)
@@ -108,8 +106,8 @@ final class Insight(env: Env) extends LilaController(env) {
       }
     }
 
-  private def AccessibleApi(username: String)(me: Option[lila.user.User])(f: lila.user.User => Fu[Result]) =
-    env.user.repo named username flatMap {
+  private def AccessibleApi(username: UserStr)(me: Option[lila.user.User])(f: lila.user.User => Fu[Result]) =
+    env.user.repo byId username flatMap {
       _ ?? { u =>
         env.insight.share.grant(u, me) flatMap {
           case true => f(u)
@@ -117,4 +115,3 @@ final class Insight(env: Env) extends LilaController(env) {
         }
       }
     }
-}

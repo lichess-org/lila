@@ -37,11 +37,21 @@ Mängige kiiresti ning naaske ooteruumi, et mängida rohkem mänge ja võita roh
   </plurals>
   <string name="thisIsPrivate">See on privaatne turniir</string>
   <string name="shareUrl">Jagage seda URL\'i, et inimesed liituda saaks: %s</string>
-  <string name="drawStreak">Viigiseeria: kui mängijal on areenas mitu järjestikust viiki, ainult esimene viik annab punkti või viigid enam kui %s käiguga. Viigiseeria võib katkestada ainult võit, kuid mitte kaotus või veel üks viik.</string>
+  <string name="drawStreakStandard">Viigiseeria: kui mängijal on turniiril mitu järjestikust viiki, ainult esimene viik või viik enam kui %s käiku annab punkti. Viigiseeria võib katkestada ainult võit, mitte kaotus, ega viik.</string>
+  <string name="drawStreakVariants">Viigistatud partiide minimaalne pikkus punktide saamiseks on variantide kaupa erinev. Alljärgnevas tabelis on loetletud iga variandi piir.</string>
+  <string name="variant">Variant</string>
+  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Vähim käikude arv</string>
   <string name="history">Areena ajalugu</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Vaata võistkonda</item>
     <item quantity="other">Vaata kõiki %s võistkonda</item>
   </plurals>
+  <string name="newTeamBattle">Uus võistkonnalahing</string>
+  <string name="customStartDate">Kohandatud algusaeg</string>
   <string name="customStartDateHelp">Kohalikus ajavööndis. See tühistab \"Aega turniiri alguseni\" sätte</string>
+  <string name="allowBerserk">Luba Berserk</string>
+  <string name="allowBerserkHelp">Luba mängijatel vähendada oma kellaaega poole võrra, et saada lisapunkt</string>
+  <string name="allowChatHelp">Luba mängijatel jututoas arutleda</string>
+  <string name="arenaStreaks">Areeniseeria</string>
+  <string name="arenaStreaksHelp">2 võidu pärast annab iga järjestik võit 2 punkti asemel 4 punkti.</string>
 </resources>

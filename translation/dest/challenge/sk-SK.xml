@@ -22,4 +22,5 @@
   <string name="declineVariant">Momentálne nie som ochotný hrať tento variant.</string>
   <string name="declineNoBot">Neprijímam výzvy od botov.</string>
   <string name="declineOnlyBot">Prijímam výlučne výzvy od botov.</string>
+  <string name="inviteLichessUser">Alebo pozvite používateľa Lichess:</string>
 </resources>

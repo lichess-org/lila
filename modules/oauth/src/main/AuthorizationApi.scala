@@ -2,14 +2,14 @@ package lila.oauth
 
 import org.joda.time.DateTime
 import cats.data.Validated
-import reactivemongo.api.bson._
-import lila.db.dsl._
+import reactivemongo.api.bson.*
+import lila.db.dsl.*
 import lila.user.User
 
-final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
-  import AuthorizationApi.{ BSONFields => F, PendingAuthorization, PendingAuthorizationBSONHandler }
+final class AuthorizationApi(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+  import AuthorizationApi.{ BSONFields as F, PendingAuthorization, PendingAuthorizationBSONHandler }
 
-  def create(request: AuthorizationRequest.Authorized): Fu[Protocol.AuthorizationCode] = {
+  def create(request: AuthorizationRequest.Authorized): Fu[Protocol.AuthorizationCode] =
     val code = Protocol.AuthorizationCode.random()
     coll.insert.one(
       PendingAuthorizationBSONHandler write PendingAuthorization(
@@ -22,7 +22,6 @@ final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.Execu
         DateTime.now().plusSeconds(120)
       )
     ) inject code
-  }
 
   def consume(
       request: AccessTokenRequest.Prepared
@@ -35,7 +34,7 @@ final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.Execu
           .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(DateTime.now()))
           .ensure(Protocol.Error.MismatchingRedirectUri)(_.redirectUri.matches(request.redirectUri))
           .ensure(Protocol.Error.MismatchingClient)(_.clientId == request.clientId)
-        _ <- pending.challenge match {
+        _ <- pending.challenge match
           case Left(hashedClientSecret) =>
             request.clientSecret
               .toValid(LegacyClientApi.ClientSecretIgnored)
@@ -46,13 +45,11 @@ final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.Execu
               .toValid(LegacyClientApi.CodeVerifierIgnored)
               .ensure(Protocol.Error.MismatchingCodeVerifier)(_.matches(codeChallenge))
               .map(_.unit)
-        }
       } yield AccessTokenRequest.Granted(pending.userId, pending.scopes, pending.redirectUri)
     }
-}
 
-private object AuthorizationApi {
-  object BSONFields {
+private object AuthorizationApi:
+  object BSONFields:
     val hashedCode         = "_id"
     val clientId           = "clientId"
     val userId             = "userId"
@@ -61,12 +58,11 @@ private object AuthorizationApi {
     val hashedClientSecret = "hashedClientSecret"
     val scopes             = "scopes"
     val expires            = "expires"
-  }
 
   case class PendingAuthorization(
       hashedCode: String,
       clientId: Protocol.ClientId,
-      userId: User.ID,
+      userId: UserId,
       redirectUri: Protocol.RedirectUri,
       challenge: Either[LegacyClientApi.HashedClientSecret, Protocol.CodeChallenge],
       scopes: List[OAuthScope],
@@ -74,16 +70,15 @@ private object AuthorizationApi {
   )
 
   import lila.db.BSON
-  import lila.db.dsl._
-  import BSON.BSONJodaDateTimeHandler
-  import AuthorizationApi.{ BSONFields => F }
+  import lila.db.dsl.{ *, given }
+  import AuthorizationApi.{ BSONFields as F }
 
-  implicit object PendingAuthorizationBSONHandler extends BSON[PendingAuthorization] {
+  implicit object PendingAuthorizationBSONHandler extends BSON[PendingAuthorization]:
     def reads(r: BSON.Reader): PendingAuthorization =
       PendingAuthorization(
         hashedCode = r.str(F.hashedCode),
         clientId = Protocol.ClientId(r.str(F.clientId)),
-        userId = r.str(F.userId),
+        userId = r.get[UserId](F.userId),
         redirectUri = Protocol.RedirectUri.unchecked(r.str(F.redirectUri)),
         challenge = r.strO(F.hashedClientSecret) match {
           case Some(hashedClientSecret) => Left(LegacyClientApi.HashedClientSecret(hashedClientSecret))
@@ -99,10 +94,8 @@ private object AuthorizationApi {
         F.clientId           -> o.clientId.value,
         F.userId             -> o.userId,
         F.redirectUri        -> o.redirectUri.value.toString,
-        F.codeChallenge      -> o.challenge.toOption.map(_.value),
+        F.codeChallenge      -> o.challenge.toOption,
         F.hashedClientSecret -> o.challenge.swap.toOption.map(_.value),
         F.scopes             -> o.scopes,
         F.expires            -> o.expires
       )
-  }
-}

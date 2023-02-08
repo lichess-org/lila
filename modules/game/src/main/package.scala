@@ -1,9 +1,13 @@
-package lila
+package lila.game
 
-package object game extends PackageObject {
+import alleycats.Zero
+import cats.kernel.Monoid
+import chess.PositionHash
 
-  type PgnMoves    = Vector[String]
-  type RatingDiffs = chess.Color.Map[Int]
+export lila.Lila.{ *, given }
 
-  private[game] def logger = lila.log("game")
-}
+type RatingDiffs = chess.Color.Map[IntRatingDiff]
+
+given Zero[PositionHash] = Zero(Monoid[PositionHash].empty)
+
+private val logger = lila.log("game")

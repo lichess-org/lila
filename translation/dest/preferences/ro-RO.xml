@@ -3,6 +3,7 @@
   <string name="preferences">Preferințe</string>
   <string name="display">Afișare</string>
   <string name="privacy">Confidențialitate</string>
+  <string name="notifications">Notificări</string>
   <string name="pieceAnimation">Animația piesei</string>
   <string name="materialDifference">Diferență de piese capturate</string>
   <string name="boardHighlights">Evidențiază pe tablă (ultima mutare și șahul)</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Țineți apăsată tasta &lt;ctrl&gt; în timp ce promovați un pion pentru a dezactiva temporar promovarea automată</string>
   <string name="whenPremoving">În cazul mutărilor anticipate</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Declară automat o remiză în cazul a trei repetări</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Când timpul rămas e mai scurt de 30 de secunde</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Când timpul rămas e mai scurt de 30 de secunde</string>
   <string name="moveConfirmation">Confirmare mutare</string>
   <string name="inCorrespondenceGames">În jocuri prin corespondență</string>
   <string name="correspondenceAndUnlimited">Corespondență sau timp nelimitat</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate</string>
   <string name="scrollOnTheBoardToReplayMoves">Derulează pe tablă pentru a rejuca mutările</string>
   <string name="correspondenceEmailNotification">Notificare zilnică prin email cu lista jocurilor prin corespondență</string>
+  <string name="notifyStreamStart">Un streamer e live</string>
+  <string name="notifyInboxMsg">Mesaj nou</string>
+  <string name="notifyForumMention">Un comentariu din forum vă menționează</string>
+  <string name="notifyInvitedStudy">Invitație la un studiu</string>
+  <string name="notifyGameEvent">Actualizări la jocurile prin corespondență</string>
+  <string name="notifyChallenge">Provocări</string>
+  <string name="notifyTournamentSoon">Turneul începe în curând</string>
+  <string name="notifyTimeAlarm">Timpul rămas la jocurile prin corespondenţă e scurt</string>
+  <string name="notifyBell">Notificare în Lichess</string>
+  <string name="notifyPush">Notificare dispozitiv când nu ești în Lichess</string>
+  <string name="notifyWeb">Navigator</string>
+  <string name="notifyDevice">Dispozitiv</string>
 </resources>

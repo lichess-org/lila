@@ -2,7 +2,7 @@ package lila.appeal
 
 import org.joda.time.DateTime
 
-import lila.db.dsl._
+import lila.db.dsl.{ given, * }
 import lila.user.{ Holder, NoteApi, User, UserRepo }
 import reactivemongo.api.ReadPreference
 
@@ -11,17 +11,17 @@ final class AppealApi(
     userRepo: UserRepo,
     noteApi: NoteApi,
     snoozer: lila.memo.Snoozer[Appeal.SnoozeKey]
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def mine(me: User): Fu[Option[Appeal]] = coll.byId[Appeal](me.id)
 
   def get(user: User) = coll.byId[Appeal](user.id)
 
-  def byUserIds(userIds: List[User.ID]) = coll.byIds[Appeal](userIds)
+  def byUserIds(userIds: List[UserId]) = coll.byIds[Appeal, UserId](userIds)
 
-  def byId(appealId: User.ID) = coll.byId[Appeal](appealId)
+  def byId(appealId: UserId) = coll.byId[Appeal](appealId)
 
   def exists(user: User) = coll.exists($id(user.id))
 
@@ -30,7 +30,7 @@ final class AppealApi(
       case None =>
         val appeal =
           Appeal(
-            _id = me.id,
+            id = me.id into Appeal.Id,
             msgs = Vector(
               AppealMsg(
                 by = me.id,
@@ -49,7 +49,7 @@ final class AppealApi(
         coll.update.one($id(appeal.id), appeal) inject appeal
     }
 
-  def reply(text: String, prev: Appeal, mod: Holder, preset: Option[String]) = {
+  def reply(text: String, prev: Appeal, mod: Holder, preset: Option[String]) =
     val appeal = prev.post(text, mod.user)
     coll.update.one($id(appeal.id), appeal) >> {
       preset ?? { note =>
@@ -58,13 +58,12 @@ final class AppealApi(
         }
       }
     } inject appeal
-  }
 
   def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
 
-  def queueOf(mod: User) = bothQueues(snoozer snoozedKeysOf mod.id map (_.appealId))
+  def queueOf(mod: User) = bothQueues(snoozer snoozedKeysOf mod.id map (_.appealId.userId))
 
-  private def bothQueues(exceptIds: Iterable[User.ID]): Fu[List[Appeal.WithUser]] =
+  private def bothQueues(exceptIds: Iterable[UserId]): Fu[List[Appeal.WithUser]] =
     fetchQueue(
       selector = $doc("status" -> Appeal.Status.Unread.key) ++ {
         exceptIds.nonEmpty ?? $doc("_id" $nin exceptIds)
@@ -85,9 +84,9 @@ final class AppealApi(
         maxDocs = nb,
         ReadPreference.secondaryPreferred
       ) { framework =>
-        import framework._
+        import framework.*
         Match(selector) -> List(
-          Sort((if (ascending) Ascending.apply _ else Descending.apply _)("firstUnrepliedAt")),
+          Sort((if (ascending) Ascending.apply else Descending.apply) ("firstUnrepliedAt")),
           Limit(nb),
           PipelineOperator(
             $lookup.simple(
@@ -117,14 +116,13 @@ final class AppealApi(
   def toggleMute(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.toggleMute).void
 
-  def setReadById(userId: User.ID) =
+  def setReadById(userId: UserId) =
     byId(userId) flatMap { _ ?? setRead }
 
-  def setUnreadById(userId: User.ID) =
+  def setUnreadById(userId: UserId) =
     byId(userId) flatMap { _ ?? setUnread }
 
   def onAccountClose(user: User) = setReadById(user.id)
 
-  def snooze(mod: User, appealId: User.ID, duration: String): Unit =
+  def snooze(mod: User, appealId: Appeal.Id, duration: String): Unit =
     snoozer.set(Appeal.SnoozeKey(mod.id, appealId), duration)
-}

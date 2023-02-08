@@ -60,8 +60,8 @@
   <string name="shareChanges">Поделиться изменениями со зрителями и сохранить их на сервере</string>
   <string name="playing">Активные</string>
   <string name="first">Первая</string>
-  <string name="previous">Предыдущая</string>
-  <string name="next">Следующая</string>
+  <string name="previous">Назад</string>
+  <string name="next">Дальше</string>
   <string name="last">Последняя</string>
   <string name="shareAndExport">Поделиться и экспортировать</string>
   <string name="cloneStudy">Клонировать</string>

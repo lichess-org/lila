@@ -60,8 +60,8 @@
   <string name="depthX">Profunzime %s</string>
   <string name="usingServerAnalysis">Utilizează analiză de server</string>
   <string name="loadingEngine">Se încarcă motorul de analiză...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Se calculează mutările...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Eroare încărcare motor</string>
+  <string name="calculatingMoves">Se calculează mutările...</string>
+  <string name="engineFailed">Eroare încărcare motor</string>
   <string name="cloudAnalysis">Analiză online</string>
   <string name="goDeeper">Mergi mai în profunzime</string>
   <string name="showThreat">Afișează amenințarea</string>
@@ -96,6 +96,7 @@
   <string name="dtzWithRounding">DTZ50\'\' cu rotunjire, bazat pe numărul de jumătăți de mutări până la următoarea captură sau mutare de pion</string>
   <string name="noGameFound">Nu a fost găsit nici un joc</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Poate doriți să includeți mai multe jocuri din meniul de preferințe?</string>
+  <string name="openings">Deschideri</string>
   <string name="openingExplorer">Exploratorul de deschideri</string>
   <string name="openingEndgameExplorer">Explorator de deschideri/finaluri de joc</string>
   <string name="xOpeningExplorer">Exploratorul de deschideri %s</string>
@@ -165,6 +166,7 @@
   <string name="viewInFullSize">Vezi la dimensiune completă</string>
   <string name="logOut">Deconectare</string>
   <string name="signIn">Autentificare</string>
+  <string name="rememberMe">Ține-mă minte</string>
   <string name="youNeedAnAccountToDoThat">Aveți nevoie de cont pentru această acțiune</string>
   <string name="signUp">Înregistrare</string>
   <string name="computersAreNotAllowedToPlay">Computerele și jucătorii asistați de computer nu au voie să joace. Vă rugăm ca în timpul partidei să nu primiți asistență de la motoare de șah, baze de date, sau de la alți jucători. Rețineți totodată că acțiunea de creare a mai multor conturi este descurajată și că un număr mare de conturi vor conduce la blocarea accesului pe site (ban).</string>
@@ -208,12 +210,31 @@
   <string name="changeUsername">Schimbă numele de utilizator</string>
   <string name="changeUsernameNotSame">Se poate interschimba din minuscule în majuscule. De exemplu: „johndoe” în „JohnDoe”.</string>
   <string name="changeUsernameDescription">Schimbă-ți numele de utilizator. Această operație poate fi efectuată o singură dată și presupune doar schimbarea literelor din minuscule în majuscule și invers.</string>
+  <string name="signupUsernameHint">Asigurați-vă că alegeți un nume de utilizator decent. Nu îl puteți schimba mai târziu și orice cont cu nume de utilizator indecent va fi închis!</string>
+  <string name="signupEmailHint">Îl vom folosi doar pentru resetarea parolei.</string>
   <string name="password">Parolă</string>
   <string name="changePassword">Schimbă parola</string>
   <string name="changeEmail">Schimbă emailul</string>
   <string name="email">Email</string>
   <string name="passwordReset">Resetează parola</string>
   <string name="forgotPassword">Ți-ai uitat parola?</string>
+  <string name="emailConfirmHelp">Ajutor cu confirmarea adresei de email</string>
+  <string name="emailConfirmNotReceived">Nu ai primit emailul de confirmare după înregistrare?</string>
+  <string name="whatSignupUsername">Ce nume de utilizator ai folosit pentru a te înregistra?</string>
+  <string name="usernameNotFound">Nu am putut găsi niciun utilizator cu acest nume: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Poți folosi acest nume de utilizator pentru a crea un cont nou</string>
+  <string name="emailSent">Am trimis un email la %s.</string>
+  <string name="emailCanTakeSomeTime">Poate dura ceva timp să ajungă.</string>
+  <string name="refreshInboxAfterFiveMinutes">Așteptați 5 minute și reîncărcați emailurile primite.</string>
+  <string name="checkSpamFolder">De asemenea, verificați folderul de spam, ar putea ajunge acolo. În acel caz, marcați-l ca nefiind spam.</string>
+  <string name="emailForSignupHelp">Dacă niciuna dintre variantele anterioare nu functioneaza, trimiteți-ne acest email:</string>
+  <string name="copyTextToEmail">Dați copy-paste la textul de mai sus și trimiteți-l la %s</string>
+  <string name="waitForSignupHelp">Vom reveni în curând cu un răspuns pentru a vă ajuta să finalizați înregistrarea.</string>
+  <string name="accountConfirmed">Utilizatorul %s a fost confirmat cu succes.</string>
+  <string name="accountCanLogin">Vă puteți autentifica chiar acum ca %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Nu aveți nevoie de un email de confirmare.</string>
+  <string name="accountClosed">Contul %s este închis.</string>
+  <string name="accountRegisteredWithoutEmail">Contul %s a fost înregistrat fără o adresă de email.</string>
   <string name="rank">Clasificare</string>
   <string name="rankX">Loc în clasament: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -368,6 +389,7 @@
   <string name="siteDescription">Șah online gratuit. Joacă șah acum într-o interfață simplă. Fără înregistrare, fără reclame, fără plugin-uri. Joacă șah cu calculatorul, cu prietenii sau cu alți jucători aleși la întâmplare.</string>
   <string name="xJoinedTeamY">%1$s a intrat în echipa %2$s</string>
   <string name="xCreatedTeamY">%1$s a creat echipa %2$s</string>
+  <string name="startedStreaming">e live</string>
   <string name="xStartedStreaming">%s a început să facă stream</string>
   <string name="averageElo">Medie rating</string>
   <string name="location">Locaţie</string>
@@ -549,6 +571,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Note</string>
   <string name="typePrivateNotesHere">Scrie în privat aici</string>
+  <string name="writeAPrivateNoteAboutThisUser">Scrie o notiță privată despre acest utilizator</string>
+  <string name="noNoteYet">Nici o notiță încă</string>
   <string name="invalidUsernameOrPassword">Nume sau parolă invalidă</string>
   <string name="incorrectPassword">Parolă greșită</string>
   <string name="invalidAuthenticationCode">Cod de autentificare incorect</string>
@@ -668,6 +692,7 @@
   <string name="tournamentFAQ">Întrebări și răspunsuri pentru turneu</string>
   <string name="timeBeforeTournamentStarts">Timp până la începerea turneului</string>
   <string name="averageCentipawnLoss">Medie pion-cenți pierduți</string>
+  <string name="accuracy">Acuratețe</string>
   <string name="keyboardShortcuts">Scurtături taste</string>
   <string name="keyMoveBackwardOrForward">mută înapoi/înainte</string>
   <string name="keyGoToStartOrEnd">început/sfârșit</string>
@@ -752,6 +777,7 @@
   <string name="light">Luminos</string>
   <string name="dark">Culoare închisă</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Tema dispozitivului</string>
   <string name="backgroundImageUrl">URL-ul imaginii de fundal:</string>
   <string name="boardGeometry">Geometria tablei</string>
   <string name="boardTheme">Tema tablei</string>
@@ -781,6 +807,7 @@
   <string name="bestWasX">Cea mai bună mutare este: %s</string>
   <string name="youBrowsedAway">Ați părăsit jocul cu computer-ul</string>
   <string name="resumePractice">Reia antrenamentul</string>
+  <string name="drawByFiftyMoves">Partida s-a terminat remiză din cauza regulii de 50 de mutări.</string>
   <string name="theGameIsADraw">Remiză.</string>
   <string name="computerThinking">Calculatorul se gândește ...</string>
   <string name="seeBestMove">Vezi cea mai bună mutare</string>

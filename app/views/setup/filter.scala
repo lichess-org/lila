@@ -2,14 +2,14 @@ package views.html.setup
 
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.RatingRange
 
-object filter {
+object filter:
 
-  def apply(form: Form[_])(implicit ctx: Context) =
+  def apply(form: Form[?])(implicit ctx: Context) =
     frag(
       st.form(novalidate)(
         table(
@@ -81,7 +81,7 @@ object filter {
     )
 
   def renderCheckboxes(
-      form: Form[_],
+      form: Form[?],
       key: String,
       options: Seq[(Any, String, Option[String])],
       checks: Set[String] = Set.empty
@@ -93,7 +93,7 @@ object filter {
     }
 
   private def renderCheckbox(
-      form: Form[_],
+      form: Form[?],
       key: String,
       index: Int,
       value: String,
@@ -111,4 +111,3 @@ object filter {
       ),
       content
     )
-}

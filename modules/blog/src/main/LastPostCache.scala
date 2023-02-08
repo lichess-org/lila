@@ -7,15 +7,15 @@ final class LastPostCache(
     notifier: Notifier,
     config: BlogConfig,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   private val cache = cacheApi.sync[Boolean, Option[MiniPost]](
     name = "blog.lastPost",
     initialCapacity = 1,
     compute = _ => fetch,
     default = _ => none,
-    expireAfter = Syncache.ExpireAfterWrite(config.lastPostTtl),
-    strategy = Syncache.NeverWait
+    expireAfter = Syncache.ExpireAfter.Write(config.lastPostTtl),
+    strategy = Syncache.Strategy.NeverWait
   )
 
   private def fetch: Fu[Option[MiniPost]] = {
@@ -37,4 +37,3 @@ final class LastPostCache(
     }
 
   def apply: Option[MiniPost] = cache sync true
-}

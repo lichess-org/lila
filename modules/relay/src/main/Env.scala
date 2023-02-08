@@ -1,11 +1,11 @@
 package lila.relay
 
-import akka.actor._
-import com.softwaremill.macwire._
+import akka.actor.*
+import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 
 final class Env(
     ws: StandaloneWSClient,
@@ -21,11 +21,12 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     irc: lila.irc.IrcApi,
     baseUrl: BaseUrl
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    scheduler: Scheduler
-) {
+    scheduler: Scheduler,
+    materializer: akka.stream.Materializer
+):
 
   lazy val roundForm = wire[RelayRoundForm]
 
@@ -61,13 +62,18 @@ final class Env(
     ()
   }
 
-  lila.common.Bus.subscribeFun("study", "relayToggle") {
-    case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId).unit
-    case lila.study.actorApi.RelayToggle(id, v, who) =>
+  lila.common.Bus.subscribeFuns(
+    "study" -> { case lila.hub.actorApi.study.RemoveStudy(studyId, _) =>
+      api.onStudyRemove(studyId).unit
+    },
+    "relayToggle" -> { case lila.study.actorApi.RelayToggle(id, v, who) =>
       studyApi.isContributor(id, who.u) foreach {
         _ ?? {
-          api.requestPlay(RelayRound.Id(id.value), v)
+          api.requestPlay(id into RelayRoundId, v)
         }
       }
-  }
-}
+    },
+    "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>
+      promise completeWith api.officialActive.get({}).map(_.exists(_.round.studyId == studyId))
+    }
+  )

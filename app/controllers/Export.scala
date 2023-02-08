@@ -1,19 +1,20 @@
 package controllers
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import akka.util.ByteString
 import chess.Color
-import chess.format.{ FEN, Forsyth, Uci }
+import chess.format.{ Fen, Uci }
 import chess.variant.{ Standard, Variant }
 import play.api.mvc.{ RequestHeader, Result }
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
+import scala.util.chaining.*
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.Pov
-import lila.puzzle.Puzzle.Id
+import lila.pref.{ PieceSet, Theme }
 
-final class Export(env: Env) extends LilaController(env) {
+final class Export(env: Env) extends LilaController(env):
 
   private val ExportImageRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 600,
@@ -39,47 +40,65 @@ final class Export(env: Env) extends LilaController(env) {
       }
     }
 
-  def gif(id: String, color: String) =
+  def gif(id: GameId, color: String, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo gameWithInitialFen id) { g =>
-      env.game.gifExport.fromPov(Pov(g.game, Color.fromName(color) | Color.white), g.fen) map
-        stream(cacheSeconds = if (g.game.finishedOrAborted) 3600 * 24 else 10)
+      env.game.gifExport.fromPov(
+        Pov(g.game, Color.fromName(color) | Color.white),
+        g.fen,
+        Theme(theme).name,
+        PieceSet.get(piece).name
+      ) pipe stream(cacheSeconds = if (g.game.finishedOrAborted) 3600 * 24 else 10)
     }
 
-  def legacyGameThumbnail(id: String) =
+  def legacyGameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) =
     Action {
-      MovedPermanently(routes.Export.gameThumbnail(id).url)
+      MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url)
     }
 
-  def gameThumbnail(id: String) = exportImageOf(env.game.gameRepo game id) { game =>
-    env.game.gifExport.gameThumbnail(game) map
-      stream(cacheSeconds = if (game.finishedOrAborted) 3600 * 24 else 10)
-  }
+  def gameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) =
+    exportImageOf(env.game.gameRepo game id) { game =>
+      env.game.gifExport.gameThumbnail(game, Theme(theme).name, PieceSet.get(piece).name) pipe
+        stream(cacheSeconds = if (game.finishedOrAborted) 3600 * 24 else 10)
+    }
 
-  def puzzleThumbnail(id: String) =
-    exportImageOf(env.puzzle.api.puzzle find Id(id)) { puzzle =>
+  def puzzleThumbnail(id: PuzzleId, theme: Option[String], piece: Option[String]) =
+    exportImageOf(env.puzzle.api.puzzle find id) { puzzle =>
       env.game.gifExport.thumbnail(
         fen = puzzle.fenAfterInitialMove,
-        lastMove = puzzle.line.head.uci.some,
+        lastMove = puzzle.line.head.some,
         orientation = puzzle.color,
-        variant = Standard
-      ) map stream()
+        variant = Standard,
+        Theme(theme).name,
+        PieceSet.get(piece).name
+      ) pipe stream()
     }
 
-  def fenThumbnail(fen: String, color: String, lastMove: Option[String], variant: Option[String]) =
-    exportImageOf(fuccess(Forsyth << FEN.clean(fen))) { _ =>
+  def fenThumbnail(
+      fen: String,
+      color: String,
+      lastMove: Option[Uci],
+      variant: Option[Variant.LilaKey],
+      theme: Option[String],
+      piece: Option[String]
+  ) =
+    exportImageOf(fuccess(Fen read Fen.Epd.clean(fen))) { _ =>
       env.game.gifExport.thumbnail(
-        fen = FEN clean fen,
-        lastMove = lastMove flatMap (Uci.Move(_).map(_.uci)),
+        fen = Fen.Epd.clean(fen),
+        lastMove = lastMove,
         orientation = Color.fromName(color) | Color.White,
-        variant = Variant(variant.getOrElse("standard")) | Standard
-      ) map stream()
+        variant = Variant.orDefault(variant),
+        Theme(theme).name,
+        PieceSet.get(piece).name
+      ) pipe stream()
     }
 
   private def stream(contentType: String = "image/gif", cacheSeconds: Int = 1209600)(
-      stream: Source[ByteString, _]
-  ) =
-    Ok.chunked(stream)
-      .withHeaders(noProxyBufferHeader)
-      .withHeaders(CACHE_CONTROL -> s"max-age=$cacheSeconds")
-      .as(contentType)
-}
+      upstream: Fu[Source[ByteString, ?]]
+  ): Fu[Result] = upstream
+    .map { stream =>
+      Ok.chunked(stream)
+        .withHeaders(noProxyBufferHeader)
+        .withHeaders(CACHE_CONTROL -> s"max-age=$cacheSeconds")
+        .as(contentType)
+    }
+    .recover { case lila.game.GifExport.UpstreamStatus(code) => Status(code) }

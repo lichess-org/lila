@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Antaŭenigita peono</string>
+  <string name="advancedPawnDescription">Unu de viaj peonoj estas avancita en kontraŭula pozicio, ĝi eble minacas promocii.</string>
   <string name="advantage">Avantaĝo</string>
+  <string name="advantageDescription">Profitu viajn ŝancojn por havi decida avantaĝo. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasia ŝakmato</string>
+  <string name="anastasiaMateDescription">Ĉevalo kaj turo aŭ damo laboras kune por kapti la kontraŭa reĝo inter la flanko de la tabulo kaj amika ŝakpeco.</string>
   <string name="arabianMate">Araba ŝakmato</string>
+  <string name="arabianMateDescription">Ĉevalo kaj turo laboras kune por kapti la kontraŭa reĝo en angulo de la tabulo.</string>
   <string name="attackingF2F7">Atako al f2 aŭ f7</string>
   <string name="attraction">Altiro</string>
+  <string name="attractionDescription">Interŝanĝo aŭ ofero kiu instigas aŭ trudas kontraŭulan ŝakpecon al kvadrato ke ebligas taktikon.</string>
   <string name="bishopEndgame">Kuriera finaĵo</string>
   <string name="bishopEndgameDescription">Finaĵo nur kun kurieroj kaj peonoj.</string>
   <string name="bodenMate">Boden ŝakmato</string>
@@ -52,6 +57,7 @@
   <string name="pawnEndgame">Peona finaĵo</string>
   <string name="pawnEndgameDescription">Finaĵo nur kun peonoj.</string>
   <string name="promotion">Damigo</string>
+  <string name="promotionDescription">Damigi unu el viaj peonoj al damo, ĉevalo, kuriero aŭ turo.</string>
   <string name="queenEndgame">Dama finaĵo</string>
   <string name="queenEndgameDescription">Finaĵo nur kun damoj kaj peonoj.</string>
   <string name="queenRookEndgame">Damo kaj Turo</string>
@@ -63,8 +69,10 @@
   <string name="short">Mallonga puzlo</string>
   <string name="shortDescription">Du movoj por venki.</string>
   <string name="trappedPiece">Kaptita ŝakpeco</string>
+  <string name="underPromotion">Subdamigo</string>
   <string name="underPromotionDescription">Damigi al ĉevalo, kuriero aŭ turo.</string>
   <string name="veryLong">Tre longa puzlo</string>
   <string name="veryLongDescription">Kvar aŭ pliaj movoj por venki.</string>
   <string name="xRayAttack">X-radia atako</string>
+  <string name="zugzwang">Movdevigo</string>
 </resources>

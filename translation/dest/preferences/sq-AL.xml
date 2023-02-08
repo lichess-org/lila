@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Personifikimet</string>
+  <string name="display">Shfaqje</string>
+  <string name="privacy">Privatësi</string>
   <string name="pieceAnimation">Animimi i figurave</string>
   <string name="materialDifference">Ndryshimi në material</string>
   <string name="boardHighlights">Nënvizo fushën, (lëvizjen e fundit dhe shah)</string>
@@ -34,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Mbani të shtypur tastin &lt;Ctrl&gt; gjatë daljes, për të çaktivizuar përkohësisht daljet e automatizuara</string>
   <string name="whenPremoving">Kur paracaktohet lëvizja</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Pretendo barazim ne perseritjen tre here te levizjeve automatikisht</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Kur koha e mbetur &lt;30 sekonda</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kur koha e mbetur &lt;30 sekonda</string>
   <string name="moveConfirmation">Pohim i lëvizjeve</string>
   <string name="inCorrespondenceGames">Lojëkëmbimet</string>
   <string name="correspondenceAndUnlimited">Korrespondencë dhe i pakufizuar</string>
@@ -45,5 +47,6 @@
   <string name="inputMovesWithTheKeyboard">Vendos levizjet me tastiere</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Shkruaj “Lojë e mirë, bukur luajtët” pas barazimit ose humbjes</string>
   <string name="yourPreferencesHaveBeenSaved">Parapëlqimet tuaja janë ruajtur.</string>
+  <string name="scrollOnTheBoardToReplayMoves">Rrëshqitni nëpër tabelë që të riluhen lëvizje</string>
   <string name="correspondenceEmailNotification">Njoftim i përditshëm me email, që paraqet lojërat tuaja me korrespondencë</string>
 </resources>

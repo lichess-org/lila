@@ -1,6 +1,8 @@
-package lila
+package lila.opening
 
-package object opening extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[opening] val logger = lila.log("opening")
-}
+private val logger = lila.log("opening")
+
+type PopularityHistoryAbsolute = List[Int]
+type PopularityHistoryPercent  = List[Float]

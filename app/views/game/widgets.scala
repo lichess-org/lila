@@ -1,18 +1,18 @@
 package views.html
 package game
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Player, Pov }
 
-object widgets {
+object widgets:
 
   private val separator = " • "
 
   def apply(
       games: Seq[Game],
-      notes: Map[Game.ID, String] = Map(),
+      notes: Map[GameId, String] = Map(),
       user: Option[lila.user.User] = None,
       ownerLink: Boolean = false
   )(implicit ctx: Context): Frag =
@@ -54,7 +54,7 @@ object widgets {
                   frag(separator, views.html.simul.bits.link(simulId))
                 } orElse
                 g.swissId.map { swissId =>
-                  frag(separator, views.html.swiss.bits.link(lila.swiss.Swiss.Id(swissId)))
+                  frag(separator, views.html.swiss.bits.link(SwissId(swissId)))
                 }
             )
           ),
@@ -79,19 +79,18 @@ object widgets {
               else g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
             }
           ),
-          if (g.turns > 0) {
-            val pgnMoves = g.pgnMoves take 20
+          if (g.playedTurns > 0) {
             div(cls := "opening")(
               (!g.fromPosition ?? g.opening) map { opening =>
-                strong(opening.opening.ecoName)
+                strong(opening.opening.name)
               },
               div(cls := "pgn")(
-                pgnMoves.take(6).grouped(2).zipWithIndex map {
+                g.sans.take(6).grouped(2).zipWithIndex map {
                   case (Vector(w, b), i) => s"${i + 1}. $w $b"
                   case (Vector(w), i)    => s"${i + 1}. $w"
                   case _                 => ""
                 } mkString " ",
-                g.turns > 6 option s" ... ${1 + (g.turns - 1) / 2} moves "
+                g.ply > 6 option s" ... ${1 + (g.ply.value - 1) / 2} moves "
               )
             )
           } else frag(br, br),
@@ -114,8 +113,8 @@ object widgets {
       game.daysPerTurn
         .map { days =>
           span(title := trans.correspondence.txt())(
-            if (days == 1) trans.oneDay()
-            else trans.nbDays.pluralSame(days)
+            if (days.value == 1) trans.oneDay()
+            else trans.nbDays.pluralSame(days.value)
           )
         }
         .getOrElse {
@@ -134,7 +133,7 @@ object widgets {
           player.berserk option berserkIconSpan,
           ctx.pref.showRatings option frag(
             playerUser.rating,
-            player.provisional option "?",
+            player.provisional.yes option "?",
             playerUser.ratingDiff map { d =>
               frag(" ", showRatingDiff(d))
             }
@@ -155,4 +154,3 @@ object widgets {
         }
       }
     )
-}

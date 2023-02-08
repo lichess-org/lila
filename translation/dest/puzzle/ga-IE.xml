@@ -13,6 +13,8 @@
   <string name="specialMoves">Bearta speisialta</string>
   <string name="didYouLikeThisPuzzle">Ba mhaith leat an fadhb seo?</string>
   <string name="voteToLoadNextOne">Vótáil chun an chéad cheann eile a lódáil!</string>
+  <string name="upVote">Fadhb vóta suas</string>
+  <string name="downVote">Fadhb vóta síos</string>
   <string name="yourPuzzleRatingWillNotChange">Ní thiocfaidh aon athrú ar do rátáil fadhbanna. Tabhair faoi deara nach comórtas iad fadhbanna. Cuidíonn rátáil leis na fadhbanna is fearr a roghnú do do scil reatha.</string>
   <string name="findTheBestMoveForWhite">Faigh an beart is fearr do bán.</string>
   <string name="findTheBestMoveForBlack">Faigh an beart is fearr do dubh.</string>

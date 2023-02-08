@@ -1,4 +1,4 @@
-import patch from './patch';
+import { patch } from './view/util';
 import makeBoot from './boot';
 import makeStart from './start';
 import LichessChat from 'chat';
@@ -14,3 +14,5 @@ export const boot = makeBoot(start);
 // without having to include it a second time
 window.Chessground = Chessground;
 window.LichessChat = LichessChat;
+
+(window as any).LichessAnalyse = { start, boot }; // esbuild

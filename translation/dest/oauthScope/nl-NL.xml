@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Nieuwe persoonlijk API toegangs-token</string>
+  <string name="tokenGrantsPermission">Een token geeft andere mensen toestemming om je account te gebruiken.</string>
+  <string name="carefullySelect">Bepaal zorgvuldig wat anderen mogen doen.</string>
+  <string name="tokenDescription">Tokenbeschrijving</string>
+  <string name="rememberTokenUse">Zo weet je nog waar deze token voor is</string>
+  <string name="whatTheTokenCanDo">Wat de token voor je kan doen:</string>
+  <string name="doNotShareIt">De token geeft toegang tot uw account. Deel deze met niemand!</string>
+  <string name="copyTokenNow">Zorg ervoor dat je het persoonlijke toegangs-token nu kopieert of opschrijft. Je kunt het later niet meer zien!</string>
+  <string name="preferenceRead">Voorkeuren lezen</string>
+  <string name="preferenceWrite">Voorkeur schrijven</string>
+  <string name="emailRead">E-mailadres lezen</string>
+  <string name="challengeRead">Lees inkomende uitdagingen</string>
+  <string name="challengeWrite">Verzenden, accepteren en afwijzen van uitdagingen</string>
+  <string name="challengeBulk">Maak veel spellen tegelijk voor andere spelers</string>
+  <string name="tournamentWrite">Maak, update en neem deel aan toernooien</string>
+  <string name="racerWrite">Maak en neem deel aan puzzelraces</string>
+  <string name="followWrite">Andere spelers volgen en ontvolgen</string>
+  <string name="msgWrite">Stuur privéberichten naar andere spelers</string>
+</resources>

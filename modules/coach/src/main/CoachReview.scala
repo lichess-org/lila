@@ -5,8 +5,8 @@ import org.joda.time.DateTime
 import lila.user.User
 
 case class CoachReview(
-    _id: String,     // user:coach
-    userId: User.ID, // reviewer
+    _id: String,    // user:coach
+    userId: UserId, // reviewer
     coachId: Coach.Id,
     score: Int,
     text: String,
@@ -14,25 +14,15 @@ case class CoachReview(
     createdAt: DateTime,
     updatedAt: DateTime,
     moddedAt: Option[DateTime] = None // a mod disapproved it
-) {
+):
 
-  def id = _id
+  inline def id = _id
 
   def pendingApproval = !approved && moddedAt.isEmpty
-}
 
-object CoachReview {
+object CoachReview:
 
   def makeId(user: User, coach: Coach) = s"${user.id}:${coach.id.value}"
 
-  case class Score(value: Double) extends AnyVal
-
-  case class Reviews(list: List[CoachReview]) {
-
+  case class Reviews(list: List[CoachReview]):
     def approved = list.filter(_.approved)
-
-    lazy val averageScore: Option[Score] = approved.nonEmpty option {
-      Score(approved.map(_.score).sum.toDouble / list.size)
-    }
-  }
-}

@@ -1,17 +1,18 @@
 package lila.plan
 
-import io.methvin.play.autoconfig.AutoConfig
+import lila.common.autoconfig.AutoConfig
 import java.util.{ Currency, Locale }
 import play.api.i18n.Lang
-import play.api.libs.json._
-import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.json.*
+import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.Mode
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 import scala.util.Try
 
 import lila.common.config
+import play.api.ConfigLoader
 
 case class CurrencyWithRate(currency: Currency, rate: Double)
 
@@ -19,9 +20,9 @@ final class CurrencyApi(
     ws: StandaloneWSClient,
     mongoCache: lila.memo.MongoCache.Api,
     config: CurrencyApi.Config
-)(implicit ec: ExecutionContext, mode: Mode) {
+)(using ec: ExecutionContext, mode: Mode):
 
-  import CurrencyApi._
+  import CurrencyApi.*
 
   private val baseUrl = "https://openexchangerates.org/api"
 
@@ -37,12 +38,11 @@ final class CurrencyApi(
             .withQueryStringParameters("app_id" -> config.appId.value)
             .get()
             .dmap { res =>
-              (res.body[JsValue] \ "rates").validate[Map[String, Double]].asOpt match {
+              (res.body[JsValue] \ "rates").validate[Map[String, Double]].asOpt match
                 case None =>
                   logger.error(s"Currency rates unavailable! ${res.status} $baseUrl")
                   Map("USD" -> 1d)
                 case Some(rates) => rates.filterValues(0 <)
-              }
             }
         }
       }
@@ -68,16 +68,15 @@ final class CurrencyApi(
 
   def currencyByCountryCodeOrLang(countryCode: Option[String], lang: Lang): Currency =
     countryCode
-      .flatMap { code => scala.util.Try(new java.util.Locale("", code)).toOption }
+      .flatMap { code => scala.util.Try(new Locale.Builder().setRegion(code).build()).toOption }
       .flatMap(currencyOption)
       .orElse(currencyOption(lang.locale))
       .getOrElse(USD)
-}
 
-object CurrencyApi {
+object CurrencyApi:
 
   case class Config(appId: config.Secret)
-  implicit val currencyConfigLoader = AutoConfig.loader[Config]
+  given ConfigLoader[Config] = AutoConfig.loader
 
   val acceptableCurrencies: Set[Currency] = payPalCurrencies intersect stripeCurrencies
 
@@ -274,4 +273,3 @@ object CurrencyApi {
   ).flatMap(anyCurrencyOption)
 
   private def anyCurrencyOption(code: String) = Try(Currency getInstance code).toOption
-}

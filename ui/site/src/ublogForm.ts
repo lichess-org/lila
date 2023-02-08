@@ -2,6 +2,7 @@ import * as xhr from 'common/xhr';
 import throttle from 'common/throttle';
 import Editor from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
+import { currentTheme } from 'common/theme';
 
 lichess.load.then(() => {
   $('.ublog-post-form__image').each(function (this: HTMLFormElement) {
@@ -53,7 +54,7 @@ const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
     el,
     usageStatistics: false,
     height: '60vh',
-    theme: $('body').data('theme') == 'light' ? 'light' : 'dark',
+    theme: currentTheme(),
     initialValue: $('#form3-markdown').val() as string,
     initialEditType: 'wysiwyg',
     language: $('html').attr('lang') as string,

@@ -10,7 +10,7 @@ case class ContentSecurityPolicy(
     scriptSrc: List[String],
     fontSrc: List[String],
     baseUri: List[String]
-) {
+):
 
   def withNonce(nonce: Nonce) = copy(scriptSrc = nonce.scriptSrc :: scriptSrc)
 
@@ -20,6 +20,8 @@ case class ContentSecurityPolicy(
     copy(
       scriptSrc = "'unsafe-eval'" :: scriptSrc
     )
+
+  def withExternalEngine(url: String) = copy(connectSrc = url :: connectSrc)
 
   def withStripe =
     copy(
@@ -100,4 +102,3 @@ case class ContentSecurityPolicy(
       case (directive, sources) if sources.nonEmpty =>
         sources.mkString(directive, " ", ";")
     } mkString " "
-}

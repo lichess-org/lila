@@ -3,7 +3,7 @@
   <string name="puzzles">Ufgabe</string>
   <string name="puzzleThemes">Ufgabe Theme</string>
   <string name="recommended">Empfohle</string>
-  <string name="phases">Schpil Fase</string>
+  <string name="phases">Schpiel Fase</string>
   <string name="motifs">Situation</string>
   <string name="advanced">Fortgschritte</string>
   <string name="lengths">Länge</string>
@@ -13,6 +13,8 @@
   <string name="specialMoves">Spezielli Züg</string>
   <string name="didYouLikeThisPuzzle">Hät dir d\'Ufgab g\'falle?</string>
   <string name="voteToLoadNextOne">Stimm ab, um die Nächscht z\'lade!</string>
+  <string name="upVote">Die Ufgab positiv bewerte</string>
+  <string name="downVote">Die Ufgab negativ bewerte</string>
   <string name="yourPuzzleRatingWillNotChange">Dini Ufgabe Wertig änderet sich nöd. Die Ufgabe sind kein Wettbewerb. Dini Wertig hilft nur, um so Ufgabe uszwähle, wo zu dinere aktuelle Stärchi passed.</string>
   <string name="findTheBestMoveForWhite">Find de bescht Zug für Wiss.</string>
   <string name="findTheBestMoveForBlack">Find de bescht Zug für Schwarz.</string>

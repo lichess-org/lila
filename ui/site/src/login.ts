@@ -108,3 +108,5 @@ export function signupStart() {
     .loadModule('passwordComplexity')
     .then(() => (window.passwordComplexity as typeof PasswordComplexity).addPasswordChangeListener('form3-password'));
 }
+
+(window as any).loginSignup = { loginStart, signupStart };

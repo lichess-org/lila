@@ -1,17 +1,17 @@
 package lila.oauth
 
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import reactivemongo.api.bson.BSONObjectID
 
 import lila.common.Bearer
 import lila.common.Form.cleanText
 import lila.user.User
 
-object OAuthTokenForm {
+object OAuthTokenForm:
 
-  private val scopesField = list(nonEmptyText.verifying(OAuthScope.byKey.contains _))
+  private val scopesField = list(nonEmptyText.verifying(OAuthScope.byKey.contains))
 
   private val descriptionField = cleanText(minLength = 3, maxLength = 140)
 
@@ -19,7 +19,7 @@ object OAuthTokenForm {
     mapping(
       "description" -> descriptionField,
       "scopes"      -> scopesField
-    )(Data.apply)(Data.unapply)
+    )(Data.apply)(unapply)
   )
 
   case class Data(description: String, scopes: List[String])
@@ -29,11 +29,9 @@ object OAuthTokenForm {
       "description" -> descriptionField,
       "users" -> cleanText
         .verifying("No more than 500 users", _.split(',').size <= 500)
-    )(AdminChallengeTokensData.apply)(AdminChallengeTokensData.unapply _)
+    )(AdminChallengeTokensData.apply)(unapply)
   )
 
-  case class AdminChallengeTokensData(description: String, usersStr: String) {
+  case class AdminChallengeTokensData(description: String, usersStr: String):
 
-    def usernames = usersStr.split(',').map(_.trim).distinct.filter(User.couldBeUsername).toList
-  }
-}
+    def usernames = usersStr.split(',').flatMap(UserStr.read).distinct.filter(User.couldBeUsername).toList

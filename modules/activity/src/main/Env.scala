@@ -1,10 +1,10 @@
 package lila.activity
 
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
-import scala.concurrent.duration._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.hub.actorApi.round.CorresMoveEvent
 
 @Module
@@ -12,19 +12,20 @@ final class Env(
     db: lila.db.AsyncDb @@ lila.db.YoloDb,
     practiceApi: lila.practice.PracticeApi,
     gameRepo: lila.game.GameRepo,
-    forumPostApi: lila.forum.PostApi,
+    forumPostApi: lila.forum.ForumPostApi,
     ublogApi: lila.ublog.UblogApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.study.StudyApi,
     tourLeaderApi: lila.tournament.LeaderboardApi,
     getTourName: lila.tournament.GetTourName,
-    getTeamName: lila.team.GetTeamName,
+    getTeamName: lila.team.GetTeamNameSync,
     teamRepo: lila.team.TeamRepo,
-    swissApi: lila.swiss.SwissApi
-)(implicit
+    swissApi: lila.swiss.SwissApi,
+    lightUserApi: lila.user.LightUserApi
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   private lazy val coll = db(CollName("activity2")).failingSilently()
 
@@ -65,7 +66,7 @@ final class Env(
     "streamStart",
     "swissFinish"
   ) {
-    case lila.forum.actorApi.CreatePost(post)             => write.forumPost(post).unit
+    case lila.forum.CreatePost(post)                      => write.forumPost(post).unit
     case lila.ublog.UblogPost.Create(post)                => write.ublogPost(post).unit
     case prog: lila.practice.PracticeProgress.OnComplete  => write.practice(prog).unit
     case lila.simul.Simul.OnStart(simul)                  => write.simul(simul).unit
@@ -75,9 +76,8 @@ final class Env(
     case lila.study.actorApi.StartStudy(id)               =>
       // wait some time in case the study turns private
       scheduler.scheduleOnce(5 minutes) { write.study(id).unit }.unit
-    case lila.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId).unit
-    case lila.hub.actorApi.team.JoinTeam(id, userId)      => write.team(id, userId).unit
-    case lila.hub.actorApi.streamer.StreamStart(userId)   => write.streamStart(userId).unit
-    case lila.swiss.SwissFinish(swissId, ranking)         => write.swiss(swissId, ranking).unit
+    case lila.hub.actorApi.team.CreateTeam(id, _, userId)  => write.team(id, userId).unit
+    case lila.hub.actorApi.team.JoinTeam(id, userId)       => write.team(id, userId).unit
+    case lila.hub.actorApi.streamer.StreamStart(userId, _) => write.streamStart(userId).unit
+    case lila.swiss.SwissFinish(swissId, ranking)          => write.swiss(swissId, ranking).unit
   }
-}

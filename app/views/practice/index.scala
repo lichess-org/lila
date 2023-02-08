@@ -1,13 +1,13 @@
 package views.html
 package practice
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object index {
+object index:
 
   def apply(data: lila.practice.UserPractice)(implicit ctx: Context) =
     views.html.base.layout(
@@ -47,7 +47,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
                   val prog = data.progressOn(stud.id)
                   a(
                     cls  := s"study ${if (prog.complete) "done" else "ongoing"}",
-                    href := routes.Practice.show(section.id, stud.slug, stud.id.value)
+                    href := routes.Practice.show(section.id, stud.slug, stud.id)
                   )(
                     ctx.isAuth option span(cls := "ribbon-wrapper")(
                       span(cls := "ribbon")(prog.done, " / ", prog.total)
@@ -65,4 +65,3 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
         )
       )
     }
-}

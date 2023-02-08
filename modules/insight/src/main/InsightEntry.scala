@@ -1,44 +1,41 @@
 package lila.insight
 
-import chess.opening.Ecopening
 import chess.Color
 import org.joda.time.DateTime
 
-import lila.common.{ LilaOpening, LilaOpeningFamily }
+import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.game.{ Game, Pov }
 import lila.rating.PerfType
 import lila.user.User
 
 case class InsightEntry(
-    id: String,  // gameId + w/b
-    number: Int, // auto increment over userId
-    userId: User.ID,
+    id: String, // gameId + w/b
+    userId: UserId,
     color: Color,
     perf: PerfType,
-    opening: Option[LilaOpening],
+    opening: Option[SimpleOpening],
     myCastling: Castling,
-    rating: Option[Int],
-    opponentRating: Option[Int],
+    rating: Option[IntRating],         // stable rating only
+    opponentRating: Option[IntRating], // stable rating only
     opponentStrength: Option[RelativeStrength],
     opponentCastling: Castling,
     moves: List[InsightMove],
     queenTrade: QueenTrade,
     result: Result,
     termination: Termination,
-    ratingDiff: Int,
+    ratingDiff: IntRatingDiff,
     analysed: Boolean,
     provisional: Boolean,
     date: DateTime
-) {
+):
 
   def gameId = id take Game.gameIdSize
-}
 
-case object InsightEntry {
+case object InsightEntry:
 
-  def povToId(pov: Pov) = pov.gameId + pov.color.letter
+  def povToId(pov: Pov) = pov.gameId.value + pov.color.letter
 
-  object BSONFields {
+  object BSONFields:
     val id                       = "_id"
     val number                   = "n"
     val userId                   = "u"
@@ -60,5 +57,3 @@ case object InsightEntry {
     val analysed                 = "a"
     val provisional              = "pr"
     val date                     = "d"
-  }
-}

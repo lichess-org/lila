@@ -27,16 +27,12 @@ import com.vladsch.flexmark.ast.{ AutoLink, Image, Link, LinkNode }
 import io.mola.galimatias.URL
 import scala.collection.JavaConverters
 import java.util.Arrays
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 import scala.util.Try
 import chess.format.pgn.Pgn
 import com.vladsch.flexmark.util.misc.Extension
 import lila.base.RawHtml
 import com.vladsch.flexmark.html.renderer.ResolvedLink
-
-final case class Markdown(value: String) extends AnyVal with StringValue {
-  def apply(f: String => String) = Markdown(f(value))
-}
 
 final class MarkdownRender(
     autoLink: Boolean = true,
@@ -47,10 +43,8 @@ final class MarkdownRender(
     list: Boolean = false,
     code: Boolean = false,
     gameExpand: Option[MarkdownRender.GameExpand] = None
-) {
-
-  private type Key  = String
-  private type Html = String
+):
+  import MarkdownRender.{ Html, Key }
 
   private val extensions = new java.util.ArrayList[com.vladsch.flexmark.util.misc.Extension]()
   if (table) extensions.add(TablesExtension.create())
@@ -94,26 +88,26 @@ final class MarkdownRender(
   def apply(key: Key, pgns: Map[String, Pgn] = Map.empty)(text: Markdown): Html =
     Chronometer
       .sync {
-        try {
-          renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text)).value))
-        } catch {
+        try renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text)).value))
+        catch
           case e: StackOverflowError =>
             logger.branch(key).error("StackOverflowError", e)
             text.value
-        }
       }
       .mon(_.markdown.time)
       .logIfSlow(50, logger.branch(key))(_ => s"slow markdown size:${text.value.size}")
       .result
-}
 
-object MarkdownRender {
+object MarkdownRender:
 
-  case class GameExpand(domain: config.NetDomain, getPgn: String => Option[String])
+  type Key  = String
+  type Html = String
+
+  case class GameExpand(domain: config.NetDomain, getPgn: GameId => Option[String])
 
   private val rel = "nofollow noopener noreferrer"
 
-  private object WhitelistedImageExtension extends HtmlRenderer.HtmlRendererExtension {
+  private object WhitelistedImageExtension extends HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
       htmlRendererBuilder
@@ -121,10 +115,16 @@ object MarkdownRender {
           override def apply(options: DataHolder) = WhitelistedImageNodeRenderer
         })
         .unit
-  }
-  private object WhitelistedImageNodeRenderer extends NodeRenderer {
+  private object WhitelistedImageNodeRenderer extends NodeRenderer:
     override def getNodeRenderingHandlers() =
-      new java.util.HashSet(Arrays.asList(new NodeRenderingHandler(classOf[Image], render)))
+      new java.util.HashSet(
+        Arrays.asList(
+          new NodeRenderingHandler(
+            classOf[Image],
+            render _
+          )
+        )
+      )
 
     private val whitelist =
       List(
@@ -161,7 +161,7 @@ object MarkdownRender {
           val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
           val url          = resolvedLink.getUrl()
           val altText      = new TextCollectingVisitor().collectAndGetText(node)
-          whitelistedSrc(url) match {
+          whitelistedSrc(url) match
             case Some(src) =>
               html
                 .srcPos(node.getChars())
@@ -179,11 +179,9 @@ object MarkdownRender {
                 .tag("a")
                 .text(altText)
                 .tag("/a")
-          }
         }.unit
-  }
 
-  private class GameEmbedExtension(expander: GameExpand) extends HtmlRenderer.HtmlRendererExtension {
+  private class GameEmbedExtension(expander: GameExpand) extends HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
       htmlRendererBuilder
@@ -191,32 +189,29 @@ object MarkdownRender {
           override def apply(options: DataHolder) = new GameEmbedNodeRenderer(expander)
         })
         .unit
-  }
-  private class GameEmbedNodeRenderer(expander: GameExpand) extends NodeRenderer {
+  private class GameEmbedNodeRenderer(expander: GameExpand) extends NodeRenderer:
     override def getNodeRenderingHandlers() =
       new java.util.HashSet(
         Arrays.asList(
-          new NodeRenderingHandler(classOf[Link], renderLink),
-          new NodeRenderingHandler(classOf[AutoLink], renderAutoLink)
+          new NodeRenderingHandler(classOf[Link], renderLink _),
+          new NodeRenderingHandler(classOf[AutoLink], renderAutoLink _)
         )
       )
 
     private val gameRegex =
-      s"""^(?:https?://)?${expander.domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?$$""".r
+      s"""^(?:https?://)?${expander.domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?$$""".r
 
     private def renderLink(node: Link, context: NodeRendererContext, html: HtmlWriter): Unit =
       // Based on implementation in CoreNodeRenderer.
       if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
         context.renderChildren(node)
-      else {
+      else
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
-        def justAsLink() = renderLink(node, context, html, link)
-        link.getUrl match {
+        def justAsLink() = renderLinkWithBase(node, context, html, link)
+        link.getUrl match
           case gameRegex(id, color, ply) =>
-            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
+            expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
           case _ => justAsLink()
-        }
-      }
 
     private def renderAutoLink(
         node: AutoLink,
@@ -226,29 +221,26 @@ object MarkdownRender {
       // Based on implementation in CoreNodeRenderer.
       if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
         context.renderChildren(node)
-      else {
+      else
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
-        def justAsLink() = renderLink(node, context, html, link)
-        link.getUrl match {
+        def justAsLink() = renderLinkWithBase(node, context, html, link)
+        link.getUrl match
           case gameRegex(id, color, ply) =>
-            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
+            expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
           case _ => justAsLink()
-        }
-      }
 
-    private def renderLink(
+    private def renderLinkWithBase(
         node: LinkNode,
         context: NodeRendererContext,
         html: HtmlWriter,
         baseLink: ResolvedLink
-    ) = {
+    ) =
       val link = if (node.getTitle.isNotNull) baseLink.withTitle(node.getTitle().unescape()) else baseLink
       html.attr("href", link.getUrl)
       html.attr(link.getNonNullAttributes())
       html.srcPos(node.getChars()).withAttr(link).tag("a")
       context.renderChildren(node)
       html.tag("/a").unit
-    }
 
     private def renderPgnViewer(
         node: LinkNode,
@@ -261,7 +253,7 @@ object MarkdownRender {
       html
         .attr("data-pgn", pgn)
         .attr("data-orientation", Option(color) | "white")
-        .attr("data-ply", Option(ply) | "0")
+        .attr("data-ply", Option(ply) | "")
         .attr("class", "lpv--autostart")
         .srcPos(node.getChars())
         .withAttr(link)
@@ -269,9 +261,8 @@ object MarkdownRender {
         .text(link.getUrl)
         .tag("/div")
         .unit
-  }
 
-  private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension {
+  private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
       htmlRendererBuilder
@@ -279,14 +270,9 @@ object MarkdownRender {
           override def apply(context: LinkResolverContext): AttributeProvider = lilaLinkAttributeProvider
         })
         .unit
-  }
 
-  private val lilaLinkAttributeProvider = new AttributeProvider {
-    override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) = {
-      if ((node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK) {
+  private val lilaLinkAttributeProvider = new AttributeProvider:
+    override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) =
+      if ((node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK)
         attributes.replaceValue("rel", rel).unit
         attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href"))).unit
-      }
-    }
-  }
-}

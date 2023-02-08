@@ -59,8 +59,8 @@
   <string name="depthX">Sakonera %s</string>
   <string name="usingServerAnalysis">Zerbitzariko analisia erabiltzen ari da</string>
   <string name="loadingEngine">Motorea kargatzen...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Jokaldiak kalkulatzen...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Errorea motorea kargatzean</string>
+  <string name="calculatingMoves">Jokaldiak kalkulatzen...</string>
+  <string name="engineFailed">Errorea motorea kargatzean</string>
   <string name="cloudAnalysis">\"Lainoko\" analisia</string>
   <string name="goDeeper">Sakonago begiratu</string>
   <string name="showThreat">Mehatxua erakutsi</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' biribilkaketarekin, hurrengo harrapaketa edo peoi mugimendura arteko mugimendu erdietan oinarrituta</string>
   <string name="noGameFound">Ez da partidarik aurkitu</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Agian hobespenen menutik partida gehiago gehitu beharko dituzu?</string>
+  <string name="openings">Irekierak</string>
   <string name="openingExplorer">Hasiera-arakatzailea</string>
   <string name="openingEndgameExplorer">Hasiera/finalen bilatzailea</string>
   <string name="xOpeningExplorer">%s hasiera arakatzailea</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Pantaila osoa</string>
   <string name="logOut">Irten</string>
   <string name="signIn">Sartu</string>
+  <string name="rememberMe">Webgunean sartuta mantendu</string>
   <string name="youNeedAnAccountToDoThat">Kontu bat behar duzu hori egiteko</string>
   <string name="signUp">Izen ematea</string>
   <string name="computersAreNotAllowedToPlay">Xake-programen erabilera debekatuta dago. Mesedez, ez erabili beste jokalari, xake-programa edo datu-baseren laguntzariik. Kontuan izan kontu asko sortzea ere oso gaizki ikusita dagoela; kontu gehieg sortzeak zu kanporatzea ekar dezake.</string>
@@ -197,12 +199,31 @@
   <string name="changeUsername">Erabiltzaile-izena aldatu</string>
   <string name="changeUsernameNotSame">Hizkien izaera bakarrik aldatu daiteke (larriak vs. xeheak). Adibidez: jatorrizko \"urlia\" \"UrLiA\" bihurtu daiteke.</string>
   <string name="changeUsernameDescription">Zure erabiltzaile-izena aldatu. Hau behin bakarrik egin daiteke eta hizkien izaera bakarrik aldatu dezakezu (hizki larriak vs. xeheak).</string>
+  <string name="signupUsernameHint">Edonorentzako bezalako erabiltzaile-izena aukeratu. Ezingo duzu aldatu. Desegokiak diren erabiltzaile-izenak dituzten kontuak itxi egingo ditugu!</string>
+  <string name="signupEmailHint">Pasahitza berrezartzeko erabiliko dugu bakarrik.</string>
   <string name="password">Pasahitza</string>
   <string name="changePassword">Pasahitza aldatu</string>
   <string name="changeEmail">Posta elektronikoa aldatu</string>
   <string name="email">Posta elektronikoa</string>
   <string name="passwordReset">Pasahitz berria eskatu</string>
   <string name="forgotPassword">Pasahitza ahaztu duzu?</string>
+  <string name="emailConfirmHelp">Laguntza eposta baieztapenarekin</string>
+  <string name="emailConfirmNotReceived">Izena eman ostean ez duzu baieztapen eposta jaso?</string>
+  <string name="whatSignupUsername">Zein erabiltzaile-izen erabili duzu izena emateko?</string>
+  <string name="usernameNotFound">Ezin izan dugu izen hau duen erabiltzailerik aurkitu: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Erabiltzaile-izen hau kontu berri bat sortzeko erabili dezakezu</string>
+  <string name="emailSent">%s helbidera mezu bat bidali dugu.</string>
+  <string name="emailCanTakeSomeTime">Itxaron pixkatean mezua jaso arte.</string>
+  <string name="refreshInboxAfterFiveMinutes">Itxaron 5 minutu eta freskatu zure epostaren sarrera-ontzia.</string>
+  <string name="checkSpamFolder">Zabor mezuen karpetan begiratu, batzuetan horra joaten dira-eta mezuak. Horrela bada, esan zaborra ez dela.</string>
+  <string name="emailForSignupHelp">Beste guztiak huts egin badu, bidali guri mezu hau:</string>
+  <string name="copyTextToEmail">Kopiatu eta itsatsi goiko mezua eta bidali %s helbidera</string>
+  <string name="waitForSignupHelp">Laster jarriko gara zurekin harremanetan zure izen-ematea osatzeko.</string>
+  <string name="accountConfirmed">%s erabiltzailea ondo baieztatu da.</string>
+  <string name="accountCanLogin">Orain %s izena erabiliz sartu zaitezke.</string>
+  <string name="accountConfirmationEmailNotNeeded">Ez duzu baieztapen eposta behar.</string>
+  <string name="accountClosed">%s kontua itxita dago.</string>
+  <string name="accountRegisteredWithoutEmail">%s kontua eposta helbide gabe erregistatu da.</string>
   <string name="rank">Maila</string>
   <string name="rankX">Sailkapena: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -342,6 +363,7 @@
   <string name="siteDescription">Doako xake zerbitzaria. Xakean interfaze argiarekin jokatu. Izena ematea ez da beharrezkoa. Iragarkirik gabe. Jokatu xakean ordenagailu, lagun edo beste aurkariekin.</string>
   <string name="xJoinedTeamY">%1$s %2$s taldean sartu da</string>
   <string name="xCreatedTeamY">%1$s(e)k %2$s taldea sortu du</string>
+  <string name="startedStreaming">emanaldiarekin hasi da</string>
   <string name="xStartedStreaming">%s emanaldiarekin hasi da</string>
   <string name="averageElo">Bataz besteko puntuazioa</string>
   <string name="location">Lokalizazioa</string>
@@ -517,6 +539,8 @@
   <string name="blog">Bloga</string>
   <string name="notes">Oharrak</string>
   <string name="typePrivateNotesHere">Ohar pribatuak idatzi hemen</string>
+  <string name="writeAPrivateNoteAboutThisUser">Idatzi erabiltzaile honi buruzko ohar pribatua</string>
+  <string name="noNoteYet">Ez dago oharrik</string>
   <string name="invalidUsernameOrPassword">Erabiltzaile edo pasahitz okerra</string>
   <string name="incorrectPassword">Pasahitza ez da zuzena</string>
   <string name="invalidAuthenticationCode">Autentikazio kodea ez da zuzena</string>
@@ -633,6 +657,7 @@
   <string name="tournamentFAQ">Arena txapelketaren ohiko galderak</string>
   <string name="timeBeforeTournamentStarts">Txapelketa hasteko denbora</string>
   <string name="averageCentipawnLoss">Bataz besteko peoi-ehuneko galera</string>
+  <string name="accuracy">Zehaztasuna</string>
   <string name="keyboardShortcuts">Tekla laguntzaileak</string>
   <string name="keyMoveBackwardOrForward">Aurrerantz edo atzerantz mugitu</string>
   <string name="keyGoToStartOrEnd">Hasierara edo azkenea joan</string>
@@ -715,6 +740,7 @@
   <string name="light">Argia</string>
   <string name="dark">Iluna</string>
   <string name="transparent">Gardena</string>
+  <string name="deviceTheme">Gailuaren gaia</string>
   <string name="backgroundImageUrl">Atzeko-planoko irudia:</string>
   <string name="boardGeometry">Taularen geometria</string>
   <string name="boardTheme">Taularen itxura</string>
@@ -743,6 +769,7 @@
   <string name="bestWasX">Onena %s zen</string>
   <string name="youBrowsedAway">Beste batera joan zara</string>
   <string name="resumePractice">Itzuli praktikatzera</string>
+  <string name="drawByFiftyMoves">Partida berdinketarekin amaitu da 50 jokaldien araua dela-eta.</string>
   <string name="theGameIsADraw">Berdinketa.</string>
   <string name="computerThinking">Ordenagailua pentsatzen...</string>
   <string name="seeBestMove">Erakutsi jokaldi onena</string>

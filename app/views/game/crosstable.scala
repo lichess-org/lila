@@ -1,20 +1,20 @@
 package views.html.game
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Crosstable
 
 import controllers.routes
 
-object crosstable {
+object crosstable:
 
-  def apply(ct: Crosstable.WithMatchup, currentId: Option[String])(implicit ctx: Context): Frag =
-    apply(ct.crosstable, ct.matchup, currentId)(ctx)
+  def apply(ct: Crosstable.WithMatchup, currentId: Option[GameId])(using Context): Frag =
+    apply(ct.crosstable, ct.matchup, currentId)
 
-  def apply(ct: Crosstable, trueMatchup: Option[Crosstable.Matchup], currentId: Option[String])(implicit
-      ctx: Context
-  ): Frag = {
+  def apply(ct: Crosstable, trueMatchup: Option[Crosstable.Matchup], currentId: Option[GameId])(using
+      Context
+  ): Frag =
     val matchup = trueMatchup.filter(_.users != ct.users)
     val matchupSepAt: Option[Int] = matchup map { m =>
       (ct.nbGames min Crosstable.maxGames) - m.users.nbGames
@@ -37,16 +37,16 @@ object crosstable {
         })
       },
       matchup map { m =>
-        div(cls := "crosstable__matchup", title := trans.currentMatchScore.txt())(ct.users.toList.map { u =>
-          span(cls := m.users.winnerId.map(w => if (w == u.id) "win" else "loss"))(m.users.showScore(u.id))
-        })
+        div(cls := "crosstable__matchup force-ltr", title := trans.currentMatchScore.txt())(
+          ct.users.toList.map { u =>
+            span(cls := m.users.winnerId.map(w => if (w == u.id) "win" else "loss"))(m.users.showScore(u.id))
+          }
+        )
       },
       div(cls := "crosstable__users")(ct.users.toList.map { u =>
         userIdLink(u.id.some, withOnline = false)
       }),
-      div(cls := "crosstable__score", title := trans.lifetimeScore.txt())(ct.users.toList.map { u =>
+      div(cls := "crosstable__score force-ltr", title := trans.lifetimeScore.txt())(ct.users.toList.map { u =>
         span(cls := ct.users.winnerId.map(w => if (w == u.id) "win" else "loss"))(ct.showScore(u.id))
       })
     )
-  }
-}

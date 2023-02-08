@@ -10,7 +10,7 @@
   <string name="allStudies">כל לוחות הלמידה</string>
   <string name="studiesCreatedByX">לוחות למידה שנוצרו על ידי %s</string>
   <string name="noneYet">אין עדיין.</string>
-  <string name="hot">הכי נצפים</string>
+  <string name="hot">כוכבים עולים</string>
   <string name="dateAddedNewest">תאריך הוספה (החדש ביותר)</string>
   <string name="dateAddedOldest">תאריך הוספה (הישן ביותר)</string>
   <string name="recentlyUpdated">עודכן לאחרונה</string>
@@ -55,7 +55,7 @@
   <string name="theChapterIsTooShortToBeAnalysed">פרק זה קצר מכדי להצדיק ניתוח.</string>
   <string name="onlyContributorsCanRequestAnalysis">רק תורמי לוח הלמידה יכולים לבקש ניתוח ממוחשב.</string>
   <string name="getAFullComputerAnalysis">קבל/י ניתוח צד־שרת מלא של המסעים העיקריים (mainline).</string>
-  <string name="makeSureTheChapterIsComplete">ניתן לבקש ניתוח ממוחשב רק פעם אחת, ולכן וודאו שהפרק הושלם.</string>
+  <string name="makeSureTheChapterIsComplete">ניתן לבקש ניתוח ממוחשב רק פעם אחת, ולכן ודאו שהפרק הושלם.</string>
   <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">כולם צופים באותה העמדה</string>
   <string name="shareChanges">שתפו שינויים עם הצופים ושמרו אותם על השרת</string>
   <string name="playing">מתקיים כעת</string>
@@ -68,14 +68,14 @@
   <string name="studyPgn">הPGN של לוח הלמידה</string>
   <string name="downloadAllGames">הורדת כל המשחקים</string>
   <string name="chapterPgn">הPGN של הפרק</string>
-  <string name="downloadGame">הורד את המשחק</string>
+  <string name="downloadGame">הורדת המשחק</string>
   <string name="studyUrl">כתובת לוח הלמידה</string>
   <string name="currentChapterUrl">כתובת האינטרנט של הפרק הנוכחי</string>
   <string name="youCanPasteThisInTheForumToEmbed">את/ה יכול/ה לפרסם את זה בפורום כדי להטמיע</string>
-  <string name="startAtInitialPosition">התחל/י במצב ההתחלתי</string>
-  <string name="startAtX">התחל ב%s</string>
+  <string name="startAtInitialPosition">התחילו בעמדת הפתיחה</string>
+  <string name="startAtX">התחילו ב%s</string>
   <string name="embedInYourWebsite">הטמעה באתר שלך</string>
-  <string name="readMoreAboutEmbedding">קרא עוד על הטמעה</string>
+  <string name="readMoreAboutEmbedding">קראו עוד על הטמעה</string>
   <string name="onlyPublicStudiesCanBeEmbedded">ניתן להטמיע אך ורק לוחות למידה פומביים!</string>
   <string name="open">פתח</string>
   <string name="xBroughtToYouByY">%1$s, מוגש על ידי %2$s</string>
@@ -89,7 +89,7 @@
   <string name="saveChapter">שמור פרק</string>
   <string name="clearAnnotations">נקה הערות</string>
   <string name="clearVariations">נקה וריאציות</string>
-  <string name="deleteChapter">מחק פרק</string>
+  <string name="deleteChapter">מחיקת הפרק</string>
   <string name="deleteThisChapter">למחוק את הפרק? אין דרך חזרה!</string>
   <string name="clearAllCommentsInThisChapter">ניקוי כל ההערות, הרישומים והציורים בפרק זה</string>
   <string name="rightUnderTheBoard">ממש מתחת ללוח</string>
@@ -99,9 +99,9 @@
   <string name="interactiveLesson">שיעור אינטראקטיבי</string>
   <string name="chapterX">פרק %s</string>
   <string name="empty">ריק</string>
-  <string name="startFromInitialPosition">התחל מהעמדה ההתחלתית</string>
+  <string name="startFromInitialPosition">התחילו מהעמדה ההתחלתית</string>
   <string name="editor">עורך</string>
-  <string name="startFromCustomPosition">התחל מעמדה מותאמת אישית</string>
+  <string name="startFromCustomPosition">התחילו מעמדה מותאמת אישית</string>
   <string name="loadAGameByUrl">טען משחק ע\"י כתובת אינטרנט</string>
   <string name="loadAPositionFromFen">טען עמדה מFEN</string>
   <string name="loadAGameFromPgn">טען משחק מPGN</string>
@@ -115,14 +115,14 @@
   <string name="urlOfTheGame">כתובת אינטרנטית של משחק</string>
   <string name="loadAGameFromXOrY">טען משחק מ%1$s או מ%2$s</string>
   <string name="createChapter">צור פרק</string>
-  <string name="configureLiveBroadcast">קביעת התצורה של השידור החי</string>
+  <string name="configureLiveBroadcast">עריכת הקרנה ישירה</string>
   <string name="createStudy">יצירת לוח למידה</string>
-  <string name="editStudy">ערוך לוח למידה</string>
+  <string name="editStudy">עריכת לוח למידה</string>
   <string name="visibility">חשיפה</string>
   <string name="public">פומבי</string>
-  <string name="unlisted">כולם</string>
+  <string name="unlisted">באמצעות קישור</string>
   <string name="inviteOnly">מוזמנים בלבד</string>
-  <string name="allowCloning">אפשר יצירת עותקים</string>
+  <string name="allowCloning">אפשרו יצירת עותקים</string>
   <string name="nobody">אף אחד</string>
   <string name="onlyMe">רק אני</string>
   <string name="contributors">תורמים</string>
@@ -132,9 +132,9 @@
   <string name="yesKeepEveryoneOnTheSamePosition">כן: שמור את כולם באותה העמדה</string>
   <string name="noLetPeopleBrowseFreely">לא: תן לאנשים לדפדף בחופשיות</string>
   <string name="pinnedStudyComment">תגובה מוצמדת ללוח הלמידה</string>
-  <string name="start">התחל</string>
-  <string name="save">שמור</string>
-  <string name="clearChat">נקה צ\'אט</string>
+  <string name="start">שמירה</string>
+  <string name="save">שמירה</string>
+  <string name="clearChat">ניקוי הצ\'אט</string>
   <string name="deleteTheStudyChatHistory">למחוק את היסטוריית הצ\'אט של לוח הלמידה? אין דרך חזרה!</string>
   <string name="deleteStudy">מחיקת לוח למידה</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">האם למחוק את כל לוח הלמידה? אין דרך חזרה! הקלידו את שם לוח הלמידה לאישור: %s</string>
@@ -169,7 +169,7 @@
   <string name="topics">נושאים</string>
   <string name="myTopics">הנושאים שלי</string>
   <string name="popularTopics">נושאים פופולריים</string>
-  <string name="manageTopics">נהל נושאים</string>
+  <string name="manageTopics">עריכת נושאים</string>
   <string name="back">חזרה</string>
   <string name="playAgain">הפעל שוב</string>
   <string name="whatWouldYouPlay">מה הייתם משחקים בעמדה הזו?</string>

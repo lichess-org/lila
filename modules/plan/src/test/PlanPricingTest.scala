@@ -4,9 +4,9 @@ import org.specs2.mutable.Specification
 
 class PlanPricingTest extends Specification {
 
-  "nicely round" in {
+  "nicely round" >> {
     import PlanPricingApi.nicelyRound
-    "round to nice number" in {
+    "round to nice number" >> {
       val ns = {
         def next(i: Double, j: Double): List[Double] =
           // if (i > 1_000_000) List(i)
@@ -16,18 +16,18 @@ class PlanPricingTest extends Specification {
       }
       println(ns.map(n => (n, nicelyRound(n))).mkString("\n"))
       // List(0, 0.9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-      // nicelyRound(0) must_== 0
-      // nicelyRound(0.9) must_== 1
-      // nicelyRound(1) must_== 1
-      // nicelyRound(1.1) must_== 1
-      // nicelyRound(1.3) must_== 1
-      // nicelyRound(1.7) must_== 2
-      // nicelyRound(3) must_== 2
-      // nicelyRound(4) must_== 5
-      // nicelyRound(6) must_== 5
-      // nicelyRound(9) must_== 10
-      // nicelyRound(1009) must_== 1000
-      nicelyRound(1) must_== 1
+      // nicelyRound(0) === 0
+      // nicelyRound(0.9) === 1
+      // nicelyRound(1) === 1
+      // nicelyRound(1.1) === 1
+      // nicelyRound(1.3) === 1
+      // nicelyRound(1.7) === 2
+      // nicelyRound(3) === 2
+      // nicelyRound(4) === 5
+      // nicelyRound(6) === 5
+      // nicelyRound(9) === 10
+      // nicelyRound(1009) === 1000
+      nicelyRound(1) === 1
     }
   }
 

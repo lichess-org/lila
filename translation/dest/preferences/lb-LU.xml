@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Astellungen</string>
+  <string name="display">Usiicht</string>
   <string name="privacy">Privatsphär</string>
   <string name="pieceAnimation">Figurenanimatioun</string>
   <string name="materialDifference">Materialënnerscheed</string>
@@ -33,7 +34,7 @@
   <string name="promoteToQueenAutomatically">Automatesch zur Damm ëmwandelen</string>
   <string name="whenPremoving">Wann Virauszuch</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Remis duerch dräifach Stellungswidderhuelung reklaméieren</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Wann verbleiwend Zäit &lt; 30 Sekonnen</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Wann verbleiwend Zäit &lt; 30 Sekonnen</string>
   <string name="moveConfirmation">Zich confirméieren</string>
   <string name="inCorrespondenceGames">Korrespondenz Schach</string>
   <string name="correspondenceAndUnlimited">Korrespondenz an onbegrenzt</string>

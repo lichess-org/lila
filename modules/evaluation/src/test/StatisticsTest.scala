@@ -6,8 +6,8 @@ import chess.Centis
 import Statistics._
 
 class StatisticsTest extends Specification {
-  "move times" should {
-    "be highly consistent (1)" in {
+  "move times" >> {
+    "be highly consistent (1)" >> {
       cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
           List(0, 560, 464, 496, 504, 352, 344, 392, 336, 448, 304, 336, 280, 328, 352, 272, 376, 352, 376,
@@ -18,7 +18,7 @@ class StatisticsTest extends Specification {
       ) must beTrue
     }
 
-    "be highly consistent (2)" in {
+    "be highly consistent (2)" >> {
       cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
           List(0, 440, 392, 384, 304, 392, 424, 488, 432, 488, 496, 464, 344, 456, 320, 344, 520, 336, 424,
@@ -27,7 +27,7 @@ class StatisticsTest extends Specification {
       ) must beTrue
     }
 
-    "be highly consistent (3)" in {
+    "be highly consistent (3)" >> {
       cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
           List(0, 312, 416, 520, 408, 520, 424, 456, 472, 536, 464, 664, 496, 448, 640, 856, 600, 448, 480,
@@ -36,7 +36,7 @@ class StatisticsTest extends Specification {
       ) must beTrue
     }
 
-    "be highly consistent (4)" in {
+    "be highly consistent (4)" >> {
       cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
           List(0, 384, 312, 432, 368, 336, 320, 360, 344, 592, 536, 552, 432, 392, 504, 520, 448, 584, 456,
@@ -45,7 +45,7 @@ class StatisticsTest extends Specification {
       ) must beTrue
     }
 
-    "not be highly consistent (1)" in {
+    "not be highly consistent (1)" >> {
       cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
           List(0, 96, 120, 120, 64, 80, 120, 168, 56, 360, 120, 208, 128, 536, 248, 464, 104, 296, 200, 112,
@@ -54,7 +54,7 @@ class StatisticsTest extends Specification {
       ) must beFalse
     }
 
-    "not be highly consistent (2)" in {
+    "not be highly consistent (2)" >> {
       cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
           List(0, 784, 136, 72, 40, 296, 80, 96, 56, 80, 152, 72, 112, 472, 576, 0, 456, 416, 288, 216, 224,
@@ -63,7 +63,7 @@ class StatisticsTest extends Specification {
       ) must beFalse
     }
 
-    "not be highly consistent (3)" in {
+    "not be highly consistent (3)" >> {
       cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
           List(0, 176, 224, 72, 80, 120, 80, 128, 136, 120, 400, 240, 112, 128, 232, 208, 136, 184, 264, 216,
@@ -72,7 +72,7 @@ class StatisticsTest extends Specification {
       ) must beFalse
     }
 
-    "not be highly consistent (4)" in {
+    "not be highly consistent (4)" >> {
       cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
           List(0, 56, 0, 8, 144, 64, 32, 80, 168, 136, 0, 80, 96, 80, 88, 80, 0, 64, 120, 104, 56, 64, 72, 64,

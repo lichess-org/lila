@@ -1,9 +1,9 @@
 package lila.storm
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.config._
+import lila.common.config.*
 import lila.user.UserRepo
 
 @Module
@@ -13,9 +13,9 @@ final class Env(
     colls: lila.puzzle.PuzzleColls,
     cacheApi: lila.memo.CacheApi,
     userRepo: UserRepo
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
   private lazy val dayColl = db(CollName("storm_day"))
 
@@ -32,4 +32,3 @@ final class Env(
   lazy val dayApi = wire[StormDayApi]
 
   val forms = StormForm
-}

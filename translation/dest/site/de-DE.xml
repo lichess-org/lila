@@ -59,8 +59,8 @@
   <string name="depthX">Tiefe: %s</string>
   <string name="usingServerAnalysis">Serveranalyse wird verwendet</string>
   <string name="loadingEngine">Engine wird geladen ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Berechne Züge...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Fehler beim Laden der Engine</string>
+  <string name="calculatingMoves">Berechne Züge...</string>
+  <string name="engineFailed">Fehler beim Laden der Engine</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Tiefe erhöhen</string>
   <string name="showThreat">Drohungen anzeigen</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' mit Rundung, basierend auf der Anzahl der Halbzüge bis zum nächsten Schlag- oder Bauernzug</string>
   <string name="noGameFound">Kein Spiel gefunden</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Partien über das \"Einstellungen\"-Menü einbezogen werden?</string>
+  <string name="openings">Eröffnungen</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
   <string name="openingEndgameExplorer">Eröffnungs-/Endspiel Explorer</string>
   <string name="xOpeningExplorer">%s Eröffnungsbuch</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">In voller Größe anzeigen</string>
   <string name="logOut">Abmelden</string>
   <string name="signIn">Einloggen</string>
+  <string name="rememberMe">Angemeldet bleiben</string>
   <string name="youNeedAnAccountToDoThat">Dazu brauchst du ein Benutzerkonto</string>
   <string name="signUp">Registrieren</string>
   <string name="computersAreNotAllowedToPlay">Unterstützung von Schachprogrammen, Datenbanken oder anderen Spielern ist während einer Partie nicht erlaubt. Bitte beachte auch, dass die Erstellung mehrerer Benutzerkonten ungern gesehen ist und die Missachtung dieser Regel, bis auf Kulanz von Seiten des Teams, zum Ausschluss aller betroffenen Konten führt.</string>
@@ -197,12 +199,31 @@
   <string name="changeUsername">Benutzernamen ändern</string>
   <string name="changeUsernameNotSame">Nur die Groß-/Kleinschreibung kann geändert werden, z.B. \"jondoe\" zu \"JonDoe\".</string>
   <string name="changeUsernameDescription">Ändere deinen Benutzernamen. Dies ist nur einmalig möglich und bezieht sich lediglich auf Anpassungen der Groß- und Kleinschreibung deines Benutzernamens.</string>
+  <string name="signupUsernameHint">Bitte wähle einen familienfreundlichen Benutzernamen. Du kannst ihn später nicht mehr ändern und Konten mit unpassenden Benutzernamen werden geschlossen!</string>
+  <string name="signupEmailHint">Wir werden sie nur zum Zurücksetzen deines Passworts verwenden.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändern</string>
   <string name="changeEmail">E-Mail-Adresse ändern</string>
   <string name="email">E-Mail</string>
   <string name="passwordReset">Passwort vergessen</string>
   <string name="forgotPassword">Passwort vergessen?</string>
+  <string name="emailConfirmHelp">Hilfe bei der E-Mail-Bestätigung</string>
+  <string name="emailConfirmNotReceived">Hast du die Bestätigungs-E-Mail nach der Anmeldung nicht erhalten?</string>
+  <string name="whatSignupUsername">Mit welchem Benutzernamen hast du dich registriert?</string>
+  <string name="usernameNotFound">Wir konnten keinen Benutzer mit folgendem Namen finden: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Du kannst diesen Benutzernamen zur Erstellung eines neuen Kontos benutzen</string>
+  <string name="emailSent">Wir haben eine E-Mail an %s gesendet.</string>
+  <string name="emailCanTakeSomeTime">Es kann etwas dauern, bis sie ankommt.</string>
+  <string name="refreshInboxAfterFiveMinutes">Warte 5 Minuten und aktualisiere dein E-Mail-Postfach.</string>
+  <string name="checkSpamFolder">Überprüfe auch dein Spam-Verzeichnis, sie könnte darin gelandet sein. Falls dem so ist, markiere sie als kein Spam.</string>
+  <string name="emailForSignupHelp">Falls alles andere fehlschlägt, dann sende uns folgende E-Mail:</string>
+  <string name="copyTextToEmail">Kopiere den obigen Text, füge ihn hier ein und sende alles an %s</string>
+  <string name="waitForSignupHelp">Wir werden uns bald mit dir in Verbindung setzen, um deine Registrierung abzuschließen.</string>
+  <string name="accountConfirmed">Der Benutzer %s ist erfolgreich bestätigt.</string>
+  <string name="accountCanLogin">Du kannst dich ab sofort als %s einloggen.</string>
+  <string name="accountConfirmationEmailNotNeeded">Du benötigst keine Bestätigungs-E-Mail.</string>
+  <string name="accountClosed">Das Benutzerkonto %s ist geschlossen.</string>
+  <string name="accountRegisteredWithoutEmail">Das Benutzerkonto %s wurde ohne eine E-Mail-Adresse registriert.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Platz: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -336,12 +357,13 @@
   <string name="yourPerfRatingIsTooLow">Deine %1$s Wertung (%2$s) ist zu niedrig</string>
   <string name="ratedMoreThanInPerf">Wertung ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Wertung ≤ %1$s im %2$s diese Woche</string>
-  <string name="mustBeInTeam">Du musst in Team %s sein</string>
-  <string name="youAreNotInTeam">Du bist nicht in Team %s</string>
+  <string name="mustBeInTeam">Du musst zum Team %s gehören</string>
+  <string name="youAreNotInTeam">Du gehörst nicht zum Team %s</string>
   <string name="backToGame">Zurück zur Partie</string>
   <string name="siteDescription">Kostenloser Online-Schach-Server. Spiele jetzt auf einer übersichtlichen Benutzeroberfläche Schach! Keine Registrierung und keine Plugins erforderlich, komplett ohne Werbung. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
   <string name="xJoinedTeamY">%1$s trat dem Team %2$s bei</string>
   <string name="xCreatedTeamY">%1$s hat das Team %2$s gegründet</string>
+  <string name="startedStreaming">hat einen Stream gestartet</string>
   <string name="xStartedStreaming">%s hat einen Stream gestartet</string>
   <string name="averageElo">Durchschnittswertung</string>
   <string name="location">Ort</string>
@@ -517,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notizen</string>
   <string name="typePrivateNotesHere">Private Notizen hier eingeben</string>
+  <string name="writeAPrivateNoteAboutThisUser">Verfasse eine private Notiz über diesen Benutzer</string>
+  <string name="noNoteYet">Noch keine Notiz</string>
   <string name="invalidUsernameOrPassword">Ungültiger Benutzername oder Passwort</string>
   <string name="incorrectPassword">Falsches Passwort</string>
   <string name="invalidAuthenticationCode">Ungültiger Authentifizierungscode</string>
@@ -633,6 +657,7 @@
   <string name="tournamentFAQ">Arena FAQ</string>
   <string name="timeBeforeTournamentStarts">Zeit bis zum Start des Turniers</string>
   <string name="averageCentipawnLoss">Durchschnittlicher Zentibauer-Verlust</string>
+  <string name="accuracy">Genauigkeit</string>
   <string name="keyboardShortcuts">Tastenkürzel</string>
   <string name="keyMoveBackwardOrForward">Zug zurück/vor</string>
   <string name="keyGoToStartOrEnd">zum Anfang/Ende</string>
@@ -715,6 +740,7 @@
   <string name="light">Hell</string>
   <string name="dark">Dunkel</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Mit Gerät synchronisieren</string>
   <string name="backgroundImageUrl">Hintergrundbild-URL:</string>
   <string name="boardGeometry">Brettgröße und 3D</string>
   <string name="boardTheme">Brettdesign</string>
@@ -743,6 +769,7 @@
   <string name="bestWasX">Am besten war %s</string>
   <string name="youBrowsedAway">Du hast weg geblättert</string>
   <string name="resumePractice">Übung fortsetzen</string>
+  <string name="drawByFiftyMoves">Die Partie wurde aufgrund der 50-Züge-Regel Remis erklärt.</string>
   <string name="theGameIsADraw">Das Spiel ist Remis.</string>
   <string name="computerThinking">Computer überlegt ...</string>
   <string name="seeBestMove">Zeige den besten Zug</string>

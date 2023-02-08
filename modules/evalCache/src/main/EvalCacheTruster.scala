@@ -1,7 +1,7 @@
 package lila.evalCache
 
 import org.joda.time.{ DateTime, Days }
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
@@ -9,9 +9,9 @@ import lila.user.{ User, UserRepo }
 final private class EvalCacheTruster(
     cacheApi: lila.memo.CacheApi,
     userRepo: UserRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import EvalCacheEntry.{ Trust, TrustedUser }
+  import EvalCacheEntry.TrustedUser
 
   private val LOWER  = Trust(-9999)
   private val HIGHER = Trust(9999)
@@ -27,14 +27,14 @@ final private class EvalCacheTruster(
           nbGamesBonus(user)
       }
 
-  private val userIdCache = cacheApi[User.ID, Option[TrustedUser]](256, "evalCache.userIdTrustCache") {
+  private val userIdCache = cacheApi[UserId, Option[TrustedUser]](256, "evalCache.userIdTrustCache") {
     _.expireAfterWrite(10 minutes)
       .buildAsyncFuture { userId =>
-        userRepo named userId map2 makeTrusted
+        userRepo byId userId map2 makeTrusted
       }
   }
 
-  def cachedTrusted(userId: User.ID): Fu[Option[TrustedUser]] = userIdCache get userId
+  def cachedTrusted(userId: UserId): Fu[Option[TrustedUser]] = userIdCache get userId
 
   def makeTrusted(user: User) = TrustedUser(apply(user), user)
 
@@ -57,4 +57,3 @@ final private class EvalCacheTruster(
   // 1000 games = 2.16
   private def nbGamesBonus(user: User) =
     math.sqrt(user.count.game / 100) - 1
-}

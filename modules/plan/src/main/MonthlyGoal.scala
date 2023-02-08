@@ -3,11 +3,11 @@ package lila.plan
 import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
-final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(implicit
+final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
   def get: Fu[MonthlyGoal] =
     monthAmount dmap { amount =>
@@ -17,19 +17,15 @@ final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(implici
   private def monthAmount: Fu[Usd] =
     chargeColl
       .aggregateWith() { framework =>
-        import framework._
+        import framework.*
         List(
           Match($doc("date" $gt DateTime.now.withDayOfMonth(1).withTimeAtStartOfDay)),
           Group(BSONNull)("usd" -> SumField("usd"))
         )
       }
       .headOption
-      .map {
-        _.flatMap { _.getAsOpt[BigDecimal]("usd") } | BigDecimal(0)
-      } dmap Usd.apply
-}
+      .map { _.flatMap { _.getAsOpt[Usd]("usd") } | Usd(0) }
 
-case class MonthlyGoal(current: Usd, goal: Usd) {
+case class MonthlyGoal(current: Usd, goal: Usd):
 
   def percent = (goal.value > 0) ?? (100 * current.value / goal.value).toInt
-}

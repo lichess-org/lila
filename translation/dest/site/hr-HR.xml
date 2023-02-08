@@ -60,8 +60,8 @@
   <string name="depthX">Dubina %s</string>
   <string name="usingServerAnalysis">U uporabi je serverska analiza</string>
   <string name="loadingEngine">Učitavanje računalne analize...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Kalkuliram poteze...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Greška pri učitavanju šahovskog programa</string>
+  <string name="calculatingMoves">Kalkuliram poteze...</string>
+  <string name="engineFailed">Greška pri učitavanju šahovskog programa</string>
   <string name="cloudAnalysis">Analiza u oblaku</string>
   <string name="goDeeper">Idi dublje</string>
   <string name="showThreat">Pokaži prijetnju</string>
@@ -96,6 +96,7 @@
   <string name="dtzWithRounding">DTZ50\'\' sa zaokruživanjem, na temelju broja polupoteza do sljedećeg hvatanja ili poteza pješaka</string>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Probaj uključiti više partija u postavkama pretraživača pozicija</string>
+  <string name="openings">Otvaranja</string>
   <string name="openingExplorer">Pretraživač otvaranja</string>
   <string name="openingEndgameExplorer">Proučavanje otvaranja i završnica</string>
   <string name="xOpeningExplorer">%s pretraživač otvaranja</string>
@@ -165,6 +166,7 @@
   <string name="viewInFullSize">Pogledaj u punoj veličini</string>
   <string name="logOut">Odjavi se</string>
   <string name="signIn">Prijavi se</string>
+  <string name="rememberMe">Zapamti me</string>
   <string name="youNeedAnAccountToDoThat">Za ovo trebaš korisnički račun</string>
   <string name="signUp">Registriraj se</string>
   <string name="computersAreNotAllowedToPlay">Računala i računalni programi ne smiju igrati. Molimo da ne koristiš pomoć programa, baze podataka ili drugih igrača za vrijeme igranja. Također, imaj na umu da se stvaranje više korisničkih računa ne ohrabruje i da prekomjerno korištenje istih može rezultirati zabranom pristupa.</string>
@@ -208,12 +210,31 @@
   <string name="changeUsername">Promijeni korisničko ime</string>
   <string name="changeUsernameNotSame">Jedino se veličina slova može promijeniti. Primjerice, \'\'johndoe\'\' u \'\'JohnDoe\'\'.</string>
   <string name="changeUsernameDescription">Promijeni korisničko ime. Ovo možeš učiniti samo jednom i samo možeš promijeniti veličinu slova svog korisničkog imena.</string>
+  <string name="signupUsernameHint">Obavezno odaberite obiteljsko korisničko ime. Ne možete ga kasnije promijeniti i svi računi s neprikladnim korisničkim imenima bit će zatvoreni!</string>
+  <string name="signupEmailHint">Koristit ćemo ga samo za ponovno postavljanje lozinke.</string>
   <string name="password">Lozinka</string>
   <string name="changePassword">Promijeni lozinku</string>
   <string name="changeEmail">Promijeni email</string>
   <string name="email">Email</string>
   <string name="passwordReset">Resetiraj lozinku</string>
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
+  <string name="emailConfirmHelp">Pomoć oko potvrde e-pošte</string>
+  <string name="emailConfirmNotReceived">Niste primili svoju potvrdnu e-poštu nakon prijave?</string>
+  <string name="whatSignupUsername">Koje ste korisničko ime koristili za prijavu?</string>
+  <string name="usernameNotFound">Nismo mogli pronaći nijednog korisnika pod ovim imenom: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Ovo korisničko ime možete koristiti za stvaranje novog računa</string>
+  <string name="emailSent">Poslali smo email na %s.</string>
+  <string name="emailCanTakeSomeTime">Može potrajati neko vrijeme dok stigne.</string>
+  <string name="refreshInboxAfterFiveMinutes">Pričekajte 5 minuta i osvježite pristiglu poštu.</string>
+  <string name="checkSpamFolder">Također provjerite svoju mapu neželjene pošte, mogla bi tamo završiti. Ako je tako, označite da nije spam.</string>
+  <string name="emailForSignupHelp">Ako ništa drugo ne uspije, pošaljite nam ovu e-poruku:</string>
+  <string name="copyTextToEmail">Kopirajte i zalijepite gornji tekst i pošaljite ga %s</string>
+  <string name="waitForSignupHelp">Javit ćemo vam se uskoro kako bismo vam pomogli dovršiti registraciju.</string>
+  <string name="accountConfirmed">Korisnik %s je uspješno potvrđen.</string>
+  <string name="accountCanLogin">Možete se odmah prijaviti kao %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Nije vam potrebna potvrdna e-pošta.</string>
+  <string name="accountClosed">Račun %s je zatvoren.</string>
+  <string name="accountRegisteredWithoutEmail">Račun %s je registriran bez e-pošte.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Rang: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -669,6 +690,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="tournamentFAQ">Najčešće postavljana pitanja o Arena turnirima</string>
   <string name="timeBeforeTournamentStarts">Vrijeme prije nego turnir započne</string>
   <string name="averageCentipawnLoss">Prosječni gubitak u stotim dijelovima pješaka</string>
+  <string name="accuracy">Preciznost</string>
   <string name="keyboardShortcuts">Kratice na tipkovnici</string>
   <string name="keyMoveBackwardOrForward">idi natrag/naprijed</string>
   <string name="keyGoToStartOrEnd">idi na početak/kraj</string>
@@ -782,6 +804,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="bestWasX">Najbolji potez je %s</string>
   <string name="youBrowsedAway">Odsurfali ste</string>
   <string name="resumePractice">Nastavi vježbu</string>
+  <string name="drawByFiftyMoves">Partija je neriješena po pravilu pedeset poteza.</string>
   <string name="theGameIsADraw">Partija završava remijem.</string>
   <string name="computerThinking">Kompjuter razmišlja ...</string>
   <string name="seeBestMove">Vidi najbolji potez</string>

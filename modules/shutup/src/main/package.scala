@@ -1,3 +1,3 @@
-package lila
+package lila.shutup
 
-package object shutup extends PackageObject
+export lila.Lila.{ *, given }

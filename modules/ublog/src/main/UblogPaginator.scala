@@ -1,12 +1,12 @@
 package lila.ublog
 
-import scala.concurrent.duration._
-import reactivemongo.api._
+import scala.concurrent.duration.*
+import reactivemongo.api.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
 import org.joda.time.DateTime
@@ -17,9 +17,9 @@ final class UblogPaginator(
     colls: UblogColls,
     relationApi: lila.relation.RelationApi,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  import UblogBsonHandlers._
+  import UblogBsonHandlers.{ *, given }
   import UblogPost.PreviewPost
 
   val maxPerPage = MaxPerPage(9)
@@ -77,7 +77,7 @@ final class UblogPaginator(
 
   private def aggregateVisiblePosts(select: Bdoc, offset: Int, length: Int) = colls.post
     .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-      import framework._
+      import framework.*
       Match(select ++ $doc("live" -> true)) -> List(
         Sort(Descending("rank")),
         PipelineOperator(
@@ -105,7 +105,7 @@ final class UblogPaginator(
       } yield post
     }
 
-  object liveByFollowed {
+  object liveByFollowed:
 
     def apply(user: User, page: Int): Fu[Paginator[PreviewPost]] =
       Paginator(
@@ -117,12 +117,12 @@ final class UblogPaginator(
         maxPerPage = maxPerPage
       )
 
-    private val cache = cacheApi[(User.ID, Int, Int), List[PreviewPost]](256, "ublog.paginator.followed")(
+    private val cache = cacheApi[(UserId, Int, Int), List[PreviewPost]](256, "ublog.paginator.followed")(
       _.expireAfterWrite(15 seconds)
         .buildAsyncFuture { case (userId, offset, length) =>
           relationApi.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-              import framework._
+              import framework.*
               Match($doc("u1" -> userId, "r" -> lila.relation.Follow)) -> List(
                 Group(BSONNull)("ids" -> PushField("u2")),
                 PipelineOperator(
@@ -161,5 +161,3 @@ final class UblogPaginator(
             }
         }
     )
-  }
-}

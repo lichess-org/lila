@@ -4,15 +4,15 @@ import org.joda.time.DateTime
 import scala.annotation.nowarn
 
 import lila.common.config.Max
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class ChallengeRepo(colls: ChallengeColls)(implicit
+final private class ChallengeRepo(colls: ChallengeColls)(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
-  import BSONHandlers._
-  import Challenge._
+  import BSONHandlers.given
+  import Challenge.*
 
   private val coll = colls.challenge
 
@@ -40,13 +40,13 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
   private def createdList(selector: Bdoc, max: Int): Fu[List[Challenge]] =
     coll.find(selectCreated ++ selector).sort($sort asc "createdAt").cursor[Challenge]().list(max)
 
-  def createdByChallengerId(max: Int = 50)(userId: User.ID): Fu[List[Challenge]] =
+  def createdByChallengerId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] =
     createdList($doc("challenger.id" -> userId), max)
 
-  def createdByDestId(max: Int = 50)(userId: User.ID): Fu[List[Challenge]] =
+  def createdByDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] =
     createdList($doc("destUser.id" -> userId), max)
 
-  def createdByPopularDestId(max: Int = 50)(userId: User.ID): Fu[List[Challenge]] = for {
+  def createdByPopularDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] = for {
     realTime <- createdList($doc("destUser.id" -> userId, "timeControl.l" $exists true), max)
     corres <- (realTime.sizeIs < max) ?? createdList(
       $doc($doc("destUser.id" -> userId), "timeControl.l" $exists false),
@@ -64,7 +64,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
       )
       .void
 
-  private[challenge] def allWithUserId(userId: String): Fu[List[Challenge]] =
+  private[challenge] def allWithUserId(userId: UserId): Fu[List[Challenge]] =
     createdByChallengerId()(userId) zip createdByDestId()(userId) dmap { case (x, y) =>
       x ::: y
     }
@@ -88,25 +88,23 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
     case None                                                 => insert(c)
   }
 
-  private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
+  private[challenge] def countCreatedByDestId(userId: UserId): Fu[Int] =
     coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))
 
-  private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] = {
+  private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] =
     coll
       .find(
         $doc(
           "seenAt" $lt date,
           "status" -> Status.Created.id,
-          "timeControl" $exists true
+          "timeControl.l" $exists true
         )
       )
-      .hint(coll hint $doc("seenAt" -> 1)) // partial index
       .cursor[Challenge]()
       .list(max)
-  }
 
   private[challenge] def expired(max: Int): Fu[List[Challenge]] =
-    coll.list[Challenge]($doc("expiresAt" $lt DateTime.now), max)
+    coll.list[Challenge]("expiresAt" $lt DateTime.now, max)
 
   def setSeenAgain(id: Challenge.ID) =
     coll.update
@@ -157,4 +155,3 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
   private[challenge] def remove(id: Challenge.ID) = coll.delete.one($id(id)).void
 
   private val selectCreated = $doc("status" -> Status.Created.id)
-}

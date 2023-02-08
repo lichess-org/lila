@@ -60,10 +60,10 @@
   <string name="strengths">Stärken</string>
   <string name="history">Aufgabenverlauf</string>
   <string name="solved">gelöst</string>
-  <string name="failed">fehlgeschlagen</string>
+  <string name="failed">falsch</string>
   <string name="streakDescription">Löse schwieriger werdende Aufgaben und baue eine Erfolgsserie auf. Es gibt keine Uhr, also nimm dir Zeit. Ein falscher Zug und es ist vorbei! Du kannst jedoch einen Zug pro Sitzung überspringen.</string>
   <string name="yourStreakX">Deine Erfolgsserie: %s</string>
-  <string name="streakSkipExplanation">Überspringe diesen Zug, um deine Erfolgsserie beizubehalten! Du kannst das nur einmal pro Durchlauf machen.</string>
+  <string name="streakSkipExplanation">Überspringe diesen Zug, um deine Antwortserie zu bewahren! Dies funktioniert nur einmal pro Durchlauf.</string>
   <string name="continueTheStreak">Erfolgsserie fortsetzen</string>
   <string name="newStreak">Neue Erfolgsserie</string>
   <string name="fromMyGames">Aus meinen Partien</string>
@@ -86,5 +86,5 @@ Spiele Schnellschach und klassische Partien, um deine Chancen zu erhöhen, dass 
   <string name="percentSolved">%s gelöst</string>
   <string name="noPuzzlesToShow">Nichts zu zeigen, spiel erst ein paar Aufgaben!</string>
   <string name="improvementAreasDescription">Trainiere diese, um deinen Fortschritt zu optimieren!</string>
-  <string name="strengthDescription">Diese Aufgabengebiete liegen dir am meisten</string>
+  <string name="strengthDescription">Bei diesen Themen schneiden Sie am besten ab</string>
 </resources>

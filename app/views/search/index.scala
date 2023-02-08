@@ -2,22 +2,22 @@ package views.html.search
 
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 import controllers.routes
 
-object index {
+object index:
 
-  import trans.search._
+  import trans.search.*
 
-  def apply(form: Form[_], paginator: Option[Paginator[lila.game.Game]] = None, nbGames: Long)(implicit
+  def apply(form: Form[?], paginator: Option[Paginator[lila.game.Game]] = None, nbGames: Long)(using
       ctx: Context
-  ) = {
+  ) =
     val commons = bits of form
-    import commons._
+    import commons.*
     views.html.base.layout(
       title = searchInXGames.txt(nbGames.localize, nbGames),
       moreJs = frag(
@@ -27,7 +27,7 @@ object index {
       moreCss = cssTag("search")
     ) {
       main(cls := "box page-small search")(
-        h1(advancedSearch()),
+        h1(cls := "box__top")(advancedSearch()),
         st.form(
           noFollow,
           cls    := "box__pad search__form",
@@ -98,5 +98,3 @@ object index {
         )
       )
     }
-  }
-}

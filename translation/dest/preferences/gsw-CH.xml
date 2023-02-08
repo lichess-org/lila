@@ -3,12 +3,13 @@
   <string name="preferences">Ischtellige</string>
   <string name="display">Azeige</string>
   <string name="privacy">Privatsfähre</string>
+  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Mäldige</string>
   <string name="pieceAnimation">Figure Animation</string>
   <string name="materialDifference">Materialunderschid</string>
   <string name="boardHighlights">Markierige ufem Brätt (letschte Zug und Schach)</string>
   <string name="pieceDestinations">Zilfälder markiere (gültigi Züg und Voruszüg)</string>
   <string name="boardCoordinates">Brättkoordinate (A - H / 1 - 8)</string>
-  <string name="moveListWhilePlaying">Zugslischte während em Schpil zeige</string>
+  <string name="moveListWhilePlaying">Zugslischte während em Schpiel zeige</string>
   <string name="pgnPieceNotation">Zugsnotation</string>
   <string name="chessPieceSymbol">Schachfigure Symbol</string>
   <string name="pgnLetter">Buechstabe (K - Q - R - B - N)</string>
@@ -24,19 +25,19 @@
   <string name="horizontalGreenProgressBars">Horizontali grüeni Fortschrittsbalke</string>
   <string name="soundWhenTimeGetsCritical">Warnig, bi wenig Zit</string>
   <string name="giveMoreTime">Gib meh Zit</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Schpilverhalte</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Schpielverhalte</string>
   <string name="howDoYouMovePieces">Wie wottsch Figure bewege?</string>
   <string name="clickTwoSquares">Klick Schtartfäld und Zielfäld</string>
   <string name="dragPiece">Figur mit Cursor zieh</string>
   <string name="bothClicksAndDrag">Beides</string>
   <string name="premovesPlayingDuringOpponentTurn">Voruszüg (Premoves), während de Gägner am Zug isch</string>
   <string name="takebacksWithOpponentApproval">Zugsrücknahm (mit Erlaubnis vom Gägner)</string>
-  <string name="inCasualGamesOnly">Nur in ungwertete Schpil</string>
+  <string name="inCasualGamesOnly">Nur in ungwertete Schpiel</string>
   <string name="promoteToQueenAutomatically">Automatischi Umwandlig zur Dame</string>
   <string name="explainPromoteToQueenAutomatically">Druck &lt;ctrl&gt; bi de Umwandlig, so wird sie vorübergehend abgschtellt</string>
   <string name="whenPremoving">Bim Voruszug</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatischs Remis bi 3 Mal glicher Stellig</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Bi Reschtzit &lt; 30 Sekunde</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Bi Reschtzit &lt; 30 Sekunde</string>
   <string name="moveConfirmation">Zugsbeschtätigung</string>
   <string name="inCorrespondenceGames">Bi Fernschach</string>
   <string name="correspondenceAndUnlimited">Bi Fernschach und ohni Uhr</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Dini Ischtellige sind gschpeicheret.</string>
   <string name="scrollOnTheBoardToReplayMoves">Mit em Muszeiger uf em Brätt, chasch mit em Musrad all Züg vor- und zrugg scrolle</string>
   <string name="correspondenceEmailNotification">Täglichi E-Mail-Benachrichtigung, wo Dini Fernschachpartie uflischtet</string>
+  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">De Streamer gaht live</string>
+  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Neui Nachricht im Poschtigang</string>
+  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">En Forumkommentar erwähnt dich</string>
+  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Zum Schtudium ilade</string>
+  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Aktualisierig vum Korreschpondänzschpiel</string>
+  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Useforderige</string>
+  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Turnier schtarted bald</string>
+  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting.">Korreschpondänzzit lauft ab</string>
+  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Akustischi Mäldig, innerhalb Lichess</string>
+  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Mäldig vum Grät, wänn du nöd uf Lichess bisch</string>
+  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Browser</string>
+  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Grät</string>
 </resources>

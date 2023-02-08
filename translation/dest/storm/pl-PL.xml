@@ -56,6 +56,7 @@
   <string name="skipExplanation">Pomiń ten ruch aby zachować serię! Działa tylko raz na wyścig.</string>
   <string name="failedPuzzles">Zadania nieudane</string>
   <string name="slowPuzzles">Zadania bez limitu czasu</string>
+  <string name="skippedPuzzle">Pominięte zadania</string>
   <string name="thisWeek">W tym tygodniu</string>
   <string name="thisMonth">W tym miesiącu</string>
   <string name="allTime">Od początku</string>

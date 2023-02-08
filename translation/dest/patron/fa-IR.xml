@@ -29,6 +29,7 @@
   <string name="otherAmount">دیگر</string>
   <string name="pleaseEnterAmountInX">لطفا مقدار را در %s وارد کنید</string>
   <string name="withCreditCard">کارت اعتباری</string>
+  <string name="logInToDonate">برای اهدای کمک به حساب کاربری خود وارد شوید</string>
   <string name="weAreSmallTeam">ما یک تیم کوچک هستیم، بنابراین پشتیبانی شما تغییر بزرگی ایجاد می‌کند!</string>
   <string name="celebratedPatrons">پشتبان‌های ارجمند که Lichess را ممکن می‌سازند</string>
   <string name="whereMoneyGoes">پول به کجا می‌رود؟</string>
@@ -42,7 +43,9 @@
 یا شما می‌توانید %s.</string>
   <string name="contactSupport">با پشتیبانیِ Lichess تماس بگیرید</string>
   <string name="otherMethods">روشهای دیگر برای کمک مالی؟</string>
+  <string name="lichessIsRegisteredWith">لیچس در %s ثبت شده است.</string>
   <string name="bankTransfers">ما انتقالهای بانکی را هم قبول می‌کنیم</string>
+  <string name="onlyDonationFromAbove">لطفاً توجه داشته باشید که دستیابی به وضعیت پاترون (حامی) تنها از طریق فرم کمک بالا امکان‌پذیر است.</string>
   <string name="patronFeatures">آیا برخی ویژگیها فقط برای پشتیبان‌ها قابل دسترس است؟</string>
   <string name="noPatronFeatures">نه، چرا که Lichess کاملاً رایگان است، برای همیشه، و برای همه. این یک تعهد و قول است.
 با این حال، پشتیبان‌ها با یک آیکون کاربری جدید و زیبا، حقوقی برای فخرفروشی و پز دادن دریافت می‌کنند.</string>
@@ -61,7 +64,7 @@
   <string name="update">به روز رسانی</string>
   <string name="changeMonthlyAmount">مقدار ماهانه (%s) را تغییر دهید</string>
   <string name="cancelSupport">پشتیبانی خود را متوقف کنید</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s یا %2$s</string>
+  <string name="xOrY">%1$s یا %2$s</string>
   <string name="decideHowMuch">تصمیم بگیرید که Lichess چه میزان برای شما ارزش دارد:</string>
   <string name="stopPayments">کارت اعتباری خود را خارج و پرداختها را متوقف نمایید:</string>
   <string name="stopPaymentsPayPal">لغو اشتراک PayPal و توقف پرداخت:</string>

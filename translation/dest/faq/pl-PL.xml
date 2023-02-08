@@ -68,6 +68,7 @@ tak, jakby został przesunięty tylko o jedno pole. Takie bicie może być wykon
 Zobacz nasze %3$s, aby poćwiczyć ten specjalny ruch.</string>
   <string name="goodIntroduction">dobre wprowadzenie</string>
   <string name="lichessTraining">Podstawy gry</string>
+  <string name="watchIMRosenCheckmate">Obejrzyj mata w wykonaniu IM Erica Rosena %s.</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
   <string name="threefoldRepetitionExplanation">Jeśli pozycja występuje trzykrotnie, gracze mogą zgłosić remis poprzez %1$s. Lichess wprowadza oficjalne zasady FIDE, opisane w Artykule 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trzykrotne powtórzenie pozycji</string>

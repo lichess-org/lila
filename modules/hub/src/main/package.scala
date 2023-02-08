@@ -1,3 +1,3 @@
-package lila
+package lila.hub
 
-package object hub extends PackageObject
+export lila.Lila.{ *, given }

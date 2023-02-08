@@ -1,21 +1,21 @@
 package views.html.user
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 import lila.user.User
 
-object download {
-  def apply(user: lila.user.User)(implicit ctx: Context): Frag = {
+object download:
+  def apply(user: lila.user.User)(implicit ctx: Context): Frag =
     views.html.base.layout(
       title = s"${user.username} • ${trans.exportGames.txt()}",
       moreCss = cssTag("search"),
       moreJs = jsModule("userGamesDownload")
     ) {
       main(cls := "box page-small search")(
-        h1(userLink(user), s" • ${trans.exportGames.txt()}"),
+        boxTop(h1(userLink(user), s" • ${trans.exportGames.txt()}")),
         form(
           id  := "dl-form",
           cls := "box__pad search__form"
@@ -63,7 +63,6 @@ object download {
         )
       )
     }
-  }
 
   private def color(implicit ctx: Context): Frag = tr(
     th(label(`for` := "dl-color")(trans.search.color())),
@@ -127,7 +126,7 @@ object download {
     )
   )
 
-  private def perfToggles(implicit ctx: Context): Frag = {
+  private def perfToggles(implicit ctx: Context): Frag =
     val perfTypes = lila.rating.PerfType.nonPuzzle
     tr(
       th(cls := "top")(label(`for` := "dl-perfs")(trans.variants())),
@@ -137,7 +136,6 @@ object download {
         )
       )
     )
-  }
 
   private def perfToggle(perfType: lila.rating.PerfType)(implicit ctx: Context): Frag = div(
     form3.cmnToggle(
@@ -176,4 +174,3 @@ object download {
     ),
     td(input(tpe := "number", id := "dl-amount", name := "max", min := "1", step := "1"))
   )
-}

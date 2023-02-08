@@ -1,8 +1,8 @@
 package lila.practice
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 
-import lila.common.config._
+import lila.common.config.*
 
 @Module
 final class Env(
@@ -10,11 +10,11 @@ final class Env(
     studyApi: lila.study.StudyApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using scala.concurrent.ExecutionContext):
 
   private lazy val coll = db(CollName("practice_progress"))
 
-  import PracticeConfig.loader
+  import PracticeConfig.given
   private lazy val configStore = configStoreApi[PracticeConfig]("practice", logger)
 
   lazy val api: PracticeApi = wire[PracticeApi]
@@ -22,4 +22,3 @@ final class Env(
   lila.common.Bus.subscribeFun("study") { case lila.study.actorApi.SaveStudy(study) =>
     api.structure onSave study
   }
-}

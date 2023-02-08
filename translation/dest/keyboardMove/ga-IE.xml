@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="keyboardInputCommands">Orduithe ionchuir méarchláir</string>
+  <string name="performAMove">Déan beart</string>
+  <string name="movePieceFromE2ToE4">Bog píosa ó e2 go e4</string>
+  <string name="moveKnightToC3">Bog an ridire go c3</string>
   <string name="kingsideCastle">Taobh an rí</string>
   <string name="queensideCastle">Taobh na banríona</string>
+  <string name="promoteC8ToQueen">Ardú c8 go banríon</string>
   <string name="offerOrAcceptDraw">Tairiscint nó glacadh le cluiche cothrom</string>
   <string name="readOutClocks">Léigh amach cloig</string>
   <string name="readOutOpponentName">Léigh amach ainm an chéile comhraic</string>

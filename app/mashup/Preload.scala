@@ -2,7 +2,7 @@ package lila.app
 package mashup
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.api.Context
 import lila.event.Event
@@ -34,9 +34,9 @@ final class Preload(
     lastPostCache: lila.blog.LastPostCache,
     lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
     msgApi: lila.msg.MsgApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import Preload._
+  import Preload.*
 
   def apply(
       tours: Fu[List[Tournament]],
@@ -44,8 +44,8 @@ final class Preload(
       events: Fu[List[Event]],
       simuls: Fu[List[Simul]],
       streamerSpots: Int
-  )(implicit ctx: Context): Fu[Homepage] =
-    lobbyApi(ctx).mon(_.lobby segment "lobbyApi") zip
+  )(using ctx: Context): Fu[Homepage] =
+    lobbyApi(using ctx).mon(_.lobby segment "lobbyApi") zip
       tours.mon(_.lobby segment "tours") zip
       events.mon(_.lobby segment "events") zip
       simuls.mon(_.lobby segment "simuls") zip
@@ -108,13 +108,12 @@ final class Preload(
     ~povs.collectFirst {
       case p1 if p1.game.nonAi && p1.game.hasClock && p1.isMyTurn =>
         roundProxy.pov(p1.gameId, user) dmap (_ | p1) map { pov =>
-          val opponent = lila.game.Namer.playerTextBlocking(pov.opponent)(lightUser)
+          val opponent = lila.game.Namer.playerTextBlocking(pov.opponent)(using lightUser)
           CurrentGame(pov = pov, opponent = opponent).some
         }
     }
-}
 
-object Preload {
+object Preload:
 
   case class Homepage(
       data: JsObject,
@@ -138,4 +137,3 @@ object Preload {
   )
 
   case class CurrentGame(pov: Pov, opponent: String)
-}

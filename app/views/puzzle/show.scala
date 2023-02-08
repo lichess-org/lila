@@ -3,20 +3,21 @@ package views.html.puzzle
 import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.Json.given
 import lila.common.String.html.safeJsonValue
-import lila.common.Json.colorWrites
 
-object show {
+object show:
 
   def apply(
       puzzle: lila.puzzle.Puzzle,
       data: JsObject,
       pref: JsObject,
-      settings: lila.puzzle.PuzzleSettings
-  )(implicit ctx: Context) = {
+      settings: lila.puzzle.PuzzleSettings,
+      langPath: Option[lila.common.LangPath] = None
+  )(implicit ctx: Context) =
     val isStreak = data.value.contains("streak")
     views.html.base.layout(
       title = if (isStreak) "Puzzle Streak" else trans.puzzles.txt(),
@@ -40,15 +41,17 @@ object show {
               .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
           )})""")
       ),
-      csp = defaultCsp.withWebAssembly.withAnyWs.some,
+      csp = analysisCsp.some,
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id.value).url).some,
+          image = cdnUrl(
+            routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
+          ).some,
           title =
             if (isStreak) "Puzzle Streak"
             else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
-          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
+          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
           description =
             if (isStreak) trans.puzzle.streakDescription.txt()
             else
@@ -61,7 +64,8 @@ object show {
         )
         .some,
       zoomable = true,
-      zenable = true
+      zenable = true,
+      withHrefLangs = langPath
     ) {
       main(cls := "puzzle")(
         st.aside(cls := "puzzle__side")(
@@ -72,5 +76,3 @@ object show {
         div(cls := "puzzle__controls")
       )
     }
-  }
-}

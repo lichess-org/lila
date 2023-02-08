@@ -92,7 +92,7 @@ function loadVosk(submit: Submit) {
   loadSpeechRecognition();
 }
 
-export default (opts: Opts) => {
+export default (window as any).LichessKeyboardMove = (opts: Opts) => {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;

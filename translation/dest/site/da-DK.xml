@@ -59,8 +59,8 @@
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Ved brug af serveranalyse</string>
   <string name="loadingEngine">Indlæser skakmotor ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Beregner træk...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Fejl under indlæsning af beregningsmotor</string>
+  <string name="calculatingMoves">Beregner træk...</string>
+  <string name="engineFailed">Fejl under indlæsning af beregningsmotor</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Analysér dybere</string>
   <string name="showThreat">Vis trussel</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' med afrunding, baseret på antallet af halv-træk indtil næste fangst eller bondetræk</string>
   <string name="noGameFound">Intet parti fundet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
+  <string name="openings">Åbninger</string>
   <string name="openingExplorer">Åbningsbog</string>
   <string name="openingEndgameExplorer">Åbning/slutspilsbog</string>
   <string name="xOpeningExplorer">%s åbningsbog</string>
@@ -157,9 +158,10 @@
   <string name="viewInFullSize">Se i fuldskærm</string>
   <string name="logOut">Log ud</string>
   <string name="signIn">Log ind</string>
+  <string name="rememberMe">Husk mig</string>
   <string name="youNeedAnAccountToDoThat">Du skal have en konto for at gøre dette</string>
   <string name="signUp">Registrer</string>
-  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere må ikke spille. Du må ikke få hjælp fra skakmotorer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det at lave flere konti er stærkt frarådet og at lave alt for mange konti vil medføre udelukkelse.</string>
+  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere har ikke lov til at spille. Du må ikke få hjælp fra skakmotorer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det kraftigt frarådes at oprette flere konti, og at overdreven brug af flere konti vil føre til udelukkelse.</string>
   <string name="games">Partier</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s skrev i forum %2$s</string>
@@ -197,12 +199,31 @@
   <string name="changeUsername">Ændr brugernavn</string>
   <string name="changeUsernameNotSame">Kun størrelsen af bogstaverne kan ændres. For eksempel \"bentlarsen\" til \"BentLarsen\".</string>
   <string name="changeUsernameDescription">Ændr dit brugernavn. Dette kan kun gøres én gang og du må kun ændre i dit brugernavns bogstavstørrelser.</string>
+  <string name="signupUsernameHint">Sørg for at vælge et familievenligt brugernavn. Du kan ikke ændre det senere, og alle konti med upassende brugernavne vil blive lukket!</string>
+  <string name="signupEmailHint">Vi vil kun bruge det til nulstilling af adgangskode.</string>
   <string name="password">Adgangskode</string>
   <string name="changePassword">Skift adgangskode</string>
   <string name="changeEmail">Skift e-mail</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Nulstil adgangskode</string>
   <string name="forgotPassword">Glemt adgangskode?</string>
+  <string name="emailConfirmHelp">Hjælp med bekræftelse af e-mail</string>
+  <string name="emailConfirmNotReceived">Har du ikke modtaget din bekræftelsesmail efter tilmelding?</string>
+  <string name="whatSignupUsername">Hvilket brugernavn brugte du til at tilmelde dig?</string>
+  <string name="usernameNotFound">Vi kunne ikke finde nogen bruger med dette navn: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Du kan bruge dette brugernavn til at oprette en ny konto</string>
+  <string name="emailSent">Vi har sendt en e-mail til %s.</string>
+  <string name="emailCanTakeSomeTime">Det kan tage lidt tid for den at ankomme.</string>
+  <string name="refreshInboxAfterFiveMinutes">Vent 5 minutter og opdater din e-mails indbakke.</string>
+  <string name="checkSpamFolder">Tjek også din spam-mappe, det kan være, at den havner der. Hvis det er tilfældet, skal du markere den som ikke-spam.</string>
+  <string name="emailForSignupHelp">Hvis alt andet mislykkes, så send os denne e-mail:</string>
+  <string name="copyTextToEmail">Kopier og indsæt ovenstående tekst og send det til %s</string>
+  <string name="waitForSignupHelp">Vi vil snart vende tilbage til dig for at hjælpe dig med at fuldføre din tilmelding.</string>
+  <string name="accountConfirmed">Brugeren %s er blevet bekræftet.</string>
+  <string name="accountCanLogin">Du kan nu logge ind som %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Du behøver ikke en bekræftelsesmail.</string>
+  <string name="accountClosed">Kontoen %s er lukket.</string>
+  <string name="accountRegisteredWithoutEmail">Kontoen %s blev registreret uden en e-mail.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Rang: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -342,6 +363,7 @@
   <string name="siteDescription">Gratis online skakserver. Spil skak med et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
   <string name="xJoinedTeamY">%1$s blev medlem af %2$s</string>
   <string name="xCreatedTeamY">%1$s oprettede holdet %2$s</string>
+  <string name="startedStreaming">begyndte at streame</string>
   <string name="xStartedStreaming">%s begyndte at streame</string>
   <string name="averageElo">Gennemsnitlig rating</string>
   <string name="location">Sted</string>
@@ -517,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Noter</string>
   <string name="typePrivateNotesHere">Skriv private noter her</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skriv en privat note om denne bruger</string>
+  <string name="noNoteYet">Ingen note endnu</string>
   <string name="invalidUsernameOrPassword">Ugyldigt brugernavn eller adgangskode</string>
   <string name="incorrectPassword">Forkert adgangskode</string>
   <string name="invalidAuthenticationCode">Ugyldig godkendelseskode</string>
@@ -633,6 +657,7 @@
   <string name="tournamentFAQ">Arenaturnering FAQ</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
   <string name="averageCentipawnLoss">Gennemsnitligt centibonde-tab</string>
+  <string name="accuracy">Præcision</string>
   <string name="keyboardShortcuts">Tastaturgenveje</string>
   <string name="keyMoveBackwardOrForward">ryk tilbage/frem</string>
   <string name="keyGoToStartOrEnd">gå til start/slut</string>
@@ -715,6 +740,7 @@
   <string name="light">Lyst</string>
   <string name="dark">Mørkt</string>
   <string name="transparent">Gennemsigtigt</string>
+  <string name="deviceTheme">Enhedstema</string>
   <string name="backgroundImageUrl">Baggrundsbillede URL:</string>
   <string name="boardGeometry">Brætgeometri</string>
   <string name="boardTheme">Brættema</string>
@@ -743,6 +769,7 @@
   <string name="bestWasX">Bedste var %s</string>
   <string name="youBrowsedAway">Du browsede væk</string>
   <string name="resumePractice">Genoptag træning</string>
+  <string name="drawByFiftyMoves">Partiet er endt med remis efter reglen om halvtreds træk.</string>
   <string name="theGameIsADraw">Partiet ender med remis.</string>
   <string name="computerThinking">Computer tænker...</string>
   <string name="seeBestMove">Se bedste træk</string>

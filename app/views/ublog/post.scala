@@ -1,16 +1,17 @@
 package views.html.ublog
 
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.mvc.Call
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.User
 
-object post {
+object post:
 
   def apply(
       user: User,
@@ -20,9 +21,7 @@ object post {
       others: List[UblogPost.PreviewPost],
       liked: Boolean,
       followed: Boolean
-  )(implicit
-      ctx: Context
-  ) =
+  )(using ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = frag(
@@ -35,7 +34,7 @@ object post {
           `type` = "article",
           image = post.image.isDefined option thumbnail.url(post, _.Large),
           title = post.title,
-          url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id.value)}",
+          url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id)}",
           description = post.intro
         )
         .some,
@@ -84,7 +83,7 @@ object post {
             ),
             if (ctx is user)
               div(cls := "ublog-post__meta__owner")(
-                (if (post.live) goodTag else badTag)(
+                (if (post.live) goodTag else badTag) (
                   if (post.live) trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
                 ),
                 " ",
@@ -95,7 +94,14 @@ object post {
               a(
                 titleOrText(trans.reportXToModerators.txt(user.username)),
                 cls := "button button-empty ublog-post__meta__report",
-                href := s"${routes.Report.form}?username=${user.username}&postUrl=${urlencode(s"${netBaseUrl}${urlOfPost(post).url}")}&reason=comm",
+                href := addQueryParams(
+                  reportRoutes.form.url,
+                  Map(
+                    "username" -> user.username,
+                    "postUrl"  -> s"$netBaseUrl${urlOfPost(post)}",
+                    "reason"   -> "comm"
+                  )
+                ),
                 dataIcon := ""
               )
           ),
@@ -107,14 +113,11 @@ object post {
           strong(cls := "ublog-post__intro")(post.intro),
           div(cls := "ublog-post__markup expand-text")(markup),
           div(cls := "ublog-post__footer")(
-            if (post.live && ~post.discuss)
-              a(
-                href     := routes.Ublog.discuss(post.id.value),
-                cls      := "button text ublog-post__discuss",
-                dataIcon := ""
-              )(
-                "Discuss this blog post in the forum"
-              ),
+            post.live && ~post.discuss option a(
+              href     := routes.Ublog.discuss(post.id),
+              cls      := "button text ublog-post__discuss",
+              dataIcon := ""
+            )("Discuss this blog post in the forum"),
             (ctx.isAuth && !ctx.is(user)) option
               div(cls := "ublog-post__actions")(
                 likeButton(post, liked, showText = true),
@@ -127,13 +130,13 @@ object post {
       )
     }
 
-  private def editButton(post: UblogPost)(implicit ctx: Context) = a(
+  private def editButton(post: UblogPost)(using Context) = a(
     href     := editUrlOfPost(post),
     cls      := "button button-empty text",
     dataIcon := ""
   )(trans.edit())
 
-  private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(implicit ctx: Context) = {
+  private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using Context) =
     val text = if (liked) trans.study.unlike.txt() else trans.study.like.txt()
     button(
       tpe := "button",
@@ -143,7 +146,7 @@ object post {
         "ublog-post__like--big button button-big button-red" -> showText,
         "ublog-post__like--mini button-link"                 -> !showText
       ),
-      dataRel := post.id.value,
+      dataRel := post.id,
       title   := text
     )(
       span(cls := "ublog-post__like__nb")(post.likes.value.localize),
@@ -153,9 +156,8 @@ object post {
         attr("data-i18n-unlike") := trans.study.unlike.txt()
       )(text)
     )
-  }
 
-  private def followButton(user: User, post: UblogPost, followed: Boolean)(implicit ctx: Context) =
+  private def followButton(user: User, post: UblogPost, followed: Boolean)(using Context) =
     div(
       cls := List(
         "ublog-post__follow" -> true,
@@ -163,8 +165,8 @@ object post {
       )
     )(
       List(
-        ("yes", trans.unfollowX, routes.Relation.unfollow _, ""),
-        ("no", trans.followX, routes.Relation.follow _, "")
+        ("yes", trans.unfollowX, routes.Relation.unfollow, ""),
+        ("no", trans.followX, routes.Relation.follow, "")
       ).map { case (role, text, route, icon) =>
         button(
           cls      := s"ublog-post__follow__$role button button-big",
@@ -181,31 +183,30 @@ object post {
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
       showAuthor: Boolean = false,
       showIntro: Boolean = true
-  )(implicit ctx: Context) =
+  )(using Context) =
     a(cls                          := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),
         showIntro option span(cls := "ublog-post-card__intro")(shorten(post.intro, 100)),
-        post.lived map { live => semanticDate(live.at)(ctx.lang)(cls := "ublog-post-card__over-image") },
-        showAuthor option userIdSpanMini(post.created.by)(ctx.lang)(cls := "ublog-post-card__over-image")
+        post.lived map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
+        showAuthor option userIdSpanMini(post.created.by)(cls := "ublog-post-card__over-image")
       )
     )
 
-  def miniCard(post: UblogPost.BasePost)(implicit ctx: Context) =
+  def miniCard(post: UblogPost.BasePost)(using Context) =
     span(cls                       := "ublog-post-card ublog-post-card--mini")(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       h3(cls := "ublog-post-card__title")(post.title)
     )
 
-  def urlOfPost(post: UblogPost.BasePost) = post.blog match {
+  def urlOfPost(post: UblogPost.BasePost) = post.blog match
     case UblogBlog.Id.User(userId) =>
-      routes.Ublog.post(usernameOrId(userId), post.slug, post.id.value)
-  }
+      routes.Ublog.post(usernameOrId(userId), post.slug, post.id)
 
-  def editUrlOfPost(post: UblogPost.BasePost) = routes.Ublog.edit(post.id.value)
+  def editUrlOfPost(post: UblogPost.BasePost) = routes.Ublog.edit(post.id)
 
-  private[ublog] def newPostLink(implicit ctx: Context) = ctx.me map { u =>
+  private[ublog] def newPostLink(using ctx: Context) = ctx.me map { u =>
     a(
       href     := routes.Ublog.form(u.username),
       cls      := "button button-green",
@@ -214,7 +215,7 @@ object post {
     )
   }
 
-  object thumbnail {
+  object thumbnail:
     def apply(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
       img(
         cls     := "ublog-post-image",
@@ -224,9 +225,6 @@ object post {
       )(src := url(post, size))
 
     def url(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
-      post.image match {
+      post.image match
         case Some(image) => UblogPost.thumbnail(picfitUrl, image.id, size)
         case _           => assetUrl("images/user-blog-default.png")
-      }
-  }
-}

@@ -1,9 +1,9 @@
 import { h, VNode } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import userLink from 'common/userLink';
-import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces';
+import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason, Ctrl } from './interfaces';
 import { numberFormat } from 'common/number';
-import { userModInfo } from './xhr';
+import { userModInfo, flag } from './xhr';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;
@@ -39,8 +39,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   return {
     loading: () => loading,
     data: () => data,
-    reasons: opts.reasons,
-    permissions: () => opts.permissions,
+    opts,
     open,
     close,
     timeout(reason: ModerationReason, text: string) {
@@ -56,6 +55,15 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   };
 }
 
+export function report(ctrl: Ctrl, line: HTMLElement) {
+  const userA = line.querySelector('a.user-link') as HTMLLinkElement;
+  const text = (line.querySelector('t') as HTMLElement).innerText;
+  if (userA) reportUserText(ctrl.data.resourceId, userA.href.split('/')[4], text);
+}
+function reportUserText(resourceId: string, username: string, text: string) {
+  if (confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);
+}
+
 export const lineAction = () => h('i.mod', { attrs: { 'data-icon': '' } });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
@@ -63,7 +71,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (ctrl.loading()) return [h('div.loading')];
   const data = ctrl.data();
   if (!data) return;
-  const perms = ctrl.permissions();
+  const perms = ctrl.opts.permissions;
 
   const infos = data.history
     ? h(
@@ -99,31 +107,45 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       )
     : undefined;
 
-  const timeout = perms.timeout
-    ? h('div.timeout.block', [
-        h('strong', 'Timeout 15 minutes for'),
-        ...ctrl.reasons.map(r => {
-          return h(
-            'a.text',
-            {
-              attrs: { 'data-icon': '' },
-              hook: bind('click', () => ctrl.timeout(r, data.text)),
-            },
-            r.name
-          );
-        }),
-      ])
-    : h('div.timeout.block', [
-        h('strong', 'Moderation'),
-        h(
-          'a.text',
-          {
-            attrs: { 'data-icon': '' },
-            hook: bind('click', () => ctrl.timeout(ctrl.reasons[0], data.text)),
-          },
-          'Timeout 15 minutes'
-        ),
-      ]);
+  const timeout =
+    perms.timeout || perms.broadcast
+      ? h('div.timeout.block', [
+          h('strong', 'Timeout 15 minutes for'),
+          ...ctrl.opts.reasons.map(r =>
+            h(
+              'a.text',
+              {
+                attrs: { 'data-icon': '' },
+                hook: bind('click', () => ctrl.timeout(r, data.text)),
+              },
+              r.name
+            )
+          ),
+        ])
+      : h('div.timeout.block', [
+          h('strong', 'Moderation'),
+          ...[
+            h(
+              'a.text',
+              {
+                attrs: { 'data-icon': '' },
+                hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)),
+              },
+              'Timeout 15 minutes'
+            ),
+            h(
+              'a.text',
+              {
+                attrs: { 'data-icon': '' },
+                hook: bind('click', () => {
+                  reportUserText(ctrl.opts.resourceId, data.username, data.text);
+                  ctrl.timeout(ctrl.opts.reasons[0], data.text);
+                }),
+              },
+              'Timeout and report to Lichess'
+            ),
+          ],
+        ]);
 
   const history = data.history
     ? h('div.history.block', [

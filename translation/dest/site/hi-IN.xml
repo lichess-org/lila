@@ -59,8 +59,8 @@
   <string name="depthX">मध्यमार्ग %s</string>
   <string name="usingServerAnalysis">सर्वर विश्लेषण का उपयोग किया जा रहा है</string>
   <string name="loadingEngine">इंजन लोड हो रहा है ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">चालों की गणना की जा रही है...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">इंजन लोड करने में समस्या</string>
+  <string name="calculatingMoves">चालों की गणना की जा रही है...</string>
+  <string name="engineFailed">इंजन लोड करने में समस्या</string>
   <string name="cloudAnalysis">क्लाउड विश्लेषण</string>
   <string name="goDeeper">भीतर जाओ</string>
   <string name="showThreat">खतरे को दिखाएं</string>
@@ -119,7 +119,7 @@
   <string name="infiniteAnalysis">अनंत विश्लेषण</string>
   <string name="removesTheDepthLimit">गहराई सीमा को निकालता है, और आपके कंप्यूटर को गर्म रखता है</string>
   <string name="blunder">भयंकर गलती</string>
-  <string name="mistake">गलती</string>
+  <string name="mistake">ग़लती</string>
   <string name="inaccuracy">गलती</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s गंभीर गलती</item>
@@ -197,12 +197,23 @@
   <string name="changeUsername">खाता नाम बदलें</string>
   <string name="changeUsernameNotSame">केवल अक्षरों का मामला बदल सकता है। उदाहरण के लिए \"johndoe\" से \"JohnDoe\"।</string>
   <string name="changeUsernameDescription">अपना उपयोगकर्ता नाम बदलें। यह केवल एक बार किया जा सकता है और आपको केवल अपने उपयोगकर्ता नाम के केस को बदलने की अनुमति है।</string>
+  <string name="signupUsernameHint">कृपया उचित यूज़रनेम ही चुनें। आप इसे बाद में बदल नहीं पाएंगे और अनुचित यूज़रनेम वाले कोई भी खाते बंद कर दिए जाएंगे।</string>
+  <string name="signupEmailHint">हम इस का इस्तेमाल सिर्फ़ पासवर्ड रीसेट के लिए करेंगे।</string>
   <string name="password">पासवर्ड</string>
   <string name="changePassword">पासवर्ड बदलें</string>
   <string name="changeEmail">अपना इ-मेल बदलो</string>
   <string name="email">इ-मेल</string>
   <string name="passwordReset">पासवर्ड बदलें</string>
   <string name="forgotPassword">क्या आप अपना पासवर्ड भूल गए हैं?</string>
+  <string name="emailConfirmHelp">ईमेल कन्फ़र्मेशन में सहायता</string>
+  <string name="emailConfirmNotReceived">साइन अप के बाद कन्फ़र्मेशन ईमेल नहीं मिला?</string>
+  <string name="whatSignupUsername">आपने साइन अप के लिए कौन से यूज़रनेम का इस्तेमाल किया?</string>
+  <string name="usernameNotFound">हमें %s नाम से कोई यूज़र नहीं मिला।</string>
+  <string name="usernameCanBeUsedForNewAccount">आप इस यूज़रनेम से नया खाता खोल सकते हैं|</string>
+  <string name="emailSent">हम ने %s को ईमेल भेजा है|</string>
+  <string name="accountCanLogin">आप अब %s से लॉग इन कर सकते हैं|</string>
+  <string name="accountConfirmationEmailNotNeeded">आप को कन्फ़र्मेशन ईमेल की ज़रुरत नहीं है|</string>
+  <string name="accountClosed">%s खाता बंद है.</string>
   <string name="rank">श्रेणी (रैंक)</string>
   <string name="rankX">रैंक: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -746,6 +757,7 @@
   <string name="bestWasX">सर्वश्रेष्ठ चाल %s थे</string>
   <string name="youBrowsedAway">आप किसी और वेबसाइट को गया</string>
   <string name="resumePractice">अभ्यास जारी रखें</string>
+  <string name="drawByFiftyMoves">खेल पचास चाल नियम की वजह से बराबरी में ख़त्म हुआ है.</string>
   <string name="theGameIsADraw">खेल ड्रॉ है ।</string>
   <string name="computerThinking">कंप्यूटर सोच...</string>
   <string name="seeBestMove">सर्वश्रेष्ठ चाल देखें</string>

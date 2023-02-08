@@ -6,7 +6,7 @@ import User.{ ClearPassword => P }
 
 class PasswordHasherTest extends Specification {
 
-  "bad secrets throw exceptions" in {
+  "bad secrets throw exceptions" >> {
     new Aes(Secret("")) must throwA[IllegalArgumentException]
     new PasswordHasher(Secret(""), 12) must throwA[IllegalArgumentException]
     new PasswordHasher(Secret("t="), 12) must throwA[IllegalArgumentException]
@@ -14,15 +14,15 @@ class PasswordHasherTest extends Specification {
 
   val secret = Secret(Array.fill(16)(1.toByte).toBase64)
 
-  "aes" should {
+  "aes" >> {
     def emptyArr(i: Int) = new Array[Byte](i)
 
     val aes = new Aes(secret)
     val iv  = Aes.iv(emptyArr(16))
 
-    "preserve size" in {
-      aes.encrypt(iv, emptyArr(20)).size must_== 20
-      aes.encrypt(iv, emptyArr(39)).size must_== 39
+    "preserve size" >> {
+      aes.encrypt(iv, emptyArr(20)).size === 20
+      aes.encrypt(iv, emptyArr(39)).size === 39
     }
 
     val plaintext = (1 to 20).map(_.toByte).toArray
@@ -35,7 +35,7 @@ class PasswordHasherTest extends Specification {
     "iv matters" >> { aes.decrypt(wrongIv, encrypted) !== plaintext }
   }
 
-  "hasher" should {
+  "hasher" >> {
     val passHasher = new PasswordHasher(secret, 2)
     val liHash     = passHasher.hash(P("abc"))
     "accept good" >> passHasher.check(liHash, P("abc"))

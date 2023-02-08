@@ -24,4 +24,6 @@
   <string name="currentRoundUrl">URL e raundit të tanishëm</string>
   <string name="currentGameUrl">URL e lojës së tanishme</string>
   <string name="downloadAllRounds">Shkarko krejt raundet</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Fshije përfundimisht raundin dhe lojërat e tij.</string>
+  <string name="deleteAllGamesOfThisRound">Fshi krejt lojërat e këtij raundi. Burimi do të duhet të jetë aktiv, që të mund të rikrijohen ato.</string>
 </resources>

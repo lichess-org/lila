@@ -25,3 +25,5 @@ export const loadPgnAndStart = async (el: HTMLElement, url: string, opts: Opts) 
   });
   return Lpv(el, { ...opts, pgn });
 };
+
+(window as any).LilaLpv = { autostart, loadPgnAndStart };

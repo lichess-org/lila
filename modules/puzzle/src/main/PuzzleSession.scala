@@ -1,11 +1,11 @@
 package lila.puzzle
 
 import chess.Color
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
-import scala.util.chaining._
+import scala.util.chaining.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
 
@@ -14,7 +14,7 @@ private case class PuzzleSession(
     path: PuzzlePath.Id,
     positionInPath: Int,
     previousPaths: Set[PuzzlePath.Id] = Set.empty
-) {
+):
   def switchTo(pathId: PuzzlePath.Id) = copy(
     path = pathId,
     previousPaths = previousPaths + pathId,
@@ -30,24 +30,22 @@ private case class PuzzleSession(
       settings.color == other.settings.color
 
   override def toString = s"$path:$positionInPath"
-}
 
 case class PuzzleSettings(
     difficulty: PuzzleDifficulty,
     color: Option[Color]
 )
-object PuzzleSettings {
+object PuzzleSettings:
   val default                       = PuzzleSettings(PuzzleDifficulty.default, none)
   def default(color: Option[Color]) = PuzzleSettings(PuzzleDifficulty.default, color)
-}
 
 final class PuzzleSessionApi(
     colls: PuzzleColls,
     pathApi: PuzzlePathApi,
     cacheApi: CacheApi
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.*
 
   def onComplete(round: PuzzleRound, angle: PuzzleAngle): Funit =
     sessions.getIfPresent(round.userId) ?? {
@@ -94,7 +92,7 @@ final class PuzzleSessionApi(
         }
       }
 
-  private val sessions = cacheApi.notLoading[User.ID, PuzzleSession](32768, "puzzle.session")(
+  private val sessions = cacheApi.notLoading[UserId, PuzzleSession](32768, "puzzle.session")(
     _.expireAfterWrite(1 hour).buildAsync()
   )
 
@@ -110,7 +108,7 @@ final class PuzzleSessionApi(
 
   private def shouldChangeSession(user: User, session: PuzzleSession) = !session.brandNew && {
     val perf = user.perfs.puzzle
-    perf.clueless || (perf.provisional && perf.nb % 5 == 0)
+    perf.clueless || (perf.provisional.yes && perf.nb % 5 == 0)
   }
 
   private def createSessionFor(user: User, angle: PuzzleAngle, settings: PuzzleSettings): Fu[PuzzleSession] =
@@ -118,4 +116,3 @@ final class PuzzleSessionApi(
       .nextFor(user, angle, PuzzleTier.Top, settings.difficulty, Set.empty)
       .orFail(s"No puzzle path found for ${user.id}, angle: $angle")
       .dmap(pathId => PuzzleSession(settings, pathId, 0))
-}

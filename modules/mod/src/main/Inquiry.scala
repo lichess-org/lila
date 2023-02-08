@@ -11,7 +11,7 @@ case class Inquiry(
     notes: List[Note],
     history: List[lila.mod.Modlog],
     user: User
-) {
+):
 
   def allReports = report :: moreReports
 
@@ -19,21 +19,20 @@ case class Inquiry(
     (report.isCheat && user.marks.engine) ||
       (report.isBoost && user.marks.boost) ||
       (report.isComm && user.marks.troll)
-}
 
 final class InquiryApi(
     userRepo: UserRepo,
     reportApi: ReportApi,
     noteApi: NoteApi,
     logApi: ModlogApi
-) {
+):
 
-  def forMod(mod: User)(implicit ec: scala.concurrent.ExecutionContext): Fu[Option[Inquiry]] =
+  def forMod(mod: User)(using ec: scala.concurrent.ExecutionContext): Fu[Option[Inquiry]] =
     lila.security.Granter(_.SeeReport)(mod).?? {
       reportApi.inquiries.ofModId(mod.id).flatMap {
         _ ?? { report =>
           reportApi.moreLike(report, 10) zip
-            userRepo.named(report.user) zip
+            userRepo.byId(report.user) zip
             noteApi.byUserForMod(report.user) zip
             logApi.userHistory(report.user) map { case (((moreReports, userOption), notes), history) =>
               userOption ?? { user =>
@@ -43,4 +42,3 @@ final class InquiryApi(
         }
       }
     }
-}

@@ -16,15 +16,23 @@
   }
 
   .alternative {
+    @extend %flex-between;
     margin-top: 2rem;
     font-size: 0.9em;
-
-    @extend %flex-between;
+    line-height: 2em;
   }
 
   &-login {
     @include breakpoint($mq-xx-small) {
       width: 30em;
+    }
+
+    .login-remember {
+      @extend %flex-center-nowrap;
+      margin-top: 1em;
+      gap: 1ch;
+      cursor: pointer;
+      user-select: none;
     }
   }
 

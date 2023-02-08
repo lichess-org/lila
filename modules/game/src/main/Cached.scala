@@ -1,9 +1,9 @@
 package lila.game
 
 import com.github.blemale.scaffeine.LoadingCache
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.db.dsl._
+import lila.db.dsl.*
 import lila.memo.{ CacheApi, MongoCache }
 import lila.user.User
 
@@ -11,18 +11,17 @@ final class Cached(
     gameRepo: GameRepo,
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using scala.concurrent.ExecutionContext):
 
-  def nbImportedBy(userId: User.ID): Fu[Int] = nbImportedCache.get(userId)
-  def clearNbImportedByCache                 = nbImportedCache invalidate _
+  def nbImportedBy(userId: UserId): Fu[Int] = nbImportedCache.get(userId)
+  export nbImportedCache.invalidate as clearNbImportedByCache
+  export nbPlayingCache.get as nbPlaying
 
   def nbTotal: Fu[Long] = nbTotalCache.get {}
 
-  def nbPlaying = nbPlayingCache.get _
+  def lastPlayedPlayingId(userId: UserId): Fu[Option[GameId]] = lastPlayedPlayingIdCache get userId
 
-  def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.ID]] = lastPlayedPlayingIdCache get userId
-
-  private val lastPlayedPlayingIdCache: LoadingCache[User.ID, Fu[Option[Game.ID]]] =
+  private val lastPlayedPlayingIdCache: LoadingCache[UserId, Fu[Option[GameId]]] =
     CacheApi.scaffeineNoScheduler
       .expireAfterWrite(11 seconds)
       .build(gameRepo.lastPlayedPlayingId)
@@ -31,18 +30,18 @@ final class Cached(
     game.userIds foreach lastPlayedPlayingIdCache.invalidate
   }
 
-  private val nbPlayingCache = cacheApi[User.ID, Int](256, "game.nbPlaying") {
+  private val nbPlayingCache = cacheApi[UserId, Int](256, "game.nbPlaying") {
     _.expireAfterWrite(15 seconds)
       .buildAsyncFuture { userId =>
         gameRepo.coll.countSel(Query nowPlaying userId)
       }
   }
 
-  private val nbImportedCache = mongoCache[User.ID, Int](
+  private val nbImportedCache = mongoCache[UserId, Int](
     4096,
     "game:imported",
     30 days,
-    identity
+    _.value
   ) { loader =>
     _.expireAfterAccess(10 minutes)
       .buildAsyncFuture {
@@ -63,4 +62,3 @@ final class Cached(
         }
       }
   }
-}

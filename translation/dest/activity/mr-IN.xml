@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">सक्रियता</string>
-  <string name="hostedALiveStream">एक थेट प्रक्षेपण होस्ट करत आहे</string>
+  <string name="hostedALiveStream">एक थेट प्रक्षेपण केले</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Lichess.org ला %2$s यांनी %1$s महिन्यासाठी सहकार्य केले</item>
     <item quantity="other">Lichess.org ला %2$s यांनी %1$s महिन्यांसाठी सहकार्य केले</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">%2$s या स्थितीचा %1$s वेळ सराव केला</item>
+    <item quantity="one">%2$s या स्थितीचा %1$s वेळा सराव केला</item>
     <item quantity="other">%2$s या स्थितीचा %1$s वेळ सराव केला</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
@@ -19,7 +19,7 @@
     <item quantity="other">%2$s प्रकार %1$s वेळा खेळला</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">%2$s या फोरम मध्ये %1$s वेळ लिहिले</item>
+    <item quantity="one">%2$s मध्ये %1$s संदेश लिहिले</item>
     <item quantity="other">%2$s या फोरम मध्ये %1$s वेळा लिहिले</item>
   </plurals>
   <plurals name="playedNbMoves">
@@ -43,7 +43,7 @@
     <item quantity="other">%s नवीन अनुयायी मिळवले</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">%s एकावेळी प्रदर्शनाचे आतिथ्य केले</item>
+    <item quantity="one">%s \"एक विरूद्ध अनेक\" प्रदर्शनाचे आतिथ्य केले</item>
     <item quantity="other">%s एकावेळी प्रदर्शनाचे आतिथ्य केले</item>
   </plurals>
   <plurals name="joinedNbSimuls">
@@ -51,11 +51,11 @@
     <item quantity="other">एका वेळच्या प्रदर्शनामध्ये %s वेळा सहभाग घेतला</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">\"%s नवीन अभ्यास बनवलॆ.\"</item>
-    <item quantity="other">\"%s नवीन अभ्यास बनवलॆ.\"</item>
+    <item quantity="one">%s नवीन अभ्यास बनवले</item>
+    <item quantity="other">%s नवीन अभ्यास बनवले</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">\"%s प्रतियॊगीतांमध्यॆ भाग घॆतला.\"</item>
+    <item quantity="one">%s आखाड्यांमध्ये भाग घेतला</item>
     <item quantity="other">\"%s प्रतियॊगीतांमध्यॆ भाग घॆतला.\"</item>
   </plurals>
   <plurals name="rankedInTournament">
@@ -64,12 +64,12 @@
   </plurals>
   <plurals name="competedInNbSwissTournaments">
     <item quantity="one">%s स्विस प्रतिस्पर्धेत सहभाग घेतला</item>
-    <item quantity="other">%s स्विस प्रतिस्पर्धेत सहभाग घेतला</item>
+    <item quantity="other">%s स्विस प्रतिस्पर्धांमध्ये भाग घेतला</item>
   </plurals>
   <string name="rankedInSwissTournament">%2$s या स्पर्धेत %1$s क्रमांक आला</string>
-  <string name="signedUp">Lichess.org येथे तुमचे खाते उघडले गेले</string>
+  <string name="signedUp">Lichess.org वर खाते उघडले</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">\"%s संघामध्यॆ शामीळ झाला.\"</item>
-    <item quantity="other">\"%s संघांमध्यॆ शामील झालात.\"</item>
+    <item quantity="one">\"%s संघामध्ये सामिल झाला.\"</item>
+    <item quantity="other">\"%s संघामध्यॆ शामील झालात.\"</item>
   </plurals>
 </resources>

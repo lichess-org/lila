@@ -63,6 +63,7 @@ It is described in section 3.7 (d) of the %2$s:
 See the %3$s on this move for some practice with it.</string>
   <string name="goodIntroduction">good introduction</string>
   <string name="lichessTraining">Lichess training</string>
+  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Watch International Master Eric Rosen checkmate %s.</string>
   <string name="threefoldRepetition">Threefold repetition</string>
   <string name="threefoldRepetitionExplanation">If a position occurs three times, players can claim a draw by %1$s. Lichess implements the official FIDE rules, as described in Article 9.2 (d) of the %2$s.</string>
   <string name="threefoldRepetitionLowerCase">threefold repetition</string>

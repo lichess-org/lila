@@ -48,7 +48,9 @@
   <string name="annotateWithGlyphs">Annoteerige glüüfidega</string>
   <string name="onlyContributorsCanRequestAnalysis">Ainult selle uuringu panustajad saavad taotleda arvuti analüüsi.</string>
   <string name="getAFullComputerAnalysis">Taotle täielikku serveripoolset arvuti analüüsi põhiliinist.</string>
+  <string name="playing">Mängimas</string>
   <string name="first">Esimene</string>
+  <string name="previous">Eelmine</string>
   <string name="next">Järgmine</string>
   <string name="last">Viimane</string>
   <string name="cloneStudy">Klooni</string>
@@ -57,6 +59,7 @@
   <string name="studyUrl">Uuringu URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">Te saate selle asetada foorumisse või oma Lichessi blogisse sängitamiseks</string>
   <string name="startAtInitialPosition">Alusta algseisus</string>
+  <string name="startAtX">Alusta %s</string>
   <string name="open">Ava</string>
   <string name="studyNotFound">Uuringut ei leitud</string>
   <string name="pinnedChapterComment">Kinnitatud peatüki kommentaar</string>
@@ -64,6 +67,7 @@
   <string name="rightUnderTheBoard">Otse laua all</string>
   <string name="noPinnedComment">Puudub</string>
   <string name="empty">Tühi</string>
+  <string name="startFromCustomPosition">Alusta kohandatud positsioonist</string>
   <string name="loadAGameFromPgn">Lae mänge PGN-ist</string>
   <string name="automatic">Automaatne</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
@@ -72,6 +76,8 @@
   </plurals>
   <string name="createStudy">Koosta uuring</string>
   <string name="editStudy">Muuda uuringut</string>
+  <string name="visibility">Nähtavus</string>
+  <string name="public">Avalik</string>
   <string name="contributors">Panustajad</string>
   <string name="pinnedStudyComment">Kinnitatud uuringu kommentaar</string>
   <string name="start">Alusta</string>

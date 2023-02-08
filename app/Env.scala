@@ -1,17 +1,17 @@
 package lila.app
 
-import akka.actor._
-import com.softwaremill.macwire._
+import akka.actor.*
+import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
-import play.api.{ Configuration, Environment }
-import scala.concurrent.duration._
+import play.api.{ Configuration, Environment, Mode }
+import scala.concurrent.duration.*
 import scala.concurrent.{ ExecutionContext, Future }
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.{ Bus, Strings, UserIds }
-import lila.memo.SettingStore.Strings._
-import lila.memo.SettingStore.UserIds._
+import lila.memo.SettingStore.Strings.given
+import lila.memo.SettingStore.UserIds.given
 
 final class Env(
     val config: Configuration,
@@ -87,15 +87,16 @@ final class Env(
     val lilaCookie: lila.common.LilaCookie,
     val net: NetConfig,
     val controllerComponents: ControllerComponents
-)(implicit
+)(using
     val system: ActorSystem,
     val scheduler: akka.actor.Scheduler,
     val executionContext: ExecutionContext,
     val mode: play.api.Mode
-) {
+):
 
-  val explorerEndpoint  = config.get[String]("explorer.endpoint")
-  val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
+  val explorerEndpoint       = config.get[String]("explorer.endpoint")
+  val tablebaseEndpoint      = config.get[String]("explorer.tablebase_endpoint")
+  val externalEngineEndpoint = config.get[String]("externalEngine.endpoint")
 
   val appVersionDate    = config.getOptional[String]("app.version.date")
   val appVersionCommit  = config.getOptional[String]("app.version.commit")
@@ -152,7 +153,7 @@ final class Env(
     }
 
   system.actorOf(Props(new templating.RendererActor), name = config.get[String]("hub.actor.renderer"))
-}
+end Env
 
 final class EnvBoot(
     config: Configuration,
@@ -160,19 +161,17 @@ final class EnvBoot(
     controllerComponents: ControllerComponents,
     cookieBacker: SessionCookieBaker,
     shutdown: CoordinatedShutdown
-)(implicit
+)(using
     ec: ExecutionContext,
     system: ActorSystem,
-    ws: StandaloneWSClient
-) {
+    ws: StandaloneWSClient,
+    materializer: akka.stream.Materializer
+):
 
-  implicit def scheduler   = system.scheduler
-  implicit def mode        = environment.mode
-  def appPath              = AppPath(environment.rootPath)
-  val netConfig            = config.get[NetConfig]("net")
-  def netDomain            = netConfig.domain
-  def baseUrl              = netConfig.baseUrl
-  implicit def idGenerator = game.idGenerator
+  given Scheduler = system.scheduler
+  given Mode      = environment.mode
+  val netConfig   = config.get[NetConfig]("net")
+  export netConfig.{ domain, baseUrl }
 
   // lazy load the Uptime object to fix a precise date
   lila.common.Uptime.startedAt.unit
@@ -250,11 +249,9 @@ final class EnvBoot(
   lazy val api: lila.api.Env                 = wire[lila.api.Env]
   lazy val lilaCookie                        = wire[lila.common.LilaCookie]
 
-  val env: lila.app.Env = {
+  val env: lila.app.Env =
     val c = lila.common.Chronometer.sync(wire[lila.app.Env])
     lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
     c.result
-  }
 
   templating.Environment setEnv env
-}

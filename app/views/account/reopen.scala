@@ -1,15 +1,15 @@
 package views.html
 package account
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object reopen {
+object reopen:
 
-  def form(form: lila.security.HcaptchaForm[_], error: Option[String] = None)(implicit
+  def form(form: lila.security.HcaptchaForm[?], error: Option[String] = None)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -19,7 +19,7 @@ object reopen {
       csp = defaultCsp.withHcaptcha.some
     ) {
       main(cls := "page-small box box-pad")(
-        h1(trans.reopenYourAccount()),
+        h1(cls := "box__top")(trans.reopenYourAccount()),
         p(trans.closedAccountChangedMind()),
         p(strong(trans.onlyWorksOnce())),
         p(trans.cantDoThisTwice()),
@@ -44,9 +44,8 @@ object reopen {
       title = trans.reopenYourAccount.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail()),
+        boxTop(h1(cls := "is-green text", dataIcon := ""))(trans.checkYourEmail()),
         p(trans.sentEmailWithLink()),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
     }
-}

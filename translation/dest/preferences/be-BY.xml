@@ -3,6 +3,7 @@
   <string name="preferences">Налады</string>
   <string name="display">Выгляд</string>
   <string name="privacy">Прыватнасць</string>
+  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Апавяшчэнні</string>
   <string name="pieceAnimation">Анімацыя фігур</string>
   <string name="materialDifference">Паказваць розніцу ў фігурах</string>
   <string name="boardHighlights">Падсвечваць апошні ход і шах</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Зацісніце клавішу &lt;ctrl&gt; пад час пераўтварэння, каб часова адключыць аўта-пераўтварэнне</string>
   <string name="whenPremoving">Пры ходзе на апярэджанне</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Аўтаматычна запытваць нічыю пры трохразовым паўторы ходу</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Калі застаецца &lt; 30 секунд</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Калі застаецца &lt; 30 секунд</string>
   <string name="moveConfirmation">Пацверджанне ходу</string>
   <string name="inCorrespondenceGames">У гульні па ліставанні</string>
   <string name="correspondenceAndUnlimited">Па ліставанні і без абмежавання часу</string>
@@ -49,5 +50,7 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Казаць \"Good game, well played\" пасля паразы або нічыі</string>
   <string name="yourPreferencesHaveBeenSaved">Вашы налады былі захаваныя.</string>
   <string name="scrollOnTheBoardToReplayMoves">Гартайце колцам мышцы на дошцы, каб прайграць хады</string>
-  <string name="correspondenceEmailNotification">Штодзённае апавяшчэнне па пошце з пералікам вашыш гульняў па ліставанні</string>
+  <string name="correspondenceEmailNotification">Штодзённае апавяшчэнне па пошце з пералікам вашых гульняў па ліставанні</string>
+  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Браўзер</string>
+  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Прылада</string>
 </resources>

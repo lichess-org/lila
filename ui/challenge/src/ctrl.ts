@@ -1,6 +1,5 @@
 import * as xhr from 'common/xhr';
-import notify from 'common/notification';
-import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser, Reasons } from './interfaces';
+import { Ctrl, ChallengeOpts, ChallengeData, Reasons } from './interfaces';
 
 export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () => void): Ctrl {
   let trans = (key: string) => key;
@@ -28,17 +27,9 @@ export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () =>
           opts.show();
           lichess.sound.playOnce('newChallenge');
         }
-        const pushSubscribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
-        if (!pushSubscribed && c.challenger) notify(showUser(c.challenger) + ' challenges you!');
         opts.pulse();
       }
     });
-  }
-
-  function showUser(user: ChallengeUser) {
-    const rating = user.rating + (user.provisional ? '?' : '');
-    const fullName = (user.title ? user.title + ' ' : '') + user.name;
-    return fullName + (showRatings ? ' (' + rating + ')' : '');
   }
 
   update(data);

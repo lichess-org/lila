@@ -23,21 +23,18 @@
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "@types/cash": "workspace:*",
+    "@types/lichess": "workspace:*",
+    "@types/dom-screen-wake-lock": "1.0.0",
+    "chessground": "^8.3.6",
+    "lichess-pgn-viewer": "^1.4.4",
+    "snabbdom": "^3.5.1",
+    "tablesort": "^5.3.0"
+  },
   "scripts": {
     "compile": "tsc",
-    "dev": "$npm_execpath run compile",
-    "prod": "$npm_execpath run compile"
-  },
-  "dependencies": {
-    "tablesort": "^5.3",
-    "chessground": "^8.3.5",
-    "snabbdom": "^3.3.1",
-    "lichess-pgn-viewer": "^1"
-  },
-  "devDependencies": {
-    "@types/cash": "8.0.0",
-    "@types/dom-screen-wake-lock": "1.0.0",
-    "@types/lichess": "2.0.0",
-    "typescript": "^4"
+    "dev": "tsc",
+    "prod": "tsc"
   }
 }

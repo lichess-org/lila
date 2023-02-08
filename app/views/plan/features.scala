@@ -3,15 +3,15 @@ package html.plan
 
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object features {
+object features:
 
-  val engineFullName = "Stockfish 15 NNUE"
+  val engineFullName = "Stockfish 15.1 NNUE"
 
   def apply()(implicit ctx: Context) =
     views.html.base.layout(
@@ -213,4 +213,3 @@ object features {
   private def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
 
   private val title = "Lichess features"
-}

@@ -1,13 +1,14 @@
 package lila.study
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.notify.{ InvitedToStudy, Notification, NotifyApi }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }
 import lila.security.Granter
 import lila.user.{ Holder, User }
+import lila.study.BSONHandlers.given
 
 final private class StudyInvite(
     studyRepo: StudyRepo,
@@ -15,9 +16,9 @@ final private class StudyInvite(
     notifyApi: NotifyApi,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  private val notifyRateLimit = new lila.memo.RateLimit[User.ID](
+  private val notifyRateLimit = new lila.memo.RateLimit[UserId](
     credits = 500,
     duration = 1 day,
     key = "study.invite.user"
@@ -26,20 +27,20 @@ final private class StudyInvite(
   private val maxMembers = 30
 
   def apply(
-      byUserId: User.ID,
+      byUserId: UserId,
       study: Study,
-      invitedUsername: String,
-      getIsPresent: User.ID => Fu[Boolean]
+      invitedUsername: UserStr,
+      getIsPresent: UserId => Fu[Boolean]
   ): Fu[User] =
     for {
       _       <- (study.nbMembers >= maxMembers) ?? fufail[Unit](s"Max study members reached: $maxMembers")
-      inviter <- userRepo named byUserId orFail "No such inviter"
+      inviter <- userRepo byId byUserId orFail "No such inviter"
       _ <- (!study.isOwner(inviter.id) && !Granter(_.StudyAdmin)(inviter)) ?? fufail[Unit](
         "Only the study owner can invite"
       )
       invited <-
         userRepo
-          .named(invitedUsername)
+          .byId(invitedUsername)
           .map(
             _.filterNot(_.id == User.lichessId && !Granter(_.StudyAdmin)(inviter))
           ) orFail "No such invited"
@@ -66,13 +67,16 @@ final private class StudyInvite(
         else if (inviter.perfs.bestRating >= 2000) 50
         else 100
       _ <- shouldNotify ?? notifyRateLimit(inviter.id, rateLimitCost) {
-        val notificationContent = InvitedToStudy(
-          InvitedToStudy.InvitedBy(inviter.id),
-          InvitedToStudy.StudyName(study.name.value),
-          InvitedToStudy.StudyId(study.id.value)
-        )
-        val notification = Notification.make(Notification.Notifies(invited.id), notificationContent)
-        notifyApi.addNotification(notification).void
+        notifyApi
+          .notifyOne(
+            invited,
+            lila.notify.InvitedToStudy(
+              invitedBy = inviter.id,
+              studyName = study.name,
+              studyId = study.id
+            )
+          )
+          .void
       }(funit)
     } yield invited
 
@@ -80,9 +84,8 @@ final private class StudyInvite(
     studyRepo.coll {
       _.update
         .one(
-          $id(study.id.value),
+          $id(study.id),
           $set(s"members.${user.id}" -> $doc("role" -> "w", "admin" -> true)) ++
             $addToSet("uids"         -> user.id)
         )
     }.void
-}

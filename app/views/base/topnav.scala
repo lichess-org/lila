@@ -1,20 +1,21 @@
 package views.html.base
 
+import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object topnav {
+object topnav:
 
-  private def linkTitle(url: String, name: Frag)(implicit ctx: Context) =
+  private def linkTitle(url: String, name: Frag)(using ctx: Context) =
     if (ctx.blind) h3(name) else a(href := url)(name)
 
-  private def canSeeClasMenu(implicit ctx: Context) =
+  private def canSeeClasMenu(using ctx: Context) =
     ctx.hasClas || ctx.me.exists(u => u.hasTitle || u.roles.contains("ROLE_COACH"))
 
-  def apply()(implicit ctx: Context) =
+  def apply()(using ctx: Context) =
     st.nav(id := "topnav", cls := "hover")(
       st.section(
         linkTitle(
@@ -25,61 +26,68 @@ object topnav {
           )
         ),
         div(role := "group")(
-          if (ctx.noBot) a(href := "/?any#hook")(trans.createAGame())
+          if (ctx.noBot) a(href := s"${langHref("/")}?any#hook")(trans.createAGame())
           else a(href := "/?any#friend")(trans.playWithAFriend()),
           ctx.noBot option frag(
-            a(href := routes.Tournament.home)(trans.arena.arenaTournaments()),
-            a(href := routes.Swiss.home)(trans.swiss.swissTournaments()),
-            a(href := routes.Simul.home)(trans.simultaneousExhibitions()),
+            a(href := langHref(routes.Tournament.home))(trans.arena.arenaTournaments()),
+            a(href := langHref(routes.Swiss.home))(trans.swiss.swissTournaments()),
+            a(href := langHref(routes.Simul.home))(trans.simultaneousExhibitions()),
             ctx.pref.hasDgt option a(href := routes.DgtCtrl.index)("DGT board")
           )
         )
       ),
-      ctx.noBot option st.section(
-        linkTitle(routes.Puzzle.home.path, trans.puzzles()),
-        div(role := "group")(
-          a(href := routes.Puzzle.home)(trans.puzzles()),
-          a(href := routes.Puzzle.dashboard(30, "home", none))(trans.puzzle.puzzleDashboard()),
-          a(href := routes.Puzzle.streak)("Puzzle Streak"),
-          a(href := routes.Storm.home)("Puzzle Storm"),
-          a(href := routes.Racer.home)("Puzzle Racer")
+      ctx.noBot option {
+        val puzzleUrl = langHref(routes.Puzzle.home.url)
+        st.section(
+          linkTitle(puzzleUrl, trans.puzzles()),
+          div(role := "group")(
+            a(href := puzzleUrl)(trans.puzzles()),
+            a(href := routes.Puzzle.dashboard(30, "home", none))(trans.puzzle.puzzleDashboard()),
+            a(href := langHref(routes.Puzzle.streak))("Puzzle Streak"),
+            a(href := langHref(routes.Storm.home))("Puzzle Storm"),
+            a(href := langHref(routes.Racer.home))("Puzzle Racer")
+          )
         )
-      ),
+      },
       st.section(
-        linkTitle(routes.Practice.index.path, trans.learnMenu()),
+        linkTitle(routes.Practice.index.url, trans.learnMenu()),
         div(role := "group")(
           ctx.noBot option frag(
-            a(href := routes.Learn.index)(trans.chessBasics()),
+            a(href := langHref(routes.Learn.index))(trans.chessBasics()),
             a(href := routes.Practice.index)(trans.practice()),
-            a(href := routes.Coordinate.home)(trans.coordinates.coordinates())
+            a(href := langHref(routes.Coordinate.home))(trans.coordinates.coordinates())
           ),
-          a(href := routes.Study.allDefault(1))(trans.studyMenu()),
-          ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
-          canSeeClasMenu option a(href := routes.Clas.index)(trans.clas.lichessClasses())
+          a(href := langHref(routes.Study.allDefault(1)))(trans.studyMenu()),
+          ctx.noKid option a(href := langHref(routes.Coach.all(1)))(trans.coaches()),
+          canSeeClasMenu option a(href := clasRoutes.index)(trans.clas.lichessClasses())
         )
       ),
-      st.section(
-        linkTitle(routes.Tv.index.path, trans.watch()),
-        div(role := "group")(
-          a(href := routes.Tv.index)("Lichess TV"),
-          a(href := routes.Tv.games)(trans.currentGames()),
-          (ctx.noKid && ctx.noBot) option a(href := routes.Streamer.index())(trans.streamersMenu()),
-          a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
-          ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
+      st.section {
+        val tvUrl = langHref(routes.Tv.index)
+        frag(
+          linkTitle(tvUrl, trans.watch()),
+          div(role := "group")(
+            a(href := tvUrl)("Lichess TV"),
+            a(href := routes.Tv.games)(trans.currentGames()),
+            (ctx.noKid && ctx.noBot) option a(href := routes.Streamer.index())(trans.streamersMenu()),
+            a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
+            ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
+          )
         )
-      ),
+      },
       st.section(
-        linkTitle(routes.User.list.path, trans.community()),
+        linkTitle(routes.User.list.url, trans.community()),
         div(role := "group")(
           a(href := routes.User.list)(trans.players()),
           a(href := routes.Team.home())(trans.team.teams()),
           ctx.noKid option a(href := routes.ForumCateg.index)(trans.forum()),
-          ctx.noKid option a(href := routes.Ublog.community("all"))(trans.blog()),
-          ctx.me.exists(!_.kid) option a(href := routes.Plan.index)(trans.patron.donate())
+          ctx.noKid option a(href := langHref(routes.Ublog.communityAll()))(trans.blog()),
+          ctx.noKid && ctx.me.exists(_.isPatron) option
+            a(cls := "community-patron", href := routes.Plan.index)(trans.patron.donate())
         )
       ),
       st.section(
-        linkTitle(routes.UserAnalysis.index.path, trans.tools()),
+        linkTitle(routes.UserAnalysis.index.url, trans.tools()),
         div(role := "group")(
           a(href := routes.UserAnalysis.index)(trans.analysis()),
           a(href := s"${routes.UserAnalysis.index}#explorer")(trans.openingExplorer()),
@@ -89,4 +97,3 @@ object topnav {
         )
       )
     )
-}

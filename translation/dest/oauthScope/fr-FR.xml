@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Nouveau jeton d\'accès personnel à l\'API</string>
+  <string name="tokenGrantsPermission">Un jeton autorise d\'autres personnes à utiliser votre compte.</string>
+  <string name="carefullySelect">Sélectionnez soigneusement ce qu\'il est permis de faire en votre nom.</string>
+  <string name="tokenDescription">Description du jeton</string>
+  <string name="rememberTokenUse">Afin de vous souvenir de l’usage de ce jeton</string>
+  <string name="whatTheTokenCanDo">Ce que le jeton peut faire en votre nom :</string>
+  <string name="doNotShareIt">Le jeton donne accès à votre compte. Ne le partagez PAS avec personne!</string>
+  <string name="copyTokenNow">Assurez-vous de copier votre nouveau jeton d\'accès personnel immédiatement. Vous ne pourrez pas le voir à nouveau !</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Lire les préférences</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Écrire les préférences</string>
+  <string name="emailRead">Lire l\'adresse e-mail</string>
+  <string name="challengeRead">Lire les défis entrants</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Envoyer, accepter et refuser des défis</string>
+  <string name="challengeBulk">Créer plusieurs parties à la fois pour d\'autres joueurs</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lire les études privées et les diffusions</string>
+  <string name="studyWrite">Créer, modifier, supprimer les études et diffusions</string>
+  <string name="tournamentWrite">Créer et modifier les tournois et y participer</string>
+  <string name="racerWrite">Créer les courses de problèmes et y participer</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Lire l\'activité des problèmes</string>
+  <string name="teamRead">Lire les informations des équipes privées</string>
+  <string name="teamWrite">Se joindre à une équipe, la quitter et la gérer</string>
+  <string name="teamLead">Gérer les équipes que vous dirigez : envoyer des messages privés, expulser des membres</string>
+  <string name="followRead">Lire les joueurs suivis</string>
+  <string name="followWrite">Suivre ou ne plus suivre d\'autres joueurs</string>
+  <string name="msgWrite">Envoyer des messages privés aux autres joueurs</string>
+  <string name="boardPlay">Jouer des parties depuis une tierce partie</string>
+  <string name="botPlay">Jouer des parties avec un moteur d\'échecs (BOT)</string>
+  <string name="engineRead">Voir et utiliser vos moteurs externes</string>
+  <string name="engineWrite">Créer et modifier des moteurs externes</string>
+  <string name="webLogin">Créer des sessions Web authentifiées (donne un accès complet !)</string>
+  <string name="webMod">Utiliser les outils de modérateur (dans les limites de vos permissions)</string>
+</resources>

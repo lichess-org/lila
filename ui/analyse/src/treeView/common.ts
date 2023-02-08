@@ -1,8 +1,8 @@
 import AnalyseCtrl from '../ctrl';
 import contextMenu from './contextMenu';
 import throttle from 'common/throttle';
+import { enrichText, innerHTML } from 'common/richText';
 import { authorText as commentAuthorText } from '../study/studyComments';
-import { enrichText, innerHTML } from '../util';
 import { bindMobileTapHold } from 'common/mobile';
 import { h, Hooks, VNode } from 'snabbdom';
 import { isEmpty, defined } from 'common';

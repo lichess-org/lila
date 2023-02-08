@@ -146,7 +146,7 @@ const renderLink = (ctrl: RacerCtrl) =>
     h('div', [
       h(`input#racer-url-${ctrl.race.id}.copyable.autoselect`, {
         attrs: {
-          spellcheck: false,
+          spellcheck: 'false',
           readonly: 'readonly',
           value: `${window.location.protocol}//${window.location.host}/racer/${ctrl.race.id}`,
         },

@@ -107,6 +107,8 @@
   <string name="time">အချိန်</string>
   <string name="username">ကစားသူအမည်</string>
   <string name="usernameOrEmail">ကစားသူအမည် သို့မဟုတ် email လိပ်စာ</string>
+  <string name="signupUsernameHint">မရိုင်းစိုင်းသော အသုံးပြုသူ အမည်ကို ရွေးချယ်ပါ။  နောင်တွင် ပြင်ဆင်၍ မရတော့သည့် အပြင်၊ မလျော်ကန်သည့် အသုံးပြုသူအမည်ဖြင့် အကောင့်များကို ပိတ်ပစ်မည် ဖြစ်ပါသည်။</string>
+  <string name="signupEmailHint">စကားဝှက် ပြောင်းရန် အတွက်သာ အသုံးပြုမည် ဖြစ်ပါသည်။</string>
   <string name="whiteTimeOut">အဖြူ အချိန်ကုန်</string>
   <string name="blackTimeOut">အနက် အချိန်ကုန်</string>
   <string name="play">ကစားမည်</string>
@@ -137,6 +139,7 @@
   <string name="error.min">အက္ခရာ အနည်းဆုံး %s လုံး ပါရှိရမည်</string>
   <string name="error.max">အက္ခရာ အများဆုံး %s လုံးသာ ပါရှိနိုင်သည်</string>
   <string name="ifRegistered">မှတ်ပုံတင်ထားလျှင်</string>
+  <string name="accuracy">တိကျမှု</string>
   <string name="readAboutOur">ကျွန်ုပ်တို့၏ %s အကြောင်း ဖတ်ရှုပါ။</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">(%s တွင် ဖော်ပြထားသော အကြောင်းရင်းတို့ အတွက်မှ လွဲ၍) အသုံးပြုခွင့် အကောင့် တစ်ခုထက် ပို၍ မပြုလုပ်ရန် သဘောတူပါသည်။</string>
   <string name="important">အရေးကြီးပါသည်</string>

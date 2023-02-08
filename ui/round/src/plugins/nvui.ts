@@ -40,7 +40,8 @@ const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export default function (redraw: Redraw): NvuiPlugin {
+// esbuild
+export default (window as any).LichessRoundNvui = function (redraw: Redraw): NvuiPlugin {
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
     prefixStyle = prefixSetting(),
@@ -297,7 +298,7 @@ export default function (redraw: Redraw): NvuiPlugin {
       );
     },
   };
-}
+};
 
 function createSubmitHandler(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return (submitStoredPremove = false) => {

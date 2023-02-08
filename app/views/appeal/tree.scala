@@ -2,17 +2,19 @@ package views.html
 package appeal
 
 import controllers.routes
+import controllers.appeal.routes.{ Appeal as appealRoutes }
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
-object tree {
+object tree:
 
   import trans.closingAccountWithdrawAppeal
   import trans.contact.doNotMessageModerators
-  import views.html.base.navTree._
+  import views.html.base.navTree.*
+  import views.html.base.navTree.Node.*
 
   val cleanAllGood             = "Your account is not marked or restricted. You're all good!";
   val engineMarked             = "Your account is marked for illegal assistance in games.";
@@ -66,7 +68,7 @@ object tree {
       )
     )
 
-  private def engineMenu(implicit ctx: Context): Branch = {
+  private def engineMenu(implicit ctx: Context): Branch =
     val accept =
       "I accept that I used outside assistance in my games."
     val deny =
@@ -107,9 +109,8 @@ object tree {
         "We define this as using any external assistance to strengthen your knowledge and, or, calculation ability to gain an unfair advantage over your opponent. Some examples would include computer engine assistance, opening books (except for correspondence games), endgame tablebases, and asking another player for help, although these aren’t the only things we would consider cheating."
       ).some
     )
-  }
 
-  private def boostMenu(implicit ctx: Context): Branch = {
+  private def boostMenu(implicit ctx: Context): Branch =
     val accept = "I accept that I manipulated my rating."
     val acceptFull =
       "I accept that I deliberately manipulated my rating by losing games on purpose, or by playing another account that was deliberately losing games. I am sorry and I would like another chance."
@@ -142,9 +143,8 @@ object tree {
         "We define this as deliberately manipulating rating by losing games on purpose, or by playing against another account that is deliberately losing games."
       ).some
     )
-  }
 
-  private def muteMenu(implicit ctx: Context): Branch = {
+  private def muteMenu(implicit ctx: Context): Branch =
     val accept = "I accept that I have not followed the communication guidelines"
     val acceptFull =
       "I accept that I have not followed the communication guidelines. I will behave better in future, please give me another chance."
@@ -182,9 +182,8 @@ object tree {
         ". Failure to follow the communication guidelines can result in accounts being muted."
       ).some
     )
-  }
 
-  private def rankBanMenu(implicit ctx: Context): Branch = {
+  private def rankBanMenu(implicit ctx: Context): Branch =
     val accept = "I accept that I have manipulated my account to get on the leaderboard."
     val deny =
       "I deny having manipulated my account to get on the leaderboard."
@@ -213,9 +212,8 @@ object tree {
         "We define this as using any unfair way to get on the leaderboard."
       ).some
     )
-  }
 
-  private def playbanMenu(implicit ctx: Context): Branch = {
+  private def playbanMenu(implicit ctx: Context): Branch =
     Branch(
       "root",
       "You have a play timeout.",
@@ -260,7 +258,6 @@ object tree {
         )
       )
     )
-  }
 
   private def altScreen(implicit ctx: Context) = div(cls := "leaf")(
     h2(closedByModerators),
@@ -279,18 +276,19 @@ object tree {
 
   def apply(me: User, playban: Boolean)(implicit ctx: Context) =
     bits.layout("Appeal a moderation decision") {
-      val query = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
+      val query    = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
+      val isMarked = playban || me.marks.engine || me.marks.boost || me.marks.troll || me.marks.rankban
       main(cls := "page page-small box box-pad appeal")(
-        h1("Appeal"),
-        div(cls := "nav-tree")(
-          if (me.disabled || query.contains("alt")) altScreen
+        h1(cls := "box__top")("Appeal"),
+        div(cls := s"nav-tree${if (isMarked) " marked" else ""}")(
+          if (me.enabled.no || query.contains("alt")) altScreen
           else
             renderNode(
               {
-                if (playban || query.contains("playban")) playbanMenu
-                else if (me.marks.engine || query.contains("engine")) engineMenu
+                if (me.marks.engine || query.contains("engine")) engineMenu
                 else if (me.marks.boost || query.contains("boost")) boostMenu
                 else if (me.marks.troll || query.contains("shadowban")) muteMenu
+                else if (playban || query.contains("playban")) playbanMenu
                 else if (me.marks.rankban || query.contains("rankban")) rankBanMenu
                 else cleanMenu
               },
@@ -319,7 +317,7 @@ object tree {
   private def newAppeal(preset: String = "")(implicit ctx: Context) =
     discussion.renderForm(
       lila.appeal.Appeal.form.fill(preset),
-      action = routes.Appeal.post.url,
+      action = appealRoutes.post.url,
       isNew = true,
       presets = none
     )
@@ -336,4 +334,3 @@ object tree {
         a(href := routes.Page.loneBookmark("appeal"))("here.")
       )
     )
-}

@@ -60,8 +60,8 @@
   <string name="depthX">Dziļums %s</string>
   <string name="usingServerAnalysis">Izmanto servera analīzi</string>
   <string name="loadingEngine">Ielādē dzinēju...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Aprēķina gājienus...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Kļūda ielādējot dzinēju</string>
+  <string name="calculatingMoves">Aprēķina gājienus...</string>
+  <string name="engineFailed">Kļūda ielādējot dzinēju</string>
   <string name="cloudAnalysis">Mākoņanalīze</string>
   <string name="goDeeper">Dziļāka analīze</string>
   <string name="showThreat">Parādīt draudus</string>
@@ -96,6 +96,7 @@
   <string name="dtzWithRounding">DTZ50\'\' ar noapaļošanu, balstīts uz pusgājienu skaita līdz nākamajam sitienam vai bandinieka gājienam</string>
   <string name="noGameFound">Neviena spēle nav atrasta</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Varbūt iekļaujiet vairāk spēļu uzstādījumu izvēlnē?</string>
+  <string name="openings">Atklātnes</string>
   <string name="openingExplorer">Atklātņu pārlūks</string>
   <string name="openingEndgameExplorer">Atklātņu un beigu spēļu pārlūks</string>
   <string name="xOpeningExplorer">%s atklātņu pārlūks</string>
@@ -165,6 +166,7 @@
   <string name="viewInFullSize">Skatīt pilnā izmērā</string>
   <string name="logOut">Izrakstīties</string>
   <string name="signIn">Pierakstīties</string>
+  <string name="rememberMe">Ierakstīties pastāvīgi</string>
   <string name="youNeedAnAccountToDoThat">Lai veiktu šo darbību, nepieciešams konts</string>
   <string name="signUp">Reģistrēties</string>
   <string name="computersAreNotAllowedToPlay">Datoriem un spēlētājiem, kuri izmanto datoru palīdzību, nav atļauts spēlēt. Lūdzu, spēlējot neizmantojiet šaha programmu, datubāžu vai citu spēlētāju palīdzību. Aicinām neizmantot vairākus kontus - tas var novest pie piekļuves pārtraukšanas.</string>
@@ -208,12 +210,31 @@
   <string name="changeUsername">Mainīt lietotājvārdu</string>
   <string name="changeUsernameNotSame">Drīkst mainīt tikai burtu lielumu. Piemēram \"jānisbērziņš\" var mainīt uz \"JānisBērziņš\".</string>
   <string name="changeUsernameDescription">Mainīt lietotājvārdu. To var izdarīt tikai vienreiz, un ir atļauts mainīt tikai lielo burtu lietojumu lietotājvārdā.</string>
+  <string name="signupUsernameHint">Atcerieties izvēlēties pieklājīgu lietotājvārdu. To nav iespējams mainīt, un konti ar nepiedienīgiem lietotājvārdiem tiks slēgti!</string>
+  <string name="signupEmailHint">Mēs to izmantosim tikai paroles atiestatīšanai.</string>
   <string name="password">Parole</string>
   <string name="changePassword">Mainīt paroli</string>
   <string name="changeEmail">Mainīt e-pasta adresi</string>
   <string name="email">E-pasta adrese</string>
   <string name="passwordReset">Atiestatīt paroli</string>
   <string name="forgotPassword">Aizmirsāt paroli?</string>
+  <string name="emailConfirmHelp">Palīdzība ar epasta apstiprinājumu</string>
+  <string name="emailConfirmNotReceived">Nesaņēmāt apstiprinājuma epastu pēc reģistrēšanās?</string>
+  <string name="whatSignupUsername">Kādu lietotājvārdu izmantojāt, kad reģistrējāties?</string>
+  <string name="usernameNotFound">Nevarējām atrast nevienu lietotāju ar šādu vārdu: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Varat izmantot šo lietotājvārdu jaunam kontam</string>
+  <string name="emailSent">Esam nosūtījuši epastu uz %s.</string>
+  <string name="emailCanTakeSomeTime">Iespējams, paies kāds laiks, līdz to saņemsiet.</string>
+  <string name="refreshInboxAfterFiveMinutes">Pagaidiet 5 minūtes, un atsvaidziniet savu epasta iesūtni.</string>
+  <string name="checkSpamFolder">Pārbaudiet arī mēstuļu nodalījumu – iespējams, mūsu ziņa tur nonākusi. Tādā gadījumā, lūdzu atzīmējiet, ka tā nav mēstule.</string>
+  <string name="emailForSignupHelp">Ja nekas cits neizdodas, nosūtiet mums šo epastu:</string>
+  <string name="copyTextToEmail">Kopējiet augšup esošo tekstu un sūtiet to %s</string>
+  <string name="waitForSignupHelp">Drīz mēs jums pievērsīsimies un palīdzēsim pabeigt reģistrāciju.</string>
+  <string name="accountConfirmed">Lietotājs %s ir veiksmīgi apstiprināts.</string>
+  <string name="accountCanLogin">Tagad varat ierakstīties kā %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Jums nav nepieciešams apstiprinājuma epasts.</string>
+  <string name="accountClosed">Lietotāja %s konts ir slēgts.</string>
+  <string name="accountRegisteredWithoutEmail">Konts %s tika reģistrēts bez epasta.</string>
   <string name="rank">Vieta</string>
   <string name="rankX">Vieta: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -368,6 +389,7 @@
   <string name="siteDescription">Bezmaksas šahs tiešsaistē. Spēlē šahu lakoniskā saskarnē tagad: bez reģistrācijas, reklāmām, vai papildus programmatūras! Spēlē pret datoru, draugiem vai nejaušiem pretiniekiem.</string>
   <string name="xJoinedTeamY">%1$s pievienojās komandai \"%2$s\"</string>
   <string name="xCreatedTeamY">%1$s izveidoja komandu \"%2$s\"</string>
+  <string name="startedStreaming">sāka straumēt</string>
   <string name="xStartedStreaming">%s sāka straumēt</string>
   <string name="averageElo">Vidējais reitings</string>
   <string name="location">Atrašanās vieta</string>
@@ -549,6 +571,8 @@
   <string name="blog">Blogs</string>
   <string name="notes">Piezīmes</string>
   <string name="typePrivateNotesHere">Personīgās piezīmes rakstiet šeit</string>
+  <string name="writeAPrivateNoteAboutThisUser">Izveidot privātu piezīmi par šo lietotāju</string>
+  <string name="noNoteYet">Nav piezīmes</string>
   <string name="invalidUsernameOrPassword">Nepareizs lietotājvārds vai parole</string>
   <string name="incorrectPassword">Nepareiza parole</string>
   <string name="invalidAuthenticationCode">Nederīgs autentifikācijas kods</string>
@@ -668,6 +692,7 @@
   <string name="tournamentFAQ">Arena turnīru BUJ</string>
   <string name="timeBeforeTournamentStarts">Laiks līdz turnīra sākumam</string>
   <string name="averageCentipawnLoss">Vidējais centibandinieka zudums</string>
+  <string name="accuracy">Precizitāte</string>
   <string name="keyboardShortcuts">Tastatūras saīsnes</string>
   <string name="keyMoveBackwardOrForward">pārvietoties uz priekšu/atpakaļ</string>
   <string name="keyGoToStartOrEnd">iet uz sākumu/beigām</string>
@@ -752,6 +777,7 @@
   <string name="light">Gaišs</string>
   <string name="dark">Tumšs</string>
   <string name="transparent">Caurspīdīgs</string>
+  <string name="deviceTheme">Saskaņot ar sistēmu</string>
   <string name="backgroundImageUrl">Fona attēla URL:</string>
   <string name="boardGeometry">Galdiņa ģeometrija</string>
   <string name="boardTheme">Galdiņa dizains</string>
@@ -781,6 +807,7 @@
   <string name="bestWasX">Labākais bija %s</string>
   <string name="youBrowsedAway">Aizvirzījāties prom</string>
   <string name="resumePractice">Atsākt treniņu</string>
+  <string name="drawByFiftyMoves">Spēle ir neizšķirta 50 gājienu noteikuma dēļ.</string>
   <string name="theGameIsADraw">Spēle ir neizšķirta.</string>
   <string name="computerThinking">Dators domā ...</string>
   <string name="seeBestMove">Rādīt labāko gājienu</string>

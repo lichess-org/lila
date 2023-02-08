@@ -3,22 +3,22 @@ package lila.tutor
 import cats.data.NonEmptyList
 import scala.concurrent.ExecutionContext
 
-import lila.insight._
+import lila.insight.*
 import lila.rating.PerfType
 import lila.common.config
 
-object TutorClockUsage {
+object TutorClockUsage:
 
   val maxGames = config.Max(10_000)
 
   private[tutor] def compute(
       users: NonEmptyList[TutorUser]
-  )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] = {
-    import lila.db.dsl._
+  )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] =
+    import lila.db.dsl.{ *, given }
     import lila.rating.BSONHandlers.perfTypeIdHandler
     import lila.insight.{ Insight, Cluster, Answer, InsightStorage, Point }
-    import lila.insight.InsightEntry.{ BSONFields => F }
-    import lila.insight.BSONHandlers.clockPercentHandler
+    import lila.insight.InsightEntry.{ BSONFields as F }
+    import lila.insight.BSONHandlers.given
     val perfs = users.toList.map(_.perfType)
     val question = Question(
       InsightDimension.Perf,
@@ -33,7 +33,7 @@ object TutorClockUsage {
     } yield Cluster(perf, Insight.Single(Point(100 - clockPercent.value)), size, Nil)
     def aggregate(select: Bdoc, sort: Boolean) = insightApi.coll {
       _.aggregateList(maxDocs = Int.MaxValue) { implicit framework =>
-        import framework._
+        import framework.*
         Match($doc(F.result -> Result.Loss.id, F.perf $in perfs) ++ select) -> List(
           sort option Sort(Descending(F.date)),
           Limit(maxGames.value).some,
@@ -53,5 +53,3 @@ object TutorClockUsage {
         .map { docs => TutorBuilder.AnswerPeer(Answer(question, clusterParser(docs), Nil)) }
         .monSuccess(_.tutor.askPeer(question.monKey, "all"))
     } yield TutorBuilder.Answers(mine, peer)
-  }
-}

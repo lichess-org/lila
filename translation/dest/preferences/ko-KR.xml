@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">일시적으로 자동 승급을 끄기 위해 승급하는 동안 &lt;ctrl&gt;를 누르세요</string>
   <string name="whenPremoving">미리 뒀을 때만</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">세 번 반복하면 자동으로 무승부 요청</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">남은 시간이 30초 미만일 때만</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">남은 시간이 30초 미만일 때만</string>
   <string name="moveConfirmation">피스를 움직이기 전에 물음</string>
   <string name="inCorrespondenceGames">긴 대국에서만</string>
   <string name="correspondenceAndUnlimited">긴 대국과 무제한</string>

@@ -59,6 +59,8 @@
   <string name="depthX">%s βάθος</string>
   <string name="usingServerAnalysis">Ανάλυση διακομιστή</string>
   <string name="loadingEngine">Εκκίνηση μηχανής ...</string>
+  <string name="calculatingMoves">Υπολογισμός κινήσεων...</string>
+  <string name="engineFailed">Σφάλμα κατά τη φόρτωση της μηχανής</string>
   <string name="cloudAnalysis">Ανάλυση σε νέφος</string>
   <string name="goDeeper">Βαθύτερα</string>
   <string name="showThreat">Εμφάνιση απειλής</string>
@@ -92,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' με στρογγυλοποίηση, βάσει του αριθμού των κινήσεων μέχρι την επόμενη κίνηση πιονιού ή την επόμενη αλλαγή</string>
   <string name="noGameFound">Δεν βρέθηκε παρτίδα</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Δοκιμάστε να συμπεριλάβετε περισσότερα παιχνίδια από το μενού προτιμήσεων.</string>
+  <string name="openings">Ανοίγματα</string>
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων</string>
   <string name="openingEndgameExplorer">Εξερευνητής ανοιγμάτων/φινάλε</string>
   <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
@@ -155,6 +158,7 @@
   <string name="viewInFullSize">Προβολή σε πλήρες μέγεθος</string>
   <string name="logOut">Έξοδος</string>
   <string name="signIn">Είσοδος</string>
+  <string name="rememberMe">Απομνημόνευση των στοιχείων μου</string>
   <string name="youNeedAnAccountToDoThat">Χρειάζεστε λογαριασμό για να το κάνετε αυτό</string>
   <string name="signUp">Εγγραφή</string>
   <string name="computersAreNotAllowedToPlay">Δεν επιτρέπουμε στους υπολογιστές και παίκτες με υποβοήθηση υπολογιστή να παίζουν στο Lichess. Παρακαλούμε μη δεχτείτε βοήθεια από σκακιστικούς υπολογιστές, βάσεις δεδομένων ή άλλους παίκτες όσο παίζετε εδώ. Επίσης σημειώστε πως αποθαρρύνουμε την δημιουργία πολλών λογαριασμών και υπερβολή σε αυτό θα καταλήξει σε αποκλεισμό.</string>
@@ -195,12 +199,20 @@
   <string name="changeUsername">Αλλαγή ονόματος χρήστη</string>
   <string name="changeUsernameNotSame">Μόνο η αλλαγή χαρακτήρων από μικρά σε κεφαλαία επιτρέπεται. Για παράδειγμα \"johndoe\" σε \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Αλλαγή ονόματος χρήστη. Μπορεί να γίνει μόνο μία φορά και μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία στο όνομα χρήστη επιτρέπεται.</string>
+  <string name="signupUsernameHint">Eπιλέξτε ένα φιλικό προς την οικογένεια όνομα χρήστη, καθώς δε θα μπορέσετε να το αλλάξετε αργότερα. Λογαριασμοί με ακατάλληλα ψευδώνυμα θα απενεργοποιούνται!</string>
+  <string name="signupEmailHint">Θα τη χρησιμοποιήσουμε μόνο για την επαναφορά του κωδικού πρόσβασης.</string>
   <string name="password">Κωδικός</string>
   <string name="changePassword">Αλλαγή κωδικού</string>
   <string name="changeEmail">Αλλαγή διεύθυνσης email</string>
   <string name="email">Ηλ. ταχυδρομείο</string>
   <string name="passwordReset">Επαναφορά κωδικού</string>
   <string name="forgotPassword">Ξεχάσατε τον κωδικό;</string>
+  <string name="emailConfirmHelp">Βοήθεια για την επιβεβαίωση email</string>
+  <string name="emailConfirmNotReceived">Δε λάβατε το email επιβεβαίωσης μετά την εγγραφή;</string>
+  <string name="whatSignupUsername">Τι όνομα χρήστη χρησιμοποιήσατε για να εγγραφείτε;</string>
+  <string name="usernameNotFound">Δεν μπορέσαμε να βρούμε κάποιον χρήστη με το όνομα: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Μπορείτε να χρησιμοποιήσετε αυτό το όνομα χρήστη για να δημιουργήσετε ένα νέο λογαριασμό</string>
+  <string name="emailSent">Στείλαμε ένα email στη διεύθυνση %s.</string>
   <string name="rank">Κατάταξη</string>
   <string name="rankX">Κατάταξη: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -632,6 +644,7 @@
   <string name="tournamentFAQ">Τεκμηρίωση πρωταθλημάτων τύπου αρένας</string>
   <string name="timeBeforeTournamentStarts">Χρόνος προτού ξεκινήσει το πρωτάθλημα</string>
   <string name="averageCentipawnLoss">Μέση απώλεια εκατοστοπιονιού</string>
+  <string name="accuracy">Ακρίβεια</string>
   <string name="keyboardShortcuts">Συντομεύσεις πληκτρολογίου</string>
   <string name="keyMoveBackwardOrForward">μετακίνηση προς τα πίσω / προς τα εμπρός</string>
   <string name="keyGoToStartOrEnd">πηγαίνετε στην έναρξη / λήξη</string>

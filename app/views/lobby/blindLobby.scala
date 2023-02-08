@@ -1,11 +1,11 @@
 package views.html.lobby
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 
-object blindLobby {
+object blindLobby:
 
   def apply(games: List[Pov])(implicit ctx: Context) =
     div(
@@ -15,7 +15,7 @@ object blindLobby {
     )
 
   private def ongoingGames(games: List[Pov])(implicit ctx: Context) =
-    games.partition(_.isMyTurn) match {
+    games.partition(_.isMyTurn) match
       case (myTurn, opTurn) =>
         frag(
           h3("My turn: ", myTurn.size, " games"),
@@ -23,7 +23,6 @@ object blindLobby {
           h3("Opponent turn: ", opTurn.size, " games"),
           ul(opTurn map renderGame)
         )
-    }
 
   private def renderGame(pov: Pov)(implicit ctx: Context) =
     li(
@@ -33,4 +32,3 @@ object blindLobby {
         pov.isMyTurn ?? pov.remainingSeconds map { secondsFromNow(_, alwaysRelative = true) }
       )
     )
-}

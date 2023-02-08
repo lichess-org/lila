@@ -1,11 +1,16 @@
 package lila.pool
 
 import play.api.libs.json.Json
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
+import chess.Clock
 
-object PoolList {
+object PoolList:
 
-  import PoolConfig._
+  import PoolConfig.{ *, given }
+
+  extension (i: Int)
+    def ++(increment: Int) = Clock.Config(Clock.LimitSeconds(i * 60), Clock.IncrementSeconds(increment))
+    def players            = NbPlayers(i)
 
   val all: List[PoolConfig] = List(
     PoolConfig(1 ++ 0, Wave(12 seconds, 40 players)),
@@ -24,9 +29,3 @@ object PoolList {
   val clockStringSet: Set[String] = all.view.map(_.clock.show) to Set
 
   val json = Json toJson all
-
-  implicit private class LilaInt(self: Int) {
-    def ++(increment: Int) = chess.Clock.Config(self * 60, increment)
-    def players            = NbPlayers(self)
-  }
-}

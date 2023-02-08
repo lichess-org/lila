@@ -2,7 +2,6 @@ import { h, VNode } from 'snabbdom';
 
 export type Redraw = () => void;
 export type Close = () => void;
-export type Open = (sub: string) => void;
 
 export interface Prop<T> {
   (): T;

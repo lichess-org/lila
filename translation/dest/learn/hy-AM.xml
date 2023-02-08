@@ -79,7 +79,7 @@
   <string name="checkInOneGoal">Թիրախավորե՛ք մրցակցի արքային մեկ քայլով։</string>
   <string name="checkInOneComplete">Շնորհավորո՜ւմ ենք։ Դուք շախ հայտարարեցիք մրցակցին` ստիպելով պաշտպանել արքային։</string>
   <string name="outOfCheck">Ազատում շախից</string>
-  <string name="defendYourKing">Պաշտպանեք ձեր արքային</string>
+  <string name="defendYourKing">Պաշտպանեք ձեր արքան</string>
   <string name="outOfCheckIntro">Ձեզ շա՛խ։ Դուք պետք է հեռանաք կամ ծածկվեք գրոհից։</string>
   <string name="escapeWithTheKing">Արքան փախչո՜ւմ է։</string>
   <string name="theKingCannotEscapeButBlock">Արքան չի կարող հեռանալ, բայց դուք կարող եք պաշտպանել նրան։</string>
@@ -162,8 +162,8 @@
   <string name="checkInTwoIntro">Գտե՛ք երկքայլանի կոմբինացիա, որպեսզի մրցակցի արքային շախ հայտարարեք։</string>
   <string name="checkInTwoGoal">Երկու քայլում ստեղծե՛ք սպառնալիք մրցակցի արքային։</string>
   <string name="checkInTwoComplete">Շնորհավորո՜ւմ ենք։ Դուք շախ հայտարարեցիք մրցակցին` ստիպելով պաշտպանել արքային։</string>
-  <string name="whatNext">Հետո ինչ?</string>
-  <string name="youKnowHowToPlayChess">Դուք կարող եք շախմատ խաղալ, շնորհավորում եմ: Ցանկանում եք դառնալ ավելի ուժեղ խաղացող?</string>
+  <string name="whatNext">Հետո՞</string>
+  <string name="youKnowHowToPlayChess">Դուք սովորեցիք շախմատ խաղալ, շնորհավորում ենք: Ցանկանո՞ւմ եք դառնալ ավելի ուժեղ խաղացող։</string>
   <string name="register">Գրանցում</string>
   <string name="getAFreeLichessAccount">Գրանցվե՛ք Lichess-ում անվճար</string>
   <string name="practice">Զբաղվել, Պարապել</string>

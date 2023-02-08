@@ -1,15 +1,15 @@
 package lila.msg
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 import scala.util.Try
 
 import lila.common.config.MaxPerPage
-import lila.common.LilaStream
-import lila.common.{ Bus, LightUser }
-import lila.db.dsl._
+import lila.common.{ Bus, LightUser, LilaStream }
+import lila.db.dsl.{ *, given }
+import lila.relation.Relations
 import lila.user.Holder
 import lila.user.{ User, UserRepo }
 
@@ -23,15 +23,12 @@ final class MsgApi(
     security: MsgSecurity,
     shutup: lila.hub.actors.Shutup,
     spam: lila.security.Spam
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
-) {
+)(using scala.concurrent.ExecutionContext, akka.stream.Materializer):
 
   val msgsPerPage = MaxPerPage(100)
 
-  import BsonHandlers._
-  import MsgApi._
+  import BsonHandlers.{ *, given }
+  import MsgApi.*
 
   def threadsOf(me: User): Fu[List[MsgThread]] =
     colls.thread
@@ -42,13 +39,12 @@ final class MsgApi(
       .map(prioritize)
 
   private def prioritize(threads: List[MsgThread]) =
-    threads.find(_.isPriority) match {
+    threads.find(_.isPriority) match
       case None        => threads
       case Some(found) => found :: threads.filterNot(_.isPriority)
-    }
 
-  def convoWith(me: User, username: String, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] = {
-    val userId   = User.normalize(username)
+  def convoWith(me: User, username: UserStr, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] =
+    val userId   = username.id
     val threadId = MsgThread.id(me.id, userId)
     val before = beforeMillis flatMap { millis =>
       Try(new DateTime(millis)).toOption
@@ -63,20 +59,18 @@ final class MsgApi(
         } yield MsgConvo(contact, msgs, relations, postable).some
       }
     }
-  }
 
-  def delete(me: User, username: String): Funit = {
-    val threadId = MsgThread.id(me.id, User.normalize(username))
+  def delete(me: User, username: UserStr): Funit =
+    val threadId = MsgThread.id(me.id, username.id)
     colls.msg.update
       .one($doc("tid" -> threadId), $addToSet("del" -> me.id), multi = true) >>
       colls.thread.update
         .one($id(threadId), $addToSet("del" -> me.id))
         .void
-  }
 
   def post(
-      orig: User.ID,
-      dest: User.ID,
+      orig: UserId,
+      dest: UserId,
       text: String,
       multi: Boolean = false,
       ignoreSecurity: Boolean = false
@@ -90,7 +84,7 @@ final class MsgApi(
           if (ignoreSecurity) fuccess(MsgSecurity.Ok)
           else security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
         _ = lila.mon.msg.post(verdict.toString, isNew = isNew, multi = multi).increment()
-        res <- verdict match {
+        res <- verdict match
           case MsgSecurity.Limit     => fuccess(PostResult.Limited)
           case _: MsgSecurity.Reject => fuccess(PostResult.Bounced)
           case send: MsgSecurity.Send =>
@@ -123,7 +117,7 @@ final class MsgApi(
                   )
                   .void
             (msgWrite zip threadWrite).void >>- {
-              if (!send.mute) {
+              if (!send.mute)
                 notifier.onPost(threadId)
                 Bus.publish(
                   lila.hub.actorApi.socket.SendTo(
@@ -133,13 +127,11 @@ final class MsgApi(
                   "socketUsers"
                 )
                 shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
-              }
             } inject PostResult.Success
-        }
       } yield res
     }
 
-  def setRead(userId: User.ID, contactId: User.ID): Funit = {
+  def setRead(userId: UserId, contactId: UserId): Funit =
     val threadId = MsgThread.id(userId, contactId)
     colls.thread
       .updateField(
@@ -150,15 +142,14 @@ final class MsgApi(
       .flatMap { res =>
         (res.nModified > 0) ?? notifier.onRead(threadId, userId, contactId)
       }
-  }
 
-  def postPreset(destId: User.ID, preset: MsgPreset): Fu[PostResult] =
+  def postPreset(destId: UserId, preset: MsgPreset): Fu[PostResult] =
     systemPost(destId, preset.text)
 
-  def systemPost(destId: User.ID, text: String) =
+  def systemPost(destId: UserId, text: String) =
     post(User.lichessId, destId, text, multi = true, ignoreSecurity = true)
 
-  def multiPost(orig: Holder, destSource: Source[User.ID, _], text: String): Fu[Int] =
+  def multiPost(orig: Holder, destSource: Source[UserId, ?], text: String): Fu[Int] =
     destSource
       .filter(orig.id !=)
       .mapAsync(4) {
@@ -167,8 +158,8 @@ final class MsgApi(
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
 
-  def cliMultiPost(orig: String, dests: Seq[User.ID], text: String): Fu[String] =
-    userRepo named orig flatMap {
+  def cliMultiPost(orig: UserStr, dests: Seq[UserId], text: String): Fu[String] =
+    userRepo byId orig flatMap {
       case None         => fuccess(s"Unknown sender $orig")
       case Some(sender) => multiPost(Holder(sender), Source(dests), text) inject "done"
     }
@@ -176,7 +167,7 @@ final class MsgApi(
   def recentByForMod(user: User, nb: Int): Fu[List[ModMsgConvo]] =
     colls.thread
       .aggregateList(nb) { framework =>
-        import framework._
+        import framework.*
         Match($doc("users" -> user.id)) -> List(
           Sort(Descending("lastMsg.date")),
           Limit(nb),
@@ -205,17 +196,14 @@ final class MsgApi(
           ),
           UnwindField("contact")
         )
-      } map { docs =>
-      for {
+      } flatMap { docs =>
+      (for {
         doc     <- docs
         msgs    <- doc.getAsOpt[List[Msg]]("msgs")
         contact <- doc.getAsOpt[User]("contact")
-      } yield ModMsgConvo(
-        contact,
-        msgs take 10,
-        lila.relation.Relations(none, none),
-        msgs.length == 11
-      )
+      } yield relationApi.fetchRelation(contact.id, user.id) map { relation =>
+        ModMsgConvo(contact, msgs take 10, Relations(relation, none), msgs.length == 11)
+      }).sequenceFu
     }
 
   def deleteAllBy(user: User): Funit =
@@ -240,11 +228,11 @@ final class MsgApi(
       .list(msgsPerPage.value)
       .map {
         _.flatMap { doc =>
-          doc.getAsOpt[List[User.ID]]("del").fold(true)(!_.has(me.id)) ?? doc.asOpt[Msg]
+          doc.getAsOpt[List[UserId]]("del").fold(true)(!_.has(me.id)) ?? doc.asOpt[Msg]
         }
       }
 
-  private def setReadBy(threadId: MsgThread.Id, me: User, contactId: User.ID): Funit =
+  private def setReadBy(threadId: MsgThread.Id, me: User, contactId: UserId): Funit =
     colls.thread.updateField(
       $id(threadId) ++ $doc(
         "lastMsg.user" $ne me.id,
@@ -256,16 +244,16 @@ final class MsgApi(
       (res.nModified > 0) ?? notifier.onRead(threadId, me.id, contactId)
     }
 
-  def hasUnreadLichessMessage(userId: User.ID): Fu[Boolean] = colls.thread.secondaryPreferred.exists(
+  def hasUnreadLichessMessage(userId: UserId): Fu[Boolean] = colls.thread.secondaryPreferred.exists(
     $id(MsgThread.id(userId, User.lichessId)) ++ $doc("lastMsg.read" -> false)
   )
 
-  def allMessagesOf(userId: User.ID): Source[(String, DateTime), _] =
+  def allMessagesOf(userId: UserId): Source[(String, DateTime), ?] =
     colls.thread
       .aggregateWith[Bdoc](
         readPreference = ReadPreference.secondaryPreferred
       ) { framework =>
-        import framework._
+        import framework.*
         List(
           Match($doc("users" -> userId)),
           Project($id(true)),
@@ -307,16 +295,7 @@ final class MsgApi(
           date <- msg.getAsOpt[DateTime]("date")
         } yield (text, date)).toList
       }
-}
 
-object MsgApi {
-
-  sealed trait PostResult
-
-  object PostResult {
-    case object Success extends PostResult
-    case object Invalid extends PostResult
-    case object Limited extends PostResult
-    case object Bounced extends PostResult
-  }
-}
+object MsgApi:
+  enum PostResult:
+    case Success, Invalid, Limited, Bounced

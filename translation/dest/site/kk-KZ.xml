@@ -59,8 +59,8 @@
   <string name="depthX">Тереңдігі %s</string>
   <string name="usingServerAnalysis">Сервердік талдау жүруде</string>
   <string name="loadingEngine">Есептеуіш жүктелуде...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Қадамдарды есептеу...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Есептеуішті жүктеу үзілді</string>
+  <string name="calculatingMoves">Қадамдарды есептеу...</string>
+  <string name="engineFailed">Есептеуішті жүктеу үзілді</string>
   <string name="cloudAnalysis">Бұлттық талдау</string>
   <string name="goDeeper">Терең кету</string>
   <string name="showThreat">Қауіпті көрсету</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">Дөңгелектелген DTZ50\'\' келесі басып алғанша не сарбаз жүргенше дейін жартыжүрістердің санына негізделген</string>
   <string name="noGameFound">Ешбір ойын табылмады</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
+  <string name="openings">Бастаулар</string>
   <string name="openingExplorer">Бастаулар қазынасы</string>
   <string name="openingEndgameExplorer">Бастау/ойынсоңы қоры</string>
   <string name="xOpeningExplorer">%s бастаулар қазынасы</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Жайып көрсету</string>
   <string name="logOut">Шығу</string>
   <string name="signIn">Кіру</string>
+  <string name="rememberMe">Мені жадта сақтау</string>
   <string name="youNeedAnAccountToDoThat">Бұны істеу үшін сізге тіркелгі қажет</string>
   <string name="signUp">Тіркелу</string>
   <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат есептеуіштерін, дерекқорларын не басқа бір ойыншының көмегін қолданбаңыз. Сонымен қатар, бірнеше тіркелгі жасауды құптамаймыз, көп тіркелгі жасау - шектеуге әкеліп соқтырады.</string>
@@ -197,12 +199,31 @@
   <string name="changeUsername">Атыңызды өзгерту</string>
   <string name="changeUsernameNotSame">Тек әріптер үлкендігін өзгерту рұқсат. Мысалы, \"tolebi\" дегенді \"ToleBi\" деп.</string>
   <string name="changeUsernameDescription">Пайдаланушы атын өзгертіңіз. Бұны бір мәрте ғана жасауға рұқсат. Тек әріптің үлкендігін ғана өзгерте аласыз.</string>
+  <string name="signupUsernameHint">Атыңызды таңдағанда, өз үйіңізде айтуға лайықты болатындай болсын. Оны кейін өзгерте алмайсыз. Орынсыз, ұятсыз сөздері болса, тіркелгіңіз толықтай жабылады!</string>
+  <string name="signupEmailHint">Құпиясөзді қайта орнату үшін ғана керек.</string>
   <string name="password">Құпиясөз</string>
   <string name="changePassword">Құпиясөзді өзгерту</string>
   <string name="changeEmail">Поштаны ауыстыру</string>
   <string name="email">Пошта</string>
   <string name="passwordReset">Құпиясөзді қайта орнату</string>
   <string name="forgotPassword">Құпиясөзді ұмытып қалдыңыз ба?</string>
+  <string name="emailConfirmHelp">Поштаны растау туралы көмек</string>
+  <string name="emailConfirmNotReceived">Тіркелуден кейін поштаңызға растау хаты келмеді ме?</string>
+  <string name="whatSignupUsername">Қай атпен тіркелдіңіз?</string>
+  <string name="usernameNotFound">%s – осы аты бар ешбір қолданушыны таба алмадық.</string>
+  <string name="usernameCanBeUsedForNewAccount">Осы атты жаңа тіркелгі жасау үшін қолдансаңыз болады</string>
+  <string name="emailSent">%s поштасына хат жібердік.</string>
+  <string name="emailCanTakeSomeTime">Жетуіне біршама уақыт керек.</string>
+  <string name="refreshInboxAfterFiveMinutes">5 минут күтіп, поштаңыздың бетін жаңартып көріңіз.</string>
+  <string name="checkSpamFolder">Сонымен қатар, Спам қалтасында қарап көріңіз. Хат сонда болса, \"Спам емес\" деп белгілеу жөн болар.</string>
+  <string name="emailForSignupHelp">Егер де осы амалдардың бәрі жарамаса, бізге осындай хат жіберіңіз:</string>
+  <string name="copyTextToEmail">Осы мәтінді көшіріп, %s жіберіңіз</string>
+  <string name="waitForSignupHelp">Тіркелуді аяқтау үшін біз тез арада жауап береміз.</string>
+  <string name="accountConfirmed">%s тіркелгісі расталды.</string>
+  <string name="accountCanLogin">%s атымен дәл қазір тіркелкіге кіре аласыз.</string>
+  <string name="accountConfirmationEmailNotNeeded">Сізге растау хаты керек емес.</string>
+  <string name="accountClosed">%s деген тіркелгі жабылды.</string>
+  <string name="accountRegisteredWithoutEmail">%s тіркелгісі поштасыз тіркелген.</string>
   <string name="rank">Орын</string>
   <string name="rankX">Орын: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -232,7 +253,7 @@
   <string name="accept">Келісу</string>
   <string name="decline">Келіспеу</string>
   <string name="playingRightNow">Қазір ойнап отыр</string>
-  <string name="eventInProgress">Қазір ойнап отыр</string>
+  <string name="eventInProgress">Қазір болып жатыр</string>
   <string name="finished">Аяқталды</string>
   <string name="finishesX">аяқталуына %s қалды</string>
   <string name="abortGame">Ойынды тоқтату</string>
@@ -520,7 +541,7 @@
   <string name="typePrivateNotesHere">Жеке жазбаларыңыз үшін</string>
   <string name="invalidUsernameOrPassword">Атыңыз не құпиясөз қате</string>
   <string name="incorrectPassword">Құпиясөз қате</string>
-  <string name="invalidAuthenticationCode">Түпнұсқалық растама коды қате</string>
+  <string name="invalidAuthenticationCode">Сәйкестік-растау құлыпсөзі қате</string>
   <string name="emailMeALink">Поштама сілтеме жібер</string>
   <string name="currentPassword">Қазіргі құпиясөз</string>
   <string name="newPassword">Жаңа кұпиясөз</string>
@@ -634,6 +655,7 @@
   <string name="tournamentFAQ">Алаң жарысының ЖҚС</string>
   <string name="timeBeforeTournamentStarts">Жарыс басталуына қалған уақыт</string>
   <string name="averageCentipawnLoss">Қателіктердің орташа мәні</string>
+  <string name="accuracy">Дәлдік</string>
   <string name="keyboardShortcuts">Пернетақта пәрмендері</string>
   <string name="keyMoveBackwardOrForward">алға/артқа жүру</string>
   <string name="keyGoToStartOrEnd">басына/аяғына жүру</string>
@@ -744,6 +766,7 @@
   <string name="bestWasX">Үздігі %s</string>
   <string name="youBrowsedAway">Аяғына жеттіңіз</string>
   <string name="resumePractice">Жаттығуды жалғастыру</string>
+  <string name="drawByFiftyMoves">\"50 жүріс\" ережесіне сәйкес ойын тепе-теңдікпен аяқталды.</string>
   <string name="theGameIsADraw">Ойын тең аяқталды.</string>
   <string name="computerThinking">Компьютер ойлануда ...</string>
   <string name="seeBestMove">Үздік жүрісті көру</string>
@@ -899,9 +922,9 @@
   <string name="cantDoThisTwice">Егер тіркелгіңізді екінші рет жапсаңыз, оны қайтару еш мүмкіндік болмайды.</string>
   <string name="emailAssociatedToaccount">Тіркелгіге байлаулы поштаңыз</string>
   <string name="sentEmailWithLink">Біз сілтемесі бар хат жібереміз.</string>
-  <string name="tournamentEntryCode">Жарысқа кіру коды</string>
+  <string name="tournamentEntryCode">Жарысқа кіру құпиясөзі</string>
   <string name="hangOn">Тоқтаңыз!</string>
-  <string name="gameInProgress">Сіз қазір %s-мен ойнап отырсыз.</string>
+  <string name="gameInProgress">%s сізді қазір ойында күтіп тұр.</string>
   <string name="abortTheGame">Ойынды үзу</string>
   <string name="resignTheGame">Берілу</string>
   <string name="youCantStartNewGame">Бұл ойын аяқталмағанша, сіз жаңа ойын бастай алмайсыз.</string>

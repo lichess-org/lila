@@ -1,6 +1,6 @@
 package lila.studySearch
 
-private[studySearch] object Fields {
+private[studySearch] object Fields:
   val name         = "name"
   val owner        = "owner"
   val members      = "members"
@@ -13,7 +13,5 @@ private[studySearch] object Fields {
   val likes  = "likes"
   val public = "public"
 
-  object chapter {
+  object chapter:
     val name = "name"
-  }
-}

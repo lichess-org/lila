@@ -8,28 +8,28 @@
     <item quantity="other">עוד %s שניות</item>
   </plurals>
   <plurals name="inNbMinutes">
-    <item quantity="one">עוד דקה</item>
+    <item quantity="one">עוד דקה %s</item>
     <item quantity="two">עוד %s דקות</item>
     <item quantity="many">עוד %s דקות</item>
     <item quantity="other">עוד %s דקות</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">עוד %s שעה</item>
+    <item quantity="one">עוד שעה %s</item>
     <item quantity="two">עוד %s שעות</item>
     <item quantity="many">עוד %s שעות</item>
     <item quantity="other">עוד %s שעות</item>
   </plurals>
   <plurals name="inNbDays">
-    <item quantity="one">עוד %s יום</item>
+    <item quantity="one">עוד יום %s</item>
     <item quantity="two">עוד %s ימים</item>
     <item quantity="many">עוד %s ימים</item>
     <item quantity="other">עוד %s ימים</item>
   </plurals>
   <plurals name="inNbWeeks">
-    <item quantity="one">%s שבוע</item>
-    <item quantity="two">בעוד כ %s</item>
-    <item quantity="many">בעוד כ %s שבועות</item>
-    <item quantity="other">בעוד כ %s שבועות</item>
+    <item quantity="one">עוד שבוע %s</item>
+    <item quantity="two">עוד %s שבועות</item>
+    <item quantity="many">עוד %s שבועות</item>
+    <item quantity="other">עוד %s שבועות</item>
   </plurals>
   <plurals name="inNbMonths">
     <item quantity="one">עוד חודש %s</item>
@@ -38,7 +38,7 @@
     <item quantity="other">עוד %s חודשים</item>
   </plurals>
   <plurals name="inNbYears">
-    <item quantity="one">עוד %s שנה</item>
+    <item quantity="one">עוד שנה %s</item>
     <item quantity="two">עוד %s שנים</item>
     <item quantity="many">עוד %s שנים</item>
     <item quantity="other">עוד %s שנים</item>

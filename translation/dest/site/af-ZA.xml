@@ -59,8 +59,8 @@
   <string name="depthX">Diepte %s</string>
   <string name="usingServerAnalysis">Die gebruik van bediener analise</string>
   <string name="loadingEngine">Enjin laai tans ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Bereken skuiwe...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Kon nie enjin laai nie</string>
+  <string name="calculatingMoves">Bereken skuiwe...</string>
+  <string name="engineFailed">Kon nie enjin laai nie</string>
   <string name="cloudAnalysis">Wolkanalise</string>
   <string name="goDeeper">Gaan dieper</string>
   <string name="showThreat">Toon bedreiging</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\" met afronding, gebaseer op die hoeveelheid half-skuiwe tot die volgende vat of pionskuif</string>
   <string name="noGameFound">Geen spel gevind</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voeg dalk meer wedstryde van die voorkeure kieslys by?</string>
+  <string name="openings">Openinge</string>
   <string name="openingExplorer">Opening ontdekker</string>
   <string name="openingEndgameExplorer">Opening/eindspel ontdekker</string>
   <string name="xOpeningExplorer">%s opening ontdekker</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Sien in volgrootte</string>
   <string name="logOut">Teken uit</string>
   <string name="signIn">Teken in</string>
+  <string name="rememberMe">Onthou my</string>
   <string name="youNeedAnAccountToDoThat">Jy het \'n rekening nodig om dit te doen</string>
   <string name="signUp">Registreer</string>
   <string name="computersAreNotAllowedToPlay">Rekenaars en rekenaargesteunde spelers word nie toegelaat om te speel. Moet asseblief nie die hulp van skaak enjins, databasisse, of uit ander spelers te kry, terwyl die speel van. Let ook daarop dat die maak van verskeie rekeninge is ten sterkste ontmoedig en oormatige multi-rekeningkunde sal lei tot verban.</string>
@@ -185,6 +187,10 @@
     <item quantity="one">%s uur</item>
     <item quantity="other">%s ure</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuut</item>
+    <item quantity="other">%s minute</item>
+  </plurals>
   <string name="time">Tyd</string>
   <string name="rating">Gradering</string>
   <string name="ratingStats">Gradering statistieke</string>
@@ -193,12 +199,31 @@
   <string name="changeUsername">Verander gebruikersnaam</string>
   <string name="changeUsernameNotSame">Slegs die hoof-/kleinletters kan verander. Byvoorbeeld \"pietsmit\" na \"PietSmit\".</string>
   <string name="changeUsernameDescription">Verander jou gebruikersnaam. Dit kan slegs een keer gedoen word, en jy kan net die hoof-/kleinletters in die gebruikersnaam verander.</string>
+  <string name="signupUsernameHint">Kies asseblief \'n aanvaarbare gebruikersnaam. Dit kan nie later verander word nie, en enige onaanvaarbare gebruikersname sal gesluit word!</string>
+  <string name="signupEmailHint">Dit sal slegs gebruik word om wagwoorde te herstel.</string>
   <string name="password">Wagwoord</string>
   <string name="changePassword">Verander wagwoord</string>
   <string name="changeEmail">Verander e-pos</string>
   <string name="email">E-pos</string>
   <string name="passwordReset">Wagwoord herstel</string>
   <string name="forgotPassword">Wagwoord vergeet?</string>
+  <string name="emailConfirmHelp">Hulp met e-posbevestiging</string>
+  <string name="emailConfirmNotReceived">Geen bevestigingsboodskap ontvang nadat jy ingeteken het nie?</string>
+  <string name="whatSignupUsername">Watter gebruikersnaam het jy gebruik om mee in te teken?</string>
+  <string name="usernameNotFound">Kon geen gebruiker met hierdie naam vind nie: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Gebruk hierdie gebruikersnaam om \'n nuwe rekening te skep</string>
+  <string name="emailSent">Ons het \'n e-pos gestuur na %s.</string>
+  <string name="emailCanTakeSomeTime">Dit mag \'n rukkie neem om te ontvang.</string>
+  <string name="refreshInboxAfterFiveMinutes">Wag 5 minute en verfris jou e-pos.</string>
+  <string name="checkSpamFolder">Kyk ook in jou strooipos lêer, dit mag dalk daarin opeinding. In dien dit die geval is, merk dit as nie strooipos nie.</string>
+  <string name="emailForSignupHelp">Indien niks werk nie, stuur die volgende boodskap:</string>
+  <string name="copyTextToEmail">Kopieer en plak die teks hierbo en stuur dit na %s</string>
+  <string name="waitForSignupHelp">Ons sal spoedig na jou terugkom en jou help met die intekenproses.</string>
+  <string name="accountConfirmed">Die gebruiker %s is bevestig.</string>
+  <string name="accountCanLogin">Jy kan nou inteken as %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Jy benodig nie \'n bevestigingsboodskap nie.</string>
+  <string name="accountClosed">Die rekening %s is gesluit.</string>
+  <string name="accountRegisteredWithoutEmail">Die rekening %s is geregistreer sonder \'n e-pos.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Rang: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -241,12 +266,12 @@
   <string name="casualTournament">Vriendskaplik</string>
   <string name="ratedTournament">Gegradeer</string>
   <string name="thisGameIsRated">Hierdie spel is gegradeer</string>
-  <string name="rematch">Speel weer</string>
-  <string name="rematchOfferSent">Speel weer aanbod gestuur</string>
-  <string name="rematchOfferAccepted">Speel weer aanbod aanvaar</string>
-  <string name="rematchOfferCanceled">Speel weer aanbod gekanselleer</string>
-  <string name="rematchOfferDeclined">Speel weer aanbod afgewys</string>
-  <string name="cancelRematchOffer">Wys speel weer aanbod af</string>
+  <string name="rematch">Herwedstryd</string>
+  <string name="rematchOfferSent">Herwedstryd aanbod gestuur</string>
+  <string name="rematchOfferAccepted">Herwedstryd aanbod aanvaar</string>
+  <string name="rematchOfferCanceled">Herwedstryd aanbod gekanselleer</string>
+  <string name="rematchOfferDeclined">Herwedstryd aanbod afgewys</string>
+  <string name="cancelRematchOffer">Wys herwedstryd aanbod af</string>
   <string name="viewRematch">Sien heruitdagingsaanbod</string>
   <string name="confirmMove">Bevestig skuif</string>
   <string name="play">Speel</string>
@@ -338,6 +363,7 @@
   <string name="siteDescription">Gratis aanlyn Skaak spel. Speel nou Skaak met \'n maklike skerm. Geen registrasie nodig, geen advertensies, niks om te installeer. Speel Skaak teen rekenaar, vriende of nuwe uitdagers.</string>
   <string name="xJoinedTeamY">%1$s het aangesluit by span %2$s</string>
   <string name="xCreatedTeamY">%1$s het span %2$s geskep</string>
+  <string name="startedStreaming">het begin met \'n uitsending</string>
   <string name="xStartedStreaming">%s het begin met \'n uitsending</string>
   <string name="averageElo">Gemiddelde gradering</string>
   <string name="location">Ligging</string>
@@ -514,6 +540,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Tik private notas hier in</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skryf \'n private nota oor hierdie verbruiker</string>
+  <string name="noNoteYet">Nog geen nota nie</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wagwoord</string>
   <string name="incorrectPassword">Verkeerde wagwoord</string>
   <string name="invalidAuthenticationCode">Ongeldige verifikasiekode</string>
@@ -581,6 +609,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="error.min">Moet minstens %s wees</string>
   <string name="error.max">Moet meestens %s wees</string>
   <string name="ifRatingIsPlusMinusX">Indien gradering ± %s is</string>
+  <string name="ifRegistered">Sleg geregistreerdes</string>
   <string name="onlyExistingConversations">Slegs bestaande gesprekke</string>
   <string name="onlyFriends">Slegs vriende</string>
   <string name="menu">Kieslys</string>
@@ -629,6 +658,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="tournamentFAQ">Arena toernooi Vrae</string>
   <string name="timeBeforeTournamentStarts">Tydsduur tot aanvang van toernooi</string>
   <string name="averageCentipawnLoss">Gemiddelde sentipion verlies</string>
+  <string name="accuracy">Akkuraatheid</string>
   <string name="keyboardShortcuts">Sleutelbord kortpaaie</string>
   <string name="keyMoveBackwardOrForward">skuif terug/vorentoe</string>
   <string name="keyGoToStartOrEnd">gaan na begin/einde</string>
@@ -666,6 +696,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="downloadImported">Aflaai ingevoer</string>
   <string name="crosstable">Kruistabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Jy kan ook blaai oor die bord om te beweeg in die spel.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Hou die muis oor die rekenaar variante om dit te voorskou.</string>
   <string name="analysisShapesHowTo">Druk shift+klik of regs-kliek om sirkels en pyle te trek op die bord.</string>
   <string name="letOtherPlayersMessageYou">Laat ander spelers boodskappe aan jou stuur</string>
   <string name="receiveForumNotifications">Laat weet wanneer in die forum genoem word</string>
@@ -710,6 +741,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="light">Lig</string>
   <string name="dark">Donker</string>
   <string name="transparent">Deurdigtig</string>
+  <string name="deviceTheme">Toestel se tema</string>
   <string name="backgroundImageUrl">Agtergrond prent URL:</string>
   <string name="boardGeometry">Bord geometrie</string>
   <string name="boardTheme">Bordtema</string>
@@ -738,6 +770,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="bestWasX">Beste was %s</string>
   <string name="youBrowsedAway">Jy het weggedwaal</string>
   <string name="resumePractice">Hervat oefening</string>
+  <string name="drawByFiftyMoves">Hierdie spel is gelykop weens die vyftig-skuif reël.</string>
   <string name="theGameIsADraw">Die spel is gelykop.</string>
   <string name="computerThinking">Die rekenaar dink ...</string>
   <string name="seeBestMove">Bekyk die beste skuif</string>
@@ -806,7 +839,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="searchOrStartNewDiscussion">Soek of begin \'n nuwe gesprek</string>
   <string name="edit">Pas aan</string>
   <string name="rapid">Rapid</string>
-  <string name="classical">Klassiek</string>
+  <string name="classical">Klassieke</string>
   <string name="ultraBulletDesc">Bitter vinnige spelle: minder as 30 sekondes</string>
   <string name="bulletDesc">Baie vinnige spelle: minder as 3 minute</string>
   <string name="blitzDesc">Vinnige spelle: 3 tot 8 minute</string>
@@ -879,7 +912,26 @@ Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
   <string name="noChat">Geen klets</string>
   <string name="onlyTeamLeaders">Slegs spanleiers</string>
   <string name="onlyTeamMembers">Slegs spanlede</string>
+  <string name="navigateMoveTree">Skuif boom navigasie</string>
+  <string name="mouseTricks">Muis toertjies</string>
+  <string name="toggleLocalAnalysis">Wissel plaaslike rekenaar analise</string>
+  <string name="toggleAllAnalysis">Wissel alle rekenaar analise</string>
   <string name="playComputerMove">Speel die beste rekenaarskuif</string>
+  <string name="analysisOptions">Analise opsies</string>
+  <string name="focusChat">Lê fokus klets</string>
+  <string name="showHelpDialog">Wys hierdie hulp dialoog</string>
+  <string name="reopenYourAccount">Herstel jou rekening</string>
+  <string name="closedAccountChangedMind">As jou rekening gesluit het, maar het intussen van plan verander, kry jy sleg een kans om jou rekening terug te kry.</string>
+  <string name="onlyWorksOnce">Dié sal slegs een keer werk.</string>
+  <string name="cantDoThisTwice">In die jy jou rekening \'n tweede keer sluit, sal daar nie \'n manier wees om dit te herstel nie.</string>
+  <string name="emailAssociatedToaccount">E-pos adress geassosieer met die rekening</string>
+  <string name="sentEmailWithLink">Ons het vir jou \'n e-pos met n skakel gestuur.</string>
+  <string name="tournamentEntryCode">Toernooi ingangskode</string>
+  <string name="hangOn">Hou vas!</string>
+  <string name="gameInProgress">Jou het \'n spel met %s aan die gang.</string>
+  <string name="abortTheGame">Staak die spel</string>
+  <string name="resignTheGame">Bedank die spel</string>
+  <string name="youCantStartNewGame">Jy kan nie \'n nuwe spel begin nie, tot hierdie spel klaar is.</string>
   <string name="since">Sedert</string>
   <string name="until">Tot</string>
   <string name="lichessDbExplanation">Gegradeerde spelle gekies uit alle Lichess-spelers</string>

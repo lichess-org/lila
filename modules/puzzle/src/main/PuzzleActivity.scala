@@ -1,28 +1,28 @@
 package lila.puzzle
 
-import akka.stream.scaladsl._
-import play.api.libs.json._
+import akka.stream.scaladsl.*
+import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.config.MaxPerSecond
-import lila.common.Json.jodaWrites
-import lila.db.dsl._
+import lila.common.Json.given
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final class PuzzleActivity(
     colls: PuzzleColls
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
-) {
+):
 
-  import PuzzleActivity._
-  import BsonHandlers._
-  import JsonView._
+  import PuzzleActivity.*
+  import BsonHandlers.given
+  import JsonView.{ *, given }
 
-  def stream(config: Config): Source[String, _] =
+  def stream(config: Config): Source[String, ?] =
     Source futureSource {
       colls.round.map {
         _.find($doc(PuzzleRound.BSONFields.user -> config.user.id))
@@ -42,7 +42,7 @@ final class PuzzleActivity(
 
   private def enrich(rounds: Seq[PuzzleRound]): Fu[Seq[JsObject]] =
     colls.puzzle {
-      _.primitiveMap[Puzzle.Id, Double](
+      _.primitiveMap[PuzzleId, Double](
         ids = rounds.map(_.id.puzzleId),
         field = s"${Puzzle.BSONFields.glicko}.r",
         fieldExtractor = _.child("glicko").flatMap(_ double "r")
@@ -59,13 +59,11 @@ final class PuzzleActivity(
         }
       }
     }
-}
 
-object PuzzleActivity {
+object PuzzleActivity:
 
   case class Config(
       user: User,
       max: Option[Int] = None,
       perSecond: MaxPerSecond
   )
-}

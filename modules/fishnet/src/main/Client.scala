@@ -1,19 +1,20 @@
 package lila.fishnet
 
 import com.gilt.gfc.semver.SemVer
-import lila.common.{ IpAddress, SecureRandom }
+import lila.common.IpAddress
 import scala.util.{ Failure, Success, Try }
+import ornicar.scalalib.SecureRandom
 
 import org.joda.time.DateTime
 
 case class Client(
     _id: Client.Key,                   // API key used to authenticate and assign move or analysis
-    userId: Client.UserId,             // lichess user ID
+    userId: UserId,                    // lichess user ID
     skill: Client.Skill,               // what can this client do
     instance: Option[Client.Instance], // last seen instance
     enabled: Boolean,
     createdAt: DateTime
-) {
+):
 
   def key = _id
 
@@ -24,16 +25,17 @@ case class Client(
       copy(instance = newInstance.some)
     }
 
-  def lichess = userId.value == lila.user.User.lichessId
+  def lichess = this is lila.user.User.lichessId
 
   def offline = key == Client.offline.key
 
   def disabled = !enabled
 
   override def toString = s"$key by $userId"
-}
 
-object Client {
+object Client:
+
+  given UserIdOf[Client] = _.userId
 
   val offline = Client(
     _id = Key("offline"),
@@ -44,16 +46,14 @@ object Client {
     createdAt = DateTime.now
   )
 
-  case class Key(value: String)     extends AnyVal with StringValue
-  case class Version(value: String) extends AnyVal with StringValue
-  case class Python(value: String)  extends AnyVal with StringValue
-  case class UserId(value: String)  extends AnyVal with StringValue
+  opaque type Key = String
+  object Key extends OpaqueString[Key]
+  opaque type Version = String
+  object Version extends OpaqueString[Version]
+  opaque type Python = String
+  object Python extends OpaqueString[Python]
 
-  case class Instance(
-      version: Version,
-      ip: IpAddress,
-      seenAt: DateTime
-  ) {
+  case class Instance(version: Version, ip: IpAddress, seenAt: DateTime):
 
     def update(i: Instance): Option[Instance] =
       if (i.version != version) i.some
@@ -62,30 +62,25 @@ object Client {
       else none
 
     def seenRecently = seenAt isAfter Instance.recentSince
-  }
 
-  object Instance {
+  object Instance:
 
     def recentSince = DateTime.now.minusMinutes(15)
-  }
 
-  sealed trait Skill {
-    def key = toString.toLowerCase
-  }
-  object Skill {
-    case object Move     extends Skill
-    case object Analysis extends Skill
-    case object All      extends Skill
-    val all                = List(Move, Analysis, All)
-    def byKey(key: String) = all.find(_.key == key)
-  }
+  enum Skill:
+    case Move
+    case Analysis
+    case All
+    def key = this.toString.toLowerCase
+  object Skill:
+    def byKey(key: String) = values.find(_.key == key)
 
-  final class ClientVersion(minVersionString: String) {
+  final class ClientVersion(minVersionString: String):
 
     val minVersion = SemVer(minVersionString)
 
     def accept(v: Client.Version): Try[Unit] =
-      Try(SemVer(v.value)) match {
+      Try(SemVer(v.value)) match
         case Success(version) if version >= minVersion => Success(())
         case Success(_) =>
           Failure(
@@ -94,8 +89,5 @@ object Client {
             )
           )
         case Failure(error) => Failure(error)
-      }
-  }
 
   def makeKey = Key(SecureRandom.nextString(8))
-}

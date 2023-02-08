@@ -1,15 +1,15 @@
 package views.html.board
 
-import chess.format.{ FEN, Forsyth }
+import chess.format.{ Fen, Uci, BoardFen }
 import controllers.routes
-import play.api.libs.json.Json
+import play.api.libs.json.{ JsObject, JsString, Json }
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 
-object bits {
+object bits:
 
   private val dataState = attr("data-state")
 
@@ -18,55 +18,27 @@ object bits {
 
   def mini(pov: Pov): Tag => Tag =
     mini(
-      FEN(Forsyth.boardAndColor(pov.game.situation)),
+      Fen.writeBoard(pov.game.board),
       miniOrientation(pov),
-      ~pov.game.lastMoveKeys
-    ) _
+      pov.game.history.lastMove
+    )
 
-  def mini(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "")(tag: Tag): Tag =
+  def mini(fen: BoardFen, color: chess.Color = chess.White, lastMove: Option[Uci] = None)(tag: Tag): Tag =
     tag(
       cls       := "mini-board mini-board--init cg-wrap is2d",
-      dataState := s"${fen.value},${color.name},$lastMove"
+      dataState := s"${fen.value},${color.name},${lastMove.??(_.uci)}"
     )(cgWrapContent)
 
-  def miniSpan(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "") =
+  def miniSpan(fen: BoardFen, color: chess.Color = chess.White, lastMove: Option[Uci] = None) =
     mini(fen, color, lastMove)(span)
 
-  def editorJsData(fen: Option[String] = None)(implicit ctx: Context) =
-    Json
-      .obj(
-        "baseUrl"   -> s"$netBaseUrl${routes.Editor.index}",
-        "animation" -> Json.obj("duration" -> ctx.pref.animationMillis),
-        "is3d"      -> ctx.pref.is3d,
-        "i18n"      -> i18nJsObject(i18nKeyes)
-      )
-      .add("fen" -> fen)
-
-  def explorerConfig(implicit ctx: Context) = Json.obj(
+  private def explorerConfig(using ctx: Context) = Json.obj(
     "endpoint"          -> explorerEndpoint,
     "tablebaseEndpoint" -> tablebaseEndpoint,
     "showRatings"       -> ctx.pref.showRatings
   )
-
-  private val i18nKeyes = List(
-    trans.setTheBoard,
-    trans.boardEditor,
-    trans.startPosition,
-    trans.clearBoard,
-    trans.flipBoard,
-    trans.loadPosition,
-    trans.popularOpenings,
-    trans.endgamePositions,
-    trans.castling,
-    trans.whiteCastlingKingside,
-    trans.blackCastlingKingside,
-    trans.whitePlays,
-    trans.blackPlays,
-    trans.variant,
-    trans.continueFromHere,
-    trans.playWithTheMachine,
-    trans.playWithAFriend,
-    trans.analysis,
-    trans.toStudy
-  ).map(_.key)
-}
+  def explorerAndCevalConfig(using ctx: Context) =
+    Json.obj(
+      "explorer"               -> explorerConfig,
+      "externalEngineEndpoint" -> externalEngineEndpoint
+    )

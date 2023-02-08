@@ -1,21 +1,22 @@
 package lila.report
 
-import play.api.data._
-import play.api.data.Forms._
-import play.api.data.validation._
-import scala.concurrent.duration._
+import play.api.data.*
+import play.api.data.Forms.*
+import play.api.data.validation.*
+import scala.concurrent.duration.*
 
-import lila.common.LightUser
+import lila.common.{ config, LightUser }
+import lila.common.Form.given
 import lila.user.User
 
 final private[report] class ReportForm(
     lightUserAsync: LightUser.Getter,
     val captcher: lila.hub.actors.Captcher,
-    domain: lila.common.config.NetDomain
-)(implicit ec: scala.concurrent.ExecutionContext)
-    extends lila.hub.CaptchedForm {
+    domain: config.NetDomain
+)(using ec: scala.concurrent.ExecutionContext)
+    extends lila.hub.CaptchedForm:
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink") { setup =>
-    if (setup.reason != "cheat" || (domain.value + """/(\w{8}|\w{12})""").r.findFirstIn(setup.text).isDefined)
+    if (setup.reason != "cheat" || ReportForm.gameLinkRegex(domain).findFirstIn(setup.text).isDefined)
       Valid
     else
       Invalid(Seq(ValidationError("error.provideOneCheatedGameLink")))
@@ -31,7 +32,7 @@ final private[report] class ReportForm(
         ),
       "reason" -> text.verifying("error.required", Reason.keys contains _),
       "text"   -> text(minLength = 5, maxLength = 2000),
-      "gameId" -> text,
+      "gameId" -> of[GameId],
       "move"   -> text
     ) { case (username, reason, text, gameId, move) =>
       ReportSetup(
@@ -41,7 +42,9 @@ final private[report] class ReportForm(
         gameId = gameId,
         move = move
       )
-    }(_.export.some).verifying(captchaFailMessage, validateCaptcha _).verifying(cheatLinkConstraint)
+    }(_.values.some)
+      .verifying(captchaFailMessage, validateCaptcha)
+      .verifying(cheatLinkConstraint)
   )
 
   def createWithCaptcha = withCaptcha(create)
@@ -51,15 +54,17 @@ final private[report] class ReportForm(
       "username" -> lila.user.UserForm.historicalUsernameField,
       "resource" -> nonEmptyText,
       "text"     -> text(minLength = 3, maxLength = 140)
-    )(ReportFlag.apply)(ReportFlag.unapply)
+    )(ReportFlag.apply)(unapply)
   )
 
-  private def blockingFetchUser(username: String) =
-    lightUserAsync(User normalize username).await(1 second, "reportUser")
-}
+  private def blockingFetchUser(username: UserStr) =
+    lightUserAsync(username.id).await(1 second, "reportUser")
+
+object ReportForm:
+  def gameLinkRegex(domain: config.NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r
 
 private[report] case class ReportFlag(
-    username: String,
+    username: UserStr,
     resource: String,
     text: String
 )
@@ -68,11 +73,10 @@ case class ReportSetup(
     user: LightUser,
     reason: String,
     text: String,
-    gameId: String,
+    gameId: GameId,
     move: String
-) {
+):
 
   def suspect = SuspectId(user.id)
 
-  def `export` = (user.name, reason, text, gameId, move)
-}
+  def values = (user.name into UserStr, reason, text, gameId, move)

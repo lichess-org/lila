@@ -3,38 +3,39 @@ package lila.oauth
 import cats.data.Validated
 import com.roundeights.hasher.Algo
 import org.joda.time.DateTime
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.user.User
 
-object AuthorizationRequest {
-  import Protocol._
+object AuthorizationRequest:
+  import Protocol.*
 
   case class Raw(
-      clientId: Option[String],
-      state: Option[String],
+      clientId: Option[ClientId],
+      state: Option[State],
       redirectUri: Option[String],
       responseType: Option[String],
       codeChallengeMethod: Option[String],
-      codeChallenge: Option[String],
-      scope: Option[String]
-  ) {
+      codeChallenge: Option[CodeChallenge],
+      scope: Option[String],
+      username: Option[UserStr]
+  ):
     // In order to show a prompt and redirect back with error codes a valid
     // redirect_uri is absolutely required. Ignore all other errors for now.
     def prompt: Validated[Error, Prompt] =
       for {
         redirectUri <- redirectUri.toValid(Error.RedirectUriRequired).andThen(RedirectUri.from)
-        clientId    <- clientId.map(ClientId).toValid(Error.ClientIdRequired)
+        clientId    <- clientId.toValid(Error.ClientIdRequired)
       } yield Prompt(
         redirectUri,
-        state.map(State.apply),
+        state,
         clientId = clientId,
         responseType = responseType,
         codeChallengeMethod = codeChallengeMethod,
         codeChallenge = codeChallenge,
-        scope = scope
+        scope = scope,
+        userId = username.map(_.id)
       )
-  }
 
   case class Prompt(
       redirectUri: RedirectUri,
@@ -42,9 +43,10 @@ object AuthorizationRequest {
       clientId: ClientId,
       responseType: Option[String],
       codeChallengeMethod: Option[String],
-      codeChallenge: Option[String],
-      scope: Option[String]
-  ) {
+      codeChallenge: Option[CodeChallenge],
+      scope: Option[String],
+      userId: Option[UserId]
+  ):
     def errorUrl(error: Error) = redirectUri.error(error, state)
 
     def cancelUrl = errorUrl(Error.AccessDenied)
@@ -74,13 +76,15 @@ object AuthorizationRequest {
           )
         case Some(method) =>
           fuccess(CodeChallengeMethod.from(method).andThen { _ =>
-            codeChallenge.map(CodeChallenge).toValid[Error](Error.CodeChallengeRequired).map(Right.apply)
+            codeChallenge
+              .toValid[Error](Error.CodeChallengeRequired)
+              .map(Right.apply)
           })
       }) dmap { challenge =>
         for {
-          challenge    <- challenge
-          scopes       <- validScopes
-          responseType <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
+          challenge <- challenge
+          scopes    <- validScopes
+          _         <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
         } yield Authorized(
           clientId,
           redirectUri,
@@ -90,16 +94,13 @@ object AuthorizationRequest {
           challenge
         )
       }
-  }
 
   case class Authorized(
       clientId: ClientId,
       redirectUri: RedirectUri,
       state: Option[State],
-      user: User.ID,
+      user: UserId,
       scopes: List[OAuthScope],
       challenge: Either[LegacyClientApi.HashedClientSecret, CodeChallenge]
-  ) {
+  ):
     def redirectUrl(code: AuthorizationCode) = redirectUri.code(code, state)
-  }
-}

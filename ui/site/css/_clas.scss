@@ -62,10 +62,6 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
     }
 
     flex-flow: row nowrap;
-
-    h1 {
-      margin: 0;
-    }
   }
 
   .new::before {

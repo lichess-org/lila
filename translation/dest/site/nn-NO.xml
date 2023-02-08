@@ -29,7 +29,7 @@
   <string name="cheatDetected">Juks oppdaga</string>
   <string name="kingInTheCenter">Kongen i sentrum</string>
   <string name="threeChecks">Sjakk tre gonger</string>
-  <string name="raceFinished">Målgang</string>
+  <string name="raceFinished">Kappløp er avslutta</string>
   <string name="variantEnding">Variantavslutning</string>
   <string name="newOpponent">Ny motspelar</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Motspelaren din ønskjer å spela eit nytt parti med deg</string>
@@ -59,8 +59,8 @@
   <string name="depthX">Djupn %s</string>
   <string name="usingServerAnalysis">Brukar serveranalyse</string>
   <string name="loadingEngine">Lastar sjakkmotor ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Reknar på trekk...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Feil under innlasting av berekningsmotor</string>
+  <string name="calculatingMoves">Reknar på trekk...</string>
+  <string name="engineFailed">Feil under innlasting av berekningsmotor</string>
   <string name="cloudAnalysis">Skyanalyse</string>
   <string name="goDeeper">Søk djupare</string>
   <string name="showThreat">Vis trussel</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' med avrunding, basert på antal halvtrekk fram til neste brikketaking eller bondetrekk</string>
   <string name="noGameFound">Fann ikkje noko parti</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Gå til innstillingsmenyen om du vil søkje blant fleire parti.</string>
+  <string name="openings">Opningar</string>
   <string name="openingExplorer">Opningsbok</string>
   <string name="openingEndgameExplorer">Opnings-/sluttspelbok</string>
   <string name="xOpeningExplorer">%s opningsutforskar</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Vis i full storleik</string>
   <string name="logOut">Logg ut</string>
   <string name="signIn">Logg inn</string>
+  <string name="rememberMe">Lagra mine påloggingsdata</string>
   <string name="youNeedAnAccountToDoThat">For å gjera det treng du ein konto</string>
   <string name="signUp">Registrer deg</string>
   <string name="computersAreNotAllowedToPlay">Datamaskinar og spelarar som brukar sjakkprogram har ikkje lov til å spela. Ver venleg å ikkje ta i bruk hjelp frå sjakkprogram, databasar eller andre spelarar så lenge partiet er i gang. Merk at det vert sterkt frårådd å oppretta fleire kontoar. Oppretting av svært mange kontoar vil føra til utestenging.</string>
@@ -197,12 +199,31 @@
   <string name="changeUsername">Endre brukarnamn</string>
   <string name="changeUsernameNotSame">Du kan berre bytte små til store bokstavar, eller store til små. Til dømes \"olanormann\" til \"OlaNormann\".</string>
   <string name="changeUsernameDescription">Endre brukarnamnet. Det kan berre gjerast ein gong, og du kan berre endre store bokstavar til små eller små til store.</string>
+  <string name="signupUsernameHint">Gå for eit familievenleg brukarnamn. Namnet kan ikkje endrast seinare og kontoar med upassande brukarnamn vert stengde!</string>
+  <string name="signupEmailHint">Vi vil berre bruka den dersom det vert naudsynt å nullstilla passordet.</string>
   <string name="password">Passord</string>
   <string name="changePassword">Endre passord</string>
   <string name="changeEmail">Endre e-postadresse</string>
   <string name="email">E-post</string>
   <string name="passwordReset">Sett passordet på nytt.</string>
   <string name="forgotPassword">Har du gløymt passordet?</string>
+  <string name="emailConfirmHelp">Hjelp med å stadfesta e-posten</string>
+  <string name="emailConfirmNotReceived">Mottok du ikkje stadfesting på e-post etter at du registrerte deg?</string>
+  <string name="whatSignupUsername">Kva var brukarnamnet du registrerte deg med?</string>
+  <string name="usernameNotFound">Vi fann ingen brukar med namnet %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Du kan bruka dette namnet for å oppretta ein ny konto</string>
+  <string name="emailSent">Vi har sendt ein e-post til %s.</string>
+  <string name="emailCanTakeSomeTime">Det kan ta litt tid før den kjem.</string>
+  <string name="refreshInboxAfterFiveMinutes">Vent fem minutt før du oppdaterer innboksen.</string>
+  <string name="checkSpamFolder">Kontroller at e-posten ikkje har hamna i mappa for søplepost. Om det har skjedd må du markere e-posten som ikkje-spam.</string>
+  <string name="emailForSignupHelp">Om alt anna feilar kan du sende oss denne e-posten:</string>
+  <string name="copyTextToEmail">Kopier og lim inn teksten ovanfor og send den til %s</string>
+  <string name="waitForSignupHelp">Vi tek om kort tid kontakt med deg for å hjelpa til med å fullføre registreringa.</string>
+  <string name="accountConfirmed">Brukar %s vart stadfesta.</string>
+  <string name="accountCanLogin">Du kan no logga inn som %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Du treng ikkje stadfesting på e-post.</string>
+  <string name="accountClosed">Kontoen %s er stengd.</string>
+  <string name="accountRegisteredWithoutEmail">Kontoen %s vart registrert utan e-post.</string>
   <string name="rank">Rangering</string>
   <string name="rankX">Plassering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -297,7 +318,7 @@
   <string name="takebackPropositionSent">Framlegg om å gjera om trekket blei sendt</string>
   <string name="takebackPropositionDeclined">Framlegget om å gjera om trekket blei avslått</string>
   <string name="takebackPropositionAccepted">Framlegget om å gjera om trekket blei godteke</string>
-  <string name="takebackPropositionCanceled">Framlegget om å få gjera om att trekket vart kansellert</string>
+  <string name="takebackPropositionCanceled">Framlegget om å gjera om trekket blei avbrote</string>
   <string name="yourOpponentProposesATakeback">Motstandaren gjer framlegg om å gjera om trekket</string>
   <string name="bookmarkThisGame">Bokmerk denne sida</string>
   <string name="tournament">Turnering</string>
@@ -319,11 +340,11 @@
     <item quantity="other">≥ %s rangerte parti</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s rangert parti</item>
-    <item quantity="other">≥ %1$s %2$s rangerte parti</item>
+    <item quantity="one">≥ %1$s rangert %2$s parti</item>
+    <item quantity="other">≥ %1$s rangerte %2$s-parti</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Du må spille endå %1$s rangert %2$s-parti</item>
+    <item quantity="one">Du må spela %1$s fleire %2$s rangerte parti</item>
     <item quantity="other">Du må spela endå %1$s rangerte %2$s parti</item>
   </plurals>
   <plurals name="needNbMoreGames">
@@ -332,7 +353,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ratinga di på %s er mellombels</string>
   <string name="yourPerfRatingIsTooHigh">Ratinga di %1$s (%2$s) er for høg</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Den høgste vekentlege %1$s toppratinga di (%2$s) er for høg</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Den beste vekesratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourPerfRatingIsTooLow">Ratinga di i %1$s (%2$s) er for låg</string>
   <string name="ratedMoreThanInPerf">Rangert ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Rangert ≤ %1$s i %2$s</string>
@@ -342,6 +363,7 @@
   <string name="siteDescription">Fritt tilgjengeleg nettsjakk. Spel sjakk på ei rein nettside utan registrering, reklame eller programtillegg. Spel sjakk mot datamaskin, vener eller tilfeldige motspelarar.</string>
   <string name="xJoinedTeamY">%1$s blei med i laget %2$s</string>
   <string name="xCreatedTeamY">%1$s oppretta lag %2$s</string>
+  <string name="startedStreaming">starta å strøyma</string>
   <string name="xStartedStreaming">%s starta å strøyme</string>
   <string name="averageElo">Gjennomsnittleg rating</string>
   <string name="location">Stad</string>
@@ -349,11 +371,11 @@
   <string name="reset">Attendestill</string>
   <string name="apply">Bruk</string>
   <string name="save">Lagre</string>
-  <string name="leaderboard">Rangliste</string>
+  <string name="leaderboard">Leiartabell</string>
   <string name="screenshotCurrentPosition">Ta eit skjermbilete av gjeldande stilling</string>
   <string name="gameAsGIF">Parti som GIF</string>
-  <string name="pasteTheFenStringHere">Lim inn FEN-strengen her</string>
-  <string name="pasteThePgnStringHere">Lim inn PGN-fila her</string>
+  <string name="pasteTheFenStringHere">Lim inn FEN-koden her</string>
+  <string name="pasteThePgnStringHere">Lim inn PGN-koden her</string>
   <string name="orUploadPgnFile">Eller last opp ei PGN-fil</string>
   <string name="fromPosition">Frå stilling</string>
   <string name="continueFromHere">Fortsett herfrå</string>
@@ -465,7 +487,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagg</string>
   <string name="thankYou">Takk!</string>
   <string name="socialMediaLinks">Lenker til sosiale media</string>
-  <string name="oneUrlPerLine">Ei nettadresse (URL) på kvar line.</string>
+  <string name="oneUrlPerLine">Ein URL per line.</string>
   <string name="inlineNotation">Innbygd notasjon</string>
   <string name="savingMoves">Mellombels lagring av trekk</string>
   <string name="savingMovesHelp">Vi lagrar variantane dine i mellomlageret til nettlesaren.</string>
@@ -518,6 +540,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="blog">Blogg</string>
   <string name="notes">Notat</string>
   <string name="typePrivateNotesHere">Skriv private notat her</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skriv eit privat notat om denne brukaren</string>
+  <string name="noNoteYet">Ingen merknad så langt</string>
   <string name="invalidUsernameOrPassword">Feil brukarnamn eller passord</string>
   <string name="incorrectPassword">Feil passord</string>
   <string name="invalidAuthenticationCode">Ugyldig godkjenningskode</string>
@@ -544,7 +568,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="onSlowGames">I parti med lang tid</string>
   <string name="always">Alltid</string>
   <string name="never">Aldri</string>
-  <string name="xCompetesInY">%1$s konkurrerar i %2$s</string>
+  <string name="xCompetesInY">%1$s deltek i %2$s</string>
   <string name="victory">Vinst</string>
   <string name="defeat">Tap</string>
   <string name="victoryVsYInZ">%1$s mot %2$s i %3$s</string>
@@ -634,6 +658,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="tournamentFAQ">Spørsmål og svar knytta til arenaturnering</string>
   <string name="timeBeforeTournamentStarts">Tid til turneringa startar</string>
   <string name="averageCentipawnLoss">Gjennomsnittleg centibondetap</string>
+  <string name="accuracy">Presisjon</string>
   <string name="keyboardShortcuts">Snarvegar på tastaturet</string>
   <string name="keyMoveBackwardOrForward">flytt att og fram</string>
   <string name="keyGoToStartOrEnd">gå til byrjinga/slutten</string>
@@ -641,7 +666,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="keyEnterOrExitVariation">gå inn i/gå ut av varianten</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturnering med varierande tid og sjakkvariantar</string>
-  <string name="tournamentHomeDescription">Spel fartsfylde sjakkturneringar! Delta i offisielle, planlagde turneringar eller lag dine eigne. Lynsjakk, snøggsjakk, og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
+  <string name="tournamentHomeDescription">Spel fartsfylte sjakkturneringar! Delta i offisielle, planlagde turneringar eller lag dine eigne. Lyn-, snøgg-, fishersjakk og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
   <string name="tournamentNotFound">Kan ikke finne turneringa</string>
   <string name="tournamentDoesNotExist">Denna turneringa finst ikkje.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blitt avbroten om alle spelarane trakk seg før turneringa starta.</string>
@@ -744,6 +769,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="bestWasX">Best var %s</string>
   <string name="youBrowsedAway">Du bladde deg vekk</string>
   <string name="resumePractice">Ta opp att øving</string>
+  <string name="drawByFiftyMoves">Partiet enda med remis etter femtitrekksregelen.</string>
   <string name="theGameIsADraw">Partiet endar med remis.</string>
   <string name="computerThinking">Computer tenker...</string>
   <string name="seeBestMove">Sjå beste trekk</string>
@@ -759,7 +785,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="xWasPlayed">%s vart spela</string>
   <string name="findBetterMoveForWhite">Finn eit betre trekk for kvit</string>
   <string name="findBetterMoveForBlack">Finn eit betre trekk for svart</string>
-  <string name="resumeLearning">Hald fram med læring</string>
+  <string name="resumeLearning">Fortsett læring</string>
   <string name="youCanDoBetter">Du kan gjera det betre</string>
   <string name="tryAnotherMoveForWhite">Prøv eit anna trekk for kvit</string>
   <string name="tryAnotherMoveForBlack">Prøv eit anna trekk for svart</string>
@@ -815,11 +841,11 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="classical">Langsjakk</string>
   <string name="ultraBulletDesc">Ekstremt snøgge parti: under 30 sekund</string>
   <string name="bulletDesc">Særs snøgge parti: mindre enn 3 minutt</string>
-  <string name="blitzDesc">Snøgg sjakk: 3 til 8 minutt</string>
+  <string name="blitzDesc">Snøgge parti: 3 til 8 minutt</string>
   <string name="rapidDesc">Snøggsjakk: 8 til 25 minutt</string>
   <string name="classicalDesc">Langsjakk: 25 minutt eller meir</string>
   <string name="correspondenceDesc">Korespondansesjakk: ein til fleire dagar per trekk</string>
-  <string name="puzzleDesc">Sjakktaktikk-øvingar</string>
+  <string name="puzzleDesc">Sjakktaktikk-trenar</string>
   <string name="important">Viktig</string>
   <string name="yourQuestionMayHaveBeenAnswered">Spørsmålet ditt kan allereie ha fått eit svar %1$s</string>
   <string name="inTheFAQ">I sidene for ofte stilte spørsmål</string>

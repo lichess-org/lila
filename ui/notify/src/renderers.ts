@@ -5,6 +5,14 @@ import { Notification, Renderer, Renderers } from './interfaces';
 // function generic(n: Notification, url: string | undefined, icon: string, content: VNode[]): VNode {
 export default function makeRenderers(trans: Trans): Renderers {
   return {
+    streamStart: {
+      html: n =>
+        generic(n, `/streamer/${n.content.sid}/redirect`, '', [
+          h('span', [h('strong', n.content.name), drawTime(n)]),
+          h('span', trans('startedStreaming')),
+        ]),
+      text: n => trans('xStartedStreaming', n.content.streamerName),
+    },
     genericLink: {
       html: n =>
         generic(n, n.content.url, n.content.icon, [
@@ -15,7 +23,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     mention: {
       html: n =>
-        generic(n, '/forum/redirect/post/' + n.content.postId, '', [
+        generic(n, `/forum/redirect/post/${n.content.postId}`, '', [
           h('span', [h('strong', userFullName(n.content.mentionedBy)), drawTime(n)]),
           h('span', trans('mentionedYouInX', n.content.topic)),
         ]),
@@ -113,7 +121,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     ratingRefund: {
       html: n =>
-        generic(n, '/player/myself', '', [
+        generic(n, '/faq#rating-refund', '', [
           h('span', [h('strong', trans.noarg('lostAgainstTOSViolator')), drawTime(n)]),
           h('span', trans('refundXpointsTimeControlY', n.content.points, n.content.perf)),
         ]),

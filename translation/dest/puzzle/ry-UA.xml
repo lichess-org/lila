@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Завданкы</string>
+  <string name="puzzleThemes">Темы завданок</string>
+  <string name="recommended">Рекомендуєме</string>
+  <string name="phases">Фазы</string>
+  <string name="motifs">Мотівы</string>
+  <string name="advanced">Поступовый</string>
+  <string name="lengths">Кулько ходув</string>
+  <string name="mates">Маты</string>
+  <string name="goals">Цїль</string>
+  <string name="origin">Узятоє із партій</string>
+  <string name="specialMoves">Шпеціалні ходы</string>
+  <string name="didYouLikeThisPuzzle">Полюбила ся вам ся завданка?</string>
+  <string name="voteToLoadNextOne">Проголосуйте і ідіт дале!</string>
+  <string name="upVote">Облюбовати завданку</string>
+  <string name="downVote">Не полюбила ся завданка</string>
+</resources>

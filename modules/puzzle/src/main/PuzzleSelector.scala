@@ -1,36 +1,35 @@
 package lila.puzzle
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
-import scala.util.chaining._
+import scala.util.chaining.*
 import chess.Color
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final class PuzzleSelector(
     colls: PuzzleColls,
     pathApi: PuzzlePathApi,
     sessionApi: PuzzleSessionApi
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   sealed abstract private class NextPuzzleResult(val name: String)
-  private object NextPuzzleResult {
+  private object NextPuzzleResult:
     case object PathMissing                        extends NextPuzzleResult("pathMissing")
     case object PathEnded                          extends NextPuzzleResult("pathEnded")
     case class WrongColor(puzzle: Puzzle)          extends NextPuzzleResult("wrongColor")
-    case class PuzzleMissing(id: Puzzle.Id)        extends NextPuzzleResult("puzzleMissing")
+    case class PuzzleMissing(id: PuzzleId)         extends NextPuzzleResult("puzzleMissing")
     case class PuzzleAlreadyPlayed(puzzle: Puzzle) extends NextPuzzleResult("puzzlePlayed")
     case class PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult("puzzleFound")
-  }
 
   def nextPuzzleFor(user: User, angle: PuzzleAngle, retries: Int = 0): Fu[Puzzle] =
     sessionApi
       .continueOrCreateSessionFor(user, angle)
       .flatMap { session =>
-        import NextPuzzleResult._
+        import NextPuzzleResult.*
 
         def switchPath(withRetries: Int)(tier: PuzzleTier) =
           pathApi
@@ -41,17 +40,16 @@ final class PuzzleSelector(
               nextPuzzleFor(user, angle, retries = retries + 1)
             }
 
-        def serveAndMonitor(puzzle: Puzzle) = {
+        def serveAndMonitor(puzzle: Puzzle) =
           val mon = lila.mon.puzzle.selector.user
           mon.retries(angle.key).record(retries)
           mon.vote(angle.key).record(100 + math.round(puzzle.vote * 100))
           mon
             .ratingDiff(angle.key, session.settings.difficulty.key)
-            .record(math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating))
+            .record(math.abs(puzzle.glicko.intRating.value - user.perfs.puzzle.intRating.value))
           mon.ratingDev(angle.key).record(puzzle.glicko.intDeviation)
           mon.tier(session.path.tier.key, angle.key, session.settings.difficulty.key).increment().unit
           puzzle
-        }
 
         nextPuzzleResult(user, session)
           .flatMap {
@@ -80,7 +78,7 @@ final class PuzzleSelector(
     colls
       .path {
         _.aggregateOne() { framework =>
-          import framework._
+          import framework.*
           Match($id(session.path)) -> List(
             // get the puzzle ID from session position
             Project($doc("puzzleId" -> $doc("$arrayElemAt" -> $arr("$ids", session.positionInPath)))),
@@ -116,9 +114,9 @@ final class PuzzleSelector(
         }
       }
       .map { docOpt =>
-        import NextPuzzleResult._
+        import NextPuzzleResult.*
         docOpt.fold[NextPuzzleResult](PathMissing) { doc =>
-          doc.getAsOpt[Puzzle.Id]("puzzleId").fold[NextPuzzleResult](PathEnded) { puzzleId =>
+          doc.getAsOpt[PuzzleId]("puzzleId").fold[NextPuzzleResult](PathEnded) { puzzleId =>
             doc
               .getAsOpt[List[Puzzle]]("puzzle")
               .flatMap(_.headOption)
@@ -138,4 +136,3 @@ final class PuzzleSelector(
           result = result.name
         )
       }
-}

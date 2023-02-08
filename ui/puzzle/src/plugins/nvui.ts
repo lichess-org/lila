@@ -38,7 +38,7 @@ const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export default function (redraw: Redraw) {
+export default (window as any).LichessPuzzleNvui = function (redraw: Redraw) {
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
     prefixStyle = prefixSetting(),
@@ -51,7 +51,9 @@ export default function (redraw: Redraw) {
       const ground = ctrl.ground() || createGround(ctrl);
 
       return h(
-        `main.puzzle.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
+        `main.puzzle.puzzle--nvui.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}${
+          ctrl.streak ? '.puzzle--streak' : ''
+        }`,
         h('div.nvui', [
           h('h1', `Puzzle: ${ctrl.vm.pov} to play.`),
           h('h2', 'Puzzle info'),
@@ -189,7 +191,7 @@ export default function (redraw: Redraw) {
           h('p', [
             'Left and right arrow keys or k and j: Navigate to the previous or next move.',
             h('br'),
-            'Up and down arrow keys or 0 and $: Jump to the first or last move.',
+            'Up and down arrow keys, or 0 and $, or home and end: Jump to the first or last move.',
           ]),
           h('h2', 'Commands'),
           h('p', [
@@ -239,7 +241,7 @@ export default function (redraw: Redraw) {
       );
     },
   };
-}
+};
 
 interface StepWithUci extends Tree.Node {
   uci: Uci;
@@ -282,8 +284,16 @@ function onSubmit(
       const uci = inputToLegalUci(input, ctrl.vm.node.fen, ground);
       if (uci) {
         ctrl.playUci(uci);
-        if (ctrl.vm.lastFeedback === 'fail') notify("That's not the move!");
-        else if (ctrl.vm.lastFeedback === 'win') notify('Success!');
+        switch (ctrl.vm.lastFeedback) {
+          case 'fail':
+            notify(ctrl.trans.noarg('notTheMove'));
+            break;
+          case 'good':
+            notify(ctrl.trans.noarg('bestMove'));
+            break;
+          case 'win':
+            notify(ctrl.trans.noarg('puzzleSuccess'));
+        }
       } else {
         notify([`Invalid move: ${input}`, ...browseHint(ctrl)].join('. '));
       }

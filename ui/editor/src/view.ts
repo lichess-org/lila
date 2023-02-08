@@ -310,7 +310,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
       h('strong', 'FEN'),
       h('input.copyable', {
         attrs: {
-          spellcheck: false,
+          spellcheck: 'false',
         },
         props: {
           value: fen,
@@ -339,7 +339,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
       h('input.copyable.autoselect', {
         attrs: {
           readonly: true,
-          spellcheck: false,
+          spellcheck: 'false',
           value: ctrl.makeEditorUrl(fen, ctrl.bottomColor()),
         },
       }),

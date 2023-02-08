@@ -1,45 +1,42 @@
 package lila.team
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class RequestRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class RequestRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
-  type ID = String
-
-  def exists(teamId: ID, userId: ID): Fu[Boolean] =
+  def exists(teamId: TeamId, userId: UserId): Fu[Boolean] =
     coll.exists(selectId(teamId, userId))
 
-  def find(teamId: ID, userId: ID): Fu[Option[Request]] =
+  def find(teamId: TeamId, userId: UserId): Fu[Option[Request]] =
     coll.one[Request](selectId(teamId, userId))
 
-  def countDeclinedByTeam(teamId: ID): Fu[Int] =
+  def countDeclinedByTeam(teamId: TeamId): Fu[Int] =
     coll.countSel(teamDeclinedQuery(teamId))
 
-  def findActiveByTeam(teamId: ID, nb: Int): Fu[List[Request]] =
+  def findActiveByTeam(teamId: TeamId, nb: Int): Fu[List[Request]] =
     coll.list[Request](teamActiveQuery(teamId), nb)
 
-  def findActiveByTeams(teamIds: List[ID]): Fu[List[Request]] =
+  def findActiveByTeams(teamIds: List[TeamId]): Fu[List[Request]] =
     teamIds.nonEmpty ?? coll.list[Request](teamsActiveQuery(teamIds))
 
-  def selectId(teamId: ID, userId: ID)    = $id(Request.makeId(teamId, userId))
-  def teamQuery(teamId: ID)               = $doc("team" -> teamId)
-  def teamsQuery(teamIds: List[ID])       = $doc("team" $in teamIds)
-  def teamDeclinedQuery(teamId: ID)       = $and(teamQuery(teamId), $doc("declined" -> true))
-  def teamActiveQuery(teamId: ID)         = $and(teamQuery(teamId), $doc("declined" $ne true))
-  def teamsActiveQuery(teamIds: List[ID]) = $and(teamsQuery(teamIds), $doc("declined" $ne true))
+  def selectId(teamId: TeamId, userId: UserId) = $id(Request.makeId(teamId, userId))
+  def teamQuery(teamId: TeamId)                = $doc("team" -> teamId)
+  def teamsQuery(teamIds: List[TeamId])        = $doc("team" $in teamIds)
+  def teamDeclinedQuery(teamId: TeamId)        = $and(teamQuery(teamId), $doc("declined" -> true))
+  def teamActiveQuery(teamId: TeamId)          = $and(teamQuery(teamId), $doc("declined" $ne true))
+  def teamsActiveQuery(teamIds: List[TeamId])  = $and(teamsQuery(teamIds), $doc("declined" $ne true))
 
-  def getByUserId(userId: User.ID) =
+  def getByUserId(userId: UserId) =
     coll.list[Request]($doc("user" -> userId))
 
-  def remove(id: ID) = coll.delete.one($id(id))
+  def remove(id: Request.ID) = coll.delete.one($id(id))
 
-  def cancel(teamId: ID, user: User): Fu[Boolean] =
+  def cancel(teamId: TeamId, user: User): Fu[Boolean] =
     coll.delete.one(selectId(teamId, user.id)).map(_.n == 1)
 
-  def removeByTeam(teamId: ID) = coll.delete.one(teamQuery(teamId))
+  def removeByTeam(teamId: TeamId) = coll.delete.one(teamQuery(teamId))
 
-  def removeByUser(userId: User.ID) = coll.delete.one($doc("user" -> userId))
-}
+  def removeByUser(userId: UserId) = coll.delete.one($doc("user" -> userId))

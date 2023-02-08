@@ -1,93 +1,87 @@
 package lila.puzzle
 
 import cats.data.NonEmptyList
-import chess.format.{ FEN, Forsyth, Uci }
+import chess.format.{ Fen, Uci }
+import chess.Ply
 
 import lila.rating.Glicko
+import lila.common.Iso
 
 case class Puzzle(
-    id: Puzzle.Id,
-    gameId: lila.game.Game.ID,
-    fen: FEN,
+    id: PuzzleId,
+    gameId: GameId,
+    fen: Fen.Epd,
     line: NonEmptyList[Uci.Move],
     glicko: Glicko,
     plays: Int,
     vote: Float, // denormalized ratio of voteUp/voteDown
     themes: Set[PuzzleTheme.Key]
-) {
+):
   // ply after "initial move" when we start solving
-  def initialPly: Int =
-    fen.fullMove ?? { fm =>
-      fm * 2 - color.fold(1, 2)
-    }
+  def initialPly: Ply = Fen.readPly(fen) | Ply(0)
 
   def situationAfterInitialMove: Option[chess.Situation] = for {
-    sit1 <- Forsyth << fen
+    sit1 <- Fen read fen
     sit2 <- sit1.move(line.head).toOption.map(_.situationAfter)
   } yield sit2
 
-  lazy val fenAfterInitialMove: FEN =
-    situationAfterInitialMove map Forsyth.>> err s"Can't apply puzzle $id first move"
+  lazy val fenAfterInitialMove: Fen.Epd =
+    situationAfterInitialMove map Fen.write err s"Can't apply puzzle $id first move"
 
-  def color = fen.color.fold[chess.Color](chess.White)(!_)
+  def color = !fen.color
 
   def hasTheme(anyOf: PuzzleTheme*) = anyOf.exists(t => themes(t.key))
-}
 
-object Puzzle {
+object Puzzle:
 
   val idSize = 5
 
-  case class Id(value: String) extends AnyVal with StringValue
-
-  def toId(id: String) = id.size == idSize option Id(id)
+  def toId(id: String) = id.size == idSize option PuzzleId(id)
 
   /* The mobile app requires numerical IDs.
    * We convert string ids from and to Longs using base 62
    */
-  object numericalId {
+  object numericalId:
 
     private val powers: List[Long] =
       (0 until idSize).toList.map(m => Math.pow(62, m).toLong)
 
-    def apply(id: Id): Long = id.value.toList
+    def apply(id: PuzzleId): Long = id.value.toList
       .zip(powers)
       .foldLeft(0L) { case (l, (char, pow)) =>
         l + charToInt(char) * pow
       }
 
-    def apply(l: Long): Option[Id] = (l > 130_000) ?? {
+    def apply(l: Long): Option[PuzzleId] = (l > 130_000) ?? {
       val str = powers.reverse
         .foldLeft(("", l)) { case ((id, rest), pow) =>
           val frac = rest / pow
           (s"${intToChar(frac.toInt)}$id", rest - frac * pow)
         }
         ._1
-      (str.size == idSize) option Id(str)
+      (str.size == idSize) option PuzzleId(str)
     }
 
-    private def charToInt(c: Char) = {
+    private def charToInt(c: Char) =
       val i = c.toInt
       if (i > 96) i - 71
       else if (i > 64) i - 65
       else i + 4
-    }
 
     private def intToChar(i: Int): Char = {
       if (i < 26) i + 65
       else if (i < 52) i + 71
       else i - 4
     }.toChar
-  }
 
   case class UserResult(
-      puzzleId: Id,
-      userId: lila.user.User.ID,
-      result: PuzzleResult,
-      rating: (Int, Int)
+      puzzleId: PuzzleId,
+      userId: UserId,
+      win: PuzzleWin,
+      rating: (IntRating, IntRating)
   )
 
-  object BSONFields {
+  object BSONFields:
     val id       = "_id"
     val gameId   = "gameId"
     val fen      = "fen"
@@ -103,7 +97,3 @@ object Puzzle {
     val issue    = "issue"
     val dirty    = "dirty" // themes need to be denormalized
     val tagMe    = "tagMe" // pending phase & opening
-  }
-
-  implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
-}

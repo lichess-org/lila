@@ -1,11 +1,11 @@
 package lila.blog
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.util.matching.Regex
 
 import lila.common.{ Markdown, MarkdownRender }
 
-object BlogTransform {
+object BlogTransform:
 
   private val RemoveRegex          = """http://(\w{2}\.)?+lichess\.org""".r
   def removeProtocol(html: String) = RemoveRegex.replaceAllIn(html, _ => "//lichess.org")
@@ -13,7 +13,7 @@ object BlogTransform {
   private val AddRegex          = """(https?+:)?+(//)?+(\w{2}\.)?+lichess\.org""".r
   def addProtocol(html: String) = AddRegex.replaceAllIn(html, _ => "https://lichess.org")
 
-  object markdown {
+  object markdown:
     private type Text = String
     private type Html = String
 
@@ -38,6 +38,3 @@ object BlogTransform {
           Regex.quoteReplacement(markup)
         }
       )
-
-  }
-}

@@ -5,13 +5,12 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.ExecutionContext
 
 import lila.common.config.MaxPerPage
-import lila.common.paginator.AdapterLike
-import lila.common.paginator.Paginator
-import lila.db.dsl._
+import lila.common.paginator.{ AdapterLike, Paginator }
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
 
-object PuzzleHistory {
+object PuzzleHistory:
 
   val maxPerPage = MaxPerPage(100)
 
@@ -28,10 +27,10 @@ object PuzzleHistory {
     // def performance     = puzzleRatingAvg - 500 + math.round(1000 * (firstWins.toFloat / nb))
   }
 
-  final class HistoryAdapter(user: User, colls: PuzzleColls)(implicit ec: ExecutionContext)
-      extends AdapterLike[PuzzleSession] {
+  final class HistoryAdapter(user: User, colls: PuzzleColls)(using ec: ExecutionContext)
+      extends AdapterLike[PuzzleSession]:
 
-    import BsonHandlers._
+    import BsonHandlers.given
 
     def nbResults: Fu[Int] = fuccess(user.perfs.puzzle.nb)
 
@@ -39,7 +38,7 @@ object PuzzleHistory {
       colls
         .round {
           _.aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-            import framework._
+            import framework.*
             Match($doc("u" -> user.id)) -> List(
               Sort(Descending("d")),
               Skip(offset),
@@ -58,7 +57,6 @@ object PuzzleHistory {
           } yield SessionRound(round, puzzle, theme)
         }
         .map(groupBySessions)
-  }
 
   private def groupBySessions(rounds: List[SessionRound]): List[PuzzleSession] =
     rounds
@@ -73,14 +71,13 @@ object PuzzleHistory {
           else PuzzleSession(r.theme, NonEmptyList(r, Nil)) :: last :: sessions
       }
       .reverse
-}
 
 final class PuzzleHistoryApi(
     colls: PuzzleColls,
     cacheApi: CacheApi
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  import PuzzleHistory._
+  import PuzzleHistory.*
 
   def apply(user: User, page: Int): Fu[Paginator[PuzzleSession]] =
     Paginator[PuzzleSession](
@@ -88,5 +85,3 @@ final class PuzzleHistoryApi(
       currentPage = page,
       maxPerPage = maxPerPage
     )
-
-}

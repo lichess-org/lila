@@ -1,20 +1,20 @@
 package lila.api
 
-import chess.format.FEN
+import chess.format.Fen
 import org.joda.time.DateTime
-import play.api.libs.json._
-import reactivemongo.api.bson._
+import play.api.libs.json.*
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
-import lila.analyse.{ Analysis, JsonView => analysisJson }
-import lila.common.config._
-import lila.common.Json._
+import lila.analyse.{ Analysis, JsonView as analysisJson }
+import lila.common.config.*
+import lila.common.Json.given
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.game.BSONHandlers._
-import lila.game.Game.{ BSONFields => G }
-import lila.game.JsonView._
+import lila.game.BSONHandlers.given
+import lila.game.Game.{ BSONFields as G }
+import lila.game.JsonView.given
 import lila.game.{ CrosstableApi, Game, PerfPicker }
 import lila.user.User
 
@@ -25,7 +25,7 @@ final private[api] class GameApi(
     gameCache: lila.game.Cached,
     analysisRepo: lila.analyse.AnalysisRepo,
     crosstableApi: CrosstableApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   import GameApi.WithFlags
 
@@ -79,7 +79,7 @@ final private[api] class GameApi(
       }
     }
 
-  def one(id: String, withFlags: WithFlags): Fu[Option[JsObject]] =
+  def one(id: GameId, withFlags: WithFlags): Fu[Option[JsObject]] =
     gameRepo game id flatMap {
       _ ?? { g =>
         gamesJson(withFlags)(List(g)) map (_.headOption)
@@ -130,7 +130,7 @@ final private[api] class GameApi(
     }
 
   def byUsersVs(
-      userIds: Iterable[User.ID],
+      userIds: Iterable[UserId],
       rated: Option[Boolean],
       playing: Option[Boolean],
       analysed: Option[Boolean],
@@ -173,9 +173,9 @@ final private[api] class GameApi(
 
   private def makeUrl(game: Game) = s"${net.baseUrl}/${game.id}/${game.naturalOrientation.name}"
 
-  private def gamesJson(withFlags: WithFlags)(games: Seq[Game]): Fu[Seq[JsObject]] = {
+  private def gamesJson(withFlags: WithFlags)(games: Seq[Game]): Fu[Seq[JsObject]] =
     val allAnalysis =
-      if (withFlags.analysis) analysisRepo byIds games.map(_.id)
+      if (withFlags.analysis) analysisRepo byIds games.map(_.id.value)
       else fuccess(List.fill(games.size)(none[Analysis]))
     allAnalysis flatMap { analysisOptions =>
       (games map gameRepo.initialFen).sequenceFu map { initialFens =>
@@ -184,14 +184,13 @@ final private[api] class GameApi(
         }
       }
     }
-  }
 
   private def checkToken(withFlags: WithFlags) = withFlags applyToken apiToken.value
 
   private def gameToJson(
       g: Game,
       analysisOption: Option[Analysis],
-      initialFen: Option[FEN],
+      initialFen: Option[Fen.Epd],
       withFlags: WithFlags
   ) =
     Json
@@ -204,7 +203,7 @@ final private[api] class GameApi(
         "perf"       -> PerfPicker.key(g),
         "createdAt"  -> g.createdAt,
         "lastMoveAt" -> g.movedAt,
-        "turns"      -> g.turns,
+        "turns"      -> g.ply,
         "color"      -> g.turnColor.name,
         "status"     -> g.status.name,
         "clock" -> g.clock.map { clock =>
@@ -226,29 +225,31 @@ final private[api] class GameApi(
             .add("provisional" -> p.provisional)
             .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
             .add("blurs" -> withFlags.blurs.option(p.blurs.nb))
-            .add("analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color sideAndStart)))
+            .add(
+              "analysis" -> analysisOption
+                .flatMap(analysisJson.player(g pov p.color sideAndStart)(_, accuracy = none))
+            )
         }),
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
-        "moves"    -> withFlags.moves.option(g.pgnMoves mkString " "),
-        "opening"  -> withFlags.opening.??(g.opening),
-        "fens" -> (withFlags.fens && g.finished) ?? {
+        "moves"    -> withFlags.moves.option(g.sans mkString " "),
+        "opening"  -> (withFlags.opening.??(g.opening): Option[chess.opening.Opening.AtPly]),
+        "fens" -> ((withFlags.fens && g.finished).?? {
           chess.Replay
             .boards(
-              moveStrs = g.pgnMoves,
+              sans = g.sans,
               initialFen = initialFen,
               variant = g.variant
             )
             .toOption map { boards =>
-            JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)
+            JsArray(boards map chess.format.Fen.writeBoard map Json.toJson)
           }
-        },
+        }: Option[JsArray]),
         "winner" -> g.winnerColor.map(_.name),
         "url"    -> makeUrl(g)
       )
       .noNull
-}
 
-object GameApi {
+object GameApi:
 
   case class WithFlags(
       analysis: Boolean = false,
@@ -258,11 +259,9 @@ object GameApi {
       moveTimes: Boolean = false,
       blurs: Boolean = false,
       token: Option[String] = none
-  ) {
+  ):
 
     def applyToken(validToken: String) =
       copy(
         blurs = token has validToken
       )
-  }
-}

@@ -1,8 +1,7 @@
 import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
-import { StoredProp } from 'common/storage';
-
-export type CevalTechnology = 'asmjs' | 'wasm' | 'hce' | 'nnue' | 'external';
+import CevalCtrl from './ctrl';
+import { ExternalEngine } from './worker';
 
 export interface Eval {
   cp?: number;
@@ -31,6 +30,8 @@ export interface EvalMeta {
   threatMode: boolean;
 }
 
+export type Redraw = () => void;
+
 export interface CevalOpts {
   storageKeyPrefix?: string;
   multiPvDefault?: number;
@@ -39,7 +40,8 @@ export interface CevalOpts {
   initialFen: string | undefined;
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   setAutoShapes: () => void;
-  redraw: () => void;
+  redraw: Redraw;
+  externalEngines?: ExternalEngine[];
 }
 
 export interface Hovering {
@@ -56,47 +58,6 @@ export interface Started {
   path: string;
   steps: Step[];
   threatMode: boolean;
-}
-
-export interface CevalCtrl {
-  goDeeper(): void;
-  canGoDeeper(): boolean;
-  effectiveMaxDepth(): number;
-  technology: CevalTechnology;
-  downloadProgress: Prop<number>;
-  isLoaded(): boolean;
-  initFailed(): boolean;
-  allowed: Prop<boolean>;
-  enabled: Prop<boolean>;
-  possible: boolean;
-  analysable: boolean;
-  cachable: boolean;
-  isComputing(): boolean;
-  engineName: string;
-  longEngineName(): string | undefined;
-  variant: Variant;
-  setHovering: (fen: string, uci?: string) => void;
-  setPvBoard: (pvBoard: PvBoard | null) => void;
-  multiPv: StoredProp<number>;
-  start: (path: string, steps: Step[], threatMode?: boolean) => void;
-  stop(): void;
-  threads(): number;
-  setThreads(threads: number): void;
-  maxThreads: number;
-  hashSize(): number;
-  setHashSize(hash: number): void;
-  maxHashSize: number;
-  infinite: StoredProp<boolean>;
-  supportsNnue: boolean;
-  enableNnue: StoredProp<boolean>;
-  hovering: Prop<Hovering | null>;
-  pvBoard: Prop<PvBoard | null>;
-  toggle(): void;
-  curDepth(): number;
-  isDeeper(): boolean;
-  destroy(): void;
-  redraw(): void;
-  disconnectExternalEngine(): void;
 }
 
 export interface ParentCtrl {

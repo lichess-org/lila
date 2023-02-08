@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">פאזלים</string>
-  <string name="puzzleThemes">נושאי פזלים</string>
+  <string name="puzzleThemes">נושאי החידות</string>
   <string name="recommended">מומלץ</string>
   <string name="phases">שלבים</string>
   <string name="motifs">מוטיבים</string>
@@ -15,7 +15,7 @@
   <string name="voteToLoadNextOne">דרגו כדי לקבל את הפאזל הבא!</string>
   <string name="upVote">אהבתם את החידה? הצביעו הצבעה עילית</string>
   <string name="downVote">לא אהבתם? הצביעו הצבעה תחתית</string>
-  <string name="yourPuzzleRatingWillNotChange">דירוג החידות שלך לא ישתנה. שים לב כי פתירת חידות אינה תחרות. הדירוג נועד לאפשר בחירה של חידות המתאימות לרמה הנוכחית שלך.</string>
+  <string name="yourPuzzleRatingWillNotChange">דירוג החידות שלך לא ישתנה. שימו לב כי פתירת חידות אינה תחרות. הדירוג נועד לאפשר בחירה של חידות המתאימות לרמה הנוכחית שלך.</string>
   <string name="findTheBestMoveForWhite">מצא/י את המהלך הטוב ביותר ללבן.</string>
   <string name="findTheBestMoveForBlack">מצא/י את המהלך הטוב ביותר לשחור.</string>
   <string name="toGetPersonalizedPuzzles">לקבלת חידות מותאמות אישית:</string>
@@ -24,7 +24,7 @@
   <string name="clickToSolve">לחץ/י כדי לפתור</string>
   <string name="goodMove">מהלך טוב</string>
   <string name="bestMove">המהלך הטוב ביותר!</string>
-  <string name="keepGoing">המשך…</string>
+  <string name="keepGoing">המשיכו…</string>
   <string name="puzzleSuccess">כל הכבוד!</string>
   <string name="puzzleComplete">החידה הושלמה!</string>
   <string name="notTheMove">זה לא המהלך!</string>
@@ -38,7 +38,7 @@
     <item quantity="other">שוחק %s פעמים</item>
   </plurals>
   <string name="fromGameLink">מתוך משחק %s</string>
-  <string name="continueTraining">המשך להתאמן</string>
+  <string name="continueTraining">המשיכו להתאמן</string>
   <string name="difficultyLevel">רמת קושי</string>
   <string name="normal">רגיל</string>
   <string name="easier">קל יותר</string>
@@ -58,9 +58,9 @@
     <item quantity="other">%s נקודות מעל לדירוג החידות שלך</item>
   </plurals>
   <string name="example">דוגמה</string>
-  <string name="addAnotherTheme">הוסף נושא חדש</string>
+  <string name="addAnotherTheme">הוסיפו נושא חדש</string>
   <string name="nextPuzzle">הפאזל הבא</string>
-  <string name="jumpToNextPuzzleImmediately">המשך ישר לחידה הבאה</string>
+  <string name="jumpToNextPuzzleImmediately">המשיכו ישר לחידה הבאה</string>
   <string name="puzzleDashboard">תמונת מצב</string>
   <string name="improvementAreas">תחומים לשיפור</string>
   <string name="strengths">חוזקות</string>
@@ -69,15 +69,15 @@
   <string name="failed">שגית</string>
   <string name="streakDescription">פתרו חידות ברמת קושי עולה וצברו רצף של ניצחונות. אין שעון, אז קחו את הזמן. מהלך שגוי אחד, והמשחק נגמר! אבל את/ה יכול/ה לדלג על מהלך אחד בכל הפעלה.</string>
   <string name="yourStreakX">הרצף שלך: %s</string>
-  <string name="streakSkipExplanation">דלג/י על מהלך זה כדי לשמור על הרצף שלך! ניתן לבצע דילוג כזה רק פעם אחת בכל הפעלה.</string>
-  <string name="continueTheStreak">המשך את הרצף</string>
+  <string name="streakSkipExplanation">דלג/י על מהלך זה כדי לשמור על הרצף שלך! ניתן לדלג רק פעם אחת בכל הפעלה.</string>
+  <string name="continueTheStreak">המשך הרצף</string>
   <string name="newStreak">רצף חדש</string>
   <string name="fromMyGames">מהמשחקים שלי</string>
   <string name="lookupOfPlayer">חפש פאזלים ממשחקים של אחד השחקנים</string>
   <string name="fromXGames">חידות מתוך המשחקים של %s</string>
   <string name="searchPuzzles">חיפוש פאזלים</string>
   <string name="fromMyGamesNone">אין פאזלים מהמשחקים שלך במאגר, אך אנחנו עדיין אוהבים אותך!
-שחק משחקי Rapid ו־Classical כדי להגדיל את הסבירות שיתווסף פאזל משלך!</string>
+שחק/י משחקי Rapid ו־Classical כדי להגדיל את הסבירות שיתווסף פאזל משלך!</string>
   <string name="fromXGamesFound">נמצאו %1$s חידות במשחקים של %2$s</string>
   <string name="puzzleDashboardDescription">אימון וניתוח יובילו לשיפור</string>
   <plurals name="nbPlayed">

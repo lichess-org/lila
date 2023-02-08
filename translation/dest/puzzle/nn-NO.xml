@@ -24,7 +24,7 @@
   <string name="clickToSolve">Klikk for å løyse oppgåva</string>
   <string name="goodMove">Godt trekk</string>
   <string name="bestMove">Beste trekk!</string>
-  <string name="keepGoing">Hald fram…</string>
+  <string name="keepGoing">Fortsett…</string>
   <string name="puzzleSuccess">Korrekt!</string>
   <string name="puzzleComplete">Oppgåva er fullført!</string>
   <string name="notTheMove">Det er ikkje rett trekk!</string>

@@ -29,6 +29,7 @@
   <string name="otherAmount">Altre</string>
   <string name="pleaseEnterAmountInX">Si us plau, escriu una quantitat en %s</string>
   <string name="withCreditCard">Targeta de crèdit</string>
+  <string name="logInToDonate">Identificat per donar</string>
   <string name="weAreSmallTeam">Som un equip petit, per això el teu suport fa una gran diferència!</string>
   <string name="celebratedPatrons">Patrons destacats que fan que Lichess sigui possible</string>
   <string name="whereMoneyGoes">Cap a on van els diners?</string>
@@ -42,7 +43,9 @@ Llavors paguem a un desenvolupador a temps complert: %s, el fundador de Lichess.
 O pots %s.</string>
   <string name="contactSupport">contacteu amb l\'assistència de Lichess</string>
   <string name="otherMethods">Hi ha altres mètodes de donació?</string>
+  <string name="lichessIsRegisteredWith">Lichess està registrat amb %s.</string>
   <string name="bankTransfers">També acceptem transferències bancàries</string>
+  <string name="onlyDonationFromAbove">Tingueu en compte que només les donacions del formulari superior atorguen l\'estatus de Patró.</string>
   <string name="patronFeatures">Es reserven algunes funcions per als Patrons?</string>
   <string name="noPatronFeatures">No, perquè Lichess es totalment gratuït, per sempre i per a tots. És una promesa.
 Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.</string>
@@ -61,7 +64,7 @@ Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.
   <string name="update">Actualitzar</string>
   <string name="changeMonthlyAmount">Canvia la quantitat mensual (%s)</string>
   <string name="cancelSupport">cancel·la el teu suport</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s o %2$s</string>
+  <string name="xOrY">%1$s o %2$s</string>
   <string name="decideHowMuch">Decideix quant val Lichess per a tu:</string>
   <string name="stopPayments">Retira la targeta de crèdit i atura els pagaments:</string>
   <string name="stopPaymentsPayPal">Cancel·lar subscripció de PayPal i aturar els pagaments:</string>

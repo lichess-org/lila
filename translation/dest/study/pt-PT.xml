@@ -22,8 +22,8 @@
     <item quantity="other">%s capítulos</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s partida</item>
-    <item quantity="other">%s partidas</item>
+    <item quantity="one">%s Jogo</item>
+    <item quantity="other">%s Jogos</item>
   </plurals>
   <string name="addMembers">Adicionar membros</string>
   <plurals name="nbMembers">

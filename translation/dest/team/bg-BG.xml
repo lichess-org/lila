@@ -48,7 +48,7 @@
   <string name="closeTeam">Затвори отбора</string>
   <string name="closeTeamDescription">Затваря отбора завинаги.</string>
   <string name="entryCode">Код за присъединяване към отбора</string>
-  <string name="entryCodeDescriptionForLeader">(По избор) Код, който новите членове трябва да знаят, за да се присъединят към този отбор.</string>
+  <string name="entryCodeDescriptionForLeader">(По избор) Парола, която новите членове трябва да знаят, за да се присъединят към този екип.</string>
   <string name="incorrectEntryCode">Грешен код за включване.</string>
   <string name="teamAlreadyExists">Този отбор вече съществува.</string>
   <string name="upcomingTourns">Предстоящи турнири</string>

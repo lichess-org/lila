@@ -1,11 +1,11 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.{
   Rating,
   TutorBothValueOptions,
@@ -15,22 +15,24 @@ import lila.tutor.{
   ValueCount
 }
 
-object openings {
+object openings:
 
-  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(implicit
+  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(using
       ctx: Context
   ) =
     bits.layout(full, menu = perf.menu(full, user, report, "openings"))(
       cls := "tutor__openings box",
-      h1(
-        a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
-        report.perf.trans,
-        " openings"
+      boxTop(
+        h1(
+          a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
+          report.perf.trans,
+          " openings"
+        )
       ),
       bits.mascotSays(report openingHighlights 3 map compare.show),
       div(cls := "tutor__openings__colors tutor__pad")(chess.Color.all.map { color =>
         st.section(cls := "tutor__openings__color")(
-          h2("Your most played ", color.name, " openings"),
+          h2("Your ", color.name, " openings"),
           div(cls := "tutor__openings__color__openings")(report.openings(color).families.map { fam =>
             div(
               cls := "tutor__openings__opening tutor-card tutor-card--link",
@@ -59,4 +61,3 @@ object openings {
     )
 
   private val pieceTag = tag("piece")
-}

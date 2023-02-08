@@ -7,12 +7,14 @@
   <string name="kingsideCastle">Rokeer aan die koningskant</string>
   <string name="queensideCastle">Rokeer aan die dameskant</string>
   <string name="promoteC8ToQueen">Promoveer c8 na dame</string>
+  <string name="dropARookAtB4">Laat vaar die toring op b4 (slegs Malhuis variant)</string>
   <string name="offerOrAcceptDraw">Bied of aanvaar \'n gelykop</string>
   <string name="readOutClocks">Lees die horlosies hardop</string>
   <string name="readOutOpponentName">Lees opponent se naam uit</string>
   <string name="otherCommands">Ander bevele</string>
   <string name="tips">Wenke</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Indien bogenoemde notasie vir jou onbekend is, leer meer hier:</string>
+  <string name="includingAXToIndicateACapture">Insluiting van \"x\" om \'n vat-skuif aantedui is optioneel</string>
   <string name="bothTheLetterOAndTheDigitZero">Beide die letter \"o\" en die syfer \"0\" kan gebruik word vir rokeer</string>
   <string name="ifItIsLegalToCastleBothWays">Indien dit wettig is om weerskante toe te rokeer, gebruik Enter vir die koningskant</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">Hoofletters is slegs belangrik indien daar dubbelsinnige situasies is met \'n loper en \'n b-pion</string>

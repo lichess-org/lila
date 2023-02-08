@@ -4,7 +4,7 @@
   <string name="teachClassesOfChessStudents">Undervis sjakkelev-klasser med undervisningsverktya til Lichess.</string>
   <string name="features">Funksjonar</string>
   <string name="quicklyGenerateSafeUsernames">Generer raskt sikre brukarnamn og passord til elevane</string>
-  <string name="trackStudentProgress">Følg utviklinga til elevane i spel og taktikkøvingar</string>
+  <string name="trackStudentProgress">Følg utviklinga til elevane i parti og løysing av sjakkproblem</string>
   <string name="messageAllStudents">Gje alle elevar melding om nytt undervisningsmateriale</string>
   <string name="freeForAllForever">100% gratis for alle, for alltid, fri for reklame og sporing</string>
   <string name="applyToBeLichessTeacher">Søk om å bli Lichess-lærar</string>

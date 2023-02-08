@@ -1,8 +1,7 @@
 import { ExplorerData, ExplorerDb, OpeningData, TablebaseData } from './interfaces';
 import * as xhr from 'common/xhr';
-import { readNdJson, CancellableStream } from 'common/ndjson';
+import { readNdJson } from 'common/ndjson';
 import { ExplorerConfigData } from './explorerConfig';
-import { sync } from 'common/sync';
 
 interface OpeningXhrOpts {
   endpoint: string;
@@ -17,8 +16,9 @@ interface OpeningXhrOpts {
 
 export async function opening(
   opts: OpeningXhrOpts,
-  processData: (data: ExplorerData) => void
-): Promise<CancellableStream> {
+  processData: (data: ExplorerData) => void,
+  signal?: AbortSignal
+): Promise<void> {
   const conf = opts.config;
   const confByDb = conf.byDb();
   const url = new URL(`/${opts.db}`, opts.endpoint);
@@ -39,7 +39,7 @@ export async function opening(
   }
   if (opts.db === 'player') {
     const playerName = conf.playerName.value();
-    if (!playerName) return explorerError(new Error('Missing player name'));
+    if (!playerName) throw new Error('Missing player name');
     params.set('player', playerName);
     params.set('color', conf.color());
     params.set('modes', conf.mode().join(','));
@@ -49,30 +49,19 @@ export async function opening(
     params.set('recentGames', '0');
   }
 
-  let res;
-  try {
-    res = await fetch(url.href, {
-      cache: 'default',
-      headers: {}, // avoid default headers for cors
-      credentials: 'omit',
-    });
-    if (!res.ok) throw new Error(`Status ${res.status}`);
-  } catch (err) {
-    return explorerError(err as Error);
-  }
+  const res = await fetch(url.href, {
+    cache: 'default',
+    headers: {}, // avoid default headers for cors
+    credentials: 'omit',
+    signal,
+  });
 
-  return readNdJson((line: any) => {
-    const data = line as Partial<OpeningData>;
+  await readNdJson<Partial<OpeningData>>(res, data => {
     data.isOpening = true;
     data.fen = opts.fen;
     processData(data as OpeningData);
-  })(res);
+  });
 }
-
-const explorerError = (err: Error) => ({
-  cancel() {},
-  end: sync(Promise.resolve(err)),
-});
 
 export async function tablebase(endpoint: string, variant: VariantKey, fen: Fen): Promise<TablebaseData> {
   const effectiveVariant = variant === 'fromPosition' || variant === 'chess960' ? 'standard' : variant;

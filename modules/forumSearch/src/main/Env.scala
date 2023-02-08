@@ -1,13 +1,12 @@
 package lila.forumSearch
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
-import lila.common.config._
-import lila.search._
-import Query.jsonWriter
+import lila.common.config.*
+import lila.search.*
 
 @Module
 private class ForumSearchConfig(
@@ -19,13 +18,13 @@ private class ForumSearchConfig(
 final class Env(
     appConfig: Configuration,
     makeClient: Index => ESClient,
-    postApi: lila.forum.PostApi,
-    postRepo: lila.forum.PostRepo
-)(implicit
+    postApi: lila.forum.ForumPostApi,
+    postRepo: lila.forum.ForumPostRepo
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     mat: akka.stream.Materializer
-) {
+):
 
   private val config = appConfig.get[ForumSearchConfig]("forumSearch")(AutoConfig.loader)
 
@@ -34,26 +33,24 @@ final class Env(
   lazy val api: ForumSearchApi = wire[ForumSearchApi]
 
   def apply(text: String, page: Int, troll: Boolean) =
-    paginatorBuilder(Query(text, troll), page)
+    paginatorBuilder(Query(text take 100, troll), page)
 
   def cli =
-    new lila.common.Cli {
+    new lila.common.Cli:
       def process = { case "forum" :: "search" :: "reset" :: Nil =>
         api.reset inject "done"
       }
-    }
 
-  private lazy val paginatorBuilder = wire[lila.search.PaginatorBuilder[lila.forum.PostView, Query]]
+  private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, config.maxPerPage)
 
   system.actorOf(
     Props(new Actor {
-      import lila.forum.actorApi._
+      import lila.forum.*
       def receive = {
         case InsertPost(post) => api.store(post).unit
-        case RemovePost(id)   => client.deleteById(Id(id)).unit
-        case RemovePosts(ids) => client.deleteByIds(ids map Id).unit
+        case RemovePost(id)   => client.deleteById(id into Id).unit
+        case RemovePosts(ids) => client.deleteByIds(Id.from[List, ForumPostId](ids)).unit
       }
     }),
     name = config.actorName
   )
-}

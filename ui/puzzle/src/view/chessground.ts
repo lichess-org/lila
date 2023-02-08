@@ -3,6 +3,7 @@ import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
+import * as Prefs from 'common/prefs';
 
 export default function (ctrl: Controller): VNode {
   return h('div.cg-wrap', {

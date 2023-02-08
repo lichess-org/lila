@@ -1,12 +1,12 @@
 package views.html.account
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object layout {
+object layout:
 
   def apply(
       title: String,
@@ -21,12 +21,15 @@ object layout {
     ) {
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "account page-menu")(
-        ctx.me.exists(_.enabled) option st.nav(cls := "page-menu__menu subnav")(
-          lila.pref.PrefCateg.all.map { categ =>
+        ctx.me.exists(_.enabled.yes) option st.nav(cls := "page-menu__menu subnav")(
+          lila.pref.PrefCateg.values.map { categ =>
             a(activeCls(categ.slug), href := routes.Pref.form(categ.slug))(
               bits.categName(categ)
             )
           },
+          a(activeCls("notification"), href := routes.Pref.form("notification"))(
+            trans.notifications()
+          ),
           a(activeCls("kid"), href := routes.Account.kid)(
             trans.kidMode()
           ),
@@ -68,4 +71,3 @@ object layout {
         div(cls := "page-menu__content")(body)
       )
     }
-}

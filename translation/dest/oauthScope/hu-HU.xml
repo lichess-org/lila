@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Új API hozzáférési token</string>
+  <string name="tokenDescription">Token leírás</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Olvasási jogosultság</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Írási jogosultság</string>
+  <string name="studyWrite">Tanulmányok és közvetítések létrehozása, frissítése és törlése</string>
+  <string name="tournamentWrite">Versenyekhez csatlakozás, létrehozás és frissítés</string>
+  <string name="teamRead">Privát csapatinformációk</string>
+  <string name="teamLead">Csapatműveletek: PMek küldése, tagok eltávolítása</string>
+  <string name="followRead">Követett játékosok megtekintése</string>
+  <string name="msgWrite">Privát üzenete küldése játékosoknak</string>
+  <string name="engineRead">Külső motorok megtekintése és használata</string>
+  <string name="engineWrite">Külső motorok létrehozása és frissítése</string>
+  <string name="webLogin">Azonosított munkamenet létrehozása (teljes hozzáférést biztosít!)</string>
+  <string name="webMod">Moderálási eszközök használata (jogosultsági köreiden belül)</string>
+</resources>

@@ -1,6 +1,7 @@
 package lila.racer
 
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.storm.StormPuzzle
 
@@ -12,17 +13,17 @@ case class RacerRace(
     countdownSeconds: Int,
     startsAt: Option[DateTime],
     rematch: Option[RacerRace.Id]
-) {
+):
 
-  def id = _id
+  inline def id = _id
 
   def has(id: RacerPlayer.Id) = players.exists(_.id == id)
 
   def player(id: RacerPlayer.Id) = players.find(_.id == id)
 
-  def join(id: RacerPlayer.Id): Option[RacerRace] =
-    !hasStarted && !has(id) && players.sizeIs < RacerRace.maxPlayers option
-      copy(players = players :+ RacerPlayer.make(id))
+  def join(player: RacerPlayer): Option[RacerRace] =
+    !hasStarted && !has(player.id) && players.sizeIs < RacerRace.maxPlayers option
+      copy(players = players :+ player)
 
   def registerScore(playerId: RacerPlayer.Id, score: Int): Option[RacerRace] =
     !finished option copy(
@@ -45,17 +46,17 @@ case class RacerRace(
   def finished = finishesAt.exists(_.isBeforeNow)
 
   def isLobby = owner == RacerPlayer.lichess
-}
 
-object RacerRace {
+object RacerRace:
 
   val duration   = 90
   val maxPlayers = 10
 
-  case class Id(value: String) extends AnyVal with StringValue
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
   def make(owner: RacerPlayer.Id, puzzles: List[StormPuzzle], countdownSeconds: Int) = RacerRace(
-    _id = Id(lila.common.ThreadLocalRandom nextString 5),
+    _id = Id(ThreadLocalRandom nextString 5),
     owner = owner,
     players = Nil,
     puzzles = puzzles,
@@ -63,4 +64,3 @@ object RacerRace {
     startsAt = none,
     rematch = none
   )
-}

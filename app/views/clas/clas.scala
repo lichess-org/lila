@@ -1,16 +1,17 @@
 package views.html.clas
 
+import controllers.clas.routes.{ Clas as clasRoutes }
 import play.api.data.Form
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 import lila.clas.ClasForm.ClasData
 import controllers.routes
 
-object clas {
+object clas:
 
   def home(implicit ctx: Context) =
     views.html.base.layout(
@@ -21,7 +22,7 @@ object clas {
       title = trans.clas.lichessClasses.txt()
     ) {
       main(cls := "page-small box box-pad page clas-home")(
-        h1(trans.clas.lichessClasses()),
+        h1(cls := "box__top")(trans.clas.lichessClasses()),
         div(cls := "clas-home__doc body")(
           p(trans.clas.teachClassesOfChessStudents()),
           h2(trans.clas.features()),
@@ -33,22 +34,22 @@ object clas {
           )
         ),
         div(cls := "clas-home__onboard")(
-          postForm(action := routes.Clas.becomeTeacher)(
+          postForm(action := clasRoutes.becomeTeacher)(
             submitButton(cls := "button button-fat")(trans.clas.applyToBeLichessTeacher())
           )
         )
       )
     }
 
-  def teacherIndex(classes: List[Clas], closed: Boolean)(implicit ctx: Context) = {
+  def teacherIndex(classes: List[Clas], closed: Boolean)(implicit ctx: Context) =
     val (active, archived) = classes.partition(_.isActive)
     val (current, others)  = if (closed) (archived, active) else (active, archived)
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
       cls := "clas-index",
       div(cls := "box__top")(
-        h1(trans.clas.lichessClasses()),
+        h1(cls := "box__top")(trans.clas.lichessClasses()),
         a(
-          href     := routes.Clas.form,
+          href     := clasRoutes.form,
           cls      := "new button button-empty",
           title    := trans.clas.newClass.txt(),
           dataIcon := ""
@@ -59,7 +60,7 @@ object clas {
       else
         renderClasses(current),
       (closed || others.nonEmpty) option div(cls := "clas-index__others")(
-        a(href := s"${routes.Clas.index}?closed=${!closed}")(
+        a(href := s"${clasRoutes.index}?closed=${!closed}")(
           "And ",
           others.size.localize,
           " ",
@@ -68,12 +69,11 @@ object clas {
         )
       )
     )
-  }
 
   def studentIndex(classes: List[Clas])(implicit ctx: Context) =
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
       cls := "clas-index",
-      div(cls := "box__top")(h1(trans.clas.lichessClasses())),
+      boxTop(h1(trans.clas.lichessClasses())),
       renderClasses(classes)
     )
 
@@ -84,7 +84,7 @@ object clas {
           cls      := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
           dataIcon := ""
         )(
-          a(cls := "overlay", href := routes.Clas.show(clas.id.value)),
+          a(cls := "overlay", href := clasRoutes.show(clas.id.value)),
           div(
             h3(clas.name),
             p(clas.desc)
@@ -103,7 +103,7 @@ object clas {
   def create(form: Form[ClasData])(implicit ctx: Context) =
     bits.layout(trans.clas.newClass.txt(), Right("newClass"))(
       cls := "box-pad",
-      h1(trans.clas.newClass()),
+      h1(cls := "box__top")(trans.clas.newClass()),
       innerForm(form, none)
     )
 
@@ -113,7 +113,7 @@ object clas {
         innerForm(form, c.some),
         hr,
         c.isActive option postForm(
-          action := routes.Clas.archive(c.id.value, v = true),
+          action := clasRoutes.archive(c.id.value, v = true),
           cls    := "clas-edit__archive"
         )(
           form3.submit(trans.clas.closeClass(), icon = none)(
@@ -123,7 +123,7 @@ object clas {
       )
     )
 
-  def notify(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[_])(implicit ctx: Context) =
+  def notify(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[?])(implicit ctx: Context) =
     teacherDashboard.layout(c, students, "wall")(
       div(cls := "box-pad clas-wall__edit")(
         p(
@@ -131,14 +131,14 @@ object clas {
           br,
           trans.clas.aLinkToTheClassWillBeAdded()
         ),
-        postForm(cls := "form3", action := routes.Clas.notifyPost(c.id.value))(
+        postForm(cls := "form3", action := clasRoutes.notifyPost(c.id.value))(
           form3.globalError(form),
           form3.group(
             form("text"),
             frag(trans.message())
           )(form3.textarea(_)(rows := 3)),
           form3.actions(
-            a(href := routes.Clas.wall(c.id.value))(trans.cancel()),
+            a(href := clasRoutes.wall(c.id.value))(trans.cancel()),
             form3.submit(trans.send())
           )
         )
@@ -146,7 +146,7 @@ object clas {
     )
 
   private def innerForm(form: Form[ClasData], clas: Option[Clas])(implicit ctx: Context) =
-    postForm(cls := "form3", action := clas.fold(routes.Clas.create)(c => routes.Clas.update(c.id.value)))(
+    postForm(cls := "form3", action := clas.fold(clasRoutes.create)(c => clasRoutes.update(c.id.value)))(
       form3.globalError(form),
       form3.group(form("name"), trans.clas.className())(form3.input(_)(autofocus)),
       form3.group(
@@ -155,7 +155,7 @@ object clas {
         help = trans.clas.visibleByBothStudentsAndTeachers().some
       )(form3.textarea(_)(rows := 5)),
       clas match {
-        case None => form3.hidden(form("teachers"), ctx.userId)
+        case None => form3.hidden(form("teachers"), UserId raw ctx.userId)
         case Some(_) =>
           form3.group(
             form("teachers"),
@@ -164,8 +164,7 @@ object clas {
           )(form3.textarea(_)(rows := 4))
       },
       form3.actions(
-        a(href := clas.fold(routes.Clas.index)(c => routes.Clas.show(c.id.value)))(trans.cancel()),
+        a(href := clas.fold(clasRoutes.index)(c => clasRoutes.show(c.id.value)))(trans.cancel()),
         form3.submit(trans.apply())
       )
     )
-}

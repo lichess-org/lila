@@ -1,0 +1,5 @@
+{
+  "extends": "/home/sam/Documents/git/lila/ui/tsconfig.base.json",
+  "compilerOptions": { "esModuleInterop": true, "rootDir": "/home/sam/Documents/git/lila/ui/lobby/src" },
+  "include": ["/home/sam/Documents/git/lila/ui/lobby/src"]
+}

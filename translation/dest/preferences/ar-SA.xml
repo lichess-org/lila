@@ -3,6 +3,7 @@
   <string name="preferences">تفضيلات</string>
   <string name="display">المنظر</string>
   <string name="privacy">الخصوصية</string>
+  <string name="notifications">إشعارات</string>
   <string name="pieceAnimation">المؤثرات الحركية للقطعة</string>
   <string name="materialDifference">الفرق المادي</string>
   <string name="boardHighlights">تميز معالم الرقعة (آخر نقلة والكش)</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">اضغط مفتاح&lt;ctrl&gt; اثناء الترقية لتعطيل الترقية التقائية مؤقتاً</string>
   <string name="whenPremoving">عند النقلة الاستباقية</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">مطالبة بالتعادل لتكرار نفس النقلات ثلاث مرات بشكل تلقائي</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">عندما يقل الوقت عن 30 ثانية</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">عندما يقل الوقت عن 30 ثانية</string>
   <string name="moveConfirmation">تأكيد النقلة</string>
   <string name="inCorrespondenceGames">فى العاب المراسلة</string>
   <string name="correspondenceAndUnlimited">مراسلة وبدون توقيت</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">تم حفظ تفضيلاتك.</string>
   <string name="scrollOnTheBoardToReplayMoves">مرر على اللوحة للتحكم على التحركات</string>
   <string name="correspondenceEmailNotification">إشعار بريد إلكتروني يومي يسرد ألعاب المراسلة الخاصة بك</string>
+  <string name="notifyStreamStart">البث مباشر الان</string>
+  <string name="notifyInboxMsg">رسالة جديدة واردة</string>
+  <string name="notifyForumMention">تعليق يشير إليك</string>
+  <string name="notifyInvitedStudy">دعوة لدراسة</string>
+  <string name="notifyGameEvent">تحديثات لعبة المراسلة</string>
+  <string name="notifyChallenge">التحديات</string>
+  <string name="notifyTournamentSoon">البطولة تبدأ قريباً</string>
+  <string name="notifyTimeAlarm">ساعة المراسلة تنفد</string>
+  <string name="notifyBell">إشعار Bell داخل Lichess</string>
+  <string name="notifyPush">إشعار الجهاز عندما لا تكون على Lichess</string>
+  <string name="notifyWeb">المتصفح</string>
+  <string name="notifyDevice">الجهاز</string>
 </resources>

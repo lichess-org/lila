@@ -18,9 +18,16 @@
       opacity: 0;
 
       @include transition;
+
+      @media (prefers-reduced-motion: reduce) {
+        // Keep the button visible until it was focused
+        transition: all 1ms !important;
+      }
     }
 
-    &:focus-within .action {
+    textarea:focus ~ .action,
+    .action:active,
+    .action:focus-visible {
       visibility: visible;
       opacity: 1;
     }

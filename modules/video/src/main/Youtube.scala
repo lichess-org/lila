@@ -1,12 +1,13 @@
 package lila.video
 
 import org.joda.time.DateTime
-import play.api.libs.json._
-import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.json.*
+import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.Future
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.config._
+import lila.common.config.*
 
 final private[video] class Youtube(
     ws: StandaloneWSClient,
@@ -14,16 +15,15 @@ final private[video] class Youtube(
     apiKey: Secret,
     max: Max,
     api: VideoApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import Youtube._
+  import Youtube.*
 
-  implicit private val readSnippet        = Json.reads[Snippet]
-  implicit private val readStatistics     = Json.reads[Statistics]
-  implicit private val readContentDetails = Json.reads[ContentDetails]
-  implicit private val readEntry          = Json.reads[Entry]
-  implicit private val readEntries: Reads[Seq[Entry]] =
-    (__ \ "items").read(Reads seq readEntry)
+  private given Reads[Snippet]               = Json.reads[Snippet]
+  private given Reads[Statistics]            = Json.reads[Statistics]
+  private given Reads[ContentDetails]        = Json.reads[ContentDetails]
+  private val readEntry: Reads[Entry]        = Json.reads[Entry]
+  private val readEntries: Reads[Seq[Entry]] = (__ \ "items").read(Reads seq readEntry)
 
   def updateAll: Funit =
     fetch flatMap { entries =>
@@ -53,24 +53,22 @@ final private[video] class Youtube(
     api.video.allIds flatMap { ids =>
       ws.url(url)
         .withQueryStringParameters(
-          "id"   -> lila.common.ThreadLocalRandom.shuffle(ids).take(max.value).mkString(","),
+          "id"   -> ThreadLocalRandom.shuffle(ids).take(max.value).mkString(","),
           "part" -> "id,statistics,snippet,contentDetails",
           "key"  -> apiKey.value
         )
         .get() flatMap {
         case res if res.status == 200 =>
-          readEntries reads res.body[JsValue] match {
+          readEntries reads res.body[JsValue] match
             case JsError(err)          => fufail(err.toString)
             case JsSuccess(entries, _) => fuccess(entries.toList)
-          }
         case res =>
           println(res.body)
           fufail(s"[video youtube] fetch ${res.status}")
       }
     }
-}
 
-object Youtube {
+object Youtube:
 
   def empty = Metadata(0, 0, None, None, None)
 
@@ -101,7 +99,5 @@ object Youtube {
 
   private val iso8601Formatter = org.joda.time.format.ISOPeriodFormat.standard()
 
-  private[video] case class ContentDetails(duration: String) {
+  private[video] case class ContentDetails(duration: String):
     def seconds: Int = iso8601Formatter.parsePeriod(duration).toStandardSeconds.getSeconds
-  }
-}

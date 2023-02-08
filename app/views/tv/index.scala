@@ -3,14 +3,14 @@ package tv
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
-object index {
+object index:
 
   def apply(
       channel: lila.tv.Tv.Channel,
@@ -45,7 +45,8 @@ object index {
         )
         .some,
       zenable = true,
-      robots = true
+      robots = true,
+      withHrefLangs = lila.common.LangPath(routes.Tv.index).some
     )(
       main(cls := "round tv-single")(
         st.aside(cls := "round__side")(
@@ -64,4 +65,3 @@ object index {
         )
       )
     )
-}

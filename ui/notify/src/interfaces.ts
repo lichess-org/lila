@@ -4,7 +4,7 @@ export interface NotifyOpts {
   data?: NotifyData;
   incoming: boolean;
   isVisible(): boolean;
-  setCount(nb: number): void;
+  updateUnread(nb: number | 'increment'): boolean; // true if changed
   show(): void;
   setNotified(): void;
   pulse(): void;
@@ -15,6 +15,8 @@ export interface NotifyData {
   unread: number;
   i18n: I18nDict;
 }
+
+export interface BumpUnread {}
 
 interface NotificationUser {
   id: string;
@@ -36,15 +38,17 @@ export interface Notification {
 }
 
 export interface Ctrl {
-  update(data: NotifyData, incoming: boolean): void;
   data(): NotifyData | undefined;
   initiating(): boolean;
   scrolling(): boolean;
+  update(data: NotifyData): void;
+  bumpUnread(): void;
   nextPage(): void;
   previousPage(): void;
   loadPage(page: number): void;
-  setVisible(): void;
+  onShow(): void;
   setMsgRead(user: string): void;
+  setAllRead(): void;
   clear(): void;
 }
 

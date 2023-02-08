@@ -32,9 +32,10 @@
   <string name="takebacksWithOpponentApproval">Vrátenie ťahu (so súhlasom súpera)</string>
   <string name="inCasualGamesOnly">Iba pri priateľských partiách</string>
   <string name="promoteToQueenAutomatically">Automaticky premeniť pešiaka na dámu</string>
+  <string name="explainPromoteToQueenAutomatically">Pre dočasné vypnutie automatickej premeny podržte klávesu &lt;ctrl&gt; počas ťahu premeny</string>
   <string name="whenPremoving">Pri predťahu</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Keď ostáva &lt; 30 sekúnd</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Keď ostáva &lt; 30 sekúnd</string>
   <string name="moveConfirmation">Potvrdenie ťahu</string>
   <string name="inCorrespondenceGames">Korešpondenčné partie</string>
   <string name="correspondenceAndUnlimited">Korešpondenčný a nekonečný</string>

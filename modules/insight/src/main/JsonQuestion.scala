@@ -1,15 +1,15 @@
 package lila.insight
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
 case class JsonQuestion(
     dimension: String,
     metric: String,
     filters: Map[String, List[String]]
-) {
+):
 
-  def question: Option[Question[_]] = {
-    import InsightDimension._
+  def question: Option[Question[?]] =
+    import InsightDimension.*
     for {
       realMetric <- InsightMetric.byKey get metric
       realFilters =
@@ -24,7 +24,7 @@ case class JsonQuestion(
                   }
                 ).some
 
-              filterKey match {
+              filterKey match
                 case Period.key               => build(Period)
                 case Perf.key                 => build(Perf)
                 case Phase.key                => build(Phase)
@@ -48,14 +48,13 @@ case class JsonQuestion(
                 case Blur.key                 => build(Blur)
                 case TimeVariance.key         => build(TimeVariance)
                 case _                        => none
-              }
             }
           }
           .filterNot(_.isEmpty)
           .toList
-      question <- {
+      question <-
         def build[X](dimension: InsightDimension[X]) = Question[X](dimension, realMetric, realFilters).some
-        dimension match {
+        dimension match
           case Date.key                 => build(Date)
           case Perf.key                 => build(Perf)
           case Phase.key                => build(Phase)
@@ -79,15 +78,11 @@ case class JsonQuestion(
           case Blur.key                 => build(Blur)
           case TimeVariance.key         => build(TimeVariance)
           case _                        => none
-        }
-      }
     } yield question
-  }
-}
 
-object JsonQuestion {
+object JsonQuestion:
 
-  def fromQuestion(q: Question[_]) =
+  def fromQuestion(q: Question[?]) =
     JsonQuestion(
       dimension = q.dimension.key,
       metric = q.metric.key,
@@ -96,5 +91,4 @@ object JsonQuestion {
       }.toMap
     )
 
-  implicit val QuestionFormats = Json.format[JsonQuestion]
-}
+  given Format[JsonQuestion] = Json.format

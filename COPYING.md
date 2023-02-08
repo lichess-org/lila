@@ -23,7 +23,7 @@ See the LICENSE file for a copy of the _GNU Affero General Public License_.
 If you modify this Program, or any covered work, by linking or combining it
 with Highcharts (or a modified version of that library), containing parts
 covered by the terms of the _Creative Commons (CC) Attribution-NonCommercial_
-licence, the licensors of this Program grant you additional permission to
+license, the licensors of this Program grant you additional permission to
 convey the resulting work. Corresponding Source for a non-source form of such a
 combination shall include the source code for the parts of Highcharts used as
 well as that of the covered work.
@@ -64,6 +64,7 @@ public/piece/staunty | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org
 public/piece/dubrovny | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/libra | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/anarcandy | [caderek](https://github.com/caderek) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/disguised | danegraphics | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
@@ -79,11 +80,12 @@ public/logo, public/favicon.ico, public/apple-touch-icon.png | sadsnake1 | Only 
 public/piece/alpha | Eric Bentzen | "free for personal non commercial use" (see [zip](http://www.enpassant.dk/chess/downl/alpha.zip))
 public/piece/chess7 | [Style-7](http://www.styleseven.com/) | "freeware"
 public/piece/companion | David L. Brown | ["freeware"](http://www.enpassant.dk/chess/fonteng.htm#GC)
-public/piece/fantasy | [Maurizio Monge](http://poisson.phc.unipi.it/~monge/chess_art.php) | "give credit in a suitable way"
+public/piece/fantasy | [Maurizio Monge](https://github.com/maurimo/chess-art) | "give credit in a suitable way"
 public/piece/leipzig | Armando Hernandez Marroquin | ["freeware"](http://www.enpassant.dk/chess/fonteng.htm#LEIPZIG)
-public/piece/spatial | [Maurizio Monge](http://poisson.phc.unipi.it/~monge/chess_art.php) | "give credit in a suitable way"
+public/piece/spatial | [Maurizio Monge](https://github.com/maurimo/chess-art) | "give credit in a suitable way"
 public/piece/reillycraig | [Reilly Craig](https://instagram.com/fader_) |
 public/piece/riohacha | |
+public/piece/celtic | [Maurizio Monge](https://github.com/maurimo/chess-art) | "give credit in a suitable way"
 public/images/staunton/piece/Staunton | [Eden Murs](https://userstyles.org/styles/134558/lichess-pieces-3d-staunton) (?) |
 
 - The other sounds in public/sound

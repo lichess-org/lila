@@ -59,8 +59,8 @@
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Bruker serveranalyse</string>
   <string name="loadingEngine">Laster sjakkmotor ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Beregner trekk...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Kunne ikke laste sjakkmotor</string>
+  <string name="calculatingMoves">Beregner trekk...</string>
+  <string name="engineFailed">Kunne ikke laste sjakkmotor</string>
   <string name="cloudAnalysis">Skyanalyse</string>
   <string name="goDeeper">Gå dypere</string>
   <string name="showThreat">Vis trussel</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' med avrunding, basert på antall halvtrekk til neste slag eller bondetrekk</string>
   <string name="noGameFound">Intet parti funnet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
+  <string name="openings">Åpninger</string>
   <string name="openingExplorer">Åpningsutforsker</string>
   <string name="openingEndgameExplorer">Åpnings-/sluttspillsutforsker</string>
   <string name="xOpeningExplorer">Åpningsutforsker for %s</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Se i full størrelse</string>
   <string name="logOut">Logg ut</string>
   <string name="signIn">Logg inn</string>
+  <string name="rememberMe">Husk meg</string>
   <string name="youNeedAnAccountToDoThat">Du trenger en konto for å gjøre det</string>
   <string name="signUp">Registrer brukerkonto</string>
   <string name="computersAreNotAllowedToPlay">Datamaskiner og spillere som får hjelp av datamaskiner har ikke lov til å spille. Vennligst ikke ta imot hjelp fra sjakkmaskiner, databaser eller andre spillere under partiene. Merk også at det er sterkt frarådet å opprette flere brukerkontoer, og kan lede til at du blir utstengt.</string>
@@ -197,12 +199,31 @@
   <string name="changeUsername">Endre brukernavn</string>
   <string name="changeUsernameNotSame">Du kan bare endre små bokstaver til store eller store til små. For eksempel \"olanordmann\" til \"OlaNordmann\".</string>
   <string name="changeUsernameDescription">Endre brukernavnet ditt. Dette kan bare gjøres én gang, og du bare kan endre små bokstaver til store eller store til små.</string>
+  <string name="signupUsernameHint">Velg et sømmelig brukernavn. Det kan ikke endres, og alle kontoer med usømmelige brukernavn vil bli avsluttet.</string>
+  <string name="signupEmailHint">Vi bruker den bare når du tilbakestiller passordet ditt.</string>
   <string name="password">Passord</string>
   <string name="changePassword">Bytt passord</string>
   <string name="changeEmail">Endre e-postadresse</string>
   <string name="email">E-post</string>
   <string name="passwordReset">Tilbakestill passord</string>
   <string name="forgotPassword">Glemt passord?</string>
+  <string name="emailConfirmHelp">Hjelp med å bekrefte e-posten</string>
+  <string name="emailConfirmNotReceived">Mottok du ikke bekreftelsesmelding etter at du registrerte deg?</string>
+  <string name="whatSignupUsername">Hvilket brukernavn registrerte du deg med?</string>
+  <string name="usernameNotFound">Vi finner ikke dette brukernavnet: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Du kan opprette en ny konto med dette brukernavnet</string>
+  <string name="emailSent">Vi har sendt en melding til %s.</string>
+  <string name="emailCanTakeSomeTime">Det kan ta litt tid.</string>
+  <string name="refreshInboxAfterFiveMinutes">Vent fem minutter før du oppdaterer innboksen.</string>
+  <string name="checkSpamFolder">Sjekk om meldingen havnet i søppelpostmappen. Merk i tilfelle meldingen som ikke søppelpost.</string>
+  <string name="emailForSignupHelp">Send denne meldingen til oss som siste utvei:</string>
+  <string name="copyTextToEmail">Kopier og lim inn teksten ovenfor og send den til %s</string>
+  <string name="waitForSignupHelp">Vi tar snart kontakt og hjelper deg med registreringen.</string>
+  <string name="accountConfirmed">Brukeren %s er bekreftet.</string>
+  <string name="accountCanLogin">Du kan nå logge inn som %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Du trenger ikke bekreftelsesmelding.</string>
+  <string name="accountClosed">Kontoen %s er avsluttet.</string>
+  <string name="accountRegisteredWithoutEmail">Kontoen %s ble registrert uten e-post.</string>
   <string name="rank">Rangering</string>
   <string name="rankX">Plassering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -342,6 +363,7 @@
   <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg er nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
   <string name="xJoinedTeamY">%1$s ble med på laget %2$s</string>
   <string name="xCreatedTeamY">%1$s opprettet laget %2$s</string>
+  <string name="startedStreaming">begynte å strømme</string>
   <string name="xStartedStreaming">%s begynte å strømme</string>
   <string name="averageElo">Snittrating</string>
   <string name="location">Sted</string>
@@ -463,7 +485,7 @@
   <string name="biography">Biografi</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagg</string>
   <string name="thankYou">Takk!</string>
-  <string name="socialMediaLinks">Linker til sosiale media</string>
+  <string name="socialMediaLinks">Lenker til sosiale medier</string>
   <string name="oneUrlPerLine">Én URL per linje.</string>
   <string name="inlineNotation">Innebygd notasjon</string>
   <string name="savingMoves">Midlertidig lagring av trekk</string>
@@ -517,6 +539,8 @@
   <string name="blog">Blogg</string>
   <string name="notes">Notater</string>
   <string name="typePrivateNotesHere">Skriv private notater her</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skriv et privat notat om denne brukeren</string>
+  <string name="noNoteYet">Intet notat ennå</string>
   <string name="invalidUsernameOrPassword">Ugyldig brukernavn eller passord</string>
   <string name="incorrectPassword">Feil passord</string>
   <string name="invalidAuthenticationCode">Ugyldig autentiseringskode</string>
@@ -633,6 +657,7 @@
   <string name="tournamentFAQ">Arenaturneringsspørsmål</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
   <string name="averageCentipawnLoss">Gjennomsnittlig centibondetap</string>
+  <string name="accuracy">Presisjon</string>
   <string name="keyboardShortcuts">Tastatursnarveier</string>
   <string name="keyMoveBackwardOrForward">Gå bakover/fremover</string>
   <string name="keyGoToStartOrEnd">Gå til start/slutt</string>
@@ -658,9 +683,9 @@
   <string name="cumulative">Akkumulert</string>
   <string name="glicko2Rating">Glicko-2-rating</string>
   <string name="checkYourEmail">Sjekk e-posten din</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Vi har sent deg en e-post. Klikk på linken i e-posten for å aktivere din konto.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt en e-post til deg. Klikk på lenken i e-posten for å aktivere kontoen din.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du ikke ser e-posten, sjekk andre steder den kan være, som søppel, spam, sosial, eller andre mapper.</string>
-  <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Klikk på linken i e-posten for å tilbakestille passordet ditt.</string>
+  <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Klikk på lenken i e-posten for å tilbakestille passordet ditt.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrere deg godtar du våre %s.</string>
   <string name="readAboutOur">Les %s vår.</string>
   <string name="networkLagBetweenYouAndLichess">Nettverksforsinkelsen mellom deg og lichess</string>
@@ -715,6 +740,7 @@
   <string name="light">Lys</string>
   <string name="dark">Mørk</string>
   <string name="transparent">Gjennomsiktig</string>
+  <string name="deviceTheme">Enhetstema</string>
   <string name="backgroundImageUrl">URL for bakgrunnsbilde:</string>
   <string name="boardGeometry">Brettgeometri</string>
   <string name="boardTheme">Brett-tema</string>
@@ -743,6 +769,7 @@
   <string name="bestWasX">Best var %s</string>
   <string name="youBrowsedAway">Du bladde vekk</string>
   <string name="resumePractice">Gjenoppta øving</string>
+  <string name="drawByFiftyMoves">Partiet er remis etter femtitrekksregelen.</string>
   <string name="theGameIsADraw">Partiet er remis.</string>
   <string name="computerThinking">Maskinen tenker ...</string>
   <string name="seeBestMove">Vis beste trekk</string>

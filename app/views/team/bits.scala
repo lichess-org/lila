@@ -1,19 +1,19 @@
 package views.html.team
 
 import controllers.routes
-import scala.util.chaining._
+import scala.util.chaining.*
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ Markdown, MarkdownRender }
 import lila.team.Team
 
-object bits {
+object bits:
 
-  import trans.team._
+  import trans.team.*
 
-  def link(teamId: Team.ID): Frag =
+  def link(teamId: TeamId): Frag =
     a(href := routes.Team.show(teamId))(teamIdToName(teamId))
 
   def link(team: Team): Frag =
@@ -44,17 +44,17 @@ object bits {
       )
     }
 
-  private[team] object markdown {
-    import scala.concurrent.duration._
+  private[team] object markdown:
+    import scala.concurrent.duration.*
     private val renderer = new MarkdownRender(header = true, list = true, table = true)
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(10 minutes)
       .maximumSize(1024)
       .build[Markdown, String]()
     def apply(team: Team, text: Markdown): Frag = raw(cache.get(text, renderer(s"team:${team.id}")))
-  }
 
-  private[team] def teamTr(t: Team)(implicit ctx: Context) = {
+  private[team] def teamTr(t: Team)(implicit ctx: Context) =
+    import lila.common.String.*
     val isMine = isMyTeamSync(t.id)
     tr(cls := "paginated")(
       td(cls := "subject")(
@@ -69,7 +69,7 @@ object bits {
           t.name,
           ctx.userId.exists(t.leaders.contains) option em("leader")
         ),
-        shorten(lila.common.String.removeMultibyteSymbols(t.description.value), 200)
+        ~t.intro: String
       ),
       td(cls := "info")(
         p(nbMembers.plural(t.nbMembers, t.nbMembers.localize)),
@@ -78,7 +78,6 @@ object bits {
         )
       )
     )
-  }
 
   private[team] def layout(
       title: String,
@@ -91,4 +90,3 @@ object bits {
       moreJs = frag(infiniteScrollTag, moreJs),
       openGraph = openGraph
     )(body)
-}

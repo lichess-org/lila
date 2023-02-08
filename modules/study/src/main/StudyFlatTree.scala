@@ -1,23 +1,22 @@
 package lila.study
 
-import BSONHandlers._
+import BSONHandlers.{ readNode, writeNode }
 import Node.Children
 
 import lila.common.Chronometer
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
-private object StudyFlatTree {
+private object StudyFlatTree:
 
-  private case class FlatNode(path: Path, data: Bdoc) {
+  private case class FlatNode(path: Path, data: Bdoc):
     val depth = path.ids.size
 
     def toNodeWithChildren(children: Option[Children]): Option[Node] =
       readNode(data, path.ids.last) map {
         _.copy(children = children | Node.emptyChildren)
       }
-  }
 
-  object reader {
+  object reader:
 
     def rootChildren(flatTree: Bdoc): Children =
       Chronometer.syncMon(_.study.tree.read) {
@@ -33,23 +32,21 @@ private object StudyFlatTree {
 
     private def traverse(children: List[FlatNode]): Children =
       children
-        .foldLeft(Map.empty[Path, Children]) { case (allChildren, flat) =>
+        .foldLeft(Map.empty[Path, Children]) { (allChildren, flat) =>
           update(allChildren, flat)
         }
         .get(Path.root) | Node.emptyChildren
 
     // assumes that node has a greater depth than roots (sort beforehand)
-    private def update(roots: Map[Path, Children], flat: FlatNode): Map[Path, Children] = {
+    private def update(roots: Map[Path, Children], flat: FlatNode): Map[Path, Children] =
       flat.toNodeWithChildren(roots get flat.path).fold(roots) { node =>
         roots.removed(flat.path).updatedWith(flat.path.parent) {
           case None           => Children(Vector(node)).some
           case Some(siblings) => siblings.addNode(node).some
         }
       }
-    }
-  }
 
-  object writer {
+  object writer:
 
     def rootChildren(root: Node.Root): Vector[(String, Bdoc)] =
       Chronometer.syncMon(_.study.tree.write) {
@@ -63,5 +60,3 @@ private object StudyFlatTree {
           traverse(_, path)
         } appended (Path.encodeDbKey(path) -> writeNode(node))
       }
-  }
-}

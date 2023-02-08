@@ -61,7 +61,7 @@
   <string name="update">अपडेट करें</string>
   <string name="changeMonthlyAmount">मासिक राशि बदलें (%s)</string>
   <string name="cancelSupport">अपना समर्थन रद्द करें</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s या %2$s</string>
+  <string name="xOrY">%1$s या %2$s</string>
   <string name="decideHowMuch">तय करें कि Lichess आपके लिए कितना योग्य है:</string>
   <string name="stopPayments">अपना क्रेडिट कार्ड वापस लें और भुगतान रोकें:</string>
   <string name="stopPaymentsPayPal">पेपैल सदस्यता रद्द करें और भुगतान रोकें:</string>

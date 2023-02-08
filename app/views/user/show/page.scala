@@ -3,17 +3,17 @@ package views.html.user.show
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.mashup.UserInfo
 import lila.app.mashup.UserInfo.Angle
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.game.Game
 import lila.user.User
 import lila.history.RatingChartApi
 
-object page {
+object page:
 
   def activity(
       u: User,
@@ -53,14 +53,15 @@ object page {
       info: UserInfo,
       games: Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
-      searchForm: Option[Form[_]],
+      searchForm: Option[Form[?]],
       social: lila.app.mashup.UserInfo.Social,
-      notes: Map[Game.ID, String]
+      notes: Map[GameId, String]
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title =
-        s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${if (games.currentPage == 1) ""
-          else " - page " + games.currentPage}",
+      title = s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${
+          if (games.currentPage == 1) ""
+          else " - page " + games.currentPage
+        }",
       moreJs = moreJs(info, filters.current.name == "search"),
       moreCss = frag(
         cssTag("user.show"),
@@ -97,10 +98,9 @@ object page {
   def disabled(u: User)(implicit ctx: Context) =
     views.html.base.layout(title = u.username, robots = false) {
       main(cls := "box box-pad")(
-        h1(u.username),
+        h1(cls := "box__top")(u.username),
         p(trans.settings.thisAccountIsClosed())
       )
     }
 
   private val dataUsername = attr("data-username")
-}

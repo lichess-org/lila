@@ -1,28 +1,24 @@
 package lila.pref
 
-sealed class Theme private[pref] (val name: String, val file: String) {
+final class Theme private[pref] (val name: String, val file: String):
 
   override def toString = name
 
   def cssClass = name
-}
 
-sealed trait ThemeObject {
+sealed trait ThemeObject:
 
   val all: List[Theme]
-
   val default: Theme
 
-  lazy val allByName = all map { c =>
-    c.name -> c
-  } toMap
+  lazy val allByName = all.mapBy(_.name)
 
-  def apply(name: String) = allByName.getOrElse(name, default)
+  def apply(name: String): Theme         = allByName.getOrElse(name, default)
+  def apply(name: Option[String]): Theme = name.fold(default)(apply)
 
   def contains(name: String) = allByName contains name
-}
 
-object Theme extends ThemeObject {
+object Theme extends ThemeObject:
 
   val all = List(
     new Theme("blue", "svg/blue.svg"),
@@ -52,10 +48,9 @@ object Theme extends ThemeObject {
     new Theme("horsey", "horsey.jpg")
   )
 
-  lazy val default = allByName get "brown" err "Can't find default theme D:"
-}
+  val default = allByName get "brown" err "Can't find default theme D:"
 
-object Theme3d extends ThemeObject {
+object Theme3d extends ThemeObject:
 
   val all = List(
     new Theme("Black-White-Aluminium", "Black-White-Aluminium.png"),
@@ -79,5 +74,4 @@ object Theme3d extends ThemeObject {
     new Theme("Woodi", "Woodi.png")
   )
 
-  lazy val default = allByName get "Woodi" err "Can't find default theme D:"
-}
+  val default = allByName get "Woodi" err "Can't find default theme D:"

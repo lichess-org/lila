@@ -61,8 +61,8 @@
   <string name="depthX">Hloubka %s</string>
   <string name="usingServerAnalysis">Používání analýzy serveru</string>
   <string name="loadingEngine">Načítání AI engine...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Výpočet tahů...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Chyba při načítání enginu</string>
+  <string name="calculatingMoves">Výpočet tahů...</string>
+  <string name="engineFailed">Chyba při načítání enginu</string>
   <string name="cloudAnalysis">Cloudová analýza</string>
   <string name="goDeeper">Hlouběji</string>
   <string name="showThreat">Zobrazit hrozbu</string>
@@ -98,6 +98,7 @@
   <string name="dtzWithRounding">DTZ50\'\' s zaokrouhlením na základě počtu půltahů do dalšího braní nebo tahu pěšcem</string>
   <string name="noGameFound">Žádná hra nenalezena</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možná zkuste vybrat více her z menu preferencí?</string>
+  <string name="openings">Zahájení</string>
   <string name="openingExplorer">Průzkumník zahájení</string>
   <string name="openingEndgameExplorer">Průzkumník zahájení/koncovek</string>
   <string name="xOpeningExplorer">%s průzkumník zahájení</string>
@@ -173,6 +174,7 @@
   <string name="viewInFullSize">Zobrazit v plné velikosti</string>
   <string name="logOut">Odhlásit se</string>
   <string name="signIn">Přihlásit se</string>
+  <string name="rememberMe">Zůstat přihlášen/a</string>
   <string name="youNeedAnAccountToDoThat">Pro následující akci je vyžadován účet</string>
   <string name="signUp">Registrace</string>
   <string name="computersAreNotAllowedToPlay">Počítačová asistence není během hraní povolena. Nepoužívejte během hraní šachové programy, databáze nebo nápovědu jiných hráčů.</string>
@@ -219,12 +221,31 @@
   <string name="changeUsername">Změnit uživatelské jméno</string>
   <string name="changeUsernameNotSame">Můžete změnit pouze velikost písmen. Např. z \"petrnovak\" na \"PetrNovak\".</string>
   <string name="changeUsernameDescription">Změňte své uživatelské jméno. To lze provést pouze jednou, a můžete změnit pouze velikost písmen.</string>
+  <string name="signupUsernameHint">Zvolte si vhodné a nezávadné uživatelské jméno. Později ho nelze změnit a účty s nevhodnými uživatelskými jmény budou uzavřeny!</string>
+  <string name="signupEmailHint">Bude použit pouze pro obnovení hesla.</string>
   <string name="password">Heslo</string>
   <string name="changePassword">Změnit heslo</string>
   <string name="changeEmail">Změnit email</string>
   <string name="email">Email</string>
   <string name="passwordReset">Změna hesla</string>
   <string name="forgotPassword">Zapomněl jste heslo?</string>
+  <string name="emailConfirmHelp">Pomoc s potvrzovacím e-mailem</string>
+  <string name="emailConfirmNotReceived">Neobdrželi jste potvrzovací e-mail po registraci?</string>
+  <string name="whatSignupUsername">Jaké uživatelské jméno jste použili k registraci?</string>
+  <string name="usernameNotFound">Nenašli jsme žádného uživatele s tímto jménem: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Můžete použít toto jméno pro vytvoření nového účtu</string>
+  <string name="emailSent">Poslali jsme e-mail na %s.</string>
+  <string name="emailCanTakeSomeTime">Může to chvíli trvat.</string>
+  <string name="refreshInboxAfterFiveMinutes">Počkejte 5 minut a obnovte vaši e-mailovou schránku.</string>
+  <string name="checkSpamFolder">Také zkontrolujte složku nevyžádané pošty. Pokud ano, označte mail jako vyžádaný.</string>
+  <string name="emailForSignupHelp">Pokud všechno ostatní selže, pošlete nám tento e-mail:</string>
+  <string name="copyTextToEmail">Zkopírujte a vložte výše uvedený text a pošlete jej na %s</string>
+  <string name="waitForSignupHelp">Brzy se k vám ozveme, abychom vám pomohli dokončit registraci.</string>
+  <string name="accountConfirmed">Uživatel %s byl úspěšně potvrzen.</string>
+  <string name="accountCanLogin">Nyní se můžete přihlásit jako %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Nepotřebujete potvrzovací e-mail.</string>
+  <string name="accountClosed">Účet %s je uzavřen.</string>
+  <string name="accountRegisteredWithoutEmail">Účet %s byl zaregistrován bez e-mailu.</string>
   <string name="rank">Pořadí</string>
   <string name="rankX">Pořadí: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -703,6 +724,7 @@
   <string name="tournamentFAQ">Arena turnaj - často kladené otázky</string>
   <string name="timeBeforeTournamentStarts">Čas do začátku turnaje</string>
   <string name="averageCentipawnLoss">Průměrná pěšcová ztráta</string>
+  <string name="accuracy">Přesnost</string>
   <string name="keyboardShortcuts">Klávesové zkratky</string>
   <string name="keyMoveBackwardOrForward">O tah vpřed/vzad</string>
   <string name="keyGoToStartOrEnd">běžte na začátek/konec</string>
@@ -819,6 +841,7 @@
   <string name="bestWasX">Nejlepší tah byl %s</string>
   <string name="youBrowsedAway">Procvičování přerušeno</string>
   <string name="resumePractice">Pokračovat v procvičování</string>
+  <string name="drawByFiftyMoves">Hra skončila remízou podle pravidla padesáti tahů.</string>
   <string name="theGameIsADraw">Hra končí remízou.</string>
   <string name="computerThinking">Počítač přemýšlí...</string>
   <string name="seeBestMove">Ukázat nejlepší tah</string>
@@ -952,9 +975,12 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="cancelSimul">Zrušit simultánku</string>
   <string name="simulHostcolor">Barva figur pořadatele</string>
   <string name="estimatedStart">Předpokládaný začátek</string>
+  <string name="simulFeatured">Funkce v %s</string>
+  <string name="simulFeaturedHelp">Zobrazit vaši simultánní hru všem na %s. Vypnout pro soukromé simultánní hry.</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Je tu něco co by jste chtěli sdělit účastníkům?</string>
   <string name="markdownAvailable">%s je k dispozici pro pokročilé formátování.</string>
+  <string name="embedsAvailable">Vložte URL hry nebo kapitoly studie pro zobrazení.</string>
   <string name="inYourLocalTimezone">Ve vašem časovém pásmu</string>
   <string name="tournChat">Turnajový chat</string>
   <string name="noChat">Vypnutý chat</string>
@@ -966,6 +992,7 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="toggleAllAnalysis">Zapnout/vypnout všechny počítačové analýzy</string>
   <string name="playComputerMove">Zahrát nejlepší počítačový tah</string>
   <string name="analysisOptions">Ovládání analýzy</string>
+  <string name="focusChat">Vybrat chat</string>
   <string name="showHelpDialog">Zobrazit tuto nápovědu</string>
   <string name="reopenYourAccount">Znovu otevřít svůj účet</string>
   <string name="closedAccountChangedMind">Pokud jste uzavřel svůj účet, ale od té doby jste změnili názor, dostanete jednu šanci získat svůj účet zpět.</string>

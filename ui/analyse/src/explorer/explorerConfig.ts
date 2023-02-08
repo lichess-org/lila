@@ -1,12 +1,11 @@
 import { h, VNode } from 'snabbdom';
 import { Prop, prop } from 'common';
-import { bind, dataIcon, onInsert } from 'common/snabbdom';
+import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
 import { storedProp, storedJsonProp, StoredJsonProp, StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import { snabModal } from 'common/modal';
 import AnalyseCtrl from '../ctrl';
 import { perf } from 'game/perf';
-import { iconTag } from '../util';
 import { ucfirst } from './explorerUtil';
 import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';
@@ -14,7 +13,7 @@ import { Redraw } from '../interfaces';
 
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
-const allRatings = [1600, 1800, 2000, 2200, 2500];
+const allRatings = [600, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500];
 const minYear = 1952;
 const minLichessYear = 2012;
 
@@ -76,7 +75,7 @@ export class ExplorerConfigCtrl {
         str => str as ExplorerDb,
         v => v
       ),
-      rating: storedJsonProp('explorer.rating', () => allRatings),
+      rating: storedJsonProp('explorer.rating', () => allRatings.filter(r => r >= 1600)),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
       byDbData,
@@ -318,7 +317,10 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [
         h('input', {
-          attrs: { placeholder: ctrl.root.trans.noarg('searchByUsername') },
+          attrs: {
+            placeholder: ctrl.root.trans.noarg('searchByUsername'),
+            spellcheck: 'false',
+          },
           hook: onInsert<HTMLInputElement>(input =>
             lichess.userComplete().then(uac => {
               uac({

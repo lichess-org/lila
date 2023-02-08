@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="contact">צור קשר</string>
-  <string name="contactLichess">צור קשר עם ליצ\'ס</string>
+  <string name="contact">צרו קשר</string>
+  <string name="contactLichess">צרו קשר עם ליצ\'ס</string>
   <string name="whatCanWeHelpYouWith">במה נוכל לעזור?</string>
   <string name="visitThisPage">צפו בעמוד זה כדי לפתור את הבעיה</string>
   <string name="iCantLogIn">אני לא מצליח/ה להתחבר</string>
@@ -11,7 +11,7 @@
   <string name="youCanLoginWithEmail">את/ה יכול/ה להתחבר עם כתובת האימייל שאיתה נרשמת</string>
   <string name="lost2FA">איבדתי גישה לקודי האימות הדו־שלביים שלי</string>
   <string name="doPasswordReset">השלימו איפוס סיסמה כדי להסיר את השלב השני שלכם</string>
-  <string name="accountSupport">אני צריך תמיכת חשבון</string>
+  <string name="accountSupport">אני צריך/ה תמיכת חשבון</string>
   <string name="wantTitle">אני רוצה שהתואר שלי יוצג בליצ\'ס</string>
   <string name="visitTitleConfirmation">כדי להציג את התואר שלך בפרופיל בלִיצֶ\'ס, וכדי להשתתף בארנות לבעלי תארים (Titled Arenas), בקר/י בעמוד אימות התארים</string>
   <string name="wantCloseAccount">אני מעוניין/ת לסגור את חשבוני</string>
@@ -43,7 +43,7 @@
   <string name="calledEnPassant">זה נקרא \"הכאה דרך הילוכו״ וזה מסע חוקי בשחמט.</string>
   <string name="tryEnPassant">נסו את המשחק האינטראקטיבי הקצר הזה כדי ללמוד עוד על ״הכאה דרך הילוכו״.</string>
   <string name="illegalCastling">הצרחה לא חוקית או לא אפשרית</string>
-  <string name="castlingPrevented">הצרחה לא אפשרית באופן זמני אם המלך יצטרך לעבור דרך ערוגה מותקפת.</string>
+  <string name="castlingPrevented">הצרחה לא אפשרית באופן זמני אם המלך יצטרך לעבור דרך משבצת מותקפת.</string>
   <string name="castlingRules">היו בטוחים שהבנתם את חוקי ההצרחה</string>
   <string name="tryCastling">נסו את המשחקים האינטראקטיביים הקצרים האלו כדי ללמוד על הצרחה</string>
   <string name="castlingImported">אם ייבאתם את המשחק או התחלתם אותו מעמדה מותאמת אישית, בדקו אם הגדרתם את זכויות ההצרחה בצורה נכונה.</string>
@@ -70,7 +70,7 @@
   <string name="welcomeToUse">אתם מוזמנים להשתמש בליצ\'ס לצורך פעילותכם, גם מסחרית.</string>
   <string name="videosAndBooks">אתם יכול להציג את Lichess בסרטונים שלכם, ואתם יכול להדפיס צילומי מסך מתוך לִיצֶ\'ס בספרים שלכם.</string>
   <string name="creditAppreciated">מתן קרדיט מוערך אך אינו נדרש.</string>
-  <string name="noneOfTheAbove">אף אחד מן הנזכרים לעיל</string>
-  <string name="sendEmailAt">שלחו לנו אימייל ב%s.</string>
+  <string name="noneOfTheAbove">משהו אחר</string>
+  <string name="sendEmailAt">שלחו לנו אימייל ל־%s.</string>
   <string name="explainYourRequest">אנא הסבירו את בקשתכם בבירור וביסודיות. ציינו את שם המשתמש שלכם בליצ\'ס וכל מידע שיכול לעזור לנו לעזור לכם.</string>
 </resources>

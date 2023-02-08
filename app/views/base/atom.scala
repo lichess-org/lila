@@ -5,11 +5,11 @@ import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.mvc.Call
 
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.config.BaseUrl
 
-object atom {
+object atom:
 
   def apply[A](
       elems: Seq[A],
@@ -47,4 +47,3 @@ object atom {
       labelAttr  := label,
       schemeAttr := scheme
     )
-}

@@ -24,15 +24,13 @@
   <string name="perk1">Es git es flammends Streamer-Symbol i dis Lichess-Profil.</string>
   <string name="perk2">Wird ad Schpitze vu de Streamerlischte gsetzt.</string>
   <string name="perk3">Benachrichtige deine Lichess-Follower.</string>
-  <string name="perk4">Zeig din Stream i dine Schpil, Turnier und Schtudie.</string>
+  <string name="perk4">Zeig din Stream i dine Schpiel, Turnier und Schtudie.</string>
   <string name="approved">Din Stream isch gnehmigt wordä.</string>
   <string name="pendingReview">Din Stream wird vo Moderatorä überprüäft.</string>
   <string name="pleaseFillIn">Bitte füll dini Streamer-Informatione us und lad es Bild ufe.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wänn du parat bisch, als Streamer azeigt z\'werde, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">verlang e Überprüefig dur en Moderator</string>
-  <string name="anotherLanguage">Falls du innere andere Schprach als Änglisch streamst, dänn füeg, am Afang vu dim Stream Titel, die richtig Schprachmarkierig (%s) i und zwar igschlosse vu eckige Chlammere. Wie z. B. es \"[DE]\" für Dütsch, \"[FR]\" für Französisch oder ebe \"[CH]\" für Schwizerdütsch usw.
-Uf \"Twitch\" oder \"YouTube\" chann mer das vorher ischtelle, i de Lichess-Streamer Ischtellige nöd. 
-Wänn din Stream in Änglisch isch, muesch kei Schprachmarkierig bifüege.</string>
+  <string name="streamerLanguageSettings">D\'Lichess-Streamer-Site richtet sich a ihres Publikum mit dere Schprach, wo vu dinere Streaming-Platform bereit gschtellt wird. Wähl die richtig Schtandard-Schprach, für dini Schach-Streams, i de App oder i dem Dienscht, wo du für d\'Überträgig verwändsch.</string>
   <string name="twitchUsername">Din Twitch-Benutzername oder d\'URL</string>
   <string name="optionalOrEmpty">Optional. Leer lassen falls nicht verfügbar</string>
   <string name="youtubeChannel">Dini YouTube-Kanal-ID oder -URL</string>

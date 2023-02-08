@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Утримуйте клавішу &lt;ctrl&gt; під час перетворення, щоб тимчасово вимкнути автоматичне перетворення</string>
   <string name="whenPremoving">Для ходів на випередження</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматично оголошувати нічию при троєкратному повторенні ходів</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Коли часу залишається &lt; 30 секунд</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Коли часу залишається &lt; 30 секунд</string>
   <string name="moveConfirmation">Підтвердження ходу</string>
   <string name="inCorrespondenceGames">У заочних партіях</string>
   <string name="correspondenceAndUnlimited">За листуванням та необмежені</string>

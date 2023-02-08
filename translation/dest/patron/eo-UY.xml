@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donaci</string>
+  <string name="donateAsX">Donaci kiel %s</string>
   <string name="lichessPatron">Lichess Patrono</string>
   <string name="freeAccount">Senpaga konto</string>
   <string name="becomePatron">Fariĝu Lichess Patrono</string>
   <string name="xBecamePatron">%s fariĝu Lichess Patrono</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s estas Patrono de Lichess dum %2$s monato</item>
+    <item quantity="other">%1$s estas Patrono de Lichess dum %2$s monatoj</item>
+  </plurals>
   <string name="newPatrons">Novaj Patronoj</string>
   <string name="freeChess">Senpaga ŝako por ĉiuj, por ĉiam!</string>
   <string name="noAdsNoSubs">Neniu anonco, neniu abono; sed malferma kodo kaj pasio.</string>
@@ -21,6 +26,7 @@
   <string name="onetime">Unu foje</string>
   <string name="singleDonation">Ununura donaco, kiu donas al vi la Patron-flugilojn dum unu monato.</string>
   <string name="otherAmount">Alia</string>
+  <string name="pleaseEnterAmountInX">Bonvolu tajpi kvanton en %s</string>
   <string name="withCreditCard">Kreditkarto</string>
   <string name="weAreSmallTeam">Ni estas malgranda teamo, tial via subteno faras grandegan diferencon!</string>
   <string name="celebratedPatrons">La elstaraj Patronoj, kiuj ebligas Lichess</string>
@@ -50,10 +56,11 @@ Tamen, Patronoj ekhavas rajtojn fiere uzi novan profilan ikonon.</string>
   <string name="nextPayment">Sekva pago</string>
   <string name="youWillBeChargedXOnY">Ni enpezigos el vi %1$s la %2$s.</string>
   <string name="makeAdditionalDonation">Faru kroman donacon nun</string>
+  <string name="giftPatronWings">Donaci Patron-flugilojn al ludanto</string>
   <string name="update">Ĝisdatigi</string>
   <string name="changeMonthlyAmount">Ŝanĝu la monatan sumon (%s)</string>
   <string name="cancelSupport">nuligi vian subtenon</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s aŭ %2$s</string>
+  <string name="xOrY">%1$s aŭ %2$s</string>
   <string name="decideHowMuch">Decidu, kiom valoras Lichess por vi:</string>
   <string name="stopPayments">Retiru vian kreditkarton kaj ĉesu pagojn:</string>
   <string name="noLongerSupport">Ne plu subtenas Lichess</string>
@@ -66,4 +73,5 @@ Tamen, Patronoj ekhavas rajtojn fiere uzi novan profilan ikonon.</string>
   <string name="nowLifetime">Vi nun estas dumviva Lichess Patrono!</string>
   <string name="nowOneMonth">Nun vi estas Lichess Patrono por unu monato!</string>
   <string name="downgradeNextMonth">En unu monato, vi NE estos ŝargita denove, kaj via Lichess konto revenos al regula konto.</string>
+  <string name="changeCurrency">Ŝanĝi valuton</string>
 </resources>

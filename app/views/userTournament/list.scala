@@ -3,14 +3,14 @@ package userTournament
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.user.User
 
 import controllers.routes
 
-object list {
+object list:
 
   def apply(
       u: User,
@@ -57,4 +57,3 @@ object list {
           )
         )
       )
-}

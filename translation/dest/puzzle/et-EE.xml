@@ -13,6 +13,8 @@
   <string name="specialMoves">Erilised käigud</string>
   <string name="didYouLikeThisPuzzle">Kas sulle meeldis see pusle?</string>
   <string name="voteToLoadNextOne">Hääleta, nii saad edasi!</string>
+  <string name="upVote">Hääleta poolt</string>
+  <string name="downVote">Hääleta vastu</string>
   <string name="yourPuzzleRatingWillNotChange">Teie pusle reiting ei muutu. Pidage meeles, et pusled ei ole võistlus. Teie reiting aitab valida kõige sobilikumad pusled olenevalt teie oskustele.</string>
   <string name="findTheBestMoveForWhite">Leia parim käik valgele.</string>
   <string name="findTheBestMoveForBlack">Leia parim käik mustale.</string>
@@ -43,6 +45,7 @@
   <string name="hardest">Väga raske</string>
   <string name="example">Näide</string>
   <string name="addAnotherTheme">Lisa teine teema</string>
+  <string name="nextPuzzle">Järgmine pusle</string>
   <string name="jumpToNextPuzzleImmediately">Mine kohe järgmise pusle juurde</string>
   <string name="puzzleDashboard">Puslepaneel</string>
   <string name="improvementAreas">Paranda neid</string>
@@ -50,8 +53,26 @@
   <string name="history">Puslede ajalugu</string>
   <string name="solved">lahendatud</string>
   <string name="failed">ebaõnnestus</string>
+  <string name="streakDescription">Lahenda järjest keerukamaid puslesid ja suurenda oma võitude seeriat. Kella ei ole, seega võta rahulikult. Üks vale samm ja on mäng läbi! Kuid sa võid ühe käigu sessiooni kohta vahele jätta.</string>
+  <string name="yourStreakX">Praegune seeria: %s</string>
+  <string name="streakSkipExplanation">Jäta see käik vahele, et säilitada oma seeria! Toimib ainult üks kord sessiooni kohta.</string>
+  <string name="continueTheStreak">Jätka seeriat</string>
+  <string name="newStreak">Uus seeria</string>
   <string name="fromMyGames">Minu mängudest</string>
   <string name="fromXGames">Pusled %s mängudest</string>
   <string name="searchPuzzles">Otsi puslesid</string>
   <string name="fromXGamesFound">%1$s puslet leitud %2$s mängudes</string>
+  <string name="puzzleDashboardDescription">Treeni, analüüsi, täiusta</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s mängitud</item>
+    <item quantity="other">%s mängitud</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s kodamiseks</item>
+    <item quantity="other">%s kodamiseks</item>
+  </plurals>
+  <string name="percentSolved">%s lahendatud</string>
+  <string name="noPuzzlesToShow">Midagi pole näidata, lahenda ennem mõned pusled!</string>
+  <string name="improvementAreasDescription">Harjuta neid, et optimeerida oma edusamme!</string>
+  <string name="strengthDescription">Sa lahendad kõige paremini neid teemasid</string>
 </resources>

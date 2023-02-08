@@ -2,42 +2,42 @@ package lila.rating
 
 import lila.common.Maths.closestMultipleOf
 
-case class RatingRange(min: Int, max: Int) {
+case class RatingRange(min: IntRating, max: IntRating):
 
-  def contains(rating: Int) =
+  def contains(rating: IntRating) =
     (min <= RatingRange.min || rating >= min) &&
       (max >= RatingRange.max || rating <= max)
 
   def notBroad: Option[RatingRange] = (this != RatingRange.broad) option this
 
-  def withinLimits(rating: Int, delta: Int, multipleOf: Int) =
+  def withinLimits(rating: IntRating, delta: Int, multipleOf: Int) =
     copy(
-      min = closestMultipleOf(multipleOf, min.atMost(rating + delta)),
-      max = closestMultipleOf(multipleOf, max.atLeast(rating - delta))
+      min = IntRating(closestMultipleOf(multipleOf, min.atMost(rating + delta).value)),
+      max = IntRating(closestMultipleOf(multipleOf, max.atLeast(rating - delta).value))
     )
 
   override def toString = s"$min-$max"
-}
 
-object RatingRange {
+object RatingRange:
 
   val min = Glicko.minRating
-  val max = 2900
+  val max = IntRating(2900)
 
   val broad   = RatingRange(min, max)
   val default = broad
 
-  // ^\d{3,4}\-\d{3,4}$
-  def apply(from: String): Option[RatingRange] =
-    for {
-      min <- from.takeWhile('-' !=).toIntOption
-      if acceptable(min)
-      max <- from.dropWhile('-' !=).tail.toIntOption
-      if acceptable(max)
-      if min < max
-    } yield RatingRange(min, max)
+  def readRating(str: String) = IntRating from str.toIntOption
 
-  def apply(rating: Int, deltaMin: Option[String], deltaMax: Option[String]): Option[RatingRange] =
+  // ^\d{3,4}\-\d{3,4}$
+  def apply(from: String): Option[RatingRange] = for {
+    min <- readRating(from.takeWhile('-' !=))
+    if acceptable(min)
+    max <- readRating(from.dropWhile('-' !=).tail)
+    if acceptable(max)
+    if min < max
+  } yield RatingRange(min, max)
+
+  def apply(rating: IntRating, deltaMin: Option[String], deltaMax: Option[String]): Option[RatingRange] =
     for {
       dmin <- deltaMin.flatMap(_.toIntOption)
       min = rating + dmin
@@ -49,7 +49,7 @@ object RatingRange {
     } yield RatingRange(min, max)
 
   def orDefault(from: String) = apply(from) | default
-  def orDefault(rating: Option[Int], deltaMin: Option[String], deltaMax: Option[String]) =
+  def orDefault(rating: Option[IntRating], deltaMin: Option[String], deltaMax: Option[String]) =
     rating.flatMap(r => apply(r, deltaMin, deltaMax)) | default
 
   def noneIfDefault(from: String) =
@@ -58,5 +58,4 @@ object RatingRange {
 
   def valid(from: String) = apply(from).isDefined
 
-  private def acceptable(rating: Int) = broad contains rating
-}
+  private def acceptable(rating: IntRating) = broad contains rating

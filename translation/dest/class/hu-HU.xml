@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Órák</string>
+  <string name="lichessClasses">Tanulócsoportok</string>
   <string name="teachClassesOfChessStudents">Tanítson sakk diákok osztályait a Lichess osztályok eszközkészlettel.</string>
   <string name="features">Jellemzők</string>
   <string name="quicklyGenerateSafeUsernames">Gyorsan előállíthat biztonságos felhasználóneveket és jelszavakat a hallgatók számára</string>

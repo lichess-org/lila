@@ -1,68 +1,18 @@
-import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, PvBoard, Started } from './types';
-import { isIOS, isIPad, isAndroid } from 'common/mobile';
-import { Result } from '@badrap/result';
-import { AbstractWorker, WebWorker, ThreadedWasmWorker, ExternalWorker, ExternalWorkerOpts } from './worker';
-import { prop } from 'common';
-import { storedBooleanProp, storedIntProp } from 'common/storage';
 import throttle from 'common/throttle';
-import { povChances } from './winningChances';
-import { sanIrreversible } from './util';
+import { CevalState, CevalWorker, WebWorker, ThreadedWasmWorker, ExternalEngine, ExternalWorker } from './worker';
 import { Cache } from './cache';
+import { CevalOpts, Work, Step, Hovering, PvBoard, Started } from './types';
+import { defaultDepth, engineName, sanIrreversible, sharedWasmMemory } from './util';
+import { defaultPosition, setupPosition } from 'chessops/variant';
 import { parseFen } from 'chessops/fen';
 import { isStandardMaterial } from 'chessops/chess';
-import { defaultPosition, setupPosition } from 'chessops/variant';
 import { lichessRules } from 'chessops/compat';
-
-const sharedWasmMemory = (initial: number, maximum: number): WebAssembly.Memory =>
-  new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
-
-function sendableSharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory | undefined {
-  // Atomics
-  if (typeof Atomics !== 'object') return;
-
-  // SharedArrayBuffer
-  if (typeof SharedArrayBuffer !== 'function') return;
-
-  // Shared memory
-  const mem = sharedWasmMemory(initial, maximum);
-  if (!(mem.buffer instanceof SharedArrayBuffer)) return;
-
-  // Structured cloning
-  try {
-    window.postMessage(mem.buffer, '*');
-  } catch (e) {
-    return undefined;
-  }
-  return mem;
-}
-
-function defaultDepth(technology: CevalTechnology, threads: number, multiPv: number): number {
-  const extraDepth = Math.min(Math.max(threads - multiPv, 0), 6);
-  switch (technology) {
-    case 'asmjs':
-      return 18;
-    case 'wasm':
-      return 20;
-    case 'external':
-      return 24 + extraDepth;
-    default:
-      return 22 + extraDepth;
-  }
-}
-
-function engineName(technology: CevalTechnology, externalOpts: ExternalWorkerOpts | null): string {
-  switch (technology) {
-    case 'external':
-      return externalOpts!.name;
-    case 'wasm':
-    case 'asmjs':
-      return 'Stockfish 10+';
-    case 'hce':
-      return 'Stockfish 11+';
-    case 'nnue':
-      return 'Stockfish 14+';
-  }
-}
+import { povChances } from './winningChances';
+import { prop, Toggle, toggle } from 'common';
+import { Result } from '@badrap/result';
+import { storedBooleanProp, storedIntProp, StoredProp, storedStringProp } from 'common/storage';
+import { Rules } from 'chessops';
+import { CevalPlatform, CevalTechnology, detectPlatform } from './platform';
 
 const cevalDisabledSentinel = '1';
 
@@ -72,137 +22,102 @@ function enabledAfterDisable() {
   return enabledAfter === disable;
 }
 
-export default function (opts: CevalOpts): CevalCtrl {
-  const storageKey = (k: string) => {
-    return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
-  };
-  const enableNnue = storedBooleanProp('ceval.enable-nnue', !(navigator as any).connection?.saveData);
+export default class CevalCtrl {
+  rules: Rules;
+  analysable: boolean;
+  possible: boolean;
+  cachable: boolean;
+  private officialStockfish: boolean;
 
-  // check root position
-  const rules = lichessRules(opts.variant.key);
-  const pos = opts.initialFen
-    ? parseFen(opts.initialFen).chain(setup => setupPosition(rules, setup))
-    : Result.ok(defaultPosition(rules));
-  const analysable = pos.isOk;
+  platform: CevalPlatform;
+  technology: CevalTechnology;
 
-  // select nnue > hce > wasm > asmjs
-  const officialStockfish = rules == 'chess' && (!analysable || isStandardMaterial(pos.value));
-  let technology: CevalTechnology = 'asmjs';
-  let growableSharedMem = false;
-  let supportsNnue = false;
-  const source = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]);
-  if (typeof WebAssembly === 'object' && typeof WebAssembly.validate === 'function' && WebAssembly.validate(source)) {
-    technology = 'wasm'; // WebAssembly 1.0
-    const sharedMem = sendableSharedWasmMemory(1, 2);
-    if (sharedMem?.buffer) {
-      technology = 'hce';
+  selectedEngine: StoredProp<string> = storedStringProp('ceval.engine', 'lichess');
+  externalEngine?: ExternalEngine; // if selected, available, and usable for current rules
 
-      // i32x4.dot_i16x8_s, i32x4.trunc_sat_f64x2_u_zero
-      const sourceWithSimd = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0, 1, 12, 2, 96, 2, 123, 123, 1, 123, 96, 1, 123, 1, 123, 3, 3, 2, 0, 1, 7, 9, 2, 1, 97, 0, 0, 1, 98, 0, 1, 10, 19, 2, 9, 0, 32, 0, 32, 1, 253, 186, 1, 11, 7, 0, 32, 0, 253, 253, 1, 11]); // prettier-ignore
-      supportsNnue = WebAssembly.validate(sourceWithSimd);
-      if (supportsNnue && officialStockfish && enableNnue()) technology = 'nnue';
+  enableNnue = storedBooleanProp('ceval.enable-nnue', !(navigator as any).connection?.saveData);
+  infinite = storedBooleanProp('ceval.infinite', false);
+  multiPv: StoredProp<number>;
+  allowed = toggle(true);
+  enabled: Toggle;
+  downloadProgress = prop(0);
+  hovering = prop<Hovering | null>(null);
+  pvBoard = prop<PvBoard | null>(null);
+  isDeeper = toggle(false);
 
-      try {
-        sharedMem.grow(1);
-        growableSharedMem = true;
-      } catch (e) {
-        // memory growth not supported
-      }
-    }
+  curEval: Tree.LocalEval | null = null;
+  lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
+
+  private worker: CevalWorker | undefined;
+
+  constructor(readonly opts: CevalOpts) {
+    this.possible = this.opts.possible;
+
+    // check root position
+    this.rules = lichessRules(this.opts.variant.key);
+    const pos = this.opts.initialFen
+      ? parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup))
+      : Result.ok(defaultPosition(this.rules));
+    this.analysable = pos.isOk;
+    this.officialStockfish = this.rules == 'chess' && (pos.isErr || isStandardMaterial(pos.value));
+    this.enabled = toggle(this.possible && this.analysable && this.allowed() && enabledAfterDisable());
+
+    this.externalEngine = this.opts.externalEngines?.find(
+      e =>
+        e.id == this.selectedEngine() && (this.officialStockfish || e.variants.map(lichessRules).includes(this.rules))
+    );
+    this.platform = detectPlatform(this.officialStockfish, this.enableNnue(), this.externalEngine);
+    this.technology = this.platform.technology;
+
+    this.multiPv = storedIntProp(this.storageKey('ceval.multipv'), this.opts.multiPvDefault || 1);
+    this.cachable = this.technology == 'nnue' || this.technology == 'hce' || !!this.externalEngine?.officialStockfish;
   }
 
-  const externalOpts: ExternalWorkerOpts | null = JSON.parse(lichess.storage.get('ceval.external') || 'null');
-  if (externalOpts && (officialStockfish || externalOpts.variants?.includes(rules))) technology = 'external';
+  storageKey = (k: string) => (this.opts.storageKeyPrefix ? `${this.opts.storageKeyPrefix}.${k}` : k);
 
-  const initialAllocationMaxThreads = officialStockfish ? 2 : 1;
-  const maxThreads =
-    technology == 'external'
-      ? externalOpts!.maxThreads
-      : technology == 'nnue' || technology == 'hce'
-      ? Math.min(
-          Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
-          growableSharedMem ? 32 : initialAllocationMaxThreads
-        )
-      : 1;
-  const threads = () => {
-    const stored = lichess.storage.get(storageKey('ceval.threads'));
-    return Math.min(maxThreads, stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4));
+  threads = () => {
+    const stored = lichess.storage.get(this.storageKey('ceval.threads'));
+    return Math.min(
+      this.platform.maxThreads,
+      stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4)
+    );
   };
-  const pow2floor = (n: number) => {
-    let pow2 = 1;
-    while (pow2 * 2 <= n) pow2 *= 2;
-    return pow2;
-  };
-  const maxWasmPages = (minPages: number): number => {
-    if (!growableSharedMem) return minPages;
-    let maxPages = 32768; // hopefully desktop browser, 2 GB max shared
-    if (isAndroid()) maxPages = 8192; // 512 MB max shared
-    else if (isIPad()) maxPages = 8192; // 512 MB max shared
-    else if (isIOS()) maxPages = 4096; // 256 MB max shared
-    return Math.max(minPages, maxPages);
-  };
-  // the numbers returned by maxHashMB seem small, but who knows if wasm stockfish performance even
-  // scales like native stockfish with increasing hash.  prefer smaller, non-crashing values
-  // steer the high performance crowd towards external engine as it gets better
-  const maxHashMB = (): number => {
-    let maxHash = 256; // this is conservative but safe, mostly desktop firefox / mac safari users here
-    if (navigator.deviceMemory) maxHash = pow2floor(navigator.deviceMemory * 128); // chrome/edge/opera
-    else if (isAndroid()) maxHash = 64; // budget androids are easy to crash @ 128
-    else if (isIPad()) maxHash = 64; // ipados safari pretends to be desktop but acts more like iphone
-    else if (isIOS()) maxHash = 32;
-    return maxHash;
-  };
-  const maxHashSize = technology == 'external' ? externalOpts!.maxHash || 16 : maxHashMB();
 
-  const hashSize = () => {
-    const stored = lichess.storage.get(storageKey('ceval.hash-size'));
-    return Math.min(maxHashSize, stored ? parseInt(stored, 10) : 16);
+  hashSize = () => {
+    const stored = lichess.storage.get(this.storageKey('ceval.hash-size'));
+    return Math.min(this.platform.maxHashSize(), stored ? parseInt(stored, 10) : 16);
   };
-  const multiPv = storedIntProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
-  const infinite = storedBooleanProp('ceval.infinite', false);
-  let curEval: Tree.LocalEval | null = null;
-  const allowed = prop(true);
-  const enabled = prop(opts.possible && analysable && allowed() && enabledAfterDisable());
-  const downloadProgress = prop(0);
-  let running = false;
-  let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
-  const hovering = prop<Hovering | null>(null);
-  const pvBoard = prop<PvBoard | null>(null);
-  const isDeeper = prop(false);
 
-  let worker: AbstractWorker<unknown> | undefined;
+  private lastEmitFen: string | null = null;
+  private sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
+    pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
 
-  let lastEmitFen: string | null = null;
-  const onEmit = throttle(200, (ev: Tree.LocalEval, work: Work) => {
-    sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
-    curEval = ev;
-    opts.emit(ev, work);
-    if (ev.fen !== lastEmitFen && enabledAfterDisable()) {
+  onEmit = throttle(200, (ev: Tree.LocalEval, work: Work) => {
+    this.sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
+    this.curEval = ev;
+    this.opts.emit(ev, work);
+    if (ev.fen !== this.lastEmitFen && enabledAfterDisable()) {
       // amnesty while auto disable not processed
-      lastEmitFen = ev.fen;
+      this.lastEmitFen = ev.fen;
       lichess.storage.fire('ceval.fen', ev.fen);
     }
   });
 
-  const curDepth = () => (curEval ? curEval.depth : 0);
+  curDepth = () => this.curEval?.depth || 0;
 
-  const effectiveMaxDepth = () => (isDeeper() || infinite() ? 99 : defaultDepth(technology, threads(), multiPv()));
+  effectiveMaxDepth = () =>
+    this.isDeeper() || this.infinite() ? 99 : defaultDepth(this.technology, this.threads(), this.multiPv());
 
-  const sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
-    pvs.sort(function (a, b) {
-      return povChances(color, b) - povChances(color, a);
-    });
+  private doStart = (path: Tree.Path, steps: Step[], threatMode: boolean) => {
+    if (!this.enabled() || !this.possible || !enabledAfterDisable()) return;
 
-  const start = (path: Tree.Path, steps: Step[], threatMode: boolean) => {
-    if (!enabled() || !opts.possible || !enabledAfterDisable()) return;
-
-    const maxDepth = effectiveMaxDepth();
+    const maxDepth = this.effectiveMaxDepth();
 
     const step = steps[steps.length - 1];
 
     const existing = threatMode ? step.threat : step.ceval;
     if (existing && existing.depth >= maxDepth) {
-      lastStarted = {
+      this.lastStarted = {
         path,
         steps,
         threatMode,
@@ -211,21 +126,20 @@ export default function (opts: CevalOpts): CevalCtrl {
     }
 
     const work: Work = {
-      variant: opts.variant.key,
-      threads: threads(),
-      hashSize: hashSize(),
+      variant: this.opts.variant.key,
+      threads: this.threads(),
+      hashSize: this.hashSize(),
       stopRequested: false,
-
       initialFen: steps[0].fen,
       moves: [],
       currentFen: step.fen,
       path,
       ply: step.ply,
       maxDepth,
-      multiPv: multiPv(),
+      multiPv: this.multiPv(),
       threatMode,
-      emit(ev: Tree.LocalEval) {
-        if (enabled()) onEmit(ev, work);
+      emit: (ev: Tree.LocalEval) => {
+        if (this.enabled()) this.onEmit(ev, work);
       },
     };
 
@@ -238,7 +152,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       // send fen after latest castling move and the following moves
       for (let i = 1; i < steps.length; i++) {
         const s = steps[i];
-        if (sanIrreversible(opts.variant.key, s.san!)) {
+        if (sanIrreversible(this.opts.variant.key, s.san!)) {
           work.moves = [];
           work.initialFen = s.fen;
         } else work.moves.push(s.uci!);
@@ -249,143 +163,116 @@ export default function (opts: CevalOpts): CevalCtrl {
     lichess.storage.fire('ceval.disable');
     lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
 
-    if (!worker) {
-      if (technology == 'external') worker = new ExternalWorker(externalOpts!);
-      else if (technology == 'nnue')
-        worker = new ThreadedWasmWorker({
-          baseUrl: 'vendor/stockfish-nnue.wasm/',
-          module: 'Stockfish',
-          downloadProgress: throttle(200, mb => {
-            downloadProgress(mb);
-            opts.redraw();
-          }),
-          version: 'b6939d',
-          wasmMemory: sharedWasmMemory(2048, maxWasmPages(2048)),
-          cache: window.indexedDB && new Cache('ceval-wasm-cache'),
-        });
-      else if (technology == 'hce')
-        worker = new ThreadedWasmWorker({
-          baseUrl: officialStockfish ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
-          module: officialStockfish ? 'Stockfish' : 'StockfishMv',
-          version: 'a022fa',
-          wasmMemory: sharedWasmMemory(1024, maxWasmPages(1088)),
-        });
+    if (!this.worker) {
+      if (this.externalEngine) this.worker = new ExternalWorker(this.externalEngine, this.opts.redraw);
+      else if (this.technology == 'nnue')
+        this.worker = new ThreadedWasmWorker(
+          {
+            baseUrl: 'vendor/stockfish-nnue.wasm/',
+            module: 'Stockfish',
+            downloadProgress: throttle(200, mb => {
+              this.downloadProgress(mb);
+              this.opts.redraw();
+            }),
+            version: 'b6939d',
+            wasmMemory: sharedWasmMemory(2048, this.platform.maxWasmPages(2048)),
+            cache: window.indexedDB && new Cache('ceval-wasm-cache'),
+          },
+          this.opts.redraw
+        );
+      else if (this.technology == 'hce')
+        this.worker = new ThreadedWasmWorker(
+          {
+            baseUrl: this.officialStockfish ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
+            module: this.officialStockfish ? 'Stockfish' : 'StockfishMv',
+            version: 'a022fa',
+            wasmMemory: sharedWasmMemory(1024, this.platform.maxWasmPages(1088)),
+          },
+          this.opts.redraw
+        );
       else
-        worker = new WebWorker({
-          url: technology == 'wasm' ? 'vendor/stockfish.js/stockfish.wasm.js' : 'vendor/stockfish.js/stockfish.js',
-        });
+        this.worker = new WebWorker(
+          {
+            url:
+              this.technology == 'wasm' ? 'vendor/stockfish.js/stockfish.wasm.js' : 'vendor/stockfish.js/stockfish.js',
+          },
+          this.opts.redraw
+        );
     }
 
-    worker.start(work);
+    this.worker.start(work);
 
-    running = true;
-    lastStarted = {
+    this.lastStarted = {
       path,
       steps,
       threatMode,
     };
   };
 
-  function goDeeper() {
-    isDeeper(true);
-    if (lastStarted) {
-      if (infinite()) {
-        if (curEval) opts.emit(curEval, lastStarted);
+  goDeeper = () => {
+    this.isDeeper(true);
+    if (this.lastStarted) {
+      if (this.infinite()) {
+        if (this.curEval) this.opts.emit(this.curEval, this.lastStarted);
       } else {
-        stop();
-        start(lastStarted.path, lastStarted.steps, lastStarted.threatMode);
+        this.stop();
+        this.doStart(this.lastStarted.path, this.lastStarted.steps, this.lastStarted.threatMode);
       }
     }
-  }
+    this.opts.redraw();
+  };
 
-  function stop() {
-    if (!enabled() || !running) return;
-    worker?.stop();
-    running = false;
-  }
+  stop = () => {
+    this.worker?.stop();
+  };
 
-  const showingCloud = (): boolean => {
-    if (!lastStarted) return false;
-    const curr = lastStarted.steps[lastStarted.steps.length - 1];
+  showingCloud = (): boolean => {
+    if (!this.lastStarted) return false;
+    const curr = this.lastStarted.steps[this.lastStarted.steps.length - 1];
     return !!curr.ceval?.cloud;
   };
 
-  return {
-    technology,
-    start: (path, steps, threadMode) => {
-      isDeeper(false);
-      start(path, steps, !!threadMode);
-    },
-    stop,
-    allowed,
-    possible: opts.possible,
-    enabled,
-    downloadProgress,
-    isLoaded(): boolean {
-      return !!worker?.isLoaded();
-    },
-    initFailed(): boolean {
-      return !!worker?.initFailed();
-    },
-    multiPv,
-    threads,
-    setThreads(threads: number) {
-      lichess.storage.set(storageKey('ceval.threads'), threads.toString());
-    },
-    maxThreads,
-    hashSize,
-    setHashSize(hash: number) {
-      lichess.storage.set(storageKey('ceval.hash-size'), hash.toString());
-    },
-    maxHashSize,
-    infinite,
-    supportsNnue,
-    enableNnue,
-    hovering,
-    setHovering(fen: Fen, uci?: Uci) {
-      hovering(
-        uci
-          ? {
-              fen,
-              uci,
-            }
-          : null
-      );
-      opts.setAutoShapes();
-    },
-    pvBoard,
-    setPvBoard(_pvBoard: PvBoard | null) {
-      pvBoard(_pvBoard);
-      opts.redraw();
-    },
-    toggle() {
-      if (!opts.possible || !allowed()) return;
-      stop();
-      if (!enabled() && !document.hidden) {
-        const disable = lichess.storage.get('ceval.disable') || cevalDisabledSentinel;
-        if (disable) lichess.tempStorage.set('ceval.enabled-after', disable);
-        enabled(true);
-      } else {
-        lichess.tempStorage.set('ceval.enabled-after', '');
-        enabled(false);
-      }
-    },
-    curDepth,
-    effectiveMaxDepth,
-    variant: opts.variant,
-    isDeeper,
-    goDeeper,
-    canGoDeeper: () => curDepth() < 99 && !isDeeper() && ((!infinite() && !worker?.isComputing()) || showingCloud()),
-    isComputing: () => !!running && !!worker?.isComputing(),
-    engineName: engineName(technology, externalOpts),
-    longEngineName: () => worker?.engineName(),
-    destroy: () => worker?.destroy(),
-    redraw: opts.redraw,
-    cachable:
-      technology == 'nnue' || technology == 'hce' || (technology == 'external' && externalOpts!.officialStockfish),
-    analysable,
-    disconnectExternalEngine() {
-      lichess.storage.remove('ceval.external');
-    },
+  start = (path: string, steps: Step[], threatMode?: boolean) => {
+    this.isDeeper(false);
+    this.doStart(path, steps, !!threatMode);
   };
+
+  getState() {
+    return this.worker ? this.worker.getState() : CevalState.Initial;
+  }
+
+  setThreads = (threads: number) => lichess.storage.set(this.storageKey('ceval.threads'), threads.toString());
+  setHashSize = (hash: number) => lichess.storage.set(this.storageKey('ceval.hash-size'), hash.toString());
+
+  setHovering = (fen: Fen, uci?: Uci) => {
+    this.hovering(uci ? { fen, uci } : null);
+    this.opts.setAutoShapes();
+  };
+  setPvBoard = (pvBoard: PvBoard | null) => {
+    this.pvBoard(pvBoard);
+    this.opts.redraw();
+  };
+  toggle = () => {
+    if (!this.possible || !this.allowed()) return;
+    this.stop();
+    if (!this.enabled() && !document.hidden) {
+      const disable = lichess.storage.get('ceval.disable') || cevalDisabledSentinel;
+      if (disable) lichess.tempStorage.set('ceval.enabled-after', disable);
+      this.enabled(true);
+    } else {
+      lichess.tempStorage.set('ceval.enabled-after', '');
+      this.enabled(false);
+    }
+  };
+  selectEngine = (id: string) => {
+    this.selectedEngine(this.opts.externalEngines?.find(e => e.id == id) ? id : 'lichess');
+    lichess.reload();
+  };
+  canGoDeeper = () =>
+    this.curDepth() < 99 &&
+    !this.isDeeper() &&
+    ((!this.infinite() && this.getState() !== CevalState.Computing) || this.showingCloud());
+  shortEngineName = () => engineName(this.technology, this.externalEngine);
+  longEngineName = () => this.worker?.engineName();
+  destroy = () => this.worker?.destroy();
 }

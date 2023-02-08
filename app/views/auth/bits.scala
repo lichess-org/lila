@@ -4,19 +4,23 @@ package auth
 import controllers.routes
 import play.api.data.{ Field, Form }
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.security.HcaptchaForm
 import lila.user.User
 
-object bits {
+object bits:
 
-  def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit
+  def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(using
       ctx: Context
   ) =
     frag(
-      form3.group(username, if (register) trans.username() else trans.usernameOrEmail()) { f =>
+      form3.group(
+        username,
+        if (register) trans.username() else trans.usernameOrEmail(),
+        help = register option trans.signupUsernameHint()
+      ) { f =>
         frag(
           form3.input(f)(autofocus, required, autocomplete := "username"),
           p(cls := "error username-exists none")(trans.usernameAlreadyUsed())
@@ -27,13 +31,13 @@ object bits {
       ),
       register option form3.passwordComplexityMeter(trans.newPasswordStrength()),
       emailOption.map { email =>
-        form3.group(email, trans.email(), help = frag("We will only use it for password reset.").some)(
+        form3.group(email, trans.email(), help = trans.signupEmailHint().some)(
           form3.input(_, typ = "email")(required)
         )
       }
     )
 
-  def passwordReset(form: HcaptchaForm[_], fail: Boolean)(implicit ctx: Context) =
+  def passwordReset(form: HcaptchaForm[?], fail: Boolean)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.passwordReset.txt(),
       moreCss = cssTag("auth"),
@@ -41,9 +45,11 @@ object bits {
       csp = defaultCsp.withHcaptcha.some
     ) {
       main(cls := "auth auth-signup box box-pad")(
-        h1(
-          fail option span(cls := "is-red", dataIcon := ""),
-          trans.passwordReset()
+        boxTop(
+          h1(
+            fail option span(cls := "is-red", dataIcon := ""),
+            trans.passwordReset()
+          )
         ),
         postForm(cls := "form3", action := routes.Auth.passwordResetApply)(
           form3.group(form("email"), trans.email())(
@@ -60,13 +66,13 @@ object bits {
       title = trans.passwordReset.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail()),
+        boxTop(h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail())),
         p(trans.weHaveSentYouAnEmailTo(email)),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
     }
 
-  def passwordResetConfirm(u: User, token: String, form: Form[_], ok: Option[Boolean] = None)(implicit
+  def passwordResetConfirm(u: User, token: String, form: Form[?], ok: Option[Boolean] = None)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -80,14 +86,16 @@ object bits {
       )
     ) {
       main(cls := "page-small box box-pad")(
-        (ok match {
-          case Some(true)  => h1(cls := "is-green text", dataIcon := "")
-          case Some(false) => h1(cls := "is-red text", dataIcon := "")
-          case _           => h1
-        })(
-          userLink(u, withOnline = false),
-          " - ",
-          trans.changePassword()
+        boxTop(
+          (ok match {
+            case Some(true)  => h1(cls := "is-green text", dataIcon := "")
+            case Some(false) => h1(cls := "is-red text", dataIcon := "")
+            case _           => h1
+          })(
+            userLink(u, withOnline = false),
+            " - ",
+            trans.changePassword()
+          )
         ),
         postForm(cls := "form3", action := routes.Auth.passwordResetConfirmApply(token))(
           form3.hidden(form("token")),
@@ -105,7 +113,7 @@ object bits {
       )
     }
 
-  def magicLink(form: HcaptchaForm[_], fail: Boolean)(implicit ctx: Context) =
+  def magicLink(form: HcaptchaForm[?], fail: Boolean)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Log in by email",
       moreCss = cssTag("auth"),
@@ -113,9 +121,11 @@ object bits {
       csp = defaultCsp.withHcaptcha.some
     ) {
       main(cls := "auth auth-signup box box-pad")(
-        h1(
-          fail option span(cls := "is-red", dataIcon := ""),
-          "Log in by email"
+        boxTop(
+          h1(
+            fail option span(cls := "is-red", dataIcon := ""),
+            "Log in by email"
+          )
         ),
         p("We will send you an email containing a link to log you in."),
         postForm(cls := "form3", action := routes.Auth.magicLinkApply)(
@@ -133,7 +143,7 @@ object bits {
       title = "Log in by email"
     ) {
       main(cls := "page-small box box-pad")(
-        h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail()),
+        boxTop(h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail())),
         p("We've sent you an email with a link."),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
@@ -145,7 +155,7 @@ object bits {
       moreCss = cssTag("form3")
     ) {
       main(cls := "page-small box box-pad")(
-        h1("Log in as ", userLink(user)),
+        boxTop(h1("Log in as ", userLink(user))),
         postForm(action := routes.Auth.loginWithTokenPost(token, referrer))(
           form3.actions(
             a(href := routes.Lobby.home)(trans.cancel()),
@@ -193,7 +203,7 @@ body { margin-top: 45px; }
       title = "Tor exit node"
     ) {
       main(cls := "page-small box box-pad")(
-        h1(cls := "text", dataIcon := "2")("Ooops"),
+        boxTop(h1(cls := "text", dataIcon := "2")("Ooops")),
         p("Sorry, you can't signup to Lichess through Tor!"),
         p("You can play, train and use almost all Lichess features as an anonymous user.")
       )
@@ -204,10 +214,9 @@ body { margin-top: 45px; }
       title = trans.logOut.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        h1(trans.logOut()),
+        h1(cls := "box__top")(trans.logOut()),
         form(action := routes.Auth.logout, method := "post")(
           button(cls := "button button-red", tpe := "submit")(trans.logOut.txt())
         )
       )
     }
-}

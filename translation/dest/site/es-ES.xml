@@ -59,8 +59,8 @@
   <string name="depthX">Profundidad: %s</string>
   <string name="usingServerAnalysis">Usando análisis del servidor</string>
   <string name="loadingEngine">Cargando el motor...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Calculando movimientos...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Error al cargar el motor</string>
+  <string name="calculatingMoves">Calculando movimientos...</string>
+  <string name="engineFailed">Error al cargar el motor</string>
   <string name="cloudAnalysis">Análisis en el servidor</string>
   <string name="goDeeper">Aumentar la profundidad del análisis</string>
   <string name="showThreat">Mostrar amenaza</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' con redondeo, basado en el número de movimientos intermedios hasta la próxima captura o movimiento de peón</string>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
+  <string name="openings">Aperturas</string>
   <string name="openingExplorer">Explorador de aperturas</string>
   <string name="openingEndgameExplorer">Explorador de aperturas y finales</string>
   <string name="xOpeningExplorer">Explorador de la apertura %s</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Ver en tamaño completo</string>
   <string name="logOut">Cerrar sesión</string>
   <string name="signIn">Iniciar sesión</string>
+  <string name="rememberMe">Recuérdame</string>
   <string name="youNeedAnAccountToDoThat">Necesitas crear una cuenta para hacer eso</string>
   <string name="signUp">Registrarse</string>
   <string name="computersAreNotAllowedToPlay">No está permitido jugar a ordenadores ni a jugadores ayudados por un ordenador o por otras personas. Por favor, no te ayudes de motores de ajedrez, bases de datos o de otros jugadores durante la partida. Además, ten en cuenta que no se aconseja la utilización de varias cuentas de usuario y que el uso de un excesivo número de cuentas resultará en la cancelación de las mismas.</string>
@@ -197,12 +199,31 @@
   <string name="changeUsername">Cambiar nombre de usuario</string>
   <string name="changeUsernameNotSame">Sólo es posible cambiar mayúsculas por minúsculas y viceversa. Por ejemplo, de \"juanperez\" a \"JuanPerez\".</string>
   <string name="changeUsernameDescription">Cambiar tu nombre de usuario. Esto sólo puede hacerse una vez, y sólo se puede cambiar mayúsculas por minúsculas y viceversa.</string>
+  <string name="signupUsernameHint">Asegurate de elegir un nombre de usuario amigable para todos los públicos. ¡No puedes cambiarlo más tarde y cualquier nombre de usuario inapropiado se cerrará!</string>
+  <string name="signupEmailHint">Sólo lo usaremos para restablecer la contraseña.</string>
   <string name="password">Contraseña</string>
   <string name="changePassword">Cambiar contraseña</string>
   <string name="changeEmail">Cambiar correo</string>
   <string name="email">Correo</string>
   <string name="passwordReset">Cambiar contraseña</string>
   <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
+  <string name="emailConfirmHelp">Ayuda con confirmación de correo electrónico</string>
+  <string name="emailConfirmNotReceived">¿No recibiste tu correo de confirmación después de registrarte?</string>
+  <string name="whatSignupUsername">¿Qué nombre de usuario utilizaste para registrarte?</string>
+  <string name="usernameNotFound">No pudimos encontrar ningún usuario con este nombre: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Puedes usar este nombre de usuario para crear una nueva cuenta</string>
+  <string name="emailSent">Hemos enviado un correo a %s.</string>
+  <string name="emailCanTakeSomeTime">Puede que tome algo de tiempo en llegar.</string>
+  <string name="refreshInboxAfterFiveMinutes">Espera 5 minutos y actualiza tu bandeja de entrada.</string>
+  <string name="checkSpamFolder">Comprueba tu carpeta de spam, puede que haya terminado ahí. Si es así, márcalo como no spam.</string>
+  <string name="emailForSignupHelp">Si todo lo demás falla, envíanos este correo:</string>
+  <string name="copyTextToEmail">Copiar y pegar el texto de arriba y enviarlo a %s</string>
+  <string name="waitForSignupHelp">Volveremos contigo dentro de poco para ayudarte a completar tu registro.</string>
+  <string name="accountConfirmed">El usuario %s fue confirmado con éxito.</string>
+  <string name="accountCanLogin">Puedes iniciar sesión ahora como %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">No necesitas un correo de confirmación.</string>
+  <string name="accountClosed">La cuenta %s está cerrada.</string>
+  <string name="accountRegisteredWithoutEmail">La cuenta %s fue registrada sin un correo.</string>
   <string name="rank">Posición</string>
   <string name="rankX">Clasificación: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -342,6 +363,7 @@
   <string name="siteDescription">Servidor de ajedrez en línea gratuito. Juega al ajedrez en una interfaz simple. Sin registro, sin publicidad, sin necesidad de complementos. Juega contra el ordenador, amigos u oponentes desconocidos.</string>
   <string name="xJoinedTeamY">%1$s se unió al equipo %2$s</string>
   <string name="xCreatedTeamY">%1$s creó el equipo %2$s</string>
+  <string name="startedStreaming">comenzó a transmitir</string>
   <string name="xStartedStreaming">%s comenzó a emitir</string>
   <string name="averageElo">Puntuación promedio</string>
   <string name="location">Ubicación</string>
@@ -517,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escribe aquí tus notas privadas</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escribe una nota privada sobre este usuario</string>
+  <string name="noNoteYet">Aún no hay notas</string>
   <string name="invalidUsernameOrPassword">Nombre de usuario o contraseña erróneo</string>
   <string name="incorrectPassword">Contraseña incorrecta</string>
   <string name="invalidAuthenticationCode">Código de autenticación inválido</string>
@@ -633,6 +657,7 @@
   <string name="tournamentFAQ">Preguntas frecuentes de los torneos</string>
   <string name="timeBeforeTournamentStarts">Tiempo antes de que comience el torneo</string>
   <string name="averageCentipawnLoss">Pérdida promedio en centipeones</string>
+  <string name="accuracy">Precisión</string>
   <string name="keyboardShortcuts">Atajos del teclado</string>
   <string name="keyMoveBackwardOrForward">movimiento hacia atrás y hacia adelante</string>
   <string name="keyGoToStartOrEnd">ir al inicio/fin</string>
@@ -715,6 +740,7 @@
   <string name="light">Claro</string>
   <string name="dark">Oscuro</string>
   <string name="transparent">Transparente</string>
+  <string name="deviceTheme">Tema del dispositivo</string>
   <string name="backgroundImageUrl">URL de imagen de fondo:</string>
   <string name="boardGeometry">Geometría del tablero</string>
   <string name="boardTheme">Tema del tablero</string>
@@ -743,6 +769,7 @@
   <string name="bestWasX">El mejor era %s</string>
   <string name="youBrowsedAway">Has salido de la revisión</string>
   <string name="resumePractice">Volver a la revisión de errores</string>
+  <string name="drawByFiftyMoves">La partida ha sido tablas por la regla de los cincuenta movimientos.</string>
   <string name="theGameIsADraw">La partida es tablas.</string>
   <string name="computerThinking">El ordenador está calculando...</string>
   <string name="seeBestMove">Ver el mejor movimiento</string>

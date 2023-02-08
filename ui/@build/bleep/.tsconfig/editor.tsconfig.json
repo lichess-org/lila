@@ -1,0 +1,5 @@
+{
+  "extends": "/home/sam/Documents/git/lila/ui/tsconfig.base.json",
+  "include": ["/home/sam/Documents/git/lila/ui/editor/src"],
+  "compilerOptions": { "rootDir": "/home/sam/Documents/git/lila/ui/editor/src" }
+}

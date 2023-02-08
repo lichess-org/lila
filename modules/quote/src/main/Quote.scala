@@ -1,11 +1,11 @@
 package lila.quote
 
 import scala.util.Random
-import play.api.libs.json._
+import play.api.libs.json.*
 
 final class Quote(val text: String, val author: String)
 
-object Quote {
+object Quote:
 
   def one = all(Random.nextInt(all.size))
 
@@ -1585,11 +1585,9 @@ object Quote {
     new Quote("I never lose. I either win or learn.", "Nelson Mandela")
   )
 
-  implicit def quoteWriter: OWrites[Quote] =
-    OWrites { q =>
-      Json.obj(
-        "text"   -> q.text,
-        "author" -> q.author
-      )
-    }
-}
+  given OWrites[Quote] = OWrites { q =>
+    Json.obj(
+      "text"   -> q.text,
+      "author" -> q.author
+    )
+  }

@@ -1,39 +1,39 @@
 package lila.forum
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 
-import lila.forum.actorApi._
-import lila.security.{ Granter => MasterGranter }
+import lila.security.{ Granter as MasterGranter }
 import lila.user.{ Holder, User }
 
 final class ForumDelete(
-    postRepo: PostRepo,
-    topicRepo: TopicRepo,
-    categRepo: CategRepo,
+    postRepo: ForumPostRepo,
+    topicRepo: ForumTopicRepo,
+    categRepo: ForumCategRepo,
     indexer: lila.hub.actors.ForumSearch,
-    postApi: PostApi,
-    topicApi: TopicApi,
-    categApi: CategApi,
+    postApi: ForumPostApi,
+    topicApi: ForumTopicApi,
+    categApi: ForumCategApi,
     modLog: lila.mod.ModlogApi
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(using ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer):
 
-  def post(categSlug: String, postId: String, mod: User): Funit =
-    postRepo.unsafe.byCategAndId(categSlug, postId) flatMap {
+  def post(categId: ForumCategId, postId: ForumPostId, mod: User): Funit =
+    postRepo.unsafe.byCategAndId(categId, postId) flatMap {
       _ ?? { post =>
         postApi.viewOf(post) flatMap {
           _ ?? { view =>
             doDelete(view) >> {
               if (MasterGranter(_.ModerateForum)(mod))
                 modLog.deletePost(
-                  mod.id,
+                  mod.id into ModId,
                   post.userId,
-                  post.author,
                   text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
                 )
               else
                 fuccess {
-                  logger.info(s"${mod.username} deletes post by ${~post.userId} \"${post.text take 200}\"")
+                  logger.info(
+                    s"${mod.username} deletes post by ${post.userId.??(_.value)} \"${post.text take 200}\""
+                  )
                 }
             }
           }
@@ -66,4 +66,3 @@ final class ForumDelete(
           (categApi denormalize view.categ) >>-
           (indexer ! RemovePost(view.post.id))
     }
-}

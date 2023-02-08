@@ -3,16 +3,16 @@ package views.html.simul
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LeaderTeam
 import lila.simul.Simul
 import lila.simul.SimulForm
 
-object form {
+object form:
 
-  def create(form: Form[SimulForm.Setup], teams: List[LeaderTeam])(implicit
+  def create(form: Form[SimulForm.Setup], teams: List[LeaderTeam])(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -21,7 +21,7 @@ object form {
       moreJs = jsModule("flatpickr")
     ) {
       main(cls := "box box-pad page-small simul-form")(
-        h1(trans.hostANewSimul()),
+        h1(cls := "box__top")(trans.hostANewSimul()),
         postForm(cls := "form3", action := routes.Simul.create)(
           br,
           p(trans.whenCreateSimul()),
@@ -36,7 +36,7 @@ object form {
       )
     }
 
-  def edit(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Simul)(implicit
+  def edit(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Simul)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -45,7 +45,7 @@ object form {
       moreJs = jsModule("flatpickr")
     ) {
       main(cls := "box box-pad page-small simul-form")(
-        h1(s"Edit ${simul.fullName}"),
+        h1(cls := "box__top")("Edit ", simul.fullName),
         postForm(cls := "form3", action := routes.Simul.update(simul.id))(
           formContent(form, teams, simul.some),
           form3.actions(
@@ -61,10 +61,10 @@ object form {
       )
     }
 
-  private def formContent(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Option[Simul])(implicit
+  private def formContent(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Option[Simul])(using
       ctx: Context
-  ) = {
-    import lila.simul.SimulForm._
+  ) =
+    import lila.simul.SimulForm.*
     frag(
       globalError(form),
       form3.group(form("name"), trans.name()) { f =>
@@ -145,5 +145,3 @@ object form {
         help = trans.simulFeaturedHelp("lichess.org/simul").some
       )
     )
-  }
-}

@@ -1,8 +1,8 @@
 import { h, VNode } from 'snabbdom';
 import { snabModal } from 'common/modal';
 import { prop, Prop } from 'common';
-import { bindSubmit, bindNonPassive, MaybeVNodes } from 'common/snabbdom';
-import { emptyRedButton } from '../util';
+import { bindSubmit, bindNonPassive } from 'common/snabbdom';
+import { emptyRedButton } from '../view/util';
 import { StudyData } from './interfaces';
 import { Redraw } from '../interfaces';
 import RelayCtrl from './relay/relayCtrl';
@@ -24,6 +24,7 @@ export interface FormData {
   computer: string;
   explorer: string;
   cloneable: string;
+  shareable: string;
   chat: string;
   sticky: 'true' | 'false';
   description: 'true' | 'false';
@@ -37,8 +38,8 @@ interface Select {
 }
 type Choice = [string, string];
 
-function select(s: Select): MaybeVNodes {
-  return [
+const select = (s: Select): VNode =>
+  h('div.form-group.form-half', [
     h(
       'label.form-label',
       {
@@ -61,8 +62,7 @@ function select(s: Select): MaybeVNodes {
         );
       })
     ),
-  ];
-}
+  ]);
 
 export function ctrl(
   save: (data: FormData, isNew: boolean) => void,
@@ -139,6 +139,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 computer: getVal('computer'),
                 explorer: getVal('explorer'),
                 cloneable: getVal('cloneable'),
+                shareable: getVal('shareable'),
                 chat: getVal('chat'),
                 sticky: getVal('sticky') as 'true' | 'false',
                 description: getVal('description') as 'true' | 'false',
@@ -162,74 +163,61 @@ export function view(ctrl: StudyFormCtrl): VNode {
             }),
           ]),
           h('div.form-split', [
-            h(
-              'div.form-group.form-half',
-              select({
-                key: 'visibility',
-                name: ctrl.trans.noarg('visibility'),
-                choices: [
-                  ['public', ctrl.trans.noarg('public')],
-                  ['unlisted', ctrl.trans.noarg('unlisted')],
-                  ['private', ctrl.trans.noarg('inviteOnly')],
-                ],
-                selected: data.visibility,
-              })
-            ),
-            h(
-              'div.form-group.form-half',
-              select({
-                key: 'cloneable',
-                name: ctrl.trans.noarg('allowCloning'),
-                choices: userSelectionChoices,
-                selected: data.settings.cloneable,
-              })
-            ),
+            select({
+              key: 'visibility',
+              name: ctrl.trans.noarg('visibility'),
+              choices: [
+                ['public', ctrl.trans.noarg('public')],
+                ['unlisted', ctrl.trans.noarg('unlisted')],
+                ['private', ctrl.trans.noarg('inviteOnly')],
+              ],
+              selected: data.visibility,
+            }),
+            select({
+              key: 'chat',
+              name: ctrl.trans.noarg('chat'),
+              choices: userSelectionChoices,
+              selected: data.settings.chat,
+            }),
           ]),
           h('div.form-split', [
-            h(
-              'div.form-group.form-half',
-              select({
-                key: 'computer',
-                name: ctrl.trans.noarg('computerAnalysis'),
-                choices: userSelectionChoices.map(c => [c[0], ctrl.trans.noarg(c[1])]),
-                selected: data.settings.computer,
-              })
-            ),
-            h(
-              'div.form-group.form-half',
-              select({
-                key: 'explorer',
-                name: ctrl.trans.noarg('openingExplorerAndTablebase'),
-                choices: userSelectionChoices,
-                selected: data.settings.explorer,
-              })
-            ),
+            select({
+              key: 'computer',
+              name: ctrl.trans.noarg('computerAnalysis'),
+              choices: userSelectionChoices.map(c => [c[0], ctrl.trans.noarg(c[1])]),
+              selected: data.settings.computer,
+            }),
+            select({
+              key: 'explorer',
+              name: ctrl.trans.noarg('openingExplorerAndTablebase'),
+              choices: userSelectionChoices,
+              selected: data.settings.explorer,
+            }),
           ]),
           h('div.form-split', [
-            h(
-              'div.form-group.form-half',
-              select({
-                key: 'chat',
-                name: ctrl.trans.noarg('chat'),
-                choices: userSelectionChoices,
-                selected: data.settings.chat,
-              })
-            ),
-            h(
-              'div.form-group.form-half',
-              select({
-                key: 'sticky',
-                name: ctrl.trans.noarg('enableSync'),
-                choices: [
-                  ['true', ctrl.trans.noarg('yesKeepEveryoneOnTheSamePosition')],
-                  ['false', ctrl.trans.noarg('noLetPeopleBrowseFreely')],
-                ],
-                selected: '' + data.settings.sticky,
-              })
-            ),
+            select({
+              key: 'cloneable',
+              name: ctrl.trans.noarg('allowCloning'),
+              choices: userSelectionChoices,
+              selected: data.settings.cloneable,
+            }),
+            select({
+              key: 'shareable',
+              name: ctrl.trans.noarg('shareAndExport'),
+              choices: userSelectionChoices,
+              selected: data.settings.shareable,
+            }),
           ]),
-          h(
-            'div.form-group.form-half',
+          h('div.form-split', [
+            select({
+              key: 'sticky',
+              name: ctrl.trans.noarg('enableSync'),
+              choices: [
+                ['true', ctrl.trans.noarg('yesKeepEveryoneOnTheSamePosition')],
+                ['false', ctrl.trans.noarg('noLetPeopleBrowseFreely')],
+              ],
+              selected: '' + data.settings.sticky,
+            }),
             select({
               key: 'description',
               name: ctrl.trans.noarg('pinnedStudyComment'),
@@ -238,8 +226,8 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 ['true', ctrl.trans.noarg('rightUnderTheBoard')],
               ],
               selected: '' + data.settings.description,
-            })
-          ),
+            }),
+          ]),
           ctrl.relay
             ? h('div.form-actions-secondary', [
                 h(

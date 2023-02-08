@@ -5,24 +5,23 @@ import chess.{ Color, Status }
 import lila.user.User
 
 case class LightGame(
-    id: Game.ID,
+    id: GameId,
     whitePlayer: Player,
     blackPlayer: Player,
     status: Status
-) {
-  def playable                                        = status < Status.Aborted
-  def player(color: Color): Player                    = color.fold(whitePlayer, blackPlayer)
-  def player(playerId: Player.ID): Option[Player]     = players find (_.id == playerId)
-  def players                                         = List(whitePlayer, blackPlayer)
-  def playerByUserId(userId: User.ID): Option[Player] = players.find(_.userId contains userId)
-  def winner                                          = players find (_.wins)
-  def wonBy(c: Color): Option[Boolean]                = winner.map(_.color == c)
-  def finished                                        = status >= Status.Mate
-}
+):
+  def playable                                       = status < Status.Aborted
+  def player(color: Color): Player                   = color.fold(whitePlayer, blackPlayer)
+  def player(playerId: GamePlayerId): Option[Player] = players find (_.id == playerId)
+  def players                                        = List(whitePlayer, blackPlayer)
+  def playerByUserId(userId: UserId): Option[Player] = players.find(_.userId contains userId)
+  def winner                                         = players find (_.wins)
+  def wonBy(c: Color): Option[Boolean]               = winner.map(_.color == c)
+  def finished                                       = status >= Status.Mate
 
-object LightGame {
+object LightGame:
 
-  import Game.{ BSONFields => F }
+  import Game.{ BSONFields as F }
 
   def projection =
     lila.db.dsl.$doc(
@@ -32,4 +31,3 @@ object LightGame {
       F.winnerColor -> true,
       F.status      -> true
     )
-}

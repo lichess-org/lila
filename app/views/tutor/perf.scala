@@ -1,28 +1,30 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json._
+import play.api.libs.json.*
 import play.api.mvc.Call
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.common.Heapsort.implicits._
-import lila.tutor.TutorCompare.comparisonOrdering
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.Heapsort.topN
+import lila.tutor.TutorCompare.given
 import lila.tutor.{ TutorFullReport, TutorPerfReport }
 import lila.user.User
 
-object perf {
+object perf:
 
-  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: User)(implicit
+  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: User)(using
       ctx: Context
   ) =
     bits.layout(full, menu = menu(full, user, report, "perf"))(
       cls := "tutor__perf box",
-      h1(
-        a(href := routes.Tutor.user(user.username), dataIcon := "", cls := "text"),
-        "Tutor: ",
-        report.perf.trans
+      boxTop(
+        h1(
+          a(href := routes.Tutor.user(user.username), dataIcon := "", cls := "text"),
+          "Tutor: ",
+          report.perf.trans
+        )
       ),
       bits.mascotSays(ul(report.relevantComparisons.topN(3) map compare.show)),
       div(cls := "tutor__perf__angles tutor-cards")(
@@ -57,7 +59,7 @@ object perf {
       user: User,
       report: TutorPerfReport,
       active: String
-  )(implicit
+  )(using
       ctx: Context
   ) = frag(
     a(href := routes.Tutor.perf(user.username, report.perf.key), cls := active.active("perf"))(
@@ -83,4 +85,3 @@ object perf {
       ),
       div(cls := "tutor-card__content")(content)
     )
-}

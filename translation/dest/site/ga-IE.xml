@@ -62,6 +62,8 @@
   <string name="depthX">Doimhneacht %s</string>
   <string name="usingServerAnalysis">Ag úsáid anailís freastalaí</string>
   <string name="loadingEngine">Inneall ag lódáil...</string>
+  <string name="calculatingMoves">Bearta á ríomh...</string>
+  <string name="engineFailed">Earráid agus an t-inneall á lódáil</string>
   <string name="cloudAnalysis">Anailís scamaill</string>
   <string name="goDeeper">Téigh níos doimhne</string>
   <string name="showThreat">Taispeáin an bhagairt</string>
@@ -98,6 +100,7 @@
   <string name="dtzWithRounding">DTZ50\'\' le slánú, bunaithe ar líon na leathbheart go dtí an chéad ghabháil nó beart ceaithearnach</string>
   <string name="noGameFound">Níor aimsíodh cluiche</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh ón roghchlár?</string>
+  <string name="openings">Oscailtí</string>
   <string name="openingExplorer">Ag oscailt taiscéalaí</string>
   <string name="openingEndgameExplorer">Taiscéalaí oscailte / deireadh an chluiche</string>
   <string name="xOpeningExplorer">%s ag oscailt taiscéalaí</string>
@@ -179,6 +182,7 @@
   <string name="viewInFullSize">Breathnaigh in lánmhéid</string>
   <string name="logOut">Logáil amach</string>
   <string name="signIn">Logáil isteach</string>
+  <string name="rememberMe">Coinnigh logáilte istigh mé</string>
   <string name="youNeedAnAccountToDoThat">Tá cuntas ag teastáil uait chun é sin a dhéanamh</string>
   <string name="signUp">Cláraigh</string>
   <string name="computersAreNotAllowedToPlay">Níl cead ag ríomhair agus imreoirí le cabhair ó ríomhairí imirt. Ná bí ag lorg cabhrach ó innill fichille, bunachair sonraí nó imreoirí eile agus tú ag imirt. Moltar go láidir gan iliomaid cuntais a chruthú agus is féidir cosc a chur ar úsáideoirí as an iomarca cuntais a chruthú.</string>
@@ -228,12 +232,24 @@
   <string name="changeUsername">Athraigh ainm úsáideora</string>
   <string name="changeUsernameNotSame">Ní féidir ach cás na litreacha a athrú. Mar shampla ó \"seanog\" go \"SeanOg\".</string>
   <string name="changeUsernameDescription">Athraigh d\'ainm úsáideora. Ní féidir é seo a dhéanamh ach uair amháin agus ní cheadaítear duit ach cás na litreacha i d’ainm úsáideora a athrú.</string>
+  <string name="signupEmailHint">Ní úsáidfimid é ach le haghaidh athshocrú pasfhocail.</string>
   <string name="password">Pasfhocal</string>
   <string name="changePassword">Athraigh pasfhocal</string>
   <string name="changeEmail">Athraigh do sheoladh ríomhphoist</string>
   <string name="email">Ríomhphost</string>
   <string name="passwordReset">Athshocraigh pasfhocal</string>
   <string name="forgotPassword">An ndearna tú dearmad ar do phasfhocal?</string>
+  <string name="emailConfirmHelp">Cabhair le deimhniú ríomhphoist</string>
+  <string name="emailConfirmNotReceived">Nach bhfuair tú do ríomhphost deimhnithe tar éis síniú suas?</string>
+  <string name="whatSignupUsername">Cén t-ainm úsáideora a d\'úsáid tú chun clárú?</string>
+  <string name="usernameNotFound">Níorbh fhéidir linn aon úsáideoir leis an ainm seo a aimsiú: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Is féidir leat an t-ainm úsáideora seo a úsáid chun cuntas nua a chruthú</string>
+  <string name="emailSent">Tá ríomhphost seolta againn chuig %s.</string>
+  <string name="emailCanTakeSomeTime">Féadfaidh sé roinnt ama le teacht.</string>
+  <string name="refreshInboxAfterFiveMinutes">Fan 5 nóiméad agus athnuachan ríomhphoist.</string>
+  <string name="checkSpamFolder">Seiceáil freisin d\'fhillteán turscair. Más ansin é marcáil nach turscar é.</string>
+  <string name="emailForSignupHelp">Má theipeann ar gach rud eile, seol an ríomhphost seo chugainn:</string>
+  <string name="copyTextToEmail">Cóipeáil agus greamaigh an téacs thuas agus seol chuig %s é</string>
   <string name="rank">Rang</string>
   <string name="rankX">Rangú: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -737,6 +753,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tournamentFAQ">Ceisteanna Coitianta Comórtais Airéine</string>
   <string name="timeBeforeTournamentStarts">Am fágtha sula dtosnaíonn an comórtas</string>
   <string name="averageCentipawnLoss">Meán chaillteanas ceithearnach sa lár</string>
+  <string name="accuracy">Cruinneas</string>
   <string name="keyboardShortcuts">Aicearraí méarchláir</string>
   <string name="keyMoveBackwardOrForward">bog siar/ar aghaidh</string>
   <string name="keyGoToStartOrEnd">téigh chuig tús/deireadh</string>
@@ -856,6 +873,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="bestWasX">Ba é %s ab fhearr</string>
   <string name="youBrowsedAway">Bhí tú ag brabhsáil in áit éigin eile</string>
   <string name="resumePractice">Atosaigh cleachtadh</string>
+  <string name="drawByFiftyMoves">Tá an cluiche cothrom leis an riail caoga beart.</string>
   <string name="theGameIsADraw">Cluiche cothrom.</string>
   <string name="computerThinking">An ríomhaire ag machnamh ...</string>
   <string name="seeBestMove">Féach an beart is fearr</string>

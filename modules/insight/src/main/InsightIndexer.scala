@@ -1,50 +1,47 @@
 package lila.insight
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import org.joda.time.DateTime
-import reactivemongo.api._
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.*
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
 import lila.common.LilaStream
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query }
 import lila.user.{ User, UserRepo }
+import lila.common.config.Max
 
 final private class InsightIndexer(
     povToEntry: PovToEntry,
     gameRepo: GameRepo,
     userRepo: UserRepo,
     storage: InsightStorage
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler,
-    mat: akka.stream.Materializer
-) {
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler, akka.stream.Materializer):
 
   private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 256, timeout = 2 minutes, name = "insightIndexer")
+    lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 2 minutes, name = "insightIndexer")
 
   def all(user: User): Funit =
     workQueue {
       storage.fetchLast(user.id) flatMap {
         _.fold(fromScratch(user)) { e =>
-          computeFrom(user, e.date plusSeconds 1, e.number + 1)
+          computeFrom(user, e.date plusSeconds 1)
         }
       }
     }
 
-  def update(game: Game, userId: String, previous: InsightEntry): Funit =
+  def update(game: Game, userId: UserId, previous: InsightEntry): Funit =
     povToEntry(game, userId, previous.provisional) flatMap {
-      case Right(e) => storage update e.copy(number = previous.number)
+      case Right(e) => storage update e
       case _        => funit
     }
 
   private def fromScratch(user: User): Funit =
     fetchFirstGame(user) flatMap {
       _.?? { g =>
-        computeFrom(user, g.createdAt, 1)
+        computeFrom(user, g.createdAt)
       }
     }
 
@@ -72,7 +69,7 @@ final private class InsightIndexer(
         .sort(Query.sortChronological)
         .one[Game](readPreference = ReadPreference.secondaryPreferred)
 
-  private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit =
+  private def computeFrom(user: User, from: DateTime): Funit =
     storage nbByPerf user.id flatMap { nbs =>
       var nbByPerf = nbs
       def toEntry(game: Game): Fu[Option[InsightEntry]] =
@@ -89,12 +86,8 @@ final private class InsightIndexer(
         .documentSource(maxGames)
         .mapAsync(16)(toEntry)
         .via(LilaStream.collect)
-        .zipWithIndex
-        .map { case (e, i) => e.copy(number = fromNumber + i.toInt) }
         .grouped(100 atMost maxGames)
         .map(storage.bulkInsert)
         .toMat(Sink.ignore)(Keep.right)
         .run()
     } void
-
-}

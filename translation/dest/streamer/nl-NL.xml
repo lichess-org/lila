@@ -30,10 +30,7 @@
   <string name="pleaseFillIn">Vul je streamer informatie in en upload een foto.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wanneer u klaar bent om als Lichess stream vermeld te worden, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">verzoek een beoordeling van een toezichthouder</string>
-  <string name="anotherLanguage">Als je niet in het Engels streamt, voeg dan de juiste taaltag toe (%s) aan het begin van de stream titel, met vierkante haken eromheen.
-Zet bijvoorbeeld \"[NL]\" voor Nederlands, \"[DE]\" voor Duits, \"[FR]\" voor Frans, enz.
-Zet het in de stream titel op de Twitch of YouTube pagina en niet in de Lichess stream-instellingen.
-Als je in het Engels is streamt is het niet nodig om een taaltag toe te voegen.</string>
+  <string name="streamerLanguageSettings">De Lichess streamerpagina toont je publiek de taal die wordt verstrekt door je streamingplatform. Stel de juiste standaardtaal in voor je schaakstreams in de app of service die je gebruikt om te streamen.</string>
   <string name="twitchUsername">Je Twitch gebruikersnaam of website</string>
   <string name="optionalOrEmpty">Optioneel. Laat leeg indien geen</string>
   <string name="youtubeChannel">Je YouTube kanaal ID of URL</string>

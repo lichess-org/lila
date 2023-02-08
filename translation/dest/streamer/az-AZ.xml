@@ -28,10 +28,6 @@
   <string name="pleaseFillIn">Lütfən yayımçı məlumatlarını doldurun və bir şəkil yükləyin.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess yayımçısı kimi siyahıya alınmağa hazır olanda, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">moderatorun nəzərdən keçirməsini istəyin</string>
-  <string name="anotherLanguage">Yayımınız ingilis dilindən fərqli bir dildə olarsa, yayım başlığınızda müvafiq dil etiketini (%s) kvadrat mötərizə içində daxil edin.
-Nümunə olaraq, Azərbaycanca üçün \"[AZ]\", Türkcə üçün \"[TR]\", Rusca üçün \"[RU]\" və s.
-Bunu Lichess yayım tənzimləmələrində yox, YouTube və ya Twitch səhifənizdəki yayım başlığınıza qoyun.
-Əgər yayımınız ingiliscə olacaqsa, heç bir dil etiketi daxil etməyinizə ehtiyac yoxdur.</string>
   <string name="twitchUsername">Twitch istifadəçi adınız və ya URL-niz</string>
   <string name="optionalOrEmpty">İstəyə bağlı. Yoxdursa boş buraxın</string>
   <string name="youtubeChannel">YouTube kanal kimliyiniz və ya URL-niz</string>

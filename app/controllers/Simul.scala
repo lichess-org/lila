@@ -1,24 +1,26 @@
 package controllers
 
-import play.api.mvc._
-import views._
+import play.api.mvc.*
+import views.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.chat.Chat
 import lila.common.HTTPRequest
-import lila.simul.{ Simul => Sim }
+import lila.simul.{ Simul as Sim }
 
-final class Simul(env: Env) extends LilaController(env) {
+final class Simul(env: Env) extends LilaController(env):
 
   private def forms = lila.simul.SimulForm
 
   private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.bits.notFound())
 
-  val home = Open { implicit ctx =>
+  def home     = Open(serveHome(_))
+  def homeLang = LangPage(routes.Simul.home)(serveHome(_))
+  private def serveHome(implicit ctx: Context) = NoBot {
     pageHit
     fetchSimuls(ctx.me) flatMap { case (((pending, created), started), finished) =>
-      Ok(html.simul.home(pending, created, started, finished)).fuccess
+      Ok(html.simul.home(pending, created, started, finished)).toFuccess
     }
   }
 
@@ -42,10 +44,10 @@ final class Simul(env: Env) extends LilaController(env) {
       env.simul.repo.allStarted zip
       env.simul.repo.allFinishedFeaturable(20)
 
-  def show(id: String) =
+  def show(id: SimulId) =
     Open { implicit ctx =>
       env.simul.repo find id flatMap {
-        _.fold(simulNotFound.fuccess) { sim =>
+        _.fold[Fu[Result]](simulNotFound.toFuccess) { sim =>
           for {
             team    <- sim.team ?? env.team.api.team
             version <- env.simul.version(sim.id)
@@ -62,14 +64,14 @@ final class Simul(env: Env) extends LilaController(env) {
               }
             )
             chat <-
-              canHaveChat(sim) ?? env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
+              canHaveChat(sim) ?? env.chat.api.userChat.cached.findMine(sim.id into ChatId, ctx.me).map(some)
             _ <- chat ?? { c =>
               env.user.lightUserApi.preloadMany(c.chat.userIds)
             }
             stream <- env.streamer.liveStreamApi one sim.hostId
           } yield html.simul.show(sim, version, json, chat, stream, team)
         }
-      } map NoCache
+      } dmap (_.noCache)
     }
 
   private[controllers] def canHaveChat(simul: Sim)(implicit ctx: Context): Boolean =
@@ -82,53 +84,53 @@ final class Simul(env: Env) extends LilaController(env) {
         }
       }
 
-  def hostPing(simulId: String) =
+  def hostPing(simulId: SimulId) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
         env.simul.api hostPing simul inject jsonOkResult
       }
     }
 
-  def start(simulId: String) =
+  def start(simulId: SimulId) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
         env.simul.api start simul.id inject jsonOkResult
       }
     }
 
-  def abort(simulId: String) =
+  def abort(simulId: SimulId) =
     Auth { implicit ctx => me =>
       AsHost(simulId) { simul =>
         env.simul.api abort simul.id inject {
-          if (!simul.isHost(me)) env.mod.logApi.terminateTournament(me.id, simul.fullName)
+          if (!simul.isHost(me)) env.mod.logApi.terminateTournament(me.id into ModId, simul.fullName)
           if (HTTPRequest isXhr ctx.req) jsonOkResult
           else Redirect(routes.Simul.home)
         }
       }
     }
 
-  def accept(simulId: String, userId: String) =
+  def accept(simulId: SimulId, userId: UserStr) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
-        env.simul.api.accept(simul.id, userId, v = true) inject jsonOkResult
+        env.simul.api.accept(simul.id, userId.id, v = true) inject jsonOkResult
       }
     }
 
-  def reject(simulId: String, userId: String) =
+  def reject(simulId: SimulId, userId: UserStr) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
-        env.simul.api.accept(simul.id, userId, v = false) inject jsonOkResult
+        env.simul.api.accept(simul.id, userId.id, v = false) inject jsonOkResult
       }
     }
 
-  def setText(simulId: String) =
+  def setText(simulId: SimulId) =
     OpenBody { implicit ctx =>
       AsHost(simulId) { simul =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms.setText
           .bindFromRequest()
           .fold(
-            _ => BadRequest.fuccess,
+            _ => BadRequest.toFuccess,
             text => env.simul.api.setText(simul.id, text) inject jsonOkResult
           )
       }
@@ -146,7 +148,7 @@ final class Simul(env: Env) extends LilaController(env) {
   def create =
     AuthBody { implicit ctx => implicit me =>
       NoLameOrBot {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.team.api.lightsByLeader(me.id) flatMap { teams =>
           forms
             .create(me, teams)
@@ -165,7 +167,7 @@ final class Simul(env: Env) extends LilaController(env) {
       }
     }
 
-  def join(id: String, variant: String) =
+  def join(id: SimulId, variant: chess.variant.Variant.LilaKey) =
     Auth { implicit ctx => implicit me =>
       NoLameOrBot {
         env.team.cached.teamIds(me.id) flatMap { teamIds =>
@@ -177,7 +179,7 @@ final class Simul(env: Env) extends LilaController(env) {
       }
     }
 
-  def withdraw(id: String) =
+  def withdraw(id: SimulId) =
     Auth { implicit ctx => me =>
       env.simul.api.removeApplicant(id, me) inject {
         if (HTTPRequest isXhr ctx.req) jsonOkResult
@@ -185,7 +187,7 @@ final class Simul(env: Env) extends LilaController(env) {
       }
     }
 
-  def edit(id: String) =
+  def edit(id: SimulId) =
     Auth { implicit ctx => me =>
       WithEditableSimul(id, me) { simul =>
         env.team.api.lightsByLeader(me.id) map { teams =>
@@ -194,34 +196,33 @@ final class Simul(env: Env) extends LilaController(env) {
       }
     }
 
-  def update(id: String) =
+  def update(id: SimulId) =
     AuthBody { implicit ctx => me =>
       WithEditableSimul(id, me) { simul =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.team.api.lightsByLeader(me.id) flatMap { teams =>
           forms
             .edit(me, teams, simul)
             .bindFromRequest()
             .fold(
-              err => BadRequest(html.simul.form.edit(err, teams, simul)).fuccess,
+              err => BadRequest(html.simul.form.edit(err, teams, simul)).toFuccess,
               data => env.simul.api.update(simul, data, me) inject Redirect(routes.Simul.show(id))
             )
         }
       }
     }
 
-  private def AsHost(simulId: Sim.ID)(f: Sim => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(implicit ctx: Context): Fu[Result] =
     env.simul.repo.find(simulId) flatMap {
       case None                                                                    => notFound
       case Some(simul) if ctx.userId.has(simul.hostId) || isGranted(_.ManageSimul) => f(simul)
       case _                                                                       => fuccess(Unauthorized)
     }
 
-  private def WithEditableSimul(id: String, me: lila.user.User)(
+  private def WithEditableSimul(id: SimulId, me: lila.user.User)(
       f: Sim => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     AsHost(id) { sim =>
-      if (sim.isStarted) Redirect(routes.Simul.show(sim.id)).fuccess
+      if (sim.isStarted) Redirect(routes.Simul.show(sim.id)).toFuccess
       else f(sim)
     }
-}

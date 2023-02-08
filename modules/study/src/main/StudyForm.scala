@@ -1,51 +1,51 @@
 package lila.study
 
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.Variant
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanNonEmptyText, formatter, variantFormat }
+import lila.common.Form.{ cleanNonEmptyText, formatter, given }
+import play.api.data.format.Formatter
 
-object StudyForm {
+object StudyForm:
 
-  implicit private val modeFormat =
-    formatter.stringOptionFormatter[ChapterMaker.Mode](_.key, ChapterMaker.Mode.apply)
+  private given Formatter[ChapterMaker.Mode] =
+    formatter.stringOptionFormatter(_.key, ChapterMaker.Mode.apply)
 
-  implicit private val orientationFormat =
-    formatter.stringFormatter[ChapterMaker.Orientation](_.key, ChapterMaker.Orientation.apply)
+  private given Formatter[ChapterMaker.Orientation] =
+    formatter.stringFormatter(_.key, ChapterMaker.Orientation.apply)
 
-  object importGame {
+  object importGame:
 
     lazy val form = Form(
       mapping(
-        "gameId"      -> optional(nonEmptyText),
+        "gameId"      -> optional(of[GameId]),
         "orientation" -> optional(of[ChapterMaker.Orientation]),
         "fen"         -> optional(lila.common.Form.fen.playable(strict = false)),
         "pgn"         -> optional(nonEmptyText),
         "variant"     -> optional(of[Variant]),
         "as"          -> optional(nonEmptyText)
-      )(Data.apply)(Data.unapply)
+      )(Data.apply)(unapply)
     )
 
     case class Data(
-        gameId: Option[String] = None,
+        gameId: Option[GameId] = None,
         orientation: Option[ChapterMaker.Orientation] = None,
-        fen: Option[FEN] = None,
+        fen: Option[Fen.Epd] = None,
         pgnStr: Option[String] = None,
         variant: Option[Variant] = None,
         asStr: Option[String] = None
-    ) {
+    ):
       def as: As =
-        asStr match {
-          case None | Some("study") => AsNewStudy
-          case Some(studyId)        => AsChapterOf(Study.Id(studyId))
-        }
+        asStr match
+          case None | Some("study") => As.NewStudy
+          case Some(studyId)        => As.ChapterOf(StudyId(studyId))
 
       def toChapterData =
         ChapterMaker.Data(
-          name = Chapter.Name(""),
-          game = gameId,
+          name = StudyChapterName(""),
+          game = gameId.map(_.value),
           variant = variant,
           fen = fen,
           pgn = pgnStr,
@@ -53,14 +53,12 @@ object StudyForm {
           mode = ChapterMaker.Mode.Normal,
           initial = false
         )
-    }
 
-    sealed trait As
-    case object AsNewStudy                    extends As
-    case class AsChapterOf(studyId: Study.Id) extends As
-  }
+    enum As:
+      case NewStudy
+      case ChapterOf(studyId: StudyId)
 
-  object importPgn {
+  object importPgn:
 
     lazy val form = Form(
       mapping(
@@ -72,7 +70,7 @@ object StudyForm {
         "sticky"        -> boolean,
         "pgn"           -> nonEmptyText,
         "isDefaultName" -> boolean
-      )(Data.apply)(Data.unapply)
+      )(Data.apply)(unapply)
     )
 
     case class Data(
@@ -84,14 +82,14 @@ object StudyForm {
         sticky: Boolean,
         pgn: String,
         isDefaultName: Boolean
-    ) {
+    ):
 
-      def toChapterDatas = {
+      def toChapterDatas =
         val pgns = MultiPgn.split(pgn, max = 32).value
         pgns.zipWithIndex map { case (onePgn, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named
-            name = Chapter.Name((index == 0) ?? name),
+            name = StudyChapterName((index == 0) ?? name),
             variant = variant,
             pgn = onePgn.some,
             orientation = orientation | ChapterMaker.Orientation.Auto,
@@ -100,12 +98,8 @@ object StudyForm {
             isDefaultName = index > 0 || isDefaultName
           )
         }
-      }
-    }
-  }
 
   def topicsForm = Form(single("topics" -> text))
 
   def topicsForm(topics: StudyTopics) =
-    Form(single("topics" -> text)) fill topics.value.map(_.value).mkString(",")
-}
+    Form(single("topics" -> text)) fill topics.value.mkString(",")

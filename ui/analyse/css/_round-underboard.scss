@@ -129,6 +129,11 @@ $col2-panel-height: 240px;
     rgba(255, 255, 255, 0) 100%
   );
   overflow: hidden;
+  cursor: pointer;
+}
+
+#acpl-chart {
+  cursor: pointer;
 }
 
 #acpl-chart-loader {

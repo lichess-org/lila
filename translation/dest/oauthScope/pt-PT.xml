@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Novo token de acesso pessoal à API</string>
+  <string name="tokenGrantsPermission">Um token concede permissão a outras pessoas para usarem sua conta.</string>
+  <string name="carefullySelect">Selecione cuidadosamente o que pode ser feito em seu nome.</string>
+  <string name="tokenDescription">Descrição do token</string>
+  <string name="rememberTokenUse">Então você lembra-se para o que serve este token</string>
+  <string name="whatTheTokenCanDo">O que o token pode fazer em seu nome:</string>
+  <string name="doNotShareIt">O token concederá acesso à sua conta. NÃO o compartilhe com ninguém!</string>
+  <string name="copyTokenNow">Certifique-se que copia o seu novo token de acesso pessoal. Não poderá vê-lo novamente!</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Preferências de leitura</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Preferência de escrita</string>
+  <string name="emailRead">Ler o endereço de correio eletrónico</string>
+  <string name="challengeRead">Ler os desafios recebidos</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Enviar, aceitar e rejeitar desafios</string>
+  <string name="challengeBulk">Crie muitos jogos de uma só vez para outros jogadores</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Ler estudos e transmissões privadas</string>
+  <string name="studyWrite">Criar, atualizar, excluir estudos e transmissões</string>
+  <string name="tournamentWrite">Criar, atualizar e participar em torneios</string>
+  <string name="racerWrite">Criar e participar em corridas de desafios</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Ler a atividade do quebra-cabeça</string>
+  <string name="teamRead">Ler informações privadas da equipa</string>
+  <string name="teamWrite">Participar e sair das equipas</string>
+  <string name="teamLead">Gerencie equipes que lidera: envie MPs, exclua membros</string>
+  <string name="followRead">Ler jogadores seguidos</string>
+  <string name="followWrite">Siga e deixe de seguir outros jogadores</string>
+  <string name="msgWrite">Enviar mensagem privada a outros jogadores</string>
+  <string name="boardPlay">Jogue partidas com a api do tabuleiro</string>
+  <string name="botPlay">Jogue partidas com a api do bot</string>
+  <string name="engineRead">Ver e usar seus motores externos</string>
+  <string name="engineWrite">Criar e atualizar o motor externo</string>
+  <string name="webLogin">Crie sessões de sites autenticados (garante acesso completo!)</string>
+  <string name="webMod">Use ferramentas de moderação (dentro dos limites da sua permissão)</string>
+</resources>

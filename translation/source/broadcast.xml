@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">Current round URL</string>
   <string name="currentGameUrl">Current game URL</string>
   <string name="downloadAllRounds">Download all rounds</string>
+  <string name="definitivelyDeleteRound">Definitively delete the round and its games.</string>
+  <string name="deleteAllGamesOfThisRound">Delete all games of this round. The source will need to be active in order to re-create them.</string>
 </resources>

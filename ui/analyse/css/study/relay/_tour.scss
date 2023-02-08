@@ -1,4 +1,33 @@
+main.has-relay-tour {
+  grid-template-areas:
+    'relay-tour'
+    'side'
+    'chat'
+    'uchat'
+    'round-training';
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: minmax(230px, 350px) minmax(70%, 800px);
+    grid-template-rows: auto auto 2.5em;
+    grid-template-areas:
+      'side  relay-tour'
+      'chat  relay-tour'
+      'uchat relay-tour'
+      'round-training relay-tour'
+      '. relay-tour';
+    grid-column-gap: $block-gap;
+
+    .analyse__side {
+      margin-top: 0;
+    }
+    .mchat {
+      height: 48vh;
+    }
+  }
+}
+
 .relay-tour {
+  grid-area: relay-tour;
   &__round {
     @extend %box-radius, %flex-between-nowrap;
     background: mix($c-primary, $c-bg-box, 10%);
@@ -113,8 +142,4 @@
       }
     }
   }
-}
-
-main.has-relay-tour .mchat {
-  height: 48vh;
 }

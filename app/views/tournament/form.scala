@@ -4,15 +4,15 @@ package tournament
 import controllers.routes
 import play.api.data.{ Field, Form }
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LeaderTeam
 import lila.tournament.{ Condition, Tournament, TournamentForm }
 
-object form {
+object form:
 
-  def create(form: Form[_], leaderTeams: List[LeaderTeam])(implicit ctx: Context) =
+  def create(form: Form[?], leaderTeams: List[LeaderTeam])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
@@ -21,7 +21,7 @@ object form {
       val fields = new TourFields(form, none)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
-          h1(
+          h1(cls := "box__top")(
             if (fields.isTeamBattle) trans.arena.newTeamBattle()
             else trans.createANewTournament()
           ),
@@ -50,7 +50,7 @@ object form {
       )
     }
 
-  def edit(tour: Tournament, form: Form[_], myTeams: List[LeaderTeam])(implicit ctx: Context) =
+  def edit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(implicit ctx: Context) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
@@ -59,7 +59,7 @@ object form {
       val fields = new TourFields(form, tour.some)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
-          h1("Edit ", tour.name()),
+          h1(cls := "box__top")("Edit ", tour.name()),
           postForm(cls := "form3", action := routes.Tournament.update(tour.id))(
             form3.split(fields.name, tour.isCreated option fields.startDate),
             form3.split(fields.rated, fields.variant),
@@ -102,12 +102,12 @@ object form {
     )
 
   def condition(
-      form: Form[_],
+      form: Form[?],
       fields: TourFields,
       auto: Boolean,
       teams: List[LeaderTeam],
       tour: Option[Tournament]
-  )(implicit
+  )(using
       ctx: Context
   ) =
     frag(
@@ -153,10 +153,8 @@ object form {
       form3.split(
         form3.group(
           form("conditions.allowList"),
-          "Only allow pre-defined users to join",
-          help = raw(
-            "If this list is non-empty, then usernames absent from this list will be forbidden to join. One username per line."
-          ).some,
+          trans.swiss.predefinedUsers(),
+          help = trans.swiss.forbiddedUsers().some,
           half = true
         )(form3.textarea(_)(rows := 4))
       ),
@@ -199,9 +197,8 @@ object form {
     form3.input(field)(
       tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
     )
-}
 
-final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit ctx: Context) {
+final private class TourFields(form: Form[?], tour: Option[Tournament])(implicit ctx: Context):
 
   def isTeamBattle = tour.exists(_.isTeamBattle) || form("teamBattleByTeam").value.nonEmpty
 
@@ -301,4 +298,3 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
         a(cls := "show")(trans.showAdvancedSettings())
       )
     )
-}

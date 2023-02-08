@@ -63,6 +63,7 @@ Përshkruhet në ndarjen 3.7 (d) të %2$s:
 See the %3$s on this move for some practice with it.</string>
   <string name="goodIntroduction">hyrje të mirë</string>
   <string name="lichessTraining">Trajnim Lichess</string>
+  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Shihni shah-matin %s e Mjeshtrit Ndërkombëtar Eric Rosen.</string>
   <string name="threefoldRepetition">Përsëritje e trefishtë</string>
   <string name="threefoldRepetitionExplanation">Nëse një pozicion ndodh tre herë, lojtarët mund të kërkojnë barazim përmes %1$s. Lichess-i aplikon rregullat zyrtare të FIDE-s, siç përshkruhen në nenin 9.2 (d) të %2$s.</string>
   <string name="threefoldRepetitionLowerCase">përsëritje e trefishtë</string>

@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Κρατήστε πατημένο το πλήκτρο &lt;ctrl&gt; ενώ κάνετε την προαγωγή για να απενεργοποιήσετε προσωρινά την αυτόματη προαγωγή</string>
   <string name="whenPremoving">Κατά προεπιλογή κίνησης</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Διεκδικήστε ισοπαλία αυτόματα σε τριπλή επανάληψη</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Όταν απομένουν &lt; 30 δευτερόλεπτα</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Όταν απομένουν &lt; 30 δευτερόλεπτα</string>
   <string name="moveConfirmation">Επιβεβαίωση κίνησης</string>
   <string name="inCorrespondenceGames">Στις παρτίδες δι\' αλληλογραφίας</string>
   <string name="correspondenceAndUnlimited">Δι\' αλληλογραφίας και απεριορίστου χρόνου</string>

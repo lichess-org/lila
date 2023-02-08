@@ -59,6 +59,8 @@
   <string name="depthX">Profundo %s</string>
   <string name="usingServerAnalysis">Analizanta per servilo</string>
   <string name="loadingEngine">Komencas la maŝinon...</string>
+  <string name="calculatingMoves">Kalkulante movojn...</string>
+  <string name="engineFailed">Motora misŝarĝo</string>
   <string name="cloudAnalysis">Analizo per la nubo</string>
   <string name="goDeeper">Iri pli profunde</string>
   <string name="showThreat">Montri la minacon</string>
@@ -92,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\" kun rondigo, bazita en nombro de inter-movoj ĝis sekva kapto aŭ peona movo</string>
   <string name="noGameFound">Neniu ludo trovita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Eble inkluzivi pli da ludoj de la menuo de preferoj?</string>
+  <string name="openings">Ludkomencoj</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
   <string name="openingEndgameExplorer">Esplorilo de malfermoj/finaĵoj</string>
   <string name="xOpeningExplorer">%s esplorilo de malfermoj</string>
@@ -155,6 +158,7 @@
   <string name="viewInFullSize">Vidi plengrande</string>
   <string name="logOut">Elsaluti</string>
   <string name="signIn">Ensaluti</string>
+  <string name="rememberMe">Memoru mian ensaluton</string>
   <string name="youNeedAnAccountToDoThat">Vi bezonas konton por fari tion</string>
   <string name="signUp">Registriĝi</string>
   <string name="computersAreNotAllowedToPlay">Estas nepermesate ludi per komputiloj aŭ komputilasisto. Bonvolu ne akiri asiston de iu ŝakaŭtomato, datumbazo aŭ aliaj ludantoj dum ludado. Krome, notu ke la kreado de multaj kontoj estas forte malrekomendata, kaj troa uzo de multaj kontoj rezultigos vian forbaron.</string>
@@ -195,12 +199,27 @@
   <string name="changeUsername">Ŝanĝi uzantnomon</string>
   <string name="changeUsernameNotSame">Nur la uskleco de la literoj povas ŝanĝiĝi. Ekzemple de \"johndoe\" al \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Ŝanĝu ĉiam uzantnomon. Vi rajtas fari tion nur unufoje kaj vi rajtas ŝanĝi nur la usklecon de la literoj en via nomo.</string>
+  <string name="signupEmailHint">Ni nur uzos ĝin por pasvorta restarigo.</string>
   <string name="password">Pasvorto</string>
   <string name="changePassword">Ŝanĝi pasvorton</string>
   <string name="changeEmail">Ŝanĝi retadreson</string>
   <string name="email">Retadreso</string>
   <string name="passwordReset">Ŝanĝi pasvorton</string>
   <string name="forgotPassword">Ĉu vi forgesis la pasvorton?</string>
+  <string name="whatSignupUsername">Kiun uzantnomon vi uzis por registriĝi?</string>
+  <string name="usernameNotFound">Ni ne povis trovi ajnan uzanton per tiu ĉi nomo: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Vi povas uzi ĉi tiun uzantnomon por krei novan konton</string>
+  <string name="emailSent">Ni sendis retleteron al %s.</string>
+  <string name="emailCanTakeSomeTime">Ĝi povas preni iom da tempo por alveni.</string>
+  <string name="refreshInboxAfterFiveMinutes">Atendu 5 minutojn kaj reŝargu vian retpoŝtan enirkeston.</string>
+  <string name="checkSpamFolder">Ankaŭ kontrolu vian trudmesaĝujon, ĝi povus alveni tie. Se estas tiel, marku ĝin kiel ne truda.</string>
+  <string name="emailForSignupHelp">Se ĉio antaŭdirita ne funkcias, sendu al ni ĉi tiun retleteron:</string>
+  <string name="copyTextToEmail">Kopiu kaj algluu la supran tekston kaj sendu ĝin al %s</string>
+  <string name="waitForSignupHelp">Ni estos kun vi baldaŭ por helpi vin plenigi vian registriĝon.</string>
+  <string name="accountConfirmed">La uzanto %s estis konfirmita sukcese.</string>
+  <string name="accountCanLogin">Vi povas ensaluti tuje kiel %s.</string>
+  <string name="accountClosed">La konto %s estas fermita.</string>
+  <string name="accountRegisteredWithoutEmail">La konto %s estis registrita sen retpoŝto.</string>
   <string name="rank">Posicio</string>
   <string name="rankX">Posicio: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -510,6 +529,7 @@
   <string name="reportDescriptionHelp">Inkluzivu la ligilon al la ludo(j) kaj ekspliku tion, kio malbonas pri la konduto de ĉi tiu uzanto.</string>
   <string name="error.provideOneCheatedGameLink">Bonvolu doni almenaŭ unu ligilon al ludo en kiu oni friponis.</string>
   <string name="by">de %s</string>
+  <string name="importedByX">Importita de %s</string>
   <string name="thisTopicIsNowClosed">Tiu ĉi temo nun estas fermita.</string>
   <string name="blog">Blogo</string>
   <string name="notes">Notoj</string>
@@ -630,6 +650,7 @@
   <string name="tournamentFAQ">Oftaj demandoj pri la turnira areno</string>
   <string name="timeBeforeTournamentStarts">Tempo ĝis la turniro komenciĝas</string>
   <string name="averageCentipawnLoss">Averaĝa centonpeona perdo</string>
+  <string name="accuracy">Precizeco</string>
   <string name="keyboardShortcuts">Fulmoklavoj</string>
   <string name="keyMoveBackwardOrForward">movi (mal)antaŭen</string>
   <string name="keyGoToStartOrEnd">iri al komenco/fino</string>
@@ -740,6 +761,7 @@
   <string name="bestWasX">Plej bona estis %s</string>
   <string name="youBrowsedAway">Vi retumis foren</string>
   <string name="resumePractice">Daŭrigi praktikon</string>
+  <string name="drawByFiftyMoves">La ludo estis egalvenko por la regulo de 50 movoj.</string>
   <string name="theGameIsADraw">La ludo egalvenkas.</string>
   <string name="computerThinking">Komputilo pensas ...</string>
   <string name="seeBestMove">Vidi la plej bonan movon</string>
@@ -842,6 +864,7 @@
   <string name="someoneReviewedYourCoachProfile">Iu rigardos vian trejnistan profilon.</string>
   <string name="newPendingReview">Nova okazonta revizio</string>
   <string name="lostAgainstTOSViolator">Vi malvenkis kontraŭ iu kiu malobeis la regulojn de Lichess</string>
+  <string name="refundXpointsTimeControlY">Estis redonitaj %1$s %2$s poentoj.</string>
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
   <string name="clickToRevealEmailAddress">[Klaku por malkaŝi retpoŝtadreson]</string>
   <string name="download">Elŝuti</string>

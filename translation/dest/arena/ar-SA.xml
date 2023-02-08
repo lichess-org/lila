@@ -27,15 +27,18 @@
   <string name="thereIsACountdown">هناك عد تنازلي لخطوتك الأولى. الفشل في اتخاذ خطوة خلال هذا الوقت ستخسر اللعبة لصالح خصمك.</string>
   <plurals name="drawingWithinNbMoves">
     <item quantity="zero">اعلان التعادل في النقلات ال%s الاولى لن يكسب اللاعبين اي نقطه.</item>
-    <item quantity="one">اعلان التعادل خلال النقلات ال %s الاولى لن يكسب أي من اللاعبين أي نقاط.</item>
-    <item quantity="two">إعلان التعادل خلال النقلات ال %s الأولى لن يكسب أي لاعب أي نقطة.</item>
-    <item quantity="few">إعلان التعادل خلال ال%s نقلات الأولى لن يكسب أي من اللاعبين أي نقطة.</item>
-    <item quantity="many">Drawing the game within the first %s moves will earn neither player any points.</item>
+    <item quantity="one">إعلان التعادل خلال النقلات %s الأولى لن يكسب أي من اللاعبين أي نِقَاط.</item>
+    <item quantity="two">إعلان التعادل خلال النقلات %s الأولى لن يكسب أي لاعب أي نقطة.</item>
+    <item quantity="few">إعلان التعادل خلال النقلات %s الأولى لن يكسب أي من اللاعبين أي نقطة.</item>
+    <item quantity="many">إعلان التعادل خلال النقلات %s الأولى لن يكسب اللاعبين أي نِقَاط.</item>
     <item quantity="other">اعلان التعادل خلال النقلات ال%s الأولى لن يكسب أي لاعب أي نقطة.</item>
   </plurals>
   <string name="thisIsPrivate">هذه بطولة خاصة</string>
   <string name="shareUrl">شارك الرابط لتسمح للناس بالإنضمام: %s</string>
-  <string name="drawStreak">سلسلة تعادلات: عندما يحصل لاعب على تعادلات متتالية فى مسابقات أرينا, يحصل اللاعب على نقطة من أول تعادل فقط, او من التعادلان التى إجتازت %s نقلة. يمكن كسر سلسلة تعادلات عن طريق الربح فقط, وليس خسارة أو تعادل.</string>
+  <string name="drawStreakStandard">سلسلة تعادلات: عندما يحصل لاعب على تعادلات متتالية فى مسابقات أرينا, يحصل اللاعب على نقطة من أول تعادل فقط, او من التعادلات التى إجتازت %s نقلة. يمكن كسر سلسلة تعادلات عن طريق الربح فقط, وليس خسارة أو تعادل.</string>
+  <string name="drawStreakVariants">الحد الادنى للمباريات المتعادلة لاحراز نقطة يختلف من متغير للثاني انظلا للجدول ادناه لمعرفى النقاط.</string>
+  <string name="variant">متغير (أنواع شطرنج غير الكلاسيكي)</string>
+  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">الحد الادنى لطول المباراة</string>
   <string name="history">يُمكنك الإطلاع على جميع مسابقات أرينا السابقة حسب النمط من خلال الرتبط التالي: https://lichess. org/tournament/history</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="zero">%s عرض للفرق</item>

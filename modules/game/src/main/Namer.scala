@@ -2,16 +2,14 @@ package lila.game
 
 import lila.common.LightUser
 
-object Namer {
+object Namer:
 
-  def playerTextBlocking(player: Player, withRating: Boolean = false)(implicit
+  def playerTextBlocking(player: Player, withRating: Boolean = false)(using
       lightUser: LightUser.GetterSync
   ): String =
     playerTextUser(player, player.userId flatMap lightUser, withRating)
 
-  def playerText(player: Player, withRating: Boolean = false)(implicit
-      lightUser: LightUser.Getter
-  ): Fu[String] =
+  def playerText(player: Player, withRating: Boolean = false)(using lightUser: LightUser.Getter): Fu[String] =
     player.userId.??(lightUser) dmap {
       playerTextUser(player, _, withRating)
     }
@@ -27,7 +25,7 @@ object Namer {
       s"Stockfish level $level"
     }
 
-  def gameVsTextBlocking(game: Game, withRatings: Boolean = false)(implicit
+  def gameVsTextBlocking(game: Game, withRatings: Boolean = false)(using
       lightUser: LightUser.GetterSync
   ): String =
     s"${playerTextBlocking(game.whitePlayer, withRatings)} - ${playerTextBlocking(game.blackPlayer, withRatings)}"
@@ -38,9 +36,7 @@ object Namer {
         s"${playerTextUser(game.whitePlayer, wu, withRatings)} - ${playerTextUser(game.blackPlayer, bu, withRatings)}"
       }
 
-  def ratingString(p: Player) =
-    p.rating match {
-      case Some(rating) => s"$rating${if (p.provisional) "?" else ""}"
-      case _            => "?"
+  def ratingString(p: Player): String =
+    p.rating.fold("?") { rating =>
+      s"$rating${p.provisional.yes ?? "?"}"
     }
-}

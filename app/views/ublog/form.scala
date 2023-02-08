@@ -3,18 +3,18 @@ package views.html.ublog
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Captcha
 import lila.i18n.LangList
 import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
 
-object form {
+object form:
 
-  import views.html.ublog.{ post => postView }
+  import views.html.ublog.{ post as postView }
 
   private def moreCss(implicit ctx: Context) = frag(cssTag("ublog.form"), cssTag("tagify"))
 
@@ -28,7 +28,7 @@ object form {
         views.html.blog.bits.menu(none, "mine".some),
         div(cls := "page-menu__content box ublog-post-form")(
           standardFlash(),
-          h1(trans.ublog.newPost()),
+          boxTop(h1(trans.ublog.newPost())),
           etiquette,
           inner(f, Left(user), captcha.some)
         )
@@ -45,7 +45,7 @@ object form {
         views.html.blog.bits.menu(none, "mine".some),
         div(cls := "page-menu__content box ublog-post-form")(
           standardFlash(),
-          div(cls := "box__top")(
+          boxTop(
             h1(
               if (ctx isUserId post.created.by) trans.ublog.editYourBlogPost()
               else s"Edit ${usernameOrId(post.created.by)}'s post"
@@ -56,7 +56,7 @@ object form {
           inner(f, Right(post), none),
           postForm(
             cls    := "ublog-post-form__delete",
-            action := routes.Ublog.delete(post.id.value)
+            action := routes.Ublog.delete(post.id)
           )(
             form3.action(
               submitButton(
@@ -72,7 +72,7 @@ object form {
   private def imageForm(post: UblogPost)(implicit ctx: Context) =
     postForm(
       cls     := "ublog-post-form__image",
-      action  := routes.Ublog.image(post.id.value),
+      action  := routes.Ublog.image(post.id),
       enctype := "multipart/form-data"
     )(
       form3.split(
@@ -191,7 +191,7 @@ object form {
         )(
           trans.cancel()
         ),
-        form3.submit((if (post.isRight) trans.apply else trans.ublog.saveDraft)())
+        form3.submit((if (post.isRight) trans.apply else trans.ublog.saveDraft) ())
       )
     )
 
@@ -215,4 +215,3 @@ object form {
     cls      := "text",
     targetBlank
   )(trans.ublog.blogTips())
-}

@@ -1,26 +1,25 @@
 package lila.gameSearch
 
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.game.{ Game, GameRepo }
-import lila.search._
+import lila.common.Json.given
+import lila.search.*
 
 final class GameSearchApi(
     client: ESClient,
     gameRepo: GameRepo
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-) extends SearchReadApi[Game, Query] {
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler)
+    extends SearchReadApi[Game, Query]:
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
-      gameRepo gamesFromSecondary res.ids
+      gameRepo gamesFromSecondary res.ids.map(GameId(_))
     }
 
   def count(query: Query) =
-    client.count(query) dmap (_.count)
+    client.count(query).dmap(_.value)
 
   def ids(query: Query, max: Int): Fu[List[String]] =
     client.search(query, From(0), Size(max)).map(_.ids)
@@ -30,7 +29,7 @@ final class GameSearchApi(
       gameRepo isAnalysed game.id flatMap { analysed =>
         lila.common.Future
           .retry(
-            () => client.store(Id(game.id), toDoc(game, analysed)),
+            () => client.store(game.id into Id, toDoc(game, analysed)),
             delay = 20.seconds,
             retries = 2,
             logger.some
@@ -48,10 +47,10 @@ final class GameSearchApi(
           case s if s.is(_.NoStart) => chess.Status.Resign
           case _                    => game.status
         }).id,
-        Fields.turns         -> (game.turns + 1) / 2,
+        Fields.turns         -> (game.ply.value + 1) / 2,
         Fields.rated         -> game.rated,
         Fields.perf          -> game.perfType.map(_.id),
-        Fields.uids          -> game.userIds.toArray.some.filterNot(_.isEmpty),
+        Fields.uids          -> game.userIds.some.filterNot(_.isEmpty),
         Fields.winner        -> game.winner.flatMap(_.userId),
         Fields.loser         -> game.loser.flatMap(_.userId),
         Fields.winnerColor   -> game.winner.fold(3)(_.color.fold(1, 2)),
@@ -67,4 +66,3 @@ final class GameSearchApi(
         Fields.source        -> game.source.map(_.id)
       )
       .noNull
-}

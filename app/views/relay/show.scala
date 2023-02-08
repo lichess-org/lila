@@ -3,21 +3,24 @@ package relay
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
+import lila.common.Json.given
+import lila.socket.SocketVersion
+import lila.socket.SocketVersion.given
 
 import controllers.routes
 
-object show {
+object show:
 
   def apply(
       rt: lila.relay.RelayRound.WithTourAndStudy,
       data: lila.relay.JsonView.JsData,
       chatOption: Option[lila.chat.UserChat.Mine],
-      socketVersion: lila.socket.Socket.SocketVersion,
-      streamers: List[lila.user.User.ID]
+      socketVersion: SocketVersion,
+      streamers: List[UserId]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = rt.fullName,
@@ -41,18 +44,18 @@ object show {
                   writeable = ctx.userId.??(rt.study.canChat),
                   public = true,
                   resourceId = lila.chat.Chat.ResourceId(s"relay/${c.chat.id}"),
-                  localMod = ctx.userId.??(rt.study.canContribute)
+                  localMod = rt.tour.tier.isEmpty && ctx.userId.??(rt.study.canContribute),
+                  broadcastMod = rt.tour.tier.isDefined && isGranted(_.BroadcastTimeout)
                 )
               ),
-              "explorer"      -> views.html.board.bits.explorerConfig,
-              "socketUrl"     -> views.html.study.show.socketUrl(rt.study.id.value),
-              "socketVersion" -> socketVersion.value
-            )
+              "socketUrl"     -> views.html.study.show.socketUrl(rt.study.id),
+              "socketVersion" -> socketVersion
+            ) ++ views.html.board.bits.explorerAndCevalConfig
           )}""")
       ),
       chessground = false,
       zoomable = true,
-      csp = defaultCsp.withWebAssembly.withAnyWs.withWikiBooks.some,
+      csp = analysisCsp.withWikiBooks.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = rt.fullName,
@@ -66,4 +69,3 @@ object show {
         views.html.study.bits.streamers(streamers)
       )
     )
-}

@@ -38,7 +38,10 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   </plurals>
   <string name="thisIsPrivate">Toto je soukromý turnaj</string>
   <string name="shareUrl">Sdílejte tuto adresu URL, aby se mohli lidé připojit: %s</string>
-  <string name="drawStreak">Série remíz: Když hráč několikrát po sobě skončí hru remízou v aréně, pouze první remíza mu dá bod, nebo pokud k remíze dojde po více než %s tazích. Série může být ukončena pouze výhrou, ne prohrou nebo další remízou.</string>
+  <string name="drawStreakStandard">Série remíz: když hráč několikrát po sobě skončí hru remízou v aréně, pouze první remíza mu dá bod, nebo pokud k remíze dojde po více než %s tazích. Série může být ukončena pouze výhrou, ne prohrou nebo další remízou.</string>
+  <string name="drawStreakVariants">Minimální délka hry pro bodovanou remízu se liší podle varianty. Níže uvedená tabulka uvádí hotnotu pro danou variantu.</string>
+  <string name="variant">Varianta</string>
+  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Minimální délka hry</string>
   <string name="history">Historie arény</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Zobrazit tým</item>

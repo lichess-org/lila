@@ -14,11 +14,11 @@ export default (ctrl: KeyboardController) =>
       control.next(ctrl);
       ctrl.redraw();
     })
-    .bind(['up', '0'], () => {
+    .bind(['up', '0', 'home'], () => {
       control.first(ctrl);
       ctrl.redraw();
     })
-    .bind(['down', '$'], () => {
+    .bind(['down', '$', 'end'], () => {
       control.last(ctrl);
       ctrl.redraw();
     })

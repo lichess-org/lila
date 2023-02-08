@@ -1,20 +1,19 @@
 package lila.insight
 
 import play.api.i18n.Lang
-import play.api.libs.json._
-import lila.common.{ LilaOpening, LilaOpeningFamily }
+import play.api.libs.json.*
+import lila.common.{ LilaOpeningFamily, SimpleOpening }
 
-final class JsonView {
+final class JsonView:
 
-  import lila.insight.{ InsightDimension => D, InsightMetric => M }
-  import writers._
+  import lila.insight.{ InsightDimension as D, InsightMetric as M }
 
   case class Categ(name: String, items: List[JsValue])
-  implicit private val categWrites = Json.writes[Categ]
+  private given Writes[Categ] = Json.writes
 
-  def ui(families: List[LilaOpeningFamily], openings: List[LilaOpening], asMod: Boolean)(implicit
+  def ui(families: List[LilaOpeningFamily], openings: List[SimpleOpening], asMod: Boolean)(using
       lang: Lang
-  ) = {
+  ) =
 
     val openingFamilyJson = Json.obj(
       "key"         -> D.OpeningFamily.key,
@@ -36,11 +35,11 @@ final class JsonView {
       Categ(
         "Setup",
         List(
-          Json.toJson(D.Date: InsightDimension[_]),
-          Json.toJson(D.Period: InsightDimension[_]),
-          Json.toJson(D.Perf: InsightDimension[_]),
-          Json.toJson(D.Color: InsightDimension[_]),
-          Json.toJson(D.OpponentStrength: InsightDimension[_])
+          dimWrites.writes(D.Date),
+          dimWrites.writes(D.Period),
+          dimWrites.writes(D.Perf),
+          dimWrites.writes(D.Color),
+          dimWrites.writes(D.OpponentStrength)
         )
       ),
       Categ(
@@ -48,35 +47,35 @@ final class JsonView {
         List(
           openingFamilyJson,
           openingJson,
-          Json.toJson(D.MyCastling: InsightDimension[_]),
-          Json.toJson(D.OpCastling: InsightDimension[_]),
-          Json.toJson(D.QueenTrade: InsightDimension[_])
+          dimWrites.writes(D.MyCastling),
+          dimWrites.writes(D.OpCastling),
+          dimWrites.writes(D.QueenTrade)
         )
       ),
       Categ(
         "Move",
         asMod.?? {
           List(
-            Json.toJson(D.Blur: InsightDimension[_]),
-            Json.toJson(D.TimeVariance: InsightDimension[_]),
-            Json.toJson(D.EvalRange: InsightDimension[_]),
-            Json.toJson(D.CplRange: InsightDimension[_])
+            dimWrites.writes(D.Blur),
+            dimWrites.writes(D.TimeVariance),
+            dimWrites.writes(D.EvalRange),
+            dimWrites.writes(D.CplRange)
           )
         } ::: List(
-          Json.toJson(D.PieceRole: InsightDimension[_]),
-          Json.toJson(D.MovetimeRange: InsightDimension[_]),
-          Json.toJson(D.ClockPercentRange: InsightDimension[_]),
-          Json.toJson(D.MaterialRange: InsightDimension[_]),
-          Json.toJson(D.AccuracyPercentRange: InsightDimension[_]),
-          Json.toJson(D.WinPercentRange: InsightDimension[_]),
-          Json.toJson(D.Phase: InsightDimension[_])
+          dimWrites.writes(D.PieceRole),
+          dimWrites.writes(D.MovetimeRange),
+          dimWrites.writes(D.ClockPercentRange),
+          dimWrites.writes(D.MaterialRange),
+          dimWrites.writes(D.AccuracyPercentRange),
+          dimWrites.writes(D.WinPercentRange),
+          dimWrites.writes(D.Phase)
         )
       ),
       Categ(
         "Result",
         List(
-          Json.toJson(D.Termination: InsightDimension[_]),
-          Json.toJson(D.Result: InsightDimension[_])
+          dimWrites.writes(D.Termination),
+          dimWrites.writes(D.Result)
         )
       )
     )
@@ -130,43 +129,33 @@ final class JsonView {
         "metricCategs"    -> metricCategs
       )
       .add("asMod" -> asMod)
-  }
 
-  private object writers {
-
-    implicit def dimensionWriter[X](implicit lang: Lang): Writes[InsightDimension[X]] =
-      Writes { d =>
-        Json.obj(
-          "key"         -> d.key,
-          "name"        -> d.name,
-          "position"    -> d.position,
-          "description" -> d.description,
-          "values"      -> InsightDimension.valuesOf(d).map(InsightDimension.valueToJson(d))
-        )
-      }
-
-    implicit val metricWriter: Writes[InsightMetric] = Writes { m =>
+  private given dimWrites[X](using lang: Lang): Writes[InsightDimension[X]] =
+    Writes { d =>
       Json.obj(
-        "key"         -> m.key,
-        "name"        -> m.name,
-        "description" -> m.description,
-        "position"    -> m.position
+        "key"         -> d.key,
+        "name"        -> d.name,
+        "position"    -> d.position,
+        "description" -> d.description,
+        "values"      -> InsightDimension.valuesOf(d).map(InsightDimension.valueToJson(d))
       )
     }
 
-    implicit val positionWriter: Writes[InsightPosition] = Writes { p =>
-      JsString(p.name)
-    }
+  given Writes[InsightMetric] = Writes { m =>
+    Json.obj(
+      "key"         -> m.key,
+      "name"        -> m.name,
+      "description" -> m.description,
+      "position"    -> m.position
+    )
   }
 
-  object chart {
-    implicit private val xAxisWrites = Json.writes[Chart.Xaxis]
-    implicit private val yAxisWrites = Json.writes[Chart.Yaxis]
-    implicit private val SerieWrites = Json.writes[Chart.Serie]
-    implicit private val ChartWrites = Json.writes[Chart]
+  given Writes[InsightPosition] = Writes(p => JsString(p.name))
 
-    def apply(c: Chart) = ChartWrites writes c
-  }
+  private given Writes[Chart.Xaxis] = Json.writes
+  private given Writes[Chart.Yaxis] = Json.writes
+  private given Writes[Chart.Serie] = Json.writes
+  given chartWrites: Writes[Chart]  = Json.writes
 
   def question(metric: String, dimension: String, filters: String) =
     Json.obj(
@@ -181,4 +170,3 @@ final class JsonView {
         }
         .toMap: Map[String, JsArray])
     )
-}

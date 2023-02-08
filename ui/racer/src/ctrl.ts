@@ -10,14 +10,15 @@ import { Countdown } from './countdown';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
-import { Run } from 'puz/interfaces';
+import { PuzCtrl, Run } from 'puz/interfaces';
+import { PuzFilters } from 'puz/filters';
 import { defined, prop, Prop } from 'common';
 import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, RaceStatus, WithGround } from './interfaces';
 import { Role } from 'chessground/types';
 import { storedBooleanProp } from 'common/storage';
 import { PromotionCtrl } from 'chess/promotion';
 
-export default class RacerCtrl {
+export default class RacerCtrl implements PuzCtrl {
   private data: RacerData;
   private sign = Math.random().toString(36);
   private localScore = 0;
@@ -25,6 +26,7 @@ export default class RacerCtrl {
   pref: RacerPrefs;
   run: Run;
   vm: RacerVm;
+  filters: PuzFilters;
   trans: Trans;
   promotion: PromotionCtrl;
   countdown: Countdown;
@@ -33,11 +35,13 @@ export default class RacerCtrl {
   knowsSkip = storedBooleanProp('racer.skip', false);
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
   flipped = false;
+  redrawInterval: Timeout;
 
   constructor(opts: RacerOpts, readonly redraw: () => void) {
     this.data = opts.data;
     this.race = this.data.race;
     this.pref = opts.pref;
+    this.filters = new PuzFilters(redraw, true);
     this.trans = lichess.trans(opts.i18n);
     this.run = {
       pov: puzzlePov(this.data.puzzles[0]),
@@ -53,8 +57,6 @@ export default class RacerCtrl {
     };
     this.vm = {
       alreadyStarted: defined(opts.data.startsIn) && opts.data.startsIn <= 0,
-      filterFailed: false,
-      filterSlow: false,
     };
     this.countdown = new Countdown(
       this.run.clock,
@@ -83,7 +85,7 @@ export default class RacerCtrl {
       this.setZen(zen);
     });
     $('#zentog').on('click', this.toggleZen);
-    setInterval(this.redraw, 1000);
+    this.redrawInterval = setInterval(this.redraw, 1000);
     setTimeout(this.hotkeys, 1000);
   }
 
@@ -138,6 +140,7 @@ export default class RacerCtrl {
     lichess.pubsub.emit('ply', 0); // restore resize handle
     $('body').toggleClass('playing'); // end zen
     this.redrawSlow();
+    clearInterval(this.redrawInterval);
   };
 
   canSkip = () => this.skipAvailable;
@@ -146,6 +149,7 @@ export default class RacerCtrl {
     if (this.skipAvailable && this.run.clock.started()) {
       this.skipAvailable = false;
       sound.good();
+      this.run.skipId = this.run.current.puzzle.id;
       this.playUci(this.run.current.expectedMove());
       this.knowsSkip(true);
     }
@@ -243,16 +247,6 @@ export default class RacerCtrl {
   flip = () => {
     this.flipped = !this.flipped;
     this.withGround(g => g.toggleOrientation());
-    this.redraw();
-  };
-
-  toggleFilterSlow = () => {
-    this.vm.filterSlow = !this.vm.filterSlow;
-    this.redraw();
-  };
-
-  toggleFilterFailed = () => {
-    this.vm.filterFailed = !this.vm.filterFailed;
     this.redraw();
   };
 

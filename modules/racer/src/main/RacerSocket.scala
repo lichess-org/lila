@@ -1,29 +1,29 @@
 package lila.racer
 
-import lila.room.RoomSocket.{ Protocol => RP, _ }
-import lila.socket.RemoteSocket.{ Protocol => P, _ }
+import lila.room.RoomSocket.{ Protocol as RP, * }
+import lila.socket.RemoteSocket.{ Protocol as P, * }
 import play.api.libs.json.{ JsObject, Json }
 
 final private class RacerSocket(
     api: RacerApi,
     json: RacerJson,
     remoteSocketApi: lila.socket.RemoteSocket
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mode: play.api.Mode
-) {
+):
 
-  import RacerSocket._
+  import RacerSocket.*
 
   def publishState(race: RacerRace): Unit = send(
     Protocol.Out.publishState(race.id, json state race)
   )
 
-  private lazy val send: String => Unit = remoteSocketApi.makeSender("racer-out").apply _
+  private lazy val send: String => Unit = remoteSocketApi.makeSender("racer-out").apply
 
   lazy val rooms = makeRoomMap(send)
 
-  private lazy val racerHandler: Handler = {
+  private lazy val racerHandler: Handler =
     case Protocol.In.PlayerJoin(raceId, playerId) =>
       api.join(raceId, playerId).unit
     case Protocol.In.PlayerScore(raceId, playerId, score) =>
@@ -34,20 +34,18 @@ final private class RacerSocket(
         .filter(_.startsAt.isEmpty)
         .filter(_.owner == playerId)
         .foreach(api.manualStart)
-  }
 
   remoteSocketApi.subscribe("racer-in", Protocol.In.reader)(
     racerHandler orElse minRoomHandler(rooms, logger) orElse remoteSocketApi.baseHandler
   )
 
   api registerSocket this
-}
 
-object RacerSocket {
+object RacerSocket:
 
-  object Protocol {
+  object Protocol:
 
-    object In {
+    object In:
 
       case class PlayerJoin(race: RacerRace.Id, player: RacerPlayer.Id)              extends P.In
       case class PlayerScore(race: RacerRace.Id, player: RacerPlayer.Id, score: Int) extends P.In
@@ -56,7 +54,7 @@ object RacerSocket {
       val reader: P.In.Reader = raw => raceReader(raw) orElse RP.In.reader(raw)
 
       val raceReader: P.In.Reader = raw =>
-        raw.path match {
+        raw.path match
           case "racer/join" =>
             raw.get(2) { case Array(raceId, playerId) =>
               PlayerJoin(RacerRace.Id(raceId), RacerPlayer.Id(playerId)).some
@@ -70,12 +68,7 @@ object RacerSocket {
               RaceStart(RacerRace.Id(raceId), RacerPlayer.Id(playerId)).some
             }
           case _ => none
-        }
-    }
 
-    object Out {
+    object Out:
 
       def publishState(id: RacerRace.Id, data: JsObject) = s"racer/state $id ${Json stringify data}"
-    }
-  }
-}

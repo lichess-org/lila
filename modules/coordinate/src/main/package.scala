@@ -1,3 +1,3 @@
-package lila
+package lila.coordinate
 
-package object coordinate extends PackageObject
+export lila.Lila.{ *, given }

@@ -2,66 +2,61 @@ package lila.importer
 
 import cats.data.Validated
 import chess.format.pgn.{ ParsedPgn, Parser, Reader, Tag, TagType, Tags }
-import chess.format.{ FEN, Forsyth }
-import chess.{ Color, Mode, Replay, Status }
-import play.api.data._
-import play.api.data.Forms._
-import scala.util.chaining._
+import chess.format.Fen
+import chess.{ Color, Mode, Outcome, Replay, Status }
+import play.api.data.*
+import play.api.data.Forms.*
+import scala.util.chaining.*
 
-import lila.game._
+import lila.game.*
 
-final class ImporterForm {
+final class ImporterForm:
 
   lazy val importForm = Form(
     mapping(
       "pgn"     -> nonEmptyText.verifying("invalidPgn", p => checkPgn(p).isValid),
       "analyse" -> optional(nonEmptyText)
-    )(ImportData.apply)(ImportData.unapply)
+    )(ImportData.apply)(unapply)
   )
 
   def checkPgn(pgn: String): Validated[String, Preprocessed] = ImporterForm.catchOverflow { () =>
     ImportData(pgn, none).preprocess(none)
   }
-}
 
-object ImporterForm {
+object ImporterForm:
 
-  def catchOverflow(f: () => Validated[String, Preprocessed]): Validated[String, Preprocessed] = try {
-    f()
-  } catch {
+  def catchOverflow(f: () => Validated[String, Preprocessed]): Validated[String, Preprocessed] = try f()
+  catch
     case e: RuntimeException if e.getMessage contains "StackOverflowError" =>
       Validated.Invalid("This PGN seems too long or too complex!")
-  }
-}
 
 private case class TagResult(status: Status, winner: Option[Color])
 case class Preprocessed(
     game: NewGame,
     replay: Replay,
-    initialFen: Option[FEN],
+    initialFen: Option[Fen.Epd],
     parsed: ParsedPgn
 )
 
-case class ImportData(pgn: String, analyse: Option[String]) {
+case class ImportData(pgn: String, analyse: Option[String]):
 
   private type TagPicker = Tag.type => TagType
 
   private val maxPlies = 600
 
   private def evenIncomplete(result: Reader.Result): Replay =
-    result match {
+    result match
       case Reader.Result.Complete(replay)      => replay
       case Reader.Result.Incomplete(replay, _) => replay
-    }
 
-  def preprocess(user: Option[String]): Validated[String, Preprocessed] = ImporterForm.catchOverflow(() =>
+  def preprocess(user: Option[UserId]): Validated[String, Preprocessed] = ImporterForm.catchOverflow(() =>
     Parser.full(pgn) map { parsed =>
       Reader.fullWithSans(
         parsed,
         sans => sans.copy(value = sans.value take maxPlies)
       ) pipe evenIncomplete pipe { case replay @ Replay(setup, _, state) =>
-        val initBoard    = parsed.tags.fen flatMap Forsyth.<< map (_.board)
-        val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.initial)
+        val initBoard    = parsed.tags.fen flatMap Fen.read map (_.board)
+        val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.isInitial)
         val variant = {
           parsed.tags.variant | {
             if (fromPosition) chess.variant.FromPosition
@@ -76,8 +71,8 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         }
         val game = state.copy(situation = state.situation withVariant variant)
         val initialFen = parsed.tags.fen flatMap {
-          Forsyth.<<<@(variant, _)
-        } map Forsyth.>>
+          Fen.readWithMoveNumber(variant, _)
+        } map Fen.write
 
         val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
           case Some("normal")                          => Status.Resign
@@ -96,12 +91,12 @@ case class ImportData(pgn: String, analyse: Option[String]) {
             whitePlayer = Player.makeImported(
               chess.White,
               parsed.tags(_.White),
-              parsed.tags(_.WhiteElo).flatMap(_.toIntOption)
+              IntRating from parsed.tags(_.WhiteElo).flatMap(_.toIntOption)
             ),
             blackPlayer = Player.makeImported(
               chess.Black,
               parsed.tags(_.Black),
-              parsed.tags(_.BlackElo).flatMap(_.toIntOption)
+              IntRating from parsed.tags(_.BlackElo).flatMap(_.toIntOption)
             ),
             mode = Mode.Casual,
             source = Source.Import,
@@ -111,11 +106,11 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           .start pipe { dbGame =>
           // apply the result from the board or the tags
 
-          val tagStatus: Option[TagResult] = parsed.tags.resultColor
+          val tagStatus: Option[TagResult] = parsed.tags.outcome
             .map {
-              case Some(color)                        => TagResult(status, color.some)
-              case None if status == Status.Outoftime => TagResult(status, none)
-              case None                               => TagResult(Status.Draw, none)
+              case Outcome(Some(winner))           => TagResult(status, winner.some)
+              case _ if status == Status.Outoftime => TagResult(status, none)
+              case _                               => TagResult(Status.Draw, none)
             }
             .filter(_.status > Status.Started)
 
@@ -131,4 +126,3 @@ case class ImportData(pgn: String, analyse: Option[String]) {
       }
     }
   )
-}

@@ -6,7 +6,7 @@
   <string name="offline">מנותק</string>
   <string name="currentlyStreaming">משדרים כרגע: %s</string>
   <string name="lastStream">משדר אחרון %s</string>
-  <string name="becomeStreamer">הפוך לשדרן ליצ׳ס</string>
+  <string name="becomeStreamer">הפכו לשדרני ליצ׳ס</string>
   <string name="doYouHaveStream">יש לך ערוץ יוטיוב או טוויץ\'?</string>
   <string name="hereWeGo">יוצאים לדרך!</string>
   <string name="allStreamers">כל השדרנים</string>
@@ -30,10 +30,7 @@
   <string name="pleaseFillIn">אנא מלאו את פרטי המשדר שלכם והעלו תמונה.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">כאשר אתם מוכנים להיכנס לרשימת שדרני ליצ׳ס, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">בקשו בדיקת מנהלים</string>
-  <string name="anotherLanguage">אם שפת המשדר שלכם אינה אנגלית, צרפו תוית שפה תואמת (%s), תחומה בסוגריים מרובעים, בתחילת כותרת המשדר.
-לדוגמא \"[HE]\" עבור עברית, \"[TR]\" עבור טורקית, \"[FR]\" עבור צרפתית, ועוד.
-כתבו את תוית השפה בכותרת המשדר בעמוד ה-Twitch או ה-YouTube ולא בהגדרות המשדר בליצ׳ס.
-אם המשדר שלכם באנגלית, אין צורך לצרף תוית שפה.</string>
+  <string name="streamerLanguageSettings">עמוד השדרנים של ליצ׳ס מכוון את הקהל שלך לפי השפה שבימת השידור שלך סיפקה לנו. הגדירו את השפה הנכונה באפליקציה או בשירות המשמשים אתכם לשידור.</string>
   <string name="twitchUsername">שם המשתמש או כתובת הTwitch שלכם</string>
   <string name="optionalOrEmpty">אופציונאלי. אם אין, השאירו את השדה ריק</string>
   <string name="youtubeChannel">כתובת URL או מספר זיהוי (ID) של ערוץ היוטיוב שלכם</string>

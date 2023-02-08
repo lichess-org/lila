@@ -1,42 +1,47 @@
 package lila.user
 
-import play.api.libs.json._
+import play.api.libs.json.*
 import User.{ LightPerf, PlayTime }
 
-import lila.common.Json.jodaWrites
+import lila.common.Json.{ writeAs, given }
+import lila.common.LightUser
 import lila.rating.{ Perf, PerfType }
 
-final class JsonView(isOnline: lila.socket.IsOnline) {
+final class JsonView(isOnline: lila.socket.IsOnline):
 
-  import JsonView._
-  implicit private val profileWrites  = Json.writes[Profile]
-  implicit private val playTimeWrites = Json.writes[PlayTime]
+  import JsonView.{ *, given }
+  private given OWrites[Profile]  = Json.writes
+  private given OWrites[PlayTime] = Json.writes
 
-  def full(u: User, onlyPerf: Option[PerfType] = None, withOnline: Boolean, withRating: Boolean): JsObject =
-    if (u.disabled) disabled(u)
+  def full(
+      u: User,
+      onlyPerf: Option[PerfType] = None,
+      withRating: Boolean,
+      withProfile: Boolean
+  ): JsObject =
+    if (u.enabled.no) disabled(u.light)
     else
       base(u, onlyPerf, withRating = withRating) ++ Json
         .obj("createdAt" -> u.createdAt)
-        .add("online" -> withOnline.option(isOnline(u.id)))
-        .add("profile" -> u.profile.map(p => profileWrites.writes(p.filterTroll(u.marks.troll)).noNull))
+        .add(
+          "profile" -> u.profile
+            .ifTrue(withProfile)
+            .map(p => Json.toJsObject(p.filterTroll(u.marks.troll)).noNull)
+        )
         .add("seenAt" -> u.seenAt)
         .add("playTime" -> u.playTime)
 
   def roundPlayer(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
-    if (u.disabled) disabled(u)
-    else
-      base(u, onlyPerf, withRating = withRating) ++ Json
-        .obj("online" -> isOnline(u.id))
-        .add("profile" -> u.profile.flatMap(_.country).map { country =>
-          Json.obj("country" -> country)
-        })
+    if (u.enabled.no) disabled(u.light)
+    else base(u, onlyPerf, withRating = withRating).add("online" -> isOnline.value(u.id))
 
   private def base(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
     Json
       .obj(
         "id"       -> u.id,
         "username" -> u.username,
-        "perfs"    -> (withRating ?? perfs(u, onlyPerf))
+        "perfs" -> (if (withRating) perfs(u, onlyPerf)
+                    else Json.obj())
       )
       .add("title" -> u.title)
       .add("tosViolation" -> u.lame)
@@ -44,37 +49,35 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
       .add("verified" -> u.isVerified)
 
   def lightPerfIsOnline(lp: LightPerf) =
-    lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
+    lightPerfWrites.writes(lp).add("online" -> isOnline.value(lp.user.id))
 
-  def disabled(u: User) = Json.obj(
+  def disabled(u: LightUser) = Json.obj(
     "id"       -> u.id,
-    "username" -> u.username,
+    "username" -> u.name,
     "disabled" -> true
   )
-}
+  def ghost = disabled(LightUser.ghost)
 
-object JsonView {
+object JsonView:
 
-  import Title.titleJsonWrites
+  import Title.given
 
-  implicit val nameWrites = Writes[User] { u =>
-    JsString(u.username)
-  }
+  val nameWrites: Writes[User] = writeAs(_.username)
 
-  implicit val lightPerfWrites = OWrites[LightPerf] { l =>
+  given lightPerfWrites: OWrites[LightPerf] = OWrites[LightPerf] { l =>
     Json
       .obj(
         "id"       -> l.user.id,
         "username" -> l.user.name,
         "perfs" -> Json.obj(
-          l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress)
+          l.perfKey.value -> Json.obj("rating" -> l.rating, "progress" -> l.progress)
         )
       )
       .add("title" -> l.user.title)
       .add("patron" -> l.user.isPatron)
   }
 
-  implicit val modWrites = OWrites[User] { u =>
+  val modWrites = OWrites[User] { u =>
     Json
       .obj(
         "id"       -> u.id,
@@ -86,7 +89,7 @@ object JsonView {
       .add("title" -> u.title)
   }
 
-  implicit val perfWrites: OWrites[Perf] = OWrites { o =>
+  given perfWrites: OWrites[Perf] = OWrites { o =>
     Json
       .obj(
         "games"  -> o.nb,
@@ -94,18 +97,18 @@ object JsonView {
         "rd"     -> o.glicko.deviation.toInt,
         "prog"   -> o.progress
       )
-      .add("prov" -> o.glicko.provisional)
+      .add("prov", o.glicko.provisional)
   }
 
-  private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key).to(Set)
+  private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key).toSet
 
-  private def select(key: String, perf: Perf) =
+  private def select(key: Perf.Key, perf: Perf) =
     perf.nb > 0 || standardPerfKeys(key)
 
-  def perfs(u: User, onlyPerf: Option[PerfType] = None) =
+  def perfs(u: User, onlyPerf: Option[PerfType] = None): JsObject =
     JsObject(u.perfs.perfsMap collect {
       case (key, perf) if onlyPerf.fold(select(key, perf))(_.key == key) =>
-        key -> perfWrites.writes(perf)
+        key.value -> perfWrites.writes(perf)
     }).add(
       "storm",
       u.perfs.storm.nonEmpty option Json.obj(
@@ -128,11 +131,16 @@ object JsonView {
 
   def perfs(u: User, onlyPerfs: List[PerfType]) =
     JsObject(onlyPerfs.map { perfType =>
-      perfType.key -> perfWrites.writes(u.perfs(perfType))
+      perfType.key.value -> perfWrites.writes(u.perfs(perfType))
     })
 
-  def notes(ns: List[Note])(implicit lightUser: LightUserApi) =
-    lightUser.preloadMany(ns.flatMap(_.userIds).distinct) inject Json.arr {
+  def ratingMap(u: User): JsObject =
+    Writes
+      .keyMapWrites[Perf.Key, Int, Map]
+      .writes(u.perfs.perfsMap.view.mapValues(_.intRating.value).toMap)
+
+  def notes(ns: List[Note])(using lightUser: LightUserApi) =
+    lightUser.preloadMany(ns.flatMap(_.userIds).distinct) inject JsArray(
       ns.map { note =>
         Json
           .obj(
@@ -144,5 +152,23 @@ object JsonView {
           .add("mod", note.mod)
           .add("dox", note.dox)
       }
+    )
+
+  given leaderboardsWrites(using OWrites[User.LightPerf]): OWrites[Perfs.Leaderboards] =
+    OWrites { leaderboards =>
+      Json.obj(
+        "bullet"        -> leaderboards.bullet,
+        "blitz"         -> leaderboards.blitz,
+        "rapid"         -> leaderboards.rapid,
+        "classical"     -> leaderboards.classical,
+        "ultraBullet"   -> leaderboards.ultraBullet,
+        "crazyhouse"    -> leaderboards.crazyhouse,
+        "chess960"      -> leaderboards.chess960,
+        "kingOfTheHill" -> leaderboards.kingOfTheHill,
+        "threeCheck"    -> leaderboards.threeCheck,
+        "antichess"     -> leaderboards.antichess,
+        "atomic"        -> leaderboards.atomic,
+        "horde"         -> leaderboards.horde,
+        "racingKings"   -> leaderboards.racingKings
+      )
     }
-}

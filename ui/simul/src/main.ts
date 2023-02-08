@@ -34,3 +34,5 @@ export function start(opts: SimulOpts) {
 
 // that's for the rest of lichess to access the chat
 window.LichessChat = LichessChat;
+
+(window as any).LichessSimul = { start }; // esbuild

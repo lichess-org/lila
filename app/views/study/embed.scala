@@ -3,15 +3,15 @@ package views.html.study
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.EmbedConfig
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
-import lila.i18n.{ I18nKeys => trans }
+import lila.i18n.{ I18nKeys as trans }
 
-object embed {
+object embed:
 
-  import EmbedConfig.implicits._
+  import EmbedConfig.implicits.*
 
   def apply(
       s: lila.study.Study,
@@ -27,16 +27,16 @@ object embed {
         main(cls := "analyse")
       ),
       footer {
-        val url = routes.Study.chapter(s.id.value, chapter.id.value)
+        val url = routes.Study.chapter(s.id, chapter.id)
         frag(
           div(cls := "left")(
             select(id := "chapter-selector")(chapters.map { c =>
               option(
-                value := c.id.value,
+                value := c.id,
                 (c.id == chapter.id) option selected
-              )(c.name.value)
+              )(c.name)
             }),
-            a(targetBlank, href := url)(h1(s.name.value))
+            a(targetBlank, href := url)(h1(s.name))
           ),
           a(
             targetBlank,
@@ -47,7 +47,7 @@ object embed {
           )
         )
       },
-      views.html.base.layout.inlineJs(config.nonce)(config.lang),
+      views.html.base.layout.inlineJs(config.nonce)(using config.lang),
       depsTag,
       jsModule("analysisBoard.embed"),
       analyseStudyTag,
@@ -57,7 +57,7 @@ object embed {
               "study"  -> data.study,
               "data"   -> data.analysis,
               "embed"  -> true,
-              "i18n"   -> views.html.board.userAnalysisI18n(),
+              "i18n"   -> jsI18n.embed(chapter),
               "userId" -> none[String]
             )
           )});
@@ -77,4 +77,3 @@ document.getElementById('chapter-selector').onchange = function() {
         h1(trans.study.studyNotFound())
       )
     )
-}

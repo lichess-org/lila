@@ -1,81 +1,11 @@
-#!/bin/bash -ea
+#!/usr/bin/env bash
 
-target=${1-dev}
-mode=${2-build} # build | upgrade | css | js
-echo "building ui modules with target=$target and mode=$mode"
+UI_DIR=$(dirname $(readlink -f  "${BASH_SOURCE:-$0}"))
 
-nodever="$(node --version)"
-echo "node: $nodever"
-echo "yarn: $(yarn --version)"
-
-[[ "$nodever" =~ ^(v14\.1[3-9]\.[0-9]+)|(v1[5-8]\.[0-9]+\.[0-9]+)$ ]] || { echo "Node version >=14.13 and <=18 required. Found: $nodever"; exit 1; }
-
-cd "$(git rev-parse --show-toplevel)"
-
-mkdir -p public/compiled
-
-apps1="common"
-apps2="chess palantir"
-apps3="ceval game tree chat nvui puz keyboardMove"
-apps4="site analyse swiss msg tutor opening cli challenge notify learn insight editor puzzle round lobby tournament tournamentSchedule tournamentCalendar simul dasher serviceWorker dgt storm racer coordinateTrainer"
-site_plugins="ublogForm ublog tvEmbed puzzleEmbed analyseEmbed lpv lpvEmbed user clas captcha expandText team forum account coachShow coachForm challengePage checkout plan login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr appeal publicChats contact userGamesDownload tvGames speech"
-other_plugins="analyse:study analyse:nvui analyse:studyTopicForm round:nvui puzzle:nvui puzzle:dashboard puzzle:opening chart:ratingDistribution chart:ratingHistory chart:game mod:user mod:inquiry mod:search mod:games mod:activity mod:teamAdmin "
-
-if [ $mode == "upgrade" ]; then
-  yarn upgrade --non-interactive
-else
-  yarn install --non-interactive
+cd "$UI_DIR/.."
+if [ `expr "$*" : '.*--no-install'` -eq 0 ]; then
+  pnpm i
 fi
 
-build() {
-  echo
-  echo "### ui/$@ ###"
-  set -ev
-  if [[ $1 == "css" ]]; then
-    cd ui
-    yarn run gulp "css-$target"
-  else
-    cd ui/$1
-    yarn run $target
-  fi
-}
-
-build_plugin() {
-  echo $1
-  module="$(cut -d':' -f1 <<<$1)"
-  plugin="$(cut -d':' -f2 <<<$1)"
-  echo "### ui/$module plugin $plugin ###"
-  set -ev
-  cd ui/$module
-  yarn run plugin-$target $plugin
-}
-
-build_site_plugin() {
-  build_plugin "site:$1"
-}
-
-if [ $mode != "upgrade" ] && [ $mode != "js" ]; then
-  apps4="css $apps4"
-fi
-
-if [ $mode == "css" ]; then
-  (build css)
-else
-  if type -p parallel; then # parallel execution!
-    if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
-      P_OPTS="-j+4 --halt never"
-    fi
-    set -x
-    parallel --gnu $P_OPTS build ::: $apps1
-    parallel --gnu $P_OPTS build ::: $apps2
-    parallel --gnu $P_OPTS build ::: $apps3
-    parallel --gnu $P_OPTS build ::: $apps4
-    parallel --gnu $P_OPTS build_site_plugin ::: $site_plugins
-    parallel --gnu $P_OPTS build_plugin ::: $other_plugins
-  else # sequential execution
-    echo "For faster builds, install GNU parallel."
-    for app in $apps1 $apps2 $apps3 $apps4; do (build $app); done
-    for plugin in $site_plugins; do (build_site_plugin $plugin); done
-    for plugin in $other_plugins; do (build_plugin $plugin); done
-  fi
-fi
+cd "$UI_DIR/@build"
+pnpm -s dev "$@"

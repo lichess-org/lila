@@ -96,6 +96,7 @@
   <string name="dtzWithRounding">DTZ50\'\' з акругленнем, заснавана на колькасці паўходаў да наступнага ўзяцця ці ходу пешкі</string>
   <string name="noGameFound">Не знойдзена гульняў</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Паспрабуйце пашырыць ахоп пошуку ў наладах.</string>
+  <string name="openings">Дэбюты</string>
   <string name="openingExplorer">Аналіз дэбютных варыянтаў</string>
   <string name="openingEndgameExplorer">Даследчык дэбютаў/эндшпіляў</string>
   <string name="xOpeningExplorer">Аналіз дэбюту %s</string>
@@ -526,6 +527,7 @@
   <string name="socialMediaLinks">Спасылкі на сацсеткі</string>
   <string name="oneUrlPerLine">Адзін URL на радок.</string>
   <string name="inlineNotation">Убудаваная натацыя</string>
+  <string name="clearSavedMoves">Ачысціць хады</string>
   <string name="previouslyOnLichessTV">Раней на Lichess TV</string>
   <string name="onlinePlayers">Гульцы анлайн</string>
   <string name="activePlayers">Актыўныя гульцы</string>
@@ -697,6 +699,7 @@
   <string name="tournamentFAQ">Частыя пытанні пра турніры арэны</string>
   <string name="timeBeforeTournamentStarts">Турнір пачнецца праз</string>
   <string name="averageCentipawnLoss">У сярэднім страчана сотых пешкі</string>
+  <string name="accuracy">Дакладнасць</string>
   <string name="keyboardShortcuts">Скароты</string>
   <string name="keyMoveBackwardOrForward">на ход уперад/наперад</string>
   <string name="keyGoToStartOrEnd">да пачатку/канцу</string>
@@ -739,7 +742,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Пракруціць кампутарныя варыяцыі, каб праглядзець іх.</string>
   <string name="analysisShapesHowTo">Каб маляваць стрэлкі і кружкі на дошцы, карыстайцеся Shift + ЛКМ або ПКМ.</string>
   <string name="letOtherPlayersMessageYou">Дазволіць дасылаць вам паведамленні</string>
-  <string name="receiveForumNotifications">Атрымоўваць паведамленні, пры згадванні на форуме</string>
+  <string name="receiveForumNotifications">Атрымоўваць апавяшчэнні, пры згадванні на форуме</string>
   <string name="shareYourInsightsData">Дзяліцца вашым шахматнымі аналітычнымі данымі</string>
   <string name="withNobody">Ні з кім</string>
   <string name="withFriends">З сябрамі</string>
@@ -813,6 +816,7 @@
   <string name="bestWasX">Найлепшы ход %s</string>
   <string name="youBrowsedAway">Вы выйшлі з прагляду</string>
   <string name="resumePractice">Працягнуць трэніроўку</string>
+  <string name="drawByFiftyMoves">Партыя была згуляна ўнічыю па правілу пяцідзесяці хадоў.</string>
   <string name="theGameIsADraw">Гульня скончылася ўнічыю.</string>
   <string name="computerThinking">Камп’ютар думае...</string>
   <string name="seeBestMove">Паказаць найлепшы ход</string>

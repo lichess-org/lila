@@ -31,7 +31,7 @@
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
   <string name="whenPremoving">Quando preselectionante</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Declarar automaticamente le partita como nulle post un repetition triple</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Quando le tempore remanente es minus de trenta secundas</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Quando le tempore remanente es minus de trenta secundas</string>
   <string name="moveConfirmation">Confirmation de movimento</string>
   <string name="inCorrespondenceGames">Jocos per correspondentia</string>
   <string name="correspondenceAndUnlimited">Per correspondentia e illimitate</string>

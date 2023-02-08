@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">Ronde actuelle</string>
   <string name="currentGameUrl">URL de la partie en cours</string>
   <string name="downloadAllRounds">Télécharger toutes les rondes</string>
+  <string name="definitivelyDeleteRound">Supprimer définitivement la ronde et ses parties.</string>
+  <string name="deleteAllGamesOfThisRound">Supprimer toutes les parties de la ronde. La source doit être active pour recréer les parties.</string>
 </resources>

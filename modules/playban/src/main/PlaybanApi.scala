@@ -3,12 +3,12 @@ package lila.playban
 import chess.{ Centis, Color, Status }
 import org.joda.time.DateTime
 import play.api.Mode
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.{ Bus, Iso, Uptime }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Player, Pov, Source }
 import lila.msg.{ MsgApi, MsgPreset }
 import lila.user.NoteApi
@@ -21,17 +21,14 @@ final class PlaybanApi(
     noteApi: NoteApi,
     cacheApi: lila.memo.CacheApi,
     messenger: MsgApi
-)(implicit ec: scala.concurrent.ExecutionContext, mode: Mode) {
+)(using ec: scala.concurrent.ExecutionContext, mode: Mode):
 
-  import lila.db.BSON.BSONJodaDateTimeHandler
-  import reactivemongo.api.bson.Macros
-  implicit private val OutcomeBSONHandler = tryHandler[Outcome](
+  private given BSONHandler[Outcome] = tryHandler(
     { case BSONInteger(v) => Outcome(v) toTry s"No such playban outcome: $v" },
     x => BSONInteger(x.id)
   )
-  implicit private val RageSitBSONHandler    = intIsoHandler(Iso.int[RageSit](RageSit.apply, _.counter))
-  implicit private val BanBSONHandler        = Macros.handler[TempBan]
-  implicit private val UserRecordBSONHandler = Macros.handler[UserRecord]
+  private given BSONDocumentHandler[TempBan]    = Macros.handler
+  private given BSONDocumentHandler[UserRecord] = Macros.handler
 
   private case class Blame(player: Player, outcome: Outcome)
 
@@ -51,14 +48,14 @@ final class PlaybanApi(
   def abort(pov: Pov, isOnGame: Set[Color]): Funit =
     IfBlameable(pov.game) {
       pov.player.userId.ifTrue(isOnGame(pov.opponent.color)) ?? { userId =>
-        save(Outcome.Abort, userId, RageSit.Reset, pov.game.source) >>- feedback.abort(pov)
+        save(Outcome.Abort, userId, RageSit.Update.Reset, pov.game.source) >>- feedback.abort(pov)
       }
     }
 
   def noStart(pov: Pov): Funit =
     IfBlameable(pov.game) {
       pov.player.userId ?? { userId =>
-        save(Outcome.NoPlay, userId, RageSit.Reset, pov.game.source) >>- feedback.noStart(pov)
+        save(Outcome.NoPlay, userId, RageSit.Update.Reset, pov.game.source) >>- feedback.noStart(pov)
       }
     }
 
@@ -70,7 +67,7 @@ final class PlaybanApi(
       }
     }
 
-  def flag(game: Game, flaggerColor: Color): Funit = {
+  def flag(game: Game, flaggerColor: Color): Funit =
 
     def unreasonableTime =
       game.clock map { c =>
@@ -108,9 +105,8 @@ final class PlaybanApi(
         sitMoving getOrElse
         good(game, flaggerColor)
     }
-  }
 
-  private def propagateSitting(game: Game, userId: User.ID): Funit =
+  private def propagateSitting(game: Game, userId: UserId): Funit =
     rageSitCache get userId map { rageSit =>
       if (rageSit.isBad) Bus.publish(SittingDetected(game, userId), "playban")
     }
@@ -123,7 +119,7 @@ final class PlaybanApi(
         loserId <- loser.userId
       } yield {
         if (Status.NoStart is status)
-          save(Outcome.NoPlay, loserId, RageSit.Reset, game.source) >>- feedback.noStart(Pov(game, !w))
+          save(Outcome.NoPlay, loserId, RageSit.Update.Reset, game.source) >>- feedback.noStart(Pov(game, !w))
         else
           game.clock
             .filter {
@@ -152,9 +148,9 @@ final class PlaybanApi(
     }
 
   // memorize users without any ban to save DB reads
-  private val cleanUserIds = new lila.memo.ExpireSetMemo(30 minutes)
+  private val cleanUserIds = lila.memo.ExpireSetMemo[UserId](30 minutes)
 
-  def currentBan(userId: User.ID): Fu[Option[TempBan]] =
+  def currentBan(userId: UserId): Fu[Option[TempBan]] =
     !cleanUserIds.get(userId) ?? {
       coll
         .find(
@@ -169,33 +165,33 @@ final class PlaybanApi(
       }
     }
 
-  def hasCurrentBan(userId: User.ID): Fu[Boolean] = currentBan(userId).map(_.isDefined)
+  def hasCurrentBan(userId: UserId): Fu[Boolean] = currentBan(userId).map(_.isDefined)
 
-  def bans(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
-    coll.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
-      import framework._
+  def bans(userIds: List[UserId]): Fu[Map[UserId, Int]] =
+    coll.aggregateList(Int.MaxValue, temporarilyPrimary) { framework =>
+      import framework.*
       Match($inIds(userIds) ++ $doc("b" $exists true)) -> List(
         Project($doc("bans" -> $doc("$size" -> "$b")))
       )
     } map {
       _.flatMap { obj =>
-        obj.getAsOpt[User.ID]("_id") flatMap { id =>
+        obj.getAsOpt[UserId]("_id") flatMap { id =>
           obj.getAsOpt[Int]("bans") map { id -> _ }
         }
       }.toMap
     }
 
-  def bans(userId: User.ID): Fu[Int] =
+  def bans(userId: UserId): Fu[Int] =
     coll.aggregateOne(ReadPreference.secondaryPreferred) { framework =>
-      import framework._
+      import framework.*
       Match($id(userId) ++ $doc("b" $exists true)) -> List(
         Project($doc("bans" -> $doc("$size" -> "$b")))
       )
     } map { ~_.flatMap { _.getAsOpt[Int]("bans") } }
 
-  def getRageSit(userId: User.ID) = rageSitCache get userId
+  def getRageSit(userId: UserId) = rageSitCache get userId
 
-  private val rageSitCache = cacheApi[User.ID, RageSit](32768, "playban.ragesit") {
+  private val rageSitCache = cacheApi[UserId, RageSit](32768, "playban.ragesit") {
     _.expireAfterAccess(10 minutes)
       .buildAsyncFuture { userId =>
         coll.primitiveOne[RageSit]($doc("_id" -> userId, "c" $exists true), "c").map(_ | RageSit.empty)
@@ -204,35 +200,34 @@ final class PlaybanApi(
 
   private def save(
       outcome: Outcome,
-      userId: User.ID,
+      userId: UserId,
       rsUpdate: RageSit.Update,
       source: Option[Source]
   ): Funit = {
     lila.mon.playban.outcome(outcome.key).increment()
     for {
-      withOutcome <- coll.ext
-        .findAndUpdate[UserRecord](
+      withOutcome <- coll
+        .findAndUpdateSimplified[UserRecord](
           selector = $id(userId),
           update = $doc(
             $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)) ++ {
               rsUpdate match {
-                case RageSit.Reset            => $min("c" -> 0)
-                case RageSit.Inc(v) if v != 0 => $inc("c" -> v)
-                case _                        => $empty
+                case RageSit.Update.Reset            => $min("c" -> 0)
+                case RageSit.Update.Inc(v) if v != 0 => $inc("c" -> v)
+                case _                               => $empty
               }
             }
           ),
           fetchNewObject = true,
           upsert = true
         ) orFail s"can't find newly created record for user $userId"
-      withBan <- {
+      withBan <-
         if (outcome == Outcome.Good) fuccess(withOutcome)
         else
           for {
             createdAt <- userRepo.createdAtById(userId) orFail s"Missing user creation date $userId"
             withBan   <- legiferate(withOutcome, createdAt, source)
           } yield withBan
-      }
       _ <- registerRageSit(withBan, rsUpdate)
     } yield ()
   }.void logFailure lila.log("playban")
@@ -249,8 +244,8 @@ final class PlaybanApi(
             .Playban(record.userId, ban.mins, inTournament = source has Source.Tournament),
           "playban"
         )
-        coll.ext
-          .findAndUpdate[UserRecord](
+        coll
+          .findAndUpdateSimplified[UserRecord](
             selector = $id(record.userId),
             update = $unset("o") ++ $push(
               "b" -> $doc(
@@ -261,11 +256,11 @@ final class PlaybanApi(
             fetchNewObject = true
           )
       }
-      .map(_ | record) >>- cleanUserIds.remove(record.userId)
+      .dmap(_ | record) >>- cleanUserIds.remove(record.userId)
 
   private def registerRageSit(record: UserRecord, update: RageSit.Update): Funit =
-    update match {
-      case RageSit.Inc(delta) =>
+    update match
+      case RageSit.Update.Inc(delta) =>
         rageSitCache.put(record.userId, fuccess(record.rageSit))
         (delta < 0 && record.rageSit.isVeryBad) ?? {
           messenger.postPreset(record.userId, MsgPreset.sittingAuto).void >>- {
@@ -286,5 +281,3 @@ final class PlaybanApi(
           }
         }
       case _ => funit
-    }
-}

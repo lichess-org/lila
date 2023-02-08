@@ -59,6 +59,8 @@
   <string name="depthX">Djup %s</string>
   <string name="usingServerAnalysis">Använder serveranalys</string>
   <string name="loadingEngine">Laddar schackmotor...</string>
+  <string name="calculatingMoves">Beräknar drag...</string>
+  <string name="engineFailed">Fel vid laddning av schackmotor</string>
   <string name="cloudAnalysis">Molnanalys</string>
   <string name="goDeeper">Sök djupare</string>
   <string name="showThreat">Visa hot</string>
@@ -92,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\" med avrundning, baserat på antalet halvdrag till nästa slag eller bondedrag</string>
   <string name="noGameFound">Inget parti hittades</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Överväg att ändra inställningarna för att inkludera fler partier.</string>
+  <string name="openings">Öppningar</string>
   <string name="openingExplorer">Öppningsbok</string>
   <string name="openingEndgameExplorer">Öppning-/slutspelsutforskare</string>
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
@@ -155,6 +158,7 @@
   <string name="viewInFullSize">Visa i full storlek</string>
   <string name="logOut">Logga ut</string>
   <string name="signIn">Logga in</string>
+  <string name="rememberMe">Håll mig inloggad</string>
   <string name="youNeedAnAccountToDoThat">Du behöver ett konto för att göra detta</string>
   <string name="signUp">Registrera dig</string>
   <string name="computersAreNotAllowedToPlay">Datorer och datorassisterade spelare tillåts inte spela. Vänligen, ta inte hjälp ifrån schackmotorer, databaser eller från andra spelare när du spelar. Notera även att skapande av flera konton avrådes och skapande av överdrivet många konton leder till avstängning.</string>
@@ -195,12 +199,31 @@
   <string name="changeUsername">Byt användarnamn</string>
   <string name="changeUsernameNotSame">Bara storleken på bokstäver kan ändras. Till exempel \"anderssvensson\" till \"AndersSvenson\".</string>
   <string name="changeUsernameDescription">Ändra ditt användarnamn. Detta kan bara göras en gång och det är endast tillåtet att ändra skiftläget för bokstäverna i ditt användarnamn.</string>
+  <string name="signupUsernameHint">Se till att välja ett familjevänligt användarnamn. Du kan inte ändra det senare och alla konton med olämpliga användarnamn kommer att stängas!</string>
+  <string name="signupEmailHint">Vi kommer endast att använda den för att återställa lösenordet.</string>
   <string name="password">Lösenord</string>
   <string name="changePassword">Byt lösenord</string>
   <string name="changeEmail">Ändra e-postadress</string>
   <string name="email">E-post</string>
   <string name="passwordReset">Återställ lösenord</string>
   <string name="forgotPassword">Glömt lösenordet?</string>
+  <string name="emailConfirmHelp">Hjälp med e-postbekräftelse</string>
+  <string name="emailConfirmNotReceived">Har du inte fått din e-postbekräftelse efter att du registrerade dig?</string>
+  <string name="whatSignupUsername">Vilket användarnamn använde du för att registrera dig?</string>
+  <string name="usernameNotFound">Vi kunde inte hitta någon användare med namnet: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Du kan använda detta användarnamn för att skapa ett nytt konto</string>
+  <string name="emailSent">Vi har skickat ett mejl till %s.</string>
+  <string name="emailCanTakeSomeTime">Det kan ta en stund för det att komma.</string>
+  <string name="refreshInboxAfterFiveMinutes">Vänta 5 minuter och uppdatera din inkorg.</string>
+  <string name="checkSpamFolder">Kontrollera även din skräppost, det kan hamna där. I så fall, markera det som ej skräppost.</string>
+  <string name="emailForSignupHelp">Om allt annat misslyckas, skicka oss denna mejl:</string>
+  <string name="copyTextToEmail">Kopiera och klistra in den ovanstående texten och skicka den till %s</string>
+  <string name="waitForSignupHelp">Vi återkopplar snart och hjälper dig slutföra din registrering.</string>
+  <string name="accountConfirmed">Användaren %s är bekräftad.</string>
+  <string name="accountCanLogin">Du kan nu logga in som %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Du behöver inte en e-postbekräftelse.</string>
+  <string name="accountClosed">Kontot %s är stängt.</string>
+  <string name="accountRegisteredWithoutEmail">Kontot %s registrerades utan e-post.</string>
   <string name="rank">Rankning</string>
   <string name="rankX">Placering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -231,7 +254,7 @@
   <string name="decline">Avböj</string>
   <string name="playingRightNow">Spelas just nu</string>
   <string name="eventInProgress">Spelas just nu</string>
-  <string name="finished">Avslutade</string>
+  <string name="finished">Slut</string>
   <string name="finishesX">slutar %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet avbröts</string>
@@ -340,6 +363,7 @@
   <string name="siteDescription">Gratis Schack på internet. Spela Schack nu, med ett enkelt gränssnitt. Ingen registrering, inga annonser, inga insticksprogram behövs. Spela schack mot datorn, vänner eller vem som helst.</string>
   <string name="xJoinedTeamY">%1$s gick med i lag %2$s</string>
   <string name="xCreatedTeamY">%1$s skapade lag %2$s</string>
+  <string name="startedStreaming">började strömma</string>
   <string name="xStartedStreaming">%s började sända video</string>
   <string name="averageElo">Medelrating</string>
   <string name="location">Plats</string>
@@ -395,7 +419,7 @@
   </plurals>
   <string name="more">Visa mer</string>
   <string name="memberSince">Medlem sedan</string>
-  <string name="lastSeenActive">Aktiv %s</string>
+  <string name="lastSeenActive">Senast aktiv %s</string>
   <string name="player">Spelare</string>
   <string name="list">Lista</string>
   <string name="graph">Graf</string>
@@ -476,7 +500,7 @@ https://lichess. org/study</string>
   <string name="onlinePlayers">Inloggade spelare</string>
   <string name="activePlayers">Mest aktiva spelare</string>
   <string name="bewareTheGameIsRatedButHasNoClock">OBS! Partiet är rankat men har ingen tidsgräns.</string>
-  <string name="success">Rätt</string>
+  <string name="success">Slutfört</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti spelas</item>
     <item quantity="other">%s partier spelas</item>
@@ -609,7 +633,7 @@ https://lichess. org/study</string>
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s är en gratis (%2$s), oberoende och reklamfri schackserver med öppen källkod.</string>
   <string name="really">på riktigt</string>
-  <string name="contribute">Hjälp till</string>
+  <string name="contribute">Bidra</string>
   <string name="termsOfService">Användarvillkor</string>
   <string name="sourceCode">Källkod</string>
   <string name="simultaneousExhibitions">Simultanschack</string>
@@ -635,6 +659,7 @@ https://lichess. org/study</string>
   <string name="tournamentFAQ">Turnering: Vanliga frågor</string>
   <string name="timeBeforeTournamentStarts">Tid tills turneringen börjar</string>
   <string name="averageCentipawnLoss">Genomsnittligt förlorad hundradelsbonde</string>
+  <string name="accuracy">Precision</string>
   <string name="keyboardShortcuts">Snabbkommandon</string>
   <string name="keyMoveBackwardOrForward">bakåtdrag/framåtdrag</string>
   <string name="keyGoToStartOrEnd">gå till början/slut</string>
@@ -717,6 +742,7 @@ https://lichess. org/study</string>
   <string name="light">Ljus</string>
   <string name="dark">Mörk</string>
   <string name="transparent">Genomskinlig</string>
+  <string name="deviceTheme">Enhetstema</string>
   <string name="backgroundImageUrl">Bakgrundsbild URL:</string>
   <string name="boardGeometry">Brädets geometri</string>
   <string name="boardTheme">Brädets tema</string>
@@ -745,6 +771,7 @@ https://lichess. org/study</string>
   <string name="bestWasX">Bästa draget var %s</string>
   <string name="youBrowsedAway">Du scrollade iväg</string>
   <string name="resumePractice">Återuppta övning</string>
+  <string name="drawByFiftyMoves">Spelet är remi på grund av femtio drags regeln.</string>
   <string name="theGameIsADraw">Remiparti.</string>
   <string name="computerThinking">Datorn tänker...</string>
   <string name="seeBestMove">Visa det bästa draget</string>

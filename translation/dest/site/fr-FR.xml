@@ -59,8 +59,8 @@
   <string name="depthX">Profondeur %s</string>
   <string name="usingServerAnalysis">Analyse serveur en cours</string>
   <string name="loadingEngine">Chargement en cours...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Calcul des coups...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Erreur lors du chargement du moteur</string>
+  <string name="calculatingMoves">Calcul des coups...</string>
+  <string name="engineFailed">Erreur lors du chargement du moteur</string>
   <string name="cloudAnalysis">Analyse dans le cloud</string>
   <string name="goDeeper">Analyser plus profondément</string>
   <string name="showThreat">Voir la menace</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' arrondi, basé sur le nombre de demi-coups jusqu\'à la prochaine capture ou le prochain coup de pion</string>
   <string name="noGameFound">Aucune partie trouvée</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Peut-être inclure plus de parties depuis le menu préférences ?</string>
+  <string name="openings">Ouvertures</string>
   <string name="openingExplorer">Explorateur d\'ouvertures</string>
   <string name="openingEndgameExplorer">Explorateur d\'ouvertures/de finales</string>
   <string name="xOpeningExplorer">%s explorateur d\'ouvertures</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Agrandir</string>
   <string name="logOut">Déconnexion</string>
   <string name="signIn">Connexion</string>
+  <string name="rememberMe">Se souvenir de moi</string>
   <string name="youNeedAnAccountToDoThat">Compte d\'utilisateur requis</string>
   <string name="signUp">S\'inscrire</string>
   <string name="computersAreNotAllowedToPlay">Les ordinateurs et les joueurs assistés par ordinateur ne sont pas autorisés à jouer. Veuillez ne pas vous aider de moteurs d\'analyse, de bases de données ou d\'autres joueurs pendant la partie. Notez également qu\'il est fortement déconseillé de créer plusieurs comptes. Le multi-compte excessif mènera à l\'exclusion.</string>
@@ -197,12 +199,31 @@
   <string name="changeUsername">Modifier le nom d\'utilisateur</string>
   <string name="changeUsernameNotSame">Seules les majuscules et les minuscules peuvent être changées - ex. JeanDupont plutôt que jeandupont.</string>
   <string name="changeUsernameDescription">Modifiez votre nom d\'utilisateur. Vous pouvez le faire une fois seulement. Seule la casse des lettres peut être modifiée.</string>
+  <string name="signupUsernameHint">Assurez-vous de choisir un nom d\'utilisateur convenable. Vous ne pourrez pas le modifier et tout nom d\'utilisateur inapproprié entraînera la fermeture du compte.</string>
+  <string name="signupEmailHint">Nous l\'utiliserons uniquement pour la réinitialisation du mot de passe.</string>
   <string name="password">Mot de passe</string>
   <string name="changePassword">Changer votre mot de passe</string>
   <string name="changeEmail">Changer votre courriel</string>
   <string name="email">Courriel</string>
   <string name="passwordReset">Réinitialisation du mot de passe</string>
   <string name="forgotPassword">Mot de passe oublié ?</string>
+  <string name="emailConfirmHelp">Aide sur la confirmation par courriel</string>
+  <string name="emailConfirmNotReceived">Vous n\'avez pas reçu votre courriel de confirmation après votre inscription?</string>
+  <string name="whatSignupUsername">Avec quel nom d\'utilisateur vous êtes-vous inscrit?</string>
+  <string name="usernameNotFound">Nous n\'avons trouvé aucun utilisateur de ce nom : %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Vous pouvez utiliser ce nom d\'utilisateur pour créer un nouveau compte.</string>
+  <string name="emailSent">Nous avons envoyé un courriel à %s.</string>
+  <string name="emailCanTakeSomeTime">L\'arrivée du courriel peut prendre un peu de temps.</string>
+  <string name="refreshInboxAfterFiveMinutes">Attendez 5 minutes et rafraîchissez votre boîte de réception.</string>
+  <string name="checkSpamFolder">Vérifiez aussi votre dossier de pourriel, il pourrait s\'y trouver. Si c\'est le cas, marquez-le comme non-pourriel.</string>
+  <string name="emailForSignupHelp">Si rien ne marche, envoyez-nous ce courriel :</string>
+  <string name="copyTextToEmail">Copiez et collez le texte ci-dessus et envoyez-le à %s</string>
+  <string name="waitForSignupHelp">Nous vous contacterons sous peu pour vous aider à compléter votre inscription.</string>
+  <string name="accountConfirmed">L\'inscription de l\'utilisateur %s a été confirmée avec succès.</string>
+  <string name="accountCanLogin">Vous pouvez désormais vous connecter en tant que %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Vous n\'avez pas besoin d\'un courriel de confirmation.</string>
+  <string name="accountClosed">Le compte de %s est fermé.</string>
+  <string name="accountRegisteredWithoutEmail">Le compte %s a été enregistré sans courriel.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Classement : %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -342,6 +363,7 @@
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
   <string name="xJoinedTeamY">%1$s a rejoint l\'équipe %2$s</string>
   <string name="xCreatedTeamY">%1$s a créé l\'équipe %2$s</string>
+  <string name="startedStreaming">a commencé une diffusion en direct</string>
   <string name="xStartedStreaming">%s a commencé une diffusion en direct</string>
   <string name="averageElo">Classement moyen</string>
   <string name="location">Localisation</string>
@@ -517,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notes</string>
   <string name="typePrivateNotesHere">Écrivez vos notes privées ici</string>
+  <string name="writeAPrivateNoteAboutThisUser">Écrire une note privée sur cet utilisateur</string>
+  <string name="noNoteYet">Aucune note</string>
   <string name="invalidUsernameOrPassword">Nom d\'utilisateur ou mot de passe invalide</string>
   <string name="incorrectPassword">Mot de passe incorrect</string>
   <string name="invalidAuthenticationCode">Code d\'authentification non valide</string>
@@ -633,6 +657,7 @@
   <string name="tournamentFAQ">FAQ des tournois</string>
   <string name="timeBeforeTournamentStarts">Temps restant avant le début du tournoi</string>
   <string name="averageCentipawnLoss">Perte moyenne en centipions</string>
+  <string name="accuracy">Précision</string>
   <string name="keyboardShortcuts">Raccourcis clavier</string>
   <string name="keyMoveBackwardOrForward">avancer/reculer</string>
   <string name="keyGoToStartOrEnd">aller au début/à la fin</string>
@@ -715,6 +740,7 @@
   <string name="light">Lumineux</string>
   <string name="dark">Sombre</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Thème de l\'appareil</string>
   <string name="backgroundImageUrl">URL de l\'image de fond :</string>
   <string name="boardGeometry">Forme de l\'échiquier</string>
   <string name="boardTheme">Thème de l\'échiquier</string>
@@ -743,6 +769,7 @@
   <string name="bestWasX">Le meilleur coup était %s</string>
   <string name="youBrowsedAway">Vous avez parcouru</string>
   <string name="resumePractice">Reprendre l\'entraînement</string>
+  <string name="drawByFiftyMoves">Cette partie est nulle en raison de la règle des cinquante coups.</string>
   <string name="theGameIsADraw">La partie est nulle.</string>
   <string name="computerThinking">L’ordinateur réfléchit ...</string>
   <string name="seeBestMove">Voir le meilleur coup</string>
@@ -882,8 +909,8 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="inYourLocalTimezone">Dans votre fuseau horaire</string>
   <string name="tournChat">Salon de discussion du tournoi</string>
   <string name="noChat">Aucun salon de discussion</string>
-  <string name="onlyTeamLeaders">Seulement les chefs d’équipe</string>
-  <string name="onlyTeamMembers">Seulement les membres des équipes</string>
+  <string name="onlyTeamLeaders">Seulement les chefs de l\'équipe</string>
+  <string name="onlyTeamMembers">Seulement les membres de l\'équipe</string>
   <string name="navigateMoveTree">Naviguer dans l\'arbre</string>
   <string name="mouseTricks">Astuces pour la souris</string>
   <string name="toggleLocalAnalysis">Activer/désactiver l’analyse locale</string>
@@ -902,7 +929,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="hangOn">Vous jouez déjà une partie!</string>
   <string name="gameInProgress">Vous avez une partie en cours avec %s.</string>
   <string name="abortTheGame">Annuler la partie</string>
-  <string name="resignTheGame">Rejoindre la partie</string>
+  <string name="resignTheGame">Abandonner la partie</string>
   <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie tant que celle-ci n\'est pas terminée.</string>
   <string name="since">De</string>
   <string name="until">À</string>

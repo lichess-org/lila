@@ -1,61 +1,60 @@
 package lila.security
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
-import play.api.libs.json._
-import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.json.*
+import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.IpAddress
 
-trait Ip2Proxy {
+trait Ip2Proxy:
 
-  def apply(ip: IpAddress): Fu[Boolean]
+  def apply(ip: IpAddress): Fu[IsProxy]
 
-  def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]]
-}
+  def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]]
 
-final class Ip2ProxySkip extends Ip2Proxy {
+opaque type IsProxy = Option[String]
+object IsProxy extends TotalWrapper[IsProxy, Option[String]]:
+  extension (a: IsProxy) def is           = a.value.isDefined
+  def unapply(a: IsProxy): Option[String] = a.value
 
-  def apply(ip: IpAddress): Fu[Boolean] = fuFalse
+final class Ip2ProxySkip extends Ip2Proxy:
 
-  def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]] = fuccess(Set.empty)
-}
+  def apply(ip: IpAddress): Fu[IsProxy] = fuccess(IsProxy(none))
+
+  def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]] = fuccess(Map.empty)
 
 final class Ip2ProxyServer(
     ws: StandaloneWSClient,
     cacheApi: lila.memo.CacheApi,
     checkUrl: String
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-) extends Ip2Proxy {
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler)
+    extends Ip2Proxy:
 
-  def apply(ip: IpAddress): Fu[Boolean] =
+  def apply(ip: IpAddress): Fu[IsProxy] =
     cache.get(ip).recover { case e: Exception =>
       logger.warn(s"Ip2Proxy $ip", e)
-      false
+      IsProxy(none)
     }
 
-  def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]] =
+  def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]] =
     batch(ips)
       .map {
         _.view
           .zip(ips)
-          .collect { case (true, ip) =>
-            ip
-          }
-          .toSet
+          .collect { case (IsProxy(name), ip) => ip -> name }
+          .toMap
       }
       .recover { case e: Exception =>
         logger.warn(s"Ip2Proxy $ips", e)
-        Set.empty
+        Map.empty
       }
 
-  private def batch(ips: Seq[IpAddress]): Fu[Seq[Boolean]] =
-    ips.take(50) match { // 50 * ipv6 length < max url length
-      case Nil      => fuccess(Seq.empty[Boolean])
-      case List(ip) => apply(ip).dmap(Seq(_))
+  private def batch(ips: Seq[IpAddress]): Fu[Seq[IsProxy]] =
+    ips.distinct.take(50) match // 50 * ipv6 length < max url length
+      case Nil     => fuccess(Seq.empty[IsProxy])
+      case Seq(ip) => apply(ip).dmap(Seq(_))
       case ips =>
         ips.flatMap(cache.getIfPresent).sequenceFu flatMap { cached =>
           if (cached.sizeIs == ips.size) fuccess(cached)
@@ -63,10 +62,10 @@ final class Ip2ProxyServer(
             ws.url(s"$checkUrl/batch")
               .addQueryStringParameters("ips" -> ips.mkString(","))
               .get()
-              .withTimeout(3 seconds)
+              .withTimeout(3 seconds, "Ip2Proxy.batch")
               .map {
                 _.body[JsValue].asOpt[Seq[JsObject]] ?? {
-                  _.map(readIsProxy)
+                  _.map(readProxyName)
                 }
               }
               .flatMap { res =>
@@ -76,25 +75,31 @@ final class Ip2ProxyServer(
               .addEffect {
                 _.zip(ips) foreach { case (proxy, ip) =>
                   cache.put(ip, fuccess(proxy))
+                  lila.mon.security.proxy.result(proxy.value).increment().unit
                 }
               }
-              .monSuccess(_.security.proxy.request)
         }
-    }
 
-  private val cache: AsyncLoadingCache[IpAddress, Boolean] = cacheApi.scaffeine
+  private val cache: AsyncLoadingCache[IpAddress, IsProxy] = cacheApi.scaffeine
     .expireAfterWrite(1 days)
     .buildAsyncFuture { ip =>
-      checkUrl.nonEmpty ?? ws
+      ws
         .url(checkUrl)
         .addQueryStringParameters("ip" -> ip.value)
         .get()
-        .withTimeout(2 seconds)
+        .withTimeout(2 seconds, "Ip2Proxy.cache")
         .dmap(_.body[JsValue])
-        .dmap(readIsProxy)
+        .dmap(readProxyName)
         .monSuccess(_.security.proxy.request)
+        .addEffect { result =>
+          lila.mon.security.proxy.result(result.value).increment().unit
+        }
     }
 
-  private def readIsProxy(js: JsValue): Boolean =
-    (js \ "proxy_type").asOpt[String].exists("-" !=)
-}
+  private def readProxyName(js: JsValue): IsProxy = IsProxy {
+    for {
+      tpe <- (js \ "proxy_type").asOpt[String]
+      if tpe != "-"
+      country = (js \ "country_short").asOpt[String]
+    } yield s"$tpe:${country | "?"}"
+  }

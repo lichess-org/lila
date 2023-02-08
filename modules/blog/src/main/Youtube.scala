@@ -1,6 +1,6 @@
 package lila.blog
 
-object Youtube {
+object Youtube:
 
   private val EmbedRegex      = """youtube\.com/watch\?v=[\w-]++\#t=([^"]+).+\?feature=oembed""".r
   private val HourMinSecRegex = """(\d++)h(\d++)m(\d++)s""".r
@@ -21,7 +21,7 @@ object Youtube {
     )
 
   private def parseSeconds(text: String) =
-    text match {
+    text match
       case HourMinSecRegex(hourS, minS, secS) =>
         for {
           hour <- hourS.toIntOption
@@ -38,5 +38,3 @@ object Youtube {
           sec <- secS.toIntOption
         } yield sec
       case _ => None
-    }
-}

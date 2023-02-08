@@ -1,5 +1,6 @@
 import * as speech from './speech';
 import * as xhr from './xhr';
+import * as router from 'common/router';
 import computeAutoShapes from './autoShape';
 import keyboard from './keyboard';
 import moveTest from './moveTest';
@@ -22,7 +23,7 @@ import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } fro
 import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
-import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
+import { CevalCtrl } from 'ceval';
 import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
 import { defer } from 'common/defer';
 import { defined, prop, Prop, propWithEffect } from 'common';
@@ -359,14 +360,14 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     });
 
     if (!streak && !data.replay) {
-      const path = `/training/${data.angle.key}`;
+      const path = router.withLang(`/training/${data.angle.key}`);
       if (location.pathname != path) history.replaceState(null, '', path);
     }
   }
 
   function instanciateCeval(): void {
     if (ceval) ceval.destroy();
-    ceval = cevalCtrl({
+    ceval = new CevalCtrl({
       redraw,
       storageKeyPrefix: 'puzzle',
       multiPvDefault: 3,

@@ -9,7 +9,7 @@
   <string name="yourTurn">ตาคุณ</string>
   <string name="aiNameLevelAiLevel">%1$s ระดับ %2$s</string>
   <string name="level">ระดับ</string>
-  <string name="strength">ความแข็งแกร่ง</string>
+  <string name="strength">ระดับความยาก</string>
   <string name="toggleTheChat">เปิด/ปิดการสนทนา</string>
   <string name="chat">สนทนา</string>
   <string name="resign">ยอมแพ้</string>
@@ -58,6 +58,8 @@
   <string name="depthX">ความลึก %s ตา</string>
   <string name="usingServerAnalysis">เซิร์ฟเวอร์กำลังวิเคราะห์</string>
   <string name="loadingEngine">กำลังโหลด...</string>
+  <string name="calculatingMoves">กำลังคำนวณตาเดิน</string>
+  <string name="engineFailed">เกิดความผิดผลาดในการโหลด engine</string>
   <string name="cloudAnalysis">กำลังวิเคราะห์ด้วยระบบคลาวด์</string>
   <string name="goDeeper">ลึกอีก</string>
   <string name="showThreat">แสดงตาเดินของคู่ต่อสู้ที่อันตราย</string>
@@ -89,6 +91,7 @@
   </plurals>
   <string name="noGameFound">ไม่พบเกม</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">แนะนำให้ลองเพิ่มเกมที่เมนูตั้งค่า</string>
+  <string name="openings">การเปิดเกม</string>
   <string name="openingExplorer">ชมการเปิดเกม</string>
   <string name="openingEndgameExplorer">ตัวสำรวจการเปิดเกม/จบเกม</string>
   <string name="xOpeningExplorer">ชมการเปิดเกมแบบ %s</string>
@@ -180,12 +183,21 @@
   <string name="changeUsername">เปลี่ยนชื่อผู้ใช้</string>
   <string name="changeUsernameNotSame">เฉพาะตัวอักษรพิมพ์ใหญ่พิมพ์เล็กที่เปลี่ยนได้ เช่น \"johndoe\" เป็น \"JohnDoe\"</string>
   <string name="changeUsernameDescription">เปลี่ยนชื่อผู้ใช้ของคุณ สามารถทำได้เพียงครั้งเดียวเท่านั้น และอนุญาตให้เปลี่ยนได้เฉพาะตัวอักษรพิมพ์ใหญ่พิมพ์เล็ก</string>
+  <string name="signupUsernameHint">กรุณาใช้ชื่อที่สุภาพและเป็นมิตรต่อทุกวัย คุณไม่สามารถเปลี่ยนมันได้หลังจากนี้ ชื่อบัญชีที่ไม่มีความเหมาะสมจะถูกปิด</string>
+  <string name="signupEmailHint">เราจะใช้อีเมลนี้เพื่อการรีเซทรหัสผ่านเท่านั้น</string>
   <string name="password">รหัสผ่าน</string>
   <string name="changePassword">เปลี่ยนรหัสผ่าน</string>
   <string name="changeEmail">เปลี่ยนอีเมล</string>
   <string name="email">อีเมล</string>
   <string name="passwordReset">ตั้งรหัสผ่านใหม่</string>
   <string name="forgotPassword">ลืมรหัสผ่าน?</string>
+  <string name="emailConfirmHelp">ขอความช่วยเหลือในการรับอีเมลยืนยันตัวตน</string>
+  <string name="emailConfirmNotReceived">ไม่ได้รับอีเมลยืนยันตัวตนหลังสมัครบัญชี?</string>
+  <string name="whatSignupUsername">ชื่อบัญชีที่คุณสมัครคืออะไร</string>
+  <string name="usernameNotFound">ไม่พบชื่อบัญชีในชื่อ: %s</string>
+  <string name="emailSent">เราได้ส่งอีเมลไปที่ %s</string>
+  <string name="emailCanTakeSomeTime">อาจจะเป็นเวลาสักพักก่อนที่จะได้รับ</string>
+  <string name="refreshInboxAfterFiveMinutes">รอ 5 นาทีและรีเฟรชกล่องจดหมายของคุณ</string>
   <string name="rank">อันดับ</string>
   <string name="rankX">อันดับ: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">

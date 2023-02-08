@@ -3,12 +3,12 @@ package practice
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 
-object show {
+object show:
 
   def apply(
       us: lila.practice.UserStudy,
@@ -25,15 +25,13 @@ object show {
               "practice" -> data.practice,
               "study"    -> data.study,
               "data"     -> data.analysis,
-              "i18n"     -> (board.userAnalysisI18n() ++ i18nJsObject(study.jsI18n.gamebookPlayKeys)),
-              "explorer" -> views.html.board.bits.explorerConfig
-            )
+              "i18n"     -> (board.userAnalysisI18n() ++ i18nJsObject(study.jsI18n.gamebookPlayKeys))
+            ) ++ views.html.board.bits.explorerAndCevalConfig
           )}""")
       ),
-      csp = defaultCsp.withWebAssembly.withAnyWs.some,
+      csp = analysisCsp.some,
       chessground = false,
       zoomable = true
     ) {
       main(cls := "analyse")
     }
-}

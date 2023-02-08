@@ -59,8 +59,8 @@
   <string name="depthX">სიღრმე %s</string>
   <string name="usingServerAnalysis">მიმდინარეობს სერვერის ანალიზი</string>
   <string name="loadingEngine">იტვირთება საჭადრაკო ძრავა ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">ითვლება მოძრაობები...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">შეცდომა მოხდა ძრავის ჩატვირთვისას</string>
+  <string name="calculatingMoves">ითვლება მოძრაობები...</string>
+  <string name="engineFailed">შეცდომა მოხდა ძრავის ჩატვირთვისას</string>
   <string name="cloudAnalysis">ქლაუდის ანალიზი</string>
   <string name="goDeeper">ღრმა ანალიზი</string>
   <string name="showThreat">საფრთხეების ჩვენება</string>
@@ -325,7 +325,7 @@
   <string name="gameAsGIF">თამაშის GIF-ად შენახვა</string>
   <string name="pasteTheFenStringHere">ჩასვით FEN ტექსტი</string>
   <string name="pasteThePgnStringHere">ჩასვით PGN ტექსტი</string>
-  <string name="orUploadPgnFile">ან გადმოწერე PNG ფაილი</string>
+  <string name="orUploadPgnFile">ან გადმოწერე PGN ფაილი</string>
   <string name="fromPosition">პოზიციიდან</string>
   <string name="continueFromHere">ამ პოზიციიდან გაგრძელება</string>
   <string name="toStudy">კვლევად გადაკეთება</string>

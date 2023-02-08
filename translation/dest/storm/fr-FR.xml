@@ -52,6 +52,7 @@
   <string name="skipExplanation">Sautez ce coup pour préserver votre combo ! Ne fonctionne qu\'une seule fois par course.</string>
   <string name="failedPuzzles">Problèmes échoués</string>
   <string name="slowPuzzles">Problèmes lents</string>
+  <string name="skippedPuzzle">Problème ignoré</string>
   <string name="thisWeek">Cette semaine</string>
   <string name="thisMonth">Ce mois-ci</string>
   <string name="allTime">Depuis le début</string>

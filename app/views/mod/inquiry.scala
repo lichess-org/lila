@@ -1,37 +1,37 @@
 package views.html.mod
 
 import cats.data.NonEmptyList
+import controllers.appeal.routes.{ Appeal as appealRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import scala.util.matching.Regex
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.report.Reason
 import lila.report.Report
 import lila.user.User
 
-object inquiry {
+object inquiry:
 
   // simul game study relay tournament
   private val commFlagRegex = """\[FLAG\] (\w+)/(\w{8})(?:/w)? (.+)""".r
 
   private def renderAtomText(text: String, highlight: Boolean) =
     text.split("\n").map { line =>
-      val (link, text) = line match {
+      val (link, text) = line match
         case commFlagRegex(tpe, id, text) =>
-          val path = tpe match {
+          val path = tpe match
             case "game"       => routes.Round.watcher(id, "white").url
             case "relay"      => routes.RelayRound.show("-", "-", id).url
             case "tournament" => routes.Tournament.show(id).url
             case "swiss"      => routes.Swiss.show(id).url
             case "forum"      => routes.ForumPost.redirect(id).url
             case _            => s"/$tpe/$id"
-          }
           a(href := path)(path).some -> text
         case text => None -> text
-      }
       frag(
         link,
         " ",
@@ -40,14 +40,14 @@ object inquiry {
       )
     }
 
-  def apply(in: lila.mod.Inquiry)(implicit ctx: Context) = {
+  def apply(in: lila.mod.Inquiry)(implicit ctx: Context) =
     def renderReport(r: Report) =
       div(cls := "doc report")(
         r.bestAtoms(10).map { atom =>
           div(cls := "atom")(
             h3(
               reportScore(atom.score),
-              userIdLink(atom.by.value.some, withOnline = false),
+              userIdLink(atom.by.userId.some, withOnline = false),
               " for ",
               strong(r.reason.name),
               " ",
@@ -91,7 +91,7 @@ object inquiry {
             ul(
               in.history.map { e =>
                 li(
-                  userIdLink(e.mod.some, withOnline = false),
+                  userIdLink(e.mod.userId.some, withOnline = false),
                   " ",
                   b(e.showAction),
                   " ",
@@ -117,7 +117,7 @@ object inquiry {
         },
         isGranted(_.Shadowban) option
           a(href := routes.Mod.communicationPublic(in.user.id))("View", br, "Comms"),
-        in.report.isAppeal option a(href := routes.Appeal.show(in.user.id))("View", br, "Appeal")
+        in.report.isAppeal option a(href := appealRoutes.show(in.user.id))("View", br, "Appeal")
       ),
       div(cls := "actions")(
         isGranted(_.ModMessage) option div(cls := "dropper warn buttons")(
@@ -180,10 +180,15 @@ object inquiry {
           div(
             isGranted(_.SendToZulip) option {
               val url =
-                if (in.report.isAppeal) routes.Appeal.sendToZulip(in.user.username)
+                if (in.report.isAppeal) appealRoutes.sendToZulip(in.user.username)
                 else routes.Mod.inquiryToZulip
               postForm(action := url)(
                 submitButton(cls := "fbt")("Send to Zulip")
+              )
+            },
+            isGranted(_.SendToZulip) option {
+              postForm(action := routes.Mod.askUsertableCheck(in.user.username))(
+                submitButton(cls := "fbt")("Ask for usertable check")
               )
             },
             isGranted(_.SendToZulip) option {
@@ -191,7 +196,7 @@ object inquiry {
                 submitButton(cls := "fbt")("Create name-close vote")
               )
             },
-            postForm(action := routes.Report.xfiles(in.report.id))(
+            postForm(action := reportRoutes.xfiles(in.report.id))(
               submitButton(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")))(
                 "Move to X-Files"
               ),
@@ -214,7 +219,7 @@ object inquiry {
           )
         ),
         postForm(
-          action := routes.Report.process(in.report.id),
+          action := reportRoutes.process(in.report.id),
           title  := "Dismiss this report as processed. (Hotkey: d)",
           cls    := "process"
         )(
@@ -222,7 +227,7 @@ object inquiry {
           autoNextInput
         ),
         postForm(
-          action := routes.Report.inquiry(in.report.id),
+          action := reportRoutes.inquiry(in.report.id),
           title  := "Cancel the inquiry, re-instore the report",
           cls    := "cancel"
         )(
@@ -230,7 +235,6 @@ object inquiry {
         )
       )
     )
-  }
 
   def noteZone(u: User, notes: List[lila.user.Note])(implicit ctx: Context) = div(
     cls := List(
@@ -247,13 +251,11 @@ object inquiry {
         form3.textarea(lila.user.UserForm.note("text"))(
           placeholder := "Write a mod note"
         ),
-        input(tpe := "hidden", name := "mod", value := "true"),
-        isGranted(_.Admin) option div(cls := "dox-inquiry-div")(
-          div(form3.cmnToggle("dox-inquiry", "dox", checked = false)),
-          label(`for` := "dox-inquiry")("Doxing info")
-        ),
         div(cls := "submission")(
-          submitButton(cls := "button thin")("SEND")
+          submitButton(cls := "button thin", name := "noteType", value := "mod")("SEND"),
+          isGranted(_.Admin) option submitButton(cls := "button thin", name := "noteType", value := "dox")(
+            "SEND DOX"
+          )
         )
       ),
       notes map { note =>
@@ -266,14 +268,14 @@ object inquiry {
   )
 
   private def snoozeUrl(report: Report, duration: String): String =
-    if (report.isAppeal) routes.Appeal.snooze(report.user, duration).url
-    else routes.Report.snooze(report.id, duration).url
+    if (report.isAppeal) appealRoutes.snooze(report.user, duration).url
+    else reportRoutes.snooze(report.id, duration).url
 
   private def boostOpponents(
       report: Report,
       allReports: List[Report],
       reportee: User
-  ): Option[NonEmptyList[User.ID]] =
+  ): Option[NonEmptyList[UserId]] =
     (report.reason == Reason.Boost || reportee.marks.boost) ?? {
       allReports
         .filter(_.reason == Reason.Boost)
@@ -282,9 +284,11 @@ object inquiry {
         .flatMap(_.text.linesIterator)
         .collect {
           case farmWithRegex(userId)     => List(userId)
-          case sandbagWithRegex(userIds) => userIds.split(' ').toList.map(_.trim.replace("@", ""))
+          case sandbagWithRegex(userIds) => userIds.split(' ').toList.map(_.replace("@", ""))
         }
         .flatten
+        .flatMap(UserStr.read)
+        .flatMap(User.validateId)
         .distinct
         .toNel
     }
@@ -307,4 +311,3 @@ object inquiry {
         form3.hidden("then", "profile")
       )
     )
-}

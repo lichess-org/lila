@@ -1,3 +1,4 @@
+import * as router from 'common/router';
 import { bind, dataIcon } from 'common/snabbdom';
 import { Controller, MaybeVNode } from '../interfaces';
 import { h, VNode } from 'snabbdom';
@@ -7,7 +8,7 @@ const studyUrl = 'https://lichess.org/study/viiWlKjv';
 
 export default function theme(ctrl: Controller): MaybeVNode {
   const data = ctrl.getData(),
-    t = data.angle;
+    angle = data.angle;
   const showEditor = ctrl.vm.mode == 'view' && !ctrl.autoNexting();
   if (data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
   return ctrl.streak
@@ -17,35 +18,37 @@ export default function theme(ctrl: Controller): MaybeVNode {
     : h('div.puzzle__side__theme', [
         h(
           'a',
-          { attrs: { href: `/training/${t.isOpening ? 'openings' : 'themes'}` } },
+          { attrs: { href: router.withLang(`/training/${angle.opening ? 'openings' : 'themes'}`) } },
           h(
             'h2',
             {
               class: {
-                long: t.name.length > 20,
+                long: angle.name.length > 20,
               },
             },
-            ['« ', t.name]
+            ['« ', angle.name]
           )
         ),
-        h('p', [
-          t.desc,
-          t.chapter &&
-            h(
-              'a.puzzle__side__theme__chapter.text',
-              {
-                attrs: {
-                  href: `${studyUrl}/${t.chapter}`,
-                  target: '_blank',
-                  rel: 'noopener',
-                },
-              },
-              [' ', ctrl.trans.noarg('example')]
-            ),
-        ]),
+        angle.opening
+          ? h('a', { attrs: { href: `/opening/${angle.opening.key}` } }, ['Learn more about ', angle.opening.name])
+          : h('p', [
+              angle.desc,
+              angle.chapter &&
+                h(
+                  'a.puzzle__side__theme__chapter.text',
+                  {
+                    attrs: {
+                      href: `${studyUrl}/${angle.chapter}`,
+                      target: '_blank',
+                      rel: 'noopener',
+                    },
+                  },
+                  [' ', ctrl.trans.noarg('example')]
+                ),
+            ]),
         showEditor
           ? h('div.puzzle__themes', editor(ctrl))
-          : !data.replay && !ctrl.streak && t.isOpening
+          : !data.replay && !ctrl.streak && angle.opening
           ? renderColorForm(ctrl)
           : null,
       ]);

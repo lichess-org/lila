@@ -1,36 +1,32 @@
 package lila.analyse
 
 import lila.db.BSON
-import lila.db.dsl._
-import reactivemongo.api.bson._
+import lila.db.dsl.{ *, given }
+import reactivemongo.api.bson.*
+import chess.Ply
 
-object AnalyseBsonHandlers {
+object AnalyseBsonHandlers:
 
-  implicit val analysisBSONHandler = new BSON[Analysis] {
-    def reads(r: BSON.Reader) = {
-      val startPly = r intD "ply"
+  given BSON[Analysis] with
+    def reads(r: BSON.Reader) =
+      val startPly = Ply(r intD "ply")
       val raw      = r str "data"
       Analysis(
         id = r str "_id",
-        studyId = r strO "studyId",
+        studyId = r.getO[StudyId]("studyId"),
         infos = Info.decodeList(raw, startPly) err s"Invalid analysis data $raw",
         startPly = startPly,
         date = r date "date",
         fk = r strO "fk"
       )
-    }
     def writes(w: BSON.Writer, a: Analysis) =
       BSONDocument(
         "_id"     -> a.id,
         "studyId" -> a.studyId,
         "data"    -> Info.encodeList(a.infos),
-        "ply"     -> w.intO(a.startPly),
+        "ply"     -> w.intO(a.startPly.value),
         "date"    -> w.date(a.date),
         "fk"      -> a.fk
       )
-  }
 
-  implicit val winPercentHandler = percentAsIntHandler[WinPercent](_.value, WinPercent.apply)
-
-  implicit val accuracyPercentHandler = percentAsIntHandler[AccuracyPercent](_.value, AccuracyPercent.apply)
-}
+  given engineHandler: BSONDocumentHandler[ExternalEngine] = Macros.handler

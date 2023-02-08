@@ -1,10 +1,10 @@
 package lila.relay
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.Markdown
 
-final class RelayMarkup {
+final class RelayMarkup:
 
   private val renderer =
     new lila.common.MarkdownRender(
@@ -21,4 +21,3 @@ final class RelayMarkup {
     .build[Markdown, String]()
 
   def apply(tour: RelayTour)(markup: Markdown): String = cache.get(markup, renderer(s"relay:${tour.id}"))
-}

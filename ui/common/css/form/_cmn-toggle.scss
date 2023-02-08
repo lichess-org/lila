@@ -37,7 +37,11 @@
   }
 
   &::after {
-    @extend %metal;
+    @if $theme == 'transp' {
+      background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 22), hsl($c-site-hue, 5%, 19) 100%);
+    } @else {
+      @extend %metal;
+    }
 
     border-radius: 100%;
     box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
@@ -75,7 +79,11 @@
     }
 
     &::after {
-      @extend %metal-hover;
+      @if $theme == 'transp' {
+        background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 25), hsl($c-site-hue, 5%, 22) 100%);
+      } @else {
+        @extend %metal;
+      }
       @include transition(margin);
     }
   }

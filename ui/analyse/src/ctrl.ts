@@ -4,6 +4,7 @@ import * as game from 'game';
 import * as keyboard from './keyboard';
 import * as speech from './speech';
 import * as util from './util';
+import { plural } from './view/util';
 import debounce from 'common/debounce';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type makeStudyCtrl from './study/studyCtrl';
@@ -14,10 +15,9 @@ import { Autoplay, AutoplayDelay } from './autoplay';
 import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from 'tree';
 import { compute as computeAutoShapes } from './autoShape';
 import { Config as ChessgroundConfig } from 'chessground/config';
-import { ActionMenuCtrl } from './actionMenu';
-import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, EvalMeta } from 'ceval';
+import { CevalCtrl, isEvalBetter, sanIrreversible, EvalMeta } from 'ceval';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
-import { defined, prop, Prop } from 'common';
+import { defined, prop, Prop, toggle, Toggle } from 'common';
 import { DrawShape } from 'chessground/draw';
 import { ForecastCtrl } from './forecast/interfaces';
 import { lichessRules } from 'chessops/compat';
@@ -39,7 +39,7 @@ import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'chess/promotion';
-import wikiTheory, { WikiTheory } from './wiki';
+import wikiTheory, { wikiClear, WikiTheory } from './wiki';
 import ExplorerCtrl from './explorer/explorerCtrl';
 import { uciToMove } from 'chessground/util';
 import Persistence from './persistence';
@@ -55,6 +55,7 @@ export default class AnalyseCtrl {
   ceval: CevalCtrl;
   evalCache: EvalCache;
   persistence?: Persistence;
+  actionMenu: Toggle = toggle(false);
 
   // current tree state, cursor, and denormalized node lists
   path: Tree.Path;
@@ -63,7 +64,6 @@ export default class AnalyseCtrl {
   mainline: Tree.Node[];
 
   // sub controllers
-  actionMenu: ActionMenuCtrl;
   autoplay: Autoplay;
   explorer: ExplorerCtrl;
   forecast?: ForecastCtrl;
@@ -111,6 +111,7 @@ export default class AnalyseCtrl {
   gamePath?: Tree.Path;
 
   // misc
+  requestInitialPly?: number; // start ply from the URL location hash
   cgConfig: any; // latest chessground config (useful for revert)
   music?: any;
   nvui?: NvuiPlugin;
@@ -126,7 +127,6 @@ export default class AnalyseCtrl {
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
-
     if (window.LichessAnalyseNvui) this.nvui = window.LichessAnalyseNvui(this) as NvuiPlugin;
 
     this.instanciateEvalCache();
@@ -169,11 +169,14 @@ export default class AnalyseCtrl {
       if (this.music && set !== 'music') this.music = null;
     });
 
-    lichess.pubsub.on('analysis.change.trigger', this.onChange);
+    lichess.pubsub.on('ply.trigger', () =>
+      lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply)
+    );
     lichess.pubsub.on('analysis.chart.click', index => {
       this.jumpToIndex(index);
       this.redraw();
     });
+    lichess.pubsub.on('theme.change', redraw);
     speech.setup();
     this.persistence?.merge();
   }
@@ -184,10 +187,9 @@ export default class AnalyseCtrl {
     this.ongoing = !this.synthetic && game.playable(data);
 
     const prevTree = merge && this.tree.root;
-    this.tree = makeTree(util.treeReconstruct(this.data.treeParts));
+    this.tree = makeTree(util.treeReconstruct(this.data.treeParts, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
 
-    this.actionMenu = new ActionMenuCtrl();
     this.autoplay = new Autoplay(this);
     if (this.socket) this.socket.clearCache();
     else this.socket = makeSocket(this.opts.socketSend, this);
@@ -206,10 +208,11 @@ export default class AnalyseCtrl {
 
     const loc = window.location,
       hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1)),
-      startPly = hashPly || (this.opts.inlinePgn && this.tree.lastPly());
-    if (startPly) {
+      startPly = hashPly >= 0 ? hashPly : this.opts.inlinePgn ? this.tree.lastPly() : undefined;
+    if (defined(startPly)) {
       // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
       window.history.replaceState(null, '', loc.pathname + loc.search);
+      this.requestInitialPly = startPly;
       const mainline = treeOps.mainlineNodeList(this.tree.root);
       return treeOps.takePathWhile(mainline, n => n.ply <= startPly);
     } else return treePath.root;
@@ -218,6 +221,7 @@ export default class AnalyseCtrl {
   enableWiki = (v: boolean) => {
     this.wiki = v ? wikiTheory() : undefined;
     if (this.wiki) this.wiki(this.nodeList);
+    else wikiClear();
   };
 
   private setPath = (path: Tree.Path): void => {
@@ -228,7 +232,7 @@ export default class AnalyseCtrl {
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.pgnInput = undefined;
-    if (this.wiki) this.wiki(this.nodeList);
+    if (this.wiki && this.data.game.variant.key == 'standard') this.wiki(this.nodeList);
     this.persistence?.save();
   };
 
@@ -273,7 +277,7 @@ export default class AnalyseCtrl {
 
   togglePlay(delay: AutoplayDelay): void {
     this.autoplay.toggle(delay);
-    this.actionMenu.open = false;
+    this.actionMenu(false);
   }
 
   private showGround(): void {
@@ -345,7 +349,7 @@ export default class AnalyseCtrl {
   };
 
   private onChange: () => void = throttle(300, () => {
-    lichess.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
+    lichess.pubsub.emit('analysis.change', this.node.fen, this.path);
   });
 
   private updateHref: () => void = debounce(() => {
@@ -389,7 +393,7 @@ export default class AnalyseCtrl {
       if (this.study) this.study.onJump();
     }
     if (this.music) this.music.jump(this.node);
-    lichess.pubsub.emit('ply', this.node.ply);
+    lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
     this.showGround();
   }
 
@@ -560,8 +564,8 @@ export default class AnalyseCtrl {
       (count.nodes >= 10 || count.comments > 0) &&
       !confirm(
         'Delete ' +
-          util.plural('move', count.nodes) +
-          (count.comments ? ' and ' + util.plural('comment', count.comments) : '') +
+          plural('move', count.nodes) +
+          (count.comments ? ' and ' + plural('comment', count.comments) : '') +
           '?'
       )
     )
@@ -637,7 +641,7 @@ export default class AnalyseCtrl {
 
   private instanciateCeval(): void {
     if (this.ceval) this.ceval.destroy();
-    this.ceval = cevalCtrl({
+    this.ceval = new CevalCtrl({
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
       possible: !this.embed && (this.synthetic || !game.playable(this.data)),
@@ -652,12 +656,15 @@ export default class AnalyseCtrl {
             multiPvDefault: 1,
           }
         : {}),
+      externalEngines:
+        this.data.externalEngines?.map(engine => ({
+          ...engine,
+          endpoint: this.opts.externalEngineEndpoint,
+        })) || [],
     });
   }
 
-  getCeval() {
-    return this.ceval;
-  }
+  getCeval = () => this.ceval;
 
   outcome(node?: Tree.Node): Outcome | undefined {
     return this.position(node || this.node).unwrap(

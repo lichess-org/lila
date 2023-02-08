@@ -21,6 +21,9 @@
 }
 
 .podium {
+  @include breakpoint($mq-not-xx-small) {
+    display: none;
+  }
   > div {
     @extend %ellipsis;
 

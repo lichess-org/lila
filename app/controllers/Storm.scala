@@ -1,35 +1,32 @@
 package controllers
 
-import play.api.mvc._
+import play.api.mvc.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 
-final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env) {
+final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env):
 
-  def home =
-    Open { implicit ctx =>
-      NoBot {
-        env.storm.selector.apply flatMap { puzzles =>
-          ctx.userId.?? { u => env.storm.highApi.get(u) dmap some } map { high =>
-            NoCache {
-              Ok(
-                views.html.storm.home(
-                  env.storm.json(puzzles, ctx.me),
-                  env.storm.json.pref(ctx.pref),
-                  high
-                )
-              )
-            }
-          }
-        }
+  def home     = Open(serveHome(_))
+  def homeLang = LangPage(routes.Storm.home)(serveHome(_))
+  private def serveHome(implicit ctx: Context) = NoBot {
+    env.storm.selector.apply flatMap { puzzles =>
+      ctx.userId.?? { u => env.storm.highApi.get(u) dmap some } map { high =>
+        Ok(
+          views.html.storm.home(
+            env.storm.json(puzzles, ctx.me),
+            env.storm.json.pref(ctx.pref),
+            high
+          )
+        ).noCache
       }
     }
+  }
 
   def record =
     OpenBody { implicit ctx =>
       NoBot {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.storm.forms.run
           .bindFromRequest()
           .fold(
@@ -44,9 +41,9 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
       renderDashboardOf(me, page)
     }
 
-  def dashboardOf(username: String, page: Int) =
+  def dashboardOf(username: UserStr, page: Int) =
     Open { implicit ctx =>
-      env.user.repo.enabledNamed(username).flatMap {
+      env.user.repo.enabledById(username).flatMap {
         _ ?? {
           renderDashboardOf(_, page)
         }
@@ -60,7 +57,7 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
       }
     }
 
-  def apiDashboardOf(username: String, days: Int) =
+  def apiDashboardOf(username: UserStr, days: Int) =
     Open { implicit ctx =>
       lila.user.User.validateId(username) ?? { userId =>
         if (days < 0 || days > 365) notFoundJson("Invalid days parameter")
@@ -71,4 +68,3 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
           }
       }
     }
-}

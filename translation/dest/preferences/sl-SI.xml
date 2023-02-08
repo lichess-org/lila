@@ -34,7 +34,7 @@
   <string name="explainPromoteToQueenAutomatically">Pridržite ctrl med promocijo, da začasno onemogočite samodejno promocijo</string>
   <string name="whenPremoving">Pri predpremiku poteze</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Avtomatično zahtevaj remi on ponovitvi treh istih pozicij</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Če je preostanek časa manj kot 30 sekund</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Če je preostanek časa manj kot 30 sekund</string>
   <string name="moveConfirmation">Potrditev poteze</string>
   <string name="inCorrespondenceGames">V korespondenčnih partijah</string>
   <string name="correspondenceAndUnlimited">Dopisno in neomejeno</string>

@@ -667,7 +667,8 @@ export function inputToLegalUci(input: string, fen: string, chessground: Api): s
   } else if (input.match(uciPromotionRegex)) {
     uci = input.slice(0, -1);
     promotion = input.slice(-1).toLowerCase();
-  }
+  } else if ('18'.includes(uci[3]) && chessground.state.pieces.get(uci.slice(0, 2) as Key)?.role == 'pawn')
+    promotion = 'q';
 
   if (legalUcis.includes(uci.toLowerCase())) return uci + promotion;
   else return;

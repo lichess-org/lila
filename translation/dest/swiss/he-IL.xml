@@ -13,6 +13,12 @@
     <item quantity="many">%s סבבים</item>
     <item quantity="other">%s סבבים</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">טורניר שוויצרי עם סבב %s</item>
+    <item quantity="two">טורניר שוויצרי עם %s סבבים</item>
+    <item quantity="many">טורניר שוויצרי עם %s סבבים</item>
+    <item quantity="other">טורניר שוויצרי עם %s סבבים</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">סיבוב אחד ליום</item>
     <item quantity="two">סיבוב אחד כל %s ימים</item>
@@ -47,13 +53,13 @@
   <string name="forbiddenPairings">שיבוצים אסורים</string>
   <string name="forbiddenPairingsHelp">שמות המשתמש של שחקנים שלא יכולים לשחק אחד נגד השני (אחים, למשל). שני שמות משתמש בכל שורה, מופרדים ברווח.</string>
   <string name="newSwiss">טורניר שוויצרי חדש</string>
-  <string name="swissVsArenaQ">מתי להשתמש בטורנירים שוויצריים במקום בטורנירי זירה?</string>
-  <string name="swissVsArenaA">בטורניר שוויצרי, כל השחקנים משחקים אותו מספר של משחקים, ויכולים לשחק אחד נגד השני פעם אחת בלבד. זאת יכולה להיות אפשרות טובה למועדונים וטורנירים רשמיים.</string>
+  <string name="swissVsArenaQ">מתי ליצור טורנירים שוויצריים במקום טורנירי זירה?</string>
+  <string name="swissVsArenaA">בטורניר שוויצרי, כל השחקנים משחקים אותו מספר של משחקים, ויכולים לשחק אחד נגד השני פעם אחת בלבד. זאת יכולה להיות אפשרות טובה למועדונים ולטורנירים רשמיים.</string>
   <string name="pointsCalculationQ">איך מחושבות הנקודות?</string>
   <string name="pointsCalculationA">ניצחון שווה נקודה, תיקו חצי נקודה והפסד אפס נקודות. כששחקן לא משובץ באחד הסבבים הוא מקבל נקודה.</string>
   <string name="tiebreaksCalculationQ">איך שוברי-שוויון מחושבים?</string>
   <string name="sonnebornBergerScore">ניקוד סונבורן-ברגר</string>
-  <string name="tiebreaksCalculationA">בעזרת %s. סכם את הניקוד של כל השחקנים שהשחקן הביס ומחצית מהניקוד של השחקנים שהשחקן השיג נגדם תיקו.</string>
+  <string name="tiebreaksCalculationA">בעזרת %s. סכמו את הניקוד של כל השחקנים שהשחקן הביס ומחצית מהניקוד של השחקנים שהשחקן השיג נגדם תיקו.</string>
   <string name="pairingsQ">איך נקבע השיבוץ לזוגות?</string>
   <string name="dutchSystem">השיטה ההולנדית</string>
   <string name="FIDEHandbook">מפרט חוקי פיד״ה</string>
@@ -68,16 +74,16 @@
   <string name="whatIfOneDoesntPlayA">השעון שלו יתקתק, ״יפול לו הדגל״ והוא יפסיד את המשחק. לאחר מכן הוא יוצא מהטורניר כדי לא להפסיד משחקנים נוספים. הוא יוכל להצטרף מחדש בכל שלב.</string>
   <string name="lateJoinQ">האם ניתן להצטרף באיחור?</string>
   <string name="lateJoinA">כן, עד אשר שוחקו יותר ממחצית הסבבים. לדוגמה, בטורניר של 11 סבבים ניתן להצטרף לפני שסיבוב 6 מתחיל ואם יש 12 סבבים ניתן להצטרף לפני שסיבוב 7 מתחיל. מצטרפים באיחור מקבלים חצי נקודה בלבד, אף אם החמיצו מספר סבבים.</string>
-  <string name="willSwissReplaceArenasQ">האם טורנירים שוויצריים יחליפו את טורנירי הזירות?</string>
+  <string name="willSwissReplaceArenasQ">האם טורנירים שוויצריים יחליפו את טורנירי הזירה?</string>
   <string name="willSwissReplaceArenasA">לא. הם מאפיינים משלימים.</string>
-  <string name="roundRobinQ">ומה בנוגע לשיטת רובין?</string>
+  <string name="roundRobinQ">ומה בנוגע לשיטת Round Robin?</string>
   <string name="roundRobinA">היינו רוצים להוסיף אותה, אך לצערנו שיטת Round Robin לא עובדת אונליין. אנו לא יכולים לצפות מכל השחקנים לשחק את כל המשחקים הדרושים באירוע מקוון, ולכן מרבית האירועים הללו יהיו פגומים ולא הוגנים, מה שחוטא למטרה שלשמה הם נועדו. הפורמט הכי קרוב שניתן לשחק אונליין הוא טורניר שוויצרי בו כל השיבוצים האפשריים ישוחקו טרם סיום הטורניר.</string>
   <string name="otherSystemsQ">ומה באשר לשיטות טורניר אחרות?</string>
   <string name="otherSystemsA">נכון לכרגע אין לנו כוונה להוסיף ל־Lichess שיטות טורניר נוספות.</string>
   <string name="swissDescription">בטורניר שוויצרי %1$s, אין הכרח שכל משתתף ישחק נגד כל משתתף אחר. בכל סיבוב כל שחקן משחק נגד שחקן אחר, והשיבוצים נקבעים על פי הניקוד שנצבר לאורך הטורניר, מבלי ששני שחקנים ישחקו זה נגד זה יותר מפעם אחת. המנצח הוא בעל הניקוד הגבוה ביותר. כל המשתתפים משחקים בכל הסבבים, אלא אם מספרם אי־זוגי</string>
   <string name="teamOnly">רק מובילי קבוצות יכולים ליצור טורנירים שוויצריים, ורק חברי קבוצות יכולים להשתתף בהם. %1$s כדי להתחיל לשחק בטורנירים שוויצריים.</string>
-  <string name="joinOrCreateTeam">הצטרף לקבוצה או צור קבוצה</string>
-  <string name="nowPlaying">משחק כעת</string>
+  <string name="joinOrCreateTeam">הצטרפו לקבוצה או צרו קבוצה</string>
+  <string name="nowPlaying">טורנירים נוכחיים</string>
   <string name="startingSoon">מתחיל בקרוב</string>
   <string name="comparison">השוואה</string>
   <string name="tournDuration">משך הטורניר</string>
@@ -102,4 +108,12 @@
   <string name="streaksAndBerserk">רצפי ניצחונית ו\'אטרף\'</string>
   <string name="similarToOTB">דומה לטורנירים על־גבי לוח</string>
   <string name="unlimitedAndFree">לא מוגבל וחינמי</string>
+  <string name="predefinedUsers">אפשרו רק לשחקנים מוגדרים מראש להצטרף</string>
+  <string name="forbiddedUsers">אם תמלא/י את הרשימה הזאת, משתמשים שלא יופיעו בה לא יורשו להצטרף. כתבו שם משתמש אחד בכל שורה.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">סבב %1$s / %2$s כבר שוחק</item>
+    <item quantity="two">%1$s / %2$s סבבים כבר שוחקו</item>
+    <item quantity="many">%1$s / %2$s סבבים כבר שוחקו</item>
+    <item quantity="other">%1$s / %2$s סבבים כבר שוחקו</item>
+  </plurals>
 </resources>

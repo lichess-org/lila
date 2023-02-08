@@ -59,8 +59,8 @@
   <string name="depthX">Խորություն %s</string>
   <string name="usingServerAnalysis">Օգտագործել սերվերի վերլուծությունը</string>
   <string name="loadingEngine">Շարժիչի բեռնում...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Կատարվում է քայլերի հաշվարկ...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Ծրագիրը բեռնելու սխալ</string>
+  <string name="calculatingMoves">Կատարվում է քայլերի հաշվարկ...</string>
+  <string name="engineFailed">Ծրագիրը բեռնելու սխալ</string>
   <string name="cloudAnalysis">Ամպի վերլուծություն</string>
   <string name="goDeeper">Ավելի խորանալ</string>
   <string name="showThreat">Ցուցադրել սպառնալիքը</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' կլորացումով` կախված կիսաքայլերի քանակից մինչև հաջորդ վերցնելը կամ զինվորի քայլը</string>
   <string name="noGameFound">Ոչ մի խաղ չի գտնվել</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Փորձեք կարգավորումներում միացնել ավելի շատ խաղեր։</string>
+  <string name="openings">Սկզբնախաղեր</string>
   <string name="openingExplorer">Սկզբնախաղերի դիտարկիչ</string>
   <string name="openingEndgameExplorer">Սկզբնախաղերի/վերջնախաղերի տեղեկատու</string>
   <string name="xOpeningExplorer">%s սկզբնախաղերի դիտարկիչ</string>
@@ -156,6 +157,7 @@
   <string name="viewInFullSize">Մեծացնել չափը</string>
   <string name="logOut">Ելք</string>
   <string name="signIn">Մուտք</string>
+  <string name="rememberMe">Հիշել ինձ</string>
   <string name="youNeedAnAccountToDoThat">Դա անելու համար պետք է հաշիվ ունենալ</string>
   <string name="signUp">Գրանցվել</string>
   <string name="computersAreNotAllowedToPlay">Համակարգիչներն ու համակարգչից օգնություն վերցնող խաղացողներն իրավունք չունեն խաղալ։ Խնդրում ենք խաղալիս չօգտվել շախմատային ծրագրերից, տվյալների բազաներից և այլ մարդկանց օգնությունից:</string>
@@ -196,12 +198,31 @@
   <string name="changeUsername">Փոխել օգտանունը</string>
   <string name="changeUsernameNotSame">Կարելի է փոխել միայն նշանների ստեղնաշարքը։ Օրինակ, «hayktadevosyan»-ը դարձնել «HaykTadevosyan»։</string>
   <string name="changeUsernameDescription">Փոխել օգտանունը։ Սա կարող է արվել ընդամենը մեկ անգամ, միայն թույլատրվում է օգտանվան փոքրատառերը դարձնել մեծատառ և հակառակը։</string>
+  <string name="signupUsernameHint">Համոզվեք, որ ընտրել եք պարկեշտ մասնակցային անուն։ Հետագայում այն փոխել չեք կարողանա, ընդ որում, անպարկեշտ անուններով մասնակցային հաշիվները կփակվեն։</string>
+  <string name="signupEmailHint">Մենք այն օգտագործելու ենք միայն գաղտնաբառը չեղարկելու համար։</string>
   <string name="password">Գաղտնաբառ</string>
   <string name="changePassword">Փոխել գաղտնաբառը</string>
   <string name="changeEmail">Փոխել էլ. փոստը</string>
   <string name="email">Էլ. փոստ</string>
   <string name="passwordReset">Վերականգնել գաղտնաբառը</string>
   <string name="forgotPassword">Մոռացել ե՞ք գաղտնաբառը</string>
+  <string name="emailConfirmHelp">Օգնություն էլեկտրոնային փոստի հաստատման հարցում</string>
+  <string name="emailConfirmNotReceived">Գրանցվելուց հետո էլփոստին չե՞ք ստացել հաստատման նամակը:</string>
+  <string name="whatSignupUsername">Ի՞նչ օգտանուն եք ընտրել գրանցվելու համար:</string>
+  <string name="usernameNotFound">Մենք չկարողացանք գտնել որևէ օգտատիրոջ այս անունով՝ %s:</string>
+  <string name="usernameCanBeUsedForNewAccount">Նոր հաշիվ ստեղծելու համար Դուք կարող եք օգտագործել այս օգտանունը</string>
+  <string name="emailSent">Մենք նամակ ենք ուղարկել %s հասցեին:</string>
+  <string name="emailCanTakeSomeTime">Հասնելու համար կարող է որոշ ժամանակ պահանջվել։</string>
+  <string name="refreshInboxAfterFiveMinutes">Սպասեք 5 րոպե և թարմացրեք Ձեր էլփոստի մուտքային արկղը։</string>
+  <string name="checkSpamFolder">Ստուգեք նաև սպամի պանակը, նամակը կարող է հայտնվել այնտեղ: Եթե ​​այդպես է, այն նշեք որպես ոչ սպամ:</string>
+  <string name="emailForSignupHelp">Եթե ​​մնացած ամեն ինչը ձախողվի, ապա գրեք մեզ այս էլեկտրոնային հասցեով.</string>
+  <string name="copyTextToEmail">Պատճենեք և տեղադրեք վերը նշված տեքստը և այն ուղարկեք %s-ին</string>
+  <string name="waitForSignupHelp">Մենք շուտով կվերադառնանք Ձեզ, որպեսզի օգնենք լրացնել Ձեր գրանցումը:</string>
+  <string name="accountConfirmed">%s օգտատերը հաջողությամբ հաստատվել է:</string>
+  <string name="accountCanLogin">Դուք կարող եք մուտք գործել հենց հիմա որպես %s:</string>
+  <string name="accountConfirmationEmailNotNeeded">Ձեզ անհրաժեշտ չէ հաստատման նամակ։</string>
+  <string name="accountClosed">%s հաշիվը փակված է:</string>
+  <string name="accountRegisteredWithoutEmail">%s հաշիվը գրանցվել է առանց էլփոստի:</string>
   <string name="rank">Դասակարգում</string>
   <string name="rankX">Դասակարգում՝ %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -623,6 +644,7 @@
   <string name="tournamentFAQ">Հարցեր «Արենա» մրցաշարերի վերաբերյալ</string>
   <string name="timeBeforeTournamentStarts">Ժամանակ մինչև մրցաշարի սկսվելը</string>
   <string name="averageCentipawnLoss">Միջինը հարյուրերորդական զինվորի կորուստ</string>
+  <string name="accuracy">Ճշտություն</string>
   <string name="keyboardShortcuts">Ստեղնաշարի դյուրանցումներ</string>
   <string name="keyMoveBackwardOrForward">քայլ հետ/առաջ</string>
   <string name="keyGoToStartOrEnd">գնալ սկիզբ/վերջ</string>
@@ -655,7 +677,7 @@
   <string name="downloadImported">Ներբեռնել ներմուծվածը</string>
   <string name="crosstable">Հաշիվ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Քայլերը թերթելու համար կարելի է մկնիկի անիվը պտտել տախտակի վրա։</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Թերթեք տարբերակները դրանք դիտելու համար  </string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Թերթեք տարբերակները դրանք դիտելու համար:</string>
   <string name="analysisShapesHowTo">Խաղատախտակի վրա շրջանակներ և սլաքներ պատկերելու համար օգտագործեք Shift+մկնիկի ձախ կոճակը կամ աջ կոճակը։</string>
   <string name="letOtherPlayersMessageYou">Թույլ տալ այլ խաղացողներին Ձեզ հաղորդագրություններ ուղարկել</string>
   <string name="receiveForumNotifications">Ստանալ ծանուցումներ ֆորումում հիշատակվելու դեպքում</string>
@@ -728,6 +750,7 @@
   <string name="bestWasX">Ավելի լավ էր %s</string>
   <string name="youBrowsedAway">Դուք դուրս եկաք մարզման ռեժիմից</string>
   <string name="resumePractice">Վերսկսել մարզումը</string>
+  <string name="drawByFiftyMoves">Խաղն ավարտվել է ոչ-ոքի հիսուն քայլի կանոնով։</string>
   <string name="theGameIsADraw">Խաղն ավարտվեց ոչ-ոքի։</string>
   <string name="computerThinking">Համակարգիչը մտածում է...</string>
   <string name="seeBestMove">Դիտել լավագույն քայլը</string>

@@ -4,6 +4,7 @@ import play.api.libs.json.{ JsArray, JsObject, Json }
 
 import lila.game.Pov
 import lila.lobby.{ LobbySocket, SeekApi }
+import lila.common.Json.given
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,
@@ -11,9 +12,9 @@ final class LobbyApi(
     gameProxyRepo: lila.round.GameProxyRepo,
     gameJson: lila.game.JsonView,
     lobbySocket: LobbySocket
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using scala.concurrent.ExecutionContext):
 
-  def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
+  def apply(using ctx: Context): Fu[(JsObject, List[Pov])] =
     ctx.me.fold(seekApi.forAnon)(seekApi.forUser).mon(_.lobby segment "seeks") zip
       (ctx.me ?? gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") flatMap { case (seeks, povs) =>
         val displayedPovs = povs take 9
@@ -28,7 +29,7 @@ final class LobbyApi(
                 "rounds"  -> lobbySocket.counters.rounds
               )
             )
-            .add("ratingMap", ctx.me.map(_.perfs.ratingMap))
+            .add("ratingMap", ctx.me.map(lila.user.JsonView.ratingMap))
             .add(
               "me",
               ctx.me.map { u =>
@@ -39,4 +40,3 @@ final class LobbyApi(
       }
 
   def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)(lightUserApi.sync)
-}

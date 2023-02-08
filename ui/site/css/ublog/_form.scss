@@ -53,7 +53,7 @@
     @extend %box-neat;
     background: $c-bg-zebra;
     padding: 2em 3em;
-    margin: 3em auto;
+    margin: 0 auto 3em auto;
     max-width: 80ch;
   }
   .tagify {

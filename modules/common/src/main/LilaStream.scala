@@ -1,15 +1,15 @@
 package lila.common
 
 import akka.NotUsed
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import scala.annotation.nowarn
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-object LilaStream {
+object LilaStream:
 
   def flowRate[T](
       metric: T => Int = (_: T) => 1,
-      outputDelay: FiniteDuration = 1 second
+      outputDelay: FiniteDuration = 1.second
   ): Flow[T, Double, NotUsed] =
     Flow[T]
       .conflateWithSeed(metric(_)) { case (acc, x) => acc + metric(x) }
@@ -19,7 +19,7 @@ object LilaStream {
   def logRate[T](
       name: String,
       metric: T => Int = (_: T) => 1,
-      outputDelay: FiniteDuration = 1 second
+      outputDelay: FiniteDuration = 1.second
   )(logger: play.api.LoggerLike): Flow[T, T, NotUsed] =
     Flow[T]
       .alsoTo(
@@ -35,4 +35,3 @@ object LilaStream {
     Flow[Option[A]] collect { case Some(a) =>
       a
     }
-}

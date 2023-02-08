@@ -1,3 +1,3 @@
-package lila
+package lila.room
 
-package object room extends PackageObject
+export lila.Lila.{ *, given }

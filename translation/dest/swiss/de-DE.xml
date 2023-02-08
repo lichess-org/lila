@@ -9,6 +9,10 @@
     <item quantity="one">%s Runde</item>
     <item quantity="other">%s Runden</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s Runde Schweizer System</item>
+    <item quantity="other">%s Runden Schweizer System</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Eine Runde pro Tag</item>
     <item quantity="other">Eine Runde alle %s Tage</item>
@@ -69,7 +73,7 @@ Der Grund dafür ist, dass es keine faire Möglichkeit gibt, mit Leuten umzugehe
 Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer System und einer sehr hohen Anzahl an Runden zu spielen. Dadurch werden alle möglichen Paarungen gespielt, bevor das Turnier endet.</string>
   <string name="otherSystemsQ">Was ist mit anderen Turniersystemen?</string>
   <string name="otherSystemsA">Wir planen derzeit keine weiteren Turniersysteme zu Lichess hinzuzufügen.</string>
-  <string name="swissDescription">In einem Turnier nach Schweizer System %1$s spielt jeder Spieler nicht notwendigerweise gegen alle anderen Teilnehmer. Die Teilnehmer treffen in jeder Runde eins gegen eins aufeinander und werden mithilfe einer Reihe von Regeln einander zugelost, um sicherzustellen, dass jeder Wettbewerber gegen Gegner mit einem ähnlichen Punktestand spielt, aber nicht gegen den gleichen Gegner mehr als einmal. Der Gewinner ist der Teilnehmer mit den höchsten Gesamtpunkten, die aus allen Runden addiert werden. Alle Spieler spielen in jeder Runde, es sei denn, es gibt eine ungerade Anzahl an Teilnehmern.\"</string>
+  <string name="swissDescription">In einem Turnier nach Schweizer System %1$s spielt jeder Spieler nicht notwendigerweise gegen alle anderen Teilnehmer. Die Teilnehmer treffen in jeder Runde eins gegen eins aufeinander und werden mithilfe einer Reihe von Regeln einander zugelost, um sicherzustellen, dass jeder Wettbewerber gegen Gegner mit einem ähnlichen Punktestand spielt, aber nicht gegen den gleichen Gegner mehr als einmal. Der Gewinner ist der Teilnehmer mit den höchsten Gesamtpunkten, die aus allen Runden addiert werden. Alle Spieler spielen in jeder Runde, es sei denn, es gibt eine ungerade Anzahl an Teilnehmern.</string>
   <string name="teamOnly">Turniere nach Schweizer System können nur von Teamleitern erstellt werden und können nur von Teammitgliedern gespielt werden.           
 %1$s um an Turnieren nach Schweizer System teilzunehmen.</string>
   <string name="joinOrCreateTeam">Erstelle ein Team oder tritt einem anderen Team bei</string>
@@ -98,4 +102,10 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="streaksAndBerserk">Siegesserien und Berserken</string>
   <string name="similarToOTB">Ähnlich wie OTB Turniere</string>
   <string name="unlimitedAndFree">Unbegrenzt und kostenlos</string>
+  <string name="predefinedUsers">Nur vordefinierten Benutzern erlauben beizutreten</string>
+  <string name="forbiddedUsers">Falls diese Liste nicht leer ist, können nicht aufgeführte Benutzer nicht teilnehmen. Ein Benutzername pro Zeile.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s Runden Schweizer System</item>
+    <item quantity="other">%1$s / %2$s Runden Schweizer System</item>
+  </plurals>
 </resources>

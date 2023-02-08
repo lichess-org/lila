@@ -5,23 +5,31 @@
   "description": "lichess.org mod",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0",
-    "@types/cash": "8.0.0",
-    "rollup": "^2",
-    "typescript": "^4",
-    "@types/yaireo__tagify": "^4.16"
-  },
   "dependencies": {
-    "common": "2.0.0",
-    "@yaireo/tagify": "^4.16",
-    "apexcharts": "^3.33",
-    "tablesort": "^5.3"
+    "@types/cash": "workspace:*",
+    "@types/debounce-promise": "^3.1.6",
+    "@types/lichess": "workspace:*",
+    "@types/yaireo__tagify": "^4.16.0",
+    "@yaireo/tagify": "^4.17.6",
+    "apexcharts": "^3.36.3",
+    "common": "workspace:*",
+    "debounce-promise": "^3.1.2",
+    "prop-types": "^15.8.1",
+    "tablesort": "^5.3.0"
   },
   "scripts": {
-    "all-dev": "rollup --failAfterWarnings --config --config-all",
-    "plugin-dev": "rollup --failAfterWarnings --config --config-plugin",
-    "plugin-prod": "rollup --failAfterWarnings --config --config-prod --config-plugin"
+    "compile": "tsc",
+    "dev": "tsc",
+    "prod": "tsc"
+  },
+  "lichess": {
+    "bundles": {
+      "src/activity.ts": "mod.activity",
+      "src/user.ts": "mod.user",
+      "src/inquiry.ts": "mod.inquiry",
+      "src/games.ts": "mod.games",
+      "src/search.ts": "mod.search",
+      "src/teamAdmin.ts": "team.admin"
+    }
   }
 }

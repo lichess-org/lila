@@ -1,14 +1,14 @@
 package views.html
 package account
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 import play.api.i18n.Lang
 
-object security {
+object security:
 
   def apply(
       u: lila.user.User,
@@ -16,13 +16,13 @@ object security {
       curSessionId: String,
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
-  )(implicit
+  )(using
       ctx: Context
   ) =
     account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security") {
       div(cls := "account security")(
         div(cls := "box")(
-          h1(trans.security()),
+          h1(cls := "box__top")(trans.security()),
           standardFlash(cls := "box__pad"),
           div(cls := "box__pad")(
             p(
@@ -93,7 +93,7 @@ object security {
               if (client.scopes.nonEmpty)
                 frag(
                   "Third party application with permissions: ",
-                  client.scopes.map(_.name).mkString(", ")
+                  client.scopes.map(_.name.txt()).mkString(", ")
                 )
               else
                 frag("Third party application using only public data.")
@@ -124,4 +124,3 @@ object security {
         )
       )
     )
-}

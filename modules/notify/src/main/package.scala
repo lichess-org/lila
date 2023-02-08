@@ -1,3 +1,3 @@
-package lila
+package lila.notify
 
-package object notify extends PackageObject
+export lila.Lila.{ *, given }

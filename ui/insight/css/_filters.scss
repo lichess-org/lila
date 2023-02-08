@@ -44,6 +44,9 @@
 
     span {
       text-align: right;
+      @include breakpoint($mq-not-x-small) {
+        text-align: left;
+      }
       line-height: 30px;
       background: none;
     }
@@ -60,6 +63,9 @@
 
   .ms-drop {
     margin-#{$start-direction}: 99%;
+    @include breakpoint($mq-not-x-small) {
+      margin-#{$start-direction}: 50%;
+    }
     top: 0;
     #{$start-direction}: 0;
   }

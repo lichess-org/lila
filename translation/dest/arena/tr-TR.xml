@@ -36,7 +36,10 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   </plurals>
   <string name="thisIsPrivate">Bu özel bir turnuvadır</string>
   <string name="shareUrl">Arkadaşlarını davet etmek için bu URL\'yi kullanabilirsin: %s</string>
-  <string name="drawStreak">Beraberlik serisi: Bir oyuncu turnuvada üst üste berabere kaldığında yalnızca ilk beraberlikten veya %s hamleden uzun süren maçın sonunda elde edilen beraberlikten puan kazanır. Beraberlik serisi sadece oyuncu bir maç kazandığı vakit sona erer; mağlubiyet veya beraberlik ile sonuçlanan maçlarda bu seri devam eder.</string>
+  <string name="drawStreakStandard">Beraberlik serisi: Arena turnuvasında üst üste berabere kalan bir oyuncu sadece ilk maçtan puan alır. Beraberlik serisi yalnızca bir galibiyet ile bozulur, yenilgi veya başka bir beraberlikte devam eder. Ek olarak, klasik maçlarda %s hamleden uzun süren beraberliklerde oyuncular yine puan alır.</string>
+  <string name="drawStreakVariants">Berabere biten oyunların puan getirmesi için gereken minimum hamle sayısı varyanta göre değişir. Her varyant için gerekli olan asgari hamle sayısı tabloda verilmiştir.</string>
+  <string name="variant">Varyant</string>
+  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Asgari hamle sayısı</string>
   <string name="history">Arena Geçmişi</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Takımı görüntüleyin</item>

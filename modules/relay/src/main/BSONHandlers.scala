@@ -1,20 +1,19 @@
 package lila.relay
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
-object BSONHandlers {
+object BSONHandlers:
 
-  implicit val relayIdHandler     = stringAnyValHandler[RelayRound.Id](_.value, RelayRound.Id.apply)
-  implicit val relayTourIdHandler = stringAnyValHandler[RelayTour.Id](_.value, RelayTour.Id.apply)
+  given BSONHandler[RelayPlayers] = stringAnyValHandler(_.text, RelayPlayers.apply)
 
   import RelayRound.Sync
   import Sync.{ Upstream, UpstreamIds, UpstreamUrl }
-  implicit val upstreamUrlHandler = Macros.handler[UpstreamUrl]
-  implicit val upstreamIdsHandler = Macros.handler[UpstreamIds]
+  given upstreamUrlHandler: BSONDocumentHandler[UpstreamUrl] = Macros.handler
+  given upstreamIdsHandler: BSONDocumentHandler[UpstreamIds] = Macros.handler
 
-  implicit val upstreamHandler = tryHandler[Upstream](
+  given BSONHandler[Upstream] = tryHandler(
     {
       case d: BSONDocument if d.contains("url") => upstreamUrlHandler readTry d
       case d: BSONDocument if d.contains("ids") => upstreamIdsHandler readTry d
@@ -26,18 +25,17 @@ object BSONHandlers {
   )
 
   import SyncLog.Event
-  implicit val syncLogEventHandler = Macros.handler[Event]
+  given BSONDocumentHandler[Event] = Macros.handler
 
-  implicit val syncLogHandler = isoHandler[SyncLog, Vector[Event]]((s: SyncLog) => s.events, SyncLog.apply _)
+  given BSONHandler[SyncLog] = isoHandler[SyncLog, Vector[Event]](_.events, SyncLog.apply)
 
-  implicit val syncHandler = Macros.handler[Sync]
+  given BSONDocumentHandler[Sync] = Macros.handler
 
-  implicit val relayHandler = Macros.handler[RelayRound]
+  given BSONDocumentHandler[RelayRound] = Macros.handler
 
-  implicit val relayTourHandler = Macros.handler[RelayTour]
+  given BSONDocumentHandler[RelayTour] = Macros.handler
 
   def readRoundWithTour(doc: Bdoc): Option[RelayRound.WithTour] = for {
     round <- doc.asOpt[RelayRound]
     tour  <- doc.getAsOpt[RelayTour]("tour")
   } yield RelayRound.WithTour(round, tour)
-}

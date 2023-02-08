@@ -21,21 +21,21 @@
   <string name="ratingRefundExplanation">1 Minute, nachdem en Schpiller markiert worde isch, werded sini 40 letschte Partie, vu de letschte 3 Tag aglueget. Wänn du i dene Partie under de Gägner gsi bisch und sich dini Wertig - will du verlore- oder Remis gschpillt häsch - verschlächteret hät und dini Wertig nöd erscht \"provisorisch\" gsi isch, chunnsch du e \"Wertigsrückerstattig\" über. Die Rückerschtattig wird begränzt dur dini Spitzewertig und din Wertigsfortschritt nach dere Partie.
 (Wänn dini Wertig nach so Partie starch gschtige isch, gits möglicherwis kei Rückerschtattig oder nur en Teil.) E Rückerschtattig betreit nie meh als 150 Pünkt.</string>
   <string name="preventLeavingGameWithoutResigning">Was passiert mit Schpiller, wo eifach abhaued anstatt e Partie ufzgeh?</string>
-  <string name="leavingGameWithoutResigningExplanation">Wänn din Gägner hüfig Partie abbricht/verlaht, chunnt er es \"Spil-Bann\" über, was bedütet, dass er e gwüssi Zit kei Partie meh schpille chann. Das wird nöd öffentlich uf de Profilsite vermerkt. Falls das Verhalte witer so blibt, wird d\'Dur vu dem Bann verlängeret. Witeri vu dene Verstöss chönnd zur Schlüssig vum Konto fühere.</string>
+  <string name="leavingGameWithoutResigningExplanation">Wänn din Gägner hüfig Partie abbricht/verlaht, chunnt er en \"Spiel-Bann\" über, was bedütet, dass er e gwüssi Zit kei Partie meh schpille chann. Das wird nöd öffentlich uf de Profilsite vermerkt. Falls das Verhalte witer so blibt, wird d\'Dur vu dem Bann verlängeret. Witeri vu dene Verstöss chönnd zur Schlüssig vum Konto fühere.</string>
   <string name="howCanIBecomeModerator">Wie chann ich Moderator werde?</string>
   <string name="youCannotApply">Es isch nöd möglich sich als Moderator z\'bewerbe. Wänn mir öpper gsehnd, wo mir dänked, dass er en guete Moderator chönnt si, kontaktiered mir ihn diräkt.</string>
   <string name="isCorrespondenceDifferent">Was sind d\'Underschid vu Fernschach zu normalem Schach?</string>
   <string name="pleaseReadFairPlayPage">Meh Infos chasch uf eusere %s läse</string>
   <string name="fairPlayPage">\"Fairplay-Site\"</string>
   <string name="youCanUseOpeningBookNoEngine">Bi Lichess beschtaht de Hauptunderschid i de Regle für Fernschach darin, dass es Schachbuech erlaubt isch. D\'Verwändig vu Schachcoputer isch aber immer no verbote und füehrt zunere Markierig vom Konto wäge unerlaubter Computer-Underschtützig. Obwohl d\'ICCF d\'Verwändig vu Computer für Fernschachpartie erlaubt, isch es bi Lichess nöd gschtattet.</string>
-  <string name="gameplay">Schpilerläbnis</string>
+  <string name="gameplay">Schpielerläbnis</string>
   <string name="howBulletBlitzEtcDecided">Wie wird entschide, was Bullet, Blitz und anderi Zitkontrolle sind?</string>
-  <string name="basedOnGameDuration">Lichess Zitkontrolle basiered uf de erwartete Schpildur = %1$s
-Zum Bischpil berächnet sich die erwartete Schpildur vonere 5+3 Partie zu 5 × 60 + 40 × 3 = 420 Sekunde.</string>
+  <string name="basedOnGameDuration">Lichess Zitkontrolle basiered uf de erwartete Schpieldur = %1$s
+Zum Bischpil berächnet sich die erwartete Schpieldur vonere 5+3 Partie zu 5 × 60 + 40 × 3 = 420 Sekunde.</string>
   <string name="durationFormula">(Zitguethabe am Afang) + 40 × (Zug-Inkrement)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Weli Variantä chan ich uf Lichess schpilä?</string>
+  <string name="whatVariantsCanIplay">Was für Variante chann ich uf Lichess schpille?</string>
   <string name="lichessSupportChessAnd">Lichess underschtützt Schtandardschach und %1$s.</string>
   <string name="eightVariants">8 Schachvariantä</string>
   <string name="whatIsACPL">Was isch durchschnittlichä Hundertstelpur-Verluscht (ACPL)?</string>
@@ -43,12 +43,12 @@ Zum Bischpil berächnet sich die erwartete Schpildur vonere 5+3 Partie zu 5 × 6
 
 De bescht, möglich Computerzug verlürt kein Hundertschtelpur, schlächteri Züg bewürked aber e schlächteri Schtellig, was dänn in Centipure gmässe wird.
 
-De Wert chann als Indikator für d\'Schpilqualität gnutzt werde: Je weniger Centipure pro Zug verlore göhnd, umso besser isch d\'Schpilstärchi.
+De Wert chann als Indikator für d\'Schpielqualität gnutzt werde: Je weniger Centipure pro Zug verlore göhnd, umso besser isch d\'Schpielstärchi.
 
 Computeranalyse werded bi Lichess vu \"Stockfish\" gmacht.</string>
   <string name="insufficientMaterial">Mit Zit verlüre, Remis und ungnüegends Material</string>
-  <string name="lichessFollowFIDErules">Isch eim Schpiller d\'Zit abgloffe, verlürt er - i de Regel - s\'Schpil. 
-Es Schpil chann jedoch au als Remis erchlärt werde, wänn de vermeindlich Sieger, kei legali Zugfolg hät zum es Matt mache (%1$s).
+  <string name="lichessFollowFIDErules">Isch eim Schpiller d\'Zit abgloffe, verlürt er - i de Regel - s\'Schpiel. 
+Es Schpiel chann jedoch au als Remis erchlärt werde, wänn de vermeindlich Sieger, kei legali Zugfolg hät zum es Matt mache (%1$s).
 
 I sältene Fäll channs schwierig si das z\'entscheide (erzwungeni Zugfolge, gfeschtigti Stellige). Schtandardmässig wir immer für de Schpiller entschiede, wo no Bedänkzit hät.
 Gib also acht druf, dass es möglich isch, nur mit Schpringer oder Läufer, es Matt z\'mache, falls de Gägner e Figur hät, wo sin König chönnt blockiere.</string>
@@ -64,6 +64,7 @@ Wichtig isch, dass die Schlagart \"en passant\" nur diräkt nach dem Uswichversu
 Im %3$s wird \"en passant\" mit Üebige erchlärt und glehrt.</string>
   <string name="goodIntroduction">guete erschte Idruck</string>
   <string name="lichessTraining">Lichess-Träning</string>
+  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Lueg zue, wie de IM Eric Rosen - mit eme %s - es Schachmatt macht.</string>
   <string name="threefoldRepetition">Drüfachi Schtelligswiderholig</string>
   <string name="threefoldRepetitionExplanation">Bi drümal glicher Stellig, chann en Schpiller es Remis dur %1$s reklamiere. Lichess setzt die offiziell FIDE Regle, wo im Artikel 9.2 (d) vum %2$s beschribe isch, um.</string>
   <string name="threefoldRepetitionLowerCase">drüfachi Schtelligswiderholig</string>
@@ -111,8 +112,8 @@ Grundsätzlich isch sich bi dem Syschtem aber zu 95% sicher, dass e Wertig irgen
 En witere Punkt isch, dass sich s\'Konfidänzintervall im Lauf vu de Zit erhöht. Das erlaubt, Pünkt schnäller z\'günne oder z\'verlüre, um alli Änderige vu dine Fertigkeite während dem Zitrum z\'berücksichtige.</string>
   <string name="whatIsProvisionalRating">Wieso gits es Fragezeiche (?) näbe de Wertigszahl?</string>
   <string name="provisionalRatingExplanation">Das Fragezeiche zeigt, dass d\'Wertig no provisorisch isch. Us folgende Gründ:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">De Schpiller hät nonig gnueg gwerteti Schpil gäge %1$s i dere Wertigskategorie gschpillt.</string>
-  <string name="similarOpponents">Gägner mit ähnlicher Schpilschtärchi</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">De Schpiller hät nonig gnueg gwerteti Schpiel gäge %1$s i dere Wertigskategorie gschpillt.</string>
+  <string name="similarOpponents">Gägner mit ähnlicher Schpielschtärchi</string>
   <string name="notPlayedRecently">De Schpiller hät nöd gnüegend aktuelli Partie gschpillt. Abhängig vu de Aazahl vu Partie, wo du gschpillt häsch, bruchts öppe es Jahr Inaktivität, bis d\'Wertig wieder provisorisch wird.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkret bedütet das, dass d? Abwichig in Glicko-2 grösser als 110 isch. Die Abwichig isch s\'Vertraue, wo das Syschtem id Wertig hät. Je nidriger d\'Abwichig, deschto schtabiler isch e Wertig.</string>
   <string name="howDoLeaderoardsWork">Wie funktioniered Räng und Ranglischte?</string>
@@ -127,10 +128,10 @@ En witere Punkt isch, dass sich s\'Konfidänzintervall im Lauf vu de Zit erhöht
   <string name="whyAreRatingHigherExplanation">Es isch am beschte, Wertige nöd als absoluti Zahle z\'betrachte oder si mit anderne Organisazione z\'vergliche. Verschideni Organisazione händ underschidlichi Schpiller Klasse, verschideni Wertigs-Syschtem (ELO, Glicko, Glicko-2, oder e modifizierti Version devo). Die Faktore chönd di absolute Zahle (Wertige) drastisch beiiflusse.
  
 Es isch am beschte, Wertige als \"relativi\" Wert z\'betrachte (im Gägesatz zu \"absolute\" Wert): Innerhalb vu me Pool a Schpiller hälfed dir relativi Underschid ide Wertige debi abzschätze, wer ehner günnt/verlürt und wie oft öppe. Z\'säge \"Ich han e X-Wertig\" bedütet nüt, es sei dänn, es git anderi Schpiller, mit dene du dini Wertig verglichsch.</string>
-  <string name="howToHideRatingWhilePlaying">Wie chann mer Wertige während em Schpil usblände?</string>
+  <string name="howToHideRatingWhilePlaying">Wie chann mer Wertige während em Schpiel usblände?</string>
   <string name="enableZenMode">Aktivier de Zen-Modus i de %1$s oder truck %2$s während de Partie.</string>
   <string name="displayPreferences">Azeige-Ischtellige</string>
-  <string name="connexionLostCanIGetMyRatingBack">Ich han es Schpil wäge Lag / Verbindigsunderbruch verlore. Chann ich mini Wertigspünkt zrugg verlange?</string>
+  <string name="connexionLostCanIGetMyRatingBack">Ich han es Schpiel wäge Lag / Verbindigsunderbruch verlore. Chann ich mini Wertigspünkt zrugg verlange?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider chönnd mir kei Wertigspünkt zrugg geh, wo wäge Lag oder Underbrüch verlore worde sind. Unabhängig devoo, ob das Problem vu dinere oder vu eusere Site - was sehr sälte passiert - verursacht worde isch. Pass also au uf, wänn Mäldige für en Lichess Neustart chömmed, will bim Abefahre vum Syschtem werded alli Partie eifach abbroche und mer chann so unfair verlüre.</string>
   <string name="howToThreeDots">Wiä chan ich...</string>
   <string name="enableDisableNotificationPopUps">Benochrichtigungs-Popups aktiviärä oder deaktiviärä?</string>

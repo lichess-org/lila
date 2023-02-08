@@ -1,7 +1,7 @@
 package lila.tv
 
 import chess.Color
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.Promise
 
 import lila.common.LightUser
@@ -11,26 +11,26 @@ import lila.hub.SyncActor
 final private[tv] class ChannelSyncActor(
     channel: Tv.Channel,
     onSelect: TvSyncActor.Selected => Unit,
-    proxyGame: Game.ID => Fu[Option[Game]],
-    rematchOf: Game.ID => Option[Game.ID],
+    proxyGame: GameId => Fu[Option[Game]],
+    rematchOf: GameId => Option[GameId],
     lightUserSync: LightUser.GetterSync
-)(implicit ec: scala.concurrent.ExecutionContext)
-    extends SyncActor {
+)(using ec: scala.concurrent.ExecutionContext)
+    extends SyncActor:
 
-  import ChannelSyncActor._
+  import ChannelSyncActor.*
 
   // games featured on this channel
   // first entry is the current game
-  private var history = List.empty[Game.ID]
+  private var history = List.empty[GameId]
 
   private def oneId = history.headOption
 
   // the list of candidates by descending rating order
-  private var manyIds = List.empty[Game.ID]
+  private var manyIds = List.empty[GameId]
 
-  private val candidateIds = new lila.memo.ExpireSetMemo(3 minutes)
+  private val candidateIds = lila.memo.ExpireSetMemo[GameId](3 minutes)
 
-  protected val process: SyncActor.Receive = {
+  protected val process: SyncActor.Receive =
 
     case GetGameId(promise) => promise success oneId
 
@@ -70,7 +70,6 @@ final private[tv] class ChannelSyncActor(
             .take(50)
             .map(_.id)
         }
-  }
 
   def addCandidate(game: Game): Unit = candidateIds put game.id
 
@@ -83,10 +82,9 @@ final private[tv] class ChannelSyncActor(
 
   private def rematch(game: Game): Fu[Option[Game]] = rematchOf(game.id) ?? proxyGame
 
-  private def bestOf(candidates: List[Game]) = {
-    import cats.implicits._
+  private def bestOf(candidates: List[Game]) =
+    import cats.implicits.*
     candidates.maximumByOption(score)
-  }
 
   private def score(game: Game): Int =
     heuristics.foldLeft(0) { case (score, fn) =>
@@ -103,27 +101,25 @@ final private[tv] class ChannelSyncActor(
   )
 
   private def ratingHeuristic(color: Color): Heuristic =
-    game => game.player(color).stableRating | 1300
+    game => game.player(color).stableRating.fold(1300)(_.value)
 
   private def titleHeuristic(color: Color): Heuristic = game =>
     ~game
       .player(color)
       .some
       .flatMap { p =>
-        p.stableRating.exists(2100 <) ?? p.userId
+        p.stableRating.exists(_ > 2100) ?? p.userId
       }
       .flatMap(lightUserSync)
       .flatMap(_.title)
       .flatMap(Tv.titleScores.get)
-}
 
-object ChannelSyncActor {
+object ChannelSyncActor:
 
-  case class GetGameId(promise: Promise[Option[Game.ID]])
-  case class GetGameIds(max: Int, promise: Promise[List[Game.ID]])
-  case class GetReplacementGameId(oldId: Game.ID, exclude: List[Game.ID], promise: Promise[Option[Game.ID]])
+  case class GetGameId(promise: Promise[Option[GameId]])
+  case class GetGameIds(max: Int, promise: Promise[List[GameId]])
+  case class GetReplacementGameId(oldId: GameId, exclude: List[GameId], promise: Promise[Option[GameId]])
   private case class SetGame(game: Game)
 
   case class GetGameIdAndHistory(promise: Promise[GameIdAndHistory])
-  case class GameIdAndHistory(gameId: Option[Game.ID], history: List[Game.ID])
-}
+  case class GameIdAndHistory(gameId: Option[GameId], history: List[GameId])

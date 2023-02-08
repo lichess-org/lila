@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Zertan lagun zaitzakegu?</string>
   <string name="visitThisPage">Ikusi orrialde hau zure arazoa konpontzeko</string>
   <string name="iCantLogIn">Ezin naiz sartu</string>
-  <string name="noConfirmationEmail">Ez dut nire konfirmazio eposta jaso</string>
+  <string name="noConfirmationEmail">Ez dut nire baieztapen eposta jaso</string>
   <string name="forgotPassword">Pasahitza ahaztu dut</string>
   <string name="forgotUsername">Erabiltzaile-izena ahaztu dut</string>
   <string name="youCanLoginWithEmail">Izena eman zenuenean esan zenigun eposta helbidearekin sar zaitezke</string>
@@ -13,7 +13,7 @@
   <string name="doPasswordReset">Berrezarri pasahitza bi faktoreko autentikazioa desgaitzeko</string>
   <string name="accountSupport">Kontuaren inguruko laguntza behar dut</string>
   <string name="wantTitle">Nire titulua Lichessen agertzea nahi dut</string>
-  <string name="visitTitleConfirmation">Zure titulua Lichessen agertzeko eta Titled Arena txapelketetan parte hartzeko, joan tituluaren konfirmazioko orrialdera</string>
+  <string name="visitTitleConfirmation">Zure titulua Lichessen agertzeko eta Titled Arena txapelketetan parte hartzeko, joan tituluaren baieztapenaren orrialdera</string>
   <string name="wantCloseAccount">Nire kontua itxi egin nahi dut</string>
   <string name="closeYourAccount">Zure kontua orrialde honetan itxi dezakezu</string>
   <string name="doNotAskByEmail">Ez iezaguzu epostaz eskatu zure kontua ixteko, ez dugu egingo.</string>

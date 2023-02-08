@@ -9,6 +9,10 @@
     <item quantity="one">%s rondas</item>
     <item quantity="other">%s Rondas</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s ronda de torneio suíço</item>
+    <item quantity="other">%s rondas de torneio suíço</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Uma ronda por dia</item>
     <item quantity="other">Uma ronda cada %s dias</item>
@@ -100,4 +104,10 @@ O mais perto que podes ter do Round Robin é jogar um torneio suiço com um núm
   <string name="streaksAndBerserk">Sequências e Berserk</string>
   <string name="similarToOTB">Semelhante a torneios OTB</string>
   <string name="unlimitedAndFree">Ilimitado e livre</string>
+  <string name="predefinedUsers">Permitir que se juntem apenas utilizadores pré-definidos</string>
+  <string name="forbiddedUsers">Se esta lista não estiver vazia, então os nomes de utilizador ausentes desta lista serão impedidos de entrar. Um nome de utilizador por linha.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s ronda de torneio suíço</item>
+    <item quantity="other">%1$s / %2$s rondas de torneio suíço</item>
+  </plurals>
 </resources>

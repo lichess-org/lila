@@ -1,6 +1,6 @@
 package lila.evalCache
 
-import chess.format.{ FEN, Forsyth, Uci }
+import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import org.joda.time.DateTime
 import cats.data.NonEmptyList
@@ -14,11 +14,11 @@ case class EvalCacheEntry(
     evals: List[EvalCacheEntry.Eval],
     usedAt: DateTime,
     updatedAt: DateTime
-) {
+):
 
-  import EvalCacheEntry._
+  import EvalCacheEntry.*
 
-  def id = _id
+  inline def id = _id
 
   def add(eval: Eval) =
     copy(
@@ -36,23 +36,16 @@ case class EvalCacheEntry(
 
   def similarTo(other: EvalCacheEntry) =
     id == other.id && evals == other.evals
-}
 
-object EvalCacheEntry {
-
-  val MIN_KNODES   = 3000
-  val MIN_DEPTH    = 20
-  val MIN_PV_SIZE  = 6
-  val MAX_PV_SIZE  = 10
-  val MAX_MULTI_PV = 5
+object EvalCacheEntry:
 
   case class Eval(
       pvs: NonEmptyList[Pv],
       knodes: Knodes,
       depth: Int,
-      by: User.ID,
+      by: UserId,
       trust: Trust
-  ) {
+  ):
 
     def multiPv = pvs.size
 
@@ -62,7 +55,7 @@ object EvalCacheEntry {
 
     def looksValid =
       pvs.toList.forall(_.looksValid) && {
-        pvs.toList.forall(_.score.mateFound) || (knodes.value >= MIN_KNODES || depth >= MIN_DEPTH)
+        pvs.toList.forall(_.score.mateFound) || (knodes >= MIN_KNODES || depth >= MIN_DEPTH)
       }
 
     def truncatePvs = copy(pvs = pvs.map(_.truncate))
@@ -73,69 +66,25 @@ object EvalCacheEntry {
       )
 
     def depthAboveMin = (depth - MIN_DEPTH) atLeast 0
-  }
 
-  case class Knodes(value: Int) extends AnyVal {
-
-    def intNodes: Int = {
-      val nodes = value * 1000d
-      if (nodes.toInt == nodes) nodes.toInt
-      else if (nodes > 0) Integer.MAX_VALUE
-      else Integer.MIN_VALUE
-    }
-  }
-
-  case class Pv(score: Score, moves: Moves) {
+  case class Pv(score: Score, moves: Moves):
 
     def looksValid =
-      score.mate match {
+      score.mate match
         case None       => moves.value.toList.sizeIs > MIN_PV_SIZE
         case Some(mate) => mate.value != 0 // sometimes we get #0. Dunno why.
-      }
 
-    def truncate = copy(moves = moves.truncate)
-  }
-
-  case class Moves(value: NonEmptyList[Uci]) extends AnyVal {
-
-    def truncate = copy(value = NonEmptyList(value.head, value.tail.take(MAX_PV_SIZE - 1)))
-  }
-
-  case class Trust(value: Double) extends AnyVal {
-    def isTooLow = value <= 0
-    def isEnough = !isTooLow
-  }
+    def truncate = copy(moves = Moves truncate moves)
 
   case class TrustedUser(trust: Trust, user: User)
 
-  final class SmallFen private (val value: String) extends AnyVal with StringValue
-
-  object SmallFen {
-    private[evalCache] def raw(str: String) = new SmallFen(str)
-    def make(variant: Variant, fen: FEN): SmallFen = {
-      val base = fen.value.split(' ').take(4).mkString("").filter { c =>
-        c != '/' && c != '-' && c != 'w'
-      }
-      val str = variant match {
-        case chess.variant.ThreeCheck => base + ~fen.value.split(' ').lift(6)
-        case _                        => base
-      }
-      new SmallFen(str)
-    }
-    def validate(variant: Variant, fen: FEN): Option[SmallFen] =
-      Forsyth.<<@(variant, fen).exists(_ playable false) option make(variant, fen)
-  }
-
   case class Id(variant: Variant, smallFen: SmallFen)
 
-  case class Input(id: Id, fen: FEN, eval: Eval)
+  case class Input(id: Id, fen: Fen.Epd, eval: Eval)
 
-  object Input {
-    case class Candidate(variant: Variant, fen: String, eval: Eval) {
+  object Input:
+    case class Candidate(variant: Variant, fen: Fen.Epd, eval: Eval):
       def input =
-        SmallFen.validate(variant, FEN(fen)) ifTrue eval.looksValid map { smallFen =>
-          Input(Id(variant, smallFen), FEN(fen), eval.truncatePvs)
+        SmallFen.validate(variant, fen) ifTrue eval.looksValid map { smallFen =>
+          Input(Id(variant, smallFen), fen, eval.truncatePvs)
         }
-    }
-  }
-}

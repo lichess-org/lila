@@ -40,7 +40,7 @@
   <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; را در هنگام تبلیغ بزنید تا به طور موقت تبلیغات خودکار را غیرفعال کنید</string>
   <string name="whenPremoving">در زمان پیش حرکت</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ادعای تساوی در تکرار سه گانه به طور خودکار</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
   <string name="moveConfirmation">تایید حرکت</string>
   <string name="inCorrespondenceGames">در حال بازی مکاتبه ای</string>
   <string name="correspondenceAndUnlimited">مکاتبه ای و نامحدود</string>

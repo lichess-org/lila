@@ -1,8 +1,7 @@
 package lila.rating
 
-import org.goochjs.glicko2._
 import org.joda.time.DateTime
-import reactivemongo.api.bson.BSONDocument
+import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler }
 
 import lila.db.BSON
 
@@ -10,9 +9,9 @@ case class Glicko(
     rating: Double,
     deviation: Double,
     volatility: Double
-) {
+):
 
-  def intRating    = rating.toInt
+  def intRating    = IntRating(rating.toInt)
   def intDeviation = deviation.toInt
 
   def intervalMin = (rating - deviation * 2).toInt
@@ -24,8 +23,8 @@ case class Glicko(
       if (variant.standard) Glicko.standardRankableDeviation
       else Glicko.variantRankableDeviation
     }
-  def provisional          = deviation >= Glicko.provisionalDeviation
-  def established          = !provisional
+  def provisional          = RatingProvisional(deviation >= Glicko.provisionalDeviation)
+  def established          = provisional.no
   def establishedIntRating = established option intRating
 
   def clueless = deviation >= Glicko.cluelessDeviation
@@ -42,7 +41,7 @@ case class Glicko(
 
   def cap =
     copy(
-      rating = rating atLeast Glicko.minRating,
+      rating = rating atLeast Glicko.minRating.value,
       deviation = deviation atLeast Glicko.minDeviation atMost Glicko.maxDeviation,
       volatility = volatility atMost Glicko.maxVolatility
     )
@@ -57,14 +56,14 @@ case class Glicko(
         volatility = volatility * (1 - weight) + other.volatility * weight
       )
 
-  def display = s"$intRating${provisional ?? "?"}"
+  def display = s"$intRating${provisional.yes ?? "?"}"
 
   override def toString = f"$intRating/$intDeviation/${volatility}%.3f"
-}
 
-case object Glicko {
+case object Glicko:
 
-  val minRating = 600
+  val minRating = IntRating(600)
+  val maxRating = IntRating(4000)
 
   val minDeviation              = 45
   val variantRankableDeviation  = 65
@@ -93,13 +92,13 @@ case object Glicko {
   val maxRatingDelta = 700
 
   val tau    = 0.75d
-  val system = new RatingCalculator(default.volatility, tau, ratingPeriodsPerDay)
+  val system = glicko2.RatingCalculator(default.volatility, tau, ratingPeriodsPerDay)
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
     system.previewDeviation(p.toRating, new DateTime, reverse)
   } atLeast minDeviation atMost maxDeviation
 
-  implicit val glickoBSONHandler = new BSON[Glicko] {
+  given BSONDocumentHandler[Glicko] = new BSON[Glicko]:
 
     def reads(r: BSON.Reader): Glicko =
       Glicko(
@@ -114,14 +113,10 @@ case object Glicko {
         "d" -> w.double(o.deviation),
         "v" -> w.double(o.volatility)
       )
-  }
 
-  sealed abstract class Result {
+  sealed abstract class Result:
     def negate: Result
-  }
-  object Result {
+  object Result:
     case object Win  extends Result { def negate = Loss }
     case object Loss extends Result { def negate = Win  }
     case object Draw extends Result { def negate = Draw }
-  }
-}

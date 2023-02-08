@@ -22,4 +22,5 @@
   <string name="declineVariant">今はこのバリアントで対戦するつもりはありません。</string>
   <string name="declineNoBot">ボットからの挑戦は受け付けていません。</string>
   <string name="declineOnlyBot">私はボットからの挑戦しか受け付けません。</string>
+  <string name="inviteLichessUser">Lichess ユーザーを招待する：</string>
 </resources>

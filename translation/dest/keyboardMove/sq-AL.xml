@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="keyboardInputCommands">Komandat përmes tastaturës</string>
-  <string name="performAMove">Lëvizjet</string>
+  <string name="keyboardInputCommands">Urdhra lëvizjesh përmes tastierës</string>
+  <string name="performAMove">Kryeni një lëvizje</string>
   <string name="movePieceFromE2ToE4">Lëvize figurën prej e2 te e4</string>
   <string name="moveKnightToC3">Lëvize kalin te c3</string>
   <string name="kingsideCastle">Rrokada në anën e mbretit</string>
@@ -18,4 +18,5 @@
   <string name="bothTheLetterOAndTheDigitZero">Shkronja \"o\" ose shifra zero \"0\" mund të përdoren për rrokadën</string>
   <string name="ifItIsLegalToCastleBothWays">Në qoftë se ju lejohet rrokada në dy anët, shtype Enter për rrokadën në anën e mbretit</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">Shkronjat e mdhaja kan rëndësi vetëm në situata të paqarta që përfshijnë lëvizjet e oficerit (B) dhe një ushtar ne fushat b</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Për paralëvizje, thjesht shtypni paralëvizjen e dëshiruar, para se të vijë radha juaj</string>
 </resources>

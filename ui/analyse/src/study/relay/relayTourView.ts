@@ -2,7 +2,7 @@ import AnalyseCtrl from '../../ctrl';
 import RelayCtrl from './relayCtrl';
 import { dataIcon } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
-import { innerHTML } from '../../util';
+import { innerHTML } from 'common/richText';
 import { LeadPlayer, RelayRound } from './interfaces';
 import { StudyCtrl } from '../interfaces';
 import { view as multiBoardView } from '../multiBoard';

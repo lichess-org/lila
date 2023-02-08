@@ -1,6 +1,16 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["lichess", "web", "cash"]
-  }
+    "types": ["lichess", "web", "cash"],
+    "noEmit": true
+  },
+  "isolatedModules": true,
+  "references": [
+    { "path": "../ceval/tsconfig.json" },
+    { "path": "../chess/tsconfig.json" },
+    { "path": "../common/tsconfig.json" },
+    { "path": "../keyboardMove/tsconfig.json" },
+    { "path": "../nvui/tsconfig.json" },
+    { "path": "../tree/tsconfig.json" }
+  ]
 }

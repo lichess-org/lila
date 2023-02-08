@@ -58,8 +58,8 @@
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">サーバ解析を使用中</string>
   <string name="loadingEngine">エンジン読み込み中…</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">手を読んでいます…</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">エンジン読み込みエラー</string>
+  <string name="calculatingMoves">手を読んでいます…</string>
+  <string name="engineFailed">エンジン読み込みエラー</string>
   <string name="cloudAnalysis">クラウド解析</string>
   <string name="goDeeper">より深く</string>
   <string name="showThreat">狙いを表示</string>
@@ -67,7 +67,7 @@
   <string name="toggleLocalEvaluation">ローカル評価値のオン/オフ</string>
   <string name="promoteVariation">変化を主手順にする</string>
   <string name="makeMainLine">主手順にする</string>
-  <string name="deleteFromHere">ここから削除</string>
+  <string name="deleteFromHere">これ以降を削除</string>
   <string name="forceVariation">変化として表示</string>
   <string name="move">手</string>
   <string name="variantLoss">バリアント負け</string>
@@ -92,6 +92,7 @@
   <string name="dtzWithRounding">DTZ50*（丸めあり）、次の駒取りかポーンの移動までの半手単位の手数による</string>
   <string name="noGameFound">対局が見つかりません</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
+  <string name="openings">オープニング</string>
   <string name="openingExplorer">オープニング探索</string>
   <string name="openingEndgameExplorer">序盤／終盤エクスプローラー</string>
   <string name="xOpeningExplorer">%s オープニング探索</string>
@@ -149,6 +150,7 @@
   <string name="viewInFullSize">フルサイズで見る</string>
   <string name="logOut">ログアウト</string>
   <string name="signIn">ログイン</string>
+  <string name="rememberMe">次から自動ログイン</string>
   <string name="youNeedAnAccountToDoThat">アカウントが必要です</string>
   <string name="signUp">登録</string>
   <string name="computersAreNotAllowedToPlay">コンピューターの力を借りての対局は禁止されています。対局中にチェスエンジン、データベース、他人の助言は厳禁です。また、複数アカウントの使用も追放の可能性があります。</string>
@@ -186,12 +188,31 @@
   <string name="changeUsername">ユーザー名の変更</string>
   <string name="changeUsernameNotSame">大文字・小文字の変更だけができます（johndoe を JohnDoeに、など）</string>
   <string name="changeUsernameDescription">ユーザー名を変更します。これは一回限りで、行なえるのは大文字・小文字の変更だけです。</string>
+  <string name="signupUsernameHint">ユーザー名は無難なものにしてください。後で変えることはできないし、ユーザー名が不適切だとアカウントが閉鎖されます！</string>
+  <string name="signupEmailHint">この情報はパスワードのリセットにのみ使用します。</string>
   <string name="password">パスワード</string>
   <string name="changePassword">パスワードの変更</string>
   <string name="changeEmail">メールアドレスの変更</string>
   <string name="email">メールアドレス</string>
   <string name="passwordReset">パスワードをリセットする</string>
   <string name="forgotPassword">パスワードを忘れた方はこちら</string>
+  <string name="emailConfirmHelp">確認メールについてのヘルプ</string>
+  <string name="emailConfirmNotReceived">サインアップしたのに確認メールが届きませんでしたか？</string>
+  <string name="whatSignupUsername">サインアップに使用したユーザー名は？</string>
+  <string name="usernameNotFound">この名前のユーザーは見つかりません：%s</string>
+  <string name="usernameCanBeUsedForNewAccount">このユーザー名を使って新しいアカウントが作れます</string>
+  <string name="emailSent">%s にメールを送信しました。</string>
+  <string name="emailCanTakeSomeTime">受信まで少しかかるかもしれません。</string>
+  <string name="refreshInboxAfterFiveMinutes">5 分待ってからメール受信箱を更新してください。</string>
+  <string name="checkSpamFolder">またスパムフォルダに入ってしまう場合もあります。もしそうならスパムではないとマークしてください。</string>
+  <string name="emailForSignupHelp">どの手段もうまくいかない場合は、次のメールをこちらまで送信してください：</string>
+  <string name="copyTextToEmail">上のテキストをコピー＆ペーストして %s に送信します</string>
+  <string name="waitForSignupHelp">またこちらから連絡してサインアップ完了までお手伝いします。</string>
+  <string name="accountConfirmed">ユーザー %s の確認が完了しました。</string>
+  <string name="accountCanLogin">すぐに %s としてログインできます。</string>
+  <string name="accountConfirmationEmailNotNeeded">あなたには確認メールは必要ありません。</string>
+  <string name="accountClosed">アカウント %s は停止されました。</string>
+  <string name="accountRegisteredWithoutEmail">アカウント %s はメールアドレスなしで登録されています。</string>
   <string name="rank">ランク</string>
   <string name="rankX">ランク: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -316,6 +337,7 @@
   <string name="siteDescription">無料オンラインチェス。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。AIと、友達と、知らない相手とも対局できます。</string>
   <string name="xJoinedTeamY">%1$s がチーム %2$s に参加</string>
   <string name="xCreatedTeamY">%1$s がチーム %2$s を作成</string>
+  <string name="startedStreaming">配信を開始</string>
   <string name="xStartedStreaming">%s が配信を開始</string>
   <string name="averageElo">平均レーティング</string>
   <string name="location">住所</string>
@@ -486,6 +508,8 @@
   <string name="blog">ブログ</string>
   <string name="notes">メモ</string>
   <string name="typePrivateNotesHere">自分用のメモ欄</string>
+  <string name="writeAPrivateNoteAboutThisUser">このユーザーについて自分用のメモを書く</string>
+  <string name="noNoteYet">まだメモはありません</string>
   <string name="invalidUsernameOrPassword">無効なユーザー名 または パスワード</string>
   <string name="incorrectPassword">パスワードが違います</string>
   <string name="invalidAuthenticationCode">無効な認証コード</string>
@@ -599,6 +623,7 @@
   <string name="tournamentFAQ">アリーナ・トーナメントFAQ</string>
   <string name="timeBeforeTournamentStarts">開始までの時間</string>
   <string name="averageCentipawnLoss">平均センチポーン差</string>
+  <string name="accuracy">正確度</string>
   <string name="keyboardShortcuts">キーボード・ショートカット</string>
   <string name="keyMoveBackwardOrForward">手を戻す/進める</string>
   <string name="keyGoToStartOrEnd">最初/最後に戻る</string>
@@ -679,6 +704,7 @@
   <string name="light">明るい</string>
   <string name="dark">暗い</string>
   <string name="transparent">透明</string>
+  <string name="deviceTheme">デバイスの設定に従う</string>
   <string name="backgroundImageUrl">背景画像URL:</string>
   <string name="boardGeometry">盤の表示形式</string>
   <string name="boardTheme">盤のデザイン</string>
@@ -706,6 +732,7 @@
   <string name="bestWasX">最善手は %s</string>
   <string name="youBrowsedAway">ページを離れました</string>
   <string name="resumePractice">練習を続ける</string>
+  <string name="drawByFiftyMoves">50 手ルールによりドローになりました。</string>
   <string name="theGameIsADraw">ドロー（引き分け）です。</string>
   <string name="computerThinking">コンピューター思考中…</string>
   <string name="seeBestMove">最善手を見る</string>

@@ -5,7 +5,7 @@ import chess.Pos
 import lila.common.Maths
 import lila.tree.Node.{ Shape, Shapes }
 
-private[study] object CommentParser {
+private[study] object CommentParser:
 
   private val circlesRegex         = """(?s)\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]""".r.unanchored
   private val circlesRemoveRegex   = """\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]""".r
@@ -23,12 +23,10 @@ private[study] object CommentParser {
   )
 
   def apply(comment: String): ParsedComment =
-    parseShapes(comment) match {
+    parseShapes(comment) match
       case (shapes, c2) =>
-        parseClock(c2) match {
+        parseClock(c2) match
           case (clock, c3) => ParsedComment(shapes, clock, c3)
-        }
-    }
 
   private type ClockAndComment = (Option[Centis], String)
 
@@ -36,10 +34,9 @@ private[study] object CommentParser {
     for {
       h <- hours.toIntOption
       m <- minutes.toIntOption
-      cs <- seconds.toDoubleOption match {
+      cs <- seconds.toDoubleOption match
         case Some(s) => Some(Maths.roundAt(s * 100, 0).toInt)
         case _       => none
-      }
     } yield Centis(h * 360000 + m * 6000 + cs)
 
   private val clockHourMinuteRegex                 = """^(\d++):(\d+)$""".r
@@ -47,33 +44,29 @@ private[study] object CommentParser {
   private val clockHourMinuteFractionalSecondRegex = """^(\d++):(\d++):(\d++\.\d+)$""".r
 
   def readCentis(str: String): Option[Centis] =
-    str match {
+    str match
       case clockHourMinuteRegex(hours, minutes)                => readCentis(hours, minutes, "0")
       case clockHourMinuteSecondRegex(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
       case clockHourMinuteFractionalSecondRegex(hours, minutes, seconds) =>
         readCentis(hours, minutes, seconds)
       case _ => none
-    }
 
   private def parseClock(comment: String): ClockAndComment =
-    comment match {
+    comment match
       case clockRegex(str)     => readCentis(str) -> clockRemoveRegex.replaceAllIn(comment, "").trim
       case tcecClockRegex(str) => readCentis(str) -> tcecClockRemoveRegex.replaceAllIn(comment, "").trim
       case _                   => None            -> comment
-    }
 
   private type ShapesAndComment = (Shapes, String)
 
   private def parseShapes(comment: String): ShapesAndComment =
-    parseCircles(comment) match {
+    parseCircles(comment) match
       case (circles, comment) =>
-        parseArrows(comment) match {
+        parseArrows(comment) match
           case (arrows, comment) => (circles ++ arrows) -> comment
-        }
-    }
 
   private def parseCircles(comment: String): ShapesAndComment =
-    comment match {
+    comment match
       case circlesRegex(str) =>
         val circles = str.split(',').toList.map(_.trim).flatMap { c =>
           for {
@@ -83,10 +76,9 @@ private[study] object CommentParser {
         }
         Shapes(circles) -> circlesRemoveRegex.replaceAllIn(comment, "").trim
       case _ => Shapes(Nil) -> comment
-    }
 
   private def parseArrows(comment: String): ShapesAndComment =
-    comment match {
+    comment match
       case arrowsRegex(str) =>
         val arrows = str.split(',').toList.flatMap { c =>
           for {
@@ -97,13 +89,10 @@ private[study] object CommentParser {
         }
         Shapes(arrows) -> arrowsRemoveRegex.replaceAllIn(comment, "").trim
       case _ => Shapes(Nil) -> comment
-    }
 
   private def toBrush(color: Char): Shape.Brush =
-    color match {
+    color match
       case 'G' => "green"
       case 'R' => "red"
       case 'Y' => "yellow"
       case _   => "blue"
-    }
-}

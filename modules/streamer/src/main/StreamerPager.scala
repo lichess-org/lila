@@ -1,82 +1,103 @@
 package lila.streamer
 
-import reactivemongo.api._
+import reactivemongo.api.*
 
 import lila.common.paginator.{ AdapterLike, Paginator }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
 
 final class StreamerPager(
     coll: Coll,
     userRepo: UserRepo,
-    maxPerPage: lila.common.config.MaxPerPage
-)(implicit ec: scala.concurrent.ExecutionContext) {
+    maxPerPage: lila.common.config.MaxPerPage,
+    subsRepo: lila.relation.SubscriptionRepo
+)(using scala.concurrent.ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
-  def notLive(
+  def get(
       page: Int,
       live: LiveStreams,
-      approvalRequested: Boolean = false
-  ): Fu[Paginator[Streamer.WithUser]] = {
-    Paginator(
-      currentPage = page,
-      maxPerPage = maxPerPage,
-      adapter = new AdapterLike[Streamer.WithUser] {
+      forUser: Option[UserId],
+      requests: Boolean
+  ): Fu[Paginator[Streamer.WithContext]] = Paginator(
+    currentPage = page,
+    maxPerPage = maxPerPage,
+    adapter = if (requests) approval else notLive(live, forUser)
+  )
 
-        private def selector =
-          if (approvalRequested) approvalRequestedSelector
-          else
+  def nextRequestId: Fu[Option[Streamer.Id]] = coll.primitiveOne[Streamer.Id](
+    $doc("approval.requested" -> true, "approval.ignored" -> false),
+    $sort asc "updatedAt",
+    "_id"
+  )
+
+  private def notLive(live: LiveStreams, forUser: Option[UserId]): AdapterLike[Streamer.WithContext] = new:
+
+    def nbResults: Fu[Int] = fuccess(1000)
+
+    def slice(offset: Int, length: Int): Fu[Seq[Streamer.WithContext]] =
+      coll
+        .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+          import framework._
+          Match(
             $doc(
               "approval.granted" -> true,
               "listed"           -> Streamer.Listed(true),
               "_id" $nin live.streams.map(_.streamer.id)
             )
-
-        def nbResults: Fu[Int] =
-          if (approvalRequested) coll.countSel(selector)
-          else fuccess(1000)
-
-        def slice(offset: Int, length: Int): Fu[Seq[Streamer.WithUser]] =
-          coll
-            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-              import framework._
-              Match(selector) -> List(
-                Sort(if (approvalRequested) Ascending("updatedAt") else Descending("liveAt")),
-                Skip(offset),
-                Limit(length),
-                PipelineOperator(
-                  $lookup.simple(
-                    from = userRepo.coll,
-                    as = "user",
-                    local = "_id",
-                    foreign = "_id"
-                  )
-                ),
-                UnwindField("user")
-              )
+          ) -> List(
+            Sort(Descending("liveAt")),
+            Skip(offset),
+            Limit(3),
+            PipelineOperator(userLookup),
+            UnwindField("user")
+          )
+        }
+        .map { docs =>
+          for {
+            doc      <- docs
+            streamer <- doc.asOpt[Streamer]
+            user     <- doc.getAsOpt[User]("user")
+          } yield Streamer.WithUser(streamer, user, false)
+        }
+        .flatMap { streamers =>
+          forUser.fold(fuccess(streamers)) { me =>
+            subsRepo.filterSubscribed(me, streamers.map(_.user.id)) map { subs =>
+              streamers.map(s => s.copy(subscribed = subs(s.user.id)))
             }
-            .map { docs =>
-              for {
-                doc      <- docs
-                streamer <- doc.asOpt[Streamer]
-                user     <- doc.getAsOpt[User]("user")
-              } yield Streamer.WithUser(streamer, user)
-            }
-      }
-    )
-  }
+          }
+        }
 
-  def nextRequestId: Fu[Option[Streamer.Id]] =
-    coll.primitiveOne[Streamer.Id](
-      $doc(approvalRequestedSelector),
-      $sort asc "updatedAt",
-      "_id"
-    )
+  private def approval: AdapterLike[Streamer.WithContext] = new AdapterLike[Streamer.WithContext]:
 
-  private val approvalRequestedSelector =
-    $doc(
-      "approval.requested" -> true,
-      "approval.ignored"   -> false
-    )
-}
+    private def selector = $doc("approval.requested" -> true, "approval.ignored" -> false)
+
+    def nbResults: Fu[Int] = coll.countSel(selector)
+
+    def slice(offset: Int, length: Int): Fu[Seq[Streamer.WithContext]] =
+      coll
+        .aggregateList(length, ReadPreference.secondaryPreferred) { framework =>
+          import framework._
+          Match(selector) -> List(
+            Sort(Ascending("updatedAt")),
+            Skip(offset),
+            Limit(length),
+            PipelineOperator(userLookup),
+            UnwindField("user")
+          )
+        }
+        .map { docs =>
+          for {
+            doc      <- docs
+            streamer <- doc.asOpt[Streamer]
+            user     <- doc.getAsOpt[User]("user")
+          } yield Streamer.WithUser(streamer, user)
+        }
+
+  private val userLookup = $lookup.simple(
+    from = userRepo.coll,
+    as = "user",
+    local = "_id",
+    foreign = "_id"
+  )

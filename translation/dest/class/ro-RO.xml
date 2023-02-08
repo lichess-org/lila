@@ -94,6 +94,7 @@ Aici este link-ul pentru a accesa clasa.</string>
   <string name="na">N/A</string>
   <string name="overview">General</string>
   <string name="news">Noutăți</string>
+  <string name="classNews">Noutățile clasei</string>
   <string name="editNews">Editare noutăți</string>
   <string name="notifyAllStudents">Anunță toți studenții</string>
   <string name="nothingHere">Nimic aici, momentan.</string>
@@ -106,9 +107,14 @@ Va aparea o linie orizontală.</string>
   <string name="youAcceptedThisInvitation">Ai acceptat această invitație.</string>
   <string name="youDeclinedThisInvitation">Ai refuzat această invitație.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">sau</string>
+  <string name="createMultipleAccounts">Creează mai multe conturi Lichess odată</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Poți deasemenea %s să creezi mai multe conturi Lichess dintr-o listă de nume de student.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">utilizează acest formular</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Ține cont că o clasă poate avea până la %1$s elevi. Pentru a gestiona mai mulți elevi, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">creează mai multe clase</string>
   <string name="studentsRealNamesOnePerLine">Numele reale ale elevilor, câte unul pe linie</string>
+  <string name="xisNowAStudentOfTheClass">%s este acum un student din clasă</string>
   <string name="anInvitationHasBeenSentToX">A fost trimisă o invitație către %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s are deja o invitație în așteptare</string>
+  <string name="xIsAKidAccountWarning">%1$s are un cont de copil si nu poate primi mesajul. Trebuie sa ii dai manual URL-ul invitatiei: %2$s</string>
 </resources>

@@ -1,12 +1,12 @@
 package lila.gameSearch
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
 import lila.game.actorApi.{ FinishGame, InsertGame }
-import lila.search._
-import lila.common.config._
+import lila.search.*
+import lila.common.config.*
 
 @Module
 private class GameSearchConfig(
@@ -20,10 +20,7 @@ final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
     makeClient: Index => ESClient
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-) {
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
 
   private val config = appConfig.get[GameSearchConfig]("gameSearch")(AutoConfig.loader)
 
@@ -31,7 +28,7 @@ final class Env(
 
   lazy val api = wire[GameSearchApi]
 
-  lazy val paginator = wire[PaginatorBuilder[lila.game.Game, Query]]
+  lazy val paginator = PaginatorBuilder[lila.game.Game, Query](api, config.paginatorMaxPerPage)
 
   lazy val forms = wire[GameSearchForm]
 
@@ -41,4 +38,3 @@ final class Env(
     case FinishGame(game, _, _) if !game.aborted => api.store(game).unit
     case InsertGame(game)                        => api.store(game).unit
   }
-}

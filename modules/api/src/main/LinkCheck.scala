@@ -1,6 +1,6 @@
 package lila.api
 
-import cats.implicits._
+import cats.implicits.*
 import scala.concurrent.ExecutionContext
 
 import lila.chat.UserLine
@@ -31,34 +31,32 @@ final private class LinkCheck(
     simulApi: SimulApi,
     swissApi: SwissApi,
     studyRepo: StudyRepo
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  import LinkCheck._
+  import LinkCheck.*
 
   def apply(line: UserLine, source: PublicSource): Fu[Boolean] =
     if (multipleLinks find line.text) fuFalse
     else
-      line.text match {
+      line.text match
         case tournamentLinkR(id) => withSource(source, tourLink)(id, line)
         case simulLinkR(id)      => withSource(source, simulLink)(id, line)
         case swissLinkR(id)      => withSource(source, swissLink)(id, line)
         case studyLinkR(id)      => withSource(source, studyLink)(id, line)
         case teamLinkR(id)       => withSource(source, teamLink)(id, line)
         case _                   => fuTrue
-      }
 
   private def withSource(
       source: PublicSource,
       f: (String, FullSource) => Fu[Boolean]
   )(id: String, line: UserLine): Fu[Boolean] = {
-    source match {
-      case PublicSource.Tournament(id) => tournamentRepo byId id map2 FullSource.TournamentSource
-      case PublicSource.Simul(id)      => simulApi find id map2 FullSource.SimulSource
-      case PublicSource.Swiss(id)      => swissApi byId Swiss.Id(id) map2 FullSource.SwissSource
-      case PublicSource.Team(id)       => teamRepo byId id map2 FullSource.TeamSource
-      case PublicSource.Study(id)      => studyRepo byId Study.Id(id) map2 FullSource.StudySource
+    source match
+      case PublicSource.Tournament(id) => tournamentRepo byId id map2 FullSource.TournamentSource.apply
+      case PublicSource.Simul(id)      => simulApi find id map2 FullSource.SimulSource.apply
+      case PublicSource.Swiss(id)      => swissApi fetchByIdNoCache id map2 FullSource.SwissSource.apply
+      case PublicSource.Team(id)       => teamRepo byId id map2 FullSource.TeamSource.apply
+      case PublicSource.Study(id)      => studyRepo byId id map2 FullSource.StudySource.apply
       case _                           => fuccess(none)
-    }
   } flatMap {
     _ ?? { source =>
       // the owners of a chat can post whichever link they like
@@ -67,8 +65,8 @@ final private class LinkCheck(
     }
   }
 
-  private def tourLink(tourId: Tournament.ID, source: FullSource): Fu[Boolean] =
-    tournamentRepo byId tourId flatMap {
+  private def tourLink(tourId: String, source: FullSource): Fu[Boolean] =
+    tournamentRepo byId TourId(tourId) flatMap {
       _ ?? { tour =>
         fuccess(tour.isScheduled) >>| {
           source.teamId ?? { sourceTeamId =>
@@ -79,13 +77,13 @@ final private class LinkCheck(
       }
     }
 
-  private def simulLink(simulId: Tournament.ID, source: FullSource) =
-    simulApi teamOf simulId map {
+  private def simulLink(simulId: String, source: FullSource) =
+    simulApi teamOf SimulId(simulId) map {
       _ exists source.teamId.has
     }
 
   private def swissLink(swissId: String, source: FullSource) =
-    swissApi teamOf Swiss.Id(swissId) map {
+    swissApi teamOf SwissId(swissId) map {
       _ exists source.teamId.has
     }
 
@@ -99,35 +97,26 @@ final private class LinkCheck(
   private val swissLinkR      = s"(?i)$domain/swiss/(\\w{8})".r.unanchored
   private val studyLinkR      = s"(?i)$domain/study/(\\w{8})".r.unanchored
   private val teamLinkR       = s"(?i)$domain/team/([\\w-]+)".r.unanchored
-}
 
-private object LinkCheck {
+private object LinkCheck:
 
-  sealed trait FullSource {
-    def owners: Set[User.ID]
-    def teamId: Option[Team.ID]
-  }
+  sealed trait FullSource:
+    def owners: Set[UserId]
+    def teamId: Option[TeamId]
 
-  object FullSource {
-    case class TournamentSource(value: Tournament) extends FullSource {
+  object FullSource:
+    case class TournamentSource(value: Tournament) extends FullSource:
       def owners = Set(value.createdBy)
       def teamId = value.conditions.teamMember.map(_.teamId)
-    }
-    case class SimulSource(value: Simul) extends FullSource {
+    case class SimulSource(value: Simul) extends FullSource:
       def owners = Set(value.hostId)
       def teamId = value.team
-    }
-    case class SwissSource(value: Swiss) extends FullSource {
+    case class SwissSource(value: Swiss) extends FullSource:
       def owners = Set(value.createdBy)
       def teamId = value.teamId.some
-    }
-    case class TeamSource(value: Team) extends FullSource {
+    case class TeamSource(value: Team) extends FullSource:
       def owners = value.leaders
       def teamId = value.id.some
-    }
-    case class StudySource(value: Study) extends FullSource {
+    case class StudySource(value: Study) extends FullSource:
       def owners = value.members.idSet
       def teamId = none
-    }
-  }
-}

@@ -1,0 +1,69 @@
+$c-opcfg: $c-accent;
+$op-details-large: $mq-small;
+
+.opening__config {
+  @extend %box-neat;
+  flex: 0 0 auto;
+  &[open] {
+    flex: 1 0 auto;
+  }
+  @include breakpoint($op-col-one) {
+    display: none;
+  }
+  @include breakpoint($op-details-large) {
+    flex: 1 0 auto;
+  }
+  background: $c-bg-zebra;
+  &:hover {
+    outline: 3px solid mix($c-opcfg, $c-bg-box, 60%);
+    background: mix($c-opcfg, $c-bg-zebra, 10%);
+  }
+  &__summary {
+    padding: 1em 2em;
+    cursor: pointer;
+    user-select: none;
+    &__speed,
+    &__rating {
+      color: $c-opcfg;
+    }
+    &__large {
+      display: none;
+      .opening__config[open] & {
+        display: inline-block;
+      }
+      @include breakpoint($op-details-large) {
+        display: inline-block;
+      }
+    }
+    &__short {
+      display: inline-block;
+      @include breakpoint($op-details-large) {
+        display: none;
+      }
+      .opening__config[open] & {
+        display: none;
+      }
+    }
+  }
+  &__form {
+    padding: 0 2em 1em 2em;
+    group {
+      margin-top: 1em;
+      label {
+        height: auto;
+      }
+      input:checked + label {
+        @extend %metal;
+      }
+    }
+    &__submit {
+      margin-top: 1em;
+      display: flex;
+      justify-content: stretch;
+      button {
+        color: $c-opcfg !important;
+        flex: 0 0 100%;
+      }
+    }
+  }
+}

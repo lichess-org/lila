@@ -32,7 +32,7 @@
   <string name="raceFinished">Cora compia</string>
   <string name="variantEnding">Fine di a variante</string>
   <string name="newOpponent">Aversariu novu</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">U vostru aversariu vole ghjucà una partita nova cù voi</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">U vostru aversariu vole ghjucà una altra partita cù voi</string>
   <string name="joinTheGame">Ghjunghjite a partita</string>
   <string name="whitePlays">Tocca à i bianchi</string>
   <string name="blackPlays">Tocca à i neri</string>
@@ -59,10 +59,12 @@
   <string name="depthX">Prufundezza %s</string>
   <string name="usingServerAnalysis">Aduprate l\' arnese d\' analisa</string>
   <string name="loadingEngine">Si telecaricheghja l\' urdinatore...</string>
+  <string name="calculatingMoves">Calculendu i movi...</string>
+  <string name="engineFailed">Difficultà in a carica di u mutore d\' anàlisi</string>
   <string name="cloudAnalysis">Analisa di u nullu</string>
   <string name="goDeeper">Analisa di modu più prufondu</string>
   <string name="showThreat">Mustrà a minaccia</string>
-  <string name="inLocalBrowser">in u navigatore lucale</string>
+  <string name="inLocalBrowser">in u navigadore lucale</string>
   <string name="toggleLocalEvaluation">Commutà versu a valutazione lucale</string>
   <string name="promoteVariation">Palisà a variante</string>
   <string name="makeMainLine">Fà ne a linea principale</string>
@@ -141,7 +143,7 @@
     <item quantity="one">%s ghjucadore</item>
     <item quantity="other">%s ghjucadori</item>
   </plurals>
-  <string name="drawByMutualAgreement">Partita patta per via d\' un accusentu</string>
+  <string name="drawByMutualAgreement">Partita patta per via d\' un accunsentu</string>
   <string name="fiftyMovesWithoutProgress">Cinquanta movi senza prugressi</string>
   <string name="currentGames">Partite ghjucate in direttu</string>
   <plurals name="nbGames">
@@ -157,7 +159,7 @@
   <string name="signIn">Cunnette si</string>
   <string name="youNeedAnAccountToDoThat">Ci vole à avè un contu per fà la</string>
   <string name="signUp">Arrigistrà si</string>
-  <string name="computersAreNotAllowedToPlay">L\' urdinatore è i ghjocatori chì adopranu un urdinatore ùn anu u drittu di ghjucà. Pè piace, ùn aiutate vi nè d\' un urdinatore, nè d\' una databasa, nè di i cunsigli d\' un altru ghjucadore duranti e vostre partite. Eppò, annutate ch\' avè parechji conti hè assai malvistu. I ghjucadori chì anu troppu conti seranu messi fora.</string>
+  <string name="computersAreNotAllowedToPlay">L\' urdinatori è i ghjocadori chì adopranu un urdinatore ùn anu u drittu di ghjucà. Pè piace, ùn aiutate vi nè d\' un urdinatore, nè d\' una databasa, nè di i cunsigli d\' un altru ghjucadore duranti e vostre partite. Eppò, annutate ch\' avè parechji conti hè assai malvistu. I ghjucadori chì anu troppu conti seranu messi fora.</string>
   <string name="games">Partite</string>
   <string name="forum">Foru</string>
   <string name="xPostedInForumY">%1$s pustatu in u sughjettu %2$s</string>
@@ -195,6 +197,8 @@
   <string name="changeUsername">Cambià u so nome d\' utilizatore</string>
   <string name="changeUsernameNotSame">Solu per cambià e lettere. Per esempiu \"julianmoris\" diventa \'JulianMoris\".</string>
   <string name="changeUsernameDescription">Cambià u vostru nome d\' utilizatore. Pudete cambià lu solu una volta è ùn pudete cambià chè a forma di a lettera dighjà scritta in u vostru nome d\' utilizatore.</string>
+  <string name="signupUsernameHint">Siate sicuru di sceglie un cugnome curtesu. Ùn lu puderete cambià pi tardu è i tutti i conti cù un nome seranu chjosi!</string>
+  <string name="signupEmailHint">Ùn l\' adupreremu soltantu pà riinizializà a vostra parolla d\' accessu.</string>
   <string name="password">Parolla d\'intesa</string>
   <string name="changePassword">Cambià a vostra parolla d\'intesa</string>
   <string name="changeEmail">Cambià u vostru currieru elettronicu</string>
@@ -206,6 +210,10 @@
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">A classifica hè attualizata ogni minuta</item>
     <item quantity="other">A classifica hè attualizata ogni %s minuti</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s prublemi</item>
+    <item quantity="other">%s prublemi</item>
   </plurals>
   <string name="gamesPlayed">Partite ghjucate</string>
   <plurals name="nbGamesWithYou">
@@ -344,6 +352,8 @@
   <string name="apply">Sottumette</string>
   <string name="save">Salvà</string>
   <string name="leaderboard">Scacchera di i ghjucadori i più forti</string>
+  <string name="screenshotCurrentPosition">Catturà u screnu di a pusizione attuale</string>
+  <string name="gameAsGIF">Trasfurmà a partita in GIF</string>
   <string name="pasteTheFenStringHere">Incollà a u testu FEN qì</string>
   <string name="pasteThePgnStringHere">Incollà u testu PGN quì</string>
   <string name="orUploadPgnFile">O telecarigate un ducumentu PGN</string>
@@ -365,8 +375,8 @@
   <string name="retry">Prova da torna</string>
   <string name="reconnecting">Ricunnettà si</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s amicu in nantu à u situ</item>
-    <item quantity="other">%s amichi nantu à u situ</item>
+    <item quantity="one">%s amicu à nantu à u situ</item>
+    <item quantity="other">%s amichi à nantu à u situ</item>
   </plurals>
   <string name="favoriteOpponents">Avversariu prefiritu</string>
   <string name="follow">Segue</string>
@@ -380,8 +390,8 @@
   <string name="followsYou">Vi segue</string>
   <string name="xStartedFollowingY">%1$s hà principiatu à segue%2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s seguitore</item>
-    <item quantity="other">%s seguitori</item>
+    <item quantity="one">%s sustenidore</item>
+    <item quantity="other">%s sustenidori</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s seguitu</item>
@@ -398,9 +408,9 @@
     <item quantity="other">Menu di %s minuti</item>
   </plurals>
   <string name="required">Dumandata.</string>
-  <string name="openTournaments">Ghjustra apperta</string>
+  <string name="openTournaments">Ghjustre aperte</string>
   <string name="duration">Durata</string>
-  <string name="winner">Vincitore</string>
+  <string name="winner">Vincidore</string>
   <string name="standing">Classifica</string>
   <string name="createANewTournament">Creà un turneu novu</string>
   <string name="tournamentCalendar">Almanancu di i turnei</string>
@@ -422,6 +432,8 @@
   <string name="tournamentIsStarting">Principia a ghjustra</string>
   <string name="tournamentPairingsAreNowClosed">L\' appaghjamentu di u turneu hè chjosu avà.</string>
   <string name="standByX">%s, avete da esse appaghjatu, siate prontu à ghjucà!</string>
+  <string name="pause">Pausa</string>
+  <string name="resume">Ripiglià</string>
   <string name="youArePlaying">Ghjucate avà!</string>
   <string name="winRate">Percentuale di vittoria</string>
   <string name="berserkRate">Percentuale di Bersek</string>
@@ -456,6 +468,10 @@
   <string name="socialMediaLinks">Leie di e rete suciale</string>
   <string name="oneUrlPerLine">Una URL per ogni linea.</string>
   <string name="inlineNotation">Nutazione in linea</string>
+  <string name="savingMoves">Salvà i movi di modu tempurariu</string>
+  <string name="savingMovesHelp">Salvemu sempre a variante in u vostru browser cache.</string>
+  <string name="makeAStudy">Pè guardà lu à longu andà è sparte lu, create piuttostu un studiu.</string>
+  <string name="clearSavedMoves">Sfassà i movi</string>
   <string name="previouslyOnLichessTV">Nanzu in Lichess TV</string>
   <string name="onlinePlayers">Ghjucadori nantu à u situ</string>
   <string name="activePlayers">Ghjucadori attivi</string>
@@ -463,7 +479,7 @@
   <string name="success">Successu</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partita si ghjoca avà</item>
-    <item quantity="other">%s si ghjocanu avà</item>
+    <item quantity="other">%s partite si ghjocanu avà</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passà di modu automaticu à a prossima partita dopu à u colpu</string>
   <string name="autoSwitch">Auto cambiamentu</string>
@@ -517,7 +533,7 @@
   <string name="privacy">Cunfidenzialità</string>
   <string name="privacyPolicy">Pulitica di cunfidenzialità</string>
   <string name="letOtherPlayersFollowYou">Accettà chì altri ghjucadori vi seguitinu</string>
-  <string name="letOtherPlayersChallengeYou">Accettà chì altri ghjucadori vi sfidanu</string>
+  <string name="letOtherPlayersChallengeYou">Accettà i sfidi di l\'altri ghjucadori</string>
   <string name="letOtherPlayersInviteYouToStudy">Accettà chì altri ghjucadori vi invitanu</string>
   <string name="sound">Sonu</string>
   <string name="none">Mancunu</string>
@@ -559,6 +575,7 @@
   <string name="community">Cumunità</string>
   <string name="tools">Arnesi</string>
   <string name="increment">Raghjunta di tempu</string>
+  <string name="error.unknown">A valore ùn cunvene micca</string>
   <string name="error.required">U duminiu hè nicissariu</string>
   <string name="error.email">St\' indirizzu mail ùn hè valida</string>
   <string name="error.email_acceptable">St\' indirizzu mail ùn pò esse accettata. Verificate lu è provate da torna.</string>
@@ -605,7 +622,7 @@
   <string name="returnToSimulHomepage">Vultà si ne in a pagina d\' accoglie di e simultanee</string>
   <string name="aboutSimul">A simultanea oppone un ghjucadore solu contru à parechji ghjucadori.</string>
   <string name="aboutSimulImage">Oppostu à 50 avversarii, Fischer hà vintu 47 partite, hà fattu 2 partite patte, è ne hà persu 1.</string>
-  <string name="aboutSimulRealLife">U cuncettu hè apparitu durante parechji eventi mundiali. In a realità, l\' ostu si tramuta da tola in tola pè ghjucà un colpu ogni volta.</string>
+  <string name="aboutSimulRealLife">U cuncettu hè apparsu durante parechji eventi mundiali. In a realità, l\' ostu si tramuta da tola in tola pè ghjucà un colpu ogni volta.</string>
   <string name="aboutSimulRules">Quandu a simultanea principia, ogni ghjucadore principia a partita cù l\' ostu. A simultanea finisce quandu tutte e partite sò finite.</string>
   <string name="aboutSimulSettings">E simultanee ùn sò mai classificate. Ripiglià un colpu, ricumincià a partita o raghjunghje u tempu ùn sò micca pussibule.</string>
   <string name="create">Creà</string>
@@ -618,6 +635,7 @@
   <string name="tournamentFAQ">FAD di e ghjustre Arena</string>
   <string name="timeBeforeTournamentStarts">Tempu sin\' à u principiu di u turneu</string>
   <string name="averageCentipawnLoss">Disavanzu mizanu di centipedina</string>
+  <string name="accuracy">Pricisioni</string>
   <string name="keyboardShortcuts">Accurtata di a tastera</string>
   <string name="keyMoveBackwardOrForward">move daretu/davanti</string>
   <string name="keyGoToStartOrEnd">andà à u principiu/à a fine</string>
@@ -646,7 +664,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Vi avemu mandatu un email. Clicate nantu à a leia mintuvatu in u mail pè attivà u vostru contu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">S\'è ùn pudete micca vede u mail, verificate in l\' altri cartulari di a scatula mail, rumenzula, spami.</string>
   <string name="weHaveSentYouAnEmailTo">Avemu mandatu un mail à %s. Clicate nantu à a leia in u mail pè creà da torna a vostra parolla d\' intesa.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">L\' arregistramentu induce un accusentu cù i nostri %s.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">L\' arregistramentu induce un accunsentu cù i nostri %s.</string>
   <string name="readAboutOur">Leghje i nostri%s.</string>
   <string name="networkLagBetweenYouAndLichess">A cunnessione trà voi è Lichess ùn viaghja micca</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempu pè trattà un colpu nantu à u servitore Lichess</string>
@@ -682,7 +700,7 @@
   <string name="correspondenceChess">Scacchi pè via di currispundenza</string>
   <string name="onlineAndOfflinePlay">Ghjocu in direttu o in senza reta</string>
   <string name="viewTheSolution">Vede a suluzione</string>
-  <string name="followAndChallengeFriends">Segue è sfidà amichi</string>
+  <string name="followAndChallengeFriends">Seguità è sfidà amichi</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dispunibule in %s lingua!</item>
     <item quantity="other">Dispunibule in %s lingue!</item>
@@ -713,7 +731,7 @@
   <string name="usernameUnacceptable">Ùn pudemu accettà issu nome d\' utilizatore.</string>
   <string name="playChessInStyle">Ghjucà à i scacchi cù maneghja</string>
   <string name="chessBasics">E base di i scacchi</string>
-  <string name="coaches">Allenatori</string>
+  <string name="coaches">Allinadori</string>
   <string name="invalidPgn">PGN invalidu</string>
   <string name="invalidFen">FEN invalidu</string>
   <string name="custom">Abitudine</string>
@@ -768,7 +786,7 @@
   <string name="addCurrentVariation">Aghjunghje a variante attuale</string>
   <string name="playVariationToCreateConditionalPremoves">Ghjcate una variante pè creà un precolpu cundiziunale</string>
   <string name="noConditionalPremoves">Ùn ci hè micca precolpu cundiziunale</string>
-  <string name="playX">Ghjucà%s</string>
+  <string name="playX">Ghjucà %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">è salvà %s linea di precolpu</item>
     <item quantity="other">è salvà %s linea di precolpu</item>
@@ -789,10 +807,10 @@
   <string name="thankYouForReading">Vi ringraziemu d\' avè lettu!</string>
   <string name="lifetimeScore">Storia di i risultati</string>
   <string name="currentMatchScore">Risultatu di u scontru attuale</string>
-  <string name="agreementAssistance">Sò d\' accusentu ch\' ùn piglieraghju mai cunsigliu durante e mo partite (da un urdinatore, un libru, una databasa o d\' una altra persona).</string>
-  <string name="agreementNice">Sò d\' accusentu chì seraghju sempre rispettosu di l\' altri ghjucadori.</string>
+  <string name="agreementAssistance">Sò d\' accunsentu ch\' ùn piglieraghju mai cunsigliu durante e mo partite (da un urdinatore, d\'un libru, d\'una databasa o d\' una altra persona).</string>
+  <string name="agreementNice">Sò d\' accunsentu chì seraghju sempre rispettosu di l\' altri ghjucadori.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Accettu d\' ùn creà parechji conti ( for\' di i raggioni mintuvati in u %s).</string>
-  <string name="agreementPolicy">Sò d\' accusentu chì seguiteraghju tutte e regule di Lichess.</string>
+  <string name="agreementPolicy">Sò d\' accunsentu chì seguiteraghju tutte e regule di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cercà o principià una chjachjera nova</string>
   <string name="edit">Edità</string>
   <string name="rapid">Rapida</string>
@@ -803,7 +821,7 @@
   <string name="rapidDesc">Partite rapide: da 8 à 25 minuti</string>
   <string name="classicalDesc">Partite classiche: 25 minuti è più</string>
   <string name="correspondenceDesc">Partite pè via di a currespondenza: unu o parechji ghorni pè ghjucà un colpu</string>
-  <string name="puzzleDesc">Allenatore di tattica</string>
+  <string name="puzzleDesc">Allinadore di tattica</string>
   <string name="important">Impurtante</string>
   <string name="yourQuestionMayHaveBeenAnswered">A vostra dumanda puderia avè dighjà una risposta %1$s</string>
   <string name="inTheFAQ">in a FAD</string>
@@ -827,8 +845,8 @@
   <string name="congratsYouWon">Felicitazioni, ai vintu!</string>
   <string name="gameVsX">Partita contru à %1$s</string>
   <string name="resVsX">%1$s contru à %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' allenatore.</string>
-  <string name="newPendingReview">Un utilzatore cerca un allenatore</string>
+  <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' allinadore.</string>
+  <string name="newPendingReview">Un utilzatore cerca un allinadore</string>
   <string name="lostAgainstTOSViolator">Avete persu perchè avete trasgreditu i Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Vi avemu resu: %1$s %2$s punti di classifica.</string>
   <string name="timeAlmostUp">U tempu hè guasgi finitu!</string>
@@ -836,7 +854,7 @@
   <string name="download">Telecaricà</string>
   <string name="welcome">Benvenutu!</string>
   <string name="lichessPatronInfo">Lichess hè un prugrammu infurmaticu in open source di rigalu in tuttu. Tutti i costi di sviluppu, di mantenanza è u cuntinutu sò pagati cù i dunazioni di l\' utilizatori.</string>
-  <string name="coachManager">Responsevule di l\' allenatori</string>
+  <string name="coachManager">Respunsevule di l\' allinadori</string>
   <string name="streamerManager">Responsevule di i streamers</string>
   <string name="cancelTournament">Cancellà u turneu</string>
   <string name="tournDescription">Descrizzione di u turneu</string>

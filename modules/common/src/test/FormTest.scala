@@ -1,6 +1,6 @@
 package lila.common
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.*
 import play.api.data._
 import play.api.data.format._
 import play.api.data.format.Formats._
@@ -12,8 +12,8 @@ import lila.common.Form._
 
 class FormTest extends Specification {
 
-  "trim" should {
-    "apply before validation" in {
+  "trim" >> {
+    "apply before validation" >> {
 
       FieldMapping("t", List(Constraints.minLength(1)))
         .bind(Map("t" -> " "))
@@ -43,21 +43,26 @@ class FormTest extends Specification {
     }
   }
 
-  "garbage chars" should {
-    "be removed before validation" in {
+  "garbage chars" >> {
 
-      val chars = List('\u200b', '\u200c', '\u200d', '\u200e', '\u200f', '\u202e', '\u1160')
-
-      val str = chars mkString ""
-
-      single("t" -> cleanText(minLength = 1))
-        .bind(Map("t" -> str)) must beLeft
-
-      single("t" -> cleanText(minLength = 1))
-        .bind(Map("t" -> s"  $str  ")) must beLeft
-
-      single("t" -> cleanText)
-        .bind(Map("t" -> s"  $str  ")) must beLeft
+    "invisible chars are removed before validation" >> {
+      val invisibleChars = List('\u200b', '\u200c', '\u200d', '\u200e', '\u200f', '\u202e', '\u1160')
+      val invisibleStr   = invisibleChars mkString ""
+      single("t" -> cleanText).bind(Map("t" -> invisibleStr)) === Right("")
+      single("t" -> cleanText).bind(Map("t" -> s"  $invisibleStr  ")) === Right("")
+      single("t" -> cleanTextWithSymbols).bind(Map("t" -> s"  $invisibleStr  ")) === Right("")
+      single("t" -> cleanText(minLength = 1)).bind(Map("t" -> invisibleStr)) must beLeft
+      single("t" -> cleanText(minLength = 1)).bind(Map("t" -> s"  $invisibleStr  ")) must beLeft
+    }
+    "other garbage chars are also removed before validation, unless allowed" >> {
+      val garbageStr = "꧁ ۩۞"
+      single("t" -> cleanText).bind(Map("t" -> garbageStr)) === Right("")
+      single("t" -> cleanTextWithSymbols).bind(Map("t" -> garbageStr)) === Right(garbageStr)
+    }
+    "emojis are removed before validation, unless allowed" >> {
+      val emojiStr = "🌈🌚"
+      single("t" -> cleanText).bind(Map("t" -> emojiStr)) === Right("")
+      single("t" -> cleanTextWithSymbols).bind(Map("t" -> emojiStr)) === Right(emojiStr)
     }
   }
 

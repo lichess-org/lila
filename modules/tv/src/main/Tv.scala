@@ -8,19 +8,19 @@ final class Tv(
     gameRepo: GameRepo,
     trouper: SyncActor,
     gameProxyRepo: lila.round.GameProxyRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import Tv._
-  import ChannelSyncActor._
+  import Tv.*
+  import ChannelSyncActor.*
 
-  private def roundProxyGame = gameProxyRepo.game _
+  private def roundProxyGame = gameProxyRepo.game
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    trouper.ask[Option[Game.ID]](TvSyncActor.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
+    trouper.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
 
-  def getReplacementGame(channel: Tv.Channel, oldId: Game.ID, exclude: List[Game.ID]): Fu[Option[Game]] =
+  def getReplacementGame(channel: Tv.Channel, oldId: GameId, exclude: List[GameId]): Fu[Option[Game]] =
     trouper
-      .ask[Option[Game.ID]](TvSyncActor.GetReplacementGameId(channel, oldId, exclude, _))
+      .ask[Option[GameId]](TvSyncActor.GetReplacementGameId(channel, oldId, exclude, _))
       .flatMap { _ ?? roundProxyGame }
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
@@ -44,8 +44,8 @@ final class Tv(
       _.map(roundProxyGame).sequenceFu.map(_.flatten)
     }
 
-  def getGameIds(channel: Tv.Channel, max: Int): Fu[List[Game.ID]] =
-    trouper.ask[List[Game.ID]](TvSyncActor.GetGameIds(channel, max, _))
+  def getGameIds(channel: Tv.Channel, max: Int): Fu[List[GameId]] =
+    trouper.ask[List[GameId]](TvSyncActor.GetGameIds(channel, max, _))
 
   def getBestGame = getGame(Tv.Channel.Best) orElse gameRepo.random
 
@@ -53,37 +53,27 @@ final class Tv(
 
   def getChampions: Fu[Champions] =
     trouper.ask[Champions](TvSyncActor.GetChampions.apply)
-}
 
-object Tv {
-  import chess.{ variant => V, Speed => S }
-  import lila.rating.{ PerfType => P }
+object Tv:
+  import chess.{ variant as V, Speed as S }
+  import lila.rating.{ PerfType as P }
 
-  case class Champion(user: LightUser, rating: Int, gameId: Game.ID)
-  case class Champions(channels: Map[Channel, Champion]) {
-    def get = channels.get _
-  }
+  case class Champion(user: LightUser, rating: IntRating, gameId: GameId)
+  case class Champions(channels: Map[Channel, Champion]):
+    def get = channels.get
 
   private[tv] case class Candidate(game: Game, hasBot: Boolean)
-  private[tv] def toCandidate(lightUser: LightUser.GetterSync)(game: Game) =
-    Tv.Candidate(
-      game = game,
-      hasBot = game.userIds.exists { userId =>
-        lightUser(userId).exists(_.isBot)
-      }
-    )
 
   sealed abstract class Channel(
       val name: String,
       val icon: String,
       val secondsSinceLastMove: Int,
       filters: Seq[Candidate => Boolean]
-  ) {
+  ):
     def isFresh(g: Game): Boolean     = fresh(secondsSinceLastMove, g)
     def filter(c: Candidate): Boolean = filters.forall { _(c) } && isFresh(c.game)
     val key                           = s"${toString.head.toLower}${toString.drop(1)}"
-  }
-  object Channel {
+  object Channel:
     case object Best
         extends Channel(
           name = "Top Rated",
@@ -214,10 +204,7 @@ object Tv {
       Bot,
       Computer
     )
-    val byKey = all.map { c =>
-      c.key -> c
-    }.toMap
-  }
+    val byKey = all.mapBy(_.key)
 
   private def rated(min: Int)           = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
   private def speed(speed: chess.Speed) = (c: Candidate) => c.game.speed == speed
@@ -235,16 +222,15 @@ object Tv {
   } // rematch time
   private def hasMinRating(g: Game, min: Int) = g.players.exists(_.rating.exists(_ >= min))
 
-  private[tv] val titleScores = Map(
-    "GM"  -> 500,
-    "WGM" -> 500,
-    "IM"  -> 300,
-    "WIM" -> 300,
-    "FM"  -> 200,
-    "WFM" -> 200,
-    "NM"  -> 100,
-    "CM"  -> 100,
-    "WCM" -> 100,
-    "WNM" -> 100
+  private[tv] val titleScores: Map[UserTitle, Int] = Map(
+    UserTitle("GM")  -> 500,
+    UserTitle("WGM") -> 500,
+    UserTitle("IM")  -> 300,
+    UserTitle("WIM") -> 300,
+    UserTitle("FM")  -> 200,
+    UserTitle("WFM") -> 200,
+    UserTitle("NM")  -> 100,
+    UserTitle("CM")  -> 100,
+    UserTitle("WCM") -> 100,
+    UserTitle("WNM") -> 100
   )
-}

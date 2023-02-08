@@ -1,19 +1,19 @@
 package lila.relay
 
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.common.config.BaseUrl
-import lila.common.Json.jodaWrites
+import lila.common.Json.given
 import lila.study.Chapter
 import scala.concurrent.ExecutionContext
 
-final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: RelayLeaderboardApi)(implicit
+final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: RelayLeaderboardApi)(using
     ec: ExecutionContext
-) {
+):
 
-  import JsonView._
-  import lila.study.JsonView.chapterMetadataWrites
+  import JsonView.given
+  import lila.study.JsonView.given
 
   def apply(trs: RelayTour.WithRounds, withUrls: Boolean = false): JsObject =
     Json
@@ -48,42 +48,33 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
 
   def withUrlAndGames(rt: RelayRound.WithTour, games: List[Chapter.Metadata]): JsObject =
     withUrl(rt) ++ Json.obj("games" -> games.map { g =>
-      chapterMetadataWrites.writes(g) + ("url" -> JsString(s"$baseUrl${rt.path}/${g._id}"))
+      Json.toJsObject(g) + ("url" -> JsString(s"$baseUrl${rt.path}/${g._id}"))
     })
 
-  def sync(round: RelayRound) = syncWrites writes round.sync
+  def sync(round: RelayRound) = Json toJsObject round.sync
 
   def makeData(
       trs: RelayTour.WithRounds,
-      currentRoundId: RelayRound.Id,
+      currentRoundId: RelayRoundId,
       studyData: lila.study.JsonView.JsData,
       canContribute: Boolean
   ) = leaderboardApi(trs.tour) map { leaderboard =>
-    JsData(
+    JsonView.JsData(
       relay = apply(trs)
         .add("sync" -> (canContribute ?? trs.rounds.find(_.id == currentRoundId).map(_.sync)))
-        .add("leaderboard" -> leaderboard.map(_.players.map(RelayLeaderboard.playerWrites.writes))),
+        .add("leaderboard" -> leaderboard.map(_.players)),
       study = studyData.study,
       analysis = studyData.analysis
     )
   }
-}
 
-object JsonView {
+object JsonView:
 
   case class JsData(relay: JsObject, study: JsObject, analysis: JsObject)
 
-  implicit val syncLogEventWrites = Json.writes[SyncLog.Event]
+  given OWrites[SyncLog.Event] = Json.writes
 
-  implicit val roundIdWrites: Writes[RelayRound.Id] = Writes[RelayRound.Id] { id =>
-    JsString(id.value)
-  }
-
-  implicit val tourIdWrites: Writes[RelayTour.Id] = Writes[RelayTour.Id] { id =>
-    JsString(id.value)
-  }
-
-  implicit private val syncWrites: OWrites[RelayRound.Sync] = OWrites[RelayRound.Sync] { s =>
+  private given OWrites[RelayRound.Sync] = OWrites { s =>
     Json.obj(
       "ongoing" -> s.ongoing,
       "log"     -> s.log.events
@@ -93,4 +84,3 @@ object JsonView {
         case RelayRound.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids)
       }
   }
-}

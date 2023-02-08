@@ -5,13 +5,11 @@ import org.joda.time.DateTime
 final private case class Device(
     _id: String,      // Firebase token
     platform: String, // cordova platform (android, ios, firebase)
-    userId: String,
+    userId: UserId,
     seenAt: DateTime
-) {
+):
 
   def deviceId =
-    platform match {
+    platform match
       case "ios" => _id.grouped(8).mkString("<", " ", ">")
       case _     => _id
-    }
-}

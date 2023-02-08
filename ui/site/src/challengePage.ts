@@ -7,7 +7,7 @@ interface ChallengeOpts {
   data: any;
 }
 
-export default function (opts: ChallengeOpts) {
+export default (window as any).challengePageStart = function (opts: ChallengeOpts) {
   const selector = '.challenge-page';
   let accepting: boolean;
 
@@ -67,4 +67,4 @@ export default function (opts: ChallengeOpts) {
   }
 
   pingNow();
-}
+};

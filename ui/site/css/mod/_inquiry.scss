@@ -312,7 +312,7 @@ body.no-inquiry {
         background: #555;
       }
 
-      div {
+      > div {
         display: block;
       }
     }
@@ -384,12 +384,22 @@ body.no-inquiry {
     }
   }
 
-  .notes span {
-    transition: all 1s ease-out;
-    &.flash {
-      background: $c-primary !important;
-      box-shadow: 0 0px 15px $c-primary;
-      transition: none;
+  .notes {
+    span {
+      transition: all 1s ease-out;
+      &.flash {
+        background: $c-primary !important;
+        box-shadow: 0 0px 15px $c-primary;
+        transition: none;
+      }
+    }
+
+    .submission {
+      display: flex;
+
+      button[value='dox'] {
+        margin-left: 1.5em;
+      }
     }
   }
 }

@@ -1,19 +1,12 @@
 import Lpv from 'lichess-pgn-viewer';
-import { OpeningData } from './interfaces';
-import {
-  CategoryScale,
-  Chart,
-  LinearScale,
-  LineController,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Filler,
-} from 'chart.js';
+import { initAll as initMiniBoards } from 'common/mini-board';
+import { OpeningPage } from './interfaces';
+import { renderHistoryChart } from './chart';
+import { init as searchEngine } from './search';
+import panels from './panels';
+import { Config } from 'chessground/config';
 
-Chart.register(LineController, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
-
-export function family(data: OpeningData) {
+export function page(data: OpeningPage) {
   $('.opening__intro .lpv').each(function (this: HTMLElement) {
     Lpv(this, {
       pgn: this.dataset['pgn']!,
@@ -21,75 +14,58 @@ export function family(data: OpeningData) {
       showMoves: 'bottom',
       showClocks: false,
       showPlayers: false,
+      chessground: cgConfig,
       menu: {
         getPgn: {
           enabled: true,
-          fileName: this.dataset['title'].replace(' ', '_') + '.pgn',
+          fileName: (this.dataset['title'] || this.dataset['pgn'] || 'opening').replace(' ', '_') + '.pgn',
         },
       },
     });
   });
-  lichess.requestIdleCallback(renderVariations);
+  initMiniBoards();
+  highlightNextPieces();
+  panels($('.opening__panels'), id => {
+    if (id == 'opening-panel-games') loadExampleGames();
+  });
+  searchEngine();
   lichess.requestIdleCallback(() => renderHistoryChart(data));
 }
 
-export const abstractFamily = () => renderVariations();
+export const search = searchEngine;
 
-const renderVariations = () =>
-  $('.opening__variations').each(function (this: HTMLElement) {
-    const lazyLoader = new IntersectionObserver(
-      (entries: any[]) => {
-        entries.forEach(e => {
-          if (e.intersectionRatio) {
-            renderVariation(e.target);
-            lazyLoader.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    Array.from(this.querySelectorAll('.lpv')).forEach(c => lazyLoader.observe(c));
+const cgConfig: Config = {
+  coordinates: false,
+};
 
-    $(this).on('click', '.lpv__board', e =>
-      $(e.target).parents('.opening__variations__variation').find('a').trigger('click')
-    );
-  });
-
-const renderVariation = (el: HTMLElement) =>
-  Lpv(el, {
-    pgn: el.dataset['pgn'],
-    showPlayers: false,
-    showMoves: false,
-    initialPly: 'last',
-    drawArrows: false,
-    scrollToMove: false,
-  });
-
-const renderHistoryChart = (data: OpeningData) => {
-  const canvas = document.querySelector('.opening__popularity__chart') as HTMLCanvasElement;
-  new Chart(canvas, {
-    type: 'line',
-    data: {
-      labels: data.history.map(s => s.month),
-      datasets: [
-        {
-          data: data.history.map(s => s.draws + s.black + s.white),
-          borderColor: 'hsla(37,74%,43%,1)',
-          backgroundColor: 'hsla(37,74%,43%,0.5)',
-          fill: true,
+const loadExampleGames = () =>
+  $('.opening__games .lpv--todo')
+    .removeClass('.lpv--todo')
+    .each(function (this: HTMLElement) {
+      Lpv(this, {
+        pgn: this.dataset['pgn']!,
+        initialPly: parseInt(this.dataset['ply'] || '99'),
+        showMoves: 'bottom',
+        showClocks: false,
+        showPlayers: true,
+        chessground: cgConfig,
+        menu: {
+          getPgn: {
+            enabled: true,
+            fileName: (this.dataset['title'] || 'game').replace(' ', '_') + '.pgn',
+          },
         },
-      ],
-    },
-    options: {
-      animation: false,
-      scales: {
-        y: {
-          min: 0,
-          // max: 20,
-        },
-        x: {},
-      },
-      responsive: true,
-    },
+      });
+    });
+
+const highlightNextPieces = () => {
+  $('.opening__next cg-board').each(function (this: HTMLElement) {
+    Array.from($(this).find('.last-move'))
+      .map(el => el!.style.transform)
+      .forEach(transform => {
+        $(this).find(`piece[style="transform: ${transform};"]`).addClass('highlight');
+      });
   });
 };
+
+(window as any).LichessOpening = { page, search }; // esbuild

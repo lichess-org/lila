@@ -13,6 +13,8 @@
   <string name="specialMoves">Besonnesch Zich</string>
   <string name="didYouLikeThisPuzzle">Huet dir dës Aufgab gefall?</string>
   <string name="voteToLoadNextOne">Stëmm of fir déi nächst ze lueden!</string>
+  <string name="upVote">Puzzle gudd bewäerten</string>
+  <string name="downVote">Puzzle schlecht bewäerten</string>
   <string name="yourPuzzleRatingWillNotChange">Deng Aufgabenwäertung wäert sech net änneren. Aufgaben sinn keng Competitioun. D\'Wäertung hëlleft déi bescht Aufgaben fir deng Fähegkeeten auszewielen.</string>
   <string name="findTheBestMoveForWhite">Fann de beschten Zuch fir Wäiss.</string>
   <string name="findTheBestMoveForBlack">Fann de beschten Zuch fir Schwaarz.</string>
@@ -51,6 +53,7 @@
   </plurals>
   <string name="example">Beispill</string>
   <string name="addAnotherTheme">E weidert Motiv bäifügen</string>
+  <string name="nextPuzzle">Nächsten Puzzle</string>
   <string name="jumpToNextPuzzleImmediately">Direkt zur nächster Aufgab sprangen</string>
   <string name="puzzleDashboard">Aufgabeniwwersiicht</string>
   <string name="improvementAreas">Verbesserungsberäicher</string>

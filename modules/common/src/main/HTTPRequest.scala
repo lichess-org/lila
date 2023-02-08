@@ -4,7 +4,7 @@ import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 import play.api.routing.Router
 
-object HTTPRequest {
+object HTTPRequest:
 
   def isXhr(req: RequestHeader): Boolean =
     req.headers get "X-Requested-With" contains "XMLHttpRequest"
@@ -42,14 +42,13 @@ object HTTPRequest {
 
   def isAssets(req: RequestHeader) = req.path startsWith "/assets/"
 
-  def userAgent(req: RequestHeader): Option[String] = req.headers get HeaderNames.USER_AGENT
+  def userAgent(req: RequestHeader): Option[UserAgent] = UserAgent from {
+    req.headers get HeaderNames.USER_AGENT
+  }
 
-  val isAndroid = UaMatcher("""(?i)android.+mobile""")
-  val isMobile  = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
+  val isChrome96Plus = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
 
-  private def uaContains(req: RequestHeader, str: String) = userAgent(req).exists(_ contains str)
-  def isChrome(req: RequestHeader)                        = uaContains(req, "Chrome/")
-  val isChrome96OrMore                                    = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
+  val isMobile = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
 
   def origin(req: RequestHeader): Option[String] = req.headers get HeaderNames.ORIGIN
 
@@ -57,7 +56,8 @@ object HTTPRequest {
 
   def ipAddress(req: RequestHeader) =
     IpAddress.unchecked {
-      req.remoteAddress.split(", ").lastOption | req.remoteAddress // trusted
+      // chain of trusted proxies, strip scope id
+      req.remoteAddress.split(", ").last.split("%").head
     }
 
   def sid(req: RequestHeader): Option[String] = req.session get LilaCookie.sessionId
@@ -68,11 +68,9 @@ object HTTPRequest {
       """coccoc|integromedb|contentcrawlerspider|toplistbot|seokicks-robot|it2media-domain-crawler|ip-web-crawler\.com|siteexplorer\.info|elisabot|proximic|changedetection|blexbot|arabot|wesee:search|niki-bot|crystalsemanticsbot|rogerbot|360spider|psbot|interfaxscanbot|lipperheyseoservice|ccmetadatascaper|g00g1e\.net|grapeshotcrawler|urlappendbot|brainobot|fr-crawler|binlar|simplecrawler|simplecrawler|livelapbot|twitterbot|cxensebot|smtbot|facebookexternalhit|daumoa|sputnikimagebot|visionutils|yisouspider|parsijoobot|mediatoolkit\.com|semrushbot"""
   }
 
-  case class UaMatcher(rStr: String) {
-    private val regex = rStr.r
-
-    def apply(req: RequestHeader): Boolean = userAgent(req) ?? regex.find
-  }
+  final class UaMatcher(rStr: String):
+    private val regex                      = rStr.r
+    def apply(req: RequestHeader): Boolean = userAgent(req).fold(false)(ua => regex.find(ua.value))
 
   def isFishnet(req: RequestHeader) = req.path startsWith "/fishnet/"
 
@@ -82,14 +80,14 @@ object HTTPRequest {
 
   def hasFileExtension(req: RequestHeader) = fileExtensionRegex.find(req.path)
 
-  def weirdUA(req: RequestHeader) = userAgent(req).fold(true)(_.lengthIs < 30)
+  def weirdUA(req: RequestHeader) = userAgent(req).fold(true)(_.value.lengthIs < 30)
 
   def print(req: RequestHeader) = s"${printReq(req)} ${printClient(req)}"
 
   def printReq(req: RequestHeader) = s"${req.method} ${req.domain}${req.uri}"
 
   def printClient(req: RequestHeader) =
-    s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${~userAgent(req)}"
+    s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${userAgent(req).??(_.value)}"
 
   def bearer(req: RequestHeader): Option[Bearer] =
     req.headers.get(HeaderNames.AUTHORIZATION).flatMap { authorization =>
@@ -108,12 +106,11 @@ object HTTPRequest {
 
   private val ApiVersionHeaderPattern = """application/vnd\.lichess\.v(\d++)\+json""".r
 
-  def apiVersion(req: RequestHeader): Option[ApiVersion] = {
+  def apiVersion(req: RequestHeader): Option[ApiVersion] =
     req.headers.get(HeaderNames.ACCEPT) flatMap {
-      case ApiVersionHeaderPattern(v) => v.toIntOption map ApiVersion.apply
+      case ApiVersionHeaderPattern(v) => v.toIntOption map { ApiVersion(_) }
       case _                          => none
     }
-  }
 
   private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"
   private def isAppeal(req: RequestHeader)   = req.path.startsWith("/appeal")
@@ -135,4 +132,8 @@ object HTTPRequest {
 
   def queryStringGet(req: RequestHeader, name: String): Option[String] =
     req.queryString get name flatMap (_.headOption) filter (_.nonEmpty)
-}
+
+  def looksLikeLichessBot(req: RequestHeader) =
+    userAgent(req) exists { ua =>
+      ua.value.startsWith("lichess-bot/") || ua.value.startsWith("maia-bot/")
+    }

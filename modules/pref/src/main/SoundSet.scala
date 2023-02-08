@@ -1,13 +1,12 @@
 package lila.pref
 
-sealed class SoundSet private[pref] (val key: String, val name: String) {
+final class SoundSet private (val key: String, val name: String):
 
   override def toString = key
 
   def cssClass = key
-}
 
-object SoundSet {
+object SoundSet:
 
   val default = new SoundSet("standard", "Standard")
   val silent  = new SoundSet("silent", "Silent")
@@ -25,12 +24,8 @@ object SoundSet {
     new SoundSet("speech", "Speech")
   )
 
-  lazy val allByKey = list map { c =>
-    c.key -> c
-  } toMap
-  lazy val allByName = list map { c =>
-    c.name -> c
-  } toMap
+  val allByKey  = list.mapBy(_.key)
+  val allByName = list.mapBy(_.name)
 
   def apply(key: String) = allByKey.getOrElse(key.toLowerCase, default)
 
@@ -38,4 +33,3 @@ object SoundSet {
 
   def name2key(name: String): String =
     allByName.get(name).fold(name.toLowerCase)(_.key)
-}

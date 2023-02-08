@@ -2,21 +2,21 @@ package lila.puzzle
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
 
 case class PuzzleDashboard(
     global: PuzzleDashboard.Results,
     byTheme: Map[PuzzleTheme.Key, PuzzleDashboard.Results]
-) {
+):
 
-  import PuzzleDashboard._
+  import PuzzleDashboard.*
 
-  lazy val (weakThemes, strongThemes) = {
+  lazy val (weakThemes, strongThemes) =
     val all = byTheme.view.filter(_._2.nb > global.nb / 40).toList.sortBy { case (_, res) =>
       (res.performance, -res.nb)
     }
@@ -32,22 +32,20 @@ case class PuzzleDashboard(
       .takeRight(topThemesNb)
       .reverse
     (weaks, strong)
-  }
 
   def mostPlayed = byTheme.toList.sortBy(-_._2.nb).take(9)
-}
 
-object PuzzleDashboard {
+object PuzzleDashboard:
 
   type Days = Int
 
   val dayChoices = List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90)
 
-  def getclosestDay(n: Int): Option[Days] = dayChoices.minByOption(day => math.abs(day - n))
+  def getClosestDay(n: Int): Option[Days] = dayChoices.minByOption(day => math.abs(day - n))
 
   val topThemesNb = 8
 
-  case class Results(nb: Int, wins: Int, fixed: Int, puzzleRatingAvg: Int) {
+  case class Results(nb: Int, wins: Int, fixed: Int, puzzleRatingAvg: Int):
 
     def firstWins = wins - fixed
     def unfixed   = nb - wins
@@ -63,7 +61,6 @@ object PuzzleDashboard {
     def unclear = !clear
 
     def canReplay = unfixed > 0
-  }
 
   val irrelevantThemes = List(
     PuzzleTheme.oneMove,
@@ -82,31 +79,30 @@ object PuzzleDashboard {
     PuzzleTheme.masterVsMaster
   ).map(_.key)
 
-  val relevantThemes = PuzzleTheme.all collect {
+  val relevantThemes = PuzzleTheme.visible collect {
     case t if !irrelevantThemes.contains(t.key) => t.key
   }
-}
 
 final class PuzzleDashboardApi(
     colls: PuzzleColls,
     cacheApi: CacheApi
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  import PuzzleDashboard._
+  import PuzzleDashboard.*
 
   def apply(u: User, days: Days): Fu[Option[PuzzleDashboard]] = cache.get(u.id -> days)
 
   private val cache =
-    cacheApi[(User.ID, Days), Option[PuzzleDashboard]](1024, "puzzle.dashboard") {
+    cacheApi[(UserId, Days), Option[PuzzleDashboard]](1024, "puzzle.dashboard") {
       _.expireAfterWrite(10 seconds).buildAsyncFuture { case (userId, days) =>
         compute(userId, days)
       }
     }
 
-  private def compute(userId: User.ID, days: Days): Fu[Option[PuzzleDashboard]] =
+  private def compute(userId: UserId, days: Days): Fu[Option[PuzzleDashboard]] =
     colls.round {
       _.aggregateOne() { framework =>
-        import framework._
+        import framework.*
         val resultsGroup = List(
           "nb"     -> SumAll,
           "wins"   -> Sum(countField("w")),
@@ -125,11 +121,11 @@ final class PuzzleDashboardApi(
           Unwind("puzzle"),
           Facet(
             List(
-              "global" -> List(Group(BSONNull)(resultsGroup: _*)),
+              "global" -> List(Group(BSONNull)(resultsGroup*)),
               "byTheme" -> List(
                 Unwind("puzzle.themes"),
                 Match(relevantThemesSelect),
-                GroupField("puzzle.themes")(resultsGroup: _*)
+                GroupField("puzzle.themes")(resultsGroup*)
               )
             )
           )
@@ -165,7 +161,5 @@ final class PuzzleDashboardApi(
     rating <- doc.double("rating")
   } yield Results(nb, wins, fixes, rating.toInt)
 
-  val relevantThemesSelect = $doc(
-    "puzzle.themes" $nin irrelevantThemes.map(_.value)
-  )
-}
+  import BsonHandlers.given
+  val relevantThemesSelect = $doc("puzzle.themes" $nin irrelevantThemes)

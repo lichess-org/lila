@@ -1,14 +1,13 @@
 package lila.bot
 
 import chess.format.Uci
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.Promise
 
 import lila.common.Bus
-import lila.game.Game.PlayerId
 import lila.game.{ Game, GameRepo, Pov, Rematches }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ Abort, BotPlay, RematchNo, RematchYes, Resign }
+import lila.hub.actorApi.round.{ Abort, Berserk, BotPlay, RematchNo, RematchYes, Resign }
 import lila.round.actorApi.round.{ DrawNo, DrawYes, ResignForce, TakebackNo, TakebackYes }
 import lila.user.User
 
@@ -17,19 +16,19 @@ final class BotPlayer(
     gameRepo: GameRepo,
     rematches: Rematches,
     spam: lila.security.Spam
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   private def clientError[A](msg: String): Fu[A] = fufail(lila.round.ClientError(msg))
 
   def apply(pov: Pov, me: User, uciStr: String, offeringDraw: Option[Boolean]): Funit =
     lila.common.Future.delay((pov.game.hasAi ?? 500) millis) {
       Uci(uciStr).fold(clientError[Unit](s"Invalid UCI: $uciStr")) { uci =>
-        lila.mon.bot.moves(me.username).increment()
+        lila.mon.bot.moves(me.username.value).increment()
         if (!pov.isMyTurn) clientError("Not your turn, or game already over")
-        else {
+        else
           val promise = Promise[Unit]()
           if (pov.player.isOfferingDraw && offeringDraw.has(false)) declineDraw(pov)
           else if (!pov.player.isOfferingDraw && ~offeringDraw) offerDraw(pov)
@@ -37,52 +36,51 @@ final class BotPlayer(
           promise.future recover {
             case _: lila.round.GameIsFinishedError if ~offeringDraw => ()
           }
-        }
       }
     }
 
-  def chat(gameId: Game.ID, me: User, d: BotForm.ChatData) =
+  def chat(gameId: GameId, me: User, d: BotForm.ChatData) =
     !spam.detect(d.text) ??
       fuccess {
-        lila.mon.bot.chats(me.username).increment()
-        val chatId = lila.chat.Chat.Id {
-          if (d.room == "player") gameId else s"$gameId/w"
-        }
+        lila.mon.bot.chats(me.username.value).increment()
+        val chatId = ChatId(if (d.room == "player") gameId.value else s"$gameId/w")
         val source = d.room == "spectator" option {
           lila.hub.actorApi.shutup.PublicSource.Watcher(gameId)
         }
         chatApi.userChat.write(chatId, me.id, d.text, publicSource = source, _.Round)
       }
 
-  def rematchAccept(id: Game.ID, me: User): Fu[Boolean] = rematch(id, me, accept = true)
+  def rematchAccept(id: GameId, me: User): Fu[Boolean] = rematch(id, me, accept = true)
 
-  def rematchDecline(id: Game.ID, me: User): Fu[Boolean] = rematch(id, me, accept = false)
+  def rematchDecline(id: GameId, me: User): Fu[Boolean] = rematch(id, me, accept = false)
 
-  private def rematch(challengeId: Game.ID, me: User, accept: Boolean): Fu[Boolean] =
+  private def rematch(challengeId: GameId, me: User, accept: Boolean): Fu[Boolean] =
     rematches.prevGameIdOffering(challengeId) ?? gameRepo.game map {
       _.flatMap(Pov(_, me)) ?? { pov =>
         // delay so it feels more natural
         lila.common.Future.delay(if (accept) 100.millis else 1.second) {
           fuccess {
-            tellRound(pov.gameId, (if (accept) RematchYes else RematchNo)(pov.playerId))
+            tellRound(pov.gameId, if (accept) RematchYes(pov.playerId) else RematchNo(pov.playerId))
           }
         }
         true
       }
     }
 
-  private def tellRound(id: Game.ID, msg: Any) =
-    Bus.publish(Tell(id, msg), "roundSocket")
+  private def tellRound(id: GameId, msg: Any) =
+    Bus.publish(Tell(id.value, msg), "roundSocket")
 
   def abort(pov: Pov): Funit =
-    if (!pov.game.abortable) clientError("This game can no longer be aborted")
+    if (!pov.game.abortableByUser) clientError("This game can no longer be aborted")
     else
       fuccess {
         tellRound(pov.gameId, Abort(pov.playerId))
       }
 
   def resign(pov: Pov): Funit =
-    if (pov.game.abortable) abort(pov)
+    if (pov.game.abortableByUser) fuccess {
+      tellRound(pov.gameId, Abort(pov.playerId))
+    }
     else if (pov.game.resignable) fuccess {
       tellRound(pov.gameId, Resign(pov.playerId))
     }
@@ -90,22 +88,22 @@ final class BotPlayer(
 
   private def declineDraw(pov: Pov): Unit =
     if (pov.game.drawable && pov.opponent.isOfferingDraw)
-      tellRound(pov.gameId, DrawNo(PlayerId(pov.playerId)))
+      tellRound(pov.gameId, DrawNo(pov.playerId))
 
   private def offerDraw(pov: Pov): Unit =
     if (pov.game.drawable && (pov.game.playerCanOfferDraw(pov.color) || pov.opponent.isOfferingDraw))
-      tellRound(pov.gameId, DrawYes(PlayerId(pov.playerId)))
+      tellRound(pov.gameId, DrawYes(pov.playerId))
 
   def setDraw(pov: Pov, v: Boolean): Unit =
     if (v) offerDraw(pov) else declineDraw(pov)
 
   def setTakeback(pov: Pov, v: Boolean): Unit =
     if (pov.game.playable && pov.game.canTakebackOrAddTime)
-      tellRound(pov.gameId, (if (v) TakebackYes else TakebackNo)(PlayerId(pov.playerId)))
+      tellRound(pov.gameId, if v then TakebackYes(pov.playerId) else TakebackNo(pov.playerId))
 
   def claimVictory(pov: Pov): Funit =
     pov.mightClaimWin ?? {
-      tellRound(pov.gameId, ResignForce(pov.typedPlayerId))
+      tellRound(pov.gameId, ResignForce(pov.playerId))
       lila.common.Future.delay(500 millis) {
         gameRepo.finished(pov.gameId) map {
           _.exists(_.winner.map(_.id) has pov.playerId)
@@ -115,4 +113,9 @@ final class BotPlayer(
       case true => funit
       case _    => clientError("You cannot claim the win on this game")
     }
-}
+
+  def berserk(game: Game, me: User): Boolean =
+    game.berserkable ?? {
+      Bus.publish(Berserk(game.id, me.id), "berserk")
+      true
+    }

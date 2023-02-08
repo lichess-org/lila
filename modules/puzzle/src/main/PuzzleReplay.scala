@@ -2,11 +2,11 @@ package lila.puzzle
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
-import scala.util.chaining._
+import scala.util.chaining.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
 
@@ -14,24 +14,23 @@ case class PuzzleReplay(
     days: PuzzleDashboard.Days,
     theme: PuzzleTheme.Key,
     nb: Int,
-    remaining: Vector[Puzzle.Id]
-) {
+    remaining: Vector[PuzzleId]
+):
 
   def i = nb - remaining.size
 
   def step = copy(remaining = remaining drop 1)
-}
 
 final class PuzzleReplayApi(
     colls: PuzzleColls,
     cacheApi: CacheApi
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   private val maxPuzzles = 100
 
-  private val replays = cacheApi.notLoading[User.ID, PuzzleReplay](512, "puzzle.replay")(
+  private val replays = cacheApi.notLoading[UserId, PuzzleReplay](512, "puzzle.replay")(
     _.expireAfterWrite(1 hour).buildAsync()
   )
 
@@ -46,7 +45,7 @@ final class PuzzleReplayApi(
         else createReplayFor(user, days, theme) tap { replays.put(user.id, _) }
       } flatMap { replay =>
         replay.remaining.headOption ?? { id =>
-          colls.puzzle(_.byId[Puzzle](id.value)) map2 (_ -> replay)
+          colls.puzzle(_.byId[Puzzle](id)) map2 (_ -> replay)
         }
       }
     } getOrElse fuccess(None)
@@ -69,7 +68,7 @@ final class PuzzleReplayApi(
     colls
       .round {
         _.aggregateOne() { framework =>
-          import framework._
+          import framework.*
           Match(
             $doc(
               "u" -> user.id,
@@ -109,7 +108,7 @@ final class PuzzleReplayApi(
         }
       }
       .map {
-        ~_.flatMap(_.getAsOpt[Vector[Puzzle.Id]]("ids"))
+        ~_.flatMap(_.getAsOpt[Vector[PuzzleId]]("ids"))
       } map { ids =>
       PuzzleReplay(days, theme, ids.size, ids)
     }
@@ -124,4 +123,3 @@ final class PuzzleReplayApi(
         $doc("$project" -> $doc("_id" -> true))
       )
     )
-}

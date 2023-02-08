@@ -29,7 +29,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
           )
         : 'Anonymous',
       seek.rating && !ctrl.opts.hideRatings ? seek.rating + (seek.provisional ? '?' : '') : '',
-      seek.days ? ctrl.trans.plural('nbDays', seek.days) : '∞',
+      seek.days ? ctrl.trans.pluralSame('nbDays', seek.days) : '∞',
       h('span', [
         h('span.varicon', {
           attrs: { 'data-icon': perfIcons[seek.perf.key] },

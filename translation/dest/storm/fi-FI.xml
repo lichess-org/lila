@@ -52,6 +52,7 @@
   <string name="skipExplanation">Ohita tämä siirto jatkaaksesi putkea! Toimii kunkin kilvan aikana vain kerran.</string>
   <string name="failedPuzzles">Epäonnistuneet tehtävät</string>
   <string name="slowPuzzles">Hitaat tehtävät</string>
+  <string name="skippedPuzzle">Ohitettu tehtävä</string>
   <string name="thisWeek">Tällä viikolla</string>
   <string name="thisMonth">Tässä kuussa</string>
   <string name="allTime">Paras koskaan</string>

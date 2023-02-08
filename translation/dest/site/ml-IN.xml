@@ -59,6 +59,8 @@
   <string name="depthX">ആഴം %s</string>
   <string name="usingServerAnalysis">സെർവറിന്റെ സഹായത്താൽ വിശകലനം ചെയ്യുന്നു</string>
   <string name="loadingEngine">എൻജിൻ സജ്ജമാക്കുന്നു ...</string>
+  <string name="calculatingMoves">Hello...</string>
+  <string name="engineFailed">Hi</string>
   <string name="cloudAnalysis">ക്ലൗഡ് ഉപയോഗിച്ചുള്ള വിശകലനം</string>
   <string name="goDeeper">ആഴം കൂട്ടുക</string>
   <string name="showThreat">ഭീഷണി വെളിപ്പെടുത്തുക</string>
@@ -89,8 +91,10 @@
     <item quantity="one">%s പകുതി-നീക്കത്തിനുള്ളിൽ ചെക്ക്മേറ്റ്</item>
     <item quantity="other">%s പകുതി-നീക്കങ്ങൾക്കുള്ളിൽ ചെക്ക്മേറ്റ്</item>
   </plurals>
+  <string name="dtzWithRounding">L</string>
   <string name="noGameFound">ഒരു ഗെയിമും കണ്ടെത്താൻ സാധിച്ചില്ല</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">പരിഗണന മെനുവിൽ നിന്ന് കൂടുതൽ ഗെയിമുകൾ ഉൾപ്പെടുത്താണോ?</string>
+  <string name="openings">L</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
   <string name="openingEndgameExplorer">ഓപ്പണിങ്ങ്/എൻഡ്ഗെയിം എക്‌സ്‌പ്ലോറർ</string>
   <string name="xOpeningExplorer">%s ഓപ്പണിങ് എക്സ്പ്ലോറർ</string>

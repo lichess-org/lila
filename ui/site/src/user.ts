@@ -9,13 +9,16 @@ lichess.load.then(() => {
     if ($zone.hasClass('loaded')) return;
     $zone.addClass('loaded');
     $noteToggle.find('strong').text('' + $zone.find('.note').length);
-    console.log('load', $zone);
-    $zone.find('form').on('submit', function (this: HTMLFormElement) {
-      xhr
-        .formToXhr(this)
-        .then(html => $zone.replaceWith(html))
-        .then(() => loadNoteZone())
-        .catch(() => alert('Invalid note, is it too short or too long?'));
+    $zone.find('.note-form button[type=submit]').on('click', function (this: HTMLButtonElement) {
+      $(this)
+        .parents('form')
+        .each((_, form: HTMLFormElement) =>
+          xhr
+            .formToXhr(form, this)
+            .then(html => $zone.replaceWith(html))
+            .then(() => loadNoteZone())
+            .catch(() => alert('Invalid note, is it too short or too long?'))
+        );
       return false;
     });
   };

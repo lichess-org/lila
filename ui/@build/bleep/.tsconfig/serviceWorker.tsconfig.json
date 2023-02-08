@@ -1,0 +1,9 @@
+{
+  "extends": "/home/sam/Documents/git/lila/ui/tsconfig.base.json",
+  "include": ["/home/sam/Documents/git/lila/ui/serviceWorker/src"],
+  "compilerOptions": {
+    "lib": ["ES2017"],
+    "types": ["types-serviceworker"],
+    "rootDir": "/home/sam/Documents/git/lila/ui/serviceWorker/src"
+  }
+}

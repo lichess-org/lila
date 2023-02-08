@@ -21,3 +21,5 @@ export default async function LichessDasher(element: Element) {
   redraw();
   return ctrl;
 }
+
+(window as any).LichessDasher = LichessDasher; // esbuild

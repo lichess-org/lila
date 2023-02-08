@@ -60,6 +60,8 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
       if (!node.uci[4]) return null;
       return isWinning(root, node, goal.cp!, root.bottomColor());
     case 'mate':
+      if (node.threefold) return false;
+      if (isDrawish(node)) return false;
   }
   return null;
 }

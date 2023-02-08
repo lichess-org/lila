@@ -1,20 +1,19 @@
 package views.html
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object irwin {
+object irwin:
 
   private def percentClass(percent: Int) =
-    percent match {
+    percent match
       case p if p < 30 => "green"
       case p if p < 60 => "yellow"
       case p if p < 80 => "orange"
       case _           => "red"
-    }
 
   def dashboard(dashboard: lila.irwin.IrwinReport.Dashboard)(implicit ctx: Context) =
     views.html.base.layout(
@@ -24,7 +23,7 @@ object irwin {
       main(cls := "page-menu")(
         mod.menu("irwin"),
         div(cls := "irwin page-menu__content box")(
-          div(cls := "box__top")(
+          boxTop(
             h1(
               "Irwin status: ",
               if (dashboard.seenRecently) span(cls := "up")("Operational")
@@ -142,4 +141,3 @@ object irwin {
         )
       )
     )
-}

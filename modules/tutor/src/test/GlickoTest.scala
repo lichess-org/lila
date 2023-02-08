@@ -6,15 +6,15 @@ import lila.rating.Perf
 
 class GlickoTest extends Specification {
 
-  "glicko" should {
-    "work for arbitrary outcomes" in {
+  "glicko" >> {
+    "work for arbitrary outcomes" >> {
       TutorGlicko.scoresRating(
         Perf.default,
         List(
           (1400, 0.8f),
           (1700, 0.6f)
         )
-      ) must_== 1669
+      ) === 1669
     }
   }
 }

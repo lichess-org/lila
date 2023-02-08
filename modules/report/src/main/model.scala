@@ -1,39 +1,29 @@
 package lila.report
 
-import lila.user.User
+import lila.user.{ User, Holder }
 
-case class Mod(user: User) extends AnyVal {
-  def id = ModId(user.id)
-}
+case class Mod(user: User) extends AnyVal:
+  def id = user.id into ModId
+object Mod:
+  def holder(holder: Holder): Mod = Mod(holder.user)
 
-case class ModId(value: User.ID) extends AnyVal
-object ModId {
-  def lichess                     = ModId(lila.user.User.lichessId)
-  def irwin                       = ModId("irwin")
-  def kaladin                     = ModId("kaladin")
-  def normalize(username: String) = ModId(User normalize username)
-}
-
-case class Suspect(user: User) extends AnyVal {
+case class Suspect(user: User) extends AnyVal:
   def id                   = SuspectId(user.id)
   def set(f: User => User) = Suspect(f(user))
-}
-case class SuspectId(value: User.ID) extends AnyVal
-object SuspectId {
-  def normalize(username: String) = SuspectId(User normalize username)
-}
+case class SuspectId(value: UserId) extends AnyVal
+object SuspectId:
+  def of(u: UserStr) = SuspectId(u.id)
 
 case class Victim(user: User) extends AnyVal
 
-case class Reporter(user: User) extends AnyVal {
-  def id = ReporterId(user.id)
-}
-case class ReporterId(value: User.ID) extends AnyVal
+case class Reporter(user: User) extends AnyVal:
+  def id = user.id into ReporterId
 
-object ReporterId {
-  def lichess                = ReporterId(lila.user.User.lichessId)
-  def irwin                  = ReporterId("irwin")
-  implicit val reporterIdIso = lila.common.Iso.string[ReporterId](ReporterId.apply, _.value)
-}
+opaque type ReporterId = String
+object ReporterId extends OpaqueUserId[ReporterId]:
+  def lichess = User.lichessId into ReporterId
+  def irwin   = User.irwinId into ReporterId
+  def kaladin = User.kaladinId into ReporterId
 
-case class Accuracy(value: Int) extends AnyVal
+opaque type Accuracy = Int
+object Accuracy extends OpaqueInt[Accuracy]

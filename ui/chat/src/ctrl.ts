@@ -98,10 +98,11 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
   const trans = lichess.trans(opts.i18n);
 
   function instanciateModeration() {
-    if (opts.permissions.timeout || opts.permissions.local) {
+    if (opts.permissions.timeout || opts.permissions.broadcast || opts.permissions.local) {
       moderation = moderationCtrl({
         reasons: opts.timeoutReasons || [{ key: 'other', name: 'Inappropriate behavior' }],
         permissions: opts.permissions,
+        resourceId: data.resourceId,
         redraw,
       });
       opts.loadCss('chat.mod');

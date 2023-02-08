@@ -2,9 +2,9 @@ package lila.api
 
 import chess.format.pgn.Pgn
 import play.api.Mode
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
-import scalatags.Text.all._
+import scalatags.Text.all.*
 
 import lila.analyse.AnalysisRepo
 import lila.common.config
@@ -16,9 +16,9 @@ final class TextLpvExpand(
     analysisRepo: AnalysisRepo,
     pgnDump: PgnDump,
     cacheApi: CacheApi
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  def getPgn(id: Game.ID) = pgnCache get id
+  def getPgn(id: GameId) = pgnCache get id
 
   def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] =
     gameRegex
@@ -30,7 +30,7 @@ final class TextLpvExpand(
         } map (m.matched -> _)
       }
       .map { case (matched, id) =>
-        pgnCache.get(id) map2 { matched -> _ }
+        pgnCache.get(GameId(id)) map2 { matched -> _ }
       }
       .sequenceFu
       .map(_.flatten.toMap) map { matches => (url: String, text: String) =>
@@ -38,7 +38,7 @@ final class TextLpvExpand(
         .get(url)
         .map { pgn =>
           div(
-            cls                      := "lpv--autostart",
+            cls                      := "lpv--autostart is2d",
             attr("data-pgn")         := pgn.toString,
             attr("data-orientation") := chess.Color.fromWhite(!url.contains("black")).name,
             attr("data-ply")         := plyRegex.findFirstIn(url).fold("last")(_.substring(1))
@@ -46,16 +46,16 @@ final class TextLpvExpand(
         }
     }
 
-  def gamePgnsFromText(text: String): Fu[Map[Game.ID, String]] = {
+  def gamePgnsFromText(text: String): Fu[Map[GameId, String]] =
     val gameIds = gameRegex
       .findAllMatchIn(text)
       .toList
       .flatMap { m => Option(m group 1) filterNot notGames.contains }
       .distinct
+      .map(GameId(_))
     pgnCache getAll gameIds map {
       _.collect { case (gameId, Some(pgn)) => gameId -> pgn }
     }
-  }
 
   private val gameRegex =
     s"""/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?\\b""".r
@@ -71,16 +71,15 @@ final class TextLpvExpand(
   private val pgnFlags =
     lila.game.PgnDump.WithFlags(clocks = true, evals = true, opening = false, literate = true)
 
-  private val pgnCache = cacheApi[Game.ID, Option[String]](512, "textLpvExpand.pgn") {
+  private val pgnCache = cacheApi[GameId, Option[String]](512, "textLpvExpand.pgn") {
     _.expireAfterWrite(10 minutes).buildAsyncFuture(id => gameIdToPgn(id).map2(_.render))
   }
 
-  private def gameIdToPgn(id: Game.ID): Fu[Option[Pgn]] =
+  private def gameIdToPgn(id: GameId): Fu[Option[Pgn]] =
     gameRepo gameWithInitialFen id flatMap {
       _ ?? { g =>
-        analysisRepo.byId(id) flatMap { analysis =>
+        analysisRepo.byId(id.value) flatMap { analysis =>
           pgnDump(g.game, g.fen, analysis, pgnFlags) dmap some
         }
       }
     }
-}

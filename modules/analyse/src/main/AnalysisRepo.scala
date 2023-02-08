@@ -1,11 +1,11 @@
 package lila.analyse
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 
-final class AnalysisRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class AnalysisRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
-  import AnalyseBsonHandlers._
+  import AnalyseBsonHandlers.given
 
   type ID = String
 
@@ -14,13 +14,13 @@ final class AnalysisRepo(val coll: Coll)(implicit ec: scala.concurrent.Execution
   def byId(id: ID): Fu[Option[Analysis]] = coll.byId[Analysis](id)
 
   def byGame(game: Game): Fu[Option[Analysis]] =
-    game.metadata.analysed ?? byId(game.id)
+    game.metadata.analysed ?? byId(game.id.value)
 
   def byIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] =
     coll.optionsByOrderedIds[Analysis, Analysis.ID](ids)(_.id)
 
   def associateToGames(games: List[Game]): Fu[List[(Game, Analysis)]] =
-    byIds(games.map(_.id)) map { as =>
+    byIds(games.map(_.id.value)) map { as =>
       games zip as collect { case (game, Some(analysis)) =>
         game -> analysis
       }
@@ -29,4 +29,3 @@ final class AnalysisRepo(val coll: Coll)(implicit ec: scala.concurrent.Execution
   def remove(id: String) = coll.delete one $id(id)
 
   def exists(id: String) = coll exists $id(id)
-}

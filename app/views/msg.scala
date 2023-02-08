@@ -1,13 +1,13 @@
 package views.html
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 
-object msg {
+object msg:
 
   def home(json: JsObject)(implicit ctx: Context) =
     views.html.base.layout(
@@ -45,5 +45,4 @@ object msg {
     trans.discussions,
     trans.today,
     trans.yesterday
-  ).map(_.key)
-}
+  )

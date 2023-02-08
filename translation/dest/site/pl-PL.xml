@@ -61,8 +61,8 @@
   <string name="depthX">Głębokość %s</string>
   <string name="usingServerAnalysis">Analiza zdalna</string>
   <string name="loadingEngine">Wczytywanie silnika szachowego...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Obliczanie ruchów...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Błąd ładowania silnika</string>
+  <string name="calculatingMoves">Obliczanie ruchów...</string>
+  <string name="engineFailed">Błąd ładowania silnika</string>
   <string name="cloudAnalysis">Analiza w chmurze</string>
   <string name="goDeeper">Analizuj głębiej</string>
   <string name="showThreat">Pokaż zagrożenia</string>
@@ -98,6 +98,7 @@
   <string name="dtzWithRounding">DTZ50\'\' - odległość do zerowania z regułą pięćdziesięciu ruchów</string>
   <string name="noGameFound">Nie znaleziono partii</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej partii z menu narzędzi?</string>
+  <string name="openings">Otwarcia</string>
   <string name="openingExplorer">Biblioteka otwarć</string>
   <string name="openingEndgameExplorer">Biblioteka otwarć i końcówek</string>
   <string name="xOpeningExplorer">Biblioteka otwarć %s</string>
@@ -173,6 +174,7 @@
   <string name="viewInFullSize">Zobacz w pełnym rozmiarze</string>
   <string name="logOut">Wyloguj</string>
   <string name="signIn">Zaloguj się</string>
+  <string name="rememberMe">Zapamiętaj</string>
   <string name="youNeedAnAccountToDoThat">Do tego potrzebne jest konto</string>
   <string name="signUp">Zarejestruj się</string>
   <string name="computersAreNotAllowedToPlay">Partie graczy komputerowych lub grających z jego pomocą są zabronione. Podczas gry niedozwolone jest korzystanie z pomocy programów szachowych, baz danych oraz innych graczy. Odradzamy zakładanie wielu kont, a utrata umiaru w tym zakresie skutkować będzie zablokowaniem.</string>
@@ -219,12 +221,31 @@
   <string name="changeUsername">Zmień nazwę użytkownika</string>
   <string name="changeUsernameNotSame">Można zmienić tylko wielkość liter, np. „JanNowak” zamiast „jannowak”.</string>
   <string name="changeUsernameDescription">Zmiana nazwy użytkownika może być wykonana tylko raz i dotyczy tylko wielkości liter w nazwie.</string>
+  <string name="signupUsernameHint">Wybierz przyjazną nazwę użytkownika. Nie możesz jej później zmienić, a niestosowna nazwa spowoduje zamknięcie konta!</string>
+  <string name="signupEmailHint">Użyjemy go tylko do resetowania hasła.</string>
   <string name="password">Hasło</string>
   <string name="changePassword">Zmień hasło</string>
   <string name="changeEmail">Zmień adres e-mail</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Resetuj hasło</string>
   <string name="forgotPassword">Zapomniałeś hasła?</string>
+  <string name="emailConfirmHelp">Pomoc z potwierdzeniem adresu e-mail</string>
+  <string name="emailConfirmNotReceived">Nie otrzymałeś potwierdzenia e-mail po rejestracji?</string>
+  <string name="whatSignupUsername">Jakiej nazwy użytkownika użyłeś do rejestracji?</string>
+  <string name="usernameNotFound">Nie mogliśmy znaleźć żadnego użytkownika o tej nazwie: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Możesz użyć tej nazwy użytkownika, aby utworzyć nowe konto</string>
+  <string name="emailSent">Wysłaliśmy do Ciebie e-mail na %s.</string>
+  <string name="emailCanTakeSomeTime">Dostarczenie emaila może zająć trochę czasu.</string>
+  <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
+  <string name="checkSpamFolder">Sprawdź również folder spamu, gdzie mógł trafić nasz email. Jeśli tak, oznacz go jako nie spam.</string>
+  <string name="emailForSignupHelp">Jeśli wszystko inne zawiedzie, wyślij nam ten e-mail:</string>
+  <string name="copyTextToEmail">Skopiuj i wklej powyższy tekst i wyślij go do %s</string>
+  <string name="waitForSignupHelp">Wkrótce wrócimy do Ciebie, aby pomóc Ci w dokończeniu rejestracji.</string>
+  <string name="accountConfirmed">Użytkownik %s został pomyślnie potwierdzony.</string>
+  <string name="accountCanLogin">Teraz możesz się zalogować jako %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Nie potrzebujesz e-maila z potwierdzeniem.</string>
+  <string name="accountClosed">Konto %s jest zamknięte.</string>
+  <string name="accountRegisteredWithoutEmail">Konto %s zostało zarejestrowane bez adresu e-mail.</string>
   <string name="rank">Miejsce</string>
   <string name="rankX">Miejsce: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -394,6 +415,7 @@
   <string name="siteDescription">Darmowe szachy online. Zagraj w szachy o przyjaznym interfejsie. Bez rejestracji, bez reklam, bez wtyczek. Zagraj w szachy z komputerem, znajomymi lub losowo wybranymi przeciwnikami.</string>
   <string name="xJoinedTeamY">%1$s dołączył do klubu %2$s</string>
   <string name="xCreatedTeamY">%1$s założył klub %2$s</string>
+  <string name="startedStreaming">rozpoczął streaming</string>
   <string name="xStartedStreaming">%s rozpoczął streaming</string>
   <string name="averageElo">Średni ranking</string>
   <string name="location">Miejsce</string>
@@ -581,6 +603,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notatki</string>
   <string name="typePrivateNotesHere">Pisz tutaj notatki prywatne</string>
+  <string name="writeAPrivateNoteAboutThisUser">Napisz prywatną notatkę o tym użytkowniku</string>
+  <string name="noNoteYet">Brak notatek</string>
   <string name="invalidUsernameOrPassword">Niepoprawne nazwa użytkownika lub hasło</string>
   <string name="incorrectPassword">Nieprawidłowe hasło</string>
   <string name="invalidAuthenticationCode">Nieprawidłowy kod uwierzytelniający</string>
@@ -703,6 +727,7 @@
   <string name="tournamentFAQ">Turnieje typu Arena FAQ</string>
   <string name="timeBeforeTournamentStarts">Czas do rozpoczęcia turnieju</string>
   <string name="averageCentipawnLoss">Średnia strata w centypionach</string>
+  <string name="accuracy">Dokładność</string>
   <string name="keyboardShortcuts">Skróty klawiaturowe</string>
   <string name="keyMoveBackwardOrForward">idź wstecz/do przodu</string>
   <string name="keyGoToStartOrEnd">idź na początek/koniec</string>
@@ -789,6 +814,7 @@
   <string name="light">Jasne</string>
   <string name="dark">Ciemne</string>
   <string name="transparent">Przezroczyste</string>
+  <string name="deviceTheme">Motyw urządzenia</string>
   <string name="backgroundImageUrl">Adres do obrazu tła:</string>
   <string name="boardGeometry">Szachownica</string>
   <string name="boardTheme">Kolory pól</string>
@@ -819,6 +845,7 @@
   <string name="bestWasX">Najlepsze było %s</string>
   <string name="youBrowsedAway">Oddalono się</string>
   <string name="resumePractice">Wznów trening</string>
+  <string name="drawByFiftyMoves">Partia została zremisowana przez regułę pięćdziesięciu ruchów.</string>
   <string name="theGameIsADraw">Partia zakończona remisem.</string>
   <string name="computerThinking">Komputer szuka ruchu…</string>
   <string name="seeBestMove">Zobacz najlepszy ruch</string>

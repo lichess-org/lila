@@ -1,16 +1,28 @@
-$c-site-hue: 37;
-$c-bg: $c-bg-zebra;
-$c-bg-controls: $c-bg;
-$c-bg-movelist: $c-bg;
-$c-bg-variation: hsl($c-site-hue, 5%, 15%) !default;
-$c-bg-pane: hsla(0, 0%, 0%, 0.9);
-$c-accent: $c-primary;
-$c-accent-over: $c-primary-over;
-$c-font-accent: mix($c-bg, hsl(0, 0%, 65%), 20%);
-$c-font-shy: $c-font-dim;
+$lpv-site-hue: 37;
+$lpv-accent: $c-primary;
+$lpv-accent-over: $c-primary-over;
+$lpv-bg: $c-bg-zebra;
+$lpv-bg-controls: $lpv-bg;
+$lpv-bg-movelist: $lpv-bg;
+$lpv-bg-variation: $c-bg-zebra2;
+$lpv-bg-pane: fade-out($lpv-bg, 0.01);
+$lpv-font: $c-font;
+$lpv-font-shy: $c-font-dim;
+$lpv-font-accent: mix($lpv-bg, $c-font, 20%);
+$lpv-border: $c-border;
 
-@import '../../../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer.lib';
+$lpv-inaccuracy: $c-inaccuracy;
+$lpv-mistake: $c-mistake;
+$lpv-blunder: $c-blunder;
+$lpv-good-move: $c-good;
+$lpv-brilliant: $c-brilliant;
+$lpv-interesting: $c-interesting;
+
+@import '../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer.lib';
 
 .lpv {
   @extend %box-neat-force;
+  &__player__title {
+    color: $c-brag;
+  }
 }

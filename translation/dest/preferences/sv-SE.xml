@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Inställningar</string>
-  <string name="display">Visa</string>
+  <string name="display">Visningsalternativ</string>
   <string name="privacy">Sekretess</string>
+  <string name="notifications">Notifieringar</string>
   <string name="pieceAnimation">Pjäsanimation</string>
   <string name="materialDifference">Materialskillnad</string>
   <string name="boardHighlights">Brädmarkeringar (föregående drag och schack)</string>
@@ -32,11 +33,11 @@
   <string name="premovesPlayingDuringOpponentTurn">Förhandsdrag (göra drag i förväg under motståndarens tur)</string>
   <string name="takebacksWithOpponentApproval">Ta tillbaka drag (med motståndarens godkännande)</string>
   <string name="inCasualGamesOnly">Endast i icke rankade partier</string>
-  <string name="promoteToQueenAutomatically">Uppgradera till drottning automatiskt</string>
+  <string name="promoteToQueenAutomatically">Promovera till drottning automatiskt</string>
   <string name="explainPromoteToQueenAutomatically">Håll ner &lt;ctrl&gt; -tangenten medan du uppgraderar för att tillfälligt inaktivera automatisk förvandling</string>
   <string name="whenPremoving">Vid premove</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Begär remi automatiskt vid trefaldig upprepning</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">När återstående tid &lt; 30 sekunder</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">När återstående tid &lt; 30 sekunder</string>
   <string name="moveConfirmation">Bekräftelse av drag</string>
   <string name="inCorrespondenceGames">I korrespondenspartier</string>
   <string name="correspondenceAndUnlimited">Korrespondens och obegränsad</string>
@@ -50,4 +51,13 @@
   <string name="yourPreferencesHaveBeenSaved">Dina inställningar har sparats.</string>
   <string name="scrollOnTheBoardToReplayMoves">Bläddra på tavlan för att spela upp rörelser</string>
   <string name="correspondenceEmailNotification">Daglig e-postavisering som listar dina korrespondensspel</string>
+  <string name="notifyStreamStart">Strömmen går igång</string>
+  <string name="notifyInboxMsg">Nytt meddelande i inkorgen</string>
+  <string name="notifyForumMention">Forumkommentar nämner dig</string>
+  <string name="notifyGameEvent">Korrespondensspelsuppdateringar</string>
+  <string name="notifyChallenge">Utmaningar</string>
+  <string name="notifyTournamentSoon">Turneringen startar snart</string>
+  <string name="notifyPush">Enhetsnotifiering när du inte använder Lichess</string>
+  <string name="notifyWeb">Webbläsare</string>
+  <string name="notifyDevice">Enhet</string>
 </resources>

@@ -59,6 +59,7 @@
   <string name="depthX">Fikrlash chuqurligi %s</string>
   <string name="usingServerAnalysis">Server tahlili qo\'llanilayabdi</string>
   <string name="loadingEngine">Mexanizmni yuklash ...</string>
+  <string name="calculatingMoves">Harakatlar hisoblanmoqda...</string>
   <string name="cloudAnalysis">\"Bulut\" tahlili</string>
   <string name="goDeeper">Yanada chuqurroq</string>
   <string name="showThreat">Tahdidni ko\'rsatish</string>

@@ -1,0 +1,38 @@
+$result-width: 2rem;
+.result-bar {
+  @extend %flex-column;
+  flex: 0 0 $result-width;
+  font-size: 0.7em;
+  span {
+    text-align: center;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    background-clip: padding-box;
+    border: 0 solid fade-out($c-font, 0.83);
+    border-width: 1px 0;
+    padding: 3px 0;
+  }
+
+  .white {
+    background: if($theme-light, #fff, #ccc);
+
+    @if $theme-dark {
+      color: #222;
+    }
+  }
+
+  .draws,
+  .black {
+    color: if($theme-light, #fff, #ddd);
+  }
+
+  .draws {
+    background: if($theme-light, #a0a0a0, #666);
+  }
+
+  .black {
+    background: if($theme-light, #555, #333);
+    color: #ddd;
+  }
+}

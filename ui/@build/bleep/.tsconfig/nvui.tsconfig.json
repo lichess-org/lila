@@ -1,0 +1,13 @@
+{
+  "extends": "/home/sam/Documents/git/lila/ui/tsconfig_module.base.json",
+  "include": ["/home/sam/Documents/git/lila/ui/nvui/src"],
+  "exclude": [],
+  "compilerOptions": {
+    "outDir": "/home/sam/Documents/git/lila/ui/nvui/dist",
+    "types": ["lichess", "web", "cash"],
+    "rootDir": "/home/sam/Documents/git/lila/ui/nvui/src",
+    "incremental": true,
+    "composite": true
+  },
+  "references": [{ "path": "chess.tsconfig.json" }]
+}

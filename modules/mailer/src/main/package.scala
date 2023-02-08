@@ -1,6 +1,5 @@
-package lila
+package lila.mailer
 
-package object mailer extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[mailer] def logger = lila.log("mailer")
-}
+private val logger = lila.log("mailer")

@@ -31,6 +31,7 @@
   <string name="otherAmount">Inne</string>
   <string name="pleaseEnterAmountInX">Wprowadź kwotę w %s</string>
   <string name="withCreditCard">Karta płatnicza</string>
+  <string name="logInToDonate">Zaloguj się, aby nas wesprzeć</string>
   <string name="weAreSmallTeam">Jesteśmy małym zespołem, więc Twoje wsparcie ma ogromne znaczenie!</string>
   <string name="celebratedPatrons">Znamienici patroni, dzięki którym działa Lichess</string>
   <string name="whereMoneyGoes">Na co zostaną wydane przekazane pieniądze?</string>
@@ -44,7 +45,9 @@ Zapłacimy również pracującemu na pełny etat programiście: %s, założyciel
 Możesz też w tej sprawie %s.</string>
   <string name="contactSupport">skontaktować się z działem wsparcia Lichess</string>
   <string name="otherMethods">Inne metody wspierania?</string>
+  <string name="lichessIsRegisteredWith">Lichess jest zarejestrowany w %s.</string>
   <string name="bankTransfers">Akceptujemy przelewy bankowe</string>
+  <string name="onlyDonationFromAbove">Pamiętaj, że status Patrona otrzymasz tylko wtedy, gdy wpłacisz darowiznę przez powyższy formularz.</string>
   <string name="patronFeatures">Czy niektóre funkcje są dostępne tylko dla patronów?</string>
   <string name="noPatronFeatures">Nie, ponieważ Lichess jest całkowicie darmowy, na zawsze i dla wszystkich. To obietnica.
 Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
@@ -65,7 +68,7 @@ Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
   <string name="update">Aktualizuj</string>
   <string name="changeMonthlyAmount">Zmień miesięczną kwotę (%s)</string>
   <string name="cancelSupport">anuluj wsparcie</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s lub %2$s</string>
+  <string name="xOrY">%1$s lub %2$s</string>
   <string name="decideHowMuch">Zdecyduj ile wart jest dla Ciebie Lichess:</string>
   <string name="stopPayments">Wypłać swoją kartę płatniczą i zatrzymaj płatności:</string>
   <string name="stopPaymentsPayPal">Anuluj subskrypcję PayPal i zatrzymaj płatności:</string>

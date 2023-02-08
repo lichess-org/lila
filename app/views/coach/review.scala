@@ -2,14 +2,14 @@ package views.html.coach
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 
-object review {
+object review:
 
-  import trans.coach._
+  import trans.coach.*
 
   def list(reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context) =
     reviews.list.nonEmpty option div(cls := "coach-show__reviews")(
@@ -77,4 +77,3 @@ object review {
           star(selected.exists(s.<=) option (cls := "rate-selected"))
         }
       )
-}

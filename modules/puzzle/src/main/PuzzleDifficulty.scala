@@ -1,13 +1,12 @@
 package lila.puzzle
 
-import lila.i18n.{ I18nKey, I18nKeys => trans }
+import lila.i18n.{ I18nKey, I18nKeys as trans }
 
-sealed abstract class PuzzleDifficulty(val ratingDelta: Int, val name: I18nKey) {
+sealed abstract class PuzzleDifficulty(val ratingDelta: Int, val name: I18nKey):
 
   lazy val key = toString.toLowerCase
-}
 
-object PuzzleDifficulty {
+object PuzzleDifficulty:
   case object Easiest extends PuzzleDifficulty(-600, trans.puzzle.easiest)
   case object Easier  extends PuzzleDifficulty(-300, trans.puzzle.easier)
   case object Normal  extends PuzzleDifficulty(0, trans.puzzle.normal)
@@ -20,4 +19,3 @@ object PuzzleDifficulty {
   def isExtreme(d: PuzzleDifficulty) = d == Easiest || d == Hardest
 
   def find(str: String) = all.find(_.key == str)
-}

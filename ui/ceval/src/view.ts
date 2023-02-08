@@ -1,7 +1,8 @@
 import * as winningChances from './winningChances';
 import stepwiseScroll from 'common/wheel';
+import { bind } from 'common/snabbdom';
 import { defined, notNull } from 'common';
-import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
+import { Eval, ParentCtrl, NodeEvals } from './types';
 import { h, VNode } from 'snabbdom';
 import { Position } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
@@ -11,6 +12,8 @@ import { parseFen, makeBoardFen } from 'chessops/fen';
 import { renderEval } from './util';
 import { setupPosition } from 'chessops/variant';
 import { uciToMove } from 'chessground/util';
+import { CevalState } from './worker';
+import CevalCtrl from './ctrl';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
@@ -19,14 +22,16 @@ const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
 
 function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.getCeval(),
+    state = ceval.getState(),
     trans = ctrl.trans;
   if (!evs.client) {
     if (!ceval.analysable) return ['Engine cannot analyze this position'];
-    if (ceval.initFailed()) return [trans.noarg('engineFailed')];
+    if (state == CevalState.Failed) return [trans.noarg('engineFailed')];
     const mb = ceval.downloadProgress() / 1024 / 1024;
-    const localEvalText = ceval.isLoaded()
-      ? trans.noarg('calculatingMoves')
-      : trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : '');
+    const localEvalText =
+      state == CevalState.Loading
+        ? trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : '')
+        : trans.noarg('calculatingMoves');
     return [evs.server && ctrl.nextNodeBest() ? trans.noarg('usingServerAnalysis') : localEvalText];
   }
 
@@ -41,13 +46,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
           title: trans.noarg('goDeeper'),
           'data-icon': '',
         },
-        hook: {
-          insert: vnode =>
-            (vnode.elm as HTMLElement).addEventListener('click', () => {
-              ceval.goDeeper();
-              ceval.redraw();
-            }),
-        },
+        hook: bind('click', ceval.goDeeper),
       })
     );
   else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + 'k nodes/s');
@@ -72,15 +71,13 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
       'data-icon': '',
       title: ctrl.trans.noarg('showThreat') + ' (x)',
     },
-    hook: {
-      insert: vnode => (vnode.elm as HTMLElement).addEventListener('click', ctrl.toggleThreatMode),
-    },
+    hook: bind('click', ctrl.toggleThreatMode),
   });
 }
 
 function engineName(ctrl: CevalCtrl): VNode[] {
   return [
-    h('span', { attrs: { title: ctrl.longEngineName() || '' } }, ctrl.engineName),
+    h('span', { attrs: { title: ctrl.longEngineName() || '' } }, ctrl.shortEngineName()),
     ctrl.technology == 'external'
       ? h(
           'span.technology.good',
@@ -177,7 +174,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   } else {
     if (!enabled) pearl = h('i');
     else if (ctrl.outcome() || ctrl.getNode().threefold) pearl = '-';
-    else if (instance.initFailed()) pearl = h('i.is-red', { attrs: { 'data-icon': '\ue05d' } });
+    else if (instance.getState() === CevalState.Failed) pearl = h('i.is-red', { attrs: { 'data-icon': '\ue05d' } });
     else pearl = h('i.ddloader');
     percent = 0;
   }
@@ -249,9 +246,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
                 checked: enabled,
                 disabled: !instance.analysable,
               },
-              hook: {
-                insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleCeval),
-              },
+              hook: bind('change', ctrl.toggleCeval),
             }),
             h('label', { attrs: { for: 'analyse-toggle-ceval' } }),
           ]
@@ -261,7 +256,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     'div.ceval' + (enabled ? '.enabled' : ''),
     {
       class: {
-        computing: percent < 100 && instance.isComputing(),
+        computing: percent < 100 && instance.getState() === CevalState.Computing,
       },
     },
     [progressBar, ...body, threatButton(ctrl), switchButton]
@@ -326,7 +321,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     setup.turn = opposite(setup.turn);
     if (setup.turn == 'white') setup.fullmoves += 1;
   }
-  const pos = setupPosition(lichessRules(instance.variant.key), setup);
+  const pos = setupPosition(lichessRules(instance.opts.variant.key), setup);
 
   return h(
     'div.pv_box',

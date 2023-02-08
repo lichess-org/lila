@@ -1,6 +1,6 @@
 package lila.evaluation
 
-import cats.implicits._
+import cats.implicits.*
 import scala.math.sqrt
 
 import lila.user.User
@@ -8,12 +8,12 @@ import lila.user.User
 case class PlayerAggregateAssessment(
     user: User,
     playerAssessments: List[PlayerAssessment]
-) {
-  import Statistics._
-  import AccountAction._
+):
+  import Statistics.*
+  import AccountAction.*
   import GameAssessment.{ Cheating, LikelyCheating }
 
-  def action: AccountAction = {
+  def action: AccountAction =
 
     def scoreCheatingGames(x: Double) =
       weightedCheatingSum / assessmentsCount >= (x / 100)
@@ -41,32 +41,27 @@ case class PlayerAggregateAssessment(
       (sfAvgHold, sfAvgNoHold)
     )
 
-    val actionable: Boolean = {
-      val difFlags = difs map (sigDif(10) _).tupled
+    val actionable: Boolean =
+      val difFlags = difs map (sigDif(10)).tupled
       difFlags.forall(_.isEmpty) || difFlags.exists(~_) || assessmentsCount < 50
-    }
 
-    if (actionable) {
+    if (actionable)
       if (markable && bannable) EngineAndBan
       else if (markable) Engine
       else if (reportable) reportVariousReasons
       else Nothing
-    } else {
-      if (markable) reportVariousReasons
-      else if (reportable) reportVariousReasons
-      else Nothing
-    }
-  }
+    else if (markable) reportVariousReasons
+    else if (reportable) reportVariousReasons
+    else Nothing
 
   def countAssessmentValue(assessment: GameAssessment) =
     playerAssessments count {
       _.assessment == assessment
     }
 
-  val assessmentsCount = playerAssessments.size match {
+  val assessmentsCount = playerAssessments.size match
     case 0 => 1
     case a => a
-  }
   val cheatingSum       = countAssessmentValue(Cheating)
   val likelyCheatingSum = countAssessmentValue(LikelyCheating)
 
@@ -80,18 +75,16 @@ case class PlayerAggregateAssessment(
   val weightedLikelyCheatingSum = weightedAssessmentValue(LikelyCheating)
 
   // Some statistics
-  def sfAvgGiven(predicate: PlayerAssessment => Boolean): Option[(Int, Int, Int)] = {
+  def sfAvgGiven(predicate: PlayerAssessment => Boolean): Option[(Int, Int, Int)] =
     val filteredAssessments = playerAssessments.filter(predicate)
     val n                   = filteredAssessments.size
     if (n < 2) none
-    else {
+    else
       val filteredSfAvg = filteredAssessments.map(_.analysis.avg)
       val avg           = listAverage(filteredSfAvg)
       // listDeviation does not apply Bessel's correction, so we do it here by using sqrt(n - 1) instead of sqrt(n)
       val width = listDeviation(filteredSfAvg) / sqrt(n - 1) * 1.96
       Some((avg.toInt, (avg - width).toInt, (avg + width).toInt))
-    }
-  }
 
   // Average SF Avg and CI given blur rate
   val sfAvgBlurs   = sfAvgGiven(_.basics.blurs > 70)
@@ -111,7 +104,7 @@ case class PlayerAggregateAssessment(
 
   def isWorthLookingAt = user.count.rated >= 2
 
-  def reportText(maxGames: Int = 10): String = {
+  def reportText(maxGames: Int = 10): String =
     val gameLinks: String = playerAssessments
       .sortBy(-_.assessment.id)
       .take(maxGames)
@@ -123,12 +116,8 @@ case class PlayerAggregateAssessment(
     s"""Cheating Games: $cheatingSum (weighted: $weightedCheatingSum)
 Likely Cheating Games: $likelyCheatingSum (weighted: $weightedLikelyCheatingSum)
 $gameLinks"""
-  }
-}
 
-object PlayerAggregateAssessment {
+object PlayerAggregateAssessment:
 
-  case class WithGames(pag: PlayerAggregateAssessment, games: List[lila.game.Game]) {
+  case class WithGames(pag: PlayerAggregateAssessment, games: List[lila.game.Game]):
     def pov(pa: PlayerAssessment) = games find (_.id == pa.gameId) map { lila.game.Pov(_, pa.color) }
-  }
-}

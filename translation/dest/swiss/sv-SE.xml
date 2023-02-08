@@ -9,6 +9,10 @@
     <item quantity="one">%s rundor</item>
     <item quantity="other">%s rundor</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s rond schweiziskt</item>
+    <item quantity="other">%s ronder schweiziskt</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">En runda per dag</item>
     <item quantity="other">En runda varje %s dagar</item>
@@ -70,18 +74,39 @@ Sen anslutna spelare får en frirond/poäng, även om de missat flera ronder.</s
   <string name="roundRobinA">Vi skulle vilja lägga till det, men tyvärr fungerar inte Round Robin online. Anledningen är att det inte finns något rättvist sätt att hantera när människor lämnar turneringen i förtid. Vi kan inte förvänta oss att alla spelare spelar alla sina partier i ett online-event. Det kommer bara inte att hända, och som ett resultat skulle de flesta Round Robin turneringar vara bristfälliga och orättvisa, vilket motverkar syftet med turneringen. Det närmaste du kan komma till Round Robin online är att spela en schweizisk turnering med ett mycket stort antal rundor. Då kommer alla möjliga parningar att spelas innan turneringen slutar.</string>
   <string name="otherSystemsQ">Vad med andra lottningssystem?</string>
   <string name="otherSystemsA">Vi planerar inte att lägga till fler lottningssystem på Lichess just nu.</string>
+  <string name="swissDescription">I en schweizer-turnering %1$s möter inte spelarna nödvändigtvis alla andra deltagare. Spelarna möts en-mot-en i varje runda och paras ihop genom ett system som säkerställer att varje deltagare möter någon med liknande antal poäng, utan att möta samma motståndare mer än en gång. Den vinner som samlat flest poäng genom alla rundor. Alla deltagare spelar i varje runda, förutom om det är ett udda antal spelare.</string>
+  <string name="teamOnly">Schweizer-turneringar kan bara skapas av lagledare, och bara lagmedlemmar kan delta.           
+%1$s för att börja spela i schweizer-turneringar.</string>
   <string name="joinOrCreateTeam">Gå med eller skapa ett team</string>
   <string name="nowPlaying">Spelas nu</string>
   <string name="startingSoon">Börjar snart</string>
   <string name="comparison">Jämförelse</string>
   <string name="tournDuration">Turneringens varaktighet</string>
   <string name="predefinedDuration">Fördefinierad varaktighet i minuter</string>
+  <string name="durationUnknown">Fördefinierat max-antal rundor, men okänd total tid</string>
   <string name="numberOfGames">Antal spel</string>
+  <string name="numberOfGamesAsManyAsPossible">Så många som hinner spelas inom den fördefinierade tidsgränsen</string>
+  <string name="numberOfGamesPreDefined">Bestäms i förväg, samma för alla spelare</string>
   <string name="pairingSystem">Parkopplingssystem</string>
   <string name="pairingSystemArena">Alla tillgängliga motståndare med liknande ranking</string>
+  <string name="pairingSystemSwiss">Bästa lottningen baserat på poäng och särskiljning</string>
+  <string name="pairingWaitTime">Väntetid för parning</string>
+  <string name="pairingWaitTimeArena">Snabb: väntar inte på alla spelare</string>
+  <string name="pairingWaitTimeSwiss">Långsam: väntar på alla spelare</string>
+  <string name="identicalPairing">Identisk parning</string>
+  <string name="possibleButNotConsecutive">Möjlig, men inte konsekutiv</string>
   <string name="identicalForbidden">Förbjuden</string>
   <string name="lateJoin">Sent anslöt</string>
+  <string name="lateJoinUntil">Ja, tills över hälften av rundorna har startat</string>
   <string name="pause">Pausa</string>
   <string name="pauseSwiss">Ja men kan minska antalet rundor</string>
+  <string name="streaksAndBerserk">Vinstserier och Berserk</string>
+  <string name="similarToOTB">Liknar OTB-turneringar</string>
   <string name="unlimitedAndFree">Obegränsad och gratis</string>
+  <string name="predefinedUsers">Tillåt endast fördefinierade användare att gå med</string>
+  <string name="forbiddedUsers">Om denna lista är icke-tom kommer användarnamn som inte finns i denna lista att förbjudas att gå med. Ett användarnamn per rad.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s av %2$s rond schweiziskt</item>
+    <item quantity="other">%1$s av %2$s ronder schweiziskt</item>
+  </plurals>
 </resources>

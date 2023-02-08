@@ -1,12 +1,12 @@
 package views.html.simul
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object home {
+object home:
 
   def apply(
       pendings: List[lila.simul.Simul],
@@ -30,7 +30,8 @@ lichess.pubsub.on('socket.in.reload', () =>
           url = s"$netBaseUrl${routes.Simul.home}",
           description = trans.aboutSimul.txt()
         )
-        .some
+        .some,
+      withHrefLangs = lila.common.LangPath(routes.Simul.home).some
     ) {
       main(cls := "page-menu simul-list")(
         st.aside(cls := "page-menu__menu simul-list__help")(
@@ -47,4 +48,3 @@ lichess.pubsub.on('socket.in.reload', () =>
         )
       )
     }
-}

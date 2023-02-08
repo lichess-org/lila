@@ -2,17 +2,22 @@ package views.html.study
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
-import lila.i18n.{ I18nKeys => trans }
+import lila.app.templating.Environment.{ given, * }
+import lila.i18n.{ I18nKeys as trans }
 
-object jsI18n {
+object jsI18n:
 
-  def apply()(implicit lang: Lang) =
+  def apply()(using Lang) =
     views.html.board.userAnalysisI18n(withAdvantageChart = true) ++
       i18nJsObject(i18nKeys ++ gamebookPlayKeys)
 
-  val i18nKeys: List[lila.i18n.MessageKey] = {
-    import trans.study._
+  def embed(chapter: lila.study.Chapter)(using Lang) =
+    views.html.board.userAnalysisI18n() ++ chapter.isGamebook.?? {
+      i18nJsObject(gamebookPlayKeys)
+    }
+
+  val i18nKeys =
+    import trans.study.*
     List(
       trans.name,
       trans.white,
@@ -129,11 +134,10 @@ object jsI18n {
       nbGames,
       nbMembers,
       pasteYourPgnTextHereUpToNbGames
-    ).map(_.key)
-  }
+    )
 
-  val gamebookPlayKeys: List[lila.i18n.MessageKey] = {
-    import trans.study._
+  val gamebookPlayKeys =
+    import trans.study.*
     List(
       back,
       playAgain,
@@ -141,6 +145,4 @@ object jsI18n {
       trans.retry,
       whatWouldYouPlay,
       youCompletedThisLesson
-    ).map(_.key)
-  }
-}
+    )

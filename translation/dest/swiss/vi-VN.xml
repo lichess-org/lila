@@ -8,6 +8,9 @@ Xem tất cả %s vòng đấu</item>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s vòng đấu</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="other">%s vòng Thụy Sĩ</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="other">Một vòng đấu hàng ngày
 Một vòng đấu cho %s ngày</item>
@@ -96,4 +99,9 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="streaksAndBerserk">Streaks và Berserk</string>
   <string name="similarToOTB">Tương tự các giải đấu OTB</string>
   <string name="unlimitedAndFree">Không giới hạn và miễn phí</string>
+  <string name="predefinedUsers">Chỉ cho phép những người dùng được chỉ định trước tham gia</string>
+  <string name="forbiddedUsers">Ngoại trừ những người trong danh sách này, những người khác đều bị cấm tham gia. Mỗi dòng một tên người dùng.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="other">%1$s / %2$s vòng Thụy Sĩ</item>
+  </plurals>
 </resources>

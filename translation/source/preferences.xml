@@ -3,6 +3,7 @@
   <string name="preferences">Preferences</string>
   <string name="display">Display</string>
   <string name="privacy">Privacy</string>
+  <string name="notifications">Notifications</string>
   <string name="pieceAnimation">Piece animation</string>
   <string name="materialDifference">Material difference</string>
   <string name="boardHighlights">Board highlights (last move and check)</string>
@@ -50,5 +51,17 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Say "Good game, well played" upon defeat or draw</string>
   <string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
   <string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
-  <string name="correspondenceEmailNotification">Daily mail notification listing your correspondence games</string>
+  <string name="correspondenceEmailNotification">Daily email listing your correspondence games</string>
+  <string name="notifyStreamStart">Streamer goes live</string>
+  <string name="notifyInboxMsg">New inbox message</string>
+  <string name="notifyForumMention">Forum comment mentions you</string>
+  <string name="notifyInvitedStudy">Study invite</string>
+  <string name="notifyGameEvent">Correspondence game updates</string>
+  <string name="notifyChallenge">Challenges</string>
+  <string name="notifyTournamentSoon">Tournament starting soon</string>
+  <string name="notifyTimeAlarm">Correspondence clock running out</string>
+  <string name="notifyBell">Bell notification within Lichess</string>
+  <string name="notifyPush">Device notification when you're not on Lichess</string>
+  <string name="notifyWeb">Browser</string>
+  <string name="notifyDevice">Device</string>
 </resources>

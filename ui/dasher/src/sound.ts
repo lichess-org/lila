@@ -1,7 +1,7 @@
+import * as xhr from 'common/xhr';
+import throttle, { throttlePromiseDelay } from 'common/throttle';
 import { h, VNode } from 'snabbdom';
 import { Redraw, Close, bind, header } from './util';
-import throttle from 'common/throttle';
-import * as xhr from 'common/xhr';
 
 type Key = string;
 
@@ -27,13 +27,16 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
 
   const api = lichess.sound;
 
-  const postSet = (set: string) =>
-    xhr
-      .text('/pref/soundSet', {
-        body: xhr.form({ set }),
-        method: 'post',
-      })
-      .catch(() => lichess.announce({ msg: 'Failed to save sound preference' }));
+  const postSet = throttlePromiseDelay(
+    () => 1000,
+    (set: string) =>
+      xhr
+        .text('/pref/soundSet', {
+          body: xhr.form({ set }),
+          method: 'post',
+        })
+        .catch(() => lichess.announce({ msg: 'Failed to save sound preference' }))
+  );
 
   return {
     makeList() {
@@ -104,15 +107,13 @@ export function view(ctrl: SoundCtrl): VNode {
   );
 }
 
-function soundView(ctrl: SoundCtrl, current: Key) {
-  return (s: Sound) =>
-    h(
-      'button.text',
-      {
-        hook: bind('click', () => ctrl.set(s[0])),
-        class: { active: current === s[0] },
-        attrs: { 'data-icon': '', type: 'button' },
-      },
-      s[1]
-    );
-}
+const soundView = (ctrl: SoundCtrl, current: Key) => (s: Sound) =>
+  h(
+    'button.text',
+    {
+      hook: bind('click', () => ctrl.set(s[0])),
+      class: { active: current === s[0] },
+      attrs: { 'data-icon': '', type: 'button' },
+    },
+    s[1]
+  );

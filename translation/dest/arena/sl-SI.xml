@@ -39,7 +39,10 @@ Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagot
   </plurals>
   <string name="thisIsPrivate">Ta turnir je zaseben</string>
   <string name="shareUrl">Delite ta URL, da se igralci lahko pridružijo: %s</string>
-  <string name="drawStreak">Niz remijev: Ko igralec zeporedoma remizira v areni, bo le leprvi remi rezultiral v točko ali remiji z več kot %s potezami. Niz remijev se lahko prekine le z zmago, ne pa s porazom ali remijem.</string>
+  <string name="drawStreakStandard">Nizi remijev: Ko ima igralec v areni zaporedne remije, bo samo prvi remi prinesel točko, ali remiji, ki trajajo več kot %s potez v standardnih igrah. Niz remijev lahko prekine le zmaga, ne pa poraz ali remi.</string>
+  <string name="drawStreakVariants">Najmanjša dolžina igre za neodločene igre za dodelitev točk se razlikuje glede na različico. V spodnji tabeli je naveden prag za vsako različico.</string>
+  <string name="variant">Različica</string>
+  <string name="minimumGameLength">Najmanjša dolžina igre</string>
   <string name="history">Zgodovina arene</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Spoznajte ekipo</item>

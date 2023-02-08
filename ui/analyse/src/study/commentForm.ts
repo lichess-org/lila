@@ -85,7 +85,6 @@ export function view(root: AnalyseCtrl): VNode {
     ctrl = study.commentForm,
     current = ctrl.current();
   if (!current) return viewDisabled(root, 'Select a move to comment');
-
   const setupTextarea = (vnode: VNode, old?: VNode) => {
     const el = vnode.elm as HTMLInputElement;
     const newKey = current.chapterId + current.path;
@@ -107,7 +106,7 @@ export function view(root: AnalyseCtrl): VNode {
   return h(
     'div.study__comments',
     {
-      hook: onInsert(() => root.enableWiki(true)),
+      hook: onInsert(() => root.enableWiki(root.data.game.variant.key === 'standard')),
     },
     [
       currentComments(root, !study.members.canContribute()),

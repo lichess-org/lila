@@ -1,26 +1,15 @@
 package lila.tournament
 
-sealed abstract private[tournament] class Status(val id: Int) extends Ordered[Status] {
+private enum Status(val id: Int):
 
-  def compare(other: Status) = Integer.compare(id, other.id)
+  case Created  extends Status(10)
+  case Started  extends Status(20)
+  case Finished extends Status(30)
 
-  def name = toString
-
+  def name                                  = toString
   def is(s: Status): Boolean                = this == s
   def is(f: Status.type => Status): Boolean = is(f(Status))
-}
 
-object Status {
-
-  case object Created  extends Status(10)
-  case object Started  extends Status(20)
-  case object Finished extends Status(30)
-
-  val all = List(Created, Started, Finished)
-
-  val byId = all map { v =>
-    (v.id, v)
-  } toMap
-
+object Status:
+  val byId                           = values.mapBy(_.id)
   def apply(id: Int): Option[Status] = byId get id
-}

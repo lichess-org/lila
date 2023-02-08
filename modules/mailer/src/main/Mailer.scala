@@ -1,24 +1,29 @@
 package lila.mailer
 
 import akka.actor.ActorSystem
-import io.methvin.play.autoconfig._
+import lila.common.autoconfig.*
 import play.api.i18n.Lang
 import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
-import scala.concurrent.duration.{ span => _, _ }
+import scala.concurrent.duration.{ span as _, * }
 import scala.concurrent.{ blocking, Future }
-import scalatags.Text.all.{ html => htmlTag, _ }
-import scalatags.Text.tags2.{ title => titleTag }
+import scalatags.Text.all.{ html as htmlTag, * }
+import scalatags.Text.tags2.{ title as titleTag }
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.String.html.nl2br
-import lila.common.{ Chronometer, EmailAddress, ThreadLocalRandom }
-import lila.i18n.I18nKeys.{ emails => trans }
+import lila.common.{ Chronometer, EmailAddress }
+import lila.i18n.I18nKeys.{ emails as trans }
+import scala.concurrent.ExecutionContext
+import com.typesafe.config.DefaultConfigLoadingStrategy
+import play.api.ConfigLoader
 
 final class Mailer(
     config: Mailer.Config,
     getSecondaryPermille: () => Int
-)(implicit system: ActorSystem) {
+)(implicit system: ActorSystem):
 
-  implicit private val blockingExecutionContext = system.dispatchers.lookup("blocking-smtp-dispatcher")
+  private given blockingExecutionContext: ExecutionContext =
+    system.dispatchers.lookup("blocking-smtp-dispatcher")
 
   private val primaryClient   = new SMTPMailer(config.primary.toClientConfig)
   private val secondaryClient = new SMTPMailer(config.secondary.toClientConfig)
@@ -28,10 +33,10 @@ final class Mailer(
     else (primaryClient, config.primary)
 
   def send(msg: Mailer.Message): Funit =
-    if (msg.to.isNoReply) {
+    if (msg.to.isNoReply)
       logger.warn(s"Can't send ${msg.subject} to noreply email ${msg.to}")
       funit
-    } else
+    else
       Future {
         Chronometer.syncMon(_.email.send.time) {
           blocking {
@@ -50,9 +55,8 @@ final class Mailer(
           }
         }
       }
-}
 
-object Mailer {
+object Mailer:
 
   private val timeout = 5 seconds
 
@@ -64,7 +68,7 @@ object Mailer {
       user: String,
       sender: String,
       password: String
-  ) {
+  ):
     def toClientConfig = SMTPConfiguration(
       host = host,
       port = port,
@@ -74,14 +78,10 @@ object Mailer {
       mock = mock,
       timeout = Mailer.timeout.toMillis.toInt.some
     )
-  }
-  implicit val smtpLoader = AutoConfig.loader[Smtp]
+  given ConfigLoader[Smtp] = AutoConfig.loader[Smtp]
 
-  case class Config(
-      primary: Smtp,
-      secondary: Smtp
-  )
-  implicit val configLoader = AutoConfig.loader[Config]
+  case class Config(primary: Smtp, secondary: Smtp)
+  given ConfigLoader[Config] = AutoConfig.loader[Config]
 
   case class Message(
       to: EmailAddress,
@@ -90,19 +90,18 @@ object Mailer {
       htmlBody: Option[Frag] = none
   )
 
-  object txt {
+  object txt:
 
-    private def serviceNote(implicit lang: Lang): String = s"""
+    private def serviceNote(using lang: Lang): String = s"""
 ${trans.common_note("https://lichess.org").render}
 
 ${trans.common_contact("https://lichess.org/contact").render}"""
 
-    def addServiceNote(body: String)(implicit lang: Lang) = s"""$body
+    def addServiceNote(body: String)(using lang: Lang) = s"""$body
 
 $serviceNote"""
-  }
 
-  object html {
+  object html:
 
     private val itemscope = attr("itemscope").empty
     private val itemtype  = attr("itemtype")
@@ -123,7 +122,7 @@ $serviceNote"""
       href     := "https://lichess.org/"
     )(span(itemprop := "name")("lichess.org"))
 
-    def serviceNote(implicit lang: Lang) =
+    def serviceNote(using lang: Lang) =
       publisher(
         small(
           trans.common_note(Mailer.html.noteLink),
@@ -138,13 +137,13 @@ $serviceNote"""
         )
       )
 
-    def standardEmail(body: String)(implicit lang: Lang): Frag =
+    def standardEmail(body: String)(using lang: Lang): Frag =
       emailMessage(
         pDesc(nl2br(body)),
         serviceNote
       )
 
-    def url(u: String, clickOrPaste: Boolean = true)(implicit lang: Lang) =
+    def url(u: String, clickOrPaste: Boolean = true)(using lang: Lang) =
       frag(
         meta(itemprop := "url", content := u),
         p(a(itemprop := "target", href := u)(u)),
@@ -163,5 +162,3 @@ $serviceNote"""
           body(htmlBody)
         )
       )
-  }
-}

@@ -2,16 +2,16 @@ package views.html.team
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.team.{ Team, TeamMember }
 import lila.relation.Relation
 
-object members {
+object members:
 
-  import trans.team._
+  import trans.team.*
 
   def apply(t: Team, pager: Paginator[TeamMember.UserAndDate])(implicit ctx: Context) =
     bits.layout(
@@ -20,15 +20,17 @@ object members {
         .OpenGraph(
           title = s"${t.name} • ${trans.team.teamRecentMembers.txt()}",
           url = s"$netBaseUrl${routes.Team.show(t.id).url}",
-          description = shorten(t.description.value, 152)
+          description = t.intro ?? { shorten(_, 152) }
         )
         .some
     ) {
       main(cls := "page-small box")(
-        h1(
-          views.html.team.bits.link(t),
-          " • ",
-          nbMembers.plural(t.nbMembers, t.nbMembers.localize)
+        boxTop(
+          h1(
+            views.html.team.bits.link(t),
+            " • ",
+            nbMembers.plural(t.nbMembers, t.nbMembers.localize)
+          )
         ),
         table(cls := "team-members slist slist-pad")(
           tbody(cls := "infinite-scroll")(
@@ -43,4 +45,3 @@ object members {
         )
       )
     }
-}

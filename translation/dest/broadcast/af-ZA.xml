@@ -3,14 +3,28 @@
   <string name="broadcasts">Uitsendings</string>
   <string name="liveBroadcasts">Regstreekse toernooi uitsendings</string>
   <string name="newBroadcast">Nuwe regstreekse uitsendings</string>
+  <string name="addRound">Voeg \'n ronde by</string>
   <string name="ongoing">Deurlopend</string>
   <string name="upcoming">Opkomend</string>
   <string name="completed">Voltooi</string>
+  <string name="roundName">Ronde se naam</string>
   <string name="roundNumber">Ronde getal</string>
+  <string name="tournamentName">Toernooi se naam</string>
+  <string name="tournamentDescription">Kort beskrywing van die toernooi</string>
   <string name="fullDescription">Volle geleentheid beskrywing</string>
   <string name="fullDescriptionHelp">Opsionele lang beskrywing van die uitsending. %1$s is beskikbaar. Lengte moet minder as %2$s karakters.</string>
+  <string name="sourceUrlOrGameIds">Bronadress, of spel IDs</string>
   <string name="sourceUrlHelp">URL wat Lichess sal nagaan vir PGN opdaterings. Dit moet openbaar beskikbaar wees vanaf die Internet.</string>
+  <string name="gameIdsHelp">Of anders, kan jy tot en met 64 Lichess spel IDs bevoeg, gespasieer deur spasie.</string>
   <string name="startDate">Begin datum in jou eie tydsone</string>
   <string name="startDateHelp">Optioneel, indien jy weet wanner die geleentheid begin</string>
   <string name="credits">Gee krediet aan die bron</string>
+  <string name="resetRound">Herstel die ronde</string>
+  <string name="deleteRound">Skrap die ronde</string>
+  <string name="broadcastUrl">Uitsaai bronadres</string>
+  <string name="currentRoundUrl">Huidige ronde se bronadres</string>
+  <string name="currentGameUrl">Huidige spel se bronadres</string>
+  <string name="downloadAllRounds">Laai al die rondes af</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Skrap die rondte en sy spelle beslis uit.</string>
+  <string name="deleteAllGamesOfThisRound">Skrap alle spelle van hierdie rondte. Die bron sal aktief moet wees om hulle te kan herskep.</string>
 </resources>

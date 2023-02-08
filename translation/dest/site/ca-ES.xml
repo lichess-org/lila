@@ -21,7 +21,7 @@
   <string name="asBlack">amb negres</string>
   <string name="randomColor">Banda aleatòria</string>
   <string name="createAGame">Crea una partida</string>
-  <string name="whiteIsVictorious">Guanyen les blanques</string>
+  <string name="whiteIsVictorious">Les blanques han guanyat</string>
   <string name="blackIsVictorious">Les negres han guanyat</string>
   <string name="youPlayTheWhitePieces">Jugues les blanques</string>
   <string name="youPlayTheBlackPieces">Jugues les negres</string>
@@ -59,8 +59,8 @@
   <string name="depthX">Profunditat %s</string>
   <string name="usingServerAnalysis">Utilitzant l\'anàlisi del servidor</string>
   <string name="loadingEngine">Carregant màquina...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Calculant...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Error carregant màquina</string>
+  <string name="calculatingMoves">Calculant...</string>
+  <string name="engineFailed">Error carregant màquina</string>
   <string name="cloudAnalysis">Anàlisi en el núvol</string>
   <string name="goDeeper">Aprofundir</string>
   <string name="showThreat">Mostra l\'amenaça</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\" amb arrodoniment, basat en el nombre de mig-moviments fins la propera captura o moviment de peó</string>
   <string name="noGameFound">No s\'ha trobat cap partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Pots incloure més partides des del menú de preferències</string>
+  <string name="openings">Obertura</string>
   <string name="openingExplorer">Explorador d\'obertures</string>
   <string name="openingEndgameExplorer">Explorador d\'apertures i finals</string>
   <string name="xOpeningExplorer">Explorador d\'obertures %s</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Veure a mida completa</string>
   <string name="logOut">Tancar la sessió</string>
   <string name="signIn">Iniciar la sessió</string>
+  <string name="rememberMe">Mantenir-me connectat</string>
   <string name="youNeedAnAccountToDoThat">Necessites un compte per a fer això</string>
   <string name="signUp">Registrar-se</string>
   <string name="computersAreNotAllowedToPlay">No els està permès jugar ni als ordinadors ni als jugadors assistits per ordinador. Si us plau, no utilitzis l\'ajuda de programes informàtics d\'escacs, de bases de dades o d\'altres jugadors mentre juguis. També tingues en compte que la creació de més d\'un compte és severament descoratjada i que tal activitat pot significar que el teu compte sigui suspès.</string>
@@ -197,12 +199,31 @@
   <string name="changeUsername">Canviar nom d\'usuari</string>
   <string name="changeUsernameNotSame">Només es pot canviar entre majúscules i minúscules. Per exemple, de \"perecullera\" a \"PereCullera\".</string>
   <string name="changeUsernameDescription">Canvia el teu nom d\'usuari. Això es pot fer una única vegada i només canviant les lletres majúscules per minúscules.</string>
-  <string name="password">Contrassenya</string>
+  <string name="signupUsernameHint">Assegureu-vos d\'escollir un nom d\'usuari amigable. No el podreu canviar més tard i qualsevol compte amb nom d\'usuaris inapropiats es tancarà!</string>
+  <string name="signupEmailHint">Només s\'utilitzarà per reinicialitzar la contrasenya.</string>
+  <string name="password">Contrasenya</string>
   <string name="changePassword">Canvia la contrasenya</string>
   <string name="changeEmail">Canvia el correu electrònic</string>
   <string name="email">Correu electrònic</string>
   <string name="passwordReset">Restablir la contrasenya</string>
   <string name="forgotPassword">Has oblidat la contrasenya?</string>
+  <string name="emailConfirmHelp">Ajuda amb l\'email de confirmació</string>
+  <string name="emailConfirmNotReceived">No heu rebut el vostre email de confirmació després de registrar-vos?</string>
+  <string name="whatSignupUsername">Quin nom d\'usuari heu utilitzat per registrar-vos?</string>
+  <string name="usernameNotFound">No hem trobat cap usuari amb aquest nom: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Podeu fer servir aquest nom d\'usuari per crear un nou compte</string>
+  <string name="emailSent">Us hem enviat un correu electrònic a %s.</string>
+  <string name="emailCanTakeSomeTime">Pot trigar una estona a arribar.</string>
+  <string name="refreshInboxAfterFiveMinutes">Espereu 5 minuts i refresqueu la bústia d\'entrada del vostre correu.</string>
+  <string name="checkSpamFolder">Comproveu també la carpeta de correu brossa, pot estar allí. Si està allí marqueu-lo com no brossa.</string>
+  <string name="emailForSignupHelp">Si tot això falla, envieu-nos aquest correu:</string>
+  <string name="copyTextToEmail">Copieu i pegueu el text a continuació i envieu-lo a %s</string>
+  <string name="waitForSignupHelp">Et contestarem el mes breument posible per ajudar-te a completar el registre.</string>
+  <string name="accountConfirmed">El usuari %s esta confirmat correctament.</string>
+  <string name="accountCanLogin">Podeu identificar-vos ara com a %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">No necestiteu un correu de confirmació.</string>
+  <string name="accountClosed">El compte %s està tancat.</string>
+  <string name="accountRegisteredWithoutEmail">El compte %s es va registrar sense correu electrònic.</string>
   <string name="rank">Classificació</string>
   <string name="rankX">Posició: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -265,8 +286,8 @@
   <string name="incrementInSeconds">Increment en segons</string>
   <string name="freeOnlineChess">Escacs en línia gratis</string>
   <plurals name="nbRated">
-    <item quantity="one">%s per punts</item>
-    <item quantity="other">%s puntuats</item>
+    <item quantity="one">%s puntuada</item>
+    <item quantity="other">%s puntuades</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s victòries</item>
@@ -342,6 +363,7 @@
   <string name="siteDescription">Servidor d\'escacs gratuït online. Juga als escacs amb una interfície neta i elegant. No cal registrar-s\'hi, sense anuncis, no calen extensions. Juga a escacs amb l\'ordinador, amics o oponents a l\'atzar.</string>
   <string name="xJoinedTeamY">%1$s s\'ha unit a l\'equip %2$s</string>
   <string name="xCreatedTeamY">%1$s ha creat l\'equip %2$s</string>
+  <string name="startedStreaming">transmissió començada</string>
   <string name="xStartedStreaming">%s transmissió començada</string>
   <string name="averageElo">Ràting mitjà</string>
   <string name="location">Ubicació</string>
@@ -517,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notes</string>
   <string name="typePrivateNotesHere">Escriu notes privades aquí</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escriu una nota privada sobre aquest usuari</string>
+  <string name="noNoteYet">Cap nota encara</string>
   <string name="invalidUsernameOrPassword">Nom d\'usuari o contrasenya incorrectes</string>
   <string name="incorrectPassword">Contrasenya incorrecta</string>
   <string name="invalidAuthenticationCode">Autenticació invàlida</string>
@@ -633,6 +657,7 @@
   <string name="tournamentFAQ">Torneig Arena: Preguntes Més Freqüents</string>
   <string name="timeBeforeTournamentStarts">Temps per a què comenci el torneig</string>
   <string name="averageCentipawnLoss">Pèrdua mitjana en centipeons</string>
+  <string name="accuracy">Precisió</string>
   <string name="keyboardShortcuts">Dreceres del teclat</string>
   <string name="keyMoveBackwardOrForward">moure enrere/davant</string>
   <string name="keyGoToStartOrEnd">anar a l\'inici/anar al final</string>
@@ -715,6 +740,7 @@
   <string name="light">Clar</string>
   <string name="dark">Fosc</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Tema del dispositiu</string>
   <string name="backgroundImageUrl">Imatge de fons URL:</string>
   <string name="boardGeometry">Geometria del tauler</string>
   <string name="boardTheme">Temàtica del tauler</string>
@@ -743,6 +769,7 @@
   <string name="bestWasX">El millor era %s</string>
   <string name="youBrowsedAway">Ha sortit de la revisió</string>
   <string name="resumePractice">Reprendre la pràctica</string>
+  <string name="drawByFiftyMoves">La partida ha estat declarada un empat per la regla dels 50 moviments.</string>
   <string name="theGameIsADraw">El joc és un empat.</string>
   <string name="computerThinking">L\'ordinador està pensant ...</string>
   <string name="seeBestMove">Veure la millor jugada</string>

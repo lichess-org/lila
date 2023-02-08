@@ -1,10 +1,10 @@
 package lila.insight
 
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import play.api.Configuration
 
-import lila.common.config._
+import lila.common.config.*
 
 @Module
 final class Env(
@@ -14,12 +14,13 @@ final class Env(
     analysisRepo: lila.analyse.AnalysisRepo,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
+    cacheApi: lila.memo.CacheApi,
     mongo: lila.db.Env
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer
-) {
+):
 
   lazy val db = mongo
     .asyncDb(
@@ -40,8 +41,6 @@ final class Env(
 
   private lazy val indexer: InsightIndexer = wire[InsightIndexer]
 
-  lazy val insightUserApi = new InsightUserApi(db(CollName("insight_user")))
-
   lazy val perfStatsApi = wire[InsightPerfStatsApi]
 
   lazy val api = wire[InsightApi]
@@ -49,6 +48,5 @@ final class Env(
   lila.common.Bus.subscribeFun("analysisReady") { case lila.analyse.actorApi.AnalysisReady(game, _) =>
     api.updateGame(game).unit
   }
-}
 
 trait InsightDb

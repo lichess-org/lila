@@ -1,16 +1,16 @@
 package views.html.study
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.study.Study
 
 import controllers.routes
 
-object create {
+object create:
 
   private def studyButton(s: Study.IdName) =
-    submitButton(name := "as", value := s.id.value, cls := "submit button")(s.name.value)
+    submitButton(name := "as", value := s.id, cls := "submit button")(s.name)
 
   def apply(
       data: lila.study.StudyForm.importGame.Data,
@@ -53,4 +53,3 @@ object create {
         )
       )
     }
-}

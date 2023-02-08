@@ -3,13 +3,13 @@ package views.html.ublog
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.User
 
-object atom {
+object atom:
 
   import views.html.base.atom.{ atomDate, category }
   import views.html.ublog.blog.urlOfBlog
@@ -33,7 +33,7 @@ object atom {
   def community(code: String, posts: Seq[UblogPost.PreviewPost]) =
     views.html.base.atom(
       elems = posts,
-      htmlCall = routes.Ublog.community(code),
+      htmlCall = routes.Ublog.communityLang(code),
       atomCall = routes.Ublog.communityAtom(code),
       title = "Lichess community blogs",
       updated = posts.headOption.flatMap(_.lived).map(_.at)
@@ -43,7 +43,7 @@ object atom {
 
   private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
     frag(
-      tag("id")(post._id),
+      tag("id")(post.id),
       tag("published")(post.lived.map(_.at) map atomDate),
       link(
         rel  := "alternate",
@@ -67,7 +67,5 @@ object atom {
       tag("author")(tag("name")(authorName))
     )
 
-  private def authorOfBlog(blogId: UblogBlog.Id): String = blogId match {
+  private def authorOfBlog(blogId: UblogBlog.Id): String = blogId match
     case UblogBlog.Id.User(userId) => titleNameOrId(userId)
-  }
-}

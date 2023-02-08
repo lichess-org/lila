@@ -2,13 +2,13 @@ package lila.security
 
 import lila.user.{ Holder, User }
 
-object Granter {
+object Granter:
 
   def apply(permission: Permission)(user: User): Boolean =
-    user.enabled && apply(permission, user.roles)
+    user.enabled.yes && apply(permission, user.roles)
 
   def apply(f: Permission.Selector)(user: User): Boolean =
-    user.enabled && apply(f(Permission), user.roles)
+    user.enabled.yes && apply(f(Permission), user.roles)
 
   def is(permission: Permission)(holder: Holder): Boolean =
     apply(permission)(holder.user)
@@ -40,4 +40,3 @@ object Granter {
       (is(_.BoostHunter)(mod) && user.marks.boost) ||
       (is(_.Shusher)(mod) && user.marks.troll)
     }
-}

@@ -1,17 +1,17 @@
 package lila.common
 
-import akka.actor._
+import akka.actor.*
 import java.util.concurrent.ConcurrentHashMap
-import scala.concurrent.duration._
-import scala.jdk.CollectionConverters._
+import scala.concurrent.duration.*
+import scala.jdk.CollectionConverters.*
 
 final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
     f: Id => Unit
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
-  import Debouncer._
+):
+  import Debouncer.*
 
   private val debounces = new ConcurrentHashMap[Id, Queued](initialCapacity)
 
@@ -42,13 +42,11 @@ final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
     .unit
 
   private[this] var nullToRemove: Queued = _
-}
 
-private object Debouncer {
+private object Debouncer:
 
   // can't use a boolean or int,
   // the ConcurrentHashMap uses weird defaults instead of null for missing values
   sealed private trait Queued
   private object Another extends Queued
   private object Empty   extends Queued
-}

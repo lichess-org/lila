@@ -21,7 +21,7 @@ OS2Version: 3
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 0
 CreationTime: 1554434404
-ModificationTime: 1660594536
+ModificationTime: 1664993881
 PfmFamily: 17
 TTFWeight: 400
 TTFWidth: 5
@@ -87,8 +87,8 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 0
-WinInfo: 57380 19 8
-BeginChars: 65539 116
+WinInfo: 57346 53 30
+BeginChars: 65539 115
 
 StartChar: .notdef
 Encoding: 65536 -1 0
@@ -493,76 +493,8 @@ EndSplineSet
 Validated: 1
 EndChar
 
-StartChar: repo
-Encoding: 57370 57370 8
-Width: 512
-GlyphClass: 2
-Flags: W
-LayerCount: 2
-Fore
-SplineSet
-224 384 m 1,0,-1
- 192 384 l 1,1,-1
- 192 352 l 1,2,-1
- 224 352 l 1,3,-1
- 224 384 l 1,0,-1
-224 448 m 1,4,-1
- 192 448 l 1,5,-1
- 192 416 l 1,6,-1
- 224 416 l 1,7,-1
- 224 448 l 1,4,-1
-416 512 m 2,8,-1
- 96 512 l 2,9,10
- 84 512 84 512 74 502 c 128,-1,11
- 64 492 64 492 64 480 c 2,12,-1
- 64 96 l 2,13,14
- 64 84 64 84 74 74 c 128,-1,15
- 84 64 84 64 96 64 c 2,16,-1
- 160 64 l 1,17,-1
- 160 0 l 1,18,-1
- 208 48 l 1,19,-1
- 256 0 l 1,20,-1
- 256 64 l 1,21,-1
- 416 64 l 2,22,23
- 428 64 428 64 438 74 c 128,-1,24
- 448 84 448 84 448 96 c 2,25,-1
- 448 480 l 2,26,27
- 448 492 448 492 438 502 c 128,-1,28
- 428 512 428 512 416 512 c 2,8,-1
-416 112 m 2,29,30
- 416 106 416 106 411.5 101 c 128,-1,31
- 407 96 407 96 400 96 c 2,32,-1
- 256 96 l 1,33,-1
- 256 128 l 1,34,-1
- 160 128 l 1,35,-1
- 160 96 l 1,36,-1
- 112 96 l 2,37,38
- 106 96 106 96 101 101 c 128,-1,39
- 96 106 96 106 96 112 c 2,40,-1
- 96 160 l 1,41,-1
- 416 160 l 1,42,-1
- 416 112 l 2,29,30
-416 192 m 1,43,-1
- 160 192 l 1,44,-1
- 160 480 l 1,45,-1
- 417 480 l 1,46,-1
- 416 192 l 1,43,-1
-224 256 m 1,47,-1
- 192 256 l 1,48,-1
- 192 224 l 1,49,-1
- 224 224 l 1,50,-1
- 224 256 l 1,47,-1
-224 320 m 1,51,-1
- 192 320 l 1,52,-1
- 192 288 l 1,53,-1
- 224 288 l 1,54,-1
- 224 320 l 1,51,-1
-EndSplineSet
-Validated: 9
-EndChar
-
 StartChar: die-six
-Encoding: 57371 57371 9
+Encoding: 57371 57371 8
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -641,7 +573,7 @@ Validated: 521
 EndChar
 
 StartChar: flag
-Encoding: 57372 57372 10
+Encoding: 57372 57372 9
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -674,7 +606,7 @@ Validated: 33
 EndChar
 
 StartChar: flame
-Encoding: 57373 57373 11
+Encoding: 57373 57373 10
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -716,7 +648,7 @@ Validated: 41
 EndChar
 
 StartChar: feather
-Encoding: 57374 57374 12
+Encoding: 57374 57374 11
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -764,7 +696,7 @@ Validated: 33
 EndChar
 
 StartChar: turtle
-Encoding: 57375 57375 13
+Encoding: 57375 57375 12
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -846,7 +778,7 @@ Validated: 41
 EndChar
 
 StartChar: nuclear
-Encoding: 57376 57376 14
+Encoding: 57376 57376 13
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1135,7 +1067,7 @@ Validated: 37
 EndChar
 
 StartChar: arrow-streamline-target
-Encoding: 57377 57377 15
+Encoding: 57377 57377 14
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1258,7 +1190,7 @@ Validated: 553
 EndChar
 
 StartChar: buffer
-Encoding: 57378 57378 16
+Encoding: 57378 57378 15
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1317,7 +1249,7 @@ Validated: 1
 EndChar
 
 StartChar: upload-cloud
-Encoding: 57379 57379 17
+Encoding: 57379 57379 16
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1354,7 +1286,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-42
-Encoding: 57380 57380 18
+Encoding: 57380 57380 17
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1418,7 +1350,7 @@ Validated: 513
 EndChar
 
 StartChar: television-tv
-Encoding: 57381 57381 19
+Encoding: 57381 57381 18
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1468,7 +1400,7 @@ Validated: 553
 EndChar
 
 StartChar: ionicons
-Encoding: 57382 57382 20
+Encoding: 57382 57382 19
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1503,7 +1435,7 @@ Validated: 1
 EndChar
 
 StartChar: delicious
-Encoding: 57383 57383 21
+Encoding: 57383 57383 20
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1541,7 +1473,7 @@ Validated: 5
 EndChar
 
 StartChar: shield
-Encoding: 57384 57384 22
+Encoding: 57384 57384 21
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1573,7 +1505,7 @@ Validated: 5
 EndChar
 
 StartChar: ink-pen
-Encoding: 57385 57385 23
+Encoding: 57385 57385 22
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1631,7 +1563,7 @@ Validated: 553
 EndChar
 
 StartChar: ionicons-1
-Encoding: 57386 57386 24
+Encoding: 57386 57386 23
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1683,7 +1615,7 @@ Validated: 513
 EndChar
 
 StartChar: crown
-Encoding: 57387 57387 25
+Encoding: 57387 57387 24
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1767,7 +1699,7 @@ Validated: 5
 EndChar
 
 StartChar: chart-line
-Encoding: 57388 57388 26
+Encoding: 57388 57388 25
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1816,7 +1748,7 @@ Validated: 545
 EndChar
 
 StartChar: graduate-cap
-Encoding: 57389 57389 27
+Encoding: 57389 57389 26
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1870,7 +1802,7 @@ Validated: 517
 EndChar
 
 StartChar: email-plane
-Encoding: 57390 57390 28
+Encoding: 57390 57390 27
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1894,7 +1826,7 @@ Validated: 517
 EndChar
 
 StartChar: zoom-in
-Encoding: 57391 57391 29
+Encoding: 57391 57391 28
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1943,7 +1875,7 @@ Validated: 513
 EndChar
 
 StartChar: screen-full
-Encoding: 57392 57392 30
+Encoding: 57392 57392 29
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1993,7 +1925,7 @@ Validated: 521
 EndChar
 
 StartChar: atom
-Encoding: 57393 57393 31
+Encoding: 57393 57393 30
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2098,7 +2030,7 @@ Validated: 41
 EndChar
 
 StartChar: list
-Encoding: 57394 57394 32
+Encoding: 57394 57394 31
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2214,7 +2146,7 @@ Validated: 1
 EndChar
 
 StartChar: antichess
-Encoding: 57395 57395 33
+Encoding: 57395 57395 32
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2344,7 +2276,7 @@ Validated: 41
 EndChar
 
 StartChar: microscope
-Encoding: 57396 57396 34
+Encoding: 57396 57396 33
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2407,7 +2339,7 @@ Validated: 41
 EndChar
 
 StartChar: loop-alt2
-Encoding: 57397 57397 35
+Encoding: 57397 57397 34
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2459,7 +2391,7 @@ Validated: 513
 EndChar
 
 StartChar: crown-king-1
-Encoding: 57398 57398 36
+Encoding: 57398 57398 35
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2508,7 +2440,7 @@ Validated: 521
 EndChar
 
 StartChar: fontawesome-webfont-24
-Encoding: 57399 57399 37
+Encoding: 57399 57399 36
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2535,7 +2467,7 @@ Validated: 545
 EndChar
 
 StartChar: fontawesome-webfont-25
-Encoding: 57400 57400 38
+Encoding: 57400 57400 37
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2565,7 +2497,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-26
-Encoding: 57401 57401 39
+Encoding: 57401 57401 38
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2633,7 +2565,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-27
-Encoding: 57402 57402 40
+Encoding: 57402 57402 39
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2655,7 +2587,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-28
-Encoding: 57403 57403 41
+Encoding: 57403 57403 40
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2684,7 +2616,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-29
-Encoding: 57404 57404 42
+Encoding: 57404 57404 41
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2713,7 +2645,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-30
-Encoding: 57405 57405 43
+Encoding: 57405 57405 42
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2738,7 +2670,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-31
-Encoding: 57406 57406 44
+Encoding: 57406 57406 43
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2776,7 +2708,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-32
-Encoding: 57407 57407 45
+Encoding: 57407 57407 44
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2817,7 +2749,7 @@ Validated: 513
 EndChar
 
 StartChar: arrow-full-lowerright
-Encoding: 57408 57408 46
+Encoding: 57408 57408 45
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2837,7 +2769,7 @@ Validated: 521
 EndChar
 
 StartChar: arrow-full-upperright
-Encoding: 57409 57409 47
+Encoding: 57409 57409 46
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2857,7 +2789,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-33
-Encoding: 57410 57410 48
+Encoding: 57410 57410 47
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2911,7 +2843,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-41
-Encoding: 57411 57411 49
+Encoding: 57411 57411 48
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2963,7 +2895,7 @@ Validated: 545
 EndChar
 
 StartChar: burning-fire
-Encoding: 57412 57412 50
+Encoding: 57412 57412 49
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3023,7 +2955,7 @@ Validated: 553
 EndChar
 
 StartChar: arrow-sans-down
-Encoding: 57413 57413 51
+Encoding: 57413 57413 50
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3039,7 +2971,7 @@ Validated: 521
 EndChar
 
 StartChar: arrow-sans-up
-Encoding: 57414 57414 52
+Encoding: 57414 57414 51
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3055,7 +2987,7 @@ Validated: 521
 EndChar
 
 StartChar: fontawesome-webfont-34
-Encoding: 57415 57415 53
+Encoding: 57415 57415 52
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3188,7 +3120,7 @@ Validated: 549
 EndChar
 
 StartChar: crossed-swords-small
-Encoding: 57416 57416 54
+Encoding: 57416 57416 53
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3235,7 +3167,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-35
-Encoding: 57417 57417 55
+Encoding: 57417 57417 54
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3280,7 +3212,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-36
-Encoding: 57418 57418 56
+Encoding: 57418 57418 55
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3325,7 +3257,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-37
-Encoding: 57419 57419 57
+Encoding: 57419 57419 56
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3360,7 +3292,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-38
-Encoding: 57420 57420 58
+Encoding: 57420 57420 57
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3395,7 +3327,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-39
-Encoding: 57421 57421 59
+Encoding: 57421 57421 58
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3433,7 +3365,7 @@ Validated: 513
 EndChar
 
 StartChar: reorder
-Encoding: 57422 57422 60
+Encoding: 57422 57422 59
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3478,7 +3410,7 @@ Validated: 1
 EndChar
 
 StartChar: earth-globe-streamline
-Encoding: 57423 57423 61
+Encoding: 57423 57423 60
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3544,7 +3476,7 @@ Validated: 553
 EndChar
 
 StartChar: book
-Encoding: 57424 57424 62
+Encoding: 57424 57424 61
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3646,7 +3578,7 @@ Validated: 33
 EndChar
 
 StartChar: graph
-Encoding: 57425 57425 63
+Encoding: 57425 57425 62
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3698,7 +3630,7 @@ Validated: 9
 EndChar
 
 StartChar: keypad
-Encoding: 57426 57426 64
+Encoding: 57426 57426 63
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3800,7 +3732,7 @@ Validated: 1
 EndChar
 
 StartChar: body-cut
-Encoding: 57427 57427 65
+Encoding: 57427 57427 64
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3990,7 +3922,7 @@ Validated: 553
 EndChar
 
 StartChar: fontawesome-webfont-1
-Encoding: 57428 57428 66
+Encoding: 57428 57428 65
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4030,7 +3962,7 @@ Validated: 545
 EndChar
 
 StartChar: fontawesome-webfont-2
-Encoding: 57429 57429 67
+Encoding: 57429 57429 66
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4105,7 +4037,7 @@ Validated: 545
 EndChar
 
 StartChar: fontawesome-webfont-3
-Encoding: 57430 57430 68
+Encoding: 57430 57430 67
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4170,7 +4102,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-4
-Encoding: 57431 57431 69
+Encoding: 57431 57431 68
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4270,7 +4202,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-5
-Encoding: 57432 57432 70
+Encoding: 57432 57432 69
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4337,7 +4269,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-6
-Encoding: 57433 57433 71
+Encoding: 57433 57433 70
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4430,7 +4362,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-7
-Encoding: 57434 57434 72
+Encoding: 57434 57434 71
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4499,7 +4431,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-8
-Encoding: 57435 57435 73
+Encoding: 57435 57435 72
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4596,7 +4528,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont
-Encoding: 57436 57436 74
+Encoding: 57436 57436 73
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4644,7 +4576,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-9
-Encoding: 57437 57437 75
+Encoding: 57437 57437 74
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4695,7 +4627,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-10
-Encoding: 57438 57438 76
+Encoding: 57438 57438 75
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4739,7 +4671,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-11
-Encoding: 57439 57439 77
+Encoding: 57439 57439 76
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4772,7 +4704,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-12
-Encoding: 57440 57440 78
+Encoding: 57440 57440 77
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4816,7 +4748,7 @@ Validated: 513
 EndChar
 
 StartChar: cogs
-Encoding: 57441 57441 79
+Encoding: 57441 57441 78
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5017,7 +4949,7 @@ Validated: 1
 EndChar
 
 StartChar: tag
-Encoding: 57442 57442 80
+Encoding: 57442 57442 79
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5067,7 +4999,7 @@ Validated: 9
 EndChar
 
 StartChar: fontawesome-webfont-15
-Encoding: 57443 57443 81
+Encoding: 57443 57443 80
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5122,7 +5054,7 @@ Validated: 513
 EndChar
 
 StartChar: trash-bin
-Encoding: 57444 57444 82
+Encoding: 57444 57444 81
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5220,7 +5152,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-17
-Encoding: 57445 57445 83
+Encoding: 57445 57445 82
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5269,7 +5201,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-18
-Encoding: 57446 57446 84
+Encoding: 57446 57446 83
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5316,7 +5248,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-19
-Encoding: 57447 57447 85
+Encoding: 57447 57447 84
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5353,7 +5285,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-20
-Encoding: 57448 57448 86
+Encoding: 57448 57448 85
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5377,7 +5309,7 @@ Validated: 513
 EndChar
 
 StartChar: eye-view-1
-Encoding: 57449 57449 87
+Encoding: 57449 57449 86
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5417,7 +5349,7 @@ Validated: 553
 EndChar
 
 StartChar: fontawesome-webfont-21
-Encoding: 57450 57450 88
+Encoding: 57450 57450 87
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5473,7 +5405,7 @@ Validated: 545
 EndChar
 
 StartChar: fontawesome-webfont-22
-Encoding: 57451 57451 89
+Encoding: 57451 57451 88
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5539,7 +5471,7 @@ Validated: 545
 EndChar
 
 StartChar: search-find
-Encoding: 57452 57452 90
+Encoding: 57452 57452 89
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5581,7 +5513,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-23
-Encoding: 57453 57453 91
+Encoding: 57453 57453 90
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5628,7 +5560,7 @@ Validated: 513
 EndChar
 
 StartChar: pointer
-Encoding: 57454 57454 92
+Encoding: 57454 57454 91
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5693,7 +5625,7 @@ Validated: 33
 EndChar
 
 StartChar: storm
-Encoding: 57455 57455 93
+Encoding: 57455 57455 92
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5792,7 +5724,7 @@ Validated: 37
 EndChar
 
 StartChar: tools
-Encoding: 57344 57344 94
+Encoding: 57344 57344 93
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5876,7 +5808,7 @@ Validated: 33
 EndChar
 
 StartChar: bullseye
-Encoding: 57345 57345 95
+Encoding: 57345 57345 94
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5945,7 +5877,7 @@ Validated: 1
 EndChar
 
 StartChar: agent
-Encoding: 57346 57346 96
+Encoding: 57346 57346 95
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6062,7 +5994,7 @@ Validated: 41
 EndChar
 
 StartChar: mic
-Encoding: 57347 57347 97
+Encoding: 57347 57347 96
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6120,7 +6052,7 @@ Validated: 5
 EndChar
 
 StartChar: bar-chart
-Encoding: 57348 57348 98
+Encoding: 57348 57348 97
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6178,7 +6110,7 @@ Validated: 513
 EndChar
 
 StartChar: info-circled
-Encoding: 57349 57349 99
+Encoding: 57349 57349 98
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6222,7 +6154,7 @@ Validated: 545
 EndChar
 
 StartChar: screen-desktop
-Encoding: 57350 57350 100
+Encoding: 57350 57350 99
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6272,7 +6204,7 @@ Validated: 513
 EndChar
 
 StartChar: phone-mobile
-Encoding: 57351 57351 101
+Encoding: 57351 57351 100
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6326,7 +6258,7 @@ Validated: 513
 EndChar
 
 StartChar: th-large
-Encoding: 57352 57352 102
+Encoding: 57352 57352 101
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6390,7 +6322,7 @@ Validated: 513
 EndChar
 
 StartChar: heart-o
-Encoding: 57353 57353 103
+Encoding: 57353 57353 102
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6453,7 +6385,7 @@ Validated: 513
 EndChar
 
 StartChar: flag-checkered
-Encoding: 57354 57354 104
+Encoding: 57354 57354 103
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6556,7 +6488,7 @@ Validated: 549
 EndChar
 
 StartChar: h-square
-Encoding: 57355 57355 105
+Encoding: 57355 57355 104
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6610,7 +6542,7 @@ Validated: 513
 EndChar
 
 StartChar: t-shirt
-Encoding: 57356 57356 106
+Encoding: 57356 57356 105
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6665,7 +6597,7 @@ Validated: 553
 EndChar
 
 StartChar: heart
-Encoding: 57357 57357 107
+Encoding: 57357 57357 106
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6701,7 +6633,7 @@ Validated: 1
 EndChar
 
 StartChar: radio-tower
-Encoding: 57358 57358 108
+Encoding: 57358 57358 107
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6788,7 +6720,7 @@ Validated: 553
 EndChar
 
 StartChar: bell-o
-Encoding: 57359 57359 109
+Encoding: 57359 57359 108
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6852,7 +6784,7 @@ Validated: 513
 EndChar
 
 StartChar: disc
-Encoding: 57360 57360 110
+Encoding: 57360 57360 109
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6877,7 +6809,7 @@ Validated: 1
 EndChar
 
 StartChar: crown1-1
-Encoding: 57361 57361 111
+Encoding: 57361 57361 110
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6970,7 +6902,7 @@ Validated: 553
 EndChar
 
 StartChar: Ograve
-Encoding: 57362 57362 112
+Encoding: 57362 57362 111
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -7008,7 +6940,7 @@ Validated: 1
 EndChar
 
 StartChar: uniE020
-Encoding: 57363 57363 113
+Encoding: 57363 57363 112
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -7037,7 +6969,7 @@ Validated: 33
 EndChar
 
 StartChar: streak
-Encoding: 57364 57364 114
+Encoding: 57364 57364 113
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -7114,7 +7046,7 @@ Validated: 37
 EndChar
 
 StartChar: clipboard
-Encoding: 57456 57456 115
+Encoding: 57456 57456 114
 Width: 512
 VWidth: 544
 LayerCount: 2

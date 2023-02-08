@@ -2,15 +2,15 @@ package views.html
 
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object dev {
+object dev:
 
-  def settings(settings: List[lila.memo.SettingStore[_]])(implicit ctx: Context) = {
+  def settings(settings: List[lila.memo.SettingStore[?]])(implicit ctx: Context) =
     val title = "Settings"
     views.html.base.layout(
       title = title,
@@ -19,25 +19,14 @@ object dev {
       main(cls := "page-menu")(
         mod.menu("setting"),
         div(id := "settings", cls := "page-menu__content box box-pad")(
-          h1(title),
+          h1(cls := "box__top")(title),
           p("Tread lightly."),
           settings.map { s =>
             postForm(action := routes.Dev.settingsPost(s.id))(
               p(s.text | s.id),
               s.form.value match {
-                case Some(v: Boolean) =>
-                  div(
-                    span(cls := "form-check-input")(form3.cmnToggle(s.id, "v", v))
-                  )
-                case v =>
-                  input(
-                    name := "v",
-                    value := (v match {
-                      case None    => ""
-                      case Some(x) => x.toString
-                      case x       => x.toString
-                    })
-                  )
+                case Some(v: Boolean) => div(span(cls := "form-check-input")(form3.cmnToggle(s.id, "v", v)))
+                case v                => input(name := "v", value := v.map(_.toString))
               },
               submitButton(cls := "button button-empty", dataIcon := "")
             )
@@ -45,9 +34,8 @@ object dev {
         )
       )
     )
-  }
 
-  def cli(form: Form[_], res: Option[String])(implicit ctx: Context) = {
+  def cli(form: Form[?], res: Option[String])(implicit ctx: Context) =
     val title = "Command Line Interface"
     views.html.base.layout(
       title = title,
@@ -56,16 +44,22 @@ object dev {
       main(cls := "page-menu")(
         views.html.mod.menu("cli"),
         div(id := "dev-cli", cls := "page-menu__content box box-pad")(
-          h1(title),
+          h1(cls := "box__top")(title),
           p(
             "Run arbitrary lila commands.",
             br,
             "Only use if you know exactly what you're doing."
           ),
           res map { pre(_) },
-          postForm(action                         := routes.Dev.cliPost)(
-            form3.textarea(form("command"))(style := "height:10em", autofocus),
+          postForm(action := routes.Dev.cliPost)(
+            form3.input(form("command"))(autofocus),
             br,
+            form3.submit(frag("Submit"))
+          ),
+          hr,
+          postForm(action := routes.Dev.cliPost)(
+            p("Same thing but with a textarea for multiline commands:"),
+            form3.textarea(form("command"))(style := "height:8em"),
             br,
             form3.submit(frag("Submit"))
           ),
@@ -87,5 +81,3 @@ video sheet
         )
       )
     }
-  }
-}

@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Mantén pulsada a tecla &lt;ctrl&gt; ao promocionar para desativar temporalmente a promoción automática</string>
   <string name="whenPremoving">Con premovemento</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticamente reclamar táboas por triple repetición</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Cando o tempo restante &lt;30 segundos</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Cando o tempo restante &lt;30 segundos</string>
   <string name="moveConfirmation">Confirmación do movemento</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="correspondenceAndUnlimited">Correspondencia e ilimitado</string>

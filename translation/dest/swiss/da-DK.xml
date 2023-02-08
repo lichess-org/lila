@@ -9,6 +9,10 @@
     <item quantity="one">%s runde</item>
     <item quantity="other">%s runder</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s runde schweizer</item>
+    <item quantity="other">%s runder schweizer</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">En runde pr. dag</item>
     <item quantity="other">Én runde hver %s dag</item>
@@ -100,4 +104,10 @@ Det tætteste du kan komme på Round Robin online er at spille en schweizisk tur
   <string name="streaksAndBerserk">Stimer og Bersærk</string>
   <string name="similarToOTB">Svarende til OTB turneringer</string>
   <string name="unlimitedAndFree">Ubegrænset og fri</string>
+  <string name="predefinedUsers">Tillad kun bestemte brugere at deltage</string>
+  <string name="forbiddedUsers">Hvis denne liste ikke er tom, vil brugernavne, der ikke findes på listen, ikke kunne deltage. Ét brugernavn pr. linje.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s runde schweizer</item>
+    <item quantity="other">%1$s / %2$s runder schweizer</item>
+  </plurals>
 </resources>

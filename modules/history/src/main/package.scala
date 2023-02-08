@@ -1,10 +1,7 @@
-package lila
+package lila.history
 
-package object history extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[history] type ID = String
-
-  private[history] type Date       = Int
-  private[history] type Rating     = Int
-  private[history] type RatingsMap = List[(Date, Rating)]
-}
+private type ID         = String
+private type Date       = Int
+private type RatingsMap = List[(Date, IntRating)]

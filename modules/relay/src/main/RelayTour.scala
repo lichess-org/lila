@@ -1,6 +1,7 @@
 package lila.relay
 
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 
@@ -9,35 +10,35 @@ case class RelayTour(
     name: String,
     description: String,
     markup: Option[lila.common.Markdown] = None,
-    ownerId: User.ID,
+    ownerId: UserId,
     createdAt: DateTime,
     tier: Option[RelayTour.Tier], // if present, it's an official broadcast
     active: Boolean,              // a round is scheduled or ongoing
     syncedAt: Option[DateTime],   // last time a round was synced
-    autoLeaderboard: Boolean = true
-) {
-  def id = _id
+    autoLeaderboard: Boolean = true,
+    players: Option[RelayPlayers] = None
+):
+  inline def id = _id
 
-  lazy val slug = {
+  lazy val slug =
     val s = lila.common.String slugify name
     if (s.isEmpty) "-" else s
-  }
 
   def withRounds(rounds: List[RelayRound]) = RelayTour.WithRounds(this, rounds)
 
   def official = tier.isDefined
 
   def reAssignIfOfficial = if (official) copy(ownerId = User.broadcasterId) else this
-}
 
-object RelayTour {
+object RelayTour:
 
   val maxRelays = 64
 
-  case class Id(value: String) extends AnyVal with StringValue
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
   type Tier = Int
-  object Tier {
+  object Tier:
     val NORMAL = 3
     val HIGH   = 4
     val BEST   = 5
@@ -49,17 +50,14 @@ object RelayTour {
       BEST.toString   -> "Official: best tier"
     )
     def name(tier: Tier) = options.collectFirst {
-      case (t, n) if t == tier => n
+      case (t, n) if t == tier.toString => n
     } | "???"
-  }
 
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])
 
-  case class ActiveWithNextRound(tour: RelayTour, round: RelayRound) extends RelayRound.AndTour {
+  case class ActiveWithNextRound(tour: RelayTour, round: RelayRound) extends RelayRound.AndTour:
     def ongoing = round.startedAt.isDefined
-  }
 
   case class WithLastRound(tour: RelayTour, round: RelayRound) extends RelayRound.AndTour
 
-  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
-}
+  def makeId = Id(ThreadLocalRandom nextString 8)

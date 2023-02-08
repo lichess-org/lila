@@ -61,8 +61,8 @@
   <string name="depthX">Hĺbka %s</string>
   <string name="usingServerAnalysis">Používa sa analýza servera</string>
   <string name="loadingEngine">Zavádzanie motora ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Prebieha výpočet...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Chyba pri načítavaní motora</string>
+  <string name="calculatingMoves">Prebieha výpočet...</string>
+  <string name="engineFailed">Chyba pri načítavaní motora</string>
   <string name="cloudAnalysis">Vzdialená analýza</string>
   <string name="goDeeper">Hlbšia analýza</string>
   <string name="showThreat">Ukázať hrozbu</string>
@@ -173,6 +173,7 @@
   <string name="viewInFullSize">Zobraziť v plnej veľkosti</string>
   <string name="logOut">Odhlásiť sa</string>
   <string name="signIn">Prihlásiť sa</string>
+  <string name="rememberMe">Zapamätať si ma</string>
   <string name="youNeedAnAccountToDoThat">Pre túto požiadavku musíte byť prihlásený</string>
   <string name="signUp">Zaregistrovať sa</string>
   <string name="computersAreNotAllowedToPlay">Hráči využívajúci pomoc počítačov nie sú vítaní. Počas partie nepoužívajte šachové programy, databázy ani rady iných hráčov. Vytváranie viacerých účtov sa silne neodporúča a nadmerné vytváranie účtov bude viesť k Vášmu zablokovaniu.</string>
@@ -219,12 +220,20 @@
   <string name="changeUsername">Zmeniť užívateľské meno</string>
   <string name="changeUsernameNotSame">Je možné zmeniť iba veľké a malé písmená. Napríklad \"miskomrkvicka\" na MiskoMrkvicka\".</string>
   <string name="changeUsernameDescription">Zmena užívateľského mena. Tento úkon je možné vykonať len raz a je povolené zmeniť iba veľké a malé písmená.</string>
+  <string name="signupUsernameHint">Uistite sa, že si vyberáte rodinne prijateľné používateľské meno! Neskôr ho už nemôžete zmeniť a akýkoľvek účet s nevhodným užívateľským menom bude uzavretý.</string>
+  <string name="signupEmailHint">Použijeme ho iba pri znovunastavení hesla.</string>
   <string name="password">Heslo</string>
   <string name="changePassword">Zmeniť heslo</string>
   <string name="changeEmail">Zmeniť email</string>
   <string name="email">Email</string>
   <string name="passwordReset">Obnova hesla</string>
   <string name="forgotPassword">Zabudli ste heslo?</string>
+  <string name="whatSignupUsername">Aké používateľske meno ste použili pri registrácii?</string>
+  <string name="usernameNotFound">Nepodarilo sa nám nájsť používateľa s týmto menom: %s.</string>
+  <string name="refreshInboxAfterFiveMinutes">Vyčkajte 5 minút a obnovte vašu mailovú schránku.</string>
+  <string name="emailForSignupHelp">Ak zlyhá všetko ostatné, zašlite nám tento email:</string>
+  <string name="accountClosed">Účet %s je zrušený.</string>
+  <string name="accountRegisteredWithoutEmail">Účet %s bol zaregistrovaný bez mailovej adresy.</string>
   <string name="rank">Poradie</string>
   <string name="rankX">Poradie: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -703,6 +712,7 @@
   <string name="tournamentFAQ">Často kladené otázky pre turnajovú arénu</string>
   <string name="timeBeforeTournamentStarts">Čas do štartu turnaja</string>
   <string name="averageCentipawnLoss">Priemerná strata (v stotinách pešiaka)</string>
+  <string name="accuracy">Presnosť</string>
   <string name="keyboardShortcuts">Klávesové skratky</string>
   <string name="keyMoveBackwardOrForward">pohyb dopredu/späť</string>
   <string name="keyGoToStartOrEnd">ísť na začiatok/koniec</string>
@@ -789,6 +799,7 @@
   <string name="light">Svetlé</string>
   <string name="dark">Tmavé</string>
   <string name="transparent">Priehľadné</string>
+  <string name="deviceTheme">Motív zariadenia</string>
   <string name="backgroundImageUrl">URL obrázka na pozadí:</string>
   <string name="boardGeometry">Typ šachovnice</string>
   <string name="boardTheme">Vzhľad šachovnice</string>
@@ -819,6 +830,7 @@
   <string name="bestWasX">Najlepší ťah bol %s</string>
   <string name="youBrowsedAway">Precvičovanie prerušené</string>
   <string name="resumePractice">Pokračovať v precvičovaní</string>
+  <string name="drawByFiftyMoves">Hra bola ukončená remízou podľa pravidla 50 ťahov.</string>
   <string name="theGameIsADraw">Hra skončila remízou.</string>
   <string name="computerThinking">Počítač premýšľa...</string>
   <string name="seeBestMove">Ukázať najlepší ťah</string>

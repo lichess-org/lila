@@ -157,8 +157,8 @@ export function render(ctrl: KeyboardMove) {
   return h('div.keyboard-move', [
     h('input', {
       attrs: {
-        spellcheck: false,
-        autocomplete: false,
+        spellcheck: 'false',
+        autocomplete: 'off',
       },
       hook: onInsert(input =>
         lichess

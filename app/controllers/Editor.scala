@@ -1,15 +1,15 @@
 package controllers
 
-import chess.format.{ FEN, Forsyth }
+import chess.format.Fen
 import chess.Situation
 import chess.variant.Variant
-import play.api.libs.json._
-import views._
+import play.api.libs.json.*
+import views.*
 
-import lila.app._
-import lila.common.Json._
+import lila.app.{ given, * }
+import lila.common.Json.given
 
-final class Editor(env: Env) extends LilaController(env) {
+final class Editor(env: Env) extends LilaController(env):
 
   private lazy val positionsJson = lila.common.String.html.safeJsonValue {
     JsArray(chess.StartingPosition.all map { p =>
@@ -34,10 +34,10 @@ final class Editor(env: Env) extends LilaController(env) {
 
   def load(urlFen: String) =
     Open { implicit ctx =>
-      val fen = lila.common.String
+      val fen: Option[Fen.Epd] = lila.common.String
         .decodeUriPath(urlFen)
-        .map(_.replace('_', ' ').trim)
         .filter(_.nonEmpty)
+        .map(Fen.Epd.clean)
       fuccess {
         Ok(
           html.board.editor(
@@ -53,25 +53,23 @@ final class Editor(env: Env) extends LilaController(env) {
     Open { implicit ctx =>
       fuccess {
         JsonOk(
-          html.board.bits.editorJsData()
+          html.board.editor.jsData()
         )
       }
     }
 
-  def game(id: String) =
+  def game(id: GameId) =
     Open { implicit ctx =>
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect {
           if (game.playable) routes.Round.watcher(game.id, "white").url
-          else editorUrl(get("fen").fold(Forsyth >> game.chess)(FEN.apply), game.variant)
+          else editorUrl(get("fen").fold(Fen.write(game.chess))(Fen.Epd.clean), game.variant)
         }
       }
     }
 
-  private[controllers] def editorUrl(fen: FEN, variant: Variant): String =
-    if (fen == Forsyth.initial && variant.standard) routes.Editor.index.url
-    else {
+  private[controllers] def editorUrl(fen: Fen.Epd, variant: Variant): String =
+    if (fen == Fen.initial && variant.standard) routes.Editor.index.url
+    else
       val params = variant.exotic ?? s"?variant=${variant.key}"
-      routes.Editor.load(fen.value.replace(" ", "_")).url + params
-    }
-}
+      routes.Editor.load(lila.common.String.underscoreFen(fen)).url + params

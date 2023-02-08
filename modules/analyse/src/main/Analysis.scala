@@ -1,18 +1,18 @@
 package lila.analyse
 
-import chess.Color
+import chess.{ Ply, Color }
 
 import org.joda.time.DateTime
 import lila.user.User
 
 case class Analysis(
     id: Analysis.ID, // game ID, or chapter ID if studyId is set
-    studyId: Option[String],
+    studyId: Option[StudyId],
     infos: List[Info],
-    startPly: Int,
+    startPly: Ply,
     date: DateTime,
     fk: Option[Analysis.FishnetKey]
-) {
+):
 
   lazy val infoAdvices: InfoAdvices = {
     (Info.start(startPly) :: infos) sliding 2 collect { case List(prev, info) =>
@@ -37,12 +37,10 @@ case class Analysis(
 
   def nbEmptyInfos       = infos.count(_.isEmpty)
   def emptyRatio: Double = nbEmptyInfos.toDouble / infos.size
-}
 
-object Analysis {
+object Analysis:
 
   case class Analyzed(game: lila.game.Game, analysis: Analysis)
 
   type ID         = String
   type FishnetKey = String
-}

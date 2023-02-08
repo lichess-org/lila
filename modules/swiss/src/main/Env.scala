@@ -1,12 +1,13 @@
 package lila.swiss
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 import play.api.Configuration
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.LilaScheduler
-import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.socket.{ GetVersion, SocketVersion }
+import lila.db.dsl.Coll
 
 @Module
 final class Env(
@@ -24,16 +25,21 @@ final class Env(
     roundSocket: lila.round.RoundSocket,
     mongoCache: lila.memo.MongoCache.Api,
     baseUrl: lila.common.config.BaseUrl
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,
     idGenerator: lila.game.IdGenerator,
     mode: play.api.Mode
-) {
+):
 
-  private val colls = wire[SwissColls]
+  private val mongo = new SwissMongo(
+    swiss = db(CollName("swiss")),
+    player = db(CollName("swiss_player")),
+    pairing = db(CollName("swiss_pairing")),
+    ban = db(CollName("swiss_ban"))
+  )
 
   private val sheetApi = wire[SwissSheetApi]
 
@@ -43,6 +49,8 @@ final class Env(
 
   private val pairingSystem = new PairingSystem(trf, rankingApi, appConfig.get[String]("swiss.bbpairing"))
 
+  private val manualPairing = wire[SwissManualPairing]
+
   private val scoring = wire[SwissScoring]
 
   private val director = wire[SwissDirector]
@@ -51,18 +59,20 @@ final class Env(
 
   private val statsApi = wire[SwissStatsApi]
 
+  private val banApi = wire[SwissBanApi]
+
   lazy val verify = wire[SwissCondition.Verify]
 
   val api: SwissApi = wire[SwissApi]
 
   lazy val roundPager = wire[SwissRoundPager]
 
-  private def teamOf = api.teamOf _
+  private def teamOf = api.teamOf
 
   private lazy val socket = wire[SwissSocket]
 
-  def version(swissId: Swiss.Id): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](swissId.value)(GetVersion)
+  def version(swissId: SwissId): Fu[SocketVersion] =
+    socket.rooms.ask[SocketVersion](swissId into RoomId)(GetVersion.apply)
 
   lazy val standingApi = wire[SwissStandingApi]
 
@@ -72,7 +82,7 @@ final class Env(
 
   lazy val feature = wire[SwissFeature]
 
-  private lazy val cache: SwissCache = wire[SwissCache]
+  lazy val cache: SwissCache = wire[SwissCache]
 
   lazy val getName = new GetSwissName(cache.name)
 
@@ -92,15 +102,16 @@ final class Env(
     case lila.hub.actorApi.mod.MarkBooster(userId)        => api.kickLame(userId).unit
   }
 
-  LilaScheduler(_.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds))(api.startPendingRounds)
+  LilaScheduler("Swiss.startPendingRounds", _.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds))(
+    api.startPendingRounds
+  )
 
-  LilaScheduler(_.Every(10 seconds), _.AtMost(15 seconds), _.Delay(20 seconds))(api.checkOngoingGames)
+  LilaScheduler("Swiss.checkOngoingGames", _.Every(10 seconds), _.AtMost(15 seconds), _.Delay(20 seconds))(
+    api.checkOngoingGames
+  )
 
-  LilaScheduler(_.Every(1 hour), _.AtMost(15 seconds), _.Delay(5 minutes))(officialSchedule.generate)
-}
+  LilaScheduler("Swiss.generate", _.Every(1 hour), _.AtMost(15 seconds), _.Delay(5 minutes))(
+    officialSchedule.generate
+  )
 
-private class SwissColls(db: lila.db.Db) {
-  val swiss   = db(CollName("swiss"))
-  val player  = db(CollName("swiss_player"))
-  val pairing = db(CollName("swiss_pairing"))
-}
+final private class SwissMongo(val swiss: Coll, val player: Coll, val pairing: Coll, val ban: Coll)

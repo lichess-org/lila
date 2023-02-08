@@ -59,8 +59,8 @@
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">Usando análise de servidor</string>
   <string name="loadingEngine">Cargando módulo ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Calculando movementos...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Erro ao cargar motor no dispositivo local</string>
+  <string name="calculatingMoves">Calculando movementos...</string>
+  <string name="engineFailed">Erro ao cargar motor no dispositivo local</string>
   <string name="cloudAnalysis">Análise na nube</string>
   <string name="goDeeper">Con máis detalle</string>
   <string name="showThreat">Amosar ameaza</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' con redondeo, baseado no número de movementos intermedios ata a próxima captura ou movemento de peón</string>
   <string name="noGameFound">Non se atoparon partidas</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">E se probas a incluír máis partidas dende o menú de preferencias?</string>
+  <string name="openings">Aperturas</string>
   <string name="openingExplorer">Abrir o explorador</string>
   <string name="openingEndgameExplorer">Explorador de aperturas/finais</string>
   <string name="xOpeningExplorer">Explorador de aperturas %s</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Ver a tamaño completo</string>
   <string name="logOut">Pechar sesión</string>
   <string name="signIn">Iniciar sesión</string>
+  <string name="rememberMe">Lembrarme</string>
   <string name="youNeedAnAccountToDoThat">Precisas dunha conta de usuario para facer iso</string>
   <string name="signUp">Rexistrarse</string>
   <string name="computersAreNotAllowedToPlay">Non están permitidos os ordenadores ou os xogadores asistidos por eles. Por favor non te axudes de módulos de xadrez, bases de datos ou otros xogadores durante a partida. Lembra tamén que o uso de múltiples contas está altamente desaconsellado e que o uso abusivo deste tipo de contas pode conducir á suspensión</string>
@@ -197,12 +199,31 @@
   <string name="changeUsername">Cambiar nome de usuario</string>
   <string name="changeUsernameNotSame">Só poden cambiar as letras entre minúsculas e maiúsculas. Por exemplo de \"xoanninguen\" a \"XoanNinguen\".</string>
   <string name="changeUsernameDescription">Cambia o teu nome de usuario. Só o poderás facer unha vez e só está permitido cambiar de entre minúsculas e maiúsculas as letras do teu nome de usuario.</string>
+  <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario \"axeitado para a familia\" (family-friendly). Non poderás cambialo despois e calquera conta con nome de usuario inapropiado será cancelada!</string>
+  <string name="signupEmailHint">Só se usará para restablecer o contrasinal.</string>
   <string name="password">Contrasinal</string>
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>
   <string name="email">Correo electrónico</string>
   <string name="passwordReset">Cambiar contrasinal</string>
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
+  <string name="emailConfirmHelp">Axuda coa confirmación por correo</string>
+  <string name="emailConfirmNotReceived">Non recibiches correo de confirmación despois de rexistrarte?</string>
+  <string name="whatSignupUsername">Que nome de usuario quere empregar para rexistrarte?</string>
+  <string name="usernameNotFound">Non puidemos atopar nengún usuario/a con este nome: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Podes empregar este nome de usuario para crear unha nova conta</string>
+  <string name="emailSent">Enviámosche un correo a %s.</string>
+  <string name="emailCanTakeSomeTime">Pode tardar un tempo en chegar.</string>
+  <string name="refreshInboxAfterFiveMinutes">Agarda 5 minutos e refresca a túa caixa de correo.</string>
+  <string name="checkSpamFolder">Comproba tamén o teu buzón de spam, puido rematar aí. Se así foi, quítalle a marca de correo non desexado.</string>
+  <string name="emailForSignupHelp">Se todo falla, entón envíanos un correo:</string>
+  <string name="copyTextToEmail">Copia e pega o seguinte texto e envíao a %s</string>
+  <string name="waitForSignupHelp">Volveremos dentro de pouco para axudarche a completar o teu rexistro.</string>
+  <string name="accountConfirmed">O usuario %s foi confirmado correctamente.</string>
+  <string name="accountCanLogin">Agora podes loguearte como %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Non necesitas un correo de confirmación.</string>
+  <string name="accountClosed">A conta %s está pechada.</string>
+  <string name="accountRegisteredWithoutEmail">A conta %s foi rexistrada sen correo electrónico.</string>
   <string name="rank">Clasificación</string>
   <string name="rankX">Clasificación: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -632,6 +653,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="tournamentFAQ">Preguntas frecuentes sobre torneos</string>
   <string name="timeBeforeTournamentStarts">Tempo antes de que o torneo comece</string>
   <string name="averageCentipawnLoss">Pérdida de centipeóns media</string>
+  <string name="accuracy">Precisión</string>
   <string name="keyboardShortcuts">Atallos do teclado</string>
   <string name="keyMoveBackwardOrForward">mover atrás/adiante</string>
   <string name="keyGoToStartOrEnd">Ir ó comezo/remate</string>
@@ -714,6 +736,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
   <string name="transparent">Transparente</string>
+  <string name="deviceTheme">Tema do dispositivo</string>
   <string name="backgroundImageUrl">Url de imaxe de fondo:</string>
   <string name="boardGeometry">Xeometría do taboleiro</string>
   <string name="boardTheme">Tema do taboleiro</string>
@@ -742,6 +765,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="bestWasX">O mellor era %s</string>
   <string name="youBrowsedAway">Saíches da revisión</string>
   <string name="resumePractice">Continuar a prática</string>
+  <string name="drawByFiftyMoves">A partida rematou en táboas pola regra dos cincuenta movementos.</string>
   <string name="theGameIsADraw">A partida está en táboas.</string>
   <string name="computerThinking">Computadora pensando ...</string>
   <string name="seeBestMove">Ver o mellor movemento</string>

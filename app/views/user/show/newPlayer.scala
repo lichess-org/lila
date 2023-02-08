@@ -1,12 +1,12 @@
 package views.html.user.show
 
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
 import controllers.routes
 
-object newPlayer {
+object newPlayer:
 
   def apply(u: User) =
     div(cls := "new-player")(
@@ -49,4 +49,3 @@ object newPlayer {
         li("Explore the site and have fun :)")
       )
     )
-}

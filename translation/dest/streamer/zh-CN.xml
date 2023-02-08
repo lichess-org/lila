@@ -30,10 +30,7 @@
   <string name="pleaseFillIn">请填写您的主播信息并上传一张图片。</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">当你准备好成为 Lichess 主播时，%s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">请求版主复审</string>
-  <string name="anotherLanguage">如果您的直播是英语以外的语言，请在您的直播标题开头的方括号内包含正确的语言标签 (%s) 。
-作为示例，您可以用\"[RU]\"表示俄语、\"[TR]\"表示土耳其语、\"[FR]\"表示法语等等。
-将此放入Twitch或YouTube页面的直播标题，而不是Lichess直播设置。
-如果您的直播是英语，无需包含语言标签。</string>
+  <string name="streamerLanguageSettings">Lichess流页面以您的流媒体平台提供的语言为您的观众对象。 在应用程序中设置您的国际象棋流的正确默认语言或您用于广播的服务。</string>
   <string name="twitchUsername">您的 Twitch 用户名或 URL</string>
   <string name="optionalOrEmpty">可选。如果没有则留空</string>
   <string name="youtubeChannel">您的 YouTube 频道 ID 或 URL</string>

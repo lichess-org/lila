@@ -1,11 +1,11 @@
 package lila.shutup
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
-import lila.common.config._
+import lila.common.config.*
 import lila.user.UserRepo
 
 @Module
@@ -21,10 +21,10 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
     db: lila.db.Db
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
-) {
+):
 
   private val config = appConfig.get[ShutupConfig]("shutup")(AutoConfig.loader)
 
@@ -35,7 +35,7 @@ final class Env(
   // api actor
   system.actorOf(
     Props(new Actor {
-      import lila.hub.actorApi.shutup._
+      import lila.hub.actorApi.shutup.*
       def receive = {
         case RecordPublicForumMessage(userId, text) =>
           api.publicForumMessage(userId, text).unit
@@ -51,4 +51,3 @@ final class Env(
     }),
     name = config.actorName
   )
-}

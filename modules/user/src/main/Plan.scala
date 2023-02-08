@@ -6,7 +6,7 @@ case class Plan(
     months: Int,
     active: Boolean,
     since: Option[DateTime]
-) {
+):
 
   def incMonths =
     copy(
@@ -29,13 +29,12 @@ case class Plan(
   def nonEmpty = !isEmpty option this
 
   def sinceDate = since | DateTime.now
-}
 
-object Plan {
+object Plan:
 
   val empty = Plan(0, active = false, none)
   def start = Plan(1, active = true, DateTime.now.some)
 
-  import lila.db.dsl._
-  private[user] val planBSONHandler = reactivemongo.api.bson.Macros.handler[Plan]
-}
+  import lila.db.dsl.{ *, given }
+  import reactivemongo.api.bson.*
+  private[user] given BSONDocumentHandler[Plan] = Macros.handler[Plan]

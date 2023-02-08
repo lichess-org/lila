@@ -3,13 +3,13 @@ package round
 
 import play.api.libs.json.{ JsObject, Json }
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
-object watcher {
+object watcher:
 
   def apply(
       pov: Pov,
@@ -20,7 +20,7 @@ object watcher {
       userTv: Option[lila.user.User] = None,
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
     val chatJson = chatOption map { c =>
       chat.json(
@@ -61,9 +61,8 @@ object watcher {
         div(cls := "round__underchat")(bits underchat pov.game)
       )
     )
-  }
 
-  def crawler(pov: Pov, initialFen: Option[chess.format.FEN], pgn: chess.format.pgn.Pgn)(implicit
+  def crawler(pov: Pov, initialFen: Option[chess.format.Fen.Epd], pgn: chess.format.pgn.Pgn)(using
       ctx: Context
   ) =
     bits.layout(
@@ -86,4 +85,3 @@ object watcher {
         )
       )
     )
-}

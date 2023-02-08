@@ -1,15 +1,16 @@
 package views.html.user.show
 
-import lila.api.Context
+import controllers.report.routes.{ Report as reportRoutes }
+import controllers.routes
+
+import lila.api.{ Context, given }
 import lila.app.mashup.UserInfo.Angle
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.user.User
 
-import controllers.routes
-
-object header {
+object header:
 
   private val dataToints = attr("data-toints")
   private val dataTab    = attr("data-tab")
@@ -44,7 +45,7 @@ object header {
               ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}")
             )(patronIconChar)
         ),
-        u.disabled option span(cls := "closed")("CLOSED")
+        u.enabled.no option span(cls := "closed")("CLOSED")
       ),
       div(cls := "user-show__social")(
         div(cls := "number-menu")(
@@ -122,7 +123,7 @@ object header {
           (ctx.isAuth && ctx.noKid && !ctx.is(u)) option a(
             titleOrText(trans.reportXToModerators.txt(u.username)),
             cls      := "btn-rack__btn",
-            href     := s"${routes.Report.form}?username=${u.username}",
+            href     := s"${reportRoutes.form}?username=${u.username}",
             dataIcon := ""
           )
         )
@@ -195,14 +196,14 @@ object header {
                     )
                   },
                   !hideTroll option div(cls := "social_links col2")(
-                    if (profile.actualLinks.nonEmpty) strong(trans.socialMediaLinks()),
+                    profile.actualLinks.nonEmpty option strong(trans.socialMediaLinks()),
                     profile.actualLinks.map { link =>
                       a(href := link.url, targetBlank, noFollow)(link.site.name)
                     }
                   ),
                   div(cls := "teams col2")(
-                    if (info.teamIds.nonEmpty) strong(trans.team.teams()),
-                    info.teamIds.sorted.map { t =>
+                    info.teamIds.nonEmpty option strong(trans.team.teams()),
+                    info.teamIds.sorted(stringOrdering).map { t =>
                       teamLink(t, withIcon = false)
                     }
                   )
@@ -251,37 +252,37 @@ object header {
     )
 
   def noteZone(u: User, notes: List[lila.user.Note])(implicit ctx: Context) = div(cls := "note-zone")(
-    postForm(action := s"${routes.User.writeNote(u.username)}?note")(
+    postForm(cls := "note-form", action := routes.User.writeNote(u.username))(
       form3.textarea(lila.user.UserForm.note("text"))(
-        placeholder := "Write a private note about this user"
+        placeholder := trans.writeAPrivateNoteAboutThisUser.txt()
       ),
       if (isGranted(_.ModNote))
         div(cls := "mod-note")(
-          submitButton(cls := "button")(trans.save()),
-          div(
-            div(form3.cmnToggle("note-mod", "mod", checked = true)),
-            label(`for` := "note-mod")("For moderators only")
+          submitButton(cls := "button", name := "noteType", value := "mod")("Save Mod Note"),
+          isGranted(_.Admin) option submitButton(cls := "button", name := "noteType", value := "dox")(
+            "Save Dox Note"
           ),
-          isGranted(_.Admin) option div(
-            div(form3.cmnToggle("note-dox", "dox", checked = false)),
-            label(`for` := "note-dox")("Doxing info")
-          )
+          submitButton(cls := "button", name := "noteType", value := "normal")("Save Regular Note")
         )
-      else
-        frag(
-          input(tpe := "hidden", name := "mod", value := "false"),
-          submitButton(cls := "button")(trans.save())
-        )
+      else submitButton(cls := "button", name := "noteType", value := "normal")(trans.save())
     ),
-    notes.isEmpty option div("No note yet"),
+    notes.isEmpty option div(trans.noNoteYet()),
     notes.map { note =>
       div(cls := "note")(
         p(cls := "note__text")(richText(note.text, expandImg = false)),
+        (note.mod && isGranted(_.Admin)) option postForm(
+          action := routes.User.setDoxNote(note._id, !note.dox)
+        )(
+          submitButton(
+            cls := "button-empty confirm button text"
+          )("Toggle Dox")
+        ),
         p(cls := "note__meta")(
           userIdLink(note.from.some),
           br,
           note.dox option "dox ",
-          momentFromNow(note.date),
+          if (isGranted(_.ModNote)) momentFromNowServer(note.date)
+          else momentFromNow(note.date),
           (ctx.me.exists(note.isFrom) && !note.mod) option frag(
             br,
             postForm(action := routes.User.deleteNote(note._id))(
@@ -289,11 +290,10 @@ object header {
                 cls      := "button-empty button-red confirm button text",
                 style    := "float:right",
                 dataIcon := ""
-              )("Delete")
+              )(trans.delete())
             )
           )
         )
       )
     }
   )
-}

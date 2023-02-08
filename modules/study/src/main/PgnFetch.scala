@@ -2,7 +2,7 @@ package lila.study
 
 import play.api.libs.ws.StandaloneWSClient
 
-final private class PgnFetch(ws: StandaloneWSClient) {
+final private class PgnFetch(ws: StandaloneWSClient):
 
   private type Pgn = String
   private val pgnContentType = "application/x-chess-pgn"
@@ -13,14 +13,11 @@ final private class PgnFetch(ws: StandaloneWSClient) {
   private val ChessbaseRegex = """chessgames\.com/.*[\?&]gid=(\d+)""".r.unanchored
 
   def fromUrl(url: String): Fu[Option[Pgn]] =
-    url match {
+    url match
       case ChessbaseRegex(id) => id.toIntOption ?? downloadChessbase
       case _                  => fuccess(none)
-    }
 
-  private def downloadChessbase(id: Int): Fu[Option[Pgn]] = {
+  private def downloadChessbase(id: Int): Fu[Option[Pgn]] =
     ws.url(s"""http://www.chessgames.com/pgn/any.pgn?gid=$id""").get().dmap { res =>
       res.header("Content-Type").contains(pgnContentType) option res.body
     }
-  }
-}

@@ -1,3 +1,5 @@
+import { isTouchDevice } from 'common/mobile';
+
 export const registerMultipleSelect = () => {
   $.fn.multipleSelectHover = function (fnOver, fnOut) {
     return this.on('mouseenter', fnOver).on('mouseleave', fnOut || fnOver);
@@ -45,7 +47,7 @@ export const registerMultipleSelect = () => {
           '</button>',
         ].join('')
       );
-      this.$drop = $(`<div class="ms-drop ${this.options.position}" style="width: ${this.options.dropWidth}"></div>`);
+      this.$drop = $(`<div class="ms-drop ${this.options.position}"/>`);
       this.$el.after(this.$parent);
       this.$parent.append(this.$choice);
       this.$parent.append(this.$drop);
@@ -198,11 +200,12 @@ export const registerMultipleSelect = () => {
         .on('focus', this.options.onFocus!)
         .off('blur')
         .on('blur', this.options.onBlur!);
-      this.$choice
-        .parent()
-        .off('mouseover')
-        .off('mouseout')
-        .multipleSelectHover(that.open.bind(that), that.close.bind(that));
+      if (!isTouchDevice())
+        this.$choice
+          .parent()
+          .off('mouseover')
+          .off('mouseout')
+          .multipleSelectHover(that.open.bind(that), that.close.bind(that));
       this.$parent.off('keydown').on('keydown', function (e) {
         switch (e.which) {
           case 27:

@@ -2,9 +2,10 @@ package lila.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress, ThreadLocalRandom }
+import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress }
 import lila.user.User
 
 // codename UGC
@@ -14,22 +15,21 @@ final class GarbageCollector(
     irc: lila.irc.IrcApi,
     noteApi: lila.user.NoteApi,
     isArmed: () => Boolean
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   private val logger = lila.security.logger.branch("GarbageCollector")
 
-  private val justOnce = lila.memo.OnceEvery(10 minutes)
+  private val justOnce = lila.memo.OnceEvery[UserId](10 minutes)
 
-  private case class ApplyData(user: User, ip: IpAddress, email: EmailAddress, req: RequestHeader) {
+  private case class ApplyData(user: User, ip: IpAddress, email: EmailAddress, req: RequestHeader):
     override def toString = s"${user.username} $ip ${email.value} $req"
-  }
 
   // User just signed up and doesn't have security data yet, so wait a bit
   def delay(user: User, email: EmailAddress, req: RequestHeader): Unit =
-    if (user.createdAt.isAfter(DateTime.now minusDays 3)) {
+    if (user.createdAt.isAfter(DateTime.now minusDays 3))
       val ip = HTTPRequest ipAddress req
       scheduler
         .scheduleOnce(6 seconds) {
@@ -46,7 +46,6 @@ final class GarbageCollector(
           ()
         }
         .unit
-    }
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
     userLogins userHasPrint data.user flatMap {
@@ -55,19 +54,19 @@ final class GarbageCollector(
     }
 
   private def apply(data: ApplyData): Funit =
-    data match {
+    data match
       case ApplyData(user, ip, email, req) =>
         for {
           spy    <- userLogins(user, 300)
           ipSusp <- ipTrust.isSuspicious(ip)
-          _ <- {
+          _ <-
             val printOpt = spy.prints.headOption
             logger.debug(s"apply ${data.user.username} print=$printOpt")
             Bus.publish(
               lila.security.UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp),
               "userSignup"
             )
-            printOpt.filter(_.banned).map(_.fp.value) match {
+            printOpt.filter(_.banned).map(_.fp.value) match
               case Some(print) => collect(user, email, msg = s"Print ban: `${print.value}`")
               case _ =>
                 badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
@@ -82,18 +81,14 @@ final class GarbageCollector(
                       )
                     }
                 }
-            }
-          }
         } yield ()
-    }
 
-  private def badOtherAccounts(accounts: List[User]): Option[List[User]] = {
+  private def badOtherAccounts(accounts: List[User]): Option[List[User]] =
     val others = accounts
       .sortBy(-_.createdAt.getSeconds)
       .takeWhile(_.createdAt.isAfter(DateTime.now minusDays 10))
       .take(4)
-    (others.sizeIs > 1 && others.forall(isBadAccount) && others.headOption.exists(_.disabled)) option others
-  }
+    (others.sizeIs > 1 && others.forall(isBadAccount) && others.headOption.exists(_.enabled.no)) option others
 
   private def isBadAccount(user: User) = user.lameOrTrollOrAlt
 
@@ -121,4 +116,3 @@ final class GarbageCollector(
       lila.hub.actorApi.security.GarbageCollect(user.id),
       "garbageCollect"
     )
-}

@@ -9,6 +9,7 @@
   <string name="drafts">Koncepty</string>
   <string name="published">Publikováno</string>
   <string name="createBlogDiscussion">Povolit komentáře</string>
+  <string name="createBlogDiscussionHelp">Bude vytvořeno téma fóra, aby lidé mohli komentovat váš příspěvek</string>
   <string name="publishOnYourBlog">Publikovat na vašem blogu</string>
   <string name="publishHelp">Je-li zaškrtnuto, příspěvek bude zobrazen na vašem blogu. Pokud ne, bude soukromý, ve vašich konceptech</string>
   <string name="xPublishedY">%1$s publikoval %2$s</string>
@@ -27,6 +28,7 @@
   <string name="uploadAnImageForYourPost">Nahrát obrázek pro váš příspěvek</string>
   <string name="imageAlt">Alternativní text obrázku</string>
   <string name="imageCredit">Zdroj obrázku</string>
+  <string name="deleteBlog">Definitivně smazat tento blogový příspěvek</string>
   <string name="deleteImage">Smazat obrázek</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Je bezpečné používat obrázky z těchto stránek: </string>
 </resources>

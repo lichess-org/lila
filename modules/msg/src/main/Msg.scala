@@ -6,9 +6,9 @@ import lila.user.User
 
 case class Msg(
     text: String,
-    user: User.ID,
+    user: UserId,
     date: DateTime
-) {
+):
 
   def asLast =
     Msg.Last(
@@ -17,27 +17,21 @@ case class Msg(
       date = date,
       read = false
     )
-}
 
-object Msg {
-
-  case class Id(value: String) extends AnyVal
+object Msg:
 
   case class Last(
       text: String,
-      user: User.ID,
+      user: UserId,
       date: DateTime,
       read: Boolean
-  ) {
-    def unreadBy(userId: User.ID) = !read && user != userId
-  }
+  ):
+    def unreadBy(userId: UserId) = !read && user != userId
 
-  def make(text: String, user: User.ID): Option[Msg] = {
+  def make(text: String, user: UserId): Option[Msg] =
     val cleanText = lila.common.String.normalize(text.trim take 8_000)
     cleanText.nonEmpty option Msg(
       text = cleanText,
       user = user,
       date = DateTime.now
     )
-  }
-}

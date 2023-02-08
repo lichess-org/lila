@@ -1,0 +1,12 @@
+{
+  "extends": "/home/sam/Documents/git/lila/ui/tsconfig_module.base.json",
+  "include": ["/home/sam/Documents/git/lila/ui/chess/src"],
+  "exclude": [],
+  "compilerOptions": {
+    "outDir": "/home/sam/Documents/git/lila/ui/chess/dist",
+    "rootDir": "/home/sam/Documents/git/lila/ui/chess/src",
+    "incremental": true,
+    "composite": true
+  },
+  "references": [{ "path": "common.tsconfig.json" }]
+}

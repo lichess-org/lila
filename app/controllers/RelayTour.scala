@@ -1,21 +1,21 @@
 package controllers
 
 import play.api.data.Form
-import play.api.mvc._
+import play.api.mvc.*
 import scala.annotation.nowarn
-import scala.concurrent.duration._
-import scala.util.chaining._
-import views._
+import scala.concurrent.duration.*
+import scala.util.chaining.*
+import views.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.{ HTTPRequest, IpAddress }
-import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel }
-import lila.user.{ User => UserModel }
+import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
+import lila.user.{ User as UserModel }
 import lila.common.config
 
-final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env) {
+final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env):
 
   def index(page: Int) =
     Open { implicit ctx =>
@@ -40,7 +40,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
 
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {
-      Ok(html.relay.tourForm.create(env.relay.tourForm.create)).fuccess
+      Ok(html.relay.tourForm.create(env.relay.tourForm.create)).toFuccess
     }
   }
 
@@ -52,7 +52,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
             env.relay.tourForm.create
               .bindFromRequest()(ctx.body, formBinding)
               .fold(
-                err => BadRequest(html.relay.tourForm.create(err)).fuccess,
+                err => BadRequest(html.relay.tourForm.create(err)).toFuccess,
                 setup =>
                   rateLimitCreation(me, ctx.req, Redirect(routes.RelayTour.index())) {
                     env.relay.api.tourCreate(setup, me) map { tour =>
@@ -67,7 +67,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
             env.relay.tourForm.create
               .bindFromRequest()(req, formBinding)
               .fold(
-                err => BadRequest(apiFormError(err)).fuccess,
+                err => BadRequest(apiFormError(err)).toFuccess,
                 setup =>
                   rateLimitCreation(me, req, rateLimited) {
                     JsonOk {
@@ -82,7 +82,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
 
   def edit(id: String) = Auth { implicit ctx => me =>
     WithTourCanUpdate(id) { tour =>
-      Ok(html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))).fuccess
+      Ok(html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))).toFuccess
     }
   }
 
@@ -95,7 +95,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
               .edit(tour)
               .bindFromRequest()(ctx.body, formBinding)
               .fold(
-                err => BadRequest(html.relay.tourForm.edit(tour, err)).fuccess,
+                err => BadRequest(html.relay.tourForm.edit(tour, err)).toFuccess,
                 setup =>
                   env.relay.api.tourUpdate(tour, setup, me) inject
                     Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
@@ -110,7 +110,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
                   .edit(tour)
                   .bindFromRequest()
                   .fold(
-                    err => BadRequest(apiFormError(err)).fuccess,
+                    err => BadRequest(apiFormError(err)).toFuccess,
                     setup => env.relay.api.tourUpdate(tour, setup, me) inject jsonOkResult
                   )
               }
@@ -119,8 +119,8 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
     )
 
   def redirectOrApiTour(@nowarn("msg=unused") slug: String, anyId: String) = Open { implicit ctx =>
-    env.relay.api byIdWithTour RoundModel.Id(anyId) flatMap {
-      case Some(rt) => Redirect(rt.path).fuccess // BC old broadcast URLs
+    env.relay.api byIdWithTour RelayRoundId(anyId) flatMap {
+      case Some(rt) => Redirect(rt.path).toFuccess // BC old broadcast URLs
       case None =>
         env.relay.api tourById TourModel.Id(anyId) flatMap {
           _ ?? { tour =>
@@ -159,16 +159,16 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
         env.relay.api
           .officialTourStream(MaxPerSecond(20), getInt("nb", req) | 20)
           .map(env.relay.jsonView.apply(_, withUrls = true))
-      }.fuccess
+      }.toFuccess
     }
 
   private def redirectToTour(tour: TourModel)(implicit ctx: Context): Fu[Result] =
     env.relay.api.activeTourNextRound(tour) orElse env.relay.api.tourLastRound(tour) flatMap {
       case None =>
         ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMap {
-          _ ?? Redirect(routes.RelayRound.form(tour.id.value)).fuccess
+          _ ?? Redirect(routes.RelayRound.form(tour.id.value)).toFuccess
         }
-      case Some(round) => Redirect(round.withTour(tour).path).fuccess
+      case Some(round) => Redirect(round.withTour(tour).path).toFuccess
     }
 
   private def WithTour(id: String)(
@@ -185,7 +185,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       }
     }
 
-  private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+  private val CreateLimitPerUser = new lila.memo.RateLimit[UserId](
     credits = 10 * 10,
     duration = 24.hour,
     key = "broadcast.tournament.user"
@@ -203,7 +203,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       fail: => Result
   )(
       create: => Fu[Result]
-  ): Fu[Result] = {
+  ): Fu[Result] =
     val cost =
       if (isGranted(_.Relay, me)) 2
       else if (me.hasTitle || me.isVerified) 5
@@ -211,7 +211,5 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
     CreateLimitPerUser(me.id, cost = cost) {
       CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost) {
         create
-      }(fail.fuccess)
-    }(fail.fuccess)
-  }
-}
+      }(fail.toFuccess)
+    }(fail.toFuccess)

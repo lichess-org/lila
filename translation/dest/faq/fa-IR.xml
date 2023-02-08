@@ -35,6 +35,7 @@
   <string name="discoveringEnPassant">آیا یک پیاده میتواند یک پیاده دیگر را در حالی که از کنارش رد شده است بگیرد؟ (آن پاسان)</string>
   <string name="goodIntroduction">معرفی و مقدمه خوب</string>
   <string name="lichessTraining">آموزش لایچس</string>
+  <string name="watchIMRosenCheckmate">کیش و مات شدن %s در مقابل استاد بین‌المللی اریک روزن را تماشا کنید.</string>
   <string name="threefoldRepetition">تکرار سه گانه</string>
   <string name="threefoldRepetitionExplanation">اگر پوزیشنی سه بار اتفاق افتاد، بازیکنان میتوانن با استفاده از %1$s ادعای مساوی کنند. لیچس قوانین رسمی FIDE را که در مقاله %2$s توضیح داده شده اجرا میکند.</string>
   <string name="threefoldRepetitionLowerCase">تکرار سه گانه</string>
@@ -45,6 +46,7 @@
   <string name="configure">پیکربندی نمایید</string>
   <string name="accounts">حساب‌های کاربری</string>
   <string name="titlesAvailableOnLichess">چه عناوینی در Lichess وجود دارند؟</string>
+  <string name="asWellAsManyNMtitles">تعداد زیادی عناوین استادی ملی</string>
   <string name="verificationForm">فرم تایید</string>
   <string name="canIbecomeLM">آیا می‌توانم عنوان Lichess Master (LM) را دریافت کنم؟</string>
   <string name="noUpperCaseDot">خیر.</string>
@@ -62,6 +64,8 @@
   <string name="howDoLeaderoardsWork">رتبه ها و تابلو امتیازات چگونه کار می کنند؟</string>
   <string name="inOrderToAppearsYouMust">برای اینکه وارد %1$s شوید شما باید:</string>
   <string name="ratingLeaderboards">تابلوی امتیازات</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">حداقل 30 بازی ریتد در ریتینگ مشخص بازی کرده،</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">در طول هفته گذشته یک بازی ریتد برای این ریتینگ بازی کرده،</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">داشتن ریتینگ کمتر از %1$s در شطرنج استاندارد، و کمتر از %2$s در انواع مختلف دیگر شطرنج</string>
   <string name="beInTopTen">جزو 10 نفر برتر این ریتینگ بودن.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">شرط دوم این است که بازیکنانی که دیگر از حساب‌های خود استفاده نمی‌کنند، از پر کردن تابلوهای امتیازات خودداری کنند.</string>

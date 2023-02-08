@@ -3,6 +3,7 @@
   <string name="preferences">Preferências</string>
   <string name="display">Mostrar</string>
   <string name="privacy">Privacidade</string>
+  <string name="notifications">Notificações</string>
   <string name="pieceAnimation">Animação das peças</string>
   <string name="materialDifference">Diferença material</string>
   <string name="boardHighlights">Destacar casas do tabuleiro (último movimento e xeque)</string>
@@ -36,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Aperte a tecla &lt;ctrl&gt; durante uma promoção para desativar temporariamente a promoção automática</string>
   <string name="whenPremoving">Quando mover previamente</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reivindicar empate sobre a repetição tripla automaticamente</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Quando o tempo restante &lt; 30 segundos</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmação de movimento</string>
   <string name="inCorrespondenceGames">Jogos por correspondência</string>
   <string name="correspondenceAndUnlimited">Por correspondência e sem limites</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Suas preferências foram salvas.</string>
   <string name="scrollOnTheBoardToReplayMoves">Use o scroll do mouse no tabuleiro para ir passando as jogadas</string>
   <string name="correspondenceEmailNotification">Email diário listando seus jogos por correspondência</string>
+  <string name="notifyStreamStart">O streamer está ao vivo</string>
+  <string name="notifyInboxMsg">Nova mensagem</string>
+  <string name="notifyForumMention">Você foi mencionado em um comentário do fórum</string>
+  <string name="notifyInvitedStudy">Convite a um estudo</string>
+  <string name="notifyGameEvent">Jogo por correspondência atualizado</string>
+  <string name="notifyChallenge">Desafios</string>
+  <string name="notifyTournamentSoon">O torneio começará em breve</string>
+  <string name="notifyTimeAlarm">Está acabando o tempo no jogo por correspondência</string>
+  <string name="notifyBell">Notificação no Lichess</string>
+  <string name="notifyPush">Notificação no dispositivo fora do Lichess</string>
+  <string name="notifyWeb">Navegador</string>
+  <string name="notifyDevice">Dispositivo</string>
 </resources>

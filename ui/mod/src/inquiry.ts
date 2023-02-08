@@ -18,13 +18,17 @@ lichess.load.then(() => {
   const loadNotes = () => {
     const $notes = $('#inquiry .notes');
     $notes.on('input', () => setTimeout(() => noteStore.set(noteTextArea.value), 50));
-    $notes.find('form').on('submit', function (this: HTMLFormElement) {
-      xhr
-        .formToXhr(this)
-        .then(html => $notes.replaceWith(html))
-        .then(noteStore.remove)
-        .then(() => loadNotes())
-        .catch(() => alert('Invalid note, is it too short or too long?'));
+    $notes.find('form button[type=submit]').on('click', function (this: HTMLButtonElement) {
+      $(this)
+        .parents('form')
+        .each((_, form: HTMLFormElement) =>
+          xhr
+            .formToXhr(form, this)
+            .then(html => $notes.replaceWith(html))
+            .then(noteStore.remove)
+            .then(() => loadNotes())
+            .catch(() => alert('Invalid note, is it too short or too long?'))
+        );
       return false;
     });
   };
@@ -54,7 +58,7 @@ lichess.load.then(() => {
       expandMentions(
         $(this)
           .html()
-          .replace(/(?:https:\/\/)?lichess\.org\/((?:[\w\/:(&;)?=@]|\.\w)+)/gi, '<a href="/$1">lichess.org/$1</a>')
+          .replace(/(?:https:\/\/)?lichess\.org\/((?:[\w\/:(&;)=@-]|[?.]\w)+)/gi, '<a href="/$1">lichess.org/$1</a>')
       )
     );
   });

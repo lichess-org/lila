@@ -59,8 +59,8 @@
   <string name="depthX">Derinlik %s</string>
   <string name="usingServerAnalysis">Sunucu analizi yapılıyor</string>
   <string name="loadingEngine">Satranç motoru yükleniyor...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Hamleler hesaplanıyor...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Motor yüklenirken hata oluştu</string>
+  <string name="calculatingMoves">Hamleler hesaplanıyor...</string>
+  <string name="engineFailed">Motor yüklenirken hata oluştu</string>
   <string name="cloudAnalysis">Bulut analizi</string>
   <string name="goDeeper">Daha derine in</string>
   <string name="showThreat">Tehdidi göster</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\', bir sonraki yakalama veya piyon hamlesine kadar olan yarım hamle sayısına dayalı yuvarlama ile</string>
   <string name="noGameFound">Oyun bulunamadı</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seçenekler menüsünden daha fazla oyun eklemeyi deneyebilirsiniz.</string>
+  <string name="openings">Açılışlar</string>
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="openingEndgameExplorer">Açılış/oyunsonu kâşifi</string>
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Tam ekran göster</string>
   <string name="logOut">Çıkış</string>
   <string name="signIn">Giriş</string>
+  <string name="rememberMe">Oturumumu açık bırak</string>
   <string name="youNeedAnAccountToDoThat">Bunu yapmanız için bir hesaba ihtiyacınız var</string>
   <string name="signUp">Kayıt Ol</string>
   <string name="computersAreNotAllowedToPlay">Bilgisayarlar ve bilgisayar destekli oyuncuların oynamasına izin yoktur. Lütfen maçlarda satranç motorlarından, veri tabanlarından ya da başka oyunculardan destek almayınız. Ayrıca, birden fazla hesap açmanız kesinlikle önerilmez. Çok fazla hesap açmak, hesapların kapatılmasına neden olacaktır.</string>
@@ -197,12 +199,31 @@
   <string name="changeUsername">Kullanıcı adını değiştir</string>
   <string name="changeUsernameNotSame">Sadece kullanıcı adınızdaki büyük/küçük harfleri değiştirebilirsiniz. Örneğin \"johndoe\" den \"JohnDoe\" gibi.</string>
   <string name="changeUsernameDescription">Kullanıcı adınızı değiştirin. Bu işlemi sadece 1 (bir) kez gerçekleştirebilirsiniz ve sadece mevcut kullanıcı adınızdaki harfleri (\"johndoe\", \"JohnDoe\") değiştirebilirsiniz.</string>
+  <string name="signupUsernameHint">Aile dostu bir kullanıcı adı seçtiğinizden emin olun. Kullanıcı adı daha sonra değiştirilemez ve uygunsuz kullanıcı adına sahip hesaplar kapatılır!</string>
+  <string name="signupEmailHint">Bunu yalnızca şifre sıfırlaması için kullanacağız.</string>
   <string name="password">Şifre</string>
   <string name="changePassword">Şifre değiştir</string>
   <string name="changeEmail">E-posta adresini değiştir</string>
   <string name="email">E-posta</string>
   <string name="passwordReset">Şifreyi yenile</string>
   <string name="forgotPassword">Şifremi unuttum</string>
+  <string name="emailConfirmHelp">E-posta onayı için yardım</string>
+  <string name="emailConfirmNotReceived">Kayıt olduktan sonra doğrulama e-postası almadınız mı?</string>
+  <string name="whatSignupUsername">Kayıt olmak için hangi kullanıcı adını kullandınız?</string>
+  <string name="usernameNotFound">%s adında herhangi bir kullanıcı bulamadık.</string>
+  <string name="usernameCanBeUsedForNewAccount">Bu kullanıcı adını yeni bir hesap oluşturmak için kullanabilirsiniz</string>
+  <string name="emailSent">%s adresine bir e-posta gönderdik.</string>
+  <string name="emailCanTakeSomeTime">E-postanın ulaşması biraz zaman alabilir.</string>
+  <string name="refreshInboxAfterFiveMinutes">5 dakika bekleyip e-posta gelen kutunuzu yenileyin.</string>
+  <string name="checkSpamFolder">Ayrıca spam klasörünü kontrol edin, orada olabilir. Eğer öyleyse spam değil olarak işaretleyin.</string>
+  <string name="emailForSignupHelp">Hiçbiri işe yaramazsa, bize şu e-postayı gönderin:</string>
+  <string name="copyTextToEmail">Yukarıdaki metni kopyalayıp %s adresine gönderin</string>
+  <string name="waitForSignupHelp">Kaydınızı tamamlamanıza yardımcı olmak için kısa bir süre içinde size geri döneceğiz.</string>
+  <string name="accountConfirmed">%s kullanıcısı başarıyla onaylandı.</string>
+  <string name="accountCanLogin">Artık %s olarak giriş yapabilirsiniz.</string>
+  <string name="accountConfirmationEmailNotNeeded">Onay e-postasına ihtiyacınız yok.</string>
+  <string name="accountClosed">%s hesabı kapatılmıştır.</string>
+  <string name="accountRegisteredWithoutEmail">%s hesabı e-posta olmadan kaydedildi.</string>
   <string name="rank">Sıralama</string>
   <string name="rankX">Sıralama: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -281,7 +302,7 @@
     <item quantity="other">%s beraberlik</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s oynuyor</item>
+    <item quantity="one">%s oynanıyor</item>
     <item quantity="other">%s oynuyor</item>
   </plurals>
   <string name="exportGames">Oyunları indir</string>
@@ -468,6 +489,8 @@
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="savingMoves">Geçici hamle depolama</string>
   <string name="savingMovesHelp">Sizin varyasyonlarınızı tarayıcı önbelleğinde saklıyoruz.</string>
+  <string name="makeAStudy">Bunları kaydetmek ve paylaşmak için çalışma oluşturabilirsiniz.</string>
+  <string name="clearSavedMoves">Hamleleri sil</string>
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>
   <string name="activePlayers">Aktif oyuncular</string>
@@ -631,6 +654,7 @@
   <string name="tournamentFAQ">Arena turnuvaları SSS</string>
   <string name="timeBeforeTournamentStarts">Turnuvaya kalan süre</string>
   <string name="averageCentipawnLoss">Ortalama santipiyon kaybı</string>
+  <string name="accuracy">Doğruluk</string>
   <string name="keyboardShortcuts">Klavye kısayolları</string>
   <string name="keyMoveBackwardOrForward">önceki/sonraki hamle</string>
   <string name="keyGoToStartOrEnd">başa/sona git</string>
@@ -713,6 +737,7 @@
   <string name="light">Açık</string>
   <string name="dark">Koyu</string>
   <string name="transparent">Şeffaf</string>
+  <string name="deviceTheme">Cihaz teması</string>
   <string name="backgroundImageUrl">Arka plan resim linki:</string>
   <string name="boardGeometry">Tahta geometrisi</string>
   <string name="boardTheme">Tahta teması</string>
@@ -741,6 +766,7 @@
   <string name="bestWasX">En iyisi %s idi</string>
   <string name="youBrowsedAway">Çok uzaklara gittiniz</string>
   <string name="resumePractice">Pratik yapmaya devam edin.</string>
+  <string name="drawByFiftyMoves">Oyun, elli hamle kuralı gereğince beraberlikle sonuçlandı.</string>
   <string name="theGameIsADraw">Bu maç berabere.</string>
   <string name="computerThinking">Bilgisayar düşünüyor...</string>
   <string name="seeBestMove">En iyi hamleyi gör</string>

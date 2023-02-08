@@ -1,18 +1,18 @@
 package views.html
 package base
 
-import chess.format.FEN
+import chess.format.Fen
 import controllers.routes
 import play.api.i18n.Lang
 import play.api.mvc.Call
 
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
-object bits {
+object bits:
 
-  def mselect(id: String, current: Frag, items: List[Frag]) =
+  def mselect(id: String, current: Frag, items: Seq[Frag]) =
     div(cls := "mselect")(
       input(
         tpe          := "checkbox",
@@ -43,19 +43,20 @@ z-index: 99;
 
   val connectLinks =
     div(cls := "connect-links")(
+      a(href := "https://mastodon.online/@lichess", targetBlank)("Mastodon"),
       a(href := "https://twitter.com/lichess", targetBlank, noFollow)("Twitter"),
       a(href := "https://discord.gg/lichess", targetBlank, noFollow)("Discord"),
       a(href := "https://www.youtube.com/c/LichessDotOrg", targetBlank, noFollow)("YouTube"),
       a(href := "https://www.twitch.tv/lichessdotorg", targetBlank, noFollow)("Twitch")
     )
 
-  def fenAnalysisLink(fen: FEN)(implicit lang: Lang) =
-    a(href := routes.UserAnalysis.parseArg(fen.value.replace(" ", "_")))(trans.analysis())
+  def fenAnalysisLink(fen: Fen.Epd)(using Lang) =
+    a(href := routes.UserAnalysis.parseArg(underscoreFen(fen)))(trans.analysis())
 
-  def paginationByQuery(route: Call, pager: Paginator[_], showPost: Boolean): Option[Frag] =
+  def paginationByQuery(route: Call, pager: Paginator[?], showPost: Boolean): Option[Frag] =
     pagination(page => s"$route?page=$page", pager, showPost)
 
-  def pagination(url: Int => String, pager: Paginator[_], showPost: Boolean): Option[Frag] =
+  def pagination(url: Int => String, pager: Paginator[?], showPost: Boolean): Option[Frag] =
     pager.hasToPaginate option pagination(url, pager.currentPage, pager.nbPages, showPost)
 
   def pagination(url: Int => String, page: Int, nbPages: Int, showPost: Boolean): Tag =
@@ -71,23 +72,45 @@ z-index: 99;
       else span(cls             := "disabled", dataIcon := "")
     )
 
-  private def sliding(pager: Paginator[_], length: Int, showPost: Boolean): List[Option[Int]] =
+  private def sliding(pager: Paginator[?], length: Int, showPost: Boolean): List[Option[Int]] =
     sliding(pager.currentPage, pager.nbPages, length, showPost)
 
-  private def sliding(page: Int, nbPages: Int, length: Int, showPost: Boolean): List[Option[Int]] = {
+  private def sliding(page: Int, nbPages: Int, length: Int, showPost: Boolean): List[Option[Int]] =
     val fromPage = 1 max (page - length)
     val toPage   = nbPages.min(page + length)
-    val pre = fromPage match {
+    val pre = fromPage match
       case 1 => Nil
       case 2 => List(1.some)
       case _ => List(1.some, none)
-    }
-    val post = toPage match {
+    val post = toPage match
       case x if x == nbPages     => Nil
       case x if x == nbPages - 1 => List(nbPages.some)
       case _ if showPost         => List(none, nbPages.some)
       case _                     => List(none)
-    }
     pre ::: (fromPage to toPage).view.map(Some.apply).toList ::: post
-  }
-}
+
+  def ariaTabList(prefix: String, selected: String)(tabs: (String, String, Frag)*) = frag(
+    div(cls := "tab-list", role := "tablist")(
+      tabs map { case (id, name, _) =>
+        button(
+          st.id            := s"$prefix-tab-$id",
+          aria("controls") := s"$prefix-panel-$id",
+          role             := "tab",
+          cls              := "tab-list__tab",
+          aria("selected") := (selected == id).option("true"),
+          tabindex         := 0
+        )(name)
+      }
+    ),
+    div(cls := "panel-list")(
+      tabs map { case (id, _, content) =>
+        div(
+          st.id              := s"$prefix-panel-$id",
+          aria("labelledby") := s"$prefix-tab-$id",
+          role               := "tabpanel",
+          cls                := List("panel-list__panel" -> true, "none" -> (selected != id)),
+          tabindex           := 0
+        )(content)
+      }
+    )
+  )

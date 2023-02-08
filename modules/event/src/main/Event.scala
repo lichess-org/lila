@@ -2,6 +2,7 @@ package lila.event
 
 import org.joda.time.DateTime
 import play.api.i18n.Lang
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 
@@ -14,16 +15,16 @@ case class Event(
     url: String,
     lang: Lang,
     enabled: Boolean,
-    createdBy: Event.UserId,
+    createdBy: UserId,
     createdAt: DateTime,
-    updatedBy: Option[Event.UserId],
+    updatedBy: Option[UserId],
     updatedAt: Option[DateTime],
     startsAt: DateTime,
     finishesAt: DateTime,
-    hostedBy: Option[User.ID] = None,
+    hostedBy: Option[UserId] = None,
     icon: Option[String] = None,
     countdown: Boolean
-) {
+):
 
   def willStartLater = startsAt.isAfterNow
 
@@ -44,12 +45,8 @@ case class Event(
 
   def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 10) && !isFinished
 
-  def id = _id
-}
+  inline def id = _id
 
-object Event {
+object Event:
 
-  def makeId = lila.common.ThreadLocalRandom nextString 8
-
-  case class UserId(value: String) extends AnyVal
-}
+  def makeId = ThreadLocalRandom nextString 8

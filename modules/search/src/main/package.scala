@@ -1,3 +1,3 @@
-package lila
+package lila.search
 
-package object search extends PackageObject
+export lila.Lila.{ *, given }

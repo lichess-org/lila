@@ -1,6 +1,6 @@
 package lila.tournament
 
-import akka.actor._
+import akka.actor.*
 import org.joda.time.DateTime
 import scala.concurrent.ExecutionContext
 
@@ -13,7 +13,7 @@ final private class TournamentBusHandler(
     shieldApi: TournamentShieldApi,
     winnersApi: WinnersApi,
     tournamentRepo: TournamentRepo
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
   lila.common.Bus.subscribeFun(
     "finishGame",
@@ -50,10 +50,9 @@ final private class TournamentBusHandler(
     case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId).unit
   }
 
-  private def ejectFromEnterable(userId: User.ID) =
+  private def ejectFromEnterable(userId: UserId) =
     tournamentRepo.withdrawableIds(userId, reason = "ejectFromEnterable") flatMap {
       _.map {
         api.ejectLameFromEnterable(_, userId)
       }.sequenceFu
     }
-}

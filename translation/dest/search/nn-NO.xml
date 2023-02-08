@@ -35,5 +35,5 @@
     <item quantity="one">Fann %s parti</item>
     <item quantity="other">Fann %s parti</item>
   </plurals>
-  <string name="ratingExplanation">Dei to spelaranes gjennomsnittelege rating</string>
+  <string name="ratingExplanation">Gjennomsnittet av ratingtalet til begge spelarane</string>
 </resources>

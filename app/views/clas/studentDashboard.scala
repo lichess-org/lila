@@ -1,14 +1,14 @@
 package views.html.clas
 
 import controllers.routes
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 import lila.common.String.html.richText
 import lila.user.User
 
-object studentDashboard {
+object studentDashboard:
 
   def apply(
       c: Clas,
@@ -58,7 +58,7 @@ object studentDashboard {
           }
         )
       ),
-      if (c.wall.value.nonEmpty) div(cls := "box__pad clas-wall")(wall),
+      c.wall.value.nonEmpty option div(cls := "box__pad clas-wall")(wall),
       div(cls := "students")(studentList(students))
     )
 
@@ -99,7 +99,7 @@ object studentDashboard {
 
   private def challengeTd(user: lila.user.User)(implicit ctx: Context) =
     if (ctx is user) td
-    else {
+    else
       val online = isOnline(user.id)
       td(
         a(
@@ -109,5 +109,3 @@ object studentDashboard {
           href     := online option s"${routes.Lobby.home}?user=${user.username}#friend"
         )(trans.play())
       )
-    }
-}

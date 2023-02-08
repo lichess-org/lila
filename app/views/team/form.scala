@@ -4,16 +4,16 @@ import controllers.routes
 import play.api.data.Form
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.team.Team
 
-object form {
+object form:
 
-  import trans.team._
+  import trans.team.*
 
-  def create(form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) =
+  def create(form: Form[?], captcha: lila.common.Captcha)(implicit ctx: Context) =
     views.html.base.layout(
       title = newTeam.txt(),
       moreCss = cssTag("team"),
@@ -22,7 +22,7 @@ object form {
       main(cls := "page-menu page-small")(
         bits.menu("form".some),
         div(cls := "page-menu__content box box-pad")(
-          h1(newTeam()),
+          h1(cls := "box__top")(newTeam()),
           postForm(cls := "form3", action := routes.Team.create)(
             form3.globalError(form),
             form3.group(form("name"), trans.name())(form3.input(_)),
@@ -38,12 +38,12 @@ object form {
       )
     }
 
-  def edit(t: Team, form: Form[_])(implicit ctx: Context) = {
+  def edit(t: Team, form: Form[?])(implicit ctx: Context) =
     bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("team")) {
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
-          h1("Edit team ", a(href := routes.Team.show(t.id))(t.name)),
+          boxTop(h1("Edit team ", a(href := routes.Team.show(t.id))(t.name))),
           standardFlash(),
           t.enabled option postForm(cls := "form3", action := routes.Team.update(t.id))(
             div(cls := "form-group")(
@@ -90,12 +90,22 @@ object form {
         )
       )
     }
-  }
 
   private val explainInput = input(st.name := "explain", tpe := "hidden")
 
-  private def textFields(form: Form[_])(implicit ctx: Context) = frag(
-    form3.group(form("description"), trans.description(), help = markdownAvailable.some)(
+  private def textFields(form: Form[?])(implicit ctx: Context) = frag(
+    form3.group(
+      form("intro"),
+      "Introduction",
+      help = frag("Brief description visible in team listings. Up to 200 chars.").some
+    )(
+      form3.textarea(_)(rows := 2)
+    )(cls := form("intro").value.isEmpty.option("accent")),
+    form3.group(
+      form("description"),
+      trans.description(),
+      help = frag("Full description visible on the team page.", br, markdownAvailable).some
+    )(
       form3.textarea(_)(rows := 10)
     ),
     form3.group(
@@ -111,7 +121,7 @@ object form {
     )
   )
 
-  private def accessFields(form: Form[_])(implicit ctx: Context) =
+  private def accessFields(form: Form[?])(implicit ctx: Context) =
     frag(
       form3.checkbox(
         form("hideMembers"),
@@ -151,7 +161,7 @@ object form {
       )
     )
 
-  private def entryFields(form: Form[_], team: Option[Team])(implicit ctx: Context) =
+  private def entryFields(form: Form[?], team: Option[Team])(implicit ctx: Context) =
     form3.split(
       form3.checkbox(
         form("request"),
@@ -170,4 +180,3 @@ object form {
         else form3.input(field)(tpe := "password", disabled)
       }
     )
-}

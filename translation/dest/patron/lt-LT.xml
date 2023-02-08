@@ -31,6 +31,7 @@
   <string name="otherAmount">Kita</string>
   <string name="pleaseEnterAmountInX">Įveskite sumą %s</string>
   <string name="withCreditCard">Banko kortele</string>
+  <string name="logInToDonate">Norėdami paremti prisijunkite</string>
   <string name="weAreSmallTeam">Mes esame maža komanda, todėl jūsų pagalba mums labai svarbi!</string>
   <string name="celebratedPatrons">Mūsų gerbiami Rėmėjai, kurie leidžia gyvuoti Lichess</string>
   <string name="whereMoneyGoes">Kur eina pinigai?</string>
@@ -44,7 +45,9 @@ Po to sumokame pilno etato programuotojui ir Lichess įkūrėjui: %s.</string>
 Arba galite %s.</string>
   <string name="contactSupport">susisiekti su Lichess pagalba</string>
   <string name="otherMethods">Kiti būdai paremti?</string>
+  <string name="lichessIsRegisteredWith">Lichess registruotas su %s.</string>
   <string name="bankTransfers">Mes taip pat priimame banko pervedimus</string>
+  <string name="onlyDonationFromAbove">Norime pabrėžti, kad tik parama suteikta pasinaudojus aukščiau esančia forma suteikia Rėmėjo statusą.</string>
   <string name="patronFeatures">Ar yra funkcijų, kurios prieinamos tik Rėmėjams?</string>
   <string name="noPatronFeatures">Ne, kadangi Lichess visiškai ir visada nemokamas ir visiems. Tai yra mūsų pažadas.
 Tačiau Rėmėjai gauna pagyrų teises ir šaunią naują profilio piktogramą.</string>
@@ -65,7 +68,7 @@ Tačiau Rėmėjai gauna pagyrų teises ir šaunią naują profilio piktogramą.<
   <string name="update">Atnaujinti</string>
   <string name="changeMonthlyAmount">Pakeisti mėnesinį kiekį (%s)</string>
   <string name="cancelSupport">atšaukti savo pagalbą</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s arba %2$s</string>
+  <string name="xOrY">%1$s arba %2$s</string>
   <string name="decideHowMuch">Nuspręskite, kiek jums vertas Lichess:</string>
   <string name="stopPayments">Pašalinti savo kortelę ir sustabdyti mokėjimus:</string>
   <string name="stopPaymentsPayPal">Atšaukti PayPal prenumeratą ir sustabdyti mokėjimus:</string>

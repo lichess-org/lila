@@ -10,15 +10,8 @@ case class IrwinRequest(
     games: List[(Game, Option[Analysis])]
 )
 
-object IrwinRequest {
+object IrwinRequest:
 
-  sealed trait Origin {
-    def key = toString.toLowerCase
-  }
-
-  object Origin {
-    case object Moderator   extends Origin
-    case object Tournament  extends Origin
-    case object Leaderboard extends Origin
-  }
-}
+  enum Origin:
+    case Moderator, Tournament, Leaderboard
+    def key = Origin.this.toString.toLowerCase

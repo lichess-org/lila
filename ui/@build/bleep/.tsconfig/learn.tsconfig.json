@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "/home/sam/Documents/git/lila/ui/learn",
+    "paths": { "chessground": ["/home/sam/Documents/git/lila/ui/learn/@types/chessground"] },
+    "types": ["lichess", "web", "cash"],
+    "rootDir": "/home/sam/Documents/git/lila/ui/learn/src"
+  },
+  "extends": "/home/sam/Documents/git/lila/ui/tsconfig.base.json",
+  "include": ["/home/sam/Documents/git/lila/ui/learn/src"]
+}

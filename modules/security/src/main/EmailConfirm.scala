@@ -2,47 +2,45 @@ package lila.security
 
 import play.api.i18n.Lang
 import play.api.mvc.{ Cookie, RequestHeader }
-import scalatags.Text.all._
+import scalatags.Text.all.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.{ EmailAddress, LilaCookie }
-import lila.i18n.I18nKeys.{ emails => trans }
+import lila.i18n.I18nKeys.{ emails as trans }
 import lila.user.{ User, UserRepo }
 import lila.mailer.Mailer
 
-trait EmailConfirm {
+trait EmailConfirm:
 
   def effective: Boolean
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit
+  def send(user: User, email: EmailAddress)(using lang: Lang): Funit
 
   def confirm(token: String): Fu[EmailConfirm.Result]
-}
 
-final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm {
+final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
 
   def effective = false
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang) = userRepo setEmailConfirmed user.id void
+  def send(user: User, email: EmailAddress)(using lang: Lang) = userRepo setEmailConfirmed user.id void
 
   def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
-}
 
 final class EmailConfirmMailer(
     userRepo: UserRepo,
     mailer: Mailer,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(implicit ec: scala.concurrent.ExecutionContext)
-    extends EmailConfirm {
+)(using ec: scala.concurrent.ExecutionContext)
+    extends EmailConfirm:
 
-  import Mailer.html._
+  import Mailer.html.*
 
   def effective = true
 
   val maxTries = 3
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
+  def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
     !email.looksLikeFakeEmail ?? {
       tokener make user.id flatMap { token =>
         lila.mon.email.send.confirmation.increment()
@@ -84,24 +82,21 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
       }
     }
 
-  private val tokener = new StringToken[User.ID](
+  private val tokener = new StringToken[UserId](
     secret = tokenerSecret,
     getCurrentValue = id => userRepo email id dmap (_.??(_.value))
   )
-}
 
-object EmailConfirm {
+object EmailConfirm:
 
-  sealed trait Result
-  object Result {
-    case class JustConfirmed(user: User)    extends Result
-    case class AlreadyConfirmed(user: User) extends Result
-    case object NotFound                    extends Result
-  }
+  enum Result:
+    case JustConfirmed(user: User)
+    case AlreadyConfirmed(user: User)
+    case NotFound
 
-  case class UserEmail(username: String, email: EmailAddress)
+  case class UserEmail(username: UserName, email: EmailAddress)
 
-  object cookie {
+  object cookie:
 
     val name        = "email_confirm"
     private val sep = ":"
@@ -116,11 +111,10 @@ object EmailConfirm {
 
     def get(req: RequestHeader): Option[UserEmail] =
       req.session get name map (_.split(sep, 2)) collect { case Array(username, email) =>
-        UserEmail(username, EmailAddress(email))
+        UserEmail(UserName(username), EmailAddress(email))
       }
-  }
 
-  import scala.concurrent.duration._
+  import scala.concurrent.duration.*
   import play.api.mvc.RequestHeader
   import alleycats.Zero
   import lila.memo.RateLimit
@@ -132,7 +126,7 @@ object EmailConfirm {
     key = "email.confirms.ip"
   )
 
-  private lazy val rateLimitPerUser = new RateLimit[String](
+  private lazy val rateLimitPerUser = new RateLimit[UserId](
     credits = 3,
     duration = 1 hour,
     key = "email.confirms.user"
@@ -145,7 +139,7 @@ object EmailConfirm {
   )
 
   def rateLimit[A: Zero](userEmail: UserEmail, req: RequestHeader)(run: => Fu[A])(default: => Fu[A]): Fu[A] =
-    rateLimitPerUser(userEmail.username, cost = 1) {
+    rateLimitPerUser(userEmail.username.id, cost = 1) {
       rateLimitPerEmail(userEmail.email.value, cost = 1) {
         rateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
           run
@@ -153,45 +147,36 @@ object EmailConfirm {
       }(default)
     }(default)
 
-  object Help {
+  object Help:
 
-    sealed trait Status { val name: String }
-    case class NoSuchUser(name: String)                     extends Status
-    case class Closed(name: String)                         extends Status
-    case class Confirmed(name: String)                      extends Status
-    case class NoEmail(name: String)                        extends Status
-    case class EmailSent(name: String, email: EmailAddress) extends Status
+    enum Status:
+      val name: UserName
+      case NoSuchUser(name: UserName)
+      case Closed(name: UserName)
+      case Confirmed(name: UserName)
+      case NoEmail(name: UserName)
+      case EmailSent(name: UserName, email: EmailAddress)
 
-    import play.api.data._
+    import play.api.data.*
     import play.api.data.validation.Constraints
-    import play.api.data.Forms._
+    import play.api.data.Forms.*
 
     val helpForm = Form(
-      single(
-        "username" -> text.verifying(
-          Constraints minLength 2,
-          Constraints maxLength 30,
-          Constraints.pattern(regex = User.newUsernameRegex)
-        )
-      )
+      single("username" -> lila.user.UserForm.historicalUsernameField)
     )
 
-    def getStatus(userRepo: UserRepo, username: String)(implicit
-        ec: scala.concurrent.ExecutionContext
-    ): Fu[Status] =
-      userRepo withEmails username flatMap {
-        case None => fuccess(NoSuchUser(username))
+    def getStatus(userRepo: UserRepo, u: UserStr)(using scala.concurrent.ExecutionContext): Fu[Status] =
+      import Status.*
+      userRepo withEmails u flatMap {
+        case None => fuccess(NoSuchUser(u into UserName))
         case Some(User.WithEmails(user, emails)) =>
-          if (!user.enabled) fuccess(Closed(username))
+          if (user.enabled.no) fuccess(Closed(user.username))
           else
             userRepo mustConfirmEmail user.id dmap {
               case true =>
-                emails.current match {
+                emails.current match
                   case None        => NoEmail(user.username)
                   case Some(email) => EmailSent(user.username, email)
-                }
               case false => Confirmed(user.username)
             }
       }
-  }
-}

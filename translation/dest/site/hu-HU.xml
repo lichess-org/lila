@@ -25,7 +25,7 @@
   <string name="blackIsVictorious">Sötét nyert</string>
   <string name="youPlayTheWhitePieces">Világossal fogsz játszani</string>
   <string name="youPlayTheBlackPieces">Sötéttel fogsz játszani</string>
-  <string name="itsYourTurn">Te következel</string>
+  <string name="itsYourTurn">Te következel!</string>
   <string name="cheatDetected">Csalás észlelve</string>
   <string name="kingInTheCenter">Király a centrumban</string>
   <string name="threeChecks">Három sakk</string>
@@ -37,12 +37,12 @@
   <string name="whitePlays">Világos lép</string>
   <string name="blackPlays">Sötét lép</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Az ellenfél elhagyta a játékot, %s másodperc múlva tied a győzelem.</item>
-    <item quantity="other">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
+    <item quantity="one">Az ellenfél elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
+    <item quantity="other">Ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
   </plurals>
   <string name="opponentLeftChoices">Úgy tűnik, az ellenfél kilépett. Igényelhetsz győzelmet vagy döntetlent, esetleg várhatsz rá.</string>
   <string name="forceResignation">Győzelem igénylése</string>
-  <string name="forceDraw">Döntetlen</string>
+  <string name="forceDraw">Döntetlen felajánlása</string>
   <string name="talkInChat">Légy udvarias másokkal!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember, aki felkeresi ezt a címet, az lesz az ellenfeled.</string>
   <string name="whiteResigned">Világos feladta</string>
@@ -57,8 +57,10 @@
   <string name="computerAnalysisDisabled">Számítógépes elemzés letiltva</string>
   <string name="analysis">Elemzőtábla</string>
   <string name="depthX">%s mélység</string>
-  <string name="usingServerAnalysis">A szerver elemzését használja</string>
-  <string name="loadingEngine">Motor betöltése ...</string>
+  <string name="usingServerAnalysis">Szerver elemzés használata</string>
+  <string name="loadingEngine">Motor betöltése...</string>
+  <string name="calculatingMoves">Lépések kiszámítása...</string>
+  <string name="engineFailed">Hiba a motor betöltésekor</string>
   <string name="cloudAnalysis">Elemzés felhőben</string>
   <string name="goDeeper">Mélyebben</string>
   <string name="showThreat">Fenyegetés mutatása</string>
@@ -92,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' kerekítéssel, a következő ütésig vagy gyalog lépésig megtett féllépések száma alapján</string>
   <string name="noGameFound">Nem található játszma</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">És ha több játszmát beveszel a beállítások menüben?</string>
+  <string name="openings">Megnyitások</string>
   <string name="openingExplorer">Megnyitás böngésző</string>
   <string name="openingEndgameExplorer">Megnyitás/végjáték böngésző</string>
   <string name="xOpeningExplorer">%s megnyitás böngésző</string>
@@ -116,7 +119,7 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Végtelen elemzés</string>
   <string name="removesTheDepthLimit">Nincs mélységkorlát és melegszik a számítógéped</string>
-  <string name="blunder">Durva hiba</string>
+  <string name="blunder">Baklövés</string>
   <string name="mistake">Hiba</string>
   <string name="inaccuracy">Pontatlanság</string>
   <plurals name="nbBlunders">
@@ -155,6 +158,7 @@
   <string name="viewInFullSize">Teljes méret</string>
   <string name="logOut">Kijelentkezés</string>
   <string name="signIn">Bejelentkezés</string>
+  <string name="rememberMe">Maradjak bejelentkezve</string>
   <string name="youNeedAnAccountToDoThat">Ehhez szükséged van egy fiókra</string>
   <string name="signUp">Regisztráció</string>
   <string name="computersAreNotAllowedToPlay">Számítógépek és számítógép segítségét igénybe vevő játékosok nem játszhatnak. Kérünk játék közben ne vegyél igénybe segítséget sakk programoktól, adatbázisoktól, vagy más játékosoktól. Több fiók készítése és használata egyszerre az oldalról való kitiltást vonja maga után.</string>
@@ -195,12 +199,31 @@
   <string name="changeUsername">Felhasználónév váltás</string>
   <string name="changeUsernameNotSame">Csak a kis-nagy betűket cserélheted a névben. Pl. \"johndoe\" - \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Változtasd meg a felhasználó nevet. Ezt csak egyszer teheted meg és csak a kisbetű-nagybetű váltás engedélyezett a felhasználónévben.</string>
+  <string name="signupUsernameHint">Mindenképpen családbarát felhasználónevet válassz. Később már nem tudod megváltoztatni, a nem helyénvaló felhasználónevek fiókját zároljuk!</string>
+  <string name="signupEmailHint">Csak jelszó-visszaállításhoz használjuk.</string>
   <string name="password">Jelszó</string>
   <string name="changePassword">Jelszó megváltoztatása</string>
   <string name="changeEmail">E-mail cím megváltoztatása</string>
   <string name="email">E-mail cím</string>
   <string name="passwordReset">Jelszó visszaállítása</string>
   <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
+  <string name="emailConfirmHelp">Segítség az e-mail megerősítéshez</string>
+  <string name="emailConfirmNotReceived">Nem kaptad meg a megerősítő e-mailt a regisztráció után?</string>
+  <string name="whatSignupUsername">Milyen felhasználónévvel regisztráltál?</string>
+  <string name="usernameNotFound">Nem találtunk ilyen nevű felhasználót: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Használhatod ezt a felhasználónevet új fiók létrehozásához</string>
+  <string name="emailSent">Üzenetet küldtünk a %s címre.</string>
+  <string name="emailCanTakeSomeTime">Eltarthat egy ideig, amíg megérkezik.</string>
+  <string name="refreshInboxAfterFiveMinutes">Várj 5 percet, és frissítsd az e-mail postafiókodat.</string>
+  <string name="checkSpamFolder">Kérlek ellenőrizd a levélszemét mappát is, talán oda kerül, ebben az esetben jelöld meg nem levélszemétként.</string>
+  <string name="emailForSignupHelp">Ha mindezek ellenére nem sikerül, küldj nekünk egy e-mailt:</string>
+  <string name="copyTextToEmail">Másold ki és illeszd be a fenti szöveget, és küld el a %s címre</string>
+  <string name="waitForSignupHelp">Rövid időn belül fel fogjuk venni veled a kapcsolatot a regisztrációd befejezéséhez.</string>
+  <string name="accountConfirmed">%s felhasználó sikeresen megerősítve.</string>
+  <string name="accountCanLogin">A %s felhasználói fiókkal most már bejelentkezhetsz.</string>
+  <string name="accountConfirmationEmailNotNeeded">Az e-mail címet nem szükséges megerősíteni.</string>
+  <string name="accountClosed">%s felhasználói fiók zárolva van.</string>
+  <string name="accountRegisteredWithoutEmail">A %s felhasználói fiók e-mail cím nélkül lett regisztrálva.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Helyezés: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -307,7 +330,7 @@
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s tanulmány</item>
-    <item quantity="other">%s tanulmányok</item>
+    <item quantity="other">%s tanulmány</item>
   </plurals>
   <string name="viewTournament">Verseny nézése</string>
   <string name="backToTournament">Vissza a versenyhez</string>
@@ -337,9 +360,10 @@
   <string name="mustBeInTeam">Csak %s tagoknak</string>
   <string name="youAreNotInTeam">Nem vagy a %s csapatban</string>
   <string name="backToGame">Vissza a játékhoz</string>
-  <string name="siteDescription">Ingyenes online sakk játék letisztult kezelőfelülettel. Nem szükséges regisztráció, nincsenek hirdetések és pluginek telepítése sem szükséges. Játssz a gép ellen, barátokkal vagy ismeretlen ellenfelekkel.</string>
+  <string name="siteDescription">Ingyenes online sakkszerver letisztult kezelőfelülettel. Nem szükséges regisztráció, nincsenek hirdetések, sem telepítendő bővítmények. Játssz számítógép ellen, barátokkal vagy ismeretlen ellenfelekkel.</string>
   <string name="xJoinedTeamY">%1$s csatlakozott a következő csapathoz: %2$s</string>
   <string name="xCreatedTeamY">%1$s elkészítette a következő csapatot: %2$s</string>
+  <string name="startedStreaming">közvetítések kezdete</string>
   <string name="xStartedStreaming">%s elkezdte a közvetítést</string>
   <string name="averageElo">Átlag értékszám</string>
   <string name="location">Hely</string>
@@ -371,8 +395,8 @@
   <string name="retry">Újra</string>
   <string name="reconnecting">Újrakapcsolódás</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s barát érhető el</item>
-    <item quantity="other">%s barát érhető el</item>
+    <item quantity="one">%s elérhető barát</item>
+    <item quantity="other">%s elérhető barát</item>
   </plurals>
   <string name="favoriteOpponents">Kedvenc ellenfelek</string>
   <string name="follow">Követés</string>
@@ -515,6 +539,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Jegyzetek</string>
   <string name="typePrivateNotesHere">Ide írd a saját jegyzeteidet</string>
+  <string name="writeAPrivateNoteAboutThisUser">Jegyzet hozzáadása</string>
+  <string name="noNoteYet">Nincsenek jegyzetek</string>
   <string name="invalidUsernameOrPassword">Érvénytelen felhasználónév vagy jelszó</string>
   <string name="incorrectPassword">Hibás jelszó</string>
   <string name="invalidAuthenticationCode">Érvénytelen hitelesítő kód</string>
@@ -631,6 +657,7 @@
   <string name="tournamentFAQ">Aréna verseny GYIK</string>
   <string name="timeBeforeTournamentStarts">Kezdés ennyi perc múlva</string>
   <string name="averageCentipawnLoss">Átlagos gyalogveszteség</string>
+  <string name="accuracy">Pontosság</string>
   <string name="keyboardShortcuts">Billentyű kombinációk</string>
   <string name="keyMoveBackwardOrForward">lépj előre/hátra</string>
   <string name="keyGoToStartOrEnd">menjen az elejére/végére</string>
@@ -661,7 +688,7 @@
   <string name="weHaveSentYouAnEmailTo">Küldtünk egy üzenetet a %s email címre. A jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">A regisztrációval elfogadod a %s-t</string>
   <string name="readAboutOur">Itt olvashatók az %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a Lichess között</string>
+  <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a Lichess szervere között</string>
   <string name="timeToProcessAMoveOnLichessServer">Az az idő, amíg a lichess szerver egy lépést feldolgoz</string>
   <string name="downloadAnnotated">Letöltés elemzéssel</string>
   <string name="downloadRaw">Letöltés elemzés nélkül</string>
@@ -713,6 +740,7 @@
   <string name="light">Világos</string>
   <string name="dark">Sötét</string>
   <string name="transparent">Áttetsző</string>
+  <string name="deviceTheme">Operációs rendszer</string>
   <string name="backgroundImageUrl">Háttérkép URL címe:</string>
   <string name="boardGeometry">Tábla geometria</string>
   <string name="boardTheme">Tábla szín</string>
@@ -738,9 +766,10 @@
   </plurals>
   <string name="practiceWithComputer">Gyakorlás a géppel</string>
   <string name="anotherWasX">Ez is jó lett volna: %s</string>
-  <string name="bestWasX">Ez lett volna a legjobb lépés: %s</string>
+  <string name="bestWasX">Legjobb lépés: %s</string>
   <string name="youBrowsedAway">Elnavigáltál</string>
   <string name="resumePractice">Gyakorlás folytatása</string>
+  <string name="drawByFiftyMoves">Az 50 lépéses szabály értelmében a játszma döntetlen.</string>
   <string name="theGameIsADraw">A játék döntetlen.</string>
   <string name="computerThinking">A gép gondolkodik...</string>
   <string name="seeBestMove">A legjobb lépés mutatása</string>
@@ -753,7 +782,7 @@
   <string name="learnFromThisMistake">Tanulok a hibámból</string>
   <string name="skipThisMove">Lépés kihagyása</string>
   <string name="next">Tovább</string>
-  <string name="xWasPlayed">%s a lépés</string>
+  <string name="xWasPlayed">lépés: %s</string>
   <string name="findBetterMoveForWhite">Találj egy jobb lépést világosnak</string>
   <string name="findBetterMoveForBlack">Találj egy jobb lépést sötétnek</string>
   <string name="resumeLearning">Tanulás folytatása</string>

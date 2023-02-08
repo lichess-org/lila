@@ -3,26 +3,26 @@ package lila.i18n
 import play.api.i18n.Lang
 import scalatags.Text.RawFrag
 
-final class I18nKey(val key: String) {
+opaque type I18nKey = String
 
-  def apply(args: Any*)(implicit lang: Lang): RawFrag =
-    Translator.frag.literal(key, args, lang)
+object I18nKey extends OpaqueString[I18nKey]:
 
-  def plural(count: Count, args: Any*)(implicit lang: Lang): RawFrag =
-    Translator.frag.plural(key, count, args, lang)
+  extension (key: I18nKey)
 
-  def pluralSame(count: Int)(implicit lang: Lang): RawFrag = plural(count, count)
+    def apply(args: Matchable*)(using lang: Lang): RawFrag =
+      Translator.frag.literal(key, args, lang)
 
-  def txt(args: Any*)(implicit lang: Lang): String =
-    Translator.txt.literal(key, args, lang)
+    def plural(count: Count, args: Matchable*)(using lang: Lang): RawFrag =
+      Translator.frag.plural(key, count, args, lang)
 
-  def pluralTxt(count: Count, args: Any*)(implicit lang: Lang): String =
-    Translator.txt.plural(key, count, args, lang)
+    def pluralSame(count: Int)(using Lang): RawFrag = plural(count, count)
 
-  def pluralSameTxt(count: Int)(implicit lang: Lang): String = pluralTxt(count, count)
-}
+    def txt(args: Any*)(using lang: Lang): String =
+      Translator.txt.literal(key, args, lang)
 
-object I18nKey {
+    def pluralTxt(count: Count, args: Any*)(using lang: Lang): String =
+      Translator.txt.plural(key, count, args, lang)
 
-  type Select = I18nKeys.type => I18nKey
-}
+    def pluralSameTxt(count: Int)(using Lang): String = pluralTxt(count, count)
+
+  end extension

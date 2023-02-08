@@ -45,8 +45,6 @@ export interface PlayerWithScore extends Player {
 export interface RacerVm {
   startsAt?: Date;
   alreadyStarted: boolean;
-  filterFailed: boolean;
-  filterSlow: boolean;
 }
 
 export interface RacerConfig extends Config {

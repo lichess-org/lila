@@ -1,6 +1,5 @@
 package lila.app
 package templating
 
-trait HasEnv {
+trait HasEnv:
   def env: Env
-}

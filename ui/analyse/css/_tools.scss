@@ -126,6 +126,9 @@
 
     .persistence {
       color: $c-good;
+      @include breakpoint($mq-not-xx-small) {
+        display: none;
+      }
     }
 
     .active {

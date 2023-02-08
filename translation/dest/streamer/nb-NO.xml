@@ -30,10 +30,7 @@
   <string name="pleaseFillIn">Vennligst fyll inn informasjon om strømmen din og last opp et bilde.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Når du er klar til å bli listet som en Lichess-strømmer, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">be om en vurdering fra en moderator</string>
-  <string name="anotherLanguage">Hvis du strømmer på et annet språk enn engelsk, pass på å bruke riktig språk-tag (%s) i firkantparenteser først i tittelen på strømmen din.
-For eksempel, start strømmetittelen med \"[RU]\" hvis du strømmer på russisk, \"[TR]\" hvis du strømmer på tyrkisk, \"[FR]\" hvis du strømmer på fransk, eller \"[NO]\" hvis du strømmer på norsk, osv.
-Bruk denne språk-taggen i strømmetittelen din på Twitch eller YouTube, ikke i Lichess-innstillingene dine.
-Hvis du strømmer på engelsk, trenger du ikke å bruke noen språk-tag.</string>
+  <string name="streamerLanguageSettings">Strømmesiden til Lichess retter seg mot publikummet ditt med språket strømmeplattformen din leverer. Angi riktig språk for sjakkstrømmene dine i appen eller tjenesten du bruker for overføringer.</string>
   <string name="twitchUsername">Ditt Twitch-brukernavn eller URL</string>
   <string name="optionalOrEmpty">Valgfritt. Kan være tom</string>
   <string name="youtubeChannel">Din YouTube-kanal-ID eller URL</string>

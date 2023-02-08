@@ -1,10 +1,9 @@
-package lila
+package lila.challenge
 
 import org.joda.time.DateTime
 
-package object challenge extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[challenge] def inTwoWeeks = DateTime.now plusWeeks 2
+private def inTwoWeeks = DateTime.now plusWeeks 2
 
-  private[challenge] val logger = lila log "challenge"
-}
+private val logger = lila log "challenge"

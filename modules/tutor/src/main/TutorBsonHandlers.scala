@@ -1,33 +1,31 @@
 package lila.tutor
 
 import chess.Color
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import scala.concurrent.duration.FiniteDuration
 
 import lila.common.Iso
 import lila.db.BSON
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.insight.{ InsightPerfStats, MeanRating }
 import lila.rating.PerfType
 
-private object TutorBsonHandlers {
+private object TutorBsonHandlers:
 
-  import lila.insight.BSONHandlers._
+  import lila.insight.BSONHandlers.given
   import lila.rating.BSONHandlers.perfTypeIdHandler
-  import lila.analyse.AnalyseBsonHandlers.accuracyPercentHandler
+  import lila.analyse.AnalyseBsonHandlers.given
 
-  implicit val ratingHandler   = doubleAsIntHandler[Rating](_.value, Rating.apply, 100)
-  implicit val durationHandler = lila.db.dsl.minutesHandler
-  implicit val ratioHandler    = percentAsIntHandler[GoodPercent](_.value, GoodPercent.apply)
+  given BSONHandler[FiniteDuration] = lila.db.dsl.minutesHandler
 
-  implicit def colorMapHandler[A: BSONHandler]: BSONHandler[Color.Map[A]] =
-    implicitly[BSONHandler[Map[String, A]]]
+  given [A](using handler: BSONHandler[A]): BSONHandler[Color.Map[A]] =
+    summon[BSONHandler[Map[String, A]]]
       .as[Color.Map[A]](
         doc => Color.Map(doc("w"), doc("b")),
         map => Map("w" -> map.white, "b" -> map.black)
       )
 
-  implicit private def valueCountHandler[V](implicit handler: BSONHandler[V]) =
+  private given [V](using handler: BSONHandler[V]): BSONHandler[Option[ValueCount[V]]] =
     quickHandler[Option[ValueCount[V]]](
       {
         case arr: BSONArray =>
@@ -40,36 +38,33 @@ private object TutorBsonHandlers {
         } getOrElse BSONNull
     )
 
-  implicit def metricHandler[A](implicit
-      handler: BSONHandler[A],
-      ordering: Ordering[A]
-  ): BSONHandler[TutorBothValues[A]] =
-    implicitly[BSONHandler[List[Option[ValueCount[A]]]]]
+  given [A](using handler: BSONHandler[A], ordering: Ordering[A]): BSONHandler[TutorBothValues[A]] =
+    summon[BSONHandler[List[Option[ValueCount[A]]]]]
       .as[TutorBothValues[A]](
         list => TutorBothValues(list(0).get, list.lift(1).flatten),
         metric => List(metric.mine.some, metric.peer)
       )
 
-  implicit def metricOptionHandler[A](implicit
+  given [A](using
       handler: BSONHandler[A],
       ordering: Ordering[A]
   ): BSONHandler[TutorBothValueOptions[A]] =
-    implicitly[BSONHandler[List[Option[ValueCount[A]]]]].as[TutorBothValueOptions[A]](
+    summon[BSONHandler[List[Option[ValueCount[A]]]]].as[TutorBothValueOptions[A]](
       list => TutorBothValueOptions(list.lift(0).flatten, list.lift(1).flatten),
       metric => List(metric.mine, metric.peer)
     )
 
-  // implicit val timeReportHandler    = Macros.handler[TutorTimeReport]
-  implicit val openingFamilyHandler = Macros.handler[TutorOpeningFamily]
-  implicit val colorOpeningsHandler = Macros.handler[TutorColorOpenings]
-  // implicit val openingsHandler      = Macros.handler[Color.Map[TutorColorOpenings]]
+  // given BSONDocumentHandler[TutorTimeReport] = Macros.handler
+  given BSONDocumentHandler[TutorOpeningFamily] = Macros.handler
+  given BSONDocumentHandler[TutorColorOpenings] = Macros.handler
+  // given BSONDocumentHandler[Color.Map[TutorColorOpenings]] = Macros.handler
 
-  implicit val phaseHandler = Macros.handler[TutorPhase]
+  given BSONDocumentHandler[TutorPhase] = Macros.handler
 
-  implicit val flaggingHandler = Macros.handler[TutorFlagging]
-  // implicit val phasesHandler = Macros.handler[TutorPhases]
+  given BSONDocumentHandler[TutorFlagging] = Macros.handler
+  // given BSONDocumentHandler[TutorPhases] = Macros.handler
 
-  // implicit val perfReportHandler = Macros.handler[TutorPerfReport]
+  // given BSONDocumentHandler[TutorPerfReport] = Macros.handler
 
   // implicit val perfsHandler: BSONHandler[TutorFullReport.PerfMap] =
   //   implicitly[BSONHandler[Map[String, TutorPerfReport]]].as[TutorFullReport.PerfMap](
@@ -78,9 +73,7 @@ private object TutorBsonHandlers {
   //     },
   //     _.mapKeys(_.key)
   //   )
-  implicit val meanRatingHandler = intAnyValHandler[MeanRating](_.value, MeanRating.apply)
-  implicit val perfStatsHandler  = Macros.handler[InsightPerfStats]
-  implicit val perfReportHandler = Macros.handler[TutorPerfReport]
-  implicit val reportHandler     = Macros.handler[TutorFullReport]
-
-}
+  given BSONHandler[MeanRating]               = intAnyValHandler(_.value, MeanRating.apply)
+  given BSONDocumentHandler[InsightPerfStats] = Macros.handler
+  given BSONDocumentHandler[TutorPerfReport]  = Macros.handler
+  given BSONDocumentHandler[TutorFullReport]  = Macros.handler

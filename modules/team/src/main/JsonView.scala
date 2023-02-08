@@ -1,13 +1,13 @@
 package lila.team
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.common.Json.{ jodaWrites, markdownFormat }
+import lila.common.Json.given
 import lila.user.LightUserApi
 
-final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView) {
+final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView):
 
-  implicit val teamWrites = OWrites[Team] { team =>
+  given teamWrites: OWrites[Team] = OWrites { team =>
     Json
       .obj(
         "id"          -> team.id,
@@ -20,7 +20,7 @@ final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView) {
       )
   }
 
-  implicit private val requestWrites = OWrites[Request] { req =>
+  given OWrites[Request] = OWrites { req =>
     Json
       .obj(
         "userId"  -> req.user,
@@ -31,10 +31,9 @@ final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView) {
       .add("declined" -> req.declined)
   }
 
-  implicit val requestWithUserWrites = OWrites[RequestWithUser] { case RequestWithUser(req, user) =>
+  given requestWithUserWrites: OWrites[RequestWithUser] = OWrites { case RequestWithUser(req, user) =>
     Json.obj(
       "request" -> req,
-      "user"    -> userJson.full(user, withOnline = false, withRating = true)
+      "user"    -> userJson.full(user, withRating = true, withProfile = false)
     )
   }
-}

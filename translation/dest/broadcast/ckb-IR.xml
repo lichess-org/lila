@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">بە دڵنیاییەوە خولەکە و یاریەکانی بسڕەوە.</string>
+  <string name="deleteAllGamesOfThisRound">هەموو یارییەکانی ئەم خولە بسڕەوە. سەرچاوەکە پێویستی بە چالاکبوون دەبێت بۆ ئەوەی دووبارە دروستیان بکاتەوە.</string>
+</resources>

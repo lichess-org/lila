@@ -4,17 +4,18 @@ import org.joda.time.DateTime
 
 import lila.game.{ Game, GameRepo }
 import lila.importer.{ ImportData, Importer }
+import play.api.libs.ws.DefaultBodyReadables.*
 
 final class ExplorerImporter(
     endpoint: InternalEndpoint,
     gameRepo: GameRepo,
     gameImporter: Importer,
     ws: play.api.libs.ws.StandaloneWSClient
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   private val masterGameEncodingFixedAt = new DateTime(2016, 3, 9, 0, 0)
 
-  def apply(id: Game.ID): Fu[Option[Game]] =
+  def apply(id: GameId): Fu[Option[Game]] =
     gameRepo game id flatMap {
       case Some(game) if !game.isPgnImport || game.createdAt.isAfter(masterGameEncodingFixedAt) =>
         fuccess(game.some)
@@ -24,16 +25,14 @@ final class ExplorerImporter(
           case Some(pgn) =>
             gameImporter(
               ImportData(pgn, none),
-              user = "lichess".some,
+              user = lila.user.User.lichessId.some,
               forceId = id.some
             ) map some
         }
     }
 
-  private def fetchPgn(id: String): Fu[Option[String]] = {
+  private def fetchPgn(id: GameId): Fu[Option[String]] =
     ws.url(s"$endpoint/masters/pgn/$id").get() map {
-      case res if res.status == 200 => res.body.some
+      case res if res.status == 200 => res.body[String].some
       case _                        => None
     }
-  }
-}

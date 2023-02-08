@@ -1,13 +1,13 @@
 package controllers
 
-import play.api.data._, Forms._
-import views._
+import play.api.data.*, Forms.*
+import views.*
 
-import lila.app._
+import lila.app.{ given, * }
 
-final class Dev(env: Env) extends LilaController(env) {
+final class Dev(env: Env) extends LilaController(env):
 
-  private lazy val settingsList = List[lila.memo.SettingStore[_]](
+  private lazy val settingsList = List[lila.memo.SettingStore[?]](
     env.security.ugcArmedSetting,
     env.security.spamKeywordsSetting,
     env.oAuth.originBlocklistSetting,
@@ -38,17 +38,17 @@ final class Dev(env: Env) extends LilaController(env) {
 
   def settings =
     Secure(_.Settings) { implicit ctx => _ =>
-      Ok(html.dev.settings(settingsList)).fuccess
+      Ok(html.dev.settings(settingsList)).toFuccess
     }
 
   def settingsPost(id: String) =
     SecureBody(_.Settings) { implicit ctx => me =>
       settingsList.find(_.id == id) ?? { setting =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         setting.form
           .bindFromRequest()
           .fold(
-            _ => BadRequest(html.dev.settings(settingsList)).fuccess,
+            _ => BadRequest(html.dev.settings(settingsList)).toFuccess,
             v => {
               lila
                 .log("setting")
@@ -63,16 +63,16 @@ final class Dev(env: Env) extends LilaController(env) {
 
   def cli =
     Secure(_.Cli) { implicit ctx => _ =>
-      Ok(html.dev.cli(commandForm, none)).fuccess
+      Ok(html.dev.cli(commandForm, none)).toFuccess
     }
 
   def cliPost =
     SecureBody(_.Cli) { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       commandForm
         .bindFromRequest()
         .fold(
-          err => BadRequest(html.dev.cli(err, "Invalid command".some)).fuccess,
+          err => BadRequest(html.dev.cli(err, "Invalid command".some)).toFuccess,
           command =>
             runAs(me.id, command) map { res =>
               Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
@@ -87,7 +87,6 @@ final class Dev(env: Env) extends LilaController(env) {
       }
     }
 
-  private def runAs(user: lila.user.User.ID, command: String): Fu[String] =
-    env.mod.logApi.cli(user, command) >>
+  private def runAs(user: UserId, command: String): Fu[String] =
+    env.mod.logApi.cli(user into ModId, command) >>
       env.api.cli(command.split(" ").toList)
-}

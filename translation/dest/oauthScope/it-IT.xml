@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Nuovo token personale per l\'accesso all\'API</string>
+  <string name="tokenGrantsPermission">Un token permette ad altre persone di usare il tuo account.</string>
+  <string name="carefullySelect">Scegli con attenzione ciò che permetti di fare in tua vece.</string>
+  <string name="tokenDescription">Descrizione del token</string>
+  <string name="rememberTokenUse">Per ricordarti a cosa serve questo token</string>
+  <string name="whatTheTokenCanDo">Cosa può fare il token in tua vece:</string>
+  <string name="doNotShareIt">Il token permetterà l\'accesso al tuo account. NON condividerlo con nessuno!</string>
+  <string name="copyTokenNow">Assicurati di copiare adesso il tuo nuovo token di accesso. Non potrai più visualizzarlo in seguito!</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Visualizzare le impostazioni</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Scrivi la preferenza</string>
+  <string name="emailRead">Leggi l\'indirizzo e-mail</string>
+  <string name="challengeRead">Leggi le sfide in arrivo</string>
+  <string name="teamLead">Gestisci le squadre di cui sei il capo: manda messaggi privati, espelli membri</string>
+</resources>

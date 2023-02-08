@@ -19,7 +19,7 @@ export interface BoardData {
 export type PublishZoom = (v: number) => void;
 
 export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close): BoardCtrl {
-  const readZoom = () => parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
+  const readZoom = () => parseInt(window.getComputedStyle(document.body).getPropertyValue('--zoom'));
 
   const saveZoom = debounce(
     () =>
