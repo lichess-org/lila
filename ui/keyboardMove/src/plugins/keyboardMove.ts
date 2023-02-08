@@ -205,7 +205,7 @@ export default (window as any).LichessKeyboardMove = (opts: Opts) => {
     lichess.loadScript('javascripts/vendor/vosk.min.js').then(() => loadVosk(submit));
   }
 
-  if (opts.ctrl.keyboardMove) makeBindings(opts, submit, clear);
+  makeBindings(opts, submit, clear);
   return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
     legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
     submit(opts.input.value, {

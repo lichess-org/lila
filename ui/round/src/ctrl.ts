@@ -96,7 +96,6 @@ export default class RoundController {
 
     const d = (this.data = opts.data);
     this.voiceMove = d.voiceMove;
-    this.keyboardMove = d.keyboardMove;
 
     this.ply = round.lastPly(d);
     this.goneBerserk[d.player.color] = d.player.berserk;
@@ -745,7 +744,7 @@ export default class RoundController {
 
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
-    if (this.data.pref.keyboardMove) {
+    if (this.data.pref.keyboardMove || this.voiceMove) {
       this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
       requestAnimationFrame(() => this.redraw());
     }
