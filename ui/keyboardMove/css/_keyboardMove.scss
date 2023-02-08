@@ -20,4 +20,15 @@
   em {
     color: $c-font-dim;
   }
+
+  #voice-move-button {
+    font-family: 'lichess';
+    cursor: pointer;
+    margin-left: 4px;
+    color: red;
+  }
+
+  #voice-move-button.enabled {
+    color: green;
+  }
 }

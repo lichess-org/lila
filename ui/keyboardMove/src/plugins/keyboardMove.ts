@@ -51,10 +51,10 @@ const speechLookup = new Map<string, string>([
   ['takes', 'x'],
 ]);
 
-function loadVosk(submit: Submit) {
+function loadVosk(submit: Submit, isEnabled: () => boolean) {
   console.log('Vosk has loaded');
 
-  async function loadSpeechRecognition() {
+  async function initialise() {
     const model = await Vosk.createModel(lichess.assetUrl('vendor/model.tar.gz'));
     const recognizer = new model.KaldiRecognizer(48000, JSON.stringify([...speechLookup.keys()]));
 
@@ -64,7 +64,7 @@ function loadVosk(submit: Submit) {
         .map(word => speechLookup.get(word))
         .filter(word => word !== undefined)
         .join('');
-      submit(command, { force: true, isTrusted: true });
+      if (isEnabled()) submit(command, { force: true, isTrusted: true });
     });
 
     const mediaStream = await navigator.mediaDevices.getUserMedia({
@@ -88,8 +88,7 @@ function loadVosk(submit: Submit) {
     const source = audioContext.createMediaStreamSource(mediaStream);
     source.connect(recognizerNode);
   }
-
-  loadSpeechRecognition();
+  initialise();
 }
 
 export default (window as any).LichessKeyboardMove = (opts: Opts) => {
@@ -202,7 +201,10 @@ export default (window as any).LichessKeyboardMove = (opts: Opts) => {
   };
 
   if (lichess.loadScript !== undefined && opts.ctrl.voiceMove) {
-    lichess.loadScript('javascripts/vendor/vosk.min.js').then(() => loadVosk(submit));
+    const toggleButton = document.getElementById('voice-move-button')!;
+    const isEnabled = () => toggleButton.classList.contains('enabled');
+    toggleButton.addEventListener('click', event => (event.target as HTMLElement).classList.toggle('enabled'));
+    lichess.loadScript('javascripts/vendor/vosk.min.js').then(() => loadVosk(submit, isEnabled));
   }
 
   makeBindings(opts, submit, clear);
