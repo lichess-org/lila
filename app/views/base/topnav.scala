@@ -50,7 +50,7 @@ object topnav:
         )
       },
       st.section(
-        linkTitle(routes.Practice.index.url, trans.learnMenu()),
+        linkTitle(routes.Learn.index.url, trans.learnMenu()),
         div(role := "group")(
           ctx.noBot option frag(
             a(href := langHref(routes.Learn.index))(trans.chessBasics()),
