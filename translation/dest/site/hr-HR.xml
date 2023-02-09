@@ -218,6 +218,12 @@
   <string name="email">Email</string>
   <string name="passwordReset">Resetiraj lozinku</string>
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
+  <string name="error.weakPassword">Ova je lozinka iznimno česta i previše je lako pogoditi.</string>
+  <string name="error.namePassword">Molimo nemojte koristiti svoje korisničko ime kao lozinku.</string>
+  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Odlazite sa Lichess-a</string>
+  <string name="neverTypeYourPassword">Nikada nemojte upisivati svoju Lichess lozinku na drugom mjestu!</string>
+  <string name="passwordSuggestion">Ne postavljajte lozinku koju je predložio netko drugi. Iskoristit će je da ti ukradu račun.</string>
+  <string name="emailSuggestion">Ne postavljajte adresu e-pošte koju je predložio netko drugi. Iskoristit će je da ti ukradu račun.</string>
   <string name="emailConfirmHelp">Pomoć oko potvrde e-pošte</string>
   <string name="emailConfirmNotReceived">Niste primili svoju potvrdnu e-poštu nakon prijave?</string>
   <string name="whatSignupUsername">Koje ste korisničko ime koristili za prijavu?</string>
