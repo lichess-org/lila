@@ -22,7 +22,7 @@ final private class PushApi(
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.notify.GetNotifyAllows,
     postApi: lila.forum.ForumPostApi
-)(using Executor, akka.actor.Scheduler)(using lightUser: LightUser.GetterFallback):
+)(using Executor, Scheduler)(using lightUser: LightUser.GetterFallback):
 
   private[push] def notifyPush(
       to: Iterable[NotifyAllows],

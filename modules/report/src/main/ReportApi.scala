@@ -24,7 +24,7 @@ final class ReportApi(
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
     domain: lila.common.config.NetDomain
-)(using Executor, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   import BSONHandlers.given
   import Report.Candidate
@@ -86,7 +86,7 @@ final class ReportApi(
       )
     )
 
-  def autoCommFlag(suspectId: SuspectId, resource: String, text: String) =
+  def autoCommFlag(suspectId: SuspectId, resource: String, text: String, critical: Boolean = false) =
     getLichessReporter flatMap { reporter =>
       getSuspect(suspectId.value) flatMapz { suspect =>
         create(
@@ -95,7 +95,8 @@ final class ReportApi(
             suspect,
             Reason.Comm,
             s"${Reason.Comm.flagText} $resource ${text take 140}"
-          )
+          ),
+          score = (_: Report.Score).map(_ * (if critical then 2 else 1))
         )
       }
     }

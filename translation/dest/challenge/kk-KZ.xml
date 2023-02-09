@@ -22,4 +22,5 @@
   <string name="declineVariant">Мен қазір осы шахмат түрін ойнағым келмейді.</string>
   <string name="declineNoBot">Мен роботтардан шақыруларды қабылдамаймын.</string>
   <string name="declineOnlyBot">Мен тек роботтардан келген шақыруларды қабылдаймын.</string>
+  <string name="inviteLichessUser">Не Личес ойыншысын шақыру:</string>
 </resources>

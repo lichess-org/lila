@@ -11,7 +11,7 @@
 Ak vyhráte 2 po sebe nasledujúce partie, odštartujete tzv. \"dvojnásobne bodovanú sériu\", symbolizovanú ikonou plameňa.
 Nasledujúce partie budú ohodnotené dvojnásobným počtom bodov až dokiaľ neprehráte alebo neremizujete.
 To znamená, že výhra bude za 4 body a remíza 2 body. Prehra bude stále za 0 bodov.</string>
-  <string name="berserk">Besnenie v aréne</string>
+  <string name="berserk">Aréna Besnenia</string>
   <string name="berserkAnswer">Keď hráč na začiatku partie klikne na tlačidlo \"Berserk\" (besnenie), stratí polovicu svojho času, jeho výhra však bude ohodnotená 1 bodom naviac.
 
 Besnenie automaticky vynuluje časový prírastok na hodinách. Výnimkou je čas 1+2, ktorý sa zmení na 1+0.
@@ -39,7 +39,11 @@ Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti 
   <string name="shareUrl">Zdieľaním tejto adresy umožníte ľuďom účasť v turnaji: %s</string>
   <string name="drawStreakStandard">Séria remíz: Ak hráč v aréne remízuje viackrát po sebe, bod sa udelí iba za prvú remízu alebo za remízy, ktoré trvajú viac ako %s ťahov. Séria remíz môže byť prerušená iba výhrou, nie prehrou alebo remízou.</string>
   <string name="variant">Variant</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Minimálna dĺžka hry</string>
+  <string name="minimumGameLength">Minimálna dĺžka hry</string>
   <string name="history">História zápasov v aréne</string>
   <string name="newTeamBattle">Nový tímový súboj</string>
+  <string name="noBerserkAllowed">Besnenie zakázané</string>
+  <string name="noArenaStreaks">Série výhier vypnuté</string>
+  <string name="averagePerformance">Priemerný výkon</string>
+  <string name="averageScore">Priemerné skóre</string>
 </resources>

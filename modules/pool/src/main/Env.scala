@@ -14,7 +14,7 @@ final class Env(
 )(using
     ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   private lazy val hookThieve = wire[HookThieve]

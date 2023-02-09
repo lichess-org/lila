@@ -42,4 +42,5 @@
   <string name="castleByMovingOntoTheRook">Diblasañ ar roue war an tour evit rokañ</string>
   <string name="inputMovesWithTheKeyboard">Aozañ an touchennaoueg evit c\'hoari gantañ</string>
   <string name="yourPreferencesHaveBeenSaved">Savetaet eo bet ho tibaboù.</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Klevet ar c\'hloc\'h</string>
 </resources>

@@ -87,7 +87,7 @@ final class Env(
     val controllerComponents: ControllerComponents
 )(using
     val system: ActorSystem,
-    val scheduler: akka.actor.Scheduler,
+    val scheduler: Scheduler,
     val executor: Executor,
     val mode: play.api.Mode
 ):

@@ -50,6 +50,6 @@
   <string name="yourPreferencesHaveBeenSaved">설정이 저장되었습니다.</string>
   <string name="scrollOnTheBoardToReplayMoves">보드에서 스크롤을 해서 수를 앞 뒤로 이동</string>
   <string name="correspondenceEmailNotification">매일 일간 게임의 목록을 보여주는 알림 메일을 받기</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">스터디 초대</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">곧 토너먼트 시작할 때</string>
+  <string name="notifyInvitedStudy">스터디 초대</string>
+  <string name="notifyTournamentSoon">곧 토너먼트 시작할 때</string>
 </resources>

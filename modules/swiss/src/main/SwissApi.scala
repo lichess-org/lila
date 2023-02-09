@@ -36,7 +36,7 @@ final class SwissApi(
     roundSocket: lila.round.RoundSocket
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mat: akka.stream.Materializer,
     mode: play.api.Mode
 ):

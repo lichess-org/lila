@@ -24,7 +24,7 @@ final class StudyApi(
     explorerGameHandler: ExplorerGame,
     topicApi: StudyTopicApi,
     lightUserApi: lila.user.LightUserApi,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     chatApi: ChatApi,
     timeline: lila.hub.actors.Timeline,
     serverEvalRequester: ServerEval.Requester

@@ -3,7 +3,7 @@
   <string name="preferences">Ischtellige</string>
   <string name="display">Azeige</string>
   <string name="privacy">Privatsfähre</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Mäldige</string>
+  <string name="notifications">Mäldige</string>
   <string name="pieceAnimation">Figure Animation</string>
   <string name="materialDifference">Materialunderschid</string>
   <string name="boardHighlights">Markierige ufem Brätt (letschte Zug und Schach)</string>
@@ -51,16 +51,17 @@
   <string name="yourPreferencesHaveBeenSaved">Dini Ischtellige sind gschpeicheret.</string>
   <string name="scrollOnTheBoardToReplayMoves">Mit em Muszeiger uf em Brätt, chasch mit em Musrad all Züg vor- und zrugg scrolle</string>
   <string name="correspondenceEmailNotification">Täglichi E-Mail-Benachrichtigung, wo Dini Fernschachpartie uflischtet</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">De Streamer gaht live</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Neui Nachricht im Poschtigang</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">En Forumkommentar erwähnt dich</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Zum Schtudium ilade</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Aktualisierig vum Korreschpondänzschpiel</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Useforderige</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Turnier schtarted bald</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting.">Korreschpondänzzit lauft ab</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Akustischi Mäldig, innerhalb Lichess</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Mäldig vum Grät, wänn du nöd uf Lichess bisch</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Browser</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Grät</string>
+  <string name="notifyStreamStart">De Streamer gaht live</string>
+  <string name="notifyInboxMsg">Neui Nachricht im Poschtigang</string>
+  <string name="notifyForumMention">En Forumkommentar erwähnt dich</string>
+  <string name="notifyInvitedStudy">Zum Schtudium ilade</string>
+  <string name="notifyGameEvent">Aktualisierig vum Korreschpondänzschpiel</string>
+  <string name="notifyChallenge">Useforderige</string>
+  <string name="notifyTournamentSoon">Turnier schtarted bald</string>
+  <string name="notifyTimeAlarm">Korreschpondänzzit lauft ab</string>
+  <string name="notifyBell">Akustischi Mäldig, innerhalb Lichess</string>
+  <string name="notifyPush">Mäldig vum Grät, wänn du nöd uf Lichess bisch</string>
+  <string name="notifyWeb">Browser</string>
+  <string name="notifyDevice">Grät</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Ton für Benachrichtige</string>
 </resources>

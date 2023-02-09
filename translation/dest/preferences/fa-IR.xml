@@ -3,7 +3,7 @@
   <string name="preferences">تنظیمات عملکرد</string>
   <string name="display">صفحه نمایش</string>
   <string name="privacy">امنیت و حریم شخصی</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">اعلانات</string>
+  <string name="notifications">اعلانات</string>
   <string name="pieceAnimation">حرکت مهره ها</string>
   <string name="materialDifference">تفاوت مهره ها</string>
   <string name="boardHighlights">نشان دادن اتفاقات صفحه(حرکت قبلی و کیش)</string>
@@ -55,16 +55,16 @@
   <string name="yourPreferencesHaveBeenSaved">تغییرات شما ذخیره شده است</string>
   <string name="scrollOnTheBoardToReplayMoves">اسکرول کردن روی صفحه برای مشاهده مجدد حرکت‌ها</string>
   <string name="correspondenceEmailNotification">ایمیل های روزانه که بازی های شبیه شما را به صورت لیست درمی‌آورند</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">استریمر شروع به فعالیت کرد</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">پیام جدید</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">در کامنتی نام شما ذکر شده است</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">دعوت به مطالعه</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">اعلان به روزرسانی بازی</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">چالش ها</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">تورنمت به زودی آغاز می شود</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">هشدار تنگی زمان</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">زنگوله اعلانات لیچس</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">اعلانات برای زمانی که شما در لیچس نیستید</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">مرورگر</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">دستگاه</string>
+  <string name="notifyStreamStart">استریمر شروع به فعالیت کرد</string>
+  <string name="notifyInboxMsg">پیام جدید</string>
+  <string name="notifyForumMention">در کامنتی نام شما ذکر شده است</string>
+  <string name="notifyInvitedStudy">دعوت به مطالعه</string>
+  <string name="notifyGameEvent">اعلان به روزرسانی بازی</string>
+  <string name="notifyChallenge">چالش ها</string>
+  <string name="notifyTournamentSoon">تورنمت به زودی آغاز می شود</string>
+  <string name="notifyTimeAlarm">هشدار تنگی زمان</string>
+  <string name="notifyBell">زنگوله اعلانات لیچس</string>
+  <string name="notifyPush">اعلانات برای زمانی که شما در لیچس نیستید</string>
+  <string name="notifyWeb">مرورگر</string>
+  <string name="notifyDevice">دستگاه</string>
 </resources>

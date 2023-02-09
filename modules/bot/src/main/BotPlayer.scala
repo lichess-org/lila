@@ -14,7 +14,7 @@ final class BotPlayer(
     gameRepo: GameRepo,
     rematches: Rematches,
     spam: lila.security.Spam
-)(using Executor, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   private def clientError[A](msg: String): Fu[A] = fufail(lila.round.ClientError(msg))
 

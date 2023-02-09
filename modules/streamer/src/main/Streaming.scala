@@ -21,7 +21,7 @@ final private class Streaming(
     ytApi: YouTubeApi
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   import Stream.*

@@ -8,7 +8,7 @@ import lila.hub.actorApi.push.TourSoon
 
 final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCache)(using
     Executor,
-    akka.actor.Scheduler
+    Scheduler
 ):
 
   private val doneMemo = lila.memo.ExpireSetMemo[TourId](10 minutes)

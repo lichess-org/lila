@@ -38,7 +38,7 @@
   <string name="thisIsPrivate">Това е частен турнир</string>
   <string name="shareUrl">Споделете този URL, за да поканите някого: %s</string>
   <string name="variant">Вариант</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Минимален брой ходове</string>
+  <string name="minimumGameLength">Минимален брой ходове</string>
   <string name="history">История на Арената</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Вижте отбора</item>

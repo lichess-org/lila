@@ -46,7 +46,7 @@ package clas:
 package report:
   case class Cheater(userId: UserId, text: String)
   case class Shutup(userId: UserId, text: String, critical: Boolean)
-  case class AutoFlag(suspectId: UserId, resource: String, text: String)
+  case class AutoFlag(suspectId: UserId, resource: String, text: String, critical: Boolean)
   case class CheatReportCreated(userId: UserId)
 
 package security:

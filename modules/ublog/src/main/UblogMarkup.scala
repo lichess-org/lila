@@ -14,7 +14,7 @@ final class UblogMarkup(
     assetBaseUrl: config.AssetBaseUrl,
     cacheApi: CacheApi,
     netDomain: config.NetDomain
-)(using ec: Executor, scheduler: akka.actor.Scheduler, mode: Mode):
+)(using ec: Executor, scheduler: Scheduler, mode: Mode):
 
   import UblogMarkup.*
 

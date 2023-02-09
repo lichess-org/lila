@@ -3,7 +3,7 @@
   <string name="preferences">Voorkeure</string>
   <string name="display">Vertoon</string>
   <string name="privacy">Privaatheid</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Kennisgewings</string>
+  <string name="notifications">Kennisgewings</string>
   <string name="pieceAnimation">Stuk animasie</string>
   <string name="materialDifference">Materiaal verskil</string>
   <string name="boardHighlights">Bord hoogtepunte (onlangste skuif en skaak)</string>
@@ -51,16 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Jou voorkeure is gestoor.</string>
   <string name="scrollOnTheBoardToReplayMoves">Roll die muis op die bord om skuiwe te herspeel</string>
   <string name="correspondenceEmailNotification">Daaglikse e-pos met \'n lys van jou korrespondensiespelle</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Uitsending het begin</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Nuwe inboks boodskap</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Jy is genoem in \'n forumboodskap</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Studie-uitnodiging</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Korrespondensiespelopdaterings</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Uitdagings</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Toernooi begin binnekort</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">Korrespondensietyd raak min</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Klok kennisgewing binne Lichess</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Toetstel kennisgewing wanneer jy nie op Lichess is nie</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Blaaier</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Toestel</string>
+  <string name="notifyStreamStart">Uitsending het begin</string>
+  <string name="notifyInboxMsg">Nuwe inboks boodskap</string>
+  <string name="notifyForumMention">Jy is genoem in \'n forumboodskap</string>
+  <string name="notifyInvitedStudy">Studie-uitnodiging</string>
+  <string name="notifyGameEvent">Korrespondensiespelopdaterings</string>
+  <string name="notifyChallenge">Uitdagings</string>
+  <string name="notifyTournamentSoon">Toernooi begin binnekort</string>
+  <string name="notifyTimeAlarm">Korrespondensietyd raak min</string>
+  <string name="notifyBell">Klok kennisgewing binne Lichess</string>
+  <string name="notifyPush">Toetstel kennisgewing wanneer jy nie op Lichess is nie</string>
+  <string name="notifyWeb">Blaaier</string>
+  <string name="notifyDevice">Toestel</string>
 </resources>

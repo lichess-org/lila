@@ -33,7 +33,7 @@ final class Env(
     net: lila.common.config.NetConfig
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mat: akka.stream.Materializer
 ):
 

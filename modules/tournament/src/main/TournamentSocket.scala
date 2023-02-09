@@ -18,7 +18,7 @@ final private class TournamentSocket(
 )(using
     ec: Executor,
     system: ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mode: play.api.Mode
 ):
 

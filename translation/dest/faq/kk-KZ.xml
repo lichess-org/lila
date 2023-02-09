@@ -62,7 +62,7 @@
 Бұл тәсілді қолданып көру үшін %3$s-н қараңыз.</string>
   <string name="goodIntroduction">жақсы түсіндірме</string>
   <string name="lichessTraining">Личес жаттығулары</string>
-  <string name="watchIMRosenCheckmate">Халықаралық Шебер Эрик Розын матын қарау %s.</string>
+  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Халықаралық Шебер Эрик Розын матын қарау %s.</string>
   <string name="threefoldRepetition">Үш реттік қайталану</string>
   <string name="threefoldRepetitionExplanation">Егер тақта күйі үш рет қайталанса, %1$s-ды негіз етіп, ойыншылар тепе-теңдікті сұрауға құқылы. Личес, %2$s-тың 9.2 (d) бабында жазылғандай, FIDE ережесін ұстанады.</string>
   <string name="threefoldRepetitionLowerCase">үш реттік қайталану</string>
@@ -88,11 +88,11 @@
 Өз қалауымызша тек аса көзге түскен ойыншыларды, Личестің жақсы азаматтарын ғана осы атақпен марапаттаймыз. Личес Шебері атағын сіз таңдамайсыз, Личес Шебері атағы сізді таңдайды. Сіз лайықты болсаңыз, біз растау хатын жібереміз.
 
 Личес Шебері атағын сұрамаңыз.</string>
-  <string name="whatUsernameCanIchoose">Менің тіркелгі атым қандай болу керек?</string>
-  <string name="usernamesNotOffensive">Жалпы, тіркелгі атында қорлау, басқа біреудің аты, жарнама сияқты белгілер болмау керек. %1$s туралы оқысаңыз болады.</string>
+  <string name="whatUsernameCanIchoose">Менің тіркеулі атым қандай болу керек?</string>
+  <string name="usernamesNotOffensive">Жалпы, тіркеулі атта қорлау, басқа біреудің аты, жарнама сияқты нәрселер болмау керек. Бұл туралы %1$s - де көбірек жазылған.</string>
   <string name="guidelines">нұсқаулық</string>
-  <string name="canIChangeMyUsername">Мен тіркелгі атымды өзгерте аламын ба?</string>
-  <string name="usernamesCannotBeChanged">Жоқ, техникалық әрі тәжірибелік себептермен тіркелгі атыңызды өзгерте алмайсыз. Тіркелгі аты көп жерге байланған: дерекқор, экспорт, журнал, сонымен қатар – адамдардың есі. Сіз тек бір рет қана әріп үлкендігін өзгерте аласыз.</string>
+  <string name="canIChangeMyUsername">Мен тіркеулі атымды өзгерте аламын ба?</string>
+  <string name="usernamesCannotBeChanged">Жоқ, тіркеулі атыңызды өзгерте алмайсыз. Тіркеулі ат алуан-түрлі нәрсеге байланған: дерекқор, экспорт, журнал, сонымен қатар – адамдардың есі. Дегенмен, бір рет қана әріп үлкендігін өзгерту рұқсат.</string>
   <string name="uniqueTrophies">Ерекше олжалар</string>
   <string name="ownerUniqueTrophies">Бұл олжа Личес тарихында ерекше орын алады, %1$s-дан басқа ешкім де оған ие болмады.</string>
   <string name="wayOfBerserkExplanation">Оған жету үшін, hiimgosu өзін берсеркке шақырып, %s-ның 100%% ойындарын жеңді.</string>

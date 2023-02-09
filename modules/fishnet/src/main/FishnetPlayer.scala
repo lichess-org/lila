@@ -17,7 +17,7 @@ final class FishnetPlayer(
     val maxPlies: Int
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   def apply(game: Game): Funit =

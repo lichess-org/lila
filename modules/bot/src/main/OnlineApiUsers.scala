@@ -8,7 +8,7 @@ import lila.user.User
 
 final class OnlineApiUsers(
     isOnline: IsOnline,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 )(using Executor, play.api.Mode):
 
   private val cache = ExpireCallbackMemo[UserId](

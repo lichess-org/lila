@@ -21,6 +21,7 @@ import lila.round.GameProxyRepo
 final class GameApiV2(
     pgnDump: PgnDump,
     gameRepo: lila.game.GameRepo,
+    gameJsonView: lila.game.JsonView,
     tournamentRepo: lila.tournament.TournamentRepo,
     pairingRepo: lila.tournament.PairingRepo,
     playerRepo: lila.tournament.PlayerRepo,
@@ -289,14 +290,8 @@ final class GameApiV2(
       "lastMoveAt" -> g.movedAt,
       "status"     -> g.status.name,
       "players" -> JsObject(g.players zip lightUsers map { (p, user) =>
-        p.color.name -> Json
-          .obj()
-          .add("user", user)
-          .add("rating", p.rating)
-          .add("ratingDiff", p.ratingDiff)
-          .add("name", p.name)
-          .add("provisional" -> p.provisional)
-          .add("aiLevel" -> p.aiLevel)
+        p.color.name -> gameJsonView
+          .player(p, user)
           .add(
             "analysis" -> analysisOption.flatMap(
               analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy = none)

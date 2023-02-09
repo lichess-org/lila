@@ -14,7 +14,7 @@ import chess.format.pgn.PgnStr
 final class BlogApi(
     config: BlogConfig,
     cacheApi: lila.memo.CacheApi
-)(using Executor, akka.actor.Scheduler, StandaloneWSClient):
+)(using Executor, Scheduler, StandaloneWSClient):
 
   import BlogApi.looksLikePrismicId
 

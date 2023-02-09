@@ -20,7 +20,7 @@ final private class FirebasePush(
     config: FirebasePush.Config
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   private val workQueue =

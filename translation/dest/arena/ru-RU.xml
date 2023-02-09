@@ -52,4 +52,8 @@
   <string name="allowChatHelp">Разрешить игрокам обсуждение в чате</string>
   <string name="arenaStreaks">Серии Арены</string>
   <string name="arenaStreaksHelp">После двух побед подряд каждая следующая победа даёт не 2 очка, а 4.</string>
+  <string name="noBerserkAllowed">Берсерк не допускается</string>
+  <string name="noArenaStreaks">Без серий на Арене</string>
+  <string name="averagePerformance">Средний перформанс</string>
+  <string name="averageScore">Среднее количество очков</string>
 </resources>

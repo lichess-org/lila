@@ -9,20 +9,20 @@
     <item quantity="other">%s narių</item>
   </plurals>
   <string name="allTeams">Visos komandos</string>
-  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Lyderių komandos</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Kapitono komandos</string>
   <string name="newTeam">Nauja komanda</string>
   <string name="myTeams">Mano komandos</string>
   <string name="noTeamFound">Nerasta jokia komanda</string>
   <string name="joinTeam">Stoti į komandą</string>
-  <string name="onlyLeaderLeavesTeam">Prieš palikdami ar uždarydami komandą pridėkite naują komandos vadovą.</string>
+  <string name="onlyLeaderLeavesTeam">Prieš palikdami ar uždarydami komandą pridėkite naują komandos kapitoną.</string>
   <string name="quitTeam">Palikti komandą</string>
   <string name="manuallyReviewAdmissionRequests">Priėmimo prašymus peržvelgti rankiniu būdu</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Jei pažymėta, norėdami patekti į komandą žaidėjai turės užpildyti prašymą. Šį prašymą galite priimti arba atmesti.</string>
   <plurals name="teamLeaders">
-    <item quantity="one">Komandos vadovas</item>
-    <item quantity="few">Komandos vadovai</item>
-    <item quantity="many">Komandos vadovo</item>
-    <item quantity="other">Komandos vadovų</item>
+    <item quantity="one">Komandos kapitonas</item>
+    <item quantity="few">Komandos kapitonai</item>
+    <item quantity="many">Komandos kapitono</item>
+    <item quantity="other">Komandos kapitonų</item>
   </plurals>
   <string name="teamRecentMembers">Naujausi nariai</string>
   <string name="kickSomeone">Išmesti ką nors iš komandos</string>
@@ -33,9 +33,9 @@
     <item quantity="many">%s stojimo prašymų</item>
     <item quantity="other">%s stojimo prašymų</item>
   </plurals>
-  <string name="willBeReviewed">Komandos vadovas peržiūrės jūsų stojimo prašymą.</string>
-  <string name="beingReviewed">Komandos vadovas peržiūri jūsų stojimo prašymą.</string>
-  <string name="requestDeclined">Komandos lyderis atsisakė jūsų prisijungimo užklausos.</string>
+  <string name="willBeReviewed">Komandos kapitonas peržiūrės jūsų stojimo prašymą.</string>
+  <string name="beingReviewed">Komandos kapitonas peržiūri jūsų stojimo prašymą.</string>
+  <string name="requestDeclined">Komandos kapitonas atsisakė priimti jus į komandą.</string>
   <string name="subToTeamMessages">Prenumeruoti komandos žinutes</string>
   <string name="teamBattle">Komandų turnyras</string>
   <string name="teamBattleOverview">Kelių komandų kova, kiekvienas žaidėjas renka taškus savo komandai</string>
@@ -50,7 +50,7 @@ Taip galite pakviesti žaidėjus prisijungti į turnyrą ar komandos kovą.
   <string name="teamsIlead">Komandos, kurioms vadovauju aš</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Galbūt norite prisegti nuorodą į šiuos ateinančius turnyrus?</string>
   <string name="usersWhoCanManageThisTeam">Vartotojai, kurie gali valdyti šią komandą</string>
-  <string name="leadersChat">Vadovų pokalbis</string>
+  <string name="leadersChat">Kapitonų pokalbis</string>
   <string name="closeTeam">Uždaryti komandą</string>
   <string name="closeTeamDescription">Visam laikui uždaryti komandą.</string>
   <string name="entryCode">Įėjimo į komandą kodas</string>
@@ -61,4 +61,5 @@ Taip galite pakviesti žaidėjus prisijungti į turnyrą ar komandos kovą.
   <string name="completedTourns">Baigti turnyrai</string>
   <string name="declinedRequests">Atsisakytos užklausos</string>
   <string name="joinLichessVariantTeam">Prisijunkite prie oficialios %s komandos ir gaukite naujienas bei pranešimus apie renginius</string>
+  <string name="teamPage">Komandos puslapis</string>
 </resources>
