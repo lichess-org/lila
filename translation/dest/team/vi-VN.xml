@@ -52,4 +52,5 @@ Những người chơi không muốn nhận tin nhắn của bạn có thể s�
   <string name="completedTourns">Các giải đấu đã hoàn thành</string>
   <string name="declinedRequests">Yêu cầu bị từ chối</string>
   <string name="joinLichessVariantTeam">Tham gia đội %s chính thức để cập nhật tin tức và các sự kiện</string>
+  <string name="teamPage">Trang đội</string>
 </resources>
