@@ -28,9 +28,9 @@ abstract private[controllers] class LilaController(val env: Env)
 
   export _root_.router.ReverseRouterConversions.given
 
-  def controllerComponents   = env.controllerComponents
-  given Executor             = env.executor
-  given Scheduler = env.scheduler
+  def controllerComponents = env.controllerComponents
+  given Executor           = env.executor
+  given Scheduler          = env.scheduler
 
   protected given Zero[Result] = Zero(Results.NotFound)
 
