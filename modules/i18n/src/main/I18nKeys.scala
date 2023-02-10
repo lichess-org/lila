@@ -168,6 +168,7 @@ object I18nKeys:
   val `forgotPassword` = I18nKey("forgotPassword")
   val `error.weakPassword` = I18nKey("error.weakPassword")
   val `error.namePassword` = I18nKey("error.namePassword")
+  val `blankedPassword` = I18nKey("blankedPassword")
   val `youAreLeavingLichess` = I18nKey("youAreLeavingLichess")
   val `neverTypeYourPassword` = I18nKey("neverTypeYourPassword")
   val `passwordSuggestion` = I18nKey("passwordSuggestion")

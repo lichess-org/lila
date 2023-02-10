@@ -38,7 +38,8 @@ private object Aes:
   def iv(bytes: Array[Byte]): InitVector = new IvParameterSpec(bytes)
 
 case class HashedPassword(bytes: Array[Byte]) extends AnyVal:
-  def parse = bytes.lengthIs == 39 option bytes.splitAt(16)
+  def parse     = bytes.lengthIs == 39 option bytes.splitAt(16)
+  def isBlanked = bytes.isEmpty
 
 final private class PasswordHasher(
     secret: Secret,

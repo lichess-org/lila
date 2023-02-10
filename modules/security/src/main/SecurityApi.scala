@@ -70,6 +70,8 @@ final class SecurityApi(
           case Success(_) => FormValid
           case InvalidUsernameOrPassword =>
             Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
+          case BlankedPassword =>
+            Invalid(Seq(ValidationError("blankedPassword")))
           case err => Invalid(Seq(ValidationError(err.toString)))
         }
       })
