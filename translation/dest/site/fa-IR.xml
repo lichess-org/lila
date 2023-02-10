@@ -207,6 +207,7 @@
   <string name="email">ایمیل</string>
   <string name="passwordReset">بازیابی کلمه عبور</string>
   <string name="forgotPassword">آیا کلمه عبور را فراموش کرده اید؟</string>
+  <string name="blankedPassword">شما از همین رمز عبور در سایت دیگری استفاده کرده اید و آن سایت در معرض خطر قرار گرفته است. برای اطمینان از ایمنی حساب لیچس خود، لازم است که شما یک رمز عبور جدید ایجاد کنید. ممنون از همکاری شما.</string>
   <string name="emailConfirmHelp">کمک با تائید ایمیل</string>
   <string name="emailConfirmNotReceived">آیا ایمیل تائید بعد از ثبت نام را دریافت نکرده اید؟</string>
   <string name="whatSignupUsername">از چه نام کاربری برای ثبت نام استفاده کردید؟</string>
