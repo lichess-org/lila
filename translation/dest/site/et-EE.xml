@@ -209,7 +209,7 @@
   <string name="forgotPassword">Unustasid parooli?</string>
   <string name="error.weakPassword">See parool on väga levinud ning liiga lihtne arvata.</string>
   <string name="error.namePassword">Palun ära kasuta oma kasutajanime paroolina.</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Lahkud Lichessist</string>
+  <string name="youAreLeavingLichess">Lahkud Lichessist</string>
   <string name="neverTypeYourPassword">Ära kirjuta oma Lichessi parooli teisele leheküljele!</string>
   <string name="passwordSuggestion">Ära kasuta kellegi teise poolt soovitatud parooli. Nad võivad su konto kaaperdada.</string>
   <string name="emailSuggestion">Ära kasuta kellegi teise poolt soovitatud e-maili aadressi. Nad võivad su konto kaaperdada.</string>
