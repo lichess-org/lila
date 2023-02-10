@@ -231,6 +231,7 @@
   <string name="forgotPassword">Zabudli ste heslo?</string>
   <string name="error.weakPassword">Toto heslo je veľmi bežné, a ľahké na uhádnutie.</string>
   <string name="error.namePassword">Zadajte prihlasovacie meno a heslo.</string>
+  <string name="blankedPassword">Na inej stránke ste použili rovnaké heslo a táto stránka bola napadnutá. Aby sme zaistili bezpečnosť Vášho účtu Lichess, je potrebné aby ste si nastavili nové heslo. Ďakujeme Vám za pochopenie.</string>
   <string name="youAreLeavingLichess">Odchádzate z Lichessu</string>
   <string name="neverTypeYourPassword">Nikdy nepoužívajte vaše Lichess heslo na inom webe!</string>
   <string name="passwordSuggestion">Nepoužívajte heslo ktoré, vám dal niekto iný. Mohol by vám ukradnúť účet.</string>
