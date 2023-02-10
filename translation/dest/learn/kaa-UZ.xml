@@ -10,4 +10,8 @@
   <string name="chessPieces">Shaxmat tasları</string>
   <string name="theRook">Tuwra</string>
   <string name="itMovesInStraightLines">Tuwrı sızıq boylap júredi</string>
+  <string name="rookIntro">Tuwra - kúshli tas. Onı basqarıwǵa tayarsız ba?</string>
+  <string name="grabAllTheStars">Barlıq juldızlardı jıynap alıń!</string>
+  <string name="theFewerMoves">Qansha az júrseńiz,
+sonsha kóp ball alasız!</string>
 </resources>
