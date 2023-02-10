@@ -5,6 +5,7 @@ lichess.load.then(() => {
     ['behavior', 'arrowSnap', 'arrow.snap', true],
     ['behavior', 'courtesy', 'courtesy', false],
     ['behavior', 'scrollMoves', 'scrollMoves', true],
+    ['behavior', 'voiceInput', 'voiceInput', false],
     ['notification', 'playBellSound', 'playBellSound', true],
   ];
 

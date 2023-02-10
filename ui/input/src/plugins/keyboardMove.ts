@@ -132,7 +132,7 @@ export default (window as any).LichessKeyboardMove = (opts: Opts) => {
     opts.input.classList.remove('wrong');
   };
 
-  if (lichess.loadScript !== undefined && opts.ctrl.voiceMove) {
+  if (lichess.storage.boolean('voiceInput').getOrDefault(false)) {
     const toggleButton = document.getElementById('voice-move-button')!;
     const isEnabled = () => toggleButton.classList.contains('enabled');
     toggleButton.addEventListener('click', event => (event.target as HTMLElement).classList.toggle('enabled'));
