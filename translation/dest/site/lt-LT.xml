@@ -231,6 +231,7 @@
   <string name="forgotPassword">Pamiršote slaptažodį?</string>
   <string name="error.weakPassword">Šis slaptažodis itin dažnas ir jį pernelyg lengva atspėti.</string>
   <string name="error.namePassword">Prašome nenaudoti savo vartotojo vardo kaip slaptažodžio.</string>
+  <string name="blankedPassword">Jūs jau panaudojote šį slaptažodį kitoje svetainėje, kurios saugumas buvo pažeistas. Norėdami užtikrinti jūsų Lichess paskyros saugumą turime paprašyti nustatyti naują slaptažodį. Dėkojame už supratingumą.</string>
   <string name="youAreLeavingLichess">Jūs paliekate Lichess</string>
   <string name="neverTypeYourPassword">Niekada netalpinkite savo Lichess slaptažodžio kitoje svetainėje!</string>
   <string name="passwordSuggestion">Nenaudokite slaptažodžio, kurį jums pasiūlė kas nors kitas. Tuo galima pasinaudoti pavogiant jūsų paskyrą.</string>
