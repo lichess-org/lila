@@ -65,7 +65,7 @@
   <string name="goDeeper">Syvennä analyysiä</string>
   <string name="showThreat">Näytä uhka</string>
   <string name="inLocalBrowser">paikallisesta selaimesta</string>
-  <string name="toggleLocalEvaluation">Paikallinen analyysi päälle/päältä</string>
+  <string name="toggleLocalEvaluation">Paikallinen analyysi päälle/pois</string>
   <string name="promoteVariation">Nosta muunnelmaa</string>
   <string name="makeMainLine">Päämuunnelmaksi</string>
   <string name="deleteFromHere">Poista tästä alkaen</string>
@@ -207,6 +207,12 @@
   <string name="email">Sähköpostiosoite</string>
   <string name="passwordReset">Salasanan uusiminen</string>
   <string name="forgotPassword">Unohditko salasanasi?</string>
+  <string name="error.weakPassword">Tämä salasana on erittäin yleinen ja liian helppo arvata.</string>
+  <string name="error.namePassword">Älä laita salasanaksesi käyttäjänimeäsi.</string>
+  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Olet poistumassa Lichessistä</string>
+  <string name="neverTypeYourPassword">Älä koskaan kirjoita Lichess-salasanaasi toiselle sivustolle!</string>
+  <string name="passwordSuggestion">Älä ota käyttöön jonkun toisen ehdottamaa salasanaa. Hän voi varastaa sen avulla käyttäjätunnuksesi.</string>
+  <string name="emailSuggestion">Älä ota käyttöön jonkun toisen ehdottamaa sähköpostiosoitetta. Hän voi varastaa sen avulla käyttäjätunnuksesi.</string>
   <string name="emailConfirmHelp">Apua sähköpostin vahvistamiseen</string>
   <string name="emailConfirmNotReceived">Etkö saanut vahvistussähköpostiasi rekisteröitymisen jälkeen?</string>
   <string name="whatSignupUsername">Millä nimellä rekisteröidyit käyttäjäksi?</string>
@@ -539,6 +545,8 @@
   <string name="blog">Blogi</string>
   <string name="notes">Muistiinpanot</string>
   <string name="typePrivateNotesHere">Kirjoita yksityisiä muistiinpanoja tähän</string>
+  <string name="writeAPrivateNoteAboutThisUser">Kirjoita tätä käyttäjää koskeva yksityinen muistiinpano</string>
+  <string name="noNoteYet">Ei vielä muistiinpanoja</string>
   <string name="invalidUsernameOrPassword">Virheellinen käyttäjätunnus tai salasana</string>
   <string name="incorrectPassword">Salasana ei kelpaa</string>
   <string name="invalidAuthenticationCode">Todennuskoodi ei kelpaa</string>
@@ -704,6 +712,7 @@
   <string name="kidMode">Lapsitila</string>
   <string name="kidModeExplanation">Turvallisuusasia. Lapsitilassa kaikki kommunikointi sivustolla on pois käytöstä. Käytä tätä suojaamaan lasta tai koululaista muilta internetin käyttäjiltä.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Lapsitilassa Lichessin logoon liitetään %s-kuvake, josta tiedät lastesi olevan turvassa.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Käyttäjätunnuksesi on hallinnassa. Lapsitilan poistoa voit pyytää shakkiopettajaltasi.</string>
   <string name="enableKidMode">Lapsitila käyttöön</string>
   <string name="disableKidMode">Lapsitila käytöstä</string>
   <string name="security">Turvallisuus</string>

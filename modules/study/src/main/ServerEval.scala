@@ -1,9 +1,8 @@
 package lila.study
 
 import chess.format.pgn.Glyphs
-import chess.format.{ Fen, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
@@ -20,7 +19,7 @@ object ServerEval:
       fishnet: lila.hub.actors.Fishnet,
       chapterRepo: ChapterRepo,
       userRepo: UserRepo
-  )(using ec: scala.concurrent.ExecutionContext):
+  )(using Executor):
 
     private val onceEvery = lila.memo.OnceEvery[StudyChapterId](5 minutes)
 
@@ -61,15 +60,15 @@ object ServerEval:
       socket: StudySocket,
       chapterRepo: ChapterRepo,
       divider: lila.game.Divider
-  )(using ec: scala.concurrent.ExecutionContext):
+  )(using Executor):
 
     def apply(analysis: Analysis, complete: Boolean): Funit =
       analysis.studyId ?? { studyId =>
         sequencer.sequenceStudyWithChapter(studyId, StudyChapterId(analysis.id)) {
           case Study.WithChapter(_, chapter) =>
             (complete ?? chapterRepo.completeServerEval(chapter)) >> {
-              lila.common.Future
-                .fold(chapter.root.mainline.zip(analysis.infoAdvices).toList)(Path.root) {
+              lila.common.LilaFuture
+                .fold(chapter.root.mainline.zip(analysis.infoAdvices).toList)(UciPath.root) {
                   case (path, (node, (info, advOpt))) =>
                     chapter.root.nodeAt(path).flatMap { parent =>
                       analysisLine(parent, chapter.setup.variant, info) map { subTree =>
@@ -85,7 +84,7 @@ object ServerEval:
                         chapterRepo
                           .setNodeValues(
                             chapter,
-                            path + node,
+                            path + node.id,
                             List(
                               F.score -> info.eval.score
                                 .ifTrue {
@@ -109,7 +108,7 @@ object ServerEval:
                                 .flatMap(bsonWriteOpt)
                             )
                           )
-                    } inject path + node
+                    } inject path + node.id
                 } void
             } >>- {
               chapterRepo.byId(StudyChapterId(analysis.id)).foreach {
@@ -140,7 +139,7 @@ object ServerEval:
     private def analysisLine(root: RootOrNode, variant: chess.variant.Variant, info: Info): Option[Node] =
       chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen, variant) match
         case (_, games, error) =>
-          error foreach { logger.info(_) }
+          error foreach { e => logger.info(e.value) }
           games.reverse match
             case Nil => none
             case (g, m) :: rest =>

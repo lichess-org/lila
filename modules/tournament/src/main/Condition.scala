@@ -8,7 +8,6 @@ import lila.i18n.I18nKeys as trans
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Title, User }
 import lila.common.Json.given
-import scala.concurrent.ExecutionContext
 
 sealed trait Condition:
 
@@ -68,7 +67,7 @@ object Condition:
 
     def apply(
         getMaxRating: GetMaxRating
-    )(user: User)(using ExecutionContext): Fu[Verdict] =
+    )(user: User)(using Executor): Fu[Verdict] =
       if (user.perfs(perf).provisional.yes) fuccess(Refused { lang =>
         trans.yourPerfRatingIsProvisional.txt(perf.trans(using lang))(using lang)
       })
@@ -105,7 +104,7 @@ object Condition:
   case class TeamMember(teamId: TeamId, teamName: TeamName) extends Condition:
     def name(using lang: Lang) = trans.mustBeInTeam.txt(teamName)
     def apply(user: User, getUserTeamIds: User => Fu[List[TeamId]])(using
-        ExecutionContext
+        Executor
     ) =
       getUserTeamIds(user) map { userTeamIds =>
         if (userTeamIds contains teamId) Accepted
@@ -147,21 +146,21 @@ object Condition:
     def withVerdicts(
         getMaxRating: GetMaxRating
     )(user: User, getUserTeamIds: User => Fu[List[TeamId]])(using
-        ExecutionContext
+        Executor
     ): Fu[All.WithVerdicts] =
       list.map {
         case c: MaxRating  => c(getMaxRating)(user) map c.withVerdict
         case c: FlatCond   => fuccess(c withVerdict c(user))
         case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
-      }.sequenceFu dmap All.WithVerdicts.apply
+      }.parallel dmap All.WithVerdicts.apply
 
     def withRejoinVerdicts(user: User, getUserTeamIds: User => Fu[List[TeamId]])(using
-        ExecutionContext
+        Executor
     ): Fu[All.WithVerdicts] =
       list.map {
         case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
         case c             => fuccess(WithVerdict(c, Accepted))
-      }.sequenceFu dmap All.WithVerdicts.apply
+      }.parallel dmap All.WithVerdicts.apply
 
     def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
 
@@ -189,17 +188,17 @@ object Condition:
 
   final class Verify(historyApi: lila.history.HistoryApi):
     def apply(all: All, user: User, getUserTeamIds: User => Fu[List[TeamId]])(using
-        ExecutionContext
+        Executor
     ): Fu[All.WithVerdicts] =
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
       all.withVerdicts(getMaxRating)(user, getUserTeamIds)
     def rejoin(all: All, user: User, getUserTeamIds: User => Fu[List[TeamId]])(using
-        ExecutionContext
+        Executor
     ): Fu[All.WithVerdicts] =
       all.withRejoinVerdicts(user, getUserTeamIds)
     def canEnter(user: User, getUserTeamIds: User => Fu[List[TeamId]])(
         tour: Tournament
-    )(using ExecutionContext): Fu[Boolean] =
+    )(using Executor): Fu[Boolean] =
       apply(tour.conditions, user, getUserTeamIds).dmap(_.accepted)
 
   object BSONHandlers:

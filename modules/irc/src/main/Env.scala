@@ -18,7 +18,7 @@ final class Env(
     ws: StandaloneWSClient,
     shutdown: akka.actor.CoordinatedShutdown,
     mode: Mode
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import ZulipClient.given
   private val zulipConfig      = appConfig.get[ZulipClient.Config]("zulip")

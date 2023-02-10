@@ -36,7 +36,7 @@ object login:
             form3.globalError(form),
             auth.bits.formFields(form("username"), form("password"), none, register = false),
             form3.submit(trans.signIn(), icon = none),
-            label(cls    := "login-remember")(
+            label(cls := "login-remember")(
               input(name := "remember", value := "true", tpe := "checkbox", checked),
               trans.rememberMe()
             )

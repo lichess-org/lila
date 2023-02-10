@@ -1,8 +1,6 @@
 package lila.tournament
 
 import akka.actor.*
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 
 import lila.game.Game
 import lila.hub.LateMultiThrottler
@@ -18,9 +16,9 @@ final private class TournamentSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mode: play.api.Mode
 ):
 

@@ -3,7 +3,6 @@ package lila.swiss
 import chess.Color
 import chess.format.Fen
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }

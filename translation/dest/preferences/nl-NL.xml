@@ -51,9 +51,17 @@
   <string name="yourPreferencesHaveBeenSaved">Uw voorkeuren werden opgeslagen.</string>
   <string name="scrollOnTheBoardToReplayMoves">Scroll op het bord om zetten opnieuw af te spelen</string>
   <string name="correspondenceEmailNotification">Dagelijkse e-mailmeldingen met de lijst van jouw correspondentiepartijen</string>
-  <string name="notifyInboxMsg">Nieuw inbox bericht</string>
+  <string name="notifyStreamStart">Streamer gaat live</string>
+  <string name="notifyInboxMsg">Nieuw bericht inbox</string>
+  <string name="notifyForumMention">Opmerking op het forum noemt u</string>
+  <string name="notifyInvitedStudy">Studie uitnodiging</string>
+  <string name="notifyGameEvent">Spelupdates voor correspondentiepartijen</string>
   <string name="notifyChallenge">Uitdagingen</string>
   <string name="notifyTournamentSoon">Toernooi begint binnenkort</string>
+  <string name="notifyTimeAlarm">Klok met correspondentie bijna leeg</string>
+  <string name="notifyBell">Bel melding binnen Lichess</string>
+  <string name="notifyPush">Apparaatmelding wanneer je niet op Lichess bent</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Apparaat</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Meldingsgeluid</string>
 </resources>

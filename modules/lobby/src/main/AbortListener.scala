@@ -7,7 +7,7 @@ final private class AbortListener(
     gameRepo: lila.game.GameRepo,
     seekApi: SeekApi,
     lobbyActor: LobbySyncActor
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def apply(pov: Pov): Funit =
     (pov.game.isCorrespondence ?? recreateSeek(pov)) >>-
@@ -26,12 +26,10 @@ final private class AbortListener(
 
   private def recreateSeek(pov: Pov): Funit =
     pov.player.userId ?? { aborterId =>
-      seekApi.findArchived(pov.gameId) flatMap {
-        _ ?? { seek =>
-          (seek.user.id != aborterId) ?? {
-            worthRecreating(seek) flatMap {
-              _ ?? seekApi.insert(Seek renew seek)
-            }
+      seekApi.findArchived(pov.gameId) flatMapz { seek =>
+        (seek.user.id != aborterId) ?? {
+          worthRecreating(seek) flatMapz {
+            seekApi.insert(Seek renew seek)
           }
         }
       }

@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Se i full størrelse</string>
   <string name="logOut">Logg ut</string>
   <string name="signIn">Logg inn</string>
-  <string name="rememberMe">Husk meg</string>
+  <string name="rememberMe">Hold meg innlogget</string>
   <string name="youNeedAnAccountToDoThat">Du trenger en konto for å gjøre det</string>
   <string name="signUp">Registrer brukerkonto</string>
   <string name="computersAreNotAllowedToPlay">Datamaskiner og spillere som får hjelp av datamaskiner har ikke lov til å spille. Vennligst ikke ta imot hjelp fra sjakkmaskiner, databaser eller andre spillere under partiene. Merk også at det er sterkt frarådet å opprette flere brukerkontoer, og kan lede til at du blir utstengt.</string>
@@ -207,6 +207,12 @@
   <string name="email">E-post</string>
   <string name="passwordReset">Tilbakestill passord</string>
   <string name="forgotPassword">Glemt passord?</string>
+  <string name="error.weakPassword">Passordet er svært vanlig og for lett å gjette.</string>
+  <string name="error.namePassword">Ikke bruk navnet ditt som passord.</string>
+  <string name="youAreLeavingLichess">Du forlater Lichess</string>
+  <string name="neverTypeYourPassword">Ikke bruk Lichess-passordet ditt andre steder!</string>
+  <string name="passwordSuggestion">Ikke bruk passord foreslått av andre. Kontoen din vil bli stjålet.</string>
+  <string name="emailSuggestion">Ikke bruk e-postadresse foreslått av andre. Kontoen din vil bli stjålet.</string>
   <string name="emailConfirmHelp">Hjelp med å bekrefte e-posten</string>
   <string name="emailConfirmNotReceived">Mottok du ikke bekreftelsesmelding etter at du registrerte deg?</string>
   <string name="whatSignupUsername">Hvilket brukernavn registrerte du deg med?</string>
@@ -706,6 +712,7 @@
   <string name="kidMode">Barnemodus</string>
   <string name="kidModeExplanation">Dette handler om sikkerhet. I barnemodus blir all kommunikasjon skrudd av. Bruk dette for å skjerme barn og skole-elever mot brukere på Internett.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnemodus får lichess-logoen et %s symbol, så du vet at barna dine er trygge.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Kontoen din er forvaltet. Be sjakklæreren din fjerne barnemodus.</string>
   <string name="enableKidMode">Skru på barnemodus</string>
   <string name="disableKidMode">Skru av barnemodus</string>
   <string name="security">Sikkerhet</string>
@@ -871,7 +878,7 @@
   <string name="resVsX">%1$s mot %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Noen har skrevet en elevanmeldelse for trenerprofilen din.</string>
   <string name="newPendingReview">Ny elevanmeldelse klar for gjennomgang</string>
-  <string name="lostAgainstTOSViolator">Du tapte mot noen som brøt vilkårene våre</string>
+  <string name="lostAgainstTOSViolator">Du tapte ratingpoeng mot noen som brøt vilkårene våre</string>
   <string name="refundXpointsTimeControlY">Refusjon: %1$s ratingpoeng i %2$s.</string>
   <string name="timeAlmostUp">Tiden er nesten ute!</string>
   <string name="clickToRevealEmailAddress">[Klikk for å vise e-postadresse]</string>
@@ -933,7 +940,7 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="youCantStartNewGame">Du kan ikke starte et nytt parti før dette er avsluttet.</string>
   <string name="since">Fra</string>
   <string name="until">Til</string>
-  <string name="lichessDbExplanation">Ratede partier sanket inn fra alle Lichess-spillerne</string>
+  <string name="lichessDbExplanation">Ratede partier spilt hos Lichess</string>
   <string name="switchSides">Skift side</string>
   <string name="closingAccountWithdrawAppeal">Klagen din blir trukket hvis du stenger kontoen din</string>
 </resources>

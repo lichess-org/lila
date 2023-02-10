@@ -1,11 +1,8 @@
 package lila.mod
 
-import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 import scala.util.Try
 
 import lila.db.dsl.{ *, given }
@@ -15,7 +12,7 @@ import lila.report.Room
 final class ModQueueStats(
     cacheApi: lila.memo.CacheApi,
     repo: ModQueueStatsRepo
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import ModQueueStats.*
 

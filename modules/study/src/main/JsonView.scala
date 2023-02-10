@@ -13,7 +13,7 @@ import lila.user.User
 final class JsonView(
     studyRepo: StudyRepo,
     lightUserApi: lila.user.LightUserApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import JsonView.{ *, given }
 
@@ -122,9 +122,8 @@ object JsonView:
   private given Reads[Pos] = Reads { v =>
     (v.asOpt[String] flatMap { Pos.fromKey(_) }).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
   }
-  private[study] given Writes[Path]             = Writes(p => JsString(p.toString))
-  private[study] given Writes[Sri]              = Writes(s => JsString(s.value))
-  private[study] given Writes[Study.Visibility] = Writes(v => JsString(v.key))
+  private[study] given Writes[Sri]              = writeAs(_.value)
+  private[study] given Writes[Study.Visibility] = writeAs(_.key)
   private[study] given Writes[Study.From] = Writes {
     case Study.From.Scratch   => JsString("scratch")
     case Study.From.Game(id)  => Json.obj("game" -> id)
@@ -137,10 +136,10 @@ object JsonView:
   private[study] given Reads[Shape] = Reads { js =>
     js.asOpt[JsObject]
       .flatMap { o =>
-        for {
+        for
           brush <- o str "brush"
           orig  <- o.get[Pos]("orig")
-        } yield o.get[Pos]("dest") match
+        yield o.get[Pos]("dest") match
           case Some(dest) => Shape.Arrow(brush, orig, dest)
           case _          => Shape.Circle(brush, orig)
       }

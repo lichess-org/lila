@@ -15,7 +15,7 @@ object PerfPicker:
   def key(speed: Speed, variant: chess.variant.Variant, daysPerTurn: Option[Days]): Perf.Key =
     if (variant.standard)
       if (daysPerTurn.isDefined || speed == Speed.Correspondence) PerfType.Correspondence.key
-      else Perf.Key(speed.key)
+      else speed.key into Perf.Key
     else variant.key into Perf.Key
 
   def key(game: Game): Perf.Key = key(game.speed, game.ratingVariant, game.daysPerTurn)

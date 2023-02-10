@@ -5,4 +5,30 @@
   <string name="carefullySelect">Обережно оберіть те, що дозволено робити від вашого імені.</string>
   <string name="tokenDescription">Опис токену</string>
   <string name="rememberTokenUse">Пам\'ятайте для чого цей токен</string>
+  <string name="whatTheTokenCanDo">Що токен може робити від вашого імені:</string>
+  <string name="doNotShareIt">Токен надає доступ до вашого облікового запису. Не поширюйте його нікому!</string>
+  <string name="copyTokenNow">Переконайтеся, що ви скопіювали ваш токен. Ви не зможете побачити його ще раз!</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Переглядати налаштування</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Змінювати налаштування</string>
+  <string name="emailRead">Переглядати ел. адресу</string>
+  <string name="challengeRead">Переглядати вхідні виклики</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Створювати, приймати та відхиляти виклики</string>
+  <string name="challengeBulk">Створювати декілька ігор з іншими гравцями одночасно</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Переглядати інформацію про приватні студії та трансляції</string>
+  <string name="studyWrite">Створювати, поновлювати та видаляти студії й трансляції</string>
+  <string name="tournamentWrite">Створювати, поновлювати й брати участь у турнірах</string>
+  <string name="racerWrite">Створювати та приєднуватись до пазлових перегонів</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Переглядати активність по задачах</string>
+  <string name="teamRead">Переглядати інформацію приватних команд</string>
+  <string name="teamWrite">Приєднуватися та покидати команди</string>
+  <string name="teamLead">Контролювати команди, які ви адмініструєте: відправляти приватні повідомлення, виганяти учасників</string>
+  <string name="followRead">Переглядати підписки</string>
+  <string name="followWrite">Підписуватися і відписуватися від інших гравців</string>
+  <string name="msgWrite">Надсилати приватні повідомлення іншим гравцям</string>
+  <string name="boardPlay">Грати ігри з API дошкою</string>
+  <string name="botPlay">Грати ігри з API ботом</string>
+  <string name="engineRead">Переглядати та використовувати ваші зовнішні рушії</string>
+  <string name="engineWrite">Створювати та оновлювати зовнішні рушії</string>
+  <string name="webLogin">Створювати автентифіковані сесії на вебсайті (надає повний доступ!)</string>
+  <string name="webMod">Використовувати інструменти модерації (в рамках ваших дозволів)</string>
 </resources>

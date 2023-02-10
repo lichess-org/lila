@@ -13,4 +13,6 @@
   <string name="twoFactorEnabled">Autentificare în doi pași activată</string>
   <string name="twoFactorDisable">Ai nevoie de parolă și de un cod de autentificare din aplicație pentru a dezactiva autentificarea în doi pași. Dacă ai pierdut accesul la codurile tale de autentificare, poți reseta parola prin email.</string>
   <string name="openTwoFactorApp">Deschideți aplicația de autentificare cu doi factori de pe dispozitivul dvs pentru a vedea codul de autentificare și a verifica identitatea dvs.</string>
+  <string name="setupReminder">Vă rugăm să activați autentificarea cu doi factori pentru a vă securiza contul https://lichess.org/account/twofactor.
+Ați primit acest mesaj deoarece contul dvs. are responsabilități speciale, cum ar fi lider de echipă, antrenor, profesor sau streamer</string>
 </resources>

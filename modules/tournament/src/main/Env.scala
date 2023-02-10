@@ -6,19 +6,10 @@ import com.softwaremill.tagging.*
 import io.lettuce.core.{ RedisClient, RedisURI }
 import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }
 import lila.user.User
-
-@Module
-private class TournamentConfig(
-    @ConfigName("collection.tournament") val tournamentColl: CollName,
-    @ConfigName("collection.player") val playerColl: CollName,
-    @ConfigName("collection.pairing") val pairingColl: CollName,
-    @ConfigName("collection.leaderboard") val leaderboardColl: CollName
-)
 
 @Module
 final class Env(
@@ -39,23 +30,21 @@ final class Env(
     trophyApi: lila.user.TrophyApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     settingStore: lila.memo.SettingStore.Builder
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem,
-    scheduler: akka.actor.Scheduler,
-    mat: akka.stream.Materializer,
-    idGenerator: lila.game.IdGenerator,
-    mode: play.api.Mode
+)(using scheduler: Scheduler)(using
+    Executor,
+    ActorSystem,
+    akka.stream.Materializer,
+    lila.game.IdGenerator,
+    play.api.Mode
 ):
-
-  private val config = appConfig.get[TournamentConfig]("tournament")(AutoConfig.loader)
 
   lazy val forms = wire[TournamentForm]
 
-  lazy val tournamentRepo          = new TournamentRepo(db(config.tournamentColl), config.playerColl)
-  lazy val pairingRepo             = new PairingRepo(db(config.pairingColl))
-  lazy val playerRepo              = new PlayerRepo(db(config.playerColl))
-  private lazy val leaderboardRepo = new LeaderboardRepo(db(config.leaderboardColl))
+  private val playerColl           = CollName("tournament_player")
+  lazy val tournamentRepo          = TournamentRepo(db(CollName("tournament2")), playerColl)
+  lazy val pairingRepo             = PairingRepo(db(CollName("tournament_pairing")))
+  lazy val playerRepo              = PlayerRepo(db(playerColl))
+  private lazy val leaderboardRepo = LeaderboardRepo(db(CollName("tournament_leaderboard")))
 
   lazy val cached: TournamentCache = wire[TournamentCache]
 

@@ -33,8 +33,9 @@ final class Preload(
     simulIsFeaturable: SimulIsFeaturable,
     lastPostCache: lila.blog.LastPostCache,
     lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
-    msgApi: lila.msg.MsgApi
-)(using ec: scala.concurrent.ExecutionContext):
+    msgApi: lila.msg.MsgApi,
+    relayApi: lila.relay.RelayApi
+)(using Executor):
 
   import Preload.*
 
@@ -45,7 +46,7 @@ final class Preload(
       simuls: Fu[List[Simul]],
       streamerSpots: Int
   )(using ctx: Context): Fu[Homepage] =
-    lobbyApi(using ctx).mon(_.lobby segment "lobbyApi") zip
+    lobbyApi.apply.mon(_.lobby segment "lobbyApi") zip
       tours.mon(_.lobby segment "tours") zip
       events.mon(_.lobby segment "events") zip
       simuls.mon(_.lobby segment "simuls") zip
@@ -78,6 +79,7 @@ final class Preload(
                 tours,
                 swiss,
                 events,
+                relayApi.spotlight,
                 simuls,
                 feat,
                 lead,
@@ -97,7 +99,7 @@ final class Preload(
 
   def currentGameMyTurn(user: User): Fu[Option[CurrentGame]] =
     gameRepo.playingRealtimeNoAi(user).flatMap {
-      _.map { roundProxy.pov(_, user) }.sequenceFu.dmap(_.flatten)
+      _.map { roundProxy.pov(_, user) }.parallel.dmap(_.flatten)
     } flatMap {
       currentGameMyTurn(_, lightUserApi.sync)(user)
     }
@@ -121,6 +123,7 @@ object Preload:
       tours: List[Tournament],
       swiss: Option[Swiss],
       events: List[Event],
+      relays: List[lila.relay.RelayTour.ActiveWithNextRound],
       simuls: List[Simul],
       featured: Option[Game],
       leaderboard: List[User.LightPerf],

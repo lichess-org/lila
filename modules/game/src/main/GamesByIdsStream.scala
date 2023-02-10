@@ -3,7 +3,6 @@ package lila.game
 import actorApi.{ FinishGame, StartGame }
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
@@ -11,7 +10,7 @@ import lila.game.Game
 
 final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using
     mat: akka.stream.Materializer,
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
   def apply(streamId: String, initialIds: Set[GameId], maxGames: Int): Source[JsValue, ?] =
     val startStream = Source.queue[Game](

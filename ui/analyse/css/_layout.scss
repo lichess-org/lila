@@ -23,6 +23,10 @@ body {
 
   &__board {
     grid-area: board;
+
+    cg-container {
+      #{$end-direction}: 0;
+    }
   }
 
   &__tools {

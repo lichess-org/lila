@@ -6,7 +6,6 @@ import chess.{ Board, Castles, Clock, Color as ChessColor, Ply, Game as ChessGam
 import ChessColor.{ Black, White }
 import com.github.blemale.scaffeine.Cache
 import lila.memo.CacheApi
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, PerfPicker, Pov, Rematches, Source }
@@ -21,7 +20,7 @@ final private class Rematcher(
     messenger: Messenger,
     onStart: OnStart,
     rematches: Rematches
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private given play.api.i18n.Lang = defaultLang
 
@@ -88,13 +87,13 @@ final private class Rematcher(
 
     rematches.get(pov.gameId) match
       case None                                    => createGame(none)
-      case Some(Rematches.NextGame.Accepted(id))   => gameRepo game id map { _ ?? redirectEvents }
+      case Some(Rematches.NextGame.Accepted(id))   => gameRepo game id mapz redirectEvents
       case Some(Rematches.NextGame.Offered(_, id)) => createGame(id.some)
 
   private def returnGame(pov: Pov, withId: Option[GameId]): Fu[Game] =
     for {
       initialFen <- gameRepo initialFen pov.game
-      situation = initialFen flatMap Fen.readWithMoveNumber
+      situation = initialFen.flatMap(Fen.readWithMoveNumber(pov.game.variant, _))
       pieces = pov.game.variant match
         case Chess960 =>
           if (chess960 get pov.gameId) Chess960.pieces
@@ -102,8 +101,8 @@ final private class Rematcher(
         case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
         case variant      => variant.pieces
       users <- userRepo byIds pov.game.userIds
-      board = Board(pieces, variant = pov.game.variant).withHistory(
-        History(
+      board = Board(pieces, variant = pov.game.variant).updateHistory(
+        _.copy(
           lastMove = situation.flatMap(_.situation.board.history.lastMove),
           castles = situation.fold(Castles.init)(_.situation.board.history.castles)
         )

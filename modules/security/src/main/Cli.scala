@@ -4,8 +4,8 @@ import lila.user.{ User, UserRepo }
 import lila.common.EmailAddress
 import lila.common.Domain
 
-final private[security] class Cli(userRepo: UserRepo, disposable: DisposableEmailDomain)(using
-    ec: scala.concurrent.ExecutionContext
+final private[security] class Cli(userRepo: UserRepo, emailValidator: EmailAddressValidator)(using
+    ec: Executor
 ) extends lila.common.Cli:
 
   def process =
@@ -19,16 +19,15 @@ final private[security] class Cli(userRepo: UserRepo, disposable: DisposableEmai
       perform(UserStr(uid), user => userRepo.setRoles(user.id, roles map (_.toUpperCase)).void)
 
     case "disposable" :: "test" :: emailOrDomain :: Nil =>
-      fuccess {
-        EmailAddress
-          .from(emailOrDomain)
-          .flatMap(_.domain)
-          .orElse(Domain.from(emailOrDomain))
-          .fold("Invalid email or domain") { dom =>
-            if (disposable(dom)) "Blocked disposable domain"
-            else "Accepted domain"
+      EmailAddress
+        .from(emailOrDomain)
+        .flatMap(_.domain)
+        .orElse(Domain.from(emailOrDomain))
+        .fold(fuccess("Invalid email or domain")) { dom =>
+          emailValidator.validateDomain(dom.lower) map { r =>
+            s"$r ${r.error | ""}"
           }
-      }
+        }
 
   private def perform(u: UserStr, op: User => Funit): Fu[String] =
     userRepo byId u flatMap { userOption =>

@@ -4,9 +4,7 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.Json
 import play.api.mvc.Result
 import play.api.mvc.Results.TooManyRequests
-import scala.concurrent.duration.FiniteDuration
 import scala.collection.immutable.Queue
-import scala.concurrent.Promise
 
 /** only allow X streams at a time per key
   */
@@ -17,7 +15,7 @@ final class ConcurrencyLimit[K](
     maxConcurrency: Int = 1,
     limitedDefault: Int => Result = ConcurrencyLimit.limitedDefault,
     toString: K => String = (k: K) => k.toString
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private val storage = new ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
 

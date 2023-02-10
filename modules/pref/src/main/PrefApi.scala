@@ -2,7 +2,6 @@ package lila.pref
 
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ given, * }
 import lila.memo.CacheApi.*
@@ -11,7 +10,7 @@ import lila.user.User
 final class PrefApi(
     val coll: Coll,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import PrefHandlers.given
 
@@ -92,16 +91,14 @@ final class PrefApi(
     coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true).void >>-
       cache.invalidate(user.id)
 
-  def setBot(user: User): Funit =
-    setPref(
-      user,
-      (p: Pref) =>
-        p.copy(
-          takeback = Pref.Takeback.NEVER,
-          moretime = Pref.Moretime.NEVER,
-          insightShare = Pref.InsightShare.EVERYBODY
-        )
+  def setBot(user: User): Funit = setPref(
+    user,
+    _.copy(
+      takeback = Pref.Takeback.NEVER,
+      moretime = Pref.Moretime.NEVER,
+      insightShare = Pref.InsightShare.EVERYBODY
     )
+  )
 
   def saveNewUserPrefs(user: User, req: RequestHeader): Funit =
     val reqPref = RequestPref fromRequest req

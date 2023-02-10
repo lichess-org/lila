@@ -64,6 +64,7 @@ export default class StrongSocket {
   nbConnects = 0;
   storage: LichessStorage = makeStorage.make('surl17');
   private _sign?: string;
+  private resendWhenOpen: [string, any, any][] = [];
 
   static defaultOptions: Options = {
     idle: false,
@@ -131,6 +132,8 @@ export default class StrongSocket {
         cl.add('online');
         cl.toggle('reconnected', this.nbConnects > 1);
         this.pingNow();
+        this.resendWhenOpen.forEach(([t, d, o]) => this.send(t, d, o));
+        this.resendWhenOpen = [];
         this.pubsub.emit('socket.open');
         this.ackable.resend();
       };
@@ -175,12 +178,10 @@ export default class StrongSocket {
         }, 10000);
     }
     this.debug('send ' + message);
-    try {
+    if (!this.ws || this.ws.readyState === WebSocket.CONNECTING) {
+      if (!noRetry) this.resendWhenOpen.push([t, msg.d, o]);
+    } else {
       origSend.apply(this.ws!, [message]);
-    } catch (e) {
-      // maybe sent before socket opens,
-      // try again a second later.
-      if (!noRetry) setTimeout(() => this.send(t, msg.d, o, true), 1000);
     }
   };
 

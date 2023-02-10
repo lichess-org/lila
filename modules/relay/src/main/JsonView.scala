@@ -1,15 +1,13 @@
 package lila.relay
 
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.common.config.BaseUrl
 import lila.common.Json.given
 import lila.study.Chapter
-import scala.concurrent.ExecutionContext
 
 final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: RelayLeaderboardApi)(using
-    ec: ExecutionContext
+    Executor
 ):
 
   import JsonView.given

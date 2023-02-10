@@ -1,15 +1,12 @@
 package lila.ublog
 
-import scala.concurrent.duration.*
 import reactivemongo.api.*
-import scala.concurrent.ExecutionContext
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
-import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 import play.api.i18n.Lang
 
@@ -17,7 +14,7 @@ final class UblogPaginator(
     colls: UblogColls,
     relationApi: lila.relation.RelationApi,
     cacheApi: lila.memo.CacheApi
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import UblogBsonHandlers.{ *, given }
   import UblogPost.PreviewPost
@@ -136,7 +133,7 @@ final class UblogPaginator(
                           $and(
                             $doc("$in" -> $arr(s"$$created.by", "$$users")),
                             $doc("$eq" -> $arr("$live", true)),
-                            $doc("$gt" -> $arr("$lived.at", DateTime.now.minusMonths(3)))
+                            $doc("$gt" -> $arr("$lived.at", nowDate.minusMonths(3)))
                           )
                         )
                       ),

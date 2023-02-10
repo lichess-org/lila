@@ -13,7 +13,7 @@ final private[round] class Drawer(
     finisher: Finisher,
     prefApi: PrefApi,
     isBotSync: lila.common.LightUser.IsBotSync
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private given Lang = defaultLang
 
@@ -30,7 +30,7 @@ final private[round] class Drawer(
             } || pov.player.userId.exists(isBotSync)
           } map (_ option pov)
       }
-      .sequenceFu
+      .parallel
       .dmap(_.flatten.headOption)
 
   def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov.game.drawable ?? {

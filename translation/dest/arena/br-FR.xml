@@ -40,4 +40,19 @@ Grit buan da vezañ trec\'h evit distreiñ d\'ar sal c\'hortoz da c\'hounit muio
   <string name="thisIsPrivate">Prevez eo an tournamant-mañ</string>
   <string name="shareUrl">Skignit an URL-mañ da zesachañ c\'hoarierien: %s</string>
   <string name="history">Istor an Arenoù</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Gwelet ar skipailh</item>
+    <item quantity="two">Gwelet %s skipailh</item>
+    <item quantity="few">Gwelet %s skipailh</item>
+    <item quantity="many">Gwelet %s skipailh</item>
+    <item quantity="other">Gwelet %s skipailh</item>
+  </plurals>
+  <string name="newTeamBattle">Emgann skipailh nevez</string>
+  <string name="customStartDate">Deiziad kemmet</string>
+  <string name="allowBerserk">Aotren ar Berserk</string>
+  <string name="allowBerserkHelp">Aotren ar c\'hoarierien da zaouhanteriñ o amzer evit gounit ur poent ouzhpenn</string>
+  <string name="allowChatHelp">Reiñ an aotre da flapañ</string>
+  <string name="arenaStreaks">Heuliad trec\'h en Arena</string>
+  <string name="arenaStreaksHelp">Adalek an trede trec\'h da heul e vo roet 4 foent ha n\'eo ket 2.</string>
+  <string name="noBerserkAllowed">Ne c\'haller ket Berserk</string>
 </resources>

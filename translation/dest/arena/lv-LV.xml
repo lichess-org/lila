@@ -44,7 +44,7 @@ Spēlē ātri un atgriezies vestibilā lai spēlētu vairāk spēļu un iegūtu 
   <string name="drawStreakStandard">Atkārtoti neizšķirti: Kad spēlētājs vairākas reizes pēc kārtas panāk neizšķirtu arēnā, punktu ieskaitīs tikai par pirmo neizšķirtu, vai neizšķirtas parastās spēles, kas ilga %s gājienus. Šo secību var pārtraukt tikai uzvara, nevis zaudējums vai neizšķirts.</string>
   <string name="drawStreakVariants">Minimālais spēles garums, kas nepieciešams, lai saņemtu punktus par neizķirtu, ir atkarīgs no varianta. Zemāk esošā tabula nosaka minimālo gājienu daudzumu katrā variantā.</string>
   <string name="variant">Variants</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in a game">Minimālais spēles garums</string>
+  <string name="minimumGameLength">Minimālais spēles garums</string>
   <string name="history">Arēnu vēsture</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="zero">Skatīt %s komandas</item>

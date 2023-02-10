@@ -2,8 +2,6 @@ package lila.ublog
 
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.*
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.Propagate
@@ -18,7 +16,7 @@ final class UblogApi(
     picfitApi: PicfitApi,
     timeline: lila.hub.actors.Timeline,
     irc: lila.irc.IrcApi
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import UblogBsonHandlers.{ *, given }
 
@@ -76,8 +74,10 @@ final class UblogApi(
   def userBlogPreviewFor(user: User, nb: Int, forUser: Option[User]): Fu[Option[UblogPost.BlogPreview]] =
     val blogId = UblogBlog.Id.User(user.id)
     val canView = fuccess(forUser exists { user.is(_) }) >>|
-      colls.blog.primitiveOne[UblogBlog.Tier]($id(blogId.full), "tier").dmap(~_ >= UblogBlog.Tier.VISIBLE)
-    canView flatMap { _ ?? blogPreview(blogId, nb).dmap(some) }
+      colls.blog
+        .primitiveOne[UblogBlog.Tier]($id(blogId.full), "tier")
+        .dmap(_.exists(_ >= UblogBlog.Tier.VISIBLE))
+    canView flatMapz { blogPreview(blogId, nb).dmap(some) }
 
   def blogPreview(blogId: UblogBlog.Id, nb: Int): Fu[UblogPost.BlogPreview] =
     colls.post.countSel($doc("blog" -> blogId, "live" -> true)) zip
@@ -133,7 +133,7 @@ final class UblogApi(
     colls.post.delete.one($id(post.id)) >>
       picfitApi.deleteByRel(imageRel(post))
 
-  def setTier(blog: UblogBlog.Id, tier: Int): Funit =
+  def setTier(blog: UblogBlog.Id, tier: UblogBlog.Tier): Funit =
     colls.blog.update
       .one($id(blog), $set("modTier" -> tier, "tier" -> tier), upsert = true)
       .void

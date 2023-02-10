@@ -1,9 +1,8 @@
 package lila.history
 
 import chess.Speed
-import org.joda.time.{ DateTime, Days }
+import org.joda.time.Days
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
@@ -12,10 +11,10 @@ import lila.rating.{ Perf, PerfType }
 import lila.user.{ Perfs, User, UserRepo }
 
 final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, cacheApi: lila.memo.CacheApi)(
-    using ec: scala.concurrent.ExecutionContext
+    using ec: Executor
 ):
 
-  import History.*
+  import History.{ given, * }
 
   def addPuzzle(user: User, completedAt: DateTime, perf: Perf): Funit = withColl { coll =>
     val days = daysBetween(user.createdAt, completedAt)
@@ -63,7 +62,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
 
   // used for rating refunds
   def setPerfRating(user: User, perf: PerfType, rating: IntRating): Funit = withColl { coll =>
-    val days = daysBetween(user.createdAt, DateTime.now)
+    val days = daysBetween(user.createdAt, nowDate)
     coll.update
       .one(
         $id(user.id),
@@ -89,7 +88,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
         import History.ratingsReader
         users zip hists map { case (user, doc) =>
           val current      = user.perfs(perfType).intRating
-          val previousDate = daysBetween(user.createdAt, DateTime.now minusDays days)
+          val previousDate = daysBetween(user.createdAt, nowDate minusDays days)
           val previous =
             doc.flatMap(_ child perfType.key.value).flatMap(ratingsReader.readOpt).fold(current) { hist =>
               hist.foldLeft(hist.headOption.fold(current)(_._2)) {
@@ -111,7 +110,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
         .buildAsyncFuture { case (userId, perf) =>
           userRepo.byId(userId) orFail s"No such user: $userId" flatMap { user =>
             val currentRating = user.perfs(perf).intRating
-            val firstDay      = daysBetween(user.createdAt, DateTime.now minusWeeks 1)
+            val firstDay      = daysBetween(user.createdAt, nowDate minusWeeks 1)
             val days          = firstDay to (firstDay + 6) toList
             val project = BSONDocument {
               ("_id" -> BSONBoolean(false)) :: days.map { d =>

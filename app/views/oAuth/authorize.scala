@@ -33,15 +33,13 @@ object authorize:
       ),
       csp = defaultCsp.withLegacyCompatibility.some
     ) {
-      main(cls := "oauth box box-pad")(
+      main(cls := "oauth box box-pad force-ltr")(
         div(cls := "oauth__top")(
           ringsImage,
           h1("Authorize"),
           strong(code(prompt.redirectUri.clientOrigin))
         ),
-        prompt.redirectUri.insecure option flashMessage(cls := "flash-warning")(
-          "Does not use a secure connection"
-        ),
+        prompt.redirectUri.insecure option flashMessage("warning")("Does not use a secure connection"),
         postForm(action := authorizeUrl)(
           p(
             "Grant access to your ",

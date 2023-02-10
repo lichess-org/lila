@@ -1,6 +1,5 @@
 package lila.tournament
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
@@ -15,7 +14,7 @@ import lila.user.User
 final class LeaderboardApi(
     repo: LeaderboardRepo,
     tournamentRepo: TournamentRepo
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import LeaderboardApi.*
   import BSONHandlers.given

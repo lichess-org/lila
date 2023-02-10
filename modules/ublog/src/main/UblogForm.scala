@@ -1,6 +1,5 @@
 package lila.ublog
 
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import ornicar.scalalib.ThreadLocalRandom
@@ -9,10 +8,9 @@ import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, into, given }
 import lila.i18n.{ defaultLang, LangList }
 import lila.user.User
 import play.api.i18n.Lang
-import lila.common.Markdown
 
 final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(using
-    ec: scala.concurrent.ExecutionContext
+    Executor
 ) extends lila.hub.CaptchedForm:
 
   import UblogForm.*
@@ -54,7 +52,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
     )
 
   // $$something$$ breaks the TUI editor WYSIWYG
-  private val latexRegex                      = s"""\\$${2,}+ *([^\\$$]+) *\\$${2,}+""".r
+  private val latexRegex                      = """\${2,}+([^\$]++)\${2,}+""".r
   private def removeLatex(markdown: Markdown) = markdown.map(latexRegex.replaceAllIn(_, """\$\$ $1 \$\$"""))
 
 object UblogForm:
@@ -87,7 +85,7 @@ object UblogForm:
         image = none,
         live = false,
         discuss = Option(false),
-        created = UblogPost.Recorded(user.id, DateTime.now),
+        created = UblogPost.Recorded(user.id, nowDate),
         updated = none,
         lived = none,
         likes = UblogPost.Likes(1),
@@ -106,8 +104,13 @@ object UblogForm:
         topics = topics ?? UblogTopic.fromStrList,
         live = live,
         discuss = Option(discuss),
-        updated = UblogPost.Recorded(user.id, DateTime.now).some,
-        lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, DateTime.now))
+        updated = UblogPost.Recorded(user.id, nowDate).some,
+        lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, nowDate))
       )
 
-  val tier = Form(single("tier" -> number(min = UblogBlog.Tier.HIDDEN, max = UblogBlog.Tier.BEST)))
+  val tier = Form(
+    single(
+      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
+        .into[UblogBlog.Tier]
+    )
+  )

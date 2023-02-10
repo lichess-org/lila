@@ -4,15 +4,15 @@ import reactivemongo.api.bson.*
 import NotificationPref.*
 import alleycats.Zero
 
-// #TODO opaque type
-case class Allows(value: Int) extends AnyVal with IntValue:
-  def push: Boolean   = (value & NotificationPref.PUSH) != 0
-  def web: Boolean    = (value & NotificationPref.WEB) != 0
-  def device: Boolean = (value & NotificationPref.DEVICE) != 0
-  def bell: Boolean   = (value & NotificationPref.BELL) != 0
-  def any: Boolean    = value != 0
+opaque type Allows = Int
+object Allows extends OpaqueInt[Allows]:
+  extension (e: Allows)
+    def push: Boolean   = (e & NotificationPref.PUSH) != 0
+    def web: Boolean    = (e & NotificationPref.WEB) != 0
+    def device: Boolean = (e & NotificationPref.DEVICE) != 0
+    def bell: Boolean   = (e & NotificationPref.BELL) != 0
+    def any: Boolean    = e != 0
 
-object Allows:
   given Zero[Allows] = Zero(Allows(0))
 
   def fromForm(bell: Boolean, push: Boolean): Allows =
@@ -21,10 +21,7 @@ object Allows:
   def toForm(allows: Allows): Some[(Boolean, Boolean)] =
     Some((allows.bell, allows.push))
 
-  def fromCode(code: Int) = Allows(code)
-
-case class NotifyAllows(userId: UserId, allows: Allows):
-  export allows.*
+case class NotifyAllows(userId: UserId, allows: Allows)
 
 // take care with NotificationPref field names - they map directly to db and ws channels
 
@@ -102,9 +99,7 @@ object NotificationPref:
       )(NotificationPref.apply)(lila.notify.unapply)
     )
 
-  given BSONHandler[Allows] =
-    lila.db.dsl.intAnyValHandler[Allows](_.value, Allows.apply)
-
+  import lila.db.dsl.opaqueHandler
   given BSONDocumentHandler[NotificationPref] = Macros.handler
 
   import play.api.libs.json.{ Json, Writes, OWrites }

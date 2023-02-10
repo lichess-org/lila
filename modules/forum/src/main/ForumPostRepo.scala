@@ -1,7 +1,6 @@
 package lila.forum
 
 import Filter.*
-import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 
@@ -9,7 +8,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
-    scala.concurrent.ExecutionContext
+    Executor
 ):
 
   def forUser(user: Option[User]) =
@@ -89,7 +88,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
   def findDuplicate(post: ForumPost): Fu[Option[ForumPost]] =
     coll.one[ForumPost](
       $doc(
-        "createdAt" $gt DateTime.now.minusHours(1),
+        "createdAt" $gt nowDate.minusHours(1),
         "userId" -> post.userId,
         "text"   -> post.text
       )

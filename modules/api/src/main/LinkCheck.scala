@@ -1,7 +1,6 @@
 package lila.api
 
-import cats.implicits.*
-import scala.concurrent.ExecutionContext
+import cats.syntax.all.*
 
 import lila.chat.UserLine
 import lila.common.config.NetDomain
@@ -31,7 +30,7 @@ final private class LinkCheck(
     simulApi: SimulApi,
     swissApi: SwissApi,
     studyRepo: StudyRepo
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import LinkCheck.*
 
@@ -57,22 +56,18 @@ final private class LinkCheck(
       case PublicSource.Team(id)       => teamRepo byId id map2 FullSource.TeamSource.apply
       case PublicSource.Study(id)      => studyRepo byId id map2 FullSource.StudySource.apply
       case _                           => fuccess(none)
-  } flatMap {
-    _ ?? { source =>
-      // the owners of a chat can post whichever link they like
-      if (source.owners(line.userId)) fuTrue
-      else f(id, source)
-    }
+  } flatMapz { source =>
+    // the owners of a chat can post whichever link they like
+    if (source.owners(line.userId)) fuTrue
+    else f(id, source)
   }
 
   private def tourLink(tourId: String, source: FullSource): Fu[Boolean] =
-    tournamentRepo byId TourId(tourId) flatMap {
-      _ ?? { tour =>
-        fuccess(tour.isScheduled) >>| {
-          source.teamId ?? { sourceTeamId =>
-            fuccess(tour.conditions.teamMember.exists(_.teamId == sourceTeamId)) >>|
-              tournamentRepo.isForTeam(tour.id, sourceTeamId)
-          }
+    tournamentRepo byId TourId(tourId) flatMapz { tour =>
+      fuccess(tour.isScheduled) >>| {
+        source.teamId ?? { sourceTeamId =>
+          fuccess(tour.conditions.teamMember.exists(_.teamId == sourceTeamId)) >>|
+            tournamentRepo.isForTeam(tour.id, sourceTeamId)
         }
       }
     }

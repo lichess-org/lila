@@ -1,7 +1,6 @@
 package lila.user
 
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.common.LightUser
 import lila.memo.CacheApi.*
@@ -15,7 +14,7 @@ final class Cached(
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     rankingApi: RankingApi
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   private given BSONDocumentHandler[LightUser]  = Macros.handler
   private given BSONDocumentHandler[LightPerf]  = Macros.handler
@@ -56,7 +55,7 @@ final class Cached(
             .map { perf =>
               rankingApi.topPerf(perf.id, 1)
             }
-            .sequenceFu
+            .parallel
             .dmap(_.flatten)
         }
       }
@@ -79,7 +78,7 @@ final class Cached(
   private val top50OnlineCache = cacheApi.unit[List[User]] {
     _.refreshAfterWrite(1 minute)
       .buildAsyncFuture { _ =>
-        userRepo.byIdsSortRatingNoBot(onlineUserIds.value(), 50)
+        userRepo.byIdsSortRatingNoBot(onlineUserIds(), 50)
       }
   }
 

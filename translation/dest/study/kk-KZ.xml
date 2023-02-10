@@ -32,7 +32,7 @@
   </plurals>
   <string name="inviteToTheStudy">Зерттеуге шақыру</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Тек таныстарды әрі зерттеуге қосылуға шын ниетті адамдарды ғана шықырыңыз.</string>
-  <string name="searchByUsername">Тіркелгі аты бойынша іздеу</string>
+  <string name="searchByUsername">Тіркеулі атымен іздеу</string>
   <string name="spectator">Көрермен</string>
   <string name="contributor">Қолдаушы</string>
   <string name="kick">Шығару</string>
@@ -50,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Зерттеу қолдаушылары ғана компьютерлік талдауды сұрай алады.</string>
   <string name="getAFullComputerAnalysis">Сервер-жақты компьютер осы негізгі жолға толық талдау жасайтын болады.</string>
   <string name="makeSureTheChapterIsComplete">Талдауды бір рет қана сұрай аласыз, сондықтан бөлімді аяқтауды ұмытпаңыз.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Барлық үйлескен мүшелер өз күйінде қалады</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Барлық үйлескен мүшелер өз күйінде қалады</string>
   <string name="shareChanges">Көрермендермен өзгертулерді бөлісіңіз әрі серверде сақтап қойыңыз</string>
   <string name="playing">Қазір ойында</string>
   <string name="first">Бірінші</string>
@@ -62,6 +62,8 @@
   <string name="studyPgn">Зерттеудің PGN</string>
   <string name="downloadAllGames">Барлық ойындарды жүктеп алу</string>
   <string name="chapterPgn">Бөлімнің PGN</string>
+  <string name="copyChapterPgn">PGN-ді көшіру</string>
+  <string name="copyChapterPgnDescription">Тараудың PGN-ын көшіру.</string>
   <string name="downloadGame">Ойынды жүктеп алу</string>
   <string name="studyUrl">Зерттеудің сілтемесі</string>
   <string name="currentChapterUrl">Қазіргі бөлімнің сілтемесі</string>

@@ -1,7 +1,5 @@
 package lila.irwin
 
-import org.joda.time.DateTime
-
 import lila.game.{ Game, Pov }
 import lila.report.SuspectId
 
@@ -59,4 +57,4 @@ object IrwinReport:
 
     def lastSeenAt = recent.headOption.map(_.date)
 
-    def seenRecently = lastSeenAt.??(DateTime.now.minusMinutes(15).isBefore)
+    def seenRecently = lastSeenAt.??(nowDate.minusMinutes(15).isBefore)

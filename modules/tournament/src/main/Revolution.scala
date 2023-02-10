@@ -1,7 +1,5 @@
 package lila.tournament
 
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
 import reactivemongo.api.ReadPreference
 
 import chess.variant.Variant
@@ -12,7 +10,7 @@ import lila.memo.CacheApi.*
 final class RevolutionApi(
     tournamentRepo: TournamentRepo,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Revolution.*
   import BSONHandlers.given
@@ -28,7 +26,7 @@ final class RevolutionApi(
           .find(
             $doc(
               "schedule.freq" -> (Schedule.Freq.Unique: Schedule.Freq),
-              "startsAt" $lt DateTime.now $gt DateTime.now.minusYears(1).minusDays(1),
+              "startsAt" $lt nowDate $gt nowDate.minusYears(1).minusDays(1),
               "name" $regex Revolution.namePattern,
               "status" -> (Status.Finished: Status)
             ),

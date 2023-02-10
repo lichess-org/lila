@@ -59,12 +59,12 @@ Her er lenken som gir tilgang til klassen.</string>
   </plurals>
   <string name="onlyVisibleToTeachers">Kun synlig for klassens lærere</string>
   <string name="lastActiveDate">Aktiv</string>
-  <string name="managed">Administrert</string>
-  <string name="thisStudentAccountIsManaged">Denne elevkontoen administreres</string>
-  <string name="upgradeFromManaged">Oppgradér fra administrert til selvstyrt</string>
+  <string name="managed">Forvaltet</string>
+  <string name="thisStudentAccountIsManaged">Denne elevkontoen er forvaltet</string>
+  <string name="upgradeFromManaged">Oppgrader fra forvaltet til selvstyrt</string>
   <string name="release">Frigi</string>
   <string name="releaseTheAccount">Frigi kontoen slik at eleven kan styre den selv.</string>
-  <string name="releaseDesc1">En frigitt konto kan ikke settes under administrasjon igjen. Eleven vil kunne endre barnemodus og selv nullstille passordet.</string>
+  <string name="releaseDesc1">En frigitt konto kan ikke bli forvaltet igjen. Eleven vil selv kunne endre på barnemodus og selv kunne nullstille passordet.</string>
   <string name="releaseDesc2">Eleven vil forbli i klassen selv om kontoen er frigitt.</string>
   <string name="realUniqueEmail">Elevens korrekte, unike e-postadresse. Vi sender en bekreftelsesmelding til adressen med en lenke som gjør det mulig å frigi kontoen.</string>
   <string name="closeStudent">Avslutt konto</string>

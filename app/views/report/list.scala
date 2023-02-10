@@ -69,8 +69,8 @@ object list:
                           submitButton(dataIcon := "", cls := "text button button-metal")("Reopen")
                         )
                       else
-                        postForm(action         := reportRoutes.inquiry(r.id), cls := "inquiry")(
-                          submitButton(dataIcon := "", cls                        := "button button-metal")
+                        postForm(action := reportRoutes.inquiry(r.id), cls := "inquiry")(
+                          submitButton(dataIcon := "", cls := "button button-metal")
                         )
                     case Some(inquiry) =>
                       frag(

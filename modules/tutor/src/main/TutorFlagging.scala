@@ -1,21 +1,25 @@
 package lila.tutor
 
 import cats.data.NonEmptyList
-import scala.concurrent.ExecutionContext
 
 import lila.common.config
 import lila.insight.*
 import lila.rating.PerfType
+import alleycats.Zero
 
 case class TutorFlagging(win: TutorBothValueOptions[GoodPercent], loss: TutorBothValueOptions[GoodPercent])
 
 object TutorFlagging:
 
+  given Zero[TutorFlagging] =
+    val values = TutorBothValueOptions.zero[GoodPercent].zero
+    Zero(TutorFlagging(values, values))
+
   val maxPeerGames = config.Max(10_000)
 
   private[tutor] def compute(
       user: TutorUser
-  )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[TutorFlagging] =
+  )(using insightApi: InsightApi, ec: Executor): Fu[TutorFlagging] =
     val question = Question(InsightDimension.Result, InsightMetric.Termination) filter
       TutorBuilder.perfFilter(user.perfType)
     val clockFlagValueName = InsightMetric.MetricValueName(Termination.ClockFlag.name)

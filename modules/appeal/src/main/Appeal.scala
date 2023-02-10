@@ -1,6 +1,5 @@
 package lila.appeal
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.user.User
@@ -27,25 +26,25 @@ case class Appeal(
     val msg = AppealMsg(
       by = by.id,
       text = text,
-      at = DateTime.now
+      at = nowDate
     )
     copy(
       msgs = msgs :+ msg,
-      updatedAt = DateTime.now,
+      updatedAt = nowDate,
       status =
         if (isByMod(msg) && isUnread) Appeal.Status.Read
         else if (!isByMod(msg) && isRead) Appeal.Status.Unread
         else status,
       firstUnrepliedAt =
-        if (isByMod(msg) || msgs.lastOption.exists(isByMod) || isRead) DateTime.now
+        if (isByMod(msg) || msgs.lastOption.exists(isByMod) || isRead) nowDate
         else firstUnrepliedAt
     )
 
   def canAddMsg: Boolean =
     val recentWithoutMod = msgs.foldLeft(Vector.empty[AppealMsg]) {
-      case (_, msg) if isByMod(msg)                                => Vector.empty
-      case (acc, msg) if msg.at isAfter DateTime.now.minusWeeks(1) => acc :+ msg
-      case (acc, _)                                                => acc
+      case (_, msg) if isByMod(msg)                           => Vector.empty
+      case (acc, msg) if msg.at isAfter nowDate.minusWeeks(1) => acc :+ msg
+      case (acc, _)                                           => acc
     }
     val recentSize = recentWithoutMod.foldLeft(0)(_ + _.text.size)
     recentSize < Appeal.maxLength

@@ -115,9 +115,7 @@ export default class LobbyController {
       } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
     });
 
-    window.addEventListener('beforeunload', () => {
-      if (this.poolMember) this.socket.poolOut(this.poolMember);
-    });
+    window.addEventListener('beforeunload', () => this.leavePool());
   }
 
   spreadPlayersNumber?: (nb: number) => void;
@@ -210,10 +208,8 @@ export default class LobbyController {
       xhr.anonPoolSeek(this.pools.find(p => p.id == id)!);
       this.setTab('real_time');
     } else if (this.poolMember && this.poolMember.id === id) this.leavePool();
-    else {
-      this.enterPool({ id });
-      this.redraw();
-    }
+    else this.enterPool({ id });
+    this.redraw();
   };
 
   enterPool = (member: PoolMember) => {
@@ -227,7 +223,6 @@ export default class LobbyController {
     if (!this.poolMember) return;
     this.socket.poolOut(this.poolMember);
     this.poolMember = undefined;
-    this.redraw();
   };
 
   poolIn = () => {

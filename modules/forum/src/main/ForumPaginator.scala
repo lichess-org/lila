@@ -1,6 +1,5 @@
 package lila.forum
 
-import scala.concurrent.ExecutionContext
 import reactivemongo.api.ReadPreference
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
@@ -12,7 +11,7 @@ final class ForumPaginator(
     postRepo: ForumPostRepo,
     config: ForumConfig,
     textExpand: ForumTextExpand
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import BSONHandlers.given
 

@@ -32,14 +32,14 @@ sealed trait Advice:
 
 object Advice:
 
-  sealed abstract class Judgement(val glyph: Glyph, val name: String):
+  enum Judgement(val glyph: Glyph, val name: String):
+    case Inaccuracy extends Judgement(Glyph.MoveAssessment.dubious, "Inaccuracy")
+    case Mistake    extends Judgement(Glyph.MoveAssessment.mistake, "Mistake")
+    case Blunder    extends Judgement(Glyph.MoveAssessment.blunder, "Blunder")
     override def toString  = name
     def isMistakeOrBlunder = this == Judgement.Mistake || this == Judgement.Blunder
   object Judgement:
-    object Inaccuracy extends Judgement(Glyph.MoveAssessment.dubious, "Inaccuracy")
-    object Mistake    extends Judgement(Glyph.MoveAssessment.mistake, "Mistake")
-    object Blunder    extends Judgement(Glyph.MoveAssessment.blunder, "Blunder")
-    val all = List(Inaccuracy, Mistake, Blunder)
+    val all = values.toList
 
   def apply(prev: Info, info: Info): Option[Advice] = CpAdvice(prev, info) orElse MateAdvice(prev, info)
 

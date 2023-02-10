@@ -1,7 +1,5 @@
 package lila.swiss
 
-import scala.concurrent.duration.*
-
 import lila.hub.actorApi.team.IsLeader
 import lila.hub.LateMultiThrottler
 import lila.room.RoomSocket.{ Protocol as RP, * }
@@ -13,9 +11,9 @@ final private class SwissSocket(
     chat: lila.chat.ChatApi,
     teamOf: SwissId => Fu[Option[TeamId]]
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mode: play.api.Mode
 ):
 
@@ -41,10 +39,8 @@ final private class SwissSocket(
       logger,
       roomId => _.Swiss(SwissId(roomId.value)).some,
       localTimeout = Some { (roomId, modId, _) =>
-        teamOf(SwissId(roomId.value)) flatMap {
-          _ ?? { teamId =>
-            lila.common.Bus.ask[Boolean]("teamIsLeader") { IsLeader(teamId, modId, _) }
-          }
+        teamOf(SwissId(roomId.value)) flatMapz { teamId =>
+          lila.common.Bus.ask[Boolean]("teamIsLeader") { IsLeader(teamId, modId, _) }
         }
       },
       chatBusChan = _.Swiss

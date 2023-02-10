@@ -1,6 +1,5 @@
 package lila.irwin
 
-import org.joda.time.DateTime
 import play.api.libs.functional.syntax.*
 import play.api.libs.json.*
 import lila.common.Json.given
@@ -24,5 +23,5 @@ object JSONHandlers:
       (__ \ "activation").read[Int] and
       (__ \ "games").read[List[GameReport]] and
       (__ \ "owner").read[String] and
-      Reads(_ => JsSuccess(DateTime.now))
+      Reads(_ => JsSuccess(nowDate))
   )(IrwinReport.apply)

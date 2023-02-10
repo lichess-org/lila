@@ -41,8 +41,8 @@ object atom:
             st.img(src := img.url).render
           },
           "<br>",
-          doc
-            .getHtml("blog.body", prismic.linkResolver)
+          Html
+            .from(doc.getHtml("blog.body", prismic.linkResolver))
             .map(lila.blog.Youtube.fixStartTimes)
             .map(lila.blog.BlogTransform.addProtocol)
         ),

@@ -10,19 +10,21 @@ import lila.opening.{ OpeningPage, OpeningWiki }
 
 object wiki:
 
-  def apply(page: OpeningPage)(implicit ctx: Context) =
+  def apply(page: OpeningPage)(using Context) =
     div(cls := List("opening__wiki" -> true, "opening__wiki--editor" -> isGranted(_.OpeningWiki)))(
       div(cls := "opening__wiki__markup")(
         page.wiki
           .flatMap(_ markupForMove page.query.sans.lastOption.??(_.value))
-          .fold(frag("No description of the opening, yet. We're working on it!")) { markup =>
-            raw(markup)
-          }
+          .fold(
+            div(cls := "opening__wiki__markup__placeholder")(
+              "No description of the opening, yet. We're working on it!"
+            )
+          )(rawHtml)
       ),
       (page.query.openingAndExtraMoves._1.isDefined && isGranted(_.OpeningWiki)) option {
         details(cls := "opening__wiki__editor")(
-          summary(cls := "opening__wiki__editor__summary")("Edit the description"),
-          page.query.opening match {
+          summary(cls := "opening__wiki__editor__summary")("Edit the description", priorityTag(page)),
+          page.query.exactOpening match {
             case Some(op) =>
               frag(
                 postForm(action := routes.Opening.wikiWrite(op.key, page.query.pgnUnderscored))(
@@ -65,3 +67,10 @@ object wiki:
       }
     )
   )
+
+  private val priorityTexts = Vector("Highest", "High", "Average", "Low", "Lowest")
+  def priorityTag(page: OpeningPage) = {
+    val score = page.explored.fold(priorityTexts.size - 1)(OpeningWiki.priorityOf)
+    val text  = priorityTexts.lift(score) | priorityTexts.last
+    strong(cls := s"priority priority--$score")(text, " priority")
+  }

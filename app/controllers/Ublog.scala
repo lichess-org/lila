@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.i18n.Lang
-import scala.concurrent.duration.*
 import views.*
 
 import lila.api.Context
@@ -70,16 +69,14 @@ final class Ublog(env: Env) extends LilaController(env):
       env.forum.topicRepo.existsByTree(ublogId, topicSlug) flatMap {
         case true => fuccess(redirect)
         case _ =>
-          env.ublog.api.getPost(id) flatMap {
-            _ ?? { post =>
-              env.forum.topicApi.makeUblogDiscuss(
-                slug = topicSlug,
-                name = post.title,
-                url = s"${env.net.baseUrl}${routes.Ublog.post(post.created.by, post.slug, id)}",
-                ublogId = id,
-                authorId = post.created.by
-              )
-            } inject redirect
+          env.ublog.api.getPost(id) flatMapz { post =>
+            env.forum.topicApi.makeUblogDiscuss(
+              slug = topicSlug,
+              name = post.title,
+              url = s"${env.net.baseUrl}${routes.Ublog.post(post.created.by, post.slug, id)}",
+              ublogId = id,
+              authorId = post.created.by
+            )
           }
       }
     }
@@ -102,7 +99,7 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  private val CreateLimitPerUser = new lila.memo.RateLimit[UserId](
+  private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 5 * 3,
     duration = 24.hour,
     key = "ublog.create.user"
@@ -138,41 +135,35 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def update(id: UblogPostId) = AuthBody { implicit ctx => me =>
     NotForKids {
-      env.ublog.api.findByUserBlogOrAdmin(id, me) flatMap {
-        _ ?? { prev =>
-          env.ublog.form
-            .edit(prev)
-            .bindFromRequest()(ctx.body, formBinding)
-            .fold(
-              err => BadRequest(html.ublog.form.edit(prev, err)).toFuccess,
-              data =>
-                env.ublog.api.update(data, prev, me) flatMap { post =>
-                  logModAction(post, "edit") inject
-                    Redirect(urlOfPost(post)).flashSuccess
-                }
-            )
-        }
+      env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { prev =>
+        env.ublog.form
+          .edit(prev)
+          .bindFromRequest()(ctx.body, formBinding)
+          .fold(
+            err => BadRequest(html.ublog.form.edit(prev, err)).toFuccess,
+            data =>
+              env.ublog.api.update(data, prev, me) flatMap { post =>
+                logModAction(post, "edit") inject
+                  Redirect(urlOfPost(post)).flashSuccess
+              }
+          )
       }
     }
   }
 
   def delete(id: UblogPostId) = AuthBody { implicit ctx => me =>
-    env.ublog.api.findByUserBlogOrAdmin(id, me) flatMap {
-      _ ?? { post =>
-        env.ublog.api.delete(post) >>
-          logModAction(post, "delete") inject
-          Redirect(urlOfBlog(post.blog)).flashSuccess
-      }
+    env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { post =>
+      env.ublog.api.delete(post) >>
+        logModAction(post, "delete") inject
+        Redirect(urlOfBlog(post.blog)).flashSuccess
     }
   }
 
   private def logModAction(post: UblogPost, action: String)(implicit ctx: Context): Funit =
     isGranted(_.ModerateBlog) ?? ctx.me ?? { me =>
       !me.is(post.created.by) ?? {
-        env.user.repo.byId(post.created.by) flatMap {
-          _ ?? { user =>
-            env.mod.logApi.blogPostEdit(lila.report.Mod(me), Suspect(user), post.id, post.title, action)
-          }
+        env.user.repo.byId(post.created.by) flatMapz { user =>
+          env.mod.logApi.blogPostEdit(lila.report.Mod(me), Suspect(user), post.id, post.title, action)
         }
       }
     }
@@ -196,23 +187,21 @@ final class Ublog(env: Env) extends LilaController(env):
   }
 
   def setTier(blogId: String) = SecureBody(_.ModerateBlog) { implicit ctx => me =>
-    UblogBlog.Id(blogId).??(env.ublog.api.getBlog) flatMap {
-      _ ?? { blog =>
-        implicit val body: play.api.mvc.Request[?] = ctx.body
-        lila.ublog.UblogForm.tier
-          .bindFromRequest()
-          .fold(
-            err => Redirect(urlOfBlog(blog)).flashFailure.toFuccess,
-            tier =>
-              for {
-                user <- env.user.repo.byId(blog.userId) orFail "Missing blog user!" dmap Suspect.apply
-                _    <- env.ublog.api.setTier(blog.id, tier)
-                _    <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(blog.id)
-                _ <- env.mod.logApi
-                  .blogTier(lila.report.Mod(me.user), user, blog.id.full, UblogBlog.Tier.name(tier))
-              } yield Redirect(urlOfBlog(blog)).flashSuccess
-          )
-      }
+    UblogBlog.Id(blogId).??(env.ublog.api.getBlog) flatMapz { blog =>
+      given play.api.mvc.Request[?] = ctx.body
+      lila.ublog.UblogForm.tier
+        .bindFromRequest()
+        .fold(
+          err => Redirect(urlOfBlog(blog)).flashFailure.toFuccess,
+          tier =>
+            for {
+              user <- env.user.repo.byId(blog.userId) orFail "Missing blog user!" dmap Suspect.apply
+              _    <- env.ublog.api.setTier(blog.id, tier)
+              _    <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(blog.id)
+              _ <- env.mod.logApi
+                .blogTier(lila.report.Mod(me.user), user, blog.id.full, UblogBlog.Tier.name(tier))
+            } yield Redirect(urlOfBlog(blog)).flashSuccess
+        )
     }
   }
 
@@ -225,23 +214,21 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def image(id: UblogPostId) =
     AuthBody(parse.multipartFormData) { implicit ctx => me =>
-      env.ublog.api.findByUserBlogOrAdmin(id, me) flatMap {
-        _ ?? { post =>
-          ctx.body.body.file("image") match
-            case Some(image) =>
-              ImageRateLimitPerIp(ctx.ip) {
-                env.ublog.api.uploadImage(me, post, image) map { newPost =>
-                  Ok(html.ublog.form.formImage(newPost))
-                } recover { case e: Exception =>
-                  BadRequest(e.getMessage)
-                }
-              }(rateLimitedFu)
-            case None =>
-              env.ublog.api.deleteImage(post) flatMap { newPost =>
-                logModAction(newPost, "delete image") inject
-                  Ok(html.ublog.form.formImage(newPost))
+      env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { post =>
+        ctx.body.body.file("image") match
+          case Some(image) =>
+            ImageRateLimitPerIp(ctx.ip) {
+              env.ublog.api.uploadImage(me, post, image) map { newPost =>
+                Ok(html.ublog.form.formImage(newPost))
+              } recover { case e: Exception =>
+                BadRequest(e.getMessage)
               }
-        }
+            }(rateLimitedFu)
+          case None =>
+            env.ublog.api.deleteImage(post) flatMap { newPost =>
+              logModAction(newPost, "delete image") inject
+                Ok(html.ublog.form.formImage(newPost))
+            }
       }
     }
 

@@ -3,6 +3,7 @@
   <string name="preferences">Socruithe</string>
   <string name="display">Taispeáin</string>
   <string name="privacy">Príobháideacht</string>
+  <string name="notifications">Fógraí</string>
   <string name="pieceAnimation">Beochan píosa</string>
   <string name="materialDifference">Difríocht ábhartha</string>
   <string name="boardHighlights">Buaicphointí an bhoird (an mbeart deireanach agus an sáinn)</string>
@@ -14,6 +15,7 @@
   <string name="pgnLetter">Litie (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modh Zen</string>
   <string name="showPlayerRatings">Taispeáin rátálacha ficheallaí</string>
+  <string name="explainShowPlayerRatings">Ligeann sé seo gach rátáil a cheilt ón suíomh Gréasáin, chun cabhrú le díriú ar an bhficheall. Is féidir cluichí a rátáil fós, níl sé seo ach faoi na rudaí a fheiceann tú.</string>
   <string name="displayBoardResizeHandle">Taispeáin láimhseáil athrú méide an bhoird</string>
   <string name="onlyOnInitialPosition">Suíomh tosaigh amháin</string>
   <string name="blindfoldChess">Ficheall dall (píosaí dofheicthe)</string>
@@ -48,4 +50,17 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Abair \"Cluiche maith, Grma\" ar aon cluiche cailte nó cothroma</string>
   <string name="yourPreferencesHaveBeenSaved">Sábháladh do chuid sainroghanna.</string>
   <string name="scrollOnTheBoardToReplayMoves">Scrollaigh ar an gclár chun bearta a athimirt</string>
+  <string name="correspondenceEmailNotification">Ríomhphost laethúil ag liostú do chluichí comhfhreagrais</string>
+  <string name="notifyStreamStart">Sraoilleán ag craoladh beo</string>
+  <string name="notifyInboxMsg">Teachtaireacht nua sa bosca isteach</string>
+  <string name="notifyForumMention">Luann trácht an fhóraim tú</string>
+  <string name="notifyInvitedStudy">Déan staidéar ar an gcuireadh</string>
+  <string name="notifyGameEvent">Nuashonruithe cluiche comhfhreagrais</string>
+  <string name="notifyChallenge">Dúshláin</string>
+  <string name="notifyTournamentSoon">Comórtas ag tosú go luath</string>
+  <string name="notifyTimeAlarm">Clog comhfhreagrais ag rith amach</string>
+  <string name="notifyBell">Fógra cloig laistigh de Lichess</string>
+  <string name="notifyPush">Fógra gléis nuair nach bhfuil tú ar Lichess</string>
+  <string name="notifyWeb">Brabhsálaí</string>
+  <string name="notifyDevice">Gléas</string>
 </resources>

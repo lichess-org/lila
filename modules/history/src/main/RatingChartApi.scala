@@ -1,18 +1,16 @@
 package lila.history
 
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
-import org.joda.time.DateTime
 import lila.common.Json.given
 
 final class RatingChartApi(
     historyApi: HistoryApi,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def apply(user: User): Fu[Option[String]] =
     cache.get(user.id) dmap { chart =>
@@ -39,17 +37,15 @@ final class RatingChartApi(
     }
 
   private def build(userId: UserId): Fu[Option[String]] =
-    userRepo.createdAtById(userId) flatMap {
-      _ ?? { createdAt =>
-        historyApi get userId map2 { (history: History) =>
-          lila.common.String.html.safeJsonValue {
-            Json.toJson {
-              RatingChartApi.perfTypes map { pt =>
-                Json.obj(
-                  "name"   -> pt.trans(using lila.i18n.defaultLang),
-                  "points" -> ratingsMapToJson(userId, createdAt, history(pt))
-                )
-              }
+    userRepo.createdAtById(userId) flatMapz { createdAt =>
+      historyApi get userId map2 { (history: History) =>
+        lila.common.String.html.safeJsonValue {
+          Json.toJson {
+            RatingChartApi.perfTypes map { pt =>
+              Json.obj(
+                "name"   -> pt.trans(using lila.i18n.defaultLang),
+                "points" -> ratingsMapToJson(userId, createdAt, history(pt))
+              )
             }
           }
         }

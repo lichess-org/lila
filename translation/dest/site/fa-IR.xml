@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' با گرد کردن، بر اساس تعداد حرکات نیمه تا زمان دستگیری یا حرکت پیاده بعدی</string>
   <string name="noGameFound">هیچ بازی یافت نشد</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">بازی‌های بیشتری از لیست ترجیحات لحاظ شوند؟</string>
+  <string name="openings">گشایش</string>
   <string name="openingExplorer">جویشگر حرکت گشاینده بازی</string>
   <string name="openingEndgameExplorer">جویشگر حرکت گشاینده/پایان‌دهنده بازی</string>
   <string name="xOpeningExplorer">حرکت گشاینده %s برای تنوع مورد بررسی</string>
@@ -362,6 +363,7 @@
   <string name="siteDescription">شطرنج آنلاین رایگان. همین حالا شطرنج بازی کنید. بدون نیاز به ثبت نام، بدون تبلیغات، بدون نیاز به افزونه. بازی با کامپیوتر، دوستان و یا حریفان تصادفی.</string>
   <string name="xJoinedTeamY">%1$s به تیم %2$s پیوست</string>
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
+  <string name="startedStreaming">شروع به استریم کرده است</string>
   <string name="xStartedStreaming">%s شروع به استریم کرده است</string>
   <string name="averageElo">میانگین ریتینگ</string>
   <string name="location">محل</string>
@@ -486,7 +488,9 @@
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
   <string name="oneUrlPerLine">یک ادرس اینترنتی در هر خط.</string>
   <string name="inlineNotation">نمایش اطلاعات درون خطها</string>
+  <string name="savingMoves">دخیره سازی حرکت موقت</string>
   <string name="savingMovesHelp">ما همیشه تغییرات شما را در حافظه پنهان مرورگر شما ذخیره می کنیم.</string>
+  <string name="makeAStudy">برای نگهداری مطمئن و اشتراک گذاری، ساختن یک پژوهش را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
   <string name="onlinePlayers">بازکنان آنلاین</string>
@@ -702,6 +706,7 @@
   <string name="kidMode">حالت کودکان</string>
   <string name="kidModeExplanation">این گزینه،امنیتی است.با فعال کردن حالت ((کودکانه))،همه ی ارتباطات(چت کردن و...)غیر فعال می شوند.با فعال کردن این گزینه،کودکان خود را محافطت کنید.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودکانه،به نماد لیچس،یک %s اضافه می شود تا شما از فعال بودن آن مطلع شوید.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">اکانت شما مدیریت شده است. برای برداشتن حالت کودک از معلم شطرنج خود درخواست کنید.</string>
   <string name="enableKidMode">فعال کردن حالت کودکانه</string>
   <string name="disableKidMode">غیر فعال کردن حالت کودکانه</string>
   <string name="security">امنیت</string>

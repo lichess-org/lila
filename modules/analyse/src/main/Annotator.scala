@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, Turn }
+import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, Turn, PgnStr }
 import chess.opening.*
 import chess.{ Color, Status }
 
@@ -24,7 +24,7 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
   def addEvals(p: Pgn, analysis: Analysis): Pgn =
     analysis.infos.foldLeft(p) { (pgn, info) =>
       pgn.updatePly(
-        info.prevPly,
+        info.ply,
         move => {
           val comment = info.cp
             .map(_.pawns.toString)
@@ -35,11 +35,12 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
       )
     }
 
-  def toPgnString(pgn: Pgn) =
+  def toPgnString(pgn: Pgn): PgnStr = PgnStr {
     // merge analysis & eval comments
     // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
     // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
     s"$pgn\n\n\n".replaceIf("] } { [", "] [")
+  }
 
   private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) =
     lila.game.StatusText(status, winner, chess.variant.Standard) match

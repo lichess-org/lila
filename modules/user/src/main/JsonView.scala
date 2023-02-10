@@ -33,7 +33,7 @@ final class JsonView(isOnline: lila.socket.IsOnline):
 
   def roundPlayer(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
     if (u.enabled.no) disabled(u.light)
-    else base(u, onlyPerf, withRating = withRating).add("online" -> isOnline.value(u.id))
+    else base(u, onlyPerf, withRating = withRating).add("online" -> isOnline(u.id))
 
   private def base(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
     Json
@@ -49,7 +49,7 @@ final class JsonView(isOnline: lila.socket.IsOnline):
       .add("verified" -> u.isVerified)
 
   def lightPerfIsOnline(lp: LightPerf) =
-    lightPerfWrites.writes(lp).add("online" -> isOnline.value(lp.user.id))
+    lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
 
   def disabled(u: LightUser) = Json.obj(
     "id"       -> u.id,

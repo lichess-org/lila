@@ -1,8 +1,6 @@
 package lila.tv
 
 import chess.Color
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 
 import lila.common.LightUser
 import lila.game.Game
@@ -14,7 +12,7 @@ final private[tv] class ChannelSyncActor(
     proxyGame: GameId => Fu[Option[Game]],
     rematchOf: GameId => Option[GameId],
     lightUserSync: LightUser.GetterSync
-)(using ec: scala.concurrent.ExecutionContext)
+)(using Executor)
     extends SyncActor:
 
   import ChannelSyncActor.*
@@ -48,7 +46,7 @@ final private[tv] class ChannelSyncActor(
     case TvSyncActor.Select =>
       candidateIds.keys
         .map(proxyGame)
-        .sequenceFu
+        .parallel
         .map(
           _.view
             .collect {
@@ -83,7 +81,7 @@ final private[tv] class ChannelSyncActor(
   private def rematch(game: Game): Fu[Option[Game]] = rematchOf(game.id) ?? proxyGame
 
   private def bestOf(candidates: List[Game]) =
-    import cats.implicits.*
+    import cats.syntax.all.*
     candidates.maximumByOption(score)
 
   private def score(game: Game): Int =

@@ -8,7 +8,7 @@ import lila.common.ApiVersion
 
 object mon:
 
-  @inline private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
+  private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
 
   object http:
     private val t = timer("http.time")
@@ -169,6 +169,8 @@ object mon:
     def askMine                       = askAs("mine")
     def askPeer                       = askAs("peer")
     def buildTimeout                  = counter("tutor.build.timeout").withoutTags()
+    def peerMatch(hit: Boolean)       = counter("tutor.peerMatch").withTag("hit", hitTag(hit))
+    def parallelism                   = gauge("tutor.build.parallelism").withoutTags()
     private def askAs(as: String)(question: String, perf: String) =
       future("tutor.insight.ask", tags("question" -> question, "perf" -> perf, "as" -> as))
   object search:
@@ -299,6 +301,14 @@ object mon:
         counter("hcaptcha.hit").withTags(tags("client" -> client, "result" -> result))
       def form(client: String, result: String) =
         counter("hcaptcha.form").withTags(tags("client" -> client, "result" -> result))
+    object pwned:
+      def get(res: Boolean) =
+        timer("security.pwned.result").withTag("res", res)
+    object login:
+      def attempt(byEmail: Boolean, stuffing: String, result: Boolean) =
+        counter("security.login.attempt").withTags(
+          tags("by" -> (if byEmail then "email" else "name"), "stuffing" -> stuffing, "result" -> result)
+        )
   object shutup:
     def analyzer = timer("shutup.analyzer.time").withoutTags()
   object tv:
@@ -527,7 +537,7 @@ object mon:
       def in(platform: String) = counter("push.register").withTag("platform", platform)
       val out                  = counter("push.register.out").withoutTags()
     object send:
-      private def send(tpe: String)(platform: String, success: Boolean): Unit =
+      private def send(tpe: String)(platform: String, success: Boolean, count: Int = 1): Unit =
         counter("push.send")
           .withTags(
             tags(
@@ -536,7 +546,7 @@ object mon:
               "success"  -> successTag(success)
             )
           )
-          .increment()
+          .increment(count)
         ()
       val move         = send("move")
       val takeback     = send("takeback")
@@ -644,11 +654,11 @@ object mon:
     def uploadSize(user: String) = histogram("picfit.upload.size").withTag("user", user)
 
   object jvm:
-    def threads(groups: List[lila.common.LilaJvm.ThreadGroup]) =
+    def threads() =
       val perState = gauge("jvm.threads.group")
       val total    = gauge("jvm.threads.group.total")
       for
-        group <- groups
+        group <- ornicar.scalalib.Jvm.threadGroups()
         _ = total.withTags(tags("name" -> group.name)).update(group.total)
         (state, count) <- group.states
       yield perState.withTags(tags("name" -> group.name, "state" -> state.toString)).update(count)
@@ -678,4 +688,4 @@ object mon:
   private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
   import scala.language.implicitConversions
-  implicit def mapToTags(m: Map[String, Any]): TagSet = TagSet from m
+  given Conversion[Map[String, Any], TagSet] = TagSet.from

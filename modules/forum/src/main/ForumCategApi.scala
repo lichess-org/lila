@@ -10,7 +10,7 @@ final class ForumCategApi(
     categRepo: ForumCategRepo,
     paginator: ForumPaginator,
     config: ForumConfig
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BSONHandlers.given
 
@@ -54,10 +54,8 @@ final class ForumCategApi(
       forUser: Option[User],
       page: Int
   ): Fu[Option[(ForumCateg, Paginator[TopicView])]] =
-    categRepo byId id flatMap {
-      _ ?? { categ =>
-        paginator.categTopics(categ, forUser, page) dmap { (categ, _).some }
-      }
+    categRepo byId id flatMapz { categ =>
+      paginator.categTopics(categ, forUser, page) dmap { (categ, _).some }
     }
 
   def denormalize(categ: ForumCateg): Funit =

@@ -3,8 +3,6 @@ package lila.clas
 import play.api.Mode
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -12,8 +10,8 @@ import lila.user.User
 import reactivemongo.core.errors.DatabaseException
 
 final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: ClasStudentCache)(using
-    ec: ExecutionContext,
-    mode: Mode
+    Executor,
+    Mode
 ):
 
   def get(studentId: UserId): Fu[Set[UserId]] =

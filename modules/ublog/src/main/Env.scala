@@ -3,7 +3,6 @@ package lila.ublog
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.db.dsl.Coll
@@ -21,8 +20,8 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     net: NetConfig
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler,
+    ec: Executor,
+    scheduler: Scheduler,
     mat: akka.stream.Materializer,
     mode: play.api.Mode
 ):

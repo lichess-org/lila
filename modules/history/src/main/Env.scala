@@ -13,8 +13,8 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     db: lila.db.AsyncDb @@ lila.db.YoloDb
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
+    ec: Executor,
+    scheduler: Scheduler
 ):
 
   private lazy val coll = db(CollName("history4")).failingSilently()

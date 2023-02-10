@@ -208,6 +208,12 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="email">E-Mail</string>
   <string name="passwordReset">Passwort zruggsetze</string>
   <string name="forgotPassword">Passwort vergässe?</string>
+  <string name="error.weakPassword">So es Passwort isch extrem hüfig und liecht z\'knacke!</string>
+  <string name="error.namePassword">Nimm bitte nöd din Benutzername als Passwort!</string>
+  <string name="youAreLeavingLichess">Du verlahsch jetzt Lichess</string>
+  <string name="neverTypeYourPassword">Benutz dis Lichess-Passwort nie uf andere Website!</string>
+  <string name="passwordSuggestion">Setz keis Passwort, wo dir e anderi Person vorgschlage hät. Suscht chan dis Konto gschtohle werde.</string>
+  <string name="emailSuggestion">Setz kei E-Mail-Adrässe, wo dir e anderi Person vorgschlage hät. Suscht chan dis Konto gschtohle werde.</string>
   <string name="emailConfirmHelp">Hilf bi de E-Mail Beschtätigung</string>
   <string name="emailConfirmNotReceived">Häsch nach de Amäldig kei Beschtätigungs-Mail übercho?</string>
   <string name="whatSignupUsername">Mit welem Benutzername häsch dich agmäldet?</string>
@@ -715,6 +721,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="kidMode">Chinder-Modus</string>
   <string name="kidModeExplanation">Sicherheitsiischtellig: Im Chinder-Modus isch die ganzi Kommunikation deaktiviert. Aktivier de Modus und schütz dini Chind vor andere Internetbenutzer.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Im Chinder-Modus erschint s\'Lichess-Logo mit %s-Icon, was dir zeigt, dass dini Chind gschützt sind.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Dis Konto wird verwaltet, frög din Schachlehrer für d\'Ufhebig vum Chindermodus.</string>
   <string name="enableKidMode">Chinder-Modus aktiviere</string>
   <string name="disableKidMode">Chinder-Modus deaktiviere</string>
   <string name="security">Sicherheit</string>

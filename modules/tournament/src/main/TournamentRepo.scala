@@ -1,7 +1,6 @@
 package lila.tournament
 
 import chess.variant.Variant
-import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 
@@ -9,9 +8,7 @@ import lila.common.config.CollName
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
-    ec: scala.concurrent.ExecutionContext
-):
+final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Executor):
   import BSONHandlers.given
 
   private val enterableSelect                  = $doc("status" $lt Status.Finished.id)
@@ -132,7 +129,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
     (nb > 0) ?? coll
       .find(
         forTeamSelect(teamId) ++ enterableSelect ++ $doc(
-          "startsAt" $gt DateTime.now.minusDays(1)
+          "startsAt" $gt nowDate.minusDays(1)
         )
       )
       .sort($sort asc "startsAt")
@@ -194,7 +191,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
 
   private def startingSoonSelect(aheadMinutes: Int) =
     createdSelect ++
-      $doc("startsAt" $lt (DateTime.now plusMinutes aheadMinutes))
+      $doc("startsAt" $lt (nowDate plusMinutes aheadMinutes))
 
   def scheduledCreated(aheadMinutes: Int): Fu[List[Tournament]] =
     coll.list[Tournament](startingSoonSelect(aheadMinutes) ++ scheduledSelect)
@@ -214,7 +211,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
 
   private[tournament] def shouldStartCursor =
     coll
-      .find($doc("startsAt" $lt DateTime.now) ++ createdSelect)
+      .find($doc("startsAt" $lt nowDate) ++ createdSelect)
       .batchSize(1)
       .cursor[Tournament]()
 
@@ -231,15 +228,15 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
 
   private def canShowOnHomepage(tour: Tournament): Boolean =
     tour.schedule exists { schedule =>
-      tour.startsAt isBefore DateTime.now.plusMinutes {
+      tour.startsAt isBefore nowDate.plusMinutes {
         import Schedule.Freq.*
         val base = schedule.freq match
           case Unique => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)((_: Int) * 60)
           case Unique | Yearly | Marathon => 24 * 60
           case Monthly | Shield           => 6 * 60
-          case Weekly | Weekend           => 3 * 60
-          case Daily                      => 1 * 60
-          case _                          => 30
+          case Weekly | Weekend           => 3 * 45
+          case Daily                      => 1 * 30
+          case _                          => 20
         if (tour.variant.exotic && schedule.freq != Unique) base / 3 else base
       }
     }
@@ -310,7 +307,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
   def lastFinishedDaily(variant: Variant): Fu[Option[Tournament]] =
     coll
       .find(
-        finishedSelect ++ sinceSelect(DateTime.now minusDays 1) ++ variantSelect(variant) ++
+        finishedSelect ++ sinceSelect(nowDate minusDays 1) ++ variantSelect(variant) ++
           $doc("schedule.freq" -> Schedule.Freq.Daily.name)
       )
       .sort($sort desc "startsAt")

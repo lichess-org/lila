@@ -35,7 +35,7 @@ export default (window as any).LichessLearn = function (element: Element, { data
   const opts: LearnOpts = {
     i18n,
     storage: _storage,
-    // Unititialized because we need to call mapSide to initialize opts.side,
+    // Uninitialized because we need to call mapSide to initialize opts.side,
     // and we need opts to call mapSide.
     side: 'uninitialized' as any,
     stageId: null,

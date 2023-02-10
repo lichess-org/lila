@@ -72,7 +72,7 @@
   <string name="forceVariation">भिन्नता सक्तीची करा</string>
   <string name="move">चाल</string>
   <string name="variantLoss">प्रकार हरला</string>
-  <string name="variantWin">प्रकार विजयी</string>
+  <string name="variantWin">या प्रकारातील विजय</string>
   <string name="insufficientMaterial">अपर्याप्त सोंगट्या</string>
   <string name="pawnMove">प्याद्याची चाल</string>
   <string name="capture">ताब्यात घेतले</string>
@@ -95,9 +95,9 @@
   <string name="noGameFound">कोणताही खेळ सापडला नाही</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">प्राधान्य मेनूमधून अधिक खेळ समाविष्ट कराल?</string>
   <string name="openings">ओपनिंग</string>
-  <string name="openingExplorer">ओपेनिग अन्वेषक</string>
+  <string name="openingExplorer">ओपनिंग अन्वेषक</string>
   <string name="openingEndgameExplorer">ओपनिंग/अंत्यखेळ अन्वेषक</string>
-  <string name="xOpeningExplorer">%s ओपेनिग अन्वेषक</string>
+  <string name="xOpeningExplorer">%s ओपनिंग अन्वेषक</string>
   <string name="winPreventedBy50MoveRule">५० चाली नियमाने विजय रोखला</string>
   <string name="lossSavedBy50MoveRule">५० चाली नियमाने हार चुकली</string>
   <string name="winOr50MovesByPriorMistake">आधीच्या चुकीने विजय किंवा 50 चाली</string>
@@ -243,10 +243,10 @@
   <string name="unlimited">अमर्याद</string>
   <string name="mode">पध्दती</string>
   <string name="casual">अनौपचारिक</string>
-  <string name="rated">औपचारिक</string>
+  <string name="rated">गुणांकित</string>
   <string name="casualTournament">अनौपचारिक</string>
-  <string name="ratedTournament">औपचारिक</string>
-  <string name="thisGameIsRated">हा खेळ औपचारिक आहे</string>
+  <string name="ratedTournament">गुणांकित</string>
+  <string name="thisGameIsRated">हा खेळ गुणांकित आहे</string>
   <string name="rematch">पुनः खेळा</string>
   <string name="rematchOfferSent">पुनः खेळण्याचा प्रस्ताव पाठवला</string>
   <string name="rematchOfferAccepted">पुनः खेळण्याचा प्रस्ताव स्वीकारला</string>
@@ -317,12 +317,12 @@
   <string name="backToTournament">क्रीडासत्रात परत जा</string>
   <string name="thematic">विषयगत</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s औपचारिक खेळ</item>
-    <item quantity="other">≥ %s औपचारिक खेळ</item>
+    <item quantity="one">≥ %s गुणांकित खेळ</item>
+    <item quantity="other">≥ %s गुणांकित खेळ</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2$s गुणांकित खेळ</item>
-    <item quantity="other">≥ %1$s %2$s औपचारिक खेळ</item>
+    <item quantity="other">≥ %1$s %2$s गुणांकित खेळ</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">आपल्याला आणखी %1$s %2$s-गुणांकित खेळ खेळण्याची आवश्यकता आहे</item>
@@ -436,7 +436,7 @@
   <string name="resume">परत सुरू करा</string>
   <string name="youArePlaying">आपण खेळत आहात!</string>
   <string name="winRate">जिंकण्याचा दर</string>
-  <string name="berserkRate">बेडर खेळाचा दर</string>
+  <string name="berserkRate">बेभान खेळाचा दर</string>
   <string name="performance">कामगिरी</string>
   <string name="tournamentComplete">क्रीडासत्र संपले</string>
   <string name="movesPlayed">खेळलेल्या चाली</string>
@@ -659,7 +659,7 @@
   <string name="glicko2Rating">Glicko-2 गुणांकन</string>
   <string name="checkYourEmail">तुमचा ईमेल तपासा</string>
   <string name="weHaveSentYouAnEmailClickTheLink">आम्ही तुम्हाला ईमेल पाठवला आहे. दिलेल्या लिंक वर क्लिक करून आपले खाते सक्रिय करा.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">जर तुम्हाला ईमेल मिळाला नसेल, तर इतर ठिकाणी तपास, जसे की junk, spam, social, किंवा इतर फोल्डर्स.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">जर तुम्हाला ईमेल मिळाला नसेल, तर इतर ठिकाणी तपासा, जसे की junk, spam, social, किंवा इतर फोल्डर्स.</string>
   <string name="weHaveSentYouAnEmailTo">आम्ही %s वर ईमेल पाठवला आहे. पासवर्ड रेसेट करण्यासाठी ईमेल मधील लिंक क्लिक करा.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">नोंदणी करतेवेळी, तुम्ही आमच्या %s ला बांधील आहात.</string>
   <string name="readAboutOur">आमच्या %s बद्दल वाचा.</string>

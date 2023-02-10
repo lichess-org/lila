@@ -50,12 +50,8 @@ object side:
           st.section(cls := "description")(markdownLinksOrRichText(d))
         },
         s.looksLikePrize option views.html.tournament.bits.userPrizeDisclaimer(s.createdBy),
-        s.settings.position.flatMap(lila.tournament.Thematic.byFen) map { pos =>
-          div(
-            a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
-            " • ",
-            views.html.base.bits.fenAnalysisLink(pos.fen)
-          )
+        s.settings.position.flatMap(p => lila.tournament.Thematic.byFen(p.opening)) map { pos =>
+          div(a(targetBlank, href := pos.url)(pos.name))
         } orElse s.settings.position.map { fen =>
           div(
             "Custom position • ",
@@ -83,10 +79,14 @@ object side:
                     "refused"   -> (ctx.isAuth && !v.verdict.accepted)
                   ),
                   title := v.verdict.reason.map(_(ctx.lang))
-                )(v.condition match {
-                  case SwissCondition.PlayYourGames if !v.verdict.accepted =>
-                    v.verdict.reason.map(_(ctx.lang))
-                  case c => c.name(s.perfType)
+                )(v.verdict match {
+                  case SwissCondition.RefusedUntil(until) =>
+                    frag(
+                      "Because you missed your last swiss game, you cannot enter a new swiss tournament until ",
+                      absClientDateTime(until),
+                      "."
+                    )
+                  case _ => v.condition.name(s.perfType)
                 })
               }
             )

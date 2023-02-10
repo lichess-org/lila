@@ -45,7 +45,6 @@ export interface AnalyseData {
   forecast?: ForecastData;
   sidelines?: Tree.Node[][];
   treeParts: Tree.Node[];
-  evalPut?: boolean;
   practiceGoal?: PracticeGoal;
   clock?: Clock;
   pref: AnalysePref;
@@ -178,8 +177,8 @@ export type Conceal = false | 'conceal' | 'hide' | null;
 export type ConcealOf = (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => Conceal;
 
 export interface AnalyseState {
-  root: Tree.Node;
-  path: Tree.Path;
+  root: Tree.Node | undefined;
+  path: Tree.Path | undefined;
   flipped: boolean;
 }
 

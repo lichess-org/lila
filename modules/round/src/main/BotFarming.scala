@@ -7,7 +7,7 @@ final private class BotFarming(
     gameRepo: GameRepo,
     crosstableApi: CrosstableApi,
     isBotSync: IsBotSync
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   val SAME_PLIES = 20
   val PREV_GAMES = 2

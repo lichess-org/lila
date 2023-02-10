@@ -27,7 +27,7 @@
 
       content: '';
       font-size: 2em;
-      margin-#{$end-direction}: 0.4em;
+      @include margin-inline-end(0.4em);
     }
   }
 
@@ -97,6 +97,11 @@
     margin-top: 3em;
     padding: 2em 3em;
     background: $c-bg-zebra;
+
+    p {
+      unicode-bidi: normal;
+      display: flex;
+    }
   }
 
   @keyframes reveal {

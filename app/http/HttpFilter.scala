@@ -6,14 +6,12 @@ import play.api.mvc.*
 
 import lila.common.HTTPRequest
 
-final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter:
+final class HttpFilter(env: Env)(using val mat: Materializer) extends Filter:
 
   private val httpMon     = lila.mon.http
   private val net         = env.net
   private val logger      = lila.log("http")
   private val logRequests = env.config.get[Boolean]("net.http.log")
-
-  private val coep = "Cross-Origin-Embedder-Policy"
 
   def apply(nextFilter: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
     if (HTTPRequest isAssets req)

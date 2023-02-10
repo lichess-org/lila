@@ -61,4 +61,8 @@ Gioca in fretta e ritorna nella lobby per avere la possibilità di giocare più 
   <string name="allowChatHelp">Consenti ai giocatori di discutere nella chat room</string>
   <string name="arenaStreaks">Serie dell\'arena</string>
   <string name="arenaStreaksHelp">Dopo 2 vittorie, le vittorie consecutive concedono 4 punti invece di 2.</string>
+  <string name="noBerserkAllowed">Il Berserk non è permesso</string>
+  <string name="noArenaStreaks">Arena senza Streak (punti per serie di vittorie)</string>
+  <string name="averagePerformance">Prestazione media</string>
+  <string name="averageScore">Punteggio medio</string>
 </resources>

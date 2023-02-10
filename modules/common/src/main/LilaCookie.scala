@@ -1,7 +1,6 @@
 package lila.common
 
 import play.api.mvc.*
-import scala.concurrent.ExecutionContext
 import ornicar.scalalib.SecureRandom
 
 import lila.common.config.NetDomain
@@ -25,7 +24,16 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
   def withSession(remember: Boolean)(op: Session => Session)(using req: RequestHeader): Cookie =
     cookie(
       baker.COOKIE_NAME,
-      baker.encode(baker.serialize(op(req.session + (LilaCookie.sessionId -> generateSessionId())))),
+      baker.encode(
+        baker.serialize(
+          op(
+            (if remember then req.session - LilaCookie.noRemember
+             else
+               req.session + (LilaCookie.noRemember -> "1")
+            ) + (LilaCookie.sessionId -> generateSessionId())
+          )
+        )
+      ),
       if (remember) none else 0.some
     )
 
@@ -43,6 +51,8 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
       httpOnly | baker.httpOnly
     )
 
+  def isRememberMe(req: RequestHeader) = !req.session.get(LilaCookie.noRemember).has("1")
+
   def discard(name: String) =
     DiscardingCookie(name, "/", cookieDomain.some, baker.httpOnly)
 
@@ -50,7 +60,7 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
     if (req.session.data.contains(LilaCookie.sessionId)) res
     else res withCookies makeSessionId(using req)
 
-  def ensureAndGet(req: RequestHeader)(res: String => Fu[Result])(using ec: ExecutionContext): Fu[Result] =
+  def ensureAndGet(req: RequestHeader)(res: String => Fu[Result])(using Executor): Fu[Result] =
     req.session.data.get(LilaCookie.sessionId) match
       case Some(sessionId) => res(sessionId)
       case None =>
@@ -61,4 +71,5 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
 
 object LilaCookie:
 
-  val sessionId = "sid"
+  val sessionId  = "sid"
+  val noRemember = "noRemember"

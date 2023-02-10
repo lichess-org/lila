@@ -19,7 +19,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     prefApi: lila.pref.PrefApi,
     subsRepo: lila.relation.SubscriptionRepo
-)(using scala.concurrent.ExecutionContext, ActorSystem):
+)(using Executor, ActorSystem):
 
   lazy val jsonHandlers = wire[JSONHandlers]
 
@@ -34,23 +34,26 @@ final class Env(
   val getAllows = GetNotifyAllows(api.prefs.allows)
 
   // api actor
-  Bus.subscribeFun("notify") {
-    case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>
-      api.markAllRead(userIds) unit
-    case lila.game.actorApi.CorresAlarmEvent(pov) =>
-      pov.player.userId ?? { userId =>
-        lila.game.Namer.playerText(pov.opponent)(using getLightUser) foreach { opponent =>
-          api notifyOne (
-            userId,
-            CorresAlarm(gameId = pov.gameId, opponent = opponent)
-          )
+  Bus.subscribeFuns(
+    "notify" -> {
+      case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>
+        api.markAllRead(userIds) unit
+      case lila.game.actorApi.CorresAlarmEvent(pov) =>
+        pov.player.userId ?? { userId =>
+          lila.game.Namer.playerText(pov.opponent)(using getLightUser) foreach { opponent =>
+            api notifyOne (
+              userId,
+              CorresAlarm(gameId = pov.gameId, opponent = opponent)
+            )
+          }
         }
-      }
-    case lila.hub.actorApi.streamer.StreamStart(userId, streamerName) =>
+    },
+    "streamStart" -> { case lila.hub.actorApi.streamer.StreamStart(userId, streamerName) =>
       subsRepo.subscribersOnlineSince(userId, 7) map { subs =>
         api.notifyMany(subs, StreamStart(userId, streamerName))
       }
-  }
+    }
+  )
 
 final private class NotifyColls(val notif: Coll, val pref: Coll)
 

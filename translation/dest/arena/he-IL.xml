@@ -55,4 +55,8 @@
   <string name="allowChatHelp">אפשרו לשחקנים לנהל דיונים בחדר שיחה</string>
   <string name="arenaStreaks">רצפי ניצחונות בטורניר זירה</string>
   <string name="arenaStreaksHelp">לאחר 2 ניצחונות, ניצחונות רצופים מקנים 4 נקודות במקום 2.</string>
+  <string name="noBerserkAllowed">אפשרות ה״אטרף״ מושבתת</string>
+  <string name="noArenaStreaks">אין רצפי ניצחונות</string>
+  <string name="averagePerformance">ביצוע ממוצע</string>
+  <string name="averageScore">ניקוד ממוצע</string>
 </resources>

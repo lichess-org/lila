@@ -1,7 +1,5 @@
 package lila.streamer
 
-import org.joda.time.DateTime
-
 import lila.memo.PicfitImage
 import lila.user.User
 
@@ -58,10 +56,10 @@ object Streamer:
       description = none,
       twitch = none,
       youTube = none,
-      seenAt = DateTime.now,
+      seenAt = nowDate,
       liveAt = none,
-      createdAt = DateTime.now,
-      updatedAt = DateTime.now,
+      createdAt = nowDate,
+      updatedAt = nowDate,
       lastStreamLang = none
     )
 
@@ -99,7 +97,7 @@ object Streamer:
         case UrlRegex(u)    => u.some
         case _              => none
 
-  case class YouTube(channelId: String):
+  case class YouTube(channelId: String, liveVideoId: Option[String], pubsubVideoId: Option[String]):
     def fullUrl = s"https://www.youtube.com/channel/$channelId/live"
     def minUrl  = s"youtube.com/channel/$channelId/live"
   object YouTube:

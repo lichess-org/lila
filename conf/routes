@@ -97,7 +97,7 @@ GET   /player/top/:nb/:perfKey         controllers.User.topNb(nb: Int, perfKey)
 GET   /api/player/top/:nb/:perfKey     controllers.User.topNbApi(nb: Int, perfKey)
 GET   /player/top/week                 controllers.User.topWeek
 GET   /player/online                   controllers.User.online
-GET   /player/autocomplete             controllers.User.autocomplete
+GET   /api/player/autocomplete         controllers.User.autocomplete
 GET   /api/player                      controllers.User.apiList
 
 GET   /dasher                          controllers.Dasher.get
@@ -287,6 +287,9 @@ POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(
 GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
 GET   /api/streamer/featured           controllers.Streamer.featured
 GET   /api/streamer/live               controllers.Streamer.live
+ # /api/x indicates xml request payload (PubSubHubub)
+POST  /api/x/streamer/youtube-pubsub   controllers.Streamer.onYouTubeVideo
+GET   /api/x/streamer/youtube-pubsub   controllers.Streamer.youTubePubSubChallenge
 GET   /streamer/live                   controllers.Main.movedPermanently(to = "/api/streamer/live")
 GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create
@@ -644,6 +647,8 @@ GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
 GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Int)
 GET   /api/puzzle/$id<\w{5}>           controllers.Puzzle.apiShow(id)
+GET   /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSelect(angle)
+POST  /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSolve(angle)
 GET   /api/user/:name/tournament/created controllers.Api.tournamentsByOwner(name, status: List[Int])
 GET   /api/user/:name                  controllers.Api.user(name)
 GET   /api/user/:name/activity         controllers.Api.activity(name)
@@ -765,6 +770,7 @@ GET   /tutor                           controllers.Tutor.home()
 GET   /tutor/:username                 controllers.Tutor.user(username)
 POST  /tutor/:username/refresh         controllers.Tutor.refresh(username)
 GET   /tutor/:username/:perf           controllers.Tutor.perf(username, perf)
+GET   /tutor/:username/:perf/skill     controllers.Tutor.skills(username, perf)
 GET   /tutor/:username/:perf/opening   controllers.Tutor.openings(username, perf)
 GET   /tutor/:username/:perf/opening/:color/:opening controllers.Tutor.opening(username, perf, color, opening)
 GET   /tutor/:username/:perf/phase     controllers.Tutor.phases(username, perf)
@@ -805,6 +811,7 @@ GET   /costs                           controllers.Main.costs
 GET   /verify-title                    controllers.Main.verifyTitle
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
+GET   /temporarily-disabled            controllers.Main.temporarilyDisabled
 
 # Dev
 GET   /dev/cli                         controllers.Dev.cli

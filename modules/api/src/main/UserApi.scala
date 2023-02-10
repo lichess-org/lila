@@ -26,11 +26,12 @@ final class UserApi(
     shieldApi: lila.tournament.TournamentShieldApi,
     revolutionApi: lila.tournament.RevolutionApi,
     net: NetConfig
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
-  def one(u: User): JsObject =
+  def one(u: User, joinedAt: Option[DateTime] = None): JsObject = {
     addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
+  }.add("joinedTeamAt", joinedAt)
 
   def extended(
       username: UserStr,
@@ -38,8 +39,8 @@ final class UserApi(
       withFollows: Boolean,
       withTrophies: Boolean
   )(using Lang): Fu[Option[JsObject]] =
-    userRepo byId username flatMap {
-      _ ?? { extended(_, as, withFollows, withTrophies) dmap some }
+    userRepo byId username flatMapz {
+      extended(_, as, withFollows, withTrophies) dmap some
     }
 
   def extended(
@@ -51,9 +52,7 @@ final class UserApi(
     if (u.enabled.no) fuccess(jsonView disabled u.light)
     else
       gameProxyRepo.urgentGames(u).dmap(_.headOption) zip
-        (as.filter(u !=) ?? { me =>
-          crosstableApi.nbGames(me.id, u.id)
-        }) zip
+        as.filter(u !=).?? { me => crosstableApi.nbGames(me.id, u.id) } zip
         withFollows.??(relationApi.countFollowing(u.id) dmap some) zip
         withFollows.??(relationApi.countFollowers(u.id) dmap some) zip
         as.isDefined.?? { prefApi followable u.id } zip

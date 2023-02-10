@@ -11,20 +11,20 @@ final class PublicChat(
     tournamentApi: lila.tournament.TournamentApi,
     swissFeature: lila.swiss.SwissFeature,
     userRepo: UserRepo
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def all: Fu[(List[(Tournament, UserChat)], List[(Swiss, UserChat)])] =
     tournamentChats zip swissChats
 
   def deleteAll(userId: UserId): Funit =
-    userRepo byId userId map2 Suspect.apply flatMap { _ ?? deleteAll }
+    userRepo byId userId map2 Suspect.apply flatMapz deleteAll
 
   def deleteAll(suspect: Suspect): Funit =
-    all.flatMap { case (tours, simuls) =>
-      (tours.map(_._2) ::: simuls.map(_._2))
+    all.flatMap { case (tours, swisses) =>
+      (tours.map(_._2) ::: swisses.map(_._2))
         .filter(_ hasLinesOf suspect.user)
         .map(chatApi.userChat.delete(_, suspect.user, _.Global))
-        .sequenceFu
+        .parallel
         .void
     }
 

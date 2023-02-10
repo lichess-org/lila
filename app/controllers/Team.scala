@@ -4,7 +4,6 @@ import play.api.data.Form
 import play.api.data.Forms.*
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import views.*
 
 import lila.api.Context
@@ -116,39 +115,38 @@ final class Team(
 
   def users(teamId: TeamId) =
     AnonOrScoped(_.Team.Read) { req => me =>
-      api teamEnabled teamId flatMap {
-        _ ?? { team =>
-          val canView: Fu[Boolean] =
-            if (team.publicMembers) fuccess(true)
-            else me.??(u => api.belongsTo(team.id, u.id))
-          canView map {
-            case true =>
-              apiC.jsonStream(
-                env.team
-                  .memberStream(team, config.MaxPerSecond(20))
-                  .map(env.api.userApi.one)
-              )(req)
-            case false => Unauthorized
-          }
+      api teamEnabled teamId flatMapz { team =>
+        val canView: Fu[Boolean] =
+          if (team.publicMembers) fuccess(true)
+          else me.??(u => api.belongsTo(team.id, u.id))
+        canView map {
+          case true =>
+            apiC.jsonStream(
+              env.team
+                .memberStream(team, config.MaxPerSecond(20))
+                .map { (user, joinedAt) =>
+                  env.api.userApi.one(user, joinedAt.some)
+                }
+            )(req)
+          case false => Unauthorized
         }
       }
     }
 
   def tournaments(teamId: TeamId) =
     Open { implicit ctx =>
-      api teamEnabled teamId flatMap {
-        _ ?? { team =>
-          env.teamInfo.tournaments(team, 30, 30) map { tours =>
-            Ok(html.team.tournaments.page(team, tours))
-          }
+      api teamEnabled teamId flatMapz { team =>
+        env.teamInfo.tournaments(team, 30, 30) map { tours =>
+          Ok(html.team.tournaments.page(team, tours))
         }
       }
     }
 
   def edit(id: TeamId) =
-    Auth { implicit ctx => _ =>
+    Auth { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
-        fuccess(html.team.form.edit(team, forms edit team))
+        env.msg.twoFactorReminder(me.id) inject
+          html.team.form.edit(team, forms edit team)
       }
     }
 
@@ -177,7 +175,7 @@ final class Team(
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
         given play.api.mvc.Request[?] = ctx.body
-        forms.members.bindFromRequest().value ?? { api.kickMembers(team, _, me).sequenceFu } inject Redirect(
+        forms.members.bindFromRequest().value ?? { api.kickMembers(team, _, me).parallel } inject Redirect(
           routes.Team.show(team.id)
         ).flashSuccess
       }
@@ -196,7 +194,7 @@ final class Team(
     Scoped(_.Team.Lead) { req => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         ApiKickRateLimitPerIP[Fu[ApiResult]](
-          HTTPRequest ipAddress req,
+          req.ipAddress,
           cost = if (me.isVerified || me.isApiHog) 0 else 1
         ) {
           api.kick(team, username.id, me) inject ApiResult.Done
@@ -204,7 +202,7 @@ final class Team(
           if (kickLimitReportOnce(username.id))
             lila
               .log("security")
-              .warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${HTTPRequest ipAddress req}")
+              .warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${req.ipAddress}")
           fuccess(ApiResult.Limited)
         }
       }
@@ -232,7 +230,7 @@ final class Team(
   def close(id: TeamId) =
     SecureBody(_.ManageTeam) { implicit ctx => me =>
       OptionFuResult(api team id) { team =>
-        implicit val body: play.api.mvc.Request[?] = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms.explain
           .bindFromRequest()
           .fold(
@@ -247,7 +245,7 @@ final class Team(
   def disable(id: TeamId) =
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
-        implicit val body: play.api.mvc.Request[?] = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms.explain
           .bindFromRequest()
           .fold(
@@ -319,66 +317,62 @@ final class Team(
     AuthOrScopedBody(_.Team.Write)(
       auth = implicit ctx =>
         me =>
-          api.teamEnabled(id) flatMap {
-            _ ?? { team =>
-              OneAtATime(me.id, rateLimitedFu) {
-                api hasJoinedTooManyTeams me flatMap { tooMany =>
-                  if (tooMany)
-                    negotiate(
-                      html = tooManyTeams(me),
-                      api = _ => BadRequest(jsonError("You have joined too many teams")).toFuccess
-                    )
-                  else
-                    negotiate(
-                      html = webJoin(team, me, request = none, password = none),
-                      api = _ => {
-                        implicit val body: play.api.mvc.Request[?] = ctx.body
-                        forms
-                          .apiRequest(team)
-                          .bindFromRequest()
-                          .fold(
-                            newJsonFormError,
-                            setup =>
-                              api.join(team, me, setup.message, setup.password) flatMap {
-                                case Requesting.Joined => jsonOkResult.toFuccess
-                                case Requesting.NeedRequest =>
-                                  BadRequest(jsonError("This team requires confirmation.")).toFuccess
-                                case Requesting.NeedPassword =>
-                                  BadRequest(jsonError("This team requires a password.")).toFuccess
-                              }
-                          )
-                      }
-                    )
-                }
+          api.teamEnabled(id) flatMapz { team =>
+            OneAtATime(me.id, rateLimitedFu) {
+              api hasJoinedTooManyTeams me flatMap { tooMany =>
+                if (tooMany)
+                  negotiate(
+                    html = tooManyTeams(me),
+                    api = _ => BadRequest(jsonError("You have joined too many teams")).toFuccess
+                  )
+                else
+                  negotiate(
+                    html = webJoin(team, me, request = none, password = none),
+                    api = _ => {
+                      given play.api.mvc.Request[?] = ctx.body
+                      forms
+                        .apiRequest(team)
+                        .bindFromRequest()
+                        .fold(
+                          newJsonFormError,
+                          setup =>
+                            api.join(team, me, setup.message, setup.password) flatMap {
+                              case Requesting.Joined => jsonOkResult.toFuccess
+                              case Requesting.NeedRequest =>
+                                BadRequest(jsonError("This team requires confirmation.")).toFuccess
+                              case Requesting.NeedPassword =>
+                                BadRequest(jsonError("This team requires a password.")).toFuccess
+                            }
+                        )
+                    }
+                  )
               }
             }
           },
       scoped = implicit req =>
         me =>
-          api.team(id) flatMap {
-            _ ?? { team =>
-              given play.api.i18n.Lang = reqLang
-              forms
-                .apiRequest(team)
-                .bindFromRequest()
-                .fold(
-                  newJsonFormError,
-                  setup =>
-                    OneAtATime(me.id, rateLimitedFu) {
-                      api.join(team, me, setup.message, setup.password) flatMap {
-                        case Requesting.Joined => jsonOkResult.toFuccess
-                        case Requesting.NeedPassword =>
-                          Forbidden(jsonError("This team requires a password.")).toFuccess
-                        case Requesting.NeedRequest =>
-                          Forbidden(
-                            jsonError(
-                              "This team requires confirmation, and is not owned by the oAuth app owner."
-                            )
-                          ).toFuccess
-                      }
+          api.team(id) flatMapz { team =>
+            given play.api.i18n.Lang = reqLang
+            forms
+              .apiRequest(team)
+              .bindFromRequest()
+              .fold(
+                newJsonFormError,
+                setup =>
+                  OneAtATime(me.id, rateLimitedFu) {
+                    api.join(team, me, setup.message, setup.password) flatMap {
+                      case Requesting.Joined => jsonOkResult.toFuccess
+                      case Requesting.NeedPassword =>
+                        Forbidden(jsonError("This team requires a password.")).toFuccess
+                      case Requesting.NeedRequest =>
+                        Forbidden(
+                          jsonError(
+                            "This team requires confirmation, and is not owned by the oAuth app owner."
+                          )
+                        ).toFuccess
                     }
-                )
-            }
+                  }
+              )
           }
     )
 
@@ -434,19 +428,17 @@ final class Team(
 
   def requestProcess(requestId: String) =
     AuthBody { implicit ctx => me =>
-      import cats.implicits.*
-      OptionFuRedirectUrl(for {
+      import cats.syntax.all.*
+      OptionFuRedirectUrl(for
         requestOption <- api request requestId
         teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
-      } yield (teamOption, requestOption).mapN((_, _))) { case (team, request) =>
+      yield (teamOption, requestOption).mapN((_, _))) { (team, request) =>
         given play.api.mvc.Request[?] = ctx.body
         forms.processRequest
           .bindFromRequest()
           .fold(
             _ => fuccess(routes.Team.show(team.id).toString),
-            { case (decision, url) =>
-              api.processRequest(team, request, decision) inject url
-            }
+            { (decision, url) => api.processRequest(team, request, decision) inject url }
           )
       }
     }
@@ -517,9 +509,10 @@ final class Team(
 
   private def renderPmAll(team: TeamModel, form: Form[?])(implicit ctx: Context) =
     for {
-      tours  <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
-      unsubs <- env.team.cached.unsubs.get(team.id)
-    } yield Ok(html.team.admin.pmAll(team, form, tours, unsubs))
+      tours   <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
+      unsubs  <- env.team.cached.unsubs.get(team.id)
+      limiter <- env.teamInfo.pmAllStatus(team.id)
+    } yield Ok(html.team.admin.pmAll(team, form, tours, unsubs, limiter))
 
   def pmAllSubmit(id: TeamId) =
     AuthOrScopedBody(_.Team.Lead)(
@@ -568,19 +561,17 @@ final class Team(
   def apiShow(id: TeamId) =
     Open { ctx =>
       JsonOptionOk {
-        api teamEnabled id flatMap {
-          _ ?? { team =>
-            for {
-              joined    <- ctx.userId.?? { api.belongsTo(id, _) }
-              requested <- ctx.userId.ifFalse(joined).?? { env.team.requestRepo.exists(id, _) }
-            } yield {
-              env.team.jsonView.teamWrites.writes(team) ++ Json
-                .obj(
-                  "joined"    -> joined,
-                  "requested" -> requested
-                )
-            }.some
-          }
+        api teamEnabled id flatMapz { team =>
+          for
+            joined    <- ctx.userId.?? { api.belongsTo(id, _) }
+            requested <- ctx.userId.ifFalse(joined).?? { env.team.requestRepo.exists(id, _) }
+          yield {
+            env.team.jsonView.teamWrites.writes(team) ++ Json
+              .obj(
+                "joined"    -> joined,
+                "requested" -> requested
+              )
+          }.some
         }
       }
     }
@@ -633,7 +624,10 @@ final class Team(
         err => Left(err),
         msg =>
           Right {
-            PmAllLimitPerTeam[RateLimit.Result](team.id, if (me.isVerifiedOrAdmin) 1 else pmAllCost) {
+            env.teamInfo.pmAllLimiter[RateLimit.Result](
+              team.id,
+              if (me.isVerifiedOrAdmin) 1 else mashup.TeamInfo.pmAllCost
+            ) {
               val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
               val full = s"""$msg
 ---
@@ -652,13 +646,6 @@ You received this because you are subscribed to messages of the team $url."""
             }(RateLimit.Result.Limited)
           }
       )
-
-  private val pmAllCost = 5
-  private val PmAllLimitPerTeam = env.memo.mongoRateLimitApi[lila.team.TeamId](
-    "team.pm.all",
-    credits = 7 * pmAllCost,
-    duration = 7.days
-  )
 
   private def LimitPerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.countCreatedRecently(me) flatMap { count =>

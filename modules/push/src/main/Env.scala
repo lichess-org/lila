@@ -31,8 +31,8 @@ final class Env(
     notifyAllows: lila.notify.GetNotifyAllows,
     postApi: lila.forum.ForumPostApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
+    ec: Executor,
+    scheduler: Scheduler
 ):
 
   private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)

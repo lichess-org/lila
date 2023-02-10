@@ -27,7 +27,7 @@ lichess.studyTourChapter = function (study) {
     };
     var tour = new Shepherd.Tour({
       defaults: {
-        classes: theme,
+        classes: theme + ' force-ltr',
         scrollTo: false,
         showCancelLink: true,
       },

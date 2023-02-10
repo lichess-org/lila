@@ -141,10 +141,8 @@ final class Report(
   def currentCheatInquiry(username: UserStr) =
     Secure(_.CheatHunter) { implicit ctx => me =>
       OptionFuResult(env.user.repo byId username) { user =>
-        api.currentCheatReport(lila.report.Suspect(user)) flatMap {
-          _ ?? { report =>
-            api.inquiries.toggle(me, Left(report.id)).void
-          } inject modC.redirect(username, mod = true)
+        api.currentCheatReport(lila.report.Suspect(user)) flatMapz { report =>
+          api.inquiries.toggle(me, Left(report.id)).void
         }
       }
     }
@@ -180,10 +178,10 @@ final class Report(
               }
             },
           data =>
-            if (data.user.id == me.id) notFound
+            if data.user.id == me.id then notFound
             else
               api.create(data, Reporter(me)) inject
-                Redirect(routes.Report.thanks(data.user.name))
+                Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
         )
     }
 
@@ -195,18 +193,18 @@ final class Report(
         .fold(
           _ => BadRequest.toFuccess,
           data =>
-            env.user.repo byId data.username flatMap {
-              _ ?? { user =>
-                if (user == me) BadRequest.toFuccess
-                else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
-              }
+            env.user.repo byId data.username flatMapz { user =>
+              if (user == me) BadRequest.toFuccess
+              else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
             }
         )
     }
 
-  def thanks(reported: UserStr) =
+  def thanks =
     Auth { implicit ctx => me =>
-      env.relation.api.fetchBlocks(me.id, reported.id) map { blocked =>
-        html.report.thanks(reported.id, blocked)
+      ctx.req.flash.get("reported").flatMap(UserStr.read).fold(Redirect("/").toFuccess) { reported =>
+        env.relation.api.fetchBlocks(me.id, reported.id) map { blocked =>
+          html.report.thanks(reported.id, blocked)
+        }
       }
     }

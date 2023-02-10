@@ -15,7 +15,7 @@ final class PgnDump(
     simulApi: lila.simul.SimulApi,
     getTournamentName: lila.tournament.GetTourName,
     getSwissName: lila.swiss.GetSwissName
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private given Lang = lila.i18n.defaultLang
 
@@ -50,4 +50,5 @@ final class PgnDump(
         analysis: Option[Analysis],
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]
-    ) => apply(game, initialFen, analysis, flags, teams, realPlayers) dmap annotator.toPgnString
+    ) =>
+      apply(game, initialFen, analysis, flags, teams, realPlayers) dmap annotator.toPgnString dmap (_.value)

@@ -1,9 +1,7 @@
 package lila.puzzle
 
-import cats.implicits.*
+import cats.syntax.all.*
 import lila.rating.glicko2
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 
 import lila.common.Bus
@@ -18,7 +16,7 @@ final private[puzzle] class PuzzleFinisher(
     userRepo: UserRepo,
     historyApi: lila.history.HistoryApi,
     colls: PuzzleColls
-)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler, mode: play.api.Mode):
+)(using ec: Executor, scheduler: Scheduler, mode: play.api.Mode):
 
   import BsonHandlers.given
 
@@ -41,96 +39,93 @@ final private[puzzle] class PuzzleFinisher(
         id = PuzzleRound.Id(user.id, id),
         win = win,
         fixedAt = none,
-        date = DateTime.now
+        date = nowDate
       ) -> user.perfs.puzzle
     } dmap some
     else
       sequencer(id) {
-        api.round.find(user, id) flatMap { prevRound =>
-          api.puzzle.find(id) flatMap {
-            _ ?? { puzzle =>
-              val now              = DateTime.now
-              val formerUserRating = user.perfs.puzzle.intRating
-
-              val (round, newPuzzleGlicko, userPerf) = prevRound match
-                case Some(prev) =>
-                  (
-                    prev.updateWithWin(win),
-                    none,
-                    user.perfs.puzzle
+        api.round.find(user, id) zip api.puzzle.find(id) flatMap {
+          case (_, None) => fuccess(none)
+          case (prevRound, Some(puzzle)) =>
+            val now = nowDate
+            val (round, newPuzzleGlicko, userPerf) = prevRound match
+              case Some(prev) =>
+                (
+                  prev.updateWithWin(win),
+                  none,
+                  user.perfs.puzzle
+                )
+              case None if mode.casual =>
+                val round = PuzzleRound(
+                  id = PuzzleRound.Id(user.id, puzzle.id),
+                  win = win,
+                  fixedAt = none,
+                  date = now
+                )
+                (round, none, user.perfs.puzzle)
+              case None =>
+                val userRating = user.perfs.puzzle.toRating
+                val puzzleRating = new glicko2.Rating(
+                  puzzle.glicko.rating atLeast Glicko.minRating.value,
+                  puzzle.glicko.deviation,
+                  puzzle.glicko.volatility,
+                  puzzle.plays,
+                  none
+                )
+                updateRatings(userRating, puzzleRating, win)
+                val newPuzzleGlicko = !user.perfs.dubiousPuzzle ?? ponder
+                  .puzzle(
+                    angle,
+                    win,
+                    puzzle.glicko -> Glicko(
+                      rating = puzzleRating.rating
+                        .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
+                        .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
+                      deviation = puzzleRating.ratingDeviation,
+                      volatility = puzzleRating.volatility
+                    ).cap,
+                    player = user.perfs.puzzle.glicko
                   )
-                case None if mode.casual =>
-                  val round = PuzzleRound(
+                  .some
+                  .filter(puzzle.glicko !=)
+                  .filter(_.sanityCheck)
+                val round =
+                  PuzzleRound(
                     id = PuzzleRound.Id(user.id, puzzle.id),
                     win = win,
                     fixedAt = none,
-                    date = DateTime.now
+                    date = now
                   )
-                  (round, none, user.perfs.puzzle)
-                case None =>
-                  val userRating = user.perfs.puzzle.toRating
-                  val puzzleRating = new glicko2.Rating(
-                    puzzle.glicko.rating atLeast Glicko.minRating.value,
-                    puzzle.glicko.deviation,
-                    puzzle.glicko.volatility,
-                    puzzle.plays,
-                    none
-                  )
-                  updateRatings(userRating, puzzleRating, win)
-                  val newPuzzleGlicko = !user.perfs.dubiousPuzzle ?? ponder
-                    .puzzle(
-                      angle,
-                      win,
-                      puzzle.glicko -> Glicko(
-                        rating = puzzleRating.rating
-                          .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
-                          .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
-                        deviation = puzzleRating.ratingDeviation,
-                        volatility = puzzleRating.volatility
-                      ).cap,
-                      player = user.perfs.puzzle.glicko
+                val userPerf =
+                  user.perfs.puzzle
+                    .addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe { p =>
+                    p.copy(glicko =
+                      ponder.player(angle, win, user.perfs.puzzle.glicko -> p.glicko, puzzle.glicko)
                     )
-                    .some
-                    .filter(puzzle.glicko !=)
-                    .filter(_.sanityCheck)
-                  val round =
-                    PuzzleRound(
-                      id = PuzzleRound.Id(user.id, puzzle.id),
-                      win = win,
-                      fixedAt = none,
-                      date = DateTime.now
-                    )
-                  val userPerf =
-                    user.perfs.puzzle
-                      .addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe { p =>
-                      p.copy(glicko =
-                        ponder.player(angle, win, user.perfs.puzzle.glicko -> p.glicko, puzzle.glicko)
-                      )
+                  }
+                (round, newPuzzleGlicko, userPerf)
+            api.round.upsert(round, angle) zip
+              colls.puzzle {
+                _.update
+                  .one(
+                    $id(puzzle.id),
+                    $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.?? { glicko =>
+                      $set(Puzzle.BSONFields.glicko -> glicko)
                     }
-                  (round, newPuzzleGlicko, userPerf)
-              api.round.upsert(round, angle) zip
-                colls.puzzle {
-                  _.update
-                    .one(
-                      $id(puzzle.id),
-                      $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.?? { glicko =>
-                        $set(Puzzle.BSONFields.glicko -> glicko)
-                      }
-                    )
-                    .void
-                } zip
-                (userPerf != user.perfs.puzzle).?? {
-                  userRepo.setPerf(user.id, PerfType.Puzzle, userPerf.clearRecent) zip
-                    historyApi.addPuzzle(user = user, completedAt = now, perf = userPerf) void
-                } >>- {
-                  if (prevRound.isEmpty)
-                    Bus.publish(
-                      Puzzle.UserResult(puzzle.id, user.id, win, formerUserRating -> userPerf.intRating),
-                      "finishPuzzle"
-                    )
-                } inject (round -> userPerf).some
-            }
-          }
+                  )
+                  .void
+              } zip
+              (userPerf != user.perfs.puzzle).?? {
+                userRepo.setPerf(user.id, PerfType.Puzzle, userPerf.clearRecent) zip
+                  historyApi.addPuzzle(user = user, completedAt = now, perf = userPerf) void
+              } >>- {
+                if (prevRound.isEmpty)
+                  Bus.publish(
+                    Puzzle
+                      .UserResult(puzzle.id, user.id, win, user.perfs.puzzle.intRating -> userPerf.intRating),
+                    "finishPuzzle"
+                  )
+              } inject (round -> userPerf).some
         }
       }
 

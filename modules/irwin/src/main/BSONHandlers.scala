@@ -36,9 +36,7 @@ object BSONHandlers:
       )
 
   private given BSONDocumentHandler[GameReport] = Macros.handler
-  // private implicit val PvBSONHandler = nullableHandler[Int, BSONInteger]
-  // private implicit val ReporterIdBSONHandler = stringIsoHandler[ReporterId](ReporterId.reporterIdIso)
-  given BSONDocumentHandler[IrwinReport] = Macros.handler
+  given BSONDocumentHandler[IrwinReport]        = Macros.handler
 
   import KaladinUser.{ Pred, Requester, Response }
   private given BSONHandler[Requester] = quickHandler[Requester](

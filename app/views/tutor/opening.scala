@@ -19,7 +19,7 @@ object opening:
       as: chess.Color,
       user: lila.user.User,
       puzzle: Option[lila.puzzle.PuzzleOpening.FamilyWithCount]
-  )(implicit ctx: Context) =
+  )(using Context) =
     bits.layout(
       full,
       title = s"Lichess Tutor • ${perfReport.perf.trans} • ${as.name} • ${report.family.name.value}",
@@ -41,6 +41,7 @@ object opening:
             dataIcon := "",
             cls      := "text"
           ),
+          bits.otherUser(user),
           perfReport.perf.trans,
           ": ",
           report.family.name,
@@ -49,36 +50,43 @@ object opening:
         )
       ),
       bits.mascotSays(
-        p(
-          "You played the ",
-          report.family.name.value,
-          " in ",
-          report.performance.mine.count.localize,
-          " games, which is ",
-          bits.percentFrag(perfReport.openingFrequency(as, report)),
-          " of the time you played as ",
-          as.name,
-          "."
+        div(
+          cls              := "lpv lpv--todo",
+          st.data("pgn")   := report.family.anyOpening.pgn,
+          st.data("title") := report.family.name
         ),
-        div(cls := "button-set")(
-          report.family.full.map { op =>
+        div(cls := "mascot-says__content__text")(
+          p(
+            "You played the ",
+            report.family.name.value,
+            " in ",
+            report.performance.mine.count.localize,
+            " games, which is ",
+            bits.percentFrag(perfReport.openingFrequency(as, report)),
+            " of the time you played as ",
+            as.name,
+            "."
+          ),
+          div(cls := "mascot-says__buttons")(
+            a(
+              cls      := "button button-no-upper text",
+              dataIcon := "",
+              href     := views.html.opening.bits.openingUrl(report.family.anyOpening)
+            )("Learn about this opening"),
             a(
               cls      := "button button-no-upper text",
               dataIcon := "",
-              href     := views.html.opening.bits.openingUrl(op)
-            )("Learn about this opening")
-          },
-          puzzle.map { p =>
-            a(
-              cls      := "button button-no-upper text",
-              dataIcon := "",
-              href     := routes.Puzzle.angleAndColor(p.family.key.value, as.name)
-            )(
-              "Train with ",
-              p.family.name.value,
-              " puzzles"
-            )
-          }
+              href := s"${routes.UserAnalysis
+                  .pgn(report.family.anyOpening.pgn.value.replace(" ", "_"))}#explorer/${user.username}"
+            )("Personal opening explorer"),
+            puzzle.map { p =>
+              a(
+                cls      := "button button-no-upper text",
+                dataIcon := "",
+                href     := routes.Puzzle.angleAndColor(p.family.key.value, as.name)
+              )("Train with puzzles")
+            }
+          )
         )
       ),
       div(cls := "tutor__pad")(

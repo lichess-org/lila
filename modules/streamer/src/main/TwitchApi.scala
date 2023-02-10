@@ -4,11 +4,10 @@ import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.ExecutionContext
 
 import lila.common.config.Secret
 
-final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(using ec: ExecutionContext):
+final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(using Executor):
 
   import Stream.Twitch
   import Twitch.given

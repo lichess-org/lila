@@ -4,8 +4,8 @@ import actorApi.Who
 import cats.data.Validated
 import chess.Centis
 import chess.format.pgn.{ Glyph, Glyphs }
+import chess.format.UciPath
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.common.Json.{ *, given }
@@ -21,7 +21,7 @@ final private class StudySocket(
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler, play.api.Mode):
+)(using Executor, Scheduler, play.api.Mode):
 
   import StudySocket.{ *, given }
 
@@ -80,7 +80,7 @@ final private class StudySocket(
           }
         case "deleteNode" =>
           reading[AtPosition](o) { position =>
-            (o \ "d" \ "jumpTo").asOpt[String] map Path.apply foreach { jumpTo =>
+            (o \ "d" \ "jumpTo").asOpt[UciPath].foreach { jumpTo =>
               who foreach api.setPath(studyId, position.ref.withPath(jumpTo))
               who foreach api.deleteNodeAt(studyId, position.ref)
             }
@@ -233,7 +233,7 @@ final private class StudySocket(
         m.chapterId.ifTrue(opts.write) foreach { chapterId =>
           api.addNode(
             studyId,
-            Position.Ref(StudyChapterId(chapterId), Path(m.path)),
+            Position.Ref(chapterId, m.path),
             Node.fromBranch(branch) withClock opts.clock,
             opts
           )(who)
@@ -399,7 +399,7 @@ final private class StudySocket(
     notifySri(sri, "reload", Json.obj("chapterId" -> chapterId))
   def validationError(error: String, sri: Sri) = notifySri(sri, "validationError", Json.obj("error" -> error))
 
-  private val InviteLimitPerUser = new lila.memo.RateLimit[UserId](
+  private val InviteLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 50,
     duration = 24 hour,
     key = "study_invite.user"
@@ -422,12 +422,10 @@ object StudySocket:
           reader.reads(d).asOpt
         } foreach f
 
-      case class AtPosition(path: String, chapterId: StudyChapterId):
-        def ref = Position.Ref(chapterId, Path(path))
-      given Reads[AtPosition] = (
-        (__ \ "path").read[String] and
-          (__ \ "ch").read[StudyChapterId]
-      )(AtPosition.apply)
+      case class AtPosition(path: UciPath, chapterId: StudyChapterId):
+        def ref = Position.Ref(chapterId, path)
+      given Reads[AtPosition] =
+        ((__ \ "path").read[UciPath] and (__ \ "ch").read[StudyChapterId])(AtPosition.apply)
       case class SetRole(userId: UserId, role: String)
       given Reads[SetRole]                  = Json.reads
       given Reads[ChapterMaker.Mode]        = optRead(ChapterMaker.Mode.apply)

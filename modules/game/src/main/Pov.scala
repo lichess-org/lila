@@ -31,6 +31,12 @@ case class Pov(game: Game, color: Color):
       game.playableCorrespondenceClock.map(_.remainingTime(color).toInt)
     }
 
+  def millisRemaining: Int =
+    game.clock
+      .map(_.remainingTime(color).millis.toInt)
+      .orElse(game.correspondenceClock.map(_.remainingTime(color).toInt * 1000))
+      .getOrElse(Int.MaxValue)
+
   def hasMoved = game playerHasMoved color
 
   def moves = game playerMoves color

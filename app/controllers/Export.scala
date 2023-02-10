@@ -6,22 +6,21 @@ import chess.Color
 import chess.format.{ Fen, Uci }
 import chess.variant.{ Standard, Variant }
 import play.api.mvc.{ RequestHeader, Result }
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 
 import lila.app.{ given, * }
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.IpAddress
 import lila.game.Pov
 import lila.pref.{ PieceSet, Theme }
 
 final class Export(env: Env) extends LilaController(env):
 
-  private val ExportImageRateLimitGlobal = new lila.memo.RateLimit[String](
+  private val ExportImageRateLimitGlobal = lila.memo.RateLimit[String](
     credits = 600,
     duration = 1.minute,
     key = "export.image.global"
   )
-  private val ExportImageRateLimitByIp = new lila.memo.RateLimit[IpAddress](
+  private val ExportImageRateLimitByIp = lila.memo.RateLimit[IpAddress](
     credits = 15,
     duration = 1.minute,
     key = "export.image.ip"
@@ -31,7 +30,7 @@ final class Export(env: Env) extends LilaController(env):
     Action.async { implicit req =>
       fetch flatMap {
         _.fold(notFoundJson()) { res =>
-          ExportImageRateLimitByIp(HTTPRequest ipAddress req) {
+          ExportImageRateLimitByIp(req.ipAddress) {
             ExportImageRateLimitGlobal("-") {
               convert(res)
             }(rateLimitedFu)

@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.Tags
+import chess.format.pgn.{ PgnStr, Tags }
 import chess.format.Fen
 import chess.variant.{ Crazyhouse, Variant }
 import lila.chat.{ Chat, ChatApi }
@@ -15,7 +15,7 @@ final private class ChapterMaker(
     gameRepo: lila.game.GameRepo,
     pgnFetch: PgnFetch,
     pgnDump: lila.game.PgnDump
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import ChapterMaker.*
 
@@ -32,11 +32,11 @@ final private class ChapterMaker(
     }
 
   def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: UserId): Fu[Chapter] =
-    data.pgn.filter(_.trim.nonEmpty) match
+    data.pgn.filter(_.value.trim.nonEmpty) match
       case Some(pgn) => fromPgn(study, pgn, data, order, userId)
       case None      => fuccess(fromFenOrBlank(study, data, order, userId))
 
-  private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: UserId): Fu[Chapter] =
+  private def fromPgn(study: Study, pgn: PgnStr, data: Data, order: Int, userId: UserId): Fu[Chapter] =
     for {
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
       parsed <- PgnImport(pgn, contributors.flatten).toFuture recoverWith { case e: Exception =>
@@ -121,7 +121,7 @@ final private class ChapterMaker(
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
       name <-
         if (data.isDefaultName)
-          Namer.gameVsText(game, withRatings)(lightUser.async) dmap { StudyChapterName(_) }
+          StudyChapterName from Namer.gameVsText(game, withRatings)(using lightUser.async)
         else fuccess(data.name)
       _ = notifyChat(study, game, userId)
     } yield Chapter.make(
@@ -159,14 +159,14 @@ final private class ChapterMaker(
 
   private[study] def getBestRoot(
       game: Game,
-      pgnOpt: Option[String],
+      pgnOpt: Option[PgnStr],
       initialFen: Option[Fen.Epd]
   ): Fu[Node.Root] =
     initialFen.fold(gameRepo initialFen game) { fen =>
       fuccess(fen.some)
     } map { goodFen =>
       pgnOpt
-        .filter(_.nonEmpty)
+        .filter(_.value.nonEmpty)
         .flatMap(PgnImport(_, Nil).toOption)
         .map(_.root)
         .getOrElse(GameToRoot(game, goodFen, withClocks = true))
@@ -213,7 +213,7 @@ private[study] object ChapterMaker:
       game: Option[String] = None,
       variant: Option[Variant] = None,
       fen: Option[Fen.Epd] = None,
-      pgn: Option[String] = None,
+      pgn: Option[PgnStr] = None,
       orientation: Orientation = Orientation.Auto,
       mode: ChapterMaker.Mode = ChapterMaker.Mode.Normal,
       initial: Boolean = false,

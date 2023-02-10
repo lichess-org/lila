@@ -1,7 +1,6 @@
 package lila.swiss
 
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.common.LightUser
 import lila.db.dsl.{ *, given }
@@ -17,7 +16,7 @@ final class SwissStandingApi(
     pairingSystem: PairingSystem,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 

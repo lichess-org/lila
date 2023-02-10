@@ -17,32 +17,35 @@ object bits:
 
   def beta = span(cls := "opening__beta")("BETA")
 
-  def whatsNext(explored: OpeningExplored)(implicit ctx: Context) =
-    div(cls := "opening__nexts")(
-      explored.next.map { next =>
-        a(cls := "opening__next", href := queryUrl(next.query))(
-          span(cls := "opening__next__popularity")(
-            span(style := s"width:${percentNumber(next.percent)}%", title := "Popularity")(
-              s"${Math.round(next.percent)}%"
-            )
-          ),
-          span(cls := "opening__next__title")(
-            span(cls := "opening__next__name")(next.shortName.fold(nbsp)(frag(_))),
-            span(cls := "opening__next__san")(next.san)
-          ),
-          span(cls := "opening__next__result-board")(
-            span(cls := "opening__next__result result-bar") {
-              resultSegments(next.result)
-            },
-            span(cls := "opening__next__board")(
-              views.html.board.bits.mini(next.fen.board, lastMove = next.uci.some)(span)
+  def whatsNext(page: OpeningPage)(using Context): Option[Tag] =
+    page.explored.map { explored =>
+      div(cls := "opening__nexts")(
+        explored.next.map { next =>
+          val canFollow = page.query.uci.isEmpty || page.wiki.exists(_.hasMarkup)
+          a(cls := "opening__next", href := queryUrl(next.query), (!canFollow).option(noFollow))(
+            span(cls := "opening__next__popularity")(
+              span(style := s"width:${percentNumber(next.percent)}%", title := "Popularity")(
+                s"${Math.round(next.percent)}%"
+              )
+            ),
+            span(cls := "opening__next__title")(
+              span(cls := "opening__next__name")(next.shortName.fold(nbsp)(frag(_))),
+              span(cls := "opening__next__san")(next.san)
+            ),
+            span(cls := "opening__next__result-board")(
+              span(cls := "opening__next__result result-bar") {
+                resultSegments(next.result)
+              },
+              span(cls := "opening__next__board")(
+                views.html.board.bits.mini(next.fen.board, lastMove = next.uci.some)(span)
+              )
             )
           )
-        )
-      }
-    )
+        }
+      )
+    }
 
-  def configForm(config: OpeningConfig, thenTo: String)(implicit ctx: Context) =
+  def configForm(config: OpeningConfig, thenTo: String)(using Context) =
     import OpeningConfig.*
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
@@ -64,19 +67,20 @@ object bits:
       )(
         checkboxes(form("speeds"), speedChoices, config.speeds.map(_.id)),
         checkboxes(form("ratings"), ratingChoices, config.ratings),
-        div(cls                           := "opening__config__form__submit")(
+        div(cls := "opening__config__form__submit")(
           form3.submit(trans.apply())(cls := "button-empty")
         )
       )
     )
 
-  def moreJs(page: Option[OpeningPage])(implicit ctx: Context) = frag(
+  def moreJs(page: Option[OpeningPage])(using Context) = frag(
     jsModule("opening"),
     embedJsUnsafeLoadThen {
       page match {
         case Some(p) =>
+          import lila.common.Json.given
           s"""LichessOpening.page(${safeJsonValue(
-              Json.obj("history" -> p.explored.??[List[Float]](_.history))
+              Json.obj("history" -> p.explored.??[List[Float]](_.history), "sans" -> p.query.sans)
             )})"""
         case None =>
           s"""LichessOpening.search()"""
@@ -100,7 +104,7 @@ object bits:
 
   def queryUrl(q: OpeningQuery): Call = queryUrl(q.query)
   def queryUrl(q: Query): Call =
-    routes.Opening.byKeyAndMoves(q.key, q.moves.??(_.replace(" ", "_")))
+    routes.Opening.byKeyAndMoves(q.key, q.moves.??(_.value.replace(" ", "_")))
   def openingUrl(o: Opening)  = keyUrl(o.key)
   def keyUrl(key: OpeningKey) = routes.Opening.byKeyAndMoves(key, "")
 

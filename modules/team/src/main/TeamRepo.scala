@@ -1,6 +1,6 @@
 package lila.team
 
-import org.joda.time.{ DateTime, Period }
+import org.joda.time.Period
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
@@ -9,7 +9,7 @@ import lila.db.dsl.{ *, given }
 import lila.hub.LeaderTeam
 import lila.user.User
 
-final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final class TeamRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
 
@@ -71,7 +71,7 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   private[team] def countCreatedSince(userId: UserId, duration: Period): Fu[Int] =
     coll.countSel(
       $doc(
-        "createdAt" $gt DateTime.now.minus(duration),
+        "createdAt" $gt nowDate.minus(duration),
         "createdBy" -> userId
       )
     )

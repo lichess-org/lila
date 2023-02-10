@@ -5,7 +5,6 @@ import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.WSAuthScheme
-import scala.concurrent.duration.*
 
 import lila.common.config.Secret
 import lila.common.String.urlencode
@@ -14,7 +13,7 @@ import cats.Show
 import cats.syntax.show.*
 
 final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(using
-    scala.concurrent.ExecutionContext
+    Executor
 ):
   private val dedupMsg = lila.memo.OnceEvery.hashCode[ZulipMessage](15 minutes)
 

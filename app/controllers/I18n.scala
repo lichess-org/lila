@@ -5,7 +5,6 @@ import play.api.data.Forms.*
 import play.api.libs.json.Json
 
 import lila.app.{ given, * }
-import lila.common.HTTPRequest
 
 final class I18n(env: Env) extends LilaController(env):
 
@@ -29,16 +28,14 @@ final class I18n(env: Env) extends LilaController(env):
             } >> negotiate(
               html = {
                 val redir = Redirect {
-                  HTTPRequest.referer(ctx.req).fold(routes.Lobby.home.url) { str =>
-                    try {
+                  ctx.req.referer.fold(routes.Lobby.home.url) { str =>
+                    try
                       val pageUrl = new java.net.URL(str)
                       val path    = pageUrl.getPath
                       val query   = pageUrl.getQuery
                       if (query == null) path
                       else path + "?" + query
-                    } catch {
-                      case _: java.net.MalformedURLException => routes.Lobby.home.url
-                    }
+                    catch case _: java.net.MalformedURLException => routes.Lobby.home.url
                   }
                 }
                 if (ctx.isAnon) redir.withCookies(env.lilaCookie.session("lang", lang.code))

@@ -1,10 +1,8 @@
 package lila.insight
 
 import akka.stream.scaladsl.*
-import org.joda.time.DateTime
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.common.LilaStream
 import lila.db.dsl.{ *, given }
@@ -18,10 +16,10 @@ final private class InsightIndexer(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     storage: InsightStorage
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler, akka.stream.Materializer):
+)(using Executor, Scheduler, akka.stream.Materializer):
 
   private val workQueue =
-    lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 2 minutes, name = "insightIndexer")
+    lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 1 minute, name = "insightIndexer")
 
   def all(user: User): Funit =
     workQueue {

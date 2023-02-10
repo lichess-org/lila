@@ -22,4 +22,5 @@
   <string name="declineVariant">Tani për tani s’kam dëshirë të luaj këtë variant.</string>
   <string name="declineNoBot">S’pranoj sfida prej robotësh.</string>
   <string name="declineOnlyBot">Pranoj vetëm sfida prej robotësh.</string>
+  <string name="inviteLichessUser">Ose ftoni një Përdorues Lichess-i:</string>
 </resources>

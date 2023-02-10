@@ -12,7 +12,7 @@ import lila.common.Captcha
 import lila.hub.actorApi.captcha.*
 
 // only works with standard chess (not chess960)
-final private class Captcher(gameRepo: GameRepo)(using ec: scala.concurrent.ExecutionContext) extends Actor:
+final private class Captcher(gameRepo: GameRepo)(using Executor) extends Actor:
 
   def receive =
 
@@ -51,13 +51,13 @@ final private class Captcher(gameRepo: GameRepo)(using ec: scala.concurrent.Exec
       challenges.find(_.gameId == id)
 
     private def createFromDb: Fu[Option[Captcha]] =
-      findCheckmateInDb(10) orElse findCheckmateInDb(1) flatMap { _ ?? fromGame }
+      findCheckmateInDb(10) orElse findCheckmateInDb(1) flatMapz fromGame
 
     private def findCheckmateInDb(distribution: Int): Fu[Option[Game]] =
       gameRepo findRandomStandardCheckmate distribution
 
     private def getFromDb(id: GameId): Fu[Option[Captcha]] =
-      gameRepo game id flatMap { _ ?? fromGame }
+      gameRepo game id flatMapz fromGame
 
     private def fromGame(game: Game): Fu[Option[Captcha]] =
       gameRepo getOptionPgn game.id map {

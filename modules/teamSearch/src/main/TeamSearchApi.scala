@@ -10,7 +10,7 @@ final class TeamSearchApi(
     client: ESClient,
     teamRepo: TeamRepo
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mat: akka.stream.Materializer
 ) extends SearchReadApi[Team, Query]:
 

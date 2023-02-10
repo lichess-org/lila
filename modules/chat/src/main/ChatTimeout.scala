@@ -1,10 +1,8 @@
 package lila.chat
 
-import org.joda.time.DateTime
 import play.api.data.Form
 import play.api.data.Forms.*
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
@@ -13,7 +11,7 @@ import lila.user.User
 final class ChatTimeout(
     coll: Coll,
     duration: FiniteDuration
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import ChatTimeout.*
 
@@ -32,8 +30,8 @@ final class ChatTimeout(
               "mod"       -> mod.id,
               "user"      -> user.id,
               "reason"    -> reason,
-              "createdAt" -> DateTime.now,
-              "expiresAt" -> DateTime.now.plusSeconds(duration.toSeconds.toInt)
+              "createdAt" -> nowDate,
+              "expiresAt" -> nowDate.plusSeconds(duration.toSeconds.toInt)
             )
           ) inject true
     }
@@ -53,12 +51,11 @@ final class ChatTimeout(
   def checkExpired: Fu[List[Reinstate]] =
     coll.list[Reinstate](
       $doc(
-        "expiresAt" $lt DateTime.now
+        "expiresAt" $lt nowDate
       )
     ) flatMap {
-      case Nil => fuccess(Nil)
-      case objs =>
-        coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true) inject objs
+      case Nil  => fuccess(Nil)
+      case objs => coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true) inject objs
     }
 
 object ChatTimeout:
@@ -80,10 +77,10 @@ object ChatTimeout:
   )
 
   case class Reinstate(_id: String, chat: ChatId, user: UserId)
-  implicit val ReinstateBSONReader: BSONDocumentReader[Reinstate] = Macros.reader
+  given BSONDocumentReader[Reinstate] = Macros.reader
 
   case class UserEntry(mod: UserId, reason: Reason, createdAt: DateTime)
-  implicit val UserEntryBSONReader: BSONDocumentReader[UserEntry] = Macros.reader
+  given BSONDocumentReader[UserEntry] = Macros.reader
 
   enum Scope:
     case Local, Global

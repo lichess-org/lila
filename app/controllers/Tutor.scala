@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.Result
-import scala.concurrent.duration.*
 import views.*
 
 import lila.api.Context
@@ -48,6 +47,11 @@ final class Tutor(env: Env) extends LilaController(env):
         }
     }
 
+  def skills(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
+    implicit ctx => me => report => perf =>
+      Ok(views.html.tutor.skills(report, perf, me)).toFuccess
+  }
+
   def phases(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
     implicit ctx => me => report => perf =>
       Ok(views.html.tutor.phases(report, perf, me)).toFuccess
@@ -67,10 +71,18 @@ final class Tutor(env: Env) extends LilaController(env):
   )(f: Context => UserModel => TutorFullReport.Availability => Fu[Result]) =
     Secure(_.Beta) { implicit ctx => holder =>
       def proceed(user: UserModel) = env.tutor.api.availability(user) flatMap f(ctx)(user)
-      if (!holder.user.is(username))
-        if (isGranted(_.SeeInsight)) env.user.repo.byId(username) flatMap { _ ?? proceed }
-        else redirHome(holder.user)
-      else proceed(holder.user)
+      if (holder.user is username) proceed(holder.user)
+      else
+        env.user.repo.byId(username) flatMap {
+          _.fold(notFound) { user =>
+            if (isGranted(_.SeeInsight)) proceed(user)
+            else
+              (user.enabled.yes ?? env.clas.api.clas.isTeacherOf(holder.id, user.id)) flatMap {
+                case true  => proceed(user)
+                case false => notFound
+              }
+          }
+        }
     }
 
   private def TutorPage(
@@ -79,9 +91,11 @@ final class Tutor(env: Env) extends LilaController(env):
     TutorPageAvailability(username) { implicit ctx => user => availability =>
       availability match
         case TutorFullReport.InsufficientGames =>
-          BadRequest(views.html.tutor.empty.insufficientGames).toFuccess
+          BadRequest(views.html.tutor.empty.insufficientGames(user)).toFuccess
         case TutorFullReport.Empty(in: TutorQueue.InQueue) =>
-          Accepted(views.html.tutor.empty.queued(in, user)).toFuccess
+          env.tutor.queue.waitingGames(user) map { waitGames =>
+            Accepted(views.html.tutor.empty.queued(in, user, waitGames))
+          }
         case TutorFullReport.Empty(_)             => Accepted(views.html.tutor.empty.start(user)).toFuccess
         case available: TutorFullReport.Available => f(ctx)(user)(available)
     }

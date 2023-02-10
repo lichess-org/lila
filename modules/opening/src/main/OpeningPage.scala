@@ -12,10 +12,9 @@ case class OpeningPage(
     explored: Option[OpeningExplored],
     wiki: Option[OpeningWiki]
 ):
-  def opening = query.opening
-  def name    = query.name
+  export query.{ closestOpening, exactOpening, name, openingAndExtraMoves }
 
-  def nameParts: NamePart.NamePartList = query.openingAndExtraMoves match
+  def nameParts: NamePart.NamePartList = openingAndExtraMoves match
     case (op, moves) => (op ?? NamePart.from) ::: NamePart.from(moves)
 
 case object NamePart:
@@ -33,19 +32,19 @@ case object NamePart:
   def from(moves: List[SanStr]): NamePartList = moves.map(Left.apply)
 
 case class ResultCounts(
-    white: Int,
-    draws: Int,
-    black: Int
+    white: Long,
+    draws: Long,
+    black: Long
 ):
-  lazy val sum: Int = white + draws + black
+  lazy val sum: Long = white + draws + black
 
-  def whitePercent                     = percentOf(white)
-  def drawsPercent                     = percentOf(draws)
-  def blackPercent                     = percentOf(black)
-  private def percentOf(v: Int): Float = (v.toFloat * 100 / sum)
+  def whitePercent                      = percentOf(white)
+  def drawsPercent                      = percentOf(draws)
+  def blackPercent                      = percentOf(black)
+  private def percentOf(v: Long): Float = (v.toFloat * 100 / sum)
 
 case class OpeningNext(
-    san: String,
+    san: SanStr,
     uci: Uci.Move,
     fen: OpeningFen,
     query: OpeningQuery,
@@ -62,7 +61,9 @@ case class OpeningExplored(
     games: List[GameWithPgn],
     next: List[OpeningNext],
     history: PopularityHistoryPercent
-)
+) {
+  def lastPopularityPercent: Option[Float] = history.lastOption
+}
 
 object OpeningPage:
   def apply(
@@ -94,7 +95,7 @@ object OpeningPage:
                 result,
                 (result.sum * 100d / exp.movesSum),
                 opening,
-                shortName = NameSection.variationName(query.opening, opening)
+                shortName = NameSection.variationName(query.exactOpening, opening)
               )
             }
             .sortBy(-_.result.sum),

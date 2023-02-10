@@ -46,7 +46,8 @@ object HTTPRequest:
     req.headers get HeaderNames.USER_AGENT
   }
 
-  val isChrome96Plus = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
+  val isChrome96Plus   = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
+  val isFirefox108Plus = UaMatcher("""Firefox/(?:10[8-9]|1[1-9]\d)""")
 
   val isMobile = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
 
@@ -62,7 +63,9 @@ object HTTPRequest:
 
   def sid(req: RequestHeader): Option[String] = req.session get LilaCookie.sessionId
 
-  val isCrawler = UaMatcher {
+  def isCrawler(req: RequestHeader) = Crawler(crawlerMatcher(req))
+
+  private val crawlerMatcher = UaMatcher {
     """(?i)googlebot|googlebot-mobile|googlebot-image|mediapartners-google|bingbot|slurp|java|wget|curl|python-requests|commons-httpclient|python-urllib|libwww|httpunit|nutch|phpcrawl|msnbot|adidxbot|blekkobot|teoma|ia_archiver|gingercrawler|webmon|httrack|webcrawler|fast-webcrawler|fastenterprisecrawler|convera|biglotron|grub\.org|usinenouvellecrawler|antibot|netresearchserver|speedy|fluffy|jyxobot|bibnum\.bnf|findlink|exabot|gigabot|msrbot|seekbot|ngbot|panscient|yacybot|aisearchbot|ioi|ips-agent|tagoobot|mj12bot|dotbot|woriobot|yanga|buzzbot|mlbot|purebot|lingueebot|yandex\.com/bots|""" +
       """voyager|cyberpatrol|voilabot|baiduspider|citeseerxbot|spbot|twengabot|postrank|turnitinbot|scribdbot|page2rss|sitebot|linkdex|ezooms|dotbot|mail\.ru|discobot|zombie\.js|heritrix|findthatfile|europarchive\.org|nerdbynature\.bot|sistrixcrawler|ahrefsbot|aboundex|domaincrawler|wbsearchbot|summify|ccbot|edisterbot|seznambot|ec2linkfinder|gslfbot|aihitbot|intelium_bot|yeti|retrevopageanalyzer|lb-spider|sogou|lssbot|careerbot|wotbox|wocbot|ichiro|duckduckbot|lssrocketcrawler|drupact|webcompanycrawler|acoonbot|openindexspider|gnamgnamspider|web-archive-net\.com\.bot|backlinkcrawler|""" +
       """coccoc|integromedb|contentcrawlerspider|toplistbot|seokicks-robot|it2media-domain-crawler|ip-web-crawler\.com|siteexplorer\.info|elisabot|proximic|changedetection|blexbot|arabot|wesee:search|niki-bot|crystalsemanticsbot|rogerbot|360spider|psbot|interfaxscanbot|lipperheyseoservice|ccmetadatascaper|g00g1e\.net|grapeshotcrawler|urlappendbot|brainobot|fr-crawler|binlar|simplecrawler|simplecrawler|livelapbot|twitterbot|cxensebot|smtbot|facebookexternalhit|daumoa|sputnikimagebot|visionutils|yisouspider|parsijoobot|mediatoolkit\.com|semrushbot"""
@@ -74,7 +77,7 @@ object HTTPRequest:
 
   def isFishnet(req: RequestHeader) = req.path startsWith "/fishnet/"
 
-  def isHuman(req: RequestHeader) = !isCrawler(req) && !isFishnet(req)
+  def isHuman(req: RequestHeader) = isCrawler(req).no && !isFishnet(req)
 
   private[this] val fileExtensionRegex = """\.(?<!^\.)[a-zA-Z0-9]{2,4}$""".r
 
@@ -124,10 +127,8 @@ object HTTPRequest:
 
   def clientName(req: RequestHeader) =
     // the mobile app sends XHR headers
-    if (isXhr(req)) apiVersion(req).fold("xhr") { v =>
-      s"mobile/$v"
-    }
-    else if (isCrawler(req)) "crawler"
+    if isXhr(req) then apiVersion(req).fold("xhr")(v => s"mobile/$v")
+    else if isCrawler(req).yes then "crawler"
     else "browser"
 
   def queryStringGet(req: RequestHeader, name: String): Option[String] =

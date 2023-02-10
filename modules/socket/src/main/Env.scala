@@ -7,7 +7,7 @@ import play.api.Configuration
 
 @Module
 final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: Scheduler
 ):
   private val redisClient = RedisClient create RedisURI.create(appConfig.get[String]("socket.redis.uri"))

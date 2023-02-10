@@ -17,8 +17,8 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     mongo: lila.db.Env
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler,
+    ec: Executor,
+    scheduler: Scheduler,
     mat: akka.stream.Materializer
 ):
 
@@ -33,7 +33,7 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  private lazy val storage = new InsightStorage(db(CollName("insight")))
+  private lazy val storage = InsightStorage(db(CollName("insight")))
 
   private lazy val aggregationPipeline = wire[AggregationPipeline]
 

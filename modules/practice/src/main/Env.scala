@@ -10,7 +10,7 @@ final class Env(
     studyApi: lila.study.StudyApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private lazy val coll = db(CollName("practice_progress"))
 

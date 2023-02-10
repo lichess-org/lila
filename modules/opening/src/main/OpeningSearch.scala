@@ -7,9 +7,10 @@ import lila.common.base.StringUtils.levenshtein
 import lila.common.Chronometer
 import lila.common.Heapsort.topN
 import lila.memo.CacheApi
+import chess.format.pgn.PgnMovesStr
 
 case class OpeningSearchResult(opening: Opening):
-  def pgn   = OpeningSearch.removePgnMoveNumbers(opening.pgn.value)
+  def pgn   = OpeningSearch.removePgnMoveNumbers(opening.pgn)
   def query = OpeningQuery.Query(opening.key.value, pgn.some)
 
 final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer):
@@ -26,11 +27,11 @@ final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer):
     OpeningSearch(q, max).map(OpeningSearchResult.apply)
 
 // linear performance but it's fine for 3,067 unique openings
-object OpeningSearch:
+private object OpeningSearch:
 
   object removePgnMoveNumbers:
-    private val numbersRegex = """\d{1,2}\.{1,3}\s?""".r
-    def apply(pgn: String)   = pgn.replaceAllIn(numbersRegex, "").trim
+    private val numbersRegex    = """\d{1,2}\.{1,3}\s?""".r
+    def apply(pgn: PgnMovesStr) = pgn.map(_.replaceAllIn(numbersRegex, "").trim)
 
   private val openings: Vector[Opening] = OpeningDb.shortestLines.values.toVector
 
@@ -40,6 +41,7 @@ object OpeningSearch:
   private[opening] object tokenize:
     private val nonLetterRegex = """[^a-zA-Z0-9]+""".r
     private val exclude        = Set("opening", "variation")
+    private val replace        = Map("defence" -> "defense")
     def apply(str: String): Set[Token] =
       str
         .take(200)
@@ -56,6 +58,7 @@ object OpeningSearch:
             .toLowerCase
             .replaceAllIn(nonLetterRegex, "")
         }
+        .map(t => replace.getOrElse(t, t))
         .toSet
         .diff(exclude)
     def apply(opening: Opening): Set[Token] =

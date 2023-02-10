@@ -1,7 +1,6 @@
 package lila.user
 
-import cats.implicits.*
-import org.joda.time.DateTime
+import cats.syntax.all.*
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
@@ -12,7 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.rating.Glicko
 import lila.rating.{ Perf, PerfType }
 
-final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final class UserRepo(val coll: Coll)(using Executor):
 
   import User.{ BSONFields as F, given }
   import Title.given
@@ -207,7 +206,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       .one(
         $id(userId),
         $inc(s"perfs.$field.runs" -> 1) ++
-          $doc("$max"             -> $doc(s"perfs.$field.score" -> score))
+          $doc("$max" -> $doc(s"perfs.$field.score" -> score))
       )
       .void
 
@@ -305,12 +304,10 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       mustConfirmEmail: Boolean,
       lang: Option[String] = None
   ): Fu[Option[User]] =
-    !exists(name) flatMap {
-      _ ?? {
-        val doc = newUser(name, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
-          ("len" -> BSONInteger(name.value.length))
-        coll.insert.one(doc) >> byId(name.id)
-      }
+    !exists(name) flatMapz {
+      val doc = newUser(name, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
+        ("len" -> BSONInteger(name.value.length))
+      coll.insert.one(doc) >> byId(name.id)
     }
 
   def exists[U](id: U)(using uid: UserIdOf[U]): Fu[Boolean] = coll exists $id(uid(id))
@@ -366,7 +363,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def setRoles(id: UserId, roles: List[String]): Funit =
     coll.updateField($id(id), F.roles, roles).void
 
-  def hasTwoFactor(id: UserId) = coll.exists($id(id) ++ $doc(F.totpSecret $exists true))
+  def withoutTwoFactor(id: UserId) = coll.one[User]($id(id) ++ $doc(F.totpSecret $exists false))
 
   def disableTwoFactor(id: UserId) = coll.update.one($id(id), $unset(F.totpSecret))
 
@@ -408,14 +405,13 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
     }
 
   def setEmail(id: UserId, email: EmailAddress): Funit = {
-    val normalizedEmail = email.normalize
+    val normalized = email.normalize
     coll.update
       .one(
         $id(id),
-        $set(F.email -> normalizedEmail) ++ $unset(F.prevEmail) ++ {
-          if (email.value == normalizedEmail.value) $unset(F.verbatimEmail)
-          else $set(F.verbatimEmail -> email)
-        }
+        if email.value == normalized.value then
+          $set(F.email -> normalized) ++ $unset(F.prevEmail, F.verbatimEmail)
+        else $set(F.email -> normalized, F.verbatimEmail -> email) ++ $unset(F.prevEmail)
       )
       .void
   } >>- lila.common.Bus.publish(lila.hub.actorApi.user.ChangeEmail(id, email), "email")
@@ -430,13 +426,13 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
     coll
       .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true).some)
       .one[Bdoc]
-      .map { _ ?? anyEmail }
+      .mapz(anyEmail)
 
   def emailOrPrevious(id: UserId): Fu[Option[EmailAddress]] =
     coll
       .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true, F.prevEmail -> true).some)
       .one[Bdoc]
-      .map { _ ?? anyEmailOrPrevious }
+      .mapz(anyEmailOrPrevious)
 
   def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
     coll
@@ -457,25 +453,21 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
     coll
       .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true, F.prevEmail -> true).some)
       .one[Bdoc]
-      .map {
-        _ ?? { doc =>
-          anyEmail(doc) orElse doc.getAsOpt[EmailAddress](F.prevEmail)
-        }
+      .mapz { doc =>
+        anyEmail(doc) orElse doc.getAsOpt[EmailAddress](F.prevEmail)
       }
 
   def withEmails[U: UserIdOf](u: U)(using r: BSONHandler[User]): Fu[Option[User.WithEmails]] =
-    coll.find($id(u.id)).one[Bdoc].map {
-      _ ?? { doc =>
-        r readOpt doc map {
-          User
-            .WithEmails(
-              _,
-              User.Emails(
-                current = anyEmail(doc),
-                previous = doc.getAsOpt[NormalizedEmailAddress](F.prevEmail)
-              )
+    coll.find($id(u.id)).one[Bdoc].mapz { doc =>
+      r readOpt doc map {
+        User
+          .WithEmails(
+            _,
+            User.Emails(
+              current = anyEmail(doc),
+              previous = doc.getAsOpt[NormalizedEmailAddress](F.prevEmail)
             )
-        }
+          )
       }
     }
 
@@ -581,7 +573,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       .dmap(_.toMap)
 
   def setSeenAt(id: UserId): Unit =
-    coll.updateFieldUnchecked($id(id), F.seenAt, DateTime.now)
+    coll.updateFieldUnchecked($id(id), F.seenAt, nowDate)
 
   def setLang(user: User, lang: play.api.i18n.Lang) =
     coll.updateField($id(user.id), "lang", lang.code).void
@@ -656,7 +648,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
     )
 
   def setEraseAt(user: User) =
-    coll.updateField($id(user.id), F.eraseAt, DateTime.now plusDays 1).void
+    coll.updateField($id(user.id), F.eraseAt, nowDate plusDays 1).void
 
   private def newUser(
       name: UserName,
@@ -675,18 +667,18 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       F.id                    -> name.id,
       F.username              -> name,
       F.email                 -> normalizedEmail,
-      F.mustConfirmEmail      -> mustConfirmEmail.option(DateTime.now),
+      F.mustConfirmEmail      -> mustConfirmEmail.option(nowDate),
       F.bpass                 -> passwordHash,
       F.perfs                 -> $empty,
       F.count                 -> Count.default,
       F.enabled               -> true,
-      F.createdAt             -> DateTime.now,
+      F.createdAt             -> nowDate,
       F.createdWithApiVersion -> mobileApiVersion,
-      F.seenAt                -> DateTime.now,
+      F.seenAt                -> nowDate,
       F.playTime              -> User.PlayTime(0, 0),
       F.lang                  -> lang
     ) ++ {
       (email.value != normalizedEmail.value) ?? $doc(F.verbatimEmail -> email)
     } ++ {
-      if (blind) $doc(F.blind -> true) else $empty
+      blind ?? $doc(F.blind -> true)
     }

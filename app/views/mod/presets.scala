@@ -30,7 +30,7 @@ object presets:
               )
             )
           ),
-          standardFlash(),
+          standardFlash,
           postForm(action := routes.Mod.presetsUpdate(group))(
             form3.group(
               form("v"),

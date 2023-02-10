@@ -14,30 +14,31 @@ object Dependencies {
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.9.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.9.0"
-  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.0.2"
+  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.1.3"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.2"
-  val chess       = "org.lichess"                  %% "scalachess"                      % "13.2.2"
+  val chess       = "org.lichess"                  %% "scalachess"                      % "14.3.1"
   val compression = "org.lichess"                  %% "compression"                     % "1.8"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "3.0.2"
   val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.2" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.14.0"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.15.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.2.RELEASE"
   val nettyTransport =
-    "io.netty" % s"netty-transport-native-$notifier" % "4.1.86.Final" classifier s"$os-$arch"
+    "io.netty" % s"netty-transport-native-$notifier" % "4.1.87.Final" classifier s"$os-$arch"
   val scalatest   = "org.scalatest"              %% "scalatest"    % "3.2.11" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"    % "0.14.0"
   val apacheText  = "org.apache.commons"          % "commons-text" % "1.10.0"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter" % "0.13.1_lila-1"
+  val breeze      = "org.scalanlp"               %% "breeze"       % "2.1.0"
 
   object specs2 {
     val version = "5.2.0"
     val core    = "org.specs2" %% "specs2-core" % version  % Test
-    val cats    = "org.specs2" %% "specs2-cats" % "4.19.0" % Test
+    val cats    = "org.specs2" %% "specs2-cats" % "4.19.2" % Test
     val bundle  = Seq(core, cats)
   }
 
@@ -59,17 +60,15 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val version = "1.1.0-d9cc5339-RC7-SNAPSHOT"
-
-    val driver = "org.reactivemongo" %% "reactivemongo"               % version
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % "1.1.0-RC6"
+    val driver = "org.reactivemongo" %% "reactivemongo"               % "1.1.0-RC7"
+    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % "1.1.0-RC7"
     val shaded = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"1.1.0-RC6-$os-x86-64"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)
   }
 
   object play {
-    val playVersion = "2.8.18-lila_3.7"
+    val playVersion = "2.8.18-lila_3.9"
     val json        = "com.typesafe.play" %% "play-json"         % "2.10.0-RC7"
     val jsonJoda    = "com.typesafe.play" %% "play-json-joda"    % "2.10.0-RC7"
     val api         = "com.typesafe.play" %% "play"              % playVersion

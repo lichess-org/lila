@@ -68,7 +68,7 @@ object inquiry:
         )
       )
 
-    div(id    := "inquiry")(
+    div(id := "inquiry")(
       i(title := "Costello the Inquiry Octopus", cls := "costello"),
       div(cls := "meat")(
         userLink(in.user, withBestRating = true, params = "?mod"),
@@ -134,7 +134,7 @@ object inquiry:
         isGranted(_.MarkEngine) option {
           val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
           div(cls := "dropper engine buttons")(
-            postForm(action                             := url, cls := "main", title := "Mark as cheat")(
+            postForm(action := url, cls := "main", title := "Mark as cheat")(
               markButton(in.user.marks.engine)(dataIcon := ""),
               autoNextInput
             ),
@@ -203,7 +203,7 @@ object inquiry:
               autoNextInput
             ),
             div(cls := "separator"),
-            lila.memo.Snooze.Duration.all.map { snooze =>
+            lila.memo.Snooze.Duration.values.map { snooze =>
               postForm(action := snoozeUrl(in.report, snooze.toString))(
                 submitButton(cls := "fbt")(s"Snooze ${snooze.name}"),
                 autoNextInput

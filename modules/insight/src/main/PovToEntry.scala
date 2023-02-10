@@ -27,7 +27,7 @@ case class RichPov(
 final private class PovToEntry(
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def apply(game: Game, userId: UserId, provisional: Boolean): Fu[Either[Game, InsightEntry]] =
     enrich(game, userId, provisional) map
@@ -183,13 +183,13 @@ final private class PovToEntry(
   private def convert(from: RichPov): Option[InsightEntry] =
     import from.*
     import pov.game
-    for {
+    for
       myId     <- pov.player.userId
       perfType <- game.perfType
       myRating = pov.player.stableRating
       opRating = pov.opponent.stableRating
       opening  = findOpening(from)
-    } yield InsightEntry(
+    yield InsightEntry(
       id = InsightEntry povToId pov,
       userId = myId,
       color = pov.color,
@@ -202,11 +202,11 @@ final private class PovToEntry(
       opponentCastling = Castling.fromMoves(game sansOf !pov.color),
       moves = makeMoves(from),
       queenTrade = queenTrade(from),
-      result = game.winnerUserId match {
+      result = game.winnerUserId match
         case None                 => Result.Draw
         case Some(u) if u == myId => Result.Win
         case _                    => Result.Loss
-      },
+      ,
       termination = Termination fromStatus game.status,
       ratingDiff = ~pov.player.ratingDiff,
       analysed = analysis.isDefined,
@@ -215,13 +215,7 @@ final private class PovToEntry(
     )
 
   private def findOpening(from: RichPov): Option[SimpleOpening] =
-    from.pov.game.variant.standard ??
-      from.situations.tail.view
-        .takeWhile(_.board.actors.sizeIs >= 20)
-        .foldRight(none[SimpleOpening]) {
-          case (sit, None) =>
-            OpeningDb
-              .findByOpeningFen(Fen writeOpening sit)
-              .flatMap(SimpleOpening.apply)
-          case (_, found) => found
-        }
+    from.pov.game.variant.standard ?? OpeningDb
+      .searchInSituations(from.situations.toList)
+      .map(_.opening)
+      .flatMap(SimpleOpening.apply)

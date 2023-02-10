@@ -1,9 +1,7 @@
 package lila.puzzle
 
 import akka.pattern.ask
-import org.joda.time.DateTime
 import Puzzle.{ BSONFields as F }
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom.odds
 import chess.format.{ BoardFen, Uci }
 
@@ -15,7 +13,7 @@ final private[puzzle] class DailyPuzzle(
     pathApi: PuzzlePathApi,
     renderer: lila.hub.actors.Renderer,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 
@@ -31,7 +29,7 @@ final private[puzzle] class DailyPuzzle(
     (findCurrent orElse findNewBiased()) recover { case e: Exception =>
       logger.error("find daily", e)
       none
-    } flatMap { _ ?? makeDaily }
+    } flatMapz makeDaily
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
     import makeTimeout.short
@@ -45,7 +43,7 @@ final private[puzzle] class DailyPuzzle(
 
   private def findCurrent =
     colls.puzzle {
-      _.find($doc(F.day $gt DateTime.now.minusDays(1)))
+      _.find($doc(F.day $gt nowDate.minusDays(1)))
         .sort($sort desc F.day)
         .one[Puzzle]
     }
@@ -67,7 +65,7 @@ final private[puzzle] class DailyPuzzle(
           import framework.*
           val forbiddenThemes = List(PuzzleTheme.oneMove) :::
             odds(2).??(List(PuzzleTheme.checkFirst))
-          Match(pathApi.select(PuzzleAngle.mix, PuzzleTier.Top, 2150 to 2300)) -> List(
+          Match(pathApi.select(PuzzleAngle.mix, PuzzleTier.top, 2150 to 2300)) -> List(
             Sample(3),
             Project($doc("ids" -> true, "_id" -> false)),
             UnwindField("ids"),
@@ -100,7 +98,7 @@ final private[puzzle] class DailyPuzzle(
       .flatMap { docOpt =>
         docOpt.flatMap(puzzleReader.readOpt) ?? { puzzle =>
           colls.puzzle {
-            _.updateField($id(puzzle.id), F.day, DateTime.now)
+            _.updateField($id(puzzle.id), F.day, nowDate)
           } inject puzzle.some
         }
       }

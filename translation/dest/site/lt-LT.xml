@@ -229,6 +229,12 @@
   <string name="email">El. pašto adresas</string>
   <string name="passwordReset">Slaptažodžio atkūrimas</string>
   <string name="forgotPassword">Pamiršote slaptažodį?</string>
+  <string name="error.weakPassword">Šis slaptažodis itin dažnas ir jį pernelyg lengva atspėti.</string>
+  <string name="error.namePassword">Prašome nenaudoti savo vartotojo vardo kaip slaptažodžio.</string>
+  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Jūs paliekate Lichess</string>
+  <string name="neverTypeYourPassword">Niekada netalpinkite savo Lichess slaptažodžio kitoje svetainėje!</string>
+  <string name="passwordSuggestion">Nenaudokite slaptažodžio, kurį jums pasiūlė kas nors kitas. Tuo galima pasinaudoti pavogiant jūsų paskyrą.</string>
+  <string name="emailSuggestion">Nenaudokite el. pašto adreso, kurį jums pasiūlė kas nors kitas. Tuo galima pasinaudoti pavogiant jūsų paskyrą.</string>
   <string name="emailConfirmHelp">Pagalba dėl el. pašto adreso patvirtinimo</string>
   <string name="emailConfirmNotReceived">Prisijungę negavote savo patvirtinimo el. laiško?</string>
   <string name="whatSignupUsername">Kokiu vartotojo vardu registravotės?</string>
@@ -604,6 +610,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="blog">Tinklaraštis</string>
   <string name="notes">Užrašai</string>
   <string name="typePrivateNotesHere">Čia galite rašytis asmeninius užrašus</string>
+  <string name="writeAPrivateNoteAboutThisUser">Parašykite privatų užrašą apie šį vartotoją</string>
+  <string name="noNoteYet">Kol kas nėra užrašų</string>
   <string name="invalidUsernameOrPassword">Neteisingas prisijungimo vardas arba slaptažodis</string>
   <string name="incorrectPassword">Neteisingas slaptažodis</string>
   <string name="invalidAuthenticationCode">Neteisingas patvirtinimo kodas</string>
@@ -777,6 +785,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="kidMode">Vaiko veiksena</string>
   <string name="kidModeExplanation">Tai yra dėl saugumo. Vaiko veiksenoje išjungiamas visas bendravimas svetainėje. Įjunkite tai savo vaikams bei moksleiviams, norėdami juos apsaugoti nuo kitų interneto naudotojų.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Vaiko veiksenoje „lichess“ logotipas gauna %s piktogramą tam, kad žinotumėte, jog jūsų vaikai yra saugūs.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Jūsų paskyra yra valdoma. Norėdami pašalinti vaiko režimą kreipkitės į savo šachmatų mokytoją.</string>
   <string name="enableKidMode">Įjungti vaiko veikseną</string>
   <string name="disableKidMode">Išjungti vaiko veikseną</string>
   <string name="security">Saugumas</string>
@@ -988,7 +997,7 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="inYourLocalTimezone">Jūsų laiko zonoje</string>
   <string name="tournChat">Turnyro pokalbis</string>
   <string name="noChat">Jokio pokalbio</string>
-  <string name="onlyTeamLeaders">Tik komandų vadovams</string>
+  <string name="onlyTeamLeaders">Tik komandų kapitonams</string>
   <string name="onlyTeamMembers">Tik komandos nariams</string>
   <string name="navigateMoveTree">Keliauti per ėjimų medį</string>
   <string name="mouseTricks">Triukai pele</string>

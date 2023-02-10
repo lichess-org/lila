@@ -2,16 +2,14 @@ package lila.study
 
 import akka.stream.scaladsl.*
 import chess.format.pgn.Tags
+import chess.format.UciPath
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 
-final class ChapterRepo(val coll: AsyncColl)(using
-    ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
-):
+final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materializer):
 
   import BSONHandlers.{ writeNode, given }
 
@@ -103,7 +101,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
         .map { case (id, index) =>
           c.updateField($studyId(study.id) ++ $id(id), "order", index + 1)
         }
-        .sequenceFu
+        .parallel
         .void
     }
 
@@ -119,7 +117,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
   def setRelay(chapterId: StudyChapterId, relay: Chapter.Relay) =
     coll(_.updateField($id(chapterId), "relay", relay)).void
 
-  def setRelayPath(chapterId: StudyChapterId, path: Path) =
+  def setRelayPath(chapterId: StudyChapterId, path: UciPath) =
     coll(_.updateField($id(chapterId), "relay.path", path)).void
 
   def setTagsFor(chapter: Chapter) =
@@ -142,7 +140,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
 
   // insert node and its children
   // and sets the parent order field
-  def addSubTree(subTree: Node, newParent: RootOrNode, parentPath: Path)(chapter: Chapter): Funit =
+  def addSubTree(subTree: Node, newParent: RootOrNode, parentPath: UciPath)(chapter: Chapter): Funit =
     val set = $doc(subTreeToBsonElements(parentPath, subTree)) ++ {
       (newParent.children.nodes.sizeIs > 1) ?? $doc(
         pathToField(parentPath, Node.BsonFields.order) -> newParent.children.nodes.map(_.id)
@@ -150,16 +148,16 @@ final class ChapterRepo(val coll: AsyncColl)(using
     }
     coll(_.update.one($id(chapter.id), $set(set))).void
 
-  private def subTreeToBsonElements(parentPath: Path, subTree: Node): Vector[(String, Bdoc)] =
+  private def subTreeToBsonElements(parentPath: UciPath, subTree: Node): Vector[(String, Bdoc)] =
     (parentPath.depth < Node.MAX_PLIES) ?? {
-      val path = parentPath + subTree
+      val path = parentPath + subTree.id
       subTree.children.nodes.flatMap(subTreeToBsonElements(path, _)) appended {
         path.toDbField -> writeNode(subTree)
       }
     }
 
   // overrides all children sub-nodes in DB! Make the tree merge beforehand.
-  def setChildren(children: Node.Children)(chapter: Chapter, path: Path): Funit =
+  def setChildren(children: Node.Children)(chapter: Chapter, path: UciPath): Funit =
 
     val set: Bdoc = {
       (children.nodes.sizeIs > 1) ?? $doc(
@@ -169,17 +167,20 @@ final class ChapterRepo(val coll: AsyncColl)(using
 
     coll(_.update.one($id(chapter.id), $set(set))).void
 
-  private def childrenTreeToBsonElements(parentPath: Path, children: Node.Children): Vector[(String, Bdoc)] =
+  private def childrenTreeToBsonElements(
+      parentPath: UciPath,
+      children: Node.Children
+  ): Vector[(String, Bdoc)] =
     (parentPath.depth < Node.MAX_PLIES) ??
       children.nodes.flatMap { node =>
-        val path = parentPath + node
+        val path = parentPath + node.id
         childrenTreeToBsonElements(path, node.children) appended (path.toDbField -> writeNode(node))
       }
 
   private def setNodeValue[A: BSONWriter](
       field: String,
       value: Option[A]
-  )(chapter: Chapter, path: Path): Funit =
+  )(chapter: Chapter, path: UciPath): Funit =
     coll {
       _.updateOrUnsetField(
         $id(chapter.id) ++ $doc(path.toDbField $exists true),
@@ -190,7 +191,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
 
   private[study] def setNodeValues(
       chapter: Chapter,
-      path: Path,
+      path: UciPath,
       values: List[(String, Option[BSONValue])]
   ): Funit =
     values.collect { case (field, Some(v)) =>
@@ -208,7 +209,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
         }
 
   // root.path.subField
-  private def pathToField(path: Path, subField: String): String = s"${path.toDbField}.$subField"
+  private def pathToField(path: UciPath, subField: String): String = s"${path.toDbField}.$subField"
 
   private[study] def idNamesByStudyIds(
       studyIds: Seq[StudyId],

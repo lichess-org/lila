@@ -3,7 +3,6 @@ package lila.common
 import io.mola.galimatias.IPv4Address.parseIPv4Address
 import io.mola.galimatias.IPv6Address.parseIPv6Address
 import play.api.mvc.Call
-import scala.concurrent.duration.*
 import scala.util.Try
 import lila.base.LilaTypes
 import java.net.InetAddress
@@ -27,6 +26,7 @@ object Bearer extends OpaqueString[Bearer]:
 sealed trait IpAddress:
   def value: String
   def inet: Option[InetAddress]
+  def str: IpAddressStr = IpAddressStr(value)
   override def toString = value
 
 case class IpV4Address(value: String) extends IpAddress:
@@ -42,6 +42,9 @@ object IpAddress:
   def from(str: String): Option[IpAddress] = parse(str).toOption
   def unchecked(str: String): IpAddress    = parse(str).get
 
+opaque type IpAddressStr = String
+object IpAddressStr extends OpaqueString[IpAddressStr]
+
 opaque type Domain = String
 object Domain extends OpaqueString[Domain]:
   extension (a: Domain)
@@ -56,7 +59,7 @@ object Domain extends OpaqueString[Domain]:
 
   // https://stackoverflow.com/a/26987741/1744715
   private val regex =
-    """^(((?!-))(xn--|_{1,1})?[a-z0-9-]{0,61}[a-z0-9]{1,1}\.)*(xn--)?([a-z0-9][a-z0-9\-]{0,60}|[a-z0-9-]{1,30}\.[a-z]{2,})$""".r
+    """(?i)^_?[a-z0-9-]{1,63}+(?:\._?[a-z0-9-]{1,63}+)*$""".r
   def isValid(str: String)              = regex.matches(str)
   def from(str: String): Option[Domain] = isValid(str) option Domain(str)
   def unsafe(str: String): Domain       = Domain(str)

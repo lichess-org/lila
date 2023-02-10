@@ -1,7 +1,6 @@
 package lila.tournament
 
 import play.api.i18n.Lang
-import scala.concurrent.duration.*
 
 import chess.variant.Variant
 import lila.memo.*
@@ -14,7 +13,7 @@ final class TournamentCache(
     tournamentRepo: TournamentRepo,
     cacheApi: CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   object tourCache:
@@ -78,8 +77,8 @@ final class TournamentCache(
       cacheApi[TourId, List[TeamBattle.RankedTeam]](32, "tournament.teamStanding") {
         _.expireAfterWrite(1 second)
           .buildAsyncFuture { id =>
-            tournamentRepo teamBattleOf id flatMap {
-              _ ?? { playerRepo.bestTeamIdsByTour(id, _) }
+            tournamentRepo teamBattleOf id flatMapz {
+              playerRepo.bestTeamIdsByTour(id, _)
             }
           }
       }

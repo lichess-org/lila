@@ -13,10 +13,10 @@ import lila.insight.Phase
 
 object home:
 
-  def apply(full: TutorFullReport.Available, user: User)(implicit ctx: Context) =
+  def apply(full: TutorFullReport.Available, user: User)(using Context) =
     bits.layout(full, menu = menu(full, user, none))(
       cls := "tutor__home box",
-      boxTop(h1("Lichess Tutor")),
+      boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
       if (full.report.perfs.isEmpty) empty.mascotSaysInsufficient
       else {
         bits.mascotSays(
@@ -27,6 +27,10 @@ object home:
               full.report.nbGames.localize,
               " recent rated games of yours."
             )
+          ),
+          p("Let's compare your play style to your peers: players with a rating very similar to yours."),
+          p(
+            "It should give us some idea about what your strengths are, and where you have room for improvement."
           )
         )
       },
@@ -35,8 +39,8 @@ object home:
       )
     )
 
-  private[tutor] def menu(full: TutorFullReport.Available, user: User, report: Option[TutorPerfReport])(
-      implicit ctx: Context
+  private[tutor] def menu(full: TutorFullReport.Available, user: User, report: Option[TutorPerfReport])(using
+      Context
   ) = frag(
     a(href := routes.Tutor.user(user.username), cls := report.isEmpty.option("active"))("Tutor"),
     full.report.perfs.map { p =>
@@ -48,7 +52,7 @@ object home:
   )
 
   private def perfReportCard(report: TutorFullReport, perfReport: TutorPerfReport, user: User)(using
-      ctx: Context
+      Context
   ) =
     st.article(
       cls      := "tutor__perfs__perf tutor-card tutor-card--link",
@@ -63,17 +67,30 @@ object home:
             perfReport.perf.trans,
             " games"
           ),
-          report percentTimeOf perfReport.perf map { percent =>
-            div(cls := "tutor-card__top__title__sub")(
-              bits.percentFrag(percent),
-              " of your chess playing time."
+          div(cls := "tutor-card__top__title__sub")(
+            p(
+              report percentTimeOf perfReport.perf map { percent =>
+                frag(
+                  bits.percentFrag(percent),
+                  " of your chess playing time.",
+                  br
+                )
+              },
+              frag(
+                "Average rating: ",
+                strong(perfReport.stats.rating),
+                ". Peers rating: ",
+                strong(perfReport.stats.peers.showRatingRange)
+              )
             )
-          }
+          )
         )
       ),
       div(cls := "tutor-card__content")(
         grade.peerGrade(concept.accuracy, perfReport.accuracy),
         grade.peerGrade(concept.tacticalAwareness, perfReport.awareness),
+        grade.peerGrade(concept.resourcefulness, perfReport.resourcefulness),
+        grade.peerGrade(concept.conversion, perfReport.conversion),
         grade.peerGrade(concept.speed, perfReport.globalClock),
         grade.peerGrade(concept.clockFlagVictory, perfReport.flagging.win),
         grade.peerGrade(concept.clockTimeUsage, perfReport.clockUsage),

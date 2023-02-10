@@ -5,7 +5,7 @@ import ornicar.scalalib.{ ThreadLocalRandom, SecureRandom }
 
 import lila.db.dsl.{ *, given }
 
-final class IdGenerator(gameRepo: GameRepo)(using ec: scala.concurrent.ExecutionContext):
+final class IdGenerator(gameRepo: GameRepo)(using Executor):
 
   import IdGenerator.*
 
@@ -19,7 +19,7 @@ final class IdGenerator(gameRepo: GameRepo)(using ec: scala.concurrent.Execution
   def games(nb: Int): Fu[Set[GameId]] =
     if (nb < 1) fuccess(Set.empty)
     else if (nb == 1) game.dmap(Set(_))
-    else if (nb < 5) Set.fill(nb)(game).sequenceFu
+    else if (nb < 5) Set.fill(nb)(game).parallel
     else
       val ids = Set.fill(nb)(uncheckedGame)
       gameRepo.coll.distinctEasy[GameId, Set]("_id", $inIds(ids)) flatMap { collisions =>

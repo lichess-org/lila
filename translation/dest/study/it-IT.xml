@@ -50,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Solo i partecipanti allo studio possono richiedere un\'analisi del computer.</string>
   <string name="getAFullComputerAnalysis">Richiedi un\'analisi completa del computer della variante principale.</string>
   <string name="makeSureTheChapterIsComplete">Assicurati che il capitolo sia completo. Puoi richiedere l\'analisi solo una volta.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Tutti i membri in SYNC rimangono sulla stessa posizione</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Tutti i membri in SYNC rimangono sulla stessa posizione</string>
   <string name="shareChanges">Condividi le modifiche con gli spettatori e salvale sul server</string>
   <string name="playing">In corso</string>
   <string name="first">Primo</string>
@@ -62,6 +62,8 @@
   <string name="studyPgn">PGN dello studio</string>
   <string name="downloadAllGames">Scarica tutte le partite</string>
   <string name="chapterPgn">PGN del capitolo</string>
+  <string name="copyChapterPgn">Copia in PGN</string>
+  <string name="copyChapterPgnDescription">Copia il capitolo in PGN negli appunti.</string>
   <string name="downloadGame">Scarica partita</string>
   <string name="studyUrl">URL dello studio</string>
   <string name="currentChapterUrl">URL del capitolo corrente</string>

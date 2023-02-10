@@ -1,11 +1,9 @@
 package lila.playban
 
 import chess.{ Centis, Color, Status }
-import org.joda.time.DateTime
 import play.api.Mode
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.{ Bus, Iso, Uptime }
 import lila.db.dsl.{ *, given }
@@ -21,7 +19,7 @@ final class PlaybanApi(
     noteApi: NoteApi,
     cacheApi: lila.memo.CacheApi,
     messenger: MsgApi
-)(using ec: scala.concurrent.ExecutionContext, mode: Mode):
+)(using ec: Executor, mode: Mode):
 
   private given BSONHandler[Outcome] = tryHandler(
     { case BSONInteger(v) => Outcome(v) toTry s"No such playban outcome: $v" },
@@ -42,7 +40,7 @@ final class PlaybanApi(
 
   private def IfBlameable[A: alleycats.Zero](game: Game)(f: => Fu[A]): Fu[A] =
     (mode != Mode.Prod || Uptime.startedSinceMinutes(10)) ?? {
-      blameable(game) flatMap { _ ?? f }
+      blameable(game) flatMapz f
     }
 
   def abort(pov: Pov, isOnGame: Set[Color]): Funit =
@@ -271,11 +269,9 @@ final class PlaybanApi(
             if (record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60))
               userRepo
                 .byId(record.userId)
-                .flatMap {
-                  _ ?? { user =>
-                    noteApi.lichessWrite(user, "Closed for ragesit recidive") >>-
-                      Bus.publish(lila.hub.actorApi.playban.RageSitClose(user.id), "rageSitClose")
-                  }
+                .flatMapz { user =>
+                  noteApi.lichessWrite(user, "Closed for ragesit recidive") >>-
+                    Bus.publish(lila.hub.actorApi.playban.RageSitClose(user.id), "rageSitClose")
                 }
                 .unit
           }

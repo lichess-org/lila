@@ -2,7 +2,6 @@ package lila.swiss
 
 import akka.stream.scaladsl.*
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 
@@ -21,7 +20,7 @@ final class SwissStatsApi(
     sheetApi: SwissSheetApi,
     mongoCache: lila.memo.MongoCache.Api
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mat: akka.stream.Materializer
 ):
 

@@ -342,7 +342,7 @@ export default function (token: string) {
               if (!verbose) console.clear();
               //Log game Summary
               //logGameSummary(data);
-              //Store game inmutable information on the gameInfoMap dictionary collection
+              //Store game immutable information on the gameInfoMap dictionary collection
               gameInfoMap.set(gameId, data);
               //Store game state on the gameStateMap dictionary collection
               gameStateMap.set(gameId, data.state);

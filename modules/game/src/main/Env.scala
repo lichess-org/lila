@@ -6,7 +6,6 @@ import com.softwaremill.tagging.*
 import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import akka.stream.Materializer
@@ -32,7 +31,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: Scheduler,
     materializer: Materializer,
@@ -71,7 +70,7 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  // eargerly load captcher actor
+  // eagerly load captcher actor
   private val captcher = system.actorOf(Props(new Captcher(gameRepo)), name = config.captcherName)
   scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration) { () =>
     captcher ! actorApi.NewCaptcha

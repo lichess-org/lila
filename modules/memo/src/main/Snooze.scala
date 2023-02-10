@@ -1,19 +1,15 @@
 package lila.memo
 
-import scala.concurrent.duration.*
-
 object Snooze:
 
-  sealed abstract class Duration(val value: FiniteDuration, val name: String)
-
+  enum Duration(val value: FiniteDuration, val name: String):
+    case TwentyMinutes extends Duration(20 minutes, "20 minutes")
+    case OneHour       extends Duration(1 hour, "one hour")
+    case ThreeHours    extends Duration(3 hours, "three hours")
+    case OneDay        extends Duration(1 day, "one day")
+    case NextDeploy    extends Duration(30 days, "until next deploy")
   object Duration:
-    case object TwentyMinutes extends Duration(20 minutes, "20 minutes")
-    case object OneHour       extends Duration(1 hour, "one hour")
-    case object ThreeHours    extends Duration(3 hours, "three hours")
-    case object OneDay        extends Duration(1 day, "one day")
-    case object NextDeploy    extends Duration(30 days, "until next deploy")
-    val all                = List(TwentyMinutes, OneHour, ThreeHours, OneDay, NextDeploy)
-    def apply(key: String) = all.find(_.toString == key)
+    def apply(key: String) = Duration.values.find(_.toString == key)
 
 final class Snoozer[Key](cacheApi: CacheApi)(using userIdOf: UserIdOf[Key]):
 

@@ -1,14 +1,11 @@
 package lila.puzzle
 
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
-
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 
 case class PuzzleStreak(ids: String, first: Puzzle)
 
-final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using ec: ExecutionContext):
+final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Executor):
 
   import BsonHandlers.given
   import lila.puzzle.PuzzlePath.sep
@@ -47,7 +44,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using ec: Ex
               Facet(
                 buckets.map { case (rating, nbPuzzles) =>
                   val (tier, samples, deviation) =
-                    if (rating > 2300) (PuzzleTier.Good, 5, 110) else (PuzzleTier.Top, 1, 85)
+                    if (rating > 2300) (PuzzleTier.good, 5, 110) else (PuzzleTier.top, 1, 85)
                   rating.toString -> List(
                     Match(
                       $doc(

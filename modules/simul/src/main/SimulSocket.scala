@@ -15,7 +15,7 @@ final private class SimulSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mode: play.api.Mode
 ):
 

@@ -1,8 +1,6 @@
 package lila.hub
 
 import akka.actor.*
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.log.Logger
 
@@ -11,7 +9,7 @@ import lila.log.Logger
   */
 final class EarlyMultiThrottler[K](logger: Logger)(using
     sr: StringRuntime[K],
-    ec: ExecutionContext,
+    ec: Executor,
     system: ActorSystem
 ):
 
@@ -21,7 +19,7 @@ final class EarlyMultiThrottler[K](logger: Logger)(using
     actor ! EarlyMultiThrottlerActor.Work(sr(id), run = () => run, cooldown)
 
 // actor based implementation
-final private class EarlyMultiThrottlerActor(logger: Logger)(using ec: ExecutionContext) extends Actor:
+final private class EarlyMultiThrottlerActor(logger: Logger)(using Executor) extends Actor:
 
   import EarlyMultiThrottlerActor.*
 
@@ -51,7 +49,7 @@ final private class EarlyMultiThrottlerActor(logger: Logger)(using ec: Execution
   given Scheduler = context.system.scheduler
 
   def execute(work: Work): Funit =
-    lila.common.Future.makeItLast(work.cooldown) { work.run() }
+    lila.common.LilaFuture.makeItLast(work.cooldown) { work.run() }
 
 private object EarlyMultiThrottlerActor:
   case class Work(

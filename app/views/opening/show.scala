@@ -13,7 +13,7 @@ object show:
 
   import bits.*
 
-  def apply(page: OpeningPage, puzzleKey: Option[String])(implicit ctx: Context) =
+  def apply(page: OpeningPage, puzzleKey: Option[String])(using ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(page.some),
@@ -22,27 +22,27 @@ object show:
         .OpenGraph(
           `type` = "article",
           image = cdnUrl(
-            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.opening.flatMap(_.lastUci).map(_.uci), none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.query.uci.lastOption.map(_.uci), none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = page.name,
           url = s"$netBaseUrl${queryUrl(page.query)}",
-          description = page.opening.??(_.pgn.value)
+          description = page.query.pgnString.value
         )
         .some,
-      csp = defaultCsp.withInlineIconFont.some
+      csp = defaultCsp.withInlineIconFont.withWikiBooks.some
     ) {
       main(cls := "page box box-pad opening")(
         index.searchAndConfig(page.query.config, "", page.query.query.key),
         search.resultsList(Nil),
         h1(cls := "opening__title")(
-          page.query.prev match {
+          page.query.prev match
             case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := "")
             case None       => a(href := routes.Opening.index(), dataIcon := "")
-          },
+          ,
           span(cls := "opening__name")(
-            page.nameParts.zipWithIndex map { case (part, i) =>
+            page.nameParts.zipWithIndex map { (part, i) =>
               frag(
-                part match {
+                part match
                   case Left(move) => span(cls := "opening__name__move")(i > 0 option ", ", move)
                   case Right((name, key)) =>
                     val className = s"opening__name__section opening__name__section--${i + 1}"
@@ -52,7 +52,6 @@ object show:
                         a(href := keyUrl(k))(cls := className)(name)
                       }
                     )
-                }
               )
             },
             beta
@@ -64,9 +63,9 @@ object show:
               resultSegments(exp.result)
             }),
             div(
-              cls              := "lpv lpv--todo lpv--moves-bottom",
+              cls              := "lpv lpv--todo lpv--moves-bottom is2d",
               st.data("pgn")   := page.query.pgnString,
-              st.data("title") := page.opening.map(_.name)
+              st.data("title") := page.closestOpening.map(_.name)
             )(lpvPreload)
           ),
           div(cls := "opening__intro__content")(
@@ -87,7 +86,7 @@ object show:
                 )(trans.openingExplorer())
               ),
               if (page.explored.??(_.history).nonEmpty)
-                div(cls      := "opening__popularity opening__popularity--chart")(
+                div(cls := "opening__popularity opening__popularity--chart")(
                   canvas(cls := "opening__popularity__chart")
                 )
               else
@@ -102,8 +101,7 @@ object show:
             (
               "next",
               "Popular continuations",
-              page.explored.map(whatsNext) |
-                p(cls := "opening__error")("Couldn't fetch the next moves, try again later.")
+              whatsNext(page) | p(cls := "opening__error")("Couldn't fetch the next moves, try again later.")
             ),
             ("games", "Example games", exampleGames(page))
           )
@@ -111,10 +109,10 @@ object show:
       )
     }
 
-  private def exampleGames(page: OpeningPage)(implicit ctx: Context) =
+  private def exampleGames(page: OpeningPage)(using Context) =
     div(cls := "opening__games")(page.explored.??(_.games).map { game =>
       div(
-        cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom",
+        cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom is2d",
         st.data("pgn")   := game.pgn.toString,
         st.data("ply")   := page.query.sans.size + 1,
         st.data("title") := titleGame(game.game)

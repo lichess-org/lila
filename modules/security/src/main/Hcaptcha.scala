@@ -8,7 +8,6 @@ import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.common.HTTPRequest
@@ -26,12 +25,11 @@ trait Hcaptcha:
 
 object Hcaptcha:
 
-  sealed abstract class Result(val ok: Boolean)
-  object Result:
-    case object Valid extends Result(true)
-    case object Skip  extends Result(true)
-    case object Pass  extends Result(true)
-    case object Fail  extends Result(false)
+  enum Result(val ok: Boolean):
+    case Valid extends Result(true)
+    case Skip  extends Result(true)
+    case Pass  extends Result(true)
+    case Fail  extends Result(false)
 
   val field = "h-captcha-response" -> optional(nonEmptyText)
   val form  = Form(single(field))
@@ -57,7 +55,7 @@ final class HcaptchaReal(
     ws: StandaloneWSClient,
     netDomain: NetDomain,
     config: Hcaptcha.Config
-)(using ec: scala.concurrent.ExecutionContext)
+)(using Executor)
     extends Hcaptcha:
 
   import Hcaptcha.Result

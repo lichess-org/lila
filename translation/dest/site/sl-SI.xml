@@ -229,6 +229,12 @@
   <string name="email">E-poštni naslov</string>
   <string name="passwordReset">Ponovna nastavitev gesla</string>
   <string name="forgotPassword">Ste pozabili geslo?</string>
+  <string name="error.weakPassword">To geslo je zelo pogosto in ga je prelahko uganiti.</string>
+  <string name="error.namePassword">Prosimo, ne uporabljajte svojega uporabniškega imena kot gesla.</string>
+  <string name="youAreLeavingLichess">Zapuščate Lichess</string>
+  <string name="neverTypeYourPassword">Nikoli ne vnesite svojega gesla za Lichess na drugem mestu!</string>
+  <string name="passwordSuggestion">Ne nastavite gesla, ki ga predlaga nekdo drug. Uporabili ga bodo za krajo vašega računa.</string>
+  <string name="emailSuggestion">Ne nastavite e-poštnega naslova, ki ga predlaga nekdo drug. Uporabili ga bodo za krajo vašega računa.</string>
   <string name="rank">Uvrstitev</string>
   <string name="rankX">Uvrstitev: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -578,6 +584,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Beležke</string>
   <string name="typePrivateNotesHere">Piši zasebne beležke tukaj</string>
+  <string name="writeAPrivateNoteAboutThisUser">Napišite zasebno opombo o tem uporabniku</string>
+  <string name="noNoteYet">Ni opombe še</string>
   <string name="invalidUsernameOrPassword">Napačno uporabniško ime ali geslo</string>
   <string name="incorrectPassword">Nepravilno geslo</string>
   <string name="invalidAuthenticationCode">Nepravilna avtentikacijska koda</string>
@@ -750,6 +758,7 @@
   <string name="kidMode">Način za otroke</string>
   <string name="kidModeExplanation">To je o varnosti. V načinu za otroke so vsi pogovori onemogočeni. Omogočite ta način, da otroke in šolarje zaščitite pred drugimi uporabniki na internetu.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">V načinu za otroke ima lichess ikono %s in označuje da so otroci varni.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Vaš račun je upravljan. Vprašajte svojega učitelja šaha o dvigovalnem otroškem načinu.</string>
   <string name="enableKidMode">Vključite otroški način</string>
   <string name="disableKidMode">Izključite otroški način</string>
   <string name="security">Varnost</string>

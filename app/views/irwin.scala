@@ -75,7 +75,7 @@ object irwin:
   def report(report: lila.irwin.IrwinReport.WithPovs)(implicit ctx: Context): Frag =
     div(cls := "mz-section mz-section--irwin", dataRel := "irwin")(
       header(
-        a(cls     := "title", href := routes.Irwin.dashboard)(
+        a(cls := "title", href := routes.Irwin.dashboard)(
           img(src := assetUrl("images/icons/brain.blue.svg")),
           " Irwin AI",
           br,

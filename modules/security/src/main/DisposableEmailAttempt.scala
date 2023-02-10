@@ -1,7 +1,6 @@
 package lila.security
 
 import play.api.data.Form
-import scala.concurrent.duration.*
 
 import lila.common.EmailAddress
 import lila.common.IpAddress

@@ -4,7 +4,7 @@ import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 
 import lila.api.{ Context, given }
-import lila.app.mashup.UserInfo.Angle
+import lila.app.mashup.UserInfo
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
@@ -15,12 +15,7 @@ object header:
   private val dataToints = attr("data-toints")
   private val dataTab    = attr("data-tab")
 
-  def apply(
-      u: User,
-      info: lila.app.mashup.UserInfo,
-      angle: lila.app.mashup.UserInfo.Angle,
-      social: lila.app.mashup.UserInfo.Social
-  )(implicit ctx: Context) =
+  def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: Context) =
     frag(
       div(cls := "box__top user-show__header")(
         if (u.isPatron)
@@ -130,9 +125,9 @@ object header:
       ),
       !ctx.is(u) option noteZone(u, social.notes),
       isGranted(_.UserModView) option div(cls := "mod-zone mod-zone-full none"),
-      standardFlash(),
+      standardFlash,
       angle match {
-        case Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
+        case UserInfo.Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
         case _ =>
           val profile   = u.profileOrDefault
           val hideTroll = u.marks.troll && !ctx.is(u)
@@ -145,7 +140,7 @@ object header:
               div(cls := "user-infos")(
                 !ctx.is(u) option frag(
                   u.lame option div(cls := "warning tos_warning")(
-                    span(dataIcon       := "", cls := "is4"),
+                    span(dataIcon := "", cls := "is4"),
                     trans.thisAccountViolatedTos()
                   )
                 ),
@@ -165,7 +160,7 @@ object header:
                     span(cls := "location")(l)
                   },
                   profile.countryInfo.map { c =>
-                    span(cls  := "country")(
+                    span(cls := "country")(
                       img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
                       " ",
                       c.name
@@ -227,7 +222,7 @@ object header:
           dataTab := "activity",
           cls := List(
             "nm-item to-activity" -> true,
-            "active"              -> (angle == Angle.Activity)
+            "active"              -> (angle == UserInfo.Angle.Activity)
           ),
           href := routes.User.show(u.username)
         )(trans.activity.activity()),

@@ -7,8 +7,6 @@ import com.softwaremill.tagging.*
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.ExecutionContext
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Json.{ *, given }
@@ -20,7 +18,7 @@ final private class FishnetOpeningBook(
     ws: StandaloneWSClient,
     depth: SettingStore[Int] @@ FishnetOpeningBook.Depth,
     config: FishnetConfig
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import FishnetOpeningBook.{ *, given }
 
@@ -29,6 +27,7 @@ final private class FishnetOpeningBook(
   def apply(game: Game, level: Int): Fu[Option[Uci]] =
     (game.ply < depth.get() && !outOfBook.get(game.id)) ?? {
       ws.url(s"${config.explorerEndpoint}/lichess")
+        .withRequestTimeout(800.millis)
         .withQueryStringParameters(
           "variant"     -> game.variant.key.value,
           "fen"         -> Fen.write(game.chess).value,
@@ -49,6 +48,7 @@ final private class FishnetOpeningBook(
               move <- data randomPonderedMove (game.turnColor, level)
             } yield move.uci
         }
+        .recover { case _: java.util.concurrent.TimeoutException => none }
         .monTry { res =>
           _.fishnet
             .openingBook(
@@ -89,9 +89,9 @@ object FishnetOpeningBook:
   given Reads[Response] = Json.reads
 
   private val levelRatings: Map[Int, Seq[Int]] = Map(
-    1 -> Seq(1600),
-    2 -> Seq(1600, 1800),
-    3 -> Seq(1800, 2000),
+    1 -> Seq(600),
+    2 -> Seq(1000, 1200),
+    3 -> Seq(1400, 1600),
     4 -> Seq(1800, 2000, 2200),
     5 -> Seq(1800, 2000, 2200),
     6 -> Seq(2000, 2200, 2500),

@@ -40,7 +40,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
   return h('div.tour__stats', [
     h('h2', noarg('tournamentComplete')),
     h('table', tableData),
-    h('div.tour__stats__links', [
+    h('div.tour__stats__links.force-ltr', [
       ...(data.teamBattle
         ? [
             h(

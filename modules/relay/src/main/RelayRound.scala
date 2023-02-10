@@ -1,6 +1,5 @@
 package lila.relay
 
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.study.{ Chapter, Study }
@@ -43,17 +42,17 @@ case class RelayRound(
 
   def ensureStarted =
     copy(
-      startedAt = startedAt orElse DateTime.now.some
+      startedAt = startedAt orElse nowDate.some
     )
 
   def hasStarted        = startedAt.isDefined
-  def hasStartedEarly   = hasStarted && startsAt.exists(_ isAfter DateTime.now)
-  def shouldHaveStarted = hasStarted || startsAt.exists(_ isBefore DateTime.now)
+  def hasStartedEarly   = hasStarted && startsAt.exists(_ isAfter nowDate)
+  def shouldHaveStarted = hasStarted || startsAt.exists(_ isBefore nowDate)
 
   def shouldGiveUp =
     !hasStarted && (startsAt match {
-      case Some(at) => at.isBefore(DateTime.now minusHours 3)
-      case None     => createdAt.isBefore(DateTime.now minusDays 1)
+      case Some(at) => at.isBefore(nowDate minusHours 3)
+      case None     => createdAt.isBefore(nowDate minusDays 1)
     })
 
   def withSync(f: RelayRound.Sync => RelayRound.Sync) = copy(sync = f(sync))
@@ -77,13 +76,13 @@ object RelayRound:
     def hasUpstream = upstream.isDefined
 
     def renew =
-      if (hasUpstream) copy(until = DateTime.now.plusHours(1).some)
+      if (hasUpstream) copy(until = nowDate.plusHours(1).some)
       else pause
 
-    def ongoing = until ?? DateTime.now.isBefore
+    def ongoing = until ?? nowDate.isBefore
 
     def play =
-      if (hasUpstream) renew.copy(nextAt = nextAt orElse DateTime.now.plusSeconds(3).some)
+      if (hasUpstream) renew.copy(nextAt = nextAt orElse nowDate.plusSeconds(3).some)
       else pause
 
     def pause =

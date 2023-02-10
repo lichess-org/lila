@@ -9,7 +9,7 @@
     <item quantity="one">%s Runde</item>
     <item quantity="other">%s Runden</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
     <item quantity="one">%s Runde Schweizer System</item>
     <item quantity="other">%s Runden Schweizer System</item>
   </plurals>
@@ -17,7 +17,7 @@
     <item quantity="one">Eine Runde pro Tag</item>
     <item quantity="other">Eine Runde alle %s Tage</item>
   </plurals>
-  <string name="roundsAreStartedManually">Runden werden händisch gestartet</string>
+  <string name="roundsAreStartedManually">Runden werden manuell gestartet</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">%s Sekunde zwischen den Runden</item>
     <item quantity="other">%s Sekunden zwischen den Runden</item>

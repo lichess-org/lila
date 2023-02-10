@@ -27,8 +27,7 @@ object TreeBuilder:
       case (init, games, error) =>
         error foreach logChessError(game.id)
         val openingOf: OpeningOf =
-          if (withFlags.opening && Variant.list.openingSensibleVariants(game.variant))
-            fen => OpeningDb.findByEpdFen(fen)
+          if (withFlags.opening && Variant.list.openingSensibleVariants(game.variant)) OpeningDb.findByEpdFen
           else _ => None
         val fen                       = Fen write init
         val infos: Vector[Info]       = analysis.??(_.infos.toVector)
@@ -120,5 +119,5 @@ object TreeBuilder:
               .setComp
 
   private val logChessError = (id: GameId) =>
-    (err: String) =>
-      logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.linesIterator.toList.headOption}")
+    (err: chess.ErrorStr) =>
+      logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.value.linesIterator.toList.headOption}")

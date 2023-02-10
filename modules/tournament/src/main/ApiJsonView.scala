@@ -7,35 +7,34 @@ import lila.common.Json.given
 import lila.rating.PerfType
 import lila.user.LightUserApi
 
-final class ApiJsonView(lightUserApi: LightUserApi)(using ec: scala.concurrent.ExecutionContext):
+final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
 
-  import JsonView.*
+  import JsonView.{ *, given }
   import Condition.JSONHandlers.given
 
-  def apply(tournaments: VisibleTournaments)(using lang: Lang): Fu[JsObject] =
-    for {
-      created  <- tournaments.created.map(fullJson).sequenceFu
-      started  <- tournaments.started.map(fullJson).sequenceFu
-      finished <- tournaments.finished.map(fullJson).sequenceFu
-    } yield Json.obj(
-      "created"  -> created,
-      "started"  -> started,
-      "finished" -> finished
-    )
+  def apply(tournaments: VisibleTournaments)(using Lang): Fu[JsObject] = for
+    created  <- tournaments.created.map(fullJson).parallel
+    started  <- tournaments.started.map(fullJson).parallel
+    finished <- tournaments.finished.map(fullJson).parallel
+  yield Json.obj(
+    "created"  -> created,
+    "started"  -> started,
+    "finished" -> finished
+  )
 
-  def featured(tournaments: List[Tournament])(using lang: Lang): Fu[JsObject] =
-    tournaments.map(fullJson).sequenceFu map { objs =>
+  def featured(tournaments: List[Tournament])(using Lang): Fu[JsObject] =
+    tournaments.map(fullJson).parallel map { objs =>
       Json.obj("featured" -> objs)
     }
 
-  def calendar(tournaments: List[Tournament])(using lang: Lang): JsObject =
+  def calendar(tournaments: List[Tournament])(using Lang): JsObject =
     Json.obj(
       "since"       -> tournaments.headOption.map(_.startsAt.withTimeAtStartOfDay),
       "to"          -> tournaments.lastOption.map(_.finishesAt.withTimeAtStartOfDay plusDays 1),
       "tournaments" -> JsArray(tournaments.map(baseJson))
     )
 
-  private def baseJson(tour: Tournament)(using lang: Lang): JsObject =
+  private def baseJson(tour: Tournament)(using Lang): JsObject =
     Json
       .obj(
         "id"        -> tour.id,
@@ -76,7 +75,7 @@ final class ApiJsonView(lightUserApi: LightUserApi)(using ec: scala.concurrent.E
         }
       )
 
-  def fullJson(tour: Tournament)(using lang: Lang): Fu[JsObject] =
+  def fullJson(tour: Tournament)(using Lang): Fu[JsObject] =
     (tour.winnerId ?? lightUserApi.async) map { winner =>
       baseJson(tour).add("winner" -> winner.map(userJson))
     }
@@ -93,7 +92,7 @@ final class ApiJsonView(lightUserApi: LightUserApi)(using ec: scala.concurrent.E
     List(Bullet, Blitz, Rapid, Classical, UltraBullet) ::: variants
   }.zipWithIndex.toMap
 
-  private def perfJson(p: PerfType)(using lang: Lang) =
+  private def perfJson(p: PerfType)(using Lang) =
     Json
       .obj(
         "key"      -> p.key,

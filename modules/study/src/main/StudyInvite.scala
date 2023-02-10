@@ -1,7 +1,5 @@
 package lila.study
 
-import scala.concurrent.duration.*
-
 import lila.db.dsl.{ *, given }
 import lila.notify.{ InvitedToStudy, Notification, NotifyApi }
 import lila.pref.Pref
@@ -16,9 +14,9 @@ final private class StudyInvite(
     notifyApi: NotifyApi,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
-  private val notifyRateLimit = new lila.memo.RateLimit[UserId](
+  private val notifyRateLimit = lila.memo.RateLimit[UserId](
     credits = 500,
     duration = 1 day,
     key = "study.invite.user"
@@ -49,7 +47,7 @@ final private class StudyInvite(
       _         <- relation.has(Block) ?? fufail[Unit]("This user does not want to join")
       isPresent <- getIsPresent(invited.id)
       _ <-
-        if (isPresent) funit
+        if (isPresent || Granter(_.StudyAdmin)(inviter)) funit
         else
           prefApi.getPref(invited).map(_.studyInvite).flatMap {
             case Pref.StudyInvite.ALWAYS => funit
@@ -61,7 +59,8 @@ final private class StudyInvite(
       _ <- studyRepo.addMember(study, StudyMember make invited)
       shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
       rateLimitCost =
-        if (relation has Follow) 10
+        if (Granter(_.StudyAdmin)(inviter)) 1
+        else if (relation has Follow) 10
         else if (inviter.roles has "ROLE_COACH") 20
         else if (inviter.hasTitle) 20
         else if (inviter.perfs.bestRating >= 2000) 50
@@ -86,6 +85,6 @@ final private class StudyInvite(
         .one(
           $id(study.id),
           $set(s"members.${user.id}" -> $doc("role" -> "w", "admin" -> true)) ++
-            $addToSet("uids"         -> user.id)
+            $addToSet("uids" -> user.id)
         )
     }.void

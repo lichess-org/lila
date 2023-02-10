@@ -1,7 +1,6 @@
 package lila.tournament
 package crud
 
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 
@@ -47,7 +46,7 @@ final class CrudForm(repo: TournamentRepo):
     minutes = minuteDefault,
     variant = chess.variant.Standard.id,
     position = none,
-    date = DateTime.now plusDays 7,
+    date = nowDate plusDays 7,
     image = "",
     headline = "",
     description = "",
@@ -84,7 +83,7 @@ object CrudForm:
 
     def realVariant = Variant orDefault variant
 
-    def realPosition = position ifTrue realVariant.standard
+    def realPosition: Option[Fen.Opening] = position.ifTrue(realVariant.standard).map(_.opening)
 
     def validClock = (clockTime + clockIncrement.value) > 0
 

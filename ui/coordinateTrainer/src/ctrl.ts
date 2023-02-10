@@ -9,11 +9,24 @@ import { ColorChoice, TimeControl, CoordinateTrainerConfig, InputMethod, Mode, M
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;
 
-const newKey = (oldKey: Key | ''): Key => {
+const randomChoice = (max: number) => Math.floor(Math.random() * max);
+
+const newKey = (oldKey: Key | '', selectedFiles?: Set<Files>, selectedRanks?: Set<Ranks>): Key => {
+  const rand = randomChoice(2);
+  let files = 'abcdefgh'.split('') as Files[];
+  let rows = '12345678'.split('') as Ranks[];
+
+  if (selectedFiles?.size) {
+    files = files.filter((f: Files) => selectedFiles.has(f));
+  }
+  if (selectedRanks?.size) rows = rows.filter((r: Ranks) => selectedRanks.has(r));
+
   // disallow the previous coordinate's row or file from being selected
-  const files = 'abcdefgh'.replace(oldKey[0], '');
-  const rows = '12345678'.replace(oldKey[1], '');
-  return (files[Math.floor(Math.random() * files.length)] + rows[Math.floor(Math.random() * files.length)]) as Key;
+  // rand so we only change one of them
+  if (files.length > 1 && rand === 0) files = files.filter(f => f !== oldKey[0]);
+  if (rows.length > 1 && rand === 1) rows = rows.filter(r => r !== oldKey[1]);
+
+  return (files[randomChoice(files.length)] + rows[randomChoice(rows.length)]) as Key;
 };
 
 const targetSvg = (target: 'current' | 'next'): string => `
@@ -100,6 +113,21 @@ export default class CoordinateTrainerCtrl {
     window.location.hash = `#${this.mode().substring(0, 4)}`;
   };
 
+  selectionEnabled = withEffect<boolean>(storedBooleanProp('coordinateTrainer.selectionEnabled', false), this.redraw);
+
+  selectedFiles = new Set<Files>();
+  selectedRanks = new Set<Ranks>();
+
+  onFilesChange = (file: Files, on: boolean) => {
+    if (on) this.selectedFiles.add(file);
+    else this.selectedFiles.delete(file);
+  };
+
+  onRanksChange = (rank: Ranks, on: boolean) => {
+    if (on) this.selectedRanks.add(rank);
+    else this.selectedRanks.delete(rank);
+  };
+
   timeControl = withEffect(
     storedProp<TimeControl>(
       'coordinateTrainer.timeControl',
@@ -182,12 +210,13 @@ export default class CoordinateTrainerCtrl {
 
   advanceCoordinates = () => {
     this.currentKey = this.nextKey;
-    this.nextKey = newKey(this.nextKey);
+    if (this.selectionEnabled() === true) this.nextKey = newKey(this.nextKey, this.selectedFiles, this.selectedRanks);
+    else this.nextKey = newKey(this.nextKey);
 
     if (this.mode() === 'nameSquare')
       this.chessground?.setShapes([
-        { orig: this.currentKey as Key, customSvg: targetSvg('current') },
-        { orig: this.nextKey as Key, customSvg: targetSvg('next') },
+        { orig: this.currentKey as Key, customSvg: targetSvg('current'), brush: '' },
+        { orig: this.nextKey as Key, customSvg: targetSvg('next'), brush: '' },
       ]);
 
     this.redraw();

@@ -3,7 +3,6 @@ package lila.mailer
 import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.common.Strings
@@ -18,7 +17,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     lightUser: lila.user.LightUserApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: Scheduler
 ):

@@ -5,7 +5,6 @@ import play.api.Mode
 import com.softwaremill.macwire.*
 import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 
@@ -24,11 +23,11 @@ private class VideoConfig(
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     mode: Mode
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private val config = appConfig.get[VideoConfig]("video")(AutoConfig.loader)
 

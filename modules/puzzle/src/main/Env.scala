@@ -3,7 +3,6 @@ package lila.puzzle
 import com.softwaremill.macwire.*
 import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.db.AsyncColl
@@ -28,9 +27,9 @@ final class Env(
     userRepo: lila.user.UserRepo,
     mongo: lila.db.Env
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     materializer: akka.stream.Materializer,
     mode: play.api.Mode
 ):

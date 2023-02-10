@@ -24,7 +24,7 @@ private object RelayInputSanity:
   private type RelayChapter = (Chapter, Chapter.Relay)
 
   private def detectMissingOrMisplaced(chapters: List[RelayChapter], games: Vector[RelayGame]): Option[Fail] =
-    chapters flatMap { case (chapter, relay) =>
+    chapters flatMap { (chapter, relay) =>
       games.lift(relay.index) match
         case None => Missing(relay.index).some
         case Some(game) if !game.staticTagsMatch(chapter) =>
@@ -52,7 +52,7 @@ private object RelayInputSanity:
       root = game.root.takeMainlineWhile { node =>
         !dgtBoggusKingMoveRegex.matches(node.move.san.value) || ! {
           Fen.read(game.variant, node.fen).fold(true) { sit =>
-            sit.board check !sit.color // the king that moved is in check
+            sit.board.checkOf(!sit.color).yes // the king that moved is in check
           }
         }
       }

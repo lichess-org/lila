@@ -12,7 +12,7 @@ final private class Takebacker(
     gameRepo: GameRepo,
     uciMemo: UciMemo,
     prefApi: PrefApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private given play.api.i18n.Lang = defaultLang
 
@@ -74,7 +74,7 @@ final private class Takebacker(
     else
       game.userIds.map {
         prefApi.getPref(_, (p: Pref) => p.takeback)
-      }.sequenceFu dmap {
+      }.parallel dmap {
         _.forall { p =>
           p == Pref.Takeback.ALWAYS || (p == Pref.Takeback.CASUAL && game.casual)
         }

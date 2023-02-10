@@ -11,7 +11,7 @@ import lila.base.LilaInvalid
 final class GifExport(
     ws: StandaloneWSClient,
     url: String
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
   def ofChapter(chapter: Chapter, theme: Option[String], piece: Option[String]): Fu[Source[ByteString, ?]] =
     ws.url(s"$url/game.gif")
       .withMethod("POST")
@@ -50,10 +50,8 @@ final class GifExport(
         framesRec(
           tail,
           arr :+ Json
-            .obj(
-              "fen" -> node.fen.value
-            )
-            .add("check", node.check option true)
+            .obj("fen" -> node.fen.value)
+            .add("check", node.check)
             .add("lastMove", node.moveOption.map(_.uci.uci))
             .add("delay", tail.isEmpty option 500) // more delay for last frame
         )

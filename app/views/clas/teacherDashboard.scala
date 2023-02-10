@@ -35,11 +35,11 @@ object teacherDashboard:
           )
         )
       ),
-      standardFlash(),
+      standardFlash,
       c.archived map { archived =>
         div(cls := "clas-show__archived archived")(
           bits.showArchived(archived),
-          postForm(action                                      := clasRoutes.archive(c.id.value, v = false))(
+          postForm(action := clasRoutes.archive(c.id.value, v = false))(
             form3.submit(trans.clas.reopen(), icon = none)(cls := "confirm button-empty")
           )
         )

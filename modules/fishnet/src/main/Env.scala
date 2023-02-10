@@ -41,7 +41,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     shutdown: akka.actor.CoordinatedShutdown
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: Scheduler,
     materializer: akka.stream.Materializer

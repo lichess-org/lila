@@ -2,7 +2,6 @@ package controllers
 
 import play.api.data.*
 import play.api.data.Forms.{ list as formList, * }
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 
 import lila.api.Context
@@ -56,7 +55,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
   def post(username: UserStr) =
     SecureBody(_.GamesModView) { implicit ctx => me =>
       OptionFuResult(env.user.repo byId username) { user =>
-        implicit val body: play.api.mvc.Request[?] = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         actionForm
           .bindFromRequest()
           .fold(
@@ -85,7 +84,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
             )
           )
           .void
-      }.sequenceFu >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
+      }.parallel >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
     } inject NoContent
 
   private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId]) =

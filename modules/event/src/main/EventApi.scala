@@ -1,17 +1,12 @@
 package lila.event
 
-import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.user.User
 
-final class EventApi(
-    coll: Coll,
-    cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
   import BsonHandlers.given
 
@@ -35,7 +30,7 @@ final class EventApi(
       .find(
         $doc(
           "enabled" -> true,
-          "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(1)
+          "startsAt" $gt nowDate.minusDays(1) $lt nowDate.plusDays(1)
         )
       )
       .sort($sort asc "startsAt")
@@ -57,7 +52,7 @@ final class EventApi(
     }
 
   def update(old: Event, data: EventForm.Data, by: User): Fu[Int] =
-    (coll.update.one($id(old.id), data.update(old, by)) >>- promotable.invalidateUnit()).map(_.n)
+    (coll.update.one($id(old.id), data.update(old, by)) >>- promotable.invalidateUnit()).dmap(_.n)
 
   def createForm = EventForm.form
 
@@ -68,5 +63,5 @@ final class EventApi(
   def clone(old: Event) =
     old.copy(
       title = s"${old.title} (clone)",
-      startsAt = DateTime.now plusDays 7
+      startsAt = nowDate plusDays 7
     )

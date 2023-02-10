@@ -8,7 +8,7 @@ object lag:
 
   import trans.lag.*
 
-  def apply()(implicit ctx: Context) =
+  def apply()(using Context) =
     page.layout(
       title = "Is Lichess lagging?",
       active = "lag",

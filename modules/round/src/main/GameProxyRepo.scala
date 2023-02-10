@@ -8,7 +8,7 @@ import lila.hub.actorApi.mailer.*
 final class GameProxyRepo(
     gameRepo: lila.game.GameRepo,
     roundSocket: RoundSocket
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def game(gameId: GameId): Fu[Option[Game]] = Game.validId(gameId) ?? roundSocket.getGame(gameId)
 
@@ -34,7 +34,7 @@ final class GameProxyRepo(
     upgradeIfPresent(pov.game).dmap(_ pov pov.color)
 
   def upgradeIfPresent(games: List[Game]): Fu[List[Game]] =
-    games.map(upgradeIfPresent).sequenceFu
+    games.map(upgradeIfPresent).parallel
 
   // update the proxied game
   def updateIfPresent = roundSocket.updateIfPresent
@@ -51,7 +51,7 @@ final class GameProxyRepo(
     gameRepo urgentPovsUnsorted user flatMap {
       _.map { pov =>
         gameIfPresent(pov.gameId) dmap { _.fold(pov)(pov.withGame) }
-      }.sequenceFu map { povs =>
+      }.parallel map { povs =>
         try povs sortWith Pov.priority
         catch
           case e: IllegalArgumentException =>

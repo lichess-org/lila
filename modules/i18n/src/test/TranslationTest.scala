@@ -43,6 +43,14 @@ class TranslationTest extends Specification {
       if (errors.isEmpty) success
       else failure(errors mkString "\n")
     }
+    "escape html" >> {
+      import play.api.i18n.Lang
+      import scalatags.Text.all.*
+      given lang: Lang = defaultLang
+      I18nKeys.depthX("string") === RawFrag("Depth string")
+      I18nKeys.depthX("<string>") === RawFrag("Depth &lt;string&gt;")
+      I18nKeys.depthX(Html("<html>")) === RawFrag("Depth &lt;html&gt;")
+    }
   }
 
   private def argsForKey(k: String): List[String] =

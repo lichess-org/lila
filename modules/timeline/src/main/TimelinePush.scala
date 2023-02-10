@@ -1,15 +1,12 @@
 package lila.timeline
 
 import akka.actor.*
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import lila.common.config.Max
 import lila.hub.actorApi.timeline.Propagation
 import lila.hub.actorApi.timeline.{ Atom, Propagate, ReloadTimelines }
 import lila.security.Permission
 import lila.user.{ User, UserRepo }
-import scala.concurrent.ExecutionContext
 
 final private[timeline] class TimelinePush(
     relationApi: lila.relation.RelationApi,
@@ -20,7 +17,7 @@ final private[timeline] class TimelinePush(
     teamCache: lila.team.Cached
 ) extends Actor:
 
-  private given ExecutionContext = context.dispatcher
+  private given Executor = context.dispatcher
 
   private val dedup = lila.memo.OnceEvery.hashCode[Atom](10 minutes)
 
@@ -36,7 +33,7 @@ final private[timeline] class TimelinePush(
   }
 
   private def propagate(propagations: List[Propagation]): Fu[List[UserId]] =
-    scala.concurrent.Future.traverse(propagations) {
+    Future.traverse(propagations) {
       case Propagation.Users(ids)    => fuccess(ids)
       case Propagation.Followers(id) => relationApi.freshFollowersFromSecondary(id)
       case Propagation.Friends(id)   => relationApi.fetchFriends(id)

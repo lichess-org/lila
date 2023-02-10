@@ -3,6 +3,7 @@ import { bind, onInsert } from 'common/snabbdom';
 import LobbyController from '../ctrl';
 import { GameType } from '../interfaces';
 import renderSetupModal from './setup/modal';
+import { numberFormat } from 'common/number';
 
 export default function table(ctrl: LobbyController) {
   const { data, trans, opts } = ctrl;
@@ -20,9 +21,10 @@ export default function table(ctrl: LobbyController) {
           ['ai', 'playWithTheMachine', hasOngoingRealTimeGame],
         ].map(([gameType, transKey, disabled]: [GameType, string, boolean]) =>
           h(
-            `a.button.button-metal.config_${gameType}`,
+            `button.button.button-metal.config_${gameType}`,
             {
               class: { active: ctrl.setupCtrl.gameType === gameType, disabled },
+              attrs: { type: 'button' },
               hook: disabled
                 ? {}
                 : bind(opts.blindMode ? 'click' : 'mousedown', () => ctrl.setupCtrl.openModal(gameType), ctrl.redraw),
@@ -53,7 +55,7 @@ export default function table(ctrl: LobbyController) {
                     ctrl.spreadPlayersNumber = ctrl.initNumberSpreader(elm, 10, members);
                   }),
                 },
-                members
+                numberFormat(members)
               )
             )
           ),
@@ -71,7 +73,7 @@ export default function table(ctrl: LobbyController) {
                     ctrl.spreadGamesNumber = ctrl.initNumberSpreader(elm, 8, rounds);
                   }),
                 },
-                rounds
+                numberFormat(rounds)
               )
             )
           ),

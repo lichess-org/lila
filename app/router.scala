@@ -6,6 +6,7 @@ import lila.puzzle.PuzzleTheme
 import lila.report.Report
 import lila.appeal.Appeal
 import chess.variant.Variant
+import lila.clas.{ Clas, ClasInvite }
 
 // These are only meant for the play router,
 // so that controllers can take richer types than routes allow
@@ -25,6 +26,9 @@ given Conversion[String, ForumCategId]                                   = Forum
 given Conversion[String, ForumTopicId]                                   = ForumTopicId(_)
 given appealId: Conversion[String, Appeal.Id]                            = Appeal.Id(_)
 given reportId: Conversion[String, Report.Id]                            = Report.Id(_)
+given clasId: Conversion[String, Clas.Id]                                = Clas.Id(_)
+given clasInviteId: Conversion[String, ClasInvite.Id]                    = ClasInvite.Id(_)
+given relayTourInviteId: Conversion[String, lila.relay.RelayTour.Id]     = lila.relay.RelayTour.Id(_)
 given Conversion[String, ForumPostId]                                    = ForumPostId(_)
 given Conversion[String, UserStr]                                        = UserStr(_)
 given userOpt: Conversion[Option[String], Option[UserStr]]               = UserStr from _
@@ -57,12 +61,15 @@ object ReverseRouterConversions:
   given variantKeyOpt: Conversion[Option[Variant.LilaKey], Option[String]] = Variant.LilaKey.raw(_)
   given Conversion[Option[UserName], Option[String]]                       = UserName.raw(_)
   // where a UserStr is accepted, we can pass a UserName or UserId
-  given Conversion[UserName, UserStr]                      = _ into UserStr
-  given Conversion[UserId, UserStr]                        = _ into UserStr
-  given Conversion[ForumCategId, String]                   = _.value
-  given Conversion[ForumTopicId, String]                   = _.value
-  given appealIdConv: Conversion[Appeal.Id, String]        = _.value
-  given reportIdConv: Conversion[Report.Id, String]        = _.value
-  given postIdConv: Conversion[ForumPostId, String]        = _.value
-  given perfKeyConv: Conversion[Perf.Key, String]          = _.value
-  given puzzleKeyConv: Conversion[PuzzleTheme.Key, String] = _.value
+  given Conversion[UserName, UserStr]                                = _ into UserStr
+  given Conversion[UserId, UserStr]                                  = _ into UserStr
+  given Conversion[ForumCategId, String]                             = _.value
+  given Conversion[ForumTopicId, String]                             = _.value
+  given appealIdConv: Conversion[Appeal.Id, String]                  = _.value
+  given reportIdConv: Conversion[Report.Id, String]                  = _.value
+  given postIdConv: Conversion[ForumPostId, String]                  = _.value
+  given clasIdConv: Conversion[Clas.Id, String]                      = _.value
+  given clasInviteIdConv: Conversion[ClasInvite.Id, String]          = _.value
+  given relayTourIdConv: Conversion[lila.relay.RelayTour.Id, String] = _.value
+  given perfKeyConv: Conversion[Perf.Key, String]                    = _.value
+  given puzzleKeyConv: Conversion[PuzzleTheme.Key, String]           = _.value

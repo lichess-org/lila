@@ -61,9 +61,13 @@ object admin:
   private def teamMembersAutoComplete(team: lila.team.Team)(field: Field) =
     form3.textarea(field)(rows := 2, dataRel := team.id)
 
-  def pmAll(t: lila.team.Team, form: Form[?], tours: List[lila.tournament.Tournament], unsubs: Int)(using
-      ctx: Context
-  ) =
+  def pmAll(
+      t: lila.team.Team,
+      form: Form[?],
+      tours: List[lila.tournament.Tournament],
+      unsubs: Int,
+      limiter: (Int, DateTime)
+  )(using ctx: Context) =
     views.html.base.layout(
       title = s"${t.name} • ${messageAllMembers.txt()}",
       moreCss = cssTag("team"),
@@ -103,8 +107,6 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
               form("message"),
               trans.message(),
               help = frag(
-                "You can send up to 7 team messages per week.",
-                br,
                 pluralizeLocalize("member", unsubs),
                 " out of ",
                 t.nbMembers.localize,
@@ -114,16 +116,29 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
                 " have unsubscribed from messages."
               ).some
             )(form3.textarea(_)(rows := 10)),
-            form3.actions(
-              a(href := routes.Team.show(t.slug))(trans.cancel()),
-              form3.submit(trans.send())
-            )
+            limiter match
+              case (remaining, until) =>
+                frag(
+                  p(cls := (remaining <= 0).option("error"))(
+                    "You can send up to ",
+                    lila.app.mashup.TeamInfo.pmAllCredits,
+                    " team messages per week. ",
+                    strong(remaining),
+                    " messages remaining until ",
+                    momentFromNowOnce(until),
+                    "."
+                  ),
+                  form3.actions(
+                    a(href := routes.Team.show(t.slug))(trans.cancel()),
+                    remaining > 0 option form3.submit(trans.send())
+                  )
+                )
           )
         )
       )
     }
 
-  private def adminTop(t: lila.team.Team, i18n: lila.i18n.I18nKey)(implicit lang: Lang) =
+  private def adminTop(t: lila.team.Team, i18n: lila.i18n.I18nKey)(using Lang) =
     boxTop(
       h1(a(href := routes.Team.show(t.slug))(t.name), " • ", i18n())
     )

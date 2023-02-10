@@ -1,8 +1,5 @@
 package lila.swiss
 
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
-
 import lila.db.dsl.{ *, given }
 import lila.memo.*
 import lila.memo.CacheApi.*
@@ -10,7 +7,7 @@ import lila.memo.CacheApi.*
 final class SwissCache(
     mongo: SwissMongo,
     cacheApi: CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 

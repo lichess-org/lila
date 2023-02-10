@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="arenaTournaments">Arena-turneringar</string>
-  <string name="isItRated">Räknas rating?</string>
+  <string name="isItRated">Är det rankat?</string>
   <string name="willBeNotified">Du får ett meddelande när turneringen startar, så du kan utan problem spela i en annan flik medan du väntar.</string>
   <string name="isRated">Turneringen är rankad och kommer påverka din rating.</string>
   <string name="isNotRated">Turneringen är *inte* rankad och kommer *inte* att påverka din rating.</string>
@@ -31,10 +31,10 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   </plurals>
   <string name="thisIsPrivate">Detta är en privat turnering</string>
   <string name="shareUrl">Dela denna länk för att låta spelare delta: %s</string>
-  <string name="drawStreakStandard">Remiserier: När en spelare har konsekutiva remier i en arena så kommer bara den första att ge ett poäng, eller remier som tar mer än %s drag i standardpartier. Remiserien kan bara brytas av en vinst, inte en förlust eller remi.</string>
+  <string name="drawStreakStandard">Remiserier: När en spelare har konsekutiva remier i en arena så kommer bara den första att ge ett poäng, eller remier som varar mer än %s drag i standardpartier. Remiserien kan bara brytas av en vinst, inte en förlust eller remi.</string>
   <string name="drawStreakVariants">Minsta partilängden för att remier ska ge poäng är olika mellan varianter. Tabellen nedan listar gränsvärden för varje variant.</string>
   <string name="variant">Variant</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Minsta partilängd</string>
+  <string name="minimumGameLength">Minsta partilängd</string>
   <string name="history">Arena-historik</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Visa laget</item>
@@ -43,7 +43,7 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="newTeamBattle">Ny Lagmatch</string>
   <string name="customStartDate">Anpassat startdatum</string>
   <string name="customStartDateHelp">I din egen lokala tidszon. Detta åsidosätter inställningen \"Tid tills turneringen börjar\"</string>
-  <string name="allowBerserk">Tillåt Berserk</string>
+  <string name="allowBerserk">Tillåt Bärsärk</string>
   <string name="allowBerserkHelp">Låt spelarna halvera sin klocktid för att få en extra poäng</string>
   <string name="allowChatHelp">Låt spelare diskutera i ett chattrum</string>
   <string name="arenaStreaks">Arenavinster i rad</string>

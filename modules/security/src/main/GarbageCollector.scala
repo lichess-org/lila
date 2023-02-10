@@ -1,8 +1,6 @@
 package lila.security
 
-import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress }
@@ -16,8 +14,8 @@ final class GarbageCollector(
     noteApi: lila.user.NoteApi,
     isArmed: () => Boolean
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
+    ec: Executor,
+    scheduler: Scheduler
 ):
 
   private val logger = lila.security.logger.branch("GarbageCollector")
@@ -29,13 +27,13 @@ final class GarbageCollector(
 
   // User just signed up and doesn't have security data yet, so wait a bit
   def delay(user: User, email: EmailAddress, req: RequestHeader): Unit =
-    if (user.createdAt.isAfter(DateTime.now minusDays 3))
+    if (user.createdAt.isAfter(nowDate minusDays 3))
       val ip = HTTPRequest ipAddress req
       scheduler
         .scheduleOnce(6 seconds) {
           val applyData = ApplyData(user, ip, email, req)
           logger.debug(s"delay $applyData")
-          lila.common.Future
+          lila.common.LilaFuture
             .retry(
               () => ensurePrintAvailable(applyData),
               delay = 10 seconds,
@@ -56,7 +54,7 @@ final class GarbageCollector(
   private def apply(data: ApplyData): Funit =
     data match
       case ApplyData(user, ip, email, req) =>
-        for {
+        for
           spy    <- userLogins(user, 300)
           ipSusp <- ipTrust.isSuspicious(ip)
           _ <-
@@ -71,7 +69,7 @@ final class GarbageCollector(
               case _ =>
                 badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
                   logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
-                  lila.common.Future
+                  lila.common.LilaFuture
                     .exists(spy.ips)(ipTrust.isSuspicious)
                     .map {
                       _ ?? collect(
@@ -81,12 +79,12 @@ final class GarbageCollector(
                       )
                     }
                 }
-        } yield ()
+        yield ()
 
   private def badOtherAccounts(accounts: List[User]): Option[List[User]] =
     val others = accounts
       .sortBy(-_.createdAt.getSeconds)
-      .takeWhile(_.createdAt.isAfter(DateTime.now minusDays 10))
+      .takeWhile(_.createdAt.isAfter(nowDate minusDays 10))
       .take(4)
     (others.sizeIs > 1 && others.forall(isBadAccount) && others.headOption.exists(_.enabled.no)) option others
 

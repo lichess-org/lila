@@ -60,7 +60,7 @@
   <string name="depthX">Dubina %s</string>
   <string name="usingServerAnalysis">U uporabi je serverska analiza</string>
   <string name="loadingEngine">Učitavanje računalne analize...</string>
-  <string name="calculatingMoves">Kalkuliram poteze...</string>
+  <string name="calculatingMoves">Kalkuliranje poteza...</string>
   <string name="engineFailed">Greška pri učitavanju šahovskog programa</string>
   <string name="cloudAnalysis">Analiza u oblaku</string>
   <string name="goDeeper">Idi dublje</string>
@@ -389,6 +389,7 @@
   <string name="siteDescription">Besplatni internetski šah. Igraj odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igraj šah protiv računala, prijatelja ili nasumičnih protivnika.</string>
   <string name="xJoinedTeamY">%1$s se priključio timu %2$s</string>
   <string name="xCreatedTeamY">%1$s je osnovao tim %2$s</string>
+  <string name="startedStreaming">je započeo stream</string>
   <string name="xStartedStreaming">%s je započeo stream</string>
   <string name="averageElo">Prosječni rejting</string>
   <string name="location">Lokacija</string>
@@ -571,6 +572,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="blog">Blog</string>
   <string name="notes">Zabilješke</string>
   <string name="typePrivateNotesHere">Upiši privatne zabilješke ovdje</string>
+  <string name="writeAPrivateNoteAboutThisUser">Napišite privatnu bilješku o ovom korisniku</string>
+  <string name="noNoteYet">Još nema bilješke</string>
   <string name="invalidUsernameOrPassword">Pogrešno korisničko ime ili lozinka</string>
   <string name="incorrectPassword">Netočna lozinka</string>
   <string name="invalidAuthenticationCode">Nevažeći kôd autentičnosti</string>
@@ -740,6 +743,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="kidMode">Dječji način</string>
   <string name="kidModeExplanation">Ovdje se radi se o sigurnosti. U dječjem načinu, sve komunikacije na stranici su onemogućene. Omogući ovo za svoju djecu i učenike, da ih zaštitiš od drugih internet korisnika.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">U dječjem načinu, logo lichess-a dobiva %s ikonu, tako da znaš da su tvoja djeca sigurna.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Vaš račun je upravljan. Pitajte svog učitelja šaha o uklanjanju načina rada za djecu.</string>
   <string name="enableKidMode">Omogući dječji način</string>
   <string name="disableKidMode">Onemogući dječji način</string>
   <string name="security">Sigurnost</string>
@@ -775,6 +779,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="light">Svijetla</string>
   <string name="dark">Tamna</string>
   <string name="transparent">Prozirna</string>
+  <string name="deviceTheme">Tema uređaja</string>
   <string name="backgroundImageUrl">URL pozadinske slike:</string>
   <string name="boardGeometry">Geometrija ploče</string>
   <string name="boardTheme">Tema ploče</string>

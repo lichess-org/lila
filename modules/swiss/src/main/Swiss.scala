@@ -3,8 +3,6 @@ package lila.swiss
 import chess.Clock.{ Config as ClockConfig }
 import chess.format.Fen
 import chess.Speed
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
@@ -33,7 +31,7 @@ case class Swiss(
   def isStarted          = !isCreated && !isFinished
   def isFinished         = finishedAt.isDefined
   def isNotFinished      = !isFinished
-  def isNowOrSoon        = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
+  def isNowOrSoon        = startsAt.isBefore(nowDate plusMinutes 15) && !isFinished
   def isRecentlyFinished = finishedAt.exists(f => (nowSeconds - f.getSeconds) < 30 * 60)
   def isEnterable =
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers

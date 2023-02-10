@@ -1,6 +1,5 @@
 package lila.api
 
-import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json.Json
 import play.api.libs.ws.JsonBodyWritables.*
@@ -9,7 +8,7 @@ import play.api.libs.ws.StandaloneWSClient
 import lila.hub.actorApi.Announce
 
 final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDuty)(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   def lilaRestart(date: DateTime): Funit =

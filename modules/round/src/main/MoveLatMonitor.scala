@@ -1,8 +1,6 @@
 package lila.round
 
-import akka.actor.Scheduler
 import java.util.concurrent.atomic.AtomicReference
-import scala.concurrent.duration.*
 
 private object MoveLatMonitor:
 
@@ -20,7 +18,7 @@ private object MoveLatMonitor:
     var latestMillis     = 0
     def set(millis: Int) = latestMillis = millis
 
-  def start(scheduler: Scheduler)(using ec: scala.concurrent.ExecutionContext) =
+  def start(scheduler: Scheduler)(using Executor) =
     scheduler.scheduleWithFixedDelay(10 second, 2 second) { () =>
       val full = latency.getAndSet(Latency()).average + wsLatency.latestMillis
       lila.common.Bus.publish(lila.hub.actorApi.round.Mlat(full), "mlat")

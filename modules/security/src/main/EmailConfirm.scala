@@ -31,7 +31,7 @@ final class EmailConfirmMailer(
     mailer: Mailer,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(using ec: scala.concurrent.ExecutionContext)
+)(using Executor)
     extends EmailConfirm:
 
   import Mailer.html.*
@@ -71,9 +71,7 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
   import EmailConfirm.Result
 
   def confirm(token: String): Fu[Result] =
-    tokener read token flatMap {
-      _ ?? userRepo.enabledById
-    } flatMap {
+    tokener read token flatMapz userRepo.enabledById flatMap {
       _.fold[Fu[Result]](fuccess(Result.NotFound)) { user =>
         userRepo.mustConfirmEmail(user.id) flatMap {
           case true  => (userRepo setEmailConfirmed user.id) inject Result.JustConfirmed(user)
@@ -114,25 +112,24 @@ object EmailConfirm:
         UserEmail(UserName(username), EmailAddress(email))
       }
 
-  import scala.concurrent.duration.*
   import play.api.mvc.RequestHeader
   import alleycats.Zero
   import lila.memo.RateLimit
   import lila.common.{ HTTPRequest, IpAddress }
 
-  private lazy val rateLimitPerIP = new RateLimit[IpAddress](
+  private lazy val rateLimitPerIP = RateLimit[IpAddress](
     credits = 40,
     duration = 1 hour,
     key = "email.confirms.ip"
   )
 
-  private lazy val rateLimitPerUser = new RateLimit[UserId](
+  private lazy val rateLimitPerUser = RateLimit[UserId](
     credits = 3,
     duration = 1 hour,
     key = "email.confirms.user"
   )
 
-  private lazy val rateLimitPerEmail = new RateLimit[String](
+  private lazy val rateLimitPerEmail = RateLimit[String](
     credits = 3,
     duration = 1 hour,
     key = "email.confirms.email"
@@ -165,7 +162,7 @@ object EmailConfirm:
       single("username" -> lila.user.UserForm.historicalUsernameField)
     )
 
-    def getStatus(userRepo: UserRepo, u: UserStr)(using scala.concurrent.ExecutionContext): Fu[Status] =
+    def getStatus(userRepo: UserRepo, u: UserStr)(using Executor): Fu[Status] =
       import Status.*
       userRepo withEmails u flatMap {
         case None => fuccess(NoSuchUser(u into UserName))

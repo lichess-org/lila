@@ -14,7 +14,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     userRepo: UserRepo
 )(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   private lazy val dayColl = db(CollName("storm_day"))

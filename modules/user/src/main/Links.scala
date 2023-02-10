@@ -54,6 +54,7 @@ object Link:
     case object VKontakte            extends Site("VKontakte", List("vk.com"))
     case object ChessCom             extends Site("Chess.com", List("chess.com"))
     case object Chess24              extends Site("Chess24", List("chess24.com"))
+    case object ChessMonitor         extends Site("ChessMonitor", List("chessmonitor.com"))
     case object ChessTempo           extends Site("ChessTempo", List("chesstempo.com"))
     case class Other(domain: String) extends Site(domain, List(domain))
 
@@ -68,6 +69,7 @@ object Link:
       VKontakte,
       ChessCom,
       Chess24,
+      ChessMonitor,
       ChessTempo
     )
 

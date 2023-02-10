@@ -1,18 +1,15 @@
 package lila.tournament
 
 import chess.StartingPosition
-import org.joda.time.DateTime
-import org.joda.time.DateTimeConstants.*
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 import scala.util.chaining.*
+import org.joda.time.DateTimeConstants.*
 
 import lila.common.{ LilaScheduler, LilaStream }
 
 final private class TournamentScheduler(
     api: TournamentApi,
     tournamentRepo: TournamentRepo
-)(using ec: ExecutionContext, scheduler: akka.actor.Scheduler, mat: akka.stream.Materializer):
+)(using ec: Executor, scheduler: Scheduler, mat: akka.stream.Materializer):
 
   import Schedule.Freq.*
   import Schedule.Speed.*
@@ -22,7 +19,7 @@ final private class TournamentScheduler(
   LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
     tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
       try
-        val newTourns = allWithConflicts(DateTime.now).map(_.build)
+        val newTourns = allWithConflicts(nowDate).map(_.build)
         val pruned    = pruneConflicts(dbScheds, newTourns)
         tournamentRepo.insert(pruned).logFailure(logger)
       catch
@@ -51,15 +48,14 @@ final private class TournamentScheduler(
     val startOfYear = today.dayOfYear.withMinimumValue
 
     class OfMonth(fromNow: Int):
-      val firstDay = today.plusMonths(fromNow).dayOfMonth.withMinimumValue
-      val lastDay  = firstDay.dayOfMonth.withMaximumValue
-
+      val firstDay   = today.plusMonths(fromNow).dayOfMonth.withMinimumValue
+      val lastDay    = firstDay.dayOfMonth.withMaximumValue
       val firstWeek  = firstDay.plusDays(7 - (firstDay.getDayOfWeek - 1) % 7)
       val secondWeek = firstWeek plusDays 7
       val thirdWeek  = secondWeek plusDays 7
       val lastWeek   = lastDay.minusDays((lastDay.getDayOfWeek - 1) % 7)
-    val thisMonth = new OfMonth(0)
-    val nextMonth = new OfMonth(1)
+    val thisMonth = OfMonth(0)
+    val nextMonth = OfMonth(1)
 
     def nextDayOfWeek(number: Int) = today.plusDays((number + 7 - today.getDayOfWeek) % 7)
     val nextMonday                 = nextDayOfWeek(1)
@@ -80,7 +76,7 @@ final private class TournamentScheduler(
 
     val isHalloween = today.getDayOfMonth == 31 && today.getMonthOfYear == OCTOBER
 
-    def opening(offset: Int) =
+    def openingAt(offset: Int): StartingPosition =
       val positions = StartingPosition.featurable
       positions((today.getDayOfYear + offset) % positions.size)
 
@@ -314,22 +310,27 @@ Thank you all, you rock!""",
         at(today, 7) map { date =>
           Schedule(Eastern, Rapid, Standard, none, date pipe orTomorrow).plan
         }
-      ).flatten,
-      (if (isHalloween) // replace more thematic tournaments on halloween
-         List(
-           1  -> StartingPosition.presets.halloween,
-           5  -> StartingPosition.presets.frankenstein,
-           9  -> StartingPosition.presets.halloween,
-           13 -> StartingPosition.presets.frankenstein,
-           17 -> StartingPosition.presets.halloween,
-           21 -> StartingPosition.presets.frankenstein
-         )
-       else
-         List( // random opening replaces hourly 3 times a day
-           3  -> opening(offset = 2),
-           11 -> opening(offset = 1),
-           19 -> opening(offset = 0)
-         )).flatMap { case (hour, opening) =>
+      ).flatten, {
+        {
+          for
+            halloween    <- StartingPosition.presets.halloween
+            frankenstein <- StartingPosition.presets.frankenstein
+            if isHalloween // replace more thematic tournaments on halloween
+          yield List(
+            1  -> halloween,
+            5  -> frankenstein,
+            9  -> halloween,
+            13 -> frankenstein,
+            17 -> halloween,
+            21 -> frankenstein
+          )
+        } |
+          List( // random opening replaces hourly 3 times a day
+            3  -> openingAt(offset = 2),
+            11 -> openingAt(offset = 1),
+            19 -> openingAt(offset = 0)
+          )
+      }.flatMap { (hour, opening) =>
         List(
           at(today, hour) map { date =>
             Schedule(Hourly, Bullet, Standard, opening.fen.some, date pipe orTomorrow).plan

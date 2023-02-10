@@ -2,7 +2,6 @@ package lila.swiss
 
 import com.softwaremill.macwire.*
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.common.LilaScheduler
@@ -26,9 +25,9 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     baseUrl: lila.common.config.BaseUrl
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mat: akka.stream.Materializer,
     idGenerator: lila.game.IdGenerator,
     mode: play.api.Mode
@@ -110,7 +109,7 @@ final class Env(
     api.checkOngoingGames
   )
 
-  LilaScheduler("Swiss.generate", _.Every(1 hour), _.AtMost(15 seconds), _.Delay(5 minutes))(
+  LilaScheduler("Swiss.generate", _.Every(3 hours), _.AtMost(15 seconds), _.Delay(15 minutes))(
     officialSchedule.generate
   )
 

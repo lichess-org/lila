@@ -14,7 +14,7 @@ final class PasswordReset(
     userRepo: UserRepo,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Mailer.html.*
 
@@ -43,7 +43,7 @@ ${trans.common_orPaste.txt()}"""),
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener read token flatMap { _ ?? userRepo.byId } map {
+    tokener read token flatMapz userRepo.byId map {
       _.filter(_.canFullyLogin)
     }
 

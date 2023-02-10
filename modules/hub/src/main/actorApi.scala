@@ -2,9 +2,8 @@ package lila.hub
 package actorApi
 
 import chess.format.{ BoardFen, Uci, Fen }
-import org.joda.time.{ DateTime, Period }
+import org.joda.time.Period
 import play.api.libs.json.*
-import scala.concurrent.Promise
 
 // announce something to all clients
 case class Announce(msg: String, date: DateTime, json: JsObject)
@@ -35,6 +34,7 @@ package socket:
   object remote:
     case class TellSriIn(sri: String, user: Option[UserId], msg: JsObject)
     case class TellSriOut(sri: String, payload: JsValue)
+    case class TellSrisOut(sris: Iterable[String], payload: JsValue)
     case class TellUserIn(user: UserId, msg: JsObject)
   case class ApiUserIsOnline(userId: UserId, isOnline: Boolean)
 
@@ -46,7 +46,7 @@ package clas:
 package report:
   case class Cheater(userId: UserId, text: String)
   case class Shutup(userId: UserId, text: String, critical: Boolean)
-  case class AutoFlag(suspectId: UserId, resource: String, text: String)
+  case class AutoFlag(suspectId: UserId, resource: String, text: String, critical: Boolean)
   case class CheatReportCreated(userId: UserId)
 
 package security:
@@ -69,14 +69,13 @@ package shutup:
   case class RecordPrivateChat(chatId: String, userId: UserId, text: String)
   case class RecordPublicChat(userId: UserId, text: String, source: PublicSource)
 
-  sealed abstract class PublicSource(val parentName: String)
-  object PublicSource:
-    case class Tournament(id: TourId)  extends PublicSource("tournament")
-    case class Simul(id: SimulId)      extends PublicSource("simul")
-    case class Study(id: StudyId)      extends PublicSource("study")
-    case class Watcher(gameId: GameId) extends PublicSource("watcher")
-    case class Team(id: TeamId)        extends PublicSource("team")
-    case class Swiss(id: SwissId)      extends PublicSource("swiss")
+  enum PublicSource(val parentName: String):
+    case Tournament(id: TourId)  extends PublicSource("tournament")
+    case Simul(id: SimulId)      extends PublicSource("simul")
+    case Study(id: StudyId)      extends PublicSource("study")
+    case Watcher(gameId: GameId) extends PublicSource("watcher")
+    case Team(id: TeamId)        extends PublicSource("team")
+    case Swiss(id: SwissId)      extends PublicSource("swiss")
 
 package mod:
   case class MarkCheater(userId: UserId, value: Boolean)
@@ -98,7 +97,7 @@ package captcha:
   case class ValidCaptcha(id: GameId, solution: String)
 
 package lpv:
-  case class GamePgnsFromText(text: String, promise: Promise[Map[GameId, String]])
+  case class GamePgnsFromText(text: String, promise: Promise[Map[GameId, chess.format.pgn.PgnStr]])
   case class LpvLinkRenderFromText(text: String, promise: Promise[lila.base.RawHtml.LinkRender])
 
 package simul:

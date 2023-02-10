@@ -19,11 +19,11 @@ final private class Finisher(
     crosstableApi: lila.game.CrosstableApi,
     getSocketStatus: Game => Fu[actorApi.SocketStatus],
     recentTvGames: RecentTvGames
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private given play.api.i18n.Lang = defaultLang
 
-  def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+  def abort(pov: Pov)(using GameProxy): Fu[Events] =
     apply(pov.game, _.Aborted, None) >>- {
       getSocketStatus(pov.game) foreach { ss =>
         playban.abort(pov, ss.colorsOnGame)
@@ -31,16 +31,16 @@ final private class Finisher(
       Bus.publish(AbortedBy(pov.copy(game = pov.game.abort)), "abortGame")
     }
 
-  def abortForce(game: Game)(implicit proxy: GameProxy): Fu[Events] =
+  def abortForce(game: Game)(using GameProxy): Fu[Events] =
     apply(game, _.Aborted, None)
 
-  def rageQuit(game: Game, winner: Option[Color])(implicit proxy: GameProxy): Fu[Events] =
+  def rageQuit(game: Game, winner: Option[Color])(using GameProxy): Fu[Events] =
     apply(game, _.Timeout, winner) >>-
       winner.foreach { color =>
         playban.rageQuit(game, !color)
       }
 
-  def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] =
+  def outOfTime(game: Game)(using GameProxy): Fu[Events] =
     if (!game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt))
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
@@ -53,7 +53,7 @@ final private class Finisher(
           playban.flag(game, !w)
         }
 
-  def noStart(game: Game)(implicit proxy: GameProxy): Fu[Events] =
+  def noStart(game: Game)(using GameProxy): Fu[Events] =
     game.playerWhoDidNotMove ?? { culprit =>
       lila.mon.round.expiration.count.increment()
       playban.noStart(Pov(game, culprit))
@@ -66,7 +66,7 @@ final private class Finisher(
       status: Status.type => Status,
       winner: Option[Color],
       message: Option[Messenger.SystemMessage] = None
-  )(implicit proxy: GameProxy): Fu[Events] =
+  )(using GameProxy): Fu[Events] =
     apply(game, status, winner, message) >>- playban.other(game, status, winner).unit
 
   private def recordLagStats(game: Game) = for {
@@ -103,7 +103,7 @@ final private class Finisher(
       makeStatus: Status.type => Status,
       winnerC: Option[Color],
       message: Option[Messenger.SystemMessage] = None
-  )(implicit proxy: GameProxy): Fu[Events] =
+  )(using proxy: GameProxy): Fu[Events] =
     val status = makeStatus(Status)
     val prog   = lila.game.Progress(prev, prev.finish(status, winnerC))
     val game   = prog.game
@@ -127,7 +127,7 @@ final private class Finisher(
       ) >>
       userRepo
         .pair(game.whitePlayer.userId, game.blackPlayer.userId)
-        .flatMap { case (whiteO, blackO) =>
+        .flatMap { (whiteO, blackO) =>
           val finish = FinishGame(game, whiteO, blackO)
           updateCountAndPerfs(finish) map { ratingDiffs =>
             message foreach { messenger(game, _) }
@@ -145,8 +145,8 @@ final private class Finisher(
 
   private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
     (!finish.isVsSelf && !finish.game.aborted) ?? {
-      import cats.implicits.*
-      (finish.white, finish.black).mapN((_, _)) ?? { case (white, black) =>
+      import cats.syntax.all.*
+      (finish.white, finish.black).mapN((_, _)) ?? { (white, black) =>
         crosstableApi.add(finish.game) zip perfsUpdater.save(finish.game, white, black) dmap (_._2)
       } zip
         (finish.white ?? incNbGames(finish.game)) zip

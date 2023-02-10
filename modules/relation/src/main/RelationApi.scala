@@ -1,9 +1,7 @@
 package lila.relation
 
-import org.joda.time.DateTime
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.common.Json.given
@@ -22,7 +20,7 @@ final class RelationApi(
     cacheApi: lila.memo.CacheApi,
     userRepo: lila.user.UserRepo,
     config: RelationConfig
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import RelationRepo.makeId
 
@@ -128,28 +126,24 @@ final class RelationApi(
     ).map(_.userId)
 
   def follow(u1: UserId, u2: UserId): Funit =
-    (u1 != u2) ?? prefApi.followable(u2).flatMap {
-      _ ?? {
-        userRepo.isEnabled(u2) flatMap {
-          _ ?? {
-            fetchRelation(u1, u2) zip fetchRelation(u2, u1) flatMap {
-              case (Some(Follow), _) => funit
-              case (_, Some(Block))  => funit
-              case _ =>
-                repo.follow(u1, u2) >> limitFollow(u1) >>- {
-                  countFollowersCache.update(u2, 1 +)
-                  countFollowingCache.update(u1, prev => (prev + 1) atMost config.maxFollow.value)
-                  timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1)
-                  Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
-                  lila.mon.relation.follow.increment().unit
-                }
+    (u1 != u2) ?? prefApi.followable(u2).flatMapz {
+      userRepo.isEnabled(u2) flatMapz {
+        fetchRelation(u1, u2) zip fetchRelation(u2, u1) flatMap {
+          case (Some(Follow), _) => funit
+          case (_, Some(Block))  => funit
+          case _ =>
+            repo.follow(u1, u2) >> limitFollow(u1) >>- {
+              countFollowersCache.update(u2, 1 +)
+              countFollowingCache.update(u1, prev => (prev + 1) atMost config.maxFollow.value)
+              timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1)
+              Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
+              lila.mon.relation.follow.increment().unit
             }
-          }
         }
       }
     }
 
-  private val limitFollowRateLimiter = new lila.memo.RateLimit[UserId](
+  private val limitFollowRateLimiter = lila.memo.RateLimit[UserId](
     credits = 1,
     duration = 1 hour,
     key = "follow.limit.cleanup"
@@ -159,7 +153,7 @@ final class RelationApi(
     countFollowing(u) flatMap { nb =>
       (nb > config.maxFollow.value) ?? {
         limitFollowRateLimiter(u) {
-          fetchFollowing(u) flatMap userRepo.filterClosedOrInactiveIds(DateTime.now.minusDays(90))
+          fetchFollowing(u) flatMap userRepo.filterClosedOrInactiveIds(nowDate.minusDays(90))
         }(fuccess(Nil)) flatMap {
           case Nil => repo.drop(u, true, nb - config.maxFollow.value)
           case inactiveIds =>
@@ -192,14 +186,12 @@ final class RelationApi(
 
   def unfollow(u1: UserId, u2: UserId): Funit =
     (u1 != u2) ?? {
-      fetchFollows(u1, u2) flatMap {
-        _ ?? {
-          repo.unfollow(u1, u2) >>- {
-            countFollowersCache.update(u2, _ - 1)
-            countFollowingCache.update(u1, _ - 1)
-            Bus.publish(lila.hub.actorApi.relation.UnFollow(u1, u2), "relation")
-            lila.mon.relation.unfollow.increment().unit
-          }
+      fetchFollows(u1, u2) flatMapz {
+        repo.unfollow(u1, u2) >>- {
+          countFollowersCache.update(u2, _ - 1)
+          countFollowingCache.update(u1, _ - 1)
+          Bus.publish(lila.hub.actorApi.relation.UnFollow(u1, u2), "relation")
+          lila.mon.relation.unfollow.increment().unit
         }
       }
     }

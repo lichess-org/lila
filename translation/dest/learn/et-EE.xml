@@ -68,10 +68,10 @@ Muundada pole tarvus.</string>
   <string name="capture">Löömine</string>
   <string name="takeTheEnemyPieces">Löö vastase malendid</string>
   <string name="captureIntro">Tuvasta vastase kaitseta malendid ning löö nad!</string>
-  <string name="takeTheBlackPieces">Löö vastase malendid!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Löö vastase malendid!
+  <string name="takeTheBlackPieces">Löö mustad malendid!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Löö mustad malendid!
 Ära kaota enda omi.</string>
-  <string name="captureComplete">Õnnitlused! Oskate vastase malendeid lüüa!</string>
+  <string name="captureComplete">Õnnitlused! Oskad vastase malendeid lüüa!</string>
   <string name="protection">Kaitsmine</string>
   <string name="keepYourPiecesSafe">Hoia oma malendid kaitse all</string>
   <string name="protectionIntro">Tuvasta malendid, mida vastane ründab ja kaitse neid!</string>
@@ -150,9 +150,9 @@ on juba käinud.</string>
   <string name="youCannotCastleIfAttacked">Sa ei saa vangerdada siis kui
 kuningas läbib tule all olevat välja.
 Blokeeri tuli, siis vangerda!</string>
-  <string name="findAWayToCastleKingSide">Leidke viis, kuidas
+  <string name="findAWayToCastleKingSide">Leia viis, kuidas
 vangerdada kuningatiivale!</string>
-  <string name="findAWayToCastleQueenSide">Leidke viis, kuidas
+  <string name="findAWayToCastleQueenSide">Leia viis, kuidas
 vangerdada liputiivale!</string>
   <string name="castlingComplete">Õnnitlused! Te peaksite peaaegu alati vangerdama mängus.</string>
   <string name="enPassant">En passant</string>
@@ -172,7 +172,7 @@ kui sinu ettur on 5. real.</string>
   <string name="theGameIsADraw">See mäng on viik</string>
   <string name="stalemateIntro">Kui mängija ei ole tules ning tal ei ole ühtegi legaalset käiku, siis tegemist on patiga. Tulemus on viik: kumbki ei võida ega kaota.</string>
   <string name="stalemateGoal">Musta patti viimine:
-- Must ei saa käia kuhugile
+- Must ei saa kuhugi käia
 - Must ei ole tules.</string>
   <string name="stalemateComplete">Õnnitlused! Parem on olla patis kui matis!</string>
   <string name="advanced">Edasijõudnud</string>

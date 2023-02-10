@@ -5,7 +5,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.mvc.RequestHeader
 
-import lila.common.Form.numberIn
+import lila.common.Form.{ typeIn, numberIn, given }
 import lila.common.Iso
 import lila.common.LilaCookie
 
@@ -36,10 +36,10 @@ case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
 final class OpeningConfigStore(baker: LilaCookie):
   import OpeningConfig.*
 
-  def read(implicit req: RequestHeader): OpeningConfig =
+  def read(using req: RequestHeader): OpeningConfig =
     req.cookies.get(cookie.name).map(_.value).flatMap(cookie.read) | OpeningConfig.default
 
-  def write(config: OpeningConfig)(implicit req: RequestHeader) = baker.cookie(
+  def write(config: OpeningConfig)(using RequestHeader) = baker.cookie(
     cookie.name,
     cookie.write(config),
     maxAge = cookie.maxAge.some,
@@ -74,7 +74,7 @@ object OpeningConfig:
       case Array(r, s) =>
         OpeningConfig(
           ratings = r.split(valueSep).flatMap(_.toIntOption).toSet,
-          speeds = s.split(valueSep).flatMap(_.toIntOption).flatMap(Speed.byId.get).toSet
+          speeds = chess.SpeedId.from(s.split(valueSep).flatMap(_.toIntOption)).flatMap(Speed.byId.get).toSet
         ).some
       case _ => none
 
@@ -86,7 +86,7 @@ object OpeningConfig:
   val form = Form(
     mapping(
       "ratings" -> set(numberIn(allRatings)),
-      "speeds"  -> set(numberIn(allSpeeds.map(_.id)).transform[Speed](s => Speed(s).get, _.id))
+      "speeds"  -> set(typeIn(allSpeeds.map(_.id).toSet).transform[Speed](s => Speed(s).get, _.id))
     )(OpeningConfig.apply)(lila.common.unapply)
   )
 

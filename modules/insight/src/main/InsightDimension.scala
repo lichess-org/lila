@@ -14,16 +14,13 @@ import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 
-sealed abstract class InsightDimension[A: BSONHandler](
+sealed abstract class InsightDimension[A](
     val key: String,
     val name: String,
     val dbKey: String,
     val position: InsightPosition,
     val description: String
-):
-
-  def bson = implicitly[BSONHandler[A]]
-
+)(using val bson: BSONHandler[A]):
   def isInGame = position == InsightPosition.Game
   def isInMove = position == InsightPosition.Move
 
@@ -355,7 +352,7 @@ object InsightDimension:
       case TimeVariance            => JsString(v.name)
 
   def filtersOf[X](d: InsightDimension[X], selected: List[X]): Bdoc =
-    import cats.implicits.*
+    import cats.syntax.all.*
 
     def percentRange[V: BSONWriter](toRange: X => (V, V), fromPercent: Int => V) = selected match
       case Nil => $empty

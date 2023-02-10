@@ -1,6 +1,5 @@
 package controllers
 
-import scala.concurrent.duration.*
 import views.*
 
 import lila.app.{ given, * }
@@ -11,7 +10,7 @@ import router.ReverseRouterConversions.postIdConv
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
 
   private val CreateRateLimit =
-    new lila.memo.RateLimit[IpAddress](
+    lila.memo.RateLimit[IpAddress](
       credits = 4,
       duration = 5.minutes,
       key = "forum.post",
@@ -77,22 +76,19 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       given play.api.mvc.Request[?] = ctx.body
       env.forum.postApi.teamIdOfPostId(postId) flatMap { teamId =>
         teamId.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
-          postApi getPost postId flatMap {
-            _ ?? { post =>
-              forms
-                .postEdit(me, inOwnTeam, post.text)
-                .bindFromRequest()
-                .fold(
-                  _ => Redirect(routes.ForumPost.redirect(postId)).toFuccess,
-                  data =>
-                    CreateRateLimit(ctx.ip) {
-                      postApi.editPost(postId, data.changes, me).map { post =>
-                        Redirect(routes.ForumPost.redirect(post.id))
-                      }
-                    }(rateLimitedFu)
-                )
-
-            }
+          postApi getPost postId flatMapz { post =>
+            forms
+              .postEdit(me, inOwnTeam, post.text)
+              .bindFromRequest()
+              .fold(
+                _ => Redirect(routes.ForumPost.redirect(postId)).toFuccess,
+                data =>
+                  CreateRateLimit(ctx.ip) {
+                    postApi.editPost(postId, data.changes, me).map { post =>
+                      Redirect(routes.ForumPost.redirect(post.id))
+                    }
+                  }(rateLimitedFu)
+              )
           }
         }
       }
@@ -100,39 +96,35 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def delete(categId: ForumCategId, id: ForumPostId) =
     AuthBody { implicit ctx => me =>
-      postApi getPost id flatMap {
-        _ ?? { post =>
-          if (post.userId.exists(_ is me) && !post.erased)
-            postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
-          else
-            TopicGrantModById(categId, me, post.topicId) {
-              env.forum.delete.post(categId, id, me) inject {
-                given play.api.mvc.Request[?] = ctx.body
-                for {
-                  userId    <- post.userId
-                  reasonOpt <- forms.deleteWithReason.bindFromRequest().value
-                  topic     <- topicRepo.forUser(me.some).byId(post.topicId)
-                  reason    <- reasonOpt.filter(MsgPreset.forumDeletion.presets.contains)
-                  preset =
-                    if (isGranted(_.ModerateForum)) MsgPreset.forumDeletion.byModerator
-                    else if (topic.exists(_ isUblogAuthor me))
-                      MsgPreset.forumDeletion.byBlogAuthor(me.username)
-                    else MsgPreset.forumDeletion.byTeamLeader(categId)
-                } env.msg.api.systemPost(userId, preset(reason))
-                NoContent
-              }
+      postApi getPost id flatMapz { post =>
+        if (post.userId.exists(_ is me) && !post.erased)
+          postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
+        else
+          TopicGrantModById(categId, me, post.topicId) {
+            env.forum.delete.post(categId, id, me) inject {
+              given play.api.mvc.Request[?] = ctx.body
+              for {
+                userId    <- post.userId
+                reasonOpt <- forms.deleteWithReason.bindFromRequest().value
+                topic     <- topicRepo.forUser(me.some).byId(post.topicId)
+                reason    <- reasonOpt.filter(MsgPreset.forumDeletion.presets.contains)
+                preset =
+                  if (isGranted(_.ModerateForum)) MsgPreset.forumDeletion.byModerator
+                  else if (topic.exists(_ isUblogAuthor me))
+                    MsgPreset.forumDeletion.byBlogAuthor(me.username)
+                  else MsgPreset.forumDeletion.byTeamLeader(categId)
+              } env.msg.api.systemPost(userId, preset(reason))
+              NoContent
             }
-        }
+          }
       }
     }
 
   def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) =
     Auth { implicit ctx => me =>
       CategGrantWrite(categId) {
-        postApi.react(categId, id, me, reaction, v) map {
-          _ ?? { post =>
-            Ok(views.html.forum.post.reactions(post, canReact = true))
-          }
+        postApi.react(categId, id, me, reaction, v) mapz { post =>
+          Ok(views.html.forum.post.reactions(post, canReact = true))
         }
       }
     }

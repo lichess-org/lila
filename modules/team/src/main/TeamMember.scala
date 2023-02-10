@@ -1,7 +1,5 @@
 package lila.team
 
-import org.joda.time.DateTime
-
 import lila.common.LightUser
 import lila.user.User
 
@@ -26,5 +24,5 @@ object TeamMember:
     _id = makeId(team, user),
     user = user,
     team = team,
-    date = DateTime.now
+    date = nowDate
   )

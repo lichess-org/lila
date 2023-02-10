@@ -50,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Endast studiens bidragsgivare kan begära en datoranalys.</string>
   <string name="getAFullComputerAnalysis">Hämta en fullständig serveranalys av huvudlinjen.</string>
   <string name="makeSureTheChapterIsComplete">Försäkra dig om att kapitlet är färdigt. Du kan bara begära analysen en gång.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Alla SYNC-medlemmar är kvar på samma position</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Alla SYNC-medlemmar är kvar på samma position</string>
   <string name="shareChanges">Dela ändringar med åskådare och spara dem på servern</string>
   <string name="playing">Spelar</string>
   <string name="first">Första</string>
@@ -62,6 +62,8 @@
   <string name="studyPgn">Studiens PGN</string>
   <string name="downloadAllGames">Ladda ner alla partier</string>
   <string name="chapterPgn">Kapitel PGN</string>
+  <string name="copyChapterPgn">Kopiera PGN</string>
+  <string name="copyChapterPgnDescription">Kopiera kapitel-PGN till urklipp.</string>
   <string name="downloadGame">Ladda ner parti</string>
   <string name="studyUrl">Studiens URL</string>
   <string name="currentChapterUrl">Aktuell kapitel URL</string>

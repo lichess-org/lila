@@ -2,7 +2,7 @@ package lila
 
 object Lila extends Lila:
 
-  // https://www.scala-lang.org/api/2.13.4/scala/concurrent/ExecutionContext%24.html#global:scala.concurrent.ExecutionContextExecutor
+  // https://www.scala-lang.org/api/2.13.4/Executor%24.html#global:Executor
   val defaultExecutor: scala.concurrent.ExecutionContextExecutor =
     scala.concurrent.ExecutionContext.getClass
       .getDeclaredMethod("opportunistic")
@@ -13,11 +13,12 @@ object Lila extends Lila:
   export ornicar.scalalib.zeros.given
   export ornicar.scalalib.extensions.{ given, * }
 
-  inline def nowNanos: Long  = System.nanoTime()
-  inline def nowMillis: Long = System.currentTimeMillis()
-  inline def nowCentis: Long = nowMillis / 10
-  inline def nowTenths: Long = nowMillis / 100
-  inline def nowSeconds: Int = (nowMillis / 1000).toInt
+  inline def nowNanos: Long    = System.nanoTime()
+  inline def nowMillis: Long   = System.currentTimeMillis()
+  inline def nowCentis: Long   = nowMillis / 10
+  inline def nowTenths: Long   = nowMillis / 100
+  inline def nowSeconds: Int   = (nowMillis / 1000).toInt
+  inline def nowDate: DateTime = org.joda.time.DateTime()
 
   object makeTimeout:
 

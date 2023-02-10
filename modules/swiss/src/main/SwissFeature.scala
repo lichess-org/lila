@@ -1,8 +1,6 @@
 package lila.swiss
 
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.Heapsort
 import lila.db.dsl.{ *, given }
@@ -13,15 +11,20 @@ final class SwissFeature(
     mongo: SwissMongo,
     cacheApi: CacheApi,
     swissCache: SwissCache
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 
   val onHomepage = cacheApi.unit[Option[Swiss]] {
-    _.refreshAfterWrite(1 minute)
+    _.refreshAfterWrite(30 seconds)
       .buildAsyncFuture { _ =>
         mongo.swiss
-          .find($doc("teamId" -> lichessTeamId, "startsAt" $gt DateTime.now.minusMinutes(10)))
+          .find(
+            $doc(
+              "teamId" -> lichessTeamId,
+              "startsAt" $gt nowDate.minusMinutes(5) $lt nowDate.plusMinutes(10)
+            )
+          )
           .sort($sort asc "startsAt")
           .one[Swiss]
       }
@@ -38,7 +41,7 @@ final class SwissFeature(
   private val startsAtOrdering = Ordering.by[Swiss, Long](_.startsAt.getMillis)
 
   private def getForTeams(teams: Seq[TeamId]): Fu[FeaturedSwisses] =
-    teams.map(swissCache.featuredInTeam.get).sequenceFu.dmap(_.flatten) flatMap { ids =>
+    teams.map(swissCache.featuredInTeam.get).parallel.dmap(_.flatten) flatMap { ids =>
       mongo.swiss.byIds[Swiss, SwissId](ids, ReadPreference.secondaryPreferred)
     } map {
       _.filter(_.isNotFinished).partition(_.isCreated) match
@@ -52,7 +55,7 @@ final class SwissFeature(
   private val cache = cacheApi.unit[FeaturedSwisses] {
     _.refreshAfterWrite(10 seconds)
       .buildAsyncFuture { _ =>
-        val now = DateTime.now
+        val now = nowDate
         cacheCompute($doc("$gt" -> now, "$lt" -> now.plusHours(1))) zip
           cacheCompute($doc("$gt" -> now.minusHours(3), "$lt" -> now)) map { case (created, started) =>
             FeaturedSwisses(created, started)

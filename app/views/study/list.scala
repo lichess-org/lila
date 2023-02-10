@@ -163,8 +163,8 @@ object list:
     )
 
   private[study] def searchForm(placeholder: String, value: String) =
-    form(cls           := "search", action    := routes.Study.search(), method := "get")(
-      input(name       := "q", st.placeholder := placeholder, st.value         := value),
+    form(cls := "search", action := routes.Study.search(), method := "get")(
+      input(name       := "q", st.placeholder := placeholder, st.value := value, enterkeyhint := "search"),
       submitButton(cls := "button", dataIcon  := "")
     )
 

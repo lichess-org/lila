@@ -1,6 +1,5 @@
 package lila.oauth
 
-import org.joda.time.DateTime
 import play.api.mvc.{ RequestHeader, Result }
 
 import lila.common.{ Bearer, HTTPRequest, Strings }
@@ -13,7 +12,7 @@ final class OAuthServer(
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
     originBlocklist: SettingStore[Strings]
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import OAuthServer.*
 

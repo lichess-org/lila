@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import views.*
 
 import lila.api.Context
@@ -24,7 +23,7 @@ final class Round(
 ) extends LilaController(env)
     with TheftPrevention:
 
-  private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] =
+  private def renderPlayer(pov: Pov)(using ctx: Context): Fu[Result] =
     negotiate(
       html =
         if (!pov.game.started) notFound
@@ -78,7 +77,7 @@ final class Round(
       }
     }
 
-  private def otherPovs(game: GameModel)(implicit ctx: Context) =
+  private def otherPovs(game: GameModel)(using ctx: Context) =
     ctx.me ?? { user =>
       env.round.proxyRepo urgentGames user map {
         _ filter { pov =>
@@ -244,13 +243,11 @@ final class Round(
         case (_, _, Some(sid)) =>
           env.swiss.api
             .roundInfo(SwissId(sid))
-            .flatMap { _ ?? swissC.canHaveChat }
-            .flatMap {
-              _ ?? {
-                env.chat.api.userChat.cached
-                  .findMine(sid into ChatId, ctx.me)
-                  .dmap(toEventChat(s"swiss/$sid"))
-              }
+            .flatMapz(swissC.canHaveChat)
+            .flatMapz {
+              env.chat.api.userChat.cached
+                .findMine(sid into ChatId, ctx.me)
+                .dmap(toEventChat(s"swiss/$sid"))
             }
         case _ =>
           game.hasChat ?? {
@@ -322,7 +319,6 @@ final class Round(
           fuccess(routes.Lobby.home)
         else
           env.round resign pov
-          import scala.concurrent.duration.*
           akka.pattern.after(500.millis, env.system.scheduler)(fuccess(routes.Lobby.home))
       }
     }

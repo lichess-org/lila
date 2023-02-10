@@ -3,6 +3,7 @@
   <string name="preferences">Налаштування</string>
   <string name="display">Відображення</string>
   <string name="privacy">Конфіденційність</string>
+  <string name="notifications">Сповіщення</string>
   <string name="pieceAnimation">Анімація ходів</string>
   <string name="materialDifference">Співвідношення матеріалу</string>
   <string name="boardHighlights">Підсвітлення кольором (останнього ходу та шаху)</string>
@@ -50,4 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Ваші налаштування збережено.</string>
   <string name="scrollOnTheBoardToReplayMoves">Прокрутіть колесом миші на дошці, для того щоб відтворити ходи</string>
   <string name="correspondenceEmailNotification">Щоденне сповіщення на електронну пошту зі списком ваших заочних ігор</string>
+  <string name="notifyStreamStart">Стример почав трансляцію</string>
+  <string name="notifyInboxMsg">Нове вхідне повідомлення</string>
+  <string name="notifyForumMention">Вас згадали у коментарі на форумі</string>
+  <string name="notifyInvitedStudy">Запрошення на урок</string>
+  <string name="notifyGameEvent">Оновлення заочних партій</string>
+  <string name="notifyChallenge">Завдання</string>
+  <string name="notifyTournamentSoon">Турнір скоро почнеться</string>
+  <string name="notifyTimeAlarm">Час на відповідь закінчується</string>
+  <string name="notifyBell">Дзвінкове сповіщення в Lichess</string>
+  <string name="notifyPush">Сповіщення на пристрої коли ви не на Lichess</string>
+  <string name="notifyWeb">Браузер</string>
+  <string name="notifyDevice">Пристрій</string>
 </resources>

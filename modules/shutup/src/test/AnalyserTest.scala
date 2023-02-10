@@ -2,6 +2,10 @@ package lila.shutup
 
 import org.specs2.mutable._
 
+/* Some of the texts in this file are horrible.
+ * We reject and condemn them. They are here so we can verify
+ * that Lichess detects them, to help moderators keeping the site nice.
+ */
 class AnalyserTest extends Specification {
 
   private def find(t: String)  = Analyser(t).badWords
@@ -53,7 +57,7 @@ class AnalyserTest extends Specification {
     }
     "compute ratio" >> {
       ratio("fuck that shit") === 2d / 3
-      ratio("Beat them cunting nigger faggots with a communist dick") === 4d / 9
+      ratio("Beat them cunting nigger faggots with a communist dick") === 12d / 9
       ratio("hello there") === 0d
       ratio("") === 0d
     }
@@ -65,6 +69,9 @@ class AnalyserTest extends Specification {
       find("foo chess_bot_com bar") === List("chess_bot_com")
       find("foo chessbotcom bar") === List("chessbotcom")
       find("foo http://chess-bot.com bar") === List("chess-bot.com")
+    }
+    "rat false positives" >> {
+      find("test rat is rate some rates what rated") === List("rat")
     }
     "russian chars" >> {
       find("sеx") === List("sex")

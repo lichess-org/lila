@@ -98,6 +98,8 @@
     margin-top: 1em;
     margin-bottom: 1em;
 
+    text-align: start;
+
     .lpv {
       margin: $block-gap auto;
     }
@@ -106,6 +108,9 @@
       @extend %video;
 
       margin: $block-gap auto;
+    }
+    .embed--study {
+      @extend %study-embed;
     }
 
     .twitter-tweet {
@@ -123,9 +128,10 @@
     }
 
     blockquote {
-      padding-#{$start-direction}: 0.5em;
-      border-#{$start-direction}: 0.3em solid;
-      margin: 0.3em;
+      padding: 0.3em 0.7em;
+      border-left: 0.3em solid;
+      unicode-bidi: plaintext;
+      position: relative;
     }
   }
 

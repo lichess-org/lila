@@ -1,10 +1,11 @@
 import * as xhr from 'common/xhr';
 
 lichess.load.then(() => {
-  const localPrefs: [string, string, string, number][] = [
-    ['behavior', 'arrowSnap', 'arrow.snap', 1],
-    ['behavior', 'courtesy', 'courtesy', 0],
-    ['behavior', 'scrollMoves', 'scrollMoves', 1],
+  const localPrefs: [string, string, string, boolean][] = [
+    ['behavior', 'arrowSnap', 'arrow.snap', true],
+    ['behavior', 'courtesy', 'courtesy', false],
+    ['behavior', 'scrollMoves', 'scrollMoves', true],
+    ['notification', 'playBellSound', 'playBellSound', true],
   ];
 
   $('.security table form').on('submit', function (this: HTMLFormElement) {
@@ -20,7 +21,7 @@ lichess.load.then(() => {
     $form.find('input').on('change', function (this: HTMLInputElement) {
       localPrefs.forEach(([categ, name, storeKey]) => {
         if (this.name == `${categ}.${name}`) {
-          lichess.storage.set(storeKey, this.value);
+          lichess.storage.boolean(storeKey).set(this.value == '1');
           showSaved();
         }
       });
@@ -32,7 +33,7 @@ lichess.load.then(() => {
   });
 
   localPrefs.forEach(([categ, name, storeKey, def]) =>
-    $(`#ir${categ}_${name}_${lichess.storage.get(storeKey) || def}`).prop('checked', true)
+    $(`#ir${categ}_${name}_${lichess.storage.boolean(storeKey).getOrDefault(def) ? 1 : 0}`).prop('checked', true)
   );
 
   $('form[action="/account/oauth/token/create"]').each(function (this: HTMLFormElement) {

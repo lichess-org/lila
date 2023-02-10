@@ -12,6 +12,8 @@
     background: $c-bg-zebra;
     color: $c-font;
     position: relative;
+    direction: ltr;
+    text-align: left;
 
     &--link:hover {
       box-shadow: 0 0 5px $c-link, 0 0 20px $c-link;

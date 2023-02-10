@@ -18,14 +18,14 @@ object student:
       students: List[Student],
       s: Student.WithUserAndManagingClas,
       activities: Vector[lila.activity.ActivityView]
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show",
       top(clas, s.withUser),
       div(cls := "box__pad")(
-        standardFlash(),
+        standardFlash,
         ctx.flash("password").map { password =>
-          flashMessage(cls := "student-show__password")(
+          flashMessageWith(cls := "student-show__password")(
             div(
               p(trans.clas.makeSureToCopy()),
               pre(trans.clas.passwordX(password))
@@ -70,7 +70,7 @@ object student:
       )
     )
 
-  private def top(clas: Clas, s: Student.WithUser)(implicit ctx: Context) =
+  private def top(clas: Clas, s: Student.WithUser)(using Context) =
     div(cls := "student-show__top")(
       boxTop(
         h1(dataIcon := "")(
@@ -107,12 +107,16 @@ object student:
             cls  := "button button-empty"
           )(
             trans.puzzle.puzzleDashboard()
-          )
+          ),
+          isGranted(_.Beta) option a(
+            href := routes.Tutor.user(s.user.username.value),
+            cls  := "button button-empty"
+          )("Tutor")
         )
       )
     )
 
-  private def realNameField(form: Form[?], fieldName: String = "realName")(implicit ctx: Context) =
+  private def realNameField(form: Form[?], fieldName: String = "realName")(using Context) =
     form3.group(
       form(fieldName),
       trans.clas.realName(),
@@ -126,7 +130,7 @@ object student:
       create: Form[?],
       nbStudents: Int,
       created: Option[lila.clas.Student.WithPassword] = none
-  )(implicit ctx: Context) =
+  )(using Context) =
     bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
       cls := "box-pad student-add",
       boxTop(
@@ -137,7 +141,7 @@ object student:
       ),
       nbStudents > (lila.clas.Clas.maxStudents / 2) option maxStudentsWarning(clas),
       created map { case Student.WithPassword(student, password) =>
-        flashMessage(cls := "student-add__created")(
+        flashMessageWith(cls := "student-add__created")(
           strong(
             trans.clas.lichessProfileXCreatedForY(
               userIdLink(student.userId.some, withOnline = false),
@@ -150,7 +154,7 @@ object student:
           )
         )
       },
-      standardFlash(),
+      standardFlash,
       (nbStudents < lila.clas.Clas.maxStudents) option frag(
         div(cls := "student-add__choice")(
           div(cls := "info")(
@@ -218,13 +222,13 @@ object student:
       form: Form[?],
       nbStudents: Int,
       created: Seq[lila.clas.Student.WithPassword] = Nil
-  )(implicit ctx: Context) =
+  )(using Context) =
     bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
       cls := "box-pad student-add-many",
       h1(cls := "box__top")(trans.clas.createMultipleAccounts()),
       maxStudentsWarning(clas),
       created.nonEmpty option frag(
-        flashMessage(cls := "student-add-many__created")(
+        flashMessageWith(cls := "student-add-many__created")(
           s"${created.size} students accounts have been created."
         ),
         div(cls := "student-add-many__list")(
@@ -274,12 +278,12 @@ object student:
       )
     )
 
-  def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(implicit ctx: Context) =
+  def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using Context) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),
       div(cls := "box__pad")(
-        standardFlash(),
+        standardFlash,
         postForm(cls := "form3", action := clasRoutes.studentUpdate(clas.id.value, s.user.username))(
           form3.globalError(form),
           realNameField(form),
@@ -310,9 +314,7 @@ object student:
       )
     )
 
-  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using
-      ctx: Context
-  ) =
+  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using Context) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),
@@ -338,9 +340,7 @@ object student:
       )
     )
 
-  def close(clas: Clas, students: List[Student], s: Student.WithUser)(using
-      ctx: Context
-  ) =
+  def close(clas: Clas, students: List[Student], s: Student.WithUser)(using Context) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),

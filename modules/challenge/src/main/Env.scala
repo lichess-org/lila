@@ -2,7 +2,6 @@ package lila.challenge
 
 import com.softwaremill.macwire.*
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }
@@ -26,9 +25,9 @@ final class Env(
     msgApi: lila.msg.MsgApi,
     baseUrl: BaseUrl
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     materializer: akka.stream.Materializer,
     mode: play.api.Mode
 ):

@@ -2,11 +2,11 @@ package lila.plan
 
 import java.text.NumberFormat
 import java.util.{ Currency, Locale }
-import org.joda.time.DateTime
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsObject }
 
 import lila.user.User
+import lila.common.IpAddress
 
 case class Source(value: String) extends AnyVal
 
@@ -70,13 +70,22 @@ case class StripePrice(product: String, unit_amount: StripeAmount, currency: Cur
   def money  = unit_amount toMoney currency
 
 case class StripeSession(id: StripeSessionId)
+
+trait StripeSessionData:
+  def customerId: StripeCustomerId
+  def currency: Currency
+  def ipOption: Option[IpAddress]
+
 case class CreateStripeSession(
     customerId: StripeCustomerId,
     checkout: PlanCheckout,
     urls: NextUrls,
     giftTo: Option[User],
-    isLifetime: Boolean
-)
+    isLifetime: Boolean,
+    ip: IpAddress
+) extends StripeSessionData:
+  def currency = checkout.money.currency
+  def ipOption = ip.some
 
 case class StripeSubscription(
     id: String,
@@ -84,10 +93,14 @@ case class StripeSubscription(
     customer: StripeCustomerId,
     cancel_at_period_end: Boolean,
     status: String,
-    default_payment_method: Option[String]
-):
-  def renew    = !cancel_at_period_end
-  def isActive = status == "active"
+    default_payment_method: Option[String],
+    ip: Option[IpAddress]
+) extends StripeSessionData:
+  def renew      = !cancel_at_period_end
+  def isActive   = status == "active"
+  def customerId = customer
+  def currency   = item.price.currency
+  def ipOption   = ip
 
 case class StripeCustomer(
     id: StripeCustomerId,
@@ -108,6 +121,7 @@ case class StripeCharge(
 ):
   def country                = billing_details.flatMap(_.address).flatMap(_.country)
   def giftTo: Option[UserId] = UserId.from(metadata get "giftTo")
+  def ip: Option[IpAddress]  = metadata.get("ipAddress").flatMap(IpAddress.from)
 
 object StripeCharge:
   case class Address(country: Option[Country])
@@ -141,6 +155,12 @@ case class StripeCompletedSession(
 case class StripeSetupIntent(payment_method: String)
 
 case class StripeSessionWithIntent(setup_intent: StripeSetupIntent)
+
+enum StripeMode:
+  case setup, payment, subscription
+
+opaque type StripeCanUse = Boolean
+object StripeCanUse extends YesNo[StripeCanUse]
 
 // payPal model
 

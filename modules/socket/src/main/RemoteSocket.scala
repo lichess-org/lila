@@ -7,8 +7,6 @@ import io.lettuce.core.pubsub.StatefulRedisPubSubConnection as PubSub
 import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.ConcurrentHashMap
 import play.api.libs.json.*
-import scala.concurrent.duration.*
-import scala.concurrent.{ Future, Promise }
 import scala.util.chaining.*
 import lila.socket.Socket.Sri
 import ornicar.scalalib.ThreadLocalRandom
@@ -18,13 +16,13 @@ import lila.hub.actorApi.Announce
 import lila.hub.actorApi.relation.{ Follow, UnFollow }
 import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
-import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellUserIn }
+import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellSrisOut, TellUserIn }
 import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToOnlineUser, SendTos }
 
 final class RemoteSocket(
     redisClient: RedisClient,
     shutdown: CoordinatedShutdown
-)(using scala.concurrent.ExecutionContext, Scheduler):
+)(using Executor, Scheduler):
 
   import RemoteSocket.*, Protocol.*
 
@@ -102,6 +100,8 @@ final class RemoteSocket(
       send(Out.tellFlag(flag, payload))
     case TellSriOut(sri, payload) =>
       send(Out.tellSri(Sri(sri), payload))
+    case TellSrisOut(sris, payload) =>
+      send(Out.tellSris(Sri from sris, payload))
     case CloseAccount(userId) =>
       send(Out.disconnectUser(userId))
     case lila.hub.actorApi.mod.Shadowban(userId, v) =>
@@ -129,8 +129,8 @@ final class RemoteSocket(
       if (!stopping) conn.async.publish(s"$channel:$subChannel", msg).unit
 
   def makeSender(channel: Channel, parallelism: Int = 1): Sender =
-    if (parallelism > 1) new RoundRobinSender(redisClient.connectPubSub(), channel, parallelism)
-    else new StoppableSender(redisClient.connectPubSub(), channel)
+    if parallelism > 1 then RoundRobinSender(redisClient.connectPubSub(), channel, parallelism)
+    else StoppableSender(redisClient.connectPubSub(), channel)
 
   private val send: Send = makeSender("site-out").apply
 
@@ -154,7 +154,7 @@ final class RemoteSocket(
         .map { index =>
           subscribe(s"$channel:$index", reader)(handler)
         }
-        .sequenceFu
+        .parallel
         .void
     }
 
@@ -200,7 +200,7 @@ object RemoteSocket:
 
   object Protocol:
 
-    final class RawMsg(val path: Path, val args: Args):
+    final class RawMsg(val path: String, val args: Args):
       def get(nb: Int)(f: PartialFunction[Array[String], Option[In]]): Option[In] =
         f.applyOrElse(args.split(" ", nb), (_: Array[String]) => None)
       def all = args split ' '
@@ -318,6 +318,5 @@ object RemoteSocket:
   val initialUserIds = Set(UserId("lichess"))
 
   type Channel = String
-  type Path    = String
   type Args    = String
   type Handler = PartialFunction[Protocol.In, Unit]

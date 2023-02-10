@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Dátum pridania (najstaršie)</string>
   <string name="recentlyUpdated">Nedávno aktualizované</string>
   <string name="mostPopular">Najpopulárnejšie</string>
+  <string name="alphabetical">Abecedne</string>
   <string name="addNewChapter">Pridať novú kapitolu</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Kapitola</item>
@@ -55,7 +56,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Oba prispievatelia k tejto štúdii môžu požiadať a počítačovú analýzu.</string>
   <string name="getAFullComputerAnalysis">Získajte úplnú počítačovú analýzu hlavného variantu na strane servera.</string>
   <string name="makeSureTheChapterIsComplete">Uistite sa, že kapitola je kompletná. Požiadať o analýzu môžete iba raz.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Všetci zosynchronizovaní členovia uvidia rovnakú pozíciu</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Všetci zosynchronizovaní členovia uvidia rovnakú pozíciu</string>
   <string name="shareChanges">Zdieľajte zmeny s divákmi a uložte ich na server</string>
   <string name="playing">Práve sa hrá</string>
   <string name="first">Prvá</string>
@@ -67,6 +68,8 @@
   <string name="studyPgn">PGN štúdie</string>
   <string name="downloadAllGames">Stiahnuť všetky partie</string>
   <string name="chapterPgn">PGN kapitoly</string>
+  <string name="copyChapterPgn">Kopírovať PGN</string>
+  <string name="copyChapterPgnDescription">Kopírovať kapitolu PGN do schránky.</string>
   <string name="downloadGame">Stiahnúť hru</string>
   <string name="studyUrl">URL štúdie</string>
   <string name="currentChapterUrl">URL aktuálnej kapitoly</string>
@@ -136,6 +139,7 @@
   <string name="clearChat">Vymazať čet</string>
   <string name="deleteTheStudyChatHistory">Chcete vymazať históriu četu k tomuto učivu? Táto akcia sa nedá vrátit späť!</string>
   <string name="deleteStudy">Vymazať učivo</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Vymazať štúdiu? Už nieje cesta späť! Napíšte meno štúdie pre potvrdenie: %s</string>
   <string name="whereDoYouWantToStudyThat">Kde to chcete študovať?</string>
   <string name="goodMove">Dobrý ťah</string>
   <string name="mistake">Chyba</string>

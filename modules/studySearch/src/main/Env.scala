@@ -2,7 +2,6 @@ package lila.studySearch
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.common.paginator.*
@@ -18,9 +17,9 @@ final class Env(
     pager: lila.study.StudyPager,
     makeClient: Index => ESClient
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mat: akka.stream.Materializer
 ):
 

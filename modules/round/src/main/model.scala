@@ -1,24 +1,22 @@
 package lila.round
 
-import scala.concurrent.duration.FiniteDuration
-
 import lila.game.{ Game, Pov }
 import lila.user.User
 import play.api.libs.json.JsObject
 
-final class OnStart(f: GameId => Unit) extends (GameId => Unit):
-  def apply(g: GameId) = f(g)
+opaque type OnStart = GameId => Unit
+object OnStart extends FunctionWrapper[OnStart, GameId => Unit]
 
-final class TellRound(f: (GameId, Any) => Unit) extends ((GameId, Any) => Unit):
-  def apply(g: GameId, msg: Any) = f(g, msg)
+opaque type TellRound = (GameId, Any) => Unit
+object TellRound extends FunctionWrapper[TellRound, (GameId, Any) => Unit]
 
-final class IsSimulHost(f: UserId => Fu[Boolean]) extends (UserId => Fu[Boolean]):
-  def apply(u: UserId) = f(u)
+opaque type IsSimulHost = UserId => Fu[Boolean]
+object IsSimulHost extends FunctionWrapper[IsSimulHost, UserId => Fu[Boolean]]
 
-final private class ScheduleExpiration(f: Game => Unit) extends (Game => Unit):
-  def apply(g: Game) = f(g)
+opaque type ScheduleExpiration = Game => Unit
+object ScheduleExpiration extends FunctionWrapper[ScheduleExpiration, Game => Unit]
 
-final class IsOfferingRematch(f: Pov => Boolean) extends (Pov => Boolean):
-  def apply(p: Pov) = f(p)
+opaque type IsOfferingRematch = Pov => Boolean
+object IsOfferingRematch extends FunctionWrapper[IsOfferingRematch, Pov => Boolean]
 
 case class ChangeFeatured(pov: Pov, mgs: JsObject)

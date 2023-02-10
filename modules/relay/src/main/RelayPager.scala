@@ -7,7 +7,7 @@ import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 
 final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   import BSONHandlers.given

@@ -1,7 +1,6 @@
 package lila.game
 
 import com.github.blemale.scaffeine.LoadingCache
-import scala.concurrent.duration.*
 
 import lila.db.dsl.*
 import lila.memo.{ CacheApi, MongoCache }
@@ -11,7 +10,7 @@ final class Cached(
     gameRepo: GameRepo,
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def nbImportedBy(userId: UserId): Fu[Int] = nbImportedCache.get(userId)
   export nbImportedCache.invalidate as clearNbImportedByCache

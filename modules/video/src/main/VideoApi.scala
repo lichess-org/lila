@@ -2,7 +2,6 @@ package lila.video
 
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
@@ -14,7 +13,7 @@ final private[video] class VideoApi(
     videoColl: Coll,
     viewColl: Coll,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private given BSONDocumentHandler[Youtube.Metadata] = Macros.handler
   private given BSONDocumentHandler[Video]            = Macros.handler

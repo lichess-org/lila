@@ -2,14 +2,11 @@ package lila.round
 
 import akka.actor.*
 import akka.stream.scaladsl.*
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import lila.common.LilaStream
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Query }
 import lila.round.actorApi.round.{ Abandon, QuietFlag }
-import scala.concurrent.ExecutionContext
 
 /*
  * Cleans up unfinished games
@@ -31,7 +28,7 @@ final private[round] class Titivate(
     scheduleNext()
     context setReceiveTimeout 30.seconds
 
-  given ExecutionContext = context.system.dispatcher
+  given Executor = context.system.dispatcher
 
   def scheduleNext(): Unit = context.system.scheduler.scheduleOnce(5 seconds, self, Run).unit
 
@@ -106,13 +103,13 @@ final private[round] class Titivate(
 
             case Some(clock) if clock.isRunning =>
               val minutes = clock.estimateTotalSeconds / 60
-              gameRepo.setCheckAt(game, DateTime.now plusMinutes minutes).void
+              gameRepo.setCheckAt(game, nowDate plusMinutes minutes).void
 
             case Some(_) =>
               val hours = Game.unplayedHours
-              gameRepo.setCheckAt(game, DateTime.now plusHours hours).void
+              gameRepo.setCheckAt(game, nowDate plusHours hours).void
 
             case None =>
               val days = game.daysPerTurn | Game.abandonedDays
-              gameRepo.setCheckAt(game, DateTime.now plusDays days.value).void
+              gameRepo.setCheckAt(game, nowDate plusDays days.value).void
   }

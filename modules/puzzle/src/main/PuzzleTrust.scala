@@ -1,12 +1,11 @@
 package lila.puzzle
 
-import org.joda.time.DateTime
 import org.joda.time.Days
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class PuzzleTrustApi(colls: PuzzleColls)(using scala.concurrent.ExecutionContext):
+final private class PuzzleTrustApi(colls: PuzzleColls)(using Executor):
 
   import BsonHandlers.*
 
@@ -47,7 +46,7 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(using scala.concurrent.Ex
   // 1 year = 3.46
   // 2 years = 4.89
   private def seniorityBonus(user: User) =
-    math.sqrt(Days.daysBetween(user.createdAt, DateTime.now).getDays.toDouble / 30) atMost 5
+    math.sqrt(Days.daysBetween(user.createdAt, nowDate).getDays.toDouble / 30) atMost 5
 
   private def titleBonus(user: User) = user.hasTitle ?? 20
 

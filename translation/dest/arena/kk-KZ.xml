@@ -2,10 +2,10 @@
 <resources>
   <string name="arenaTournaments">Жарыс алаңы</string>
   <string name="isItRated">Бұл бағалана ма?</string>
-  <string name="willBeNotified">Жарыс басталғанда, сіз хабардар боласыз, сондықтан күту кезінде басқа ойында ойнап отырсаңыз болады.</string>
+  <string name="willBeNotified">Жарыс басталғаны туралы сізге хабар келеді. Браузердің басқа бетінде ойнай берсеңіз болады.</string>
   <string name="isRated">Бұл бағаланатын жарыс, сіздің рейтингіңізге әсер етеді.</string>
   <string name="isNotRated">Бұл жарыс *бағаланбайды*, сіздің рейтингіңізге әсер *етпейді*.</string>
-  <string name="someRated">Жарыстардың кейбірі бағаланады, рейтингіңізге әсер ететін болады.</string>
+  <string name="someRated">Жарыстардың кейбірі бағаланады, яғни рейтинг-ке әсер етеді.</string>
   <string name="howAreScoresCalculated">Ұпай есептеу әдісі қандай?</string>
   <string name="howAreScoresCalculatedAnswer">Жеңіс 2 ұпай, тепе-теңдік 1 ұпай тұрады, ал жеңіліс үшін ұпай жоқ.
 Егер сіз қатарынан екі ойын ұтсаңыз, сіз жалын суретімен белгіленген Қос ұпай жолына түсесіз.
@@ -42,7 +42,7 @@
   <string name="drawStreakStandard">Тепе-теңдік тізбегі: егер Алаңда қатарынан бірнеше тепе-теңдік шықса, олардың арасынан ұпай беретіні –тек алғашқысы немесе %s жүрістен асқаны ғана. Тепе-теңдік тізбегін үзу үшін сізге тек жеңіс керек.</string>
   <string name="drawStreakVariants">Ұпайға ие болу үшін тепе-теңдікпен аяқталған ойын ұзындығы. Төмендегі тізім әр шахмат түріне сәйкес осы межені көрсетеді.</string>
   <string name="variant">Шахмат түрі</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Ойын ұзындығының кемі</string>
+  <string name="minimumGameLength">Ойын ұзындығының кемі</string>
   <string name="history">Алаң журналы</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Топты қарау</item>
@@ -56,4 +56,8 @@
   <string name="allowChatHelp">Ойыншыларға чат бөлмесінде сөйлесуді рұқсат ету</string>
   <string name="arenaStreaks">Алаң тізбектері</string>
   <string name="arenaStreaksHelp">Қатарынан болған 2 жеңіс 2 ұпайдың орнына 4 ұпай тұрады.</string>
+  <string name="noBerserkAllowed">Берсерк болмайды</string>
+  <string name="noArenaStreaks">Алаң тізбектерін өшіру</string>
+  <string name="averagePerformance">Орташа жетістік</string>
+  <string name="averageScore">Орташа ұпай</string>
 </resources>

@@ -2,12 +2,10 @@ package lila.api
 
 import akka.stream.scaladsl.*
 import chess.format.Fen
-import chess.format.pgn.Tag
-import org.joda.time.DateTime
+import chess.format.pgn.{ Tag, PgnStr }
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
-import lila.analyse.{ Analysis, JsonView as analysisJson }
+import lila.analyse.{ Analysis, AccuracyPercent, JsonView as analysisJson }
 import lila.common.config.MaxPerSecond
 import lila.common.Json.given
 import lila.common.{ HTTPRequest, LightUser }
@@ -23,6 +21,7 @@ import lila.round.GameProxyRepo
 final class GameApiV2(
     pgnDump: PgnDump,
     gameRepo: lila.game.GameRepo,
+    gameJsonView: lila.game.JsonView,
     tournamentRepo: lila.tournament.TournamentRepo,
     pairingRepo: lila.tournament.PairingRepo,
     playerRepo: lila.tournament.PlayerRepo,
@@ -32,10 +31,7 @@ final class GameApiV2(
     getLightUser: LightUser.Getter,
     realPlayerApi: RealPlayerApi,
     gameProxy: GameProxyRepo
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
-):
+)(using Executor, akka.actor.ActorSystem):
 
   import GameApiV2.*
 
@@ -43,7 +39,7 @@ final class GameApiV2(
 
   def exportOne(game: Game, config: OneConfig): Fu[String] =
     game.pgnImport ifTrue config.imported match
-      case Some(imported) => fuccess(imported.pgn)
+      case Some(imported) => fuccess(imported.pgn.value)
       case None =>
         for {
           realPlayers                  <- config.playerFile.??(realPlayerApi.apply)
@@ -52,13 +48,13 @@ final class GameApiV2(
             case Format.JSON =>
               toJson(game, initialFen, analysis, config.flags, realPlayers = realPlayers) dmap Json.stringify
             case Format.PGN =>
-              pgnDump(
+              PgnStr raw pgnDump(
                 game,
                 initialFen,
                 analysis,
                 config.flags,
                 realPlayers = realPlayers
-              ) dmap annotator.toPgnString
+              ).dmap(annotator.toPgnString)
         } yield formatted
 
   private val fileR = """[\s,]""".r
@@ -157,14 +153,14 @@ final class GameApiV2(
         batchSize = config.perSecond.value
       )
       .documentSource()
-      .grouped(20)
+      .grouped(30)
       .mapAsync(1) { pairings =>
         config.tour.isTeamBattle.?? {
           playerRepo.teamsOfPlayers(config.tour.id, pairings.flatMap(_.users).distinct).dmap(_.toMap)
         } flatMap { playerTeams =>
           gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)) map {
             _.zip(pairings) collect { case (Some(game), pairing) =>
-              import cats.implicits.*
+              import cats.syntax.all.*
               (
                 game,
                 pairing,
@@ -203,14 +199,15 @@ final class GameApiV2(
     swissApi
       .gameIdSource(
         swissId = config.swissId,
+        player = config.player,
         batchSize = config.perSecond.value
       )
-      .grouped(20)
-      .mapAsync(1)(gameRepo.gamesFromSecondary)
+      .grouped(30)
+      .mapAsync(1)(gameRepo.gamesTemporarilyFromPrimary)
       .mapConcat(identity)
       .throttle(config.perSecond.value, 1 second)
       .mapAsync(4)(enrich(config.flags))
-      .mapAsync(4) { case (game, fen, analysis) =>
+      .mapAsync(4) { (game, fen, analysis) =>
         config.format match
           case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, none, none)
           case Format.JSON =>
@@ -219,12 +216,12 @@ final class GameApiV2(
             }
       }
 
-  def exportUserImportedGames(user: User): Source[String, ?] =
+  def exportUserImportedGames(user: User): Source[PgnStr, ?] =
     gameRepo
       .sortedCursor(Query imported user.id, Query.importedSort, batchSize = 20)
       .documentSource()
       .throttle(20, 1 second)
-      .mapConcat(_.pgnImport.map(_.pgn + "\n\n\n").toList)
+      .mapConcat(_.pgnImport.map(_.pgn.map(_ + "\n\n\n")).toList)
 
   private val upgradeOngoingGame =
     Flow[Game].mapAsync(4)(gameProxy.upgradeIfPresent)
@@ -232,13 +229,13 @@ final class GameApiV2(
   private def preparationFlow(config: Config, realPlayers: Option[RealPlayers]) =
     Flow[Game]
       .mapAsync(4)(enrich(config.flags))
-      .mapAsync(4) { case (game, fen, analysis) =>
+      .mapAsync(4) { (game, fen, analysis) =>
         formatterFor(config)(game, fen, analysis, None, realPlayers)
       }
 
   private def enrich(flags: WithFlags)(game: Game) =
     gameRepo initialFen game flatMap { initialFen =>
-      (flags.evals ?? analysisRepo.byGame(game)) dmap {
+      (flags.requiresAnalysis ?? analysisRepo.byGame(game)) dmap {
         (game, initialFen, _)
       }
     }
@@ -272,62 +269,62 @@ final class GameApiV2(
       withFlags: WithFlags,
       teams: Option[GameTeams] = None,
       realPlayers: Option[RealPlayers] = None
-  ): Fu[JsObject] =
-    for {
-      lightUsers <- gameLightUsers(g) dmap { case (wu, bu) => List(wu, bu) }
-      pgn <-
-        withFlags.pgnInJson ?? pgnDump
-          .apply(g, initialFen, analysisOption, withFlags, realPlayers = realPlayers)
-          .dmap(annotator.toPgnString)
-          .dmap(some)
-    } yield Json
-      .obj(
-        "id"         -> g.id,
-        "rated"      -> g.rated,
-        "variant"    -> g.variant.key,
-        "speed"      -> g.speed.key,
-        "perf"       -> PerfPicker.key(g),
-        "createdAt"  -> g.createdAt,
-        "lastMoveAt" -> g.movedAt,
-        "status"     -> g.status.name,
-        "players" -> JsObject(g.players zip lightUsers map { case (p, user) =>
-          p.color.name -> Json
-            .obj()
-            .add("user", user)
-            .add("rating", p.rating)
-            .add("ratingDiff", p.ratingDiff)
-            .add("name", p.name)
-            .add("provisional" -> p.provisional)
-            .add("aiLevel" -> p.aiLevel)
-            .add(
-              "analysis" -> analysisOption.flatMap(
-                analysisJson.player(g pov p.color sideAndStart)(_, accuracy = none)
-              )
+  ): Fu[JsObject] = for
+    lightUsers <- gameLightUsers(g) dmap { (wu, bu) => List(wu, bu) }
+    pgn <-
+      withFlags.pgnInJson ?? pgnDump
+        .apply(g, initialFen, analysisOption, withFlags, realPlayers = realPlayers)
+        .dmap(annotator.toPgnString)
+        .dmap(some)
+    accuracy = analysisOption.ifTrue(withFlags.accuracy).flatMap {
+      AccuracyPercent.gameAccuracy(g.startedAtPly.color, _)
+    }
+  yield Json
+    .obj(
+      "id"         -> g.id,
+      "rated"      -> g.rated,
+      "variant"    -> g.variant.key,
+      "speed"      -> g.speed.key,
+      "perf"       -> PerfPicker.key(g),
+      "createdAt"  -> g.createdAt,
+      "lastMoveAt" -> g.movedAt,
+      "status"     -> g.status.name,
+      "players" -> JsObject(g.players zip lightUsers map { (p, user) =>
+        p.color.name -> gameJsonView
+          .player(p, user)
+          .add(
+            "analysis" -> analysisOption.flatMap(
+              analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy = none)
             )
-            .add("team" -> teams.map(_(p.color)))
-        // .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
-        })
+          )
+          .add("team" -> teams.map(_(p.color)))
+          .add("accuracy" -> accuracy.map(_(p.color)).map(_.toInt))
+      })
+    )
+    .add("initialFen" -> initialFen)
+    .add("winner" -> g.winnerColor.map(_.name))
+    .add("opening" -> g.opening.ifTrue(withFlags.opening))
+    .add("moves" -> withFlags.moves.option {
+      withFlags keepDelayIf g.playable applyDelay g.sans mkString " "
+    })
+    .add("clocks" -> withFlags.clocks.??(g.bothClockStates).map { clocks =>
+      withFlags keepDelayIf g.playable applyDelay clocks
+    })
+    .add("pgn" -> pgn)
+    .add("daysPerTurn" -> g.daysPerTurn)
+    .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves(_, withGlyph = false)))
+    .add("tournament" -> g.tournamentId)
+    .add("swiss" -> g.swissId)
+    .add("clock" -> g.clock.map { clock =>
+      Json.obj(
+        "initial"   -> clock.limitSeconds,
+        "increment" -> clock.incrementSeconds,
+        "totalTime" -> clock.estimateTotalSeconds
       )
-      .add("initialFen" -> initialFen)
-      .add("winner" -> g.winnerColor.map(_.name))
-      .add("opening" -> g.opening.ifTrue(withFlags.opening))
-      .add("moves" -> withFlags.moves.option {
-        withFlags keepDelayIf g.playable applyDelay g.sans mkString " "
-      })
-      .add("pgn" -> pgn)
-      .add("daysPerTurn" -> g.daysPerTurn)
-      .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves(_, withGlyph = false)))
-      .add("tournament" -> g.tournamentId)
-      .add("swiss" -> g.swissId)
-      .add("clock" -> g.clock.map { clock =>
-        Json.obj(
-          "initial"   -> clock.limitSeconds,
-          "increment" -> clock.incrementSeconds,
-          "totalTime" -> clock.estimateTotalSeconds
-        )
-      })
+    })
+    .add("lastFen" -> withFlags.lastFen.option(Fen.write(g.chess.situation)))
 
-  private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
+  private def gameLightUsers(game: Game): Fu[PairOf[Option[LightUser]]] =
     (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser)
 
 object GameApiV2:
@@ -396,5 +393,6 @@ object GameApiV2:
       swissId: SwissId,
       format: Format,
       flags: WithFlags,
-      perSecond: MaxPerSecond
+      perSecond: MaxPerSecond,
+      player: Option[UserId]
   ) extends Config

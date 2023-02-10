@@ -218,6 +218,12 @@
   <string name="email">Email</string>
   <string name="passwordReset">Resetează parola</string>
   <string name="forgotPassword">Ți-ai uitat parola?</string>
+  <string name="error.weakPassword">Această parolă este extrem de comună şi prea uşor de ghicit.</string>
+  <string name="error.namePassword">Te rugăm să nu folosești numele tău de utilizator ca parolă.</string>
+  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Părăsești Lichess</string>
+  <string name="neverTypeYourPassword">Nu introduceți niciodată parola Lichess pe un alt site!</string>
+  <string name="passwordSuggestion">Nu seta o parolă sugerată de altcineva. O vor folosi pentru a vă fura contul.</string>
+  <string name="emailSuggestion">Nu setați o adresă de e-mail sugerată de altcineva. O vor folosi pentru a vă fura contul.</string>
   <string name="emailConfirmHelp">Ajutor cu confirmarea adresei de email</string>
   <string name="emailConfirmNotReceived">Nu ai primit emailul de confirmare după înregistrare?</string>
   <string name="whatSignupUsername">Ce nume de utilizator ai folosit pentru a te înregistra?</string>
@@ -572,7 +578,7 @@
   <string name="notes">Note</string>
   <string name="typePrivateNotesHere">Scrie în privat aici</string>
   <string name="writeAPrivateNoteAboutThisUser">Scrie o notiță privată despre acest utilizator</string>
-  <string name="noNoteYet">Nici o notiță încă</string>
+  <string name="noNoteYet">Încă nu există notițe</string>
   <string name="invalidUsernameOrPassword">Nume sau parolă invalidă</string>
   <string name="incorrectPassword">Parolă greșită</string>
   <string name="invalidAuthenticationCode">Cod de autentificare incorect</string>
@@ -742,6 +748,7 @@
   <string name="kidMode">Mod pentru copii</string>
   <string name="kidModeExplanation">În modul „copil”, toate modalitățile de comunicare sunt dezactivate. Activează asta pentru copilul tău sau pentru școlari, pentru a-i proteja de alți utilizatori ai internetului.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">În modul „copil”, sigla paginii va avea iconița %s, în felul acesta vei ști când copiii tăi sunt în siguranță.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Contul tău este gestionat. Întreabă-ți profesorul de șah despre scoaterea modului copil.</string>
   <string name="enableKidMode">Activează modul „copil”</string>
   <string name="disableKidMode">Dezactivează modul „copil”</string>
   <string name="security">Securitate</string>

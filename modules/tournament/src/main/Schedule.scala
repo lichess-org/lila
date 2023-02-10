@@ -3,7 +3,6 @@ package lila.tournament
 import chess.format.Fen
 import chess.variant.Variant
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
-import org.joda.time.DateTime
 import play.api.i18n.Lang
 
 import lila.i18n.I18nKeys
@@ -13,7 +12,7 @@ case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
-    position: Option[Fen.Epd],
+    position: Option[Fen.Opening],
     at: DateTime,
     conditions: Condition.All = Condition.All.empty
 ):
@@ -74,7 +73,7 @@ case class Schedule(
         case (_, Some(max))         => s"≤${max.rating} ${speed.trans}"
     else if (variant.standard)
       val n = position.flatMap(Thematic.byFen).fold(speed.trans) { pos =>
-        s"${pos.shortName} ${speed.trans}"
+        s"${pos.family.name} ${speed.trans}"
       }
       if (full) xArena.txt(n) else n
     else
@@ -189,24 +188,23 @@ object Schedule:
     def apply(name: String) = all.find(_.name == name)
     def byId(id: Int)       = all.find(_.id == id)
 
-  sealed abstract class Speed(val id: Int):
+  enum Speed(val id: Int):
     val name = Speed.this.toString
     val key  = lila.common.String lcfirst name
     def trans(using lang: Lang): String = this match
       case Speed.Rapid     => I18nKeys.rapid.txt()
       case Speed.Classical => I18nKeys.classical.txt()
       case _               => name
+    case UltraBullet extends Speed(5)
+    case HyperBullet extends Speed(10)
+    case Bullet      extends Speed(20)
+    case HippoBullet extends Speed(25)
+    case SuperBlitz  extends Speed(30)
+    case Blitz       extends Speed(40)
+    case Rapid       extends Speed(50)
+    case Classical   extends Speed(60)
   object Speed:
-    case object UltraBullet extends Speed(5)
-    case object HyperBullet extends Speed(10)
-    case object Bullet      extends Speed(20)
-    case object HippoBullet extends Speed(25)
-    case object SuperBlitz  extends Speed(30)
-    case object Blitz       extends Speed(40)
-    case object Rapid       extends Speed(50)
-    case object Classical   extends Speed(60)
-    val all: List[Speed] =
-      List(UltraBullet, HyperBullet, Bullet, HippoBullet, SuperBlitz, Blitz, Rapid, Classical)
+    val all                      = values.toList
     val mostPopular: List[Speed] = List(Bullet, Blitz, Rapid, Classical)
     def apply(key: String) = all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
     def byId(id: Int)      = all find (_.id == id)

@@ -2,6 +2,7 @@
 <resources>
   <string name="settings">Настройки</string>
   <string name="closeAccount">Удалить учётную запись</string>
+  <string name="managedAccountCannotBeClosed">Ваш аккаунт находится под управлением и не может быть закрыт.</string>
   <string name="closingIsDefinitive">Закрытие невозможно будет отменить. Вы уверены?</string>
   <string name="cantOpenSimilarAccount">Вы не сможете создать новый аккаунт с таким же именем, даже если регистр символов отличается.</string>
   <string name="changedMindDoNotCloseAccount">Я передумал, не закрывайте мой аккаунт</string>

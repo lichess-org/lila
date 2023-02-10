@@ -9,7 +9,7 @@ import lila.common.Form.given
 final private[forum] class ForumForm(
     promotion: lila.security.PromotionApi,
     val captcher: lila.hub.actors.Captcher
-)(using ec: scala.concurrent.ExecutionContext)
+)(using Executor)
     extends lila.hub.CaptchedForm:
 
   import ForumForm.*

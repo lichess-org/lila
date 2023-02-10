@@ -15,28 +15,24 @@ final class ForumDelete(
     topicApi: ForumTopicApi,
     categApi: ForumCategApi,
     modLog: lila.mod.ModlogApi
-)(using ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer):
+)(using ec: Executor, mat: akka.stream.Materializer):
 
   def post(categId: ForumCategId, postId: ForumPostId, mod: User): Funit =
-    postRepo.unsafe.byCategAndId(categId, postId) flatMap {
-      _ ?? { post =>
-        postApi.viewOf(post) flatMap {
-          _ ?? { view =>
-            doDelete(view) >> {
-              if (MasterGranter(_.ModerateForum)(mod))
-                modLog.deletePost(
-                  mod.id into ModId,
-                  post.userId,
-                  text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
-                )
-              else
-                fuccess {
-                  logger.info(
-                    s"${mod.username} deletes post by ${post.userId.??(_.value)} \"${post.text take 200}\""
-                  )
-                }
+    postRepo.unsafe.byCategAndId(categId, postId) flatMapz { post =>
+      postApi.viewOf(post) flatMapz { view =>
+        doDelete(view) >> {
+          if (MasterGranter(_.ModerateForum)(mod))
+            modLog.deletePost(
+              mod.id into ModId,
+              post.userId,
+              text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
+            )
+          else
+            fuccess {
+              logger.info(
+                s"${mod.username} deletes post by ${post.userId.??(_.value)} \"${post.text take 200}\""
+              )
             }
-          }
         }
       }
     }

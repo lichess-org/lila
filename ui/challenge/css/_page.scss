@@ -1,6 +1,10 @@
 .challenge-page {
   .challenge-id-form {
-    white-space: nowrap;
+    display: flex;
+
+    input {
+      width: 100%;
+    }
   }
 
   .invite {
@@ -44,14 +48,18 @@
     --c-bg: #{$c-bg};
 
     border-radius: 99px;
-    padding: 0.5em 1.1em;
+    padding: 0.7em 1.7em;
     margin-bottom: 3rem;
     font-size: 2em;
     background: var(--c-bg);
     border: 1px solid var(--c-font);
+    gap: 0.3em 1em;
 
     > div {
       @extend %flex-center, %roboto;
+
+      justify-content: center;
+      flex-grow: 1;
 
       &::before {
         color: var(--c-font);
@@ -72,6 +80,7 @@
       font-weight: bold;
       color: var(--c-font);
       text-transform: uppercase;
+      text-align: center;
     }
   }
 

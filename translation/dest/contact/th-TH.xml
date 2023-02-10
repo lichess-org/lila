@@ -41,4 +41,5 @@
   <string name="illegalCastling">การเข้าป้อมผิดกติกาหรือที่เป็นไปไม่ได้</string>
   <string name="castlingPrevented">การเข้าป้อมจะถูกกัน ถ้าคิงเดินจะผ่านช่องที่ถูกคุมไว้</string>
   <string name="castlingRules">โปรดแน่ใจว่าคุณเข้าใจกติกาการเข้าป้อม</string>
+  <string name="insufficientMaterial">หมากไม่พอให้รุกจน</string>
 </resources>

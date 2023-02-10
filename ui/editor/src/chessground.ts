@@ -135,7 +135,7 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: (lichess.storage.get('arrow.snap') || 1) != '0',
+      defaultSnapToValidMove: lichess.storage.boolean('arrow.snap').getOrDefault(true),
     },
     draggable: {
       showGhost: true,

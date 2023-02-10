@@ -1,6 +1,5 @@
 package lila.coach
 
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.i18n.Lang
@@ -57,5 +56,5 @@ object CoachProfileForm:
           case JsSuccess(langs, _) => langs.take(10).map(_.code).flatMap(Lang.get).map(_.code).distinct
           case _                   => Nil
         },
-        updatedAt = DateTime.now
+        updatedAt = nowDate
       )

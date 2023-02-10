@@ -3,7 +3,6 @@ package lila.puzzle
 import chess.format.{ Fen, UciCharPair }
 import chess.Ply
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.i18n.defaultLang
@@ -13,15 +12,16 @@ final private class GameJson(
     gameRepo: GameRepo,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def apply(gameId: GameId, plies: Ply, bc: Boolean): Fu[JsObject] =
     (if (bc) bcCache else cache) get writeKey(gameId, plies)
 
+  def noCache(game: Game, plies: Ply): Fu[JsObject] =
+    lightUserApi preloadMany game.userIds inject generate(game, plies)
+
   def noCacheBc(game: Game, plies: Ply): Fu[JsObject] =
-    lightUserApi preloadMany game.userIds map { _ =>
-      generateBc(game, plies)
-    }
+    lightUserApi preloadMany game.userIds inject generateBc(game, plies)
 
   private def readKey(k: String): (GameId, Ply) =
     k.drop(Game.gameIdSize).toIntOption match
@@ -71,7 +71,7 @@ final private class GameJson(
   private def perfJson(game: Game) =
     val perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
     Json.obj(
-      "icon" -> perfType.iconChar.toString,
+      "key"  -> perfType.key,
       "name" -> perfType.trans(using defaultLang)
     )
 

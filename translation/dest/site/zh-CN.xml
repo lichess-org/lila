@@ -196,6 +196,8 @@
   <string name="email">电子邮箱</string>
   <string name="passwordReset">密码重置</string>
   <string name="forgotPassword">忘记密码？</string>
+  <string name="youAreLeavingLichess">您正在离开Lichess</string>
+  <string name="neverTypeYourPassword">永远不要在其他网站输入您的Lichess密码 ！</string>
   <string name="emailConfirmHelp">协助邮件确认</string>
   <string name="emailConfirmNotReceived">注册后没有收到确认邮件？</string>
   <string name="whatSignupUsername">您想用什么用户名注册？</string>

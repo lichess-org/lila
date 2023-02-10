@@ -7,7 +7,6 @@ import chess.format.{ Fen, Uci }
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.AdapterLike
@@ -17,7 +16,7 @@ import lila.db.dsl.{ *, given }
 final class StudyMultiBoard(
     chapterRepo: ChapterRepo,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private val maxPerPage = MaxPerPage(9)
 

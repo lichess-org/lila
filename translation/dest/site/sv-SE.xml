@@ -207,6 +207,12 @@
   <string name="email">E-post</string>
   <string name="passwordReset">Återställ lösenord</string>
   <string name="forgotPassword">Glömt lösenordet?</string>
+  <string name="error.weakPassword">Detta lösenord är extremt vanligt, och alltför lätt att gissa.</string>
+  <string name="error.namePassword">Använd inte ditt användarnamn som lösenord.</string>
+  <string name="youAreLeavingLichess">Du lämnar Lichess</string>
+  <string name="neverTypeYourPassword">Skriv aldrig ditt Lichess-lösenord på en annan webbplats!</string>
+  <string name="passwordSuggestion">Ange inte ett lösenord som föreslagits av någon annan. De kommer att använda det för att stjäla ditt konto.</string>
+  <string name="emailSuggestion">Ange inte en e-postadress som föreslagits av någon annan. De kommer att använda den för att stjäla ditt konto.</string>
   <string name="emailConfirmHelp">Hjälp med e-postbekräftelse</string>
   <string name="emailConfirmNotReceived">Har du inte fått din e-postbekräftelse efter att du registrerade dig?</string>
   <string name="whatSignupUsername">Vilket användarnamn använde du för att registrera dig?</string>
@@ -543,6 +549,8 @@ https://lichess. org/study</string>
   <string name="blog">Blogg</string>
   <string name="notes">Anteckningar</string>
   <string name="typePrivateNotesHere">Skriv privata anteckningar här</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skriv en privat anteckning om den här användaren</string>
+  <string name="noNoteYet">Ingen anteckning ännu</string>
   <string name="invalidUsernameOrPassword">Ogiltigt användarnamn eller lösenord</string>
   <string name="incorrectPassword">Felaktigt lösenord</string>
   <string name="invalidAuthenticationCode">Ogiltig bekräftelsekod</string>
@@ -708,6 +716,7 @@ https://lichess. org/study</string>
   <string name="kidMode">Barnsäkert läge</string>
   <string name="kidModeExplanation">Detta är en säkerhetsinställning. I barnsäkert läge är all kommunikation inaktiverad. Använd detta för dina barn och skolelever för att skydda dem från andra internetanvändare.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnsäkert läge får lichess-logotypen en %s ikon, så att du vet att dina barn är säkra.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Ditt konto hanteras. Fråga din schacklärare om att ta bort barnläget.</string>
   <string name="enableKidMode">Aktivera barnsäkert läge</string>
   <string name="disableKidMode">Avaktivera barnsäkert läge</string>
   <string name="security">Säkerhet</string>

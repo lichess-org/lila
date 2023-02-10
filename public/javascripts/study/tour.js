@@ -40,7 +40,7 @@ lichess.studyTour = function (study) {
 
     const tour = new Shepherd.Tour({
       defaults: {
-        classes: theme,
+        classes: theme + ' force-ltr',
         scrollTo: false,
         showCancelLink: true,
       },

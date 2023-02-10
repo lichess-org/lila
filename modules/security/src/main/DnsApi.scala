@@ -3,7 +3,6 @@ package lila.security
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
 
 import lila.base.LilaException
 import lila.common.Domain
@@ -13,7 +12,7 @@ final private class DnsApi(
     ws: StandaloneWSClient,
     config: SecurityConfig.DnsApi,
     mongoCache: lila.memo.MongoCache.Api
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   // only valid email domains that are not whitelisted should make it here
   def mx(lower: Domain.Lower): Fu[List[Domain]] =
@@ -23,7 +22,7 @@ final private class DnsApi(
 
   private val mxCache = mongoCache.noHeap[Domain.Lower, List[Domain]](
     "security.mx",
-    7 days,
+    3 days,
     _.value
   ) { domain =>
     fetch(domain, "mx") {

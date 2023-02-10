@@ -3,13 +3,10 @@ package lila.memo
 import akka.stream.scaladsl.{ FileIO, Source }
 import akka.util.ByteString
 import com.github.blemale.scaffeine.LoadingCache
-import org.joda.time.DateTime
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler, Macros }
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.config
@@ -36,7 +33,7 @@ object PicfitImage:
   given BSONDocumentHandler[PicfitImage] = Macros.handler
 
 final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, config: PicfitConfig)(using
-    ExecutionContext
+    Executor
 ):
 
   import PicfitApi.*
@@ -44,7 +41,9 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
 
   def uploadFile(rel: String, uploaded: FilePart, userId: UserId): Fu[PicfitImage] =
-    uploadSource(rel, uploaded.copy[ByteSource](ref = FileIO.fromPath(uploaded.ref.path)), userId)
+    val ref: ByteSource = FileIO.fromPath(uploaded.ref.path)
+    val source          = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
+    uploadSource(rel, source, userId)
 
   def uploadSource(rel: String, part: SourcePart, userId: UserId): Fu[PicfitImage] =
     if (part.fileSize > uploadMaxBytes)
@@ -62,7 +61,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
             rel = rel,
             name = part.filename,
             size = part.fileSize.toInt,
-            createdAt = DateTime.now
+            createdAt = nowDate
           )
           picfitServer.store(image, part) >>
             deleteByRel(image.rel) >>

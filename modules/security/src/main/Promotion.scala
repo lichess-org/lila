@@ -1,7 +1,5 @@
 package lila.security
 
-import scala.concurrent.duration.*
-
 import com.github.blemale.scaffeine.Cache
 import lila.user.User
 import lila.common.config.NetDomain

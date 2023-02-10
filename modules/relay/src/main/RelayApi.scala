@@ -2,12 +2,10 @@ package lila.relay
 
 import akka.stream.scaladsl.Source
 import alleycats.Zero
-import org.joda.time.DateTime
 import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 
 import lila.common.config.MaxPerSecond
@@ -27,7 +25,7 @@ final class RelayApi(
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     leaderboard: RelayLeaderboardApi
-)(using ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer):
+)(using ec: Executor, mat: akka.stream.Materializer):
 
   import BSONHandlers.{ readRoundWithTour, given }
   import lila.study.BSONHandlers.given
@@ -55,11 +53,9 @@ final class RelayApi(
     }
 
   def byIdWithStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
-    byIdWithTour(id) flatMap {
-      _ ?? { case RelayRound.WithTour(relay, tour) =>
-        studyApi.byId(relay.studyId) dmap2 {
-          RelayRound.WithTourAndStudy(relay, tour, _)
-        }
+    byIdWithTour(id) flatMapz { case RelayRound.WithTour(relay, tour) =>
+      studyApi.byId(relay.studyId) dmap2 {
+        RelayRound.WithTourAndStudy(relay, tour, _)
       }
     }
 
@@ -84,6 +80,10 @@ final class RelayApi(
       .find($doc("tourId" -> tour.id))
       .sort($doc("startedAt" -> -1, "startsAt" -> -1))
       .one[RelayRound]
+
+  private var spotlightCache: List[RelayTour.ActiveWithNextRound] = Nil
+
+  def spotlight = spotlightCache
 
   val officialActive = cacheApi.unit[List[RelayTour.ActiveWithNextRound]] {
     _.refreshAfterWrite(5 seconds)
@@ -112,11 +112,20 @@ final class RelayApi(
             )
           }
           .map { docs =>
-            for {
+            for
               doc   <- docs
               tour  <- doc.asOpt[RelayTour]
               round <- doc.getAsOpt[RelayRound]("round")
-            } yield RelayTour.ActiveWithNextRound(tour, round)
+            yield RelayTour.ActiveWithNextRound(tour, round)
+          }
+          .addEffect { trs =>
+            spotlightCache = trs
+              .filter(_.tour.tier.has(RelayTour.Tier.BEST))
+              .filterNot(_.round.finished)
+              .filter { tr =>
+                tr.round.hasStarted || tr.round.startsAt.exists(_.isBefore(nowDate.plusMinutes(30)))
+              }
+              .take(2)
           }
       }
   }
@@ -130,7 +139,7 @@ final class RelayApi(
         Match(
           $doc(
             "sync.until" $exists true,
-            "sync.nextAt" $lt DateTime.now
+            "sync.nextAt" $lt nowDate
           )
         ) -> List(
           PipelineOperator(tourRepo lookup "tourId"),
@@ -151,8 +160,8 @@ final class RelayApi(
       leaderboard.invalidate(tour.id)
 
   def create(data: RelayRoundForm.Data, user: User, tour: RelayTour): Fu[RelayRound] =
-    roundRepo.lastByTour(tour) flatMap {
-      _ ?? { last => studyRepo.byId(last.studyId) }
+    roundRepo.lastByTour(tour) flatMapz { last =>
+      studyRepo.byId(last.studyId)
     } flatMap { lastStudy =>
       import lila.study.{ StudyMember, StudyMembers }
       val relay = data.make(user, tour)
@@ -228,18 +237,14 @@ final class RelayApi(
     } >> requestPlay(old.id, v = true)
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =
-    byIdWithTour(roundId) flatMap {
-      _ ?? { rt =>
-        roundRepo.coll.delete.one($id(rt.round.id)) >>
-          denormalizeTourActive(rt.tour.id) inject rt.tour.some
-      }
+    byIdWithTour(roundId) flatMapz { rt =>
+      roundRepo.coll.delete.one($id(rt.round.id)) >>
+        denormalizeTourActive(rt.tour.id) inject rt.tour.some
     }
 
   def getOngoing(id: RelayRoundId): Fu[Option[RelayRound.WithTour]] =
-    roundRepo.coll.one[RelayRound]($doc("_id" -> id, "finished" -> false)) flatMap {
-      _ ?? { relay =>
-        tourById(relay.tourId) map2 relay.withTour
-      }
+    roundRepo.coll.one[RelayRound]($doc("_id" -> id, "finished" -> false)) flatMapz { relay =>
+      tourById(relay.tourId) map2 relay.withTour
     }
 
   def canUpdate(user: User, tour: RelayTour): Fu[Boolean] =
@@ -296,8 +301,8 @@ final class RelayApi(
   private[relay] def autoStart: Funit =
     roundRepo.coll.list[RelayRound](
       $doc(
-        "startsAt" $lt DateTime.now.plusMinutes(30) // start 30 minutes early to fetch boards
-          $gt DateTime.now.minusDays(1),            // bit late now
+        "startsAt" $lt nowDate.plusMinutes(30) // start 30 minutes early to fetch boards
+          $gt nowDate.minusDays(1),            // bit late now
         "startedAt" $exists false,
         "sync.until" $exists false
       )
@@ -305,7 +310,7 @@ final class RelayApi(
       _.map { relay =>
         logger.info(s"Automatically start $relay")
         requestPlay(relay.id, v = true)
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   private[relay] def autoFinishNotSyncing: Funit =
@@ -313,21 +318,21 @@ final class RelayApi(
       $doc(
         "sync.until" $exists false,
         "finished" -> false,
-        "startedAt" $lt DateTime.now.minusHours(3),
+        "startedAt" $lt nowDate.minusHours(3),
         $or(
           "startsAt" $exists false,
-          "startsAt" $lt DateTime.now
+          "startsAt" $lt nowDate
         )
       )
     ) flatMap {
       _.map { relay =>
         logger.info(s"Automatically finish $relay")
         update(relay)(_.finish)
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   private[relay] def WithRelay[A: Zero](id: RelayRoundId)(f: RelayRound => Fu[A]): Fu[A] =
-    byId(id) flatMap { _ ?? f }
+    byId(id) flatMapz f
 
   private[relay] def onStudyRemove(studyId: StudyId) =
     roundRepo.coll.delete.one($id(studyId into RelayRoundId)).void

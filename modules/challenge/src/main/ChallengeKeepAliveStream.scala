@@ -2,13 +2,12 @@ package lila.challenge
 
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 
 final class ChallengeKeepAliveStream(api: ChallengeApi)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
+    ec: Executor,
+    scheduler: Scheduler
 ):
   def apply(challenge: Challenge, initialJson: JsObject): Source[JsValue, ?] =
     Source(List(initialJson)) concat

@@ -1,9 +1,7 @@
 package lila.round
 
 import akka.stream.scaladsl.*
-import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
-import scala.concurrent.duration.*
 import reactivemongo.api.bson.*
 
 import lila.common.{ Bus, LilaScheduler, LilaStream }
@@ -15,8 +13,8 @@ final private class CorresAlarm(
     hasUserId: (Game, UserId) => Fu[Boolean],
     proxyGame: GameId => Fu[Option[Game]]
 )(using
-    scala.concurrent.ExecutionContext,
-    akka.actor.Scheduler,
+    Executor,
+    Scheduler,
     akka.stream.Materializer
 ):
 
@@ -38,14 +36,14 @@ final private class CorresAlarm(
         game.bothPlayersHaveMoved ?? {
           game.playableCorrespondenceClock ?? { clock =>
             val remainingTime = clock remainingTime game.turnColor
-            val ringsAt       = DateTime.now.plusSeconds(remainingTime.toInt * 8 / 10)
+            val ringsAt       = nowDate.plusSeconds(remainingTime.toInt * 8 / 10)
             coll.update
               .one(
                 $id(game.id),
                 Alarm(
                   _id = game.id,
                   ringsAt = ringsAt,
-                  expiresAt = DateTime.now.plusSeconds(remainingTime.toInt * 2)
+                  expiresAt = nowDate.plusSeconds(remainingTime.toInt * 2)
                 ),
                 upsert = true
               )
@@ -58,7 +56,7 @@ final private class CorresAlarm(
 
   LilaScheduler("CorresAlarm", _.Every(10 seconds), _.AtMost(10 seconds), _.Delay(2 minutes)) {
     coll
-      .find($doc("ringsAt" $lt DateTime.now))
+      .find($doc("ringsAt" $lt nowDate))
       .cursor[Alarm]()
       .documentSource(200)
       .mapAsyncUnordered(4)(alarm => proxyGame(alarm._id))

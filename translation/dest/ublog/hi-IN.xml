@@ -2,10 +2,10 @@
 <resources>
   <string name="xBlog">%s का ब्लॉग</string>
   <string name="newPost">नया पोस्ट</string>
-  <string name="editYourBlogPost">अपनी ब्लॉग पोस्ट संपादित करें</string>
+  <string name="editYourBlogPost">अपनी ब्लॉग पोस्ट को बदलिए</string>
   <string name="deleteBlog">इस ब्लॉग पोस्ट को निश्चित रूप से हटाएं</string>
   <string name="deleteImage">चित्र हटाएं</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">निम्नलिखित वेबसाइटों से छवियों का उपयोग करना सुरक्षित है: </string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">निम्नलिखित वेबसाइटों से चित्रों का उपयोग करना सुरक्षित है: </string>
   <string name="selectPostTopics">उन विषयों का चयन करें जिनके बारे में आपकी पोस्ट है</string>
   <string name="useImagesYouMadeYourself">आप उन छवियों का भी उपयोग कर सकते हैं जो आपने स्वयं बनाई हैं, आपके द्वारा लिए गए चित्र, लीचेस के स्क्रीनशॉट... कुछ भी जो किसी और के द्वारा कॉपीराइट नहीं है।</string>
   <string name="safeAndRespectfulContent">कृपया केवल सुरक्षित और सम्मानजनक सामग्री पोस्ट करें। किसी और की सामग्री की नकल न करें।</string>

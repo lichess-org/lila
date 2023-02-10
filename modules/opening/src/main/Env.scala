@@ -4,7 +4,6 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
 
 import lila.common.config.CollName
 import lila.game.{ GameRepo, PgnDump }
@@ -19,7 +18,7 @@ final class Env(
     appConfig: Configuration,
     cookieBaker: lila.common.LilaCookie,
     ws: StandaloneWSClient
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   private val explorerEndpoint = appConfig.get[String]("explorer.endpoint").taggedWith[ExplorerEndpoint]
   private lazy val wikiColl    = db(CollName("opening_wiki"))

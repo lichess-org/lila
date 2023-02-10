@@ -13,7 +13,7 @@ final class ShutupApi(
     userRepo: UserRepo,
     relationApi: lila.relation.RelationApi,
     reporter: lila.hub.actors.Report
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private given BSONDocumentHandler[UserRecord] = Macros.handler
   import PublicLine.given

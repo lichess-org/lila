@@ -1,6 +1,5 @@
 package lila.rating
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.{ BSONDocument, Macros }
 
 import lila.db.BSON
@@ -89,9 +88,9 @@ case object Perf:
   val default = Perf(Glicko.default, 0, Nil, None)
 
   /* Set a latest date as a hack so that these are written to the db even though there are no games */
-  val defaultManaged       = Perf(Glicko.defaultManaged, 0, Nil, DateTime.now.some)
-  val defaultManagedPuzzle = Perf(Glicko.defaultManagedPuzzle, 0, Nil, DateTime.now.some)
-  val defaultBot           = Perf(Glicko.defaultBot, 0, Nil, DateTime.now.some)
+  val defaultManaged       = Perf(Glicko.defaultManaged, 0, Nil, nowDate.some)
+  val defaultManagedPuzzle = Perf(Glicko.defaultManagedPuzzle, 0, Nil, nowDate.some)
+  val defaultBot           = Perf(Glicko.defaultBot, 0, Nil, nowDate.some)
 
   val recentMaxSize = 12
 

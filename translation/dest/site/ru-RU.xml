@@ -229,6 +229,12 @@
   <string name="email">Электронная почта</string>
   <string name="passwordReset">Сброс пароля</string>
   <string name="forgotPassword">Забыли пароль?</string>
+  <string name="error.weakPassword">Этот пароль очень распространён, и его слишком легко угадать.</string>
+  <string name="error.namePassword">Пожалуйста, не используйте свой логин в качестве пароля.</string>
+  <string name="youAreLeavingLichess">Вы покидаете Lichess</string>
+  <string name="neverTypeYourPassword">Никогда не вводите свой пароль Lichess на другом сайте!</string>
+  <string name="passwordSuggestion">Не устанавливайте пароль, предложенный другими людьми. Они с его помощью украдут вашу учётную запись.</string>
+  <string name="emailSuggestion">Не устанавливайте адрес электронной почты, предложенный другими людьми. Они с его помощью украдут вашу учётную запись.</string>
   <string name="emailConfirmHelp">Помощь с подтверждением электронной почты</string>
   <string name="emailConfirmNotReceived">Не получили подтверждение по электронной почте после регистрации?</string>
   <string name="whatSignupUsername">Какое имя пользователя вы использовали для регистрации?</string>
@@ -282,7 +288,7 @@
   <string name="decline">Отклонить</string>
   <string name="playingRightNow">Идёт игра</string>
   <string name="eventInProgress">Идёт прямо сейчас</string>
-  <string name="finished">Завершённые</string>
+  <string name="finished">Завершён</string>
   <string name="finishesX">завершится %s</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
@@ -778,6 +784,7 @@
   <string name="kidMode">Детский режим</string>
   <string name="kidModeExplanation">Это для безопасности. В детском режиме отключены все коммуникации на сайте. Включите его для ваших детей и учеников, чтобы защитить их от других пользователей интернета.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">В детском режиме к логотипу lichess добавляется значок в виде %s, чтобы вы знали, что ваши дети находятся в безопасности.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Ваш аккаунт находится под управлением. Спросите своего учителя по шахматам об удалении детского режима.</string>
   <string name="enableKidMode">Включить детский режим</string>
   <string name="disableKidMode">Отключить детский режим</string>
   <string name="security">Безопасность</string>

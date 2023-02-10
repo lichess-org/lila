@@ -1,8 +1,5 @@
 package lila.tutor
 
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
-
 import lila.common.Heapsort.given
 import lila.rating.PerfType
 import lila.user.User
@@ -14,7 +11,7 @@ case class TutorFullReport(
     perfs: List[TutorPerfReport]
 ):
   def apply(perfType: PerfType) = perfs.find(_.perf == perfType)
-  def isFresh = at isAfter DateTime.now.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
+  def isFresh                   = at isAfter nowDate.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
 
   lazy val nbGames = perfs.toList.map(_.stats.totalNbGames).sum
   lazy val totalTime: FiniteDuration =
@@ -52,13 +49,15 @@ object TutorFullReport:
 
   val freshness = 1 day
 
-  sealed abstract class Availability
-  case class Available(report: TutorFullReport, fresher: Option[TutorQueue.Status]) extends Availability:
-    def isFresh = fresher.isEmpty
-  case class Empty(status: TutorQueue.Status) extends Availability
-  case object InsufficientGames               extends Availability
+  enum Availability:
+    case Available(report: TutorFullReport, fresher: Option[TutorQueue.Status])
+    case Empty(status: TutorQueue.Status)
+    case InsufficientGames
+
+  export Availability.*
 
   object F:
     val user   = "user"
     val at     = "at"
     val millis = "millis"
+    val perfs  = "perfs"

@@ -1,8 +1,6 @@
 package lila.mod
 
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.game.BSONHandlers.given
@@ -15,13 +13,13 @@ import lila.user.{ User, UserRepo }
 final private class RatingRefund(
     gameRepo: GameRepo,
     userRepo: UserRepo,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     notifier: ModNotifier,
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
     logApi: ModlogApi,
     perfStat: lila.perfStat.PerfStatApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import RatingRefund.*
 
@@ -35,7 +33,7 @@ final private class RatingRefund(
           gameRepo.coll
             .find(
               Query.user(sus.user.id) ++ Query.rated ++ Query
-                .createdSince(DateTime.now minusDays 3) ++ Query.finished
+                .createdSince(nowDate minusDays 3) ++ Query.finished
             )
             .sort(Query.sortCreated)
             .cursor[Game](ReadPreference.secondaryPreferred)
@@ -67,20 +65,18 @@ final private class RatingRefund(
             notifier.refund(victim, pt, points)
 
         def applyRefund(ref: Refund) =
-          userRepo byId ref.victim flatMap {
-            _ ?? { user =>
-              perfStat.get(user, ref.perf) flatMap { perfs =>
-                val points = pointsToRefund(
-                  ref,
-                  curRating = user.perfs(ref.perf).intRating,
-                  perfs = perfs
-                )
-                (points > 0) ?? refundPoints(Victim(user), ref.perf, points)
-              }
+          userRepo byId ref.victim flatMapz { user =>
+            perfStat.get(user, ref.perf) flatMap { perfs =>
+              val points = pointsToRefund(
+                ref,
+                curRating = user.perfs(ref.perf).intRating,
+                perfs = perfs
+              )
+              (points > 0) ?? refundPoints(Victim(user), ref.perf, points)
             }
           }
 
-        lastGames map makeRefunds flatMap { _.all.map(applyRefund).sequenceFu } void
+        lastGames map makeRefunds flatMap { _.all.map(applyRefund).parallel } void
     }
 
 private object RatingRefund:

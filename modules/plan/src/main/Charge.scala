@@ -1,7 +1,6 @@
 package lila.plan
 
-import org.joda.time.DateTime
-import cats.implicits.*
+import cats.syntax.all.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
@@ -52,7 +51,7 @@ object Charge:
       payPalCheckout = payPalCheckout,
       money = money,
       usd = usd,
-      date = DateTime.now
+      date = nowDate
     )
 
   case class Stripe(

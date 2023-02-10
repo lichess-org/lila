@@ -3,7 +3,6 @@ package lila.blog
 import com.softwaremill.macwire.*
 import lila.common.autoconfig.*
 import play.api.Configuration
-import scala.concurrent.duration.FiniteDuration
 
 private class BlogConfig(
     @ConfigName("prismic.api_url") val apiUrl: String,
@@ -17,8 +16,9 @@ final class Env(
     timelineApi: lila.timeline.EntryApi,
     cacheApi: lila.memo.CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    ws: play.api.libs.ws.StandaloneWSClient
+    Executor,
+    Scheduler,
+    play.api.libs.ws.StandaloneWSClient
 ):
 
   private val config = appConfig.get[BlogConfig]("blog")(AutoConfig.loader)

@@ -1,7 +1,5 @@
 package lila.common
 
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 import scala.jdk.CollectionConverters.*
 
 import akka.actor.{ ActorRef, ActorSystem, Scheduler }
@@ -45,8 +43,9 @@ object Bus:
       bus.unsubscribe(Tellable.Actor(ref), _)
     }
 
+  import lila.Lila.Executor
   def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(makeMsg: Promise[A] => Matchable)(using
-      ec: scala.concurrent.ExecutionContext,
+      ec: Executor,
       scheduler: Scheduler
   ): Fu[A] =
     val promise = Promise[A]()

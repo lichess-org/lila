@@ -29,18 +29,20 @@ object bits:
   def percentNumber[A](v: A)(implicit number: TutorNumber[A]) = f"${number double v}%1.1f"
   def percentFrag[A](v: A)(implicit number: TutorNumber[A])   = frag(strong(percentNumber(v)), "%")
 
+  private[tutor] def otherUser(user: lila.user.User)(using ctx: Context) =
+    !ctx.is(user) option userSpan(user, withOnline = false)
+
   private[tutor] def layout(
       availability: TutorFullReport.Availability,
       menu: Frag,
       title: String = "Lichess Tutor",
       pageSmall: Boolean = false
-  )(
-      content: Modifier*
-  )(implicit ctx: Context) =
+  )(content: Modifier*)(using Context) =
     views.html.base.layout(
       moreCss = cssTag("tutor"),
       moreJs = jsModule("tutor"),
-      title = "Lichess Tutor"
+      title = "Lichess Tutor",
+      csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(
         st.aside(cls := "page-menu__menu subnav")(menu),

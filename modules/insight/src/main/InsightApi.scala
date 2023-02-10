@@ -1,8 +1,6 @@
 package lila.insight
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
-import scala.concurrent.duration.*
 
 import lila.common.config
 import lila.common.Heapsort.botN
@@ -15,7 +13,7 @@ final class InsightApi(
     gameRepo: GameRepo,
     indexer: InsightIndexer,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import InsightApi.*
 
@@ -71,12 +69,12 @@ final class InsightApi(
     Pov(g)
       .map { pov =>
         pov.player.userId ?? { userId =>
-          storage find InsightEntry.povToId(pov) flatMap {
-            _ ?? { indexer.update(g, userId, _) }
+          storage find InsightEntry.povToId(pov) flatMapz {
+            indexer.update(g, userId, _)
           }
         }
       }
-      .sequenceFu
+      .parallel
       .void
 
   def coll = storage.coll

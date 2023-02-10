@@ -4,11 +4,9 @@ import akka.stream.scaladsl.*
 import chess.variant.{ FromPosition, Variant }
 import chess.format.Fen
 import chess.{ Clock, Mode }
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Json.*
@@ -45,7 +43,7 @@ object SetupBulk:
 
   private def timestampInNearFuture = longNumber(
     min = 0,
-    max = DateTime.now.plusDays(1).getMillis
+    max = nowDate.plusDays(1).getMillis
   )
 
   def form = Form[BulkFormData](
@@ -181,7 +179,7 @@ object SetupBulk:
       .add("fen" -> fen)
 
 final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     mat: akka.stream.Materializer
 ):
 
@@ -189,7 +187,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
 
   type Result = Either[ScheduleError, ScheduledBulk]
 
-  private val rateLimit = new lila.memo.RateLimit[UserId](
+  private val rateLimit = lila.memo.RateLimit[UserId](
     credits = maxGames * 3,
     duration = 10.minutes,
     key = "challenge.bulk"
@@ -251,11 +249,11 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
                     data.variant,
                     data.clockOrDays,
                     Mode(data.rated),
-                    pairAt = data.pairAt | DateTime.now,
+                    pairAt = data.pairAt | nowDate,
                     startClocksAt = data.startClocksAt,
                     message = data.message,
                     rules = data.rules,
-                    scheduledAt = DateTime.now,
+                    scheduledAt = nowDate,
                     fen = data.fen
                   )
                 }

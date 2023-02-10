@@ -4,7 +4,6 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 
@@ -33,7 +32,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: Scheduler
 ):
@@ -77,8 +76,8 @@ final class Env(
 
   lila.common.Bus.subscribeFun("playban", "autoFlag") {
     case lila.hub.actorApi.playban.Playban(userId, mins, _) => api.maybeAutoPlaybanReport(userId, mins).unit
-    case lila.hub.actorApi.report.AutoFlag(suspectId, resource, text) =>
-      api.autoCommFlag(SuspectId(suspectId), resource, text).unit
+    case lila.hub.actorApi.report.AutoFlag(suspectId, resource, text, critical) =>
+      api.autoCommFlag(SuspectId(suspectId), resource, text, critical).unit
   }
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>

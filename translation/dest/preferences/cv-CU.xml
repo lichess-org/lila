@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Ӗнерлев</string>
+  <string name="privacy">Вӑрттӑнлӑх</string>
+  <string name="notifications">Систерни</string>
   <string name="pieceAnimation">Кӗлетке хусканӑвӗ</string>
   <string name="materialDifference">Материаллӑ уйрӑмлӑх</string>
   <string name="boardHighlights">Утӑм ҫути (кайранхи утӑм тата шах туни)</string>
@@ -26,4 +28,6 @@
   <string name="inCorrespondenceGames">Куҫӑн мар вӑйӑсем</string>
   <string name="correspondenceAndUnlimited">Вӑрах тата чикӗсӗр</string>
   <string name="yourPreferencesHaveBeenSaved">Улӑштарни упраннӑ.</string>
+  <string name="notifyWeb">Браусӑр</string>
+  <string name="notifyDevice">Хатӗр</string>
 </resources>

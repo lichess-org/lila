@@ -10,7 +10,6 @@ import lila.common.Json.given
 import lila.game.actorApi.MoveGameEvent
 import lila.game.Game
 import lila.socket.Socket
-import scala.concurrent.ExecutionContext
 
 final private class TvBroadcast(
     userJsonView: lila.user.JsonView,
@@ -25,7 +24,7 @@ final private class TvBroadcast(
 
   Bus.subscribe(self, "changeFeaturedGame")
 
-  given ExecutionContext = context.system.dispatcher
+  given Executor = context.system.dispatcher
 
   override def postStop() =
     super.postStop()

@@ -1,16 +1,20 @@
 package lila.blog
 
+import scala.util.Try
 import io.prismic.*
 import play.api.mvc.RequestHeader
 import play.api.libs.ws.StandaloneWSClient
 
+import lila.common.Bus
 import lila.common.config.MaxPerPage
 import lila.common.paginator.*
-import scala.util.Try
+import lila.hub.actorApi.lpv.GamePgnsFromText
+import chess.format.pgn.PgnStr
 
 final class BlogApi(
-    config: BlogConfig
-)(using ec: scala.concurrent.ExecutionContext, ws: StandaloneWSClient):
+    config: BlogConfig,
+    cacheApi: lila.memo.CacheApi
+)(using Executor, Scheduler, StandaloneWSClient):
 
   import BlogApi.looksLikePrismicId
 
@@ -50,7 +54,16 @@ final class BlogApi(
       .submit()
       .map(_.results.headOption)
 
-  def one(prismic: BlogApi.Context, id: String): Fu[Option[Document]] = one(prismic.api, prismic.ref.some, id)
+  def one(prismic: BlogApi.Context, id: String): Fu[Option[Document]] =
+    one(prismic.api, prismic.ref.some, id).flatMapz { doc =>
+      doc.getHtml("blog.body", prismic.linkResolver) match {
+        case Some(html) =>
+          Bus
+            .ask("lpv")(GamePgnsFromText(html, _))
+            .map(pgnCache.putAll) inject doc.some
+        case _ => fuccess(doc.some)
+      }
+    }
 
   def byYear(prismic: BlogApi.Context, year: Int): Fu[List[MiniPost]] =
     prismic.api
@@ -87,6 +100,27 @@ final class BlogApi(
       val docs = res.??(_.currentPageResults).toList
       (docs.nonEmpty ?? all(page + 1)) map (docs ::: _)
     }
+
+  def expand(html: Html) = Html(
+    expandGameRegex.replaceAllIn(
+      html.value,
+      m =>
+        pgnCache.getIfPresent(GameId(m.group(1))).fold(m.matched) { pgn =>
+          val esc   = lila.common.base.StringUtils.escapeHtmlRaw(pgn.value)
+          val color = Option(m.group(2)).getOrElse("white")
+          val ply   = Option(m.group(3)).getOrElse("last")
+          s"""<div class="lpv--autostart" data-pgn="$esc" data-orientation="$color" data-ply="$ply"></div>"""
+        }
+    )
+  )
+
+  // match the entire <a.../> tag with scheme & domain.  href value should be identical to inner text
+  private val expandGameRegex =
+    """<a href="https://lichess\.org/(\w{8})(?:/(white|black)|\w{4}|)(?:#(last|\d+))?">https://lichess\.org/[^<]{8,19}+</a>""".r
+
+  private val pgnCache = cacheApi.notLoadingSync[GameId, PgnStr](256, "prisblog.markup.pgn") {
+    _.expireAfterWrite(1 second).build()
+  }
 
   private def resolveRef(api: Api)(ref: Option[String]) =
     ref.map(_.trim).filterNot(_.isEmpty) map { reqRef =>

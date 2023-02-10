@@ -4,13 +4,11 @@ import chess.Clock.{ Config as ClockConfig, LimitMinutes, LimitSeconds, Incremen
 import chess.Speed
 import chess.format.Fen
 import chess.variant.Variant
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation
 import play.api.data.validation.Constraint
 import play.api.Mode
-import scala.concurrent.duration.*
 
 import lila.common.Form.{ *, given }
 import lila.user.User
@@ -63,7 +61,7 @@ final class SwissForm(implicit mode: Mode):
     form(user) fill SwissData(
       name = none,
       clock = ClockConfig(LimitSeconds(180), IncrementSeconds(0)),
-      startsAt = Some(DateTime.now plusSeconds {
+      startsAt = Some(nowDate plusSeconds {
         if (mode == Mode.Prod) 60 * 10 else 20
       }),
       variant = Variant.default.key.some,
@@ -177,7 +175,7 @@ object SwissForm:
       manualPairings: Option[String]
   ):
     def realVariant  = Variant.orDefault(variant)
-    def realStartsAt = startsAt | DateTime.now.plusMinutes(10)
+    def realStartsAt = startsAt | nowDate.plusMinutes(10)
     def realChatFor  = chatFor | Swiss.ChatFor.default
     def realRoundInterval =
       (roundInterval | Swiss.RoundInterval.auto) match

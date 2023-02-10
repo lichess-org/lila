@@ -1,13 +1,10 @@
 package lila.relay
 
 import chess.format.pgn.Tags
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.study.ChapterRepo
-import akka.actor.Scheduler
 import chess.Outcome
 
 case class RelayLeaderboard(players: List[RelayLeaderboard.Player])
@@ -26,7 +23,7 @@ final class RelayLeaderboardApi(
     chapterRepo: ChapterRepo,
     cacheApi: CacheApi
 )(using
-    ec: ExecutionContext,
+    ec: Executor,
     scheduler: Scheduler
 ):
 

@@ -7,8 +7,6 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.Mode
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 import scala.util.Try
 
 import lila.common.config
@@ -20,7 +18,7 @@ final class CurrencyApi(
     ws: StandaloneWSClient,
     mongoCache: lila.memo.MongoCache.Api,
     config: CurrencyApi.Config
-)(using ec: ExecutionContext, mode: Mode):
+)(using ec: Executor, mode: Mode):
 
   import CurrencyApi.*
 

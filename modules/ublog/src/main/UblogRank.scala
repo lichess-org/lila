@@ -1,13 +1,11 @@
 package lila.ublog
 
 import akka.stream.scaladsl.*
-import cats.implicits.*
+import cats.syntax.all.*
 import com.softwaremill.tagging.*
-import org.joda.time.DateTime
 import play.api.i18n.Lang
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
@@ -17,7 +15,7 @@ import lila.user.User
 final class UblogRank(
     colls: UblogColls,
     timeline: lila.hub.actors.Timeline
-)(using ec: ExecutionContext, mat: akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer):
 
   import UblogBsonHandlers.given
 
@@ -50,16 +48,16 @@ final class UblogRank(
           )
         }
         .map { docOption =>
-          for {
+          for
             doc      <- docOption
             id       <- doc.getAsOpt[UblogPostId]("_id")
             likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
             topics   <- doc.getAsOpt[List[UblogTopic]]("topics")
             liveAt   <- doc.getAsOpt[DateTime]("at")
-            tier     <- doc int "tier"
+            tier     <- doc.getAsOpt[UblogBlog.Tier]("tier")
             language <- doc.getAsOpt[Lang]("language")
             title    <- doc string "title"
-          } yield (id, topics, likes, liveAt, tier, language, title)
+          yield (id, topics, likes, liveAt, tier, language, title)
         }
         .flatMap {
           case None                                                     => fuccess(UblogPost.Likes(0))
@@ -82,9 +80,7 @@ final class UblogRank(
     }
 
   def recomputeRankOfAllPostsOfBlog(blogId: UblogBlog.Id): Funit =
-    colls.blog.byId[UblogBlog](blogId.full) flatMap {
-      _ ?? recomputeRankOfAllPostsOfBlog
-    }
+    colls.blog.byId[UblogBlog](blogId.full) flatMapz recomputeRankOfAllPostsOfBlog
 
   def recomputeRankOfAllPostsOfBlog(blog: UblogBlog): Funit =
     colls.post
@@ -94,7 +90,7 @@ final class UblogRank(
       )
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
       .list(500) flatMap { docs =>
-      lila.common.Future.applySequentially(docs) { doc =>
+      lila.common.LilaFuture.applySequentially(docs) { doc =>
         (
           doc.string("_id"),
           doc.getAsOpt[List[UblogTopic]]("topics"),
@@ -136,7 +132,6 @@ final class UblogRank(
     if (tier < LOW) liveAt minusMonths 3
     else
       liveAt plusHours {
-
         val tierBase = 24 * (tier match {
           case LOW    => -30
           case NORMAL => 0

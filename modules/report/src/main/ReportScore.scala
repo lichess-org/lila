@@ -6,7 +6,7 @@ final private class ReportScore(
     getAccuracy: Report.Candidate => Fu[Option[Accuracy]],
     gameRepo: GameRepo,
     domain: lila.common.config.NetDomain
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def apply(candidate: Report.Candidate): Fu[Report.Candidate.Scored] =
     getAccuracy(candidate) map { accuracy =>
@@ -50,7 +50,7 @@ final private class ReportScore(
       if (c.candidate.isCheat & !c.candidate.isIrwinCheat & !c.candidate.isKaladinCheat)
         val gameIds = gameRegex.findAllMatchIn(c.candidate.text).toList.take(20).map(m => GameId(m.group(1)))
         def isUsable(gameId: GameId) = gameRepo analysed gameId map { _.exists(_.ply > 30) }
-        lila.common.Future.exists(gameIds)(isUsable) map {
+        lila.common.LilaFuture.exists(gameIds)(isUsable) map {
           case true  => c
           case false => c.withScore(_.map(_ / 3))
         }

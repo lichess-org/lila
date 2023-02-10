@@ -25,7 +25,7 @@ function initTagify(input: HTMLInputElement, maxTags: number) {
     },
   });
   const doFetch: (term: string) => Promise<string[]> = debounce(
-    (term: string) => xhr.json(xhr.url('/player/autocomplete', { term, names: 1, team })),
+    (term: string) => xhr.json(xhr.url('/api/player/autocomplete', { term, names: 1, team })),
     300
   );
   tagify.on('input', e => {

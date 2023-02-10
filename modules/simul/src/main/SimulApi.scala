@@ -3,7 +3,6 @@ package lila.simul
 import akka.actor.*
 import chess.variant.Variant
 import play.api.libs.json.Json
-import scala.concurrent.duration.*
 
 import lila.common.{ Bus, Debouncer }
 import lila.db.dsl.{ *, given }
@@ -24,7 +23,7 @@ final class SimulApi(
     timeline: lila.hub.actors.Timeline,
     repo: SimulRepo,
     cacheApi: lila.memo.CacheApi
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler, play.api.Mode):
+)(using Executor, Scheduler, play.api.Mode):
 
   private val workQueue = lila.hub.AsyncActorSequencers[SimulId](
     maxSize = Max(128),
@@ -104,30 +103,26 @@ final class SimulApi(
     WithSimul(repo.findCreated, simulId) { _ removeApplicant user.id }
 
   def accept(simulId: SimulId, userId: UserId, v: Boolean): Funit =
-    userRepo byId userId flatMap {
-      _ ?? { user =>
-        WithSimul(repo.findCreated, simulId) { _.accept(user.id, v) }
-      }
+    userRepo byId userId flatMapz { user =>
+      WithSimul(repo.findCreated, simulId) { _.accept(user.id, v) }
     }
 
   def start(simulId: SimulId): Funit =
     workQueue(simulId) {
-      repo.findCreated(simulId) flatMap {
-        _ ?? { simul =>
-          simul.start ?? { started =>
-            userRepo byId started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
-              started.pairings.zipWithIndex.map(makeGame(started, host)).sequenceFu map { games =>
-                games.headOption foreach { case (game, _) =>
-                  socket.startSimul(simul, game)
-                }
-                games.foldLeft(started) { case (s, (g, hostColor)) =>
-                  s.setPairingHostColor(g.id, hostColor)
-                }
+      repo.findCreated(simulId) flatMapz { simul =>
+        simul.start ?? { started =>
+          userRepo byId started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
+            started.pairings.zipWithIndex.map(makeGame(started, host)).parallel map { games =>
+              games.headOption foreach { case (game, _) =>
+                socket.startSimul(simul, game)
               }
-            } flatMap { s =>
-              Bus.publish(Simul.OnStart(s), "startSimul")
-              update(s) >>- currentHostIdsCache.invalidateUnit()
+              games.foldLeft(started) { case (s, (g, hostColor)) =>
+                s.setPairingHostColor(g.id, hostColor)
+              }
             }
+          } flatMap { s =>
+            Bus.publish(Simul.OnStart(s), "startSimul")
+            update(s) >>- currentHostIdsCache.invalidateUnit()
           }
         }
       }
@@ -140,34 +135,28 @@ final class SimulApi(
 
   def abort(simulId: SimulId): Funit =
     workQueue(simulId) {
-      repo.findCreated(simulId) flatMap {
-        _ ?? { simul =>
-          (repo remove simul) >>- socket.aborted(simul.id) >>- publish()
-        }
+      repo.findCreated(simulId) flatMapz { simul =>
+        (repo remove simul) >>- socket.aborted(simul.id) >>- publish()
       }
     }
 
   def setText(simulId: SimulId, text: String): Funit =
     workQueue(simulId) {
-      repo.find(simulId) flatMap {
-        _ ?? { simul =>
-          repo.setText(simul, text) >>- socket.reload(simulId)
-        }
+      repo.find(simulId) flatMapz { simul =>
+        repo.setText(simul, text) >>- socket.reload(simulId)
       }
     }
 
   def finishGame(game: Game): Funit =
     game.simulId ?? { simulId =>
       workQueue(simulId) {
-        repo.findStarted(simulId) flatMap {
-          _ ?? { simul =>
-            val simul2 = simul.updatePairing(
-              game.id,
-              _.finish(game.status, game.winnerUserId)
-            )
-            update(simul2) >>- {
-              if (simul2.isFinished) onComplete(simul2)
-            }
+        repo.findStarted(simulId) flatMapz { simul =>
+          val simul2 = simul.updatePairing(
+            game.id,
+            _.finish(game.status, game.winnerUserId)
+          )
+          update(simul2) >>- {
+            if (simul2.isFinished) onComplete(simul2)
           }
         }
       }
@@ -193,11 +182,9 @@ final class SimulApi(
     repo.allNotFinished foreach {
       _ foreach { oldSimul =>
         workQueue(oldSimul.id) {
-          repo.findCreated(oldSimul.id) flatMap {
-            _ ?? { simul =>
-              (simul ejectCheater userId) ?? { simul2 =>
-                update(simul2).void
-              }
+          repo.findCreated(oldSimul.id) flatMapz { simul =>
+            (simul ejectCheater userId) ?? { simul2 =>
+              update(simul2).void
             }
           }
         }
@@ -272,10 +259,8 @@ final class SimulApi(
       simulId: SimulId
   )(updating: Simul => Simul): Funit =
     workQueue(simulId) {
-      finding(simulId) flatMap {
-        _ ?? { simul =>
-          update(updating(simul))
-        }
+      finding(simulId) flatMapz { simul =>
+        update(updating(simul))
       }
     }
 

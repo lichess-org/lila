@@ -1,6 +1,5 @@
 package lila.relay
 
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
@@ -9,7 +8,7 @@ case class RelayTour(
     _id: RelayTour.Id,
     name: String,
     description: String,
-    markup: Option[lila.common.Markdown] = None,
+    markup: Option[Markdown] = None,
     ownerId: UserId,
     createdAt: DateTime,
     tier: Option[RelayTour.Tier], // if present, it's an official broadcast

@@ -676,6 +676,8 @@ https://lichess. org/study</string>
   <string name="blog">المدونة</string>
   <string name="notes">ملاحظات</string>
   <string name="typePrivateNotesHere">اكتب الملاحظات الخاصة هنا</string>
+  <string name="writeAPrivateNoteAboutThisUser">كتابة ملاحظة خاصة عن هذا المستخدم</string>
+  <string name="noNoteYet">لا يوجد ملاحظة بعد</string>
   <string name="invalidUsernameOrPassword">اسم المستخدم خطأ أو كلمة المرور غير صحيحة</string>
   <string name="incorrectPassword">كلمة المرور غير صحيحة</string>
   <string name="invalidAuthenticationCode">رمز مصادقة غير صحيح</string>
@@ -895,7 +897,7 @@ https://lichess. org/study</string>
   <string name="light">فاتح</string>
   <string name="dark">داكن</string>
   <string name="transparent">شفّاف</string>
-  <string name="deviceTheme">سمة الجهاز</string>
+  <string name="deviceTheme">مظهر الجهاز</string>
   <string name="backgroundImageUrl">رابط صورة الخلفية:</string>
   <string name="boardGeometry">شكل الرقعة</string>
   <string name="boardTheme">مربعات الرقعة</string>

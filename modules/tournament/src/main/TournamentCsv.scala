@@ -14,14 +14,15 @@ object TournamentCsv:
           "Rating",
           "Score",
           "Performance",
-          "Team"
+          "Team",
+          "Sheet"
         )
       )
     ) concat
       results.map(apply)
 
   def apply(p: Player.Result): String = p match
-    case Player.Result(player, user, rank) =>
+    case Player.Result(player, user, rank, sheet) =>
       toCsv(
         rank.toString,
         user.title.??(_.toString),
@@ -29,7 +30,8 @@ object TournamentCsv:
         player.rating.toString,
         player.score.toString,
         player.performanceOption.??(_.toString),
-        ~player.team.map(_.value)
+        ~player.team.map(_.value),
+        sheet.??(_.scoresToString)
       )
 
   private def toCsv(values: String*) = values mkString ","

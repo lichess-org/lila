@@ -22,7 +22,7 @@ object passwd:
     ) {
       div(cls := "account box box-pad")(
         h1(cls := "box__top")(trans.changePassword()),
-        standardFlash(),
+        standardFlash | flashMessage("warning")(trans.passwordSuggestion()),
         postForm(cls := "form3", action := routes.Account.passwdApply)(
           form3.passwordModified(form("oldPasswd"), trans.currentPassword())(
             autofocus,

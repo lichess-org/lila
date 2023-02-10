@@ -2,7 +2,6 @@ package lila.mod
 
 import play.api.data.Form
 import play.api.data.Forms.*
-import scala.concurrent.ExecutionContext
 
 import lila.memo.SettingStore.{ Formable, StringReader }
 import lila.user.User
@@ -12,7 +11,7 @@ import lila.common.Iso
 
 final class ModPresetsApi(
     settingStore: lila.memo.SettingStore.Builder
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import ModPresets.setting.given
 

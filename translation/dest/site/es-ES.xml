@@ -207,6 +207,12 @@
   <string name="email">Correo</string>
   <string name="passwordReset">Cambiar contraseña</string>
   <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
+  <string name="error.weakPassword">Esta contraseña es extremadamente común, y muy fácil de adivinar.</string>
+  <string name="error.namePassword">Por favor, no uses tu nombre de usuario como contraseña.</string>
+  <string name="youAreLeavingLichess">Estás saliendo de Lichess</string>
+  <string name="neverTypeYourPassword">¡Nunca escribas tu contraseña de Lichess en otro sitio!</string>
+  <string name="passwordSuggestion">No establezcas una contraseña sugerida por otra persona. La usarán para robar tu cuenta.</string>
+  <string name="emailSuggestion">No establezcas una dirección de correo electrónico sugerida por otra persona. La usarán para robar tu cuenta.</string>
   <string name="emailConfirmHelp">Ayuda con confirmación de correo electrónico</string>
   <string name="emailConfirmNotReceived">¿No recibiste tu correo de confirmación después de registrarte?</string>
   <string name="whatSignupUsername">¿Qué nombre de usuario utilizaste para registrarte?</string>
@@ -706,6 +712,7 @@
   <string name="kidMode">Modo infantil</string>
   <string name="kidModeExplanation">Por seguridad, en el modo infantil se desactivan todas las comunicaciones con otros usuarios. Activa esto para proteger a los menores de otros usuarios de Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En el modo infantil, el logo de lichess tiene un icono de %s, indicando que los niños están seguros.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Tu cuenta está administrada. Pídele a tu profesor de ajedrez que te quite del modo para niños.</string>
   <string name="enableKidMode">Activar el modo infantil</string>
   <string name="disableKidMode">Desactivar el modo infantil</string>
   <string name="security">Seguridad</string>

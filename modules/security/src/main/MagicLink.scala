@@ -1,6 +1,5 @@
 package lila.security
 
-import scala.concurrent.duration.*
 import scalatags.Text.all.*
 
 import lila.common.config.*
@@ -14,7 +13,7 @@ final class MagicLink(
     userRepo: UserRepo,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Mailer.html.*
 
@@ -41,7 +40,7 @@ ${trans.common_orPaste.txt()}"""),
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener read token flatMap { _ ?? userRepo.enabledById } map {
+    tokener read token flatMapz userRepo.enabledById map {
       _.filter(_.canFullyLogin)
     }
 
@@ -49,25 +48,24 @@ ${trans.common_orPaste.txt()}"""),
 
 object MagicLink:
 
-  import scala.concurrent.duration.*
   import play.api.mvc.RequestHeader
   import alleycats.Zero
   import lila.memo.RateLimit
   import lila.common.{ HTTPRequest, IpAddress }
 
-  private lazy val rateLimitPerIP = new RateLimit[IpAddress](
+  private lazy val rateLimitPerIP = RateLimit[IpAddress](
     credits = 5,
     duration = 1 hour,
     key = "login.magicLink.ip"
   )
 
-  private lazy val rateLimitPerUser = new RateLimit[UserId](
+  private lazy val rateLimitPerUser = RateLimit[UserId](
     credits = 3,
     duration = 1 hour,
     key = "login.magicLink.user"
   )
 
-  private lazy val rateLimitPerEmail = new RateLimit[String](
+  private lazy val rateLimitPerEmail = RateLimit[String](
     credits = 3,
     duration = 1 hour,
     key = "login.magicLink.email"

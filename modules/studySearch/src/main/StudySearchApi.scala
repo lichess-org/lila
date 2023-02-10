@@ -3,10 +3,8 @@ package lila.studySearch
 import akka.actor.*
 import akka.stream.scaladsl.*
 import chess.format.pgn.Tag
-import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.hub.LateMultiThrottler
 import lila.search.*
@@ -19,7 +17,7 @@ final class StudySearchApi(
     indexThrottler: ActorRef,
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler, akka.stream.Materializer)
+)(using Executor, Scheduler, akka.stream.Materializer)
     extends SearchReadApi[Study, Query]:
 
   def search(query: Query, from: From, size: Size) =
@@ -32,7 +30,7 @@ final class StudySearchApi(
   def store(study: Study) = fuccess {
     indexThrottler ! LateMultiThrottler.work(
       id = study.id,
-      run = studyRepo byId study.id flatMap { _ ?? doStore },
+      run = studyRepo byId study.id flatMapz doStore,
       delay = 30.seconds.some
     )
   }
@@ -132,7 +130,7 @@ final class StudySearchApi(
             }
             .via(lila.common.LilaStream.logRate[Study]("study index")(logger))
             .mapAsyncUnordered(8) { study =>
-              lila.common.Future.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)
+              lila.common.LilaFuture.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)
             }
             .toMat(Sink.ignore)(Keep.right)
             .run()

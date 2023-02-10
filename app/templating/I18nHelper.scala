@@ -26,7 +26,7 @@ trait I18nHelper:
 
   def isRTL(using lang: Lang) = lila.i18n.LangList.isRTL(lang)
 
-  def langHref(call: Call)(using ctx: lila.api.Context): String = langHref(call.url)
+  def langHref(call: Call)(using lila.api.Context): String = langHref(call.url)
   def langHref(path: String)(using ctx: lila.api.Context): String =
     if (ctx.isAuth || ctx.lang.language == "en") path
     else

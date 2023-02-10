@@ -1,7 +1,5 @@
 package lila.irwin
 
-import org.joda.time.DateTime
-
 import lila.report.SuspectId
 import lila.user.User
 import lila.report.Suspect
@@ -21,7 +19,7 @@ case class KaladinUser(
 
   def suspectId = SuspectId(_id)
 
-  def recentlyQueued = queuedAt isAfter DateTime.now.minusWeeks(1)
+  def recentlyQueued = queuedAt isAfter nowDate.minusWeeks(1)
 
   def queueAgain(by: KaladinUser.Requester): Option[KaladinUser] =
     if (startedAt.isEmpty && by.priority > priority)
@@ -32,7 +30,7 @@ case class KaladinUser(
     else if (by.isMod || !recentlyQueued)
       copy(
         priority = by.priority,
-        queuedAt = DateTime.now,
+        queuedAt = nowDate,
         queuedBy = by,
         startedAt = none,
         response = none
@@ -44,7 +42,7 @@ object KaladinUser:
   def make(suspect: Suspect, by: Requester) = KaladinUser(
     _id = suspect.id.value,
     priority = by.priority,
-    queuedAt = DateTime.now,
+    queuedAt = nowDate,
     queuedBy = by
   )
 
@@ -76,4 +74,4 @@ object KaladinUser:
       response.at
     }
 
-    def seenRecently = lastSeenAt.??(DateTime.now.minusMinutes(30).isBefore)
+    def seenRecently = lastSeenAt.??(nowDate.minusMinutes(30).isBefore)

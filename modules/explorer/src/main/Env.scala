@@ -15,7 +15,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     ws: play.api.libs.ws.StandaloneWSClient
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
     materializer: akka.stream.Materializer
 ):

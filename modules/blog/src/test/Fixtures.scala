@@ -2,7 +2,7 @@ package lila.blog
 
 object Fixtures {
 
-  def noYoutube =
+  def noYoutube = Html {
     """
 <h2>YES! We did it. Crazyhouse is here!</h2>
 
@@ -34,8 +34,9 @@ object Fixtures {
 
 <p><em>[EDIT] The first tournament is over. Second crazyhouse tournament: </em><a href="http://lichess.org/tournament/crazy2nd"><em><strong>Join here!</strong></em></a></p>
 """
+  }
 
-  def withYoutube =
+  def withYoutube = Html {
     """
 <p><em>Note: this article was </em><a href="https://www.reddit.com/r/chess/comments/42zpnv/crazyhouse_an_overview_strategic_concepts/"><em>posted on reddit</em></a><em> first.</em></p>
 
@@ -351,4 +352,5 @@ object Fixtures {
 
 <p>Beginners may be best served by playing conventional e4/d4 systems as white and the French as black. Avoid pawn moves which weaken key squares; fortify weak squares around your king. Maintain the initiative and attack. Sac when it draws the king out and you have a follow-up. Emphasize king safety over material gain. Calculate what your opponent (and you) can do with exchanged pieces before entering into tactical complications. Go crazy!</p>
 """
+  }
 }

@@ -2,7 +2,6 @@ package lila.mod
 
 import chess.Color
 import com.github.blemale.scaffeine.Cache
-import scala.concurrent.duration.*
 
 import lila.game.Game
 import lila.msg.{ MsgApi, MsgPreset }
@@ -14,7 +13,7 @@ final private class SandbagWatch(
     messenger: MsgApi,
     reportApi: ReportApi,
     modLogApi: ModlogApi
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import SandbagWatch.*
   import Outcome.*

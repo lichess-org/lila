@@ -207,6 +207,12 @@
   <string name="email">Courriel</string>
   <string name="passwordReset">Réinitialisation du mot de passe</string>
   <string name="forgotPassword">Mot de passe oublié ?</string>
+  <string name="error.weakPassword">Ce mot de passe très courant est trop facile à deviner.</string>
+  <string name="error.namePassword">N\'employez pas votre nom d\'utilisateur comme mot de passe.</string>
+  <string name="youAreLeavingLichess">Vous quittez Lichess</string>
+  <string name="neverTypeYourPassword">N\'utilisez jamais votre mot de passe Lichess sur un autre site.</string>
+  <string name="passwordSuggestion">N\'utilisez pas un mot de passe suggéré par une autre personne. Elle pourrait l\'utiliser pour voler votre compte.</string>
+  <string name="emailSuggestion">N\'utilisez pas une adresse de courriel suggérée par une autre personne. Celle-ci pourrait l\'utiliser pour voler votre compte.</string>
   <string name="emailConfirmHelp">Aide sur la confirmation par courriel</string>
   <string name="emailConfirmNotReceived">Vous n\'avez pas reçu votre courriel de confirmation après votre inscription?</string>
   <string name="whatSignupUsername">Avec quel nom d\'utilisateur vous êtes-vous inscrit?</string>
@@ -706,6 +712,7 @@
   <string name="kidMode">Mode enfants</string>
   <string name="kidModeExplanation">Cela concerne la sécurité. Dans le mode enfants, toutes les communications du site sont désactivées. Activez ce mode pour vos enfants et pour les écoliers, afin de les protéger des autres utilisateurs.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Dans le mode enfants, l\'icône %s se rajoute au logo lichess pour que vous sachiez que les enfants sont en sécurité.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Votre compte est géré. Demandez à votre professeur d\'échecs de désactiver le mode enfant.</string>
   <string name="enableKidMode">Activer le mode enfants</string>
   <string name="disableKidMode">Désactiver le mode enfants</string>
   <string name="security">Sécurité</string>
@@ -911,7 +918,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="noChat">Aucun salon de discussion</string>
   <string name="onlyTeamLeaders">Seulement les chefs de l\'équipe</string>
   <string name="onlyTeamMembers">Seulement les membres de l\'équipe</string>
-  <string name="navigateMoveTree">Naviguer dans l\'arbre</string>
+  <string name="navigateMoveTree">Naviguer dans l\'arborescence</string>
   <string name="mouseTricks">Astuces pour la souris</string>
   <string name="toggleLocalAnalysis">Activer/désactiver l’analyse locale</string>
   <string name="toggleAllAnalysis">Activer/désactiver toutes les analyses</string>

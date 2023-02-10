@@ -3,14 +3,13 @@ package lila.hub
 import java.util.concurrent.atomic.AtomicReference
 import java.util.function.UnaryOperator
 import scala.collection.immutable.Queue
-import scala.concurrent.{ ExecutionContext, Future, Promise }
 
 /*
  * Like an actor, but not an actor.
  * Uses an Atomic Reference backend for sequentiality.
  * Has an unbounded (!) Queue of messages.
  */
-abstract class SyncActor(using ec: ExecutionContext) extends lila.common.Tellable:
+abstract class SyncActor(using Executor) extends lila.common.Tellable:
 
   import SyncActor.*
 
@@ -70,7 +69,7 @@ object SyncActor:
         if (q.isEmpty) None else Some(q.tail)
       }
 
-  def stub(using ec: ExecutionContext) =
+  def stub(using Executor) =
     new SyncActor:
       val process: Receive = { case msg =>
         lila.log("trouper").warn(s"stub trouper received: $msg")

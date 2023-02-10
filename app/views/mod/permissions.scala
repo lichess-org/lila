@@ -21,7 +21,7 @@ object permissions:
       val userPerms = Permission(u.roles)
       main(cls := "mod-permissions page-small box box-pad")(
         boxTop(h1(userLink(u), " permissions")),
-        standardFlash(),
+        standardFlash,
         postForm(cls := "form3", action := routes.Mod.permissions(u.username))(
           p(cls := "granted")("In green, permissions enabled manually or by a package."),
           div(cls := "permission-list")(

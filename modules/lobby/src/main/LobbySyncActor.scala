@@ -1,10 +1,7 @@
 package lila.lobby
 
 import actorApi.*
-import cats.implicits.*
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
+import cats.syntax.all.*
 
 import lila.common.config.Max
 import lila.common.{ Bus, LilaScheduler }
@@ -20,14 +17,14 @@ final private class LobbySyncActor(
     playbanApi: lila.playban.PlaybanApi,
     poolApi: lila.pool.PoolApi,
     onStart: lila.round.OnStart
-)(using ec: scala.concurrent.ExecutionContext)
+)(using Executor)
     extends SyncActor:
 
   import LobbySyncActor.*
 
   private val hookRepo = new HookRepo
 
-  private var remoteDisconnectAllAt = DateTime.now
+  private var remoteDisconnectAllAt = nowDate
 
   private var socket: SyncActor = SyncActor.stub
 
@@ -95,7 +92,7 @@ final private class LobbySyncActor(
       socket ! msg
       socket ! RemoveSeek(seek.id)
 
-    case LeaveAll => remoteDisconnectAllAt = DateTime.now
+    case LeaveAll => remoteDisconnectAllAt = nowDate
 
     case Tick(promise) =>
       hookRepo.truncateIfNeeded()
@@ -112,7 +109,7 @@ final private class LobbySyncActor(
 
     case WithPromise(Sris(sris), promise) =>
       poolApi socketIds Sris(sris)
-      val fewSecondsAgo = DateTime.now minusSeconds 5
+      val fewSecondsAgo = nowDate minusSeconds 5
       if (remoteDisconnectAllAt isBefore fewSecondsAgo) this ! RemoveHooks {
         hookRepo
           .notInSris(sris)
@@ -201,7 +198,7 @@ private object LobbySyncActor:
       resyncIdsPeriod: FiniteDuration
   )(
       makeTrouper: () => LobbySyncActor
-  )(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) =
+  )(using ec: Executor, scheduler: Scheduler) =
     val trouper = makeTrouper()
     Bus.subscribe(trouper, "lobbyActor")
     scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)

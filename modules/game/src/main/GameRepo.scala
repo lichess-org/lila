@@ -1,11 +1,8 @@
 package lila.game
 
-import scala.concurrent.duration.*
-
 import chess.{ Color, Status }
 import chess.format.Fen
-import chess.format.pgn.SanStr
-import org.joda.time.DateTime
+import chess.format.pgn.{ PgnStr, SanStr }
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, ReadPreference, WriteConcern }
@@ -16,7 +13,7 @@ import lila.db.isDuplicateKey
 import lila.user.User
 import lila.common.config
 
-final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
+final class GameRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
   import Game.{ BSONFields as F }
@@ -272,7 +269,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
       .sort(Query.sortAntiChronological)
       .one[Game]
 
-  def setTv(id: GameId) = coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
+  def setTv(id: GameId) = coll.updateFieldUnchecked($id(id), F.tvAt, nowDate)
 
   def setAnalysed(id: GameId): Funit  = coll.updateField($id(id), F.analysed, true).void
   def setUnanalysed(id: GameId): Unit = coll.updateFieldUnchecked($id(id), F.analysed, false)
@@ -411,7 +408,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
       else some(24 * 10)
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.initialFen  -> fen,
-      F.checkAt     -> checkInHours.map(DateTime.now.plusHours),
+      F.checkAt     -> checkInHours.map(nowDate.plusHours),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     coll.insert.one(bson) addFailureEffect {
@@ -421,7 +418,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
   def removeRecentChallengesOf(userId: UserId) =
     coll.delete.one(
       Query.created ++ Query.friend ++ Query.user(userId) ++
-        Query.createdSince(DateTime.now minusHours 1)
+        Query.createdSince(nowDate minusHours 1)
     )
 
   def setCheckAt(g: Game, at: DateTime) =
@@ -448,11 +445,9 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
     else fuccess(none)
 
   def gameWithInitialFen(gameId: GameId): Fu[Option[Game.WithInitialFen]] =
-    game(gameId) flatMap {
-      _ ?? { game =>
-        initialFen(game) dmap { fen =>
-          Game.WithInitialFen(game, fen).some
-        }
+    game(gameId) flatMapz { game =>
+      initialFen(game) dmap { fen =>
+        Game.WithInitialFen(game, fen).some
       }
     }
 
@@ -462,7 +457,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
   def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen.Epd])]] =
     games.map { game =>
       initialFen(game) dmap { game -> _ }
-    }.sequenceFu
+    }.parallel
 
   def count(query: Query.type => Bdoc): Fu[Int]    = coll countSel query(Query)
   def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondaryPreferred countSel query(Query)
@@ -508,7 +503,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
       .skip(ThreadLocalRandom nextInt 1000)
       .one[Game]
 
-  def findPgnImport(pgn: String): Fu[Option[Game]] =
+  def findPgnImport(pgn: PgnStr): Fu[Option[Game]] =
     coll.one[Game](
       $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
     )

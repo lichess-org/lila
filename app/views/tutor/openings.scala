@@ -25,11 +25,14 @@ object openings:
       boxTop(
         h1(
           a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
+          bits.otherUser(user),
           report.perf.trans,
           " openings"
         )
       ),
-      bits.mascotSays(report openingHighlights 3 map compare.show),
+      bits.mascotSays(
+        report openingHighlights 3 map compare.show
+      ),
       div(cls := "tutor__openings__colors tutor__pad")(chess.Color.all.map { color =>
         st.section(cls := "tutor__openings__color")(
           h2("Your ", color.name, " openings"),
@@ -55,7 +58,12 @@ object openings:
                 grade.peerGrade(concept.tacticalAwareness, fam.awareness)
               )
             )
-          })
+          }),
+          a(
+            cls      := "tutor__openings__color__explorer button button-no-upper text",
+            dataIcon := "",
+            href     := s"${routes.UserAnalysis.index}?color=${color.name}#explorer/${user.username}"
+          )("Personal explorer as ", color.name)
         )
       })
     )

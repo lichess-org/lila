@@ -1,12 +1,10 @@
 package lila.user
 
-import akka.actor.Scheduler
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.common.LightUser
@@ -36,7 +34,7 @@ final class Env(
     isOnline: lila.socket.IsOnline,
     onlineIds: lila.socket.OnlineIds
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     scheduler: Scheduler,
     ws: StandaloneWSClient
 ):

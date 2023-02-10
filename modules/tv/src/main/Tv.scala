@@ -8,7 +8,7 @@ final class Tv(
     gameRepo: GameRepo,
     trouper: SyncActor,
     gameProxyRepo: lila.round.GameProxyRepo
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Tv.*
   import ChannelSyncActor.*
@@ -16,12 +16,12 @@ final class Tv(
   private def roundProxyGame = gameProxyRepo.game
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    trouper.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
+    trouper.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)) flatMapz roundProxyGame
 
   def getReplacementGame(channel: Tv.Channel, oldId: GameId, exclude: List[GameId]): Fu[Option[Game]] =
     trouper
       .ask[Option[GameId]](TvSyncActor.GetReplacementGameId(channel, oldId, exclude, _))
-      .flatMap { _ ?? roundProxyGame }
+      .flatMapz(roundProxyGame)
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
     trouper.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)) flatMap {
@@ -33,7 +33,7 @@ final class Tv(
               .map { id =>
                 roundProxyGame(id) orElse gameRepo.game(id)
               }
-              .sequenceFu
+              .parallel
               .dmap(_.flatten)
           history = games map Pov.naturalOrientation
         } yield game map (_ -> history)
@@ -41,7 +41,7 @@ final class Tv(
 
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
     getGameIds(channel, max) flatMap {
-      _.map(roundProxyGame).sequenceFu.map(_.flatten)
+      _.map(roundProxyGame).parallel.map(_.flatten)
     }
 
   def getGameIds(channel: Tv.Channel, max: Int): Fu[List[GameId]] =

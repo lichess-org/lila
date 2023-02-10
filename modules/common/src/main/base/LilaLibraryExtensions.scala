@@ -5,15 +5,11 @@ import cats.data.Validated
 import com.typesafe.config.Config
 import java.util.concurrent.TimeUnit
 import java.lang.Math.{ max, min }
-import org.joda.time.{ DateTime, Duration }
-import scala.concurrent.duration.*
-import scala.concurrent.{ Await, ExecutionContext as EC, Future }
+import scala.concurrent.{ Await, ExecutionContext as EC }
 import scala.util.matching.Regex
 import scala.util.Try
 
-import cats.data.NonEmptyList
 import java.util.Base64
-import akka.actor.Scheduler
 import lila.common.Chronometer
 import scala.collection.BuildFrom
 import ornicar.scalalib.extensions.*
@@ -53,7 +49,7 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     def fold[X](some: A => X, none: => X): X = self.fold(none)(some)
 
-    def orDefault(implicit z: Zero[A]): A = self getOrElse z.zero
+    def orDefault(using z: Zero[A]): A = self getOrElse z.zero
 
     def toTryWith(err: => Exception): Try[A] =
       self.fold[Try[A]](scala.util.Failure(err))(scala.util.Success.apply)
@@ -85,9 +81,9 @@ trait LilaLibraryExtensions extends LilaTypes:
   extension (date: DateTime)
     def getSeconds: Long                   = date.getMillis / 1000
     def getCentis: Long                    = date.getMillis / 10
-    def toNow                              = new Duration(date, DateTime.now)
-    def atMost(other: DateTime): DateTime  = if (other isBefore date) other else date
-    def atLeast(other: DateTime): DateTime = if (other isAfter date) other else date
+    def toNow                              = org.joda.time.Duration(date, org.joda.time.DateTime.now)
+    def atMost(other: DateTime): DateTime  = if other.isBefore(date) then other else date
+    def atLeast(other: DateTime): DateTime = if other.isAfter(date) then other else date
 
   extension [A](v: Try[A])
 
@@ -123,10 +119,6 @@ trait LilaLibraryExtensions extends LilaTypes:
       list.sortWith { (x, y) =>
         other.indexOf(f(x)) < other.indexOf(f(y))
       }
-    def toNel: Option[NonEmptyList[A]] =
-      list match
-        case Nil           => None
-        case first :: rest => Some(NonEmptyList(first, rest))
     def tailOption: Option[List[A]] = list match
       case Nil       => None
       case _ :: rest => Some(rest)
@@ -141,24 +133,25 @@ trait LilaLibraryExtensions extends LilaTypes:
 
   extension (self: Array[Byte]) def toBase64 = Base64.getEncoder.encodeToString(self)
 
-  extension [A](list: List[Fu[A]]) def sequenceFu(using EC): Fu[List[A]]         = Future sequence list
-  extension [A](vec: Vector[Fu[A]]) def sequenceFu(using EC): Fu[Vector[A]]      = Future sequence vec
-  extension [A](set: Set[Fu[A]]) def sequenceFu(using EC): Fu[Set[A]]            = Future sequence set
-  extension [A](seq: Seq[Fu[A]]) def sequenceFu(using EC): Fu[Seq[A]]            = Future sequence seq
-  extension [A](iter: Iterable[Fu[A]]) def sequenceFu(using EC): Fu[Iterable[A]] = Future sequence iter
-  extension [A](iter: Iterator[Fu[A]]) def sequenceFu(using EC): Fu[Iterator[A]] = Future sequence iter
+  // run a collection of futures in parallel
+  extension [A](list: List[Fu[A]]) def parallel(using Executor): Fu[List[A]]         = Future sequence list
+  extension [A](vec: Vector[Fu[A]]) def parallel(using Executor): Fu[Vector[A]]      = Future sequence vec
+  extension [A](set: Set[Fu[A]]) def parallel(using Executor): Fu[Set[A]]            = Future sequence set
+  extension [A](seq: Seq[Fu[A]]) def parallel(using Executor): Fu[Seq[A]]            = Future sequence seq
+  extension [A](iter: Iterable[Fu[A]]) def parallel(using Executor): Fu[Iterable[A]] = Future sequence iter
+  extension [A](iter: Iterator[Fu[A]]) def parallel(using Executor): Fu[Iterator[A]] = Future sequence iter
 
   extension [A](fua: Fu[A])
 
     inline def dmap[B](f: A => B): Fu[B]       = fua.map(f)(EC.parasitic)
     inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(EC.parasitic)
 
-    def >>-(sideEffect: => Unit)(using EC): Fu[A] =
+    def >>-(sideEffect: => Unit)(using Executor): Fu[A] =
       fua andThen { case _ =>
         sideEffect
       }
 
-    def >>[B](fub: => Fu[B])(using EC): Fu[B] =
+    def >>[B](fub: => Fu[B])(using Executor): Fu[B] =
       fua flatMap { _ =>
         fub
       }
@@ -173,38 +166,38 @@ trait LilaLibraryExtensions extends LilaTypes:
         b
       }
 
-    def injectAnyway[B](b: => B)(using EC): Fu[B] = fold(_ => b, _ => b)
+    def injectAnyway[B](b: => B)(using Executor): Fu[B] = fold(_ => b, _ => b)
 
-    def effectFold(fail: Exception => Unit, succ: A => Unit)(using EC): Unit =
+    def effectFold(fail: Exception => Unit, succ: A => Unit)(using Executor): Unit =
       fua onComplete {
         case scala.util.Failure(e: Exception) => fail(e)
         case scala.util.Failure(e)            => throw e // Throwables
         case scala.util.Success(e)            => succ(e)
       }
 
-    def fold[B](fail: Exception => B, succ: A => B)(using EC): Fu[B] =
+    def fold[B](fail: Exception => B, succ: A => B)(using Executor): Fu[B] =
       fua map succ recover { case e: Exception => fail(e) }
 
-    def flatFold[B](fail: Exception => Fu[B], succ: A => Fu[B])(using EC): Fu[B] =
+    def flatFold[B](fail: Exception => Fu[B], succ: A => Fu[B])(using Executor): Fu[B] =
       fua flatMap succ recoverWith { case e: Exception => fail(e) }
 
-    def logFailure(logger: => lila.log.Logger, msg: Throwable => String)(using EC): Fu[A] =
+    def logFailure(logger: => lila.log.Logger, msg: Throwable => String)(using Executor): Fu[A] =
       addFailureEffect { e =>
         logger.warn(msg(e), e)
       }
-    def logFailure(logger: => lila.log.Logger)(using EC): Fu[A] = logFailure(logger, _.toString)
+    def logFailure(logger: => lila.log.Logger)(using Executor): Fu[A] = logFailure(logger, _.toString)
 
-    def addFailureEffect(effect: Throwable => Unit)(using EC) =
+    def addFailureEffect(effect: Throwable => Unit)(using Executor) =
       fua.failed.foreach { (e: Throwable) =>
         effect(e)
       }
       fua
 
-    def addEffect(effect: A => Unit)(using EC): Fu[A] =
+    def addEffect(effect: A => Unit)(using Executor): Fu[A] =
       fua foreach effect
       fua
 
-    def addEffects(fail: Exception => Unit, succ: A => Unit)(using EC): Fu[A] =
+    def addEffects(fail: Exception => Unit, succ: A => Unit)(using Executor): Fu[A] =
       fua onComplete {
         case scala.util.Failure(e: Exception) => fail(e)
         case scala.util.Failure(e)            => throw e // Throwables
@@ -212,34 +205,34 @@ trait LilaLibraryExtensions extends LilaTypes:
       }
       fua
 
-    def addEffects(f: Try[A] => Unit)(using EC): Fu[A] =
+    def addEffects(f: Try[A] => Unit)(using Executor): Fu[A] =
       fua onComplete f
       fua
 
-    def addEffectAnyway(inAnyCase: => Unit)(using EC): Fu[A] =
+    def addEffectAnyway(inAnyCase: => Unit)(using Executor): Fu[A] =
       fua onComplete { _ =>
         inAnyCase
       }
       fua
 
-    def mapFailure(f: Exception => Exception)(using EC): Fu[A] =
+    def mapFailure(f: Exception => Exception)(using Executor): Fu[A] =
       fua recoverWith { case cause: Exception =>
         fufail(f(cause))
       }
 
-    def prefixFailure(p: => String)(using EC): Fu[A] =
+    def prefixFailure(p: => String)(using Executor): Fu[A] =
       mapFailure { e =>
         LilaException(s"$p ${e.getMessage}")
       }
 
-    def thenPp(using EC): Fu[A] =
+    def thenPp(using Executor): Fu[A] =
       effectFold(
         e => println("[failure] " + e),
         a => println("[success] " + a)
       )
       fua
 
-    def thenPp(msg: String)(using EC): Fu[A] =
+    def thenPp(msg: String)(using Executor): Fu[A] =
       effectFold(
         e => println(s"[$msg] [failure] $e"),
         a => println(s"[$msg] [success] $a")
@@ -262,12 +255,13 @@ trait LilaLibraryExtensions extends LilaTypes:
     def withTimeout(
         duration: FiniteDuration,
         error: => String
-    )(using EC, Scheduler): Fu[A] = withTimeoutError(duration, LilaTimeout(s"$error timeout after $duration"))
+    )(using Executor, Scheduler): Fu[A] =
+      withTimeoutError(duration, LilaTimeout(s"$error timeout after $duration"))
 
     def withTimeoutError(
         duration: FiniteDuration,
         error: => Exception with util.control.NoStackTrace
-    )(using EC)(using scheduler: Scheduler): Fu[A] =
+    )(using Executor)(using scheduler: Scheduler): Fu[A] =
       Future firstCompletedOf Seq(
         fua,
         akka.pattern.after(duration, scheduler)(Future failed error)
@@ -276,14 +270,14 @@ trait LilaLibraryExtensions extends LilaTypes:
     def withTimeoutDefault(
         duration: FiniteDuration,
         default: => A
-    )(using EC)(using scheduler: Scheduler): Fu[A] =
+    )(using Executor)(using scheduler: Scheduler): Fu[A] =
       Future firstCompletedOf Seq(
         fua,
         akka.pattern.after(duration, scheduler)(Future(default))
       )
 
-    def delay(duration: FiniteDuration)(using EC, Scheduler) =
-      lila.common.Future.delay(duration)(fua)
+    def delay(duration: FiniteDuration)(using Executor, Scheduler) =
+      lila.common.LilaFuture.delay(duration)(fua)
 
     def chronometer    = Chronometer(fua)
     def chronometerTry = Chronometer.lapTry(fua)
@@ -299,9 +293,9 @@ trait LilaLibraryExtensions extends LilaTypes:
     def logTime(name: String): Fu[A]                               = chronometer pp name
     def logTimeIfGt(name: String, duration: FiniteDuration): Fu[A] = chronometer.ppIfGt(name, duration)
 
-    def recoverDefault(using EC)(using z: Zero[A]): Fu[A] = recoverDefault(z.zero)
+    def recoverDefault(using Executor)(using z: Zero[A]): Fu[A] = recoverDefault(z.zero)
 
-    def recoverDefault(using EC)(default: => A): Fu[A] =
+    def recoverDefault(using Executor)(default: => A): Fu[A] =
       fua recover {
         case _: LilaException                         => default
         case _: java.util.concurrent.TimeoutException => default
@@ -318,40 +312,43 @@ trait LilaLibraryExtensions extends LilaTypes:
     def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
       fua.flatMap { if (_) fuTrue else fub }(EC.parasitic)
 
-    def ifThen[A](fub: => Fu[A])(using zero: Zero[A]): Fu[A] =
+    def flatMapz[B](fub: => Fu[B])(using zero: Zero[B]): Fu[B] =
       fua.flatMap { if (_) fub else fuccess(zero.zero) }(EC.parasitic)
+    def mapz[B](fb: => B)(using zero: Zero[B]): Fu[B] =
+      fua.map { if (_) fb else zero.zero }(EC.parasitic)
 
     inline def unary_! = fua.map { !_ }(EC.parasitic)
 
   extension [A](fua: Fu[Option[A]])
 
-    def orFail(msg: => String)(using EC): Fu[A] =
+    def orFail(msg: => String)(using Executor): Fu[A] =
       fua flatMap {
         _.fold[Fu[A]](fufail(msg))(fuccess)
       }
 
-    def orFailWith(err: => Exception)(using EC): Fu[A] =
+    def orFailWith(err: => Exception)(using Executor): Fu[A] =
       fua flatMap {
         _.fold[Fu[A]](fufail(err))(fuccess)
       }
 
-    def orElse(other: => Fu[Option[A]])(using EC): Fu[Option[A]] =
+    def orElse(other: => Fu[Option[A]])(using Executor): Fu[Option[A]] =
       fua flatMap {
         _.fold(other) { x =>
           fuccess(Some(x))
         }
       }
 
-    def getOrElse(other: => Fu[A])(using EC): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
+    def getOrElse(other: => Fu[A])(using Executor): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
     @targetName("orZeroFu")
     def orZeroFu(using z: Zero[A]): Fu[A] = fua.map(_ getOrElse z.zero)(EC.parasitic)
 
-    def map2[B](f: A => B)(using EC): Fu[Option[B]] = fua.map(_ map f)
-    def dmap2[B](f: A => B): Fu[Option[B]]          = fua.map(_ map f)(EC.parasitic)
+    def map2[B](f: A => B)(using Executor): Fu[Option[B]] = fua.map(_ map f)
+    def dmap2[B](f: A => B): Fu[Option[B]]                = fua.map(_ map f)(EC.parasitic)
 
     def getIfPresent: Option[A] =
       fua.value match
         case Some(scala.util.Success(v)) => v
         case _                           => None
 
-    def ifThen[B: Zero](fub: A => Fu[B])(using EC): Fu[B] = fua.flatMap { _ ?? fub }
+    def mapz[B: Zero](fb: A => B)(using Executor): Fu[B]          = fua.map { _ ?? fb }
+    def flatMapz[B: Zero](fub: A => Fu[B])(using Executor): Fu[B] = fua.flatMap { _ ?? fub }

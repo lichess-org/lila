@@ -2,11 +2,10 @@ package lila.push
 
 import akka.actor.*
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.challenge.Challenge
 import lila.common.String.shorten
-import lila.common.{ Future, LightUser }
+import lila.common.{ LilaFuture, LightUser }
 import lila.common.Json.given
 import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
@@ -23,7 +22,7 @@ final private class PushApi(
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.notify.GetNotifyAllows,
     postApi: lila.forum.ForumPostApi
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler)(using lightUser: LightUser.GetterFallback):
+)(using Executor, Scheduler)(using lightUser: LightUser.GetterFallback):
 
   private[push] def notifyPush(
       to: Iterable[NotifyAllows],
@@ -77,11 +76,11 @@ final private class PushApi(
             }
           }
         }
-        .sequenceFu
+        .parallel
         .void
 
   def move(move: MoveEvent): Funit =
-    Future.delay(2 seconds) {
+    LilaFuture.delay(2 seconds) {
       proxyRepo.game(move.gameId) flatMap {
         _.filter(_.playable) ?? { game =>
           val pov = Pov(game, game.player.color)
@@ -115,7 +114,7 @@ final private class PushApi(
     }
 
   def takebackOffer(gameId: GameId): Funit =
-    Future.delay(1 seconds) {
+    LilaFuture.delay(1 seconds) {
       proxyRepo.game(gameId) flatMap {
         _.filter(_.playable).?? { game =>
           game.players.collectFirst {
@@ -148,7 +147,7 @@ final private class PushApi(
     }
 
   def drawOffer(gameId: GameId): Funit =
-    Future.delay(1 seconds) {
+    LilaFuture.delay(1 seconds) {
       proxyRepo.game(gameId) flatMap {
         _.filter(_.playable).?? { game =>
           game.players.collectFirst {
@@ -294,7 +293,7 @@ final private class PushApi(
     }
 
   def tourSoon(tour: TourSoon): Funit =
-    lila.common.Future.applySequentially(tour.userIds.toList) { userId =>
+    lila.common.LilaFuture.applySequentially(tour.userIds.toList) { userId =>
       maybePush(
         userId,
         _.tourSoon,
@@ -341,7 +340,7 @@ final private class PushApi(
       )
     }
 
-  def streamStart(recips: Iterable[NotifyAllows], streamerId: UserId, streamerName: String): Funit = {
+  def streamStart(recips: Iterable[NotifyAllows], streamerId: UserId, streamerName: String): Funit =
     val pushData = PushApi.Data(
       title = streamerName,
       body = streamerName + " started streaming",
@@ -354,18 +353,18 @@ final private class PushApi(
         )
       )
     )
-    webPush(recips collect { case u if u.web => u.userId }, pushData) >>- {
-      // TODO - we may want to use some of firebase admin sdk for many-device-push (just for topics).  we'd
-      // register topic membership for user devices from streamer controller's subscribe/unsubscribe methods,
-      // allowing us to push a single message to "streamer.$streamerId" topic on streamer live.  this will
-      // cause some complications dealing with prefs when a user turns off streamer device push in preferences.
-      // prefs do not currently have hooks to trigger anything when a setting changes.  we'll just do this
-      // sequential for now, at least until the first bill from google arrives
-      recips collect { case u if u.device => u.userId } foreach (firebasePush(_, pushData))
+    val webRecips = recips.collect { case u if u.allows.web => u.userId }
+    webPush(webRecips, pushData).addEffects { res =>
+      lila.mon.push.send.streamStart("web", res.isSuccess, webRecips.size)
+    } >>- {
+      recips collect { case u if u.allows.device => u.userId } foreach {
+        firebasePush(_, pushData).addEffects { res =>
+          lila.mon.push.send.streamStart("firebase", res.isSuccess, 1)
+        }
+      }
     }
-  }
 
-  private type MonitorType = lila.mon.push.send.type => ((String, Boolean) => Unit)
+  private type MonitorType = lila.mon.push.send.type => ((String, Boolean, Int) => Unit)
 
   private def maybePush(
       userId: UserId,
@@ -378,11 +377,11 @@ final private class PushApi(
     }
 
   private def filterPush(to: NotifyAllows, monitor: MonitorType, data: PushApi.Data): Funit = for
-    _ <- to.web ?? webPush(to.userId, data).addEffects(res =>
-      monitor(lila.mon.push.send)("web", res.isSuccess)
+    _ <- to.allows.web ?? webPush(to.userId, data).addEffects(res =>
+      monitor(lila.mon.push.send)("web", res.isSuccess, 1)
     )
-    _ <- to.device ?? firebasePush(to.userId, data).addEffects(res =>
-      monitor(lila.mon.push.send)("firebase", res.isSuccess)
+    _ <- to.allows.device ?? firebasePush(to.userId, data).addEffects(res =>
+      monitor(lila.mon.push.send)("firebase", res.isSuccess, 1)
     )
   yield ()
 

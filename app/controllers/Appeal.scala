@@ -147,8 +147,8 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   private def asMod(
       username: UserStr
   )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(using Context): Fu[Result] =
-    env.user.repo byId username ifThen { user =>
-      env.appeal.api get user ifThen { appeal =>
+    env.user.repo byId username flatMapz { user =>
+      env.appeal.api get user flatMapz { appeal =>
         f(appeal, Suspect(user)) dmap some
       }
     } flatMap {

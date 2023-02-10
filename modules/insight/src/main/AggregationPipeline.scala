@@ -7,7 +7,7 @@ import lila.user.User
 import lila.common.config
 
 final private class AggregationPipeline(store: InsightStorage)(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
   import InsightStorage.*
   import BSONHandlers.given
@@ -98,7 +98,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
 
         def clockPercentDispatcher =
           ClockPercentRange.all.tail
-            .foldLeft[BSONValue](BSONInteger(ClockPercentRange.all.head.bottom.toInt)) { case (acc, tp) =>
+            .foldLeft[BSONValue](BSONInteger(ClockPercentRange.all.head.bottom.toInt)) { (acc, tp) =>
               $doc(
                 "$cond" -> $arr(
                   $doc("$gte" -> $arr("$" + F.moves("s"), tp.bottom)),
@@ -113,7 +113,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
             $doc("$eq" -> $arr("$" + F.moves("i"), 0)),
             MaterialRange.Equal.id,
             MaterialRange.reversedButEqualAndLast.foldLeft[BSONValue](BSONInteger(MaterialRange.Up4.id)) {
-              case (acc, mat) =>
+              (acc, mat) =>
                 $doc(
                   "$cond" -> $arr(
                     $doc((if (mat.negative) "$lt" else "$lte") -> $arr("$" + F.moves("i"), mat.imbalance)),
@@ -125,7 +125,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
           )
         )
         lazy val evalIdDispatcher =
-          EvalRange.reversedButLast.foldLeft[BSONValue](BSONInteger(EvalRange.Up5.id)) { case (acc, ev) =>
+          EvalRange.reversedButLast.foldLeft[BSONValue](BSONInteger(EvalRange.Up5.id)) { (acc, ev) =>
             $doc(
               "$cond" -> $arr(
                 $doc("$lt" -> $arr("$" + F.moves("e"), ev.eval)),

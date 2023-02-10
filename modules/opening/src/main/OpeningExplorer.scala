@@ -1,27 +1,28 @@
 package lila.opening
 
-import chess.format.Fen
-import chess.format.Fen
+import chess.format.{ Fen, Uci }
+import chess.format.pgn.SanStr
 import chess.opening.Opening
 import com.softwaremill.tagging.*
+import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.ExecutionContext
 
 import lila.game.Game
 
 final private class OpeningExplorer(
     ws: StandaloneWSClient,
     explorerEndpoint: String @@ ExplorerEndpoint
-)(using ec: ExecutionContext):
+)(using Executor):
   import OpeningExplorer.*
+
+  private val requestTimeout = 2.seconds
 
   def stats(query: OpeningQuery): Fu[Option[Position]] =
     ws.url(s"$explorerEndpoint/lichess")
-      .withQueryStringParameters(
-        queryParameters(query) ::: List("moves" -> "12")*
-      )
+      .withQueryStringParameters(queryParameters(query)*)
+      .withRequestTimeout(requestTimeout)
       .get()
       .flatMap {
         case res if res.status == 404 => fuccess(none)
@@ -47,7 +48,7 @@ final private class OpeningExplorer(
   def configHistory(config: OpeningConfig): Fu[PopularityHistoryAbsolute] =
     historyOf(configParameters(config))
 
-  def simplePopularity(opening: Opening): Fu[Option[Int]] =
+  def simplePopularity(opening: Opening): Fu[Option[Long]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
         "play"        -> opening.uci.value.replace(" ", ","),
@@ -55,6 +56,7 @@ final private class OpeningExplorer(
         "topGames"    -> "0",
         "recentGames" -> "0"
       )
+      .withRequestTimeout(requestTimeout)
       .get()
       .flatMap {
         case res if res.status == 404 => fuccess(none)
@@ -74,9 +76,17 @@ final private class OpeningExplorer(
         none
       }
 
+  private val dateFormat = DateTimeFormat.forPattern("yyyy-MM")
+
   private def historyOf(params: List[(String, String)]): Fu[PopularityHistoryAbsolute] =
     ws.url(s"$explorerEndpoint/lichess/history")
-      .withQueryStringParameters(params ::: List("since" -> OpeningQuery.firstMonth)*)
+      .withQueryStringParameters(
+        params ::: List(
+          "since" -> OpeningQuery.firstMonth,
+          "until" -> dateFormat.print(nowDate.minusDays(45))
+        )*
+      )
+      .withRequestTimeout(requestTimeout)
       .get()
       .flatMap {
         case res if res.status != 200 =>
@@ -112,18 +122,18 @@ final private class OpeningExplorer(
 object OpeningExplorer:
 
   case class Position(
-      white: Int,
-      draws: Int,
-      black: Int,
+      white: Long,
+      draws: Long,
+      black: Long,
       moves: List[Move],
       topGames: List[GameRef],
       recentGames: List[GameRef]
   ):
     val sum      = white + draws + black
-    val movesSum = moves.foldLeft(0)(_ + _.sum)
+    val movesSum = moves.foldLeft(0L)(_ + _.sum)
     val games    = topGames ::: recentGames
 
-  case class Move(uci: String, san: String, averageRating: Int, white: Int, draws: Int, black: Int):
+  case class Move(uci: String, san: SanStr, averageRating: IntRating, white: Long, draws: Long, black: Long):
     def sum = white + draws + black
 
   case class GameRef(id: GameId)

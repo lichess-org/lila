@@ -20,7 +20,7 @@ final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
     makeClient: Index => ESClient
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   private val config = appConfig.get[GameSearchConfig]("gameSearch")(AutoConfig.loader)
 

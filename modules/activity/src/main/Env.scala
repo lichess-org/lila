@@ -2,7 +2,6 @@ package lila.activity
 
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.hub.actorApi.round.CorresMoveEvent
@@ -23,8 +22,8 @@ final class Env(
     swissApi: lila.swiss.SwissApi,
     lightUserApi: lila.user.LightUserApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
+    ec: Executor,
+    scheduler: Scheduler
 ):
 
   private lazy val coll = db(CollName("activity2")).failingSilently()

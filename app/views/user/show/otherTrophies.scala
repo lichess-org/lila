@@ -94,6 +94,6 @@ object otherTrophies:
   animation: psyche 0.3s ease-in-out infinite alternate;
 }"""),
     a(awardCls(t), href := t.anyUrl, ariaTitle(t.kind.name))(
-      img(src           := assetUrl("images/trophy/zug-trophy.png"))
+      img(src := assetUrl("images/trophy/zug-trophy.png"))
     )
   )

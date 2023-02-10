@@ -218,6 +218,10 @@
   <string name="email">E-mail</string>
   <string name="passwordReset">Resetujte lozinku</string>
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
+  <string name="error.weakPassword">Ova lozinka izuzetno je česta i prelahka za pogađanje.</string>
+  <string name="error.namePassword">Molimo da ne upotrebljavate Vaše korisničko ime kao lozinku.</string>
+  <string name="youAreLeavingLichess">Napuštate Lichess</string>
+  <string name="neverTypeYourPassword">Nikada nemojte unijeti Vašu lozinku za Lichess na nekom drugom sajtu!</string>
   <string name="emailConfirmHelp">Pomoć za potvrdu e-pošte</string>
   <string name="emailConfirmNotReceived">Niste primili e-poštu za potvrdu nakon prijavljivanja?</string>
   <string name="whatSignupUsername">Koje ste korisničko ime upotrijebili za prijavu?</string>
@@ -743,6 +747,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="kidMode">Dječji režim</string>
   <string name="kidModeExplanation">Ova opcija se nudi zbog sigurnosti. U dječjem režimu, sve komunikacije na stranici su ukinute. Omogućite ovu opciju za Vašu djecu i učenike, kako bi ste ih zaštitili od drugih internet korisnika.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">U dječjem režimu, logo lichess-a dobiva %s ikonu, tako da znate da su Vaša djeca sigurna.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Vaš je račun pod administracijom. Upitajte Vašeg učitelja šaha o isključivanju načina za djecu.</string>
   <string name="enableKidMode">Uključite dječji režim</string>
   <string name="disableKidMode">Isključite dječji režim</string>
   <string name="security">Sigurnost</string>
@@ -924,7 +929,55 @@ Svi operativni troškovi, razvoj i sadržaj finansiraju se isključivo od donaci
   <string name="streamerManager">Postavke za strimera</string>
   <string name="cancelTournament">Otkaži turnir</string>
   <string name="tournDescription">Opis turnira</string>
+  <string name="tournDescriptionHelp">Postoji li nešto posebno što bi htjeli reći učesnicima? Pokušajte biti kratki.
+Markdown linkovi su dostupni: [name](https://url)</string>
+  <string name="ratedFormHelp">Igre se ocjenjuju
+i utječu na ocjenu igrača</string>
+  <string name="onlyMembersOfTeam">Samo članovi tima</string>
+  <string name="noRestriction">Bez ograničenja</string>
+  <string name="minimumRatedGames">Minimalan broj ocijenjenih igri</string>
+  <string name="minimumRating">Minimalna ocjena</string>
+  <string name="maximumWeeklyRating">Maksimalna sedmična ocjena</string>
+  <string name="onlyTitled">Samo ovlašteni igrači</string>
+  <string name="onlyTitledHelp">Potrebno službeno ovlaštenje za pridruživanje turniru</string>
+  <string name="positionInputHelp">Zalijepite važeći FEN da biste započeli svaku igru sa određene pozicije.
+Radi samo za standardne igre, ne sa vrstama.
+Možete koristiti %s za generisanje FEN pozicije, a zatim ga zalijepite ovdje.
+Ostavite prazno za početak igre sa normalne početne pozicije.</string>
+  <string name="cancelSimul">Otkažite simultanku</string>
+  <string name="simulHostcolor">Boja domaćina u svakoj igri</string>
+  <string name="estimatedStart">Procijenuto početno vrijeme</string>
+  <string name="simulFeatured">Istečaj na %s</string>
+  <string name="simulFeaturedHelp">Pokažite svoju simulaciju svima na %s. Onemogući za privatne simulacije.</string>
+  <string name="simulDescription">Opis simultanke</string>
+  <string name="simulDescriptionHelp">Želite li nešto reći učesnicima?</string>
+  <string name="markdownAvailable">%s je dostupan za više napredniju sintaksu.</string>
+  <string name="embedsAvailable">Zalijepite URL igre ili URL poglavlja studije da biste ga ugradili.</string>
+  <string name="inYourLocalTimezone">U vlastitoj vremenskoj zoni</string>
+  <string name="tournChat">Turnirski razgovor</string>
+  <string name="noChat">Nema razgovora</string>
+  <string name="onlyTeamLeaders">Samo vođe timova</string>
+  <string name="onlyTeamMembers">Samo članovi timova</string>
+  <string name="navigateMoveTree">Za kretanje po premještajnom stablu</string>
+  <string name="mouseTricks">Trikovi s mišem</string>
+  <string name="toggleLocalAnalysis">Uključite analizu lokalnog računara</string>
+  <string name="toggleAllAnalysis">Uključite sve računarske analize</string>
+  <string name="playComputerMove">Igraj najbolji potez računara</string>
+  <string name="analysisOptions">Postavke analize</string>
+  <string name="focusChat">Usredsredi razgovor</string>
+  <string name="showHelpDialog">Prikaži ovaj pomoćni dijalog</string>
+  <string name="reopenYourAccount">Iznova otvorite vaš račun</string>
+  <string name="closedAccountChangedMind">Ako ste zatvorili svoj račun, a predomislili ste se, imate jednu šansu da vratite svoj račun.</string>
+  <string name="onlyWorksOnce">Ovo će samo jednom uspjeti.</string>
+  <string name="cantDoThisTwice">Ako drugi put zatvorite svoj račun, nećete ga ni moći oporaviti.</string>
+  <string name="emailAssociatedToaccount">Mejl adresa povezana s računom</string>
+  <string name="sentEmailWithLink">Poslali smo vam mejl s vezom.</string>
   <string name="tournamentEntryCode">Lozinka za ulaz u turnir</string>
+  <string name="hangOn">Stani malo!</string>
+  <string name="gameInProgress">Još igrate u trenu sa %s.</string>
+  <string name="abortTheGame">Prekinite igru</string>
+  <string name="resignTheGame">Odustanite od igre</string>
+  <string name="youCantStartNewGame">Ne možete započeti novu igru dok se ova ne završi.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>

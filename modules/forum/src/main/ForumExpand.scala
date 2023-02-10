@@ -1,27 +1,26 @@
 package lila.forum
 
-import scala.concurrent.ExecutionContext
-import scalatags.Text.all.*
+import scalatags.Text.all.{ raw, Frag }
 
 import lila.base.RawHtml
 import lila.common.config
 import lila.common.String.html.richText
 
-final class ForumTextExpand(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
+final class ForumTextExpand(using Executor, Scheduler):
 
-  private def one(text: String)(implicit netDomain: config.NetDomain): Fu[Frag] =
+  private def one(text: String)(using config.NetDomain): Fu[Frag] =
     lila.common.Bus.ask("lpv")(lila.hub.actorApi.lpv.LpvLinkRenderFromText(text, _)) map { linkRender =>
       raw {
         RawHtml.nl2br {
-          RawHtml.addLinks(text, expandImg = true, linkRender = linkRender.some)
-        }
+          RawHtml.addLinks(text, expandImg = true, linkRender = linkRender.some).value
+        }.value
       }
     }
 
-  private def many(texts: Seq[String])(implicit netDomain: config.NetDomain): Fu[Seq[Frag]] =
-    texts.map(one).sequenceFu
+  private def many(texts: Seq[String])(using config.NetDomain): Fu[Seq[Frag]] =
+    texts.map(one).parallel
 
-  def manyPosts(posts: Seq[ForumPost])(implicit netDomain: config.NetDomain): Fu[Seq[ForumPost.WithFrag]] =
+  def manyPosts(posts: Seq[ForumPost])(using config.NetDomain): Fu[Seq[ForumPost.WithFrag]] =
     many(posts.map(_.text)) map {
       _ zip posts map { case (body, post) =>
         ForumPost.WithFrag(post, body)

@@ -3,7 +3,7 @@ package lila.importer
 import com.softwaremill.macwire.*
 
 @Module
-final class Env(gameRepo: lila.game.GameRepo)(using ec: scala.concurrent.ExecutionContext):
+final class Env(gameRepo: lila.game.GameRepo)(using Executor):
 
   lazy val forms = wire[ImporterForm]
 

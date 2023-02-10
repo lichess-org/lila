@@ -3,11 +3,11 @@ package controllers
 import play.api.libs.json.Json
 import scala.util.{ Either, Left, Right }
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import views.*
 
 import lila.app.{ given, * }
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.IpAddress
+import chess.format.pgn.PgnStr
 
 final class Importer(env: Env) extends LilaController(env):
 
@@ -23,7 +23,7 @@ final class Importer(env: Env) extends LilaController(env):
     OpenBody { implicit ctx =>
       fuccess {
         val pgn  = ctx.body.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
-        val data = lila.importer.ImportData(pgn, None)
+        val data = lila.importer.ImportData(PgnStr(pgn), None)
         Ok(html.game.importGame(env.importer.forms.importForm.fill(data)))
       }
     }
@@ -64,7 +64,7 @@ final class Importer(env: Env) extends LilaController(env):
 
   def apiSendGame =
     AnonOrScopedBody(parse.anyContent)() { req => me =>
-      ImportRateLimitPerIP(HTTPRequest ipAddress req, cost = if (me.isDefined) 1 else 2) {
+      ImportRateLimitPerIP(req.ipAddress, cost = if (me.isDefined) 1 else 2) {
         env.importer.forms.importForm
           .bindFromRequest()(req, formBinding)
           .fold(
@@ -97,11 +97,9 @@ final class Importer(env: Env) extends LilaController(env):
 
   def masterGame(id: GameId, orientation: String) =
     Open { implicit ctx =>
-      env.explorer.importer(id) map {
-        _ ?? { game =>
-          val url      = routes.Round.watcher(game.id, orientation).url
-          val fenParam = get("fen").??(f => s"?fen=$f")
-          Redirect(s"$url$fenParam")
-        }
+      env.explorer.importer(id) mapz { game =>
+        val url      = routes.Round.watcher(game.id, orientation).url
+        val fenParam = get("fen").??(f => s"?fen=$f")
+        Redirect(s"$url$fenParam")
       }
     }

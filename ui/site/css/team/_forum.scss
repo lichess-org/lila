@@ -24,6 +24,7 @@
       strong {
         font-size: 1.3em;
         font-weight: normal;
+        unicode-bidi: plaintext;
       }
     }
 
@@ -36,6 +37,7 @@
     p {
       @extend %zalgoverflow;
       color: $c-font-dim;
+      text-align: start;
     }
 
     a.more {

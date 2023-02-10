@@ -1,6 +1,5 @@
 package lila.forum
 
-import org.joda.time.DateTime
 import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
 
@@ -59,7 +58,7 @@ case class ForumTopic(
 
   def incNbPosts = copy(nbPosts = nbPosts + 1)
 
-  def isOld = updatedAt isBefore DateTime.now.minusMonths(1)
+  def isOld = updatedAt isBefore nowDate.minusMonths(1)
 
   def lastPage(maxPerPage: MaxPerPage): Int =
     (nbPosts + maxPerPage.value - 1) / maxPerPage.value
@@ -86,11 +85,11 @@ object ForumTopic:
     categId = categId,
     slug = slug,
     name = name,
-    createdAt = DateTime.now,
-    updatedAt = DateTime.now,
+    createdAt = nowDate,
+    updatedAt = nowDate,
     nbPosts = 0,
     lastPostId = ForumPostId(""),
-    updatedAtTroll = DateTime.now,
+    updatedAtTroll = nowDate,
     nbPostsTroll = 0,
     lastPostIdTroll = ForumPostId(""),
     troll = troll,

@@ -5,7 +5,6 @@ import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.common.HTTPRequest
 import lila.racer.RacerPlayer
 import lila.racer.RacerRace
 import play.api.libs.json.Json
@@ -74,7 +73,7 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
   private def WithPlayerId(f: Context => RacerPlayer.Id => Fu[Result]): Action[Unit] =
     Open { implicit ctx =>
       NoBot {
-        HTTPRequest sid ctx.req map { env.racer.api.playerId(_, ctx.me) } match
+        ctx.req.sid map { env.racer.api.playerId(_, ctx.me) } match
           case Some(id) => f(ctx)(id)
           case None =>
             env.lilaCookie.ensureAndGet(ctx.req) { sid =>

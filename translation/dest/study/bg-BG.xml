@@ -50,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Само сътрудници към казуса могат да пускат компютърен анализ.</string>
   <string name="getAFullComputerAnalysis">Вземи пълен сървърен анализ на основна линия.</string>
   <string name="makeSureTheChapterIsComplete">Уверете се, че главата е завършена. Можете да пуснете анализ само веднъж.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Всички синхронизирани членове остават на същата позиция</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Всички синхронизирани членове остават на същата позиция</string>
   <string name="shareChanges">Споделете промените със зрителите и ги запазете на сървъра</string>
   <string name="playing">Играе се</string>
   <string name="first">Първа</string>
@@ -62,6 +62,7 @@
   <string name="studyPgn">PGN на казуса</string>
   <string name="downloadAllGames">Изтегли всички партии</string>
   <string name="chapterPgn">PGN на главата</string>
+  <string name="copyChapterPgn">Копирай PGN</string>
   <string name="downloadGame">Изтегли партия</string>
   <string name="studyUrl">URL на казуса</string>
   <string name="currentChapterUrl">URL на настоящата глава</string>

@@ -43,10 +43,8 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
 
   def dashboardOf(username: UserStr, page: Int) =
     Open { implicit ctx =>
-      env.user.repo.enabledById(username).flatMap {
-        _ ?? {
-          renderDashboardOf(_, page)
-        }
+      env.user.repo.enabledById(username).flatMapz {
+        renderDashboardOf(_, page)
       }
     }
 

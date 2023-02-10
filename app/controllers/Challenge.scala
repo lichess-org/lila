@@ -4,14 +4,13 @@ import cats.data.Validated
 import play.api.libs.json.Json
 import play.api.mvc.{ Request, Result }
 import scala.annotation.nowarn
-import scala.concurrent.duration.*
 import views.html
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.challenge.{ Challenge as ChallengeModel }
 import lila.challenge.Challenge.ID
-import lila.common.{ Bearer, HTTPRequest, IpAddress, Template }
+import lila.common.{ Bearer, IpAddress, Template }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ AccessToken, OAuthScope }
 import lila.setup.ApiConfig
@@ -88,7 +87,7 @@ final class Challenge(
 
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) =
     challenge.challenger match
-      case lila.challenge.Challenge.Challenger.Anonymous(secret) => HTTPRequest sid ctx.req contains secret
+      case lila.challenge.Challenge.Challenger.Anonymous(secret)     => ctx.req.sid contains secret
       case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId contains userId
       case lila.challenge.Challenge.Challenger.Open                  => false
 
@@ -101,7 +100,7 @@ final class Challenge(
       OptionFuResult(api byId id) { c =>
         val cc = color flatMap chess.Color.fromName
         isForMe(c, ctx.me) ?? api
-          .accept(c, ctx.me, HTTPRequest sid ctx.req, cc)
+          .accept(c, ctx.me, ctx.req.sid, cc)
           .flatMap {
             case Validated.Valid(Some(pov)) =>
               negotiate(
@@ -210,8 +209,8 @@ final class Challenge(
               import lila.round.actorApi.round.AbortForce
               env.game.gameRepo game GameId(id) dmap {
                 _ flatMap { Pov.ofUserId(_, me.id) }
-              } flatMap {
-                _ ?? { p => env.round.proxyRepo.upgradeIfPresent(p) dmap some }
+              } flatMapz { p =>
+                env.round.proxyRepo.upgradeIfPresent(p) dmap some
               } flatMap {
                 case Some(pov) if pov.game.abortableByUser =>
                   lila.common.Bus.publish(Tell(id, Abort(pov.playerId)), "roundSocket")
@@ -235,7 +234,7 @@ final class Challenge(
 
   def apiStartClocks(id: GameId) =
     Action.async { req =>
-      import cats.implicits.*
+      import cats.syntax.all.*
       val scopes = List(OAuthScope.Challenge.Write)
       (Bearer from get("token1", req), Bearer from get("token2", req)).mapN {
         env.oAuth.server.authBoth(scopes, req)
@@ -243,16 +242,12 @@ final class Challenge(
         _ flatMap {
           case Left(e) => handleScopedFail(scopes, e)
           case Right((u1, u2)) =>
-            env.game.gameRepo game id flatMap {
-              _ ?? { g =>
-                env.round.proxyRepo.upgradeIfPresent(g) dmap some dmap
-                  (_.filter(_.hasUserIds(u1.id, u2.id)))
-              }
-            } map {
-              _ ?? { game =>
-                env.round.tellRound(game.id, lila.round.actorApi.round.StartClock)
-                jsonOkResult
-              }
+            env.game.gameRepo game id flatMapz { g =>
+              env.round.proxyRepo.upgradeIfPresent(g) dmap some dmap
+                (_.filter(_.hasUserIds(u1.id, u2.id)))
+            } mapz { game =>
+              env.round.tellRound(game.id, lila.round.actorApi.round.StartClock)
+              jsonOkResult
             }
         }
       }
@@ -282,7 +277,7 @@ final class Challenge(
       NoBot {
         import play.api.data.*
         import play.api.data.Forms.*
-        implicit val req: Request[?] = ctx.body
+        given Request[?] = ctx.body
         OptionFuResult(api byId id) { c =>
           if (isMine(c))
             Form(single("username" -> lila.user.UserForm.historicalUsernameField))
@@ -317,12 +312,12 @@ final class Challenge(
         .fold(
           newJsonFormError,
           config =>
-            ChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isApiHog) 0 else 1) {
+            ChallengeIpRateLimit(req.ipAddress, cost = if (me.isApiHog) 0 else 1) {
               env.user.repo enabledById username flatMap {
                 case None => JsonBadRequest(jsonError(s"No such user: $username")).toFuccess
                 case Some(destUser) =>
                   val cost = if (me.isApiHog) 0 else if (destUser.isBot) 1 else 5
-                  BotChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isBot) 1 else 0) {
+                  BotChallengeIpRateLimit(req.ipAddress, cost = if (me.isBot) 1 else 0) {
                     ChallengeUserRateLimit(me.id, cost = cost) {
                       val challenge = makeOauthChallenge(config, me, destUser)
                       config.acceptByToken match {
@@ -376,7 +371,7 @@ final class Challenge(
       dest: UserModel,
       challenge: lila.challenge.Challenge,
       strToken: String
-  )(managedBy: lila.user.User, message: Option[Template])(implicit req: RequestHeader) =
+  )(managedBy: lila.user.User, message: Option[Template])(using req: RequestHeader) =
     env.oAuth.server.auth(
       Bearer(strToken),
       List(lila.oauth.OAuthScope.Challenge.Write),
@@ -390,7 +385,7 @@ final class Challenge(
               env.challenge.msg.onApiPair(challenge)(managedBy, message) inject Ok(
                 Json.obj(
                   "game" -> {
-                    env.game.jsonView(g, challenge.initialFen) ++ Json.obj(
+                    env.game.jsonView.base(g, challenge.initialFen) ++ Json.obj(
                       "url" -> s"${env.net.baseUrl}${routes.Round.watcher(g.id, "white")}"
                     )
                   }
@@ -410,7 +405,7 @@ final class Challenge(
         .fold(
           err => BadRequest(apiFormError(err)).toFuccess,
           config =>
-            ChallengeIpRateLimit(HTTPRequest ipAddress req) {
+            ChallengeIpRateLimit(req.ipAddress) {
               import lila.challenge.Challenge.*
               val challenge = lila.challenge.Challenge.make(
                 variant = config.variant,
@@ -443,16 +438,14 @@ final class Challenge(
     Auth { implicit ctx => me =>
       NoBot {
         OptionFuResult(env.game.gameRepo game gameId) { g =>
-          Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? env.user.repo.byId flatMap {
-            _ ?? { opponent =>
-              env.challenge.granter.isDenied(me.some, opponent, g.perfType) flatMap {
-                case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied translated d)).toFuccess
-                case _ =>
-                  api.offerRematchForGame(g, me) map {
-                    case true => jsonOkResult
-                    case _    => BadRequest(jsonError("Sorry, couldn't create the rematch."))
-                  }
-              }
+          Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? env.user.repo.byId flatMapz { opponent =>
+            env.challenge.granter.isDenied(me.some, opponent, g.perfType) flatMap {
+              case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied translated d)).toFuccess
+              case _ =>
+                api.offerRematchForGame(g, me) map {
+                  case true => jsonOkResult
+                  case _    => BadRequest(jsonError("Sorry, couldn't create the rematch."))
+                }
             }
           }
         }

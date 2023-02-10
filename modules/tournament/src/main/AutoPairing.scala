@@ -11,11 +11,12 @@ final class AutoPairing(
     gameRepo: GameRepo,
     duelStore: DuelStore,
     lightUserApi: lila.user.LightUserApi,
-    onStart: GameId => Unit
-)(using ec: scala.concurrent.ExecutionContext):
+    onStart: lila.round.OnStart
+)(using Executor):
 
   def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] =
-    val clock = tour.clock.toClock
+    val clock                             = tour.clock.toClock
+    val fen: Option[chess.format.Fen.Epd] = tour.position.map(_ into chess.format.Fen.Epd)
     val game = Game
       .make(
         chess = chess
@@ -24,7 +25,7 @@ final class AutoPairing(
               if (tour.position.isEmpty) tour.variant
               else chess.variant.FromPosition
             },
-            fen = tour.position
+            fen = fen
           )
           .copy(clock = clock.some),
         whitePlayer = makePlayer(White, pairing.player1),

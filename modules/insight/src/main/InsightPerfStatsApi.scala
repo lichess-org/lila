@@ -2,8 +2,6 @@ package lila.insight
 
 import chess.{ Centis, Color }
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
-import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config
 import lila.db.dsl.{ *, given }
@@ -17,6 +15,7 @@ case class InsightPerfStats(
     time: FiniteDuration
 ):
   def totalNbGames = nbGames.white + nbGames.black
+  def peers        = Question.Peers(rating)
 
 object InsightPerfStats:
   case class WithGameIds(stats: InsightPerfStats, gameIds: List[GameId])
@@ -24,7 +23,7 @@ object InsightPerfStats:
 final class InsightPerfStatsApi(
     storage: InsightStorage,
     pipeline: AggregationPipeline
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def apply(
       user: User,

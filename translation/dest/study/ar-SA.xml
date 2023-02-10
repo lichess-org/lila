@@ -62,7 +62,7 @@
   <string name="onlyContributorsCanRequestAnalysis">فقط المساهمون في هذا الدراسة يمكنهم طلب تحليل الحاسوب</string>
   <string name="getAFullComputerAnalysis">احصل على تحليل حاسوب كامل للتفريع الرئيسي من قبل الخادم</string>
   <string name="makeSureTheChapterIsComplete">كن متأكداً ان الفصل مكتمل، يمكنك طلب تحليل الحاسوب مره واحده فحسب</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">يظل جميع ألاعضاء الذين تمت مزامنة معلوماتهم في نفس الترتيب</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">يظل جميع ألاعضاء الذين تمت مزامنة معلوماتهم في نفس الترتيب</string>
   <string name="shareChanges">شارك التغيبرات مع المشاهدين وإحفظهن الى الخادم</string>
   <string name="playing">يلعب الان</string>
   <string name="first">الأولى</string>

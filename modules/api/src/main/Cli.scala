@@ -17,7 +17,7 @@ final private[api] class Cli(
     video: lila.video.Env,
     puzzle: lila.puzzle.Env,
     accountClosure: AccountClosure
-)(using ec: scala.concurrent.ExecutionContext)
+)(using Executor)
     extends lila.common.Cli:
 
   private val logger = lila.log("cli")
@@ -55,7 +55,7 @@ final private[api] class Cli(
       fuccess("started in background")
     case "threads" :: Nil =>
       fuccess {
-        val threads = lila.common.LilaJvm.threadGroups()
+        val threads = ornicar.scalalib.Jvm.threadGroups()
         s"${threads.map(_.total).sum} threads\n\n${threads.mkString("\n")}"
       }
 

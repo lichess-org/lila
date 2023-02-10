@@ -1,9 +1,6 @@
 package lila.puzzle
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 import scala.util.chaining.*
 
 import lila.db.dsl.{ *, given }
@@ -24,7 +21,7 @@ case class PuzzleReplay(
 final class PuzzleReplayApi(
     colls: PuzzleColls,
     cacheApi: CacheApi
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import BsonHandlers.given
 
@@ -72,7 +69,7 @@ final class PuzzleReplayApi(
           Match(
             $doc(
               "u" -> user.id,
-              "d" $gt DateTime.now.minusDays(days),
+              "d" $gt nowDate.minusDays(days),
               "w" $ne true
             )
           ) -> List(

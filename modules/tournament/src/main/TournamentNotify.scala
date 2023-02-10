@@ -1,24 +1,21 @@
 package lila.tournament
 
 import akka.actor.ActorSystem
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.common.Bus
 import lila.common.LilaScheduler
 import lila.hub.actorApi.push.TourSoon
 
 final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCache)(using
-    ExecutionContext,
-    akka.actor.Scheduler
+    Executor,
+    Scheduler
 ):
 
   private val doneMemo = lila.memo.ExpireSetMemo[TourId](10 minutes)
 
   LilaScheduler("TournamentNotify", _.Every(10 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
     repo
-      .soonStarting(DateTime.now.plusMinutes(10), DateTime.now.plusMinutes(11), doneMemo.keys)
+      .soonStarting(nowDate.plusMinutes(10), nowDate.plusMinutes(11), doneMemo.keys)
       .flatMap {
         _.map { tour =>
           lila.mon.tournament.notifier.tournaments.increment()
@@ -37,6 +34,6 @@ final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCac
                 )
               lila.mon.tournament.notifier.tournaments.increment(ranking.playerIndex.size)
           }
-        }.sequenceFu.void
+        }.parallel.void
       }
   }

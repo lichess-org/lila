@@ -12,6 +12,7 @@
   <string name="myTeams">Ekipet e mia</string>
   <string name="noTeamFound">Nuk u gjet ekip</string>
   <string name="joinTeam">Hyr në ekip</string>
+  <string name="onlyLeaderLeavesTeam">Ju lutemi, përpara se të ikni, ose mbyllni ekipin, caktoni një drejtues të ri të ekipit.</string>
   <string name="quitTeam">Largohu nga ekipi</string>
   <string name="manuallyReviewAdmissionRequests">Shqyrtojini dorazi kërkesat për pranim</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Në iu vëntë shenjë, lojtarëve do t’ju duhet të shkruajnë një kërkesë për pjesëmarrje te ekipi, të cilën mund ta hidhni poshtë ose ta pranoni.</string>

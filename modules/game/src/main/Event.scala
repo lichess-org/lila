@@ -5,6 +5,7 @@ import play.api.libs.json.*
 import chess.variant.Crazyhouse
 import chess.{
   Ply,
+  Check,
   Centis,
   Clock as ChessClock,
   Color,
@@ -43,7 +44,7 @@ object Event:
 
     def data(
         fen: BoardFen,
-        check: Boolean,
+        check: Check,
         threefold: Boolean,
         state: State,
         clock: Option[ClockEvent],
@@ -74,7 +75,7 @@ object Event:
       dest: Pos,
       san: SanStr,
       fen: BoardFen,
-      check: Boolean,
+      check: Check,
       threefold: Boolean,
       promotion: Option[Promotion],
       enpassant: Option[Enpassant],
@@ -117,7 +118,7 @@ object Event:
         enpassant = (move.capture ifTrue move.enpassant).map {
           Event.Enpassant(_, !move.color)
         },
-        castle = move.castle.map { case (king, rook) =>
+        castle = move.castle.map(_.value).map { (king, rook) =>
           Castling(king, rook, move.color)
         },
         state = state,
@@ -132,7 +133,7 @@ object Event:
       pos: Pos,
       san: SanStr,
       fen: BoardFen,
-      check: Boolean,
+      check: Check,
       threefold: Boolean,
       state: State,
       clock: Option[ClockEvent],
@@ -195,7 +196,7 @@ object Event:
       if (moves.isEmpty) JsNull
       else
         moves.foldLeft(JsObject(Nil)) { case (res, (o, d)) =>
-          res + (o.key -> JsString(d map (_.key) mkString))
+          res + (o.key -> JsString(d.map(_.key) mkString))
         }
 
   case class Enpassant(pos: Pos, color: Color) extends Event:

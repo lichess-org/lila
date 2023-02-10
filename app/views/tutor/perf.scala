@@ -11,6 +11,7 @@ import lila.common.Heapsort.topN
 import lila.tutor.TutorCompare.given
 import lila.tutor.{ TutorFullReport, TutorPerfReport }
 import lila.user.User
+import lila.rating.PerfType
 
 object perf:
 
@@ -22,6 +23,7 @@ object perf:
       boxTop(
         h1(
           a(href := routes.Tutor.user(user.username), dataIcon := "", cls := "text"),
+          bits.otherUser(user),
           "Tutor: ",
           report.perf.trans
         )
@@ -29,8 +31,17 @@ object perf:
       bits.mascotSays(ul(report.relevantComparisons.topN(3) map compare.show)),
       div(cls := "tutor__perf__angles tutor-cards")(
         angleCard(
-          routes.Tutor.openings(user.username, report.perf.key),
-          frag(report.perf.trans, " openings")
+          frag(report.perf.trans, " skills"),
+          routes.Tutor.skills(user.username, report.perf.key).some
+        )(
+          grade.peerGrade(concept.accuracy, report.accuracy),
+          grade.peerGrade(concept.tacticalAwareness, report.awareness),
+          grade.peerGrade(concept.resourcefulness, report.resourcefulness),
+          grade.peerGrade(concept.conversion, report.conversion)
+        ),
+        angleCard(
+          frag(report.perf.trans, " openings"),
+          routes.Tutor.openings(user.username, report.perf.key).some
         )(
           chess.Color.all map { color =>
             report.openings(color).families.headOption map { fam =>
@@ -39,14 +50,21 @@ object perf:
           }
         ),
         angleCard(
-          routes.Tutor.time(user.username, report.perf.key),
-          frag(report.perf.trans, " time management")
+          frag(report.perf.trans, " time management"),
+          report.perf != PerfType.Correspondence option routes.Tutor.time(user.username, report.perf.key)
         )(
-          grade.peerGrade(concept.speed, report.globalClock),
-          grade.peerGrade(concept.clockFlagVictory, report.flagging.win),
-          grade.peerGrade(concept.clockTimeUsage, report.clockUsage)
+          if report.perf == PerfType.Correspondence then p("Not applicable.")
+          else
+            frag(
+              grade.peerGrade(concept.speed, report.globalClock),
+              grade.peerGrade(concept.clockFlagVictory, report.flagging.win),
+              grade.peerGrade(concept.clockTimeUsage, report.clockUsage)
+            )
         ),
-        angleCard(routes.Tutor.phases(user.username, report.perf.key), frag(report.perf.trans, " phases"))(
+        angleCard(
+          frag(report.perf.trans, " phases"),
+          routes.Tutor.phases(user.username, report.perf.key).some
+        )(
           report.phases.map { phase =>
             grade.peerGrade(concept.phase(phase.phase), phase.mix)
           }
@@ -59,11 +77,12 @@ object perf:
       user: User,
       report: TutorPerfReport,
       active: String
-  )(using
-      ctx: Context
-  ) = frag(
+  )(using Context) = frag(
     a(href := routes.Tutor.perf(user.username, report.perf.key), cls := active.active("perf"))(
       report.perf.trans
+    ),
+    a(href := routes.Tutor.skills(user.username, report.perf.key), cls := active.active("skills"))(
+      "Skills"
     ),
     a(href := routes.Tutor.openings(user.username, report.perf.key), cls := active.active("openings"))(
       "Openings"
@@ -76,8 +95,11 @@ object perf:
     )
   )
 
-  private def angleCard(url: Call, title: Frag)(content: Modifier*)(implicit ctx: Context) =
-    st.article(cls := "tutor__perf__angle tutor-card tutor-card--link", dataHref := url)(
+  private def angleCard(title: Frag, url: Option[Call])(content: Modifier*)(using Context) =
+    st.article(
+      cls      := List("tutor__perf__angle tutor-card" -> true, "tutor-card--link" -> url.isDefined),
+      dataHref := url
+    )(
       div(cls := "tutor-card__top")(
         div(cls := "tutor-card__top__title tutor-card__top__title--pad")(
           h3(cls := "tutor-card__top__title__text")(title)

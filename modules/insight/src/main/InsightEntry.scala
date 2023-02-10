@@ -1,7 +1,6 @@
 package lila.insight
 
 import chess.Color
-import org.joda.time.DateTime
 
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.game.{ Game, Pov }
@@ -27,13 +26,11 @@ case class InsightEntry(
     analysed: Boolean,
     provisional: Boolean,
     date: DateTime
-):
-
-  def gameId = id take Game.gameIdSize
+)
 
 case object InsightEntry:
 
-  def povToId(pov: Pov) = pov.gameId.value + pov.color.letter
+  def povToId(pov: Pov) = s"${pov.gameId}${pov.color.letter}"
 
   object BSONFields:
     val id                       = "_id"

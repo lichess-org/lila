@@ -4,15 +4,15 @@ import java.lang.Character.isLetterOrDigit
 import java.lang.{ Math, StringBuilder as jStringBuilder }
 import java.util.regex.Matcher
 import scala.annotation.{ switch, tailrec }
+import scalatags.Text.all.*
 
 import lila.common.base.StringUtils.{ escapeHtmlRaw, escapeHtmlRawInPlace }
-import scalatags.Text.all.*
-import lila.common.config
+import lila.common.{ Html, config }
 
 object RawHtml:
 
-  def nl2br(s: String): String =
-    val sb      = new jStringBuilder(s.length)
+  def nl2br(s: String): Html =
+    val sb      = jStringBuilder(s.length)
     var counter = 0
     for (char <- s)
       if (char == '\n')
@@ -22,7 +22,7 @@ object RawHtml:
       else if (char != '\r')
         counter = 0
         sb.append(char)
-    sb.toString
+    Html(sb.toString)
 
   private[this] val urlPattern = (
     """(?i)\b[a-z](?>""" +                                     // pull out first char for perf.
@@ -42,7 +42,7 @@ object RawHtml:
 
   private[this] val atUsernamePat = atUsernameRegex.pattern
 
-  def expandAtUser(text: String)(implicit netDomain: config.NetDomain): List[String] =
+  def expandAtUser(text: String)(using netDomain: config.NetDomain): List[String] =
     val m = atUsernamePat.matcher(text)
     if (m.find)
       var idx = 0
@@ -65,7 +65,7 @@ object RawHtml:
       text: String,
       expandImg: Boolean = true,
       linkRender: Option[LinkRender] = None
-  )(using netDomain: config.NetDomain): String =
+  )(using netDomain: config.NetDomain): Html =
     expandAtUser(text).map { expanded =>
       val m = urlPattern.matcher(expanded)
 
@@ -134,8 +134,8 @@ object RawHtml:
         escapeHtmlRawInPlace(sb, sArr, lastAppendIdx, sArr.length)
         sb.toString
     } match
-      case one :: Nil => one
-      case many       => many mkString ""
+      case one :: Nil => Html(one)
+      case many       => Html(many mkString "")
 
   private[this] def adjustUrlEnd(sArr: Array[Char], start: Int, end: Int): Int =
     var last = end - 1
@@ -169,29 +169,30 @@ object RawHtml:
       ) { last -= 1 }
     last + 1
 
-  private[this] val imgurRegex = """https?://(?:i\.)?imgur\.com/(\w+)(?:\.jpe?g|\.png|\.gif)?""".r
+  private[this] val imgurRegex = """https?://(?:i\.)?imgur\.com/(\w++)(?:\.jpe?g|\.png|\.gif)?""".r
   private[this] val giphyRegex =
-    """https://(?:media\.giphy\.com/media/|giphy\.com/gifs/(?:\w+-)*)(\w+)(?:/giphy\.gif)?""".r
+    """https://(?:media\.giphy\.com/media/|giphy\.com/gifs/(?:\w+-)*+)(\w+)(?:/giphy\.gif)?""".r
 
-  private[this] def imgUrl(url: String): Option[String] =
-    (url match {
+  private[this] def imgUrl(url: String): Option[Html] =
+    url match {
       case imgurRegex(id) => Some(s"""https://i.imgur.com/$id.jpg""")
       case giphyRegex(id) => Some(s"""https://media.giphy.com/media/$id/giphy.gif""")
       case _              => None
-    }) map { img =>
-      s"""<img class="embed" src="$img" alt="$url"/>"""
+    } map { img =>
+      Html(s"""<img class="embed" src="$img" alt="$url"/>""")
     }
 
   private[this] val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
-  def justMarkdownLinks(escapedHtml: String): String =
+  def justMarkdownLinks(escapedHtml: Html): Html = Html {
     markdownLinkRegex.replaceAllIn(
-      escapedHtml,
+      escapedHtml.value,
       m => {
         val content = Matcher.quoteReplacement(m group 1)
         val href    = removeUrlTrackingParameters(m group 2)
         s"""<a rel="nofollow noopener noreferrer" href="$href">$content</a>"""
       }
     )
+  }
 
   private[this] val trackingParametersRegex =
     """(?i)(?:\?|&(?:amp;)?)(?:utm\\?_\w+|gclid|gclsrc|\\?_ga)=\w+""".r

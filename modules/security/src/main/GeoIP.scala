@@ -2,7 +2,6 @@ package lila.security
 
 import com.github.blemale.scaffeine.LoadingCache
 import lila.common.autoconfig.*
-import scala.concurrent.duration.*
 
 import lila.common.IpAddress
 import com.maxmind.geoip2.DatabaseReader
@@ -24,11 +23,11 @@ final class GeoIP(config: GeoIP.Config):
       .expireAfterAccess(config.cacheTtl)
       .build(compute)
 
-  private def compute(ip: IpAddress): Option[Location] = for {
+  private def compute(ip: IpAddress): Option[Location] = for
     r    <- reader
     inet <- ip.inet
     res  <- Try(r city inet).toOption
-  } yield Location(res)
+  yield Location(res)
 
   def apply(ip: IpAddress): Option[Location] = cache get ip
 

@@ -5,7 +5,6 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
 import reactivemongo.api.ReadPreference
 import play.api.libs.ws.JsonBodyReadables.*
-import scala.concurrent.duration.*
 
 import lila.common.Domain
 import lila.db.dsl.*
@@ -18,8 +17,8 @@ final private class CheckMail(
     config: SecurityConfig.CheckMail,
     mongoCache: lila.memo.MongoCache.Api
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
+    ec: Executor,
+    scheduler: Scheduler
 ):
 
   def apply(domain: Domain.Lower): Fu[Boolean] =

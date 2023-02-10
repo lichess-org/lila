@@ -1,9 +1,7 @@
 package lila.timeline
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.config.Max
 import lila.db.dsl.{ *, given }
@@ -15,7 +13,7 @@ final class EntryApi(
     coll: Coll,
     userMax: Max,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Entry.given
 
@@ -32,7 +30,7 @@ final class EntryApi(
       .find(
         $doc(
           "users" -> userId,
-          "date" $gt DateTime.now.minusWeeks(2)
+          "date" $gt nowDate.minusWeeks(2)
         ),
         projection.some
       )
@@ -55,7 +53,7 @@ final class EntryApi(
       $doc(
         "users" -> userId,
         "chan"  -> channel,
-        "date" $gt DateTime.now.minusDays(7)
+        "date" $gt nowDate.minusDays(7)
       )
     ) map (0 !=)
 
@@ -67,8 +65,8 @@ final class EntryApi(
   private[timeline] def removeRecentFollowsBy(userId: UserId): Funit =
     coll.update
       .one(
-        $doc("typ"  -> "follow", "data.u1" -> userId, "date" $gt DateTime.now().minusHours(1)),
-        $set("date" -> DateTime.now().minusDays(365)),
+        $doc("typ"  -> "follow", "data.u1" -> userId, "date" $gt nowDate.minusHours(1)),
+        $set("date" -> nowDate.minusDays(365)),
         multi = true
       )
       .void
@@ -78,21 +76,14 @@ final class EntryApi(
   object broadcast:
 
     private val cache = cacheApi.unit[Vector[Entry]] {
-      _.refreshAfterWrite(1 hour)
-        .buildAsyncFuture(_ => fetch)
+      _.refreshAfterWrite(1 hour).buildAsyncFuture { _ =>
+        coll
+          .find($doc("users" $exists false, "date" $gt nowDate.minusWeeks(2)))
+          .sort($sort desc "date")
+          .cursor[Entry](ReadPreference.primary) // must be on primary for cache refresh to work
+          .vector(3)
+      }
     }
-
-    private def fetch: Fu[Vector[Entry]] =
-      coll
-        .find(
-          $doc(
-            "users" $exists false,
-            "date" $gt DateTime.now.minusWeeks(2)
-          )
-        )
-        .sort($sort desc "date")
-        .cursor[Entry](ReadPreference.primary) // must be on primary for cache refresh to work
-        .vector(3)
 
     private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] =
       cache.getUnit map { bcs =>
@@ -103,7 +94,7 @@ final class EntryApi(
               (entries ++ bcs).sortBy(-_.date.getMillis)
             else entries
           // sneak recent broadcast at first place
-          if (mostRecentBc.date.isAfter(DateTime.now minusDays 1))
+          if (mostRecentBc.date.isAfter(nowDate minusDays 1))
             mostRecentBc +: interleaved.filter(mostRecentBc !=)
           else interleaved
         }

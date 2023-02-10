@@ -4,7 +4,6 @@ import com.softwaremill.macwire.*
 import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.common.Strings
@@ -31,9 +30,10 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
-    settingStore: lila.memo.SettingStore.Builder
+    settingStore: lila.memo.SettingStore.Builder,
+    ip2proxy: lila.security.Ip2Proxy
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
     mode: play.api.Mode
 ):
@@ -49,18 +49,10 @@ final class Env(
     text = "Monthly donation goal in USD from https://lichess.org/costs".some
   )
 
-  val paymentMethodsSetting = settingStore[Strings](
-    "paymentMethods",
-    default = Strings(List("card")),
-    text = "Stripe payment methods, separated by commas".some
-  )
-
   private lazy val mongo = PlanMongo(
     patron = db(config.patronColl),
     charge = db(config.chargeColl)
   )
-
-  lazy val stripePaymentMethods: StripePaymentMethods = wire[StripePaymentMethods]
 
   private lazy val stripeClient: StripeClient = wire[StripeClient]
 
@@ -101,10 +93,10 @@ final class Env(
     new lila.common.Cli:
       def process =
         case "patron" :: "lifetime" :: user :: Nil =>
-          userRepo byId UserStr(user) flatMap { _ ?? api.setLifetime } inject "ok"
+          userRepo byId UserStr(user) flatMapz api.setLifetime inject "ok"
         case "patron" :: "month" :: user :: Nil =>
-          userRepo byId UserStr(user) flatMap { _ ?? api.freeMonth } inject "ok"
+          userRepo byId UserStr(user) flatMapz api.freeMonth inject "ok"
         case "patron" :: "remove" :: user :: Nil =>
-          userRepo byId UserStr(user) flatMap { _ ?? api.remove } inject "ok"
+          userRepo byId UserStr(user) flatMapz api.remove inject "ok"
 
 final private class PlanMongo(val patron: Coll, val charge: Coll)

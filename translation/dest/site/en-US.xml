@@ -207,6 +207,7 @@
   <string name="email">Email</string>
   <string name="passwordReset">Password reset</string>
   <string name="forgotPassword">Forgot password?</string>
+  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">You are leaving Lichess</string>
   <string name="emailConfirmHelp">Help with email confirmation</string>
   <string name="emailConfirmNotReceived">Didn\'t receive your confirmation email after signing up?</string>
   <string name="whatSignupUsername">What username did you use to sign up?</string>
@@ -363,6 +364,7 @@
   <string name="siteDescription">Free online chess server. Play chess in a clean interface. No registration, no ads, no plugin required. Play chess with the computer, friends or random opponents.</string>
   <string name="xJoinedTeamY">%1$s joined team %2$s</string>
   <string name="xCreatedTeamY">%1$s created team %2$s</string>
+  <string name="startedStreaming">started streaming</string>
   <string name="xStartedStreaming">%s started streaming</string>
   <string name="averageElo">Average rating</string>
   <string name="location">Location</string>
@@ -539,6 +541,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notes</string>
   <string name="typePrivateNotesHere">Type private notes here</string>
+  <string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
+  <string name="noNoteYet">No note yet</string>
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
   <string name="incorrectPassword">Incorrect password</string>
   <string name="invalidAuthenticationCode">Invalid authentication code</string>
@@ -704,6 +708,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="kidMode">Kid mode</string>
   <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the lichess logo gets a %s icon, so you know your kids are safe.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Your account is managed. Ask your chess teacher about lifting kid mode.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
   <string name="security">Security</string>
@@ -738,6 +743,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="light">Light</string>
   <string name="dark">Dark</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Device theme</string>
   <string name="backgroundImageUrl">Background image URL:</string>
   <string name="boardGeometry">Board geometry</string>
   <string name="boardTheme">Board theme</string>
@@ -868,7 +874,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Someone reviewed your coach profile.</string>
   <string name="newPendingReview">New pending review</string>
-  <string name="lostAgainstTOSViolator">You lost to someone who violated the Lichess TOS</string>
+  <string name="lostAgainstTOSViolator">You lost rating points to someone who violated the Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Refund: %1$s %2$s rating points.</string>
   <string name="timeAlmostUp">Time is almost up!</string>
   <string name="clickToRevealEmailAddress">[Click to reveal email address.]</string>

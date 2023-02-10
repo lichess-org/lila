@@ -1,6 +1,5 @@
 package lila.event
 
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.i18n.Lang
@@ -46,15 +45,15 @@ object EventForm:
     url = "",
     lang = lila.i18n.enLang.code,
     enabled = true,
-    startsAt = DateTime.now,
-    finishesAt = DateTime.now,
+    startsAt = nowDate,
+    finishesAt = nowDate,
     countdown = true
   )
 
   case class Data(
       title: String,
       headline: String,
-      description: Option[lila.common.Markdown],
+      description: Option[Markdown],
       homepageHours: BigDecimal,
       url: String,
       lang: String,
@@ -80,7 +79,7 @@ object EventForm:
         hostedBy = hostedBy.map(_.id),
         icon = icon.some.filter(_.nonEmpty),
         countdown = countdown,
-        updatedAt = DateTime.now.some,
+        updatedAt = nowDate.some,
         updatedBy = by.id.some
       )
 
@@ -97,7 +96,7 @@ object EventForm:
         startsAt = startsAt,
         finishesAt = finishesAt,
         createdBy = userId,
-        createdAt = DateTime.now,
+        createdAt = nowDate,
         updatedAt = none,
         updatedBy = none,
         hostedBy = hostedBy.map(_.id),

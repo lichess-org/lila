@@ -2,7 +2,6 @@ package lila.puzzle
 
 import cats.data.NonEmptyList
 import reactivemongo.api.ReadPreference
-import scala.concurrent.ExecutionContext
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
@@ -27,7 +26,7 @@ object PuzzleHistory:
     // def performance     = puzzleRatingAvg - 500 + math.round(1000 * (firstWins.toFloat / nb))
   }
 
-  final class HistoryAdapter(user: User, colls: PuzzleColls)(using ec: ExecutionContext)
+  final class HistoryAdapter(user: User, colls: PuzzleColls)(using Executor)
       extends AdapterLike[PuzzleSession]:
 
     import BsonHandlers.given
@@ -72,10 +71,7 @@ object PuzzleHistory:
       }
       .reverse
 
-final class PuzzleHistoryApi(
-    colls: PuzzleColls,
-    cacheApi: CacheApi
-)(using ec: ExecutionContext):
+final class PuzzleHistoryApi(colls: PuzzleColls, cacheApi: CacheApi)(using Executor):
 
   import PuzzleHistory.*
 

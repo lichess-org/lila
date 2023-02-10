@@ -90,14 +90,19 @@
   }
 
   .setting {
+    @extend %flex-center-nowrap;
+
     flex: 0 0 auto;
     margin-top: $block-gap;
-    display: flex;
 
     label {
       flex: 4 1 auto;
       cursor: pointer;
       white-space: nowrap;
+    }
+
+    .switch + label {
+      margin-#{$start-direction}: 1ch;
     }
 
     input[type='range'] {
@@ -109,6 +114,7 @@
     }
 
     .range_value {
+      direction: ltr;
       flex: 0 0 auto;
       display: block;
       text-align: right;

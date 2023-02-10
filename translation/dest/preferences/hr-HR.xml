@@ -3,7 +3,7 @@
   <string name="preferences">Postavke</string>
   <string name="display">Zaslon</string>
   <string name="privacy">Privatnost</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Obavijesti</string>
+  <string name="notifications">Obavijesti</string>
   <string name="pieceAnimation">Animacija figura</string>
   <string name="materialDifference">Razlika u figurama</string>
   <string name="boardHighlights">Osvijetli zadnji potez i šah</string>
@@ -51,9 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">Tvoje promjene su spremljene.</string>
   <string name="scrollOnTheBoardToReplayMoves">Pomakni kotačić miša iznad ploče za pregled poteza</string>
   <string name="correspondenceEmailNotification">Dnevna obavijest putem pošte s popisom vaših dopisnih igara</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Nova poruka u ulaznoj pošti</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Izazovi</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Turnir započinje ubrzo</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Preglednik</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Uređaj</string>
+  <string name="notifyStreamStart">Streamer ide uživo</string>
+  <string name="notifyInboxMsg">Nova poruka u ulaznoj pošti</string>
+  <string name="notifyForumMention">Forumski komentar vas spominje</string>
+  <string name="notifyInvitedStudy">Poziv za Study</string>
+  <string name="notifyGameEvent">Ažuriranja dopisnih igara</string>
+  <string name="notifyChallenge">Izazovi</string>
+  <string name="notifyTournamentSoon">Turnir započinje ubrzo</string>
+  <string name="notifyTimeAlarm">Sat za dopisivanje ističe</string>
+  <string name="notifyBell">Obavijest zvonom unutar Lichessa</string>
+  <string name="notifyPush">Obavijest uređaja kada niste na Lichessu</string>
+  <string name="notifyWeb">Preglednik</string>
+  <string name="notifyDevice">Uređaj</string>
 </resources>

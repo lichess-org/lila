@@ -6,7 +6,7 @@ import lila.report.{ Mod, Suspect, Victim }
 final private class ModNotifier(
     notifyApi: NotifyApi,
     reportApi: lila.report.ReportApi
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   def reporters(mod: Mod, sus: Suspect): Funit =
     reportApi.recentReportersOf(sus) flatMap {
@@ -14,7 +14,7 @@ final private class ModNotifier(
         .map { reporterId =>
           notifyApi.notifyOne(reporterId, lila.notify.ReportedBanned)
         }
-        .sequenceFu
+        .parallel
         .void
     }
 

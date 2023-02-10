@@ -5,19 +5,18 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.EmbedConfig
+import lila.app.ui.EmbedConfig.given
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.DailyPuzzle
 
 object embed:
 
-  import EmbedConfig.implicits.*
-
-  def apply(daily: DailyPuzzle.WithHtml)(implicit config: EmbedConfig) =
+  def apply(daily: DailyPuzzle.WithHtml)(using config: EmbedConfig) =
     views.html.base.embed(
       title = "lichess.org chess puzzle",
       cssModule = "tv.embed"
     )(
-      dailyLink(daily)(config.lang)(
+      dailyLink(daily)(using config.lang)(
         targetBlank,
         id  := "daily-puzzle",
         cls := "embedded"
@@ -25,7 +24,7 @@ object embed:
       jsModule("puzzle.embed")
     )
 
-  def dailyLink(daily: DailyPuzzle.WithHtml)(implicit lang: Lang) = a(
+  def dailyLink(daily: DailyPuzzle.WithHtml)(using Lang) = a(
     href  := routes.Puzzle.daily,
     title := trans.puzzle.clickToSolve.txt()
   )(

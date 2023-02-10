@@ -44,7 +44,7 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
     },
     readZoom,
     setZoom(v: number) {
-      document.body.setAttribute('style', '--zoom:' + v);
+      document.body.style.setProperty('--zoom', v.toString());
       window.dispatchEvent(new Event('resize'));
       redraw();
       saveZoom();

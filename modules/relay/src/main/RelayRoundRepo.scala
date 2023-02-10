@@ -1,13 +1,12 @@
 package lila.relay
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 
-final private class RelayRoundRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final private class RelayRoundRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
 

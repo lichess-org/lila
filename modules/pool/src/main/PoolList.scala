@@ -1,7 +1,6 @@
 package lila.pool
 
 import play.api.libs.json.Json
-import scala.concurrent.duration.*
 import chess.Clock
 
 object PoolList:

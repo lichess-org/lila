@@ -1,16 +1,13 @@
 package lila.report
 
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
-
 import lila.game.{ Game, GameRepo }
 
 final class AutoAnalysis(
     gameRepo: GameRepo,
     fishnet: lila.hub.actors.Fishnet
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
+    ec: Executor,
+    scheduler: Scheduler
 ):
 
   def apply(candidate: Report.Candidate): Funit =
@@ -37,7 +34,7 @@ final class AutoAnalysis(
       gameRepo.lastGamesBetween(
         candidate.suspect.user,
         candidate.reporter.user,
-        DateTime.now.minusHours(2),
+        nowDate.minusHours(2),
         10
       ) dmap { as ++ _ }
     }

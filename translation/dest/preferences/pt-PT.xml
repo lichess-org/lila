@@ -3,6 +3,7 @@
   <string name="preferences">Preferências</string>
   <string name="display">Mostrar</string>
   <string name="privacy">Privacidade</string>
+  <string name="notifications">Notificações</string>
   <string name="pieceAnimation">Animação das peças</string>
   <string name="materialDifference">Diferença material</string>
   <string name="boardHighlights">Destacar casas do tabuleiro (último movimento e xeque)</string>
@@ -20,7 +21,7 @@
   <string name="blindfoldChess">Xadrez às cegas (peças invisíveis)</string>
   <string name="chessClock">Relógio de xadrez</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando o tempo restante for menos do que 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando o tempo restante for &lt; 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras de progresso verdes horizontais</string>
   <string name="soundWhenTimeGetsCritical">Som ao atingir tempo crítico</string>
   <string name="giveMoreTime">Dar mais tempo</string>
@@ -50,4 +51,17 @@
   <string name="yourPreferencesHaveBeenSaved">As tuas preferências foram guardadas.</string>
   <string name="scrollOnTheBoardToReplayMoves">Rolar no tabuleiro para repetir os movimentos</string>
   <string name="correspondenceEmailNotification">Notificações diárias por email listando seus jogos por correspondência</string>
+  <string name="notifyStreamStart">Streamer começou uma transmissão ao vivo</string>
+  <string name="notifyInboxMsg">Nova mensagem na caixa de entrada</string>
+  <string name="notifyForumMention">Um comentário do fórum menciona-o</string>
+  <string name="notifyInvitedStudy">Convite para estudo</string>
+  <string name="notifyGameEvent">Atualizações dos jogos por correspondência</string>
+  <string name="notifyChallenge">Desafios</string>
+  <string name="notifyTournamentSoon">O torneio começará em breve</string>
+  <string name="notifyTimeAlarm">Está a acabar o tempo no jogo por correspondência</string>
+  <string name="notifyBell">Notificação do sino no Lichess</string>
+  <string name="notifyPush">Notificação do dispositivo quando não está no Lichess</string>
+  <string name="notifyWeb">Navegador</string>
+  <string name="notifyDevice">Dispositivo</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Som da notificação</string>
 </resources>

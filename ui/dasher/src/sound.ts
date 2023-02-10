@@ -83,7 +83,7 @@ export function view(ctrl: SoundCtrl): VNode {
     },
     [
       header(ctrl.trans('sound'), ctrl.close),
-      h('div.content', [
+      h('div.content.force-ltr', [
         h('input', {
           attrs: {
             type: 'range',

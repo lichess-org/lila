@@ -90,7 +90,7 @@ object topnav:
         linkTitle(routes.UserAnalysis.index.url, trans.tools()),
         div(role := "group")(
           a(href := routes.UserAnalysis.index)(trans.analysis()),
-          a(href := s"${routes.UserAnalysis.index}#explorer")(trans.openingExplorer()),
+          a(href := routes.Opening.index())(trans.openings()),
           a(href := routes.Editor.index)(trans.boardEditor()),
           a(href := routes.Importer.importGame)(trans.importGame()),
           a(href := routes.Search.index())(trans.search.advancedSearch())

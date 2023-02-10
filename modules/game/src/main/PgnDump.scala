@@ -11,7 +11,7 @@ import lila.common.LightUser
 final class PgnDump(
     baseUrl: BaseUrl,
     lightUserApi: lila.user.LightUserApi
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import PgnDump.*
 
@@ -190,13 +190,17 @@ object PgnDump:
       rating: Boolean = true,
       literate: Boolean = false,
       pgnInJson: Boolean = false,
-      delayMoves: Boolean = false
+      delayMoves: Boolean = false,
+      lastFen: Boolean = false,
+      accuracy: Boolean = false
   ):
     def applyDelay[M](moves: Seq[M]): Seq[M] =
-      if (!delayMoves) moves
+      if !delayMoves then moves
       else moves.take((moves.size - delayMovesBy) atLeast delayKeepsFirstMoves)
 
     def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
+
+    def requiresAnalysis = evals || accuracy
 
   def result(game: Game) =
     Outcome.showResult(game.finished option Outcome(game.winnerColor))

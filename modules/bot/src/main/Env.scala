@@ -13,9 +13,9 @@ final class Env(
     spam: lila.security.Spam,
     isOnline: IsOnline
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mode: play.api.Mode
 ):
 

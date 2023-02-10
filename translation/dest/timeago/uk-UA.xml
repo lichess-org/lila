@@ -9,7 +9,7 @@
   </plurals>
   <plurals name="inNbMinutes">
     <item quantity="one">за %s хвилину</item>
-    <item quantity="few">за %s хвилин</item>
+    <item quantity="few">за %s хвилини</item>
     <item quantity="many">за %s хвилин</item>
     <item quantity="other">за %s хвилин</item>
   </plurals>
@@ -43,7 +43,7 @@
     <item quantity="many">за %s років</item>
     <item quantity="other">за %s років</item>
   </plurals>
-  <string name="rightNow">прямо зараз</string>
+  <string name="rightNow">просто зараз</string>
   <plurals name="nbSecondsAgo">
     <item quantity="one">%s секунду тому</item>
     <item quantity="few">%s секунди тому</item>

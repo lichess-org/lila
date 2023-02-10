@@ -6,7 +6,6 @@ import com.roundeights.hasher.Algo
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.{ Json, OWrites }
-import scala.concurrent.ExecutionContext
 import ornicar.scalalib.{ SecureRandom, ThreadLocalRandom }
 
 import lila.common.Form.{ *, given }
@@ -72,7 +71,7 @@ object ExternalEngine:
     )(FormData.apply)(lila.common.unapply)
   )
 
-  implicit val jsonWrites: OWrites[ExternalEngine] = OWrites { e =>
+  given jsonWrites: OWrites[ExternalEngine] = OWrites { e =>
     Json
       .obj(
         "id"           -> e._id,
@@ -88,7 +87,7 @@ object ExternalEngine:
       .add("officialStockfish" -> e.officialStockfish)
   }
 
-final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using ec: ExecutionContext):
+final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   private val userCache = cacheApi[UserId, List[ExternalEngine]](65_536, "externalEngine.user") {
     _.maximumSize(65_536).buildAsyncFuture(doFetchList)
@@ -120,8 +119,6 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using ec: Executio
     }
 
   private[analyse] def onTokenRevoke(id: String) =
-    coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId") flatMap {
-      _ ?? { userId =>
-        coll.delete.one($doc("oauthToken" -> id)).void >>- reloadCache(userId)
-      }
+    coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId") flatMapz { userId =>
+      coll.delete.one($doc("oauthToken" -> id)).void >>- reloadCache(userId)
     }

@@ -3,7 +3,6 @@ package lila.chat
 import com.softwaremill.macwire.*
 import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config.*
 
@@ -26,8 +25,8 @@ final class Env(
     shutup: lila.hub.actors.Shutup,
     cacheApi: lila.memo.CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
+    ec: Executor,
+    scheduler: Scheduler
 ):
 
   private val config = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)

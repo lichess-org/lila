@@ -188,15 +188,15 @@
   }
 
   .bar span:first-child {
-    @extend %box-radius-left;
+    @extend %box-radius-#{$start-direction};
 
-    border-left-width: 1px;
+    border-#{$start-direction}-width: 1px;
   }
 
   .bar span:last-child {
-    @extend %box-radius-right;
+    @extend %box-radius-#{$end-direction};
 
-    border-right-width: 1px;
+    border-#{$end-direction}-width: 1px;
   }
 
   .games {

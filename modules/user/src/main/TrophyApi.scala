@@ -2,16 +2,14 @@ package lila.user
 
 import lila.db.dsl.{ *, given }
 import lila.memo.*
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 import ornicar.scalalib.ThreadLocalRandom
 
 final class TrophyApi(
     coll: Coll,
     kindColl: Coll,
     cacheApi: CacheApi
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   val kindCache =
     cacheApi.sync[String, TrophyKind](
@@ -45,28 +43,28 @@ final class TrophyApi(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.moderator,
-        date = org.joda.time.DateTime.now,
+        date = nowDate,
         url = none
       ),
       isDev option Trophy(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.developer,
-        date = org.joda.time.DateTime.now,
+        date = nowDate,
         url = none
       ),
       isVerified option Trophy(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.verified,
-        date = org.joda.time.DateTime.now,
+        date = nowDate,
         url = none
       ),
       isContentTeam option Trophy(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.contentTeam,
-        date = org.joda.time.DateTime.now,
+        date = nowDate,
         url = none
       )
     ).flatten
@@ -79,6 +77,6 @@ final class TrophyApi(
           "user" -> userId,
           "kind" -> kindKey,
           "url"  -> trophyUrl,
-          "date" -> DateTime.now
+          "date" -> nowDate
         )
       ) void

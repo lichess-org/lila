@@ -63,7 +63,7 @@ final class Pref(env: Env) extends LilaController(env):
 
   def notifyFormApply =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       NotificationPref.form.form
         .bindFromRequest()
         .fold(

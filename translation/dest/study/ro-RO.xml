@@ -53,7 +53,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Numai contribuitorii studiului pot solicita o analiză a computerului.</string>
   <string name="getAFullComputerAnalysis">Obțineți o întreagă analiză server-side a computerului a variației principale.</string>
   <string name="makeSureTheChapterIsComplete">Asigurați-vă că acest capitol este complet. Puteți solicita o analiză doar o singură dată.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Toți membri sincronizați rămân la aceeași poziție</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Toți membri sincronizați rămân la aceeași poziție</string>
   <string name="shareChanges">Împărtășește modificările cu spectatorii și salvează-le pe server</string>
   <string name="playing">În desfășurare</string>
   <string name="first">Prima</string>
@@ -65,6 +65,8 @@
   <string name="studyPgn">PGN-ul studiului</string>
   <string name="downloadAllGames">Descarcă toate partidele</string>
   <string name="chapterPgn">PGN-ul capitolului</string>
+  <string name="copyChapterPgn">Copiază PGN</string>
+  <string name="copyChapterPgnDescription">Copiază în clipboard PGN pentru capitol.</string>
   <string name="downloadGame">Descarcă partida</string>
   <string name="studyUrl">URL-ul studiului</string>
   <string name="currentChapterUrl">URL-ul capitolului curent</string>

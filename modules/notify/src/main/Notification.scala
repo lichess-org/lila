@@ -1,6 +1,5 @@
 package lila.notify
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.Macros.Annotations.Key
 import ornicar.scalalib.ThreadLocalRandom
 import alleycats.Zero
@@ -109,4 +108,4 @@ object Notification:
   def make[U](to: U, content: NotificationContent)(using userIdOf: UserIdOf[U]): Notification =
     val idSize = 8
     val id     = ThreadLocalRandom nextString idSize
-    Notification(id, userIdOf(to), content, NotificationRead(false), DateTime.now)
+    Notification(id, userIdOf(to), content, NotificationRead(false), nowDate)

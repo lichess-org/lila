@@ -12,14 +12,13 @@ import lila.insight.InsightPosition
 
 object phases:
 
-  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(using
-      ctx: Context
-  ) =
+  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(using Context) =
     bits.layout(full, menu = perf.menu(full, user, report, "phases"))(
       cls := "tutor__phases box",
       boxTop(
         h1(
           a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
+          bits.otherUser(user),
           report.perf.trans,
           " phases"
         )
@@ -38,11 +37,18 @@ object phases:
             div(cls := "tutor-card__content")(
               grade.peerGradeWithDetail(concept.accuracy, phase.accuracy, InsightPosition.Move),
               grade.peerGradeWithDetail(concept.tacticalAwareness, phase.awareness, InsightPosition.Move),
-              a(
-                cls      := "button button-no-upper text",
-                dataIcon := "",
-                href     := routes.Puzzle.show(phase.phase.name)
-              )("Train with ", phase.phase.name, " puzzles")
+              div(cls := "tutor__phases__phase__buttons")(
+                a(
+                  cls      := "button button-no-upper text",
+                  dataIcon := "",
+                  href     := routes.Puzzle.show(phase.phase.name)
+                )("Train with ", phase.phase.name, " puzzles"),
+                a(
+                  cls      := "button button-no-upper text",
+                  dataIcon := "",
+                  href     := s"${routes.Video.index}?tags=${phase.phase.name}"
+                )("Watch ", phase.phase.name, " videos")
+              )
             )
           )
         }

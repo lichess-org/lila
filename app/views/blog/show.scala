@@ -22,7 +22,7 @@ object show:
         )
         .some,
       moreCss = cssTag("blog"),
-      csp = bits.csp
+      csp = bits.csp.map(_.withInlineIconFont)
     )(
       main(cls := "page-menu page-small")(
         bits.menu(none, "lichess".some),
@@ -33,12 +33,13 @@ object show:
             div(cls := "illustration")(st.img(src := img.url))
           },
           div(cls := "body expand-text")(
-            doc
-              .getHtml("blog.body", prismic.linkResolver)
+            Html
+              .from(doc.getHtml("blog.body", prismic.linkResolver))
               .map(lila.blog.Youtube.fixStartTimes)
               .map(lila.blog.BlogTransform.removeProtocol)
               .map(lila.blog.BlogTransform.markdown.apply)
-              .map(raw)
+              .map(env.blog.api.expand)
+              .map(rawHtml)
           ),
           ctx.noKid option
             div(cls := "footer")(
@@ -46,7 +47,7 @@ object show:
                 (doc
                   .getDate("blog.date")
                   .exists(
-                    _.value.toDateTimeAtStartOfDay isAfter org.joda.time.DateTime.now.minusWeeks(2)
+                    _.value.toDateTimeAtStartOfDay isAfter nowDate.minusWeeks(2)
                   )) option
                   a(href := routes.Blog.discuss(doc.id), cls := "button text discuss", dataIcon := "")(
                     "Discuss this blog post in the forum"

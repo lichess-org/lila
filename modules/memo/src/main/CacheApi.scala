@@ -1,13 +1,10 @@
 package lila.memo
 
-import akka.actor.Scheduler
 import com.github.benmanes.caffeine
 import com.github.blemale.scaffeine.*
 import play.api.Mode
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
-final class CacheApi(mode: Mode)(using ExecutionContext, Scheduler):
+final class CacheApi(mode: Mode)(using Executor, Scheduler):
 
   import CacheApi.*
 
@@ -98,7 +95,7 @@ object CacheApi:
   private[memo] def startMonitor(
       name: String,
       cache: caffeine.cache.Cache[?, ?]
-  )(using ec: ExecutionContext, scheduler: akka.actor.Scheduler): Unit =
+  )(using ec: Executor, scheduler: Scheduler): Unit =
     scheduler
       .scheduleWithFixedDelay(1 minute, 1 minute) { () =>
         lila.mon.caffeineStats(cache, name)

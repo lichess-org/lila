@@ -1,6 +1,7 @@
 package lila.common
 
 import org.specs2.mutable.Specification
+import chess.format.pgn.PgnStr
 
 class MarkdownTest extends Specification {
 
@@ -27,7 +28,7 @@ class MarkdownTest extends Specification {
   "markdown game embeds" >> {
     val domain     = config.NetDomain("http://l.org")
     val gameId     = GameId("abcdefgh")
-    val pgn        = "e2 e4"
+    val pgn        = PgnStr("e2 e4")
     val pgns       = Map(gameId -> pgn)
     val expander   = MarkdownRender.GameExpand(domain, pgns.get)
     val gameRender = new MarkdownRender(gameExpand = expander.some)("test") _

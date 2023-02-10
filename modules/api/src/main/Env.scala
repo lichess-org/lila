@@ -4,7 +4,6 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.{ Configuration, Mode }
-import scala.concurrent.duration.*
 
 import lila.chat.GetLinkCheck
 import lila.common.Bus
@@ -62,7 +61,7 @@ final class Env(
     ws: StandaloneWSClient,
     val mode: Mode
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     scheduler: Scheduler,
     materializer: akka.stream.Materializer
@@ -107,7 +106,7 @@ final class Env(
     endpoint = config.influxEventEndpoint,
     env = config.influxEventEnv
   )
-  if (mode == Mode.Prod) system.scheduler.scheduleOnce(5 seconds)(influxEvent.start())
+  if (mode == Mode.Prod) scheduler.scheduleOnce(5 seconds)(influxEvent.start())
 
   private lazy val linkCheck = wire[LinkCheck]
 
@@ -126,9 +125,9 @@ final class Env(
     }
   )
 
-  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+  scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     lila.mon.bus.classifiers.update(lila.common.Bus.size).unit
-    lila.mon.jvm.threads(lila.common.LilaJvm.threadGroups())
+    lila.mon.jvm.threads()
     // ensure the Lichess user is online
     socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + User.lichessId)
     userEnv.repo.setSeenAt(User.lichessId)

@@ -1,11 +1,8 @@
 package lila.ublog
 
-import org.joda.time.DateTime
-
 import lila.memo.{ PicfitImage, PicfitUrl }
 import lila.user.User
 import play.api.i18n.Lang
-import lila.common.Markdown
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 case class UblogPost(

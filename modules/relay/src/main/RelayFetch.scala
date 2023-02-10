@@ -1,15 +1,12 @@
 package lila.relay
 
 import akka.actor.*
-import chess.format.pgn.{ Tags, SanStr }
+import chess.format.pgn.{ Tags, SanStr, PgnStr }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
-import org.joda.time.DateTime
 import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.base.LilaInvalid
 import lila.common.LilaScheduler
@@ -28,7 +25,7 @@ final private class RelayFetch(
     pgnDump: PgnDump,
     gameProxy: GameProxyRepo,
     ws: StandaloneWSClient
-)(using ExecutionContext, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(30 seconds)) {
     syncRelays(official = true)
@@ -57,7 +54,7 @@ final private class RelayFetch(
             if (rt.tour.official) irc.broadcastError(rt.round.id.value, rt.fullName, msg)
             api.update(rt.round)(_.finish)
           else fuccess(rt.round)
-        }.sequenceFu
+        }.parallel
       }
       .void
 
@@ -120,7 +117,7 @@ final private class RelayFetch(
           }
       rt.round.withSync {
         _.copy(
-          nextAt = DateTime.now plusSeconds {
+          nextAt = nowDate plusSeconds {
             seconds atLeast {
               if (rt.round.sync.log.justTimedOut) 10 else 2
             }
@@ -152,7 +149,7 @@ final private class RelayFetch(
             if (games.size == ids.size)
               games.map { case (game, fen) =>
                 pgnDump(game, fen, gameIdsUpstreamPgnFlags).dmap(_.render)
-              }.sequenceFu dmap MultiPgn.apply
+              }.parallel dmap MultiPgn.apply
             else
               throw LilaInvalid(
                 s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)) mkString ", "}"
@@ -187,7 +184,7 @@ final private class RelayFetch(
       case RelayFormat.SingleFile(doc) =>
         doc.format match
           // all games in a single PGN file
-          case RelayFormat.DocFormat.Pgn => httpGet(doc.url) map { MultiPgn.split(_, max) }
+          case RelayFormat.DocFormat.Pgn => httpGetPgn(doc.url) map { MultiPgn.split(_, max) }
           // maybe a single JSON game? Why not
           case RelayFormat.DocFormat.Json =>
             httpGetJson[GameJson](doc.url) map { game =>
@@ -200,14 +197,14 @@ final private class RelayFetch(
               val number  = i + 1
               val gameDoc = makeGameDoc(number)
               (gameDoc.format match {
-                case RelayFormat.DocFormat.Pgn => httpGet(gameDoc.url)
+                case RelayFormat.DocFormat.Pgn => httpGetPgn(gameDoc.url)
                 case RelayFormat.DocFormat.Json =>
                   httpGetJson[GameJson](gameDoc.url).recover { case _: Exception =>
                     GameJson(moves = Nil, result = none)
                   } map { _.toPgn(pairing.tags) }
               }) map (number -> _)
             }
-            .sequenceFu
+            .parallel
             .map { results =>
               MultiPgn(results.sortBy(_._1).map(_._2))
             }
@@ -223,10 +220,12 @@ final private class RelayFetch(
         case res                      => fufail(s"[${res.status}] $url")
       }
 
+  private def httpGetPgn(url: URL): Fu[PgnStr] = PgnStr from httpGet(url)
+
   private def httpGetJson[A: Reads](url: URL): Fu[A] =
     for {
       str  <- httpGet(url)
-      json <- scala.concurrent.Future(Json parse str) // Json.parse throws exceptions (!)
+      json <- Future(Json parse str) // Json.parse throws exceptions (!)
       data <-
         implicitly[Reads[A]]
           .reads(json)
@@ -287,7 +286,7 @@ private object RelayFetch:
             secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
           )
         } mkString " "
-        s"$extraTags\n\n$strMoves"
+        PgnStr(s"$extraTags\n\n$strMoves")
     given Reads[GameJson] = Json.reads
 
   object multiPgnToGames:
@@ -308,16 +307,16 @@ private object RelayFetch:
         .future
         .dmap(_._1)
 
-    private val pgnCache: LoadingCache[String, Try[Int => RelayGame]] = CacheApi.scaffeineNoScheduler
+    private val pgnCache: LoadingCache[PgnStr, Try[Int => RelayGame]] = CacheApi.scaffeineNoScheduler
       .expireAfterAccess(2 minutes)
       .maximumSize(512)
       .build(compute)
 
-    private def compute(pgn: String): Try[Int => RelayGame] =
+    private def compute(pgn: PgnStr): Try[Int => RelayGame] =
       lila.study
         .PgnImport(pgn, Nil)
         .fold(
-          err => Failure(LilaInvalid(err)),
+          err => Failure(LilaInvalid(err.value)),
           res =>
             Success(index =>
               RelayGame(

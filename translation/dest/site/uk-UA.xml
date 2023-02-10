@@ -7,7 +7,7 @@
   <string name="waitingForOpponent">Очікування на суперника</string>
   <string name="waiting">Очікування</string>
   <string name="yourTurn">Ваш хід</string>
-  <string name="aiNameLevelAiLevel">%1$s рівень %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s, рівень %2$s</string>
   <string name="level">Рівень</string>
   <string name="strength">Сила</string>
   <string name="toggleTheChat">Вимк./увімк. чат</string>
@@ -229,7 +229,29 @@
   <string name="email">Електронна пошта</string>
   <string name="passwordReset">Скинути пароль</string>
   <string name="forgotPassword">Забули пароль?</string>
+  <string name="error.weakPassword">Цей пароль дуже поширений, і його легко відгадати.</string>
+  <string name="error.namePassword">Будь ласка, не використовуйте ваше ім\'я користувача як ваш пароль.</string>
+  <string name="youAreLeavingLichess">Ви залишаєте Lichess</string>
+  <string name="neverTypeYourPassword">Ніколи не вводьте ваш пароль Lichess на іншому сайті!</string>
+  <string name="passwordSuggestion">Не встановлюйте пароль, запропонований кимось. Він може використати його для крадіжки Вашого облікового запису.</string>
+  <string name="emailSuggestion">Не встановлюйте поштову адресу, запропоновану кимось. Він може використати його для крадіжки Вашого облікового запису.</string>
   <string name="emailConfirmHelp">Допомога з підтвердженням електронної пошти</string>
+  <string name="emailConfirmNotReceived">Не отримали лист з підтвердженням після реєстрації?</string>
+  <string name="whatSignupUsername">Яке ім\'я користувача ви використовували для реєстрації?</string>
+  <string name="usernameNotFound">Ми не змогли знайти жодного користувача з таким іменем: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Ви можете використати це ім\'я користувача, щоб створити новий обліковий запис</string>
+  <string name="emailSent">Ми надіслали повідомлення на %s.</string>
+  <string name="emailCanTakeSomeTime">Отримання повідомлення може зайняти деякий час.</string>
+  <string name="refreshInboxAfterFiveMinutes">Зачекайте 5 хвилин і оновіть поштову скриньку.</string>
+  <string name="checkSpamFolder">Також перевірте папку \"Спам\", лист міг потрапити туди. Якщо так, то позначте його як не спам.</string>
+  <string name="emailForSignupHelp">Якщо все інше не спрацювало, то надішліть нам цей електронний лист:</string>
+  <string name="copyTextToEmail">Скопіюйте та вставте текст зверху й відправте на %s</string>
+  <string name="waitForSignupHelp">Незабаром ми повернемося до вас, щоб допомогти вам завершити реєстрацію.</string>
+  <string name="accountConfirmed">Користувач %s успішно підтверджений.</string>
+  <string name="accountCanLogin">Тепер ви можете ввійти як %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Вам не потрібне підтвердження за електронною поштою.</string>
+  <string name="accountClosed">Обліковий запис %s закрито.</string>
+  <string name="accountRegisteredWithoutEmail">Обліковий запис %s зареєстровано без електронної пошти.</string>
   <string name="rank">Місце</string>
   <string name="rankX">Місце: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -399,6 +421,7 @@
   <string name="siteDescription">Безкоштовні Інтернет-шахи. Грайте в шахи зараз із чистим інтерфейсом. Без реєстрації, без реклами, без додаткових програм. Грайте в шахи з комп\'ютером, друзями або випадковими суперниками.</string>
   <string name="xJoinedTeamY">%1$s приєднався до команди %2$s</string>
   <string name="xCreatedTeamY">%1$s створив команду %2$s</string>
+  <string name="startedStreaming">почав трансляцію</string>
   <string name="xStartedStreaming">%s почав трансляцію</string>
   <string name="averageElo">Середній рейтинг</string>
   <string name="location">Місцезнаходження</string>
@@ -594,6 +617,8 @@
   <string name="blog">Блог</string>
   <string name="notes">Нотатки</string>
   <string name="typePrivateNotesHere">Залишайте приватні нотатки тут</string>
+  <string name="writeAPrivateNoteAboutThisUser">Напишіть приватну нотатку про цього користувача</string>
+  <string name="noNoteYet">Нотаток поки нема</string>
   <string name="invalidUsernameOrPassword">Недійсне ім\'я користувача або пароль</string>
   <string name="incorrectPassword">Невірний пароль</string>
   <string name="invalidAuthenticationCode">Недійсний код автентифікації</string>
@@ -716,6 +741,7 @@
   <string name="tournamentFAQ">ЧаПи про турнір Арена</string>
   <string name="timeBeforeTournamentStarts">Час до початку турніру</string>
   <string name="averageCentipawnLoss">У середньому втрачено сотих пішаків.</string>
+  <string name="accuracy">Точність</string>
   <string name="keyboardShortcuts">Комбінації клавіш</string>
   <string name="keyMoveBackwardOrForward">хід назад/вперед</string>
   <string name="keyGoToStartOrEnd">перейти до початку/кінця</string>
@@ -766,6 +792,7 @@
   <string name="kidMode">Дитячий режим</string>
   <string name="kidModeExplanation">Це заради безпеки. У дитячому режимі усе спілкування на сайті вимкнено. Увімкніть цю функцію для ваших дітей та учнів, щоб захистити їх від інших користувачів Інтернету.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">В дитячому режимі логотип Lichess замінюється на %s, щоб ви знали, що ваші діти в безпеці.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Ваш обліковий запис керується. Попросіть вашого вчителя шахів вимкнути дитячий режим.</string>
   <string name="enableKidMode">Увімкнути дитячий режим</string>
   <string name="disableKidMode">Вимкнути дитячий режим</string>
   <string name="security">Безпека</string>
@@ -802,6 +829,7 @@
   <string name="light">Світлий</string>
   <string name="dark">Темний</string>
   <string name="transparent">Прозорий</string>
+  <string name="deviceTheme">Тема пристрою</string>
   <string name="backgroundImageUrl">URL фонового зображення:</string>
   <string name="boardGeometry">Вигляд шахівниці</string>
   <string name="boardTheme">Оформлення шахівниці</string>
@@ -832,6 +860,7 @@
   <string name="bestWasX">Найкращим був: %s</string>
   <string name="youBrowsedAway">Ви вийшли з перегляду</string>
   <string name="resumePractice">Продовжити тренування</string>
+  <string name="drawByFiftyMoves">Партія завершилась нічиєю за правилом п\'ятдесяти ходів.</string>
   <string name="theGameIsADraw">Гра закінчилася внічию.</string>
   <string name="computerThinking">Комп\'ютер думає...</string>
   <string name="seeBestMove">Показати найкращий хід</string>

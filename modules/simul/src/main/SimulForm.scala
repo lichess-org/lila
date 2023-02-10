@@ -1,10 +1,9 @@
 package lila.simul
 
-import cats.implicits.*
-import chess.format.Fen
+import cats.syntax.all.*
+import chess.format.{ Fen, OpeningFen }
 import chess.StartingPosition
 import chess.variant.Variant
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraint
@@ -107,12 +106,6 @@ object SimulForm:
       )(Setup.apply)(unapply)
         .verifying("Invalid host extra time.", _.clock.valid)
     )
-
-  val positions = StartingPosition.allWithInitial.map(_.fen)
-  val positionChoices = StartingPosition.allWithInitial.map { p =>
-    p.fen -> p.fullName
-  }
-  val positionDefault = StartingPosition.initial.fen
 
   def setText = Form(single("text" -> text))
 

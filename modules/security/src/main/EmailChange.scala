@@ -13,7 +13,7 @@ final class EmailChange(
     mailer: Mailer,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Mailer.html.*
 
@@ -47,12 +47,10 @@ ${trans.common_orPaste.txt()}
 
   // also returns the previous email address
   def confirm(token: String): Fu[Option[(User, Option[EmailAddress])]] =
-    tokener read token dmap (_.flatten) flatMap {
-      _ ?? { case TokenPayload(userId, email) =>
-        userRepo.email(userId) flatMap { previous =>
-          (userRepo.setEmail(userId, email).recoverDefault >> userRepo.byId(userId))
-            .map2(_ -> previous)
-        }
+    tokener read token dmap (_.flatten) flatMapz { case TokenPayload(userId, email) =>
+      userRepo.email(userId) flatMap { previous =>
+        (userRepo.setEmail(userId, email).recoverDefault >> userRepo.byId(userId))
+          .map2(_ -> previous)
       }
     }
 

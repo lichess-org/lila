@@ -4,7 +4,6 @@ import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
 
 import lila.common.IpAddress
 
@@ -29,7 +28,7 @@ final class Ip2ProxyServer(
     ws: StandaloneWSClient,
     cacheApi: lila.memo.CacheApi,
     checkUrl: String
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler)
+)(using Executor, Scheduler)
     extends Ip2Proxy:
 
   def apply(ip: IpAddress): Fu[IsProxy] =
@@ -56,7 +55,7 @@ final class Ip2ProxyServer(
       case Nil     => fuccess(Seq.empty[IsProxy])
       case Seq(ip) => apply(ip).dmap(Seq(_))
       case ips =>
-        ips.flatMap(cache.getIfPresent).sequenceFu flatMap { cached =>
+        ips.flatMap(cache.getIfPresent).parallel flatMap { cached =>
           if (cached.sizeIs == ips.size) fuccess(cached)
           else
             ws.url(s"$checkUrl/batch")
@@ -97,9 +96,9 @@ final class Ip2ProxyServer(
     }
 
   private def readProxyName(js: JsValue): IsProxy = IsProxy {
-    for {
+    for
       tpe <- (js \ "proxy_type").asOpt[String]
       if tpe != "-"
       country = (js \ "country_short").asOpt[String]
-    } yield s"$tpe:${country | "?"}"
+    yield s"$tpe:${country | "?"}"
   }

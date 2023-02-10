@@ -10,7 +10,7 @@ final class Env(
     noteApi: lila.user.NoteApi,
     userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private val coll = db(CollName("appeal"))
 

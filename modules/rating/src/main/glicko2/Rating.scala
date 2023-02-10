@@ -1,14 +1,12 @@
 package lila.rating.glicko2
 
-import org.joda.time.DateTime
-
 // rewrite from java https://github.com/goochjs/glicko2
 final class Rating(
     var rating: Double,
     var ratingDeviation: Double,
     var volatility: Double,
     var numberOfResults: Int,
-    var lastRatingPeriodEnd: Option[DateTime] = None
+    var lastRatingPeriodEnd: Option[org.joda.time.DateTime] = None
 ):
 
   import RatingCalculator.*

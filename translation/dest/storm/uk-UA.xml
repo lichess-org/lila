@@ -56,6 +56,7 @@
   <string name="skipExplanation">Пропустіть цей хід, щоб зберегти комбо! Можна використати лише один раз.</string>
   <string name="failedPuzzles">Невирішені задачі</string>
   <string name="slowPuzzles">Повільні задачі</string>
+  <string name="skippedPuzzle">Пропущена задача</string>
   <string name="thisWeek">Цього тижня</string>
   <string name="thisMonth">Цього місяця</string>
   <string name="allTime">За весь час</string>

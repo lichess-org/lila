@@ -2,7 +2,6 @@ package lila.simul
 
 import com.softwaremill.macwire.*
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.autoconfig.{ *, given }
 import lila.common.Bus
@@ -31,8 +30,8 @@ final class Env(
     proxyRepo: lila.round.GameProxyRepo,
     isOnline: lila.socket.IsOnline
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler,
+    ec: Executor,
+    scheduler: Scheduler,
     mode: play.api.Mode
 ):
 
@@ -48,7 +47,7 @@ final class Env(
 
   private val simulSocket = wire[SimulSocket]
 
-  val isHosting = new lila.round.IsSimulHost(u => api.currentHostIds.dmap(_ contains u))
+  val isHosting = lila.round.IsSimulHost(u => api.currentHostIds.dmap(_ contains u))
 
   val allCreatedFeaturable = cacheApi.unit[List[Simul]] {
     _.refreshAfterWrite(3 seconds)
@@ -59,7 +58,7 @@ final class Env(
     simul.team.isEmpty && featureLimiter(simul.hostId)(true)(false)
   )
 
-  private val featureLimiter = new lila.memo.RateLimit[UserId](
+  private val featureLimiter = lila.memo.RateLimit[UserId](
     credits = config.featureViews.value,
     duration = 24 hours,
     key = "simul.feature",

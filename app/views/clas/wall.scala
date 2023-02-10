@@ -11,7 +11,7 @@ import lila.clas.{ Clas, Student }
 
 object wall:
 
-  def show(c: Clas, html: Frag, students: List[Student.WithUser])(implicit ctx: Context) =
+  def show(c: Clas, html: Html, students: List[Student.WithUser])(implicit ctx: Context) =
     teacherDashboard.layout(c, students.filter(_.student.isActive), "wall")(
       div(cls := "clas-wall__actions")(
         a(dataIcon := "", href := clasRoutes.wallEdit(c.id.value), cls := "button button-clas text")(
@@ -24,7 +24,7 @@ object wall:
       if (c.wall.value.isEmpty)
         div(cls := "box__pad clas-wall clas-wall--empty")(trans.clas.nothingHere())
       else
-        div(cls := "box__pad clas-wall")(html)
+        div(cls := "box__pad clas-wall")(rawHtml(html))
     )
 
   def edit(c: Clas, students: List[Student.WithUser], form: Form[?])(implicit ctx: Context) =

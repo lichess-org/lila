@@ -157,6 +157,7 @@
   <string name="viewInFullSize">पूर्ण आकर में देखें</string>
   <string name="logOut">खाते से निकास करें</string>
   <string name="signIn">खाते में प्रवेश करें</string>
+  <string name="rememberMe">मुझे लोग्ड इन रखें</string>
   <string name="youNeedAnAccountToDoThat">ऐसा करने के लिए आपको खाता खोलने की आवश्यकता है</string>
   <string name="signUp">खाता खोलें</string>
   <string name="computersAreNotAllowedToPlay">कंप्यूटर और कंप्यूटर-सहाय खिलाडियों  को खेलने की अनुमति नहीं है । कृपया शतरंज मशीनों, दस्तावेजों या किसी और खिलाडी की सहायता न लें। इस बात का भी ध्यान रखें कि एक से अधिक खाते खोलना बिलकुल भी प्रोत्साहित नहीं है और अतियाधिक खाते खोलने से आप पर प्रतिबन्ध लगा दिया जायेगा।</string>
@@ -205,6 +206,8 @@
   <string name="email">इ-मेल</string>
   <string name="passwordReset">पासवर्ड बदलें</string>
   <string name="forgotPassword">क्या आप अपना पासवर्ड भूल गए हैं?</string>
+  <string name="youAreLeavingLichess">आप लिचेस छोड़ रहे हैं</string>
+  <string name="neverTypeYourPassword">अपना लिचेस पासवर्ड कभी भी किसी अन्य साइट पर न लिखें!</string>
   <string name="emailConfirmHelp">ईमेल कन्फ़र्मेशन में सहायता</string>
   <string name="emailConfirmNotReceived">साइन अप के बाद कन्फ़र्मेशन ईमेल नहीं मिला?</string>
   <string name="whatSignupUsername">आपने साइन अप के लिए कौन से यूज़रनेम का इस्तेमाल किया?</string>

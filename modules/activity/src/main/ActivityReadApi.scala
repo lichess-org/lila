@@ -1,6 +1,6 @@
 package lila.activity
 
-import org.joda.time.{ DateTime, Interval }
+import org.joda.time.Interval
 import play.api.i18n.Lang
 
 import lila.common.Heapsort
@@ -27,7 +27,7 @@ final class ActivityReadApi(
     teamRepo: lila.team.TeamRepo,
     lightUserApi: lila.user.LightUserApi,
     getTourName: lila.tournament.GetTourName
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BSONHandlers.{ *, given }
   import model.*
@@ -49,7 +49,7 @@ final class ActivityReadApi(
       }
       views <- activities.map { a =>
         one(practiceStructure, a).mon(_.user segment "activity.view")
-      }.sequenceFu
+      }.parallel
       _ <- preloadAll(views)
     } yield addSignup(u.createdAt, views)
 
@@ -183,9 +183,9 @@ final class ActivityReadApi(
       case ((false, as), a) if a.interval contains at => (true, as :+ a.copy(signup = true))
       case ((found, as), a)                           => (found, as :+ a)
     }
-    if (!found && views.sizeIs < Activity.recentNb && DateTime.now.minusDays(8).isBefore(at))
+    if (!found && views.sizeIs < Activity.recentNb && nowDate.minusDays(8).isBefore(at))
       views :+ ActivityView(
-        interval = new Interval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
+        interval = Interval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
         signup = true
       )
     else views

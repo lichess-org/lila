@@ -56,7 +56,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Лише співавтори дослідження можуть дати запит на комп\'ютерний аналіз.</string>
   <string name="getAFullComputerAnalysis">Отримати повний серверний комп\'ютерний аналіз головної лінії.</string>
   <string name="makeSureTheChapterIsComplete">Переконайтесь, що розділ завершено. Ви можете дати запит на аналіз лише один раз.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Усі синхронізовані учасники залишаються на тій же позиції</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Усі синхронізовані учасники залишаються на тій же позиції</string>
   <string name="shareChanges">Поділитися змінами з глядачами та зберегти їх на сервері</string>
   <string name="playing">Активні</string>
   <string name="first">Перша</string>
@@ -68,6 +68,8 @@
   <string name="studyPgn">PGN дослідження</string>
   <string name="downloadAllGames">Завантажити всі ігри</string>
   <string name="chapterPgn">PGN розділу</string>
+  <string name="copyChapterPgn">Скопіювати PGN</string>
+  <string name="copyChapterPgnDescription">Скопіювати PGN розділу в буфер обміну.</string>
   <string name="downloadGame">Завантажити гру</string>
   <string name="studyUrl">Посилання на дослідження</string>
   <string name="currentChapterUrl">Посилання на цей розділ</string>

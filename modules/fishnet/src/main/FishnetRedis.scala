@@ -4,7 +4,6 @@ import akka.actor.CoordinatedShutdown
 import chess.format.Uci
 import io.lettuce.core.*
 import io.lettuce.core.pubsub.*
-import scala.concurrent.Future
 
 import lila.common.{ Bus, Lilakka }
 import lila.hub.actorApi.map.{ Tell, TellAll }
@@ -15,7 +14,7 @@ final class FishnetRedis(
     chanIn: String,
     chanOut: String,
     shutdown: CoordinatedShutdown
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   val connIn  = client.connectPubSub()
   val connOut = client.connectPubSub()

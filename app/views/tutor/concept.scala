@@ -14,23 +14,25 @@ object concept:
   import TutorUnit.*
 
   val speed =
-    new TutorConcept("Speed", "How fast you play, based on average remaining time on your clock.", percent)
+    TutorConcept("Speed", "How fast you play, based on average remaining time on your clock.", percent)
   val clockFlagVictory =
-    new TutorConcept("Flagging skills", "How often you win by flagging the opponent.", percent)
-  val clockTimeUsage = new TutorConcept(
+    TutorConcept("Flagging skills", "How often you win by flagging the opponent.", percent)
+  val clockTimeUsage = TutorConcept(
     "Clock time usage",
     "How well you make use of your available time. Losing games with a lot of time left is poor usage of the clock.",
     percent
   )
 
-  val accuracy          = new TutorConcept("Accuracy", InsightMetric.MeanAccuracy.description, percent)
-  val tacticalAwareness = new TutorConcept("Tactical Awareness", InsightMetric.Awareness.description, percent)
+  val accuracy          = TutorConcept("Accuracy", InsightMetric.MeanAccuracy.description, percent)
+  val tacticalAwareness = TutorConcept("Tactical Awareness", InsightMetric.Awareness.description, percent)
+  val resourcefulness   = TutorConcept("Resourcefulness", "Come back from lost positions", percent)
+  val conversion        = TutorConcept("Conversion", "Convert good positions into victories", percent)
 
-  val performance = new TutorConcept("Performance", InsightMetric.Performance.description, rating)
+  val performance = TutorConcept("Performance", InsightMetric.Performance.description, rating)
 
   def phase(phase: Phase, unit: TutorUnit = percent) = adhoc(phase.name, unit)
 
-  def adhoc(name: String, unit: TutorUnit = percent) = new TutorConcept(name, "", unit)
+  def adhoc(name: String, unit: TutorUnit = percent) = TutorConcept(name, "", unit)
 
   def show(concept: TutorConcept): Tag =
     span(cls := "tutor__concept")(concept.name)
@@ -41,10 +43,10 @@ sealed trait TutorUnit:
 
 object TutorUnit:
 
-  val rating = new TutorUnit:
+  val rating: TutorUnit = new:
     def html[V: TutorNumber](v: V)                     = strong(text(v))
     def text[V](v: V)(implicit number: TutorNumber[V]) = f"${number double v}%1.0f"
-  val percent = new TutorUnit:
+  val percent: TutorUnit = new:
     def html[V: TutorNumber](v: V)                          = frag(strong(number(v)), "%")
     def text[V: TutorNumber](v: V)                          = s"${number(v)}%"
     private def number[V](v: V)(implicit n: TutorNumber[V]) = f"${n double v}%1.1f"

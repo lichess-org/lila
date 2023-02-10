@@ -1,12 +1,11 @@
 .tutor {
   &__openings {
     &__colors {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: $block-gap;
+      @extend %flex-wrap;
+      gap: $block-gap;
     }
     &__color {
-      flex: 50% 0 0;
+      flex: 250px 1 1;
       h2 {
         font-size: 2em;
         margin-bottom: 1em;
@@ -14,6 +13,10 @@
       &__openings {
         display: grid;
         grid-gap: 2vmin;
+      }
+      &__explorer {
+        margin-top: $block-gap;
+        width: 100%;
       }
     }
     &__opening {

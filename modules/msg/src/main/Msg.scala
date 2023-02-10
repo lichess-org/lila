@@ -1,7 +1,5 @@
 package lila.msg
 
-import org.joda.time.DateTime
-
 import lila.user.User
 
 case class Msg(
@@ -28,10 +26,10 @@ object Msg:
   ):
     def unreadBy(userId: UserId) = !read && user != userId
 
-  def make(text: String, user: UserId): Option[Msg] =
+  def make(text: String, user: UserId, date: DateTime): Option[Msg] =
     val cleanText = lila.common.String.normalize(text.trim take 8_000)
     cleanText.nonEmpty option Msg(
       text = cleanText,
       user = user,
-      date = DateTime.now
+      date = date
     )

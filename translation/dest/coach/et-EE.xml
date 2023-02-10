@@ -9,6 +9,7 @@
   <string name="location">Asukoht</string>
   <string name="languages">Keeled</string>
   <string name="rating">Reiting</string>
+  <string name="hourlyRate">Tunnitasu</string>
   <string name="availability">Saadavus</string>
   <string name="accepting">Võtan vastu õpilasi</string>
   <string name="notAccepting">Ei võta tudengeid hetkel</string>
@@ -28,5 +29,7 @@
     <item quantity="other">%s õpilase tagasisidet</item>
   </plurals>
   <string name="thankYouForReview">Aitäh tagasiside eest!</string>
+  <string name="xWillApproveIt">%s kinnitab selle kohe ära, või moderaator vaatab selle üle.</string>
   <string name="reviewCoach">Hinda treenerit</string>
+  <string name="describeExperienceWith">Kirjelda oma treenikogemust treenerile %s</string>
 </resources>

@@ -11,25 +11,14 @@ import cats.data.NonEmptyList
 import play.api.data.FormBinding
 import play.api.i18n.Lang
 
-sealed abstract class GameFilter(val name: String)
-
-object GameFilter:
-  case object All      extends GameFilter("all")
-  case object Me       extends GameFilter("me")
-  case object Rated    extends GameFilter("rated")
-  case object Win      extends GameFilter("win")
-  case object Loss     extends GameFilter("loss")
-  case object Draw     extends GameFilter("draw")
-  case object Playing  extends GameFilter("playing")
-  case object Bookmark extends GameFilter("bookmark")
-  case object Imported extends GameFilter("import")
-  case object Search   extends GameFilter("search")
+enum GameFilter:
+  val name = lila.common.String.lcfirst(toString)
+  case All, Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search
 
 case class GameFilterMenu(
     all: NonEmptyList[GameFilter],
     current: GameFilter
 ):
-
   def list = all.toList
 
 object GameFilterMenu:
@@ -86,7 +75,7 @@ object GameFilterMenu:
       gameRepo: lila.game.GameRepo,
       gameProxyRepo: lila.round.GameProxyRepo,
       bookmarkApi: lila.bookmark.BookmarkApi
-  )(using ec: scala.concurrent.ExecutionContext):
+  )(using Executor):
 
     def apply(
         user: User,
@@ -94,7 +83,7 @@ object GameFilterMenu:
         filter: GameFilter,
         me: Option[User],
         page: Int
-    )(implicit req: Request[?], formBinding: FormBinding, lang: Lang): Fu[Paginator[Game]] =
+    )(using req: Request[?], formBinding: FormBinding, lang: Lang): Fu[Paginator[Game]] =
       val nb               = cachedNbOf(user, nbs, filter)
       def std(query: Bdoc) = pagBuilder.recentlyCreated(query, nb)(page)
       filter match
@@ -131,7 +120,7 @@ object GameFilterMenu:
   def searchForm(
       userGameSearch: lila.gameSearch.UserGameSearch,
       filter: GameFilter
-  )(implicit req: Request[?], formBinding: FormBinding, lang: Lang): play.api.data.Form[?] =
+  )(using req: Request[?], formBinding: FormBinding, lang: Lang): play.api.data.Form[?] =
     filter match
       case Search => userGameSearch.requestForm
       case _      => userGameSearch.defaultForm

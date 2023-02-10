@@ -3,7 +3,6 @@ package lila.puzzle
 import akka.stream.scaladsl.*
 import chess.opening.{ Opening, OpeningDb, OpeningFamily, OpeningVariation }
 import reactivemongo.akkastream.cursorProducer
-import scala.concurrent.duration.*
 
 import lila.common.{ LilaOpeningFamily, LilaStream, SimpleOpening }
 import lila.db.dsl.{ *, given }
@@ -59,7 +58,7 @@ final class PuzzleOpeningApi(
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
     mat: akka.stream.Materializer
 ):
@@ -144,19 +143,17 @@ final class PuzzleOpeningApi(
 
   private[puzzle] def updateOpening(puzzle: Puzzle): Funit =
     (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36) ?? {
-      gameRepo gameFromSecondary puzzle.gameId flatMap {
-        _ ?? { game =>
-          OpeningDb.search(game.sans).map(_.opening).flatMap(SimpleOpening.apply) match
-            case None =>
-              fuccess {
-                logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
-              }
-            case Some(o) =>
-              val keys = List(o.family.key.value, o.key.value)
-              colls.puzzle {
-                _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
-              }
-        }
+      gameRepo gameFromSecondary puzzle.gameId flatMapz { game =>
+        OpeningDb.search(game.sans).map(_.opening).flatMap(SimpleOpening.apply) match
+          case None =>
+            fuccess {
+              logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
+            }
+          case Some(o) =>
+            val keys = List(o.family.key.value, o.key.value)
+            colls.puzzle {
+              _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
+            }
       }
     }
 

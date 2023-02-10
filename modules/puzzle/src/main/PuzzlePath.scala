@@ -1,10 +1,7 @@
 package lila.puzzle
 
-import scala.concurrent.ExecutionContext
-
 import lila.db.dsl.{ *, given }
 import lila.user.User
-import org.joda.time.DateTime
 import lila.common.Iso
 
 object PuzzlePath:
@@ -21,7 +18,7 @@ object PuzzlePath:
 
   given Iso.StringIso[Id] = Iso.string(Id.apply, _.value)
 
-final private class PuzzlePathApi(colls: PuzzleColls)(using ec: ExecutionContext):
+final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
 
   import BsonHandlers.given
   import PuzzlePath.{ *, given }
@@ -35,7 +32,7 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using ec: ExecutionContext
       compromise: Int = 0
   ): Fu[Option[Id]] = {
     val actualTier =
-      if (tier == PuzzleTier.Top && PuzzleDifficulty.isExtreme(difficulty)) PuzzleTier.Good
+      if (tier == PuzzleTier.top && PuzzleDifficulty.isExtreme(difficulty)) PuzzleTier.good
       else tier
     colls
       .path {
@@ -54,10 +51,10 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using ec: ExecutionContext
       }
       .flatMap {
         case Some(path) => fuccess(path.some)
-        case _ if actualTier == PuzzleTier.Top =>
-          nextFor(user, angle, PuzzleTier.Good, difficulty, previousPaths)
-        case _ if actualTier == PuzzleTier.Good && compromise == 2 =>
-          nextFor(user, angle, PuzzleTier.All, difficulty, previousPaths, compromise = 1)
+        case _ if actualTier == PuzzleTier.top =>
+          nextFor(user, angle, PuzzleTier.good, difficulty, previousPaths)
+        case _ if actualTier == PuzzleTier.good && compromise == 2 =>
+          nextFor(user, angle, PuzzleTier.all, difficulty, previousPaths, compromise = 1)
         case _ if compromise < 5 =>
           nextFor(user, angle, actualTier, difficulty, previousPaths, compromise + 1)
         case _ => fuccess(none)
@@ -70,5 +67,5 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using ec: ExecutionContext
   )
 
   def isStale = colls.path(_.primitiveOne[Long]($empty, "gen")).map {
-    _.fold(true)(_ < DateTime.now.minusDays(1).getMillis)
+    _.fold(true)(_ < nowDate.minusDays(1).getMillis)
   }

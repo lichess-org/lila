@@ -1,13 +1,11 @@
 package lila.swiss
 
-import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.i18n.Lang
 
 import lila.i18n.I18nKeys as trans
 import lila.rating.PerfType
 import lila.user.{ Title, User }
-import scala.concurrent.ExecutionContext
 
 sealed trait SwissCondition:
 
@@ -24,21 +22,18 @@ object SwissCondition:
   type GetMaxRating   = PerfType => Fu[IntRating]
   type GetBannedUntil = UserId => Fu[Option[DateTime]]
 
-  sealed abstract class Verdict(val accepted: Boolean, val reason: Option[Lang => String])
-  case object Accepted                        extends Verdict(true, none)
-  case class Refused(because: Lang => String) extends Verdict(false, because.some)
+  enum Verdict(val accepted: Boolean, val reason: Option[Lang => String]):
+    case Accepted                         extends Verdict(true, none)
+    case Refused(because: Lang => String) extends Verdict(false, because.some)
+    case RefusedUntil(until: DateTime)    extends Verdict(false, none)
+  export Verdict.*
 
   case class WithVerdict(condition: SwissCondition, verdict: Verdict)
 
   case object PlayYourGames extends SwissCondition:
     def name(perf: PerfType)(using lang: Lang) = "Play your games"
     def withBan(bannedUntil: Option[DateTime]) = withVerdict {
-      bannedUntil.fold[Verdict](Accepted) { until =>
-        Refused { lang =>
-          val showUntil = DateTimeFormat.forStyle("MS").withLocale(lang.toLocale) print until
-          s"Because you missed your last swiss game, you cannot enter a new swiss tournament until $showUntil."
-        }
-      }
+      bannedUntil.fold[Verdict](Accepted)(RefusedUntil.apply)
     }
 
   case object Titled extends SwissCondition with FlatCond:
@@ -66,7 +61,7 @@ object SwissCondition:
 
     def apply(perf: PerfType, getMaxRating: GetMaxRating)(
         user: User
-    )(using ExecutionContext): Fu[Verdict] =
+    )(using Executor): Fu[Verdict] =
       if (user.perfs(perf).provisional.yes) fuccess(Refused { lang =>
         given Lang = lang
         trans.yourPerfRatingIsProvisional.txt(perf.trans)
@@ -138,12 +133,12 @@ object SwissCondition:
         perf: PerfType,
         getMaxRating: GetMaxRating,
         getBannedUntil: GetBannedUntil
-    )(user: User)(using ExecutionContext): Fu[All.WithVerdicts] =
+    )(user: User)(using Executor): Fu[All.WithVerdicts] =
       list.map {
         case PlayYourGames => getBannedUntil(user.id) map PlayYourGames.withBan
         case c: MaxRating  => c(perf, getMaxRating)(user) map c.withVerdict
         case c: FlatCond   => fuccess(c withVerdict c(user, perf))
-      }.sequenceFu dmap All.WithVerdicts.apply
+      }.parallel dmap All.WithVerdicts.apply
 
     def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
 
@@ -171,7 +166,7 @@ object SwissCondition:
 
   final class Verify(historyApi: lila.history.HistoryApi, banApi: SwissBanApi):
 
-    def apply(swiss: Swiss, user: User)(using ExecutionContext): Fu[All.WithVerdicts] =
+    def apply(swiss: Swiss, user: User)(using Executor): Fu[All.WithVerdicts] =
       val getBan: GetBannedUntil     = banApi.bannedUntil
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
       swiss.settings.conditions.withVerdicts(swiss.perfType, getMaxRating, getBan)(user)

@@ -1,8 +1,6 @@
 package lila.user
 
-import org.joda.time.DateTime
 import play.api.i18n.Lang
-import scala.concurrent.duration.*
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.rating.{ Perf, PerfType }
@@ -115,7 +113,7 @@ case class User(
 
   def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
 
-  def createdSinceDays(days: Int) = createdAt isBefore DateTime.now.minusDays(days)
+  def createdSinceDays(days: Int) = createdAt isBefore nowDate.minusDays(days)
 
   def isBot = title has Title.BOT
   def noBot = !isBot
@@ -141,22 +139,22 @@ object User:
     import LoginCandidate.*
     def apply(p: PasswordAndToken): Result =
       val res =
-        if (check(p.password)) user.totpSecret.fold[Result](Success(user)) { tp =>
-          p.token.fold[Result](MissingTotpToken) { token =>
-            if (tp verify token) Success(user) else InvalidTotpToken
+        if (check(p.password)) user.totpSecret.fold[Result](Result.Success(user)) { tp =>
+          p.token.fold[Result](Result.MissingTotpToken) { token =>
+            if (tp verify token) Result.Success(user) else Result.InvalidTotpToken
           }
         }
-        else InvalidUsernameOrPassword
+        else Result.InvalidUsernameOrPassword
       lila.mon.user.auth.count(res.success).increment()
       res
     def option(p: PasswordAndToken): Option[User] = apply(p).toOption
   object LoginCandidate:
-    sealed abstract class Result(val toOption: Option[User]):
+    enum Result(val toOption: Option[User]):
       def success = toOption.isDefined
-    case class Success(user: User)        extends Result(user.some)
-    case object InvalidUsernameOrPassword extends Result(none)
-    case object MissingTotpToken          extends Result(none)
-    case object InvalidTotpToken          extends Result(none)
+      case Success(user: User)       extends Result(user.some)
+      case InvalidUsernameOrPassword extends Result(none)
+      case MissingTotpToken          extends Result(none)
+      case InvalidTotpToken          extends Result(none)
 
   val anonymous                        = UserName("Anonymous")
   val anonMod                          = "A Lichess Moderator"
@@ -215,8 +213,8 @@ object User:
     def isTroll                = marks.exists(_.troll)
     def isVerified             = roles.exists(_ contains "ROLE_VERIFIED")
     def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
-    def isDaysOld(days: Int)   = createdAt isBefore DateTime.now.minusDays(days)
-    def isHoursOld(hours: Int) = createdAt isBefore DateTime.now.minusHours(hours)
+    def isDaysOld(days: Int)   = createdAt isBefore nowDate.minusDays(days)
+    def isHoursOld(hours: Int) = createdAt isBefore nowDate.minusHours(hours)
     def isLichess              = _id == User.lichessId
   case class Contacts(orig: Contact, dest: Contact):
     def hasKid  = orig.isKid || dest.isKid

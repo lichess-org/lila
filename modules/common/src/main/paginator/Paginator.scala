@@ -39,11 +39,11 @@ final class Paginator[A] private[paginator] (
   def mapResults[B](f: A => B): Paginator[B] =
     withCurrentPageResults(currentPageResults map f)
 
-  def mapFutureResults[B](f: A => Fu[B])(using ec: scala.concurrent.ExecutionContext): Fu[Paginator[B]] =
-    currentPageResults.map(f).sequenceFu dmap withCurrentPageResults
+  def mapFutureResults[B](f: A => Fu[B])(using Executor): Fu[Paginator[B]] =
+    currentPageResults.map(f).parallel dmap withCurrentPageResults
 
   def mapFutureList[B](f: Seq[A] => Fu[Seq[B]])(using
-      ec: scala.concurrent.ExecutionContext
+      ec: Executor
   ): Fu[Paginator[B]] =
     f(currentPageResults) dmap withCurrentPageResults
 
@@ -53,7 +53,7 @@ object Paginator:
       adapter: AdapterLike[A],
       currentPage: Int,
       maxPerPage: MaxPerPage
-  )(using scala.concurrent.ExecutionContext): Fu[Paginator[A]] =
+  )(using Executor): Fu[Paginator[A]] =
     validate(adapter, currentPage, maxPerPage) getOrElse apply(adapter, 1, maxPerPage)
 
   def empty[A]: Paginator[A] = new Paginator(0, MaxPerPage(0), Nil, 0)
@@ -86,7 +86,7 @@ object Paginator:
       adapter: AdapterLike[A],
       currentPage: Int = 1,
       maxPerPage: MaxPerPage = MaxPerPage(10)
-  )(using ec: scala.concurrent.ExecutionContext): Validated[String, Fu[Paginator[A]]] =
+  )(using Executor): Validated[String, Fu[Paginator[A]]] =
     if (currentPage < 1) Validated.invalid("Current page must be greater than zero")
     else if (maxPerPage.value <= 0) Validated.invalid("Max per page must be greater than zero")
     else

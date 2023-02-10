@@ -4,10 +4,8 @@ import cats.data.NonEmptyList
 import chess.format.Fen
 import chess.opening.OpeningFamily
 import chess.variant.Variant
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
-import scala.concurrent.duration.*
 import scala.util.{ Failure, Success, Try, NotGiven }
 
 import lila.common.Iso.*
@@ -33,10 +31,9 @@ trait Handlers:
     v => BSONDateTime(v.getMillis)
   )
 
-  def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] =
-    new BSONHandler[A]:
-      def readTry(x: BSONValue) = handler.readTry(x) map iso.from
-      def writeTry(x: A)        = handler writeTry iso.to(x)
+  def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] = new:
+    def readTry(x: BSONValue) = handler.readTry(x) map iso.from
+    def writeTry(x: A)        = handler writeTry iso.to(x)
   def isoHandler[A, B](to: A => B, from: B => A)(using handler: BSONHandler[B]): BSONHandler[A] =
     isoHandler(using Iso(from, to))(using handler)
 
@@ -78,26 +75,23 @@ trait Handlers:
   def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[A] =
     dateTimeHandler.as[A](iso.from, iso.to)
 
-  def quickHandler[T](read: PartialFunction[BSONValue, T], write: T => BSONValue): BSONHandler[T] =
-    new BSONHandler[T]:
-      def readTry(bson: BSONValue) =
-        read
-          .andThen(Success(_))
-          .applyOrElse(bson, (b: BSONValue) => handlerBadType(b))
-      def writeTry(t: T) = Success(write(t))
+  def quickHandler[T](read: PartialFunction[BSONValue, T], write: T => BSONValue): BSONHandler[T] = new:
+    def readTry(bson: BSONValue) =
+      read
+        .andThen(Success(_))
+        .applyOrElse(bson, (b: BSONValue) => handlerBadType(b))
+    def writeTry(t: T) = Success(write(t))
 
-  def tryHandler[T](read: PartialFunction[BSONValue, Try[T]], write: T => BSONValue): BSONHandler[T] =
-    new BSONHandler[T]:
-      def readTry(bson: BSONValue) =
-        read.applyOrElse(
-          bson,
-          (b: BSONValue) => handlerBadType(b)
-        )
-      def writeTry(t: T) = Success(write(t))
+  def tryHandler[T](read: PartialFunction[BSONValue, Try[T]], write: T => BSONValue): BSONHandler[T] = new:
+    def readTry(bson: BSONValue) =
+      read.applyOrElse(
+        bson,
+        (b: BSONValue) => handlerBadType(b)
+      )
+    def writeTry(t: T) = Success(write(t))
 
-  def tryReader[T](read: PartialFunction[BSONValue, Try[T]]): BSONReader[T] =
-    new BSONReader[T]:
-      def readTry(bson: BSONValue) = read.applyOrElse(bson, (b: BSONValue) => handlerBadType(b))
+  def tryReader[T](read: PartialFunction[BSONValue, Try[T]]): BSONReader[T] = new:
+    def readTry(bson: BSONValue) = read.applyOrElse(bson, (b: BSONValue) => handlerBadType(b))
 
   def handlerBadType[T](b: BSONValue): Try[T] =
     Failure(TypeDoesNotMatchException("BSONValue", b.getClass.getSimpleName))
@@ -105,11 +99,13 @@ trait Handlers:
   def handlerBadValue[T](msg: String): Try[T] =
     Failure(new IllegalArgumentException(msg))
 
-  def eitherHandler[L, R](using leftHandler: BSONHandler[L], rightHandler: BSONHandler[R]) =
-    new BSONHandler[Either[L, R]]:
-      def readTry(bson: BSONValue) =
-        leftHandler.readTry(bson).map(Left.apply) orElse rightHandler.readTry(bson).map(Right.apply)
-      def writeTry(e: Either[L, R]) = e.fold(leftHandler.writeTry, rightHandler.writeTry)
+  def eitherHandler[L, R](using
+      leftHandler: BSONHandler[L],
+      rightHandler: BSONHandler[R]
+  ): BSONHandler[Either[L, R]] = new:
+    def readTry(bson: BSONValue) =
+      leftHandler.readTry(bson).map(Left.apply) orElse rightHandler.readTry(bson).map(Right.apply)
+    def writeTry(e: Either[L, R]) = e.fold(leftHandler.writeTry, rightHandler.writeTry)
 
   def stringMapHandler[V](using
       reader: BSONReader[Map[String, V]],
@@ -220,7 +216,7 @@ trait Handlers:
 
   def valueMapHandler[K, V](mapping: Map[K, V])(toKey: V => K)(using
       keyHandler: BSONHandler[K]
-  ) = new BSONHandler[V]:
+  ): BSONHandler[V] = new:
     def readTry(bson: BSONValue) = keyHandler.readTry(bson) flatMap { k =>
       mapping.get(k) toTry s"No such value in mapping: $k"
     }

@@ -1,6 +1,5 @@
 package lila.security
 
-import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import play.api.data.Form
 

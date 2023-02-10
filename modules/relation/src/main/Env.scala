@@ -26,7 +26,7 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     cacheApi: lila.memo.CacheApi
 )(using
-    scala.concurrent.ExecutionContext,
+    Executor,
     ActorSystem,
     akka.stream.Materializer
 ):

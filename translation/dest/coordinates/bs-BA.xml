@@ -15,4 +15,6 @@
   <string name="showCoordinates">Prikaži koordinate</string>
   <string name="showPieces">Prikaži figure</string>
   <string name="startTraining">Pokrenite trening</string>
+  <string name="findSquare">Nađite polje</string>
+  <string name="nameSquare">Imenujte polje</string>
 </resources>

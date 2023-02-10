@@ -23,7 +23,6 @@ final class Dev(env: Env) extends LilaController(env):
     env.streamer.alwaysFeaturedSetting,
     env.rating.ratingFactorsSetting,
     env.plan.donationGoalSetting,
-    env.plan.paymentMethodsSetting,
     env.apiTimelineSetting,
     env.apiExplorerGamesPerSecond,
     env.fishnet.openingBookDepth,
@@ -31,9 +30,10 @@ final class Dev(env: Env) extends LilaController(env):
     env.featuredTeamsSetting,
     env.prizeTournamentMakers,
     env.pieceImageExternal,
-    env.evalCache.enable,
     env.tournament.reloadEndpointSetting,
-    env.tutor.nbAnalysisSetting
+    env.tutor.nbAnalysisSetting,
+    env.tutor.parallelismSetting,
+    env.firefoxOriginTrial
   )
 
   def settings =

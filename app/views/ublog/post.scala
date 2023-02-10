@@ -54,7 +54,7 @@ object post:
               image.credit.map { p(cls := "ublog-post__image-credit")(_) }
             )
           },
-          ctx.is(user) || isGranted(_.ModerateBlog) option standardFlash(),
+          ctx.is(user) || isGranted(_.ModerateBlog) option standardFlash,
           h1(cls := "ublog-post__title")(post.title),
           div(cls := "ublog-post__meta")(
             a(
@@ -66,7 +66,7 @@ object post:
               titleTag(user.title),
               user.username,
               !ctx.is(user) && isGranted(_.ModerateBlog) option
-                (if (blog.tier <= UblogBlog.Tier.VISIBLE) badTag else goodTag)(
+                (if (blog.tier <= UblogBlog.Tier.VISIBLE) badTag else goodTag) (
                   cls := "ublog-post__tier"
                 )(UblogBlog.Tier.name(blog.tier))
             ),
@@ -184,7 +184,7 @@ object post:
       showAuthor: Boolean = false,
       showIntro: Boolean = true
   )(using Context) =
-    a(cls                          := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
+    a(cls := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),
@@ -195,7 +195,7 @@ object post:
     )
 
   def miniCard(post: UblogPost.BasePost)(using Context) =
-    span(cls                       := "ublog-post-card ublog-post-card--mini")(
+    span(cls := "ublog-post-card ublog-post-card--mini")(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       h3(cls := "ublog-post-card__title")(post.title)
     )

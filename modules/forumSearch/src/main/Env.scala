@@ -21,7 +21,7 @@ final class Env(
     postApi: lila.forum.ForumPostApi,
     postRepo: lila.forum.ForumPostRepo
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
     mat: akka.stream.Materializer
 ):

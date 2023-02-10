@@ -4,7 +4,7 @@ import chess.Centis
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.Opening
-import chess.{ Ply, Pos }
+import chess.{ Ply, Pos, Check }
 import chess.variant.Crazyhouse
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
@@ -14,7 +14,7 @@ import lila.common.Json.{ *, given }
 sealed trait Node:
   def ply: Ply
   def fen: Fen.Epd
-  def check: Boolean
+  def check: Check
   // None when not computed yet
   def dests: Option[Map[Pos, List[Pos]]]
   def drops: Option[List[Pos]]
@@ -45,7 +45,7 @@ sealed trait Node:
 case class Root(
     ply: Ply,
     fen: Fen.Epd,
-    check: Boolean,
+    check: Check,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
     drops: Option[List[Pos]] = None,
@@ -74,7 +74,7 @@ case class Branch(
     ply: Ply,
     move: Uci.WithSan,
     fen: Fen.Epd,
-    check: Boolean,
+    check: Check,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
     drops: Option[List[Pos]] = None,
@@ -119,7 +119,7 @@ object Node:
     opaque type Id = String
     object Id extends OpaqueString[Id]:
       def make = Id(ThreadLocalRandom nextString 4)
-    private val metaReg = """\[%[^\]]+\]""".r
+    private val metaReg = """\[%[^\]]++\]""".r
     opaque type Text = String
     object Text extends OpaqueString[Text]:
       extension (a: Text)
@@ -131,6 +131,10 @@ object Node:
       case External(name: String)
       case Lichess
       case Unknown
+
+      def is(other: Author) = (this, other) match
+        case (User(a, _), User(b, _)) => a == b
+        case _                        => this == other
     def sanitize(text: String) = Text {
       lila.common.String
         .softCleanUp(text)
@@ -143,11 +147,11 @@ object Node:
   opaque type Comments = List[Comment]
   object Comments extends TotalWrapper[Comments, List[Comment]]:
     extension (a: Comments)
-      def findBy(author: Comment.Author) = a.value.find(_.by == author)
+      def findBy(author: Comment.Author) = a.value.find(_.by is author)
       def set(comment: Comment): Comments = {
-        if (a.value.exists(_.by == comment.by)) a.value.map {
-          case c if c.by == comment.by => c.copy(text = comment.text)
-          case c                       => c
+        if (a.value.exists(_.by.is(comment.by))) a.value.map {
+          case c if c.by.is(comment.by) => c.copy(text = comment.text, by = comment.by)
+          case c                        => c
         }
         else a.value :+ comment
       }
@@ -169,7 +173,7 @@ object Node:
 
   // TODO copied from lila.game
   // put all that shit somewhere else
-  implicit private val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
+  private given OWrites[Crazyhouse.Pocket] = OWrites { v =>
     JsObject(
       Crazyhouse.storableRoles.flatMap { role =>
         Some(v.roles.count(role ==)).filter(0 <).map { count =>
@@ -178,18 +182,18 @@ object Node:
       }
     )
   }
-  implicit private val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
+  private given OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
     Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
   }
 
-  implicit val openingWriter: OWrites[chess.opening.Opening] = OWrites { o =>
+  given OWrites[chess.opening.Opening] = OWrites { o =>
     Json.obj(
       "eco"  -> o.eco,
       "name" -> o.name
     )
   }
 
-  implicit private val posWrites: Writes[Pos] = Writes[Pos] { p =>
+  private given Writes[Pos] = Writes[Pos] { p =>
     JsString(p.key)
   }
   private val shapeCircleWrites = Json.writes[Shape.Circle]

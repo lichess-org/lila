@@ -54,9 +54,12 @@
   <string name="notifyStreamStart">Strömmen går igång</string>
   <string name="notifyInboxMsg">Nytt meddelande i inkorgen</string>
   <string name="notifyForumMention">Forumkommentar nämner dig</string>
+  <string name="notifyInvitedStudy">Inbjudan till studier</string>
   <string name="notifyGameEvent">Korrespondensspelsuppdateringar</string>
   <string name="notifyChallenge">Utmaningar</string>
   <string name="notifyTournamentSoon">Turneringen startar snart</string>
+  <string name="notifyTimeAlarm">Korrespondensklockans tid tar slut</string>
+  <string name="notifyBell">Spela upp ett klockljud vid ny avisering</string>
   <string name="notifyPush">Enhetsnotifiering när du inte använder Lichess</string>
   <string name="notifyWeb">Webbläsare</string>
   <string name="notifyDevice">Enhet</string>

@@ -1,8 +1,6 @@
 package lila.db
 
 import reactivemongo.api.*
-import scala.concurrent.duration.*
-import scala.concurrent.Future
 
 import lila.common.Chronometer
 import lila.common.config.CollName
@@ -12,7 +10,7 @@ final class AsyncDb(
     name: String,
     uri: String,
     driver: AsyncDriver
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private lazy val connection: Fu[(MongoConnection, Option[String])] =
     MongoConnection.fromString(uri) flatMap { parsedUri =>
@@ -35,7 +33,7 @@ final class Db(
     name: String,
     uri: String,
     driver: AsyncDriver
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private val logger = lila.db.logger branch name
 

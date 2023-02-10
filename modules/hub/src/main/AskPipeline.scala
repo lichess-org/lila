@@ -1,16 +1,14 @@
 package lila.hub
 
 import com.github.blemale.scaffeine.LoadingCache
-import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.{ ExecutionContext, Promise }
 
 /*
  * Only processes one computation at a time
  * and only enqueues one.
  */
 final class AskPipeline[A](compute: () => Fu[A], timeout: FiniteDuration, name: String)(using
-    scheduler: akka.actor.Scheduler,
-    ec: scala.concurrent.ExecutionContext
+    scheduler: Scheduler,
+    ec: Executor
 ) extends SyncActor:
 
   private var state: State = Idle
@@ -70,8 +68,8 @@ final class AskPipelines[K, R](
     timeout: FiniteDuration,
     name: String
 )(using
-    ec: ExecutionContext,
-    scheduler: akka.actor.Scheduler
+    ec: Executor,
+    scheduler: Scheduler
 ):
 
   def apply(key: K): Fu[R] = pipelines.get(key).get

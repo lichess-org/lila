@@ -2,8 +2,6 @@ package lila.lobby
 
 import actorApi.*
 import play.api.libs.json.*
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 
 import lila.game.Pov
 import lila.hub.actorApi.timeline.*
@@ -27,7 +25,7 @@ final class LobbySocket(
     relationApi: lila.relation.RelationApi,
     poolApi: PoolApi,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
+)(using ec: Executor, scheduler: Scheduler):
 
   import LobbySocket.*
   import Protocol.*
@@ -145,7 +143,7 @@ final class LobbySocket(
   // solve circular reference
   lobby ! LobbySyncActor.SetSocket(actor)
 
-  private val poolLimitPerSri = new lila.memo.RateLimit[SriStr](
+  private val poolLimitPerSri = lila.memo.RateLimit[SriStr](
     credits = 14,
     duration = 30 seconds,
     key = "lobby.hook_pool.member"
@@ -287,7 +285,7 @@ private object LobbySocket:
       val reader: P.In.Reader = raw =>
         raw.path match
           case "counters" =>
-            import cats.implicits.*
+            import cats.syntax.all.*
             raw.get(2) { case Array(m, r) =>
               (m.toIntOption, r.toIntOption).mapN(Counters.apply)
             }

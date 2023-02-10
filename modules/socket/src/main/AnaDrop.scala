@@ -1,9 +1,10 @@
 package lila.socket
 
 import cats.data.Validated
-import chess.format.{ Fen, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.*
 import chess.variant.Variant
+import chess.ErrorStr
 import play.api.libs.json.JsObject
 
 import lila.tree.Branch
@@ -14,13 +15,13 @@ case class AnaDrop(
     pos: chess.Pos,
     variant: Variant,
     fen: Fen.Epd,
-    path: String,
-    chapterId: Option[String]
+    path: UciPath,
+    chapterId: Option[StudyChapterId]
 ) extends AnaAny:
 
-  def branch: Validated[String, Branch] =
+  def branch: Validated[ErrorStr, Branch] =
     chess.Game(variant.some, fen.some).drop(role, pos) andThen { (game, drop) =>
-      game.sans.lastOption toValid "Dropped but no last move!" map { san =>
+      game.sans.lastOption toValid ErrorStr("Dropped but no last move!") map { san =>
         val uci     = Uci(drop)
         val movable = !game.situation.end
         val fen     = chess.format.Fen write game
@@ -48,12 +49,12 @@ object AnaDrop:
       pos  <- d str "pos" flatMap { chess.Pos.fromKey(_) }
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
       fen  <- d.get[Fen.Epd]("fen")
-      path <- d str "path"
+      path <- d.get[UciPath]("path")
     yield AnaDrop(
       role = role,
       pos = pos,
       variant = variant,
       fen = fen,
       path = path,
-      chapterId = d str "ch"
+      chapterId = d.get[StudyChapterId]("ch")
     )

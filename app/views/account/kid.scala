@@ -16,13 +16,13 @@ object kid:
     ) {
       div(cls := "account box box-pad")(
         h1(cls := "box__top")(trans.kidMode()),
-        standardFlash(),
+        standardFlash,
         p(trans.kidModeExplanation()),
         br,
         br,
         br,
         if (managed)
-          p("Your account is managed. Ask your chess teacher about lifting kid mode.")
+          p(trans.askYourChessTeacherAboutLiftingKidMode())
         else
           postForm(cls := "form3", action := s"${routes.Account.kidPost}?v=${!u.kid}")(
             form3.passwordModified(form("passwd"), trans.password())(autofocus, autocomplete := "off"),

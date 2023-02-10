@@ -29,7 +29,7 @@
     <item quantity="one">%s yilda</item>
     <item quantity="other">%s yilda</item>
   </plurals>
-  <string name="rightNow">hoziroq</string>
+  <string name="rightNow">ayni vaqtda</string>
   <plurals name="nbSecondsAgo">
     <item quantity="one">%s soniya avval</item>
     <item quantity="other">%s soniya avval</item>

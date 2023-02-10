@@ -3,13 +3,12 @@ package lila.lobby
 import akka.actor.*
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 
 final class BoardApiHookStream(
     trouper: LobbySyncActor
-)(using ec: scala.concurrent.ExecutionContext, system: ActorSystem):
+)(using ec: Executor, system: ActorSystem):
 
   private case object SetOnline
 

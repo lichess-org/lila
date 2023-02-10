@@ -38,7 +38,7 @@ private[tournament] object Player:
 
   case class WithUser(player: Player, user: User)
 
-  case class Result(player: Player, lightUser: LightUser, rank: Int)
+  case class Result(player: Player, lightUser: LightUser, rank: Int, sheet: Option[arena.Sheet])
 
   private[tournament] def make(
       tourId: TourId,

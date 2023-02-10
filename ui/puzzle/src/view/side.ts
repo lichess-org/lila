@@ -2,6 +2,7 @@ import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty } from '..
 import { dataIcon, onInsert, bind } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
+import perfIcons from 'common/perfIcons';
 import * as router from 'common/router';
 import PuzzleStreak from '../streak';
 
@@ -54,7 +55,7 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
 
 function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
   const gameName = `${game.clock} • ${game.perf.name}`;
-  return h('div.infos', { attrs: dataIcon(game.perf.icon) }, [
+  return h('div.infos', { attrs: dataIcon(perfIcons[game.perf.key]) }, [
     h('div', [
       h(
         'p',

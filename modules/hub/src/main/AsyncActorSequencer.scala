@@ -1,16 +1,14 @@
 package lila.hub
 
 import com.github.blemale.scaffeine.LoadingCache
-import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.{ ExecutionContext, Promise }
 
 import lila.base.LilaTimeout
 import lila.common.config.Max
 
 final class AsyncActorSequencer(maxSize: Max, timeout: FiniteDuration, name: String, logging: Boolean = true)(
     using
-    akka.actor.Scheduler,
-    ExecutionContext
+    Scheduler,
+    Executor
 ):
 
   import AsyncActorSequencer.*
@@ -33,7 +31,7 @@ final class AsyncActorSequencers[K](
     timeout: FiniteDuration,
     name: String,
     logging: Boolean = true
-)(using StringRuntime[K], akka.actor.Scheduler, ExecutionContext):
+)(using StringRuntime[K], Scheduler, Executor):
 
   def apply[A <: Matchable](key: K)(task: => Fu[A]): Fu[A] =
     sequencers.get(key).run(() => task)
@@ -41,7 +39,7 @@ final class AsyncActorSequencers[K](
   private val sequencers: LoadingCache[K, AsyncActorSequencer] =
     lila.common.LilaCache.scaffeine
       .expireAfterAccess(expiration)
-      .build(key => new AsyncActorSequencer(maxSize, timeout, s"$name:$key", logging))
+      .build(key => AsyncActorSequencer(maxSize, timeout, s"$name:$key", logging))
 
 object AsyncActorSequencer:
 

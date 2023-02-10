@@ -1,8 +1,5 @@
 package lila.racer
 
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
-
 import lila.memo.CacheApi
 import lila.storm.StormSelector
 import lila.user.{ User, UserRepo }
@@ -16,8 +13,8 @@ final class RacerApi(
     cacheApi: CacheApi,
     lightUser: LightUser.GetterSyncFallback
 )(implicit
-    ec: ExecutionContext,
-    scheduler: akka.actor.Scheduler
+    ec: Executor,
+    scheduler: Scheduler
 ):
 
   import RacerRace.Id
@@ -31,6 +28,12 @@ final class RacerApi(
   def playerId(sessionId: String, user: Option[User]) = user match
     case Some(u) => RacerPlayer.Id.User(u.id)
     case None    => RacerPlayer.Id.Anon(sessionId)
+
+  def createKeepOwnerAndJoin(race: RacerRace, player: RacerPlayer.Id): Fu[RacerRace.Id] =
+    create(race.owner, 10).map { id =>
+      join(id, player)
+      id
+    }
 
   def createAndJoin(player: RacerPlayer.Id): Fu[RacerRace.Id] =
     create(player, 10).map { id =>
@@ -64,7 +67,7 @@ final class RacerApi(
       fuccess(found.id)
     case None =>
       rematchQueue {
-        createAndJoin(player) map { rematchId =>
+        createKeepOwnerAndJoin(race, player) map { rematchId =>
           save(race.copy(rematch = rematchId.some))
           rematchId
         }

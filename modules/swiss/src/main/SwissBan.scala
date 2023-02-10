@@ -1,8 +1,5 @@
 package lila.swiss
 
-import org.joda.time.DateTime
-import scala.concurrent.ExecutionContext
-
 import lila.user.User
 import lila.db.dsl.{ *, given }
 import lila.swiss.BsonHandlers.given
@@ -15,10 +12,10 @@ case class SwissBan(_id: UserId, until: DateTime, hours: Int)
  * Consecutive failures result in doubling ban duration.
  * Playing a swiss game resets the duration.
  */
-final class SwissBanApi(mongo: SwissMongo)(using ec: ExecutionContext):
+final class SwissBanApi(mongo: SwissMongo)(using Executor):
 
   def bannedUntil(user: UserId): Fu[Option[DateTime]] =
-    mongo.ban.primitiveOne[DateTime]($id(user) ++ $doc("until" $gt DateTime.now), "until")
+    mongo.ban.primitiveOne[DateTime]($id(user) ++ $doc("until" $gt nowDate), "until")
 
   def get(user: UserId): Fu[Option[SwissBan]] = mongo.ban.byId[SwissBan](user)
 
@@ -28,15 +25,20 @@ final class SwissBanApi(mongo: SwissMongo)(using ec: ExecutionContext):
         if (game.playerWhoDidNotMove.exists(_.userId has userId)) onStall(userId)
         else onGoodGame(userId)
       }
-      .sequenceFu
+      .parallel
       .void
 
   private def onStall(user: UserId): Funit = get(user) flatMap { prev =>
-    val hours = prev.fold(24)(_.hours * 2)
+    val hours: Int = prev
+      .fold(24) { ban =>
+        if (ban.until.isBefore(nowDate)) ban.hours * 2 // consecutive
+        else (ban.hours * 1.5).toInt                   // simultaneous
+      }
+      .atMost(30 * 24)
     mongo.ban.update
       .one(
         $id(user),
-        SwissBan(user, DateTime.now plusHours hours, hours),
+        SwissBan(user, nowDate plusHours hours, hours),
         upsert = true
       )
       .void

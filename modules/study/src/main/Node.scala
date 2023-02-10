@@ -1,17 +1,17 @@
 package lila.study
 
 import chess.format.pgn.{ Glyph, Glyphs }
-import chess.format.{ Fen, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.Crazyhouse
 
-import chess.{ Ply, Centis }
+import chess.{ Ply, Centis, Check }
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
 
 sealed trait RootOrNode:
   val ply: Ply
   val fen: Fen.Epd
-  val check: Boolean
+  val check: Check
   val shapes: Shapes
   val clock: Option[Centis]
   val crazyData: Option[Crazyhouse.Data]
@@ -31,7 +31,7 @@ case class Node(
     ply: Ply,
     move: Uci.WithSan,
     fen: Fen.Epd,
-    check: Boolean,
+    check: Check,
     shapes: Shapes = Shapes(Nil),
     comments: Comments = Comments(Nil),
     gamebook: Option[Gamebook] = None,
@@ -97,7 +97,7 @@ case class Node(
       score = n.score orElse score,
       clock = n.clock orElse clock,
       crazyData = n.crazyData orElse crazyData,
-      children = n.children.nodes.foldLeft(children) { case (cs, c) =>
+      children = n.children.nodes.foldLeft(children) { (cs, c) =>
         cs addNode c
       },
       forceVariation = n.forceVariation || forceVariation
@@ -116,24 +116,25 @@ object Node:
     def first      = nodes.headOption
     def variations = nodes drop 1
 
-    def nodeAt(path: Path): Option[Node] =
-      path.split flatMap { (head, rest) =>
-        rest.ids.foldLeft(get(head)) { (cur, id) =>
+    def nodeAt(path: UciPath): Option[Node] =
+      path.split.flatMap { (head, rest) =>
+        rest.computeIds.foldLeft(get(head)) { (cur, id) =>
           cur.flatMap(_.children.get(id))
         }
       }
 
     // select all nodes on that path
-    def nodesOn(path: Path): Vector[(Node, Path)] =
-      path.split ?? { case (head, tail) =>
-        get(head) ?? { first =>
-          (first, Path(Vector(head))) +: first.children.nodesOn(tail).map { case (n, p) =>
-            (n, p prepend head)
+    def nodesOn(path: UciPath): Vector[(Node, UciPath)] =
+      path.split
+        .?? { (head, tail) =>
+          get(head).?? { first =>
+            (first, UciPath.fromId(head)) +: first.children.nodesOn(tail).map { (n, p) =>
+              (n, p prepend head)
+            }
           }
         }
-      }
 
-    def addNodeAt(node: Node, path: Path): Option[Children] =
+    def addNodeAt(node: Node, path: UciPath): Option[Children] =
       path.split match
         case None               => addNode(node).some
         case Some((head, tail)) => updateChildren(head, _.addNodeAt(node, tail))
@@ -143,14 +144,14 @@ object Node:
         Children(nodes.filterNot(_.id == node.id) :+ prev.merge(node))
       }
 
-    def deleteNodeAt(path: Path): Option[Children] =
+    def deleteNodeAt(path: UciPath): Option[Children] =
       path.split flatMap {
-        case (head, Path(Vector())) if has(head) => Children(nodes.filterNot(_.id == head)).some
-        case (_, Path(Vector()))                 => none
+        case (head, p) if p.isEmpty && has(head) => Children(nodes.filterNot(_.id == head)).some
+        case (_, p) if p.isEmpty                 => none
         case (head, tail)                        => updateChildren(head, _.deleteNodeAt(tail))
       }
 
-    def promoteToMainlineAt(path: Path): Option[Children] =
+    def promoteToMainlineAt(path: UciPath): Option[Children] =
       path.split match
         case None => this.some
         case Some((head, tail)) =>
@@ -160,7 +161,7 @@ object Node:
             }
           }
 
-    def promoteUpAt(path: Path): Option[(Children, Boolean)] =
+    def promoteUpAt(path: UciPath): Option[(Children, Boolean)] =
       path.split match
         case None => Some(this -> false)
         case Some((head, tail)) =>
@@ -174,9 +175,9 @@ object Node:
             else if (newNode.id == mainlineNode.id) update(newNode) -> false
             else Children(newNode +: nodes.filterNot(newNode ==))   -> true
 
-    def updateAt(path: Path, f: Node => Node): Option[Children] =
+    def updateAt(path: UciPath, f: Node => Node): Option[Children] =
       path.split flatMap {
-        case (head, Path(Vector())) => updateWith(head, n => Some(f(n)))
+        case (head, p) if p.isEmpty => updateWith(head, n => Some(f(n)))
         case (head, tail)           => updateChildren(head, _.updateAt(tail, f))
       }
 
@@ -225,7 +226,7 @@ object Node:
       }
 
     def countRecursive: Int =
-      nodes.foldLeft(nodes.size) { case (count, n) =>
+      nodes.foldLeft(nodes.size) { (count, n) =>
         count + n.children.countRecursive
       }
 
@@ -240,7 +241,7 @@ object Node:
   case class Root(
       ply: Ply,
       fen: Fen.Epd,
-      check: Boolean,
+      check: Check,
       shapes: Shapes = Shapes(Nil),
       comments: Comments = Comments(Nil),
       gamebook: Option[Gamebook] = None,
@@ -260,40 +261,40 @@ object Node:
 
     def addChild(child: Node) = copy(children = children addNode child)
 
-    def nodeAt(path: Path): Option[RootOrNode] =
+    def nodeAt(path: UciPath): Option[RootOrNode] =
       if (path.isEmpty) this.some else children nodeAt path
 
-    def pathExists(path: Path): Boolean = nodeAt(path).isDefined
+    def pathExists(path: UciPath): Boolean = nodeAt(path).isDefined
 
-    def setShapesAt(shapes: Shapes, path: Path): Option[Root] =
+    def setShapesAt(shapes: Shapes, path: UciPath): Option[Root] =
       if (path.isEmpty) copy(shapes = shapes).some
       else updateChildrenAt(path, _ setShapes shapes)
 
-    def setCommentAt(comment: Comment, path: Path): Option[Root] =
+    def setCommentAt(comment: Comment, path: UciPath): Option[Root] =
       if (path.isEmpty) copy(comments = comments set comment).some
       else updateChildrenAt(path, _ setComment comment)
 
-    def deleteCommentAt(commentId: Comment.Id, path: Path): Option[Root] =
+    def deleteCommentAt(commentId: Comment.Id, path: UciPath): Option[Root] =
       if (path.isEmpty) copy(comments = comments delete commentId).some
       else updateChildrenAt(path, _ deleteComment commentId)
 
-    def setGamebookAt(gamebook: Gamebook, path: Path): Option[Root] =
+    def setGamebookAt(gamebook: Gamebook, path: UciPath): Option[Root] =
       if (path.isEmpty) copy(gamebook = gamebook.some).some
       else updateChildrenAt(path, _ setGamebook gamebook)
 
-    def toggleGlyphAt(glyph: Glyph, path: Path): Option[Root] =
+    def toggleGlyphAt(glyph: Glyph, path: UciPath): Option[Root] =
       if (path.isEmpty) copy(glyphs = glyphs toggle glyph).some
       else updateChildrenAt(path, _ toggleGlyph glyph)
 
-    def setClockAt(clock: Option[Centis], path: Path): Option[Root] =
+    def setClockAt(clock: Option[Centis], path: UciPath): Option[Root] =
       if (path.isEmpty) copy(clock = clock).some
       else updateChildrenAt(path, _ withClock clock)
 
-    def forceVariationAt(force: Boolean, path: Path): Option[Root] =
+    def forceVariationAt(force: Boolean, path: UciPath): Option[Root] =
       if (path.isEmpty) copy(clock = clock).some
       else updateChildrenAt(path, _ withForceVariation force)
 
-    private def updateChildrenAt(path: Path, f: Node => Node): Option[Root] =
+    private def updateChildrenAt(path: UciPath, f: Node => Node): Option[Root] =
       withChildren(_.updateAt(path, f))
 
     def updateMainlineLast(f: Node => Node): Root =
@@ -312,14 +313,14 @@ object Node:
 
     def lastMainlinePly = mainline.lastOption.fold(Ply(0))(_.ply)
 
-    def lastMainlinePlyOf(path: Path) =
+    def lastMainlinePlyOf(path: UciPath) =
       mainline
-        .zip(path.ids)
+        .zip(path.computeIds)
         .takeWhile { (node, id) => node.id == id }
         .lastOption
         .fold(Ply(0)) { (node, _) => node.ply }
 
-    def mainlinePath = Path(mainline.map(_.id))
+    def mainlinePath = UciPath.fromIds(mainline.map(_.id))
 
     def lastMainlineNode: RootOrNode = children.lastMainlineNode getOrElse this
 
@@ -338,7 +339,7 @@ object Node:
       Root(
         ply = Ply(0),
         fen = variant.initialFen,
-        check = false,
+        check = Check.No,
         clock = none,
         crazyData = variant.crazyhouse option Crazyhouse.Data.init,
         children = emptyChildren

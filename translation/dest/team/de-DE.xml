@@ -53,4 +53,5 @@
   <string name="completedTourns">Beendete Turniere</string>
   <string name="declinedRequests">Abgelehnte Anfragen</string>
   <string name="joinLichessVariantTeam">Tritt dem offiziellen %s-Team für Neuigkeiten und Ereignisse bei</string>
+  <string name="teamPage">Teamseite</string>
 </resources>

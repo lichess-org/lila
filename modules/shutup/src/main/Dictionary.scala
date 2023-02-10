@@ -1,16 +1,13 @@
 package lila.shutup
 
-/**   - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
-  *   - words do not partial match. "anal" will NOT match "analysis".
+/**   - words do not partial match. "anal" will NOT match "analysis".
   *   - en, es, de and fr words are automatically pluralized. "tit" will also match "tits", "cabron" will also
   *     match "cabrones" etc.
-  *   - For en only: Past tense of last word in a string matches: "cheat" will also match "cheated", "you
-  *     suck" will also match "you sucked" but "kill you" will NOT match "killed you"
   */
 private object Dictionary:
 
   def en = dict("""
-(f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|)
+(f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|e?d|)
 (f|ph)agg?([oi]t|)
 (kill|hang|neck) my ?self
 [ck]um(shot|)
@@ -27,8 +24,8 @@ ass?(hole|fag)
 autist(ic|)
 aus?c?hwitz
 bastard?
-be[ea]+ch
-bit?ch
+be[ea]++t?ch
+biy?t?ch
 blow(job|)
 blumpkin
 bollock
@@ -38,7 +35,7 @@ braindea?d
 bugger
 buk?kake
 bull?shit
-che[ae]t(ing|er|)
+che[ae]t(ing|er|ed|)
 chess(|-|_)bot(.?com)?
 chicken
 chink
@@ -48,7 +45,7 @@ cock(suc?k(er|ing)|)
 condom
 coon
 coward?
-cripp?le
+cripp?led?
 cry(baby|ing|)
 cunn?ilingu
 dic?k(head|face|suc?ker|)
@@ -59,15 +56,15 @@ downsie?
 dumb(ass?|)
 dyke
 engine
-fck(er|r|u|k|t|ing?|ign|tard?|face|off?|)
+fck(er|r|u|k|t|ing?|ign|tard?|face|off?|e?d)
 foreskin
-gangbang
+gangbang(e?d|)
 gay
 gobshite?
 gook
 gypo
 handjob
-hitler+
+hitler++
 homm?o(sexual|)
 honkey
 hooker
@@ -81,19 +78,19 @@ kill (you|u)
 labia
 lamer?
 lesbo
-lo+ser
-masturbat(e|ion|ing)
+lo++ser
+masturbat(ed?|ion|ing)
 milf
-molest(er|)
+molest(er|ed|)
 mong
 monkey
 moron
 mother(fuc?k(er|)|)
 mthrfckr
 nazi
-nigg?(er|a|ah)
+nigg?ah?
 nonce
-noo+b
+noo++b
 nutsac?k
 pa?edo((f|ph)ile|)
 paki
@@ -105,7 +102,7 @@ pimp
 piss
 poof
 poon
-poo+p(face|)
+poo++p(face|)
 porn(hub|)
 pric?k
 prostitute
@@ -113,19 +110,20 @@ punani
 puss(i|y|ie|)
 queer
 rapist
+rat\b
 rect(al|um)
-retard
+retard(ed|)
 rimjob
 run
-sandbagg?(er|ing|)
-scare
+sandbagg?(er|ing|ed|)
+scared?
 schlong
-screw
+screw(e?d|)
 scrotum
 scum(bag|)
 semen
 sex
-shag
+shagg?(e?d|)
 shemale
 shit(z|e|y|ty|bag|)
 sissy
@@ -138,13 +136,13 @@ sperm
 spick
 spooge
 spunk
-smurff?(er|ing|)
+smurff?(er|ing|e?d|)
 stfu
 stupid
 subhuman
-suicide
+suicided?
 suc?ker
-suck m[ey]
+suck(e?d|) m[ey]
 terrorist
 tit(t?ies|ty|)(fuc?k|)
 tosser
@@ -161,7 +159,7 @@ wanc?k(er|)
 weak
 wetback
 wog
-(you|u) suck
+(you|u) suck(e?d|)
 """) ++ critical
 
   def ru = dict("""
@@ -174,6 +172,7 @@ wog
 (|за|отъ?|у)ебись
 (|на|вы)ебнуть?ся
 blyat
+Убейся
 p[ie]d[aoe]?r
 uebok
 анус
@@ -300,6 +299,7 @@ bok yedin
 gerizekal[iı]
 ibne
 ka[sş]ar
+oç
 orospu( ([çc]o[çc]u[ğg]?u|evlad[ıi]))?
 piç(lik)?
 pu[sş]t
@@ -312,10 +312,13 @@ yarra[gğ][iı] yediniz
 
   def critical = dict("""
 cancer
-((ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )*)+ (die|burn)s?|((die|burn)s? irl))
-(kill|hang|neck) ?((yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)( and )?)+
+(go|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|suicide)
+(ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )?)++ (die|burn)s?
+(die|burn)s? irl
+(kill|hang|neck) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
 kys
-rape
+nigg?er
+rap(ed?|e?ing)
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)

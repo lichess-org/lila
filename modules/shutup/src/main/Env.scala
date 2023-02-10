@@ -22,7 +22,7 @@ final class Env(
     userRepo: UserRepo,
     db: lila.db.Db
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem
 ):
 

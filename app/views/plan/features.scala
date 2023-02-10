@@ -29,6 +29,12 @@ object features:
         table(
           header(h1(dataIcon := "")("Website")),
           tbody(
+            tr(check)(
+              strong("Zero ads")
+            ),
+            tr(check)(
+              strong("No tracking")
+            ),
             tr(unlimited)(
               "Play and create ",
               a(href := routes.Tournament.home)("tournaments")
@@ -121,17 +127,14 @@ object features:
               "Light/dark theme, custom boards, pieces and background"
             ),
             tr(check)(
-              strong("Zero ads")
-            ),
-            tr(check)(
-              strong("No tracking")
-            ),
-            tr(check)(
               strong("All features to come, forever")
             )
           ),
           header(h1(dataIcon := "")("Mobile")),
           tbody(
+            tr(check)(
+              strong("Zero ads, no tracking")
+            ),
             tr(unlimited)(
               "Online and offline games, with 8 variants"
             ),
@@ -155,9 +158,6 @@ object features:
             ),
             tr(check)(
               "iPhone & Android phones and tablets, landscape support"
-            ),
-            tr(check)(
-              strong("Zero ads, no tracking")
             ),
             tr(check)(
               strong("All features to come, forever")

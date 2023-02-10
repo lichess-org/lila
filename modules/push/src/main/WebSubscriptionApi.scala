@@ -1,14 +1,12 @@
 package lila.push
 
-import org.joda.time.DateTime
-
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
 import reactivemongo.api.ReadPreference
 
-final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final class WebSubscriptionApi(coll: Coll)(using Executor):
 
   import WebSubscription.given
 
@@ -21,7 +19,7 @@ final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionC
           "endpoint" -> subscription.endpoint,
           "auth"     -> subscription.auth,
           "p256dh"   -> subscription.p256dh,
-          "seenAt"   -> DateTime.now
+          "seenAt"   -> nowDate
         ),
         upsert = true
       )

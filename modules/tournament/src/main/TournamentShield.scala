@@ -1,8 +1,6 @@
 package lila.tournament
 
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
@@ -11,7 +9,7 @@ import lila.memo.CacheApi.*
 final class TournamentShieldApi(
     tournamentRepo: TournamentRepo,
     cacheApi: lila.memo.CacheApi
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import TournamentShield.*
   import BSONHandlers.given
@@ -45,7 +43,7 @@ final class TournamentShieldApi(
   private[tournament] def clear(): Unit = cache.invalidateUnit().unit
 
   private[tournament] def clearAfterMarking(userId: UserId): Funit = cache.getUnit map { hist =>
-    import cats.implicits.*
+    import cats.syntax.all.*
     if (hist.value.exists(_._2.exists(_.owner == userId))) clear()
   }
 

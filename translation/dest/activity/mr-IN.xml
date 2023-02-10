@@ -55,8 +55,8 @@
     <item quantity="other">%s नवीन अभ्यास बनवले</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">%s आखाड्यांमध्ये भाग घेतला</item>
-    <item quantity="other">\"%s प्रतियॊगीतांमध्यॆ भाग घॆतला.\"</item>
+    <item quantity="one">%s आखाड्यामध्ये भाग घेतला</item>
+    <item quantity="other">%s आखाड्यांमध्ये भाग घेतला</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">%4$s या प्रकारात %1$s क्रमांक (पहिल्या %2$s%% मध्ये) %3$s खेळ खेळून आला</item>

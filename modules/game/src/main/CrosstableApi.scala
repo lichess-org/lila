@@ -1,8 +1,5 @@
 package lila.game
 
-import org.joda.time.DateTime
-import scala.concurrent.ExecutionContext
-
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.user.User
@@ -10,7 +7,7 @@ import lila.user.User
 final class CrosstableApi(
     coll: Coll,
     matchupColl: AsyncCollFailingSilently
-)(using ec: ExecutionContext):
+)(using Executor):
 
   import Crosstable.{ Matchup, Result }
   import Crosstable.{ BSONFields as F }
@@ -83,7 +80,7 @@ final class CrosstableApi(
                 F.score1 -> inc1,
                 F.score2 -> inc2
               ) ++ $set(
-                F.lastPlayed -> DateTime.now
+                F.lastPlayed -> nowDate
               ),
               upsert = true
             )

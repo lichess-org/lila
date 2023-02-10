@@ -4,14 +4,14 @@ import io.mola.galimatias.URL
 import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
-import scala.concurrent.duration.*
+import chess.format.pgn.PgnStr
 
 import lila.study.MultiPgn
 import lila.memo.CacheApi
 import lila.memo.CacheApi.*
 
 final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   import RelayFormat.*
@@ -43,7 +43,7 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
         case _ => fuccess(none)
 
     def guessSingleFile(url: URL): Fu[Option[RelayFormat]] =
-      lila.common.Future.find(
+      lila.common.LilaFuture.find(
         List(
           url.some,
           !url.pathSegments.contains(mostCommonSingleFileName) option addPart(url, mostCommonSingleFileName)
@@ -53,17 +53,15 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
       }
 
     def guessManyFiles(url: URL): Fu[Option[RelayFormat]] =
-      lila.common.Future.find(
+      lila.common.LilaFuture.find(
         List(url) ::: mostCommonIndexNames.filterNot(url.pathSegments.contains).map(addPart(url, _))
-      )(looksLikeJson) flatMap {
-        _ ?? { index =>
-          val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
-          val pgnUrl  = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
-          looksLikeJson(jsonUrl(1).url).map(_ option jsonUrl) orElse
-            looksLikePgn(pgnUrl(1).url).map(_ option pgnUrl) dmap2 {
-              ManyFiles(index, _)
-            }
-        }
+      )(looksLikeJson) flatMapz { index =>
+        val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
+        val pgnUrl  = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
+        looksLikeJson(jsonUrl(1).url).map(_ option jsonUrl) orElse
+          looksLikePgn(pgnUrl(1).url).map(_ option pgnUrl) dmap2 {
+            ManyFiles(index, _)
+          }
       }
 
     guessLcc(originalUrl) orElse
@@ -83,7 +81,7 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
       }
 
   private def looksLikePgn(body: String): Boolean =
-    MultiPgn.split(body, 1).value.headOption ?? { pgn =>
+    MultiPgn.split(PgnStr(body), 1).value.headOption ?? { pgn =>
       lila.study.PgnImport(pgn, Nil).isValid
     }
   private def looksLikePgn(url: URL): Fu[Boolean] = httpGet(url).map { _ exists looksLikePgn }

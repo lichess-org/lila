@@ -12,6 +12,7 @@ import PuzzleStreak from './streak';
 import { PromotionCtrl } from 'chess/promotion';
 import { KeyboardMove } from 'keyboardMove';
 import * as Prefs from 'common/prefs';
+import perfIcons from 'common/perfIcons';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -178,7 +179,7 @@ export interface PuzzleReplay {
 export interface PuzzleGame {
   id: string;
   perf: {
-    icon: string;
+    key: keyof typeof perfIcons;
     name: string;
   };
   rated: boolean;
@@ -211,7 +212,7 @@ export interface Puzzle {
 
 export interface PuzzleResult {
   round?: PuzzleRound;
-  next: PuzzleData;
+  next?: PuzzleData;
   replayComplete?: boolean;
 }
 

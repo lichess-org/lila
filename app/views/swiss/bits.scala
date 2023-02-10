@@ -23,7 +23,7 @@ object bits:
   def idToName(id: SwissId): String  = env.swiss.getName sync id getOrElse "Tournament"
   def iconChar(swiss: Swiss): String = swiss.perfType.iconChar.toString
 
-  def notFound()(implicit ctx: Context) =
+  def notFound()(using Context) =
     views.html.base.layout(
       title = trans.tournamentNotFound.txt()
     ) {
@@ -37,7 +37,7 @@ object bits:
       )
     }
 
-  def forTeam(swisses: List[Swiss])(implicit ctx: Context) =
+  def forTeam(swisses: List[Swiss])(using Context) =
     table(cls := "slist")(
       tbody(
         swisses map { s =>
@@ -71,7 +71,7 @@ object bits:
       )
     )
 
-  def showInterval(s: Swiss)(implicit lang: Lang): Frag =
+  def showInterval(s: Swiss)(using Lang): Frag =
     s.settings.dailyInterval match
       case Some(d)                         => trans.swiss.oneRoundEveryXDays.pluralSame(d)
       case None if s.settings.manualRounds => trans.swiss.roundsAreStartedManually()
@@ -80,8 +80,8 @@ object bits:
           trans.swiss.xSecondsBetweenRounds.pluralSame(s.settings.intervalSeconds)
         else trans.swiss.xMinutesBetweenRounds.pluralSame(s.settings.intervalSeconds / 60)
 
-  def homepageSpotlight(s: Swiss)(implicit ctx: Context) =
-    a(href                     := routes.Swiss.show(s.id), cls := "tour-spotlight little")(
+  def homepageSpotlight(s: Swiss)(using Context) =
+    a(href := routes.Swiss.show(s.id), cls := "tour-spotlight little")(
       iconTag(iconChar(s))(cls := "img icon"),
       span(cls := "content")(
         span(cls := "name")(s.name, " Swiss"),
@@ -93,7 +93,7 @@ object bits:
       )
     )
 
-  def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
+  def jsI18n(using Context) = i18nJsObject(i18nKeys)
 
   private val i18nKeys = List(
     trans.join,

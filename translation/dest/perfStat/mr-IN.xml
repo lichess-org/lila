@@ -8,9 +8,9 @@
   <string name="ratingDeviation">गुणांकनातील विचलन: %s.</string>
   <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">हे जेवढे कमी, तेवढे गुणांकन जास्त स्थिर. %1$s पेक्षा जास्त असेल तर गुणांकन तात्पुरते समजले जाते. मानांकनात वापरण्यासाठी हे %2$s पेक्षा कमी (साधारण बुद्धिबळासाठी) किंवा %3$s पेक्षा कमी (इतर प्रकारांसाठी) असावे लागते.</string>
   <string name="totalGames">एकूण खेळ</string>
-  <string name="ratedGames">औपचारिक खेळ</string>
+  <string name="ratedGames">गुणांकित खेळ</string>
   <string name="tournamentGames">स्पर्धेतील खेळ</string>
-  <string name="berserkedGames">बेडर खेळ</string>
+  <string name="berserkedGames">बेभान खेळ</string>
   <string name="timeSpentPlaying">खेळण्यात घालवलेला वेळ</string>
   <string name="averageOpponent">प्रतिस्पर्धी सरासरी</string>
   <string name="victories">विजय</string>

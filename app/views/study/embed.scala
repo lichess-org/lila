@@ -5,25 +5,24 @@ import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.EmbedConfig
+import lila.app.ui.EmbedConfig.given
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.i18n.{ I18nKeys as trans }
 
 object embed:
 
-  import EmbedConfig.implicits.*
-
   def apply(
       s: lila.study.Study,
       chapter: lila.study.Chapter,
       chapters: List[lila.study.Chapter.IdName],
       data: lila.study.JsonView.JsData
-  )(implicit config: EmbedConfig) =
+  )(using config: EmbedConfig) =
     views.html.base.embed(
       title = s"${s.name} ${chapter.name}",
       cssModule = "analyse.embed"
     )(
-      div(cls    := "is2d")(
+      div(cls := "is2d")(
         main(cls := "analyse")
       ),
       footer {

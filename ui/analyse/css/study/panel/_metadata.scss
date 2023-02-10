@@ -16,6 +16,7 @@
       @extend %ellipsis;
 
       padding: 0.7rem 0;
+      unicode-bidi: plaintext;
     }
 
     .credit {
@@ -90,6 +91,7 @@
     background: mix($c-primary, $c-bg-box, 17%);
     padding: 0.2em 0.6em;
     margin: 0.2em;
+    unicode-bidi: plaintext;
   }
 
   .manage {

@@ -1,10 +1,9 @@
 package lila.app
 package templating
 
-import chess.{ Black, Clock, Color, Mode, Outcome, Status as S, White }
+import chess.{ Black, Clock, Color, Mode, Outcome, Ply, White, Status as S }
 import controllers.routes
 import play.api.i18n.Lang
-
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Namer, Player, Pov }
@@ -39,8 +38,9 @@ trait GameHelper:
 
   def describePov(pov: Pov) =
     import pov.*
-    val p1 = playerText(game.whitePlayer, withRating = true)
-    val p2 = playerText(game.blackPlayer, withRating = true)
+    val p1    = playerText(game.whitePlayer, withRating = true)
+    val p2    = playerText(game.blackPlayer, withRating = true)
+    val plays = if game.finishedOrAborted then "played" else "is playing"
     val speedAndClock =
       if (game.imported) "imported"
       else
@@ -56,23 +56,14 @@ trait GameHelper:
     val result = (game.winner, game.loser, game.status) match
       case (Some(w), _, Mate)                               => s"${playerText(w)} won by checkmate"
       case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${playerText(l)} resigned"
-      case (_, Some(l), Outoftime)                          => s"${playerText(l)} forfeits by time"
-      case (Some(w), _, UnknownFinish)                      => s"${playerText(w)} won"
+      case (_, Some(l), Outoftime)                          => s"${playerText(l)} ran out of time"
+      case (Some(w), _, UnknownFinish | VariantEnd)         => s"${playerText(w)} won"
       case (_, _, Draw | Stalemate | UnknownFinish)         => "Game is a draw"
       case (_, _, Aborted)                                  => "Game has been aborted"
-      case (_, _, VariantEnd) =>
-        game.variant match
-          case chess.variant.KingOfTheHill => "King in the center"
-          case chess.variant.ThreeCheck    => "Three checks"
-          case chess.variant.Antichess     => "Lose all your pieces to win"
-          case chess.variant.Atomic        => "Explode or mate your opponent's king to win"
-          case chess.variant.Horde         => "Destroy the horde to win"
-          case chess.variant.RacingKings   => "Race to the eighth rank to win"
-          case chess.variant.Crazyhouse    => "Drop captured pieces on the board"
-          case _                           => "Variant ending"
-      case _ => "Game is still being played"
-    val moves = s"${game.chess.fullMoveNumber} moves"
-    s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
+      case _ if game.finished                               => "Game ended"
+      case _                                                => "Game is still ongoing"
+    val moves = (game.ply.value - game.startedAtPly.value + 1) / 2
+    s"$p1 $plays $p2 in a $mode $speedAndClock game of $variant. $result after ${pluralize("move", moves)}. Click to replay, analyse, and discuss the game!"
 
   def shortClockName(clock: Option[Clock.Config])(using lang: Lang): Frag =
     clock.fold[Frag](trans.unlimited())(shortClockName)

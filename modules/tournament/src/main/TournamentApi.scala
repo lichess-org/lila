@@ -4,10 +4,7 @@ import akka.stream.scaladsl.*
 import com.roundeights.hasher.Algo
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
-import org.joda.time.DateTime
 import play.api.libs.json.*
-import scala.concurrent.duration.*
-import scala.concurrent.Promise
 import scala.util.chaining.*
 
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
@@ -44,9 +41,9 @@ final class TournamentApi(
     lightUserApi: lila.user.LightUserApi,
     proxyRepo: lila.round.GameProxyRepo
 )(using
-    scala.concurrent.ExecutionContext,
+    Executor,
     akka.actor.ActorSystem,
-    akka.actor.Scheduler,
+    Scheduler,
     akka.stream.Materializer
 ):
 
@@ -155,7 +152,7 @@ final class TournamentApi(
                           .mon(_.tournament.pairing.createAutoPairing)
                           .map { socket.startGame(tour.id, _) }
                       }
-                      .sequenceFu
+                      .parallel
                       .void
                       .mon(_.tournament.pairing.createInserts) >>- {
                       lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
@@ -173,7 +170,7 @@ final class TournamentApi(
       }
 
   private def featureOneOf(tour: Tournament, pairings: List[Pairing.WithPlayers], ranking: Ranking): Funit =
-    import cats.implicits.*
+    import cats.syntax.all.*
     tour.featuredId.ifTrue(pairings.nonEmpty) ?? pairingRepo.byId map2
       RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
         pairings.flatMap(p => RankedPairing(ranking)(p.pairing)).minimumByOption(_.bestRank.value) ?? {
@@ -245,7 +242,7 @@ final class TournamentApi(
     import lila.tournament.Tournament.tournamentUrl
     tour.schedule.exists(_.freq == Schedule.Freq.Marathon) ?? {
       playerRepo.bestByTourWithRank(tour.id, 500).flatMap { players =>
-        lila.common.Future
+        lila.common.LilaFuture
           .applySequentially(players) {
             case rp if rp.rank.value == 1 =>
               trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonWinner)
@@ -388,7 +385,7 @@ final class TournamentApi(
     tournamentRepo.withdrawableIds(user.id, reason = "withdrawAll") flatMap {
       _.map {
         withdraw(_, user.id, isPause = false, isStalling = false)
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   private[tournament] def berserk(gameId: GameId, userId: UserId): Funit =
@@ -398,8 +395,8 @@ final class TournamentApi(
           pairingRepo.findPlaying(tourId, userId) flatMap {
             case Some(pairing) if !pairing.berserkOf(userId) =>
               (pairing colorOf userId) ?? { color =>
-                roundSocket.rounds.ask(gameId) { GoBerserk(color, _) } flatMap {
-                  _ ?? pairingRepo.setBerserk(pairing, userId)
+                roundSocket.rounds.ask(gameId) { GoBerserk(color, _) } flatMapz {
+                  pairingRepo.setBerserk(pairing, userId)
                 }
               }
             case _ => funit
@@ -413,7 +410,7 @@ final class TournamentApi(
       pairingRepo.finishAndGet(game) flatMap { pairingOpt =>
         Parallel(tourId, "finishGame")(cached.tourCache.started) { tour =>
           pairingOpt ?? { pairing =>
-            game.userIds.map(updatePlayerAfterGame(tour, game, pairing)).sequenceFu.void
+            game.userIds.map(updatePlayerAfterGame(tour, game, pairing)).parallel.void
           } >>- {
             duelStore.remove(game)
             socket.reload(tour.id)
@@ -467,7 +464,7 @@ final class TournamentApi(
     tournamentRepo.withdrawableIds(userId, reason = "pausePlaybanned") flatMap {
       _.map {
         playerRepo.withdraw(_, userId)
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   private[tournament] def kickFromTeam(teamId: TeamId, userId: UserId): Funit =
@@ -479,7 +476,7 @@ final class TournamentApi(
             else playerRepo.withdraw(tour.id, userId)
           fu >> updateNbPlayers(tourId) >>- socket.reload(tourId)
         }
-      }.sequenceFu.void
+      }.parallel.void
     }
 
   // withdraws the player and forfeits all pairings in ongoing tournaments
@@ -496,7 +493,7 @@ final class TournamentApi(
               }
             } >> pairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
               pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
-                lila.common.Future.applySequentially(uids.toList)(recomputePlayerAndSheet(tour))
+                lila.common.LilaFuture.applySequentially(uids.toList)(recomputePlayerAndSheet(tour))
             }
           }
         } >>
@@ -519,28 +516,26 @@ final class TournamentApi(
     }
 
   private[tournament] def recomputeEntireTournament(id: TourId): Funit =
-    tournamentRepo.byId(id) flatMap {
-      _ ?? { tour =>
-        import lila.db.dsl.{ *, given }
-        import reactivemongo.api.ReadPreference
-        playerRepo
-          .sortedCursor(tour.id, 64, ReadPreference.primary)
-          .documentSource()
-          .mapAsyncUnordered(4) { player =>
-            cached.sheet.recompute(tour, player.userId) dmap (player -> _)
-          }
-          .mapAsyncUnordered(4) { case (player, sheet) =>
-            playerRepo.update(
-              player.copy(
-                score = sheet.total,
-                fire = tour.streakable && sheet.isOnFire
-              )
+    tournamentRepo.byId(id) flatMapz { tour =>
+      import lila.db.dsl.{ *, given }
+      import reactivemongo.api.ReadPreference
+      playerRepo
+        .sortedCursor(tour.id, 64, ReadPreference.primary)
+        .documentSource()
+        .mapAsyncUnordered(4) { player =>
+          cached.sheet.recompute(tour, player.userId) dmap (player -> _)
+        }
+        .mapAsyncUnordered(4) { case (player, sheet) =>
+          playerRepo.update(
+            player.copy(
+              score = sheet.total,
+              fire = tour.streakable && sheet.isOnFire
             )
-          }
-          .toMat(Sink.ignore)(Keep.right)
-          .run()
-          .void
-      }
+          )
+        }
+        .toMat(Sink.ignore)(Keep.right)
+        .run()
+        .void
     }
 
   // erases player from tournament and reassigns winner
@@ -548,10 +543,8 @@ final class TournamentApi(
     Parallel(tourId, "removePlayerAndRewriteHistory")(tournamentRepo.finishedById) { tour =>
       playerRepo.remove(tourId, userId) >> {
         tour.winnerId.contains(userId) ?? {
-          playerRepo winner tour.id flatMap {
-            _ ?? { p =>
-              tournamentRepo.setWinnerId(tour.id, p.userId)
-            }
+          playerRepo winner tour.id flatMapz { p =>
+            tournamentRepo.setWinnerId(tour.id, p.userId)
           }
         }
       }
@@ -573,57 +566,47 @@ final class TournamentApi(
   object gameView:
 
     def player(pov: Pov): Fu[Option[GameView]] =
-      (pov.game.tournamentId ?? get) flatMap {
-        _ ?? { tour =>
-          getTeamVs(tour, pov.game) zip getGameRanks(tour, pov.game) flatMap { case (teamVs, ranks) =>
-            teamVs.fold(tournamentTop(tour.id) dmap some) { vs =>
-              cached.teamInfo.get(tour.id -> vs.teams(pov.color)) map2 { info =>
-                TournamentTop(info.topPlayers take tournamentTopNb)
-              }
-            } dmap {
-              GameView(tour, teamVs, ranks, _).some
+      (pov.game.tournamentId ?? get) flatMapz { tour =>
+        getTeamVs(tour, pov.game) zip getGameRanks(tour, pov.game) flatMap { case (teamVs, ranks) =>
+          teamVs.fold(tournamentTop(tour.id) dmap some) { vs =>
+            cached.teamInfo.get(tour.id -> vs.teams(pov.color)) map2 { info =>
+              TournamentTop(info.topPlayers take tournamentTopNb)
             }
+          } dmap {
+            GameView(tour, teamVs, ranks, _).some
           }
         }
       }
 
     def watcher(game: Game): Fu[Option[GameView]] =
-      (game.tournamentId ?? get) flatMap {
-        _ ?? { tour =>
-          getTeamVs(tour, game) zip getGameRanks(tour, game) dmap { case (teamVs, ranks) =>
-            GameView(tour, teamVs, ranks, none).some
-          }
+      (game.tournamentId ?? get) flatMapz { tour =>
+        getTeamVs(tour, game) zip getGameRanks(tour, game) dmap { case (teamVs, ranks) =>
+          GameView(tour, teamVs, ranks, none).some
         }
       }
 
     def mobile(game: Game): Fu[Option[GameView]] =
-      (game.tournamentId ?? get) flatMap {
-        _ ?? { tour =>
-          getGameRanks(tour, game) dmap { ranks =>
-            GameView(tour, none, ranks, none).some
-          }
+      (game.tournamentId ?? get) flatMapz { tour =>
+        getGameRanks(tour, game) dmap { ranks =>
+          GameView(tour, none, ranks, none).some
         }
       }
 
     def analysis(game: Game): Fu[Option[GameView]] =
-      (game.tournamentId ?? get) flatMap {
-        _ ?? { tour =>
-          getTeamVs(tour, game) dmap { GameView(tour, _, none, none).some }
-        }
+      (game.tournamentId ?? get) flatMapz { tour =>
+        getTeamVs(tour, game) dmap { GameView(tour, _, none, none).some }
       }
 
     def withTeamVs(game: Game): Fu[Option[TourAndTeamVs]] =
-      (game.tournamentId ?? get) flatMap {
-        _ ?? { tour =>
-          getTeamVs(tour, game) dmap { TourAndTeamVs(tour, _).some }
-        }
+      (game.tournamentId ?? get) flatMapz { tour =>
+        getTeamVs(tour, game) dmap { TourAndTeamVs(tour, _).some }
       }
 
     private def getGameRanks(tour: Tournament, game: Game): Fu[Option[GameRanks]] =
       game.whitePlayer.userId.ifTrue(tour.isStarted) ?? { whiteId =>
         game.blackPlayer.userId ?? { blackId =>
           cached ranking tour map { ranking =>
-            import cats.implicits.*
+            import cats.syntax.all.*
             (ranking.ranking.get(whiteId), ranking.ranking.get(blackId)) mapN { (whiteR, blackR) =>
               GameRanks(whiteR + 1, blackR + 1)
             }
@@ -652,11 +635,9 @@ final class TournamentApi(
     }
 
   def playerInfo(tour: Tournament, userId: UserId): Fu[Option[PlayerInfoExt]] =
-    playerRepo.find(tour.id, userId) flatMap {
-      _ ?? { player =>
-        playerPovs(tour, userId, 50) map { povs =>
-          PlayerInfoExt(userId, player, povs).some
-        }
+    playerRepo.find(tour.id, userId) flatMapz { player =>
+      playerPovs(tour, userId, 50) map { povs =>
+        PlayerInfoExt(userId, player, povs).some
       }
     }
 
@@ -664,12 +645,12 @@ final class TournamentApi(
     tournamentRepo.standardPublicStartedFromSecondary.flatMap {
       _.map { tour =>
         tournamentTop(tour.id) dmap (tour -> _)
-      }.sequenceFu
+      }.parallel
         .dmap(_.toMap)
     }
 
   def calendar: Fu[List[Tournament]] =
-    val from = DateTime.now.minusDays(1)
+    val from = nowDate.minusDays(1)
     tournamentRepo.calendar(from = from, to = from plusYears 1)
 
   def history(freq: Schedule.Freq, page: Int): Fu[Paginator[Tournament]] =
@@ -679,15 +660,23 @@ final class TournamentApi(
       maxPerPage = MaxPerPage(20)
     )
 
-  def resultStream(tour: Tournament, perSecond: MaxPerSecond, nb: Int): Source[Player.Result, ?] =
+  def resultStream(
+      tour: Tournament,
+      perSecond: MaxPerSecond,
+      nb: Int,
+      withSheet: Boolean
+  ): Source[Player.Result, ?] =
     playerRepo
       .sortedCursor(tour.id, perSecond.value)
       .documentSource(nb)
       .throttle(perSecond.value, 1 second)
+      .mapAsync(1) { player =>
+        withSheet.??(cached.sheet(tour, player.userId) dmap some).dmap(player -> _)
+      }
       .zipWithIndex
-      .mapAsync(8) { case (player, index) =>
+      .mapAsync(8) { case ((player, sheet), index) =>
         lightUserApi.asyncFallback(player.userId) map {
-          Player.Result(player, _, index.toInt + 1)
+          Player.Result(player, _, index.toInt + 1, sheet)
         }
       }
 
@@ -737,10 +726,8 @@ final class TournamentApi(
 
   def toggleFeaturing(tourId: TourId, v: Boolean): Funit =
     if (v)
-      tournamentRepo.byId(tourId) flatMap {
-        _ ?? { tour =>
-          tournamentRepo.setSchedule(tour.id, Schedule.uniqueFor(tour).some)
-        }
+      tournamentRepo.byId(tourId) flatMapz { tour =>
+        tournamentRepo.setSchedule(tour.id, Schedule.uniqueFor(tour).some)
       }
     else
       tournamentRepo.setSchedule(tourId, none)
@@ -754,13 +741,11 @@ final class TournamentApi(
   private def Parallel(tourId: TourId, action: String)(
       fetch: TourId => Fu[Option[Tournament]]
   )(run: Tournament => Funit): Funit =
-    fetch(tourId) flatMap {
-      _ ?? { tour =>
-        if (tour.nbPlayers > 1000)
-          run(tour).chronometer.mon(_.tournament.action(tourId.value, action)).result
-        else
-          run(tour)
-      }
+    fetch(tourId) flatMapz { tour =>
+      if (tour.nbPlayers > 1000)
+        run(tour).chronometer.mon(_.tournament.action(tourId.value, action)).result
+      else
+        run(tour)
     }
 
   private object publish:

@@ -3,7 +3,6 @@ package controllers
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 import views.*
 
@@ -33,7 +32,7 @@ final class Swiss(
 
   def show(id: SwissId) =
     Open { implicit ctx =>
-      env.swiss.cache.swissCache.byId(SwissId(id)) flatMap { swissOption =>
+      env.swiss.cache.swissCache.byId(id) flatMap { swissOption =>
         val page = getInt("page").filter(0.<)
         negotiate(
           html = swissOption.fold(swissNotFound.toFuccess) { swiss =>
@@ -89,7 +88,7 @@ final class Swiss(
 
   def apiShow(id: SwissId) =
     Action.async { implicit req =>
-      env.swiss.cache.swissCache byId SwissId(id) flatMap {
+      env.swiss.cache.swissCache byId id flatMap {
         case Some(swiss) => env.swiss.json.api(swiss) map JsonOk
         case _           => notFoundJson()
       }
@@ -100,7 +99,7 @@ final class Swiss(
 
   def round(id: SwissId, round: Int) =
     Open { implicit ctx =>
-      OptionFuResult(env.swiss.cache.swissCache byId SwissId(id)) { swiss =>
+      OptionFuResult(env.swiss.cache.swissCache byId id) { swiss =>
         (round > 0 && round <= swiss.round.value).option(lila.swiss.SwissRoundNumber(round)) ?? { r =>
           val page = getInt("page").filter(0.<)
           env.swiss.roundPager(swiss, r, page | 0) map { pager =>
@@ -110,8 +109,8 @@ final class Swiss(
       }
     }
 
-  private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    ctx.userId ?? { env.team.cached.isLeader(teamId, _) } flatMap { _ ?? f }
+  private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: Context): Fu[Result] =
+    ctx.userId ?? { env.team.cached.isLeader(teamId, _) } flatMapz f
 
   def form(teamId: TeamId) =
     Auth { implicit ctx => me =>
@@ -164,21 +163,19 @@ final class Swiss(
 
   def apiTerminate(id: SwissId) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
-      env.swiss.cache.swissCache byId SwissId(id) flatMap {
-        _ ?? {
-          case swiss if swiss.createdBy == me.id || isGranted(_.ManageTournament, me) =>
-            env.swiss.api
-              .kill(swiss)
-              .map(_ => jsonOkResult)
-          case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied")).toFuccess
-        }
+      env.swiss.cache.swissCache byId id flatMapz {
+        case swiss if swiss.createdBy == me.id || isGranted(_.ManageTournament, me) =>
+          env.swiss.api
+            .kill(swiss)
+            .map(_ => jsonOkResult)
+        case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied")).toFuccess
       }
     }
 
   def join(id: SwissId) =
     AuthBody { implicit ctx => me =>
       NoLameOrBot {
-        doJoin(me, SwissId(id), bodyPassword(ctx.body))
+        doJoin(me, id, bodyPassword(ctx.body))
       }
     }
 
@@ -186,7 +183,7 @@ final class Swiss(
     ScopedBody(_.Tournament.Write) { implicit req => me =>
       if (me.lame || me.isBot)
         Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
-      else doJoin(me, SwissId(id), bodyPassword)
+      else doJoin(me, id, bodyPassword)
     }
 
   private def bodyPassword(implicit req: Request[?]) =
@@ -204,7 +201,7 @@ final class Swiss(
 
   def withdraw(id: SwissId) =
     Auth { implicit ctx => me =>
-      env.swiss.api.withdraw(SwissId(id), me.id) >>
+      env.swiss.api.withdraw(id, me.id) >>
         negotiate(
           html = Redirect(routes.Swiss.show(id)).toFuccess,
           api = _ => fuccess(jsonOkResult)
@@ -251,10 +248,8 @@ final class Swiss(
           .fold(
             newJsonFormError,
             data => {
-              env.swiss.api.update(swiss.id, data) flatMap {
-                _ ?? { swiss =>
-                  env.swiss.json.api(swiss) map JsonOk
-                }
+              env.swiss.api.update(swiss.id, data) flatMapz { swiss =>
+                env.swiss.json.api(swiss) map JsonOk
               }
             }
           )
@@ -293,11 +288,9 @@ final class Swiss(
   def pageOf(id: SwissId, userId: UserStr) =
     Action.async {
       WithSwiss(id) { swiss =>
-        env.swiss.api.pageOf(swiss, userId.id) flatMap {
-          _ ?? { page =>
-            JsonOk {
-              env.swiss.standingApi(swiss, page)
-            }
+        env.swiss.api.pageOf(swiss, userId.id) flatMapz { page =>
+          JsonOk {
+            env.swiss.standingApi(swiss, page)
           }
         }
       }
@@ -316,7 +309,7 @@ final class Swiss(
 
   def exportTrf(id: SwissId) =
     Action.async {
-      env.swiss.cache.swissCache byId SwissId(id) map {
+      env.swiss.cache.swissCache byId id map {
         case None => NotFound("Tournament not found")
         case Some(swiss) =>
           Ok.chunked(env.swiss.trf(swiss, sorted = true) intersperse "\n")
@@ -336,7 +329,7 @@ final class Swiss(
     }
 
   private def WithSwiss(id: SwissId)(f: SwissModel => Fu[Result]): Fu[Result] =
-    env.swiss.cache.swissCache byId SwissId(id) flatMap { _ ?? f }
+    env.swiss.cache.swissCache byId id flatMapz f
 
   private def WithEditableSwiss(
       id: SwissId,

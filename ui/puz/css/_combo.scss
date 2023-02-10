@@ -105,13 +105,14 @@
   &__levels {
     @extend %flex-center;
 
-    margin: 0.3em 0 0 -0.6em;
+    @include margin-direction(0.3em, 0, 0, -0.6em);
   }
 
   &__level {
     $c-level: $c-primary;
 
-    transform: skewX(-45deg);
+    direction: ltr;
+    transform: skewX(-45deg * $transform-direction);
     flex: 21% 0 0;
     margin-#{$end-direction}: 4%;
     font-size: 0.9em;
@@ -124,7 +125,7 @@
     font-weight: bold;
 
     span {
-      transform: skewX(45deg);
+      transform: skewX(45deg * $transform-direction);
       display: block;
     }
 

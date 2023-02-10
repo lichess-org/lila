@@ -12,5 +12,23 @@
   <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Scrivi la preferenza</string>
   <string name="emailRead">Leggi l\'indirizzo e-mail</string>
   <string name="challengeRead">Leggi le sfide in arrivo</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Invia, accetta e rifiuta le sfide</string>
+  <string name="challengeBulk">Crea molte partite contemporaneamente per gli altri giocatori</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Leggi studi e trasmissioni privati</string>
+  <string name="studyWrite">Crea, aggiorna, elimina studi e trasmissioni</string>
+  <string name="tournamentWrite">Crea, aggiorna e partecipa a tornei</string>
+  <string name="racerWrite">Crea e partecipa a gare di rompicapo</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Leggi l\'attività dei rompicapo</string>
+  <string name="teamRead">Leggi le informazioni private della squadra</string>
+  <string name="teamWrite">Unisciti a e abbandona squadre</string>
   <string name="teamLead">Gestisci le squadre di cui sei il capo: manda messaggi privati, espelli membri</string>
+  <string name="followRead">Leggi i giocatori seguiti</string>
+  <string name="followWrite">Segui e smetti di seguire altri giocatori</string>
+  <string name="msgWrite">Invia messaggi privati ad altri giocatori</string>
+  <string name="boardPlay">Disputa partite a tavolino tramite API</string>
+  <string name="botPlay">Disputa partite tramite bot API</string>
+  <string name="engineRead">Visualizza e utilizza motori esterni</string>
+  <string name="engineWrite">Crea e aggiorna i motori esterni</string>
+  <string name="webLogin">Crea sessioni del sito web autenticate (concede il pieno accesso!)</string>
+  <string name="webMod">Utilizza strumenti da moderatore (entro i limiti dei tuoi permessi)</string>
 </resources>

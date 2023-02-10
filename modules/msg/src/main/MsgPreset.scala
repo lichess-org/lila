@@ -30,13 +30,6 @@ Thank you for your understanding."""
 This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account."""
   )
 
-  lazy val enableTwoFactor = MsgPreset(
-    name = "Enable two-factor authentication",
-    text =
-      """Please enable two-factor authentication to secure your account at https://lichess.org/account/twofactor.
-You received this message because your account has special responsibilities such as coach, teacher or streamer."""
-  )
-
   def maxFollow(username: Username, max: Int) =
     MsgPreset(
       name = "Follow limit reached!",

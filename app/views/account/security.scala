@@ -16,14 +16,12 @@ object security:
       curSessionId: String,
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
-  )(using
-      ctx: Context
-  ) =
+  )(using Context) =
     account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security") {
       div(cls := "account security")(
         div(cls := "box")(
           h1(cls := "box__top")(trans.security()),
-          standardFlash(cls := "box__pad"),
+          standardFlash.map(div(cls := "box__pad")(_)),
           div(cls := "box__pad")(
             p(
               "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to ",
@@ -52,7 +50,7 @@ object security:
       curSessionId: Option[String],
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
-  )(implicit lang: Lang) =
+  )(using Lang) =
     st.table(cls := "slist slist-pad")(
       sessions.map { s =>
         tr(
@@ -77,7 +75,7 @@ object security:
           curSessionId.map { cur =>
             td(
               s.session.id != cur option
-                postForm(action    := routes.Account.signout(s.session.id))(
+                postForm(action := routes.Account.signout(s.session.id))(
                   submitButton(cls := "button button-red", title := trans.logOut.txt(), dataIcon := "")
                 )
             )
@@ -106,7 +104,7 @@ object security:
             }
           ),
           td(
-            postForm(action    := routes.OAuth.revokeClient)(
+            postForm(action := routes.OAuth.revokeClient)(
               input(tpe        := "hidden", name             := "origin", value    := client.origin),
               submitButton(cls := "button button-red", title := "Revoke", dataIcon := "")
             )

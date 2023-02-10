@@ -1,7 +1,5 @@
 package lila.common
 
-import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.{ ExecutionContext, Future }
 import scala.util.Try
 import lila.Lila.Fu
 
@@ -9,8 +7,9 @@ object Chronometer:
 
   case class Lap[A](result: A, nanos: Long):
 
-    def millis = (nanos / 1000000).toInt
-    def micros = (nanos / 1000).toInt
+    def millis  = (nanos / 1000000).toInt
+    def micros  = (nanos / 1000).toInt
+    def seconds = (millis / 1000).toInt
 
     def logIfSlow(threshold: Int, logger: lila.log.Logger)(msg: A => String) =
       if (millis >= threshold) log(logger)(msg)
@@ -81,7 +80,7 @@ object Chronometer:
     def result =
       lap.flatMap { l =>
         Future.fromTry(l.result)
-      }(ExecutionContext.parasitic)
+      }(scala.concurrent.ExecutionContext.parasitic)
 
   def apply[A](f: Fu[A]): FuLap[A] =
     val start = nowNanos
@@ -92,7 +91,7 @@ object Chronometer:
     FuLapTry {
       f.transformWith { r =>
         fuccess(LapTry(r, nowNanos - start))
-      }(ExecutionContext.parasitic)
+      }(scala.concurrent.ExecutionContext.parasitic)
     }
 
   def sync[A](f: => A): Lap[A] =
@@ -110,3 +109,7 @@ object Chronometer:
     val res   = f
     timer.stop()
     res
+
+  def start =
+    val at = nowNanos
+    () => Lap((), nowNanos - at)

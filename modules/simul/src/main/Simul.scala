@@ -5,7 +5,6 @@ import chess.Color
 import chess.format.Fen
 import chess.variant.Variant
 import chess.Speed
-import org.joda.time.DateTime
 
 import lila.rating.PerfType
 import lila.user.User
@@ -80,7 +79,7 @@ case class Simul(
   def start =
     startable option copy(
       status = SimulStatus.Started,
-      startedAt = DateTime.now.some,
+      startedAt = nowDate.some,
       applicants = Nil,
       pairings = applicants collect {
         case a if a.accepted => SimulPairing(a.player)
@@ -103,7 +102,7 @@ case class Simul(
     if (isStarted && pairings.forall(_.finished))
       copy(
         status = SimulStatus.Finished,
-        finishedAt = DateTime.now.some,
+        finishedAt = nowDate.some,
         hostGameId = none
       )
     else this
@@ -173,7 +172,7 @@ object Simul:
       } ::: List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
     },
     hostGameId = none,
-    createdAt = DateTime.now,
+    createdAt = nowDate,
     estimatedStartAt = estimatedStartAt,
     variants = if (position.isDefined) List(chess.variant.Standard) else variants,
     position = position,
@@ -181,7 +180,7 @@ object Simul:
     pairings = Nil,
     startedAt = none,
     finishedAt = none,
-    hostSeenAt = DateTime.now.some,
+    hostSeenAt = nowDate.some,
     color = color.some,
     text = text,
     team = team,

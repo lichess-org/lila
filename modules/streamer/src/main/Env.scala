@@ -4,7 +4,6 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import lila.common.autoconfig.{ *, given }
 import play.api.{ ConfigLoader, Configuration }
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 
@@ -30,10 +29,12 @@ final class Env(
     userRepo: lila.user.UserRepo,
     subsRepo: lila.relation.SubscriptionRepo,
     prefApi: lila.pref.PrefApi,
-    db: lila.db.Db
+    db: lila.db.Db,
+    net: lila.common.config.NetConfig
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
+    ec: Executor,
+    scheduler: Scheduler,
+    mat: akka.stream.Materializer
 ):
 
   private given ConfigLoader[TwitchConfig]   = AutoConfig.loader[TwitchConfig]
@@ -54,32 +55,36 @@ final class Env(
   lazy val homepageMaxSetting =
     settingStore[Int](
       "streamerHomepageMax",
-      default = 6,
+      default = 5,
       text = "Max streamers on homepage".some
     )
 
-  lazy val api: StreamerApi = wire[StreamerApi]
+  lazy val ytApi: YouTubeApi = wire[YouTubeApi]
+  lazy val api: StreamerApi  = wire[StreamerApi]
 
   lazy val pager = wire[StreamerPager]
 
   private lazy val twitchApi: TwitchApi = wire[TwitchApi]
 
-  private val streaming = new Streaming(
+  private val streaming = Streaming(
     ws = ws,
     api = api,
     isOnline = isOnline,
     keyword = config.keyword,
     alwaysFeatured = (() => alwaysFeaturedSetting.get()),
-    googleApiKey = config.googleApiKey,
-    twitchApi = twitchApi
+    twitchApi = twitchApi,
+    ytApi = ytApi
   )
 
   lazy val liveStreamApi = wire[LiveStreamApi]
 
-  lila.common.Bus.subscribeFun("adjustCheater") { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-    api.demote(userId).unit
+  lila.common.Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban") {
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) => api.demote(userId).unit
+    case lila.hub.actorApi.mod.MarkBooster(userId)       => api.demote(userId).unit
+    case lila.hub.actorApi.mod.Shadowban(userId, true)   => api.demote(userId).unit
   }
 
   scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>
     api.autoDemoteFakes.unit
   }
+  scheduler.scheduleWithFixedDelay(21 minutes, 8 days)(() => ytApi.subscribeAll.unit)

@@ -2,7 +2,6 @@ package lila.swiss
 
 import akka.stream.scaladsl.*
 import BsonHandlers.given
-import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 
@@ -68,7 +67,7 @@ private object SwissSheet:
     }
 
 final private class SwissSheetApi(mongo: SwissMongo)(using
-    scala.concurrent.ExecutionContext,
+    Executor,
     akka.stream.Materializer
 ):
 
@@ -77,7 +76,7 @@ final private class SwissSheetApi(mongo: SwissMongo)(using
       sort: Bdoc
   ): Source[(SwissPlayer, Map[SwissRoundNumber, SwissPairing], SwissSheet), ?] =
     val readPreference =
-      if (swiss.finishedAt.exists(_ isBefore DateTime.now.minusSeconds(10)))
+      if (swiss.finishedAt.exists(_ isBefore nowDate.minusSeconds(10)))
         temporarilyPrimary
       else ReadPreference.primary
     SwissPlayer

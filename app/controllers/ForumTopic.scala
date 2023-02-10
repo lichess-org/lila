@@ -1,8 +1,7 @@
 package controllers
 
-import cats.implicits.*
+import cats.syntax.all.*
 import play.api.libs.json.*
-import scala.concurrent.duration.*
 import views.*
 
 import lila.app.{ given, * }
@@ -12,7 +11,7 @@ import lila.user.Holder
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
 
   private val CreateRateLimit =
-    new lila.memo.RateLimit[IpAddress](
+    lila.memo.RateLimit[IpAddress](
       credits = 2,
       duration = 5.minutes,
       key = "forum.topic",

@@ -2,7 +2,6 @@ package lila.insight
 
 import chess.{ Centis, Ply, Clock, Color, Role }
 import chess.format.pgn.SanStr
-import scala.concurrent.duration.FiniteDuration
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
@@ -14,7 +13,8 @@ case class InsightUser(
 ):
   def isEmpty = count == 0
 
-case class MeanRating(value: Int) extends AnyVal
+opaque type MeanRating = Int
+object MeanRating extends OpaqueInt[MeanRating]
 
 case class InsightMove(
     phase: Phase,
@@ -35,8 +35,12 @@ case class InsightMove(
 // time remaining on clock, accounting for increment via estimation
 opaque type ClockPercent = Double
 object ClockPercent extends OpaqueDouble[ClockPercent]:
-  given Percent[ClockPercent]           = Percent.of(ClockPercent)
+
+  given lila.db.NoDbHandler[WinPercent] with {}
+  given Percent[ClockPercent] = Percent.of(ClockPercent)
+
   extension (a: ClockPercent) def toInt = Percent.toInt(a)
+
   def apply(clock: Clock.Config, timeLeft: Centis): ClockPercent = ClockPercent(
     (100 * timeLeft.centis.toDouble / clock.estimateTotalTime.centis) atLeast 0 atMost 100
   )

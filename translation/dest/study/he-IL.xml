@@ -56,7 +56,7 @@
   <string name="onlyContributorsCanRequestAnalysis">רק תורמי לוח הלמידה יכולים לבקש ניתוח ממוחשב.</string>
   <string name="getAFullComputerAnalysis">קבל/י ניתוח צד־שרת מלא של המסעים העיקריים (mainline).</string>
   <string name="makeSureTheChapterIsComplete">ניתן לבקש ניתוח ממוחשב רק פעם אחת, ולכן ודאו שהפרק הושלם.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">כולם צופים באותה העמדה</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">כולם צופים באותה העמדה</string>
   <string name="shareChanges">שתפו שינויים עם הצופים ושמרו אותם על השרת</string>
   <string name="playing">מתקיים כעת</string>
   <string name="first">ראשון</string>
@@ -68,6 +68,8 @@
   <string name="studyPgn">הPGN של לוח הלמידה</string>
   <string name="downloadAllGames">הורדת כל המשחקים</string>
   <string name="chapterPgn">הPGN של הפרק</string>
+  <string name="copyChapterPgn">העתקת ה-PGN</string>
+  <string name="copyChapterPgnDescription">העתקת ה-PGN של הפרק ללוח.</string>
   <string name="downloadGame">הורדת המשחק</string>
   <string name="studyUrl">כתובת לוח הלמידה</string>
   <string name="currentChapterUrl">כתובת האינטרנט של הפרק הנוכחי</string>

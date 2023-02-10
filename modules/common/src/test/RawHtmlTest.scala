@@ -2,7 +2,7 @@ package lila.base
 
 import org.specs2.mutable.*
 
-import lila.common.config
+import lila.common.{ Html, config }
 import RawHtml._
 
 class RawHtmlTest extends Specification {
@@ -13,7 +13,7 @@ class RawHtmlTest extends Specification {
   def copyLinkConsistency(text: String) = {
     // Plain text of linkified text >> linkify to the same result.
     val firstHtml = addLinks(text)
-    val copyText  = htmlTags.replaceAllIn(firstHtml, "")
+    val copyText  = htmlTags.replaceAllIn(firstHtml.value, "")
     firstHtml === addLinks(copyText)
   }
 
@@ -35,7 +35,7 @@ class RawHtmlTest extends Specification {
     }
     "skip buggy url like http://foo@bar" >> {
       val url = "http://foo@bar"
-      addLinks(s"""link to $url here""").must(contain("""href="http://foo"""")).not
+      addLinks(s"""link to $url here""").value.must(contain("""href="http://foo"""")).not
     }
     "ignore image from untrusted host" >> {
       val url = "http://zombo.com/pic.jpg"
@@ -127,8 +127,7 @@ class RawHtmlTest extends Specification {
 
     "pass through plain text (fast case)" >> {
       val noUrl = "blah blah foobar"
-      addLinks(noUrl) === noUrl      // eq
-      addLinks(noUrl) must be(noUrl) // instance eq - fails >> scala 2.13
+      addLinks(noUrl) === Html(noUrl)
     }
 
     "remove tracking tags" >> {
@@ -162,36 +161,38 @@ class RawHtmlTest extends Specification {
     "add http links" >> {
       val md = "[Example](http://example.com)"
       justMarkdownLinks(
-        md
-      ) === """<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>"""
+        Html(md)
+      ) === Html("""<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>""")
     }
 
     "handle $ >> link content" >> {
       val md =
         "[$$$ test 9$ prize](https://lichess.org/tournament)"
       justMarkdownLinks(
-        md
-      ) === """<a rel="nofollow noopener noreferrer" href="https://lichess.org/tournament">$$$ test 9$ prize</a>"""
+        Html(md)
+      ) === Html(
+        """<a rel="nofollow noopener noreferrer" href="https://lichess.org/tournament">$$$ test 9$ prize</a>"""
+      )
     }
 
     "only allow safe protocols" >> {
-      val md = "A [link](javascript:powned) that is not safe."
+      val md = Html("A [link](javascript:powned) that is not safe.")
       justMarkdownLinks(md) === md
     }
 
-    "not addBr" >> {
-      justMarkdownLinks("\n") === "\n"
+    "not add br" >> {
+      justMarkdownLinks(Html("\n")) === Html("\n")
     }
 
     "not escape html" >> {
-      justMarkdownLinks("&") === "&"
+      justMarkdownLinks(Html("&")) === Html("&")
     }
 
     "remove tracking tags" >> {
       val md = "[Example](http://example.com?utm_campaign=spy&utm_source=evil)"
       justMarkdownLinks(
-        md
-      ) === """<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>"""
+        Html(md)
+      ) === Html("""<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>""")
     }
   }
 

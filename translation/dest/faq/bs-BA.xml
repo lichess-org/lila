@@ -28,7 +28,10 @@
   <string name="pleaseReadFairPlayPage">Za više informacija pogledajte %s</string>
   <string name="fairPlayPage">stranica za fer-plej</string>
   <string name="youCanUseOpeningBookNoEngine">Na Lichessu, glavna razlika u pravilima za dopisni šah jest da je dozvoljeno upotrebljavati knjige o šahovskim otvaranjima i baze podataka o njima. Upotreba šahovskih programa i dalje je zabranjena i rezultirat će time da igrač bude označen zbog nje. Iako ICCF dozvoljava upotrebu programa u dopisnom šahu, to nije slučaj s Lichessom.</string>
+  <string name="gameplay">Tip igre</string>
+  <string name="howBulletBlitzEtcDecided">Kako se određuju kontrole vremena za Metak, Blic i druge šahovske varijante?</string>
   <string name="durationFormula">(početno vrijeme) + 40 × (bonus vrijeme)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Koje varijante šaha mogu igrati na Lichessu?</string>
   <string name="lichessSupportChessAnd">Lichess podržava standardni šah i još osam %1$s.</string>
   <string name="eightVariants">8 varijanti šaha</string>
@@ -80,6 +83,8 @@ Pogledajte %3$s koja se odnosi na ovaj potez kako biste ga malo izvježbali.</st
   <string name="canIChangeMyUsername">Mogu li promijeniti korisničko ime?</string>
   <string name="usernamesCannotBeChanged">Ne, korisnička imena ne mogu se mijenjati iz tehničkih i praktičnih razloga. Prisutna su na previše mjesta: u bazama podataka, zapisnicima i ljudskim umovima. Velika i mala slova mogu biti podešena jedanput.</string>
   <string name="uniqueTrophies">Jedinstveni trofeji</string>
+  <string name="wayOfBerserkExplanation">Da bi ga dobio, hiimgosu je sebe izazvao na berzerk i pobijedio u svim igrama %s.</string>
+  <string name="aHourlyBulletTournament">satni Metčani turnir</string>
   <string name="lichessRatings">Rejtinzi na Lichessu</string>
   <string name="whichRatingSystemUsedByLichess">Koji sistem rejtingovanja upotrebljava Lichess?</string>
   <string name="whatIsProvisionalRating">Zašto pored rejtinga stoji upitnik?</string>

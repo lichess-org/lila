@@ -20,7 +20,7 @@ object OpeningTree:
     def toTree: OpeningTree = OpeningTree(
       children.toList
         .sortBy(_._1._1)(stringOrdering)
-        .map { case (op, node) =>
+        .map { (op, node) =>
           (op, node.toTree)
         }
     )

@@ -11,7 +11,7 @@ import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleOpeningCollection
 
 object theme:
 
-  def list(all: PuzzleAngle.All)(implicit ctx: Context) =
+  def list(all: PuzzleAngle.All)(using ctx: Context) =
     views.html.base.layout(
       title = trans.puzzle.puzzleThemes.txt(),
       moreCss = cssTag("puzzle.page"),
@@ -21,6 +21,7 @@ object theme:
         bits.pageMenu("themes", ctx.me),
         div(cls := "page-menu__content box")(
           h1(cls := "box__top")(trans.puzzle.puzzleThemes()),
+          standardFlash.map(div(cls := "box__pad")(_)),
           div(cls := "puzzle-themes")(
             all.themes take 2 map { case (cat, themes) =>
               themeCategory(cat, themes)
@@ -36,14 +37,14 @@ object theme:
       )
     )
 
-  private[puzzle] def info(implicit ctx: Context) =
+  private[puzzle] def info(using Context) =
     p(cls := "puzzle-themes__db text", dataIcon := "")(
       trans.puzzleTheme.puzzleDownloadInformation(
         a(href := "https://database.lichess.org/")("database.lichess.org")
       )
     )
 
-  private def themeCategory(cat: I18nKey, themes: List[PuzzleTheme.WithCount])(implicit ctx: Context) =
+  private def themeCategory(cat: I18nKey, themes: List[PuzzleTheme.WithCount])(using Context) =
     frag(
       h2(id := cat.value)(cat()),
       div(cls := s"puzzle-themes__list ${cat.value.replace(":", "-")}")(

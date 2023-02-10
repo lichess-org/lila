@@ -5,8 +5,7 @@ import lila.common.autoconfig.*
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration.*
-import scala.concurrent.{ blocking, Future }
+import scala.concurrent.blocking
 
 import lila.common.Chronometer
 import lila.memo.FrequencyThreshold
@@ -20,8 +19,8 @@ final private class FirebasePush(
     ws: StandaloneWSClient,
     config: FirebasePush.Config
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
+    ec: Executor,
+    scheduler: Scheduler
 ):
 
   private val workQueue =
@@ -44,8 +43,8 @@ final private class FirebasePush(
             }
           }.chronometer.mon(_.push.googleTokenTime).result flatMap { token =>
             // TODO http batch request is possible using a multipart/mixed content
-            // unfortuntely it doesn't seem easily doable with play WS
-            devices.map(send(token, _, data)).sequenceFu.void
+            // unfortunately it doesn't seem easily doable with play WS
+            devices.map(send(token, _, data)).parallel.void
           }
       }
     }

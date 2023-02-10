@@ -3,7 +3,6 @@ package lila.report
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.*
-import scala.concurrent.duration.*
 
 import lila.common.{ config, LightUser }
 import lila.common.Form.given
@@ -13,7 +12,7 @@ final private[report] class ReportForm(
     lightUserAsync: LightUser.Getter,
     val captcher: lila.hub.actors.Captcher,
     domain: config.NetDomain
-)(using ec: scala.concurrent.ExecutionContext)
+)(using Executor)
     extends lila.hub.CaptchedForm:
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink") { setup =>
     if (setup.reason != "cheat" || ReportForm.gameLinkRegex(domain).findFirstIn(setup.text).isDefined)

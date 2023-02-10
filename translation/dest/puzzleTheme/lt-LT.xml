@@ -5,7 +5,7 @@
   <string name="advantage">Pranašumas</string>
   <string name="advantageDescription">Pasinaudokite proga įgauti esminį pranašumą. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasijos matas</string>
-  <string name="anastasiaMateDescription">Žirgas ir karalienė arba bokštas bendromis jėgomis įkalina priešininko karalių tarp lentos krašto ir kitos figūros.</string>
+  <string name="anastasiaMateDescription">Žirgas ir valdovė arba bokštas bendromis jėgomis įkalina priešininko karalių tarp lentos krašto ir kitos figūros.</string>
   <string name="arabianMate">Arabiškasis matas</string>
   <string name="arabianMateDescription">Žirgas ir bokštas suvienija jėgas įkalindami priešininko karalių lentos kampe.</string>
   <string name="attackingF2F7">f2 arba f7 puolimas</string>
@@ -27,7 +27,7 @@
   <string name="doubleBishopMate">Dvigubų rikių matas</string>
   <string name="doubleBishopMateDescription">Du gretimose įstrižainėse puolantys rikiai atlieka matą priešininko karaliui, įkalintam draugiškų figūrų.</string>
   <string name="dovetailMate">Kozio matas</string>
-  <string name="dovetailMateDescription">Karalienė atlieka matą greta esančiam priešininko karaliui, kurio vieninteliai pabėgimo langeliai užimti draugiškų figūrų.</string>
+  <string name="dovetailMateDescription">Valdovė atlieka matą greta esančiam priešininko karaliui, kurio vieninteliai pabėgimo langeliai užimti draugiškų figūrų.</string>
   <string name="equality">Lygybė</string>
   <string name="equalityDescription">Grįžkite iš pralaiminčios pozicijos ir užsitikrinkite lygiąsias arba balansuotą poziciją. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Karaliaus pusės ataka</string>
@@ -89,12 +89,12 @@
   <string name="pinDescription">Taktika susijusi su surišimais, kai figūra negali pajudėti neatidengdama atakos į kitą, vertingesnę figūrą.</string>
   <string name="promotion">Paaukštinimas</string>
   <string name="promotionDescription">Pėstininkas, kuris pasiaukština ar kėsinasi pasiaukštinti yra raktas šiai taktikai.</string>
-  <string name="queenEndgame">Karalienės endšpilis</string>
-  <string name="queenEndgameDescription">Endšpilis tik su karalienėmis ir pėstininkais.</string>
-  <string name="queenRookEndgame">Karalienės ir bokšto endšpilis</string>
-  <string name="queenRookEndgameDescription">Endšpilis tik su karalienėmis, bokštais ir pėstininkais.</string>
-  <string name="queensideAttack">Karalienės pusės ataka</string>
-  <string name="queensideAttackDescription">Ataka priešininko karaliui po to, kai jis atliko rokiruotę karalienės pusėje.</string>
+  <string name="queenEndgame">Valdovės endšpilis</string>
+  <string name="queenEndgameDescription">Endšpilis tik su valdovėmis ir pėstininkais.</string>
+  <string name="queenRookEndgame">Valdovės ir bokšto endšpilis</string>
+  <string name="queenRookEndgameDescription">Endšpilis tik su valdovėmis, bokštais ir pėstininkais.</string>
+  <string name="queensideAttack">Valdovės pusės ataka</string>
+  <string name="queensideAttackDescription">Ataka priešininko karaliui po to, kai jis atliko rokiruotę valdovės pusėje.</string>
   <string name="quietMove">Tylus ėjimas</string>
   <string name="quietMoveDescription">Ėjimas, kuris nei atlieka šachą, nei kerta, tačiau paruošia neišvengiamam pavojui vėliasneme ėjime.</string>
   <string name="rookEndgame">Bokštų endšpilis</string>

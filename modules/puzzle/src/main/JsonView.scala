@@ -14,7 +14,7 @@ import lila.user.User
 final class JsonView(
     gameJson: GameJson,
     gameRepo: GameRepo
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import JsonView.{ *, given }
 
@@ -99,7 +99,7 @@ final class JsonView(
   def dashboardJson(dash: PuzzleDashboard, days: Int)(using lang: Lang) = Json.obj(
     "days"   -> days,
     "global" -> dashboardResults(dash.global),
-    "themes" -> JsObject(dash.byTheme.toList.sortBy(-_._2.nb).map { case (key, res) =>
+    "themes" -> JsObject(dash.byTheme.toList.sortBy(-_._2.nb).map { (key, res) =>
       key.value -> Json.obj(
         "theme"   -> PuzzleTheme(key).name.txt(),
         "results" -> dashboardResults(res)
@@ -115,11 +115,21 @@ final class JsonView(
     "performance"     -> res.performance
   )
 
+  def batch(puzzles: Seq[Puzzle]): Fu[JsObject] = for {
+    games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
+    jsons <- (puzzles zip games).collect { case (puzzle, Some(game)) =>
+      gameJson.noCache(game, puzzle.initialPly) map { gameJson =>
+        Json.obj(
+          "game"   -> gameJson,
+          "puzzle" -> puzzleJson(puzzle)
+        )
+      }
+    }.parallel
+  } yield Json.obj("puzzles" -> jsons)
+
   object bc:
 
-    def apply(puzzle: Puzzle, user: Option[User])(using
-        lang: Lang
-    ): Fu[JsObject] =
+    def apply(puzzle: Puzzle, user: Option[User])(using Lang): Fu[JsObject] =
       gameJson(
         gameId = puzzle.gameId,
         plies = puzzle.initialPly,
@@ -133,9 +143,7 @@ final class JsonView(
           .add("user" -> user.map(_.perfs.puzzle.intRating).map(userJson))
       }
 
-    def batch(puzzles: Seq[Puzzle], user: Option[User])(using
-        lang: Lang
-    ): Fu[JsObject] = for {
+    def batch(puzzles: Seq[Puzzle], user: Option[User])(using Lang): Fu[JsObject] = for {
       games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
       jsons <- (puzzles zip games).collect { case (puzzle, Some(game)) =>
         gameJson.noCacheBc(game, puzzle.initialPly) map { gameJson =>
@@ -144,7 +152,7 @@ final class JsonView(
             "puzzle" -> puzzleJson(puzzle)
           )
         }
-      }.sequenceFu
+      }.parallel
     } yield Json
       .obj("puzzles" -> jsons)
       .add("user" -> user.map(_.perfs.puzzle.intRating).map(userJson))

@@ -1,7 +1,6 @@
 package lila.user
 
 import chess.Speed
-import org.joda.time.DateTime
 
 import lila.common.Heapsort.*
 import lila.db.BSON
@@ -245,21 +244,21 @@ case object Perfs:
       case chess.variant.Crazyhouse    => Some(_.crazyhouse)
       case _                           => none
 
-  def speedLens(speed: Speed): Perfs => Perf =
+  def speedLens(speed: Speed): Perfs => Perf = perfs =>
     speed match
-      case Speed.Bullet         => perfs => perfs.bullet
-      case Speed.Blitz          => perfs => perfs.blitz
-      case Speed.Rapid          => perfs => perfs.rapid
-      case Speed.Classical      => perfs => perfs.classical
-      case Speed.Correspondence => perfs => perfs.correspondence
-      case Speed.UltraBullet    => perfs => perfs.ultraBullet
+      case Speed.Bullet         => perfs.bullet
+      case Speed.Blitz          => perfs.blitz
+      case Speed.Rapid          => perfs.rapid
+      case Speed.Classical      => perfs.classical
+      case Speed.Correspondence => perfs.correspondence
+      case Speed.UltraBullet    => perfs.ultraBullet
 
   given reactivemongo.api.bson.BSONDocumentHandler[Perfs] = new BSON[Perfs]:
 
     import Perf.given
 
     def reads(r: BSON.Reader): Perfs =
-      @inline def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default
+      inline def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default
       Perfs(
         standard = perf("standard"),
         chess960 = perf("chess960"),
@@ -282,7 +281,7 @@ case object Perfs:
         streak = r.getO[Perf.Streak]("streak") getOrElse Perf.Streak.default
       )
 
-    private def notNew(p: Perf): Option[Perf] = p.nonEmpty option p
+    private inline def notNew(p: Perf): Option[Perf] = p.nonEmpty option p
 
     def writes(w: BSON.Writer, o: Perfs) =
       reactivemongo.api.bson.BSONDocument(
@@ -302,9 +301,9 @@ case object Perfs:
         "classical"      -> notNew(o.classical),
         "correspondence" -> notNew(o.correspondence),
         "puzzle"         -> notNew(o.puzzle),
-        "storm"          -> (o.storm.nonEmpty option o.storm),
-        "racer"          -> (o.racer.nonEmpty option o.racer),
-        "streak"         -> (o.streak.nonEmpty option o.streak)
+        "storm"          -> o.storm.nonEmpty.option(o.storm),
+        "racer"          -> o.racer.nonEmpty.option(o.racer),
+        "streak"         -> o.streak.nonEmpty.option(o.streak)
       )
 
   case class Leaderboards(

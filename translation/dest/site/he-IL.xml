@@ -229,6 +229,12 @@
   <string name="email">דוא״ל</string>
   <string name="passwordReset">איפוס סיסמה</string>
   <string name="forgotPassword">שכחת סיסמה?</string>
+  <string name="error.weakPassword">הסיסמה הזו נפוצה ביותר וקלה מדי לניחוש.</string>
+  <string name="error.namePassword">נא לא להשתמש בשם המשתמש בתור הסיסמה.</string>
+  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">את/ה עוזב/ת את Lichess</string>
+  <string name="neverTypeYourPassword">לעולם אל תקלידו את סיסמתכם בליצ׳ס באף אתר אחר!</string>
+  <string name="passwordSuggestion">אל תשתמשו בסיסמה שהציע לכם אדם אחר. הוא ישתמש בה כדי לגנוב את חשבונכם!</string>
+  <string name="emailSuggestion">אל תשמשו בכתובת מייל שהציע אדם אחר. הוא ישתמש בה כדי לגנוב את חשבונכם.</string>
   <string name="emailConfirmHelp">עזרה עם אימייל האישור</string>
   <string name="emailConfirmNotReceived">לא קיבלת מייל אישור לאחר שנרשמת?</string>
   <string name="whatSignupUsername">עם איזה שם משתמש נרשמת?</string>
@@ -778,6 +784,7 @@
   <string name="kidMode">מצב ילדים</string>
   <string name="kidModeExplanation">בשביל הבטיחות. במצב ילדים, כל אמצעי התקשורת באתר מבוטלים. הפעילו אופציה זו עבור ילדיכם ועבור תלמידי בית ספר. זאת כדי להגן עליהם מפני משתמשים אחרים.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">במצב ילדים הסמל של ליצ\'ס מקבל אייקון %s, כדי שתדעו שילדיכם מוגנים.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">החשבון שלך מנוהל. תוכל/י לבקש מהמורה שלך לשחמט להסיר את מצב הילדים.</string>
   <string name="enableKidMode">הפעילו מצב ילדים</string>
   <string name="disableKidMode">בטל מצב ילדים</string>
   <string name="security">אבטחה</string>

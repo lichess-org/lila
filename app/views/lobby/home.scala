@@ -13,7 +13,7 @@ import lila.game.Pov
 
 object home:
 
-  def apply(homepage: Homepage)(implicit ctx: Context) =
+  def apply(homepage: Homepage)(using ctx: Context) =
     import homepage.*
     views.html.base.layout(
       title = "",
@@ -69,9 +69,9 @@ object home:
             div(cls := "bg-switch__thumb")
           ),
           div(cls := "lobby__start")(
-            a(cls := "button button-metal", trans.createAGame()),
-            a(cls := "button button-metal", trans.playWithAFriend()),
-            a(cls := "button button-metal", trans.playWithTheMachine())
+            button(cls := "button button-metal", tpe := "button", trans.createAGame()),
+            button(cls := "button button-metal", tpe := "button", trans.playWithAFriend()),
+            button(cls := "button button-metal", tpe := "button", trans.playWithTheMachine())
           )
         ),
         currentGame.map(bits.currentGameInfo) orElse
@@ -91,6 +91,7 @@ object home:
           ),
           div(cls := "lobby__spotlights")(
             events.map(bits.spotlight),
+            relays.map(views.html.relay.bits.spotlight),
             !ctx.isBot option frag(
               lila.tournament.Spotlight.select(tours, ctx.me, 3 - events.size) map {
                 views.html.tournament.homepageSpotlight(_)
@@ -125,7 +126,7 @@ object home:
           )
         },
         puzzle map { p =>
-          views.html.puzzle.embed.dailyLink(p)(ctx.lang)(cls := "lobby__puzzle")
+          views.html.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle")
         },
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         bits.lastPosts(lastPost, ublogPosts),

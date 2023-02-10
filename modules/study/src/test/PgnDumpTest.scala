@@ -2,13 +2,13 @@ package lila.study
 
 import chess.format.pgn.*
 import chess.format.{ Fen, Uci, UciCharPair }
-import chess.{ Ply, variant }
+import chess.{ Ply, Check, variant }
 import Node.*
 import org.specs2.mutable._
 
 class PgnDumpTest extends Specification {
 
-  given PgnDump.WithFlags    = PgnDump.WithFlags(true, true, true)
+  given PgnDump.WithFlags    = PgnDump.WithFlags(true, true, true, false, false)
   given Conversion[Int, Ply] = Ply(_)
 
   val P = PgnDump
@@ -19,7 +19,7 @@ class PgnDumpTest extends Specification {
       ply = ply,
       move = Uci.WithSan(Uci(uci).get, SanStr(san)),
       fen = Fen.Epd("<fen>"),
-      check = false,
+      check = Check.No,
       clock = None,
       crazyData = None,
       children = children,

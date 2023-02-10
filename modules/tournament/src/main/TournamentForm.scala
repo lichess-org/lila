@@ -1,10 +1,9 @@
 package lila.tournament
 
-import cats.implicits.*
+import cats.syntax.all.*
 import chess.format.Fen
 import chess.{ Clock, Mode, StartingPosition }
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
-import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation
@@ -50,7 +49,7 @@ final class TournamentForm:
       waitMinutes = none,
       startDate = tour.startsAt.some,
       variant = tour.variant.id.toString.some,
-      position = tour.position,
+      position = tour.position.map(_ into Fen.Epd),
       mode = none,
       rated = tour.mode.rated.some,
       password = tour.password,
@@ -137,12 +136,6 @@ object TournamentForm:
   val waitMinuteChoices = options(waitMinutes, "%d minute{s}")
   val waitMinuteDefault = 5
 
-  val positions = StartingPosition.allWithInitial.map(_.fen)
-  val positionChoices = StartingPosition.allWithInitial.map { p =>
-    p.fen -> p.fullName
-  }
-  val positionDefault = StartingPosition.initial.fen
-
   val validVariants =
     List(Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse)
 
@@ -194,7 +187,7 @@ private[tournament] case class TournamentSetup(
 
   def realVariant = variant.flatMap(TournamentForm.guessVariant) | chess.variant.Standard
 
-  def realPosition = position ifTrue realVariant.standard
+  def realPosition: Option[Fen.Opening] = position.ifTrue(realVariant.standard).map(_.opening)
 
   def clockConfig = Clock.Config(LimitSeconds((clockTime * 60).toInt), clockIncrement)
 

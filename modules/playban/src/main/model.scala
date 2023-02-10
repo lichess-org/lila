@@ -1,6 +1,5 @@
 package lila.playban
 
-import org.joda.time.DateTime
 import play.api.libs.json.*
 
 import lila.common.Json.given
@@ -80,7 +79,7 @@ object TempBan:
 
   private def make(minutes: Int) =
     TempBan(
-      DateTime.now,
+      nowDate,
       minutes atMost 3 * 24 * 60
     )
 

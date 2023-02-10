@@ -3,7 +3,6 @@ package lila.challenge
 import chess.format.Fen
 import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
 import chess.{ Color, Mode, Speed }
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Days
@@ -172,11 +171,11 @@ object Challenge:
       def increment = config.increment
       def show      = config.show
 
-  sealed abstract class ColorChoice(val trans: I18nKey)
+  enum ColorChoice(val trans: I18nKey):
+    case Random extends ColorChoice(I18nKeys.randomColor)
+    case White  extends ColorChoice(I18nKeys.white)
+    case Black  extends ColorChoice(I18nKeys.black)
   object ColorChoice:
-    case object Random extends ColorChoice(I18nKeys.randomColor)
-    case object White  extends ColorChoice(I18nKeys.white)
-    case object Black  extends ColorChoice(I18nKeys.black)
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
 
   case class Open(userIds: Option[(UserId, UserId)]):
@@ -260,9 +259,9 @@ object Challenge:
       challenger = challenger,
       destUser = destUser map toRegistered(variant, timeControl),
       rematchOf = rematchOf,
-      createdAt = DateTime.now,
-      seenAt = !isOpen option DateTime.now,
-      expiresAt = if (isOpen) DateTime.now.plusDays(1) else inTwoWeeks,
+      createdAt = nowDate,
+      seenAt = !isOpen option nowDate,
+      expiresAt = if (isOpen) nowDate.plusDays(1) else inTwoWeeks,
       open = isOpen option Open(openToUserIds),
       name = name,
       rules = rules

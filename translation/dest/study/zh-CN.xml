@@ -47,7 +47,7 @@
   <string name="onlyContributorsCanRequestAnalysis">只有贡献者可以请求服务器分析。</string>
   <string name="getAFullComputerAnalysis">请求服务器完整地分析主线走法。</string>
   <string name="makeSureTheChapterIsComplete">请确保章节已完成。您只能请求分析一次。</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">SYNC 中所有成员处于相同局面</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">SYNC 中所有成员处于相同局面</string>
   <string name="shareChanges">与旁观者共享更改并云端保存</string>
   <string name="playing">正在对局</string>
   <string name="first">首页</string>

@@ -1,7 +1,5 @@
 package lila.pool
 
-import scala.concurrent.duration.*
-
 import lila.rating.{ Perf, PerfType }
 
 case class PoolConfig(
@@ -9,7 +7,7 @@ case class PoolConfig(
     wave: PoolConfig.Wave
 ):
 
-  val perfType = PerfType(Perf.Key(chess.Speed(clock).key)) | PerfType.Classical
+  val perfType = PerfType(chess.Speed(clock).key into Perf.Key) | PerfType.Classical
 
   val id = PoolConfig clockToId clock
 

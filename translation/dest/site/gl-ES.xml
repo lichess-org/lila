@@ -207,6 +207,12 @@
   <string name="email">Correo electrónico</string>
   <string name="passwordReset">Cambiar contrasinal</string>
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
+  <string name="error.weakPassword">Ese contrasinal é extremadamente común e demasiado doado de adiviñar.</string>
+  <string name="error.namePassword">Por favor, non uses o teu usuario como contrasinal.</string>
+  <string name="youAreLeavingLichess">Estas abandoando Lichess</string>
+  <string name="neverTypeYourPassword">Nunca empregues o teu contrasinal de Lichess noutro sitio web!</string>
+  <string name="passwordSuggestion">Non empregues un contrasinal suxerido por alguén. Poden empregalo para roubar a túa conta.</string>
+  <string name="emailSuggestion">Non empregues un enderezo de correo suxerido por alguén. Poden empregalo para roubar a túa conta.</string>
   <string name="emailConfirmHelp">Axuda coa confirmación por correo</string>
   <string name="emailConfirmNotReceived">Non recibiches correo de confirmación despois de rexistrarte?</string>
   <string name="whatSignupUsername">Que nome de usuario quere empregar para rexistrarte?</string>
@@ -363,6 +369,7 @@
   <string name="siteDescription">Xadrez libre en liña. Xoga ó xadrez cunha interface limpa. Sen rexistrarse, sen anuncios, sen necesidade de plugins. Xoga ó xadrez contra o ordenador, amigos ou rivais aleatorios.</string>
   <string name="xJoinedTeamY">%1$s uniuse ó equipo %2$s</string>
   <string name="xCreatedTeamY">%1$s creou o equipo %2$s</string>
+  <string name="startedStreaming">comezou emisión</string>
   <string name="xStartedStreaming">%s comenzou a emitir</string>
   <string name="averageElo">Puntuación media</string>
   <string name="location">Lugar</string>
@@ -539,6 +546,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escribe notas privadas aquí</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escribe unha nota privada acerca deste usuario/a</string>
+  <string name="noNoteYet">Sen notas aínda</string>
   <string name="invalidUsernameOrPassword">Nome de usuario ou contrasinal non válidos</string>
   <string name="incorrectPassword">Contrasinal incorrecto</string>
   <string name="invalidAuthenticationCode">Código de autenticación inválido</string>
@@ -595,6 +604,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
+  <string name="error.unknown">Valor non válido</string>
   <string name="error.required">Este campo é obrigatorio</string>
   <string name="error.email">Este enderezo de correo non é válido</string>
   <string name="error.email_acceptable">Este enderezo de correo non é aceptable. Por favor, volve a comprobala e téntao de novo.</string>
@@ -605,6 +615,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="error.min">Debe ser maior ou igual que %s</string>
   <string name="error.max">Debe ser menor ou igual que %s</string>
   <string name="ifRatingIsPlusMinusX">Se a puntuación é ± %s</string>
+  <string name="ifRegistered">Se está rexistrado/a</string>
   <string name="onlyExistingConversations">Só conversas existentes</string>
   <string name="onlyFriends">Só amigos</string>
   <string name="menu">Menú</string>
@@ -702,6 +713,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="kidMode">Modo infantil</string>
   <string name="kidModeExplanation">Por seguridade, no modo infantil desactívanse tódalas comunicacións. Activa isto para protexer aos teus nenos ou alumnos de outros usuarios de Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En modo infantil, o logo de lichess ten unha icona de %s, indicando que os nenos están seguros.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">A túa conta é xestionada. Pregúntalle ao/á teu/túa mestre acerca de quitar o modo para nenos/as.</string>
   <string name="enableKidMode">Activar modo infantil</string>
   <string name="disableKidMode">Desactivar modo infantil</string>
   <string name="security">Seguridade</string>

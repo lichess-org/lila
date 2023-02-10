@@ -50,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Azterlanaren laguntzaileek bakarrik eskatu dezakete ordenagailu bidezko analisia.</string>
   <string name="getAFullComputerAnalysis">Linea nagusiaren ordenagailu bidezko analisia lortu.</string>
   <string name="makeSureTheChapterIsComplete">Ziurtatu kapitulua guztiz osatu duzula. Analisia behin bakarrik eskatu dezakezu.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Kide sinkronizatu guztiak posizio berean jarraitzen dute</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Kide sinkronizatu guztiak posizio berean jarraitzen dute</string>
   <string name="shareChanges">Aldaketak ikusleekin partekatu eta zerbitzarian gorde</string>
   <string name="playing">Jokatzen</string>
   <string name="first">Lehenengoa</string>
@@ -62,6 +62,8 @@
   <string name="studyPgn">Azterlanaren PGNa</string>
   <string name="downloadAllGames">Partida guztiak deskargatu</string>
   <string name="chapterPgn">Kapituluaren PGNa</string>
+  <string name="copyChapterPgn">Kopiatu PGNa</string>
+  <string name="copyChapterPgnDescription">Kopiatu kapituluaren PGNa arbelera.</string>
   <string name="downloadGame">Partida deskargatu</string>
   <string name="studyUrl">Azterlanaren helbidea</string>
   <string name="currentChapterUrl">Uneko kapituluaren helbidea</string>

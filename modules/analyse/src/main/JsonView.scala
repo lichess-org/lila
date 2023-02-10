@@ -11,7 +11,7 @@ import lila.common.Json.given
 object JsonView:
 
   def moves(analysis: Analysis, withGlyph: Boolean = true) =
-    JsArray(analysis.infoAdvices map { case (info, adviceOption) =>
+    JsArray(analysis.infoAdvices map { (info, adviceOption) =>
       Json
         .obj()
         .add("eval" -> info.cp)
@@ -40,7 +40,7 @@ object JsonView:
       .find(_._1 == pov.color)
       .map(_._2)
       .map { s =>
-        JsObject(s map { case (nag, nb) =>
+        JsObject(s map { (nag, nb) =>
           nag.toString.toLowerCase -> JsNumber(nb)
         })
           .add("acpl", lila.analyse.AccuracyCP.mean(pov, analysis))

@@ -1,14 +1,13 @@
 package lila.swiss
 
 import reactivemongo.api.ReadPreference
-import scala.concurrent.ExecutionContext
 
 import lila.common.config
 import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 
-final class SwissRoundPager(mongo: SwissMongo)(using ec: ExecutionContext):
+final class SwissRoundPager(mongo: SwissMongo)(using Executor):
 
   import BsonHandlers.given
 

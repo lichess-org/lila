@@ -2,7 +2,6 @@ package lila.tutor
 
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import scala.concurrent.duration.*
 
 import lila.common.config
 import lila.db.dsl.Coll
@@ -19,15 +18,16 @@ final class Env(
     insightApi: lila.insight.InsightApi,
     perfStatsApi: lila.insight.InsightPerfStatsApi,
     settingStore: lila.memo.SettingStore.Builder,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
+    lightUserApi: lila.user.LightUserApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler,
+    ec: Executor,
+    scheduler: Scheduler,
     mode: play.api.Mode,
     mat: akka.stream.Materializer
 ):
 
-  private val reportColl = db(config.CollName("tutor_report"))
+  private val colls = TutorColls(db(config.CollName("tutor_report")), db(config.CollName("tutor_queue")))
 
   lazy val nbAnalysisSetting = settingStore[Int](
     "tutorNbAnalysis",
@@ -35,13 +35,18 @@ final class Env(
     text = "Number of fishnet analysis per tutor build".some
   ).taggedWith[NbAnalysis]
 
+  lazy val parallelismSetting = settingStore[Int](
+    "tutorParallelism",
+    default = 3,
+    text = "Number of tutor reports to build in parallel".some
+  ).taggedWith[Parallelism]
+
   private lazy val fishnet = wire[TutorFishnet]
   private lazy val builder = wire[TutorBuilder]
-  private lazy val queue =
-    TutorQueue(reportColl = reportColl, queueColl = db(config.CollName("tutor_queue")), cacheApi = cacheApi)
+  lazy val queue           = wire[TutorQueue]
 
   lazy val api = wire[TutorApi]
 
-trait ReportColl
-trait QueueColl
+final private class TutorColls(val report: Coll, val queue: Coll)
 trait NbAnalysis
+trait Parallelism

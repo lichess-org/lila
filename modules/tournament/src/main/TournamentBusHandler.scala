@@ -1,8 +1,6 @@
 package lila.tournament
 
 import akka.actor.*
-import org.joda.time.DateTime
-import scala.concurrent.ExecutionContext
 
 import lila.game.actorApi.FinishGame
 import lila.user.User
@@ -13,7 +11,7 @@ final private class TournamentBusHandler(
     shieldApi: TournamentShieldApi,
     winnersApi: WinnersApi,
     tournamentRepo: TournamentRepo
-)(using ec: ExecutionContext):
+)(using Executor):
 
   lila.common.Bus.subscribeFun(
     "finishGame",
@@ -31,11 +29,11 @@ final private class TournamentBusHandler(
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
       ejectFromEnterable(userId) >>
         leaderboard
-          .getAndDeleteRecent(userId, DateTime.now minusDays 30)
+          .getAndDeleteRecent(userId, nowDate minusDays 30)
           .flatMap {
             _.map {
               api.removePlayerAndRewriteHistory(_, userId)
-            }.sequenceFu
+            }.parallel
           } >>
         shieldApi.clearAfterMarking(userId) >>
         winnersApi.clearAfterMarking(userId)
@@ -54,5 +52,5 @@ final private class TournamentBusHandler(
     tournamentRepo.withdrawableIds(userId, reason = "ejectFromEnterable") flatMap {
       _.map {
         api.ejectLameFromEnterable(_, userId)
-      }.sequenceFu
+      }.parallel
     }

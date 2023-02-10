@@ -46,7 +46,7 @@ final private class Plurals(val messages: Map[I18nQuantity, String]) extends Tra
 
   def format(quantity: I18nQuantity, args: Seq[RawFrag]): Option[RawFrag] =
     messageFor(quantity).map { message =>
-      val escaped = escapeHtml(message)
+      val escaped = escapeHtml(Html(message))
       if (args.isEmpty) escaped
       else RawFrag(escaped.v.format(args.map(_.v)*))
     }

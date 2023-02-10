@@ -25,8 +25,8 @@ final class LilaComponents(
     executionContext
   )
 
-  // https://www.scala-lang.org/api/2.13.4/scala/concurrent/ExecutionContext%24.html#global:scala.concurrent.ExecutionContextExecutor
-  given executor: scala.concurrent.ExecutionContextExecutor = lila.Lila.defaultExecutor
+  // https://www.scala-lang.org/api/2.13.4/Executor%24.html#global:Executor
+  given executor: Executor = lila.Lila.defaultExecutor
 
   lila.log("boot").info {
     val java             = System.getProperty("java.version")

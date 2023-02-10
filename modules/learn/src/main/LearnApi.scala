@@ -1,12 +1,12 @@
 package lila.learn
 
 import reactivemongo.api.ReadPreference
-import cats.implicits.*
+import cats.syntax.all.*
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class LearnApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final class LearnApi(coll: Coll)(using Executor):
 
   import BSONHandlers.given
 

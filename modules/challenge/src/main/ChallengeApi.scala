@@ -2,8 +2,6 @@ package lila.challenge
 
 import cats.data.Validated
 import cats.data.Validated.{ Invalid, Valid }
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
 
 import lila.common.Bus
 import lila.common.config.Max
@@ -24,9 +22,9 @@ final class ChallengeApi(
     gameCache: lila.game.Cached,
     cacheApi: lila.memo.CacheApi
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   import Challenge.*
@@ -121,12 +119,10 @@ final class ChallengeApi(
     }
 
   def offerRematchForGame(game: Game, user: User): Fu[Boolean] =
-    challengeMaker.makeRematchOf(game, user) flatMap {
-      _ ?? { challenge =>
-        create(challenge) recover lila.db.recoverDuplicateKey { _ =>
-          logger.warn(s"${game.id} duplicate key ${challenge.id}")
-          false
-        }
+    challengeMaker.makeRematchOf(game, user) flatMapz { challenge =>
+      create(challenge) recover lila.db.recoverDuplicateKey { _ =>
+        logger.warn(s"${game.id} duplicate key ${challenge.id}")
+        false
       }
     }
 
@@ -139,7 +135,7 @@ final class ChallengeApi(
 
   def removeByUserId(userId: UserId) =
     repo allWithUserId userId flatMap { cs =>
-      lila.common.Future.applySequentially(cs)(remove).void
+      lila.common.LilaFuture.applySequentially(cs)(remove).void
     }
 
   def oauthAccept(dest: User, challenge: Challenge): Fu[Validated[String, Game]] =
@@ -152,15 +148,15 @@ final class ChallengeApi(
         .map { userId =>
           gameCache.nbPlaying(userId) dmap (lila.game.Game.maxPlaying <=)
         }
-        .sequenceFu
+        .parallel
         .dmap(_ exists identity)
 
   private[challenge] def sweep: Funit =
-    repo.realTimeUnseenSince(DateTime.now minusSeconds 20, max = 50).flatMap { cs =>
-      lila.common.Future.applySequentially(cs)(offline).void
+    repo.realTimeUnseenSince(nowDate minusSeconds 20, max = 50).flatMap { cs =>
+      lila.common.LilaFuture.applySequentially(cs)(offline).void
     } >>
       repo.expired(50).flatMap { cs =>
-        lila.common.Future.applySequentially(cs)(remove).void
+        lila.common.LilaFuture.applySequentially(cs)(remove).void
       }
 
   private def remove(c: Challenge) =

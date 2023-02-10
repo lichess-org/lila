@@ -8,7 +8,7 @@ import lila.hub.actorApi.map.TellIfExists
 final class Analyser(
     gameRepo: GameRepo,
     analysisRepo: AnalysisRepo
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import AnalyseBsonHandlers.*
 
@@ -20,16 +20,14 @@ final class Analyser(
   def save(analysis: Analysis): Funit =
     analysis.studyId match
       case None =>
-        gameRepo game GameId(analysis.id) flatMap {
-          _ ?? { prev =>
-            val game = prev.setAnalysed
-            gameRepo.setAnalysed(game.id) >>
-              analysisRepo.save(analysis) >>
-              sendAnalysisProgress(analysis, complete = true) >>- {
-                Bus.publish(actorApi.AnalysisReady(game, analysis), "analysisReady")
-                Bus.publish(InsertGame(game), "gameSearchInsert")
-              }
-          }
+        gameRepo game GameId(analysis.id) flatMapz { prev =>
+          val game = prev.setAnalysed
+          gameRepo.setAnalysed(game.id) >>
+            analysisRepo.save(analysis) >>
+            sendAnalysisProgress(analysis, complete = true) >>- {
+              Bus.publish(actorApi.AnalysisReady(game, analysis), "analysisReady")
+              Bus.publish(InsertGame(game), "gameSearchInsert")
+            }
         }
       case Some(_) =>
         analysisRepo.save(analysis) >>
@@ -40,21 +38,19 @@ final class Analyser(
   private def sendAnalysisProgress(analysis: Analysis, complete: Boolean): Funit =
     analysis.studyId match
       case None =>
-        gameRepo gameWithInitialFen GameId(analysis.id) map {
-          _ ?? { g =>
-            Bus.publish(
-              TellIfExists(
-                analysis.id,
-                actorApi.AnalysisProgress(
-                  analysis = analysis,
-                  game = g.game,
-                  variant = g.game.variant,
-                  initialFen = g.fen | g.game.variant.initialFen
-                )
-              ),
-              "roundSocket"
-            )
-          }
+        gameRepo gameWithInitialFen GameId(analysis.id) mapz { g =>
+          Bus.publish(
+            TellIfExists(
+              analysis.id,
+              actorApi.AnalysisProgress(
+                analysis = analysis,
+                game = g.game,
+                variant = g.game.variant,
+                initialFen = g.fen | g.game.variant.initialFen
+              )
+            ),
+            "roundSocket"
+          )
         }
       case Some(_) =>
         fuccess {

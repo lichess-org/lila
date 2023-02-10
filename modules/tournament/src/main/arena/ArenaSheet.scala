@@ -2,7 +2,6 @@ package lila.tournament
 package arena
 
 import chess.variant.Variant
-import org.joda.time.DateTime
 import lila.user.User
 
 // most recent first
@@ -44,6 +43,13 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
 
     Sheet(score :: prevScores, score.value + total, variant)
 
+  def scoresToString: String =
+    val sb = new java.lang.StringBuilder(16)
+    scores foreach { score =>
+      sb append score.value
+    }
+    sb.toString
+
 object Sheet:
   def empty(variant: Variant) = Sheet(Nil, 0, variant)
 
@@ -54,7 +60,7 @@ object Sheet:
       streakable: Streakable,
       variant: Variant
   ): Sheet =
-    pairings.foldLeft(empty(variant)) { case (sheet, pairing) =>
+    pairings.foldLeft(empty(variant)) { (sheet, pairing) =>
       sheet.addResult(userId, pairing, version, streakable)
     }
 

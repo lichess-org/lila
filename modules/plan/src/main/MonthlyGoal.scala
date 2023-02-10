@@ -1,12 +1,11 @@
 package lila.plan
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }
 
 final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(using
-    ec: scala.concurrent.ExecutionContext
+    ec: Executor
 ):
 
   def get: Fu[MonthlyGoal] =
@@ -19,7 +18,7 @@ final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(using
       .aggregateWith() { framework =>
         import framework.*
         List(
-          Match($doc("date" $gt DateTime.now.withDayOfMonth(1).withTimeAtStartOfDay)),
+          Match($doc("date" $gt nowDate.withDayOfMonth(1).withTimeAtStartOfDay)),
           Group(BSONNull)("usd" -> SumField("usd"))
         )
       }

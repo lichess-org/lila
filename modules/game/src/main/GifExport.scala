@@ -23,7 +23,7 @@ final class GifExport(
     lightUserApi: lila.user.LightUserApi,
     baseUrl: BaseUrl,
     url: String
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
   private val targetMedianTime = Centis(80)
   private val targetMaxTime    = Centis(200)
 

@@ -1,8 +1,7 @@
 package lila.plan
 
-import cats.implicits.*
+import cats.syntax.all.*
 import java.util.{ Currency, Locale }
-import scala.concurrent.ExecutionContext
 
 case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetime: Money):
 
@@ -14,7 +13,7 @@ case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetim
   def valid(money: Money): Boolean       = money.currency == currency && valid(money.amount)
   def valid(amount: BigDecimal): Boolean = min.amount <= amount && amount <= max.amount
 
-final class PlanPricingApi(currencyApi: CurrencyApi)(using ec: ExecutionContext):
+final class PlanPricingApi(currencyApi: CurrencyApi)(using Executor):
 
   import currencyApi.{ EUR, USD }
 
@@ -29,7 +28,7 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(using ec: ExecutionContext)
     suggestions = List(5, 10, 20, 50).map(eur => Money(eur, EUR)),
     min = Money(1, EUR),
     max = Money(10000, EUR),
-    lifetime = Money(200, EUR)
+    lifetime = Money(250, EUR)
   )
 
   def pricingFor(currency: Currency): Fu[Option[PlanPricing]] =
@@ -37,7 +36,7 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(using ec: ExecutionContext)
     else if (currency == EUR) fuccess(eurPricing.some)
     else
       for {
-        allSuggestions <- usdPricing.suggestions.map(convertAndRound(_, currency)).sequenceFu.map(_.sequence)
+        allSuggestions <- usdPricing.suggestions.map(convertAndRound(_, currency)).parallel.map(_.sequence)
         suggestions = allSuggestions.map(_.distinct)
         min      <- convertAndRound(usdPricing.min, currency)
         max      <- convertAndRound(usdPricing.max, currency)

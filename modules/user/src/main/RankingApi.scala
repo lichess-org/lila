@@ -1,8 +1,6 @@
 package lila.user
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
-import scala.concurrent.duration.*
 import scala.util.Success
 
 import lila.db.AsyncCollFailingSilently
@@ -16,7 +14,7 @@ final class RankingApi(
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUser: lila.common.LightUser.Getter
-)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
+)(using ec: Executor, scheduler: Scheduler):
 
   import RankingApi.*
   private given BSONDocumentHandler[Ranking] = Macros.handler[Ranking]
@@ -36,7 +34,7 @@ final class RankingApi(
             "rating"    -> perf.intRating,
             "prog"      -> perf.progress,
             "stable"    -> perf.rankable(PerfType variantOf perfType),
-            "expiresAt" -> DateTime.now.plusDays(7)
+            "expiresAt" -> nowDate.plusDays(7)
           ),
           upsert = true
         )
@@ -70,7 +68,7 @@ final class RankingApi(
                   )
                 }
               }
-            }.sequenceFu.dmap(_.flatten)
+            }.parallel.dmap(_.flatten)
           }
       }
     }
@@ -121,7 +119,7 @@ final class RankingApi(
     private val cache = cacheApi.unit[Map[PerfType, Map[UserId, Rank]]] {
       _.refreshAfterWrite(15 minutes)
         .buildAsyncFuture { _ =>
-          lila.common.Future
+          lila.common.LilaFuture
             .linear(PerfType.leaderboardable) { pt =>
               compute(pt).dmap(pt -> _)
             }

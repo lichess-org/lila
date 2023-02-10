@@ -1,6 +1,5 @@
 package lila.oauth
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import com.roundeights.hasher.Algo
 import ornicar.scalalib.SecureRandom
@@ -19,7 +18,7 @@ case class AccessToken(
     clientOrigin: Option[String],
     expires: Option[DateTime]
 ):
-  def isBrandNew = createdAt.exists(DateTime.now.minusSeconds(5).isBefore)
+  def isBrandNew = createdAt.exists(nowDate.minusSeconds(5).isBefore)
 
   def isDangerous = scopes.exists(OAuthScope.dangerList.contains)
 

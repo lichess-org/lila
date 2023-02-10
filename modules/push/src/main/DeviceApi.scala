@@ -1,12 +1,11 @@
 package lila.push
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class DeviceApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final private class DeviceApi(coll: Coll)(using Executor):
 
   private given BSONDocumentHandler[Device] = Macros.handler
 
@@ -37,7 +36,7 @@ final private class DeviceApi(coll: Coll)(using ec: scala.concurrent.ExecutionCo
           _id = deviceId,
           platform = platform,
           userId = user.id,
-          seenAt = DateTime.now
+          seenAt = nowDate
         ),
         upsert = true
       )

@@ -5,8 +5,6 @@ import com.softwaremill.tagging.*
 import io.lettuce.core.RedisClient
 import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 import lila.common.{ LilaScheduler, LilaStream }
 import lila.common.Json.given
@@ -24,7 +22,7 @@ final class TournamentLilaHttp(
     pause: Pause,
     lightUserApi: lila.user.LightUserApi,
     redisClient: RedisClient
-)(using akka.stream.Materializer, akka.actor.Scheduler, ExecutionContext):
+)(using akka.stream.Materializer, Scheduler, Executor):
 
   def handles(tour: Tournament) = isOnLilaHttp get tour.id
   def handledIds                = isOnLilaHttp.keys
@@ -99,7 +97,7 @@ final class TournamentLilaHttp(
       sheet: arena.Sheet,
       rankedPlayer: RankedPlayer,
       streakable: Boolean
-  )(using ExecutionContext): Fu[JsObject] =
+  )(using Executor): Fu[JsObject] =
     val p = rankedPlayer.player
     lightUserApi asyncFallback p.userId map { light =>
       Json
@@ -107,7 +105,7 @@ final class TournamentLilaHttp(
           "name"   -> light.name,
           "rating" -> p.rating,
           "score"  -> p.score,
-          "sheet"  -> JsonView.scoresToString(sheet)
+          "sheet"  -> sheet.scoresToString
         )
         .add("title" -> light.title)
         .add("provisional" -> p.provisional)

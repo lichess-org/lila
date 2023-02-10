@@ -6,6 +6,7 @@
   <string name="notEnoughRatedGames">Pole mängitud piisavalt reitinguga mänge, et luua usaldusväärset reitingut.</string>
   <string name="progressOverLastXGames">Areng viimase %s mängu jooksul:</string>
   <string name="ratingDeviation">Reitingunihe: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Väiksem väärtus tähendab, et reiting on stabiilsem. Rohkem kui %1$s tähendab ajutist reitingut. Rankingu saamiseks see väärtus peab olema väiksem kui %2$s (tavamale) või %3$s (variandid).</string>
   <string name="totalGames">Mänge kokku</string>
   <string name="ratedGames">Reitinguga mängu</string>
   <string name="tournamentGames">Turniirimänge</string>

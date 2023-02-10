@@ -2,7 +2,6 @@ package lila.lobby
 
 import chess.{ Mode, Speed }
 import chess.variant.Variant
-import org.joda.time.DateTime
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
@@ -90,7 +89,7 @@ object Seek:
     color = color,
     user = LobbyUser.make(user, blocking),
     ratingRange = ratingRange.toString,
-    createdAt = DateTime.now
+    createdAt = nowDate
   )
 
   def renew(seek: Seek) = Seek(
@@ -101,7 +100,7 @@ object Seek:
     color = seek.color,
     user = seek.user,
     ratingRange = seek.ratingRange,
-    createdAt = DateTime.now
+    createdAt = nowDate
   )
 
   import reactivemongo.api.bson.*

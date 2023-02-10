@@ -1,8 +1,6 @@
 package lila.notify
 
 import play.api.libs.json.Json
-import scala.concurrent.duration.*
-import scala.concurrent.Future
 
 import lila.common.Bus
 import lila.common.config.MaxPerPage
@@ -22,7 +20,7 @@ final class NotifyApi(
     cacheApi: lila.memo.CacheApi,
     maxPerPage: MaxPerPage,
     prefApi: lila.pref.PrefApi
-)(using scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import Notification.*
   import BSONHandlers.given
@@ -53,8 +51,8 @@ final class NotifyApi(
         val customAllows = for
           doc    <- docs
           userId <- doc.getAsOpt[UserId]("_id")
-          allows <- doc.int(event.key)
-        yield NotifyAllows(userId, Allows.fromCode(allows))
+          allows <- doc.getAsOpt[Allows](event.key)
+        yield NotifyAllows(userId, allows)
         val customIds = customAllows.view.map(_.userId).toSet
         val defaultAllows = userIds.filterNot(customIds.contains).map {
           NotifyAllows(_, NotificationPref.default.allows(event))
@@ -107,15 +105,14 @@ final class NotifyApi(
 
   def notifyOne[U: UserIdOf](to: U, content: NotificationContent): Funit =
     val note = Notification.make(to, content)
-    !shouldSkip(note) ifThen {
-      insertNotification(note) >> {
-        NotificationPref.Event.byKey.get(content.key) match
-          case None => fuccess(bellOne(note.to))
-          case Some(event) =>
-            prefs.allows(note.to, event) map { allows =>
-              if allows.bell then bellOne(note.to)
-              if allows.push then pushOne(NotifyAllows(note.to, allows), note.content)
-            }
+    !shouldSkip(note) flatMapz {
+      NotificationPref.Event.byKey.get(content.key) match {
+        case None => bellOne(note)
+        case Some(event) =>
+          prefs.allows(note.to, event) map { allows =>
+            if allows.bell then bellOne(note)
+            if allows.push then pushOne(NotifyAllows(note.to, allows), note.content)
+          }
       }
     }
 
@@ -129,20 +126,21 @@ final class NotifyApi(
       }
     }
 
-  private def bellOne(to: UserId): Unit =
-    Bus.publish(
-      SendTo.onlineUser(
-        to,
-        "notifications",
-        () =>
-          for
-            notifications <- getNotifications(to, 1) zip unreadCount(to) dmap AndUnread.apply
-            langStr       <- userRepo.langOf(to)
-            lang = I18nLangPicker.byStrOrDefault(langStr)
-          yield jsonHandlers(notifications)(using lang)
-      ),
-      "socketUsers"
-    )
+  private def bellOne(note: Notification): Funit =
+    insertNotification(note) >>-
+      Bus.publish(
+        SendTo.onlineUser(
+          note.to,
+          "notifications",
+          () =>
+            for
+              notifications <- getNotifications(note.to, 1) zip unreadCount(note.to) dmap AndUnread.apply
+              langStr       <- userRepo.langOf(note.to)
+              lang = I18nLangPicker.byStrOrDefault(langStr)
+            yield jsonHandlers(notifications)(using lang)
+        ),
+        "socketUsers"
+      )
 
   private def bellMany(recips: Iterable[NotifyAllows], content: NotificationContent) =
     val bells = recips.collect { case r if r.allows.bell => r.userId }

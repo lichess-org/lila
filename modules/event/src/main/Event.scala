@@ -1,6 +1,5 @@
 package lila.event
 
-import org.joda.time.DateTime
 import play.api.i18n.Lang
 import ornicar.scalalib.ThreadLocalRandom
 
@@ -10,7 +9,7 @@ case class Event(
     _id: String,
     title: String,
     headline: String,
-    description: Option[lila.common.Markdown],
+    description: Option[Markdown],
     homepageHours: Double,
     url: String,
     lang: Lang,
@@ -37,13 +36,13 @@ case class Event(
 
   def featureNow = featureSince.isBeforeNow && !isFinishedSoon
 
-  def isFinishedSoon = finishesAt.isBefore(DateTime.now plusMinutes 5)
+  def isFinishedSoon = finishesAt.isBefore(nowDate plusMinutes 5)
 
   def isFinished = finishesAt.isBeforeNow
 
   def isNow = startsAt.isBeforeNow && !isFinished
 
-  def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 10) && !isFinished
+  def isNowOrSoon = startsAt.isBefore(nowDate plusMinutes 10) && !isFinished
 
   inline def id = _id
 

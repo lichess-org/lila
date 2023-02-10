@@ -1,8 +1,5 @@
 package lila.storm
 
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
-
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.puzzle.PuzzleColls
@@ -11,7 +8,7 @@ import lila.puzzle.PuzzleColls
  * Be very careful when adjusting the selector.
  * Use the grafana average rating per slice chart.
  */
-final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using ec: ExecutionContext):
+final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor):
 
   import StormBsonHandlers.given
   import lila.puzzle.PuzzlePath.sep
@@ -19,7 +16,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using ec: Exec
   def apply: Fu[List[StormPuzzle]] = current.get {}
 
   private val theme        = lila.puzzle.PuzzleTheme.mix.key
-  private val tier         = lila.puzzle.PuzzleTier.Good.key
+  private val tier         = lila.puzzle.PuzzleTier.good.key
   private val maxDeviation = 85
 
   /* for path boundaries:

@@ -1,8 +1,5 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
-import scala.concurrent.duration.*
-
 import chess.Ply
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, UciMemo }
@@ -15,7 +12,7 @@ final class Analyser(
     uciMemo: UciMemo,
     evalCache: FishnetEvalCache,
     limiter: FishnetLimiter
-)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   val maxPlies = 300
 
@@ -124,20 +121,19 @@ final class Analyser(
       lastTryByKey = none,
       acquired = none,
       skipPositions = Nil,
-      createdAt = DateTime.now
+      createdAt = nowDate
     )
 
 object Analyser:
 
-  sealed abstract class Result(val error: Option[String]):
+  enum Result(val error: Option[String]):
     def ok = error.isEmpty
-  object Result:
-    case object Ok                 extends Result(none)
-    case object NoGame             extends Result("Game not found".some)
-    case object NoChapter          extends Result("Chapter not found".some)
-    case object AlreadyAnalysed    extends Result("This game is already analysed".some)
-    case object NotAnalysable      extends Result("This game is not analysable".some)
-    case object ConcurrentAnalysis extends Result("You already have an ongoing requested analysis".some)
-    case object WeeklyLimit        extends Result("You have reached the weekly analysis limit".some)
-    case object DailyLimit         extends Result("You have reached the daily analysis limit".some)
-    case object DailyIpLimit       extends Result("You have reached the daily analysis limit on this IP".some)
+    case Ok                 extends Result(none)
+    case NoGame             extends Result("Game not found".some)
+    case NoChapter          extends Result("Chapter not found".some)
+    case AlreadyAnalysed    extends Result("This game is already analysed".some)
+    case NotAnalysable      extends Result("This game is not analysable".some)
+    case ConcurrentAnalysis extends Result("You already have an ongoing requested analysis".some)
+    case WeeklyLimit        extends Result("You have reached the weekly analysis limit".some)
+    case DailyLimit         extends Result("You have reached the daily analysis limit".some)
+    case DailyIpLimit       extends Result("You have reached the daily analysis limit on this IP".some)

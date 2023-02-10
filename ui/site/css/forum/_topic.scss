@@ -1,4 +1,9 @@
 .forum-topic {
+  h1 {
+    display: flex;
+    unicode-bidi: plaintext;
+  }
+
   &.topic-form {
     .warning {
       @extend %box-radius;

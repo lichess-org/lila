@@ -1,10 +1,8 @@
 package lila.racer
 
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 import lila.common.config.Max
 
-final class RacerLobby(api: RacerApi)(using ec: ExecutionContext, scheduler: akka.actor.Scheduler):
+final class RacerLobby(api: RacerApi)(using ec: Executor, scheduler: Scheduler):
 
   def join(player: RacerPlayer.Id): Fu[RacerRace.Id] = workQueue {
     currentRace flatMap {

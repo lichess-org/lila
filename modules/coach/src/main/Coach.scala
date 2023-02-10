@@ -1,6 +1,6 @@
 package lila.coach
 
-import org.joda.time.{ DateTime, Days }
+import org.joda.time.Days
 
 import lila.memo.PicfitImage
 
@@ -21,7 +21,7 @@ case class Coach(
 
   def hasPicture = picture.isDefined
 
-  def daysOld = Days.daysBetween(createdAt, DateTime.now).getDays
+  def daysOld = Days.daysBetween(createdAt, nowDate).getDays
 
 object Coach:
 
@@ -42,8 +42,8 @@ object Coach:
       nbReviews = 0,
       user = User(user.perfs.bestStandardRating, user.seenAt | user.createdAt),
       languages = user.lang.toList,
-      createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      createdAt = nowDate,
+      updatedAt = nowDate
     )
 
   case class WithUser(coach: Coach, user: lila.user.User):

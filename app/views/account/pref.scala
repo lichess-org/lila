@@ -24,7 +24,7 @@ object pref:
       title = s"${bits.categName(categ)} - ${u.username} - ${preferences.txt()}",
       active = categ.slug
     ) {
-      val booleanChoices = Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt())
+      val booleanChoices = translatedBooleanIntChoices
       div(cls := "account box box-pad")(
         h1(cls := "box__top")(bits.categName(categ)),
         postForm(cls := "autosubmit", action := routes.Pref.formApply)(

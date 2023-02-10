@@ -42,13 +42,18 @@ Igrajte brzo i vratite se u lobi da igrate više partija i da osvojite što viš
   <string name="drawStreakStandard">Niz remija: Kad igrač ima uzastopne remije u areni, samo prvi remi rezultira bodom ili remiji koji traju više od %s poteza. Niz remija može biti prekinut samo pobjedom, a ne porazom ili remijem.</string>
   <string name="drawStreakVariants">Minimalni broj poteza u neriješenim partijama koje donose bodove razlikuje se u zavisnosti od varijante. U tabeli ispod navedeni su pragovi za svaku varijantu.</string>
   <string name="variant">Varijanta</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in a game">Minimalni broj poteza</string>
+  <string name="minimumGameLength">Minimalni broj poteza</string>
   <string name="history">Historija Arene</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Pogledajte tim</item>
     <item quantity="few">Pogledajte sve timove %s</item>
     <item quantity="other">Pogledajte sve timove %s</item>
   </plurals>
+  <string name="newTeamBattle">Nova Timska Borba</string>
+  <string name="customStartDate">Prilagođeni početni datum</string>
+  <string name="customStartDateHelp">U vlastitoj lokalnoj vremenskoj zoni. Ovo nadjačava postavku \"Vrijeme prije početka turnira\"</string>
+  <string name="allowBerserk">Dopustite Berzerk</string>
+  <string name="allowBerserkHelp">Dopustite igračima da prepolove svoje vrijeme da bi dobili dodatni poen</string>
   <string name="allowChatHelp">Igrači mogu diskutovati u chat room-u</string>
   <string name="arenaStreaks">Nizovi u Areni</string>
   <string name="arenaStreaksHelp">Nakon dvije uzastopne pobjede, dalje uzastopne pobjede donose 4 poena umjesto 2.</string>

@@ -97,23 +97,19 @@ object side:
             }
           )
         ),
-        tour.noBerserk option div(cls := "text", dataIcon := "")("No Berserk allowed"),
-        tour.noStreak option div(cls := "text", dataIcon := "")("No Arena streaks"),
+        tour.noBerserk option div(cls := "text", dataIcon := "")(trans.arena.noBerserkAllowed()),
+        tour.noStreak option div(cls := "text", dataIcon := "")(trans.arena.noArenaStreaks()),
         !tour.isScheduled option frag(small(trans.by(userIdLink(tour.createdBy.some))), br),
         (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)) option absClientDateTime(
           tour.startsAt
         ),
         tour.startingPosition.map { pos =>
-          p(
-            a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
-            separator,
-            views.html.base.bits.fenAnalysisLink(pos.fen)
-          )
+          p(a(targetBlank, href := pos.url)(pos.name))
         } orElse tour.position.map { fen =>
           p(
             "Custom position",
             separator,
-            views.html.base.bits.fenAnalysisLink(fen)
+            views.html.base.bits.fenAnalysisLink(fen into chess.format.Fen.Epd)
           )
         }
       ),

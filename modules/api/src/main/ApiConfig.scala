@@ -1,7 +1,5 @@
 package lila.api
 
-import scala.concurrent.duration.*
-
 import lila.common.config.*
 
 final class ApiConfig(

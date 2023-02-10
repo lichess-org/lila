@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.{ Json, Writes }
 import play.api.mvc.Result
-import scala.concurrent.duration.*
 
 import lila.api.Context
 import lila.app.{ given, * }
@@ -46,19 +45,17 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         }
     }
 
-  private val FollowLimitPerUser = new lila.memo.RateLimit[UserId](
+  private val FollowLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 150,
     duration = 72.hour,
     key = "follow.user"
   )
 
   private def FollowingUser(me: UserModel, str: UserStr)(f: LightUser => Fu[Result]): Fu[Result] =
-    env.user.lightUserApi.async(str.id) flatMap {
-      _ ?? { user =>
-        FollowLimitPerUser(me.id) {
-          f(user)
-        }(rateLimitedFu)
-      }
+    env.user.lightUserApi.async(str.id) flatMapz { user =>
+      FollowLimitPerUser(me.id) {
+        f(user)
+      }(rateLimitedFu)
     }
 
   def follow(username: UserStr) =
@@ -155,7 +152,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     apiC.jsonStream {
       env.relation.stream
         .follow(me, Direction.Following, MaxPerSecond(30))
-        .map(env.api.userApi.one)
+        .map(env.api.userApi.one(_, None))
     }.toFuccess
   }
 
@@ -169,7 +166,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
             lila.user.JsonView.perfs(r.user, best.some)
           }
         )
-        .add("online" -> env.socket.isOnline.value(r.user.id))
+        .add("online" -> env.socket.isOnline(r.user.id))
     }))
 
   def blocks(page: Int) =
@@ -195,6 +192,6 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           ctx.userId ?? { api.fetchRelation(_, u.id) } map { rel =>
             lila.relation.Related(u, none, followables(u.id), rel)
           }
-        }.sequenceFu
+        }.parallel
       }
     }

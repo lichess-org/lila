@@ -4,7 +4,6 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.*
 
 import lila.common.config.MaxPerSecond
 import lila.common.Json.given
@@ -14,7 +13,7 @@ import lila.user.User
 final class PuzzleActivity(
     colls: PuzzleColls
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: akka.actor.ActorSystem
 ):
 

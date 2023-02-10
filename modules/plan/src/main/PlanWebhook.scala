@@ -2,7 +2,7 @@ package lila.plan
 
 import play.api.libs.json.*
 
-final class PlanWebhook(api: PlanApi)(using ec: scala.concurrent.ExecutionContext):
+final class PlanWebhook(api: PlanApi)(using Executor):
 
   import JsonHandlers.given
   import JsonHandlers.stripe.given
@@ -79,8 +79,9 @@ final class PlanWebhook(api: PlanApi)(using ec: scala.concurrent.ExecutionContex
               )
           case "BILLING.SUBSCRIPTION.ACTIVATED" => funit
           case "BILLING.SUBSCRIPTION.CANCELLED" =>
-            event.resourceId.map(PayPalSubscriptionId.apply) ?? api.payPal.subscriptionUser flatMap {
-              _ ?? api.cancel
-            }
+            event.resourceId.map(
+              PayPalSubscriptionId.apply
+            ) ?? api.payPal.subscriptionUser flatMapz api.cancel
+
           case _ => funit
     }

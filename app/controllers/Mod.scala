@@ -143,10 +143,8 @@ final class Mod(
 
   def closeAccount(username: UserStr) =
     OAuthMod(_.CloseAccount) { _ => me =>
-      env.user.repo byId username flatMap {
-        _ ?? { user =>
-          env.api.accountClosure.close(user, me) map some
-        }
+      env.user.repo byId username flatMapz { user =>
+        env.api.accountClosure.close(user, me) map some
       }
     }(actionResult(username))
 
@@ -207,14 +205,9 @@ final class Mod(
           .bindFromRequest()
           .fold(
             err => BadRequest(err.toString).toFuccess,
-            rawEmail => {
-              val email = env.security.emailAddressValidator
-                .validate(EmailAddress(rawEmail)) err s"Invalid email $rawEmail"
-              modApi.setEmail(me.id into ModId, user.id, email.acceptable) inject redirect(
-                user.username,
-                mod = true
-              )
-            }
+            email =>
+              modApi.setEmail(me.id into ModId, user.id, email) inject
+                redirect(user.username, mod = true)
           )
       }
     }
@@ -224,28 +217,25 @@ final class Mod(
       env.report.api.inquiries ofModId me.id flatMap {
         case None => Redirect(report.routes.Report.list).toFuccess
         case Some(report) =>
-          env.user.repo byId report.user flatMap {
-            _ ?? { user =>
-              import lila.report.Room
-              import lila.irc.IrcApi.ModDomain
-              env.irc.api.inquiry(
-                user = user,
-                mod = me,
-                domain = report.room match {
-                  case Room.Cheat => ModDomain.Cheat
-                  case Room.Boost => ModDomain.Boost
-                  case Room.Comm  => ModDomain.Comm
-                  // spontaneous inquiry
-                  case _ if Granter(_.Admin)(me.user)       => ModDomain.Admin
-                  case _ if Granter(_.CheatHunter)(me.user) => ModDomain.Cheat // heuristic
-                  case _ if Granter(_.Shusher)(me.user)     => ModDomain.Comm
-                  case _ if Granter(_.BoostHunter)(me.user) => ModDomain.Boost
-                  case _                                    => ModDomain.Admin
-
-                },
-                room = if (report.isSpontaneous) "Spontaneous inquiry" else report.room.name
-              ) inject NoContent
-            }
+          env.user.repo byId report.user flatMapz { user =>
+            import lila.report.Room
+            import lila.irc.IrcApi.ModDomain
+            env.irc.api.inquiry(
+              user = user,
+              mod = me,
+              domain = report.room match
+                case Room.Cheat => ModDomain.Cheat
+                case Room.Boost => ModDomain.Boost
+                case Room.Comm  => ModDomain.Comm
+                // spontaneous inquiry
+                case _ if Granter(_.Admin)(me.user)       => ModDomain.Admin
+                case _ if Granter(_.CheatHunter)(me.user) => ModDomain.Cheat // heuristic
+                case _ if Granter(_.Shusher)(me.user)     => ModDomain.Comm
+                case _ if Granter(_.BoostHunter)(me.user) => ModDomain.Boost
+                case _                                    => ModDomain.Admin
+              ,
+              room = if (report.isSpontaneous) "Spontaneous inquiry" else report.room.name
+            ) inject NoContent
           }
       }
     }
@@ -255,9 +245,7 @@ final class Mod(
 
   private def SendToZulip(username: UserStr, method: (UserModel, Holder) => Funit) =
     Secure(_.SendToZulip) { _ => me =>
-      env.user.repo byId username flatMap {
-        _ ?? { user => method(user, me) inject NoContent }
-      }
+      env.user.repo byId username flatMapz { method(_, me) inject NoContent }
     }
 
   def table =
@@ -275,7 +263,7 @@ final class Mod(
       if (priv) perms.ViewPrivateComms else perms.Shadowban
     } { implicit ctx => me =>
       OptionFuOk(env.user.repo byId username) { user =>
-        implicit val renderIp = env.mod.ipRender(me)
+        given lila.mod.IpRender.RenderIp = env.mod.ipRender(me)
         env.game.gameRepo
           .recentPovsByUserFromSecondary(user, 80)
           .mon(_.mod.comm.segment("recentPovs"))
@@ -456,7 +444,7 @@ final class Mod(
 
   def singleIp(ip: String) =
     SecureBody(_.ViewPrintNoIP) { implicit ctx => me =>
-      implicit val renderIp = env.mod.ipRender(me)
+      given lila.mod.IpRender.RenderIp = env.mod.ipRender(me)
       env.mod.ipRender.decrypt(ip) ?? { address =>
         for {
           uids       <- env.security.api recentUserIdsByIp address
@@ -485,9 +473,9 @@ final class Mod(
 
   def chatUser(username: UserStr) =
     Secure(_.ChatTimeout) { _ => _ =>
-      implicit val lightUser = env.user.lightUserSync
       JsonOptionOk {
-        env.chat.api.userChat userModInfo username map2 lila.chat.JsonView.userModInfo
+        env.chat.api.userChat userModInfo username map2
+          lila.chat.JsonView.userModInfo(using env.user.lightUserSync)
       }
     }
 
@@ -526,9 +514,8 @@ final class Mod(
       get("q") match
         case None => Ok(html.mod.emailConfirm("", none, none)).toFuccess
         case Some(rawQuery) =>
-          val query = rawQuery.trim.split(' ').toList
-          val email = query.headOption
-            .map(EmailAddress(_)) flatMap env.security.emailAddressValidator.validate
+          val query    = rawQuery.trim.split(' ').toList
+          val email    = query.headOption.flatMap(EmailAddress.from)
           val username = query lift 1
           def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
             env.mod.search(q) flatMap {
@@ -543,8 +530,8 @@ final class Mod(
               case _ => fuccess(none)
             }
           email.?? { em =>
-            tryWith(em.acceptable, em.acceptable.value) orElse {
-              username ?? { tryWith(em.acceptable, _) }
+            tryWith(em, em.value) orElse {
+              username ?? { tryWith(em, _) }
             } recover lila.db.recoverDuplicateKey(_ => none)
           } getOrElse BadRequest(html.mod.emailConfirm(rawQuery, none, none)).toFuccess
     }
@@ -592,34 +579,32 @@ final class Mod(
   def apiUserLog(username: UserStr) =
     SecureScoped(_.ModLog) { implicit req => me =>
       import lila.common.Json.given
-      env.user.repo byId username flatMap {
-        _ ?? { user =>
-          for {
-            logs      <- env.mod.logApi.userHistory(user.id)
-            notes     <- env.socialInfo.fetchNotes(user, me.user)
-            notesJson <- lila.user.JsonView.notes(notes)(using env.user.lightUserApi)
-          } yield JsonOk(
-            Json.obj(
-              "logs" -> Json.arr(logs.map { log =>
-                Json
-                  .obj("mod" -> log.mod, "action" -> log.action, "date" -> log.date)
-                  .add("details", log.details)
-              }),
-              "notes" -> notesJson
-            )
+      env.user.repo byId username flatMapz { user =>
+        for
+          logs      <- env.mod.logApi.userHistory(user.id)
+          notes     <- env.socialInfo.fetchNotes(user, me.user)
+          notesJson <- lila.user.JsonView.notes(notes)(using env.user.lightUserApi)
+        yield JsonOk(
+          Json.obj(
+            "logs" -> Json.arr(logs.map { log =>
+              Json
+                .obj("mod" -> log.mod, "action" -> log.action, "date" -> log.date)
+                .add("details", log.details)
+            }),
+            "notes" -> notesJson
           )
-        }
+        )
       }
     }
 
   private def withSuspect[A](username: UserStr)(f: Suspect => Fu[A])(implicit zero: Zero[A]): Fu[A] =
-    env.report.api getSuspect username flatMap { _ ?? f }
+    env.report.api getSuspect username flatMapz f
 
   private def OAuthMod[A](perm: Permission.Selector)(f: RequestHeader => Holder => Fu[Option[A]])(
       secure: Context => Holder => A => Fu[Result]
   ): Action[Unit] =
     SecureOrScoped(perm)(
-      secure = ctx => me => f(ctx.req)(me) flatMap { _ ?? secure(ctx)(me) },
+      secure = ctx => me => f(ctx.req)(me) flatMapz secure(ctx)(me),
       scoped = req =>
         me =>
           f(req)(me) flatMap { res =>
@@ -630,7 +615,7 @@ final class Mod(
       secure: BodyContext[?] => Holder => A => Fu[Result]
   ): Action[AnyContent] =
     SecureOrScopedBody(perm)(
-      secure = ctx => me => f(me) flatMap { _ ?? secure(ctx)(me) },
+      secure = ctx => me => f(me) flatMapz secure(ctx)(me),
       scoped = _ =>
         me =>
           f(me) flatMap { res =>

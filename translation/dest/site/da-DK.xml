@@ -93,7 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' med afrunding, baseret på antallet af halv-træk indtil næste fangst eller bondetræk</string>
   <string name="noGameFound">Intet parti fundet</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prøv eventuelt at inkludere flere partier fra præferencemenuen?</string>
   <string name="openings">Åbninger</string>
   <string name="openingExplorer">Åbningsbog</string>
   <string name="openingEndgameExplorer">Åbning/slutspilsbog</string>
@@ -207,6 +207,12 @@
   <string name="email">E-mail</string>
   <string name="passwordReset">Nulstil adgangskode</string>
   <string name="forgotPassword">Glemt adgangskode?</string>
+  <string name="error.weakPassword">Denne adgangskode er ekstremt almindelig og for let at gætte.</string>
+  <string name="error.namePassword">Brug ikke dit brugernavn som din adgangskode.</string>
+  <string name="youAreLeavingLichess">Du forlader Lichess</string>
+  <string name="neverTypeYourPassword">Indtast aldrig din Lichess-adgangskode på et andet websted!</string>
+  <string name="passwordSuggestion">Angiv ikke en adgangskode, som er foreslået af en anden person. De vil bruge den til at stjæle din konto.</string>
+  <string name="emailSuggestion">Angiv ikke en e-mailadresse, som er foreslået af en anden person. De vil bruge den til at stjæle din konto.</string>
   <string name="emailConfirmHelp">Hjælp med bekræftelse af e-mail</string>
   <string name="emailConfirmNotReceived">Har du ikke modtaget din bekræftelsesmail efter tilmelding?</string>
   <string name="whatSignupUsername">Hvilket brugernavn brugte du til at tilmelde dig?</string>
@@ -706,6 +712,7 @@
   <string name="kidMode">Børnetilstand</string>
   <string name="kidModeExplanation">Dette angår sikkerhed. I børnetilstand er alt kommunikation deaktiveret. Aktivér dette for dine børn eller skoleelever for at beskytte dem mod andre internetbrugere.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I børnetilstand vil Lichess-logoet få et %s ikon, så du ved, at dine børn er sikret.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Din konto er under administration. Spørg din skaklærer om at ophæve børnetilstanden.</string>
   <string name="enableKidMode">Aktiver børnetilstand</string>
   <string name="disableKidMode">Deaktiver børnetilstand</string>
   <string name="security">Sikkerhed</string>
@@ -758,7 +765,7 @@
   <string name="invalidPgn">Ugyldig PGN</string>
   <string name="invalidFen">Ugyldig FEN</string>
   <string name="custom">Tilpasset</string>
-  <string name="notifications">Meddelelser</string>
+  <string name="notifications">Notifikationer</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til at lave det første træk</item>

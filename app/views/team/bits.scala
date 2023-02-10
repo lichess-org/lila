@@ -45,13 +45,12 @@ object bits:
     }
 
   private[team] object markdown:
-    import scala.concurrent.duration.*
     private val renderer = new MarkdownRender(header = true, list = true, table = true)
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(10 minutes)
       .maximumSize(1024)
-      .build[Markdown, String]()
-    def apply(team: Team, text: Markdown): Frag = raw(cache.get(text, renderer(s"team:${team.id}")))
+      .build[Markdown, Html]()
+    def apply(team: Team, text: Markdown): Frag = rawHtml(cache.get(text, renderer(s"team:${team.id}")))
 
   private[team] def teamTr(t: Team)(implicit ctx: Context) =
     import lila.common.String.*

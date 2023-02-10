@@ -37,7 +37,7 @@ object event:
             form3.submit("Clone", "".some)(cls := "button-green button-empty")
           )
         ),
-        standardFlash(),
+        standardFlash,
         postForm(cls := "content_box_content form3", action := routes.Event.update(event.id))(inForm(form))
       )
     }
@@ -77,15 +77,14 @@ object event:
     }
 
   private object markdown:
-    import scala.concurrent.duration.*
     private val renderer = new MarkdownRender(table = true, list = true)
     // hashcode caching is safe for official events
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(10 minutes)
       .maximumSize(64)
-      .build[Int, String]()
+      .build[Int, Html]()
     def apply(e: Event, text: Markdown): Frag =
-      raw(cache.get(text.hashCode, _ => renderer(s"event:${e.id}")(text)))
+      rawHtml(cache.get(text.hashCode, _ => renderer(s"event:${e.id}")(text)))
 
   def manager(events: List[Event])(implicit ctx: Context) =
     val title = "Event manager"

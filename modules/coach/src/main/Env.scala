@@ -3,7 +3,6 @@ package lila.coach
 import com.softwaremill.macwire.*
 import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.security.Permission
@@ -22,7 +21,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
     picfitApi: lila.memo.PicfitApi
-)(using ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem):
+)(using ec: Executor, system: akka.actor.ActorSystem):
 
   private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
 

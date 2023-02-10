@@ -203,6 +203,12 @@
   <string name="email">Email</string>
   <string name="passwordReset">Ricaktim fjalëkalimi</string>
   <string name="forgotPassword">Harruat fjalëkalimin?</string>
+  <string name="error.weakPassword">Ky fjalëkalim është tejet i rëndomtë dhe shumë i kollajtë të merret me mend.</string>
+  <string name="error.namePassword">Ju lutemi, mos përdorni si fjalëkalim tuajin emrin tuaj të përdoruesit.</string>
+  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Po ikni nga Lichess</string>
+  <string name="neverTypeYourPassword">Mos shtypni kurrë fjalëkalimin tuaj për në Lichess te një sajt tjetër!</string>
+  <string name="passwordSuggestion">Mos caktoni si fjalëkalim diçka të sugjeruar nga dikush tjetër. Do ta përdorin për t’ju grabitur llogarinë tuaj.</string>
+  <string name="emailSuggestion">Mos caktoni si adresë email diçka të sugjeruar nga dikush tjetër. Do ta përdorin për t’ju grabitur llogarinë tuaj.</string>
   <string name="emailConfirmHelp">Ndihmë për ripohim email-i</string>
   <string name="emailConfirmNotReceived">S’e morët email-in tuaj të ripohimit, pas regjistrimit?</string>
   <string name="whatSignupUsername">Ç’emër përdoruesi përdorët për t’u regjistruar?</string>
@@ -359,6 +365,7 @@
   <string name="siteDescription">Shërbyes shahu internetor falas. Luani shah përmes një ndërfaqeje të pastër. Pa regjistrim, pa reklama, pa u dashur shtojca. Luani shah me kompjuterin, shokë ose kundërshtarë të rastësishëm.</string>
   <string name="xJoinedTeamY">%1$s u bë pjesë e ekipit %2$s</string>
   <string name="xCreatedTeamY">%1$s krijoi ekipin %2$s</string>
+  <string name="startedStreaming">filloi transmetim</string>
   <string name="xStartedStreaming">%s filloi transmetimin</string>
   <string name="averageElo">Vlerësimi mesatar</string>
   <string name="location">Vendndodhja</string>
@@ -536,6 +543,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="blog">Blog</string>
   <string name="notes">Shënime</string>
   <string name="typePrivateNotesHere">Shkruani shënime private këtu</string>
+  <string name="writeAPrivateNoteAboutThisUser">Shkruani një shënim privat rreth këtij përdoruesi</string>
+  <string name="noNoteYet">Ende pa shënim</string>
   <string name="invalidUsernameOrPassword">Emër përdorues ose fjalëkalim i pavlefshëm</string>
   <string name="incorrectPassword">Fjalëkalim i pasaktë</string>
   <string name="invalidAuthenticationCode">Kod i pavlefshëm mirëfilltësimi</string>
@@ -701,6 +710,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="kidMode">Mënyra për fëmijë</string>
   <string name="kidModeExplanation">Kjo është për sigurinë. Nën mënyrën për fëmijë, krejt komunikimet në sajt janë të çaktivizuara. Aktivizojeni këtë për fëmijët dhe nxënësit tuaj të shkollave, për t’i mbrojtur ata nga të tjerë përdorues të internetit.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Nën mënyrën për fëmijë, stemës së Lichess-it i vihet një ikonë %s, që ta dini se fëmijët tuaj janë të parrezik.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Llogaria juaj administrohet. Rreth heqjes së mënyrës “fëmijë” pyetni mëuesin tuaj të shahut.</string>
   <string name="enableKidMode">Aktivizo mënyrën për Fëmijë</string>
   <string name="disableKidMode">Çaktivizo mënyrën për Fëmijë</string>
   <string name="security">Siguri</string>
@@ -735,6 +745,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="light">I çelët</string>
   <string name="dark">I errët</string>
   <string name="transparent">I tejdukshëm</string>
+  <string name="deviceTheme">Temën e pajisjes</string>
   <string name="backgroundImageUrl">URL figure sfondi:</string>
   <string name="boardGeometry">Gjeometri fushe</string>
   <string name="boardTheme">Temë fushe</string>
@@ -874,6 +885,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas/libre, me burim të hapët.
 Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
   <string name="coachManager">Trajner</string>
+  <string name="streamerManager">Përgjegjës transmetimesh</string>
   <string name="cancelTournament">Anulojeni turneun</string>
   <string name="tournDescription">Përshkrim turneu</string>
   <string name="tournDescriptionHelp">Ndonjë gjë e veçantë që dëshironi t’u thoni pjesëmarrësve? Përpiquni të jetë me pak fjalë. Mund të përdoren lidhje Markdown: [name](https://url)</string>

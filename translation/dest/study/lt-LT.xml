@@ -56,7 +56,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Tik studijos talkininkai gali prašyti kompiuterio analizės.</string>
   <string name="getAFullComputerAnalysis">Gaukite pilną pagrindinės linijos kompiuterio analizę.</string>
   <string name="makeSureTheChapterIsComplete">Įsitikinkite, kad skyrius užbaigtas. Analizės galite prašyti tik kartą.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Visi SYNC nariai lieka toje pačioje pozicijoje</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Visi SYNC nariai lieka toje pačioje pozicijoje</string>
   <string name="shareChanges">Dalinkitės pakeitimais su žiūrovais ir saugokite juos serveryje</string>
   <string name="playing">Žaidžiama</string>
   <string name="first">Pirmas</string>
@@ -68,6 +68,8 @@
   <string name="studyPgn">Studijos PGN</string>
   <string name="downloadAllGames">Atsisiųsti visus žaidimus</string>
   <string name="chapterPgn">Skyriaus PGN</string>
+  <string name="copyChapterPgn">Kopijuoti PGN</string>
+  <string name="copyChapterPgnDescription">Kopijuoti skyriaus PGN į iškarpinę.</string>
   <string name="downloadGame">Atsisiųsti žaidimą</string>
   <string name="studyUrl">Studijos URL</string>
   <string name="currentChapterUrl">Dabartinio skyriaus URL</string>

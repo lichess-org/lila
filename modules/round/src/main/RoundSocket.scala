@@ -6,8 +6,6 @@ import akka.actor.{ ActorSystem, Cancellable, CoordinatedShutdown, Scheduler }
 import chess.format.Uci
 import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
 import play.api.libs.json.*
-import scala.concurrent.duration.*
-import scala.concurrent.{ ExecutionContext, Promise }
 
 import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }
@@ -33,8 +31,9 @@ final class RoundSocket(
     goneWeightsFor: Game => Fu[(Float, Float)],
     shutdown: CoordinatedShutdown
 )(using
-    ec: ExecutionContext,
-    system: ActorSystem
+    ec: Executor,
+    system: ActorSystem,
+    scheduler: Scheduler
 ):
 
   import RoundSocket.*
@@ -55,7 +54,7 @@ final class RoundSocket(
   def getGames(gameIds: List[GameId]): Fu[List[(GameId, Option[Game])]] =
     gameIds.map { id =>
       rounds.getOrMake(id).getGame dmap { id -> _ }
-    }.sequenceFu
+    }.parallel
 
   def gameIfPresent(gameId: GameId): Fu[Option[Game]] = rounds.getIfPresent(gameId).??(_.getGame)
 
@@ -76,8 +75,8 @@ final class RoundSocket(
   )
 
   private def makeRoundActor(id: GameId, version: SocketVersion, gameFu: Fu[Option[Game]]) =
-    val proxy = new GameProxy(id, proxyDependencies, gameFu)
-    val roundActor = new RoundAsyncActor(
+    val proxy = GameProxy(id, proxyDependencies, gameFu)
+    val roundActor = RoundAsyncActor(
       dependencies = roundDependencies,
       gameId = id,
       socketSend = sendForGameId(id),
@@ -96,7 +95,7 @@ final class RoundSocket(
 
   private def tellRound(gameId: GameId, msg: Any): Unit = rounds.tell(gameId, msg)
 
-  private lazy val roundHandler: Handler =
+  private val roundHandler: Handler =
     case Protocol.In.PlayerMove(fullId, uci, blur, lag) if !stopping =>
       tellRound(Game fullToId fullId, HumanPlay(Game takePlayerId fullId, uci, blur, lag, none))
     case Protocol.In.PlayerDo(fullId, tpe) if !stopping =>
@@ -170,11 +169,11 @@ final class RoundSocket(
 
   Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame") {
     case TvSelect(gameId, speed, json) =>
-      sendForGameId(gameId).value(Protocol.Out.tvSelect(gameId, speed, json))
+      sendForGameId(gameId)(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(id, e @ BotConnected(color, v)) =>
       val gameId = GameId(id)
       rounds.tell(gameId, e)
-      sendForGameId(gameId).value(Protocol.Out.botConnected(gameId, color, v))
+      sendForGameId(gameId)(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg)          => rounds.tell(GameId(gameId), msg)
     case TellIfExists(gameId, msg)  => rounds.tellIfPresent(GameId(gameId), msg)
     case TellMany(gameIds, msg)     => rounds.tellIds(gameIds.asInstanceOf[Seq[GameId]], msg)
@@ -183,11 +182,11 @@ final class RoundSocket(
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
-        sendForGameId(game.id).value(Protocol.Out.startGame(usersPlaying))
+        sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
       }
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
-        sendForGameId(game.id).value(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
+        sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
       }
   }
 
@@ -208,14 +207,14 @@ final class RoundSocket(
     }
   }
 
-  system.scheduler.scheduleWithFixedDelay(25 seconds, tickInterval) { () =>
+  scheduler.scheduleWithFixedDelay(25 seconds, tickInterval) { () =>
     rounds.tellAll(RoundAsyncActor.Tick)
   }
-  system.scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds) { () =>
+  scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds) { () =>
     lila.mon.round.asyncActorCount.update(rounds.size).unit
   }
 
-  private val terminationDelay = new TerminationDelay(system.scheduler, 1 minute, finishRound)
+  private val terminationDelay = TerminationDelay(scheduler, 1 minute, finishRound)
 
   // on startup we get all ongoing game IDs and versions from lila-ws
   // load them into round actors with batched DB queries
@@ -223,7 +222,7 @@ final class RoundSocket(
     val bootLog = lila log "boot"
 
     // load all actors synchronously, giving them game futures from promises we'll fulfill later
-    val gamePromises: Map[GameId, Promise[Option[Game]]] = rooms.view.map { case (id, version) =>
+    val gamePromises: Map[GameId, Promise[Option[Game]]] = rooms.view.map { (id, version) =>
       val promise = Promise[Option[Game]]()
       val gameId  = GameId(id)
       rounds.loadOrTell(
@@ -234,14 +233,14 @@ final class RoundSocket(
       gameId -> promise
     }.toMap
 
-    // fullfill the promises with batched DB requests
+    // fulfill the promises with batched DB requests
     rooms
       .map(_._1)
       .grouped(1024)
       .map { ids =>
         roundDependencies.gameRepo
-          .byIdsCursor(ids map { GameId(_) })
-          .foldWhile[Set[GameId]](Set.empty[GameId])(
+          .byIdsCursor(GameId from ids)
+          .foldWhile(Set.empty[GameId])(
             (ids, game) =>
               Cursor.Cont[Set[GameId]] {
                 gamePromises.get(game.id).foreach(_ success game.some)
@@ -257,7 +256,7 @@ final class RoundSocket(
           .log(bootLog)(loadedIds => s"RoundSocket Loaded ${loadedIds.size}/${ids.size} round games")
           .result
       }
-      .sequenceFu
+      .parallel
       .map(_.flatten.toSet)
       .andThen {
         case scala.util.Success(loadedIds) =>
@@ -400,7 +399,7 @@ object RoundSocket:
         s"r/goneIn $fullId $seconds"
 
       def tellVersion(roomId: RoomId, version: SocketVersion, e: Event) =
-        val flags = new StringBuilder(2)
+        val flags = StringBuilder(2)
         if (e.watcher) flags += 's'
         else if (e.owner) flags += 'p'
         else
@@ -430,10 +429,10 @@ object RoundSocket:
       scheduler: Scheduler,
       duration: FiniteDuration,
       terminate: GameId => Unit
-  )(using ec: scala.concurrent.ExecutionContext):
+  )(using Executor):
     import java.util.concurrent.ConcurrentHashMap
 
-    private[this] val terminations = new ConcurrentHashMap[GameId, Cancellable](65536)
+    private[this] val terminations = ConcurrentHashMap[GameId, Cancellable](65536)
 
     def schedule(gameId: GameId): Unit =
       terminations

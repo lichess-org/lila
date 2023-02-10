@@ -4,12 +4,11 @@ import chess.Color
 
 import lila.game.{ Event, Game, Pov, Progress }
 import lila.pref.{ Pref, PrefApi }
-import scala.concurrent.duration.FiniteDuration
 
 final class Moretimer(
     messenger: Messenger,
     prefApi: PrefApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   // pov of the player giving more time
   def apply(pov: Pov, duration: FiniteDuration): Fu[Option[Progress]] =
@@ -44,7 +43,7 @@ final class Moretimer(
   private def isAllowedByPrefs(game: Game): Fu[Boolean] =
     game.userIds.map {
       prefApi.getPref(_, (p: Pref) => p.moretime)
-    }.sequenceFu dmap {
+    }.parallel dmap {
       _.forall { p =>
         p == Pref.Moretime.ALWAYS || (p == Pref.Moretime.CASUAL && game.casual)
       }

@@ -2,7 +2,6 @@ package controllers
 
 import play.api.data.Form
 import play.api.mvc.*
-import scala.concurrent.duration.*
 
 import lila.api.Context
 import lila.app.{ given, * }
@@ -11,7 +10,7 @@ import lila.app.{ given, * }
 import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourModel }
 import lila.user.{ User as UserModel }
 import views.*
-import lila.common.HTTPRequest
+import chess.format.pgn.PgnStr
 
 final class RelayRound(
     env: Env,
@@ -56,24 +55,22 @@ final class RelayRound(
       scoped = req =>
         me =>
           NoLameOrBot(me) {
-            env.relay.api tourById TourModel.Id(tourId) flatMap {
-              _ ?? { tour =>
-                env.relay.api.withRounds(tour) flatMap { trs =>
-                  env.relay.roundForm
-                    .create(trs)
-                    .bindFromRequest()(req, formBinding)
-                    .fold(
-                      err => BadRequest(apiFormError(err)).toFuccess,
-                      setup =>
-                        rateLimitCreation(me, req, rateLimited) {
-                          JsonOk {
-                            env.relay.api.create(setup, me, tour) map { round =>
-                              env.relay.jsonView.withUrl(round withTour tour)
-                            }
+            env.relay.api tourById TourModel.Id(tourId) flatMapz { tour =>
+              env.relay.api.withRounds(tour) flatMap { trs =>
+                env.relay.roundForm
+                  .create(trs)
+                  .bindFromRequest()(req, formBinding)
+                  .fold(
+                    err => BadRequest(apiFormError(err)).toFuccess,
+                    setup =>
+                      rateLimitCreation(me, req, rateLimited) {
+                        JsonOk {
+                          env.relay.api.create(setup, me, tour) map { round =>
+                            env.relay.jsonView.withUrl(round withTour tour)
                           }
                         }
-                    )
-                }
+                      }
+                  )
               }
             }
           }
@@ -115,17 +112,15 @@ final class RelayRound(
   private def doUpdate(id: RelayRoundId, me: UserModel)(using
       req: Request[?]
   ): Fu[Option[Either[(RoundModel.WithTour, Form[RelayRoundForm.Data]), RoundModel.WithTour]]] =
-    env.relay.api.byIdAndContributor(id, me) flatMap {
-      _ ?? { rt =>
-        env.relay.roundForm
-          .edit(rt.round)
-          .bindFromRequest()
-          .fold(
-            err => fuccess(Left(rt -> err)),
-            data =>
-              env.relay.api.update(rt.round) { data.update(_, me) }.dmap(_ withTour rt.tour) dmap Right.apply
-          ) dmap some
-      }
+    env.relay.api.byIdAndContributor(id, me) flatMapz { rt =>
+      env.relay.roundForm
+        .edit(rt.round)
+        .bindFromRequest()
+        .fold(
+          err => fuccess(Left(rt -> err)),
+          data =>
+            env.relay.api.update(rt.round) { data.update(_, me) }.dmap(_ withTour rt.tour) dmap Right.apply
+        ) dmap some
     }
 
   def reset(id: RelayRoundId) =
@@ -149,16 +144,14 @@ final class RelayRound(
                 }
               }
             else env.study.api byIdWithChapter rt.round.studyId
-          sc flatMap { _ ?? { doShow(rt, _) } }
+          sc flatMapz { doShow(rt, _) }
         }
       },
       scoped = _ =>
         _ =>
-          env.relay.api.byIdWithTour(id) flatMap {
-            _ ?? { rt =>
-              env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
-                JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))
-              }
+          env.relay.api.byIdWithTour(id) flatMapz { rt =>
+            env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
+              JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))
             }
           }
     )
@@ -167,27 +160,23 @@ final class RelayRound(
   def apiPgn(id: StudyId)                      = studyC.apiPgn(id)
 
   def stream(id: RelayRoundId) = AnonOrScoped() { req => me =>
-    env.relay.api.byIdWithStudy(id) flatMap {
-      _ ?? { rt =>
-        studyC.CanView(rt.study, me) {
-          apiC
-            .GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
-              env.relay.pgnStream.streamRoundGames(rt)
-            ) { source =>
-              noProxyBuffer(Ok chunked source.keepAlive(60.seconds, () => " ") as pgnContentType)
-            }
-            .toFuccess
-        }(Unauthorized.toFuccess, Forbidden.toFuccess)
-      }
+    env.relay.api.byIdWithStudy(id) flatMapz { rt =>
+      studyC.CanView(rt.study, me) {
+        apiC
+          .GlobalConcurrencyLimitPerIP(req.ipAddress)(
+            env.relay.pgnStream.streamRoundGames(rt)
+          ) { source =>
+            noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
+          }
+          .toFuccess
+      }(Unauthorized.toFuccess, Forbidden.toFuccess)
     }
   }
 
   def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) =
     Open { implicit ctx =>
       WithRoundAndTour(ts, rs, id) { rt =>
-        env.study.api.byIdWithChapter(rt.round.studyId, chapterId) flatMap {
-          _ ?? { doShow(rt, _) }
-        }
+        env.study.api.byIdWithChapter(rt.round.studyId, chapterId) flatMapz { doShow(rt, _) }
       }
     }
 
@@ -195,7 +184,7 @@ final class RelayRound(
     ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { req => me =>
       env.relay.api.byIdAndContributor(id, me) flatMap {
         case None     => notFoundJson()
-        case Some(rt) => env.relay.push(rt, req.body) inject jsonOkResult
+        case Some(rt) => env.relay.push(rt, PgnStr(req.body)) inject jsonOkResult
       }
     }
 
@@ -216,10 +205,8 @@ final class RelayRound(
       f: TourModel.WithRounds => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     WithTour(id) { tour =>
-      ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMap {
-        _ ?? {
-          env.relay.api withRounds tour flatMap f
-        }
+      ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMapz {
+        env.relay.api withRounds tour flatMap f
       }
     }
 
@@ -268,7 +255,7 @@ final class RelayRound(
       else if (me.hasTitle || me.isVerified) 5
       else 10
     CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost) {
+      CreateLimitPerIP(req.ipAddress, cost = cost) {
         create
       }(fail.toFuccess)
     }(fail.toFuccess)

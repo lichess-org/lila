@@ -3,6 +3,7 @@ package lila.study
 import scala.util.chaining.*
 
 import chess.format.pgn.{ Tag, TagType, Tags }
+import chess.format.UciPath
 
 object PgnTags:
 
@@ -10,7 +11,7 @@ object PgnTags:
     tags pipe filterRelevant pipe removeContradictingTermination pipe sort
 
   def setRootClockFromTags(c: Chapter): Option[Chapter] =
-    c.updateRoot { _.setClockAt(c.tags.clockConfig map (_.limit), Path.root) } filter (c !=)
+    c.updateRoot { _.setClockAt(c.tags.clockConfig map (_.limit), UciPath.root) } filter (c !=)
 
   private def filterRelevant(tags: Tags) =
     Tags(tags.value.filter { t =>
@@ -33,10 +34,12 @@ object PgnTags:
       WhiteElo,
       WhiteTitle,
       WhiteTeam,
+      WhiteFideId,
       Black,
       BlackElo,
       BlackTitle,
       BlackTeam,
+      BlackFideId,
       TimeControl,
       Date,
       Result,

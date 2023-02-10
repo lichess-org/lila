@@ -1,7 +1,6 @@
 package lila.user
 
 import lila.db.dsl.{ *, given }
-import org.joda.time.DateTime
 import ornicar.scalalib.ThreadLocalRandom
 
 case class Note(
@@ -20,7 +19,7 @@ final class NoteApi(
     userRepo: UserRepo,
     coll: Coll
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     ws: play.api.libs.ws.StandaloneWSClient
 ):
 
@@ -67,7 +66,7 @@ final class NoteApi(
       text = text,
       mod = modOnly,
       dox = modOnly && (dox || Title.fromUrl.toFideId(text).isDefined),
-      date = DateTime.now
+      date = nowDate
     )
 
     coll.insert.one(note) >>-
@@ -87,10 +86,8 @@ final class NoteApi(
   }
 
   def lichessWrite(to: User, text: String) =
-    userRepo.lichess flatMap {
-      _ ?? {
-        write(to, text, _, modOnly = true, dox = false)
-      }
+    userRepo.lichess flatMapz {
+      write(to, text, _, modOnly = true, dox = false)
     }
 
   def byId(id: String): Fu[Option[Note]] = coll.byId[Note](id)

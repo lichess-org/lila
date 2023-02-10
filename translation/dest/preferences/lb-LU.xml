@@ -3,6 +3,7 @@
   <string name="preferences">Astellungen</string>
   <string name="display">Usiicht</string>
   <string name="privacy">Privatsphär</string>
+  <string name="notifications">Benoriichtegungen</string>
   <string name="pieceAnimation">Figurenanimatioun</string>
   <string name="materialDifference">Materialënnerscheed</string>
   <string name="boardHighlights">Briet Highlights (leschten Zuch an Schach)</string>
@@ -47,4 +48,17 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">No Defaite oder Remis \"Good game, well played\" (Gudd Partie, gudd gespillt) soen</string>
   <string name="yourPreferencesHaveBeenSaved">Deng Astellungen goufen gespäichert.</string>
   <string name="scrollOnTheBoardToReplayMoves">Scroll iwwer d\'Briet fir Zich nozespillen</string>
+  <string name="correspondenceEmailNotification">Deegleg Email mat Lëscht vun Korrespondenzpartien</string>
+  <string name="notifyStreamStart">Streamer geet live</string>
+  <string name="notifyInboxMsg">Nei Privatnoriicht</string>
+  <string name="notifyForumMention">Forenkommentar ernimmt dech</string>
+  <string name="notifyInvitedStudy">Etüdeninvitatioun</string>
+  <string name="notifyGameEvent">Korrespondenzpartien Updates</string>
+  <string name="notifyChallenge">Erausfuerderungen</string>
+  <string name="notifyTournamentSoon">Turnéier fänkt gleich un</string>
+  <string name="notifyTimeAlarm">Zäit an Korrespondenzpartie leeft of</string>
+  <string name="notifyBell">Benoriichtegung ob Lichess</string>
+  <string name="notifyPush">Gerät Benoriichtegung wanns du net ob Lichess bass</string>
+  <string name="notifyWeb">Web-Browser</string>
+  <string name="notifyDevice">Gerät</string>
 </resources>

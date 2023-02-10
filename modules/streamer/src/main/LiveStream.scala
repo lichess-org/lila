@@ -5,7 +5,6 @@ import akka.pattern.ask
 import makeTimeout.short
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration.*
 
 import lila.memo.CacheApi.*
 import lila.user.User
@@ -66,7 +65,7 @@ object LiveStreams:
 final class LiveStreamApi(
     cacheApi: lila.memo.CacheApi,
     streaming: Streaming
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private val cache = cacheApi.unit[LiveStreams] {
     _.refreshAfterWrite(2 seconds)
@@ -81,7 +80,6 @@ final class LiveStreamApi(
   private var userIdsCache = Set.empty[UserId]
 
   def all: Fu[LiveStreams] = cache.getUnit
-  // import org.joda.time.DateTime
   // def all: Fu[LiveStreams] =
   //   fuccess(
   //     LiveStreams(
@@ -98,7 +96,7 @@ final class LiveStreamApi(
   //               ignored = false,
   //               tier = 5,
   //               chatEnabled = true,
-  //               lastGrantedAt = DateTime.now.some
+  //               lastGrantedAt = nowDate.some
   //             ),
   //             picturePath = none,
   //             name = Streamer.Name("thibault"),
@@ -106,10 +104,10 @@ final class LiveStreamApi(
   //             description = none,
   //             twitch = none,
   //             youTube = none,
-  //             seenAt = DateTime.now,      // last seen online
-  //             liveAt = DateTime.now.some, // last seen streaming
-  //             createdAt = DateTime.now,
-  //             updatedAt = DateTime.now
+  //             seenAt = nowDate,      // last seen online
+  //             liveAt = nowDate.some, // last seen streaming
+  //             createdAt = nowDate,
+  //             updatedAt = nowDate
   //           )
   //         )
   //       )

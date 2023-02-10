@@ -1,16 +1,12 @@
 package lila.challenge
 
-import scala.concurrent.ExecutionContext
-
 import lila.common.{ LightUser, Template }
 import lila.user.{ LightUserApi, User }
 
-final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(using
-    ec: ExecutionContext
-):
+final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(using Executor):
 
   def onApiPair(challenge: Challenge)(managedBy: User, template: Option[Template]): Funit =
-    challenge.userIds.map(lightUserApi.async).sequenceFu.flatMap {
+    challenge.userIds.map(lightUserApi.async).parallel.flatMap {
       _.flatten match
         case List(u1, u2) => onApiPair(GameId(challenge.id), u1, u2)(managedBy.id, template)
         case _            => funit
@@ -29,5 +25,5 @@ final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(us
           .replace("{game}", s"#${gameId}")
         msgApi.post(managedById, u1.id, msg, multi = true, ignoreSecurity = true)
       }
-      .sequenceFu
+      .parallel
       .void

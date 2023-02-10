@@ -6,7 +6,6 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import lila.common.autoconfig.{ *, given }
 import play.api.{ ConfigLoader, Configuration }
-import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.common.{ Bus, Strings, Uptime }
@@ -55,9 +54,9 @@ final class Env(
     ratingFactors: () => lila.rating.RatingFactors,
     shutdown: akka.actor.CoordinatedShutdown
 )(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     system: ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     materializer: akka.stream.Materializer
 ):
   private val (botSync, async, sync) = (lightUserApi.isBotSync, lightUserApi.async, lightUserApi.sync)
@@ -73,20 +72,18 @@ final class Env(
       game.whitePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
         game.blackPlayer.userId.fold(defaultGoneWeight)(goneWeight)
 
-  private val isSimulHost = new IsSimulHost(userId =>
-    Bus.ask[Set[UserId]]("simulGetHosts")(GetHostIds.apply).dmap(_ contains userId)
-  )
+  private val isSimulHost =
+    IsSimulHost(userId => Bus.ask[Set[UserId]]("simulGetHosts")(GetHostIds.apply).dmap(_ contains userId))
 
-  private val scheduleExpiration = new ScheduleExpiration(game => {
+  private val scheduleExpiration = ScheduleExpiration { game =>
     game.timeBeforeExpiration foreach { centis =>
       scheduler.scheduleOnce((centis.millis + 1000).millis) {
         tellRound(game.id, actorApi.round.NoStart)
       }
     }
-  })
+  }
 
-  private lazy val proxyDependencies =
-    new GameProxy.Dependencies(gameRepo, scheduler)
+  private lazy val proxyDependencies = GameProxy.Dependencies(gameRepo, scheduler)
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
@@ -111,11 +108,10 @@ final class Env(
     }
   )
 
-  lazy val tellRound: TellRound = new TellRound((gameId: GameId, msg: Any) =>
-    roundSocket.rounds.tell(gameId, msg)
-  )
+  lazy val tellRound: TellRound =
+    TellRound((gameId: GameId, msg: Any) => roundSocket.rounds.tell(gameId, msg))
 
-  lazy val onStart: OnStart = new OnStart((gameId: GameId) =>
+  lazy val onStart: OnStart = OnStart((gameId: GameId) =>
     proxyRepo game gameId foreach {
       _ foreach { game =>
         lightUserApi.preloadMany(game.userIds) >>- {
@@ -156,12 +152,12 @@ final class Env(
 
   lazy val perfsUpdater: PerfsUpdater = wire[PerfsUpdater]
 
-  lazy val forecastApi: ForecastApi = new ForecastApi(
+  lazy val forecastApi: ForecastApi = ForecastApi(
     coll = db(config.forecastColl),
     tellRound = tellRound
   )
 
-  private lazy val notifier = new RoundNotifier(
+  private lazy val notifier = RoundNotifier(
     timeline = timeline,
     isUserPresent = isUserPresent,
     notifyApi = notifyApi
@@ -171,7 +167,7 @@ final class Env(
 
   private lazy val rematcher: Rematcher = wire[Rematcher]
 
-  lazy val isOfferingRematch = new IsOfferingRematch(rematcher.isOffering)
+  lazy val isOfferingRematch = IsOfferingRematch(rematcher.isOffering)
 
   private lazy val player: Player = wire[Player]
 
@@ -187,13 +183,13 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  lazy val noteApi = new NoteApi(db(config.noteColl))
+  lazy val noteApi = NoteApi(db(config.noteColl))
 
   MoveLatMonitor.start(scheduler)
 
   system.actorOf(Props(wire[Titivate]), name = "titivate")
 
-  new CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game)
+  CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game)
 
   private lazy val takebacker = wire[Takebacker]
 

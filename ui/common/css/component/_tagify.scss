@@ -216,7 +216,7 @@
   &__tag {
     display: inline-flex;
     align-items: center;
-    margin: $tagMargin 0 $tagMargin $tagMargin;
+    @include margin-direction($tagMargin, 0, $tagMargin, $tagMargin);
     position: relative;
     z-index: 1;
     outline: none;
@@ -247,6 +247,7 @@
         min-width: var(--tag--min-width, $tag-min-width);
         max-width: var(--tag--max-width, $tag-max-width);
         transition: 0.8s ease, 0.1s color;
+        unicode-bidi: plaintext;
 
         &[contenteditable] {
           outline: none;
@@ -611,7 +612,7 @@
         height: auto;
       }
 
-      // no suggested-complete are shown in mix-mode while higilighting dropdown options
+      // no suggested-complete are shown in mix-mode while highlighting dropdown options
       &::after {
         content: none;
       }

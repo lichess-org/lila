@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.*
-import scala.concurrent.duration.*
 import scala.util.chaining.*
 
 import lila.app.{ given, * }
@@ -9,14 +8,9 @@ import lila.game.Pov
 import lila.user.{ User as UserModel }
 
 // both bot & board APIs
-final class PlayApi(
-    env: Env,
-    apiC: => Api
-)(using
-    mat: akka.stream.Materializer
-) extends LilaController(env):
+final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 
-  private given (using req: RequestHeader): play.api.i18n.Lang = reqLang(req)
+  private given (using req: RequestHeader): play.api.i18n.Lang = reqLang
 
   // bot endpoints
 
@@ -32,22 +26,21 @@ final class PlayApi(
 
   def botCommand(cmd: String) =
     ScopedBody(_.Bot.Play) { implicit req => me =>
-      cmd.split('/') match
-        case Array("account", "upgrade") =>
-          env.user.repo.isManaged(me.id) flatMap {
-            case true => notFoundJson()
-            case _ =>
-              env.tournament.api.withdrawAll(me) >>
-                env.team.cached.teamIdsList(me.id).flatMap { env.swiss.api.withdrawAll(me, _) } >>
-                env.user.repo.setBot(me) >>
-                env.pref.api.setBot(me) >>
-                env.streamer.api.delete(me) >>-
-                env.user.lightUserApi.invalidate(me.id) pipe
-                toResult recover { case lila.base.LilaInvalid(msg) =>
-                  BadRequest(jsonError(msg))
-                }
-          }
-        case _ => impl.command(me, cmd)(WithPovAsBot)
+      if cmd == "account/upgrade" then
+        env.user.repo.isManaged(me.id) flatMap {
+          case true => notFoundJson()
+          case _ =>
+            env.tournament.api.withdrawAll(me) >>
+              env.team.cached.teamIdsList(me.id).flatMap { env.swiss.api.withdrawAll(me, _) } >>
+              env.user.repo.setBot(me) >>
+              env.pref.api.setBot(me) >>
+              env.streamer.api.delete(me) >>-
+              env.user.lightUserApi.invalidate(me.id) pipe
+              toResult recover { case lila.base.LilaInvalid(msg) =>
+                BadRequest(jsonError(msg))
+              }
+        }
+      else impl.command(me, cmd)(WithPovAsBot)
     }
 
   // board endpoints
@@ -72,7 +65,7 @@ final class PlayApi(
   // common code for bot & board APIs
   private object impl:
 
-    def gameStream(me: UserModel, pov: Pov)(implicit req: RequestHeader) =
+    def gameStream(me: UserModel, pov: Pov)(using RequestHeader) =
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
         apiC.sourceToNdJsonOption(env.bot.gameStateStream(wf, pov.color, me))
       }
@@ -82,7 +75,7 @@ final class PlayApi(
 
     def command(me: UserModel, cmd: String)(
         as: (GameAnyId, UserModel) => (Pov => Fu[Result]) => Fu[Result]
-    )(implicit req: Request[?]): Fu[Result] =
+    )(using Request[?]): Fu[Result] =
       cmd.split('/') match
         case Array("game", id, "chat") =>
           as(GameAnyId(id), me) { pov =>

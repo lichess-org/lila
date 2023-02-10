@@ -3,8 +3,8 @@ import { h, VNode } from 'snabbdom';
 import { iconTag, bind, onInsert, dataIcon, bindNonPassive } from 'common/snabbdom';
 import { makeCtrl as inviteFormCtrl, StudyInviteFormCtrl } from './inviteForm';
 import { NotifCtrl } from './notif';
-import { prop, Prop } from 'common';
-import { scrollTo, titleNameToId } from '../view/util';
+import { prop, Prop, scrollTo } from 'common';
+import { titleNameToId } from '../view/util';
 import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { textRaw as xhrTextRaw } from 'common/xhr';
 
@@ -225,7 +225,7 @@ export function view(ctrl: StudyCtrl): VNode {
       'm-config',
       {
         key: member.user.id + '-config',
-        hook: onInsert(el => scrollTo($(el).parent('.members')[0] as HTMLElement, el)),
+        hook: onInsert(el => scrollTo($(el).parent('.study__members')[0] as HTMLElement, el)),
       },
       [
         h('div.role', [

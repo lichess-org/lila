@@ -7,7 +7,7 @@ import play.api.data.Form
 import lila.db.dsl.*
 
 final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: lila.log.Logger)(using
-    ec: scala.concurrent.ExecutionContext,
+    ec: Executor,
     loader: ConfigLoader[A]
 ):
 
@@ -30,10 +30,8 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
   }
 
   def parse(text: String): Either[List[String], A] =
-    try
-      Right(loader.load(ConfigFactory.parseString(text)))
-    catch
-      case e: Exception => Left(List(e.getMessage))
+    try Right(loader.load(ConfigFactory.parseString(text)))
+    catch case e: Exception => Left(List(e.getMessage))
 
   def get: Fu[Option[A]] = cache.get(())
 
@@ -65,7 +63,7 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
 object ConfigStore:
 
   final class Builder(db: lila.db.Db, config: MemoConfig, cacheApi: CacheApi)(using
-      scala.concurrent.ExecutionContext
+      Executor
   ):
     private val coll = db(config.configColl)
 

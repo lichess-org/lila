@@ -2,7 +2,6 @@ package lila.tv
 
 import akka.actor.ActorSystem
 import com.softwaremill.macwire.*
-import scala.concurrent.duration.*
 
 @Module
 final class Env(
@@ -14,7 +13,7 @@ final class Env(
     system: ActorSystem,
     recentTvGames: lila.round.RecentTvGames,
     rematches: lila.game.Rematches
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   private val tvSyncActor = wire[TvSyncActor]
 

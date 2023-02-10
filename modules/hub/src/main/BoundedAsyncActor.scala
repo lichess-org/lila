@@ -3,7 +3,6 @@ package lila.hub
 import java.util.concurrent.atomic.AtomicReference
 import java.util.function.UnaryOperator
 import scala.collection.immutable.Queue
-import scala.concurrent.Promise
 import lila.common.config.Max
 
 /*
@@ -12,7 +11,7 @@ import lila.common.config.Max
  */
 final class BoundedAsyncActor(maxSize: Max, name: String, logging: Boolean = true)(
     process: AsyncActor.ReceiveAsync
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
 
   import BoundedAsyncActor.*
 

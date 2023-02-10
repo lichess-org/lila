@@ -59,6 +59,8 @@
   <string name="depthX">Kûrahî %s</string>
   <string name="usingServerAnalysis">Bikaranîna analîza rajekarê</string>
   <string name="loadingEngine">Motor tê barkirin ...</string>
+  <string name="calculatingMoves">Tê hejmartin...</string>
+  <string name="engineFailed">Motor nehat barkirin</string>
   <string name="cloudAnalysis">Analîza ewrê</string>
   <string name="goDeeper">Kûrtir analîz bike</string>
   <string name="showThreat">Tehdîdan nîşan bide</string>
@@ -91,7 +93,9 @@
   </plurals>
   <string name="noGameFound">Ti lîstik nehat dîtin</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belkî bixwazî ji menuya tercîhan zêdetir lîstikan bînî?</string>
+  <string name="openings">Destpêk</string>
   <string name="openingExplorer">Kaşifê destpêkê</string>
+  <string name="openingEndgameExplorer">Geroka despêk/dawîyê</string>
   <string name="xOpeningExplorer">%s kaşifê destpêkê</string>
   <string name="winPreventedBy50MoveRule">Ji ber qaîdeya 50 hemleyê rê li ber serkeftinê hate girtin</string>
   <string name="lossSavedBy50MoveRule">Rê li ber mexlubiyetê hate girtin ji ber qaîdeya 50 hemleyê</string>
@@ -148,6 +152,7 @@
   <string name="viewInFullSize">Dîmentijî bibîne</string>
   <string name="logOut">Derkeve</string>
   <string name="signIn">Têkeve</string>
+  <string name="rememberMe">Min têketî bihêle</string>
   <string name="youNeedAnAccountToDoThat">Pêdiviya te bi hesabekî heye ji bo kirina vê</string>
   <string name="signUp">Qeyd bibe</string>
   <string name="computersAreNotAllowedToPlay">Destûr nayê dayîn ji kompîtir û lîzerên kompîtir-piştgir ku bilîzin. Xêra xwe gava dilîzî, alîkariyê negire ji motorên kişikê, danegehan, an ji lîzerên din. Vê bi bîr bîne ku hebûna ji yekî zêdetir hesaban mirov bêzar dike û pirr-hesabçêkirin dibe sedem ku hûn werin astengkirin.</string>
@@ -190,6 +195,8 @@
   <string name="email">Epeyam</string>
   <string name="passwordReset">Epeyamê nû bike</string>
   <string name="forgotPassword">Te pêborînê ji bîr kir?</string>
+  <string name="emailSent">Me ji %s re email şand.</string>
+  <string name="accountCanLogin">Tu niha dikarî wek %s têkevî.</string>
   <string name="rank">Pile</string>
   <string name="rankX">Pile: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -363,6 +370,8 @@
   <string name="follow">Bişopîne</string>
   <string name="following">Dişopînî</string>
   <string name="unfollow">Neşopîne</string>
+  <string name="followX">Bişopîne %s</string>
+  <string name="unfollowX">%s neşopîne</string>
   <string name="block">Asteng bike</string>
   <string name="blocked">Astengkirî ye</string>
   <string name="unblock">Astengiyê rake</string>
@@ -411,6 +420,8 @@
   <string name="tournamentIsStarting">Pêşbirk dest pê dike</string>
   <string name="tournamentPairingsAreNowClosed">Lihevanînên pêşbirkê vê gavê girtî ye.</string>
   <string name="standByX">Amade be %s, lîzer têne lihevanîn!</string>
+  <string name="pause">Bisekîne</string>
+  <string name="resume">Bidomîne</string>
   <string name="youArePlaying">Tu vê gavê dilîzî!</string>
   <string name="winRate">Rêjeya serkeftinê</string>
   <string name="berserkRate">Rêjeya Berserk-ê</string>
@@ -425,6 +436,7 @@
   <string name="boardEditor">Edîtorê texteyê</string>
   <string name="setTheBoard">Texteyê bisazîne</string>
   <string name="popularOpenings">Destpêkên binavûdeng</string>
+  <string name="endgamePositions">Pozisyonên Dawîyê</string>
   <string name="startPosition">Pozîsyona destpêkê</string>
   <string name="clearBoard">Texteyê paqij bike</string>
   <string name="loadPosition">Pozîsyonê bar bike</string>
@@ -438,9 +450,11 @@
   <string name="firstName">Nav</string>
   <string name="lastName">Paşnav</string>
   <string name="biography">Biyografî</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Welat an jî al</string>
   <string name="thankYou">Spas!</string>
   <string name="socialMediaLinks">Têkîliyên Medyaya Civakî</string>
   <string name="inlineNotation">Notasyona navrêzî</string>
+  <string name="clearSavedMoves">Hemleyan jê bibe</string>
   <string name="previouslyOnLichessTV">Berê ser Lichess TVyê</string>
   <string name="onlinePlayers">Lîzerên serhêl</string>
   <string name="activePlayers">Lîzerên aktîv</string>
@@ -491,6 +505,7 @@
   <string name="currentPassword">Pêborîna vêga</string>
   <string name="newPassword">Pêborîna nû</string>
   <string name="newPasswordAgain">Pêborîna nû (cardin)</string>
+  <string name="newPasswordsDontMatch">Pêborînên nû ne heman in</string>
   <string name="clockInitialTime">Destpêkirina Lîstokê</string>
   <string name="clockIncrement">Bilindbûna Dem</string>
   <string name="privacy">Nihênî</string>

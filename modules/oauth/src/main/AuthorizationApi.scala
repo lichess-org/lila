@@ -1,12 +1,11 @@
 package lila.oauth
 
-import org.joda.time.DateTime
 import cats.data.Validated
 import reactivemongo.api.bson.*
 import lila.db.dsl.*
 import lila.user.User
 
-final class AuthorizationApi(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final class AuthorizationApi(val coll: Coll)(using Executor):
   import AuthorizationApi.{ BSONFields as F, PendingAuthorization, PendingAuthorizationBSONHandler }
 
   def create(request: AuthorizationRequest.Authorized): Fu[Protocol.AuthorizationCode] =
@@ -19,7 +18,7 @@ final class AuthorizationApi(val coll: Coll)(using ec: scala.concurrent.Executio
         request.redirectUri,
         request.challenge,
         request.scopes,
-        DateTime.now().plusSeconds(120)
+        nowDate.plusSeconds(120)
       )
     ) inject code
 
@@ -31,7 +30,7 @@ final class AuthorizationApi(val coll: Coll)(using ec: scala.concurrent.Executio
         pending <- doc
           .result[PendingAuthorization]
           .toValid(Protocol.Error.AuthorizationCodeInvalid)
-          .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(DateTime.now()))
+          .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(nowDate))
           .ensure(Protocol.Error.MismatchingRedirectUri)(_.redirectUri.matches(request.redirectUri))
           .ensure(Protocol.Error.MismatchingClient)(_.clientId == request.clientId)
         _ <- pending.challenge match

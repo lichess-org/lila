@@ -2,7 +2,6 @@ package lila.insight
 
 import play.api.i18n.Lang
 import play.api.libs.json.*
-import scala.concurrent.ExecutionContext
 
 import lila.common.LightUser
 import lila.common.Json.given
@@ -39,11 +38,11 @@ object Chart:
 
   def fromAnswer[X](
       getLightUser: LightUser.Getter
-  )(answer: Answer[X])(using lang: Lang, ec: ExecutionContext): Fu[Chart] =
+  )(answer: Answer[X])(using Lang, Executor): Fu[Chart] =
 
     import answer.*, question.*
 
-    def xAxis(using lang: Lang) =
+    def xAxis =
       Xaxis(
         name = dimension.name,
         categories = clusters.map(_.x).map(InsightDimension.valueJson(dimension)),
@@ -127,7 +126,7 @@ object Chart:
         "user1"    -> user1,
         "user2"    -> user2
       )
-    }.sequenceFu map { games =>
+    }.parallel map { games =>
       Chart(
         question = JsonQuestion fromQuestion question,
         xAxis = xAxis,

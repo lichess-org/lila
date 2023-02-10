@@ -9,7 +9,7 @@ import lila.common.String.html.safeJsonValue
 
 object msg:
 
-  def home(json: JsObject)(implicit ctx: Context) =
+  def home(json: JsObject)(using Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("msg")),
       moreJs = frag(
@@ -18,7 +18,7 @@ object msg:
           s"""LichessMsg(${safeJsonValue(
               Json.obj(
                 "data" -> json,
-                "i18n" -> jsI18n
+                "i18n" -> i18nJsObject(i18nKeys)
               )
             )})"""
         )
@@ -28,8 +28,6 @@ object msg:
     ) {
       main(cls := "box msg-app")
     }
-
-  def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
 
   private val i18nKeys = List(
     trans.inbox,
@@ -44,5 +42,7 @@ object msg:
     trans.friends,
     trans.discussions,
     trans.today,
-    trans.yesterday
+    trans.yesterday,
+    trans.youAreLeavingLichess,
+    trans.neverTypeYourPassword
   )

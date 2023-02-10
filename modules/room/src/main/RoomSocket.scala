@@ -11,8 +11,6 @@ import lila.user.User
 import lila.common.Json.given
 
 import play.api.libs.json.*
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext
 
 object RoomSocket:
 
@@ -21,7 +19,7 @@ object RoomSocket:
   case class NotifyVersion[A: Writes](tpe: String, data: A, troll: Boolean = false):
     def msg = makeMessage(tpe, data)
 
-  final class RoomState(roomId: RoomId, send: Send)(using ExecutionContext) extends SyncActor:
+  final class RoomState(roomId: RoomId, send: Send)(using Executor) extends SyncActor:
 
     private var version = SocketVersion(0)
 
@@ -40,7 +38,7 @@ object RoomSocket:
       super.stop()
       send(Protocol.Out.stop(roomId))
 
-  def makeRoomMap(send: Send)(using ExecutionContext, play.api.Mode) =
+  def makeRoomMap(send: Send)(using Executor, play.api.Mode) =
     SyncActorMap[RoomId, RoomState](
       mkActor = roomId => new RoomState(roomId, send),
       accessTimeout = 5 minutes
@@ -53,7 +51,7 @@ object RoomSocket:
       publicSource: RoomId => PublicSource.type => Option[PublicSource],
       localTimeout: Option[(RoomId, UserId, UserId) => Fu[Boolean]] = None,
       chatBusChan: BusChan.Select
-  )(using ExecutionContext): Handler =
+  )(using Executor): Handler =
     ({
       case Protocol.In.ChatSay(roomId, userId, msg) =>
         chat.userChat

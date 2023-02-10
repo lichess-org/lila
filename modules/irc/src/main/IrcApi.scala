@@ -1,7 +1,5 @@
 package lila.irc
 
-import org.joda.time.DateTime
-
 import lila.common.IpAddress
 import lila.common.{ ApiVersion, EmailAddress, Heapsort, IpAddress, LightUser }
 import lila.hub.actorApi.irc.*
@@ -12,9 +10,8 @@ import cats.syntax.show.*
 
 final class IrcApi(
     zulip: ZulipClient,
-    noteApi: lila.user.NoteApi,
-    implicit val lightUser: LightUser.Getter
-)(using ec: scala.concurrent.ExecutionContext):
+    noteApi: lila.user.NoteApi
+)(using lightUser: LightUser.Getter, ec: Executor):
 
   import IrcApi.*
 
@@ -30,7 +27,7 @@ final class IrcApi(
       case _               => ZulipClient.stream.mod.adminGeneral
     noteApi
       .byUserForMod(user.id)
-      .map(_.headOption.filter(_.date isAfter DateTime.now.minusMinutes(5)))
+      .map(_.headOption.filter(_.date isAfter nowDate.minusMinutes(5)))
       .flatMap {
         case None =>
           zulip.sendAndGetLink(stream, "/" + user.username)(
@@ -44,31 +41,27 @@ final class IrcApi(
               markdown.linkifyUsers(note.text take 2000)
           )
       }
-      .flatMap {
-        _ ?? { zulipLink =>
-          noteApi.write(
-            user,
-            s"$domain discussion: $zulipLink",
-            mod.user,
-            modOnly = true,
-            dox = domain == ModDomain.Admin
-          )
-        }
+      .flatMapz { zulipLink =>
+        noteApi.write(
+          user,
+          s"$domain discussion: $zulipLink",
+          mod.user,
+          modOnly = true,
+          dox = domain == ModDomain.Admin
+        )
       }
 
   def nameCloseVote(user: User, mod: Holder): Funit =
     zulip
       .sendAndGetLink(_.mod.usernames, "/" + user.username)("/poll Close?\n🔨 Yes\n🍃 No")
-      .flatMap {
-        _ ?? { zulipLink =>
-          noteApi.write(
-            user,
-            s"username discussion: $zulipLink",
-            mod.user,
-            modOnly = true,
-            dox = false
-          )
-        }
+      .flatMapz { zulipLink =>
+        noteApi.write(
+          user,
+          s"username discussion: $zulipLink",
+          mod.user,
+          modOnly = true,
+          dox = false
+        )
       }
 
   def usertableCheck(user: User, mod: Holder): Funit =
@@ -97,27 +90,23 @@ final class IrcApi(
     })
 
   def monitorMod(modId: UserId, icon: String, text: String, tpe: ModDomain): Funit =
-    lightUser(modId) flatMap {
-      _ ?? { mod =>
-        zulip(_.mod.adminMonitor(tpe), mod.name.value)(
-          s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
-        )
-      }
+    lightUser(modId) flatMapz { mod =>
+      zulip(_.mod.adminMonitor(tpe), mod.name.value)(
+        s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
+      )
     }
 
   def logMod(modId: UserId, icon: String, text: String): Funit =
-    lightUser(modId) flatMap {
-      _ ?? { mod =>
-        zulip(_.mod.log, "actions")(
-          s"${markdown.modLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
-        )
-      }
+    lightUser(modId) flatMapz { mod =>
+      zulip(_.mod.log, "actions")(
+        s"${markdown.modLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
+      )
     }
 
   def printBan(mod: Holder, print: String, v: Boolean, userIds: List[UserId]): Funit =
     logMod(
       mod.id,
-      "paw prints",
+      "paw_prints",
       s"${if (v) "Banned" else "Unbanned"} print ${markdown
           .printLink(print)} of ${userIds.length} user(s): ${markdown userIdLinks userIds}"
     )
@@ -160,10 +149,8 @@ final class IrcApi(
         s"${markdown.modLink(mod.user)} :monkahmm: is looking at the appeal of **${markdown
             .lichessLink(s"/appeal/${user.username}", user.username)}**"
       )
-      .flatMap {
-        _ ?? { zulipAppealConv =>
-          noteApi.write(user, s"Appeal discussion: $zulipAppealConv", mod.user, modOnly = true, dox = true)
-        }
+      .flatMapz { zulipAppealConv =>
+        noteApi.write(user, s"Appeal discussion: $zulipAppealConv", mod.user, modOnly = true, dox = true)
       }
 
   def nameClosePreset(username: UserName): Funit =
@@ -201,7 +188,7 @@ final class IrcApi(
 
     def apply(event: ChargeEvent): Funit =
       buffer = buffer :+ event
-      buffer.head.date.isBefore(DateTime.now.minusHours(12)) ?? {
+      buffer.head.date.isBefore(nowDate.minusHours(12)) ?? {
         val firsts    = Heapsort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.cents).sum
         val patrons =

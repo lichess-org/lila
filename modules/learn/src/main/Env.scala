@@ -8,7 +8,7 @@ import lila.common.autoconfig.given
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db
-)(using ec: scala.concurrent.ExecutionContext):
+)(using Executor):
   lazy val api = new LearnApi(
     coll = db(appConfig.get[CollName]("learn.collection.progress"))
   )
