@@ -33,4 +33,10 @@ Sizge ekewi de kerek!</string>
   <string name="thePawn">Piyada</string>
   <string name="itMovesForwardOnly">Tek aldıǵa aldıǵa júredi</string>
   <string name="pawnIntro">Piyadalar hálsiz, biraq olar kóp imkaniyatlarǵa iye.</string>
+  <string name="pawnsMoveOneSquareOnly">Piyadalar tek bir ketekshe aldıǵa júredi.
+Biraq taxtanıń basqa tárepine jetkende, kúshlirek tasqa aylanadı!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Kópshilik jaǵdayda wázirge aylantırǵan eń jaqsısı.
+Biraq bazıda at bolǵanı da paydalı!</string>
+  <string name="pawnsMoveForward">Piyadalar tuwrıǵa júredi,
+biraq diagonalına jeydi!</string>
 </resources>
