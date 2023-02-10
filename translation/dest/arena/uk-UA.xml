@@ -57,6 +57,8 @@
   <string name="allowChatHelp">Дозволити гравцям обговорення в чаті</string>
   <string name="arenaStreaks">Серії Арени</string>
   <string name="arenaStreaksHelp">Після двох перемог, кожна наступна перемога принесе 4 бали замість 2.</string>
+  <string name="noBerserkAllowed">Берсерк не дозволений</string>
   <string name="noArenaStreaks">Немає серій Арени</string>
+  <string name="averagePerformance">Середня продуктивність</string>
   <string name="averageScore">Середній результат</string>
 </resources>
