@@ -231,6 +231,7 @@
   <string name="forgotPassword">Zapomniałeś hasła?</string>
   <string name="error.weakPassword">To hasło jest bardzo popularne i zbyt łatwe do odgadnięcia.</string>
   <string name="error.namePassword">Nie używaj nazwy użytkownika jako hasła.</string>
+  <string name="blankedPassword">Użyłeś tego samego hasła w innym serwisie, który został zaatakowany. Aby zapewnić bezpieczeństwo Twojego konta Lichess musisz ustawić nowe hasło. Dziękujemy za wyrozumiałość.</string>
   <string name="youAreLeavingLichess">Opuszczasz Lichess</string>
   <string name="neverTypeYourPassword">Nigdy nie wpisuj hasła Lichess na innej stronie!</string>
   <string name="passwordSuggestion">Nie ustawiaj hasła zasugerowanego przez kogoś innego. Wykorzystają je do kradzieży Twojego konta.</string>
