@@ -10,7 +10,7 @@ import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
 import { PromotionCtrl } from 'chess/promotion';
-import { KeyboardMove } from 'keyboardMove';
+import { KeyboardMove } from 'input';
 import * as Prefs from 'common/prefs';
 import perfIcons from 'common/perfIcons';
 
@@ -147,6 +147,7 @@ export interface PuzzlePrefs {
   };
   blindfold: boolean;
   keyboardMove: boolean;
+  voiceMove: boolean;
 }
 
 export interface Angle {

@@ -24,7 +24,7 @@ import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { CevalCtrl } from 'ceval';
-import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
+import { ctrl as makeKeyboardMove, KeyboardMove } from 'input';
 import { defer } from 'common/defer';
 import { defined, prop, Prop, propWithEffect } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
@@ -90,7 +90,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function setChessground(this: Controller, cg: CgApi): void {
     ground(cg);
-    if (opts.pref.keyboardMove) {
+    if (opts.pref.keyboardMove || opts.pref.voiceMove) {
       keyboardMove = makeKeyboardMove(
         {
           data: {
@@ -103,6 +103,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           userJumpPlyDelta,
           next: nextPuzzle,
           vote,
+          voiceMove: opts.pref.voiceMove,
         },
         { fen: this.vm.node.fen }
       );

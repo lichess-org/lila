@@ -11,7 +11,7 @@ import { onInsert, bindNonPassive } from 'common/snabbdom';
 import { bindMobileMousedown } from 'common/mobile';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
-import { render as renderKeyboardMove } from 'keyboardMove';
+import { render as renderKeyboardMove } from 'input';
 import * as Prefs from 'common/prefs';
 
 const renderAnalyse = (ctrl: Controller): VNode => h('div.puzzle__moves.areplay', [treeView(ctrl)]);

@@ -38,6 +38,7 @@ object PrefForm:
         "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices),
         "submitMove"    -> checkedNumber(Pref.SubmitMove.choices),
         "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
+        "voiceMove"     -> optional(booleanNumber),
         "keyboardMove"  -> optional(booleanNumber),
         "rookCastle"    -> optional(booleanNumber)
       )(BehaviorData.apply)(unapply),
@@ -78,6 +79,7 @@ object PrefForm:
       submitMove: Int,
       confirmResign: Int,
       keyboardMove: Option[Int],
+      voiceMove: Option[Int],
       rookCastle: Option[Int]
   )
 
@@ -125,6 +127,7 @@ object PrefForm:
         confirmResign = behavior.confirmResign,
         captured = display.captured == 1,
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
+        voiceMove = behavior.voiceMove | pref.voiceMove,
         zen = display.zen | pref.zen,
         ratings = ratings | pref.ratings,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
@@ -157,6 +160,7 @@ object PrefForm:
           submitMove = pref.submitMove,
           confirmResign = pref.confirmResign,
           keyboardMove = pref.keyboardMove.some,
+          voiceMove = pref.voiceMove.some,
           rookCastle = pref.rookCastle.some
         ),
         clock = ClockData(

@@ -22,7 +22,7 @@ import * as sound from './sound';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
+import { ctrl as makeKeyboardMove, KeyboardMove } from 'input';
 import * as renderUser from './view/user';
 import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
@@ -86,6 +86,7 @@ export default class RoundController {
   nvui?: NvuiPlugin;
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
+  voiceMove: boolean;
 
   private music?: any;
 
@@ -93,6 +94,7 @@ export default class RoundController {
     round.massage(opts.data);
 
     const d = (this.data = opts.data);
+    this.voiceMove = d.voiceMove;
 
     this.ply = round.lastPly(d);
     this.goneBerserk[d.player.color] = d.player.berserk;
@@ -750,7 +752,7 @@ export default class RoundController {
 
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
-    if (this.data.pref.keyboardMove) {
+    if (this.data.pref.keyboardMove || this.voiceMove) {
       this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
       requestAnimationFrame(() => this.redraw());
     }
