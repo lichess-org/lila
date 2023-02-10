@@ -210,6 +210,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="forgotPassword">Passwort vergässe?</string>
   <string name="error.weakPassword">So es Passwort isch extrem hüfig und liecht z\'knacke!</string>
   <string name="error.namePassword">Nimm bitte nöd din Benutzername als Passwort!</string>
+  <string name="blankedPassword">Du häsch das Passwort scho uf ere andere Website benutzt und ebe die Site isch kompromitiert worde. (was immer das heisst) Um d\'Sicherheit vu dim Lichess-Konto z\'gewähre, muesch es nois Passwort kreiere. Mir danked dir für dis Verschtändnis.</string>
   <string name="youAreLeavingLichess">Du verlahsch jetzt Lichess</string>
   <string name="neverTypeYourPassword">Benutz dis Lichess-Passwort nie uf andere Website!</string>
   <string name="passwordSuggestion">Setz keis Passwort, wo dir e anderi Person vorgschlage hät. Suscht chan dis Konto gschtohle werde.</string>
