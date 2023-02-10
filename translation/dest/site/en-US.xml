@@ -207,7 +207,8 @@
   <string name="email">Email</string>
   <string name="passwordReset">Password reset</string>
   <string name="forgotPassword">Forgot password?</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">You are leaving Lichess</string>
+  <string name="blankedPassword">You have used the same password on another site, and that site has been compromised. To ensure the safety of your Lichess account, we need you to set a new password. Thank you for your understanding.</string>
+  <string name="youAreLeavingLichess">You are leaving Lichess</string>
   <string name="emailConfirmHelp">Help with email confirmation</string>
   <string name="emailConfirmNotReceived">Didn\'t receive your confirmation email after signing up?</string>
   <string name="whatSignupUsername">What username did you use to sign up?</string>

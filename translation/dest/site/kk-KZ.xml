@@ -209,7 +209,7 @@
   <string name="forgotPassword">Құпиясөзді ұмытып қалдыңыз ба?</string>
   <string name="error.weakPassword">Осындай құпиясөз қолданыста көп, оны табу оңайға соғады.</string>
   <string name="error.namePassword">Құпиясөз ретінде өз тіркеулі атыңызды жазбаңыз.</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Сіз Личес-тен шыққалы тұрсыз</string>
+  <string name="youAreLeavingLichess">Сіз Личес-тен шыққалы тұрсыз</string>
   <string name="neverTypeYourPassword">Личестегі құпиясөзіңізді басқа сайттарда қолданбаңыз!</string>
   <string name="passwordSuggestion">Басқа біреу ұсынған құпиясөзді қолданбаңыз. Ол адам тіркелгіңізді ұрлауы мүмкін.</string>
   <string name="emailSuggestion">Басқа біреу ұсынған пошта мекенжайын қолданбаңыз. Ол адам тіркелгіңізді ұрлауы мүмкін.</string>

@@ -53,4 +53,8 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="allowChatHelp">Oyuncuların sohbet odasında konuşmasına izin ver</string>
   <string name="arenaStreaks">Arena serisi</string>
   <string name="arenaStreaksHelp">2 kez üst üste kazandıktan sonra yapılan maçlar 2 yerine 4 puan verir.</string>
+  <string name="noBerserkAllowed">Divane modu devre dışı</string>
+  <string name="noArenaStreaks">Arena serisi devre dışı</string>
+  <string name="averagePerformance">Ortalama performans</string>
+  <string name="averageScore">Ortalama skor</string>
 </resources>

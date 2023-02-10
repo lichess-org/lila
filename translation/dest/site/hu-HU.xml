@@ -209,7 +209,7 @@
   <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
   <string name="error.weakPassword">Ez a jelszó rettentő gyakori, és túl könnyű kitalálni.</string>
   <string name="error.namePassword">Kérjük ne használja a felhasználónevét a jelszavának.</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Elhagyja a Lichess-t</string>
+  <string name="youAreLeavingLichess">Elhagyja a Lichess-t</string>
   <string name="neverTypeYourPassword">Soha ne írja be a Lichess jelszavát más oldalon!</string>
   <string name="passwordSuggestion">Ne állítson be olyan jelszót, amit más ajánlott. Arra használhatják, hogy ellopják a fiókját.</string>
   <string name="emailSuggestion">Ne állítson be olyan email címet, amit más ajánlott. Arra használhatják, hogy ellopják a fiókját.</string>
