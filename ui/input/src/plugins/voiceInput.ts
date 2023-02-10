@@ -1,19 +1,6 @@
-import { Duplex, DuplexOptions, Writable } from 'readable-stream';
-import MicrophoneStream from '../microphoneStream';
+import { Duplex, DuplexOptions, Writable, Readable } from 'readable-stream';
+//import MicrophoneStream from '../microphoneStream';
 import { KaldiRecognizer, createModel } from 'vosk-browser';
-export class AudioStreamer extends Duplex {
-  constructor(public recognizer: KaldiRecognizer, options?: DuplexOptions) {
-    super(options);
-  }
-
-  public _write(chunk: AudioBuffer, _: any, callback: any) {
-    const buffer = chunk.getChannelData(0);
-    if (this.recognizer && buffer.byteLength > 0) {
-      this.recognizer.acceptWaveform(chunk);
-    }
-    callback();
-  }
-}
 
 const speechLookup = new Map<string, string>([
   ['a', 'a'],
@@ -57,6 +44,92 @@ interface SubmitOpts {
   yourMove?: boolean;
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
+export class AudioStreamer extends Duplex {
+  constructor(public recognizer: KaldiRecognizer, options?: DuplexOptions) {
+    super(options);
+  }
+
+  public _write(chunk: AudioBuffer, _: any, callback: any) {
+    const buffer = chunk.getChannelData(0);
+    if (this.recognizer && buffer.byteLength > 0) {
+      this.recognizer.acceptWaveform(chunk);
+    }
+    callback();
+  }
+}
+export default class MicrophoneStream extends Readable {
+  public context: AudioContext;
+  public audioInput: MediaStreamAudioSourceNode;
+  private stream: MediaStream;
+  private recorder: ScriptProcessorNode;
+  private recording = true;
+  constructor() {
+    super({ objectMode: true });
+
+    this.context = new AudioContext();
+    this.recorder = this.context.createScriptProcessor(1024, 1, 1); // outputChannels 1 for old chrome
+    this.recorder.connect(this.context.destination);
+
+    setTimeout(() => {
+      this.emit('format', {
+        channels: 1,
+        bitDepth: 32,
+        sampleRate: this.context.sampleRate,
+        signed: true,
+        float: true,
+      });
+    }, 0);
+  }
+
+  public setStream(stream: MediaStream): void {
+    this.stream = stream;
+    this.audioInput = this.context.createMediaStreamSource(stream);
+    this.audioInput.connect(this.recorder);
+    const recorderProcess = (e: AudioProcessingEvent) => {
+      if (this.recording) {
+        this.push(e.inputBuffer);
+      }
+    };
+    this.recorder.onaudioprocess = recorderProcess;
+  }
+
+  public pauseRecording(): void {
+    this.recording = false;
+  }
+
+  public playRecording(): void {
+    this.recording = true;
+  }
+
+  public stop(): void {
+    if (this.context.state === 'closed') {
+      return;
+    }
+    try {
+      this.stream.getTracks()[0].stop();
+    } catch (ex) {
+      console.log(ex);
+    }
+    this.recorder.disconnect();
+    if (this.audioInput) {
+      this.audioInput.disconnect();
+    }
+    try {
+      this.context.close(); // returns a promise;
+    } catch (ex) {
+      console.log(ex);
+    }
+    this.recording = false;
+    this.push(null);
+    this.emit('close');
+  }
+
+  public _read(): void {}
+
+  public static toRaw(chunk: Buffer): Float32Array {
+    return new Float32Array(chunk.buffer);
+  }
+}
 
 export function loadVosk(submit: Submit, isEnabled: () => boolean) {
   async function initialise() {
@@ -74,10 +147,6 @@ export function loadVosk(submit: Submit, isEnabled: () => boolean) {
           if (isEnabled()) submit(command, { force: true, isTrusted: true });
         }
     });
-    /*recognizer.on('partialresult', message => {
-      if ('result' in message)
-        if ('partial' in message.result) console.log(`Partial result: ${message.result.partial}`);
-    });*/
 
     const mediaStream = await navigator.mediaDevices.getUserMedia({
       video: false,
@@ -86,6 +155,7 @@ export function loadVosk(submit: Submit, isEnabled: () => boolean) {
         noiseSuppression: true,
       },
     });
+
     const micStream = new MicrophoneStream();
 
     micStream.setStream(mediaStream);
