@@ -14,4 +14,17 @@
   <string name="grabAllTheStars">Barlıq juldızlardı jıynap alıń!</string>
   <string name="theFewerMoves">Qansha az júrseńiz,
 sonsha kóp ball alasız!</string>
+  <string name="theBishop">Pil</string>
+  <string name="itMovesDiagonally">Ol diagonal tárizde júredi</string>
+  <string name="bishopIntro">Endi biz pildiń qalay júriwin bilip alamız!</string>
+  <string name="youNeedBothBishops">Bir aq ketekshedegi pil,
+Bir qara ketekshedegi pil.
+Sizge ekewi de kerek!</string>
+  <string name="bishopComplete">Qutlıqlaymız! Siz pildi júriwdi úyrendińiz.</string>
+  <string name="theQueen">Wázir</string>
+  <string name="queenCombinesRookAndBishop">Wázir=tuwra+pil</string>
+  <string name="queenComplete">Qutlıqlaymız! Siz wázir haqqında barlıǵın bilesiz.</string>
+  <string name="theKing">Shax</string>
+  <string name="theMostImportantPiece">Eń áhmiyetli tas</string>
+  <string name="kingIntro">Siz shaxsız. Eger siz gúreste jıǵılsańız, oyında jeńilgen bolasız.</string>
 </resources>
