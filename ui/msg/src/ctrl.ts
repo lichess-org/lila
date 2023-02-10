@@ -179,8 +179,7 @@ export default class MsgCtrl {
     }
   };
 
-  reportableMsg = (): Msg | undefined =>
-    this.data.convo?.msgs.find(m => m.user != this.data.me.id && m.text.length > 2);
+  reportableMsg = (): Msg | undefined => this.data.convo?.msgs.find(m => m.user != this.data.me.id);
 
   block = () => {
     const userId = this.data.convo?.user.id;
