@@ -27,4 +27,10 @@ Sizge ekewi de kerek!</string>
   <string name="theKing">Shax</string>
   <string name="theMostImportantPiece">Eń áhmiyetli tas</string>
   <string name="kingIntro">Siz shaxsız. Eger siz gúreste jıǵılsańız, oyında jeńilgen bolasız.</string>
+  <string name="theKnight">At</string>
+  <string name="itMovesInAnLShape">\"Г\" kórinisinde júredi</string>
+  <string name="knightComplete">Qutlıqlaymız! Siz attı úyrenip aldıńız.</string>
+  <string name="thePawn">Piyada</string>
+  <string name="itMovesForwardOnly">Tek aldıǵa aldıǵa júredi</string>
+  <string name="pawnIntro">Piyadalar hálsiz, biraq olar kóp imkaniyatlarǵa iye.</string>
 </resources>
