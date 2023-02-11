@@ -23,4 +23,18 @@
   </plurals>
   <string name="xPublishedY">%1$s %2$sdı járiyaladı</string>
   <string name="thisPostIsPublished">Bul xabar járiyalandı</string>
+  <string name="thisIsADraft">Bul qaralama</string>
+  <string name="moreBlogPostsBy">%s tárepinen kóbirek blog xabarları</string>
+  <string name="noPostsInThisBlogYet">Bul blogta ele xabarlar joq.</string>
+  <string name="noDrafts">Kórsetiw ushın qaralama joq.</string>
+  <string name="latestBlogPosts">Eń sońǵı post xabarları</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Bir xabardı kóriw</item>
+    <item quantity="other">Barlıq %s xabarlardı kóriw</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Xabarıńız ushın súwret júkleń</string>
+  <string name="imageAlt">Súwrettiń tekstli táriypi</string>
+  <string name="deleteBlog">Usı blog xabarın pútkilley óshiriw</string>
+  <string name="deleteImage">Súwretti óshiriw</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Tómendegi vabsaytlardaǵı súwretlerden paydalanıw qáwipsiz: </string>
 </resources>
