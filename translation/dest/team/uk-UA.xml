@@ -14,7 +14,7 @@
   <string name="myTeams">Мої команди</string>
   <string name="noTeamFound">Не знайдено команди</string>
   <string name="joinTeam">Приєднатися до команди</string>
-  <string name="onlyLeaderLeavesTeam">Будь ласка, додайте новог о лідера команди перед виходом, або закрийте команду.</string>
+  <string name="onlyLeaderLeavesTeam">Будь ласка, додайте нового лідера команди перед виходом, або закрийте команду.</string>
   <string name="quitTeam">Залишити команду</string>
   <string name="manuallyReviewAdmissionRequests">Огляд запитів на вступ вручну</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Якщо відмічено, гравцям необхідно написати запит на вступ в команду, який ви можете відхилити або прийняти.</string>
@@ -54,11 +54,12 @@
   <string name="closeTeam">Закрити команду</string>
   <string name="closeTeamDescription">Закриває команду назавжди.</string>
   <string name="entryCode">Вхідний код команди</string>
-  <string name="entryCodeDescriptionForLeader">(За бажанням) Вхідний код, який повинен знати кожний новий учасник, для того щоб приєднатися до цієї команди.</string>
+  <string name="entryCodeDescriptionForLeader">(Не обов\'язково) Вхідний код, який повинен знати кожний новий учасник, для того щоб приєднатися до цієї команди.</string>
   <string name="incorrectEntryCode">Невірний вхідний код.</string>
   <string name="teamAlreadyExists">Така команда вже існує.</string>
   <string name="upcomingTourns">Майбутні турніри</string>
   <string name="completedTourns">Завершені турніри</string>
   <string name="declinedRequests">Відхилені запити</string>
   <string name="joinLichessVariantTeam">Приєднатися до офіційної %s команди, щоб отримувати інформацію про новини та події</string>
+  <string name="teamPage">Сторінка команди</string>
 </resources>

@@ -1,6 +1,5 @@
 package lila.round
 
-import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.*
 import chess.Color
 import chess.format.{ BoardFen, Fen }
@@ -12,17 +11,30 @@ import lila.common.Json.given
 import lila.game.actorApi.{ FinishGame, MoveGameEvent }
 import lila.game.{ Game, GameRepo }
 
-final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(using Executor):
+final class ApiMoveStream(
+    gameRepo: GameRepo,
+    gameJsonView: lila.game.JsonView,
+    lightUserApi: lila.user.LightUserApi
+)(using Executor):
 
   def apply(game: Game, delayMoves: Boolean): Source[JsObject, ?] =
     Source futureSource {
       val hasMoveDelay         = delayMoves && game.hasClock
       val delayMovesBy         = hasMoveDelay ?? 3
       val delayKeepsFirstMoves = hasMoveDelay ?? 5
-      gameRepo.initialFen(game) map { initialFen =>
+      for
+        initialFen <- gameRepo.initialFen(game)
+        lightUsers <- lightUserApi.asyncMany(game.userIds)
+      yield
         val buffer = scala.collection.mutable.Queue.empty[JsObject]
         var moves  = 0
-        Source(List(gameJsonView(game, initialFen))) concat
+        def makeGameJson(g: Game) =
+          gameJsonView.base(g, initialFen) ++ Json.obj(
+            "players" -> JsObject(g.players zip lightUsers map { (p, user) =>
+              p.color.name -> gameJsonView.player(p, user)
+            })
+          )
+        Source(List(makeGameJson(game))) concat
           Source
             .queue[JsObject]((game.ply.value + 3) atLeast 16, akka.stream.OverflowStrategy.dropHead)
             .statefulMapConcat { () => js =>
@@ -33,21 +45,21 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                 (buffer.size > delayMovesBy) ?? List(buffer.dequeue())
             }
             .mapMaterializedValue { queue =>
-              val clocks = for {
+              val clocks = for
                 clk        <- game.clock
                 clkHistory <- game.clockHistory
-              } yield (
+              yield (
                 Vector(clk.config.initTime) ++ clkHistory.white,
                 Vector(clk.config.initTime) ++ clkHistory.black
               )
               val clockOffset = game.startColor.fold(0, 1)
               Replay.situations(game.sans, initialFen, game.variant) foreach {
-                _.zipWithIndex foreach { case (s, index) =>
-                  val clk = for {
+                _.zipWithIndex foreach { (s, index) =>
+                  val clk = for
                     (clkWhite, clkBlack) <- clocks
                     white                <- clkWhite.lift((index + 1 - clockOffset) >> 1)
                     black                <- clkBlack.lift((index + clockOffset) >> 1)
-                  } yield (white, black)
+                  yield (white, black)
                   queue offer toJson(
                     Fen writeBoard s.board,
                     s.color,
@@ -57,7 +69,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                 }
               }
               if (game.finished)
-                queue offer gameJsonView(game, initialFen)
+                queue offer makeGameJson(game)
                 queue.complete()
               else
                 val chans = List(MoveGameEvent makeChan game.id, "finishGame")
@@ -65,7 +77,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                   case MoveGameEvent(g, fen, move) =>
                     queue.offer(toJson(g, fen, move.some)).unit
                   case FinishGame(g, _, _) if g.id == game.id =>
-                    queue offer gameJsonView(g, initialFen)
+                    queue offer makeGameJson(g)
                     (1 to buffer.size) foreach { _ => queue.offer(Json.obj()) } // push buffer content out
                     queue.complete()
                 }
@@ -73,8 +85,8 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                   Bus.unsubscribe(sub, chans)
                 }
             }
-      }
     }
+  end apply
 
   private def toJson(game: Game, fen: BoardFen, lastMoveUci: Option[String]): JsObject =
     toJson(
@@ -90,12 +102,12 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
       fen: BoardFen,
       turnColor: Color,
       lastMoveUci: Option[String],
-      clock: Option[(Centis, Centis)]
+      clock: Option[PairOf[Centis]]
   ): JsObject =
     clock.foldLeft(
       Json
         .obj("fen" -> fen.andColor(turnColor))
         .add("lm" -> lastMoveUci)
-    ) { case (js, clk) =>
+    ) { (js, clk) =>
       js ++ Json.obj("wc" -> clk._1.roundSeconds, "bc" -> clk._2.roundSeconds)
     }

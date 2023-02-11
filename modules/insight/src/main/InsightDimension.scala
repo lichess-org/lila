@@ -352,7 +352,7 @@ object InsightDimension:
       case TimeVariance            => JsString(v.name)
 
   def filtersOf[X](d: InsightDimension[X], selected: List[X]): Bdoc =
-    import cats.implicits.*
+    import cats.syntax.all.*
 
     def percentRange[V: BSONWriter](toRange: X => (V, V), fromPercent: Int => V) = selected match
       case Nil => $empty

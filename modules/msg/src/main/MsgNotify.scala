@@ -13,7 +13,7 @@ final private class MsgNotify(
     notifyApi: lila.notify.NotifyApi
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   import BsonHandlers.given

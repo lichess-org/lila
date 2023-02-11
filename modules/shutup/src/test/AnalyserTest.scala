@@ -2,6 +2,10 @@ package lila.shutup
 
 import org.specs2.mutable._
 
+/* Some of the texts in this file are horrible.
+ * We reject and condemn them. They are here so we can verify
+ * that Lichess detects them, to help moderators keeping the site nice.
+ */
 class AnalyserTest extends Specification {
 
   private def find(t: String)  = Analyser(t).badWords

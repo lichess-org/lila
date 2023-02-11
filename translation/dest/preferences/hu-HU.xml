@@ -3,7 +3,7 @@
   <string name="preferences">Testreszabás</string>
   <string name="display">Megjelenés</string>
   <string name="privacy">Adatvédelem</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Értesítések</string>
+  <string name="notifications">Értesítések</string>
   <string name="pieceAnimation">Bábuk animációja</string>
   <string name="materialDifference">Bábuk közötti különbség</string>
   <string name="boardHighlights">Kiemelések a táblán (utolsó lépés és sakk)</string>
@@ -51,16 +51,17 @@
   <string name="yourPreferencesHaveBeenSaved">Beállítások elmentve.</string>
   <string name="scrollOnTheBoardToReplayMoves">Görgess a táblán a lépések visszajátszásához</string>
   <string name="correspondenceEmailNotification">Napi email értesítések a folyamatban lévő levelező játszmákról</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Élő közvetítések</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Új üzenet</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Megemlítenek a fórumhozzászólásokban</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Tanulmány meghívások</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Levelező mérkőzések</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Kihívások</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Hamarosan kezdődő versenyek</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting.">Levelező mérkőzés időkorlátjának lejárata</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Hangjelzések használata</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">\'Push\' értesítések, ha nem vagy aktív Lichessen</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Böngésző</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Eszköz</string>
+  <string name="notifyStreamStart">Élő közvetítések</string>
+  <string name="notifyInboxMsg">Új üzenet</string>
+  <string name="notifyForumMention">Megemlítenek a fórumhozzászólásokban</string>
+  <string name="notifyInvitedStudy">Tanulmány meghívások</string>
+  <string name="notifyGameEvent">Levelező mérkőzések</string>
+  <string name="notifyChallenge">Kihívások</string>
+  <string name="notifyTournamentSoon">Hamarosan kezdődő versenyek</string>
+  <string name="notifyTimeAlarm">Levelező mérkőzés időkorlátjának lejárata</string>
+  <string name="notifyBell">Hangjelzések használata</string>
+  <string name="notifyPush">\'Push\' értesítések, ha nem vagy aktív Lichessen</string>
+  <string name="notifyWeb">Böngésző</string>
+  <string name="notifyDevice">Eszköz</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Értesítés hangja</string>
 </resources>

@@ -766,7 +766,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="invalidPgn">Väär PGN</string>
   <string name="invalidFen">Väär FEN</string>
   <string name="custom">Kohandatud</string>
-  <string name="notifications">Teated</string>
+  <string name="notifications">Teavitused</string>
   <string name="perfRatingX">Reiting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund, et teha esimene käik</item>

@@ -28,7 +28,7 @@ final class Ip2ProxyServer(
     ws: StandaloneWSClient,
     cacheApi: lila.memo.CacheApi,
     checkUrl: String
-)(using Executor, akka.actor.Scheduler)
+)(using Executor, Scheduler)
     extends Ip2Proxy:
 
   def apply(ip: IpAddress): Fu[IsProxy] =
@@ -96,9 +96,9 @@ final class Ip2ProxyServer(
     }
 
   private def readProxyName(js: JsValue): IsProxy = IsProxy {
-    for {
+    for
       tpe <- (js \ "proxy_type").asOpt[String]
       if tpe != "-"
       country = (js \ "country_short").asOpt[String]
-    } yield s"$tpe:${country | "?"}"
+    yield s"$tpe:${country | "?"}"
   }

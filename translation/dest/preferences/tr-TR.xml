@@ -3,7 +3,7 @@
   <string name="preferences">Seçenekler</string>
   <string name="display">Görünüm</string>
   <string name="privacy">Gizlilik</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Bildirimler</string>
+  <string name="notifications">Bildirimler</string>
   <string name="pieceAnimation">Hamle animasyonu</string>
   <string name="materialDifference">Taş farkı</string>
   <string name="boardHighlights">Tahta uyarıları (son hamle ve şah çekme)</string>
@@ -51,16 +51,17 @@
   <string name="yourPreferencesHaveBeenSaved">Tercihleriniz kaydedildi.</string>
   <string name="scrollOnTheBoardToReplayMoves">Hamleleri tekrar görmek için fare tekerleğini tahta üzerinde kaydırın</string>
   <string name="correspondenceEmailNotification">Günlük yazışmalı oyunlarınızı listeleyen posta bildirimi alın</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Canlı yayın başladığında</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Gelen kutusunda yeni bir mesaj</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Sizden bahseden bir forum mesajı</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Çalışma daveti</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Yazışmalı oyun güncellemeleri</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Meydan okumalar</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Yakında başlayan turnuva</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">Yazışmalı oyununuzda süreniz azalıyor</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Lichess içinde çan bildirimi</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Lichess\'te değilken cihaz bildirimleri</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Tarayıcı</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Cihaz</string>
+  <string name="notifyStreamStart">Canlı yayın başladığında</string>
+  <string name="notifyInboxMsg">Gelen kutusunda yeni bir mesaj</string>
+  <string name="notifyForumMention">Sizden bahseden bir forum mesajı</string>
+  <string name="notifyInvitedStudy">Çalışma daveti</string>
+  <string name="notifyGameEvent">Yazışmalı oyun güncellemeleri</string>
+  <string name="notifyChallenge">Meydan okumalar</string>
+  <string name="notifyTournamentSoon">Yakında başlayan turnuva</string>
+  <string name="notifyTimeAlarm">Yazışmalı oyununuzda süreniz azalıyor</string>
+  <string name="notifyBell">Lichess içinde çan bildirimi</string>
+  <string name="notifyPush">Lichess\'te değilken cihaz bildirimleri</string>
+  <string name="notifyWeb">Tarayıcı</string>
+  <string name="notifyDevice">Cihaz</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Çan bildirimi sesi</string>
 </resources>

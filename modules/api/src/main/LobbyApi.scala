@@ -5,6 +5,7 @@ import play.api.libs.json.{ JsArray, JsObject, Json }
 import lila.game.Pov
 import lila.lobby.{ LobbySocket, SeekApi }
 import lila.common.Json.given
+import lila.common.LightUser
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,
@@ -39,4 +40,4 @@ final class LobbyApi(
         }
       }
 
-  def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)(lightUserApi.sync)
+  def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)(using lightUserApi.sync)

@@ -8,10 +8,7 @@ import lila.db.dsl.{ given, * }
 import lila.memo.{ CacheApi, Syncache }
 import User.BSONFields as F
 
-final class LightUserApi(
-    repo: UserRepo,
-    cacheApi: CacheApi
-)(using Executor):
+final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor):
 
   val async = LightUser.Getter(id => if (User isGhost id) fuccess(LightUser.ghost.some) else cache.async(id))
   val asyncFallback = LightUser.GetterFallback(id =>

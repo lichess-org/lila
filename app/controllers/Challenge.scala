@@ -234,7 +234,7 @@ final class Challenge(
 
   def apiStartClocks(id: GameId) =
     Action.async { req =>
-      import cats.implicits.*
+      import cats.syntax.all.*
       val scopes = List(OAuthScope.Challenge.Write)
       (Bearer from get("token1", req), Bearer from get("token2", req)).mapN {
         env.oAuth.server.authBoth(scopes, req)
@@ -385,7 +385,7 @@ final class Challenge(
               env.challenge.msg.onApiPair(challenge)(managedBy, message) inject Ok(
                 Json.obj(
                   "game" -> {
-                    env.game.jsonView(g, challenge.initialFen) ++ Json.obj(
+                    env.game.jsonView.base(g, challenge.initialFen) ++ Json.obj(
                       "url" -> s"${env.net.baseUrl}${routes.Round.watcher(g.id, "white")}"
                     )
                   }

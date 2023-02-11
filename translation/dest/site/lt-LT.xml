@@ -229,6 +229,13 @@
   <string name="email">El. pašto adresas</string>
   <string name="passwordReset">Slaptažodžio atkūrimas</string>
   <string name="forgotPassword">Pamiršote slaptažodį?</string>
+  <string name="error.weakPassword">Šis slaptažodis itin dažnas ir jį pernelyg lengva atspėti.</string>
+  <string name="error.namePassword">Prašome nenaudoti savo vartotojo vardo kaip slaptažodžio.</string>
+  <string name="blankedPassword">Jūs jau panaudojote šį slaptažodį kitoje svetainėje, kurios saugumas buvo pažeistas. Norėdami užtikrinti jūsų Lichess paskyros saugumą turime paprašyti nustatyti naują slaptažodį. Dėkojame už supratingumą.</string>
+  <string name="youAreLeavingLichess">Jūs paliekate Lichess</string>
+  <string name="neverTypeYourPassword">Niekada netalpinkite savo Lichess slaptažodžio kitoje svetainėje!</string>
+  <string name="passwordSuggestion">Nenaudokite slaptažodžio, kurį jums pasiūlė kas nors kitas. Tuo galima pasinaudoti pavogiant jūsų paskyrą.</string>
+  <string name="emailSuggestion">Nenaudokite el. pašto adreso, kurį jums pasiūlė kas nors kitas. Tuo galima pasinaudoti pavogiant jūsų paskyrą.</string>
   <string name="emailConfirmHelp">Pagalba dėl el. pašto adreso patvirtinimo</string>
   <string name="emailConfirmNotReceived">Prisijungę negavote savo patvirtinimo el. laiško?</string>
   <string name="whatSignupUsername">Kokiu vartotojo vardu registravotės?</string>
@@ -991,7 +998,7 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="inYourLocalTimezone">Jūsų laiko zonoje</string>
   <string name="tournChat">Turnyro pokalbis</string>
   <string name="noChat">Jokio pokalbio</string>
-  <string name="onlyTeamLeaders">Tik komandų vadovams</string>
+  <string name="onlyTeamLeaders">Tik komandų kapitonams</string>
   <string name="onlyTeamMembers">Tik komandos nariams</string>
   <string name="navigateMoveTree">Keliauti per ėjimų medį</string>
   <string name="mouseTricks">Triukai pele</string>

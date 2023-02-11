@@ -15,7 +15,7 @@ final class GarbageCollector(
     isArmed: () => Boolean
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   private val logger = lila.security.logger.branch("GarbageCollector")

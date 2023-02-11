@@ -31,7 +31,7 @@ final class Env(
     isOnline: lila.socket.IsOnline
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mode: play.api.Mode
 ):
 

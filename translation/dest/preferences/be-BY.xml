@@ -3,7 +3,7 @@
   <string name="preferences">Налады</string>
   <string name="display">Выгляд</string>
   <string name="privacy">Прыватнасць</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Апавяшчэнні</string>
+  <string name="notifications">Апавяшчэнні</string>
   <string name="pieceAnimation">Анімацыя фігур</string>
   <string name="materialDifference">Паказваць розніцу ў фігурах</string>
   <string name="boardHighlights">Падсвечваць апошні ход і шах</string>
@@ -51,6 +51,6 @@
   <string name="yourPreferencesHaveBeenSaved">Вашы налады былі захаваныя.</string>
   <string name="scrollOnTheBoardToReplayMoves">Гартайце колцам мышцы на дошцы, каб прайграць хады</string>
   <string name="correspondenceEmailNotification">Штодзённае апавяшчэнне па пошце з пералікам вашых гульняў па ліставанні</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Браўзер</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Прылада</string>
+  <string name="notifyWeb">Браўзер</string>
+  <string name="notifyDevice">Прылада</string>
 </resources>

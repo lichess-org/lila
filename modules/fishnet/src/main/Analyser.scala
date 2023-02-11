@@ -12,7 +12,7 @@ final class Analyser(
     uciMemo: UciMemo,
     evalCache: FishnetEvalCache,
     limiter: FishnetLimiter
-)(using Executor, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   val maxPlies = 300
 

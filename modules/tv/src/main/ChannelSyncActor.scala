@@ -81,7 +81,7 @@ final private[tv] class ChannelSyncActor(
   private def rematch(game: Game): Fu[Option[Game]] = rematchOf(game.id) ?? proxyGame
 
   private def bestOf(candidates: List[Game]) =
-    import cats.implicits.*
+    import cats.syntax.all.*
     candidates.maximumByOption(score)
 
   private def score(game: Game): Int =

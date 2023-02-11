@@ -1,7 +1,7 @@
 package lila.lobby
 
 import actorApi.*
-import cats.implicits.*
+import cats.syntax.all.*
 
 import lila.common.config.Max
 import lila.common.{ Bus, LilaScheduler }
@@ -198,7 +198,7 @@ private object LobbySyncActor:
       resyncIdsPeriod: FiniteDuration
   )(
       makeTrouper: () => LobbySyncActor
-  )(using ec: Executor, scheduler: akka.actor.Scheduler) =
+  )(using ec: Executor, scheduler: Scheduler) =
     val trouper = makeTrouper()
     Bus.subscribe(trouper, "lobbyActor")
     scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)

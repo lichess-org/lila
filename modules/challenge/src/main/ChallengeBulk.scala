@@ -27,7 +27,7 @@ final class ChallengeBulkApi(
 )(using
     ec: Executor,
     mat: akka.stream.Materializer,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mode: play.api.Mode
 ):
 

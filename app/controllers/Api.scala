@@ -39,7 +39,7 @@ final class Api(
       Ok(views.html.site.bits.api)
     }
 
-  val userRateLimit = lila.memo.RateLimit[IpAddress](3_000, 1.day, "user.show.api.ip")
+  private val userRateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "user.show.api.ip")
   def user(name: UserStr) =
     def get(req: RequestHeader, me: Option[lila.user.User], lang: Lang) =
       userRateLimit(req.ipAddress) {

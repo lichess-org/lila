@@ -25,7 +25,7 @@ final class Env(
     mode: play.api.Mode,
     db: lila.db.Db,
     ws: play.api.libs.ws.StandaloneWSClient
-)(using Executor, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   given ConfigLoader[PicfitConfig] = AutoConfig.loader
   private val config               = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)

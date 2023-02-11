@@ -28,9 +28,9 @@ abstract private[controllers] class LilaController(val env: Env)
 
   export _root_.router.ReverseRouterConversions.given
 
-  def controllerComponents   = env.controllerComponents
-  given Executor             = env.executor
-  given akka.actor.Scheduler = env.scheduler
+  def controllerComponents = env.controllerComponents
+  given Executor           = env.executor
+  given Scheduler          = env.scheduler
 
   protected given Zero[Result] = Zero(Results.NotFound)
 
@@ -588,7 +588,7 @@ abstract private[controllers] class LilaController(val env: Env)
         }
     }
 
-  protected val csrfCheck           = env.security.csrfRequestHandler.check
+  import env.security.csrfRequestHandler.check as csrfCheck
   protected val csrfForbiddenResult = Forbidden("Cross origin request forbidden").toFuccess
 
   private def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =

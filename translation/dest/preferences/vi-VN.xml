@@ -3,7 +3,7 @@
   <string name="preferences">Sửa giao diện</string>
   <string name="display">Hiển thị</string>
   <string name="privacy">Quyền riêng tư</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Thông báo</string>
+  <string name="notifications">Thông báo</string>
   <string name="pieceAnimation">Tính linh hoạt của quân cờ</string>
   <string name="materialDifference">Chênh lệch giá trị quân cờ</string>
   <string name="boardHighlights">Đánh dấu trên bàn cờ (nước đi mới nhất và nước chiếu)</string>
@@ -51,16 +51,17 @@
   <string name="yourPreferencesHaveBeenSaved">Tùy chọn của bạn đã được lưu</string>
   <string name="scrollOnTheBoardToReplayMoves">Cuộn trên bảng ghi vị trí để xem lại các nước đi</string>
   <string name="correspondenceEmailNotification">Email thông báo hàng ngày sẽ bao gồm cả những ván đấu qua thư</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Streamer đang phát trực tiếp</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Cuộc trò chuyện mới</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Bạn được nhắc đến trong một bình luận trên diễn đàn</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Lời mời nghiên cứu</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Cập nhật đánh cờ qua thư</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Thách đấu</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Giải đấu sẽ sớm bắt đầu</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">Thời gian đánh cờ qua thư đã hết</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Chuông thông báo bên trong Lichess</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Thông báo tới thiết bị của bạn khi bạn không truy cập Lichess</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Trình duyệt</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Thiết bị</string>
+  <string name="notifyStreamStart">Streamer đang phát trực tiếp</string>
+  <string name="notifyInboxMsg">Cuộc trò chuyện mới</string>
+  <string name="notifyForumMention">Bạn được nhắc đến trong một bình luận trên diễn đàn</string>
+  <string name="notifyInvitedStudy">Lời mời nghiên cứu</string>
+  <string name="notifyGameEvent">Cập nhật đánh cờ qua thư</string>
+  <string name="notifyChallenge">Thách đấu</string>
+  <string name="notifyTournamentSoon">Giải đấu sẽ sớm bắt đầu</string>
+  <string name="notifyTimeAlarm">Thời gian đánh cờ qua thư đã hết</string>
+  <string name="notifyBell">Chuông thông báo bên trong Lichess</string>
+  <string name="notifyPush">Thông báo tới thiết bị của bạn khi bạn không truy cập Lichess</string>
+  <string name="notifyWeb">Trình duyệt</string>
+  <string name="notifyDevice">Thiết bị</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Chuông báo</string>
 </resources>

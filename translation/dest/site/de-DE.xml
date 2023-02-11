@@ -209,6 +209,7 @@
   <string name="forgotPassword">Passwort vergessen?</string>
   <string name="error.weakPassword">Dieses Passwort wird extrem oft verwendet und ist zu einfach zu erraten.</string>
   <string name="error.namePassword">Verwende bitte nicht deinen Benutzernamen als Passwort.</string>
+  <string name="blankedPassword">Du hast das gleiche Passwort auf einer anderen Seite verwendet und diese Seite wurde kompromittiert. Um die Sicherheit deines Lichess-Kontos zu gewährleisten, musst du ein neues Passwort setzen. Danke für dein Verständnis.</string>
   <string name="youAreLeavingLichess">Du verlässt Lichess</string>
   <string name="neverTypeYourPassword">Gib dein Lichess-Passwort niemals auf einer anderen Seite ein!</string>
   <string name="passwordSuggestion">Benutze kein Passwort, welches jemand anderes vorgeschlagen hat. Man wird versuchen dein Konto zu stehlen.</string>

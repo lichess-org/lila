@@ -135,15 +135,17 @@ object User:
   export lila.user.{ UserEnabled as Enabled }
 
   type CredentialCheck = ClearPassword => Boolean
-  case class LoginCandidate(user: User, check: CredentialCheck):
+  case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean):
     import LoginCandidate.*
     def apply(p: PasswordAndToken): Result =
       val res =
-        if (check(p.password)) user.totpSecret.fold[Result](Result.Success(user)) { tp =>
-          p.token.fold[Result](Result.MissingTotpToken) { token =>
-            if (tp verify token) Result.Success(user) else Result.InvalidTotpToken
+        if check(p.password) then
+          user.totpSecret.fold[Result](Result.Success(user)) { tp =>
+            p.token.fold[Result](Result.MissingTotpToken) { token =>
+              if (tp verify token) Result.Success(user) else Result.InvalidTotpToken
+            }
           }
-        }
+        else if isBlanked then Result.BlankedPassword
         else Result.InvalidUsernameOrPassword
       lila.mon.user.auth.count(res.success).increment()
       res
@@ -153,6 +155,7 @@ object User:
       def success = toOption.isDefined
       case Success(user: User)       extends Result(user.some)
       case InvalidUsernameOrPassword extends Result(none)
+      case BlankedPassword           extends Result(none)
       case MissingTotpToken          extends Result(none)
       case InvalidTotpToken          extends Result(none)
 

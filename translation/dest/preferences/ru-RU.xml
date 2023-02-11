@@ -63,4 +63,5 @@
   <string name="notifyPush">Оповещение на устройстве когда Вы не находитесь на сайте Личесс</string>
   <string name="notifyWeb">Браузер</string>
   <string name="notifyDevice">Устройство</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Звук колокольчика уведомлений</string>
 </resources>

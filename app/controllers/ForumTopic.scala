@@ -1,6 +1,6 @@
 package controllers
 
-import cats.implicits.*
+import cats.syntax.all.*
 import play.api.libs.json.*
 import views.*
 

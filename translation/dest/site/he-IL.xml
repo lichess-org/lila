@@ -231,8 +231,11 @@
   <string name="forgotPassword">שכחת סיסמה?</string>
   <string name="error.weakPassword">הסיסמה הזו נפוצה ביותר וקלה מדי לניחוש.</string>
   <string name="error.namePassword">נא לא להשתמש בשם המשתמש בתור הסיסמה.</string>
+  <string name="blankedPassword">השתמשת בסיסמה שלך באתר אחר, ויתכן שהיא מועדת לפריצה. כדי להגן על חשבונך בליצ׳ס, עליך להגדיר סיסמה חדשה. תודה על ההבנה.</string>
   <string name="youAreLeavingLichess">את/ה עוזב/ת את Lichess</string>
   <string name="neverTypeYourPassword">לעולם אל תקלידו את סיסמתכם בליצ׳ס באף אתר אחר!</string>
+  <string name="passwordSuggestion">אל תשתמשו בסיסמה שהציע לכם אדם אחר. הוא ישתמש בה כדי לגנוב את חשבונכם!</string>
+  <string name="emailSuggestion">אל תשמשו בכתובת מייל שהציע אדם אחר. הוא ישתמש בה כדי לגנוב את חשבונכם.</string>
   <string name="emailConfirmHelp">עזרה עם אימייל האישור</string>
   <string name="emailConfirmNotReceived">לא קיבלת מייל אישור לאחר שנרשמת?</string>
   <string name="whatSignupUsername">עם איזה שם משתמש נרשמת?</string>

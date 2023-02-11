@@ -1,6 +1,5 @@
 package lila.db
 
-import akka.actor.Scheduler
 import alleycats.Zero
 import scala.util.{ Failure, Success }
 

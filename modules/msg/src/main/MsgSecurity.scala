@@ -20,7 +20,7 @@ final private class MsgSecurity(
     chatPanic: lila.chat.ChatPanic
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   import BsonHandlers.given
@@ -84,7 +84,12 @@ final private class MsgSecurity(
           case Dirt =>
             if (dirtSpamDedup(text))
               Bus.publish(
-                AutoFlag(contacts.orig.id, s"msg/${contacts.orig.id}/${contacts.dest.id}", text),
+                AutoFlag(
+                  contacts.orig.id,
+                  s"msg/${contacts.orig.id}/${contacts.dest.id}",
+                  text,
+                  Analyser.isCritical(text)
+                ),
                 "autoFlag"
               )
 

@@ -9,7 +9,7 @@ import lila.common.{ LilaScheduler, LilaStream }
 final private class TournamentScheduler(
     api: TournamentApi,
     tournamentRepo: TournamentRepo
-)(using ec: Executor, scheduler: akka.actor.Scheduler, mat: akka.stream.Materializer):
+)(using ec: Executor, scheduler: Scheduler, mat: akka.stream.Materializer):
 
   import Schedule.Freq.*
   import Schedule.Speed.*

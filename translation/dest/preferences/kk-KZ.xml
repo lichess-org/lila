@@ -3,6 +3,7 @@
   <string name="preferences">Баптаулар</string>
   <string name="display">Көрініс</string>
   <string name="privacy">Құпиялық</string>
+  <string name="notifications">Хабарламалар</string>
   <string name="pieceAnimation">Тастар анимациясы</string>
   <string name="materialDifference">Тас мөлшерінің айырмашылығы</string>
   <string name="boardHighlights">Жүріс ізін көрсету (кейінгі жүріс пен шах)</string>
@@ -50,4 +51,17 @@
   <string name="yourPreferencesHaveBeenSaved">Баптауыңыз сақталды.</string>
   <string name="scrollOnTheBoardToReplayMoves">Тақта бетінде тіңтуір айналдырумен жүрістерді қайта көрсету</string>
   <string name="correspondenceEmailNotification">Хат-хабарлы ойындарыңыз туралы күнде поштаңызға ескертпе жіберу</string>
+  <string name="notifyStreamStart">Стрим басталды</string>
+  <string name="notifyInboxMsg">Жаңа хабар</string>
+  <string name="notifyForumMention">Форумда сіз туралы айтты</string>
+  <string name="notifyInvitedStudy">Зерттеуге шақырды</string>
+  <string name="notifyGameEvent">Хат-хабарлы ойын барысы</string>
+  <string name="notifyChallenge">Шақырулар</string>
+  <string name="notifyTournamentSoon">Жарыс жақында басталады</string>
+  <string name="notifyTimeAlarm">Хат-хабарлы ойын уақыты бітер алдында</string>
+  <string name="notifyBell">Личестегі қоңыраулы ескерту</string>
+  <string name="notifyPush">Құрылғының ескертуі, Личестен тыс кезіңізде</string>
+  <string name="notifyWeb">Браузер</string>
+  <string name="notifyDevice">Құрылғы</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Қоңыраулы ескерту</string>
 </resources>

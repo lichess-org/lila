@@ -10,7 +10,7 @@ final private class GameStarter(
     gameRepo: GameRepo,
     idGenerator: IdGenerator,
     onStart: GameId => Unit
-)(using Executor, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   import PoolApi.*
 
@@ -35,7 +35,7 @@ final private class GameStarter(
       id: GameId
   ): Fu[Option[Pairing]] =
     import couple.*
-    import cats.implicits.*
+    import cats.syntax.all.*
     (perfs.get(p1.userId), perfs.get(p2.userId)).mapN((_, _)) ?? { (perf1, perf2) =>
       for {
         p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)

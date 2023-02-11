@@ -38,7 +38,8 @@ private object Aes:
   def iv(bytes: Array[Byte]): InitVector = new IvParameterSpec(bytes)
 
 case class HashedPassword(bytes: Array[Byte]) extends AnyVal:
-  def parse = bytes.lengthIs == 39 option bytes.splitAt(16)
+  def parse     = bytes.lengthIs == 39 option bytes.splitAt(16)
+  def isBlanked = bytes.isEmpty
 
 final private class PasswordHasher(
     secret: Secret,
@@ -69,12 +70,12 @@ object PasswordHasher:
   import lila.common.{ HTTPRequest, IpAddress }
 
   private lazy val rateLimitPerIP = RateLimit[IpAddress](
-    credits = 150 * 2, // double cost in case of hash check failure
+    credits = 200,
     duration = 10 minutes,
     key = "password.hashes.ip"
   )
 
-  private lazy val rateLimitPerUser = RateLimit[UserId](
+  private lazy val rateLimitPerUser = RateLimit[UserIdOrEmail](
     credits = 10,
     duration = 10 minutes,
     key = "password.hashes.user"
@@ -89,14 +90,14 @@ object PasswordHasher:
   def rateLimit[A](
       enforce: lila.common.config.RateLimit,
       ipCost: Int
-  )(id: UserId, req: RequestHeader)(run: RateLimit.Charge => Fu[A])(default: => Fu[A]): Fu[A] =
-    if (enforce.value)
+  )(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[A])(default: => Fu[A]): Fu[A] =
+    if enforce.yes then
       val ip = HTTPRequest ipAddress req
-      rateLimitPerUser(id, cost = 1) {
+      rateLimitPerUser(id, cost = 1, msg = s"IP: $ip") {
         rateLimitPerIP.chargeable(ip, cost = ipCost) { charge =>
-          rateLimitGlobal("-", cost = 1, msg = ip.value) {
-            run(charge)
+          rateLimitGlobal("-", cost = 1, msg = s"IP: $ip") {
+            run(() => charge(ipCost))
           }(default)
         }(default)
       }(default)
-    else run(_ => ())
+    else run(() => ())

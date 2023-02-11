@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import cats.implicits.*
+import cats.syntax.all.*
 
 import lila.common.paginator.Paginator
 import lila.common.config.{ Max, MaxPerPage }
@@ -13,7 +13,7 @@ final class PuzzleApi(
     trustApi: PuzzleTrustApi,
     countApi: PuzzleCountApi,
     openingApi: PuzzleOpeningApi
-)(using ec: Executor, scheduler: akka.actor.Scheduler):
+)(using ec: Executor, scheduler: Scheduler):
 
   import Puzzle.{ BSONFields as F }
   import BsonHandlers.given

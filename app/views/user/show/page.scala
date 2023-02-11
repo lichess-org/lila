@@ -9,9 +9,11 @@ import lila.app.mashup.UserInfo.Angle
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
+import lila.common.String.html.safeJsonValue
 import lila.game.Game
 import lila.user.User
 import lila.history.RatingChartApi
+import play.api.libs.json.Json
 
 object page:
 
@@ -19,8 +21,8 @@ object page:
       u: User,
       activities: Vector[lila.activity.ActivityView],
       info: UserInfo,
-      social: lila.app.mashup.UserInfo.Social
-  )(implicit ctx: Context) =
+      social: UserInfo.Social
+  )(using Context) =
     views.html.base.layout(
       title = s"${u.username} : ${trans.activity.activity.txt()}",
       openGraph = lila.app.ui
@@ -54,14 +56,13 @@ object page:
       games: Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
       searchForm: Option[Form[?]],
-      social: lila.app.mashup.UserInfo.Social,
+      social: UserInfo.Social,
       notes: Map[GameId, String]
-  )(implicit ctx: Context) =
+  )(using Context) =
+    val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
+    val pageName   = (games.currentPage > 1) ?? s" - page ${games.currentPage}"
     views.html.base.layout(
-      title = s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${
-          if (games.currentPage == 1) ""
-          else " - page " + games.currentPage
-        }",
+      title = s"${u.username} $filterName$pageName",
       moreJs = moreJs(info, filters.current.name == "search"),
       moreCss = frag(
         cssTag("user.show"),
@@ -79,7 +80,7 @@ object page:
       )
     }
 
-  private def moreJs(info: UserInfo, withSearch: Boolean = false)(implicit ctx: Context) =
+  private def moreJs(info: UserInfo, withSearch: Boolean = false)(using Context) =
     frag(
       infiniteScrollTag,
       jsModule("user"),
@@ -92,15 +93,23 @@ object page:
         )
       },
       withSearch option jsModule("gameSearch"),
-      isGranted(_.UserModView) option jsModule("mod.user")
+      isGranted(_.UserModView) option jsModule("mod.user"),
+      embedJsUnsafeLoadThen(
+        s"""UserProfile(${safeJsonValue(Json.obj("i18n" -> i18nJsObject(i18nKeys)))})"""
+      )
     )
 
-  def disabled(u: User)(implicit ctx: Context) =
+  def disabled(u: User)(using Context) =
     views.html.base.layout(title = u.username, robots = false) {
       main(cls := "box box-pad")(
         h1(cls := "box__top")(u.username),
         p(trans.settings.thisAccountIsClosed())
       )
     }
+
+  private val i18nKeys = List(
+    trans.youAreLeavingLichess,
+    trans.neverTypeYourPassword
+  )
 
   private val dataUsername = attr("data-username")

@@ -207,6 +207,12 @@
   <string name="email">ئیمێڵ</string>
   <string name="passwordReset">نوێکردنەوەی وشەی نهێنی</string>
   <string name="forgotPassword">وشەی نهێنیت لەبیر کردووە?</string>
+  <string name="error.weakPassword">ئەم وشەی نهێنییە لەڕادەبەدەر باو و ئاساییە، و زۆر ئاسانە بۆ پێشبینیکردن.</string>
+  <string name="error.namePassword">تکایە ناوی بەکارهێنەرەکەت وەک وشەی نهێنی بەکارمەهێنە.</string>
+  <string name="youAreLeavingLichess">تۆ دەردەچیت لە لیچێس</string>
+  <string name="neverTypeYourPassword">هەرگیز وشەی نهێنی لیچێسەکەت لە سایتێکی تردا مەنووسە!</string>
+  <string name="passwordSuggestion">وشەیەکی نهێنی دامەنێ کە کەسێکی تر پێشنیاری کردبێت. بۆ دزینی ئەکاونتەکەت بەکاری دەهێنن.</string>
+  <string name="emailSuggestion">ناونیشانی ئیمەیڵێک دامەنێ کە کەسێکی تر پێشنیاری کردبێت. بۆ دزینی ئەکاونتەکەت بەکاری دەهێنن.</string>
   <string name="emailConfirmHelp">یارمەتی بۆ پشتراستکردنەوەی ئیمێڵ</string>
   <string name="emailConfirmNotReceived">دوای ناو تۆمارکردن تا ئێستا ئیمێڵی پشتراستکردنەوەت بەدەست نەگەیشتووە?</string>
   <string name="whatSignupUsername">بۆ خۆ تۆمارکردن چ ناوێکت بەکارهێناوە؟</string>

@@ -18,7 +18,7 @@ final class Env(
     mongo: lila.db.Env
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mat: akka.stream.Materializer
 ):
 

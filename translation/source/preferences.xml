@@ -63,4 +63,5 @@
   <string name="notifyPush">Device notification when you're not on Lichess</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Device</string>
+  <string name="bellNotificationSound">Bell notification sound</string>
 </resources>

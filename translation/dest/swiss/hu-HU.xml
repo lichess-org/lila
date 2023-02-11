@@ -9,6 +9,10 @@
     <item quantity="one">%s forduló</item>
     <item quantity="other">%s forduló</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+    <item quantity="one">%s / Svájci típusú kör</item>
+    <item quantity="other">%s / Svájci típusú körök</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Egy forduló naponta</item>
     <item quantity="other">Egy forduló %s naponta</item>

@@ -5,7 +5,6 @@ import chess.format.pgn.Tags
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.study.ChapterRepo
-import akka.actor.Scheduler
 import chess.Outcome
 
 case class RelayLeaderboard(players: List[RelayLeaderboard.Player])

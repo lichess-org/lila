@@ -29,7 +29,7 @@ object home:
         embedJsUnsafeLoadThen(s"""LichessTournamentSchedule(${safeJsonValue(
             Json.obj(
               "data" -> json,
-              "i18n" -> bits.jsI18n
+              "i18n" -> bits.scheduleJsI18n
             )
           )})""")
       ),

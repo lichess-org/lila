@@ -13,6 +13,7 @@ trait LilaTypes:
 
   export scala.concurrent.{ ExecutionContext as Executor, Future, Promise }
   export scala.concurrent.duration.{ DurationInt, DurationLong, IntMult, Duration, FiniteDuration }
+  export akka.actor.Scheduler
   export org.joda.time.DateTime
 
   def fuccess[A](a: A): Fu[A]        = Future.successful(a)

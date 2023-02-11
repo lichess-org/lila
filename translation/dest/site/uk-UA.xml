@@ -231,6 +231,7 @@
   <string name="forgotPassword">Забули пароль?</string>
   <string name="error.weakPassword">Цей пароль дуже поширений, і його легко відгадати.</string>
   <string name="error.namePassword">Будь ласка, не використовуйте ваше ім\'я користувача як ваш пароль.</string>
+  <string name="blankedPassword">Ви використали той самий пароль на іншому сайті, безпека якого є під загрозою. Для забезпечення безпеки вашого профілю Lichess вам потрібно встановити новий пароль. Дякуємо за розуміння.</string>
   <string name="youAreLeavingLichess">Ви залишаєте Lichess</string>
   <string name="neverTypeYourPassword">Ніколи не вводьте ваш пароль Lichess на іншому сайті!</string>
   <string name="passwordSuggestion">Не встановлюйте пароль, запропонований кимось. Він може використати його для крадіжки Вашого облікового запису.</string>

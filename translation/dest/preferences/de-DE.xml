@@ -15,7 +15,7 @@
   <string name="pgnLetter">Buchstaben (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-Modus</string>
   <string name="showPlayerRatings">Wertungszahl von Spielern anzeigen</string>
-  <string name="explainShowPlayerRatings">Erlaubt alle Wertungen auf der Internetseite zu verstecken, um dich auf das Schach zu konzentrieren. Partien können immernoch gewertet sein, es geht nur darum, was du zu sehen bekommst.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Versteckt alle Wertungen auf der Website, damit du dich voll auf das Schach zu konzentrieren kannst. Partien können immer noch gewertet sein, es geht nur darum, was du zu sehen bekommst.</string>
   <string name="displayBoardResizeHandle">Regler zum Ändern der Brettgröße anzeigen</string>
   <string name="onlyOnInitialPosition">Nur in der Anfangsstellung</string>
   <string name="blindfoldChess">Blindschach (unsichtbare Figuren)</string>
@@ -59,8 +59,9 @@
   <string name="notifyChallenge">Herausforderungen</string>
   <string name="notifyTournamentSoon">Turnier beginnt bald</string>
   <string name="notifyTimeAlarm">Zeit in Fernschachpartie neigt sich dem Ende zu</string>
-  <string name="notifyBell">Benachrichtigungs-Glocke in Lichess</string>
+  <string name="notifyBell">Benachrichtigungs-Glocke auf Lichess</string>
   <string name="notifyPush">Geräte-Benachrichtigung wenn du nicht auf Lichess bist</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Gerät</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Glocken-Benachrichtigungston</string>
 </resources>

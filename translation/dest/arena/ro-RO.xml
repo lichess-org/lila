@@ -43,7 +43,7 @@ Joacă rapid și întoarce-te la lobby pentru a juca mai multe partide și pentr
   <string name="drawStreakStandard">Serie de remize consecutive: Când un jucător are remize consecutive într-un turneu de tip arenă, va primi un punct doar pentru prima remiză este punctată, precum și pentru remizele în partide standard care au mai mult de %s mutări. Seria de remize poate fi întreruptă doar de o victorie, nu de o înfrângere sau remiză.</string>
   <string name="drawStreakVariants">Lungimea minimă a jocului pentru a obține puncte în cazul remizelor diferă în funcție de variantă. Tabelul de mai jos enumeră pragul pentru fiecare variantă.</string>
   <string name="variant">Variantă</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in a game">Lungimea minimă a jocului</string>
+  <string name="minimumGameLength">Lungimea minimă a jocului</string>
   <string name="history">Istoricul turneelor de tip arenă</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Vezi echipa</item>

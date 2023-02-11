@@ -13,7 +13,7 @@ import lila.user.{ User, UserRepo }
 final private class RatingRefund(
     gameRepo: GameRepo,
     userRepo: UserRepo,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     notifier: ModNotifier,
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,

@@ -197,7 +197,7 @@ importers:
       '@types/dom-screen-wake-lock': 1.0.0
       '@types/lichess': workspace:*
       chessground: ^8.3.7
-      lichess-pgn-viewer: ^1.5.4
+      lichess-pgn-viewer: ^1.5.5
       snabbdom: ^3.5.1
       tablesort: ^5.3.0
     dependencies:
@@ -205,7 +205,7 @@ importers:
       '@types/dom-screen-wake-lock': 1.0.0
       '@types/lichess': link:../@types/lichess
       chessground: 8.3.7
-      lichess-pgn-viewer: 1.5.4
+      lichess-pgn-viewer: 1.5.5
       snabbdom: 3.5.1
       tablesort: 5.3.0
 
@@ -422,7 +422,7 @@ importers:
       common: workspace:*
       date-fns: ^2.29.3
       debounce-promise: ^3.1.2
-      lichess-pgn-viewer: ^1.5.4
+      lichess-pgn-viewer: ^1.5.5
     dependencies:
       '@types/cash': link:../@types/cash
       '@types/debounce-promise': 3.1.6
@@ -433,7 +433,7 @@ importers:
       common: link:../common
       date-fns: 2.29.3
       debounce-promise: 3.1.2
-      lichess-pgn-viewer: 1.5.4
+      lichess-pgn-viewer: 1.5.5
 
   ui/palantir:
     specifiers:
@@ -582,7 +582,7 @@ importers:
       flatpickr: ^4.6.13
       highcharts: '=4.2.5'
       hopscotch: ^0.3.1
-      lichess-pgn-viewer: ^1.5.4
+      lichess-pgn-viewer: ^1.5.5
       prop-types: ^15.8.1
       stockfish-mv.wasm: ^0.6.1
       stockfish-nnue.wasm: 1.0.0-1946a675.smolnet
@@ -608,7 +608,7 @@ importers:
       flatpickr: 4.6.13
       highcharts: 4.2.5
       hopscotch: 0.3.1
-      lichess-pgn-viewer: 1.5.4
+      lichess-pgn-viewer: 1.5.5
       prop-types: 15.8.1
       stockfish-mv.wasm: 0.6.1
       stockfish-nnue.wasm: 1.0.0-1946a675.smolnet
@@ -717,13 +717,13 @@ importers:
       '@types/lichess': workspace:*
       chessground: ^8.3.7
       common: workspace:*
-      lichess-pgn-viewer: ^1.5.4
+      lichess-pgn-viewer: ^1.5.5
     dependencies:
       '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       chessground: 8.3.7
       common: link:../common
-      lichess-pgn-viewer: 1.5.4
+      lichess-pgn-viewer: 1.5.5
 
 packages:
 
@@ -4798,8 +4798,8 @@ packages:
       type-check: 0.4.0
     dev: false
 
-  /lichess-pgn-viewer/1.5.4:
-    resolution: {integrity: sha512-Qgc2HTy1qF7R7KBdsfyjMHb9XLTCQReJm36Vr8S9F0b7ZhUPf8E4x+TN1eIeEb698jkx/OHa3iYb3O5qyLH3gw==}
+  /lichess-pgn-viewer/1.5.5:
+    resolution: {integrity: sha512-cRDzOl0ef0HV96kjclurP86USxJ/a3zfvlFO7z5rWPtK67+ImH4gKVJNU4DqAOuWomQ+AnxIr1mQUC9H324/Mw==}
     dependencies:
       '@types/node': 18.11.18
       chessground: 8.3.7

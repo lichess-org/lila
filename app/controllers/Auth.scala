@@ -70,31 +70,31 @@ final class Auth(
 
   private def authenticateCookie(sessionId: String, remember: Boolean)(
       result: Result
-  )(implicit req: RequestHeader) =
+  )(using req: RequestHeader) =
     result.withCookies(
       env.lilaCookie.withSession(remember = remember) {
         _ + (api.sessionIdKey -> sessionId) - api.AccessUri - lila.security.EmailConfirm.cookie.name
       }
     )
 
-  private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] =
+  private def authRecovery(using ctx: Context): PartialFunction[Throwable, Fu[Result]] =
     case lila.security.SecurityApi.MustConfirmEmail(_) =>
       fuccess {
         if (HTTPRequest isXhr ctx.req) Ok(s"ok:${routes.Auth.checkYourEmail}")
         else BadRequest(accountC.renderCheckYourEmail)
       }
 
-  def login     = Open(serveLogin(_))
-  def loginLang = LangPage(routes.Auth.login)(serveLogin(_))
+  def login     = Open(serveLogin(using _))
+  def loginLang = LangPage(routes.Auth.login)(serveLogin(using _))
 
-  private def serveLogin(implicit ctx: Context) = NoBot {
+  private def serveLogin(using ctx: Context) = NoBot {
     val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
     val switch   = get("switch")
     referrer ifTrue ctx.isAuth ifTrue switch.isEmpty match
       case Some(url) => Redirect(url).toFuccess // redirect immediately if already logged in
       case None =>
         val prefillUsername = lila.security.UserStrOrEmail(~switch.filter(_ != "1"))
-        val form            = api.loginForm.fill(prefillUsername -> "")
+        val form            = api.loginFormFilled(prefillUsername)
         Ok(html.auth.login(form, referrer)).withCanonical(routes.Auth.login).toFuccess
   }
 
@@ -115,44 +115,53 @@ final class Auth(
                   html = Unauthorized(html.auth.login(err, referrer)).toFuccess,
                   api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).toFuccess
                 ),
-              data =>
-                HasherRateLimit(data._1 into UserId, ctx.req) { chargeIpLimiter =>
-                  api.loadLoginForm(data._1) flatMap {
-                    _.bindFromRequest()
-                      .fold(
-                        err => {
-                          chargeIpLimiter(1)
-                          negotiate(
-                            html = fuccess {
-                              err.errors match {
-                                case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
-                                case _ => Unauthorized(html.auth.login(err, referrer))
-                              }
-                            },
-                            api = _ =>
-                              Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).toFuccess
-                          )
-                        },
-                        result =>
-                          result.toOption match {
-                            case None => InternalServerError("Authentication error").toFuccess
-                            case Some(u) if u.enabled.no =>
-                              negotiate(
-                                html = env.mod.logApi.closedByMod(u) flatMap {
-                                  case true => authenticateAppealUser(u, redirectTo)
-                                  case _    => redirectTo(routes.Account.reopen.url).toFuccess
-                                },
-                                api = _ => Unauthorized(jsonError("This account is closed.")).toFuccess
-                              )
-                            case Some(u) =>
-                              env.user.repo.email(u.id) foreach {
-                                _ foreach { garbageCollect(u, _) }
-                              }
-                              val remember = api.rememberForm.bindFromRequest().value | true
-                              authenticateUser(u, remember, Some(redirectTo))
-                          }
-                      )
-                  }
+              (login, pass) =>
+                LoginRateLimit(login.normalize, ctx.req) { chargeIpLimiter =>
+                  env.security.pwned(pass) foreach { _ ?? chargeIpLimiter() }
+                  val isEmail  = EmailAddress.isValid(login.value)
+                  val stuffing = ctx.req.headers.get("X-Stuffing") | "no" // from nginx
+                  if stuffing == "full" || stuffing == "partial" && isEmail then
+                    Unauthorized(html.auth.login(api.loginForm, referrer)).toFuccess
+                  else
+                    api.loadLoginForm(login) flatMap {
+                      _.bindFromRequest()
+                        .fold(
+                          err => {
+                            chargeIpLimiter()
+                            lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = false)
+                            negotiate(
+                              html = fuccess {
+                                err.errors match
+                                  case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
+                                  case _ => Unauthorized(html.auth.login(err, referrer))
+                              },
+                              api = _ =>
+                                Unauthorized(
+                                  ridiculousBackwardCompatibleJsonError(errorsAsJson(err))
+                                ).toFuccess
+                            )
+                          },
+                          result =>
+                            result.toOption match {
+                              case None => InternalServerError("Authentication error").toFuccess
+                              case Some(u) if u.enabled.no =>
+                                negotiate(
+                                  html = env.mod.logApi.closedByMod(u) flatMap {
+                                    case true => authenticateAppealUser(u, redirectTo)
+                                    case _    => redirectTo(routes.Account.reopen.url).toFuccess
+                                  },
+                                  api = _ => Unauthorized(jsonError("This account is closed.")).toFuccess
+                                )
+                              case Some(u) =>
+                                lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = true)
+                                env.user.repo.email(u.id) foreach {
+                                  _ foreach { garbageCollect(u, _) }
+                                }
+                                val remember = api.rememberForm.bindFromRequest().value | true
+                                authenticateUser(u, remember, Some(redirectTo))
+                            }
+                        )
+                    }
                 }
             )
         }
@@ -410,7 +419,7 @@ final class Auth(
           FormFuResult(forms.passwdResetFor(user)) { err =>
             fuccess(html.auth.bits.passwordResetConfirm(user, token, err, false.some))
           } { data =>
-            HasherRateLimit(user.id, ctx.req) { _ =>
+            HasherRateLimit(user.id, ctx.req) {
               env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
                 env.user.repo.setEmailConfirmed(user.id).flatMapz {
                   welcome(user, _, sendWelcomeEmail = false)
@@ -557,14 +566,22 @@ final class Auth(
 
   private given limitedDefault: Zero[Result] = Zero(rateLimited)
 
-  private[controllers] def HasherRateLimit(id: UserId, req: RequestHeader)(
+  private[controllers] def LoginRateLimit(id: UserIdOrEmail, req: RequestHeader)(
       run: RateLimit.Charge => Fu[Result]
   ): Fu[Result] =
-    env.security.ip2proxy(HTTPRequest.ipAddress(req)) flatMap { proxy =>
+    env.security.ipTrust.isSuspicious(req.ipAddress) flatMap { ipSusp =>
+      PasswordHasher.rateLimit[Result](
+        enforce = env.net.rateLimit,
+        ipCost = 1 + ipSusp.??(15) + EmailAddress.isValid(id.value).??(15)
+      )(id, req)(run)(rateLimitedFu)
+    }
+
+  private[controllers] def HasherRateLimit(id: UserId, req: RequestHeader)(run: => Fu[Result]): Fu[Result] =
+    env.security.ip2proxy(req.ipAddress) flatMap { proxy =>
       PasswordHasher.rateLimit[Result](
         enforce = env.net.rateLimit,
         ipCost = if proxy.is then 10 else 1
-      )(id, req)(run)(rateLimitedFu)
+      )(id into UserIdOrEmail, req)(_ => run)(rateLimitedFu)
     }
 
   private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result]

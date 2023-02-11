@@ -12,6 +12,7 @@
   <string name="myTeams">Ekipet e mia</string>
   <string name="noTeamFound">Nuk u gjet ekip</string>
   <string name="joinTeam">Hyr në ekip</string>
+  <string name="onlyLeaderLeavesTeam">Ju lutemi, përpara se të ikni, ose mbyllni ekipin, caktoni një drejtues të ri të ekipit.</string>
   <string name="quitTeam">Largohu nga ekipi</string>
   <string name="manuallyReviewAdmissionRequests">Shqyrtojini dorazi kërkesat për pranim</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Në iu vëntë shenjë, lojtarëve do t’ju duhet të shkruajnë një kërkesë për pjesëmarrje te ekipi, të cilën mund ta hidhni poshtë ose ta pranoni.</string>
@@ -54,4 +55,5 @@ Lojtarët të cilëve s’u pëlqen të marrin mesazhe nga ju, mund të dalin ng
   <string name="completedTourns">Turne të plotësuar</string>
   <string name="declinedRequests">Kërkesa të Hedhura Poshtë</string>
   <string name="joinLichessVariantTeam">Bëhuni pjesë e ekipit zyrtar %s, për lajme dhe veprimtari</string>
+  <string name="teamPage">Faqe ekipi</string>
 </resources>

@@ -21,6 +21,7 @@ import lila.round.GameProxyRepo
 final class GameApiV2(
     pgnDump: PgnDump,
     gameRepo: lila.game.GameRepo,
+    gameJsonView: lila.game.JsonView,
     tournamentRepo: lila.tournament.TournamentRepo,
     pairingRepo: lila.tournament.PairingRepo,
     playerRepo: lila.tournament.PlayerRepo,
@@ -159,7 +160,7 @@ final class GameApiV2(
         } flatMap { playerTeams =>
           gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)) map {
             _.zip(pairings) collect { case (Some(game), pairing) =>
-              import cats.implicits.*
+              import cats.syntax.all.*
               (
                 game,
                 pairing,
@@ -234,7 +235,7 @@ final class GameApiV2(
 
   private def enrich(flags: WithFlags)(game: Game) =
     gameRepo initialFen game flatMap { initialFen =>
-      (flags.evals ?? analysisRepo.byGame(game)) dmap {
+      (flags.requiresAnalysis ?? analysisRepo.byGame(game)) dmap {
         (game, initialFen, _)
       }
     }
@@ -289,21 +290,14 @@ final class GameApiV2(
       "lastMoveAt" -> g.movedAt,
       "status"     -> g.status.name,
       "players" -> JsObject(g.players zip lightUsers map { (p, user) =>
-        p.color.name -> Json
-          .obj()
-          .add("user", user)
-          .add("rating", p.rating)
-          .add("ratingDiff", p.ratingDiff)
-          .add("name", p.name)
-          .add("provisional" -> p.provisional)
-          .add("aiLevel" -> p.aiLevel)
+        p.color.name -> gameJsonView
+          .player(p, user)
           .add(
             "analysis" -> analysisOption.flatMap(
-              analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy = none)
+              analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy)
             )
           )
           .add("team" -> teams.map(_(p.color)))
-          .add("accuracy" -> accuracy.map(_(p.color)).map(_.toInt))
       })
     )
     .add("initialFen" -> initialFen)

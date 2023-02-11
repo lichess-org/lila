@@ -625,7 +625,7 @@
   <string name="writeAPrivateNoteAboutThisUser">Skrivañ un notenn brevez diwar-benn ar c\'hoarier-mañ</string>
   <string name="noNoteYet">Notenn ebet evit poent</string>
   <string name="invalidUsernameOrPassword">N\'eo ket mat an an anv-implijer pe ar ger-tremen</string>
-  <string name="incorrectPassword">Ger-tremen didalvoudek</string>
+  <string name="incorrectPassword">N\'eo ket mat ar ger-kuzh</string>
   <string name="invalidAuthenticationCode">Kod dilesadur fall</string>
   <string name="emailMeALink">Kasit din ul liamm dre bostel</string>
   <string name="currentPassword">Ger-tremen evit poent</string>

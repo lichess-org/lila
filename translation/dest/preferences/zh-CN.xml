@@ -3,7 +3,7 @@
   <string name="preferences">偏好设置</string>
   <string name="display">显示</string>
   <string name="privacy">隐私</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">通知</string>
+  <string name="notifications">通知</string>
   <string name="pieceAnimation">棋子动画</string>
   <string name="materialDifference">子力差距</string>
   <string name="boardHighlights">棋盘高亮（最后一步与将军）</string>
@@ -51,13 +51,13 @@
   <string name="yourPreferencesHaveBeenSaved">您的设置已保存。</string>
   <string name="scrollOnTheBoardToReplayMoves">在棋盘上滚动鼠标滚轮以回退</string>
   <string name="correspondenceEmailNotification">每日发送邮件通知您正在进行的通讯棋局</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">主播开始直播</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">新消息</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">论坛评论提到了你</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">研讨邀请</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">挑战</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Lichess内的铃声通知</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">当您不在Lichess时的设备通知</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">浏览器通知</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">设备通知</string>
+  <string name="notifyStreamStart">主播开始直播</string>
+  <string name="notifyInboxMsg">新消息</string>
+  <string name="notifyForumMention">论坛评论提到了你</string>
+  <string name="notifyInvitedStudy">研讨邀请</string>
+  <string name="notifyChallenge">挑战</string>
+  <string name="notifyBell">Lichess内的铃声通知</string>
+  <string name="notifyPush">当您不在Lichess时的设备通知</string>
+  <string name="notifyWeb">浏览器通知</string>
+  <string name="notifyDevice">设备通知</string>
 </resources>

@@ -23,7 +23,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   private lazy val coll = db(CollName("activity2")).failingSilently()

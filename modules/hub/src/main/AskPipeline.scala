@@ -7,7 +7,7 @@ import com.github.blemale.scaffeine.LoadingCache
  * and only enqueues one.
  */
 final class AskPipeline[A](compute: () => Fu[A], timeout: FiniteDuration, name: String)(using
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     ec: Executor
 ) extends SyncActor:
 
@@ -69,7 +69,7 @@ final class AskPipelines[K, R](
     name: String
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   def apply(key: K): Fu[R] = pipelines.get(key).get

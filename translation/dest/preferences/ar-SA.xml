@@ -3,7 +3,7 @@
   <string name="preferences">تفضيلات</string>
   <string name="display">عرض</string>
   <string name="privacy">الخصوصية</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">إشعارات</string>
+  <string name="notifications">إشعارات</string>
   <string name="pieceAnimation">المؤثرات الحركية للقطعة</string>
   <string name="materialDifference">الفرق المادي</string>
   <string name="boardHighlights">تميز معالم الرقعة (آخر نقلة والكش)</string>
@@ -51,16 +51,16 @@
   <string name="yourPreferencesHaveBeenSaved">تم حفظ تفضيلاتك.</string>
   <string name="scrollOnTheBoardToReplayMoves">مرر على الرقعة لإعادة عرض التحركات</string>
   <string name="correspondenceEmailNotification">البريد الإلكتروني اليومي يدرج ألعاب المراسلة الخاصة بك</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">البث مباشر الآن</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">رسالة جديدة في البريد الوارد</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">تعليق في المنتدى يشير إليك</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">دعوة إلى الدراسة</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">تحديثات مباراة المراسلة</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">تحديات</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">البطولة ستبدأ قريباً</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">ساعة المراسلة تنفد</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">إشعار الجرس داخل Lichess</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">إشعار الجهاز عندما لا تكون على Lichess</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">المتصفح</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">الجهاز</string>
+  <string name="notifyStreamStart">البث مباشر الآن</string>
+  <string name="notifyInboxMsg">رسالة جديدة في البريد الوارد</string>
+  <string name="notifyForumMention">تعليق في المنتدى يشير إليك</string>
+  <string name="notifyInvitedStudy">دعوة إلى الدراسة</string>
+  <string name="notifyGameEvent">تحديثات مباراة المراسلة</string>
+  <string name="notifyChallenge">تحديات</string>
+  <string name="notifyTournamentSoon">البطولة ستبدأ قريباً</string>
+  <string name="notifyTimeAlarm">ساعة المراسلة تنفد</string>
+  <string name="notifyBell">إشعار الجرس داخل Lichess</string>
+  <string name="notifyPush">إشعار الجهاز عندما لا تكون على Lichess</string>
+  <string name="notifyWeb">المتصفح</string>
+  <string name="notifyDevice">الجهاز</string>
 </resources>

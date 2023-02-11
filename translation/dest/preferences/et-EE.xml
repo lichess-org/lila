@@ -3,7 +3,7 @@
   <string name="preferences">Sätted</string>
   <string name="display">Kuva</string>
   <string name="privacy">Privaatsus</string>
-  <string name="notifications" comment="notifications&#10;&#10;Heading for notification settings">Teavitused</string>
+  <string name="notifications">Teavitused</string>
   <string name="pieceAnimation">Malendite liikumine</string>
   <string name="materialDifference">Materjali erinevus</string>
   <string name="boardHighlights">Rõhutata viimast käiku ja tuld</string>
@@ -51,16 +51,17 @@
   <string name="yourPreferencesHaveBeenSaved">Teie eelistused on salvestatud.</string>
   <string name="scrollOnTheBoardToReplayMoves">Käikude kordamiseks keri laual</string>
   <string name="correspondenceEmailNotification">Igapäevane e-kiri, mis sisaldab pooleliolevaid kirjavahetusmänge</string>
-  <string name="notifyStreamStart" comment="notifyStreamStart&#10;&#10;A notification setting - notifies players when a streamer they follow on Lichess has started streaming">Striimija alustab otseülekannet</string>
-  <string name="notifyInboxMsg" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Postkastis on uus sõnum</string>
-  <string name="notifyForumMention" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Mainimised foorumis</string>
-  <string name="notifyInvitedStudy" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Kutse uuringule</string>
-  <string name="notifyGameEvent" comment="notifyGameEvent&#10;&#10;A notification setting - notifies players about updates in correspondence games">Kirimale mängu uuendused</string>
-  <string name="notifyChallenge" comment="notifyChallenge&#10;&#10;A notification setting - notifies players about incoming challenges.">Väljakutsed</string>
-  <string name="notifyTournamentSoon" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Turniir algab peatselt</string>
-  <string name="notifyTimeAlarm" comment="notifyTimeAlarm&#10;&#10;A notification setting when there are only a few hours left before your time runs out.">Kirimale aeg hakkab lõppema</string>
-  <string name="notifyBell" comment="notifyBell&#10;&#10;A notification setting - toggles a bell sound being played when a notification appears.">Lichessi teavitus kellukesega</string>
-  <string name="notifyPush" comment="notifyPush&#10;&#10;Also known as a 'push notification', this is a setting for device notifications.">Mobiiliteavitus, kui oled Lichessist eemal</string>
-  <string name="notifyWeb" comment="notifyWeb&#10;Lets players set native web browser notifications on and off">Brauser</string>
-  <string name="notifyDevice" comment="notifyDevice&#10; Lets players toggle device notifications on and off when they are not on Lichess">Seade</string>
+  <string name="notifyStreamStart">Striimija alustab otseülekannet</string>
+  <string name="notifyInboxMsg">Postkastis on uus sõnum</string>
+  <string name="notifyForumMention">Mainimised foorumis</string>
+  <string name="notifyInvitedStudy">Kutse uuringule</string>
+  <string name="notifyGameEvent">Kirimale mängu uuendused</string>
+  <string name="notifyChallenge">Väljakutsed</string>
+  <string name="notifyTournamentSoon">Turniir algab peatselt</string>
+  <string name="notifyTimeAlarm">Kirimale aeg hakkab lõppema</string>
+  <string name="notifyBell">Lichessi teavitus kellukesega</string>
+  <string name="notifyPush">Mobiiliteavitus, kui oled Lichessist eemal</string>
+  <string name="notifyWeb">Brauser</string>
+  <string name="notifyDevice">Seade</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Teavituste heli</string>
 </resources>
