@@ -37,4 +37,5 @@
   <string name="deleteBlog">Usı blog xabarın pútkilley óshiriw</string>
   <string name="deleteImage">Súwretti óshiriw</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Tómendegi vabsaytlardaǵı súwretlerden paydalanıw qáwipsiz: </string>
+  <string name="selectPostTopics">Xabarlarıńız ushın temalar tańlań</string>
 </resources>
