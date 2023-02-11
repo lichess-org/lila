@@ -13,7 +13,7 @@ const speechLookup = new Map<string, string>([
   ['h', 'h'],
 
   // NATO phonetic alphabet
-  ['alpha', 'a'],
+  ['alfa', 'a'],
   ['bravo', 'b'],
   ['charlie', 'c'],
   ['delta', 'd'],
