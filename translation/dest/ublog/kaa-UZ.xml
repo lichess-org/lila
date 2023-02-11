@@ -1,2 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">%snıń Blogı</string>
+  <string name="newPost">Jańa xabar</string>
+  <string name="editYourBlogPost">Blogtaǵı xabarıńızǵa ózgeris kirgiziw</string>
+  <string name="saveDraft">Qaralamanı saqlaw</string>
+  <string name="postTitle">Xabar teması</string>
+  <string name="postIntro">Alǵı sóz</string>
+  <string name="postBody">Xabardıń tiykarǵı mazmunı</string>
+  <string name="drafts">Qaralamalar</string>
+  <string name="published">Járiyalandı</string>
+  <string name="createBlogDiscussion">Pikirlerge ruqsat beriw</string>
+  <string name="createBlogDiscussionHelp">Adamlar siziń xabarıńızǵa pikir bildiriw ushın forum teması jaratıladı</string>
+  <string name="publishOnYourBlog">Blogıńızda járiyalaw</string>
+  <string name="publishHelp">Eger belgilense, xabar blogıńızda kórsetiledi. Basqa jaǵdayda ol qaralama xabarlańızda jeke bolıp qaladı</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Blog xabarı járiyalandı</item>
+    <item quantity="other">%s blog xabarı járiyalandı</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Bir ret kórildi</item>
+    <item quantity="other">%s ret kórildi</item>
+  </plurals>
+  <string name="xPublishedY">%1$s %2$sdı járiyaladı</string>
+  <string name="thisPostIsPublished">Bul xabar járiyalandı</string>
+</resources>
