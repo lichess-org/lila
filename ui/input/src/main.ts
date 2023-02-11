@@ -167,7 +167,9 @@ export function render(ctrl: KeyboardMove) {
     ctrl.isFocused()
       ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
       : h('strong', 'Press <enter> to focus'),
-    lichess.storage.boolean('voiceInput').getOrDefault(false) ? h('div#voice-move-button', '') : null,
+    lichess.storage.boolean('voiceInput').getOrDefault(false)
+      ? h('div#voice-move-button', { attrs: { role: 'button' } }, '')
+      : null,
     ctrl.helpModalOpen()
       ? snabModal({
           class: 'keyboard-move-help',
