@@ -207,8 +207,13 @@
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinir a palavra-passe</string>
   <string name="forgotPassword">Esqueceste-te da tua palavra-passe?</string>
+  <string name="error.weakPassword">Esta senha é extremamente comum, e muito fácil de adivinhar.</string>
+  <string name="error.namePassword">Por favor, não usa o teu nome de utilizador como senha.</string>
   <string name="blankedPassword">Utilizou a mesma palavra-passe noutro site, e esse site foi comprometido. Para garantir a segurança da sua conta Lichess, precisamos que redefina a palavra-passe. Obrigado pela compreensão.</string>
   <string name="youAreLeavingLichess">Você está a sair do Lichess</string>
+  <string name="neverTypeYourPassword">Nunca escrevas a tua senha Lichess em outro site!</string>
+  <string name="passwordSuggestion">Não uses uma senha sugerida por outra pessoa. Eles vão utilizar-la para roubar a tua conta.</string>
+  <string name="emailSuggestion">Não uses um email sugerida por outra pessoa. Eles vão utilizar-la para roubar a tua conta.</string>
   <string name="emailConfirmHelp">Ajuda com a confirmação do endereço eletrónico</string>
   <string name="emailConfirmNotReceived">Não recebeu no seu correio eletrónico uma mensagem de confirmação após o registo?</string>
   <string name="whatSignupUsername">Que nome de utilizador usou para se registar?</string>
@@ -365,6 +370,7 @@
   <string name="siteDescription">Xadrez online gratuito. Joga xadrez numa interface simples. Sem registos, sem anúncios, sem plugins. Joga xadrez com o computador, amigos ou adversários aleatórios.</string>
   <string name="xJoinedTeamY">%1$s juntou-se à equipa %2$s</string>
   <string name="xCreatedTeamY">%1$s criou a equipa %2$s</string>
+  <string name="startedStreaming">começou uma stream</string>
   <string name="xStartedStreaming">%s começou uma stream</string>
   <string name="averageElo">Pontuação média</string>
   <string name="location">Localização</string>
