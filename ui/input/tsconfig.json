@@ -4,7 +4,6 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "src",
-    "types": ["lichess", "web"],
     "declaration": true,
     "composite": true
   },
