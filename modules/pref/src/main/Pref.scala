@@ -35,7 +35,6 @@ case class Pref(
     confirmResign: Int,
     insightShare: Int,
     keyboardMove: Int,
-    voiceMove: Int,
     zen: Int,
     ratings: Int,
     rookCastle: Int,
@@ -125,8 +124,6 @@ case class Pref(
   def agree = copy(agreement = Agreement.current)
 
   def hasKeyboardMove = keyboardMove == KeyboardMove.YES
-
-  def hasVoiceMove = voiceMove == VoiceMove.YES
 
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =
@@ -454,7 +451,6 @@ object Pref:
     confirmResign = ConfirmResign.YES,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
-    voiceMove = VoiceMove.NO,
     zen = Zen.NO,
     ratings = Ratings.YES,
     rookCastle = RookCastle.YES,

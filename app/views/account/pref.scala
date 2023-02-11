@@ -141,7 +141,7 @@ object pref:
             ),
             setting(
               inputMovesWithYourVoice(),
-              radios(form("behavior.voiceMove"), booleanChoices)
+              radios(form("behavior.voiceInput"), booleanChoices)
             ),
             setting(
               snapArrowsToValidMoves(),
