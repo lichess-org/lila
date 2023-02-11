@@ -209,6 +209,7 @@
   <string name="forgotPassword">Har du gløymt passordet?</string>
   <string name="error.weakPassword">Passordet er svært vanleg og for lett å gjette.</string>
   <string name="error.namePassword">Ikkje bruk namnet ditt som passord.</string>
+  <string name="blankedPassword">Du har brukt det same passordet på ei nettside som er vorte kompromittert. For å ta i vare tryggleiken på Lichess-kontoen din, er det naudynt at du lagar eit nytt passord. Takk for di forståing.</string>
   <string name="youAreLeavingLichess">Du forlèt Lichess</string>
   <string name="neverTypeYourPassword">Skriv aldri Lichess-passordet på ei anna webside!</string>
   <string name="emailConfirmHelp">Hjelp med å stadfesta e-posten</string>
