@@ -556,7 +556,7 @@ final class Auth(
         }
     }
 
-  private def consumingToken(token: String)(f: UserModel => Fu[Result])(implicit ctx: Context) =
+  private def consumingToken(token: String)(f: UserModel => Fu[Result])(using Context) =
     env.security.loginToken consume token flatMap {
       case None =>
         BadRequest {
@@ -590,7 +590,7 @@ final class Auth(
 
   private[controllers] def MagicLinkRateLimit = lila.security.MagicLink.rateLimit[Result]
 
-  private[controllers] def RedirectToProfileIfLoggedIn(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  private[controllers] def RedirectToProfileIfLoggedIn(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me match
       case Some(me) => Redirect(routes.User.show(me.username)).toFuccess
       case None     => f
