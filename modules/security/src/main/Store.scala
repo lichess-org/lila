@@ -117,7 +117,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
     coll
       .find($doc("user" -> userId))
       .sort($doc("date" -> -1))
-      .cursor[UserSession](ReadPreference.secondaryPreferred)
+      .cursor[UserSession](temporarilyPrimary)
 
   def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
     FingerHash.from(fp) match

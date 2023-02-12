@@ -294,7 +294,7 @@ final class MsgApi(
   def allMessagesOf(userId: UserId): Source[(String, DateTime), ?] =
     colls.thread
       .aggregateWith[Bdoc](
-        readPreference = ReadPreference.secondaryPreferred
+        readPreference = temporarilyPrimary
       ) { framework =>
         import framework.*
         List(
