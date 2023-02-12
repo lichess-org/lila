@@ -2,11 +2,11 @@ import * as cg from 'chessground/types';
 import * as xhr from 'common/xhr';
 import { Api as CgApi } from 'chessground/api';
 import { h } from 'snabbdom';
-import { onInsert } from 'common/snabbdom';
+import { bind, onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { propWithEffect, Prop } from 'common';
+import { propWithEffect, Prop, PropWithEffect } from 'common';
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
@@ -21,7 +21,6 @@ export interface KeyboardMove {
   update(step: Step, yourMove?: boolean): void;
   registerHandler(h: KeyboardMoveHandler): void;
   isFocused: Prop<boolean>;
-  voiceMove: boolean;
   san(orig: cg.Key, dest: cg.Key): void;
   select(key: cg.Key): void;
   hasSelected(): cg.Key | undefined;
@@ -35,6 +34,11 @@ export interface KeyboardMove {
   vote(v: boolean): void;
   resign(v: boolean, immediately?: boolean): void;
   helpModalOpen: Prop<boolean>;
+
+  // voice move
+  voiceMove: boolean;
+  lastSpokenPhrase: PropWithEffect<string>;
+  isListening: PropWithEffect<boolean>;
 }
 
 const sanToRole: { [key: string]: cg.Role } = {
@@ -79,6 +83,8 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
   const isFocused = propWithEffect(false, root.redraw);
   const helpModalOpen = propWithEffect(false, root.redraw);
   const voiceMove = root.voiceMove;
+  const lastSpokenPhrase = propWithEffect('', root.redraw);
+  const isListening = propWithEffect(false, root.redraw);
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
   let lastSelect = performance.now();
@@ -148,6 +154,8 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     helpModalOpen,
     isFocused,
     voiceMove,
+    lastSpokenPhrase,
+    isListening,
   };
 }
 
@@ -168,7 +176,18 @@ export function render(ctrl: KeyboardMove) {
       ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
       : h('strong', 'Press <enter> to focus'),
     lichess.storage.boolean('voiceInput').getOrDefault(false)
-      ? h('div#voice-move-button', { attrs: { role: 'button' } }, '')
+      ? h('div.voice-move', [
+          h('div', ctrl.lastSpokenPhrase() || 'Move by voice'),
+          h(
+            'div#voice-move-button',
+            {
+              class: { enabled: ctrl.isListening() },
+              attrs: { role: 'button' },
+              hook: bind('click', () => ctrl.isListening(!ctrl.isListening())),
+            },
+            ''
+          ),
+        ])
       : null,
     ctrl.helpModalOpen()
       ? snabModal({

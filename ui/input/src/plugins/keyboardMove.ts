@@ -132,12 +132,8 @@ export default (window as any).LichessKeyboardMove = (opts: Opts) => {
     opts.input.classList.remove('wrong');
   };
 
-  if (lichess.storage.boolean('voiceInput').getOrDefault(false)) {
-    const toggleButton = document.getElementById('voice-move-button')!;
-    const isEnabled = () => toggleButton.classList.contains('enabled');
-    toggleButton.addEventListener('click', event => (event.target as HTMLElement).classList.toggle('enabled'));
-    lichess.loadScript('vendor/vosk/vosk.js').then(() => loadVosk(submit, isEnabled));
-  }
+  if (lichess.storage.boolean('voiceInput').getOrDefault(false))
+    lichess.loadScript('vendor/vosk/vosk.js').then(() => loadVosk(opts.ctrl, submit));
 
   makeBindings(opts, submit, clear);
   return (fen: string, dests: Dests | undefined, yourMove: boolean) => {

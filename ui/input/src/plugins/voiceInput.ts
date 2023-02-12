@@ -1,6 +1,7 @@
 import { Duplex, DuplexOptions, Writable, Readable } from 'readable-stream';
 //import MicrophoneStream from '../microphoneStream';
 import { KaldiRecognizer, createModel } from 'vosk-browser';
+import { KeyboardMove } from '../main';
 
 const speechLookup = new Map<string, string>([
   ['a', 'a'],
@@ -158,21 +159,21 @@ export default class MicrophoneStream extends Readable {
   }
 }
 
-export function loadVosk(submit: Submit, isEnabled: () => boolean) {
+export function loadVosk(ctrl: KeyboardMove, submit: Submit) {
   async function initialise() {
     const model = await createModel(lichess.assetUrl('vendor/vosk/model.tar.gz'));
     const recognizer = new model.KaldiRecognizer(48000, JSON.stringify([...speechLookup.keys()]));
     recognizer.on('result', message => {
-      if ('result' in message)
-        if ('text' in message.result) {
-          console.log(`We heard: ${message.result.text}`);
-          const split = message.result.text.split(' ');
-          const command = split
-            .map(word => speechLookup.get(word))
-            .filter(word => word !== undefined)
-            .join('');
-          if (isEnabled()) submit(command, { force: true, isTrusted: true });
-        }
+      if (ctrl.isListening() && 'result' in message && 'text' in message.result) {
+        console.log(`We heard: ${message.result.text}`);
+        ctrl.lastSpokenPhrase(message.result.text);
+        const split = message.result.text.split(' ');
+        const command = split
+          .map(word => speechLookup.get(word))
+          .filter(word => word !== undefined)
+          .join('');
+        submit(command, { force: true, isTrusted: true });
+      }
     });
 
     const mediaStream = await navigator.mediaDevices.getUserMedia({
