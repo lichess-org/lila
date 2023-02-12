@@ -65,6 +65,8 @@
   <string name="studyPgn">Izpētes PGN</string>
   <string name="downloadAllGames">Lejupielādēt visas spēles</string>
   <string name="chapterPgn">Nodaļas PGN</string>
+  <string name="copyChapterPgn">Kopēt PGN</string>
+  <string name="copyChapterPgnDescription">Kopēt nodaļas PGN starpliktuvē.</string>
   <string name="downloadGame">Lejupielādēt spēli</string>
   <string name="studyUrl">Izpētes URL</string>
   <string name="currentChapterUrl">Pašreizējās nodaļas URL</string>
