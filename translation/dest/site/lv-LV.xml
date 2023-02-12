@@ -218,6 +218,8 @@
   <string name="email">E-pasta adrese</string>
   <string name="passwordReset">Atiestatīt paroli</string>
   <string name="forgotPassword">Aizmirsāt paroli?</string>
+  <string name="error.weakPassword">Šī parole ir ļoti bieži izmantota, un viegli uzminama.</string>
+  <string name="error.namePassword">Lūdzu, neizmantojiet savu lietotājvārdu kā paroli.</string>
   <string name="emailConfirmHelp">Palīdzība ar epasta apstiprinājumu</string>
   <string name="emailConfirmNotReceived">Nesaņēmāt apstiprinājuma epastu pēc reģistrēšanās?</string>
   <string name="whatSignupUsername">Kādu lietotājvārdu izmantojāt, kad reģistrējāties?</string>
