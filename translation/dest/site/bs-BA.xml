@@ -220,6 +220,7 @@
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
   <string name="error.weakPassword">Ova lozinka izuzetno je česta i prelahka za pogađanje.</string>
   <string name="error.namePassword">Molimo da ne upotrebljavate Vaše korisničko ime kao lozinku.</string>
+  <string name="blankedPassword">Upotrijebili ste istu lozinku na drugom sajtu, a taj je sajt kompromitiran. Da bismo omogućili sigurnost Vašeg računa na Lichessu, trebate postaviti novu lozinku. Hvala na razumijevanju.</string>
   <string name="youAreLeavingLichess">Napuštate Lichess</string>
   <string name="neverTypeYourPassword">Nikada nemojte unijeti Vašu lozinku za Lichess na nekom drugom sajtu!</string>
   <string name="emailConfirmHelp">Pomoć za potvrdu e-pošte</string>
