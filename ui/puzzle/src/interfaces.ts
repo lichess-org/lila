@@ -10,7 +10,7 @@ import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
 import { PromotionCtrl } from 'chess/promotion';
-import { KeyboardMove } from 'input';
+import { InputMoveCtrl } from 'input';
 import * as Prefs from 'common/prefs';
 import perfIcons from 'common/perfIcons';
 
@@ -75,7 +75,7 @@ export interface Controller extends KeyboardController {
   session: PuzzleSession;
   allThemes?: AllThemes;
   showRatings: boolean;
-  keyboardMove?: KeyboardMove;
+  inputMoveCtrl?: InputMoveCtrl;
 
   streak?: PuzzleStreak;
   skip(): void;

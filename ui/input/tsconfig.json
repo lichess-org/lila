@@ -4,9 +4,11 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "src",
-    "types": ["lichess", "web"],
+    "types": ["lichess", "web", "cash", "audioworklet"],
     "declaration": true,
-    "composite": true
+    "noUnusedLocals": false,
+    "composite": true,
+    "skipLibCheck": true // no way around this
   },
   "isolatedModules": true,
   "references": [{ "path": "../common/tsconfig.json" }]

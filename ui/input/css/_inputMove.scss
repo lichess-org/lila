@@ -1,0 +1,34 @@
+.input-move {
+  @extend %flex-center-nowrap;
+  height: fit-content;
+
+  input {
+    width: 4.5em;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-#{$end-direction}: 1rem;
+    border: $border;
+
+    @include transition;
+
+    &.wrong {
+      background: $c-bad;
+      color: $c-bad-over;
+    }
+  }
+
+  em {
+    color: $c-font-dim;
+  }
+
+  #voice-move-button {
+    font-family: 'lichess';
+    cursor: pointer;
+    margin-left: 4px;
+    color: red;
+  }
+
+  #voice-move-button.enabled {
+    color: green;
+  }
+}

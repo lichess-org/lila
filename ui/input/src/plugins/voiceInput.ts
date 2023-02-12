@@ -1,6 +1,20 @@
-import { Duplex, DuplexOptions, Writable, Readable } from 'readable-stream';
-//import MicrophoneStream from '../microphoneStream';
-import { KaldiRecognizer, createModel } from 'vosk-browser';
+import { KaldiRecognizer, createModel, Model } from 'vosk-browser';
+import { RecognizerMessage } from 'vosk-browser/dist/interfaces';
+
+export type VoiceListener = (command: string) => void;
+export interface VoiceCtrl {
+  start: () => void;
+  stop: () => void;
+  ready: () => boolean;
+  status: () => string;
+}
+export interface VoiceOpts {
+  impl: 'vanilla' | 'worklet';
+  listener: VoiceListener;
+}
+
+const wasmSource = 'vendor/vosk/vosk.js';
+const modelSource = 'vendor/vosk/model-en-us-0.15.tar.gz';
 
 const speechLookup = new Map<string, string>([
   ['a', 'a'],
@@ -30,141 +44,109 @@ const speechLookup = new Map<string, string>([
   ['takes', 'x'],
 ]);
 
-const audioBucket = new Writable({
-  write: function (_, __, callback) {
-    callback();
-  },
-  objectMode: true,
-  decodeStrings: false,
-});
+export const ctrl = (options: VoiceOpts): VoiceCtrl => {
+  const opts = options;
+  let sampleRate = 48000; // go ahead try to change it, apparently nobody cares
+  let voiceModel: Model;
+  let mediaStream: MediaStream;
+  let recognizer: KaldiRecognizer;
+  let audioContext: AudioContext;
+  let ready = false;
+  let status = 'not loaded';
 
-interface SubmitOpts {
-  isTrusted: boolean;
-  force?: boolean;
-  yourMove?: boolean;
-}
-type Submit = (v: string, submitOpts: SubmitOpts) => void;
-export class AudioStreamer extends Duplex {
-  constructor(public recognizer: KaldiRecognizer, options?: DuplexOptions) {
-    super(options);
-  }
+  return {
+    start: () => {
+      if (!audioContext) load();
+      else audioContext.resume();
+    },
+    stop: () => audioContext?.suspend(),
+    ready: () => ready,
+    status: () => status,
+  };
 
-  public _write(chunk: AudioBuffer, _: any, callback: any) {
-    const buffer = chunk.getChannelData(0);
-    if (this.recognizer && buffer.byteLength > 0) {
-      this.recognizer.acceptWaveform(chunk);
+  function processResult(message: RecognizerMessage) {
+    if ('result' in message && 'text' in message.result) {
+      console.log(`We heard: ${message.result.text}`);
+      const split = message.result.text.split(' ');
+      const command = split
+        .map(word => speechLookup.get(word))
+        .filter(word => word !== undefined)
+        .join('');
+      opts.listener(command);
     }
-    callback();
-  }
-}
-export default class MicrophoneStream extends Readable {
-  public context: AudioContext;
-  public audioInput: MediaStreamAudioSourceNode;
-  private stream: MediaStream;
-  private recorder: ScriptProcessorNode;
-  private recording = true;
-  constructor() {
-    super({ objectMode: true });
-
-    this.context = new AudioContext();
-    this.recorder = this.context.createScriptProcessor(1024, 1, 1); // outputChannels 1 for old chrome
-    this.recorder.connect(this.context.destination);
-
-    setTimeout(() => {
-      this.emit('format', {
-        channels: 1,
-        bitDepth: 32,
-        sampleRate: this.context.sampleRate,
-        signed: true,
-        float: true,
-      });
-    }, 0);
   }
 
-  public setStream(stream: MediaStream): void {
-    this.stream = stream;
-    this.audioInput = this.context.createMediaStreamSource(stream);
-    this.audioInput.connect(this.recorder);
-    const recorderProcess = (e: AudioProcessingEvent) => {
-      if (this.recording) {
-        this.push(e.inputBuffer);
-      }
-    };
-    this.recorder.onaudioprocess = recorderProcess;
-  }
-
-  public pauseRecording(): void {
-    this.recording = false;
-  }
-
-  public playRecording(): void {
-    this.recording = true;
-  }
-
-  public stop(): void {
-    if (this.context.state === 'closed') {
-      return;
-    }
+  async function load() {
     try {
-      this.stream.getTracks()[0].stop();
-    } catch (ex) {
-      console.log(ex);
+      status = 'fetching wasm';
+      await lichess.loadScript(wasmSource);
+      status = 'fetching model';
+      await initShared(lichess.assetUrl(modelSource));
+      await (opts.impl == 'vanilla' ? vanillaProcessor : workletProcessor)();
+      console.log(`Voice input using ${opts.impl} engine with ${modelSource}`);
+      ready = true;
+    } catch (e) {
+      console.log('Voice module init failed', e);
+      status = `${JSON.stringify(e).slice(0, 40)}...`;
     }
-    this.recorder.disconnect();
-    if (this.audioInput) {
-      this.audioInput.disconnect();
-    }
-    try {
-      this.context.close(); // returns a promise;
-    } catch (ex) {
-      console.log(ex);
-    }
-    this.recording = false;
-    this.push(null);
-    this.emit('close');
   }
 
-  public _read(): void {}
-
-  public static toRaw(chunk: Buffer): Float32Array {
-    return new Float32Array(chunk.buffer);
-  }
-}
-
-export function loadVosk(submit: Submit, isEnabled: () => boolean) {
-  async function initialise() {
-    const model = await createModel(lichess.assetUrl('vendor/vosk/model.tar.gz'));
-    const recognizer = new model.KaldiRecognizer(16000, JSON.stringify([...speechLookup.keys()]));
-    recognizer.on('result', message => {
-      if ('result' in message)
-        if ('text' in message.result) {
-          console.log(`We heard: ${message.result.text}`);
-          const split = message.result.text.split(' ');
-          const command = split
-            .map(word => speechLookup.get(word))
-            .filter(word => word !== undefined)
-            .join('');
-          if (isEnabled()) submit(command, { force: true, isTrusted: true });
-        }
+  async function initShared(modelUrl: string) {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    console.log(navigator.mediaDevices.getSupportedConstraints());
+    devices.forEach(d => {
+      if (d.kind == 'audioinput') console.log(d);
     });
+    voiceModel = await createModel(modelUrl);
 
-    const mediaStream = await navigator.mediaDevices.getUserMedia({
+    mediaStream = await navigator.mediaDevices.getUserMedia({
       video: false,
       audio: {
+        sampleRate: sampleRate,
+        channelCount: 1,
         echoCancellation: true,
         noiseSuppression: true,
       },
     });
-
-    const micStream = new MicrophoneStream();
-
-    micStream.setStream(mediaStream);
-
-    const audioStreamer = new AudioStreamer(recognizer, {
-      objectMode: true,
+    sampleRate = mediaStream.getAudioTracks()[0].getSettings().sampleRate || sampleRate;
+    audioContext = new AudioContext({
+      sampleRate: sampleRate,
     });
-    micStream?.unpipe(audioBucket);
-    micStream?.pipe(audioStreamer);
+
+    recognizer = new voiceModel.KaldiRecognizer(sampleRate, JSON.stringify([...speechLookup.keys()]));
+    recognizer.on('result', processResult);
   }
-  initialise();
-}
+
+  //========================== works ok on all but deprecated ==============================
+
+  async function vanillaProcessor() {
+    // createScriptProcessor was deprecated in 2014
+    const recognizerNode = audioContext.createScriptProcessor(4096, 1, 1);
+    recognizerNode.onaudioprocess = e => recognizer.acceptWaveform(e.inputBuffer);
+    audioContext.createMediaStreamSource(mediaStream).connect(recognizerNode);
+    recognizerNode.connect(audioContext.destination); // (shouldn't need this but it do)
+  }
+
+  //========================= preferred impl but safari bugged =============================
+
+  async function workletProcessor() {
+    const debugChannel = new MessageChannel(); // safari can't log in a worker
+    debugChannel.port1.onmessage = (e: MessageEvent) => console.log(e.data);
+
+    const channel = new MessageChannel();
+    voiceModel.registerPort(channel.port1);
+
+    await audioContext.audioWorklet.addModule(lichess.assetUrl('compiled/voskProcessor.js'));
+
+    const voskNode = new AudioWorkletNode(audioContext, 'vosk-processor', {
+      channelCount: 1,
+      numberOfInputs: 1,
+      numberOfOutputs: 1,
+    });
+    voskNode.port.postMessage({ action: 'register', recognizerId: recognizer.id }, [channel.port2, debugChannel.port2]);
+    voskNode.connect(audioContext.destination);
+
+    const sourceNode = audioContext.createMediaStreamSource(mediaStream);
+    sourceNode.connect(voskNode);
+  }
+};

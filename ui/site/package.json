@@ -30,7 +30,6 @@
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.10.0",
     "tablesort": "^5.3.0",
-    "vosk-browser": "^0.0.8",
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
@@ -78,10 +77,6 @@
       "src/streamer.ts": "streamer"
     },
     "copy": [
-      {
-        "src": "node_modules/vosk-browser/dist/vosk.js",
-        "dest": "../../public/vendor/vosk"
-      },
       {
         "src": "node_modules/hopscotch/dist/js/hopscotch.min.js",
         "dest": "../../public/vendor/hopscotch/dist/js"

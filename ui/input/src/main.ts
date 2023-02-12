@@ -1,27 +1,20 @@
 import * as cg from 'chessground/types';
 import * as xhr from 'common/xhr';
-import { Api as CgApi } from 'chessground/api';
 import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { propWithEffect, Prop } from 'common';
+import { makeKeyboardMove } from './inputMove';
+import { RootCtrl, ClockCtrl, InputMoveHandler } from './interfaces';
 
-export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
-
-(window as any).global = window; // hack for readable-stream
-
-interface ClockController {
-  millisOf: (color: Color) => number;
-}
-export interface KeyboardMove {
+export interface InputMoveCtrl {
   drop(key: cg.Key, piece: string): void;
   promote(orig: cg.Key, dest: cg.Key, piece: string): void;
-  update(step: Step, yourMove?: boolean): void;
-  registerHandler(h: KeyboardMoveHandler): void;
+  update(step: { fen: string }, yourMove?: boolean): void;
+  registerHandler(h: InputMoveHandler): void;
   isFocused: Prop<boolean>;
-  voiceMove: boolean;
   san(orig: cg.Key, dest: cg.Key): void;
   select(key: cg.Key): void;
   hasSelected(): cg.Key | undefined;
@@ -29,7 +22,7 @@ export interface KeyboardMove {
   usedSan: boolean;
   jump(delta: number): void;
   justSelected(): boolean;
-  clock(): ClockController | undefined;
+  clock(): ClockCtrl | undefined;
   draw(): void;
   next(): void;
   vote(v: boolean): void;
@@ -46,40 +39,10 @@ const sanToRole: { [key: string]: cg.Role } = {
   K: 'king',
 };
 
-interface CrazyPocket {
-  [role: string]: number;
-}
-export interface RootData {
-  crazyhouse?: { pockets: [CrazyPocket, CrazyPocket] };
-  game: { variant: { key: VariantKey } };
-  player: { color: Color };
-}
-export interface RootController {
-  chessground: CgApi;
-  clock?: ClockController;
-  crazyValid?: (role: cg.Role, key: cg.Key) => boolean;
-  data: RootData;
-  offerDraw?: (v: boolean, immediately?: boolean) => void;
-  resign?: (v: boolean, immediately?: boolean) => void;
-  sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta?: cg.MoveMetadata) => void;
-  sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
-  submitMove?: (v: boolean) => void;
-  userJumpPlyDelta?: (plyDelta: Ply) => void;
-  redraw: Redraw;
-  voiceMove: boolean;
-  next?: () => void;
-  vote?: (v: boolean) => void;
-}
-interface Step {
-  fen: string;
-}
-type Redraw = () => void;
-
-export function ctrl(root: RootController, step: Step): KeyboardMove {
+export function ctrl(root: RootCtrl, step: { fen: string }): InputMoveCtrl {
   const isFocused = propWithEffect(false, root.redraw);
   const helpModalOpen = propWithEffect(false, root.redraw);
-  const voiceMove = root.voiceMove;
-  let handler: KeyboardMoveHandler | undefined;
+  let handler: InputMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
   let lastSelect = performance.now();
   const cgState = root.chessground.state;
@@ -119,7 +82,7 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
       if (handler) handler(step.fen, cgState.movable.dests, yourMove);
       else preHandlerBuffer = step.fen;
     },
-    registerHandler(h: KeyboardMoveHandler) {
+    registerHandler(h: InputMoveHandler) {
       handler = h;
       if (preHandlerBuffer) handler(preHandlerBuffer, cgState.movable.dests);
     },
@@ -147,27 +110,24 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     vote: (v: boolean) => root.vote?.(v),
     helpModalOpen,
     isFocused,
-    voiceMove,
   };
 }
 
-export function render(ctrl: KeyboardMove) {
-  return h('div.keyboard-move', [
+export function render(ctrl: InputMoveCtrl) {
+  return h('div.input-move', [
     h('input', {
       attrs: {
         spellcheck: 'false',
         autocomplete: 'off',
       },
-      hook: onInsert(input =>
-        lichess
-          .loadIife('keyboardMove', 'LichessKeyboardMove')
-          .then(keyboardMove => ctrl.registerHandler(keyboardMove({ input, ctrl })))
-      ),
+      hook: onInsert((input: HTMLInputElement) => {
+        ctrl.registerHandler(makeKeyboardMove({ input, ctrl })!);
+      }),
     }),
     ctrl.isFocused()
       ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
       : h('strong', 'Press <enter> to focus'),
-    lichess.storage.boolean('voiceInput').getOrDefault(false) ? h('div#voice-move-button', '') : null,
+    renderVoice(ctrl),
     ctrl.helpModalOpen()
       ? snabModal({
           class: 'keyboard-move-help',
@@ -183,4 +143,8 @@ export function render(ctrl: KeyboardMove) {
         })
       : null,
   ]);
+}
+
+function renderVoice(_: InputMoveCtrl) {
+  return h('div#voice-move-button', '');
 }
