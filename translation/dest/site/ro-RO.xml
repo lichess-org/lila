@@ -220,6 +220,7 @@
   <string name="forgotPassword">Ți-ai uitat parola?</string>
   <string name="error.weakPassword">Această parolă este extrem de comună şi prea uşor de ghicit.</string>
   <string name="error.namePassword">Te rugăm să nu folosești numele tău de utilizator ca parolă.</string>
+  <string name="blankedPassword">Ați folosit aceeași parolă pe un alt site, iar acest site a fost compromis. Pentru a asigura siguranța contului dvs. Lichess, trebuie să setați o parolă nouă. Vă mulțumim pentru înțelegere.</string>
   <string name="youAreLeavingLichess">Părăsești Lichess</string>
   <string name="neverTypeYourPassword">Nu introduceți niciodată parola Lichess pe un alt site!</string>
   <string name="passwordSuggestion">Nu seta o parolă sugerată de altcineva. O vor folosi pentru a vă fura contul.</string>
