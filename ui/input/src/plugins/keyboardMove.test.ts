@@ -38,6 +38,8 @@ const defaultCtrl = {
   isFocused: propWithEffect(false, () => null),
   voiceMove: false,
   keyboardMove: false,
+  lastSpokenPhrase: propWithEffect('', () => null),
+  isListening: propWithEffect(false, () => null),
 };
 const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 

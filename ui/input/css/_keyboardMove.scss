@@ -20,16 +20,21 @@
   em {
     color: $c-font-dim;
   }
+}
 
-  #voice-move-button {
-    font-family: 'lichess';
-    cursor: pointer;
-    margin-left: 4px;
-    color: gray;
-    font-size: 20pt;
-  }
+.voice-move {
+  @extend %flex-center-nowrap;
+  margin-left: auto;
+}
 
-  #voice-move-button.enabled {
-    color: red;
-  }
+#voice-move-button {
+  font-family: 'lichess';
+  cursor: pointer;
+  margin-left: 0.5em;
+  color: gray;
+  font-size: 20pt;
+}
+
+#voice-move-button.enabled {
+  color: red;
 }
