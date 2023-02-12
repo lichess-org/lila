@@ -128,7 +128,9 @@ final class Auth(
                         .fold(
                           err => {
                             chargeIpLimiter()
-                            lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = false)
+                            lila.mon.security.login
+                              .attempt(isEmail, stuffing = stuffing, result = false)
+                              .increment()
                             negotiate(
                               html = fuccess {
                                 err.errors match
