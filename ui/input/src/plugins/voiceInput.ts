@@ -134,7 +134,7 @@ export default class MicrophoneStream extends Readable {
 export function loadVosk(submit: Submit, isEnabled: () => boolean) {
   async function initialise() {
     const model = await createModel(lichess.assetUrl('vendor/vosk/model.tar.gz'));
-    const recognizer = new model.KaldiRecognizer(16000, JSON.stringify([...speechLookup.keys()]));
+    const recognizer = new model.KaldiRecognizer(48000, JSON.stringify([...speechLookup.keys()]));
     recognizer.on('result', message => {
       if ('result' in message)
         if ('text' in message.result) {
