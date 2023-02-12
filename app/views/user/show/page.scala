@@ -109,7 +109,9 @@ object page:
 
   private val i18nKeys = List(
     trans.youAreLeavingLichess,
-    trans.neverTypeYourPassword
+    trans.neverTypeYourPassword,
+    trans.cancel,
+    trans.proceedToX
   )
 
   private val dataUsername = attr("data-username")
