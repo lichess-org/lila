@@ -12,6 +12,16 @@ const speechLookup = new Map<string, string>([
   ['g', 'g'],
   ['h', 'h'],
 
+  // NATO phonetic alphabet
+  ['alfa', 'a'],
+  ['bravo', 'b'],
+  ['charlie', 'c'],
+  ['delta', 'd'],
+  ['echo', 'e'],
+  ['foxtrot', 'f'],
+  ['golf', 'g'],
+  ['hotel', 'h'],
+
   ['one', '1'],
   ['two', '2'],
   ['three', '3'],
@@ -28,6 +38,23 @@ const speechLookup = new Map<string, string>([
   ['king', 'K'],
 
   ['takes', 'x'],
+  ['check', ''],
+
+  ['castle', 'o-o'],
+  ['short castle', 'o-o'],
+  ['long castle', 'o-o-o'],
+
+  // Command words
+  ['next', 'next'],
+  ['continue', 'next'],
+  ['next puzzle', 'next'],
+  ['clock', 'clock'],
+  ['draw', 'draw'],
+  ['offer draw', 'draw'],
+  ['accept draw', 'draw'],
+  ['resign', 'resign'],
+  ['upvote', 'upv'],
+  ['downvote', 'downv'],
 ]);
 
 const audioBucket = new Writable({

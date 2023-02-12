@@ -25,10 +25,11 @@
     font-family: 'lichess';
     cursor: pointer;
     margin-left: 4px;
-    color: red;
+    color: gray;
+    font-size: 20pt;
   }
 
   #voice-move-button.enabled {
-    color: green;
+    color: red;
   }
 }
