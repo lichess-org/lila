@@ -571,7 +571,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   def byTeam(id: TeamId) =
     Action.async { implicit req =>
       given play.api.i18n.Lang = reqLang
-      apiC.jsonStream {
+      apiC.jsonDownload {
         repo
           .byTeamCursor(id)
           .documentSource(getInt("max", req) | 100)
