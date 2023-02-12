@@ -220,6 +220,11 @@
   <string name="forgotPassword">Aizmirsāt paroli?</string>
   <string name="error.weakPassword">Šī parole ir ļoti bieži izmantota, un viegli uzminama.</string>
   <string name="error.namePassword">Lūdzu, neizmantojiet savu lietotājvārdu kā paroli.</string>
+  <string name="blankedPassword">Šī parole tikusi izmantota citā vietnē, kas tika kompromitēta. Lai nodrošinātu sava konta drošību, jums jāiestata jauna parole. Paldies par sapratni!</string>
+  <string name="youAreLeavingLichess">Jūs pārejat uz vietni ārpus Lichess</string>
+  <string name="neverTypeYourPassword">Nekad neievadiet savu Lichess paroli citā vietnē!</string>
+  <string name="passwordSuggestion">Neizmantojiet paroli, ko ieteicis kāds cits. To var izmantot, lai gūtu piekļuvi jūsu kontam.</string>
+  <string name="emailSuggestion">Neizmantojiet e-pasta adresi, ko ieteicis kāds cits. To var izmantot, lai gūtu piekļuvi jūsu kontam.</string>
   <string name="emailConfirmHelp">Palīdzība ar epasta apstiprinājumu</string>
   <string name="emailConfirmNotReceived">Nesaņēmāt apstiprinājuma epastu pēc reģistrēšanās?</string>
   <string name="whatSignupUsername">Kādu lietotājvārdu izmantojāt, kad reģistrējāties?</string>
