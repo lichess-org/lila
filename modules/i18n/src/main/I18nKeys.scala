@@ -171,6 +171,7 @@ object I18nKeys:
   val `blankedPassword` = I18nKey("blankedPassword")
   val `youAreLeavingLichess` = I18nKey("youAreLeavingLichess")
   val `neverTypeYourPassword` = I18nKey("neverTypeYourPassword")
+  val `proceedToX` = I18nKey("proceedToX")
   val `passwordSuggestion` = I18nKey("passwordSuggestion")
   val `emailSuggestion` = I18nKey("emailSuggestion")
   val `emailConfirmHelp` = I18nKey("emailConfirmHelp")
