@@ -42,7 +42,7 @@ final class MsgApi(
   // maybeSortAgain maintains usable inbox thread ordering for team leaders after PM alls.
   private def maybeSortAgain(me: User, threads: List[MsgThread]): Fu[List[MsgThread]] =
     val candidates = threads.filter(_.maskFor.contains(me.id))
-    if (candidates.sizeIs <= 1)
+    if candidates.isEmpty then
       // we're done
       fuccess(threads)
     else
