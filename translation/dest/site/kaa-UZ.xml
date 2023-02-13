@@ -41,6 +41,7 @@
   </plurals>
   <string name="opponentLeftChoices">Siziń qarsılasıńız oyınnan shıqtı. Siz jeńisti yamasa pattı járiyalawıńız yamasa kútiwińiz múmkin.</string>
   <string name="forceResignation">Jeńsiti járiyalaw</string>
+  <string name="forceDraw">Pattı járiyalaw</string>
   <string name="talkInChat">Ótinish, sáwbetlesiwde múlayim boliń!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Usı silteme arqalı birinshi kirgen adam siz benen oynaydı.</string>
   <string name="whiteResigned">Aq táslim boldı</string>
@@ -49,6 +50,12 @@
   <string name="blackLeftTheGame">Qara oyınnan shıǵıp ketti</string>
   <string name="whiteDidntMove">Aq júrmedi</string>
   <string name="blackDidntMove">Qara júrmedi</string>
+  <string name="requestAComputerAnalysis">Kompyuter analizin orınlaw</string>
+  <string name="computerAnalysis">Kompyuter analizleri</string>
+  <string name="computerAnalysisAvailable">Kompyuter analizi ashıq</string>
+  <string name="computerAnalysisDisabled">Kompyuter analizi óshik</string>
+  <string name="deleteFromHere">Bul jerden óshiriw</string>
+  <string name="move">Júris</string>
   <string name="delete">Óshiriw</string>
   <string name="enable">Iske túsiriw</string>
   <string name="memory">Yad</string>
