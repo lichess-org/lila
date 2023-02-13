@@ -22,7 +22,7 @@ import * as sound from './sound';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import { ctrl as makeInputCtrl, InputMoveCtrl } from 'input';
+import { moveCtrl as makeMoveCtrl, MoveCtrl } from 'input';
 import * as renderUser from './view/user';
 import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
@@ -60,7 +60,7 @@ export default class RoundController {
   corresClock?: CorresClockController;
   trans: Trans;
   noarg: TransNoArg;
-  inputMoveCtrl?: InputMoveCtrl;
+  moveCtrl?: MoveCtrl;
   moveOn: MoveOn;
   promotion: PromotionCtrl;
 
@@ -172,14 +172,14 @@ export default class RoundController {
   };
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
-    if (!this.inputMoveCtrl?.usedSan) ab.move(this, meta);
+    if (!this.moveCtrl?.usedSan) ab.move(this, meta);
     if (
       !this.promotion.start(
         orig,
         dest,
         (orig, dest, role) => this.sendMove(orig, dest, role, meta),
         meta,
-        this.inputMoveCtrl?.justSelected()
+        this.moveCtrl?.justSelected()
       )
     ) {
       this.sendMove(orig, dest, undefined, meta);
@@ -207,7 +207,7 @@ export default class RoundController {
       dest,
       (orig, dest, role) => this.sendMove(orig, dest, role, meta),
       meta,
-      this.inputMoveCtrl?.justSelected()
+      this.moveCtrl?.justSelected()
     );
   };
 
@@ -287,7 +287,7 @@ export default class RoundController {
       if (/[+#]/.test(s.san)) sound.check();
     }
     this.autoScroll();
-    this.inputMoveCtrl?.update(s);
+    this.moveCtrl?.update(s);
     lichess.pubsub.emit('ply', ply);
     return true;
   };
@@ -495,7 +495,7 @@ export default class RoundController {
     }
     this.autoScroll();
     this.onChange();
-    this.inputMoveCtrl?.update(step, playedColor != d.player.color);
+    this.moveCtrl?.update(step, playedColor != d.player.color);
     if (this.music) this.music.jump(o);
     speech.step(step);
     return true; // prevents default socket pubsub
@@ -531,7 +531,7 @@ export default class RoundController {
     this.autoScroll();
     this.onChange();
     this.setLoading(false);
-    this.inputMoveCtrl?.update(d.steps[d.steps.length - 1]);
+    this.moveCtrl?.update(d.steps[d.steps.length - 1]);
   };
 
   endWithData = (o: ApiEnd): void => {
@@ -750,7 +750,7 @@ export default class RoundController {
 
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
-    this.inputMoveCtrl = makeInputCtrl(this, this.stepAt(this.ply));
+    this.moveCtrl = makeMoveCtrl(this, this.stepAt(this.ply));
     requestAnimationFrame(() => this.redraw());
   };
 

@@ -5,44 +5,19 @@ import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { propWithEffect, Prop } from 'common';
-import { makeKeyboardMove } from './inputMove';
-import { RootCtrl, ClockCtrl, InputMoveHandler } from './interfaces';
+import { propWithEffect } from 'common';
+import { VoiceCtrlImpl } from './voiceCtrl';
+import { moveHandler } from './moveCtrl';
+import { RootCtrl, MoveHandler,  MoveCtrl, VoiceCtrl } from './interfaces';
 
-export interface InputMoveCtrl {
-  drop(key: cg.Key, piece: string): void;
-  promote(orig: cg.Key, dest: cg.Key, piece: string): void;
-  update(step: { fen: string }, yourMove?: boolean): void;
-  registerHandler(h: InputMoveHandler): void;
-  isFocused: Prop<boolean>;
-  san(orig: cg.Key, dest: cg.Key): void;
-  select(key: cg.Key): void;
-  hasSelected(): cg.Key | undefined;
-  confirmMove(): void;
-  usedSan: boolean;
-  jump(delta: number): void;
-  justSelected(): boolean;
-  clock(): ClockCtrl | undefined;
-  draw(): void;
-  next(): void;
-  vote(v: boolean): void;
-  resign(v: boolean, immediately?: boolean): void;
-  helpModalOpen: Prop<boolean>;
-}
+export { type MoveCtrl, type VoiceCtrl } from './interfaces';
 
-const sanToRole: { [key: string]: cg.Role } = {
-  P: 'pawn',
-  N: 'knight',
-  B: 'bishop',
-  R: 'rook',
-  Q: 'queen',
-  K: 'king',
-};
+export const voiceCtrl: VoiceCtrl = new VoiceCtrlImpl(); // available outside of moveCtrl
 
-export function ctrl(root: RootCtrl, step: { fen: string }): InputMoveCtrl {
+export function moveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
   const isFocused = propWithEffect(false, root.redraw);
   const helpModalOpen = propWithEffect(false, root.redraw);
-  let handler: InputMoveHandler | undefined;
+  let handler: MoveHandler | undefined;
   let preHandlerBuffer = step.fen;
   let lastSelect = performance.now();
   const cgState = root.chessground.state;
@@ -82,7 +57,7 @@ export function ctrl(root: RootCtrl, step: { fen: string }): InputMoveCtrl {
       if (handler) handler(step.fen, cgState.movable.dests, yourMove);
       else preHandlerBuffer = step.fen;
     },
-    registerHandler(h: InputMoveHandler) {
+    registerHandler(h: MoveHandler) {
       handler = h;
       if (preHandlerBuffer) handler(preHandlerBuffer, cgState.movable.dests);
     },
@@ -110,10 +85,11 @@ export function ctrl(root: RootCtrl, step: { fen: string }): InputMoveCtrl {
     vote: (v: boolean) => root.vote?.(v),
     helpModalOpen,
     isFocused,
+    voiceCtrl
   };
 }
 
-export function render(ctrl: InputMoveCtrl) {
+export function render(ctrl: MoveCtrl) {
   return h('div.input-move', [
     h('input', {
       attrs: {
@@ -121,7 +97,7 @@ export function render(ctrl: InputMoveCtrl) {
         autocomplete: 'off',
       },
       hook: onInsert((input: HTMLInputElement) => {
-        ctrl.registerHandler(makeKeyboardMove({ input, ctrl })!);
+        ctrl.registerHandler(moveHandler({ input, ctrl })!);
       }),
     }),
     ctrl.isFocused()
@@ -145,6 +121,15 @@ export function render(ctrl: InputMoveCtrl) {
   ]);
 }
 
-function renderVoice(_: InputMoveCtrl) {
+function renderVoice(_: MoveCtrl) {
   return h('div#voice-move-button', '');
 }
+
+const sanToRole: { [key: string]: cg.Role } = {
+  P: 'pawn',
+  N: 'knight',
+  B: 'bishop',
+  R: 'rook',
+  Q: 'queen',
+  K: 'king',
+};

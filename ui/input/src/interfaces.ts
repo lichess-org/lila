@@ -1,7 +1,54 @@
 import { Api as CgApi } from 'chessground/api';
 import * as cg from 'chessground/types';
+import { Prop } from 'common';
 
-export type InputMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
+export type MoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
+
+export type VoiceListener = (command: string) => void;
+
+export interface VoiceCtrl {
+  start: () => void;
+  stop: () => void;
+  ready: () => boolean;
+  status: () => string;
+  addListener: (listener: VoiceListener) => void;
+  removeListener: (listener: VoiceListener) => void;
+}
+
+export interface InputOpts {
+  input: HTMLInputElement;
+  ctrl: MoveCtrl;
+}
+
+export interface SubmitOpts {
+  isTrusted: boolean;
+  force?: boolean;
+  yourMove?: boolean;
+}
+
+export type Submit = (v: string, submitOpts: SubmitOpts) => void;
+
+export interface MoveCtrl {
+  drop(key: cg.Key, piece: string): void;
+  promote(orig: cg.Key, dest: cg.Key, piece: string): void;
+  update(step: { fen: string }, yourMove?: boolean): void;
+  registerHandler(h: MoveHandler): void;
+  isFocused: Prop<boolean>;
+  san(orig: cg.Key, dest: cg.Key): void;
+  select(key: cg.Key): void;
+  hasSelected(): cg.Key | undefined;
+  confirmMove(): void;
+  usedSan: boolean;
+  jump(delta: number): void;
+  justSelected(): boolean;
+  clock(): ClockCtrl | undefined;
+  draw(): void;
+  next(): void;
+  vote(v: boolean): void;
+  resign(v: boolean, immediately?: boolean): void;
+  helpModalOpen: Prop<boolean>;
+  voiceCtrl: VoiceCtrl;
+}
 
 export interface CrazyPocket {
   [role: string]: number;
@@ -30,4 +77,10 @@ export interface RootCtrl {
   redraw: () => void;
   next?: () => void;
   vote?: (v: boolean) => void;
+}
+
+export interface VoskOpts {
+  speechLookup: Map<string, string>;
+  impl: 'vanilla'|'worklet';
+  ctrl: VoiceCtrl;
 }

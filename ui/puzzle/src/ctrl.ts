@@ -24,7 +24,7 @@ import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { CevalCtrl } from 'ceval';
-import { ctrl as makeInputCtrl, InputMoveCtrl } from 'input';
+import { moveCtrl as makeMoveCtrl, MoveCtrl } from 'input';
 import { defer } from 'common/defer';
 import { defined, prop, Prop, propWithEffect } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
@@ -86,11 +86,11 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.mainline = treeOps.mainlineNodeList(tree.root);
   }
 
-  let inputMoveCtrl: InputMoveCtrl | undefined;
+  let moveCtrl: MoveCtrl | undefined;
 
   function setChessground(this: Controller, cg: CgApi): void {
     ground(cg);
-    this.inputMoveCtrl = inputMoveCtrl = makeInputCtrl(
+    this.moveCtrl = moveCtrl = makeMoveCtrl(
       {
         data: {
           game: { variant: { key: 'standard' } },
@@ -202,7 +202,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
     if (!promotion.start(orig, dest, playUserMove)) playUserMove(orig, dest);
-    inputMoveCtrl?.update({ fen: vm.node.fen });
+    moveCtrl?.update({ fen: vm.node.fen });
   }
 
   function playUci(uci: Uci): void {
@@ -474,7 +474,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     promotion.cancel();
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
-    inputMoveCtrl?.update({ fen: vm.node.fen });
+    moveCtrl?.update({ fen: vm.node.fen });
     lichess.pubsub.emit('ply', vm.node.ply);
   }
 
@@ -614,7 +614,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     setChessground,
     ground,
     makeCgOpts,
-    inputMoveCtrl,
+    moveCtrl,
     keyboardHelp,
     userJump,
     viewSolution,
