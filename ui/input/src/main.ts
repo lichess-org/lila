@@ -1,14 +1,14 @@
 import * as cg from 'chessground/types';
 import * as xhr from 'common/xhr';
 import { h } from 'snabbdom';
-import { onInsert } from 'common/snabbdom';
+import { onInsert, bind, dataIcon } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { propWithEffect } from 'common';
 import { VoiceCtrlImpl } from './voiceCtrl';
 import { moveHandler } from './moveCtrl';
-import { RootCtrl, MoveHandler,  MoveCtrl, VoiceCtrl } from './interfaces';
+import { RootCtrl, MoveHandler, MoveCtrl, VoiceCtrl } from './interfaces';
 
 export { type MoveCtrl, type VoiceCtrl } from './interfaces';
 
@@ -85,7 +85,7 @@ export function moveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
     vote: (v: boolean) => root.vote?.(v),
     helpModalOpen,
     isFocused,
-    voiceCtrl
+    voiceCtrl,
   };
 }
 
@@ -121,8 +121,16 @@ export function render(ctrl: MoveCtrl) {
   ]);
 }
 
-function renderVoice(_: MoveCtrl) {
-  return h('div#voice-move-button', '');
+function renderVoice(ctrl: MoveCtrl) {
+  return h('div#voice-move-button', {
+    attrs: dataIcon(''),
+    hook: bind('click', _ => {
+      if (ctrl.voiceCtrl.recording()) {
+        ctrl.voiceCtrl.stop();
+        return;
+      }
+    }),
+  });
 }
 
 const sanToRole: { [key: string]: cg.Role } = {

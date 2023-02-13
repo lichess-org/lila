@@ -30,7 +30,7 @@
   },
   "lichess": {
     "bundles": {
-      "src/plugins/vosk.ts": "vosk"
+      "src/plugins/vosk.ts": "input.vosk"
     }
   }
 }

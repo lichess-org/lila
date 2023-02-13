@@ -4,17 +4,6 @@ import { Prop } from 'common';
 
 export type MoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
-export type VoiceListener = (command: string) => void;
-
-export interface VoiceCtrl {
-  start: () => void;
-  stop: () => void;
-  ready: () => boolean;
-  status: () => string;
-  addListener: (listener: VoiceListener) => void;
-  removeListener: (listener: VoiceListener) => void;
-}
-
 export interface InputOpts {
   input: HTMLInputElement;
   ctrl: MoveCtrl;
@@ -47,7 +36,7 @@ export interface MoveCtrl {
   vote(v: boolean): void;
   resign(v: boolean, immediately?: boolean): void;
   helpModalOpen: Prop<boolean>;
-  voiceCtrl: VoiceCtrl;
+  voiceCtrl: VoiceCtrl; // convenience
 }
 
 export interface CrazyPocket {
@@ -79,8 +68,22 @@ export interface RootCtrl {
   vote?: (v: boolean) => void;
 }
 
+export type VoiceListener = (command: string) => void;
+
+export interface VoiceCtrl {
+  load: () => Promise<boolean>; // returns ready() after promise resolves
+  start: () => Promise<boolean>; // begin recording if ready otherwise calls load()
+  stop: () => void; // stop recording
+  ready: () => boolean; // are we all set up to record?
+  recording: () => boolean; // are we recording?
+  status: () => string; // errors, progress, or the most recent voice command
+  addListener: (listener: VoiceListener) => void;
+  removeListener: (listener: VoiceListener) => void;
+}
+
 export interface VoskOpts {
   speechLookup: Map<string, string>;
-  impl: 'vanilla'|'worklet';
+  impl: 'vanilla' | 'worklet';
+  url: string;
   ctrl: VoiceCtrl;
 }

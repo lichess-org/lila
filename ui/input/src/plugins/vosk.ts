@@ -2,20 +2,14 @@ import { KaldiRecognizer, createModel, Model } from 'vosk-browser';
 import { VoskOpts } from '../interfaces';
 import { VoiceCtrlImpl } from '../voiceCtrl';
 
-//const wasmSource = 'vendor/vosk/vosk.js';
-const modelSource = 'vendor/vosk/model-en-us-0.15.tar.gz';
-
 export default (window as any).LichessVoice = async (opts: VoskOpts) => {
-
   const ctrl = opts.ctrl as VoiceCtrlImpl;
   let voiceModel: Model;
   let recognizer: KaldiRecognizer;
 
   try {
-    //ctrl.voskStatus = 'fetching wasm';
-    //await lichess.loadScript(wasmSource);
     ctrl.voskStatus = 'fetching model';
-    const voiceModel = await createModel(lichess.assetUrl(modelSource));
+    const voiceModel = await createModel(opts.url);
 
     const recognizer = new voiceModel.KaldiRecognizer(sampleRate, JSON.stringify([...opts.speechLookup.keys()]));
     recognizer.on('result', (message: any) => {
@@ -24,10 +18,10 @@ export default (window as any).LichessVoice = async (opts: VoskOpts) => {
       }
     });
     await (opts.impl == 'vanilla' ? vanillaProcessor : workletProcessor)();
-    console.log(`Voice input using ${opts.impl} engine with ${modelSource}`);
+    console.log(`Vosk using ${opts.impl} engine`);
     ctrl.voskReady = true;
   } catch (e) {
-    console.log('Voice module init failed', e);
+    console.log('Vosk init failed', e);
     ctrl.voskStatus = `${JSON.stringify(e).slice(0, 40)}...`;
   }
 
@@ -64,4 +58,3 @@ export default (window as any).LichessVoice = async (opts: VoskOpts) => {
     sourceNode.connect(voskNode);
   }
 };
-

@@ -147,7 +147,6 @@ function iccfToUci(v: string) {
   return chars.join('');
 }
 
-
 function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
   if (san in legalSans) return legalSans[san];
   const lowered = san.toLowerCase();
