@@ -231,9 +231,10 @@
   <string name="forgotPassword">Забыли пароль?</string>
   <string name="error.weakPassword">Этот пароль очень распространён, и его слишком легко угадать.</string>
   <string name="error.namePassword">Пожалуйста, не используйте свой логин в качестве пароля.</string>
-  <string name="blankedPassword">Вы использовали такой же пароль на другом сайте, а тот сайт был скомпрометирован. Теперь для безопасности вашей учётной записи на Lichess необходимо установить новый пароль. Спасибо за ваше понимание.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Вы использовали такой же пароль на другом сайте, а тот сайт был скомпрометирован. Теперь для безопасности вашей учётной записи на Lichess необходимо установить новый пароль. Спасибо за ваше понимание.</string>
   <string name="youAreLeavingLichess">Вы покидаете Lichess</string>
   <string name="neverTypeYourPassword">Никогда не вводите свой пароль Lichess на другом сайте!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Перейти на %s</string>
   <string name="passwordSuggestion">Не устанавливайте пароль, предложенный другими людьми. Они с его помощью украдут вашу учётную запись.</string>
   <string name="emailSuggestion">Не устанавливайте адрес электронной почты, предложенный другими людьми. Они с его помощью украдут вашу учётную запись.</string>
   <string name="emailConfirmHelp">Помощь с подтверждением электронной почты</string>
