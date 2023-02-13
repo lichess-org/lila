@@ -209,8 +209,10 @@
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
   <string name="error.weakPassword">Ese contrasinal é extremadamente común e demasiado doado de adiviñar.</string>
   <string name="error.namePassword">Por favor, non uses o teu usuario como contrasinal.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Empregaches o mesmo contrasinal noutro sitio e a seguridade dese sitio foi comprometida. Para confirmar a seguridade da túa conta de Lichess, necesitamos que indiques un novo contrasinal. Grazas e perdón polas molestias.</string>
   <string name="youAreLeavingLichess">Estas abandoando Lichess</string>
   <string name="neverTypeYourPassword">Nunca empregues o teu contrasinal de Lichess noutro sitio web!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Redirixindo a %s</string>
   <string name="passwordSuggestion">Non empregues un contrasinal suxerido por alguén. Poden empregalo para roubar a túa conta.</string>
   <string name="emailSuggestion">Non empregues un enderezo de correo suxerido por alguén. Poden empregalo para roubar a túa conta.</string>
   <string name="emailConfirmHelp">Axuda coa confirmación por correo</string>
