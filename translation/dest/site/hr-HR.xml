@@ -220,8 +220,10 @@
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
   <string name="error.weakPassword">Ova je lozinka iznimno česta i previše je lako pogoditi.</string>
   <string name="error.namePassword">Molimo nemojte koristiti svoje korisničko ime kao lozinku.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Koristili ste istu lozinku na drugom mjestu, a to je mjesto ugroženo. Kako bismo osigurali sigurnost vašeg Lichess računa, potrebno je da postavite novu lozinku. Hvala na razumijevanju.</string>
   <string name="youAreLeavingLichess">Odlazite sa Lichess-a</string>
   <string name="neverTypeYourPassword">Nikada nemojte upisivati svoju Lichess lozinku na drugom mjestu!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Nastavite s %s</string>
   <string name="passwordSuggestion">Ne postavljajte lozinku koju je predložio netko drugi. Iskoristit će je da ti ukradu račun.</string>
   <string name="emailSuggestion">Ne postavljajte adresu e-pošte koju je predložio netko drugi. Iskoristit će je da ti ukradu račun.</string>
   <string name="emailConfirmHelp">Pomoć oko potvrde e-pošte</string>
