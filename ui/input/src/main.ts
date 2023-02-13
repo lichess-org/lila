@@ -122,15 +122,21 @@ export function render(ctrl: MoveCtrl) {
 }
 
 function renderVoice(ctrl: MoveCtrl) {
-  return h('div#voice-move-button', {
-    attrs: dataIcon(''),
-    hook: bind('click', _ => {
-      if (ctrl.voiceCtrl.recording()) {
-        ctrl.voiceCtrl.stop();
-        return;
-      }
+  return h('div.voice-move', [
+    h('div', ctrl.voiceCtrl.status()),
+    h('div#voice-move-button', {
+      attrs: {
+        role: 'button',
+        ...dataIcon(''),
+      },
+      hook: bind('click', _ => {
+        if (ctrl.voiceCtrl.recording()) {
+          ctrl.voiceCtrl.stop();
+          return;
+        }
+      }),
     }),
-  });
+  ]);
 }
 
 const sanToRole: { [key: string]: cg.Role } = {
