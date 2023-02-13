@@ -220,9 +220,10 @@
   <string name="forgotPassword">Aizmirsāt paroli?</string>
   <string name="error.weakPassword">Šī parole ir ļoti bieži izmantota, un viegli uzminama.</string>
   <string name="error.namePassword">Lūdzu, neizmantojiet savu lietotājvārdu kā paroli.</string>
-  <string name="blankedPassword">Šī parole tikusi izmantota citā vietnē, kas tika kompromitēta. Lai nodrošinātu sava konta drošību, jums jāiestata jauna parole. Paldies par sapratni!</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Šī parole tikusi izmantota citā vietnē, kas tika kompromitēta. Lai nodrošinātu sava konta drošību, jums jāiestata jauna parole. Paldies par sapratni!</string>
   <string name="youAreLeavingLichess">Jūs pārejat uz vietni ārpus Lichess</string>
   <string name="neverTypeYourPassword">Nekad neievadiet savu Lichess paroli citā vietnē!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Virzīties uz %s</string>
   <string name="passwordSuggestion">Neizmantojiet paroli, ko ieteicis kāds cits. To var izmantot, lai gūtu piekļuvi jūsu kontam.</string>
   <string name="emailSuggestion">Neizmantojiet e-pasta adresi, ko ieteicis kāds cits. To var izmantot, lai gūtu piekļuvi jūsu kontam.</string>
   <string name="emailConfirmHelp">Palīdzība ar epasta apstiprinājumu</string>
