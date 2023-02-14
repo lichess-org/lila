@@ -1,4 +1,5 @@
 import { VoiceCtrl, VoiceListener } from './interfaces';
+import { objectStorage } from 'common/objectStorage';
 
 const speechMap = new Map<string, string>([
   ['a', 'a'],
@@ -65,10 +66,15 @@ export const makeVoiceCtrl = () =>
     mediaStream: MediaStream | undefined;
 
     voskStatus = '';
+    busy = false;
     listeners = new Set<VoiceListener>();
 
     addListener = (listener: VoiceListener) => this.listeners.add(listener);
     removeListener = (listener: VoiceListener) => this.listeners.delete(listener);
+
+    get isBusy(): boolean {
+      return this.busy;
+    }
 
     get status(): string {
       return this.voskStatus;
@@ -76,7 +82,7 @@ export const makeVoiceCtrl = () =>
     set status(cmd: string) {
       this.listen(cmd);
     }
-    get recording(): boolean {
+    get isRecording(): boolean {
       return this.mediaStream !== undefined;
     }
     listen(text: string, isCommand = false) {
@@ -97,21 +103,21 @@ export const makeVoiceCtrl = () =>
       this.listen('');
     };
     async start(): Promise<void> {
-      if (this.recording) return Promise.resolve();
+      if (this.isRecording) return Promise.resolve();
       try {
+        this.busy = true;
         const firstTime = window.LichessVoice === undefined;
-        if (firstTime) this.listen('Initializing...');
+        if (firstTime) this.listen('Loading voice model...');
 
-        const fakeModelUrl = `https://lichess.org/${modelSource}`;
-        const sandboxPath = `/vosk/${fakeModelUrl.replace(/[\W]/g, '_')}`;
+        const fakeStaticUrl = lichess.assetUrl(modelSource, { noVersion: true });
 
-        const downloadPromise = this.downloadModelTo(sandboxPath);
+        const downloadAsync = this.downloadModel(`/vosk/${fakeStaticUrl.replace(/[\W]/g, '_')}`);
 
         if (firstTime) await lichess.loadModule('input.vosk'); // download simultaneous with model
 
         this.audioCtx = new AudioContext({ sampleRate: 48000 });
 
-        await downloadPromise;
+        await downloadAsync;
 
         // now we have both the model and input.vosk
         const voskNode = firstTime
@@ -120,7 +126,7 @@ export const makeVoiceCtrl = () =>
               impl: 'vanilla',
               audioCtx: this.audioCtx,
               listen: this.listen.bind(this),
-              url: lichess.assetUrl(modelSource), // fakeModelUrl
+              url: fakeStaticUrl,
             })
           : await window.LichessVoice.resume(this.audioCtx);
 
@@ -137,21 +143,63 @@ export const makeVoiceCtrl = () =>
         const micNode = this.audioCtx.createMediaStreamSource(this.mediaStream);
         micNode.connect(voskNode!);
         voskNode.connect(this.audioCtx.destination);
-        this.listen('');
+        this.voskStatus = '';
       } catch (e) {
         console.log(e);
-        this.voskStatus = JSON.stringify(e).slice(0, 24) + '...';
         this.stop();
+        this.voskStatus = JSON.stringify(e).slice(0, 24) + '...';
         throw e;
+      } finally {
+        this.busy = false;
+        this.listen(this.voskStatus);
       }
     }
 
-    downloadModelTo(sandboxPath: string): Promise<void> {
-      // we need to trigger the model download here and put it in sandbox filesystem
-      // at this path to trick the webassembly to use ours.
-      const assetUrl = lichess.assetUrl(modelSource);
-      assetUrl;
-      sandboxPath;
-      return Promise.resolve();
+    async downloadModel(emscriptenPath: string): Promise<void> {
+      // don't look at this, it's gross.
+      // trick vosk-browser into using our model by sneaking it into the emscripten IDBFS.
+      // this is necessary for progress and to avoide cache busting
+      const voskStore = await objectStorage<any>({
+        db: '/vosk',
+        store: 'FILE_DATA',
+        version: 21,
+        upgrade: (_, idbStore?: IDBObjectStore) => {
+          // make emscripten fs happy
+          console.log(idbStore);
+          idbStore?.createIndex('timestamp', 'timestamp', { unique: false });
+        },
+      });
+      if ((await voskStore.count(`${emscriptenPath}/extracted.ok`)) > 0) return Promise.resolve();
+
+      const modelBlob: ArrayBuffer | undefined = await new Promise((resolve, reject) => {
+        const req = new XMLHttpRequest();
+        req.open('GET', lichess.assetUrl(modelSource), true);
+        req.responseType = 'arraybuffer';
+        req.onerror = e => reject(e);
+        req.onprogress = (e: ProgressEvent) =>
+          this.listen(
+            `Fetching voice model: (${Math.round((100 * e.loaded) / e.total)}%) of ${Math.round(e.total / 100000)}MiB`
+          );
+
+        req.send();
+        req.onload = _ => {
+          this.listen('Extracting...');
+          resolve(req.response);
+        };
+      });
+      const now = new Date();
+      await voskStore.put(emscriptenPath, { timestamp: now, mode: 16877 });
+      await voskStore.put(`${emscriptenPath}/downloaded.ok`, {
+        contents: new Uint8Array([]),
+        timestamp: now,
+        mode: 33206,
+      });
+      await voskStore.put(`${emscriptenPath}/downloaded.tar.gz`, {
+        contents: new Uint8Array(modelBlob!),
+        timestamp: now,
+        mode: 33188,
+      });
+      const txn = voskStore.txn('readwrite');
+      txn.objectStore('FILE_DATA').index('timestamp');
     }
   })();

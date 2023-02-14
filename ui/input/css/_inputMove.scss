@@ -20,27 +20,32 @@
   em {
     color: $c-font-dim;
   }
-}
 
-.voice-move {
-  @extend %flex-center-nowrap;
-  margin-left: auto;
+  .voice-move {
+    @extend %flex-center-nowrap;
+    margin-#{$start-direction}: auto;
+    .spinner {
+      margin-#{$start-direction}: 0.5em;
+      width: 1.6em;
+      height: 1.6em;
+    }
+  }
 }
 
 #voice-move-button {
   font-family: 'lichess';
   cursor: pointer;
-  margin-left: 0.5em;
+  margin-#{$start-direction}: 0.2em;
   color: gray;
   font-size: 20pt;
+  border-width: 0 1px 0 1px;
+  border-radius: 0.25em;
+  border-style: solid;
+  border-color: transparent;
 }
 
 #voice-move-button.enabled {
   color: red;
-  border-width: 0 1px 0 1px;
-  border-radius: 0.25em;
-  border-style: solid;
-  border-color: red;
   animation: pulseBorderRed 1s;
   animation-iteration-count: infinite;
 }
@@ -50,7 +55,7 @@
     border-color: transparent;
   }
   50% {
-    border-color: red;
+    border-color: c-dimmer(red);
   }
   100% {
     border-color: transparent;
