@@ -30,22 +30,21 @@ export class VoskWorklet extends AudioWorkletProcessor {
       // while all the queries against the MediaStream return 48k.
       // that is why i have a sadz.
       if (effectiveRate < 47000 || effectiveRate > 49000) this.error(`Effective sample rate: ${effectiveRate}`);
-      this.sampleCount = 0;
+      this.sampleCount -= sampleRate;
     }
-    const chunk = inputs[0][0].map(x => x * 32768);
-    if (!(this.outPort && chunk)) return true;
+    const denormalized = inputs[0][0].map(x => x * 32768);
     try {
-      this.outPort.postMessage(
+      this.outPort?.postMessage(
         {
           action: 'audioChunk',
-          data: chunk, // buf,
+          data: denormalized, // buf,
           recognizerId: this.id,
           sampleRate,
         },
-        { transfer: [chunk.buffer] }
+        { transfer: [denormalized.buffer] }
       );
     } catch (e) {
-      console.log(e);
+      this.error(e);
     }
     return true;
   }
