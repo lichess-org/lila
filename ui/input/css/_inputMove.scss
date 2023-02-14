@@ -25,9 +25,11 @@
     @extend %flex-center-nowrap;
     margin-#{$start-direction}: auto;
     .spinner {
-      margin-#{$start-direction}: 0.5em;
-      width: 1.6em;
-      height: 1.6em;
+      margin-#{$start-direction}: 1em;
+      width: 1.5em;
+      min-width: 1.5em;
+      height: 1.5em;
+      min-height: 1.5em;
     }
   }
 }
@@ -55,7 +57,7 @@
     border-color: transparent;
   }
   50% {
-    border-color: c-dimmer(red);
+    border-color: #ff0000aa;
   }
   100% {
     border-color: transparent;

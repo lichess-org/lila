@@ -107,7 +107,7 @@ export const makeVoiceCtrl = () =>
       try {
         this.busy = true;
         const firstTime = window.LichessVoice === undefined;
-        if (firstTime) this.listen('Loading voice model...');
+        if (firstTime) this.listen('Loading');
 
         const fakeStaticUrl = lichess.assetUrl(modelSource, { noVersion: true });
 
@@ -177,13 +177,11 @@ export const makeVoiceCtrl = () =>
         req.responseType = 'arraybuffer';
         req.onerror = e => reject(e);
         req.onprogress = (e: ProgressEvent) =>
-          this.listen(
-            `Fetching voice model: (${Math.round((100 * e.loaded) / e.total)}%) of ${Math.round(e.total / 100000)}MiB`
-          );
+          this.listen(`Downloaded ${Math.round((100 * e.loaded) / e.total)}% of ${Math.round(e.total / 100000)}MiB`);
 
         req.send();
         req.onload = _ => {
-          this.listen('Extracting...');
+          this.listen('Extracting');
           resolve(req.response);
         };
       });
