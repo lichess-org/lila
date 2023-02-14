@@ -5,7 +5,7 @@ import { h, VNode } from 'snabbdom';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 
-export default (ctrl: KeyboardController) =>
+export default (ctrl: KeyboardController) => {
   window.Mousetrap.bind(['left', 'k'], () => {
     control.prev(ctrl);
     ctrl.redraw();
@@ -34,7 +34,7 @@ export default (ctrl: KeyboardController) =>
     .bind('?', () => ctrl.keyboardHelp(!ctrl.keyboardHelp()))
     .bind('f', ctrl.flip)
     .bind('n', ctrl.nextPuzzle);
-
+};
 export const view = (ctrl: Controller): VNode =>
   snabModal({
     class: 'keyboard-help',

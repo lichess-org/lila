@@ -26,7 +26,7 @@ export async function esbuild(): Promise<void> {
         }),
       },
       format: 'iife',
-      target: 'es2020',
+      target: 'es2018',
       logLevel: 'silent',
       bundle: true,
       outdir: env.jsDir,

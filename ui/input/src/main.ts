@@ -1,194 +1,31 @@
-import * as cg from 'chessground/types';
 import * as xhr from 'common/xhr';
-import { Api as CgApi } from 'chessground/api';
 import { h } from 'snabbdom';
-import { bind, onInsert } from 'common/snabbdom';
-import { promote } from 'chess/promotion';
+import { onInsert, bind, dataIcon } from 'common/snabbdom';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { propWithEffect, Prop, PropWithEffect } from 'common';
+import { makeVoiceCtrl } from './voiceCtrl';
+import { makeMoveHandler } from './moveCtrl';
+import { MoveCtrl } from './interfaces';
 
-export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
+export { type MoveCtrl, type VoiceCtrl } from './interfaces';
+export const voiceCtrl = makeVoiceCtrl(); // available outside of moveCtrl
+export { makeMoveCtrl } from './moveCtrl';
 
-(window as any).global = window; // hack for readable-stream
-
-interface ClockController {
-  millisOf: (color: Color) => number;
-}
-export interface KeyboardMove {
-  drop(key: cg.Key, piece: string): void;
-  promote(orig: cg.Key, dest: cg.Key, piece: string): void;
-  update(step: Step, yourMove?: boolean): void;
-  registerHandler(h: KeyboardMoveHandler): void;
-  isFocused: Prop<boolean>;
-  san(orig: cg.Key, dest: cg.Key): void;
-  select(key: cg.Key): void;
-  hasSelected(): cg.Key | undefined;
-  confirmMove(): void;
-  usedSan: boolean;
-  jump(delta: number): void;
-  justSelected(): boolean;
-  clock(): ClockController | undefined;
-  draw(): void;
-  next(): void;
-  vote(v: boolean): void;
-  resign(v: boolean, immediately?: boolean): void;
-  helpModalOpen: Prop<boolean>;
-
-  // voice move
-  voiceMove: boolean;
-  lastSpokenPhrase: PropWithEffect<string>;
-  isListening: PropWithEffect<boolean>;
-}
-
-const sanToRole: { [key: string]: cg.Role } = {
-  P: 'pawn',
-  N: 'knight',
-  B: 'bishop',
-  R: 'rook',
-  Q: 'queen',
-  K: 'king',
-};
-
-interface CrazyPocket {
-  [role: string]: number;
-}
-export interface RootData {
-  crazyhouse?: { pockets: [CrazyPocket, CrazyPocket] };
-  game: { variant: { key: VariantKey } };
-  player: { color: Color };
-}
-export interface RootController {
-  chessground: CgApi;
-  clock?: ClockController;
-  crazyValid?: (role: cg.Role, key: cg.Key) => boolean;
-  data: RootData;
-  offerDraw?: (v: boolean, immediately?: boolean) => void;
-  resign?: (v: boolean, immediately?: boolean) => void;
-  sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta?: cg.MoveMetadata) => void;
-  sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
-  submitMove?: (v: boolean) => void;
-  userJumpPlyDelta?: (plyDelta: Ply) => void;
-  redraw: Redraw;
-  voiceMove: boolean;
-  next?: () => void;
-  vote?: (v: boolean) => void;
-}
-interface Step {
-  fen: string;
-}
-type Redraw = () => void;
-
-export function ctrl(root: RootController, step: Step): KeyboardMove {
-  const isFocused = propWithEffect(false, root.redraw);
-  const helpModalOpen = propWithEffect(false, root.redraw);
-  const voiceMove = root.voiceMove;
-  const lastSpokenPhrase = propWithEffect('', root.redraw);
-  const isListening = propWithEffect(false, root.redraw);
-  let handler: KeyboardMoveHandler | undefined;
-  let preHandlerBuffer = step.fen;
-  let lastSelect = performance.now();
-  const cgState = root.chessground.state;
-  const select = (key: cg.Key): void => {
-    if (cgState.selected === key) root.chessground.cancelMove();
-    else {
-      root.chessground.selectSquare(key, true);
-      lastSelect = performance.now();
-    }
-  };
-  let usedSan = false;
-  return {
-    drop(key, piece) {
-      const role = sanToRole[piece];
-      const crazyData = root.data.crazyhouse;
-      const color = root.data.player.color;
-      // Crazyhouse not set up properly
-      if (!root.crazyValid || !root.sendNewPiece) return;
-      // Square occupied
-      if (!role || !crazyData || cgState.pieces.has(key)) return;
-      // Piece not in Pocket
-      if (!crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
-      if (!root.crazyValid(role, key)) return;
-      root.chessground.cancelMove();
-      root.chessground.newPiece({ role, color }, key);
-      root.sendNewPiece(role, key, false);
-    },
-    promote(orig, dest, piece) {
-      const role = sanToRole[piece];
-      const variant = root.data.game.variant.key;
-      if (!role || role == 'pawn' || (role == 'king' && variant !== 'antichess')) return;
-      root.chessground.cancelMove();
-      promote(root.chessground, dest, role);
-      root.sendMove(orig, dest, role, { premove: false });
-    },
-    update(step, yourMove = false) {
-      if (handler) handler(step.fen, cgState.movable.dests, yourMove);
-      else preHandlerBuffer = step.fen;
-    },
-    registerHandler(h: KeyboardMoveHandler) {
-      handler = h;
-      if (preHandlerBuffer) handler(preHandlerBuffer, cgState.movable.dests);
-    },
-    san(orig, dest) {
-      usedSan = true;
-      root.chessground.cancelMove();
-      select(orig);
-      select(dest);
-      // ensure chessground does not leave the destination square selected
-      root.chessground.cancelMove();
-    },
-    select,
-    hasSelected: () => cgState.selected,
-    confirmMove: () => (root.submitMove ? root.submitMove(true) : null),
-    usedSan,
-    jump(plyDelta: number) {
-      root.userJumpPlyDelta && root.userJumpPlyDelta(plyDelta);
-      root.redraw();
-    },
-    justSelected: () => performance.now() - lastSelect < 500,
-    clock: () => root.clock,
-    draw: () => (root.offerDraw ? root.offerDraw(true, true) : null),
-    resign: (v, immediately) => (root.resign ? root.resign(v, immediately) : null),
-    next: () => root.next?.(),
-    vote: (v: boolean) => root.vote?.(v),
-    helpModalOpen,
-    isFocused,
-    voiceMove,
-    lastSpokenPhrase,
-    isListening,
-  };
-}
-
-export function render(ctrl: KeyboardMove) {
-  return h('div.keyboard-move', [
+export function render(ctrl: MoveCtrl) {
+  return h('div.input-move', [
     h('input', {
       attrs: {
         spellcheck: 'false',
         autocomplete: 'off',
       },
-      hook: onInsert(input =>
-        lichess
-          .loadIife('keyboardMove', 'LichessKeyboardMove')
-          .then(keyboardMove => ctrl.registerHandler(keyboardMove({ input, ctrl })))
-      ),
+      hook: onInsert((input: HTMLInputElement) => {
+        ctrl.registerHandler(makeMoveHandler({ input, ctrl })!);
+      }),
     }),
     ctrl.isFocused()
       ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
       : h('strong', 'Press <enter> to focus'),
-    lichess.storage.boolean('voiceInput').getOrDefault(false)
-      ? h('div.voice-move', [
-          h('div', ctrl.lastSpokenPhrase() || 'Move by voice'),
-          h(
-            'div#voice-move-button',
-            {
-              class: { enabled: ctrl.isListening() },
-              attrs: { role: 'button' },
-              hook: bind('click', () => ctrl.isListening(!ctrl.isListening())),
-            },
-            ''
-          ),
-        ])
-      : null,
+    renderVoice(ctrl),
     ctrl.helpModalOpen()
       ? snabModal({
           class: 'keyboard-move-help',
@@ -203,5 +40,27 @@ export function render(ctrl: KeyboardMove) {
           },
         })
       : null,
+  ]);
+}
+
+function renderVoice(ctrl: MoveCtrl) {
+  return h('div.voice-move', [
+    h('div', ctrl.voice.status),
+    h('div#voice-move-button', {
+      class: { enabled: ctrl.voice.recording },
+      attrs: {
+        role: 'button',
+        ...dataIcon(''),
+      },
+      hook: bind('click', _ => {
+        if (!ctrl.voice.recording) {
+          ctrl.voice.start().then(() => ctrl.root.redraw());
+        } else {
+          ctrl.voice.stop();
+          ctrl.root.redraw();
+          return;
+        }
+      }),
+    }),
   ]);
 }

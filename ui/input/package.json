@@ -2,39 +2,35 @@
   "name": "input",
   "version": "1.0.0",
   "private": true,
-  "description": "lichess.org keyboard move",
+  "description": "lichess.org auxillary input move",
   "type": "module",
   "module": "dist/main.js",
   "types": "dist/main.d.ts",
   "keywords": [
     "chess",
-    "lichess",
-    "keyboard"
+    "lichess"
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@jest/globals": "^29.3.1",
+    "@types/audioworklet": "^0.0.36",
     "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
-    "@types/readable-stream": "^2.3.15",
     "chess": "workspace:*",
     "chessground": "^8.3.7",
     "common": "workspace:*",
-    "readable-stream": "^4.3.0",
     "snabbdom": "^3.5.1",
-    "string_decoder": "^1.3.0",
     "vosk-browser": "^0.0.8"
   },
   "scripts": {
     "compile": "tsc",
     "dev": "tsc",
-    "prod": "tsc"
+    "post": "cp dist/plugins/voskWorklet.js ../../public/compiled"
   },
   "lichess": {
     "bundles": {
-      "src/plugins/keyboardMove.ts": "keyboardMove",
-      "src/plugins/voiceInput.ts": "voiceInput"
+      "src/plugins/vosk.ts": "input.vosk"
     }
   }
 }

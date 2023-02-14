@@ -39,8 +39,8 @@
   grid-area: moves;
 }
 
-.keyboard-move {
-  grid-area: kb-move;
+.input-move {
+  grid-area: input-move;
 }
 
 .round__app {
@@ -48,7 +48,7 @@
 
   @include breakpoint($mq-col1) {
     grid-template-rows: auto auto $col1-user-height $col1-mat-height auto auto $col1-mat-height $col1-user-height auto;
-    grid-template-areas: 'moves' 'pocket-top' 'user-top' 'mat-top' 'board' 'expi-bot' 'mat-bot' 'user-bot' 'pocket-bot' 'kb-move' 'controls';
+    grid-template-areas: 'moves' 'pocket-top' 'user-top' 'mat-top' 'board' 'expi-bot' 'mat-bot' 'user-bot' 'pocket-bot' 'input-move' 'controls';
 
     // Put clocks and players in the same grid cell.
     // This allows having a single cell column, instead of
@@ -78,7 +78,7 @@
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
-    grid-template-areas: 'board .' 'board mat-top' 'board clock-top' 'board expi-top' 'board user-top' 'board moves' 'board controls' 'board user-bot' 'board expi-bot' 'board clock-bot' 'board mat-bot' 'board .' 'kb-move .';
+    grid-template-areas: 'board .' 'board mat-top' 'board clock-top' 'board expi-top' 'board user-top' 'board moves' 'board controls' 'board user-bot' 'board expi-bot' 'board clock-bot' 'board mat-bot' 'board .' 'input-move .';
     grid-column-gap: $block-gap;
 
     &__table {
@@ -98,7 +98,7 @@
       background: none;
     }
 
-    .keyboard-move {
+    .input-move {
       margin-top: $block-gap;
     }
 

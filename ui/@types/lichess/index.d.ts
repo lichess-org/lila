@@ -261,7 +261,7 @@ interface Window {
     render(): any;
   };
   readonly LichessChartRatingHistory?: any;
-  readonly LichessKeyboardMove?: any;
+  readonly LichessVoice?: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;
