@@ -212,6 +212,7 @@
   <string name="blankedPassword">You have used the same password on another site, and that site has been compromised. To ensure the safety of your Lichess account, we need you to set a new password. Thank you for your understanding.</string>
   <string name="youAreLeavingLichess">You are leaving Lichess</string>
   <string name="neverTypeYourPassword">Never type your Lichess password on another site!</string>
+  <string name="proceedToX">Proceed to %s</string>
   <string name="passwordSuggestion">Do not set a password suggested by someone else. They will use it to steal your account.</string>
   <string name="emailSuggestion">Do not set an email address suggested by someone else. They will use it to steal your account.</string>
   <string name="emailConfirmHelp">Help with email confirmation</string>
