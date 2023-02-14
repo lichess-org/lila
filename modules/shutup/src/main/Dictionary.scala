@@ -88,6 +88,7 @@ moron
 mother(fuc?k(er|)|)
 mthrfckr
 nazi
+nigg?
 nigg?ah?
 nonce
 noo++b
@@ -171,6 +172,7 @@ wog
 (ё|е)бл(а|о|у|ану?)
 (|за|отъ?|у)ебись
 (|на|вы)ебнуть?ся
+аутист
 blyat
 Убейся
 p[ie]d[aoe]?r
@@ -317,7 +319,7 @@ cancer
 (die|burn)s? irl
 (kill|hang|neck) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
 kys
-nigg?er
+nigg?[ae]r
 rap(ed?|e?ing)
 """)
 

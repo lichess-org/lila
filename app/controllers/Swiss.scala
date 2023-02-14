@@ -319,7 +319,7 @@ final class Swiss(
 
   def byTeam(id: TeamId) =
     Action.async { implicit req =>
-      apiC.jsonStream {
+      apiC.jsonDownload {
         env.swiss.api
           .byTeamCursor(id)
           .documentSource(getInt("max", req) | 100)
