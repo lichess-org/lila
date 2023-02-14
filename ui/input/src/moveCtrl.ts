@@ -1,7 +1,96 @@
+import * as cg from 'chessground/types';
+import { promote } from 'chess/promotion';
+import { propWithEffect } from 'common';
+import { voiceCtrl } from './main';
+import { RootCtrl, MoveHandler, MoveCtrl, InputOpts, Submit, SubmitOpts } from './interfaces';
 import { Dests, files } from 'chessground/types';
 import { sanWriter, SanToUci } from 'chess';
-import { MoveHandler, InputOpts, Submit, SubmitOpts } from './interfaces';
 import { keyboardBindings } from './keyboardMove';
+
+export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
+  const isFocused = propWithEffect(false, root.redraw);
+  const helpModalOpen = propWithEffect(false, root.redraw);
+  let handler: MoveHandler | undefined;
+  let preHandlerBuffer = step.fen;
+  let lastSelect = performance.now();
+  const cgState = root.chessground.state;
+  const select = (key: cg.Key): void => {
+    if (cgState.selected === key) root.chessground.cancelMove();
+    else {
+      root.chessground.selectSquare(key, true);
+      lastSelect = performance.now();
+    }
+  };
+  let usedSan = false;
+  return {
+    drop(key, piece) {
+      const role = sanToRole[piece];
+      const crazyData = root.data.crazyhouse;
+      const color = root.data.player.color;
+      // Crazyhouse not set up properly
+      if (!root.crazyValid || !root.sendNewPiece) return;
+      // Square occupied
+      if (!role || !crazyData || cgState.pieces.has(key)) return;
+      // Piece not in Pocket
+      if (!crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
+      if (!root.crazyValid(role, key)) return;
+      root.chessground.cancelMove();
+      root.chessground.newPiece({ role, color }, key);
+      root.sendNewPiece(role, key, false);
+    },
+    promote(orig, dest, piece) {
+      const role = sanToRole[piece];
+      const variant = root.data.game.variant.key;
+      if (!role || role == 'pawn' || (role == 'king' && variant !== 'antichess')) return;
+      root.chessground.cancelMove();
+      promote(root.chessground, dest, role);
+      root.sendMove(orig, dest, role, { premove: false });
+    },
+    update(step, yourMove = false) {
+      if (handler) handler(step.fen, cgState.movable.dests, yourMove);
+      else preHandlerBuffer = step.fen;
+    },
+    registerHandler(h: MoveHandler) {
+      handler = h;
+      if (preHandlerBuffer) handler(preHandlerBuffer, cgState.movable.dests);
+    },
+    san(orig, dest) {
+      usedSan = true;
+      root.chessground.cancelMove();
+      select(orig);
+      select(dest);
+      // ensure chessground does not leave the destination square selected
+      root.chessground.cancelMove();
+    },
+    select,
+    hasSelected: () => cgState.selected,
+    confirmMove: () => (root.submitMove ? root.submitMove(true) : null),
+    usedSan,
+    jump(plyDelta: number) {
+      root.userJumpPlyDelta && root.userJumpPlyDelta(plyDelta);
+      root.redraw();
+    },
+    justSelected: () => performance.now() - lastSelect < 500,
+    clock: () => root.clock,
+    draw: () => (root.offerDraw ? root.offerDraw(true, true) : null),
+    resign: (v, immediately) => (root.resign ? root.resign(v, immediately) : null),
+    next: () => root.next?.(),
+    vote: (v: boolean) => root.vote?.(v),
+    helpModalOpen,
+    isFocused,
+    voice: voiceCtrl,
+    root,
+  };
+}
+
+const sanToRole: { [key: string]: cg.Role } = {
+  P: 'pawn',
+  N: 'knight',
+  B: 'bishop',
+  R: 'rook',
+  Q: 'queen',
+  K: 'king',
+};
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
@@ -12,7 +101,7 @@ const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
 // accept partial ICCF because submit runs on every keypress
 const iccfRegex = /^[1-8][1-8]?[1-5]?$/;
 
-export const moveHandler = (opts: InputOpts): MoveHandler | undefined => {
+export const makeMoveHandler = (opts: InputOpts): MoveHandler | undefined => {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;
@@ -29,7 +118,6 @@ export const moveHandler = (opts: InputOpts): MoveHandler | undefined => {
     const foundUci = v.length >= 2 && legalSans && sanToUci(v, legalSans);
     const selectedKey = opts.ctrl.hasSelected() || '';
 
-    console.log(`woohoo ${v}`);
     if (v.length > 0 && 'resign'.startsWith(v.toLowerCase())) {
       if (v.toLowerCase() === 'resign') {
         opts.ctrl.resign(true, true);
@@ -53,13 +141,11 @@ export const moveHandler = (opts: InputOpts): MoveHandler | undefined => {
       legalSans[selectedKey.slice(0, 1) + v.slice(0, 2)] &&
       !submitOpts.force
     ) {
-      console.log(`what to do ${v}`);
       // ambiguous capture+promotion when a promotable pawn is selected; do nothing
     } else if (legalSans && isKey(v)) {
       opts.ctrl.select(v);
       clear();
     } else if (legalSans && v.match(fileRegex)) {
-      console.log(`hooray ${v}`);
       // do nothing
     } else if (legalSans && (selectedKey.slice(0, 1) + v).match(promotionRegex)) {
       const promotionSan = selectedKey && selectedKey.slice(0, 1) !== v.slice(0, 1) ? selectedKey.slice(0, 1) + v : v;
@@ -118,20 +204,19 @@ export const moveHandler = (opts: InputOpts): MoveHandler | undefined => {
       const wrong = v.length && legalSans && !sanCandidates(v, legalSans).length;
       if (wrong && !opts.input.classList.contains('wrong')) lichess.sound.play('error');
       opts.input.classList.toggle('wrong', !!wrong);
-      console.log('wrong!');
     }
   };
   const clear = () => {
-    console.log('clear!');
     opts.input.value = '';
     opts.input.classList.remove('wrong');
   };
-
+  opts.ctrl.voice.addListener((text: string, isCommand: boolean) => {
+    if (isCommand) submit(text, { force: true, isTrusted: true });
+    opts.ctrl.root.redraw();
+  });
   keyboardBindings(opts, submit, clear);
   return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
-    console.log(dests, dests?.size);
     legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
-    console.log(legalSans);
     submit(opts.input.value, {
       isTrusted: true,
       yourMove: yourMove,

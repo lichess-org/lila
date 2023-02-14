@@ -36,7 +36,8 @@ export interface MoveCtrl {
   vote(v: boolean): void;
   resign(v: boolean, immediately?: boolean): void;
   helpModalOpen: Prop<boolean>;
-  voiceCtrl: VoiceCtrl; // convenience
+  voice: VoiceCtrl; // convenience
+  root: RootCtrl;
 }
 
 export interface CrazyPocket {
@@ -68,21 +69,22 @@ export interface RootCtrl {
   vote?: (v: boolean) => void;
 }
 
-export type VoiceListener = (command: string) => void;
+export type VoiceListener = (text: string, isCommand: boolean) => void;
 
 export interface VoiceCtrl {
-  load: () => Promise<boolean>; // returns ready() after promise resolves
-  start: () => Promise<boolean>; // begin recording if ready otherwise calls load()
+  start: () => Promise<void>; // initialize and begin recording
   stop: () => void; // stop recording
-  ready: () => boolean; // are we all set up to record?
-  recording: () => boolean; // are we recording?
-  status: () => string; // errors, progress, or the most recent voice command
+  readonly recording: boolean; // are we recording?
+  readonly status: string; // errors, progress, or the most recent voice command
   addListener: (listener: VoiceListener) => void;
   removeListener: (listener: VoiceListener) => void;
 }
 
 export interface VoskOpts {
-  speechLookup: Map<string, string>;
+  speechMap: Map<string, string>;
+  sampleRate: number;
+  audioCtx: AudioContext;
+  listen: VoiceListener;
   impl: 'vanilla' | 'worklet';
   url: string;
   ctrl: VoiceCtrl;

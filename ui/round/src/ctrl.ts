@@ -22,7 +22,7 @@ import * as sound from './sound';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import { moveCtrl as makeMoveCtrl, MoveCtrl } from 'input';
+import { makeMoveCtrl, MoveCtrl } from 'input';
 import * as renderUser from './view/user';
 import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';

@@ -15,7 +15,7 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "declaration": false,
-    "lib": ["ES2020"],
+    "lib": ["es2018"],
     "types": ["node", "web"]
   }
 }

@@ -8,7 +8,7 @@
     "declaration": true,
     "noUnusedLocals": false,
     "composite": true,
-    "skipLibCheck": true // no way around this
+    "skipLibCheck": true // web & audioworklet conflict
   },
   "isolatedModules": true,
   "references": [{ "path": "../common/tsconfig.json" }]

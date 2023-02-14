@@ -24,7 +24,7 @@ import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { CevalCtrl } from 'ceval';
-import { moveCtrl as makeMoveCtrl, MoveCtrl } from 'input';
+import { makeMoveCtrl, MoveCtrl } from 'input';
 import { defer } from 'common/defer';
 import { defined, prop, Prop, propWithEffect } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
