@@ -8,9 +8,9 @@
     "noImplicitThis": true,
     "noUnusedParameters": true,
     "moduleResolution": "node",
-    "target": "ES2020",
+    "target": "es2018",
     "module": "esnext",
-    "lib": ["ES2020"],
+    "lib": ["es2018"],
     "esModuleInterop": true,
     "isolatedModules": true,
     "types": ["lichess", "web", "cash"]

@@ -32,7 +32,7 @@ object bits:
       moreJs = moreJs,
       moreCss = frag(
         cssTag(if (variant == Crazyhouse) "round.zh" else "round"),
-        ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
+        /*ctx.pref.hasKeyboardMove option*/ cssTag("inputMove"), // TODO - hide text input on false pref
         ctx.blind option cssTag("round.nvui"),
         moreCss
       ),
