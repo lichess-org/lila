@@ -203,7 +203,7 @@ final private class PayPalClient(
   private def response[A: Reads](res: StandaloneWSResponse): Fu[A] =
     res.status match
       case 200 | 201 | 204 =>
-        (implicitly[Reads[A]] reads res.body[JsValue]).fold(
+        (summon[Reads[A]] reads res.body[JsValue]).fold(
           errs => fufail(new CantParseException(res.body[JsValue], JsError(errs))),
           fuccess
         )
