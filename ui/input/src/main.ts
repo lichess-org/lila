@@ -46,14 +46,15 @@ export function render(ctrl: MoveCtrl) {
 function renderVoice(ctrl: MoveCtrl) {
   return h('div.voice-move', [
     h('div', ctrl.voice.status),
+    ctrl.voice.isBusy ? spinner() : null,
     h('div#voice-move-button', {
-      class: { enabled: ctrl.voice.recording },
+      class: { enabled: ctrl.voice.isRecording },
       attrs: {
         role: 'button',
         ...dataIcon(''),
       },
       hook: bind('click', _ => {
-        if (!ctrl.voice.recording) {
+        if (!ctrl.voice.isRecording) {
           ctrl.voice.start().then(() => ctrl.root.redraw());
         } else {
           ctrl.voice.stop();
