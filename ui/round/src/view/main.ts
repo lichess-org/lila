@@ -4,10 +4,10 @@ import crazyView from '../crazy/crazyView';
 import RoundController from '../ctrl';
 import stepwiseScroll from 'common/wheel';
 import { h, VNode } from 'snabbdom';
-import { render as renderMove } from 'input';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
 import { renderMaterialDiffs } from 'game/view/material';
+import { renderMoveCtrl } from 'input';
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
@@ -47,10 +47,10 @@ export function main(ctrl: RoundController): VNode {
           },
           [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')]
         ),
+        ctrl.moveCtrl ? renderMoveCtrl(ctrl.moveCtrl) : null,
         ctrl.keyboardHelp ? keyboard.view(ctrl) : null,
         crazyView(ctrl, topColor, 'top') || materialDiffs[0],
         ...renderTable(ctrl),
         crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
-        ctrl.moveCtrl ? renderMove(ctrl.moveCtrl) : null,
       ]);
 }

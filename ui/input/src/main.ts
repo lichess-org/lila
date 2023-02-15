@@ -8,24 +8,40 @@ import { makeMoveHandler } from './moveCtrl';
 import { MoveCtrl } from './interfaces';
 
 export { type MoveCtrl, type VoiceCtrl } from './interfaces';
-export const voiceCtrl = makeVoiceCtrl(); // available outside of moveCtrl
 export { makeMoveCtrl } from './moveCtrl';
 
-export function render(ctrl: MoveCtrl) {
+export const voiceCtrl = makeVoiceCtrl(); // available outside of moveCtrl
+
+export function renderMoveCtrl(ctrl: MoveCtrl) {
   return h('div.input-move', [
     h('input', {
-      attrs: {
-        spellcheck: 'false',
-        autocomplete: 'off',
-      },
-      hook: onInsert((input: HTMLInputElement) => {
-        ctrl.registerHandler(makeMoveHandler({ input, ctrl })!);
-      }),
+      attrs: { spellcheck: 'false', autocomplete: 'off', style: ctrl.root.keyboard ? '' : 'visibility: hidden;' },
+      hook: onInsert((input: HTMLInputElement) => ctrl.registerHandler(makeMoveHandler({ input, ctrl })!)),
     }),
-    ctrl.isFocused()
-      ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
-      : h('strong', 'Press <enter> to focus'),
-    renderVoice(ctrl),
+    ctrl.root.keyboard && !ctrl.voice.isRecording && !ctrl.voice.status
+      ? ctrl.isFocused()
+        ? h('strong', 'Type ? for help')
+        : h('strong', 'Press enter to focus')
+      : h('strong', ctrl.voice.status),
+    h('div.voice-move', [
+      ctrl.voice.isBusy ? spinner() : null,
+      h('div#voice-move-button', {
+        class: { enabled: ctrl.voice.isRecording },
+        attrs: {
+          role: 'button',
+          ...dataIcon(''),
+        },
+        hook: bind('click', _ => {
+          if (!ctrl.voice.isRecording) {
+            ctrl.voice.start().then(() => ctrl.root.redraw());
+          } else {
+            ctrl.voice.stop();
+            ctrl.root.redraw();
+            return;
+          }
+        }),
+      }),
+    ]),
     ctrl.helpModalOpen()
       ? snabModal({
           class: 'keyboard-move-help',
@@ -40,28 +56,5 @@ export function render(ctrl: MoveCtrl) {
           },
         })
       : null,
-  ]);
-}
-
-function renderVoice(ctrl: MoveCtrl) {
-  return h('div.voice-move', [
-    h('div', ctrl.voice.status),
-    ctrl.voice.isBusy ? spinner() : null,
-    h('div#voice-move-button', {
-      class: { enabled: ctrl.voice.isRecording },
-      attrs: {
-        role: 'button',
-        ...dataIcon(''),
-      },
-      hook: bind('click', _ => {
-        if (!ctrl.voice.isRecording) {
-          ctrl.voice.start().then(() => ctrl.root.redraw());
-        } else {
-          ctrl.voice.stop();
-          ctrl.root.redraw();
-          return;
-        }
-      }),
-    }),
   ]);
 }

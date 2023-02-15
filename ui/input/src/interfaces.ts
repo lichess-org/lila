@@ -5,7 +5,7 @@ import { Prop } from 'common';
 export type MoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
 export interface InputOpts {
-  input: HTMLInputElement;
+  input?: HTMLInputElement;
   ctrl: MoveCtrl;
 }
 
@@ -67,6 +67,7 @@ export interface RootCtrl {
   redraw: () => void;
   next?: () => void;
   vote?: (v: boolean) => void;
+  keyboard: boolean;
 }
 
 export type VoiceListener = (text: string, isCommand: boolean) => void;

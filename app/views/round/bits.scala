@@ -41,7 +41,7 @@ object bits:
       zenable = zenable,
       robots = robots,
       zoomable = true,
-      csp = defaultCsp.withPeer.some,
+      csp = defaultCsp.withPeer.withWebAssembly.some,
       withHrefLangs = withHrefLangs
     )(body)
 

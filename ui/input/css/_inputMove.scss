@@ -1,15 +1,19 @@
 .input-move {
   @extend %flex-center-nowrap;
+  border-bottom: 1px solid if($theme == 'light', $c-border, $c-bg-box);
   height: fit-content;
+  background: if($theme == 'light', $c-bg-zebra, $c-bg-low);
+  padding: 0.4em;
 
   input {
-    width: 4.5em;
-    font-size: 1.1em;
-    font-weight: bold;
-    margin-#{$end-direction}: 1rem;
-    border: $border;
-
     @include transition;
+
+    margin-#{$end-direction}: 1rem;
+    padding: 0.4em 0.6em;
+    border: $border;
+    width: 4em;
+    font-size: 1em;
+    font-weight: bold;
 
     &.wrong {
       background: $c-bad;
@@ -47,7 +51,7 @@
 }
 
 #voice-move-button.enabled {
-  color: red;
+  color: c-dimmer(red);
   animation: pulseBorderRed 1s;
   animation-iteration-count: infinite;
 }
@@ -57,7 +61,7 @@
     border-color: transparent;
   }
   50% {
-    border-color: #ff0000aa;
+    border-color: c-dimmer(red);
   }
   100% {
     border-color: transparent;

@@ -40,7 +40,7 @@
 }
 
 .input-move {
-  grid-area: input-move;
+  grid-area: input;
 }
 
 .round__app {
@@ -78,11 +78,11 @@
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
-    grid-template-areas: 'board .' 'board mat-top' 'board clock-top' 'board expi-top' 'board user-top' 'board moves' 'board controls' 'board user-bot' 'board expi-bot' 'board clock-bot' 'board mat-bot' 'board .' 'input-move .';
+    grid-template-areas: 'board input' 'board .' 'board mat-top' 'board clock-top' 'board expi-top' 'board user-top' 'board moves' 'board controls' 'board user-bot' 'board expi-bot' 'board clock-bot' 'board mat-bot' 'board .';
     grid-column-gap: $block-gap;
 
     &__table {
-      grid-area: 4 / 2 / 10 / 3;
+      grid-area: 5 / 2 / 11 / 3;
     }
 
     .expiration-top {
@@ -98,7 +98,7 @@
       background: none;
     }
 
-    .input-move {
+    .input {
       margin-top: $block-gap;
     }
 

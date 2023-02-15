@@ -75,7 +75,6 @@ export const makeVoiceCtrl = () =>
     get isBusy(): boolean {
       return this.busy;
     }
-
     get status(): string {
       return this.voskStatus;
     }
@@ -96,18 +95,18 @@ export const makeVoiceCtrl = () =>
             .join('');
       this.listeners.forEach(listener => listener(message, isCommand));
     }
-    stop = () => {
+    stop() {
       this.audioCtx?.close();
       this.mediaStream?.getAudioTracks().forEach(track => track.stop());
       this.mediaStream = undefined;
       this.listen('');
-    };
+    }
     async start(): Promise<void> {
       if (this.isRecording) return Promise.resolve();
       try {
         this.busy = true;
         const firstTime = window.LichessVoice === undefined;
-        if (firstTime) this.listen('Loading');
+        if (firstTime) this.listen('Loading...');
 
         const fakeStaticUrl = lichess.assetUrl(modelSource, { noVersion: true });
 
@@ -143,7 +142,7 @@ export const makeVoiceCtrl = () =>
         const micNode = this.audioCtx.createMediaStreamSource(this.mediaStream);
         micNode.connect(voskNode!);
         voskNode.connect(this.audioCtx.destination);
-        this.voskStatus = '';
+        this.voskStatus = 'Listening...';
       } catch (e) {
         console.log(e);
         this.stop();
@@ -165,7 +164,6 @@ export const makeVoiceCtrl = () =>
         version: 21,
         upgrade: (_, idbStore?: IDBObjectStore) => {
           // make emscripten fs happy
-          console.log(idbStore);
           idbStore?.createIndex('timestamp', 'timestamp', { unique: false });
         },
       });
@@ -181,7 +179,7 @@ export const makeVoiceCtrl = () =>
 
         req.send();
         req.onload = _ => {
-          this.listen('Extracting');
+          this.listen('Extracting...');
           resolve(req.response);
         };
       });
