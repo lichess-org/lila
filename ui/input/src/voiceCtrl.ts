@@ -21,6 +21,16 @@ const speechMap = new Map<string, string>([
   ['golf', 'g'],
   ['hotel', 'h'],
 
+  // FIDE Phonetic alphabet
+  ['anna', 'a'],
+  ['bella', 'b'],
+  ['cesar', 'c'],
+  ['david', 'd'],
+  ['eva', 'e'],
+  ['felix', 'f'],
+  ['gustav', 'g'],
+  ['hector', 'h'],
+
   ['one', '1'],
   ['two', '2'],
   ['three', '3'],
@@ -40,10 +50,20 @@ const speechMap = new Map<string, string>([
   ['takes', 'x'],
   ['captures', 'x'],
   ['check', ''],
+  ['to', ''],
+  ['promotes', ''],
+  ['equals', ''],
+  ['short castle', 'o-o'],
+  ['castle short', 'o-o'],
+  ['king side castle', 'o-o'],
+  ['castle king side', 'o-o'],
+
+  ['long castle', 'o-o-o'],
+  ['castle long', 'o-o-o'],
+  ['castle queen side', 'o-o-o'],
+  ['queen side castle', 'o-o-o'],
 
   ['castle', 'o-o'],
-  ['short castle', 'o-o'],
-  ['long castle', 'o-o-o'],
 
   // Command words
   ['next', 'next'],
@@ -54,8 +74,8 @@ const speechMap = new Map<string, string>([
   ['offer draw', 'draw'],
   ['accept draw', 'draw'],
   ['resign', 'resign'],
-  ['upvote', 'upv'],
-  ['downvote', 'downv'],
+  ['up vote', 'upv'],
+  ['down vote', 'downv'],
 ]);
 
 export const modelSource = 'vendor/vosk/model-en-us-0.15.tar.gz';
