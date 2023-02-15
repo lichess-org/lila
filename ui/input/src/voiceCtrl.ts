@@ -108,9 +108,9 @@ export const makeVoiceCtrl = () =>
         const firstTime = window.LichessVoice === undefined;
         if (firstTime) this.listen('Loading...');
 
-        const fakeStaticUrl = lichess.assetUrl(modelSource, { noVersion: true });
+        const modelUrl = lichess.assetUrl(modelSource, { noVersion: true });
 
-        const downloadAsync = this.downloadModel(`/vosk/${fakeStaticUrl.replace(/[\W]/g, '_')}`);
+        const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
 
         if (firstTime) await lichess.loadModule('input.vosk'); // download simultaneous with model
 
@@ -125,7 +125,7 @@ export const makeVoiceCtrl = () =>
               impl: 'vanilla',
               audioCtx: this.audioCtx,
               listen: this.listen.bind(this),
-              url: fakeStaticUrl,
+              url: modelUrl,
             })
           : await window.LichessVoice.resume(this.audioCtx);
 
@@ -157,7 +157,7 @@ export const makeVoiceCtrl = () =>
     async downloadModel(emscriptenPath: string): Promise<void> {
       // don't look at this, it's gross.
       // trick vosk-browser into using our model by sneaking it into the emscripten IDBFS.
-      // this is necessary for progress and to avoide cache busting
+      // this is necessary for progress.
       const voskStore = await objectStorage<any>({
         db: '/vosk',
         store: 'FILE_DATA',
@@ -175,7 +175,7 @@ export const makeVoiceCtrl = () =>
         req.responseType = 'arraybuffer';
         req.onerror = e => reject(e);
         req.onprogress = (e: ProgressEvent) =>
-          this.listen(`Downloaded ${Math.round((100 * e.loaded) / e.total)}% of ${Math.round(e.total / 100000)}MiB`);
+          this.listen(`Downloaded ${Math.round((100 * e.loaded) / e.total)}% of ${Math.round(e.total / 1000000)}MB`);
 
         req.send();
         req.onload = _ => {
