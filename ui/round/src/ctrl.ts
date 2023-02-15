@@ -86,7 +86,7 @@ export default class RoundController {
   nvui?: NvuiPlugin;
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
-
+  keyboard = false;
   private music?: any;
 
   constructor(readonly opts: RoundOpts, readonly redraw: Redraw) {
@@ -94,6 +94,7 @@ export default class RoundController {
 
     const d = (this.data = opts.data);
 
+    this.keyboard = d.pref.keyboardMove;
     this.ply = round.lastPly(d);
     this.goneBerserk[d.player.color] = d.player.berserk;
     this.goneBerserk[d.opponent.color] = d.opponent.berserk;

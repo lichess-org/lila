@@ -6,7 +6,8 @@ function focusChat() {
 }
 
 export function keyboardBindings(opts: InputOpts, submit: Submit, clear: () => void) {
-  window.Mousetrap.bind('enter', () => opts.input.focus());
+  if (!opts.input || !opts.ctrl.root.keyboard) return;
+  window.Mousetrap.bind('enter', () => opts.input?.focus());
   /* keypress doesn't cut it here;
    * at the time it fires, the last typed char
    * is not available yet. Reported by:

@@ -50,11 +50,7 @@
     grid-area: gauge;
   }
 
-  .input-move {
-    grid-area: input-move;
-  }
-
-  grid-template-areas: 'board' 'controls' 'tools' 'session' 'input-move' 'side';
+  grid-template-areas: 'board' 'controls' 'tools' 'session' 'side';
   grid-row-gap: $block-gap;
 
   &__moves {
@@ -67,7 +63,7 @@
     grid-template-areas:
       'board   gauge tools'
       'session .     controls'
-      'input-move .     controls'
+      '.       .     controls'
       'side    side  side';
 
     &__moves {
@@ -79,7 +75,7 @@
     grid-template-areas:
       'side    . board   gauge tools'
       'side    . session .     controls'
-      'side    . input-move .     controls'
+      'side    . .       .     controls'
       'side    . .       .     .';
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
   }

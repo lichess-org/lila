@@ -83,27 +83,9 @@ export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
   };
 }
 
-const sanToRole: { [key: string]: cg.Role } = {
-  P: 'pawn',
-  N: 'knight',
-  B: 'bishop',
-  R: 'rook',
-  Q: 'queen',
-  K: 'king',
-};
-
-const keyRegex = /^[a-h][1-8]$/;
-const fileRegex = /^[a-h]$/;
-const crazyhouseRegex = /^\w?@([a-h]|[a-h][1-8])?$/;
-const ambiguousPromotionRegex = /^[a-h][27][a-h][18]$/;
-const ambiguousPromotionCaptureRegex = /^([a-h][27]?x?)?[a-h](1|8)=?$/;
-const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
-// accept partial ICCF because submit runs on every keypress
-const iccfRegex = /^[1-8][1-8]?[1-5]?$/;
-
-export const makeMoveHandler = (opts: InputOpts): MoveHandler | undefined => {
-  if (opts.input.classList.contains('ready')) return;
-  opts.input.classList.add('ready');
+export function makeMoveHandler(opts: InputOpts): MoveHandler | undefined {
+  if (opts.input?.classList.contains('ready')) return;
+  opts.input?.classList.add('ready');
   let legalSans: SanToUci | null = null;
 
   const isKey = (v: string): v is Key => !!v.match(keyRegex);
@@ -199,30 +181,48 @@ export const makeMoveHandler = (opts: InputOpts): MoveHandler | undefined => {
       // submitOpts.yourMove is true only when it is newly the player's turn, not on subsequent
       // updates when it is still the player's turn
       setTimeout(() => lichess.sound.play('error'), 500);
-      opts.input.value = '';
+      if (opts.input) opts.input.value = '';
     } else {
       const wrong = v.length && legalSans && !sanCandidates(v, legalSans).length;
-      if (wrong && !opts.input.classList.contains('wrong')) lichess.sound.play('error');
-      opts.input.classList.toggle('wrong', !!wrong);
+      if (wrong && !opts.input?.classList.contains('wrong')) lichess.sound.play('error');
+      opts.input?.classList.toggle('wrong', !!wrong);
     }
   };
   const clear = () => {
-    opts.input.value = '';
-    opts.input.classList.remove('wrong');
+    if (opts.input) opts.input.value = '';
+    opts.input?.classList.remove('wrong');
   };
   opts.ctrl.voice.addListener((text: string, isCommand: boolean) => {
     if (isCommand) submit(text, { force: true, isTrusted: true });
     opts.ctrl.root.redraw();
   });
-  keyboardBindings(opts, submit, clear);
+  if (opts.input) keyboardBindings(opts, submit, clear);
   return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
     legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
-    submit(opts.input.value, {
+    submit(opts.input?.value || '', {
       isTrusted: true,
       yourMove: yourMove,
     });
   };
+}
+
+const sanToRole: { [key: string]: cg.Role } = {
+  P: 'pawn',
+  N: 'knight',
+  B: 'bishop',
+  R: 'rook',
+  Q: 'queen',
+  K: 'king',
 };
+
+const keyRegex = /^[a-h][1-8]$/;
+const fileRegex = /^[a-h]$/;
+const crazyhouseRegex = /^\w?@([a-h]|[a-h][1-8])?$/;
+const ambiguousPromotionRegex = /^[a-h][27][a-h][18]$/;
+const ambiguousPromotionCaptureRegex = /^([a-h][27]?x?)?[a-h](1|8)=?$/;
+const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
+// accept partial ICCF because submit runs on every keypress
+const iccfRegex = /^[1-8][1-8]?[1-5]?$/;
 
 function iccfToUci(v: string) {
   const chars = v.split('');
