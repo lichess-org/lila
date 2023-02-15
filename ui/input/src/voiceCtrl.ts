@@ -21,6 +21,16 @@ const speechMap = new Map<string, string>([
   ['golf', 'g'],
   ['hotel', 'h'],
 
+  // FIDE Phonetic alphabet
+  ['anna', 'a'],
+  ['bella', 'b'],
+  ['cesar', 'c'],
+  ['david', 'd'],
+  ['eva', 'e'],
+  ['felix', 'f'],
+  ['gustav', 'g'],
+  ['hector', 'h'],
+
   ['one', '1'],
   ['two', '2'],
   ['three', '3'],
@@ -40,10 +50,20 @@ const speechMap = new Map<string, string>([
   ['takes', 'x'],
   ['captures', 'x'],
   ['check', ''],
+  ['to', ''],
+  ['promotes', ''],
+  ['equals', ''],
+  ['short castle', 'o-o'],
+  ['castle short', 'o-o'],
+  ['king side castle', 'o-o'],
+  ['castle king side', 'o-o'],
+
+  ['long castle', 'o-o-o'],
+  ['castle long', 'o-o-o'],
+  ['castle queen side', 'o-o-o'],
+  ['queen side castle', 'o-o-o'],
 
   ['castle', 'o-o'],
-  ['short castle', 'o-o'],
-  ['long castle', 'o-o-o'],
 
   // Command words
   ['next', 'next'],
@@ -54,8 +74,8 @@ const speechMap = new Map<string, string>([
   ['offer draw', 'draw'],
   ['accept draw', 'draw'],
   ['resign', 'resign'],
-  ['upvote', 'upv'],
-  ['downvote', 'downv'],
+  ['up vote', 'upv'],
+  ['down vote', 'downv'],
 ]);
 
 export const modelSource = 'vendor/vosk/model-en-us-0.15.tar.gz';
@@ -68,6 +88,8 @@ export const makeVoiceCtrl = () =>
     voskStatus = '';
     busy = false;
     listeners = new Set<VoiceListener>();
+    isDownloading = false;
+    abortDownload = () => Promise.resolve();
 
     addListener = (listener: VoiceListener) => this.listeners.add(listener);
     removeListener = (listener: VoiceListener) => this.listeners.delete(listener);
@@ -116,7 +138,13 @@ export const makeVoiceCtrl = () =>
 
         this.audioCtx = new AudioContext({ sampleRate: 48000 });
 
-        await downloadAsync;
+        try {
+          await downloadAsync;
+        } catch (error) {
+          this.listen(error as string);
+          this.busy = false;
+          return Promise.resolve();
+        }
 
         // now we have both the model and input.vosk
         const voskNode = firstTime
@@ -155,6 +183,7 @@ export const makeVoiceCtrl = () =>
     }
 
     async downloadModel(emscriptenPath: string): Promise<void> {
+      if (this.isDownloading) return this.abortDownload();
       // don't look at this, it's gross.
       // trick vosk-browser into using our model by sneaking it into the emscripten IDBFS.
       // this is necessary for progress.
@@ -174,6 +203,9 @@ export const makeVoiceCtrl = () =>
         req.open('GET', lichess.assetUrl(modelSource), true);
         req.responseType = 'arraybuffer';
         req.onerror = e => reject(e);
+        req.onloadstart = () => {
+          this.isDownloading = true;
+        };
         req.onprogress = (e: ProgressEvent) =>
           this.listen(`Downloaded ${Math.round((100 * e.loaded) / e.total)}% of ${Math.round(e.total / 1000000)}MB`);
 
@@ -181,6 +213,15 @@ export const makeVoiceCtrl = () =>
         req.onload = _ => {
           this.listen('Extracting...');
           resolve(req.response);
+        };
+        req.onloadend = () => {
+          this.isDownloading = false;
+        };
+        this.abortDownload = () => {
+          reject('Download cancelled');
+          this.listen('Download cancelled');
+          this.abortDownload = () => Promise.resolve();
+          return Promise.resolve();
         };
       });
       const now = new Date();
