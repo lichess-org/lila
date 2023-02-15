@@ -15,7 +15,7 @@ export const voiceCtrl = makeVoiceCtrl(); // available outside of moveCtrl
 export function renderMoveCtrl(ctrl: MoveCtrl) {
   return h('div.input-move', [
     h('input', {
-      attrs: { spellcheck: 'false', autocomplete: 'off', style: ctrl.root.keyboard ? '' : 'visibility: hidden;' },
+      attrs: { spellcheck: 'false', autocomplete: 'off', style: ctrl.root.keyboard ? '' : 'display: none;' },
       hook: onInsert((input: HTMLInputElement) => ctrl.registerHandler(makeMoveHandler({ input, ctrl })!)),
     }),
     ctrl.root.keyboard && !ctrl.voice.isRecording && !ctrl.voice.status
@@ -32,13 +32,8 @@ export function renderMoveCtrl(ctrl: MoveCtrl) {
           ...dataIcon(''),
         },
         hook: bind('click', _ => {
-          if (!ctrl.voice.isRecording) {
-            ctrl.voice.start().then(() => ctrl.root.redraw());
-          } else {
-            ctrl.voice.stop();
-            ctrl.root.redraw();
-            return;
-          }
+          if (ctrl.voice.isRecording) ctrl.voice.stop();
+          else ctrl.voice.start();
         }),
       }),
     ]),
