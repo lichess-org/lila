@@ -74,11 +74,9 @@ export type VoiceListener = (text: string, isCommand: boolean) => void;
 
 export interface VoiceCtrl {
   start: () => Promise<void>; // initialize and begin recording
-  stop: () => void; // stop recording
+  stop: () => void; // stop recording/downloading/whatever
   readonly isBusy: boolean; // are we downloading, extracting, or loading?
   readonly isRecording: boolean; // are we recording?
-  readonly isDownloading: boolean; // Are we downloading the model?
-  readonly abortDownload: () => Promise<void>; // Cancel the model download
   readonly status: string; // errors, progress, or the most recent voice command
   addListener: (listener: VoiceListener) => void;
   removeListener: (listener: VoiceListener) => void;
@@ -88,7 +86,7 @@ export interface VoskOpts {
   speechMap: Map<string, string>;
   sampleRate: number;
   audioCtx: AudioContext;
-  listen: VoiceListener;
+  broadcast: (text: string, isCommand: boolean, forMs: number) => void;
   impl: 'vanilla' | 'worklet';
   url: string;
   ctrl: VoiceCtrl;

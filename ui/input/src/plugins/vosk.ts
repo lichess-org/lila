@@ -1,33 +1,23 @@
 import { KaldiRecognizer, createModel, Model } from 'vosk-browser';
 import { VoskOpts } from '../interfaces';
 
-let impl: 'vanilla' | 'worklet';
 let kaldi: KaldiRecognizer;
 let voiceModel: Model;
 
 export default (window as any).LichessVoice = {
-  resume: async (audioCtx: AudioContext): Promise<AudioNode> => {
-    return impl == 'vanilla' ? vanillaProcessor(audioCtx) : workletProcessor(audioCtx);
-  },
-
   init: async (opts: VoskOpts): Promise<AudioNode> => {
-    try {
+    if (!kaldi) {
       voiceModel = await createModel(opts.url);
 
       kaldi = new voiceModel.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify([...opts.speechMap.keys()]));
       kaldi.on('result', (message: any) => {
-        if ('result' in message && 'text' in message.result) {
-          opts.listen(message.result.text as string, true);
-        }
+        if ('result' in message && 'text' in message.result) opts.broadcast(message.result.text as string, true, 3000);
       });
-      impl = opts.impl || 'vanilla';
-      return opts.impl == 'vanilla' ? vanillaProcessor(opts.audioCtx) : await workletProcessor(opts.audioCtx);
-    } catch (e) {
-      opts.listen(`${JSON.stringify(e).slice(0, 40)}...`, false);
-      throw e;
     }
+    return opts.impl == 'vanilla' ? vanillaProcessor(opts.audioCtx) : workletProcessor(opts.audioCtx);
   },
 };
+
 //========================== works ok on all but deprecated ==============================
 
 function vanillaProcessor(audioCtx: AudioContext): AudioNode {
