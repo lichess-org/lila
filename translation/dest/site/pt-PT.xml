@@ -209,9 +209,10 @@
   <string name="forgotPassword">Esqueceste-te da tua palavra-passe?</string>
   <string name="error.weakPassword">Esta senha é extremamente comum, e muito fácil de adivinhar.</string>
   <string name="error.namePassword">Por favor, não usa o teu nome de utilizador como senha.</string>
-  <string name="blankedPassword">Utilizou a mesma palavra-passe noutro site, e esse site foi comprometido. Para garantir a segurança da sua conta Lichess, precisamos que redefina a palavra-passe. Obrigado pela compreensão.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Utilizou a mesma palavra-passe noutro site, e esse site foi comprometido. Para garantir a segurança da sua conta Lichess, precisamos que redefina a palavra-passe. Obrigado pela compreensão.</string>
   <string name="youAreLeavingLichess">Você está a sair do Lichess</string>
   <string name="neverTypeYourPassword">Nunca escrevas a tua senha Lichess em outro site!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Continuar para %s</string>
   <string name="passwordSuggestion">Não uses uma senha sugerida por outra pessoa. Eles vão utilizar-la para roubar a tua conta.</string>
   <string name="emailSuggestion">Não uses um email sugerida por outra pessoa. Eles vão utilizar-la para roubar a tua conta.</string>
   <string name="emailConfirmHelp">Ajuda com a confirmação do endereço eletrónico</string>

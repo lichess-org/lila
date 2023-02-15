@@ -207,7 +207,8 @@
   <string name="email">ایمیل</string>
   <string name="passwordReset">بازیابی کلمه عبور</string>
   <string name="forgotPassword">آیا کلمه عبور را فراموش کرده اید؟</string>
-  <string name="blankedPassword">شما از همین رمز عبور در سایت دیگری استفاده کرده اید و آن سایت در معرض خطر قرار گرفته است. برای اطمینان از ایمنی حساب لیچس خود، لازم است که شما یک رمز عبور جدید ایجاد کنید. ممنون از همکاری شما.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">شما از همین رمز عبور در سایت دیگری استفاده کرده اید و آن سایت در معرض خطر قرار گرفته است. برای اطمینان از ایمنی حساب لیچس خود، لازم است که شما یک رمز عبور جدید ایجاد کنید. ممنون از همکاری شما.</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">بروید به %s</string>
   <string name="emailConfirmHelp">کمک با تائید ایمیل</string>
   <string name="emailConfirmNotReceived">آیا ایمیل تائید بعد از ثبت نام را دریافت نکرده اید؟</string>
   <string name="whatSignupUsername">از چه نام کاربری برای ثبت نام استفاده کردید؟</string>
