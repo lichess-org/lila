@@ -12,7 +12,7 @@ export default (window as any).LichessVoice = {
 
       kaldi = new voiceModel.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.keys));
       kaldi.on('result', (message: any) => {
-        console.log(message);
+        //console.log(message);
         if ('result' in message && 'text' in message.result)
           opts.broadcast(message.result.text as string, 'command', 3000);
       });

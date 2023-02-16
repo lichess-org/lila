@@ -13,8 +13,9 @@ export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
   const cgState = root.chessground.state;
   let usedSan = false;
   function select(key: cg.Key): void {
-    if (cgState.selected === key) root.chessground.cancelMove();
-    else {
+    if (cgState.selected === key) {
+      root.chessground.cancelMove();
+    } else {
       root.chessground.selectSquare(key, true);
       lastSelect = performance.now();
     }

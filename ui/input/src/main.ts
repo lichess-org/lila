@@ -4,8 +4,8 @@ import { onInsert, dataIcon } from 'common/snabbdom';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { makeVoiceCtrl } from './voiceCtrl';
-import { makeKeyboardHandler } from './keyboardHandler';
-import { makeVoiceHandler } from './voiceHandler';
+import { makeKeyboardHandler } from './keyboardMoveHandler';
+import { makeVoiceHandler } from './voiceMoveHandler';
 import { MoveCtrl } from './interfaces';
 
 export { type MoveCtrl, type VoiceCtrl } from './interfaces';
@@ -17,10 +17,7 @@ export function renderMoveCtrl(ctrl: MoveCtrl) {
   return h('div.input-move', [
     h('input', {
       attrs: { spellcheck: 'false', autocomplete: 'off', style: ctrl.root.keyboard ? '' : 'display: none;' },
-      hook: onInsert((input: HTMLInputElement) => {
-        ctrl.addHandler(makeVoiceHandler(ctrl));
-        ctrl.addHandler(makeKeyboardHandler({ input, ctrl }));
-      }),
+      hook: onInsert((input: HTMLInputElement) => ctrl.addHandler(makeKeyboardHandler({ input, ctrl }))),
     }),
     ctrl.root.keyboard && !ctrl.voice.isRecording && !ctrl.voice.status
       ? ctrl.isFocused()
