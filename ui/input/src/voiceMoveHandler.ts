@@ -7,7 +7,6 @@ import * as util from './util';
 export function makeVoiceHandler(ctrl: MoveCtrl): MoveHandler {
   let legalSans: SanToUci | null = null;
   function submit(v: string) {
-    const sanUci = v.length >= 2 && legalSans && util.sanToUci(v, legalSans);
     const selectedKey = ctrl.hasSelected() || '';
     if (v.toLowerCase() === 'resign') {
       ctrl.resign(true, true);
@@ -16,11 +15,10 @@ export function makeVoiceHandler(ctrl: MoveCtrl): MoveHandler {
       ctrl.san(v.slice(0, 2) as Key, v.slice(2) as Key);
       clear();
     } else if (legalSans && v.match(util.keyRegex)) {
-      console.log(`selecting ${v}`);
-      ctrl.select(v as Key);
+      const uci = util.sanToUci(v, legalSans);
+      if (uci) ctrl.san(uci.slice(0, 2) as Key, uci.slice(2) as Key);
+      else ctrl.select(v as Key);
       clear();
-    } else if (legalSans && sanUci) {
-      ctrl.san(sanUci.slice(0, 2) as Key, sanUci.slice(2) as Key);
     } else if (legalSans && v.match(util.fileRegex)) {
       // do nothing
     } else if (legalSans && (selectedKey.slice(0, 1) + v).match(util.promotionRegex)) {
