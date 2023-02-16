@@ -16,8 +16,12 @@ import chess.{
   Mode,
   MoveOrDrop,
   Speed,
-  Status
+  Status,
+  Move,
+  Drop
 }
+
+import chess.MoveOrDrop.fold
 
 import lila.common.{ Days, Sequence }
 import lila.db.ByteArray
