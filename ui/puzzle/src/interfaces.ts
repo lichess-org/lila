@@ -20,7 +20,7 @@ export type PuzzleId = string;
 
 export type Redraw = () => void;
 
-export interface KeyboardController {
+export interface MoveController {
   vm: Vm;
   redraw: Redraw;
   userJump(path: Tree.Path): void;
@@ -40,7 +40,7 @@ export interface AllThemes {
   static: Set<ThemeKey>;
 }
 
-export interface Controller extends KeyboardController {
+export interface Controller extends MoveController {
   nextNodeBest(): string | undefined;
   disableThreatMode?: Prop<boolean>;
   outcome(): Outcome | undefined;

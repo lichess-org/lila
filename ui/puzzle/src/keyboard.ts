@@ -1,11 +1,11 @@
 import * as control from './control';
 import * as xhr from 'common/xhr';
-import { Controller, KeyboardController } from './interfaces';
+import { Controller, MoveController } from './interfaces';
 import { h, VNode } from 'snabbdom';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 
-export default (ctrl: KeyboardController) => {
+export default (ctrl: MoveController) => {
   window.Mousetrap.bind(['left', 'k'], () => {
     control.prev(ctrl);
     ctrl.redraw();

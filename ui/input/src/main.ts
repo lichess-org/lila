@@ -1,10 +1,11 @@
 import * as xhr from 'common/xhr';
 import { h } from 'snabbdom';
-import { onInsert, bind, dataIcon } from 'common/snabbdom';
+import { onInsert, dataIcon } from 'common/snabbdom';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { makeVoiceCtrl } from './voiceCtrl';
-import { makeMoveHandler } from './moveCtrl';
+import { makeKeyboardHandler } from './keyboardHandler';
+import { makeVoiceHandler } from './voiceHandler';
 import { MoveCtrl } from './interfaces';
 
 export { type MoveCtrl, type VoiceCtrl } from './interfaces';
@@ -16,7 +17,10 @@ export function renderMoveCtrl(ctrl: MoveCtrl) {
   return h('div.input-move', [
     h('input', {
       attrs: { spellcheck: 'false', autocomplete: 'off', style: ctrl.root.keyboard ? '' : 'display: none;' },
-      hook: onInsert((input: HTMLInputElement) => ctrl.registerHandler(makeMoveHandler({ input, ctrl })!)),
+      hook: onInsert((input: HTMLInputElement) => {
+        ctrl.addHandler(makeVoiceHandler(ctrl));
+        ctrl.addHandler(makeKeyboardHandler({ input, ctrl }));
+      }),
     }),
     ctrl.root.keyboard && !ctrl.voice.isRecording && !ctrl.voice.status
       ? ctrl.isFocused()
@@ -29,11 +33,14 @@ export function renderMoveCtrl(ctrl: MoveCtrl) {
         class: { enabled: ctrl.voice.isRecording },
         attrs: {
           role: 'button',
-          ...dataIcon(''),
+          style: ctrl.voice.isBusy ? 'color: red;' : '',
+          ...dataIcon(ctrl.voice.isBusy ? '' : ''),
         },
-        hook: bind('click', _ => {
-          if (ctrl.voice.isRecording) ctrl.voice.stop();
-          else ctrl.voice.start();
+        hook: onInsert(el => {
+          ctrl.addHandler(makeVoiceHandler(ctrl));
+          el.addEventListener('click', _ =>
+            ctrl.voice.isRecording || ctrl.voice.isBusy ? ctrl.voice.stop() : ctrl.voice.start()
+          );
         }),
       }),
     ]),

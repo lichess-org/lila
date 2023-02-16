@@ -1,4 +1,5 @@
 import { KaldiRecognizer, createModel, Model } from 'vosk-browser';
+//import { RecognizerMessage } from 'vosk-browser/dist/interfaces';
 import { VoskOpts } from '../interfaces';
 
 let kaldi: KaldiRecognizer;
@@ -9,13 +10,16 @@ export default (window as any).LichessVoice = {
     if (!kaldi) {
       voiceModel = await createModel(opts.url);
 
-      kaldi = new voiceModel.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify([...opts.speechMap.keys()]));
+      kaldi = new voiceModel.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.keys));
       kaldi.on('result', (message: any) => {
-        if ('result' in message && 'text' in message.result) opts.broadcast(message.result.text as string, true, 3000);
+        console.log(message);
+        if ('result' in message && 'text' in message.result)
+          opts.broadcast(message.result.text as string, 'command', 3000);
       });
     }
     return opts.impl == 'vanilla' ? vanillaProcessor(opts.audioCtx) : workletProcessor(opts.audioCtx);
   },
+  //restrict: async()
 };
 
 //========================== works ok on all but deprecated ==============================

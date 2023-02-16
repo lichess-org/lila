@@ -1,4 +1,4 @@
-import { VoiceCtrl, VoiceListener } from './interfaces';
+import { VoiceCtrl, VoiceListener, MsgType } from './interfaces';
 import { objectStorage } from 'common/objectStorage';
 
 const speechMap = new Map<string, string>([
@@ -82,7 +82,7 @@ export const modelSource = 'vendor/vosk/model-en-us-0.15.tar.gz';
 
 export const makeVoiceCtrl = () =>
   new (class implements VoiceCtrl {
-    audioCtx: AudioContext;
+    audioCtx: AudioContext | undefined;
     mediaStream: MediaStream | undefined;
     download: XMLHttpRequest | undefined;
     voskStatus = '';
@@ -105,50 +105,35 @@ export const makeVoiceCtrl = () =>
     get isRecording(): boolean {
       return this.mediaStream !== undefined;
     }
-    broadcast(text: string, isCommand = false, forMs = 0) {
-      window.clearTimeout(this.broadcastTimeout);
-      this.voskStatus = text;
-      const message = !isCommand
-        ? text
-        : text
-            .split(' ')
-            .flatMap(word => speechMap.get(word))
-            .filter(word => word !== undefined)
-            .join('');
-      this.broadcastTimeout = forMs > 0 ? window.setTimeout(() => this.broadcast(''), forMs) : undefined;
-      this.listeners.forEach(li => li(message, isCommand));
-    }
     stop() {
       this.audioCtx?.close();
       this.download?.abort();
       this.mediaStream?.getAudioTracks().forEach(track => track.stop());
       this.mediaStream = undefined;
+      this.audioCtx = undefined;
+      if (!this.download) this.broadcast('');
       this.download = undefined;
-      this.broadcast('');
     }
     async start(): Promise<void> {
       if (this.isRecording) return;
+      let [msgText, msgType] = ['Unknown', 'error' as MsgType];
       try {
         this.busy = true;
         this.broadcast('Loading...');
         const modelUrl = lichess.assetUrl(modelSource, { noVersion: true });
         const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
+        if (!window.LichessVoice) await lichess.loadModule('input.vosk');
 
-        if (window.LichessVoice === undefined) {
-          await lichess.loadModule('input.vosk');
-        }
-
-        this.audioCtx = new AudioContext({ sampleRate: 48000 });
         await downloadAsync;
-
         const voskNode = await window.LichessVoice.init({
           speechMap,
           impl: 'vanilla',
-          audioCtx: this.audioCtx,
+          audioCtx: (this.audioCtx = new AudioContext({ sampleRate: 48000 })),
           broadcast: this.broadcast.bind(this),
+          keys: [...speechMap.keys()],
           url: modelUrl,
         });
-
+        if (!this.audioCtx) throw 'Aborted';
         this.mediaStream = await navigator.mediaDevices.getUserMedia({
           video: false,
           audio: {
@@ -158,22 +143,33 @@ export const makeVoiceCtrl = () =>
             noiseSuppression: true,
           },
         });
-
-        const micNode = this.audioCtx.createMediaStreamSource(this.mediaStream);
-        micNode.connect(voskNode!);
+        this.audioCtx.createMediaStreamSource(this.mediaStream).connect(voskNode!);
         voskNode.connect(this.audioCtx.destination);
-        this.busy = false;
-        this.broadcast('');
-        this.broadcast('Listening...', false, 3000);
+        [msgText, msgType] = ['Listening...', 'status'];
       } catch (e: any) {
-        this.busy = false;
         this.stop();
         console.log(e);
-        this.broadcast(e.toString());
+        [msgText, msgType] = [e.toString(), 'error'];
         throw e;
+      } finally {
+        this.busy = false;
+        this.broadcast(msgText, msgType, 4000);
       }
     }
-
+    broadcast(text: string, msgType: MsgType = 'status', forMs = 0) {
+      window.clearTimeout(this.broadcastTimeout);
+      this.voskStatus = text;
+      const encoded = msgType === 'command' ? this.encode(text) : text;
+      this.listeners.forEach(li => li(encoded, msgType));
+      this.broadcastTimeout = forMs > 0 ? window.setTimeout(() => this.broadcast(''), forMs) : undefined;
+    }
+    encode = (text: string) =>
+      speechMap.get(text) ||
+      text
+        .split(' ')
+        .flatMap(word => speechMap.get(word))
+        .filter(word => word !== undefined)
+        .join('');
     async downloadModel(emscriptenPath: string): Promise<void> {
       // don't look at this, it's gross.  but we need cancel & progress.
       // trick vosk-browser into using our model by sneaking it into the emscripten IDBFS
@@ -196,13 +192,11 @@ export const makeVoiceCtrl = () =>
         this.download.onabort = _ => reject('Aborted');
         this.download.onprogress = (e: ProgressEvent) =>
           this.broadcast(`Downloaded ${Math.round((100 * e.loaded) / e.total)}% of ${Math.round(e.total / 1000000)}MB`);
-
-        this.download.send();
         this.download.onload = _ => {
           this.broadcast('Extracting...');
           resolve(this.download?.response);
-          this.download = undefined;
         };
+        this.download.send();
       });
       const now = new Date();
       await voskStore.put(emscriptenPath, { timestamp: now, mode: 16877 });
@@ -217,7 +211,6 @@ export const makeVoiceCtrl = () =>
         timestamp: now,
         mode: 33188,
       });
-      const txn = voskStore.txn('readwrite');
-      txn.objectStore('FILE_DATA').index('timestamp');
+      voskStore.txn('readwrite').objectStore('FILE_DATA').index('timestamp');
     }
   })();
