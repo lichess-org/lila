@@ -16,9 +16,7 @@ import chess.{
   Mode,
   MoveOrDrop,
   Speed,
-  Status,
-  Move,
-  Drop
+  Status
 }
 
 import chess.MoveOrDrop.fold
