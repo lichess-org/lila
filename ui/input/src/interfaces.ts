@@ -21,7 +21,7 @@ export interface MoveCtrl {
   drop(key: cg.Key, piece: string): void;
   promote(orig: cg.Key, dest: cg.Key, piece: string): void;
   update(step: { fen: string }, yourMove?: boolean): void;
-  registerHandler(h: MoveHandler): void;
+  addHandler(h: MoveHandler | undefined): void;
   isFocused: Prop<boolean>;
   san(orig: cg.Key, dest: cg.Key): void;
   select(key: cg.Key): void;
@@ -70,7 +70,9 @@ export interface RootCtrl {
   keyboard: boolean;
 }
 
-export type VoiceListener = (text: string, isCommand: boolean) => void;
+export type MsgType = 'command' | 'status' | 'error';
+
+export type VoiceListener = (msgText: string, msgType: MsgType) => void;
 
 export interface VoiceCtrl {
   start: () => Promise<void>; // initialize and begin recording
@@ -83,10 +85,10 @@ export interface VoiceCtrl {
 }
 
 export interface VoskOpts {
-  speechMap: Map<string, string>;
+  keys: string[];
   sampleRate: number;
   audioCtx: AudioContext;
-  broadcast: (text: string, isCommand: boolean, forMs: number) => void;
+  broadcast: (msgText: string, msgType: MsgType, forMs: number) => void;
   impl: 'vanilla' | 'worklet';
   url: string;
   ctrl: VoiceCtrl;
