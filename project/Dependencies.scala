@@ -26,7 +26,7 @@ object Dependencies {
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.15.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
-  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.2.RELEASE"
+  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.3.RELEASE"
   val nettyTransport =
     "io.netty" % s"netty-transport-native-$notifier" % "4.1.89.Final" classifier s"$os-$arch"
   val scalatest   = "org.scalatest"              %% "scalatest"    % "3.2.11" % Test
