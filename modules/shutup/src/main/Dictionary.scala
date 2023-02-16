@@ -298,6 +298,7 @@ ann?an[iı](zi)? s[ii̇]k[eii̇]y[ii̇]m
 aptal
 beyinsiz
 bok yedin
+ezik
 gerizekal[iı]
 ibne
 ka[sş]ar
