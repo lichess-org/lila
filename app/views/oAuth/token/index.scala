@@ -23,7 +23,7 @@ object index:
         standardFlash.map(div(cls := "box__pad")(_)),
         p(cls := "box__pad force-ltr")(
           "You can make OAuth requests without going through the ",
-          a(href := s"${routes.Api.index}#section/Authentication")("authorization code flow"),
+          a(href := s"${routes.Api.index}#section/Introduction/Authentication")("authorization code flow"),
           ".",
           br,
           br,
