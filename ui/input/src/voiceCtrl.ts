@@ -66,6 +66,7 @@ const speechMap = new Map<string, string>([
   ['castle', 'o-o'],
 
   // Command words
+  ['help', '?'],
   ['next', 'next'],
   ['continue', 'next'],
   ['next puzzle', 'next'],
@@ -88,10 +89,9 @@ export const makeVoiceCtrl = () =>
     voskStatus = '';
     busy = false;
     broadcastTimeout: number | undefined;
-    listeners = new Set<VoiceListener>();
+    listeners = new Map<string, VoiceListener>();
 
-    addListener = (listener: VoiceListener) => this.listeners.add(listener);
-    removeListener = (listener: VoiceListener) => this.listeners.delete(listener);
+    addListener = (name: string, listener: VoiceListener) => this.listeners.set(name, listener);
 
     get isBusy(): boolean {
       return this.busy;
@@ -160,7 +160,7 @@ export const makeVoiceCtrl = () =>
       window.clearTimeout(this.broadcastTimeout);
       this.voskStatus = text;
       const encoded = msgType === 'command' ? this.encode(text) : text;
-      this.listeners.forEach(li => li(encoded, msgType));
+      for (const li of this.listeners.values()) li(encoded, msgType);
       this.broadcastTimeout = forMs > 0 ? window.setTimeout(() => this.broadcast(''), forMs) : undefined;
     }
     encode = (text: string) =>

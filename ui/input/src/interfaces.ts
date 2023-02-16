@@ -80,8 +80,7 @@ export interface VoiceCtrl {
   readonly isBusy: boolean; // are we downloading, extracting, or loading?
   readonly isRecording: boolean; // are we recording?
   readonly status: string; // errors, progress, or the most recent voice command
-  addListener: (listener: VoiceListener) => void;
-  removeListener: (listener: VoiceListener) => void;
+  addListener: (name: string, listener: VoiceListener) => void;
 }
 
 export interface VoskOpts {
