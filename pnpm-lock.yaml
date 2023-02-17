@@ -571,6 +571,7 @@ importers:
       '@types/debounce-promise': ^3.1.6
       '@types/fnando__sparkline': ^0.3.4
       '@types/highcharts': '=4.2.57'
+      '@types/howler': ^2.2.7
       '@types/lichess': workspace:*
       '@types/yaireo__tagify': ^4.16.0
       '@types/zxcvbn': ^4.4.1
@@ -582,6 +583,7 @@ importers:
       flatpickr: ^4.6.13
       highcharts: '=4.2.5'
       hopscotch: ^0.3.1
+      howler: ^2.2.3
       lichess-pgn-viewer: ^1.5.5
       prop-types: ^15.8.1
       stockfish-mv.wasm: ^0.6.1
@@ -608,6 +610,7 @@ importers:
       flatpickr: 4.6.13
       highcharts: 4.2.5
       hopscotch: 0.3.1
+      howler: 2.2.3
       lichess-pgn-viewer: 1.5.5
       prop-types: 15.8.1
       stockfish-mv.wasm: 0.6.1
@@ -616,6 +619,8 @@ importers:
       stockfish.wasm: 0.10.0
       tablesort: 5.3.0
       zxcvbn: 4.4.2
+    devDependencies:
+      '@types/howler': 2.2.7
 
   ui/storm:
     specifiers:
@@ -2634,6 +2639,10 @@ packages:
       '@types/geojson': 7946.0.10
     dev: false
 
+  /@types/howler/2.2.7:
+    resolution: {integrity: sha512-PEZldwZqJJw1PWRTpupyC7ajVTZA8aHd8nB/Y0n6zRZi5u8ktYDntsHj13ltEiBRqWwF06pASxBEvCTxniG8eA==}
+    dev: true
+
   /@types/istanbul-lib-coverage/2.0.4:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
     dev: false
@@ -3897,6 +3906,10 @@ packages:
 
   /hopscotch/0.3.1:
     resolution: {integrity: sha512-XBvxhh1awi7lWzNP9Os2J8c/Ql66IPKnUn7L3hvqPaEa0Fk2S81mo0n2T/RxE2aNoHitVmn5Bl5C9J63iEWvSw==}
+    dev: false
+
+  /howler/2.2.3:
+    resolution: {integrity: sha512-QM0FFkw0LRX1PR8pNzJVAY25JhIWvbKMBFM4gqk+QdV+kPXOhleWGCB6AiAF/goGjIHK2e/nIElplvjQwhr0jg==}
     dev: false
 
   /html-encoding-sniffer/3.0.0:

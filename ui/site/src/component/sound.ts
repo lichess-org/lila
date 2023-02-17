@@ -1,18 +1,7 @@
 import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
-
-declare class Howl {
-  constructor(opts: { src: string | string[] });
-  volume(vol: number): Howl;
-  play(): number;
-}
-
-interface Howler {
-  ctx: AudioContext;
-}
-
-declare const Howler: Howler;
+import { Howl, Howler } from 'howler';
 
 type Name = string;
 type Path = string;
@@ -67,7 +56,7 @@ const sound: SoundI = new (class {
     }
     const s = this.getOrLoadSound(name, set);
 
-    const doPlay = () => s.volume(this.getVolume() * (volume || 1)).play();
+    const doPlay = () => (s.volume(this.getVolume() * (volume || 1)) as Howl).play();
     if (Howler.ctx?.state === 'suspended') Howler.ctx.resume().then(doPlay);
     else doPlay();
   }

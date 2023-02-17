@@ -23,6 +23,7 @@
     "flatpickr": "^4.6.13",
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
+    "howler": "^2.2.3",
     "lichess-pgn-viewer": "^1.5.5",
     "prop-types": "^15.8.1",
     "stockfish-mv.wasm": "^0.6.1",
@@ -33,7 +34,7 @@
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
-    "deps": "cat ../../public/javascripts/vendor/cash.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/deps.min.js",
+    "deps": "cat ../../public/javascripts/vendor/cash.min.js ./dep/powertip.min.js ./dep/mousetrap.min.js > ../../public/compiled/deps.min.js",
     "compile": "tsc",
     "dev": "tsc",
     "prod": "cat ../../public/compiled/deps.min.js ../../public/compiled/site.min.js > ../../public/compiled/lichess.min.js"
@@ -134,5 +135,8 @@
         "dest": "../../public/vendor/stockfish-nnue.wasm"
       }
     ]
+  },
+  "devDependencies": {
+    "@types/howler": "^2.2.7"
   }
 }
