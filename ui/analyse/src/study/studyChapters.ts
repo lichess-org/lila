@@ -2,6 +2,7 @@ import { prop, Prop, scrollToInnerSelector } from 'common';
 import { bind, dataIcon, iconTag } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
+import Sortable from 'sortablejs';
 import { StudySocketSend } from '../socket';
 import { ctrl as chapterEditForm, StudyChapterEditFormCtrl } from './chapterEditForm';
 import { ctrl as chapterNewForm, StudyChapterNewFormCtrl } from './chapterNewForm';
@@ -95,17 +96,13 @@ export function view(ctrl: StudyCtrl): VNode {
     }
     vData.count = newCount;
     if (canContribute && newCount > 1 && !vData.sortable) {
-      const makeSortable = function () {
-        vData.sortable = window.Sortable.create(el, {
-          draggable: '.draggable',
-          handle: 'ontouchstart' in window ? 'span' : undefined,
-          onSort() {
-            ctrl.chapters.sort(vData.sortable.toArray());
-          },
-        });
-      };
-      if (window.Sortable) makeSortable();
-      else lichess.loadScript('javascripts/vendor/Sortable.min.js').then(makeSortable);
+      vData.sortable = Sortable.create(el, {
+        draggable: '.draggable',
+        handle: 'ontouchstart' in window ? 'span' : undefined,
+        onSort() {
+          ctrl.chapters.sort(vData.sortable.toArray());
+        },
+      });
     }
   }
 

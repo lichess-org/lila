@@ -266,7 +266,6 @@ interface Window {
   readonly Stripe: any;
   readonly Textcomplete: any;
   readonly UserComplete: any;
-  readonly Sortable: any;
   readonly Peer: any;
   readonly Highcharts: any;
   readonly LilaLpv: {

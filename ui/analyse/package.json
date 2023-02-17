@@ -33,6 +33,7 @@
     "nvui": "workspace:*",
     "prop-types": "^15.8.1",
     "snabbdom": "^3.5.1",
+    "sortablejs": "^1.15.0",
     "tree": "workspace:*"
   },
   "scripts": {
@@ -47,5 +48,8 @@
       "src/plugins/nvui.ts": "analysisBoard.nvui",
       "src/plugins/studyTopicForm.ts": "study.topic.form"
     }
+  },
+  "devDependencies": {
+    "@types/sortablejs": "^1.15.0"
   }
 }

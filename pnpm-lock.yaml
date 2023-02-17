@@ -70,6 +70,7 @@ importers:
       '@types/debounce-promise': ^3.1.6
       '@types/highcharts': '=4.2.57'
       '@types/lichess': workspace:*
+      '@types/sortablejs': ^1.15.0
       '@types/yaireo__tagify': ^4.16.0
       '@yaireo/tagify': ^4.17.6
       ceval: workspace:*
@@ -84,6 +85,7 @@ importers:
       nvui: workspace:*
       prop-types: ^15.8.1
       snabbdom: ^3.5.1
+      sortablejs: ^1.15.0
       tree: workspace:*
     dependencies:
       '@badrap/result': 0.2.13
@@ -105,7 +107,10 @@ importers:
       nvui: link:../nvui
       prop-types: 15.8.1
       snabbdom: 3.5.1
+      sortablejs: 1.15.0
       tree: link:../tree
+    devDependencies:
+      '@types/sortablejs': 1.15.0
 
   ui/ceval:
     specifiers:
@@ -2713,6 +2718,10 @@ packages:
   /@types/semver/7.3.13:
     resolution: {integrity: sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==}
     dev: false
+
+  /@types/sortablejs/1.15.0:
+    resolution: {integrity: sha512-qrhtM7M41EhH4tZQTNw2/RJkxllBx3reiJpTbgWCM2Dx0U1sZ6LwKp9lfNln9uqE26ZMKUaPEYaD4rzvOWYtZw==}
+    dev: true
 
   /@types/stack-utils/2.0.1:
     resolution: {integrity: sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==}
@@ -5415,6 +5424,10 @@ packages:
   /snabbdom/3.5.1:
     resolution: {integrity: sha512-wHMNIOjkm/YNE5EM3RCbr/+DVgPg6AqQAX1eOxO46zYNvCXjKP5Y865tqQj3EXnaMBjkxmQA5jFuDpDK/dbfiA==}
     engines: {node: '>=8.3.0'}
+    dev: false
+
+  /sortablejs/1.15.0:
+    resolution: {integrity: sha512-bv9qgVMjUMf89wAvM6AxVvS/4MX3sPeN0+agqShejLU5z5GX4C75ow1O2e5k4L6XItUyAK3gH6AxSbXrOM5e8w==}
     dev: false
 
   /source-map-support/0.5.13:
