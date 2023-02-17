@@ -1,18 +1,22 @@
-.input-move {
-  @extend %flex-center-nowrap;
-  border-bottom: 1px solid if($theme == 'light', $c-border, $c-bg-box);
-  height: fit-content;
-  background: if($theme == 'light', $c-bg-zebra, $c-bg-low);
-  padding: 0.4em;
+$c-bg: if($theme == 'light', $c-bg-zebra, $c-bg-low);
+$c-recording: hsl(6, 86%, 50%);
+$c-recording-hover: hsl(6, 100%, if($theme == 'light', 40%, 60%));
+$c-off: gray;
+$c-off-hover: if($theme == 'light', #444, #aaa);
 
+.input-move {
+  @extend %flex-between-nowrap;
+  border-bottom: 1px solid if($theme == 'light', $c-border, $c-bg-box);
+  height: 44px;
+  background: $c-bg;
+  padding: 8px;
   input {
     @include transition;
-
-    margin-#{$end-direction}: 1rem;
-    padding: 0.4em 0.6em;
+    margin-#{$end-direction}: 8px;
+    padding: 4px 8px;
     border: $border;
-    width: 4em;
-    font-size: 1em;
+    width: 48px;
+    font-size: 14px;
     font-weight: bold;
 
     &.wrong {
@@ -24,36 +28,42 @@
   em {
     color: $c-font-dim;
   }
-
-  .voice-move {
-    @extend %flex-center-nowrap;
-    margin-#{$start-direction}: auto;
-    .spinner {
-      margin-#{$start-direction}: 1em;
-      width: 1.5em;
-      min-width: 1.5em;
-      height: 1.5em;
-      min-height: 1.5em;
-    }
-  }
 }
 
 #voice-move-button {
   font-family: 'lichess';
   cursor: pointer;
-  margin-#{$start-direction}: 0.2em;
-  color: gray;
-  font-size: 20pt;
+  margin-#{$start-direction}: 3px;
+  color: $c-off;
+  font-size: 22px;
   border-width: 0 1px 0 1px;
   border-radius: 0.25em;
   border-style: solid;
   border-color: transparent;
+  &:hover {
+    color: $c-off-hover;
+  }
+}
+#voice-move-button.busy {
+  width: 20px;
+  height: 20px;
+  margin: 4px;
+  line-height: 150%;
+  border-radius: 50%;
+  background: $c-recording;
+  color: $c-bg;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
 }
 
 #voice-move-button.enabled {
-  color: c-dimmer(red);
+  color: $c-recording;
   animation: pulseBorderRed 1s;
   animation-iteration-count: infinite;
+  &:hover {
+    color: $c-recording-hover;
+  }
 }
 
 @keyframes pulseBorderRed {
@@ -61,7 +71,7 @@
     border-color: transparent;
   }
   50% {
-    border-color: c-dimmer(red);
+    border-color: $c-recording;
   }
   100% {
     border-color: transparent;

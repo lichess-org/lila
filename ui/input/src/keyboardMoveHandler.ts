@@ -1,7 +1,7 @@
 import { Submit, SubmitOpts, InputOpts, MoveHandler } from './interfaces';
 import { Dests } from 'chessground/types';
 import { sanWriter, SanToUci } from 'chess';
-import * as util from './util';
+import * as util from './handlerUtil';
 
 export function makeKeyboardHandler(opts: InputOpts): MoveHandler | undefined {
   if (opts.input?.classList.contains('ready')) return;
@@ -20,12 +20,7 @@ export function makeKeyboardHandler(opts: InputOpts): MoveHandler | undefined {
     const foundUci = v.length >= 2 && legalSans && util.sanToUci(v, legalSans);
     const selectedKey = opts.ctrl.hasSelected() || '';
 
-    if (v.length > 0 && 'resign'.startsWith(v.toLowerCase())) {
-      if (v.toLowerCase() === 'resign') {
-        opts.ctrl.resign(true, true);
-        clear();
-      }
-    } else if (legalSans && foundUci) {
+    if (legalSans && foundUci) {
       // ambiguous castle
       if (v.toLowerCase() === 'o-o' && legalSans['O-O-O'] && !submitOpts.force) return;
       // ambiguous promotion
@@ -84,7 +79,6 @@ export function makeKeyboardHandler(opts: InputOpts): MoveHandler | undefined {
   bindKeys(opts, submit, clear);
 
   return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
-    console.log('wtf');
     legalSans = dests && dests.size > 0 ? sanWriter(fen, util.destsToUcis(dests)) : null;
     submit(opts.input?.value || '', {
       isTrusted: true,

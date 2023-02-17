@@ -24,23 +24,20 @@ export function renderMoveCtrl(ctrl: MoveCtrl) {
         ? h('strong', 'Type ? for help')
         : h('strong', 'Press enter to focus')
       : h('strong', ctrl.voice.status),
-    h('div.voice-move', [
-      ctrl.voice.isBusy ? spinner() : null,
-      h('div#voice-move-button', {
-        class: { enabled: ctrl.voice.isRecording },
-        attrs: {
-          role: 'button',
-          style: ctrl.voice.isBusy ? 'color: red;' : '',
-          ...dataIcon(ctrl.voice.isBusy ? '' : ''),
-        },
-        hook: onInsert(el => {
-          ctrl.addHandler(makeVoiceHandler(ctrl));
-          el.addEventListener('click', _ =>
-            ctrl.voice.isRecording || ctrl.voice.isBusy ? ctrl.voice.stop() : ctrl.voice.start()
-          );
-        }),
+    h('a#voice-move-button', {
+      class: { enabled: ctrl.voice.isRecording, busy: ctrl.voice.isBusy },
+      attrs: {
+        role: 'button',
+        ...dataIcon(ctrl.voice.isBusy ? '' : ''),
+      },
+      hook: onInsert(el => {
+        ctrl.addHandler(makeVoiceHandler(ctrl));
+        el.addEventListener('click', _ =>
+          ctrl.voice.isRecording || ctrl.voice.isBusy ? ctrl.voice.stop() : ctrl.voice.start()
+        );
       }),
-    ]),
+    }),
+
     ctrl.helpModalOpen()
       ? snabModal({
           class: 'keyboard-move-help',
