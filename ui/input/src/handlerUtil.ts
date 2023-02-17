@@ -30,18 +30,12 @@ export function sanToUci(san: string, legalSans: SanToUci | undefined): Uci | un
 export function sanCandidates(san: string, legalSans: SanToUci): San[] {
   // replace '=' in promotion moves (#7326)
   const lowered = san.replace('=', '').toLowerCase();
-  return Object.keys(legalSans).filter(function (s) {
-    return s.toLowerCase().startsWith(lowered);
-  });
+  return Object.keys(legalSans).filter(s => s.toLowerCase().startsWith(lowered));
 }
 
 export function destsToUcis(dests: Dests): Uci[] {
   const ucis: string[] = [];
-  for (const [orig, d] of dests) {
-    d.forEach(function (dest) {
-      ucis.push(orig + dest);
-    });
-  }
+  for (const [orig, d] of dests) d.forEach(dest => ucis.push(orig + dest));
   return ucis;
 }
 
@@ -67,19 +61,24 @@ export function readOpponentName(): void {
   lichess.sound.say(opponentName.innerText.split('\n')[0]);
 }
 
-const cmds = ['clock', 'who', 'draw', 'next', 'upv', 'downv', 'resign', 'help', '?'];
-export function nonMoveCommand(cmd: string, ctrl: MoveCtrl, clear?: () => void): boolean {
-  if (!cmds.includes(cmd)) {
-    return cmd.length > 0 && !!cmds.find(c => c.startsWith(cmd.toLowerCase()));
+const commandFunctions: Record<string, (ctrl?: MoveCtrl) => void> = {
+  who: () => readOpponentName(),
+  clock: (ctrl: MoveCtrl) => readClocks(ctrl.clock()),
+  draw: (ctrl: MoveCtrl) => ctrl.draw(),
+  resign: (ctrl: MoveCtrl) => ctrl.resign(true, true),
+  next: (ctrl: MoveCtrl) => ctrl.next?.(),
+  upv: (ctrl: MoveCtrl) => ctrl.vote?.(true),
+  downv: (ctrl: MoveCtrl) => ctrl.vote?.(false),
+  help: (ctrl: MoveCtrl) => ctrl.helpModalOpen(true),
+  '?': (ctrl: MoveCtrl) => ctrl.helpModalOpen(true),
+};
+const commands = Object.keys(commandFunctions);
+
+export function nonMoveCommand(command: string, ctrl: MoveCtrl, clear?: () => void): boolean {
+  if (!commands.includes(command)) {
+    return command.length > 0 && !!commands.find(c => c.startsWith(command.toLowerCase()));
   }
-  if (cmd === 'clock') readClocks(ctrl.clock());
-  else if (cmd === 'who') readOpponentName();
-  else if (cmd === 'draw') ctrl.draw();
-  else if (cmd === 'next') ctrl.next?.();
-  else if (cmd === 'upv') ctrl.vote?.(true);
-  else if (cmd === 'downv') ctrl.vote?.(false);
-  else if (cmd === 'resign') ctrl.resign(true, true);
-  else if (cmd === 'help' || cmd === '?') ctrl.helpModalOpen();
+  commandFunctions[command](ctrl);
   clear?.();
   return true;
 }
