@@ -19,7 +19,8 @@ export function iccfToUci(v: string) {
   return chars.join('');
 }
 
-export function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
+export function sanToUci(san: string, legalSans: SanToUci | undefined): Uci | undefined {
+  if (!legalSans) return;
   if (san in legalSans) return legalSans[san];
   const lowered = san.toLowerCase();
   for (const i in legalSans) if (i.toLowerCase() === lowered) return legalSans[i];
@@ -66,7 +67,7 @@ export function readOpponentName(): void {
   lichess.sound.say(opponentName.innerText.split('\n')[0]);
 }
 
-const cmds = ['clock', 'who', 'draw', 'next', 'upv', 'downv', 'help', '?'];
+const cmds = ['clock', 'who', 'draw', 'next', 'upv', 'downv', 'resign', 'help', '?'];
 export function nonMoveCommand(cmd: string, ctrl: MoveCtrl, clear?: () => void): boolean {
   if (!cmds.includes(cmd)) {
     return cmd.length > 0 && !!cmds.find(c => c.startsWith(cmd.toLowerCase()));
@@ -77,6 +78,7 @@ export function nonMoveCommand(cmd: string, ctrl: MoveCtrl, clear?: () => void):
   else if (cmd === 'next') ctrl.next?.();
   else if (cmd === 'upv') ctrl.vote?.(true);
   else if (cmd === 'downv') ctrl.vote?.(false);
+  else if (cmd === 'resign') ctrl.resign(true, true);
   else if (cmd === 'help' || cmd === '?') ctrl.helpModalOpen();
   clear?.();
   return true;
