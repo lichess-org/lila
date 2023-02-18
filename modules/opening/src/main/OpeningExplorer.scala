@@ -82,7 +82,6 @@ final private class OpeningExplorer(
     ws.url(s"$explorerEndpoint/lichess/history")
       .withQueryStringParameters(
         params ::: List(
-          "since" -> OpeningQuery.firstMonth,
           "until" -> dateFormat.print(nowDate.minusDays(45))
         )*
       )
@@ -115,6 +114,7 @@ final private class OpeningExplorer(
     )
   private def configParameters(config: OpeningConfig) =
     List(
+      "since"   -> OpeningQuery.firstMonth,
       "ratings" -> config.ratings.mkString(","),
       "speeds"  -> config.speeds.map(_.key).mkString(",")
     )
