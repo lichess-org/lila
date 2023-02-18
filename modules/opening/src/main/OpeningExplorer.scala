@@ -17,7 +17,7 @@ final private class OpeningExplorer(
 )(using Executor):
   import OpeningExplorer.*
 
-  private val requestTimeout = 2.seconds
+  private val requestTimeout = 4.seconds
 
   def stats(query: OpeningQuery): Fu[Option[Position]] =
     ws.url(s"$explorerEndpoint/lichess")
