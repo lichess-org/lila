@@ -133,7 +133,7 @@ object Modlog:
   val garbageCollect      = "garbageCollect"
   val streamerDecline     = "streamerDecline"
   val streamerList        = "streamerList"
-  val streamerUnlist      = "streamerunlist"
+  val streamerUnlist      = "streamerUnlist"
   val streamerFeature     = "streamerFeature"   // BC
   val streamerUnfeature   = "streamerUnfeature" // BC
   val streamerTier        = "streamerTier"
