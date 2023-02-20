@@ -21,7 +21,7 @@ object Dependencies {
   val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.22"
   val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "5.2.1" % "compile"
   val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "1.7.0"
-  val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "4.0.2"
+  val galimatias  = "io.mola.galimatias"    % "galimatias"                      % "0.2.1"
   val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.12.0"
   val lettuce     = "io.lettuce"            % "lettuce-core"                    % "6.2.1.RELEASE"
   val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.86.Final" classifier "linux-x86_64"

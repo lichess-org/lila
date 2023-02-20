@@ -273,7 +273,7 @@ lazy val irwin = module("irwin",
 
 lazy val oauth = module("oauth",
   Seq(common, db, user),
-  reactivemongo.bundle
+  Seq(galimatias) ++ reactivemongo.bundle
 )
 
 lazy val security = module("security",
@@ -298,7 +298,7 @@ lazy val study = module("study",
 
 lazy val relay = module("relay",
   Seq(common, study),
-  Seq(scalaUri) ++ flexmark.bundle ++ reactivemongo.bundle
+  Seq(galimatias) ++ flexmark.bundle ++ reactivemongo.bundle
 )
 
 lazy val studySearch = module("studySearch",

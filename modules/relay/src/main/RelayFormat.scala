@@ -1,6 +1,6 @@
 package lila.relay
 
-import io.lemonlabs.uri._
+import io.mola.galimatias.URL
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
@@ -29,18 +29,18 @@ final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(implicit
 
   private def guessFormat(upstream: Upstream): Fu[RelayFormat] = {
 
-    val originalUrl = Url parse upstream.url
+    val originalUrl = URL parse upstream.url
 
-    def guessSingleFile(url: Url): Fu[Option[RelayFormat]] =
+    def guessSingleFile(url: URL): Fu[Option[RelayFormat]] =
       lila.common.Future.find(
         List(
           url.some
         ).flatten.distinct
-      )(looksLikeNotation) dmap2 { (u: Url) =>
+      )(looksLikeNotation) dmap2 { (u: URL) =>
         SingleFile(notationDoc(u))
       }
 
-    def guessManyFiles(url: Url): Fu[Option[RelayFormat]] =
+    def guessManyFiles(url: URL): Fu[Option[RelayFormat]] =
       lila.common.Future.find(
         List(url)
       )(looksLikeJson) flatMap {
@@ -60,7 +60,7 @@ final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(implicit
     logger.info(s"guessed format of $upstream: $format")
   }
 
-  private def httpGet(url: Url): Fu[Option[String]] =
+  private def httpGet(url: URL): Fu[Option[String]] =
     ws.url(url.toString)
       .withRequestTimeout(4.seconds)
       .get()
@@ -73,7 +73,7 @@ final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(implicit
     MultiNotation.split(body, 1).value.headOption ?? { notation =>
       lila.study.NotationImport(notation, Nil).isValid
     }
-  private def looksLikeNotation(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikeNotation }
+  private def looksLikeNotation(url: URL): Fu[Boolean] = httpGet(url).map { _ exists looksLikeNotation }
 
   private def looksLikeJson(body: String): Boolean =
     try {
@@ -81,7 +81,7 @@ final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(implicit
     } catch {
       case _: Exception => false
     }
-  private def looksLikeJson(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikeJson }
+  private def looksLikeJson(url: URL): Fu[Boolean] = httpGet(url).map { _ exists looksLikeJson }
 }
 
 sealed private trait RelayFormat
@@ -94,26 +94,20 @@ private object RelayFormat {
     case object Notation extends DocFormat
   }
 
-  case class Doc(url: Url, format: DocFormat)
+  case class Doc(url: URL, format: DocFormat)
 
-  def jsonDoc(url: Url)     = Doc(url, DocFormat.Json)
-  def notationDoc(url: Url) = Doc(url, DocFormat.Notation)
+  def jsonDoc(url: URL)     = Doc(url, DocFormat.Json)
+  def notationDoc(url: URL) = Doc(url, DocFormat.Notation)
 
   case class SingleFile(doc: Doc) extends RelayFormat
 
   type GameNumberToDoc = Int => Doc
 
-  case class ManyFiles(jsonIndex: Url, game: GameNumberToDoc) extends RelayFormat {
+  case class ManyFiles(jsonIndex: URL, game: GameNumberToDoc) extends RelayFormat {
     override def toString = s"Manyfiles($jsonIndex, ${game(0)})"
   }
 
-  def addPart(url: Url, part: String) = url.withPath(url.path addPart part)
-  def replaceLastPart(url: Url, withPart: String) =
-    if (url.path.isEmpty) addPart(url, withPart)
-    else
-      url.withPath {
-        url.path.withParts {
-          url.path.parts.init :+ withPart
-        }
-      }
+  def addPart(url: URL, part: String)             = url.withPath(s"${url.path}/$part")
+  def replaceLastPart(url: URL, withPart: String) = url.withPath(s"${url.path}/../$withPart")
+
 }

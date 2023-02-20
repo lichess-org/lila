@@ -3,7 +3,8 @@ package lila.relay
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
-import io.lemonlabs.uri.AbsoluteUrl
+import io.mola.galimatias.URL
+import scala.util.Try
 
 import lila.security.Granter
 import lila.user.User
@@ -36,21 +37,24 @@ final class RelayForm {
 
 object RelayForm {
 
-  private def validSource(url: String) =
-    try {
-      AbsoluteUrl
-        .parse(url)
-        .hostOption
-        .exists {
-          _.apexDomain.fold(true) { d =>
-            !blacklist.contains(d)
-          }
-        }
-    } catch {
-      case _: io.lemonlabs.uri.parsing.UriParsingException => false
-    }
+  private def validSource(source: String) =
+    cleanUrl(source).isDefined
 
-  private val blacklist = List(
+  private def cleanUrl(source: String): Option[String] =
+    for {
+      url <- Try(URL.parse(source)).toOption
+      if url.scheme == "http" || url.scheme == "https"
+      host <- Option(url.host).map(_.toString)
+      // prevent common mistakes (not for security)
+      if !blocklist.exists(subdomain(host, _))
+    } yield url.toString.stripSuffix("/")
+
+  private def subdomain(host: String, domain: String) = s".$host".endsWith(s".$domain")
+
+  private val blocklist = List(
+    "localhost",
+    "127.0.0.1",
+    "::1",
     "twitch.tv",
     "twitch.com",
     "youtube.com",
@@ -60,7 +64,6 @@ object RelayForm {
     "google.com",
     "chess.com",
     "vk.com",
-    "localhost",
     "192.168.1.154",
     "chess-results.com",
     "chessgames.com"
@@ -77,13 +80,6 @@ object RelayForm {
       throttle: Option[Int]
   ) {
 
-    def cleanUrl: Option[String] =
-      syncUrl.map { u =>
-        val trimmed = u.trim
-        if (trimmed endsWith "/") trimmed.take(trimmed.size - 1)
-        else trimmed
-      }
-
     def update(relay: Relay, user: User) =
       relay.copy(
         name = name,
@@ -98,7 +94,7 @@ object RelayForm {
 
     def makeSync(user: User) =
       Relay.Sync(
-        upstream = cleanUrl map { u =>
+        upstream = syncUrl.flatMap(cleanUrl) map { u =>
           Relay.Sync.Upstream(u)
         },
         until = none,

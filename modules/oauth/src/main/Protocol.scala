@@ -1,11 +1,13 @@
 package lila.oauth
 
 import java.util.Base64
-import java.net.URLEncoder
+import scala.util.Try
 import cats.data.Validated
 import play.api.libs.json.Json
 import com.roundeights.hasher.Algo
-import io.lemonlabs.uri.AbsoluteUrl
+import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
+
+import lila.common.String.urlencode
 
 object Protocol {
   case class AuthorizationCode(secret: String) extends AnyVal {
@@ -66,22 +68,23 @@ object Protocol {
       }
   }
 
-  case class RedirectUri(value: AbsoluteUrl) extends AnyVal {
-    def clientOrigin =
-      s"${value.scheme}://${value.hostOption.fold("")(_.toStringPunycode)}"
+  case class RedirectUri(value: URL) extends AnyVal {
+    private def host: Option[String] = Option(value.host).map(_.toString)
+
+    // https://github.com/smola/galimatias/issues/72 will be more precise
+    def clientOrigin: String = s"${value.scheme}://${~host}"
+
+    def withoutQuery: String = value.withQuery(null).toString
 
     def error(error: Error, state: Option[State]): String = value
-      .withQueryString(
-        "error"             -> Some(error.error),
-        "error_description" -> Some(error.description),
-        "state"             -> state.map(_.value)
+      .withQuery(
+        s"error=${urlencode(error.error)}&error_description=${urlencode(error.description)}&state=${urlencode(~state.map(_.value))}"
       )
       .toString
 
     def code(code: AuthorizationCode, state: Option[State]): String = value
-      .withQueryString(
-        "code"  -> Some(code.secret),
-        "state" -> state.map(_.value)
+      .withQuery(
+        s"code=${urlencode(code.secret)}&state=${urlencode(~state.map(_.value))}"
       )
       .toString
 
@@ -89,15 +92,16 @@ object Protocol {
   }
   object RedirectUri {
     def from(redirectUri: String): Validated[Error, RedirectUri] =
-      AbsoluteUrl
-        .parseOption(redirectUri)
+      Try {
+        URL.parse(URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance), redirectUri)
+      }.toOption
         .toValid(Error.RedirectUriInvalid)
         .ensure(Error.RedirectSchemeNotAllowed)(url =>
           List("http", "https", "ionic", "capacitor").has(url.scheme)
         )
         .map(RedirectUri.apply)
 
-    def unchecked(trusted: String): RedirectUri = RedirectUri(AbsoluteUrl.parse(trusted))
+    def unchecked(trusted: String): RedirectUri = RedirectUri(URL.parse(trusted))
   }
 
   case class UncheckedRedirectUri(value: String) extends AnyVal
@@ -135,7 +139,7 @@ object Protocol {
     case object CodeVerifierTooShort        extends InvalidRequest("code_verifier too short")
 
     case class InvalidScope(val key: String) extends Error("invalid_scope") {
-      def description = s"invalid scope: ${URLEncoder.encode(key, "UTF-8")}"
+      def description = s"invalid scope: ${urlencode(key)}"
     }
 
     abstract class UnauthorizedClient(val description: String) extends Error("unauthorized_client")

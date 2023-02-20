@@ -1,11 +1,9 @@
 package lila.oauth
 
-import org.joda.time.DateTime
 import play.api.mvc.{ RequestHeader, Result }
 
-import lila.common.{ Bearer, HTTPRequest, Strings }
-import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lila.common.{ Bearer, HTTPRequest }
+import lila.user.UserRepo
 
 final class OAuthServer(
     tokenApi: AccessTokenApi,

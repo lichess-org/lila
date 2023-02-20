@@ -4,7 +4,6 @@ package oAuth
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.user.User
 import lila.oauth.AuthorizationRequest
 
@@ -13,7 +12,9 @@ object authorize {
     views.html.base.layout(
       title = "Authorization",
       moreCss = cssTag("oauth"),
-      moreJs = embedJsUnsafe("""setTimeout(() => $('#oauth-authorize').removeAttr('disabled'), 2000);""")
+      moreJs = embedJsUnsafe(
+        """setTimeout(function(){const el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');el.classList.remove('button')}, 2000);"""
+      )
     ) {
       main(cls := "oauth box box-pad")(
         h1(dataIcon := "a", cls := "text")("Authorize third party"),
@@ -37,13 +38,7 @@ object authorize {
           p(
             "This prompt will redirect to ",
             code(
-              raw(
-                escapeHtmlRaw(prompt.redirectUri.value.toStringPunycode)
-                  .replaceFirst(
-                    prompt.redirectUri.clientOrigin,
-                    strong(prompt.redirectUri.clientOrigin).render
-                  )
-              )
+              prompt.redirectUri.withoutQuery
             )
           ),
           form3.actions(

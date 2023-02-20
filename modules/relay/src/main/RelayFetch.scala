@@ -3,7 +3,7 @@ package lila.relay
 import akka.actor._
 import shogi.format.Tags
 import com.github.blemale.scaffeine.LoadingCache
-import io.lemonlabs.uri.Url
+import io.mola.galimatias.URL
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
@@ -183,7 +183,7 @@ final private class RelayFetch(
     } flatMap RelayFetch.multiNotationToGames.apply
   }
 
-  private def httpGet(url: Url): Fu[String] =
+  private def httpGet(url: URL): Fu[String] =
     ws.url(url.toString)
       .withRequestTimeout(4.seconds)
       .get()
@@ -192,7 +192,7 @@ final private class RelayFetch(
         case res                      => fufail(s"[${res.status}] $url")
       }
 
-  private def httpGetJson[A: Reads](url: Url): Fu[A] =
+  private def httpGetJson[A: Reads](url: URL): Fu[A] =
     for {
       str  <- httpGet(url)
       json <- scala.concurrent.Future(Json parse str) // Json.parse throws exceptions (!)

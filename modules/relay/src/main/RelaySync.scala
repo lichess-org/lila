@@ -148,9 +148,9 @@ final private class RelaySync(
         studyId = study.id,
         name = Chapter.Name(name),
         setup = Chapter.Setup(
-          none,
-          game.variant,
-          shogi.Color.Sente
+          gameId = none,
+          variant = game.variant,
+          orientation = shogi.Color.Sente
         ),
         root = game.root,
         tags = game.tags,
