@@ -10,6 +10,11 @@ export function makeVoiceHandler(ctrl: MoveCtrl): MoveHandler {
     const selectedKey = ctrl.hasSelected() || '';
     const uci = util.sanToUci(v, legalSans);
 
+    if (v.match(util.partialMoveRegex)) {
+      ctrl.voice.partialMove(v);
+      return;
+    }
+
     if (legalSans && v.match(util.fullUciRegex)) {
       ctrl.san(v.slice(0, 2) as Key, v.slice(2) as Key);
     } else if (legalSans && v.match(util.keyRegex)) {
@@ -39,12 +44,15 @@ export function makeVoiceHandler(ctrl: MoveCtrl): MoveHandler {
     }
   }
 
-  function clear() {
-    // we don't do partials yet
-  }
-
   ctrl.voice.addListener('moveHandler', (msgText: string, msgType: MsgType) => {
-    if (msgType === 'command') submit(msgText);
+    if (msgType === 'command' && !!msgText) {
+      if (ctrl.voice.partialMove()) {
+        // include partial move
+        submit(ctrl.voice.partialMove() + msgText);
+        // clear partial move
+        ctrl.voice.partialMove('');
+      } else submit(msgText);
+    }
     ctrl.root.redraw();
   });
 

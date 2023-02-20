@@ -81,6 +81,7 @@ export interface VoiceCtrl {
   readonly isRecording: boolean; // are we recording?
   readonly status: string; // errors, progress, or the most recent voice command
   addListener: (name: string, listener: VoiceListener) => void;
+  partialMove: Prop<string>;
 }
 
 export interface VoskOpts {

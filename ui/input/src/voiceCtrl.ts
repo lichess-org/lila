@@ -1,5 +1,6 @@
 import { VoiceCtrl, VoiceListener, MsgType } from './interfaces';
 import { objectStorage } from 'common/objectStorage';
+import { prop } from 'common';
 
 const speechMap = new Map<string, string>([
   ['a', 'a'],
@@ -21,7 +22,7 @@ const speechMap = new Map<string, string>([
   ['golf', 'g'],
   ['hotel', 'h'],
 
-  // FIDE Phonetic alphabet
+  // FIDE phonetic alphabet
   ['anna', 'a'],
   ['bella', 'b'],
   ['cesar', 'c'],
@@ -90,6 +91,7 @@ export const makeVoiceCtrl = () =>
     busy = false;
     broadcastTimeout: number | undefined;
     listeners = new Map<string, VoiceListener>();
+    partialMove = prop('');
 
     addListener = (name: string, listener: VoiceListener) => this.listeners.set(name, listener);
 
@@ -105,6 +107,7 @@ export const makeVoiceCtrl = () =>
     get isRecording(): boolean {
       return this.mediaStream !== undefined;
     }
+
     stop() {
       this.audioCtx?.close();
       this.download?.abort();
@@ -114,6 +117,7 @@ export const makeVoiceCtrl = () =>
       if (!this.download) this.broadcast('');
       this.download = undefined;
     }
+
     async start(): Promise<void> {
       if (this.isRecording) return;
       let [msgText, msgType] = ['Unknown', 'error' as MsgType];
@@ -156,6 +160,7 @@ export const makeVoiceCtrl = () =>
         this.broadcast(msgText, msgType, 4000);
       }
     }
+
     broadcast(text: string, msgType: MsgType = 'status', forMs = 0) {
       window.clearTimeout(this.broadcastTimeout);
       this.voskStatus = text;
@@ -163,13 +168,15 @@ export const makeVoiceCtrl = () =>
       for (const li of this.listeners.values()) li(encoded, msgType);
       this.broadcastTimeout = forMs > 0 ? window.setTimeout(() => this.broadcast(''), forMs) : undefined;
     }
+
     encode = (text: string) =>
-      speechMap.get(text) ||
+      speechMap.get(text) ??
       text
         .split(' ')
         .flatMap(word => speechMap.get(word))
         .filter(word => word !== undefined)
         .join('');
+
     async downloadModel(emscriptenPath: string): Promise<void> {
       // don't look at this, it's gross.  but we need cancel & progress.
       // trick vosk-browser into using our model by sneaking it into the emscripten IDBFS
