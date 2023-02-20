@@ -35,7 +35,9 @@ export function sanCandidates(san: string, legalSans: SanToUci): San[] {
 
 export function destsToUcis(dests: Dests): Uci[] {
   const ucis: string[] = [];
-  for (const [orig, d] of dests) d.forEach(dest => ucis.push(orig + dest));
+  for (const [orig, destList] of dests) {
+    for (const dest of destList) ucis.push(orig + dest);
+  }
   return ucis;
 }
 
@@ -76,7 +78,7 @@ const commands = Object.keys(commandFunctions);
 
 export function nonMoveCommand(command: string, ctrl: MoveCtrl, clear?: () => void): boolean {
   if (!commands.includes(command)) {
-    return command.length > 0 && !!commands.find(c => c.startsWith(command.toLowerCase()));
+    return command.length > 0 && commands.some(c => c.startsWith(command.toLowerCase()));
   }
   commandFunctions[command](ctrl);
   clear?.();

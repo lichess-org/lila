@@ -49,7 +49,6 @@ export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
       handlers.forEach(h => h(step.fen, cgState.movable.dests, yourMove));
     },
     addHandler(h: MoveHandler) {
-      if (!h) return;
       handlers.add(h);
       h(initFen, cgState.movable.dests);
     },
