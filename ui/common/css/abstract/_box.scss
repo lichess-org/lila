@@ -38,6 +38,9 @@
 %box-neat-top {
   @extend %box-shadow, %box-radius-top;
 }
+%box-neat-bottom {
+  @extend %box-shadow, %box-radius-bottom;
+}
 %box-neat-force {
   @extend %box-shadow, %box-radius-force;
 }
