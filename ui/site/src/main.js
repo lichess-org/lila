@@ -1190,36 +1190,42 @@
     navigator.serviceWorker.register(workerUrl.href, { scope: '/', updateViaCache }).then(reg => {
       const storage = lishogi.storage.make('push-subscribed');
       const vapid = document.body.getAttribute('data-vapid');
-      if (vapid && Notification.permission == 'granted')
-        return reg.pushManager.getSubscription().then(sub => {
-          const resub = parseInt(storage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
-          const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
+      if (vapid && Notification.permission == 'granted') {
+        reg.pushManager.getSubscription().then(sub => {
+          const curKey = sub && sub.options.applicationServerKey;
+          const isNewKey = curKey && btoa(String.fromCharCode.apply(null, new Uint8Array(curKey))) !== vapid;
+          const resub = isNewKey || parseInt(storage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
           if (!sub || resub) {
-            return reg.pushManager
-              .subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: applicationServerKey,
-              })
-              .then(
-                sub =>
-                  fetch('/push/subscribe', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(sub),
-                  }).then(res => {
-                    if (res.ok) storage.set('' + Date.now());
-                    else console.log('submitting push subscription failed', response.statusText);
-                  }),
-                err => {
-                  console.log('push subscribe failed', err.message);
-                  if (sub) sub.unsubscribe();
-                }
-              );
+            const subscribeOptions = {
+              userVisibleOnly: true,
+              applicationServerKey: Uint8Array.from(atob(vapid), c => c.charCodeAt(0)),
+            };
+            (isNewKey
+              ? sub.unsubscribe().then(() => reg.pushManager.subscribe(subscribeOptions))
+              : reg.pushManager.subscribe(subscribeOptions)
+            ).then(
+              sub =>
+                fetch('/push/subscribe', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(sub),
+                }).then(res => {
+                  if (res.ok && !res.redirected) storage.set('' + Date.now());
+                  else sub.unsubscribe();
+                }),
+              err => {
+                console.log('push subscribe failed', err.message);
+                if (sub) sub.unsubscribe();
+              }
+            );
           }
         });
-      else storage.remove();
+      } else {
+        storage.remove();
+        reg.pushManager.getSubscription().then(sub => sub?.unsubscribe());
+      }
     });
   }
 })();
