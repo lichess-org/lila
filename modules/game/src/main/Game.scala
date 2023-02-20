@@ -19,6 +19,8 @@ import chess.{
   Status
 }
 
+import chess.MoveOrDrop.fold
+
 import lila.common.{ Days, Sequence }
 import lila.db.ByteArray
 import lila.rating.{ Perf, PerfType }

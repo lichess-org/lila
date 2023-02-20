@@ -6,6 +6,7 @@ import cats.syntax.all.*
 import chess.format.pgn.{ Dumper, SanStr }
 import chess.format.Uci
 import chess.{ Ply, Drop, Move, Replay, Situation }
+import chess.MoveOrDrop.*
 
 import lila.analyse.{ Analysis, Info }
 import lila.base.LilaException

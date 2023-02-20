@@ -61,7 +61,7 @@ final class ApiMoveStream(
                     black                <- clkBlack.lift((index + clockOffset) >> 1)
                   yield (white, black)
                   queue offer toJson(
-                    Fen writeBoard s.board,
+                    Fen write s,
                     s.color,
                     s.board.history.lastMove.map(_.uci),
                     clk
@@ -88,7 +88,7 @@ final class ApiMoveStream(
     }
   end apply
 
-  private def toJson(game: Game, fen: BoardFen, lastMoveUci: Option[String]): JsObject =
+  private def toJson(game: Game, fen: Fen.Epd, lastMoveUci: Option[String]): JsObject =
     toJson(
       fen,
       game.turnColor,
@@ -99,14 +99,14 @@ final class ApiMoveStream(
     )
 
   private def toJson(
-      fen: BoardFen,
+      fen: Fen.Epd,
       turnColor: Color,
       lastMoveUci: Option[String],
       clock: Option[PairOf[Centis]]
   ): JsObject =
     clock.foldLeft(
       Json
-        .obj("fen" -> fen.andColor(turnColor))
+        .obj("fen" -> fen)
         .add("lm" -> lastMoveUci)
     ) { (js, clk) =>
       js ++ Json.obj("wc" -> clk._1.roundSeconds, "bc" -> clk._2.roundSeconds)
