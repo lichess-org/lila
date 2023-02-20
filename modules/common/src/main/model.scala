@@ -19,6 +19,14 @@ object AssetVersion {
 
 case class IsMobile(value: Boolean) extends AnyVal with BooleanValue
 
+case class Bearer(secret: String) extends AnyVal {
+  override def toString = "Bearer(***)"
+}
+object Bearer {
+  def random()         = Bearer(s"lio_${lila.common.ThreadLocalRandom.nextString(32)}")
+  def randomPersonal() = Bearer(s"lip_${lila.common.ThreadLocalRandom.nextString(20)}")
+}
+
 case class IpAddress(value: String) extends AnyVal with StringValue
 
 object IpAddress {

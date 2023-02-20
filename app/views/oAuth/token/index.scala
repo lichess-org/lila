@@ -52,7 +52,7 @@ object index {
                 br,
                 "You won’t be able to see it again!"
               ),
-              code(token.id.value)
+              code(token.plain.secret)
             )
           )
         },

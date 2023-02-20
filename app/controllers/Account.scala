@@ -330,10 +330,21 @@ final class Account(
 
   def security =
     Auth { implicit ctx => me =>
-      env.security.api.dedup(me.id, ctx.req) >>
-        env.security.api.locatedOpenSessions(me.id, 50) map { sessions =>
-          Ok(html.account.security(me, sessions, currentSessionId))
-        }
+      for {
+        _                    <- env.security.api.dedup(me.id, ctx.req)
+        sessions             <- env.security.api.locatedOpenSessions(me.id, 50)
+        clients              <- env.oAuth.tokenApi.listClients(me, 50)
+        personalAccessTokens <- env.oAuth.tokenApi.countPersonal(me)
+      } yield Ok(
+        html.account
+          .security(
+            me,
+            sessions,
+            currentSessionId,
+            clients,
+            personalAccessTokens
+          )
+      )
     }
 
   def signout(sessionId: String) =

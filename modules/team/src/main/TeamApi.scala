@@ -115,22 +115,6 @@ final class TeamApi(
       }
     }
 
-  def joinApi(
-      teamId: Team.ID,
-      me: User,
-      oAuthAppOwner: Option[User.ID],
-      msg: Option[String]
-  ): Fu[Option[Requesting]] =
-    teamRepo.coll.byId[Team](teamId) flatMap {
-      _ ?? { team =>
-        if (team.open || oAuthAppOwner.contains(team.createdBy)) doJoin(team, me) inject Joined(team).some
-        else
-          msg.fold(fuccess[Option[Requesting]](Motivate(team).some)) { txt =>
-            createRequest(team, me, txt) inject Joined(team).some
-          }
-      }
-    }
-
   def requestable(teamId: Team.ID, user: User): Fu[Option[Team]] =
     for {
       teamOption <- teamRepo.coll.byId[Team](teamId)

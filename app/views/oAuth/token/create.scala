@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate._
 
 object create {
 
-  def apply(form: Form[lila.oauth.OAuthForm.token.Data], me: lila.user.User)(implicit ctx: Context) = {
+  def apply(form: Form[lila.oauth.OAuthTokenForm.Data], me: lila.user.User)(implicit ctx: Context) = {
 
     val title = "New personal API access token"
 
@@ -30,7 +30,7 @@ object create {
           br,
           h2("Scopes define the access for personal tokens:"),
           div(cls := "scopes")(
-            lila.oauth.OAuthScope.all.map { scope =>
+            lila.oauth.OAuthScope.allButWeb.map { scope =>
               val disabled = {
                 me.noBot && scope == lila.oauth.OAuthScope.Bot.Play && me.count.game > 0
               } || {

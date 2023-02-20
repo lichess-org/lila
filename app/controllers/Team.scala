@@ -274,9 +274,7 @@ final class Team(
             .fold(
               newJsonFormError,
               msg =>
-                env.oAuth.server.fetchAppAuthor(req) flatMap {
-                  api.joinApi(id, me, _, msg)
-                } flatMap {
+                api.join(id, me, msg) flatMap {
                   case Some(Joined(_)) => jsonOkResult.fuccess
                   case Some(Motivate(_)) =>
                     Forbidden(

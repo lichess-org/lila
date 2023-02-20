@@ -9,12 +9,11 @@ import play.api.mvc.RequestHeader
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 import scala.annotation.nowarn
-import scala.concurrent.duration._
 
 import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import lila.oauth.{ AccessToken, OAuthServer }
+import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.user.{ User, UserRepo }
 import User.LoginCandidate
 
@@ -25,7 +24,7 @@ final class SecurityApi(
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
-    tryOauthServer: lila.oauth.OAuthServer.Try,
+    oAuthServer: OAuthServer,
     tor: Tor
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -114,26 +113,17 @@ final class SecurityApi(
 
   def oauthScoped(
       req: RequestHeader,
-      scopes: List[lila.oauth.OAuthScope],
-      retries: Int = 2
-  ): Fu[lila.oauth.OAuthServer.AuthResult] =
-    tryOauthServer().flatMap {
-      case None if retries > 0 =>
-        lila.common.Future.delay(2 seconds) {
-          oauthScoped(req, scopes, retries - 1)
-        }
-      case None         => fuccess(Left(OAuthServer.ServerOffline))
-      case Some(server) => server.auth(req, scopes)
-    }
-
-  def oauthScoped(
-      tokenId: AccessToken.Id,
       scopes: List[lila.oauth.OAuthScope]
   ): Fu[lila.oauth.OAuthServer.AuthResult] =
-    tryOauthServer().flatMap {
-      case None         => fuccess(Left(OAuthServer.ServerOffline))
-      case Some(server) => server.auth(tokenId, scopes)
-    }
+    oAuthServer.auth(req, scopes) map { _ map stripRolesOfOAuthUser }
+
+  private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
+    // if (scoped.scopes has OAuthScope.Web.Mod) scoped else
+    scoped.copy(user = stripRolesOfUser(scoped.user))
+
+  private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
+
+  private def stripRolesOfUser(user: User) = user.copy(roles = user.roles.filter(nonModRoles.contains))
 
   def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =
     store.openSessions(userId, nb) map {
