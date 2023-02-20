@@ -17,7 +17,10 @@ const closestLegalUci = (input: string, legalSans?: SanToUci): Uci | null => {
   for (const [key, substitutions] of Object.entries(substitutionsMap)) {
     for (const substitution of substitutions) {
       const substituted = input.replace(key, substitution);
+      // check if after substitution, we have a legal SAN move
       if (legalSans[substituted]) return legalSans[substituted];
+      // check if after substitution, we have a legal UCI move
+      if (substituted.match(util.fullUciRegex)) return substituted;
     }
   }
   return null;
