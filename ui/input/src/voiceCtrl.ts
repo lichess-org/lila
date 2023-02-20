@@ -1,6 +1,7 @@
 import { VoiceCtrl, VoiceListener, MsgType } from './interfaces';
 import { objectStorage } from 'common/objectStorage';
 import { prop } from 'common';
+import { pieceCharToRole } from './util';
 
 const speechMap = new Map<string, string>([
   ['a', 'a'],
@@ -164,7 +165,7 @@ export const makeVoiceCtrl = () =>
 
     broadcast(text: string, msgType: MsgType = 'status', forMs = 0) {
       window.clearTimeout(this.broadcastTimeout);
-      this.voskStatus = text;
+      this.voskStatus = this.partialMove() ? `${pieceCharToRole[this.partialMove()]}... ${text}` : text;
       const encoded = msgType === 'command' ? this.encode(text) : text;
       for (const li of this.listeners.values()) li(encoded, msgType);
       this.broadcastTimeout = forMs > 0 ? window.setTimeout(() => this.broadcast(''), forMs) : undefined;

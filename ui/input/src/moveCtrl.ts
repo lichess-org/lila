@@ -3,6 +3,7 @@ import { promote } from 'chess/promotion';
 import { propWithEffect } from 'common';
 import { voiceCtrl } from './main';
 import { RootCtrl, MoveHandler, MoveCtrl } from './interfaces';
+import { pieceCharToRole } from './util';
 
 export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
   const isFocused = propWithEffect(false, root.redraw);
@@ -22,7 +23,7 @@ export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
   }
   return {
     drop(key, piece) {
-      const role = sanToRole[piece];
+      const role = pieceCharToRole[piece];
       const crazyData = root.data.crazyhouse;
       const color = root.data.player.color;
       // Crazyhouse not set up properly
@@ -37,7 +38,7 @@ export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
       root.sendNewPiece(role, key, false);
     },
     promote(orig, dest, piece) {
-      const role = sanToRole[piece];
+      const role = pieceCharToRole[piece];
       const variant = root.data.game.variant.key;
       if (!role || role == 'pawn' || (role == 'king' && variant !== 'antichess')) return;
       root.chessground.cancelMove();
@@ -80,13 +81,3 @@ export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
     root,
   };
 }
-
-const sanToRole: { [key: string]: cg.Role } = {
-  // TODO: use functionality available elsewhere or find a better place for this
-  P: 'pawn',
-  N: 'knight',
-  B: 'bishop',
-  R: 'rook',
-  Q: 'queen',
-  K: 'king',
-};
