@@ -445,8 +445,8 @@ final class Study(
         _.fold(notFound) { case WithChapter(study, chapter) =>
           CanViewResult(study) {
             lila.mon.notation.studyChapter.increment()
-            val flags = requestNotationFlags(ctx.req, csa)
-            val content = env.study.notationDump.ofChapter(study, flags)(chapter).toString
+            val flags          = requestNotationFlags(ctx.req, csa)
+            val content        = env.study.notationDump.ofChapter(study, flags)(chapter).toString
             val contentEncoded = if (flags.shiftJis) content.getBytes("Shift-JIS") else content.getBytes
             Ok(contentEncoded)
               .withHeaders(

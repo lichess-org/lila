@@ -47,7 +47,8 @@ final class Game(
         )
         env.api.gameApiV2.exportOne(game, config) flatMap { content =>
           env.api.gameApiV2.filename(game, config) map { filename =>
-            val contentEncoded = if (config.flags.shiftJis) content.getBytes("Shift-JIS") else content.getBytes
+            val contentEncoded =
+              if (config.flags.shiftJis) content.getBytes("Shift-JIS") else content.getBytes
             Ok(contentEncoded)
               .withHeaders(
                 CONTENT_DISPOSITION -> s"attachment; filename=$filename"
