@@ -1,9 +1,8 @@
-import { Ctrl } from '../interfaces';
+import { Status } from '../interfaces';
 
-export default function status(ctrl: Ctrl): string {
-  const noarg = ctrl.trans.noarg,
-    d = ctrl.data;
-  switch (d.game.status.name) {
+export default function status(status: Status, winner: Color | undefined, trans: Trans): string {
+  const noarg = trans.noarg;
+  switch (status.name) {
     case 'started':
       return noarg('playingRightNow');
     case 'aborted':
@@ -11,7 +10,7 @@ export default function status(ctrl: Ctrl): string {
     case 'mate':
       return noarg('checkmate');
     case 'resign':
-      return noarg(d.game.winner == 'sente' ? 'whiteResigned' : 'blackResigned');
+      return noarg(winner == 'sente' ? 'whiteResigned' : 'blackResigned');
     case 'stalemate':
       return noarg('stalemate');
     case 'impasse27':
@@ -21,19 +20,20 @@ export default function status(ctrl: Ctrl): string {
     case 'perpetualCheck':
       return noarg('perpetualCheck');
     case 'timeout':
-      switch (d.game.winner) {
+      switch (winner) {
         case 'sente':
           return noarg('whiteLeftTheGame');
         case 'gote':
           return noarg('blackLeftTheGame');
+        default:
+          return noarg('draw');
       }
-      return noarg('draw');
     case 'draw':
       return noarg('draw');
     case 'outoftime':
       return noarg('timeOut');
     case 'noStart':
-      return (d.game.winner == 'sente' ? 'Gote' : 'Sente') + " didn't move";
+      return (winner == 'sente' ? 'Gote' : 'Sente') + " didn't move";
     case 'cheat':
       return noarg('cheatDetected');
     case 'unknownFinish':
@@ -43,6 +43,6 @@ export default function status(ctrl: Ctrl): string {
     case 'bareKing':
       return noarg('bareKing');
     default:
-      return d.game.status.name;
+      return status.name;
   }
 }
