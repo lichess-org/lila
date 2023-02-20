@@ -420,11 +420,11 @@ lishogi.escapeHtml = function (str) {
         .replace(/"/g, '&quot;')
     : str;
 };
-$.modal = function (html, cls, onClose) {
+$.modal = function (html, cls, onClose, withDataAndEvents) {
   $.modal.close();
   if (!html.clone) html = $('<div>' + html + '</div>');
   var $wrap = $('<div id="modal-wrap">')
-    .html(html.clone().removeClass('none'))
+    .html(html.clone(withDataAndEvents).removeClass('none'))
     .prepend('<span class="close" data-icon="L"></span>');
   var $overlay = $('<div id="modal-overlay">').addClass(cls).data('onClose', onClose).html($wrap);
   $wrap.find('.close').on('click', $.modal.close);
