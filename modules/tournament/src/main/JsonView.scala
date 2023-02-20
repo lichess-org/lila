@@ -498,6 +498,7 @@ object JsonView:
         .add("performance" -> player.performanceOption)
         .add("team" -> player.team)
         .add("sheet", sheet.map(sheetJson(streakFire = false, withScores = true)))
+        .add("nbGames", sheet.map(_.scores.size))
   }
 
   def playerJson(
