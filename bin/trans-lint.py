@@ -127,7 +127,7 @@ def lint_string(ctx, dest, source, allow_missing=0):
         if source.count(placeholder) < 1:
             ctx.error(f"unexpected {placeholder}")
 
-    for pattern in ["SFEN", "CSA", "USI"]:
+    for pattern in ["SFEN", "CSA", "USI", "lishogi"]:
         m_source = source if pattern.isupper() else source.lower()
         m_dest = dest if pattern.isupper() else dest.lower()
         if pattern in m_source and pattern not in m_dest:
