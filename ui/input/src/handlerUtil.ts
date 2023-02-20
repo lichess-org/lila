@@ -11,6 +11,7 @@ export const ambiguousPromotionCaptureRegex = /^([a-h][27]?x?)?[a-h](1|8)=?$/;
 export const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
 export const iccfRegex = /^[1-8][1-8]?[1-5]?$/;
 export const partialMoveRegex = /^[BNRQK]$/;
+export const cancelRegex = /cancel/;
 
 export function iccfToUci(v: string) {
   const chars = v.split('');

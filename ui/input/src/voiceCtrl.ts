@@ -68,6 +68,7 @@ const speechMap = new Map<string, string>([
 
   // Command words
   ['help', '?'],
+  ['cancel', 'cancel'],
   ['next', 'next'],
   ['continue', 'next'],
   ['next puzzle', 'next'],

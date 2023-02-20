@@ -14,6 +14,10 @@ export function makeVoiceHandler(ctrl: MoveCtrl): MoveHandler {
       ctrl.voice.partialMove(v);
       return;
     }
+    if (v.match(util.cancelRegex)) {
+      ctrl.voice.partialMove('');
+      return;
+    }
 
     if (legalSans && v.match(util.fullUciRegex)) {
       ctrl.san(v.slice(0, 2) as Key, v.slice(2) as Key);
