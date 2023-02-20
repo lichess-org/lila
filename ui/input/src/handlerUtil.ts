@@ -71,6 +71,7 @@ const commandFunctions: Record<string, (ctrl?: MoveCtrl) => void> = {
   draw: (ctrl: MoveCtrl) => ctrl.draw(),
   resign: (ctrl: MoveCtrl) => ctrl.resign(true, true),
   next: (ctrl: MoveCtrl) => ctrl.next?.(),
+  takeback: (ctrl: MoveCtrl) => ctrl.takeback?.(),
   upv: (ctrl: MoveCtrl) => ctrl.vote?.(true),
   downv: (ctrl: MoveCtrl) => ctrl.vote?.(false),
   help: (ctrl: MoveCtrl) => ctrl.helpModalOpen(true),

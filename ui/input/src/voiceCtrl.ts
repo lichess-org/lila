@@ -74,6 +74,7 @@ const speechMap = new Map<string, string>([
   ['continue', 'next'],
   ['next puzzle', 'next'],
   ['clock', 'clock'],
+  ['take back', 'takeback'],
   ['draw', 'draw'],
   ['offer draw', 'draw'],
   ['accept draw', 'draw'],
