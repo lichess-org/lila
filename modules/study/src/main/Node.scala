@@ -235,6 +235,7 @@ object Node {
 
   case class GameMainline(
       id: lila.game.Game.ID,
+      part: Int, // if game was partitioned into multiple parts
       variant: Variant,
       usiMoves: Vector[Usi],
       initialSfen: Option[Sfen],
@@ -387,6 +388,7 @@ object Node {
     val order          = "o"
 
     val gameId      = "id"
+    val part        = "pt"
     val variant     = "v"
     val usiMoves    = "um"
     val initialSfen = "is"

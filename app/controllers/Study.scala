@@ -293,9 +293,25 @@ final class Study(
       ctx: Context
   ) =
     env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me) flatMap {
-      _.fold(notFound) { sc =>
-        Redirect(routes.Study.show(sc.study.id.value)).fuccess
+      _.fold(notFound) { s =>
+        Redirect(routes.Study.show(s.id.value)).fuccess
       }
+    }
+
+  def postGameStudy =
+    AuthBody { implicit ctx => me =>
+      implicit val req = ctx.body
+      lila.study.StudyForm.postGameStudy.form
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(err.toString).fuccess,
+          data =>
+            env.study.postGameStudyApi.get(data, me).flatMap { maybeStudyId =>
+              maybeStudyId.fold(
+                BadRequest(jsonError("Game doesn't exists or isn't finished yet")).fuccess
+              )(sid => Redirect(routes.Study.show(sid.value)).fuccess)
+            }
+        )
     }
 
   def delete(id: String) =

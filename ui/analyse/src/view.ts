@@ -1,10 +1,10 @@
 import { view as cevalView } from 'ceval';
 import { defined } from 'common/common';
 import { bindMobileMousedown } from 'common/mobile';
-import { bind, bindNonPassive, dataIcon, onInsert } from 'common/snabbdom';
+import { bind, bindNonPassive, dataIcon, MaybeVNode, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import stepwiseScroll from 'common/wheel';
-import { getPlayer, playable } from 'game';
+import { playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
 import { parseSfen } from 'shogiops/sfen';
@@ -38,18 +38,20 @@ import { render as renderTreeView } from './treeView/treeView';
 
 const li = window.lishogi;
 
-function renderResult(ctrl: AnalyseCtrl): VNode[] {
-  const tags: VNode[] = [];
+function renderResult(ctrl: AnalyseCtrl): MaybeVNode {
+  const render = (status: String, winner?: Color) =>
+    h('div.status', [status, winner ? ', ' + ctrl.trans('xIsVictorious', ctrl.trans(winner)) : null]);
   if (ctrl.data.game.status.id >= 30) {
-    const winner = getPlayer(ctrl.data, ctrl.data.game.winner!);
-    tags.push(
-      h('div.status', [
-        statusView(ctrl),
-        winner ? ', ' + ctrl.trans(winner.color == 'sente' ? 'blackIsVictorious' : 'whiteIsVictorious') : null,
-      ])
+    const status = statusView(ctrl.data.game.status, ctrl.data.game.winner, ctrl.trans);
+    return render(status, ctrl.data.game.winner);
+  } else if (ctrl.study && ctrl.study.data.chapter.setup.endStatus) {
+    const status = statusView(
+      ctrl.study.data.chapter.setup.endStatus.status,
+      ctrl.study.data.chapter.setup.endStatus.winner,
+      ctrl.trans
     );
-  }
-  return tags;
+    return render(status, ctrl.study.data.chapter.setup.endStatus.winner);
+  } else return null;
 }
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
@@ -72,13 +74,11 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
 }
 
 function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
-  return h(
-    'div.analyse__moves.areplay',
-    [
-      ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
-      renderTreeView(ctrl, concealOf),
-    ].concat(renderResult(ctrl))
-  );
+  return h('div.analyse__moves.areplay', [
+    ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
+    renderTreeView(ctrl, concealOf),
+    renderResult(ctrl),
+  ]);
 }
 
 function inputs(ctrl: AnalyseCtrl): VNode | undefined {
@@ -360,6 +360,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
         'comp-off': !ctrl.showComputer(),
         'gauge-on': gaugeOn,
         'has-players': !!playerBars,
+        'post-game': !!ctrl.study?.data.postGameStudy,
         'has-clocks': !!clocks,
         'has-intro': !!intro,
       },

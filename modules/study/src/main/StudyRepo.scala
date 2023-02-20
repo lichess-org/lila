@@ -68,6 +68,11 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
 
   def countByOwner(ownerId: User.ID) = coll(_.countSel(selectOwnerId(ownerId)))
 
+  def byPostGameStudyKey(gameId: lila.game.Game.ID, users: List[User.ID]): Fu[Option[Study]] =
+    coll(
+      _.find($doc("postGameStudy.key" -> encodePostGameStudyKey(gameId, users)), projection.some).one[Study]
+    )
+
   def insert(s: Study): Funit =
     coll {
       _.insert.one {

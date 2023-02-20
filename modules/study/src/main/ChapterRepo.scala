@@ -282,7 +282,8 @@ final class ChapterRepo(
   def countByStudyId(studyId: Study.Id): Fu[Int] =
     coll(_.countSel($studyId(studyId)))
 
-  def insert(s: Chapter): Funit = coll(_.insert one s).void
+  def insert(c: Chapter): Funit           = coll(_.insert one c).void
+  def bulkInsert(cs: Seq[Chapter]): Funit = coll(_.insert many cs).void
 
   def update(c: Chapter): Funit = coll(_.update.one($id(c.id), c)).void
 

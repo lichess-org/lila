@@ -1,0 +1,19 @@
+.post-game {
+  .study__side {
+    .study__members, .study__chapters {
+      border-radius: 0;
+      box-shadow: none;
+    }
+    .game_info {
+      @extend %box-neat-bottom;
+      background-color: $c-bg-box;
+      display: flex;
+      a {
+        padding: 0.8em;
+        flex-grow: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}

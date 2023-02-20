@@ -131,9 +131,10 @@ final private class ChapterMaker(
       studyId = study.id,
       name = name,
       setup = Chapter.Setup(
-        !game.synthetic option game.id,
-        game.variant,
-        data.realOrientation
+        gameId = !game.synthetic option game.id,
+        variant = game.variant,
+        orientation = data.realOrientation,
+        endStatus = Chapter.EndStatus(game.status, game.winnerColor).some
       ),
       root = root,
       tags = KifTags(tags),

@@ -1,4 +1,5 @@
 import { Prop } from 'common/common';
+import { Status } from 'game';
 import { AnalyseData, Redraw } from '../interfaces';
 import { CommentForm } from './commentForm';
 import { DescriptionCtrl } from './description';
@@ -91,6 +92,7 @@ export interface StudyData {
   visibility: 'public' | 'unlisted' | 'private';
   createdAt: number;
   from: string;
+  postGameStudy?: any;
   likes: number;
   isNew?: boolean;
   liked: boolean;
@@ -173,6 +175,10 @@ interface StudyChapterSetup {
     name: string;
   };
   orientation: Color;
+  endStatus?: {
+    status: Status;
+    winner?: Color;
+  };
   fromSfen?: string;
   fromNotation?: string;
 }

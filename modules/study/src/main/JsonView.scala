@@ -96,6 +96,25 @@ final class JsonView(
   implicit private[study] val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>
     Json toJson m.members
   }
+  implicit private[study] val gamePlayersStudyWrites = Writes[Study.GamePlayer] { player =>
+    Json
+      .obj(
+        "playerId" -> player.playerId
+      )
+      .add(
+        "userId" -> player.userId
+      )
+  }
+
+  implicit private[study] val postGameStudyWrites = Writes[Study.PostGameStudy] { pgs =>
+    Json.obj(
+      "gameId" -> pgs.gameId,
+      "players" -> Json.obj(
+        "sente" -> pgs.sentePlayer,
+        "gote"  -> pgs.gotePlayer
+      )
+    )
+  }
 
   implicit private val studyWrites = OWrites[Study] { s =>
     Json
@@ -113,6 +132,7 @@ final class JsonView(
         "likes"              -> s.likes
       )
       .add("isNew" -> s.isNew)
+      .add("postGameStudy" -> s.postGameStudy)
   }
 }
 
@@ -207,7 +227,14 @@ object JsonView {
   implicit val kifTagsWrites = Writes[shogi.format.Tags] { tags =>
     JsArray(tags.value map kifTagWrites.writes)
   }
-  implicit private val chapterSetupWrites = Json.writes[Chapter.Setup]
+  implicit val statusWrites: OWrites[shogi.Status] = OWrites { s =>
+    Json.obj(
+      "id"   -> s.id,
+      "name" -> s.name
+    )
+  }
+  implicit private val chapterEndStatusWrites = Json.writes[Chapter.EndStatus]
+  implicit private val chapterSetupWrites     = Json.writes[Chapter.Setup]
   implicit private[study] val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
     Json.obj("id" -> c._id, "name" -> c.name, "variant" -> c.setup.variant.key)
   }

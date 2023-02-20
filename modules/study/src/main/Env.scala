@@ -72,6 +72,8 @@ final class Env(
 
   lazy val api: StudyApi = wire[StudyApi]
 
+  lazy val postGameStudyApi: PostGameStudyApi = wire[PostGameStudyApi]
+
   lazy val pager = wire[StudyPager]
 
   lazy val multiBoard = wire[StudyMultiBoard]

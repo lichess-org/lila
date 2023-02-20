@@ -13,6 +13,8 @@ import lila.common.Iso
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
+import lila.game.Game
+import lila.user.User
 import lila.tree.Eval
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
@@ -236,6 +238,7 @@ object BSONHandlers {
         val variant = r.get[Variant](F.variant)
         val gm = Node.GameMainline(
           id = r strD F.gameId,
+          part = r intD F.part,
           variant = variant,
           usiMoves = shogi.format.usi.Binary.decodeMoves(
             (r bytesD F.usiMoves).value.toList,
@@ -282,6 +285,7 @@ object BSONHandlers {
         StudyFlatTree.writer.gameRoot(r) appended {
           Path.gameMainlineDbKey -> $doc(
             F.gameId  -> gm.id,
+            F.part    -> gm.part.some.filter(_ > 0),
             F.variant -> gm.variant,
             F.usiMoves -> lila.db.ByteArray {
               shogi.format.usi.Binary.encodeMoves(gm.usiMoves, gm.variant)
@@ -306,9 +310,14 @@ object BSONHandlers {
     t => BSONString(s"${t.name}:${t.value}")
   )
   implicit val tagsHandler = implicitly[BSONHandler[List[Tag]]].as[Tags](Tags.apply, _.value)
-  implicit private val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
-  implicit val ChapterRelayBSONHandler         = Macros.handler[Chapter.Relay]
-  implicit val ChapterServerEvalBSONHandler    = Macros.handler[Chapter.ServerEval]
+  implicit val StatusBSONHandler = quickHandler[shogi.Status](
+    { case BSONInteger(v) => shogi.Status(v).getOrElse(shogi.Status.UnknownFinish) },
+    x => BSONInteger(x.id)
+  )
+  implicit private val ChapterEndStatusBSONHandler = Macros.handler[Chapter.EndStatus]
+  implicit private val ChapterSetupBSONHandler     = Macros.handler[Chapter.Setup]
+  implicit val ChapterRelayBSONHandler             = Macros.handler[Chapter.Relay]
+  implicit val ChapterServerEvalBSONHandler        = Macros.handler[Chapter.ServerEval]
   import Chapter.Ply
   implicit val PlyBSONHandler             = intAnyValHandler[Ply](_.value, Ply.apply)
   implicit val ChapterBSONHandler         = Macros.handler[Chapter]
@@ -340,6 +349,32 @@ object BSONHandlers {
     { case BSONString(v) => Visibility.byKey get v toTry s"Invalid visibility $v" },
     v => BSONString(v.key)
   )
+  def encodePostGameStudyKey(gameId: Game.ID, users: Seq[lila.user.User.ID]): String =
+    s"$gameId;${users.sorted.mkString(";")}"
+  def decodePostGameStudyKey(key: String): (Game.ID, List[User.ID]) = {
+    val split = key.split(";")
+    (~split.headOption, split.drop(1).toList)
+  }
+  implicit private[study] val PostGameStudyBSONHandler = new BSON[Study.PostGameStudy] {
+    def reads(r: Reader) = {
+      val (gameId, users) = decodePostGameStudyKey(r.strD("key"))
+      val sp              = r.strD("sp")
+      val gp              = r.strD("gp")
+      Study.PostGameStudy(
+        gameId = gameId,
+        users = users,
+        sentePlayer = Study.GamePlayer(sp.take(4), sp.drop(4).some.filter(_.nonEmpty)),
+        gotePlayer = Study.GamePlayer(gp.take(4), gp.drop(4).some.filter(_.nonEmpty))
+      )
+    }
+    def writes(w: Writer, pgs: Study.PostGameStudy) =
+      $doc(
+        "key" -> encodePostGameStudyKey(pgs.gameId, pgs.users),
+        "sp"  -> s"${pgs.sentePlayer.playerId}${~pgs.sentePlayer.userId}",
+        "gp"  -> s"${pgs.gotePlayer.playerId}${~pgs.gotePlayer.userId}"
+      )
+  }
+
   import Study.From
   implicit private[study] val FromHandler = tryHandler[From](
     { case BSONString(v) =>

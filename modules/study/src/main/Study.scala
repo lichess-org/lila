@@ -13,6 +13,7 @@ case class Study(
     visibility: Study.Visibility,
     settings: Settings,
     from: Study.From,
+    postGameStudy: Option[Study.PostGameStudy],
     likes: Study.Likes,
     description: Option[String] = None,
     topics: Option[StudyTopics] = None,
@@ -122,6 +123,21 @@ object Study {
       else (5 * math.log(likes.value) + 1).toInt.min(likes.value) * 24
   }
 
+  case class GamePlayer(playerId: lila.game.Player.ID, userId: lila.game.Player.UserId)
+  object GamePlayer {
+    def fromGamePlayer(gp: lila.game.Player) =
+      GamePlayer(gp.id, gp.userId)
+  }
+
+  case class PostGameStudy(
+      gameId: lila.game.Game.ID,
+      users: List[User.ID], // members of study - denormalized
+      sentePlayer: GamePlayer,
+      gotePlayer: GamePlayer
+  ) {
+    def key = s"$gameId;${users.sorted.mkString(";")}"
+  }
+
   sealed trait From
   object From {
     case object Scratch                      extends From
@@ -186,6 +202,33 @@ object Study {
       visibility = Visibility.Public,
       settings = settings | Settings.init,
       from = from,
+      postGameStudy = none,
+      likes = Likes(1),
+      createdAt = DateTime.now,
+      updatedAt = DateTime.now
+    )
+  }
+
+  def makePostGameStudy(
+      game: lila.game.Game,
+      users: List[User.ID]
+  ) = {
+    val memberMap = users.map(u => (u -> StudyMember(u, StudyMember.Role.Write))).toMap
+    Study(
+      _id = makeId,
+      name = Name(s"${game.id} - Post-game study"),
+      members = StudyMembers(memberMap),
+      position = Position.Ref(Chapter.Id(""), Path.root),
+      ownerId = User.lishogiId,
+      visibility = Visibility.Public,
+      settings = Settings.init,
+      from = Study.From.Game(game.id),
+      postGameStudy = PostGameStudy(
+        gameId = game.id,
+        users = users,
+        sentePlayer = Study.GamePlayer.fromGamePlayer(game.sentePlayer),
+        gotePlayer = Study.GamePlayer.fromGamePlayer(game.gotePlayer)
+      ).some,
       likes = Likes(1),
       createdAt = DateTime.now,
       updatedAt = DateTime.now

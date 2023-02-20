@@ -22,6 +22,22 @@ object StudyForm {
 
   }
 
+  object postGameStudy {
+
+    lazy val form = Form(
+      mapping(
+        "gameId" -> nonEmptyText,
+        "users"  -> list(nonEmptyText)
+      )(Data.apply)(Data.unapply)
+    )
+
+    case class Data(
+        gameId: String,
+        users: List[String]
+    )
+
+  }
+
   object importGame {
 
     lazy val form = Form(

@@ -216,8 +216,32 @@ export function side(ctrl: StudyCtrl): VNode {
         )
       : null,
   ]);
+  const myColor =
+      ctrl.data.postGameStudy?.players['sente'].userId === ''
+        ? 'sente'
+        : ctrl.data.postGameStudy?.players['gote'].userId === ''
+        ? 'gote'
+        : undefined,
+    me = myColor && ctrl.data.postGameStudy.players[myColor];
+  const gameInfo = !!ctrl.data.postGameStudy
+    ? h('div.game_info', [
+        h('a.button.button-empty', {
+          attrs: {
+            title: ctrl.trans.noarg('backToGame'),
+            href: '/' + ctrl.data.postGameStudy.gameId + (me.playerId || ''),
+            ...dataIcon('i'),
+          },
+        }),
+        h('a.button.button-empty', { attrs: {} }, ctrl.trans.noarg('rematch')),
+        h(
+          'a.button.button-empty',
+          { attrs: { href: '/?hook_like=' + ctrl.data.postGameStudy.gameId } },
+          ctrl.trans.noarg('newOpponent')
+        ),
+      ])
+    : null;
 
-  return h('div.study__side', [tabs, (activeTab === 'members' ? memberView : chapterView)(ctrl)]);
+  return h('div.study__side', [tabs, (activeTab === 'members' ? memberView : chapterView)(ctrl), gameInfo]);
 }
 
 export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): VNode[] {

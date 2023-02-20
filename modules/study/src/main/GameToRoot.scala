@@ -21,6 +21,7 @@ object GameToRoot {
     apply(
       Node.GameMainline(
         id = game.id,
+        part = 0,
         variant = game.variant,
         usiMoves = game.usiMoves,
         initialSfen = game.initialSfen,

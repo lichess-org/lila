@@ -12,7 +12,7 @@ object GameRootCache {
 
   // for games in progress
   private def makeKey(gm: Node.GameMainline): String =
-    s"${gm.id}${gm.usiMoves.size}"
+    s"${gm.id}${gm.usiMoves.size}#${gm.part}"
 
   def apply(gm: Node.GameMainline): Node.Root =
     cache.get(makeKey(gm), _ => GameToRoot(gm))

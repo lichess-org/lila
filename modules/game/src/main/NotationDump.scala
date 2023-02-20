@@ -104,14 +104,14 @@ final class NotationDump(
       csa: Boolean,
       teams: Option[Color.Map[String]] = None
   ): Fu[Tags] =
-    gameLightUsers(game) map { case (wu, bu) =>
+    gameLightUsers(game) map { case (sente, gote) =>
       Tags {
         val imported = game.notationImport flatMap { _.parseNotation }
 
         List(
           Tag(_.Site, gameUrl(game.id)),
-          Tag(_.Sente, player(game.sentePlayer, wu)),
-          Tag(_.Gote, player(game.gotePlayer, bu)),
+          Tag(_.Sente, player(game.sentePlayer, sente)),
+          Tag(_.Gote, player(game.gotePlayer, gote)),
           Tag(_.Sfen, (game.initialSfen | game.variant.initialSfen).value),
           Tag(_.Variant, game.variant.name.capitalize),
           Tag(

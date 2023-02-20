@@ -12,6 +12,7 @@ import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
+import lila.game.Game
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -102,14 +103,26 @@ final class StudyApi(
 
   def members(id: Study.Id): Fu[Option[StudyMembers]] = studyRepo membersById id
 
-  def importGame(data: StudyMaker.ImportGame, user: User): Fu[Option[Study.WithChapter]] =
+  def postGameStudy(gameId: Game.ID, users: List[User.ID]): Fu[Option[Study]] =
+    studyRepo.byPostGameStudyKey(gameId, users).orElse(createPostGameStudy(gameId, users))
+
+  private def createPostGameStudy(gameId: Game.ID, users: List[User.ID]): Fu[Option[Study]] =
+    studyMaker.postGameStudy(gameId, users) flatMap {
+      _ ?? { res =>
+        studyRepo.insert(res.study) >>
+          chapterRepo.bulkInsert(res.chapters) >>-
+          indexStudy(res.study) inject res.study.some
+      }
+    }
+
+  def importGame(data: StudyMaker.ImportGame, user: User): Fu[Option[Study]] =
     (data.form.as match {
       case StudyForm.importGame.AsNewStudy =>
         studyMaker(data, user) flatMap { res =>
           studyRepo.insert(res.study) >>
-            chapterRepo.insert(res.chapter) >>-
+            chapterRepo.bulkInsert(res.chapters) >>-
             indexStudy(res.study) >>-
-            scheduleTimeline(res.study.id) inject res.some
+            scheduleTimeline(res.study.id) inject res.study.some
         }
       case StudyForm.importGame.AsChapterOf(studyId) =>
         byId(studyId) flatMap {
@@ -118,12 +131,12 @@ final class StudyApi(
               studyId = study.id,
               data = data.form.toChapterData,
               sticky = study.settings.sticky
-            )(Who(user.id, Sri(""))) >> byIdWithChapter(studyId)
+            )(Who(user.id, Sri(""))) >> byIdWithChapter(studyId) inject study.some
           case _ => fuccess(none)
         } orElse importGame(data.copy(form = data.form.copy(asStr = none)), user)
     }) addEffect {
-      _ ?? { sc =>
-        Bus.publish(actorApi.StartStudy(sc.study.id), "startStudy")
+      _ ?? { s =>
+        Bus.publish(actorApi.StartStudy(s.id), "startStudy")
       }
     }
 

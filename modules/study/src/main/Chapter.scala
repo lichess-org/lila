@@ -2,7 +2,7 @@ package lila.study
 
 import shogi.format.{ Glyph, Tags }
 import shogi.variant.Variant
-import shogi.{ Centis, Color }
+import shogi.{ Centis, Color, Status }
 import org.joda.time.DateTime
 
 import shogi.opening.FullOpening
@@ -110,10 +110,14 @@ object Chapter {
     def initialPosition = Position.Ref(id, Path.root)
   }
 
+  // for final status comment
+  case class EndStatus(status: Status, winner: Option[Color])
+
   case class Setup(
       gameId: Option[lila.game.Game.ID],
       variant: Variant,
-      orientation: Color,
+      orientation: Color, // post-game study - overriden for players to their color
+      endStatus: Option[EndStatus] = None,
       fromSfen: Boolean = false,
       fromNotation: Boolean = false
   ) {}
