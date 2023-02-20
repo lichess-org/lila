@@ -28,6 +28,8 @@ $mq-not-col3: $mq-not-small;
     'puzzle'
     'leader'
     'winner'
+    'desc'
+    'vars'
     'tours'
     'simuls'
     'forum'
@@ -46,9 +48,11 @@ $mq-not-col3: $mq-not-small;
     grid-template-areas:
       'table  table'
       'app    app'
-      'side   tv'
-      'side   puzzle'
+      'side   side'
+      'tv     puzzle'
       'blog   blog'
+      'desc   desc'
+      'vars   vars'
       'leader winner'
       'tours  tours'
       'simuls simuls'
@@ -67,7 +71,10 @@ $mq-not-col3: $mq-not-small;
       'tv      leader  winner'
       'puzzle  tours   tours'
       'support blog    blog '
-      'about   simuls  simuls'
+      'about   blog    blog '
+      'about   desc    desc'
+      '.       vars    vars'
+      '.       simuls  simuls'
       '. forum forum ';
 
     &__start {
@@ -92,6 +99,8 @@ $mq-not-col3: $mq-not-small;
       'side   app     app    table'
       'tv     leader  winner puzzle'
       'about  blog    blog   support'
+      '.      desc    desc   .'
+      '.      vars    vars   .'
       '.      tours   tours  .'
       '.      simuls  simuls .'
       '.      forum   forum  .';
@@ -120,6 +129,12 @@ $mq-not-col3: $mq-not-small;
   }
   &__tv {
     grid-area: tv;
+  }
+  &__description {
+    grid-area: desc;
+  }
+  &__variants {
+    grid-area: vars;
   }
   &__leaderboard {
     grid-area: leader;

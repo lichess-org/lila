@@ -157,6 +157,8 @@ object home {
           )
         ),
         bits.lastPosts(lastPost),
+        bits.shogiDescription,
+        bits.variants,
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)( // patron
             iconTag(patronIconChar),
