@@ -1877,6 +1877,8 @@ object I18nKeys:
     val `otherWaysToHelp` = I18nKey("faq:otherWaysToHelp")
     val `areThereWebsitesBasedOnLichess` = I18nKey("faq:areThereWebsitesBasedOnLichess")
     val `yesLichessInspiredOtherOpenSourceWebsites` = I18nKey("faq:yesLichessInspiredOtherOpenSourceWebsites")
+    val `keyboardShortcuts` = I18nKey("faq:keyboardShortcuts")
+    val `keyboardShortcutsExplanation` = I18nKey("faq:keyboardShortcutsExplanation")
     val `fairPlay` = I18nKey("faq:fairPlay")
     val `whenAmIEligibleRatinRefund` = I18nKey("faq:whenAmIEligibleRatinRefund")
     val `ratingRefundExplanation` = I18nKey("faq:ratingRefundExplanation")
