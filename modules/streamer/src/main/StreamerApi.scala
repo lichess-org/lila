@@ -86,7 +86,7 @@ final class StreamerApi(
       streamer.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
     } inject modChange(prev, streamer)
 
-  private def modChange(current: Streamer, prev: Streamer): Streamer.ModChange =
+  private def modChange(prev: Streamer, current: Streamer): Streamer.ModChange =
     val list = prev.approval.granted != current.approval.granted option current.approval.granted
     ~list ?? notifyApi.notifyOne(
       current,
