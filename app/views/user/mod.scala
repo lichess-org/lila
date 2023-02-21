@@ -33,7 +33,13 @@ object mod:
       a(href := "#identification_screen")("Identification")
     )
 
-  def actions(u: User, emails: User.Emails, erased: User.Erased, pmPresets: ModPresets)(using
+  def actions(
+      u: User,
+      emails: User.Emails,
+      erased: User.Erased,
+      pmPresets: ModPresets,
+      weakPwdAuth: Option[DateTime]
+  )(using
       ctx: Context
   ): Frag =
     mzSection("actions")(
@@ -217,7 +223,10 @@ object mod:
         emails.previous.map { email =>
           s"Previously $email"
         }
-      )
+      ),
+      weakPwdAuth.filter(_ => isGranted(_.Admin)).map { authDateTime =>
+        span("Login prevented due to weak password: ", momentFromNow(authDateTime))
+      }
     )
 
   def prefs(u: User)(pref: lila.pref.Pref)(implicit ctx: Context) =

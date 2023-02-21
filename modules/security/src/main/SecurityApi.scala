@@ -39,17 +39,18 @@ final class SecurityApi(
     lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength).into[UserStrOrEmail]
   private val loginPasswordMapping = nonEmptyText.transform(ClearPassword(_), _.value)
 
+  // size is ball parked, but is should be big enough to allow for the support to see and answer back
+  private val weakPasswordAuthCache =
+    cacheApi.notLoading[UserId, DateTime](32_768, "security.auth.weakpassord") {
+      _.maximumSize(32_768)
+        .buildAsync()
+    }
+
   lazy val loginForm = Form {
-    val form = tuple(
+    tuple(
       "username" -> usernameOrEmailMapping, // can also be an email
       "password" -> loginPasswordMapping
     )
-    if mode == Mode.Prod then
-      form.verifying(
-        "This password is too easy to guess. Request a password reset email.",
-        (login, pass) => !PasswordCheck.isWeak(pass, login.value)
-      )
-    else form
   }
   def loginFormFilled(login: UserStrOrEmail) = loginForm.fill(login -> ClearPassword(""))
 
@@ -72,6 +73,10 @@ final class SecurityApi(
             Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
           case BlankedPassword =>
             Invalid(Seq(ValidationError("blankedPassword")))
+          case WeakPassword =>
+            Invalid(
+              Seq(ValidationError("This password is too easy to guess. Request a password reset email."))
+            )
           case err => Invalid(Seq(ValidationError(err.toString)))
         }
       })
@@ -88,9 +93,19 @@ final class SecurityApi(
       password: ClearPassword,
       token: Option[String]
   ): LoginCandidate.Result =
-    candidate.fold[LoginCandidate.Result](LoginCandidate.Result.InvalidUsernameOrPassword) {
-      _(User.PasswordAndToken(password, token map User.TotpToken.apply))
+    import LoginCandidate.Result.*
+    candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword) { c =>
+      val result = c(User.PasswordAndToken(password, token map User.TotpToken.apply))
+      if (mode == Mode.Prod && result.success && PasswordCheck.isWeak(password, _str.value)) {
+        weakPasswordAuthCache.put(c.user.id, fuccess(org.joda.time.DateTime.now))
+        WeakPassword
+      } else {
+        result
+      }
     }
+
+  def lastAuthWeakPassword(user: User): Fu[Option[DateTime]] =
+    weakPasswordAuthCache.getIfPresent(user.id).fold(fuccess(none))(_.map(Some(_)))
 
   def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion])(using
       req: RequestHeader
