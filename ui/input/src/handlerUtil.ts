@@ -10,6 +10,8 @@ export const ambiguousPromotionRegex = /^[a-h][27][a-h][18]$/;
 export const ambiguousPromotionCaptureRegex = /^([a-h][27]?x?)?[a-h](1|8)=?$/;
 export const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
 export const iccfRegex = /^[1-8][1-8]?[1-5]?$/;
+export const partialMoveRegex = /^[BNRQK]$/;
+export const cancelRegex = /cancel/;
 
 export function iccfToUci(v: string) {
   const chars = v.split('');
@@ -35,7 +37,9 @@ export function sanCandidates(san: string, legalSans: SanToUci): San[] {
 
 export function destsToUcis(dests: Dests): Uci[] {
   const ucis: string[] = [];
-  for (const [orig, d] of dests) d.forEach(dest => ucis.push(orig + dest));
+  for (const [orig, destList] of dests) {
+    for (const dest of destList) ucis.push(orig + dest);
+  }
   return ucis;
 }
 
@@ -67,6 +71,7 @@ const commandFunctions: Record<string, (ctrl?: MoveCtrl) => void> = {
   draw: (ctrl: MoveCtrl) => ctrl.draw(),
   resign: (ctrl: MoveCtrl) => ctrl.resign(true, true),
   next: (ctrl: MoveCtrl) => ctrl.next?.(),
+  takeback: (ctrl: MoveCtrl) => ctrl.takeback?.(),
   upv: (ctrl: MoveCtrl) => ctrl.vote?.(true),
   downv: (ctrl: MoveCtrl) => ctrl.vote?.(false),
   help: (ctrl: MoveCtrl) => ctrl.helpModalOpen(true),
@@ -76,7 +81,7 @@ const commands = Object.keys(commandFunctions);
 
 export function nonMoveCommand(command: string, ctrl: MoveCtrl, clear?: () => void): boolean {
   if (!commands.includes(command)) {
-    return command.length > 0 && !!commands.find(c => c.startsWith(command.toLowerCase()));
+    return command.length > 0 && commands.some(c => c.startsWith(command.toLowerCase()));
   }
   commandFunctions[command](ctrl);
   clear?.();

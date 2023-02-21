@@ -34,6 +34,7 @@ export interface MoveCtrl {
   draw(): void;
   next(): void;
   vote(v: boolean): void;
+  takeback(): void;
   resign(v: boolean, immediately?: boolean): void;
   helpModalOpen: Prop<boolean>;
   voice: VoiceCtrl; // convenience
@@ -59,6 +60,7 @@ export interface RootCtrl {
   crazyValid?: (role: cg.Role, key: cg.Key) => boolean;
   data: RootData;
   offerDraw?: (v: boolean, immediately?: boolean) => void;
+  takebackYes?: () => void;
   resign?: (v: boolean, immediately?: boolean) => void;
   sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta?: cg.MoveMetadata) => void;
   sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
@@ -81,6 +83,7 @@ export interface VoiceCtrl {
   readonly isRecording: boolean; // are we recording?
   readonly status: string; // errors, progress, or the most recent voice command
   addListener: (name: string, listener: VoiceListener) => void;
+  partialMove: Prop<string>;
 }
 
 export interface VoskOpts {
