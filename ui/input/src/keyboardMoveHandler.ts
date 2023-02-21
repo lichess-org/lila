@@ -80,6 +80,8 @@ export function makeKeyboardHandler(opts: InputOpts): MoveHandler | undefined {
 
   return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
     legalSans = dests && dests.size > 0 ? sanWriter(fen, util.destsToUcis(dests)) : null;
+    if (opts.ctrl.voice.isRecording || opts.ctrl.voice.isBusy) return;
+
     submit(opts.input?.value || '', {
       isTrusted: true,
       yourMove: yourMove,

@@ -84,6 +84,7 @@ export interface VoiceCtrl {
   readonly status: string; // errors, progress, or the most recent voice command
   addListener: (name: string, listener: VoiceListener) => void;
   partialMove: Prop<string>;
+  textInput: HTMLInputElement | undefined;
 }
 
 export interface VoskOpts {

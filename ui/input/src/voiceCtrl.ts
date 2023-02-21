@@ -90,6 +90,7 @@ export const makeVoiceCtrl = () =>
     audioCtx: AudioContext | undefined;
     mediaStream: MediaStream | undefined;
     download: XMLHttpRequest | undefined;
+    textInput: HTMLInputElement | undefined;
     voskStatus = '';
     busy = false;
     broadcastTimeout: number | undefined;
@@ -105,6 +106,7 @@ export const makeVoiceCtrl = () =>
       return this.voskStatus;
     }
     set status(status: string) {
+      if (this.textInput) this.textInput.value = status;
       this.voskStatus = status;
     }
     get isRecording(): boolean {
@@ -166,7 +168,7 @@ export const makeVoiceCtrl = () =>
 
     broadcast(text: string, msgType: MsgType = 'status', forMs = 0) {
       window.clearTimeout(this.broadcastTimeout);
-      this.voskStatus = this.partialMove() ? `${pieceCharToRole[this.partialMove()]}... ${text}` : text;
+      this.status = this.partialMove() ? `${pieceCharToRole[this.partialMove()]}... ${text}` : text;
       const encoded = msgType === 'command' ? this.encode(text) : text;
       for (const li of this.listeners.values()) li(encoded, msgType);
       this.broadcastTimeout = forMs > 0 ? window.setTimeout(() => this.broadcast(''), forMs) : undefined;
