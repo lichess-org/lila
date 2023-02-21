@@ -25,7 +25,7 @@ autist(ic|)
 aus?c?hwitz
 bastard?
 be[ea]++t?ch
-biy?t?ch
+b(iy?t?|t)ch
 blow(job|)
 blumpkin
 bollock
@@ -39,6 +39,7 @@ che[ae]t(ing|er|ed|)
 chess(|-|_)bot(.?com)?
 chicken
 chink
+chitter
 clit(oris|)
 clown
 cock(suc?k(er|ing)|)
@@ -174,6 +175,7 @@ wog
 (|на|вы)ебнуть?ся
 аутист
 blyat
+свинья
 Убейся
 p[ie]d[aoe]?r
 uebok
