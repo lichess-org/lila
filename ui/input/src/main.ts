@@ -15,20 +15,11 @@ export const voiceCtrl = makeVoiceCtrl(); // available outside of moveCtrl
 
 export function renderMoveCtrl(ctrl: MoveCtrl) {
   return h('div.input-move', [
-    h('input', {
-      attrs: { spellcheck: 'false', autocomplete: 'off', style: ctrl.root.keyboard ? '' : 'display: none;' },
-      hook: onInsert((input: HTMLInputElement) => ctrl.addHandler(makeKeyboardHandler({ input, ctrl }))),
-    }),
-    ctrl.root.keyboard && !ctrl.voice.isRecording && !ctrl.voice.status
-      ? ctrl.isFocused()
-        ? h('strong', 'Type ? for help')
-        : h('strong', 'Press enter to focus')
-      : h('strong', ctrl.voice.status),
     h('a#voice-move-button', {
       class: { enabled: ctrl.voice.isRecording, busy: ctrl.voice.isBusy },
       attrs: {
         role: 'button',
-        ...dataIcon(ctrl.voice.isBusy ? '' : ''),
+        ...dataIcon(ctrl.voice.isBusy ? '' : ''),
       },
       hook: onInsert(el => {
         ctrl.addHandler(makeVoiceHandler(ctrl));
@@ -37,7 +28,23 @@ export function renderMoveCtrl(ctrl: MoveCtrl) {
         );
       }),
     }),
-
+    h('input#move-text-input', {
+      attrs: {
+        placeholder: ctrl.voice.isRecording
+          ? 'Listening...'
+          : ctrl.isFocused()
+          ? 'Type ? for help'
+          : 'Press enter to focus',
+        spellcheck: 'false',
+        autocomplete: 'off',
+        style: ctrl.root.keyboard ? '' : 'display: none;',
+        disabled: ctrl.voice.isRecording,
+      },
+      hook: onInsert((input: HTMLInputElement) => {
+        ctrl.voice.textInput = input;
+        ctrl.addHandler(makeKeyboardHandler({ input, ctrl }));
+      }),
+    }),
     ctrl.helpModalOpen()
       ? snabModal({
           class: 'keyboard-move-help',

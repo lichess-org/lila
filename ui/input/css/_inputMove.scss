@@ -10,51 +10,46 @@ $c-off-hover: if($theme == 'light', #444, #aaa);
   height: 44px;
   background: $c-bg;
   padding: 8px;
-  input {
-    @include transition;
-    margin-#{$end-direction}: 8px;
-    padding: 4px 8px;
-    border: $border;
-    width: 48px;
-    font-size: 14px;
-    font-weight: bold;
-
-    &.wrong {
-      background: $c-bad;
-      color: $c-bad-over;
-    }
-  }
 
   em {
     color: $c-font-dim;
   }
 }
 
+#move-text-input {
+  @include transition;
+  padding: 8px 8px 8px 36px;
+  border: $border;
+  width: 20em;
+  font-size: 14px;
+  font-weight: bold;
+
+  &.wrong {
+    background: $c-bad;
+    color: $c-bad-over;
+  }
+}
+
 #voice-move-button {
+  position: absolute;
   font-family: 'lichess';
   cursor: pointer;
-  margin-#{$start-direction}: 3px;
+  margin-left: 6px;
   color: $c-off;
   font-size: 22px;
   border-width: 0 1px 0 1px;
   border-radius: 0.25em;
   border-style: solid;
   border-color: transparent;
+  font-weight: bold;
+  text-align: center;
   &:hover {
     color: $c-off-hover;
   }
 }
+
 #voice-move-button.busy {
-  width: 20px;
-  height: 20px;
-  margin: 4px;
-  line-height: 150%;
-  border-radius: 50%;
-  background: $c-recording;
-  color: $c-bg;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: center;
+  color: $c-recording;
 }
 
 #voice-move-button.enabled {
