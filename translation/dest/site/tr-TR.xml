@@ -71,7 +71,7 @@
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
   <string name="forceVariation">Varyant olarak göster</string>
   <string name="move">Hamle</string>
-  <string name="variantLoss">Varyant yenilgisi</string>
+  <string name="variantLoss">Kayıp devam yolu</string>
   <string name="variantWin">Kazanç devam yolu</string>
   <string name="insufficientMaterial">Yetersiz taş</string>
   <string name="pawnMove">Piyon hamlesi</string>
@@ -504,7 +504,7 @@
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>
   <string name="activePlayers">Aktif oyuncular</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Dikkat, oyun puanlı ama suresizdir.</string>
-  <string name="success">Başarı</string>
+  <string name="success">Başarılı</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">Şu anda %s oyun oynanıyor</item>
     <item quantity="other">Şu anda %s oyun oynanıyor</item>
