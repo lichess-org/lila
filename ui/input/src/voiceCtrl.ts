@@ -1,4 +1,4 @@
-import { VoiceCtrl, VoiceListener, MsgType } from './interfaces';
+import { VoiceCtrl, VoiceListener, MsgType, WordResult } from './interfaces';
 import { objectStorage } from 'common/objectStorage';
 import { prop } from 'common';
 import { pieceCharToRole } from './util';
@@ -110,7 +110,7 @@ export const makeVoiceCtrl = () =>
       this.voskStatus = status;
     }
     get isRecording(): boolean {
-      return this.mediaStream !== undefined;
+      return this.mediaStream !== undefined && !this.busy;
     }
 
     stop() {
@@ -133,26 +133,29 @@ export const makeVoiceCtrl = () =>
         const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
         if (!window.LichessVoice) await lichess.loadModule('input.vosk');
 
-        await downloadAsync;
-        const voskNode = await window.LichessVoice.init({
-          speechMap,
-          impl: 'vanilla',
-          audioCtx: (this.audioCtx = new AudioContext({ sampleRate: 48000 })),
-          broadcast: this.broadcast.bind(this),
-          keys: [...speechMap.keys()],
-          url: modelUrl,
-        });
-        if (!this.audioCtx) throw 'Aborted';
         this.mediaStream = await navigator.mediaDevices.getUserMedia({
           video: false,
           audio: {
-            sampleRate: 48000, // vosk small acoustic models are 16kHz but webaudio doesn't like it
-            channelCount: 1,
             echoCancellation: true,
             noiseSuppression: true,
           },
         });
-        this.audioCtx.createMediaStreamSource(this.mediaStream).connect(voskNode!);
+        const sampleRate = this.mediaStream.getAudioTracks()[0].getSettings().sampleRate ?? 48000;
+        this.audioCtx = new AudioContext({ sampleRate });
+        const micSource = this.audioCtx.createMediaStreamSource(this.mediaStream);
+
+        await downloadAsync;
+        await window.LichessVoice.initModel(modelUrl);
+
+        if (!this.audioCtx) throw 'Aborted';
+
+        const voskNode = await window.LichessVoice.initKaldi({
+          audioCtx: this.audioCtx,
+          keys: [...speechMap.keys()],
+          broadcast: this.broadcast.bind(this),
+          impl: 'vanilla',
+        });
+        micSource.connect(voskNode!);
         voskNode.connect(this.audioCtx.destination);
         [msgText, msgType] = ['Listening...', 'status'];
       } catch (e: any) {
@@ -162,11 +165,11 @@ export const makeVoiceCtrl = () =>
         throw e;
       } finally {
         this.busy = false;
-        this.broadcast(msgText, msgType, 4000);
+        this.broadcast(msgText, msgType, undefined, 4000);
       }
     }
 
-    broadcast(text: string, msgType: MsgType = 'status', forMs = 0) {
+    broadcast(text: string, msgType: MsgType = 'status', _: WordResult | undefined = undefined, forMs = 0) {
       window.clearTimeout(this.broadcastTimeout);
       this.status = this.partialMove() ? `${pieceCharToRole[this.partialMove()]}... ${text}` : text;
       const encoded = msgType === 'command' ? this.encode(text) : text;
