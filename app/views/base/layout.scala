@@ -15,10 +15,10 @@ import lila.common.{ ContentSecurityPolicy, Nonce }
 object layout:
 
   object bits:
-    val doctype                      = raw("<!DOCTYPE html>")
-    def htmlTag(implicit lang: Lang) = html(st.lang := lang.code, dir := isRTL.option("rtl"))
-    val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
-    val charset    = raw("""<meta charset="utf-8">""")
+    val doctype                   = raw("<!DOCTYPE html>")
+    def htmlTag(using lang: Lang) = html(st.lang := lang.code, dir := isRTL.option("rtl"))
+    val topComment                = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
+    val charset                   = raw("""<meta charset="utf-8">""")
     val viewport = raw(
       """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
     )
@@ -26,7 +26,7 @@ object layout:
       raw {
         s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
       }
-    def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Frag =
+    def metaCsp(csp: Option[ContentSecurityPolicy])(using ctx: Context): Frag =
       metaCsp(csp getOrElse defaultCsp)
     def metaThemeColor(using ctx: Context): Frag = if (ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) raw {
       s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
@@ -52,7 +52,7 @@ object layout:
         s"""type="$t" """
       )}${crossorigin ?? "crossorigin"}>""")
 
-  private def fontPreload(implicit ctx: Context) = frag(
+  private def fontPreload(using ctx: Context) = frag(
     preload(assetUrl("font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
     preload(
       assetUrl("font/noto-sans-v14-latin-regular.woff2"),
@@ -63,12 +63,12 @@ object layout:
     !ctx.pref.pieceNotationIsLetter option
       preload(assetUrl("font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
   )
-  private def boardPreload(implicit ctx: Context) = frag(
+  private def boardPreload(using ctx: Context) = frag(
     preload(assetUrl(s"images/board/${ctx.currentTheme.file}"), "image", crossorigin = false),
     ctx.pref.is3d option
       preload(assetUrl(s"images/staunton/board/${ctx.currentTheme3d.file}"), "image", crossorigin = false)
   )
-  private def piecesPreload(implicit ctx: Context) =
+  private def piecesPreload(using ctx: Context) =
     env.pieceImageExternal.get() option raw {
       (for {
         c <- List('w', 'b')
@@ -98,7 +98,7 @@ object layout:
           )}" sizes="32x32">"""
       )
   }
-  private def blindModeForm(implicit ctx: Context) =
+  private def blindModeForm(using ctx: Context) =
     raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${
         if (ctx.blind)
           0
@@ -110,7 +110,7 @@ object layout:
         else "Enable"
       } blind mode</button></form>""")
 
-  private def zenZone(implicit ctx: Context) =
+  private def zenZone(using Lang) =
     spaceless(s"""
 <div id="zenzone">
   <a href="/" class="zen-home"></a>
@@ -123,7 +123,7 @@ object layout:
       div(id := "dasher_app", cls := "dropdown")
     )
 
-  private def allNotifications(implicit ctx: Context) =
+  private def allNotifications(using ctx: Context) =
     spaceless(s"""<div>
   <a id="challenge-toggle" class="toggle link">
     <span title="${trans.challenge.challenges
@@ -139,7 +139,7 @@ object layout:
   <div id="notify-app" class="dropdown"></div>
 </div>""")
 
-  private def anonDasher(implicit ctx: Context) =
+  private def anonDasher(using ctx: Context) =
     spaceless {
       s"""<div class="dasher">
   <a class="toggle link anon">
@@ -154,7 +154,7 @@ object layout:
 
   private val clinputLink = a(cls := "link")(span(dataIcon := ""))
 
-  private def clinput(implicit ctx: Context) =
+  private def clinput(using ctx: Context) =
     div(id := "clinput")(
       clinputLink,
       input(
@@ -166,7 +166,7 @@ object layout:
       )
     )
 
-  private def current2dTheme(implicit ctx: Context) =
+  private def current2dTheme(using ctx: Context) =
     if (ctx.pref.is3d && ctx.pref.theme == "horsey") lila.pref.Theme.default
     else ctx.currentTheme
 
@@ -178,7 +178,7 @@ object layout:
         "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
     )
 
-  private def loadScripts(moreJs: Frag, chessground: Boolean)(implicit ctx: Context) =
+  private def loadScripts(moreJs: Frag, chessground: Boolean)(using ctx: Context) =
     frag(
       chessground option chessgroundTag,
       ctx.requiresFingerprint option fingerprintTag,
@@ -198,7 +198,7 @@ object layout:
   private def hrefLang(lang: String, path: String) =
     s"""<link rel="alternate" hreflang="$lang" href="$netBaseUrl$path"/>"""
 
-  private def hrefLangs(path: LangPath)(implicit ctx: Context) = raw {
+  private def hrefLangs(path: LangPath)(using Context) = raw {
     val pathEnd = if (path.value == "/") "" else path.value
     hrefLang("x-default", path.value) + hrefLang("en", path.value) +
       lila.i18n.LangList.popularAlternateLanguageCodes.map { lang =>
@@ -242,10 +242,10 @@ object layout:
       wrapClass: String = "",
       atomLinkTag: Option[Tag] = None,
       withHrefLangs: Option[LangPath] = None
-  )(body: Frag)(implicit ctx: Context): Frag =
+  )(body: Frag)(using ctx: Context): Frag =
     frag(
       doctype,
-      htmlTag(ctx.lang)(
+      htmlTag(using ctx.lang)(
         topComment,
         head(
           charset,
@@ -378,7 +378,7 @@ object layout:
 <label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>"""
     )
 
-    private def reports(implicit ctx: Context) =
+    private def reports(using Context) =
       if (isGranted(_.SeeReport)) {
         blockingReportScores match
           case (score, mid, high) =>
@@ -403,7 +403,7 @@ object layout:
             dataIcon := ""
           )
 
-    private def teamRequests(implicit ctx: Context) =
+    private def teamRequests(using ctx: Context) =
       ctx.teamNbRequests > 0 option
         a(
           cls       := "link data-count link-center",
