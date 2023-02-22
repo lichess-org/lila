@@ -92,10 +92,10 @@ final class Mod(
   def troll(username: UserStr, v: Boolean) =
     OAuthModBody(_.Shadowban) { me =>
       withSuspect(username) { prev =>
-        for {
+        for
           inquiry <- env.report.api.inquiries ofModId me.id
           suspect <- modApi.setTroll(me, prev, v)
-        } yield (inquiry, suspect).some
+        yield (inquiry, suspect).some
       }
     }(ctx =>
       me => { (inquiry, suspect) =>
@@ -106,14 +106,13 @@ final class Mod(
   def warn(username: UserStr, subject: String) =
     OAuthModBody(_.ModMessage) { me =>
       env.mod.presets.getPmPresets(me.user).named(subject) ?? { preset =>
-        withSuspect(username) { prev =>
-          for {
+        withSuspect(username) { suspect =>
+          for
             inquiry <- env.report.api.inquiries ofModId me.id
-            suspect <- modApi.setTroll(me, prev, prev.user.marks.troll)
             _       <- env.msg.api.systemPost(suspect.user.id, preset.text)
             _       <- env.mod.logApi.modMessage(me.id into ModId, suspect.user.id, preset.name)
             _       <- preset.isNameClose ?? env.irc.api.nameClosePreset(suspect.user.username)
-          } yield (inquiry, suspect).some
+          yield (inquiry, suspect).some
         }
       }
     }(ctx =>
@@ -597,7 +596,7 @@ final class Mod(
       }
     }
 
-  private def withSuspect[A](username: UserStr)(f: Suspect => Fu[A])(implicit zero: Zero[A]): Fu[A] =
+  private def withSuspect[A: Zero](username: UserStr)(f: Suspect => Fu[A]): Fu[A] =
     env.report.api getSuspect username flatMapz f
 
   private def OAuthMod[A](perm: Permission.Selector)(f: RequestHeader => Holder => Fu[Option[A]])(
