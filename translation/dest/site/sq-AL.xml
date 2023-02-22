@@ -205,8 +205,10 @@
   <string name="forgotPassword">Harruat fjalëkalimin?</string>
   <string name="error.weakPassword">Ky fjalëkalim është tejet i rëndomtë dhe shumë i kollajtë të merret me mend.</string>
   <string name="error.namePassword">Ju lutemi, mos përdorni si fjalëkalim tuajin emrin tuaj të përdoruesit.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Keni përdorur të njëjtin fjalëkalim si në një sajt tjetër dhe ai sajt është komprometuar. Për të garantuar sigurinë e llogarisë tuaj Lichess, na duhet t’ju caktojmë një fjalëkalim të ri. Faleminderit për mirëkuptimin.</string>
   <string name="youAreLeavingLichess">Po ikni nga Lichess</string>
   <string name="neverTypeYourPassword">Mos shtypni kurrë fjalëkalimin tuaj për në Lichess te një sajt tjetër!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Vazhdo te %s</string>
   <string name="passwordSuggestion">Mos caktoni si fjalëkalim diçka të sugjeruar nga dikush tjetër. Do ta përdorin për t’ju grabitur llogarinë tuaj.</string>
   <string name="emailSuggestion">Mos caktoni si adresë email diçka të sugjeruar nga dikush tjetër. Do ta përdorin për t’ju grabitur llogarinë tuaj.</string>
   <string name="emailConfirmHelp">Ndihmë për ripohim email-i</string>
