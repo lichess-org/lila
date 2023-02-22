@@ -15,7 +15,7 @@
   <string name="pgnLetter">Letter (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen Modus</string>
   <string name="showPlayerRatings">Vertoon speler graderings</string>
-  <string name="explainShowPlayerRatings">Dit laat toe om alle graderings weg te steek om te help fokus op die skaak. Spelle kan steeds gegradeer word; dit is slegs oor wat jy kan sien.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Dit laat toe om alle graderings weg te steek om te help fokus op die skaak. Spelle kan steeds gegradeer word; dit is slegs oor wat jy kan sien.</string>
   <string name="displayBoardResizeHandle">Vertoon opsie om bord se groote te verander</string>
   <string name="onlyOnInitialPosition">Slegs by begin posisie</string>
   <string name="blindfoldChess">Blinddoek skaak (onsigbare stukke)</string>
@@ -59,8 +59,9 @@
   <string name="notifyChallenge">Uitdagings</string>
   <string name="notifyTournamentSoon">Toernooi begin binnekort</string>
   <string name="notifyTimeAlarm">Korrespondensietyd raak min</string>
-  <string name="notifyBell">Klok kennisgewing binne Lichess</string>
+  <string name="notifyBell">Klokkie kennisgewing binne Lichess</string>
   <string name="notifyPush">Toetstel kennisgewing wanneer jy nie op Lichess is nie</string>
   <string name="notifyWeb">Blaaier</string>
   <string name="notifyDevice">Toestel</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Klokkie kennisgewing klank</string>
 </resources>

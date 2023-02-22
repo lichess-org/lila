@@ -8,8 +8,8 @@
   <string name="mostChessCourses">Lielākajā daļā šaha literatūras plaši tiek lietota algebriskā notācija.</string>
   <string name="talkToYourChessFriends">Būs vieglāk runāt ar saviem šaha draugiem, jo abi sapratīsiet \"šaha valodu\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Varēsi efektīvāk analizēt spēli, ja nevajadzēs ik reizi meklēt lauciņa nosaukumu.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Uz galdiņa parādās koordinātas, un jums jānoklikšķina uz attiecīgā lauciņa.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Kāds lauciņš tiek izcelts galdiņā, un jums jāievada tā koordinātas (piemēram, \"e4\").</string>
+  <string name="aCoordinateAppears">Uz galdiņa parādās koordinātas, un jums jānoklikšķina uz attiecīgā lauciņa.</string>
+  <string name="aSquareIsHighlightedExplanation">Kāds lauciņš tiek izcelts galdiņā, un jums jāievada tā koordinātas (piemēram, \"e4\").</string>
   <string name="youHaveThirtySeconds">Jums ir 30 sekundes, lai atrastu pēc iespējas vairāk lauciņu!</string>
   <string name="goAsLongAsYouWant">Turpiniet, cik ilgi vēlaties; laika limita nav!</string>
   <string name="showCoordinates">Rādīt koordinātas</string>

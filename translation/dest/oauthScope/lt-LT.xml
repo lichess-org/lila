@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">Naujas asmeninis API prieigos žetonas</string>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Naujas asmeninis API prieigos žetonas</string>
   <string name="tokenGrantsPermission">Žetonas suteikia kitiems žmonėms teisę naudotis jūsų paskyra.</string>
   <string name="carefullySelect">Atidžiai atsirinkite, kas tai gali daryti jūsų vardu.</string>
   <string name="tokenDescription">Žetono aprašymas</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">Ką žetonas gali daryti jūsų vardu:</string>
   <string name="doNotShareIt">Žetonas suteikia prieigą prie jūsų paskyros. NESIDALINKITE juo su niekuo!</string>
   <string name="copyTokenNow">Įsitikinkite, kad nusikopijavote savo asmeninį prieigos žetoną. Daugiau jo neberodysime!</string>
-  <string name="preferenceRead">Skaityti nustatymus</string>
-  <string name="preferenceWrite">Keisti nustatymus</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Skaityti nustatymus</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Keisti nustatymus</string>
   <string name="emailRead">Skaityti pašto adresą</string>
   <string name="challengeRead">Skaityti įeinančius iššūkius</string>
-  <string name="challengeWrite">Siųsti, priimti ir atmesti iššūkius</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Siųsti, priimti ir atmesti iššūkius</string>
   <string name="challengeBulk">Vienu metu sukurti daug partijų su daug žaidėjų</string>
-  <string name="studyRead">Skaityti privačias studijas ir transliacijas</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Skaityti privačias studijas ir transliacijas</string>
   <string name="studyWrite">Kurti, keisti, trinti studijas ir transliacijas</string>
   <string name="tournamentWrite">Kurti, keisti ir prisijungti prie turnyrų</string>
   <string name="racerWrite">Kurti ir prisijungti prie užduočių lenktynių</string>
-  <string name="puzzleRead">Skaityti užduočių veiklą</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Skaityti užduočių veiklą</string>
   <string name="teamRead">Skaityti privačia komandos informaciją</string>
   <string name="teamWrite">Prisijungti ir palikti komandas</string>
   <string name="teamLead">Valdyti komandas, kurioms vadovaujate: siųsti žinutes, išmesti narius</string>

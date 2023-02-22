@@ -62,7 +62,7 @@ Jis apibrėžtas %2$s 3.7 (d) sekcijoje:
 Peržiūrėkite %3$s apie šį ėjimą norėdami jį pasipraktikuoti.</string>
   <string name="goodIntroduction">gerą įžangą</string>
   <string name="lichessTraining">Lichess treniruotes</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Stebėkite IM Eric Rosen atliekantį šachą ir matą %s.</string>
+  <string name="watchIMRosenCheckmate">Stebėkite IM Eric Rosen atliekantį šachą ir matą %s.</string>
   <string name="threefoldRepetition">Trigubas pasikartojimas</string>
   <string name="threefoldRepetitionExplanation">Jei ta pati pozicija įvyksta tris kartus žaidėjai gali skelbti lygiąsias %1$s. Lichess įgyvendina oficialias FIDE taisykles, kokios jos apibrėžtos %2$s straipsnyje 9.2 (d).</string>
   <string name="threefoldRepetitionLowerCase">trigubu pasikartojimu</string>

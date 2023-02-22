@@ -12,7 +12,7 @@
   <string name="pgnLetter">Буква (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Зен режим</string>
   <string name="showPlayerRatings">Покажи го рејтингот на играчите</string>
-  <string name="explainShowPlayerRatings">Ова овозможува да ги скриете сите рангови од веб страницата, со цел да се фокусирате на шахот. Игрите и понатаму ќе бидат рангирани, со ова само нема да можете да ги видите.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Ова овозможува да ги скриете сите рангови од веб страницата, со цел да се фокусирате на шахот. Игрите и понатаму ќе бидат рангирани, со ова само нема да можете да ги видите.</string>
   <string name="displayBoardResizeHandle">Прикажи ја рачката за промена на големината на таблата</string>
   <string name="onlyOnInitialPosition">Само на почетокот на партијата</string>
   <string name="blindfoldChess">Слеп шах (невидливи фигури)</string>

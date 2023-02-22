@@ -12,7 +12,7 @@
   <string name="pgnLetter">Črke (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen način</string>
   <string name="showPlayerRatings">Pokaži igralčeve ratinge</string>
-  <string name="explainShowPlayerRatings">To omogoča skrivanje vseh ratingov na spletnem mestu, da se osredotočite na šah. Igre je še vedno mogoče rangirati, to je samo tisto, kar lahko vidite.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">To omogoča skrivanje vseh ratingov na spletnem mestu, da se osredotočite na šah. Igre je še vedno mogoče rangirati, to je samo tisto, kar lahko vidite.</string>
   <string name="displayBoardResizeHandle">Prikaži ročico za spremembo velikosti šahovnice</string>
   <string name="onlyOnInitialPosition">Samo ob začetni poziciji</string>
   <string name="blindfoldChess">Slepi šah (nevidne figure)</string>
@@ -48,5 +48,5 @@
   <string name="yourPreferencesHaveBeenSaved">Nastavitve so bile shranjene.</string>
   <string name="scrollOnTheBoardToReplayMoves">Pomaknite se po plošči za predvajanje potez</string>
   <string name="correspondenceEmailNotification">Dnevno obvestilo po pošti z naštevanjem vaših korespondenčnih iger</string>
-  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Zvok obvestila zvonca</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Zvok obvestila zvonca</string>
 </resources>

@@ -8,8 +8,8 @@
   <string name="mostChessCourses">Většina šachových kurzů a cvičení velmi často používá algebraickou notaci.</string>
   <string name="talkToYourChessFriends">Snadněji se dorozumíte se svými šachovými přáteli, protože oba budete mluvit \"řečí šachu\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Můžete efektivněji analyzovat partie, pokud nebudete muset neustále hledat jména polí.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Souřadnice se objeví na šachovnici a ty musíš kliknout na odpovídající pole.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Na šachovnici je zvýrazněno pole a ty musíš zadat jeho souřadnice (např. \"e4\").</string>
+  <string name="aCoordinateAppears">Souřadnice se objeví na šachovnici a ty musíš kliknout na odpovídající pole.</string>
+  <string name="aSquareIsHighlightedExplanation">Na šachovnici je zvýrazněno pole a ty musíš zadat jeho souřadnice (např. \"e4\").</string>
   <string name="youHaveThirtySeconds">Máte 30 vteřin, abyste správně určili co nejvíce polí!</string>
   <string name="goAsLongAsYouWant">Jdi jak dlouho chceš, není zde žádný časový limit!</string>
   <string name="showCoordinates">Zobrazit souřadnice</string>

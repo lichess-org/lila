@@ -209,9 +209,10 @@
   <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
   <string name="error.weakPassword">Ez a jelszó rettentő gyakori, és túl könnyű kitalálni.</string>
   <string name="error.namePassword">Kérjük ne használja a felhasználónevét a jelszavának.</string>
-  <string name="blankedPassword">Ugyanezt a jelszót már használta egy másik webhelyen, és az a webhely veszélybe került. A Lichess-fiókjának biztonsága érdekében új jelszót kell megadnia. Köszönjük megértését.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Ugyanezt a jelszót már használta egy másik webhelyen, és az a webhely veszélybe került. A Lichess-fiókjának biztonsága érdekében új jelszót kell megadnia. Köszönjük megértését.</string>
   <string name="youAreLeavingLichess">Elhagyja a Lichess-t</string>
   <string name="neverTypeYourPassword">Soha ne írja be a Lichess jelszavát más oldalon!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Tovább a(z) %s oldalra</string>
   <string name="passwordSuggestion">Ne állítson be olyan jelszót, amit más ajánlott. Arra használhatják, hogy ellopják a fiókját.</string>
   <string name="emailSuggestion">Ne állítson be olyan email címet, amit más ajánlott. Arra használhatják, hogy ellopják a fiókját.</string>
   <string name="emailConfirmHelp">Segítség az e-mail megerősítéshez</string>

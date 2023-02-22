@@ -14,7 +14,7 @@
   <string name="pgnLetter">अक्षर (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">ज़ेन मोड</string>
   <string name="showPlayerRatings">खिलाड़ी की रेटिंग दिखाएं</string>
-  <string name="explainShowPlayerRatings">यह शतरंज पर ध्यान केंद्रित करने में मदद करने के लिए वेबसाइट से सभी रेटिंग छिपाने की अनुमति देता है। खेलों को अभी भी रेट किया जा सकता है, यह केवल इस बारे में है कि आपको क्या देखने को मिलता है।</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">यह शतरंज पर ध्यान केंद्रित करने में मदद करने के लिए वेबसाइट से सभी रेटिंग छिपाने की अनुमति देता है। खेलों को अभी भी रेट किया जा सकता है, यह केवल इस बारे में है कि आपको क्या देखने को मिलता है।</string>
   <string name="displayBoardResizeHandle">बोर्ड आकार परिवर्तन करने वाली मूठ दिखाएं</string>
   <string name="onlyOnInitialPosition">केवल प्रारंभिक स्थिति पर</string>
   <string name="blindfoldChess">अदृश्य शतरंज (अदृश्य मोहरे )</string>

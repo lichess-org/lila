@@ -3,6 +3,24 @@
   <string name="xBlog">%s का ब्लॉग</string>
   <string name="newPost">नया पोस्ट</string>
   <string name="editYourBlogPost">अपनी ब्लॉग पोस्ट को बदलिए</string>
+  <string name="saveDraft">ड्राफट सहेजे</string>
+  <string name="postTitle">पोस्ट शीर्षक</string>
+  <string name="postIntro">पोस्ट परिचय</string>
+  <string name="postBody">पोस्ट बॉडी</string>
+  <string name="drafts">ड्राफट</string>
+  <string name="published">प्रकाशित</string>
+  <string name="createBlogDiscussion">ब्लॉग टिप्पणी सक्षम करें</string>
+  <string name="createBlogDiscussionHelp">एक फॉरम पेज खोला जाएगा ताकि लोग आपके पोस्ट पर टिप्पणी कर सके</string>
+  <string name="publishOnYourBlog">अपने ब्लॉग पर प्रकाशित करे</string>
+  <string name="publishHelp">अगर चेक किया गया, तब यह पोस्ट आपके ब्लॉग में लिस्ट हो जाएगा। अगर नही, तब यह निजी रहेगा, आपके ड्राफट पोस्ट में।</string>
+  <string name="xPublishedY">%1$s ने प्रकाशित किया %2$s</string>
+  <string name="thisPostIsPublished">यह पोस्ट प्रकाशित कर दिया गया</string>
+  <string name="thisIsADraft">यह एक ड्राफट है</string>
+  <string name="moreBlogPostsBy">%s के द्वारा अन्य पोस्ट</string>
+  <string name="noPostsInThisBlogYet">इस ब्लॉग में कोई पोस्ट नही है, अभी तक।</string>
+  <string name="noDrafts">कोई ड्राफट दिखाने के लिए नही है</string>
+  <string name="latestBlogPosts">नवीनतम ब्लॉग पोस्ट</string>
+  <string name="uploadAnImageForYourPost">अपने ब्लॉग के लिए तसवीर पोस्ट करे</string>
   <string name="deleteBlog">इस ब्लॉग पोस्ट को निश्चित रूप से हटाएं</string>
   <string name="deleteImage">चित्र हटाएं</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">निम्नलिखित वेबसाइटों से चित्रों का उपयोग करना सुरक्षित है: </string>

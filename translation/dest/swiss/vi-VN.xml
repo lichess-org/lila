@@ -8,7 +8,7 @@ Xem tất cả %s vòng đấu</item>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s vòng đấu</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="other">%s vòng Thụy Sĩ</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">

@@ -11,7 +11,7 @@
     <item quantity="few">%s kruga</item>
     <item quantity="other">%s krugova</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s Švicarska partija</item>
     <item quantity="few">%s Švicarske partije</item>
     <item quantity="other">%s Švicarskih partija</item>

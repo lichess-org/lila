@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">Neus persönlichs API Passwort</string>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Neus persönlichs API Passwort</string>
   <string name="tokenGrantsPermission">Es Passwort git andere Persone d\'Erlaubnis dis Konto z\'nutze.</string>
   <string name="carefullySelect">Wähl sorgfältig us, was erlaubt isch, under dim Name z\'mache.</string>
   <string name="tokenDescription">Passwort Beschribig</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">Was das Passwort, under dim Name, mache chann:</string>
   <string name="doNotShareIt">Das Passwort erlaubt en Zuegriff uf dis Konto. Gibs also NIE Anderne!</string>
   <string name="copyTokenNow">Kopier unbedingt jetzt dis neui Passwort oder schribs dir uf! Du gsehsch es nachher nümme!</string>
-  <string name="preferenceRead">Preferänze läse</string>
-  <string name="preferenceWrite">Preferänze schribe</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Preferänze läse</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Preferänze schribe</string>
   <string name="emailRead">d\'E-Mail-Adrässe läse</string>
   <string name="challengeRead">iträffendi Useforderige läse</string>
-  <string name="challengeWrite">iträffendi Useforderige schribe</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">iträffendi Useforderige schribe</string>
   <string name="challengeBulk">Für anderi Schpiller viel Schpiel uf eimal erschtelle</string>
-  <string name="studyRead">Privati Schtudie und Sändige läse</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Privati Schtudie und Sändige läse</string>
   <string name="studyWrite">Erschtell, aktualisier, lösch Schtudie und Sändige</string>
   <string name="tournamentWrite">Turnier erschtelle, aktualisiere und biträte</string>
   <string name="racerWrite">Puzzle Racer Ränne erschtelle und biträte</string>
-  <string name="puzzleRead">Ufgabe Aktivitäte läse</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Ufgabe Aktivitäte läse</string>
   <string name="teamRead">Privati Team Infos läse</string>
   <string name="teamWrite">Tritt bi, verlah, und organisier es Team</string>
   <string name="teamLead">Teams, wo du fühersch betreue: persönlichi Nachrichte schicke, Mitglieder usschlüsse</string>

@@ -63,7 +63,7 @@
 ألقِ نظرة على %3$s المتعلقة بهذه الحركة لمزيد من التدرب.</string>
   <string name="goodIntroduction">مقدمة جيدة</string>
   <string name="lichessTraining">التدريب في Lichess</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">شاهد كش مات الأستاذ الدُّوَليّ إريك روزن %s.</string>
+  <string name="watchIMRosenCheckmate">شاهد كش مات الأستاذ الدُّوَليّ إريك روزن %s.</string>
   <string name="threefoldRepetition">تكرار ثلاثي</string>
   <string name="threefoldRepetitionExplanation">إذا تكرر موقف ثلاث مرات يمكن للاعبين إقتراح تعادل ب- %1$s. ينفذ Lichess القواعد الرسمية للاتحاد الدولي للشطرنج، كما هو مبين في المادة 9-2 (د) من القرار %2$s.</string>
   <string name="threefoldRepetitionLowerCase">تكرار ثلاثي</string>

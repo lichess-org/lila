@@ -51,5 +51,5 @@
   <string name="correspondenceEmailNotification">Denný mailový výpis Vašich korešpondenčných partií</string>
   <string name="notifyStreamStart">Streamer začal streamovať</string>
   <string name="notifyInboxMsg">Nová správa</string>
-  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Zvuk upozornenia</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Zvuk upozornenia</string>
 </resources>

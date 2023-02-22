@@ -8,8 +8,8 @@
   <string name="mostChessCourses"> सर्व अभ्यास बिजगणितीय सहनिर्देशक वापरतात.</string>
   <string name="talkToYourChessFriends">सर्वांना \"बुद्धिबळाची भाषा\" माहिती असल्यास मित्रांशी बोलणे सोपे होते.</string>
   <string name="youCanAnalyseAGameMoreEffectively">सहनिर्देशक लगेच ओळखता आले तर खेळाचे विश्लेषण जास्त परिणामकारक होते.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">एक सहनिर्देशक पटावर दिसेल व तुम्हाला संबंधित घरावर क्लिक करावे लागेल.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">पटावर एक घर ठळक केले जाईल व तुम्हाला त्याचा सहनिर्देशक (उदा. \"e4\") भरावा लागेल.</string>
+  <string name="aCoordinateAppears">एक सहनिर्देशक पटावर दिसेल व तुम्हाला संबंधित घरावर क्लिक करावे लागेल.</string>
+  <string name="aSquareIsHighlightedExplanation">पटावर एक घर ठळक केले जाईल व तुम्हाला त्याचा सहनिर्देशक (उदा. \"e4\") भरावा लागेल.</string>
   <string name="youHaveThirtySeconds">तुम्हाला ३० सेकंदात जास्तीतजास्त सहनिर्देशकांसाठी घरे शोधायची आहेत!</string>
   <string name="goAsLongAsYouWant">वेळेची मर्यादा नाही, तुम्हाला हवा तेवढा वेळ वापरा!</string>
   <string name="showCoordinates">सहनिर्देशक दाखवा</string>

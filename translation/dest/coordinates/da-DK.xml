@@ -8,8 +8,8 @@
   <string name="mostChessCourses">De fleste skakkurser og øvelser bruger i vid udstrækning den algebraiske notation.</string>
   <string name="talkToYourChessFriends">Det gør det lettere at snakke med dine skakvenner, når I begge forstår \"skakkens sprog\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Du kan analysere et parti mere effektivt, hvis du ikke skal lede efter feltnavne.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Et koordinat vises på brættet, og du skal klikke på det tilsvarende felt.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Et felt fremhæves på brættet, og du skal indtaste dets koordinat (f.eks. \"e4\").</string>
+  <string name="aCoordinateAppears">Et koordinat vises på brættet, og du skal klikke på det tilsvarende felt.</string>
+  <string name="aSquareIsHighlightedExplanation">Et felt fremhæves på brættet, og du skal indtaste dets koordinat (f.eks. \"e4\").</string>
   <string name="youHaveThirtySeconds">Du har 30 sekunder til at kortlægge så mange felter som muligt!</string>
   <string name="goAsLongAsYouWant">Fortsæt så længe du ønsker, der er ingen tidsbegrænsning!</string>
   <string name="showCoordinates">Vis koordinater</string>

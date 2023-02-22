@@ -8,8 +8,8 @@
   <string name="mostChessCourses">A sakk tanfolyamok és feladványok többnyire az algebrai jelölési rendszert alkalmazzák.</string>
   <string name="talkToYourChessFriends">Könnyebbé teszi a sakk társalgást a barátokkal, ha mindketten beszélik a \"sakk nyelvét\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">A játszmák hatékonyabban elemezhetőek, ha nem kell keresgetni a mezőket.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Kattints arra a mezőre, amelynek a koordinátáját látod!</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Egy mező kijelölődik a táblán és neked kell beírni a koordinátáit (pl. \"e4\").</string>
+  <string name="aCoordinateAppears">Kattints arra a mezőre, amelynek a koordinátáját látod!</string>
+  <string name="aSquareIsHighlightedExplanation">Egy mező kijelölődik a táblán és neked kell beírni a koordinátáit (pl. \"e4\").</string>
   <string name="youHaveThirtySeconds">30 másodperced van helyesen megnevezni annyi mezőt amennyit csak tudsz!</string>
   <string name="goAsLongAsYouWant">Folytasd csak amíg szeretnéd, nincs időkorlát!</string>
   <string name="showCoordinates">Koordináták megjelenítése</string>

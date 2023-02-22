@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Nadzor časa na lichessu temelji na ocenjenem trajanju igre = %1$s
 Na primer, predvideno trajanje igre 5 + 3 je 5 × 60 + 40 × 3 = 420 sekund.</string>
   <string name="durationFormula">(začetni čas ure) + 40 × (prirastek ure)</string>
-  <string name="inferiorThanXsEqualYtimeControl">> %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&gt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">&amp;gt %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Katere različice lahko igram na Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess podpira standardni šah in %1$s.</string>
