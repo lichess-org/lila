@@ -15,7 +15,7 @@
   <string name="pgnLetter">PGN-letter (K, D, T, L, P)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zenmodus</string>
   <string name="showPlayerRatings">Toon de rating van de spelers</string>
-  <string name="explainShowPlayerRatings">Deze instelling zorgt ervoor dat alle ratings op de website verborgen blijven zodat je je kunt concentreren op het schaken. Partijen kunnen nog steeds met rating zijn; dit gaat alleen om wat je te zien krijgt.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Deze instelling zorgt ervoor dat alle ratings op de website verborgen blijven zodat je je kunt concentreren op het schaken. Partijen kunnen nog steeds met rating zijn; dit gaat alleen om wat je te zien krijgt.</string>
   <string name="displayBoardResizeHandle">Toon de knop om het bordformaat te wijzigen</string>
   <string name="onlyOnInitialPosition">Enkel tijdens de beginstelling</string>
   <string name="blindfoldChess">Blindschaak (onzichtbare stukken)</string>
@@ -63,5 +63,5 @@
   <string name="notifyPush">Apparaatmelding wanneer je niet op Lichess bent</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Apparaat</string>
-  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Meldingsgeluid</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Meldingsgeluid</string>
 </resources>
