@@ -6,7 +6,7 @@
     <item quantity="few">Pogledajte sva kola %s</item>
     <item quantity="other">Pogledajte sva kola %s</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s kolo po švicarskom sistemu</item>
     <item quantity="few">%s kola po švicarskom sistemu</item>
     <item quantity="other">%s kola po švicarskom sistemu</item>
