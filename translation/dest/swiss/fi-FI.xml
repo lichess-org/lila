@@ -9,7 +9,7 @@
     <item quantity="one">%s kierrosta</item>
     <item quantity="other">%s kierrosta</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s kierros sveitsiläisellä järjestelmällä</item>
     <item quantity="other">%s kierrosta sveitsiläisellä järjestelmällä</item>
   </plurals>
