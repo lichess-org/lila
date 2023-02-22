@@ -207,6 +207,7 @@
   <string name="email">Имейл</string>
   <string name="passwordReset">Смяна на парола</string>
   <string name="forgotPassword">Забравена парола?</string>
+  <string name="youAreLeavingLichess">Напускате Lichess</string>
   <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Продължи към %s</string>
   <string name="emailConfirmHelp">Помощ за потвърждение на имейл</string>
   <string name="emailConfirmNotReceived">Не сте получили имейл за потвърждение на регистрацията ви?</string>
@@ -839,12 +840,12 @@
   <string name="agreementPolicy">Съгласявам се, че ше спазвам всички правила на Lichess.</string>
   <string name="searchOrStartNewDiscussion">Търси или започни нов разговор</string>
   <string name="edit">Промени</string>
-  <string name="rapid">Ускорен</string>
+  <string name="rapid">Rapid</string>
   <string name="classical">Класически</string>
   <string name="ultraBulletDesc">Изключително бързи игри: под 30 секунди</string>
   <string name="bulletDesc">Много бързи игри: под 3 минути</string>
   <string name="blitzDesc">Бързи игри: 3 до 8 минути</string>
-  <string name="rapidDesc">Ускорен шахмат: 8 до 25 минути</string>
+  <string name="rapidDesc">Ускорен (Rapid) шахмат: 8 до 25 минути</string>
   <string name="classicalDesc">Класически игри: над 25 минути</string>
   <string name="correspondenceDesc">Кореспондентски игри: един или повече дни на ход</string>
   <string name="puzzleDesc">Инструктор шахматни тактики</string>
