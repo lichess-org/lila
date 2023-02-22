@@ -11,7 +11,7 @@
     <item quantity="one">%s raunds</item>
     <item quantity="other">%s raundi</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="zero">Šveices turnīrs ar %s raundiem</item>
     <item quantity="one">Šveices turnīrs ar %s raundu</item>
     <item quantity="other">Šveices turnīrs ar %s raundiem</item>
