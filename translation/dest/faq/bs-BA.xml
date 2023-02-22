@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">drugi načini da pomognete</string>
   <string name="areThereWebsitesBasedOnLichess">Postoje li sajtovi zasnovani na Lichessu?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess je zaista nadahnuo druge sajtove s otvorenim kodom koji upotrebljavaju naš %1$s, %2$s ili %3$s.</string>
+  <string name="keyboardShortcuts">Koje prečice na tastaturi postoje?</string>
+  <string name="keyboardShortcutsExplanation">Za neke stranice na Lichessu postoje prečice na tastaturi. Pritisnite tipku \"?\" na stranicama za analizu, probleme ili partije da se pojavi spisak dostupnih prečica.</string>
   <string name="fairPlay">Fer-plej</string>
   <string name="whenAmIEligibleRatinRefund">Kada imam pravo na automatski povrat rejtinga od varalica?</string>
   <string name="ratingRefundExplanation">Minutu nakon što igrač bude označen uzima se njegovih posljednjih 40 rejtingovanih partija u posljednja tri dana. Ako ste Vi njegov protivnik u tim partijama, ako ste izgubili na rejtingu (zbog poraza ili remija) i ako Vaš rejting nije privremen, dobijete povrat rejtinga. Količina vraćenog rejtinga zasnovana je na Vašem najvišem rejtingu i progresu Vašeg rejtinga nakon date partije.
@@ -60,7 +62,7 @@ Opisan je u odjeljku 3.7 (d) %2$s:
 Pogledajte %3$s koja se odnosi na ovaj potez kako biste ga malo izvježbali.</string>
   <string name="goodIntroduction">dobar uvod</string>
   <string name="lichessTraining">Lichessov trening</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Pogledajte kako IM Eric Rosen matira %s.</string>
+  <string name="watchIMRosenCheckmate">Pogledajte kako IM Eric Rosen matira %s.</string>
   <string name="threefoldRepetition">Trostruko ponavljanje pozicije</string>
   <string name="threefoldRepetitionExplanation">Ako se neka pozicija ponovi tri puta, igrači mogu proglasiti remi zbog %1$s. Lichess primjenjuje službena pravila FIDE, kao što je opisano u članu 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trostruko ponavljanje pozicije</string>
