@@ -414,16 +414,14 @@ final class User(
           .zip(env.playban.api.bans(user.id))
           .map(view.showRageSitAndPlaybans)
 
-        val actions = for {
-          erased      <- env.user.repo.isErased(user)
-          weakPwdAuth <- env.security.api.lastAuthWeakPassword(user)
-        } yield html.user.mod.actions(
-          user,
-          emails,
-          erased,
-          env.mod.presets.getPmPresets(holder.user),
-          weakPwdAuth
-        )
+        val actions = env.user.repo.isErased(user) map { erased =>
+          html.user.mod.actions(
+            user,
+            emails,
+            erased,
+            env.mod.presets.getPmPresets(holder.user)
+          )
+        }
 
         val userLoginsFu = env.security.userLogins(user, nbOthers)
         val others = for {
@@ -470,18 +468,16 @@ final class User(
   protected[controllers] def renderModZoneActions(username: UserStr)(implicit ctx: Context) =
     env.user.repo withEmails username orFail s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
-        for {
-          erased      <- env.user.repo.isErased(user)
-          weakPwdAuth <- env.security.api.lastAuthWeakPassword(user)
-        } yield Ok(
-          html.user.mod.actions(
-            user,
-            emails,
-            erased,
-            env.mod.presets.getPmPresets(ctx.me),
-            weakPwdAuth
+        env.user.repo.isErased(user) map { erased =>
+          Ok(
+            html.user.mod.actions(
+              user,
+              emails,
+              erased,
+              env.mod.presets.getPmPresets(ctx.me)
+            )
           )
-        )
+        }
     }
 
   def writeNote(username: UserStr) =
