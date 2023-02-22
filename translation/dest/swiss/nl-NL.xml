@@ -9,7 +9,7 @@
     <item quantity="one">%s ronde</item>
     <item quantity="other">%s rondes</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s ronde Zwitsers</item>
     <item quantity="other">%s ronden Zwitsers</item>
   </plurals>
