@@ -37,7 +37,7 @@
   <string name="discoveringEnPassant">آیا یک پیاده میتواند یک پیاده دیگر را در حالی که از کنارش رد شده است بگیرد؟ (آن پاسان)</string>
   <string name="goodIntroduction">معرفی و مقدمه خوب</string>
   <string name="lichessTraining">آموزش لایچس</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">کیش و مات شدن %s در مقابل استاد بین‌المللی اریک روزن را تماشا کنید.</string>
+  <string name="watchIMRosenCheckmate">کیش و مات شدن %s در مقابل استاد بین‌المللی اریک روزن را تماشا کنید.</string>
   <string name="threefoldRepetition">تکرار سه گانه</string>
   <string name="threefoldRepetitionExplanation">اگر پوزیشنی سه بار اتفاق افتاد، بازیکنان میتوانن با استفاده از %1$s ادعای مساوی کنند. لیچس قوانین رسمی FIDE را که در مقاله %2$s توضیح داده شده اجرا میکند.</string>
   <string name="threefoldRepetitionLowerCase">تکرار سه گانه</string>
