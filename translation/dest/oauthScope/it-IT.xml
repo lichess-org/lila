@@ -17,8 +17,8 @@
   <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Leggi studi e trasmissioni privati</string>
   <string name="studyWrite">Crea, aggiorna, elimina studi e trasmissioni</string>
   <string name="tournamentWrite">Crea, aggiorna e partecipa a tornei</string>
-  <string name="racerWrite">Crea e partecipa a gare di rompicapo</string>
-  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Leggi l\'attività dei rompicapo</string>
+  <string name="racerWrite">Crea e partecipa a gare di problemi</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Leggi l\'attività dei problemi</string>
   <string name="teamRead">Leggi le informazioni private della squadra</string>
   <string name="teamWrite">Unisciti a e abbandona squadre</string>
   <string name="teamLead">Gestisci le squadre di cui sei il capo: manda messaggi privati, espelli membri</string>
