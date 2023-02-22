@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">Nov osebni žeton za dostop do API-ja</string>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Nov osebni žeton za dostop do API-ja</string>
   <string name="tokenGrantsPermission">Žeton daje drugim osebam dovoljenje za uporabo vašega računa.</string>
   <string name="carefullySelect">Previdno izberite, kaj sme storiti v vašem imenu.</string>
   <string name="tokenDescription">Opis žetona</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">Torej se spomnite, čemu je ta žeton namenjen:</string>
   <string name="doNotShareIt">Žeton bo omogočil dostop do vašega računa. NE delite z nikomer!</string>
   <string name="copyTokenNow">Prepričajte se, da ste zdaj kopirali svoj novi žeton osebnega dostopa. Ne boste ga mogli več videti!</string>
-  <string name="preferenceRead">Preberite nastavitve</string>
-  <string name="preferenceWrite">Napišite prednost</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Preberite nastavitve</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Napišite prednost</string>
   <string name="emailRead">Preberi e-poštni naslov</string>
   <string name="challengeRead">Preberite prihajajoče izzive</string>
-  <string name="challengeWrite">Napišite dohodne izzive</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Napišite dohodne izzive</string>
   <string name="challengeBulk">Ustvarite veliko iger hkrati za druge igralce</string>
-  <string name="studyRead">Preberite zasebne študije in oddaje</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Preberite zasebne študije in oddaje</string>
   <string name="studyWrite">Ustvarjanje, posodabljanje, brisanje študij in oddaj</string>
   <string name="tournamentWrite">Ustvarite, posodobite in se pridružite turnirjem</string>
   <string name="racerWrite">Ustvarjajte ugankarske dirke in se jim pridružite</string>
-  <string name="puzzleRead">Preberite dejavnost uganke</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Preberite dejavnost uganke</string>
   <string name="teamRead">Preberite informacije o zasebni ekipi</string>
   <string name="teamWrite">Pridružite se, zapustite in upravljajte ekipo</string>
   <string name="teamLead">Upravljajte ekipe, ki jih vodite: pošljite ZS, izbrišite člane</string>
