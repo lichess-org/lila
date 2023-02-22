@@ -63,7 +63,7 @@ Siirto on kuvattu %2$s kohdassa 3.7 (d):
 Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="goodIntroduction">hyvä johdanto</string>
   <string name="lichessTraining">Lichess-harjoittelu</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Katso, kuinka kansainvälinen mestari Eric Rosen tekee matin %s.</string>
+  <string name="watchIMRosenCheckmate">Katso, kuinka kansainvälinen mestari Eric Rosen tekee matin %s.</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
   <string name="threefoldRepetitionExplanation">Jos asema toistuu kolmesti, pelaaja voi vaatia tasapelin %1$s perusteella. Lichess noudattaa FIDE:n virallisia sääntöjä, jotka on kuvattu %2$s kohdassa 9.2 (d).</string>
   <string name="threefoldRepetitionLowerCase">kolminkertaisen toiston</string>
