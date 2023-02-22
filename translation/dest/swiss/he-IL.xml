@@ -13,7 +13,7 @@
     <item quantity="many">%s סבבים</item>
     <item quantity="other">%s סבבים</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">טורניר שוויצרי עם סבב %s</item>
     <item quantity="two">טורניר שוויצרי עם %s סבבים</item>
     <item quantity="many">טורניר שוויצרי עם %s סבבים</item>
