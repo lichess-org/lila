@@ -13,7 +13,7 @@
     <item quantity="few">%s krogi</item>
     <item quantity="other">%s krogov</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s krog tekmovanja po švicarskem sistemu</item>
     <item quantity="two">%s kroga tekmovanja po švicarskem sistemu</item>
     <item quantity="few">%s krogi tekmovanja po švicarskem sistemu</item>
