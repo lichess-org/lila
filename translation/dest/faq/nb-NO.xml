@@ -63,7 +63,7 @@ Trekket står omtalt i %2$s:
 Se mer om dette trekket i %3$s for å få litt øvelse med det.</string>
   <string name="goodIntroduction">god innføring</string>
   <string name="lichessTraining">Lichess-øvelsene</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Se Internasjonal mester Eric Rosen matte %s.</string>
+  <string name="watchIMRosenCheckmate">Se Internasjonal mester Eric Rosen matte %s.</string>
   <string name="threefoldRepetition">Trekkgjentakelse</string>
   <string name="threefoldRepetitionExplanation">Hvis en stilling oppstår tre ganger, kan spillerne kreve remis ved %1$s. Lichess implementerer de offisielle FIDE-reglene, som står omtalt i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trekkgjentakelse</string>
