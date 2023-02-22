@@ -67,4 +67,5 @@
   <string name="completedTourns">البطولات المنتهية</string>
   <string name="declinedRequests">الطلبات المرفوضة</string>
   <string name="joinLichessVariantTeam">انضم إلى فريق %s الرسمي للأخبار والأحداث</string>
+  <string name="teamPage">صفحة الفريق</string>
 </resources>
