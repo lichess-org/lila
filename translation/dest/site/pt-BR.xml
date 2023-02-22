@@ -209,7 +209,7 @@
   <string name="forgotPassword">Esqueceu sua senha?</string>
   <string name="error.weakPassword">A senha é extremamente comum e fácil de adivinhar.</string>
   <string name="error.namePassword">Não utilize seu nome de usuário como senha.</string>
-  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Você usou a mesma senha em entrou site, que foi comprometido. Para garantir a segurança da sua conta Lichess, você precisa criar uma senha nova. Agradecemos sua compreensão.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Você usou a mesma senha em outro site, e esse site foi comprometido. Para garantir a segurança da sua conta no Lichess, você precisa criar uma nova senha. Agradecemos sua compreensão.</string>
   <string name="youAreLeavingLichess">Você vai sair do Lichess</string>
   <string name="neverTypeYourPassword">Nunca digite sua senha do Lichess em outro site!</string>
   <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Ir para %s</string>
