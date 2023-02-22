@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">Novo token de acceso persoal á API</string>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Novo token de acceso persoal á API</string>
   <string name="tokenGrantsPermission">Un token garante a outra xente permiso a empregar a túa conta.</string>
   <string name="carefullySelect">Selecciona cuidadosamente o que se permite facer no teu nome.</string>
   <string name="tokenDescription">Descripción de token</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">Qeu pode facer o token no teu nome:</string>
   <string name="doNotShareIt">O token dará acceso á túa conta. NON o compartas con ninguén!</string>
   <string name="copyTokenNow">Asegúrate de copiar o teu novo token persoal de acceso. Non poderás obtelo posteriormente!</string>
-  <string name="preferenceRead">Preferencias de lectura</string>
-  <string name="preferenceWrite">Preferencias de escritura</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Preferencias de lectura</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Preferencias de escritura</string>
   <string name="emailRead">Le o teu correo electrónico</string>
   <string name="challengeRead">Ve desafíos entrantes</string>
-  <string name="challengeWrite">Envía, acepta e rexeita desafíos</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Envía, acepta e rexeita desafíos</string>
   <string name="challengeBulk">Crear varias partidas á vez para outros xogadores</string>
   <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Le estudos privados e transmisións</string>
   <string name="studyWrite">Crea, actualiza, borra estudos e transmisións</string>
   <string name="tournamentWrite">Crea, actualiza e xoga torneos</string>
   <string name="racerWrite">Crea e xoga exercicios de carreiras</string>
-  <string name="puzzleRead">Le actividade de exercicios</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Le actividade de exercicios</string>
   <string name="teamRead">Le información privada de equipo</string>
   <string name="teamWrite">Unirse e sair de equipos</string>
   <string name="teamLead">Administra os equipos que lideres: envía mensaxes privadas, expulsa aos membros</string>
