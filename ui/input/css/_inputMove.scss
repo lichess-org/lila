@@ -36,6 +36,9 @@ $c-off-hover: if($theme == 'light', #444, #aaa);
   cursor: pointer;
   margin-left: 6px;
   color: $c-off;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
   font-size: 22px;
   border-width: 0 1px 0 1px;
   border-radius: 0.25em;
@@ -49,7 +52,7 @@ $c-off-hover: if($theme == 'light', #444, #aaa);
 }
 
 #voice-move-button.busy {
-  color: $c-recording;
+  font-size: 16px;
 }
 
 #voice-move-button.enabled {

@@ -1,25 +1,25 @@
 import { KaldiRecognizer, createModel, Model } from 'vosk-browser';
-//import { RecognizerMessage } from 'vosk-browser/dist/interfaces';
-import { VoskOpts } from '../interfaces';
+import { ServerMessageResult } from 'vosk-browser/dist/interfaces';
+import { KaldiOpts } from '../interfaces';
 
 let kaldi: KaldiRecognizer;
 let voiceModel: Model;
 
 export default (window as any).LichessVoice = {
-  init: async (opts: VoskOpts): Promise<AudioNode> => {
-    if (!kaldi) {
-      voiceModel = await createModel(opts.url);
+  initModel: async function (url: string): Promise<void> {
+    voiceModel = await createModel(url);
+  },
 
-      kaldi = new voiceModel.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.keys));
-      kaldi.on('result', (message: any) => {
-        //console.log(message);
-        if ('result' in message && 'text' in message.result)
-          opts.broadcast(message.result.text as string, 'command', 3000);
-      });
-    }
+  initKaldi: async function (opts: KaldiOpts): Promise<AudioNode> {
+    kaldi?.remove();
+    kaldi = new voiceModel.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.keys));
+    kaldi.setWords(true);
+    kaldi.on('result', (msg: ServerMessageResult) => {
+      if (msg.result.text.length < 2) return; // can't do anything with this
+      opts.broadcast(msg.result.text, 'command', msg.result.result, 3000);
+    });
     return opts.impl == 'vanilla' ? vanillaProcessor(opts.audioCtx) : workletProcessor(opts.audioCtx);
   },
-  //restrict: async()
 };
 
 //========================== works ok on all but deprecated ==============================

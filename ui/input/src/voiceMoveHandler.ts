@@ -1,8 +1,9 @@
-export function voiceMove() {}
 import { MoveCtrl, MoveHandler, MsgType } from './interfaces';
 import { Dests } from 'chessground/types';
 import { sanWriter, SanToUci } from 'chess';
+import { prop } from 'common';
 import * as util from './handlerUtil';
+import { voiceMoveGrammar } from './voiceMoveGrammar';
 
 const substitutionsMap = {
   a: ['a8', '8'],
@@ -27,17 +28,21 @@ const closestLegalUci = (input: string, legalSans?: SanToUci): Uci | null => {
 };
 
 export function makeVoiceHandler(ctrl: MoveCtrl): MoveHandler {
+  ctrl.voice.setVocabulary(voiceMoveGrammar.words);
+  const partialMove = prop('');
+
   let legalSans: SanToUci | undefined;
   function submit(v: string) {
-    if (v.match(util.partialMoveRegex)) {
-      ctrl.voice.partialMove(v);
+    if (v.match(util.partialMoveRegex) && !partialMove()) {
+      partialMove(v);
       return;
     }
     if (v.match(util.cancelRegex)) {
-      ctrl.voice.partialMove('');
+      partialMove('');
       return;
     }
-
+    v = voiceMoveGrammar.encode(v + ' ' + partialMove());
+    partialMove('');
     const selectedKey = ctrl.hasSelected() || '';
     const uci = util.sanToUci(v, legalSans);
     const closeUci = closestLegalUci(v, legalSans);
@@ -68,14 +73,7 @@ export function makeVoiceHandler(ctrl: MoveCtrl): MoveHandler {
   }
 
   ctrl.voice.addListener('moveHandler', (msgText: string, msgType: MsgType) => {
-    if (msgType === 'command' && !!msgText) {
-      if (ctrl.voice.partialMove()) {
-        // include partial move
-        submit(ctrl.voice.partialMove() + msgText);
-        // clear partial move
-        ctrl.voice.partialMove('');
-      } else submit(msgText);
-    }
+    if (msgType === 'command') submit(msgText);
     ctrl.root.redraw();
   });
 
