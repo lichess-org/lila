@@ -87,13 +87,16 @@ export const modelSource = 'vendor/vosk/model-en-us-0.15.tar.gz';
 
 export const makeVoiceCtrl = () =>
   new (class implements VoiceCtrl {
-    audioCtx: AudioContext | undefined;
-    mediaStream: MediaStream | undefined;
-    download: XMLHttpRequest | undefined;
+    audioCtx?: AudioContext;
+    mediaStream?: MediaStream;
+    micSource?: AudioNode;
+    voskNode?: AudioNode;
+    download?: XMLHttpRequest;
+    broadcastTimeout?: number;
+    vocabulary?: string[];
     textInput: HTMLInputElement | undefined;
     voskStatus = '';
     busy = false;
-    broadcastTimeout: number | undefined;
     listeners = new Map<string, VoiceListener>();
     partialMove = prop('');
 
@@ -110,15 +113,12 @@ export const makeVoiceCtrl = () =>
       this.voskStatus = status;
     }
     get isRecording(): boolean {
-      return this.mediaStream !== undefined && !this.busy;
+      return !!this.mediaStream?.getAudioTracks()[0].enabled && !this.busy;
     }
 
     stop() {
-      this.audioCtx?.close();
       this.download?.abort();
-      this.mediaStream?.getAudioTracks().forEach(track => track.stop());
-      this.mediaStream = undefined;
-      this.audioCtx = undefined;
+      this.mediaStream?.getAudioTracks().forEach(track => (track.enabled = false));
       if (!this.download) this.broadcast('');
       this.download = undefined;
     }
@@ -128,37 +128,17 @@ export const makeVoiceCtrl = () =>
       let [msgText, msgType] = ['Unknown', 'error' as MsgType];
       try {
         this.busy = true;
-        this.broadcast('Loading...');
-        const modelUrl = lichess.assetUrl(modelSource, { noVersion: true });
-        const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
-        if (!window.LichessVoice) await lichess.loadModule('input.vosk');
-
-        this.mediaStream = await navigator.mediaDevices.getUserMedia({
-          video: false,
-          audio: {
-            echoCancellation: true,
-            noiseSuppression: true,
-          },
-        });
-        const sampleRate = this.mediaStream.getAudioTracks()[0].getSettings().sampleRate ?? 48000;
-        this.audioCtx = new AudioContext({ sampleRate });
-        const micSource = this.audioCtx.createMediaStreamSource(this.mediaStream);
-
-        await downloadAsync;
-        await window.LichessVoice.initModel(modelUrl);
-
-        if (!this.audioCtx) throw 'Aborted';
-
-        const voskNode = await window.LichessVoice.initKaldi({
-          audioCtx: this.audioCtx,
-          keys: [...speechMap.keys()],
-          broadcast: this.broadcast.bind(this),
-          impl: 'vanilla',
-        });
-        micSource.connect(voskNode!);
-        voskNode.connect(this.audioCtx.destination);
+        await this.init();
+        await this.updateVocabulary([...speechMap.keys()]);
+        this.mediaStream!.getAudioTracks()[0].enabled = true;
         [msgText, msgType] = ['Listening...', 'status'];
       } catch (e: any) {
+        this.voskNode?.disconnect();
+        this.micSource?.disconnect();
+        this.audioCtx?.close();
+        this.voskNode = undefined;
+        this.micSource = undefined;
+        this.audioCtx = undefined;
         this.stop();
         console.log(e);
         [msgText, msgType] = [e.toString(), 'error'];
@@ -167,6 +147,45 @@ export const makeVoiceCtrl = () =>
         this.busy = false;
         this.broadcast(msgText, msgType, undefined, 4000);
       }
+    }
+    async updateVocabulary(vocab: string[]) {
+      if (vocab.length === this.vocabulary?.length && vocab.every((value, index) => value === this.vocabulary![index]))
+        return;
+      const wasRecording = this.isRecording;
+      this.vocabulary = vocab;
+      if (this.voskNode) {
+        this.voskNode.disconnect();
+      }
+      this.voskNode = await window.LichessVoice.initKaldi({
+        audioCtx: this.audioCtx!,
+        keys: vocab,
+        broadcast: this.broadcast.bind(this),
+        impl: 'vanilla',
+      });
+      this.micSource!.connect(this.voskNode!);
+      this.voskNode!.connect(this.audioCtx!.destination);
+      this.mediaStream!.getAudioTracks()[0].enabled = wasRecording;
+    }
+
+    async init(): Promise<void> {
+      if (this.micSource) return;
+      this.broadcast('Loading...');
+      const modelUrl = lichess.assetUrl(modelSource, { noVersion: true });
+      const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
+      if (!window.LichessVoice) await lichess.loadModule('input.vosk');
+
+      this.mediaStream = await navigator.mediaDevices.getUserMedia({
+        video: false,
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+        },
+      });
+      await downloadAsync;
+      await window.LichessVoice.initModel(modelUrl);
+      const sampleRate = this.mediaStream.getAudioTracks()[0].getSettings().sampleRate ?? 48000;
+      this.audioCtx = new AudioContext({ sampleRate });
+      this.micSource = this.audioCtx.createMediaStreamSource(this.mediaStream);
     }
 
     broadcast(text: string, msgType: MsgType = 'status', _: WordResult | undefined = undefined, forMs = 0) {
