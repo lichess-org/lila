@@ -239,8 +239,8 @@
     <item quantity="other">La posizione è aggiornata ogni %s minuti</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s tattica</item>
-    <item quantity="other">%s tattiche</item>
+    <item quantity="one">%s problema</item>
+    <item quantity="other">%s problemi</item>
   </plurals>
   <string name="gamesPlayed">Partite giocate</string>
   <plurals name="nbGamesWithYou">
@@ -512,7 +512,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passa automaticamente alla partita successiva dopo aver mosso</string>
   <string name="autoSwitch">Cambia automaticamente</string>
-  <string name="puzzles">Tattiche</string>
+  <string name="puzzles">Problemi</string>
   <string name="tournamentWinners">Vincitori dei tornei</string>
   <string name="name">Nome</string>
   <string name="description">Descrizione</string>
