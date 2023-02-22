@@ -162,10 +162,8 @@ final class RelayRound(
   def stream(id: RelayRoundId) = AnonOrScoped() { req => me =>
     env.relay.api.byIdWithStudy(id) flatMapz { rt =>
       studyC.CanView(rt.study, me) {
-        apiC
-          .GlobalConcurrencyLimitPerIP(req.ipAddress)(
-            env.relay.pgnStream.streamRoundGames(rt)
-          ) { source =>
+        apiC.GlobalConcurrencyLimitPerIP
+          .events(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rt)) { source =>
             noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
           }
           .toFuccess

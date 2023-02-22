@@ -27,11 +27,7 @@ final class SecurityApi(
     emailValidator: EmailAddressValidator,
     oAuthServer: lila.oauth.OAuthServer,
     tor: Tor
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    mode: Mode
-):
+)(using ec: Executor, system: akka.actor.ActorSystem, mode: Mode):
 
   val AccessUri = "access_uri"
 
@@ -40,16 +36,10 @@ final class SecurityApi(
   private val loginPasswordMapping = nonEmptyText.transform(ClearPassword(_), _.value)
 
   lazy val loginForm = Form {
-    val form = tuple(
+    tuple(
       "username" -> usernameOrEmailMapping, // can also be an email
       "password" -> loginPasswordMapping
     )
-    if mode == Mode.Prod then
-      form.verifying(
-        "This password is too easy to guess. Request a password reset email.",
-        (login, pass) => !PasswordCheck.isWeak(pass, login.value)
-      )
-    else form
   }
   def loginFormFilled(login: UserStrOrEmail) = loginForm.fill(login -> ClearPassword(""))
 
@@ -66,14 +56,17 @@ final class SecurityApi(
         case Success(user) => (user.username into UserStrOrEmail, ClearPassword(""), none).some
         case _             => none
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
-        t match {
+        t match
           case Success(_) => FormValid
           case InvalidUsernameOrPassword =>
             Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
           case BlankedPassword =>
             Invalid(Seq(ValidationError("blankedPassword")))
+          case WeakPassword =>
+            Invalid(
+              Seq(ValidationError("This password is too easy to guess. Request a password reset email."))
+            )
           case err => Invalid(Seq(ValidationError(err.toString)))
-        }
       })
     )
 
@@ -84,12 +77,17 @@ final class SecurityApi(
   } map loadedLoginForm
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
-      _str: UserStrOrEmail,
+      login: UserStrOrEmail,
       password: ClearPassword,
       token: Option[String]
   ): LoginCandidate.Result =
-    candidate.fold[LoginCandidate.Result](LoginCandidate.Result.InvalidUsernameOrPassword) {
-      _(User.PasswordAndToken(password, token map User.TotpToken.apply))
+    import LoginCandidate.Result.*
+    candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword) { c =>
+      val result = c(User.PasswordAndToken(password, token map User.TotpToken.apply))
+      if mode == Mode.Prod && result.success && PasswordCheck.isWeak(password, login.value) then
+        lila.common.Bus.publish(c.user, "loginWithWeakPassword")
+        WeakPassword
+      else result
     }
 
   def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion])(using

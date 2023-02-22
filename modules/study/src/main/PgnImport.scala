@@ -4,6 +4,7 @@ import cats.data.Validated
 import chess.{ Centis, ErrorStr }
 import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags, PgnStr }
 import chess.format.{ Fen, Uci, UciCharPair }
+import chess.MoveOrDrop.*
 
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }

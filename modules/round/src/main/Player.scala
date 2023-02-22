@@ -4,6 +4,7 @@ import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlie
 import cats.data.Validated
 import chess.format.{ Fen, Uci }
 import chess.{ Centis, Clock, MoveMetrics, MoveOrDrop, Status, ErrorStr }
+import chess.MoveOrDrop.*
 import java.util.concurrent.TimeUnit
 
 import lila.common.Bus
@@ -81,7 +82,7 @@ final private class Player(
       if (progress.game.playableByAi) requestFishnet(progress.game, round)
       if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
       if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
-      if (progress.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
+      if (progress.game.forecastable) moveOrDrop.move.foreach { move =>
         round ! ForecastPlay(move)
       }
       scheduleExpiration(progress.game)
@@ -138,15 +139,15 @@ final private class Player(
     (uci match
       case Uci.Move(orig, dest, prom) =>
         game.chess.moveWithCompensated(orig, dest, prom, metrics) map { (ncg, move) =>
-          ncg -> Left(move)
+          ncg -> move
         }
       case Uci.Drop(role, pos) =>
         game.chess.drop(role, pos, metrics) map { (ncg, drop) =>
-          Clock.WithCompensatedLag(ncg, None) -> Right(drop)
+          Clock.WithCompensatedLag(ncg, None) -> drop
         }
     ).map {
       case (ncg, _) if ncg.value.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged
-      case (ncg, moveOrDrop) =>
+      case (ncg, moveOrDrop: MoveOrDrop) =>
         MoveApplied(
           game.update(ncg.value, moveOrDrop, blur),
           moveOrDrop,
@@ -159,7 +160,7 @@ final private class Player(
     val color = moveOrDrop.fold(_.color, _.color)
     val moveEvent = MoveEvent(
       gameId = game.id,
-      fen = Fen writeBoard game.board,
+      fen = Fen write game.situation,
       move = moveOrDrop.fold(_.toUci.keys, _.toUci.uci)
     )
 

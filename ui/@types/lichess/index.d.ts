@@ -378,8 +378,8 @@ declare namespace Tree {
   }
   export interface CloudEval extends ClientEvalBase {
     cloud: true;
-    maxDepth: undefined;
-    millis: undefined;
+    maxDepth?: undefined;
+    millis?: undefined;
   }
   export interface LocalEval extends ClientEvalBase {
     cloud?: false;

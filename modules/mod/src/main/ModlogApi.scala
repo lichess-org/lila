@@ -73,6 +73,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       Modlog(mod, kid.some, Modlog.setKidMode)
     }
 
+  def loginWithWeakPassword(user: UserId) = add {
+    Modlog(User.lichessId into ModId, user.some, Modlog.weakPassword)
+  }
+
   def disableTwoFactor(mod: ModId, user: UserId) =
     add {
       Modlog(mod, user.some, Modlog.disableTwoFactor)

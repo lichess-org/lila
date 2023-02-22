@@ -179,11 +179,11 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
 
   def botOnlineApi =
     Action { (req: RequestHeader) =>
-      apiC.jsonStream {
+      apiC.jsonDownload {
         env.user.repo
           .botsByIdsCursor(env.bot.onlineApiUsers.get)
           .documentSource(getInt("nb", req) | Int.MaxValue)
           .throttle(50, 1 second)
           .map { env.user.jsonView.full(_, withRating = true, withProfile = true) }
-      }(req)
+      }(using req)
     }

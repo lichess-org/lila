@@ -48,20 +48,18 @@ final class OpeningApi(
       withWikiRevisions: Boolean,
       crawler: Crawler
   ): Fu[Option[OpeningPage]] =
-    query.closestOpening.??(op => wikiApi(op, withWikiRevisions) dmap some) flatMap { wiki =>
-      val useExplorer = crawler.no || wiki.exists(_.hasMarkup)
-      (useExplorer ?? explorer.stats(query)) zip
-        ((crawler.no && query.uci.nonEmpty) ?? explorer.queryHistory(query)) zip
-        allGamesHistory.get(query.config) flatMap { case ((stats, history), allHistory) =>
-          for
-            games <- gameRepo.gamesFromSecondary(stats.??(_.games).map(_.id))
-            withPgn <- games.map { g =>
-              pgnDump(g, None, PgnDump.WithFlags(evals = false)) dmap { GameWithPgn(g, _) }
-            }.parallel
-            relHistory = query.uci.nonEmpty ?? historyPercent(history, allHistory)
-          yield OpeningPage(query, stats, withPgn, relHistory, wiki).some
-        }
-    }
+    for
+      wiki <- query.closestOpening.??(op => wikiApi(op, withWikiRevisions) dmap some)
+      useExplorer = crawler.no || wiki.exists(_.hasMarkup)
+      stats      <- (useExplorer ?? explorer.stats(query))
+      history    <- ((crawler.no && query.uci.nonEmpty) ?? explorer.queryHistory(query))
+      allHistory <- allGamesHistory.get(query.config)
+      games      <- gameRepo.gamesFromSecondary(stats.??(_.games).map(_.id))
+      withPgn <- games.map { g =>
+        pgnDump(g, None, PgnDump.WithFlags(evals = false)) dmap { GameWithPgn(g, _) }
+      }.parallel
+      relHistory = query.uci.nonEmpty ?? historyPercent(history, allHistory)
+    yield OpeningPage(query, stats, withPgn, relHistory, wiki).some
 
   def readConfig(using RequestHeader) = configStore.read
 

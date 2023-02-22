@@ -33,9 +33,12 @@ object mod:
       a(href := "#identification_screen")("Identification")
     )
 
-  def actions(u: User, emails: User.Emails, erased: User.Erased, pmPresets: ModPresets)(using
-      ctx: Context
-  ): Frag =
+  def actions(
+      u: User,
+      emails: User.Emails,
+      erased: User.Erased,
+      pmPresets: ModPresets
+  )(using ctx: Context): Frag =
     mzSection("actions")(
       div(cls := "btn-rack")(
         isGranted(_.ModMessage) option {

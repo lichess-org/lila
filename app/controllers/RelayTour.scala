@@ -136,7 +136,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   def pgn(id: TourModel.Id) =
     Action.async { req =>
       env.relay.api tourById id mapz { tour =>
-        apiC.GlobalConcurrencyLimitPerIP(req.ipAddress)(
+        apiC.GlobalConcurrencyLimitPerIP.download(req.ipAddress)(
           env.relay.pgnStream.exportFullTour(tour)
         ) { source =>
           asAttachmentStream(s"${env.relay.pgnStream filename tour}.pgn")(
@@ -148,7 +148,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
 
   def apiIndex =
     Action.async { implicit req =>
-      apiC.jsonStream {
+      apiC.jsonDownload {
         env.relay.api
           .officialTourStream(MaxPerSecond(20), getInt("nb", req) | 20)
           .map(env.relay.jsonView.apply(_, withUrls = true))

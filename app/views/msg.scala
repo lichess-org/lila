@@ -44,5 +44,7 @@ object msg:
     trans.today,
     trans.yesterday,
     trans.youAreLeavingLichess,
-    trans.neverTypeYourPassword
+    trans.neverTypeYourPassword,
+    trans.cancel,
+    trans.proceedToX
   )
