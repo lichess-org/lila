@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">新しい個人 API アクセストークン</string>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">新しい個人 API アクセストークン</string>
   <string name="tokenGrantsPermission">トークンは他の人にあなたのアカウントへのアクセスを許可します。</string>
   <string name="carefullySelect">他の人があなたの代わりに行なえる操作を慎重に選んでください。</string>
   <string name="tokenDescription">トークンの説明</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">このトークンであなたの代わりに行える操作：</string>
   <string name="doNotShareIt">トークンは他の人にあなたのアカウントへのアクセスを許可します。誰にもシェアしないように！</string>
   <string name="copyTokenNow">すぐに新しい個人アクセストークンをコピーしておいてください。二度と表示されませんので！</string>
-  <string name="preferenceRead">設定を見る</string>
-  <string name="preferenceWrite">設定を決める</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">設定を見る</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">設定を決める</string>
   <string name="emailRead">メールアドレスを見る</string>
   <string name="challengeRead">その人へのチャレンジを見る</string>
-  <string name="challengeWrite">その人へのチャレンジを書く</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">その人へのチャレンジを書く</string>
   <string name="challengeBulk">他の人のために複数のゲームをまとめて作成する</string>
-  <string name="studyRead">非公開の研究や配信を見る</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">非公開の研究や配信を見る</string>
   <string name="studyWrite">研究や配信を作成・更新・削除する</string>
   <string name="tournamentWrite">トーナメントを作成・更新し、参加する</string>
   <string name="racerWrite">PuzzleRacer を作成し参加する</string>
-  <string name="puzzleRead">タクティクス問題の活動を見る</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">タクティクス問題の活動を見る</string>
   <string name="teamRead">非公開のチーム情報を見る</string>
   <string name="teamWrite">チームに対する加入・脱退・管理</string>
   <string name="teamLead">リーダーを務めるチームの管理：PM の送信、メンバーの追放</string>
