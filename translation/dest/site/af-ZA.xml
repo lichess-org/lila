@@ -209,6 +209,7 @@
   <string name="forgotPassword">Wagwoord vergeet?</string>
   <string name="error.weakPassword">Hierdie wagwoord is besonder algemeen en maklik om te raai.</string>
   <string name="error.namePassword">Moenie jou gebruikernaam as wagwoord gebruik nie.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Jy het die selfde wagwoord op \'n ander webwerf gebruik, en die wagwoord was ontbloot. Om die veiligheid van jou Lichess rekening te verseker, moet ons jou wagwoord vervang. Dankie vir jou samewerking.</string>
   <string name="youAreLeavingLichess">Jy verlaat Lichess</string>
   <string name="neverTypeYourPassword">Moenie jou Lichess wagwoord ooit op \'n ander werf intik nie!</string>
   <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Gaan na %s</string>
