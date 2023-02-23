@@ -632,7 +632,7 @@
   <string name="timeBeforeTournamentStarts">開始までの時間</string>
   <string name="averageCentipawnLoss">平均センチポーン差</string>
   <string name="accuracy">正確度</string>
-  <string name="keyboardShortcuts">キーボード・ショートカット</string>
+  <string name="keyboardShortcuts">ショートカットキー</string>
   <string name="keyMoveBackwardOrForward">手を戻す/進める</string>
   <string name="keyGoToStartOrEnd">最初/最後に戻る</string>
   <string name="keyShowOrHideComments">コメントを表示する/隠す</string>
