@@ -21,20 +21,20 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="gote">Gote</string>
-	<string name="white">Világos</string>
-	<string name="sente">Sente</string>
-	<string name="black">Sötét</string>
-	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
-	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
-	<string name="randomColor">Véletlen szín</string>
+	<string name="gote" comment="Should be 'Gote', unless equivalent exists (ex. 後手 in JP)">Gote</string>
+	<string name="white" comment="Alternative to gote">Világos</string>
+	<string name="sente" comment="Should be 'Sente', unless equivalent exists (ex. 先手 in JP)">Sente</string>
+	<string name="black" comment="Alternative to sente">Sötét</string>
+	<string name="shitate" comment="Should be 'Shitate', unless equivalent exists (ex. 下手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="Should be 'Uwate', unless equivalent exists (ex. 上手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
+	<string name="randomColor" comment="Side - sente/gote">Véletlen szín</string>
 	<string name="createAGame">Játék létrehozása</string>
 	<string name="whiteIsVictorious">Világos nyert</string>
 	<string name="blackIsVictorious">Sötét nyert</string>
-	<string name="xIsVictorious">%s is victorious</string>
+	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">Fehérrel fogsz játszani</string>
 	<string name="youPlayTheBlackPieces">Sötéttel fogsz játszani</string>
-	<string name="youPlayAsX">You play as %s</string>
+	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">Te következel</string>
 	<string name="cheatDetected">Cheat Detected</string>
 	<string name="variantEnding">Variáns vége</string>
@@ -43,7 +43,7 @@
 	<string name="joinTheGame">Csatlakozás a játékhoz</string>
 	<string name="whitePlays">Világos lép</string>
 	<string name="blackPlays">Sötét lép</string>
-	<string name="xPlays">%s to play</string>
+	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<string name="shitatePlays">Shitate to play</string>
 	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
@@ -58,11 +58,11 @@
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember, aki felkeresi ezt a címet, az lesz az ellenfeled.</string>
 	<string name="whiteResigned">Világos feladta</string>
 	<string name="blackResigned">Sötét feladta</string>
-	<string name="xResigned">%s resigned</string>
+	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
 	<string name="whiteLeftTheGame">Világos elhagyta a játékot</string>
 	<string name="blackLeftTheGame">Sötét elhagyta a játékot</string>
-	<string name="xLeftTheGame">%s left the game</string>
-	<string name="xDidntMove">%s didn\'t move</string>
+	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
+	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Oszd meg ezt az linket, hogy mások nézhessék a játszmát</string>
 	<string name="theComputerAnalysisHasFailed">A számítógépes elemzés sikertelen</string>
 	<string name="viewTheComputerAnalysis">Számítógépes elemzés megtekintése</string>
@@ -83,6 +83,10 @@
 	<string name="deleteFromHere">Törlés innentől</string>
 	<string name="forceVariation">Mentés változatként</string>
 	<string name="move">Lépés</string>
+	<plurals name="moves">
+		<item quantity="one">%s move</item>
+		<item quantity="other">%s moves</item>
+	</plurals>
 	<string name="variantLoss">Vesztő</string>
 	<string name="variantWin">Nyerő</string>
 	<string name="insufficientMaterial">Nincs mattadó figura</string>
@@ -211,10 +215,10 @@
 	<string name="drawOfferCanceled">Döntetlen ajánlás elvetve</string>
 	<string name="whiteOffersDraw">Világos döntetlent ajánl</string>
 	<string name="blackOffersDraw">Sötét döntetlent ajánl</string>
-	<string name="xOffersDraw">%s offers draw</string>
+	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
 	<string name="whiteDeclinesDraw">Világos elutasította a döntetlen ajánlatot</string>
 	<string name="blackDeclinesDraw">Sötét elutasította a döntetlen ajánlatot</string>
-	<string name="xDeclinesDraw">%s declines draw</string>
+	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">Az ellenfeled döntetlent ajánl</string>
 	<string name="accept">Elfogad</string>
 	<string name="decline">Elutasít</string>
@@ -238,7 +242,7 @@
 	<string name="rematchOfferSent">Visszavágó felajánlva</string>
 	<string name="rematchOfferSentWhite">Világos visszavágót szeretne</string>
 	<string name="rematchOfferSentBlack">Sötét visszavágót szeretne</string>
-	<string name="rematchOfferSentX">%s offers rematch</string>
+	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s offers rematch</string>
 	<string name="rematchOfferAccepted">Visszavágó elfogadva</string>
 	<string name="rematchOfferCanceled">Visszavágó lemondva</string>
 	<string name="rematchOfferDeclined">Visszavágó elutasítva</string>
@@ -371,7 +375,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="notACheckmate">Ez nem matt</string>
 	<string name="whiteCheckmatesInOneMove">Fehér következő lépésben mattot ad</string>
 	<string name="blackCheckmatesInOneMove">Fekete a következő lépésben mattot ad</string>
-	<string name="xCheckmatesInOneMove">%s to checkmate in one move</string>
+	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
 	<string name="retry">Újra</string>
 	<string name="reconnecting">Újrakapcsolódás</string>
 	<plurals name="nbFriendsOnline">
@@ -814,7 +818,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="evaluatingYourMove">Lépés értékelése ...</string>
 	<string name="whiteWinsGame">Világos nyert</string>
 	<string name="blackWinsGame">Sötét nyert</string>
-	<string name="xWinsGame">%s wins</string>
+	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
 	<string name="learnFromYourMistakes">Tanulj a hibáidból</string>
 	<string name="learnFromThisMistake">Tanulok a hibámból</string>
 	<string name="skipThisMove">Lépés kihagyása</string>
@@ -822,24 +826,24 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="xWasPlayed">%s a lépés</string>
 	<string name="findBetterMoveForWhite">Találj egy jobb lépést világosnak</string>
 	<string name="findBetterMoveForBlack">Találj egy jobb lépést sötétnek</string>
-	<string name="findBetterMoveForX">Find a better move for %s</string>
+	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Find a better move for %s</string>
 	<string name="resumeLearning">Tanulás folytatása</string>
 	<string name="youCanDoBetter">Van jobb lépés is</string>
 	<string name="tryAnotherMoveForWhite">Próbálj mást lépni fehérrel</string>
 	<string name="tryAnotherMoveForBlack">Próbálj mást lépni feketével</string>
-	<string name="tryAnotherMoveForX">Try another move for %s</string>
+	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
 	<string name="solution">Megoldás</string>
 	<string name="waitingForAnalysis">Készül az analízis</string>
 	<string name="noMistakesFoundForWhite">Nem talált hibát világos játékában</string>
 	<string name="noMistakesFoundForBlack">Nem talált hibát sötét játékában</string>
-	<string name="noMistakesFoundForX">No mistakes found for %s</string>
+	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
 	<string name="doneReviewingWhiteMistakes">Világos hibáinak elemzése befejeződött</string>
 	<string name="doneReviewingBlackMistakes">Sötét hibáinak elemzése befejeződött</string>
-	<string name="doneReviewingXMistakes">Done reviewing %s mistakes</string>
+	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
 	<string name="doItAgain">Újra</string>
 	<string name="reviewWhiteMistakes">Világos hibáinak áttekintése</string>
 	<string name="reviewBlackMistakes">Sötét hibáinak áttekintése</string>
-	<string name="reviewXMistakes">Review %s mistakes</string>
+	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Review %s mistakes</string>
 	<string name="advantage">Előny</string>
 	<plurals name="nbSeconds">
 		<item quantity="one">%s másodperc</item>

@@ -201,7 +201,7 @@ với giá trị cao nhất!</string>
 	<string name="checkInTwoGoal">Đe dọa Vua đối phương trong 2 nước!</string>
 	<string name="checkInTwoComplete">Chúc mừng! Bạn đang chiếu tướng, bắt buộc đối thủ phải phòng thủ quân Vua!</string>
 	<string name="whatNext">Bước tiếp theo?</string>
-	<string name="youKnowHowToPlayShogi">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="youKnowHowToPlayShogi">Bạn biết cách chơi Shogi rồi đấy, xin chúc mừng! Bạn có muốn trở thành một người chơi tốt hơn?</string>
 	<string name="register">Đăng kí</string>
 	<string name="getAFreeLishogiAccount">Tạo một tài khoản Lishogi miễn phí</string>
 	<string name="practice">Tập luyện</string>
@@ -211,7 +211,7 @@ với giá trị cao nhất!</string>
 	<string name="shogiResources">Tài nguyên về Shogi</string>
 	<string name="curatedShogiResources">Xem danh sách về tài nguyên Shogi</string>
 	<string name="videos">Video</string>
-	<string name="watchInstructiveShogiVideos">Watch instructive shogi videos</string>
+	<string name="watchInstructiveShogiVideos">Xem những video hướng dẫn</string>
 	<string name="playPeople">Đấu với người</string>
 	<string name="opponentsFromAroundTheWorld">Các đối thủ từ khắp nơi trên thế giới</string>
 	<string name="playMachine">Đấu với máy</string>

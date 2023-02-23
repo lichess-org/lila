@@ -4,7 +4,7 @@
 	<string name="coordinateTraining">Coordinate training</string>
 	<string name="averageScoreAsWhiteX">Average score as gote: %s</string>
 	<string name="averageScoreAsBlackX">Average score as sente: %s</string>
-	<string name="averageScoreAsX">Average score as %s:</string>
+	<string name="averageScoreAsXY" comment="%1$s - sente(black)/gote(white)">Average score as %1$s: %2$s</string>
 	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
 	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
 	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>

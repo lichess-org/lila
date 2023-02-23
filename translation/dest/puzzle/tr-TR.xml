@@ -16,7 +16,7 @@
   <string name="yourPuzzleRatingX">Bulmaca puanın: %s</string>
   <string name="findTheBestMoveForWhite">Find the best move for gote.</string>
   <string name="findTheBestMoveForBlack">Find the best move for sente.</string>
-  <string name="findTheBestMoveForX">Find the best move for %s.</string>
+  <string name="findTheBestMoveForX" comment="%s - sente(black)/gote(white)">Find the best move for %s.</string>
   <string name="toGetPersonalizedPuzzles">Kişiselleştirilmiş bulmacalar için:</string>
   <string name="puzzleId">Bulmaca %s</string>
   <string name="puzzleOfTheDay">Günün bulmacası</string>

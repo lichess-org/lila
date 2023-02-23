@@ -21,20 +21,20 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="gote">Gote</string>
-	<string name="white">Wit</string>
-	<string name="sente">Sente</string>
-	<string name="black">Swart</string>
-	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
-	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
-	<string name="randomColor">Lukrake kant</string>
+	<string name="gote" comment="Should be 'Gote', unless equivalent exists (ex. 後手 in JP)">Gote</string>
+	<string name="white" comment="Alternative to gote">Wit</string>
+	<string name="sente" comment="Should be 'Sente', unless equivalent exists (ex. 先手 in JP)">Sente</string>
+	<string name="black" comment="Alternative to sente">Swart</string>
+	<string name="shitate" comment="Should be 'Shitate', unless equivalent exists (ex. 下手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="Should be 'Uwate', unless equivalent exists (ex. 上手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
+	<string name="randomColor" comment="Side - sente/gote">Lukrake kant</string>
 	<string name="createAGame">Skep \'n spel</string>
 	<string name="whiteIsVictorious">Wit het gewen</string>
 	<string name="blackIsVictorious">Swart het gewen</string>
-	<string name="xIsVictorious">%s het gewen</string>
+	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s het gewen</string>
 	<string name="youPlayTheWhitePieces">Jy speel met die wit stukke</string>
 	<string name="youPlayTheBlackPieces">Jy speel met die swart stukke</string>
-	<string name="youPlayAsX">Jy speel met die %s stukke</string>
+	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">Jy speel met die %s stukke</string>
 	<string name="itsYourTurn">Dit is jou beurt!</string>
 	<string name="cheatDetected">Cheat Detected</string>
 	<string name="variantEnding">Variant geëindig</string>
@@ -43,7 +43,7 @@
 	<string name="joinTheGame">Sluit aan by spel</string>
 	<string name="whitePlays">Wit aan die beurt</string>
 	<string name="blackPlays">Swart aan die beurt</string>
-	<string name="xPlays">%s to play</string>
+	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<string name="shitatePlays">Shitate to play</string>
 	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
@@ -58,11 +58,11 @@
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die eerste persoon wat dié skakel volg, speel teen jou.</string>
 	<string name="whiteResigned">Wit gee oor</string>
 	<string name="blackResigned">Swart gee oor</string>
-	<string name="xResigned">%s resigned</string>
+	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
 	<string name="whiteLeftTheGame">Wit het die spel verlaat</string>
 	<string name="blackLeftTheGame">Swart het die spel verlaat</string>
-	<string name="xLeftTheGame">%s het die spel verlaat</string>
-	<string name="xDidntMove">%s didn\'t move</string>
+	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s het die spel verlaat</string>
+	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Deel die URL vir toeskouers</string>
 	<string name="theComputerAnalysisHasFailed">Die rekenaar analise het misluk</string>
 	<string name="viewTheComputerAnalysis">Beskou die rekenaar analise</string>
@@ -83,6 +83,10 @@
 	<string name="deleteFromHere">Verwyder hiervandaan</string>
 	<string name="forceVariation">Forseer variasie</string>
 	<string name="move">Skuif</string>
+	<plurals name="moves">
+		<item quantity="one">%s move</item>
+		<item quantity="other">%s moves</item>
+	</plurals>
 	<string name="variantLoss">Variant verloor</string>
 	<string name="variantWin">Variant wen</string>
 	<string name="insufficientMaterial">Onvoldoende materiaal</string>
@@ -211,10 +215,10 @@
 	<string name="drawOfferCanceled">Gelykop aanbod gekanselleer</string>
 	<string name="whiteOffersDraw">Wit maak gelykspel aanbod</string>
 	<string name="blackOffersDraw">Swart maak gelykspel aanbod</string>
-	<string name="xOffersDraw">%s maak gelykspel aanbod</string>
+	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s maak gelykspel aanbod</string>
 	<string name="whiteDeclinesDraw">Wit wys gelykspel aanbod van die hand</string>
 	<string name="blackDeclinesDraw">Swart wys gelykspel aanbod van die hand</string>
-	<string name="xDeclinesDraw">%s wys gelykspel aanbod van die hand</string>
+	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s wys gelykspel aanbod van die hand</string>
 	<string name="yourOpponentOffersADraw">Jou teenstander bied gelykop aan</string>
 	<string name="accept">Aanvaar</string>
 	<string name="decline">Verwerp</string>
@@ -238,7 +242,7 @@
 	<string name="rematchOfferSent">Speel weer aanbod gestuur</string>
 	<string name="rematchOfferSentWhite">Wit daag jou weer uit</string>
 	<string name="rematchOfferSentBlack">Swart daag jou weer uit</string>
-	<string name="rematchOfferSentX">%s daag jou weer uit</string>
+	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s daag jou weer uit</string>
 	<string name="rematchOfferAccepted">Speel weer aanbod aanvaar</string>
 	<string name="rematchOfferCanceled">Speel weer aanbod gekanselleer</string>
 	<string name="rematchOfferDeclined">Speel weer aanbod afgewys</string>
@@ -371,7 +375,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="notACheckmate">Nie skaakmat nie</string>
 	<string name="whiteCheckmatesInOneMove">Wit om te skaakmat in een skuif</string>
 	<string name="blackCheckmatesInOneMove">Swart om te skaakmat in een skuif</string>
-	<string name="xCheckmatesInOneMove">%s om te skaakmat in een skuif</string>
+	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s om te skaakmat in een skuif</string>
 	<string name="retry">Probeer weer</string>
 	<string name="reconnecting">Konnekteer weer</string>
 	<plurals name="nbFriendsOnline">
@@ -815,7 +819,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="evaluatingYourMove">Jou skuif word geëvalueer ...</string>
 	<string name="whiteWinsGame">Wit wen</string>
 	<string name="blackWinsGame">Swart wen</string>
-	<string name="xWinsGame">%s gewen</string>
+	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s gewen</string>
 	<string name="learnFromYourMistakes">Leer uit jou foute</string>
 	<string name="learnFromThisMistake">Leer uit hierdie fout</string>
 	<string name="skipThisMove">Slaan hierdie skuif oor</string>
@@ -823,24 +827,24 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="xWasPlayed">%s is gespeel</string>
 	<string name="findBetterMoveForWhite">Kry \'n beter skuif vir wit</string>
 	<string name="findBetterMoveForBlack">Kry \'n beter skuif vir swart</string>
-	<string name="findBetterMoveForX">Find a better move for %s</string>
+	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Find a better move for %s</string>
 	<string name="resumeLearning">Leer verder</string>
 	<string name="youCanDoBetter">Jy kan daarop verbeter</string>
 	<string name="tryAnotherMoveForWhite">Probeer \'n ander skuif vir wit</string>
 	<string name="tryAnotherMoveForBlack">Probeer \'n ander skuif vir swart</string>
-	<string name="tryAnotherMoveForX">Try another move for %s</string>
+	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
 	<string name="solution">Oplossing</string>
 	<string name="waitingForAnalysis">Wag nog vir rekenaar analise</string>
 	<string name="noMistakesFoundForWhite">Geen foute gevind vir wit nie</string>
 	<string name="noMistakesFoundForBlack">Geen foute vir swart gevind nie</string>
-	<string name="noMistakesFoundForX">No mistakes found for %s</string>
+	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
 	<string name="doneReviewingWhiteMistakes">Wit se foute is klaar hersien</string>
 	<string name="doneReviewingBlackMistakes">Swart se foute is klaar hersien</string>
-	<string name="doneReviewingXMistakes">Done reviewing %s mistakes</string>
+	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
 	<string name="doItAgain">Doen dit weer</string>
 	<string name="reviewWhiteMistakes">Hersien wit se foute</string>
 	<string name="reviewBlackMistakes">Hersien swart se foute</string>
-	<string name="reviewXMistakes">Hersien %s se foute</string>
+	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Hersien %s se foute</string>
 	<string name="advantage">Voordeel</string>
 	<plurals name="nbSeconds">
 		<item quantity="one">%s sekonde</item>

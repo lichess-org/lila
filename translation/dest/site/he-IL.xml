@@ -21,20 +21,20 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="gote">Gote</string>
-	<string name="white">לבן</string>
-	<string name="sente">Sente</string>
-	<string name="black">שחור</string>
-	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
-	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
-	<string name="randomColor">צבע אקראי</string>
+	<string name="gote" comment="Should be 'Gote', unless equivalent exists (ex. 後手 in JP)">Gote</string>
+	<string name="white" comment="Alternative to gote">לבן</string>
+	<string name="sente" comment="Should be 'Sente', unless equivalent exists (ex. 先手 in JP)">Sente</string>
+	<string name="black" comment="Alternative to sente">שחור</string>
+	<string name="shitate" comment="Should be 'Shitate', unless equivalent exists (ex. 下手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="Should be 'Uwate', unless equivalent exists (ex. 上手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
+	<string name="randomColor" comment="Side - sente/gote">צבע אקראי</string>
 	<string name="createAGame">צור משחק</string>
 	<string name="whiteIsVictorious">הלבן ניצח</string>
 	<string name="blackIsVictorious">השחור ניצח</string>
-	<string name="xIsVictorious">%s is victorious</string>
+	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">את/ה משחק/ת את הכלים הלבנים</string>
 	<string name="youPlayTheBlackPieces">את/ה משחק/ת את הכלים השחורים</string>
-	<string name="youPlayAsX">You play as %s</string>
+	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">זה התור שלך!</string>
 	<string name="cheatDetected">Cheat Detected</string>
 	<string name="variantEnding">סיום הוריאנט</string>
@@ -43,7 +43,7 @@
 	<string name="joinTheGame">הצטרף למשחק</string>
 	<string name="whitePlays">תור הלבן</string>
 	<string name="blackPlays">תור השחור</string>
-	<string name="xPlays">%s to play</string>
+	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<string name="shitatePlays">Shitate to play</string>
 	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
@@ -60,11 +60,11 @@
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">האדם הראשון שיכנס לכתובת הזאת ישחק איתך</string>
 	<string name="whiteResigned">הלבן פרש</string>
 	<string name="blackResigned">השחור פרש</string>
-	<string name="xResigned">%s resigned</string>
+	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
 	<string name="whiteLeftTheGame">הלבן עזב את המשחק</string>
 	<string name="blackLeftTheGame">השחור עזב את המשחק</string>
-	<string name="xLeftTheGame">%s left the game</string>
-	<string name="xDidntMove">%s didn\'t move</string>
+	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
+	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">שתף כתובת זו כדי לאפשר לצופים לראות את המשחק</string>
 	<string name="theComputerAnalysisHasFailed">הניתוח הממוחשב נכשל</string>
 	<string name="viewTheComputerAnalysis">צפה בניתוח הממוחשב</string>
@@ -85,6 +85,12 @@
 	<string name="deleteFromHere">מחק מכאן והלאה</string>
 	<string name="forceVariation">וריאנט יחיד</string>
 	<string name="move">מסע</string>
+	<plurals name="moves">
+		<item quantity="one">%s move</item>
+		<item quantity="two">%s moves</item>
+		<item quantity="many">%s moves</item>
+		<item quantity="other">%s moves</item>
+	</plurals>
 	<string name="variantLoss">הפסד כפוי</string>
 	<string name="variantWin">ניצחון כפוי</string>
 	<string name="insufficientMaterial">אין מספיק כלים</string>
@@ -229,10 +235,10 @@
 	<string name="drawOfferCanceled">הצעת התיקו בוטלה</string>
 	<string name="whiteOffersDraw">לבן מציע תיקו</string>
 	<string name="blackOffersDraw">שחור מציע תיקו</string>
-	<string name="xOffersDraw">%s offers draw</string>
+	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
 	<string name="whiteDeclinesDraw">לבן מסרב לתיקו</string>
 	<string name="blackDeclinesDraw">שחור מסרב לתיקו</string>
-	<string name="xDeclinesDraw">%s declines draw</string>
+	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">יריבך מציע תיקו</string>
 	<string name="accept">הסכם</string>
 	<string name="decline">סרב</string>
@@ -256,7 +262,7 @@
 	<string name="rematchOfferSent">הצעה למשחק חוזר נשלחה</string>
 	<string name="rematchOfferSentWhite">לבן מציע משחק חוזר</string>
 	<string name="rematchOfferSentBlack">שחור מציע משחק חוזר</string>
-	<string name="rematchOfferSentX">%s offers rematch</string>
+	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s offers rematch</string>
 	<string name="rematchOfferAccepted">הצעה למשחק חוזר התקבלה</string>
 	<string name="rematchOfferCanceled">בקשת משחק חוזר בוטלה</string>
 	<string name="rematchOfferDeclined">בקשת משחק חוזר נדחתה</string>
@@ -415,7 +421,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="notACheckmate">לא מט.</string>
 	<string name="whiteCheckmatesInOneMove">הלבן כופה מט במסע אחד</string>
 	<string name="blackCheckmatesInOneMove">השחור כופה מט במסע אחד</string>
-	<string name="xCheckmatesInOneMove">%s to checkmate in one move</string>
+	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
 	<string name="retry">נסה שוב</string>
 	<string name="reconnecting">מתחבר מחדש</string>
 	<plurals name="nbFriendsOnline">
@@ -885,7 +891,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="evaluatingYourMove">מעריך את המסע שלך...</string>
 	<string name="whiteWinsGame">הלבן מנצח</string>
 	<string name="blackWinsGame">השחור מנצח</string>
-	<string name="xWinsGame">%s wins</string>
+	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
 	<string name="learnFromYourMistakes">למד מהטעויות שלך</string>
 	<string name="learnFromThisMistake">למד מהטעות הזאת</string>
 	<string name="skipThisMove">דלג/י על מהלך זה</string>
@@ -893,24 +899,24 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="xWasPlayed">%s שוחק</string>
 	<string name="findBetterMoveForWhite">מצא מהלך טוב יותר ללבן</string>
 	<string name="findBetterMoveForBlack">מצב מהלך טוב יותר לשחור</string>
-	<string name="findBetterMoveForX">Find a better move for %s</string>
+	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Find a better move for %s</string>
 	<string name="resumeLearning">המשך ללמוד</string>
 	<string name="youCanDoBetter">אתה יכול לעשות יותר טוב</string>
 	<string name="tryAnotherMoveForWhite">נסה למצוא מהלך טוב יותר ללבן</string>
 	<string name="tryAnotherMoveForBlack">נסה למצוא מהלך טוב יותר לשחור</string>
-	<string name="tryAnotherMoveForX">Try another move for %s</string>
+	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
 	<string name="solution">פתרון</string>
 	<string name="waitingForAnalysis">מחכים לניתוח המשחק</string>
 	<string name="noMistakesFoundForWhite">אף טעות לא נמצאה עבור הלבן</string>
 	<string name="noMistakesFoundForBlack">אף טעות לא נמצאה עבור השחור</string>
-	<string name="noMistakesFoundForX">No mistakes found for %s</string>
+	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
 	<string name="doneReviewingWhiteMistakes">בדיקת טעויות ללבן הסתיימה</string>
 	<string name="doneReviewingBlackMistakes">בדיקת טעויות לשחור הסתיימה</string>
-	<string name="doneReviewingXMistakes">Done reviewing %s mistakes</string>
+	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
 	<string name="doItAgain">עשה זאת שוב</string>
 	<string name="reviewWhiteMistakes">בדוק טעויות ללבן</string>
 	<string name="reviewBlackMistakes">בדוק טעויות לשחור</string>
-	<string name="reviewXMistakes">Review %s mistakes</string>
+	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Review %s mistakes</string>
 	<string name="advantage">יתרון</string>
 	<plurals name="nbSeconds">
 		<item quantity="one">%s שניה</item>

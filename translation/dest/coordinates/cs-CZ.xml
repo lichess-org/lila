@@ -4,8 +4,8 @@
 	<string name="coordinateTraining">Trénink souřadnic</string>
 	<string name="averageScoreAsWhiteX">Průměrné skóre jako bílý: %s</string>
 	<string name="averageScoreAsBlackX">Průměrné skóre jako černý: %s</string>
-	<string name="averageScoreAsX">Průměrné skóre jako %s:</string>
-	<string name="knowingTheShogiBoard">Naučit se správně souřadnice na šachovnici je velmi důležitá shogistická dovednost:</string>
+	<string name="averageScoreAsXY" comment="%1$s - sente(black)/gote(white)">Průměrné skóre jako %1$s: %2$s</string>
+	<string name="knowingTheShogiBoard">Naučit se správně souřadnice na desce je velmi důležitá šógi dovednost:</string>
 	<string name="mostShogiCourses">Všechny shogi kurzy a cvičení používají nějaký druh shogi notace. Můžete si vybrat mezi japonskou a západní.</string>
 	<string name="talkToYourShogiFriends">Snadněji se dorozumíte se svými shogi přáteli, protože oba budete mluvit \"řečí shogi\".</string>
 	<string name="youCanAnalyseAGameMoreEffectively">Můžete efektivněji analyzovat partie, pokud nebudete muset neustále hledat jména polí.</string>

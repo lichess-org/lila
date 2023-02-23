@@ -21,20 +21,20 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="gote">Gote</string>
-	<string name="white">Gote</string>
-	<string name="sente">Sente</string>
-	<string name="black">Sente</string>
-	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
-	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
-	<string name="randomColor">Couleur aléatoire</string>
+	<string name="gote" comment="Should be 'Gote', unless equivalent exists (ex. 後手 in JP)">Gote</string>
+	<string name="white" comment="Alternative to gote">Blancs</string>
+	<string name="sente" comment="Should be 'Sente', unless equivalent exists (ex. 先手 in JP)">Sente</string>
+	<string name="black" comment="Alternative to sente">Noirs</string>
+	<string name="shitate" comment="Should be 'Shitate', unless equivalent exists (ex. 下手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="Should be 'Uwate', unless equivalent exists (ex. 上手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
+	<string name="randomColor" comment="Side - sente/gote">Couleur aléatoire</string>
 	<string name="createAGame">Créer une partie</string>
 	<string name="whiteIsVictorious">Victoire de gote</string>
 	<string name="blackIsVictorious">Victoire de sente</string>
-	<string name="xIsVictorious">%s is victorious</string>
+	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">Victoire de %s</string>
 	<string name="youPlayTheWhitePieces">Vous jouez gote</string>
 	<string name="youPlayTheBlackPieces">Vous jouez sente</string>
-	<string name="youPlayAsX">You play as %s</string>
+	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">Vous jouez %s</string>
 	<string name="itsYourTurn">C\'est votre tour !</string>
 	<string name="cheatDetected">Tricherie détectée</string>
 	<string name="variantEnding">Fin par variante</string>
@@ -43,7 +43,7 @@
 	<string name="joinTheGame">Rejoindre la partie</string>
 	<string name="whitePlays">Trait à gote</string>
 	<string name="blackPlays">Trait à sente</string>
-	<string name="xPlays">%s to play</string>
+	<string name="xPlays" comment="%s - sente(black)/gote(white)">Trait à %s</string>
 	<string name="shitatePlays">Trait à shitate</string>
 	<string name="uwatePlays">Trait à uwate</string>
 	<plurals name="opponentLeftCounter">
@@ -58,11 +58,11 @@
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La première personne qui cliquera sur ce lien jouera avec vous.</string>
 	<string name="whiteResigned">Gote abandonne</string>
 	<string name="blackResigned">Sente abandonne</string>
-	<string name="xResigned">%s resigned</string>
+	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s abandonne</string>
 	<string name="whiteLeftTheGame">Gote a quitté la partie</string>
 	<string name="blackLeftTheGame">Sente a quitté la partie</string>
-	<string name="xLeftTheGame">%s left the game</string>
-	<string name="xDidntMove">%s didn\'t move</string>
+	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s a quitté la partie</string>
+	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Partagez ce lien pour permettre à des spectateurs de voir la partie</string>
 	<string name="theComputerAnalysisHasFailed">L\'analyse automatique a échoué</string>
 	<string name="viewTheComputerAnalysis">Voir l\'analyse automatique</string>
@@ -83,6 +83,10 @@
 	<string name="deleteFromHere">Supprimer à partir d\'ici</string>
 	<string name="forceVariation">Forcer la variante</string>
 	<string name="move">Coup</string>
+	<plurals name="moves">
+		<item quantity="one">%s move</item>
+		<item quantity="other">%s moves</item>
+	</plurals>
 	<string name="variantLoss">Perte (variante)</string>
 	<string name="variantWin">Gain (variante)</string>
 	<string name="insufficientMaterial">Matériel insuffisant</string>
@@ -211,10 +215,10 @@
 	<string name="drawOfferCanceled">Proposition de nulle annulée</string>
 	<string name="whiteOffersDraw">Gote propose la nulle</string>
 	<string name="blackOffersDraw">Sente propose la nulle</string>
-	<string name="xOffersDraw">%s offers draw</string>
+	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s propose la nulle</string>
 	<string name="whiteDeclinesDraw">Gote refuse la nulle</string>
 	<string name="blackDeclinesDraw">Sente refuse la nulle</string>
-	<string name="xDeclinesDraw">%s declines draw</string>
+	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s refuse la nulle</string>
 	<string name="yourOpponentOffersADraw">Votre adversaire propose la nulle</string>
 	<string name="accept">Accepter</string>
 	<string name="decline">Refuser</string>
@@ -238,7 +242,7 @@
 	<string name="rematchOfferSent">Proposition de revanche envoyée</string>
 	<string name="rematchOfferSentWhite">Gote propose une revanche</string>
 	<string name="rematchOfferSentBlack">Sente propose une revanche</string>
-	<string name="rematchOfferSentX">%s offers rematch</string>
+	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s propose une revanche</string>
 	<string name="rematchOfferAccepted">Proposition de revanche acceptée</string>
 	<string name="rematchOfferCanceled">Proposition de revanche annulée</string>
 	<string name="rematchOfferDeclined">Proposition de revanche déclinée</string>
@@ -260,7 +264,7 @@
 	<string name="incrementInSeconds">Incrément en secondes</string>
 	<string name="byoyomiInSeconds">Byôyomi en secondes</string>
 	<string name="numberOfPeriods">Nombre de périodes</string>
-	<string name="freeOnlineShogi">Free Online Shogi</string>
+	<string name="freeOnlineShogi">Jeu de shogi gratuit en ligne</string>
 	<string name="spectators">Spectateurs :</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s évaluée</item>
@@ -352,7 +356,7 @@
 	<string name="save">Enregistrer</string>
 	<string name="leaderboard">Classements</string>
 	<string name="selectHandicap">Sélectionnez le handicap</string>
-	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
+	<string name="pasteTheSfenStringHere">Coller le SFEN ici</string>
 	<string name="pasteTheKifCsaStringHere">Coller le KIF ou le CSA ici</string>
 	<string name="fromPosition">Depuis une position</string>
 	<string name="default" comment="Default starting position as opposed to custom starting position">Default</string>
@@ -364,13 +368,13 @@
 		<item quantity="one">%s partie importée</item>
 		<item quantity="other">%s parties importées</item>
 	</plurals>
-	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAShogiCaptcha">Ceci est un CAPTCHA de shogi.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Cliquez sur l\'échiquier pour jouer un coup, et prouver que vous êtes humain.</string>
 	<string name="captcha.fail">Vous devez résoudre le diagramme de shogi.</string>
 	<string name="notACheckmate">Ce n\'est pas un échec et mat</string>
 	<string name="whiteCheckmatesInOneMove">Gote mate en un coup</string>
 	<string name="blackCheckmatesInOneMove">Sente mate en un coup</string>
-	<string name="xCheckmatesInOneMove">%s to checkmate in one move</string>
+	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s mate en un coup</string>
 	<string name="retry">Réessayer</string>
 	<string name="reconnecting">Reconnexion en cours</string>
 	<plurals name="nbFriendsOnline">
@@ -441,7 +445,7 @@
 	<string name="movesPlayed">Coups joués</string>
 	<string name="whiteWins">Gains par gote</string>
 	<string name="blackWins">Gains par sente</string>
-	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s victoires</string>
 	<string name="draws">Nulles</string>
 	<string name="nextXTournament">Prochain tournoi de %s :</string>
 	<string name="averageOpponent">Opposition moyenne</string>
@@ -642,7 +646,7 @@
 	<string name="webmasters">Webmestres</string>
 	<string name="about">À propos</string>
 	<string name="aboutX">À propos de %s</string>
-	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s est un serveur de shogi gratuit (%2$s), libre, sans pubs et open source.</string>
 	<string name="really">pour de vrai</string>
 	<string name="contribute">Contribuer</string>
 	<string name="termsOfService">Conditions d\'utilisation</string>
@@ -729,9 +733,9 @@
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Voici une liste de périphériques qui sont connectés à votre compte. Supprimez les sessions que vous ne reconnaissez pas.</string>
 	<string name="alternativelyYouCanX">Vous pouvez également %s.</string>
 	<string name="revokeAllSessions">supprimer toutes les sessions</string>
-	<string name="playShogiEverywhere">Play shogi everywhere</string>
+	<string name="playShogiEverywhere">Jouer au shogi partout</string>
 	<string name="asFreeAsLishogi">Aussi gratuit que Lishogi</string>
-	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Construit pour l\'amour du jeu de shogi, pas pour l\'argent</string>
 	<string name="everybodyGetsAllFeaturesForFree">Toutes les fonctionnalités sont gratuites pour tout le monde</string>
 	<string name="zeroAdvertisement">Aucune publicité</string>
 	<string name="fullFeatured">Tout Lishogi, et encore plus</string>
@@ -781,7 +785,7 @@
 	<string name="usernameUnacceptable">Nom d\'utilisateur refusé.</string>
 	<string name="directlySupportLishogi">Financer Lishogi</string>
 	<string name="playShogiInStyle">Play shogi in style</string>
-	<string name="shogiBasics">Shogi basics</string>
+	<string name="shogiBasics">Bases du shogi</string>
 	<string name="shogiResources">Ressources pour le shogi</string>
 	<string name="coaches">Entraîneurs</string>
 	<string name="invalidKif">KIF non valid</string>
@@ -813,7 +817,7 @@
 	<string name="evaluatingYourMove">Evaluation de votre coup ...</string>
 	<string name="whiteWinsGame">Gote gagne</string>
 	<string name="blackWinsGame">Sente gagne</string>
-	<string name="xWinsGame">%s wins</string>
+	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s gagne</string>
 	<string name="learnFromYourMistakes">Apprendre de vos erreurs</string>
 	<string name="learnFromThisMistake">Apprendre de cette erreur</string>
 	<string name="skipThisMove">Passer ce coup</string>
@@ -821,24 +825,24 @@
 	<string name="xWasPlayed">%s a été joué</string>
 	<string name="findBetterMoveForWhite">Trouvez un meilleur coup pour gote</string>
 	<string name="findBetterMoveForBlack">Trouvez un meilleur coup pour sente</string>
-	<string name="findBetterMoveForX">Find a better move for %s</string>
+	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Find a better move for %s</string>
 	<string name="resumeLearning">Retour à l\'apprentissage</string>
 	<string name="youCanDoBetter">Vous pouvez faire mieux</string>
 	<string name="tryAnotherMoveForWhite">Essayez un autre coup pour gote</string>
 	<string name="tryAnotherMoveForBlack">Essayez un autre coup pour sente</string>
-	<string name="tryAnotherMoveForX">Try another move for %s</string>
+	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
 	<string name="solution">Solution</string>
 	<string name="waitingForAnalysis">En cours d\'analyse</string>
 	<string name="noMistakesFoundForWhite">Pas d\'erreur trouvée pour gote</string>
 	<string name="noMistakesFoundForBlack">Pas d\'erreur trouvée pour sente</string>
-	<string name="noMistakesFoundForX">No mistakes found for %s</string>
+	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
 	<string name="doneReviewingWhiteMistakes">Fin d\'examen des erreurs de gote</string>
 	<string name="doneReviewingBlackMistakes">Fin d\'examen des erreurs de sente</string>
-	<string name="doneReviewingXMistakes">Done reviewing %s mistakes</string>
+	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
 	<string name="doItAgain">Recommencer</string>
 	<string name="reviewWhiteMistakes">Revoir les erreurs de gote</string>
 	<string name="reviewBlackMistakes">Revoir les erreurs de sente</string>
-	<string name="reviewXMistakes">Review %s mistakes</string>
+	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Review %s mistakes</string>
 	<string name="advantage">Avantage</string>
 	<plurals name="nbSeconds">
 		<item quantity="one">%s seconde</item>

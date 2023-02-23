@@ -21,20 +21,20 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="gote">Gote</string>
-	<string name="white">後手</string>
-	<string name="sente">Sente</string>
-	<string name="black">先手</string>
-	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">下手</string>
-	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">上手</string>
-	<string name="randomColor">隨機選色</string>
+	<string name="gote" comment="Should be 'Gote', unless equivalent exists (ex. 後手 in JP)">後手</string>
+	<string name="white" comment="Alternative to gote">白方</string>
+	<string name="sente" comment="Should be 'Sente', unless equivalent exists (ex. 先手 in JP)">先手</string>
+	<string name="black" comment="Alternative to sente">黑方</string>
+	<string name="shitate" comment="Should be 'Shitate', unless equivalent exists (ex. 下手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">下手</string>
+	<string name="uwate" comment="Should be 'Uwate', unless equivalent exists (ex. 上手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">上手</string>
+	<string name="randomColor" comment="Side - sente/gote">隨機選色</string>
 	<string name="createAGame">開始對局</string>
 	<string name="whiteIsVictorious">後手勝利</string>
 	<string name="blackIsVictorious">先手勝利</string>
-	<string name="xIsVictorious">%s is victorious</string>
+	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s勝利</string>
 	<string name="youPlayTheWhitePieces">您為後手</string>
 	<string name="youPlayTheBlackPieces">您使用黑棋</string>
-	<string name="youPlayAsX">You play as %s</string>
+	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">您的回合!</string>
 	<string name="cheatDetected">偵測到作弊行為</string>
 	<string name="variantEnding">變體終局</string>
@@ -43,7 +43,7 @@
 	<string name="joinTheGame">加入這盤棋</string>
 	<string name="whitePlays">輪到後手</string>
 	<string name="blackPlays">輪到先手</string>
-	<string name="xPlays">%s to play</string>
+	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<string name="shitatePlays">輪到下手</string>
 	<string name="uwatePlays">輪到上手</string>
 	<plurals name="opponentLeftCounter">
@@ -57,11 +57,11 @@
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">第一個訪問該網址的人將與您下棋。</string>
 	<string name="whiteResigned">後手投了</string>
 	<string name="blackResigned">先手投了</string>
-	<string name="xResigned">%s resigned</string>
+	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
 	<string name="whiteLeftTheGame">後手離開遊戲</string>
 	<string name="blackLeftTheGame">先手離開遊戲</string>
-	<string name="xLeftTheGame">%s left the game</string>
-	<string name="xDidntMove">%s didn\'t move</string>
+	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
+	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">分享這個網址，邀請觀眾觀戰</string>
 	<string name="theComputerAnalysisHasFailed">電腦分析失敗</string>
 	<string name="viewTheComputerAnalysis">查看電腦分析結果</string>
@@ -82,6 +82,9 @@
 	<string name="deleteFromHere">從這處開始刪除</string>
 	<string name="forceVariation">移除變化</string>
 	<string name="move">走棋</string>
+	<plurals name="moves">
+		<item quantity="other">%s moves</item>
+	</plurals>
 	<string name="variantLoss">您因特殊規則而輸了</string>
 	<string name="variantWin">您因特殊規則而贏了</string>
 	<string name="insufficientMaterial">由於棋子不足而導致平局</string>
@@ -202,10 +205,10 @@
 	<string name="drawOfferCanceled">和棋取消</string>
 	<string name="whiteOffersDraw">後手提出和棋</string>
 	<string name="blackOffersDraw">先手提出和棋</string>
-	<string name="xOffersDraw">%s offers draw</string>
+	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
 	<string name="whiteDeclinesDraw">後手拒絕和棋</string>
 	<string name="blackDeclinesDraw">先手拒絕和棋</string>
-	<string name="xDeclinesDraw">%s declines draw</string>
+	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">您的對手提出和棋</string>
 	<string name="accept">接受</string>
 	<string name="decline">拒絕</string>
@@ -229,7 +232,7 @@
 	<string name="rematchOfferSent">重賽請求已發送</string>
 	<string name="rematchOfferSentWhite">後手請求重賽</string>
 	<string name="rematchOfferSentBlack">先手請求重賽</string>
-	<string name="rematchOfferSentX">%s offers rematch</string>
+	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s offers rematch</string>
 	<string name="rematchOfferAccepted">重賽請求被接受</string>
 	<string name="rematchOfferCanceled">重賽請求被取消</string>
 	<string name="rematchOfferDeclined">重賽請求被拒絕</string>
@@ -348,7 +351,7 @@
 	<string name="notACheckmate">沒有詰</string>
 	<string name="whiteCheckmatesInOneMove">後手一手詰</string>
 	<string name="blackCheckmatesInOneMove">先手一手詰</string>
-	<string name="xCheckmatesInOneMove">%s to checkmate in one move</string>
+	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
 	<string name="retry">重試</string>
 	<string name="reconnecting">重新連接中</string>
 	<plurals name="nbFriendsOnline">
@@ -779,7 +782,7 @@
 	<string name="evaluatingYourMove">分析您的移動</string>
 	<string name="whiteWinsGame">後手勝利</string>
 	<string name="blackWinsGame">先手獲勝</string>
-	<string name="xWinsGame">%s wins</string>
+	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
 	<string name="learnFromYourMistakes">從您的失誤中學習</string>
 	<string name="learnFromThisMistake">從您的失誤中學習</string>
 	<string name="skipThisMove">跳過這一步</string>
@@ -787,24 +790,24 @@
 	<string name="xWasPlayed">走了%s</string>
 	<string name="findBetterMoveForWhite">找出後手的最善手</string>
 	<string name="findBetterMoveForBlack">找出先手的最善手</string>
-	<string name="findBetterMoveForX">Find a better move for %s</string>
+	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Find a better move for %s</string>
 	<string name="resumeLearning">回復學習</string>
 	<string name="youCanDoBetter">您還可以做得更好</string>
 	<string name="tryAnotherMoveForWhite">嘗試後手的其他手</string>
 	<string name="tryAnotherMoveForBlack">嘗試先手的其他手</string>
-	<string name="tryAnotherMoveForX">Try another move for %s</string>
+	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
 	<string name="solution">解決方案</string>
 	<string name="waitingForAnalysis">等待分析</string>
 	<string name="noMistakesFoundForWhite">沒有找到後手的失誤</string>
 	<string name="noMistakesFoundForBlack">沒有找到先手的失誤</string>
-	<string name="noMistakesFoundForX">No mistakes found for %s</string>
+	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
 	<string name="doneReviewingWhiteMistakes">已複習後手的失誤</string>
 	<string name="doneReviewingBlackMistakes">已完成回顧先手的惡手</string>
-	<string name="doneReviewingXMistakes">Done reviewing %s mistakes</string>
+	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
 	<string name="doItAgain">重作一次</string>
 	<string name="reviewWhiteMistakes">複習後手失誤</string>
 	<string name="reviewBlackMistakes">複習先手惡手</string>
-	<string name="reviewXMistakes">Review %s mistakes</string>
+	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Review %s mistakes</string>
 	<string name="advantage">優勢</string>
 	<plurals name="nbSeconds">
 		<item quantity="other">%s 秒</item>

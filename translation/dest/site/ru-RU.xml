@@ -21,20 +21,20 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="gote">Gote</string>
-	<string name="white">Белые</string>
-	<string name="sente">Sente</string>
-	<string name="black">Чёрные</string>
-	<string name="shitate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Шитатэ</string>
-	<string name="uwate" comment="https://en.wikipedia.org/wiki/Handicap_(shogi)">Уватэ</string>
-	<string name="randomColor">Случайный цвет</string>
+	<string name="gote" comment="Should be 'Gote', unless equivalent exists (ex. 後手 in JP)">Gote</string>
+	<string name="white" comment="Alternative to gote">Белые</string>
+	<string name="sente" comment="Should be 'Sente', unless equivalent exists (ex. 先手 in JP)">Sente</string>
+	<string name="black" comment="Alternative to sente">Чёрные</string>
+	<string name="shitate" comment="Should be 'Shitate', unless equivalent exists (ex. 下手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Шитатэ</string>
+	<string name="uwate" comment="Should be 'Uwate', unless equivalent exists (ex. 上手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Уватэ</string>
+	<string name="randomColor" comment="Side - sente/gote">Случайный цвет</string>
 	<string name="createAGame">Создать игру</string>
 	<string name="whiteIsVictorious">Победа белых</string>
 	<string name="blackIsVictorious">Победа чёрных</string>
-	<string name="xIsVictorious">%s is victorious</string>
+	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
 	<string name="youPlayTheWhitePieces">Вы играете белыми фигурами</string>
 	<string name="youPlayTheBlackPieces">Вы играете чёрными фигурами</string>
-	<string name="youPlayAsX">You play as %s</string>
+	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">Ваш ход!</string>
 	<string name="cheatDetected">Обнаружено жульничество</string>
 	<string name="variantEnding">Партия окончена</string>
@@ -43,7 +43,7 @@
 	<string name="joinTheGame">Принять вызов</string>
 	<string name="whitePlays">Ход белых</string>
 	<string name="blackPlays">Ход чёрных</string>
-	<string name="xPlays">%s to play</string>
+	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<string name="shitatePlays">Ход шитатэ</string>
 	<string name="uwatePlays">Ход уватэ</string>
 	<plurals name="opponentLeftCounter">
@@ -60,11 +60,11 @@
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">С вами сыграет первый, кто перейдёт по этой ссылке.</string>
 	<string name="whiteResigned">Белые сдались</string>
 	<string name="blackResigned">Чёрные сдались</string>
-	<string name="xResigned">%s resigned</string>
+	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
 	<string name="whiteLeftTheGame">Белые вышли из игры</string>
 	<string name="blackLeftTheGame">Чёрные вышли из игры</string>
-	<string name="xLeftTheGame">%s left the game</string>
-	<string name="xDidntMove">%s didn\'t move</string>
+	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
+	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Пригласите зрителей с помощью этой ссылки</string>
 	<string name="theComputerAnalysisHasFailed">Произошёл сбой</string>
 	<string name="viewTheComputerAnalysis">Просмотреть компьютерный анализ</string>
@@ -85,6 +85,12 @@
 	<string name="deleteFromHere">Удалить с этого места</string>
 	<string name="forceVariation">Сделать вариант главным</string>
 	<string name="move">Ход</string>
+	<plurals name="moves">
+		<item quantity="one">%s move</item>
+		<item quantity="few">%s moves</item>
+		<item quantity="many">%s moves</item>
+		<item quantity="other">%s moves</item>
+	</plurals>
 	<string name="variantLoss">Проигрышный ход</string>
 	<string name="variantWin">Победный ход</string>
 	<string name="insufficientMaterial">Недостаточно материала для мата</string>
@@ -229,10 +235,10 @@
 	<string name="drawOfferCanceled">Предложение ничьей отменено</string>
 	<string name="whiteOffersDraw">Белые предлагают ничью</string>
 	<string name="blackOffersDraw">Чёрные предлагают ничью</string>
-	<string name="xOffersDraw">%s offers draw</string>
+	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
 	<string name="whiteDeclinesDraw">Белые отклонили предложение ничьей</string>
 	<string name="blackDeclinesDraw">Чёрные отклонили предложение ничьей</string>
-	<string name="xDeclinesDraw">%s declines draw</string>
+	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">Ваш соперник предлагает вам ничью</string>
 	<string name="accept">Принять</string>
 	<string name="decline">Отклонить</string>
@@ -256,7 +262,7 @@
 	<string name="rematchOfferSent">Предложение реванша отправлено</string>
 	<string name="rematchOfferSentWhite">Белые предлагают реванш</string>
 	<string name="rematchOfferSentBlack">Чёрные предлагают реванш</string>
-	<string name="rematchOfferSentX">%s offers rematch</string>
+	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s offers rematch</string>
 	<string name="rematchOfferAccepted">Предложение реванша принято</string>
 	<string name="rematchOfferCanceled">Предложение реванша отменено</string>
 	<string name="rematchOfferDeclined">Предложение реванша отклонено</string>
@@ -278,7 +284,7 @@
 	<string name="incrementInSeconds">Добавление секунд на ход</string>
 	<string name="byoyomiInSeconds">Бёёми в секундах</string>
 	<string name="numberOfPeriods">Количество периодов</string>
-	<string name="freeOnlineShogi">Free Online Shogi</string>
+	<string name="freeOnlineShogi">Бесплатное онлайн-сёги</string>
 	<string name="spectators">Зрители:</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s рейтинговая</item>
@@ -408,13 +414,13 @@
 		<item quantity="many">%s импортированных</item>
 		<item quantity="other">%s импортированных</item>
 	</plurals>
-	<string name="thisIsAShogiCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAShogiCaptcha">Это CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Кликните по доске и сделайте ход, чтобы доказать, что вы человек, а не компьютер. (Всем известно, что компьютеры не умеют играть в сёги!).</string>
 	<string name="captcha.fail">Пожалуйста, решите капчу.</string>
 	<string name="notACheckmate">Это не мат</string>
 	<string name="whiteCheckmatesInOneMove">Белые ставят мат в один ход</string>
 	<string name="blackCheckmatesInOneMove">Чёрные ставят мат в один ход</string>
-	<string name="xCheckmatesInOneMove">%s to checkmate in one move</string>
+	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
 	<string name="retry">Повторить</string>
 	<string name="reconnecting">Переподключение</string>
 	<plurals name="nbFriendsOnline">
@@ -704,7 +710,7 @@
 	<string name="webmasters">Разработчикам</string>
 	<string name="about">О сайте</string>
 	<string name="aboutX">О %s</string>
-	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s — бесплатный (%2$s) сервер сёги с открытым исходным кодом без рекламы.</string>
 	<string name="really">именно так</string>
 	<string name="contribute">Внести вклад в развитие</string>
 	<string name="termsOfService">Пользовательское соглашение</string>
@@ -793,9 +799,9 @@
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Это список устройств, с которых входили в ваш аккаунт. Закройте все подозрительные сеансы.</string>
 	<string name="alternativelyYouCanX">Также вы можете %s.</string>
 	<string name="revokeAllSessions">закрыть все сессии</string>
-	<string name="playShogiEverywhere">Play shogi everywhere</string>
+	<string name="playShogiEverywhere">Играйте в сёги везде</string>
 	<string name="asFreeAsLishogi">Бесплатен, как Lishogi</string>
-	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
+	<string name="builtForTheLoveOfShogiNotMoney">С любовью к сёги, а не деньгам</string>
 	<string name="everybodyGetsAllFeaturesForFree">Все возможности для всех бесплатно</string>
 	<string name="zeroAdvertisement">Никакой рекламы</string>
 	<string name="fullFeatured">Максимальная функциональность</string>
@@ -847,7 +853,7 @@
 	<string name="usernameUnacceptable">Это имя пользователя уже занято или недопустимо.</string>
 	<string name="directlySupportLishogi">Поддержать Lishogi</string>
 	<string name="playShogiInStyle">Play shogi in style</string>
-	<string name="shogiBasics">Shogi basics</string>
+	<string name="shogiBasics">Основы сёги</string>
 	<string name="shogiResources">Ресурсы по сёги</string>
 	<string name="coaches">Тренеры</string>
 	<string name="invalidKif">Некорректный KIF</string>
@@ -881,7 +887,7 @@
 	<string name="evaluatingYourMove">Оценка вашего хода...</string>
 	<string name="whiteWinsGame">Белые выиграли</string>
 	<string name="blackWinsGame">Чёрные выиграли</string>
-	<string name="xWinsGame">%s wins</string>
+	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
 	<string name="learnFromYourMistakes">Разобрать свои ошибки</string>
 	<string name="learnFromThisMistake">Разобрать эту ошибку</string>
 	<string name="skipThisMove">Пропустить этот ход</string>
@@ -889,24 +895,24 @@
 	<string name="xWasPlayed">Было сыграно %s</string>
 	<string name="findBetterMoveForWhite">Найдите более сильный ход за белых</string>
 	<string name="findBetterMoveForBlack">Найдите более сильный ход за чёрных</string>
-	<string name="findBetterMoveForX">Find a better move for %s</string>
+	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Find a better move for %s</string>
 	<string name="resumeLearning">Вернуться к обучению</string>
 	<string name="youCanDoBetter">Есть более сильный ход</string>
 	<string name="tryAnotherMoveForWhite">Попробуйте другой ход за белых</string>
 	<string name="tryAnotherMoveForBlack">Попробуйте другой ход за чёрных</string>
-	<string name="tryAnotherMoveForX">Try another move for %s</string>
+	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
 	<string name="solution">Ответ</string>
 	<string name="waitingForAnalysis">Ожидание получения анализа</string>
 	<string name="noMistakesFoundForWhite">Ошибок белых не найдено</string>
 	<string name="noMistakesFoundForBlack">Ошибок чёрных не найдено</string>
-	<string name="noMistakesFoundForX">No mistakes found for %s</string>
+	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
 	<string name="doneReviewingWhiteMistakes">Ошибки белых разобраны</string>
 	<string name="doneReviewingBlackMistakes">Ошибки чёрных разобраны</string>
-	<string name="doneReviewingXMistakes">Done reviewing %s mistakes</string>
+	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
 	<string name="doItAgain">Выполнить ещё раз</string>
 	<string name="reviewWhiteMistakes">Разобрать ошибки белых</string>
 	<string name="reviewBlackMistakes">Разобрать ошибки чёрных</string>
-	<string name="reviewXMistakes">Review %s mistakes</string>
+	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Review %s mistakes</string>
 	<string name="advantage">Преимущество</string>
 	<plurals name="nbSeconds">
 		<item quantity="one">%s секунда</item>
@@ -938,7 +944,7 @@
 	<string name="weHadToTimeYouOutForAWhile">Мы вынуждены отключить вас на время.</string>
 	<string name="timeoutExpires">Вы можете вернуться через %s.</string>
 	<string name="why">Почему?</string>
-	<string name="pleasantShogiExperience">We aim to provide a pleasant shogi experience for everyone.</string>
+	<string name="pleasantShogiExperience">Наша цель — сделать сёги интересным для всех.</string>
 	<string name="goodPractice">Чтобы этого добиться, мы должны сделать так, чтобы все игроки следовали правилам хорошего тона.</string>
 	<string name="potentialProblem">Когда мы обнаруживаем потенциальную проблему, мы показываем это сообщение.</string>
 	<string name="howToAvoidThis">Как избежать этого?</string>

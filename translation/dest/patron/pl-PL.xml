@@ -6,14 +6,14 @@
 	<string name="becomePatron">Zostań patronem Lishogi</string>
 	<string name="xBecamePatron">%s został patronem Lishogi</string>
 	<string name="newPatrons">Nowi patroni</string>
-	<string name="freeShogi">Free shogi for everyone, forever!</string>
+	<string name="freeShogi">Darmowe shogi dla wszystkich i na zawsze!</string>
 	<string name="noAdsNoSubs">Bez reklam, bez abonamentu, za to z otwartym kodem i pełne pasji.</string>
 	<string name="thankYou">Dziękuję za darowiznę!</string>
 	<string name="youHaveLifetime">Masz konto Dożywotnego Patrona. To całkiem niesamowite!</string>
 	<string name="patronUntil">Masz konto patrona do %s.</string>
 	<string name="ifNotRenewed">Jeśli nie zostanie odnowione, stanie się ponownie zwykłym kontem.</string>
 	<string name="weRelyOnSupport">Żeby było to możliwe, liczymy na wsparcie ze strony osób takich jak Ty. Jeśli lubisz korzystać z Lishogi, rozważ wsparcie nas poprzez darowizny i stań się naszym patronem!</string>
-	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
+	<string name="donationSupport">Jeśli chcesz wesprzeć lishogi i rozwój open source, rozważ darowiznę! Nie dostaniesz niczego w zamian, ponieważ lishogi traktuje wszystkich użytkowników tak samo, ale Twoja darowizna będzie bardzo doceniana!</string>
 	<string name="lifetime">Dożywotnie</string>
 	<string name="payLifetimeOnce">Wpłać %s raz. Bądź patronem Lishogi na zawsze!</string>
 	<string name="lifetimePatron">Dożywotni patron Lishogi</string>

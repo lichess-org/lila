@@ -16,7 +16,7 @@
   <string name="yourPuzzleRatingX">आपकी पहेली की रेटिंग: %s</string>
   <string name="findTheBestMoveForWhite">गोट (सफेद रंग) के लिए सबसे अच्छी चाल का पता लगाएं।</string>
   <string name="findTheBestMoveForBlack">सेंटे (काले रंग) के लिए सबसे अच्छी चाल का पता लगाएं।</string>
-  <string name="findTheBestMoveForX">Find the best move for %s.</string>
+  <string name="findTheBestMoveForX" comment="%s - sente(black)/gote(white)">Find the best move for %s.</string>
   <string name="toGetPersonalizedPuzzles">वैयक्तिकृत पहेलियाँ प्राप्त करने के लिए:</string>
   <string name="puzzleId">पहेलि %s</string>
   <string name="puzzleOfTheDay">दिन की पहेली</string>
