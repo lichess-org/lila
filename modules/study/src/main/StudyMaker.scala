@@ -64,8 +64,6 @@ final private class StudyMaker(
     createPovChapters(pov, study.id, user.id).map { chapters =>
       Study.WithActualChapters(chapters.headOption.fold(study)(study withChapter _), chapters)
     }
-  } addEffect { swc =>
-    chapterMaker.notifyChat(swc.study, pov.game, user.id) // todo remove
   }
 
   private def createPovChapters(

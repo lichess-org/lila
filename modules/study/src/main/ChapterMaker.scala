@@ -3,14 +3,12 @@ package lila.study
 import shogi.format.Tags
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
-import lila.chat.{ Chat, ChatApi }
 import lila.game.{ Game, Namer }
 import lila.user.User
 
 final private class ChapterMaker(
     net: lila.common.config.NetConfig,
     lightUser: lila.user.LightUserApi,
-    chatApi: ChatApi,
     gameRepo: lila.game.GameRepo,
     notationDump: lila.game.NotationDump
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -126,7 +124,6 @@ final private class ChapterMaker(
         else fuccess(data.name)
       }
       root = GameToRoot(game, withClocks = true)
-      _    = notifyChat(study, game, userId)
     } yield Chapter.make(
       studyId = study.id,
       name = name,
@@ -144,17 +141,6 @@ final private class ChapterMaker(
       gamebook = data.isGamebook,
       conceal = data.isConceal option Chapter.Ply(root.ply)
     )
-
-  def notifyChat(study: Study, game: Game, userId: User.ID) =
-    if (study.isPublic) List(game.id, s"${game.id}/w") foreach { chatId =>
-      chatApi.userChat.write(
-        chatId = Chat.Id(chatId),
-        userId = userId,
-        text = s"I'm studying this game on ${net.domain}/study/${study.id}",
-        publicSource = none,
-        _.Study
-      )
-    }
 
   private val UrlRegex = {
     val escapedDomain = net.domain.value.replace(".", "\\.")
