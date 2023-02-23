@@ -1188,7 +1188,7 @@
     if (document.body.getAttribute('data-dev')) workerUrl.searchParams.set('dev', '1');
     const updateViaCache = document.body.getAttribute('data-dev') ? 'none' : 'all';
     navigator.serviceWorker.register(workerUrl.href, { scope: '/', updateViaCache }).then(reg => {
-      const storage = lishogi.storage.make('push-subscribed');
+      const storage = lishogi.storage.make('push-subscribed2');
       const vapid = document.body.getAttribute('data-vapid');
       if (vapid && Notification.permission == 'granted') {
         reg.pushManager.getSubscription().then(sub => {
