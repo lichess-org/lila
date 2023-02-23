@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">drugih načina da nam pomognete</string>
   <string name="areThereWebsitesBasedOnLichess">Postoje li web stranice temeljene na Lichess-u?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess je doista inspirirao druge web stranice otvorenog koda koje koriste naš %1$s, %2$s ili %3$s.</string>
+  <string name="keyboardShortcuts">Koje tipkovničke prečice postoje?</string>
+  <string name="keyboardShortcutsExplanation">Neke Lichess stranice imaju tipkovničke prečace koje možete koristiti. Pokušajte pritisnuti \'?\' tipku na stranici studija, analize, zagonetke ili igre za popis dostupnih tipkovničkih prečaca.</string>
   <string name="fairPlay">Poštena Igra</string>
   <string name="whenAmIEligibleRatinRefund">Kada ispunjavam uvjete za automatsko vraćanje rejtinga od varalica?</string>
   <string name="ratingRefundExplanation">Nakon jedne minute što je igrač označen, njemu se uzima 40 rejtingiranih partija u posljednja tri dana. Ako ste mu Vi u tim partijama bili protivnik, past će vam rejting (zbog poraza ili remija) i ako Vaš rejting nije privremen, dobijete povrat rejtinga. Količina vraćenog rejtinga temelji se na Vašem najvišem rejtingu i njegovom napretku nakon date partije.
