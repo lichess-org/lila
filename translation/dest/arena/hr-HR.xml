@@ -58,6 +58,7 @@ Igraj brzo i vrati se u lobi da igraš više partija i osvojiš više bodova.</s
   <string name="arenaStreaks">Arena nizovi</string>
   <string name="arenaStreaksHelp">Nakon 2 pobjede, uzastopne pobjede daju 4 boda umjesto 2.</string>
   <string name="noBerserkAllowed">Berserk nje dozvoljen</string>
+  <string name="noArenaStreaks">Bez Arena nizova</string>
   <string name="averagePerformance">Osrednji performans</string>
   <string name="averageScore">Prosječni rezultat</string>
 </resources>
