@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">altres maneres d\'ajudar</string>
   <string name="areThereWebsitesBasedOnLichess">Hi ha pàgines web basades en Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sí. Lichess ha inspirat altres pàgines de codi obert que utilitzen el nostre %1$s, %2$s, o %3$s.</string>
+  <string name="keyboardShortcuts">Quines dreceres de teclat estan disponibles?</string>
+  <string name="keyboardShortcutsExplanation">Algunes pàgines de Lichess tenen dreceres de teclat que pots utilitzar. Proveu de prémer la tecla \'?\' en una pàgina d\'estudi, anàlisis, problemes o una partida per veure les dreceres disponibles.</string>
   <string name="fairPlay">Joc net</string>
   <string name="whenAmIEligibleRatinRefund">En quins casos se\'m retornen automàticament els punts perduts contra un trampós?</string>
   <string name="ratingRefundExplanation">Un minut després de marcar a un jugador com a trampós, s\'agafen les seves últimes 40 partides puntuables dels tres últims dies. Si tu vas ser el seu oponent en aquestes partides, vas perdre punts en elles (bé perquè vas perdre, bé perquè vas empatar), y la teva puntuació no era provisional, llavors se\'t retornaran els punts. Aquest reemborsament està limitat per la teva màxima puntuació i per com hagi progressat la teva puntuació després d\'aquella partida.
