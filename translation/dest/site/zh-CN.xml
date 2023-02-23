@@ -196,8 +196,12 @@
   <string name="email">电子邮箱</string>
   <string name="passwordReset">密码重置</string>
   <string name="forgotPassword">忘记密码？</string>
+  <string name="error.weakPassword">这个密码太常见了，而且很容易猜到。</string>
+  <string name="error.namePassword">请不要把密码设为用户名。</string>
   <string name="youAreLeavingLichess">您正在离开Lichess</string>
   <string name="neverTypeYourPassword">永远不要在其他网站输入您的Lichess密码 ！</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">前往 %s</string>
+  <string name="passwordSuggestion">不要使用他人建议的密码，他们会用此密码盗取您的账号。</string>
   <string name="emailConfirmHelp">协助邮件确认</string>
   <string name="emailConfirmNotReceived">注册后没有收到确认邮件？</string>
   <string name="whatSignupUsername">您想用什么用户名注册？</string>
