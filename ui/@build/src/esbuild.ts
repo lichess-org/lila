@@ -17,7 +17,7 @@ export async function esbuild(): Promise<void> {
   }
   try {
     await es.build({
-      sourcemap: env.prod ? false : 'inline',
+      sourcemap: !env.prod,
       define: {
         __info__: JSON.stringify({
           date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
