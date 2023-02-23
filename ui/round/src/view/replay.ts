@@ -52,7 +52,10 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
             else setTimeout(() => ctrl.autoScroll(), 200);
           }),
         },
-        [viewStatus(ctrl), winner ? ' • ' + ctrl.trans.noarg(toBlackWhite(winner) + 'IsVictorious') : '']
+        [
+          viewStatus(ctrl.data.game.status, ctrl.data.game.winner, ctrl.trans),
+          winner ? ' • ' + ctrl.trans.noarg(toBlackWhite(winner) + 'IsVictorious') : '',
+        ]
       ),
     ]);
   }
@@ -84,6 +87,21 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   els.push(renderResult(ctrl));
 
   return els;
+}
+
+export function studyButton(ctrl: RoundController): VNode {
+  const disabled = !game.userAnalysable(ctrl.data);
+  return h('a.fbt.study', {
+    class: {
+      disabled: disabled,
+    },
+    attrs: {
+      disabled: disabled,
+      title: ctrl.trans.noarg('study'),
+      'data-icon': '4',
+    },
+    hook: util.bind('click', _ => $.modal($('.continue-with.g_' + ctrl.data.game.id), undefined, undefined, true)),
+  });
 }
 
 export function analysisButton(ctrl: RoundController): VNode {
@@ -158,6 +176,7 @@ function renderButtons(ctrl: RoundController) {
           },
         });
       }),
+      studyButton(ctrl) || h('div.noop'),
       analysisButton(ctrl) || h('div.noop'),
     ]
   );

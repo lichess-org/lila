@@ -351,7 +351,7 @@ interface JQueryStatic {
 }
 
 interface LishogiModal {
-  (html: string | JQuery, cls?: string, onClose?: () => void): JQuery;
+  (html: string | JQuery, cls?: string, onClose?: () => void, withDataAndEvents?: boolean): JQuery;
   close(): void;
 }
 

@@ -1,4 +1,4 @@
-import { bind, MaybeVNodes } from 'common/snabbdom';
+import { MaybeVNodes } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import * as game from 'game';
 import { PlayerUser } from 'game';
@@ -49,18 +49,65 @@ function studyForm(ctrl: RoundController): VNode {
   );
 }
 
+function s(ctrl: RoundController, player?: game.Player): VNode {
+  return h(
+    'form',
+    {
+      attrs: {
+        method: 'post',
+        action: '/study/post-game-study',
+      },
+    },
+    [
+      h('input', {
+        attrs: { type: 'hidden', name: 'gameId', value: ctrl.data.game.id },
+      }),
+      player?.user?.id
+        ? h('input', {
+            attrs: { type: 'hidden', name: 'users[]', value: player.user.id },
+          })
+        : null,
+      h(
+        'button.button',
+        {
+          attrs: {
+            type: 'submit',
+          },
+        },
+        player?.user?.id ? ctrl.trans.noarg('Study with opponent') : ctrl.trans.noarg('Study alone')
+      ),
+    ]
+  );
+}
+
 function studyButton(ctrl: RoundController): VNode | null {
   const d = ctrl.data;
   return game.replayable(d)
     ? h(
         'a.fbt',
         {
-          hook: bind('click', _ => $.modal($('.continue-with.g_' + d.game.id))),
+          hook: util.bind('click', _ => $.modal($('.continue-with.g_' + d.game.id), undefined, undefined, true)),
         },
         [
           ctrl.noarg('toStudy'),
           h('div.continue-with.none.g_' + d.game.id, [
-            h('div.study-options', [h('button.button', {}, 'Study with opponent'), studyForm(ctrl)]),
+            h('div.study-options', [
+              h('div.study-title', [
+                ctrl.trans.noarg('Post-game Study'),
+                h('a.q-explanation', { attrs: { href: '/page/post-game-study', target: '_blank' } }, '?'),
+              ]),
+              h('div.desc', [
+                'If study already exists, you will be redirected to the existing study. Otherwise new study will be created.',
+              ]),
+              s(ctrl, d.opponent),
+              s(ctrl),
+              h(
+                'a.text',
+                { attrs: { 'data-icon': '', href: `/study/post-game-study/${d.game.id}/hot` } },
+                'Show existing studies of this game.'
+              ),
+            ]),
+            h('div.study-options', [h('div.study-title', ctrl.trans.noarg('Standard Study')), studyForm(ctrl)]),
           ]),
         ]
       )
@@ -332,7 +379,7 @@ export function impasseHelp(ctrl: RoundController) {
       {
         hook: onSuggestionHook,
       },
-      [ctrl.noarg('impasse'), h('a.impasse-explanation', { attrs: { href: '/page/impasse', target: '_blank' } }, '?')]
+      [ctrl.noarg('impasse'), h('a.q-explanation', { attrs: { href: '/page/impasse', target: '_blank' } }, '?')]
     ),
     h('div.impasse', [
       h(

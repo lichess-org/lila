@@ -11,6 +11,9 @@
   .ddloader {
     margin: 20px auto 10px auto;
   }
+  .q-explanation {
+    padding: 0.5rem;
+  }
   .suggestion,
   .pending,
   .negotiation {
@@ -50,9 +53,6 @@
         color: $c-good;
         font-weight: bold;
       }
-    }
-    .impasse-explanation {
-      padding: 0.6rem;
     }
   }
   .pending {
@@ -235,9 +235,29 @@
   .study-options {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    button {
-      width: 100%;
+    &:first-child {
+      margin-bottom: 1rem;
+    }
+    .study-title {
+      font-size: 1.2rem;
+      &:first-child {
+        margin-left: 0.5rem;
+      }
+    }
+    .desc {
+      max-width: 25vw;
+      color: $c-font-dim;
+      font-size: 0.8rem;
+      margin: 0.3rem 0;
+    }
+    form {
+      margin: 0.6rem 0;
+      button {
+        width: 100%;
+      }
+    }
+    .q-explanation {
+      padding: 0.5rem;
     }
   }
 }

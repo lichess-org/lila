@@ -17,7 +17,7 @@ function onSpeechChange(ctrl: RoundController) {
 }
 
 export function status(ctrl: RoundController) {
-  const s = viewStatus(ctrl);
+  const s = viewStatus(ctrl.data.game.status, ctrl.data.game.winner, ctrl.trans);
   if (s === 'playingRightNow') window.LishogiSpeech!.step(ctrl.stepAt(ctrl.ply), false);
   else {
     withSpeech(_ => window.lishogi.sound.say({ en: s, jp: s }, false));
