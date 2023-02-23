@@ -6,6 +6,7 @@ import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 import play.api.libs.ws.WSClient
+import java.nio.charset.StandardCharsets.UTF_8
 import scala.jdk.CollectionConverters._
 
 import lila.common.config._
@@ -16,7 +17,6 @@ final private class PushConfig(
     @ConfigName("collection.device") val deviceColl: CollName,
     @ConfigName("collection.subscription") val subscriptionColl: CollName,
     val web: WebPush.Config,
-    val onesignal: OneSignalPush.Config,
     val firebase: FirebasePush.Config
 )
 
@@ -42,13 +42,11 @@ final class Env(
   def registerDevice    = deviceApi.register _
   def unregisterDevices = deviceApi.unregister _
 
-  private lazy val oneSignalPush = wire[OneSignalPush]
-
   private lazy val googleCredentials: Option[GoogleCredentials] =
     try {
       config.firebase.json.value.some.filter(_.nonEmpty).map { json =>
         ServiceAccountCredentials
-          .fromStream(new java.io.ByteArrayInputStream(json.getBytes()))
+          .fromStream(new java.io.ByteArrayInputStream(json.getBytes(UTF_8)))
           .createScoped(Set("https://www.googleapis.com/auth/firebase.messaging").asJava)
       }
     } catch {

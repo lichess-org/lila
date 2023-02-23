@@ -5,6 +5,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.challenge.Challenge
+import lila.common.String.shorten
 import lila.common.{ Future, LightUser }
 import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
@@ -13,7 +14,6 @@ import lila.user.User
 
 final private class PushApi(
     firebasePush: FirebasePush,
-    oneSignalPush: OneSignalPush,
     webPush: WebPush,
     userRepo: lila.user.UserRepo,
     implicit val lightUser: LightUser.Getter,
@@ -187,7 +187,7 @@ final private class PushApi(
               _.message,
               PushApi.Data(
                 title = sender.titleName,
-                body = t.lastMsg.text take 140,
+                body = shorten(t.lastMsg.text, 57 - 3, "..."),
                 stacking = Stacking.NewMessage,
                 payload = Json.obj(
                   "userId" -> t.other(sender),
@@ -257,9 +257,6 @@ final private class PushApi(
     webPush(userId, data).addEffects { res =>
       monitor(lila.mon.push.send)("web", res.isSuccess)
     } zip
-      oneSignalPush(userId, data).addEffects { res =>
-        monitor(lila.mon.push.send)("onesignal", res.isSuccess)
-      } zip
       firebasePush(userId, data).addEffects { res =>
         monitor(lila.mon.push.send)("firebase", res.isSuccess)
       } void
