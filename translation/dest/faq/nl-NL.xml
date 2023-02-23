@@ -17,7 +17,7 @@
   <string name="areThereWebsitesBasedOnLichess">Zijn er websites gebaseerd op Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess heeft inderdaad andere open-source sites geïnspireerd die onze %1$s, %2$s of %3$s gebruiken.</string>
   <string name="keyboardShortcuts">Welke sneltoetsen zijn er?</string>
-  <string name="keyboardShortcutsExplanation">Op sommige Lichess-pagina\'s zijn kunt u sneltoetsen gebruiken. Druk op de \'?\' toets op een studie-, analyse-, puzzel- of partijpagina om beschikbare sneltoetsen te tonen.</string>
+  <string name="keyboardShortcutsExplanation">Op sommige Lichess-pagina\'s kunt u sneltoetsen gebruiken. Druk op de \'?\' toets op een studie-, analyse-, puzzel- of partijpagina om beschikbare sneltoetsen te tonen.</string>
   <string name="fairPlay">Eerlijk spel</string>
   <string name="whenAmIEligibleRatinRefund">Wanneer kom ik in aanmerking voor de automatische ratingcompensatie van valsspelers?</string>
   <string name="ratingRefundExplanation">Een minuut nadat een speler gemarkeerd is, worden diens laatste veertig met rating gespeelde en in de laatste drie dagen gewonnen partijen in aanmerking genomen. Als je zijn tegenstander was in een van deze partijen en je rating was niet voorlopig, krijg je een ratingcompensatie. Deze compensatie wordt beperkt op basis van je hoogste rating en je ratingvoortgang na de desbetreffende partij.
