@@ -92,7 +92,13 @@ export interface StudyData {
   visibility: 'public' | 'unlisted' | 'private';
   createdAt: number;
   from: string;
-  postGameStudy?: any;
+  postGameStudy?: {
+    gameId: string;
+    players: {
+      sente: GamePlayer;
+      gote: GamePlayer;
+    };
+  };
   likes: number;
   isNew?: boolean;
   liked: boolean;
@@ -226,4 +232,9 @@ export interface ChapterPreviewPlayer {
   name: string;
   title?: string;
   rating?: number;
+}
+
+export interface GamePlayer {
+  playerId: string;
+  userId?: string;
 }

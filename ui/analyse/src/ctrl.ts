@@ -158,6 +158,7 @@ export default class AnalyseCtrl {
     this.study = opts.study
       ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay)
       : undefined;
+    this.setOrientation();
     this.studyPractice = this.study ? this.study.practice : undefined;
 
     this.shogiground.set(makeConfig(this), true);
@@ -211,6 +212,14 @@ export default class AnalyseCtrl {
       this.synthetic || this.ongoing ? undefined : treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
   }
+
+  private setOrientation = (): void => {
+    const userId = document.body.dataset.user,
+      players = this.study?.data.postGameStudy?.players,
+      userOrientation =
+        players && (players.sente.userId === userId ? 'sente' : players.gote.userId === userId ? 'gote' : undefined);
+    this.flipped = userOrientation && this.data.orientation !== userOrientation ? true : false;
+  };
 
   private setPath = (path: Tree.Path): void => {
     this.path = path;
