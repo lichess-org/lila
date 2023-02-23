@@ -18,6 +18,8 @@
   <string name="otherWaysToHelp">birçok yolu</string>
   <string name="areThereWebsitesBasedOnLichess">Lichess kaynak kodunu kullanan siteler var mı?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Evet. Lichess %1$s, %2$s ve %3$s paylaşımında bulunarak farklı açık kaynak kodlu sitelere ilham kaynağı olmuştur.</string>
+  <string name="keyboardShortcuts">Burada hangi klavye kısayolları var?</string>
+  <string name="keyboardShortcutsExplanation">Bazı Lichess sayfaları kullanabileceğiniz klavye kısayolları bulundurur. Bir çalışma, analiz, bulmaca veya oyun sayfasında geçerli klavye kısayollarının listelemek için \'?\' tuşuna basmayı deneyin.</string>
   <string name="fairPlay">Adil Oyun</string>
   <string name="whenAmIEligibleRatinRefund">Hile yapan oyunculara kaybettiğim puanları ne zaman geri alırım?</string>
   <string name="ratingRefundExplanation">Hile yaptığı tespit edilen bir oyuncunun son 3 gün içinde oynadığı 40 puanlı maç iptal edilir. Eğer bu maçlar arasına sizin de beraberlik veya yenilgi yüzünden puan kaybettiğiniz oyunlar varsa ve oyun puanınız geçici değilse kaybettiğiniz puanları geri alırsınız. Puanları geri alırken, ulaştığınız en yüksek puan ve maçtan sonraki puan durumunuza göre bir üst limit belirlenir.
