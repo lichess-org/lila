@@ -3,12 +3,14 @@ package controllers
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
+import java.nio.charset.StandardCharsets.UTF_8
 
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.String.getBytesShiftJis
 import lila.study.actorApi.Who
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
@@ -463,7 +465,7 @@ final class Study(
             lila.mon.notation.studyChapter.increment()
             val flags          = requestNotationFlags(ctx.req, csa)
             val content        = env.study.notationDump.ofChapter(study, flags)(chapter).toString
-            val contentEncoded = if (flags.shiftJis) content.getBytes("Shift-JIS") else content.getBytes
+            val contentEncoded = if (flags.shiftJis) getBytesShiftJis(content) else content.getBytes(UTF_8)
             Ok(contentEncoded)
               .withHeaders(
                 CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump

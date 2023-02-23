@@ -1,5 +1,7 @@
 package lila.user
 
+import java.nio.charset.StandardCharsets.UTF_8
+
 import org.specs2.mutable.Specification
 import org.mindrot.BCrypt
 
@@ -17,7 +19,7 @@ class BCryptTest extends Specification {
     "have uniq salts" >> { salt !== BCrypt.gensaltRaw }
 
     "raw bytes" in {
-      val rawHash = BCrypt.hashpwRaw(pass.getBytes("UTF-8"), 'a', 6, salt)
+      val rawHash = BCrypt.hashpwRaw(pass.getBytes(UTF_8), 'a', 6, salt)
 
       salt.size must_== 16
       rawHash.size must_== 23

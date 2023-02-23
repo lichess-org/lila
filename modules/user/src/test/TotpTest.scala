@@ -1,5 +1,7 @@
 package lila.user
 
+import java.nio.charset.StandardCharsets.UTF_8
+
 import org.specs2.mutable.Specification
 import User.TotpToken
 
@@ -26,7 +28,7 @@ class TotpTest extends Specification {
 
     "reference" in {
       // https://tools.ietf.org/html/rfc6238#appendix-B
-      val secret = TotpSecret("12345678901234567890".getBytes)
+      val secret = TotpSecret("12345678901234567890".getBytes(UTF_8))
       secret.totp(59 / 30) must_== TotpToken("287082")
       secret.totp(1111111109L / 30) must_== TotpToken("081804")
       secret.totp(1111111111L / 30) must_== TotpToken("050471")

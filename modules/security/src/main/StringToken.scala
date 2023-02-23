@@ -1,5 +1,7 @@
 package lila.security
 
+import java.nio.charset.StandardCharsets.UTF_8
+
 import com.roundeights.hasher.Algo
 import org.mindrot.BCrypt
 import org.joda.time.DateTime
@@ -34,8 +36,8 @@ final class StringToken[A](
       _ split separator match {
         case Array(payloadStr, hashed, checksum) =>
           BCrypt.bytesEqualSecure(
-            makeHash(signPayload(payloadStr, hashed)).getBytes("utf-8"),
-            checksum.getBytes("utf-8")
+            makeHash(signPayload(payloadStr, hashed)).getBytes(UTF_8),
+            checksum.getBytes(UTF_8)
           ) ?? {
             val payload = serializer read payloadStr
             (valueChecker match {

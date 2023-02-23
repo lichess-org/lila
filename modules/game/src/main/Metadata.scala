@@ -4,6 +4,7 @@ import shogi.format.kif.KifParser
 import shogi.format.csa.CsaParser
 import shogi.format.ParsedNotation
 
+import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import lila.db.ByteArray
 
@@ -54,7 +55,7 @@ object NotationImport {
           .filter(_.nonEmpty)
           .to(List)
           .mkString("\n")
-          .getBytes("UTF-8")
+          .getBytes(UTF_8)
       } take 12
     }
 

@@ -3,10 +3,12 @@ package controllers
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.mvc._
+import java.nio.charset.StandardCharsets.UTF_8
 
 import lila.api.GameApiV2
 import lila.app._
 import lila.common.config.MaxPerSecond
+import lila.common.String.getBytesShiftJis
 import lila.common.HTTPRequest
 import lila.game.{ Game => GameModel }
 
@@ -48,7 +50,7 @@ final class Game(
         env.api.gameApiV2.exportOne(game, config) flatMap { content =>
           env.api.gameApiV2.filename(game, config) map { filename =>
             val contentEncoded =
-              if (config.flags.shiftJis) content.getBytes("Shift-JIS") else content.getBytes
+              if (config.flags.shiftJis) getBytesShiftJis(content) else content.getBytes(UTF_8)
             Ok(contentEncoded)
               .withHeaders(
                 CONTENT_DISPOSITION -> s"attachment; filename=$filename"
