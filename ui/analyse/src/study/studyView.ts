@@ -1,4 +1,5 @@
-import { MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
+import { MaybeVNodes, bind, dataIcon, MaybeVNode } from 'common/snabbdom';
+import { opposite } from 'shogiground/util';
 import { VNode, h } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { iconTag, richHTML } from '../util';
@@ -134,6 +135,58 @@ function buttons(root: AnalyseCtrl): VNode {
   ]);
 }
 
+function postGameButtons(ctrl: StudyCtrl): MaybeVNode {
+  if (ctrl.data.postGameStudy) {
+    const usersGameColor = (userId: string): Color | undefined => {
+      return ctrl.data.postGameStudy?.players.sente.userId === userId
+        ? 'sente'
+        : ctrl.data.postGameStudy?.players.gote.userId === userId
+        ? 'gote'
+        : undefined;
+    };
+    const userId = document.body.dataset.user,
+      myColor = userId ? usersGameColor(userId) : undefined,
+      me = myColor && ctrl.data.postGameStudy.players[myColor],
+      gameBackButton = h(
+        'a.button.button-empty.text',
+        {
+          attrs: {
+            title: ctrl.trans.noarg('backToGame'),
+            href: '/' + ctrl.data.postGameStudy.gameId + (me?.playerId || ''),
+            ...dataIcon('i'),
+          },
+        },
+        !me ? ctrl.trans.noarg('backToGame') : null
+      );
+    if (me) {
+      const myOpponent = ctrl.data.postGameStudy.players[opposite(myColor)],
+        isOnline = myOpponent.userId && ctrl.members.isOnline(myOpponent.userId);
+      return h('div.game_info', [
+        gameBackButton,
+        h(
+          'button.button.button-empty' + (!isOnline || !myOpponent.userId ? '.disabled' : ''),
+          {
+            attrs: {
+              title: myOpponent.userId
+                ? `${ctrl.trans.noarg('rematch')} ${myOpponent.userId}`
+                : 'Cannot rematch anonymous player in study',
+            },
+            hook: bind('click', () => {
+              console.log('EE!');
+            }),
+          },
+          ctrl.trans.noarg('rematch')
+        ),
+        h(
+          'a.button.button-empty',
+          { attrs: { href: '/?hook_like=' + ctrl.data.postGameStudy.gameId } },
+          ctrl.trans.noarg('newOpponent')
+        ),
+      ]);
+    } else return h('div.game_info', gameBackButton);
+  } else return null;
+}
+
 function metadata(ctrl: StudyCtrl): VNode {
   const d = ctrl.data,
     credit = ctrl.relay && ctrl.relay.data.credit,
@@ -216,32 +269,10 @@ export function side(ctrl: StudyCtrl): VNode {
         )
       : null,
   ]);
-  const myColor =
-      ctrl.data.postGameStudy?.players['sente'].userId === ''
-        ? 'sente'
-        : ctrl.data.postGameStudy?.players['gote'].userId === ''
-        ? 'gote'
-        : undefined,
-    me = myColor && ctrl.data.postGameStudy.players[myColor];
-  const gameInfo = !!ctrl.data.postGameStudy
-    ? h('div.game_info', [
-        h('a.button.button-empty', {
-          attrs: {
-            title: ctrl.trans.noarg('backToGame'),
-            href: '/' + ctrl.data.postGameStudy.gameId + (me.playerId || ''),
-            ...dataIcon('i'),
-          },
-        }),
-        h('a.button.button-empty', { attrs: {} }, ctrl.trans.noarg('rematch')),
-        h(
-          'a.button.button-empty',
-          { attrs: { href: '/?hook_like=' + ctrl.data.postGameStudy.gameId } },
-          ctrl.trans.noarg('newOpponent')
-        ),
-      ])
-    : null;
 
-  return h('div.study__side', [tabs, (activeTab === 'members' ? memberView : chapterView)(ctrl), gameInfo]);
+  const gameButtons = postGameButtons(ctrl);
+
+  return h('div.study__side', [tabs, (activeTab === 'members' ? memberView : chapterView)(ctrl), gameButtons]);
 }
 
 export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): VNode[] {
