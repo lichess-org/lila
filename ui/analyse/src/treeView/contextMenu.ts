@@ -67,6 +67,7 @@ function action(icon: string, text: string, handler: () => void): VNode {
 function view(opts: Opts, coords: Coords): VNode {
   const ctrl = opts.root,
     node = ctrl.tree.nodeAtPath(opts.path),
+    cantChangeMainline = !!ctrl.study?.data.postGameStudy,
     onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
     trans = ctrl.trans.noarg;
   return h(
@@ -82,12 +83,18 @@ function view(opts: Opts, coords: Coords): VNode {
     },
     [
       h('p.title', nodeFullName(node, opts.root.data.pref.notation)),
-      onMainline ? null : action('S', trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
-      onMainline ? null : action('E', trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
+      onMainline || cantChangeMainline
+        ? null
+        : action('S', trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
+      onMainline || cantChangeMainline ? null : action('E', trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
       action('q', trans('deleteFromHere'), () => ctrl.deleteNode(opts.path)),
     ]
       .concat(ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : [])
-      .concat([onMainline ? action('F', trans('forceVariation'), () => ctrl.forceVariation(opts.path, true)) : null])
+      .concat([
+        onMainline && !cantChangeMainline
+          ? action('F', trans('forceVariation'), () => ctrl.forceVariation(opts.path, true))
+          : null,
+      ])
   );
 }
 
