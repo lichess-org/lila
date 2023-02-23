@@ -20,8 +20,8 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
   private val rapidInc       = Config("Rapid Increment", 7, IncrementSeconds(2), 7, 8)
   private val blitzInc       = Config("Blitz Increment", 5, IncrementSeconds(2), 10, 12)
   private val superblitzInc  = Config("SuperBlitz Increment", 3, IncrementSeconds(1), 12, 12)
-  private val bulletInc      = Config("Bullet", 1, IncrementSeconds(1), 20, 15)
-  private val hyperbulletInc = Config("HyperBullet", 0, IncrementSeconds(1), 20, 15)
+  private val bulletInc      = Config("Bullet Increment", 1, IncrementSeconds(1), 20, 15)
+  private val hyperbulletInc = Config("HyperBullet Increment", 0, IncrementSeconds(1), 20, 15)
 
   // length must divide 48 (schedule starts at 0AM)
   // so either 3, 4, 6, 8, 12, 24
