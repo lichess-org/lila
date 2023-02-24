@@ -6,6 +6,7 @@ import { env, colors as c, errorMark, lines } from './main';
 
 export async function tsc(onSuccess: () => void) {
   if (!env.tsc) return onSuccess();
+  let successCallbackTriggered = false;
 
   const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');
   const cfg: any = { files: [] };
@@ -21,7 +22,10 @@ export async function tsc(onSuccess: () => void) {
     const txts = lines(buf.toString('utf8'));
     for (const txt of txts) {
       if (txt.includes('Found 0 errors')) {
-        if (!env.exitCode.has('tsc')) onSuccess();
+        if (!successCallbackTriggered) {
+          onSuccess();
+          successCallbackTriggered = true;
+        }
         env.done(0, 'tsc');
       } else {
         tscLog(txt);

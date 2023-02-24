@@ -4,9 +4,12 @@
 # Dart executable and a snapshot of dart-sass.
 
 follow_links() {
+  # Use `readlink -f` if it exists, but fall back to manually following symlnks
+  # for systems (like older Mac OS) where it doesn't.
   file="$1"
+  if readlink -f "$file" 2>&-; then return; fi
+
   while [ -h "$file" ]; do
-    # On Mac OS, readlink -f doesn't work.
     file="$(readlink "$file")"
   done
   echo "$file"
