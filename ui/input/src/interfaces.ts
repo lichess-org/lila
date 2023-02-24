@@ -83,16 +83,21 @@ export interface VoiceCtrl {
   readonly isRecording: boolean; // are we recording?
   readonly status: string; // errors, progress, or the most recent voice command
   addListener: (name: string, listener: VoiceListener) => void;
+  updateVocabulary: (vocabulary: string[]) => Promise<void>;
   partialMove: Prop<string>;
   textInput: HTMLInputElement | undefined;
 }
 
-export interface VoskOpts {
+export interface KaldiOpts {
   keys: string[];
-  sampleRate: number;
   audioCtx: AudioContext;
-  broadcast: (msgText: string, msgType: MsgType, forMs: number) => void;
+  broadcast: (msgText: string, msgType: MsgType, words: WordResult | undefined, forMs: number) => void;
   impl: 'vanilla' | 'worklet';
-  url: string;
-  ctrl: VoiceCtrl;
 }
+
+export type WordResult = Array<{
+  conf: number;
+  start: number;
+  end: number;
+  word: string;
+}>;
