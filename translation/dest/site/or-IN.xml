@@ -197,6 +197,7 @@
   <string name="fewerPlayers">ଯଦି ଆପଣ ପ୍ରବେଶ ଆବଶ୍ୟକତାକୁ ସେଟ୍ କରନ୍ତି, ତେବେ ଆପଣଙ୍କ ଟୁର୍ନାମେଣ୍ଟରେ କମ୍ ଖେଳାଳି ରହିବେ।</string>
   <string name="showAdvancedSettings">ବିକଶିତ ସେଟିଂସ୍ ଦେଖାନ୍ତୁ</string>
   <string name="boardEditor">ବୋର୍ଡ ସମ୍ପାଦକ</string>
+  <string name="isPrivate">ଘରୋଇ</string>
   <string name="profileCompletion">ପ୍ରୋଫାଇଲ୍ ସମାପ୍ତି: %s</string>
   <string name="profile">ପ୍ରୋଫାଇଲ୍</string>
   <string name="editProfile">ପ୍ରୋଫାଇଲ୍ ସମ୍ପାଦନା</string>
@@ -209,6 +210,7 @@
   <string name="puzzles">ପ୍ରହେଳିକା</string>
   <string name="name">ନାମ</string>
   <string name="description">ଵର୍ଣ୍ଣନା</string>
+  <string name="descPrivate">ଘରୋଇ ଵର୍ଣ୍ଣନା</string>
   <string name="no">ନାହିଁ</string>
   <string name="yes">ହଁ</string>
   <string name="help">ସହାୟତା:</string>
@@ -220,6 +222,8 @@
   <string name="whatIsIheMatter">ମାମଲା କ\'ଣ?</string>
   <string name="importedByX">%sଙ୍କ ଦ୍ୱାରା ଆମଦାନୀ ହୋଇଛି</string>
   <string name="thisTopicIsNowClosed">ଏଇ ପ୍ରକରଣଟି ଏବେ ବନ୍ଦ ହୋଇଯାଇଛି।</string>
+  <string name="typePrivateNotesHere">ଘରୋଇ ନୋଟ୍ ଏଠାରେ ଟାଇପ୍ କରନ୍ତୁ</string>
+  <string name="writeAPrivateNoteAboutThisUser">ଏହି ଉପଭୋକ୍ତାଙ୍କ ଵିଷୟରେ ଏକ ଘରୋଇ ନୋଟ୍ ଲେଖନ୍ତୁ</string>
   <string name="invalidUsernameOrPassword">ଅବୈଧ ଉପଭୋକ୍ତାଙ୍କ ନାମ କିମ୍ୱା ପାସ୍‍ୱାର୍ଡ଼</string>
   <string name="incorrectPassword">ଭୁଲ୍ ପାସ୍‍ୱାର୍ଡ଼</string>
   <string name="currentPassword">ଏବେକାର ପାସ୍‍ୱାର୍ଡ଼</string>
