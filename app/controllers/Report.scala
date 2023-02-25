@@ -104,7 +104,7 @@ final class Report(
                 def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
                 if prev.isAppeal then Redirect(appeal.routes.Appeal.queue).toFuccess
                 else if dataOpt.flatMap(_ get "next").exists(_.headOption contains "1") then
-                  api.processInquiry(Mod.holder(me)) >>
+                  api.processInquiry(me) >>
                     api.inquiries.toggleNext(me, prev.room) map {
                       _.fold(redirectToList)(onInquiryStart)
                     }
