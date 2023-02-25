@@ -31,30 +31,28 @@ final class Mod(
   def alt(username: UserStr, v: Boolean) =
     OAuthModBody(_.CloseAccount) { me =>
       withSuspect(username) { sus =>
-        for {
-          inquiry <- env.report.api.inquiries ofModId me.id
-          _       <- modApi.setAlt(me, sus, v)
-          _       <- (v && sus.user.enabled.yes) ?? env.api.accountClosure.close(sus.user, me)
-          _       <- (!v && sus.user.enabled.no) ?? modApi.reopenAccount(me.id into ModId, sus.user.id)
-        } yield (inquiry, sus).some
+        for
+          _ <- modApi.setAlt(me, sus, v)
+          _ <- (v && sus.user.enabled.yes) ?? env.api.accountClosure.close(sus.user, me)
+          _ <- (!v && sus.user.enabled.no) ?? modApi.reopenAccount(me.id into ModId, sus.user.id)
+        yield sus.some
       }
     }(ctx =>
-      me => { case (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
+      me => { suspect =>
+        reportC.onModAction(me, suspect)(using ctx)
       }
     )
 
   def engine(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkEngine) { me =>
       withSuspect(username) { sus =>
-        for {
-          inquiry <- env.report.api.inquiries ofModId me.id
-          _       <- modApi.setEngine(me, sus, v)
-        } yield (inquiry, sus).some
+        for
+          _ <- modApi.setEngine(me, sus, v)
+        yield sus.some
       }
     }(ctx =>
-      me => { case (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
+      me => { suspect =>
+        reportC.onModAction(me, suspect)(using ctx)
       }
     )
 
@@ -78,14 +76,13 @@ final class Mod(
   def booster(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkBooster) { me =>
       withSuspect(username) { prev =>
-        for {
-          inquiry <- env.report.api.inquiries ofModId me.id
+        for
           suspect <- modApi.setBoost(me, prev, v)
-        } yield (inquiry, suspect).some
+        yield suspect.some
       }
     }(ctx =>
-      me => { (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
+      me => { suspect =>
+        reportC.onModAction(me, suspect)(using ctx)
       }
     )
 
@@ -93,13 +90,12 @@ final class Mod(
     OAuthModBody(_.Shadowban) { me =>
       withSuspect(username) { prev =>
         for
-          inquiry <- env.report.api.inquiries ofModId me.id
           suspect <- modApi.setTroll(me, prev, v)
-        yield (inquiry, suspect).some
+        yield suspect.some
       }
     }(ctx =>
-      me => { (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
+      me => { suspect =>
+        reportC.onModAction(me, suspect)(using ctx)
       }
     )
 
@@ -108,16 +104,15 @@ final class Mod(
       env.mod.presets.getPmPresets(me.user).named(subject) ?? { preset =>
         withSuspect(username) { suspect =>
           for
-            inquiry <- env.report.api.inquiries ofModId me.id
-            _       <- env.msg.api.systemPost(suspect.user.id, preset.text)
-            _       <- env.mod.logApi.modMessage(me.id into ModId, suspect.user.id, preset.name)
-            _       <- preset.isNameClose ?? env.irc.api.nameClosePreset(suspect.user.username)
-          yield (inquiry, suspect).some
+            _ <- env.msg.api.systemPost(suspect.user.id, preset.text)
+            _ <- env.mod.logApi.modMessage(me.id into ModId, suspect.user.id, preset.name)
+            _ <- preset.isNameClose ?? env.irc.api.nameClosePreset(suspect.user.username)
+          yield suspect.some
         }
       }
     }(ctx =>
-      me => { (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
+      me => { suspect =>
+        reportC.onModAction(me, suspect)(using ctx)
       }
     )
 

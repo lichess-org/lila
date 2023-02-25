@@ -217,7 +217,7 @@ final class ReportApi(
     for {
       all <- recent(suspect, 10)
       open = all.filter(_.open)
-      _ <- doProcessReport($inIds(all.filter(_.open).map(_.id)), User.lichessId into ModId)
+      _ <- doProcessReport($inIds(all.filter(_.open).map(_.id)), User.lichessId into ModId, unsetInquiry = false)
     } yield open
 
   def reopenReports(suspect: Suspect): Funit =
@@ -273,32 +273,20 @@ final class ReportApi(
 
   def byId(id: Report.Id) = coll.byId[Report](id)
 
-  def process(mod: Mod, reportId: Report.Id): Funit =
-    for
-      report <- byId(reportId) orFail s"no such report $reportId"
-      res    <- process(mod, report)
-    yield res
-
-  def processInquiry(mod: Mod): Funit =
-    inquiries
-      .ofModId(mod.user.id)
-      .dmap(_.filter(_.user == mod.user.id))
-      .flatMapz { process(mod, _) }
-
   def process(mod: Mod, report: Report): Funit =
     accuracy.invalidate($id(report.id)) >>
-      doProcessReport($id(report.id), mod.id).void >>-
+      doProcessReport($id(report.id), mod.id, unsetInquiry = true).void >>-
       maxScoreCache.invalidateUnit() >>-
       lila.mon.mod.report.close.increment().unit
 
-  private def doProcessReport(selector: Bdoc, by: ModId): Funit =
+  private def doProcessReport(selector: Bdoc, by: ModId, unsetInquiry: Boolean): Funit =
     coll.update
       .one(
         selector,
         $set(
           "open" -> false,
           "done" -> Report.Done(by, nowDate)
-        ) ++ $unset("inquiry"),
+        ) ++ (unsetInquiry ?? $unset("inquiry")),
         multi = true
       )
       .void
