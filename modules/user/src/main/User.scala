@@ -156,6 +156,7 @@ object User:
       case Success(user: User)       extends Result(user.some)
       case InvalidUsernameOrPassword extends Result(none)
       case BlankedPassword           extends Result(none)
+      case WeakPassword              extends Result(none)
       case MissingTotpToken          extends Result(none)
       case InvalidTotpToken          extends Result(none)
 

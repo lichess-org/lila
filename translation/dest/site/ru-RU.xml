@@ -1000,7 +1000,7 @@
   <string name="noChat">Без чата</string>
   <string name="onlyTeamLeaders">Только организаторы клуба</string>
   <string name="onlyTeamMembers">Только члены клуба</string>
-  <string name="navigateMoveTree">Навигация по нотации</string>
+  <string name="navigateMoveTree">Переход по ходам</string>
   <string name="mouseTricks">Движения мышкой</string>
   <string name="toggleLocalAnalysis">Включить компьютерный анализ</string>
   <string name="toggleAllAnalysis">Переключить все способы компьютерного анализа</string>

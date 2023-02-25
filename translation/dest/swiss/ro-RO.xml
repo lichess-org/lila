@@ -11,7 +11,7 @@
     <item quantity="few">%s runde</item>
     <item quantity="other">%s de runde</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">Sistem elvețian %s rundă</item>
     <item quantity="few">Sistem elvețian %s runde</item>
     <item quantity="other">Sistem elvețian %s de runde</item>

@@ -23,8 +23,8 @@
   <string name="createAGame">إنشاء مباراة</string>
   <string name="whiteIsVictorious">الأبيض فاز</string>
   <string name="blackIsVictorious">الأسود فاز</string>
-  <string name="youPlayTheWhitePieces">أنت تلعب القطع البيضاء</string>
-  <string name="youPlayTheBlackPieces">أنت تلعب القطع السوداء</string>
+  <string name="youPlayTheWhitePieces">أنت تلعب بالقطع البيضاء</string>
+  <string name="youPlayTheBlackPieces">أنت تلعب بالقطع السوداء</string>
   <string name="itsYourTurn">إنه دورك!</string>
   <string name="cheatDetected">ثم تحديد حالة غش</string>
   <string name="kingInTheCenter">الملك في الوسط</string>
@@ -251,6 +251,14 @@
   <string name="email">البريد الإلكتروني</string>
   <string name="passwordReset">إعادة تعيين كلمة المرور</string>
   <string name="forgotPassword">هل نسيت كلمة المرور؟</string>
+  <string name="error.weakPassword">كلمة المرور هذه ضعيفة للغاية, و يسهل تخمينها.</string>
+  <string name="error.namePassword">الرجاء عدم استخدام اسم المستخدم الخاص بك ككلمة المرور الخاصة بك.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">لقد استخدمت نفس كلمة المرور في موقع آخر، وقد تعرض ذلك الموقع للخطر. لضمان سلامة حساب Lichess الخاص بك، نحن بحاجة منك إلى تعيين كلمة مرور جديدة. شكرا لتفهمك.</string>
+  <string name="youAreLeavingLichess">أنت تغادر Lichess</string>
+  <string name="neverTypeYourPassword">لا تكتب كلمة مرور Lichess الخاصة بك على موقع آخر!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">انتقل إلى %s</string>
+  <string name="passwordSuggestion">لا تقم بتعيين كلمة مرور مقترحة من قبل شخص آخر. سوف يستخدمونها لسرقة حسابك.</string>
+  <string name="emailSuggestion">لا تقم بتعيين عنوان بريد إلكتروني اقترحه شخص آخر. سوف يستخدمه لسرقة حسابك.</string>
   <string name="emailConfirmHelp">المساعدة في تأكيد البريد الإلكتروني</string>
   <string name="emailConfirmNotReceived">لم تستلم بريدك الإلكتروني للتأكيد بعد التسجيل؟</string>
   <string name="whatSignupUsername">ما هو اسم المستخدم الذي استخدمته للتسجيل؟</string>
@@ -859,6 +867,7 @@ https://lichess. org/study</string>
   <string name="kidMode">موقع الأطفال</string>
   <string name="kidModeExplanation">هذا يتعلق بالأمان. في نمط الطفل، يتم تعطيل كافة اتصالات المواقع. تمكين هذا للأطفال والطلاب، لحمايتهم من مستخدمي الإنترنت الأخرين.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">في نمط الطفل، يكون لشعار ليتشيس رمز %s، لكي تعرف أن أطفالك آمنين.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">يتم إدارة حسابك. اسأل معلم الشطرنج الخاص بك عن رفع وضع الطفل.</string>
   <string name="enableKidMode">تمكين نمط الطفل</string>
   <string name="disableKidMode">تعطيل نمط الطفل</string>
   <string name="security">الأمان</string>

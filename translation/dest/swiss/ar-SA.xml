@@ -17,7 +17,7 @@
     <item quantity="many">%s جولات</item>
     <item quantity="other">%s جولات</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="zero">%s جولة سويسرية</item>
     <item quantity="one">%s جولة سويسرية</item>
     <item quantity="two">%s جولة سويسرية</item>

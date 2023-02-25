@@ -15,7 +15,7 @@
   <string name="pgnLetter">Bokstav (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-modus</string>
   <string name="showPlayerRatings">Vis ratingen til spelarane</string>
-  <string name="explainShowPlayerRatings">Dette gjer det mogleg å skjule all rating frå nettsida, for å hjelpa til med å halde fokuset på sjakken. Du kan framleis spela rangerte parti, dette handlar berre om kva du får sjå.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Dette gjer det mogleg å skjule all rating frå nettsida, for å hjelpa til med å halde fokuset på sjakken. Du kan framleis spela rangerte parti, dette handlar berre om kva du får sjå.</string>
   <string name="displayBoardResizeHandle">Vis handtak for brettstorleik</string>
   <string name="onlyOnInitialPosition">Berre for startstillinga</string>
   <string name="blindfoldChess">Blindsjakk</string>
@@ -63,5 +63,5 @@
   <string name="notifyPush">Melding på eininga når du ikkje brukar Lichess</string>
   <string name="notifyWeb">Nettlesar</string>
   <string name="notifyDevice">Eining</string>
-  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Varsellyd</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Varsellyd</string>
 </resources>

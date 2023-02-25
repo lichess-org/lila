@@ -3,7 +3,7 @@
   <string name="team">Takım</string>
   <string name="teams">Takımlar</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s üye</item>
+    <item quantity="one">%s üyeler</item>
     <item quantity="other">%s üye</item>
   </plurals>
   <string name="allTeams">Tüm takımlar</string>

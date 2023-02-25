@@ -18,6 +18,8 @@
   <string name="otherWaysToHelp">birçok yolu</string>
   <string name="areThereWebsitesBasedOnLichess">Lichess kaynak kodunu kullanan siteler var mı?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Evet. Lichess %1$s, %2$s ve %3$s paylaşımında bulunarak farklı açık kaynak kodlu sitelere ilham kaynağı olmuştur.</string>
+  <string name="keyboardShortcuts">Burada hangi klavye kısayolları var?</string>
+  <string name="keyboardShortcutsExplanation">Bazı Lichess sayfaları kullanabileceğiniz klavye kısayolları bulundurur. Bir çalışma, analiz, bulmaca veya oyun sayfasında geçerli klavye kısayollarının listelemek için \'?\' tuşuna basmayı deneyin.</string>
   <string name="fairPlay">Adil Oyun</string>
   <string name="whenAmIEligibleRatinRefund">Hile yapan oyunculara kaybettiğim puanları ne zaman geri alırım?</string>
   <string name="ratingRefundExplanation">Hile yaptığı tespit edilen bir oyuncunun son 3 gün içinde oynadığı 40 puanlı maç iptal edilir. Eğer bu maçlar arasına sizin de beraberlik veya yenilgi yüzünden puan kaybettiğiniz oyunlar varsa ve oyun puanınız geçici değilse kaybettiğiniz puanları geri alırsınız. Puanları geri alırken, ulaştığınız en yüksek puan ve maçtan sonraki puan durumunuza göre bir üst limit belirlenir.
@@ -66,7 +68,7 @@ Geçerken alma kuralı FIDE tarafından şöyle açıklanır (%2$s):
 Geçerken alma kuralı üzerine biraz pratik yapmak için %3$s göz atın.</string>
   <string name="goodIntroduction">güzel bir açıklama</string>
   <string name="lichessTraining">Lichess egzersizlerine</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Uluslararası Usta Eric Rosen\'in matını izleyin %s.</string>
+  <string name="watchIMRosenCheckmate">Uluslararası Usta Eric Rosen\'in matını izleyin %s.</string>
   <string name="threefoldRepetition">Üç konum tekrarı</string>
   <string name="threefoldRepetitionExplanation">Aynı pozisyonun üç kez tekrarlanması durumunda oyuncular %1$s sebebiyle beraberlik talebine bulunabilirler. Lichess\'te %2$s maddesinde belirtilen resmî kurallar esas alınır.</string>
   <string name="threefoldRepetitionLowerCase">üç konum tekrarı</string>

@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">citi veidi kā palīdzēt</string>
   <string name="areThereWebsitesBasedOnLichess">Vai eksistē uz Lichess balstītas vietnes?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Jā. Vietne Lichess tiešām ir iedvesmojusi citas atvērtā koda lapas, kas izmanto mūsu %1$s, %2$s, vai %3$s.</string>
+  <string name="keyboardShortcuts">Kādas saīsnes ir pieejamas?</string>
+  <string name="keyboardShortcutsExplanation">Dažās Lichess lapās varat izmantot tastatūras saīsnes. Nospiediet \"?\" taustiņu izpētes, analīzes, pužļu vai spēles lapā, lai skatītu pieejamās saīsnes.</string>
   <string name="fairPlay">Godīga spēlēšana</string>
   <string name="whenAmIEligibleRatinRefund">Kad man ir tiesības uz automātisku reitinga atlīdzinājumu no blēžiem?</string>
   <string name="ratingRefundExplanation">Minūti pēc spēlētāja atzīmēšanas viņa 40 pēdējās spēles tiek apskatītas. Ja kādā no tām bijāt pretinieks un zaudējāt punktus (zaudējuma vai neizšķirta dēļ), un jūsu reitings nebija pagaidu reitings, saņemsiet reitinga atlīdzinājumu. Atlīdzinājuma ierobežojums ir atkarīgs no jūsu augstākā reitinga un reitinga progresa pēc spēles.
@@ -63,7 +65,7 @@ Tas ir aprakstīts %2$s sadaļā 3.7 (d).
 Skatīt %3$s šim gājienam, lai ar to trenētos.</string>
   <string name="goodIntroduction">labu ievadu</string>
   <string name="lichessTraining">Lichess treniņu</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Skatīties, kā Starptautiskais Meistars Ēriks Rosens piesaka matu ar gājienu garāmejot: %s.</string>
+  <string name="watchIMRosenCheckmate">Skatīties, kā Starptautiskais Meistars Ēriks Rosens piesaka matu ar gājienu garāmejot: %s.</string>
   <string name="threefoldRepetition">Trīskārša atkārtošanās</string>
   <string name="threefoldRepetitionExplanation">Ja pozīcija trīsreiz atkārtojas, spēlētāji var pieprasīt %1$s neizšķirtu. Lichess izmanto oficiālos FIDE noteikumus, kas aprakstīti %2$s sadaļā 9.2 (d).</string>
   <string name="threefoldRepetitionLowerCase">trīskāršas atkārtošanās</string>

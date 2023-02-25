@@ -62,7 +62,7 @@
 Бұл тәсілді қолданып көру үшін %3$s-н қараңыз.</string>
   <string name="goodIntroduction">жақсы түсіндірме</string>
   <string name="lichessTraining">Личес жаттығулары</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Халықаралық Шебер Эрик Розын матын қарау %s.</string>
+  <string name="watchIMRosenCheckmate">Халықаралық Шебер Эрик Розын матын қарау %s.</string>
   <string name="threefoldRepetition">Үш реттік қайталану</string>
   <string name="threefoldRepetitionExplanation">Егер тақта күйі үш рет қайталанса, %1$s-ды негіз етіп, ойыншылар тепе-теңдікті сұрауға құқылы. Личес, %2$s-тың 9.2 (d) бабында жазылғандай, FIDE ережесін ұстанады.</string>
   <string name="threefoldRepetitionLowerCase">үш реттік қайталану</string>

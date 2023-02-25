@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="twoFactorAuth">Двохфакторна аутентіфікація</string>
+  <string name="twoFactorHelp">Двохфакторна аутентіфікація повышат безопасность вашого акаунта.</string>
+  <string name="scanTheCode">Проскануй QR код у придаткови.</string>
+  <string name="ifYouCannotScanEnterX">Кідь не можете одскановати код, уведіт секретный код %s у придаткови.</string>
+  <string name="authenticationCode">Код аутентіфікації</string>
+  <string name="enableTwoFactor">Уключити двухфакторну аутентіфікацію</string>
+  <string name="disableTwoFactor">Выключити двухфакторну аутентіфікацію</string>
+  <string name="twoFactorEnabled">Двохфакторна аутентіфікація уключена</string>
+</resources>

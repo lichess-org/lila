@@ -15,7 +15,7 @@
   <string name="pgnLetter">Shkronja (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modaliteti zen</string>
   <string name="showPlayerRatings">Shfaq klasifikim lojtarësh</string>
-  <string name="explainShowPlayerRatings">Kjo lejon të bëhet fshehja e krejt klasifikimeve në sajt, për të ndihmuar përqendrimin në shah. Lojërat prapë mund të vlerësohen, kjo ka të bëjë vetëm me ato çka shihni.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Kjo lejon të bëhet fshehja e krejt klasifikimeve në sajt, për të ndihmuar përqendrimin në shah. Lojërat prapë mund të vlerësohen, kjo ka të bëjë vetëm me ato çka shihni.</string>
   <string name="displayBoardResizeHandle">Shfaq mundësi ripërmasimi fushe</string>
   <string name="onlyOnInitialPosition">Vetëm në pozicionin fillestar</string>
   <string name="blindfoldChess">Shah i verber (gurë të padukshëm)</string>

@@ -10,6 +10,7 @@
   <string name="aiNameLevelAiLevel">%1$s dáreje %2$s</string>
   <string name="level">Dáreje</string>
   <string name="strength">Kúshi</string>
+  <string name="toggleTheChat">Bul júristi ótkerip jiberiw</string>
   <string name="chat">Sáwbetlesiw</string>
   <string name="resign">Táslim bolıw</string>
   <string name="checkmate">Mat</string>
@@ -54,6 +55,13 @@
   <string name="computerAnalysis">Kompyuter analizleri</string>
   <string name="computerAnalysisAvailable">Kompyuter analizi ashıq</string>
   <string name="computerAnalysisDisabled">Kompyuter analizi óshik</string>
+  <string name="analysis">Analiz taxtası</string>
+  <string name="depthX">Tereńlik %s</string>
+  <string name="usingServerAnalysis">Server analizinen paydalanıw</string>
+  <string name="calculatingMoves">Júrislerdi esaplaw...</string>
+  <string name="cloudAnalysis">Bulıtlı analiz</string>
+  <string name="goDeeper">Tereńirek analizlew</string>
+  <string name="showThreat">Qáwipti kórsetiw</string>
   <string name="deleteFromHere">Bul jerden óshiriw</string>
   <string name="move">Júris</string>
   <string name="variantLoss">Jeńiliwshi júris</string>
@@ -77,7 +85,23 @@
   <string name="delete">Óshiriw</string>
   <string name="enable">Iske túsiriw</string>
   <string name="memory">Yad</string>
+  <string name="blunder">Qopal qáte</string>
   <string name="mistake">Qátelik</string>
+  <string name="inaccuracy">Túnisiniksizlik</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s qopal qáte</item>
+    <item quantity="other">%s qopal qáte</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s qáte</item>
+    <item quantity="other">%s qáte</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s túsiniksizlik</item>
+    <item quantity="other">%s túsiniksizlik</item>
+  </plurals>
+  <string name="offerDraw">Pattı usınıs etiw</string>
+  <string name="draw">Pat</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s oyınshı</item>
     <item quantity="other">%s oyınshılar</item>
@@ -107,6 +131,7 @@
   <string name="discussions">Sáwbetler</string>
   <string name="today">Búgin</string>
   <string name="yesterday">Erteń</string>
+  <string name="minutesPerSide">Hár tárep ushın minutlar</string>
   <string name="variant">Variant</string>
   <string name="variants">Variantlar</string>
   <string name="timeControl">Waqıttı basqarıw</string>
@@ -136,7 +161,31 @@
   <string name="error.weakPassword">Bul parol júdá keń tarqalǵan hám tabıw dim ańsat.</string>
   <string name="error.namePassword">Ótinish, paydalanıwshı atın parol retinde qollanbań.</string>
   <string name="youAreLeavingLichess">Siz Lichessten shıǵıp atırsız</string>
+  <string name="rank">Dáreje</string>
+  <string name="rankX">Dáreje: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Dáreje hár minutta jańalanadı</item>
+    <item quantity="other">Dáreje hár %s minutta jańalanadı</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s másele</item>
+    <item quantity="other">%s máseleler</item>
+  </plurals>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">Siz benen %s oyın</item>
+    <item quantity="other">Siz benen %s oyın</item>
+  </plurals>
   <string name="cancel">Biykarlaw</string>
+  <string name="whiteTimeOut">Aqtıń waqtı tawsıldı</string>
+  <string name="blackTimeOut">Qaranıń waqtı tawsıldı</string>
+  <string name="drawOfferSent">Pat usınısı jiberildi</string>
+  <string name="drawOfferAccepted">Pat usınısı qabıllandı</string>
+  <string name="drawOfferCanceled">Pat usınısı biykarlandı</string>
+  <string name="whiteOffersDraw">Aqlar pattı usınıs etpekte</string>
+  <string name="blackOffersDraw">Qaralar pattı usınıs etpekte</string>
+  <string name="whiteDeclinesDraw">Aqlar pattı biykarladı</string>
+  <string name="blackDeclinesDraw">Qaralar pattı biykarladı</string>
+  <string name="yourOpponentOffersADraw">Qarsılasıńız pattı usınıs etpekte</string>
   <string name="accept">Qabıllaw</string>
   <string name="decline">Biykarlaw</string>
   <string name="playingRightNow">Házir oyın bolıp atır</string>
@@ -163,6 +212,11 @@
     <item quantity="one">%s pat</item>
     <item quantity="other">%s pat</item>
   </plurals>
+  <string name="takebackPropositionSent">Júristi qaytarıw sorawı jiberildi</string>
+  <string name="takebackPropositionDeclined">Júristi qaytarıw sorawı biykarlandı</string>
+  <string name="takebackPropositionAccepted">Júristi qaytarıw sorawı qabıllandı</string>
+  <string name="takebackPropositionCanceled">Júristi qaytarıw sorawı biykarlandı</string>
+  <string name="yourOpponentProposesATakeback">Siziń qarsılasıńız júristi qaytarıwdı soramaqta</string>
   <string name="tournament">Jarıs</string>
   <string name="tournaments">Jarıslar</string>
   <string name="backToGame">Oyınǵa qaytıw</string>
@@ -170,6 +224,7 @@
   <string name="filterGames">Oyınlar filtri</string>
   <string name="reset">Qayta ornatıw</string>
   <string name="save">Saqlaw</string>
+  <string name="retry">Qayta urınıp kóriw</string>
   <string name="follow">Jazılıw</string>
   <string name="following">Jazılǵansız</string>
   <string name="followX">%s jazılıw</string>
@@ -182,18 +237,46 @@
     <item quantity="other">%s jazılıwshı</item>
   </plurals>
   <string name="more">Jáne</string>
+  <string name="memberSince">Registraciya sánesi</string>
+  <string name="lastSeenActive">%s aktiv boldı</string>
   <string name="player">Oyınshı</string>
   <string name="list">Dizim</string>
+  <string name="graph">Diagramma</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">%s minuttan az</item>
     <item quantity="other">%s minuttan az</item>
   </plurals>
+  <string name="required">Toltırılıwı shárt qatar.</string>
+  <string name="openTournaments">Ashıq turnirler</string>
+  <string name="duration">Uzaqlıq</string>
+  <string name="winner">Jeńimpaz</string>
+  <string name="createANewTournament">Jańa turnir jaratıw</string>
+  <string name="tournamentCalendar">Turnir kalendarı</string>
+  <string name="conditionOfEntry">Qatnasıw shártleri:</string>
+  <string name="advancedSettings">Qosımsha sazlawlar</string>
+  <string name="showAdvancedSettings">Qosımsha sazlawlardı kórsetiw</string>
   <string name="join">Qosılıw</string>
+  <string name="withdraw">Oyınnan shıǵıw</string>
+  <string name="wins">Jeńis</string>
+  <string name="losses">Jeńilis</string>
+  <string name="pause">Pauza</string>
   <string name="youArePlaying">Siz oyındasız!</string>
+  <string name="tournamentComplete">Turnir juwmaqlandı</string>
+  <string name="whiteWins">Aqlar jeńisi</string>
+  <string name="blackWins">Qaralar jeńisi</string>
+  <string name="draws">Patlar</string>
+  <string name="nextXTournament">Keyingi %s turnir:</string>
   <string name="profile">Profil</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Mámleket yamasa bayraq</string>
+  <string name="tournamentWinners">Turnir jeńimpazları</string>
+  <string name="name">Atı</string>
+  <string name="description">Táriypi</string>
+  <string name="descPrivate">Jeke táriyp</string>
   <string name="no">Yaq</string>
   <string name="yes">Awa</string>
+  <string name="help">Járdem:</string>
+  <string name="createANewTopic">Jańa tema jaratıw</string>
+  <string name="topics">Temalar</string>
   <string name="lastPost">Sońǵı xabar</string>
   <string name="replies">Juwaplar</string>
   <string name="message">Xabar</string>
@@ -207,19 +290,44 @@
   <string name="slow">Ásten</string>
   <string name="always">Hámiyshe</string>
   <string name="never">Heshqashan</string>
+  <string name="starting">Baslanadı:</string>
+  <string name="human">Adam</string>
+  <string name="computer">Kompyuter</string>
+  <string name="side">Tárep</string>
+  <string name="clock">Saat</string>
+  <string name="opponent">Qarsılas</string>
   <string name="learnMenu">Uyreniw</string>
   <string name="tools">Ásbaplar</string>
+  <string name="onlyFriends">Tek ǵana doslar</string>
+  <string name="menu">Menyu</string>
+  <string name="castling">Rokirovka</string>
+  <string name="whiteCastlingKingside">Aqlar O-O</string>
+  <string name="blackCastlingKingside">Qaralar O-O</string>
+  <string name="videoLibrary">Videoxana</string>
   <string name="mobileApp">Mobil baǵdarlama</string>
+  <string name="about">Haqqında</string>
+  <string name="aboutX">%s haqqında</string>
   <string name="accuracy">Anıqlıq</string>
   <string name="keyMoveBackwardOrForward">aldıǵa/artqa júriw</string>
   <string name="newTournament">Jańa jarıs</string>
   <string name="tournamentNotFound">Jarıs tabılmadı</string>
+  <string name="withNobody">Heshkim menen</string>
+  <string name="withFriends">Doslar menen</string>
+  <string name="withEverybody">Hámme menen</string>
+  <string name="kidMode">Balalar rejimi</string>
   <string name="security">Qáwipsizlik</string>
   <string name="viewTheSolution">Juwaptı kóriw</string>
   <string name="language">Til</string>
   <string name="light">Jaqtı</string>
   <string name="dark">Qaranǵı</string>
   <string name="notifications">Xabarlandırıwlar</string>
+  <string name="computerThinking">Kompyuter oylanbaqta...</string>
+  <string name="seeBestMove">Eń jaqsı júristi kóriw</string>
+  <string name="hideBestMove">Eń jaqsı júristi jasırıw</string>
+  <string name="whiteWinsGame">Aqlar jeńdi</string>
+  <string name="blackWinsGame">Qaralar jeńdi</string>
+  <string name="learnFromYourMistakes">Qátelerińizden úyreniw</string>
+  <string name="learnFromThisMistake">Usı qáteden úyreniw</string>
   <string name="solution">Shesimi</string>
   <string name="sorry">Keshirersiz :(</string>
   <string name="why">Ne ushın?</string>

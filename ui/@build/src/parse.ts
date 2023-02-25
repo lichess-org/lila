@@ -68,7 +68,7 @@ function tokenizeArgs(argstr: string): string[] {
 // go through package json scripts and get what we need from 'compile', 'dev', and 'deps'
 // if some other script is necessary, add it to buildScriptKeys
 function parseScripts(module: LichessModule, pkgScripts: any) {
-  const buildScriptKeys = ['deps', 'compile', 'dev'].concat(env.prod ? ['prod'] : []);
+  const buildScriptKeys = ['deps', 'compile', 'dev', 'post'].concat(env.prod ? ['prod'] : []);
 
   for (const script in pkgScripts) {
     if (!buildScriptKeys.includes(script)) continue;
@@ -76,7 +76,7 @@ function parseScripts(module: LichessModule, pkgScripts: any) {
       // no need to support || in a script property yet, we don't even short circuit && properly
       const args = tokenizeArgs(cmd.trim());
       if (!['$npm_execpath', 'tsc'].includes(args[0])) {
-        script == 'prod' ? module.post.push(args) : module.pre.push(args);
+        script == 'prod' || script == 'post' ? module.post.push(args) : module.pre.push(args);
       }
     });
   }

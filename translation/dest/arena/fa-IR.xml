@@ -53,4 +53,7 @@
   <string name="allowChatHelp">اجازه دادن بحث به بازیکنان در چت روم</string>
   <string name="arenaStreaks">حرکات عالی در تالار</string>
   <string name="arenaStreaksHelp">بعد از دو برد، بردهای پی در پی بجای 2 امتیاز 4 امتیاز می دهند.</string>
+  <string name="noBerserkAllowed">برزرک مجاز نیست</string>
+  <string name="averagePerformance">میانگین عملکرد</string>
+  <string name="averageScore">میانگین امتیاز</string>
 </resources>

@@ -25,6 +25,6 @@
   <string name="currentRoundUrl">Huidige ronde-link</string>
   <string name="currentGameUrl">Huidige partij-link</string>
   <string name="downloadAllRounds">Alle rondes downloaden</string>
-  <string name="definitivelyDeleteRound">Deze ronde en bijbehorende partijen definitief verwijderen.</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Deze ronde en bijbehorende partijen definitief verwijderen.</string>
   <string name="deleteAllGamesOfThisRound">Alle partijen van deze ronde verwijderen. De bron zal actief moeten zijn om ze opnieuw te maken.</string>
 </resources>

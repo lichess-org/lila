@@ -8,8 +8,8 @@
   <string name="mostChessCourses">La majoria de cursos i exercicis usa la notació algebraica de forma extensiva.</string>
   <string name="talkToYourChessFriends">Facilita la comunicació amb altres jugadors, ja que tots enteneu l’«idioma dels escacs».</string>
   <string name="youCanAnalyseAGameMoreEffectively">Pots analitzar un joc de forma més eficient si en pots reconèixer ràpidament les coordenades.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Una coordenada apareix al tauler i heu de clicar la casella corresponent.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Es senyala una casella del tauler i heu d\'introduir la seva coordenada (p. ex.: \"e4\").</string>
+  <string name="aCoordinateAppears">Una coordenada apareix al tauler i heu de clicar la casella corresponent.</string>
+  <string name="aSquareIsHighlightedExplanation">Es senyala una casella del tauler i heu d\'introduir la seva coordenada (p. ex.: \"e4\").</string>
   <string name="youHaveThirtySeconds">Tens 30 segons per indicar correctament tantes caselles com sigui possible!</string>
   <string name="goAsLongAsYouWant">Pren-te tant temps com vulguis, no hi ha límit de temps!</string>
   <string name="showCoordinates">Mostrar les coordenades</string>

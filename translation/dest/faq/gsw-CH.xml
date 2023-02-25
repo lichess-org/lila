@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">anderi Wäg z\'hälfe</string>
   <string name="areThereWebsitesBasedOnLichess">Gits Website wo uf Lichess basiered?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja - Lichess hät tatsächlich anderi quälle-offeni Site inschpiriert, wo euse %1$s, %2$s oder eusi %3$s verwänded.</string>
+  <string name="keyboardShortcuts">Was für Taschtaturchürzel gits da?</string>
+  <string name="keyboardShortcutsExplanation">Bi einige Lichess-Site gits Taschtaturchürzel, wo mer chann verwände. Mit em Fragezeiche (?) werded, uf Schtudie-, Analyse-, Rätsel- oder Schpielsite - die verfüegbare Taschte-Kombinazione azeigt.</string>
   <string name="fairPlay">Fairs Schpille</string>
   <string name="whenAmIEligibleRatinRefund">Wänn chumm ich Wertigspünkt zrugg über, wo mir en Betrüger gnah hät?</string>
   <string name="ratingRefundExplanation">1 Minute, nachdem en Schpiller markiert worde isch, werded sini 40 letschte Partie, vu de letschte 3 Tag aglueget. Wänn du i dene Partie under de Gägner gsi bisch und sich dini Wertig - will du verlore- oder Remis gschpillt häsch - verschlächteret hät und dini Wertig nöd erscht \"provisorisch\" gsi isch, chunnsch du e \"Wertigsrückerstattig\" über. Die Rückerschtattig wird begränzt dur dini Spitzewertig und din Wertigsfortschritt nach dere Partie.
@@ -64,7 +66,7 @@ Wichtig isch, dass die Schlagart \"en passant\" nur diräkt nach dem Uswichversu
 Im %3$s wird \"en passant\" mit Üebige erchlärt und glehrt.</string>
   <string name="goodIntroduction">guete erschte Idruck</string>
   <string name="lichessTraining">Lichess-Träning</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Lueg zue, wie de IM Eric Rosen - mit eme %s - es Schachmatt macht.</string>
+  <string name="watchIMRosenCheckmate">Lueg zue, wie de IM Eric Rosen - mit eme %s - es Schachmatt macht.</string>
   <string name="threefoldRepetition">Drüfachi Schtelligswiderholig</string>
   <string name="threefoldRepetitionExplanation">Bi drümal glicher Stellig, chann en Schpiller es Remis dur %1$s reklamiere. Lichess setzt die offiziell FIDE Regle, wo im Artikel 9.2 (d) vum %2$s beschribe isch, um.</string>
   <string name="threefoldRepetitionLowerCase">drüfachi Schtelligswiderholig</string>

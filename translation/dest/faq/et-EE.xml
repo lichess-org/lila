@@ -17,7 +17,7 @@
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="fideHandbookX">FIDE käsiraamat %s</string>
   <string name="goodIntroduction">hea sissejuhatus</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Vaata kuidas rahvusvaheline meister Eric Rosen matistab %s.</string>
+  <string name="watchIMRosenCheckmate">Vaata kuidas rahvusvaheline meister Eric Rosen matistab %s.</string>
   <string name="threefoldRepetition">Kolmekordne kordus</string>
   <string name="threefoldRepetitionLowerCase">kolmekordne kordus</string>
   <string name="positions">positsioonid</string>

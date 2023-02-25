@@ -2,7 +2,7 @@
 <resources>
   <string name="settings">Ustawienia</string>
   <string name="closeAccount">Zamknij konto</string>
-  <string name="managedAccountCannotBeClosed">Twoim kontem zarządza nauczyciel, nie możesz go zamknąć.</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Twoim kontem zarządza nauczyciel, nie możesz go zamknąć.</string>
   <string name="closingIsDefinitive">Zamknięcie jest ostateczne. Nie ma odwrotu. Czy jesteś pewien?</string>
   <string name="cantOpenSimilarAccount">Nie będziesz mógł otworzyć nowego konta, z tą samą nazwą, nawet jeśli wielkość liter będzie inna.</string>
   <string name="changedMindDoNotCloseAccount">Zmieniłem zdanie, nie chcę zamykać swojego konta</string>

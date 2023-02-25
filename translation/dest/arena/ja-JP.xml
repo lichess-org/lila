@@ -46,4 +46,8 @@
   <string name="allowChatHelp">チャットルームでの会話を認める</string>
   <string name="arenaStreaks">連勝ボーナスあり</string>
   <string name="arenaStreaksHelp">2 連勝すると以降の勝ちは 2 ではなく 4 ポイントになる。</string>
+  <string name="noBerserkAllowed">バーサークなし</string>
+  <string name="noArenaStreaks">連勝ボーナスなし</string>
+  <string name="averagePerformance">平均パフォーマンス</string>
+  <string name="averageScore">平均スコア</string>
 </resources>

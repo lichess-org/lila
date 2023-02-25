@@ -201,6 +201,7 @@
   <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Bạn đã sử dụng cùng một mật khẩu trên một trang web khác và trang web đó đã bị xâm nhập. Để đảm bảo an toàn cho tài khoản Lichess của bạn, chúng tôi cần bạn đặt mật khẩu mới. Cảm ơn bạn vì đã thông cảm.</string>
   <string name="youAreLeavingLichess">Bạn đang thoát Lichess</string>
   <string name="neverTypeYourPassword">Không bao giờ nhập mật khẩu Lichess của bạn trên bất kì trang web nào khác!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Chuyển tới trang %s</string>
   <string name="passwordSuggestion">Đừng sử dụng mật khẩu được đề xuất bởi người khác. Họ có thể có ý đồ đánh cắp tài khoản của bạn.</string>
   <string name="emailSuggestion">Đừng đặt địa chỉ email được gợi ý bởi người khác. Họ có thể dùng nó để đánh cắp tài khoản của bạn.</string>
   <string name="emailConfirmHelp">Hỗ trợ việc xác nhận qua email</string>
