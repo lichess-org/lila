@@ -98,6 +98,7 @@
   <string name="openingExplorer">Opening explorer</string>
   <string name="openingEndgameExplorer">Opening/endgame explorer</string>
   <string name="xOpeningExplorer">%s opening explorer</string>
+  <string name="playMostPopularMove">Play most popular move</string>
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
   <string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
   <string name="winOr50MovesByPriorMistake">Win or 50 moves by prior mistake</string>
@@ -673,6 +674,11 @@ computer analysis, game chat and shareable URL.</string>
   <string name="keyGoToStartOrEnd">go to start/end</string>
   <string name="keyShowOrHideComments">show/hide comments</string>
   <string name="keyEnterOrExitVariation">enter/exit variation</string>
+  <string name="keyRequestComputerAnalysis">Request computer analysis, Learn from your mistakes</string>
+  <string name="keyNextLearnFromYourMistakes">Next (Learn from your mistakes)</string>
+  <string name="keyNextBlunder">Next blunder</string>
+  <string name="keyNextMistake">Next mistake</string>
+  <string name="keyNextInaccuracy">Next inaccuracy</string>
   <string name="newTournament">New tournament</string>
   <string name="tournamentHomeTitle">Chess tournaments featuring various time controls and variants</string>
   <string name="tournamentHomeDescription">Play fast-paced chess tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, and more options available for endless chess fun.</string>
