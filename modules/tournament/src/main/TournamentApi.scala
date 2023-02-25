@@ -438,8 +438,7 @@ final class TournamentApi(
               } yield Math.round {
                 (player.performance * (nbGames - 1) + performance) / nbGames
               } toInt
-            } | player.performance,
-            nbGames = player.nbGames + 1
+            } | player.performance
           )
         } >>- game.whitePlayer.userId.foreach { whiteUserId =>
           colorHistoryApi.inc(player.id, chess.Color.fromWhite(player is whiteUserId))
