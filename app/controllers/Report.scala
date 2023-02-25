@@ -102,12 +102,13 @@ final class Report(
               case Some(url) => Redirect(url).toFuccess
               case _ =>
                 def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
-                if (prev.isAppeal) Redirect(appeal.routes.Appeal.queue).toFuccess
-                else if (dataOpt.flatMap(_ get "next").exists(_.headOption contains "1"))
-                  api.inquiries.toggleNext(me, prev.room) map {
-                    _.fold(redirectToList)(onInquiryStart)
-                  }
-                else if (force) userC.modZoneOrRedirect(me, prev.user)
+                if prev.isAppeal then Redirect(appeal.routes.Appeal.queue).toFuccess
+                else if dataOpt.flatMap(_ get "next").exists(_.headOption contains "1") then
+                  api.processInquiry(Mod.holder(me)) >>
+                    api.inquiries.toggleNext(me, prev.room) map {
+                      _.fold(redirectToList)(onInquiryStart)
+                    }
+                else if force then userC.modZoneOrRedirect(me, prev.user)
                 else
                   api.inquiries.toggle(me, Left(prev.id)) map { (prev, next) =>
                     next

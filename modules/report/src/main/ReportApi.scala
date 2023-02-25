@@ -274,31 +274,22 @@ final class ReportApi(
   def byId(id: Report.Id) = coll.byId[Report](id)
 
   def process(mod: Mod, reportId: Report.Id): Funit =
-    for {
-      report  <- byId(reportId) orFail s"no such report $reportId"
-      suspect <- getSuspect(report.user) orFail s"No such suspect $report"
-      rooms = Set(Room(report.reason))
-      res <- process(mod, suspect, rooms, reportId.some)
-    } yield res
+    for
+      report <- byId(reportId) orFail s"no such report $reportId"
+      res    <- process(mod, report)
+    yield res
 
-  def process(mod: Mod, sus: Suspect, rooms: Set[Room], reportId: Option[Report.Id] = None): Funit =
+  def processInquiry(mod: Mod): Funit =
     inquiries
       .ofModId(mod.user.id)
-      .dmap(_.filter(_.user == sus.user.id))
-      .flatMap { inquiry =>
-        val relatedSelector = $doc(
-          "user" -> sus.user.id,
-          "room" $in rooms,
-          "open" -> true
-        )
-        val reportSelector = reportId.orElse(inquiry.map(_.id)).fold(relatedSelector) { id =>
-          $or($id(id), relatedSelector)
-        }
-        accuracy.invalidate(reportSelector) >>
-          doProcessReport(reportSelector, mod.id).void >>-
-          maxScoreCache.invalidateUnit() >>-
-          lila.mon.mod.report.close.increment().unit
-      }
+      .dmap(_.filter(_.user == mod.user.id))
+      .flatMapz { process(mod, _) }
+
+  def process(mod: Mod, report: Report): Funit =
+    accuracy.invalidate($id(report.id)) >>
+      doProcessReport($id(report.id), mod.id).void >>-
+      maxScoreCache.invalidateUnit() >>-
+      lila.mon.mod.report.close.increment().unit
 
   private def doProcessReport(selector: Bdoc, by: ModId): Funit =
     coll.update
