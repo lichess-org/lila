@@ -174,18 +174,18 @@ export const makeVoiceCtrl = () =>
       const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
       if (!window.LichessVoice) await lichess.loadModule('input.vosk');
 
+      this.audioCtx = new AudioContext();
       this.mediaStream = await navigator.mediaDevices.getUserMedia({
         video: false,
         audio: {
+          sampleRate: this.audioCtx.sampleRate,
           echoCancellation: true,
           noiseSuppression: true,
         },
       });
+      this.micSource = this.audioCtx.createMediaStreamSource(this.mediaStream);
       await downloadAsync;
       await window.LichessVoice.initModel(modelUrl);
-      const sampleRate = this.mediaStream.getAudioTracks()[0].getSettings().sampleRate ?? 48000;
-      this.audioCtx = new AudioContext({ sampleRate });
-      this.micSource = this.audioCtx.createMediaStreamSource(this.mediaStream);
     }
 
     broadcast(text: string, msgType: MsgType = 'status', _: WordResult | undefined = undefined, forMs = 0) {

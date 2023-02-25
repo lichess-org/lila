@@ -1,5 +1,6 @@
 import { KaldiRecognizer, createModel, Model } from 'vosk-browser';
-import { KaldiOpts, WordResult } from '../interfaces';
+import { ServerMessageResult } from 'vosk-browser/dist/interfaces';
+import { KaldiOpts } from '../interfaces';
 
 let kaldi: KaldiRecognizer;
 let voiceModel: Model;
@@ -10,18 +11,13 @@ export default (window as any).LichessVoice = {
   },
 
   initKaldi: async function (opts: KaldiOpts): Promise<AudioNode> {
-    if (kaldi) {
-      kaldi.remove();
-    }
+    kaldi?.remove();
     kaldi = new voiceModel.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.keys));
-    kaldi.on('result', (message: any) => {
-      if (!('result' in message && 'text' in message.result) || message.result.text.length < 2) return;
-
-      const text = message.result.text as string;
-
-      opts.broadcast(text, 'command', message.result.result as WordResult, 3000);
+    kaldi.setWords(true);
+    kaldi.on('result', (msg: ServerMessageResult) => {
+      if (msg.result.text.length < 2) return; // can't do anything with this
+      opts.broadcast(msg.result.text, 'command', msg.result.result, 3000);
     });
-
     return opts.impl == 'vanilla' ? vanillaProcessor(opts.audioCtx) : workletProcessor(opts.audioCtx);
   },
 };
