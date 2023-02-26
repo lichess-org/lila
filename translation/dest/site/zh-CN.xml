@@ -675,6 +675,7 @@
   <string name="kidMode">儿童模式</string>
   <string name="kidModeExplanation">安全第一。在儿童模式下，站内信无法使用。为了保护您的孩子和学生免受其他用户伤害，请启用儿童模式。</string>
   <string name="inKidModeTheLichessLogoGetsIconX">在儿童模式下，Lichess标志前有%s图标。出现该图标您就知道您的孩子是安全的。</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">您的账号处于托管中，可以请您的老师解除少儿模式。</string>
   <string name="enableKidMode">打开儿童模式</string>
   <string name="disableKidMode">关闭儿童模式</string>
   <string name="security">安全</string>
