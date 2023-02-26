@@ -22,7 +22,7 @@
   <plurals name="inNbYears">
     <item quantity="other">在%s 年内</item>
   </plurals>
-  <string name="rightNow">马上</string>
+  <string name="rightNow">刚刚</string>
   <plurals name="nbSecondsAgo">
     <item quantity="other">%s 秒前</item>
   </plurals>
