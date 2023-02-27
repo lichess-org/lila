@@ -441,7 +441,7 @@ final class Api(
 
   def moveStream(gameId: GameId) =
     Action.async { req =>
-      env.round.proxyRepo.gameIfPresent(gameId) map {
+      env.round.proxyRepo.game(gameId) map {
         case None => NotFound
         case Some(game) =>
           ApiMoveStreamGlobalConcurrencyLimitPerIP(req.ipAddress)(
