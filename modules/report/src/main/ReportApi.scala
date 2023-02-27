@@ -217,7 +217,7 @@ final class ReportApi(
     for {
       all <- recent(suspect, 10)
       open = all.filter(_.open)
-      _ <- doProcessReport($inIds(all.filter(_.open).map(_.id)), User.lichessId into ModId)
+      _ <- doProcessReport($inIds(all.filter(_.open).map(_.id)), User.lichessId into ModId, unsetInquiry = false)
     } yield open
 
   def reopenReports(suspect: Suspect): Funit =
@@ -273,41 +273,20 @@ final class ReportApi(
 
   def byId(id: Report.Id) = coll.byId[Report](id)
 
-  def process(mod: Mod, reportId: Report.Id): Funit =
-    for {
-      report  <- byId(reportId) orFail s"no such report $reportId"
-      suspect <- getSuspect(report.user) orFail s"No such suspect $report"
-      rooms = Set(Room(report.reason))
-      res <- process(mod, suspect, rooms, reportId.some)
-    } yield res
+  def process(mod: Mod, report: Report): Funit =
+    accuracy.invalidate($id(report.id)) >>
+      doProcessReport($id(report.id), mod.id, unsetInquiry = true).void >>-
+      maxScoreCache.invalidateUnit() >>-
+      lila.mon.mod.report.close.increment().unit
 
-  def process(mod: Mod, sus: Suspect, rooms: Set[Room], reportId: Option[Report.Id] = None): Funit =
-    inquiries
-      .ofModId(mod.user.id)
-      .dmap(_.filter(_.user == sus.user.id))
-      .flatMap { inquiry =>
-        val relatedSelector = $doc(
-          "user" -> sus.user.id,
-          "room" $in rooms,
-          "open" -> true
-        )
-        val reportSelector = reportId.orElse(inquiry.map(_.id)).fold(relatedSelector) { id =>
-          $or($id(id), relatedSelector)
-        }
-        accuracy.invalidate(reportSelector) >>
-          doProcessReport(reportSelector, mod.id).void >>-
-          maxScoreCache.invalidateUnit() >>-
-          lila.mon.mod.report.close.increment().unit
-      }
-
-  private def doProcessReport(selector: Bdoc, by: ModId): Funit =
+  private def doProcessReport(selector: Bdoc, by: ModId, unsetInquiry: Boolean): Funit =
     coll.update
       .one(
         selector,
         $set(
           "open" -> false,
           "done" -> Report.Done(by, nowDate)
-        ) ++ $unset("inquiry"),
+        ) ++ (unsetInquiry ?? $unset("inquiry")),
         multi = true
       )
       .void
