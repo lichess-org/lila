@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="display">Kórsetiw</string>
+  <string name="privacy">Qupıyalıq</string>
+  <string name="notifications">Xabarlandırıwlar</string>
+  <string name="pieceAnimation">Taslar animaciyası</string>
+  <string name="pgnLetter">Taslar háripleri (K, Q, R, B, N)</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen rejimi</string>
+  <string name="showPlayerRatings">Oyınshılar reytingin kórsetiw</string>
+  <string name="chessClock">Shaxmat saatı</string>
+</resources>
