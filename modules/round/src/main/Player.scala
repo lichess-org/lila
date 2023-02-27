@@ -160,7 +160,7 @@ final private class Player(
     val color = moveOrDrop.fold(_.color, _.color)
     val moveEvent = MoveEvent(
       gameId = game.id,
-      fen = Fen write game.situation,
+      fen = Fen write game.chess,
       move = moveOrDrop.fold(_.toUci.keys, _.toUci.uci)
     )
 
