@@ -58,8 +58,10 @@
   <string name="notifyGameEvent">通信棋局更新</string>
   <string name="notifyChallenge">挑战</string>
   <string name="notifyTournamentSoon">比赛即将开始</string>
+  <string name="notifyTimeAlarm">通讯棋局时间快要耗尽</string>
   <string name="notifyBell">Lichess内的铃声通知</string>
   <string name="notifyPush">当您不在Lichess时的设备通知</string>
   <string name="notifyWeb">浏览器通知</string>
   <string name="notifyDevice">设备通知</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">通知声音</string>
 </resources>
