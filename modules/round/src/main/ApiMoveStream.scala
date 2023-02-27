@@ -24,7 +24,7 @@ final class ApiMoveStream(
       val delayKeepsFirstMoves = hasMoveDelay ?? 5
       for
         initialFen <- gameRepo.initialFen(game)
-        lightUsers <- lightUserApi.asyncMany(game.userIds)
+        lightUsers <- lightUserApi.asyncManyOptions(game.players.map(_.userId))
       yield
         val buffer = scala.collection.mutable.Queue.empty[JsObject]
         var moves  = 0
