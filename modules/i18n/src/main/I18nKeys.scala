@@ -2081,6 +2081,7 @@ object I18nKeys:
     val `toGetPersonalizedPuzzles` = I18nKey("puzzle:toGetPersonalizedPuzzles")
     val `puzzleId` = I18nKey("puzzle:puzzleId")
     val `puzzleOfTheDay` = I18nKey("puzzle:puzzleOfTheDay")
+    val `dailyPuzzle` = I18nKey("puzzle:dailyPuzzle")
     val `clickToSolve` = I18nKey("puzzle:clickToSolve")
     val `goodMove` = I18nKey("puzzle:goodMove")
     val `bestMove` = I18nKey("puzzle:bestMove")

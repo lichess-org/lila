@@ -11,14 +11,14 @@ export default function theme(ctrl: Controller): MaybeVNode {
     angle = data.angle;
   const showEditor = ctrl.vm.mode == 'view' && !ctrl.autoNexting();
   if (data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
+  const puzzleMenu = (v: VNode): VNode =>
+    h('a', { attrs: { href: router.withLang(`/training/${angle.opening ? 'openings' : 'themes'}`) } }, v);
   return ctrl.streak
     ? null
     : ctrl.vm.isDaily
-    ? h('div.puzzle__side__theme.puzzle__side__theme--daily', h('h2', 'Daily Puzzle'))
+    ? h('div.puzzle__side__theme.puzzle__side__theme--daily', puzzleMenu(h('h2', ctrl.trans.noarg('dailyPuzzle'))))
     : h('div.puzzle__side__theme', [
-        h(
-          'a',
-          { attrs: { href: router.withLang(`/training/${angle.opening ? 'openings' : 'themes'}`) } },
+        puzzleMenu(
           h(
             'h2',
             {
