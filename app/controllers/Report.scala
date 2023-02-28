@@ -79,7 +79,10 @@ final class Report(
       goTo: Suspect
   )(using ctx: BodyContext[?]): Fu[Result] =
     if HTTPRequest.isXhr(ctx.req) then userC.renderModZoneActions(goTo.user.username)
-    else api.inquiries.ofModId(me.id).flatMap(_.fold(userC.modZoneOrRedirect(me, goTo.user.username))(onInquiryAction(_, me)))
+    else
+      api.inquiries
+        .ofModId(me.id)
+        .flatMap(_.fold(userC.modZoneOrRedirect(me, goTo.user.username))(onInquiryAction(_, me)))
 
   protected[controllers] def onInquiryAction(
       inquiry: ReportModel,
@@ -103,7 +106,8 @@ final class Report(
         else if dataOpt.flatMap(_ get "next").exists(_.headOption contains "1") then
           process() >> {
             if inquiry.isSpontaneous then Redirect(modC.userUrl(inquiry.user, mod = true)).toFuccess
-            else api.inquiries.toggleNext(me, inquiry.room) map {
+            else
+              api.inquiries.toggleNext(me, inquiry.room) map {
                 _.fold(redirectToList)(onInquiryStart)
               }
           }
@@ -115,7 +119,7 @@ final class Report(
       api byId id flatMap {
         _.fold(Redirect(routes.Report.list).toFuccess) { inquiry =>
           inquiry.isAppeal.??(env.appeal.api.setReadById(inquiry.user)) >>
-          api.process(me, inquiry) >>
+            api.process(me, inquiry) >>
             onInquiryAction(inquiry, me, processed = true)
         }
       }

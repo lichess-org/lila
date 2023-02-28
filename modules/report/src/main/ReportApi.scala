@@ -217,7 +217,11 @@ final class ReportApi(
     for {
       all <- recent(suspect, 10)
       open = all.filter(_.open)
-      _ <- doProcessReport($inIds(all.filter(_.open).map(_.id)), User.lichessId into ModId, unsetInquiry = false)
+      _ <- doProcessReport(
+        $inIds(all.filter(_.open).map(_.id)),
+        User.lichessId into ModId,
+        unsetInquiry = false
+      )
     } yield open
 
   def reopenReports(suspect: Suspect): Funit =

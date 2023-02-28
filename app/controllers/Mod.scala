@@ -46,8 +46,7 @@ final class Mod(
   def engine(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkEngine) { me =>
       withSuspect(username) { sus =>
-        for
-          _ <- modApi.setEngine(me, sus, v)
+        for _ <- modApi.setEngine(me, sus, v)
         yield sus.some
       }
     }(ctx =>
@@ -76,8 +75,7 @@ final class Mod(
   def booster(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkBooster) { me =>
       withSuspect(username) { prev =>
-        for
-          suspect <- modApi.setBoost(me, prev, v)
+        for suspect <- modApi.setBoost(me, prev, v)
         yield suspect.some
       }
     }(ctx =>
@@ -89,8 +87,7 @@ final class Mod(
   def troll(username: UserStr, v: Boolean) =
     OAuthModBody(_.Shadowban) { me =>
       withSuspect(username) { prev =>
-        for
-          suspect <- modApi.setTroll(me, prev, v)
+        for suspect <- modApi.setTroll(me, prev, v)
         yield suspect.some
       }
     }(ctx =>
