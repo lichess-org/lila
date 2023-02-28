@@ -217,7 +217,11 @@ final class ReportApi(
     for {
       all <- recent(suspect, 10)
       open = all.filter(_.open)
-      _ <- doProcessReport($inIds(all.filter(_.open).map(_.id)), User.lichessId into ModId, unsetInquiry = false)
+      _ <- doProcessReport(
+        $inIds(all.filter(_.open).map(_.id)),
+        User.lichessId into ModId,
+        unsetInquiry = false
+      )
     } yield open
 
   def reopenReports(suspect: Suspect): Funit =
@@ -278,6 +282,17 @@ final class ReportApi(
       doProcessReport($id(report.id), mod.id, unsetInquiry = true).void >>-
       maxScoreCache.invalidateUnit() >>-
       lila.mon.mod.report.close.increment().unit
+
+  def autoProcess(mod: ModId, sus: Suspect, rooms: Set[Room]): Funit = {
+    val selector = $doc(
+         "user" -> sus.user.id,
+        "room" $in rooms,
+         "open" -> true
+    )
+     doProcessReport(selector, mod, unsetInquiry = true).void >>-
+     maxScoreCache.invalidateUnit() >>-
+     lila.mon.mod.report.close.increment().unit
+    }
 
   private def doProcessReport(selector: Bdoc, by: ModId, unsetInquiry: Boolean): Funit =
     coll.update
