@@ -3,6 +3,7 @@
   <string name="preferences">설정</string>
   <string name="display">화면</string>
   <string name="privacy">프라이버시</string>
+  <string name="notifications">공지 사항</string>
   <string name="pieceAnimation">기물 움직임 애니메이션</string>
   <string name="materialDifference">기물 차이</string>
   <string name="boardHighlights">보드 하이라이트 (마지막 움직임 및 체크)</string>
@@ -50,6 +51,17 @@
   <string name="yourPreferencesHaveBeenSaved">설정이 저장되었습니다.</string>
   <string name="scrollOnTheBoardToReplayMoves">보드에서 스크롤을 해서 수를 앞 뒤로 이동</string>
   <string name="correspondenceEmailNotification">매일 일간 게임의 목록을 보여주는 알림 메일을 받기</string>
+  <string name="notifyStreamStart">스트리머가 생방송 시작</string>
+  <string name="notifyInboxMsg">새로운 받은 편지함 메시지</string>
+  <string name="notifyForumMention">포럼 댓글에서 당신이 언급됨</string>
   <string name="notifyInvitedStudy">스터디 초대</string>
+  <string name="notifyGameEvent">긴 대국 업데이트</string>
+  <string name="notifyChallenge">도전 과제</string>
   <string name="notifyTournamentSoon">곧 토너먼트 시작할 때</string>
+  <string name="notifyTimeAlarm">긴 대국 시간 초과</string>
+  <string name="notifyBell">리체스 내에서 벨 알림</string>
+  <string name="notifyPush">리체스를 사용하지 않을 때 기기 알림</string>
+  <string name="notifyWeb">브라우저</string>
+  <string name="notifyDevice">기기 정보</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">벨 알림 음</string>
 </resources>

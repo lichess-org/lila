@@ -55,4 +55,6 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
   <string name="allowChatHelp">Permitir que os jogadores discutam numa sala de bate-papo</string>
   <string name="arenaStreaks">Séries de Arena</string>
   <string name="arenaStreaksHelp">Depois de 2 vitórias, vitórias consecutivas concedem 4 pontos em vez de 2.</string>
+  <string name="averagePerformance">Desempenho médio</string>
+  <string name="averageScore">Pontuação média</string>
 </resources>

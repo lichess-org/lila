@@ -1,2 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="team">Komanda</string>
+  <string name="teams">Komandalar</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s aǵza</item>
+    <item quantity="other">%s aǵzalar</item>
+  </plurals>
+  <string name="allTeams">Barlıq komandalar</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Jetekshi komandalar</string>
+  <string name="newTeam">Jańa komanda</string>
+  <string name="myTeams">Meniń komandalarım</string>
+  <string name="noTeamFound">Komanda tabılmadı</string>
+  <string name="joinTeam">Komandaǵa qosılıw</string>
+  <string name="onlyLeaderLeavesTeam">Ótinish, shıǵıp ketiwden aldın jańa komanda jetekshisin qosıń yamasa komandanı jabıń.</string>
+  <string name="quitTeam">Komandadan shıǵıw</string>
+  <string name="manuallyReviewAdmissionRequests">Qabıl qılıw sorawların jeke tekseriw</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Eger belgilengen bolsa, oyınshılar komandaǵa qosılıw ushın soraw jazıwı tiyis. Siz olardı biykarlawıńız yamasa qabıllawıńız múmkin.</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Komanda jetekshisi</item>
+    <item quantity="other">Komanda jetekshileri</item>
+  </plurals>
+  <string name="teamRecentMembers">Jańa aǵzalar</string>
+  <string name="kickSomeone">Komandadan birewdi shıǵarıń</string>
+  <string name="whoToKick">Komandadan kimdi shıǵarıwdı qáleysiz?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s qosılıw sorawı</item>
+    <item quantity="other">%s qosılıw sorawları</item>
+  </plurals>
+  <string name="willBeReviewed">Siziń qosılıw sorawıńız komanda lideri tárepinen kórip shıǵadı.</string>
+  <string name="beingReviewed">Sisiń qosılıw sorawıńız komanda lideri tárepinen kórip shıǵılmaqta.</string>
+  <string name="requestDeclined">Siziń qosılıw sorawıńız komanda lideri tárepinen biykarlandı.</string>
+  <string name="subToTeamMessages">Komanda xabarlarına jazılıw</string>
+</resources>
