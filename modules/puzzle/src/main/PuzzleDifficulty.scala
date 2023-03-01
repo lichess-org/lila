@@ -15,3 +15,4 @@ object PuzzleDifficulty:
   val default: PuzzleDifficulty      = Normal
   def isExtreme(d: PuzzleDifficulty) = d == Easiest || d == Hardest
   def find(str: String)              = all.find(_.key == str)
+  def orDefault(str: String)         = find(str) | default

@@ -15,7 +15,7 @@ import lila.common.Json.given
 import lila.common.config.MaxPerSecond
 import lila.i18n.I18nLangPicker
 import lila.puzzle.PuzzleForm.RoundData
-import lila.puzzle.{ Puzzle as Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, PuzzleTheme }
+import lila.puzzle.{ Puzzle as Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, PuzzleTheme, PuzzleDifficulty }
 import lila.user.{ User as UserModel }
 import lila.common.LangPath
 
@@ -287,7 +287,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           .fold(
             jsonFormError,
             diff =>
-              lila.puzzle.PuzzleDifficulty.find(diff) ?? { env.puzzle.session.setDifficulty(me, _) } inject
+              PuzzleDifficulty.find(diff) ?? { env.puzzle.session.setDifficulty(me, _) } inject
                 Redirect(routes.Puzzle.show(theme))
           )
       }
@@ -449,15 +449,17 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read) { implicit req => me =>
-    batchSelect(me, PuzzleAngle findOrMix angleStr, getInt("nb", req) | 15)
+    batchSelect(me, PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb", req) | 15)
   }
-  private def batchSelect(me: Option[UserModel], angle: PuzzleAngle, nb: Int)(using
-      req: RequestHeader
+
+  private def reqDifficulty(using req: RequestHeader) = PuzzleDifficulty.orDefault(~get("difficulty", req))
+  private def batchSelect(me: Option[UserModel], angle: PuzzleAngle, difficulty: PuzzleDifficulty, nb: Int)(
+      using req: RequestHeader
   ): Fu[Result] =
-    env.puzzle.batch.nextFor(me, angle, nb atLeast 1 atMost 30) flatMap
+    env.puzzle.batch.nextFor(me, angle, difficulty, nb atLeast 1 atMost 50) flatMap
       env.puzzle.jsonView.batch dmap { Ok(_) }
 
-  def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write) { req => me =>
+  def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write) { implicit req => me =>
     req.body
       .validate[lila.puzzle.PuzzleForm.batch.SolveData]
       .fold(
@@ -476,7 +478,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
               case None =>
                 data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel
             }
-          } >> getInt("nb", req).fold(fuccess(NoContent))(batchSelect(me, angle, _)(using req))
+          } >> getInt("nb", req).fold(fuccess(NoContent))(batchSelect(me, angle, reqDifficulty, _)(using req))
         }
       )
   }
@@ -514,7 +516,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       html = notFound,
       api = v => {
         val nb = getInt("nb") getOrElse 15 atLeast 1 atMost 30
-        env.puzzle.batch.nextFor(ctx.me, nb) flatMap { puzzles =>
+        env.puzzle.batch.nextFor(ctx.me, PuzzleDifficulty.default, nb) flatMap { puzzles =>
           env.puzzle.jsonView.bc.batch(puzzles, ctx.me)
         } dmap { Ok(_) }
       }
