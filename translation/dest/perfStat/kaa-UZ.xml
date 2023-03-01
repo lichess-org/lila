@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="perfStats">%s statistikası</string>
+  <string name="viewTheGames">Oyınlardı kóriw</string>
   <string name="totalGames">Barlıq oyınlar</string>
   <string name="ratedGames">Reytingli oyınlar</string>
   <string name="tournamentGames">Turnir oyınları</string>
   <string name="berserkedGames">Berserk oyınları</string>
+  <string name="timeSpentPlaying">Oyınǵa ketken waqıt</string>
+  <string name="victories">Jeńisler</string>
 </resources>
