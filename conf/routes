@@ -6,7 +6,7 @@ GET   /lobby/seeks                     controllers.Lobby.seeks
 
 # 2-letter routes, then lang route
 GET   /tv                              controllers.Tv.index
-GET   /$lang<\w\w\w?>                  controllers.Lobby.homeLang(lang)
+GET   /$lang<\w\w>                     controllers.Lobby.homeLang(lang)
 
 # Highest hit count
 GET   /account/info                    controllers.Account.info
