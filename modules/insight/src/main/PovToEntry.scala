@@ -173,7 +173,7 @@ final private class PovToEntry(
       from.division.end.map(_.value).fold(from.situations.last.some)(from.situations.toList.lift) match
         case Some(situation) =>
           chess.Color.all.forall { color =>
-            !situation.board.hasPiece(chess.Piece(color, chess.Queen))
+            !situation.board.isOccupied(chess.Piece(color, chess.Queen))
           }
         case _ =>
           logger.warn(s"https://lichess.org/${from.pov.gameId} missing endgame board")
