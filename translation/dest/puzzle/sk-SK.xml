@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Získajte úlohy šité na mieru:</string>
   <string name="puzzleId">Úloha %s</string>
   <string name="puzzleOfTheDay">Úloha dňa</string>
+  <string name="dailyPuzzle">Úloha na tento deň</string>
   <string name="clickToSolve">Kliknutím vyriešiť</string>
   <string name="goodMove">Dobrý ťah</string>
   <string name="bestMove">Najlepší ťah!</string>
