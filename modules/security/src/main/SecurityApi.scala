@@ -84,7 +84,10 @@ final class SecurityApi(
     import LoginCandidate.Result.*
     candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword) { c =>
       val result = c(User.PasswordAndToken(password, token map User.TotpToken.apply))
-      if mode == Mode.Prod && result.success && PasswordCheck.isWeak(password, login.value) then
+      if result == BlankedPassword then
+        lila.common.Bus.publish(c.user, "loginWithBlankedPassword")
+        BlankedPassword
+      else if mode == Mode.Prod && result.success && PasswordCheck.isWeak(password, login.value) then
         lila.common.Bus.publish(c.user, "loginWithWeakPassword")
         WeakPassword
       else result

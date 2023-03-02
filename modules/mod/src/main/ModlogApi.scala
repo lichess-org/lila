@@ -73,6 +73,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       Modlog(mod, kid.some, Modlog.setKidMode)
     }
 
+  def loginWithBlankedPassword(user: UserId) = add {
+    Modlog(User.lichessId into ModId, user.some, Modlog.blankedPassword)
+  }
+
   def loginWithWeakPassword(user: UserId) = add {
     Modlog(User.lichessId into ModId, user.some, Modlog.weakPassword)
   }
