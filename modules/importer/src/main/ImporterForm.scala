@@ -10,6 +10,7 @@ import scala.util.chaining.*
 
 import lila.game.*
 import lila.common.Form.into
+import chess.format.pgn.Sans
 
 final class ImporterForm:
 
@@ -55,7 +56,7 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
       Parser.full(pgn) map { parsed =>
         Reader.fullWithSans(
           parsed,
-          sans => sans.copy(value = sans.value take maxPlies)
+          sans => Sans(sans.value take maxPlies)
         ) pipe evenIncomplete pipe { case replay @ Replay(setup, _, state) =>
           val initBoard    = parsed.tags.fen flatMap Fen.read map (_.board)
           val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.isInitial)
