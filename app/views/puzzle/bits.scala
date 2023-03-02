@@ -110,6 +110,7 @@ object bits:
 
   private val trainingI18nKeys = baseI18nKeys ::: List(
     trans.puzzle.example,
+    trans.puzzle.dailyPuzzle,
     trans.puzzle.addAnotherTheme,
     trans.puzzle.difficultyLevel,
     trans.rated,
