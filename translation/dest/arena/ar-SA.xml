@@ -56,4 +56,8 @@
   <string name="allowChatHelp">السماح للاعبين بالمناقشة في غرفة الدردشة</string>
   <string name="arenaStreaks">تسلسل الفوز في الارينا</string>
   <string name="arenaStreaksHelp">بعد تحقيق فوزين، الفوز المتتالي يمنحك اربعة نقاط بدلاً من ٢.</string>
+  <string name="noBerserkAllowed">كسر الوقت غير مسموح به</string>
+  <string name="noArenaStreaks">لا يوجد تسلسل بالفوز</string>
+  <string name="averagePerformance">متوسط الأداء</string>
+  <string name="averageScore">معدل النقاط</string>
 </resources>
