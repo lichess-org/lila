@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">לקבלת חידות מותאמות אישית:</string>
   <string name="puzzleId">חידה %s</string>
   <string name="puzzleOfTheDay">החידה היומית</string>
+  <string name="dailyPuzzle">החידה היומית</string>
   <string name="clickToSolve">לחץ/י כדי לפתור</string>
   <string name="goodMove">מהלך טוב</string>
   <string name="bestMove">המהלך הטוב ביותר!</string>
