@@ -77,15 +77,13 @@ export type MsgType = 'command' | 'status' | 'error';
 export type VoiceListener = (msgText: string, msgType: MsgType) => void;
 
 export interface VoiceCtrl {
-  start: () => Promise<void>; // initialize and begin recording
+  setVocabulary: (vocabulary: string[]) => Promise<void>;
+  start: () => Promise<void>; // post-initialize and begin recording
   stop: () => void; // stop recording/downloading/whatever
   readonly isBusy: boolean; // are we downloading, extracting, or loading?
   readonly isRecording: boolean; // are we recording?
   readonly status: string; // errors, progress, or the most recent voice command
   addListener: (name: string, listener: VoiceListener) => void;
-  updateVocabulary: (vocabulary: string[]) => Promise<void>;
-  partialMove: Prop<string>;
-  textInput: HTMLInputElement | undefined;
 }
 
 export interface KaldiOpts {

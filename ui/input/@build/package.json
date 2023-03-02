@@ -1,0 +1,16 @@
+{
+  "name": "make-lexicon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "makeLexicon.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "tsc && node dist/makeLexicon.js"
+  },
+  "dependencies": {
+    "@types/node": "^18.11.17"
+  },
+  "keywords": [],
+  "author": "T-Bone Duplexus",
+  "license": "GPL-3.0"
+}

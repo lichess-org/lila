@@ -3,15 +3,13 @@ import { h } from 'snabbdom';
 import { onInsert, dataIcon } from 'common/snabbdom';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { makeVoiceCtrl } from './voiceCtrl';
 import { makeKeyboardHandler } from './keyboardMoveHandler';
 import { makeVoiceHandler } from './voiceMoveHandler';
 import { MoveCtrl } from './interfaces';
 
 export { type MoveCtrl, type VoiceCtrl } from './interfaces';
 export { makeMoveCtrl } from './moveCtrl';
-
-export const voiceCtrl = makeVoiceCtrl(); // available outside of moveCtrl
+export { voiceCtrl } from './voiceCtrl';
 
 export function renderMoveCtrl(ctrl: MoveCtrl) {
   return h('div.input-move', [
@@ -19,7 +17,7 @@ export function renderMoveCtrl(ctrl: MoveCtrl) {
       class: { enabled: ctrl.voice.isRecording, busy: ctrl.voice.isBusy },
       attrs: {
         role: 'button',
-        ...dataIcon(ctrl.voice.isBusy ? '' : ''),
+        ...dataIcon(ctrl.voice.isBusy ? '\ue071' : ''),
       },
       hook: onInsert(el => {
         ctrl.addHandler(makeVoiceHandler(ctrl));
@@ -41,8 +39,8 @@ export function renderMoveCtrl(ctrl: MoveCtrl) {
         disabled: ctrl.voice.isRecording,
       },
       hook: onInsert((input: HTMLInputElement) => {
-        ctrl.voice.textInput = input;
         ctrl.addHandler(makeKeyboardHandler({ input, ctrl }));
+        ctrl.voice.addListener('keyboardMoveInput', (text: string) => (input.value = text));
       }),
     }),
     ctrl.helpModalOpen()
