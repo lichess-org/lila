@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Om gepersonaliseerde puzzels te krijgen:</string>
   <string name="puzzleId">Puzzel %s</string>
   <string name="puzzleOfTheDay">Puzzel van de dag</string>
+  <string name="dailyPuzzle">Dagelijkse Puzzel</string>
   <string name="clickToSolve">Klik om op te lossen</string>
   <string name="goodMove">Goede zet</string>
   <string name="bestMove">Beste zet!</string>
