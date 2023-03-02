@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">للحصول على ألغاز خاصة بك:</string>
   <string name="puzzleId">لغز %s</string>
   <string name="puzzleOfTheDay">لغز اليوم</string>
+  <string name="dailyPuzzle">اللغز اليومي</string>
   <string name="clickToSolve">انقر للحل</string>
   <string name="goodMove">نقلة جيدة</string>
   <string name="bestMove">أفضل نقلة!</string>
