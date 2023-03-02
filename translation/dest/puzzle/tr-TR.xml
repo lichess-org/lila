@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Kişiselleştirilmiş bulmacalar için:</string>
   <string name="puzzleId">Bulmaca %s</string>
   <string name="puzzleOfTheDay">Günün bulmacası</string>
+  <string name="dailyPuzzle">Günlük Bulmaca</string>
   <string name="clickToSolve">Çözmek için tıklayın</string>
   <string name="goodMove">İyi hamle</string>
   <string name="bestMove">En iyi hamle!</string>
