@@ -25,6 +25,7 @@
   <string name="toGetPersonalizedPuzzles">برای دریافت پازل شخصی سازی شده</string>
   <string name="puzzleId">معمای %s</string>
   <string name="puzzleOfTheDay">مسئله روز</string>
+  <string name="dailyPuzzle">پازل روزانه</string>
   <string name="clickToSolve">برای جل کردن کلیک کنید</string>
   <string name="goodMove">حرکتی خوب</string>
   <string name="bestMove">بهترین حرکت!</string>
