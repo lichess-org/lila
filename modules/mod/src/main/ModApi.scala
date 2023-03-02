@@ -43,7 +43,8 @@ final class ModApi(
         reportApi.getMod(modId) flatMapz { mod =>
           lila.mon.cheat.autoMark.increment()
           setEngine(mod, sus, v = true) >>
-            noteApi.lichessWrite(sus.user, note)
+          noteApi.lichessWrite(sus.user, note) >>
+          reportApi.autoProcess(modId, sus, Set(Room.Cheat, Room.Print))  
         }
       }
     } yield ()
@@ -77,6 +78,7 @@ final class ModApi(
     reportApi.getLichessMod flatMap { mod =>
       setTroll(mod, sus, true) >>
         noteApi.lichessWrite(sus.user, note)
+        >> reportApi.autoProcess(mod.id, sus, Set(Room.Comm))
     }
 
   def garbageCollect(userId: UserId): Funit = for {
