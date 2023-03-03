@@ -21,7 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Halutessasi henkilökohtaisia tehtäviä:</string>
   <string name="puzzleId">Tehtävä %s</string>
   <string name="puzzleOfTheDay">Päivän tehtävä</string>
-  <string name="dailyPuzzle">Päivän pähkinä</string>
+  <string name="dailyPuzzle">Päivän tehtävä</string>
   <string name="clickToSolve">Ratkaise klikkaamalla</string>
   <string name="goodMove">Hyvä siirto</string>
   <string name="bestMove">Paras siirto!</string>
