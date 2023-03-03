@@ -10,10 +10,10 @@ import controllers.routes
 
 object importGame:
 
-  private def analyseHelp(implicit ctx: Context) =
+  private def analyseHelp(using ctx: Context) =
     ctx.isAnon option a(cls := "blue", href := routes.Auth.signup)(trans.youNeedAnAccountToDoThat())
 
-  def apply(form: play.api.data.Form[?])(implicit ctx: Context) =
+  def apply(form: play.api.data.Form[?])(using ctx: Context) =
     views.html.base.layout(
       title = trans.importGame.txt(),
       moreCss = cssTag("importer"),
@@ -29,7 +29,9 @@ object importGame:
       main(cls := "importer page-small box box-pad")(
         h1(cls := "box__top")(trans.importGame()),
         p(cls := "explanation")(trans.importGameExplanation()),
-        standardFlash,
+        standardFlash | flashMessage("warning")(
+          trans.importGameCaveat(a(href := routes.Study.allDefault(1))(trans.toStudy()))
+        ),
         postForm(cls := "form3 import", action := routes.Importer.sendGame)(
           form3.group(form("pgn"), trans.pasteThePgnStringHere())(form3.textarea(_)()),
           form("pgn").value flatMap { pgn =>
