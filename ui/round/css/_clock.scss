@@ -187,15 +187,11 @@
   .berserked {
     @extend %flex-center, %zen;
 
-    display: none;
-
-    @include breakpoint($mq-xx-small) {
-      order: -1;
-      display: flex;
-      flex: 0 1 auto;
-      font-size: 1.7em;
-      padding: 0 0.3em;
-    }
+    order: -1;
+    display: flex;
+    flex: 0 1 auto;
+    font-size: 1.7em;
+    padding: 0 0.3em;
 
     @include breakpoint($mq-col2) {
       order: inherit;
