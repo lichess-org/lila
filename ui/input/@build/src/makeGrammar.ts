@@ -1,8 +1,7 @@
 import * as ps from 'node:process';
 import * as fs from 'node:fs';
 
-// see ui/input/@build/README.md
-const baseLexicon: Token[] = [
+const lexicon: Token[] = [
   { in: 'a', tok: 'a' },
   { in: 'b', tok: 'b' },
   { in: 'c', tok: 'c' },
@@ -81,8 +80,10 @@ const baseLexicon: Token[] = [
   { in: 'and', out: '' },
 ];
 
+const buildMode: SubRestriction = { del: true, sub: 2 }; // allow dels and/or specify max sub length
+
 function buildCostMap(
-  subMap: Map<string, SubInfo>, // the map of all valid substitutions within --ops
+  subMap: Map<string, SubInfo>, // the map of all valid substitutions within --max-ops
   freqThreshold: number, // minimum frequency of a substitution to be considered
   countThreshold: number // minimum count for a substitution to be considered
 ) {
@@ -105,38 +106,36 @@ function main() {
   const crowdvfile = getArg('in') ?? 'crowdv-27-02-2023.json';
   const opThreshold = parseInt(getArg('max-ops') ?? '1');
   const freqThreshold = parseFloat(getArg('freq') ?? '0.004');
-  const countThreshold = parseInt(getArg('count') ?? '5');
-  const lexfile = getArg('out') ?? '../src/voiceMoveLexicon.ts';
+  const countThreshold = parseInt(getArg('count') ?? '6');
+  const lexfile = getArg('out') ?? '../src/voiceMoveGrammar.ts';
   const subMap = new Map<string, SubInfo>();
   const entries = (JSON.parse(fs.readFileSync(crowdvfile, 'utf-8')) as CrowdvData[])
     .map(data => makeLexEntry(data))
     .filter(x => x) as LexEntry[];
 
   for (const entry of entries) {
-    if (entry.h !== entry.x)
-      flattenTransforms(findTransforms(entry.h, entry.x, { del: true, sub: 2 }), entry, subMap, opThreshold);
+    parseTransforms(findTransforms(entry.h, entry.x, buildMode), entry, subMap, opThreshold);
   }
   subMap.forEach(v => (v.freq = v.count / v.all));
 
   buildCostMap(subMap, freqThreshold, countThreshold).forEach((sub, key) => {
     ppCost(key, sub);
     const [from, to] = key.split(' ');
-    builder.addSub(from, { to: to, cost: sub.cost ?? 1 });
+    grammarBuilder.addSub(from, { to: to, cost: sub.cost ?? 1 });
   });
-  writeLexicon(lexfile);
+  writeGrammar(lexfile);
 }
 
 function ppCost(key: string, e: SubInfo) {
   const grey = (s: string) => `\x1b[30m${s}\x1b[0m`;
   const red = (s: string) => `\x1b[31m${s}\x1b[0m`;
-  const name = (s: string) => `\x1b[36m${s}\x1b[0m`;
-  const op = (s: string) => `\x1b[0m${s}\x1b[0m`;
-  const value = (s: string) => `\x1b[0m${s}\x1b[0m`;
-  const prettyPair = (k: string, v: string) => `${name(k)}${grey(':')} ${value(v)}`;
-  const kpp = key.split(' ').map(x => builder.wordsOf(x));
-  const v1 = kpp[1] === '<delete>' ? red(kpp[1]) : op(kpp[1]);
+  const nameC = (s: string) => `\x1b[36m${s}\x1b[0m`;
+  const opC = (s: string) => `\x1b[0m${s}\x1b[0m`;
+  const valueC = (s: string) => `\x1b[0m${s}\x1b[0m`;
+  const prettyPair = (k: string, v: string) => `${nameC(k)}${grey(':')} ${valueC(v)}`;
+  const [from, to] = key.split(' ').map(x => grammarBuilder.wordsOf(x));
   console.log(
-    `'${op(kpp[0])}${grey(' => ')}${v1}'${grey(':')} { ` +
+    `'${opC(from)}${grey(' => ')}${to === '' ? red('<delete>') : opC(to)}'${grey(':')} { ` +
       [
         prettyPair('count', `${e.count}`),
         prettyPair('all', `${e.all}`),
@@ -149,15 +148,15 @@ function ppCost(key: string, e: SubInfo) {
 }
 
 // flatten list of transforms into sub map
-function flattenTransforms(xss: Transform[][], entry: LexEntry, subMap: Map<string, SubInfo>, opThreshold = 1) {
+function parseTransforms(xss: Transform[][], entry: LexEntry, subMap: Map<string, SubInfo>, opThreshold = 1) {
   return xss
     .filter(xss => xss.length <= opThreshold)
     .forEach(xs =>
       xs.forEach(x => {
         const cost = subMap.get(`${x.from} ${x.to}`) ?? {
-          tpe: x.from === '' ? 'ins' : x.to === '' ? 'del' : 'sub',
+          tpe: x.to === '' ? 'del' : 'sub',
           count: 0,
-          all: builder.occurrences.get(x.from || x.to)!,
+          all: grammarBuilder.occurrences.get(x.from || x.to)!,
           conf: 0,
           freq: 0,
         };
@@ -178,14 +177,12 @@ function findTransforms(
   lines: Transform[][] = [],
   crumbs = new Map<string, number>()
 ): Transform[][] {
-  if (h === x) {
-    return [line];
-  }
-  if ((pos >= x.length && !mode.del) || (crumbs.has(h + pos) && crumbs.get(h + pos)! <= line.length)) {
-    return [];
-  }
+  if (h === x) return [line];
+  if (pos >= x.length && !mode.del) return [];
+  if (crumbs.has(h + pos) && crumbs.get(h + pos)! <= line.length) return [];
   crumbs.set(h + pos, line.length);
-  return buildOps(h, x, pos, mode).flatMap(({ hnext, op }) =>
+
+  return validOps(h, x, pos, mode).flatMap(({ hnext, op }) =>
     findTransforms(
       hnext,
       x,
@@ -198,72 +195,54 @@ function findTransforms(
   );
 }
 
-function buildOps(h: string, x: string, pos: number, mode: SubRestriction) {
+function validOps(h: string, x: string, pos: number, mode: SubRestriction) {
   const validOps: { hnext: string; op: Transform | 'skip' }[] = [];
   if (h[pos] === x[pos]) validOps.push({ hnext: h, op: 'skip' });
-  else {
-    if (mode.del && pos < h.length)
-      validOps.push({
-        hnext: h.slice(0, pos) + h.slice(pos + 1),
-        op: { from: h[pos], at: pos, to: '' }, // erasure of h[pos]
-      });
-    if (mode.ins && pos < x.length)
-      validOps.push({
-        hnext: h.slice(0, pos) + x[pos] + h.slice(pos),
-        op: { from: '', at: pos, to: x[pos] }, // insertion of x[pos]
-      });
-  }
-  let sliceLen = Math.min(mode.sub ?? 0, x.length - pos);
-  while (sliceLen > 0) {
-    const slice = x.slice(pos, pos + sliceLen);
-    if (pos < h.length && !h.startsWith(slice, pos))
+  const minSlice = mode.del !== true || validOps.length > 0 ? 1 : 0;
+  let slen = Math.min(mode.sub ?? 0, x.length - pos);
+  while (slen >= minSlice) {
+    const slice = x.slice(pos, pos + slen);
+    if (pos < h.length && !(slen > 0 && h.startsWith(slice, pos)))
       validOps.push({
         hnext: h.slice(0, pos) + slice + h.slice(pos + 1),
         op: { from: h[pos], at: pos, to: slice }, // replace h[pos] with slice
       });
-
-    sliceLen--;
+    slen--;
   }
   return validOps;
 }
 
 function makeLexEntry(entry: CrowdvData): LexEntry | undefined {
-  const xset = new Set([...builder.encode(entry.exact)]);
-  const hunique = [...new Set([...builder.encode(entry.heard)])];
+  const xset = new Set([...grammarBuilder.encode(entry.exact)]);
+  const hunique = [...new Set([...grammarBuilder.encode(entry.heard)])];
   if (hunique.filter(h => xset.has(h)).length < xset.size - 2) return undefined;
   if (entry.heard.endsWith(' next')) entry.heard = entry.heard.slice(0, -5);
-  builder.addOccurrence(entry.heard); // for token frequency
+  grammarBuilder.addOccurrence(entry.heard); // for token frequency
   return {
-    h: builder.encode(entry.heard),
-    x: builder.encode(entry.exact),
+    h: grammarBuilder.encode(entry.heard),
+    x: grammarBuilder.encode(entry.exact),
     c: entry.data.map(x => x.conf),
   };
 }
 
-function writeLexicon(out: string) {
+function writeGrammar(out: string) {
   fs.writeFileSync(
     out,
     '// this file is generated. see ui/input/@build/README.md\n\n' +
       'export type Sub = { to: string, cost: number };\n\n' +
       'export type Token = { in: string, tok?: string, out?: string, subs?: Sub[] };\n\n' +
-      `export const lexicon: Token[] = ${JSON.stringify(baseLexicon, null, 2)};`
+      `export const lexicon: Token[] = ${JSON.stringify(lexicon, null, 2)};`
   );
 }
 
 function getArg(arg: string): string | undefined {
-  return (
-    ps.argv
-      .filter(v => v.startsWith(`--${arg}`))
-      .pop()
-      ?.slice(3 + arg.length) ||
-    ps.argv
-      .filter(v => v.startsWith(`-${arg}`))
-      .pop()
-      ?.slice(2 + arg.length)
-  );
+  return ps.argv
+    .filter(v => v.startsWith(`--${arg}`))
+    .pop()
+    ?.slice(3 + arg.length);
 }
 
-type SubRestriction = { del?: boolean; sub?: number; ins?: boolean };
+type SubRestriction = { del?: boolean; sub?: number };
 
 type LexEntry = {
   h: string;
@@ -278,7 +257,7 @@ type Transform = {
 };
 
 type SubInfo = {
-  tpe: 'del' | 'sub' | 'ins';
+  tpe: 'del' | 'sub';
   all: number;
   count: number;
   freq: number;
@@ -311,22 +290,20 @@ type Token = {
   subs?: Sub[]; // allowable token transitions calculated by this script
 };
 
-const builder = new (class {
+const grammarBuilder = new (class {
   occurrences = new Map<string, number>();
   tokenSubs = new Map<string, Sub[]>();
   tokenOut = new Map<string, string>();
   wordToken = new Map<string, string>();
 
   constructor() {
-    const reserved = baseLexicon.map(t => t.tok ?? '').join('');
+    const reserved = lexicon.map(t => t.tok ?? '').join('');
     const available = Array.from({ length: 93 }, (_, i) => String.fromCharCode(33 + i)).filter(
       x => !reserved.includes(x)
     );
 
-    for (const e of baseLexicon) {
-      if (e.tok !== undefined) {
-        if (e.tok === ' ') throw new Error('invalid baseLexicon - space is reserved.');
-      } else {
+    for (const e of lexicon) {
+      if (e.tok === undefined) {
         if (reserved.includes(e.in)) e.tok = e.in;
         else e.tok = available.shift();
       }
@@ -343,11 +320,8 @@ const builder = new (class {
       .forEach(token => this.occurrences.set(token, (this.occurrences.get(token) ?? 0) + 1));
   }
   addSub(token: string, sub: Sub) {
-    const tok = baseLexicon.find(e => e.tok === token);
+    const tok = lexicon.find(e => e.tok === token);
     if (tok) tok.subs = [...(tok.subs ?? []), sub];
-  }
-  get words() {
-    return Array.from(this.wordToken.keys());
   }
   tokenOf(word: string) {
     return this.wordToken.get(word) ?? '';
@@ -370,12 +344,10 @@ const builder = new (class {
       .join(' ');
   }
   wordsOf(tokens: string) {
-    return tokens === ''
-      ? '<delete>'
-      : tokens
-          .split('')
-          .map(token => [...this.wordToken.entries()].find(([_, tok]) => tok === token)?.[0])
-          .join(' ');
+    return tokens
+      .split('')
+      .map(token => [...this.wordToken.entries()].find(([_, tok]) => tok === token)?.[0])
+      .join(' ');
   }
 })();
 

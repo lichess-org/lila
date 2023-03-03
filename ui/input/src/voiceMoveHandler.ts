@@ -3,7 +3,7 @@ import { Dests } from 'chessground/types';
 import { sanWriter, SanToUci } from 'chess';
 import { prop } from 'common';
 import * as util from './handlerUtil';
-import { voiceMoveGrammar } from './voiceMoveGrammar';
+import { lexicon, Sub } from './voiceMoveGrammar';
 
 const substitutionsMap = {
   a: ['a8', '8'],
@@ -28,7 +28,7 @@ const closestLegalUci = (input: string, legalSans?: SanToUci): Uci | null => {
 };
 
 export function makeVoiceHandler(ctrl: MoveCtrl): MoveHandler {
-  ctrl.voice.setVocabulary(voiceMoveGrammar.words);
+  ctrl.voice.setVocabulary(grammar.words);
   const partialMove = prop('');
 
   let legalSans: SanToUci | undefined;
@@ -41,7 +41,7 @@ export function makeVoiceHandler(ctrl: MoveCtrl): MoveHandler {
       partialMove('');
       return;
     }
-    v = voiceMoveGrammar.encode(v + ' ' + partialMove());
+    v = grammar.encode(v + ' ' + partialMove());
     partialMove('');
     const selectedKey = ctrl.hasSelected() || '';
     const uci = util.sanToUci(v, legalSans);
@@ -81,3 +81,49 @@ export function makeVoiceHandler(ctrl: MoveCtrl): MoveHandler {
     legalSans = dests && dests.size > 0 ? sanWriter(fen, util.destsToUcis(dests)) : undefined;
   };
 }
+const grammar = new (class {
+  occurrences = new Map<string, number>();
+  tokenSubs = new Map<string, Sub[]>();
+  tokenOut = new Map<string, string>();
+  wordToken = new Map<string, string>();
+
+  constructor() {
+    for (const e of lexicon) {
+      this.wordToken.set(e.in, e.tok ?? '');
+      if (!e.tok) continue;
+      if (e.out && !this.tokenOut.has(e.tok)) this.tokenOut.set(e.tok, e.out);
+      if (e.subs && !this.tokenSubs.has(e.tok)) this.tokenSubs.set(e.tok, e.subs);
+    }
+  }
+  get words() {
+    return Array.from(this.wordToken.keys());
+  }
+  tokenOf(word: string) {
+    return this.wordToken.get(word) ?? '';
+  }
+  fromToken(token: string) {
+    return this.tokenOut.get(token) ?? token;
+  }
+  encode(phrase: string) {
+    return this.wordToken.has(phrase)
+      ? this.tokenOf(phrase)
+      : phrase
+          .split(' ')
+          .map(word => this.tokenOf(word))
+          .join('');
+  }
+  decode(tokens: string) {
+    return tokens
+      .split('')
+      .map(token => this.fromToken(token))
+      .join(' ');
+  }
+  wordsOf(tokens: string) {
+    return tokens === ''
+      ? '<delete>'
+      : tokens
+          .split('')
+          .map(token => [...this.wordToken.entries()].find(([_, tok]) => tok === token)?.[0])
+          .join(' ');
+  }
+})();
