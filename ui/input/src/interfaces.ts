@@ -78,7 +78,7 @@ export type VoiceListener = (msgText: string, msgType: MsgType) => void;
 
 export interface VoiceCtrl {
   setVocabulary: (vocabulary: string[]) => Promise<void>;
-  start: () => Promise<void>; // post-initialize and begin recording
+  start: () => Promise<void>; // initialize if necessary and begin recording
   stop: () => void; // stop recording/downloading/whatever
   readonly isBusy: boolean; // are we downloading, extracting, or loading?
   readonly isRecording: boolean; // are we recording?

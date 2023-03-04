@@ -1,4 +1,4 @@
-type Board = { pieces: { [key: number]: string }; turn: boolean };
+export type Board = { pieces: { [key: number]: string }; turn: boolean };
 export type SanToUci = { [key: string]: Uci };
 
 function fixCrazySan(san: string) {
@@ -25,7 +25,7 @@ function isBlack(p: string) {
   return p === p.toLowerCase();
 }
 
-function readFen(fen: string) {
+export function readFen(fen: string) {
   const parts = fen.split(' '),
     board: Board = {
       pieces: {},
@@ -82,7 +82,7 @@ function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
   return result;
 }
 
-function sanOf(board: Board, uci: string) {
+export function sanOf(board: Board, uci: string) {
   if (uci.includes('@')) return fixCrazySan(uci);
 
   const move = decomposeUci(uci);

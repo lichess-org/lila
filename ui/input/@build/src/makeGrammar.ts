@@ -2,39 +2,39 @@ import * as ps from 'node:process';
 import * as fs from 'node:fs';
 
 const lexicon: Token[] = [
-  { in: 'a', tok: 'a' },
-  { in: 'b', tok: 'b' },
-  { in: 'c', tok: 'c' },
-  { in: 'd', tok: 'd' },
-  { in: 'e', tok: 'e' },
-  { in: 'f', tok: 'f' },
-  { in: 'g', tok: 'g' },
-  { in: 'h', tok: 'h' },
-  { in: '1', tok: '1' },
-  { in: 'one', tok: '1' },
-  { in: '2', tok: '2' },
-  { in: 'two', tok: '2' },
-  { in: '3', tok: '3' },
-  { in: 'three', tok: '3' },
-  { in: '4', tok: '4' },
-  { in: 'four', tok: '4' },
-  { in: '5', tok: '5' },
-  { in: 'five', tok: '5' },
-  { in: '6', tok: '6' },
-  { in: 'six', tok: '6' },
-  { in: '7', tok: '7' },
-  { in: 'seven', tok: '7' },
-  { in: '8', tok: '8' },
-  { in: 'eight', tok: '8' },
-  { in: 'pawn', tok: 'P' },
-  { in: 'knight', tok: 'N' },
-  { in: 'bishop', tok: 'B' },
-  { in: 'rook', tok: 'R' },
-  { in: 'queen', tok: 'Q' },
-  { in: 'king', tok: 'K' },
+  { in: 'a', tok: 'a', ctx: 'file' },
+  { in: 'b', tok: 'b', ctx: 'file' },
+  { in: 'c', tok: 'c', ctx: 'file' },
+  { in: 'd', tok: 'd', ctx: 'file' },
+  { in: 'e', tok: 'e', ctx: 'file' },
+  { in: 'f', tok: 'f', ctx: 'file' },
+  { in: 'g', tok: 'g', ctx: 'file' },
+  { in: 'h', tok: 'h', ctx: 'file' },
+  { in: '1', tok: '1', ctx: 'rank' },
+  { in: 'one', tok: '1', ctx: 'rank' },
+  { in: '2', tok: '2', ctx: 'rank' },
+  { in: 'two', tok: '2', ctx: 'rank' },
+  { in: '3', tok: '3', ctx: 'rank' },
+  { in: 'three', tok: '3', ctx: 'rank' },
+  { in: '4', tok: '4', ctx: 'rank' },
+  { in: 'four', tok: '4', ctx: 'rank' },
+  { in: '5', tok: '5', ctx: 'rank' },
+  { in: 'five', tok: '5', ctx: 'rank' },
+  { in: '6', tok: '6', ctx: 'rank' },
+  { in: 'six', tok: '6', ctx: 'rank' },
+  { in: '7', tok: '7', ctx: 'rank' },
+  { in: 'seven', tok: '7', ctx: 'rank' },
+  { in: '8', tok: '8', ctx: 'rank' },
+  { in: 'eight', tok: '8', ctx: 'rank' },
+  { in: 'pawn', tok: 'P', ctx: 'role' },
+  { in: 'knight', tok: 'N', ctx: 'role' },
+  { in: 'bishop', tok: 'B', ctx: 'role' },
+  { in: 'rook', tok: 'R', ctx: 'role' },
+  { in: 'queen', tok: 'Q', ctx: 'role' },
+  { in: 'king', tok: 'K', ctx: 'role' },
 
-  { in: 'takes', tok: 'x', out: 'x' },
-  { in: 'captures', out: 'x' },
+  { in: 'takes', tok: 'x' },
+  { in: 'captures', tok: 'x' },
   { in: 'castle', out: 'o-o' },
   { in: 'short castle', out: 'o-o' },
   { in: 'king side castle', out: 'o-o' },
@@ -59,7 +59,7 @@ const lexicon: Token[] = [
   { in: 'yellow', out: 'yellow' },
   { in: 'green', out: 'green' },
   { in: 'blue', out: 'blue' },
-  { in: 'next', out: 'next' },
+  { in: 'next', tok: 'n', out: 'next' },
   { in: 'skip', out: 'next' },
   { in: 'continue', out: 'next' },
   { in: 'back', out: 'back' },
@@ -228,9 +228,10 @@ function makeLexEntry(entry: CrowdvData): LexEntry | undefined {
 function writeGrammar(out: string) {
   fs.writeFileSync(
     out,
-    '// this file is generated. see ui/input/@build/README.md\n\n' +
+    '// *************************** this file is generated. see ui/input/@build/README.md\n\n' +
       'export type Sub = { to: string, cost: number };\n\n' +
-      'export type Token = { in: string, tok?: string, out?: string, subs?: Sub[] };\n\n' +
+      `type Context = 'file'|'rank'|'role'|'move'|'choose'|'command';\n\n` +
+      'export type Token = { in: string, tok?: string, out?: string, ctx?: Context, subs?: Sub[] };\n\n' +
       `export const lexicon: Token[] = ${JSON.stringify(lexicon, null, 2)};`
   );
 }
@@ -283,11 +284,13 @@ type Sub = {
   cost: number;
 };
 
+type Context = 'file' | 'rank' | 'role' | 'move' | 'choose' | 'command';
 type Token = {
   in: string; // the word or phrase recognized by kaldi, unique
   tok?: string; // single char token representation (or '' for ignored words)
   out?: string; // the string moveHandler receives, default is tok
   subs?: Sub[]; // allowable token transitions calculated by this script
+  ctx?: Context; // context for this token, used by clients of the grammar
 };
 
 const grammarBuilder = new (class {

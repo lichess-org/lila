@@ -73,10 +73,11 @@ export const voiceCtrl = new (class implements VoiceCtrl {
   }
 
   async initKaldi() {
+    if (!this.vocabulary.length) return;
     const wasRecording = this.isRecording;
-    if (this.voskNode) {
-      this.voskNode.disconnect();
-    }
+    this.mediaStream!.getAudioTracks()[0].enabled = false;
+
+    if (this.voskNode) this.voskNode.disconnect();
     this.voskNode = await window.LichessVoice.initKaldi({
       audioCtx: this.audioCtx!,
       keys: this.vocabulary,
