@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Pour obtenir des problèmes personnalisés :</string>
   <string name="puzzleId">Problème %s</string>
   <string name="puzzleOfTheDay">Problème du jour</string>
+  <string name="dailyPuzzle">Problème du jour</string>
   <string name="clickToSolve">Cliquez pour résoudre</string>
   <string name="goodMove">Bon coup</string>
   <string name="bestMove">Meilleur coup  !</string>

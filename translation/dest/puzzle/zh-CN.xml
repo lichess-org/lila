@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">获取个性化谜题</string>
   <string name="puzzleId">谜题编号：%s</string>
   <string name="puzzleOfTheDay">每日一题</string>
+  <string name="dailyPuzzle">每日棋谜</string>
   <string name="clickToSolve">点击解题</string>
   <string name="goodMove">好棋</string>
   <string name="bestMove">最佳走法！</string>

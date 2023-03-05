@@ -285,14 +285,14 @@ final class ReportApi(
 
   def autoProcess(mod: ModId, sus: Suspect, rooms: Set[Room]): Funit = {
     val selector = $doc(
-         "user" -> sus.user.id,
-        "room" $in rooms,
-         "open" -> true
+      "user" -> sus.user.id,
+      "room" $in rooms,
+      "open" -> true
     )
-     doProcessReport(selector, mod, unsetInquiry = true).void >>-
-     maxScoreCache.invalidateUnit() >>-
-     lila.mon.mod.report.close.increment().unit
-    }
+    doProcessReport(selector, mod, unsetInquiry = true).void >>-
+      maxScoreCache.invalidateUnit() >>-
+      lila.mon.mod.report.close.increment().unit
+  }
 
   private def doProcessReport(selector: Bdoc, by: ModId, unsetInquiry: Boolean): Funit =
     coll.update

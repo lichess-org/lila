@@ -7,6 +7,7 @@
   <string name="voteToLoadNextOne">Votit evit kaout unan all!</string>
   <string name="puzzleId">Poelladenn %s</string>
   <string name="puzzleOfTheDay">Poelladenn an deiz</string>
+  <string name="dailyPuzzle">Poelladenn pemdeziek</string>
   <string name="clickToSolve">Klikit da ziskoulmañ</string>
   <string name="keepGoing">Kendalc\'hit…</string>
   <string name="puzzleSuccess">Deuet eo ganeoc\'h!</string>
