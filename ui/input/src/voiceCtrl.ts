@@ -73,10 +73,11 @@ export const voiceCtrl = new (class implements VoiceCtrl {
   }
 
   async initKaldi() {
+    if (!this.vocabulary.length) return;
     const wasRecording = this.isRecording;
-    if (this.voskNode) {
-      this.voskNode.disconnect();
-    }
+    this.mediaStream!.getAudioTracks()[0].enabled = false;
+
+    if (this.voskNode) this.voskNode.disconnect();
     this.voskNode = await window.LichessVoice.initKaldi({
       audioCtx: this.audioCtx!,
       keys: this.vocabulary,
@@ -109,11 +110,11 @@ export const voiceCtrl = new (class implements VoiceCtrl {
     await window.LichessVoice.initModel(modelUrl);
   }
 
-  broadcast(text: string, msgType: MsgType = 'status', _: WordResult | undefined = undefined, forMs = 0) {
+  broadcast(text: string, msgType: MsgType = 'status', words: WordResult | undefined = undefined, forMs = 0) {
     window.clearTimeout(this.broadcastTimeout);
     console.log(text);
     this.status = text;
-    for (const li of this.listeners.values()) li(text, msgType);
+    for (const li of this.listeners.values()) li(text, msgType, words);
     this.broadcastTimeout = forMs > 0 ? window.setTimeout(() => this.broadcast(''), forMs) : undefined;
   }
 

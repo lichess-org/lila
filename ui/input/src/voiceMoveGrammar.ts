@@ -1,559 +1,739 @@
-// this file is generated. see ui/input/@build/README.md
+// *************************** this file is generated. see ui/input/@build/README.md ***************************
 
 export type Sub = { to: string; cost: number };
 
-export type Token = { in: string; tok?: string; out?: string; subs?: Sub[] };
+export type Tag = 'file' | 'rank' | 'role' | 'move' | 'choice' | 'command' | 'ignore' | 'exact';
+
+export type Token = { in: string; tok: string; tags: Tag[]; out?: string; subs?: Sub[] };
 
 export const lexicon: Token[] = [
   {
     in: 'a',
     tok: 'a',
+    tags: ['file', 'move'],
     subs: [
       {
         to: 'e',
-        cost: 0.4534246575342466,
+        cost: 0.4722222222222222,
       },
       {
         to: 'f',
-        cost: 0.4575342465753425,
+        cost: 0.4777777777777778,
       },
       {
         to: '8',
-        cost: 0.46164383561643835,
+        cost: 0.48333333333333334,
       },
       {
         to: 'a8',
-        cost: 0.5191780821917809,
+        cost: 0.5611111111111111,
       },
       {
         to: '',
-        cost: 0.347945205479452,
+        cost: 0.4111111111111111,
       },
       {
         to: 'h',
-        cost: 0.5561643835616439,
+        cost: 0.6166666666666667,
+      },
+      {
+        to: '8a',
+        cost: 0.8500000000000001,
       },
     ],
   },
   {
     in: 'b',
     tok: 'b',
+    tags: ['file', 'move'],
     subs: [
       {
         to: 'd',
-        cost: 0.4657534246575342,
+        cost: 0.49444444444444446,
       },
       {
         to: 'e',
-        cost: 0.5684931506849316,
+        cost: 0.6333333333333333,
       },
       {
         to: 'b8',
-        cost: 0.6630136986301369,
+        cost: 0.7555555555555555,
       },
     ],
   },
   {
     in: 'c',
     tok: 'c',
+    tags: ['file', 'move'],
     subs: [
       {
         to: '3',
-        cost: 0.6835616438356165,
+        cost: 0.7944444444444445,
+      },
+      {
+        to: '6',
+        cost: 0.8277777777777777,
+      },
+      {
+        to: 'g',
+        cost: 0.8333333333333334,
+      },
+      {
+        to: 'c8',
+        cost: 0.8555555555555556,
       },
     ],
   },
   {
     in: 'd',
     tok: 'd',
+    tags: ['file', 'move'],
     subs: [
       {
         to: 'g',
-        cost: 0.473972602739726,
+        cost: 0.5,
       },
       {
         to: 'b',
-        cost: 0.4904109589041096,
+        cost: 0.5166666666666667,
       },
       {
         to: 'e',
-        cost: 0.584931506849315,
+        cost: 0.6555555555555556,
       },
       {
         to: 'd8',
-        cost: 0.695890410958904,
+        cost: 0.8,
+      },
+      {
+        to: '3',
+        cost: 0.8166666666666667,
       },
     ],
   },
   {
     in: 'e',
     tok: 'e',
+    tags: ['file', 'move'],
     subs: [
       {
         to: 'a',
-        cost: 0.46986301369863015,
+        cost: 0.48888888888888893,
       },
       {
         to: 'b',
-        cost: 0.4945205479452055,
+        cost: 0.5277777777777778,
       },
       {
         to: 'd',
-        cost: 0.4986301369863014,
+        cost: 0.5333333333333333,
       },
       {
         to: 'g',
-        cost: 0.5150684931506849,
+        cost: 0.5555555555555556,
       },
       {
         to: 'c',
-        cost: 0.5438356164383562,
+        cost: 0.5833333333333334,
       },
       {
         to: '',
-        cost: 0.44657534246575337,
+        cost: 0.538888888888889,
       },
       {
         to: 'e8',
-        cost: 0.6753424657534246,
+        cost: 0.7777777777777778,
       },
     ],
   },
   {
     in: 'f',
     tok: 'f',
+    tags: ['file', 'move'],
     subs: [
       {
         to: 'a',
-        cost: 0.6547945205479451,
+        cost: 0.75,
       },
       {
         to: 'h',
-        cost: 0.6876712328767123,
+        cost: 0.788888888888889,
       },
     ],
   },
   {
     in: 'g',
     tok: 'g',
+    tags: ['file', 'move'],
     subs: [
       {
         to: 'd',
-        cost: 0.4863013698630137,
+        cost: 0.5222222222222223,
       },
       {
         to: 'g8',
-        cost: 0.552054794520548,
+        cost: 0.6055555555555556,
       },
     ],
   },
   {
     in: 'h',
     tok: 'h',
+    tags: ['file', 'move'],
     subs: [
       {
         to: '8',
-        cost: 0.5027397260273972,
+        cost: 0.538888888888889,
       },
       {
         to: 'a',
-        cost: 0.6301369863013698,
+        cost: 0.7,
       },
     ],
   },
   {
     in: '1',
     tok: '1',
+    tags: ['rank', 'move'],
     subs: [
       {
         to: 'P',
-        cost: 0.5808219178082192,
+        cost: 0.65,
       },
       {
         to: 'e1',
-        cost: 0.5972602739726027,
+        cost: 0.6666666666666667,
       },
     ],
   },
   {
     in: 'one',
     tok: '1',
+    tags: ['rank', 'move'],
   },
   {
     in: '2',
     tok: '2',
+    tags: ['rank', 'move'],
     subs: [
       {
         to: '',
-        cost: 0.3356164383561644,
+        cost: 0.3666666666666667,
       },
       {
         to: 'g',
-        cost: 0.6054794520547945,
+        cost: 0.6833333333333333,
       },
       {
         to: 'e2',
-        cost: 0.6219178082191781,
+        cost: 0.6944444444444444,
       },
       {
         to: '3',
-        cost: 0.6589041095890411,
+        cost: 0.7722222222222223,
       },
     ],
   },
   {
     in: 'two',
     tok: '2',
+    tags: ['rank', 'move'],
   },
   {
     in: '3',
     tok: '3',
+    tags: ['rank', 'move'],
     subs: [
       {
         to: '3e',
-        cost: 0.5068493150684932,
+        cost: 0.5444444444444445,
       },
       {
         to: 'e3',
-        cost: 0.6794520547945204,
+        cost: 0.7833333333333334,
+      },
+      {
+        to: '3a',
+        cost: 0.8722222222222222,
+      },
+      {
+        to: 'f3',
+        cost: 0.8833333333333333,
       },
     ],
   },
   {
     in: 'three',
     tok: '3',
+    tags: ['rank', 'move'],
   },
   {
     in: '4',
     tok: '4',
+    tags: ['rank', 'move'],
     subs: [
       {
         to: 'f4',
-        cost: 0.589041095890411,
+        cost: 0.6611111111111112,
       },
       {
         to: 'e4',
-        cost: 0.6917808219178081,
+        cost: 0.8055555555555556,
       },
     ],
   },
   {
     in: 'four',
     tok: '4',
+    tags: ['rank', 'move'],
   },
   {
     in: '5',
     tok: '5',
+    tags: ['rank', 'move'],
     subs: [
       {
         to: 'f5',
-        cost: 0.5643835616438356,
+        cost: 0.6277777777777778,
       },
       {
         to: '5f',
-        cost: 0.6136986301369862,
+        cost: 0.6777777777777778,
+      },
+      {
+        to: 'e5',
+        cost: 0.8111111111111111,
       },
     ],
   },
   {
     in: 'five',
     tok: '5',
+    tags: ['rank', 'move'],
   },
   {
     in: '6',
     tok: '6',
+    tags: ['rank', 'move'],
     subs: [
       {
         to: 'f6',
-        cost: 0.6671232876712329,
+        cost: 0.7666666666666666,
+      },
+      {
+        to: 'e6',
+        cost: 0.8777777777777778,
       },
     ],
   },
   {
     in: 'six',
     tok: '6',
+    tags: ['rank', 'move'],
   },
   {
     in: '7',
     tok: '7',
+    tags: ['rank', 'move'],
+    subs: [
+      {
+        to: 'h7',
+        cost: 0.8888888888888888,
+      },
+    ],
   },
   {
     in: 'seven',
     tok: '7',
+    tags: ['rank', 'move'],
   },
   {
     in: '8',
     tok: '8',
+    tags: ['rank', 'move'],
     subs: [
       {
         to: 'a',
-        cost: 0.43698630136986305,
+        cost: 0.4444444444444445,
       },
       {
         to: 'a8',
-        cost: 0.4410958904109589,
+        cost: 0.4555555555555556,
       },
       {
         to: 'h',
-        cost: 0.4493150684931507,
+        cost: 0.4666666666666667,
       },
       {
         to: 'e',
-        cost: 0.5397260273972603,
+        cost: 0.5944444444444444,
       },
       {
         to: '8a',
-        cost: 0.6342465753424658,
+        cost: 0.7111111111111111,
+      },
+      {
+        to: 'e8',
+        cost: 0.8222222222222222,
       },
     ],
   },
   {
     in: 'eight',
     tok: '8',
+    tags: ['rank', 'move'],
   },
   {
     in: 'pawn',
     tok: 'P',
+    tags: ['role', 'move'],
     subs: [
       {
+        to: '',
+        cost: 0,
+      },
+      {
         to: 'Pa',
-        cost: 0.5602739726027397,
+        cost: 0.6222222222222222,
+      },
+      {
+        to: 'Pe',
+        cost: 0.8611111111111112,
+      },
+      {
+        to: 'Pf',
+        cost: 0.8666666666666667,
       },
     ],
   },
   {
     in: 'knight',
     tok: 'N',
+    tags: ['role', 'move'],
     subs: [
       {
         to: 'K',
-        cost: 0.5315068493150685,
+        cost: 0.6000000000000001,
       },
       {
         to: '',
-        cost: 0.42602739726027394,
+        cost: 0.5055555555555555,
       },
       {
         to: 'Na',
-        cost: 0.6506849315068493,
+        cost: 0.7611111111111111,
       },
     ],
   },
   {
     in: 'bishop',
     tok: 'B',
+    tags: ['role', 'move'],
+    subs: [
+      {
+        to: '',
+        cost: 0.6388888888888888,
+      },
+      {
+        to: 'Bf',
+        cost: 0.8444444444444444,
+      },
+      {
+        to: 'Ba',
+        cost: 0.8944444444444445,
+      },
+    ],
   },
   {
     in: 'rook',
     tok: 'R',
+    tags: ['role', 'move'],
     subs: [
       {
         to: 'Ra',
-        cost: 0.5931506849315068,
+        cost: 0.6722222222222223,
       },
       {
         to: '',
-        cost: 0.4383561643835616,
+        cost: 0.5444444444444445,
       },
     ],
   },
   {
     in: 'queen',
     tok: 'Q',
+    tags: ['role', 'move'],
     subs: [
       {
-        to: '8Q',
-        cost: 0.6178082191780822,
+        to: 'Qe',
+        cost: 0.7222222222222223,
       },
       {
-        to: 'Qe',
-        cost: 0.6424657534246575,
+        to: '8Q',
+        cost: 0.7277777777777779,
       },
     ],
   },
   {
     in: 'king',
     tok: 'K',
+    tags: ['role', 'move'],
     subs: [
       {
-        to: 'Ka',
-        cost: 0.5232876712328767,
+        to: '',
+        cost: 0.37222222222222223,
       },
       {
-        to: '',
-        cost: 0.32739726027397253,
+        to: 'Ka',
+        cost: 0.5777777777777778,
       },
       {
         to: 'Kf',
-        cost: 0.5726027397260274,
+        cost: 0.638888888888889,
       },
       {
         to: 'Ke',
-        cost: 0.5767123287671233,
+        cost: 0.6444444444444445,
       },
       {
         to: 'N',
-        cost: 0.6712328767123288,
+        cost: 0.7333333333333334,
       },
     ],
   },
   {
     in: 'takes',
-    tok: 'x',
     out: 'x',
+    tags: ['move'],
+    tok: '!',
     subs: [
       {
         to: '6',
-        cost: 0.4780821917808219,
+        cost: 0.5111111111111111,
       },
       {
         to: 'h',
-        cost: 0.6013698630136987,
+        cost: 0.6888888888888889,
       },
     ],
   },
   {
     in: 'captures',
     out: 'x',
-    tok: '!',
+    tags: ['move'],
+    tok: '"',
     subs: [
       {
-        to: '!R',
-        cost: 0.6095890410958904,
+        to: '"R',
+        cost: 0.5888888888888889,
+      },
+      {
+        to: 'P"',
+        cost: 0.7166666666666667,
       },
     ],
   },
   {
     in: 'castle',
-    out: 'o-o',
-    tok: '"',
-  },
-  {
-    in: 'short castle',
-    out: 'o-o',
+    out: 'O-O',
+    tags: ['move', 'exact'],
     tok: '#',
   },
   {
-    in: 'king side castle',
-    out: 'o-o',
+    in: 'short castle',
+    out: 'O-O',
+    tags: ['move', 'exact'],
     tok: '$',
   },
   {
-    in: 'castle king side',
-    out: 'o-o',
+    in: 'king side castle',
+    out: 'O-O',
+    tags: ['move', 'exact'],
     tok: '%',
   },
   {
-    in: 'long castle',
-    out: 'o-o-o',
+    in: 'castle king side',
+    out: 'O-O',
+    tags: ['move', 'exact'],
     tok: '&',
   },
   {
-    in: 'castle queen side',
-    out: 'o-o-o',
+    in: 'long castle',
+    out: 'O-O-O',
+    tags: ['move', 'exact'],
     tok: "'",
   },
   {
-    in: 'queen side castle',
-    out: 'o-o-o',
+    in: 'castle queen side',
+    out: 'O-O-O',
+    tags: ['move', 'exact'],
     tok: '(',
   },
   {
+    in: 'queen side castle',
+    out: 'O-O-O',
+    tags: ['move', 'exact'],
+    tok: ')',
+  },
+  {
     in: 'promote',
-    tok: '=',
     out: '=',
+    tags: ['move'],
+    tok: '*',
     subs: [
       {
-        to: '8=',
-        cost: 0.4821917808219178,
+        to: '8*',
+        cost: 0.5055555555555555,
       },
     ],
   },
   {
-    in: 'promotion',
+    in: 'promotes',
     out: '=',
-    tok: ')',
-  },
-  {
-    in: 'promote two',
-    out: '=',
-    tok: '*',
-  },
-  {
-    in: 'promotes two',
-    out: '=',
+    tags: ['move'],
     tok: '+',
   },
   {
     in: 'mate',
     out: '',
+    tags: ['move'],
     tok: ',',
     subs: [
       {
         to: 'N',
-        cost: 0.4328767123287671,
+        cost: 0.45,
       },
       {
         to: 'b',
-        cost: 0.510958904109589,
+        cost: 0.55,
       },
     ],
   },
   {
     in: 'check',
     out: '',
+    tags: ['move'],
     tok: '-',
   },
   {
     in: 'takeback',
     out: 'takeback',
+    tags: ['move', 'exact'],
     tok: '.',
   },
   {
     in: 'draw',
     out: 'draw',
+    tags: ['move', 'exact'],
     tok: '/',
   },
   {
     in: 'offer draw',
     out: 'draw',
+    tags: ['move', 'exact'],
     tok: '0',
   },
   {
     in: 'accept draw',
     out: 'draw',
+    tags: ['move', 'exact'],
     tok: '9',
   },
   {
     in: 'resign',
     out: 'resign',
+    tags: ['move', 'exact'],
     tok: ':',
   },
   {
-    in: 'rematch',
-    out: 'rematch',
+    in: 'next',
+    out: 'next',
+    tags: ['command', 'exact'],
     tok: ';',
+  },
+  {
+    in: 'skip',
+    out: 'next',
+    tags: ['command', 'exact'],
+    tok: '<',
+  },
+  {
+    in: 'continue',
+    out: 'next',
+    tags: ['command', 'exact'],
+    tok: '=',
+  },
+  {
+    in: 'back',
+    out: 'back',
+    tags: ['command', 'exact'],
+    tok: '>',
+  },
+  {
+    in: 'last',
+    out: 'last',
+    tags: ['command', 'exact'],
+    tok: '?',
+  },
+  {
+    in: 'first',
+    out: 'first',
+    tags: ['command', 'exact'],
+    tok: '@',
+  },
+  {
+    in: 'up vote',
+    out: 'upv',
+    tags: ['command', 'exact'],
+    tok: 'A',
+  },
+  {
+    in: 'down vote',
+    out: 'downv',
+    tags: ['command', 'exact'],
+    tok: 'C',
+  },
+  {
+    in: 'help',
+    out: '?',
+    tags: ['command', 'exact'],
+    tok: 'D',
+  },
+  {
+    in: 'clock',
+    out: 'clock',
+    tags: ['command', 'exact'],
+    tok: 'E',
+  },
+  {
+    in: 'opponent',
+    out: 'who',
+    tags: ['command', 'exact'],
+    tok: 'F',
   },
   {
     in: 'red',
     out: 'red',
-    tok: '<',
+    tags: ['choice', 'exact'],
+    tok: 'G',
     subs: [
       {
         to: '8',
-        cost: 0.42876712328767125,
+        cost: 0.4388888888888889,
       },
     ],
   },
   {
     in: 'yellow',
     out: 'yellow',
-    tok: '>',
+    tags: ['choice', 'exact'],
+    tok: 'H',
   },
   {
     in: 'green',
     out: 'green',
-    tok: '?',
+    tags: ['choice', 'exact'],
+    tok: 'I',
     subs: [
       {
         to: 'Q',
@@ -561,138 +741,92 @@ export const lexicon: Token[] = [
       },
       {
         to: '3',
-        cost: 0.41643835616438357,
+        cost: 0.4222222222222222,
       },
     ],
   },
   {
     in: 'blue',
     out: 'blue',
-    tok: '@',
+    tags: ['choice', 'exact'],
+    tok: 'J',
     subs: [
       {
         to: '2',
-        cost: 0.4041095890410959,
+        cost: 0.40555555555555556,
       },
       {
         to: 'b',
-        cost: 0.4246575342465754,
+        cost: 0.43333333333333335,
       },
     ],
   },
   {
-    in: 'next',
-    out: 'next',
-    tok: 'A',
-  },
-  {
-    in: 'skip',
-    out: 'next',
-    tok: 'C',
-  },
-  {
-    in: 'continue',
-    out: 'next',
-    tok: 'D',
-  },
-  {
-    in: 'back',
-    out: 'back',
-    tok: 'E',
-  },
-  {
-    in: 'last',
-    out: 'last',
-    tok: 'F',
-  },
-  {
-    in: 'first',
-    out: 'first',
-    tok: 'G',
-  },
-  {
     in: 'yes',
     out: 'yes',
-    tok: 'H',
+    tags: ['choice', 'exact'],
+    tok: 'L',
     subs: [
       {
         to: 'e',
-        cost: 0.4082191780821918,
+        cost: 0.4166666666666667,
       },
       {
         to: '',
-        cost: 0.22054794520547946,
+        cost: 0.2277777777777778,
       },
       {
         to: 'e8',
-        cost: 0.4452054794520548,
+        cost: 0.46111111111111114,
       },
     ],
   },
   {
     in: 'okay',
     out: 'yes',
-    tok: 'I',
+    tags: ['choice', 'exact'],
+    tok: 'M',
   },
   {
     in: 'confirm',
     out: 'yes',
-    tok: 'J',
+    tags: ['choice', 'exact'],
+    tok: 'O',
   },
   {
     in: 'no',
     out: 'no',
-    tok: 'L',
+    tags: ['choice', 'exact'],
+    tok: 'S',
     subs: [
       {
         to: 'N',
-        cost: 0.4123287671232877,
+        cost: 0.41111111111111115,
       },
     ],
   },
   {
     in: 'cancel',
     out: 'no',
-    tok: 'M',
+    tags: ['choice', 'exact'],
+    tok: 'T',
   },
   {
     in: 'abort',
     out: 'no',
-    tok: 'O',
-  },
-  {
-    in: 'up vote',
-    out: 'upv',
-    tok: 'S',
-  },
-  {
-    in: 'down vote',
-    out: 'downv',
-    tok: 'T',
-  },
-  {
-    in: 'help',
-    out: '?',
+    tags: ['choice', 'exact'],
     tok: 'U',
-  },
-  {
-    in: 'clock',
-    out: 'clock',
-    tok: 'V',
-  },
-  {
-    in: 'opponent',
-    out: 'who',
-    tok: 'W',
   },
   {
     in: 'puzzle',
     out: '',
-    tok: 'X',
+    tags: ['ignore'],
+    tok: 'V',
   },
   {
     in: 'and',
     out: '',
-    tok: 'Y',
+    tags: ['ignore'],
+    tok: 'W',
   },
 ];

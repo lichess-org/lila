@@ -1,6 +1,6 @@
 import { piotr } from './piotr';
 
-export { type SanToUci, sanWriter } from './sanWriter';
+export * from './sanWriter';
 
 export const initialFen: Fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 

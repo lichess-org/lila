@@ -1,5 +1,5 @@
 import { Submit, SubmitOpts, InputOpts, MoveHandler } from './interfaces';
-import { Dests } from 'chessground/types';
+import { Api as CgApi } from 'chessground/api';
 import { sanWriter, SanToUci } from 'chess';
 import * as util from './handlerUtil';
 
@@ -78,7 +78,8 @@ export function makeKeyboardHandler(opts: InputOpts): MoveHandler | undefined {
 
   bindKeys(opts, submit, clear);
 
-  return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
+  return (fen: string, cg: CgApi, yourMove: boolean) => {
+    const dests = cg.state.movable?.dests;
     legalSans = dests && dests.size > 0 ? sanWriter(fen, util.destsToUcis(dests)) : null;
     if (opts.ctrl.voice.isRecording || opts.ctrl.voice.isBusy) return;
 
