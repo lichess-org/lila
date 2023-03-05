@@ -43,8 +43,8 @@ final class ModApi(
         reportApi.getMod(modId) flatMapz { mod =>
           lila.mon.cheat.autoMark.increment()
           setEngine(mod, sus, v = true) >>
-          noteApi.lichessWrite(sus.user, note) >>
-          reportApi.autoProcess(modId, sus, Set(Room.Cheat, Room.Print))  
+            noteApi.lichessWrite(sus.user, note) >>
+            reportApi.autoProcess(modId, sus, Set(Room.Cheat, Room.Print))
         }
       }
     } yield ()
