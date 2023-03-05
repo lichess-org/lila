@@ -9,11 +9,11 @@ function decomposeUci(uci: string) {
   return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
 }
 
-function square(name: string) {
+export function square(name: string) {
   return name.charCodeAt(0) - 97 + (name.charCodeAt(1) - 49) * 8;
 }
 
-function squareDist(a: number, b: number) {
+export function squareDist(a: number, b: number) {
   const x1 = a & 7,
     x2 = b & 7;
   const y1 = a >> 3,
@@ -82,7 +82,7 @@ function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
   return result;
 }
 
-export function sanOf(board: Board, uci: string) {
+function sanOf(board: Board, uci: string) {
   if (uci.includes('@')) return fixCrazySan(uci);
 
   const move = decomposeUci(uci);

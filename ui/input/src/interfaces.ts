@@ -1,8 +1,9 @@
 import { Api as CgApi } from 'chessground/api';
 import * as cg from 'chessground/types';
+import { State } from 'chessground/state';
 import { Prop } from 'common';
 
-export type MoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
+export type MoveHandler = (fen: Fen, api: CgApi, yourMove?: boolean) => void;
 
 export interface InputOpts {
   input?: HTMLInputElement;
@@ -72,9 +73,9 @@ export interface RootCtrl {
   keyboard: boolean;
 }
 
-export type MsgType = 'command' | 'status' | 'error';
+export type MsgType = 'phrase' | 'partial' | 'status' | 'error';
 
-export type VoiceListener = (msgText: string, msgType: MsgType) => void;
+export type VoiceListener = (msgText: string, msgType: MsgType, words?: WordResult) => void;
 
 export interface VoiceCtrl {
   setVocabulary: (vocabulary: string[]) => Promise<void>;

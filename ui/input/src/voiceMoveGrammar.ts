@@ -1,1146 +1,832 @@
-// this file is generated. see ui/input/@build/README.md
+// *************************** this file is generated. see ui/input/@build/README.md ***************************
 
-export type Sub = { to: string, cost: number };
+export type Sub = { to: string; cost: number };
 
-export type Token = { in: string, tok?: string, out?: string, subs?: Sub[] };
+export type Tag = 'file' | 'rank' | 'role' | 'move' | 'choice' | 'command' | 'ignore' | 'exact';
+
+export type Token = { in: string; tok: string; tags: Tag[]; out?: string; subs?: Sub[] };
 
 export const lexicon: Token[] = [
   {
-    "in": "a",
-    "tok": "a",
-    "subs": [
+    in: 'a',
+    tok: 'a',
+    tags: ['file', 'move'],
+    subs: [
       {
-        "to": "e",
-        "cost": 0.4211956521739131
+        to: 'e',
+        cost: 0.4722222222222222,
       },
       {
-        "to": "f",
-        "cost": 0.42282608695652174
+        to: 'f',
+        cost: 0.4777777777777778,
       },
       {
-        "to": "8",
-        "cost": 0.42445652173913045
+        to: '8',
+        cost: 0.48333333333333334,
       },
       {
-        "to": "a8",
-        "cost": 0.4472826086956522
+        to: 'a8',
+        cost: 0.5611111111111111,
       },
       {
-        "to": "",
-        "cost": 0.25869565217391305
+        to: '',
+        cost: 0.4111111111111111,
       },
       {
-        "to": "h",
-        "cost": 0.46195652173913043
+        to: 'h',
+        cost: 0.6166666666666667,
       },
       {
-        "to": "8a",
-        "cost": 0.5304347826086957
+        to: '8a',
+        cost: 0.8500000000000001,
       },
-      {
-        "to": "8e",
-        "cost": 0.6005434782608695
-      },
-      {
-        "to": "b",
-        "cost": 0.6070652173913044
-      }
-    ]
+    ],
   },
   {
-    "in": "b",
-    "tok": "b",
-    "subs": [
-      {
-        "to": "d",
-        "cost": 0.42608695652173917
-      },
-      {
-        "to": "e",
-        "cost": 0.4668478260869565
-      },
-      {
-        "to": "b8",
-        "cost": 0.5043478260869565
-      },
+    in: 'b',
+    tok: 'b',
+    tags: ['file', 'move'],
+    subs: [
       {
-        "to": "8b",
-        "cost": 0.5940217391304348
+        to: 'd',
+        cost: 0.49444444444444446,
       },
       {
-        "to": "a",
-        "cost": 0.6038043478260869
+        to: 'e',
+        cost: 0.6333333333333333,
       },
       {
-        "to": "Q",
-        "cost": 0.646195652173913
+        to: 'b8',
+        cost: 0.7555555555555555,
       },
-      {
-        "to": "Pb",
-        "cost": 0.6690217391304347
-      }
-    ]
+    ],
   },
   {
-    "in": "c",
-    "tok": "c",
-    "subs": [
-      {
-        "to": "3",
-        "cost": 0.5125
-      },
+    in: 'c',
+    tok: 'c',
+    tags: ['file', 'move'],
+    subs: [
       {
-        "to": "6",
-        "cost": 0.5255434782608696
+        to: '3',
+        cost: 0.7944444444444445,
       },
       {
-        "to": "g",
-        "cost": 0.528804347826087
+        to: '6',
+        cost: 0.8277777777777777,
       },
       {
-        "to": "c8",
-        "cost": 0.5320652173913043
+        to: 'g',
+        cost: 0.8333333333333334,
       },
       {
-        "to": "",
-        "cost": 0.3842391304347826
+        to: 'c8',
+        cost: 0.8555555555555556,
       },
-      {
-        "to": "e",
-        "cost": 0.6673913043478261
-      }
-    ]
+    ],
   },
   {
-    "in": "d",
-    "tok": "d",
-    "subs": [
+    in: 'd',
+    tok: 'd',
+    tags: ['file', 'move'],
+    subs: [
       {
-        "to": "g",
-        "cost": 0.42934782608695654
+        to: 'g',
+        cost: 0.5,
       },
       {
-        "to": "b",
-        "cost": 0.43586956521739134
+        to: 'b',
+        cost: 0.5166666666666667,
       },
       {
-        "to": "e",
-        "cost": 0.4733695652173913
+        to: 'e',
+        cost: 0.6555555555555556,
       },
       {
-        "to": "d8",
-        "cost": 0.5173913043478261
+        to: 'd8',
+        cost: 0.8,
       },
       {
-        "to": "3",
-        "cost": 0.5206521739130435
+        to: '3',
+        cost: 0.8166666666666667,
       },
-      {
-        "to": "8d",
-        "cost": 0.5614130434782608
-      },
-      {
-        "to": "a",
-        "cost": 0.571195652173913
-      },
-      {
-        "to": "c",
-        "cost": 0.5809782608695652
-      },
-      {
-        "to": "",
-        "cost": 0.4347826086956521
-      }
-    ]
+    ],
   },
   {
-    "in": "e",
-    "tok": "e",
-    "subs": [
-      {
-        "to": "a",
-        "cost": 0.4277173913043478
-      },
-      {
-        "to": "b",
-        "cost": 0.4375
-      },
-      {
-        "to": "d",
-        "cost": 0.4391304347826087
-      },
+    in: 'e',
+    tok: 'e',
+    tags: ['file', 'move'],
+    subs: [
       {
-        "to": "g",
-        "cost": 0.4456521739130435
+        to: 'a',
+        cost: 0.48888888888888893,
       },
       {
-        "to": "c",
-        "cost": 0.45706521739130435
+        to: 'b',
+        cost: 0.5277777777777778,
       },
       {
-        "to": "",
-        "cost": 0.29782608695652174
+        to: 'd',
+        cost: 0.5333333333333333,
       },
       {
-        "to": "e8",
-        "cost": 0.5092391304347826
+        to: 'g',
+        cost: 0.5555555555555556,
       },
       {
-        "to": "h",
-        "cost": 0.6527173913043478
+        to: 'c',
+        cost: 0.5833333333333334,
       },
       {
-        "to": "8",
-        "cost": 0.678804347826087
+        to: '',
+        cost: 0.538888888888889,
       },
       {
-        "to": "e1",
-        "cost": 0.6804347826086956
+        to: 'e8',
+        cost: 0.7777777777777778,
       },
-      {
-        "to": "f",
-        "cost": 0.6820652173913043
-      }
-    ]
+    ],
   },
   {
-    "in": "f",
-    "tok": "f",
-    "subs": [
-      {
-        "to": "a",
-        "cost": 0.5010869565217391
-      },
-      {
-        "to": "h",
-        "cost": 0.5141304347826087
-      },
-      {
-        "to": "e",
-        "cost": 0.5646739130434782
-      },
-      {
-        "to": "8f",
-        "cost": 0.5777173913043478
-      },
+    in: 'f',
+    tok: 'f',
+    tags: ['file', 'move'],
+    subs: [
       {
-        "to": "",
-        "cost": 0.408695652173913
+        to: 'a',
+        cost: 0.75,
       },
       {
-        "to": "f1",
-        "cost": 0.6429347826086956
+        to: 'h',
+        cost: 0.788888888888889,
       },
-      {
-        "to": "f2",
-        "cost": 0.6592391304347825
-      },
-      {
-        "to": "f8",
-        "cost": 0.6608695652173913
-      }
-    ]
+    ],
   },
   {
-    "in": "g",
-    "tok": "g",
-    "subs": [
-      {
-        "to": "d",
-        "cost": 0.4342391304347826
-      },
-      {
-        "to": "g8",
-        "cost": 0.4603260869565218
-      },
-      {
-        "to": "c",
-        "cost": 0.5597826086956521
-      },
-      {
-        "to": "8g",
-        "cost": 0.566304347826087
-      },
+    in: 'g',
+    tok: 'g',
+    tags: ['file', 'move'],
+    subs: [
       {
-        "to": "",
-        "cost": 0.3956521739130434
+        to: 'd',
+        cost: 0.5222222222222223,
       },
       {
-        "to": "3",
-        "cost": 0.625
+        to: 'g8',
+        cost: 0.6055555555555556,
       },
-      {
-        "to": "e",
-        "cost": 0.6266304347826086
-      },
-      {
-        "to": "b",
-        "cost": 0.6722826086956522
-      }
-    ]
+    ],
   },
   {
-    "in": "h",
-    "tok": "h",
-    "subs": [
-      {
-        "to": "8",
-        "cost": 0.44076086956521743
-      },
-      {
-        "to": "a",
-        "cost": 0.49130434782608695
-      },
+    in: 'h',
+    tok: 'h',
+    tags: ['file', 'move'],
+    subs: [
       {
-        "to": "8h",
-        "cost": 0.5434782608695652
+        to: '8',
+        cost: 0.538888888888889,
       },
       {
-        "to": "e",
-        "cost": 0.5760869565217391
+        to: 'a',
+        cost: 0.7,
       },
-      {
-        "to": "",
-        "cost": 0.4510869565217391
-      },
-      {
-        "to": "h3",
-        "cost": 0.6869565217391305
-      },
-      {
-        "to": "Ph",
-        "cost": 0.6885869565217391
-      },
-      {
-        "to": "h4",
-        "cost": 0.6902173913043478
-      },
-      {
-        "to": "a2",
-        "cost": 0.6918478260869565
-      }
-    ]
+    ],
   },
   {
-    "in": "1",
-    "tok": "1",
-    "subs": [
-      {
-        "to": "P",
-        "cost": 0.4717391304347826
-      },
-      {
-        "to": "e1",
-        "cost": 0.4782608695652174
-      },
-      {
-        "to": "f1",
-        "cost": 0.5451086956521739
-      },
-      {
-        "to": "",
-        "cost": 0.3679347826086956
-      },
-      {
-        "to": "1f",
-        "cost": 0.6103260869565217
-      },
-      {
-        "to": "a1",
-        "cost": 0.6119565217391304
-      },
-      {
-        "to": "1e",
-        "cost": 0.6135869565217391
-      },
-      {
-        "to": "g1",
-        "cost": 0.6282608695652174
-      },
-      {
-        "to": "1a",
-        "cost": 0.629891304347826
-      },
+    in: '1',
+    tok: '1',
+    tags: ['rank', 'move'],
+    subs: [
       {
-        "to": "d1",
-        "cost": 0.6739130434782609
+        to: 'P',
+        cost: 0.65,
       },
       {
-        "to": "c1",
-        "cost": 0.6755434782608696
+        to: 'e1',
+        cost: 0.6666666666666667,
       },
-      {
-        "to": "b1",
-        "cost": 0.6771739130434782
-      }
-    ]
+    ],
   },
   {
-    "in": "one",
-    "tok": "1"
+    in: 'one',
+    tok: '1',
+    tags: ['rank', 'move'],
   },
   {
-    "in": "2",
-    "tok": "2",
-    "subs": [
-      {
-        "to": "",
-        "cost": 0.25380434782608696
-      },
-      {
-        "to": "g",
-        "cost": 0.4815217391304348
-      },
-      {
-        "to": "e2",
-        "cost": 0.4880434782608696
-      },
-      {
-        "to": "3",
-        "cost": 0.5027173913043478
-      },
-      {
-        "to": "d",
-        "cost": 0.5695652173913044
-      },
-      {
-        "to": "f2",
-        "cost": 0.5793478260869565
-      },
+    in: '2',
+    tok: '2',
+    tags: ['rank', 'move'],
+    subs: [
       {
-        "to": "2e",
-        "cost": 0.6184782608695651
+        to: '',
+        cost: 0.3666666666666667,
       },
       {
-        "to": "g2",
-        "cost": 0.6364130434782609
+        to: 'g',
+        cost: 0.6833333333333333,
       },
       {
-        "to": "a2",
-        "cost": 0.6380434782608695
+        to: 'e2',
+        cost: 0.6944444444444444,
       },
       {
-        "to": "2a",
-        "cost": 0.6396739130434782
+        to: '3',
+        cost: 0.7722222222222223,
       },
-      {
-        "to": "d2",
-        "cost": 0.6543478260869564
-      },
-      {
-        "to": "2f",
-        "cost": 0.6559782608695652
-      }
-    ]
+    ],
   },
   {
-    "in": "two",
-    "tok": "2"
+    in: 'two',
+    tok: '2',
+    tags: ['rank', 'move'],
   },
   {
-    "in": "3",
-    "tok": "3",
-    "subs": [
-      {
-        "to": "3e",
-        "cost": 0.4423913043478261
-      },
-      {
-        "to": "e3",
-        "cost": 0.5108695652173914
-      },
-      {
-        "to": "3a",
-        "cost": 0.533695652173913
-      },
-      {
-        "to": "f3",
-        "cost": 0.5369565217391304
-      },
-      {
-        "to": "3f",
-        "cost": 0.5891304347826086
-      },
-      {
-        "to": "g",
-        "cost": 0.5907608695652173
-      },
-      {
-        "to": "a3",
-        "cost": 0.6201086956521739
-      },
+    in: '3',
+    tok: '3',
+    tags: ['rank', 'move'],
+    subs: [
       {
-        "to": "3d",
-        "cost": 0.6217391304347826
+        to: '3e',
+        cost: 0.5444444444444445,
       },
       {
-        "to": "c",
-        "cost": 0.6934782608695651
+        to: 'e3',
+        cost: 0.7833333333333334,
       },
       {
-        "to": "c3",
-        "cost": 0.6951086956521739
+        to: '3a',
+        cost: 0.8722222222222222,
       },
       {
-        "to": "3b",
-        "cost": 0.6967391304347825
+        to: 'f3',
+        cost: 0.8833333333333333,
       },
-      {
-        "to": "d3",
-        "cost": 0.6983695652173912
-      }
-    ]
+    ],
   },
   {
-    "in": "three",
-    "tok": "3"
+    in: 'three',
+    tok: '3',
+    tags: ['rank', 'move'],
   },
   {
-    "in": "4",
-    "tok": "4",
-    "subs": [
-      {
-        "to": "f4",
-        "cost": 0.475
-      },
-      {
-        "to": "e4",
-        "cost": 0.5157608695652174
-      },
-      {
-        "to": "4f",
-        "cost": 0.55
-      },
-      {
-        "to": "4a",
-        "cost": 0.5858695652173913
-      },
-      {
-        "to": "4e",
-        "cost": 0.5875
-      },
-      {
-        "to": "5",
-        "cost": 0.6054347826086957
-      },
+    in: '4',
+    tok: '4',
+    tags: ['rank', 'move'],
+    subs: [
       {
-        "to": "d4",
-        "cost": 0.6168478260869565
+        to: 'f4',
+        cost: 0.6611111111111112,
       },
       {
-        "to": "a4",
-        "cost": 0.6478260869565217
+        to: 'e4',
+        cost: 0.8055555555555556,
       },
-      {
-        "to": "P",
-        "cost": 0.6706521739130434
-      }
-    ]
+    ],
   },
   {
-    "in": "four",
-    "tok": "4"
+    in: 'four',
+    tok: '4',
+    tags: ['rank', 'move'],
   },
   {
-    "in": "5",
-    "tok": "5",
-    "subs": [
-      {
-        "to": "f5",
-        "cost": 0.4652173913043478
-      },
+    in: '5',
+    tok: '5',
+    tags: ['rank', 'move'],
+    subs: [
       {
-        "to": "5f",
-        "cost": 0.48478260869565215
+        to: 'f5',
+        cost: 0.6277777777777778,
       },
       {
-        "to": "e5",
-        "cost": 0.5190217391304348
+        to: '5f',
+        cost: 0.6777777777777778,
       },
       {
-        "to": "5a",
-        "cost": 0.5565217391304348
+        to: 'e5',
+        cost: 0.8111111111111111,
       },
-      {
-        "to": "a5",
-        "cost": 0.5972826086956522
-      },
-      {
-        "to": "5e",
-        "cost": 0.6233695652173913
-      },
-      {
-        "to": "4",
-        "cost": 0.6413043478260869
-      },
-      {
-        "to": "c5",
-        "cost": 0.6576086956521738
-      }
-    ]
+    ],
   },
   {
-    "in": "five",
-    "tok": "5"
+    in: 'five',
+    tok: '5',
+    tags: ['rank', 'move'],
   },
   {
-    "in": "6",
-    "tok": "6",
-    "subs": [
+    in: '6',
+    tok: '6',
+    tags: ['rank', 'move'],
+    subs: [
       {
-        "to": "f6",
-        "cost": 0.5059782608695652
+        to: 'f6',
+        cost: 0.7666666666666666,
       },
       {
-        "to": "6a",
-        "cost": 0.5467391304347826
+        to: 'e6',
+        cost: 0.8777777777777778,
       },
-      {
-        "to": "e6",
-        "cost": 0.5483695652173913
-      },
-      {
-        "to": "h6",
-        "cost": 0.5581521739130435
-      },
-      {
-        "to": "c6",
-        "cost": 0.5826086956521739
-      },
-      {
-        "to": "a6",
-        "cost": 0.5989130434782608
-      },
-      {
-        "to": "g6",
-        "cost": 0.6625
-      }
-    ]
+    ],
   },
   {
-    "in": "six",
-    "tok": "6"
+    in: 'six',
+    tok: '6',
+    tags: ['rank', 'move'],
   },
   {
-    "in": "7",
-    "tok": "7",
-    "subs": [
-      {
-        "to": "h7",
-        "cost": 0.5385869565217392
-      },
-      {
-        "to": "e7",
-        "cost": 0.5548913043478261
-      },
-      {
-        "to": "7f",
-        "cost": 0.5630434782608695
-      },
-      {
-        "to": "7a",
-        "cost": 0.5728260869565217
-      },
-      {
-        "to": "f7",
-        "cost": 0.5744565217391304
-      },
-      {
-        "to": "d7",
-        "cost": 0.6152173913043478
-      },
-      {
-        "to": "6",
-        "cost": 0.6315217391304347
-      },
-      {
-        "to": "b7",
-        "cost": 0.6331521739130435
-      },
-      {
-        "to": "7e",
-        "cost": 0.6494565217391304
-      },
+    in: '7',
+    tok: '7',
+    tags: ['rank', 'move'],
+    subs: [
       {
-        "to": "a7",
-        "cost": 0.683695652173913
+        to: 'h7',
+        cost: 0.8888888888888888,
       },
-      {
-        "to": "7-",
-        "cost": 0.6853260869565216
-      }
-    ]
+    ],
   },
   {
-    "in": "seven",
-    "tok": "7"
+    in: 'seven',
+    tok: '7',
+    tags: ['rank', 'move'],
   },
   {
-    "in": "8",
-    "tok": "8",
-    "subs": [
-      {
-        "to": "a",
-        "cost": 0.4146739130434783
-      },
+    in: '8',
+    tok: '8',
+    tags: ['rank', 'move'],
+    subs: [
       {
-        "to": "a8",
-        "cost": 0.416304347826087
+        to: 'a',
+        cost: 0.4444444444444445,
       },
       {
-        "to": "h",
-        "cost": 0.41956521739130437
+        to: 'a8',
+        cost: 0.4555555555555556,
       },
       {
-        "to": "e",
-        "cost": 0.45543478260869563
+        to: 'h',
+        cost: 0.4666666666666667,
       },
       {
-        "to": "8a",
-        "cost": 0.49293478260869567
+        to: 'e',
+        cost: 0.5944444444444444,
       },
       {
-        "to": "e8",
-        "cost": 0.5418478260869565
+        to: '8a',
+        cost: 0.7111111111111111,
       },
       {
-        "to": "",
-        "cost": 0.3516304347826087
+        to: 'e8',
+        cost: 0.8222222222222222,
       },
+    ],
+  },
+  {
+    in: 'eight',
+    tok: '8',
+    tags: ['rank', 'move'],
+  },
+  {
+    in: 'pawn',
+    tok: 'P',
+    tags: ['role', 'move'],
+    subs: [
       {
-        "to": "a2",
-        "cost": 0.592391304347826
+        to: '',
+        cost: 0,
       },
       {
-        "to": "f8",
-        "cost": 0.6021739130434782
+        to: 'Pa',
+        cost: 0.6222222222222222,
       },
       {
-        "to": "f",
-        "cost": 0.6445652173913043
+        to: 'Pe',
+        cost: 0.8611111111111112,
       },
       {
-        "to": "8e",
-        "cost": 0.6641304347826087
+        to: 'Pf',
+        cost: 0.8666666666666667,
       },
-      {
-        "to": "h8",
-        "cost": 0.6657608695652173
-      }
-    ]
-  },
-  {
-    "in": "eight",
-    "tok": "8"
+    ],
   },
   {
-    "in": "pawn",
-    "tok": "P",
-    "subs": [
+    in: 'knight',
+    tok: 'N',
+    tags: ['role', 'move'],
+    subs: [
       {
-        "to": "Pa",
-        "cost": 0.46358695652173915
+        to: 'K',
+        cost: 0.6000000000000001,
       },
       {
-        "to": "Pf",
-        "cost": 0.5271739130434783
+        to: '',
+        cost: 0.5055555555555555,
       },
       {
-        "to": "Pe",
-        "cost": 0.5402173913043478
-      }
-    ]
+        to: 'Na',
+        cost: 0.7611111111111111,
+      },
+    ],
   },
   {
-    "in": "knight",
-    "tok": "N",
-    "subs": [
+    in: 'bishop',
+    tok: 'B',
+    tags: ['role', 'move'],
+    subs: [
       {
-        "to": "K",
-        "cost": 0.45217391304347826
+        to: '',
+        cost: 0.6388888888888888,
       },
       {
-        "to": "",
-        "cost": 0.2896739130434782
+        to: 'Bf',
+        cost: 0.8444444444444444,
       },
       {
-        "to": "Na",
-        "cost": 0.49945652173913047
+        to: 'Ba',
+        cost: 0.8944444444444445,
       },
-      {
-        "to": "Nd",
-        "cost": 0.5532608695652174
-      }
-    ]
+    ],
   },
   {
-    "in": "bishop",
-    "tok": "B",
-    "subs": [
+    in: 'rook',
+    tok: 'R',
+    tags: ['role', 'move'],
+    subs: [
       {
-        "to": "",
-        "cost": 0.3222826086956522
+        to: 'Ra',
+        cost: 0.6722222222222223,
       },
       {
-        "to": "Bf",
-        "cost": 0.5239130434782608
+        to: '',
+        cost: 0.5444444444444445,
       },
-      {
-        "to": "Ba",
-        "cost": 0.5353260869565217
-      }
-    ]
+    ],
   },
   {
-    "in": "rook",
-    "tok": "R",
-    "subs": [
+    in: 'queen',
+    tok: 'Q',
+    tags: ['role', 'move'],
+    subs: [
       {
-        "to": "Ra",
-        "cost": 0.4766304347826087
+        to: 'Qe',
+        cost: 0.7222222222222223,
       },
       {
-        "to": "",
-        "cost": 0.2945652173913043
-      }
-    ]
-  },
-  {
-    "in": "queen",
-    "tok": "Q",
-    "subs": [
-      {
-        "to": "8Q",
-        "cost": 0.48641304347826086
+        to: '8Q',
+        cost: 0.7277777777777779,
       },
-      {
-        "to": "Qe",
-        "cost": 0.49619565217391304
-      }
-    ]
+    ],
   },
   {
-    "in": "king",
-    "tok": "K",
-    "subs": [
+    in: 'king',
+    tok: 'K',
+    tags: ['role', 'move'],
+    subs: [
       {
-        "to": "Ka",
-        "cost": 0.4489130434782609
+        to: '',
+        cost: 0.37222222222222223,
       },
       {
-        "to": "",
-        "cost": 0.25054347826086953
+        to: 'Ka',
+        cost: 0.5777777777777778,
       },
       {
-        "to": "Kf",
-        "cost": 0.46847826086956523
+        to: 'Kf',
+        cost: 0.638888888888889,
       },
       {
-        "to": "Ke",
-        "cost": 0.47010869565217395
+        to: 'Ke',
+        cost: 0.6444444444444445,
       },
       {
-        "to": "N",
-        "cost": 0.5076086956521739
-      }
-    ]
+        to: 'N',
+        cost: 0.7333333333333334,
+      },
+    ],
   },
   {
-    "in": "takes",
-    "tok": "x",
-    "out": "x",
-    "subs": [
+    in: 'takes',
+    out: 'x',
+    tags: ['move'],
+    tok: '!',
+    subs: [
       {
-        "to": "6",
-        "cost": 0.43097826086956526
+        to: '6',
+        cost: 0.5111111111111111,
       },
       {
-        "to": "h",
-        "cost": 0.4798913043478261
-      }
-    ]
+        to: 'h',
+        cost: 0.6888888888888889,
+      },
+    ],
   },
   {
-    "in": "captures",
-    "out": "x",
-    "tok": "!",
-    "subs": [
+    in: 'captures',
+    out: 'x',
+    tags: ['move'],
+    tok: '"',
+    subs: [
+      {
+        to: '"R',
+        cost: 0.5888888888888889,
+      },
       {
-        "to": "!R",
-        "cost": 0.4831521739130435
-      }
-    ]
+        to: 'P"',
+        cost: 0.7166666666666667,
+      },
+    ],
   },
   {
-    "in": "castle",
-    "out": "o-o",
-    "tok": "\""
+    in: 'castle',
+    out: 'O-O',
+    tags: ['move', 'exact'],
+    tok: '#',
   },
   {
-    "in": "short castle",
-    "out": "o-o",
-    "tok": "#"
+    in: 'short castle',
+    out: 'O-O',
+    tags: ['move', 'exact'],
+    tok: '$',
   },
   {
-    "in": "king side castle",
-    "out": "o-o",
-    "tok": "$"
+    in: 'king side castle',
+    out: 'O-O',
+    tags: ['move', 'exact'],
+    tok: '%',
   },
   {
-    "in": "castle king side",
-    "out": "o-o",
-    "tok": "%"
+    in: 'castle king side',
+    out: 'O-O',
+    tags: ['move', 'exact'],
+    tok: '&',
   },
   {
-    "in": "long castle",
-    "out": "o-o-o",
-    "tok": "&"
+    in: 'long castle',
+    out: 'O-O-O',
+    tags: ['move', 'exact'],
+    tok: "'",
   },
   {
-    "in": "castle queen side",
-    "out": "o-o-o",
-    "tok": "'"
+    in: 'castle queen side',
+    out: 'O-O-O',
+    tags: ['move', 'exact'],
+    tok: '(',
   },
   {
-    "in": "queen side castle",
-    "out": "o-o-o",
-    "tok": "("
+    in: 'queen side castle',
+    out: 'O-O-O',
+    tags: ['move', 'exact'],
+    tok: ')',
   },
   {
-    "in": "promote",
-    "tok": "=",
-    "out": "=",
-    "subs": [
+    in: 'promote',
+    out: '=',
+    tags: ['move'],
+    tok: '*',
+    subs: [
       {
-        "to": "8=",
-        "cost": 0.4326086956521739
-      }
-    ]
-  },
-  {
-    "in": "promotion",
-    "out": "=",
-    "tok": ")"
-  },
-  {
-    "in": "promote two",
-    "out": "=",
-    "tok": "*"
+        to: '8*',
+        cost: 0.5055555555555555,
+      },
+    ],
   },
   {
-    "in": "promotes two",
-    "out": "=",
-    "tok": "+"
+    in: 'promotes',
+    out: '=',
+    tags: ['move'],
+    tok: '+',
   },
   {
-    "in": "mate",
-    "out": "",
-    "tok": ",",
-    "subs": [
+    in: 'mate',
+    out: '',
+    tags: ['move'],
+    tok: ',',
+    subs: [
       {
-        "to": "N",
-        "cost": 0.41304347826086957
+        to: 'N',
+        cost: 0.45,
       },
       {
-        "to": "b",
-        "cost": 0.4440217391304348
-      }
-    ]
+        to: 'b',
+        cost: 0.55,
+      },
+    ],
   },
   {
-    "in": "check",
-    "out": "",
-    "tok": "-"
+    in: 'check',
+    out: '',
+    tags: ['move'],
+    tok: '-',
   },
   {
-    "in": "takeback",
-    "out": "takeback",
-    "tok": "."
+    in: 'takeback',
+    out: 'takeback',
+    tags: ['move', 'exact'],
+    tok: '.',
   },
   {
-    "in": "draw",
-    "out": "draw",
-    "tok": "/"
+    in: 'draw',
+    out: 'draw',
+    tags: ['move', 'exact'],
+    tok: '/',
   },
   {
-    "in": "offer draw",
-    "out": "draw",
-    "tok": "0"
+    in: 'offer draw',
+    out: 'draw',
+    tags: ['move', 'exact'],
+    tok: '0',
   },
   {
-    "in": "accept draw",
-    "out": "draw",
-    "tok": "9"
+    in: 'accept draw',
+    out: 'draw',
+    tags: ['move', 'exact'],
+    tok: '9',
   },
   {
-    "in": "resign",
-    "out": "resign",
-    "tok": ":"
+    in: 'resign',
+    out: 'resign',
+    tags: ['move', 'exact'],
+    tok: ':',
   },
   {
-    "in": "rematch",
-    "out": "rematch",
-    "tok": ";"
+    in: 'next',
+    out: 'next',
+    tags: ['command', 'exact'],
+    tok: ';',
   },
   {
-    "in": "red",
-    "out": "red",
-    "tok": "<",
-    "subs": [
-      {
-        "to": "8",
-        "cost": 0.4114130434782609
-      }
-    ]
+    in: 'skip',
+    out: 'next',
+    tags: ['command', 'exact'],
+    tok: '<',
   },
   {
-    "in": "yellow",
-    "out": "yellow",
-    "tok": ">"
+    in: 'continue',
+    out: 'next',
+    tags: ['command', 'exact'],
+    tok: '=',
   },
   {
-    "in": "green",
-    "out": "green",
-    "tok": "?",
-    "subs": [
-      {
-        "to": "Q",
-        "cost": 0.4
-      },
-      {
-        "to": "3",
-        "cost": 0.4065217391304348
-      }
-    ]
+    in: 'back',
+    out: 'back',
+    tags: ['command', 'exact'],
+    tok: '>',
   },
   {
-    "in": "blue",
-    "out": "blue",
-    "tok": "@",
-    "subs": [
-      {
-        "to": "2",
-        "cost": 0.40163043478260874
-      },
-      {
-        "to": "b",
-        "cost": 0.4097826086956522
-      }
-    ]
+    in: 'last',
+    out: 'last',
+    tags: ['command', 'exact'],
+    tok: '?',
   },
   {
-    "in": "next",
-    "tok": "n",
-    "out": "next"
+    in: 'first',
+    out: 'first',
+    tags: ['command', 'exact'],
+    tok: '@',
   },
   {
-    "in": "skip",
-    "out": "next",
-    "tok": "A"
+    in: 'up vote',
+    out: 'upv',
+    tags: ['command', 'exact'],
+    tok: 'A',
   },
   {
-    "in": "continue",
-    "out": "next",
-    "tok": "C"
+    in: 'down vote',
+    out: 'downv',
+    tags: ['command', 'exact'],
+    tok: 'C',
   },
   {
-    "in": "back",
-    "out": "back",
-    "tok": "D"
+    in: 'help',
+    out: '?',
+    tags: ['command', 'exact'],
+    tok: 'D',
   },
   {
-    "in": "last",
-    "out": "last",
-    "tok": "E"
+    in: 'clock',
+    out: 'clock',
+    tags: ['command', 'exact'],
+    tok: 'E',
   },
   {
-    "in": "first",
-    "out": "first",
-    "tok": "F"
+    in: 'opponent',
+    out: 'who',
+    tags: ['command', 'exact'],
+    tok: 'F',
   },
   {
-    "in": "yes",
-    "out": "yes",
-    "tok": "G",
-    "subs": [
-      {
-        "to": "e",
-        "cost": 0.4032608695652174
-      },
+    in: 'red',
+    out: 'red',
+    tags: ['choice', 'exact'],
+    tok: 'G',
+    subs: [
       {
-        "to": "",
-        "cost": 0.2081521739130435
+        to: '8',
+        cost: 0.4388888888888889,
       },
-      {
-        "to": "e8",
-        "cost": 0.41793478260869565
-      }
-    ]
+    ],
   },
   {
-    "in": "okay",
-    "out": "yes",
-    "tok": "H"
+    in: 'yellow',
+    out: 'yellow',
+    tags: ['choice', 'exact'],
+    tok: 'H',
   },
   {
-    "in": "confirm",
-    "out": "yes",
-    "tok": "I"
+    in: 'green',
+    out: 'green',
+    tags: ['choice', 'exact'],
+    tok: 'I',
+    subs: [
+      {
+        to: 'Q',
+        cost: 0.4,
+      },
+      {
+        to: '3',
+        cost: 0.4222222222222222,
+      },
+    ],
   },
   {
-    "in": "no",
-    "out": "no",
-    "tok": "J",
-    "subs": [
+    in: 'blue',
+    out: 'blue',
+    tags: ['choice', 'exact'],
+    tok: 'J',
+    subs: [
+      {
+        to: '2',
+        cost: 0.40555555555555556,
+      },
       {
-        "to": "N",
-        "cost": 0.4048913043478261
-      }
-    ]
+        to: 'b',
+        cost: 0.43333333333333335,
+      },
+    ],
   },
   {
-    "in": "cancel",
-    "out": "no",
-    "tok": "L"
+    in: 'yes',
+    out: 'yes',
+    tags: ['choice', 'exact'],
+    tok: 'L',
+    subs: [
+      {
+        to: 'e',
+        cost: 0.4166666666666667,
+      },
+      {
+        to: '',
+        cost: 0.2277777777777778,
+      },
+      {
+        to: 'e8',
+        cost: 0.46111111111111114,
+      },
+    ],
   },
   {
-    "in": "abort",
-    "out": "no",
-    "tok": "M"
+    in: 'okay',
+    out: 'yes',
+    tags: ['choice', 'exact'],
+    tok: 'M',
   },
   {
-    "in": "up vote",
-    "out": "upv",
-    "tok": "O"
+    in: 'confirm',
+    out: 'yes',
+    tags: ['choice', 'exact'],
+    tok: 'O',
   },
   {
-    "in": "down vote",
-    "out": "downv",
-    "tok": "S"
+    in: 'no',
+    out: 'no',
+    tags: ['choice', 'exact'],
+    tok: 'S',
+    subs: [
+      {
+        to: 'N',
+        cost: 0.41111111111111115,
+      },
+    ],
   },
   {
-    "in": "help",
-    "out": "?",
-    "tok": "T"
+    in: 'cancel',
+    out: 'no',
+    tags: ['choice', 'exact'],
+    tok: 'T',
   },
   {
-    "in": "clock",
-    "out": "clock",
-    "tok": "U"
+    in: 'abort',
+    out: 'no',
+    tags: ['choice', 'exact'],
+    tok: 'U',
   },
   {
-    "in": "opponent",
-    "out": "who",
-    "tok": "V"
+    in: 'puzzle',
+    out: '',
+    tags: ['ignore'],
+    tok: 'V',
   },
   {
-    "in": "puzzle",
-    "out": "",
-    "tok": "W"
+    in: 'and',
+    out: '',
+    tags: ['ignore'],
+    tok: 'W',
   },
-  {
-    "in": "and",
-    "out": "",
-    "tok": "X"
-  }
 ];

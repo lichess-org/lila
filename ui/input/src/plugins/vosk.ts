@@ -1,5 +1,5 @@
 import { KaldiRecognizer, createModel, Model } from 'vosk-browser';
-import { ServerMessageResult } from 'vosk-browser/dist/interfaces';
+import { ServerMessageResult /*, ServerMessagePartialResult*/ } from 'vosk-browser/dist/interfaces';
 import { KaldiOpts } from '../interfaces';
 
 let kaldi: KaldiRecognizer;
@@ -16,8 +16,12 @@ export default (window as any).LichessVoice = {
     kaldi.setWords(true);
     kaldi.on('result', (msg: ServerMessageResult) => {
       if (msg.result.text.length < 2) return; // can't do anything with this
-      opts.broadcast(msg.result.text, 'command', msg.result.result, 3000);
+      opts.broadcast(msg.result.text, 'phrase', msg.result.result, 3000);
     });
+    /*kaldi.on('partialresult', (msg: ServerMessagePartialResult) => {
+      if (msg.result.partial.length < 2) return; // can't do anything with this
+      opts.broadcast(msg.result.partial, 'partial', undefined, 3000);
+    });*/
     return opts.impl == 'vanilla' ? vanillaProcessor(opts.audioCtx) : workletProcessor(opts.audioCtx);
   },
 };

@@ -47,11 +47,11 @@ export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
     },
     update(step, yourMove = false) {
       initFen = step.fen;
-      handlers.forEach(h => h(step.fen, cgState.movable.dests, yourMove));
+      handlers.forEach(h => h(step.fen, root.chessground, yourMove));
     },
     addHandler(h: MoveHandler) {
       handlers.add(h);
-      h(initFen, cgState.movable.dests);
+      h(initFen, root.chessground);
     },
     san(orig, dest) {
       usedSan = true;

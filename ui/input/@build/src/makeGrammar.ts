@@ -1,83 +1,91 @@
 import * as ps from 'node:process';
 import * as fs from 'node:fs';
+import { Readable } from 'node:stream';
+import { finished } from 'node:stream/promises';
+
+// requires node 18.x
+
+const defaultCrowdvFile = 'crowdv-27-02-2023.json';
 
 const lexicon: Token[] = [
-  { in: 'a', tok: 'a', ctx: 'file' },
-  { in: 'b', tok: 'b', ctx: 'file' },
-  { in: 'c', tok: 'c', ctx: 'file' },
-  { in: 'd', tok: 'd', ctx: 'file' },
-  { in: 'e', tok: 'e', ctx: 'file' },
-  { in: 'f', tok: 'f', ctx: 'file' },
-  { in: 'g', tok: 'g', ctx: 'file' },
-  { in: 'h', tok: 'h', ctx: 'file' },
-  { in: '1', tok: '1', ctx: 'rank' },
-  { in: 'one', tok: '1', ctx: 'rank' },
-  { in: '2', tok: '2', ctx: 'rank' },
-  { in: 'two', tok: '2', ctx: 'rank' },
-  { in: '3', tok: '3', ctx: 'rank' },
-  { in: 'three', tok: '3', ctx: 'rank' },
-  { in: '4', tok: '4', ctx: 'rank' },
-  { in: 'four', tok: '4', ctx: 'rank' },
-  { in: '5', tok: '5', ctx: 'rank' },
-  { in: 'five', tok: '5', ctx: 'rank' },
-  { in: '6', tok: '6', ctx: 'rank' },
-  { in: 'six', tok: '6', ctx: 'rank' },
-  { in: '7', tok: '7', ctx: 'rank' },
-  { in: 'seven', tok: '7', ctx: 'rank' },
-  { in: '8', tok: '8', ctx: 'rank' },
-  { in: 'eight', tok: '8', ctx: 'rank' },
-  { in: 'pawn', tok: 'P', ctx: 'role' },
-  { in: 'knight', tok: 'N', ctx: 'role' },
-  { in: 'bishop', tok: 'B', ctx: 'role' },
-  { in: 'rook', tok: 'R', ctx: 'role' },
-  { in: 'queen', tok: 'Q', ctx: 'role' },
-  { in: 'king', tok: 'K', ctx: 'role' },
+  { in: 'a', tok: 'a', tags: ['file', 'move'] },
+  { in: 'b', tok: 'b', tags: ['file', 'move'] },
+  { in: 'c', tok: 'c', tags: ['file', 'move'] },
+  { in: 'd', tok: 'd', tags: ['file', 'move'] },
+  { in: 'e', tok: 'e', tags: ['file', 'move'] },
+  { in: 'f', tok: 'f', tags: ['file', 'move'] },
+  { in: 'g', tok: 'g', tags: ['file', 'move'] },
+  { in: 'h', tok: 'h', tags: ['file', 'move'] },
+  { in: '1', tok: '1', tags: ['rank', 'move'] },
 
-  { in: 'takes', tok: 'x' },
-  { in: 'captures', tok: 'x' },
-  { in: 'castle', out: 'o-o' },
-  { in: 'short castle', out: 'o-o' },
-  { in: 'king side castle', out: 'o-o' },
-  { in: 'castle king side', out: 'o-o' },
-  { in: 'long castle', out: 'o-o-o' },
-  { in: 'castle queen side', out: 'o-o-o' },
-  { in: 'queen side castle', out: 'o-o-o' },
-  { in: 'promote', tok: '=', out: '=' },
-  { in: 'promotion', out: '=' },
-  { in: 'promote two', out: '=' }, // we don't want to add 'to' to the vocabulary
-  { in: 'promotes two', out: '=' },
-  { in: 'mate', out: '' },
-  { in: 'check', out: '' },
-  { in: 'takeback', out: 'takeback' },
-  { in: 'draw', out: 'draw' },
-  { in: 'offer draw', out: 'draw' },
-  { in: 'accept draw', out: 'draw' },
-  { in: 'resign', out: 'resign' },
-  { in: 'rematch', out: 'rematch' },
+  { in: 'one', tok: '1', tags: ['rank', 'move'] },
+  { in: '2', tok: '2', tags: ['rank', 'move'] },
+  { in: 'two', tok: '2', tags: ['rank', 'move'] },
+  { in: '3', tok: '3', tags: ['rank', 'move'] },
+  { in: 'three', tok: '3', tags: ['rank', 'move'] },
+  { in: '4', tok: '4', tags: ['rank', 'move'] },
+  { in: 'four', tok: '4', tags: ['rank', 'move'] },
+  { in: '5', tok: '5', tags: ['rank', 'move'] },
+  { in: 'five', tok: '5', tags: ['rank', 'move'] },
+  { in: '6', tok: '6', tags: ['rank', 'move'] },
+  { in: 'six', tok: '6', tags: ['rank', 'move'] },
+  { in: '7', tok: '7', tags: ['rank', 'move'] },
+  { in: 'seven', tok: '7', tags: ['rank', 'move'] },
+  { in: '8', tok: '8', tags: ['rank', 'move'] },
+  { in: 'eight', tok: '8', tags: ['rank', 'move'] },
 
-  { in: 'red', out: 'red' },
-  { in: 'yellow', out: 'yellow' },
-  { in: 'green', out: 'green' },
-  { in: 'blue', out: 'blue' },
-  { in: 'next', tok: 'n', out: 'next' },
-  { in: 'skip', out: 'next' },
-  { in: 'continue', out: 'next' },
-  { in: 'back', out: 'back' },
-  { in: 'last', out: 'last' },
-  { in: 'first', out: 'first' },
-  { in: 'yes', out: 'yes' },
-  { in: 'okay', out: 'yes' },
-  { in: 'confirm', out: 'yes' },
-  { in: 'no', out: 'no' },
-  { in: 'cancel', out: 'no' },
-  { in: 'abort', out: 'no' },
-  { in: 'up vote', out: 'upv' },
-  { in: 'down vote', out: 'downv' },
-  { in: 'help', out: '?' },
-  { in: 'clock', out: 'clock' },
-  { in: 'opponent', out: 'who' },
-  { in: 'puzzle', out: '' },
-  { in: 'and', out: '' },
+  { in: 'pawn', tok: 'P', tags: ['role', 'move'], subs: [{ to: '', cost: 0 }] },
+  { in: 'knight', tok: 'N', tags: ['role', 'move'] },
+  { in: 'bishop', tok: 'B', tags: ['role', 'move'] },
+  { in: 'rook', tok: 'R', tags: ['role', 'move'] },
+  { in: 'queen', tok: 'Q', tags: ['role', 'move'] },
+  { in: 'king', tok: 'K', tags: ['role', 'move'] },
+
+  { in: 'takes', out: 'x', tags: ['move'] },
+  { in: 'captures', out: 'x', tags: ['move'] },
+  { in: 'castle', out: 'O-O', tags: ['move', 'exact'] },
+  { in: 'short castle', out: 'O-O', tags: ['move', 'exact'] },
+  { in: 'king side castle', out: 'O-O', tags: ['move', 'exact'] },
+  { in: 'castle king side', out: 'O-O', tags: ['move', 'exact'] },
+  { in: 'long castle', out: 'O-O-O', tags: ['move', 'exact'] },
+  { in: 'castle queen side', out: 'O-O-O', tags: ['move', 'exact'] },
+  { in: 'queen side castle', out: 'O-O-O', tags: ['move', 'exact'] },
+  { in: 'promote', out: '=', tags: ['move'] },
+  { in: 'promotes', out: '=', tags: ['move'] },
+  { in: 'mate', out: '', tags: ['move'] },
+  { in: 'check', out: '', tags: ['move'] },
+  { in: 'takeback', out: 'takeback', tags: ['move', 'exact'] },
+  { in: 'draw', out: 'draw', tags: ['move', 'exact'] },
+  { in: 'offer draw', out: 'draw', tags: ['move', 'exact'] },
+  { in: 'accept draw', out: 'draw', tags: ['move', 'exact'] },
+  { in: 'resign', out: 'resign', tags: ['move', 'exact'] },
+
+  //{ in: 'rematch', out: 'rematch', tags: ['command'] },
+  { in: 'next', out: 'next', tags: ['command', 'exact'] },
+  { in: 'skip', out: 'next', tags: ['command', 'exact'] },
+  { in: 'continue', out: 'next', tags: ['command', 'exact'] },
+  { in: 'back', out: 'back', tags: ['command', 'exact'] },
+  { in: 'last', out: 'last', tags: ['command', 'exact'] },
+  { in: 'first', out: 'first', tags: ['command', 'exact'] },
+  { in: 'up vote', out: 'upv', tags: ['command', 'exact'] },
+  { in: 'down vote', out: 'downv', tags: ['command', 'exact'] },
+  { in: 'help', out: '?', tags: ['command', 'exact'] },
+  { in: 'clock', out: 'clock', tags: ['command', 'exact'] },
+  { in: 'opponent', out: 'who', tags: ['command', 'exact'] },
+
+  { in: 'red', out: 'red', tags: ['choice', 'exact'] },
+  { in: 'yellow', out: 'yellow', tags: ['choice', 'exact'] },
+  { in: 'green', out: 'green', tags: ['choice', 'exact'] },
+  { in: 'blue', out: 'blue', tags: ['choice', 'exact'] },
+  { in: 'yes', out: 'yes', tags: ['choice', 'exact'] },
+  { in: 'okay', out: 'yes', tags: ['choice', 'exact'] },
+  { in: 'confirm', out: 'yes', tags: ['choice', 'exact'] },
+  { in: 'no', out: 'no', tags: ['choice', 'exact'] },
+  { in: 'cancel', out: 'no', tags: ['choice', 'exact'] },
+  { in: 'abort', out: 'no', tags: ['choice', 'exact'] },
+
+  { in: 'puzzle', out: '', tags: ['ignore'] },
+  { in: 'and', out: '', tags: ['ignore'] },
 ];
 
 const buildMode: SubRestriction = { del: true, sub: 2 }; // allow dels and/or specify max sub length
@@ -87,7 +95,7 @@ function buildCostMap(
   freqThreshold: number, // minimum frequency of a substitution to be considered
   countThreshold: number // minimum count for a substitution to be considered
 ) {
-  const costMax = 0.7;
+  const costMax = 0.9;
   const subCostMin = 0.4;
   const delCostMin = subCostMin - 0.2;
 
@@ -102,19 +110,18 @@ function buildCostMap(
   return new Map(costs);
 }
 
-function main() {
-  const crowdvfile = getArg('in') ?? 'crowdv-27-02-2023.json';
+async function main() {
   const opThreshold = parseInt(getArg('max-ops') ?? '1');
-  const freqThreshold = parseFloat(getArg('freq') ?? '0.004');
+  const freqThreshold = parseFloat(getArg('freq') ?? '0.003');
   const countThreshold = parseInt(getArg('count') ?? '6');
   const lexfile = getArg('out') ?? '../src/voiceMoveGrammar.ts';
   const subMap = new Map<string, SubInfo>();
-  const entries = (JSON.parse(fs.readFileSync(crowdvfile, 'utf-8')) as CrowdvData[])
+  const entries = (await parseCrowdvData(getArg('in') ?? defaultCrowdvFile))
     .map(data => makeLexEntry(data))
     .filter(x => x) as LexEntry[];
 
-  for (const entry of entries) {
-    parseTransforms(findTransforms(entry.h, entry.x, buildMode), entry, subMap, opThreshold);
+  for (const e of entries.filter(e => e.h != e.x)) {
+    parseTransforms(findTransforms(e.h, e.x, buildMode), e, subMap, opThreshold);
   }
   subMap.forEach(v => (v.freq = v.count / v.all));
 
@@ -124,27 +131,6 @@ function main() {
     grammarBuilder.addSub(from, { to: to, cost: sub.cost ?? 1 });
   });
   writeGrammar(lexfile);
-}
-
-function ppCost(key: string, e: SubInfo) {
-  const grey = (s: string) => `\x1b[30m${s}\x1b[0m`;
-  const red = (s: string) => `\x1b[31m${s}\x1b[0m`;
-  const nameC = (s: string) => `\x1b[36m${s}\x1b[0m`;
-  const opC = (s: string) => `\x1b[0m${s}\x1b[0m`;
-  const valueC = (s: string) => `\x1b[0m${s}\x1b[0m`;
-  const prettyPair = (k: string, v: string) => `${nameC(k)}${grey(':')} ${valueC(v)}`;
-  const [from, to] = key.split(' ').map(x => grammarBuilder.wordsOf(x));
-  console.log(
-    `'${opC(from)}${grey(' => ')}${to === '' ? red('<delete>') : opC(to)}'${grey(':')} { ` +
-      [
-        prettyPair('count', `${e.count}`),
-        prettyPair('all', `${e.all}`),
-        prettyPair('conf', (e.conf / e.count).toFixed(2)),
-        prettyPair('freq', e.freq.toFixed(3)),
-        prettyPair('cost', e.cost?.toFixed(2) ?? '1'),
-      ].join(grey(', ')) +
-      ` }${grey(',')}`
-  );
 }
 
 // flatten list of transforms into sub map
@@ -225,13 +211,34 @@ function makeLexEntry(entry: CrowdvData): LexEntry | undefined {
   };
 }
 
+function ppCost(key: string, e: SubInfo) {
+  const grey = (s: string) => `\x1b[30m${s}\x1b[0m`;
+  const red = (s: string) => `\x1b[31m${s}\x1b[0m`;
+  const nameC = (s: string) => `\x1b[36m${s}\x1b[0m`;
+  const opC = (s: string) => `\x1b[0m${s}\x1b[0m`;
+  const valueC = (s: string) => `\x1b[0m${s}\x1b[0m`;
+  const prettyPair = (k: string, v: string) => `${nameC(k)}${grey(':')} ${valueC(v)}`;
+  const [from, to] = key.split(' ').map(x => grammarBuilder.wordsOf(x));
+  console.log(
+    `'${opC(from)}${grey(' => ')}${to === '' ? red('<delete>') : opC(to)}'${grey(':')} { ` +
+      [
+        prettyPair('count', `${e.count}`),
+        prettyPair('all', `${e.all}`),
+        prettyPair('conf', (e.conf / e.count).toFixed(2)),
+        prettyPair('freq', e.freq.toFixed(3)),
+        prettyPair('cost', e.cost?.toFixed(2) ?? '1'),
+      ].join(grey(', ')) +
+      ` }${grey(',')}`
+  );
+}
+
 function writeGrammar(out: string) {
   fs.writeFileSync(
     out,
-    '// *************************** this file is generated. see ui/input/@build/README.md\n\n' +
+    '// *************************** this file is generated. see ui/input/@build/README.md ***************************\n\n' +
       'export type Sub = { to: string, cost: number };\n\n' +
-      `type Context = 'file'|'rank'|'role'|'move'|'choose'|'command';\n\n` +
-      'export type Token = { in: string, tok?: string, out?: string, ctx?: Context, subs?: Sub[] };\n\n' +
+      `export type Tag = 'file' | 'rank' | 'role' | 'move' | 'choice' | 'command' | 'ignore' | 'exact';\n\n` +
+      'export type Token = { in: string, tok: string, tags: Tag[], out?: string, subs?: Sub[] };\n\n' +
       `export const lexicon: Token[] = ${JSON.stringify(lexicon, null, 2)};`
   );
 }
@@ -241,6 +248,30 @@ function getArg(arg: string): string | undefined {
     .filter(v => v.startsWith(`--${arg}`))
     .pop()
     ?.slice(3 + arg.length);
+}
+
+async function parseCrowdvData(file: string) {
+  if (!fs.existsSync(file)) {
+    if (parseInt(ps.versions.node.split('.')[0]) < 18) {
+      console.log(`Node 18+ required, you're running ${ps.version}\n\n`);
+      ps.exit(1);
+    }
+    let url = file;
+    if (/https?:/.test(url)) file = file.split('/').pop() ?? 'crowdv.json';
+    else url = `https://raw.githubusercontent.com/schlawg/crowdv/master/${file}`;
+
+    try {
+      const { ok, statusText, body } = await (globalThis as any).fetch(url);
+      if (!ok) throw new Error(statusText);
+      const stream = fs.createWriteStream(file);
+      await finished(Readable.fromWeb(body).pipe(stream));
+      stream.close();
+    } catch (e) {
+      console.log(`${e} - ${url}`);
+      ps.exit(1);
+    }
+  }
+  return JSON.parse(fs.readFileSync(file, 'utf-8')) as CrowdvData[];
 }
 
 type SubRestriction = { del?: boolean; sub?: number };
@@ -284,18 +315,18 @@ type Sub = {
   cost: number;
 };
 
-type Context = 'file' | 'rank' | 'role' | 'move' | 'choose' | 'command';
+type Tag = 'file' | 'rank' | 'role' | 'move' | 'choice' | 'command' | 'ignore' | 'exact';
+
 type Token = {
   in: string; // the word or phrase recognized by kaldi, unique
   tok?: string; // single char token representation (or '' for ignored words)
   out?: string; // the string moveHandler receives, default is tok
   subs?: Sub[]; // allowable token transitions calculated by this script
-  ctx?: Context; // context for this token, used by clients of the grammar
+  tags?: Tag[]; // context for this token, used by clients of the grammar
 };
 
 const grammarBuilder = new (class {
   occurrences = new Map<string, number>();
-  tokenSubs = new Map<string, Sub[]>();
   tokenOut = new Map<string, string>();
   wordToken = new Map<string, string>();
 
@@ -310,12 +341,10 @@ const grammarBuilder = new (class {
         if (reserved.includes(e.in)) e.tok = e.in;
         else e.tok = available.shift();
       }
-      this.wordToken.set(e.in, e.tok ?? '');
-      if (!e.tok) continue;
-      if (e.out && !this.tokenOut.has(e.tok)) this.tokenOut.set(e.tok, e.out);
-      if (e.subs && !this.tokenSubs.has(e.tok)) this.tokenSubs.set(e.tok, e.subs);
+      const tok = e.tok as string;
+      this.wordToken.set(e.in, tok);
+      this.tokenOut.set(tok, e.out ?? '');
     }
-    console.log(this.tokenSubs, this.tokenOut, this.wordToken);
   }
   addOccurrence(phrase: string) {
     this.encode(phrase)
