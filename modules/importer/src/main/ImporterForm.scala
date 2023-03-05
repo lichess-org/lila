@@ -56,7 +56,7 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
       Parser.full(pgn) map { parsed =>
         Reader.fullWithSans(
           parsed,
-          sans => Sans(sans.value take maxPlies)
+          _.map(_ take maxPlies)
         ) pipe evenIncomplete pipe { case replay @ Replay(setup, _, state) =>
           val initBoard    = parsed.tags.fen flatMap Fen.read map (_.board)
           val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.isInitial)
