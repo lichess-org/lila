@@ -89,7 +89,7 @@
   <string name="masterDbExplanation">%2$s yılından %3$s yılına kadar %1$s+ FIDE puanına sahip oyuncular tarafından tahta üzerinde oynanmış 2 milyon oyun</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s yarım hamle sonra mat</item>
-    <item quantity="other">%s yarım hamle sonra mat</item>
+    <item quantity="other">%s yarım hamlede mat</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\', bir sonraki yakalama veya piyon hamlesine kadar olan yarım hamle sayısına dayalı yuvarlama ile</string>
   <string name="noGameFound">Oyun bulunamadı</string>
