@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Személyre szóló feladványok:</string>
   <string name="puzzleId">%s. feladvány</string>
   <string name="puzzleOfTheDay">Napi feladvány</string>
+  <string name="dailyPuzzle">Napi feladvány</string>
   <string name="clickToSolve">Katt a megoldáshoz</string>
   <string name="goodMove">Jó lépés</string>
   <string name="bestMove">A legjobb lépés!</string>

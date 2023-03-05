@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Für personalisierti Ufgabe muesch:</string>
   <string name="puzzleId">Ufgab %s</string>
   <string name="puzzleOfTheDay">Ufgab vom Tag</string>
+  <string name="dailyPuzzle">Täglichi Ufgab</string>
   <string name="clickToSolve">Zum Löse klicke</string>
   <string name="goodMove">Guete Zug</string>
   <string name="bestMove">Beschte Zug!</string>

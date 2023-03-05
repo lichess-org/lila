@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">あなたに合わせた問題を解くには:</string>
   <string name="puzzleId">問題番号 %s</string>
   <string name="puzzleOfTheDay">本日の問題</string>
+  <string name="dailyPuzzle">本日の問題</string>
   <string name="clickToSolve">問題を解く</string>
   <string name="goodMove">好手</string>
   <string name="bestMove">最善手！</string>

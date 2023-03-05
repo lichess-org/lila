@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Per obtenir problemes personalitzats:</string>
   <string name="puzzleId">Problema %s</string>
   <string name="puzzleOfTheDay">Problema del dia</string>
+  <string name="dailyPuzzle">Problema del dia</string>
   <string name="clickToSolve">Clica per resoldre</string>
   <string name="goodMove">Bona jugada</string>
   <string name="bestMove">La millor jugada!</string>

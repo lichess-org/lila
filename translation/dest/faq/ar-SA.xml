@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">طرق أخرى للمساعدة</string>
   <string name="areThereWebsitesBasedOnLichess">هل هناك مواقع أخرى مبنية على Lichess؟</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">نعم، Lichess بالفعل ألهم مواقع أخرى مفتوحة المصدر التي تستخدم %1$s، %2$s و %3$s الخاصة بنا.</string>
+  <string name="keyboardShortcuts">ما هي اختصارات لوحة المفاتيح؟</string>
+  <string name="keyboardShortcutsExplanation">بعض صفحات Lichess لديها اختصارات لوحة المفاتيح يمكنك استخدامها. حاول الضغط على مفتاح \'؟\' على صفحة دراسة أو تحليل أو لغز أو لعبة لقائمة اختصارات لوحة المفاتيح المتاحة.</string>
   <string name="fairPlay">اللعب النزيه</string>
   <string name="whenAmIEligibleRatinRefund">متى يكون حسابي مستوفي للشروط ليتم اعادة تقييمي من الغشاشين ؟</string>
   <string name="ratingRefundExplanation">بعد دقيقة من وضع العلامة على اللاعب، يتم أخذ اخر ٤٠ مباراة مقيّمة لهم في الثلاثة الايام الأخيرة، اذا كنت خصمهم في هذه المباريات، وخسرت نقاط تقييم (بسبب خسارة مباراة او تعادل) وتقييمك لم يكن مؤقتاً، ستستعيد نقاط تقييمك. تم تحديد حد أقصى للتقييم المسترد استناداً الى ذروة التقييم الخاص بك والتقدم الذي احرزته بعد اللعبة.

@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">For at få personlige opgaver:</string>
   <string name="puzzleId">Opgave %s</string>
   <string name="puzzleOfTheDay">Dagens opgave</string>
+  <string name="dailyPuzzle">Daglig opgave</string>
   <string name="clickToSolve">Klik for at løse</string>
   <string name="goodMove">Godt træk</string>
   <string name="bestMove">Bedste træk!</string>

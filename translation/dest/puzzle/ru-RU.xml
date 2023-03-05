@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Чтобы получить персонализированные задачи:</string>
   <string name="puzzleId">Задача № %s</string>
   <string name="puzzleOfTheDay">Задача дня</string>
+  <string name="dailyPuzzle">Задача дня</string>
   <string name="clickToSolve">Нажмите, чтобы начать решать</string>
   <string name="goodMove">Хороший ход</string>
   <string name="bestMove">Лучший ход!</string>
