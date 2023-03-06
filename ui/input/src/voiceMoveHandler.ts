@@ -100,7 +100,7 @@ class VoiceHandler {
         }))
       );
     }
-    this.voice?.setVocabulary(this.tagWords(['choice']));
+    //this.voice?.setVocabulary(this.tagWords(['choice']));
   }
 
   setState(fen: string, api: CgApi /*, yourMove?: boolean*/) {
@@ -130,14 +130,15 @@ class VoiceHandler {
     // we want a minimal set to reduce collisions
     const vocab = new Set<string>();
     const vocabAdd = (words: string[]) => words.forEach(word => vocab.add(word));
-    for (const [phrase, ucis] of this.phrases) {
+    /*for (const [phrase, ucis] of this.phrases) {
       for (const out of phrase) vocabAdd(this.outWords(out));
       for (const uci of ucis) {
         if (uci.startsWith('O')) vocabAdd(this.outWords(uci));
         else for (const e of uci) vocabAdd(this.outWords(e));
       }
     }
-    vocabAdd(this.tagWords(['role', 'rounds', 'ignore', 'command']));
+    vocabAdd(this.tagWords(['role', 'rounds', 'ignore', 'command']));*/
+    vocabAdd(this.tagWords(['move', 'ignore', 'command', 'choice']));
     for (const rank of '12345678') vocab.delete(rank); // kaldi no like
     this.voice?.setVocabulary([...vocab]);
   }
