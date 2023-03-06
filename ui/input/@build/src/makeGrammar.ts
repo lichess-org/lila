@@ -16,22 +16,22 @@ const lexicon: Token[] = [
   { in: 'f', tok: 'f', tags: ['file', 'move'] },
   { in: 'g', tok: 'g', tags: ['file', 'move'] },
   { in: 'h', tok: 'h', tags: ['file', 'move'] },
-  { in: '1', tok: '1', tags: ['rank', 'move'] },
 
+  { in: '1', tok: '1', tags: [] },
   { in: 'one', tok: '1', tags: ['rank', 'move'] },
-  { in: '2', tok: '2', tags: ['rank', 'move'] },
+  { in: '2', tok: '2', tags: [] },
   { in: 'two', tok: '2', tags: ['rank', 'move'] },
-  { in: '3', tok: '3', tags: ['rank', 'move'] },
+  { in: '3', tok: '3', tags: [] },
   { in: 'three', tok: '3', tags: ['rank', 'move'] },
-  { in: '4', tok: '4', tags: ['rank', 'move'] },
+  { in: '4', tok: '4', tags: [] },
   { in: 'four', tok: '4', tags: ['rank', 'move'] },
-  { in: '5', tok: '5', tags: ['rank', 'move'] },
+  { in: '5', tok: '5', tags: [] },
   { in: 'five', tok: '5', tags: ['rank', 'move'] },
-  { in: '6', tok: '6', tags: ['rank', 'move'] },
+  { in: '6', tok: '6', tags: [] },
   { in: 'six', tok: '6', tags: ['rank', 'move'] },
-  { in: '7', tok: '7', tags: ['rank', 'move'] },
+  { in: '7', tok: '7', tags: [] },
   { in: 'seven', tok: '7', tags: ['rank', 'move'] },
-  { in: '8', tok: '8', tags: ['rank', 'move'] },
+  { in: '8', tok: '8', tags: [] },
   { in: 'eight', tok: '8', tags: ['rank', 'move'] },
 
   { in: 'pawn', tok: 'P', tags: ['role', 'move'], subs: [{ to: '', cost: 0 }] },
@@ -45,11 +45,11 @@ const lexicon: Token[] = [
   { in: 'captures', out: 'x', tags: ['move'] },
   { in: 'castle', out: 'O-O', tags: ['move', 'exact'] },
   { in: 'short castle', out: 'O-O', tags: ['move', 'exact'] },
-  { in: 'king side castle', out: 'O-O', tags: ['move', 'exact'] },
-  { in: 'castle king side', out: 'O-O', tags: ['move', 'exact'] },
+  { in: 'kingside castle', out: 'O-O', tags: ['move', 'exact'] },
+  { in: 'castle kingside', out: 'O-O', tags: ['move', 'exact'] },
   { in: 'long castle', out: 'O-O-O', tags: ['move', 'exact'] },
-  { in: 'castle queen side', out: 'O-O-O', tags: ['move', 'exact'] },
-  { in: 'queen side castle', out: 'O-O-O', tags: ['move', 'exact'] },
+  { in: 'castle queenside', out: 'O-O-O', tags: ['move', 'exact'] },
+  { in: 'queenside castle', out: 'O-O-O', tags: ['move', 'exact'] },
   { in: 'promote', out: '=', tags: ['move'] },
   { in: 'promotes', out: '=', tags: ['move'] },
   { in: 'mate', out: '', tags: ['move'] },
@@ -62,11 +62,11 @@ const lexicon: Token[] = [
 
   //{ in: 'rematch', out: 'rematch', tags: ['command'] },
   { in: 'next', out: 'next', tags: ['command', 'exact'] },
-  { in: 'skip', out: 'next', tags: ['command', 'exact'] },
-  { in: 'continue', out: 'next', tags: ['command', 'exact'] },
+  //{ in: 'skip', out: 'next', tags: ['command', 'exact'] },
+  //{ in: 'continue', out: 'next', tags: ['command', 'exact'] },
   { in: 'back', out: 'back', tags: ['command', 'exact'] },
-  { in: 'last', out: 'last', tags: ['command', 'exact'] },
-  { in: 'first', out: 'first', tags: ['command', 'exact'] },
+  //{ in: 'last', out: 'last', tags: ['command', 'exact'] },
+  //{ in: 'first', out: 'first', tags: ['command', 'exact'] },
   { in: 'up vote', out: 'upv', tags: ['command', 'exact'] },
   { in: 'down vote', out: 'downv', tags: ['command', 'exact'] },
   { in: 'help', out: '?', tags: ['command', 'exact'] },
@@ -91,15 +91,15 @@ const lexicon: Token[] = [
 const buildMode: SubRestriction = { del: true, sub: 2 }; // allow dels and/or specify max sub length
 
 function buildCostMap(
-  subMap: Map<string, SubInfo>, // the map of all valid substitutions within --max-ops
+  subMap: Map<string, SubInfo>, // the map of all valid substitutions within --max-ops distance
   freqThreshold: number, // minimum frequency of a substitution to be considered
   countThreshold: number // minimum count for a substitution to be considered
 ) {
   const costMax = 0.9;
   const subCostMin = 0.4;
-  const delCostMin = subCostMin - 0.2;
+  const delCostMin = 0.2;
 
-  // we don't do anything with confs right now, don't trust em
+  // we don't do anything with crowdv json confs, don't trust em
   const costs = [...subMap.entries()]
     .filter(([_, e]) => e.freq >= freqThreshold && e.count >= countThreshold)
     .sort((a, b) => b[1].freq - a[1].freq);
@@ -237,7 +237,7 @@ function writeGrammar(out: string) {
     out,
     '// *************************** this file is generated. see ui/input/@build/README.md ***************************\n\n' +
       'export type Sub = { to: string, cost: number };\n\n' +
-      `export type Tag = 'file' | 'rank' | 'role' | 'move' | 'choice' | 'command' | 'ignore' | 'exact';\n\n` +
+      `export type Tag = 'file' | 'rank' | 'role' | 'move' | 'choice' | 'command' | 'ignore' | 'exact' | 'rounds';\n\n` +
       'export type Token = { in: string, tok: string, tags: Tag[], out?: string, subs?: Sub[] };\n\n' +
       `export const lexicon: Token[] = ${JSON.stringify(lexicon, null, 2)};`
   );
@@ -315,7 +315,7 @@ type Sub = {
   cost: number;
 };
 
-type Tag = 'file' | 'rank' | 'role' | 'move' | 'choice' | 'command' | 'ignore' | 'exact';
+type Tag = 'file' | 'rank' | 'role' | 'move' | 'choice' | 'command' | 'ignore' | 'exact' | 'rounds';
 
 type Token = {
   in: string; // the word or phrase recognized by kaldi, unique

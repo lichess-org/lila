@@ -29,7 +29,7 @@ class VoiceHandler {
     for (const e of lexicon) {
       this.wordToTok.set(e.in, e.tok);
       if (e.out === undefined) e.out = e.tok;
-      this.outToWords.get(e.out)?.push(e.in) ?? this.outToWords.set(e.out, [e.in]);
+      pushMap(this.outToWords, e.out, e.in);
       if (!this.tokens.has(e.tok)) this.tokens.set(e.tok, e);
     }
     this.ctrl = ctrl;
@@ -100,105 +100,77 @@ class VoiceHandler {
         }))
       );
     }
-    this.voice?.setVocabulary(this.words(['choice']));
+    this.voice?.setVocabulary(this.tagWords(['choice']));
   }
 
-  setState(fen: string, api: CgApi, yourMove?: boolean) {
-    //if (yourMove === false) return;
-    yourMove;
+  setState(fen: string, api: CgApi /*, yourMove?: boolean*/) {
     this.cg = api;
-    const dests = this.cg.state.movable.dests;
-    this.color = this.ctrl.root.data.player.color;
-
-    this.dests = dests ?? new Map();
+    this.color = api.state.turnColor;
     this.board = cs.readFen(fen);
-    this.ucis = destsToUcis(this.dests);
+    this.ucis = destsToUcis(this.cg.state.movable.dests ?? new Map());
     this.phrases = new Map<string, Uci[]>(this.ucis.map(x => [x, [x]]));
     this.buildMoves();
     this.buildTakes();
     this.buildVocabulary();
   }
   buildTakes() {
-    const srcToDest = new Map<string, string[]>();
-    const destToSrc = new Map<string, string[]>();
     for (const uci of this.ucis) {
-      const s = uci.slice(0, 2);
-      const d = uci.slice(2, 4);
-      const dp = this.board.pieces[cs.square(d)];
-      if (dp && !this.isOurs(dp)) {
-        srcToDest.get(s)?.push(d) ?? srcToDest.set(s, [d]);
-        destToSrc.get(d)?.push(s) ?? destToSrc.set(d, [s]);
+      const dp = this.board.pieces[cs.square(uci.slice(2, 4))];
+      console.log(dp);
+      if (!dp || this.isOurs(dp)) continue;
+      const drole = dp.toUpperCase();
+      const srole = this.board.pieces[cs.square(uci.slice(0, 2))].toUpperCase();
+      for (const take of [`${srole}${drole}`, `${srole}x${drole}`]) {
+        console.log(`hot taek:  ${take} -> ${uci}`);
+        pushMap(this.phrases, take, uci);
       }
     }
-
-    for (const [s, dests] of srcToDest) {
-      const sp = this.board.pieces[cs.square(s)]?.toUpperCase();
-      for (const d of dests) {
-        const dp = this.board.pieces[cs.square(d)].toUpperCase();
-        this.phrases.get(`${sp}${dp}`)?.push(`${s}${d}`) ?? this.phrases.set(`${sp}${dp}`, [`${s}${d}`]);
-        this.phrases.get(`${sp}x${dp}`)?.push(`${s}${d}`) ?? this.phrases.set(`${sp}x${dp}`, [`${s}${d}`]);
-      }
-    }
-    return [];
   }
   buildVocabulary() {
     // we want a minimal set to reduce collisions
     const vocab = new Set<string>();
+    const vocabAdd = (words: string[]) => words.forEach(word => vocab.add(word));
     for (const [phrase, ucis] of this.phrases) {
-      phrase.split('').forEach(p => this.outWords(p).forEach(x => vocab.add(x)));
-      ucis.forEach(uci => {
-        uci.split('').forEach(p => this.outWords(p).forEach(x => vocab.add(x)));
-        for (let i = 0; i < uci.length; i += 2) {
-          const pname = this.tokWord(this.board.pieces[cs.square(uci.slice(i, i + 2))]?.toUpperCase());
-          if (pname) vocab.add(pname);
-        }
-      });
+      for (const out of phrase) vocabAdd(this.outWords(out));
+      for (const uci of ucis) {
+        if (uci.startsWith('O')) vocabAdd(this.outWords(uci));
+        else for (const e of uci) vocabAdd(this.outWords(e));
+      }
     }
-    this.words(['move']).forEach(w => vocab.add(w));
-    this.words(['ignore']).forEach(w => vocab.add(w));
-    this.words(['command']).forEach(w => vocab.add(w));
-    console.log(vocab);
+    vocabAdd(this.tagWords(['role', 'rounds', 'ignore', 'command']));
+    for (const rank of '12345678') vocab.delete(rank); // kaldi no like
     this.voice?.setVocabulary([...vocab]);
   }
-  isOurs(p: string | undefined) {
-    return p === '' || p === undefined
-      ? undefined
-      : this.color === 'white'
-      ? p.toUpperCase() === p
-      : p.toLowerCase() === p;
-  }
   buildMoves() {
-    this.ucis.forEach(uci => {
-      const move = [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4)];
+    for (const uci of this.ucis) {
       const xtoks = new Set([uci.slice(0, 4)]);
-      const src = cs.square(move[0]);
-      const dest = cs.square(move[1]);
+      const part = [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4)];
+      const src = cs.square(part[0]);
+      const dest = cs.square(part[1]);
       const dp = this.board.pieces[dest];
-      const sr = this.board.pieces[src].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
-      if (sr === 'P') {
+      const srole = this.board.pieces[src].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
+      if (srole === 'P') {
         if (uci[0] === uci[2]) xtoks.add(uci.slice(2));
         else if (dp) xtoks.add(`${uci[0]}x${uci.slice(2)}`);
-        if (move[2]) xtoks.forEach(uci => xtoks.add(`${uci.slice(0, -1)}=${move[2]}`));
+        if (part[2]) xtoks.forEach(uci => xtoks.add(`${uci.slice(0, -1)}=${part[2]}`));
       } else {
-        if (sr == 'K' && (this.isOurs(dp) || cs.squareDist(src, dest) > 1)) xtoks.add(dest < src ? 'O-O-O' : 'O-O');
-        const others: number[] = movesTo(dest, sr, this.board);
-        let rank = false,
-          file = false;
+        if (srole == 'K' && (this.isOurs(dp) || cs.squareDist(src, dest) > 1)) xtoks.add(dest < src ? 'O-O-O' : 'O-O');
+        const others: number[] = movesTo(dest, srole, this.board);
+        let rank = '',
+          file = '';
         for (const other of others) {
           if (other === src || this.board.pieces[other] !== this.board.pieces[src]) continue;
-          const [otherSan, otherUci] = [`${sr}${move[1]}`, `${squareName(other)}${uci.slice(2)}`];
-          this.phrases.get(otherSan)?.push(otherUci) ?? this.phrases.set(otherSan, [otherUci]);
-          if (src >> 3 === other >> 3) file = true;
-          if ((src & 7) === (other & 7)) rank = true;
-          else file = true;
+          if (src >> 3 === other >> 3) file = uci[0];
+          if ((src & 7) === (other & 7)) rank = uci[1];
+          else file = uci[0];
         }
-        const from = sr + (file && rank ? move[0] : file ? uci[0] : rank ? uci[1] : '');
-        if (dp) xtoks.add(`${from}x${move[1]}`);
-        xtoks.add(`${from}${move[1]}`);
-        xtoks.add(sr + move[1]);
+        for (const piece of [`${srole}${file}${rank}`, `${srole}`]) {
+          if (dp) xtoks.add(`${piece}x${part[1]}`);
+          xtoks.add(`${piece}${part[1]}`);
+        }
       }
-      [...xtoks].map(x => this.phrases.get(x)?.push(uci) ?? this.phrases.set(x, [uci]));
-    });
+      [...xtoks].map(x => pushMap(this.phrases, x, uci));
+    }
   }
 
   costToMatch(h: string, x: string) {
@@ -217,7 +189,19 @@ class VoiceHandler {
       .flat();
     return matchedUcis.filter(u => u[0] < 1).sort((lhs, rhs) => lhs[0] - rhs[0]);
   }
-  words(tags?: Tag[], requireAll = false) {
+  tokWord(tok?: string) {
+    return tok && this.tokens.get(tok)?.in;
+  }
+  tokOut(token: string) {
+    return this.tokens.get(token)?.out ?? token;
+  }
+  toksOut(tokens: string) {
+    return tokens
+      .split('')
+      .map(token => this.tokOut(token))
+      .join(' ');
+  }
+  tagWords(tags?: Tag[], requireAll = false) {
     return lexicon
       .filter(e => {
         if (tags === undefined) return true;
@@ -229,25 +213,16 @@ class VoiceHandler {
   wordTok(word: string) {
     return this.wordToTok.get(word) ?? '';
   }
-  tokOut(token: string) {
-    return this.tokens.get(token)?.out ?? token;
-  }
-  tokWord(tok?: string) {
-    return tok && this.tokens.get(tok)?.in;
-  }
-  outWords(out: string) {
-    return this.outToWords.get(out) ?? [];
-  }
-  wordOut(word: string) {
-    return this.tokens.get(this.wordTok(word))?.out ?? word;
-  }
-  tokenize(phrase: string) {
+  wordsToks(phrase: string) {
     return this.wordToTok.has(phrase)
       ? this.wordTok(phrase)
       : phrase
           .split(' ')
           .map(word => this.wordTok(word))
           .join('');
+  }
+  wordOut(word: string) {
+    return this.tokens.get(this.wordTok(word))?.out ?? word;
   }
   wordsOut(phrase: string) {
     return this.wordToTok.has(phrase)
@@ -257,23 +232,27 @@ class VoiceHandler {
           .map(word => this.tokOut(this.wordTok(word)))
           .join('');
   }
-  detokenize(tokens: string) {
-    return tokens
-      .split('')
-      .map(token => this.tokOut(token))
-      .join(' ');
+  outWords(out: string) {
+    return this.outToWords.get(out) ?? [];
   }
   costOf(transform: Transform) {
     if (transform.from === transform.to) return 0;
     const sub = this.tokens.get(transform.from)?.subs?.find(x => x.to === transform.to);
     return sub?.cost ?? 1;
   }
+  isOurs(p: string | undefined) {
+    return p === '' || p === undefined
+      ? undefined
+      : this.color === 'white'
+      ? p.toUpperCase() === p
+      : p.toLowerCase() === p;
+  }
 }
 
 type Transform = {
   from: string; // single token, or empty string for insertion
   to: string; // one or more tokens, or empty string for erasure
-  at: number; // index (for breadcrumbs)
+  at: number; // index (unused now, previously for breadcrumbs)
 };
 
 const mode = { del: true, sub: 2 }; // TODO: generate and move to voiceMoveGrammar
@@ -320,26 +299,29 @@ function validOps(h: string, x: string, pos: number) {
   return validOps;
 }
 
+const pushMap = (m: Map<string, string[]>, key: string, val: string) => m.get(key)?.push(val) ?? m.set(key, [val]);
+
 const deltas = (d: number[], s = 0) => d.flatMap(x => [s - x, s + x]);
 
 function movesTo(s: number, role: 'N' | 'B' | 'R' | 'Q' | 'K', board: cs.Board): number[] {
-  // minor tweak of sanWriter functions
+  // minor tweaks on sanWriter functions
   if (role === 'K') return deltas([1, 7, 8, 9], s).filter(o => o >= 0 && o < 64 && cs.squareDist(s, o) === 1);
   else if (role === 'N') return deltas([6, 10, 15, 17], s).filter(o => o >= 0 && o < 64 && cs.squareDist(s, o) <= 2);
-  const result: number[] = [];
+  const dests: number[] = [];
   for (const delta of deltas(role === 'Q' ? [1, 7, 8, 9] : role === 'R' ? [1, 8] : [7, 9])) {
     for (
       let square = s + delta;
       square >= 0 && square < 64 && cs.squareDist(square, square - delta) === 1;
       square += delta
     ) {
-      result.push(square);
+      dests.push(square);
       if (board.pieces[square]) break;
     }
   }
-  return result;
+  return dests;
 }
-
-function squareName(s: number) {
+/*
+function squareKey(s: number) {
   return `${'abcdefgh'[s % 8]}${1 + Math.floor(s / 8)}`;
 }
+*/
