@@ -2,7 +2,7 @@
 
 export type Sub = { to: string; cost: number };
 
-export type Tag = 'file' | 'rank' | 'role' | 'move' | 'choice' | 'command' | 'ignore' | 'exact';
+export type Tag = 'file' | 'rank' | 'role' | 'move' | 'choice' | 'command' | 'ignore' | 'exact' | 'rounds';
 
 export type Token = { in: string; tok: string; tags: Tag[]; out?: string; subs?: Sub[] };
 
@@ -194,7 +194,7 @@ export const lexicon: Token[] = [
   {
     in: '1',
     tok: '1',
-    tags: ['rank', 'move'],
+    tags: [],
     subs: [
       {
         to: 'P',
@@ -214,7 +214,7 @@ export const lexicon: Token[] = [
   {
     in: '2',
     tok: '2',
-    tags: ['rank', 'move'],
+    tags: [],
     subs: [
       {
         to: '',
@@ -242,7 +242,7 @@ export const lexicon: Token[] = [
   {
     in: '3',
     tok: '3',
-    tags: ['rank', 'move'],
+    tags: [],
     subs: [
       {
         to: '3e',
@@ -270,7 +270,7 @@ export const lexicon: Token[] = [
   {
     in: '4',
     tok: '4',
-    tags: ['rank', 'move'],
+    tags: [],
     subs: [
       {
         to: 'f4',
@@ -290,7 +290,7 @@ export const lexicon: Token[] = [
   {
     in: '5',
     tok: '5',
-    tags: ['rank', 'move'],
+    tags: [],
     subs: [
       {
         to: 'f5',
@@ -314,7 +314,7 @@ export const lexicon: Token[] = [
   {
     in: '6',
     tok: '6',
-    tags: ['rank', 'move'],
+    tags: [],
     subs: [
       {
         to: 'f6',
@@ -334,7 +334,7 @@ export const lexicon: Token[] = [
   {
     in: '7',
     tok: '7',
-    tags: ['rank', 'move'],
+    tags: [],
     subs: [
       {
         to: 'h7',
@@ -350,7 +350,7 @@ export const lexicon: Token[] = [
   {
     in: '8',
     tok: '8',
-    tags: ['rank', 'move'],
+    tags: [],
     subs: [
       {
         to: 'a',
@@ -546,13 +546,13 @@ export const lexicon: Token[] = [
     tok: '$',
   },
   {
-    in: 'king side castle',
+    in: 'kingside castle',
     out: 'O-O',
     tags: ['move', 'exact'],
     tok: '%',
   },
   {
-    in: 'castle king side',
+    in: 'castle kingside',
     out: 'O-O',
     tags: ['move', 'exact'],
     tok: '&',
@@ -564,13 +564,13 @@ export const lexicon: Token[] = [
     tok: "'",
   },
   {
-    in: 'castle queen side',
+    in: 'castle queenside',
     out: 'O-O-O',
     tags: ['move', 'exact'],
     tok: '(',
   },
   {
-    in: 'queen side castle',
+    in: 'queenside castle',
     out: 'O-O-O',
     tags: ['move', 'exact'],
     tok: ')',
@@ -652,70 +652,46 @@ export const lexicon: Token[] = [
     tok: ';',
   },
   {
-    in: 'skip',
-    out: 'next',
-    tags: ['command', 'exact'],
-    tok: '<',
-  },
-  {
-    in: 'continue',
-    out: 'next',
-    tags: ['command', 'exact'],
-    tok: '=',
-  },
-  {
     in: 'back',
     out: 'back',
     tags: ['command', 'exact'],
-    tok: '>',
-  },
-  {
-    in: 'last',
-    out: 'last',
-    tags: ['command', 'exact'],
-    tok: '?',
-  },
-  {
-    in: 'first',
-    out: 'first',
-    tags: ['command', 'exact'],
-    tok: '@',
+    tok: '<',
   },
   {
     in: 'up vote',
     out: 'upv',
     tags: ['command', 'exact'],
-    tok: 'A',
+    tok: '=',
   },
   {
     in: 'down vote',
     out: 'downv',
     tags: ['command', 'exact'],
-    tok: 'C',
+    tok: '>',
   },
   {
     in: 'help',
     out: '?',
     tags: ['command', 'exact'],
-    tok: 'D',
+    tok: '?',
   },
   {
     in: 'clock',
     out: 'clock',
     tags: ['command', 'exact'],
-    tok: 'E',
+    tok: '@',
   },
   {
     in: 'opponent',
     out: 'who',
     tags: ['command', 'exact'],
-    tok: 'F',
+    tok: 'A',
   },
   {
     in: 'red',
     out: 'red',
     tags: ['choice', 'exact'],
-    tok: 'G',
+    tok: 'C',
     subs: [
       {
         to: '8',
@@ -727,13 +703,13 @@ export const lexicon: Token[] = [
     in: 'yellow',
     out: 'yellow',
     tags: ['choice', 'exact'],
-    tok: 'H',
+    tok: 'D',
   },
   {
     in: 'green',
     out: 'green',
     tags: ['choice', 'exact'],
-    tok: 'I',
+    tok: 'E',
     subs: [
       {
         to: 'Q',
@@ -749,7 +725,7 @@ export const lexicon: Token[] = [
     in: 'blue',
     out: 'blue',
     tags: ['choice', 'exact'],
-    tok: 'J',
+    tok: 'F',
     subs: [
       {
         to: '2',
@@ -765,7 +741,7 @@ export const lexicon: Token[] = [
     in: 'yes',
     out: 'yes',
     tags: ['choice', 'exact'],
-    tok: 'L',
+    tok: 'G',
     subs: [
       {
         to: 'e',
@@ -785,19 +761,19 @@ export const lexicon: Token[] = [
     in: 'okay',
     out: 'yes',
     tags: ['choice', 'exact'],
-    tok: 'M',
+    tok: 'H',
   },
   {
     in: 'confirm',
     out: 'yes',
     tags: ['choice', 'exact'],
-    tok: 'O',
+    tok: 'I',
   },
   {
     in: 'no',
     out: 'no',
     tags: ['choice', 'exact'],
-    tok: 'S',
+    tok: 'J',
     subs: [
       {
         to: 'N',
@@ -809,24 +785,24 @@ export const lexicon: Token[] = [
     in: 'cancel',
     out: 'no',
     tags: ['choice', 'exact'],
-    tok: 'T',
+    tok: 'L',
   },
   {
     in: 'abort',
     out: 'no',
     tags: ['choice', 'exact'],
-    tok: 'U',
+    tok: 'M',
   },
   {
     in: 'puzzle',
     out: '',
     tags: ['ignore'],
-    tok: 'V',
+    tok: 'O',
   },
   {
     in: 'and',
     out: '',
     tags: ['ignore'],
-    tok: 'W',
+    tok: 'S',
   },
 ];
