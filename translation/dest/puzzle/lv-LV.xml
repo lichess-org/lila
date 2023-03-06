@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Lai iegūtu pielāgotus uzdevumus:</string>
   <string name="puzzleId">Uzdevums %s</string>
   <string name="puzzleOfTheDay">Dienas uzdevums</string>
+  <string name="dailyPuzzle">Šodienas uzdevums</string>
   <string name="clickToSolve">Klikšķiniet, lai atrisinātu</string>
   <string name="goodMove">Labs gājiens</string>
   <string name="bestMove">Vislabākais gājiens!</string>

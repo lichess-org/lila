@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Para obter desafios personalizados:</string>
   <string name="puzzleId">Quebra-cabeça %s</string>
   <string name="puzzleOfTheDay">Quebra-cabeça do dia</string>
+  <string name="dailyPuzzle">Quebra-cabeça diário</string>
   <string name="clickToSolve">Clique para resolver</string>
   <string name="goodMove">Boa jogada</string>
   <string name="bestMove">Melhor jogada!</string>

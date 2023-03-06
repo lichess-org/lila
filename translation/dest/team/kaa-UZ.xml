@@ -31,4 +31,22 @@
   <string name="beingReviewed">Sisiń qosılıw sorawıńız komanda lideri tárepinen kórip shıǵılmaqta.</string>
   <string name="requestDeclined">Siziń qosılıw sorawıńız komanda lideri tárepinen biykarlandı.</string>
   <string name="subToTeamMessages">Komanda xabarlarına jazılıw</string>
+  <string name="teamTournament">Komanda turniri</string>
+  <string name="teamTournamentOverview">Arena turnirine tek ǵana siziń komandańız aǵzaları qosıla aladı</string>
+  <string name="swissTournamentOverview">Shvecarsha turnirge tek ǵana siziń komandańız aǵzaları qosıla aladı</string>
+  <string name="messageAllMembers">Bárshe aǵzalarǵa xat jiberiw</string>
+  <string name="messageAllMembersOverview">Komanda hár bir aǵzasına jeke xabar jiberiw</string>
+  <string name="teamsIlead">Men jetekshilik qılıp atırǵan komanlarım</string>
+  <string name="leadersChat">Jetekshiler sáwbeti</string>
+  <string name="closeTeam">Komandanı jabıw</string>
+  <string name="closeTeamDescription">Komandanı birotala jabıw.</string>
+  <string name="entryCode">Komandaǵa kiriw kodı</string>
+  <string name="entryCodeDescriptionForLeader">(Májbúriy emes) Kiriw kodı bul - jańa aǵzalar komandaǵa qosılıw ushın biliw kerek bolǵan nárse.</string>
+  <string name="incorrectEntryCode">Qáte kiriw kodı.</string>
+  <string name="teamAlreadyExists">Bul komanda álle qashan bar.</string>
+  <string name="upcomingTourns">Kelesi turnirler</string>
+  <string name="completedTourns">Juwmaqlanǵan turnirler</string>
+  <string name="declinedRequests">Biykarlanǵan sorawlar</string>
+  <string name="joinLichessVariantTeam">Jańalıq hám waqıyalar ushın %s rásmiy komandaǵa qosılıń</string>
+  <string name="teamPage">Komanda beti</string>
 </resources>

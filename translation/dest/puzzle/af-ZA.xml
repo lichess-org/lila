@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Om persoonlike raaisels te kry:</string>
   <string name="puzzleId">Raaisels %s</string>
   <string name="puzzleOfTheDay">Raaisels van die dag</string>
+  <string name="dailyPuzzle">Daaglikse Raaisel</string>
   <string name="clickToSolve">Druk om op te los</string>
   <string name="goodMove">Goeie skuif</string>
   <string name="bestMove">Beste skuif!</string>

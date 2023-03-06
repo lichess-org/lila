@@ -568,7 +568,7 @@ final class Auth(
     env.security.ipTrust.isSuspicious(req.ipAddress) flatMap { ipSusp =>
       PasswordHasher.rateLimit[Result](
         enforce = env.net.rateLimit,
-        ipCost = 1 + ipSusp.??(15) + EmailAddress.isValid(id.value).??(5)
+        ipCost = 1 + ipSusp.??(15) + EmailAddress.isValid(id.value).??(2)
       )(id, req)(run)(rateLimitedFu)
     }
 
