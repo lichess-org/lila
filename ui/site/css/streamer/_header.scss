@@ -130,9 +130,9 @@
 }
 
 .live .streamer-lang {
-  margin-#{$end-direction}: 100px;
+  margin-right: 100px;
 
   @include breakpoint($mq-not-xx-small) {
-    margin-#{$end-direction}: 50px;
+    margin-right: 50px;
   }
 }
