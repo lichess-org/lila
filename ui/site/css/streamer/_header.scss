@@ -128,3 +128,11 @@
   align-self: flex-start;
   z-index: 2;
 }
+
+.live .streamer-lang {
+  margin-#{$end-direction}: 100px;
+
+  @include breakpoint($mq-not-xx-small) {
+    margin-#{$end-direction}: 50px;
+  }
+}
