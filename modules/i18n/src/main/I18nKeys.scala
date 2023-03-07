@@ -289,6 +289,7 @@ object I18nKeys:
   val `toStudy` = I18nKey("toStudy")
   val `importGame` = I18nKey("importGame")
   val `importGameExplanation` = I18nKey("importGameExplanation")
+  val `importGameCaveat` = I18nKey("importGameCaveat")
   val `thisIsAChessCaptcha` = I18nKey("thisIsAChessCaptcha")
   val `clickOnTheBoardToMakeYourMove` = I18nKey("clickOnTheBoardToMakeYourMove")
   val `captcha.fail` = I18nKey("captcha.fail")
