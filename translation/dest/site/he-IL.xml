@@ -442,6 +442,7 @@
   <string name="toStudy">הפכו ללוח למידה</string>
   <string name="importGame">ייבוא משחק</string>
   <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN מקבלים אפשרות לצפות במשחק ולדפדף בו, ניתוח ממוחשב, צ׳אט וקישור לשיתוף.</string>
+  <string name="importGameCaveat">וריאציות — כלומר רצפי מהלכים שאינם המסעים הראשיים (mainline) — יימחקו. כדי לשמור אותן, ייבאו את ה־PGN כלוח למידה.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">משחק מיובא %s</item>
     <item quantity="two">%s משחקים מיובאים</item>
@@ -554,7 +555,7 @@
   <string name="lastName">שם משפחה</string>
   <string name="biography">ביוגרפיה</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">מדינה או דגל</string>
-  <string name="thankYou">תודה רבה!</string>
+  <string name="thankYou">תודות מקרב לב</string>
   <string name="socialMediaLinks">קישורים לרשתות חברתיות</string>
   <string name="oneUrlPerLine">שורה עבור כל כתובת.</string>
   <string name="inlineNotation">תיאור מהלכים בשורה</string>
@@ -709,7 +710,7 @@
   <string name="aboutX">על אודות %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s הוא שרת שחמט חינמי (%2$s), חופשי, עם קוד פחוח וללא פרסומות.</string>
   <string name="really">באמת</string>
-  <string name="contribute">לתרום</string>
+  <string name="contribute">תרומה ומעורבות</string>
   <string name="termsOfService">תנאים לשימוש באתר</string>
   <string name="sourceCode">קוד המקור</string>
   <string name="simultaneousExhibitions">משחקים סימולטניים</string>
