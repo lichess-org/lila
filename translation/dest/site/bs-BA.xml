@@ -415,6 +415,7 @@
   <string name="importGame">Unesite partiju</string>
   <string name="importGameExplanation">Kada zalijepite PGN neke partije, dobijate reprizu partije koju možete detaljno pregledati, 
 računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
+  <string name="importGameCaveat">Varijante će biti izbrisane. Da ih sačuvate, uvezite PGN posredstvom studije.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s unesena partija</item>
     <item quantity="few">%s unesenih partija</item>
