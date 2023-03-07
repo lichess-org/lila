@@ -775,6 +775,7 @@ object I18nKeys:
   val `lichessDbExplanation` = I18nKey("lichessDbExplanation")
   val `switchSides` = I18nKey("switchSides")
   val `closingAccountWithdrawAppeal` = I18nKey("closingAccountWithdrawAppeal")
+  val `ourEventTips` = I18nKey("ourEventTips")
   val `opponentLeftCounter` = I18nKey("opponentLeftCounter")
   val `mateInXHalfMoves` = I18nKey("mateInXHalfMoves")
   val `nbBlunders` = I18nKey("nbBlunders")

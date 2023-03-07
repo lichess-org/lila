@@ -22,6 +22,13 @@ object form:
         div(cls := "swiss__form tour__form box box-pad")(
           h1(cls := "box__top")(trans.swiss.newSwiss()),
           postForm(cls := "form3", action := routes.Swiss.create(teamId))(
+            frag(
+              div(cls := "form-group")(
+                a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("event-tips"))(
+                  trans.ourEventTips()
+                )
+              )
+            ),
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.description, fields.rated),
             fields.clock,
