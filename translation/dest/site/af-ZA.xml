@@ -391,6 +391,7 @@
   <string name="importGame">Voer spel in</string>
   <string name="importGameExplanation">Plak \'n wedstryd PGN om dit deursoekbaar te herspeel,
 rekenaar analise, kletskamer en deelbare URL te kry.</string>
+  <string name="importGameCaveat">Variasies sal uitgevee word. Voer die PGN in d.m.v. \'n studie om hulle te behou.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ingevoerde spel</item>
     <item quantity="other">%s het spelle ingetrek</item>
