@@ -211,7 +211,7 @@
   <string name="error.namePassword">Wannechgelifft benotz net däin Benotzernumm als Passwuert.</string>
   <string name="youAreLeavingLichess">Du verléiss Lichess</string>
   <string name="neverTypeYourPassword">Gëff däin Lichess Passwuert nie ob enger anerer Säit an!</string>
-  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Weider op %s</string>
+  <string name="proceedToX">Weider op %s</string>
   <string name="emailConfirmHelp">Hëllef bei der Email Confirmatioun</string>
   <string name="emailConfirmNotReceived">Huet dir keng Confirmatiouns Email kritt nom Umellen?</string>
   <string name="whatSignupUsername">Mat wéiengem Benotzernumm huet dir iech ugemellt?</string>
