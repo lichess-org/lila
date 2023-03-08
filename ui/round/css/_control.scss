@@ -65,16 +65,28 @@
       flex: 1 1;
     }
   }
+  @keyframes flash-once {
+    from {
+      background: $c-accent;
+      color: $c-accent-over;
+    }
+
+    to {
+      background: $c-bg-zebra;
+      color: $c-font;
+    }
+  }
   .negotiation {
     @extend %flex-center-nowrap;
-    background: $c-accent;
-    color: #fff;
+    animation: flash-once 1s ease-in;
+
     padding: 1px;
     p {
-      flex: 1 1 auto;
+      flex: 3 1 auto;
+      margin: 0.5rem;
     }
     a {
-      flex: 0 0 3rem;
+      flex: 1 0 3rem;
       font-size: 1.5em;
       line-height: 3em;
       background: $c-bg-box;
@@ -192,51 +204,129 @@
         transform: scale3d(1, 1, 1);
       }
     }
-    &.glowing {
-      span {
-        display: block;
-        animation: rubber-band 5s infinite;
-      }
-    }
     &.fbt:not(.disabled):hover,
     &.fbt.active {
       background: mix($c-link, $c-bg-box, 70%);
       color: #fff;
       animation: none;
     }
-    &-decline {
-      @extend %flex-center-nowrap, %box-radius-right, %box-shadow;
-      background: $c-bg-zebra;
-      justify-content: center;
+  }
+  @keyframes button-glowing {
+    0% {
+      opacity: 0;
+    }
+    60% {
+      opacity: 0.2;
+    }
+    85% {
+      opacity: 0;
+    }
+  }
+  .glowing {
+    position: relative;
+    animation: none;
+    color: $c-font-clear;
+    &::before {
+      content: '';
       position: absolute;
       top: 0;
-      right: -25px;
-      width: 25px;
-      height: 5.5rem;
-      border: 0;
-      opacity: 0.7;
-      background: mix($c-bad, $c-bg-box, 50%);
-      @include transition();
-      display: none;
-      @include breakpoint($mq-col2) {
-        display: block;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      background: $c-primary;
+      opacity: 0;
+      animation: button-glowing 2s ease-in-out infinite;
+    }
+    span {
+      display: block;
+      animation: rubber-band 5s infinite;
+    }
+  }
+  .rematch-decline, .post-game-study-decline {
+    @extend %flex-center-nowrap, %box-radius-right, %box-shadow;
+    background: $c-bg-zebra;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: -25px;
+    width: 25px;
+    height: 5.5rem;
+    margin-top: 1px;
+    border: 0;
+    opacity: 0.7;
+    background: mix($c-bad, $c-bg-box, 50%);
+    @include transition();
+    display: none;
+    @include breakpoint($mq-col2) {
+      display: block;
+    }
+    &:hover {
+      background: $c-bad;
+      color: $c-bad-over;
+    }
+  }
+  .post-game-study {
+    position: relative;
+    min-height: calc(1.5rem + 25px);
+    form, a.fbt {
+      display: flex;
+      justify-content: center;
+      .spinner {
+        width: 16px;
+        height: 20px;
       }
+      button.inactive {
+        pointer-events: none;
+      }
+      &:hover ~ .new-study-button {
+        color: #fff;
+        background: mix($c-secondary, $c-bg-box, 75%);
+        &::after {
+          content: '';
+          width: 1px;
+          height: 80%;
+          margin-top: 10%;
+          position: absolute;
+          left: 0;
+          background: #fff;
+          opacity: 0.3;
+        }
+      }
+      &.glowing {
+        &::before {
+          background: $c-secondary;
+        }
+      }
+    }
+    .new-study-button {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: calc(100% - 1px);
+      font-size: 1.5rem;
+      color: $c-font-dim;
+      padding: 0 0.75rem;
       &:hover {
-        background: $c-bad;
-        color: $c-bad-over;
-        right: -36px;
-        width: 35px;
+        color: #fff;
       }
+    }
+    &-decline {
+      height: calc(1.5rem + 25px);
     }
   }
 }
 
 #modal-overlay {
-  .study-options {
+  .study-option {
     display: flex;
     flex-direction: column;
     &:first-child {
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: $border;
     }
     .study-title {
       font-size: 1.2rem;
@@ -248,16 +338,31 @@
       max-width: 25vw;
       color: $c-font-dim;
       font-size: 0.8rem;
-      margin: 0.3rem 0;
+      margin: 0.5rem auto 0.3rem auto;
     }
     form {
-      margin: 0.6rem 0;
+      margin: 0.5rem 0;
+      & > div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        label {
+          margin-right: 0.75rem;
+        }
+        .user-autocomplete {
+          width: 100%;
+        }
+        .tt-suggestion {
+          text-align: left;
+        }
+        & > :last-child {
+          flex: 1;
+        }
+      }
       button {
         width: 100%;
+        margin-top: 0.75rem;
       }
-    }
-    .q-explanation {
-      padding: 0.5rem;
     }
   }
 }
