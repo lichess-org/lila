@@ -10,7 +10,8 @@
       background-color: $c-bg-box;
       display: flex;
       border-top: $border;
-      a, button {
+      a,
+      button {
         padding: 0.8em;
         flex: 5;
         box-shadow: none;

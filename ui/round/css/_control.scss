@@ -243,7 +243,8 @@
       animation: rubber-band 5s infinite;
     }
   }
-  .rematch-decline, .post-game-study-decline {
+  .rematch-decline,
+  .post-game-study-decline {
     @extend %flex-center-nowrap, %box-radius-right, %box-shadow;
     background: $c-bg-zebra;
     justify-content: center;
@@ -269,7 +270,8 @@
   .post-game-study {
     position: relative;
     min-height: calc(1.5rem + 25px);
-    form, a.fbt {
+    form,
+    a.fbt {
       display: flex;
       justify-content: center;
       .spinner {
