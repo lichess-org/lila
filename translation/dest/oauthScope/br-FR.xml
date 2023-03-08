@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailRead">Lenn ar chomlec\'h postel</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Kas, asantiñ ha nac\'hañ daeoù</string>
+  <string name="challengeWrite">Kas, asantiñ ha nac\'hañ daeoù</string>
   <string name="tournamentWrite">Krouiñ, hizivaat ha kemer perzh e tournamantoù</string>
   <string name="teamRead">Lenn titouroù ar skipailhoù prevez</string>
   <string name="teamWrite">Emezelañ ha kuitaat ur skipailh</string>
