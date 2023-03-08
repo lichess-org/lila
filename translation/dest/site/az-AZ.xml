@@ -439,6 +439,8 @@
   <string name="tournamentIsStarting">Turnir başlayır</string>
   <string name="tournamentPairingsAreNowClosed">Turnir qoşulmaları indi bağlıdır.</string>
   <string name="standByX">Hazır ol %s, oyunçular qoşulur!</string>
+  <string name="pause">Fasilə ver</string>
+  <string name="resume">Davam et</string>
   <string name="youArePlaying">Oyundasınız!</string>
   <string name="winRate">Qazanma əmsalı</string>
   <string name="berserkRate">Berserk əmsalı</string>
