@@ -425,7 +425,7 @@ object Pref:
     pieceSet = PieceSet.default.name,
     theme3d = Theme3d.default.name,
     pieceSet3d = PieceSet3d.default.name,
-    soundSet = SoundSet.default.name,
+    soundSet = SoundSet.default.key,
     blindfold = Blindfold.NO,
     autoQueen = AutoQueen.PREMOVE,
     autoThreefold = AutoThreefold.ALWAYS,
