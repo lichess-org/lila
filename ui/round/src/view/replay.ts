@@ -89,21 +89,6 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   return els;
 }
 
-export function studyButton(ctrl: RoundController): VNode {
-  const disabled = !game.userAnalysable(ctrl.data);
-  return h('a.fbt.study', {
-    class: {
-      disabled: disabled,
-    },
-    attrs: {
-      disabled: disabled,
-      title: ctrl.trans.noarg('study'),
-      'data-icon': '4',
-    },
-    hook: util.bind('click', _ => $.modal($('.continue-with.g_' + ctrl.data.game.id), undefined, undefined, true)),
-  });
-}
-
 export function analysisButton(ctrl: RoundController): VNode {
   const forecastCount = ctrl.data.forecastCount,
     disabled = !game.userAnalysable(ctrl.data);
@@ -176,7 +161,6 @@ function renderButtons(ctrl: RoundController) {
           },
         });
       }),
-      studyButton(ctrl) || h('div.noop'),
       analysisButton(ctrl) || h('div.noop'),
     ]
   );
