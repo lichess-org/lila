@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="playWithAFriend">Pley wi a freend</string>
+  <string name="playWithTheMachine">Pley wi the computer</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Fur tae inveet a body tae pley, gie thaim this URL</string>
+  <string name="gameOver">Spiel feenisht</string>
+  <string name="waitingForOpponent">Waitin fur opponent</string>
+  <string name="waiting">Waitin</string>
+  <string name="yourTurn">Yer muive</string>
+  <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
+  <string name="level">Level</string>
+  <string name="strength">Strangth</string>
+  <string name="toggleTheChat">Toggle the chat</string>
+  <string name="chat">Chat</string>
+  <string name="resign">Resign</string>
+  <string name="checkmate">Checkmate</string>
+  <string name="stalemate">Stalemate</string>
+  <string name="white">White</string>
+  <string name="black">Black</string>
+  <string name="asWhite">as white</string>
+  <string name="asBlack">as black</string>
+  <string name="randomColor">Random team</string>
+  <string name="createAGame">Creaut a spiel</string>
+</resources>
