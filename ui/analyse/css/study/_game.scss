@@ -9,11 +9,53 @@
       @extend %box-neat-bottom;
       background-color: $c-bg-box;
       display: flex;
-      a {
+      border-top: $border;
+      a, button {
         padding: 0.8em;
-        flex-grow: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        flex: 5;
+        box-shadow: none;
+        border-radius: 0;
+        &:focus,
+        &:hover,
+        &.active {
+          box-shadow: none;
+        }
+        @keyframes button-glowing {
+          0% {
+            opacity: 0;
+          }
+          60% {
+            opacity: 0.2;
+          }
+          85% {
+            opacity: 0;
+          }
+        }
+        &.glowing {
+          position: relative;
+          animation: none;
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            background: $c-primary;
+            opacity: 0;
+            animation: button-glowing 2s ease-in-out infinite;
+          }
+        }
+      }
+      a {
+        &:first-child {
+          flex: 1;
+        }
+        &:last-child {
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
   }

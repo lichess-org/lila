@@ -160,22 +160,30 @@ function postGameButtons(ctrl: StudyCtrl): MaybeVNode {
       );
     if (me) {
       const myOpponent = ctrl.data.postGameStudy.players[opposite(myColor)],
-        isOnline = myOpponent.userId && ctrl.members.isOnline(myOpponent.userId);
+        isOnline = myOpponent.userId && ctrl.members.isOnline(myOpponent.userId),
+        offering = !!ctrl.data.postGameStudy.rematches[myColor],
+        offered = !!ctrl.data.postGameStudy.rematches[opposite(myColor)];
       return h('div.game_info', [
         gameBackButton,
         h(
           'button.button.button-empty' + (!isOnline || !myOpponent.userId ? '.disabled' : ''),
           {
+            class: {
+              offering: offering,
+              glowing: offered,
+            },
             attrs: {
-              title: myOpponent.userId
+              title: offering
+                ? ctrl.trans.noarg('cancel')
+                : myOpponent.userId
                 ? `${ctrl.trans.noarg('rematch')} ${myOpponent.userId}`
                 : 'Cannot rematch anonymous player in study',
             },
             hook: bind('click', () => {
-              console.log('EE!');
+              ctrl.rematch(!ctrl.data.postGameStudy?.rematches[myColor]);
             }),
           },
-          ctrl.trans.noarg('rematch')
+          offering ? h('span', { attrs: dataIcon('L') }) : ctrl.trans.noarg('rematch')
         ),
         h(
           'a.button.button-empty',

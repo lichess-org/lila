@@ -34,6 +34,7 @@ export interface StudyCtrl {
   studyDesc: DescriptionCtrl;
   chapterDesc: DescriptionCtrl;
   toggleLike(): void;
+  rematch(yes: boolean): void;
   position(): Position;
   isChapterOwner(): boolean;
   canJumpTo(path: Tree.Path): boolean;
@@ -97,6 +98,10 @@ export interface StudyData {
     players: {
       sente: GamePlayer;
       gote: GamePlayer;
+    };
+    rematches: {
+      sente: boolean;
+      gote: boolean;
     };
   };
   likes: number;

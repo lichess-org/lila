@@ -332,6 +332,7 @@ export default function (
   }
 
   const likeToggler = li.debounce(() => send('like', { liked: data.liked }), 1000);
+  const rematcher = li.debounce(yes => send('rematch', { yes: yes }), 1000, true);
 
   const socketHandlers = {
     path(d) {
@@ -546,6 +547,16 @@ export default function (
     crowd(d) {
       members.setSpectators(d.users);
     },
+    rematchOffer(d) {
+      if (data.postGameStudy) {
+        if (d.by) data.postGameStudy.rematches[d.by] = true;
+        else data.postGameStudy.rematches.sente = data.postGameStudy.rematches.gote = false;
+      }
+      redraw();
+    },
+    rematch(d) {
+      window.lishogi.redirect(d.g);
+    },
     error(msg: string) {
       alert(msg);
     },
@@ -575,6 +586,9 @@ export default function (
       data.liked = !data.liked;
       redraw();
       likeToggler();
+    },
+    rematch(yes: boolean) {
+      rematcher(yes);
     },
     position() {
       return data.position;
