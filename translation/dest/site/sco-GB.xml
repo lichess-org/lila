@@ -21,4 +21,76 @@
   <string name="asBlack">as black</string>
   <string name="randomColor">Random team</string>
   <string name="createAGame">Creaut a spiel</string>
+  <string name="whiteIsVictorious">White wins</string>
+  <string name="blackIsVictorious">Black wins</string>
+  <string name="youPlayTheWhitePieces">Ye hae the white pieces</string>
+  <string name="youPlayTheBlackPieces">Ye hae the black pieces</string>
+  <string name="itsYourTurn">It\'s yer muive!</string>
+  <string name="cheatDetected">Cheat detectit</string>
+  <string name="kingInTheCenter">Keeng in the mid</string>
+  <string name="threeChecks">Three checks</string>
+  <string name="raceFinished">Race feenisht</string>
+  <string name="variantEnding">Variant endin</string>
+  <string name="newOpponent">New opponent</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Yer oponnent wants tae pley a new spiel wi ye</string>
+  <string name="joinTheGame">Jine the spiel</string>
+  <string name="whitePlays">White tae pley</string>
+  <string name="blackPlays">Black tae pley</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Yer opponent lea\'d the spiel. Ye can claim veectory in %s seicont.</item>
+    <item quantity="other">Yer opponent lea\'d the spiel. Ye can claim veectory in %s seiconts.</item>
+  </plurals>
+  <string name="opponentLeftChoices">Yer opponent lea\'d the spiel. Ye can claim veectory, caa the spiel a draw, or wait.</string>
+  <string name="forceResignation">Claim veectory</string>
+  <string name="forceDraw">Caa it a draw</string>
+  <string name="talkInChat">Please be blithe in the chat!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">The first person tae gang tae this URL will pley wi ye.</string>
+  <string name="whiteResigned">White resign\'d</string>
+  <string name="blackResigned">Black resign\'d</string>
+  <string name="whiteLeftTheGame">White lea\'d the spiel</string>
+  <string name="blackLeftTheGame">Black lea\'d the spiel</string>
+  <string name="whiteDidntMove">White didnae muive</string>
+  <string name="blackDidntMove">Black didnae muive</string>
+  <string name="requestAComputerAnalysis">Requeest a computer analysis</string>
+  <string name="computerAnalysis">Computer analysis</string>
+  <string name="computerAnalysisAvailable">Computer analysis boun</string>
+  <string name="computerAnalysisDisabled">Computer analysis isnae boun</string>
+  <string name="analysis">Analysis buird</string>
+  <string name="depthX">Deepth %s</string>
+  <string name="usingServerAnalysis">Uisin server analysis</string>
+  <string name="loadingEngine">Laidin computer...</string>
+  <string name="calculatingMoves">Calculatin muives...</string>
+  <string name="engineFailed">Error laidin computer</string>
+  <string name="cloudAnalysis">Clood analysis</string>
+  <string name="goDeeper">Gang deeper</string>
+  <string name="memory">Memory</string>
+  <string name="infiniteAnalysis">Infinite analysis</string>
+  <string name="removesTheDepthLimit">Remuives the deepth limit, an hauds yer computer wairm</string>
+  <string name="blunder">Blunner</string>
+  <string name="mistake">Mistak</string>
+  <string name="inaccuracy">Wee mistak</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s blunner</item>
+    <item quantity="other">%s blunners</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s mistak</item>
+    <item quantity="other">%s mistaks</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s wee mistak</item>
+    <item quantity="other">%s wee mistaks</item>
+  </plurals>
+  <string name="moveTimes">Times tae muive</string>
+  <string name="flipBoard">Reverse buird</string>
+  <string name="threefoldRepetition">Treeple repeteetion</string>
+  <string name="claimADraw">Claim a draw</string>
+  <string name="offerDraw">Bid tae draw</string>
+  <string name="draw">Draw</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s pleyer</item>
+    <item quantity="other">%s pleyers</item>
+  </plurals>
+  <string name="drawByMutualAgreement">Draw gree\'d</string>
+  <string name="fiftyMovesWithoutProgress">Fifty muives wioot forder</string>
 </resources>
