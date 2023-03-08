@@ -71,6 +71,7 @@ export default class RoundController {
   loadingTimeout: number;
   redirecting: boolean = false;
   impasseHelp: boolean = false;
+  postGameStudyOffer: boolean = false;
   transientMove: TransientMove;
   usiToSubmit?: SocketUsi;
   lionFirstMove?: NormalMove;

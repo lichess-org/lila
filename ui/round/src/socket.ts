@@ -150,6 +150,11 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         )
       );
     },
+    postGameStudy(studyId: string) {
+      ctrl.data.game.postGameStudy = studyId;
+      ctrl.postGameStudyOffer = true;
+      ctrl.redraw();
+    },
   };
 
   li.pubsub.on('ab.rep', n => send('rep', { n }));

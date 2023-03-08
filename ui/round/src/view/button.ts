@@ -20,7 +20,7 @@ function poolUrl(clock: ClockData, blocking?: PlayerUser) {
   return '/#pool/' + clock.initial / 60 + '+' + clock.increment + (blocking ? '/' + blocking.id : '');
 }
 
-function studyForm(ctrl: RoundController): VNode {
+function standardStudyForm(ctrl: RoundController): VNode {
   return h(
     'form',
     {
@@ -33,9 +33,9 @@ function studyForm(ctrl: RoundController): VNode {
       h('input', {
         attrs: { type: 'hidden', name: 'gameId', value: ctrl.data.game.id },
       }),
-      //hiddenInput('orientation', ctrl.shogiground.state.orientation),
-      //hiddenInput('variant', ctrl.data.game.variant.key),
-      //hiddenInput('sfen', ctrl.tree.root.sfen),
+      h('input', {
+        attrs: { type: 'hidden', name: 'orientation', value: ctrl.shogiground.state.orientation },
+      }),
       h(
         'button.button',
         {
@@ -43,30 +43,53 @@ function studyForm(ctrl: RoundController): VNode {
             type: 'submit',
           },
         },
-        ctrl.trans.noarg('toStudy')
+        ctrl.trans.noarg('createStudy')
       ),
     ]
   );
 }
 
-function s(ctrl: RoundController, player?: game.Player): VNode {
+function postGameStudyForm(ctrl: RoundController): VNode {
   return h(
     'form',
     {
-      attrs: {
-        method: 'post',
-        action: '/study/post-game-study',
-      },
+      hook: util.onInsert(el => {
+        $(el).on('submit', e => {
+          e.preventDefault();
+          const formData = $(e.target).serialize();
+          window.lishogi.debounce(
+            () => {
+              $.post('/study/post-game-study', formData)
+                .done(res => {
+                  if (res.redirect) {
+                    ctrl.setRedirecting();
+                    window.lishogi.hasToReload = true;
+                    window.location.href = res.redirect;
+                  }
+                })
+                .fail(res => {
+                  alert(`${res.statusText} - ${res.error}`);
+                });
+            },
+            1000,
+            true
+          )();
+        });
+      }),
     },
     [
       h('input', {
         attrs: { type: 'hidden', name: 'gameId', value: ctrl.data.game.id },
       }),
-      player?.user?.id
-        ? h('input', {
-            attrs: { type: 'hidden', name: 'users[]', value: player.user.id },
-          })
-        : null,
+      h('div', [
+        h('label', ctrl.trans('studyWithOptional')),
+        h('input.user-autocomplete', {
+          attrs: { name: 'invited', 'data-tag': 'span', placeholder: ctrl.trans.noarg('searchByUsername') },
+        }),
+      ]),
+      h('input', {
+        attrs: { type: 'hidden', name: 'orientation', value: ctrl.shogiground.state.orientation },
+      }),
       h(
         'button.button',
         {
@@ -74,43 +97,114 @@ function s(ctrl: RoundController, player?: game.Player): VNode {
             type: 'submit',
           },
         },
-        player?.user?.id ? ctrl.trans.noarg('Study with opponent') : ctrl.trans.noarg('Study alone')
+        ctrl.trans.noarg('createStudy')
       ),
     ]
   );
 }
 
-function studyButton(ctrl: RoundController): VNode | null {
+function studyAdvancedButton(ctrl: RoundController): VNode | null {
   const d = ctrl.data;
   return game.replayable(d)
     ? h(
-        'a.fbt',
+        'a.fbt.new-study-button',
         {
-          hook: util.bind('click', _ => $.modal($('.continue-with.g_' + d.game.id), undefined, undefined, true)),
+          hook: util.bind('click', _ => {
+            $.modal($('.continue-with.g_' + d.game.id), undefined, undefined, true);
+          }),
         },
         [
-          ctrl.noarg('toStudy'),
+          '+',
           h('div.continue-with.none.g_' + d.game.id, [
-            h('div.study-options', [
-              h('div.study-title', [
-                ctrl.trans.noarg('Post-game Study'),
-                h('a.q-explanation', { attrs: { href: '/page/post-game-study', target: '_blank' } }, '?'),
-              ]),
-              h('div.desc', [
-                'If study already exists, you will be redirected to the existing study. Otherwise new study will be created.',
-              ]),
-              s(ctrl, d.opponent),
-              s(ctrl),
+            h('div.study-option', [
+              h('div.study-title', ctrl.trans.noarg('Post-game Study')),
+              h(
+                'div.desc',
+                'Same as standard studies except they are listed in their own category and are linked to this game.'
+              ),
+              postGameStudyForm(ctrl),
               h(
                 'a.text',
                 { attrs: { 'data-icon': '', href: `/study/post-game-study/${d.game.id}/hot` } },
-                'Show existing studies of this game.'
+                'Show existing post-game studies of this game.'
               ),
             ]),
-            h('div.study-options', [h('div.study-title', ctrl.trans.noarg('Standard Study')), studyForm(ctrl)]),
+            h('div.study-option', [h('div.study-title', ctrl.trans.noarg('Standard Study')), standardStudyForm(ctrl)]),
           ]),
         ]
       )
+    : null;
+}
+
+let loadingStudy = false;
+function studyButton(ctrl: RoundController): VNode | null {
+  const d = ctrl.data;
+  return game.replayable(d)
+    ? h('div.post-game-study', [
+        ctrl.postGameStudyOffer && !loadingStudy
+          ? h(
+              'button.post-game-study-decline',
+              {
+                attrs: {
+                  'data-icon': 'L',
+                  title: ctrl.trans.noarg('decline'),
+                },
+                hook: util.bind('click', () => {
+                  ctrl.postGameStudyOffer = false;
+                  ctrl.redraw();
+                }),
+              },
+              ctrl.nvui ? ctrl.trans.noarg('decline') : ''
+            )
+          : null,
+        d.game.postGameStudy && !loadingStudy
+          ? h(
+              'a.fbt',
+              {
+                class: {
+                  glowing: ctrl.postGameStudyOffer && !loadingStudy,
+                },
+                attrs: { href: '/study/' + d.game.postGameStudy },
+                hook: util.bind('click', () => {
+                  ctrl.postGameStudyOffer = false;
+                }),
+              },
+              h('span', ctrl.trans.noarg('studyWithOpponent'))
+            )
+          : h(
+              'form',
+              {
+                attrs: {
+                  method: 'post',
+                  action: '/study/post-game-study/' + d.game.id,
+                },
+                hook: util.bind('submit', e => {
+                  setTimeout(() => {
+                    loadingStudy = false;
+                    ctrl.redraw();
+                  }, 2500);
+                  loadingStudy = true;
+                  ctrl.redraw();
+                }),
+              },
+              [
+                h(
+                  'button.fbt',
+                  {
+                    class: {
+                      inactive: loadingStudy,
+                    },
+                    attrs: {
+                      type: 'submit',
+                      disabled: !!ctrl.data.player.spectator,
+                    },
+                  },
+                  loadingStudy ? spinner() : ctrl.trans.noarg('studyWithOpponent')
+                ),
+              ]
+            ),
+        loadingStudy ? null : studyAdvancedButton(ctrl),
+      ])
     : null;
 }
 
@@ -467,9 +561,9 @@ export function answerOpponentTakebackProposition(ctrl: RoundController) {
 export function submitUsi(ctrl: RoundController): VNode | undefined {
   return ctrl.usiToSubmit
     ? h('div.negotiation.move-confirm', [
+        declineButton(ctrl, () => ctrl.submitUsi(false), 'cancel'),
         h('p', ctrl.noarg('confirmMove')),
         acceptButton(ctrl, 'confirm-yes', () => ctrl.submitUsi(true)),
-        declineButton(ctrl, () => ctrl.submitUsi(false), 'cancel'),
       ])
     : undefined;
 }

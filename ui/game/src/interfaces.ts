@@ -28,6 +28,7 @@ export interface Game {
   importedBy?: string;
   boosted?: boolean;
   rematch?: string;
+  postGameStudy?: string;
   rated?: boolean;
   perf: string;
 }
