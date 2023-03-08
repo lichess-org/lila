@@ -14,6 +14,9 @@ $c-slider: $c-setup;
   form > div {
     padding: 0.5em 1em;
   }
+  form {
+    margin-bottom: 1em;
+  }
   group.radio {
     margin: 0 auto 1em auto;
     width: 70%;
@@ -126,7 +129,7 @@ $c-slider: $c-setup;
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    margin: 1em auto;
+    padding: 0;
     text-align: center;
     position: relative;
     &__button {
@@ -163,11 +166,9 @@ $c-slider: $c-setup;
         cursor: not-allowed;
       }
     }
-    .spinner {
-      width: 85px;
-      height: 85px;
-      margin: 10px auto 20px auto;
-    }
+  }
+  .spinner {
+    height: 85px;
   }
   .submit-error-message {
     position: absolute;

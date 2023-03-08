@@ -42,6 +42,7 @@
     justify-content: center;
     height: 300px;
     width: 225px;
+    margin: auto;
   }
   .dropdown {
     @extend %dropdown-shadow;

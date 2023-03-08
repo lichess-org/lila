@@ -142,6 +142,10 @@
         '.         . kb-move  . .         . .';
       margin-top: -25px;
       grid-column-gap: 0;
+      .rclock-turn {
+        height: unset;
+        line-height: unset;
+      }
       .rclock-top,
       .empty__clock-top {
         grid-area: 1 / 3 / 2 / 4;
@@ -210,6 +214,19 @@
       }
       .rcontrols {
         align-self: flex-end;
+        .ricons {
+          &.empty {
+            display: none;
+          }
+          &.confirm > button {
+            visibility: visible;
+            opacity: 0.5;
+            pointer-events: none;
+          }
+        }
+      }
+      .rmoves.impasse {
+        display: flex;
       }
       @include breakpoint($mq-col2-uniboard-squeeze-1) {
         grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;

@@ -70,7 +70,7 @@ body {
 }
 
 .lobby__description #shogi_description p {
-  margin: 0.5rem 0.5rem 1rem 0.5rem;
+  margin: 0.5rem 0.75rem;
 }
 
 .lobby__variants #variants_list {
@@ -89,6 +89,9 @@ body {
       &::before {
         padding-right: 0.25rem;
       }
+    }
+    &:nth-child(even) {
+      border-left: $border;
     }
   }
 }
