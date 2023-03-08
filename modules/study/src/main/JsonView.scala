@@ -2,18 +2,20 @@ package lila.study
 
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
-import shogi.{ Piece, Pos }
+import shogi.{ Color, Piece, Pos }
 import play.api.libs.json._
 import scala.util.chaining._
 
 import lila.common.Json._
+import lila.game.Game
 import lila.socket.Socket.Sri
 import lila.tree.Node.Shape
 import lila.user.User
 
 final class JsonView(
     studyRepo: StudyRepo,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.user.LightUserApi,
+    isOfferingRematch: (Game.ID, Color) => Boolean
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
@@ -107,13 +109,19 @@ final class JsonView(
   }
 
   implicit private[study] val postGameStudyWrites = Writes[Study.PostGameStudy] { pgs =>
-    Json.obj(
-      "gameId" -> pgs.gameId,
-      "players" -> Json.obj(
-        "sente" -> pgs.sentePlayer,
-        "gote"  -> pgs.gotePlayer
+    Json
+      .obj(
+        "gameId" -> pgs.gameId,
+        "players" -> Json.obj(
+          "sente" -> pgs.sentePlayer,
+          "gote"  -> pgs.gotePlayer
+        ),
+        "rematches" -> Json.obj(
+          "sente" -> isOfferingRematch(pgs.gameId, Color.Sente),
+          "gote"  -> isOfferingRematch(pgs.gameId, Color.Gote)
+        )
       )
-    )
+      .add("withOpponent" -> pgs.withOpponent)
   }
 
   implicit private val studyWrites = OWrites[Study] { s =>

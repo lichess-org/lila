@@ -36,28 +36,46 @@ final private class Rematcher(
     .expireAfterWrite(20 minutes)
     .build[Game.ID, Offers]()
 
-  def isOffering(pov: Pov): Boolean = offers.getIfPresent(pov.gameId).exists(_(pov.color))
+  def isOffering(gameId: Game.ID, color: ShogiColor): Boolean =
+    offers.getIfPresent(gameId).exists(_(color))
 
-  def yes(pov: Pov): Fu[Events] =
+  private def isOfferingFromPov(pov: Pov): Boolean =
+    isOffering(pov.gameId, pov.color)
+
+  def yes(pov: Pov): Fu[Events] = {
     pov match {
       case Pov(game, color) if game.playerCouldRematch =>
-        if (isOffering(!pov) || game.opponent(color).isAi)
+        if (isOfferingFromPov(!pov) || game.opponent(color).isAi)
           rematches.of(game.id).fold(rematchJoin(pov))(rematchExists(pov))
         else if (!declined.get(pov.flip.fullId) && rateLimit(pov.fullId)(true)(false))
           fuccess(rematchCreate(pov))
         else fuccess(List(Event.RematchOffer(by = none)))
       case _ => fuccess(List(Event.ReloadOwner))
     }
+  } addEffect { events =>
+    pov.game.postGameStudy.foreach(pgs => publishForPostGameStudy(pgs, events))
+  }
 
   def no(pov: Pov): Fu[Events] = {
-    if (isOffering(pov)) messenger.system(pov.game, trans.rematchOfferCanceled.txt())
-    else if (isOffering(!pov)) {
+    if (isOfferingFromPov(pov)) messenger.system(pov.game, trans.rematchOfferCanceled.txt())
+    else if (isOfferingFromPov(!pov)) {
       declined put pov.fullId
       messenger.system(pov.game, trans.rematchOfferDeclined.txt())
     }
     offers invalidate pov.game.id
     fuccess(List(Event.RematchOffer(by = none)))
+  } addEffect { events =>
+    pov.game.postGameStudy.foreach(pgs => publishForPostGameStudy(pgs, events))
   }
+
+  def publishForPostGameStudy(studyId: String, events: Events) =
+    events.foreach {
+      case Event.RematchTaken(gameId) =>
+        Bus.publish(lila.hub.actorApi.study.RoundRematch(studyId, gameId), "studyRematch".pp("R"))
+      case Event.RematchOffer(by) =>
+        Bus.publish(lila.hub.actorApi.study.RoundRematchOffer(studyId, by), "studyRematch".pp("R"))
+      case _ =>
+    }
 
   private def rematchExists(pov: Pov)(nextId: Game.ID): Fu[Events] =
     gameRepo game nextId flatMap {

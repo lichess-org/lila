@@ -22,20 +22,41 @@ final private class StudyMaker(
       sc.copy(study = sc.study.copy(from = data.from | sc.study.from))
     }
 
-  def postGameStudy(gameId: Game.ID, users: List[User.ID]): Fu[Option[Study.WithActualChapters]] = {
-    gameRepo.finished(gameId).flatMap {
-      _ ?? { g =>
-        val study = Study.makePostGameStudy(g, users)
-        val pov   = Pov(g, Color.Sente)
-        createPovChapters(pov, study.id, User.lishogiId).map { chapters =>
-          Study.WithActualChapters(chapters.headOption.fold(study)(study withChapter _), chapters).some
-        }
-      }
+  def postGameStudy(
+      game: Game,
+      orientation: Color,
+      ownerId: User.ID,
+      users: List[User.ID] = Nil,
+      withOpponent: Boolean = false
+  ): Fu[Study.WithActualChapters] = {
+    val pgs = Study.PostGameStudy(
+      gameId = game.id,
+      withOpponent = withOpponent,
+      sentePlayer = Study.GamePlayer.fromGamePlayer(game.sentePlayer),
+      gotePlayer = Study.GamePlayer.fromGamePlayer(game.gotePlayer)
+    )
+    val members = users.map(uid => StudyMember(uid, StudyMember.Role.Write))
+    val study = Study.make(
+      name = Study.Name(s"${pgs.gameId} - Post-game study"),
+      ownerId = ownerId,
+      from = Study.From.Game(pgs.gameId),
+      members = Option(members).filter(_.nonEmpty),
+      postGameStudy = pgs.some
+    )
+    val pov = Pov(game, orientation)
+    createPovChapters(pov, study.id, ownerId).map { chapters =>
+      Study.WithActualChapters(chapters.headOption.fold(study)(study withChapter _), chapters)
     }
   }
 
   private def createFromScratch(data: StudyMaker.ImportGame, user: User): Fu[Study.WithActualChapters] = {
-    val study = Study.make(user, Study.From.Scratch, data.id, data.name, data.settings)
+    val study = Study.make(
+      name = data.name | Study.Name(s"${user.username}'s Study"),
+      ownerId = user.id,
+      from = Study.From.Scratch,
+      id = data.id,
+      settings = data.settings
+    )
     chapterMaker.fromSfenOrNotationOrBlank(
       study,
       ChapterMaker.Data(
@@ -60,7 +81,12 @@ final private class StudyMaker(
       pov: Pov,
       user: User
   ): Fu[Study.WithActualChapters] = {
-    val study = Study.make(user, Study.From.Game(pov.gameId), data.id, Study.Name("Game study").some)
+    val study = Study.make(
+      name = Study.Name("Game study"),
+      ownerId = user.id,
+      from = Study.From.Game(pov.gameId),
+      id = data.id
+    )
     createPovChapters(pov, study.id, user.id).map { chapters =>
       Study.WithActualChapters(chapters.headOption.fold(study)(study withChapter _), chapters)
     }
@@ -138,7 +164,6 @@ object StudyMaker {
       id: Option[Study.Id] = None,
       name: Option[Study.Name] = None,
       settings: Option[Settings] = None,
-      from: Option[Study.From] = None,
-      postGameStudy: Option[Study.PostGameStudy] = None
+      from: Option[Study.From] = None
   )
 }

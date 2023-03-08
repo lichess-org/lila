@@ -133,6 +133,7 @@ GET   /study/$id<\w{8}>                controllers.Study.show(id: String)
 POST  /study                           controllers.Study.create
 POST  /study/as                        controllers.Study.createAs
 POST  /study/post-game-study           controllers.Study.postGameStudy
+POST  /study/post-game-study/:gameId   controllers.Study.postGameStudyWithOpponent(gameId: String)
 GET   /study/$id<\w{8}>.kif            controllers.Study.notation(id: String, csa: Boolean ?= false)
 GET   /study/$id<\w{8}>.csa            controllers.Study.notation(id: String, csa: Boolean ?= true)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>.kif controllers.Study.chapterNotation(id: String, chapterId: String, csa: Boolean ?= false)

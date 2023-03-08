@@ -26,15 +26,19 @@ object StudyForm {
 
     lazy val form = Form(
       mapping(
-        "gameId" -> nonEmptyText,
-        "users"  -> list(nonEmptyText)
+        "gameId"      -> nonEmptyText,
+        "orientation" -> optional(nonEmptyText),
+        "invited"     -> optional(nonEmptyText)
       )(Data.apply)(Data.unapply)
     )
 
     case class Data(
         gameId: String,
-        users: List[String]
-    )
+        orientationStr: Option[String],
+        invitedUsername: Option[String]
+    ) {
+      def orientation = orientationStr.flatMap(shogi.Color.fromName) | shogi.Sente
+    }
 
   }
 

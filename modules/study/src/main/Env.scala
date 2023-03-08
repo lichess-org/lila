@@ -27,7 +27,8 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     mongo: lila.db.Env,
     net: lila.common.config.NetConfig,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    isOfferingRematch: lila.round.IsOfferingRematch
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
@@ -72,7 +73,7 @@ final class Env(
 
   lazy val api: StudyApi = wire[StudyApi]
 
-  lazy val postGameStudyApi: PostGameStudyApi = wire[PostGameStudyApi]
+  lazy val postGameStudyApi = wire[PostGameStudyApi]
 
   lazy val pager = wire[StudyPager]
 
@@ -91,9 +92,13 @@ final class Env(
       }
     }
 
-  lila.common.Bus.subscribeFun("gdprErase", "studyAnalysisProgress") {
+  lila.common.Bus.subscribeFun("gdprErase", "studyAnalysisProgress", "studyRematch") {
     case lila.user.User.GDPRErase(user) => api.erase(user).unit
     case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) =>
       serverEvalMerger(analysis, complete).unit
+    case lila.hub.actorApi.study.RoundRematch(studyId, gameId) =>
+      api.roundRematch(Study.Id(studyId), gameId)
+    case lila.hub.actorApi.study.RoundRematchOffer(studyId, by) =>
+      api.roundRematchOffer(Study.Id(studyId), by)
   }
 }

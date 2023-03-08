@@ -28,7 +28,8 @@ final private class StudyInvite(
       byUserId: User.ID,
       study: Study,
       invitedUsername: String,
-      getIsPresent: User.ID => Fu[Boolean]
+      getIsPresent: User.ID => Fu[Boolean],
+      role: StudyMember.Role = StudyMember.Role.Read
   ): Fu[User] =
     for {
       _       <- !study.isOwner(byUserId) ?? fufail[Unit]("Only study owner can invite")
@@ -52,7 +53,7 @@ final private class StudyInvite(
               if (relation.has(Follow)) funit
               else fufail("This user only accept study invitations from friends")
           }
-      _ <- studyRepo.addMember(study, StudyMember make invited)
+      _ <- studyRepo.addMember(study, StudyMember.make(invited, role))
       shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
       rateLimitCost =
         if (relation has Follow) 10
@@ -71,6 +72,35 @@ final private class StudyInvite(
         notifyApi.addNotification(notification)
       }(funit)
     } yield invited
+
+  def getInvitedUser(inviter: User, invitedUsername: String): Fu[User] =
+    for {
+      invited <-
+        userRepo
+          .named(invitedUsername)
+          .map(_.filterNot(_.id == User.lishogiId)) orFail "No such user"
+      _        <- (inviter.id == invited.id) ?? fufail[Unit]("You can't invite yourself")
+      relation <- relationApi.fetchRelation(invited.id, inviter.id)
+      _        <- relation.has(Block) ?? fufail[Unit]("This user does not want to join")
+      _ <- prefApi.getPref(invited).map(_.studyInvite).flatMap {
+        case Pref.StudyInvite.ALWAYS => funit
+        case Pref.StudyInvite.NEVER  => fufail("This user doesn't accept study invitations")
+        case Pref.StudyInvite.FRIEND =>
+          if (relation.has(Follow)) funit
+          else fufail("This user only accept study invitations from friends")
+      }
+    } yield invited
+
+  def notify(study: Study, invitedId: User.ID, cost: Int): Funit =
+    notifyRateLimit(study.ownerId, cost) {
+      val notificationContent = InvitedToStudy(
+        InvitedToStudy.InvitedBy(study.ownerId),
+        InvitedToStudy.StudyName(study.name.value),
+        InvitedToStudy.StudyId(study.id.value)
+      )
+      val notification = Notification.make(Notification.Notifies(invitedId), notificationContent)
+      notifyApi.addNotification(notification)
+    }(funit)
 
   def admin(study: Study, user: User): Funit =
     studyRepo.coll {

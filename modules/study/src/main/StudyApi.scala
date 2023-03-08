@@ -9,10 +9,11 @@ import scala.concurrent.duration._
 import lila.chat.{ Chat, ChatApi }
 import lila.common.Bus
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
+import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.round.{ RematchNo, RematchYes }
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
-import lila.game.Game
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -102,18 +103,6 @@ final class StudyApi(
   def studyIdOf = chapterRepo.studyIdOf _
 
   def members(id: Study.Id): Fu[Option[StudyMembers]] = studyRepo membersById id
-
-  def postGameStudy(gameId: Game.ID, users: List[User.ID]): Fu[Option[Study]] =
-    studyRepo.byPostGameStudyKey(gameId, users).orElse(createPostGameStudy(gameId, users))
-
-  private def createPostGameStudy(gameId: Game.ID, users: List[User.ID]): Fu[Option[Study]] =
-    studyMaker.postGameStudy(gameId, users) flatMap {
-      _ ?? { res =>
-        studyRepo.insert(res.study) >>
-          chapterRepo.bulkInsert(res.chapters) >>-
-          indexStudy(res.study) inject res.study.some
-      }
-    }
 
   def importGame(data: StudyMaker.ImportGame, user: User): Fu[Option[Study]] =
     (data.form.as match {
@@ -818,6 +807,32 @@ final class StudyApi(
         }
       }
     }
+
+  // study -> round
+  def studyRematch(studyId: Study.Id, yes: Boolean)(who: Who): Funit =
+    sequenceStudy(studyId) { study =>
+      study.postGameStudy ?? { pgs =>
+        pgs.findPlayer(who.u) ?? { player =>
+          fuccess(
+            Bus.publish(
+              Tell(
+                pgs.gameId,
+                if (yes) RematchYes(player.playerId) else RematchNo(player.playerId)
+              ),
+              "roundSocket"
+            )
+          )
+        }
+      }
+    }
+
+  // round -> study
+  def roundRematch(studyId: Study.Id, gameId: String): Unit =
+    sendTo(studyId)(_.roundRematch(gameId))
+
+  // round -> study
+  def roundRematchOffer(studyId: Study.Id, by: Option[shogi.Color]): Unit =
+    sendTo(studyId)(_.roundRematchOffer(by))
 
   def resetAllRanks = studyRepo.resetAllRanks
 

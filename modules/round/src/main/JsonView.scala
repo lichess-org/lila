@@ -10,7 +10,7 @@ import lila.game.{ Game, Player => GamePlayer, Pov }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
-import shogi.Clock
+import shogi.{ Clock, Color }
 
 import actorApi.SocketStatus
 
@@ -23,7 +23,7 @@ final class JsonView(
     moretimer: Moretimer,
     divider: lila.game.Divider,
     evalCache: lila.evalCache.EvalCacheApi,
-    isOfferingRematch: Pov => Boolean,
+    isOfferingRematch: (Game.ID, Color) => Boolean,
     moretime: MoretimeDuration
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -40,7 +40,7 @@ final class JsonView(
       .add("rating" -> p.rating)
       .add("ratingDiff" -> p.ratingDiff)
       .add("provisional" -> p.provisional)
-      .add("offeringRematch" -> isOfferingRematch(Pov(g, p)))
+      .add("offeringRematch" -> isOfferingRematch(g.id, p.color))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
       .add("berserk" -> p.berserk)

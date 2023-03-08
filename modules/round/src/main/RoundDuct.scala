@@ -17,6 +17,7 @@ import lila.hub.actorApi.round.{
   FishnetPlay,
   FishnetStart,
   IsOnGame,
+  PostGameStudy,
   RematchNo,
   RematchYes,
   Resign
@@ -210,6 +211,21 @@ final private[round] class RoundDuct(
                   )
                 }
               )
+            )
+          )
+        )
+      }
+
+    case PostGameStudy(studyId) =>
+      updateGame { game =>
+        game.setPostGameStudy(studyId)
+      } inject {
+        socketSend(
+          RP.Out.tellRoom(
+            roomId,
+            makeMessage(
+              "postGameStudy",
+              studyId
             )
           )
         )

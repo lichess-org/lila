@@ -212,6 +212,11 @@ final private class StudySocket(
           who foreach { w =>
             Bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), "relayToggle")
           }
+        case "rematch" =>
+          who foreach { w =>
+            val yes = o.obj("d").flatMap(_.boolean("yes")) | true
+            api.studyRematch(studyId, yes)(w)
+          }
         case t => logger.warn(s"Unhandled study socket message: $t")
       }
   }
@@ -282,6 +287,24 @@ final private class StudySocket(
           "s" -> sticky
         )
         .add("relay", relay)
+    )
+
+  def roundRematchOffer(by: Option[shogi.Color]) =
+    version(
+      "rematchOffer",
+      Json
+        .obj(
+          "by" -> by
+        )
+    )
+
+  def roundRematch(gameId: String) =
+    version(
+      "rematch",
+      Json
+        .obj(
+          "g" -> gameId
+        )
     )
 
   def deleteNode(pos: Position.Ref, who: Who) = version("deleteNode", Json.obj("p" -> pos, "w" -> who))

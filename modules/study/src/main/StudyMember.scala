@@ -11,7 +11,8 @@ object StudyMember {
 
   type MemberMap = Map[User.ID, StudyMember]
 
-  def make(user: User) = StudyMember(id = user.id, role = Role.Read)
+  def make(user: User, role: StudyMember.Role = StudyMember.Role.Read) =
+    StudyMember(id = user.id, role = role)
 
   sealed abstract class Role(val id: String, val canWrite: Boolean)
   object Role {

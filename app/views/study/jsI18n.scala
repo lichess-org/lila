@@ -125,7 +125,10 @@ object jsI18n {
       whereDoYouWantToStudyThat,
       nbChapters,
       nbGames,
-      nbMembers
+      nbMembers,
+      trans.rematch,
+      trans.backToGame,
+      trans.newOpponent
     ).map(_.key)
   }
 }

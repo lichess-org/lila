@@ -13,8 +13,6 @@ import lila.common.Iso
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
-import lila.game.Game
-import lila.user.User
 import lila.tree.Eval
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
@@ -349,31 +347,13 @@ object BSONHandlers {
     { case BSONString(v) => Visibility.byKey get v toTry s"Invalid visibility $v" },
     v => BSONString(v.key)
   )
-  def encodePostGameStudyKey(gameId: Game.ID, users: Seq[lila.user.User.ID]): String =
-    s"$gameId;${users.sorted.mkString(";")}"
-  def decodePostGameStudyKey(key: String): (Game.ID, List[User.ID]) = {
-    val split = key.split(";")
-    (~split.headOption, split.drop(1).toList)
-  }
-  implicit private[study] val PostGameStudyBSONHandler = new BSON[Study.PostGameStudy] {
-    def reads(r: Reader) = {
-      val (gameId, users) = decodePostGameStudyKey(r.strD("key"))
-      val sp              = r.strD("sp")
-      val gp              = r.strD("gp")
-      Study.PostGameStudy(
-        gameId = gameId,
-        users = users,
-        sentePlayer = Study.GamePlayer(sp.take(4), sp.drop(4).some.filter(_.nonEmpty)),
-        gotePlayer = Study.GamePlayer(gp.take(4), gp.drop(4).some.filter(_.nonEmpty))
-      )
-    }
-    def writes(w: Writer, pgs: Study.PostGameStudy) =
-      $doc(
-        "key" -> encodePostGameStudyKey(pgs.gameId, pgs.users),
-        "sp"  -> s"${pgs.sentePlayer.playerId}${~pgs.sentePlayer.userId}",
-        "gp"  -> s"${pgs.gotePlayer.playerId}${~pgs.gotePlayer.userId}"
-      )
-  }
+
+  implicit val GamePlayerBSONHandler = quickHandler[Study.GamePlayer](
+    { case BSONString(str) => Study.GamePlayer(str.take(4), str.drop(4).some.filter(_.nonEmpty)) },
+    x => BSONString(s"${x.playerId}${~x.userId}")
+  )
+  import Study.PostGameStudy
+  implicit private val PostGameStudyBSONHandler = Macros.handler[PostGameStudy]
 
   import Study.From
   implicit private[study] val FromHandler = tryHandler[From](
