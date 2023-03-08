@@ -565,7 +565,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def help =
     Open { implicit ctx =>
-      Ok(html.site.keyboardHelpModal.puzzle).toFuccess
+      Ok(html.site.helpModal.puzzle).toFuccess
     }
 
   private def DashboardPage(username: Option[UserStr])(f: Context => UserModel => Fu[Result]) =

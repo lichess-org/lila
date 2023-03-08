@@ -1,6 +1,5 @@
 import { Api as CgApi } from 'chessground/api';
 import * as cg from 'chessground/types';
-import { State } from 'chessground/state';
 import { Prop } from 'common';
 
 export type MoveHandler = (fen: Fen, api: CgApi, yourMove?: boolean) => void;
@@ -78,6 +77,7 @@ export type MsgType = 'phrase' | 'partial' | 'status' | 'error';
 export type VoiceListener = (msgText: string, msgType: MsgType, words?: WordResult) => void;
 
 export interface VoiceCtrl {
+  // keep rounds / puzzle / move stuff out of this
   setVocabulary: (vocabulary: string[]) => Promise<void>;
   start: () => Promise<void>; // initialize if necessary and begin recording
   stop: () => void; // stop recording/downloading/whatever
@@ -85,6 +85,10 @@ export interface VoiceCtrl {
   readonly isRecording: boolean; // are we recording?
   readonly status: string; // errors, progress, or the most recent voice command
   addListener: (name: string, listener: VoiceListener) => void;
+}
+
+export interface VoiceMoveCtrl {
+  registerMoveCtrl(ctrl: MoveCtrl): void;
 }
 
 export interface KaldiOpts {

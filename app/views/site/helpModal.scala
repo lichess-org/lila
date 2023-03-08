@@ -5,12 +5,13 @@ import play.api.i18n.Lang
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object keyboardHelpModal:
+object helpModal:
 
   private def header(text: Frag)          = tr(th(colspan := 2)(p(text)))
   private def row(keys: Frag, desc: Frag) = tr(td(cls := "keys")(keys), td(cls := "desc")(desc))
   private val or                          = tag("or")
   private val kbd                         = tag("kbd")
+  private def voice(text: String)         = tag("voice")(s"\"$text\"")
 
   private def navigateMoves(implicit lang: Lang) = frag(
     header(trans.navigateMoveTree()),
@@ -137,6 +138,53 @@ object keyboardHelpModal:
                 li(ifItIsLegalToCastleBothWays()),
                 li(capitalizationOnlyMattersInAmbiguousSituations()),
                 li(toPremoveSimplyTypeTheDesiredPremove())
+              )
+            )
+          )
+        )
+      )
+    )
+  def voiceMove(implicit lang: Lang) =
+    import trans.keyboardMove.*
+    frag(
+      h2("Voice commands"),
+      div(cls := "commands")(
+        table(
+          tbody(
+            header(performAMove()),
+            row(voice("e4"), "Move pawn to e4"),
+            row(voice("bishop g7"), "Move bishop to g7"),
+            row(voice("knight takes rook"), "Take rook with knight"),
+            row(voice("c8 promote knight"), "Move c pawn to 8, promote to knight"),
+            row(voice("castle"), "Kingside castle"),
+            row(voice("long castle"), "Queenside castle"),
+            row(voice("b5c6"), "Name squares for en passant")
+          )
+        ),
+        table(
+          tbody(
+            header(otherCommands()),
+            row(voice("draw"), offerOrAcceptDraw()),
+            row(voice("resign"), trans.resignTheGame()),
+            row(voice("clock"), readOutClocks()),
+            row(voice("opponent"), readOutOpponentName()),
+            row(voice("next"), trans.puzzle.nextPuzzle()),
+            row(voice("upv"), trans.puzzle.upVote()),
+            row(voice("downv"), trans.puzzle.downVote()),
+            row(voice("help"), trans.showHelpDialog())
+          )
+        )
+      ),
+      table(
+        tbody(
+          header(tips()),
+          tr(
+            td(cls := "tips", colspan := 2)(
+              ul(
+                li(
+                  "Colored arrows means we are confused. " +
+                    "Speak the color of the move you want or say \"no\" / \"cancel\" to get out of it."
+                )
               )
             )
           )

@@ -47,9 +47,9 @@ export const voiceCtrl = new (class implements VoiceCtrl {
   }
 
   async start(): Promise<void> {
-    if (this.isRecording) return;
     let [msgText, msgType] = ['Unknown', 'error' as MsgType];
     try {
+      if (this.isRecording) return;
       this.busy = true;
       await this.initModel();
       await this.initKaldi();

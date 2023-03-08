@@ -1686,7 +1686,6 @@ object I18nKeys:
     val `castleByMovingTwoSquares` = I18nKey("preferences:castleByMovingTwoSquares")
     val `castleByMovingOntoTheRook` = I18nKey("preferences:castleByMovingOntoTheRook")
     val `inputMovesWithTheKeyboard` = I18nKey("preferences:inputMovesWithTheKeyboard")
-    val `inputMovesWithYourVoice` = I18nKey("preferences:inputMovesWithYourVoice")
     val `snapArrowsToValidMoves` = I18nKey("preferences:snapArrowsToValidMoves")
     val `sayGgWpAfterLosingOrDrawing` = I18nKey("preferences:sayGgWpAfterLosingOrDrawing")
     val `yourPreferencesHaveBeenSaved` = I18nKey("preferences:yourPreferencesHaveBeenSaved")
