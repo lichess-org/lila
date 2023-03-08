@@ -104,14 +104,13 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       .removeClass('active')
       .filter('.' + panel)
       .addClass('active');
-    if ((panel == 'move-times' || ctrl.opts.hunter) && !li.movetimeChart)
+    if (panel == 'move-times' && !li.movetimeChart)
       try {
         li.loadScript('javascripts/chart/movetime.js').then(function () {
           li.movetimeChart(data, ctrl.trans, data.pref.notation);
         });
       } catch (e) {}
-    if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart').length)
-      setTimeout(startAdvantageChart, 200);
+    if (panel == 'computer-analysis' && $('#acpl-chart').length) setTimeout(startAdvantageChart, 200);
   };
   $menu.on('mousedown', 'span', function (this: HTMLElement) {
     const panel = $(this).data('panel');
