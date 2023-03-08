@@ -1,0 +1,35 @@
+.voice-move-help,
+.keyboard-move-help {
+  @extend %help-modal;
+
+  td.tips li {
+    list-style: disc;
+    margin-#{$start-direction}: 2em;
+    margin-#{$end-direction}: 1em;
+  }
+
+  a {
+    margin-#{$start-direction}: 0.25em;
+  }
+}
+.voice-move-help {
+  table {
+    align-self: start;
+  }
+  .commands {
+    td:first-child {
+      padding-#{$start-direction}: 2em;
+    }
+    display: flex;
+    flex-direction: row;
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
+  }
+}
+voice {
+  display: inline-block;
+  font-weight: bold;
+  color: $c-font;
+  vertical-align: middle;
+}

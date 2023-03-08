@@ -1,16 +1,17 @@
-import { MoveCtrl, MoveHandler, VoiceCtrl, WordResult, MsgType } from './interfaces';
+import { MoveCtrl, VoiceMoveCtrl, WordResult, MsgType } from './interfaces';
 import { Dests, BrushColor } from 'chessground/types';
 import { Api as CgApi } from 'chessground/api';
 import * as cs from 'chess';
 import { destsToUcis, nonMoveCommand } from './handlerUtil';
 import { lexicon, Token, Tag } from './voiceMoveGrammar';
 
-export function makeVoiceHandler(ctrl: MoveCtrl): MoveHandler {
-  const h = new VoiceHandler(ctrl);
-  return h.setState.bind(h);
+let vmctrl: VoiceMoveCtrl;
+
+export function voiceMoveCtrl(): VoiceMoveCtrl {
+  return vmctrl ? vmctrl : (vmctrl = new VoiceMoveCtrlImpl());
 }
 
-class VoiceHandler {
+class VoiceMoveCtrlImpl implements VoiceMoveCtrl {
   tokens = new Map<string, Token>();
   outToWords = new Map<string, string[]>();
   wordToTok = new Map<string, string>();
@@ -22,33 +23,34 @@ class VoiceHandler {
   cg: CgApi;
   ucis: Uci[];
   phrases: Map<string, Uci[]>; // array for ambiguous takes
-  voice?: VoiceCtrl;
   ambiguity?: Map<string, Uci>;
 
-  constructor(ctrl: MoveCtrl) {
+  constructor() {
     for (const e of lexicon) {
       this.wordToTok.set(e.in, e.tok);
       if (e.out === undefined) e.out = e.tok;
       pushMap(this.outToWords, e.out, e.in);
       if (!this.tokens.has(e.tok)) this.tokens.set(e.tok, e);
     }
-    this.ctrl = ctrl;
-    this.voice = ctrl.voice;
-    this.voice.addListener('voiceMoveHandler', this.listen.bind(this));
   }
-
+  registerMoveCtrl(ctrl: MoveCtrl) {
+    this.ctrl = ctrl;
+    this.ctrl.voice.addListener('voiceMoveHandler', this.listen.bind(this));
+    ctrl.addHandler(this.setState.bind(this));
+  }
   submit = (uci: Uci) => this.ctrl.san(uci.slice(0, 2) as Key, uci.slice(2) as Key);
 
   listen(msgText: string, msgType: MsgType, words?: WordResult) {
+    // TODO - improve this tangled if/else/return crap
     if (msgType === 'phrase' && words) {
       if (this.ambiguity) {
-        this.resolveAmbiguity(msgText);
-        this.cg.redrawAll();
+        if (this.resolveAmbiguity(msgText)) this.cg.redrawAll();
         return;
       }
       const conf = words.reduce((acc, w) => acc + w.conf, 0) / words.length;
       if (this.tokens.get(this.wordTok(msgText))?.tags.includes('exact') && conf > 0.85) {
-        nonMoveCommand(msgText, this.ctrl);
+        if (msgText === 'stop') this.ctrl.voice?.stop();
+        else nonMoveCommand(msgText, this.ctrl);
         this.ctrl.root.redraw();
         return;
       }
@@ -57,7 +59,7 @@ class VoiceHandler {
       if ((m.length === 1 && m[0][0] < conf) || (conf > 0.85 && m.filter(([c, _]) => c === 0).length === 1)) {
         this.submit(m[0][1]);
       } else if (m.length > 0) {
-        if (m.length > 1) console.log(`got ${m.length} choices`);
+        //if (m.length > 1) console.log(`got ${m.length} choices`);
         this.ambiguous(m.filter(m => m[0] < conf));
         this.cg.redrawAll();
       }
@@ -68,7 +70,6 @@ class VoiceHandler {
   resolveAmbiguity(choice?: string): boolean {
     const out = this.wordOut(choice ?? '');
 
-    console.log(`got ${choice} -> ${out}`);
     if (this.ambiguity && choice && this.ambiguity.has(out)) {
       this.cg.setShapes([]);
       this.submit(this.ambiguity.get(out)!);
@@ -113,6 +114,7 @@ class VoiceHandler {
     this.buildTakes();
     this.buildVocabulary();
   }
+
   buildTakes() {
     for (const uci of this.ucis) {
       const dp = this.board.pieces[cs.square(uci.slice(2, 4))];
@@ -140,8 +142,9 @@ class VoiceHandler {
     vocabAdd(this.tagWords(['role', 'rounds', 'ignore', 'command']));*/
     vocabAdd(this.tagWords(['move', 'ignore', 'command', 'choice']));
     for (const rank of '12345678') vocab.delete(rank); // kaldi no like
-    this.voice?.setVocabulary([...vocab]);
+    this.ctrl.voice?.setVocabulary([...vocab]);
   }
+
   buildMoves() {
     for (const uci of this.ucis) {
       const xtoks = new Set([uci.slice(0, 4)]);
@@ -179,7 +182,7 @@ class VoiceHandler {
     const xforms = findTransforms(h, x)
       .map(t => t.reduce((acc, t) => acc + this.costOf(t), 0))
       .sort((lhs, rhs) => lhs - rhs);
-    console.log(`costToMatch ${h} ${x}`, xforms);
+    //console.log(`costToMatch ${h} ${x}`, xforms);
     return xforms?.[0];
   }
 
@@ -190,18 +193,22 @@ class VoiceHandler {
       .flat();
     return matchedUcis.filter(u => u[0] < 1).sort((lhs, rhs) => lhs[0] - rhs[0]);
   }
+
   tokWord(tok?: string) {
     return tok && this.tokens.get(tok)?.in;
   }
+
   tokOut(token: string) {
     return this.tokens.get(token)?.out ?? token;
   }
+
   toksOut(tokens: string) {
     return tokens
       .split('')
       .map(token => this.tokOut(token))
       .join(' ');
   }
+
   tagWords(tags?: Tag[], requireAll = false) {
     return lexicon
       .filter(e => {
@@ -211,9 +218,11 @@ class VoiceHandler {
       })
       .map(e => e.in);
   }
+
   wordTok(word: string) {
     return this.wordToTok.get(word) ?? '';
   }
+
   wordsToks(phrase: string) {
     return this.wordToTok.has(phrase)
       ? this.wordTok(phrase)
@@ -222,9 +231,11 @@ class VoiceHandler {
           .map(word => this.wordTok(word))
           .join('');
   }
+
   wordOut(word: string) {
     return this.tokens.get(this.wordTok(word))?.out ?? word;
   }
+
   wordsOut(phrase: string) {
     return this.wordToTok.has(phrase)
       ? this.tokOut(this.wordTok(phrase))
@@ -233,14 +244,17 @@ class VoiceHandler {
           .map(word => this.tokOut(this.wordTok(word)))
           .join('');
   }
+
   outWords(out: string) {
     return this.outToWords.get(out) ?? [];
   }
+
   costOf(transform: Transform) {
     if (transform.from === transform.to) return 0;
     const sub = this.tokens.get(transform.from)?.subs?.find(x => x.to === transform.to);
     return sub?.cost ?? 1;
   }
+
   isOurs(p: string | undefined) {
     return p === '' || p === undefined
       ? undefined

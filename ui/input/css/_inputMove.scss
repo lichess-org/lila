@@ -7,22 +7,30 @@ $c-off-hover: if($theme == 'light', #444, #aaa);
 .input-move {
   @extend %flex-between-nowrap;
   border-bottom: 1px solid if($theme == 'light', $c-border, $c-bg-box);
-  height: 44px;
+  align-items: center;
+  min-height: 40px;
   background: $c-bg;
-  padding: 8px;
+  padding: 4px;
+  font-size: 14px;
+  font-weight: bold;
 
   em {
     color: $c-font-dim;
   }
 }
 
-#move-text-input {
+#voice-status {
+  color: $c-font-dim;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+#keyboard-input {
   @include transition;
-  padding: 8px 8px 8px 36px;
+  padding: 6px;
   border: $border;
-  width: 20em;
-  font-size: 14px;
-  font-weight: bold;
+  width: 100%;
 
   &.wrong {
     background: $c-bad;
@@ -30,15 +38,24 @@ $c-off-hover: if($theme == 'light', #444, #aaa);
   }
 }
 
-#voice-move-button {
-  position: absolute;
+#voice-help-button {
+  cursor: pointer;
+  color: $c-off;
+  margin-left: 6px;
+  font-size: 14px;
+  line-height: 28px;
+  &:hover {
+    color: $c-off-hover;
+  }
+}
+
+#microphone-button {
   font-family: 'lichess';
   cursor: pointer;
-  margin-left: 6px;
   color: $c-off;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
+  width: 28x;
+  height: 28px;
+  line-height: 28px;
   font-size: 22px;
   border-width: 0 1px 0 1px;
   border-radius: 0.25em;
@@ -51,11 +68,11 @@ $c-off-hover: if($theme == 'light', #444, #aaa);
   }
 }
 
-#voice-move-button.busy {
+#microphone-button.busy {
   font-size: 16px;
 }
 
-#voice-move-button.enabled {
+#microphone-button.enabled {
   color: $c-recording;
   animation: pulseBorderRed 1s;
   animation-iteration-count: infinite;
@@ -74,4 +91,14 @@ $c-off-hover: if($theme == 'light', #444, #aaa);
   100% {
     border-color: transparent;
   }
+}
+
+div#microphone-context-menu {
+  position: absolute;
+  width: 200px;
+  z-index: 10;
+  background-color: red; // testing
+  height: 160px;
+  top: 0;
+  right: 0;
 }

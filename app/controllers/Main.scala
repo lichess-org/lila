@@ -11,6 +11,7 @@ import lila.api.Context
 import lila.app.{ *, given }
 import lila.hub.actorApi.captcha.ValidCaptcha
 
+//import views.site.helpModal
 final class Main(
     env: Env,
     prismicC: Prismic,
@@ -186,9 +187,14 @@ Allow: /
 
   def keyboardMoveHelp =
     Open { implicit ctx =>
-      Ok(html.site.keyboardHelpModal.keyboardMove).toFuccess
+      Ok(html.site.helpModal.keyboardMove).toFuccess
     }
 
+  def voiceMoveHelp =
+    Open { implicit ctx =>
+      Ok(html.site.helpModal.voiceMove).toFuccess
+    }
+    
   def movedPermanently(to: String) =
     Action {
       MovedPermanently(to)
