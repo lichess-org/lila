@@ -84,9 +84,10 @@ case class Game(
 
   def fullIdOf(color: Color): String = s"$id${player(color).id}"
 
-  def tournamentId = metadata.tournamentId
-  def simulId      = metadata.simulId
-  def swissId      = metadata.swissId
+  def tournamentId  = metadata.tournamentId
+  def simulId       = metadata.simulId
+  def swissId       = metadata.swissId
+  def postGameStudy = metadata.postGameStudy
 
   def isTournament = tournamentId.isDefined
   def isSimul      = simulId.isDefined
@@ -605,6 +606,8 @@ case class Game(
 
   def setAnalysed = copy(metadata = metadata.copy(analysed = true))
 
+  def setPostGameStudy(studyId: String) = copy(metadata = metadata.copy(postGameStudy = studyId.some))
+
   def secondsSinceCreation = (nowSeconds - createdAt.getSeconds).toInt
 
   override def toString = s"""Game($id)"""
@@ -715,6 +718,7 @@ object Game {
           tournamentId = none,
           swissId = none,
           simulId = none,
+          postGameStudy = none,
           analysed = false
         ),
         createdAt = createdAt,
@@ -730,6 +734,7 @@ object Game {
       tournamentId = none,
       swissId = none,
       simulId = none,
+      postGameStudy = none,
       analysed = false
     )
 
@@ -754,6 +759,7 @@ object Game {
     val periodsGote        = "pb"
     val rated              = "ra"
     val analysed           = "an"
+    val postGameStudy      = "pgs"
     val variant            = "v"
     val lastLionCapture    = "llc"
     val consecutiveAttacks = "cna"

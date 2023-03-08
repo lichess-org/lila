@@ -244,6 +244,9 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def setAnalysed(id: ID): Unit   = coll.updateFieldUnchecked($id(id), F.analysed, true)
   def setUnanalysed(id: ID): Unit = coll.updateFieldUnchecked($id(id), F.analysed, false)
 
+  def setPostGameStudy(id: ID, studyId: String): Unit =
+    coll.updateFieldUnchecked($id(id), F.postGameStudy, studyId)
+
   def isAnalysed(id: ID): Fu[Boolean] =
     coll.exists($id(id) ++ Query.analysed(true))
 

@@ -129,6 +129,7 @@ object BSONHandlers {
           tournamentId = r strO F.tournamentId,
           swissId = r strO F.swissId,
           simulId = r strO F.simulId,
+          postGameStudy = r strO F.postGameStudy,
           analysed = r boolD F.analysed
         )
       )

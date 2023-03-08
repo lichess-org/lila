@@ -34,6 +34,7 @@ final class JsonView(rematches: Rematches) {
       .add("lastMove" -> game.lastMoveKeys)
       .add("check" -> game.situation.check)
       .add("rematch" -> rematches.of(game.id))
+      .add("postGameStudy" -> game.postGameStudy)
 }
 
 object JsonView {
