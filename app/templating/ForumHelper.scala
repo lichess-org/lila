@@ -23,7 +23,7 @@ trait ForumHelper { self: UserHelper with StringHelper with HasEnv =>
 
   def authorName(post: Post)(implicit lang: Lang) =
     post.userId match {
-      case Some(userId) => userIdSpanMini(userId, withOnline = true)
+      case Some(userId) => userIdSpanMini(userId, withOnline = true, modIcon = ~post.modIcon)
       case None         => frag(lila.user.User.anonymous)
     }
 

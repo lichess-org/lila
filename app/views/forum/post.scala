@@ -44,7 +44,8 @@ object post {
         div(
           authorLink(
             post = post,
-            cssClass = s"author${(topic.userId == post.userId) ?? " author--op"}".some
+            cssClass = s"author${(topic.userId == post.userId) ?? " author--op"}".some,
+            modIcon = ~post.modIcon
           ),
           a(href := url)(
             post.updatedAt
