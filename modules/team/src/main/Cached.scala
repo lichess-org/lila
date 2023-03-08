@@ -14,7 +14,7 @@ final class Cached(
 
   val nameCache = cacheApi.sync[String, Option[String]](
     name = "team.name",
-    initialCapacity = 4096,
+    initialCapacity = 2048,
     compute = teamRepo.name,
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
@@ -27,7 +27,7 @@ final class Cached(
 
   private val teamIdsCache = cacheApi.sync[User.ID, Team.IdsStr](
     name = "team.ids",
-    initialCapacity = 65536,
+    initialCapacity = 16384,
     compute = u =>
       for {
         teamIds <- memberRepo.teamIdsByUser(u)
@@ -44,7 +44,7 @@ final class Cached(
 
   def invalidateTeamIds = teamIdsCache invalidate _
 
-  val nbRequests = cacheApi[User.ID, Int](32768, "team.nbRequests") {
+  val nbRequests = cacheApi[User.ID, Int](8192, "team.nbRequests") {
     _.expireAfterAccess(25 minutes)
       .maximumSize(65536)
       .buildAsyncFuture[User.ID, Int] { userId =>
