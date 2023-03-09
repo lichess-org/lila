@@ -2,16 +2,20 @@
 .keyboard-move-help {
   @extend %help-modal;
 
-  td.tips li {
-    list-style: disc;
-    margin-#{$start-direction}: 2em;
-    margin-#{$end-direction}: 1em;
-  }
-
   a {
     margin-#{$start-direction}: 0.25em;
   }
 }
+
+ul {
+  li {
+    list-style: disc;
+  }
+  &.tips {
+    margin: 0 auto;
+  }
+}
+
 .voice-move-help {
   table {
     align-self: start;

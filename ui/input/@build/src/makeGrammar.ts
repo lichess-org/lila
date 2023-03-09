@@ -82,6 +82,7 @@ const lexicon: Token[] = [
   { in: 'okay', out: 'yes', tags: ['choice', 'exact'] },
   { in: 'confirm', out: 'yes', tags: ['choice', 'exact'] },
   { in: 'no', out: 'no', tags: ['choice', 'exact'] },
+  { in: 'clear', out: 'no', tags: ['choice', 'exact'] },
   { in: 'cancel', out: 'no', tags: ['choice', 'exact'] },
   { in: 'abort', out: 'no', tags: ['choice', 'exact'] },
 
