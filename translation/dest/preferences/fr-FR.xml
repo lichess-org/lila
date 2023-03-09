@@ -15,7 +15,7 @@
   <string name="pgnLetter">Lettre de la pièce (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Mode Zen</string>
   <string name="showPlayerRatings">Afficher les classements du joueur</string>
-  <string name="explainShowPlayerRatings">Cela permet de masquer tous les classements sur le site pour se concentrer sur les échecs. Les parties peuvent toujours être classées.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Cela permet de masquer tous les classements sur le site pour se concentrer sur les échecs. Les parties peuvent toujours être classées.</string>
   <string name="displayBoardResizeHandle">Afficher la poignée de redimensionnement de l\'échiquier</string>
   <string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
   <string name="blindfoldChess">Échecs à l\'aveugle (pièces invisibles)</string>
@@ -63,5 +63,5 @@
   <string name="notifyPush">Notification sur votre appareil quand vous n\'êtes pas sur Lichess</string>
   <string name="notifyWeb">Navigateur</string>
   <string name="notifyDevice">Appareil</string>
-  <string name="bellNotificationSound" comment="bellNotificationSound&#10;Allows players to enable/disable this sound played in several sections of the site (e.g. when pairing with a player on the home page or in a tournament).">Son de notification</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Son de notification</string>
 </resources>

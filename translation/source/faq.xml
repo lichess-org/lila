@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">other ways to help</string>
   <string name="areThereWebsitesBasedOnLichess">Are there websites based on Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Yes. Lichess has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
+  <string name="keyboardShortcuts">What keyboard shortcuts are there?</string>
+  <string name="keyboardShortcutsExplanation">Some Lichess pages have keyboard shortcuts you can use. Try pressing the '?' key on a study, analysis, puzzle, or game page to list available keyboard shortcuts.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">When am I eligible for the automatic rating refund from cheaters?</string>
   <string name="ratingRefundExplanation">One minute after a player is marked, their 40 latest rated games in the last 3 days are taken. If you are their opponent in those games, you lost rating (because of a loss or a draw), and your rating was not provisional, you get a rating refund. The refund is capped based on your peak rating and your rating progress after the game.

@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">outras maneiras de axudar</string>
   <string name="areThereWebsitesBasedOnLichess">Hai sitios web baseados en Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Si. Lichess inspirou outras páxinas de código aberto que utilizan o noso %1$s, %2$s ou %3$s.</string>
+  <string name="keyboardShortcuts">Que atallos de teclado hai aquí?</string>
+  <string name="keyboardShortcutsExplanation">Algunhas páxinas de Lichess teñen atallos de teclado que podes empregar. Proba a pulsar a tecla \'?\' nunha páxina de estudo, análise, puzzle ou xogo para ver os atallos de teclados dispoñibles.</string>
   <string name="fairPlay">Xogo limpo</string>
   <string name="whenAmIEligibleRatinRefund">En que casos devolvenme automaticamente os puntos perdidos contra un tramposo?</string>
   <string name="ratingRefundExplanation">Un minuto despois de marcar a un xogador como tramposo, tomanse as súas derradeiras 40 partidas por puntos dos tres últimos días. Se ti fuches opoñente nesas partidas, perdiches puntas nelas (ben porque perdiches, ben porque empataches) e a túa puntuación non era provisional, entón devolvenseche os puntos. Este reembolso está limitado pola túa puntuación máxima e por como progresara a túa puntuación despois daquela partida.
@@ -63,7 +65,7 @@ Describese na sección 3.7 (d) das %2$s:
 Mira o capítulo do %3$s sobre este movemento para practicar un poco con el.</string>
   <string name="goodIntroduction">boa introducción</string>
   <string name="lichessTraining">Entrenamento en Lichess</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Mira ao Mestre Internacional Eric Rosen darlle mate a %s.</string>
+  <string name="watchIMRosenCheckmate">Mira ao Mestre Internacional Eric Rosen darlle mate a %s.</string>
   <string name="threefoldRepetition">Repetición tripla de posición</string>
   <string name="threefoldRepetitionExplanation">Se unha posición ocorre tres veces, os xogadores/as poden pedir táboas por %1$s. Lichess implementa as reglas oficiais da FIDE, descritas no Artigo 9.2 (d) de %2$s.</string>
   <string name="threefoldRepetitionLowerCase">repetición tripla de posición</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">Ny personlig API-adgangstoken</string>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Ny personlig API-adgangstoken</string>
   <string name="tokenGrantsPermission">En token giver andre personer tilladelse til at bruge din konto.</string>
   <string name="carefullySelect">Vælg omhyggeligt, hvad den har lov til at gøre på dine vegne.</string>
   <string name="tokenDescription">Tokenbeskrivelse</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">Hvad token kan gøre på dine vegne:</string>
   <string name="doNotShareIt">Denne token vil give adgang til din konto. Del den IKKE med nogen!</string>
   <string name="copyTokenNow">Sørg for at kopiere din nye, personlige adgangstoken nu. Du vil ikke kunne få den vist igen!</string>
-  <string name="preferenceRead">Læsepræferencer</string>
-  <string name="preferenceWrite">Skrivepræference</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Læsepræferencer</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Skrivepræference</string>
   <string name="emailRead">Læs e-mailadresse</string>
   <string name="challengeRead">Læs indgående udfordringer</string>
-  <string name="challengeWrite">Skriv indgående udfordringer</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Skriv indgående udfordringer</string>
   <string name="challengeBulk">Opret mange partier på én gang for andre spillere</string>
-  <string name="studyRead">Læs private studier og udsendelser</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Læs private studier og udsendelser</string>
   <string name="studyWrite">Opret, opdater, slet studier og udsendelser</string>
   <string name="tournamentWrite">Opret, opdater og deltag i turneringer</string>
   <string name="racerWrite">Opret og deltag i opgave-race</string>
-  <string name="puzzleRead">Læs opgaveaktivitet</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Læs opgaveaktivitet</string>
   <string name="teamRead">Læs privat holdinformation</string>
   <string name="teamWrite">Tilmeld, forlad og administrer hold</string>
   <string name="teamLead">Administrer hold du leder: send PM\'er, smid medlemmer af holdet</string>

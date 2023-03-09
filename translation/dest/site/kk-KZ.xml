@@ -209,8 +209,10 @@
   <string name="forgotPassword">Құпиясөзді ұмытып қалдыңыз ба?</string>
   <string name="error.weakPassword">Осындай құпиясөз қолданыста көп, оны табу оңайға соғады.</string>
   <string name="error.namePassword">Құпиясөз ретінде өз тіркеулі атыңызды жазбаңыз.</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Сіз Личес-тен шыққалы тұрсыз</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Бұл құпиясөзді сіз басқа сайтта қолданғансыз. Сол сайт құпиясөзді сақтай алмай жария етті. Сондықтан Личес тіркелгіңізді қорғау мақсатында сізден жаңа құпиясөзді орнатуды сұраймыз.</string>
+  <string name="youAreLeavingLichess">Сіз Личес-тен шыққалы тұрсыз</string>
   <string name="neverTypeYourPassword">Личестегі құпиясөзіңізді басқа сайттарда қолданбаңыз!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">%s -ға өтіп кету</string>
   <string name="passwordSuggestion">Басқа біреу ұсынған құпиясөзді қолданбаңыз. Ол адам тіркелгіңізді ұрлауы мүмкін.</string>
   <string name="emailSuggestion">Басқа біреу ұсынған пошта мекенжайын қолданбаңыз. Ол адам тіркелгіңізді ұрлауы мүмкін.</string>
   <string name="emailConfirmHelp">Поштаны растау туралы көмек</string>

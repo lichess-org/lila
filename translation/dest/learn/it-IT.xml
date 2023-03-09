@@ -233,6 +233,6 @@ in due mosse!</string>
   <string name="next">Successivo</string>
   <string name="nextX">Successivo: %s</string>
   <string name="backToMenu">Torna al menù</string>
-  <string name="puzzleFailed">Puzzle sbagliato!</string>
+  <string name="puzzleFailed">Hai sbagliato!</string>
   <string name="retry">Riprova</string>
 </resources>

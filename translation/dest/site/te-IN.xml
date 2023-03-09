@@ -55,6 +55,7 @@
   <string name="depthX">లోతు %s</string>
   <string name="usingServerAnalysis">సర్వర్ విశ్లేషణ వాడుతున్నాం</string>
   <string name="loadingEngine">చదరంగయంత్రం సిద్ధమవుతోంది...</string>
+  <string name="calculatingMoves">Telagu</string>
   <string name="cloudAnalysis">విశ్లషణ జరుగుతుంది</string>
   <string name="goDeeper">ఇంకా లోతుగా వెళ్ళండి</string>
   <string name="showThreat">పొంచి ఉన్న ప్రమాదం చూపించండి</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">Token i ri personal përdorimi API</string>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Token i ri personal përdorimi API</string>
   <string name="tokenGrantsPermission">Një token u akordon personave të tjerë leje të përdorin llogarinë tuaj.</string>
   <string name="carefullySelect">Përzgjidhni me kujdes ç’lejohet të bëjnë më këmbë tuajën.</string>
   <string name="tokenDescription">Përshkrim token-i</string>
@@ -8,11 +8,11 @@
   <string name="whatTheTokenCanDo">Ç’mund të bëhet përmes token-it më këmbë tuajën:</string>
   <string name="doNotShareIt">Token-i do të akordojë hyrje te llogaria juaj. MOS ia jepni kujt të jetë!</string>
   <string name="copyTokenNow">Mos harroni ta kopjoni token-in tuaj të ri tani. S’do të jeni në gjendje ta shihni më prapë!</string>
-  <string name="preferenceRead">Parapëlqime leximi</string>
-  <string name="preferenceWrite">Parapëlqime shkrimi</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Parapëlqime leximi</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Parapëlqime shkrimi</string>
   <string name="emailRead">Adresë email leximi</string>
   <string name="challengeRead">Të lexojë sfida që vijnë</string>
-  <string name="challengeWrite">Të dërgojë, pranojë dhe hedhë poshtë sfida</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Të dërgojë, pranojë dhe hedhë poshtë sfida</string>
   <string name="challengeBulk">Të krijojë disa lojëra njëherësh për lojtarë të tjerë</string>
   <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Të lexojë ushtrime dhe transmetime private</string>
   <string name="studyWrite">Të krijojë, përditësojë, fshijë ushtrime dhe transmetime</string>

@@ -212,6 +212,7 @@
   <string name="blankedPassword">You have used the same password on another site, and that site has been compromised. To ensure the safety of your Lichess account, we need you to set a new password. Thank you for your understanding.</string>
   <string name="youAreLeavingLichess">You are leaving Lichess</string>
   <string name="neverTypeYourPassword">Never type your Lichess password on another site!</string>
+  <string name="proceedToX">Proceed to %s</string>
   <string name="passwordSuggestion">Do not set a password suggested by someone else. They will use it to steal your account.</string>
   <string name="emailSuggestion">Do not set an email address suggested by someone else. They will use it to steal your account.</string>
   <string name="emailConfirmHelp">Help with email confirmation</string>
@@ -390,6 +391,7 @@
   <string name="importGame">Import game</string>
   <string name="importGameExplanation">Paste a game PGN to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
+  <string name="importGameCaveat">Variations will be erased. To keep them, import the PGN via a study.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>

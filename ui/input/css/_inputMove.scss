@@ -41,7 +41,7 @@ $c-off-hover: if($theme == 'light', #444, #aaa);
 #voice-help-button {
   cursor: pointer;
   color: $c-off;
-  margin-left: 6px;
+  margin-#{$end-direction}: 6px;
   font-size: 14px;
   line-height: 28px;
   &:hover {
@@ -53,7 +53,7 @@ $c-off-hover: if($theme == 'light', #444, #aaa);
   font-family: 'lichess';
   cursor: pointer;
   color: $c-off;
-  width: 28x;
+  width: 34px;
   height: 28px;
   line-height: 28px;
   font-size: 22px;

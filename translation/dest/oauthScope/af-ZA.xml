@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">Nuwe persoonlike API toegangsmunt</string>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Nuwe persoonlike API toegangsmunt</string>
   <string name="tokenGrantsPermission">\'n Munt skenk toestemming aan ander mense om you rekening te gebruik.</string>
   <string name="carefullySelect">Kies versigtig wat is togelaat namens jou.</string>
   <string name="tokenDescription">Munt beskrywing</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">Wat hierdie munt kan doen namens jou:</string>
   <string name="doNotShareIt">Die munt sal toegang gee tot jou rekening. MoeNIE dit met enigiemand deel NIE!</string>
   <string name="copyTokenNow">Maak seker om jou nuwe persoonlike toegangsmunt nou te kopieer. Jy sal nie dit weer kan sien nie!</string>
-  <string name="preferenceRead">Lees voorkeure</string>
-  <string name="preferenceWrite">Skryf voorkeure</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Lees voorkeure</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Skryf voorkeure</string>
   <string name="emailRead">Lees e-pos adres</string>
   <string name="challengeRead">Lees aankomende uitdagings</string>
-  <string name="challengeWrite">Stuur, aanvaar en weier uitdagings</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Stuur, aanvaar en weier uitdagings</string>
   <string name="challengeBulk">Skep vele spelle op een slag vir ander spelers</string>
   <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lees privaat studies en uitsaaiings</string>
   <string name="studyWrite">Skep, opdateer, skrap studies en uitsaaiings</string>
   <string name="tournamentWrite">Skep, opdateer, en sluit aan toernooie</string>
   <string name="racerWrite">Skep en sluit aan by raaisel reisies</string>
-  <string name="puzzleRead">Lees raaisel bedrywighede</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Lees raaisel bedrywighede</string>
   <string name="teamRead">Lees privaat span inligting</string>
   <string name="teamWrite">Sluit aan en verlaat spanne</string>
   <string name="teamLead">Beheer spanne wat jy ly: stuur privaat boodskappe, skop lede</string>

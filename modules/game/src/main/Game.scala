@@ -19,6 +19,8 @@ import chess.{
   Status
 }
 
+import chess.MoveOrDrop.fold
+
 import lila.common.{ Days, Sequence }
 import lila.db.ByteArray
 import lila.rating.{ Perf, PerfType }
@@ -47,7 +49,7 @@ case class Game(
 
   lazy val clockHistory = chess.clock flatMap loadClockHistory
 
-  val players = List[Player](whitePlayer, blackPlayer)
+  def players = List(whitePlayer, blackPlayer)
 
   def player(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 

@@ -60,6 +60,6 @@
   <string name="upcomingTourns">Майбутні турніри</string>
   <string name="completedTourns">Завершені турніри</string>
   <string name="declinedRequests">Відхилені запити</string>
-  <string name="joinLichessVariantTeam">Приєднатися до офіційної %s команди, щоб отримувати інформацію про новини та події</string>
+  <string name="joinLichessVariantTeam">Приєднатися до офіційної команди %s, щоб отримувати інформацію про новини та події</string>
   <string name="teamPage">Сторінка команди</string>
 </resources>

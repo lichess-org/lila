@@ -15,7 +15,7 @@
   <string name="pgnLetter">Hizkiak (E, D, G, A, Z)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen modua</string>
   <string name="showPlayerRatings">Erakutsi jokalarien puntuazioak</string>
-  <string name="explainShowPlayerRatings">Horri esker, gunearen puntuazio guztiak ezkutatu daitezke, xakean arreta jartzen laguntzeko. Partidak puntuka izan daitezke oraindik, hau da zuk ikus dezakezuna.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Horri esker, gunearen puntuazio guztiak ezkutatu daitezke, xakean arreta jartzen laguntzeko. Partidak puntuka izan daitezke oraindik, hau da zuk ikus dezakezuna.</string>
   <string name="displayBoardResizeHandle">Xake-taularen tamaina aldatzeko aukera erakutsi</string>
   <string name="onlyOnInitialPosition">Hasierako posizioan bakarrik</string>
   <string name="blindfoldChess">Xakea itsu-itsuan (piezak ez dira ikusiko)</string>

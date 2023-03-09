@@ -115,5 +115,7 @@ final class Env(
     },
     "chatTimeout" -> { case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
       logApi.chatTimeout(mod into ModId, user, reason, text).unit
-    }
+    },
+    "loginWithWeakPassword"    -> { case u: lila.user.User => logApi.loginWithWeakPassword(u.id) },
+    "loginWithBlankedPassword" -> { case u: lila.user.User => logApi.loginWithBlankedPassword(u.id) }
   )

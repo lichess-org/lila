@@ -227,6 +227,7 @@
   <string name="changeUsername">Cheñch anv implijer</string>
   <string name="changeUsernameNotSame">Ment al lizherennoù a c\'hall cheñch hepken. Lakaomp \"yannc\'hoarier\" a ya da \"YannC\'hoarier\".</string>
   <string name="changeUsernameDescription">Cheñchit hoc\'h anv implijer. Gallout a rit hen ober ur wech hepken ha ne c\'hallit kemm nemet ment al lizherennoù.</string>
+  <string name="signupEmailHint">Arveret e vo gant m\'ho peus ezhomm da cheñch ho ker-kuzh.</string>
   <string name="password">Ger-kuzh</string>
   <string name="changePassword">Kemm ar ger-tremen</string>
   <string name="changeEmail">Kemm ar postel</string>
@@ -235,8 +236,10 @@
   <string name="forgotPassword">Disoñjet hoc\'h eus ho ker-tremen?</string>
   <string name="error.weakPassword">Ordin eo ho ker-kuzh betek re hag aes-tre da gavout.</string>
   <string name="error.namePassword">Disheñvel e vo ho ker-kuzh diouzh hoc\'h anv-implijer mar plij ganeoc\'h.</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">O kuitaat Lichess emaoc\'h</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Ar memes ger-kuzh ho peus graet gantañ war ul lec\'hienn all hag a zo bet preizhet. Ur ger-kuzh nevez zo ezhomm da gaout neuze evit ma chomfe diarvar ho kont Lichess. Ho trugarekaat a reomp.</string>
+  <string name="youAreLeavingLichess">O kuitaat Lichess emaoc\'h</string>
   <string name="neverTypeYourPassword">Arabat bizskrivañ ho ker-kuzh Lichess war ul lec\'hienn all!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Kuitaat war-zu %s</string>
   <string name="passwordSuggestion">Na choazit ket ur ger-kuzh bet silet e pleg ho skouarn gant unan all. Arveriet e vo evit laerezh ho kont diganeoc\'h.</string>
   <string name="emailSuggestion">Na choazit ket ur chomlec\'h postel bet aliet deoc\'h gant unan all. Arveriet e vo evit laerezh ho kont diganeoc\'h.</string>
   <string name="usernameCanBeUsedForNewAccount">Gallout a rit ober gant an anv implijer-mañ evit krouiñ ur gont nevez</string>

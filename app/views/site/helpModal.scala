@@ -148,17 +148,46 @@ object helpModal:
     import trans.keyboardMove.*
     frag(
       h2("Voice commands"),
+      table(
+        tbody(
+          tr(th(p("Instructions"))),
+          tr(
+            td(cls := "tips")(
+              ul(
+                li(
+                  "Move pieces by speaking UCI, SAN, or the destination square"
+                ),
+                li(
+                  "Say any piece but pawn to move that piece " +
+                    "or capture that opponent piece"
+                ),
+                li(
+                  "Ambiguous commands show colored arrows. " +
+                    "Speak the color, or say \"clear\" to cancel"
+                ),
+                li(
+                  "Up to 4 arrows are shown. Not enough? Then be specific"
+                ),
+                li(
+                  "We sometimes include moves that sound like what you said"
+                )
+              )
+            )
+          )
+        )
+      ),
       div(cls := "commands")(
         table(
           tbody(
             header(performAMove()),
-            row(voice("e4"), "Move pawn to e4"),
+            row(voice("e4"), "Move something to e4"),
+            row(voice("knight"), "Move my knight or capture a knight"),
             row(voice("bishop g7"), "Move bishop to g7"),
-            row(voice("knight takes rook"), "Take rook with knight"),
+            row(voice("queen takes rook"), "Take rook with queen"),
             row(voice("c8 promote knight"), "Move c pawn to 8, promote to knight"),
             row(voice("castle"), "Kingside castle"),
             row(voice("long castle"), "Queenside castle"),
-            row(voice("b5c6"), "Name squares for en passant")
+            row(voice("b5c6"), "Full UCI or SAN works too")
           )
         ),
         table(
@@ -169,24 +198,9 @@ object helpModal:
             row(voice("clock"), readOutClocks()),
             row(voice("opponent"), readOutOpponentName()),
             row(voice("next"), trans.puzzle.nextPuzzle()),
-            row(voice("upv"), trans.puzzle.upVote()),
-            row(voice("downv"), trans.puzzle.downVote()),
+            row(voice("up vote"), trans.puzzle.upVote()),
+            row(voice("down vote"), trans.puzzle.downVote()),
             row(voice("help"), trans.showHelpDialog())
-          )
-        )
-      ),
-      table(
-        tbody(
-          header(tips()),
-          tr(
-            td(cls := "tips", colspan := 2)(
-              ul(
-                li(
-                  "Colored arrows means we are confused. " +
-                    "Speak the color of the move you want or say \"no\" / \"cancel\" to get out of it."
-                )
-              )
-            )
           )
         )
       )

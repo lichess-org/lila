@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Pentru a primi probleme de șah personalizate:</string>
   <string name="puzzleId">Problema de șah %s</string>
   <string name="puzzleOfTheDay">Problema zilei</string>
+  <string name="dailyPuzzle">Puzzle Zilnic</string>
   <string name="clickToSolve">Dă click pentru a rezolva</string>
   <string name="goodMove">Mutare bună</string>
   <string name="bestMove">Cea mai bună mutare!</string>

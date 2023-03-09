@@ -209,8 +209,10 @@
   <string name="forgotPassword">Har du gløymt passordet?</string>
   <string name="error.weakPassword">Passordet er svært vanleg og for lett å gjette.</string>
   <string name="error.namePassword">Ikkje bruk namnet ditt som passord.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Du har brukt det same passordet på ei nettside som er vorte kompromittert. For å ta i vare tryggleiken på Lichess-kontoen din, er det naudynt at du lagar eit nytt passord. Takk for di forståing.</string>
   <string name="youAreLeavingLichess">Du forlèt Lichess</string>
   <string name="neverTypeYourPassword">Skriv aldri Lichess-passordet på ei anna webside!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Fortsett til %s</string>
   <string name="emailConfirmHelp">Hjelp med å stadfesta e-posten</string>
   <string name="emailConfirmNotReceived">Mottok du ikkje stadfesting på e-post etter at du registrerte deg?</string>
   <string name="whatSignupUsername">Kva var brukarnamnet du registrerte deg med?</string>

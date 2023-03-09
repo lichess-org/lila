@@ -198,8 +198,10 @@
   <string name="forgotPassword">パスワードを忘れた方はこちら</string>
   <string name="error.weakPassword">このパスワードはありふれすぎていて簡単に破られます。</string>
   <string name="error.namePassword">パスワードはユーザー名と同じにしないでください。</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">あなたは別のサイトで同じパスワードを使用し、そのサイトは侵入を受けています。 Lichess アカウントの安全性のため、新しいパスワードを設定してください。ご理解に感謝します。</string>
   <string name="youAreLeavingLichess">Lichess から移動します</string>
   <string name="neverTypeYourPassword">別のサイトで同じパスワードを使わないで！</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">%s に移動する</string>
   <string name="passwordSuggestion">他の人が提案したパスワードは使わないように。アカウントが乗っ取られるかもしれません。</string>
   <string name="emailSuggestion">他の人が提案したメールアドレスは使わないように。アカウントが乗っ取られるかもしれません。</string>
   <string name="emailConfirmHelp">確認メールについてのヘルプ</string>
@@ -630,7 +632,7 @@
   <string name="timeBeforeTournamentStarts">開始までの時間</string>
   <string name="averageCentipawnLoss">平均センチポーン差</string>
   <string name="accuracy">正確度</string>
-  <string name="keyboardShortcuts">キーボード・ショートカット</string>
+  <string name="keyboardShortcuts">ショートカットキー</string>
   <string name="keyMoveBackwardOrForward">手を戻す/進める</string>
   <string name="keyGoToStartOrEnd">最初/最後に戻る</string>
   <string name="keyShowOrHideComments">コメントを表示する/隠す</string>

@@ -51,8 +51,6 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
   return mod;
 }
 
-// TODO - just subtract yarn/rollup/tsc commands from script contents, don't overparse the string.
-// build steps need shell interpretation via exec/execSync which don't provide array arguments.
 function tokenizeArgs(argstr: string): string[] {
   const args: string[] = [];
   const reducer = (a: any[], ch: string) => {

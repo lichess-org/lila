@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">andre måder at hjælpe</string>
   <string name="areThereWebsitesBasedOnLichess">Er der websteder baseret på Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har inspireret andre open-source websteder, som bruger vores %1$s, %2$s eller %3$s.</string>
+  <string name="keyboardShortcuts">Hvilke tastaturgenveje findes der?</string>
+  <string name="keyboardShortcutsExplanation">Nogle Lichess-sider har tastaturgenveje du kan bruge. Prøv at trykke på tasten \'?\' på studie-, analyse-, opgave- eller partisider for at få vist en liste over tilgængelige tastaturgenveje.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Hvornår er jeg berettiget til den automatiske rating-refundering fra snydere?</string>
   <string name="ratingRefundExplanation">Et minut efter en spiller får en anmærkning, bliver deres 40 seneste ratede sejre i løbet af de sidste 3 dage inddraget. Hvis du var deres modstander i de partier og din rating ikke var provisorisk, vil du få en rating-refundering. Størrelsen på refunderingen afgøres af din højeste rating og din rating-udvikling efter partiet. 
@@ -63,7 +65,7 @@ Det beskrives i sektion 3.7 (d) af de %2$s:
 Tjek %3$s for dette træk og for at øve det.</string>
   <string name="goodIntroduction">god introduktion</string>
   <string name="lichessTraining">Lichess træning</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Se International Mester Eric Rosen sætte %s skakmat.</string>
+  <string name="watchIMRosenCheckmate">Se International Mester Eric Rosen sætte %s skakmat.</string>
   <string name="threefoldRepetition">Trækgentagelse</string>
   <string name="threefoldRepetitionExplanation">Hvis en stilling forekommer tre gange, kan spillere forlange remis ved %1$s. Lichess implementerer de officielle FIDE-regler som beskrevet i Artikel 9.2 (d) i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trækgentagelse</string>

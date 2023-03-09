@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="other">ပွဲစဉ် %s ခုဖြင့် ပတ်လည်စနစ်</item>
   </plurals>
   <string name="tournStartDate">ပြိုင်ပွဲစရက်</string>

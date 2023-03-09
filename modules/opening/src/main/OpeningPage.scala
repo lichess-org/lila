@@ -91,7 +91,7 @@ object OpeningPage:
                 m.san,
                 uci,
                 fen,
-                query.copy(replay = query.replay addMove Left(move)),
+                query.copy(replay = query.replay addMove move),
                 result,
                 (result.sum * 100d / exp.movesSum),
                 opening,

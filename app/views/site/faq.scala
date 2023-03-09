@@ -78,6 +78,13 @@ object faq:
             li(a(href := "https://lishogi.org")("lishogi.org"))
           )
         ),
+        question(
+          "keyboard-shortcuts",
+          keyboardShortcuts.txt(),
+          p(
+            keyboardShortcutsExplanation()
+          )
+        ),
         h2(fairPlay()),
         question(
           "rating-refund",

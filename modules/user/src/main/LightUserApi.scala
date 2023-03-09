@@ -20,19 +20,18 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor):
     if (User isGhost id) LightUser.ghost else cache.sync(id) | LightUser.fallback(id into UserName)
   )
 
-  def asyncFallbackName(name: UserName) = async(name.id).dmap(_ | LightUser.fallback(name))
+  export cache.{ asyncMany, invalidate, preloadOne, preloadMany }
 
-  def asyncMany = cache.asyncMany
+  def asyncFallbackName(name: UserName) = async(name.id).dmap(_ | LightUser.fallback(name))
 
   def asyncManyFallback(ids: Seq[UserId]): Fu[Seq[LightUser]] =
     ids.map(asyncFallback).parallel
 
+  def asyncManyOptions(ids: Seq[Option[UserId]]): Fu[Seq[Option[LightUser]]] =
+    ids.map(_ ?? async).parallel
+
   val isBotSync: LightUser.IsBotSync = LightUser.IsBotSync(id => sync(id).exists(_.isBot))
 
-  def invalidate = cache.invalidate
-
-  def preloadOne                     = cache.preloadOne
-  def preloadMany                    = cache.preloadMany
   def preloadUser(user: User)        = cache.set(user.id, user.light.some)
   def preloadUsers(users: Seq[User]) = users.foreach(preloadUser)
 

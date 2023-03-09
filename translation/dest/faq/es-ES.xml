@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">otras formas de ayudar</string>
   <string name="areThereWebsitesBasedOnLichess">¿Hay páginas web basadas en Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sí. Lichess ha inspirado otras páginas de código abierto que utilizan nuestro %1$s, %2$s, o %3$s.</string>
+  <string name="keyboardShortcuts">¿Qué atajos de teclado hay?</string>
+  <string name="keyboardShortcutsExplanation">Algunas páginas de Lichess tienen atajos de teclado que puedes utilizar. Presiona la tecla \'?\' en un estudio, análisis, ejercicio o en una partida para listar los atajos de teclado disponibles.</string>
   <string name="fairPlay">Juego limpio</string>
   <string name="whenAmIEligibleRatinRefund">¿En qué casos se me devuelven automáticamente los puntos perdidos contra un tramposo?</string>
   <string name="ratingRefundExplanation">Un minuto después de marcar a un jugador como tramposo, se toman sus últimas 40 partidas por puntos de los tres últimos días. Si tú fuiste su oponente en esas partidas, perdiste puntos en ellas (bien porque perdiste, bien porque empataste), y tu puntuación no era provisional, entonces se te devuelven puntos. Este reembolso está limitado por tu puntuación máxima y por cómo haya progresado tu puntuación después de aquella partida.

@@ -25,6 +25,6 @@
   <string name="currentRoundUrl">Ronde actuelle</string>
   <string name="currentGameUrl">URL de la partie en cours</string>
   <string name="downloadAllRounds">Télécharger toutes les rondes</string>
-  <string name="definitivelyDeleteRound">Supprimer définitivement la ronde et ses parties.</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Supprimer définitivement la ronde et ses parties.</string>
   <string name="deleteAllGamesOfThisRound">Supprimer toutes les parties de la ronde. La source doit être active pour recréer les parties.</string>
 </resources>

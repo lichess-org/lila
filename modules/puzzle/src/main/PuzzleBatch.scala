@@ -10,16 +10,22 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
 
   import BsonHandlers.given
 
-  def nextFor(user: Option[User], nb: Int): Fu[Vector[Puzzle]] =
-    nextFor(user, PuzzleAngle.mix, nb)
+  def nextFor(user: Option[User], difficulty: PuzzleDifficulty, nb: Int): Fu[Vector[Puzzle]] =
+    nextFor(user, PuzzleAngle.mix, difficulty, nb)
 
-  def nextFor(user: Option[User], angle: PuzzleAngle, nb: Int): Fu[Vector[Puzzle]] = (nb > 0) ?? {
+  def nextFor(
+      user: Option[User],
+      angle: PuzzleAngle,
+      difficulty: PuzzleDifficulty,
+      nb: Int
+  ): Fu[Vector[Puzzle]] = (nb > 0) ?? {
     user.fold(anonApi.getBatchFor(angle, nb)) { user =>
       val tier =
-        if (user.perfs.puzzle.nb > 5000) PuzzleTier.good
+        if user.perfs.puzzle.nb > 5000 then PuzzleTier.good
+        else if PuzzleDifficulty.isExtreme(difficulty) then PuzzleTier.good
         else PuzzleTier.top
       pathApi
-        .nextFor(user, angle, tier, PuzzleDifficulty.Normal, Set.empty)
+        .nextFor(user, angle, tier, difficulty, Set.empty)
         .orFail(s"No puzzle path for ${user.id} $tier")
         .flatMap { pathId =>
           colls.path {

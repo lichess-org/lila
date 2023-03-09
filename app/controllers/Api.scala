@@ -229,14 +229,14 @@ final class Api(
           flags = gameC.requestPgnFlags(req, extended = false),
           perSecond = gamesPerSecond(me)
         )
-        GlobalConcurrencyLimitPerIP(req.ipAddress)(
-          env.api.gameApiV2.exportByTournament(config, onlyUserId)
-        ) { source =>
-          val filename = env.api.gameApiV2.filename(tour, config.format)
-          Ok.chunked(source)
-            .pipe(asAttachmentStream(env.api.gameApiV2.filename(tour, config.format)))
-            .as(gameC gameContentType config)
-        }.toFuccess
+        GlobalConcurrencyLimitPerIP
+          .download(req.ipAddress)(env.api.gameApiV2.exportByTournament(config, onlyUserId)) { source =>
+            val filename = env.api.gameApiV2.filename(tour, config.format)
+            Ok.chunked(source)
+              .pipe(asAttachmentStream(env.api.gameApiV2.filename(tour, config.format)))
+              .as(gameC gameContentType config)
+          }
+          .toFuccess
       }
     }
 
@@ -259,8 +259,8 @@ final class Api(
             withSheet = withSheet
           )
         val result =
-          if (csv) csvStream(lila.tournament.TournamentCsv(source))
-          else jsonStream(source.map(lila.tournament.JsonView.playerResultWrites.writes))
+          if (csv) csvDownload(lila.tournament.TournamentCsv(source))
+          else jsonDownload(source.map(lila.tournament.JsonView.playerResultWrites.writes))
         result.pipe(asAttachment(env.api.gameApiV2.filename(tour, if (csv) "csv" else "ndjson")))
       }
     }
@@ -284,7 +284,7 @@ final class Api(
       given Lang = reqLang
       (name.id != lila.user.User.lichessId) ?? env.user.repo.byId(name) flatMapz { user =>
         val nb = getInt("nb", req) | Int.MaxValue
-        jsonStream {
+        jsonDownload {
           env.tournament.api
             .byOwnerStream(user, status flatMap lila.tournament.Status.apply, MaxPerSecond(20), nb)
             .mapAsync(1)(env.tournament.apiJsonView.fullJson)
@@ -302,14 +302,14 @@ final class Api(
           perSecond = gamesPerSecond(me),
           player = getUserStr("player", req).map(_.id)
         )
-        GlobalConcurrencyLimitPerIP(req.ipAddress)(
-          env.api.gameApiV2.exportBySwiss(config)
-        ) { source =>
-          val filename = env.api.gameApiV2.filename(swiss, config.format)
-          Ok.chunked(source)
-            .pipe(asAttachmentStream(filename))
-            .as(gameC gameContentType config)
-        }.toFuccess
+        GlobalConcurrencyLimitPerIP
+          .download(req.ipAddress)(env.api.gameApiV2.exportBySwiss(config)) { source =>
+            val filename = env.api.gameApiV2.filename(swiss, config.format)
+            Ok.chunked(source)
+              .pipe(asAttachmentStream(filename))
+              .as(gameC gameContentType config)
+          }
+          .toFuccess
       }
     }
 
@@ -326,9 +326,9 @@ final class Api(
           env.user.lightUserApi.asyncFallback(p.player.userId) map p.withUser
         }
       val result =
-        if (csv) csvStream(lila.swiss.SwissCsv(source))
-        else jsonStream(source.map(env.swiss.json.playerResult))
-      result.pipe(asAttachment(env.api.gameApiV2.filename(swiss, if (csv) "csv" else "ndjson")))
+        if csv then csvDownload(lila.swiss.SwissCsv(source))
+        else jsonDownload(source.map(env.swiss.json.playerResult))
+      result.pipe(asAttachment(env.api.gameApiV2.filename(swiss, if csv then "csv" else "ndjson")))
     }
   }
 
@@ -336,7 +336,7 @@ final class Api(
     AnonOrScopedBody(parse.tolerantText)() { req => me =>
       val max = me.fold(300) { u => if (u == lila.user.User.lichess4545Id) 900 else 500 }
       withIdsFromReqBody[UserId](req, max, id => UserStr.read(id).map(_.id)) { ids =>
-        GlobalConcurrencyLimitPerIP(req.ipAddress)(
+        GlobalConcurrencyLimitPerIP.events(req.ipAddress)(
           addKeepAlive(
             env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames", req))
           )
@@ -347,12 +347,12 @@ final class Api(
   def gamesByIdsStream(streamId: String) =
     AnonOrScopedBody(parse.tolerantText)() { req => me =>
       withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.strToIdOpt) { ids =>
-        GlobalConcurrencyLimitPerIP(req.ipAddress)(
+        GlobalConcurrencyLimitPerIP.events(req.ipAddress)(
           addKeepAlive(
             env.game.gamesByIdsStream(
               streamId,
               initialIds = ids,
-              maxGames = if (me.isDefined) 5_000 else 1_000
+              maxGames = if me.isDefined then 5_000 else 1_000
             )
           )
         )(sourceToNdJsonOption)
@@ -441,7 +441,7 @@ final class Api(
 
   def moveStream(gameId: GameId) =
     Action.async { req =>
-      env.round.proxyRepo.gameIfPresent(gameId) map {
+      env.round.proxyRepo.game(gameId) map {
         case None => NotFound
         case Some(game) =>
           ApiMoveStreamGlobalConcurrencyLimitPerIP(req.ipAddress)(
@@ -484,8 +484,8 @@ final class Api(
       case ApiResult.Done             => jsonOkResult
       case ApiResult.Data(json)       => JsonOk(json)
 
-  def jsonStream(makeSource: => Source[JsValue, ?])(implicit req: RequestHeader): Result =
-    GlobalConcurrencyLimitPerIP(req.ipAddress)(makeSource)(sourceToNdJson)
+  def jsonDownload(makeSource: => Source[JsValue, ?])(using req: RequestHeader): Result =
+    GlobalConcurrencyLimitPerIP.download(req.ipAddress)(makeSource)(sourceToNdJson)
 
   def addKeepAlive(source: Source[JsValue, ?]): Source[Option[JsValue], ?] =
     source
@@ -507,18 +507,26 @@ final class Api(
   private def sourceToNdJsonString(source: Source[String, ?]): Result =
     Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
 
-  def csvStream(makeSource: => Source[String, ?])(implicit req: RequestHeader): Result =
-    GlobalConcurrencyLimitPerIP(req.ipAddress)(makeSource)(sourceToCsv)
+  def csvDownload(makeSource: => Source[String, ?])(using req: RequestHeader): Result =
+    GlobalConcurrencyLimitPerIP.download(req.ipAddress)(makeSource)(sourceToCsv)
 
   private def sourceToCsv(source: Source[String, ?]): Result =
     Ok.chunked(source.map(_ + "\n")).as(csvContentType) pipe noProxyBuffer
 
-  private[controllers] val GlobalConcurrencyLimitPerIP = lila.memo.ConcurrencyLimit[IpAddress](
-    name = "API concurrency per IP",
-    key = "api.ip",
-    ttl = 1.hour,
-    maxConcurrency = 2
-  )
+  private[controllers] object GlobalConcurrencyLimitPerIP {
+    val events = lila.memo.ConcurrencyLimit[IpAddress](
+      name = "API events concurrency per IP",
+      key = "api.ip.events",
+      ttl = 1.hour,
+      maxConcurrency = 4
+    )
+    val download = lila.memo.ConcurrencyLimit[IpAddress](
+      name = "API download concurrency per IP",
+      key = "api.ip.download",
+      ttl = 1.hour,
+      maxConcurrency = 2
+    )
+  }
   private[controllers] val GlobalConcurrencyGenerousLimitPerIP = lila.memo.ConcurrencyLimit[IpAddress](
     name = "API generous concurrency per IP",
     key = "api.ip.generous",
@@ -545,7 +553,7 @@ final class Api(
   )(makeSource: => Source[T, ?])(makeResult: Source[T, ?] => Result): Result =
     val ipLimiter =
       if me.exists(u => about.exists(u.is(_))) then GlobalConcurrencyGenerousLimitPerIP
-      else GlobalConcurrencyLimitPerIP
+      else GlobalConcurrencyLimitPerIP.download
     ipLimiter.compose[T](req.ipAddress) flatMap { limitIp =>
       GlobalConcurrencyLimitPerUserOption[T](me) map { limitUser =>
         makeResult(limitIp(limitUser(makeSource)))

@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">راه های دیگر برای حمایت</string>
   <string name="areThereWebsitesBasedOnLichess">آیا وب‌سایتهایی که بر اساس Lichess ساخته شده باشند، وجود دارد؟</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">بله. در واقع سایت های متن باز از %1$s و %2$s و %3$s لیچس استفاده میکنند.</string>
+  <string name="keyboardShortcuts">چه میانبرهای صفحه کلیدی وجود دارند؟</string>
+  <string name="keyboardShortcutsExplanation">برخی از صفحات لیچس دارای میانبرهای صفحه کلید هستند که می توانید از آنها استفاده کنید. کلید \"؟\" بر روی کیبورد را در صفحه مطالعه، تجزیه و تحلیل، پازل یا بازی بزنید تا میانبرهای صفحه کلید موجود فهرست شوند.</string>
   <string name="fairPlay">بازی منصفانه</string>
   <string name="whenAmIEligibleRatinRefund">چه زمانی من برای دریافت ریتینگ از دست داده ام توسط متقلبین واجد شرایط هستم?</string>
   <string name="ratingRefundExplanation">یک دقیقه پس از اینکه یک بازیکن نشان‌گذاری میشود، چهل بازی ریتد انجام شده توسط او در سه روز گذشته گرفته میشوند. اگر شما در آن بازی ها حریف او بوده باشید، ریتینگ از دست رفته شما (به علت باخت یا مساوی) در صورتی که ریتینگ شما موقت نبوده باشد، را به صورت یک بازپرداخت ریتینگ دریافت میکنید. مقدار ریتینگ بر اساس ریتینگ اوج شما و تغییرات ریتینگتان پس از بازی محاسبه میشود. (برای مثال، اگر ریتینگ شما پس از آن بازی ها به مقدار زیادی افزایش داشته باشد، ممکن است مقدار جزئی دریافت یا هیچ ریتینگی دریافت نکنید) مقدار بازپرداخت هیچوقت از ١۵٠ امتیاز تجاوز نمی‌کند.</string>
@@ -37,7 +39,7 @@
   <string name="discoveringEnPassant">آیا یک پیاده میتواند یک پیاده دیگر را در حالی که از کنارش رد شده است بگیرد؟ (آن پاسان)</string>
   <string name="goodIntroduction">معرفی و مقدمه خوب</string>
   <string name="lichessTraining">آموزش لایچس</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">کیش و مات شدن %s در مقابل استاد بین‌المللی اریک روزن را تماشا کنید.</string>
+  <string name="watchIMRosenCheckmate">کیش و مات شدن %s در مقابل استاد بین‌المللی اریک روزن را تماشا کنید.</string>
   <string name="threefoldRepetition">تکرار سه گانه</string>
   <string name="threefoldRepetitionExplanation">اگر پوزیشنی سه بار اتفاق افتاد، بازیکنان میتوانن با استفاده از %1$s ادعای مساوی کنند. لیچس قوانین رسمی FIDE را که در مقاله %2$s توضیح داده شده اجرا میکند.</string>
   <string name="threefoldRepetitionLowerCase">تکرار سه گانه</string>

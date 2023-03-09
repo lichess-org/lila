@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">For tilpassede sjakknøtter:</string>
   <string name="puzzleId">Sjakknøtt %s</string>
   <string name="puzzleOfTheDay">Dagens nøtt</string>
+  <string name="dailyPuzzle">Dagens nøtt</string>
   <string name="clickToSolve">Klikk for å løse</string>
   <string name="goodMove">Bra trekk</string>
   <string name="bestMove">Beste trekk!</string>
@@ -45,8 +46,8 @@
     <item quantity="one">Ett poeng under sjakknøttratingen din</item>
     <item quantity="other">%s poeng under sjakknøttratingen din</item>
   </plurals>
-  <string name="harder">Verre</string>
-  <string name="hardest">Verst</string>
+  <string name="harder">Vanskelig</string>
+  <string name="hardest">Vanskeligst</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
     <item quantity="one">Ett poeng over sjakknøttratingen din</item>
     <item quantity="other">%s poeng over sjakknøttratingen din</item>

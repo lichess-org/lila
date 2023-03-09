@@ -9,7 +9,7 @@
     <item quantity="one">%s Rundi</item>
     <item quantity="other">%s Runde</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s Rundi Schweizer System</item>
     <item quantity="other">%s Rundene Schweizer System</item>
   </plurals>

@@ -6,8 +6,7 @@ import play.api.mvc.Result
 import play.api.mvc.Results.TooManyRequests
 import scala.collection.immutable.Queue
 
-/** only allow X streams at a time per key
-  */
+/** only allow X streams at a time per key */
 final class ConcurrencyLimit[K](
     name: String,
     key: String,
@@ -17,7 +16,7 @@ final class ConcurrencyLimit[K](
     toString: K => String = (k: K) => k.toString
 )(using Executor):
 
-  private val storage = new ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
+  private val storage = ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
 
   private lazy val logger  = lila.log("concurrencylimit").branch(name)
   private lazy val monitor = lila.mon.security.concurrencyLimit(key)

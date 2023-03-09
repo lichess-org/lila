@@ -4,14 +4,14 @@
 
   td.tips li {
     list-style: disc;
-    margin-#{$start-direction}: 2em;
-    margin-#{$end-direction}: 1em;
+    margin: 0 10%;
   }
 
   a {
     margin-#{$start-direction}: 0.25em;
   }
 }
+
 .voice-move-help {
   table {
     align-self: start;

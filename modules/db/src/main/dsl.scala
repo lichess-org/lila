@@ -247,7 +247,7 @@ trait dsl:
   trait ComparisonOperators { self: ElementBuilder =>
 
     def $eq[T: BSONWriter](value: T): SimpleExpression[BSONValue] =
-      SimpleExpression(field, implicitly[BSONWriter[T]].writeTry(value).get)
+      SimpleExpression(field, summon[BSONWriter[T]].writeTry(value).get)
 
     /** Matches values that are greater than the value specified in the query. */
     def $gt[T: BSONWriter](value: T): CompositeExpression =
@@ -685,7 +685,7 @@ object dsl extends dsl with Handlers:
         collation = none,
         arrayFilters = Seq.empty
       ) map {
-        _.value flatMap implicitly[BSONDocumentReader[D]].readOpt
+        _.value flatMap summon[BSONDocumentReader[D]].readOpt
       }
 
     def findAndRemove[D: BSONDocumentReader](
@@ -703,5 +703,5 @@ object dsl extends dsl with Handlers:
         collation = none,
         arrayFilters = Seq.empty
       ) map {
-        _.value flatMap implicitly[BSONDocumentReader[D]].readOpt
+        _.value flatMap summon[BSONDocumentReader[D]].readOpt
       }

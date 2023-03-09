@@ -246,7 +246,7 @@ abstract private[controllers] class LilaController(val env: Env)
       lila.mon.user.oauth.request(false).increment()
       OAuthServer
         .responseHeaders(scopes, available) {
-          Unauthorized(jsonError(e.message))
+          Forbidden(jsonError(e.message))
         }
         .toFuccess
     case e =>

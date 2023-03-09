@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="tournamentDescription">Turnirdiń qısqasha táriypi</string>
+  <string name="fullDescription">Turnirdiń tolıq táriypi</string>
+  <string name="currentGameUrl">Házirgi oyın URL mánzili</string>
+</resources>

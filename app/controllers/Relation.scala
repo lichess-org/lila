@@ -149,7 +149,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   def apiFollowing = Scoped(_.Follow.Read) { implicit req => me =>
-    apiC.jsonStream {
+    apiC.jsonDownload {
       env.relation.stream
         .follow(me, Direction.Following, MaxPerSecond(30))
         .map(env.api.userApi.one(_, None))

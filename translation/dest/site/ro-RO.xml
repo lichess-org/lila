@@ -220,8 +220,10 @@
   <string name="forgotPassword">Ți-ai uitat parola?</string>
   <string name="error.weakPassword">Această parolă este extrem de comună şi prea uşor de ghicit.</string>
   <string name="error.namePassword">Te rugăm să nu folosești numele tău de utilizator ca parolă.</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Părăsești Lichess</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Ați folosit aceeași parolă pe un alt site, iar acest site a fost compromis. Pentru a asigura siguranța contului dvs. Lichess, trebuie să setați o parolă nouă. Vă mulțumim pentru înțelegere.</string>
+  <string name="youAreLeavingLichess">Părăsești Lichess</string>
   <string name="neverTypeYourPassword">Nu introduceți niciodată parola Lichess pe un alt site!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Continuă către %s</string>
   <string name="passwordSuggestion">Nu seta o parolă sugerată de altcineva. O vor folosi pentru a vă fura contul.</string>
   <string name="emailSuggestion">Nu setați o adresă de e-mail sugerată de altcineva. O vor folosi pentru a vă fura contul.</string>
   <string name="emailConfirmHelp">Ajutor cu confirmarea adresei de email</string>

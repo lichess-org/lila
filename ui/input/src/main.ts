@@ -13,6 +13,7 @@ export { makeMoveCtrl } from './moveCtrl';
 export { voiceCtrl } from './voiceCtrl';
 
 export function renderMoveCtrl(ctrl: MoveCtrl) {
+  console.log(ctrl.root.keyboard);
   return ctrl.root.keyboard ? renderKeyboardMove(ctrl) : renderVoiceMove(ctrl);
 }
 
@@ -39,16 +40,16 @@ function renderVoiceMove(ctrl: MoveCtrl) {
   });*/
   const rec = storedBooleanProp('recording', false);
   return h('div.input-move', [
+    h('p#voice-status', {
+      hook: onInsert(el => ctrl.voice.addListener('moveInput', txt => (el.innerText = txt))),
+    }),
     h('a#voice-help-button', {
       attrs: { role: 'button', ...dataIcon('') },
       hook: bind('click', () => ctrl.helpModalOpen(true)),
     }),
-    h('p#voice-status', {
-      hook: onInsert(el => ctrl.voice.addListener('moveInput', (text: string) => (el.innerText = text))),
-    }),
     h('a#microphone-button', {
       class: { enabled: ctrl.voice.isRecording, busy: ctrl.voice.isBusy },
-      attrs: { role: 'button', ...dataIcon(ctrl.voice.isBusy ? '\ue071' : '') },
+      attrs: { role: 'button', ...dataIcon(ctrl.voice.isBusy ? '' : '') },
       hook: onInsert(el => {
         voiceMoveCtrl().registerMoveCtrl(ctrl);
         el.addEventListener('click', _ => {
@@ -67,6 +68,8 @@ function showContextMenu(ctrl: MoveCtrl, micBtn: HTMLElement) {
   el.addEventListener('mouseleave', () => micBtn.removeChild(el));
   el.id = 'microphone-context-menu';
   micBtn.appendChild(el);
+  // never done the contextmenu event before, first let's see if it works in all browsers
+  // & long press on mobile
   ctrl;
 }*/
 
