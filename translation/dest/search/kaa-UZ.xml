@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="search">Izlew</string>
+  <string name="advancedSearch">Keń kólemli izlew</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">%s shaxmat oyınında izlew</item>
+    <item quantity="other">%s shaxmat oyınlarında izlew</item>
+  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Bir oyın tabıldı</item>
     <item quantity="other">%s oyın tabıldı</item>
@@ -16,9 +22,11 @@
   <string name="date">Sáne</string>
   <string name="sortBy">Boyınsha sortlaw</string>
   <string name="analysis">Analiz</string>
+  <string name="onlyAnalysed">Tek kompyuter analizi bar bolǵan oyınlar</string>
   <string name="color">Reń</string>
   <string name="evaluation">Bahalaw</string>
   <string name="maxNumber">Maksimal san</string>
+  <string name="include">Óz ishine alıw</string>
   <plurals name="gamesFound">
     <item quantity="one">%s oyın tabıldı</item>
     <item quantity="other">%s oyın tabıldı</item>
