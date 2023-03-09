@@ -8,8 +8,8 @@
   <string name="mostChessCourses">象棋课程及练习普遍使用代数记谱法。</string>
   <string name="talkToYourChessFriends">这能让您更便捷地与棋友交谈，因为你们都懂这门“象棋语言”。</string>
   <string name="youCanAnalyseAGameMoreEffectively">快速识别格子可以高效的分析对局。</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">坐标将在棋盘上出现，您必须点击对应的棋格。</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">棋格将在棋盘上高亮显示，您必须输入它的坐标(例如\"e4\")。</string>
+  <string name="aCoordinateAppears">坐标将在棋盘上出现，您必须点击对应的棋格。</string>
+  <string name="aSquareIsHighlightedExplanation">棋格将在棋盘上高亮显示，您必须输入它的坐标(例如\"e4\")。</string>
   <string name="youHaveThirtySeconds">您有30秒时间正确配对尽可能多的棋格。</string>
   <string name="goAsLongAsYouWant">没有时间限制，尽情练习吧！</string>
   <string name="showCoordinates">显示坐标</string>

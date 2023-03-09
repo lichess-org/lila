@@ -25,7 +25,7 @@
   <string name="cantChangeMore">Non possiamo cambiare altro oltre alle maiuscole/minuscole. Per motivi tecnici, è assolutamente impossibile.</string>
   <string name="orCloseAccount">Tuttavia, puoi eliminare il tuo account corrente e crearne uno nuovo.</string>
   <string name="wantClearHistory">Voglio cancellare la mia cronologia o il mio punteggio</string>
-  <string name="cantClearHistory">Non è possibile cancellare la cronologia delle partite, la cronologia delle tattiche né i punteggi.</string>
+  <string name="cantClearHistory">Non è possibile cancellare la cronologia delle partite, la cronologia dei problemi né i punteggi.</string>
   <string name="wantReport">Voglio segnalare un giocatore</string>
   <string name="toReportAPlayerUseForm">Per segnalare un giocatore, usa il modulo di segnalazione</string>
   <string name="youCanAlsoReachReportPage">Puoi raggiungere quella pagina anche cliccando sul pulsante %s segnala in una pagina di profilo.</string>

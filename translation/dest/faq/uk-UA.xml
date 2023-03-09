@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">інші способи допомогти</string>
   <string name="areThereWebsitesBasedOnLichess">Чи існують веб-сайти на основі Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Так. Lichess дійсно надихнув інші сайти з відкритим вихідним кодом, які використовують наш %1$s, %2$s або %3$s.</string>
+  <string name="keyboardShortcuts">Які є комбінації клавіш?</string>
+  <string name="keyboardShortcutsExplanation">На деяких сторінках Lichess можна використовувати комбінації клавіш. Натисніть клавішу \"?\" на сторінці дослідження, аналізу, задачі чи гри, щоб отримати перелік наявних комбінацій клавіш.</string>
   <string name="fairPlay">Чесна гра</string>
   <string name="whenAmIEligibleRatinRefund">Коли я маю право на автоматичне повернення рейтингу в іграх проти тих, хто грає нечесно?</string>
   <string name="ratingRefundExplanation">Через хвилину після відмічення гравця, його 40 останніх рейтингових ігор за останні 3 дні буде вилучено. Якщо ви були його суперником у цих іграх і втратили рейтинг (через програш або нічию) і ваш рейтинг не був умовним, ви отримуєте відшкодування рейтингу. Відшкодування обмежено піковим рейтингом і прогресом вашого рейтингу після гри.
@@ -63,7 +65,7 @@
 Перегляньте %3$s і попрактикуйтесь.</string>
   <string name="goodIntroduction">хороше введення</string>
   <string name="lichessTraining">Тренування Lichess</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Перегляньте мат %s міжнародного майстра Еріка Розена.</string>
+  <string name="watchIMRosenCheckmate">Перегляньте мат %s міжнародного майстра Еріка Розена.</string>
   <string name="threefoldRepetition">Триразове повторення</string>
   <string name="threefoldRepetitionExplanation">Якщо позиція відбулася тричі, гравці можуть оголосити нічию %1$s. Lichess впроваджує офіційні правила FIDE, як описано в статті 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">трикратне повторення</string>

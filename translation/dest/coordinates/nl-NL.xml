@@ -8,8 +8,8 @@
   <string name="mostChessCourses">De meeste schaakcursussen en -oefeningen maken gebruik van de algebraïsche notatie.</string>
   <string name="talkToYourChessFriends">Het maakt het gemakkelijker om met je schaakvrienden te praten, aangezien jullie beide de \"taal van het schaken\" begrijpen.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Je kunt een spel effectiever analyseren als je niet hoeft te zoeken naar de namen van de velden.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Er verschijnt een coördinaat op het bord en je moet op het bijbehorende veld klikken.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Op het bord wordt een veld uitgelicht en je dient het coördinaat in te voeren (bijvoorbeeld \"e4\").</string>
+  <string name="aCoordinateAppears">Er verschijnt een coördinaat op het bord en je moet op het bijbehorende veld klikken.</string>
+  <string name="aSquareIsHighlightedExplanation">Op het bord wordt een veld uitgelicht en je dient het coördinaat in te voeren (bijvoorbeeld \"e4\").</string>
   <string name="youHaveThirtySeconds">Je hebt 30 seconden om zoveel mogelijk velden correct te benoemen!</string>
   <string name="goAsLongAsYouWant">Speel zolang als je wilt, er is geen tijdslimiet!</string>
   <string name="showCoordinates">Coördinaten tonen</string>

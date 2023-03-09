@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">رمز وصول API الشخصي الجديد</string>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">رمز وصول API الشخصي الجديد</string>
   <string name="tokenGrantsPermission">الرمز المميز يمنح الأشخاص الآخرين الإذن باستخدام حسابك.</string>
   <string name="carefullySelect">اختر بعناية ما هو مسموح له أن يفعله نيابة عنك.</string>
   <string name="tokenDescription">وصف token</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">ما الذي يمكن أن تفعله الtoken بالنيابة عنك:</string>
   <string name="doNotShareIt">الرمز المميز سيمنح الوصول إلى حسابك. لا تقم بمشاركته مع أي شخص!</string>
   <string name="copyTokenNow">احفظ أو اكتب كلمة المرور الخاصة بتطبيق. لن تراها مجددا!</string>
-  <string name="preferenceRead">قراءة التفضيلات</string>
-  <string name="preferenceWrite">اكتب مرجع</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">قراءة التفضيلات</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">اكتب مرجع</string>
   <string name="emailRead">اقرا عنوان البريد</string>
   <string name="challengeRead">قراءة التحديات الواردة</string>
-  <string name="challengeWrite">إرسال وقبول ورفض التحديات</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">إرسال وقبول ورفض التحديات</string>
   <string name="challengeBulk">إنشاء العديد من الألعاب مرة واحدة للاعبين الآخرين</string>
   <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">قراءة الدراسات والبث الخاص</string>
   <string name="studyWrite">إنشاء، تحديث، حذف الدراسات والبث</string>
   <string name="tournamentWrite">إنشاء وتحديث والالتحاق بالبطولات</string>
   <string name="racerWrite">إنشاء سباقات الألغاز والانضمام إليها</string>
-  <string name="puzzleRead">اقرا نشاط الالغاز</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">اقرا نشاط الالغاز</string>
   <string name="teamRead">قراءة معلومات الفريق الخاص</string>
   <string name="teamWrite">انضم او غادر الفرق</string>
   <string name="teamLead">إدارة الفرق التي تقودها: إرسال الرسائل الشخصية، طرد الأعضاء</string>

@@ -24,12 +24,7 @@ final class Env(
     chatPanic: lila.chat.ChatPanic,
     shutup: lila.hub.actors.Shutup,
     mongoCache: lila.memo.MongoCache.Api
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    scheduler: Scheduler,
-    materializer: akka.stream.Materializer
-):
+)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer):
 
   private val colls = wire[MsgColls]
 
@@ -47,15 +42,14 @@ final class Env(
 
   lazy val twoFactorReminder = wire[TwoFactorReminder]
 
-  def cli =
-    new lila.common.Cli:
-      def process = { case "msg" :: "multi" :: orig :: dests :: words =>
-        api.cliMultiPost(
-          UserStr(orig),
-          UserId.from(dests.map(_.toLower).split(',').toIndexedSeq),
-          words mkString " "
-        )
-      }
+  def cli: lila.common.Cli = new:
+    def process = { case "msg" :: "multi" :: orig :: dests :: words =>
+      api.cliMultiPost(
+        UserStr(orig),
+        UserId.from(dests.map(_.toLower).split(',').toIndexedSeq),
+        words mkString " "
+      )
+    }
 
   Bus.subscribeFuns(
     "msgSystemSend" -> { case lila.hub.actorApi.msg.SystemMsg(userId, text) =>
@@ -65,11 +59,11 @@ final class Env(
       msg.get[UserId]("d") foreach { api.setRead(userId, _) }
     },
     "remoteSocketIn:msgSend" -> { case TellUserIn(userId, msg) =>
-      for {
+      for
         obj  <- msg obj "d"
         dest <- obj.get[UserId]("dest")
         text <- obj str "text"
-      } api.post(userId, dest, text)
+      yield api.post(userId, dest, text)
     }
   )
 

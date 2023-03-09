@@ -25,7 +25,7 @@ autist(ic|)
 aus?c?hwitz
 bastard?
 be[ea]++t?ch
-biy?t?ch
+b(iy?t?|t)ch
 blow(job|)
 blumpkin
 bollock
@@ -39,6 +39,7 @@ che[ae]t(ing|er|ed|)
 chess(|-|_)bot(.?com)?
 chicken
 chink
+chitter
 clit(oris|)
 clown
 cock(suc?k(er|ing)|)
@@ -88,6 +89,7 @@ moron
 mother(fuc?k(er|)|)
 mthrfckr
 nazi
+nigg?
 nigg?ah?
 nonce
 noo++b
@@ -171,7 +173,9 @@ wog
 (ё|е)бл(а|о|у|ану?)
 (|за|отъ?|у)ебись
 (|на|вы)ебнуть?ся
+аутист
 blyat
+свинья
 Убейся
 p[ie]d[aoe]?r
 uebok
@@ -296,6 +300,7 @@ ann?an[iı](zi)? s[ii̇]k[eii̇]y[ii̇]m
 aptal
 beyinsiz
 bok yedin
+ezik
 gerizekal[iı]
 ibne
 ka[sş]ar
@@ -317,7 +322,7 @@ cancer
 (die|burn)s? irl
 (kill|hang|neck) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
 kys
-nigg?er
+nigg?[ae]r
 rap(ed?|e?ing)
 """)
 

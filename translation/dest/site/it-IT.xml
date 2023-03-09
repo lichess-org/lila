@@ -209,8 +209,10 @@
   <string name="forgotPassword">Password dimenticata?</string>
   <string name="error.weakPassword">Questa password è estremamente comune e troppo facile da indovinare.</string>
   <string name="error.namePassword">Sei pregato di non utilizzare il tuo nome utente come password.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Hai usato la stessa password su un altro sito e quel sito è stato violato. Per garantire la sicurezza del tuo account Lichess, abbiamo bisogno che imposti una nuova password. Grazie per la tua comprensione.</string>
   <string name="youAreLeavingLichess">Stai uscendo da Lichess</string>
   <string name="neverTypeYourPassword">Non digitare mai la tua password di Lichess su un altro sito!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Procedi su %s</string>
   <string name="passwordSuggestion">Non impostare una password suggerita da qualcun altro. La utilizzeranno per rubare il tuo profilo.</string>
   <string name="emailSuggestion">Non impostare un indirizzo email suggerito da qualcun altro. Lo utilizzeranno per rubare il tuo profilo.</string>
   <string name="emailConfirmHelp">Aiuto per la conferma dell\'email</string>
@@ -237,8 +239,8 @@
     <item quantity="other">La posizione è aggiornata ogni %s minuti</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s tattica</item>
-    <item quantity="other">%s tattiche</item>
+    <item quantity="one">%s problema</item>
+    <item quantity="other">%s problemi</item>
   </plurals>
   <string name="gamesPlayed">Partite giocate</string>
   <plurals name="nbGamesWithYou">
@@ -510,7 +512,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passa automaticamente alla partita successiva dopo aver mosso</string>
   <string name="autoSwitch">Cambia automaticamente</string>
-  <string name="puzzles">Tattiche</string>
+  <string name="puzzles">Problemi</string>
   <string name="tournamentWinners">Vincitori dei tornei</string>
   <string name="name">Nome</string>
   <string name="description">Descrizione</string>

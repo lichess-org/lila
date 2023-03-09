@@ -8,7 +8,7 @@
   <string name="mostChessCourses">Շախմատային դասընթացներում և խնդիրներում լայնորեն կիրառվում է նոտագրությունը:</string>
   <string name="talkToYourChessFriends">Հեշտանում է ընկերների հետ խոսելը, երբ երկուսն էլ հասկանում են «շախմատի լեզուն»:</string>
   <string name="youCanAnalyseAGameMoreEffectively">Պարտիաներ վերլուծելն ավելի արդյունավետ է, եթե կոորդինատներով դաշտերը փնտելու վրա ժամանակ չի ծախսվում:</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Կոորդինատները հայտնվում են տախտակին, և Ձեզ անհրաժեշտ է նշել դրանց համապատասխանող դաշտը։</string>
+  <string name="aCoordinateAppears">Կոորդինատները հայտնվում են տախտակին, և Ձեզ անհրաժեշտ է նշել դրանց համապատասխանող դաշտը։</string>
   <string name="showCoordinates">Ցույց տալ կոորդինատները</string>
   <string name="showPieces">Ցույց տալ խաղաքարերը</string>
   <string name="startTraining">Սկսել ուսուցումը</string>

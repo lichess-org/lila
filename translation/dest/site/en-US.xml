@@ -199,7 +199,7 @@
   <string name="changeUsername">Change username</string>
   <string name="changeUsernameNotSame">Only the case of the letters can change. For example \"johndoe\" to \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of the letters in your username.</string>
-  <string name="signupUsernameHint">Make sure to choose a family-friendly username. You cannot change it later and any accounts with inappropriate usernames will get closed!</string>
+  <string name="signupUsernameHint">Be sure to choose a family-friendly username. You cannot change it later, and any accounts with inappropriate usernames will be closed!</string>
   <string name="signupEmailHint">We will only use it for password reset.</string>
   <string name="password">Password</string>
   <string name="changePassword">Change password</string>
@@ -207,7 +207,14 @@
   <string name="email">Email</string>
   <string name="passwordReset">Password reset</string>
   <string name="forgotPassword">Forgot password?</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">You are leaving Lichess</string>
+  <string name="error.weakPassword">This password is extremely common and too easy to guess.</string>
+  <string name="error.namePassword">Please don\'t use your username as your password.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">You have used the same password on another site, and that site has been compromised. To ensure the safety of your Lichess account, we need you to set a new password. Thank you for your understanding.</string>
+  <string name="youAreLeavingLichess">You are leaving Lichess</string>
+  <string name="neverTypeYourPassword">Never type your Lichess password on another site!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Proceed to %s</string>
+  <string name="passwordSuggestion">Do not set a password suggested by someone else. They could use it to steal your account.</string>
+  <string name="emailSuggestion">Do not set an email address suggested by someone else. They could use it to steal your account.</string>
   <string name="emailConfirmHelp">Help with email confirmation</string>
   <string name="emailConfirmNotReceived">Didn\'t receive your confirmation email after signing up?</string>
   <string name="whatSignupUsername">What username did you use to sign up?</string>

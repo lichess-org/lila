@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">ନୂଆ ଵ୍ୟକ୍ତିଗତ API ଆକ୍ସେସ୍ ଟୋକନ୍</string>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">ନୂଆ ଵ୍ୟକ୍ତିଗତ API ଆକ୍ସେସ୍ ଟୋକନ୍</string>
   <string name="tokenDescription">ଟୋକନ୍ ଵର୍ଣ୍ଣନା</string>
 </resources>

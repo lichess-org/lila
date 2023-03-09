@@ -121,13 +121,13 @@ final class Team(
           else me.??(u => api.belongsTo(team.id, u.id))
         canView map {
           case true =>
-            apiC.jsonStream(
+            apiC.jsonDownload(
               env.team
                 .memberStream(team, config.MaxPerSecond(20))
                 .map { (user, joinedAt) =>
                   env.api.userApi.one(user, joinedAt.some)
                 }
-            )(req)
+            )(using req)
           case false => Unauthorized
         }
       }

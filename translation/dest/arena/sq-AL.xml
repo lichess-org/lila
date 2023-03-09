@@ -54,4 +54,6 @@ Luani shpejt dhe kthehuni në holl, që të luani më shumë lojëra dhe të fit
   <string name="allowBerserkHelp">Lejoni lojtarët të përgjysmojnë kohën e tyre për të fituar një pikë shtesë</string>
   <string name="allowChatHelp">Lejoni lojtarët të diskutojnë në një dhomë bisedash</string>
   <string name="arenaStreaksHelp">Pas 2 fitoresh, fitoret pasuese sjellin 4 pikë, në vend se 2.</string>
+  <string name="averagePerformance">Mesatare rezultatesh</string>
+  <string name="averageScore">Pikë mesatarisht</string>
 </resources>

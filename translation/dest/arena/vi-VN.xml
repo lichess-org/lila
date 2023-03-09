@@ -54,4 +54,8 @@ Xem tất cả %s đội</item>
   <string name="allowChatHelp">Cho phép các kỳ thủ trò chuyện trong phòng chat</string>
   <string name="arenaStreaks">Chuỗi đấu trường</string>
   <string name="arenaStreaksHelp">Sau 2 ván thắng, mỗi ván thắng liên tiếp sẽ được 4 điểm thay vì 2 điểm.</string>
+  <string name="noBerserkAllowed">Không cho phép Berserk</string>
+  <string name="noArenaStreaks">Không có chuỗi Giải đấu</string>
+  <string name="averagePerformance">Hiệu suất trung bình</string>
+  <string name="averageScore">Điểm trung bình</string>
 </resources>

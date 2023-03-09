@@ -214,7 +214,7 @@ package round:
 
   case class MoveEvent(
       gameId: GameId,
-      fen: BoardFen,
+      fen: Fen.Epd,
       move: String
   )
   case class CorresMoveEvent(

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="private">ବ୍ୟକ୍ତିଗତ</string>
+  <string name="private">ଘରୋଇ</string>
   <string name="myStudies">ମୋର ଅଧ୍ୟୟନ</string>
   <string name="myPublicStudies">ମୋର ସାର୍ବଜନୀନ ଅଧ୍ୟୟନ</string>
+  <string name="myPrivateStudies">ମୋର ଘରୋଇ ଅଧ୍ୟୟନ</string>
   <string name="noneYet">ଏପର୍ଯ୍ୟନ୍ତ କିଛି ନୁହେଁ।</string>
   <string name="hot">ହଟ୍</string>
   <string name="dateAddedNewest">ଯୋଡ଼ାଯିବା ତାରିଖ (ସବୁଠୁ ନୂଆ)</string>

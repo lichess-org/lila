@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">kiti būdai padėti</string>
   <string name="areThereWebsitesBasedOnLichess">Ar yra svetainių paremtų Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Taip. Lichess įkvėpė kitas atviro kodo svetaines, kurios naudoja mūsų %1$s, %2$s, arba %3$s.</string>
+  <string name="keyboardShortcuts">Kokių yra sparčiųjų klavišų?</string>
+  <string name="keyboardShortcutsExplanation">Kai kurie Lichess puslapiai turi sparčiuosius klavišus. Pabandykite paspausti \'?\' klavišą studijos, analizės, galvosūkio ar žaidimo puslapyje norėdami pamatyti prieinamus sparčiuosius klavišus.</string>
   <string name="fairPlay">Sąžiningas žaidimas</string>
   <string name="whenAmIEligibleRatinRefund">Kodėl aš galiu gauti automatinį reitingo atstatymą nuo sukčių?</string>
   <string name="ratingRefundExplanation">Praėjus minutei nuo žaidėjo pažymėjimo paimami paskutiniai 40 reitinguotų žaidimų per paskutines 3 dienas. Jei jūs buvote jų oponentas tuose žaidimuose ir praradote reitingo (dėl pralaimėjimo ar lygiųjų), ir jūsų reitingas nebuvo laikinas, jūs gausite reitingo atstatymą. Reitingo atstatymas apribotas jūsų geriausiu reitingu ir reitingo progresu po žaidimo. Pavyzdžiui: jei jūsų reitingas po tų žaidimų stipriai paaugo, jūs galite negauti jokio atstatymo, arba tik dalinį atstatymą. Atstatymas niekada neviršys 150 taškų.</string>
@@ -62,7 +64,7 @@ Jis apibrėžtas %2$s 3.7 (d) sekcijoje:
 Peržiūrėkite %3$s apie šį ėjimą norėdami jį pasipraktikuoti.</string>
   <string name="goodIntroduction">gerą įžangą</string>
   <string name="lichessTraining">Lichess treniruotes</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Stebėkite IM Eric Rosen atliekantį šachą ir matą %s.</string>
+  <string name="watchIMRosenCheckmate">Stebėkite IM Eric Rosen atliekantį šachą ir matą %s.</string>
   <string name="threefoldRepetition">Trigubas pasikartojimas</string>
   <string name="threefoldRepetitionExplanation">Jei ta pati pozicija įvyksta tris kartus žaidėjai gali skelbti lygiąsias %1$s. Lichess įgyvendina oficialias FIDE taisykles, kokios jos apibrėžtos %2$s straipsnyje 9.2 (d).</string>
   <string name="threefoldRepetitionLowerCase">trigubu pasikartojimu</string>

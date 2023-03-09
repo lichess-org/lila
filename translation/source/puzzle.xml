@@ -22,6 +22,7 @@
   <string name="toGetPersonalizedPuzzles">To get personalized puzzles:</string>
   <string name="puzzleId">Puzzle %s</string>
   <string name="puzzleOfTheDay">Puzzle of the day</string>
+  <string name="dailyPuzzle">Daily Puzzle</string>
   <string name="clickToSolve">Click to solve</string>
   <string name="goodMove">Good move</string>
   <string name="bestMove">Best move!</string>

@@ -45,6 +45,7 @@ lichess.load.then(() => {
     studyRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})(#\\d+)?\\b');
 
   function parseLink(a: HTMLAnchorElement): Parsed | undefined {
+    if (a.href !== a.textContent) return;
     const tw = toTwitterEmbedUrl(a.href);
     if (tw)
       return {
@@ -58,13 +59,13 @@ lichess.load.then(() => {
         src: yt,
       };
     let matches = a.href.match(chapterRegex);
-    if (matches && matches[2] && a.text.match(chapterRegex))
+    if (matches && matches[2])
       return {
         type: 'study',
         src: `/study/embed/${matches[1]}/${matches[2]}${matches[3] || ''}`,
       };
     matches = a.href.match(studyRegex);
-    if (matches && matches[1] && a.text.match(studyRegex))
+    if (matches && matches[1])
       return {
         type: 'study',
         src: `/study/embed/${matches[1]}/autochap${matches[2] || ''}`,

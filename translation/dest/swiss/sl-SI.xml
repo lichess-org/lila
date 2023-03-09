@@ -13,7 +13,7 @@
     <item quantity="few">%s krogi</item>
     <item quantity="other">%s krogov</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s krog tekmovanja po švicarskem sistemu</item>
     <item quantity="two">%s kroga tekmovanja po švicarskem sistemu</item>
     <item quantity="few">%s krogi tekmovanja po švicarskem sistemu</item>
@@ -65,6 +65,9 @@ Kadar igralca v krogu ni mogoče seznaniti, prejme eno točko.</string>
 Dodajte rezultate vsakega nasprotnika, ki ga igralec premaga, in polovico rezultata vsakega nasprotnika, s katerim igralec remizira.</string>
   <string name="pairingWaitTimeArena">Hitro: ne čakaj na vse igralce</string>
   <string name="pairingWaitTimeSwiss">Počasi: čakaj na vse igralce</string>
+  <string name="lateJoinUntil">Da, dokler se ne začne več kot polovica krogov</string>
+  <string name="pause">Premor</string>
+  <string name="pauseSwiss">Da, vendar se lahko zmanjša število krogov</string>
   <string name="predefinedUsers">Dovoli pridružitev samo vnaprej določenim uporabnikom</string>
   <string name="forbiddedUsers">Če ta seznam ni prazen, se bo uporabniškim imenom, ki niso na tem seznamu, prepovedano pridružiti. Eno uporabniško ime na vrstico.</string>
   <plurals name="xOutOfYRoundsSwiss">

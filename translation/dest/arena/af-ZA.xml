@@ -57,6 +57,7 @@ Speel vinnig en keer terug na die ontvangs om meer te speel en meer punte te kry
   <string name="arenaStreaks">Arena reekse</string>
   <string name="arenaStreaksHelp">Na 2 wenne, elke opeenvolgende wen verdien 4 punte in plaas van 2.</string>
   <string name="noBerserkAllowed">Geen Berserk toegelaat nie</string>
+  <string name="noArenaStreaks">Geen Arena reekse</string>
   <string name="averagePerformance">Gemiddelde prestasie</string>
   <string name="averageScore">Gemiddelde telling</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">APIrako sarbide-token pertsonala</string>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">APIrako sarbide-token pertsonala</string>
   <string name="tokenGrantsPermission">Tokenak beste pertsona bati zure kontua erabiltzeko baimena ematen dio.</string>
   <string name="carefullySelect">Ondo aukeratu zer egin dezakeen zure izenean.</string>
   <string name="tokenDescription">Tokenaren deskribapena</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">Tokenak zure izenean zer egin dezakeen:</string>
   <string name="doNotShareIt">Tokenak zure konturako sarbidea emango du. Ez partekatu inorekin!</string>
   <string name="copyTokenNow">Kopiatu zure sarbide-token pertsonala orain. Ezingo duzu berriz ikusi!</string>
-  <string name="preferenceRead">Aukerak irakurri</string>
-  <string name="preferenceWrite">Aukerak idatzi</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Aukerak irakurri</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Aukerak idatzi</string>
   <string name="emailRead">Eposta helbidea irakurri</string>
   <string name="challengeRead">Datozen erronkak irakurri</string>
-  <string name="challengeWrite">Erronkak bidali, onartu eta ukatu</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Erronkak bidali, onartu eta ukatu</string>
   <string name="challengeBulk">Beste jokalari batzuentzat hainbat partida aldi berean sortu</string>
   <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Azterlan pribatu eta zuzeneko emanaldiak irakurri</string>
   <string name="studyWrite">Azterlanak eta zuzeneko emanaldiak sortu, eguneratu eta ezabatu</string>
   <string name="tournamentWrite">Txapelketak sortu, eguneratu eta jokatu</string>
   <string name="racerWrite">Ariketa lasterketak sortu eta egin</string>
-  <string name="puzzleRead">Egindako ariketen informazioa irakurri</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Egindako ariketen informazioa irakurri</string>
   <string name="teamRead">Talde pribatuen informazioa irakurri</string>
   <string name="teamWrite">Taldeetan sartu eta berauetatik irten</string>
   <string name="teamLead">Zure taldeak kudeatu: mezu pribatuak bidali, kideak kanporatu</string>

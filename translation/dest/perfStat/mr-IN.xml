@@ -19,7 +19,7 @@
   <string name="notEnoughGames">पुरेसे खेळ नाहीत</string>
   <string name="highestRating">सर्वोच्च गुणांकन: %s</string>
   <string name="lowestRating">सर्वात कमी गुणांकन: %s</string>
-  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">%1$s पासून %2$s पर्यंत</string>
+  <string name="fromXToY">%1$s पासून %2$s पर्यंत</string>
   <string name="winningStreak">विजयाची मालिका</string>
   <string name="losingStreak">पराभवांची मािलका</string>
   <string name="longestStreak">सर्वात लांब मालिका: %s</string>

@@ -74,55 +74,54 @@ final class Report(
     else if (inquiry.isComm) Redirect(controllers.routes.Mod.communicationPublic(inquiry.user))
     else modC.redirect(inquiry.user)
 
-  protected[controllers] def onInquiryClose(
-      inquiry: Option[ReportModel],
+  protected[controllers] def onModAction(
       me: Holder,
-      goTo: Option[Suspect],
-      force: Boolean = false
+      goTo: Suspect
   )(using ctx: BodyContext[?]): Fu[Result] =
-    goTo.ifTrue(HTTPRequest isXhr ctx.req) match
-      case Some(suspect) => userC.renderModZoneActions(suspect.user.username)
-      case None =>
-        inquiry match
-          case None =>
-            goTo.fold(Redirect(routes.Report.list).toFuccess) { s =>
-              userC.modZoneOrRedirect(me, s.user.username)
-            }
-          case Some(prev) if prev.isSpontaneous => Redirect(modC.userUrl(prev.user, mod = true)).toFuccess
-          case Some(prev) =>
-            val dataOpt = ctx.body.body match
-              case AnyContentAsFormUrlEncoded(data) => data.some
-              case _                                => none
-            def thenGoTo =
-              dataOpt.flatMap(_ get "then").flatMap(_.headOption) flatMap {
-                case "profile" => modC.userUrl(prev.user, mod = true).some
-                case url       => url.some
+    if HTTPRequest.isXhr(ctx.req) then userC.renderModZoneActions(goTo.user.username)
+    else
+      api.inquiries
+        .ofModId(me.id)
+        .flatMap(_.fold(userC.modZoneOrRedirect(me, goTo.user.username))(onInquiryAction(_, me)))
+
+  protected[controllers] def onInquiryAction(
+      inquiry: ReportModel,
+      me: Holder,
+      processed: Boolean = false
+  )(using ctx: BodyContext[?]): Fu[Result] =
+    val dataOpt = ctx.body.body match
+      case AnyContentAsFormUrlEncoded(data) => data.some
+      case _                                => none
+    def thenGoTo =
+      dataOpt.flatMap(_ get "then").flatMap(_.headOption) flatMap {
+        case "profile" => modC.userUrl(inquiry.user, mod = true).some
+        case url       => url.some
+      }
+    def process() = !processed ?? api.process(me, inquiry)
+    thenGoTo match
+      case Some(url) => process() >> Redirect(url).toFuccess
+      case _ =>
+        def redirectToList = Redirect(routes.Report.listWithFilter(inquiry.room.key))
+        if inquiry.isAppeal then process() >> Redirect(appeal.routes.Appeal.queue).toFuccess
+        else if dataOpt.flatMap(_ get "next").exists(_.headOption contains "1") then
+          process() >> {
+            if inquiry.isSpontaneous then Redirect(modC.userUrl(inquiry.user, mod = true)).toFuccess
+            else
+              api.inquiries.toggleNext(me, inquiry.room) map {
+                _.fold(redirectToList)(onInquiryStart)
               }
-            thenGoTo match
-              case Some(url) => Redirect(url).toFuccess
-              case _ =>
-                def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
-                if (prev.isAppeal) Redirect(appeal.routes.Appeal.queue).toFuccess
-                else if (dataOpt.flatMap(_ get "next").exists(_.headOption contains "1"))
-                  api.inquiries.toggleNext(me, prev.room) map {
-                    _.fold(redirectToList)(onInquiryStart)
-                  }
-                else if (force) userC.modZoneOrRedirect(me, prev.user)
-                else
-                  api.inquiries.toggle(me, Left(prev.id)) map { (prev, next) =>
-                    next
-                      .fold(
-                        if (prev.exists(_.isAppeal)) Redirect(appeal.routes.Appeal.queue)
-                        else redirectToList
-                      )(onInquiryStart)
-                  }
+          }
+        else if processed then userC.modZoneOrRedirect(me, inquiry.user)
+        else onInquiryStart(inquiry).toFuccess
 
   def process(id: ReportId) =
     SecureBody(_.SeeReport) { implicit ctx => me =>
-      api byId id flatMap { inquiry =>
-        inquiry.filter(_.isAppeal).map(_.user).??(env.appeal.api.setReadById) >>
-          api.process(me, id) >>
-          onInquiryClose(inquiry, me, none, force = true)
+      api byId id flatMap {
+        _.fold(Redirect(routes.Report.list).toFuccess) { inquiry =>
+          inquiry.isAppeal.??(env.appeal.api.setReadById(inquiry.user)) >>
+            api.process(me, inquiry) >>
+            onInquiryAction(inquiry, me, processed = true)
+        }
       }
     }
 

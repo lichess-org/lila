@@ -8,8 +8,8 @@
   <string name="mostChessCourses">Ikastaro eta ariketa gehienek idazkera algebraikoa erabiltzen dute.</string>
   <string name="talkToYourChessFriends">Horrela errazagoa da zure lagunekin hitz egitea, biok hitz egiten baituzue \"xakearen hizkuntza\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Partida errazago aztertu dezakezu ez badituzu laukien izenak aurkitu behar.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Koordenatua taulan agertzen dan eta dagokion laukian klik egin behar duzu.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Lauki bat markatuko da eta bere koordinatua idatzi beharko duzu (adb.: \"e4\").</string>
+  <string name="aCoordinateAppears">Koordenatua taulan agertzen dan eta dagokion laukian klik egin behar duzu.</string>
+  <string name="aSquareIsHighlightedExplanation">Lauki bat markatuko da eta bere koordinatua idatzi beharko duzu (adb.: \"e4\").</string>
   <string name="youHaveThirtySeconds">30 segundo dituzu ahal bezain beste lauki asmatzeko!</string>
   <string name="goAsLongAsYouWant">Nahi duzun arte aritu honetan, ez dago denbora mugarik!</string>
   <string name="showCoordinates">Erakutsi koordenatuak</string>

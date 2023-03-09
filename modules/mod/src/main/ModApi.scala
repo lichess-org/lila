@@ -19,7 +19,6 @@ final class ModApi(
     for {
       _ <- userRepo.setAlt(prev.user.id, v)
       sus = prev.set(_.withMarks(_.set(_.Alt, v)))
-      _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
       _ <- logApi.alt(mod, sus, v)
     } yield if (v) notifier.reporters(mod, sus).unit
 
@@ -28,7 +27,6 @@ final class ModApi(
       for {
         _ <- userRepo.setEngine(prev.user.id, v)
         sus = prev.set(_.withMarks(_.set(_.Engine, v)))
-        _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
         _ <- logApi.engine(mod, sus, v)
       } yield
         Bus.publish(lila.hub.actorApi.mod.MarkCheater(sus.user.id, v), "adjustCheater")
@@ -45,7 +43,8 @@ final class ModApi(
         reportApi.getMod(modId) flatMapz { mod =>
           lila.mon.cheat.autoMark.increment()
           setEngine(mod, sus, v = true) >>
-            noteApi.lichessWrite(sus.user, note)
+            noteApi.lichessWrite(sus.user, note) >>
+            reportApi.autoProcess(modId, sus, Set(Room.Cheat, Room.Print))
         }
       }
     } yield ()
@@ -56,7 +55,6 @@ final class ModApi(
       for {
         _ <- userRepo.setBoost(prev.user.id, v)
         sus = prev.set(_.withMarks(_.set(_.Boost, v)))
-        _ <- reportApi.process(mod, sus, Set(Room.Other))
         _ <- logApi.booster(mod, sus, v)
       } yield
         if (v)
@@ -72,15 +70,15 @@ final class ModApi(
         logApi.troll(mod, sus)
         Bus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), "shadowban")
       }
-    } >>
-      reportApi.process(mod, sus, Set(Room.Comm)) >>- {
-        if (value) notifier.reporters(mod, sus).unit
-      } inject sus
+    } >>- {
+      if (value) notifier.reporters(mod, sus).unit
+    } inject sus
 
   def autoTroll(sus: Suspect, note: String): Funit =
     reportApi.getLichessMod flatMap { mod =>
       setTroll(mod, sus, true) >>
         noteApi.lichessWrite(sus.user, note)
+        >> reportApi.autoProcess(mod.id, sus, Set(Room.Comm))
     }
 
   def garbageCollect(userId: UserId): Funit = for {

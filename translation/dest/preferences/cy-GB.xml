@@ -41,4 +41,5 @@
   <string name="castleByMovingOntoTheRook">Gollwng y Teyrn ar ben y Castell</string>
   <string name="inputMovesWithTheKeyboard">Mewnbynnu symudiadau efo\'r allweddfwrdd</string>
   <string name="yourPreferencesHaveBeenSaved">Cadwyd eich dewisiadau.</string>
+  <string name="notifyWeb">Porwr</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">Новый персональный токен доступа к API</string>
+  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Новый персональный токен доступа к API</string>
   <string name="tokenGrantsPermission">Токен даёт другим людям разрешение на использование вашей учётной записи.</string>
   <string name="carefullySelect">Внимательно выберите, что разрешено делать от вашего имени.</string>
   <string name="tokenDescription">Описание токена</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">Действия, которые можно совершать с помощью токена от вашего имени:</string>
   <string name="doNotShareIt">Токен предоставит доступ к вашей учётной записи. НЕ передавайте его никому!</string>
   <string name="copyTokenNow">Убедитесь, что вы скопировали ваш новый токен персонального доступа. Вы не сможете увидеть его снова!</string>
-  <string name="preferenceRead">Чтение настроек</string>
-  <string name="preferenceWrite">Изменение настроек</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Чтение настроек</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Изменение настроек</string>
   <string name="emailRead">Чтение адреса электронной почты</string>
   <string name="challengeRead">Чтение входящих вызовов</string>
-  <string name="challengeWrite">Отправка, принятие и отклонение вызовов</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Отправка, принятие и отклонение вызовов</string>
   <string name="challengeBulk">Одновременное создание множества партий для других игроков</string>
-  <string name="studyRead">Чтение закрытые студий и трансляций</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Чтение закрытые студий и трансляций</string>
   <string name="studyWrite">Создание, обновление и удаление студий и трансляций</string>
   <string name="tournamentWrite">Создание, обновление турниров и присоединение к ним</string>
   <string name="racerWrite">Создание и присоединение к гонкам задач</string>
-  <string name="puzzleRead">Чтение активности в задачах</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Чтение активности в задачах</string>
   <string name="teamRead">Чтение информации о закрытых клубах</string>
   <string name="teamWrite">Присоединение к клубам и покидание их</string>
   <string name="teamLead">Управление клубами, где вы лидер: отправка личных сообщений, исключение участников</string>

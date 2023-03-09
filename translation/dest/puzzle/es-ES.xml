@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Para conseguir ejercicios personalizados:</string>
   <string name="puzzleId">Ejercicio %s</string>
   <string name="puzzleOfTheDay">Ejercicio del día</string>
+  <string name="dailyPuzzle">Ejercicio del día</string>
   <string name="clickToSolve">Clic para resolver</string>
   <string name="goodMove">Buen movimiento</string>
   <string name="bestMove">¡El mejor movimiento!</string>

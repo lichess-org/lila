@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">개인화된 퍼즐을 위해선:</string>
   <string name="puzzleId">퍼즐 %s</string>
   <string name="puzzleOfTheDay">오늘의 퍼즐</string>
+  <string name="dailyPuzzle">일일 퍼즐</string>
   <string name="clickToSolve">퍼즐 풀기</string>
   <string name="goodMove">좋은 수 입니다.</string>
   <string name="bestMove">가장 좋은 수입니다!</string>

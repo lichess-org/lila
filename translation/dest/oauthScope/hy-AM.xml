@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferenceRead">Կարդալ կարգավորումները</string>
-  <string name="preferenceWrite">Գրել կարգավորումները</string>
+  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Կարդալ կարգավորումները</string>
+  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Գրել կարգավորումները</string>
   <string name="emailRead">Կարդալ էլփոստի հասցեները</string>
   <string name="challengeRead">Կարդալ մուտքային մարտահրավերները</string>
-  <string name="challengeWrite">Գրել մուտքային մարտահրավերները</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Գրել մուտքային մարտահրավերները</string>
   <string name="challengeBulk">Ստեղծել բազմաթիվ պարտիաներ միանգամից այլ խաղացողների համար</string>
-  <string name="studyRead">Կարդալ փակ ստուդիաները և հեռարձակումները</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Կարդալ փակ ստուդիաները և հեռարձակումները</string>
   <string name="studyWrite">Ստեղծել, թարմացնել և հեռացնել ստուդիաները և հեռարձակումները</string>
   <string name="tournamentWrite">Ստեղծել, թարմացնել և միանալ մրցաշարերին</string>
   <string name="racerWrite">Ստեղծել և միանալ խնդիրների մրցարշավին</string>
-  <string name="puzzleRead">Կարդալ ակտիվությունը խնդիրներում</string>
+  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Կարդալ ակտիվությունը խնդիրներում</string>
   <string name="teamRead">Կարդալ տեղեկություններ փակ ակումբներից</string>
   <string name="teamWrite">Միանալ, կառավարել և լքել ակումբները</string>
   <string name="followRead">Կարդալ բաժանորդ խաղացողներին</string>

@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">For å få personleg tilpassa oppgåver:</string>
   <string name="puzzleId">Oppgåve %s</string>
   <string name="puzzleOfTheDay">Dagens oppgåve</string>
+  <string name="dailyPuzzle">Dagens sjakkproblem</string>
   <string name="clickToSolve">Klikk for å løyse oppgåva</string>
   <string name="goodMove">Godt trekk</string>
   <string name="bestMove">Beste trekk!</string>

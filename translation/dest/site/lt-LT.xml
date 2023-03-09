@@ -231,8 +231,10 @@
   <string name="forgotPassword">Pamiršote slaptažodį?</string>
   <string name="error.weakPassword">Šis slaptažodis itin dažnas ir jį pernelyg lengva atspėti.</string>
   <string name="error.namePassword">Prašome nenaudoti savo vartotojo vardo kaip slaptažodžio.</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Jūs paliekate Lichess</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Jūs jau panaudojote šį slaptažodį kitoje svetainėje, kurios saugumas buvo pažeistas. Norėdami užtikrinti jūsų Lichess paskyros saugumą turime paprašyti nustatyti naują slaptažodį. Dėkojame už supratingumą.</string>
+  <string name="youAreLeavingLichess">Jūs paliekate Lichess</string>
   <string name="neverTypeYourPassword">Niekada netalpinkite savo Lichess slaptažodžio kitoje svetainėje!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Eiti į %s</string>
   <string name="passwordSuggestion">Nenaudokite slaptažodžio, kurį jums pasiūlė kas nors kitas. Tuo galima pasinaudoti pavogiant jūsų paskyrą.</string>
   <string name="emailSuggestion">Nenaudokite el. pašto adreso, kurį jums pasiūlė kas nors kitas. Tuo galima pasinaudoti pavogiant jūsų paskyrą.</string>
   <string name="emailConfirmHelp">Pagalba dėl el. pašto adreso patvirtinimo</string>

@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">Zagraj z komputerem</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Przekaż ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
-  <string name="waitingForOpponent">Oczekiwanie na przeciwnika</string>
+  <string name="waitingForOpponent">Oczekiwanie na ruch przeciwnika</string>
   <string name="waiting">Oczekiwanie</string>
   <string name="yourTurn">Twój ruch</string>
   <string name="aiNameLevelAiLevel">%1$s poziom %2$s</string>
@@ -231,8 +231,10 @@
   <string name="forgotPassword">Zapomniałeś hasła?</string>
   <string name="error.weakPassword">To hasło jest bardzo popularne i zbyt łatwe do odgadnięcia.</string>
   <string name="error.namePassword">Nie używaj nazwy użytkownika jako hasła.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Użyłeś tego samego hasła w innym serwisie, który został zaatakowany. Aby zapewnić bezpieczeństwo Twojego konta Lichess musisz ustawić nowe hasło. Dziękujemy za wyrozumiałość.</string>
   <string name="youAreLeavingLichess">Opuszczasz Lichess</string>
   <string name="neverTypeYourPassword">Nigdy nie wpisuj hasła Lichess na innej stronie!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Przejdź do %s</string>
   <string name="passwordSuggestion">Nie ustawiaj hasła zasugerowanego przez kogoś innego. Wykorzystają je do kradzieży Twojego konta.</string>
   <string name="emailSuggestion">Nie ustawiaj adresu e-mail zasugerowanego przez kogoś innego. Wykorzystają go do kradzieży Twojego konta.</string>
   <string name="emailConfirmHelp">Pomoc z potwierdzeniem adresu e-mail</string>

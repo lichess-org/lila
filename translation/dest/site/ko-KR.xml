@@ -196,6 +196,14 @@
   <string name="email">메일</string>
   <string name="passwordReset">비밀번호 초기화</string>
   <string name="forgotPassword">비밀번호를 잊어버리셨나요?</string>
+  <string name="error.weakPassword">이 비밀번호는 매우 일반적이고 추측하기 쉽습니다.</string>
+  <string name="error.namePassword">사용자 아이디를 비밀번호로 사용하지 마세요.</string>
+  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">다른 사이트에서 동일한 비밀번호를 사용했으며 해당 사이트가 유출된 경우. 라이선스 계정의 안전을 위해 새 비밀번호를 설정해 주셔야 합니다. 양해해 주셔서 감사합니다.</string>
+  <string name="youAreLeavingLichess">리체스에서 나갑니다</string>
+  <string name="neverTypeYourPassword">다른 사이트에서는 절대로 리체스 비밀번호를 입력하지 마세요!</string>
+  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">%s 진행</string>
+  <string name="passwordSuggestion">다른 사람이 제안한 비밀번호를 설정하지 마세요. 타인이 계정을 도용하는 데 사용할 수 있습니다.</string>
+  <string name="emailSuggestion">다른 사람이 추천한 이메일 주소를 설정하지 마세요. 타인이 계정을 도용하는 데 사용할 수 있습니다.</string>
   <string name="emailConfirmHelp">이메일 확인 도움말</string>
   <string name="emailConfirmNotReceived">가입 후 확인 이메일을 받지 못하셨나요?</string>
   <string name="whatSignupUsername">가입할 때 어떤 사용자 이름을 사용하셨나요?</string>
@@ -337,6 +345,7 @@
   <string name="siteDescription">회원가입, 광고, 플러그인 없이 즐길 수 있는 깔끔한 구성의 무료 온라인 체스 게임입니다. 컴퓨터, 친구 또는 무작위로 고른 상대와 함께 체스를 즐겨보세요.</string>
   <string name="xJoinedTeamY">%1$s(이)가 팀 %2$s에 가입했습니다.</string>
   <string name="xCreatedTeamY">%1$s(이)가 팀 %2$s(을)를 만들었습니다.</string>
+  <string name="startedStreaming">스트리밍 시작</string>
   <string name="xStartedStreaming">%s 님이 스트리밍을 시작했습니다</string>
   <string name="averageElo">평균 레이팅</string>
   <string name="location">주소</string>
@@ -456,6 +465,10 @@
   <string name="socialMediaLinks">소셜 미디어 링크</string>
   <string name="oneUrlPerLine">한 줄에 1개 URL</string>
   <string name="inlineNotation">기보를 가로쓰기</string>
+  <string name="savingMoves">임시 이동 저장</string>
+  <string name="savingMovesHelp">변동 사항들은 항상 당신의 브라우저 캐시에 저장됩니다.</string>
+  <string name="makeAStudy">안전하게 보관하고 공유하려면 스터디를 만들어 보세요.</string>
+  <string name="clearSavedMoves">저장된 움직임 삭제</string>
   <string name="previouslyOnLichessTV">이전 방송</string>
   <string name="onlinePlayers">접속한 플레이어</string>
   <string name="activePlayers">활동적인 플레이어</string>
@@ -502,6 +515,8 @@
   <string name="blog">블로그</string>
   <string name="notes">노트</string>
   <string name="typePrivateNotesHere">여기에 비밀 노트를 쓰세요</string>
+  <string name="writeAPrivateNoteAboutThisUser">이 사용자에 대한 비공개 메모를 작성하세요</string>
+  <string name="noNoteYet">아직 메모가 없습니다.</string>
   <string name="invalidUsernameOrPassword">사용자 이름이나 비밀번호가 잘못되었습니다.</string>
   <string name="incorrectPassword">잘못된 비밀번호입니다.</string>
   <string name="invalidAuthenticationCode">무효한 인증코드</string>

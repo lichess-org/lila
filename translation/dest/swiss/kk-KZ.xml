@@ -9,7 +9,7 @@
     <item quantity="one">%s айналым</item>
     <item quantity="other">%s айналым</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">Швейцарлық ойынның %s кезеңі</item>
     <item quantity="other">Швейцарлық ойынның %s кезеңі</item>
   </plurals>
