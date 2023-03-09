@@ -2,17 +2,13 @@
 .keyboard-move-help {
   @extend %help-modal;
 
+  td.tips li {
+    list-style: disc;
+    margin: 0 10%;
+  }
+
   a {
     margin-#{$start-direction}: 0.25em;
-  }
-}
-
-ul {
-  li {
-    list-style: disc;
-  }
-  &.tips {
-    margin: 0 auto;
   }
 }
 

@@ -13,6 +13,7 @@ export { makeMoveCtrl } from './moveCtrl';
 export { voiceCtrl } from './voiceCtrl';
 
 export function renderMoveCtrl(ctrl: MoveCtrl) {
+  console.log(ctrl.root.keyboard);
   return ctrl.root.keyboard ? renderKeyboardMove(ctrl) : renderVoiceMove(ctrl);
 }
 
@@ -39,12 +40,12 @@ function renderVoiceMove(ctrl: MoveCtrl) {
   });*/
   const rec = storedBooleanProp('recording', false);
   return h('div.input-move', [
+    h('p#voice-status', {
+      hook: onInsert(el => ctrl.voice.addListener('moveInput', txt => (el.innerText = txt))),
+    }),
     h('a#voice-help-button', {
       attrs: { role: 'button', ...dataIcon('') },
       hook: bind('click', () => ctrl.helpModalOpen(true)),
-    }),
-    h('p#voice-status', {
-      hook: onInsert(el => ctrl.voice.addListener('moveInput', txt => (el.innerText = txt))),
     }),
     h('a#microphone-button', {
       class: { enabled: ctrl.voice.isRecording, busy: ctrl.voice.isBusy },

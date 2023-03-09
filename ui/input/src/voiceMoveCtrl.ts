@@ -5,10 +5,10 @@ import * as cs from 'chess';
 import { destsToUcis, nonMoveCommand } from './handlerUtil';
 import { lexicon, Token, Tag } from './voiceMoveGrammar';
 
-let vmctrl: VoiceMoveCtrl;
+let vMoveCtrl: VoiceMoveCtrl;
 
 export function voiceMoveCtrl(): VoiceMoveCtrl {
-  return vmctrl ? vmctrl : (vmctrl = new VoiceMoveCtrlImpl());
+  return vMoveCtrl ? vMoveCtrl : (vMoveCtrl = new VoiceMoveCtrlImpl());
 }
 
 class VoiceMoveCtrlImpl implements VoiceMoveCtrl {
@@ -46,16 +46,29 @@ class VoiceMoveCtrlImpl implements VoiceMoveCtrl {
   }
 
   listen(msgText: string, msgType: MsgType, words?: WordResult) {
-    // TODO - improve this tangled if/else/return crap
+    // TODO - improve this tangled if/else/return crap before it becomes unmanageable
     if (msgType === 'phrase' && words) {
+      if (this.ctrl.helpModalOpen() && this.wordOut(msgText ?? '') === 'no') {
+        this.ctrl.helpModalOpen(false);
+        return;
+      }
       if (this.ambiguity) {
-        if (this.resolveAmbiguity(msgText)) this.cg.redrawAll();
+        console.log(this.ambiguity);
+        this.resolveAmbiguity(msgText);
+        this.cg.redrawAll();
         return;
       }
       const conf = words.reduce((acc, w) => acc + w.conf, 0) / words.length;
-      if (this.tokens.get(this.wordTok(msgText))?.tags.includes('exact') && conf > 0.85) {
-        if (msgText === 'stop') this.ctrl.voice?.stop();
-        else nonMoveCommand(msgText, this.ctrl);
+      const exactMatch = this.tokens.get(this.wordTok(msgText));
+      if (exactMatch?.tags.includes('exact') && conf > 0.85) {
+        const out = exactMatch.out ?? '';
+        if (exactMatch?.tags.includes('command')) {
+          if (out === 'stop') this.ctrl.voice?.stop();
+          else nonMoveCommand(out, this.ctrl);
+        } else if (exactMatch?.tags.includes('move')) {
+          console.log(out, this.phrases.get(out));
+          this.submit(this.phrases.get(out)?.values()?.next()?.value);
+        }
         this.ctrl.root.redraw();
         return;
       }
@@ -72,28 +85,28 @@ class VoiceMoveCtrlImpl implements VoiceMoveCtrl {
     this.ctrl.root.redraw();
   }
 
-  resolveAmbiguity(choice?: string): boolean {
+  resolveAmbiguity(choice?: string) /*: boolean*/ {
     const out = this.wordOut(choice ?? '');
 
-    if (this.ambiguity && choice && this.ambiguity.has(out)) {
-      this.cg.setShapes([]);
-      this.submit(this.ambiguity.get(out)!);
-      this.ambiguity = undefined;
-    } else if (out === 'no') {
-      this.cg.setShapes([]);
-      this.cg.selectSquare(null);
-      this.ambiguity = undefined;
-      this.buildVocabulary();
-    }
-    return !this.ambiguity;
-  }
+    if (this.ambiguity && choice && this.ambiguity.has(out)) this.submit(this.ambiguity.get(out)!);
+    else if (out === 'no') this.cg.selectSquare(null);
 
+    this.clearAmbiguity(); // for now
+    //return !this.ambiguity;
+  }
+  clearAmbiguity() {
+    this.ambiguity = undefined;
+    this.cg.setShapes([]);
+  }
   ambiguous(choices: [number, string][]) {
     if (choices.length === 1) {
       // only one match, but disambiguate due to low confidence
       const uci = choices[0][1];
-      this.ambiguity = new Map([['yes', uci]]);
-      this.cg.setShapes([{ orig: uci.slice(0, 2) as Key, dest: uci.slice(2) as Key, brush: 'paleGrey' }]);
+      this.ambiguity = new Map([
+        ['yes', uci],
+        ['blue', uci],
+      ]);
+      this.cg.setShapes([{ orig: uci.slice(0, 2) as Key, dest: uci.slice(2) as Key, brush: 'blue' }]);
     } else {
       const brushes = ['blue', 'green', 'yellow', 'red'];
       const arr = choices.slice(0, brushes.length).map(([_, uci], i) => [brushes[i], uci]) as [BrushColor, string][];
@@ -127,13 +140,15 @@ class VoiceMoveCtrlImpl implements VoiceMoveCtrl {
         pushMap(phrases, `${srole}x${drole}`, uci);
       }
       if (srole === 'P') {
-        if (uci[0] === uci[2]) xtoks.add(uci.slice(2));
-        else if (dp) xtoks.add(`${uci[0]}x${uci.slice(2)}`);
+        if (uci[0] === uci[2]) {
+          xtoks.add(uci.slice(2));
+          xtoks.add(`P${uci.slice(2)}`);
+        } else if (dp) xtoks.add(`${uci[0]}x${uci.slice(2)}`);
         if (part[2]) xtoks.forEach(uci => xtoks.add(`${uci.slice(0, -1)}=${part[2]}`));
       } else {
         if (srole == 'K' && (this.isOurs(dp) || cs.squareDist(src, dest) > 1)) xtoks.add(dest < src ? 'O-O-O' : 'O-O');
         /*
-        // not sure we need this, let's just make them disambiguate after
+        // we need this for proper SAN but make them disambiguate after for now
         const others: number[] = movesTo(dest, srole, this.board);
         let rank = '',
           file = '';
@@ -152,6 +167,7 @@ class VoiceMoveCtrlImpl implements VoiceMoveCtrl {
       }
       [...xtoks].map(x => pushMap(phrases, x, uci));
     }
+    console.log(phrases);
     return phrases;
   }
 
@@ -194,6 +210,7 @@ class VoiceMoveCtrlImpl implements VoiceMoveCtrl {
         else for (const e of uci) vocabAdd(this.outWords(e));
       }
     }
+    // commented out until i can figure out why model files get corrupted in idb
     vocabAdd(this.tagWords(['role', 'rounds', 'ignore', 'command']));*/
     vocabAdd(this.tagWords(['move', 'ignore', 'command', 'choice']));
     for (const rank of '12345678') vocab.delete(rank); // kaldi no like
@@ -202,12 +219,16 @@ class VoiceMoveCtrlImpl implements VoiceMoveCtrl {
 
   matches(phrase: string): [number, Uci][] {
     const h = this.wordsOut(phrase);
-    const matchedUcis: [number, Uci][] = (
-      this.cg.state.selected ? [...this.partials] : [...this.phrases, ...this.partials]
-    )
+    const sel = this.cg.state.selected;
+    //console.log(`matches selected = ${sel}, phrase = ${phrase}, h = ${h}`);
+    const matchedUcis: [number, Uci][] = (sel ? [...this.partials] : [...this.phrases, ...this.partials])
       .map(([x, ucis]) => [...ucis].map(u => [this.costToMatch(h, x), u]) as [number, Uci][])
-      .flat();
-    return matchedUcis.filter(u => u[0] < 1).sort((lhs, rhs) => lhs[0] - rhs[0]);
+      .flat()
+      .filter(([cost, _]) => cost < 1)
+      .sort((lhs, rhs) => lhs[0] - rhs[0]);
+
+    if (sel) return matchedUcis.filter(([_, uci]) => uci.startsWith(sel));
+    else return matchedUcis;
   }
 
   costToMatch(h: string, x: string) {
@@ -215,7 +236,6 @@ class VoiceMoveCtrlImpl implements VoiceMoveCtrl {
     const xforms = findTransforms(h, x)
       .map(t => t.reduce((acc, t) => acc + this.subCost(t), 0))
       .sort((lhs, rhs) => lhs - rhs);
-    //console.log(`costToMatch ${h} ${x}`, xforms);
     return xforms?.[0];
   }
 
@@ -296,7 +316,10 @@ class VoiceMoveCtrlImpl implements VoiceMoveCtrl {
 
   submit(uci: Uci) {
     if (uci.length > 2) this.ctrl.san(uci.slice(0, 2) as Key, uci.slice(2) as Key);
-    else this.cg.selectSquare(uci as Key);
+    else {
+      this.cg.selectSquare(uci as Key);
+      this.buildPartials();
+    }
   }
 }
 
@@ -308,15 +331,15 @@ type Transform = {
   at: number; // index (unused now, previously for breadcrumbs)
 };
 
-const mode = { del: true, sub: 2 }; // TODO: generate and move to voiceMoveGrammar
+const mode = { del: true, sub: 2 };
 
 function findTransforms(
   h: string,
   x: string,
   pos = 0, // for recursion
-  line: Transform[] = [],
-  lines: Transform[][] = [],
-  crumbs = new Map<string, number>()
+  line: Transform[] = [], // for recursion
+  lines: Transform[][] = [], // for recursion
+  crumbs = new Map<string, number>() // for (finite) recursion
 ): Transform[][] {
   if (h === x) return [line];
   if (pos >= x.length && !mode.del) return [];
@@ -356,6 +379,25 @@ function pushMap<T>(m: Map<string, Set<T>>, key: string, val: T) {
   m.get(key)?.add(val) ?? m.set(key, new Set<T>([val]));
 }
 /*
+const deltas = (d: number[], s = 0) => d.flatMap(x => [s - x, s + x]);
+
+function movesTo(s: number, role: 'N' | 'B' | 'R' | 'Q' | 'K', board: cs.Board): number[] {
+  // minor tweaks on sanWriter functions
+  if (role === 'K') return deltas([1, 7, 8, 9], s).filter(o => o >= 0 && o < 64 && cs.squareDist(s, o) === 1);
+  else if (role === 'N') return deltas([6, 10, 15, 17], s).filter(o => o >= 0 && o < 64 && cs.squareDist(s, o) <= 2);
+  const dests: number[] = [];
+  for (const delta of deltas(role === 'Q' ? [1, 7, 8, 9] : role === 'R' ? [1, 8] : [7, 9])) {
+    for (
+      let square = s + delta;
+      square >= 0 && square < 64 && cs.squareDist(square, square - delta) === 1;
+      square += delta
+    ) {
+      dests.push(square);
+      if (board.pieces[square]) break;
+    }
+  }
+  return dests;
+}
 
 function squareKey(s: number) {
   return `${'abcdefgh'[s % 8]}${1 + Math.floor(s / 8)}`;

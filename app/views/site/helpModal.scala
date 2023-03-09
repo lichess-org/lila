@@ -150,24 +150,23 @@ object helpModal:
       h2("Voice commands"),
       table(
         tbody(
-          tr(th(colspan := 2)(p("Instructions"))),
+          tr(th(p("Instructions"))),
           tr(
-            td(colspan := 2)(
+            td(cls := "tips")(
               ul(
-                cls := "tips",
                 li(
                   "Move pieces by speaking UCI, SAN, or the destination square"
                 ),
                 li(
-                  "Say any piece (except \"pawn\") to move that piece " +
+                  "Say any piece but pawn to move that piece " +
                     "or capture that opponent piece"
                 ),
                 li(
-                  "Ambiguous requests result in colored arrows. " +
-                    "Speak the color to choose or say \"clear\" to cancel"
+                  "Ambiguous commands show colored arrows. " +
+                    "Speak the color, or say \"clear\" to cancel"
                 ),
                 li(
-                  "Up to 4 arrows are shown. Be more specific when more options exist"
+                  "Up to 4 arrows are shown. Not enough? Then be specific"
                 ),
                 li(
                   "We sometimes include moves that sound like what you said"
@@ -188,7 +187,7 @@ object helpModal:
             row(voice("c8 promote knight"), "Move c pawn to 8, promote to knight"),
             row(voice("castle"), "Kingside castle"),
             row(voice("long castle"), "Queenside castle"),
-            row(voice("b5c6"), "Full UCI or SAN is fine too")
+            row(voice("b5c6"), "Full UCI or SAN works too")
           )
         ),
         table(
