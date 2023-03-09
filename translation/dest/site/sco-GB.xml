@@ -87,6 +87,11 @@
   <string name="recentGames">Recent spiels</string>
   <string name="topGames">Tap spiels</string>
   <string name="masterDbExplanation">OTB spiels o %1$s+ FIDE-ratit pleyers fae %2$s tae %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mate in %s hauf-muive</item>
+    <item quantity="other">Mate in %s hauf-muives</item>
+  </plurals>
+  <string name="dtzWithRounding">DTZ50\" wi roondin, based on the nummer o hauf-muives till next captur or poun muive</string>
   <string name="noGameFound">Nae spiel fund</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Mebbe include mair spiels fae the preferences menu?</string>
   <string name="openings">Openins</string>
@@ -95,6 +100,9 @@
   <string name="xOpeningExplorer">%s openin stravaiger</string>
   <string name="winPreventedBy50MoveRule">Win forfendit bi 50-muive rule</string>
   <string name="lossSavedBy50MoveRule">Loss forfendit bi 50-muive rule</string>
+  <string name="winOr50MovesByPriorMistake">Win or 50 muives bi earlier mistak</string>
+  <string name="lossOr50MovesByPriorMistake">Loss or 50 muives bi earlier mistak</string>
+  <string name="unknownDueToRounding">Win/loss anely guaranteed if recommendit tablebase line haes been follaed syne the last captur or poun muive, due tae possible roondin o DTZ values in Syzygy tablebases.</string>
   <string name="allSet">Aw guid!</string>
   <string name="delete">Dicht</string>
   <string name="memory">Memory</string>
