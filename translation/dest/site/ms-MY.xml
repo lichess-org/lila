@@ -373,6 +373,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klik pada papan permainan untuk membuat langkah anda, dan buktikan anda adalah manusia.</string>
   <string name="captcha.fail">Tolong selesaikan captcha catur.</string>
   <string name="notACheckmate">Bukan syahmat</string>
+  <string name="whiteCheckmatesInOneMove">Putih checkmate dalam satu langkah gerakan</string>
   <string name="blackCheckmatesInOneMove">Hitam checkmate dalam satu langkah gerakan</string>
   <string name="retry">Cuba semula</string>
   <string name="reconnecting">Penyambungan semula</string>
@@ -447,8 +448,14 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="setTheBoard">Perbaiki papan catur</string>
   <string name="popularOpenings">Pembukaan terkenal</string>
   <string name="endgamePositions">Kedudukan Akhir Permainan</string>
+  <string name="chess960StartPosition">Kedudukan mula Chess960: %s</string>
   <string name="startPosition">Posisi permulaan</string>
+  <string name="clearBoard">Kosongkan papan</string>
+  <string name="loadPosition">Memuat naik posisi</string>
   <string name="isPrivate">Peribadi</string>
+  <string name="reportXToModerators">Laporkan %s ke moderator</string>
+  <string name="profileCompletion">Kesempurnaan profil: %s</string>
+  <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Jika tiada, biar kosong</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Sunting profile</string>
@@ -461,6 +468,8 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="oneUrlPerLine">Satu URL setiap baris.</string>
   <string name="inlineNotation">Notasi dalaman</string>
   <string name="savingMoves">Penyimpanan sementara</string>
+  <string name="savingMovesHelp">Kami sentiasa menyimpan variasi anda dalam cache pelayaran internet anda.</string>
+  <string name="makeAStudy">Untuk penyimpanan dan perkongsian, pertimbangkan untuk membuat kajian pembelajaran.</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="success">Berjaya</string>
   <plurals name="nbGamesInPlay">
