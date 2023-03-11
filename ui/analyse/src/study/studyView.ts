@@ -278,9 +278,11 @@ export function side(ctrl: StudyCtrl): VNode {
       : null,
   ]);
 
-  const gameButtons = postGameButtons(ctrl);
-
-  return h('div.study__side', [tabs, (activeTab === 'members' ? memberView : chapterView)(ctrl), gameButtons]);
+  return h('div.study__side', [
+    tabs,
+    (activeTab === 'members' ? memberView : chapterView)(ctrl),
+    postGameButtons(ctrl),
+  ]);
 }
 
 export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): VNode[] {

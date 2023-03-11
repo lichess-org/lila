@@ -82,7 +82,7 @@ function postGameStudyForm(ctrl: RoundController): VNode {
         attrs: { type: 'hidden', name: 'gameId', value: ctrl.data.game.id },
       }),
       h('div', [
-        h('label', ctrl.trans('studyWithOptional')),
+        h('label', { title: ctrl.trans.noarg('optional') }, ctrl.trans.noarg('studyWith')),
         h('input.user-autocomplete', {
           attrs: { name: 'invited', 'data-tag': 'span', placeholder: ctrl.trans.noarg('searchByUsername') },
         }),
@@ -117,16 +117,13 @@ function studyAdvancedButton(ctrl: RoundController): VNode | null {
           '+',
           h('div.continue-with.none.g_' + d.game.id, [
             h('div.study-option', [
-              h('div.study-title', ctrl.trans.noarg('Post-game Study')),
-              h(
-                'div.desc',
-                'Same as standard studies except they are listed in their own category and are linked to this game.'
-              ),
+              h('div.study-title', ctrl.trans.noarg('postGameStudy')),
+              h('div.desc', ctrl.trans.noarg('postGameStudyExplanation')),
               postGameStudyForm(ctrl),
               h(
                 'a.text',
                 { attrs: { 'data-icon': '', href: `/study/post-game-study/${d.game.id}/hot` } },
-                'Show existing post-game studies of this game.'
+                ctrl.trans.noarg('postGameStudiesOfGame')
               ),
             ]),
             h('div.study-option', [h('div.study-title', ctrl.trans.noarg('Standard Study')), standardStudyForm(ctrl)]),
@@ -178,7 +175,7 @@ function studyButton(ctrl: RoundController): VNode | null {
                   method: 'post',
                   action: '/study/post-game-study/' + d.game.id,
                 },
-                hook: util.bind('submit', e => {
+                hook: util.bind('submit', () => {
                   setTimeout(() => {
                     loadingStudy = false;
                     ctrl.redraw();
