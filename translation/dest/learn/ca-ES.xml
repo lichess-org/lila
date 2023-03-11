@@ -90,9 +90,6 @@
 	<string name="capture">Captura</string>
 	<string name="takeTheEnemyPieces">Prendre les peces enemigues</string>
 	<string name="captureIntro">¡Identifica les peces no defensades de l\'oponent i captura-les!</string>
-	<string name="takeTheBlackPieces">Captura les peces negres!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Captura les peces negres!
-I no perdis les teves.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Feliçitats! Saps com capturar amb les peces de shogi!</string>
@@ -174,13 +171,6 @@ Fes un moviment per continuar.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Taules</string>
-	<string name="theGameIsADraw">El joc és un empat</string>
-	<string name="stalemateIntro">Quan un jugador no està en escac i no té un moviment legal, està ofegat. La partida és taules: ningú guanya ni perd.</string>
-	<string name="stalemateGoal">Per ofegar al negre:
-- El negre no es pot desplaçar enlloc
-- No està en escac.</string>
-	<string name="stalemateComplete">Felicitats! Millor ofegat que escac i mat!</string>
 	<string name="advanced">Avançat</string>
 	<string name="pieceValue">Valor de la peça</string>
 	<string name="evaluatePieceStrength">Avaluar la força de la peça</string>

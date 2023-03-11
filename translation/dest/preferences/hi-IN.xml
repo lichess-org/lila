@@ -12,6 +12,7 @@
 	<string name="dropDestinations">मोहरों का गंतव्य (मान्य चालें और पहले से चुनी आई चालें)</string>
 	<string name="boardCoordinates">बोर्ड का निर्देशांक</string>
 	<string name="moveListWhilePlaying">खेलते समय चालों की सूची</string>
+	<string name="colorName">Name used for individual players</string>
 	<string name="displayTouchSquareOverlay">स्पर्श उपकरणों पर चौकोर हाइलाइट ओवरले</string>
 	<string name="zenMode">ज़ेन मोड</string>
 	<string name="displayBoardResizeHandle">बोर्ड आकार परिवर्तन करने वाली मूठ दिखाएं</string>

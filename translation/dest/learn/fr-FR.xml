@@ -90,8 +90,6 @@
 	<string name="capture">Capturer</string>
 	<string name="takeTheEnemyPieces">Prenez les pièces adverses</string>
 	<string name="captureIntro">Identifiez les pièces non défendues de l\'adversaire, et capturez-les !</string>
-	<string name="takeTheBlackPieces">Prenez les pièces noires !</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Prenez les pièces noires ! Et ne perdez pas les vôtres.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Prenez les pièces adverses ! Et ne perdez pas les vôtres.</string>
 	<string name="captureComplete">Félicitations ! Vous savez maintenant comment vous battre avec les pièces de shogi !</string>
 	<string name="pieceDrops">Parachutages de pièces</string>
@@ -165,13 +163,6 @@ Faites un coup pour continuer.</string>
 	<string name="perpetualCheckIsALoss">Mais, un échec perpétuel du roi adverse est une défaite pour le camp qui fait échec. Malheureusement pour votre adversaire, il ne le sait pas ! Faites le seul coup légal.</string>
 	<string name="boardFlippedFindBestMove">Le plateau vient juste d\'être retourné. Quel est le meilleur coup ici ?</string>
 	<string name="repetitionComplete">L\'idée de faire de l\'échec perpétuel une défaite est d\'empêcher quiconque de forcer la nulle.</string>
-	<string name="stalemate">Pat</string>
-	<string name="theGameIsADraw">La partie est nulle</string>
-	<string name="stalemateIntro">Lorsqu\'un joueur n\'est pas en échec et n\'a pas de coup légal, il est en situation de pat. La partie est alors déclarée nulle.</string>
-	<string name="stalemateGoal">Le pat noir :
-- Les Noirs ne peuvent jouer aucun coup
-- Les Noirs ne sont pas en échec.</string>
-	<string name="stalemateComplete">Félicitations ! Mieux vaut être pat qu\'échec et mat !</string>
 	<string name="advanced">Avancé</string>
 	<string name="pieceValue">Valeur des pièces</string>
 	<string name="evaluatePieceStrength">Évaluer la valeur des pièces</string>

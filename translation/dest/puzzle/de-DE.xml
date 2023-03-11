@@ -14,8 +14,6 @@
   <string name="didYouLikeThisPuzzle">Hat dir diese Aufgabe gefallen?</string>
   <string name="voteToLoadNextOne">Stimme ab, um die nächste zu laden!</string>
   <string name="yourPuzzleRatingX">Deine Taktikwertung: %s</string>
-  <string name="findTheBestMoveForWhite">Finde den besten Zug.</string>
-  <string name="findTheBestMoveForBlack">Finde den besten Zug.</string>
   <string name="findTheBestMoveForX" comment="%s - sente(black)/gote(white)">Finde den besten Zug für %s.</string>
   <string name="toGetPersonalizedPuzzles">Um personalisierte Aufgaben zu erhalten:</string>
   <string name="puzzleId">Aufgabe %s</string>

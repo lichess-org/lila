@@ -91,8 +91,6 @@ Chcete-li tak učinit, klikněte na ozubené kolo nebo vašem uživatelském jm�
 	<string name="capture">Braní</string>
 	<string name="takeTheEnemyPieces">Sbírejte soupeřovy figury</string>
 	<string name="captureIntro">Vyhledejte soupeřovy nechráněné figury a seberte je!</string>
-	<string name="takeTheBlackPieces">Seberte černé figury!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Seberte černé figury! A neztraťte ty vaše.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Gratulujeme! Nyní víte jak hrát se shogi kameny!</string>
@@ -166,14 +164,6 @@ Udělejte libovolný tah pro pokračování.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Pat</string>
-	<string name="theGameIsADraw">Hra končí remízou</string>
-	<string name="stalemateIntro">Pokud hráč není v šachu a nemá jediný přípustný tah, je to pat. Hra končí remízou; nikdo nevyhrál,
-nikdo neprohrál.</string>
-	<string name="stalemateGoal">Pro zapatování černého:
-- Černý se nikam nemůže pohnout
-- Černý král není v šachu.</string>
-	<string name="stalemateComplete">Gratulujeme! Lepší pat než dostat mat!</string>
 	<string name="advanced">Pokročilé</string>
 	<string name="pieceValue">Hodnota figur</string>
 	<string name="evaluatePieceStrength">Vyhodnocení síly figur</string>

@@ -2,8 +2,6 @@
 <resources>
 	<string name="coordinates">Koordinaten</string>
 	<string name="coordinateTraining">Koordinatentraining</string>
-	<string name="averageScoreAsWhiteX">Durchschnittliche Punktzahl als Weiß: %s</string>
-	<string name="averageScoreAsBlackX">Durchschnittliche Punktzahl als Schwarz: %s</string>
 	<string name="averageScoreAsXY" comment="%1$s - sente(black)/gote(white)">Durchschnittliche Punktzahl als %1$s: %2$s</string>
 	<string name="knowingTheShogiBoard">Das Shogibrett Koordinatensystem zu beherrschen ist eine wichtige Fähigkeit:</string>
 	<string name="mostShogiCourses">Alle Shogi-Kurse und Übungen verwenden eine Art Shogi-Notation. Du kannst dich zwischen die Japanische und Westliche Version Entscheiden.</string>

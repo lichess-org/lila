@@ -14,8 +14,6 @@
   <string name="didYouLikeThisPuzzle">Bạn có thích câu đố này?</string>
   <string name="voteToLoadNextOne">Bình chọn để chuyển câu đố tiếp theo!</string>
   <string name="yourPuzzleRatingX">Hệ số giải câu đố của bạn: %s</string>
-  <string name="findTheBestMoveForWhite">Tìm nước tối ưu cho Trắng</string>
-  <string name="findTheBestMoveForBlack">Tìm nước tối ưu cho Đen</string>
   <string name="findTheBestMoveForX" comment="%s - sente(black)/gote(white)">Tìm nước tối ưu cho %s</string>
   <string name="toGetPersonalizedPuzzles">Để có các câu đố dành cho riêng bạn:</string>
   <string name="puzzleId">Câu đố %s</string>

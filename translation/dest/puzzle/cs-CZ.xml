@@ -14,8 +14,6 @@
   <string name="didYouLikeThisPuzzle">Líbí se vám tato hádanka?</string>
   <string name="voteToLoadNextOne">Hlasujte pro načtení dalšího!</string>
   <string name="yourPuzzleRatingX">Vaše hodnocení: %s</string>
-  <string name="findTheBestMoveForWhite">Najděte nejlepší tah pro bílého.</string>
-  <string name="findTheBestMoveForBlack">Najděte nejlepší tah pro černého.</string>
   <string name="findTheBestMoveForX" comment="%s - sente(black)/gote(white)">Najděte nejlepší tah pro %s.</string>
   <string name="toGetPersonalizedPuzzles">Možnost přizpůsobit hádanky:</string>
   <string name="puzzleId">Hádanky %s</string>

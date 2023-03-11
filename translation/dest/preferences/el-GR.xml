@@ -12,6 +12,7 @@
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Συντεταγμένες σκακιέρας (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Λίστα κινήσεων κατά τη διάρκεια της παρτίδας</string>
+	<string name="colorName">Name used for individual players</string>
 	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Λειτουργία Zεν</string>
 	<string name="displayBoardResizeHandle">Εμφάνιση χειριστηρίου αλλαγής μεγέθους σκακιέρας</string>

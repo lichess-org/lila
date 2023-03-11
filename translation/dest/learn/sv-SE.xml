@@ -91,8 +91,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="capture">Slag</string>
 	<string name="takeTheEnemyPieces">Slå fiendens pjäser</string>
 	<string name="captureIntro">Hitta motståndarens ogarderade pjäser, och fånga dem!</string>
-	<string name="takeTheBlackPieces">Erövra de svarta pjäserna!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Erövra de svarta pjäserna - utan att förlora dina egna!</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
@@ -166,13 +164,6 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Patt</string>
-	<string name="theGameIsADraw">Partiet är remi</string>
-	<string name="stalemateIntro">Om en spelare inte är i schack och inte heller har något drag att göra så är det patt. Partiet är remi: ingen vinner, ingen förlorar.</string>
-	<string name="stalemateGoal">Svart blir patt om:
-- svart inte kan flytta någon pjäs alls och
-- svart inte är i schack.</string>
-	<string name="stalemateComplete">Grattis! Bättre att vara patt än schackmatt!</string>
 	<string name="advanced">Avancerat</string>
 	<string name="pieceValue">Pjäsernas värdering</string>
 	<string name="evaluatePieceStrength">Värdera pjäser</string>

@@ -12,6 +12,7 @@
 	<string name="dropDestinations">棋駒著法提示</string>
 	<string name="boardCoordinates">棋盤座標</string>
 	<string name="moveListWhilePlaying">遊戲進行時顯示棋譜</string>
+	<string name="colorName">Name used for individual players</string>
 	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">禪意模式</string>
 	<string name="displayBoardResizeHandle">顯示大小調整區塊</string>

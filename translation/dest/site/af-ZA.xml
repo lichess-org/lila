@@ -21,19 +21,17 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="gote" comment="Should be 'Gote', unless equivalent exists (ex. 後手 in JP)">Gote</string>
+	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">Wit</string>
-	<string name="sente" comment="Should be 'Sente', unless equivalent exists (ex. 先手 in JP)">Sente</string>
+	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
 	<string name="black" comment="Alternative to sente">Swart</string>
-	<string name="shitate" comment="Should be 'Shitate', unless equivalent exists (ex. 下手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
-	<string name="uwate" comment="Should be 'Uwate', unless equivalent exists (ex. 上手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
+	<string name="shitate" comment="Should be 'Shitate', unless equivalent written differently exists (ex. 下手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">Lukrake kant</string>
 	<string name="createAGame">Skep \'n spel</string>
 	<string name="whiteIsVictorious">Wit het gewen</string>
 	<string name="blackIsVictorious">Swart het gewen</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s het gewen</string>
-	<string name="youPlayTheWhitePieces">Jy speel met die wit stukke</string>
-	<string name="youPlayTheBlackPieces">Jy speel met die swart stukke</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">Jy speel met die %s stukke</string>
 	<string name="itsYourTurn">Dit is jou beurt!</string>
 	<string name="cheatDetected">Cheat Detected</string>
@@ -44,8 +42,6 @@
 	<string name="whitePlays">Wit aan die beurt</string>
 	<string name="blackPlays">Swart aan die beurt</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
-	<string name="shitatePlays">Shitate to play</string>
-	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Jou opponent het die spel verlaat. Jy kan die oorwinning in %s sekonde eis.</item>
 		<item quantity="other">Jou opponent het die spel verlaat. Jy kan die oorwinning in %s sekondes eis.</item>
@@ -74,7 +70,7 @@
 	<string name="usingServerAnalysis">Die gebruik van bediener analise</string>
 	<string name="loadingEngine">Enjin is besig om the laai ...</string>
 	<string name="cloudAnalysis">Wolkanalise</string>
-	<string name="goDeeper">Gaan dieper</string>
+	<string name="goDeeper" comment="Engine depth">Gaan dieper</string>
 	<string name="showThreat">Toon bedreiging</string>
 	<string name="inLocalBrowser">in plaaslike blaaier</string>
 	<string name="toggleLocalEvaluation">Verander plaaslike evaluering</string>
@@ -98,7 +94,6 @@
 	<string name="drawn">Gelykop gespeel</string>
 	<string name="unknown">Onbekend</string>
 	<string name="database">Databasis</string>
-	<string name="whiteDrawBlack">Wit / Gelyk / Swart</string>
 	<string name="averageRatingX">Gemiddelde Gradering: %s</string>
 	<string name="recentGames">Onlangse wedstryde</string>
 	<string name="topGames">Top spelle</string>
@@ -228,7 +223,7 @@
 	<string name="finishesX">maak klaar %s</string>
 	<string name="abortGame">Staak spel</string>
 	<string name="gameAborted">Spel gestaak</string>
-	<string name="standard">Standaard</string>
+	<string name="standard" comment="Variant - meaning standard shogi">Standaard</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
 	<string name="unlimited">Oneindig</string>
@@ -240,8 +235,6 @@
 	<string name="thisGameIsRated">Hierdie spel is gegradeer</string>
 	<string name="rematch">Speel weer</string>
 	<string name="rematchOfferSent">Speel weer aanbod gestuur</string>
-	<string name="rematchOfferSentWhite">Wit daag jou weer uit</string>
-	<string name="rematchOfferSentBlack">Swart daag jou weer uit</string>
 	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s daag jou weer uit</string>
 	<string name="rematchOfferAccepted">Speel weer aanbod aanvaar</string>
 	<string name="rematchOfferCanceled">Speel weer aanbod gekanselleer</string>
@@ -458,7 +451,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="handicap">Handicap</string>
 	<string name="startPosition">Begin posisie</string>
 	<string name="clearBoard">Maak bord skoon</string>
-	<string name="fillGotesHand">Fill Gote\'s hand</string>
+	<string name="fillXHand">Fill hand of %s</string>
 	<string name="savePosition">Stoor posisie</string>
 	<string name="loadPosition">Laai posisie</string>
 	<string name="isPrivate">Privaat</string>
@@ -734,6 +727,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="security">Sekuriteit</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Hierdie is \'n lys van toestelle wat in jou rekening ingeteken het. Herroep enige sessies wat jy nie herken nie.</string>
 	<string name="alternativelyYouCanX">Andersins kan jy %s.</string>
+	<string name="sessions">Sessions</string>
 	<string name="revokeAllSessions">alle sessies herroep</string>
 	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
@@ -775,7 +769,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="gridSlim">Slim</string>
 	<string name="gridThick">Thick</string>
 	<string name="gridVeryThick">Very thick</string>
-	<string name="hands">Hands</string>
+	<string name="hands" comment="Title in custom board theme editor">Hands</string>
 	<string name="boardTheme">Bordtema</string>
 	<string name="boardSize">Bord grootte</string>
 	<string name="pieceSet">Stuk stel</string>
@@ -790,9 +784,8 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Afrigters</string>
-	<string name="invalidKif">Ongeldige KIF</string>
 	<string name="invalidNotation">Invalid notation</string>
-	<string name="invalidFen">Ongeldige FEN</string>
+	<string name="invalidSfen">Invalid SFEN</string>
 	<string name="error.minLength">Minimum lengte is %s</string>
 	<string name="error.maxLength">Maximum lengte is %s</string>
 	<string name="error.min">Moet groter of gelykaan %s wees</string>
@@ -825,25 +818,15 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="skipThisMove">Slaan hierdie skuif oor</string>
 	<string name="next">Volgende</string>
 	<string name="xWasPlayed">%s is gespeel</string>
-	<string name="findBetterMoveForWhite">Kry \'n beter skuif vir wit</string>
-	<string name="findBetterMoveForBlack">Kry \'n beter skuif vir swart</string>
 	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Find a better move for %s</string>
 	<string name="resumeLearning">Leer verder</string>
 	<string name="youCanDoBetter">Jy kan daarop verbeter</string>
-	<string name="tryAnotherMoveForWhite">Probeer \'n ander skuif vir wit</string>
-	<string name="tryAnotherMoveForBlack">Probeer \'n ander skuif vir swart</string>
 	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
 	<string name="solution">Oplossing</string>
 	<string name="waitingForAnalysis">Wag nog vir rekenaar analise</string>
-	<string name="noMistakesFoundForWhite">Geen foute gevind vir wit nie</string>
-	<string name="noMistakesFoundForBlack">Geen foute vir swart gevind nie</string>
 	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
-	<string name="doneReviewingWhiteMistakes">Wit se foute is klaar hersien</string>
-	<string name="doneReviewingBlackMistakes">Swart se foute is klaar hersien</string>
 	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
 	<string name="doItAgain">Doen dit weer</string>
-	<string name="reviewWhiteMistakes">Hersien wit se foute</string>
-	<string name="reviewBlackMistakes">Hersien swart se foute</string>
 	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Hersien %s se foute</string>
 	<string name="advantage">Voordeel</string>
 	<plurals name="nbSeconds">
@@ -918,7 +901,15 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="previousBlogPosts">Previous blog posts</string>
 	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
-	<string name="invadingPieces">Invading pieces</string>
-	<string name="enteringKing">Entering king</string>
-	<string name="totalImpasseValue">Total value</string>
+	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Invading pieces</string>
+	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Entering king</string>
+	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Total value</string>
+	<string name="postGameStudy">Post-game study</string>
+	<string name="postGameStudies">Post-game studies</string>
+	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
+	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
+	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyWith">Study with:</string>
+	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
+	<string name="standardStudy">Standard study</string>
 </resources>

@@ -12,6 +12,7 @@
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">보드 좌표 (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">피스 움직임 기록</string>
+	<string name="colorName">Name used for individual players</string>
 	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">젠 모드</string>
 	<string name="displayBoardResizeHandle">Show board resize handle</string>

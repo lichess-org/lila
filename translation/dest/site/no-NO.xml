@@ -21,19 +21,17 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="gote" comment="Should be 'Gote', unless equivalent exists (ex. 後手 in JP)">Gote</string>
+	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">White</string>
-	<string name="sente" comment="Should be 'Sente', unless equivalent exists (ex. 先手 in JP)">Sente</string>
+	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
 	<string name="black" comment="Alternative to sente">Black</string>
-	<string name="shitate" comment="Should be 'Shitate', unless equivalent exists (ex. 下手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
-	<string name="uwate" comment="Should be 'Uwate', unless equivalent exists (ex. 上手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
+	<string name="shitate" comment="Should be 'Shitate', unless equivalent written differently exists (ex. 下手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">Random side</string>
 	<string name="createAGame">Create a game</string>
 	<string name="whiteIsVictorious">Gote is victorious</string>
 	<string name="blackIsVictorious">Sente is victorious</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s vann partiet</string>
-	<string name="youPlayTheWhitePieces">You play as gote</string>
-	<string name="youPlayTheBlackPieces">You play as sente</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">It\'s your turn!</string>
 	<string name="cheatDetected">Cheat Detected</string>
@@ -44,8 +42,6 @@
 	<string name="whitePlays">Gote to play</string>
 	<string name="blackPlays">Sente to play</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
-	<string name="shitatePlays">Shitate to play</string>
-	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Your opponent left the game. You can claim victory in %s second.</item>
 		<item quantity="other">Your opponent left the game. You can claim victory in %s seconds.</item>
@@ -74,7 +70,7 @@
 	<string name="usingServerAnalysis">Using server analysis</string>
 	<string name="loadingEngine">Loading engine ...</string>
 	<string name="cloudAnalysis">Cloud analysis</string>
-	<string name="goDeeper">Go deeper</string>
+	<string name="goDeeper" comment="Engine depth">Go deeper</string>
 	<string name="showThreat">Show threat</string>
 	<string name="inLocalBrowser">in local browser</string>
 	<string name="toggleLocalEvaluation">Toggle local evaluation</string>
@@ -98,7 +94,6 @@
 	<string name="drawn">Drawn</string>
 	<string name="unknown">Unknown</string>
 	<string name="database">Database</string>
-	<string name="whiteDrawBlack">Gote / Draw / Sente</string>
 	<string name="averageRatingX">Average rating: %s</string>
 	<string name="recentGames">Recent games</string>
 	<string name="topGames">Top games</string>
@@ -228,7 +223,7 @@
 	<string name="finishesX">finishes %s</string>
 	<string name="abortGame">Abort game</string>
 	<string name="gameAborted">Game aborted</string>
-	<string name="standard">Standard</string>
+	<string name="standard" comment="Variant - meaning standard shogi">Standard</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
 	<string name="unlimited">Unlimited</string>
@@ -240,8 +235,6 @@
 	<string name="thisGameIsRated">This game is rated</string>
 	<string name="rematch">Rematch</string>
 	<string name="rematchOfferSent">Rematch offer sent</string>
-	<string name="rematchOfferSentWhite">Gote offers rematch</string>
-	<string name="rematchOfferSentBlack">Sente offers rematch</string>
 	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s offers rematch</string>
 	<string name="rematchOfferAccepted">Rematch offer accepted</string>
 	<string name="rematchOfferCanceled">Rematch offer cancelled</string>
@@ -458,7 +451,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="handicap">Handicap</string>
 	<string name="startPosition">Starting position</string>
 	<string name="clearBoard">Clear board</string>
-	<string name="fillGotesHand">Fill Gote\'s hand</string>
+	<string name="fillXHand">Fill hand of %s</string>
 	<string name="savePosition">Save position</string>
 	<string name="loadPosition">Load position</string>
 	<string name="isPrivate">Private</string>
@@ -733,6 +726,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="security">Security</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">This is a list of devices that have logged into your account. Revoke any sessions that you do not recognise.</string>
 	<string name="alternativelyYouCanX">Alternatively you can %s.</string>
+	<string name="sessions">Sessions</string>
 	<string name="revokeAllSessions">revoke all sessions</string>
 	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
@@ -774,7 +768,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="gridSlim">Slim</string>
 	<string name="gridThick">Thick</string>
 	<string name="gridVeryThick">Very thick</string>
-	<string name="hands">Hands</string>
+	<string name="hands" comment="Title in custom board theme editor">Hands</string>
 	<string name="boardTheme">Board theme</string>
 	<string name="boardSize">Board size</string>
 	<string name="pieceSet">Piece set</string>
@@ -789,9 +783,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Coaches</string>
-	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidNotation">Invalid notation</string>
-	<string name="invalidFen">Invalid SFEN</string>
+	<string name="invalidSfen">Invalid SFEN</string>
 	<string name="error.minLength">Minimum length is %s</string>
 	<string name="error.maxLength">Maximum length is %s</string>
 	<string name="error.min">Must be greater or equal to %s</string>
@@ -824,25 +817,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="skipThisMove">Skip this move</string>
 	<string name="next">Next</string>
 	<string name="xWasPlayed">%s was played</string>
-	<string name="findBetterMoveForWhite">Find a better move for gote</string>
-	<string name="findBetterMoveForBlack">Find a better move for sente</string>
 	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Find a better move for %s</string>
 	<string name="resumeLearning">Resume learning</string>
 	<string name="youCanDoBetter">You can do better</string>
-	<string name="tryAnotherMoveForWhite">Try another move for gote</string>
-	<string name="tryAnotherMoveForBlack">Try another move for sente</string>
 	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
 	<string name="solution">Solution</string>
 	<string name="waitingForAnalysis">Waiting for analysis</string>
-	<string name="noMistakesFoundForWhite">No mistakes found for white</string>
-	<string name="noMistakesFoundForBlack">No mistakes found for black</string>
 	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
-	<string name="doneReviewingWhiteMistakes">Done reviewing gote mistakes</string>
-	<string name="doneReviewingBlackMistakes">Done reviewing sente mistakes</string>
 	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
 	<string name="doItAgain">Do it again</string>
-	<string name="reviewWhiteMistakes">Review gote mistakes</string>
-	<string name="reviewBlackMistakes">Review sente mistakes</string>
 	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Review %s mistakes</string>
 	<string name="advantage">Advantage</string>
 	<plurals name="nbSeconds">
@@ -917,7 +900,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="previousBlogPosts">Previous blog posts</string>
 	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
-	<string name="invadingPieces">Invading pieces</string>
-	<string name="enteringKing">Entering king</string>
-	<string name="totalImpasseValue">Total value</string>
+	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Invading pieces</string>
+	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Entering king</string>
+	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Total value</string>
+	<string name="postGameStudy">Post-game study</string>
+	<string name="postGameStudies">Post-game studies</string>
+	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
+	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
+	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyWith">Study with:</string>
+	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
+	<string name="standardStudy">Standard study</string>
 </resources>

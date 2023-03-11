@@ -2,8 +2,6 @@
 <resources>
 	<string name="coordinates">Координате</string>
 	<string name="coordinateTraining">Тренинг координата</string>
-	<string name="averageScoreAsWhiteX">Просечан резултат као бели играч: %s</string>
-	<string name="averageScoreAsBlackX">Просечан резултат као црни играч: %s</string>
 	<string name="averageScoreAsXY" comment="%1$s - sente(black)/gote(white)">Average score as %1$s: %2$s</string>
 	<string name="knowingTheShogiBoard">Познавање координата на шоги табли је врло важна вештина</string>
 	<string name="mostShogiCourses">Сви шоги курсеви и вежбе користе неку врсту шоги нотације. Можете бирати између јапанске и западњачке нотације.</string>

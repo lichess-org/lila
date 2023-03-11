@@ -12,6 +12,7 @@
 	<string name="dropDestinations">持ち駒の行き先（ルール上打てるマスとプリドロップ）</string>
 	<string name="boardCoordinates">盤の座標（1-9, 1-9）</string>
 	<string name="moveListWhilePlaying">対局中の棋譜記録</string>
+	<string name="colorName">Name used for individual players</string>
 	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">集中モード</string>
 	<string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>

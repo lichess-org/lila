@@ -12,6 +12,7 @@
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Brädkoordinater (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Lista med drag under spelets gång</string>
+	<string name="colorName">Name used for individual players</string>
 	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Zen-läge</string>
 	<string name="displayBoardResizeHandle">Visa handtag för att ändra brädets storlek</string>

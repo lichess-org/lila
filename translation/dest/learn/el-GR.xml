@@ -91,9 +91,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="capture">Αιχμαλώτιση</string>
 	<string name="takeTheEnemyPieces">Πάρτε τα πιόνια του αντιπάλου</string>
 	<string name="captureIntro">Βρείτε τα ανυπεράσπιστα πιόνια του αντιπάλου, και πάρτε τα!</string>
-	<string name="takeTheBlackPieces">Πάρτε τα μαύρα πιόνια!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Πάρτε τα μαύρα πιόνια!
-Και προστατεύστε τα δικά σας.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
@@ -170,13 +167,6 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Πατ</string>
-	<string name="theGameIsADraw">Η παρτίδα είναι ισόπαλη</string>
-	<string name="stalemateIntro">Όταν ένας παίκτης δεν είναι σε σαχ και δεν μπορεί να κάνει κάποια νόμιμη κίνηση, τότε είναι πατ. Το παιχνίδι λήγει ισόπαλο: κανείς δεν κερδίζει, κανείς δε χάνει.</string>
-	<string name="stalemateGoal">Πατ στα μαύρα:
-- Ο μαύρος δεν μπορεί να κινηθεί πουθενά
-- Δεν υπάρχει σαχ.</string>
-	<string name="stalemateComplete">Συγχαρητήρια! Καλύτερα πατ παρά σαχ-ματ!</string>
 	<string name="advanced">Προχωρημένο στάδιο</string>
 	<string name="pieceValue">Αξία πιονιού</string>
 	<string name="evaluatePieceStrength">Αξιολογήστε τη δύναμη κάθε πιονιού</string>

@@ -91,8 +91,6 @@
 	<string name="capture">공격</string>
 	<string name="takeTheEnemyPieces">상대방의 말을 잡으세요</string>
 	<string name="captureIntro">무방비한 상대방의 말을 찾아서 잡아보세요!</string>
-	<string name="takeTheBlackPieces">\'후수[後手]\'의 말을 빼앗아보세요!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">\'후수[後手]\'의 말을 전부 빼앗았습니다. 내 말을 상대한테 뺏기지 않도록 하세요.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">축하합니다! 어떻게 상대의 말을 잡는지를 배웠습니다!</string>
@@ -168,13 +166,6 @@ Take the enemy pieces!</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">스테일메이트[Stalemate, 무승부]</string>
-	<string name="theGameIsADraw">이 게임은 무승부입니다</string>
-	<string name="stalemateIntro">체크에 걸리지도 않았지만 움직일 수 있는 수가 없는 상황은 무승부, 스테일메이트입니다.</string>
-	<string name="stalemateGoal">흑을 스테일메이트시키려면:
-- 흑은 어느 곳으로도 이동할 수 없어야 합니다.
-- 체크에 걸려서도 안됩니다.</string>
-	<string name="stalemateComplete">축하합니다! 무승부가 패배보다야 낫겠죠!</string>
 	<string name="advanced">상급</string>
 	<string name="pieceValue">기물의 가치</string>
 	<string name="evaluatePieceStrength">말의 강함을 대략 평가해봅시다</string>

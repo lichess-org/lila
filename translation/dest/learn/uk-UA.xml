@@ -8,8 +8,8 @@
 	<string name="youWillLoseAllYourProgress">Весь ваш прогрес буде втрачено!</string>
 	<string name="play">грати!</string>
 	<string name="shogiPieces">Shogi pieces</string>
-	<string name="theIntroduction">Introduction</string>
-	<string name="introBasics">Let\'s learn some basics.</string>
+	<string name="theIntroduction">Вступ</string>
+	<string name="introBasics">Давайте вивчимо деякі основи.</string>
 	<string name="introIntro">Your journey begins here.</string>
 	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like.</string>
 	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.
@@ -70,7 +70,7 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="planceSummary">It\'s the same as the gold general.</string>
 	<string name="planceSummaryTwo">The promoted lance moves the same as the gold general.</string>
 	<string name="lanceComplete">Great job!</string>
-	<string name="theGold">The gold general</string>
+	<string name="theGold">Золотий генерал</string>
 	<string name="itMovesInAnyDirectionExceptDiagonallyBack">The gold general moves in any direction EXCEPT diagonally back.</string>
 	<string name="goldIntro">The gold general movements might be a bit harder to remember at first, but you can surely do it.</string>
 	<string name="goldDoesntPromote">The gold general together with the king is the only piece you CAN\'T promote.</string>
@@ -91,8 +91,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="capture">Взяття</string>
 	<string name="takeTheEnemyPieces">З\'їжте фігури противника</string>
 	<string name="captureIntro">Визначте незахищені фігури противника й з\'їжте їх!</string>
-	<string name="takeTheBlackPieces">З\'їжте чорні фігури!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">З\'їжте всі чорні фігури! І не втратьте свої.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
@@ -172,13 +170,6 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Пат</string>
-	<string name="theGameIsADraw">Гра є нічийною</string>
-	<string name="stalemateIntro">Коли гравцеві не поставлено шах і немає можливості зробити хід, це пат. Гра закінчується: без переможців та переможених.</string>
-	<string name="stalemateGoal">Пат чорним: 
-- Чорні не можуть сходити.
-- Король не під шахом.</string>
-	<string name="stalemateComplete">Вітаємо! Краще отримати пат, ніж мат!</string>
 	<string name="advanced">Просунутий етап</string>
 	<string name="pieceValue">Цінність фігур</string>
 	<string name="evaluatePieceStrength">Оцініть силу фігури</string>

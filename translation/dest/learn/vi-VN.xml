@@ -92,9 +92,6 @@ Bạn đã nắm mọi bí mật của quân Tốt.</string>
 	<string name="capture">Ăn quân</string>
 	<string name="takeTheEnemyPieces">Loại quân của đối thủ</string>
 	<string name="captureIntro">Xác định quân không được phòng thủ của đối phương và loại nó ra khỏi bàn cờ!</string>
-	<string name="takeTheBlackPieces">Hãy bắt lấy quân đen!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Bắt lấy quân đen!
-Nhưng đừng để mất quân của bạn.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Chúc mừng! Bạn đã biết làm sao để chiến đấu với các quân cờ!</string>
@@ -166,13 +163,6 @@ Take the enemy pieces!</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Hòa pat</string>
-	<string name="theGameIsADraw">Ván cờ kết thúc hòa</string>
-	<string name="stalemateIntro">Khi người chơi không bị chiếu và không có nước đi nào hợp lệ, nó được tính là hòa pat. Ván cờ kết thúc hòa: không ai thắng, không ai thua.</string>
-	<string name="stalemateGoal">Để bên đen hòa pat:
-- Bên đen không để di chuyển bất cứ đâu
-- Bên đen không bị chiếu.</string>
-	<string name="stalemateComplete">Xin chúc mừng! Thà bị hòa pat còn hơn bị chiếu hết!</string>
 	<string name="advanced">Nâng cao</string>
 	<string name="pieceValue">Giá trị của quân</string>
 	<string name="evaluatePieceStrength">Đánh giá sức mạnh của quân</string>

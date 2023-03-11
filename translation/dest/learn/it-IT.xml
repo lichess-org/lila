@@ -91,9 +91,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="capture">Le catture</string>
 	<string name="takeTheEnemyPieces">Cattura i pezzi nemici</string>
 	<string name="captureIntro">Identifica i pezzi indifesi dell\'avversario e catturali!</string>
-	<string name="takeTheBlackPieces">Cattura i pezzi neri!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Cattura i pezzi neri!
-E non perdere i tuoi.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
@@ -175,13 +172,6 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Stallo</string>
-	<string name="theGameIsADraw">La partita è patta</string>
-	<string name="stalemateIntro">Quando un giocatore non è sotto attacco e non può effettuare nessuna mossa legale, allora è stallo. La partita è patta: nessuno vince e nussuno perde.</string>
-	<string name="stalemateGoal">Per obbligare il nero allo stallo:
-- Il nero non deve poter muovere
-- Il nero non è sotto scacco.</string>
-	<string name="stalemateComplete">Congratulazioni! Meglio essere in stallo che esser in scacco matto!</string>
 	<string name="advanced">Livello avanzato</string>
 	<string name="pieceValue">Il valore del pezzo</string>
 	<string name="evaluatePieceStrength">Valuta la forza del pezzo</string>

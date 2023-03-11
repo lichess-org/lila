@@ -12,6 +12,7 @@
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Coordonatele tablei (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Lista de mutări în timpul jocului</string>
+	<string name="colorName">Name used for individual players</string>
 	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Modul Zen</string>
 	<string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>

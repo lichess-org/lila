@@ -14,8 +14,6 @@
   <string name="didYouLikeThisPuzzle">Вам понравилась эта задача?</string>
   <string name="voteToLoadNextOne">Проголосуйте, чтобы загрузить следующую!</string>
   <string name="yourPuzzleRatingX">Ваш рейтинг в решении задач: %s</string>
-  <string name="findTheBestMoveForWhite">Найдите лучший ход за готэ.</string>
-  <string name="findTheBestMoveForBlack">Найдите лучший ход за сэнтэ.</string>
   <string name="findTheBestMoveForX" comment="%s - sente(black)/gote(white)">Найдите лучший ход за %s.</string>
   <string name="toGetPersonalizedPuzzles">Чтобы получить персонализированные задачи:</string>
   <string name="puzzleId">Задача %s</string>

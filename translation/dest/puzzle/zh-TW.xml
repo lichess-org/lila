@@ -14,8 +14,6 @@
   <string name="didYouLikeThisPuzzle">您喜歡這個題目嗎？</string>
   <string name="voteToLoadNextOne">請投票以跳至下一題！</string>
   <string name="yourPuzzleRatingX">您的解題等級：%s</string>
-  <string name="findTheBestMoveForWhite">找出後手的最佳著法</string>
-  <string name="findTheBestMoveForBlack">找出先手的最佳著法</string>
   <string name="findTheBestMoveForX" comment="%s - sente(black)/gote(white)">找出%s的最善手</string>
   <string name="toGetPersonalizedPuzzles">得到個人推薦題目：</string>
   <string name="puzzleId">問題編號%s</string>

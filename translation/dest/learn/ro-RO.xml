@@ -91,8 +91,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="capture">Capturează</string>
 	<string name="takeTheEnemyPieces">Ia piesele inamice</string>
 	<string name="captureIntro">Identifică piesele neprotejate ale oponentului și capturează-le!</string>
-	<string name="takeTheBlackPieces">Ia piesele negre!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Ia piesele negre! Și nu le pierde pe ale tale.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
@@ -169,13 +167,6 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Pat</string>
-	<string name="theGameIsADraw">Acest meci este o remiză</string>
-	<string name="stalemateIntro">Când un jucător nu este în șah și nu are nicio mutare validă, este pat. Meciul e o remiză: nimeni nu câștigă, nimeni nu pierde.</string>
-	<string name="stalemateGoal">Ca să dai pat jucătorului cu piesele negre, va trebui ca el:
-- Să nu poată muta vreo piesă.
-- Să nu fie în șah.</string>
-	<string name="stalemateComplete">Felicitări! Mai bine să fie pat decât să pierzi!</string>
 	<string name="advanced">Avansat</string>
 	<string name="pieceValue">Valoarea piesei</string>
 	<string name="evaluatePieceStrength">Evaluează puterea piesei</string>

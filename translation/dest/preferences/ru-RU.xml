@@ -12,6 +12,7 @@
 	<string name="dropDestinations">Место назначение сбросов (действительные сбросы и пре-сбросы)</string>
 	<string name="boardCoordinates">Координаты доски (A–H, 1–8)</string>
 	<string name="moveListWhilePlaying">Показывать список ходов</string>
+	<string name="colorName">Name used for individual players</string>
 	<string name="displayTouchSquareOverlay">Наложение квадратной подсветки на сенсорные устройства</string>
 	<string name="zenMode">Режим Дзен</string>
 	<string name="displayBoardResizeHandle">Показывать ручку изменения размера доски</string>

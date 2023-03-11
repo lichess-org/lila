@@ -91,8 +91,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="capture">הכאה</string>
 	<string name="takeTheEnemyPieces">אכול את כלי היריב</string>
 	<string name="captureIntro">אתר ותפוס כלים לא מוגנים של היריב!</string>
-	<string name="takeTheBlackPieces">קח את הכלים השחורים!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">קח את הכלים השחורים בלי לאבד משלך!</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
@@ -166,11 +164,6 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">פט</string>
-	<string name="theGameIsADraw">המשחק מסתיים בתיקו</string>
-	<string name="stalemateIntro">כאשר שחקן לא מצוי תחת איום שח ואין לו אף מהלך חוקי, מצב כזה נקרא פט והמשחק מסתיים בתיקו.</string>
-	<string name="stalemateGoal">מצב הפט מתקבל כאשר א. אין לשחור כל מסע חוקי, ב. מלכו אינו מאויים.</string>
-	<string name="stalemateComplete">יפה, עדיף לחטוף פט מאשר לחטוף מט!</string>
 	<string name="advanced">מתקדם</string>
 	<string name="pieceValue">הערך של כל כלי</string>
 	<string name="evaluatePieceStrength">למד להעריך את כוח כליך</string>

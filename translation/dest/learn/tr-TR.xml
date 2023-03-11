@@ -90,8 +90,6 @@
 	<string name="capture">Taş yeme</string>
 	<string name="takeTheEnemyPieces">Düşman taşlarını ele geçir</string>
 	<string name="captureIntro">Rakibin korumasız taşlarını bul ve ele geçir!</string>
-	<string name="takeTheBlackPieces">Siyah taşları ye!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Siyah taşları ye ve kendi taşlarını kaybetme!</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Rakibin taşlarını yiyin!
 Ve sizinkileri kaptırmayın.</string>
 	<string name="captureComplete">Tebrikler! Artık shogi taşlarını nasıl yiyeceğini biliyorsun.</string>
@@ -163,13 +161,6 @@ Take the enemy pieces!</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Pat</string>
-	<string name="theGameIsADraw">Beraberlik</string>
-	<string name="stalemateIntro">Eğer bir oyuncuya şah çekilmemiş ise ve bu oyuncunun yapabilecek herhangi bir hamlesi kalmamışsa buna pat denir. Oyun berabere biter, kazanan veya kaybeden yoktur.</string>
-	<string name="stalemateGoal">Pata kalmak için:
-- Siyah hiçbir taşını oynayamamalı
-- Şah çekmemelisin.</string>
-	<string name="stalemateComplete">İşte böyle! Mat olmaktansa pata kalmak yeridir!</string>
 	<string name="advanced">İleri düzey</string>
 	<string name="pieceValue">Taş değerleri</string>
 	<string name="evaluatePieceStrength">Taş güçlerini hesaplama</string>

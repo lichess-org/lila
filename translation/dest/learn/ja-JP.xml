@@ -90,9 +90,6 @@
 	<string name="capture">つかまえる</string>
 	<string name="takeTheEnemyPieces">相手の駒を取る</string>
 	<string name="captureIntro">守られていない相手の駒を見つけて、取ってください！</string>
-	<string name="takeTheBlackPieces">後手の駒を取ってください！</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">後手の駒を全部取ります！
-自分の駒を取られないようにしよう。</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">おめでとうございます！どうやって将棋で相手の駒を取るかを覚えました！</string>
@@ -174,13 +171,6 @@ Take the enemy pieces!</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">ステイルメイト</string>
-	<string name="theGameIsADraw">引き分けになります</string>
-	<string name="stalemateIntro">チェックされていないのに動かす手がない場合が「ステイルメイト」です。ゲームは引き分けで、勝ち負けなしになります。</string>
-	<string name="stalemateGoal">黒をステイルメイトするには：
-- 黒に動かす手がない。
-- チェックがかかっていない。</string>
-	<string name="stalemateComplete">おめでとう！　ステイルメイトはメイトされるよりましです！</string>
 	<string name="advanced">上級</string>
 	<string name="pieceValue">駒の価値</string>
 	<string name="evaluatePieceStrength">駒の価値を数字で</string>

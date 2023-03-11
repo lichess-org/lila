@@ -12,6 +12,7 @@
 	<string name="dropDestinations">Cases de parachutage (parachutages et pré-coups de parachutage valides)</string>
 	<string name="boardCoordinates">Coordonnées (a-h, 1-8)</string>
 	<string name="moveListWhilePlaying">Liste des coups durant la partie</string>
+	<string name="colorName">Name used for individual players</string>
 	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Mode Zen</string>
 	<string name="displayBoardResizeHandle">Afficher la poignée de redimensionnement de l\'échiquier</string>

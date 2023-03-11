@@ -12,6 +12,7 @@
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Bord koördinate (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Skuiflys tydens spel</string>
+	<string name="colorName">Name used for individual players</string>
 	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Zen Modus</string>
 	<string name="displayBoardResizeHandle">Vertoon opsie om bord se groote te verander</string>

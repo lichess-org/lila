@@ -91,8 +91,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="capture">Erobr</string>
 	<string name="takeTheEnemyPieces">Tag fjendens brikker</string>
 	<string name="captureIntro">Identificer modstanderens ubeskyttede brikker og tag dem!</string>
-	<string name="takeTheBlackPieces">Tag de sorte brikker!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Tag de sorte brikker! Og mist ikke dine egne.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
@@ -166,13 +164,6 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Pat</string>
-	<string name="theGameIsADraw">Partiet ender med remis</string>
-	<string name="stalemateIntro">Når en spiller ikke er skak og ikke har noget lovligt træk, er det en pat. Partiet er remis: ingen vinder, ingen taber.</string>
-	<string name="stalemateGoal">For at sætte sort pat:
-- Sort kan ikke flytte
-- Der er ikke skak.</string>
-	<string name="stalemateComplete">Tillykke! Bedre at være pat end skakmat!</string>
 	<string name="advanced">Avanceret</string>
 	<string name="pieceValue">Brikværdi</string>
 	<string name="evaluatePieceStrength">Vurder brikstyrke</string>

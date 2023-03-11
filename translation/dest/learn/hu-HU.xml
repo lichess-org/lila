@@ -91,9 +91,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="capture">Ütés</string>
 	<string name="takeTheEnemyPieces">Nyerd el az ellenfél figuráit</string>
 	<string name="captureIntro">Keresd meg az ellenfél védtelen figuráit és üsd le őket!</string>
-	<string name="takeTheBlackPieces">Üsd le sötét figuráit!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Üsd le sötét figuráit!
-És ne veszítsd el a sajátaidat.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
@@ -175,14 +172,6 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Patt</string>
-	<string name="theGameIsADraw">A döntetlen játszma</string>
-	<string name="stalemateIntro">Amikor a játékos nincs sakkban és nem tud szabályosan lépni, az patt.
-A játszma döntetlen: senki sem győzött vagy vesztett.</string>
-	<string name="stalemateGoal">Hogy bepattoljuk sötétet:
-- Sötétnek nem lehet lépése
-- Nincs sakkban.</string>
-	<string name="stalemateComplete">Gratulálunk! Jobb ha bepattolnak mintha bemattolnának!</string>
 	<string name="advanced">Haladó</string>
 	<string name="pieceValue">Figura érték</string>
 	<string name="evaluatePieceStrength">Mérlegeld a figurák erősségét</string>

@@ -91,9 +91,6 @@ To do that click the cog wheel or your username (top right corner) and then clic
 	<string name="capture">Capture</string>
 	<string name="takeTheEnemyPieces">Take the enemy pieces</string>
 	<string name="captureIntro">Identify the opponent\'s undefended pieces, and capture them!</string>
-	<string name="takeTheBlackPieces">Take Gote\'s pieces!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Take Gote\'s pieces!
-And don\'t lose yours.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
@@ -177,13 +174,6 @@ Make any move to continue.</string>
 Unfortunately for your opponent, they don\'t know that! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Stalemate</string>
-	<string name="theGameIsADraw">The game is a draw</string>
-	<string name="stalemateIntro">When a player is not in check and does not have a legal move, it\'s a stalemate. The game is drawn: no one wins, no one loses.</string>
-	<string name="stalemateGoal">To stalemate black:
-- Black cannot move anywhere
-- There is no check.</string>
-	<string name="stalemateComplete">Congratulations! Better be stalemated than checkmated!</string>
 	<string name="advanced">Advanced</string>
 	<string name="pieceValue">Piece value</string>
 	<string name="evaluatePieceStrength">Evaluate piece strength</string>

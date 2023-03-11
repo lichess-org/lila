@@ -91,9 +91,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="capture">Capture</string>
 	<string name="takeTheEnemyPieces">Take the enemy pieces</string>
 	<string name="captureIntro">Alamin ang mga piyesa na hindi nadepensahan ng kalaban, at dakpin sila!</string>
-	<string name="takeTheBlackPieces">Kunin ang mga piyesa ni Gote!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Take the black pieces!
-And don\'t lose yours.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Binabati kita! Marunong ka na lumaban gamit ng mga piyesa sa shogi!</string>
@@ -174,13 +171,6 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Tabla</string>
-	<string name="theGameIsADraw">Ang laro ay tabla</string>
-	<string name="stalemateIntro">Kapag ang isang manlalaro ay hindi nacheck at wala ng maigagalaw, ito ay tabla. Ang laro ay tabla: walang nanalo, walang natalo.</string>
-	<string name="stalemateGoal">Upang tablahin ang itim:
--Ang itim ay hindi na makakagalaw
--Walang nacheck.</string>
-	<string name="stalemateComplete">Binabati kita! Mas mabuting matabla kaysa matalo!</string>
 	<string name="advanced">Advanced</string>
 	<string name="pieceValue">Halaga ng piyesa</string>
 	<string name="evaluatePieceStrength">Suriin ang lakas ng piyesa</string>

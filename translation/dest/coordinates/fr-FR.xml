@@ -2,8 +2,6 @@
 <resources>
 	<string name="coordinates">Coordonnées</string>
 	<string name="coordinateTraining">Entrainement des coordonnées</string>
-	<string name="averageScoreAsWhiteX">Moyenne blanc : %s</string>
-	<string name="averageScoreAsBlackX">Moyenne noir : %s</string>
 	<string name="averageScoreAsXY" comment="%1$s - sente(black)/gote(white)">Moyenne %1$s: %2$s</string>
 	<string name="knowingTheShogiBoard">Connaître les coordonnées des cases du shogiban est une compétence clé :</string>
 	<string name="mostShogiCourses">Tous les cours et les exercices de shogi utilisent un système de notation. Vous pouvez choisir entre le système japonais et le système occidental.</string>

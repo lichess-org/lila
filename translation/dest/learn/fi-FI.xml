@@ -91,9 +91,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="capture">Lyöminen</string>
 	<string name="takeTheEnemyPieces">Poista vastustajan nappulat</string>
 	<string name="captureIntro">Tunnista vastustajan suojaamattomat nappulat ja lyö ne!</string>
-	<string name="takeTheBlackPieces">Lyö mustat nappulat!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Lyö mustat nappulat!
-Äläkä menetä omiasi.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
@@ -176,13 +173,6 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Patti</string>
-	<string name="theGameIsADraw">Peli päättyy tasan</string>
-	<string name="stalemateIntro">Kun pelaaja ei ole shakissa mutta hänellä ei ole laillista siirtoa, tilanne on patti. Peli päätty tasan, kumpikaan ei voita, kumpikaan ei häviä.</string>
-	<string name="stalemateGoal">Mustan patittaminen:
-- Musta ei voi liikkua minnekään
-- Musta ei ole shakissa.</string>
-	<string name="stalemateComplete">Onneksi olkoon! Parempi patissa kuin matissa!</string>
 	<string name="advanced">Edistynyt</string>
 	<string name="pieceValue">Nappuloiden arvot</string>
 	<string name="evaluatePieceStrength">Arvioi nappuloiden vahvuudet</string>

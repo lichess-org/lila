@@ -91,8 +91,6 @@ Aby to zrobić, kliknij na zębatkę lub swoją nazwę użytkownika (w górnym p
 	<string name="capture">Bicie</string>
 	<string name="takeTheEnemyPieces">Zbij bierki przeciwnika</string>
 	<string name="captureIntro">Znajdź niebronione bierki przeciwnika i zbij je!</string>
-	<string name="takeTheBlackPieces">Zbij czarne bierki!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Zbij czarne bierki! Nie strać swojej.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Zbij bierki przeciwnika!
 I nie strać swojej.</string>
 	<string name="captureComplete">Gratulacje! Wiesz jak rozprawić się z bierkami przeciwnika!</string>
@@ -166,13 +164,6 @@ Wykonaj dowolny ruch, aby kontynuować.</string>
 	<string name="perpetualCheckIsALoss">Ale ciągłe szachowanie króla przeciwnika oznacza przegraną strony szachującej. Niefortunnie dla Twojego przeciwnika, on tego nie wie! Wykonaj jedyny legalny ruch.</string>
 	<string name="boardFlippedFindBestMove">Szachownica została właśnie odwrócona. Jaki jest teraz najlepszy ruch?</string>
 	<string name="repetitionComplete">Celem zasady, by wieczny szach był przegraną, jest to, by nikt nie mógł wymusić remisu.</string>
-	<string name="stalemate">Pat</string>
-	<string name="theGameIsADraw">Partia zakończona remisem</string>
-	<string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie może zrobić żadnego prawidłowego ruchu to jest to pat. Partia jest zakończona remisem: nikt nie wygrywa, nikt nie przegrywa.</string>
-	<string name="stalemateGoal">Czarne zostały zapatowane, gdy:
-– nie będą mogły się ruszyć,
-– nie będą szachowane.</string>
-	<string name="stalemateComplete">Gratulacje! Lepiej dostać pata niż mata!</string>
 	<string name="advanced">Zaawansowane</string>
 	<string name="pieceValue">Wartości bierek</string>
 	<string name="evaluatePieceStrength">Oceń siłę bierek</string>

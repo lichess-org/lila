@@ -2,8 +2,6 @@
 <resources>
 	<string name="coordinates">निर्देशांक</string>
 	<string name="coordinateTraining">निर्देशांक प्रशिक्षण</string>
-	<string name="averageScoreAsWhiteX">औसत स्कोर गोट के रूप में: %s</string>
-	<string name="averageScoreAsBlackX">सेंटे के रूप में औसत स्कोर: %s</string>
 	<string name="averageScoreAsXY" comment="%1$s - sente(black)/gote(white)">Average score as %1$s: %2$s</string>
 	<string name="knowingTheShogiBoard">शोगी बोर्ड निर्देशांक जानना एक बहुत महत्वपूर्ण शोगी कौशल है:</string>
 	<string name="mostShogiCourses">सभी शोगी पाठ्यक्रम और अभ्यास किसी प्रकार के शोगी अंकन का उपयोग करते हैं। आप जापानी और पश्चिमी के बीच चुन सकते हैं।</string>

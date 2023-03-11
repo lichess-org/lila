@@ -14,8 +14,6 @@
   <string name="didYouLikeThisPuzzle">你喜欢了这个训练题吗？</string>
   <string name="voteToLoadNextOne">投票以加载下一题</string>
   <string name="yourPuzzleRatingX">你的解题积分：%s</string>
-  <string name="findTheBestMoveForWhite">找出后手的最佳着</string>
-  <string name="findTheBestMoveForBlack">找出先手的最佳着</string>
   <string name="findTheBestMoveForX" comment="%s - sente(black)/gote(white)">找出%s的最佳着</string>
   <string name="toGetPersonalizedPuzzles">获取个性化谜题</string>
   <string name="puzzleId">训练题编号%s</string>

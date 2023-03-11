@@ -12,6 +12,7 @@
 	<string name="dropDestinations">Tọa độ của quân cờ</string>
 	<string name="boardCoordinates">Tạo độ bàn cờ (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Biên bản ván đấu</string>
+	<string name="colorName">Name used for individual players</string>
 	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Chế độ Zen</string>
 	<string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ</string>

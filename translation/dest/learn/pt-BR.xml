@@ -90,9 +90,6 @@
 	<string name="capture">Capturar</string>
 	<string name="takeTheEnemyPieces">Capture as peças inimigas</string>
 	<string name="captureIntro">Identifique as peças desprotegidas do adversário, e capture-as!</string>
-	<string name="takeTheBlackPieces">Capture as peças pretas!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Capture as peças pretas!
-E não perca as suas.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Capture as peças do adversário!
 E não perca as suas.</string>
 	<string name="captureComplete">Parabéns! Você já sabe como lutar com peças de shogi!</string>
@@ -172,13 +169,6 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Rei afogado</string>
-	<string name="theGameIsADraw">O jogo terminou em empate</string>
-	<string name="stalemateIntro">Quando um jogador não está em xeque e não pode fazer nenhum movimento legal, há um afogamento. O jogo termina em empate: ninguém ganha, ninguém perde.</string>
-	<string name="stalemateGoal">Para afogar as pretas:
-- As pretas não podem mover-se para lugar algum
-- Não há xeque.</string>
-	<string name="stalemateComplete">Parabéns! Um empate é melhor do que uma derrota!</string>
 	<string name="advanced">Avançado</string>
 	<string name="pieceValue">Avaliando</string>
 	<string name="evaluatePieceStrength">Avalie o valor de cada peça</string>

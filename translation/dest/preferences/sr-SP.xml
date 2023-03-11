@@ -12,6 +12,7 @@
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Прикажи координате табле (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Листа потеза током партије</string>
+	<string name="colorName">Name used for individual players</string>
 	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">зен стање</string>
 	<string name="displayBoardResizeHandle">Show board resize handle</string>

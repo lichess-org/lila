@@ -91,9 +91,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="capture">Vat</string>
 	<string name="takeTheEnemyPieces">Vat die vyandige stukke</string>
 	<string name="captureIntro">Identifiseer die opponent se onverdedigde stukke, en vat hulle!</string>
-	<string name="takeTheBlackPieces">Vat die swart stukke!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Vat die swart stukke!
-En moenie joune verloor nie.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
@@ -174,13 +171,6 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Pat</string>
-	<string name="theGameIsADraw">Die spel is gelykop</string>
-	<string name="stalemateIntro">Wanneer \'n speler nie in skaak is nie en nie \'n wettige skuif het nie, is dit pat. Die spel is gelykop: niemand wen nie, niemand verloor nie.</string>
-	<string name="stalemateGoal">Om swart te pat moet:
-- Swart nêrens kan skuif nie
-- Daar geen skaak wees nie.</string>
-	<string name="stalemateComplete">Mooi skoot! Dit is beter om gepat te word as gemat te word!</string>
 	<string name="advanced">Gevorderd</string>
 	<string name="pieceValue">Stuk waarde</string>
 	<string name="evaluatePieceStrength">Evalueer stuk sterkte</string>

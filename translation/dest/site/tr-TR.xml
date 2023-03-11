@@ -21,19 +21,17 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="gote" comment="Should be 'Gote', unless equivalent exists (ex. 後手 in JP)">Gote</string>
+	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">Beyaz</string>
-	<string name="sente" comment="Should be 'Sente', unless equivalent exists (ex. 先手 in JP)">Sente</string>
+	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
 	<string name="black" comment="Alternative to sente">Siyah</string>
-	<string name="shitate" comment="Should be 'Shitate', unless equivalent exists (ex. 下手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
-	<string name="uwate" comment="Should be 'Uwate', unless equivalent exists (ex. 上手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
+	<string name="shitate" comment="Should be 'Shitate', unless equivalent written differently exists (ex. 下手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">Rastgele renk</string>
 	<string name="createAGame">Yeni bir oyun kur</string>
 	<string name="whiteIsVictorious">Zafer Beyazın</string>
 	<string name="blackIsVictorious">Zafer Siyahın</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
-	<string name="youPlayTheWhitePieces">Beyaz taşlar sizin</string>
-	<string name="youPlayTheBlackPieces">Siyah taşlar sizin</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">Sıra sizde!</string>
 	<string name="cheatDetected">Hile Tespit Edildi</string>
@@ -44,8 +42,6 @@
 	<string name="whitePlays">Hamle Gote\'de</string>
 	<string name="blackPlays">Hamle Sente\'de</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
-	<string name="shitatePlays">Hamle Sırası Shitate\'de</string>
-	<string name="uwatePlays">Hamle Sırası Uwate\'de</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Rakibiniz oyundan ayrıldı. %s saniye sonra galibiyet talep edebilirsiniz.</item>
 		<item quantity="other">Rakibiniz oyundan ayrıldı. %s saniye sonra galibiyet talep edebilirsiniz.</item>
@@ -74,7 +70,7 @@
 	<string name="usingServerAnalysis">Sunucu analizi yapılıyor</string>
 	<string name="loadingEngine">Satranç motoru yükleniyor...</string>
 	<string name="cloudAnalysis">Bulut analizi</string>
-	<string name="goDeeper">Daha derine in</string>
+	<string name="goDeeper" comment="Engine depth">Daha derine in</string>
 	<string name="showThreat">Tehdidi göster</string>
 	<string name="inLocalBrowser">yerel tarayıcı üzerinde</string>
 	<string name="toggleLocalEvaluation">Yerel analizi aç/kapat</string>
@@ -98,7 +94,6 @@
 	<string name="drawn">Berabere</string>
 	<string name="unknown">Belirsiz</string>
 	<string name="database">Veritabanı</string>
-	<string name="whiteDrawBlack">Beyaz / Berabere / Siyah</string>
 	<string name="averageRatingX">Ortalama puan: %s</string>
 	<string name="recentGames">Son oyunlar</string>
 	<string name="topGames">En yüksek puanlı oyunlar</string>
@@ -228,7 +223,7 @@
 	<string name="finishesX">%s sona erecek</string>
 	<string name="abortGame">Oyunu iptal et</string>
 	<string name="gameAborted">Oyun iptal edildi</string>
-	<string name="standard">Standart</string>
+	<string name="standard" comment="Variant - meaning standard shogi">Standart</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
 	<string name="unlimited">Sınırsız</string>
@@ -240,8 +235,6 @@
 	<string name="thisGameIsRated">Bu oyun puanlıdır</string>
 	<string name="rematch">Yeniden oyna</string>
 	<string name="rematchOfferSent">Yeniden oynama teklifi yollandı</string>
-	<string name="rematchOfferSentWhite">Beyaz yeni bir oyun teklif ediyor</string>
-	<string name="rematchOfferSentBlack">Siyah yeni bir oyun teklif ediyor</string>
 	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s offers rematch</string>
 	<string name="rematchOfferAccepted">Yeniden oynama teklifi kabul edildi</string>
 	<string name="rematchOfferCanceled">Yeniden oynama teklifi reddedildi</string>
@@ -458,7 +451,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="handicap">Handikap</string>
 	<string name="startPosition">Başlangıç konumu</string>
 	<string name="clearBoard">Tahtayı temizle</string>
-	<string name="fillGotesHand">Gote\'nin elini doldur</string>
+	<string name="fillXHand">Fill hand of %s</string>
 	<string name="savePosition">Konumu kaydet</string>
 	<string name="loadPosition">Konumu yükle</string>
 	<string name="isPrivate">Özel</string>
@@ -733,6 +726,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="security">Güvenlik</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Bu, hesabınıza giriş yaptığınız cihazların listesidir. Tanımadığınız veya bilmediğiniz tüm oturumları kapatın.</string>
 	<string name="alternativelyYouCanX">Ayrıca %s de yapabilirsiniz.</string>
+	<string name="sessions">Sessions</string>
 	<string name="revokeAllSessions">tüm oturumları kaldır</string>
 	<string name="playShogiEverywhere">Her yerde shogi oyna</string>
 	<string name="asFreeAsLishogi">Lishogi kadar özgür</string>
@@ -774,7 +768,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="gridSlim">Slim</string>
 	<string name="gridThick">Thick</string>
 	<string name="gridVeryThick">Very thick</string>
-	<string name="hands">Hands</string>
+	<string name="hands" comment="Title in custom board theme editor">Hands</string>
 	<string name="boardTheme">Tahta teması</string>
 	<string name="boardSize">Tahta boyutu</string>
 	<string name="pieceSet">Taş seti</string>
@@ -789,9 +783,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi kaynakları</string>
 	<string name="coaches">Eğitmenler</string>
-	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidNotation">Invalid notation</string>
-	<string name="invalidFen">Geçersiz FEN</string>
+	<string name="invalidSfen">Invalid SFEN</string>
 	<string name="error.minLength">Asgari uzunluk: %s</string>
 	<string name="error.maxLength">Azami uzunluk: %s</string>
 	<string name="error.min">Şu sayıdan büyük veya şu sayıya eşit olması gerekir: %s</string>
@@ -824,25 +817,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="skipThisMove">Bu hamleyi geç</string>
 	<string name="next">Sonraki</string>
 	<string name="xWasPlayed">%s oynandı</string>
-	<string name="findBetterMoveForWhite">Beyaz için en iyi hamleyi bulun</string>
-	<string name="findBetterMoveForBlack">Siyah için en iyi hamleyi bulun</string>
 	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Find a better move for %s</string>
 	<string name="resumeLearning">Kaldığınız yerden devam edin</string>
 	<string name="youCanDoBetter">Daha iyisini yapabilirsin</string>
-	<string name="tryAnotherMoveForWhite">Beyaz için başka bir hamle dene</string>
-	<string name="tryAnotherMoveForBlack">Siyah için başka bir hamle dene</string>
 	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
 	<string name="solution">Çözüm</string>
 	<string name="waitingForAnalysis">Analiz bekleniyor</string>
-	<string name="noMistakesFoundForWhite">Beyazın bir hatası bulunamadı</string>
-	<string name="noMistakesFoundForBlack">Siyahın bir hatası bulunamadı</string>
 	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
-	<string name="doneReviewingWhiteMistakes">Beyazın hataları analiz edildi</string>
-	<string name="doneReviewingBlackMistakes">Siyahın hataları analiz edildi</string>
 	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
 	<string name="doItAgain">Tekrarlayın</string>
-	<string name="reviewWhiteMistakes">Beyazın hatalarını gözden geçirin</string>
-	<string name="reviewBlackMistakes">Siyahın hatalarını gözden geçirin</string>
 	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Review %s mistakes</string>
 	<string name="advantage">Avantaj</string>
 	<plurals name="nbSeconds">
@@ -917,7 +900,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="previousBlogPosts">Önceki blog gönderileri</string>
 	<string name="continueReadingThis"> Bu gönderiyi okumaya devam edin</string>
 	<string name="discussBlogForum">Bu blog gönderisini forumda tartışın</string>
-	<string name="invadingPieces">Invading pieces</string>
-	<string name="enteringKing">Entering king</string>
-	<string name="totalImpasseValue">Total value</string>
+	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Invading pieces</string>
+	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Entering king</string>
+	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Total value</string>
+	<string name="postGameStudy">Post-game study</string>
+	<string name="postGameStudies">Post-game studies</string>
+	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
+	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
+	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyWith">Study with:</string>
+	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
+	<string name="standardStudy">Standard study</string>
 </resources>

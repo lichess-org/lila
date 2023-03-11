@@ -91,9 +91,6 @@
 	<string name="capture">कब्जा</string>
 	<string name="takeTheEnemyPieces">दुश्मन के टुकड़े ले लो</string>
 	<string name="captureIntro">प्रतिद्वंद्वी के असहज मोहरो की पहचान करें, और उन्हें मार दे !</string>
-	<string name="takeTheBlackPieces">काले टुकड़े ले लो !</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">काले टुकड़े ले लो !
-और अपना मत खोना।</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">दुश्मन के टुकड़े ले लो !
 और अपना मत खोना।</string>
 	<string name="captureComplete">बधाई ! आप जानते हैं कि shogi के टुकड़ों से कैसे लड़ें !</string>
@@ -176,13 +173,6 @@ shogi के हर खेल के !
 	<string name="perpetualCheckIsALoss">लेकिन, विरोधी के राजा की लगातार चेक करना चेक पक्ष के लिए एक नुकसान है। दुर्भाग्य से आपके प्रतिद्वंद्वी के लिए, वे नहीं जानते ! केवल कानूनी कदम उठाएं।</string>
 	<string name="boardFlippedFindBestMove">बोर्ड बस फ़्लिप किया गया था। यहां सबसे अच्छा कदम क्या है ?</string>
 	<string name="repetitionComplete">परपेचुअल चेक के नुकसान के पीछे विचार यह है कि किसी को जबरदस्ती ड्रॉ कराने से रोका जाए।</string>
-	<string name="stalemate">स्टेलमेट (Stalemate)</string>
-	<string name="theGameIsADraw">खेल ड्रॉ है।</string>
-	<string name="stalemateIntro">जब कोई खिलाड़ी जांच में नहीं होता है और कोई कानूनी कदम नहीं उठाता है, तो यह एक गतिरोध है। खेल तैयार है: कोई भी जीतता है, कोई भी हारता है।</string>
-	<string name="stalemateGoal">काले को स्टेलमेट करने के लिए:
-- काला कहीं नहीं जा सकता
-- कोई जांच नहीं है।</string>
-	<string name="stalemateComplete">बधाई हो ! बेहतर है जाँच की तुलना में गतिरोध! !</string>
 	<string name="advanced">उन्नत</string>
 	<string name="pieceValue">टुकड़ा का मूल्य</string>
 	<string name="evaluatePieceStrength">टुकड़ा ताकत का मूल्यांकन करें</string>

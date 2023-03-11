@@ -21,19 +21,17 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="gote" comment="Should be 'Gote', unless equivalent exists (ex. 後手 in JP)">Gote</string>
+	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">לבן</string>
-	<string name="sente" comment="Should be 'Sente', unless equivalent exists (ex. 先手 in JP)">Sente</string>
+	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
 	<string name="black" comment="Alternative to sente">שחור</string>
-	<string name="shitate" comment="Should be 'Shitate', unless equivalent exists (ex. 下手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
-	<string name="uwate" comment="Should be 'Uwate', unless equivalent exists (ex. 上手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
+	<string name="shitate" comment="Should be 'Shitate', unless equivalent written differently exists (ex. 下手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">צבע אקראי</string>
 	<string name="createAGame">צור משחק</string>
 	<string name="whiteIsVictorious">הלבן ניצח</string>
 	<string name="blackIsVictorious">השחור ניצח</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
-	<string name="youPlayTheWhitePieces">את/ה משחק/ת את הכלים הלבנים</string>
-	<string name="youPlayTheBlackPieces">את/ה משחק/ת את הכלים השחורים</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">זה התור שלך!</string>
 	<string name="cheatDetected">Cheat Detected</string>
@@ -44,8 +42,6 @@
 	<string name="whitePlays">תור הלבן</string>
 	<string name="blackPlays">תור השחור</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
-	<string name="shitatePlays">Shitate to play</string>
-	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">המשתמש עזב את המשחק. תוכל לקחת ניצחון בעוד %s שנייה.</item>
 		<item quantity="two">המשתמש עזב את המשחק. תוכל לירוש ניצחון בעוד %s שניות.</item>
@@ -76,7 +72,7 @@
 	<string name="usingServerAnalysis">באמצעות ניתוח שרת</string>
 	<string name="loadingEngine">טוען מנוע...</string>
 	<string name="cloudAnalysis">ניתוח ענן</string>
-	<string name="goDeeper">עמוק יותר</string>
+	<string name="goDeeper" comment="Engine depth">עמוק יותר</string>
 	<string name="showThreat">הצג איום</string>
 	<string name="inLocalBrowser">בדפדפן המקומי</string>
 	<string name="toggleLocalEvaluation">הערכה מקומית במקום הערכת שרת</string>
@@ -102,7 +98,6 @@
 	<string name="drawn">תיקו</string>
 	<string name="unknown">לא ידוע</string>
 	<string name="database">מסד נתונים</string>
-	<string name="whiteDrawBlack">שחור / תיקו / לבן</string>
 	<string name="averageRatingX">דירוג ממוצע: %s</string>
 	<string name="recentGames">משחקים אחרונים</string>
 	<string name="topGames">המשחקים המובילים</string>
@@ -248,7 +243,7 @@
 	<string name="finishesX">נגמר/ה %s</string>
 	<string name="abortGame">בטל משחק</string>
 	<string name="gameAborted">משחק בוטל</string>
-	<string name="standard">רגיל</string>
+	<string name="standard" comment="Variant - meaning standard shogi">רגיל</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
 	<string name="unlimited">בלתי מוגבל</string>
@@ -260,8 +255,6 @@
 	<string name="thisGameIsRated">משחק זה מדורג</string>
 	<string name="rematch">משחק חוזר</string>
 	<string name="rematchOfferSent">הצעה למשחק חוזר נשלחה</string>
-	<string name="rematchOfferSentWhite">לבן מציע משחק חוזר</string>
-	<string name="rematchOfferSentBlack">שחור מציע משחק חוזר</string>
 	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s offers rematch</string>
 	<string name="rematchOfferAccepted">הצעה למשחק חוזר התקבלה</string>
 	<string name="rematchOfferCanceled">בקשת משחק חוזר בוטלה</string>
@@ -512,7 +505,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="handicap">Handicap</string>
 	<string name="startPosition">מצב התחלתי</string>
 	<string name="clearBoard">נקה לוח</string>
-	<string name="fillGotesHand">Fill Gote\'s hand</string>
+	<string name="fillXHand">Fill hand of %s</string>
 	<string name="savePosition">שמור מצב</string>
 	<string name="loadPosition">טען מיקום</string>
 	<string name="isPrivate">פרטי</string>
@@ -802,6 +795,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="security">אבטחה</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">רשימת המכשירים שהתחברו לחשבונך, בטל את ההתחברויות שאתה לא מכיר.</string>
 	<string name="alternativelyYouCanX">לחלופין, ניתן לעשות %s.</string>
+	<string name="sessions">Sessions</string>
 	<string name="revokeAllSessions">בטל כל הפעלות</string>
 	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
@@ -845,7 +839,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="gridSlim">Slim</string>
 	<string name="gridThick">Thick</string>
 	<string name="gridVeryThick">Very thick</string>
-	<string name="hands">Hands</string>
+	<string name="hands" comment="Title in custom board theme editor">Hands</string>
 	<string name="boardTheme">עיצוב הלוח</string>
 	<string name="boardSize">גודל הלוח</string>
 	<string name="pieceSet">סט חלקים</string>
@@ -860,9 +854,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">מאמנים</string>
-	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidNotation">Invalid notation</string>
-	<string name="invalidFen">FEN לא חוקי</string>
+	<string name="invalidSfen">Invalid SFEN</string>
 	<string name="error.minLength">האורך המינימלי הוא %s</string>
 	<string name="error.maxLength">האורך המקסימלי הוא %s</string>
 	<string name="error.min">חייב להיות גדול או שווה ל%s</string>
@@ -897,25 +890,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="skipThisMove">דלג/י על מהלך זה</string>
 	<string name="next">הבא</string>
 	<string name="xWasPlayed">%s שוחק</string>
-	<string name="findBetterMoveForWhite">מצא מהלך טוב יותר ללבן</string>
-	<string name="findBetterMoveForBlack">מצב מהלך טוב יותר לשחור</string>
 	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Find a better move for %s</string>
 	<string name="resumeLearning">המשך ללמוד</string>
 	<string name="youCanDoBetter">אתה יכול לעשות יותר טוב</string>
-	<string name="tryAnotherMoveForWhite">נסה למצוא מהלך טוב יותר ללבן</string>
-	<string name="tryAnotherMoveForBlack">נסה למצוא מהלך טוב יותר לשחור</string>
 	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
 	<string name="solution">פתרון</string>
 	<string name="waitingForAnalysis">מחכים לניתוח המשחק</string>
-	<string name="noMistakesFoundForWhite">אף טעות לא נמצאה עבור הלבן</string>
-	<string name="noMistakesFoundForBlack">אף טעות לא נמצאה עבור השחור</string>
 	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
-	<string name="doneReviewingWhiteMistakes">בדיקת טעויות ללבן הסתיימה</string>
-	<string name="doneReviewingBlackMistakes">בדיקת טעויות לשחור הסתיימה</string>
 	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
 	<string name="doItAgain">עשה זאת שוב</string>
-	<string name="reviewWhiteMistakes">בדוק טעויות ללבן</string>
-	<string name="reviewBlackMistakes">בדוק טעויות לשחור</string>
 	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Review %s mistakes</string>
 	<string name="advantage">יתרון</string>
 	<plurals name="nbSeconds">
@@ -994,7 +977,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="previousBlogPosts">Previous blog posts</string>
 	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
-	<string name="invadingPieces">Invading pieces</string>
-	<string name="enteringKing">Entering king</string>
-	<string name="totalImpasseValue">Total value</string>
+	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Invading pieces</string>
+	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Entering king</string>
+	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Total value</string>
+	<string name="postGameStudy">Post-game study</string>
+	<string name="postGameStudies">Post-game studies</string>
+	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
+	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
+	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyWith">Study with:</string>
+	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
+	<string name="standardStudy">Standard study</string>
 </resources>

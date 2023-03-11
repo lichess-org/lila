@@ -91,8 +91,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="capture">Узимање фигура</string>
 	<string name="takeTheEnemyPieces">Узми противничке фигуре</string>
 	<string name="captureIntro">Идентификујте небрањене противничке фигуре, и узмите их!</string>
-	<string name="takeTheBlackPieces">Узмите црне фигуре!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Узмите црне фигуре! И немојте изгубити своје.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
@@ -167,13 +165,6 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Пат</string>
-	<string name="theGameIsADraw">Партија је нерешена</string>
-	<string name="stalemateIntro">Када играч није у шаху и неможе направити ниједан потез, то је пат. Партија је нерешена: нико не добија, нико не губи.</string>
-	<string name="stalemateGoal">Да направите пат:
-- Црни играч не може нигде да се помери
-- Нема шаха.</string>
-	<string name="stalemateComplete">Честитамо! Боље правите пат него да добијете шах мат!</string>
 	<string name="advanced">Напредно</string>
 	<string name="pieceValue">Вредност фигура</string>
 	<string name="evaluatePieceStrength">Процените снагу фигуре</string>

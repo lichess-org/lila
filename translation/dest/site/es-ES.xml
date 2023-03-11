@@ -21,19 +21,17 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="gote" comment="Should be 'Gote', unless equivalent exists (ex. 後手 in JP)">Gote</string>
+	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">Blancas</string>
-	<string name="sente" comment="Should be 'Sente', unless equivalent exists (ex. 先手 in JP)">Sente</string>
+	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
 	<string name="black" comment="Alternative to sente">Negras</string>
-	<string name="shitate" comment="Should be 'Shitate', unless equivalent exists (ex. 下手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
-	<string name="uwate" comment="Should be 'Uwate', unless equivalent exists (ex. 上手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
+	<string name="shitate" comment="Should be 'Shitate', unless equivalent written differently exists (ex. 下手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">Color aleatorio</string>
 	<string name="createAGame">Crear una partida</string>
 	<string name="whiteIsVictorious">Las blancas ganan</string>
 	<string name="blackIsVictorious">Las negras ganan</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
-	<string name="youPlayTheWhitePieces">Juegas con blancas</string>
-	<string name="youPlayTheBlackPieces">Juegas con negras</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">¡Es tu turno!</string>
 	<string name="cheatDetected">Cheat detectado</string>
@@ -44,8 +42,6 @@
 	<string name="whitePlays">Juegan las blancas</string>
 	<string name="blackPlays">Juegan las negras</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
-	<string name="shitatePlays">Juega shitate</string>
-	<string name="uwatePlays">Juega uwate</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundo.</item>
 		<item quantity="other">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundos.</item>
@@ -74,7 +70,7 @@
 	<string name="usingServerAnalysis">Usando análisis del servidor</string>
 	<string name="loadingEngine">Cargando el motor...</string>
 	<string name="cloudAnalysis">Análisis en el servidor</string>
-	<string name="goDeeper">Aumentar la profundidad del análisis</string>
+	<string name="goDeeper" comment="Engine depth">Aumentar la profundidad del análisis</string>
 	<string name="showThreat">Mostrar amenaza</string>
 	<string name="inLocalBrowser">en el navegador local</string>
 	<string name="toggleLocalEvaluation">Evaluación local</string>
@@ -98,7 +94,6 @@
 	<string name="drawn">Resulta en tablas</string>
 	<string name="unknown">Desconocido</string>
 	<string name="database">Base de datos</string>
-	<string name="whiteDrawBlack">Blancas / Tablas / Negras</string>
 	<string name="averageRatingX">Puntuación media: %s</string>
 	<string name="recentGames">Partidas recientes</string>
 	<string name="topGames">Mejores partidas</string>
@@ -228,7 +223,7 @@
 	<string name="finishesX">termina %s</string>
 	<string name="abortGame">Cancelar partida</string>
 	<string name="gameAborted">Partida cancelada</string>
-	<string name="standard">Estándar</string>
+	<string name="standard" comment="Variant - meaning standard shogi">Estándar</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
 	<string name="unlimited">Ilimitado</string>
@@ -240,8 +235,6 @@
 	<string name="thisGameIsRated">Esta partida es por puntos</string>
 	<string name="rematch">Revancha</string>
 	<string name="rematchOfferSent">Oferta de revancha enviada</string>
-	<string name="rematchOfferSentWhite">Gote ofrecen jugar de nuevo</string>
-	<string name="rematchOfferSentBlack">Sente ofrecen jugar de nuevo</string>
 	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s ofrecen jugar de nuevo</string>
 	<string name="rematchOfferAccepted">Oferta de revancha aceptada</string>
 	<string name="rematchOfferCanceled">Oferta de revancha cancelada</string>
@@ -457,7 +450,7 @@
 	<string name="handicap">Ventaja</string>
 	<string name="startPosition">Posición inicial</string>
 	<string name="clearBoard">Limpiar el tablero</string>
-	<string name="fillGotesHand">Llena la mano de Gote</string>
+	<string name="fillXHand">Fill hand of %s</string>
 	<string name="savePosition">Guardar posición</string>
 	<string name="loadPosition">Cargar posicion</string>
 	<string name="isPrivate">Privado</string>
@@ -732,6 +725,7 @@
 	<string name="security">Seguridad</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta es una lista de dispositivos desde los que has iniciado sesión. Cierra todas las sesiones que no reconozcas.</string>
 	<string name="alternativelyYouCanX">O también puedes %s.</string>
+	<string name="sessions">Sessions</string>
 	<string name="revokeAllSessions">cerrar todas las sesiones</string>
 	<string name="playShogiEverywhere">Juega shogi donde sea</string>
 	<string name="asFreeAsLishogi">Tan gratis como Lishogi</string>
@@ -773,7 +767,7 @@
 	<string name="gridSlim">Fino</string>
 	<string name="gridThick">Grueso</string>
 	<string name="gridVeryThick">Muy grueso</string>
-	<string name="hands">Manos</string>
+	<string name="hands" comment="Title in custom board theme editor">Manos</string>
 	<string name="boardTheme">Tema del tablero</string>
 	<string name="boardSize">Tamaño del tablero</string>
 	<string name="pieceSet">Estilo de piezas</string>
@@ -788,9 +782,8 @@
 	<string name="shogiBasics">Fundamentos de shogi</string>
 	<string name="shogiResources">Recursos de shogi</string>
 	<string name="coaches">Entrenadores</string>
-	<string name="invalidKif">PGN inválido</string>
 	<string name="invalidNotation">Notación inválida</string>
-	<string name="invalidFen">FEN inválido</string>
+	<string name="invalidSfen">Invalid SFEN</string>
 	<string name="error.minLength">La longitud mínima es de %s</string>
 	<string name="error.maxLength">La longitud máxima es de %s</string>
 	<string name="error.min">Debe ser mayor o igual a %s</string>
@@ -823,25 +816,15 @@
 	<string name="skipThisMove">Omitir este movimiento</string>
 	<string name="next">Siguiente</string>
 	<string name="xWasPlayed">se jugó %s</string>
-	<string name="findBetterMoveForWhite">Encuentra un movimiento mejor para las blancas</string>
-	<string name="findBetterMoveForBlack">Encuentra un movimiento mejor para las negras</string>
 	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Find a better move for %s</string>
 	<string name="resumeLearning">Continuar el aprendizaje</string>
 	<string name="youCanDoBetter">Puedes hacerlo mejor</string>
-	<string name="tryAnotherMoveForWhite">Prueba con otro movimiento para las blancas</string>
-	<string name="tryAnotherMoveForBlack">Prueba con otro movimiento para las negras</string>
 	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
 	<string name="solution">Solución</string>
 	<string name="waitingForAnalysis">Esperando análisis</string>
-	<string name="noMistakesFoundForWhite">No hay errores del blanco</string>
-	<string name="noMistakesFoundForBlack">No hay errores del negro</string>
 	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
-	<string name="doneReviewingWhiteMistakes">Revisión de errores del blanco terminada</string>
-	<string name="doneReviewingBlackMistakes">Revisión de errores del negro terminada</string>
 	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
 	<string name="doItAgain">Volver a revisar los errores</string>
-	<string name="reviewWhiteMistakes">Revisar los errores del blanco</string>
-	<string name="reviewBlackMistakes">Revisar los errores del negro</string>
 	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Review %s mistakes</string>
 	<string name="advantage">Ventaja</string>
 	<plurals name="nbSeconds">
@@ -916,7 +899,15 @@
 	<string name="previousBlogPosts">Publicaciones anteriores</string>
 	<string name="continueReadingThis"> Continuar leyendo esta publicación</string>
 	<string name="discussBlogForum">Discutir esta publicación en el foro</string>
-	<string name="invadingPieces">Piezas invasoras</string>
-	<string name="enteringKing">Entrando al rey</string>
-	<string name="totalImpasseValue">Valor total</string>
+	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Piezas invasoras</string>
+	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Entrando al rey</string>
+	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Valor total</string>
+	<string name="postGameStudy">Post-game study</string>
+	<string name="postGameStudies">Post-game studies</string>
+	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
+	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
+	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyWith">Study with:</string>
+	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
+	<string name="standardStudy">Standard study</string>
 </resources>

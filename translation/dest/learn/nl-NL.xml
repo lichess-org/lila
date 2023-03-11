@@ -91,9 +91,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="capture">Slaan</string>
 	<string name="takeTheEnemyPieces">Sla de vijandelijke stukken</string>
 	<string name="captureIntro">Identificeer de ongedekte stukken van de tegenstander en sla ze!</string>
-	<string name="takeTheBlackPieces">Sla de zwarte stukken!</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">Sla de zwarte stukken!
-En verlies je eigen stukken niet.</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
@@ -175,13 +172,6 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">Patstelling</string>
-	<string name="theGameIsADraw">De partij eindigt in remise</string>
-	<string name="stalemateIntro">Als een speler niet schaak staat, maar ook geen enkele zet meer kan doen, is het pat. De partij eindigt in remise: niemand wint of verliest.</string>
-	<string name="stalemateGoal">Zet zwart pat door:
-- Zwart geen legale zetten meer te geven
-- Zwart niet schaak te zetten.</string>
-	<string name="stalemateComplete">Gefeliciteerd! Beter pat staan dan mat staan!</string>
 	<string name="advanced">Voor geavanceerden</string>
 	<string name="pieceValue">Waarde van stukken</string>
 	<string name="evaluatePieceStrength">Evalueer de kracht van stukken</string>

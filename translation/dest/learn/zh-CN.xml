@@ -91,9 +91,6 @@
 	<string name="capture">吃子</string>
 	<string name="takeTheEnemyPieces">吃掉对方的棋子</string>
 	<string name="captureIntro">寻找对方没有保护的棋子并吃掉它们。</string>
-	<string name="takeTheBlackPieces">吃掉黑棋！</string>
-	<string name="takeTheBlackPiecesAndDontLoseYours">吃掉黑棋！
-请不要失去您的。</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
 	<string name="captureComplete">恭喜！您已经了解如何用将棋子！</string>
@@ -169,11 +166,6 @@ Take the enemy pieces!</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="stalemate">逼和</string>
-	<string name="theGameIsADraw">本局和棋</string>
-	<string name="stalemateIntro">当一位棋手并没有被将军但无法着棋时逼和发生了：没有人赢棋，也没有人输棋。</string>
-	<string name="stalemateGoal">为了逼和黑棋，黑棋必须无法移动任何棋子，同时没有被将军。</string>
-	<string name="stalemateComplete">恭喜！逼和起码比被将死好！</string>
 	<string name="advanced">高级</string>
 	<string name="pieceValue">子力价值</string>
 	<string name="evaluatePieceStrength">对子力进行估值</string>

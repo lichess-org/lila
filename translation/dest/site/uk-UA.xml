@@ -21,19 +21,17 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="gote" comment="Should be 'Gote', unless equivalent exists (ex. 後手 in JP)">Gote</string>
+	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">Наступник</string>
-	<string name="sente" comment="Should be 'Sente', unless equivalent exists (ex. 先手 in JP)">Sente</string>
+	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
 	<string name="black" comment="Alternative to sente">Попередник</string>
-	<string name="shitate" comment="Should be 'Shitate', unless equivalent exists (ex. 下手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Недоважник</string>
-	<string name="uwate" comment="Should be 'Uwate', unless equivalent exists (ex. 上手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Переважник</string>
+	<string name="shitate" comment="Should be 'Shitate', unless equivalent written differently exists (ex. 下手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Недоважник</string>
+	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Переважник</string>
 	<string name="randomColor" comment="Side - sente/gote">Випадковий колір</string>
-	<string name="createAGame">Створи гру</string>
+	<string name="createAGame">Створити гру</string>
 	<string name="whiteIsVictorious">Перемога наступника</string>
 	<string name="blackIsVictorious">Перемога попередника</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
-	<string name="youPlayTheWhitePieces">Граєш наступником</string>
-	<string name="youPlayTheBlackPieces">Граєш попередником</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">Твій хід!</string>
 	<string name="cheatDetected">Викрито обман</string>
@@ -44,8 +42,6 @@
 	<string name="whitePlays">Хід наступника</string>
 	<string name="blackPlays">Хід попередника</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
-	<string name="shitatePlays">Хід недоважника</string>
-	<string name="uwatePlays">Хід переважника</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Противник покинув. Можеш заявити перемогу за %s секунду.</item>
 		<item quantity="few">Противник покинув. Можеш заявити перемогу за %s секунди.</item>
@@ -76,7 +72,7 @@
 	<string name="usingServerAnalysis">Розбір від серверу</string>
 	<string name="loadingEngine">Загруз рушія...</string>
 	<string name="cloudAnalysis">Хмарний розбір</string>
-	<string name="goDeeper">Ще глибше</string>
+	<string name="goDeeper" comment="Engine depth">Ще глибше</string>
 	<string name="showThreat">Покажи загрозу</string>
 	<string name="inLocalBrowser">в огляднику</string>
 	<string name="toggleLocalEvaluation">Стан місцевої оцінки</string>
@@ -102,7 +98,6 @@
 	<string name="drawn">Нічия</string>
 	<string name="unknown">Невідомо</string>
 	<string name="database">База даних</string>
-	<string name="whiteDrawBlack">Попередник / Нічия / Наступник</string>
 	<string name="averageRatingX">Середній щабель: %s</string>
 	<string name="recentGames">Останні ігри</string>
 	<string name="topGames">Найкращі ігри</string>
@@ -248,7 +243,7 @@
 	<string name="finishesX">завершується %s</string>
 	<string name="abortGame">Перерви гру</string>
 	<string name="gameAborted">Гру перервано</string>
-	<string name="standard">Уставно</string>
+	<string name="standard" comment="Variant - meaning standard shogi">Уставно</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
 	<string name="unlimited">Безмежно</string>
@@ -260,8 +255,6 @@
 	<string name="thisGameIsRated">Гра щабельна</string>
 	<string name="rematch">Помста</string>
 	<string name="rematchOfferSent">Помсту подано</string>
-	<string name="rematchOfferSentWhite">Білі подають помсту</string>
-	<string name="rematchOfferSentBlack">Чорні подають помсту</string>
 	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s offers rematch</string>
 	<string name="rematchOfferAccepted">Помсту прийнято</string>
 	<string name="rematchOfferCanceled">Помсту скасовано</string>
@@ -405,7 +398,7 @@
 	<string name="fromPosition">З розташови</string>
 	<string name="default" comment="Default starting position as opposed to custom starting position">Відсутньо</string>
 	<string name="continueFromHere">Продовж звідси</string>
-	<string name="toStudy">Дослід</string>
+	<string name="toStudy">Дослідження</string>
 	<string name="importGame">Імпортувати гру</string>
 	<string name="importGameKifCsaExplanation">Встав KIF чи CSA, аби отримати огляд гри,
 розбір обчислювача, ігрову бесіду і ширильну ланку.</string>
@@ -512,7 +505,7 @@
 	<string name="handicap">Перевага</string>
 	<string name="startPosition">Початкова позиція</string>
 	<string name="clearBoard">Вичисть дошку</string>
-	<string name="fillGotesHand">Заповни руку наступника</string>
+	<string name="fillXHand">Fill hand of %s</string>
 	<string name="savePosition">Збережи розташову</string>
 	<string name="loadPosition">Вантаж розташову</string>
 	<string name="isPrivate">Особистий</string>
@@ -674,7 +667,7 @@
 	<string name="playOnTheBoardOffline">Над дошкою</string>
 	<string name="playOfflineComputer">Обчислювач</string>
 	<string name="opponent">Суперник</string>
-	<string name="learnMenu">Вчи</string>
+	<string name="learnMenu">Навчатися</string>
 	<string name="studyMenu">Дослід</string>
 	<string name="practice">Вправи</string>
 	<string name="community">Спільнота</string>
@@ -799,6 +792,7 @@
 	<string name="security">Безпека</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Це список пристроїв, з котрих заходили в Ваш аккаунт. Завершіть будь-які підозрілі сеанси.</string>
 	<string name="alternativelyYouCanX">Крім того, Ви можете %s.</string>
+	<string name="sessions">Sessions</string>
 	<string name="revokeAllSessions">завершити усі сеанси</string>
 	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">Дармо як Lishogi</string>
@@ -842,7 +836,7 @@
 	<string name="gridSlim">Тонкий</string>
 	<string name="gridThick">Товстий</string>
 	<string name="gridVeryThick">Затовстий</string>
-	<string name="hands">Руки</string>
+	<string name="hands" comment="Title in custom board theme editor">Руки</string>
 	<string name="boardTheme">Оформлення дошки</string>
 	<string name="boardSize">Розмір дошки</string>
 	<string name="pieceSet">Набір фігур</string>
@@ -857,9 +851,8 @@
 	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Джерела шьоґі</string>
 	<string name="coaches">Тренери</string>
-	<string name="invalidKif">Неволодний KIF</string>
 	<string name="invalidNotation">Неволодний запис</string>
-	<string name="invalidFen">Неприпустимий FEN</string>
+	<string name="invalidSfen">Invalid SFEN</string>
 	<string name="error.minLength">Мінімальна довжина-%s</string>
 	<string name="error.maxLength">Максимальна довжина-%s</string>
 	<string name="error.min">Має бути більше або дорівнювати %s</string>
@@ -894,25 +887,15 @@
 	<string name="skipThisMove">Пропустити цей хід</string>
 	<string name="next">Далі</string>
 	<string name="xWasPlayed">Було зіграно %s</string>
-	<string name="findBetterMoveForWhite">Знайдіть за білих більш сильний хід</string>
-	<string name="findBetterMoveForBlack">Знайдіть за чорних більш сильний хід</string>
 	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Find a better move for %s</string>
 	<string name="resumeLearning">Продовжити навчання</string>
 	<string name="youCanDoBetter">Є й більш сильний хід</string>
-	<string name="tryAnotherMoveForWhite">Спробуйте інший хід за білих</string>
-	<string name="tryAnotherMoveForBlack">Спробуйте інший хід за чорних</string>
 	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
 	<string name="solution">Відповідь</string>
 	<string name="waitingForAnalysis">Очікування аналізу</string>
-	<string name="noMistakesFoundForWhite">Помилок білих не знайдено</string>
-	<string name="noMistakesFoundForBlack">Помилок чорних не знайдено</string>
 	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
-	<string name="doneReviewingWhiteMistakes">Помилки білих розібрані</string>
-	<string name="doneReviewingBlackMistakes">Помилки чорних розібрані</string>
 	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
 	<string name="doItAgain">Ще раз</string>
-	<string name="reviewWhiteMistakes">Розібрати помилки білих</string>
-	<string name="reviewBlackMistakes">Розібрати помилки чорних</string>
 	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Review %s mistakes</string>
 	<string name="advantage">Перевага</string>
 	<plurals name="nbSeconds">
@@ -991,7 +974,15 @@
 	<string name="previousBlogPosts">Раніші дописи до денника</string>
 	<string name="continueReadingThis"> Продовж читати</string>
 	<string name="discussBlogForum">Обговори допис до денника на толоці</string>
-	<string name="invadingPieces">Неволодні постаті</string>
-	<string name="enteringKing">Вхід короля</string>
-	<string name="totalImpasseValue">Вся ціна</string>
+	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Неволодні постаті</string>
+	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Вхід короля</string>
+	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Вся ціна</string>
+	<string name="postGameStudy">Post-game study</string>
+	<string name="postGameStudies">Post-game studies</string>
+	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
+	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
+	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyWith">Study with:</string>
+	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
+	<string name="standardStudy">Standard study</string>
 </resources>

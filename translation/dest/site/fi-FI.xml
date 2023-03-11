@@ -21,19 +21,17 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="gote" comment="Should be 'Gote', unless equivalent exists (ex. 後手 in JP)">Gote</string>
+	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">Valkea</string>
-	<string name="sente" comment="Should be 'Sente', unless equivalent exists (ex. 先手 in JP)">Sente</string>
+	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
 	<string name="black" comment="Alternative to sente">Musta</string>
-	<string name="shitate" comment="Should be 'Shitate', unless equivalent exists (ex. 下手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
-	<string name="uwate" comment="Should be 'Uwate', unless equivalent exists (ex. 上手 in JP) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
+	<string name="shitate" comment="Should be 'Shitate', unless equivalent written differently exists (ex. 下手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Shitate</string>
+	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">Satunnainen</string>
 	<string name="createAGame">Luo uusi peli</string>
 	<string name="whiteIsVictorious">Valkea voittaa</string>
 	<string name="blackIsVictorious">Musta voittaa</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
-	<string name="youPlayTheWhitePieces">Sinä pelaat valkeilla</string>
-	<string name="youPlayTheBlackPieces">Sinä pelaat mustilla</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">Sinun vuorosi!</string>
 	<string name="cheatDetected">Cheat Detected</string>
@@ -44,8 +42,6 @@
 	<string name="whitePlays">Valkean vuoro</string>
 	<string name="blackPlays">Mustan vuoro</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
-	<string name="shitatePlays">Shitate to play</string>
-	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Vastustajasi poistui pelistä. Voit vaatia voiton %s sekunnin kuluttua.</item>
 		<item quantity="other">Vastustajasi poistui pelistä. Voit vaatia voiton %s sekunnin kuluttua.</item>
@@ -74,7 +70,7 @@
 	<string name="usingServerAnalysis">Palvelimen analyysi</string>
 	<string name="loadingEngine">Tietokonetta ladataan ...</string>
 	<string name="cloudAnalysis">Pilvianalyysi</string>
-	<string name="goDeeper">Syvennä analyysiä</string>
+	<string name="goDeeper" comment="Engine depth">Syvennä analyysiä</string>
 	<string name="showThreat">Näytä uhka</string>
 	<string name="inLocalBrowser">paikallisesta selaimesta</string>
 	<string name="toggleLocalEvaluation">Paikallinen analyysi päälle/päältä</string>
@@ -98,7 +94,6 @@
 	<string name="drawn">Tasapeli</string>
 	<string name="unknown">Tuntematon</string>
 	<string name="database">Tietokanta</string>
-	<string name="whiteDrawBlack">Valkea / Tasapeli / Musta</string>
 	<string name="averageRatingX">Vahvuuslukukeskiarvo %s</string>
 	<string name="recentGames">Viimeaikaiset pelit</string>
 	<string name="topGames">Kärkipelit</string>
@@ -228,7 +223,7 @@
 	<string name="finishesX">päättyy %s</string>
 	<string name="abortGame">Keskeytä peli</string>
 	<string name="gameAborted">Peli keskeytetty</string>
-	<string name="standard">Tavallinen</string>
+	<string name="standard" comment="Variant - meaning standard shogi">Tavallinen</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
 	<string name="unlimited">Rajaton</string>
@@ -240,8 +235,6 @@
 	<string name="thisGameIsRated">Tämä peli on pisteytetty</string>
 	<string name="rematch">Revanssi</string>
 	<string name="rematchOfferSent">Revanssipyyntö lähetetty</string>
-	<string name="rematchOfferSentWhite">Valkea ehdottaa revanssia</string>
-	<string name="rematchOfferSentBlack">Musta ehdottaa revanssia</string>
 	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s offers rematch</string>
 	<string name="rematchOfferAccepted">Revanssipyyntö hyväksytty</string>
 	<string name="rematchOfferCanceled">Revanssipyyntö peruttu</string>
@@ -458,7 +451,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="handicap">Handicap</string>
 	<string name="startPosition">Alkuasema</string>
 	<string name="clearBoard">Tyhjennä lauta</string>
-	<string name="fillGotesHand">Fill Gote\'s hand</string>
+	<string name="fillXHand">Fill hand of %s</string>
 	<string name="savePosition">Tallenna asema</string>
 	<string name="loadPosition">Lataa asema</string>
 	<string name="isPrivate">Yksityinen</string>
@@ -733,6 +726,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="security">Turvallisuus</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Lista laitteista joihin olet kirjautunut tunnuksellasi. Katkaise sessiot, joita et tunnista.</string>
 	<string name="alternativelyYouCanX">Tai voit %s.</string>
+	<string name="sessions">Sessions</string>
 	<string name="revokeAllSessions">katkaista kaikki sessiot</string>
 	<string name="playShogiEverywhere">Play shogi everywhere</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
@@ -774,7 +768,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="gridSlim">Slim</string>
 	<string name="gridThick">Thick</string>
 	<string name="gridVeryThick">Very thick</string>
-	<string name="hands">Hands</string>
+	<string name="hands" comment="Title in custom board theme editor">Hands</string>
 	<string name="boardTheme">Laudan tyyli</string>
 	<string name="boardSize">Laudan koko</string>
 	<string name="pieceSet">Nappuloiden tyyli</string>
@@ -789,9 +783,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Valmentajat</string>
-	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidNotation">Invalid notation</string>
-	<string name="invalidFen">FEN ei kelpaa</string>
+	<string name="invalidSfen">Invalid SFEN</string>
 	<string name="error.minLength">Vähimmäispituus on %s</string>
 	<string name="error.maxLength">Enimmäispituus on %s</string>
 	<string name="error.min">Täytyy olla vähintään %s</string>
@@ -824,25 +817,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="skipThisMove">Ohita tämä siirto</string>
 	<string name="next">Seuraava</string>
 	<string name="xWasPlayed">%s pelattiin</string>
-	<string name="findBetterMoveForWhite">Mieti parempi siirto valkealle</string>
-	<string name="findBetterMoveForBlack">Löydä parempi siirto mustalle</string>
 	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Find a better move for %s</string>
 	<string name="resumeLearning">Jatka oppimista</string>
 	<string name="youCanDoBetter">Parempikin löytyy</string>
-	<string name="tryAnotherMoveForWhite">Kokeile muuta valkean siirtoa</string>
-	<string name="tryAnotherMoveForBlack">Kokeile muuta mustan siirtoa</string>
 	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
 	<string name="solution">Ratkaisu</string>
 	<string name="waitingForAnalysis">Analyysi käynnissä</string>
-	<string name="noMistakesFoundForWhite">Ei löytynyt valkean virheitä</string>
-	<string name="noMistakesFoundForBlack">Ei löytynyt mustan virheitä</string>
 	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
-	<string name="doneReviewingWhiteMistakes">Olen tutkinut valkean virheitä kylliksi</string>
-	<string name="doneReviewingBlackMistakes">Olen tutkinut mustan virheitä kylliksi</string>
 	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
 	<string name="doItAgain">Sama uudelleen</string>
-	<string name="reviewWhiteMistakes">Tutki valkean virheitä</string>
-	<string name="reviewBlackMistakes">Tutki mustan virheitä</string>
 	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Review %s mistakes</string>
 	<string name="advantage">Etu</string>
 	<plurals name="nbSeconds">
@@ -917,7 +900,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="previousBlogPosts">Previous blog posts</string>
 	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
-	<string name="invadingPieces">Invading pieces</string>
-	<string name="enteringKing">Entering king</string>
-	<string name="totalImpasseValue">Total value</string>
+	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Invading pieces</string>
+	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Entering king</string>
+	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Total value</string>
+	<string name="postGameStudy">Post-game study</string>
+	<string name="postGameStudies">Post-game studies</string>
+	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
+	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
+	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyWith">Study with:</string>
+	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
+	<string name="standardStudy">Standard study</string>
 </resources>

@@ -12,6 +12,7 @@
 	<string name="dropDestinations">Drop destinations</string>
 	<string name="boardCoordinates">Board coordinates</string>
 	<string name="moveListWhilePlaying">Move list while playing</string>
+	<string name="colorName">Name used for individual players</string>
 	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Zen mode</string>
 	<string name="displayBoardResizeHandle">Show board resize handle</string>

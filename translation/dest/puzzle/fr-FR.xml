@@ -14,8 +14,6 @@
   <string name="didYouLikeThisPuzzle">Avez-vous aimé ce problème ?</string>
   <string name="voteToLoadNextOne">Votez pour afficher le suivant !</string>
   <string name="yourPuzzleRatingX">Votre classement de problème : %s</string>
-  <string name="findTheBestMoveForWhite">Trouvez le meilleur coup pour gote.</string>
-  <string name="findTheBestMoveForBlack">Trouvez le meilleur coup pour sente.</string>
   <string name="findTheBestMoveForX" comment="%s - sente(black)/gote(white)">Trouvez le meilleur coup pour %s.</string>
   <string name="toGetPersonalizedPuzzles">Pour obtenir des problèmes personnalisés :</string>
   <string name="puzzleId">Problème %s</string>

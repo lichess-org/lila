@@ -2,8 +2,6 @@
 <resources>
 	<string name="coordinates">Tọa độ</string>
 	<string name="coordinateTraining">Luyện tập tọa độ</string>
-	<string name="averageScoreAsWhiteX">Điểm trung bình quân trắng: %s</string>
-	<string name="averageScoreAsBlackX">Điểm trung bình quân đen: %s</string>
 	<string name="averageScoreAsXY" comment="%1$s - sente(black)/gote(white)">Điểm trung bình quân %1$s: %2$s</string>
 	<string name="knowingTheShogiBoard">Biết tọa độ của bàn cờ Shogi là một kỹ năng quan trọng:</string>
 	<string name="mostShogiCourses">Tất cả các bài học hay bài tập về Shogi đều sử dụng kí hiệu. Bạn có thể lựa chọn kí hiệu của Nhật Bản hoặc của phương Tây.</string>
