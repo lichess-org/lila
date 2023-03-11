@@ -42,7 +42,7 @@
   <string name="mateIn9Description">Figure out a long mating sequence.</string>
   <string name="middlegame">Middlegame</string>
   <string name="middlegameDescription">A tactic during the second phase of the game.</string>
-  <string name="oneMove">One-move puzzle</string>
+  <string name="oneMove">Завдання в один хід</string>
   <string name="oneMoveDescription">A puzzle that is only one move long.</string>
   <string name="opening">Opening</string>
   <string name="openingDescription">A tactic during the first phase of the game.</string>
@@ -54,7 +54,7 @@
   <string name="rookEndgameDescription">An endgame with only rooks and pawns.</string>
   <string name="sacrifice">Sacrifice</string>
   <string name="sacrificeDescription">A tactic involving giving up material in the short-term, to gain an advantage again after a forced sequence of moves.</string>
-  <string name="short">Short puzzle</string>
+  <string name="short">Коротка задача</string>
   <string name="shortDescription">Three moves to win.</string>
   <string name="healthyMix">Healthy mix</string>
   <string name="healthyMixDescription">A bit of everything. You don\'t know what to expect, so you remain ready for anything! Just like in real games.</string>

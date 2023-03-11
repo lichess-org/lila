@@ -39,7 +39,7 @@ Nom d\'usuari: %2$s
 Contrasenya: %3$s</string>
 	<string name="inviteALishogiAccount">Convida un compte de Lishogi</string>
 	<string name="inviteDesc1">Si l\'estudiant ja té un compte de Lishogi, pots convidar-lo a la classe.</string>
-	<string name="inviteDesc2">Rebran un missatge a Lichess amb un enllaç per a unir-se a la classe.</string>
+	<string name="inviteDesc2">Rebran un missatge a Lishogi amb un enllaç per a unir-se a la classe.</string>
 	<string name="inviteDesc3">Important: convida només a estudiants que coneguis, i que vulguin unir-se a la classe.</string>
 	<string name="inviteDesc4">Mai enviïs invitacions a jugadors que no les hagin demanat.</string>
 	<string name="createANewLishogiAccount">Crea un nou compte a Lishogi</string>

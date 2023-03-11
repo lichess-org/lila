@@ -8,10 +8,10 @@
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Ve şimdi, uzun cevap! Oyun gecikmesi iki ilişkisiz değerden oluşur (Daha düşük değerler daha iyidir):</string>
   <string name="lishogiServerLatency">Lishogi server gecikmesi</string>
   <string name="lishogiServerLatencyExplanation">Sunucuda bir hamleyi işlemek için geçen süredir. Herkes için aynıdır ve sadece sunucu yüküne bağlıdır. Daha fazla oyuncu değerin yükselmesine neden olur, ancak Lishogi geliştiricileri bu değeri düşük tutmak için ellerinden geleni yaparlar. Nadiren 10ms\'yi aşabilir.</string>
-  <string name="networkBetweenLishogiAndYou">Lichess ile aranızdaki ağ</string>
+  <string name="networkBetweenLishogiAndYou">Lishogi ile aranızdaki ağ</string>
   <string name="networkBetweenLishogiAndYouExplanation">Bilgisayarınızdan Lishogi sunucusuna bir hamle gönderme ve yanıt alma süresi.
-Lishogi\'ye (Fransa) olan uzaklığınıza ve internet bağlantınızın kalitesine bağlıdır.
-Lichess geliştiricileri Wifi\'nizi düzeltemez veya bağlantınızın daha hızlı olmasını sağlayamaz.</string>
+Lishogi\'ye (UK) olan uzaklığınıza ve internet bağlantınızın kalitesine bağlıdır.
+Lishogi geliştiricileri Wifi\'nizi düzeltemez veya bağlantınızın daha hızlı olmasını sağlayamaz.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Sağ üst köşedeki kullanıcı adınıza tıklayarak bu iki değeri de istediğiniz zaman bulabilirsiniz.</string>
   <string name="lagCompensation">Gecikme Tazminatı</string>
   <string name="lagCompensationExplanation">Lishogi ağ gecikmesini telafi eder. Bu, sürekli gecikmeyi ve nadiren gecikme artışlarını içerir. Zaman kontrolüne ve telafi gecikmesine dayanan sınırlar ve sezgisel taramalar vardır, böylece sonuç her iki oyuncu için de makul olmalıdır. Sonuç olarak, rakibinizden daha yüksek bir ağ gecikmesine sahip olmak bir handikap değildir!</string>

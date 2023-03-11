@@ -6,7 +6,7 @@
   <string name="noAndYourNetworkIsBad">नहीं। और आपका नेटवर्क खराब है।</string>
   <string name="yesItWillBeFixedSoon">हाँ। जल्द ही ठीक हो जाएगा!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">और अब, लंबे जवाब! गेम लैग दो असंबंधित मूल्यों से बना है (कम बेहतर है):</string>
-  <string name="lishogiServerLatency">Lichess सर्वर विलंबता</string>
+  <string name="lishogiServerLatency">Lishogi सर्वर विलंबता</string>
   <string name="lishogiServerLatencyExplanation">सर्वर पर किसी मूव को प्रोसेस करने में लगने वाला समय। यह सभी के लिए समान है, और केवल सर्वर लोड पर निर्भर करता है। जितने अधिक खिलाड़ी और उतने अधिक, लेकिन Lishogi डेवलपर्स इसे कम रखने की पूरी कोशिश करते हैं। यह शायद ही कभी १०ms से अधिक हो।</string>
   <string name="networkBetweenLishogiAndYou">Lishogi और आपके बीच नेटवर्क</string>
   <string name="networkBetweenLishogiAndYouExplanation">आपके कंप्यूटर से Lishogi सर्वर पर एक कदम भेजने में समय लगता है, और प्रतिक्रिया वापस मिलती है। यह Lishogi (फ्रांस), और आपके इंटरनेट कनेक्शन की गुणवत्ता के लिए आपकी दूरी के लिए विशिष्ट है। Lishogi डेवलपर्स आपकी वाईफ़ाई को ठीक नहीं कर सकते हैं या प्रकाश को तेज़ नहीं बना सकते हैं।</string>

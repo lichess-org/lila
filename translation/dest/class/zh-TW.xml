@@ -7,7 +7,7 @@
 	<string name="trackStudentProgress">記錄學生在棋局和解題中的成績</string>
 	<string name="messageAllStudents">通知所有學生關於新教材</string>
 	<string name="freeForAllForever">完全免費，一視同仁。且無廣告及追蹤器</string>
-	<string name="applyToBeLishogiTeacher">申請成為 Lichess 的教師</string>
+	<string name="applyToBeLishogiTeacher">申請成為 Lishogi 的教師</string>
 	<string name="noClassesYet">還沒有課程</string>
 	<string name="teachersX">%s個教練</string>
 	<string name="newClass">新的課程</string>

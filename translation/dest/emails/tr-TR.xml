@@ -15,7 +15,7 @@
 Profil sayfanız: %1$s. Profilinizi şuradan kişiselleştirebilirsiniz: %2$s.
 
 İyi eğlenceler, ve taşlarınız her zaman rakip şaha doğru yollarını bulabilsin!</string>
-  <string name="logInToLishogi">Lichess.org\'a giriş yapın, %s</string>
+  <string name="logInToLishogi">Lishogi.org\'a giriş yapın, %s</string>
   <string name="common_orPaste">(Tıklamak işe yaramadı mı? Tarayıcıya yapıştırmayı dene!)</string>
   <string name="common_note">Bu, %s kullanımınızla ilgili otomatik bir e-postadır.</string>
   <string name="common_contact">Bizimle iletişime geçmek için burayı kullanın: %s.</string>

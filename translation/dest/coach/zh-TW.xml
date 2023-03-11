@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiCoaches">Lichess 的教練們</string>
+	<string name="lishogiCoaches">Lishogi 的教練們</string>
 	<string name="lishogiCoach">Lishogi的教練</string>
 	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
 	<string name="becomeACoach">Are you a great shogi coach with experience and do you want to be featured on lishogi?</string>

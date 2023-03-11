@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="learnShogi">Learn shogi</string>
+	<string name="learnShogi">Вчіться шьоґі</string>
 	<string name="byPlaying">граючи!</string>
 	<string name="menu">Меню</string>
 	<string name="progressX">Поступ: %s</string>
@@ -61,7 +61,7 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="pawnComplete">Вітаємо! У пішаків немає секретів для вас.</string>
 	<string name="pawnSummary">The pawn is a rather straightforward piece to understand.</string>
 	<string name="tokinSummary">You should already be familiar with this pattern by now.</string>
-	<string name="theLance">The lance</string>
+	<string name="theLance">Спис</string>
 	<string name="itMovesStraightForward">It can go only forward.</string>
 	<string name="lanceIntro">Use it wisely.</string>
 	<string name="lancesAreStraighforward">Just move forward as much as you can, this should be easy for you.</string>
@@ -76,7 +76,7 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="goldDoesntPromote">The gold general together with the king is the only piece you CAN\'T promote.</string>
 	<string name="goldSummary">Try to remember these moves, many pieces move the same after they are promoted.</string>
 	<string name="goldComplete">Congratulations! You got this.</string>
-	<string name="theSilver">The silver general</string>
+	<string name="theSilver">Срібний генерал</string>
 	<string name="itMovesEitherForwardOrDiagonallyBack">The silver general moves either forward or diagonally back.</string>
 	<string name="silverIntro">Another piece with unusual movements, but this is the last one. Promise!</string>
 	<string name="silverPromotion">When you promote the silver general his movements are the same as the gold general.</string>

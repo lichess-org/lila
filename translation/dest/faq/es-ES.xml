@@ -110,9 +110,9 @@ Otro punto que cabe señalar es que, si pasa un tiempo sin jugar, el intervalo d
 	<string name="howToThreeDots">Cómo...</string>
 	<string name="enableDisableNotificationPopUps">¿Activar o desactivar ventanas emergentes de notificación?</string>
 	<string name="viewSiteInformationPopUp">Ver ventana emergente de información del sitio</string>
-	<string name="lishogiCanOptionnalySendPopUps">Opcionalmente, Lichess puede enviar notificaciones emergentes, por ejemplo cuando sea tu turno o hayas recibido un mensaje privado.
+	<string name="lishogiCanOptionnalySendPopUps">Opcionalmente, Lishogi puede enviar notificaciones emergentes, por ejemplo cuando sea tu turno o hayas recibido un mensaje privado.
 
  Haz clic en el icono de bloqueo junto a la dirección de lichess.org, en la barra de URL de tu navegador.
 
- Luego selecciona si permitir o bloquear notificaciones de Lichess.</string>
+ Luego selecciona si permitir o bloquear notificaciones de Lishogi.</string>
 </resources>

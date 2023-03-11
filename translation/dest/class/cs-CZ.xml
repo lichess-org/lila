@@ -33,7 +33,7 @@
 	<string name="realName">Skutečné jméno</string>
 	<string name="privateWillNeverBeShown">Soukromé. Nikdy se nezobrazí mimo třídu. Pomáhá si pamatovat, kdo je student.</string>
 	<string name="addStudent">Přidat studenta</string>
-	<string name="lishogiProfileXCreatedForY">Lichess profil %1$s vytvořen pro %2$s.</string>
+	<string name="lishogiProfileXCreatedForY">Lishogi profil %1$s vytvořen pro %2$s.</string>
 	<string name="studentCredentials">Student:  %1$s
 Uživatelské jméno: %2$s
 Heslo: %3$s</string>

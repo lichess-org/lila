@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">संपर्क</string>
-  <string name="contactLishogi">Lichess से संपर्क करें</string>
+  <string name="contactLishogi">Lishogi से संपर्क करें</string>
   <string name="whatCanWeHelpYouWith">हमारे द्वारा आपकी किस प्रकार से सहायता की जा सकती है?</string>
   <string name="visitThisPage">समस्या को हल करने के लिए इस पृष्ठ पर जाएं</string>
   <string name="iCantLogIn">मैं लॉगइन नहीं कर सकता</string>

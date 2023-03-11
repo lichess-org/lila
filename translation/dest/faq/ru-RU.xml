@@ -10,7 +10,7 @@
 	<string name="whyIsLilaCalledLila">То же относится к исходному коду Lishogi, %1$s, что означает li[shogi in sca]la, основная часть Lishogi написана на %2$s, интуитивно понятном языке программирования.</string>
 	<string name="howCanIContributeToLishogi">Как я могу внести свой вклад в Lishogi?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi существует на пожертвования игроков и разрабатывается командой волонтёров.</string>
-	<string name="findMoreAndSeeHowHelp">Вы можете узнать больше о %1$s. Если вы хотите помочь Lichess, пожертвовав свои знания и время, есть %2$s.</string>
+	<string name="findMoreAndSeeHowHelp">Вы можете узнать больше о %1$s. Если вы хотите помочь Lishogi, пожертвовав свои знания и время, есть %2$s.</string>
 	<string name="beingAPatron">Стать спонсором</string>
 	<string name="otherWaysToContribute">Вот много других способов, которыми можете внести свой вклад в Lishogi.</string>
 	<string name="breakdownOfOurCosts">отчёт о тратах</string>

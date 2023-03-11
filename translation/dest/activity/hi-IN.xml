@@ -4,7 +4,7 @@
   <string name="hostedALiveStream">एक लाइव स्ट्रीम होस्ट किया गया</string>
   <plurals name="supportedNbMonths" comment="supportedNbMonths [one] [other]&#10;&#10;Supported lishogi.org for 4 months as a Patron. The second one always says &quot;Patron&quot; but it's actually a link.">
     <item quantity="one">%2$s के रूप में %1$s महीने के लिए lishogi.org का समर्थन किया।</item>
-    <item quantity="other">%2$s के रूप में %1$s महीने के लिए lichess.org का समर्थन किया।</item>
+    <item quantity="other">%2$s के रूप में %1$s महीने के लिए lishogi.org का समर्थन किया।</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">%2$s पर %1$s स्थिति का अभ्यास किया</item>
@@ -62,7 +62,7 @@
     <item quantity="one">%4$s में %3$s खेल के साथ %1$s (टॉप %2$s%%) रैंक किया गया</item>
     <item quantity="other">%4$s में %3$s खेल के साथ %1$s (टॉप %2$s%%) रैंक किया गया</item>
   </plurals>
-  <string name="signedUp">lichess.org पर साइन किया गया</string>
+  <string name="signedUp">lishogi.org पर साइन किया गया</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s टीम में शामिल हुए</item>
     <item quantity="other">%s टीमों में शामिल हुए</item>

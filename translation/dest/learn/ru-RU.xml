@@ -199,7 +199,7 @@
 	<string name="whatNext">Что дальше?</string>
 	<string name="youKnowHowToPlayShogi">Поздравляем, вы узнали, как играть в сёги! Хотите ли вы стать более сильным игроком?</string>
 	<string name="register">Регистрация</string>
-	<string name="getAFreeLishogiAccount">Зарегистрируйтесь бесплатно</string>
+	<string name="getAFreeLishogiAccount">Создать новый аккаунт в Lishogi</string>
 	<string name="practice">Упражнения</string>
 	<string name="learnCommonShogiPositions">Изучайте основные позиции в сёги</string>
 	<string name="puzzles">Задачи</string>
