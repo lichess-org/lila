@@ -1,4 +1,5 @@
 import { bind, dataIcon } from 'common/snabbdom';
+import { transWithColorName } from 'common/colorName';
 import { toBlackWhite } from 'shogiops/util';
 import { VNode, h } from 'snabbdom';
 import { iconTag, richHTML } from '../../util';
@@ -89,7 +90,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
             }),
             h('div.instruction', [
               h('strong', ctrl.trans.noarg('yourTurn')),
-              h('em', ctrl.trans.noarg(color === 'sente' ? 'findTheBestMoveForBlack' : 'findTheBestMoveForWhite')),
+              h('em', transWithColorName(ctrl.trans, 'findTheBestMoveForX', color, ctrl.root.data.game.initialSfen)),
             ]),
           ]
         : ['Good move!']

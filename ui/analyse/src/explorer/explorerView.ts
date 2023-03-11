@@ -73,7 +73,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   const trans = ctrl.trans.noarg;
   return h('table.moves', [
     h('thead', [
-      h('tr', [h('th.title', trans('move')), h('th.title', trans('games')), h('th.title', trans('whiteDrawBlack'))]),
+      h('tr', [h('th.title', trans('move')), h('th.title', trans('games')), h('th.title', 'Sente / Draw / Gote')]),
     ]),
     h(
       'tbody',

@@ -70,7 +70,7 @@ export function view(ctrl: SoundCtrl): VNode {
       },
     },
     [
-      header(ctrl.trans('sound'), ctrl.close),
+      header(ctrl.trans.noarg('sound'), ctrl.close),
       h('div.content', [
         h('div.slider', { hook: { insert: vn => makeSlider(ctrl, vn) } }),
         h('div.selector', ctrl.makeList().map(soundView(ctrl, current))),

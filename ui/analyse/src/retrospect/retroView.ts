@@ -1,3 +1,4 @@
+import { transWithColorName } from 'common/colorName';
 import { bind, dataIcon } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import { VNode, h } from 'snabbdom';
@@ -76,7 +77,7 @@ const feedback = {
               )
             )
           ),
-          h('em', ctrl.noarg(ctrl.color === 'sente' ? 'findBetterMoveForBlack' : 'findBetterMoveForWhite')),
+          h('em', transWithColorName(ctrl.trans, 'findBetterMoveForX', ctrl.color as Color, ctrl.initialSfen)),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -108,7 +109,7 @@ const feedback = {
         h('div.icon', '✗'),
         h('div.instruction', [
           h('strong', ctrl.noarg('youCanDoBetter')),
-          h('em', ctrl.noarg(ctrl.color === 'sente' ? 'tryAnotherMoveForBlack' : 'tryAnotherMoveForWhite')),
+          h('em', transWithColorName(ctrl.trans, 'tryAnotherMoveForX', ctrl.color, ctrl.initialSfen)),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -182,8 +183,8 @@ const feedback = {
           h(
             'em',
             nothing
-              ? ctrl.noarg(ctrl.color === 'sente' ? 'noMistakesFoundForBlack' : 'noMistakesFoundForWhite')
-              : ctrl.noarg(ctrl.color === 'sente' ? 'doneReviewingBlackMistakes' : 'doneReviewingWhiteMistakes')
+              ? transWithColorName(ctrl.trans, 'noMistakesFoundForX', ctrl.color, ctrl.initialSfen)
+              : transWithColorName(ctrl.trans, 'doneReviewingXMistakes', ctrl.color, ctrl.initialSfen)
           ),
           h('div.choices.end', [
             nothing
@@ -200,7 +201,7 @@ const feedback = {
               {
                 hook: bind('click', ctrl.flip),
               },
-              ctrl.noarg(ctrl.color === 'sente' ? 'reviewWhiteMistakes' : 'reviewBlackMistakes')
+              transWithColorName(ctrl.trans, 'reviewXMistakes', ctrl.color, ctrl.initialSfen)
             ),
           ]),
         ]),

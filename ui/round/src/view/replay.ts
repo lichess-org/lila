@@ -1,11 +1,11 @@
 import { notationsWithColor } from 'common/notation';
 import { MaybeVNodes } from 'common/snabbdom';
+import { transWithColorName } from 'common/colorName';
 import throttle from 'common/throttle';
 import * as game from 'game';
 import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
 import viewStatus from 'game/view/status';
-import { toBlackWhite } from 'shogiops/util';
 import { VNode, h } from 'snabbdom';
 import RoundController from '../ctrl';
 import { RoundData } from '../interfaces';
@@ -53,8 +53,8 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
           }),
         },
         [
-          viewStatus(ctrl.data.game.status, ctrl.data.game.winner, ctrl.trans),
-          winner ? ' • ' + ctrl.trans.noarg(toBlackWhite(winner) + 'IsVictorious') : '',
+          viewStatus(ctrl.trans, ctrl.data.game.status, ctrl.data.game.winner, ctrl.data.game.initialSfen),
+          winner ? ' • ' + transWithColorName(ctrl.trans, 'xIsVictorious', winner, ctrl.data.game.initialSfen) : '',
         ]
       ),
     ]);
@@ -166,12 +166,12 @@ function renderButtons(ctrl: RoundController) {
   );
 }
 
-function initMessage(d: RoundData, trans: TransNoArg) {
+function initMessage(d: RoundData, trans: Trans) {
   return game.playable(d) && d.game.plies === 0 && !d.player.spectator
     ? h('div.message', util.justIcon(''), [
         h('div', [
-          trans(d.player.color === 'sente' ? 'youPlayTheBlackPieces' : 'youPlayTheWhitePieces'),
-          ...(d.player.color === 'sente' ? [h('br'), h('strong', trans('itsYourTurn'))] : []),
+          transWithColorName(trans, 'youPlayAsX', d.player.color, d.game.initialSfen),
+          ...(d.player.color === 'sente' ? [h('br'), h('strong', trans.noarg('itsYourTurn'))] : []),
         ]),
       ])
     : null;
@@ -235,7 +235,7 @@ export function render(ctrl: RoundController): VNode | undefined {
         },
         [
           renderButtons(ctrl),
-          initMessage(d, ctrl.trans.noarg) ||
+          initMessage(d, ctrl.trans) ||
             (moves
               ? col1
                 ? h('div.col1-moves', [

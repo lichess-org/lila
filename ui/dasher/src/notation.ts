@@ -55,12 +55,12 @@ function notationView(ctrl: NotationCtrl, current: Notation) {
 function notationDisplay(ctrl: NotationCtrl, notation: Notation): string {
   switch (notation) {
     case Notation.Western:
-      return ctrl.trans('westernNotation') + ' (76)';
+      return ctrl.trans.noarg('westernNotation') + ' (76)';
     case Notation.WesternEngine:
-      return ctrl.trans('westernNotation') + ' (7f)';
+      return ctrl.trans.noarg('westernNotation') + ' (7f)';
     case Notation.Japanese:
-      return ctrl.trans('japaneseNotation');
+      return ctrl.trans.noarg('japaneseNotation');
     case Notation.Kawasaki:
-      return ctrl.trans('kitaoKawasakiNotation');
+      return ctrl.trans.noarg('kitaoKawasakiNotation');
   }
 }

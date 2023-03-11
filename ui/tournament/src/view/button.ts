@@ -87,7 +87,7 @@ export function joinWithdraw(ctrl: TournamentController): VNode | undefined {
           'data-icon': 'G',
         },
       },
-      ctrl.trans('signIn')
+      ctrl.trans.noarg('signIn')
     );
   if (!ctrl.data.isFinished) return isIn(ctrl) ? withdraw(ctrl) : join(ctrl);
 }

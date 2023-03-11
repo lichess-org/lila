@@ -1,3 +1,4 @@
+import { colorName } from 'common/colorName';
 import { Player } from 'game';
 import { h } from 'snabbdom';
 import RoundController from '../ctrl';
@@ -33,7 +34,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           `div.player-color.${player.color}`,
           {
             attrs: {
-              title: player.color === 'sente' ? 'Sente' : 'Gote',
+              title: colorName(ctrl.trans.noarg, player.color, ctrl.data.game.initialSfen),
             },
           },
           []
@@ -88,7 +89,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
         `div.player-color.${player.color}`,
         {
           attrs: {
-            title: player.color === 'sente' ? 'Sente' : 'Gote',
+            title: colorName(ctrl.trans.noarg, player.color, ctrl.data.game.initialSfen),
           },
         },
         []

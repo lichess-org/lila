@@ -1,3 +1,4 @@
+import { transWithColorName } from 'common/colorName';
 import { MaybeVNodes, bind } from 'common/snabbdom';
 import { Outcome } from 'shogiops/types';
 import { VNode, h } from 'snabbdom';
@@ -44,7 +45,7 @@ function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
     h('div.instruction', [
       h('strong', root.trans.noarg(end.winner ? 'checkmate' : 'draw')),
       end.winner
-        ? h('em', h('color', root.trans.noarg(end.winner === 'sente' ? 'blackWinsGame' : 'whiteWinsGame')))
+        ? h('em', h('color', transWithColorName(root.trans, 'xkWinsGame', end.winner, root.data.game.initialSfen)))
         : h('em', root.trans.noarg('theGameIsADraw')),
     ]),
   ]);

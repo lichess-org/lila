@@ -16,7 +16,7 @@ function joinTheGame(ctrl: TournamentController, gameId: string) {
     {
       attrs: { href: '/' + gameId },
     },
-    [ctrl.trans('youArePlaying'), h('br'), ctrl.trans('joinTheGame')]
+    [ctrl.trans.noarg('youArePlaying'), h('br'), ctrl.trans.noarg('joinTheGame')]
   );
 }
 

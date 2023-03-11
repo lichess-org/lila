@@ -1,4 +1,5 @@
 import { view as cevalView } from 'ceval';
+import { transWithColorName } from 'common/colorName';
 import { defined } from 'common/common';
 import { bindMobileMousedown } from 'common/mobile';
 import { bind, bindNonPassive, dataIcon, MaybeVNode, onInsert } from 'common/snabbdom';
@@ -40,15 +41,19 @@ const li = window.lishogi;
 
 function renderResult(ctrl: AnalyseCtrl): MaybeVNode {
   const render = (status: String, winner?: Color) =>
-    h('div.status', [status, winner ? ', ' + ctrl.trans('xIsVictorious', ctrl.trans(winner)) : null]);
+    h('div.status', [
+      status,
+      winner ? ', ' + transWithColorName(ctrl.trans, 'xIsVictorious', winner, ctrl.data.game.initialSfen) : null,
+    ]);
   if (ctrl.data.game.status.id >= 30) {
-    const status = statusView(ctrl.data.game.status, ctrl.data.game.winner, ctrl.trans);
+    const status = statusView(ctrl.trans, ctrl.data.game.status, ctrl.data.game.winner, ctrl.data.game.initialSfen);
     return render(status, ctrl.data.game.winner);
   } else if (ctrl.study && ctrl.study.data.chapter.setup.endStatus) {
     const status = statusView(
+      ctrl.trans,
       ctrl.study.data.chapter.setup.endStatus.status,
       ctrl.study.data.chapter.setup.endStatus.winner,
-      ctrl.trans
+      ctrl.data.game.initialSfen
     );
     return render(status, ctrl.study.data.chapter.setup.endStatus.winner);
   } else return null;

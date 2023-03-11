@@ -1,5 +1,6 @@
+import { transWithColorName } from 'common/colorName';
 import { dragNewPiece } from 'shogiground/drag';
-import { MouchEvent } from 'shogiground/types';
+import { colors, MouchEvent } from 'shogiground/types';
 import { eventPosition, opposite, samePiece } from 'shogiground/util';
 import { parseSfen } from 'shogiops/sfen';
 import { Piece, Role, Rules } from 'shogiops/types';
@@ -174,16 +175,16 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               },
             },
           },
-          ['blackPlays', 'whitePlays'].map(function (key) {
+          colors.map(function (color) {
             return h(
               'option',
               {
                 attrs: {
-                  value: key[0] == 'b' ? 'sente' : 'gote',
-                  selected: (ctrl.turn === 'sente' ? 'b' : 'w') === key[0],
+                  value: color,
+                  selected: ctrl.turn === color,
                 },
               },
-              ctrl.trans(key)
+              ctrl.trans.noarg(color)
             );
           })
         )
@@ -227,7 +228,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              ctrl.trans.noarg('fillGotesHand')
+              transWithColorName(ctrl.trans, 'fillXHand', 'gote', undefined)
             ),
           ]),
         ]
@@ -272,7 +273,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              ctrl.trans.noarg('fillGotesHand')
+              transWithColorName(ctrl.trans, 'fillXHand', 'gote', undefined)
             ),
             h(
               'a.button.button-empty.text',

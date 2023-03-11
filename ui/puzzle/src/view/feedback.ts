@@ -1,4 +1,5 @@
 import { MaybeVNode, bind } from 'common/snabbdom';
+import { transWithColorName } from 'common/colorName';
 import { VNode, h } from 'snabbdom';
 import { Controller } from '../interfaces';
 import afterView from './after';
@@ -26,7 +27,7 @@ function initial(ctrl: Controller): VNode {
     h('div.player', [
       h('div.instruction', [
         h('strong', ctrl.trans.noarg('yourTurn')),
-        h('em', ctrl.trans.noarg(ctrl.vm.pov === 'sente' ? 'findTheBestMoveForBlack' : 'findTheBestMoveForWhite')),
+        h('em', transWithColorName(ctrl.trans, 'findTheBestMoveForX', ctrl.vm.pov, undefined)),
       ]),
     ]),
     viewSolution(ctrl),
