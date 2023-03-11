@@ -26,29 +26,31 @@ object userAnalysisI18n {
     )
 
   private val baseTranslations: Vector[MessageKey] = Vector(
+    trans.black,
+    trans.white,
+    trans.sente,
+    trans.gote,
+    trans.shitate,
+    trans.uwate,
     trans.analysis,
     trans.flipBoard,
     trans.backToGame,
     trans.gameAborted,
     trans.checkmate,
-    trans.whiteResigned,
-    trans.blackResigned,
+    trans.xResigned,
     trans.stalemate,
     trans.royalsLost,
     trans.bareKing,
     trans.perpetualCheck,
-    trans.whiteLeftTheGame,
-    trans.blackLeftTheGame,
+    trans.xLeftTheGame,
     trans.draw,
     trans.impasse,
     trans.timeOut,
     trans.playingRightNow,
-    trans.whiteIsVictorious,
-    trans.blackIsVictorious,
+    trans.xIsVictorious,
     trans.cheatDetected,
     trans.variantEnding,
-    trans.whitePlays,
-    trans.blackPlays,
+    trans.xPlays,
     trans.gameOver,
     trans.importKif,
     trans.importCsa,
@@ -93,8 +95,7 @@ object userAnalysisI18n {
     trans.bestWasX,
     trans.youBrowsedAway,
     trans.resumePractice,
-    trans.whiteWinsGame,
-    trans.blackWinsGame,
+    trans.xWinsGame,
     trans.theGameIsADraw,
     trans.yourTurn,
     trans.computerThinking,
@@ -103,8 +104,7 @@ object userAnalysisI18n {
     trans.getAHint,
     trans.evaluatingYourMove,
     // gamebook
-    trans.puzzle.findTheBestMoveForWhite,
-    trans.puzzle.findTheBestMoveForBlack
+    trans.puzzle.findTheBestMoveForX
   ).map(_.key)
 
   private val cevalTranslations: Vector[MessageKey] = Vector(
@@ -151,7 +151,6 @@ object userAnalysisI18n {
     trans.database,
     trans.recentGames,
     trans.topGames,
-    trans.whiteDrawBlack,
     trans.averageRatingX,
     trans.noGameFound,
     trans.maybeIncludeMoreGamesFromThePreferencesMenu,

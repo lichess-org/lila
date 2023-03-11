@@ -14,9 +14,13 @@ object jsI18n {
   val i18nKeys: List[lila.i18n.MessageKey] = {
     import trans.study._
     List(
-      trans.name,
-      trans.white,
       trans.black,
+      trans.white,
+      trans.sente,
+      trans.gote,
+      trans.shitate,
+      trans.uwate,
+      trans.name,
       trans.variant,
       trans.clearBoard,
       trans.startPosition,

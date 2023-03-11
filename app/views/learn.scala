@@ -51,6 +51,12 @@ LishogiLearn(document.getElementById('learn-app'), ${safeJsonValue(
 
   private val i18nKeys: List[lila.i18n.MessageKey] =
     List(
+      trans.black,
+      trans.white,
+      trans.sente,
+      trans.gote,
+      trans.shitate,
+      trans.uwate,
       learnShogi,
       byPlaying,
       menu,
@@ -136,8 +142,6 @@ LishogiLearn(document.getElementById('learn-app'), ${safeJsonValue(
       capture,
       takeTheEnemyPieces,
       captureIntro,
-      takeTheBlackPieces,
-      takeTheBlackPiecesAndDontLoseYours,
       takeTheEnemyPiecesAndDontLoseYours,
       captureComplete,
       pieceDrops,
@@ -207,11 +211,6 @@ LishogiLearn(document.getElementById('learn-app'), ${safeJsonValue(
       perpetualCheckIsALoss,
       boardFlippedFindBestMove,
       repetitionComplete,
-      stalemate,
-      theGameIsADraw,
-      stalemateIntro,
-      stalemateGoal,
-      stalemateComplete,
       advanced,
       pieceValue,
       evaluatePieceStrength,
