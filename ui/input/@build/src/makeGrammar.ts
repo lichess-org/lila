@@ -7,7 +7,7 @@ import { finished } from 'node:stream/promises';
 
 const defaultCrowdvFile = 'crowdv-27-02-2023.json';
 
-const lexicon: Token[] = [
+const lexicon: Entry[] = [
   { in: 'a', tok: 'a', tags: ['file', 'move'] },
   { in: 'b', tok: 'b', tags: ['file', 'move'] },
   { in: 'c', tok: 'c', tags: ['file', 'move'] },
@@ -34,7 +34,7 @@ const lexicon: Token[] = [
   { in: '8', tok: '8', tags: [] },
   { in: 'eight', tok: '8', tags: ['rank', 'move'] },
 
-  { in: 'pawn', tok: 'P', tags: ['role', 'move'], subs: [{ to: '', cost: 0 }] },
+  { in: 'pawn', tok: 'P', tags: ['role', 'move'] },
   { in: 'knight', tok: 'N', tags: ['role', 'move'] },
   { in: 'bishop', tok: 'B', tags: ['role', 'move'] },
   { in: 'rook', tok: 'R', tags: ['role', 'move'] },
@@ -90,6 +90,17 @@ const lexicon: Token[] = [
 
   { in: 'puzzle', out: '', tags: ['ignore'] },
   { in: 'and', out: '', tags: ['ignore'] },
+  { in: 'oh', out: '', tags: ['ignore'] },
+  { in: 'ah', out: '', tags: ['ignore'] },
+  { in: 'um', out: '', tags: ['ignore'] },
+  { in: 'uh', out: '', tags: ['ignore'] },
+  { in: 'hmm', out: '', tags: ['ignore'] },
+  { in: 'huh', out: '', tags: ['ignore'] },
+  { in: 'ha', out: '', tags: ['ignore'] },
+  { in: 'his', out: '', tags: ['ignore'] },
+  { in: 'her', out: '', tags: ['ignore'] },
+  { in: 'the', out: '', tags: ['ignore'] },
+  { in: 'their', out: '', tags: ['ignore'] },
 ];
 
 const buildMode: SubRestriction = { del: true, sub: 2 }; // allow dels and/or specify max sub length
@@ -242,8 +253,8 @@ function writeGrammar(out: string) {
     '// *************************** this file is generated. see ui/input/@build/README.md ***************************\n\n' +
       'export type Sub = { to: string, cost: number };\n\n' +
       `export type Tag = 'file' | 'rank' | 'role' | 'move' | 'choice' | 'command' | 'ignore' | 'exact' | 'rounds';\n\n` +
-      'export type Token = { in: string, tok: string, tags: Tag[], out?: string, subs?: Sub[] };\n\n' +
-      `export const lexicon: Token[] = ${JSON.stringify(lexicon, null, 2)};`
+      'export type Entry = { in: string, tok: string, tags: Tag[], out?: string, subs?: Sub[] };\n\n' +
+      `export const lexicon: Entry[] = ${JSON.stringify(lexicon, null, 2)};`
   );
 }
 
@@ -321,12 +332,12 @@ type Sub = {
 
 type Tag = 'file' | 'rank' | 'role' | 'move' | 'choice' | 'command' | 'ignore' | 'exact' | 'rounds';
 
-type Token = {
-  in: string; // the word or phrase recognized by kaldi, unique
+type Entry = {
+  in: string; // the word or phrase recognized by kaldi, unique in lexicon
   tok?: string; // single char token representation (or '' for ignored words)
   out?: string; // the string moveHandler receives, default is tok
   subs?: Sub[]; // allowable token transitions calculated by this script
-  tags?: Tag[]; // context for this token, used by clients of the grammar
+  tags?: Tag[]; // classificiation context for this token, used by clients of the grammar
 };
 
 const grammarBuilder = new (class {
