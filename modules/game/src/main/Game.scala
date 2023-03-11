@@ -432,6 +432,8 @@ case class Game(
 
   def winnerUserId: Option[String] = winner flatMap (_.userId)
 
+  def loserColor: Option[Color] = loser map (_.color)
+
   def loserUserId: Option[String] = loser flatMap (_.userId)
 
   def wonBy(c: Color): Option[Boolean] = winner map (_.color == c)

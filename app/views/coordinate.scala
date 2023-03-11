@@ -97,12 +97,17 @@ object coordinate {
   def scoreCharts(score: lila.coordinate.Score)(implicit ctx: Context) =
     frag(
       List(
-        (trans.coordinates.averageScoreAsWhiteX, score.gote),
-        (trans.coordinates.averageScoreAsBlackX, score.sente)
-      ).map { case (averageScoreX, s) =>
+        (shogi.Color.Sente, score.sente),
+        (shogi.Color.Gote, score.gote)
+      ).map { case (c, s) =>
         div(cls := "chart_container")(
           s.nonEmpty option frag(
-            p(averageScoreX(raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""))),
+            p(
+              trans.coordinates.averageScoreAsXY(
+                standardColorName(c).toUpperCase,
+                raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>""")
+              )
+            ),
             div(cls := "user_chart", attr("data-points") := safeJsonValue(Json toJson s))
           )
         )

@@ -42,12 +42,9 @@ object show {
           image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id.value).url).some,
           title = s"Shogi tactic #${puzzle.id}",
           url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
-          description = s"Lishogi tactic trainer: " + puzzle.color
-            .fold(
-              trans.puzzle.findTheBestMoveForBlack,
-              trans.puzzle.findTheBestMoveForWhite
-            )
-            .txt() + s" Played by ${puzzle.plays} players."
+          description = s"Lishogi tactic trainer: " +
+            transWithColorName(trans.puzzle.findTheBestMoveForX, puzzle.color, false)
+            + s" Played by ${puzzle.plays} players."
         )
         .some,
       zoomable = true,

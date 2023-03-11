@@ -21,7 +21,7 @@ final private[round] class Drawer(
         finisher.other(pov.game, _.Draw, None, Some(trans.drawOfferAccepted.txt()))
       case Pov(g, color) if g playerCanOfferDraw color =>
         proxy.save {
-          messenger.system(g, color.fold(trans.blackOffersDraw, trans.whiteOffersDraw).txt())
+          messenger.system(g, trans.xOffersDraw.txt(color.toString).toLowerCase.capitalize)
           Progress(g) map { g =>
             g.updatePlayer(color, _ offerDraw g.plies)
           }
@@ -40,7 +40,7 @@ final private[round] class Drawer(
         } inject List(Event.DrawOffer(by = none))
       case Pov(g, color) if pov.opponent.isOfferingDraw =>
         proxy.save {
-          messenger.system(g, color.fold(trans.blackDeclinesDraw, trans.whiteDeclinesDraw).txt())
+          messenger.system(g, trans.xDeclinesDraw.txt(color.toString).toLowerCase.capitalize)
           Progress(g) map { g =>
             g.updatePlayer(!color, _.removeDrawOffer)
           }

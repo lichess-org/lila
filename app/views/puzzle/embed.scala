@@ -35,7 +35,7 @@ object embed {
     div(cls := "vstext")(
       trans.puzzleOfTheDay(),
       br,
-      daily.puzzle.color.fold(trans.blackPlays, trans.whitePlays)()
+      trans.xPlays(daily.puzzle.color.fold(trans.sente, trans.gote)())
     )
   )
 }

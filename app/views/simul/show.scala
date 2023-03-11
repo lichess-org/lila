@@ -71,10 +71,14 @@ object show {
               ": ",
               pluralize("minute", sim.clock.hostExtraMinutes),
               br,
-              trans.hostColorX(sim.color match {
-                case Some("gote")  => trans.white.txt() + "/" + trans.uwate.txt()
-                case Some("sente") => trans.black.txt() + "/" + trans.shitate.txt()
-                case _             => trans.randomColor()
+              trans.hostColorX(sim.hostColor match {
+                case Some(color) => {
+                  val sColorName = standardColorName(color)
+                  val hColorName = handicapColorName(color)
+                  if (hColorName != sColorName) s"$sColorName/${handicapColorName(color)}"
+                  else sColorName
+                }
+                case _ => trans.randomColor()
               }),
               sim.position.flatMap(lila.tournament.Thematic.bySfen) map { pos =>
                 frag(

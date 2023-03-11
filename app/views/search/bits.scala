@@ -3,9 +3,9 @@ package views.html.search
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.data.Form
-import play.api.i18n.Lang
 import scala.util.chaining._
 
+import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.gameSearch.{ Query, Sorting }
@@ -19,7 +19,7 @@ private object bits {
   private def dateMinMax: List[Modifier] =
     List(min := dateMin, max := dateFormatter.print(DateTime.now.plusDays(1)))
 
-  def of(form: Form[_])(implicit lang: Lang) =
+  def of(form: Form[_])(implicit ctx: Context) =
     new {
 
       def dataReqs =
@@ -30,7 +30,7 @@ private object bits {
       def colors(hide: Boolean) =
         shogi.Color.all.map { color =>
           tr(cls := List(s"${color.name}User user-row" -> true, "none" -> hide))(
-            th(label(`for` := form3.id(form("players")(color.name)))(color.fold(trans.black, trans.white)())),
+            th(label(`for` := form3.id(form("players")(color.name)))(standardColorName(color))),
             td(cls := "single")(
               st.select(
                 id   := form3.id(form("players")(color.name)),

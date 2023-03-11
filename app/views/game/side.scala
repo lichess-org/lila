@@ -82,10 +82,10 @@ object side {
         game.finishedOrAborted option {
           st.section(cls := "status")(
             gameEndStatus(game),
-            game.winner.map { winner =>
+            game.winnerColor.map { color =>
               frag(
                 separator,
-                winner.color.fold(trans.blackIsVictorious, trans.whiteIsVictorious)()
+                transWithColorName(trans.xIsVictorious, color, game.isHandicap)
               )
             }
           )

@@ -11,7 +11,13 @@ import lila.game.{ Game, Namer, Player, Pov }
 import lila.i18n.{ defaultLang, I18nKeys => trans }
 import lila.user.{ Title, User }
 
-trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ShogigroundHelper =>
+trait GameHelper {
+  self: I18nHelper
+    with UserHelper
+    with AiHelper
+    with StringHelper
+    with ShogigroundHelper
+    with ColorNameHelper =>
 
   private val dataLive     = attr("data-live")
   private val dataColor    = attr("data-color")
@@ -164,34 +170,33 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
   }
 
-  def gameEndStatus(game: Game)(implicit lang: Lang): String =
+  def gameEndStatus(game: Game)(implicit ctx: Context): String =
     game.status match {
       case S.Aborted => trans.gameAborted.txt()
       case S.Mate    => trans.checkmate.txt()
       case S.Resign =>
-        game.loser match {
-          case Some(p) if p.color.sente => trans.blackResigned.txt()
-          case _                        => trans.whiteResigned.txt()
-        }
+        game.loserColor
+          .map(l => transWithColorName(trans.xResigned, l, game.isHandicap))
+          .getOrElse(trans.finished.txt())
       case S.UnknownFinish  => trans.finished.txt()
       case S.Stalemate      => trans.stalemate.txt()
-      case S.TryRule        => "Try Rule"
+      case S.TryRule        => "Try Rule" // games before July 2021 might still have this status
       case S.Impasse27      => trans.impasse.txt()
       case S.PerpetualCheck => trans.perpetualCheck.txt()
       case S.RoyalsLost     => trans.royalsLost.txt()
       case S.BareKing       => trans.bareKing.txt()
       case S.Timeout =>
-        game.loser match {
-          case Some(p) if p.color.sente => trans.blackLeftTheGame.txt()
-          case Some(_)                  => trans.whiteLeftTheGame.txt()
-          case None                     => trans.draw.txt()
-        }
+        game.loserColor
+          .map(l => transWithColorName(trans.xLeftTheGame, l, game.isHandicap))
+          .getOrElse(
+            trans.draw.txt()
+          )
       case S.Draw      => trans.draw.txt()
       case S.Outoftime => trans.timeOut.txt()
-      case S.NoStart => {
-        val color = game.loser.fold(Color.sente)(_.color).name.capitalize
-        s"$color didn't move"
-      }
+      case S.NoStart =>
+        game.loserColor
+          .map(l => transWithColorName(trans.xDidntMove, l, game.isHandicap))
+          .getOrElse(trans.finished.txt())
       case S.Cheat => trans.cheatDetected.txt()
       case _       => ""
     }
