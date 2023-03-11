@@ -77,7 +77,7 @@ const feedback = {
               )
             )
           ),
-          h('em', transWithColorName(ctrl.trans, 'findBetterMoveForX', ctrl.color as Color, ctrl.initialSfen)),
+          h('em', transWithColorName(ctrl.trans, 'findBetterMoveForX', ctrl.color, ctrl.initialSfen)),
           skipOrViewSolution(ctrl),
         ]),
       ]),

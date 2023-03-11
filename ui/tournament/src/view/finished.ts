@@ -26,8 +26,16 @@ function stats(data: TournamentData, trans: Trans): VNode {
       numberRow(noarg('averageElo'), data.stats.averageRating, 'raw'),
       numberRow(noarg('gamesPlayed'), data.stats.games),
       numberRow(noarg('movesPlayed'), data.stats.moves),
-      numberRow(transWithColorName(trans, 'xWins', 'sente'), [data.stats.senteWins, data.stats.games], 'percent'),
-      numberRow(transWithColorName(trans, 'xWins', 'gote'), [data.stats.goteWins, data.stats.games], 'percent'),
+      numberRow(
+        transWithColorName(trans, 'xWins', 'sente', undefined),
+        [data.stats.senteWins, data.stats.games],
+        'percent'
+      ),
+      numberRow(
+        transWithColorName(trans, 'xWins', 'gote', undefined),
+        [data.stats.goteWins, data.stats.games],
+        'percent'
+      ),
       numberRow(noarg('draws'), [data.stats.draws, data.stats.games], 'percent'),
     ];
 
