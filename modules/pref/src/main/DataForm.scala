@@ -29,6 +29,7 @@ object DataForm {
         "destination"        -> booleanNumber,
         "dropDestination"    -> booleanNumber,
         "replay"             -> checkedNumber(Pref.Replay.choices),
+        "colorName"          -> checkedNumber(Pref.ColorName.choices),
         "zen"                -> optional(booleanNumber),
         "resizeHandle"       -> optional(checkedNumber(Pref.ResizeHandle.choices)),
         "blindfold"          -> checkedNumber(Pref.Blindfold.choices)
@@ -66,6 +67,7 @@ object DataForm {
       destination: Int,
       dropDestination: Int,
       replay: Int,
+      colorName: Int,
       zen: Option[Int],
       resizeHandle: Option[Int],
       blindfold: Int
@@ -112,6 +114,7 @@ object DataForm {
         destination = display.destination == 1,
         dropDestination = display.dropDestination == 1,
         replay = display.replay,
+        colorName = display.colorName,
         blindfold = display.blindfold,
         challenge = challenge,
         message = message,
@@ -145,6 +148,7 @@ object DataForm {
           coords = pref.coords,
           clearHands = if (pref.clearHands) 1 else 0,
           replay = pref.replay,
+          colorName = pref.colorName,
           blindfold = pref.blindfold,
           zen = pref.zen.some,
           resizeHandle = pref.resizeHandle.some

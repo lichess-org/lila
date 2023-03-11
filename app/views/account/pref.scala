@@ -90,6 +90,10 @@ object pref {
               radios(form("display.replay"), translatedMoveListWhilePlayingChoices)
             ),
             setting(
+              colorName(),
+              radios(form("display.colorName"), translatedColorNameChoices)
+            ),
+            setting(
               zenMode(),
               radios(form("display.zen"), booleanChoices)
             ),

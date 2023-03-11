@@ -28,6 +28,7 @@ case class Pref(
     destination: Boolean,
     dropDestination: Boolean,
     replay: Int,
+    colorName: Int,
     challenge: Int,
     message: Int,
     studyInvite: Int,
@@ -279,6 +280,20 @@ object Pref {
     )
   }
 
+  object ColorName {
+    val LANG    = 0
+    val SENTEJP = 1
+    val SENTE   = 2
+    val BLACK   = 3
+
+    val choices = Seq(
+      LANG    -> "lang based",
+      SENTEJP -> "先手/後手",
+      SENTE   -> "Sente/Gote",
+      BLACK   -> "Black/White"
+    )
+  }
+
   object ClockTenths {
     val NEVER   = 0
     val LOWTIME = 1
@@ -357,7 +372,7 @@ object Pref {
     )
   }
 
-  object Zen extends BooleanPref {}
+  object Zen extends BooleanPref
 
   def create(id: String) = default.copy(_id = id)
 
@@ -387,6 +402,7 @@ object Pref {
     destination = true,
     dropDestination = true,
     replay = Replay.ALWAYS,
+    colorName = ColorName.LANG,
     clockTenths = ClockTenths.LOWTIME,
     clockCountdown = ClockCountdown.THREE,
     challenge = Challenge.ALWAYS,

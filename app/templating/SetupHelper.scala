@@ -201,6 +201,14 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.Replay.ALWAYS, trans.always.txt())
     )
 
+  def translatedColorNameChoices(implicit lang: Lang) =
+    List(
+      (Pref.ColorName.LANG, s"${trans.language.txt()} - (${trans.sente.txt()}/${trans.sente.txt()})"),
+      (Pref.ColorName.SENTEJP, "先手/後手"),
+      (Pref.ColorName.SENTE, "Sente/Gote"),
+      (Pref.ColorName.BLACK, s"${trans.black.txt()}/${trans.white.txt()}")
+    )
+
   def translatedClockTenthsChoices(implicit lang: Lang) =
     List(
       (Pref.ClockTenths.NEVER, trans.never.txt()),

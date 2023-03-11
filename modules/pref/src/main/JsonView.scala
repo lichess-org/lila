@@ -35,6 +35,7 @@ object JsonView {
       "dropDestination"    -> p.dropDestination,
       "coords"             -> p.coords,
       "replay"             -> p.replay,
+      "colorName"          -> p.colorName,
       "challenge"          -> p.challenge,
       "message"            -> p.message,
       "coordColor"         -> p.coordColor,
