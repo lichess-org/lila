@@ -4,13 +4,15 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.common.String.html.nl2br
+import lila.team.Team
 
 import controllers.routes
 
 object search {
 
-  def apply(text: String, pager: Paginator[lila.forum.PostView])(implicit ctx: Context) = {
+  def apply(text: String, pager: Paginator[lila.forum.PostView], myTeamIds: Set[Team.ID])(implicit
+      ctx: Context
+  ) = {
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
     views.html.base.layout(
       title = title,
@@ -31,22 +33,32 @@ object search {
             tbody(cls := "infinitescroll")(
               pagerNextTable(pager, n => routes.ForumPost.search(text, n).url) | tr,
               pager.currentPageResults.map { view =>
-                tr(cls := "paginated")(
-                  td(
-                    a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
-                      view.categ.name,
-                      " - ",
-                      view.topic.name,
-                      "#",
-                      view.post.number
-                    ),
-                    p(nl2br(shorten(view.post.text.replace("\n\n", "\n"), 200)))
-                  ),
+                val info =
                   td(cls := "info")(
                     momentFromNow(view.post.createdAt),
                     br,
                     authorLink(view.post, modIcon = ~view.post.modIcon)
                   )
+                tr(cls := "paginated")(
+                  if (view.categ.team.forall(myTeamIds.contains))
+                    frag(
+                      td(
+                        a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
+                          view.categ.name,
+                          " - ",
+                          view.topic.name,
+                          "#",
+                          view.post.number
+                        ),
+                        p(shorten(view.post.text, 200))
+                      ),
+                      info
+                    )
+                  else
+                    frag(
+                      td("[You can't access this team forum post]"),
+                      info
+                    )
                 )
               }
             )

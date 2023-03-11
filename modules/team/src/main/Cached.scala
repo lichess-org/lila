@@ -27,7 +27,7 @@ final class Cached(
 
   private val teamIdsCache = cacheApi.sync[User.ID, Team.IdsStr](
     name = "team.ids",
-    initialCapacity = 16384,
+    initialCapacity = 8192,
     compute = u =>
       for {
         teamIds <- memberRepo.teamIdsByUser(u)
@@ -41,6 +41,7 @@ final class Cached(
   def syncTeamIds                  = teamIdsCache sync _
   def teamIds                      = teamIdsCache async _
   def teamIdsList(userId: User.ID) = teamIds(userId).dmap(_.toList)
+  def teamIdsSet(userId: User.ID)  = teamIds(userId).dmap(_.toSet)
 
   def invalidateTeamIds = teamIdsCache invalidate _
 
