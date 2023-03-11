@@ -23,7 +23,8 @@ object Environment
     with TeamHelper
     with TournamentHelper
     with FlashHelper
-    with ShogigroundHelper {
+    with ShogigroundHelper
+    with ColorNameHelper {
 
   // #TODO holy shit fix me
   // requires injecting all the templates!!
