@@ -2,7 +2,7 @@
 <resources>
 	<string name="shogi">Shogi</string>
 	<string name="playWithAFriend">Грай з другом</string>
-	<string name="playWithTheMachine">Грай з обчислювачем</string>
+	<string name="playWithTheMachine">Грати з комп’ютером</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">Дай ланку, аби запросити когось до гри</string>
 	<string name="gameOver">Кінець гри</string>
 	<string name="waitingForOpponent">Очік на противника</string>
@@ -406,7 +406,7 @@
 	<string name="default" comment="Default starting position as opposed to custom starting position">Відсутньо</string>
 	<string name="continueFromHere">Продовж звідси</string>
 	<string name="toStudy">Дослід</string>
-	<string name="importGame">Принеси гру</string>
+	<string name="importGame">Імпортувати гру</string>
 	<string name="importGameKifCsaExplanation">Встав KIF чи CSA, аби отримати огляд гри,
 розбір обчислювача, ігрову бесіду і ширильну ланку.</string>
 	<plurals name="nbImportedGames">
@@ -678,7 +678,7 @@
 	<string name="studyMenu">Дослід</string>
 	<string name="practice">Вправи</string>
 	<string name="community">Спільнота</string>
-	<string name="tools">Знадоби</string>
+	<string name="tools">Інструменти</string>
 	<string name="increment">Приріст</string>
 	<string name="byoyomi">Бйойомі</string>
 	<string name="periods">Кіл</string>
