@@ -54,6 +54,7 @@ final class StudyMultiBoard(
 
     def nbResults: Fu[Int] = chapterRepo.coll(_.countSel(selector))
 
+    // If broadcasts are ever implemented, this needs some changes
     def slice(offset: Int, length: Int): Fu[Seq[ChapterPreview]] =
       chapterRepo
         .coll {
@@ -68,13 +69,12 @@ final class StudyMultiBoard(
                   "comp" -> $doc(
                     "$function" -> $doc(
                       "lang" -> "js",
-                      "args" -> $arr("$root", "$tags"),
-                      "body" -> """function(root, tags) {
-                    |tags = tags.filter(t => t.startsWith('Sente') || t.startsWith('Gote') || t.startsWith('Result'));
-                    |const node = tags.length ? Object.keys(root).reduce((acc, i) => (root[i].p > acc.p) ? root[i] : acc, root['ÿ']) : root['ÿ'];
-                    |return {node:{sfen:node.f,usi:node.u},tags} }""".stripMargin
+                      "args" -> $arr("$root"),
+                      "body" -> """function(root) {
+                    |return root['ÿ'] !== undefined ? {sfen:root['ÿ'].f} : {sfen:root['þ'].is}; }""".stripMargin
                     )
                   ),
+                  "tags"        -> "$tags",
                   "orientation" -> "$setup.orientation",
                   "variant"     -> "$setup.variant",
                   "name"        -> true
@@ -88,16 +88,16 @@ final class StudyMultiBoard(
             doc  <- r
             id   <- doc.getAsOpt[Chapter.Id]("_id")
             name <- doc.getAsOpt[Chapter.Name]("name")
+            tags    = doc.getAsOpt[Tags]("tags")
+            variant = doc.getAsOpt[Int]("variant").flatMap(v => Variant(v)) | Standard
             comp <- doc.getAsOpt[Bdoc]("comp")
-            node <- comp.getAsOpt[Bdoc]("node")
-            sfen <- node.getAsOpt[Sfen]("sfen")
-            lastMove = node.getAsOpt[Usi]("usi")
-            tags     = comp.getAsOpt[Tags]("tags")
+            lastMove = comp.getAsOpt[Usi]("usi")
+            sfen     = comp.getAsOpt[Sfen]("sfen").getOrElse(variant.initialSfen)
           } yield ChapterPreview(
             id = id,
             name = name,
             players = tags flatMap ChapterPreview.players,
-            variant = doc.getAsOpt[Int]("variant").flatMap(v => Variant(v)) | Standard,
+            variant = variant,
             orientation = doc.getAsOpt[Color]("orientation") | Color.Sente,
             sfen = sfen,
             lastMove = lastMove,
