@@ -190,6 +190,7 @@ object layout {
   private val dataI18n          = attr("data-i18n")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
+  private val dataColorName     = attr("data-color-name")
   val dataSoundSet              = attr("data-sound-set")
   val dataTheme                 = attr("data-theme")
   val dataPieceSet              = attr("data-piece-set")
@@ -277,6 +278,7 @@ object layout {
           dataPieceSet      := ctx.currentPieceSet.name,
           dataChuPieceSet   := ctx.currentChuPieceSet.name,
           dataAnnounce      := AnnounceStore.get.map(a => safeJsonValue(a.json)),
+          dataColorName     := ctx.pref.colorName.toString,
           style             := cssVariables(zoomable)
         )(
           blindModeForm,
