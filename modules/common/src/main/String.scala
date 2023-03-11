@@ -39,10 +39,11 @@ object String {
     }
   }
 
+  private val onelineR = """\s+""".r
   def shorten(text: String, length: Int, sep: String = "…") = {
-    val t = text.replace('\n', ' ')
-    if (t.size > (length + sep.size)) (t take length) ++ sep
-    else t
+    val oneline = onelineR.replaceAllIn(text, " ")
+    if (oneline.lengthIs > length + sep.length) oneline.take(length) ++ sep
+    else oneline
   }
 
   def isShouting(text: String) =

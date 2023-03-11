@@ -71,9 +71,9 @@ final private class Rematcher(
   def publishForPostGameStudy(studyId: String, events: Events) =
     events.foreach {
       case Event.RematchTaken(gameId) =>
-        Bus.publish(lila.hub.actorApi.study.RoundRematch(studyId, gameId), "studyRematch".pp("R"))
+        Bus.publish(lila.hub.actorApi.study.RoundRematch(studyId, gameId), "studyRematch")
       case Event.RematchOffer(by) =>
-        Bus.publish(lila.hub.actorApi.study.RoundRematchOffer(studyId, by), "studyRematch".pp("R"))
+        Bus.publish(lila.hub.actorApi.study.RoundRematchOffer(studyId, by), "studyRematch")
       case _ =>
     }
 

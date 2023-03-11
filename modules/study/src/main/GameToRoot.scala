@@ -33,7 +33,7 @@ object GameToRoot {
   def apply(
       gm: Node.GameMainline
   ): Node.Root = {
-    val usiMoves = gm.pp("GameToRoot").usiMoves.take(Node.MAX_PLIES)
+    val usiMoves = gm.usiMoves.take(Node.MAX_PLIES)
     shogi.Replay.gamesWhileValid(usiMoves, gm.initialSfen, gm.variant) match {
       case (gamesWithInit, error) =>
         error foreach logShogiError(gm.id)

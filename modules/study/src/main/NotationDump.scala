@@ -97,11 +97,11 @@ final class NotationDump(
 object NotationDump {
 
   case class WithFlags(
-    csa: Boolean,
-    comments: Boolean,
-    variations: Boolean,
-    shiftJis: Boolean,
-    clocks: Boolean
+      csa: Boolean,
+      comments: Boolean,
+      variations: Boolean,
+      shiftJis: Boolean,
+      clocks: Boolean
   )
 
   private type Variations = Vector[Node]
