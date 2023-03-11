@@ -86,6 +86,12 @@ object bits {
   def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
 
   private val i18nKeys = List(
+    trans.black,
+    trans.white,
+    trans.sente,
+    trans.gote,
+    trans.shitate,
+    trans.uwate,
     trans.join,
     trans.withdraw,
     trans.youArePlaying,
@@ -93,8 +99,7 @@ object bits {
     trans.signIn,
     trans.averageElo,
     trans.gamesPlayed,
-    trans.whiteWins,
-    trans.blackWins,
+    trans.xWins,
     trans.draws,
     trans.winRate,
     trans.performance,

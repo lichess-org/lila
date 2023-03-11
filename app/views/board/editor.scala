@@ -65,26 +65,27 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
     )
 
   private val i18nKeyes = List(
+    trans.black,
+    trans.white,
+    trans.sente,
+    trans.gote,
+    trans.shitate,
+    trans.uwate,
     trans.setTheBoard,
     trans.boardEditor,
     trans.startPosition,
     trans.clearBoard,
-    trans.fillGotesHand,
+    trans.fillXHand,
     trans.flipBoard,
     trans.loadPosition,
     trans.popularOpenings,
     trans.handicaps,
-    trans.whitePlays,
-    trans.blackPlays,
-    trans.uwatePlays,
-    trans.shitatePlays,
+    trans.xPlays,
     trans.variant,
     trans.continueFromHere,
     trans.playWithTheMachine,
     trans.playWithAFriend,
     trans.analysis,
-    trans.toStudy,
-    trans.black,
-    trans.white
+    trans.toStudy
   ).map(_.key)
 }

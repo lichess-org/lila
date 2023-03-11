@@ -33,13 +33,13 @@ object security {
               "."
             ),
             sessions.sizeIs > 1 option div(
-              "You can also ",
-              postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
-                submitButton(cls := "button button-empty button-red confirm")(
-                  trans.revokeAllSessions()
+              trans.alternativelyYouCanX(
+                postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
+                  submitButton(cls := "button button-empty button-red confirm")(
+                    trans.revokeAllSessions()
+                  )
                 )
-              ),
-              "."
+              )
             )
           ),
           table(sessions, curSessionId.some, clients, personalAccessTokens)

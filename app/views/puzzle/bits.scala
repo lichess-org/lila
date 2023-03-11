@@ -71,14 +71,19 @@ object bits {
 
   private val i18nKeys: List[MessageKey] = {
     List(
+      trans.black,
+      trans.white,
+      trans.sente,
+      trans.gote,
+      trans.shitate,
+      trans.uwate,
       trans.puzzle.yourPuzzleRatingX,
       trans.puzzle.bestMove,
       trans.puzzle.keepGoing,
       trans.puzzle.notTheMove,
       trans.puzzle.trySomethingElse,
       trans.yourTurn,
-      trans.puzzle.findTheBestMoveForBlack,
-      trans.puzzle.findTheBestMoveForWhite,
+      trans.puzzle.findTheBestMoveForX,
       trans.viewTheSolution,
       trans.puzzle.puzzleSuccess,
       trans.puzzle.puzzleComplete,
