@@ -61,6 +61,33 @@ object list {
       url = o => routes.Study.mineLikes(o)
     )
 
+  def minePostGameStudies(
+      pag: Paginator[WithChaptersAndLiked],
+      order: Order
+  )(implicit ctx: Context) =
+    layout(
+      title = trans.postGameStudies.txt(),
+      active = "postGameStudies",
+      order = order,
+      pag = pag,
+      searchFilter = "",
+      url = o => routes.Study.minePostGameStudies(o)
+    )
+
+  def postGameStudiesOf(
+      gameId: String,
+      pag: Paginator[WithChaptersAndLiked],
+      order: Order
+  )(implicit ctx: Context) =
+    layout(
+      title = trans.postGameStudies.txt(),
+      active = "postGameStudies",
+      order = order,
+      pag = pag,
+      searchFilter = "",
+      url = o => routes.Study.postGameStudiesOf(gameId, o)
+    )
+
   def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit
       ctx: Context
   ) =

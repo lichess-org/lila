@@ -130,6 +130,26 @@ final class Study(
       }
     }
 
+  def minePostGameStudies(order: String, page: Int) =
+    Auth { implicit ctx => me =>
+      env.study.pager.minePostGameStudies(me, Order(order), page) flatMap { pag =>
+        negotiate(
+          html = Ok(html.study.list.minePostGameStudies(pag, Order(order))).fuccess,
+          api = _ => apiStudies(pag)
+        )
+      }
+    }
+
+  def postGameStudiesOf(gameId: String, order: String, page: Int) =
+    Open { implicit ctx =>
+      env.study.pager.postGameStudiesOf(gameId.take(8), ctx.me, Order(order), page) flatMap { pag =>
+        negotiate(
+          html = Ok(html.study.list.postGameStudiesOf(gameId.take(8), pag, Order(order))).fuccess,
+          api = _ => apiStudies(pag)
+        )
+      }
+    }
+
   def byTopic(name: String, order: String, page: Int) =
     Open { implicit ctx =>
       lila.study.StudyTopic fromStr name match {
@@ -305,7 +325,7 @@ final class Study(
       env.study.postGameStudyApi.getGameOfUser(gameId, me) flatMap {
         _.fold(
           BadRequest(
-            jsonError("Game doesn't exist or isn't finished yet or you are not a player in this game")
+            jsonError("Game doesn't exist, isn't finished yet or you are not a player in this game")
           ).fuccess
         ) { g =>
           env.study.postGameStudyApi.studyWithOpponent(g) map { sid =>
@@ -315,9 +335,8 @@ final class Study(
       }
     }
 
-
   private val PostGameStudyPerUser = new lila.memo.RateLimit[lila.user.User.ID](
-    credits = 15,
+    credits = 10,
     duration = 30.minute,
     key = "study.post_game_study.user"
   )

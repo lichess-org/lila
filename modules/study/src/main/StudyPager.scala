@@ -26,7 +26,7 @@ final class StudyPager(
 
   def all(me: Option[User], order: Order, page: Int) =
     paginator(
-      accessSelect(me),
+      postGameStudy(false) ++ accessSelect(me),
       me,
       order,
       page,
@@ -35,7 +35,7 @@ final class StudyPager(
 
   def byOwner(owner: User, me: Option[User], order: Order, page: Int) =
     paginator(
-      selectOwnerId(owner.id) ++ accessSelect(me),
+      postGameStudy(false) ++ selectOwnerId(owner.id) ++ accessSelect(me),
       me,
       order,
       page
@@ -43,7 +43,7 @@ final class StudyPager(
 
   def mine(me: User, order: Order, page: Int) =
     paginator(
-      selectOwnerId(me.id),
+      postGameStudy(false) ++ selectOwnerId(me.id),
       me.some,
       order,
       page
@@ -51,7 +51,7 @@ final class StudyPager(
 
   def minePublic(me: User, order: Order, page: Int) =
     paginator(
-      selectOwnerId(me.id) ++ selectPublic,
+      postGameStudy(false) ++ selectOwnerId(me.id) ++ selectPublic,
       me.some,
       order,
       page
@@ -59,7 +59,7 @@ final class StudyPager(
 
   def minePrivate(me: User, order: Order, page: Int) =
     paginator(
-      selectOwnerId(me.id) ++ selectPrivateOrUnlisted,
+      postGameStudy(false) ++ selectOwnerId(me.id) ++ selectPrivateOrUnlisted,
       me.some,
       order,
       page
@@ -67,7 +67,7 @@ final class StudyPager(
 
   def mineMember(me: User, order: Order, page: Int) =
     paginator(
-      selectMemberId(me.id) ++ $doc("ownerId" $ne me.id),
+      postGameStudy(false) ++ selectMemberId(me.id) ++ $doc("ownerId" $ne me.id),
       me.some,
       order,
       page
@@ -75,8 +75,24 @@ final class StudyPager(
 
   def mineLikes(me: User, order: Order, page: Int) =
     paginator(
-      selectLiker(me.id) ++ accessSelect(me.some) ++ $doc("ownerId" $ne me.id),
+      postGameStudy(false) ++ selectLiker(me.id) ++ accessSelect(me.some) ++ $doc("ownerId" $ne me.id),
       me.some,
+      order,
+      page
+    )
+
+  def minePostGameStudies(me: User, order: Order, page: Int) =
+    paginator(
+      postGameStudy(true) ++ selectMemberId(me.id),
+      me.some,
+      order,
+      page
+    )
+
+  def postGameStudiesOf(gameId: String, me: Option[User], order: Order, page: Int) =
+    paginator(
+      postGameStudy(true) ++ $doc("postGameStudy.gameId" $eq s"$gameId"),
+      me,
       order,
       page
     )
@@ -91,6 +107,8 @@ final class StudyPager(
       hint = onlyMine.isDefined option $doc("uids" -> 1, "rank" -> -1)
     )
   }
+
+  private def postGameStudy(exists: Boolean) = $doc("postGameStudy" $exists exists)
 
   private def accessSelect(me: Option[User]) =
     me.fold(selectPublic) { u =>

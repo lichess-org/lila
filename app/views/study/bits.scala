@@ -43,7 +43,10 @@ object bits {
       a(activeCls("minePrivate"), href := routes.Study.minePrivate(order.key))(
         trans.study.myPrivateStudies()
       ),
-      a(activeCls("mineLikes"), href := routes.Study.mineLikes(order.key))(trans.study.myFavoriteStudies())
+      a(activeCls("mineLikes"), href := routes.Study.mineLikes(order.key))(trans.study.myFavoriteStudies()),
+      a(activeCls("postGameStudies"), href := routes.Study.minePostGameStudies(order.key))(
+        trans.postGameStudies()
+      )
     )
   }
 
