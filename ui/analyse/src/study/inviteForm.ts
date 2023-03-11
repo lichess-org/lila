@@ -1,20 +1,22 @@
 import { Prop, prop } from 'common/common';
 import { bind, onInsert } from 'common/snabbdom';
+import { storedSet } from 'common/storage';
 import { VNode, h } from 'snabbdom';
 import { modal } from '../modal';
 import { titleNameToId } from '../util';
 import { StudyMemberMap } from './interfaces';
 
-export function ctrl(
+export function makeCtrl(
   send: SocketSend,
   members: Prop<StudyMemberMap>,
   setTab: () => void,
   redraw: () => void,
   trans: Trans
 ) {
-  const open = prop(false);
-  let followings: string[] = [];
-  let spectators: string[] = [];
+  const open = prop(false),
+    previouslyInvited = storedSet<string>('study.previouslyInvited', 10);
+  let followings: string[] = [],
+    spectators: string[] = [];
   function updateFollowings(f) {
     followings = f(followings);
     if (open()) redraw();
@@ -25,6 +27,7 @@ export function ctrl(
       const existing = members();
       return followings
         .concat(spectators)
+        .concat(...previouslyInvited())
         .filter(function (elem, idx, arr) {
           return (
             arr.indexOf(elem) >= idx && // remove duplicates
@@ -57,15 +60,18 @@ export function ctrl(
       if (open()) send('following_onlines');
     },
     invite(titleName: string) {
-      send('invite', titleNameToId(titleName));
+      const userId = titleNameToId(titleName);
+      send('invite', userId);
+      setTimeout(() => previouslyInvited(userId), 1000);
       setTab();
     },
+    previouslyInvited,
     redraw,
     trans,
   };
 }
 
-export function view(ctrl): VNode {
+export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
   const candidates = ctrl.candidates();
   return modal({
     class: 'study__invite',

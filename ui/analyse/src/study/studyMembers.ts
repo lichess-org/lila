@@ -3,7 +3,7 @@ import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import { iconTag, scrollTo, titleNameToId } from '../util';
 import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
-import { ctrl as inviteFormCtrl } from './inviteForm';
+import { makeCtrl as inviteFormCtrl } from './inviteForm';
 import { NotifCtrl } from './notif';
 
 interface Opts {
