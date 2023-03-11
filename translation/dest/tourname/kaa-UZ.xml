@@ -26,4 +26,7 @@
   <string name="monthlyRapid">Aylıq Rapid</string>
   <string name="monthlyClassicalArena">Aylıq Klassikalıq Arena</string>
   <string name="monthlyClassical">Aylıq Klassikalıq</string>
+  <string name="monthlyXArena">Aylıq %s Arena</string>
+  <string name="monthlyX">Aylıq %s</string>
+  <string name="xArena">%s Arena</string>
 </resources>
