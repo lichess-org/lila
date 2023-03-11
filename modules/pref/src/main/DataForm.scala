@@ -7,11 +7,8 @@ import java.nio.charset.StandardCharsets.UTF_8
 
 object DataForm {
 
-  private def containedIn(choices: Seq[(Int, String)]): Int => Boolean =
-    choice => choices.exists(_._1 == choice)
-
-  private def checkedNumber(choices: Seq[(Int, String)]) =
-    number.verifying(containedIn(choices))
+  private def checkedNumber(choices: Seq[(Int)]) =
+    number.verifying(choices contains _)
 
   private lazy val booleanNumber =
     number.verifying(Pref.BooleanPref.verify)

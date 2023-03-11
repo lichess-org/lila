@@ -52,8 +52,8 @@ case class Pref(
 
   def themeColor = if (transp || dark) "#2e2a24" else "#dbd7d1"
 
-  def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
-  def coordsClass    = Coords classOf coords
+  def coordColorName = Color name coordColor
+  def coordsClass    = Coords cssClassOf coords
 
   def hasSeenVerifyTitle = tags contains Tag.verifyTitle
 
@@ -114,7 +114,7 @@ object Pref {
   trait BooleanPref {
     val NO      = 0
     val YES     = 1
-    val choices = Seq(NO -> "No", YES -> "Yes")
+    val choices = Seq(NO, YES)
   }
 
   object BooleanPref {
@@ -130,10 +130,17 @@ object Pref {
     val RANDOM = 2
     val GOTE   = 3
 
+    def name(v: Int) =
+      v match {
+        case SENTE => "sente"
+        case GOTE  => "gote"
+        case _     => "random"
+      }
+
     val choices = Seq(
-      SENTE  -> "Sente",
-      RANDOM -> "Random",
-      GOTE   -> "Gote"
+      SENTE,
+      RANDOM,
+      GOTE
     )
   }
 
@@ -143,9 +150,9 @@ object Pref {
     val ALWAYS  = 3
 
     val choices = Seq(
-      NEVER   -> "Never",
-      ALWAYS  -> "Always",
-      PREMOVE -> "When premoving"
+      NEVER,
+      ALWAYS,
+      PREMOVE
     )
   }
 
@@ -156,10 +163,10 @@ object Pref {
     val ALWAYS                   = 2
 
     val choices = Seq(
-      NEVER                    -> "Never",
-      CORRESPONDENCE_ONLY      -> "Correspondence games only",
-      CORRESPONDENCE_UNLIMITED -> "Correspondence and unlimited",
-      ALWAYS                   -> "Always"
+      NEVER,
+      CORRESPONDENCE_ONLY,
+      CORRESPONDENCE_UNLIMITED,
+      ALWAYS
     )
   }
 
@@ -171,9 +178,9 @@ object Pref {
     val EVERYBODY = 2
 
     val choices = Seq(
-      NOBODY    -> "With nobody",
-      FRIENDS   -> "With friends",
-      EVERYBODY -> "With everybody"
+      NOBODY,
+      FRIENDS,
+      EVERYBODY
     )
   }
 
@@ -185,16 +192,16 @@ object Pref {
     val BOTH  = 2
 
     val choices = Seq(
-      CLICK -> "Click two squares",
-      DRAG  -> "Drag a piece",
-      BOTH  -> "Both clicks and drag"
+      CLICK,
+      DRAG,
+      BOTH
     )
   }
 
   object Blindfold extends BooleanPref {
     override val choices = Seq(
-      NO  -> "What? No!",
-      YES -> "Yes, hide the pieces"
+      NO,
+      YES
     )
   }
 
@@ -204,9 +211,9 @@ object Pref {
     val ALWAYS = 3
 
     val choices = Seq(
-      NEVER  -> "Never",
-      ALWAYS -> "Always",
-      CASUAL -> "In casual games only"
+      NEVER,
+      ALWAYS,
+      CASUAL
     )
   }
 
@@ -216,9 +223,9 @@ object Pref {
     val ALWAYS = 3
 
     val choices = Seq(
-      NEVER  -> "Never",
-      ALWAYS -> "Always",
-      CASUAL -> "In casual games only"
+      NEVER,
+      ALWAYS,
+      CASUAL
     )
   }
 
@@ -227,8 +234,8 @@ object Pref {
     val COMPACT = 1
 
     val choices = Seq(
-      SIDE    -> "Side",
-      COMPACT -> "Compact"
+      SIDE,
+      COMPACT
     )
   }
 
@@ -239,10 +246,10 @@ object Pref {
     val SLOW   = 3
 
     val choices = Seq(
-      NONE   -> "None",
-      FAST   -> "Fast",
-      NORMAL -> "Normal",
-      SLOW   -> "Slow"
+      NONE,
+      FAST,
+      NORMAL,
+      SLOW
     )
   }
 
@@ -253,13 +260,13 @@ object Pref {
     val EDGE    = 3
 
     val choices = Seq(
-      NONE    -> "No",
-      INSIDE  -> "Inside the board",
-      OUTSIDE -> "Outside the board",
-      EDGE    -> "Edge of the board"
+      NONE,
+      INSIDE,
+      OUTSIDE,
+      EDGE
     )
 
-    def classOf(v: Int) =
+    def cssClassOf(v: Int) =
       v match {
         case INSIDE  => "in"
         case OUTSIDE => "out"
@@ -274,9 +281,9 @@ object Pref {
     val ALWAYS = 2
 
     val choices = Seq(
-      NEVER  -> "Never",
-      SLOW   -> "On slow games",
-      ALWAYS -> "Always"
+      NEVER,
+      SLOW,
+      ALWAYS
     )
   }
 
@@ -287,10 +294,10 @@ object Pref {
     val BLACK   = 3
 
     val choices = Seq(
-      LANG    -> "lang based",
-      SENTEJP -> "先手/後手",
-      SENTE   -> "Sente/Gote",
-      BLACK   -> "Black/White"
+      LANG,
+      SENTEJP,
+      SENTE,
+      BLACK
     )
   }
 
@@ -300,9 +307,9 @@ object Pref {
     val ALWAYS  = 2
 
     val choices = Seq(
-      NEVER   -> "Never",
-      LOWTIME -> "When time remaining < 10 seconds",
-      ALWAYS  -> "Always"
+      NEVER,
+      LOWTIME,
+      ALWAYS
     )
   }
 
@@ -313,10 +320,10 @@ object Pref {
     val TEN   = 10
 
     val choices = Seq(
-      NEVER -> "Never",
-      THREE -> "Last three seconds",
-      FIVE  -> "Last five seconds",
-      TEN   -> "Last ten seconds"
+      NEVER,
+      THREE,
+      FIVE,
+      TEN
     )
   }
 
@@ -329,10 +336,10 @@ object Pref {
     val ratingThreshold = 300
 
     val choices = Seq(
-      NEVER  -> "Never",
-      RATING -> s"If rating is ± $ratingThreshold",
-      FRIEND -> "Only friends",
-      ALWAYS -> "Always"
+      NEVER,
+      RATING,
+      FRIEND,
+      ALWAYS
     )
   }
 
@@ -342,9 +349,9 @@ object Pref {
     val ALWAYS = 3
 
     val choices = Seq(
-      NEVER  -> "Never",
-      FRIEND -> "Only friends",
-      ALWAYS -> "Always"
+      NEVER,
+      FRIEND,
+      ALWAYS
     )
   }
 
@@ -354,9 +361,9 @@ object Pref {
     val ALWAYS = 3
 
     val choices = Seq(
-      NEVER  -> "Never",
-      FRIEND -> "Only friends",
-      ALWAYS -> "Always"
+      NEVER,
+      FRIEND,
+      ALWAYS
     )
   }
 
@@ -366,9 +373,9 @@ object Pref {
     val ALWAYS  = 2
 
     val choices = Seq(
-      NEVER   -> "Never",
-      INITIAL -> "On initial position",
-      ALWAYS  -> "Always"
+      NEVER,
+      INITIAL,
+      ALWAYS
     )
   }
 
