@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">FAQ</string>
+  <string name="frequentlyAskedQuestions">Frequently Askit Quaistens</string>
+  <string name="whyIsLichessCalledLichess">Why is Lichess caa\'d Lichess?</string>
+</resources>
