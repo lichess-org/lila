@@ -127,17 +127,16 @@ final class TeamApi(
     teamRepo.countCreatedSince(me.id, Period weeks 1)
 
   def requestsWithUsers(team: Team): Fu[List[RequestWithUser]] =
-    for {
-      requests  <- requestRepo.findActiveByTeam(team.id, 50)
-      withUsers <- requestsWithUsers(requests)
-    } yield withUsers
+    requestRepo.findActiveByTeam(team.id, 50) flatMap requestsWithUsers
 
-  def requestsWithUsers(user: User): Fu[List[RequestWithUser]] =
-    for {
-      teamIds   <- teamRepo enabledTeamIdsByLeader user.id
-      requests  <- requestRepo findActiveByTeams teamIds
-      withUsers <- requestsWithUsers(requests)
-    } yield withUsers
+  def declinedRequestsWithUsers(team: Team): Fu[List[RequestWithUser]] =
+    requestRepo.findDeclinedByTeam(team.id, 50) flatMap requestsWithUsers
+
+  def requestsWithUsers(user: User): Fu[List[RequestWithUser]] = for
+    teamIds   <- teamRepo enabledTeamIdsByLeader user.id
+    requests  <- requestRepo findActiveByTeams teamIds
+    withUsers <- requestsWithUsers(requests)
+  yield withUsers
 
   private def requestsWithUsers(requests: List[Request]): Fu[List[RequestWithUser]] =
     userRepo optionsByIds requests.map(_.user) map { users =>
