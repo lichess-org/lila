@@ -61,7 +61,7 @@ case class Glicko(
 
 case object Glicko:
 
-  val minRating = IntRating(600)
+  val minRating = IntRating(400)
   val maxRating = IntRating(4000)
 
   val minDeviation              = 45
