@@ -212,7 +212,17 @@ export function view(ctrl: StudyShareCtrl): VNode {
                       value: `${baseUrl()}${path}`,
                     },
                   }),
-                  h('button.clipboard', 'Copy')
+                  h('a.button.clipboard', {
+                    attrs: {
+                      'data-icon': ''
+                    },
+                    hook: bind('click', async event => {
+                      const text = `${baseUrl()}${path}`;
+                      await navigator.clipboard.writeText(text);
+                      (event.target as HTMLElement).setAttribute('data-icon', '');
+                      setTimeout(() => (event.target as HTMLElement).setAttribute('data-icon', ''), 1000);
+                    })
+                  })
                 ]),
                 ...(pastable ? [fromPly(ctrl), !isPrivate ? youCanPasteThis() : null] : []),
               ])
