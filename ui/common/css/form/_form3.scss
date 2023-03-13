@@ -36,7 +36,7 @@
 
 .form-control {
   display: block;
-  width: 95%;
+  width: 100%;
   height: calc(2.7em + 2px);
   background-clip: padding-box;
 }
@@ -44,6 +44,10 @@
 .form-control-with-clipboard {
   display: inline-flex;
   width: 100%;
+}
+
+.form-control-with-clipboard > .form-control {
+  width: 95%;
 }
 
 .clipboard {
