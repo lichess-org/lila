@@ -214,15 +214,15 @@ export function view(ctrl: StudyShareCtrl): VNode {
                   }),
                   h('a.button.clipboard', {
                     attrs: {
-                      'data-icon': ''
+                      'data-icon': '',
                     },
                     hook: bind('click', async event => {
                       const text = `${baseUrl()}${path}`;
                       await navigator.clipboard.writeText(text);
                       (event.target as HTMLElement).setAttribute('data-icon', '');
                       setTimeout(() => (event.target as HTMLElement).setAttribute('data-icon', ''), 1000);
-                    })
-                  })
+                    }),
+                  }),
                 ]),
                 ...(pastable ? [fromPly(ctrl), !isPrivate ? youCanPasteThis() : null] : []),
               ])
