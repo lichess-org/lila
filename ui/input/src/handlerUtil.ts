@@ -70,6 +70,7 @@ const commandFunctions: Record<string, (ctrl?: MoveCtrl) => void> = {
   clock: (ctrl: MoveCtrl) => readClocks(ctrl.clock()),
   draw: (ctrl: MoveCtrl) => ctrl.draw(),
   resign: (ctrl: MoveCtrl) => ctrl.resign(true, true),
+  rematch: (ctrl: MoveCtrl) => ctrl.rematch(),
   next: (ctrl: MoveCtrl) => ctrl.next?.(),
   takeback: (ctrl: MoveCtrl) => ctrl.takeback?.(),
   upv: (ctrl: MoveCtrl) => ctrl.vote?.(true),

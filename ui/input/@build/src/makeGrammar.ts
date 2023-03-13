@@ -17,21 +17,13 @@ const lexicon: Entry[] = [
   { in: 'g', tok: 'g', tags: ['file', 'move'] },
   { in: 'h', tok: 'h', tags: ['file', 'move'] },
 
-  { in: '1', tok: '1', tags: [] },
   { in: 'one', tok: '1', tags: ['rank', 'move'] },
-  { in: '2', tok: '2', tags: [] },
   { in: 'two', tok: '2', tags: ['rank', 'move'] },
-  { in: '3', tok: '3', tags: [] },
   { in: 'three', tok: '3', tags: ['rank', 'move'] },
-  { in: '4', tok: '4', tags: [] },
   { in: 'four', tok: '4', tags: ['rank', 'move'] },
-  { in: '5', tok: '5', tags: [] },
   { in: 'five', tok: '5', tags: ['rank', 'move'] },
-  { in: '6', tok: '6', tags: [] },
   { in: 'six', tok: '6', tags: ['rank', 'move'] },
-  { in: '7', tok: '7', tags: [] },
   { in: 'seven', tok: '7', tags: ['rank', 'move'] },
-  { in: '8', tok: '8', tags: [] },
   { in: 'eight', tok: '8', tags: ['rank', 'move'] },
 
   { in: 'pawn', tok: 'P', tags: ['role', 'move'] },
@@ -41,66 +33,64 @@ const lexicon: Entry[] = [
   { in: 'queen', tok: 'Q', tags: ['role', 'move'] },
   { in: 'king', tok: 'K', tags: ['role', 'move'] },
 
-  { in: 'castle', out: 'O-O', tags: ['move', 'exact'] },
-  { in: 'short castle', out: 'O-O', tags: ['move', 'exact'] },
-  { in: 'king side castle', out: 'O-O', tags: ['move', 'exact'] },
-  { in: 'castle king side', out: 'O-O', tags: ['move', 'exact'] },
-  { in: 'long castle', out: 'O-O-O', tags: ['move', 'exact'] },
-  { in: 'castle queen side', out: 'O-O-O', tags: ['move', 'exact'] },
-  { in: 'queen side castle', out: 'O-O-O', tags: ['move', 'exact'] },
+  { in: 'castle', val: 'O-O', tags: ['move', 'exact'] },
+  { in: 'short castle', val: 'O-O', tags: ['move', 'exact'] },
+  { in: 'king side castle', val: 'O-O', tags: ['move', 'exact'] },
+  { in: 'castle king side', val: 'O-O', tags: ['move', 'exact'] },
+  { in: 'long castle', val: 'O-O-O', tags: ['move', 'exact'] },
+  { in: 'castle queen side', val: 'O-O-O', tags: ['move', 'exact'] },
+  { in: 'queen side castle', val: 'O-O-O', tags: ['move', 'exact'] },
 
-  { in: 'takes', out: 'x', tags: ['move'] },
-  { in: 'captures', out: 'x', tags: ['move'] },
-  { in: 'promote', out: '=', tags: ['move'] },
-  { in: 'promotes', out: '=', tags: ['move'] },
-  { in: 'mate', out: '', tags: ['move'] },
-  { in: 'check', out: '', tags: ['move'] },
-  { in: 'takeback', out: 'takeback', tags: ['command', 'rounds', 'exact'] },
-  { in: 'draw', out: 'draw', tags: ['command', 'rounds', 'exact'] },
-  { in: 'offer draw', out: 'draw', tags: ['command', 'rounds', 'exact'] },
-  { in: 'accept draw', out: 'draw', tags: ['command', 'rounds', 'exact'] },
-  { in: 'resign', out: 'resign', tags: ['command', 'rounds', 'exact'] },
+  { in: 'takes', val: 'x', tags: ['move'] },
+  { in: 'captures', val: 'x', tags: ['move'] },
+  { in: 'promote', val: '=', tags: ['move'] },
+  { in: 'promotes', val: '=', tags: ['move'] },
+  { in: 'mate', val: '', tags: ['move', 'ignore'] },
+  { in: 'check', val: '', tags: ['move', 'ignore'] },
+  { in: 'takeback', val: 'takeback', tags: ['command', 'rounds', 'exact'] },
+  { in: 'draw', val: 'draw', tags: ['command', 'rounds', 'exact'] },
+  { in: 'offer draw', val: 'draw', tags: ['command', 'rounds', 'exact'] },
+  { in: 'accept draw', val: 'draw', tags: ['command', 'rounds', 'exact'] },
+  { in: 'resign', val: 'resign', tags: ['command', 'rounds', 'exact'] },
 
-  //{ in: 'rematch', out: 'rematch', tags: ['command'] },
-  { in: 'next', out: 'next', tags: ['command', 'exact'] },
-  //{ in: 'skip', out: 'next', tags: ['command', 'exact'] },
-  //{ in: 'continue', out: 'next', tags: ['command', 'exact'] },
-  { in: 'back', out: 'back', tags: ['command', 'exact'] },
-  //{ in: 'last', out: 'last', tags: ['command', 'exact'] },
-  //{ in: 'first', out: 'first', tags: ['command', 'exact'] },
-  { in: 'up vote', out: 'upv', tags: ['command', 'exact'] },
-  { in: 'down vote', out: 'downv', tags: ['command', 'exact'] },
-  { in: 'help', out: '?', tags: ['command', 'exact'] },
-  { in: 'clock', out: 'clock', tags: ['command', 'exact'] },
-  { in: 'opponent', out: 'who', tags: ['command', 'exact'] },
-  { in: 'stop', out: 'stop', tags: ['command', 'exact'] },
+  { in: 'rematch', val: 'rematch', tags: ['command', 'exact'] },
+  { in: 'next', val: 'next', tags: ['command', 'exact'] },
+  //{ in: 'skip', val: 'next', tags: ['command', 'exact'] },
+  //{ in: 'continue', val: 'next', tags: ['command', 'exact'] },
+  { in: 'back', val: 'back', tags: ['command', 'exact'] },
+  //{ in: 'last', val: 'last', tags: ['command', 'exact'] },
+  //{ in: 'first', val: 'first', tags: ['command', 'exact'] },
+  { in: 'up vote', val: 'upv', tags: ['command', 'exact'] },
+  { in: 'down vote', val: 'downv', tags: ['command', 'exact'] },
+  { in: 'help', val: '?', tags: ['command', 'exact'] },
+  { in: 'clock', val: 'clock', tags: ['command', 'exact'] },
+  { in: 'opponent', val: 'who', tags: ['command', 'exact'] },
+  { in: 'stop', val: 'stop', tags: ['command', 'exact'] },
 
-  { in: 'red', out: 'red', tags: ['choice', 'exact'] },
-  { in: 'yellow', out: 'yellow', tags: ['choice', 'exact'] },
-  { in: 'green', out: 'green', tags: ['choice', 'exact'] },
-  { in: 'blue', out: 'blue', tags: ['choice', 'exact'] },
-  { in: 'yes', out: 'yes', tags: ['choice', 'exact'] },
-  { in: 'okay', out: 'yes', tags: ['choice', 'exact'] },
-  { in: 'confirm', out: 'yes', tags: ['choice', 'exact'] },
-  { in: 'no', out: 'no', tags: ['choice', 'exact'] },
-  { in: 'clear', out: 'no', tags: ['choice', 'exact'] },
-  { in: 'close', out: 'no', tags: ['choice', 'exact'] },
-  { in: 'cancel', out: 'no', tags: ['choice', 'exact'] },
-  { in: 'abort', out: 'no', tags: ['choice', 'exact'] },
+  { in: 'red', val: 'red', tags: ['choice', 'exact'] },
+  { in: 'yellow', val: 'yellow', tags: ['choice', 'exact'] },
+  { in: 'green', val: 'green', tags: ['choice', 'exact'] },
+  { in: 'blue', val: 'blue', tags: ['choice', 'exact'] },
+  { in: 'yes', val: 'yes', tags: ['choice', 'exact'] },
+  { in: 'okay', val: 'yes', tags: ['choice', 'exact'] },
+  { in: 'confirm', val: 'yes', tags: ['choice', 'exact'] },
+  { in: 'no', val: 'no', tags: ['choice', 'exact'] },
+  { in: 'clear', val: 'no', tags: ['choice', 'exact'] },
+  { in: 'close', val: 'no', tags: ['choice', 'exact'] },
+  { in: 'cancel', val: 'no', tags: ['choice', 'exact'] },
+  { in: 'abort', val: 'no', tags: ['choice', 'exact'] },
 
-  { in: 'puzzle', out: '', tags: ['ignore'] },
-  { in: 'and', out: '', tags: ['ignore'] },
-  { in: 'oh', out: '', tags: ['ignore'] },
-  { in: 'ah', out: '', tags: ['ignore'] },
-  { in: 'um', out: '', tags: ['ignore'] },
-  { in: 'uh', out: '', tags: ['ignore'] },
-  { in: 'hmm', out: '', tags: ['ignore'] },
-  { in: 'huh', out: '', tags: ['ignore'] },
-  { in: 'ha', out: '', tags: ['ignore'] },
-  { in: 'his', out: '', tags: ['ignore'] },
-  { in: 'her', out: '', tags: ['ignore'] },
-  { in: 'the', out: '', tags: ['ignore'] },
-  { in: 'their', out: '', tags: ['ignore'] },
+  { in: 'puzzle', val: '', tags: ['ignore'] },
+  { in: 'and', val: '', tags: ['ignore'] },
+  { in: 'oh', val: '', tags: ['ignore'] },
+  { in: 'um', val: '', tags: ['ignore'] },
+  { in: 'uh', val: '', tags: ['ignore'] },
+  { in: 'hmm', val: '', tags: ['ignore'] },
+  { in: 'huh', val: '', tags: ['ignore'] },
+  { in: 'his', val: '', tags: ['ignore'] },
+  { in: 'her', val: '', tags: ['ignore'] },
+  { in: 'the', val: '', tags: ['ignore'] },
+  { in: 'their', val: '', tags: ['ignore'] },
 ];
 
 const buildMode: SubRestriction = { del: true, sub: 2 }; // allow dels and/or specify max sub length
@@ -253,7 +243,7 @@ function writeGrammar(out: string) {
     '// *************************** this file is generated. see ui/input/@build/README.md ***************************\n\n' +
       'export type Sub = { to: string, cost: number };\n\n' +
       `export type Tag = 'file' | 'rank' | 'role' | 'move' | 'choice' | 'command' | 'ignore' | 'exact' | 'rounds';\n\n` +
-      'export type Entry = { in: string, tok: string, tags: Tag[], out?: string, subs?: Sub[] };\n\n' +
+      'export type Entry = { in: string, tok: string, tags: Tag[], val?: string, subs?: Sub[] };\n\n' +
       `export const lexicon: Entry[] = ${JSON.stringify(lexicon, null, 2)};`
   );
 }
@@ -335,18 +325,18 @@ type Tag = 'file' | 'rank' | 'role' | 'move' | 'choice' | 'command' | 'ignore' |
 type Entry = {
   in: string; // the word or phrase recognized by kaldi, unique in lexicon
   tok?: string; // single char token representation (or '' for ignored words)
-  out?: string; // the string moveHandler receives, default is tok
+  val?: string; // the string moveHandler receives, default is tok
   subs?: Sub[]; // allowable token transitions calculated by this script
   tags?: Tag[]; // classificiation context for this token, used by clients of the grammar
 };
 
 const grammarBuilder = new (class {
   occurrences = new Map<string, number>();
-  tokenOut = new Map<string, string>();
+  tokenVal = new Map<string, string>();
   wordToken = new Map<string, string>();
 
   constructor() {
-    const reserved = lexicon.map(t => t.tok ?? '').join('');
+    const reserved = lexicon.map(t => t.tok ?? '').join('') + ','; // comma is reserved for val delimiters
     const available = Array.from({ length: 93 }, (_, i) => String.fromCharCode(33 + i)).filter(
       x => !reserved.includes(x)
     );
@@ -355,10 +345,13 @@ const grammarBuilder = new (class {
       if (e.tok === undefined) {
         if (reserved.includes(e.in)) e.tok = e.in;
         else e.tok = available.shift();
-      }
+      } else if (e.tok === ' ' || e.tok === ',') throw new Error(`Illegal token for ${e.in}`);
       const tok = e.tok as string;
       this.wordToken.set(e.in, tok);
-      this.tokenOut.set(tok, e.out ?? '');
+      this.tokenVal.set(tok, e.val ?? '');
+      if (e.tags?.includes('ignore')) {
+        e.subs = [{ to: '', cost: 0 }];
+      }
     }
   }
   addOccurrence(phrase: string) {
@@ -371,10 +364,10 @@ const grammarBuilder = new (class {
     if (tok) tok.subs = [...(tok.subs ?? []), sub];
   }
   tokenOf(word: string) {
-    return this.wordToken.get(word) ?? '';
+    return this.wordToken.get(word) ?? ('12345678'.includes(word) ? word : '');
   }
   fromToken(token: string) {
-    return this.tokenOut.get(token) ?? token;
+    return this.tokenVal.get(token) ?? token;
   }
   encode(phrase: string) {
     return this.wordToken.has(phrase)
