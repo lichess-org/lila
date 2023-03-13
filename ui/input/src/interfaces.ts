@@ -36,6 +36,7 @@ export interface MoveCtrl {
   vote(v: boolean): void;
   takeback(): void;
   resign(v: boolean, immediately?: boolean): void;
+  rematch(): void;
   helpModalOpen: Prop<boolean>;
   voice: VoiceCtrl; // convenience
   root: RootCtrl;
@@ -62,6 +63,7 @@ export interface RootCtrl {
   offerDraw?: (v: boolean, immediately?: boolean) => void;
   takebackYes?: () => void;
   resign?: (v: boolean, immediately?: boolean) => void;
+  challengeRematch?: () => void;
   sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta?: cg.MoveMetadata) => void;
   sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
   submitMove?: (v: boolean) => void;
