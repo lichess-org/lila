@@ -36,9 +36,19 @@
 
 .form-control {
   display: block;
-  width: 100%;
+  width: 95%;
   height: calc(2.7em + 2px);
   background-clip: padding-box;
+}
+
+.form-control-with-clipboard {
+  display: inline-flex;
+  width: 100%;
+}
+
+.clipboard {
+  display: inline;
+  float: right;
 }
 
 textarea.form-control {

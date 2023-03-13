@@ -205,12 +205,15 @@ export function view(ctrl: StudyShareCtrl): VNode {
             ).map(([i18n, path, pastable]: [string, string, boolean]) =>
               h('div.form-group', [
                 h('label.form-label', ctrl.trans.noarg(i18n)),
-                h('input.form-control.autoselect', {
-                  attrs: {
-                    readonly: true,
-                    value: `${baseUrl()}${path}`,
-                  },
-                }),
+                h('div.form-control-with-clipboard', [
+                  h('input.form-control.autoselect', {
+                    attrs: {
+                      readonly: true,
+                      value: `${baseUrl()}${path}`,
+                    },
+                  }),
+                  h('button.clipboard', 'Copy')
+                ]),
                 ...(pastable ? [fromPly(ctrl), !isPrivate ? youCanPasteThis() : null] : []),
               ])
             ),
