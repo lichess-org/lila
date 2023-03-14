@@ -44,7 +44,7 @@ final class JsonView(getLightUser: LightUser.GetterSync):
 
 object JsonView:
 
-  private def round(v: Double, depth: Int = 2) = lila.common.Maths.roundDownAt(v, depth)
+  import lila.rating.Glicko.given
 
   private val isoFormatter = ISODateTimeFormat.dateTime
   private given Writes[DateTime] = Writes { d =>
@@ -53,18 +53,11 @@ object JsonView:
   given OWrites[User] = OWrites { u =>
     Json.obj("name" -> u.username)
   }
-  given OWrites[Glicko] = OWrites { p =>
-    Json.obj(
-      "rating"      -> round(p.rating),
-      "deviation"   -> round(p.deviation),
-      "provisional" -> p.provisional
-    )
-  }
   given OWrites[Perf] = OWrites { p =>
     Json.obj("glicko" -> p.glicko, "nb" -> p.nb, "progress" -> p.progress)
   }
   private given Writes[Avg] = Writes { a =>
-    JsNumber(round(a.avg))
+    JsNumber(lila.common.Maths.roundDownAt(a.avg, 2))
   }
   given (using lang: Lang): OWrites[PerfType] = OWrites { pt =>
     Json.obj(

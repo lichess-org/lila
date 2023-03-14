@@ -113,6 +113,19 @@ case object Glicko:
         "v" -> w.double(o.volatility)
       )
 
+  import play.api.libs.json.{ OWrites, Json }
+  given OWrites[Glicko] =
+    import lila.common.Maths.roundDownAt
+    import lila.common.Json.given
+    OWrites { p =>
+      Json
+        .obj(
+          "rating"    -> roundDownAt(p.rating, 2),
+          "deviation" -> roundDownAt(p.deviation, 2)
+        )
+        .add("provisional" -> p.provisional)
+    }
+
   sealed abstract class Result:
     def negate: Result
   object Result:
