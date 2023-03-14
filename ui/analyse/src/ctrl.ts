@@ -889,6 +889,7 @@ export default class AnalyseCtrl {
     if (this.practice) this.togglePractice();
     if (this.explorer.enabled()) this.toggleExplorer();
     this.persistence?.toggleOpen(false);
+    this.actionMenu(false);
   };
 
   toggleRetro = (): void => {
@@ -901,8 +902,20 @@ export default class AnalyseCtrl {
   };
 
   toggleExplorer = (): void => {
-    if (this.explorer.enabled()) this.explorer.toggle();
-    else if (this.explorer.allowed()) {
+    let shouldOpen = false;
+    if (this.actionMenu()) {
+      this.actionMenu(false);
+      if (!this.explorer.enabled() && this.explorer.allowed()) {
+        shouldOpen = true;
+      }
+    } else {
+      if (this.explorer.enabled()) this.explorer.toggle();
+      else if (this.explorer.allowed()) {
+        shouldOpen = true;
+      }
+    }
+
+    if (shouldOpen) {
       this.closeTools();
       this.explorer.toggle();
     }
