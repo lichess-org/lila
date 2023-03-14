@@ -229,6 +229,14 @@
   <string name="email">Email</string>
   <string name="passwordReset">Změna hesla</string>
   <string name="forgotPassword">Zapomněl jste heslo?</string>
+  <string name="error.weakPassword">Toto heslo je velmi běžné a je snadné ho uhodnout.</string>
+  <string name="error.namePassword">Nepoužívejte prosím své uživatelské jméno jako heslo.</string>
+  <string name="blankedPassword">Použili jste stejné heslo na jiném webu, který byl kompromitován. Abychom zajistili bezpečnost vašeho Lichess účtu, potřebujeme nastavit nové heslo. Děkujeme za pochopení.</string>
+  <string name="youAreLeavingLichess">Odcházíte z Lichess</string>
+  <string name="neverTypeYourPassword">Nikdy nezadávejte svoje Lichess heslo na jiném webu!</string>
+  <string name="proceedToX">Pokračovat na %s</string>
+  <string name="passwordSuggestion">Nenastavujte heslo navržené někým jiným. Využijí toho k ukradení Vašeho účtu.</string>
+  <string name="emailSuggestion">Nenastavujte e-mailovou adresu navrženou někým jiným. Použijí to ke krádeži Vašeho účtu.</string>
   <string name="emailConfirmHelp">Pomoc s potvrzovacím e-mailem</string>
   <string name="emailConfirmNotReceived">Neobdrželi jste potvrzovací e-mail po registraci?</string>
   <string name="whatSignupUsername">Jaké uživatelské jméno jste použili k registraci?</string>
