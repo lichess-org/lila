@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">Nový osobní přístupový token pro API</string>
-  <string name="tokenGrantsPermission">Token dává někomu jinému oprávnění používat váš účet.</string>
-  <string name="carefullySelect">Pečlivě vyberte, co je mu povoleno dělat vaším jménem.</string>
+  <string name="newAccessToken">Nový osobní token pro přístup k API</string>
+  <string name="tokenGrantsPermission">Token dává jiným lidem oprávnění používat Váš účet.</string>
+  <string name="carefullySelect">Pečlivě vyberte, co je povoleno dělat Vaším jménem.</string>
   <string name="tokenDescription">Popis tokenu</string>
-  <string name="rememberTokenUse">Pamatuješ si tedy, pro co je tento token</string>
+  <string name="rememberTokenUse">Pamatuješ si tedy, k čemu je tento token</string>
   <string name="whatTheTokenCanDo">Co token může udělat vaším jménem:</string>
   <string name="doNotShareIt">Token umožní přístup k vašemu účtu. NESDÍLEJTE jej s nikým!</string>
   <string name="copyTokenNow">Ujistěte se, že máte svůj nový osobní přístupový token uložený. Není možné ho znovu zobrazit!</string>
-  <string name="preferenceRead">Načíst nastavení</string>
-  <string name="preferenceWrite">Zapsat nastavení</string>
-  <string name="emailRead">Načíst e-mailovou adresu</string>
-  <string name="challengeRead">Načíst příchozí změny</string>
+  <string name="preferenceRead">Číst předvolby</string>
+  <string name="preferenceWrite">Zapisovat předvolby</string>
+  <string name="emailRead">Číst e-mailovou adresu</string>
+  <string name="challengeRead">Číst příchozí výzvy</string>
   <string name="challengeWrite">Odeslat, potvrdit a odmítnout výzvy</string>
+  <string name="challengeBulk">Vytvořte mnoho her najednou pro ostatní hráče</string>
+  <string name="studyRead">Číst soukromé studie a vysílání</string>
   <string name="studyWrite">Vytvořit, upravit a smazat studie a vysílání</string>
   <string name="tournamentWrite">Vytvořit, upravit a připojit k turnajům</string>
+  <string name="racerWrite">Vytvářejte a připojte se k hádankám</string>
   <string name="puzzleRead">Číst puzzle aktivity</string>
   <string name="teamRead">Číst soukromé informace o týmu</string>
   <string name="teamWrite">Připojit se a opustit týmy</string>
@@ -26,4 +29,6 @@
   <string name="botPlay">Hrát hry s botem přes API</string>
   <string name="engineRead">Zobrazit a používat externí engine</string>
   <string name="engineWrite">Vytvořit a aktualizovat externí engine</string>
+  <string name="webLogin">Vytváření ověřených webových sezení (poskytuje plný přístup!)</string>
+  <string name="webMod">Používat nástroje moderátora (v mezích Vašeho oprávnění)</string>
 </resources>
