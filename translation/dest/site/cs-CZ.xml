@@ -423,6 +423,7 @@
   <string name="siteDescription">Šachy online zdarma. Hrajte šachy přímo ve Vašem prohlížeči, bez registrace, bez reklam, bez dalšího stahování. Hrajte proti počítači, kamarádům nebo náhodně vybraným soupeřům.</string>
   <string name="xJoinedTeamY">%1$s se přidal k týmu %2$s</string>
   <string name="xCreatedTeamY">%1$s založil tým %2$s</string>
+  <string name="startedStreaming">začal streamovat</string>
   <string name="xStartedStreaming">%s začal streamovat</string>
   <string name="averageElo">Průměrný rating</string>
   <string name="location">Poloha</string>
@@ -441,6 +442,7 @@
   <string name="toStudy">Do studie</string>
   <string name="importGame">Importuj hru</string>
   <string name="importGameExplanation">Vložení partie ve formátu PGN Vám umožní přehrání partie, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
+  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">Varianty budou vymazány. Chcete-li je ponechat, importujte PGN prostřednictvím studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importovaná</item>
     <item quantity="few">%s importované</item>
@@ -610,6 +612,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Poznámky</string>
   <string name="typePrivateNotesHere">Zde napište soukromé poznámky</string>
+  <string name="writeAPrivateNoteAboutThisUser">Napište soukromou poznámku o tomto uživateli</string>
+  <string name="noNoteYet">Zatím žádné poznámky</string>
   <string name="invalidUsernameOrPassword">Špatné jméno nebo heslo</string>
   <string name="incorrectPassword">Nesprávné heslo</string>
   <string name="invalidAuthenticationCode">Neplatný ověřovací kód</string>
@@ -783,6 +787,7 @@
   <string name="kidMode">Dětský režim</string>
   <string name="kidModeExplanation">To je pro bezpečnost. V dětském režimu je jakákoli komunikace zablokována. Zapněte to pro děti a studenty, pro ochranu před ostatními na Internetu.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Když je zapnutý dětský režim, tak se u loga Lichess objeví ikona %s. Podle toho poznáte, že je Vaše dítě v bezpečí.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Váš účet je spravován. Požádejte svého šachového učitele o zrušení dětského režimu.</string>
   <string name="enableKidMode">Povolit dětský režim</string>
   <string name="disableKidMode">Vypnout dětský režim</string>
   <string name="security">Zabezpečení</string>
@@ -819,6 +824,7 @@
   <string name="light">Světlé</string>
   <string name="dark">Tmavé</string>
   <string name="transparent">Průhledné</string>
+  <string name="deviceTheme">Motiv podle zařízení</string>
   <string name="backgroundImageUrl">URL zdroj obrázku na pozadí:</string>
   <string name="boardGeometry">Typ šachovnice</string>
   <string name="boardTheme">Vzhled šachovnice</string>
