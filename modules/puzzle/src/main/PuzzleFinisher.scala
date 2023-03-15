@@ -10,6 +10,7 @@ import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.{ User, UserRepo }
 import chess.Mode
 import lila.common.config.Max
+import lila.puzzle.PuzzleForm.batch.Solution
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,
@@ -26,6 +27,19 @@ final private[puzzle] class PuzzleFinisher(
     timeout = 5 seconds,
     name = "puzzle.finish"
   )
+
+  def batch(me: User, angle: PuzzleAngle, solutions: List[Solution]): Fu[List[(PuzzleRound, IntRatingDiff)]] =
+    lila.common.LilaFuture
+      .fold(solutions)((me.perfs.puzzle, List.empty[(PuzzleRound, IntRatingDiff)])) {
+        case ((perf, rounds), sol) =>
+          apply(sol.id, angle, me, sol.win, sol.mode) map {
+            case Some((round, newPerf)) =>
+              val rDiff = IntRatingDiff(newPerf.intRating.value - perf.intRating.value)
+              (newPerf, (round, rDiff) :: rounds)
+            case None => (perf, rounds)
+          }
+      }
+      .map { (_, rounds) => rounds.reverse }
 
   def apply(
       id: PuzzleId,

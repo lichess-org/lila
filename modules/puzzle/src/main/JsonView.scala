@@ -67,18 +67,23 @@ final class JsonView(
   private def replayJson(r: PuzzleReplay) =
     Json.obj("days" -> r.days, "i" -> r.i, "of" -> r.nb)
 
-  def roundJson(u: User, round: PuzzleRound, perf: Perf) =
-    Json
-      .obj(
-        "win"        -> round.win,
-        "ratingDiff" -> (perf.intRating.value - u.perfs.puzzle.intRating.value)
-      )
-      .add("vote" -> round.vote)
-      .add("themes" -> round.nonEmptyThemes.map { rt =>
-        JsObject(rt.map { t =>
-          t.theme.value -> JsBoolean(t.vote)
+  object roundJson {
+    def web(u: User, round: PuzzleRound, perf: Perf) =
+      base(round, IntRatingDiff(perf.intRating.value - u.perfs.puzzle.intRating.value))
+        .add("vote" -> round.vote)
+        .add("themes" -> round.nonEmptyThemes.map { rt =>
+          JsObject(rt.map { t =>
+            t.theme.value -> JsBoolean(t.vote)
+          })
         })
-      })
+
+    def api = base _
+    private def base(round: PuzzleRound, ratingDiff: IntRatingDiff) = Json.obj(
+      "id"         -> round.id.puzzleId,
+      "win"        -> round.win,
+      "ratingDiff" -> ratingDiff
+    )
+  }
 
   def pref(p: lila.pref.Pref) =
     Json.obj(
