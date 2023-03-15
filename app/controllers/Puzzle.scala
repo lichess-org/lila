@@ -199,7 +199,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                                     case Some((puzzle, replay)) =>
                                       renderJson(puzzle, angle, replay.some) map { nextJson =>
                                         Json.obj(
-                                          "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
+                                          "round" -> env.puzzle.jsonView.roundJson.web(me, round, perf),
                                           "next"  -> nextJson
                                         )
                                       }
@@ -210,7 +210,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                                   next     <- nextPuzzleForMe(angle, none)
                                   nextJson <- next.?? { renderJson(_, angle, none, newUser.some) dmap some }
                                 yield Json.obj(
-                                  "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
+                                  "round" -> env.puzzle.jsonView.roundJson.web(me, round, perf),
                                   "next"  -> nextJson
                                 )
                             }
@@ -449,15 +449,13 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read) { implicit req => me =>
-    batchSelect(me, PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb", req) | 15)
+    batchSelect(me, PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb", req) | 15).dmap(Ok.apply)
   }
 
   private def reqDifficulty(using req: RequestHeader) = PuzzleDifficulty.orDefault(~get("difficulty", req))
-  private def batchSelect(me: Option[UserModel], angle: PuzzleAngle, difficulty: PuzzleDifficulty, nb: Int)(
-      using req: RequestHeader
-  ): Fu[Result] =
-    env.puzzle.batch.nextFor(me, angle, difficulty, nb atLeast 1 atMost 50) flatMap
-      env.puzzle.jsonView.batch(me) dmap { Ok(_) }
+  private def batchSelect(me: Option[UserModel], angle: PuzzleAngle, difficulty: PuzzleDifficulty, nb: Int) =
+    env.puzzle.batch.nextFor(me, angle, difficulty, nb atMost 50) flatMap
+      env.puzzle.jsonView.batch(me)
 
   def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write) { implicit req => me =>
     req.body
@@ -466,18 +464,18 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         err => BadRequest(err.toString).toFuccess,
         data => {
           val angle = PuzzleAngle findOrMix angleStr
-          val save = me match
-            case Some(me) =>
-              lila.common.LilaFuture
-                .applySequentially(data.solutions) { sol =>
-                  env.puzzle
-                    .finisher(sol.id, angle, me, sol.win, sol.mode)
-                    .void
+          for
+            rounds <- me match
+              case Some(me) =>
+                env.puzzle.finisher.batch(me, angle, data.solutions).map {
+                  _.map { (round, rDiff) => env.puzzle.jsonView.roundJson.api(round, rDiff) }
                 }
-            case None =>
-              data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel
-          save >> getInt("nb", req)
-            .fold(fuccess(NoContent))(batchSelect(me, angle, reqDifficulty, _)(using req))
+              case None =>
+                data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
+            newMe       <- me.??(env.user.repo.byId)
+            nextPuzzles <- batchSelect(newMe, angle, reqDifficulty, ~getInt("nb", req))
+            result = Json.obj("next" -> nextPuzzles, "rounds" -> rounds)
+          yield Ok(result)
         }
       )
   }
