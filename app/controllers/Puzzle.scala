@@ -473,7 +473,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
               case None =>
                 data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
             newMe       <- me.??(env.user.repo.byId)
-            nextPuzzles <- batchSelect(newMe, angle, reqDifficulty, ~getInt("nb", req).pp("nb"))
+            nextPuzzles <- batchSelect(newMe, angle, reqDifficulty, ~getInt("nb", req))
             result = nextPuzzles ++ Json.obj("rounds" -> rounds)
           yield Ok(result)
         }
