@@ -37,9 +37,9 @@
     "format": "prettier --write .",
     "check-format": "prettier --check .",
     "lint": "eslint . --ext .ts",
-    "lila-journal": "journalctl --user -fu lila -o cat",
-    "metals-log": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
-    "serverlog": "pnpm lila-journal & pnpm metals-log",
+    "journal": "journalctl --user -fu lila -o cat",
+    "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
+    "serverlog": "pnpm journal & pnpm metals",
     "multilog": "pnpm serverlog & ui/build -w"
   }
 }
