@@ -106,7 +106,7 @@ const renderFullDate = (date: Date) => {
   // For example: 2023-03-15
   // de-DE: "15.3.2023"
   // us-US: "3/15/2023"
-  const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+  const options = { year: 'numeric', month: 'numeric', day: 'numeric' } as const;
   return date.toLocaleDateString(undefined, options);
 };
 
