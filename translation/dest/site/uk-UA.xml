@@ -158,7 +158,7 @@
   </plurals>
   <string name="drawByMutualAgreement">Нічия за спільною згодою</string>
   <string name="fiftyMovesWithoutProgress">П\'ятдесят ходів без прогресу</string>
-  <string name="currentGames">Поточні ігри</string>
+  <string name="currentGames">Поточні партії</string>
   <plurals name="nbGames">
     <item quantity="one">%s гра</item>
     <item quantity="few">%s гри</item>
@@ -178,7 +178,7 @@
   <string name="youNeedAnAccountToDoThat">Для цього вам потрібен обліковий запис</string>
   <string name="signUp">Зареєструватися</string>
   <string name="computersAreNotAllowedToPlay">Заборонено грати, користуючись підказками шахових програм та безпосередньо програмами. Будь ласка, не послуговуйтеся під час гри допомогою програм (\"рушіїв\"), баз даних або інших гравців. Також зверніть увагу, що створення декількох облікових записів не заохочується і використання надмірної кількості облікових записів призведе до блокування.</string>
-  <string name="games">Ігри</string>
+  <string name="games">Партії</string>
   <string name="forum">Форум</string>
   <string name="xPostedInForumY">%1$s опубліковав на форумі %2$s</string>
   <string name="latestForumPosts">Останні дописи форуму</string>
@@ -257,7 +257,7 @@
   <string name="rank">Місце</string>
   <string name="rankX">Місце: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Місце в рейтингу оновлюється кожну хвилину</item>
+    <item quantity="one">Місце в рейтингу оновлюється щохвилини</item>
     <item quantity="few">Місце в рейтингу оновлюється кожні %s хвилини</item>
     <item quantity="many">Місце в рейтингу оновлюється кожні %s хвилин</item>
     <item quantity="other">Місце в рейтингу оновлюється кожні %s хвилини</item>
@@ -272,8 +272,8 @@
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s партія з вами</item>
     <item quantity="few">%s партії з вами</item>
-    <item quantity="many">%s ігор з вами</item>
-    <item quantity="other">%s ігор з вами</item>
+    <item quantity="many">%s партій з вами</item>
+    <item quantity="other">%s партій з вами</item>
   </plurals>
   <string name="cancel">Скасувати</string>
   <string name="whiteTimeOut">Час білих вийшов</string>
@@ -315,7 +315,7 @@
   <string name="chatRoom">Чат</string>
   <string name="loginToChat">Увійдіть, щоб використовувати чат</string>
   <string name="youHaveBeenTimedOut">Ви були відключені.</string>
-  <string name="spectatorRoom">Кімната глядачів</string>
+  <string name="spectatorRoom">Чат глядачів</string>
   <string name="composeMessage">Написати повідомлення</string>
   <string name="subject">Тема</string>
   <string name="send">Надіслати</string>
@@ -640,9 +640,9 @@
   <string name="letOtherPlayersInviteYouToStudy">Дозволити іншим гравцям запрошувати Вас на навчання</string>
   <string name="sound">Звук</string>
   <string name="none">Немає</string>
-  <string name="fast">Швидко</string>
-  <string name="normal">Помірно</string>
-  <string name="slow">Повільно</string>
+  <string name="fast">Швидка</string>
+  <string name="normal">Помірна</string>
+  <string name="slow">Повільна</string>
   <string name="insideTheBoard">Усередині шахівниці</string>
   <string name="outsideTheBoard">Поза шахівницею</string>
   <string name="onSlowGames">У повільних іграх</string>
@@ -777,7 +777,7 @@
   <string name="weHaveSentYouAnEmailTo">Ми надіслали повідомлення на адресу %s. Перейдіть за посиланням у повідомленні для скидання паролю.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Реєструючись, Ви даєте згоду дотримуватись наших %s.</string>
   <string name="readAboutOur">Читайте про наш %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Мережева затримка між Вами та Lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Мережева затримка між вами та Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Час обробки ходу на сервері Lichess</string>
   <string name="downloadAnnotated">Завантажити з коментарями</string>
   <string name="downloadRaw">Завантажити без коментарів</string>
