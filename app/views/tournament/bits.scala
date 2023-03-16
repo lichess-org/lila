@@ -65,6 +65,7 @@ object bits {
     trans.standByX,
     trans.tournamentPairingsAreNowClosed,
     trans.join,
+    trans.pause,
     trans.withdraw,
     trans.joinTheGame,
     trans.signIn,
